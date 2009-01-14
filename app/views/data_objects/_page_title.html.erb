@@ -12,7 +12,9 @@
      title = @data_object.object_title.empty? ? '[No title]' : @data_object.object_title
    end 
    license_attribution_html = ''
-   license_attribution_html += external_link_to(image_tag(@data_object.license.small_logo_url, {:alt=>(@data_object.license.title || '')}),@data_object.license.source_url, {:show_link_icon => false})
+   license_attribution_html += eol_return_linked_image(@data_object.license.small_logo_url,
+                                                       @data_object.license.source_url,
+                                                       :alt=>(@data_object.license.title || ''))
    license_attribution_html += " #{@data_object.license.description}" unless @data_object.license.description.blank? 
    source = ''
    if @data_object.sources.length == 1

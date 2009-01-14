@@ -91,23 +91,6 @@ Event.addBehavior(
   //clicking map will show attributions
   'img#map:click': function (e) {
     EOL.popup_links['map_attributions'].click();
-  },
-
-  'a.external_link:click':function(e) {
-    e.stop();
-
-    show_popup = false;
-    if (EOL.USE_EXTERNAL_LINK_POPUPS) {
-      var agree = confirm("The link you have clicked will take you to an external website.  Are you sure you wish to proceed?");
-    } else {
-      var agree = true;
-    }
-
-    if (agree) {
-      window.open('/external_link?url=' + this.href.escapeHTML());
-    } else {
-      return false ;
-    }
   }
 
   }).merge(EOL.Tagging.Behaviors).merge(EOL.Search.Behaviors).merge(EOL.Curation.Behaviors).toObject()

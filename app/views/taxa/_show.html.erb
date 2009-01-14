@@ -37,7 +37,7 @@
             <span class="iucn-status">
 
                 <% if @taxon.iucn_conservation_status != ''%>
-                     <%= "IUCN Red List Status"[] %>: <span class="iucn-status-value"><%=external_link_to(@taxon.iucn_conservation_status,@taxon.iucn_conservation_status_url)%></span>
+                     <%= "IUCN Red List Status"[] %>: <span class="iucn-status-value"><%= link_text(@taxon.iucn_conservation_status,@taxon.iucn_conservation_status_url) %></span>
                 <% else %>
                     &nbsp;
                 <% end %>

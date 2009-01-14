@@ -191,8 +191,8 @@ ENV['RECAPTCHA_PRIVATE_KEY'] = ''
 ENV['APP_VERSION'] = ''
 
 # if exception_notify is true, configure below
-ExceptionNotifier.exception_recipients = [] # %w(errors@example.com) email addresses of people to get exception notifications, separated by spaces, blank array if nobody, can also set $EXCEPTION_NOTIFY to false
-ExceptionNotifier.sender_address = %("EOL Application Error" <no-reply@example.com>)
+ExceptionNotifier.exception_recipients = [] # email addresses of people to get exception notifications, separated by spaces, blank array if nobody, can also set $EXCEPTION_NOTIFY to false
+ExceptionNotifier.sender_address = %("EOL Application Error" <no-reply@example.comma>)
 ExceptionNotifier.email_prefix = "[EOL] "
 
 require 'extensions'

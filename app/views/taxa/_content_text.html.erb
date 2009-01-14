@@ -1,16 +1,39 @@
 <% 
-  unvetted_counter=0
-  unvetted_banner_shown=false
-  comments_style=(@ajax_update ? '' : 'display:none;')  # comments start out as hidden on first page load (shown when entire page is loaded, but for ajax updates, show immediately)
+unvetted_counter=0
+unvetted_banner_shown=false
+comments_style=(@ajax_update ? '' : 'display:none;')  # comments start out as hidden on first page load (shown when entire page is loaded, but for ajax updates, show immediately)
  
-  unless @content[:data_objects].nil?
-    for content_item in @content[:data_objects]
-      unvetted_counter+=1 if content_item.vetted_id != Vetted.trusted.id
--%>
+ unless @content[:data_objects].nil?
+  for content_item in @content[:data_objects]
+    
+    unvetted_counter+=1 if content_item.vetted_id != Vetted.trusted.id
+    
+    author_attribution_html = agent_partial(content_item.authors)
+    source_attribution_html = agent_partial(content_item.sources)
+    sources_icons_linked    = agent_icons_partial(content_item.sources)
+
+        # first try and link the source agents to the object link
+    additional_attribution_html = link_text(agent_partial(content_item.sources, :linked=>false),
+                        content_item.object_url,
+                        :show_only_if_linked=>true)
+    additional_attribution_html+= ' ' + external_link_icon unless additional_attribution_html.blank?
+    
+    # if we don't have any direct object link, then we won't have a source link above the text, so next try to get it using the source
+    additional_attribution_html = source_attribution_html unless additional_attribution_html.blank?
+
+        license_attribution_html = ''
+    unless content_item.license.nil?
+      license_attribution_html += content_item.license.description + '<br/>' unless content_item.license.description.blank?
+      license_attribution_html += eol_return_linked_image(content_item.license.small_logo_url,
+                                content_item.license.source_url,
+                                :alt=>(content_item.license.title || ''))  
+    end -%>
+    
     <% if unvetted_counter == 1 && !unvetted_banner_shown 
        unvetted_banner_shown=true %>
       <%= render :partial=>'/shared/unvetted_text_warning_box' -%>
     <% end %>
+    
     <div class="content-article">
       <% if content_item.object_title.blank? == false && content_item.object_title != @content[:category_name] %>
         <h1><%= hh(content_item.object_title) %></h1>

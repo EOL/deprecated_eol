@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>invalidate (OpenID::Server::Signatory)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 1104</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">invalidate</span>(<span class="ruby-identifier">assoc_handle</span>, <span class="ruby-identifier">dumb</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">dumb</span>
+          <span class="ruby-identifier">key</span> = <span class="ruby-ivar">@@_dumb_key</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">key</span> = <span class="ruby-ivar">@@_normal_key</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-ivar">@store</span>.<span class="ruby-identifier">remove_association</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">assoc_handle</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

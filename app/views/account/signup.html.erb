@@ -1,0 +1,116 @@
+<script type="text/javascript">
+	womAdd('$(\'user_username\').focus();');
+</script>
+
+	<script type="text/javascript">
+
+	// ajax call to determine if username is unique
+	function check_username() {
+		new Ajax.Request('/account/check_username/', {
+		 		parameters: { username: $('user_username').value }, 		
+				asynchronous:true,
+				evalScripts:true});		
+	}
+	
+	// instant feedback to user about password matching
+	function check_passwords() {
+		if ($('user_entered_password').value != $('user_entered_password_confirmation').value)
+		{
+			$('password_warn').innerHTML='<%=escape_javascript("Passwords must match"[])%>.';
+		}
+		else
+		{
+			$('password_warn').innerHTML='';
+		}
+	}
+	
+	</script>
+
+	<div id="registration">
+
+		<div id="page-separator-general"></div>
+	
+	    <!-- page title -->
+	    <div id="page-title">
+	        <h1><%= "Registration"[] %></h1>
+	        <hr />
+	    </div>
+	    <!-- /page title -->
+	    <div id="page-content" class="clearfix">
+	        <!-- center page content -->
+	        <div id="full-page-content">
+	          Attention Flickr, Yahoo, SmugMug, Blogger, AOL users (and others) -  <%= link_to 'you already have OpenID accounts', 'http://openid.net/get/',:target=>'_blank' %> and can now use
+            them to <%=link_to 'log into', login_url%> EOL directly! There is no need to register below unless you wish to be considered for curator privileges.
+		          <br />
+		          <br />
+		          Please note that you will be required to click a link in a confirmation email sent to the email address you enter below - so you must provide a valid, working email address. 
+		                <%= eol_lang_error_messages_for :user %>
+						
+	            <% form_for :user, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f| -%>
+	                <fieldset>
+	
+						<span class="error" id="verification_warn"><strong><%=@verification_did_not_match%></strong></span>
+					
+	                    <label for="user_username" title="<%= "Please enter your username"[] %>"><%= "Username"[] %> (4 - 16 characters)<span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+	                 	<!-- user_username ^[a-zA-Z0-9\-_]{4,16}$ false true //-->
+					    <%= f.text_field :username, {:maxlength=>16, :onblur=>'JavaScript:check_username();'} %>
+						 <span class="error" id="username_warn"></span>
+						 
+	                    <label for="user_entered_password" title="<%= "Please enter a password"[] %>"><%= "Password"[] %> (4 - 16 characters)<span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+	                    <!-- user_entered_password ^[a-zA-Z0-9\-_]{4,16}$ false true //-->
+	                    <%= f.password_field :entered_password, {:maxlength=>16} %>
+						 
+	                    <label for="user_entered_password_confirmation" title="<%= "Please enter the password again"[] %>"><%= "Confirm Password"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+	                    <!-- user_entered_password_confirmation ^[a-zA-Z0-9\-_]{4,16}$ false true //-->
+	                    <%= f.password_field :entered_password_confirmation,{:maxlength=>16, :onblur=>'JavaScript:check_passwords();'}  %>
+						          <span class="error" id="password_warn"></span>
+	
+	                    <label for="user_email" title="<%= "Please enter your email address"[] %>"><%= "Email Address"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+	                    <!-- user_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //-->
+	                    <%= f.text_field :email, {:maxlength=>60,:size=>30}  %>
+						
+					    <label for="user_given_name" title="<%= "Please enter your given name"[:please_enter_given_name] %>"><%= "Given name"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+	                    <!-- user_given_name .+ false true //-->
+	                    <%= f.text_field :given_name,{:maxlength=>30} %>
+	
+					    <label for="user_family_name" title="<%= "Please enter your family name"[:please_enter_family_name] %>"><%= "Family name"[] %></label>
+	                    <%= f.text_field :family_name,{:maxlength=>30} %>
+	
+					    <label for="user_mailing_list" title="<%= "Do you want to receive EOL notifications by email?"[] %>"><%= "Do you want to receive EOL notifications by email?"[] %></label>
+	                    <%= f.check_box :mailing_list %> <%= "Yes"[:yes_answer] %>
+	
+	          <br /><br />
+	          
+	          <% if $ALLOW_CURATOR_SELF_REG %>
+    	          <label for="user_credentials" title="<%= "Curators Only"[] %>"><%= "Curators Only"[] %></label>
+    	          <span><%="To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will
+    	          be notified via email if your application for curator privileges is accepted."[:curator_signup_message]%></span>
+	          
+    					    <label title="<%= "Select a clade"[] %>"><%= "Select a clade"[] %></label>
+    						<span id="curator_taxon">&nbsp;</span>
+
+    						<%= clade_selector options={:selectable_clade_level => 3} %>	
+						
+    						<label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[] %></label>
+    	          <!-- user_username ^[a-zA-Z0-9\-_]{4,16}$ false true //-->
+    					    <%= f.text_area :credentials, {:rows => 4, :cols => 80} %>
+            <% end %>
+	
+						<% if $ENABLE_RECAPTCHA %>
+							<br />
+						    <label for="recaptcha" title="<%= "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha] %>"><%= "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha] %></label>					
+							<%=recaptch_theme %>
+							<%=recaptcha_tags%>
+							<% end %>
+	                    <br />
+						
+	                    <div class="button">
+	                        <%= submit_tag "Register Now"[] + ' &#187;' %>
+	                    </div>
+	                </fieldset>
+	            <% end -%>
+	            <br />
+	        </div>
+	    </div>
+	</div>
+

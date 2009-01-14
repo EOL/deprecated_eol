@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>iri_to_uri (OpenID::Yadis::XRI)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/xri.rb, line 54</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">iri_to_uri</span>(<span class="ruby-identifier">iri</span>)
+        <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">iri</span>.<span class="ruby-identifier">dup</span>
+        <span class="ruby-comment cmt"># for char in ucschar or iprivate</span>
+        <span class="ruby-comment cmt"># convert each char to %HH%HH%HH (as many %HH as octets)</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">uri</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

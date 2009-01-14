@@ -1,0 +1,41 @@
+--- 
+javascripts: 
+- prototype-cached:
+  - prototype
+  - effects
+  - dragdrop
+  - controls
+  - scriptaculous
+  - lowpro
+
+- base-cached:
+  - flashobjects
+  - eol
+  - WOM
+  - tabs
+  - tagging
+  - search
+  - curation
+  - popup
+  - misc
+  - slider
+  - validator
+  - faqs
+  - unittest
+  - builder
+  - flash_detect_min
+  - jsonbioGUIDv3
+  - application 
+
+- jquery-cached:
+  - jquery
+  - jquery-selectboxes
+  - jquery-autocomplete
+
+stylesheets: 
+- base-cached: 
+  - main
+  - popup
+  - taxa_comments
+  - reset-min
+  - tags

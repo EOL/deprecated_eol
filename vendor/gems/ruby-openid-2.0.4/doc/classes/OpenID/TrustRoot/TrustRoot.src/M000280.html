@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>sane? (OpenID::TrustRoot::TrustRoot)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/trustroot.rb, line 261</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sane?</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@host</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'localhost'</span>
+
+        <span class="ruby-identifier">host_parts</span> = <span class="ruby-ivar">@host</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'.'</span>)
+
+        <span class="ruby-comment cmt"># a note: ruby string split does not put an empty string at</span>
+        <span class="ruby-comment cmt"># the end of the list if the split element is last.  for</span>
+        <span class="ruby-comment cmt"># example, 'foo.com.'.split('.') =&gt; ['foo','com'].  Mentioned</span>
+        <span class="ruby-comment cmt"># because the python code differs here.</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">host_parts</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+
+        <span class="ruby-comment cmt"># no adjacent dots</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">host_parts</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-value str">''</span>)
+
+        <span class="ruby-comment cmt"># last part must be a tld</span>
+        <span class="ruby-identifier">tld</span> = <span class="ruby-identifier">host_parts</span>[<span class="ruby-value">-1</span>]
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">TOP_LEVEL_DOMAINS</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">tld</span>)
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">host_parts</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@wildcard</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tld</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">host_parts</span>[<span class="ruby-value">-2</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">3</span>
+            <span class="ruby-comment cmt"># It's a 2-letter tld with a short second to last segment</span>
+            <span class="ruby-comment cmt"># so there needs to be more than two segments specified</span>
+            <span class="ruby-comment cmt"># (e.g. *.co.uk is insane)</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">host_parts</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

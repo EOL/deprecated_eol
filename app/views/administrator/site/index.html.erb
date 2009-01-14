@@ -1,0 +1,77 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'General Site Administration'} %>
+
+	<table class="results_table" cellspacing="0">
+	<tr><th></th><th></th></tr>
+	<% if $COUNT_UNIQUE_VISITORS %>
+	  <tr><td class="odd">Visitors</td><td class="odd">As of <%=format_date_time(Time.now)%> there were <%=@visitors.count%> unique visitors</td></tr>
+	<% end %>
+	<tr><td class="odd">Requestor IP Address</td><td class="odd"><%=request.remote_ip%> (<%="internal IP address" if @allowed_ip%>)</td></tr>	
+	<tr><td class="even">Server IP Address</td> <td class="even"><%=$IP_ADDRESS_OF_SERVER%></td></tr>
+	<tr><td class="odd">Rails environment</td><td class="odd"><%=ENV["RAILS_ENV"]%></td></tr>
+	<tr><td class="even">Rails databases</td><td class="even">
+	  Main: <%=@config.database_configuration[ENV["RAILS_ENV"]]["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]]["host"]%><br />
+	  Data: <%=@config.database_configuration[ENV["RAILS_ENV"]+'_data']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_data']["host"]%><br />
+	  Logging: <%=@config.database_configuration[ENV["RAILS_ENV"]+'_logging']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["host"]%><br />
+    <% unless @config.database_configuration['master_database'].nil? %>
+    * this does not necessarily mean the connections are being used, just that they are defined in the database.yml --- you must check the "config/environments/<%=ENV["RAILS_ENV"]%>.rb" file to see if the master connections are setup
+      <br />
+      Main Master: <%=@config.database_configuration['master_database']["database"] + ' @ ' + @config.database_configuration['master_database']["host"]%><br />
+	  <% end %>
+    <% unless @config.database_configuration['master_data_database'].nil? %>
+      Data Master: <%=@config.database_configuration['master_data_database']["database"] + ' @ ' + @config.database_configuration['master_data_database']["host"]%><br />
+    <% end %>
+
+	  </td></tr>
+	<tr><td class="odd">Error Logging Active</td><td class="odd"><%=$ERROR_LOGGING.to_s%></td></tr>
+  <tr><td class="even">Web service base URL</td><td class="even"><%=$WEB_SERVICE_BASE_URL%></td></tr>
+	<tr><td class="odd">Data Logging Active</td><td class="odd"><%=$ENABLE_DATA_LOGGING.to_s%></td></tr>
+  <tr><td class="even">Email Error Notification Active</td><td class="even"><%=$EXCEPTION_NOTIFY.to_s%></td></tr>
+  <tr><td class="odd">Content Servers</td><td class="odd"><%=$CONTENT_SERVERS.join(',')%></td></tr>
+  <tr><td class="even">Allow user logins</td><td class="even"><%=$ALLOW_USER_LOGINS.to_s%></td></tr>  
+  
+  <% if ActionController::Base.perform_caching %>
+  	<tr><td class="odd">Fragment caching enabled</td> 
+  	  <td class="odd"><span id="cache_clear_time">Non-species page caches cleared on <%=format_date_time($CACHE_CLEARED_LAST)%></span>
+  	    <br />
+  	    <%= link_to_remote '[clear entire cache]',:url=>{:controller=>'/administrator/site',:action=>'clear_all'}, :update=>'cache_clear_time'%><br />
+  	    <%= link_to_remote '[clear all non-species pages]',:url=>{:controller=>'/administrator/site',:action=>'expire_all'}, :update=>'cache_clear_time'%><br />
+  	    <span id="taxon_id_clear_time"></span>
+  	    Taxon ID: <%= text_field_tag :taxon_id, '',{:size=>8} %> <%= link_to_remote '[clear species page]',:url=>{:controller=>'/administrator/site',:action=>'expire'}, :update=>'taxon_id_clear_time',:with => "'taxon_id=' + $('taxon_id').value"%><br />
+  	  </td></tr>
+      <tr><td class="even">Fragment cache type</td><td class="even"><%=ActionController::Base.cache_store.class%><br />
+        <% if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore%>
+          Servers: <%= ActionController::Base.cache_store.addresses.join(',') %>
+        <% elsif ActionController::Base.cache_store.class == ActiveSupport::Cache::FileStore %>
+          Path: <%=ActionController::Base.cache_store.cache_path%>
+        <% end %></td></tr>
+	<% end %>
+  <% if $ENABLE_ANALYTICS %>
+	  <tr><td class="even">Google analytics active<td class="even"><%=link_to 'Google analytic results','http://www.google.com/analytics/home',{:target=>'_blank'}%></td></tr>
+  <% end %>
+	<% if $SHOW_SURVEYS %>
+	  <tr><td class="odd">Survey link active<td class="odd"><%=link_to "view survey respondents",:action=>'surveys'%></td></tr>
+  <% end %>
+
+	</table>
+
+	<% unless @taxon_stats.empty? %>
+	<br />
+	Statistics last updated at <%=format_date_time(@taxon_stats[0].created_at)%>
+	<table class="results_table" cellspacing="0">
+	<tr><th>Statistic</th><th>Count</th></tr>
+
+	<tr><td class="even">Total number of taxa</td> <td class="even"><%=format_number_with_commas(@taxon_stats[0].taxa)%></td></tr>
+	<tr><td class="odd">Number of taxa with text</td> <td class="odd"><%=format_number_with_commas(@taxon_stats[0].text)%></td></tr>
+	<tr><td class="even">Number of taxa with images</td> <td class="even"><%=format_number_with_commas(@taxon_stats[0].image)%></td></tr>
+	<tr><td class="odd">Number of taxa with text and images</td> <td class="odd"><%=format_number_with_commas(@taxon_stats[0].text_and_images)%></td></tr>
+	<tr><td class="even">Number of taxa in BHL with no text</td> <td class="even"><%=format_number_with_commas(@taxon_stats[0].bhl_no_text)%></td></tr>
+	<tr><td class="odd">Number of taxa with links and no text</td> <td class="odd"><%=format_number_with_commas(@taxon_stats[0].link_no_text)%></td></tr>
+	<tr><td class="even">Number of taxa with images and no text</td> <td class="even"><%=format_number_with_commas(@taxon_stats[0].image_no_text)%></td></tr>
+	<tr><td class="odd">Number of taxa with text and no images</td> <td class="odd"><%=format_number_with_commas(@taxon_stats[0].text_no_image)%></td></tr>
+	<tr><td class="even">Number of taxa with text or images</td> <td class="even"><%=format_number_with_commas(@taxon_stats[0].text_or_image)%></td></tr>
+	<tr><td class="odd">Number of taxa with text or child images</td> <td class="odd"><%=format_number_with_commas(@taxon_stats[0].text_or_child_image)%></td></tr>
+
+	</table>
+	<% end %>
+  	
+<%= render :partial => '/admin/content_bottom' %>

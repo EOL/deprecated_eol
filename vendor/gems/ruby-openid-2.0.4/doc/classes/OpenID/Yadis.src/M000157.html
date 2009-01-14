@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>discover (OpenID::Yadis)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/discovery.rb, line 74</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">discover</span>(<span class="ruby-identifier">uri</span>)
+      <span class="ruby-identifier">result</span> = <span class="ruby-constant">DiscoveryResult</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">uri</span>)
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">resp</span> = <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-keyword kw">nil</span>, {<span class="ruby-value str">'Accept'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">YADIS_ACCEPT_HEADER</span>})
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">DiscoveryFailure</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Failed to fetch identity URL #{uri} : #{$!}&quot;</span>, <span class="ruby-identifier">$!</span>)
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">resp</span>.<span class="ruby-identifier">code</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;200&quot;</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">DiscoveryFailure</span>.<span class="ruby-identifier">new</span>(
+                <span class="ruby-value str">&quot;HTTP Response status from identity URL host is not \&quot;200\&quot;.&quot;</span>\
+                <span class="ruby-node">&quot;Got status #{resp.code.inspect} for #{resp.final_url}&quot;</span>, <span class="ruby-identifier">resp</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># Note the URL after following redirects</span>
+      <span class="ruby-identifier">result</span>.<span class="ruby-identifier">normalized_uri</span> = <span class="ruby-identifier">resp</span>.<span class="ruby-identifier">final_url</span>
+
+      <span class="ruby-comment cmt"># Attempt to find out where to go to discover the document or if</span>
+      <span class="ruby-comment cmt"># we already have it</span>
+      <span class="ruby-identifier">result</span>.<span class="ruby-identifier">content_type</span> = <span class="ruby-identifier">resp</span>[<span class="ruby-value str">'content-type'</span>]
+
+      <span class="ruby-identifier">result</span>.<span class="ruby-identifier">xrds_uri</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">where_is_yadis?</span>(<span class="ruby-identifier">resp</span>)
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">xrds_uri</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">used_yadis_location?</span>
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">resp</span> = <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">result</span>.<span class="ruby-identifier">xrds_uri</span>)
+        <span class="ruby-keyword kw">rescue</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">DiscoveryFailure</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Failed to fetch Yadis URL #{result.xrds_uri} : #{$!}&quot;</span>, <span class="ruby-identifier">$!</span>)
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">resp</span>.<span class="ruby-identifier">code</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;200&quot;</span>
+            <span class="ruby-identifier">exc</span> = <span class="ruby-constant">DiscoveryFailure</span>.<span class="ruby-identifier">new</span>(
+                    <span class="ruby-value str">&quot;HTTP Response status from Yadis host is not \&quot;200\&quot;. &quot;</span> <span class="ruby-operator">+</span>
+                                       <span class="ruby-node">&quot;Got status #{resp.code.inspect} for #{resp.final_url}&quot;</span>, <span class="ruby-identifier">resp</span>)
+            <span class="ruby-identifier">exc</span>.<span class="ruby-identifier">identity_url</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">normalized_uri</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-identifier">exc</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">result</span>.<span class="ruby-identifier">content_type</span> = <span class="ruby-identifier">resp</span>[<span class="ruby-value str">'content-type'</span>]
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">result</span>.<span class="ruby-identifier">response_text</span> = <span class="ruby-identifier">resp</span>.<span class="ruby-identifier">body</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

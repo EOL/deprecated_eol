@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+    <head>
+        <title>EOL Content Partner Agreement</title>
+    </head>
+    <style type="text/css" media="screen">
+        body {font-family: Arial, "MS Trebuchet", sans-serif;}
+    </style>
+    <body>
+
+        <h1>Content Partner Agreement</h1>
+        <h1><%=@agent.project_name%></h1>
+
+		<p>Created on <%=format_date_time(@agreement.created_at)%></p>
+
+        <h2>Introduction</h2>
+        <p>The Encyclopedia of Life and <%= @agent.project_name %> agree to work together to develop and share critical biodiversity content to aid in assembling the Encyclopedia of Life.  The Encyclopedia of Life will have access to data objects provided by <%= @agent.project_name %> and <%= @agent.project_name %> will have access to the resources of the Encyclopedia of Life, including species pages, scanned literature, and informatics tools in accordance with the terms listed below.</p>
+
+        <h2>The Parties</h2>
+        <p>The Encyclopedia of Life (EOL) is an informal consortium of organizations dedicated to building an on-line Encyclopedia of Life composed of content-rich multi-media species pages for all of the presently known species on Earth. Currently, the EOL is composed of five working groups: </p>
+
+        <ul>
+            <li><em>Species Sites Group</em> - defines the composition of information on species pages; works with the scientific community to identify potential sources of information (such as the Content Partner) for the species pages and to authenticate the information on the species pages; establishes licensing agreements with data providers.</li>
+            <li><em>Biodiversity Informatics Group</em> - conceptualizes and prepares the software needed to host and to search the species pages; applies taxonomic intelligence to the scientific names on the species pages and in the literature.</li>
+            <li><em>Scanning and Digitization Group</em> - working with the Biodiversity Heritage Library, a consortium of many of the world's largest natural history libraries, digitizes and marks up the world's biodiversity literature.</li>
+            <li><em>Education and Outreach Group</em> - exploits the EOL's potential by exploring and promoting its educational uses.</li>
+            <li><em>Biodiversity Synthesis Group</em> - holds synthesis meetings to help reach taxonomic consensus on  megadiverse groups; develops tools for analyzing and synthesizing information across species pages.</li>
+        </ul>
+        
+        <p><%= @agent.project_description %></p>
+        
+        <h2>Content Licensing</h2>
+        <p>To the greatest extent possible, the Encyclopedia of Life promotes an open-source, open-access approach. Therefore, it requires that content providers (including the EOL's core participants) serving information through the EOL agree to the following provisions:</p>
+        
+        <ol>
+            <li>Content providers warrant and represent that the content they provide under this Agreement either is in the public domain, that they hold the rights, or that they have obtained the necessary permissions from the rights-holders to use, reproduce and disseminate the content for use in the Encyclopedia.</li>
+            <li>All information currently in the public domain will remain in the public domain. Neither the EOL nor the content providers will seek to assert any IPR over any public domain materials that are made available through the EOL.</li>
+            <li>Content providers are required to adopt a Creative Commons license for the information that they serve through the EOL. Except for public-domain content, the default and preferred license is CC-BY (Attribution), which allows users to copy, transmit and reuse the information, and to remix or adapt the information, as long as attribution regarding the source of the information is maintained.</li>
+            <li>Content providers who request some restrictions on re-use of their information may select an alternate Creative Commons license:  CC-BY-SA (Attribution-ShareAlike), CC-BY-NC (Attribution-NonCommercial) or CC-BY-NC-SA (Attribution-NonCommercial-ShareAlike).</li>
+            <li>The EOL will provide attribution information for all content that it serves. EOL will also indicate the Creative Commons license attached to each object (text, structured data, graphics, multimedia, etc.).</li>
+        </ol>
+
+        <p>Full information about the Creative Commons licensing can be found at <a href="http://www.creativecommons.org">http://www.creativecommons.org</a>. 
+        
+        <h2>Content Attribution</h2>
+
+        <p>EOL intends to provide attribution for all provided content in the manner specified by <%= @agent.project_name %>.  The methodology EOL uses to attribute the content provided by <%= @agent.project_name %> is fundamentally based on multi-level text strings and/or logos at the level of individual data objects.  <%= @agent.project_name %> will submit attribution information via the Transfer Schema.  Note:  The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves. </p>
+        
+        <h2>Roles and Conditions of Use</h2>
+        
+        <p>In providing its content to EOL, <%= @agent.project_name %> will:</p>
+
+        <ul>
+            <li>Provide its content via a format and interchange method compatible with the EOL.</li>
+            <li>Provide data objects as-is with no warranty or claim of fitness for purpose.</li>
+            <li>Respond to the originators of comments or feedback communicated to <%= @agent.project_name %> via the EOL regarding its content.</li>
+            <li>Work with the EOL to improve the quality of the provided data objects and reduce errors.</li>
+            <li>Comply with the Creative Commons licenses of any EOL content from other Content Partners that it may choose to use for its own purposes and to provide full attribution in the specified manner of the license.</li>        
+            <li>Be able to display the EOL logo on its web site.</li>
+        </ul>
+        
+        <p>In handling the content provided by <%= @agent.project_name %>, EOL will:</p>
+
+        <ul>
+            <li>Provide tools and methods to enable <%= @agent.project_name %> to provide its content to the EOL.</li>
+            <li>Cache <%= @agent.project_name %>'s data objects along with similar content from other sources on EOL's servers.</li>
+            <li>Attribute all of <%= @agent.project_name %>'s data objects according to its preferred Creative Commons licenses and in the manner specified by <%= @agent.project_name %>.</li>
+            <li>Present or pass along <%= @agent.project_name %>'s data objects to others using web services (such as APIs) which will carry the same Creative Commons licenses and specified manner of attribution.</li>
+            <li>Not encourage or answer requests to provide all or major components of <%= @agent.project_name %>'s content to other data providers. Rather, such requests for re-usage will be forwarded to <%= @agent.project_name %>.</li>
+            <li>Not alter the data objects provided; however EOL will enable annotations or comments to be added.</li>
+            <li>Notify <%= @agent.project_name %> of any comments or feedback received about its data objects.</li>
+            <li>Work with <%= @agent.project_name %> to improve the quality of the provided data objects and reduce errors.</li>
+            <li>Notify <%= @agent.project_name %> of statistics about the usage of its data objects.</li>
+            <li>Enable <%= @agent.project_name %> to access content from the EOL and to use that content on <%= @agent.project_name %>'s own server or site according to the terms of the Creative Commons licenses for that content.</li>
+            <li>EOL will show <%= @agent.project_name %>'s logo and project description on its list of data partners.</li>
+            <li>EOL may elect at its sole discretion to present all, portions or none of any data objects provided by <%= @agent.project_name %> and reserves the right to redact or remove any illegal, offensive, or objectionable content.</li>
+        </ul>
+        
+        <p>The parties do not intend to create a legal partnership, principal/agent, or joint venture relationship and nothing in this agreement shall be construed as creating such a relationship between the parties.  Neither party may incur any obligation on behalf of the other.</p>
+
+        <p>This agreement is non-exclusive, and in no way restricts either EOL or <%= @agent.project_name %> from participating in similar activities or arrangements with other public or private initiatives, organizations, or individuals.</p>
+
+        <p>This agreement and the obligations set forth herein shall be subject to available funding and nothing in this agreement creates any financial obligation on the part of either party.</p>
+        
+        <h2>Contact Information</h2>
+        
+        <table width="100%">
+            <tr valign="top">
+                <td>
+                    <strong><%= @agent.project_name %></strong><br />
+					<%= @primary_contact.homepage %><br />
+                    <%= @primary_contact.full_name %><br />
+                    E-mail: <%= mail_to @primary_contact.email %><br />
+                    Phone: <%= @primary_contact.telephone %><br />
+                </td>                    
+                <td>
+                    <strong>Encyclopedia of Life</strong><br />
+                    <a href="http://www.eol.org">www.eol.org</a><br />
+                    Cynthia Parr, Species Pages Director<br />
+                    E-mail: <%=mail_to 'parrc@si.edu'%><br />
+                    Phone: 202.633.9513
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>

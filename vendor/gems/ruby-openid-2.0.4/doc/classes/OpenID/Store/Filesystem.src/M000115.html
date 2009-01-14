@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>_get_association (OpenID::Store::Filesystem)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/store/filesystem.rb, line 100</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_get_association</span>(<span class="ruby-identifier">filename</span>)
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">assoc_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-value str">&quot;r&quot;</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ENOENT</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-identifier">assoc_s</span> = <span class="ruby-identifier">assoc_file</span>.<span class="ruby-identifier">read</span>
+          <span class="ruby-keyword kw">ensure</span>
+            <span class="ruby-identifier">assoc_file</span>.<span class="ruby-identifier">close</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-identifier">association</span> = <span class="ruby-constant">Association</span>.<span class="ruby-identifier">deserialize</span>(<span class="ruby-identifier">assoc_s</span>)
+          <span class="ruby-keyword kw">rescue</span>
+            <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">remove_if_present</span>(<span class="ruby-identifier">filename</span>)
+            <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-comment cmt"># clean up expired associations</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">association</span>.<span class="ruby-identifier">expires_in</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+            <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">remove_if_present</span>(<span class="ruby-identifier">filename</span>)
+            <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">association</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

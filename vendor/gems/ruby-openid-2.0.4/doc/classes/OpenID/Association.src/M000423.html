@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>sign (OpenID::Association)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/association.rb, line 96</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sign</span>(<span class="ruby-identifier">pairs</span>)
+      <span class="ruby-identifier">kv</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">seq_to_kv</span>(<span class="ruby-identifier">pairs</span>)
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">assoc_type</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'HMAC-SHA1'</span>
+        <span class="ruby-constant">CryptUtil</span>.<span class="ruby-identifier">hmac_sha1</span>(<span class="ruby-ivar">@secret</span>, <span class="ruby-identifier">kv</span>)
+      <span class="ruby-keyword kw">when</span> <span class="ruby-value str">'HMAC-SHA256'</span>
+        <span class="ruby-constant">CryptUtil</span>.<span class="ruby-identifier">hmac_sha256</span>(<span class="ruby-ivar">@secret</span>, <span class="ruby-identifier">kv</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">StandardError</span>, <span class="ruby-value str">&quot;Association has unknown type: &quot;</span>\
+          <span class="ruby-node">&quot;#{assoc_type.inspect}&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

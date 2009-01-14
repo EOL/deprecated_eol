@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_op_or_user_services (OpenID)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/discovery.rb, line 336</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">get_op_or_user_services</span>(<span class="ruby-identifier">openid_services</span>)
+    <span class="ruby-comment cmt"># Extract OP Identifier services.  If none found, return the rest,</span>
+    <span class="ruby-comment cmt"># sorted with most preferred first according to</span>
+    <span class="ruby-comment cmt"># OpenIDServiceEndpoint.openid_type_uris.</span>
+    <span class="ruby-comment cmt">#</span>
+    <span class="ruby-comment cmt"># openid_services is a list of OpenIDServiceEndpoint objects.</span>
+    <span class="ruby-comment cmt">#</span>
+    <span class="ruby-comment cmt"># Returns a list of OpenIDServiceEndpoint objects.</span>
+
+    <span class="ruby-identifier">op_services</span> = <span class="ruby-identifier">arrange_by_type</span>(<span class="ruby-identifier">openid_services</span>, [<span class="ruby-constant">OPENID_IDP_2_0_TYPE</span>])
+
+    <span class="ruby-identifier">openid_services</span> = <span class="ruby-identifier">arrange_by_type</span>(<span class="ruby-identifier">openid_services</span>,
+                                      <span class="ruby-constant">OpenIDServiceEndpoint</span><span class="ruby-operator">::</span><span class="ruby-constant">OPENID_TYPE_URIS</span>)
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">op_services</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">op_services</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">openid_services</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

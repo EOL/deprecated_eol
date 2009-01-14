@@ -1,0 +1,4 @@
+module ContentHelper
+
+
+end

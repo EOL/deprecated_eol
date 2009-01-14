@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>check_for_fields (OpenID::Consumer::IdResHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/idres.rb, line 103</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_for_fields</span>
+        <span class="ruby-comment cmt"># XXX: if a field is missing, we should not have to explicitly</span>
+        <span class="ruby-comment cmt"># check that it's present, just make sure that the fields are</span>
+        <span class="ruby-comment cmt"># actually being used by the rest of the code in</span>
+        <span class="ruby-comment cmt"># tests. Although, which fields are signed does need to be</span>
+        <span class="ruby-comment cmt"># checked somewhere.</span>
+        <span class="ruby-identifier">basic_fields</span> = [<span class="ruby-value str">'return_to'</span>, <span class="ruby-value str">'assoc_handle'</span>, <span class="ruby-value str">'sig'</span>, <span class="ruby-value str">'signed'</span>]
+        <span class="ruby-identifier">basic_sig_fields</span> = [<span class="ruby-value str">'return_to'</span>, <span class="ruby-value str">'identity'</span>]
+
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">openid_namespace</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">OPENID2_NS</span>
+          <span class="ruby-identifier">require_fields</span> = <span class="ruby-identifier">basic_fields</span> <span class="ruby-operator">+</span> [<span class="ruby-value str">'op_endpoint'</span>]
+          <span class="ruby-identifier">require_sigs</span> = <span class="ruby-identifier">basic_sig_fields</span> <span class="ruby-operator">+</span>
+            [<span class="ruby-value str">'response_nonce'</span>, <span class="ruby-value str">'claimed_id'</span>, <span class="ruby-value str">'assoc_handle'</span>,]
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">OPENID1_NS</span>
+          <span class="ruby-identifier">require_fields</span> = <span class="ruby-identifier">basic_fields</span> <span class="ruby-operator">+</span> [<span class="ruby-value str">'identity'</span>]
+          <span class="ruby-identifier">require_sigs</span> = <span class="ruby-identifier">basic_sig_fields</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-value str">&quot;check_for_fields doesn't know about &quot;</span>\
+                              <span class="ruby-node">&quot;namespace #{openid_namespace.inspect}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">require_fields</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">field</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@message</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-identifier">field</span>)
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, <span class="ruby-node">&quot;Missing required field #{field}&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">require_sigs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">field</span><span class="ruby-operator">|</span>
+          <span class="ruby-comment cmt"># Field is present and not in signed list</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-identifier">field</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">signed_list</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">field</span>)
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, <span class="ruby-node">&quot;#{field.inspect} not signed&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

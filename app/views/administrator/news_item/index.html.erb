@@ -1,0 +1,38 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'News Items'} %>
+
+<div id="users">
+	<% form_tag({:action=>'index'},:method=>'get') do -%>
+	Search for items containing: <%= text_field_tag(:term_search_string,@term_search_string)%> <%= submit_tag 'Search' %>
+	<br />
+	<%=link_to "Add a new news item",:action=>'new'%>
+
+	<br /><br />
+	
+	<% if @news_items.nil? == false && @news_items.size > 0 %>
+		
+		A total of <%= @news_items_count %> items were found matching your criteria.<br />
+		
+		<%= will_paginate @news_items %>
+		    <table class="results_table" cellspacing="0">
+		    <tr><th>Publish After (UTC)</th><th>News Date</th><th>News Item</th><th>Action</th></tr>
+			<% for news_item in @news_items
+				column_class=cycle('odd','even')  %>
+			    <tr>
+            <td class="<%= column_class %>"><%=h format_date_time(news_item.activated_on,:format=>'short_no_tz')%><br /><%=h "(PUBLISHED)" if news_item.visible?%></td>
+			    	<td class="<%= column_class %>"><%=h format_date(news_item.display_date)%></td>
+  					<td class="<%= column_class %>"><%=news_item.summary%></td>
+  					<td class="<%= column_class %>"><%=link_to '[edit]',:action=>'edit',:id=>news_item.id%><br /><%=link_to '[delete]', {:action=>'destroy',:id=>news_item.id}, :confirm => 'This cannot be undone; are you sure?', :method => :delete %></td>
+				</tr>									
+			<% end %>
+		    </table>
+			
+			<br />
+			<%= will_paginate @news_items %>
+		
+    <% else %>
+			No news items are available matching your search criteria.<%end%>
+	<% end %>
+				
+</div>
+						
+<%= render :partial => '/admin/content_bottom' %>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>mk_compound_filter (OpenID::Yadis)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/filters.rb, line 163</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">mk_compound_filter</span>(<span class="ruby-identifier">parts</span>)
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">parts</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value str">'each'</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeError</span>, <span class="ruby-node">&quot;#{parts.inspect} is not iterable&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># Separate into a list of callables and a list of filter objects</span>
+      <span class="ruby-identifier">transformers</span> = []
+      <span class="ruby-identifier">filters</span> = []
+      <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">subfilter</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">subfilter</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+          <span class="ruby-comment cmt"># If it's not an iterable</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">subfilter</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value str">'get_service_endpoints'</span>)
+            <span class="ruby-comment cmt"># It's a full filter</span>
+            <span class="ruby-identifier">filters</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">subfilter</span>
+          <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">subfilter</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value str">'from_basic_service_endpoint'</span>)
+            <span class="ruby-comment cmt"># It's an endpoint object, so put its endpoint conversion</span>
+            <span class="ruby-comment cmt"># attribute into the list of endpoint transformers</span>
+            <span class="ruby-identifier">transformers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">subfilter</span>.<span class="ruby-identifier">method</span>(<span class="ruby-value str">'from_basic_service_endpoint'</span>)
+          <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">subfilter</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value str">'call'</span>)
+            <span class="ruby-comment cmt"># It's a proc, so add it to the list of endpoint</span>
+            <span class="ruby-comment cmt"># transformers</span>
+            <span class="ruby-identifier">transformers</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">subfilter</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-ivar">@@filter_type_error</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">filters</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mk_compound_filter</span>(<span class="ruby-identifier">subfilter</span>)
+        <span class="ruby-keyword kw">end</span>
+      }
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">transformers</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">filters</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">TransformFilterMaker</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">transformers</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filters</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">filters</span>[<span class="ruby-value">0</span>]
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">CompoundFilter</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">filters</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

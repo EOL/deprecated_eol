@@ -1,0 +1,45 @@
+<div id="page-separator-general"></div>
+
+  <!-- page title -->
+  <div id="page-title">
+      <h1><%= "Media Contact"[] %></h1>
+      <hr />
+  </div>
+  <!-- /page title -->
+    
+    <div id="page-content" class="clearfix">
+        <!-- center page content -->
+        <div id="full-page-content">
+
+          
+              <%= eol_lang_error_messages_for :contact %>
+      <br /><span class="error" id="verification_warn"><strong><%=@verification_did_not_match%></strong></span>
+
+               <% form_for :contact, @contact,:html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f| -%>
+                  
+        <label for="contact_name" title="<%= "Your name (first and last) "[:your_name] %>"><%= "Your name (first and last)"[:your_name] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+        <!-- contact_name .+ false true //-->
+                  <%= f.text_field :name, :size=>'50',:maxlength=>'250' %>
+                  <span class="error" id="name_warn"></span>
+        
+                  <label for="contact_email" title="<%= "Your email address"[] %>"><%= "Your email address"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+                  <!-- contact_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //-->
+
+                    <%= f.text_field :email, :size=>'50',:maxlength=>'250' %>
+        
+                <label for="contact_comments" title="<%= "Comments"[] %>"><%= "Comments"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+        <!-- contact_comments .+ false true //-->
+                  <%= f.text_area :comments %>
+        <span class="error" id="comments_warn"></span>
+
+                  <br />
+      <label title="<%= "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha] %>"><%= "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha] %></label>					
+      <%=recaptch_theme %>
+      <%=recaptcha_tags%>
+      <br />
+                  <%= submit_tag "Contact Us"[] %>
+              <% end -%>
+          
+      </div>
+  </div>
+

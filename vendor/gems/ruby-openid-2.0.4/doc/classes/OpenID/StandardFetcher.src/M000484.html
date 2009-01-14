@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>fetch (OpenID::StandardFetcher)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/fetchers.rb, line 173</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">body</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">headers</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">redirect_limit</span>=<span class="ruby-constant">REDIRECT_LIMIT</span>)
+      <span class="ruby-identifier">unparsed_url</span> = <span class="ruby-identifier">url</span>.<span class="ruby-identifier">dup</span>
+      <span class="ruby-identifier">url</span> = <span class="ruby-constant">URI</span><span class="ruby-operator">::</span><span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>)
+
+      <span class="ruby-identifier">headers</span> <span class="ruby-operator">||=</span> {}
+      <span class="ruby-identifier">headers</span>[<span class="ruby-value str">'User-agent'</span>] <span class="ruby-operator">||=</span> <span class="ruby-constant">USER_AGENT</span>
+
+      <span class="ruby-identifier">conn</span> = <span class="ruby-identifier">make_connection</span>(<span class="ruby-identifier">url</span>)
+      <span class="ruby-identifier">response</span> = <span class="ruby-keyword kw">nil</span>
+
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">response</span> = <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">start</span> {
+          <span class="ruby-comment cmt"># Check the certificate against the URL's hostname</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">supports_ssl?</span>(<span class="ruby-identifier">conn</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">use_ssl?</span>
+            <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">post_connection_check</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">host</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">nil?</span>
+            <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">request_get</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">request_uri</span>, <span class="ruby-identifier">headers</span>)
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;Content-type&quot;</span>] <span class="ruby-operator">||=</span> <span class="ruby-value str">&quot;application/x-www-form-urlencoded&quot;</span>
+            <span class="ruby-identifier">conn</span>.<span class="ruby-identifier">request_post</span>(<span class="ruby-identifier">url</span>.<span class="ruby-identifier">request_uri</span>, <span class="ruby-identifier">body</span>, <span class="ruby-identifier">headers</span>)
+          <span class="ruby-keyword kw">end</span>
+        }
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">SSL</span><span class="ruby-operator">::</span><span class="ruby-constant">SSLError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">SSLFetchingError</span>, <span class="ruby-node">&quot;Error connecting to SSL URL #{url}: #{why}&quot;</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">FetchingError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-identifier">why</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+        <span class="ruby-comment cmt"># Things we've caught here include a Timeout::Error, which descends</span>
+        <span class="ruby-comment cmt"># from SignalException.</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">FetchingError</span>, <span class="ruby-node">&quot;Error fetching #{url}: #{why}&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">response</span>
+      <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Net</span><span class="ruby-operator">::</span><span class="ruby-constant">HTTPRedirection</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">redirect_limit</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">HTTPRedirectLimitReached</span>.<span class="ruby-identifier">new</span>(
+            <span class="ruby-node">&quot;Too many redirects, not fetching #{response['location']}&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">response</span>[<span class="ruby-value str">'location'</span>], <span class="ruby-identifier">body</span>, <span class="ruby-identifier">headers</span>, <span class="ruby-identifier">redirect_limit</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">HTTPResponse</span>.<span class="ruby-identifier">_from_net_response</span>(<span class="ruby-identifier">response</span>, <span class="ruby-identifier">unparsed_url</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

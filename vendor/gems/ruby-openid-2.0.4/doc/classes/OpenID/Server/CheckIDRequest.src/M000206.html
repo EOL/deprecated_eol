@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>answer (OpenID::Server::CheckIDRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 646</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">answer</span>(<span class="ruby-identifier">allow</span>, <span class="ruby-identifier">server_url</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">identity</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">claimed_id</span>=<span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-comment cmt"># FIXME: undocumented exceptions</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@return_to</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">NoReturnToError</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">server_url</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@namespace</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">OPENID1_NS</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@op_endpoint</span>
+            <span class="ruby-comment cmt"># In other words, that warning I raised in</span>
+            <span class="ruby-comment cmt"># Server.__init__?  You should pay attention to it now.</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, (<span class="ruby-node">&quot;#{self} should be constructed with &quot;</span>\
+                                 <span class="ruby-value str">&quot;op_endpoint to respond to OpenID 2.0 &quot;</span>\
+                                 <span class="ruby-value str">&quot;messages.&quot;</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">server_url</span> = <span class="ruby-ivar">@op_endpoint</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">allow</span>
+          <span class="ruby-identifier">mode</span> = <span class="ruby-value str">'id_res'</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@namespace</span> <span class="ruby-operator">==</span> <span class="ruby-constant">OPENID1_NS</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@immediate</span>
+            <span class="ruby-identifier">mode</span> = <span class="ruby-value str">'id_res'</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">mode</span> = <span class="ruby-value str">'cancel'</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@immediate</span>
+            <span class="ruby-identifier">mode</span> = <span class="ruby-value str">'setup_needed'</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">mode</span> = <span class="ruby-value str">'cancel'</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">response</span> = <span class="ruby-constant">OpenIDResponse</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">claimed_id</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@namespace</span> <span class="ruby-operator">==</span> <span class="ruby-constant">OPENID1_NS</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">VersionError</span>, (<span class="ruby-value str">&quot;claimed_id is new in OpenID 2.0 and not &quot;</span>\
+                               <span class="ruby-node">&quot;available for #{@namespace}&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">identity</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">claimed_id</span>
+          <span class="ruby-identifier">claimed_id</span> = <span class="ruby-identifier">identity</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">allow</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@identity</span> <span class="ruby-operator">==</span> <span class="ruby-constant">IDENTIFIER_SELECT</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">identity</span>
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, (<span class="ruby-value str">&quot;This request uses IdP-driven &quot;</span>\
+                                    <span class="ruby-value str">&quot;identifier selection.You must supply &quot;</span>\
+                                    <span class="ruby-value str">&quot;an identifier in the response.&quot;</span>)
+            <span class="ruby-keyword kw">end</span>
+
+            <span class="ruby-identifier">response_identity</span> = <span class="ruby-identifier">identity</span>
+            <span class="ruby-identifier">response_claimed_id</span> = <span class="ruby-identifier">claimed_id</span>
+
+          <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@identity</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">identity</span> <span class="ruby-keyword kw">and</span> (<span class="ruby-ivar">@identity</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">identity</span>)
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, (<span class="ruby-node">&quot;Request was for identity #{@identity}, &quot;</span>\
+                                    <span class="ruby-node">&quot;cannot reply with identity #{identity}&quot;</span>)
+            <span class="ruby-keyword kw">end</span>
+
+            <span class="ruby-identifier">response_identity</span> = <span class="ruby-ivar">@identity</span>
+            <span class="ruby-identifier">response_claimed_id</span> = <span class="ruby-ivar">@claimed_id</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">identity</span>
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, (<span class="ruby-value str">&quot;This request specified no identity &quot;</span>\
+                                    <span class="ruby-node">&quot;and you supplied #{identity}&quot;</span>)
+            <span class="ruby-keyword kw">end</span>
+            <span class="ruby-identifier">response_identity</span> = <span class="ruby-keyword kw">nil</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@namespace</span> <span class="ruby-operator">==</span> <span class="ruby-constant">OPENID1_NS</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">response_identity</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, (<span class="ruby-value str">&quot;Request was an OpenID 1 request, so &quot;</span>\
+                                  <span class="ruby-value str">&quot;response must include an identifier.&quot;</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">response</span>.<span class="ruby-identifier">fields</span>.<span class="ruby-identifier">update_args</span>(<span class="ruby-constant">OPENID_NS</span>, {
+                <span class="ruby-value str">'mode'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">mode</span>,
+                <span class="ruby-value str">'op_endpoint'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">server_url</span>,
+                <span class="ruby-value str">'return_to'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@return_to</span>,
+                <span class="ruby-value str">'response_nonce'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Nonce</span>.<span class="ruby-identifier">mk_nonce</span>(),
+                })
+
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response_identity</span>
+            <span class="ruby-identifier">response</span>.<span class="ruby-identifier">fields</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'identity'</span>, <span class="ruby-identifier">response_identity</span>)
+            <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@namespace</span> <span class="ruby-operator">==</span> <span class="ruby-constant">OPENID2_NS</span>
+              <span class="ruby-identifier">response</span>.<span class="ruby-identifier">fields</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>,
+                                      <span class="ruby-value str">'claimed_id'</span>, <span class="ruby-identifier">response_claimed_id</span>)
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">response</span>.<span class="ruby-identifier">fields</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'mode'</span>, <span class="ruby-identifier">mode</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@immediate</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@namespace</span> <span class="ruby-operator">==</span> <span class="ruby-constant">OPENID1_NS</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">server_url</span>
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, (<span class="ruby-value str">&quot;setup_url is required for allow=false &quot;</span>\
+                                    <span class="ruby-value str">&quot;in OpenID 1.x immediate mode.&quot;</span>)
+            <span class="ruby-keyword kw">end</span>
+
+            <span class="ruby-comment cmt"># Make a new request just like me, but with</span>
+            <span class="ruby-comment cmt"># immediate=false.</span>
+            <span class="ruby-identifier">setup_request</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@identity</span>, <span class="ruby-ivar">@return_to</span>,
+                                           <span class="ruby-ivar">@op_endpoint</span>, <span class="ruby-ivar">@trust_root</span>, <span class="ruby-keyword kw">false</span>,
+                                           <span class="ruby-ivar">@assoc_handle</span>)
+            <span class="ruby-identifier">setup_url</span> = <span class="ruby-identifier">setup_request</span>.<span class="ruby-identifier">encode_to_url</span>(<span class="ruby-identifier">server_url</span>)
+            <span class="ruby-identifier">response</span>.<span class="ruby-identifier">fields</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'user_setup_url'</span>, <span class="ruby-identifier">setup_url</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">response</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

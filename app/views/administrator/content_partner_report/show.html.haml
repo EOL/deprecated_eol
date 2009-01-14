@@ -1,0 +1,165 @@
+= render :partial => '/admin/content_top', :locals => {:name => 'Content Partner Detail'}
+%h2
+  = @agent.project_name
+= link_to '[go back]',:action=>'index'
+|
+= link_to '[edit their profile]',:action=>'edit_profile', :id=>@agent.id
+%br/
+
+- if @agent.ready_for_agreement?  
+  Click circles or checkmarks below to (checkmark indicates action has already been performed):
+  %br/
+  = link_to_remote(content_partner_check_box_image(@agent.show_on_partner_page?, :id => 'show_on_cp_page_img'),  :url => { :action => 'show_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_on_partner_page? ? 'hide' : 'show'} this partner on the content partner page?")
+  Show
+  = @agent.project_name
+  on
+  = link_to("content partners",:controller=>'/content',:action=>'partners')
+  page of website.
+  %br/
+  = link_to_remote(content_partner_check_box_image(@agent.show_mou_on_partner_page?, :id => 'show_mou_on_cp_page_img'),  :url => { :action => 'show_mou_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_on_partner_page? ? 'hide' : 'show'} this partner's MOU on the content partner page?")
+  Show
+  = "#{@agent.project_name.pluralize}"
+  MOU on
+  = link_to("content partners",:controller=>'/content',:action=>'partners')
+  page of website.  
+  %br/
+  = link_to_remote(content_partner_check_box_image(@agent.vetted?, :id => 'vet_partner_img'),  :url => { :action => 'vet_partner', :id => @agent }, :confirm => "Are you sure you want to #{@agent.vetted? ? 'unvet' : 'vet'} this partner?  All of their uncurated data objects will become #{@agent.vetted? ? 'untrusted' : 'trusted'} immediately!")
+  = "Vet #{@agent.project_name} and update the status of all their uncurated data objects."
+  %br/
+  = link_to_remote(content_partner_check_box_image(@agent.auto_publish?, :id => 'auto_publish_img'),  :url => { :action => 'auto_publish', :id => @agent }, :confirm => "Are you sure you want to #{@agent.auto_publish? ? 'disable' : 'enable'} auto-publish for this partner?  If enabled, all data objects are immediately published when imported (i.e. no preview and further approval is required).")
+  = "#{@agent.auto_publish? ? 'Disable' : 'Enable'} auto-publish for " + @agent.project_name + "." 
+
+- else
+  = @agent.project_name
+  is not ready for their agreement.
+
+%table.results_table{ :width => "80%" }
+  %tr
+    %th
+      Step
+    %th
+      1st View
+    %th
+      Submission
+    %th
+      Status
+  %tr
+    %td.odd
+      Partner Information
+    %td.odd
+      = content_partner_date(@agent.content_partner.partner_seen_step)
+    %td.odd
+      = content_partner_date(@agent.content_partner.partner_complete_step)
+    %td.odd
+      = @agent.content_partner.partner_complete_step? ? 'Complete' : 'Incomplete'
+  %tr
+    %td.even
+      Contact Information
+    %td.even
+      = content_partner_date(@agent.content_partner.contacts_seen_step)
+    %td.even
+      = content_partner_date(@agent.content_partner.contacts_complete_step)
+    %td.even
+      - if @agent.agent_contacts.any?
+        = link_to @agent.agent_contacts.count.to_s + ' contacts',:action=>'show_contacts',:id=>@agent.id.to_s
+      - else
+        None
+  %tr
+    %td.odd
+      Licensing
+    %td.odd
+      = content_partner_date(@agent.content_partner.licensing_seen_step)
+    %td.odd
+      = content_partner_date(@agent.content_partner.licensing_complete_step)
+    %td.odd
+      = content_partner_check_box_image(@agent.content_partner.ipr_accept?)
+  %tr
+    %td.even
+      Attribution
+    %td.even
+      = content_partner_date(@agent.content_partner.attribution_seen_step)
+    %td.even
+      = content_partner_date(@agent.content_partner.attribution_complete_step)
+    %td.even
+      = content_partner_check_box_image(@agent.content_partner.attribution_accept?)
+  %tr
+    %td.odd
+      Roles
+    %td.odd
+      = content_partner_date(@agent.content_partner.roles_seen_step)
+    %td.odd
+      = content_partner_date(@agent.content_partner.roles_complete_step)
+    %td.odd
+      = content_partner_check_box_image(@agent.content_partner.roles_accept?)
+  %tr
+    %td.even
+      Transfer Schema Overview
+    %td.even
+      = content_partner_date(@agent.content_partner.transfer_overview_seen_step)
+    %td.even
+      = content_partner_date(@agent.content_partner.transfer_overview_complete_step)
+    %td.even
+      = content_partner_check_box_image(@agent.content_partner.transfer_schema_accept?)
+  %tr
+    %td.odd
+      Transfer Schema Upload
+    %td.odd
+      = content_partner_date(@agent.content_partner.transfer_upload_seen_step)
+    %td.odd
+      = content_partner_date(@agent.content_partner.transfer_upload_complete_step)
+    %td.odd
+      = @agent.content_partner.transfer_upload_complete_step? ? 'Viewed'  : 'Not viewed'
+  - if @agent.ready_for_agreement?  
+    %tr
+      %td.odd
+        Agreement
+        %br/
+        = link_to('View agreement',{:controller=>'/content_partner',:action=>'agreement',:id=>@agent.id},{:target=>'blank'})
+        |
+        = link_to('Edit agreement',:action=>'edit_agreement',:id=>@agent.id)        
+      %td.odd
+        N/A
+      %td.odd
+        N/A
+      %td.odd
+        = @agreement_signed
+%br/
+%br/
+- if @agent.resources.count > 0
+  Resources Associated With This Content Partner:
+  %br/
+  %br/
+  %table.results_table{ :width => "70%" }
+    %tr
+      %th
+        Title
+      %th
+        Dataset URL
+      %th
+        Frequency
+      %th
+        Status
+      %th
+        License
+      %th
+        Actions
+    - for resource in @agent.resources
+      - column_class=cycle('odd','even')
+      %tr
+        %td{:class => column_class}
+          = h resource.title
+        %td{:class => column_class}
+          = h resource.accesspoint_url.blank? ? resource.dataset_file_name : resource.accesspoint_url
+        %td{:class => column_class, :align => "center" }
+          = h frequency(resource.refresh_period_hours)
+        %td{:class => column_class, :align => "center" }
+          = h resource.status_label
+        %td{:class => column_class}
+          = h (resource.license.blank? ? "unspecified" : resource.license.title)
+        %td{:class => column_class}
+          = link_to 'Edit Resource', edit_resource_path(resource, :content_partner_id => @agent.id)
+          %br/
+          = link_to 'View Harvests', resource_harvest_events_url(resource, :content_partner_id => @agent.id)
+
+#message_area.message
+= render :partial => '/admin/content_bottom'

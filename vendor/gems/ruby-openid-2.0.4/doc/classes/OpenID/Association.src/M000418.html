@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>deserialize (OpenID::Association)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/association.rb, line 27</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">deserialize</span>(<span class="ruby-identifier">serialized</span>)
+      <span class="ruby-identifier">parsed</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">kv_to_seq</span>(<span class="ruby-identifier">serialized</span>)
+      <span class="ruby-identifier">parsed_fields</span> = <span class="ruby-identifier">parsed</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>}
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parsed_fields</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">FIELD_ORDER</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">StandardError</span>, <span class="ruby-value str">'Unexpected fields in serialized association'</span>\
+          <span class="ruby-node">&quot; (Expected #{FIELD_ORDER.inspect}, got #{parsed_fields.inspect})&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">version</span>, <span class="ruby-identifier">handle</span>, <span class="ruby-identifier">secret64</span>, <span class="ruby-identifier">issued_s</span>, <span class="ruby-identifier">lifetime_s</span>, <span class="ruby-identifier">assoc_type</span> =
+        <span class="ruby-identifier">parsed</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">field</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span> <span class="ruby-identifier">value</span>}
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">version</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">'2'</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">StandardError</span>, <span class="ruby-value str">&quot;Attempted to deserialize unsupported version &quot;</span>\
+                             <span class="ruby-node">&quot;(#{parsed[0][1].inspect})&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">handle</span>,
+               <span class="ruby-constant">Util</span>.<span class="ruby-identifier">from_base64</span>(<span class="ruby-identifier">secret64</span>),
+               <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-identifier">issued_s</span>.<span class="ruby-identifier">to_i</span>),
+               <span class="ruby-identifier">lifetime_s</span>.<span class="ruby-identifier">to_i</span>,
+               <span class="ruby-identifier">assoc_type</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

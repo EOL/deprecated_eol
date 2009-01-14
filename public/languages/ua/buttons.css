@@ -1,0 +1,16 @@
+#search_image  { 
+				background: url(/languages/fr/images/fc_find.gif) left top no-repeat;
+			     width: 43px;
+				 height: 25px; 
+				 border: 0px;
+				}
+
+#content #page-content #left-page-content #sliding-toggle {
+	position: relative;
+	padding: 15px 0 0 0;
+	width: 240px;
+	height: 56px;
+	display: block;
+	background: #E6E7E8 url(/images/sliding_toggle.jpg) left top no-repeat;
+}
+				

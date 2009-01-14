@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>urinorm (OpenID::URINorm)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/urinorm.rb, line 9</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">URINorm</span>.<span class="ruby-identifier">urinorm</span>(<span class="ruby-identifier">uri</span>)
+      <span class="ruby-identifier">uri</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">uri</span>)
+
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">URI</span><span class="ruby-operator">::</span><span class="ruby-constant">InvalidURIError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'no scheme'</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">scheme</span>
+      <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">scheme</span> = <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">scheme</span>.<span class="ruby-identifier">downcase</span>
+      <span class="ruby-keyword kw">unless</span> [<span class="ruby-value str">'http'</span>,<span class="ruby-value str">'https'</span>].<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">scheme</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">URI</span><span class="ruby-operator">::</span><span class="ruby-constant">InvalidURIError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'Not an HTTP or HTTPS URI'</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">URI</span><span class="ruby-operator">::</span><span class="ruby-constant">InvalidURIError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">'no host'</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>
+      <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span> = <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">host</span>.<span class="ruby-identifier">downcase</span>
+
+      <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span> = <span class="ruby-identifier">remove_dot_segments</span>(<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span>)
+      <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span> = <span class="ruby-value str">'/'</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+
+      <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">normalize</span>.<span class="ruby-identifier">to_s</span>
+      <span class="ruby-identifier">uri</span> = <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-constant">PERCENT_ESCAPE_RE</span>) {
+        <span class="ruby-identifier">sub</span> = <span class="ruby-identifier">$&amp;</span>[<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>).<span class="ruby-identifier">chr</span>
+        <span class="ruby-identifier">reserved</span>(<span class="ruby-identifier">sub</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">$&amp;</span>.<span class="ruby-identifier">upcase</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">sub</span>
+      }
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">uri</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

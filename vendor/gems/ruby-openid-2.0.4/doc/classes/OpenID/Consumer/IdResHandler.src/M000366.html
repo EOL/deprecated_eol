@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>process_check_auth_response (OpenID::Consumer::IdResHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/idres.rb, line 264</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">process_check_auth_response</span>(<span class="ruby-identifier">response</span>)
+        <span class="ruby-identifier">is_valid</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'is_valid'</span>, <span class="ruby-value str">'false'</span>)
+
+        <span class="ruby-identifier">invalidate_handle</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'invalidate_handle'</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">invalidate_handle</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;Received 'invalidate_handle' from server #{server_url}&quot;</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@store</span>.<span class="ruby-identifier">nil?</span>
+            <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">'Unexpectedly got &quot;invalidate_handle&quot; without a store!'</span>)
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-ivar">@store</span>.<span class="ruby-identifier">remove_association</span>(<span class="ruby-identifier">server_url</span>, <span class="ruby-identifier">invalidate_handle</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">is_valid</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">'true'</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, (<span class="ruby-node">&quot;Server #{server_url} responds that the &quot;</span>\
+                                <span class="ruby-value str">&quot;'check_authentication' call is not valid&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

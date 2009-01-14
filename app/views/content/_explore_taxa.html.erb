@@ -1,0 +1,24 @@
+<% new_window = @new_window || false %>
+
+<table id="top-photos-table" width="936" cellspacing="0" summary="photo on top table">       
+	<tr>
+	  <% for counter in 1..6 
+		classname="image"
+		classname=classname+'-last' if counter == 6 %>
+		
+		<td class="<%=classname%>">
+			<%= medium_thumb_partial(@explore_taxa[counter-1],'top_image_tag_'+counter.to_s,new_window) %>
+		</td>
+	  <% end %>	
+		</tr>
+		
+		<tr>	
+	  <% for counter in 1..6 
+		classname="name"
+		classname=classname+'-last' if counter == 6	%>			
+		<td class="<%=classname%>">
+			<span id="top_name_<%=counter%>"><%= linked_name(@explore_taxa[counter-1],'',new_window) %></span>
+		</td>
+	  <% end %>
+	</tr>
+</table>

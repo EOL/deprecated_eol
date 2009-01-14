@@ -1,0 +1,5 @@
+<pie>
+  <message><![CDATA[Pie Broadcast]]></message>
+  <slice title="One Slice">50</slice>
+  <slice title="Two Slice" url="http://two.foo">25</slice>
+</pie>

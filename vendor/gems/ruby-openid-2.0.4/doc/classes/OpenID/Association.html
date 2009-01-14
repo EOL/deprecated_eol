@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OpenID::Association</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OpenID::Association</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/openid/association_rb.html">
+                lib/openid/association.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+An <a href="Association.html">Association</a> holds the shared secret
+between a relying party and an <a href="../OpenID.html">OpenID</a>
+provider.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000427">==</a>&nbsp;&nbsp;
+      <a href="#M000425">check_message_signature</a>&nbsp;&nbsp;
+      <a href="#M000418">deserialize</a>&nbsp;&nbsp;
+      <a href="#M000422">expires_in</a>&nbsp;&nbsp;
+      <a href="#M000419">from_expires_in</a>&nbsp;&nbsp;
+      <a href="#M000426">get_message_signature</a>&nbsp;&nbsp;
+      <a href="#M000424">make_pairs</a>&nbsp;&nbsp;
+      <a href="#M000420">new</a>&nbsp;&nbsp;
+      <a href="#M000421">serialize</a>&nbsp;&nbsp;
+      <a href="#M000423">sign</a>&nbsp;&nbsp;
+      <a href="#M000428">sign_message</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">FIELD_ORDER</td>
+          <td>=</td>
+          <td class="context-item-value">[:version, :handle, :secret, :issued, :lifetime, :assoc_type,]</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">assoc_type</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">handle</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">issued</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">lifetime</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">secret</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000418" class="method-detail">
+        <a name="M000418"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000418.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000418.html');return false;">
+          <span class="method-name">deserialize</span><span class="method-args">(serialized)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Load a serialized <a href="Association.html">Association</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000419" class="method-detail">
+        <a name="M000419"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000419.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000419.html');return false;">
+          <span class="method-name">from_expires_in</span><span class="method-args">(expires_in, handle, secret, assoc_type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create an <a href="Association.html">Association</a> with an issued time of
+now
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000420" class="method-detail">
+        <a name="M000420"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000420.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000420.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(handle, secret, issued, lifetime, assoc_type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000427" class="method-detail">
+        <a name="M000427"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000427.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000427.html');return false;">
+          <span class="method-name">==</span><span class="method-args">(other)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000425" class="method-detail">
+        <a name="M000425"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000425.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000425.html');return false;">
+          <span class="method-name">check_message_signature</span><span class="method-args">(message)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return whether the message&#8216;s signature passes
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000422" class="method-detail">
+        <a name="M000422"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000422.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000422.html');return false;">
+          <span class="method-name">expires_in</span><span class="method-args">(now=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The number of seconds until this association expires
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000426" class="method-detail">
+        <a name="M000426"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000426.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000426.html');return false;">
+          <span class="method-name">get_message_signature</span><span class="method-args">(message)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the signature for this message
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000424" class="method-detail">
+        <a name="M000424"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000424.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000424.html');return false;">
+          <span class="method-name">make_pairs</span><span class="method-args">(message)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generate the list of pairs that form the signed elements of the given
+message
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000421" class="method-detail">
+        <a name="M000421"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000421.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000421.html');return false;">
+          <span class="method-name">serialize</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Serialize the association to a form that&#8216;s consistent across JanRain
+<a href="../OpenID.html">OpenID</a> libraries.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000423" class="method-detail">
+        <a name="M000423"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000423.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000423.html');return false;">
+          <span class="method-name">sign</span><span class="method-args">(pairs)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generate a signature for a sequence of [key, value] pairs
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000428" class="method-detail">
+        <a name="M000428"></a>
+
+        <div class="method-heading">
+          <a href="Association.src/M000428.html" target="Code" class="method-signature"
+            onclick="popupCode('Association.src/M000428.html');return false;">
+          <span class="method-name">sign_message</span><span class="method-args">(message)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add a signature (and a signed list) to a message.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,84 @@
+public_domain:
+  id: 1
+  title: public domain
+  description: No rights reserved
+  source_url: ''
+  version: 0
+  logo_url: ''
+
+all_rights_reserved:
+    id: 2
+    title: all rights reserved
+    description: &#169; All rights reserved
+    source_url: ''
+    version: 0
+    logo_url: ''
+
+cc_by_nc:
+  id: 3
+  title: cc-by-nc 3.0
+  description: Some rights reserved
+  source_url: http://creativecommons.org/licenses/by-nc/3.0/
+  version: 0
+  logo_url: /images/licenses/cc_by_nc_small.png
+
+cc_by:
+  id: 4
+  title: cc-by 3.0
+  description: Some rights reserved
+  source_url: http://creativecommons.org/licenses/by/3.0/
+  version: 0
+  logo_url: /images/licenses/cc_by_small.png
+
+cc_by_sa:
+  id: 5
+  title: cc-by-sa 3.0
+  description: Some rights reserved
+  source_url: http://creativecommons.org/licenses/by-sa/3.0/
+  version: 0
+  logo_url: /images/licenses/cc_by_sa_small.png
+
+cc_by_nc_sa:
+  id: 6
+  title: cc-by-nc-sa 3.0
+  description: Some rights reserved
+  source_url: http://creativecommons.org/licenses/by-nc-sa/3.0/
+  version: 0
+  logo_url: /images/licenses/cc_by_nc_sa_small.png
+
+gnu_fdl:
+  id: 7
+  title: gnu-fdl
+  description: Some rights reserved
+  source_url: http://www.gnu.org/licenses/fdl.html
+  version: 0
+  logo_url: /images/licenses/gnu_fdl_small.png
+
+gnu_gpl:
+  id: 8
+  title: gnu-gpl
+  description: Some rights reserved
+  source_url: http://www.gnu.org/licenses/gpl.html
+  version: 0
+  logo_url: /images/licenses/gnu_fdl_small.png
+
+no_license:
+  id: 9
+  title: no license
+  description: The material cannot be licensed
+  source_url: ''
+  version: 0
+  logo_url: ''
+          
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: licenses
+#
+#  id          :integer(2)      not null, primary key
+#  description :string(400)     not null
+#  logo_url    :string(255)     not null
+#  source_url  :string(255)     not null
+#  title       :string(255)     not null
+#  version     :string(6)       not null
+

@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OpenID::Consumer::CheckIDRequest</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OpenID::Consumer::CheckIDRequest</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/openid/consumer/checkid_request_rb.html">
+                lib/openid/consumer/checkid_request.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+An object that holds the state necessary for generating an <a
+href="../../OpenID.html">OpenID</a> authentication request. This object
+holds the association with the server and the discovered information with
+which the request will be made.
+</p>
+<p>
+It is separate from the consumer because you may wish to add things to the
+request before sending it on its way to the server. It also has
+serialization options that let you encode the authentication request as a
+URL or as a form POST.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000326">add_extension</a>&nbsp;&nbsp;
+      <a href="#M000327">add_extension_arg</a>&nbsp;&nbsp;
+      <a href="#M000325">anonymous=</a>&nbsp;&nbsp;
+      <a href="#M000330">form_markup</a>&nbsp;&nbsp;
+      <a href="#M000328">get_message</a>&nbsp;&nbsp;
+      <a href="#M000324">new</a>&nbsp;&nbsp;
+      <a href="#M000329">redirect_url</a>&nbsp;&nbsp;
+      <a href="#M000331">send_redirect?</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">anonymous</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">endpoint</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">message</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">return_to_args</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000324" class="method-detail">
+        <a name="M000324"></a>
+
+        <div class="method-heading">
+          <a href="CheckIDRequest.src/M000324.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckIDRequest.src/M000324.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(assoc, endpoint)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Users of this library should not create instances of this class. Instances
+of this class are created by the library when needed.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000326" class="method-detail">
+        <a name="M000326"></a>
+
+        <div class="method-heading">
+          <a href="CheckIDRequest.src/M000326.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckIDRequest.src/M000326.html');return false;">
+          <span class="method-name">add_extension</span><span class="method-args">(extension_request)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add an object that implements the extension interface for adding arguments
+to an <a href="../../OpenID.html">OpenID</a> message to this checkid
+request.
+</p>
+<p>
+extension_request: an <a href="../Extension.html">OpenID::Extension</a>
+object.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000327" class="method-detail">
+        <a name="M000327"></a>
+
+        <div class="method-heading">
+          <a href="CheckIDRequest.src/M000327.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckIDRequest.src/M000327.html');return false;">
+          <span class="method-name">add_extension_arg</span><span class="method-args">(namespace, key, value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add an extension argument to this <a href="../../OpenID.html">OpenID</a>
+authentication request. You probably want to use <a
+href="CheckIDRequest.html#M000326">add_extension</a> and the <a
+href="../Extension.html">OpenID::Extension</a> interface.
+</p>
+<p>
+Use caution when adding arguments, because they will be URL-escaped and
+appended to the redirect URL, which can easily get quite long.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000325" class="method-detail">
+        <a name="M000325"></a>
+
+        <div class="method-heading">
+          <a href="CheckIDRequest.src/M000325.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckIDRequest.src/M000325.html');return false;">
+          <span class="method-name">anonymous=</span><span class="method-args">(is_anonymous)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set whether this request should be made anonymously. If a request is
+anonymous, the identifier will not be sent in the request. This is only
+useful if you are making another kind of request with an extension in this
+request.
+</p>
+<p>
+Anonymous requests are not allowed when the request is made with <a
+href="../../OpenID.html">OpenID</a> 1.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000330" class="method-detail">
+        <a name="M000330"></a>
+
+        <div class="method-heading">
+          <a href="CheckIDRequest.src/M000330.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckIDRequest.src/M000330.html');return false;">
+          <span class="method-name">form_markup</span><span class="method-args">(realm, return_to=nil, immediate=false, form_tag_attrs=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get html for a form to submit this request to the IDP.
+</p>
+<p>
+form_tag_attrs is a hash of attributes to be added to the form tag.
+&#8216;accept-charset&#8217; and &#8216;enctype&#8217; have defaults that
+can be overridden. If a value is supplied for &#8216;action&#8217; or
+&#8216;method&#8217;, it will be replaced.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000328" class="method-detail">
+        <a name="M000328"></a>
+
+        <div class="method-heading">
+          <a href="CheckIDRequest.src/M000328.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckIDRequest.src/M000328.html');return false;">
+          <span class="method-name">get_message</span><span class="method-args">(realm, return_to=nil, immediate=false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Produce a <a href="../Message.html">OpenID::Message</a> representing this
+request.
+</p>
+<p>
+Not specifying a return_to URL means that the user will not be returned to
+the site issuing the request upon its completion.
+</p>
+<p>
+If immediate mode is requested, the <a href="../../OpenID.html">OpenID</a>
+provider is to send back a response immediately, useful for
+behind-the-scenes authentication attempts. Otherwise the <a
+href="../../OpenID.html">OpenID</a> provider may engage the user before
+providing a response. This is the default case, as the user may need to
+provide credentials or approve the request before a positive response can
+be sent.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000329" class="method-detail">
+        <a name="M000329"></a>
+
+        <div class="method-heading">
+          <a href="CheckIDRequest.src/M000329.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckIDRequest.src/M000329.html');return false;">
+          <span class="method-name">redirect_url</span><span class="method-args">(realm, return_to=nil, immediate=false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a URL with an encoded <a href="../../OpenID.html">OpenID</a>
+request.
+</p>
+<p>
+The resulting URL is the <a href="../../OpenID.html">OpenID</a>
+provider&#8216;s endpoint URL with parameters appended as query arguments.
+You should redirect the user agent to this URL.
+</p>
+<p>
+<a href="../../OpenID.html">OpenID</a> 2.0 endpoints also accept POST
+requests, see &#8216;<a
+href="CheckIDRequest.html#M000331">send_redirect?</a>&#8217; and &#8216;<a
+href="CheckIDRequest.html#M000330">form_markup</a>&#8217;.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000331" class="method-detail">
+        <a name="M000331"></a>
+
+        <div class="method-heading">
+          <a href="CheckIDRequest.src/M000331.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckIDRequest.src/M000331.html');return false;">
+          <span class="method-name">send_redirect?</span><span class="method-args">(realm, return_to=nil, immediate=false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Should this <a href="../../OpenID.html">OpenID</a> authentication request
+be sent as a HTTP redirect or as a POST (form submission)?
+</p>
+<p>
+This takes the same parameters as <a
+href="CheckIDRequest.html#M000329">redirect_url</a> or <a
+href="CheckIDRequest.html#M000330">form_markup</a>
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,36 @@
+<div id="internal-nav">
+
+<h4><%="Contribute"[]%></h4>
+<div style="display:none;" id="contribute-info" class="popup"></div>
+
+<ul class="bulletlist">
+  <li> <a href="#" onclick="JavaScript:eol_show_pop_up('contribute-info','contribute_text-help','<%=@taxon.name(:canonical)%>');return false;"><%="Submit a species text description"[]%></a></li>    
+  <li><a href="#" onclick="JavaScript:eol_show_pop_up('contribute-info','contribute_photos-help','<%=@taxon.name(:canonical)%>');return false;"><%="Submit a photograph"[]%></a></li>
+</ul>
+
+<br /><br />
+<%- unless @random_taxa.nil? -%>
+<h4><%="Explore"[]%></h4>
+	
+<table id="related-species-table" cellspacing="0" summary="top species">
+	<%- for taxa_link in @random_taxa -%>
+	  <tr>
+		  <td width="30%">
+		  	<%= link_to(image_tag(taxa_link.smart_thumb,
+									:alt	=> h(remove_html(taxa_link.name)),
+									:border	=> "0",
+									:title	=> h(remove_html(taxa_link.name))),
+									:action => "show", :id=>taxa_link.taxon_concept_id) %>
+			</td>
+			<td>
+        <%= linked_name(taxa_link) %>
+			</td>
+		</tr>
+  <%- end -%>
+</table>
+
+<%- end 
+# of random taxa 
+-%>
+	
+</div>

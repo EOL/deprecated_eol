@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_form_markup (OpenID::Message)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/message.rb, line 255</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_form_markup</span>(<span class="ruby-identifier">action_url</span>, <span class="ruby-identifier">form_tag_attrs</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">submit_text</span>=<span class="ruby-value str">'Continue'</span>)
+      <span class="ruby-identifier">form_tag_attr_map</span> = {}
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">form_tag_attrs</span>
+        <span class="ruby-identifier">form_tag_attrs</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">name</span>, <span class="ruby-identifier">attr</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">form_tag_attr_map</span>[<span class="ruby-identifier">name</span>] = <span class="ruby-identifier">attr</span>
+        }
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">form_tag_attr_map</span>[<span class="ruby-value str">'action'</span>] = <span class="ruby-identifier">action_url</span>
+      <span class="ruby-identifier">form_tag_attr_map</span>[<span class="ruby-value str">'method'</span>] = <span class="ruby-value str">'post'</span>
+      <span class="ruby-identifier">form_tag_attr_map</span>[<span class="ruby-value str">'accept-charset'</span>] = <span class="ruby-value str">'UTF-8'</span>
+      <span class="ruby-identifier">form_tag_attr_map</span>[<span class="ruby-value str">'enctype'</span>] = <span class="ruby-value str">'application/x-www-form-urlencoded'</span>
+
+      <span class="ruby-identifier">markup</span> = <span class="ruby-value str">&quot;&lt;form &quot;</span>
+
+      <span class="ruby-identifier">form_tag_attr_map</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">markup</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; #{k}=\&quot;#{v}\&quot;&quot;</span>
+      }
+
+      <span class="ruby-identifier">markup</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;&gt;\n&quot;</span>
+
+      <span class="ruby-identifier">to_post_args</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">markup</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&lt;input type='hidden' name='#{k}' value='#{v}' /&gt;\n&quot;</span>
+      }
+      <span class="ruby-identifier">markup</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;&lt;input type='submit' value='#{submit_text}' /&gt;\n&quot;</span>
+      <span class="ruby-identifier">markup</span> <span class="ruby-operator">+=</span> <span class="ruby-value str">&quot;\n&lt;/form&gt;&quot;</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">markup</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

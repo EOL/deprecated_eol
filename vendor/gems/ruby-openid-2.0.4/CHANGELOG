@@ -1,0 +1,41 @@
+Tue Feb 12 18:02:31 PST 2008  Kevin Turner <kevin@janrain.com>
+  tagged 2.0.4
+
+Tue Feb 12 18:01:44 PST 2008  Kevin Turner <kevin@janrain.com>
+  * set version to 2.0.4
+
+Tue Feb 12 17:49:53 PST 2008  Kevin Turner <kevin@janrain.com>
+  * HTMLTokenizer: raise OpenIDError instead of RuntimeError
+
+Thu Jan 31 11:34:11 PST 2008  Kevin Turner <kevin@janrain.com>
+  * Consumer.IdResHandler.verify_return_to_args: include more details in exception messages.
+
+Mon Jan 21 15:50:54 PST 2008  Kevin Turner <kevin@janrain.com>
+  * StandardFetcher.fetch: catch more exceptions to wrap in to FetchingErrors.
+
+Mon Jan 21 14:23:10 PST 2008  Kevin Turner <kevin@janrain.com>
+  * OpenID::normalize_url: urinorm raises URI::Error, not ArgumentError.
+
+Tue Jan 15 11:48:49 PST 2008  rubys@intertwingly.net
+  * The following set of changes gets ruby-openid to work with Ruby 1.9,
+  revision 15006 and REXML revision 1301.  The codebase with this
+  patch continues to work on Ruby 1.8.6.
+
+Mon Jan 14 18:06:29 PST 2008  Kevin Turner <kevin@janrain.com>
+  * Consumer.complete_id_res: catch all OpenIDError instead of just DiscoveryFailure and ProtocolError.  Fixes #104.
+  
+  This seems to be the desired behavior.
+  
+  IdResHandler.check_auth: don't bother casting an OpenIDError to another OpenIDError.
+
+Mon Jan 14 17:59:38 PST 2008  Kevin Turner <kevin@janrain.com>
+  * OpenID::ServerError: add server_url to attributes.
+
+Mon Jan 14 17:21:10 PST 2008  Kevin Turner <kevin@janrain.com>
+  * ProtocolError, ServerError: subclass OpenIDError
+
+Mon Jan 14 17:20:01 PST 2008  Kevin Turner <kevin@janrain.com>
+  * UPGRADE: fix typo in example path
+
+Fri Jan 11 11:31:29 PST 2008  cygnus@janrain.com
+  tagged 2.0.3

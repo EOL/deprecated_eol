@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>create_association (OpenID::Server::Signatory)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 1052</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_association</span>(<span class="ruby-identifier">dumb</span>=<span class="ruby-keyword kw">true</span>, <span class="ruby-identifier">assoc_type</span>=<span class="ruby-value str">'HMAC-SHA1'</span>)
+        <span class="ruby-identifier">secret</span> = <span class="ruby-constant">CryptUtil</span>.<span class="ruby-identifier">random_string</span>(<span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">get_secret_size</span>(<span class="ruby-identifier">assoc_type</span>))
+        <span class="ruby-identifier">uniq</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">to_base64</span>(<span class="ruby-constant">CryptUtil</span>.<span class="ruby-identifier">random_string</span>(<span class="ruby-value">4</span>))
+        <span class="ruby-identifier">handle</span> = <span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'{%s}{%x}{%s}'</span>, <span class="ruby-identifier">assoc_type</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">uniq</span>)
+
+        <span class="ruby-identifier">assoc</span> = <span class="ruby-constant">Association</span>.<span class="ruby-identifier">from_expires_in</span>(
+            <span class="ruby-identifier">secret_lifetime</span>, <span class="ruby-identifier">handle</span>, <span class="ruby-identifier">secret</span>, <span class="ruby-identifier">assoc_type</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">dumb</span>
+          <span class="ruby-identifier">key</span> = <span class="ruby-ivar">@@_dumb_key</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">key</span> = <span class="ruby-ivar">@@_normal_key</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-ivar">@store</span>.<span class="ruby-identifier">store_association</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">assoc</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">assoc</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

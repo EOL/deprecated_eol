@@ -1,0 +1,20 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Error Log Detail'} %>
+									    
+	<div id="errors">
+		<a href="javascript:history.back();">[go back]</a>
+	    <br />
+		<br />
+		<strong>ID:</strong><%=@error.id%></strong><br />
+		<strong>Date:</strong> <%= format_date_time(@error.created_at)%>	<br />					
+		<strong>Exception:</strong> <%= @error.exception_name%><br />
+		<strong>URL:</strong> <%= @error.url%><br />
+		<strong>IP:</strong> <%= @error.ip_address%><br />
+		<strong>User agent:</strong><%= @error.user_agent%><br />
+		<strong>User ID:</strong><%= @error.user_id%><br />
+		<strong>Details:</strong> <br />
+    <%= @error.backtrace.gsub(/\n/,"<br />") %>
+
+	</div>
+						
+<%= render :partial => '/admin/content_bottom' %>
+

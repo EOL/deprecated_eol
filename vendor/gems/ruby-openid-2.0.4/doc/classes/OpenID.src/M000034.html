@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>discover_xri (OpenID)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/discovery.rb, line 403</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">discover_xri</span>(<span class="ruby-identifier">iname</span>)
+    <span class="ruby-identifier">endpoints</span> = []
+
+    <span class="ruby-keyword kw">begin</span>
+      <span class="ruby-identifier">canonical_id</span>, <span class="ruby-identifier">services</span> = <span class="ruby-constant">Yadis</span><span class="ruby-operator">::</span><span class="ruby-constant">XRI</span><span class="ruby-operator">::</span><span class="ruby-constant">ProxyResolver</span>.<span class="ruby-identifier">new</span>().<span class="ruby-identifier">query</span>(
+            <span class="ruby-identifier">iname</span>, <span class="ruby-constant">OpenIDServiceEndpoint</span><span class="ruby-operator">::</span><span class="ruby-constant">OPENID_TYPE_URIS</span>)
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">canonical_id</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">Yadis</span><span class="ruby-operator">::</span><span class="ruby-constant">XRDSError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'No CanonicalID found for XRI %s'</span>, <span class="ruby-identifier">iname</span>))
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">flt</span> = <span class="ruby-constant">Yadis</span>.<span class="ruby-identifier">make_filter</span>(<span class="ruby-constant">OpenIDServiceEndpoint</span>)
+
+      <span class="ruby-identifier">services</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">service_element</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">endpoints</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">flt</span>.<span class="ruby-identifier">get_service_endpoints</span>(<span class="ruby-identifier">iname</span>, <span class="ruby-identifier">service_element</span>)
+      }
+    <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Yadis</span><span class="ruby-operator">::</span><span class="ruby-constant">XRDSError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+      <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">'xrds error on '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">iname</span> <span class="ruby-operator">+</span> <span class="ruby-value str">': '</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">why</span>.<span class="ruby-identifier">to_s</span>)
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">endpoints</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">endpoint</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment cmt"># Is there a way to pass this through the filter to the endpoint</span>
+      <span class="ruby-comment cmt"># constructor instead of tacking it on after?</span>
+      <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">canonical_id</span> = <span class="ruby-identifier">canonical_id</span>
+      <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">claimed_id</span> = <span class="ruby-identifier">canonical_id</span>
+      <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">display_identifier</span> = <span class="ruby-identifier">iname</span>
+    }
+
+    <span class="ruby-comment cmt"># FIXME: returned xri should probably be in some normal form</span>
+    <span class="ruby-keyword kw">return</span> [<span class="ruby-identifier">iname</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">get_op_or_user_services</span>(<span class="ruby-identifier">endpoints</span>)]
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

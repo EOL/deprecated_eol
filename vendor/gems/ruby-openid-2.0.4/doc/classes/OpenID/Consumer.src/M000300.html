@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>complete (OpenID::Consumer)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer.rb, line 281</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">complete</span>(<span class="ruby-identifier">query</span>, <span class="ruby-identifier">current_url</span>)
+      <span class="ruby-identifier">message</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">from_post_args</span>(<span class="ruby-identifier">query</span>)
+      <span class="ruby-identifier">mode</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'mode'</span>, <span class="ruby-value str">'invalid'</span>)
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">meth</span> = <span class="ruby-identifier">method</span>(<span class="ruby-value str">'complete_'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">mode</span>)
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">NameError</span>
+        <span class="ruby-identifier">meth</span> = <span class="ruby-identifier">method</span>(<span class="ruby-identifier">:complete_invalid</span>)
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">response</span> = <span class="ruby-identifier">meth</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">current_url</span>)
+      <span class="ruby-identifier">cleanup_last_requested_endpoint</span>
+      <span class="ruby-keyword kw">if</span> [<span class="ruby-constant">SUCCESS</span>, <span class="ruby-constant">CANCEL</span>].<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">status</span>)
+        <span class="ruby-identifier">cleanup_session</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">response</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

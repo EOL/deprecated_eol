@@ -1,0 +1,113 @@
+search:
+  id: <%= Fixtures.identify(:search) %>
+  string: This is the search canonical form
+
+seabream:
+  id: 1
+  string: Crenidens indicus
+
+some_cirus:
+  id: 2
+  string: Canonical form of some virus name
+
+animalia:
+  id: 148443
+  string: Animalia
+
+plantae:
+  id: 148424
+  string: Plantae
+
+bacteria:
+  id: 645221
+  string: Bacteria
+
+chromista:
+  id: 264976
+  string: Chromista
+
+sagenista:
+  id: 2076713
+  string: Sagenista
+
+bicoblahblah:
+  id: 1278157
+  string: Bicosoecophyceae
+
+bicsocales:
+  id: 1278158
+  string: Bicosoecales
+
+caftereiaceae:
+  id: 1343830
+  string: Cafeteriaceae
+
+fungi:
+  id: 148420
+  string: Fungi
+
+protozoa:
+  id: 319264
+  string: Protozoa
+
+viruses:
+  id: 1387034
+  string: Viruses
+
+archaea:
+  id: 147883
+  string: Archaea
+
+cafeteria:
+  id: 1343826
+  string: Cafeteria
+
+roenbergensis:
+  id: 1231550
+  string: Cafeteria roenbergensis
+
+spicy_food_canonical_form:
+  id: 1231555
+  string: Spicy Food
+
+arthropoda:
+  id: 120
+  string: Arthropdoa
+
+arachnida:
+  id: 121
+  string: Arachnida
+
+araneae:
+  id: 122
+  string: Araneae
+
+linyphiidae:
+  id: 123
+  string: Linyphiidae
+
+Acorigone:
+  id: 124
+  string: Acorigone
+
+spideri:
+  id: 125
+  string: Acorigone spideri
+
+<% require 'faker' %>
+<% (1..60).each do |index| %>
+<% species = Faker::Lorem.words(2) %>
+<% found_by = Faker::Name.name %>
+random_<%= index %>_names:
+  string: <%= species %> <%= found_by %> canonical form
+  id: 997<%= '%0.2d'%index %>
+<% end %>
+
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: canonical_forms
+#
+#  id     :integer(4)      not null, primary key
+#  string :string(300)     not null
+

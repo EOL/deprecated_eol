@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>request_association (OpenID::Consumer::AssociationManager)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/associationmanager.rb, line 187</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">request_association</span>(<span class="ruby-identifier">assoc_type</span>, <span class="ruby-identifier">session_type</span>)
+        <span class="ruby-identifier">assoc_session</span>, <span class="ruby-identifier">args</span> = <span class="ruby-identifier">create_associate_request</span>(<span class="ruby-identifier">assoc_type</span>, <span class="ruby-identifier">session_type</span>)
+
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">response</span> = <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">make_kv_post</span>(<span class="ruby-identifier">args</span>, <span class="ruby-ivar">@server_url</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">extract_association</span>(<span class="ruby-identifier">response</span>, <span class="ruby-identifier">assoc_session</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">HTTPStatusError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;Got HTTP status error when requesting association: #{why}&quot;</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Message</span><span class="ruby-operator">::</span><span class="ruby-constant">KeyNotFound</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">&quot;Missing required parameter in response from &quot;</span>\
+                   <span class="ruby-node">&quot;#{@server_url}: #{why}&quot;</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ProtocolError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;Protocol error processing response from #{@server_url}: &quot;</span>\
+                   <span class="ruby-node">&quot;#{why}&quot;</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

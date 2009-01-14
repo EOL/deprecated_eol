@@ -1,0 +1,33 @@
+<%
+
+current_node = false unless local_assigns[:current_node] && !current_node.nil?
+
+classes = []
+classes << "nopages " if enabled == 'false' # no content below this node, so change colors
+classes << "lastone " if current_node # current node gets its own class
+classes << "kingdom"  if kingdom # kingdom get its own class
+children_nodes_size ||= 0
+%>
+<li class="<%= classes.join(' ') %>" id="uid<%=taxonID%>">
+	<span class="<%= classes.join(' ') %>" id="nameuid<%=taxonID%>">
+	<% 	if exists	-%>
+		<input type="radio"  onclick="JavaScript: browser_text_click(<%= taxonID %>);" name="user[curator_hierarchy_entry_id]" value="<%= taxonID %>"></input>
+	<%=	link_to(convert_to_nbsp(namestring),
+						{:controller => "taxa",
+						 :action=>"show",
+						 :id=>taxonID},
+						 :class=> classes.join(' '),
+						 :border=>0,
+						 :onclick=>"showAjaxIndicator();",
+:id => "taxon_#{taxonID}"
+							) -%>
+	<% else %>
+		<%=convert_to_nbsp(namestring)	-%>
+	<% end %>
+	<% if !current_node %>
+		&nbsp;<a class="expand" href="JavaScript:displayNode(<%=taxonID%>, true)">+</a>
+	<% end %>
+	<% if children_nodes_size > 0 %>
+		<a class="expand" id="toggle_children_link" href="#" onclick="JavaScript:toggle_children();return false;">&nbsp;-</a>
+	<% end %>
+	</span>

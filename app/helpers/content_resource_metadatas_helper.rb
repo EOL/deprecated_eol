@@ -1,0 +1,2 @@
+module ContentResourceMetadatasHelper
+end

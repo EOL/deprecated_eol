@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>check_auth (OpenID::Consumer::IdResHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/idres.rb, line 227</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_auth</span>
+        <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;Using 'check_authentication' with #{server_url}&quot;</span>)
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">request</span> = <span class="ruby-identifier">create_check_auth_request</span>
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Message</span><span class="ruby-operator">::</span><span class="ruby-constant">KeyNotFound</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, <span class="ruby-value str">&quot;Could not generate 'check_authentication' &quot;</span>\
+                               <span class="ruby-node">&quot;request: #{why.message}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">response</span> = <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">make_kv_post</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">server_url</span>)
+
+        <span class="ruby-identifier">process_check_auth_response</span>(<span class="ruby-identifier">response</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

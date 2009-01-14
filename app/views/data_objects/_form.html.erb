@@ -1,0 +1,5 @@
+<% form_for(@data_object) do |f| %>
+  <div id="comments">
+    <%= f.render_associated_form(@data_object.comments) %>
+  </div>
+<% end %>

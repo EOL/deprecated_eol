@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>body= (OpenID::HTTPResponse)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/fetchers.rb, line 63</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">body=</span>(<span class="ruby-identifier">s</span>)
+      <span class="ruby-ivar">@_response</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value str">'@body'</span>, <span class="ruby-identifier">s</span>)
+      <span class="ruby-comment cmt"># XXX Hack to work around ruby's HTTP library behavior.  @body</span>
+      <span class="ruby-comment cmt"># is only returned if it has been read from the response</span>
+      <span class="ruby-comment cmt"># object's socket, but since we're not using a socket in this</span>
+      <span class="ruby-comment cmt"># case, we need to set the @read flag to true to avoid a bug in</span>
+      <span class="ruby-comment cmt"># Net::HTTPResponse.stream_check when @socket is nil.</span>
+      <span class="ruby-ivar">@_response</span>.<span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-value str">'@read'</span>, <span class="ruby-keyword kw">true</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

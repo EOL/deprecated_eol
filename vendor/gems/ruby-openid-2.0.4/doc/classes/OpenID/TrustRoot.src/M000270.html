@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>return_to_matches (OpenID::TrustRoot)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/trustroot.rb, line 64</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">TrustRoot</span>.<span class="ruby-identifier">return_to_matches</span>(<span class="ruby-identifier">allowed_return_to_urls</span>, <span class="ruby-identifier">return_to</span>)
+      <span class="ruby-identifier">allowed_return_to_urls</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">allowed_return_to</span><span class="ruby-operator">|</span>
+        <span class="ruby-comment cmt"># A return_to pattern works the same as a realm, except that</span>
+        <span class="ruby-comment cmt"># it's not allowed to use a wildcard. We'll model this by</span>
+        <span class="ruby-comment cmt"># parsing it as a realm, and not trying to match it if it has</span>
+        <span class="ruby-comment cmt"># a wildcard.</span>
+
+        <span class="ruby-identifier">return_realm</span> = <span class="ruby-constant">TrustRoot</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">allowed_return_to</span>)
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-comment cmt"># Parses as a trust root</span>
+            <span class="ruby-operator">!</span><span class="ruby-identifier">return_realm</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span>
+
+            <span class="ruby-comment cmt"># Does not have a wildcard</span>
+            <span class="ruby-operator">!</span><span class="ruby-identifier">return_realm</span>.<span class="ruby-identifier">wildcard</span> <span class="ruby-keyword kw">and</span>
+
+            <span class="ruby-comment cmt"># Matches the return_to that we passed in with it</span>
+            <span class="ruby-identifier">return_realm</span>.<span class="ruby-identifier">validate_url</span>(<span class="ruby-identifier">return_to</span>)
+            )
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">end</span>
+      }
+
+      <span class="ruby-comment cmt"># No URL in the list matched</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,355 @@
+#EOL
+#-------------------------------------------
+encyclopedia_of_life: Enzyklopädie des Lebens
+welcome_to_the_encyclopedia_of_life: Willkommen bei der Enzyklopädie des Lebens
+
+####################
+# TRANSLATIONS BELOW SHOULD NOT BE MUCH LONGER THAN THE ENGLISH
+####################
+# Home Page
+explore: Entdecken
+related: Ähnliches
+featured: Empfehlung
+popular: Beliebt
+home: Home
+# Menus
+language: Sprache
+my_preferences: Einstellungen
+about_eol: Über EOL
+profile_settings: Mein Profil
+your_preferences: Ihre Einstellungen
+preferences: Einstellungen
+feedback: Feedback
+press_room: Presse
+forum: Forum
+blog: Blog
+survey: Umfrage
+media_contact: Presse
+press_releases: Pressemitteilungen
+publications: Veröffentlichungen
+help: Hilfe
+screencasts: Screencasts
+faqs: FAQs
+using_the_site: Sitemap
+who_we_are: Wer wir sind
+institutional_partners: Partnerinstitutionen
+data_partners: Daten-Partner
+technology_partners: Technologiepartner
+milestones: Meilensteine
+upcoming_events: Künftige Ereignisse
+employment: Stellenangebote
+donors: Spenden
+newsletter: Newsletter
+project: Projekt
+description: Beschreibung 
+item: Objekt
+project_page: Projektseite
+terms_of_use: Nutzungsbedingungen
+contact_us: Kontakt
+cancel: Abbrechen
+#Comments and Corrections
+comments_and_corrections: Kommentare / Berichtigungen
+search: Suche
+search_results: Suchergebnisse
+searching: Suche
+advanced_search: Erweiterte Suche
+# Term must have at least 3 characters.
+searching_error: Mindestens 3 Buchstaben erforderlich
+more_species: Weitere Arten
+status: Status
+source: Quelle
+source_of: Quelle von {title}
+updated: Aktualisiert
+sources: Quellen
+type: Typ
+source_and_additional_information: Quellen und weitere Informationen
+
+# Paging
+# -------------------------------------------
+back: Zurück
+next: Weiter
+
+####################
+# TRANSLATIONS BELOW CAN BE LONGER THAN THE ENGLISH IF NEEDED
+####################
+
+#Please select a topic area.
+select_topic: Wählen Sie ein Thema
+your_message_was_sent: Ihre Nachricht wurde gesendet.
+#Sorry, but the search could not return any results at this time due to high demand.  Please try a more specific search.
+search_timed_out: Es tut uns leid, aber Ihre Suche kann im Moment wegen zu hoher Nachfrage keine Ergebnisse liefern. Bitte versuchen Sie, Ihre Suche einzugrenzen. 
+#Only the first {num_results} search results are shown below for {search_string} - please try a more specific search term if you do not find what you are looking for.
+too_many_search_results: Nur die ersten {num_results}  Ergebnisse für {search_string} weden angezeigt - bitte versuchen Sie Ihre Suche einzugrenzen, wenn Sie nicht finden, wonach Sie gesucht haben.
+#The following {num_results} search results are shown below for {search_string}.
+num_results_shown: Die folgenden {num_results} Ergebnisse für {search_string} werden unten angezeigt.
+exemplar_pages: Beispielseiten
+
+# Authentication
+# -------------------------------------------
+hello_user: Hallo {user}!
+you_are_not_logged_in: Sie sind nicht angemeldet
+#Please {login} or {create_an_account}
+please_login_or_create_account: Bitte {login} oder {create_an_account}
+logout: abmelden
+login: anmelden
+register: Registrieren
+create_account: erstellen Sie ein Benutzerkonto
+account_information: Benutzerkonto-Informationen
+username: Benutzername
+email_address: Email-Adresse
+password: Passwort
+confirm_password: Passwort bestätigen
+required: Pflichtfeld
+given_name: Vorname
+family_name: Nachname
+# Do you want to include?
+detail_level: Was möchten Sie einschließen?
+# Do you want to see?
+content_level: Was möchten Sie sehen?
+only_enter_new_password_if_needed: Geben Sie nur ein neues Passwort ein, wenn Sie es ändern möchten.
+your_account: Ihr Benutzerkonto
+logged_in: Sie haben sich erfolgreich angemeldet.
+registration: Registrierung
+register_now: Jetzt registrieren
+update_account: Kontoeinstellungen speichern
+update_preferences: Einstellungen speichern
+forgot_password: Passwort vergessen
+name_of_organism: Artenname
+
+#Which language do you prefer?
+language_preference: Welche Sprache bevorzugen Sie?
+#If you don't have an account, click here to register
+click_here_to_register: Wenn Sie noch kein Benutzerkonto haben, klicken Sie hier
+
+# Select a video to the right to begin playback.
+select_video: Wählen Sie rechts ein Video aus, um es abzuspielen
+#shown as <species name>
+shown_as: Angezeigt als
+#synonym of <species name>
+synonym_of: Synonym von
+
+please_enter_a_username: Bitte geben Sie Ihren Benutzernamen ein.
+please_enter_a_password: Bitte geben Sie Ihr Passwort ein.
+please_enter_the_password_again: Bitte geben Sie Ihr Passwort erneut ein.
+please_enter_your_email_address: Bitte geben Sie Ihre E-Mail-Adresse ein.
+passwords_must_match: Die Passwörter müssen übereinstimmen.
+please_enter_given_name: Bitte geben Sie Ihren Vornamen ein.
+please_enter_family_name: Bitte geben Sie Ihren Nachnamen ein.
+do_you_want_to_receive_eol_notifications_by_email?: Möchten Sie regelmäßige Informationen zu EOL erhalten?
+yes_answer: Ja
+
+login: anmelden
+login_now: Jetzt anmelden
+username_and_password: Benutzername und Passwort
+submit: Abschicken
+
+#To sign up for a EOL notifications, please {create_account}
+sign_up_for_eol_notifications: Um sich für regelmäßige Nachrichten von EOL anzumelden {create_account}
+topic_area: Themengebiet
+your_name: Ihr Name
+your_email_address: Ihre E-Mail-Adresse
+comments: Comments
+
+#For verification, please enter the characters you see below.  Click the ? for assistance.
+recaptcha: Zur Bestätigung geben Sie bitte die untenstehenden Zeichen ein. Klicken Sie auf das Fragezeichen, um Hilfe zu erhalten
+#The verification phrase you entered did not match.
+verification_phrase_did_not_match: Die Zeichen, die Sie zur Bestätigung eingegeben haben, stimmen nicht überein
+
+username_taken: Der Benutzername {username} ist bereits vergeben
+passwords_must_match: Die Passwörter müssen übereinstimmen
+new_password: Neues Passwort
+confirm_new_password: Bestätigen Sie das neue Passwort
+
+# If you are not "{user}", {login} or {create_account}.
+if_you_are_not_user_please_login_or_create_account: Wenn Sie nicht {user} sind, {login} oder {create_account}.
+
+# Only information that has comes from authoritative sources
+view_only_vetted_content: Nur Informationen, die von vertrauenswürdigen Quellen stammen
+all_information: Alle Informationen	
+information_intended_for_beginners: Informationen für Einsteiger
+information_intended_for_experts: Informationen für Experten
+information_for_any_audience: Informationen für alle Wissensstufen
+
+minimal_species_page: Reduzierte Artenseite
+
+all_pages: Alle Seiten
+
+pages_with_pictures_and_text: Seiten mit Bildern und Text
+just_pages_with_pictures_and_text: Nur Seiten mit Bildern und Text
+
+# Authentication flash notices
+# -------------------------------------------
+# Invalid login or password
+invalid_login_or_password: Benutzername oder Passwort inkorrekt.
+# Thanks for registering!
+thanks_for_registering: Vielen Dank für die Registrierung!
+# Your profile has been updated.
+your_preferences_have_been_updated: Ihre Einstellungen wurden aktualisiert.
+# You have been logged out.
+you_have_been_logged_out: Sie wurden abgemeldet.
+
+
+# Content / misc
+# -------------------------------------------
+image: Bild
+common_name: Umgangssprachlicher Name
+scientific_name: Wissenschaftlicher Name
+common_names: Umgangssprachliche Namen
+scientific_names: Wissenschaftliche Namen
+find: Suche
+find_by_name: Suche nach Namen
+words: Wörter
+names: Namen
+contains_your_term: Enthält Ihren Suchbegriff
+exact_match_only:  Suche ausschließlich nach
+all_names: Alle Namen
+only_common_names: Nur umgangssprachliche Namen
+only_scientific_names: Nur wissenschaftliche Namen
+no_search_results: Ihre Suche lieferte keine Ergebnisse.
+page_curated_by: Seite bearbeitet durch
+help_me_find_more_species: Ich möchte weitere Arten finden.
+continue: Weiter
+
+# Thank you for your feedback.
+thanks_for_feedback: Vielen Dank für Ihren Beitrag.
+
+# Link Buttons
+bookmark: Lesezeichen
+cite: Zitieren
+
+# Table of conents
+table_of_contents: Inhaltsverzeichnis
+# IUCN Redlist Status
+iucn_red_list_status: Gefährdungsstatus auf der Roten Liste der gefährdeten Arten
+
+# sorry, we've encountered a problem
+sorry: Es tut uns leid, aber wir haben ein Problem festgestellt.
+# We've logged the problem and notified the system administrators.
+problem: Wir haben das Problem registriert und die Systemadministratoren benachrichtigt.
+
+# tabs to switch between taxonomic browsers
+graphic: Grafisch
+text: Text
+classification: Klassifikation
+classification_provided_by: Klassifikation nach
+
+# Media center navigation tabs
+# -------------------------------------------
+images: Bilder
+maps: Karten
+videos: Videos
+sounds: Töne
+content: Inhalte
+charts: Diagramme
+
+# Media center image copyright information
+# -------------------------------------------
+author: Autor
+location: Ort
+name: Name
+taken: aufgenommen
+copyright: Copyright
+more_info: Weitere Informationen
+license: Lizenz
+
+# Accessibility
+# -------------------------------------------
+skip_to_navigation: Zur Navigation
+skip_to_table_of_contents: Zum Inhaltsverzeichnis
+skip_to_content: Zum Inhalt
+global_navigation: Globale Navigation
+personal_space: Persönliche Seite
+external_links: Externe Links
+media_center_navigation: Navigation Media-Center
+choose_link_images: Wählen Sie Link-Bilder
+choose_images: Wählen Sie Bilder
+page_navigation: Seitennavigation
+
+# Validation
+# -------------------------------------------
+# Validation Error
+validation_error: Gültigkeitsfehler
+# There were problems with the following fields
+validation_following_fields: "Es traten bei folgenden Feldern Fehler auf:"
+# <field> can't be blank
+validation_blank: darf nicht leer sein
+# <field> is too short (minimum is {n} characters)
+validation_too_short: "ist zu kurz (mindestens {n} Buchstaben erforderlich)"
+# <field> is not a valid e-mail address
+validation_email: ist keine gültige E-Mail-Adresse
+# <field> must be equal to {n}
+validation_equal_to: muss gleich {n} sein
+# <field> is invalid
+validation_invalid: ist ungültig
+# <field> is the wrong length (should be {n} characters)
+validation_wrong_length: hat eine falsche Länge (sollte {n} Buchstaben sein)
+# <field> must be less than {n}
+validation_less_than: muss kleiner sein als {n}
+# <field> doesn't match confirmation
+validation_confirmation: stimmt nicht mit der Bestätigung überein
+# <field> has already been taken
+validation_taken: ist bereits vergeben
+# <field> can't be empty
+validation_empty: darf nicht leer sein
+# <field> must be less than or equal to {n}
+validation_less_than_or_equal_to: muss kleiner als oder gleich {n} sein
+# <field> must be accepted
+validation_accepted: muss akzeptiert werden
+# <field> is not a number
+validation_not_a_number: ist keine Nummer
+# <field> must be odd
+validation_odd: muss ungerade sein
+# <field> must be greater than {n}
+validation_greater_than: muss größer sein als {n} 
+# <field> is not included in the list
+validation_inclusion: ist nicht in der Liste enthalten
+# <field> must be even
+validation_even: muss gerade sein
+# <field> is too long (maximum is {n} characters)
+validation_too_long: ist zu lang (höchstens {n} Buchstaben )
+# <field> must be greater than or equal to {n}
+validation_greater_than_or_equal_to: muss größer als oder gleich {n} sein
+# <field> is reserved
+validation_exclusion: ist reserviert
+
+
+donate: Spenden
+donation_confirmation: Spendenbestätigung
+enter_amount: Summe eingeben
+#We appreciate your generous support of the Encyclopedia of Life. Please select the amount you wish to donate.
+donation_message: Wir freuen uns über Ihre großzügige Unterstützung für die Enzyklopädie des Lebens. Bitte geben Sie Ihren Spendenbetrag.
+please_confirm_your_donation_details: Bitte bestätigen Sie Ihre Spendendetails
+# Please select a donation amount.
+donation_error: Please select a donation amount.
+# Please enter an amount using only numbers.
+donation_error2: Please enter an amount using only numbers.
+the_amount_entered_was: Der eigegebene Betrag war
+#If this information is not correct, please {go_back} to make changes
+correct_donation_message: Wenn diese Informationen nicht korrekt sind, können Sie {go_back} um Veränderungen vorzunehmen.
+go_back: zurückgehen
+thank_you: Vielen Dank
+#Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed.
+thanks_for_donation: Vielen Dank für Ihre Unterstützung der Enzyklopädie des Lebens. Ihre Informationen wurden übermittelt und werden bearbeitet.
+# Please {return} to the EOL homepage
+thank_you_for_your_generous_support: Vielen Dank für Ihre großzügige Unterstützung
+return_home: "{return} zur EOL Homepage"
+return: Zurück
+
+invalid_login_information: Invalid login information
+#Enter the email address or username (or both) you registered with to retrieve your password
+forgot_password_message: Enter the email address or username (or both) you registered with to retrieve your password
+#Sorry, but we could not locate your account
+could_not_locate_account: Sorry, but we could not locate your account.
+#Sorry, but your email address is not unique - you must also specify a username.
+must_specify_username_too: Sorry, but your email address is not unique - you must also specify a username.
+# A new password has been emailed to you.
+new_password_emailed: A new password has been emailed to you.
+#Sorry, a problem occurred updating your account - please try again later.
+problem_updating_account: Sorry, a problem occurred updating your account - please try again later.
+taxon_group_of_interest: Taxon group of interest
+suggested_results: Suggested Results
+suggested_search_results_message: Based on your search of '{search_string}', you might be interested in the following species.
+content_partners: Content Partners
+
+#Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information.
+donation_security_message: Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information.

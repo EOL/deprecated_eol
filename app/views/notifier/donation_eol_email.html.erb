@@ -1,0 +1,12 @@
+New EOL Donation
+------------------------------------------
+First Name: <%= @donation.firstname %>
+Last Name: <%= @donation.lastname %>
+Email: <%= @donation.email %>
+Address: <%= @donation.address %>
+City: <%= @donation.city %>
+State: <%= @donation.state %>
+Postal Code: <%= @donation.postal_code %>
+Phone: <%= @donation.phone %>
+
+Amount: <%= number_to_currency(@donation.amount) %>

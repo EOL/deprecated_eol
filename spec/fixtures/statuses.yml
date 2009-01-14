@@ -1,0 +1,19 @@
+inserted:
+  id: 1
+  label: Inserted
+
+updated:
+  id: 2
+  label: Updated
+
+unchanged:
+  id: 3
+  label: Unchanged
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: statuses
+#
+#  id    :integer(2)      not null, primary key
+#  label :string(255)     not null
+

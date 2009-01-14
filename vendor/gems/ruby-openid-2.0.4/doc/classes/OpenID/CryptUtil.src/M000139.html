@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>binary_to_num (OpenID::CryptUtil)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/cryptutil.rb, line 76</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">CryptUtil</span>.<span class="ruby-identifier">binary_to_num</span>(<span class="ruby-identifier">s</span>)
+      <span class="ruby-comment cmt"># taken from openid-ruby 0.0.1</span>
+      <span class="ruby-identifier">s</span> = <span class="ruby-value str">&quot;\000&quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-value">4</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">s</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">%</span> <span class="ruby-value">4</span>)) <span class="ruby-operator">+</span> <span class="ruby-identifier">s</span>
+      <span class="ruby-identifier">num</span> = <span class="ruby-value">0</span>
+      <span class="ruby-identifier">s</span>.<span class="ruby-identifier">unpack</span>(<span class="ruby-value str">'N*'</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">num</span> <span class="ruby-operator">&lt;&lt;=</span> <span class="ruby-value">32</span>
+        <span class="ruby-identifier">num</span> <span class="ruby-operator">|=</span> <span class="ruby-identifier">x</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">num</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Curators'} %>
+
+<div id="users">
+	<% form_tag({:action=>'index'},:method=>'get') do %>
+		Search for curators containing: <%= text_field_tag(:user_search_string,@user_search_string)%> <%= submit_tag 'Search' %>
+		<br/>
+		<br/>
+			<% end %>
+
+		<% if @users.nil? == false && @users.size > 0 %>
+			
+			A total of <%= @user_count %> users were found matching your criteria.<br />
+    	You may change clade level curator permissions on individual profile pages.
+			
+			<%= will_paginate @users %>
+			    <table class="results_table" cellspacing="0">
+			    <tr><th>UserName</th><th>Credentials</th><th>Name</th><th>Taxon</th><th>Approved?</th><th>On</th><th>By</th></tr>
+				<% for user in @users
+					column_class=cycle('odd','even')  %>
+				    <tr>
+				    	<td class="<%= column_class %>"><%= link_to(user.username, :controller => 'administrator/user', :action=>'edit',:id=>user.id)%></td>
+						<td class="<%= column_class %>"><%= h user.credentials%></td>
+						<td class="<%= column_class %>"><%= h user.given_name + ' ' + user.family_name%></td>
+						<td class="<%= column_class %>"><%= user.curator_hierarchy_entry.name %></td>
+						<% form_id = "user_curator_#{user.id}"%>
+						<td class="<%= column_class %>">
+							<% form_tag({:action => 'index'}, :id => form_id, :method => 'get') do %>
+							<input type="hidden" name="user[id]" value="<%= user.id %>">
+							<%= check_box_tag('user[curator_approved]', user.curator_approved, user.curator_approved) %>
+							<%= observe_form(form_id, :url => {:controller => 'administrator/user', :action => :toggle_curator}, :frequency => 0.10) %>
+							<% end %>
+						</td>
+						<td class="<%= column_class %>" id="<%= form_id %>_at"><%= format_date_time(user.curator_verdict_at) unless user.curator_verdict_at.nil? %></td>
+						<td class="<%= column_class %>" id="<%= form_id %>_by"><%= link_to(user.curator_verdict_by.username,:action=>'edit',:id=>user.id) unless user.curator_verdict_by.nil? %></td>
+					</tr>									
+				<% end %>
+			    </table>		
+				<br />
+			<%= will_paginate @users %>
+			
+	    <% else %>
+				No users are available matching your search criteria.
+            <%end %>
+
+</div>
+						
+<%= render :partial => '/admin/content_bottom' %>

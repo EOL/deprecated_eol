@@ -1,0 +1,3 @@
+<% cache(:controller=>'taxa',:part=>'search_' + @search.search_language + '_' + @search.search_string + '_' + current_user.vetted.to_s + '_' + @last_harvest_event_id)  do %>           
+    <%= render :partial=>'names_search_results' %>                        
+<% end %>         

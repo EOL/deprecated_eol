@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>find_first_href (OpenID)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/html_parse.rb, line 120</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">find_first_href</span>(<span class="ruby-identifier">link_attrs_list</span>, <span class="ruby-identifier">target_rel</span>)
+    <span class="ruby-comment cmt"># Return the value of the href attribute for the first link tag in</span>
+    <span class="ruby-comment cmt"># the list that has target_rel as a relationship.</span>
+
+    <span class="ruby-comment cmt"># XXX: TESTME</span>
+    <span class="ruby-identifier">matches</span> = <span class="ruby-identifier">find_links_rel</span>(<span class="ruby-identifier">link_attrs_list</span>, <span class="ruby-identifier">target_rel</span>)
+    <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">matches</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">matches</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">first</span> = <span class="ruby-identifier">matches</span>[<span class="ruby-value">0</span>]
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">first</span>[<span class="ruby-value str">'href'</span>]
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,117 @@
+:javascript
+  function check_url() {
+    new Ajax.Request('/resources/check_url', {
+        parameters: {url: $('resource_accesspoint_url').value},
+        method:'get',
+        asynchronous:true,
+        evalScripts:true
+        });		
+    }
+    
+- form_for(@resource, :method => method, :html => {  :multipart => true, :id => 'resource_form',:class => "warning-warn invalid-invalid styleLabelOnErr" } ) do |f| 
+  = f.error_messages
+
+  %fieldset
+    %p
+      This form is used to notify EOL of a resource that is available for processing.  You can either upload
+      your resource or place it on a public server and indicate it's URL, but you should not do both.  Providing a URL
+      is preferable since you can then schedule a regular interval for your data to be updated.
+      Currently, the resource must be in the EOL Transfer Schema format. <br />* indicates a required field.
+    %br/
+    
+    - if (current_user.is_admin?)  
+      - if ([ResourceStatus.processed, ResourceStatus.published].include? @resource.resource_status)
+        = check_box_tag :publish, '1', (@resource.resource_status == ResourceStatus.published)
+        %label{:for => :publish, :style => "padding-left:1em;display:inline"} Publish this resource
+        = hidden_field_tag :publish, '0'
+        %br/
+      = check_box_tag :auto_publish, '1', @resource.auto_publish
+      %label{:for => :auto_publish, :style => "padding-left:1em;display:inline"} Auto-publish this resource (future harvest do not require preview)
+      = hidden_field_tag :auto_publish, '0'
+      %br/
+      = check_box_tag :vetted, '1', @resource.vetted      
+      = hidden_field_tag :vetted, '0'
+      - if @resource.vetted
+        %label{:for => :vetted, :style => "padding-left:1em;display:inline"} Uncheck to unvet this entire resource (all uncurated data objects will be untrusted)
+      - else
+        %label{:for => :vetted, :style => "padding-left:1em;display:inline"} Vet this entire resource (all uncurated data objects will be trusted)   
+      %br/
+      %br/
+                  
+    .form_item
+      = f.label :title, 'Title: <span title="required">*</span>'
+      <!-- resource_title ^.{1,200}$ false true //-->
+      = f.text_field :title, :maxlength=>200, :size=>50 
+    .form_item
+      - if @resource.dataset_file_name.blank?    
+        = f.label :accesspoint_url, 'Indicate below the full URL (include \'http://\') from which the resource can be downloaded:  <span title="required">*</span>'
+        = f.text_field :accesspoint_url, :maxlength=>200, :size=>75 , :onblur=>'check_url();'
+        %span.error{:id => 'url_warn'}    
+      - unless @resource.dataset_file_name.blank?
+        %br/
+        = 'A previous file was uploaded for this resource, called ' + @resource.dataset_file_name
+        = f.label :dataset, 'Select a new file to upload below (gzip, tar or XML only): <span title="required">*</span>'
+        = f.file_field :dataset, :size => 60        
+     
+      = '<br /> OR <br />' if controller.action_name=='create' || controller.action_name=='new'
+
+      - if (@resource.accesspoint_url.blank? && @resource.dataset_file_name.blank?)
+        = f.label :dataset, 'Select a resource file to upload below (gzip, tar or XML only): <span title="required">*</span>'
+        = f.file_field :dataset, :size => 60
+        
+    .form_item  
+      = f.label :subject, 'Taxonomic subject of data (e.g. birds, mammals, etc.): <span title="required">*</span>'
+      <!-- resource_subject ^.{1,200}$ false true //-->
+      = f.text_field :subject, :maxlength=>200, :size=>50 
+    .form_item
+      = f.label :resource_created_at, 'Date This Resource Was Created:  <span title="required">*</span>'
+      = f.date_select :resource_created_at
+    .form_item
+      = f.label :refresh_period_hours, 'Frequency Resource should be updated (only if you are providing a URL):  <span title="required">*</span>'
+    
+      %table
+        %tr
+          %td{:width => "125"}
+            = f.radio_button :refresh_period_hours, 0
+            Import once          
+          %td{:width => "125"}
+            = f.radio_button :refresh_period_hours, 7 * 24
+            Weekly
+          %td{:width => "125"}
+            = f.radio_button :refresh_period_hours, 30 * 24
+            Monthly
+          %td{:width => "125"}
+            = f.radio_button :refresh_period_hours, 60 * 24
+            Bi-Monthly
+          %td{:width => "125"}
+            = f.radio_button :refresh_period_hours, 91 * 24
+            Quarterly
+    .form_item 
+      = f.label :license, 'Default License: <span title="required">*</span>'
+      %table
+        %tr
+          - License.find_all_by_show_to_content_partners(true).each do |license|
+            = cycle('</tr><tr>', '', '', '') 
+            %td{:width => "125"}
+              = f.radio_button :license_id, license.id
+              = external_link_to(license.title,license.source_url)
+    .form_item
+      = f.label :rights_statement, 'Default Rights Statement: '
+      = f.text_field :rights_statement, :maxlength=>400, :size=>70 
+    .form_item
+      = f.label :rights_holder, 'Default Rights Holder: '
+      = f.text_field :rights_holder, :maxlength=>200, :size=>50 
+    .form_item
+      = f.label :language_id, 'Default Language:'
+      = f.select :language_id, Language.find_active.collect {|l| [l.name, l.id]}
+    .form_item
+      = f.label :description, 'Description:'
+      = f.text_area :description
+
+    /admin needs to know which content partner to return to
+    = hidden_field_tag(:content_partner_id, content_partner_id) if current_user.is_admin?
+    
+    #form_validation_error/
+  %br/
+  = f.submit button_label
+

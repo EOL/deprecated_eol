@@ -1,0 +1,150 @@
+# There are two databases for each environment, plus one for the MySQL master 
+# in production.
+#
+# 1. The Rails database
+# 2. The EOL species database. Writing is not allowed to this database
+# 3. The master_database connection is used in production mode. It is the 
+#    database master for writes for the standard Rails database
+#
+# For developers:
+# 1. Make sure to setup your +development+ and +test+ environments
+# 2. During development, the "_data" databases should share the same name, 
+#    e.g. eol_data_shared. This is because the "denormal:build_random_taxa"
+#    rake task populates it with actual data useful for testing and dev.
+# 
+# Common settings for each environment assume that all four databases are on 
+# the same database server for each environment.  If this is not the case, 
+# you will need to manually edit the entries below the +common+ settings for 
+# each database in that environment.
+#
+# The convention for database names is "eol_<DATABASENAME>_<RAILS_ENV>"
+
+#######################
+# common settings for all environments
+common: &common
+  adapter: mysql
+  #socket: /data/mysql/mysql.sock
+  encoding: utf8
+
+# common settings for any development databases
+development_common: &development
+  host:     localhost
+  username: root
+  password:
+
+# common settings for all test databases
+test_common: &test
+  host:     localhost
+  username: root
+  password:
+
+# common settings for all demo databases
+demo_common: &demo
+  host:     localhost
+  username: username
+  password: password
+
+# common settings for all integration databases
+integration_common: &integration
+  host:     localhost
+  username: username
+  password: password
+
+# common settings for all production databases
+production_common: &production
+  host:     mdata.example.org
+  username: username
+  password: password
+
+#######################
+development:
+  <<: *common
+  <<: *development
+  database: eol_development
+  
+development_data:
+  <<: *common
+  <<: *development
+  database: eol_data_development
+
+development_logging:
+  <<: *common
+  <<: *development
+  database: eol_logging_development
+
+############################
+test:
+  <<: *common
+  <<: *test
+  database: eol_test
+
+test_data:
+  <<: *common
+  <<: *test
+  database: eol_data_test
+
+test_logging:
+  <<: *common
+  <<: *test
+  database: eol_logging_test
+
+############################
+demo:
+  <<: *common
+  <<: *demo
+  database: eol_demo
+  
+demo_data:
+  <<: *common
+  <<: *demo
+  database: eol_data_demo
+
+demo_logging:
+  <<: *common
+  <<: *demo
+  database: eol_logging_demo
+
+############################    
+integration:
+  <<: *common
+  <<: *integration
+  database: eol_integration
+
+integration_data:
+  <<: *common
+  <<: *integration
+  database: eol_data_integration
+  
+integration_logging:
+  <<: *common
+  <<: *integration
+  database: eol_logging_integration
+############################  
+production:
+  <<: *common
+  <<: *production
+  database: eol_production
+
+production_data:
+  <<: *common
+  <<: *production
+  database: eol_data_production
+
+production_logging:
+  <<: *common
+  <<: *production
+  database: eol_logging_production
+  
+############################  
+# for production only
+# master database connection for rails database
+#master_database:
+#  <<: *common
+#  <<: *development_common
+#  database: eol_development
+#
+# master database connection for data database  
+#master_data_database:
+#  <<: *common
+#  <<: *development_common
+#  database: eol_data_development

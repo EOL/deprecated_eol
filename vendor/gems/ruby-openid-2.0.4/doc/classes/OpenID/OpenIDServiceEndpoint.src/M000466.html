@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_service (OpenID::OpenIDServiceEndpoint)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/discovery.rb, line 103</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_service</span>(<span class="ruby-identifier">yadis_url</span>, <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">type_uris</span>, <span class="ruby-identifier">service_element</span>)
+      <span class="ruby-comment cmt"># Set the state of this object based on the contents of the</span>
+      <span class="ruby-comment cmt"># service element.</span>
+      <span class="ruby-ivar">@type_uris</span> = <span class="ruby-identifier">type_uris</span>
+      <span class="ruby-ivar">@server_url</span> = <span class="ruby-identifier">uri</span>
+      <span class="ruby-ivar">@used_yadis</span> = <span class="ruby-keyword kw">true</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">is_op_identifier</span>()
+        <span class="ruby-comment cmt"># XXX: This has crappy implications for Service elements that</span>
+        <span class="ruby-comment cmt"># contain both 'server' and 'signon' Types.  But that's a</span>
+        <span class="ruby-comment cmt"># pathological configuration anyway, so I don't think I care.</span>
+        <span class="ruby-ivar">@local_id</span> = <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">find_op_local_identifier</span>(<span class="ruby-identifier">service_element</span>,
+                                                    <span class="ruby-ivar">@type_uris</span>)
+        <span class="ruby-ivar">@claimed_id</span> = <span class="ruby-identifier">yadis_url</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

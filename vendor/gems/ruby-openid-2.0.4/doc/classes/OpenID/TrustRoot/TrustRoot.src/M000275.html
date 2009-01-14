@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse (OpenID::TrustRoot::TrustRoot)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/trustroot.rb, line 189</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-constant">TrustRoot</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">trust_root</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">trust_root</span>.<span class="ruby-identifier">instance_of?</span>(<span class="ruby-constant">String</span>)
+
+        <span class="ruby-identifier">trust_root</span> = <span class="ruby-identifier">trust_root</span>.<span class="ruby-identifier">dup</span>
+        <span class="ruby-identifier">unparsed</span> = <span class="ruby-identifier">trust_root</span>.<span class="ruby-identifier">dup</span>
+
+        <span class="ruby-comment cmt"># look for wildcard</span>
+        <span class="ruby-identifier">wildcard</span> = (<span class="ruby-keyword kw">not</span> <span class="ruby-identifier">trust_root</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'://*.'</span>).<span class="ruby-identifier">nil?</span>)
+        <span class="ruby-identifier">trust_root</span>.<span class="ruby-identifier">sub!</span>(<span class="ruby-value str">'*.'</span>, <span class="ruby-value str">''</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">wildcard</span>
+
+        <span class="ruby-comment cmt"># handle http://*/ case</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">wildcard</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@@empty_re</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">trust_root</span>)
+          <span class="ruby-identifier">proto</span> = <span class="ruby-identifier">trust_root</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">':'</span>)[<span class="ruby-value">0</span>]
+          <span class="ruby-identifier">port</span> = <span class="ruby-identifier">proto</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'http'</span> <span class="ruby-operator">?</span> <span class="ruby-value">80</span> <span class="ruby-operator">:</span> <span class="ruby-value">443</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">new</span>(<span class="ruby-identifier">unparsed</span>, <span class="ruby-identifier">proto</span>, <span class="ruby-keyword kw">true</span>, <span class="ruby-value str">''</span>, <span class="ruby-identifier">port</span>, <span class="ruby-value str">'/'</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">parts</span> = <span class="ruby-constant">TrustRoot</span>.<span class="ruby-identifier">_parse_url</span>(<span class="ruby-identifier">trust_root</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-identifier">proto</span>, <span class="ruby-identifier">host</span>, <span class="ruby-identifier">port</span>, <span class="ruby-identifier">path</span> = <span class="ruby-identifier">parts</span>
+
+        <span class="ruby-comment cmt"># check for URI fragment</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">path</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">path</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'#'</span>).<span class="ruby-identifier">nil?</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">unless</span> [<span class="ruby-value str">'http'</span>, <span class="ruby-value str">'https'</span>].<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">proto</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">new</span>(<span class="ruby-identifier">unparsed</span>, <span class="ruby-identifier">proto</span>, <span class="ruby-identifier">wildcard</span>, <span class="ruby-identifier">host</span>, <span class="ruby-identifier">port</span>, <span class="ruby-identifier">path</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

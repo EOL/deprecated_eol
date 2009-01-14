@@ -1,0 +1,16 @@
+<table class="results_table" cellspacing="0" summary="Common Names">
+	<tr><th scope="col"><%="Name"[]%></th><th scope="col"><%="Language"[]%></th></tr>
+<%
+	if @content[:items].nil? == false
+		for name in @content[:items]
+			column_class=cycle('odd','even') %>
+    <tr><td class="<%= column_class %>"><%=h name[:string]%></td><td class="<%= column_class  %>"><%=h name[:label] %> <%= h "- " + name[:name] unless name[:name].empty?%></td></tr>
+		<% end 
+     end -%>
+</table>
+<div class="divider"></div>	
+<div class="content-attribution-area">
+    <div class="attribution-header2"><%= "Source and Additional Information"[] %></div>
+	<span class="source">Names provided by <%=external_link_to("uBio","http://www.ubio.org") %></span>
+</div>
+

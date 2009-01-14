@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>from_basic_service_endpoint (OpenID::OpenIDServiceEndpoint)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/discovery.rb, line 130</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">from_basic_service_endpoint</span>(<span class="ruby-identifier">endpoint</span>)
+      <span class="ruby-comment cmt"># Create a new instance of this class from the endpoint object</span>
+      <span class="ruby-comment cmt"># passed in.</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-comment cmt"># @return: nil or OpenIDServiceEndpoint for this endpoint object&quot;&quot;&quot;</span>
+
+      <span class="ruby-identifier">type_uris</span> = <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">match_types</span>(<span class="ruby-constant">OPENID_TYPE_URIS</span>)
+
+      <span class="ruby-comment cmt"># If any Type URIs match and there is an endpoint URI specified,</span>
+      <span class="ruby-comment cmt"># then this is an OpenID endpoint</span>
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">type_uris</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">type_uris</span>.<span class="ruby-identifier">empty?</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">openid_endpoint</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">openid_endpoint</span>.<span class="ruby-identifier">parse_service</span>(
+                                      <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">yadis_url</span>,
+                                      <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">uri</span>,
+                                      <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">type_uris</span>,
+                                      <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">service_element</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">openid_endpoint</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">openid_endpoint</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

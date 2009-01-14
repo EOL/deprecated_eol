@@ -1,0 +1,31 @@
+# this shouldn't override individual developers' autotest configurations
+unless File.file? File.expand_path('~/.autotest')
+
+  require 'rubygems'
+  require 'autotest/redgreen'
+
+  if PLATFORM =~ /win32/
+    require 'Win32/Console/ANSI'
+    require 'ruby-snarl'
+  elsif PLATFORM =~ /darwin/
+    require 'ruby-growl'
+  end
+
+  Autotest.add_hook :red do
+    system('say "Finished raking specs.  There were failures."')
+    puts "#{'-' * 8} Oh, hey, new stuff... #{'-' * 40}"
+  end
+
+  Autotest.add_hook :green do
+    system('say "Finished raking specs.  All tests passed."')
+    puts "#{'-' * 8} Oh, hey, new stuff... #{'-' * 40}"
+  end
+
+  Autotest.add_hook :run_command do
+    system('say "Found changes to spec files"')
+    puts "#{'-' * 8} Oh, hey, new stuff... #{'-' * 40}"
+  end
+
+end
+
+# vim:ft=ruby:

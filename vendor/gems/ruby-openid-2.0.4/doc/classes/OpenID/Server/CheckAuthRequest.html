@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OpenID::Server::CheckAuthRequest</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OpenID::Server::CheckAuthRequest</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/openid/server_rb.html">
+                lib/openid/server.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="OpenIDRequest.html">
+                OpenIDRequest
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A request to verify the validity of a previous response.
+</p>
+<p>
+See <a href="../../OpenID.html">OpenID</a> Specs, Verifying Directly with
+the <a href="../../OpenID.html">OpenID</a> Provider &lt;<a
+href="http://openid.net/specs/openid-authentication-2_0-12.html#verifying_signatures">openid.net/specs/openid-authentication-2_0-12.html#verifying_signatures</a>&gt;
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000255">answer</a>&nbsp;&nbsp;
+      <a href="#M000254">from_message</a>&nbsp;&nbsp;
+      <a href="#M000253">new</a>&nbsp;&nbsp;
+      <a href="#M000256">to_s</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">assoc_handle</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The association handle the response was signed with.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">invalidate_handle</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+An association handle the client is asking about the validity of. May be
+nil.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">sig</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">signed</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The message with the signature which wants checking.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000254" class="method-detail">
+        <a name="M000254"></a>
+
+        <div class="method-heading">
+          <a href="CheckAuthRequest.src/M000254.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckAuthRequest.src/M000254.html');return false;">
+          <span class="method-name">from_message</span><span class="method-args">(message, op_endpoint=UNUSED)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Construct me from an <a href="../Message.html">OpenID::Message</a>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000253" class="method-detail">
+        <a name="M000253"></a>
+
+        <div class="method-heading">
+          <a href="CheckAuthRequest.src/M000253.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckAuthRequest.src/M000253.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(assoc_handle, signed, invalidate_handle=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Construct me.
+</p>
+<p>
+These parameters are assigned directly as class attributes.
+</p>
+<p>
+Parameters:
+</p>
+<table>
+<tr><td valign="top">assoc_handle:</td><td>the association handle for this request
+
+</td></tr>
+<tr><td valign="top">signed:</td><td>The signed message
+
+</td></tr>
+<tr><td valign="top">invalidate_handle:</td><td>An association handle that the relying party is checking to see if it is
+invalid
+
+</td></tr>
+</table>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000255" class="method-detail">
+        <a name="M000255"></a>
+
+        <div class="method-heading">
+          <a href="CheckAuthRequest.src/M000255.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckAuthRequest.src/M000255.html');return false;">
+          <span class="method-name">answer</span><span class="method-args">(signatory)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Respond to this request.
+</p>
+<p>
+Given a <a href="Signatory.html">Signatory</a>, I can check the validity of
+the signature and the invalidate_handle. I return a response with an
+is_valid (and, if appropriate invalidate_handle) field.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000256" class="method-detail">
+        <a name="M000256"></a>
+
+        <div class="method-heading">
+          <a href="CheckAuthRequest.src/M000256.html" target="Code" class="method-signature"
+            onclick="popupCode('CheckAuthRequest.src/M000256.html');return false;">
+          <span class="method-name">to_s</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

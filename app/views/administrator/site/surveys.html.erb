@@ -1,0 +1,35 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Survey Respondents'} %>
+
+<%= link_to "[go back]",:back%>									    
+<div id="surveys">
+	<table class="results_table" cellspacing="0">
+		<tr><th>Response</th><th>Amount</th></tr>
+		<tr><td class="odd">Yes</td><td class="odd"><%=@yes_surveys_count%></td></tr>
+		<tr><td class="even">No</td><td class="even"><%=@no_surveys_count%></td></tr>
+		<tr><td class="odd">Done already</td><td class="odd"><%=@done_surveys_count%></td></tr>
+		<tr><td class="even">Total</td><td class="even"><%=@all_surveys_count%></td></tr>
+	</table>
+	
+	<br />
+	<% if @surveys.nil? == false && @surveys.size > 0 %>
+	The following users were presented with the survey pop-up window and responded to the request to take the survey as shown below:				    
+<br /><br />
+	<form id="pagination_form">
+	<%= will_paginate @surveys %>
+</form>
+
+	    <table class="results_table" cellspacing="0">
+	    <tr><th>User Response</th><th>User ID</th><th>IP Address</th><th>Taxon ID</th><th>Date</th></tr>
+		<% for survey in @surveys
+			column_class=cycle('odd','even')  %>
+		    <tr><td class="<%= column_class %>"><%=h survey.user_response%></td><td class="<%= column_class %>"><%=h survey.user_id%></td><td class="<%=column_class%>"><%=h survey.ip_address%></td><td class="<%=column_class%>"><%=h survey.taxon_id%></td><td class="<%=column_class%>"><%=format_date_time(survey.created_at)%></td></tr>
+			
+		<% end %>
+	    </table>
+	    	<form id="pagination_form2">
+      	<%= will_paginate @surveys %>
+      </form>		
+    <% elsif @surveys.nil? == false && @surveys.size == 0 %>
+		No survey responses are available.
+	<% end %>
+<%= render :partial => '/admin/content_bottom' %>

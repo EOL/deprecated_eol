@@ -1,0 +1,72 @@
+	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+	<div id="page-title">
+	    <h1><%="Your Preferences"[]%></h1>
+		<hr />
+	</div>
+	<!-- /page title -->
+	<div id="page-content" class="clearfix">
+	    <!-- center page content -->
+    	<div id="full-page-content">	
+    <%= eol_lang_error_messages_for :user %>
+    	    <br />
+
+              <% form_for :user, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f| -%>
+                <fieldset>
+                    <legend><%= "Account Information"[] %></legend>
+
+
+                    <label>Username:</label> <%= current_user.username %><br />
+					
+					<% if @user.not_openid? %>
+					    <p><%="Only enter a new password if you wish to change it."[:only_enter_new_password_if_needed]%></p>
+	                	<label for="password"><%="New Password"[]%></label>
+	                	<%= f.password_field :entered_password %>
+	
+	                	<label for="password_confirmation"><%="Confirm New Password"[]%></label>
+	                	<%= f.password_field :entered_password_confirmation %>
+	                    <br />
+					<% else %>
+					  <label>Open ID URL:</label> <%= current_user.identity_url %><br />
+						<%= f.hidden_field :entered_password%>	
+						<%= f.hidden_field :entered_password_confirmation%>	
+					<% end %>
+					
+				    <label for="user_email" title="<%= "Please enter your email address"[] %>"><%= "Email Address"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+                    <% if @user.not_openid? %> 
+						 <!-- user_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //-->
+					<% end %>
+                    <%= f.text_field :email %>
+					
+				    <label for="user_given_name" title="<%= "Please enter your given name"[] %>"><%= "Given name"[:given_name] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+                    <!-- user_given_name .+ false true //-->
+                    <%= f.text_field :given_name %>
+
+				    <label for="user_family_name" title="<%= "Please enter your family name"[] %>"><%= "Family name"[:family_name] %></label>
+                    <%= f.text_field :family_name %>
+					
+				    <label for="user_mailing_list" title="<%= "Do you want to receive EOL notifications?"[] %>"><%= "Do you want to receive EOL notifications?"[] %></label>
+                    <%= f.check_box :mailing_list %> <%= "Yes"[:yes_answer] %>
+					
+					<br /><br />
+					<%= render(:partial=>'taxa/set_content_settings',:locals=>{:f=>f}) %>
+          
+          <% if $ALLOW_CURATOR_SELF_REG %>
+			    <label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[:credentials] %> (CURATORS ONLY)</label>
+                  <%= f.text_area :credentials, :rows => 6 %>
+
+  					<% if @user.curator_approved %>
+  					  <br />
+  						<%= link_to 'View your curator profile', :controller => :account, :action => :show, :id => @user.id%>
+  					<% end %>
+          <% end %>
+          
+                	<div class="button">
+                	    <input type="button" name="<%="Cancel"[]%>" onclick="document.location.href='<%=back_or_home(return_to_url)%>';" value="<%="Cancel"[]%>" /> &nbsp;&nbsp; <%= submit_tag 'Update Account'[] %>
+                	</div>
+                </fieldset>
+            <% end -%>
+            <br />
+        </div>
+    </div>

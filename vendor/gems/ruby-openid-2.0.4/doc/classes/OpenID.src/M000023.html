@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_link_attrs (OpenID)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/html_parse.rb, line 36</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">parse_link_attrs</span>(<span class="ruby-identifier">html</span>)
+    <span class="ruby-identifier">stripped</span> = <span class="ruby-identifier">html</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-constant">REMOVED_RE</span>,<span class="ruby-value str">''</span>)
+    <span class="ruby-identifier">parser</span> = <span class="ruby-constant">HTMLTokenizer</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">stripped</span>)
+
+    <span class="ruby-identifier">links</span> = []
+    <span class="ruby-comment cmt"># to keep track of whether or not we are in the head element</span>
+    <span class="ruby-identifier">in_head</span> = <span class="ruby-keyword kw">false</span>
+    <span class="ruby-identifier">in_html</span> = <span class="ruby-keyword kw">false</span>
+    <span class="ruby-identifier">saw_head</span> = <span class="ruby-keyword kw">false</span>
+
+    <span class="ruby-keyword kw">begin</span>
+      <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">el</span> = <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">getTag</span>(<span class="ruby-value str">'head'</span>, <span class="ruby-value str">'/head'</span>, <span class="ruby-value str">'link'</span>, <span class="ruby-value str">'body'</span>, <span class="ruby-value str">'/body'</span>, 
+                               <span class="ruby-value str">'html'</span>, <span class="ruby-value str">'/html'</span>)
+        
+        <span class="ruby-comment cmt"># we are leaving head or have reached body, so we bail</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">links</span> <span class="ruby-keyword kw">if</span> [<span class="ruby-value str">'/head'</span>, <span class="ruby-value str">'body'</span>, <span class="ruby-value str">'/body'</span>, <span class="ruby-value str">'/html'</span>].<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">el</span>.<span class="ruby-identifier">tag_name</span>)
+
+        <span class="ruby-comment cmt"># enforce html &gt; head &gt; link</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">el</span>.<span class="ruby-identifier">tag_name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'html'</span>
+          <span class="ruby-identifier">in_html</span> = <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">in_html</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">el</span>.<span class="ruby-identifier">tag_name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'head'</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">saw_head</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">links</span> <span class="ruby-comment cmt">#only allow one head</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">saw_head</span> = <span class="ruby-keyword kw">true</span>
+          <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">el</span>.<span class="ruby-identifier">to_s</span>[<span class="ruby-value">-2</span>] <span class="ruby-operator">==</span> <span class="ruby-value">47</span> <span class="ruby-comment cmt"># tag ends with a /: a short tag</span>
+            <span class="ruby-identifier">in_head</span> = <span class="ruby-keyword kw">true</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">in_head</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">links</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">el</span>.<span class="ruby-identifier">tag_name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'html'</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">el</span>.<span class="ruby-identifier">tag_name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'link'</span>
+          <span class="ruby-identifier">links</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">unescape_hash</span>(<span class="ruby-identifier">el</span>.<span class="ruby-identifier">attr_hash</span>)
+        <span class="ruby-keyword kw">end</span>
+        
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-comment cmt"># just stop parsing if there's an error</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">links</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

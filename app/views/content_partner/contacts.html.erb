@@ -1,0 +1,49 @@
+<%= render :partial=> 'top',:locals=>{:page_header => @page_header} %>
+	This information will allow us to make contact with you.  It will not be visible on the EOL web site. You must have at least one contact.
+                    <!-- begin form -->
+                    <%= link_to("Add New Contact", { :action => 'add_contact' }) %>
+                    <br />
+                    <%= eol_lang_error_messages_for :agent %>                    
+                                                            
+                    <!-- end form -->
+
+                    <table class="results_table" width="100%">
+               
+                        <tr>
+                          <th>Contacts</th>
+                          <th>Role</th>
+                          <th style="width: 100px;">Options</th>
+                        </tr>        
+           
+                      <tbody>
+                        <% for contact in @agent_contacts 
+								column_class=cycle('odd','even')-%>
+                          <tr>
+                            <td class="<%=column_class%>">
+                              <%= h(contact.full_name) %><br />
+                              <a href="mailto:<%= h(contact.email) %>"><%= h(contact.email) %></a><br />
+                              <%= h(contact.telephone) + "<br />" unless contact.telephone.blank? %>
+                              <%= h(contact.address) + "<br />" unless contact.address.blank? %>
+                            </td>
+                            <td class="<%=column_class%>"><%= contact.agent_contact_role.label %></td>
+                            <td class="<%=column_class%>">
+                              <%= link_to("Change", { :action => 'edit_contact', :id => contact }) %> |
+                              <%= link_to("Delete", { :action => 'del_contact', :id => contact }, :confirm => "Are you sure you want to delete this contact?") %>
+                            </td>
+                          </tr>
+                        <% end -%>
+                      <tbody>
+                    </table>
+                    
+                    <% form_for @agent, :url => { :action => action_name }, :html => { :method => :post, :id => 'contacts_form' } do |f| %>
+                        <input id="save_type" type="hidden" name="save_type" value="stay" />
+                        <%= content_partner_save_type_hidden_field %>
+                    <% end -%>
+
+                    <br /><br />
+                    <div class="button">                        
+                        <%= content_partner_submit_buttons :id => 'contacts_form' %>
+                    </div>
+
+
+<%= render :partial=> 'bottom' %>

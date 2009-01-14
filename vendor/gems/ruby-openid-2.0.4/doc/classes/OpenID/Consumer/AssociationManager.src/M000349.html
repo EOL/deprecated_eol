@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_openid1_session_type (OpenID::Consumer::AssociationManager)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/associationmanager.rb, line 242</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_openid1_session_type</span>(<span class="ruby-identifier">assoc_response</span>)
+        <span class="ruby-comment cmt"># If it's an OpenID 1 message, allow session_type to default</span>
+        <span class="ruby-comment cmt"># to nil (which signifies &quot;no-encryption&quot;)</span>
+        <span class="ruby-identifier">session_type</span> = <span class="ruby-identifier">assoc_response</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID1_NS</span>, <span class="ruby-value str">'session_type'</span>)
+
+        <span class="ruby-comment cmt"># Handle the differences between no-encryption association</span>
+        <span class="ruby-comment cmt"># respones in OpenID 1 and 2:</span>
+
+        <span class="ruby-comment cmt"># no-encryption is not really a valid session type for</span>
+        <span class="ruby-comment cmt"># OpenID 1, but we'll accept it anyway, while issuing a</span>
+        <span class="ruby-comment cmt"># warning.</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">session_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'no-encryption'</span>
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;WARNING: #{@server_url} sent 'no-encryption'&quot;</span>\
+                   <span class="ruby-value str">&quot;for OpenID 1.X&quot;</span>)
+
+        <span class="ruby-comment cmt"># Missing or empty session type is the way to flag a</span>
+        <span class="ruby-comment cmt"># 'no-encryption' response. Change the session type to</span>
+        <span class="ruby-comment cmt"># 'no-encryption' so that it can be handled in the same</span>
+        <span class="ruby-comment cmt"># way as OpenID 2 'no-encryption' respones.</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">session_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">''</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">session_type</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">session_type</span> = <span class="ruby-value str">'no-encryption'</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">session_type</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

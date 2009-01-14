@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>decode (OpenID::Server::Decoder)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 1218</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decode</span>(<span class="ruby-identifier">query</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">message</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">from_post_args</span>(<span class="ruby-identifier">query</span>)
+
+        <span class="ruby-identifier">mode</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'mode'</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">mode</span>
+          <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">&quot;No mode value in message %s&quot;</span>, <span class="ruby-identifier">message</span>)
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">msg</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">handler</span> = <span class="ruby-ivar">@@handlers</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">mode</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">method</span>(<span class="ruby-value str">'default_decoder'</span>))
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">handler</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">message</span>, <span class="ruby-ivar">@server</span>.<span class="ruby-identifier">op_endpoint</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

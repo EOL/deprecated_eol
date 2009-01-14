@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>cancel_url (OpenID::Server::CheckIDRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 793</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">cancel_url</span>
+        <span class="ruby-comment cmt"># Get the URL to cancel this request.</span>
+        <span class="ruby-comment cmt">#</span>
+        <span class="ruby-comment cmt"># Useful for creating a &quot;Cancel&quot; button on a web form so that</span>
+        <span class="ruby-comment cmt"># operation can be carried out directly without another trip</span>
+        <span class="ruby-comment cmt"># through the server.</span>
+        <span class="ruby-comment cmt">#</span>
+        <span class="ruby-comment cmt"># (Except you may want to make another trip through the</span>
+        <span class="ruby-comment cmt"># server so that it knows that the user did make a decision.)</span>
+        <span class="ruby-comment cmt">#</span>
+        <span class="ruby-comment cmt"># Returns a URL as a string.</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@return_to</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">NoReturnToError</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@immediate</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;Cancel is not an appropriate response to &quot;</span> <span class="ruby-operator">+</span>
+                                  <span class="ruby-value str">&quot;immediate mode requests.&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">response</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@namespace</span>)
+        <span class="ruby-identifier">response</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'mode'</span>, <span class="ruby-value str">'cancel'</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">to_url</span>(<span class="ruby-ivar">@return_to</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

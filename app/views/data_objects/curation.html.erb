@@ -1,0 +1,27 @@
+<div class="visibility">
+  <% form_remote_tag :url => curate_data_object_path(@data_object), :method => 'put', :complete => "$$('#large-image-curator-button-popup-link_popup_content .visibility form')[0].enable();$$('#large-image-curator-button-popup-link_popup_content .visibility form img')[0].fade();" do %>
+    <div class="label">VISIBILITY <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
+    <div class="option">
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.hide!.id.to_s, @data_object.invisible? %> Hide
+    </div>
+    <div class="option">
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.show!.id.to_s, @data_object.visible? %> Show
+    </div>
+    <div class="option">
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.inappropriate!.id.to_s, @data_object.inappropriate? %> Inappropriate
+    </div>
+  <% end %>
+</div>
+
+<div class="vetted">
+  <% form_remote_tag :url => curate_data_object_path(@data_object), :method => 'put', :complete => "$$('#large-image-curator-button-popup-link_popup_content .vetted form')[0].enable();$$('#large-image-curator-button-popup-link_popup_content .vetted form img')[0].fade();" do %>
+    <div class="label">VETTED <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
+    <div class="option">
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.approve!.id.to_s, @data_object.trusted? %> Trusted
+    </div>
+    <div class="option">
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.disapprove!.id.to_s, @data_object.untrusted? %> Untrusted
+    </div>
+  <% end %>
+</div>
+

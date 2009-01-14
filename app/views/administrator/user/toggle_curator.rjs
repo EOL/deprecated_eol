@@ -1,0 +1,4 @@
+at_id = "user_curator_#{@user.id}_at"
+by_id = "user_curator_#{@user.id}_by"
+page.replace_html at_id, format_date_time(@user.curator_verdict_at)
+page.replace_html by_id, link_to(h(@user.curator_verdict_by.username),:action=>'edit',:id=>@user.curator_verdict_by.id)

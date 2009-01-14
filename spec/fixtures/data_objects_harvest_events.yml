@@ -1,0 +1,74 @@
+araneus_gemmoides_inapropriate_harvest1:
+  harvest_event_id: 1
+  data_object_id: 43454234
+  guid: 332423c2242546f456456342a2342c3a
+  status_id: 1
+
+araneus_gemmoides_deleted_harvest1:
+  harvest_event_id: 1
+  data_object_id: 43454233
+  guid: 15418c109635469006b457c18dbb3b3c
+  status_id: 1
+
+araneus_gemmoides_diagnostics_updated_harvest_1:
+  harvest_event_id: 1
+  data_object_id: 43454345
+  guid: 958467d1880cd7746a5192128e37df1c
+  status_id: 1
+
+araneus_gemmoides_distribution_unchanged_harvest_1:
+  harvest_event_id: 1
+  data_object_id: 43454346
+  guid: 236dc3a29eb1908efc92071019025b8b
+  status_id: 1
+
+araneus_gemmoides_habitat_invisible_h1:
+  harvest_event_id: 1
+  data_object_id: 463834099
+  guid: 6803c87befc10d586b43f5420be18f3b
+  status_id: 1
+  
+araneus_gemmoides_diagnostics_updated_harvest_2:
+  harvest_event_id: 2
+  data_object_id: 565874094
+  guid: 958467d1880cd7746a5192128e37df1c
+  status_id: 2
+
+araneus_gemmoides_distribution_unchanged_harvest_2:
+  harvest_event_id: 2
+  data_object_id: 43454346
+  guid: 236dc3a29eb1908efc92071019025b8b
+  status_id: 3
+
+araneus_gemmoides_diagnostics_inserted_harvest_2:
+  harvest_event_id: 2
+  data_object_id: 565874093
+  guid: 6683c87befc10d586b43f5420be18f3b
+  status_id: 1
+
+araneus_gemmoides_inappropriate_updated_untrusted_harvest2:
+  harvest_event_id: 2
+  data_object_id: 53454234
+  guid: 332423c2242546f456456342a2342c3a
+  status_id: 2
+
+araneus_gemmoides_trusted_harvest2:
+  harvest_event_id: 2
+  data_object_id: 53454294
+  guid: 332423c2142546a456456342b2342c3a
+  status_id: 2
+    
+araneus_gemmoides_habitat_updated_invisible_h2:
+  harvest_event_id: 2
+  data_object_id: 563834099
+  guid: 6803c87befc10d586b43f5420be18f3b
+  status_id: 2# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: data_objects_harvest_events
+#
+#  data_object_id   :integer(4)      not null
+#  harvest_event_id :integer(4)      not null
+#  status_id        :integer(1)      not null
+#  guid             :string(32)      not null
+

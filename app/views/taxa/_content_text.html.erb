@@ -1,0 +1,58 @@
+<% 
+  unvetted_counter=0
+  unvetted_banner_shown=false
+  comments_style=(@ajax_update ? '' : 'display:none;')  # comments start out as hidden on first page load (shown when entire page is loaded, but for ajax updates, show immediately)
+ 
+  unless @content[:data_objects].nil?
+    for content_item in @content[:data_objects]
+      unvetted_counter+=1 if content_item.vetted_id != Vetted.trusted.id
+-%>
+    <% if unvetted_counter == 1 && !unvetted_banner_shown 
+       unvetted_banner_shown=true %>
+      <%= render :partial=>'/shared/unvetted_text_warning_box' -%>
+    <% end %>
+    <div class="content-article">
+      <% if content_item.object_title.blank? == false && content_item.object_title != @content[:category_name] %>
+        <h1><%= hh(content_item.object_title) %></h1>
+      <% end %>
+
+      <!-- ATTRIBUTION GOES HERE -->
+      <div class="content-attribution-area">
+        <div class="attribution-header2"><%- if !content_item.published -%><%= preview_icon %>&nbsp;<%- end -%><%= "Source and Additional Information"[] %></div>
+        <%= render :partial => 'data_objects/attribution', :locals => { :data_object => content_item } %>
+      </div>        
+
+      <br />
+
+      <div <%='class="unvetted-background-text"' if content_item.vetted_id != Vetted.trusted.id %>>
+       <%- if !content_item.published -%>
+         <%= preview_icon %>
+       <%- end -%>
+       <%= content_item.description %>
+      </div>
+
+      <div class="text-buttons">
+        <div class="text-right-buttons">
+          <ul class="text-button-group">
+            <li class="text-comment-button">
+              <%# This link begins life hidden, so that it is only viewable (hence clickable) after Javascript (hence Behaviours)
+                  have been loaded: %>
+                  <%= link_to image_tag('comment_button.png'), data_object_comments_path(content_item), :style => comments_style,
+                              :class => 'slide-in-link' %>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="text-comments-<%= content_item.id %>-loading" style="display:none;">
+      <%# TODO - we re-use this indicator a lot.  Put it in a CSS class. %> 
+      <p><%= image_tag 'indicator_arrows_black.gif' %> Retrieving comments, please wait...</p>
+    </div>
+    <div class="text-comment-border" id="text-comments-border-<%= content_item.id %>" style="display:none;">
+      <div class="text-comment-div" id="text-comments-<%= content_item.id %>" style="display:none;">
+      </div>
+    </div>
+    <div class="divider"></div>  
+    <p></p><%
+  end 
+end -%>

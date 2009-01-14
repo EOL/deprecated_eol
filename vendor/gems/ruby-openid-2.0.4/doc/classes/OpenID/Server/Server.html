@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OpenID::Server::Server</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OpenID::Server::Server</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/openid/server_rb.html">
+                lib/openid/server.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+I handle requests for an <a href="../../OpenID.html">OpenID</a> server.
+</p>
+<p>
+Some types of requests (those which are not checkid requests) may be handed
+to my handleRequest method, and I will take care of it and return a
+response.
+</p>
+<p>
+For your convenience, I also provide an interface to <a
+href="Decoder.html#M000215">Decoder.decode</a> and <a
+href="SigningEncoder.html#M000200">SigningEncoder.encode</a> through my
+methods decodeRequest and encodeResponse.
+</p>
+<p>
+All my state is encapsulated in an store, which means I&#8216;m not
+generally pickleable but I am easy to reconstruct.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000238">decode_request</a>&nbsp;&nbsp;
+      <a href="#M000239">encode_response</a>&nbsp;&nbsp;
+      <a href="#M000235">handle_request</a>&nbsp;&nbsp;
+      <a href="#M000234">new</a>&nbsp;&nbsp;
+      <a href="#M000237">openid_associate</a>&nbsp;&nbsp;
+      <a href="#M000236">openid_check_authentication</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">decoder</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+I&#8216;m using this to decode things.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">encoder</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+I&#8216;m using this to encode things.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">negotiator</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+I use this instance of <a
+href="../AssociationNegotiator.html">OpenID::AssociationNegotiator</a> to
+determine which kinds of associations I can make and how.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">op_endpoint</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+My URL.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">signatory</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+I&#8216;m using this for associate requests and to sign things.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">store</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc">
+The back-end where my associations and nonces are stored.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000234" class="method-detail">
+        <a name="M000234"></a>
+
+        <div class="method-heading">
+          <a href="Server.src/M000234.html" target="Code" class="method-signature"
+            onclick="popupCode('Server.src/M000234.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(store, op_endpoint)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+op_endpoint is <a href="Server.html#M000234">new</a> in library version
+2.0.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000238" class="method-detail">
+        <a name="M000238"></a>
+
+        <div class="method-heading">
+          <a href="Server.src/M000238.html" target="Code" class="method-signature"
+            onclick="popupCode('Server.src/M000238.html');return false;">
+          <span class="method-name">decode_request</span><span class="method-args">(query)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Transform query parameters into an <a
+href="OpenIDRequest.html">OpenIDRequest</a>. query should contain the query
+parameters as a Hash with each key mapping to one value.
+</p>
+<p>
+If the query does not seem to be an <a href="../../OpenID.html">OpenID</a>
+request at all, I return nil.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000239" class="method-detail">
+        <a name="M000239"></a>
+
+        <div class="method-heading">
+          <a href="Server.src/M000239.html" target="Code" class="method-signature"
+            onclick="popupCode('Server.src/M000239.html');return false;">
+          <span class="method-name">encode_response</span><span class="method-args">(response)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Encode a response to a <a href="WebResponse.html">WebResponse</a>, signing
+it first if appropriate.
+</p>
+<p>
+Raises <a href="EncodingError.html">EncodingError</a> when I can&#8216;t
+figure out how to encode this message.
+</p>
+<p>
+Raises <a href="AlreadySigned.html">AlreadySigned</a> When this response is
+already signed.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000235" class="method-detail">
+        <a name="M000235"></a>
+
+        <div class="method-heading">
+          <a href="Server.src/M000235.html" target="Code" class="method-signature"
+            onclick="popupCode('Server.src/M000235.html');return false;">
+          <span class="method-name">handle_request</span><span class="method-args">(request)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Handle a request.
+</p>
+<p>
+Give me a request, I will give you a response. Unless it&#8216;s a type of
+request I cannot handle myself, in which case I will raise RuntimeError. In
+that case, you can handle it yourself, or add a method to me for handling
+that request type.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000237" class="method-detail">
+        <a name="M000237"></a>
+
+        <div class="method-heading">
+          <a href="Server.src/M000237.html" target="Code" class="method-signature"
+            onclick="popupCode('Server.src/M000237.html');return false;">
+          <span class="method-name">openid_associate</span><span class="method-args">(request)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Handle and respond to associate requests.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000236" class="method-detail">
+        <a name="M000236"></a>
+
+        <div class="method-heading">
+          <a href="Server.src/M000236.html" target="Code" class="method-signature"
+            onclick="popupCode('Server.src/M000236.html');return false;">
+          <span class="method-name">openid_check_authentication</span><span class="method-args">(request)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Handle and respond to check_authentication requests.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

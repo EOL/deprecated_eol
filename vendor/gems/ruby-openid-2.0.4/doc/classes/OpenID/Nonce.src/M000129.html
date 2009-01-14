@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>split_nonce (OpenID::Nonce)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/store/nonce.rb, line 26</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Nonce</span>.<span class="ruby-identifier">split_nonce</span>(<span class="ruby-identifier">nonce_str</span>)
+      <span class="ruby-identifier">timestamp_str</span> = <span class="ruby-identifier">nonce_str</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-constant">TIME_STR_LEN</span>]
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">timestamp_str</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-constant">TIME_STR_LEN</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">timestamp_str</span>.<span class="ruby-identifier">match</span>(<span class="ruby-constant">TIME_VALIDATOR</span>)
+      <span class="ruby-identifier">ts</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">timestamp_str</span>).<span class="ruby-identifier">to_i</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ts</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ts</span>, <span class="ruby-identifier">nonce_str</span>[<span class="ruby-constant">TIME_STR_LEN</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

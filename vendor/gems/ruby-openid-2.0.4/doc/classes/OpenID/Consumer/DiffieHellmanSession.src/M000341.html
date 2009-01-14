@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>extract_secret (OpenID::Consumer::DiffieHellmanSession)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/associationmanager.rb, line 39</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extract_secret</span>(<span class="ruby-identifier">response</span>)
+        <span class="ruby-identifier">dh_server_public64</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'dh_server_public'</span>,
+                                              <span class="ruby-constant">NO_DEFAULT</span>)
+        <span class="ruby-identifier">enc_mac_key64</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'enc_mac_key'</span>, <span class="ruby-constant">NO_DEFAULT</span>)
+        <span class="ruby-identifier">dh_server_public</span> = <span class="ruby-constant">CryptUtil</span>.<span class="ruby-identifier">base64_to_num</span>(<span class="ruby-identifier">dh_server_public64</span>)
+        <span class="ruby-identifier">enc_mac_key</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">from_base64</span>(<span class="ruby-identifier">enc_mac_key64</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@dh</span>.<span class="ruby-identifier">xor_secret</span>(<span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">hashfunc</span>,
+                              <span class="ruby-identifier">dh_server_public</span>, <span class="ruby-identifier">enc_mac_key</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

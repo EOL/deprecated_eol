@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>negotiate_association (OpenID::Consumer::AssociationManager)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/associationmanager.rb, line 127</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">negotiate_association</span>
+        <span class="ruby-identifier">assoc_type</span>, <span class="ruby-identifier">session_type</span> = <span class="ruby-ivar">@negotiator</span>.<span class="ruby-identifier">get_allowed_type</span>
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">request_association</span>(<span class="ruby-identifier">assoc_type</span>, <span class="ruby-identifier">session_type</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ServerError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+          <span class="ruby-identifier">supported_types</span> = <span class="ruby-identifier">extract_supported_association_type</span>(<span class="ruby-identifier">why</span>, <span class="ruby-identifier">assoc_type</span>)
+          <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">supported_types</span>.<span class="ruby-identifier">nil?</span>
+            <span class="ruby-comment cmt"># Attempt to create an association from the assoc_type and</span>
+            <span class="ruby-comment cmt"># session_type that the server told us it supported.</span>
+            <span class="ruby-identifier">assoc_type</span>, <span class="ruby-identifier">session_type</span> = <span class="ruby-identifier">supported_types</span>
+            <span class="ruby-keyword kw">begin</span>
+              <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">request_association</span>(<span class="ruby-identifier">assoc_type</span>, <span class="ruby-identifier">session_type</span>)
+            <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ServerError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+              <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;Server #{@server_url} refused its suggested &quot;</span> \
+                       <span class="ruby-node">&quot;association type: session_type=#{session_type}, &quot;</span> \
+                       <span class="ruby-node">&quot;assoc_type=#{assoc_type}&quot;</span>)
+              <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

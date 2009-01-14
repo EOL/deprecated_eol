@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>encode_to_url (OpenID::Server::CheckIDRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 758</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode_to_url</span>(<span class="ruby-identifier">server_url</span>)
+        <span class="ruby-comment cmt"># Encode this request as a URL to GET.</span>
+        <span class="ruby-comment cmt">#</span>
+        <span class="ruby-comment cmt"># server_url:: The URL of the OpenID server to make this</span>
+        <span class="ruby-comment cmt">#              request of.</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@return_to</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">NoReturnToError</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># Imported from the alternate reality where these classes are</span>
+        <span class="ruby-comment cmt"># used in both the client and server code, so Requests are</span>
+        <span class="ruby-comment cmt"># Encodable too.  That's right, code imported from alternate</span>
+        <span class="ruby-comment cmt"># realities all for the love of you, id_res/user_setup_url.</span>
+        <span class="ruby-identifier">q</span> = {<span class="ruby-value str">'mode'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@mode</span>,
+             <span class="ruby-value str">'identity'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@identity</span>,
+             <span class="ruby-value str">'claimed_id'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@claimed_id</span>,
+             <span class="ruby-value str">'return_to'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@return_to</span>}
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@trust_root</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@namespace</span> <span class="ruby-operator">==</span> <span class="ruby-constant">OPENID1_NS</span>
+            <span class="ruby-identifier">q</span>[<span class="ruby-value str">'trust_root'</span>] = <span class="ruby-ivar">@trust_root</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">q</span>[<span class="ruby-value str">'realm'</span>] = <span class="ruby-ivar">@trust_root</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@assoc_handle</span>
+          <span class="ruby-identifier">q</span>[<span class="ruby-value str">'assoc_handle'</span>] = <span class="ruby-ivar">@assoc_handle</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">response</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@namespace</span>)
+        <span class="ruby-identifier">response</span>.<span class="ruby-identifier">update_args</span>(<span class="ruby-ivar">@namespace</span>, <span class="ruby-identifier">q</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">to_url</span>(<span class="ruby-identifier">server_url</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

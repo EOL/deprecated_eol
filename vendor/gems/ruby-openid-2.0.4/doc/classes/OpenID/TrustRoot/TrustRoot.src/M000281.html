@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>validate_url (OpenID::TrustRoot::TrustRoot)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/trustroot.rb, line 294</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate_url</span>(<span class="ruby-identifier">url</span>)
+        <span class="ruby-identifier">parts</span> = <span class="ruby-constant">TrustRoot</span>.<span class="ruby-identifier">_parse_url</span>(<span class="ruby-identifier">url</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-identifier">proto</span>, <span class="ruby-identifier">host</span>, <span class="ruby-identifier">port</span>, <span class="ruby-identifier">path</span> = <span class="ruby-identifier">parts</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">proto</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@proto</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">port</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@port</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'*'</span>).<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@wildcard</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">host</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@host</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">elsif</span> ((<span class="ruby-ivar">@host</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">''</span>) <span class="ruby-keyword kw">and</span>
+               (<span class="ruby-operator">!</span><span class="ruby-identifier">host</span>.<span class="ruby-identifier">ends_with?</span>(<span class="ruby-value str">'.'</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@host</span>)) <span class="ruby-keyword kw">and</span>
+               (<span class="ruby-identifier">host</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@host</span>))
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">path</span> <span class="ruby-operator">!=</span> <span class="ruby-ivar">@path</span>
+          <span class="ruby-identifier">path_len</span> = <span class="ruby-ivar">@path</span>.<span class="ruby-identifier">length</span>
+          <span class="ruby-identifier">trust_prefix</span> = <span class="ruby-ivar">@path</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">path_len</span>]
+          <span class="ruby-identifier">url_prefix</span> = <span class="ruby-identifier">path</span>[<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">path_len</span>]
+
+          <span class="ruby-comment cmt"># must be equal up to the length of the path, at least</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">trust_prefix</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">url_prefix</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-comment cmt"># These characters must be on the boundary between the end</span>
+          <span class="ruby-comment cmt"># of the trust root's path and the start of the URL's path.</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@path</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'?'</span>).<span class="ruby-identifier">nil?</span>
+            <span class="ruby-identifier">allowed</span> = <span class="ruby-value str">'&amp;'</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">allowed</span> = <span class="ruby-value str">'?/'</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-keyword kw">return</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">allowed</span>.<span class="ruby-identifier">index</span>(<span class="ruby-ivar">@path</span>[<span class="ruby-value">-1</span>]).<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span>
+                  <span class="ruby-operator">!</span><span class="ruby-identifier">allowed</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">path</span>[<span class="ruby-identifier">path_len</span>]).<span class="ruby-identifier">nil?</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

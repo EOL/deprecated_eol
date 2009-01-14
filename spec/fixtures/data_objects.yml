@@ -1,0 +1,1936 @@
+cafeteria_iucn:
+  id: 1
+  guid: ""
+  data_type_id: 7
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: SAMPLE CAFETERIA STATUS
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_seabream_1:
+  id: <%= Fixtures.identify(:img_seabream_1) %>
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Seabream the first
+  object_url: ""
+  object_cache_url: 200810061400963
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_seabream_2:
+  id: <%= Fixtures.identify(:img_seabream_2) %>
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Seabream the second
+  object_url: ""
+  object_cache_url: 200810070069649
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_seabream_3:
+  id: <%= Fixtures.identify(:img_seabream_3) %>
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Seabream the third
+  object_url: ""
+  object_cache_url: 200810070003470
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_seabream_4:
+  id: <%= Fixtures.identify(:img_seabream_4) %>
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Seabream the fourth
+  object_url: ""
+  object_cache_url: 200810070068808
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_seabream_5:
+  id: <%= Fixtures.identify(:img_seabream_5) %>
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Seabream the fifth
+  object_url: ""
+  object_cache_url: 200810070474535
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_seabream_6:
+  id: <%= Fixtures.identify(:img_seabream_6) %>
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Seabream the sixth
+  object_url: ""
+  object_cache_url: 200810070640649
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_seabream_7:
+  id: <%= Fixtures.identify(:img_seabream_7) %>
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Seabream the seventh
+  object_url: ""
+  object_cache_url: 200810070622948
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_seabream_8:
+  id: <%= Fixtures.identify(:img_seabream_8) %>
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Seabream the nineth
+  object_url: ""
+  object_cache_url: 200810070662485
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_seabream_9:
+  id: <%= Fixtures.identify(:img_seabream_9) %>
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: "Seabream the magical, final, tenth!"
+  object_url: ""
+  object_cache_url: 200810070633264
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_seabream_10:
+  id: <%= Fixtures.identify(:img_seabream_10) %>
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Seabream the first
+  object_url: ""
+  object_cache_url: 200810062145981
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_unknown_drawing:
+  id: 390657
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Unknown drawing
+  object_url: ""
+  object_cache_url: 200810081207972
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 0
+  visibility_id: 1
+  published: true
+
+many_taxa:
+  id: 6
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: An Image With Three Taxa
+  object_url: ""
+  object_cache_url: 200810081224950
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_untrusted_drawing:
+  id: 390658
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Untrusted Drawing
+  object_url: ""
+  object_cache_url: 200810081214731
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 1
+  visibility_id: 1
+  published: true
+
+img_cafeteria_drawing_first:
+  id: 390664
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: Scientific illustration
+  object_url: ""
+  object_cache_url: 200810080418507
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_cafeteria_plum_island:
+  id: 466795
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 3
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: http://starcentral.mbl.edu/microscope/portal.php?pagetitle=assetfactsheet&imageid=130
+  description: Plum Island, Massachusetts coast, USA
+  object_url: http://starcentral.mbl.edu/msr/rawdata/viewable/cafeteria_piw.jpg
+  object_cache_url: 200810081272527
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 22:00:00
+  data_rating: 2
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_caf_invisible_woods_hole:
+  id: 467104
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 3
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: http://starcentral.mbl.edu/microscope/portal.php?pagetitle=assetfactsheet&imageid=129
+  description: This image is marked as invisible
+  object_url: http://starcentral.mbl.edu/msr/rawdata/viewable/cafeteria_epw.jpg
+  object_cache_url: 200810081272527
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 22:00:00
+  data_rating: 6
+  vetted_id: 2
+  visibility_id: 0
+  published: true
+
+img_cafeteria_woods_hole:
+  id: 467105
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 3
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: http://starcentral.mbl.edu/microscope/portal.php?pagetitle=assetfactsheet&imageid=129
+  description: Eel Pond, Woods Hole, Massachusetts
+  object_url: http://starcentral.mbl.edu/msr/rawdata/viewable/cafeteria_epw.jpg
+  object_cache_url: 200810081262788
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 22:00:00
+  data_rating: 6
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_cafeteria_prawn_farm:
+  id: 467476
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 3
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: http://starcentral.mbl.edu/microscope/portal.php?pagetitle=assetfactsheet&imageid=131
+  description: Prawn Farm, Queensland, Australia
+  object_url: http://starcentral.mbl.edu/msr/rawdata/viewable/cafeteria_pfw.jpg
+  object_cache_url: 200810081299631
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 22:00:00
+  data_rating: 100
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_cafeteria_heterotrophic:
+  id: 468876
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 3
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: http://starcentral.mbl.edu/microscope/portal.php?pagetitle=assetfactsheet&imageid=3836
+  description: Heterotrophic flagellates of Botany Bay, Sydney, Australia
+  object_url: http://starcentral.mbl.edu/msr/rawdata/viewable/cafeteriaro_oww.jpg
+  object_cache_url: 200810081242806
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 22:00:00
+  data_rating: 3
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_cafeteria_heterotrophic_2:
+  id: 469163
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 3
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: http://starcentral.mbl.edu/microscope/portal.php?pagetitle=assetfactsheet&imageid=4534
+  description: Heterotrophic flagellates of marine habitats
+  object_url: http://starcentral.mbl.edu/msr/rawdata/viewable/cafeteriaroenbergensis_maw.jpg
+  object_cache_url: 200810081268173
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 22:00:00
+  data_rating: 5
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_cafeteria_eutree:
+  id: 474151
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 3
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: http://starcentral.mbl.edu/microscope/portal.php?pagetitle=assetfactsheet&imageid=22712
+  description: Eutree - voucher materials
+  object_url: http://starcentral.mbl.edu/msr/rawdata/viewable/cafeteria_roenbergensis_1146174446_euk_417w.jpg
+  object_cache_url: 200810081369298
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 22:00:00
+  data_rating: 1
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+
+img_cafeteria_protsville:
+  id: 474494
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 3
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: http://starcentral.mbl.edu/microscope/portal.php?pagetitle=assetfactsheet&imageid=23447
+  description: Protsville
+  object_url: http://starcentral.mbl.edu/msr/rawdata/viewable/cafeteria_roenbergensis_1158459513__84w.jpg
+  object_cache_url: 200810081332677
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 22:00:00
+  data_rating: 4
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  object_title: ""
+
+txt_cafteria_1:
+  id: 390659
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "Small (less than 1/100 millimeter) marine flagellate found in oceans world-wide, eats bacteria. "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_2:
+  id: 390660
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "<em>Cafeteria</em> is a genus of small marine flagellates  "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_caf_invisible_overview:
+  id: 390654
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "This is an invisible description of Cafeteria roenbergensis. Curators and admins can see me, that's it. "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9998
+  vetted_id: 2
+  visibility_id: 0
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_caf_untrusted_overview:
+  id: 390656
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "This is an untrusted description of Cafeteria roenbergensis.  You should only see this if your user preferences allow unvetted content. "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 1
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_caf_unknown_overview:
+  id: 390655
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "This is an UNKNOWN description of Cafeteria roenbergensis.  You should only see this if your user preferences allow unvetted content. "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 0
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_overview:
+  id: 390661
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "<p><em>Cafeteria roenbergensis</em> is a single-celled flagellate from marine environments.  It is D-shaped, and about 5-10 nd has a volume of about 20 µm 3(where 1 µm, a micron, is one-thousandth of a millimeter). It is a eukaryotic organism, with a nucleus, mitochondria and other subcellular compartments. The posterior flagellum attaches the organism to the substrate while it is feeding. If it detaches, the cell will swim around being pulled forward by the beating of the anterior flagellum. When feeding, the action of the anterior flagellum creates a current of water that moves towards the cell. The current carries bacteria, and these are the primary food of the flagellate. The food is ingested below the base of the flagella – this is referred to as the ventral side. The flagella are anchored by ‘rootlets’ ribbons and subcellular ropes. They act as a skeleton and also support the mouth region. Cafeteria roenbergensis was the first species in the genus to be described, and was described only in 1988. It, like many other smaller members of the ocean communities, had largely been overlooked until the 1980s. At that time, it became increasingly evident that bacteria and the organisms that eat them play a very major role in moving food, nutrients and energy in marine ecosystems. As ocean environments are the only environments in which there is a net burial of carbon, a number of major research projects emerged in the1980s to improve our understanding of marine ecosystems typically within the context of global climate change. Cafeteria roenbergensis occurs in all oceans in which they have been looked for, and can grow to very high concentrations (in excess of 10,000 per ml). They are weeds, growing rapidly when food is available and under a reasonably wide range of conditions. It is usually assumed that this species serves as food for larger protozoa or small invertebrate animals, but recent work suggests that the populations are also ‘controlled’ by viruses. Because they are easy to grow, Cafeteria roenbergensis has been subject to a diversity of more detailed studies, such as genomic and ecological studies. From these studies come useful gems such that the mitochondria of all eukaryotes studied, this species have the most functionally compact DNA – with only 3.4% not being used for coding purposes (Hauth et al. 2005).</p>
+
+  The name Cafeteria reflects the importance of this organism in marine microbial food webs. "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9995
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_4:
+  id: 390662
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 6
+  description: "Uninucleate trophic cells are approximately bean-shaped and only 3-10  "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_5:
+  id: 390663
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "Cells are 2 ... "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_6:
+  id: 390666
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 6
+  description: "<p><strong>Description of rootlets</strong></p><p>Stuff here, blah blah...</p> "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_7:
+  id: 390667
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "<em>Cafeteria roenbergensis</em> is a good  "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_8:
+  id: 390668
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "<em>Cafeteria roenbergensis</em> uses its anterior, hairy, flagellum to create a current of water that draws food particles to the body.  Particles around 1 micron in diameter - such as bacteria, cyanobacteria and bacterial-sized eukaryotes  "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_9:
+  id: 390669
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "The genus <em>Cafeteria</em> has been known for less than 20 years and data on distribution is limited.  It has been reported from marine, hypersaline and brackish environments from around the world.  We believe that the morphospecies probably has a world-wide distribution, following the concept that for microbial species  "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_10:
+  id: 390671
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 0
+  license_id: 6
+  description: "<img src=\"http://services.eol.org:8080/fedora/get/data:240978/LocalImage\" /> "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_11:
+  id: 390672
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 6
+  description: "Cells of <em>Cafeteria roenbergensis</em> are D-shaped... "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_12:
+  id: 390673
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "Genus <em>Cafeteria</em> Fenchel and Patterson 1988. Biflagellated suspension feeding ... "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_13:
+  id: 390674
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "<p>nothing was here to begin with, strangely (sez JRice)</p> "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_14:
+  id: 400008
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 0
+  license_id: 4
+  description: "Arndt, H., K. Hausmann and M. Wolf. 2003. Deep... "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-01 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_15:
+  id: 400081
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 0
+  license_id: 4
+  description: "<p><strong>General Description</strong></p> "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-02 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_16:
+  id: 400085
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 6
+  description: "<p><strong>Up one level  "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-02 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_17:
+  id: 400086
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: "Cells are D-shaped, 2 to 5 microns long, and laterally compressed. There is a shallow groove... "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-02 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_18:
+  id: 400088
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 0
+  license_id: 6
+  description: "<center><img src=\"http://services.eol.org:8080/fedora/get/data:241005/LocalImage\"></center> "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-02 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+txt_cafeteria_19:
+  id: 400090
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 6
+  description: "This diagram shows the similarity of the same gene in <em>Cafeteria roenbergensis </em>... "
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-02 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+cafeteria_vid_living_cells:
+  id: 432720
+  data_type_id: 8
+  mime_type_id: 20
+  language_id: 0
+  license_id: 6
+  description: "Living cells of <em>Cafeteria roenbergensis</em> "
+  object_cache_url: 200811131313601
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-05 00:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  location: ""
+
+cafeteria_vid_flagella:
+  id: 466697
+  data_type_id: 8
+  mime_type_id: 20
+  language_id: 0
+  license_id: 6
+  description: "Animation of flagellar beating in <em>Cafeteria roenbergensis</em> (stylized).   Flagella beat with waves of activity passing from base to tip, and this should cause fluids to be pushed away from the body.  In <em>Cafeteria</em>, the flagellar beating draws water towards the body.  This is made possible by two rows of stiff hairs (mastigonemes) that are attached to the active flagellum.  The angle of these changes as the undulation passes such that the tips pull into the water, drawing fluids and suspended particles towards the cell. "
+  object_cache_url: 200811131355461
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 00:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  location: ""
+
+cafeteria_vid_youtube:
+  id: 475483
+  data_type_id: 9
+  mime_type_id: 20
+  language_id: 0
+  license_id: 6
+  description: "Wrapping prey item "
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 00:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: http://www.youtube.com/v/ymTMrg7G4Ac
+  location: ""
+
+cafeteria_map_1:
+  id: 400123
+  data_type_id: 6
+  mime_type_id: 9
+  language_id: 0
+  license_id: 0
+  source_url: http://data.gbif.org/species/11484694
+  object_url: http://data.gbif.org/species/11484694/overviewMap.png
+  object_cache_url: 200810080416328
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-04 00:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  location: ""
+  description: ""
+
+# We should never see this one, but we need to test multiple maps:
+cafeteria_map_2:
+  id: 400460
+  data_type_id: 6
+  mime_type_id: 9
+  language_id: 0
+  license_id: 0
+  source_url: http://data.gbif.org/species/11484694
+  object_url: http://data.gbif.org/species/11484694/overviewMap.png
+  object_cache_url: 200810080453829
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-04 00:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  location: ""
+  description: ""
+
+seabream_overview:
+  id: 888001
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  visibility_id: 1
+  published: true
+  description: This is the seabream, in all its glory.
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 0.5
+  vetted_id: 2
+
+text_preview:
+  id: 466794
+  data_type_id: 3
+  mime_type_id: 12
+  language_id: 1
+  license_id: 4
+  description: This is a preview text item.  It should not show up, unless you are logged in as quentin as a content provider.
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-01-29 22:00:00
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 2
+  published: true
+  guid: ""
+  object_title: ""
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+
+first_preview:
+  id: 466796
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 3
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: http://starcentral.mbl.edu/microscope/portal.php?pagetitle=assetfactsheet&imageid=130
+  description: Plum Island, Massachusetts coast, USA
+  object_url: http://starcentral.mbl.edu/msr/rawdata/viewable/cafeteria_piw.jpg
+  object_cache_url: 200810081272527
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 22:00:00
+  data_rating: 2
+  vetted_id: 2
+  visibility_id: 2
+  published: true
+
+second_preview:
+  id: 466797
+  guid: ""
+  data_type_id: 5
+  mime_type_id: 8
+  object_title: ""
+  language_id: 0
+  license_id: 3
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: "http://starcentral.mbl.edu/microscope/portal.php?pagetitle=assetfactsheet&imageid=130"
+  description: Plum Island, Massachusetts coast, USA
+  object_url: "http://starcentral.mbl.edu/msr/rawdata/viewable/cafeteria_piw.jpg"
+  object_cache_url: 200810081272527
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 0000-00-00 00:00:00
+  created_at: 0000-00-00 00:00:00
+  updated_at: 2008-02-12 22:00:00
+  data_rating: 2
+  vetted_id: 2
+  visibility_id: 2
+  published: true
+
+araneus_gemmoides_deleted_harvest1:
+  id: 43454233
+  guid: 15418c109635469006b457c18dbb3b3c
+  data_type_id: 5
+  mime_type_id: 8
+  visibility_id: 2
+  published: true
+
+araneus_gemmoides_inappropriate_harvest1:
+  id: 43454234
+  guid: 332423c2242546f456456342a2342c3a
+  object_title: unrelated stuff
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: Buckle, Don
+  bibliographic_citation: ""
+  source_url: ""
+  description: "ARANEIDAE: Araneus gemmoides Chamberlin and Ivie, 1935 habitus"
+  object_url: "http://www.canadianarachnology.org/data/canada_spiders/images/habitus/Araneus_gemmoides.jpg"
+  object_cache_url: 200810031762832
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 2006-09-01 16:00:38
+  created_at: 2008-10-03 17:55:25
+  updated_at: 2008-10-06 17:38:51
+  data_rating: 9999
+  vetted_id: 1
+  visibility_id: 3
+  published: true
+  
+araneus_gemmoides_diagnostics_updated_harvest1:
+  id: 43454345
+  guid: 958467d1880cd7746a5192128e37df1c
+  data_type_id: 3
+  mime_type_id: 12
+  object_title: Diagnostic Description
+  language_id: 502
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: "Male: Carapace is pale brown."
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 2006-09-01 16:00:38
+  created_at: 2008-10-03 17:55:25
+  updated_at: 2008-10-06 17:38:51
+  data_rating: 9999
+  vetted_id: 1
+  visibility_id: 1
+  published: true
+
+araneus_gemmoides_distribution_unchanged_harvest_1:
+  id: 43454346
+  guid: 236dc3a29eb1908efc92071019025b8b
+  data_type_id: 3
+  mime_type_id: 12
+  object_title: Distribution
+  language_id: 502
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: USA, Canada
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 2006-09-01 16:00:38
+  created_at: 2008-10-03 17:55:25
+  updated_at: 2008-10-06 17:38:51
+  data_rating: 9999
+  vetted_id: 1
+  visibility_id: 1
+  published: true
+
+araneus_gemmoides_habitat_invisible_h1:
+  id: 463834099
+  guid: 6803c87befc10d586b43f5420be18f3b
+  data_type_id: 3
+  mime_type_id: 12
+  object_title: Habitat
+  language_id: 502
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: "Individuals have been collected on barns and other outbuildings, under rock ledges, and lodgepole pine forests. They are also known to frequent well-lit human habitations under eaves, fencerows, and similar nooks, and are especially visible late summer to early autumn."
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 2006-09-01 16:00:38
+  created_at: 2008-10-03 17:55:25
+  updated_at: 2008-10-06 17:38:51
+  data_rating: 9999
+  vetted_id: 1
+  visibility_id: 0
+  published: true
+
+araneus_gemmoides_habitat_updated_invisible_h2:
+  id: 563834099
+  guid: 6803c87befc10d586b43f5420be18f3b
+  data_type_id: 3
+  mime_type_id: 12
+  object_title: Habitat
+  language_id: 502
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: "Individuals have been collected on barns and other outbuildings, under rock ledges, and lodgepole pine forests. They are also known to frequent well-lit human habitations under eaves, fencerows, and similar nooks, and are especially visible late summer to early autumn."
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 2006-09-01 16:00:38
+  created_at: 2008-10-03 17:55:25
+  updated_at: 2008-10-06 17:38:51
+  data_rating: 9999
+  vetted_id: 1
+  visibility_id: 2
+  published: false    
+  
+araneus_gemmoides_diagnostics_updated_h2:
+  id: 565874094
+  guid: 958467d1880cd7746a5192128e37df1c
+  data_type_id: 3
+  mime_type_id: 12
+  object_title: Diagnostic Description
+  language_id: 502
+  license_id: 6
+  rights_statement: ''
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: "Male: Carapace is pale brown. Legs are yellowish brown with indistinct annulations. Abdomen brownish, occasionally with indistinct paired oblique marks toward posterior end, and with distinct anterodorsal humps (Dondale <em>et al.</em>, 2003). Female: Coloration as in male (Dondale <em>et al.</em>, 2003)."
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 2006-09-01 16:00:38
+  created_at: 2008-10-03 17:55:25
+  updated_at: 2008-10-06 17:38:51
+  data_rating: 9999
+  vetted_id: 1
+  visibility_id: 2
+  published: false
+
+araneus_gemmoides_habitat_inserted_h2:
+  id: 565874093
+  guid: 6683c87befc10d586b43f5420be18f3b
+  data_type_id: 3
+  mime_type_id: 12
+  object_title: Habitat
+  language_id: 502
+  license_id: 6
+  rights_statement: ""
+  rights_holder: ""
+  bibliographic_citation: ""
+  source_url: ""
+  description: "Individuals have been collected on barns and other outbuildings, under rock ledges, and lodgepole pine forests. They are also known to frequent well-lit human habitations under eaves, fencerows, and similar nooks, and are especially visible late summer to early autumn."
+  object_url: ""
+  object_cache_url: ""
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 2006-09-01 16:00:38
+  created_at: 2008-10-03 17:55:25
+  updated_at: 2008-10-06 17:38:51
+  data_rating: 9999
+  vetted_id: 1
+  visibility_id: 2
+  published: false
+
+araneus_gemmoides_inappropriate_updated_untrusted_harvest2:
+  id: 53454234
+  guid: 332423c2242546f456456342a2342c3a
+  object_title: unrelated stuff
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: Buckle, Don
+  bibliographic_citation: ""
+  source_url: ""
+  description: "ARANEIDAE: Araneus gemmoides Chamberlin and Ivie, 1935 habitus"
+  object_url: "http://www.canadianarachnology.org/data/canada_spiders/images/habitus/Araneus_gemmoides.jpg"
+  object_cache_url: 200810031762832
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 2006-09-01 16:00:38
+  created_at: 2008-10-03 17:55:25
+  updated_at: 2008-10-06 17:38:51
+  data_rating: 9999
+  vetted_id: 1
+  visibility_id: 2
+  curated: 1
+  published: false
+
+araneus_gemmoides_trusted_harvest2:
+  id: 53454294
+  guid: 332423c2142546a456456342b2342c3a
+  object_title: unrelated stuff
+  object_title: ""
+  language_id: 0
+  license_id: 6
+  rights_statement: ""
+  rights_holder: Buckle, Don
+  bibliographic_citation: ""
+  source_url: ""
+  description: "ARANEIDAE: Araneus gemmoides Chamberlin and Ivie, 1935 habitus"
+  object_url: "http://www.canadianarachnology.org/data/canada_spiders/images/habitus/Araneus_gemmoides.jpg"
+  object_cache_url: 200810031762832
+  thumbnail_url: ""
+  thumbnail_cache_url: ""
+  location: ""
+  latitude: 0
+  longitude: 0
+  altitude: 0
+  object_created_at: 0000-00-00 00:00:00
+  object_modified_at: 2006-09-01 16:00:38
+  created_at: 2008-10-03 17:55:25
+  updated_at: 2008-10-06 17:38:51
+  data_rating: 9999
+  vetted_id: 2
+  visibility_id: 1
+  curated: 1
+  published: false
+
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: data_objects
+#
+#  id                     :integer(4)      not null, primary key
+#  data_type_id           :integer(2)      not null
+#  language_id            :integer(2)      not null
+#  license_id             :integer(1)      not null
+#  mime_type_id           :integer(2)      not null
+#  vetted_id              :integer(1)      not null
+#  visibility_id          :integer(4)
+#  altitude               :float           not null
+#  bibliographic_citation :string(300)     not null
+#  curated                :boolean(1)      not null
+#  data_rating            :float           not null
+#  description            :text            not null
+#  guid                   :string(32)      not null
+#  latitude               :float           not null
+#  location               :string(255)     not null
+#  longitude              :float           not null
+#  object_cache_url       :string(255)     not null
+#  object_title           :string(255)     not null
+#  object_url             :string(255)     not null
+#  published              :boolean(1)      not null
+#  rights_holder          :string(255)     not null
+#  rights_statement       :string(300)     not null
+#  source_url             :string(255)     not null
+#  thumbnail_cache_url    :string(255)     not null
+#  thumbnail_url          :string(255)     not null
+#  created_at             :timestamp       not null
+#  object_created_at      :timestamp       not null
+#  object_modified_at     :timestamp       not null
+#  updated_at             :timestamp       not null
+

@@ -1,0 +1,49 @@
+	<%= eol_lang_error_messages_for :news_item %>
+	<script type="text/javascript">
+	  function check_body_remaining () {
+	    textCounter($('news_item_body'),$('body_remaining_length'),1500);
+	  }
+	  function check_title_remaining () {
+	    textCounter($('news_item_title'),$('title_remaining_length'),250);
+	  }
+    womAdd("check_title_remaining();");
+    womAdd("check_body_remaining();");
+	</script>				
+	<br />
+	HTML allowed in all fields
+	<table>	
+  	<tr>
+  		<td valign="top"><strong>Title:</strong>
+  		  <br /><span id="title_remaining_length" />
+  		  </td>
+  		<td><%=f.text_field :title, :size=>70, :maxlength=>250,:onKeyDown=>"check_title_remaining();",:onKeyUp=>"check_title_remaining();"%></td>
+  	</tr>	  
+	<tr>
+		<td valign="top"><strong>Body:</strong>
+		  <br /><span id="body_remaining_length" />
+		  </td>
+		<td><%=f.text_area :body,{:cols=>50,:onKeyDown=>"check_body_remaining();",:onKeyUp=>"check_body_remaining();"}%>
+    </td>
+	</tr>
+	<tr>
+		<td><strong>News Item Date as shown to user:</strong></td>
+		<td><%=f.date_select :display_date%></td>
+	</tr>
+	<tr>
+		<td valign="top"><strong>News Item is visible on website after this time:</strong></td>
+		<td><%=f.datetime_select :activated_on%><br />Note that this time is UTC (Greenwich Mean Time)<br />
+		<%=f.check_box :active%> Publish item based on time set above (uncheck to always hide)</td>
+	</tr>
+	<% if (controller.action_name != 'new' && controller.action_name != 'create') && @news_item.user.nil? == false %>
+  	<tr>
+  		<td><strong>Created by:</strong></td>
+  		<td><%=@news_item.user.username + " (" + @news_item.user.given_name + ")"%></td>
+  	</tr>
+  <% else %>
+    <%=f.hidden_field :user_id, :value=>current_user.id%>
+	<% end %>
+	</table>
+	
+	<br /><br />
+	<input type="button" onClick="document.location.href='/administrator/news_item/index';" id="cancel" name="Cancel" value="Cancel"> |
+	<%=f.submit%>

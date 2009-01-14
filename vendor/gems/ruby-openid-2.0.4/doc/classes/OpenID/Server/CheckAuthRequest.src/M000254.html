@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>from_message (OpenID::Server::CheckAuthRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 81</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">from_message</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">op_endpoint</span>=<span class="ruby-constant">UNUSED</span>)
+        <span class="ruby-identifier">assoc_handle</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'assoc_handle'</span>)
+        <span class="ruby-identifier">invalidate_handle</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'invalidate_handle'</span>)
+
+        <span class="ruby-identifier">signed</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">copy</span>()
+        <span class="ruby-comment cmt"># openid.mode is currently check_authentication because</span>
+        <span class="ruby-comment cmt"># that's the mode of this request.  But the signature</span>
+        <span class="ruby-comment cmt"># was made on something with a different openid.mode.</span>
+        <span class="ruby-comment cmt"># http://article.gmane.org/gmane.comp.web.openid.general/537</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">signed</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">&quot;mode&quot;</span>)
+          <span class="ruby-identifier">signed</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">&quot;mode&quot;</span>, <span class="ruby-value str">&quot;id_res&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">obj</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">assoc_handle</span>, <span class="ruby-identifier">signed</span>, <span class="ruby-identifier">invalidate_handle</span>)
+        <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">message</span> = <span class="ruby-identifier">message</span>
+        <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">namespace</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_openid_namespace</span>()
+        <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">sig</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'sig'</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">obj</span>.<span class="ruby-identifier">assoc_handle</span> <span class="ruby-keyword kw">or</span>
+            <span class="ruby-operator">!</span><span class="ruby-identifier">obj</span>.<span class="ruby-identifier">sig</span>
+          <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">&quot;%s request missing required parameter from message %s&quot;</span>,
+                        <span class="ruby-identifier">obj</span>.<span class="ruby-identifier">mode</span>, <span class="ruby-identifier">message</span>)
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">msg</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">obj</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

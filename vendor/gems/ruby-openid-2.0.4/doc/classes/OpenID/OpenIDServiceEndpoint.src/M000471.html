@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>from_discovery_result (OpenID::OpenIDServiceEndpoint)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/discovery.rb, line 196</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">from_discovery_result</span>(<span class="ruby-identifier">discoveryResult</span>)
+      <span class="ruby-comment cmt"># Create endpoints from a DiscoveryResult.</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-comment cmt"># @type discoveryResult: L{DiscoveryResult}</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-comment cmt"># @rtype: list of L{OpenIDServiceEndpoint}</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-comment cmt"># @raises L{XRDSError}: When the XRDS does not parse.</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">discoveryResult</span>.<span class="ruby-identifier">is_xrds</span>()
+        <span class="ruby-identifier">meth</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">method</span>(<span class="ruby-value str">'from_xrds'</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">meth</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">method</span>(<span class="ruby-value str">'from_html'</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">meth</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">discoveryResult</span>.<span class="ruby-identifier">normalized_uri</span>,
+                       <span class="ruby-identifier">discoveryResult</span>.<span class="ruby-identifier">response_text</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

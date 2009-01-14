@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+#
+# Build the HTML documentation 
+#
+# Usage:
+#  build-docs
+#
+# Must be run from the base of the repository
+# Add files you'd like to be in the docs to RDOC_FILES
+
+RDOC_FILES="README INSTALL COPYING lib/yadis/yadis.rb lib/yadis/parsehtml.rb lib/yadis/xrds.rb lib/yadis/fetcher.rb"
+MAIN=README
+rdoc --main="$MAIN" $RDOC_FILES

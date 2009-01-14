@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>verify_return_to_args (OpenID::Consumer::IdResHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/idres.rb, line 152</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verify_return_to_args</span>(<span class="ruby-identifier">msg_return_to</span>)
+        <span class="ruby-identifier">return_to_parsed_query</span> = {}
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">msg_return_to</span>.<span class="ruby-identifier">query</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-constant">CGI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">msg_return_to</span>.<span class="ruby-identifier">query</span>).<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">vs</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">return_to_parsed_query</span>[<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">vs</span>[<span class="ruby-value">0</span>]
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">query</span> = <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">to_post_args</span>
+        <span class="ruby-identifier">return_to_parsed_query</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">rt_key</span>, <span class="ruby-identifier">rt_val</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">msg_val</span> = <span class="ruby-identifier">query</span>[<span class="ruby-identifier">rt_key</span>]
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg_val</span>.<span class="ruby-identifier">nil?</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, <span class="ruby-node">&quot;Message missing return_to argument '#{rt_key}'&quot;</span>
+          <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">msg_val</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">rt_val</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, (<span class="ruby-node">&quot;Parameter '#{rt_key}' value &quot;</span>\
+                                  <span class="ruby-node">&quot;#{msg_val.inspect} does not match &quot;</span>\
+                                  <span class="ruby-node">&quot;return_to's value #{rt_val.inspect}&quot;</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">get_args</span>(<span class="ruby-constant">BARE_NS</span>).<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">bare_key</span>, <span class="ruby-identifier">bare_val</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">rt_val</span> = <span class="ruby-identifier">return_to_parsed_query</span>[<span class="ruby-identifier">bare_key</span>]
+          <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">return_to_parsed_query</span>.<span class="ruby-identifier">has_key?</span> <span class="ruby-identifier">bare_key</span>
+            <span class="ruby-comment cmt"># This may be caused by your web framework throwing extra</span>
+            <span class="ruby-comment cmt"># entries in to your parameters hash that were not GET or</span>
+            <span class="ruby-comment cmt"># POST parameters.  For example, Rails has been known to</span>
+            <span class="ruby-comment cmt"># add &quot;controller&quot; and &quot;action&quot; keys; another server adds</span>
+            <span class="ruby-comment cmt"># at least a &quot;format&quot; key.</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, (<span class="ruby-value str">&quot;Unexpected parameter (not on return_to): &quot;</span>\
+                                  <span class="ruby-node">&quot;'#{bare_key}'=#{rt_val.inspect})&quot;</span>)
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rt_val</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">bare_val</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, (<span class="ruby-node">&quot;Parameter '#{bare_key}' value &quot;</span>\
+                                  <span class="ruby-node">&quot;#{bare_val.inspect} does not match &quot;</span>\
+                                  <span class="ruby-node">&quot;return_to's value #{rt_val.inspect}&quot;</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

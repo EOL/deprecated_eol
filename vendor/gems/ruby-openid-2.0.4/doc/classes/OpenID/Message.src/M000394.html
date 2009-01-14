@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>_from_openid_args (OpenID::Message)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/message.rb, line 132</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_from_openid_args</span>(<span class="ruby-identifier">openid_args</span>)
+      <span class="ruby-identifier">ns_args</span> = []
+
+      <span class="ruby-comment cmt"># resolve namespaces</span>
+      <span class="ruby-identifier">openid_args</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">rest</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ns_alias</span>, <span class="ruby-identifier">ns_key</span> = <span class="ruby-identifier">rest</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'.'</span>, <span class="ruby-value">2</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ns_key</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">ns_alias</span> = <span class="ruby-constant">NULL_NAMESPACE</span>
+          <span class="ruby-identifier">ns_key</span> = <span class="ruby-identifier">rest</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ns_alias</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'ns'</span>
+          <span class="ruby-ivar">@namespaces</span>.<span class="ruby-identifier">add_alias</span>(<span class="ruby-identifier">value</span>, <span class="ruby-identifier">ns_key</span>)
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">ns_alias</span> <span class="ruby-operator">==</span> <span class="ruby-constant">NULL_NAMESPACE</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">ns_key</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'ns'</span>
+          <span class="ruby-ivar">@namespaces</span>.<span class="ruby-identifier">add_alias</span>(<span class="ruby-identifier">value</span>, <span class="ruby-constant">NULL_NAMESPACE</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">ns_args</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">ns_alias</span>, <span class="ruby-identifier">ns_key</span>, <span class="ruby-identifier">value</span>]
+        <span class="ruby-keyword kw">end</span>
+      }
+
+      <span class="ruby-comment cmt"># ensure that there is an OpenID namespace definition</span>
+      <span class="ruby-identifier">openid_ns_uri</span> = <span class="ruby-ivar">@namespaces</span>.<span class="ruby-identifier">get_namespace_uri</span>(<span class="ruby-constant">NULL_NAMESPACE</span>)
+      <span class="ruby-identifier">openid_ns_uri</span> = <span class="ruby-constant">OPENID1_NS</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">openid_ns_uri</span>
+
+      <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">set_openid_namespace</span>(<span class="ruby-identifier">openid_ns_uri</span>)
+
+      <span class="ruby-comment cmt"># put the pairs into the appropriate namespaces</span>
+      <span class="ruby-identifier">ns_args</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">ns_alias</span>, <span class="ruby-identifier">ns_key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ns_uri</span> = <span class="ruby-ivar">@namespaces</span>.<span class="ruby-identifier">get_namespace_uri</span>(<span class="ruby-identifier">ns_alias</span>)
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">ns_uri</span>
+          <span class="ruby-comment cmt"># only try to map an alias to a default if it's an</span>
+          <span class="ruby-comment cmt"># OpenID 1.x namespace</span>
+          <span class="ruby-ivar">@@registered_aliases</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">_alias</span>, <span class="ruby-identifier">_uri</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">_alias</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">ns_alias</span>
+              <span class="ruby-identifier">ns_uri</span> = <span class="ruby-identifier">_uri</span>
+              <span class="ruby-keyword kw">break</span>
+            <span class="ruby-keyword kw">end</span>
+          }
+
+          <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">ns_uri</span>
+            <span class="ruby-identifier">ns_uri</span> = <span class="ruby-identifier">openid_ns_uri</span>
+            <span class="ruby-identifier">ns_key</span> = <span class="ruby-node">&quot;#{ns_alias}.#{ns_key}&quot;</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-ivar">@namespaces</span>.<span class="ruby-identifier">add_alias</span>(<span class="ruby-identifier">ns_uri</span>, <span class="ruby-identifier">ns_alias</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-identifier">ns_uri</span>, <span class="ruby-identifier">ns_key</span>, <span class="ruby-identifier">value</span>)
+      }
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

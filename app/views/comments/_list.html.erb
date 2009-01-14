@@ -1,0 +1,4 @@
+<% current_objects.each do |comment| %>
+  <%# TODO = stop using this partial, use _comment directly %>
+  <%= render :partial => 'comment', :locals => {:comment => comment} %>
+<% end %>

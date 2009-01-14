@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_message (OpenID::Extension)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/extension.rb, line 21</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_message</span>(<span class="ruby-identifier">message</span> = <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-identifier">message</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">message</span>.<span class="ruby-identifier">nil?</span>
+
+      <span class="ruby-identifier">message</span>.<span class="ruby-identifier">namespaces</span>.<span class="ruby-identifier">add_alias</span>(<span class="ruby-ivar">@ns_uri</span>, <span class="ruby-ivar">@ns_alias</span>)
+      <span class="ruby-comment cmt"># XXX python ignores keyerror if m.ns.getAlias(uri) == alias</span>
+
+      <span class="ruby-identifier">message</span>.<span class="ruby-identifier">update_args</span>(<span class="ruby-ivar">@ns_uri</span>, <span class="ruby-identifier">get_extension_args</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">message</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

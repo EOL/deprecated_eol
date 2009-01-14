@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_extension_args (OpenID::AX::KeyValueMessage)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/extensions/ax.rb, line 309</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_extension_args</span>(<span class="ruby-identifier">ax_args</span>)
+        <span class="ruby-identifier">check_mode</span>(<span class="ruby-identifier">ax_args</span>)
+        <span class="ruby-identifier">aliases</span> = <span class="ruby-constant">NamespaceMap</span>.<span class="ruby-identifier">new</span>
+
+        <span class="ruby-identifier">ax_args</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'type.'</span>) <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+            <span class="ruby-identifier">type_uri</span> = <span class="ruby-identifier">v</span>
+            <span class="ruby-identifier">name</span> = <span class="ruby-identifier">k</span>[<span class="ruby-value">5</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+
+            <span class="ruby-constant">AX</span>.<span class="ruby-identifier">check_alias</span>(<span class="ruby-identifier">name</span>)
+            <span class="ruby-identifier">aliases</span>.<span class="ruby-identifier">add_alias</span>(<span class="ruby-identifier">type_uri</span>,<span class="ruby-identifier">name</span>)
+          <span class="ruby-keyword kw">end</span>
+        }
+
+        <span class="ruby-identifier">aliases</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">type_uri</span>, <span class="ruby-identifier">name</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">count_s</span> = <span class="ruby-identifier">ax_args</span>[<span class="ruby-value str">'count.'</span><span class="ruby-operator">+</span><span class="ruby-identifier">name</span>]
+          <span class="ruby-identifier">count</span> = <span class="ruby-identifier">count_s</span>.<span class="ruby-identifier">to_i</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">count_s</span>.<span class="ruby-identifier">nil?</span>
+            <span class="ruby-identifier">value</span> = <span class="ruby-identifier">ax_args</span>[<span class="ruby-value str">'value.'</span><span class="ruby-operator">+</span><span class="ruby-identifier">name</span>]
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">nil?</span>
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">IndexError</span>, <span class="ruby-node">&quot;Missing #{'value.'+name} in FetchResponse&quot;</span> 
+            <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">empty?</span>
+              <span class="ruby-identifier">values</span> = []
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-identifier">values</span> = [<span class="ruby-identifier">value</span>]
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">count_s</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+            <span class="ruby-identifier">values</span> = []
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">values</span> = (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">count</span>).<span class="ruby-identifier">inject</span>([]){<span class="ruby-operator">|</span><span class="ruby-identifier">l</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+              <span class="ruby-identifier">key</span> = <span class="ruby-node">&quot;value.#{name}.#{i}&quot;</span>
+              <span class="ruby-identifier">v</span> = <span class="ruby-identifier">ax_args</span>[<span class="ruby-identifier">key</span>]
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">IndexError</span>, <span class="ruby-node">&quot;Missing #{key} in FetchResponse&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">nil?</span>
+              <span class="ruby-identifier">l</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
+            }
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-ivar">@data</span>[<span class="ruby-identifier">type_uri</span>] = <span class="ruby-identifier">values</span>
+        }
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,2 @@
+module RandomImagesHelper
+end

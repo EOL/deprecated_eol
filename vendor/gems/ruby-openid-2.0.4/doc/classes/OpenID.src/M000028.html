@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>find_op_local_identifier (OpenID)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/discovery.rb, line 234</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find_op_local_identifier</span>(<span class="ruby-identifier">service_element</span>, <span class="ruby-identifier">type_uris</span>)
+    <span class="ruby-comment cmt"># Find the OP-Local Identifier for this xrd:Service element.</span>
+    <span class="ruby-comment cmt">#</span>
+    <span class="ruby-comment cmt"># This considers openid:Delegate to be a synonym for xrd:LocalID</span>
+    <span class="ruby-comment cmt"># if both OpenID 1.X and OpenID 2.0 types are present. If only</span>
+    <span class="ruby-comment cmt"># OpenID 1.X is present, it returns the value of</span>
+    <span class="ruby-comment cmt"># openid:Delegate. If only OpenID 2.0 is present, it returns the</span>
+    <span class="ruby-comment cmt"># value of xrd:LocalID. If there is more than one LocalID tag and</span>
+    <span class="ruby-comment cmt"># the values are different, it raises a DiscoveryFailure. This is</span>
+    <span class="ruby-comment cmt"># also triggered when the xrd:LocalID and openid:Delegate tags are</span>
+    <span class="ruby-comment cmt"># different.</span>
+
+    <span class="ruby-comment cmt"># XXX: Test this function on its own!</span>
+
+    <span class="ruby-comment cmt"># Build the list of tags that could contain the OP-Local</span>
+    <span class="ruby-comment cmt"># Identifier</span>
+    <span class="ruby-identifier">local_id_tags</span> = []
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type_uris</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-constant">OPENID_1_1_TYPE</span>) <span class="ruby-keyword kw">or</span>
+        <span class="ruby-identifier">type_uris</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-constant">OPENID_1_0_TYPE</span>)
+      <span class="ruby-comment cmt"># local_id_tags &lt;&lt; Yadis::nsTag(OPENID_1_0_NS, 'openid', 'Delegate')</span>
+      <span class="ruby-identifier">service_element</span>.<span class="ruby-identifier">add_namespace</span>(<span class="ruby-value str">'openid'</span>, <span class="ruby-constant">OPENID_1_0_NS</span>)
+      <span class="ruby-identifier">local_id_tags</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;openid:Delegate&quot;</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type_uris</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-constant">OPENID_2_0_TYPE</span>)
+      <span class="ruby-comment cmt"># local_id_tags.append(Yadis::nsTag(XRD_NS_2_0, 'xrd', 'LocalID'))</span>
+      <span class="ruby-identifier">service_element</span>.<span class="ruby-identifier">add_namespace</span>(<span class="ruby-value str">'xrd'</span>, <span class="ruby-constant">Yadis</span><span class="ruby-operator">::</span><span class="ruby-constant">XRD_NS_2_0</span>)
+      <span class="ruby-identifier">local_id_tags</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;xrd:LocalID&quot;</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-comment cmt"># Walk through all the matching tags and make sure that they all</span>
+    <span class="ruby-comment cmt"># have the same value</span>
+    <span class="ruby-identifier">local_id</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-identifier">local_id_tags</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">local_id_tag</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">service_element</span>.<span class="ruby-identifier">each_element</span>(<span class="ruby-identifier">local_id_tag</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">local_id_element</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">local_id</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">local_id</span> = <span class="ruby-identifier">local_id_element</span>.<span class="ruby-identifier">text</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">local_id</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">local_id_element</span>.<span class="ruby-identifier">text</span>
+          <span class="ruby-identifier">format</span> = <span class="ruby-value str">'More than one %s tag found in one service element'</span>
+          <span class="ruby-identifier">message</span> = <span class="ruby-identifier">sprintf</span>(<span class="ruby-identifier">format</span>, <span class="ruby-identifier">local_id_tag</span>)
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">DiscoveryFailure</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>, <span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-keyword kw">end</span>
+      }
+    }
+
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">local_id</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

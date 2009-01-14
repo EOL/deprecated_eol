@@ -1,0 +1,79 @@
+<%= render :partial=> 'top',:locals=>{:page_header => @page_header} %>
+                    <!-- begin form -->
+					This form provides information about the project or other source of information.  Some of the information will be visible on the web site.  
+                    <%= eol_lang_error_messages_for :agent %>
+				    <% form_for @agent, :url => { :action => action_name }, :html => { :method => :post, :multipart => true, :id => 'partner_form' } do |f| %>
+              <fieldset>
+
+                <div class = "form_item">
+                  <label <span>*</span> - required fields</label>
+                </div>
+                
+                <div class = "form_item">
+                  <%= f.label :project_name, 'Project Name <span title="required">*</span>' %>
+      Please fill in the full name of the project or web site from which the information will come as you want it to be visible in the Encyclopedia of Life.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE<br />
+                  <%= f.text_field :project_name, :maxlength => 100, :size=>50  %>
+                </div>
+                
+                <div class = "form_item">
+                  <%= f.label :project_abbreviation, "Project Abbreviation" %>
+      Please fill in an abbreviated name for the project.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE<br />
+                  <%= f.text_field :project_abbreviation, :maxlength => 20  %>
+                </div>
+
+                <div class = "form_item">
+                  <%= f.label :url, "Project URL" %>
+      This will be used to link to your project from the website.<br />
+                  <%= f.text_field :url, :maxlength => 250, :size=>50  %>
+					      </div>
+
+                <div class = "form_item">
+                  <%= f.label :project_description, 'Project Description <span title="required">*</span>' %>
+      Describe the project as you would like it to appear on the Encyclopedia of Life web site.
+                  <%= f.text_area :project_description, :cols => 70, :rows => 10 %>
+					      </div>
+
+                <div class = "form_item">
+                  <%= f.label :description_of_data, "Description of Data" %>
+        Please provide us with a description of the type of information you have, how many items are available, what organisms they relate to, and whether they have been assembled or checked by qualified experts or by a knowledgeable community.  The information that you write here will NOT be visible on the web site.
+                  <%= f.text_area :description_of_data, :cols => 70, :rows => 10 %>
+					      </div>
+
+                <div class = "form_item">
+                  <%= f.label :notes, "Notes" %>
+      Enter in any other notes or comments about your project or content.
+                  <%= f.text_area :notes, :cols => 70, :rows => 10 %>						
+					      </div>
+
+                <div class = "form_item">
+                  <%= f.label :logo, "Project Logo" %>
+                  Please select and upload a JPG, PNG or GIF image of approximately 100x100 pixels, and no larger than 500k.   We will create two logos, one full size as uploaded, and a smaller one depending on it's location on the website.
+                  <%= f.file_field :logo, :size=>60 %>
+                  <% unless @agent.logo_url.blank? -%>
+                      <br />
+                      Current Logos:<br />
+                      Large: <%= agent_logo(@agent,"large") %> Small: <%= agent_logo(@agent,"small") %>
+                  <% end -%>
+                </div>
+
+                <div>
+                  <label>Type of Content</label>
+                  <% for data_type in @agent_data_types -%>                            
+                      <%= check_box_tag 'agent[agent_data_type_ids][]', data_type.id, @agent.agent_data_type_ids.include?(data_type.id), :id => dom_id(data_type) %>                            
+                      <label for="<%= dom_id(data_type) %>" style="display: inline; font-weight: normal;"><%= data_type.label %></label><br />
+                  <% end -%>
+
+                  <%= content_partner_save_type_hidden_field %>
+                </div>
+
+              </fieldset>
+              <% end %>
+                    
+                    <br /><br />
+                    <div class="button">                        
+                        <%= content_partner_submit_buttons :id => 'partner_form' %>
+                    </div>
+                    
+                    <!-- end form -->
+
+<%= render :partial=> 'bottom' %>

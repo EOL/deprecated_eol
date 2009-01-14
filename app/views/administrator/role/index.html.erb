@@ -1,0 +1,30 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Roles'} %>
+
+<div id="roles">
+			<%=link_to "Add a new role",:action=>'new'%>
+	<br /><br />
+	
+	<% if !@roles.nil? %>
+		
+		A total of <%= @roles.size %> roles were found.<br />
+		
+		    <table class="results_table" cellspacing="0">
+		    <tr><th>Role</th><th>Date Created</th></tr>
+			<% for role in @roles
+				column_class=cycle('odd','even')  %>
+			    <tr>
+			    	<td class="<%= column_class %>"><%=h role.title%></td>
+					<td class="<%= column_class %>"><%=format_date_time(role.created_at)%></td>
+				</tr>									
+			<% end %>
+		    </table>
+		
+		
+    <% else %>
+			No roles are available.
+	<% end %>
+	
+			
+</div>
+						
+<%= render :partial => '/admin/content_bottom' %>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OpenID::Store::Interface</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OpenID::Store::Interface</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/openid/store/interface_rb.html">
+                lib/openid/store/interface.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Abstract <a href="../Store.html">Store</a> Changes in 2.0:
+</p>
+<ul>
+<li>removed store_nonce, get_auth_key, is_dumb
+
+</li>
+<li>changed <a href="Interface.html#M000107">use_nonce</a> to support one-way
+nonces
+
+</li>
+<li>added <a href="Interface.html#M000108">cleanup_nonces</a>, <a
+href="Interface.html#M000109">cleanup_associations</a>, <a
+href="Interface.html#M000110">cleanup</a>
+
+</li>
+</ul>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000110">cleanup</a>&nbsp;&nbsp;
+      <a href="#M000109">cleanup_associations</a>&nbsp;&nbsp;
+      <a href="#M000108">cleanup_nonces</a>&nbsp;&nbsp;
+      <a href="#M000105">get_association</a>&nbsp;&nbsp;
+      <a href="#M000106">remove_association</a>&nbsp;&nbsp;
+      <a href="#M000104">store_association</a>&nbsp;&nbsp;
+      <a href="#M000107">use_nonce</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000110" class="method-detail">
+        <a name="M000110"></a>
+
+        <div class="method-heading">
+          <a href="Interface.src/M000110.html" target="Code" class="method-signature"
+            onclick="popupCode('Interface.src/M000110.html');return false;">
+          <span class="method-name">cleanup</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Remove expired nonces and associations from the store Not called during
+normal library operation, this method is for store admins to keep their
+storage from filling up with expired data
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000109" class="method-detail">
+        <a name="M000109"></a>
+
+        <div class="method-heading">
+          <a href="Interface.src/M000109.html" target="Code" class="method-signature"
+            onclick="popupCode('Interface.src/M000109.html');return false;">
+          <span class="method-name">cleanup_associations</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Remove expired associations from the store Not called during normal library
+operation, this method is for store admins to keep their storage from
+filling up with expired data
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000108" class="method-detail">
+        <a name="M000108"></a>
+
+        <div class="method-heading">
+          <a href="Interface.src/M000108.html" target="Code" class="method-signature"
+            onclick="popupCode('Interface.src/M000108.html');return false;">
+          <span class="method-name">cleanup_nonces</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Remove expired nonces from the store Discards any nonce that is old enough
+that it wouldn&#8216;t pass <a href="Interface.html#M000107">use_nonce</a>
+Not called during normal library operation, this method is for store admins
+to keep their storage from filling up with expired data
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000105" class="method-detail">
+        <a name="M000105"></a>
+
+        <div class="method-heading">
+          <a href="Interface.src/M000105.html" target="Code" class="method-signature"
+            onclick="popupCode('Interface.src/M000105.html');return false;">
+          <span class="method-name">get_association</span><span class="method-args">(server_url, handle=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a <a href="../Association.html">Association</a> object from storage
+that matches the server_url. Returns nil if no such association is found or
+if the one matching association is expired. (Is allowed to GC expired
+associations when found.)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000106" class="method-detail">
+        <a name="M000106"></a>
+
+        <div class="method-heading">
+          <a href="Interface.src/M000106.html" target="Code" class="method-signature"
+            onclick="popupCode('Interface.src/M000106.html');return false;">
+          <span class="method-name">remove_association</span><span class="method-args">(server_url, handle)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+If there is a matching association, remove it from the store and return
+true, otherwise return false.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000104" class="method-detail">
+        <a name="M000104"></a>
+
+        <div class="method-heading">
+          <a href="Interface.src/M000104.html" target="Code" class="method-signature"
+            onclick="popupCode('Interface.src/M000104.html');return false;">
+          <span class="method-name">store_association</span><span class="method-args">(server_url, association)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Put a <a href="../Association.html">Association</a> object into storage.
+When implementing a store, don&#8216;t assume that there are any
+limitations on the character set of the server_url. In particular, expect
+to see unescaped non-url-safe characters in the server_url field.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000107" class="method-detail">
+        <a name="M000107"></a>
+
+        <div class="method-heading">
+          <a href="Interface.src/M000107.html" target="Code" class="method-signature"
+            onclick="popupCode('Interface.src/M000107.html');return false;">
+          <span class="method-name">use_nonce</span><span class="method-args">(server_url, timestamp, salt)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return true if the nonce has not been used before, and store it for a while
+to make sure someone doesn&#8216;t try to use the same value again. Return
+false if the nonce has already been used or if the timestamp is not
+current. You can use OpenID::Store::Nonce::SKEW for your timestamp window.
+server_url: URL of the server from which the nonce originated timestamp:
+time the nonce was created in seconds since unix epoch salt: A random
+string that makes two nonces issued by a server in
+</p>
+<pre>
+      the same second unique
+</pre>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_extension_args (OpenID::PAPE::Response)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/extensions/pape.rb, line 116</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_extension_args</span>(<span class="ruby-identifier">args</span>, <span class="ruby-identifier">strict</span>=<span class="ruby-keyword kw">false</span>)
+        <span class="ruby-identifier">policies_str</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value str">'auth_policies'</span>]
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">policies_str</span>
+          <span class="ruby-ivar">@auth_policies</span> = <span class="ruby-identifier">policies_str</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">' '</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">nist_level_str</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value str">'nist_auth_level'</span>]
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">nist_level_str</span>
+          <span class="ruby-comment cmt"># special handling of zero to handle to_i behavior</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">nist_level_str</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'0'</span>
+            <span class="ruby-identifier">nist_level</span> = <span class="ruby-value">0</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">nist_level</span> = <span class="ruby-identifier">nist_level_str</span>.<span class="ruby-identifier">to_i</span>
+            <span class="ruby-comment cmt"># if it's zero here we have a bad value</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">nist_level</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+              <span class="ruby-identifier">nist_level</span> = <span class="ruby-keyword kw">nil</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">nist_level</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">nist_level</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">nist_level</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">5</span>
+            <span class="ruby-ivar">@nist_auth_level</span> = <span class="ruby-identifier">nist_level</span>
+          <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">strict</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;nist_auth_level must be an integer 0 through 4, not #{nist_level_str.inspect}&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">auth_age_str</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value str">'auth_age'</span>]
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">auth_age_str</span>
+          <span class="ruby-comment cmt"># special handling of zero to handle to_i behavior</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">auth_age_str</span>.<span class="ruby-identifier">strip</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'0'</span>
+            <span class="ruby-identifier">auth_age</span> = <span class="ruby-value">0</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">auth_age</span> = <span class="ruby-identifier">auth_age_str</span>.<span class="ruby-identifier">to_i</span>
+            <span class="ruby-comment cmt"># if it's zero here we have a bad value</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">auth_age</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+              <span class="ruby-identifier">auth_age</span> = <span class="ruby-keyword kw">nil</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">auth_age</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">auth_age</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
+            <span class="ruby-ivar">@auth_age</span> = <span class="ruby-identifier">auth_age</span>
+          <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">strict</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;auth_age must be a non-negative integer, not #{auth_age_str.inspect}&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

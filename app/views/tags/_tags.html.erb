@@ -1,0 +1,31 @@
+<%# THIS IS OLD - DO NOT USE %>
+
+<h3>data object: <%= link_to data_object.id, data_object %></h3>
+<!-- Current Tags -->
+<div id="data_object_tags">
+
+  <% unless data_object.tags.empty? %>
+    <% for key in tag_keys(data_object.tags) %>
+      <span style="width: 50px; display: inline-block; text-align: right; margin-right: 5px;"><%= key %>: </span><%= tag_hash(data_object.tags)[key].map{|tag| "#{link_to tag, '#'} #{image_tag('faqMinus.gif')}" }.join(' ') %><br />
+    <% end %>
+  <% else %>
+    <p>Data Object Has No Tags</p>
+  <% end %>
+
+</div>
+
+<!-- Add Tags -->
+<div style="border: 1px dashed red;">
+
+  <% form_tag data_object_tags_path(data_object.id) do %>
+    <label for="tag_key">Key:
+      <input type="text" name="tag[key]" id="tag_key" />
+    </label>
+    <label for="tag_value">Value:
+      <input type="text" name="tag[value]" id="tag_value" />
+    </label>
+    <%= submit_tag 'Add Tag' %>
+  <% end %>
+
+</div>
+

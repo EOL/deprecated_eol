@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>query (OpenID::Yadis::XRI::ProxyResolver)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/xrires.rb, line 45</span>
+        <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">query</span>(<span class="ruby-identifier">xri</span>, <span class="ruby-identifier">service_types</span>)
+          <span class="ruby-comment cmt"># these can be query args or http headers, needn't be both.</span>
+          <span class="ruby-comment cmt"># headers = {'Accept' =&gt; 'application/xrds+xml;sep=true'}</span>
+          <span class="ruby-identifier">canonicalID</span> = <span class="ruby-keyword kw">nil</span>
+
+          <span class="ruby-identifier">services</span> = <span class="ruby-identifier">service_types</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">service_type</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">url</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">query_url</span>(<span class="ruby-identifier">xri</span>, <span class="ruby-identifier">service_type</span>)
+            <span class="ruby-keyword kw">begin</span>
+              <span class="ruby-identifier">response</span> = <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">url</span>)
+            <span class="ruby-keyword kw">rescue</span>
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">XRIHTTPError</span>, [<span class="ruby-node">&quot;Could not fetch #{xri}&quot;</span>, <span class="ruby-identifier">$!</span>]
+            <span class="ruby-keyword kw">end</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">XRIHTTPError</span>, <span class="ruby-node">&quot;Could not fetch #{xri}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">nil?</span>
+
+            <span class="ruby-identifier">xrds</span> = <span class="ruby-constant">Yadis</span><span class="ruby-operator">::</span><span class="ruby-identifier">parseXRDS</span>(<span class="ruby-identifier">response</span>.<span class="ruby-identifier">body</span>)
+            <span class="ruby-identifier">canonicalID</span> = <span class="ruby-constant">Yadis</span><span class="ruby-operator">::</span><span class="ruby-identifier">get_canonical_id</span>(<span class="ruby-identifier">xri</span>, <span class="ruby-identifier">xrds</span>)
+
+            <span class="ruby-constant">Yadis</span><span class="ruby-operator">::</span><span class="ruby-identifier">services</span>(<span class="ruby-identifier">xrds</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">xrds</span>.<span class="ruby-identifier">nil?</span>
+          }
+          <span class="ruby-comment cmt"># TODO:</span>
+          <span class="ruby-comment cmt">#  * If we do get hits for multiple service_types, we're almost</span>
+          <span class="ruby-comment cmt">#    certainly going to have duplicated service entries and</span>
+          <span class="ruby-comment cmt">#    broken priority ordering.</span>
+          <span class="ruby-identifier">services</span> = <span class="ruby-identifier">services</span>.<span class="ruby-identifier">inject</span>([]) { <span class="ruby-operator">|</span><span class="ruby-identifier">flatter</span>, <span class="ruby-identifier">some_services</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">flatter</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">some_services</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">some_services</span>.<span class="ruby-identifier">nil?</span>
+          }
+
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">canonicalID</span>, <span class="ruby-identifier">services</span>
+        <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

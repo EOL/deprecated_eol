@@ -1,0 +1,13 @@
+<chart>
+  <message bg_color="#CCCCCC"><![CDATA[Advanced Broadcast]]></message>
+  <series>
+    <value xid="100" bg_color="#000000">1</value>
+    <value xid="101" bg_color="#FFFFFF">2</value>
+  </series>
+  <graphs>
+    <graph gid="test_gid" title="test_title">
+      <value xid="1" color="#AAAAAA" url="http://yp.to">1000</value>
+      <value xid="2" color="#BBBBBB" start="5">2000</value>
+    </graph>
+  </graphs>
+</chart>

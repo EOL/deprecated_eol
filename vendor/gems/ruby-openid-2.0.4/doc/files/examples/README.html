@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: README</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>README</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>examples/README
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Wed Feb 13 11:20:00 -0800 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This directory contains several examples that demonstrate use of the <a
+href="../../classes/OpenID.html">OpenID</a> library. Make sure you have
+properly installed the library before running the examples. These examples
+are a great place to start in integrating <a
+href="../../classes/OpenID.html">OpenID</a> into your application.
+</p>
+<h2>Rails example</h2>
+<p>
+The rails_openid contains a fully functional <a
+href="../../classes/OpenID.html">OpenID</a> server and relying party, and
+acts as a starting point for implementing your own production rails server.
+You&#8216;ll need the latest version of Ruby on Rails installed, and then:
+</p>
+<pre>
+ cd rails_openid
+ ./script/server
+</pre>
+<p>
+Open a web browser to <a href="http://localhost:3000">localhost:3000</a>/
+and follow the instructions.
+</p>
+<h2>Rails OpenidLoginGenerator</h2>
+<p>
+A port of the standard LoginGenerator <a
+href="../../classes/OpenID.html">OpenID</a> authentication instead of
+passwords. Use this generator as a *starting point* for your <a
+href="../../classes/OpenID.html">OpenID</a> enabled rails app.
+</p>
+<p>
+You can read about LoginGenerator at <a
+href="http://wiki.rubyonrails.com/rails/pages/LoginGenerator">wiki.rubyonrails.com/rails/pages/LoginGenerator</a>
+</p>
+<h3>Running the generator</h3>
+<ul>
+<li>Copy the contents of rails_openid_login_generator into
+
+</li>
+</ul>
+<pre>
+ ~/.rails/generators/openid_login
+ (or symlink: ln -s examples/rails_openid_login_generator
+                    ~/.rails/generators/openid_login)
+</pre>
+<ul>
+<li>run script/generate openid_login openid
+
+</li>
+</ul>
+<p>
+You will now have an openid_controller.rb in app/controllers. You&#8216;ll
+need to create your &#8216;users&#8217; database table before running the
+application. For schemas and more details about this generator, read
+README_LOGIN in you rails root directory.
+</p>
+<h2>Rails ActiveRecord OpenIDStore plugin</h2>
+<p>
+For various reasons you may want or need to deploy your ruby openid
+consumer/server using an SQL based store. The active_record_openid_store is
+a plugin that makes using an SQL based store simple. Follow the README
+inside the plugin&#8216;s dir for usage.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

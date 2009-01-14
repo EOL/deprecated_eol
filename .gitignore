@@ -1,0 +1,11 @@
+*.swp
+*.swo
+config/database.yml
+config/deploy.rb
+config/deploy
+vendor/eol_org
+public/search.xml
+*eol_org.rb
+db/schema.rb
+tmp
+log

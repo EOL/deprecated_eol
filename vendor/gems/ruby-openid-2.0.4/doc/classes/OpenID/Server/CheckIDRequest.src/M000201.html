@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (OpenID::Server::CheckIDRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 441</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">identity</span>, <span class="ruby-identifier">return_to</span>, <span class="ruby-identifier">op_endpoint</span>, <span class="ruby-identifier">trust_root</span>=<span class="ruby-keyword kw">nil</span>,
+                     <span class="ruby-identifier">immediate</span>=<span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">assoc_handle</span>=<span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-ivar">@namespace</span> = <span class="ruby-constant">OPENID2_NS</span>
+        <span class="ruby-ivar">@assoc_handle</span> = <span class="ruby-identifier">assoc_handle</span>
+        <span class="ruby-ivar">@identity</span> = <span class="ruby-identifier">identity</span>
+        <span class="ruby-ivar">@claimed_id</span> = <span class="ruby-identifier">identity</span>
+        <span class="ruby-ivar">@return_to</span> = <span class="ruby-identifier">return_to</span>
+        <span class="ruby-ivar">@trust_root</span> = <span class="ruby-identifier">trust_root</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">return_to</span>
+        <span class="ruby-ivar">@op_endpoint</span> = <span class="ruby-identifier">op_endpoint</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">immediate</span>
+          <span class="ruby-ivar">@immediate</span> = <span class="ruby-keyword kw">true</span>
+          <span class="ruby-ivar">@mode</span> = <span class="ruby-value str">&quot;checkid_immediate&quot;</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-ivar">@immediate</span> = <span class="ruby-keyword kw">false</span>
+          <span class="ruby-ivar">@mode</span> = <span class="ruby-value str">&quot;checkid_setup&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@return_to</span> <span class="ruby-keyword kw">and</span>
+            <span class="ruby-operator">!</span><span class="ruby-constant">TrustRoot</span><span class="ruby-operator">::</span><span class="ruby-constant">TrustRoot</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-ivar">@return_to</span>)
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">MalformedReturnURL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-ivar">@return_to</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">trust_root_valid</span>()
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">UntrustedReturnURL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">nil</span>, <span class="ruby-ivar">@return_to</span>, <span class="ruby-ivar">@trust_root</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

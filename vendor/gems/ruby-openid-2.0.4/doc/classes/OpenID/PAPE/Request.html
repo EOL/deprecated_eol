@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OpenID::PAPE::Request</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OpenID::PAPE::Request</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/openid/extensions/pape_rb.html">
+                lib/openid/extensions/pape.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Extension
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+A Provider Authentication Policy request, sent from a relying party to a
+provider
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000288">add_policy_uri</a>&nbsp;&nbsp;
+      <a href="#M000290">from_openid_request</a>&nbsp;&nbsp;
+      <a href="#M000289">get_extension_args</a>&nbsp;&nbsp;
+      <a href="#M000287">new</a>&nbsp;&nbsp;
+      <a href="#M000291">parse_extension_args</a>&nbsp;&nbsp;
+      <a href="#M000292">preferred_types</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">max_auth_age</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ns_alias</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ns_uri</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">preferred_auth_policies</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000290" class="method-detail">
+        <a name="M000290"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000290.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000290.html');return false;">
+          <span class="method-name">from_openid_request</span><span class="method-args">(oid_req)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Instantiate a <a href="Request.html">Request</a> object from the arguments
+in a checkid_* <a href="../../OpenID.html">OpenID</a> message return nil if
+the extension was not requested.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000287" class="method-detail">
+        <a name="M000287"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000287.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000287.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(preferred_auth_policies=[], max_auth_age=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000288" class="method-detail">
+        <a name="M000288"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000288.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000288.html');return false;">
+          <span class="method-name">add_policy_uri</span><span class="method-args">(policy_uri)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add an acceptable authentication policy URI to this request This method is
+intended to be used by the relying party to add acceptable authentication
+types to the request.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000289" class="method-detail">
+        <a name="M000289"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000289.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000289.html');return false;">
+          <span class="method-name">get_extension_args</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000291" class="method-detail">
+        <a name="M000291"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000291.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000291.html');return false;">
+          <span class="method-name">parse_extension_args</span><span class="method-args">(args)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the state of this request to be that expressed in these <a
+href="../PAPE.html">PAPE</a> arguments
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000292" class="method-detail">
+        <a name="M000292"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000292.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000292.html');return false;">
+          <span class="method-name">preferred_types</span><span class="method-args">(supported_types)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Given a list of authentication policy URIs that a provider supports, this
+method returns the subset of those types that are preferred by the relying
+party.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>find_links_rel (OpenID)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/html_parse.rb, line 103</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">find_links_rel</span>(<span class="ruby-identifier">link_attrs_list</span>, <span class="ruby-identifier">target_rel</span>)
+    <span class="ruby-comment cmt"># Filter the list of link attributes on whether it has target_rel</span>
+    <span class="ruby-comment cmt"># as a relationship.</span>
+
+    <span class="ruby-comment cmt"># XXX: TESTME</span>
+    <span class="ruby-identifier">matchesTarget</span> = <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">attrs</span><span class="ruby-operator">|</span> <span class="ruby-identifier">link_has_rel</span>(<span class="ruby-identifier">attrs</span>, <span class="ruby-identifier">target_rel</span>) }
+    <span class="ruby-identifier">result</span> = []
+
+    <span class="ruby-identifier">link_attrs_list</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">matchesTarget</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">item</span>)
+        <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">item</span>
+      <span class="ruby-keyword kw">end</span>
+    }
+
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">result</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

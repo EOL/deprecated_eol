@@ -1,0 +1,83 @@
+	<div id="page-separator-general"></div>
+	
+<div id="user_show" class="clearfix">
+   <%= link_to '[go back]', :back %>
+   <% if @user == current_user %><%= link_to '[edit]', profile_path %><% end %>
+    <div id="about">
+        <h1><%= h @user.given_name %>&nbsp;<%= h @user.family_name %></h1>
+        <p>
+            Curator of <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %>
+        </p>
+    </div>
+    <div id="account">
+        <h3>Account</h3>
+        <p>
+            <table>
+                <thead>
+                </thead>
+                <tbody>
+                    <tr class="<%= cycle('odd','even', :name => 'account')%>">
+                        <td>
+                            Username
+                        </td>
+                        <td>
+                            <%= h @user.username %>
+                        </td>
+                    </tr>
+                    <tr class="<%= cycle('odd','even', :name => 'account')%>">
+                        <td>
+                            Joined
+                        </td>
+                        <td>
+                            <%= @user.created_at %>
+                        </td>
+                    </tr>
+                    <tr class="<%= cycle('odd','even', :name => 'account')%>">
+                        <td>
+                            Approved Curator
+                        </td>
+                        <td>
+                            <%= @user.curator_approved ? 'Yes'[] : 'No'[] %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+    </div>
+    <!--
+    <div id="activity">
+        <h3>Activity</h3>
+        <p>
+            <table>
+                <thead>
+                </thead>
+                <tbody>
+                    <tr class="<%= cycle('odd','even', :name => 'account')%>">
+                        <td>
+                            Objects Curated
+                        </td>
+                        <td>
+                            <%= current_user.total_objects_curated %>
+                        </td>
+                    </tr>
+                    <tr class="<%= cycle('odd','even', :name => 'account')%>">
+                        <td>
+                            Comments Moderated
+                        </td>
+                        <td>
+                            <%= current_user.total_comments_curated %>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </p>
+    </div>
+    -->
+    <div id="credentials">
+        <h2>Credentials</h2>
+        <p>
+            <%= h @user.credentials %>
+        </p>
+    </div>
+
+</div>

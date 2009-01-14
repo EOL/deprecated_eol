@@ -1,0 +1,9 @@
+<%# 
+  locals:
+    group: the ImageButtonGroup (has a #name, as defined by image_button_group #name)
+    name:  the name of this particular image_button
+    path:  the path for this particular image_button
+%>
+<li id="<%= name %>">
+  <%= link_to '', path, :id => "#{ name }-popup-link", :class => 'popup-link' %>
+</li>

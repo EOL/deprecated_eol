@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>arrange_by_type (OpenID)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/discovery.rb, line 313</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">arrange_by_type</span>(<span class="ruby-identifier">service_list</span>, <span class="ruby-identifier">preferred_types</span>)
+    <span class="ruby-comment cmt"># Rearrange service_list in a new list so services are ordered by</span>
+    <span class="ruby-comment cmt"># types listed in preferred_types.  Return the new list.</span>
+
+    <span class="ruby-comment cmt"># Build a list with the service elements in tuples whose</span>
+    <span class="ruby-comment cmt"># comparison will prefer the one with the best matching service</span>
+    <span class="ruby-identifier">prio_services</span> = []
+
+    <span class="ruby-identifier">service_list</span>.<span class="ruby-identifier">each_with_index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">prio_services</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">best_matching_service</span>(<span class="ruby-identifier">s</span>, <span class="ruby-identifier">preferred_types</span>), <span class="ruby-identifier">index</span>, <span class="ruby-identifier">s</span>]
+    }
+
+    <span class="ruby-identifier">prio_services</span>.<span class="ruby-identifier">sort!</span>
+
+    <span class="ruby-comment cmt"># Now that the services are sorted by priority, remove the sort</span>
+    <span class="ruby-comment cmt"># keys from the list.</span>
+    (<span class="ruby-value">0</span><span class="ruby-operator">...</span><span class="ruby-identifier">prio_services</span>.<span class="ruby-identifier">length</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">prio_services</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-identifier">prio_services</span>[<span class="ruby-identifier">i</span>][<span class="ruby-value">2</span>]
+    }
+
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">prio_services</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

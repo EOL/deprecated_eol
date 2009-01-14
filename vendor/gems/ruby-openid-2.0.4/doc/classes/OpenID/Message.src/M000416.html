@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_aliased_arg (OpenID::Message)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/message.rb, line 411</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_aliased_arg</span>(<span class="ruby-identifier">aliased_key</span>, <span class="ruby-identifier">default</span>=<span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">aliased_key</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'ns'</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">get_openid_namespace</span>()
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">ns_alias</span>, <span class="ruby-identifier">key</span> = <span class="ruby-identifier">aliased_key</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'.'</span>, <span class="ruby-value">2</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ns_alias</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'ns'</span>
+        <span class="ruby-identifier">uri</span> = <span class="ruby-ivar">@namespaces</span>.<span class="ruby-identifier">get_namespace_uri</span>(<span class="ruby-identifier">key</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">uri</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">default</span> <span class="ruby-operator">==</span> <span class="ruby-constant">NO_DEFAULT</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">KeyNotFound</span>, <span class="ruby-node">&quot;Namespace #{key} not defined when looking &quot;</span>\
+                             <span class="ruby-node">&quot;for #{aliased_key}&quot;</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">uri</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-identifier">default</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">uri</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">key</span> = <span class="ruby-identifier">aliased_key</span>
+        <span class="ruby-identifier">ns</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">ns</span> = <span class="ruby-ivar">@namespaces</span>.<span class="ruby-identifier">get_namespace_uri</span>(<span class="ruby-identifier">ns_alias</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ns</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">key</span> = <span class="ruby-identifier">aliased_key</span>
+        <span class="ruby-identifier">ns</span> = <span class="ruby-identifier">get_openid_namespace</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">get_arg</span>(<span class="ruby-identifier">ns</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">default</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

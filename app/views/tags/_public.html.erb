@@ -1,0 +1,29 @@
+<div id="public_data_object_tags_container">
+
+  <div id="public_data_object_tags" class="data_object_tagging"<% unless visible %> style="display: none;"<% end %>>
+
+    <!-- the section that displays current tags -->
+    <div id="data_object_tags">
+      <%# this next bit should likely be a partial ... %>
+      <h1><%= image_tag 'icons/tag.gif' %>Public Image Tags</h1>
+      <% unless tags.empty? %>
+        <% for key in tag_keys(tags) %>
+          <div class="clear_both">
+            <div class="data_object_tag_key_values values">
+              <% for value in tag_values_for_key(key, tags) %>
+                <%= render :partial => 'tag_key_value', :locals => { :key => key, :value => value, :can_delete => false } %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <h2>This image has no public tags.</h2>
+      <% end %>
+      <% if !logged_in? && $ALLOW_USER_LOGINS %>
+        <br /><h2>You must be <%= link_to('logged in', login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? home_page_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => "login_link"}) %> to add your own tags.</h2>
+      <% end %>
+
+    </div>
+
+  </div>
+</div>

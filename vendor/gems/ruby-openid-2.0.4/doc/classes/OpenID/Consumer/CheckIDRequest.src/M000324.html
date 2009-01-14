@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (OpenID::Consumer::CheckIDRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/checkid_request.rb, line 22</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">assoc</span>, <span class="ruby-identifier">endpoint</span>)
+        <span class="ruby-ivar">@assoc</span> = <span class="ruby-identifier">assoc</span>
+        <span class="ruby-ivar">@endpoint</span> = <span class="ruby-identifier">endpoint</span>
+        <span class="ruby-ivar">@return_to_args</span> = {}
+        <span class="ruby-ivar">@message</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">preferred_namespace</span>)
+        <span class="ruby-ivar">@anonymous</span> = <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

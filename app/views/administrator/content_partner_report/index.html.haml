@@ -1,0 +1,50 @@
+= render :partial => '/admin/content_top', :locals => {:name => 'Content Partner Reports'}
+
+- form_tag({:action=>'index'},:method=>'get') do
+  Search for partner names containing: 
+  = text_field_tag(:partner_search_string,@partner_search_string)
+  = submit_tag 'Search' 
+%br/
+%br/
+%table.results_table{:width => "100%", :cellspacing => "0"}
+  %tr
+    %th
+      = link_to 'Partner',{:order_by=>'full_name'}
+    %th
+      = link_to 'Registered',{:order_by=>'content_partners.created_at DESC'}
+    %th Steps
+  - for agent in @agents 
+    - column_class=cycle('odd','even') 
+  
+    %tr{:valign => "top"}
+      %td{:width => "40%", :class => column_class}
+        = link_to(agent.project_name, { :action => 'show', :id => agent })
+        %br/
+        == Content partner has #{agent.resources.count} resources
+      %td{:class => column_class}
+        = format_date(agent.content_partner.created_at)
+      %td{:class => column_class}          	
+        = content_partner_check_box_image(agent.content_partner.partner_complete_step?)
+        Partner Information Completed
+        %br/
+        = content_partner_check_box_image(agent.agent_contacts.any?)
+        Contact Information Added
+        %br/
+        = content_partner_check_box_image(agent.terms_agreed_to?)
+        All Terms Agreed To
+        %br/
+        = content_partner_check_box_image(agent.agreement_accepted?)
+        Agreement accepted        
+        %br/ 
+        = content_partner_check_box_image(agent.vetted?)
+        Vetted by EOL
+        %br/ 
+        = content_partner_check_box_image(agent.show_on_partner_page?)
+        Shown on content partners page        
+%br/
+%br/
+= will_paginate @agents
+      
+.message{:id =>"message_area"}	
+	
+= render :partial => '/admin/content_bottom'	

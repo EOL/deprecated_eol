@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>discover_yadis (OpenID)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/discovery.rb, line 357</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">discover_yadis</span>(<span class="ruby-identifier">uri</span>)
+    <span class="ruby-comment cmt"># Discover OpenID services for a URI. Tries Yadis and falls back</span>
+    <span class="ruby-comment cmt"># on old-style &lt;link rel='...'&gt; discovery if Yadis fails.</span>
+    <span class="ruby-comment cmt">#</span>
+    <span class="ruby-comment cmt"># @param uri: normalized identity URL</span>
+    <span class="ruby-comment cmt"># @type uri: str</span>
+    <span class="ruby-comment cmt"># </span>
+    <span class="ruby-comment cmt"># @return: (claimed_id, services)</span>
+    <span class="ruby-comment cmt"># @rtype: (str, list(OpenIDServiceEndpoint))</span>
+    <span class="ruby-comment cmt">#</span>
+    <span class="ruby-comment cmt"># @raises DiscoveryFailure: when discovery fails.</span>
+
+    <span class="ruby-comment cmt"># Might raise a yadis.discover.DiscoveryFailure if no document</span>
+    <span class="ruby-comment cmt"># came back for that URI at all.  I don't think falling back to</span>
+    <span class="ruby-comment cmt"># OpenID 1.0 discovery on the same URL will help, so don't bother</span>
+    <span class="ruby-comment cmt"># to catch it.</span>
+    <span class="ruby-identifier">response</span> = <span class="ruby-constant">Yadis</span>.<span class="ruby-identifier">discover</span>(<span class="ruby-identifier">uri</span>)
+
+    <span class="ruby-identifier">yadis_url</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">normalized_uri</span>
+    <span class="ruby-identifier">body</span> = <span class="ruby-identifier">response</span>.<span class="ruby-identifier">response_text</span>
+
+    <span class="ruby-keyword kw">begin</span>
+      <span class="ruby-identifier">openid_services</span> = <span class="ruby-constant">OpenIDServiceEndpoint</span>.<span class="ruby-identifier">from_xrds</span>(<span class="ruby-identifier">yadis_url</span>, <span class="ruby-identifier">body</span>)
+    <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Yadis</span><span class="ruby-operator">::</span><span class="ruby-constant">XRDSError</span>
+      <span class="ruby-comment cmt"># Does not parse as a Yadis XRDS file</span>
+      <span class="ruby-identifier">openid_services</span> = []
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">openid_services</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-comment cmt"># Either not an XRDS or there are no OpenID services.</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">is_xrds</span>
+        <span class="ruby-comment cmt"># if we got the Yadis content-type or followed the Yadis</span>
+        <span class="ruby-comment cmt"># header, re-fetch the document without following the Yadis</span>
+        <span class="ruby-comment cmt"># header, with no Accept header.</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">discover_no_yadis</span>(<span class="ruby-identifier">uri</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt"># Try to parse the response as HTML.</span>
+      <span class="ruby-comment cmt"># &lt;link rel=&quot;...&quot;&gt;</span>
+      <span class="ruby-identifier">openid_services</span> = <span class="ruby-constant">OpenIDServiceEndpoint</span>.<span class="ruby-identifier">from_html</span>(<span class="ruby-identifier">yadis_url</span>, <span class="ruby-identifier">body</span>)
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">return</span> [<span class="ruby-identifier">yadis_url</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">get_op_or_user_services</span>(<span class="ruby-identifier">openid_services</span>)]
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

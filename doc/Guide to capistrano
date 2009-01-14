@@ -1,0 +1,80 @@
+== Guide to capistrano ==
+
+Check out the project
+Capify - This has already been done, and the existing file has been modified.
+Check that there's a mongrel_cluster.yml 
+
+On the server, check for the following gems: daemons gem_plugin mongrel mongrel_cluster. Sometimes the mongrel_cluster gem is missing (Hat tip: http://blog.codahale.com/2006/06/19/time-for-a-grown-up-server-rails-mongrel-apache-capistrano-and-you/)
+On the workstation, check that the capistrano gem and the mongrel_cluster gems (which requires the mongrel gem) are present. (Hat tip for mongrel_cluster: ibid)
+
+Check that the server has svn, sudo. If it doesn't, then don't forget to find out what OS you're on, and if it's ubutu, go to launchpad.
+
+Capistrano is able to be run as a non-root process with the occasional dash of sudo. Create such a user.
+
+Set up deploy.rb - it's a fair bit of work, so your best bet is to copy from one that works.
+
+Have the non-privileged user do a subversion checkout to the local workstation (unless you're pushing a tarball from the workstation, in which case you'd do the same under your user on your workstation).
+
+Make sure that you've modified any configuration files required, and save them to the repository.
+
+If deploying with Capistrano for the first time:
+   1. Check with the programmers whether it's ok to shut down the current web application. Shut down the application (eg with  mongrel_rails stop -P log/mongrel-l.pid ). Copy the current version to a application-old directory. 
+   2. Run (remembering to change server_name and nameofapp)
+   3. cap server_name invoke SUDO=1 COMMAND="mkdir -m 777 /data/www/rails/nameofapp"
+    If it complains "sorry, you must have a tty to run sudo", then set default_run_options[:pty] = true
+   4. cap server_name deploy:setup
+   5. cap server_name invoke COMMAND="mkdir -m 775 /data/www/rails/nameofapp/shared/config"
+        to a directory config within the shared directory.
+   6. Put any configuration files that shouldn't be version controlled in there, such as database.yml .
+    7. cap server_name deploy:cold
+
+If it works (and why wouldn't it, apart from the paragraph below?), then subsequent deployments are done with 
+
+cap server_name deploy  (e.g. cap wattle deploy) or cap wattle deploy:migrations if you want migrations
+
+to see which server name you are deploying to, do a cap -T
+
+If you're using a windows workstation, you probably can't use tar and gzip. Instead, you'll have to install zip ( from http://www.info-zip.org/Zip.html ) on your windows workstation, and unzip on your server box.
+
+Capistrano has the ability to disable or enable rails applications. This requires configuring the apache servers to redirect to a certain page if it exists. http://clarkware.com/cgi/blosxom/2007/01/05#CustomMaintenancePages has some instructions. To disable a web site, run
+
+cap server_name deploy:web:disable REASON="fixing things up" UNTIL="when we fix it"
+
+And to bring the site back up, do
+
+cap server_name deploy:web:enable
+
+== Troubleshooting ==
+
+Possible problem: uploading a zipped file doesn't work - it gives a zero sized file on the server.
+
+Add
+
+set :synchronous_connect, true
+
+Possible problem: having trouble restarting
+
+ ** [out :: demo.eol.org] already stopped port 5000
+ ** [out :: demo.eol.org] already stopped port 5001
+ ** [out :: demo.eol.org] already stopped port 5002
+
+ ** [out :: demo.eol.org] starting port 5000
+ ** [out :: demo.eol.org] ** Ruby version is not up-to-date; loading cgi_multipart_eof_fix
+ ** [out :: demo.eol.org] 
+ ** [out :: demo.eol.org] ** !!! PID file log/mongrel.5000.pid already exists.  Mongrel could be running already.  Check your log/mongrel.5000.log for errors.
+ ** [out :: demo.eol.org] ** !!! Exiting with error.  You must stop mongrel and clear the .pid before I'll attempt a start.
+ ** [out :: demo.eol.org] 
+
+Possible cause: mongrel isn't running, but the pid file still exists. Try something like
+sudo mongrel_rails stop -P log/mongrel.5001.pid
+If it says 
+Sending TERM to Mongrel at PID 13524...Process does not exist.  Not running.
+Then that may confirm it.
+
+sudo mongrel_rails stop -P log/mongrel-l.pid
+will probably fix the problem, saying
+Sending TERM to Mongrel at PID 22494...Done.
+
+Then, on your workstation, do
+cap demo deploy:start
+

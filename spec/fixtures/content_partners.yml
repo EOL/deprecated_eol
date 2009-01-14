@@ -1,0 +1,77 @@
+quentin:
+  id: 1
+  auto_publish: false
+  agent_id: 25
+  created_at: <%= 5.days.ago.to_s :db %>
+  description_of_data: ""
+  notes: "blah"
+  description: "This is just a test project"  
+
+fish_base:
+  id: 2
+  auto_publish: false
+  agent_id: 2
+  description: "We really like FishBase."   
+  description_of_data: ""
+  created_at: <%= 5.days.ago.to_s :db %>
+  ipr_accept: 1
+  attribution_accept: 1
+  roles_accept: 1
+  partner_seen_step: <%= 5.days.ago.to_s :db %>
+  partner_complete_step: <%= 5.days.ago.to_s :db %>  
+  contacts_seen_step: <%= 5.days.ago.to_s :db %>
+  contacts_complete_step: <%= 5.days.ago.to_s :db %>
+  attribution_seen_step: <%= 5.days.ago.to_s :db %>
+  attribution_complete_step: <%= 5.days.ago.to_s :db %>  
+  roles_seen_step: <%= 5.days.ago.to_s :db %>
+  roles_complete_step: <%= 5.days.ago.to_s :db %>
+  auto_publish: 1
+  show_on_partner_page: 1
+  vetted: 0
+  
+monkey_place:
+  id: 3
+  auto_publish: false
+  agent_id: 42
+  description_of_data: ""
+  created_at: <%= 5.days.ago.to_s :db %>
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: content_partners
+#
+#  id                                  :integer(4)      not null, primary key
+#  agent_id                            :integer(4)      not null
+#  attribution_accept                  :integer(1)      not null, default(0)
+#  attribution_complete_step           :timestamp
+#  attribution_seen_step               :timestamp
+#  auto_publish                        :boolean(1)      not null
+#  contacts_complete_step              :timestamp
+#  contacts_seen_step                  :timestamp
+#  description                         :text            not null
+#  description_of_data                 :text
+#  eol_notified_of_acceptance          :datetime
+#  ipr_accept                          :integer(1)      not null, default(0)
+#  last_completed_step                 :string(40)
+#  licensing_complete_step             :timestamp
+#  licensing_seen_step                 :timestamp
+#  notes                               :text            not null
+#  partner_complete_step               :timestamp
+#  partner_seen_step                   :timestamp
+#  roles_accept                        :integer(1)      not null, default(0)
+#  roles_complete_step                 :timestamp
+#  roles_seen_step                     :timestamp
+#  show_on_partner_page                :boolean(1)      not null
+#  specialist_formatting_complete_step :timestamp
+#  specialist_formatting_seen_step     :timestamp
+#  specialist_overview_complete_step   :timestamp
+#  specialist_overview_seen_step       :timestamp
+#  transfer_overview_complete_step     :timestamp
+#  transfer_overview_seen_step         :timestamp
+#  transfer_schema_accept              :integer(1)      not null, default(0)
+#  transfer_upload_complete_step       :timestamp
+#  transfer_upload_seen_step           :timestamp
+#  vetted                              :integer(1)      not null, default(0)
+#  created_at                          :timestamp       not null
+#  updated_at                          :timestamp       not null
+

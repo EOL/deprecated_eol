@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>== (OpenID::Association)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/association.rb, line 136</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span>(<span class="ruby-identifier">other</span>)
+      (<span class="ruby-identifier">other</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span> <span class="ruby-keyword kw">and</span> 
+       <span class="ruby-identifier">other</span>.<span class="ruby-identifier">handle</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">handle</span> <span class="ruby-keyword kw">and</span>
+       <span class="ruby-identifier">other</span>.<span class="ruby-identifier">secret</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">secret</span> <span class="ruby-keyword kw">and</span>
+
+       <span class="ruby-comment cmt"># The internals of the time objects seemed to differ</span>
+       <span class="ruby-comment cmt"># in an opaque way when serializing/unserializing.</span>
+       <span class="ruby-comment cmt"># I don't think this will be a problem.</span>
+       <span class="ruby-identifier">other</span>.<span class="ruby-identifier">issued</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">issued</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-keyword kw">and</span>
+
+       <span class="ruby-identifier">other</span>.<span class="ruby-identifier">lifetime</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">lifetime</span> <span class="ruby-keyword kw">and</span>
+       <span class="ruby-identifier">other</span>.<span class="ruby-identifier">assoc_type</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">assoc_type</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

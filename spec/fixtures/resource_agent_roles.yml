@@ -1,0 +1,19 @@
+administrative:
+  id: 6
+  label: Administrative
+data_administrator:
+  id: 1
+  label: Data Administrator
+data_host:
+  id: 4
+  label: Data Host
+data_supplier:
+  id: 3
+  label: Data Supplier
+system_administrator:
+  id: 2
+  label: System Administrator
+technical_host:
+  id: 5
+  label: Technical Host
+

@@ -1,0 +1,64 @@
+<script type="text/javascript">
+// instant feedback to user about password matching
+function check_passwords() {
+	if ($('agent_password').value != $('agent_password_confirmation').value) {
+		$('password_warn').innerHTML='<%=escape_javascript("Passwords must match"[])%>.';
+	}
+	else {
+		$('password_warn').innerHTML='';
+	}
+}
+</script>
+
+<%= render :partial => '/admin/content_top', :locals => {:name => "Edit Profile: #{@agent.display_name}" }%>
+  
+  <%= link_to '[cancel]', :back %>
+                  
+  <%= eol_lang_error_messages_for :agent %>
+
+  <% form_for @agent, :url => { :action => 'edit_profile' }, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr", :method => 'post' } do |f| %>
+      <fieldset>
+          <legend><%= "Account Information"[] %></legend>
+
+          <%= f.label :username, "#{'Username'[]}" %>
+          <%= @agent.username %>
+          
+          <span class="error" id="username_warn"></span>                    
+
+          <%= f.label :email, "#{'Email Address'[]} <span title='required'>*</span>"[] %>
+          <!-- agent_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //-->
+          <%= f.text_field :email, :maxlength => 60, :size => 30 %>
+
+          <%= f.label :password, "#{'Password'[]} (4-16 characters)"[] %>
+          <%= f.password_field :password, :maxlength => 16, :onblur => "check_passwords();" %>
+          <span class="error" id="password_warn"></span>
+
+          <%= f.label :password_confirmation, "Confirm Password"[] %>
+          <%= f.password_field :password_confirmation, :maxlength => 16, :onblur => "check_passwords();" %>
+
+          <br /><br />
+          <legend><%= "Project Information"[] %></legend>
+            <%= f.label :project_name, 'Project Name <span title="required">*</span>' %>
+            Please fill in the full name of the project or web site from which the information will come as you want it to be visible in the Encyclopedia of Life.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE<br />
+            <%= f.text_field :project_name, :maxlength => 100, :size=>50  %>
+       
+            <%= f.label :project_abbreviation, "Project Abbreviation" %>
+            Please fill in an abbreviated name for the project.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE<br />
+            <%= f.text_field :project_abbreviation, :maxlength => 20  %>
+       
+            <%= f.label :url, "Project URL" %>
+          This will be used to link to your project from the website.<br />
+            <%= f.text_field :url, :maxlength => 250, :size=>50  %>
+
+            <%= f.label :project_description, 'Project Description <span title="required">*</span>' %>
+            Describe the project as you would like it to appear on the Encyclopedia of Life web site.
+            <%= f.text_area :project_description, :cols => 70, :rows => 10 %>
+
+          <div class='button'>
+              <%= submit_tag "Update Profile"[] + ' &#187;' %>
+          </div>                     
+      </fieldset>                
+  <% end -%>
+
+  <!-- end form -->
+<%= render :partial => '/admin/content_bottom' %>

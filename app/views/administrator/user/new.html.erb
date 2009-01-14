@@ -1,0 +1,9 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'New User'} %>
+		   		    	
+	<% form_for :user,@user,:url => {:action=>'create'},:html=>{:id=>'page_form'} do |f|  %>
+	
+	<%= render :partial => 'form', :locals => {:f=>f} %>
+	
+	<% end %>
+
+<%= render :partial => '/admin/content_bottom' %>

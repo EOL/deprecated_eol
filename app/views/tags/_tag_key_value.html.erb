@@ -1,0 +1,21 @@
+<%#   
+  this renders a single, tag_key_value ... eg:
+
+   key: [tag_key_value] [tag_key_value]
+   key: [tag_key_value] 
+   key: [tag_key_value] [tag_key_value]
+        [tag_key_value]
+%>
+<%
+  data_object = @data_object if @data_object # ... 
+  tag_string = key != 'none' ? key + ":" + value : value
+  escaped_tag=CGI.escape(key + ':' + value)
+%>
+<span class="data_object_tag_key_value">
+  <%= link_to tag_string, "#{data_object_tags_path(data_object.id)}/#{escaped_tag}" %><%# <--- this URL doesn't work *YET* %>
+  <% unless can_delete == false %>
+    <% form_tag "#{data_object_tags_path(data_object.id)}/#{escaped_tag}", :method => 'delete' do %>
+      <%= submit_tag '', :class => 'destroy-x',:onclick=>'showPopupAjaxIndicator();' %>
+    <% end %>
+  <% end %>
+</span>

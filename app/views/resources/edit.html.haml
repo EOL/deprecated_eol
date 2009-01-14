@@ -1,0 +1,18 @@
+- if current_user.is_admin?
+  = render :partial => '/admin/content_top', :locals => {:name => 'Content Partner Reports'}
+  - content_partner_id = params[:content_partner_id]  
+- else
+  = render :partial => '/content_partner/top', :locals => {:page_header => 'Edit Resource'}
+  -content_partner_id = 0
+
+%h1 Editing Resource
+= render :partial => 'form', :locals => { :button_label => 'Save Changes', :method => :put, :content_partner_id => content_partner_id }
+%p
+  %br/
+
+= link_to 'Cancel', :back
+
+- if current_user.is_admin?
+  = render :partial => '/admin/content_bottom'
+- else
+  = render :partial => '/content_partner/bottom'

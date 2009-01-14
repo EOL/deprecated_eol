@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>verify_discovery_results_openid2 (OpenID::Consumer::IdResHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/idres.rb, line 330</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verify_discovery_results_openid2</span>
+        <span class="ruby-identifier">to_match</span> = <span class="ruby-constant">OpenIDServiceEndpoint</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">type_uris</span> = [<span class="ruby-constant">OPENID_2_0_TYPE</span>]
+        <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">claimed_id</span> = <span class="ruby-identifier">fetch</span>(<span class="ruby-value str">'claimed_id'</span>, <span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">local_id</span> = <span class="ruby-identifier">fetch</span>(<span class="ruby-value str">'identity'</span>, <span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">server_url</span> = <span class="ruby-identifier">fetch</span>(<span class="ruby-value str">'op_endpoint'</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">claimed_id</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">local_id</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, (<span class="ruby-value str">'openid.identity is present without '</span>\
+                                <span class="ruby-value str">'openid.claimed_id'</span>)
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-operator">!</span><span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">claimed_id</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">local_id</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, (<span class="ruby-value str">'openid.claimed_id is present without '</span>\
+                                <span class="ruby-value str">'openid.identity'</span>)
+
+        <span class="ruby-comment cmt"># This is a response without identifiers, so there's really no</span>
+        <span class="ruby-comment cmt"># checking that we can do, so return an endpoint that's for</span>
+        <span class="ruby-comment cmt"># the specified `openid.op_endpoint'</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">claimed_id</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-ivar">@endpoint</span> =
+            <span class="ruby-constant">OpenIDServiceEndpoint</span>.<span class="ruby-identifier">from_op_endpoint_url</span>(<span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">server_url</span>)
+          <span class="ruby-keyword kw">return</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@endpoint</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">'No pre-discovered information supplied'</span>)
+          <span class="ruby-identifier">discover_and_verify</span>(<span class="ruby-identifier">to_match</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-identifier">verify_discovery_single</span>(<span class="ruby-ivar">@endpoint</span>, <span class="ruby-identifier">to_match</span>)
+          <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ProtocolError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+            <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">&quot;Error attempting to use stored discovery &quot;</span>\
+                     <span class="ruby-node">&quot;information: #{why.message}&quot;</span>)
+            <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">&quot;Attempting discovery to verify endpoint&quot;</span>)
+            <span class="ruby-identifier">discover_and_verify</span>(<span class="ruby-identifier">to_match</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@endpoint</span>.<span class="ruby-identifier">claimed_id</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">claimed_id</span>
+          <span class="ruby-ivar">@endpoint</span> = <span class="ruby-ivar">@endpoint</span>.<span class="ruby-identifier">dup</span>
+          <span class="ruby-ivar">@endpoint</span>.<span class="ruby-identifier">claimed_id</span> = <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">claimed_id</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

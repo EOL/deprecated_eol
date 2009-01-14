@@ -1,0 +1,40 @@
+<script type="text/javascript">
+	womAdd('$(\'agent_username\').focus();');
+</script>
+    <div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+        <h1><%= "Content Partner Login"[:content_partner_login] %></h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+    <div id="page-content" class="clearfix">
+        <!-- center page content -->
+        <div id="full-page-content">
+            <br />
+			Welcome:  This site allows people and projects who want their information to be shown on EOL species pages to register with us.   This process is designed for partners with structured data (data in databases).  We will gather some information,  create a license agreement, and  confirm  that your data are configured so that they can be easily acquired by EOL.  You must be authorized to make a licensing agreement, and you must have made agreements with the individuals who have contributed information to you.
+			<br /><br />
+			<p><%=link_to("To begin the registration process, click here"[],:action=>'register')%>, or if you have previously registered, enter your login information below.  Note that this is a project level login.</p>
+            <div style="float: left; width: 550px;">
+                <% form_for :agent do |form| -%>
+                <fieldset>   
+                    <label for="username"><%= "Username"[] %></label>
+                    <%= form.text_field 'username', :size=>16, :maxlength=>30 %>
+
+                    <label for="password"><%= "Password"[] %></label>
+                    <%= form.password_field 'password', :size=>16,:maxlength=>30 %>
+
+                    <br /><br />
+                    <table border="0" width="500" cellpadding="20">
+                        <tr>
+                            <td valign="top"><%= submit_tag 'Login Now'[:login_now] + ' &#187;' %></td>
+                            <td valign="middle"><%= link_to("Forgot Password"[], url_for(:action=>'forgot_password')) %></td>
+                        </tr>
+                    </table>
+
+                </fieldset>
+                <% end -%>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,72 @@
+<div id="<%= id %>" style="display: inline;">
+
+  <input type="<%= (is_debug == true) ? 'text' : 'hidden' %>" id="<%= name %>" name="<%= name %>" value="<%= (value) ? value.id : '' %>"/>
+
+  <% if toggle %>
+    <span id="browser_show"><a onclick="javascript:Effect.SlideDown('<%= id %>-inner'); Element.hide('browser_show'); Element.show('browser_hide'); return false;" href="#">[<%= show_text %>]</a></span>
+    <span id="browser_hide" style="display:none"><a onclick="javascript:Effect.SlideUp('<%= id %>-inner');Element.hide('browser_hide');Element.show('browser_show');return false;" href="#">[<%= hide_text %>]</a></span>
+  <% if show_clear %><span id="browser_clear"><a onclick="javascript:clear_clade_of_clade_selector(); return false;" href="#">[clear]</a></span><% end %>
+  <% end %>
+
+  <%
+    def tree_entry_text he, selectable_clade_level
+      begin
+        name = he.name
+      rescue ActiveRecord::RecordNotFound
+        name = 'unknown'
+      end
+      selection_link = %[<a href="#" class="value_#{he.id}" onclick="javascript:select_clade_of_clade_selector(#{he.id}); return false;">#{name}</a>]
+      if he.ancestors.size < selectable_clade_level
+        selection_link = name
+      end
+      expansion_link = %[<a href="#{ request.path }?clade_to_expand=#{ he.id }" onclick="JavaScript:expand_clade_of_clade_selector(#{he.id}); return false;">+</a>]
+      selection_link += " &nbsp; " + expansion_link if he.children.count > 0
+      selection_link
+    end
+  %>
+  <script type="text/javascript">
+    function expand_clade_of_clade_selector( clade_id ) {
+      $('value_' + clade_id).innerHTML+='<%=image_tag('indicator_arrows_black.gif')%>';
+      // TODO: i'll fix this shortly ... for right now, this just needs to work so i hit the page you're on with a new querystring - extremely inefficient - will be fixed ASAP
+      $j('#<%= id %>-inner ul.tree').load('<%= request.path %>?clade_to_expand=' + clade_id + ' #<%= id %>-inner ul.tree');
+      <%= on_expand if defined?on_expand %>
+    }
+    function select_clade_of_clade_selector( clade_id ) {
+      $('<%= name %>').value = clade_id;
+      unselect_all_clades_of_clade_selector();
+      $('value_' + clade_id).addClassName('selected');
+      <%= on_select if defined? on_select %>
+    }
+    function clear_clade_of_clade_selector() {
+      $('<%= name %>').value = '';
+      unselect_all_clades_of_clade_selector();
+      <%= on_clear if defined?on_clear %>
+    }
+    function unselect_all_clades_of_clade_selector() {
+      $$('div#<%= id %> ul.tree li.selected').each(function(li){ li.removeClassName('selected'); } );
+      <%= on_unselect_all if defined?on_unselect_all %>
+    }
+  </script>
+<div id="<%= id %>-inner"<% unless visible %> style="display: <%= ( visible == true || value ) ? 'block' : 'none' %>;"<% end %>>
+    <ul class="tree">
+      
+      <% for kingdom in hierarchy.kingdoms -%>
+        <!-- KINGDOM for Hierarchy: <%= hierarchy.inspect %> -->
+        <li id="value_<%= kingdom.id %>" class="value_<%= kingdom.id %> kingdom" >
+          <%= tree_entry_text(kingdom, selectable_clade_level) %>
+          <% if value and kingdom == value.kingdom -%>
+            <% value.ancestors.shift %>
+            <%= value.ancestors.map {|he| "<ul><li id='value_#{he.id}' class='value_#{he.id}}'>" + tree_entry_text(he, selectable_clade_level) } %>
+                <ul>
+                <% for child in value.children -%>
+                  <!-- CHILD -->
+                  <li id="value_<%= child.id %>" class="value_<%= child.id %>"><%= tree_entry_text(child, selectable_clade_level) %></li>
+                <% end -%>
+                </ul>
+              <%= value.ancestors.map {|he| "</li></ul>" } %>
+          <% end -%>
+        </li>
+      <% end -%>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>kv_to_seq (OpenID::Util)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/kvform.rb, line 60</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">kv_to_seq</span>(<span class="ruby-identifier">data</span>, <span class="ruby-identifier">strict</span>=<span class="ruby-keyword kw">false</span>)
+      <span class="ruby-comment cmt"># After one parse, seq_to_kv and kv_to_seq are inverses, with no</span>
+      <span class="ruby-comment cmt"># warnings:</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-comment cmt"># seq = kv_to_seq(s)</span>
+      <span class="ruby-comment cmt"># seq_to_kv(kv_to_seq(seq)) == seq</span>
+      <span class="ruby-identifier">err</span> = <span class="ruby-identifier">lambda</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">msg</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">msg</span> = <span class="ruby-node">&quot;kv_to_seq warning: #{msg}: #{data.inspect}&quot;</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">strict</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-identifier">msg</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-identifier">msg</span>)
+        <span class="ruby-keyword kw">end</span>
+      }
+
+      <span class="ruby-identifier">lines</span> = <span class="ruby-identifier">data</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+        <span class="ruby-keyword kw">return</span> []
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">-1</span>].<span class="ruby-identifier">chr</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">&quot;\n&quot;</span>
+        <span class="ruby-identifier">err</span>.<span class="ruby-identifier">call</span>(<span class="ruby-value str">&quot;Does not end in a newline&quot;</span>)
+        <span class="ruby-comment cmt"># We don't expect the last element of lines to be an empty</span>
+        <span class="ruby-comment cmt"># string because split() doesn't behave that way.</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">pairs</span> = []
+      <span class="ruby-identifier">line_num</span> = <span class="ruby-value">0</span>
+      <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">line_num</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+
+        <span class="ruby-comment cmt"># Ignore blank lines</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">strip</span>() <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;&quot;</span>
+          <span class="ruby-keyword kw">next</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">pair</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">':'</span>, <span class="ruby-value">2</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pair</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
+          <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-identifier">pair</span>
+          <span class="ruby-identifier">k_s</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">strip</span>()
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">k_s</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">k</span>
+            <span class="ruby-identifier">msg</span> = <span class="ruby-node">&quot;In line #{line_num}, ignoring leading or trailing whitespace in key #{k.inspect}&quot;</span>
+            <span class="ruby-identifier">err</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">msg</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">k_s</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+            <span class="ruby-identifier">err</span>.<span class="ruby-identifier">call</span>(<span class="ruby-node">&quot;In line #{line_num}, got empty key&quot;</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">v_s</span> = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">strip</span>()
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">v_s</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">v</span>
+            <span class="ruby-identifier">msg</span> = <span class="ruby-node">&quot;In line #{line_num}, ignoring leading or trailing whitespace in value #{v.inspect}&quot;</span>
+            <span class="ruby-identifier">err</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">msg</span>)
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">pairs</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">k_s</span>, <span class="ruby-identifier">v_s</span>]
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">err</span>.<span class="ruby-identifier">call</span>(<span class="ruby-node">&quot;Line #{line_num} does not contain a colon&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+      }
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">pairs</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

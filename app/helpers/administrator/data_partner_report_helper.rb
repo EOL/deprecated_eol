@@ -1,0 +1,2 @@
+module Administrator::DataPartnerReportHelper
+end

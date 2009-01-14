@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>verify_discovery_results (OpenID::Consumer::IdResHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/idres.rb, line 315</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verify_discovery_results</span>
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">openid_namespace</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-constant">OPENID1_NS</span>
+            <span class="ruby-identifier">verify_discovery_results_openid1</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-constant">OPENID2_NS</span>
+            <span class="ruby-identifier">verify_discovery_results_openid2</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">StandardError</span>, <span class="ruby-node">&quot;Not reached: #{openid_namespace}&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Message</span><span class="ruby-operator">::</span><span class="ruby-constant">KeyNotFound</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, <span class="ruby-node">&quot;Missing required field: #{why.message}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

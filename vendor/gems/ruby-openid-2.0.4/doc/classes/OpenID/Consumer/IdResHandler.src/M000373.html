@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>verify_discovery_single (OpenID::Consumer::IdResHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/idres.rb, line 468</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verify_discovery_single</span>(<span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">to_match</span>)
+        <span class="ruby-comment cmt"># Every type URI that's in the to_match endpoint has to be</span>
+        <span class="ruby-comment cmt"># present in the discovered endpoint.</span>
+        <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">type_uri</span> <span class="ruby-keyword kw">in</span> <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">type_uris</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">uses_extension</span>(<span class="ruby-identifier">type_uri</span>)
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">TypeURIMismatch</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">type_uri</span>, <span class="ruby-identifier">endpoint</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># Fragments do not influence discovery, so we can't compare a</span>
+        <span class="ruby-comment cmt"># claimed identifier with a fragment to discovered information.</span>
+        <span class="ruby-identifier">defragged_claimed_id</span> =
+          <span class="ruby-keyword kw">case</span> <span class="ruby-constant">Yadis</span><span class="ruby-operator">::</span><span class="ruby-constant">XRI</span>.<span class="ruby-identifier">identifier_scheme</span>(<span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">claimed_id</span>)
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:xri</span>
+            <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">claimed_id</span>
+          <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:uri</span>
+            <span class="ruby-keyword kw">begin</span>
+              <span class="ruby-identifier">parsed</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">claimed_id</span>)
+            <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">URI</span><span class="ruby-operator">::</span><span class="ruby-constant">InvalidURIError</span>
+              <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">claimed_id</span>
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-identifier">parsed</span>.<span class="ruby-identifier">fragment</span> = <span class="ruby-keyword kw">nil</span>
+              <span class="ruby-identifier">parsed</span>.<span class="ruby-identifier">to_s</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">StandardError</span>, <span class="ruby-value str">'Not reached'</span>
+          <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">defragged_claimed_id</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">claimed_id</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, (<span class="ruby-value str">&quot;Claimed ID does not match (different &quot;</span>\
+                                <span class="ruby-value str">&quot;subjects!), Expected &quot;</span>\
+                                <span class="ruby-node">&quot;#{defragged_claimed_id}, got &quot;</span>\
+                                <span class="ruby-node">&quot;#{endpoint.claimed_id}&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">get_local_id</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">get_local_id</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, (<span class="ruby-value str">&quot;local_id mismatch. Expected &quot;</span>\
+                                <span class="ruby-node">&quot;#{to_match.get_local_id}, got &quot;</span>\
+                                <span class="ruby-node">&quot;#{endpoint.get_local_id}&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># If the server URL is nil, this must be an OpenID 1</span>
+        <span class="ruby-comment cmt"># response, because op_endpoint is a required parameter in</span>
+        <span class="ruby-comment cmt"># OpenID 2. In that case, we don't actually care what the</span>
+        <span class="ruby-comment cmt"># discovered server_url is, because signature checking or</span>
+        <span class="ruby-comment cmt"># check_auth should take care of that check for us.</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">server_url</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">preferred_namespace</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">OPENID1_NS</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">StandardError</span>,
+            <span class="ruby-value str">&quot;The code calling this must ensure that OpenID 2 &quot;</span>\
+            <span class="ruby-value str">&quot;responses have a non-none `openid.op_endpoint' and &quot;</span>\
+            <span class="ruby-value str">&quot;that it is set as the `server_url' attribute of the &quot;</span>\
+            <span class="ruby-value str">&quot;`to_match' endpoint.&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">server_url</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">endpoint</span>.<span class="ruby-identifier">server_url</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, (<span class="ruby-value str">&quot;OP Endpoint mismatch. Expected&quot;</span>\
+                                <span class="ruby-node">&quot;#{to_match.server_url}, got &quot;</span>\
+                                <span class="ruby-node">&quot;#{endpoint.server_url}&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

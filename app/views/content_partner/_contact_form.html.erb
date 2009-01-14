@@ -1,0 +1,43 @@
+<fieldset>
+<legend><%= "Contact"[] %></legend>
+
+<div class = "form_item">
+<label <span>*</span> - required fields</label>
+</div>                         
+
+<div class = "form_item">
+  <%= f.label :given_name, "Given Name"[] + ' <span title="required">*</span>' %>
+  <%= f.text_field :given_name, :maxlength => 100, :size=> 40  %>
+</div>                         
+<div class = "form_item">
+  <%= f.label :family_name, "Family name"[:family_name] + ' <span title="required">*</span>'  %>
+  <%= f.text_field :family_name, :maxlength => 100, :size=> 40 %>
+</div>                         
+
+<div class = "form_item">
+  <%= f.label :email, "Email"[]  + ' <span title="required">*</span>' %>
+  <%= f.text_field :email, :maxlength => 75, :size=> 50 %>
+</div>                         
+
+<div class = "form_item">
+  <%= f.label :homepage, "Homepage"[] %>
+  <%= f.text_field :homepage, :maxlength => 250, :size=> 50 %>
+</div>                         
+
+<div class = "form_item">
+  <%= f.label :telephone, "Telephone"[] %>
+  <%= f.text_field :telephone, :maxlength => 30 %>
+</div>                         
+
+<div class = "form_item">
+  <%= f.label :address, "Mailing Address"[] %>
+  <%= f.text_area :address, {:rows=>5} %>
+</div>                         
+
+<div class = "form_item">
+  <%= f.label :agent_contact_role_id, "Role" %>
+  <%= f.collection_select :agent_contact_role_id, @agent_contact_roles, :id, :label %>
+</div>                         
+
+<%= content_partner_save_type_hidden_field %>
+</fieldset>

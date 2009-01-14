@@ -1,0 +1,90 @@
+	<%= eol_lang_error_messages_for :user %>
+					
+	<br />
+	
+	<table>	
+	  <tr>
+			<td><strong>Username:</strong></td>
+			<td><%=f.text_field :username,{:size=>'50',:maxlength=>'16'}%></td>
+		</tr>
+		<% if @user.not_openid?%>
+			<tr>
+				<td><strong>Password:</strong></td>
+				<td><%=f.password_field :entered_password,{:size=>'50',:maxlength=>'16'}%></td>
+			</tr>
+			<tr>
+				<td><strong>Confirm Password:</strong></td>
+				<td><%=f.password_field :entered_password_confirmation,{:size=>'50',:maxlength=>'16'}%></td>
+			</tr>				
+		<% else %>
+			<tr>
+				<td><strong>OpenID Identity URL:</strong></td>
+				<td><%=f.hidden_field :identity_url%><%=@user.identity_url%></td>
+			</tr>		
+		<% end %>
+		<tr>
+			<td><strong>Email:</strong></td>
+			<td><%=f.text_field :email,{:size=>'50',:maxlength=>'255'}%></td>
+		</tr>				
+		<tr>
+			<td><strong>Given Name:</strong></td>
+			<td><%=f.text_field :given_name,{:size=>'50',:maxlength=>'255'}%></td>
+		</tr>			
+		<tr>
+			<td><strong>Family Name:</strong></td>
+			<td><%=f.text_field :family_name,{:size=>'50',:maxlength=>'255'}%></td>
+		</tr>	
+		<tr>
+			<td><strong>Language:</strong></td>
+			<td><%= f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]} %></td>
+		</tr>
+		<tr>
+			<td><strong>Content Setting:</strong></td>
+			<td>
+				<%= f.radio_button :expertise, "novice"%> <%="Information intended for beginners"[]%> <br />
+				<%= f.radio_button :expertise, "middle"%> <%="Information for any audience"[]%> <br />
+				<%= f.radio_button :expertise, "expert"%> <%="Information intended for experts"[]%> <br />					
+			</td>
+		</tr>			
+		<tr>
+			<td><strong>Only show vetted:</strong></td>
+			<td><%=f.check_box :vetted%> True</td> 
+		</tr>			
+		<tr>
+			<td><strong>Mailing List:</strong></td>
+			<td><%=f.check_box :mailing_list%> Yes</td> 
+		</tr>	
+		<tr>
+			<td><strong>Active:</strong></td>
+			<td><%=f.check_box :active%> True 
+			  (<%=@user.failed_login_attempts%> failed login attempts)</td> 
+		</tr>
+		<tr>
+			<td><strong>Roles:</strong></td>
+			<td><div id="roles_toggle"><a href="#roles" onclick="JavaScript:Element.show('roles');Element.hide('roles_toggle');return false;">[show roles]</a></div>
+				<div style="display:none;" id="roles">
+				 <% Role.find(:all,:order=>'title').each do |role| -%>
+					<%= check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role) -%> <%= role.title -%> <br />
+				 <% end %>
+			</div></td>
+		</tr>
+		<tr>
+			<td><strong>Curator of:</strong><br/></td>
+			<td>
+        <%= clade_selector 'user[curator_hierarchy_entry_id]', :value => @user.curator_hierarchy_entry_id %>
+			</td>
+		</tr>
+		<tr>
+			<td><strong>Curator Approved:</strong></td>
+			<td><%=f.check_box :curator_approved%> True</td> 
+		</tr>		
+		<% unless @user.id.nil? %>
+			<tr>
+				<td><strong>Created:</strong><br /><strong>Updated:</strong></td>
+				<td><%=format_date_time(@user.created_at)%><br /><%=format_date_time(@user.updated_at)%></td> 
+			</tr>				
+		<% end %>
+	</table>
+	<br /><br />
+	<input type="button" onClick="document.location.href='/administrator/user/index';" id="cancel" name="Cancel" value="Cancel"> |
+	<%=f.submit%>

@@ -1,0 +1,15 @@
+<chart>
+  <message><![CDATA[Test Broadcast]]></message>
+  <series>
+    <value xid="1">10</value>
+    <value xid="2">20</value>
+    <value xid="3">30</value>
+  </series>
+  <graphs>
+    <graph gid="1">
+      <value xid="1">100</value>
+      <value xid="2">200</value>
+      <value xid="3">300</value>
+    </graph>
+  </graphs>
+</chart>

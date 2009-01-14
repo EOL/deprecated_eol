@@ -1,0 +1,42 @@
+<div id="public-tags-admin">
+  Use the form below to enter in tag suggestions.  Categories entered here will be shown to users in the tag "category" drop down menu, 
+  and suggested values will be shown to users if they select the corresponding category and begin typing a few letters. 
+
+
+  <fieldset id="new-public-tag">
+    <legend>Add New Tag Suggestion</legend>
+    (no spaces allowed in categories or values)
+    <% form_tag :action => 'create' do -%>
+      <label for="tag[key]"><span>Category:</span> <%= text_field_tag 'tag[key]' %>  </label>
+      <label for="tag[value]"><span>Value:</span> <%= text_field_tag 'tag[value]' %></label>
+      <%= submit_tag 'Create' %>
+    <% end -%>
+  </fieldset>
+  
+  <div>
+    <form id="pagination_form">
+		  <%= will_paginate @tags %>
+    </form>
+    <table class="results_table" cellspacing="0">
+      <tr>
+        <th>Usage</th>
+        <th>Category</th>
+        <th>Tag</th>
+        <th>Delete</th>
+      </tr>
+      <% for tag in @tags 
+      	column_class=cycle('odd','even')-%>
+      <tr>
+        <td class="<%=column_class%>"><%= tag.usage_count %></td>
+        <td class="<%=column_class%>"><%= tag.key %></td>
+        <td class="<%=column_class%>"><%= tag.value %></td>
+        <td class="<%=column_class%>"><%= render :partial => 'destroy_public_tag_form', :locals => { :tag => tag } %></td>
+      </tr>
+      <% end -%>
+    </table>
+    <form id="pagination_form2">
+		  <%= will_paginate @tags %>
+    </form>
+  </div>
+
+</div>

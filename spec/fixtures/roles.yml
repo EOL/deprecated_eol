@@ -1,0 +1,39 @@
+administrator:
+  id: 1
+  title: Administrator
+
+curator:
+  id: 2
+  title: Curator
+
+moderator:
+  id: 3
+  title: Moderator
+ 
+administrator-contact:
+  id: 4
+  title: Administrator - Contact Us Submissions
+
+administrator-cms:
+  id: 5
+  title: Administrator - Site CMS
+
+administrator-users:
+  id: 6
+  title: Administrator - Web Users
+
+administrator-data-partners:
+  id: 7
+  title: Administrator - Content Partners
+                              
+administrator-errors:
+  id: 8
+  title: Administrator - Error Logs  
+
+administrator-reports:
+  id: 9
+  title: Administrator - Usage Reports
+
+administrator-news:
+  id: 10
+  title: Administrator - News Items

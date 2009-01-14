@@ -1,0 +1,15 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Edit User #' + params[:id]} %>
+
+<% if @user.not_openid?%>
+	Only enter a new password if you wish to change it.
+<% else %>
+	This is an OpenID user.
+<% end %>
+  		    	
+	<% form_for :user,@user,:url => {:action=>'update',:id=>params[:id]},:html=>{:id=>'page_form'} do |f|  %>
+
+	<%= render :partial => 'form', :locals => {:f=>f} %>
+	
+	<% end %>
+
+<%= render :partial => '/admin/content_bottom' %>

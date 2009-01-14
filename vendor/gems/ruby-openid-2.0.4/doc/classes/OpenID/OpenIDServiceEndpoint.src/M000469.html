@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>from_html (OpenID::OpenIDServiceEndpoint)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/discovery.rb, line 154</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">from_html</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">html</span>)
+      <span class="ruby-comment cmt"># Parse the given document as HTML looking for an OpenID &lt;link</span>
+      <span class="ruby-comment cmt"># rel=...&gt;</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-comment cmt"># @rtype: [OpenIDServiceEndpoint]</span>
+
+      <span class="ruby-identifier">discovery_types</span> = [
+                         [<span class="ruby-constant">OPENID_2_0_TYPE</span>, <span class="ruby-value str">'openid2.provider'</span>, <span class="ruby-value str">'openid2.local_id'</span>],
+                         [<span class="ruby-constant">OPENID_1_1_TYPE</span>, <span class="ruby-value str">'openid.server'</span>, <span class="ruby-value str">'openid.delegate'</span>],
+                        ]
+
+      <span class="ruby-identifier">link_attrs</span> = <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">parse_link_attrs</span>(<span class="ruby-identifier">html</span>)
+      <span class="ruby-identifier">services</span> = []
+      <span class="ruby-identifier">discovery_types</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">type_uri</span>, <span class="ruby-identifier">op_endpoint_rel</span>, <span class="ruby-identifier">local_id_rel</span><span class="ruby-operator">|</span>
+
+        <span class="ruby-identifier">op_endpoint_url</span> = <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">find_first_href</span>(<span class="ruby-identifier">link_attrs</span>, <span class="ruby-identifier">op_endpoint_rel</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">op_endpoint_url</span>
+          <span class="ruby-keyword kw">next</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">service</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">service</span>.<span class="ruby-identifier">claimed_id</span> = <span class="ruby-identifier">uri</span>
+        <span class="ruby-identifier">service</span>.<span class="ruby-identifier">local_id</span> = <span class="ruby-constant">OpenID</span>.<span class="ruby-identifier">find_first_href</span>(<span class="ruby-identifier">link_attrs</span>, <span class="ruby-identifier">local_id_rel</span>)
+        <span class="ruby-identifier">service</span>.<span class="ruby-identifier">server_url</span> = <span class="ruby-identifier">op_endpoint_url</span>
+        <span class="ruby-identifier">service</span>.<span class="ruby-identifier">type_uris</span> = [<span class="ruby-identifier">type_uri</span>]
+
+        <span class="ruby-identifier">services</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">service</span>
+      }
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">services</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

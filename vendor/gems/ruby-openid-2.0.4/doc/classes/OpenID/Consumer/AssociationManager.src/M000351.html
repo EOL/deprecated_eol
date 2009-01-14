@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>extract_association (OpenID::Consumer::AssociationManager)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/associationmanager.rb, line 280</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extract_association</span>(<span class="ruby-identifier">assoc_response</span>, <span class="ruby-identifier">assoc_session</span>)
+        <span class="ruby-comment cmt"># Extract the common fields from the response, raising an</span>
+        <span class="ruby-comment cmt"># exception if they are not found</span>
+        <span class="ruby-identifier">assoc_type</span> = <span class="ruby-identifier">assoc_response</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'assoc_type'</span>,
+                                            <span class="ruby-constant">NO_DEFAULT</span>)
+        <span class="ruby-identifier">assoc_handle</span> = <span class="ruby-identifier">assoc_response</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'assoc_handle'</span>,
+                                              <span class="ruby-constant">NO_DEFAULT</span>)
+        <span class="ruby-identifier">expires_in</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">extract_expires_in</span>(<span class="ruby-identifier">assoc_response</span>)
+
+        <span class="ruby-comment cmt"># OpenID 1 has funny association session behaviour.</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">assoc_response</span>.<span class="ruby-identifier">is_openid1</span>
+            <span class="ruby-identifier">session_type</span> = <span class="ruby-identifier">get_openid1_session_type</span>(<span class="ruby-identifier">assoc_response</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">session_type</span> = <span class="ruby-identifier">assoc_response</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID2_NS</span>, <span class="ruby-value str">'session_type'</span>,
+                                                <span class="ruby-constant">NO_DEFAULT</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># Session type mismatch</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">assoc_session</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">session_type</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">session_type</span>
+          <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">assoc_response</span>.<span class="ruby-identifier">is_openid1</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">session_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'no-encryption'</span>)
+            <span class="ruby-comment cmt"># In OpenID 1, any association request can result in a</span>
+            <span class="ruby-comment cmt"># 'no-encryption' association response. Setting</span>
+            <span class="ruby-comment cmt"># assoc_session to a new no-encryption session should</span>
+            <span class="ruby-comment cmt"># make the rest of this function work properly for</span>
+            <span class="ruby-comment cmt"># that case.</span>
+            <span class="ruby-identifier">assoc_session</span> = <span class="ruby-constant">NoEncryptionSession</span>.<span class="ruby-identifier">new</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-comment cmt"># Any other mismatch, regardless of protocol version</span>
+            <span class="ruby-comment cmt"># results in the failure of the association session</span>
+            <span class="ruby-comment cmt"># altogether.</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, <span class="ruby-value str">&quot;Session type mismatch. Expected &quot;</span>\
+                                 <span class="ruby-node">&quot;#{assoc_session.class.session_type}, got &quot;</span>\
+                                 <span class="ruby-node">&quot;#{session_type}&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># Make sure assoc_type is valid for session_type</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">assoc_session</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">allowed_assoc_types</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">assoc_type</span>)
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, <span class="ruby-value str">&quot;Unsupported assoc_type for session &quot;</span>\
+                               <span class="ruby-node">&quot;#{assoc_session.class.session_type} &quot;</span>\
+                               <span class="ruby-node">&quot;returned: #{assoc_type}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># Delegate to the association session to extract the secret</span>
+        <span class="ruby-comment cmt"># from the response, however is appropriate for that session</span>
+        <span class="ruby-comment cmt"># type.</span>
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">secret</span> = <span class="ruby-identifier">assoc_session</span>.<span class="ruby-identifier">extract_secret</span>(<span class="ruby-identifier">assoc_response</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Message</span><span class="ruby-operator">::</span><span class="ruby-constant">KeyNotFound</span>, <span class="ruby-constant">ArgumentError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, <span class="ruby-value str">&quot;Malformed response for &quot;</span>\
+                               <span class="ruby-node">&quot;#{assoc_session.class.session_type} &quot;</span>\
+                               <span class="ruby-node">&quot;session: #{why.message}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Association</span>.<span class="ruby-identifier">from_expires_in</span>(<span class="ruby-identifier">expires_in</span>, <span class="ruby-identifier">assoc_handle</span>, <span class="ruby-identifier">secret</span>,
+                                           <span class="ruby-identifier">assoc_type</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

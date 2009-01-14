@@ -1,0 +1,12 @@
+	<%= eol_lang_error_messages_for :role %>
+
+	<table>	
+	<tr>
+		<td><strong>Title:</strong></td>
+		<td><%=f.text_field :title,{:size=>'50',:maxlength=>'250'}%></td>
+	</tr>
+	</table>
+	
+	<br /><br />
+	<input type="button" onClick="document.location.href='/administrator/role/index';" id="cancel" name="Cancel" value="Cancel"> |
+	<%=f.submit%>

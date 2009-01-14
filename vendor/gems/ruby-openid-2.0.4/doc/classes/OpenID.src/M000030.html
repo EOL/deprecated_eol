@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>best_matching_service (OpenID)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/discovery.rb, line 296</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">best_matching_service</span>(<span class="ruby-identifier">service</span>, <span class="ruby-identifier">preferred_types</span>)
+    <span class="ruby-comment cmt"># Return the index of the first matching type, or something higher</span>
+    <span class="ruby-comment cmt"># if no type matches.</span>
+    <span class="ruby-comment cmt">#</span>
+    <span class="ruby-comment cmt"># This provides an ordering in which service elements that contain</span>
+    <span class="ruby-comment cmt"># a type that comes earlier in the preferred types list come</span>
+    <span class="ruby-comment cmt"># before service elements that come later. If a service element</span>
+    <span class="ruby-comment cmt"># has more than one type, the most preferred one wins.</span>
+    <span class="ruby-identifier">preferred_types</span>.<span class="ruby-identifier">each_with_index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">value</span>, <span class="ruby-identifier">index</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">service</span>.<span class="ruby-identifier">type_uris</span>.<span class="ruby-identifier">member?</span>(<span class="ruby-identifier">value</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">index</span>
+      <span class="ruby-keyword kw">end</span>
+    }
+
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">preferred_types</span>.<span class="ruby-identifier">length</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Contact Us Submissions'} %>
+
+To view contact us submission, select the topic below or <%=link_to('[export all as CSV]', :action=>'export')%><br />
+<% form_tag({:action=>'index'},:method=>'get') do -%>
+  <select name="id" id="contact_subject_id">
+    <option value="*">All  (<%=@all_contacts_count%>)</option>
+    <% for subject in @subjects %>
+      <option value="<%=subject.id%>" <%="selected" if subject.id.to_s==@contact_subject_id%>><%=subject.title %> (<%=subject.contacts.count%>)</option>
+    <% end %>
+  </select><br />
+	Search for messages containing: <%= text_field_tag(:comment_search_string,@comment_search_string)%>
+
+  <%= submit_tag 'Go' %>
+
+	<div class="divider"></span>
+			        
+		<div id="contacts">
+			
+			<% if @contacts.nil? == false && @contacts.size > 0 %>
+			<%= @contacts_count %> total comments have been submitted in <%=@subject%> <%if @comment_search_string != ''%> containing <%=@comment_search_string%><%end%>.<br />
+
+			<br />
+			<%= will_paginate @contacts %>
+			    <table class="results_table" cellspacing="0">
+			    <tr><th>Name</th><th>Email</th><th width="100">Comments</th><% if @contact_subject_id == '*' %><th>Topic</th><%end%><th>Date</th><th>Taxon Group</th></tr>
+				<% for contact in @contacts
+					column_class=cycle('odd','even')  %>
+				    <tr>
+				    	<td class="<%= column_class %>"><%=h contact.name%></td><td class="<%= column_class %>"><%=h contact.email%></td><td class="<%=column_class%>"><%=h contact.comments%></td>
+						<% if @contact_subject_id == '*' %>
+							<td class="<%=column_class%>"><%=contact.contact_subject.title%></td>
+						<% end %>	
+						<td class="<%=column_class%>"><%=format_date_time(contact.created_at)%></td>
+						<td class="<%=column_class%>"><%=h contact.taxon_group%></td>
+					</tr>									
+				<% end %>
+			    </table>
+				
+				<br />
+				<%= will_paginate @contacts %>
+		
+		    <% elsif @contacts.nil? == false && @contacts.size == 0 %>
+				No comments are available for <%=@subject%> <%if @comment_search_string != ''%> containing <%=@comment_search_string%><%end%>.
+			<% else %>
+			    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+			<% end %>
+		</div>
+    <% end %>
+						
+<%= render :partial => '/admin/content_bottom' %>

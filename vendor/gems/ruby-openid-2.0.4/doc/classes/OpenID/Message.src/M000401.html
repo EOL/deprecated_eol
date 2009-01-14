@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>to_post_args (OpenID::Message)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/message.rb, line 212</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_post_args</span>
+      <span class="ruby-identifier">args</span> = {}
+
+      <span class="ruby-comment cmt"># add namespace defs to the output</span>
+      <span class="ruby-ivar">@namespaces</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">ns_uri</span>, <span class="ruby-identifier">ns_alias</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ns_alias</span> <span class="ruby-operator">==</span> <span class="ruby-constant">NULL_NAMESPACE</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ns_uri</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">OPENID1_NS</span>
+            <span class="ruby-identifier">args</span>[<span class="ruby-value str">'openid.ns'</span>] = <span class="ruby-identifier">ns_uri</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">get_openid_namespace</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">OPENID1_NS</span>
+            <span class="ruby-identifier">ns_key</span> = <span class="ruby-value str">'openid.ns.'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">ns_alias</span>
+            <span class="ruby-identifier">args</span>[<span class="ruby-identifier">ns_key</span>] = <span class="ruby-identifier">ns_uri</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      }
+
+      <span class="ruby-ivar">@args</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">ns_uri</span>, <span class="ruby-identifier">ns_key</span> = <span class="ruby-identifier">k</span>
+        <span class="ruby-identifier">key</span> = <span class="ruby-identifier">get_key</span>(<span class="ruby-identifier">ns_uri</span>, <span class="ruby-identifier">ns_key</span>)
+        <span class="ruby-identifier">args</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">value</span>
+      }
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">args</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

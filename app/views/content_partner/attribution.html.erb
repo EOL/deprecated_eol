@@ -1,0 +1,52 @@
+<%= render :partial=> 'top',:locals=>{:page_header => @page_header} %>
+          
+					<%=  content_partner_step_navigation :page_header => @page_header%>
+            <strong>Attribution Guidelines</strong><br /><br />
+                    <%= eol_lang_error_messages_for :content_partner, :header_message => nil, :message => nil %>
+					<p>We will fully attribute each data object that you provide to your project as well as to any additional projects
+						or individuals associated with the data object. You will submit your attribution information via the Transfer Schema. Note: The specific style and techniques employed for display of attribution for data objects may change as the EOL evolves.</p>
+						<br />
+					<p>The following is an example of how your data objects will be attributed.  Changing your Partner Information (including logos) will change the basic attribution.  Note that each data object
+						you provide	may have additional licenses, authors, and other associated attributions as defined; 
+						the example below is only for reference and does not have real data - it is for illustrative purposes only.</p>
+						<br />
+						<a href="/files/pdfs/docs/EOL_Attribution.pdf">Download full information</a> on how attribution will be shown on data objects <img src="/images/bioGUID/page_white_acrobat.png" alt="PDF" border="0" title="PDF"><br />
+					<!-- sample attribution display -->						 
+						<div id="attribution-example">
+							<h2>Characteristics</h2>
+							<h3>SOURCE AND ADDITIONAL INFORMATION</h3>
+							<table>
+								<tr>
+									<td width="80%">
+										Authors: <%= current_agent.primary_contact.nil? ? 'Joe Sample' : current_agent.primary_contact.full_name %><br />
+										Some rights reserved<br />
+										Project: <%=external_link_to(current_agent.full_name,current_agent.homepage,:show_link_icon=>true)%>
+									</td>
+									<td><%= agent_logo(current_agent,"small") %><br/><%=image_tag('licenses/cc_by_small.png')%></td>
+									<td></td>
+								</tr>								
+							</table>
+							Facere quibusdam itaque et. Et facere at voluptatum commodi nostrum quod. Voluptatem sunt sit quae qui consectetur omnis vel inventore.
+							<br /><br />	
+							Laborum est nulla aut molestiae est repellat incidunt dolor. Fuga unde et voluptatem commodi. Itaque recusandae officiis ut suscipit quidem odio incidunt. Occaecati sed distinctio odio et molestias sit quae quia. Voluptatem voluptatibus eveniet nam delectus quia ea iure.
+							<br /><br />
+							Et nihil enim qui sit magnam. Consequatur libero dolorem esse deserunt. Dolore rerum repellat maiores perferendis consequatur. Et veniam ex accusamus aut qui recusandae eum adipisci. Aspernatur laboriosam deleniti cumque eos non.
+						</div>
+						
+					
+					<!-- end sample attribution display -->
+					
+                    <!-- begin form -->
+                    <% form_for @content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'license_form' } do |f| %>
+                        <%= f.check_box :attribution_accept %>
+                        <%= f.label :attribution_accept, "I have read and understand the EOL Attribution Guidelines.", :style => 'display: inline' %>
+                        <%= content_partner_save_type_hidden_field %>
+                    <% end -%>
+                    
+                    <br /><br />
+                    <div class="button">
+                        <%= content_partner_submit_buttons :id => 'license_form' %>
+                    </div>
+                    <!-- end form -->
+
+<%= render :partial=> 'bottom' %>

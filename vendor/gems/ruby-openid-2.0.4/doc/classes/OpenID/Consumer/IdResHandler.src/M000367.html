@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>check_nonce (OpenID::Consumer::IdResHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/idres.rb, line 283</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">check_nonce</span>
+        <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">openid_namespace</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">OPENID1_NS</span>
+          <span class="ruby-identifier">nonce</span> =
+            <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">BARE_NS</span>, <span class="ruby-constant">Consumer</span>.<span class="ruby-identifier">openid1_return_to_nonce_name</span>)
+
+          <span class="ruby-comment cmt"># We generated the nonce, so it uses the empty string as the</span>
+          <span class="ruby-comment cmt"># server URL</span>
+          <span class="ruby-identifier">server_url</span> = <span class="ruby-value str">''</span>
+        <span class="ruby-keyword kw">when</span> <span class="ruby-constant">OPENID2_NS</span>
+          <span class="ruby-identifier">nonce</span> = <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID2_NS</span>, <span class="ruby-value str">'response_nonce'</span>)
+          <span class="ruby-identifier">server_url</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">server_url</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">StandardError</span>, <span class="ruby-value str">'Not reached'</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">nonce</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, <span class="ruby-value str">'Nonce missing from response'</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">time</span>, <span class="ruby-identifier">extra</span> = <span class="ruby-constant">Nonce</span>.<span class="ruby-identifier">split_nonce</span>(<span class="ruby-identifier">nonce</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ArgumentError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, <span class="ruby-node">&quot;Malformed nonce: #{nonce.inspect}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@store</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@store</span>.<span class="ruby-identifier">use_nonce</span>(<span class="ruby-identifier">server_url</span>, <span class="ruby-identifier">time</span>, <span class="ruby-identifier">extra</span>)
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>, (<span class="ruby-value str">&quot;Nonce already used or out of range: &quot;</span>\
+                               <span class="ruby-node">&quot;#{nonce.inspect}&quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

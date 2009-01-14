@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_extension_args (OpenID::AX::FetchResponse)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/extensions/ax.rb, line 394</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_extension_args</span>(<span class="ruby-identifier">request</span> = <span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-identifier">aliases</span> = <span class="ruby-constant">NamespaceMap</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">zero_value_types</span> = []
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">request</span>
+          <span class="ruby-comment cmt"># Validate the data in the context of the request (the</span>
+          <span class="ruby-comment cmt"># same attributes should be present in each, and the</span>
+          <span class="ruby-comment cmt"># counts in the response must be no more than the counts</span>
+          <span class="ruby-comment cmt"># in the request)</span>
+          <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">type_uri</span><span class="ruby-operator">|</span>
+            <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">member?</span> <span class="ruby-identifier">type_uri</span>
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">IndexError</span>, <span class="ruby-node">&quot;Response attribute not present in request: #{type_uri.inspect}&quot;</span>
+            <span class="ruby-keyword kw">end</span>
+          }
+
+          <span class="ruby-identifier">request</span>.<span class="ruby-identifier">attributes</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">attr_info</span><span class="ruby-operator">|</span>
+            <span class="ruby-comment cmt"># Copy the aliases from the request so that reading</span>
+            <span class="ruby-comment cmt"># the response in light of the request is easier</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attr_info</span>.<span class="ruby-identifier">ns_alias</span>.<span class="ruby-identifier">nil?</span>
+              <span class="ruby-identifier">aliases</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">attr_info</span>.<span class="ruby-identifier">type_uri</span>)
+            <span class="ruby-keyword kw">else</span>
+              <span class="ruby-identifier">aliases</span>.<span class="ruby-identifier">add_alias</span>(<span class="ruby-identifier">attr_info</span>.<span class="ruby-identifier">type_uri</span>, <span class="ruby-identifier">attr_info</span>.<span class="ruby-identifier">ns_alias</span>)
+            <span class="ruby-keyword kw">end</span>
+            <span class="ruby-identifier">values</span> = <span class="ruby-ivar">@data</span>[<span class="ruby-identifier">attr_info</span>.<span class="ruby-identifier">type_uri</span>]
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">values</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-comment cmt"># @data defaults to []</span>
+              <span class="ruby-identifier">zero_value_types</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">attr_info</span>
+            <span class="ruby-keyword kw">end</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">attr_info</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">UNLIMITED_VALUES</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">attr_info</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">values</span>.<span class="ruby-identifier">size</span>
+              <span class="ruby-identifier">raise</span> <span class="ruby-constant">Error</span>, <span class="ruby-node">&quot;More than the number of requested values were specified for #{attr_info.type_uri.inspect}&quot;</span>
+            <span class="ruby-keyword kw">end</span>
+          }
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">kv_args</span> = <span class="ruby-identifier">_get_extension_kv_args</span>(<span class="ruby-identifier">aliases</span>)
+
+        <span class="ruby-comment cmt"># Add the KV args into the response with the args that are</span>
+        <span class="ruby-comment cmt"># unique to the fetch_response</span>
+        <span class="ruby-identifier">ax_args</span> = <span class="ruby-identifier">new_args</span>
+
+        <span class="ruby-identifier">zero_value_types</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">attr_info</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">name</span> = <span class="ruby-identifier">aliases</span>.<span class="ruby-identifier">get_alias</span>(<span class="ruby-identifier">attr_info</span>.<span class="ruby-identifier">type_uri</span>)
+          <span class="ruby-identifier">kv_args</span>[<span class="ruby-value str">'type.'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">name</span>] = <span class="ruby-identifier">attr_info</span>.<span class="ruby-identifier">type_uri</span>
+          <span class="ruby-identifier">kv_args</span>[<span class="ruby-value str">'count.'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">name</span>] = <span class="ruby-value str">'0'</span>
+        }
+        <span class="ruby-identifier">update_url</span> = (<span class="ruby-identifier">request</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">update_url</span> <span class="ruby-keyword kw">or</span> <span class="ruby-ivar">@update_url</span>)
+        <span class="ruby-identifier">ax_args</span>[<span class="ruby-value str">'update_url'</span>] = <span class="ruby-identifier">update_url</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">update_url</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">ax_args</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">kv_args</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ax_args</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

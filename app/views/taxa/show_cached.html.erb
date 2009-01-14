@@ -1,0 +1,12 @@
+<% cache(:controller=>'/taxa',:part=>'page_' + @taxon_id.to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + current_user.can_curate?(@taxon).to_s)  do %>
+
+  <%= render :partial=>'show' %>
+    
+<% end %>
+
+<% if @cached %>
+  <script language="JavaScript">
+    if ($('data_objects_to_log').value != '') { womAdd("eol_log_data_objects_for_taxon_concept( $('taxon_concept_to_log').value, $('data_objects_to_log').value );"); }
+  </script>
+<% end %>
+

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>extract_supported_association_type (OpenID::Consumer::AssociationManager)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/associationmanager.rb, line 150</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">extract_supported_association_type</span>(<span class="ruby-identifier">server_error</span>, <span class="ruby-identifier">assoc_type</span>)
+        <span class="ruby-comment cmt"># Any error message whose code is not 'unsupported-type' should</span>
+        <span class="ruby-comment cmt"># be considered a total failure.</span>
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">server_error</span>.<span class="ruby-identifier">error_code</span> <span class="ruby-operator">!=</span> <span class="ruby-value str">'unsupported-type'</span> <span class="ruby-keyword kw">or</span>
+            <span class="ruby-identifier">server_error</span>.<span class="ruby-identifier">message</span>.<span class="ruby-identifier">is_openid1</span>)
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">&quot;Server error when requesting an association from &quot;</span>\
+                   <span class="ruby-node">&quot;#{@server_url}: #{server_error.error_text}&quot;</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># The server didn't like the association/session type that we</span>
+        <span class="ruby-comment cmt"># sent, and it sent us back a message that might tell us how to</span>
+        <span class="ruby-comment cmt"># handle it.</span>
+        <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;Unsupported association type #{assoc_type}: &quot;</span>\
+                 <span class="ruby-node">&quot;#{server_error.error_text}&quot;</span>)
+
+        <span class="ruby-comment cmt"># Extract the session_type and assoc_type from the error message</span>
+        <span class="ruby-identifier">assoc_type</span> = <span class="ruby-identifier">server_error</span>.<span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'assoc_type'</span>)
+        <span class="ruby-identifier">session_type</span> = <span class="ruby-identifier">server_error</span>.<span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'session_type'</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">assoc_type</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">session_type</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;Server #{@server_url} responded with unsupported &quot;</span>\
+                   <span class="ruby-value str">&quot;association session but did not supply a fallback.&quot;</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@negotiator</span>.<span class="ruby-identifier">allowed?</span>(<span class="ruby-identifier">assoc_type</span>, <span class="ruby-identifier">session_type</span>)
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">&quot;Server sent unsupported session/association type: &quot;</span>\
+                   <span class="ruby-node">&quot;session_type=#{session_type}, assoc_type=#{assoc_type}&quot;</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-keyword kw">return</span> [<span class="ruby-identifier">assoc_type</span>, <span class="ruby-identifier">session_type</span>]
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>answer_unsupported (OpenID::Server::AssociateRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 377</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">answer_unsupported</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">preferred_association_type</span>=<span class="ruby-keyword kw">nil</span>,
+                             <span class="ruby-identifier">preferred_session_type</span>=<span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">is_openid1</span>()
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@message</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">response</span> = <span class="ruby-constant">OpenIDResponse</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>)
+        <span class="ruby-identifier">response</span>.<span class="ruby-identifier">fields</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'error_code'</span>, <span class="ruby-value str">'unsupported-type'</span>)
+        <span class="ruby-identifier">response</span>.<span class="ruby-identifier">fields</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'error'</span>, <span class="ruby-identifier">message</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">preferred_association_type</span>
+          <span class="ruby-identifier">response</span>.<span class="ruby-identifier">fields</span>.<span class="ruby-identifier">set_arg</span>(
+              <span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'assoc_type'</span>, <span class="ruby-identifier">preferred_association_type</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">preferred_session_type</span>
+          <span class="ruby-identifier">response</span>.<span class="ruby-identifier">fields</span>.<span class="ruby-identifier">set_arg</span>(
+              <span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'session_type'</span>, <span class="ruby-identifier">preferred_session_type</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">response</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

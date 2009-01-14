@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>generate_accept_header (OpenID::Yadis)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/accept.rb, line 8</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">generate_accept_header</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">elements</span>)
+      <span class="ruby-identifier">parts</span> = []
+      <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">element</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">element</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+          <span class="ruby-identifier">qs</span> = <span class="ruby-value str">&quot;1.0&quot;</span>
+          <span class="ruby-identifier">mtype</span> = <span class="ruby-identifier">element</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">mtype</span>, <span class="ruby-identifier">q</span> = <span class="ruby-identifier">element</span>
+          <span class="ruby-identifier">q</span> = <span class="ruby-identifier">q</span>.<span class="ruby-identifier">to_f</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">q</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">q</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;Invalid preference factor: #{q}&quot;</span>)
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">qs</span> = <span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">&quot;%0.1f&quot;</span>, <span class="ruby-identifier">q</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">parts</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">qs</span>, <span class="ruby-identifier">mtype</span>]
+      }
+
+      <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">sort!</span>
+      <span class="ruby-identifier">chunks</span> = []
+      <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span>, <span class="ruby-identifier">mtype</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">q</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'1.0'</span>
+          <span class="ruby-identifier">chunks</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mtype</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">chunks</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">&quot;%s; q=%s&quot;</span>, <span class="ruby-identifier">mtype</span>, <span class="ruby-identifier">q</span>)
+        <span class="ruby-keyword kw">end</span>
+      }
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">chunks</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">', '</span>)
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

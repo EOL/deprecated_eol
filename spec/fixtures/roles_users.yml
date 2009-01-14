@@ -1,0 +1,30 @@
+one:
+  user_id: 2
+  role_id: 1
+two:
+  user_id: 2
+  role_id: 2    
+three:
+  user_id: 2
+  role_id: 3
+four:
+  user_id: 2
+  role_id: 4
+five:
+  user_id: 2
+  role_id: 5
+six:
+  user_id: 2
+  role_id: 6
+seven:
+  user_id: 2
+  role_id: 7
+eight:
+  user_id: 2
+  role_id: 8
+nine:
+  user_id: 2
+  role_id: 9
+ten:
+  user_id: 2
+  role_id: 10

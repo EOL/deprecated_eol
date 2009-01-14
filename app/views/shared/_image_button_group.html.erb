@@ -1,0 +1,10 @@
+<%# 
+  locals:
+    group:        the ImageButtonGroup (has a #name, as defined by image_button_group #name)
+    buttons_html: the rendered HTML of the image buttons in this group
+%>
+<div id="<%= group.name %>">
+  <ul id="large-image-button-group">
+    <%= buttons_html %>
+  </ul>
+</div>

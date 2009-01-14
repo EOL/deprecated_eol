@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_key (OpenID::Message)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/message.rb, line 344</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_key</span>(<span class="ruby-identifier">namespace</span>, <span class="ruby-identifier">ns_key</span>)
+      <span class="ruby-identifier">namespace</span> = <span class="ruby-identifier">_fix_ns</span>(<span class="ruby-identifier">namespace</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ns_key</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">namespace</span> <span class="ruby-operator">==</span> <span class="ruby-constant">BARE_NS</span>
+
+      <span class="ruby-identifier">ns_alias</span> = <span class="ruby-ivar">@namespaces</span>.<span class="ruby-identifier">get_alias</span>(<span class="ruby-identifier">namespace</span>)
+
+      <span class="ruby-comment cmt"># no alias is defined, so no key can exist</span>
+      <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ns_alias</span>.<span class="ruby-identifier">nil?</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ns_alias</span> <span class="ruby-operator">==</span> <span class="ruby-constant">NULL_NAMESPACE</span>
+        <span class="ruby-identifier">tail</span> = <span class="ruby-identifier">ns_key</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">tail</span> = <span class="ruby-node">&quot;#{ns_alias}.#{ns_key}&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-value str">'openid.'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">tail</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

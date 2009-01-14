@@ -1,0 +1,18 @@
+cafeteria_iucn:
+  agent_id: 27
+  resource_id: 1
+  resource_agent_role_id: 3
+spiders_fishbase:
+  agent_id: 2
+  resource_id: 4
+  resource_agent_role_id: 3
+
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: agents_resources
+#
+#  agent_id               :integer(4)      not null
+#  resource_agent_role_id :integer(1)      not null
+#  resource_id            :integer(4)      not null
+

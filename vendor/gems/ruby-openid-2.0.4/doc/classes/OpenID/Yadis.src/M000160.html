@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>apply_filter (OpenID::Yadis)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/services.rb, line 27</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Yadis</span>.<span class="ruby-identifier">apply_filter</span>(<span class="ruby-identifier">normalized_uri</span>, <span class="ruby-identifier">xrd_data</span>, <span class="ruby-identifier">flt</span>=<span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-comment cmt"># Generate an iterable of endpoint objects given this input data,</span>
+      <span class="ruby-comment cmt"># presumably from the result of performing the Yadis protocol.</span>
+
+      <span class="ruby-identifier">flt</span> = <span class="ruby-constant">Yadis</span>.<span class="ruby-identifier">make_filter</span>(<span class="ruby-identifier">flt</span>)
+      <span class="ruby-identifier">et</span> = <span class="ruby-constant">Yadis</span>.<span class="ruby-identifier">parseXRDS</span>(<span class="ruby-identifier">xrd_data</span>)
+
+      <span class="ruby-identifier">endpoints</span> = []
+      <span class="ruby-identifier">each_service</span>(<span class="ruby-identifier">et</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">service_element</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">endpoints</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">flt</span>.<span class="ruby-identifier">get_service_endpoints</span>(<span class="ruby-identifier">normalized_uri</span>, <span class="ruby-identifier">service_element</span>)
+      }
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">endpoints</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

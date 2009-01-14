@@ -1,0 +1,46 @@
+<a name="center_content"></a>
+<!-- center page content header -->
+<div class="cpc-header">
+  <h3><%= @content[:category_name] unless @content.nil? %></h3>
+</div>
+<!-- /center page content header -->
+
+<!-- center page content main content -->
+<div class="cpc-content">
+
+	<% unless @content.nil?
+		# depending on which content type we are displaying, load a different partial
+		case @content[:content_type]
+			
+			when "text"
+				%>
+	   		<%= render(:partial=>'content_text') %>
+				 <script type="text/javascript">
+					womAdd('updateReferences();');
+				 </script>
+				<%
+			when "links"
+				%>
+	   			 <%= render(:partial=>'content_links') %>
+				<%
+			when "common names"
+				%>
+	   			 <%= render(:partial=>'content_names') %>
+				<%
+			when "synonyms"
+				%>
+	   			 <%= render(:partial=>'content_synonyms') %>
+				<%				
+			when "ubio_links"
+				%>
+	   			 <%= render(:partial=>'content_other_projects') %>
+				<%			
+			when "bhl"
+				%>
+	   			 <%= render(:partial=>'content_bhl') %>
+				<%
+		end
+  end%>
+
+</div> <!-- /cpc-content -->
+

@@ -1,0 +1,28 @@
+<%= calendar_date_select_includes %>
+<% CalendarDateSelect.format = :hyphen_ampm %>
+<script language="JavaScript">
+  function eol_set_report_dates(start_date,end_date) {
+   $('start_date').value=start_date;
+   $('end_date').value=end_date;
+  }
+</script>
+
+<%#
+  we use a get so the values will be query strings (bookmarkable) and we nil out
+  state_date and end_date in path_for_report so we don't end up with duplicate query strings
+%>
+<% form_tag path_for_report( :start_date => nil, :end_date => nil ), :method => :get do -%>
+
+  <label for="start_date">From
+    <%= calendar_date_select_tag "start_date", @start_date, :embedded => false, :year_range => 2009..2015 %>
+  </label>
+
+  <label for="end_date">To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <%= calendar_date_select_tag "end_date", @end_date, :embedded => false, :year_range => 2009..2015 %>
+  </label>
+
+  <br />
+  [<a href="JavaScript:eol_set_report_dates('<%=Date.today%>','<%=Date.today%>');">today</a>] | [<a href="JavaScript:eol_set_report_dates('<%=@last_month_start_date%>','<%=@last_month_end_date%>');">last month</a>] | [<a href="JavaScript:eol_set_report_dates('<%=@this_month_start_date%>','<%=@this_month_end_date%>');">this month</a>] | [<a href="JavaScript:eol_set_report_dates('<%=@this_year_start_date%>','<%=@this_year_end_date%>');">this year</a>]<br />
+  <%= submit_tag 'Update' %>
+
+<% end -%>

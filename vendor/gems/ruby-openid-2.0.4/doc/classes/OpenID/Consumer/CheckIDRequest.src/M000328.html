@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_message (OpenID::Consumer::CheckIDRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/checkid_request.rb, line 77</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_message</span>(<span class="ruby-identifier">realm</span>, <span class="ruby-identifier">return_to</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">immediate</span>=<span class="ruby-keyword kw">false</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">return_to</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">return_to</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">append_args</span>(<span class="ruby-identifier">return_to</span>, <span class="ruby-ivar">@return_to_args</span>)
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">immediate</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, (<span class="ruby-value str">'&quot;return_to&quot; is mandatory when using '</span>\
+                                <span class="ruby-value str">'&quot;checkid_immediate&quot;'</span>)
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">is_openid1</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, (<span class="ruby-value str">'&quot;return_to&quot; is mandatory for OpenID 1 '</span>\
+                                <span class="ruby-value str">'requests'</span>)
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-ivar">@return_to_args</span>.<span class="ruby-identifier">empty?</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, (<span class="ruby-value str">'extra &quot;return_to&quot; arguments were specified, '</span>\
+                                <span class="ruby-value str">'but no return_to was specified'</span>)
+        <span class="ruby-keyword kw">end</span>
+
+
+        <span class="ruby-identifier">message</span> = <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">copy</span>
+
+        <span class="ruby-identifier">mode</span> = <span class="ruby-identifier">immediate</span> <span class="ruby-value">? </span><span class="ruby-value str">'checkid_immediate'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'checkid_setup'</span>
+        <span class="ruby-identifier">message</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'mode'</span>, <span class="ruby-identifier">mode</span>)
+
+        <span class="ruby-identifier">realm_key</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">is_openid1</span> <span class="ruby-value">? </span><span class="ruby-value str">'trust_root'</span> <span class="ruby-operator">:</span> <span class="ruby-value str">'realm'</span>
+        <span class="ruby-identifier">message</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-identifier">realm_key</span>, <span class="ruby-identifier">realm</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">return_to</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">message</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'return_to'</span>, <span class="ruby-identifier">return_to</span>)
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@anonymous</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@endpoint</span>.<span class="ruby-identifier">is_op_identifier</span>
+            <span class="ruby-comment cmt"># This will never happen when we're in OpenID 1</span>
+            <span class="ruby-comment cmt"># compatibility mode, as long as is_op_identifier()</span>
+            <span class="ruby-comment cmt"># returns false whenever preferred_namespace returns</span>
+            <span class="ruby-comment cmt"># OPENID1_NS.</span>
+            <span class="ruby-identifier">claimed_id</span> = <span class="ruby-identifier">request_identity</span> = <span class="ruby-constant">IDENTIFIER_SELECT</span>
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">request_identity</span> = <span class="ruby-ivar">@endpoint</span>.<span class="ruby-identifier">get_local_id</span>
+            <span class="ruby-identifier">claimed_id</span> = <span class="ruby-ivar">@endpoint</span>.<span class="ruby-identifier">claimed_id</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-comment cmt"># This is true for both OpenID 1 and 2</span>
+          <span class="ruby-identifier">message</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'identity'</span>, <span class="ruby-identifier">request_identity</span>)
+
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">message</span>.<span class="ruby-identifier">is_openid2</span>
+            <span class="ruby-identifier">message</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID2_NS</span>, <span class="ruby-value str">'claimed_id'</span>, <span class="ruby-identifier">claimed_id</span>)
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@assoc</span>
+          <span class="ruby-identifier">message</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'assoc_handle'</span>, <span class="ruby-ivar">@assoc</span>.<span class="ruby-identifier">handle</span>)
+          <span class="ruby-identifier">assoc_log_msg</span> = <span class="ruby-node">&quot;with assocication #{@assoc.handle}&quot;</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">assoc_log_msg</span> = <span class="ruby-value str">'using stateless mode.'</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;Generated #{mode} request to #{@endpoint.server_url} &quot;</span>\
+                 <span class="ruby-node">&quot;#{assoc_log_msg}&quot;</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">message</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

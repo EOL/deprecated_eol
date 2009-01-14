@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: OpenID::AX</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">OpenID::AX</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/openid/extensions/ax_rb.html">
+                lib/openid/extensions/ax.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000047">check_alias</a>&nbsp;&nbsp;
+      <a href="#M000048">to_type_uris</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="AX/AXMessage.html" class="link">OpenID::AX::AXMessage</a><br />
+Class <a href="AX/AttrInfo.html" class="link">OpenID::AX::AttrInfo</a><br />
+Class <a href="AX/Error.html" class="link">OpenID::AX::Error</a><br />
+Class <a href="AX/FetchRequest.html" class="link">OpenID::AX::FetchRequest</a><br />
+Class <a href="AX/FetchResponse.html" class="link">OpenID::AX::FetchResponse</a><br />
+Class <a href="AX/KeyValueMessage.html" class="link">OpenID::AX::KeyValueMessage</a><br />
+Class <a href="AX/StoreRequest.html" class="link">OpenID::AX::StoreRequest</a><br />
+Class <a href="AX/StoreResponse.html" class="link">OpenID::AX::StoreResponse</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UNLIMITED_VALUES</td>
+          <td>=</td>
+          <td class="context-item-value">&quot;unlimited&quot;</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">MINIMUM_SUPPORTED_ALIAS_LENGTH</td>
+          <td>=</td>
+          <td class="context-item-value">32</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000047" class="method-detail">
+        <a name="M000047"></a>
+
+        <div class="method-heading">
+          <a href="AX.src/M000047.html" target="Code" class="method-signature"
+            onclick="popupCode('AX.src/M000047.html');return false;">
+          <span class="method-name">check_alias</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+check alias for invalid characters, raise AXError if found
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000048" class="method-detail">
+        <a name="M000048"></a>
+
+        <div class="method-heading">
+          <a href="AX.src/M000048.html" target="Code" class="method-signature"
+            onclick="popupCode('AX.src/M000048.html');return false;">
+          <span class="method-name">to_type_uris</span><span class="method-args">(namespace_map, alias_list_s)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Given a namespace mapping and a string containing a comma-separated list of
+namespace aliases, return a list of type URIs that correspond to those
+aliases. namespace_map: <a
+href="NamespaceMap.html">OpenID::NamespaceMap</a>
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

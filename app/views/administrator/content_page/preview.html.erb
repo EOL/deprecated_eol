@@ -1,0 +1,33 @@
+<div id="content">
+	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+          <h1><%= @content.title[@content.key]%></h1>
+        <hr />
+		<h2>PREVIEW ONLY - <a href="#" onclick="window.close();return false;">CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW</a></h2>
+    </div>
+    <!-- /page title -->
+	
+	<% if @content.left_content != '' %>
+		<div id="page-content-bgfauxinside"> 
+	<% end %>   
+	
+	    <div id="page-content" class="clearfix">
+	        <!-- center page content -->
+	        <div id="full-page-content">
+	        	
+				<% if @content.left_content != ''%>
+			        <div id="left-pane">
+						<%= @content.left_content %>			  
+			        </div>
+		   		    <div id="right-pane">
+				         <%= @content.main_content %>	   
+			   		</div>
+			    <% else %>
+					 <%= @content.main_content %>	  
+				<% end %>
+			</div>
+	    </div>
+	<%="</div>" if @content.left_content != '' %>
+</div>

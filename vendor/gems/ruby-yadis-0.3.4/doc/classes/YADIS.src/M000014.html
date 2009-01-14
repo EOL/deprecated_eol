@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (YADIS)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/yadis/yadis.rb, line 51</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">uri</span>)
+    <span class="ruby-identifier">http</span> = <span class="ruby-constant">NetHTTPFetcher</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">http</span>.<span class="ruby-identifier">ca_path</span> = <span class="ruby-ivar">@@ca_path</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@@ca_path</span>    
+    <span class="ruby-identifier">headers</span> = {<span class="ruby-value str">'Accept'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'application/xrds+xml'</span>}
+
+    <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">uri</span>, <span class="ruby-identifier">headers</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">YADISHTTPError</span>, <span class="ruby-node">&quot;Could not fetch #{uri}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">nil?</span>
+
+    <span class="ruby-identifier">uri</span>, <span class="ruby-identifier">resp_payload</span> = <span class="ruby-identifier">response</span>
+    <span class="ruby-identifier">xrds_uri</span> = <span class="ruby-identifier">uri</span>
+
+    <span class="ruby-identifier">header</span> = <span class="ruby-identifier">resp_payload</span>[<span class="ruby-value str">'x-xrds-location'</span>]
+    <span class="ruby-identifier">header</span> = <span class="ruby-identifier">resp_payload</span>[<span class="ruby-value str">'x-yadis-location'</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">header</span>.<span class="ruby-identifier">nil?</span>
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">header</span>
+      <span class="ruby-identifier">xrds_uri</span> = <span class="ruby-identifier">header</span>
+      <span class="ruby-identifier">response</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">xrds_uri</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">YADISHTTPError</span>, <span class="ruby-node">&quot;Could not fetch XRDS #{xrds_uri}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">response</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">resp_payload</span> = <span class="ruby-identifier">response</span>[<span class="ruby-value">1</span>]
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">resp_payload</span>[<span class="ruby-value str">'content-type'</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'application/xrds+xml'</span>
+      <span class="ruby-identifier">loc</span> = <span class="ruby-identifier">html_yadis_location</span>(<span class="ruby-identifier">resp_payload</span>.<span class="ruby-identifier">body</span>)
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">loc</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">xrds_uri</span>, <span class="ruby-identifier">resp_payload</span> = <span class="ruby-identifier">http</span>.<span class="ruby-identifier">get</span>(<span class="ruby-identifier">loc</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">xrds</span> = <span class="ruby-constant">XRDS</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">resp_payload</span>.<span class="ruby-identifier">body</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">YADISParseError</span>, <span class="ruby-value str">&quot;Bad XRDS&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">xrds</span>.<span class="ruby-identifier">nil?</span>
+
+    <span class="ruby-ivar">@uri</span> = <span class="ruby-identifier">uri</span>
+    <span class="ruby-ivar">@xrds_uri</span> = <span class="ruby-identifier">xrds_uri</span>
+    <span class="ruby-ivar">@xrds</span> = <span class="ruby-identifier">xrds</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

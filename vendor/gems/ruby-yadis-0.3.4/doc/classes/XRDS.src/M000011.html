@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>services (XRDS)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/yadis/xrds.rb, line 82</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">services</span>
+    <span class="ruby-identifier">s</span> = []
+
+    <span class="ruby-ivar">@services</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">services_list</span> = <span class="ruby-ivar">@services</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">dup</span>
+
+      <span class="ruby-comment cmt"># randomize services with the same priority</span>
+      <span class="ruby-keyword kw">while</span> <span class="ruby-identifier">services_list</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">s</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">services_list</span>.<span class="ruby-identifier">delete_at</span>((<span class="ruby-identifier">rand</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">services_list</span>.<span class="ruby-identifier">length</span>).<span class="ruby-identifier">to_i</span>)
+      <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">s</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

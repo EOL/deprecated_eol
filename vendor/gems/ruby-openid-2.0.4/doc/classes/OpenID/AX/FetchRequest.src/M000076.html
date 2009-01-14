@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>from_openid_request (OpenID::AX::FetchRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/extensions/ax.rb, line 180</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">from_openid_request</span>(<span class="ruby-identifier">oidreq</span>)
+        <span class="ruby-identifier">message</span> = <span class="ruby-identifier">oidreq</span>.<span class="ruby-identifier">message</span>
+        <span class="ruby-identifier">ax_args</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_args</span>(<span class="ruby-constant">NS_URI</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ax_args</span> <span class="ruby-operator">==</span> {}
+        <span class="ruby-identifier">req</span> = <span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">req</span>.<span class="ruby-identifier">parse_extension_args</span>(<span class="ruby-identifier">ax_args</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">req</span>.<span class="ruby-identifier">update_url</span>
+          <span class="ruby-identifier">realm</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'realm'</span>,
+                                  <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'return_to'</span>))
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">realm</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">realm</span>.<span class="ruby-identifier">empty?</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">Error</span>, <span class="ruby-node">&quot;Cannot validate update_url #{req.update_url.inspect} against absent realm&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">tr</span> = <span class="ruby-constant">TrustRoot</span><span class="ruby-operator">::</span><span class="ruby-constant">TrustRoot</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">realm</span>)
+          <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">tr</span>.<span class="ruby-identifier">validate_url</span>(<span class="ruby-identifier">req</span>.<span class="ruby-identifier">update_url</span>)
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">Error</span>, <span class="ruby-node">&quot;Update URL #{req.update_url.inspect} failed validation against realm #{realm.inspect}&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">req</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

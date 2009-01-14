@@ -1,0 +1,50 @@
+<script type="text/javascript">
+	womAdd('$(\'user_username\').focus();');
+</script>
+	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+        <h1><%= "Login"[:login] %></h1>
+        <hr />
+
+    </div>
+    <!-- /page title -->
+    <div id="page-content" class="clearfix">
+        <!-- center page content -->
+        <div id="full-page-content">
+            Attention Flickr, Yahoo, SmugMug, Blogger, AOL users (and others) -  <%= link_to 'you already have OpenID accounts', 'http://openid.net/get/',:target=>'_blank' %> and can now use
+            them to log into EOL directly!
+            <div style="float: left; width: 550px;">
+ 
+              
+                <% form_for :user, :url => {:action=>'authenticate'} do |form| -%>
+                <fieldset>
+   
+                    <label for="user_username"><%= "Username"[] %></label>
+                    <%= form.text_field 'username', :size=>'16',:maxlength=>'30' %>
+
+                    <label for="user_password"><%= "Password"[] %></label>
+                    <%= form.password_field 'password', :size=>'16',:maxlength=>'30' %>
+				<br />			
+					or
+				  <label for="openid_url"><%= "OpenID"[] %></label>
+                    <%= text_field_tag 'openid_url', {},{:size=>100,:maxlength=>250,:class=>'openid'} %> 
+					<%= link_to 'What is OpenID?', 'http://openid.net/',:target=>'_blank' %> | <%= link_to 'Do I already have an OpenID?', 'http://openid.net/get/',:target=>'_blank' %> 
+			<br /><br />
+            	<table border="0" width="500" cellpadding="20">
+            		<tr>
+            			<td valign="top"><%= submit_tag 'Login Now'[:login_now] + ' &#187;' %></td>
+						<td valign="middle"><%=link_to("Forgot Password"[],:action=>'forgot_password')%><br /><%=link_to("If you don't have an account, click here to register"[:click_here_to_register],:action=>'signup')%></td>
+					</tr>
+				</table>
+
+                </fieldset>
+                <% end -%>
+			
+			</div>
+
+
+        </div>
+					
+    </div>

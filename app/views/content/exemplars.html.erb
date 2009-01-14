@@ -1,0 +1,30 @@
+<% cache(:controller=>'content',:part=>'exemplars_' + current_user.language_abbr) do%>
+<div id="content">
+	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+        <h1><%= "Exemplar Pages"[] %></h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+	    
+	    <div id="page-content" class="clearfix">
+	        <!-- center page content -->
+	        <div id="full-page-content">
+				
+				<p>The pages below show the kind of rich environment, with extensive information, to which all the species pages will eventually grow. The information on the exemplar pages has been authenticated (endorsed) by the scientists whose names are listed on these pages.</p>
+				 <br />
+				 <table class="results_table" cellspacing="0">
+				 	<tr><th><%="Image"[]%></th><th><%="Name"[]%></th>
+						<% for exemplar in @exemplars
+							column_class=cycle('odd','even')  %>
+						    <tr><td height="105" class="<%= column_class %>"><%= medium_thumb_partial(exemplar) %></td><td class="<%= column_class %>"><%= linked_name(exemplar) %></td></tr>
+						<% end %>
+				</table>
+            
+	    	</div>
+		</div>
+</div>
+<% end %>
+

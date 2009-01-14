@@ -1,0 +1,55 @@
+        
+ 		<table class="lmNav">
+                    <tr>
+                      <td class="num  <%= 'selected' if @content_partner.step  == :licensing %>">
+								<% if current_agent.content_partner.ipr_accept? %>
+									<%=content_partner_check_box_image(true)%>
+								<% else %>
+								 	<em>1</em>
+								<% end %>
+                      </td>
+                      <td class="desc <%= 'selected' if @content_partner.step  == :licensing %>">
+                              <%= link_to 'Licensing Policy',{:controller=>'/content_partner',:action=>'licensing'}%>
+                      </td>
+                      <td class="num <%= 'selected' if @content_partner.step  == :attribution %>">                              
+								<% if current_agent.content_partner.attribution_accept? %>
+									<%=content_partner_check_box_image(true)%>
+								<% else %>
+								 	<em>2</em>
+								<% end %>
+                      </td>
+                      <td class="desc <%= 'selected' if @content_partner.step  == :attribution %>">
+                              <%= link_to 'Attribution Guidelines',{:controller=>'/content_partner',:action=>'attribution'}%>
+                      </td>
+                      <td class="num <%= 'selected' if @content_partner.step  == :roles %>">
+                              	<% if current_agent.content_partner.roles_accept? %>
+									<%=content_partner_check_box_image(true)%>
+								<% else %>
+								 	<em>3</em>
+								<% end %>
+                      </td>
+                      <td class="desc <%= 'selected' if @content_partner.step  == :roles %>">
+                              <%= link_to 'Roles',{:controller=>'/content_partner',:action=>'roles'}%>
+                      </td>
+                      <td class="num <%= 'selected' if @content_partner.step  == :transfer_overview %>">
+							<% if current_agent.content_partner.transfer_schema_accept? %>
+								<%=content_partner_check_box_image(true)%>
+							<% else %>
+							 	<em>4</em>
+							<% end %>               
+                      </td>
+                      <td class="desc <%= 'selected' if @content_partner.step  == :transfer_overview %>">
+                              <%= link_to 'Transfer Schema Overview',{:controller=>'/content_partner',:action=>'transfer_overview'}%>
+                      </td>
+                      <td class="num <%= 'selected' if @content_partner.step  == :transfer_upload %>">
+ 							<% if current_agent.content_partner.transfer_upload_complete_step? %>
+								<%=content_partner_check_box_image(true)%>
+							<% else %>
+							 	 <em>5</em>
+							<% end %>                            
+                      </td>
+                      <td class="desc <%= 'selected' if @content_partner.step  == :transfer_upload %>">
+                              <%= link_to 'Transfer Schema Upload',{:controller=>'/content_partner',:action=>'transfer_upload'}%>
+                      </td>
+                    </tr>
+                  </table>

@@ -1,0 +1,74 @@
+
+<script type="text/javascript">
+	
+	function preview_changes(page_id) {
+		$('page_form').target="_blank";
+		$('page_form').action='/administrator/content_page/preview/'+page_id;
+		$('page_form').submit();		
+	}
+	
+	function save_changes(page_id) {
+		$('page_form').target="_self";
+		$('page_form').action='/administrator/content_page/update/'+page_id;
+		$('page_form').submit();		
+	}
+
+	function select_archived_page(form_value,page_id) {
+		content_page_archive_id=form_value.options[form_value.selectedIndex].value;
+		if (content_page_archive_id != '') {
+			new Ajax.Request('/administrator/content_page/get_archived_page', {
+				asynchronous: true,
+				evalScripts: true,
+				method: 'post',
+				onComplete: function(request){
+					hideAjaxIndicator();
+				},
+				onLoading: function(request){
+					showAjaxIndicator();
+				},
+				parameters: 'content_page_archive_id=' + content_page_archive_id + '&content_page_id=' + page_id
+			});
+		}
+	}
+	
+</script>
+
+<% form_for :page,@page,:url=>{:action=>'save_page_content',:id=>@page.id},:html=>{:id=>'page_form'} do |f|  %>
+
+    <%= eol_lang_error_messages_for :page %>
+				
+<table>
+<tr><td width="120"><strong>Page ID:</strong></td><td><%=@page.id%></td></tr>
+<tr><td><strong>Title:</strong></td><td><%=f.text_field :title, {:size=>'50',:maxlength=>'100'}%><br />shown to user as title of page</td></tr>
+<% if @page.content_section.name != 'Home Page' %>
+  <tr><td><strong>Page Name:</strong></td><td><%=f.text_field :page_name, {:size=>'50',:maxlength=>'100'}%><br />used for URLS - should be unique (except for translated pages); if not, URLs to page must use page ID</td></tr>
+  <tr><td><strong>Redirect to URL:</strong></td><td><%=f.text_field :url, {:size=>'50',:maxlength=>'200'}%><br />if page is placeholder for a menu item to a specific URL, enter URL instead of entering content below</td></tr>
+  <tr><td><strong>Open in new window from menu:</strong></td><td><%=f.check_box :open_in_new_window%></td></tr>
+  <tr><td><strong>Sort Order:</strong></td><td><%=f.text_field :sort_order, {:size=>'2',:maxlength=>'2'}%></td></tr>
+  <tr><td><strong>Published:</strong></td><td><%=f.check_box :active%> - must be checked in order to view</td></tr>
+  <tr><td><strong>Section:</strong></td><td><%= f.collection_select :content_section_id,ContentSection.find(:all, :order=>'name'),:id,:name%></td></tr>
+  <tr><td><strong>URL to this page:</strong></td><td><%=link_to('/content/page/' + @page.id.to_s,{:controller=>'/content',:action=>'page',:id=>@page.id},:target=>'_blank')%> <%if @page.page_name != 'New Page'%> OR  <%=link_to('/content/page/' + @page.page_url,{:controller=>'/content',:action=>'page',:id=>@page.page_url},:target=>'_blank')%></a><%end %></td></tr>
+<% end %>
+<tr><td><strong>Page Title Language Key:</strong></td><td><%=f.text_field :language_key, {:size=>'50',:maxlength=>'100'}%><br />used if page title is also in a the language translation files</td></tr>
+<tr><td><strong>Page Language:</strong></td><td><%= f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]} %></td></tr>
+<tr><td><strong>Last Updated:</strong></td><td><%="#{format_date_time(@page.created_at)} by #{@page.user.full_name}"%></td></tr>
+<% if @page.content_page_archives.size != 0%>
+	<tr><td><strong>Archived versions:</strong></td><td><%= collection_select(:content_page_archive,:id,@page.content_page_archives,:id,:archived_by,{:prompt=>'--retrieve page created on--'},{:onChange=>'JavaScript:select_archived_page(this,' + @page.id.to_s + ');'})%></td></tr>
+<% end %>
+<% if @page.content_section.name != 'Home Page' %>
+  <tr><td colspan="2"><%=link_to "Delete this page", {:action=>'destroy',:id=>@page.id}, :confirm => "Are you sure?  This action cannot be undone.", :method => :delete%></td></tr>
+<% end %>
+</table>
+<br />
+<strong>Left content area:</strong> (only enter if you wish to have a left column on the page)<br />
+<%=f.text_area :left_content,{:cols=>'80',:rows=>'30'}%>
+<br />
+<strong>Main content area:</strong><br />
+<%=f.text_area :main_content,{:cols=>'80',:rows=>'65'}%>
+
+<br /><br />
+
+<input type="button" onClick="preview_changes(<%=@page.id%>);" id="preview" name="preview" value="Preview Changes"> |
+<input type="button" onClick="save_changes(<%=@page.id%>);" id="preview" name="preview" value="Publish Changes">
+<% end %>
+

@@ -1,0 +1,24 @@
+= render :partial => '/admin/content_top', :locals => {:name => 'Content Partner Contacts - ' + @agent.project_name} 
+
+= link_to '[go back]',:action=>'show', :id=>params[:id]
+%br/
+
+%table.results_table{:width => "100%"}
+  %tr
+    %th Name
+    %th Type
+    %th Email
+    %th Web page
+    %th Telephone
+    %th Address
+  - for contact in @contacts
+    - column_class=cycle('odd','even')
+    %tr
+      %td{:width => "30%", :class => column_class}= h contact.full_name
+      %td{:class => column_class}= h contact.agent_contact_role.label 
+      %td{:class => column_class}= mail_to contact.email 
+      %td{:class => column_class}= h contact.homepage
+      %td{:class => column_class}= h contact.telephone
+      %td{:class => column_class}= h contact.address
+
+= render :partial => '/admin/content_bottom'

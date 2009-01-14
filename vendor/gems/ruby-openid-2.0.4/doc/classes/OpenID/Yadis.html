@@ -1,0 +1,546 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: OpenID::Yadis</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">OpenID::Yadis</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/openid/yadis/parsehtml_rb.html">
+                lib/openid/yadis/parsehtml.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/yadis/filters_rb.html">
+                lib/openid/yadis/filters.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/yadis/xrds_rb.html">
+                lib/openid/yadis/xrds.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/yadis/accept_rb.html">
+                lib/openid/yadis/accept.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/yadis/constants_rb.html">
+                lib/openid/yadis/constants.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/yadis/discovery_rb.html">
+                lib/openid/yadis/discovery.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/yadis/xri_rb.html">
+                lib/openid/yadis/xri.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/yadis/xrires_rb.html">
+                lib/openid/yadis/xrires.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/yadis/services_rb.html">
+                lib/openid/yadis/services.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000160">apply_filter</a>&nbsp;&nbsp;
+      <a href="#M000157">discover</a>&nbsp;&nbsp;
+      <a href="#M000149">each_service</a>&nbsp;&nbsp;
+      <a href="#M000151">expand_service</a>&nbsp;&nbsp;
+      <a href="#M000153">generate_accept_header</a>&nbsp;&nbsp;
+      <a href="#M000156">get_acceptable</a>&nbsp;&nbsp;
+      <a href="#M000145">get_canonical_id</a>&nbsp;&nbsp;
+      <a href="#M000159">get_service_endpoints</a>&nbsp;&nbsp;
+      <a href="#M000148">get_yadis_xrd</a>&nbsp;&nbsp;
+      <a href="#M000142">html_yadis_location</a>&nbsp;&nbsp;
+      <a href="#M000147">is_xrds?</a>&nbsp;&nbsp;
+      <a href="#M000143">make_filter</a>&nbsp;&nbsp;
+      <a href="#M000155">match_types</a>&nbsp;&nbsp;
+      <a href="#M000144">mk_compound_filter</a>&nbsp;&nbsp;
+      <a href="#M000146">parseXRDS</a>&nbsp;&nbsp;
+      <a href="#M000154">parse_accept_header</a>&nbsp;&nbsp;
+      <a href="#M000152">prio_sort</a>&nbsp;&nbsp;
+      <a href="#M000150">services</a>&nbsp;&nbsp;
+      <a href="#M000158">where_is_yadis?</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="Yadis/XRI.html" class="link">OpenID::Yadis::XRI</a><br />
+Class <a href="Yadis/BasicServiceEndpoint.html" class="link">OpenID::Yadis::BasicServiceEndpoint</a><br />
+Class <a href="Yadis/CompoundFilter.html" class="link">OpenID::Yadis::CompoundFilter</a><br />
+Class <a href="Yadis/DiscoveryResult.html" class="link">OpenID::Yadis::DiscoveryResult</a><br />
+Class <a href="Yadis/TransformFilterMaker.html" class="link">OpenID::Yadis::TransformFilterMaker</a><br />
+Class <a href="Yadis/XRDSError.html" class="link">OpenID::Yadis::XRDSError</a><br />
+Class <a href="Yadis/XRDSFraud.html" class="link">OpenID::Yadis::XRDSFraud</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">XRD_NS_2_0</td>
+          <td>=</td>
+          <td class="context-item-value">'xri://$xrd*($v*2.0)'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">XRDS_NS</td>
+          <td>=</td>
+          <td class="context-item-value">'xri://$xrds'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">XRDS_NAMESPACES</td>
+          <td>=</td>
+          <td class="context-item-value">{       'xrds' =&gt; XRDS_NS,       'xrd' =&gt; XRD_NS_2_0,     }</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">YADIS_HEADER_NAME</td>
+          <td>=</td>
+          <td class="context-item-value">'X-XRDS-Location'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">YADIS_CONTENT_TYPE</td>
+          <td>=</td>
+          <td class="context-item-value">'application/xrds+xml'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">YADIS_ACCEPT_HEADER</td>
+          <td>=</td>
+          <td class="context-item-value">generate_accept_header(                                                  ['text/html', 0.3],                                                  ['application/xhtml+xml', 0.5],                                                  [YADIS_CONTENT_TYPE, 1.0]</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+A value suitable for using as an accept header when performing YADIS
+discovery, unless the application has special requirements
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000160" class="method-detail">
+        <a name="M000160"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000160.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000160.html');return false;">
+          <span class="method-name">apply_filter</span><span class="method-args">(normalized_uri, xrd_data, flt=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000157" class="method-detail">
+        <a name="M000157"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000157.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000157.html');return false;">
+          <span class="method-name">discover</span><span class="method-args">(uri)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Discover <a href="Yadis.html#M000150">services</a> for a given URI.
+</p>
+<p>
+uri: The identity URI as a well-formed http or https URI. The
+well-formedness and the protocol are not checked, but the results of this
+function are undefined if those properties do not hold.
+</p>
+<p>
+returns a <a href="Yadis/DiscoveryResult.html">DiscoveryResult</a> object
+</p>
+<p>
+Raises <a href="DiscoveryFailure.html">DiscoveryFailure</a> when the HTTP
+response does not have a 200 code.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000149" class="method-detail">
+        <a name="M000149"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000149.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000149.html');return false;">
+          <span class="method-name">each_service</span><span class="method-args">(xrds_tree, &amp;block)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+aka iterServices in Python
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000151" class="method-detail">
+        <a name="M000151"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000151.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000151.html');return false;">
+          <span class="method-name">expand_service</span><span class="method-args">(service_element)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000153" class="method-detail">
+        <a name="M000153"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000153.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000153.html');return false;">
+          <span class="method-name">generate_accept_header</span><span class="method-args">(*elements)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Generate an accept header value
+</p>
+<dl>
+<dt>str or (str, float)</dt><dd>-&gt; str
+
+</dd>
+</dl>
+        </div>
+      </div>
+
+      <div id="method-M000156" class="method-detail">
+        <a name="M000156"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000156.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000156.html');return false;">
+          <span class="method-name">get_acceptable</span><span class="method-args">(accept_header, have_types)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000145" class="method-detail">
+        <a name="M000145"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000145.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000145.html');return false;">
+          <span class="method-name">get_canonical_id</span><span class="method-args">(iname, xrd_tree)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000159" class="method-detail">
+        <a name="M000159"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000159.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000159.html');return false;">
+          <span class="method-name">get_service_endpoints</span><span class="method-args">(input_url, flt=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000148" class="method-detail">
+        <a name="M000148"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000148.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000148.html');return false;">
+          <span class="method-name">get_yadis_xrd</span><span class="method-args">(xrds_tree)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000142" class="method-detail">
+        <a name="M000142"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000142.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000142.html');return false;">
+          <span class="method-name">html_yadis_location</span><span class="method-args">(html)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000147" class="method-detail">
+        <a name="M000147"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000147.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000147.html');return false;">
+          <span class="method-name">is_xrds?</span><span class="method-args">(xrds_tree)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000143" class="method-detail">
+        <a name="M000143"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000143.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000143.html');return false;">
+          <span class="method-name">make_filter</span><span class="method-args">(parts)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Convert a filter-convertable thing into a filter
+</p>
+<p>
+parts should be a filter, an endpoint, a callable, or a list of any of
+these.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000155" class="method-detail">
+        <a name="M000155"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000155.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000155.html');return false;">
+          <span class="method-name">match_types</span><span class="method-args">(accept_types, have_types)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000144" class="method-detail">
+        <a name="M000144"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000144.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000144.html');return false;">
+          <span class="method-name">mk_compound_filter</span><span class="method-args">(parts)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a filter out of a list of filter-like things
+</p>
+<p>
+Used by <a href="Yadis.html#M000143">make_filter</a>
+</p>
+<p>
+parts should be a list of things that can be passed to <a
+href="Yadis.html#M000143">make_filter</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000146" class="method-detail">
+        <a name="M000146"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000146.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000146.html');return false;">
+          <span class="method-name">parseXRDS</span><span class="method-args">(text)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000154" class="method-detail">
+        <a name="M000154"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000154.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000154.html');return false;">
+          <span class="method-name">parse_accept_header</span><span class="method-args">(value)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000152" class="method-detail">
+        <a name="M000152"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000152.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000152.html');return false;">
+          <span class="method-name">prio_sort</span><span class="method-args">(elements)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sort a list of elements that have priority attributes.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000150" class="method-detail">
+        <a name="M000150"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000150.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000150.html');return false;">
+          <span class="method-name">services</span><span class="method-args">(xrds_tree)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000158" class="method-detail">
+        <a name="M000158"></a>
+
+        <div class="method-heading">
+          <a href="Yadis.src/M000158.html" target="Code" class="method-signature"
+            onclick="popupCode('Yadis.src/M000158.html');return false;">
+          <span class="method-name">where_is_yadis?</span><span class="method-args">(resp)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Given a <a href="HTTPResponse.html">HTTPResponse</a>, return the location
+of the <a href="Yadis.html">Yadis</a> document.
+</p>
+<p>
+May be the URL just retrieved, another URL, or None, if I can&#8216;t find
+any.
+</p>
+<p>
+[non-blocking]
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

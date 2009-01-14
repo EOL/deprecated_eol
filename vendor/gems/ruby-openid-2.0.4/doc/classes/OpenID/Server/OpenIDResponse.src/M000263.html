@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>needs_signing (OpenID::Server::OpenIDResponse)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 874</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">needs_signing</span>
+        <span class="ruby-comment cmt"># Does this response require signing?</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'mode'</span>) <span class="ruby-operator">==</span> <span class="ruby-value str">'id_res'</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

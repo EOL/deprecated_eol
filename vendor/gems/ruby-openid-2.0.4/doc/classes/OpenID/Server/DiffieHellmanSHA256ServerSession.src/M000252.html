@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (OpenID::Server::DiffieHellmanSHA256ServerSession)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 265</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+        <span class="ruby-keyword kw">super</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+        <span class="ruby-ivar">@session_type</span> = <span class="ruby-value str">'DH-SHA256'</span>
+        <span class="ruby-ivar">@hash_func</span> = <span class="ruby-constant">CryptUtil</span>.<span class="ruby-identifier">method</span>(<span class="ruby-value str">'sha256'</span>)
+        <span class="ruby-ivar">@allowed_assoc_types</span> = [<span class="ruby-value str">'HMAC-SHA256'</span>].<span class="ruby-identifier">freeze</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

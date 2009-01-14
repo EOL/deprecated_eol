@@ -1,0 +1,47 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Search Term Detail Report'} %>
+		
+	<div id="content_page">
+		
+      <h2><%=@search_term%></h2>
+      
+      <%= link_to '[go back]', :back %>
+          <table class="results_table">
+            <tr><th>Taxon Selected From Search Results</th><th>Frequency</th><th>Clicked Time</th></tr>
+          <%- @clicked_taxa.each do |taxon|
+              column_class=cycle('odd','even')
+              unless TaxonConcept.find_by_id(taxon[:taxon_concept_id]).blank?
+                  scientific_name=(taxon.taxon_concept_id ? TaxonConcept.find(taxon[:taxon_concept_id]).name(:expert) : "None") 
+              else
+                  scientific_name="ERROR: Taxon #{taxon[:taxon_concept_id]} not found"
+              end 
+            -%>
+            <tr>
+              <td class="<%=column_class%>" style="width: 12em">
+                <%= taxon.taxon_concept_id ? link_to(scientific_name,taxon_url(:id=>taxon[:taxon_concept_id]),{:target=>'blank'}) : "None" %>
+              </td>
+              <td class="<%=column_class%>"><%= taxon[:frequency] %></td>
+              <td class="<%=column_class%>">
+                <%
+                if taxon.taxon_concept_id 
+                  clicked_times = SearchLog.click_times_by_taxon_concept_id(taxon[:taxon_concept_id]) 
+                  if clicked_times
+                    %>
+                    <table border="1">
+                      <%- clicked_times.each do |record| -%>
+                        <tr>
+                          <td><%=record.response_time%></td>
+                          <td><%=record.count%></td>
+                        </tr>
+                      <%- end %>
+                      </table>
+                    <% end
+                end %>  
+              </td>
+            </tr>
+          <%- end -%>
+         </table>
+
+    
+	</div>
+						
+<%= render :partial => '/admin/content_bottom' %>

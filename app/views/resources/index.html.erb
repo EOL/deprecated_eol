@@ -1,0 +1,48 @@
+<%= render :partial=> '/content_partner/top',:locals=>{:page_header => 'Manage Resources'} %>
+
+<div id="resources">
+	This area is used to notify EOL of a resource (i.e. data set) that is available for processing and 
+	entry in the EOL database.  You can either upload
+	your resource or place it on a public server and indicate its URL.  Currently, the resource files you provide must be in
+	the <%=link_to 'EOL Transfer Schema format.',:controller=>'content_partner',:action=>'transfer_overview'%>
+  <% if current_objects.empty? %>
+  <p>You currently have no resources described.</p>
+  <% else %>
+  
+  <table width="100%">
+    <tr class="resources_table_head">
+      <th>Title</th>
+      <th>Dataset URL</th>
+      <th>Frequency</th>
+      <th>License</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+
+  <% for resource in @resources %>
+    <tr <%= resource.description.blank? ? 'class="resource_rowsep"' : '' %> >
+      <td><%= link_to h(resource.title), resource_harvest_events_url(resource) %></td>
+      <td><%=h resource.accesspoint_url.blank? ? resource.dataset_file_name : resource.accesspoint_url %></td>
+      <td align="center"><%=h frequency(resource.refresh_period_hours) %></td>
+      <td><%=h (resource.license.blank? ? "unspecified" : resource.license.title) %></td>
+      <td><%=h resource.status_label %></td>
+      <td>
+        <%= link_to 'Edit', edit_resource_path(resource) %>
+      </td>
+    </tr>
+    <%- if !resource.description.blank? -%>
+    <tr class="resource_rowsep">
+      <td colspan='4' class="resource_indented"><b>Description:</b> <%=h resource.description %></td>
+    </tr>
+    <%- end -%>
+  <% end %>
+  </table>
+<% end %>
+
+<br />
+
+<%= link_to 'Create a new resource description', new_resource_path %>
+</div>
+<%= render :partial=> '/content_partner/bottom' %>
+
+

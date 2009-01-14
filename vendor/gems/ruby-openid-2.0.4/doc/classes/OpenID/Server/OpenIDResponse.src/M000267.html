@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>encode_to_kvform (OpenID::Server::OpenIDResponse)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 911</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode_to_kvform</span>
+        <span class="ruby-comment cmt"># Encode a response in key-value colon/newline format.</span>
+        <span class="ruby-comment cmt">#</span>
+        <span class="ruby-comment cmt"># This is a machine-readable format used to respond to</span>
+        <span class="ruby-comment cmt"># messages which came directly from the consumer and not</span>
+        <span class="ruby-comment cmt"># through the user agent.</span>
+        <span class="ruby-comment cmt">#</span>
+        <span class="ruby-comment cmt"># see: OpenID Specs,</span>
+        <span class="ruby-comment cmt">#    &lt;a href=&quot;http://openid.net/specs.bml#keyvalue&quot;&gt;Key-Value Colon/Newline format&lt;/a&gt;</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">to_kvform</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

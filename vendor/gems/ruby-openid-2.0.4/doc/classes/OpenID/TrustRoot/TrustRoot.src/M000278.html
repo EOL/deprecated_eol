@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>build_discovery_url (OpenID::TrustRoot::TrustRoot)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/trustroot.rb, line 241</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">build_discovery_url</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">wildcard</span>
+          <span class="ruby-comment cmt"># Use &quot;www.&quot; in place of the star</span>
+          <span class="ruby-identifier">www_domain</span> = <span class="ruby-value str">'www.'</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@host</span>
+          <span class="ruby-identifier">port</span> = (<span class="ruby-operator">!</span><span class="ruby-ivar">@port</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span>[<span class="ruby-value">80</span>, <span class="ruby-value">443</span>].<span class="ruby-identifier">member?</span>(<span class="ruby-ivar">@port</span>)) <span class="ruby-operator">?</span> (<span class="ruby-value str">&quot;:&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@port</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">:</span> <span class="ruby-value str">''</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;#{@proto}://#{www_domain}#{port}#{@path}&quot;</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@unparsed</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

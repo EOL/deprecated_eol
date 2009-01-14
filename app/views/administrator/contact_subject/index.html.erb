@@ -1,0 +1,19 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Contact Us Topics'} %>
+<br />
+<%=link_to "Add a new topic area",:action=>'new'%>					        
+	<div id="contact_us_topics">
+		<% if @contact_subjects.nil? == false %>
+		The following topic areas are available from the Contact Us page:<br /><br />
+		
+		    <table class="results_table" cellspacing="0">
+		    <tr><th>Topic Area</th><th>Recipients</th><th>Active</th><th>Action</th></tr>
+			<% for contact_subject in @contact_subjects
+				column_class=cycle('odd','even')  %>
+			    <tr><td class="<%= column_class %>"><%=h contact_subject.title%></td><td class="<%= column_class %>"><%=h contact_subject.recipients%></td><td class="<%=column_class%>"><%=h contact_subject.active%></td><td class="<%= column_class %>"><%=link_to "[edit]",:action=>'edit', :id=>contact_subject.id%></td></tr>					
+			<% end %>
+		    </table>
+		<% end %>
+
+	</div>
+						
+<%= render :partial => '/admin/content_bottom' %>

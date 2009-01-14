@@ -1,0 +1,12 @@
+
+<div style="float: right; width: 400px; margin-right: 20px; margin-top: 5px; text-align:right;">
+  Welcome <%=current_agent.full_name || current_agent.username%><br />
+  <%=link_to "Log Out",:controller=>'/content_partner',:action => 'logout'%> 
+  &nbsp; | &nbsp; <%=link_to "Account Profile",:controller=>'/content_partner',:action => 'profile'%> 
+  <!-- &nbsp; | &nbsp; <%#=link_to "Help", :controller=>'/content_partner',:action => 'help', :anchor => action_name %> -->
+  &nbsp; | &nbsp; <%=link_to "Contact Us",:controller=>'/content_partner', :action => 'contact_us', :subject => page_header%>
+
+</div>
+<h1>
+	<%=page_header%></h1>
+<hr />

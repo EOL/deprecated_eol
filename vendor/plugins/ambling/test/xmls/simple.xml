@@ -1,0 +1,17 @@
+<!-- global comment -->
+<settings>
+  <one>1</one> <!-- comment one -->
+  <blank></blank> <!-- blank comment -->
+  <subsettings>                                               <!-- subsettings comment blah -->
+    <type></type>                                             <!-- [clustered] (stacked, 100% stacked) -->
+    <width>85</width>                                         <!-- [80] (0 - 100) width of column (in percents)  -->
+  </subsettings>
+  <graphs>
+    <graph gid="1">
+      <type>foo</type>
+    </graph>
+    <graph gid="2">
+      <title>foo</title>
+    </graph>
+  </graphs>
+</settings>

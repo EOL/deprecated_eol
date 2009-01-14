@@ -1,0 +1,6 @@
+db1:
+  suffix: _data
+db2:
+  suffix: _classification
+db3:
+  suffix: _names

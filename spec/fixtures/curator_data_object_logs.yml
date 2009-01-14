@@ -1,0 +1,8 @@
+<% activities = [1, 2]
+for n in 0..99 %>
+log_<%= n  %>:
+  user_id: 2 # admin
+  data_object_id: 390659 # txt_cafteria_1
+  curator_activity_id: <%= activities[n % activities.size] %>
+
+<% end %>

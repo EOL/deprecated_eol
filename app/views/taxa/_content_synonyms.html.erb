@@ -1,0 +1,24 @@
+<table class="results_table" cellspacing="0" summary="Common Names">
+	<tr><th scope="col"><%="Name"[]%></th><th scope="col"><%="Type"[]%></th></tr>
+<%
+	if @content[2].nil? == false
+		for content_item in @content[2]
+			column_class=cycle('odd','even') 
+			%>
+			
+			<tr><td class="<%= column_class %>"><%=content_item['name']%></td><td class="<%= column_class  %>"><%=content_item['relation']%></td></tr>
+	
+		<% end 
+     end
+%>
+</table>
+
+<div class="divider"></div>	
+<div class="content-attribution-area">
+  <div class="attribution-header2"><%= "Source and Additional Information"[] %></div>
+	<span class="source">Synonyms provided by 
+  <%=external_link_to ("Species 2000 &amp; ITIS Catalogue of Life: 2008 Annual Checklist","http://www.catalogueoflife.org/") %>
+  </span>
+  
+</div>
+

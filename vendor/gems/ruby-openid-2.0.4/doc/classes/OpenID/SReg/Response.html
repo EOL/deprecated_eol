@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OpenID::SReg::Response</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OpenID::SReg::Response</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/openid/extensions/sreg_rb.html">
+                lib/openid/extensions/sreg.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Extension
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Represents the data returned in a simple registration response inside of an
+<a href="../../OpenID.html">OpenID</a> id_res response. This object will be
+created by the <a href="../../OpenID.html">OpenID</a> server, added to the
+id_res response object, and then extracted from the id_res message by the
+<a href="../Consumer.html">Consumer</a>.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000085">[]</a>&nbsp;&nbsp;
+      <a href="#M000086">empty?</a>&nbsp;&nbsp;
+      <a href="#M000082">extract_response</a>&nbsp;&nbsp;
+      <a href="#M000083">from_success_response</a>&nbsp;&nbsp;
+      <a href="#M000084">get_extension_args</a>&nbsp;&nbsp;
+      <a href="#M000081">new</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">data</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ns_uri</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000082" class="method-detail">
+        <a name="M000082"></a>
+
+        <div class="method-heading">
+          <a href="Response.src/M000082.html" target="Code" class="method-signature"
+            onclick="popupCode('Response.src/M000082.html');return false;">
+          <span class="method-name">extract_response</span><span class="method-args">(request, data)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Take a <a href="Request.html">Request</a> and a hash of simple registration
+values and create a <a href="Response.html">Response</a> object containing
+that data.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000083" class="method-detail">
+        <a name="M000083"></a>
+
+        <div class="method-heading">
+          <a href="Response.src/M000083.html" target="Code" class="method-signature"
+            onclick="popupCode('Response.src/M000083.html');return false;">
+          <span class="method-name">from_success_response</span><span class="method-args">(success_response, signed_only = true)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create an <a href="Response.html">Response</a> object from an <a
+href="../Consumer/SuccessResponse.html">OpenID::Consumer::SuccessResponse</a>
+from consumer.complete If you set the signed_only parameter to false,
+unsigned data from the id_res message from the server will be processed.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000081" class="method-detail">
+        <a name="M000081"></a>
+
+        <div class="method-heading">
+          <a href="Response.src/M000081.html" target="Code" class="method-signature"
+            onclick="popupCode('Response.src/M000081.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(data = {}, ns_uri=NS_URI)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000085" class="method-detail">
+        <a name="M000085"></a>
+
+        <div class="method-heading">
+          <a href="Response.src/M000085.html" target="Code" class="method-signature"
+            onclick="popupCode('Response.src/M000085.html');return false;">
+          <span class="method-name">[]</span><span class="method-args">(field_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Read-only hashlike interface. Raises an exception if the field name is bad
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000086" class="method-detail">
+        <a name="M000086"></a>
+
+        <div class="method-heading">
+          <a href="Response.src/M000086.html" target="Code" class="method-signature"
+            onclick="popupCode('Response.src/M000086.html');return false;">
+          <span class="method-name">empty?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000084" class="method-detail">
+        <a name="M000084"></a>
+
+        <div class="method-heading">
+          <a href="Response.src/M000084.html" target="Code" class="method-signature"
+            onclick="popupCode('Response.src/M000084.html');return false;">
+          <span class="method-name">get_extension_args</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get the fields to put in the simple registration namespace when adding them
+to an id_res message.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

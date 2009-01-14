@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>complete_id_res (OpenID::Consumer)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer.rb, line 376</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">complete_id_res</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">current_url</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">message</span>.<span class="ruby-identifier">is_openid1</span>
+        <span class="ruby-identifier">setup_url</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID1_NS</span>, <span class="ruby-value str">'user_setup_url'</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">setup_url</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-constant">SetupNeededResponse</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">last_requested_endpoint</span>, <span class="ruby-identifier">setup_url</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">idres</span> = <span class="ruby-identifier">handle_idres</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">current_url</span>)
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">OpenIDError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">FailureResponse</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">last_requested_endpoint</span>, <span class="ruby-identifier">why</span>.<span class="ruby-identifier">message</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-constant">SuccessResponse</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">idres</span>.<span class="ruby-identifier">endpoint</span>, <span class="ruby-identifier">message</span>,
+                                     <span class="ruby-identifier">idres</span>.<span class="ruby-identifier">signed_fields</span>)
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

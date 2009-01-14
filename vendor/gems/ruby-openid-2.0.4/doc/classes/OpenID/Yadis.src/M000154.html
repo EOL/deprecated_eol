@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_accept_header (OpenID::Yadis)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/accept.rb, line 39</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">parse_accept_header</span>(<span class="ruby-identifier">value</span>)
+      <span class="ruby-comment cmt"># Parse an accept header, ignoring any accept-extensions</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-comment cmt"># returns a list of tuples containing main MIME type, MIME</span>
+      <span class="ruby-comment cmt"># subtype, and quality markdown.</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-comment cmt"># str -&gt; [(str, str, float)]</span>
+      <span class="ruby-identifier">chunks</span> = <span class="ruby-identifier">value</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">','</span>, <span class="ruby-value">-1</span>).<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">strip</span> }
+      <span class="ruby-identifier">accept</span> = []
+      <span class="ruby-identifier">chunks</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">chunk</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">parts</span> = <span class="ruby-identifier">chunk</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;;&quot;</span>, <span class="ruby-value">-1</span>).<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">strip</span> }
+
+        <span class="ruby-identifier">mtype</span> = <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">shift</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">mtype</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'/'</span>).<span class="ruby-identifier">nil?</span>
+          <span class="ruby-comment cmt"># This is not a MIME type, so ignore the bad data</span>
+          <span class="ruby-keyword kw">next</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">main</span>, <span class="ruby-identifier">sub</span> = <span class="ruby-identifier">mtype</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'/'</span>, <span class="ruby-value">2</span>)
+
+        <span class="ruby-identifier">q</span> = <span class="ruby-keyword kw">nil</span>
+        <span class="ruby-identifier">parts</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">ext</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">ext</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'='</span>).<span class="ruby-identifier">nil?</span>
+            <span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span> = <span class="ruby-identifier">ext</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'='</span>, <span class="ruby-value">2</span>)
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">k</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'q'</span>
+              <span class="ruby-identifier">q</span> = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_f</span>
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+        }
+
+        <span class="ruby-identifier">q</span> = <span class="ruby-value">1.0</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">q</span>.<span class="ruby-identifier">nil?</span>
+
+        <span class="ruby-identifier">accept</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">q</span>, <span class="ruby-identifier">main</span>, <span class="ruby-identifier">sub</span>]
+      }
+
+      <span class="ruby-identifier">accept</span>.<span class="ruby-identifier">sort!</span>
+      <span class="ruby-identifier">accept</span>.<span class="ruby-identifier">reverse!</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">accept</span>.<span class="ruby-identifier">collect</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">q</span>, <span class="ruby-identifier">main</span>, <span class="ruby-identifier">sub</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">main</span>, <span class="ruby-identifier">sub</span>, <span class="ruby-identifier">q</span>] }
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

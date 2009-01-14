@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>verify_return_to (OpenID::TrustRoot)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/trustroot.rb, line 113</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">TrustRoot</span>.<span class="ruby-identifier">verify_return_to</span>(<span class="ruby-identifier">realm_str</span>, <span class="ruby-identifier">return_to</span>, <span class="ruby-identifier">_vrfy</span>=<span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-comment cmt"># _vrfy parameter is there to make testing easier</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">_vrfy</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">_vrfy</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">method</span>(<span class="ruby-value str">'get_allowed_return_urls'</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">_vrfy</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Proc</span>) <span class="ruby-keyword kw">or</span> <span class="ruby-identifier">_vrfy</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Method</span>))
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;_vrfy must be a Proc or Method&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">realm</span> = <span class="ruby-constant">TrustRoot</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">realm_str</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">realm</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-comment cmt"># The realm does not parse as a URL pattern</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">allowable_urls</span> = <span class="ruby-identifier">_vrfy</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">realm</span>.<span class="ruby-identifier">build_discovery_url</span>())
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">RealmVerificationRedirected</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
+        <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-identifier">err</span>.<span class="ruby-identifier">to_s</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">return_to_matches</span>(<span class="ruby-identifier">allowable_urls</span>, <span class="ruby-identifier">return_to</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-node">&quot;Failed to validate return_to #{return_to} for &quot;</span> <span class="ruby-operator">+</span>
+            <span class="ruby-node">&quot;realm #{realm_str}, was not in #{allowable_urls}&quot;</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

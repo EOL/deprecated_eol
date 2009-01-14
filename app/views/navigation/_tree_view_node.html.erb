@@ -1,0 +1,33 @@
+<%
+current_node = false unless local_assigns[:current_node]
+close_li_tag = false unless local_assigns[:close_li_tag]
+
+classes = []
+classes << "nopages " unless enable # no content below this node, so change colors
+classes << "lastone " if current_node # current node gets its own class
+classes << "kingdom"  if kingdom && !current_kingdom # kingdom get its own class
+classes << "current_kingdom" if kingdom && current_kingdom
+children_nodes_size ||= 0
+
+converted_name = convert_to_nbsp(namestring)
+converted_name = "<b>" + converted_name + "</b>" if kingdom
+
+%>
+<li class="<%= classes.join(' ') %>" id="uid<%=id%>">
+<%- if kingdom && current_kingdom && !first_kingdom %><br/><%- end %>
+	<span class="<%= classes.join(' ') %>" id="nameuid<%=id%>">
+		<%=
+		link_to(converted_name,
+						{:controller => "taxa",
+						 :action=>"show",
+						 :id=>id},
+						 :class=> classes.join(' '),
+						 :onclick=>"showAjaxIndicator();")-%><%-
+	if !current_node
+		-%>&nbsp;<a class="expand" href="JavaScript:displayNode(<%=id%>)">+</a><%
+	end
+	if children_nodes_size > 0
+		-%><a class="expand" id="toggle_children_link" href="#" onclick="JavaScript:toggle_children();return false;">&nbsp;-</a><%
+	end -%>
+  </span>
+<% if close_li_tag %></li><% end %>

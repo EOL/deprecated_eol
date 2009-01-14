@@ -1,0 +1,21 @@
+<!-- content -->
+<div id="content">
+  
+  <div id="page-separator-general"></div>
+  
+  <!-- page title -->
+  <div id="page-title">
+    <%= render :partial => 'data_objects/page_title' %>
+  </div>
+  <!-- /page title -->
+
+  <!-- page content -->
+  <div id="page-content" class="clearfix">
+    <div id="comment-image">
+      <img id="main-image" src="<%= @data_object.smart_image %>" alt="<%= @data_object.description %>">
+    </div>
+    <div id="comments-container">
+      <%= render_component(:action => 'index', :controller => 'comments', :layout => false, :params => {:data_object_id => @data_object.id}) %>
+    </div>
+  </div> <!-- /page content -->
+</div> <!-- /content -->

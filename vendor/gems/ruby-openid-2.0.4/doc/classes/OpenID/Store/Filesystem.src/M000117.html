@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>use_nonce (OpenID::Store::Filesystem)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/store/filesystem.rb, line 142</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">use_nonce</span>(<span class="ruby-identifier">server_url</span>, <span class="ruby-identifier">timestamp</span>, <span class="ruby-identifier">salt</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">timestamp</span> <span class="ruby-operator">-</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>).<span class="ruby-identifier">abs</span> <span class="ruby-operator">&gt;</span> <span class="ruby-constant">Nonce</span>.<span class="ruby-identifier">skew</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">server_url</span> <span class="ruby-keyword kw">and</span> <span class="ruby-operator">!</span><span class="ruby-identifier">server_url</span>.<span class="ruby-identifier">empty?</span>
+          <span class="ruby-identifier">proto</span>, <span class="ruby-identifier">rest</span> = <span class="ruby-identifier">server_url</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'://'</span>,<span class="ruby-value">2</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">proto</span>, <span class="ruby-identifier">rest</span> = <span class="ruby-value str">''</span>,<span class="ruby-value str">''</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Bad server URL&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">proto</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">rest</span>
+
+        <span class="ruby-identifier">domain</span> = <span class="ruby-identifier">filename_escape</span>(<span class="ruby-identifier">rest</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'/'</span>,<span class="ruby-value">2</span>)[<span class="ruby-value">0</span>])
+        <span class="ruby-identifier">url_hash</span> = <span class="ruby-identifier">safe64</span>(<span class="ruby-identifier">server_url</span>)
+        <span class="ruby-identifier">salt_hash</span> = <span class="ruby-identifier">safe64</span>(<span class="ruby-identifier">salt</span>)
+
+        <span class="ruby-identifier">nonce_fn</span> = <span class="ruby-value str">'%08x-%s-%s-%s-%s'</span><span class="ruby-operator">%</span>[<span class="ruby-identifier">timestamp</span>, <span class="ruby-identifier">proto</span>, <span class="ruby-identifier">domain</span>, <span class="ruby-identifier">url_hash</span>, <span class="ruby-identifier">salt_hash</span>]
+
+        <span class="ruby-identifier">filename</span> = <span class="ruby-ivar">@nonce_dir</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">nonce_fn</span>)
+
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">fd</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">CREAT</span> <span class="ruby-operator">|</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">EXCL</span> <span class="ruby-operator">|</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">WRONLY</span>, <span class="ruby-value">0200</span>)
+          <span class="ruby-identifier">fd</span>.<span class="ruby-identifier">close</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EEXIST</span>
+          <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,77 @@
+cafeteria_iucn_status:
+  id: 1
+  auto_publish: false
+  title: cafeteria resource
+  subject: subject
+  license_id: 1 
+
+two:
+  id: 2
+  auto_publish: false
+  description: MyText
+  title: MyString2
+  refresh_period_hours: 1
+  subject: subject
+  license_id: 1 
+
+three:
+  id: 3
+  auto_publish: false
+  description: MyText2
+  title: MyString2
+  refresh_period_hours: 1
+  license_id: 1
+
+spiders:
+  id: 4
+  auto_publish: false
+  title: Spiders
+  accesspoint_url: 
+  service_type_id: 1
+  description: 
+  language_id: 1
+  subject: sadfsaf
+  license_id: 5
+  rights_statement: 
+  rights_holder: 
+  refresh_period_hours: 168
+  resource_created_at: 2008-10-03 00:00:00
+  created_at: 2008-10-03 21:51:29
+  harvested_at: 2008-10-03 17:55:25
+  dataset_file_name: 5.xml
+  dataset_content_type: text/xml
+  dataset_file_size: 1334380
+  resource_status_id: 10
+
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: resources
+#
+#  id                     :integer(4)      not null, primary key
+#  language_id            :integer(2)
+#  license_id             :integer(1)      not null
+#  resource_status_id     :integer(4)
+#  service_type_id        :integer(4)      not null, default(1)
+#  accesspoint_url        :string(255)
+#  auto_publish           :boolean(1)      not null
+#  bibliographic_citation :string(400)
+#  dataset_content_type   :string(255)
+#  dataset_file_name      :string(255)
+#  dataset_file_size      :integer(4)
+#  description            :string(255)
+#  logo_url               :string(255)
+#  metadata_url           :string(255)
+#  refresh_period_hours   :integer(2)
+#  resource_set_code      :string(255)
+#  rights_holder          :string(255)
+#  rights_statement       :string(400)
+#  service_version        :string(255)
+#  subject                :string(255)     not null
+#  title                  :string(255)     not null
+#  vetted                 :boolean(1)      not null
+#  created_at             :timestamp       not null
+#  harvested_at           :datetime
+#  resource_created_at    :datetime
+#  resource_modified_at   :datetime
+

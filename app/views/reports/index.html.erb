@@ -1,0 +1,6 @@
+<h2>Available Reports</h2>
+<ul class="bulletlist">  
+  <% for report_class in (LogDaily.report_classes - [AgentLogDaily]) %>
+    <li><%= link_to report_class.report_name, :controller => '/content_partner/reports', :action => report_class.path %></li>
+  <% end %>
+</ul>

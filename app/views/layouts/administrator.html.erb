@@ -1,0 +1,5 @@
+<% inside_layout 'main' do %>
+  <%= render :partial => '/admin/content_top', :locals => {:name => @admin_header || 'Administrator Console'} %>
+  <%= yield %>
+  <%= render :partial => '/admin/content_bottom' %>
+<% end %>

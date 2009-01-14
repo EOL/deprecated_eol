@@ -1,0 +1,82 @@
+# With the exception of the ID, these are all the same.  When I grabbed these, they were
+# screwed up, so I ad-libbed.
+
+# +---------------+------------------+------+-----+---------+----------------+
+# | Field         | Type             | Null | Key | Default | Extra          |
+# +---------------+------------------+------+-----+---------+----------------+
+# | id            | int(10) unsigned | NO   | PRI | NULL    | auto_increment |
+# | title_item_id | int(10) unsigned | NO   |     |         |                |
+# | year          | varchar(20)      | NO   |     |         |                |
+# | volume        | varchar(20)      | NO   |     |         |                |
+# | issue         | varchar(20)      | NO   |     |         |                |
+# | prefix        | varchar(20)      | NO   |     |         |                |
+# | number        | varchar(20)      | NO   |     |         |                |
+# | url           | varchar(255)     | NO   |     |         |                |
+# | page_type     | varchar(20)      | NO   |     |         |                |
+# +---------------+------------------+------+-----+---------+----------------+
+
+seabream_item_page_1:
+  id: 456386
+  title_item_id: 13854
+  year: 1864
+  volume: 3
+  issue: 4
+  prefix: Page
+  number: 58
+  url: http://www.biodiversitylibrary.org/page/456386
+
+seabream_page_2:
+  id: 2647427
+  title_item_id: 13854
+  year: 1864
+  volume: 3
+  issue: 4
+  prefix: Page
+  number: 158
+  url: http://www.biodiversitylibrary.org/page/456386
+
+seabream_page_3:
+  id: 3472313
+  title_item_id: 13854
+  year: 1864
+  volume: 3
+  issue: 4
+  prefix: Page
+  number: 201
+  url: http://www.biodiversitylibrary.org/page/456386
+
+seabream_page_4:
+  id: 4935190
+  title_item_id: 13854
+  year: 1864
+  volume: 3
+  issue: 4
+  prefix: Page
+  number: 103
+  url: http://www.biodiversitylibrary.org/page/456386
+
+seabream_page_5:
+  id: 5846118
+  title_item_id: 13854
+  year: 1864
+  volume: 3
+  issue: 4
+  prefix: Page
+  number: 58
+  url: http://www.biodiversitylibrary.org/page/456386
+
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: item_pages
+#
+#  id            :integer(4)      not null, primary key
+#  title_item_id :integer(4)      not null
+#  issue         :string(20)      not null
+#  number        :string(20)      not null
+#  page_type     :string(20)      not null
+#  prefix        :string(20)      not null
+#  url           :string(255)     not null
+#  volume        :string(20)      not null
+#  year          :string(20)      not null
+

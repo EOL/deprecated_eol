@@ -1,0 +1,2253 @@
+rank_1:
+  id: 1
+  label: '"s"sp'
+
+rank_2:
+  id: 2
+  label: (Benth.) B.L. Turner
+
+rank_3:
+  id: 3
+  label: (Bogner) E.G. Gonç.
+
+rank_4:
+  id: 4
+  label: (DC.) Naudin
+
+rank_5:
+  id: 5
+  label: (Engelm.) Arthur
+
+rank_6:
+  id: 6
+  label: (Sprague) Nied.
+
+rank_7:
+  id: 7
+  label: (Stapf) Stapf
+
+rank_8:
+  id: 8
+  label: (unranked)
+
+rank_9:
+  id: 9
+  label: 1
+
+rank_10:
+  id: 10
+  label: 10
+
+rank_11:
+  id: 11
+  label: 1980
+
+rank_12:
+  id: 12
+  label: 2
+
+rank_13:
+  id: 13
+  label: 3
+
+rank_14:
+  id: 14
+  label: 4
+
+rank_15:
+  id: 15
+  label: 5
+
+rank_16:
+  id: 16
+  label: 6
+
+rank_17:
+  id: 17
+  label: 7
+
+rank_18:
+  id: 18
+  label: 8
+
+rank_19:
+  id: 19
+  label: 9
+
+rank_20:
+  id: 20
+  label: "?"
+
+rank_21:
+  id: 21
+  label: ?var
+
+rank_22:
+  id: 22
+  label: a
+
+rank_23:
+  id: 23
+  label: a.
+
+rank_24:
+  id: 24
+  label: ab.
+
+rank_25:
+  id: 25
+  label: aberration
+
+rank_26:
+  id: 26
+  label: above family
+
+rank_27:
+  id: 27
+  label: AF
+
+rank_28:
+  id: 28
+  label: AG
+
+rank_29:
+  id: 29
+  label: aggr.
+
+rank_30:
+  id: 30
+  label: aggregate
+
+rank_31:
+  id: 31
+  label: agsp
+
+rank_32:
+  id: 32
+  label: Alford
+
+rank_33:
+  id: 33
+  label: Apakšdzimta
+
+rank_34:
+  id: 34
+  label: Apakšģints
+
+rank_35:
+  id: 35
+  label: Apakšklase
+
+rank_36:
+  id: 36
+  label: Apakštips
+
+rank_37:
+  id: 37
+  label: Apakštriba
+
+rank_38:
+  id: 38
+  label: approaching
+
+rank_39:
+  id: 39
+  label: art
+
+rank_40:
+  id: 40
+  label: ASP
+
+rank_41:
+  id: 41
+  label: Aug 1899
+
+rank_42:
+  id: 42
+  label: b.
+
+rank_43:
+  id: 43
+  label: binomial
+
+rank_44:
+  id: 44
+  label: biovar
+
+rank_45:
+  id: 45
+  label: branch
+
+rank_46:
+  id: 46
+  label: Brooker
+
+rank_47:
+  id: 47
+  label: c.
+
+rank_48:
+  id: 48
+  label: carstvo
+
+rank_49:
+  id: 49
+  label: cl.
+
+rank_50:
+  id: 50
+  label: clase
+
+rank_51:
+  id: 51
+  label: class
+
+rank_52:
+  id: 52
+  label: classe
+
+rank_53:
+  id: 53
+  label: classis
+
+rank_54:
+  id: 54
+  label: cluster
+
+rank_55:
+  id: 55
+  label: cohors
+
+rank_56:
+  id: 56
+  label: cohort
+
+rank_57:
+  id: 57
+  label: complex
+
+rank_58:
+  id: 58
+  label: con-variety
+
+rank_59:
+  id: 59
+  label: Confer species
+
+rank_60:
+  id: 60
+  label: Confer subspecies
+
+rank_61:
+  id: 61
+  label: convar
+
+rank_62:
+  id: 62
+  label: convar.
+
+rank_63:
+  id: 63
+  label: convarietas
+
+rank_64:
+  id: 64
+  label: convariety
+
+rank_65:
+  id: 65
+  label: cor
+
+rank_66:
+  id: 66
+  label: cultivar
+
+rank_67:
+  id: 67
+  label: cultivar group
+
+rank_68:
+  id: 68
+  label: cv
+
+rank_69:
+  id: 69
+  label: cv.
+
+rank_70:
+  id: 70
+  label: d
+
+rank_71:
+  id: 71
+  label: deblo
+
+rank_72:
+  id: 72
+  label: divis
+
+rank_73:
+  id: 73
+  label: divisio
+
+rank_74:
+  id: 74
+  label: division
+
+rank_75:
+  id: 75
+  label: diviso
+
+rank_76:
+  id: 76
+  label: domain
+
+rank_77:
+  id: 77
+  label: druzina
+
+rank_78:
+  id: 78
+  label: Dzimta
+
+rank_79:
+  id: 79
+  label: e
+
+rank_80:
+  id: 80
+  label: ecad
+
+rank_81:
+  id: 81
+  label: embranchement
+
+rank_82:
+  id: 82
+  label: empire
+
+rank_83:
+  id: 83
+  label: Espéce
+
+rank_84:
+  id: 84
+  label: especie
+
+rank_85:
+  id: 85
+  label: f
+
+rank_86:
+  id: 86
+  label: f.
+
+rank_87:
+  id: 87
+  label: F. Muell.
+
+rank_88:
+  id: 88
+  label: f. s
+
+rank_89:
+  id: 89
+  label: f. spec.
+
+rank_90:
+  id: 90
+  label: f.sp.
+
+rank_91:
+  id: 91
+  label: fam
+
+rank_92:
+  id: 92
+  label: fam.
+
+rank_93:
+  id: 93
+  label: famfam
+
+rank_94:
+  id: 94
+  label: famgen
+
+rank_95:
+  id: 95
+  label: familia
+
+rank_96:
+  id: 96
+  label: familie
+
+rank_97:
+  id: 97
+  label: familio
+
+rank_98:
+  id: 98
+  label: famille
+
+rank_99:
+  id: 99
+  label: family
+
+rank_100:
+  id: 100
+  label: family group
+
+rank_101:
+  id: 101
+  label: famsp
+
+rank_102:
+  id: 102
+  label: filo
+
+rank_103:
+  id: 103
+  label: flus
+
+rank_104:
+  id: 104
+  label: fo
+
+rank_105:
+  id: 105
+  label: fogen
+
+rank_106:
+  id: 106
+  label: form
+
+rank_107:
+  id: 107
+  label: forma
+
+rank_108:
+  id: 108
+  label: forma spec.
+
+rank_109:
+  id: 109
+  label: fosp
+
+rank_110:
+  id: 110
+  label: g
+
+rank_111:
+  id: 111
+  label: gattung
+
+rank_112:
+  id: 112
+  label: gen
+
+rank_113:
+  id: 113
+  label: gen.
+
+rank_114:
+  id: 114
+  label: genere
+
+rank_115:
+  id: 115
+  label: género
+
+rank_116:
+  id: 116
+  label: genre
+
+rank_117:
+  id: 117
+  label: genro
+
+rank_118:
+  id: 118
+  label: genus
+
+rank_119:
+  id: 119
+  label: genus group
+
+rank_120:
+  id: 120
+  label: giga-order
+
+rank_121:
+  id: 121
+  label: gigaorder
+
+rank_122:
+  id: 122
+  label: Ģints
+
+rank_123:
+  id: 123
+  label: Gómez-Sosa
+
+rank_124:
+  id: 124
+  label: gr. var
+
+rank_125:
+  id: 125
+  label: grade
+
+rank_126:
+  id: 126
+  label: grand-order
+
+rank_127:
+  id: 127
+  label: grandorder
+
+rank_128:
+  id: 128
+  label: grex
+
+rank_129:
+  id: 129
+  label: group
+
+rank_130:
+  id: 130
+  label: groupa
+
+rank_131:
+  id: 131
+  label: groupe
+
+rank_132:
+  id: 132
+  label: grupo
+
+rank_133:
+  id: 133
+  label: Gruppe
+
+rank_134:
+  id: 134
+  label: hirta
+
+rank_135:
+  id: 135
+  label: hort. fo
+
+rank_136:
+  id: 136
+  label: hybrid
+
+rank_137:
+  id: 137
+  label: hyper-order
+
+rank_138:
+  id: 138
+  label: hyperorder
+
+rank_139:
+  id: 139
+  label: I
+
+rank_140:
+  id: 140
+  label: II
+
+rank_141:
+  id: 141
+  label: incertae cedis
+
+rank_142:
+  id: 142
+  label: incertae sedis
+
+rank_143:
+  id: 143
+  label: infra-class
+
+rank_144:
+  id: 144
+  label: infra-cohort
+
+rank_145:
+  id: 145
+  label: infra-domain
+
+rank_146:
+  id: 146
+  label: infra-family
+
+rank_147:
+  id: 147
+  label: infra-form
+
+rank_148:
+  id: 148
+  label: infra-genus
+
+rank_149:
+  id: 149
+  label: infra-kingdom
+
+rank_150:
+  id: 150
+  label: infra-legion
+
+rank_151:
+  id: 151
+  label: infra-order
+
+rank_152:
+  id: 152
+  label: infra-phylum
+
+rank_153:
+  id: 153
+  label: infra-section
+
+rank_154:
+  id: 154
+  label: infra-series
+
+rank_155:
+  id: 155
+  label: infra-species
+
+rank_156:
+  id: 156
+  label: infra-tribe
+
+rank_157:
+  id: 157
+  label: infra-variety
+
+rank_158:
+  id: 158
+  label: infraclass
+
+rank_159:
+  id: 159
+  label: infraclassis
+
+rank_160:
+  id: 160
+  label: infracohort
+
+rank_161:
+  id: 161
+  label: infradomain
+
+rank_162:
+  id: 162
+  label: infrafamily
+
+rank_163:
+  id: 163
+  label: infraform
+
+rank_164:
+  id: 164
+  label: infragenus
+
+rank_165:
+  id: 165
+  label: Infrakārta
+
+rank_166:
+  id: 166
+  label: infrakingdom
+
+rank_167:
+  id: 167
+  label: Infraklase
+
+rank_168:
+  id: 168
+  label: infralegion
+
+rank_169:
+  id: 169
+  label: infraorder
+
+rank_170:
+  id: 170
+  label: Infraordo
+
+rank_171:
+  id: 171
+  label: infraphylum
+
+rank_172:
+  id: 172
+  label: infraregnum
+
+rank_173:
+  id: 173
+  label: infrasection
+
+rank_174:
+  id: 174
+  label: infraseries
+
+rank_175:
+  id: 175
+  label: infraspecies
+
+rank_176:
+  id: 176
+  label: infratribe
+
+rank_177:
+  id: 177
+  label: infratribus
+
+rank_178:
+  id: 178
+  label: infravariety
+
+rank_179:
+  id: 179
+  label: inter-kingdom
+
+rank_180:
+  id: 180
+  label: interkingdom
+
+rank_181:
+  id: 181
+  label: Ismscher
+
+rank_182:
+  id: 182
+  label: Kārta
+
+rank_183:
+  id: 183
+  label: kingdom
+
+rank_184:
+  id: 184
+  label: Klase
+
+rank_185:
+  id: 185
+  label: klasse
+
+rank_186:
+  id: 186
+  label: Koch
+
+rank_187:
+  id: 187
+  label: kohorta
+
+rank_188:
+  id: 188
+  label: koljeno
+
+rank_189:
+  id: 189
+  label: kraljestvo
+
+rank_190:
+  id: 190
+  label: L.  fo. guadalupensis
+
+rank_191:
+  id: 191
+  label: L. x
+
+rank_192:
+  id: 192
+  label: legion
+
+rank_193:
+  id: 193
+  label: Lunell
+
+rank_194:
+  id: 194
+  label: lus
+
+rank_195:
+  id: 195
+  label: lusus
+
+rank_196:
+  id: 196
+  label: magnorder
+
+rank_197:
+  id: 197
+  label: Mears
+
+rank_198:
+  id: 198
+  label: mega-order
+
+rank_199:
+  id: 199
+  label: megaorder
+
+rank_200:
+  id: 200
+  label: Meisn.
+
+rank_201:
+  id: 201
+  label: mf
+
+rank_202:
+  id: 202
+  label: micro-species
+
+rank_203:
+  id: 203
+  label: microgen
+
+rank_204:
+  id: 204
+  label: microsp.
+
+rank_205:
+  id: 205
+  label: microspecies
+
+rank_206:
+  id: 206
+  label: mid-kingdom
+
+rank_207:
+  id: 207
+  label: mid-phylum
+
+rank_208:
+  id: 208
+  label: midkingdom
+
+rank_209:
+  id: 209
+  label: midphylum
+
+rank_210:
+  id: 210
+  label: mir-order
+
+rank_211:
+  id: 211
+  label: mirorder
+
+rank_212:
+  id: 212
+  label: mnstr
+
+rank_213:
+  id: 213
+  label: modification
+
+rank_214:
+  id: 214
+  label: mon
+
+rank_215:
+  id: 215
+  label: monster
+
+rank_216:
+  id: 216
+  label: monstr
+
+rank_217:
+  id: 217
+  label: morph
+
+rank_218:
+  id: 218
+  label: mstr
+
+rank_219:
+  id: 219
+  label: mstr.
+
+rank_220:
+  id: 220
+  label: mut
+
+rank_221:
+  id: 221
+  label: mut.
+
+rank_222:
+  id: 222
+  label: mutant
+
+rank_223:
+  id: 223
+  label: mutation
+
+rank_224:
+  id: 224
+  label: nadred
+
+rank_225:
+  id: 225
+  label: nadrod
+
+rank_226:
+  id: 226
+  label: nadvrsta
+
+rank_227:
+  id: 227
+  label: natkohorta
+
+rank_228:
+  id: 228
+  label: natkoljeno
+
+rank_229:
+  id: 229
+  label: natporodica
+
+rank_230:
+  id: 230
+  label: near
+
+rank_231:
+  id: 231
+  label: Nees ex Steud. ex Jacks.
+
+rank_232:
+  id: 232
+  label: nm
+
+rank_233:
+  id: 233
+  label: nm.
+
+rank_234:
+  id: 234
+  label: NO RANK
+
+rank_235:
+  id: 235
+  label: nodaļa
+
+rank_236:
+  id: 236
+  label: nohtosubsp
+
+rank_237:
+  id: 237
+  label: nopthosubsp
+
+rank_238:
+  id: 238
+  label: not specified
+
+rank_239:
+  id: 239
+  label: notho morph
+
+rank_240:
+  id: 240
+  label: notho species
+
+rank_241:
+  id: 241
+  label: nothof
+
+rank_242:
+  id: 242
+  label: nothogen
+
+rank_243:
+  id: 243
+  label: nothomorph
+
+rank_244:
+  id: 244
+  label: nothosect
+
+rank_245:
+  id: 245
+  label: nothoser
+
+rank_246:
+  id: 246
+  label: nothosubg
+
+rank_247:
+  id: 247
+  label: nothosubgeen
+
+rank_248:
+  id: 248
+  label: nothosubgen
+
+rank_249:
+  id: 249
+  label: nothosubsp
+
+rank_250:
+  id: 250
+  label: nothosupsp
+
+rank_251:
+  id: 251
+  label: nothovar
+
+rank_252:
+  id: 252
+  label: nothsect
+
+rank_253:
+  id: 253
+  label: nr.
+
+rank_254:
+  id: 254
+  label: NRA
+
+rank_255:
+  id: 255
+  label: nrasp
+
+rank_256:
+  id: 256
+  label: nssp
+
+rank_257:
+  id: 257
+  label: nsubsp
+
+rank_258:
+  id: 258
+  label: o
+
+rank_259:
+  id: 259
+  label: oblvar
+
+rank_260:
+  id: 260
+  label: oec
+
+rank_261:
+  id: 261
+  label: "Oliv. & Hiern"
+
+rank_262:
+  id: 262
+  label: opiz
+
+rank_263:
+  id: 263
+  label: ord
+
+rank_264:
+  id: 264
+  label: ordem
+
+rank_265:
+  id: 265
+  label: orden
+
+rank_266:
+  id: 266
+  label: order
+
+rank_267:
+  id: 267
+  label: ordnung
+
+rank_268:
+  id: 268
+  label: ordo
+
+rank_269:
+  id: 269
+  label: ordord
+
+rank_270:
+  id: 270
+  label: ordre
+
+rank_271:
+  id: 271
+  label: Oudej
+
+rank_272:
+  id: 272
+  label: par
+
+rank_273:
+  id: 273
+  label: pars
+
+rank_274:
+  id: 274
+  label: parv-class
+
+rank_275:
+  id: 275
+  label: parv-order
+
+rank_276:
+  id: 276
+  label: parvclass
+
+rank_277:
+  id: 277
+  label: parvorder
+
+rank_278:
+  id: 278
+  label: Pasuga
+
+rank_279:
+  id: 279
+  label: phly.
+
+rank_280:
+  id: 280
+  label: phylum
+
+rank_281:
+  id: 281
+  label: poddeblo
+
+rank_282:
+  id: 282
+  label: podrazred
+
+rank_283:
+  id: 283
+  label: podred
+
+rank_284:
+  id: 284
+  label: podrod
+
+rank_285:
+  id: 285
+  label: podtribus
+
+rank_286:
+  id: 286
+  label: podvrsta
+
+rank_287:
+  id: 287
+  label: porodica
+
+rank_288:
+  id: 288
+  label: potcarstvo
+
+rank_289:
+  id: 289
+  label: potkoljeno
+
+rank_290:
+  id: 290
+  label: potporodica
+
+rank_291:
+  id: 291
+  label: prol
+
+rank_292:
+  id: 292
+  label: prole
+
+rank_293:
+  id: 293
+  label: proles
+
+rank_294:
+  id: 294
+  label: pv.
+
+rank_295:
+  id: 295
+  label: quadrinomial
+
+rank_296:
+  id: 296
+  label: rac
+
+rank_297:
+  id: 297
+  label: race
+
+rank_298:
+  id: 298
+  label: RANK?
+
+rank_299:
+  id: 299
+  label: Rasse
+
+rank_300:
+  id: 300
+  label: razred
+
+rank_301:
+  id: 301
+  label: red
+
+rank_302:
+  id: 302
+  label: reg.
+
+rank_303:
+  id: 303
+  label: regnum
+
+rank_304:
+  id: 304
+  label: Reihe
+
+rank_305:
+  id: 305
+  label: reino
+
+rank_306:
+  id: 306
+  label: rod
+
+rank_307:
+  id: 307
+  label: rouy
+
+rank_308:
+  id: 308
+  label: Ruiz
+
+rank_309:
+  id: 309
+  label: s
+
+rank_310:
+  id: 310
+  label: sabgen
+
+rank_311:
+  id: 311
+  label: sbsp
+
+rank_312:
+  id: 312
+  label: sebsp
+
+rank_313:
+  id: 313
+  label: sect
+
+rank_314:
+  id: 314
+  label: sect.
+
+rank_315:
+  id: 315
+  label: sectgen
+
+rank_316:
+  id: 316
+  label: sectio
+
+rank_317:
+  id: 317
+  label: section
+
+rank_318:
+  id: 318
+  label: sectsp
+
+rank_319:
+  id: 319
+  label: Sekcija
+
+rank_320:
+  id: 320
+  label: ser
+
+rank_321:
+  id: 321
+  label: ser.
+
+rank_322:
+  id: 322
+  label: seria
+
+rank_323:
+  id: 323
+  label: serie
+
+rank_324:
+  id: 324
+  label: series
+
+rank_325:
+  id: 325
+  label: Sērija
+
+rank_326:
+  id: 326
+  label: serovar
+
+rank_327:
+  id: 327
+  label: set
+
+rank_328:
+  id: 328
+  label: sf
+
+rank_329:
+  id: 329
+  label: sg
+
+rank_330:
+  id: 330
+  label: sous-famille
+
+rank_331:
+  id: 331
+  label: sous-ordre
+
+rank_332:
+  id: 332
+  label: SP
+
+rank_333:
+  id: 333
+  label: sp.
+
+rank_334:
+  id: 334
+  label: sp.-group
+
+rank_335:
+  id: 335
+  label: species
+
+rank_336:
+  id: 336
+  label: species forma
+
+rank_337:
+  id: 337
+  label: species group
+
+rank_338:
+  id: 338
+  label: species subgroup
+
+rank_339:
+  id: 339
+  label: specio
+
+rank_340:
+  id: 340
+  label: sport
+
+rank_341:
+  id: 341
+  label: sre
+
+rank_342:
+  id: 342
+  label: ssp
+
+rank_343:
+  id: 343
+  label: ssp.
+
+rank_344:
+  id: 344
+  label: Stirp
+
+rank_345:
+  id: 345
+  label: stirps
+
+rank_346:
+  id: 346
+  label: strain
+
+rank_347:
+  id: 347
+  label: sub
+
+rank_348:
+  id: 348
+  label: sub-class
+
+rank_349:
+  id: 349
+  label: sub-cohort
+
+rank_350:
+  id: 350
+  label: sub-division
+
+rank_351:
+  id: 351
+  label: sub-domain
+
+rank_352:
+  id: 352
+  label: sub-family
+
+rank_353:
+  id: 353
+  label: sub-form
+
+rank_354:
+  id: 354
+  label: sub-forma
+
+rank_355:
+  id: 355
+  label: sub-genus
+
+rank_356:
+  id: 356
+  label: sub-group
+
+rank_357:
+  id: 357
+  label: sub-kingdom
+
+rank_358:
+  id: 358
+  label: sub-legion
+
+rank_359:
+  id: 359
+  label: sub-order
+
+rank_360:
+  id: 360
+  label: sub-phylum
+
+rank_361:
+  id: 361
+  label: sub-section
+
+rank_362:
+  id: 362
+  label: sub-series
+
+rank_363:
+  id: 363
+  label: sub-species
+
+rank_364:
+  id: 364
+  label: sub-tribe
+
+rank_365:
+  id: 365
+  label: sub-variety
+
+rank_366:
+  id: 366
+  label: sub.reg
+
+rank_367:
+  id: 367
+  label: subap
+
+rank_368:
+  id: 368
+  label: subcalssis
+
+rank_369:
+  id: 369
+  label: subcl.
+
+rank_370:
+  id: 370
+  label: subclass
+
+rank_371:
+  id: 371
+  label: subclassis
+
+rank_372:
+  id: 372
+  label: subcohort
+
+rank_373:
+  id: 373
+  label: subdiv
+
+rank_374:
+  id: 374
+  label: subdivisio
+
+rank_375:
+  id: 375
+  label: subdivision
+
+rank_376:
+  id: 376
+  label: subdomain
+
+rank_377:
+  id: 377
+  label: subf
+
+rank_378:
+  id: 378
+  label: subf.
+
+rank_379:
+  id: 379
+  label: subfam
+
+rank_380:
+  id: 380
+  label: subfam.
+
+rank_381:
+  id: 381
+  label: subfamgen
+
+rank_382:
+  id: 382
+  label: subfamilia
+
+rank_383:
+  id: 383
+  label: subfamily
+
+rank_384:
+  id: 384
+  label: subfamily group
+
+rank_385:
+  id: 385
+  label: subfamsp
+
+rank_386:
+  id: 386
+  label: subfilo
+
+rank_387:
+  id: 387
+  label: subfo
+
+rank_388:
+  id: 388
+  label: subform
+
+rank_389:
+  id: 389
+  label: subfsp
+
+rank_390:
+  id: 390
+  label: subgen
+
+rank_391:
+  id: 391
+  label: subgen.
+
+rank_392:
+  id: 392
+  label: subgenere
+
+rank_393:
+  id: 393
+  label: subgengen
+
+rank_394:
+  id: 394
+  label: subgenus
+
+rank_395:
+  id: 395
+  label: subgroup
+
+rank_396:
+  id: 396
+  label: subkingdom
+
+rank_397:
+  id: 397
+  label: sublegion
+
+rank_398:
+  id: 398
+  label: subord
+
+rank_399:
+  id: 399
+  label: suborder
+
+rank_400:
+  id: 400
+  label: subordo
+
+rank_401:
+  id: 401
+  label: subphylum
+
+rank_402:
+  id: 402
+  label: subregnum
+
+rank_403:
+  id: 403
+  label: subreino
+
+rank_404:
+  id: 404
+  label: subs
+
+rank_405:
+  id: 405
+  label: subsect
+
+rank_406:
+  id: 406
+  label: subsect.
+
+rank_407:
+  id: 407
+  label: subsectio
+
+rank_408:
+  id: 408
+  label: subsection
+
+rank_409:
+  id: 409
+  label: subser
+
+rank_410:
+  id: 410
+  label: subser.
+
+rank_411:
+  id: 411
+  label: subseries
+
+rank_412:
+  id: 412
+  label: subset
+
+rank_413:
+  id: 413
+  label: subsp
+
+rank_414:
+  id: 414
+  label: subsp.
+
+rank_415:
+  id: 415
+  label: subspecies
+
+rank_416:
+  id: 416
+  label: subspecific
+
+rank_417:
+  id: 417
+  label: subspsp
+
+rank_418:
+  id: 418
+  label: substirps
+
+rank_419:
+  id: 419
+  label: subtr
+
+rank_420:
+  id: 420
+  label: subtrib
+
+rank_421:
+  id: 421
+  label: subtrib.
+
+rank_422:
+  id: 422
+  label: subtribe
+
+rank_423:
+  id: 423
+  label: subtribegen
+
+rank_424:
+  id: 424
+  label: subtribgen
+
+rank_425:
+  id: 425
+  label: subtribsp
+
+rank_426:
+  id: 426
+  label: subtribu
+
+rank_427:
+  id: 427
+  label: subtribus
+
+rank_428:
+  id: 428
+  label: subv
+
+rank_429:
+  id: 429
+  label: subvar
+
+rank_430:
+  id: 430
+  label: subvar.
+
+rank_431:
+  id: 431
+  label: subvar. [?]
+
+rank_432:
+  id: 432
+  label: subvarietas
+
+rank_433:
+  id: 433
+  label: subvariety
+
+rank_434:
+  id: 434
+  label: subvarsp
+
+rank_435:
+  id: 435
+  label: sufam
+
+rank_436:
+  id: 436
+  label: Suga
+
+rank_437:
+  id: 437
+  label: suhsp
+
+rank_438:
+  id: 438
+  label: super-class
+
+rank_439:
+  id: 439
+  label: super-cohort
+
+rank_440:
+  id: 440
+  label: super-division
+
+rank_441:
+  id: 441
+  label: super-domain
+
+rank_442:
+  id: 442
+  label: super-family
+
+rank_443:
+  id: 443
+  label: super-genus
+
+rank_444:
+  id: 444
+  label: super-kingdom
+
+rank_445:
+  id: 445
+  label: super-legion
+
+rank_446:
+  id: 446
+  label: super-order
+
+rank_447:
+  id: 447
+  label: super-phylum
+
+rank_448:
+  id: 448
+  label: super-section
+
+rank_449:
+  id: 449
+  label: super-series
+
+rank_450:
+  id: 450
+  label: super-species
+
+rank_451:
+  id: 451
+  label: super-tribe
+
+rank_452:
+  id: 452
+  label: super-variety
+
+rank_453:
+  id: 453
+  label: superclase
+
+rank_454:
+  id: 454
+  label: superclass
+
+rank_455:
+  id: 455
+  label: superclassis
+
+rank_456:
+  id: 456
+  label: supercohors
+
+rank_457:
+  id: 457
+  label: supercohort
+
+rank_458:
+  id: 458
+  label: superdivision
+
+rank_459:
+  id: 459
+  label: superdomain
+
+rank_460:
+  id: 460
+  label: superfamilia
+
+rank_461:
+  id: 461
+  label: superfamilio
+
+rank_462:
+  id: 462
+  label: superfamille
+
+rank_463:
+  id: 463
+  label: superfamily
+
+rank_464:
+  id: 464
+  label: superform
+
+rank_465:
+  id: 465
+  label: supergenus
+
+rank_466:
+  id: 466
+  label: superkingdom
+
+rank_467:
+  id: 467
+  label: superlegion
+
+rank_468:
+  id: 468
+  label: superorden
+
+rank_469:
+  id: 469
+  label: superorder
+
+rank_470:
+  id: 470
+  label: superordo
+
+rank_471:
+  id: 471
+  label: superordsp
+
+rank_472:
+  id: 472
+  label: superphylum
+
+rank_473:
+  id: 473
+  label: supersect
+
+rank_474:
+  id: 474
+  label: supersection
+
+rank_475:
+  id: 475
+  label: superseries
+
+rank_476:
+  id: 476
+  label: superspecies
+
+rank_477:
+  id: 477
+  label: supertrib
+
+rank_478:
+  id: 478
+  label: supertribe
+
+rank_479:
+  id: 479
+  label: supervariety
+
+rank_480:
+  id: 480
+  label: supra-kingdom
+
+rank_481:
+  id: 481
+  label: supra-phylum
+
+rank_482:
+  id: 482
+  label: suprakingdom
+
+rank_483:
+  id: 483
+  label: supraphylum
+
+rank_484:
+  id: 484
+  label: supsp
+
+rank_485:
+  id: 485
+  label: susbp
+
+rank_486:
+  id: 486
+  label: susbsp
+
+rank_487:
+  id: 487
+  label: susp
+
+rank_488:
+  id: 488
+  label: t.i
+
+rank_489:
+  id: 489
+  label: tax
+
+rank_490:
+  id: 490
+  label: Tips
+
+rank_491:
+  id: 491
+  label: trib
+
+rank_492:
+  id: 492
+  label: trib.
+
+rank_493:
+  id: 493
+  label: Triba
+
+rank_494:
+  id: 494
+  label: tribe
+
+rank_495:
+  id: 495
+  label: Tribgen
+
+rank_496:
+  id: 496
+  label: tribsp
+
+rank_497:
+  id: 497
+  label: tribus
+
+rank_498:
+  id: 498
+  label: trinomial
+
+rank_499:
+  id: 499
+  label: type
+
+rank_500:
+  id: 500
+  label: typus
+
+rank_501:
+  id: 501
+  label: überfamilie
+
+rank_502:
+  id: 502
+  label: unknown
+
+rank_503:
+  id: 503
+  label: unranked
+
+rank_504:
+  id: 504
+  label: unranked taken from Presl. Not related to A. magel
+
+rank_505:
+  id: 505
+  label: unrankedgen
+
+rank_506:
+  id: 506
+  label: unrankedsp
+
+rank_507:
+  id: 507
+  label: Unspecified
+
+rank_508:
+  id: 508
+  label: unterart
+
+rank_509:
+  id: 509
+  label: untergattung
+
+rank_510:
+  id: 510
+  label: Unterguppe
+
+rank_511:
+  id: 511
+  label: unterordnung
+
+rank_512:
+  id: 512
+  label: var
+
+rank_513:
+  id: 513
+  label: var.
+
+rank_514:
+  id: 514
+  label: vargen
+
+rank_515:
+  id: 515
+  label: variant
+
+rank_516:
+  id: 516
+  label: variatio
+
+rank_517:
+  id: 517
+  label: varietas
+
+rank_518:
+  id: 518
+  label: variety
+
+rank_519:
+  id: 519
+  label: varsp
+
+rank_520:
+  id: 520
+  label: vel
+
+rank_521:
+  id: 521
+  label: Virsdzimta
+
+rank_522:
+  id: 522
+  label: Virskārta
+
+rank_523:
+  id: 523
+  label: Virsklase
+
+rank_524:
+  id: 524
+  label: vrsta
+
+rank_525:
+  id: 525
+  label: Warb.
+
+rank_526:
+  id: 526
+  label: xxx
+
+rank_527:
+  id: 527
+  label: ß
+
+rank_528:
+  id: 528
+  label: Класс
+
+rank_529:
+  id: 529
+  label: Надотряд
+
+rank_530:
+  id: 530
+  label: Надсемейство
+
+rank_531:
+  id: 531
+  label: Отряд
+
+rank_532:
+  id: 532
+  label: Подкласс
+
+rank_533:
+  id: 533
+  label: Подсемейство
+
+rank_534:
+  id: 534
+  label: Род
+
+rank_535:
+  id: 535
+  label: Семейство
+
+rank_536:
+  id: 536
+  label: Триба
+
+rank_537:
+  id: 537
+  label: 上目
+
+rank_538:
+  id: 538
+  label: 上科
+
+rank_539:
+  id: 539
+  label: 上種
+
+rank_540:
+  id: 540
+  label: 上綱
+
+rank_541:
+  id: 541
+  label: 上門
+
+rank_542:
+  id: 542
+  label: 亜属
+
+rank_543:
+  id: 543
+  label: 亜界
+
+rank_544:
+  id: 544
+  label: 亜目
+
+rank_545:
+  id: 545
+  label: 亜科
+
+rank_546:
+  id: 546
+  label: 亜種
+
+rank_547:
+  id: 547
+  label: 亜綱
+
+rank_548:
+  id: 548
+  label: 亜門
+
+rank_549:
+  id: 549
+  label: 列
+
+rank_550:
+  id: 550
+  label: 変
+
+rank_551:
+  id: 551
+  label: 属
+
+rank_552:
+  id: 552
+  label: 株
+
+rank_553:
+  id: 553
+  label: 特別品種
+
+rank_554:
+  id: 554
+  label: 界
+
+rank_555:
+  id: 555
+  label: 目
+
+rank_556:
+  id: 556
+  label: 種
+
+rank_557:
+  id: 557
+  label: 突然変異体
+
+rank_558:
+  id: 558
+  label: 節
+
+rank_559:
+  id: 559
+  label: 連
+
+rank_560:
+  id: 560
+  label: 門
+
+rank_561:
+  id: 561
+  label: 雑種
+
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: ranks
+#
+#  id            :integer(2)      not null, primary key
+#  rank_group_id :integer(2)      not null
+#  label         :string(50)      not null
+

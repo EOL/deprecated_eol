@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>_fix_ns (OpenID::Message)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/message.rb, line 305</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">_fix_ns</span>(<span class="ruby-identifier">namespace</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">namespace</span> <span class="ruby-operator">==</span> <span class="ruby-constant">OPENID_NS</span>
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@openid_ns_uri</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">UndefinedOpenIDNamespace</span>, <span class="ruby-value str">'OpenID namespace not set'</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">namespace</span> = <span class="ruby-ivar">@openid_ns_uri</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">namespace</span> <span class="ruby-operator">==</span> <span class="ruby-constant">BARE_NS</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">namespace</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">namespace</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, (<span class="ruby-value str">&quot;Namespace must be BARE_NS, OPENID_NS or &quot;</span>\
+                              <span class="ruby-node">&quot;a string. Got #{namespace.inspect}&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">namespace</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">':'</span>).<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">msg</span> = (<span class="ruby-value str">&quot;OpenID 2.0 namespace identifiers SHOULD be URIs. &quot;</span>\
+               <span class="ruby-node">&quot;Got #{namespace.inspect}&quot;</span>)
+        <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-identifier">msg</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">namespace</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'sreg'</span>
+          <span class="ruby-identifier">msg</span> = <span class="ruby-node">&quot;Using #{SREG_URI} instead of \&quot;sreg\&quot; as namespace&quot;</span>
+          <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-identifier">msg</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-constant">SREG_URI</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">namespace</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

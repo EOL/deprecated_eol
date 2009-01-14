@@ -1,0 +1,174 @@
+#
+# Ambling is a rails plugin makes it easy to generate XML needed by the wonderfully slick
+# Amcharts[http://www.amcharts.com/].
+#
+# Amcharts has two kinds of XML: the data xml and the settings xml.  Ambling can help with both.
+# 
+# To install, do the usual rails incancation:
+#    ruby script/plugin install svn://rubyforge.org//var/svn/ambling/trunk
+#
+# Examples:
+# 
+# In your controller, generate the data xml for a pie chart
+#  def pie_data
+#    chart = Ambling::Data::Pie.new
+#    FavoriteColor.count(:color, :group => :color).each do |data|
+#      chart.slices << Ambling::Data::Slice.new(data.last, :title => data.first,
+#                                              :url => favorite_colors_path(:color => data.first))
+#    end
+#    render :xml => chart.to_xml
+#  end
+#
+# In your view, embed the flash and customize the settings
+#
+#   <%=
+#   ambling_chart(:pie,  :data_file => url_for(:action => 'pie_data'),
+#                           :id => 'pie_data', :width => 290, :height => 200,
+#                           :chart_settings => Ambling::Pie::Settings.new({
+#                             :pie => {
+#                               :x => 110,
+#                               :y => 110,
+#                               :radius => 80,
+#                               :colors => '#B40000,#F7941D,#0265AC',
+#                               :outline_color => '#000000',
+#                               :outline_alpha => 50,
+#                             },
+#                             :animation => {
+#                               :pull_out_on_click => false,
+#                             },
+#                             :data_labels => {
+#                               :show => cdata_section("<b>{value}</b>"), :radius => -30,
+#                             },
+#                             :legend => {
+#                               :enabled => true, :x => 195, :y => 20, :width => 100, :text_color => '#000',
+#                               :max_columns => 1, :spacing => 2, :text_size => 10,
+#                               :key => {:size => 10}
+#                             },
+#                             :labels => {
+#                               :label =>
+#                                 {:x => 40, :y => 5, :text => cdata_section("<b>Favorite Colors</b>"),
+#                                   :text_size => 16, :text_color => '#0265AC'},
+#                             }
+#                           }).to_xml) do
+#                       content_tag('p', "To see this page properly, you need to upgrade your Flash Player")
+#   end
+#   %>
+#
+# How about a combo bar and line graph?
+#
+# In your controller:
+#   def graph_data
+#     avg_attendence = Movies.find_average_attendence_last_thirty_days
+#     colors = %w{#B40000 #F7941D #0265AC #DF5858 #FFC580 #6FAFF3 #5AAB6D #E99393 #9DCFA9 #A4CBF3}
+#     chart = Ambling::Data::ColumnChart.new
+#     chart.graphs << Ambling::Data::LineGraph.new([], :title => "Average Attendence", :color => '#000000')
+#     avg_attendence.each do |day,avg_attendence|
+#       chart.series << Ambling::Data::Value.new(day.to_s(:pretty_day), :xid => day.to_i)
+#       chart.graphs.last << Ambling::Data::Value.new(avg_attendence, :xid => day.to_i)
+#     end
+#     all_movie_names = Movies.find_movie_names
+#     all_movie_names.each_with_index do |movie_name, i|
+#       chart.graphs << Ambling::Data::ColumnGraph.new([], :title => movie_name, :color => colors[i])
+#       movie_attendence = Movies.find_attendence_by_name(movie_name)
+#       movie_attendence.each do |day, attendence|
+#         chart.graphs.last << Ambling::Data::Value.new(attendence, :xid => day.to_i)
+#       end
+#     end
+#      
+#     render :xml => chart.to_xml
+#   end
+#
+# In your view:
+#
+#   <%=
+#   ambling_chart(:column,  :data_file => url_for(:action => 'graph_data'),
+#                           :id => "graph_data", :width => 900, :height => 250,
+#                           :chart_settings => Ambling::Column::Settings.new({
+#                             :column => {
+#                               :type => "stacked", :width => 90, :spacing => 5,
+#                               :balloon_text => "{value} people attended the movie {title} on {series}"
+#                             },
+#                             :grid => {
+#                               :category => {:alpha => 0}, :value => {:alpha => 10}
+#                             },
+#                             :values => {
+#                               :category => {:enabled => true, :frequency => 3}
+#                             },
+#                             :plot_area => {
+#                               :margins => {:left => 30, :top => 40, :right => 100, :bottom => 40}
+#                             },
+#                             :legend => {
+#                               :enabled => true, :x => 805, :y => 20, :width => 100, :text_color => '#000',
+#                               :max_columns => 1, :spacing => 2, :text_size => 10,
+#                               :key => {:size => 10}
+#                             },
+#                             :labels => {
+#                               :label => [
+#                                 {:x => 350, :y => 5, :text => cdata_section("<b>Movie Attendence</b>"),
+#                                   :text_size => 16, :text_color => '#0265AC'}
+#                               ]
+#                             },
+#                             :graphs => {
+#                               :graph => [
+#                                 {:type => 'line', :gid => 1, :width => 3}
+#                               ]
+#                             }
+#                           }).to_xml) do
+#                       content_tag('p', "To see this page properly, you need to upgrade your Flash Player")
+#   end
+#   %>
+# 
+# Here's a column example.
+#
+# In your controller:
+#
+#   def column_data
+#     colors = %w{#B40000 #F7941D #0265AC}
+#     chart = Ambling::Data::ColumnChart.new
+#     chart.series << Ambling::Data::Value.new(1, :xid => 1)
+#     [["Chocolate", 55], ["Ice Cream", 34], ["Cookies", 22]].each_with_index do |kv, i|
+#       chart.graphs << Ambling::Data::ColumnGraph.new([], :gid => i, :title => kv.first, :color => color[i])
+#       chart.graphs.last << Ambling::Data::Value.new(kv.last, {:xid => 1})
+#     end
+#     render :xml => chart.to_xml
+#    end
+# 
+# In your view:
+#
+#   <%=
+#   ambling_chart(:column,  :data_file => url_for(:action => 'column_data'),
+#                           :id => 'column_data', :width => 290, :height => 200,
+#                           :chart_settings => Ambling::Column::Settings.new({
+#                             :column => {
+#                               :type => "bar", :width => 97, :spacing => 0,
+#                               :balloon_text => cdata_section("{value} people bought {title}")
+#                             },
+#                             :grid => {
+#                               :category => {:alpha => 0}, :value => {:alpha => 10}
+#                             },
+#                             :values => {
+#                               :category => {:enabled => false}
+#                             },
+#                             :plot_area => {
+#                               :margins => {:left => 40, :top => 40, :right => 100, :bottom => 40}
+#                             },
+#                             :legend => {
+#                               :enabled => true, :x => 195, :y => 20, :width => 100, :text_color => '#000',
+#                               :max_columns => 1, :spacing => 1, :text_size => 10,
+#                               :key => {:size => 10}
+#                             },
+#                             :labels => {
+#                               :label => [
+#                                 {:x => 20, :y => 5, :text => cdata_section("<b>Dessert</b>"),
+#                                   :text_size => 16, :text_color => '#0265AC'},
+#                                 {:x => 30, :y => 170, :text => "Sweet Sales", :align => "center", :width => 180,
+#                                   :text_size => 12}
+#                               ]
+#                             }
+#                           }).to_xml) do
+#                       content_tag('p', "To see this page properly, you need to upgrade your Flash Player")
+#   end
+#   %>
+
+# Thanks to the ziya plugin for inspiration
+

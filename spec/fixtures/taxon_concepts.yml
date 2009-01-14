@@ -1,0 +1,88 @@
+<% (1..60).each do |index| %>
+random_<%= index %>_scientific:
+  id: 2<%= '%0.2d'%index %>
+
+<% end %>
+cafeteria:
+  id: 101
+
+seabream:
+  id: 102
+
+content_level_2:
+  id: 103
+
+Archaea:
+  id: 104
+
+Fungi:
+  id: 105
+
+Plantae:
+  id: 106
+
+Animalia:
+  id: 107
+
+Chromista:
+  id: 108
+
+Protozoa:
+  id: 109
+
+Bacteria:
+  id: 110
+
+Bicosoecophyceae:
+  id: 111
+
+Bicosoecales:
+  id: 112
+
+Viruses:
+  id: 113
+
+cafeteria_class:
+  id: 114
+
+Cafeteriaceae:
+  id: 115
+
+Sagenista:
+  id: 116
+
+arthropoda:
+  id: 120
+
+arachnida:
+  id: 121
+
+araneae:
+  id: 122
+
+linyphiidae:
+  id: 123
+
+Acorigone:
+  id: 124
+
+spider_1:
+  id: 125
+
+archeaa_2:
+  id: 126
+
+new_1:
+  id: 127
+
+new_2:
+  id: 128
+
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: taxon_concepts
+#
+#  id             :integer(4)      not null, primary key
+#  supercedure_id :integer(4)      not null
+

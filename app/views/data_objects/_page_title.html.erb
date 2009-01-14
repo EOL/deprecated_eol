@@ -1,0 +1,26 @@
+<% puts "Data Object:"
+   pp @data_object
+   puts "Image: #{@data_object.image?}"
+   if @data_object.image?
+     title = @data_object.object_title
+     if title.nil? or title.empty?
+       title = @data_object.description
+     else
+       subtitle = @data_object.description
+     end
+   else
+     title = @data_object.object_title.empty? ? '[No title]' : @data_object.object_title
+   end 
+   license_attribution_html = ''
+   license_attribution_html += external_link_to(image_tag(@data_object.license.small_logo_url, {:alt=>(@data_object.license.title || '')}),@data_object.license.source_url, {:show_link_icon => false})
+   license_attribution_html += " #{@data_object.license.description}" unless @data_object.license.description.blank? 
+   source = ''
+   if @data_object.sources.length == 1
+     source = "(Source: #{@data_object.sources.first.full_name})"
+   elsif @data_object.sources.length > 1
+     source = "(Sources: #{@data_object.sources.collect {|src| src.full_name}.join(', ')})"
+   end 
+ -%>
+<h1><%= title %></h1>
+<% unless subtitle.nil? %><h2><%= subtitle %></h2><% end %>
+<p> <%= "#{license_attribution_html} by #{agent_partial(@data_object.authors)} #{source}" %></p>

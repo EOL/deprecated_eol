@@ -1,0 +1,51 @@
+# I thought about scriptifying this to DRY it up, but we need to know each one's ID for the content pages. 
+press_room:
+  id: 1
+  name: Press Room
+
+about:
+  id: 2
+  name: About EOL
+
+using:
+  id: 3
+  name: Using the Site
+
+footer:
+  id: 5
+  name: Footer
+
+home_page:
+  id: 6
+  name: Home Page
+
+other:
+  id: 7
+  name: Other
+
+feedback:
+  id: 8
+  name: Feedback
+  
+# == Schema Info
+# Schema version: 20081002192244
+#
+# Table name: content_sections
+#
+#  id           :integer(4)      not null, primary key
+#  language_key :string(255)     not null, default("")
+#  name         :string(255)     not null, default("")
+#  created_at   :datetime
+#  updated_at   :datetime
+
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: content_sections
+#
+#  id           :integer(4)      not null, primary key
+#  language_key :string(255)     not null, default("")
+#  name         :string(255)     not null, default("")
+#  created_at   :datetime
+#  updated_at   :datetime
+

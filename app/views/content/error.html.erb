@@ -1,0 +1,18 @@
+<div id="content">
+ 	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+        <h1><%= "Sorry, we have encountered a problem"[:sorry] %></h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+    <div id="page-content" class="clearfix">
+        <!-- center page content -->
+        <div id="full-page-content">
+            <%="Sorry, but a problem has occurred - it has been logged and the system administrators have been notified. Please continue using the website."[:problem]%>
+            <br /><br />
+            <%=link_to 'Try your request again','#',{:onclick=>'JavaScript:document.location.reload();'} %>
+		    </div>
+    </div>
+</div>

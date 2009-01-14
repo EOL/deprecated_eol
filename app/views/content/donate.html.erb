@@ -1,0 +1,59 @@
+<div id="content">
+	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+          <% if @donation_amount.nil? || @donation_amount == 0 %>
+		  	<h1><%="Donate"[]%></h1>
+          <% else %>
+		  	<h1><%="Donation Confirmation"[]%></h1>
+		  <% end %>
+		<hr />
+    </div>
+    <!-- /page title -->
+		
+	    <div id="page-content" class="clearfix">
+	        <!-- center page content -->
+	        <div id="full-page-content">
+
+	        	<% if @donation_amount.nil? || @donation_amount == 0 %>
+				   
+				   <%="We appreciate your generous support of the Encyclopedia of Life. Please select the amount you wish to donate below."[:donation_message]%><br /><br />
+				   <%="Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information."[:donation_security_message]%>
+				   <br />
+				   <% form_for :donation, @donation,:html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f| -%>
+				   		<%= f.radio_button :preset_amount, "35" %> US $35 <br />
+						<%= f.radio_button :preset_amount, "50" %> US $50 <br />
+						<%= f.radio_button :preset_amount, "75" %> US $75 <br />
+						<%= f.radio_button :preset_amount, "100" %> US $100 <br />	
+						<%= f.radio_button :preset_amount, "other" %> Other:														
+	                    US$ <%= f.text_field :amount, {:size=>6, :maxlength=>6, :onfocus=>"$('donation_preset_amount_other').checked=true;"} %> 
+						<span class="error" id="donation_amount_warn"></span>
+						<br /><br />
+						<%= submit_tag "Submit"[] %>
+					<% end %>
+				
+				<% else %>
+				
+					<%="Please confirm your donation details"[]%>:
+					<br /><br />
+					
+					<%="The amount entered was"[]%>: US <%=number_to_currency(@donation_amount)%>
+					<br /><br />
+					<%="To process your donation please proceed"[]%>:
+					<form action="https://orderpage.ic3.com/hop/orderform.jsp" method="post">
+
+						<%=@form_elements%>
+
+					<input type="submit" name="submit" value="<%="Proceed to Checkout Page"[]%>">
+					</form>
+					<br /><br >
+					<%="If this information is not correct, please {go_back} to make changes"[:correct_donation_message,link_to("go back"[],:action=>'donate')]%>.
+	
+					<%="Thank you for your generous support"[]%>!
+					
+				<% end %>
+			</div>
+			
+	    </div>
+</div>

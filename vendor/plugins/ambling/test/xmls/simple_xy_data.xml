@@ -1,0 +1,8 @@
+<chart>
+  <graphs>
+    <graph gid="0">
+      <point x="1" y="10" value="100"></value>
+      <point x="2" y="20" value="200"></value>
+    </graph>
+  </graphs>
+</chart>

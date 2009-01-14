@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: OpenID::Server</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">OpenID::Server</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/openid/server_rb.html">
+                lib/openid/server.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Class <a href="Server/AlreadySigned.html" class="link">OpenID::Server::AlreadySigned</a><br />
+Class <a href="Server/AssociateRequest.html" class="link">OpenID::Server::AssociateRequest</a><br />
+Class <a href="Server/BaseServerSession.html" class="link">OpenID::Server::BaseServerSession</a><br />
+Class <a href="Server/CheckAuthRequest.html" class="link">OpenID::Server::CheckAuthRequest</a><br />
+Class <a href="Server/CheckIDRequest.html" class="link">OpenID::Server::CheckIDRequest</a><br />
+Class <a href="Server/Decoder.html" class="link">OpenID::Server::Decoder</a><br />
+Class <a href="Server/DiffieHellmanSHA1ServerSession.html" class="link">OpenID::Server::DiffieHellmanSHA1ServerSession</a><br />
+Class <a href="Server/DiffieHellmanSHA256ServerSession.html" class="link">OpenID::Server::DiffieHellmanSHA256ServerSession</a><br />
+Class <a href="Server/Encoder.html" class="link">OpenID::Server::Encoder</a><br />
+Class <a href="Server/EncodingError.html" class="link">OpenID::Server::EncodingError</a><br />
+Class <a href="Server/MalformedReturnURL.html" class="link">OpenID::Server::MalformedReturnURL</a><br />
+Class <a href="Server/MalformedTrustRoot.html" class="link">OpenID::Server::MalformedTrustRoot</a><br />
+Class <a href="Server/NoReturnToError.html" class="link">OpenID::Server::NoReturnToError</a><br />
+Class <a href="Server/OpenIDRequest.html" class="link">OpenID::Server::OpenIDRequest</a><br />
+Class <a href="Server/OpenIDResponse.html" class="link">OpenID::Server::OpenIDResponse</a><br />
+Class <a href="Server/PlainTextServerSession.html" class="link">OpenID::Server::PlainTextServerSession</a><br />
+Class <a href="Server/ProtocolError.html" class="link">OpenID::Server::ProtocolError</a><br />
+Class <a href="Server/Server.html" class="link">OpenID::Server::Server</a><br />
+Class <a href="Server/Signatory.html" class="link">OpenID::Server::Signatory</a><br />
+Class <a href="Server/SigningEncoder.html" class="link">OpenID::Server::SigningEncoder</a><br />
+Class <a href="Server/UntrustedReturnURL.html" class="link">OpenID::Server::UntrustedReturnURL</a><br />
+Class <a href="Server/VersionError.html" class="link">OpenID::Server::VersionError</a><br />
+Class <a href="Server/WebResponse.html" class="link">OpenID::Server::WebResponse</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">HTTP_OK</td>
+          <td>=</td>
+          <td class="context-item-value">200</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">HTTP_REDIRECT</td>
+          <td>=</td>
+          <td class="context-item-value">302</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">HTTP_ERROR</td>
+          <td>=</td>
+          <td class="context-item-value">400</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">BROWSER_REQUEST_MODES</td>
+          <td>=</td>
+          <td class="context-item-value">['checkid_setup', 'checkid_immediate']</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ENCODE_KVFORM</td>
+          <td>=</td>
+          <td class="context-item-value">['kvform'].freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ENCODE_URL</td>
+          <td>=</td>
+          <td class="context-item-value">['URL/redirect'].freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ENCODE_HTML_FORM</td>
+          <td>=</td>
+          <td class="context-item-value">['HTML form'].freeze</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">UNUSED</td>
+          <td>=</td>
+          <td class="context-item-value">nil</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

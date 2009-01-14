@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>sign_message (OpenID::Association)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/association.rb, line 151</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sign_message</span>(<span class="ruby-identifier">message</span>)
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">message</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'sig'</span>) <span class="ruby-keyword kw">or</span>
+          <span class="ruby-identifier">message</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'signed'</span>))
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">'Message already has signed list or signature'</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">extant_handle</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'assoc_handle'</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">extant_handle</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">extant_handle</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">handle</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-value str">&quot;Message has a different association handle&quot;</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">signed_message</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">copy</span>()
+      <span class="ruby-identifier">signed_message</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'assoc_handle'</span>, <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">handle</span>)
+      <span class="ruby-identifier">message_keys</span> = <span class="ruby-identifier">signed_message</span>.<span class="ruby-identifier">to_post_args</span>.<span class="ruby-identifier">keys</span>()
+
+      <span class="ruby-identifier">signed_list</span> = []
+      <span class="ruby-identifier">message_keys</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">starts_with?</span>(<span class="ruby-value str">'openid.'</span>)
+          <span class="ruby-identifier">signed_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">k</span>[<span class="ruby-value">7</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+        <span class="ruby-keyword kw">end</span>
+      }
+
+      <span class="ruby-identifier">signed_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">'signed'</span>
+      <span class="ruby-identifier">signed_list</span>.<span class="ruby-identifier">sort!</span>
+
+      <span class="ruby-identifier">signed_message</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'signed'</span>, <span class="ruby-identifier">signed_list</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">','</span>))
+      <span class="ruby-identifier">sig</span> = <span class="ruby-identifier">get_message_signature</span>(<span class="ruby-identifier">signed_message</span>)
+      <span class="ruby-identifier">signed_message</span>.<span class="ruby-identifier">set_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'sig'</span>, <span class="ruby-identifier">sig</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">signed_message</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

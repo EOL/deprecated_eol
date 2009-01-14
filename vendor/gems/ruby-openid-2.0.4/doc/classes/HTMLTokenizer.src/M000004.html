@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>peekNextToken (HTMLTokenizer)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/htmltokenizer.rb, line 68</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">peekNextToken</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@cur_pos</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@page</span>.<span class="ruby-identifier">length</span> <span class="ruby-keyword kw">then</span> <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">nil</span> <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-value">?&lt;</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@page</span>[<span class="ruby-ivar">@cur_pos</span>]
+      <span class="ruby-comment cmt"># Next token is a tag of some kind</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-value str">'!--'</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@page</span>[(<span class="ruby-ivar">@cur_pos</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>), <span class="ruby-value">3</span>]
+        <span class="ruby-comment cmt"># Token is a comment</span>
+        <span class="ruby-identifier">tag_end</span> = <span class="ruby-ivar">@page</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'--&gt;'</span>, (<span class="ruby-ivar">@cur_pos</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>))
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tag_end</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">OpenIDError</span>, <span class="ruby-node">&quot;No end found to started comment:\n#{@page[@cur_pos,80]}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-comment cmt"># p @page[@cur_pos .. (tag_end+2)]</span>
+        <span class="ruby-constant">HTMLComment</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@page</span>[<span class="ruby-ivar">@cur_pos</span> <span class="ruby-operator">..</span> (<span class="ruby-identifier">tag_end</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>)])
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-comment cmt"># Token is a html tag</span>
+        <span class="ruby-identifier">tag_end</span> = <span class="ruby-ivar">@page</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'&gt;'</span>, (<span class="ruby-ivar">@cur_pos</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>))
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tag_end</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-constant">OpenIDError</span>, <span class="ruby-node">&quot;No end found to started tag:\n#{@page[@cur_pos,80]}&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-comment cmt"># p @page[@cur_pos .. tag_end]</span>
+        <span class="ruby-constant">HTMLTag</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@page</span>[<span class="ruby-ivar">@cur_pos</span> <span class="ruby-operator">..</span> <span class="ruby-identifier">tag_end</span>])
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-comment cmt"># Next token is text</span>
+      <span class="ruby-identifier">text_end</span> = <span class="ruby-ivar">@page</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'&lt;'</span>, <span class="ruby-ivar">@cur_pos</span>)
+      <span class="ruby-identifier">text_end</span> = <span class="ruby-identifier">text_end</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-operator">-</span><span class="ruby-value">1</span> <span class="ruby-operator">:</span> (<span class="ruby-identifier">text_end</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)
+      <span class="ruby-comment cmt"># p @page[@cur_pos .. text_end]</span>
+      <span class="ruby-constant">HTMLText</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@page</span>[<span class="ruby-ivar">@cur_pos</span> <span class="ruby-operator">..</span> <span class="ruby-identifier">text_end</span>])
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

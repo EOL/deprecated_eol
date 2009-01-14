@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Module: OpenID::Nonce</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Module</strong></td>
+          <td class="class-name-in-header">OpenID::Nonce</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/openid/store/nonce_rb.html">
+                lib/openid/store/nonce.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000130">check_timestamp</a>&nbsp;&nbsp;
+      <a href="#M000131">mk_nonce</a>&nbsp;&nbsp;
+      <a href="#M000127">skew</a>&nbsp;&nbsp;
+      <a href="#M000128">skew=</a>&nbsp;&nbsp;
+      <a href="#M000129">split_nonce</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">DEFAULT_SKEW</td>
+          <td>=</td>
+          <td class="context-item-value">60*60*5</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TIME_FMT</td>
+          <td>=</td>
+          <td class="context-item-value">'%Y-%m-%dT%H:%M:%SZ'</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TIME_STR_LEN</td>
+          <td>=</td>
+          <td class="context-item-value">'0000-00-00T00:00:00Z'.size</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">TIME_VALIDATOR</td>
+          <td>=</td>
+          <td class="context-item-value">/\d\d\d\d-\d\d-\d\dT\d\d:\d\d:\d\dZ/</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000130" class="method-detail">
+        <a name="M000130"></a>
+
+        <div class="method-heading">
+          <a href="Nonce.src/M000130.html" target="Code" class="method-signature"
+            onclick="popupCode('Nonce.src/M000130.html');return false;">
+          <span class="method-name">check_timestamp</span><span class="method-args">(nonce_str, allowed_skew=nil, now=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Is the timestamp that is part of the specified nonce string within the
+allowed clock-<a href="Nonce.html#M000127">skew</a> of the current time?
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000131" class="method-detail">
+        <a name="M000131"></a>
+
+        <div class="method-heading">
+          <a href="Nonce.src/M000131.html" target="Code" class="method-signature"
+            onclick="popupCode('Nonce.src/M000131.html');return false;">
+          <span class="method-name">mk_nonce</span><span class="method-args">(time = nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+generate a nonce with the specified timestamp (defaults to now)
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000127" class="method-detail">
+        <a name="M000127"></a>
+
+        <div class="method-heading">
+          <a href="Nonce.src/M000127.html" target="Code" class="method-signature"
+            onclick="popupCode('Nonce.src/M000127.html');return false;">
+          <span class="method-name">skew</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The allowed nonce time <a href="Nonce.html#M000127">skew</a> in seconds.
+Defaults to 5 hours. Used for checking nonce validity, and by stores&#8217;
+cleanup methods.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000128" class="method-detail">
+        <a name="M000128"></a>
+
+        <div class="method-heading">
+          <a href="Nonce.src/M000128.html" target="Code" class="method-signature"
+            onclick="popupCode('Nonce.src/M000128.html');return false;">
+          <span class="method-name">skew=</span><span class="method-args">(new_skew)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000129" class="method-detail">
+        <a name="M000129"></a>
+
+        <div class="method-heading">
+          <a href="Nonce.src/M000129.html" target="Code" class="method-signature"
+            onclick="popupCode('Nonce.src/M000129.html');return false;">
+          <span class="method-name">split_nonce</span><span class="method-args">(nonce_str)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Extract timestamp from a nonce string
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

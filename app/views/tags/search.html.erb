@@ -1,0 +1,76 @@
+<style>
+  #tag-search-results {
+    margin: 15px;
+  }
+  #tag-search-results form {
+    margin-bottom: 15px;
+  }
+  #tag-search-results h1 {
+    font-size: 1.2em;
+    padding-bottom: 10px;
+  }
+  #tag-search-results>ul {
+    padding-left: 10px;
+  }
+  #tag-search-results>ul>li {
+    height: 60px;
+    padding: 5px;
+  }
+  /* taken from #left-mc .wrapper-mc .mc-img a, main.css. ~ :947 */
+  .thumbnail {
+    background-color:#F4F4F4;
+    display:block;
+    float: left;
+    height:48px;
+    margin:2px 0 0 2px;
+    padding:2px 2px 2px 0;
+    width:68px;
+  }
+</style>
+<div id="tag-search-results">
+  <% form_tag search_tags_path, :method => 'get' do -%>
+    <%= text_field_tag :q, params[:q] %>
+    <%= submit_tag 'Search by Tag' %>
+    <%= clade_selector :text => 'filter by clade', :value => params['selected-clade-id'] %>
+  <% end -%>
+  <ul>
+  <% unless @data_objects.nil? or @data_objects.empty? -%>
+    <h1>Search results for <%= params[:q] %></h1>
+    <%# will_paginate @data_object_tags %>
+    <% for data_object in @data_objects -%>
+      <li>
+        <!-- show the image -->
+        <img src="<%= data_object.thumbnail_cache_url %>" class="thumbnail" alt="Image <%= data_object.id %>" />
+
+        <!-- show the image's tags -->
+        <div style="float: left; width: 200px; height: 60px;" class="data_object_tagging">
+          <% for key in tag_keys(data_object.tags) %>
+            <div class="clear_both">
+              <div class="data_object_tag_key label">
+                <span><%= key %>: </span>
+              </div>
+              <div class="data_object_tag_key_values values">
+                <% for value in tag_values_for_key(key, data_object.tags) %>
+                  <%= render :partial => 'tag_key_value', :locals => { :key => key, :value => value, :can_delete => false, 
+                                                                      :data_object => data_object } %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- show the image's species -->
+        <div style="float: left; width: 650px; height: 60px; overflow: auto;">
+        <% for taxon in data_object.taxon_concepts -%>
+          <%= link_to taxon.name[0,40], taxon_path(taxon) %>
+        <% end -%>
+        </div>
+
+      </li>
+    <% end -%>
+    <%# will_paginate @data_object_tags %>
+  <% else -%>
+    <% if params[:q] %><p> No objects found tagged with <%= params[:q] %> </p><% end %>
+  <% end -%>
+  </ul>
+</div>

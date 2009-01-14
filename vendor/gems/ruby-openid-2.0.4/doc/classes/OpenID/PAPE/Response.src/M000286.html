@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_extension_args (OpenID::PAPE::Response)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/extensions/pape.rb, line 161</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_extension_args</span>
+        <span class="ruby-identifier">ns_args</span> = {<span class="ruby-value str">'auth_policies'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@auth_policies</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' '</span>)}
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@nist_auth_level</span>
+          <span class="ruby-keyword kw">unless</span> (<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">4</span>).<span class="ruby-identifier">member?</span> <span class="ruby-ivar">@nist_auth_level</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;nist_auth_level must be an integer 0 through 4, not #{@nist_auth_level.inspect}&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">ns_args</span>[<span class="ruby-value str">'nist_auth_level'</span>] = <span class="ruby-ivar">@nist_auth_level</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@auth_age</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@auth_age</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-node">&quot;auth_age must be a non-negative integer, not #{@auth_age.inspect}&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-identifier">ns_args</span>[<span class="ruby-value str">'auth_age'</span>] = <span class="ruby-ivar">@auth_age</span>.<span class="ruby-identifier">to_s</span>
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ns_args</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<script type="text/javascript">
+		function select_contact_subject(form_value) {
+		contact_subject_id=form_value.options[form_value.selectedIndex].value;
+		if (',<%= $CONTRIBUTE_INQUIRY_CONTACT_SUBJECT_IDS%>,'.indexOf(',' + contact_subject_id + ',') == -1) {
+			Element.hide('taxon_group');
+		}
+		else
+		{
+			Element.show('taxon_group');
+		}
+	}
+</script>
+
+	<div id="page-separator-general"></div>
+ 
+    <!-- page title -->
+    <div id="page-title">
+        <h1><%= "Contact Us"[] %></h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+	    
+	    <div id="page-content" class="clearfix">
+	        <!-- center page content -->
+	        <div id="full-page-content">
+
+
+	        	For comments about the project in general, please <%= link_to "visit the Forum","http://forum.eol.org", :target=>:new%>.  For other needs, please use the form below.
+                
+                <%= eol_lang_error_messages_for :contact %>
+				<br /><span class="error" id="verification_warn"><strong><%=@verification_did_not_match%></strong></span>
+						            
+                <% form_for :contact, @contact,:html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f| -%>
+				
+                     <label for="contact_name" title="<%= "Your name (first and last)"[:your_name] %>"><%= "Your name (first and last)"[:your_name] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+					           <!-- contact_name .+ false true //-->					
+                    <%= f.text_field :name, :size=>'50',:maxlength=>'250' %>
+					          <span class="error" id="name_warn"></span>
+			
+                   <label for="contact_email" title="<%= "Your email address"[] %>"><%= "Your email address"[] %></label>
+                    <%= f.text_field :email, :size=>'50',:maxlength=>'250' %>
+
+                    <label title="<%= "Topic area"[] %>"><%= "Topic area"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+                    <!-- contact_subject_id .+ false true //-->
+					          <%= f.collection_select :contact_subject_id, @subjects, :id, :title, { :prompt => true },{:onchange=>'JavaScript:select_contact_subject(this);'} %>
+					          <span class="error" id="subject_warn"></span>
+					
+				            <span id="taxon_group" style="display:none;">
+                     <label for="contact_taxon_group" title="<%= "Taxon group of interest"[] %>"><%= "Taxon group of interest"[] %></label>				
+                    <%= f.text_field :taxon_group %>
+					</span>
+					
+	                <label for="contact_comments" title="<%= "Comments"[] %>"><%= "Comments"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+					<!-- contact_comments .+ false true //-->
+                    <%= f.text_area :comments %>
+					<span class="error" id="comments_warn"></span>
+					
+					<% if $ENABLE_RECAPTCHA %>
+						<br />
+					    <label for="recaptcha" title="<%= "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha] %>"><%= "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha] %></label>					
+						<%=recaptch_theme %>
+						<%=recaptcha_tags%>
+					<% end %>	
+							
+                    <br />
+                    <%= submit_tag "Contact Us"[] %>
+					<br /><br />
+				<%="To sign up for EOL notifications, please {create_account}"[:sign_up_for_eol_notifications,link_to("create an account"[:create_account], register_url)]%>
+				
+                <% end -%>
+    
+	    	</div>
+		</div>

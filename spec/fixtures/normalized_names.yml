@@ -1,0 +1,171 @@
+norm_name_3:
+  id: 68205
+  name_part: Animalia
+
+norm_name_4:
+  id: 257563
+  name_part: animals
+
+norm_name_5:
+  id: 262828
+  name_part: animaux
+
+norm_name_6:
+  id: 67589
+  name_part: Archaea
+
+norm_name_8:
+  id: 67533
+  name_part: Bacteria
+
+norm_name_10:
+  id: 457357
+  name_part: Bicosoecales
+
+norm_name_11:
+  id: 1352852
+  name_part: bicosoecids
+
+norm_name_12:
+  id: 457356
+  name_part: Bicosoecophyceae
+
+norm_name_14:
+  id: 259437
+  name_part: borer
+
+norm_name_15:
+  id: 265521
+  name_part: bosco
+
+cafeteria_norm_name:
+  id: 441323
+  name_part: Cafeteria
+
+norm_name_18:
+  id: 486567
+  name_part: Cafeteriaceae
+
+norm_name_19:
+  id: 262459
+  name_part: champignons
+
+norm_name_20:
+  id: 129214
+  name_part: Chromista
+
+norm_name_25:
+  id: 68182
+  name_part: Fungi
+
+norm_name_34:
+  id: 45047
+  name_part: kulas
+
+norm_name_36:
+  id: 1043790
+  name_part: llc
+
+norm_name_42:
+  id: 68186
+  name_part: Plantae
+
+norm_name_43:
+  id: 251442
+  name_part: plantes
+
+norm_name_44:
+  id: 252034
+  name_part: plants
+
+norm_name_45:
+  id: 150480
+  name_part: Protozoa
+
+norm_name_48:
+  id: 441324
+  name_part: roenbergensis
+
+norm_name_50:
+  id: 790847
+  name_part: Sagenista
+
+norm_name_55:
+  id: 139689
+  name_part: sons
+
+norm_name_57:
+  id: 207189
+  name_part: Swift
+
+norm_name_61:
+  id: 437551
+  name_part: Viruses
+
+search_test_name_part_1:
+  id: 1
+  name_part: italic
+
+search_test_name_part_2:
+  id: 2
+  name_part: testnamenheimer
+
+search_test_name_part_3:
+  id: 3
+  name_part: italian
+
+search_test_name_part_4:
+  id: 4
+  name_part: testhofferizer
+
+search_test_name_part_5:
+  id: 5
+  name_part: Normalennamen
+
+search_test_name_part_6:
+  id: 6
+  name_part: dredenbletzer
+
+search_test_name_part_7:
+  id: 7
+  name_part: Waseinnormalennamen
+
+search_test_name_part_8:
+  id: 8
+  name_part: cannonikaliken
+
+search_test_name_part_9:
+  id: 9
+  name_part: searchtestercommoname
+
+search_test_name_part_10:
+  id: 10
+  name_part: jaiseuiunfranzozichenomme
+
+crenidens:
+  id: 11
+  name_part: Crenidens
+
+indicus:
+  id: 12
+  name_part: indicus
+
+day:
+  id: 13
+  name_part: Day
+
+karenteen:
+  id: 14
+  name_part: Karenteen
+
+seabream:
+  id: 15
+  name_part: seabream
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: normalized_names
+#
+#  id        :integer(4)      not null, primary key
+#  name_part :string(100)     not null
+

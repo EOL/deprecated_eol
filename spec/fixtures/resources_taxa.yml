@@ -1,0 +1,19 @@
+cafeteria_taxon_with_resource:
+  taxon_id: 4
+  resource_id: 1
+  identifier: ""
+  source_url: ""
+  taxon_created_at: 0000-00-00 00:00:00
+  taxon_modified_at: 0000-00-00 00:00:00
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: resources_taxa
+#
+#  resource_id       :integer(4)      not null
+#  taxon_id          :integer(4)      not null
+#  identifier        :string(255)     not null
+#  source_url        :string(255)     not null
+#  taxon_created_at  :timestamp       not null
+#  taxon_modified_at :timestamp       not null
+

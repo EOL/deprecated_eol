@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>getText (HTMLTokenizer)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/htmltokenizer.rb, line 133</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">getText</span>(<span class="ruby-identifier">until_tag</span> = <span class="ruby-keyword kw">nil</span>)
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">until_tag</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-value">?&lt;</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@page</span>[<span class="ruby-ivar">@cur_pos</span>]
+        <span class="ruby-comment cmt"># Next token is a tag, not text</span>
+        <span class="ruby-value str">&quot;&quot;</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-comment cmt"># Next token is text</span>
+        <span class="ruby-identifier">getNextToken</span>.<span class="ruby-identifier">text</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">ret_str</span> = <span class="ruby-value str">&quot;&quot;</span>
+
+      <span class="ruby-keyword kw">while</span> (<span class="ruby-identifier">tag</span> = <span class="ruby-identifier">peekNextToken</span>)
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">HTMLTag</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">tag_name</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">until_tag</span>
+          <span class="ruby-keyword kw">break</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">if</span> (<span class="ruby-value str">&quot;&quot;</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">tag</span>.<span class="ruby-identifier">text</span>)
+          <span class="ruby-identifier">ret_str</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">tag</span>.<span class="ruby-identifier">text</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot; &quot;</span>)
+        <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">getNextToken</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">ret_str</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

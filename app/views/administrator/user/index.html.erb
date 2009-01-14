@@ -1,0 +1,41 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Web Users'} %>
+
+<div id="users">
+	<% form_tag({:action=>'index'},:method=>'get') do -%>
+	Search for users containing: <%= text_field_tag(:user_search_string,@user_search_string)%> <%= submit_tag 'Search' %>
+	<br />
+	
+	<%=link_to "Add a new user",:action=>'new'%>
+	<br />
+	
+	<% if @users.nil? == false && @users.size > 0 %>
+		
+		A total of <%= @user_count %> users were found matching your criteria.<br />
+		
+		<%= will_paginate @users %>
+		    <table class="results_table" cellspacing="0">
+		    <tr><th>UserName</th><th>Email</th><th>Name</th><th>Created At</th><th>OpenID?</th></tr>
+			<% for user in @users
+				column_class=cycle('odd','even')  %>
+			    <tr>
+			    	<td class="<%= column_class %>"><%=link_to(user.username,:action=>'edit',:id=>user.id)%></td>
+					<td class="<%= column_class %>"><%=h user.email%></td>
+					<td class="<%= column_class %>"><%=h user.full_name%></td>
+					<td class="<%= column_class %>"><%=format_date_time(user.created_at)%></td>
+					<td class="<%= column_class %>"><%=!user.not_openid?%></td>
+				</tr>									
+			<% end %>
+		    </table>
+			
+			<br />
+			<%= will_paginate @users %>
+		
+    <% else %>
+			No users are available matching your search criteria.
+		<%end%>
+	<% end %>
+
+			
+</div>
+						
+<%= render :partial => '/admin/content_bottom' %>

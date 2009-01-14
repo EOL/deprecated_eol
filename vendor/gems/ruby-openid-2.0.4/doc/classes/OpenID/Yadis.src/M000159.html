@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_service_endpoints (OpenID::Yadis)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/services.rb, line 8</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Yadis</span>.<span class="ruby-identifier">get_service_endpoints</span>(<span class="ruby-identifier">input_url</span>, <span class="ruby-identifier">flt</span>=<span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-comment cmt"># Perform the Yadis protocol on the input URL and return an</span>
+      <span class="ruby-comment cmt"># iterable of resulting endpoint objects.</span>
+      <span class="ruby-comment cmt">#</span>
+      <span class="ruby-comment cmt"># @param flt: A filter object or something that is convertable</span>
+      <span class="ruby-comment cmt"># to a filter object (using mkFilter) that will be used to</span>
+      <span class="ruby-comment cmt"># generate endpoint objects. This defaults to generating</span>
+      <span class="ruby-comment cmt"># BasicEndpoint objects.</span>
+      <span class="ruby-identifier">result</span> = <span class="ruby-constant">Yadis</span>.<span class="ruby-identifier">discover</span>(<span class="ruby-identifier">input_url</span>)
+      <span class="ruby-keyword kw">begin</span>
+        <span class="ruby-identifier">endpoints</span> = <span class="ruby-constant">Yadis</span>.<span class="ruby-identifier">apply_filter</span>(<span class="ruby-identifier">result</span>.<span class="ruby-identifier">normalized_uri</span>,
+                                       <span class="ruby-identifier">result</span>.<span class="ruby-identifier">response_text</span>, <span class="ruby-identifier">flt</span>)
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">XRDSError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">err</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">DiscoveryFailure</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">err</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> [<span class="ruby-identifier">result</span>.<span class="ruby-identifier">normalized_uri</span>, <span class="ruby-identifier">endpoints</span>]
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

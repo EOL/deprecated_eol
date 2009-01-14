@@ -1,0 +1,356 @@
+
+#EOL
+#-------------------------------------------
+encyclopedia_of_life: Енциклопедія життя
+welcome_to_the_encyclopedia_of_life: Ласкаво просимо до Енциклопедії життя
+
+####################
+# TRANSLATIONS BELOW SHOULD NOT BE MUCH LONGER THAN THE ENGLISH
+####################
+# Home Page
+explore: індекс
+related: подібні статті
+featured: вибрані статті
+popular: популярні статті
+home: на головну
+
+# Menus
+language: мова
+my_preferences: мої уподобання
+about_eol: Про EOL
+profile_settings: мої параметри
+your_preferences: ваші уподобання
+preferences: уподобання
+feedback: ваші відгуки
+press_room: для преси
+forum: форум
+blog: блог
+survey: опитування
+media_contact: для мас-медіа
+press_releases: прес-релізи
+publications: публікації
+help: довідка
+screencasts: зразки сторінок
+faqs: ЧаП
+using_the_site: як користуватися сайтом
+who_we_are: про нас
+institutional_partners: наукові партнери
+data_partners: інформаційні партнери
+technology_partners: Технічні партнери
+milestones: важливі етапи
+upcoming_events: анонси
+employment: вакансії
+donors: спонсори
+newsletter: розсилка новин
+project: проект
+description: опис
+item: об'кт
+project_page: сторінка проекту
+terms_of_use: умови використання
+contact_us: зв'язатися з нами
+cancel: скасувати
+#Comments and Corrections
+comments_and_corrections: "коментарі / зауваження"
+search: пошук
+search_results: результати пошуку
+searching: здійснюється пошук
+advanced_search: розширений пошук
+# Term must have at least 3 characters.
+searching_error: помилка пошуку
+more_species: додаткові види
+status: статус
+source: джерело
+# source of {title}
+source_of: джерело {title}
+updated: поновлено
+sources: джерела
+type: тип
+source_and_additional_information: джерело та додаткова інформація
+
+# Paging
+# -------------------------------------------
+back: попередня сторінка
+next: наступна сторінка
+
+####################
+# TRANSLATIONS BELOW CAN BE LONGER THAN THE ENGLISH IF NEEDED
+####################
+
+#Please select a topic area.
+select_topic: оберіть розділ
+your_message_was_sent: ваше повідомлення було відправлено
+#Sorry, but the search could not return any results at this time due to high demand. Please try a more specific search.
+search_timed_out: Вибачте, але Ваш запит не може бути опрацьований через велику кількість результатів. Пошук призупинено. Будь ласка, спробуйте сформулювати новий, більш конкретний запит.
+#Only the first {num_results} search results containing {search_string} are shown below - please try a more specific search term if you do not find what you are looking for.
+too_many_search_results: Перші {num_results} результатів за запитом '{search_string}' - будь ласка, спробуйте використати більш специфічні ключові слова, якщо Ви не знайшли потрібної інфромації серед результатів Вашого пошуку.
+#The following {num_results} search results contain {search_string}.
+num_results_shown: За Вашим запитом знайдено {num_results} сторінок, що містять ключові слова '{search_string}'.
+exemplar_pages: Зразкові сторінки
+
+# Authentication
+# -------------------------------------------
+hello_user: Вітаємо Вас, {user}!
+you_are_not_logged_in: Система Вас не упізнала
+#Please {login} or {create_an_account}
+please_login_or_create_account: Будь ласка, {login} чи {create_an_account}
+logout: вийти з системи
+login: увійдіть у систему
+register: зареєструватися
+create_account: зареєструйтеся
+account_information: інформація користувача
+username: ім'я користувача
+email_address: електронна пошта
+password: пароль
+confirm_password: підтвердження паролю
+required: обов'язково
+given_name: ім'я
+family_name: прізвище
+# Do you want to include?
+detail_level: Чи бажаєте Ви додати?
+# Do you want to see?
+content_level: Чи Ви бажаєте, щоб відображався (content_level)? 
+only_enter_new_password_if_needed: Будь ласка, введіть новий пароль тільки якщо це необхідно.
+your_account: Ваша інформація
+logged_in: Ви увійшли до системи.
+registration: реєстрація
+register_now: зареєструватися зараз
+update_account: поновити власну інформацію
+update_preferences: поновити власні уподобання
+forgot_password: поновити пароль
+name_of_organism: Назва організму
+
+#Which language do you prefer?
+language_preference: Якій мові Ви надаєте перевагу?
+#If you don't have an account, click here to register
+click_here_to_register: Якщо Ви не зареєстровані на сайті, натисніть цю кнопку щоб пройти процедуру реєстрації
+
+# Select a video to the right to begin playback.
+select_video: Оберіть відео.
+#shown as В«species nameВ»
+shown_as: відомий як
+#synonym of В«species nameВ»
+synonym_of: синонім до
+
+please_enter_a_username: Будь ласка, введіть ім'я користувача
+please_enter_a_password: Будь ласка, введіть пароль
+please_enter_the_password_again: Будь ласка, повторіть Ваш пароль
+please_enter_your_email_address: Будь ласка, введіть адресу електронної пошти
+passwords_must_match: паролі мають співпадати
+please_enter_given_name: Будь ласка, введіть Ваше ім'я
+please_enter_family_name: Будь ласка, введіть Ваше прізвище
+do_you_want_to_receive_eol_notifications_by_email?: Чи бажаєте Ви отримувати повідомлення про новини EOL?
+yes_answer: так
+
+login: увійдіть до системи
+login_now: увійти зараз
+username_and_password: ім'я користувача та пароль
+submit: відправити
+
+#To sign up for a EOL notifications, please {create_account}
+sign_up_for_eol_notifications: Для того, щоб регулярно отримувати новини від EOL, будь ласка, {create_account}
+topic_area: галузь інтересів
+your_name: ім'я
+your_email_address: адреса електронної пошти
+comments: коментарі
+
+#For verification, please enter the characters you see below. Click the ? for assistance.
+recaptcha: Будь ласка, введіть для підтвердження символи зображені нижче. Натисніть символ "?" щоб отримати додаткову інформацію.
+#The verification phrase you entered did not match.
+verification_phrase_did_not_match: Введені Вами символи не відповідають зображеним.
+
+username_taken: обране ім'я користувача
+passwords_must_match: обідва паролі мусять співпадати
+new_password: новий пароль
+confirm_new_password: уведіть ще раз новий пароль
+
+# If you are not "{user}", {login} or {create_account}.
+if_you_are_not_user_please_login_or_create_account: Якщо ви не є користувачем {user}, будь ласка, {login} чи {create_account}.
+
+# Only information that has comes from authoritative sources
+view_only_vetted_content: переглянути дані тільки з спеціалізованих джеред
+all_information: уся інформація
+information_intended_for_beginners: інформація для початківців
+information_intended_for_experts: інформація для спеціалістів
+information_for_any_audience: інформація для користувачів усіх рівнів
+
+minimal_page: мінімальна сторінка
+
+all_pages: всі сторінки
+
+pages_with_pictures_and_text: сторінки з ілюстраціями та текстом
+just_pages_with_pictures_and_text: лише сторінки з ілюстраціями та текстом
+
+# Authentication flash notices
+# -------------------------------------------
+# Invalid login or password
+invalid_login_or_password: Невірне ім'я користувача чи пароль
+# Thanks for registering!
+thanks_for_registering: Дякуємо за те, що Ви зареєструвалися!
+# Your profile has been updated.
+your_preferences_have_been_updated: Ваші дані було поновлено
+# You have been logged out.
+you_have_been_logged_out: Ви вийшли з системи
+
+
+# Content / misc
+# -------------------------------------------
+image: Зображення
+common_name: побутова назва
+scientific_name: наукова назва
+common_names: побутові назви
+scientific_names: наукові назви
+find: знайти
+find_by_name: знайти за назвою
+words: слова
+names: назви
+contains_your_term: містить ключові слова
+exact_match_only: лише точне співпадіння
+all_names: всі назви
+only_common_names: лише побутові назви
+only_scientific_names: лише наукові назви
+no_search_results: Для Вашого запиту '{search_string}' не знайдено жодного результату.
+page_curated_by: куратором сторінки є
+help_me_find_more_species: допоможіть мені знайти додаткові види
+continue: продовжити
+
+# Thank you for your feedback.
+thanks_for_feedback: Дякуємо за Ваші відгуки.
+
+# Link Buttons
+bookmark: закладка
+cite: цитувати
+
+# Table of conents
+table_of_contents: зміст
+# IUCN Redlist Status
+iucn_red_list_status: статус у списку МСОП
+
+# sorry, we've encountered a problem
+sorry: На сайті виникли технічні проблеми, перепрошуємо за тимчасові незручності
+# We've logged the problem and notified the system administrators.
+problem: Причина помилки встановлена, і повідомлення про неї було відіслане адміністратору сайту.
+
+# tabs to switch between taxonomic browsers
+graphic: графічна
+text: текстова
+classification: класифікація
+classification_provided_by: класифікація за
+
+# Media center navigation tabs
+# -------------------------------------------
+images: зображення
+maps: карти
+videos: відео
+sounds: звуки
+content: зміст
+charts: діаграми
+
+# Media center image copyright information
+# -------------------------------------------
+author: автор
+location: місце
+name: назва
+taken: запозичений (?; correct translation depends very much on the context)
+copyright: авторські права
+more_info: додаткова інформація
+license: дозвіл (на використання)
+
+# Accessibility
+# -------------------------------------------
+skip_to_navigation: перейти до меню
+skip_to_table_of_contents: перейти до змісту
+skip_to_content: перейти до розділу
+global_navigation: загальне меню
+personal_space: особистий розділ
+external_links: посилання на інші джерела
+media_center_navigation: меню медіа-центру
+choose_link_images: оберіть зображення з посиланнями
+choose_images: оберіть зображення
+page_navigation: меню сторінки
+
+# Validation
+# -------------------------------------------
+# Validation Error
+validation_error: помилка при реєстрації
+# There were problems with the following fields:
+validation_following_fields: "Виникли проблеми з наступними розділами:"
+# В«fieldВ» can't be blank
+validation_blank: цей розділ є обов'язковим для заповнення
+# В«fieldВ» is too short (minimum is {n} characters)
+validation_too_short: "Введене слово є закоротким (слово має складатися щонайменше з {n} символів)"
+# В«fieldВ» is not a valid e-mail address
+validation_email: введена невірна адреса електронної пошти
+
+# В«fieldВ» must be equal to {n}
+validation_equal_to: має дорівнювати  {n}
+# В«fieldВ» is invalid
+validation_invalid: є недопустимим
+# В«fieldВ» is the wrong length (should be {n} characters)
+validation_wrong_length: невірна довжина (слово має складатися з {n} символів)
+# В«fieldВ» must be less than {n}
+validation_less_than: має бути меншим за {n}
+# В«fieldВ» doesn't match confirmation
+validation_confirmation: не відповідає коду підтвердження
+# В«fieldВ» has already been taken
+validation_taken: вже використовується іншим користувачем
+# В«fieldВ» can't be empty
+validation_empty: є обов'язковим для заповнення
+# В«fieldВ» must be less than or equal to {n}
+validation_less_than_or_equal_to: має дорівнювати чи бути меншим за {n}
+# В«fieldВ» must be accepted
+validation_accepted: необхідно прийняти дані умови
+# В«fieldВ» is not a number
+validation_not_a_number: не є числом
+# В«fieldВ» must be odd
+validation_odd: має бути непарним
+# В«fieldВ» must be greater than {n}
+validation_greater_than: має бути більшим за {n} 
+# В«fieldВ» is not included in the list
+validation_inclusion: не входить до даного списку
+# В«fieldВ» must be even
+validation_even: має бути парним
+# В«fieldВ» is too long (maximum is {n} characters)
+validation_too_long: є задовгим (максимальна довжина {n} символів)
+# В«fieldВ» must be greater than or equal to {n}
+validation_greater_than_or_equal_to: має дорівнювати чи бути більшим за {n}
+# В«fieldВ» is reserved
+validation_exclusion: зарезервований системою
+
+
+donate: зробити внесок
+donation_confirmation: підтвердження внеску
+enter_amount: уведіть суму
+#We appreciate your generous support of the Encyclopedia of Life. Please enter the amount you wish to donate in the space below.
+donation_message: Ми щиро вдячні Вам за Вашу підтримку проекту "Енциклопедія життя". Будь ласка, введіть суму Вашого внеску.
+#Please only enter numbers. Do not use commas or periods.
+donation_amount_instructions: Будь ласка, використовуйте тільки цифри, уникаючи ком та крапок.
+please_confirm_your_donation_details: Будь ласка, перевірте та підтвердьте деталі Вашого внеску.
+the_amount_entered_was: Ви ввели наступну суму
+thank_you_for_your_generous_support: Щиро дякуємо Вам за Вашу підтримку
+#If this information is not correct, please {go_back} to make changes
+correct_donation_message: Якщо ця інформація є некоректною, будь ласка, (go_back} щоб змінити необхідні деталі
+go_back: поверніться
+thank_you: дякуємо
+#Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed.
+thanks_for_donation: Дякуємо Вам за підтримку проекту "Енциклопедія життя". Ваші дані були передані для подальшої обробки.
+# Please {return} to the EOL homepage
+return_home: Будь ласка, {return} до головної сторінки Енциклопедії життя
+return: поверніться
+
+#Enter the email address or username (or both) you registered with to retrieve your password
+forgot_password_message: Enter the email address or username (or both) you registered with to retrieve your password
+#Sorry, but we could not locate your account
+could_not_locate_account: Sorry, but we could not locate your account.
+#Sorry, but your email address is not unique - you must also specify a username.
+must_specify_username_too: Sorry, but your email address is not unique - you must also specify a username.
+# A new password has been emailed to you.
+new_password_emailed: A new password has been emailed to you.
+#Sorry, a problem occurred updating your account - please try again later.
+problem_updating_account: Sorry, a problem occurred updating your account - please try again later.
+taxon_group_of_interest: Taxon group of interest
+suggested_results: Suggested Results
+suggested_search_results_message: Based on your search of '{search_string}', you might be interested in the following species.
+content_partners: Content Partners
+
+#Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information.
+donation_security_message: Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information.

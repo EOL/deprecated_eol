@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>default_decoder (OpenID::Server::Decoder)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 1239</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">default_decoder</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">server</span>)
+        <span class="ruby-identifier">mode</span> = <span class="ruby-identifier">message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">OPENID_NS</span>, <span class="ruby-value str">'mode'</span>)
+        <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">&quot;No decoder for mode %s&quot;</span>, <span class="ruby-identifier">mode</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">ProtocolError</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>, <span class="ruby-identifier">msg</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

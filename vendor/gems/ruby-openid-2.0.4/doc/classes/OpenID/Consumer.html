@@ -1,0 +1,896 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OpenID::Consumer</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OpenID::Consumer</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../files/lib/openid/consumer/idres_rb.html">
+                lib/openid/consumer/idres.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/consumer/associationmanager_rb.html">
+                lib/openid/consumer/associationmanager.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/consumer/discovery_manager_rb.html">
+                lib/openid/consumer/discovery_manager.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/consumer/checkid_request_rb.html">
+                lib/openid/consumer/checkid_request.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/consumer/responses_rb.html">
+                lib/openid/consumer/responses.rb
+                </a>
+        <br />
+                <a href="../../files/lib/openid/consumer_rb.html">
+                lib/openid/consumer.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+<a href="../OpenID.html">OpenID</a> support for Relying Parties (aka
+Consumers).
+</p>
+<p>
+This module documents the main interface with the <a
+href="../OpenID.html">OpenID</a> consumer library. The only part of the
+library which has to be used and isn&#8216;t documented in full here is the
+store required to create an <a href="Consumer.html">Consumer</a> instance.
+</p>
+<h1>OVERVIEW</h1>
+<p>
+The <a href="../OpenID.html">OpenID</a> identity verification process most
+commonly uses the following steps, as visible to the user of this library:
+</p>
+<ol>
+<li>The user enters their <a href="../OpenID.html">OpenID</a> into a field on
+the consumer&#8216;s site, and hits a login button.
+
+</li>
+<li>The consumer site discovers the user&#8216;s <a
+href="../OpenID.html">OpenID</a> provider using the <a
+href="Yadis.html">Yadis</a> protocol.
+
+</li>
+<li>The consumer site sends the browser a redirect to the <a
+href="../OpenID.html">OpenID</a> provider. This is the authentication
+request as described in the <a href="../OpenID.html">OpenID</a>
+specification.
+
+</li>
+<li>The <a href="../OpenID.html">OpenID</a> provider&#8216;s site sends the
+browser a redirect back to the consumer site. This redirect contains the
+provider&#8216;s response to the authentication request.
+
+</li>
+</ol>
+<p>
+The most important part of the flow to note is the consumer&#8216;s site
+must handle two separate HTTP requests in order to perform the full
+identity check.
+</p>
+<h1>LIBRARY DESIGN</h1>
+<p>
+This consumer library is designed with that flow in mind. The goal is to
+make it as easy as possible to perform the above steps securely.
+</p>
+<p>
+At a high level, there are two important parts in the consumer library. The
+first important part is this module, which contains the interface to
+actually use this library. The second is openid/store/interface.rb, which
+describes the interface to use if you need to create a custom method for
+storing the state this library needs to maintain between requests.
+</p>
+<p>
+In general, the second part is less important for users of the library to
+know about, as several implementations are provided which cover a wide
+variety of situations in which consumers may use the library.
+</p>
+<p>
+The <a href="Consumer.html">Consumer</a> class has methods corresponding to
+the actions necessary in each of steps 2, 3, and 4 described in the
+overview. Use of this library should be as easy as creating an <a
+href="Consumer.html">Consumer</a> instance and calling the methods
+appropriate for the action the site wants to take.
+</p>
+<p>
+This library automatically detects which version of the <a
+href="../OpenID.html">OpenID</a> protocol should be used for a transaction
+and constructs the proper requests and responses. Users of this library do
+not need to worry about supporting multiple protocol versions; the library
+supports them implicitly. Depending on the version of the protocol in use,
+the <a href="../OpenID.html">OpenID</a> transaction may be more secure. See
+the <a href="../OpenID.html">OpenID</a> specifications for more
+information.
+</p>
+<h1>SESSIONS, STORES, AND STATELESS MODE</h1>
+<p>
+The <a href="Consumer.html">Consumer</a> object keeps track of two types of
+state:
+</p>
+<ol>
+<li>State of the user&#8216;s current authentication attempt. Things like the
+identity URL, the list of endpoints discovered for that URL, and in case
+where some endpoints are unreachable, the list of endpoints already tried.
+This state needs to be held from <a
+href="Consumer.html#M000298">Consumer.begin</a>() to <a
+href="Consumer.html#M000300">Consumer.complete</a>(), but it is only
+applicable to a single session with a single user agent, and at the end of
+the authentication process (i.e. when an OP replies with either
+<tt>id_res</tt>. or <tt>cancel</tt> it may be discarded.
+
+</li>
+<li>State of relationships with servers, i.e. shared secrets (associations)
+with servers and nonces seen on signed messages. This information should
+persist from one session to the next and should not be bound to a
+particular user-agent.
+
+</li>
+</ol>
+<p>
+These two types of storage are reflected in the first two arguments of <a
+href="Consumer.html">Consumer</a>&#8216;s constructor, <tt>session</tt> and
+<tt>store</tt>. <tt>session</tt> is a dict-like object and we hope your web
+framework provides you with one of these bound to the user agent.
+<tt>store</tt> is an instance of <a href="Store.html">Store</a>.
+</p>
+<p>
+Since the store does hold secrets shared between your application and the
+<a href="../OpenID.html">OpenID</a> provider, you should be careful about
+how you use it in a shared hosting environment. If the filesystem or
+database permissions of your web host allow strangers to read from them, do
+not store your data there! If you have no safe place to store your data,
+construct your consumer with nil for the store, and it will operate only in
+stateless mode. Stateless mode may be slower, put more load on the <a
+href="../OpenID.html">OpenID</a> provider, and trusts the provider to keep
+you safe from replay attacks.
+</p>
+<p>
+Several store implementation are provided, and the interface is fully
+documented so that custom stores can be used as well. See the documentation
+for the <a href="Consumer.html">Consumer</a> class for more information on
+the interface for stores. The implementations that are provided allow the
+consumer site to store the necessary data in several different ways,
+including several SQL databases and normal files on disk.
+</p>
+<h1>IMMEDIATE MODE</h1>
+<p>
+In the flow described above, the user may need to confirm to the <a
+href="../OpenID.html">OpenID</a> provider that it&#8216;s ok to disclose
+his or her identity. The provider may draw pages asking for information
+from the user before it redirects the browser back to the consumer&#8216;s
+site. This is generally transparent to the consumer site, so it is
+typically ignored as an implementation detail.
+</p>
+<p>
+There can be times, however, where the consumer site wants to get a
+response immediately. When this is the case, the consumer can put the
+library in immediate mode. In immediate mode, there is an extra response
+possible from the server, which is essentially the server reporting that it
+doesn&#8216;t have enough information to answer the question yet.
+</p>
+<h1>USING THIS LIBRARY</h1>
+<p>
+Integrating this library into an application is usually a relatively
+straightforward process. The process should basically follow this plan:
+</p>
+<p>
+Add an <a href="../OpenID.html">OpenID</a> login field somewhere on your
+site. When an <a href="../OpenID.html">OpenID</a> is entered in that field
+and the form is submitted, it should make a request to the your site which
+includes that <a href="../OpenID.html">OpenID</a> URL.
+</p>
+<p>
+First, the application should instantiate a <a
+href="Consumer.html">Consumer</a> with a session for per-user state and
+store for shared state using the store of choice.
+</p>
+<p>
+Next, the application should call the <tt><a
+href="Consumer.html#M000298">begin</a></tt> method of <a
+href="Consumer.html">Consumer</a> instance. This method takes the <a
+href="../OpenID.html">OpenID</a> URL as entered by the user. The <tt><a
+href="Consumer.html#M000298">begin</a></tt> method returns a <a
+href="Consumer/CheckIDRequest.html">CheckIDRequest</a> object.
+</p>
+<p>
+Next, the application should call the redirect_url method on the <a
+href="Consumer/CheckIDRequest.html">CheckIDRequest</a> object. The
+parameter <tt>return_to</tt> is the URL that the <a
+href="../OpenID.html">OpenID</a> server will send the user back to after
+attempting to verify his or her identity. The <tt>realm</tt> parameter is
+the URL (or URL pattern) that identifies your web site to the user when he
+or she is authorizing it. Send a redirect to the resulting URL to the
+user&#8216;s browser.
+</p>
+<p>
+That&#8216;s the first half of the authentication process. The second half
+of the process is done after the user&#8216;s <a
+href="../OpenID.html">OpenID</a> Provider sends the user&#8216;s browser a
+redirect back to your site to <a href="Consumer.html#M000300">complete</a>
+their login.
+</p>
+<p>
+When that happens, the user will contact your site at the URL given as the
+<tt>return_to</tt> URL to the redirect_url call made above. The request
+will have several query parameters added to the URL by the <a
+href="../OpenID.html">OpenID</a> provider as the information necessary to
+finish the request.
+</p>
+<p>
+Get a <a href="Consumer.html">Consumer</a> instance with the same session
+and store as before and call its <a
+href="Consumer.html#M000300">complete</a>() method, passing in all the
+received query arguments and URL currently being handled.
+</p>
+<p>
+There are multiple possible return types possible from that method. These
+indicate the whether or not the login was successful, and include any
+additional information appropriate for their type.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000311">association_manager</a>&nbsp;&nbsp;
+      <a href="#M000298">begin</a>&nbsp;&nbsp;
+      <a href="#M000299">begin_without_discovery</a>&nbsp;&nbsp;
+      <a href="#M000306">cleanup_last_requested_endpoint</a>&nbsp;&nbsp;
+      <a href="#M000308">cleanup_session</a>&nbsp;&nbsp;
+      <a href="#M000300">complete</a>&nbsp;&nbsp;
+      <a href="#M000314">complete_cancel</a>&nbsp;&nbsp;
+      <a href="#M000315">complete_error</a>&nbsp;&nbsp;
+      <a href="#M000317">complete_id_res</a>&nbsp;&nbsp;
+      <a href="#M000313">complete_invalid</a>&nbsp;&nbsp;
+      <a href="#M000316">complete_setup_needed</a>&nbsp;&nbsp;
+      <a href="#M000309">discover</a>&nbsp;&nbsp;
+      <a href="#M000307">discovery_manager</a>&nbsp;&nbsp;
+      <a href="#M000312">handle_idres</a>&nbsp;&nbsp;
+      <a href="#M000304">last_requested_endpoint</a>&nbsp;&nbsp;
+      <a href="#M000305">last_requested_endpoint=</a>&nbsp;&nbsp;
+      <a href="#M000310">negotiator</a>&nbsp;&nbsp;
+      <a href="#M000297">new</a>&nbsp;&nbsp;
+      <a href="#M000296">openid1_return_to_claimed_id_name</a>&nbsp;&nbsp;
+      <a href="#M000295">openid1_return_to_claimed_id_name=</a>&nbsp;&nbsp;
+      <a href="#M000294">openid1_return_to_nonce_name</a>&nbsp;&nbsp;
+      <a href="#M000293">openid1_return_to_nonce_name=</a>&nbsp;&nbsp;
+      <a href="#M000301">session_get</a>&nbsp;&nbsp;
+      <a href="#M000303">session_key</a>&nbsp;&nbsp;
+      <a href="#M000302">session_set</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+    <div id="class-list">
+      <h3 class="section-bar">Classes and Modules</h3>
+
+      Module <a href="Consumer/Response.html" class="link">OpenID::Consumer::Response</a><br />
+Class <a href="Consumer/AssociationManager.html" class="link">OpenID::Consumer::AssociationManager</a><br />
+Class <a href="Consumer/CancelResponse.html" class="link">OpenID::Consumer::CancelResponse</a><br />
+Class <a href="Consumer/CheckIDRequest.html" class="link">OpenID::Consumer::CheckIDRequest</a><br />
+Class <a href="Consumer/DiffieHellmanSHA1Session.html" class="link">OpenID::Consumer::DiffieHellmanSHA1Session</a><br />
+Class <a href="Consumer/DiffieHellmanSHA256Session.html" class="link">OpenID::Consumer::DiffieHellmanSHA256Session</a><br />
+Class <a href="Consumer/DiffieHellmanSession.html" class="link">OpenID::Consumer::DiffieHellmanSession</a><br />
+Class <a href="Consumer/DiscoveredServices.html" class="link">OpenID::Consumer::DiscoveredServices</a><br />
+Class <a href="Consumer/DiscoveryManager.html" class="link">OpenID::Consumer::DiscoveryManager</a><br />
+Class <a href="Consumer/FailureResponse.html" class="link">OpenID::Consumer::FailureResponse</a><br />
+Class <a href="Consumer/IdResHandler.html" class="link">OpenID::Consumer::IdResHandler</a><br />
+Class <a href="Consumer/NoEncryptionSession.html" class="link">OpenID::Consumer::NoEncryptionSession</a><br />
+Class <a href="Consumer/SetupNeededResponse.html" class="link">OpenID::Consumer::SetupNeededResponse</a><br />
+Class <a href="Consumer/SuccessResponse.html" class="link">OpenID::Consumer::SuccessResponse</a><br />
+
+    </div>
+
+    <div id="constants-list">
+      <h3 class="section-bar">Constants</h3>
+
+      <div class="name-list">
+        <table summary="Constants">
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SUCCESS</td>
+          <td>=</td>
+          <td class="context-item-value">:success</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Code returned when either the of the OpenID::OpenIDConsumer.begin_auth or
+OpenID::OpenIDConsumer.complete_auth methods return successfully.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">FAILURE</td>
+          <td>=</td>
+          <td class="context-item-value">:failure</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Code OpenID::OpenIDConsumer.complete_auth returns when the value it
+received indicated an invalid login.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">CANCEL</td>
+          <td>=</td>
+          <td class="context-item-value">:cancel</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Code returned by OpenIDConsumer.complete_auth when the user cancels the
+operation from the server.
+
+</td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">SETUP_NEEDED</td>
+          <td>=</td>
+          <td class="context-item-value">:setup_needed</td>
+          <td width="3em">&nbsp;</td>
+          <td class="context-item-desc">
+Code returned by OpenID::OpenIDConsumer.complete_auth when the
+OpenIDConsumer instance is in immediate mode and ther server sends back a
+URL for the user to login with.
+
+</td>
+        </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">session_key_prefix</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000297" class="method-detail">
+        <a name="M000297"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000297.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000297.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(session, store)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Initialize a <a href="Consumer.html">Consumer</a> instance.
+</p>
+<p>
+You should create a <a href="Consumer.html#M000297">new</a> instance of the
+<a href="Consumer.html">Consumer</a> object with every HTTP request that
+handles <a href="../OpenID.html">OpenID</a> transactions.
+</p>
+<p>
+session: the session object to use to store request information. The
+session should behave like a hash.
+</p>
+<p>
+store: an object that implements the interface in <a
+href="Store.html">Store</a>.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000296" class="method-detail">
+        <a name="M000296"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000296.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000296.html');return false;">
+          <span class="method-name">openid1_return_to_claimed_id_name</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+See <a href="Consumer.html#M000295">openid1_return_to_claimed_id_name=</a>
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000295" class="method-detail">
+        <a name="M000295"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000295.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000295.html');return false;">
+          <span class="method-name">openid1_return_to_claimed_id_name=</span><span class="method-args">(query_arg_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the name of the query parameter that this library will use to thread
+the requested URL through an <a href="../OpenID.html">OpenID</a> 1
+transaction (for use when verifying discovered information). It will be
+appended to the return_to URL.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000294" class="method-detail">
+        <a name="M000294"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000294.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000294.html');return false;">
+          <span class="method-name">openid1_return_to_nonce_name</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+See <a href="Consumer.html#M000293">openid1_return_to_nonce_name=</a>
+documentation
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000293" class="method-detail">
+        <a name="M000293"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000293.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000293.html');return false;">
+          <span class="method-name">openid1_return_to_nonce_name=</span><span class="method-args">(query_arg_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Set the name of the query parameter that this library will use to thread a
+nonce through an <a href="../OpenID.html">OpenID</a> 1 transaction. It will
+be appended to the return_to URL.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000298" class="method-detail">
+        <a name="M000298"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000298.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000298.html');return false;">
+          <span class="method-name">begin</span><span class="method-args">(openid_identifier, anonymous=false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Start the <a href="../OpenID.html">OpenID</a> authentication process. See
+steps 1-2 in the overview for the <a href="Consumer.html">Consumer</a>
+class.
+</p>
+<p>
+user_url: Identity URL given by the user. This method performs a textual
+transformation of the URL to try and make sure it is normalized. For
+example, a user_url of example.com will be normalized to <a
+href="http://example.com">example.com</a>/ normalizing and resolving any
+redirects the server might issue.
+</p>
+<p>
+anonymous: A boolean value. Whether to make an anonymous request of the <a
+href="../OpenID.html">OpenID</a> provider. Such a request does not ask for
+an authorization assertion for an <a href="../OpenID.html">OpenID</a>
+identifier, but may be used with extensions to pass other data. e.g.
+&quot;I don&#8216;t care who you are, but I&#8216;d like to know your time
+zone.&quot;
+</p>
+<p>
+Returns a <a href="Consumer/CheckIDRequest.html">CheckIDRequest</a> object
+containing the discovered information, with a method for building a
+redirect URL to the server, as described in step 3 of the overview. This
+object may also be used to add extension arguments to the request, using
+its add_extension_arg method.
+</p>
+<p>
+Raises <a href="DiscoveryFailure.html">DiscoveryFailure</a> when no <a
+href="../OpenID.html">OpenID</a> server can be found for this URL.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000299" class="method-detail">
+        <a name="M000299"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000299.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000299.html');return false;">
+          <span class="method-name">begin_without_discovery</span><span class="method-args">(service, anonymous)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Start <a href="../OpenID.html">OpenID</a> verification without doing <a
+href="../OpenID.html">OpenID</a> server discovery. This method is used
+internally by <a href="Consumer.html#M000298">Consumer.begin</a>() after
+discovery is performed, and exists to provide an interface for library
+users needing to perform their own discovery.
+</p>
+<p>
+service: an <a href="../OpenID.html">OpenID</a> service endpoint
+descriptor. This object and factories for it are found in the
+openid/consumer/discovery.rb module.
+</p>
+<p>
+Returns an <a href="../OpenID.html">OpenID</a> authentication request
+object.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000300" class="method-detail">
+        <a name="M000300"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000300.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000300.html');return false;">
+          <span class="method-name">complete</span><span class="method-args">(query, current_url)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a subclass of <a href="Consumer/Response.html">Response</a>. The
+type of response is indicated by the status attribute, which will be one of
+SUCCESS, CANCEL, FAILURE, or SETUP_NEEDED.
+</p>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Protected Instance methods</h3>
+
+      <div id="method-M000311" class="method-detail">
+        <a name="M000311"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000311.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000311.html');return false;">
+          <span class="method-name">association_manager</span><span class="method-args">(service)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000306" class="method-detail">
+        <a name="M000306"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000306.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000306.html');return false;">
+          <span class="method-name">cleanup_last_requested_endpoint</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000308" class="method-detail">
+        <a name="M000308"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000308.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000308.html');return false;">
+          <span class="method-name">cleanup_session</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000314" class="method-detail">
+        <a name="M000314"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000314.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000314.html');return false;">
+          <span class="method-name">complete_cancel</span><span class="method-args">(unused_message, unused_return_to)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000315" class="method-detail">
+        <a name="M000315"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000315.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000315.html');return false;">
+          <span class="method-name">complete_error</span><span class="method-args">(message, unused_return_to)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000317" class="method-detail">
+        <a name="M000317"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000317.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000317.html');return false;">
+          <span class="method-name">complete_id_res</span><span class="method-args">(message, current_url)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000313" class="method-detail">
+        <a name="M000313"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000313.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000313.html');return false;">
+          <span class="method-name">complete_invalid</span><span class="method-args">(message, unused_return_to)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000316" class="method-detail">
+        <a name="M000316"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000316.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000316.html');return false;">
+          <span class="method-name">complete_setup_needed</span><span class="method-args">(message, unused_return_to)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000309" class="method-detail">
+        <a name="M000309"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000309.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000309.html');return false;">
+          <span class="method-name">discover</span><span class="method-args">(identifier)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000307" class="method-detail">
+        <a name="M000307"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000307.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000307.html');return false;">
+          <span class="method-name">discovery_manager</span><span class="method-args">(openid_identifier)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000312" class="method-detail">
+        <a name="M000312"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000312.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000312.html');return false;">
+          <span class="method-name">handle_idres</span><span class="method-args">(message, current_url)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000304" class="method-detail">
+        <a name="M000304"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000304.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000304.html');return false;">
+          <span class="method-name">last_requested_endpoint</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000305" class="method-detail">
+        <a name="M000305"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000305.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000305.html');return false;">
+          <span class="method-name">last_requested_endpoint=</span><span class="method-args">(endpoint)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000310" class="method-detail">
+        <a name="M000310"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000310.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000310.html');return false;">
+          <span class="method-name">negotiator</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000301" class="method-detail">
+        <a name="M000301"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000301.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000301.html');return false;">
+          <span class="method-name">session_get</span><span class="method-args">(name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000303" class="method-detail">
+        <a name="M000303"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000303.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000303.html');return false;">
+          <span class="method-name">session_key</span><span class="method-args">(suffix)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000302" class="method-detail">
+        <a name="M000302"></a>
+
+        <div class="method-heading">
+          <a href="Consumer.src/M000302.html" target="Code" class="method-signature"
+            onclick="popupCode('Consumer.src/M000302.html');return false;">
+          <span class="method-name">session_set</span><span class="method-args">(name, val)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,52 @@
+.fc-header h4#biome span {
+	background: url(/images/fc_header_biome.gif) left 5px no-repeat;						
+}
+
+.fc-header h4#geo span {
+	background: url(/images/fc_header_geography.gif) left 5px no-repeat;						
+}
+
+.fc-header h4#type span {
+	background: url(/images/fc_header_type_of.gif) left 5px no-repeat;						
+}
+
+.fc-header span a.all span {
+	background: url(/images/fc_header_all.gif) left top no-repeat;
+}
+
+.fc-header span a.filter span {
+	background: url(/images/fc_header_filter.gif) left top no-repeat;
+}
+
+#page-title ul li a#link-save span { background: url(/images/link_save.gif) no-repeat;}
+#page-title ul li a#link-email span { background: url(/images/link_email.gif) no-repeat;}
+#page-title ul li a#link-print span { background: url(/images/link_print.gif) no-repeat;}
+#page-title ul li a#link-alerts span { background: url(/images/link_alerts.gif) no-repeat;}
+#page-title ul li a#link-bookmark span { background: url(/images/link_bookmark.gif) no-repeat;}
+#page-title ul li a#link-delicious span { background: url(/images/link_delicious.gif) no-repeat;}
+#page-title ul li a#link-google span { background: url(/images/link_google.gif) no-repeat ;}
+#page-title ul li a#link-cite span { background: url(/images/link_cite.gif) no-repeat ;}
+
+ul#tab_media_center li#image a span { background: url(/images/mc_nav_images.gif) left top no-repeat}
+ul#tab_media_center li#sounds a span { background: url(/images/mc_nav_sounds.gif) left top no-repeat }
+ul#tab_media_center li#maps a span { background: url(/images/mc_nav_maps.gif) left top no-repeat }
+ul#tab_media_center li#videos a span { background: url(/images/mc_nav_videos.gif) left top no-repeat }
+ul#tab_media_center li#podcasts a span { background: url(/images/mc_nav_podcasts.gif) left top no-repeat }
+ul#tab_media_center li#rss-feeds a span { background: url(/images/mc_nav_rss_feed.gif) left top no-repeat }	
+ul#tab_media_center li#expert-chat a span { background: url(/images/mc_nav_expert_chat.gif) left top no-repeat }
+
+#search_image  { 
+				background: url(/images/fc_find.gif) left top no-repeat;
+			     width: 43px;
+				 height: 25px; 
+				 border: 0px;
+				}
+
+#content #page-content #left-page-content #sliding-toggle {
+	position: relative;
+	padding: 15px 0 0 0;
+	width: 240px;
+	height: 56px;
+	display: block;
+	background: #E6E7E8 url(/images/sliding_toggle.jpg) left top no-repeat;
+}

@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: UPGRADE</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>UPGRADE</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>UPGRADE
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Wed Feb 13 11:20:00 -0800 2008</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <h1>Upgrading from the <a href="../classes/OpenID.html">OpenID</a> 1.x series library</h1>
+<h2>Consumer Upgrade</h2>
+<p>
+The flow is largely the same, however there are a number of significant
+changes. The consumer example is helpful to look at:
+examples/rails_openid/app/controllers/consumer_controller.rb
+</p>
+<h3>Stores</h3>
+<p>
+You will need to require the file for the store that you are using. For the
+filesystem store, this is &#8216;openid/stores/filesystem&#8217; They are
+also now in modules. The filesystem store is
+</p>
+<pre>
+  OpenID::Store::Filesystem
+</pre>
+<p>
+The format has changed, and you should remove your old store directory.
+</p>
+<p>
+The ActiveRecord store ( examples/active_record_openid_store ) still needs
+to be put in a plugin directory for your rails app. There&#8216;s a
+migration that needs to be run; examine the README in that directory.
+</p>
+<p>
+Also, note that the stores now can be garbage collected with the method
+</p>
+<pre>
+  store.cleanup
+</pre>
+<h3>Starting the <a href="../classes/OpenID.html">OpenID</a> transaction</h3>
+<p>
+The OpenIDRequest object no longer has status codes. Instead,
+consumer.begin raises an <a
+href="../classes/OpenID/OpenIDError.html">OpenID::OpenIDError</a> if there
+is a problem initiating the transaction, so you&#8216;ll want something
+along the lines of:
+</p>
+<pre>
+  begin
+    openid_request = consumer.begin(params[:openid_identifier])
+  rescue OpenID::OpenIDError =&gt; e
+    # display error e
+    return
+  end
+  #success case
+</pre>
+<p>
+Data regarding the <a href="../classes/OpenID.html">OpenID</a> server once
+lived in
+</p>
+<pre>
+  openid_request.service
+</pre>
+<p>
+The corresponding object in the 2.0 lib can be retrieved with
+</p>
+<pre>
+  openid_request.endpoint
+</pre>
+<p>
+Getting the unverified identifier: Where you once had
+</p>
+<pre>
+  openid_request.identity_url
+</pre>
+<p>
+you will now want
+</p>
+<pre>
+  openid_request.endpoint.claimed_id
+</pre>
+<p>
+which might be different from what you get at the end of the transaction,
+since it is now possible for users to enter their server&#8216;s url
+directly.
+</p>
+<p>
+Arguments on the return_to URL are now verified, so if you want to add
+additional arguments to the return_to url, use
+</p>
+<pre>
+  openid_request.return_to_args['param'] = value
+</pre>
+<p>
+Generating the redirect is the same as before, but add any extensions
+first.
+</p>
+<h3>Requesting Simple Registration Data</h3>
+<p>
+You&#8216;ll need to require the code for the extension
+</p>
+<pre>
+  require 'openid/extensions/sreg'
+</pre>
+<p>
+The new code for adding an SReg request now looks like:
+</p>
+<pre>
+  sreg_request = OpenID::SReg::Request.new
+  sreg_request.request_fields(['email', 'dob'], true) # required
+  sreg_request.request_fields(['nickname', 'fullname'], false) # optional
+  sreg_request.policy_url = policy_url
+  openid_request.add_extension(sreg_request)
+</pre>
+<p>
+The code for adding other extensions is similar. Code for the Attribute
+Exchange (AX) and Provider Authentication Policy Extension (PAPE) are
+included with the library, and additional extensions can be implemented
+subclassing <a
+href="../classes/OpenID/Extension.html">OpenID::Extension</a>.
+</p>
+<h3>Completing the transaction</h3>
+<p>
+The return_to and its arguments are verified, so you need to pass in the
+base URL and the arguments. With Rails, the params method mashes together
+parameters from GET, POST, and the path, so you&#8216;ll need to pull off
+the path &quot;parameters&quot; with something like
+</p>
+<pre>
+  return_to = url_for(:only_path =&gt; false,
+                      :controller =&gt; 'openid',
+                      :action =&gt; 'complete')
+  parameters = params.reject{|k,v| request.path_parameters[k] }
+  openid_response = consumer.complete(parameters, return_to)
+</pre>
+<p>
+The response still uses the status codes, but they are now namespaced
+slightly differently, for example OpenID::Consumer::SUCCESS
+</p>
+<p>
+In the case of failure, the error message is now found in
+</p>
+<pre>
+  openid_response.message
+</pre>
+<p>
+The identifier to display to the user can be found in
+</p>
+<pre>
+  openid_response.endpoint.display_identifier
+</pre>
+<p>
+The Simple Registration response can be read from the <a
+href="../classes/OpenID.html">OpenID</a> response with
+</p>
+<pre>
+  sreg_response = OpenID::SReg::Response.from_success_response(openid_response)
+  nickname = sreg_response['nickname']
+  # etc.
+</pre>
+<h2>Server Upgrade</h2>
+<p>
+The server code is mostly the same as before, with the exception of
+extensions. Also, you must pass in the endpoint URL to the server
+constructor:
+</p>
+<pre>
+  @server = OpenID::Server.new(store, server_url)
+</pre>
+<p>
+I recommend looking at
+examples/rails_openid/app/controllers/server_controller.rb for an example
+of the new way of doing extensions.
+</p>
+
+    </div>
+
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

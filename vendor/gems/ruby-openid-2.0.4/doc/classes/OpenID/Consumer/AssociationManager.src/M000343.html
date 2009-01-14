@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (OpenID::Consumer::AssociationManager)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/associationmanager.rb, line 103</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">store</span>, <span class="ruby-identifier">server_url</span>, <span class="ruby-identifier">compatibility_mode</span>=<span class="ruby-keyword kw">false</span>,
+                     <span class="ruby-identifier">negotiator</span>=<span class="ruby-keyword kw">nil</span>)
+        <span class="ruby-ivar">@store</span> = <span class="ruby-identifier">store</span>
+        <span class="ruby-ivar">@server_url</span> = <span class="ruby-identifier">server_url</span>
+        <span class="ruby-ivar">@compatibility_mode</span> = <span class="ruby-identifier">compatibility_mode</span>
+        <span class="ruby-ivar">@negotiator</span> = <span class="ruby-identifier">negotiator</span> <span class="ruby-operator">||</span> <span class="ruby-constant">DefaultNegotiator</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

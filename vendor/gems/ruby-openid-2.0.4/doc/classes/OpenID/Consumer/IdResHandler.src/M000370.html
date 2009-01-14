@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>verify_discovery_results_openid1 (OpenID::Consumer::IdResHandler)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/consumer/idres.rb, line 373</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verify_discovery_results_openid1</span>
+        <span class="ruby-identifier">claimed_id</span> =
+          <span class="ruby-ivar">@message</span>.<span class="ruby-identifier">get_arg</span>(<span class="ruby-constant">BARE_NS</span>, <span class="ruby-constant">Consumer</span>.<span class="ruby-identifier">openid1_return_to_claimed_id_name</span>)
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">claimed_id</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@endpoint</span>.<span class="ruby-identifier">nil?</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">StandardError</span>, (<span class="ruby-value str">&quot;When using OpenID 1, the claimed ID must &quot;</span>\
+                                  <span class="ruby-value str">&quot;be supplied, either by passing it through &quot;</span>\
+                                  <span class="ruby-value str">&quot;as a return_to parameter or by using a &quot;</span>\
+                                  <span class="ruby-value str">&quot;session, and supplied to the IdResHandler &quot;</span>\
+                                  <span class="ruby-value str">&quot;when it is constructed.&quot;</span>)
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-identifier">claimed_id</span> = <span class="ruby-ivar">@endpoint</span>.<span class="ruby-identifier">claimed_id</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-identifier">to_match</span> = <span class="ruby-constant">OpenIDServiceEndpoint</span>.<span class="ruby-identifier">new</span>
+        <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">type_uris</span> = [<span class="ruby-constant">OPENID_1_1_TYPE</span>]
+        <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">local_id</span> = <span class="ruby-identifier">fetch</span>(<span class="ruby-value str">'identity'</span>)
+        <span class="ruby-comment cmt"># Restore delegate information from the initiation phase</span>
+        <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">claimed_id</span> = <span class="ruby-identifier">claimed_id</span>
+
+        <span class="ruby-identifier">to_match_1_0</span> = <span class="ruby-identifier">to_match</span>.<span class="ruby-identifier">dup</span>
+        <span class="ruby-identifier">to_match_1_0</span>.<span class="ruby-identifier">type_uris</span> = [<span class="ruby-constant">OPENID_1_0_TYPE</span>]
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@endpoint</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-keyword kw">begin</span>
+              <span class="ruby-identifier">verify_discovery_single</span>(<span class="ruby-ivar">@endpoint</span>, <span class="ruby-identifier">to_match</span>)
+            <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">TypeURIMismatch</span>
+              <span class="ruby-identifier">verify_discovery_single</span>(<span class="ruby-ivar">@endpoint</span>, <span class="ruby-identifier">to_match_1_0</span>)
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ProtocolError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">why</span>
+            <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">'Error attempting to use stored discovery information: '</span> <span class="ruby-operator">+</span>
+                     <span class="ruby-identifier">why</span>.<span class="ruby-identifier">message</span>)
+            <span class="ruby-constant">Util</span>.<span class="ruby-identifier">log</span>(<span class="ruby-value str">'Attempting discovery to verify endpoint'</span>)
+          <span class="ruby-keyword kw">else</span>
+            <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@endpoint</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-comment cmt"># Either no endpoint was supplied or OpenID 1.x verification</span>
+        <span class="ruby-comment cmt"># of the information that's in the message failed on that</span>
+        <span class="ruby-comment cmt"># endpoint.</span>
+        <span class="ruby-keyword kw">begin</span>
+          <span class="ruby-identifier">discover_and_verify</span>(<span class="ruby-identifier">to_match</span>)
+        <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">TypeURIMismatch</span>
+          <span class="ruby-identifier">discover_and_verify</span>(<span class="ruby-identifier">to_match_1_0</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

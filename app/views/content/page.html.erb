@@ -1,0 +1,35 @@
+<% cache(:controller=>'content', :part=>@page_id + "_" + current_user.language_abbr) do %>
+
+<%= javascript_include_tag 'faqs' if @content.page_name.downcase=='faqs'%>
+
+	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+          <h1><%= @content.title[@content.key]%></h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+	
+	<% if @content.left_content != '' %>
+		<div id="page-content-bgfauxinside"> 
+	<% end %>   
+	
+	    <div id="page-content" class="clearfix">
+	        <!-- center page content -->
+	        <div id="full-page-content">
+	        	
+				<% if @content.left_content != ''%>
+			        <div id="left-pane">
+						<%= @content.left_content %>			  
+			        </div>
+		   		    <div id="right-pane">
+				         <%= @content.main_content %>	   
+			   		</div>
+			    <% else %>
+					 <%= @content.main_content %>	  
+				<% end %>
+			</div>
+	    </div>
+	<%="</div>" if @content.left_content != '' %>
+<% end %>

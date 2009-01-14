@@ -1,0 +1,49 @@
+<%# ------------------- Show the TREEPATH  (from just below the kingdom to current element) %>
+<%- list_levels = 0 %>
+<%- current_treepath.each_with_index do |treepathnode, counter| %>
+    <%# render this node in the treepath  %>
+    <%- if treepathnode.nil? == false && treepathnode[:id].to_i != @taxon.kingdom.taxon_concept.id %>
+      <%- list_levels += 1 %>
+      <ul><%= render(:partial=>'navigation/tree_view_node',
+                     :locals=>{:namestring              => treepathnode[:name],
+                               :italicized_namestring   => treepathnode[:italicized],
+                               :id                      => treepathnode[:id],
+                               :valid                   => treepathnode[:valid],
+                               :enable                  => treepathnode[:enable],
+                               :level                   => counter,
+                               :kingdom                 => false,
+                               :current_node            => treepathnode[:id].to_i == @taxon.id
+                              }) %>
+    <%- end %>
+<%- end %>
+
+<%# ------------------- Show the CHIDLREN  (err... if it makes sense to)
+# Don't show children if we aren't in the default hierarchy %>
+<%- if @taxon.entry.hierarchy_id == Hierarchy.default.id
+  # ...or if there are no children... %>
+  <%- unless children_nodes.blank? %>
+    <div id="taxonomic-children">
+    <ul>
+    <%- children_nodes.each do |child_node| %>
+       <%= render(:partial=>'navigation/tree_view_node',
+                  :locals=>{:namestring             => child_node[:name],
+                            :italicized_namestring  => child_node[:italicized],
+                            :id                     => child_node[:id],
+                            :valid                  => child_node[:valid],
+                            :enable                 => child_node[:enable],
+                            :level                  => current_treepath.size+2,
+                            :current_node           => false,
+                            :kingdom                => false,
+                            :close_li_tag           => true
+                           }) unless child_node.nil? %>
+    <%- end %><%# end loop over children %>
+    </ul>
+    </div>
+  <%- end %><%# end unless no-children %>
+<%- else %><%# if we aren't in the default hierarchy... %>
+  <ul><li><b>Name not in 2008 Catalogue of Life</b></li></ul>
+<%- end %><%# end only-if-default-hierarchy %>
+<%- list_levels.times do %>
+  </li>
+  </ul>
+<%- end %>

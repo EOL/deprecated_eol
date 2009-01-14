@@ -1,0 +1,31 @@
+<div class="attribution <%=data_object.id%>">
+  <% if data_object.map? %>
+    <table width="100%" cellspacing="0" cellpadding="0">
+      <tr class="credit-line">
+        <td><div class="credit-caption"><%= "Legend"[] %></div></td>
+        <td><div class="credit-value"><%=image_tag 'gbif_legend.gif', :title=>'GBIF Map Legend',:alt=>'GBIF Map Legend'%><br />
+        Not all maps have occurrence information.</div></td>
+      </tr>		
+    </table>
+  <%elsif has_hidden_attributions?(data_object)%>
+    <a href="#" id="tdo_<%=data_object.id%>" class="attribution-icon expand-text-attribution" title="View full attribution details" style="width: 25px; height: 25px"></a>
+  <%end%>
+  
+  <% for attribution in data_object.attributions %>
+    <div class="credit <%= css_class(attribution.agent_role) %>">
+      <div class="credit-caption"><%= attribution.agent_role %></div>
+      <div class="credit-value">
+
+        <!-- agent partial -->
+        <%= agent_partial(attribution.agent) %>
+
+        <!-- agent icon -->
+        <%= agent_icons_partial(attribution.agent) %>
+
+      </div>
+      <div class="footer"></div>
+
+    </div>
+  <% end %>
+
+</div>

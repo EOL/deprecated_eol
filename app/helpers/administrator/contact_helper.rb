@@ -1,0 +1,2 @@
+module Administrator::ContactHelper
+end

@@ -1,0 +1,28 @@
+seabream_page_1:
+  name_id: 125102
+  item_page_id: 456386
+
+seabream_page_2:
+  name_id: 125102
+  item_page_id: 2647427
+
+seabream_page_3:
+  name_id: 125102
+  item_page_id: 3472313
+
+seabream_page_4:
+  name_id: 125102
+  item_page_id: 4935190
+
+seabream_page_5:
+  name_id: 125102
+  item_page_id: 5846118
+
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: page_names
+#
+#  item_page_id :integer(4)      not null
+#  name_id      :integer(4)      not null
+

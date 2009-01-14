@@ -1,0 +1,51 @@
+<%# NOTE: I know this file isn't really .js.  But it's easier to load like this.  :) TODO - modify the controller to understand that. %>
+<div id="commentsContain">
+  <% if body_div_name =~ /^text/ %><%= link_to_function('', "Effect.DropOut($('#{body_div_name}').parentNode)", :class=>'close-button') %><% end %>
+  <div class="controls">
+    <% if @slim_container %>
+
+      <%= info = page_entries_info current_objects; info == 'No entries found' ? 'Comments' : "#{info}," %> on <%= @title_label %>
+      
+      <%= will_paginate(current_objects, :renderer => 'RemoteLinkRenderer',
+          :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id,
+          :update => body_div_name, :body_div_name => body_div_name },
+          :prev_label => 'Previous', :previous_label => 'Previous',
+          :next_label => 'Next') unless current_objects[0].nil? %>
+
+      <% if @title != ''  %>
+        <div>
+          <h2><%= @title %></h2>
+        </div>
+      <% end %>
+    <% else %>
+      <h2>Comments <b>On <%= @title_label %> <%= @title %></b></h2>
+      
+      <%= will_paginate(current_objects, :renderer => 'RemoteLinkRenderer',
+          :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id,
+          :update => body_div_name, :body_div_name => body_div_name },
+          :prev_label => 'Previous', :previous_label => 'Previous',
+          :next_label => 'Next') unless current_objects[0].nil? %>
+
+      <small><%= info = page_entries_info current_objects; info == 'No entries found' ? '' : info %></small>
+    <% end %>
+  </div><!--end controls-->
+
+  
+<% if current_objects.empty? %>
+  <p id="no-comments">No comments have been left yet.</p>
+<% else %>
+  <ul class="comments">
+    <%= render :partial => 'list' %>
+  </ul><!--end comments-->
+  <%= will_paginate(current_objects, :renderer => 'RemoteLinkRenderer',
+      :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id,
+      :update => body_div_name, :body_div_name => body_div_name },
+      :prev_label => 'Previous', :previous_label => 'Previous',
+      :next_label => 'Next') unless current_objects[0].nil? %>
+<% end %>
+
+  <div id="new-comment">
+    <%= render :partial => 'new', :locals => { :length => 4, :body_div_name => body_div_name } %>
+  </div>
+
+</div><!--commentsContain-->

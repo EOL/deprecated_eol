@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>get_allowed_return_urls (OpenID::TrustRoot)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/trustroot.rb, line 91</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">TrustRoot</span>.<span class="ruby-identifier">get_allowed_return_urls</span>(<span class="ruby-identifier">relying_party_url</span>)
+      <span class="ruby-identifier">rp_url_after_redirects</span>, <span class="ruby-identifier">return_to_urls</span> = <span class="ruby-identifier">services</span>.<span class="ruby-identifier">get_service_endpoints</span>(
+        <span class="ruby-identifier">relying_party_url</span>, <span class="ruby-identifier">_extract_return_url</span>)
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">rp_url_after_redirects</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">relying_party_url</span>
+        <span class="ruby-comment cmt"># Verification caused a redirect</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-constant">RealmVerificationRedirected</span>.<span class="ruby-identifier">new</span>(
+                <span class="ruby-identifier">relying_party_url</span>, <span class="ruby-identifier">rp_url_after_redirects</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">return_to_urls</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

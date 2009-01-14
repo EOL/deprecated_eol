@@ -1,0 +1,57 @@
+	<%= eol_lang_error_messages_for :search_suggestion %>
+					
+	<br />
+	Enter in a search term users are search for and then the resulting taxon/page ID they should be directed to as a suggestion for that search.
+	
+	<table>	
+	<tr>
+		<td><strong>Search Term:</strong></td>
+		<td><%=f.text_field :term,{:size=>'50',:maxlength=>'250'}%></td>
+	</tr>
+	<% if action_name != 'new' %>
+	  <tr>
+	    <td><strong>Page Linked To:</strong></td>
+	    <td><%=link_to @search_suggestion.scientific_name,taxon_url(:id=>@search_suggestion.taxon_id),:target=>'_blank'%></td>
+	  </tr>
+  	<tr>
+  		<td><strong>Suggested Scientific Name:</strong></td>
+  		<td><%=f.text_field :scientific_name,{:size=>'50',:maxlength=>'250'}%></td>
+  	</tr>
+  	<tr>
+  		<td><strong>Suggested Common name:</strong></td>
+  		<td><%=f.text_field :common_name,{:size=>'50',:maxlength=>'250'}%></td>
+  	</tr>
+  	<tr>		
+  		<td><strong>Suggested Image URL :</strong></td>
+  		<td><%=f.text_field :image_url,{:size=>'50',:maxlength=>'250'}%></td>
+  	</tr>
+  <% end %>
+	<tr>
+		<td><strong>Suggested Result Page ID:</strong></td>
+		<td><%=f.text_field :taxon_id,{:size=>'10',:maxlength=>'70'}%> <% if action_name != 'new'%><%= link_to_remote '[update names and image]',:url => {:action=>'update_names_and_image'}, :method => :post, :with => "'taxon_id=' + $('search_suggestion_taxon_id').value" %><% end %></td>
+	</tr>
+	<tr>	
+		<td><strong>Notes (not shown to user):</strong></td>
+		<td><%=f.text_area :notes %></td>
+	</tr>
+	<tr>	
+		<td><strong>Content Notes (not shown to user):</strong></td>
+		<td><%=f.text_field :content_notes,{:size=>'50',:maxlength=>'250'}%></td>
+	</tr>
+	<tr>
+		<td><strong>Sort Order (only if multiple suggestions for same term):</strong></td>
+		<td><%=f.text_field :sort_order,{:size=>'5',:maxlength=>'5'}%></td>
+	</tr>
+	<tr>	
+		<td><strong>Language:</strong></td>
+		<td><%= f.select :language_label, Language.find_active.collect {|l| [l.name, l.iso_639_1]} %><br/></td>
+	</tr>	
+	<tr>				
+		<td><strong>Active:</strong></td>
+		<td><%=f.check_box :active%></td> 
+	</tr>
+	</table>
+	
+	<br /><br />
+	<input type="button" onClick="document.location.href='/administrator/search_suggestion/index';" id="cancel" name="Cancel" value="Cancel"> |
+	<%=f.submit%>

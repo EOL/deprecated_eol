@@ -1,0 +1,12 @@
+<h1>Editing random_image</h1>
+
+<%= error_messages_for :random_image %>
+
+<% form_for(@random_image) do |f| %>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @random_image %> |
+<%= link_to 'Back', random_images_path %>

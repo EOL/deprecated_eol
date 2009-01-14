@@ -1,0 +1,68 @@
+<div id="private_data_object_tags_container">
+  <input type="hidden" name="tagging_data_object" value="<%= @data_object.id %>" />
+
+  <div id="private_data_object_tags" class="data_object_tagging"<% unless visible %> style="display: none;"<% end %>>
+
+    <!-- the section that displays MY current tags -->
+    <div id="my_data_object_tags">
+      <h1><%= image_tag 'icons/ProfileTag.gif' %>My Tags</h1>
+      <div class="clear_both">
+      <% if logged_in? %>
+        <% unless tags.empty? %>
+          <% for key in tag_keys(tags) %>
+              <div class="data_object_tag_key_values values">
+                <% for value in tag_values_for_key(key, tags) %>
+                  <%= render :partial => 'tag_key_value', :locals => { :key => key, :value => value, :can_delete => true } %>
+                <% end %>
+              </div>
+          <% end %>
+        <% else %>
+          <h2>You have not tagged this image yet.</h2>
+        <% end %>
+      <% elsif $ALLOW_USER_LOGINS %>
+        <h2>You must be <%= link_to 'logged in', login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? home_page_url : URI.parse(request.env["HTTP_REFERER"]).path }) %> to add your own tags.</h2>
+      <% end %>
+      </div>
+    </div>
+    
+    <% if logged_in? %>
+      <div id="add_data_object_tags" style="">
+        <h1><%= image_tag 'icons/plusIcon.gif' %>Add Image Tags</h1>
+        <h2>Separate tags with spaces; category is optional</h2>
+
+        <div id="add_data_object_tags_fields" class="clear_both">
+
+            <% form_tag data_object_tags_path(data_object.id) do %>
+
+              <div class="label">
+                <span>Category</span>
+              </div>
+              <div class="values">
+                <div>
+                  <%# OLD select :tag, :key, ([['Select a category ...', 'none']] + tag_categories.map {|e| [e,e]}) << "Add new category" %>
+                  <%= text_field_tag 'tag[key]', nil, :class => 'autocomplete', 
+                      'autocomplete_url' => autocomplete_for_tag_key_data_object_tags_path(@data_object.id) %>
+                </div>
+              </div>
+                <br />
+              <div class="label">
+                <span>Add Tag</span>
+              </div>
+              <div class="values">
+                <div>
+                  <%= text_field_tag 'tag[value]', nil, :class => 'autocomplete', 
+                      'autocomplete_url' => autocomplete_for_tag_value_data_object_tag_path(@data_object.id,'TAG_KEY_GOES_HERE') %>
+                      <br />
+                  <%= submit_tag 'Add this tag',:class=>'tag-submit',:onclick=>'showPopupAjaxIndicator();' %>
+                </div>
+              </div>
+
+            <% end %>
+
+        </div>
+      </div>
+    <% end %>
+
+  </div>
+
+</div>

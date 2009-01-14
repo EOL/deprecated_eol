@@ -1,0 +1,9 @@
+= render :partial => '/content_partner/top', :locals => {:page_header => 'Create Resource'}
+      
+%h1 Describing a New Resource
+= render :partial => 'form', :locals => {:button_label => 'Create Resource', :method => :post}
+%p
+  %br/
+  = link_to 'Cancel', resources_path
+
+= render :partial => '/content_partner/bottom'

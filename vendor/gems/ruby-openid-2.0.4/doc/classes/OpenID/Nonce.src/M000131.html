@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>mk_nonce (OpenID::Nonce)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/store/nonce.rb, line 56</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-constant">Nonce</span>.<span class="ruby-identifier">mk_nonce</span>(<span class="ruby-identifier">time</span> = <span class="ruby-keyword kw">nil</span>)
+      <span class="ruby-identifier">salt</span> = <span class="ruby-constant">CryptUtil</span><span class="ruby-operator">::</span><span class="ruby-identifier">random_string</span>(<span class="ruby-value">6</span>, <span class="ruby-ivar">@@NONCE_CHRS</span>)
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">time</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">t</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">getutc</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">t</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-identifier">time</span>).<span class="ruby-identifier">getutc</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">time_str</span> = <span class="ruby-identifier">t</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-constant">TIME_FMT</span>)
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">time_str</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">salt</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

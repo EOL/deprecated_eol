@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>parse_extension_args (OpenID::AX::FetchRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/extensions/ax.rb, line 202</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">parse_extension_args</span>(<span class="ruby-identifier">ax_args</span>)
+        <span class="ruby-identifier">check_mode</span>(<span class="ruby-identifier">ax_args</span>)
+
+        <span class="ruby-identifier">aliases</span> = <span class="ruby-constant">NamespaceMap</span>.<span class="ruby-identifier">new</span>
+
+        <span class="ruby-identifier">ax_args</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">index</span>(<span class="ruby-value str">'type.'</span>) <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+            <span class="ruby-identifier">name</span> = <span class="ruby-identifier">k</span>[<span class="ruby-value">5</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>]
+            <span class="ruby-identifier">type_uri</span> = <span class="ruby-identifier">v</span>
+            <span class="ruby-identifier">aliases</span>.<span class="ruby-identifier">add_alias</span>(<span class="ruby-identifier">type_uri</span>, <span class="ruby-identifier">name</span>)
+
+            <span class="ruby-identifier">count_key</span> = <span class="ruby-value str">'count.'</span><span class="ruby-operator">+</span><span class="ruby-identifier">name</span>
+            <span class="ruby-identifier">count_s</span> = <span class="ruby-identifier">ax_args</span>[<span class="ruby-identifier">count_key</span>]
+            <span class="ruby-identifier">count</span> = <span class="ruby-value">1</span>
+            <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">count_s</span>
+              <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">count_s</span> <span class="ruby-operator">==</span> <span class="ruby-constant">UNLIMITED_VALUES</span>
+                <span class="ruby-identifier">count</span> = <span class="ruby-identifier">count_s</span>
+              <span class="ruby-keyword kw">else</span>
+                <span class="ruby-identifier">count</span> = <span class="ruby-identifier">count_s</span>.<span class="ruby-identifier">to_i</span>
+                <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">count</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
+                  <span class="ruby-identifier">raise</span> <span class="ruby-constant">Error</span>, <span class="ruby-node">&quot;Invalid value for count #{count_key.inspect}: #{count_s.inspect}&quot;</span>
+                <span class="ruby-keyword kw">end</span>
+              <span class="ruby-keyword kw">end</span>
+            <span class="ruby-keyword kw">end</span>
+            <span class="ruby-identifier">add</span>(<span class="ruby-constant">AttrInfo</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">type_uri</span>, <span class="ruby-identifier">name</span>, <span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">count</span>))
+          <span class="ruby-keyword kw">end</span>
+        }
+
+        <span class="ruby-identifier">required</span> = <span class="ruby-constant">AX</span>.<span class="ruby-identifier">to_type_uris</span>(<span class="ruby-identifier">aliases</span>, <span class="ruby-identifier">ax_args</span>[<span class="ruby-value str">'required'</span>])
+        <span class="ruby-identifier">required</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">type_uri</span><span class="ruby-operator">|</span>
+          <span class="ruby-ivar">@requested_attributes</span>[<span class="ruby-identifier">type_uri</span>].<span class="ruby-identifier">required</span> = <span class="ruby-keyword kw">true</span>
+        }
+        <span class="ruby-identifier">if_available</span> = <span class="ruby-constant">AX</span>.<span class="ruby-identifier">to_type_uris</span>(<span class="ruby-identifier">aliases</span>, <span class="ruby-identifier">ax_args</span>[<span class="ruby-value str">'if_available'</span>])
+        <span class="ruby-identifier">all_type_uris</span> = <span class="ruby-identifier">required</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">if_available</span>
+
+        <span class="ruby-identifier">aliases</span>.<span class="ruby-identifier">namespace_uris</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">type_uri</span><span class="ruby-operator">|</span>
+          <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">all_type_uris</span>.<span class="ruby-identifier">member?</span> <span class="ruby-identifier">type_uri</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-constant">Error</span>, <span class="ruby-node">&quot;Type URI #{type_uri.inspect} was in the request but not present in 'required' or 'if_available'&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+        }
+        <span class="ruby-ivar">@update_url</span> = <span class="ruby-identifier">ax_args</span>[<span class="ruby-value str">'update_url'</span>]
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>where_is_yadis? (OpenID::Yadis)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/yadis/discovery.rb, line 124</span>
+    <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">where_is_yadis?</span>(<span class="ruby-identifier">resp</span>)
+      <span class="ruby-comment cmt"># Attempt to find out where to go to discover the document or if</span>
+      <span class="ruby-comment cmt"># we already have it</span>
+      <span class="ruby-identifier">content_type</span> = <span class="ruby-identifier">resp</span>[<span class="ruby-value str">'content-type'</span>]
+
+      <span class="ruby-comment cmt"># According to the spec, the content-type header must be an</span>
+      <span class="ruby-comment cmt"># exact match, or else we have to look for an indirection.</span>
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-operator">!</span><span class="ruby-identifier">content_type</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-keyword kw">and</span>
+          <span class="ruby-identifier">content_type</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">';'</span>, <span class="ruby-value">2</span>)[<span class="ruby-value">0</span>].<span class="ruby-identifier">downcase</span> <span class="ruby-operator">==</span> <span class="ruby-constant">YADIS_CONTENT_TYPE</span>)
+        <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">resp</span>.<span class="ruby-identifier">final_url</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-comment cmt"># Try the header</span>
+        <span class="ruby-identifier">yadis_loc</span> = <span class="ruby-identifier">resp</span>[<span class="ruby-constant">YADIS_HEADER_NAME</span>.<span class="ruby-identifier">downcase</span>]
+
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">yadis_loc</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-comment cmt"># Parse as HTML if the header is missing.</span>
+          <span class="ruby-comment cmt">#</span>
+          <span class="ruby-comment cmt"># XXX: do we want to do something with content-type, like</span>
+          <span class="ruby-comment cmt"># have a whitelist or a blacklist (for detecting that it's</span>
+          <span class="ruby-comment cmt"># HTML)?</span>
+          <span class="ruby-identifier">yadis_loc</span> = <span class="ruby-constant">Yadis</span>.<span class="ruby-identifier">html_yadis_location</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">body</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">yadis_loc</span>
+    <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

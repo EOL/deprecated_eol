@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OpenID::TrustRoot::TrustRoot</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OpenID::TrustRoot::TrustRoot</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/openid/trustroot_rb.html">
+                lib/openid/trustroot.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000273">_build_path</a>&nbsp;&nbsp;
+      <a href="#M000274">_parse_url</a>&nbsp;&nbsp;
+      <a href="#M000278">build_discovery_url</a>&nbsp;&nbsp;
+      <a href="#M000276">check_sanity</a>&nbsp;&nbsp;
+      <a href="#M000277">check_url</a>&nbsp;&nbsp;
+      <a href="#M000279">new</a>&nbsp;&nbsp;
+      <a href="#M000275">parse</a>&nbsp;&nbsp;
+      <a href="#M000280">sane?</a>&nbsp;&nbsp;
+      <a href="#M000281">validate_url</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">host</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">path</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">port</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">proto</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">unparsed</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">wildcard</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000273" class="method-detail">
+        <a name="M000273"></a>
+
+        <div class="method-heading">
+          <a href="TrustRoot.src/M000273.html" target="Code" class="method-signature"
+            onclick="popupCode('TrustRoot.src/M000273.html');return false;">
+          <span class="method-name">_build_path</span><span class="method-args">(path, query=nil, frag=nil)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000274" class="method-detail">
+        <a name="M000274"></a>
+
+        <div class="method-heading">
+          <a href="TrustRoot.src/M000274.html" target="Code" class="method-signature"
+            onclick="popupCode('TrustRoot.src/M000274.html');return false;">
+          <span class="method-name">_parse_url</span><span class="method-args">(url)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000276" class="method-detail">
+        <a name="M000276"></a>
+
+        <div class="method-heading">
+          <a href="TrustRoot.src/M000276.html" target="Code" class="method-signature"
+            onclick="popupCode('TrustRoot.src/M000276.html');return false;">
+          <span class="method-name">check_sanity</span><span class="method-args">(trust_root)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000277" class="method-detail">
+        <a name="M000277"></a>
+
+        <div class="method-heading">
+          <a href="TrustRoot.src/M000277.html" target="Code" class="method-signature"
+            onclick="popupCode('TrustRoot.src/M000277.html');return false;">
+          <span class="method-name">check_url</span><span class="method-args">(trust_root, url)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+quick func for validating a url against a trust root. See the <a
+href="TrustRoot.html">TrustRoot</a> class if you need more control.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000279" class="method-detail">
+        <a name="M000279"></a>
+
+        <div class="method-heading">
+          <a href="TrustRoot.src/M000279.html" target="Code" class="method-signature"
+            onclick="popupCode('TrustRoot.src/M000279.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(unparsed, proto, wildcard, host, port, path)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000275" class="method-detail">
+        <a name="M000275"></a>
+
+        <div class="method-heading">
+          <a href="TrustRoot.src/M000275.html" target="Code" class="method-signature"
+            onclick="popupCode('TrustRoot.src/M000275.html');return false;">
+          <span class="method-name">parse</span><span class="method-args">(trust_root)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000278" class="method-detail">
+        <a name="M000278"></a>
+
+        <div class="method-heading">
+          <a href="TrustRoot.src/M000278.html" target="Code" class="method-signature"
+            onclick="popupCode('TrustRoot.src/M000278.html');return false;">
+          <span class="method-name">build_discovery_url</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return a discovery URL for this realm.
+</p>
+<p>
+This function does not check to make sure that the realm is valid. Its
+behaviour on invalid inputs is undefined.
+</p>
+<table>
+<tr><td valign="top">return_to:</td><td>The relying party return URL of the <a href="../../OpenID.html">OpenID</a>
+
+</td></tr>
+</table>
+<p>
+authentication request
+</p>
+<p>
+Returns the URL upon which relying party discovery should be run in order
+to verify the return_to URL
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000280" class="method-detail">
+        <a name="M000280"></a>
+
+        <div class="method-heading">
+          <a href="TrustRoot.src/M000280.html" target="Code" class="method-signature"
+            onclick="popupCode('TrustRoot.src/M000280.html');return false;">
+          <span class="method-name">sane?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000281" class="method-detail">
+        <a name="M000281"></a>
+
+        <div class="method-heading">
+          <a href="TrustRoot.src/M000281.html" target="Code" class="method-signature"
+            onclick="popupCode('TrustRoot.src/M000281.html');return false;">
+          <span class="method-name">validate_url</span><span class="method-args">(url)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

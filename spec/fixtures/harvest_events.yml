@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+spiders_1:
+  id: 1
+  resource_id: 4
+  began_at: 2008-9-03 17:52:35
+  completed_at: 2008-10-03 17:52:39
+  published_at: 2008-10-03 17:52:39
+
+spiders_2:
+  id: 2
+  resource_id: 4
+  began_at: 2008-10-03 17:55:01
+  completed_at: 2008-10-03 17:55:25
+  published_at: NULL
+
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: harvest_events
+#
+#  id           :integer(1)      not null, primary key
+#  resource_id  :string(100)     not null
+#  began_at     :timestamp       not null
+#  completed_at :timestamp
+#  published_at :timestamp
+

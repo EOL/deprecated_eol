@@ -1,0 +1,479 @@
+content_level_2:
+  taxon_concept_id: 103
+  name_id: 1972217
+  language_id: 501
+  vern: 0
+  preferred: 1
+  source_hierarchy_entry_id: 0
+
+cafeteria_name_h2:
+  taxon_concept_id: 101
+  name_id: 1972217
+  language_id: 501
+  vern: 0
+  preferred: 1
+  source_hierarchy_entry_id: 19222828
+
+cafeteria_name:
+  taxon_concept_id: 101
+  name_id: 1972217
+  language_id: 501
+  vern: 0
+  preferred: 1
+  source_hierarchy_entry_id: 16222828
+
+cafeteria_name_2:
+  taxon_concept_id: 101
+  name_id: 1493539
+  language_id: 501
+  vern: 0
+  preferred: 1
+  source_hierarchy_entry_id: 16222828
+
+seabream_overview:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 53483
+  language_id: 501
+  vern: 0
+  preferred: 0
+
+seabream:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 150277
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+seabream_common:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 754105
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+Sparuscrenidens:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 171983
+  language_id: 1
+  vern: 0
+  preferred: 0
+
+animals:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 107
+  name_id: 1
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+archaea_common:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 104
+  name_id: 2
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+bacteria_common:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 110
+  name_id: 3
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+chromista_common:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 108
+  name_id: 4
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+fungi_common:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 105
+  name_id: 5
+  language_id: 1
+  vern: 1
+  preferred: 1
+  
+plants:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 106
+  name_id: 6
+  language_id: 1
+  vern: 1
+  preferred: 1
+  
+protozoa_common:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 109
+  name_id: 7
+  language_id: 1
+  vern: 1
+  preferred: 1
+  
+viruses_common:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 113
+  name_id: 8
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+Archaea:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 104
+  name_id: 229973
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Fungi:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 105
+  name_id: 230549
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Plantae:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 106
+  name_id: 230553
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Animalia:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 107
+  name_id: 230572
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Chromista:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 108
+  name_id: 431597
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Protozoa:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 109
+  name_id: 486669
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Bacteria:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 110
+  name_id: 841730
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Bettana:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 901482
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+Esparo:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 906240
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+Qubotan:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 906241
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+Salemadel:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 906242
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+Karanteen:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 957368
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+Karateenseabream:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 957369
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+whatever:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 957370
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+SalpaAravias:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 1547851
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+Bicosoecids:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 111
+  name_id: 1560242
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+Bicosoecophyceae:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 111
+  name_id: 1560243
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Bicosoecales:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 112
+  name_id: 1560244
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Viruses:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 113
+  name_id: 1769426
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Cafeteria:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 114
+  name_id: 3394311
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Cafeteriaceae:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 115
+  name_id: 3394315
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Sagenista:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 116
+  name_id: 4519726
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Saupede:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 4684497
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+some_virus:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 8104471
+  language_id: 501
+  vern: 0
+  preferred: 0
+
+Crenidenscrenidens:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 9916987
+  language_id: 5
+  vern: 1
+  preferred: 0
+
+ΣάλπαAραβίας:
+  taxon_concept_id: 102
+  source_hierarchy_entry_id: 0
+  name_id: 10973249
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+Karanteenseabream:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 10973251
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+波牙鯛:
+  taxon_concept_id: 102
+  source_hierarchy_entry_id: 0
+  name_id: 10973252
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+Thisis:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 413836642
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+seabream_bhl_name:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 102
+  name_id: 125102
+  language_id: 1
+  vern: 1
+  preferred: 0
+
+arthropods:
+  source_hierarchy_entry_id: 99793
+  taxon_concept_id: 120
+  name_id: 130
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+arachnids:
+  source_hierarchy_entry_id: 99792
+  taxon_concept_id: 121
+  name_id: 131
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+spiders:
+  source_hierarchy_entry_id: 99791
+  taxon_concept_id: 122
+  name_id: 132
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+daves_sipders:
+  source_hierarchy_entry_id: 99798
+  taxon_concept_id: 123
+  name_id: 133
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+arthropoda:
+  source_hierarchy_entry_id: 99793
+  taxon_concept_id: 120
+  name_id: 120
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+arachnida:
+  source_hierarchy_entry_id: 99792
+  taxon_concept_id: 121
+  name_id: 121
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+araneae:
+  source_hierarchy_entry_id: 99791
+  taxon_concept_id: 122
+  name_id: 122
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+linyphiidae:
+  source_hierarchy_entry_id: 99798
+  taxon_concept_id: 123
+  name_id: 123
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+Acorigone:
+  source_hierarchy_entry_id: 99799
+  taxon_concept_id: 124
+  name_id: 124
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+spider_1:
+  source_hierarchy_entry_id: 99794
+  taxon_concept_id: 125
+  name_id: 125
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+<% require 'faker' %>
+<% (1..60).each do |index| %>
+random_<%= index %>_scientific:
+  source_hierarchy_entry_id: 0
+  name_id: 998<%= '%0.2d'%index %>
+  taxon_concept_id: 2<%= '%0.2d'%index %>
+  language_id: 501
+  vern: 0
+  preferred: 1
+
+random_<%= index %>_common:
+  source_hierarchy_entry_id: 0
+  taxon_concept_id: 2<%= '%0.2d'%index %>
+  name_id: 997<%= '%0.2d'%index %>
+  language_id: 1
+  vern: 1
+  preferred: 1
+
+<% end %>
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: taxon_concept_names
+#
+#  language_id               :integer(4)      not null
+#  name_id                   :integer(4)      not null
+#  source_hierarchy_entry_id :integer(4)      not null
+#  taxon_concept_id          :integer(4)      not null
+#  preferred                 :integer(1)      not null
+#  vern                      :integer(1)      not null
+

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>openid_associate (OpenID::Server::Server)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 1316</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">openid_associate</span>(<span class="ruby-identifier">request</span>)
+        <span class="ruby-identifier">assoc_type</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">assoc_type</span>
+        <span class="ruby-identifier">session_type</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">session</span>.<span class="ruby-identifier">session_type</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@negotiator</span>.<span class="ruby-identifier">allowed?</span>(<span class="ruby-identifier">assoc_type</span>, <span class="ruby-identifier">session_type</span>)
+          <span class="ruby-identifier">assoc</span> = <span class="ruby-ivar">@signatory</span>.<span class="ruby-identifier">create_association</span>(<span class="ruby-keyword kw">false</span>,
+                                                <span class="ruby-identifier">assoc_type</span>)
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">answer</span>(<span class="ruby-identifier">assoc</span>)
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">message</span> = <span class="ruby-identifier">sprintf</span>(<span class="ruby-value str">'Association type %s is not supported with '</span> <span class="ruby-operator">+</span>
+                            <span class="ruby-value str">'session type %s'</span>, <span class="ruby-identifier">assoc_type</span>, <span class="ruby-identifier">session_type</span>)
+          <span class="ruby-identifier">preferred_assoc_type</span>, <span class="ruby-identifier">preferred_session_type</span> = <span class="ruby-ivar">@negotiator</span>.<span class="ruby-identifier">get_allowed_type</span>()
+          <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">answer_unsupported</span>(<span class="ruby-identifier">message</span>,
+                                            <span class="ruby-identifier">preferred_assoc_type</span>,
+                                            <span class="ruby-identifier">preferred_session_type</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

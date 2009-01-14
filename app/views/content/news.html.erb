@@ -1,0 +1,47 @@
+<%=auto_discovery_link_tag :rss, {:format=>'rss'}, {:title => "EOL News RSS"} %>
+
+<div id="content">
+	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+          <h1><%="EOL News"[]%></h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+	
+	    <div id="page-content" class="clearfix">
+	        <!-- center page content -->
+	        <div id="full-page-content">
+	        	
+          	<% form_tag({:action=>'news'},:method=>'get') do -%>
+          	Search for news items containing: <%= text_field_tag(:term_search_string,@term_search_string)%> <%= submit_tag 'Search' %>
+          	<br /><br />
+
+          	<% if @news_items.nil? == false && @news_items.size > 0 %>
+
+          		<%= will_paginate @news_items %>
+          		    <table class="results_table" width="100%" cellspacing="0">
+          		    <tr><th>Date</th><th>News Item</th></tr>
+          			<% for news_item in @news_items
+          				column_class=cycle('odd','even')  %>
+          			    <tr>
+          			    	<td width="15%" class="<%= column_class %>"><%=h format_date(news_item.display_date)%></td>
+            					<td class="<%= column_class %>"><%= "<strong>" + news_item.title + "</strong><br /> " unless news_item.title.blank?%><%=news_item.body%></td>
+          				</tr>									
+          			<% end %>
+          		    </table>
+
+          			<br />
+          			<%= will_paginate @news_items %>
+
+              <% else %>
+          			No news items are available matching your search criteria.
+          		<%end%>
+          	<% end %>
+					 
+	        <%=link_to image_tag('rss.png'), {:action=>controller.action_name,:format=>'rss'}%>
+			   </div>
+	  </div>
+
+</div>

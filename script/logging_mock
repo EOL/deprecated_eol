@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+#require File.dirname(__FILE__) + '/../config/boot'
+
+require 'eol_logging'
+
+include Logging::Mock
+include Logging::Mine
+
+clear_all
+create_mock_logs(2)
+geocode_all
+mine_all

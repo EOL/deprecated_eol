@@ -1,0 +1,26 @@
+<div class="text-comments-head">
+  <h3>Comments on <%= @title %></h3>
+  <hr/>
+</div>
+<% if @type %>
+  <img id="comment-image" src="<%= @parent.smart_image %>">
+<% else %>
+  <p><b>TODO</b> - display other parent types nicely.</p>
+<% end %>
+<div id="comments-container">
+  <% if current_objects.empty? %>
+    <p>No comments have been left yet.</p>
+    <div id="comments"></div> <%# ...So when they add a comment, it will go here. %>
+  <% end %>
+  <% unless current_objects.empty? %>
+    <%= page_entries_info current_objects %>
+    <% paginated_section current_objects do %>
+      <div id="comments">
+      <%= render :partial => 'list' %>
+      </div>
+    <% end %>
+  <% end %>
+  <div id="new-comment">
+    <%= render :partial => 'new', :locals => { :length => 10 } %>
+  </div>
+</div>

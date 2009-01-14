@@ -1,0 +1,338 @@
+cafeteria_agents_for_invisible_overview:
+  data_object_id: 390654
+  agent_id: 6
+  agent_role_id: 2
+  view_order: 0
+
+cafeteria_agents_for_unknown_overview:
+  data_object_id: 390655
+  agent_id: 6
+  agent_role_id: 2
+  view_order: 0
+
+cafeteria_agents_for_untrusted_overview:
+  data_object_id: 390656
+  agent_id: 6
+  agent_role_id: 2
+  view_order: 0
+
+cafeteria_agents_for_invisible_img:
+  data_object_id: 467104
+  agent_id: 6
+  agent_role_id: 2
+  view_order: 0
+
+cafeteria_agents_for_unknown_img:
+  data_object_id: 390657
+  agent_id: 6
+  agent_role_id: 2
+  view_order: 0
+
+cafeteria_agents_for_untrusted_img:
+  data_object_id: 390658
+  agent_id: 6
+  agent_role_id: 2
+  view_order: 0
+
+cafeteria_agents_for_first_img_1:
+  data_object_id: 390664
+  agent_id: 6
+  agent_role_id: 2
+  view_order: 0
+
+cafeteria_agents_for_first_img_2:
+  data_object_id: 390664
+  agent_id: 5421
+  agent_role_id: 13
+  view_order: 0
+
+cafeteria_agents_for_overview:
+  data_object_id: 390661
+  agent_id: 5419
+  agent_role_id: 2
+  view_order: 0
+
+seabream_overview:
+  data_object_id: 888001
+  agent_id: 2
+  agent_role_id: 13
+  view_order: 0
+
+text_preview:
+  data_object_id: 466794
+  agent_id: 25
+  agent_role_id: 13
+  view_order: 0
+
+first_preview:
+  data_object_id: 466796
+  agent_id: 25
+  agent_role_id: 13
+  view_order: 0
+
+second_preview:
+  data_object_id: 466797
+  agent_id: 25
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_1:
+  data_object_id: 1
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390659:
+  data_object_id: 390659
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390660:
+  data_object_id: 390660
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390662:
+  data_object_id: 390662
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390663:
+  data_object_id: 390663
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390666:
+  data_object_id: 390666
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390667:
+  data_object_id: 390667
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390668:
+  data_object_id: 390668
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390669:
+  data_object_id: 390669
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390671:
+  data_object_id: 390671
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390672:
+  data_object_id: 390672
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390673:
+  data_object_id: 390673
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_390674:
+  data_object_id: 390674
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_400008:
+  data_object_id: 400008
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_400081:
+  data_object_id: 400081
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_400085:
+  data_object_id: 400085
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_400086:
+  data_object_id: 400086
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_400088:
+  data_object_id: 400088
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_400090:
+  data_object_id: 400090
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_400123:
+  data_object_id: 400123
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_400460:
+  data_object_id: 400460
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_432720:
+  data_object_id: 432720
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_466697:
+  data_object_id: 466697
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_466795:
+  data_object_id: 466795
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_467105:
+  data_object_id: 467105
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_467476:
+  data_object_id: 467476
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_468876:
+  data_object_id: 468876
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_469163:
+  data_object_id: 469163
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_474151:
+  data_object_id: 474151
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_474494:
+  data_object_id: 474494
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_1581609595:
+  data_object_id: 1581609595
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_1631102146:
+  data_object_id: 1631102146
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_1631102147:
+  data_object_id: 1631102147
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_1631102148:
+  data_object_id: 1631102148
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_1631102149:
+  data_object_id: 1631102149
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_1631102150:
+  data_object_id: 1631102150
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_1631102151:
+  data_object_id: 1631102151
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+
+agent_association_for_data_object_1631102152:
+  data_object_id: 1631102152
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_1631102153:
+  data_object_id: 1631102153
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+agent_association_for_data_object_1631102154:
+  data_object_id: 1631102154
+  agent_id: 42
+  agent_role_id: 13
+  view_order: 0
+
+# == Schema Info
+# Schema version: 20081002192244
+#
+# Table name: agents_data_objects
+#
+#  agent_id       :integer(4)      not null
+#  agent_role_id  :integer(1)      not null
+#  data_object_id :integer(4)      not null
+#  view_order     :integer(1)      not null
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: agents_data_objects
+#
+#  agent_id       :integer(4)      not null
+#  agent_role_id  :integer(1)      not null
+#  data_object_id :integer(4)      not null
+#  view_order     :integer(1)      not null
+

@@ -1,0 +1,14 @@
+Thu Jan  4 10:03:26 PST 2007  Brian Ellin - brian at janrain dot com
+  tagged 0.3.4
+
+
+Wed Jan  3 18:32:58 PST 2007  brian@janrain.com
+  * switch to apache software license
+
+    M ./COPYING -9 +13
+    A ./LICENSE
+    M ./README +3
+
+Sun Aug 20 11:03:33 PDT 2006  Brian Ellin - brian at janrain dot com
+  tagged 0.3.3
+

@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: OpenID::SReg::Request</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">OpenID::SReg::Request</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/openid/extensions/sreg_rb.html">
+                lib/openid/extensions/sreg.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Extension
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+An object to hold the state of a simple registration request.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000090">all_requested_fields</a>&nbsp;&nbsp;
+      <a href="#M000088">from_openid_request</a>&nbsp;&nbsp;
+      <a href="#M000094">get_extension_args</a>&nbsp;&nbsp;
+      <a href="#M000095">member?</a>&nbsp;&nbsp;
+      <a href="#M000087">new</a>&nbsp;&nbsp;
+      <a href="#M000089">parse_extension_args</a>&nbsp;&nbsp;
+      <a href="#M000092">request_field</a>&nbsp;&nbsp;
+      <a href="#M000093">request_fields</a>&nbsp;&nbsp;
+      <a href="#M000091">were_fields_requested?</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">ns_uri</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">optional</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">policy_url</td>
+          <td class="context-item-value">&nbsp;[RW]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">required</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000088" class="method-detail">
+        <a name="M000088"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000088.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000088.html');return false;">
+          <span class="method-name">from_openid_request</span><span class="method-args">(request)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Create a simple registration request that contains the fields that were
+requested in the <a href="../../OpenID.html">OpenID</a> request with the
+given arguments Takes an OpenID::CheckIDRequest, returns an
+OpenID::Sreg::Request return nil if the extension was not requested.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000087" class="method-detail">
+        <a name="M000087"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000087.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000087.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(required = nil, optional = nil, policy_url = nil, ns_uri = NS_URI)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000090" class="method-detail">
+        <a name="M000090"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000090.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000090.html');return false;">
+          <span class="method-name">all_requested_fields</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+A list of all of the simple registration fields that were requested,
+whether they were required or optional.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000094" class="method-detail">
+        <a name="M000094"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000094.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000094.html');return false;">
+          <span class="method-name">get_extension_args</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get a hash of unqualified simple registration arguments representing this
+request. This method is essentially the inverse of <a
+href="Request.html#M000089">parse_extension_args</a>. This method
+serializes the simple registration request fields.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000095" class="method-detail">
+        <a name="M000095"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000095.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000095.html');return false;">
+          <span class="method-name">member?</span><span class="method-args">(field_name)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000089" class="method-detail">
+        <a name="M000089"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000089.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000089.html');return false;">
+          <span class="method-name">parse_extension_args</span><span class="method-args">(args, strict = false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Parse the unqualified simple registration request parameters and add them
+to this object.
+</p>
+<p>
+This method is essentially the inverse of getExtensionArgs. This method
+restores the serialized simple registration request fields.
+</p>
+<p>
+If you are extracting arguments from a standard <a
+href="../../OpenID.html">OpenID</a> checkid_* request, you probably want to
+use fromOpenIDRequest, which will extract the sreg namespace and arguments
+from the <a href="../../OpenID.html">OpenID</a> request. This method is
+intended for cases where the <a href="../../OpenID.html">OpenID</a> server
+needs more control over how the arguments are parsed than that method
+provides.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000092" class="method-detail">
+        <a name="M000092"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000092.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000092.html');return false;">
+          <span class="method-name">request_field</span><span class="method-args">(field_name, required=false, strict=false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+<a href="Request.html">Request</a> the specified field from the <a
+href="../../OpenID.html">OpenID</a> user field_name: the unqualified simple
+registration field name required: whether the given field should be
+presented
+</p>
+<pre>
+       to the user as being a required to successfully complete
+       the request
+</pre>
+<p>
+strict: whether to raise an exception when a field is
+</p>
+<pre>
+       added to a request more than once
+</pre>
+<p>
+Raises ArgumentError if the field_name is not a simple registration field,
+or if strict is set and a field is added more than once
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000093" class="method-detail">
+        <a name="M000093"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000093.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000093.html');return false;">
+          <span class="method-name">request_fields</span><span class="method-args">(field_names, required = false, strict = false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add the given list of fields to the request.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000091" class="method-detail">
+        <a name="M000091"></a>
+
+        <div class="method-heading">
+          <a href="Request.src/M000091.html" target="Code" class="method-signature"
+            onclick="popupCode('Request.src/M000091.html');return false;">
+          <span class="method-name">were_fields_requested?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Have any simple registration fields been requested?
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

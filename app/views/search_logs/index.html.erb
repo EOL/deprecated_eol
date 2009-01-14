@@ -1,0 +1,41 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Search Term Reports'} %>
+		
+	<div id="content_page">
+	  
+		<% form_tag({:action=>'index'},:method=>'get',:id=>'form1') do -%>
+  	Search for terms containing: <%= text_field_tag(:term_search_string,@term_search_string)%> <%= submit_tag 'Search' %>  	<%= check_box_tag :sort_order, "DESC", @sort_order=="DESC", {:onclick=>"$('form1').submit();"}%> Inverse sort
+  	<br /><br />
+
+  	<%= hidden_field_tag :order_by, @order_by%>
+    <%= will_paginate @search_report %>
+  	
+		<table class="results_table">
+      <tr>
+        <th><%=link_to 'Search Term',{:order_by=>'search_term'}%></th>
+        <th><%=link_to 'Type',{:order_by=>'search_type'}%></th>        
+        <th><%=link_to 'Count',{:order_by=>'frequency',:sort_order=>'DESC'}%></th>
+        <th><%=link_to 'Page Results avg',{:order_by=>'results_avg'}%></th>
+        <th><%=link_to 'Suggested Results avg',{:order_by=>'suggested_results_avg'}%></th>
+        <th><%=link_to 'Common Name avg',{:order_by=>'common_name_avg'}%></th>
+        <th><%=link_to 'Sci. Name avg',{:order_by=>'scientific_name_avg'}%></th>                
+      </tr>
+      <%- @search_report.each do |row| -%>
+
+        <%- column_class=cycle('odd','even') -%>
+      <tr>
+        <td class="<%=column_class%>"><%=link_to row[:search_term], search_log_url(row[:search_term])%></td>
+        <td class="<%=column_class%>"><%= row[:search_type] %></td>
+        <td class="<%=column_class%>"><%= row[:frequency] %></td>
+        <td class="<%=column_class%>"><%= sprintf("%.2f",row[:results_avg]) unless row[:results_avg].blank?%></td>
+        <td class="<%=column_class%>"><%= sprintf("%.2f",row[:suggested_results_avg]) unless row[:suggested_results_avg].blank?%></td>
+        <td class="<%=column_class%>"><%= sprintf("%.2f",row[:common_name_avg]) unless row[:common_name_avg].blank?%></td>
+        <td class="<%=column_class%>"><%= sprintf("%.2f",row[:scientific_name_avg]) unless row[:scientific_name_avg].blank?%></td>                
+      </tr>
+      <%- end -%>
+    </table>
+    <br />
+     <%= will_paginate @search_report %>
+  	<% end %>
+	</div>
+						
+<%= render :partial => '/admin/content_bottom' %>

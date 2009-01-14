@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>encode_to_url (OpenID::Server::OpenIDResponse)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../../../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File lib/openid/server.rb, line 896</span>
+      <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encode_to_url</span>
+        <span class="ruby-comment cmt"># Encode a response as a URL for the user agent to GET.</span>
+        <span class="ruby-comment cmt"># You will generally use this URL with a HTTP redirect.</span>
+        <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@fields</span>.<span class="ruby-identifier">to_url</span>(<span class="ruby-ivar">@request</span>.<span class="ruby-identifier">return_to</span>)
+      <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -53,10 +53,10 @@
                     <div id="spinner">
                       <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
                     </div>
-                    <div id="large-image-trust-button" <%='style="display: hidden"' if @images[0].curated?%>>
+                    <div id="large-image-trust-button" <%='style="display: none"' if @images[0].curated?%>>
                       <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s} %>
                     </div>
-                    <div id="large-image-untrust-button" <%='style="display: hidden"' if @images[0].curated?%>>
+                    <div id="large-image-untrust-button" <%='style="display: none"' if @images[0].curated?%>>
                       <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s} %>
                     </div>
                     <div id="large-image-curator-button">

@@ -35,7 +35,8 @@ class Administrator::ContentPageController < AdminController
 
    if new_page.valid?
      ContentPageArchive.backup(current_page) # backup old page
-     expire_caches   # expire the menu items and any other fragments 
+     expire_cache(new_page.page_name) 
+     expire_menu_caches
      flash[:notice]='Content has been updated.'
    else
      flash[:error]='Some required fields were not entered (you must enter a title, and content OR a URL).'
@@ -55,6 +56,7 @@ class Administrator::ContentPageController < AdminController
 
    @content_section_id=params[:id]
    new_page=create_new_page(@content_section_id) 
+   expire_menu_caches
    redirect_to :action=>'index', :content_section_id=>new_page.content_section.id, :content_page_id=>new_page.id, :new_page=>'true'
    
  end

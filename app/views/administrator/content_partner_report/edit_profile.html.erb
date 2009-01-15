@@ -16,7 +16,7 @@ function check_passwords() {
                   
   <%= eol_lang_error_messages_for :agent %>
 
-  <% form_for @agent, :url => { :action => 'edit_profile' }, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr", :method => 'post' } do |f| %>
+  <% form_for @agent, :url => { :action => 'edit_profile' },  :html => { :method => :post, :multipart => true, :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f| %>
       <fieldset>
           <legend><%= "Account Information"[] %></legend>
 
@@ -54,6 +54,15 @@ function check_passwords() {
             Describe the project as you would like it to appear on the Encyclopedia of Life web site.
             <%= f.text_area :project_description, :cols => 70, :rows => 10 %>
 
+              <%= f.label :logo, "Project Logo" %>
+              Please select and upload a JPG, PNG or GIF image of approximately 100x100 pixels, and no larger than 500k.   We will create two logos, one with a maximum dimension of 100 pixels, and a smaller one depending on it's location on the website.
+              <%= f.file_field :logo, :size=>60 %>
+              <% unless @agent.logo_url.blank? -%>
+                  <br />
+                  Current Logos:<br />
+                  Large: <%= agent_logo(@agent,"large") %> Small: <%= agent_logo(@agent,"small") %>
+              <% end -%>
+            
           <div class='button'>
               <%= submit_tag "Update Profile"[] + ' &#187;' %>
           </div>                     

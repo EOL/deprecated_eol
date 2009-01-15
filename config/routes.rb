@@ -48,6 +48,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.clear_caches 'clear_caches', :controller=>'content', :action=>'clear_caches'
   map.expire_all 'expire_all', :controller => 'content', :action => 'expire_all'
+  map.expire 'expire/:id', :controller=>'content', :action=>'expire_single', :requirements => { :id => /\w+/ }
   map.expire_taxon 'expire_taxon/:id', :controller => 'content', :action => 'expire', :requirements => { :id => /\d+/ }
   map.expire_taxa 'expire_taxa', :controller => 'content', :action => 'expire_multiple'
 

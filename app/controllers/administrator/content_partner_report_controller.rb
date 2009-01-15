@@ -38,8 +38,11 @@ class Administrator::ContentPartnerReportController < AdminController
     return unless request.post?
 
     if @agent.update_attributes(params[:agent])
+
+      upload_logo(@agent) unless @agent.logo_file_name.blank?
       flash[:notice] = "Profile updated"[]
-      redirect_to(:action => 'show',:id=>@agent.id)
+      redirect_to :action => 'show',:id=>@agent.id 
+
     end
       
   end
@@ -51,7 +54,7 @@ class Administrator::ContentPartnerReportController < AdminController
     if !@agent.blank?
       reset_session
       self.current_agent=@agent
-      redirect_to (:controller=>'/content_partner',:action=>'index')
+      redirect_to :controller=>'/content_partner',:action=>'index'
     end
     return
       

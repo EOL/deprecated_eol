@@ -59,7 +59,8 @@
                                    ",data_supplier: '" + escape_javascript(data_supplier_name) + "'" +
                                    ",data_supplier_url: '" + escape_javascript(data_supplier_url) + "'" +
                                    ",data_supplier_icon: '" + escape_javascript(data_supplier_icon) + "'" +
-                                   ", data_object_id: '#{image.id}'"
+                                   ", data_object_id: '#{image.id}'" +
+                                   ", curated: #{image.curated}"
             unless image.license_text.nil?
                 image_attribution_hash += ",license_text: '" + escape_javascript(image.license_text || "") +
                                           "',license_logo: '" + escape_javascript(image.license_logo) +

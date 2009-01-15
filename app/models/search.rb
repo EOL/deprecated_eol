@@ -205,8 +205,10 @@ class Search
     user = options[:user_id] ? User.find(options[:user_id]) : nil
     vetted_only = user && user.vetted
     data_objects.each do |data_object|
-      data_object.taxon_concepts.each do |taxon_concept|
-        results << [taxon_concept,data_object] if (!vetted_only || taxon_concept.vetted_id == Vetted.trusted.id)
+      if !vetted_only || data_object.vetted_id == Vetted.trusted.id
+        data_object.taxon_concepts.each do |taxon_concept|
+          results << [taxon_concept,data_object] if (!vetted_only || taxon_concept.vetted_id == Vetted.trusted.id)
+        end
       end
     end
 

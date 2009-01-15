@@ -31,9 +31,9 @@
   
   <% if ActionController::Base.perform_caching %>
   	<tr><td class="odd">Fragment caching enabled</td> 
-  	  <td class="odd"><span id="cache_clear_time">Non-species page caches cleared on <%=format_date_time($CACHE_CLEARED_LAST)%></span>
+  	  <td class="odd"><span id="cache_clear_time">Home page cache last cleared on <%=format_date_time($CACHE_CLEARED_LAST)%></span>
   	    <br />
-  	    <%= link_to_remote '[clear entire cache]',:url=>{:controller=>'/administrator/site',:action=>'clear_all'}, :update=>'cache_clear_time'%><br />
+  	    <%= link_to_remote '[clear entire cache store]',:url=>{:controller=>'/administrator/site',:action=>'clear_all'}, :confirm=>'Are you sure you want to clear the entire cache store?', :update=>'cache_clear_time'%><br />
   	    <%= link_to_remote '[clear all non-species pages]',:url=>{:controller=>'/administrator/site',:action=>'expire_all'}, :update=>'cache_clear_time'%><br />
   	    <span id="taxon_id_clear_time"></span>
   	    Taxon ID: <%= text_field_tag :taxon_id, '',{:size=>8} %> <%= link_to_remote '[clear species page]',:url=>{:controller=>'/administrator/site',:action=>'expire'}, :update=>'taxon_id_clear_time',:with => "'taxon_id=' + $('taxon_id').value"%><br />

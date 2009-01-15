@@ -196,7 +196,7 @@ class Agent < SpeciesSchemaModel
   
   # --------------------------------------------------
 
-  # Authenticates a user by their email name and unencrypted password.  Returns the user or nil.
+  # Authenticates a user by their username and unencrypted password.  Returns the user or nil.
   def self.authenticate(username, password)
     a = find_by_username(username)
     a && a.authenticated?(password) ? a : nil

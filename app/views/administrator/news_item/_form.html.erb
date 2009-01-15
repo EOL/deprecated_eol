@@ -2,15 +2,20 @@
 	<script type="text/javascript">
 	  function check_body_remaining () {
 	    textCounter($('news_item_body'),$('body_remaining_length'),1500);
+      preview_news_item();
 	  }
 	  function check_title_remaining () {
 	    textCounter($('news_item_title'),$('title_remaining_length'),250);
+	    preview_news_item();
 	  }
     womAdd("check_title_remaining();");
     womAdd("check_body_remaining();");
+    function preview_news_item() {
+      $('previewed_news_item').innerHTML='<strong><%=Date.today%></strong> - ' + $('news_item_title').value + ' - ' + $('news_item_body').value;
+    }
 	</script>				
 	<br />
-	HTML allowed in all fields
+	HTML allowed in all fields, *either* title or body required.
 	<table>	
   	<tr>
   		<td valign="top"><strong>Title:</strong>
@@ -25,6 +30,13 @@
 		<td><%=f.text_area :body,{:cols=>50,:onKeyDown=>"check_body_remaining();",:onKeyUp=>"check_body_remaining();"}%>
     </td>
 	</tr>
+	<tr>
+	  <td valign="top"><strong>Preview</strong></td>
+     <td>
+       <div id="previewed_news_item"></div>
+       <br /><i>Note: Preview not exact -- just use to check HTML formatting</i>
+    </td>
+  </tr>
 	<tr>
 		<td><strong>News Item Date as shown to user:</strong></td>
 		<td><%=f.date_select :display_date%></td>

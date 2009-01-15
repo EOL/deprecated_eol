@@ -1,10 +1,9 @@
 if(!EOL) var EOL = {};
 if(!EOL.Curation) EOL.Curation = {};
 
-EOL.Curation.quick_curate = function(e) {
+EOL.Curation.quick_curate = function(url) {
   $$('#right-image-buttons #spinner img')[0].appear();
-  new Ajax.Request(this.href, {asynchronous:true, evalScripts:true, onComplete:EOL.Curation.after_quick_curate});
-  e.stop();  
+  new Ajax.Request(url, {asynchronous:true, evalScripts:true, onComplete:EOL.Curation.after_quick_curate});
 };
 
 EOL.Curation.after_quick_curate = function() {
@@ -27,10 +26,12 @@ EOL.Curation.Behaviors = {
   },
   
   '#large-image-trust-button a:click': function(e) {
-    EOL.Curation.quick_curate(e);
+    EOL.Curation.quick_curate(this.href);
+    e.stop();
   },
   
   '#large-image-untrust-button a:click': function(e) {
-    EOL.Curation.quick_curate(e);
+    EOL.Curation.quick_curate(this.href);
+    e.stop();
   }
 };

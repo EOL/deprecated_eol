@@ -23,28 +23,8 @@ class ContentPartnerController < ApplicationController
     
     params[:agent][:agent_data_type_ids] = [] unless params[:agent].key? :agent_data_type_ids
       
-    if @agent.update_attributes(params[:agent])
-     
-      # call to resizing web service if there is a logo, then get result and store the url
-      unless @agent.logo_file_name.blank?
-        #parameters='function=partner_image&file_path=' + @agent.logo.path + '&server_ip=' + $IP_ADDRESS_OF_SERVER
-        parameters='function=partner_image&file_path=http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s + $LOGO_UPLOAD_PATH + @agent.id.to_s + "."  + @agent.logo_file_name.split(".")[-1]
-        response=EOLWebService.call(:parameters=>parameters)
-        if response.blank?
-          ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content partner logo upload service failed") if $ERROR_LOGGING
-        else
-          response = Hash.from_xml(response)
-          if response["response"].key? "file_prefix"
-            file_prefix = response["response"]["file_prefix"]
-            @agent.update_attribute(:logo_cache_url,file_prefix) # store new url to logo on content server      
-          end
-          if response["response"].key? "error"
-            error = response["response"]["error"]
-            ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>error,:backtrace=>parameters) if $ERROR_LOGGING
-          end
-        end
-      end
-      
+    if @agent.update_attributes(params[:agent])     
+      upload_logo(@agent) unless @agent.logo_file_name.blank?      
       @agent.content_partner.log_completed_step!
       handle_save_type(:stay => { :action => action_name }, :next => { :action => 'add_contact' })
     end

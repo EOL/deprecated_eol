@@ -255,13 +255,13 @@ end
       
        create_new_user  
        clear_old_sessions if $USE_SQL_SESSION_MANAGEMENT
-       if $SHOW_SURVEYS
-         # if we are showing surveys, we need to record how many page views this user has done 
-         session[:page_views]=0
-       end
-               
-       # expire non-species page fragment caches after specified internal
-       expire_caches if $CACHE_CLEARED_LAST.advance(:hours=>$CACHE_CLEAR_IN_HOURS) < Time.now
+       session[:page_views]=0 if $SHOW_SURVEYS  # if we are showing surveys, we need to record how many page views this user has done        
+                   
+       # expire home page fragment caches after specified internal to keep it fresh
+       if $CACHE_CLEARED_LAST.advance(:hours=>$CACHE_CLEAR_IN_HOURS) < Time.now
+         expire_cache('home') 
+         $CACHE_CLEARED_LAST=Time.now()
+       end    
        
     end
     
@@ -283,7 +283,7 @@ end
                
   end
   
-  # just clear all caches quickly
+  # just clear all fragment caches quickly
   def clear_all_caches
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore  
       ActionController::Base.cache_store.clear  
@@ -293,15 +293,24 @@ end
     end
   end
   
-  # expire the non-species page fragment caches
-  def expire_caches
-
-    pages=ContentPage.find_all_by_active(true)
-
+  # expire the header and footer caches
+  def expire_menu_caches
+  
     for language in Language.find_active
       expire_fragment(:controller=>'/content' ,:part => 'top_nav_'+language.iso_639_1)
       expire_fragment(:controller=>'/content' ,:part => 'footer_'+language.iso_639_1) 
-      expire_fragment(:controller=>'/content' ,:part => 'exemplars_'+language.iso_639_1) 
+      expire_fragment(:controller=>'/content' ,:part => 'exemplars_'+language.iso_639_1)
+    end
+    
+  end
+  
+  # expire the non-species page fragment caches
+  def expire_caches
+
+    expire_menu_caches
+    pages=ContentPage.find_all_by_active(true)
+
+    for language in Language.find_active
       for page in pages
         expire_fragment(:controller=>'/content',:part=>page.id.to_s + '_' + language.iso_639_1)
         expire_fragment(:controller=>'/content',:part=>page.page_url + '_' + language.iso_639_1)

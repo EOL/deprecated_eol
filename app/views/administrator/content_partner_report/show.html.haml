@@ -4,6 +4,8 @@
 = link_to '[go back]',:action=>'index'
 |
 = link_to '[edit their profile]',:action=>'edit_profile', :id=>@agent.id
+|
+= link_to "[login to the content partner registry as #{@agent.display_name}]",{:action=>'login_as_agent', :id=>@agent.id}, :confirm => "Are you sure you want to log into the content partner registry as #{@agent.display_name}?  If you do this, you will be logged out of the website as an administrator."
 %br/
 
 - if @agent.ready_for_agreement?  

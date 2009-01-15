@@ -261,6 +261,18 @@ class ContentController < ApplicationController
     end
     
   end
+
+  # conveninece page to expire a single CMS page immediately (call with http://www.eol.org/expire/PAGE_NAME)
+  def expire_single
+    
+    if allowed_request
+      expire_cache(params[:id])
+      render :text=>"Non-species page '" + params[:id] + "' cache expired.",:layout=>false
+    else
+      redirect_to home_page_url
+    end
+    
+  end
   
   # convenience page to expire a specific species page based on a taxon ID (call with http://www.eol.org/expire/TAXON_ID)
   def expire

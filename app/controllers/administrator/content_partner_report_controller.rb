@@ -1,6 +1,7 @@
 class Administrator::ContentPartnerReportController < AdminController
   helper :resources
-
+  helper_method :current_agent, :agent_logged_in?
+  
   access_control :DEFAULT => 'Administrator - Content Partners'
   
   def index
@@ -12,7 +13,11 @@ class Administrator::ContentPartnerReportController < AdminController
   end
 
   def show
-    @agent = Agent.find(params[:id])
+    @agent = Agent.find_by_id(params[:id])
+    if @agent.blank?
+      redirect_to :action=>'index' 
+      return
+    end
     @agent.content_partner=ContentPartner.new if @agent.content_partner.nil?
     @current_agreement=ContentPartnerAgreement.find_by_agent_id_and_is_current(@agent.id,true,:order=>'created_at DESC')
     if @current_agreement == nil || @current_agreement.signed_by.blank?
@@ -33,9 +38,25 @@ class Administrator::ContentPartnerReportController < AdminController
     return unless request.post?
 
     if @agent.update_attributes(params[:agent])
+
+      upload_logo(@agent) unless @agent.logo_file_name.blank?
       flash[:notice] = "Profile updated"[]
-      redirect_to(:action => 'show',:id=>@agent.id)
+      redirect_to :action => 'show',:id=>@agent.id 
+
     end
+      
+  end
+  
+  def login_as_agent
+      
+    @agent=Agent.find_by_id(params[:id])   
+    
+    if !@agent.blank?
+      reset_session
+      self.current_agent=@agent
+      redirect_to :controller=>'/content_partner',:action=>'index'
+    end
+    return
       
   end
   

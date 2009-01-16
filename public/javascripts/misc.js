@@ -158,13 +158,11 @@ function eol_update_credit(params){
     $('main-image-bg').removeClassName('untrusted-background-image');
 
     if (params.vetted_id == EOL.Curation.UNKNOWN_ID) {
-      console.log('unknown');
       $('mc-notes').addClassName('unknown-background-text');
       $('main-image-bg').addClassName('unknown-background-image');
       $('large-image-attribution-button').addClassName('unknown');
       field_notes_area += '<br /><br /><strong>Note:</strong> The image from this source has not been reviewed.';
     } else if (params.vetted_id == EOL.Curation.UNTRUSTED_ID) {
-      console.log('untrusted');
       $('mc-notes').addClassName('untrusted-background-text');
       $('main-image-bg').addClassName('untrusted-background-image');
       $('large-image-attribution-button').addClassName('untrusted');

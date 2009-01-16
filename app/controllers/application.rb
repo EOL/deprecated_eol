@@ -224,6 +224,12 @@ end
     end
   end
 
+  def collected_errors(model_object)
+    error_list=''
+    model_object.errors.each{|attr,msg| error_list += "#{attr} #{msg}," }
+    return error_list.chomp(',')
+  end
+  
   # truncate a string to the maxlength passed and then add "..." if truncated
   def truncate(text, length = 30, truncate_string = "...")
     return if text.nil?

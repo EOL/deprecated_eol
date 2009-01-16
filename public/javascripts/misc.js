@@ -149,21 +149,28 @@ function eol_update_credit(params){
         $('large-image-button-group').innerHTML="<li style=\"position:relative;top:3px;background-image:url('/images/icons/preview.png');background-repeat:no-repeat\" title=\"Unpublished\" />\n" +buttons;
       }
     }
-      
-    if (params.vetted_id < 2) // unvetted
- 			{
-				$('mc-notes').addClassName('unvetted-background-text');
-				$('main-image-bg').addClassName('unvetted-background-image');
-				$('field-notes').innerHTML 
- 	 			$('large-image-attribution-button').addClassName('unvetted');
-				field_notes_area += '<br /><br /><strong>Note:</strong> The image from this source has not been reviewed.';				
-			}
-		else // vetted
-			 {
- 				$('large-image-attribution-button').removeClassName('unvetted');		
-				$('mc-notes').removeClassName('unvetted-background-text');
-				$('main-image-bg').removeClassName('unvetted-background-image');
-			 }
+
+    $('large-image-attribution-button').removeClassName('unknown');
+    $('large-image-attribution-button').removeClassName('untrusted');
+    $('mc-notes').removeClassName('unknown-background-text');
+    $('mc-notes').removeClassName('untrusted-background-text');
+    $('main-image-bg').removeClassName('unknown-background-image');
+    $('main-image-bg').removeClassName('untrusted-background-image');
+
+    if (params.vetted_id == EOL.Curation.UNKNOWN_ID) {
+      console.log('unknown');
+      $('mc-notes').addClassName('unknown-background-text');
+      $('main-image-bg').addClassName('unknown-background-image');
+      $('large-image-attribution-button').addClassName('unknown');
+      field_notes_area += '<br /><br /><strong>Note:</strong> The image from this source has not been reviewed.';
+    } else if (params.vetted_id == EOL.Curation.UNTRUSTED_ID) {
+      console.log('untrusted');
+      $('mc-notes').addClassName('untrusted-background-text');
+      $('main-image-bg').addClassName('untrusted-background-image');
+      $('large-image-attribution-button').addClassName('untrusted');
+      field_notes_area += '<br /><br /><strong>Note:</strong> The image from this source is not trusted.';
+    }
+
     $('field-notes').innerHTML = field_notes_area; // this is the 'gray box'
     // ! FIELD NOTES ! </end>
 }

@@ -6,15 +6,25 @@
           that this is used to do some client-side logic that renders HTML which could,
           instead, be created on the server-side? %>
 <%
-    showing_unvetted_image = false      
-    @images[0..$MAX_IMAGES_PER_PAGE-1].each { |image| showing_unvetted_image = true unless image.vetted? }
+    showing_untrusted_image = false
+    showing_unknown_image = false
+    @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
+      showing_untrusted_image = true if image.untrusted?
+      showing_unknown_image = true if image.unknown?
+    end
 %>
           
-<% if showing_unvetted_image %>
-  <div id="unvetted-thumbnail-warning-box">  
+<% if showing_unknown_image %>
+  <div id="unknown-thumbnail-warning-box">
     <span>Images in yellow are not reviewed.</span>
   </div>
 <% end %>
+
+<% if showing_untrusted_image %>
+  <div id="untrusted-thumbnail-warning-box">
+    Images in red are untrusted.
+  </div>
+<%  end %>
 
 <div class="mc-img clearfix">
     <p class="hide"><%= "Choose images"[] %></p>
@@ -71,17 +81,17 @@
             image_attribution_hash+="}"
             counter += 1
             image_icon = ""
-            unless image.vetted?
-              class_name='unvetted-background-image'
-              image_class_name='unvetted-background-color'
-              showing_unvetted_image=true
+            if image.untrusted?
+              class_name='untrusted-background-image'
+            elsif image.unknown?
+              class_name='unknown-background-image'
             end
             image_icon = preview_icon({:style=>"position:relative;top:-53px;left:-28px;"}) unless image.published?
             image_icon = published_icon({:style=>"position:relative;top:-53px;left:-28px;", :agent_name => data_supplier.full_name }) if published_by_agent == 1
             -%>
-            <%= link_to_function("<span style=\"display:block;margin-left:4px;width:60px;height:48px;text-align:left;\"><img src=\"#{image.smart_thumb}\" alt=\"#{hh(image.scientific_name)}\" class=\"#{class_name}\"/></span>#{image_icon}",
+            <%= link_to_function("<span style=\"display:block;margin-left:4px;width:60px;height:48px;text-align:left;\"><img src=\"#{image.smart_thumb}\" alt=\"#{hh(image.scientific_name)}\"/></span>#{image_icon}",
                                  %Q{return eol_update_image('#{ escape_javascript(image.smart_image)}',#{image_attribution_hash})},
-                                 :title => hh(image.scientific_name), :class=>image_class_name,:id=>"thumbnail#{counter}") %>
+                                 :title => hh(image.scientific_name), :class=>class_name,:id=>"thumbnail#{counter}") %>
           
             
             <% if counter == 1 

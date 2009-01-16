@@ -1,19 +1,19 @@
 #!/bin/sh
 echo "== Dropping development databases"
 rake eol:db:drop:all RAILS_ENV=development
-echo "== Dropping test databases"
-rake eol:db:drop:all RAILS_ENV=test
+# echo "== Dropping test databases"
+# rake eol:db:drop:all RAILS_ENV=test
 echo "== Creating development databases"
 rake eol:db:create:all RAILS_ENV=development
-echo "== Creating test databases"
-rake eol:db:create:all RAILS_ENV=test
+# echo "== Creating test databases"
+# rake eol:db:create:all RAILS_ENV=test
 
 echo "== Creating development tables"
 rake db:migrate --trace
 echo "== Creating development fixtures"
 rake spec:db:fixtures:load       # You need this or the next step will do nothing.
 
-echo "== Creating test tables"
-RAILS_ENV=test rake db:migrate
-echo "== Creating test fixtures"
-RAILS_ENV=test rake spec:db:fixtures:load
+# echo "== Creating test tables"
+# RAILS_ENV=test rake db:migrate
+# echo "== Creating test fixtures"
+# RAILS_ENV=test rake spec:db:fixtures:load

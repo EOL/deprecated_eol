@@ -35,3 +35,7 @@ EOL.Curation.Behaviors = {
     e.stop();
   }
 };
+
+EOL.Curation.UNKNOWN_ID = 0;
+EOL.Curation.UNTRUSTED_ID = 1;
+EOL.Curation.TRUSTED_ID = 2;

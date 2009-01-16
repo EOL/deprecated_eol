@@ -141,13 +141,18 @@ div#large-image-tagging-button:hover {
 .attribution-icon:hover {
  background: transparent url(/images/icons/icons.gif) no-repeat 1px -32px;display:inline-block; 
 }
-li#large-image-attribution-button.unvetted {
- background: transparent url(/images/icons/icons_unvetted.gif) no-repeat 1px 0px;display:block;
+li#large-image-attribution-button.untrusted {
+ background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;display:block;
  }
-li#large-image-attribution-button.unvetted:hover {
- background: transparent url(/images/icons/icons_unvetted.gif) no-repeat 1px -32px;display:block; 
+li#large-image-attribution-button.untrusted:hover {
+ background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px -32px;display:block;
 }
-
+li#large-image-attribution-button.unknown {
+ background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px 0px;display:block;
+ }
+li#large-image-attribution-button.unknown:hover {
+ background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px -32px;display:block;
+}
 
 .text-comments-head p {
   font-size: 6pt;

@@ -75,13 +75,14 @@ To install required gems:
 
 2. Run the following rake commands:
 
-  rake db:create:all
+  rake eol:db:create:all           # Note the "EOL".  This keeps bad things from happening.  Please use it.
   rake db:migrate
   rake spec:db:fixtures:load       # You need this or the next step will do nothing.
   rake denormal:build_random_taxa  # This populates the eolData database with data.
   rake db:migrate RAILS_ENV=test7
   rake spec:db:fixtures:load RAILS_ENV=test
   rake denormal:build_random_taxa RAILS_ENV=test   # If you don't run this one, you will get more failures!
+  rake eol:site_specific repo=URL  # Your "URL" (or an alternative) will be provided to you privately.
 
 You may also need to make the "bin/recreate_databases" script executable, and then run it to automatically run all of those tasks above (assuming you are on a Mac/Linux).
 

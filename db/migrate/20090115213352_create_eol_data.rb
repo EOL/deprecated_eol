@@ -4,8 +4,7 @@ class CreateEolData < ActiveRecord::Migration
   end
   
   def self.up
-    puts "++ #{ActiveRecord::Base.connection.class}"
-    
+    ActiveRecord::Migration.not_okay_in_production
     # Basically, I want to throw an error if we're not using MySQL, while at the same time providing the framework
     # for adding other DB support in the future...
     if ActiveRecord::Base.connection.class == ActiveRecord::ConnectionAdapters::MysqlAdapter
@@ -24,6 +23,7 @@ class CreateEolData < ActiveRecord::Migration
   end
 
   def self.down
+    ActiveRecord::Migration.not_okay_in_production
     drop_table "agent_contact_roles"
     drop_table "agent_contacts"
     drop_table "agent_data_types"

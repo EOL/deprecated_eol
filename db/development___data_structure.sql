@@ -18,7 +18,7 @@ CREATE TABLE `agent_contacts` (
   `telephone` varchar(30) character set ascii NOT NULL,
   `address` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `agent_data_types` (
   `id` tinyint(3) unsigned NOT NULL auto_increment,
@@ -68,7 +68,7 @@ CREATE TABLE `agents` (
   `updated_at` timestamp NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`),
   KEY `full_name` (`full_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=859358896 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `agents_data_objects` (
   `data_object_id` int(10) unsigned NOT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE `canonical_forms` (
   `string` varchar(300) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `string` (`string`(255))
-) ENGINE=InnoDB AUTO_INCREMENT=413836643 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `clean_names` (
   `name_id` int(10) unsigned NOT NULL,
@@ -138,7 +138,7 @@ CREATE TABLE `collections` (
   `logo_url` varchar(255) character set ascii NOT NULL,
   `vetted` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `common_names` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -205,8 +205,9 @@ CREATE TABLE `content_partners` (
   `eol_notified_of_acceptance` datetime default NULL,
   `auto_publish` tinyint(1) NOT NULL default '0',
   `show_on_partner_page` tinyint(1) NOT NULL default '0',
+  `show_mou_on_partner_page` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `data_objects` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -243,7 +244,7 @@ CREATE TABLE `data_objects` (
   KEY `index_data_objects_on_visibility_id` (`visibility_id`),
   KEY `index_data_objects_on_guid` (`guid`),
   KEY `index_data_objects_on_published` (`published`)
-) ENGINE=InnoDB AUTO_INCREMENT=565874095 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `data_objects_harvest_events` (
   `harvest_event_id` int(10) unsigned NOT NULL,
@@ -286,7 +287,7 @@ CREATE TABLE `data_types` (
   `label` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `harvest_events` (
   `id` tinyint(3) unsigned NOT NULL auto_increment,
@@ -296,7 +297,7 @@ CREATE TABLE `harvest_events` (
   `published_at` timestamp NULL default NULL,
   PRIMARY KEY  (`id`),
   KEY `resource_id` (`resource_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `harvest_events_taxa` (
   `harvest_event_id` int(10) unsigned NOT NULL,
@@ -316,7 +317,7 @@ CREATE TABLE `hierarchies` (
   `hierarchy_group_version` tinyint(3) unsigned NOT NULL,
   `url` varchar(255) character set ascii NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `hierarchies_content` (
   `hierarchy_entry_id` int(10) unsigned NOT NULL,
@@ -327,6 +328,23 @@ CREATE TABLE `hierarchies_content` (
   `youtube` tinyint(3) unsigned NOT NULL,
   `internal_image` tinyint(3) unsigned NOT NULL,
   `gbif_image` tinyint(3) unsigned NOT NULL,
+  `content_level` tinyint(3) unsigned NOT NULL,
+  `image_object_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`hierarchy_entry_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `hierarchies_content_test` (
+  `hierarchy_entry_id` int(10) unsigned NOT NULL,
+  `text` tinyint(3) unsigned NOT NULL,
+  `text_unpublished` tinyint(3) unsigned NOT NULL,
+  `image` tinyint(3) unsigned NOT NULL,
+  `image_unpublished` tinyint(3) unsigned NOT NULL,
+  `child_image` tinyint(3) unsigned NOT NULL,
+  `child_image_unpublished` tinyint(3) unsigned NOT NULL,
+  `video` tinyint(3) unsigned NOT NULL,
+  `video_unpublished` tinyint(3) unsigned NOT NULL,
+  `map` tinyint(3) unsigned NOT NULL,
+  `map_unpublished` tinyint(3) unsigned NOT NULL,
   `content_level` tinyint(3) unsigned NOT NULL,
   `image_object_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`hierarchy_entry_id`)
@@ -357,7 +375,7 @@ CREATE TABLE `hierarchy_entries` (
   KEY `hierarchy_id` (`hierarchy_id`),
   KEY `lft` (`lft`),
   KEY `taxon_concept_id` (`taxon_concept_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19222829 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `hierarchy_entry_names` (
   `hierarchy_entry_id` int(10) unsigned NOT NULL,
@@ -387,7 +405,7 @@ CREATE TABLE `info_items` (
   `toc_id` smallint(5) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `item_pages` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -400,7 +418,7 @@ CREATE TABLE `item_pages` (
   `url` varchar(255) character set ascii NOT NULL,
   `page_type` varchar(20) character set ascii NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5846119 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `languages` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -423,6 +441,7 @@ CREATE TABLE `licenses` (
   `source_url` varchar(255) character set ascii NOT NULL,
   `version` varchar(6) character set ascii NOT NULL,
   `logo_url` varchar(255) character set ascii NOT NULL,
+  `show_to_content_partners` tinyint(1) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `title` (`title`),
   KEY `source_url` (`source_url`)
@@ -435,7 +454,7 @@ CREATE TABLE `mappings` (
   `foreign_key` varchar(600) character set ascii NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `name_id` (`name_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=57703224 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `mime_types` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -463,7 +482,7 @@ CREATE TABLE `names` (
   `canonical_verified` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `canonical_form_id` (`canonical_form_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=413836653 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `normalized_links` (
   `normalized_name_id` int(10) unsigned NOT NULL,
@@ -479,7 +498,7 @@ CREATE TABLE `normalized_names` (
   `name_part` varchar(100) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `name_part` (`name_part`)
-) ENGINE=InnoDB AUTO_INCREMENT=1352853 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `normalized_qualifiers` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -508,7 +527,7 @@ CREATE TABLE `publication_titles` (
   `abbreviation` varchar(150) NOT NULL,
   `url` varchar(255) character set ascii NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=699 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `random_taxa` (
   `id` int(11) NOT NULL auto_increment,
@@ -525,7 +544,7 @@ CREATE TABLE `random_taxa` (
   `taxon_concept_id` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `index_random_taxa_on_content_level` (`content_level`)
-) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ranks` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -533,7 +552,7 @@ CREATE TABLE `ranks` (
   `rank_group_id` smallint(6) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=562 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `ref_identifier_types` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -605,7 +624,7 @@ CREATE TABLE `resources` (
   `vetted` tinyint(1) NOT NULL default '0',
   `notes` text,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `resources_taxa` (
   `resource_id` int(10) unsigned NOT NULL,
@@ -636,7 +655,7 @@ CREATE TABLE `synonym_relations` (
   `label` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `synonyms` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -648,7 +667,7 @@ CREATE TABLE `synonyms` (
   `hierarchy_id` smallint(5) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `hierarchy_entry_id` (`hierarchy_entry_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132320 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `table_of_contents` (
   `id` smallint(5) unsigned NOT NULL auto_increment,
@@ -657,7 +676,7 @@ CREATE TABLE `table_of_contents` (
   `view_order` smallint(5) unsigned default '0',
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=298 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `taxa` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -674,7 +693,7 @@ CREATE TABLE `taxa` (
   `updated_at` timestamp NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`),
   KEY `name_id` (`name_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=888012 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `taxon_concept_content` (
   `taxon_concept_id` int(10) unsigned NOT NULL,
@@ -690,6 +709,23 @@ CREATE TABLE `taxon_concept_content` (
   PRIMARY KEY  (`taxon_concept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE `taxon_concept_content_test` (
+  `taxon_concept_id` int(10) unsigned NOT NULL,
+  `text` tinyint(3) unsigned NOT NULL,
+  `text_unpublished` tinyint(3) unsigned NOT NULL,
+  `image` tinyint(3) unsigned NOT NULL,
+  `image_unpublished` tinyint(3) unsigned NOT NULL,
+  `child_image` tinyint(3) unsigned NOT NULL,
+  `child_image_unpublished` tinyint(3) unsigned NOT NULL,
+  `video` tinyint(3) unsigned NOT NULL,
+  `video_unpublished` tinyint(3) unsigned NOT NULL,
+  `map` tinyint(3) unsigned NOT NULL,
+  `map_unpublished` tinyint(3) unsigned NOT NULL,
+  `content_level` tinyint(3) unsigned NOT NULL,
+  `image_object_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY  (`taxon_concept_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `taxon_concept_names` (
   `taxon_concept_id` int(10) unsigned NOT NULL,
   `name_id` int(10) unsigned NOT NULL,
@@ -699,7 +735,8 @@ CREATE TABLE `taxon_concept_names` (
   `preferred` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`taxon_concept_id`,`name_id`,`source_hierarchy_entry_id`,`language_id`),
   KEY `vern` (`vern`),
-  KEY `name_id` (`name_id`)
+  KEY `name_id` (`name_id`),
+  KEY `source_hierarchy_entry_id` (`source_hierarchy_entry_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `taxon_concept_relationships` (
@@ -715,8 +752,10 @@ CREATE TABLE `taxon_concept_relationships` (
 CREATE TABLE `taxon_concepts` (
   `id` int(10) unsigned NOT NULL auto_increment,
   `supercedure_id` int(10) unsigned NOT NULL,
+  `vetted_id` tinyint(3) unsigned NOT NULL default '0',
+  `published` tinyint(3) unsigned NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=261 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `title_items` (
   `id` int(10) unsigned NOT NULL auto_increment,
@@ -727,7 +766,7 @@ CREATE TABLE `title_items` (
   `volume_info` varchar(100) NOT NULL,
   `url` varchar(255) character set ascii NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13855 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `top_images` (
   `hierarchy_entry_id` int(10) unsigned NOT NULL,
@@ -739,11 +778,6 @@ CREATE TABLE `top_images` (
 CREATE TABLE `top_unpublished_images` (
   `hierarchy_entry_id` int(10) unsigned NOT NULL,
   `data_object_id` int(10) unsigned NOT NULL,
-  `data_rating` float NOT NULL,
-  `vetted_id` tinyint(3) unsigned NOT NULL,
-  `visibility_id` int(11) default NULL,
-  `published` tinyint(1) NOT NULL default '0',
-  `curated` tinyint(1) NOT NULL default '0',
   `view_order` smallint(5) unsigned NOT NULL,
   PRIMARY KEY  (`hierarchy_entry_id`,`data_object_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -754,7 +788,7 @@ CREATE TABLE `vetted` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 CREATE TABLE `visibilities` (
   `id` int(11) NOT NULL auto_increment,
@@ -762,5 +796,5 @@ CREATE TABLE `visibilities` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 

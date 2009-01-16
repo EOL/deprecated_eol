@@ -61,7 +61,7 @@ class ContentController < ApplicationController
           :link => "/pages/" + row['taxon_concept_id'],
           :guid => row['guid'],
           :thumbnail => DataObject.image_cache_path(row['object_cache_url'], :medium),
-          :image => DataObject.image_cache_path(row['object_cache_url'], :large)
+          :image => DataObject.image_cache_path(row['object_cache_url'], :orig)
         }
       end
     end

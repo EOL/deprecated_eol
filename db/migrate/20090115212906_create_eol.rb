@@ -1,6 +1,7 @@
 class CreateEol < ActiveRecord::Migration
+
   def self.up
-    puts "++ #{ActiveRecord::Base.connection.class}"
+    ActiveRecord::Migration.not_okay_in_production
     
     # Basically, I want to throw an error if we're not using MySQL, while at the same time providing the framework
     # for adding other DB support in the future...
@@ -14,12 +15,12 @@ class CreateEol < ActiveRecord::Migration
         end
       end
     else
-      # Perhaps not the right error class to throw, but I'm not aware of good alternatives:
       raise ActiveRecord::IrreversibleMigration.new("Migration error: Unsupported database for initial schema--this was not written portably.")
     end
   end
 
   def self.down
+    ActiveRecord::Migration.not_okay_in_production
     drop_table "comments"
     drop_table "contact_subjects"
     drop_table "contacts"

@@ -150,8 +150,6 @@ class AccountController < ApplicationController
       set_current_user(@user)
       flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated]
       redirect_back_or_default
-    else
-      raise 'could not update user information'
     end
     
   end

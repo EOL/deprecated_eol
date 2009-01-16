@@ -3,7 +3,7 @@
 
 == INTRODUCTION
 
-Welcome the Encyclopedia of Life project.  The bulk of the code needed to run www.eol.org is written in Ruby on Rails and is
+Welcome to the Encyclopedia of Life project.  The bulk of the code needed to run http://www.eol.org is written in Ruby on Rails and is
 made available to anyone for re-use, repurposing or for improvement.  This is both an ambitious project and an ambitious codebase
 and we are excited to share it with the open source community.  The code has been under development since approximately September 2007,
 but has undergone many revisions and updates from June 2008-December 2008.  There is much work to be done, both in adding new features,
@@ -13,17 +13,17 @@ and friends and reuse it in your own projects.  If you see something you don't l
 
 == LICENSE
 
-The full code base is released under the MIT License.  Details are available in the "LICENSE.txt" file at the root of the code folder.
+The full code base is released under the MIT License.  Details are available in the "MIT-LICENSE.txt" file at the root of the code folder.
 
 == GETTING STARTED
 
 This is a big Rails project.  Clearly, some of the installation steps below are big and require multiple steps, but if you are currently
 a Rails developer, some are already done (like installing Ruby).  If you are not a Rails developer, we suggest you first
-visit www.rubyonrails.org for more info on getting going first and then return to us when you have your feet wet. 
+visit www.rubyonrails.org for more information on getting started with Rails and then return to us when you have your feet wet. 
 The www.eol.org codebase probably shouldn't be the first Rails project you've ever seen.
 
 For seasoned Rails developers, you'll also notice the codebase does some mix and matching --- both restful controllers and regular controllers,
-both ERB and HAML.  We like the restful way of doing things too and plan to move in that direction.  HAML vs ERB is still an open topic 
+both ERB and HAML.  We like the restful way of doing things and plan to move in that direction.  HAML vs ERB is still an open topic 
 for discussion, although we are sticking with ERB until it's settled.
 
 === INSTALLATION
@@ -34,57 +34,64 @@ through this process, please update this list with any changes you notice being 
 Note that many of these steps require root access on your machine.  You have been warned and may need to run them as "sudo" on a Mac/Linux
 or as an administrator on Windows (there, I acknowledged the existence of Windows).
 
-== FIRST THINGS FIRST
+=== FIRST THINGS FIRST
 
-1. Install Ruby and the Rails framework on your local machine.
-2. Install MySQL on your local machine.
+1. Install Ruby and the Rails framework on your local machine (www.ruby-lang.org and www.rubyonrails.org).
+2. Install MySQL on your local machine (www.mysql.com).
 3. Get the code from the public repository (http://repository.eol.org/eol) or GitHub.
 
-Next continue with the following sections: "SETTING UP THE DATABASES", "INSTALLING REQUIRED GEMS", "MAKING SURE IT REALLY WORKS"
-
-=== SETTING UP THE DATABASES
-
-1. Setup config/database.yml
-  a. copy "config/database.sample.yml" to "config/database.yml"
-  b. Create/update the appropriate entries for your development and test environments
-  c. For development purposes, the +demo+, +integration+, and +production+ environments may be removed
-  d. For production purposes, set the "master_database" to the master database for the core rails database
-    and the "master_data_database" to the master database for the data database (see more info below in the
-    "READ/WRITE SPLITTING" topic)
-2. rake db:create:all
-3. rake db:migrate
-4. rake spec:db:fixtures:load       # You need this or the next step will do nothing.
-5. rake denormal:build_random_taxa  # This populates the eolData database with data.
-6. rake db:migrate RAILS_ENV=test7
-7. rake spec:db:fixtures:load RAILS_ENV=test
-8. rake denormal:build_random_taxa RAILS_ENV=test   # If you don't run this one, you will get more failures!
-
-You can also make the bin/recreate_databases script executable, and then run
-./bin/recreate_databases to automatically run all of those tasks above 
-(assuming you are on a Mac or Unix machine).
+Next, continue with the following sections:  "INSTALLING REQUIRED GEMS", "SETTING UP THE DATABASES", "MAKING SURE IT REALLY WORKS"
 
 === INSTALLING REQUIRED GEMS
 
-The following gems are required on your local machhine for development but NOT deployment (deployment gems should
+The following gems are required on your local machine for development but NOT deployment (deployment gems should
 always be frozen into the project):
 	
-	ZenTest, ruby-debug, piston
+1. ZenTest
+2. ruby-debug
+3. piston
+4. hpricot
 
-If you are on a Mac, you will also need ruby-growl. ...Well, if you run autotest, you will.
+If you are on a Mac, you will also need ruby-growl. ... well, if you want to run autotest, you will.
 
-Plugins should be frozen into the vendor folder as is the version of Rails the app depends on.
+Plugins required to run the site in production should be frozen into the vendor folder as is the version of Rails the app depends on.
 
 To install required gems:
 
-- rake gems         # This could give you some errors...
-- rake gems:build   # if there are gems that aren't installed or you got that big error...
-- rake gems:install # if there were gems that are STILL missing...
-- # please manually install gems that are still missing or failed to install.
+  rake gems         # This could give you some errors...
+  rake gems:build   # if there are gems that aren't installed or you got that big error...
+  rake gems:install # if there were gems that are STILL missing...
+  # please manually install gems that are still missing or failed to install.
 
-=== MAKING SURE IT REALLY WORKS
 
-- script/server
-- go to http://localhost:3000 and see stuff
+=== SETTING UP THE DATABASES
+
+1. Setup the config/database.yml
+
+   a. Copy "config/database.sample.yml" to "config/database.yml"
+   b. Create/update the appropriate entries for your development and test environments
+   c. For development purposes, the +demo+, +integration+, and +production+ environments may be removed
+   d. For production purposes, set the "master_database" to the master database for the core rails database and the "master_data_database" to the master database for the data database (see more info below in the "READ/WRITE SPLITTING" topic)
+
+2. Run the following rake commands:
+
+  rake db:create:all
+  rake db:migrate
+  rake spec:db:fixtures:load       # You need this or the next step will do nothing.
+  rake denormal:build_random_taxa  # This populates the eolData database with data.
+  rake db:migrate RAILS_ENV=test7
+  rake spec:db:fixtures:load RAILS_ENV=test
+  rake denormal:build_random_taxa RAILS_ENV=test   # If you don't run this one, you will get more failures!
+
+You may also need to make the "bin/recreate_databases" script executable, and then run it to automatically run all of those tasks above (assuming you are on a Mac/Linux).
+
+  ./bin/recreate_databases 
+
+=== WATCHING IT COME TO LIFE
+
+  script/server
+
+Go to http://localhost:3000 and see stuff.
 
 
 == TESTING
@@ -97,53 +104,53 @@ For model tests, you can either use fixtures or ValidModelBuilder.
 The site is built to allow for master/slave database read/write splitting for the core rails database and
 the core "data" database.  There are two plugins involved in the use of multiple databases and read/write splitting:
 
- - use_db   -- used to direct some models to a different database (http://rails.elctech.com/blog/using-and-testing-rails-with-multiple-databases)
- - masochism -- used to split read/writes when using ActiveRecord (http://www.planetrubyonrails.org/tags/view/masochism)
+- use_db   : used to direct some models to a different database (http://rails.elctech.com/blog/using-and-testing-rails-with-multiple-databases)
+- masochism : used to split read/writes when using ActiveRecord (http://www.planetrubyonrails.org/tags/view/masochism)
 
 === MULTIPLE DATABASES
 New abstract class models are created which make connections to the other databases required, and then any
 models which need to connect to the other databases are subclassed from the new abstract class.  In our case, 
 we have two abstract classes representing connections to the data database and the logging database:
 
- - SpeciesSchemaModel
- - LoggingModel
+- SpeciesSchemaModel
+- LoggingModel
 
 These extra two databases are referenced in the database.yml in the following way:
 
- - environment_data (e.g. development_data)
- - environment_logging (e.g. development_logging)
+- environment_data (e.g. development_data)
+- environment_logging (e.g. development_logging)
 
 === READ/WRITE SPLITTING
 
 Read/write splitting is accomplished with the masochism plugin by adding two new database connections to the
-database.yml file:
+config/database.yml file:
 
-  - master_database (the master database connection for the core rails database)
-  - master_data_database (the master database connection for the "data" database)
+- master_database (the master database connection for the core rails database)
+- master_data_database (the master database connection for the "data" database)
   
 In addition there are new abstract classes representing a connection to each master database that can be
 used to run direct SQL queries against the masters:
 
-  - MasterDatabase   (for the core rails database)
-  - SpeciesSchemaWriter  (for the species data database)
+- MasterDatabase   (for the core rails database)
+- SpeciesSchemaWriter  (for the species data database)
     
 The logging database does not require read/write splitting since there is only a single server for this purpose.
 
 To enable read/write splitting via ActiveRecord, include the following in the approriate environment.rb file (e.g. config/environments/production.rb):
 
-config.after_initialize do 
-  ActiveReload::ConnectionProxy.setup!  
-  ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel          
-end
+  config.after_initialize do 
+    ActiveReload::ConnectionProxy.setup!  
+    ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel          
+  end
 
 Note that you *must* also enable class caching for this to work (this is the default in production, but not in
 development, which is important to note if you wish to test this functionality in development mode):
 
-config.cache_classes = true
+  config.cache_classes = true
 
 Manually crafted SQL queries with SELECT statement will be redirected to slave while all other queries like in the following example will be redirected to master:
 
-SpeciesSchemaModel.connection.execute("DELETE FROM data_objects WHERE id in (#{data_objects})")
+  SpeciesSchemaModel.connection.execute("DELETE FROM data_objects WHERE id in (#{data_objects})")
 
 You don't have to worry about master/slave databases in development mode unless you want to test your code against splitting queries.
 When in development, you could make the master_database and master_data_database must point to the same place as development
@@ -156,68 +163,61 @@ Spots in the code requiring some attention for refactoring, cleanup or further w
 and sometimes with a level of priority.  You can quickly locate all these comments with your IDE, an app like TextMate,
 or with a rake command:
 
-rake notes:todo
+  rake notes:todo
 
 == USERS/ROLES/RIGHTS
 
-The site is using the acl_system plugin (http://brainspl.at/articles/2006/02/20/new-plugin-acl_system),
-with the additions of "rights" at a controller level.  Basically:
+The site is using the acl_system plugin (http://brainspl.at/articles/2006/02/20/new-plugin-acl_system).
 
+Basically:
 1. Users can be assigned to zero or more roles.
-2. Rights to a controller can be assigned to zero or more roles by creating a row in the "Rights" table describing the
-right and the associated controller and then by adding that right into the role (it's a HABTM relationship).
-
-Users in roles will gain access to controllers whose rights are assigned to any of their roles (and only if you indicate
-that particular controller needs an authorization check with a "before_filter).
+2. Controllers are restricted by role when needed.
 
 So you can protect controllers and actions in the following ways:
 
-1. To indicate a user must be logged in to view particular actions or controllers, just put this at the top of the controller
-(restricted to certain actions if you wish):
+1. To indicate a user must be logged in to view particular actions or controllers, just put this at the top of the controller (restricted to certain actions if you wish):
 
- before_filter :check_authentication
+     before_filter :check_authentication
  
-This does not perform any checks for roles, just does a simple logged in check and redirects to the login page if
-needed.
+   This does not perform any checks for roles, just does a simple logged in check and redirects to the login page if
+   needed.
 
-2. To indicate a user must have the rights to a particular controller, just put this at the top of the controller
-(restricted to certain actions if you wish):
+2. To indicate a user must have the rights to a particular controller, just put this at the top of the controller (restricted to certain actions if you wish):
 
-  access_control :DEFAULT => 'Role name goes here'
+     access_control :DEFAULT => 'ROLE NAME GOES HERE'
 
-This checks to be sure the user has access rights to that controller (based on the role you specified) before letting them see it.
-For more advanced control over only certain methods, see the "acl_system2" plugin readme.
+   This checks to be sure the user has access rights to that controller (based on the role you specified) before letting them use
+   actions in the controller. For more advanced control over only certain methods, see the acl_system2 plugin README.
 
 3. A convenience controller/helper method is provided to check if a user is in a particular role called "is_user_in_role?"
 
-e.g. do_this_method_only_for_admins if is_user_in_role?('Administrator')
+   For example: 
 
-4. You can also use the built in acl helpers to only show links or other snippets of code in your view based on roles
-(but not rights!) membership.  Note that it is possible that you will link to a page in this way that is not
-actually viewable because this user does not have rights to view it.
+     do_this_method_only_for_admins if is_user_in_role?('Administrator')
 
-e.g. <% restrict_to "(Administrator) & !blacklist" do %> admin stuff here <% end %>
+4. You can also use the built in acl plugin helpers to only show links or other snippets of code in your view based on roles membership.
+
+   For example: 
+
+     <% restrict_to "(Administrator) & !blacklist" do %> admin stuff here <% end %>
 
 == ADMINISTRATIVE SECTION
 
 The admin section uses the roles setup described above.  To create a new admin function:
 
 1. Create a new controller in the "administrator" folder under controllers, e.g. Administrator::NewContollerName
-
 2. Derive that controller from the Admin controller, e.g. class Administrator::NewContollerName < AdminController
-
 3. Create your views in the correct subfolder under "views/administrator", e.g. "views/administrator/new_controller_name"
-
-4. Decide if you need a new role to access this controller or if an existing role will suffice.  Add the new role if required (you can use the admin interface or a migration)
-
+4. Decide if you need a new role to access this controller or if an existing role will suffice.  Add the new role into the
+   "roles" database if required (you can use the admin interface or a migration).
 5. At the top of your controller, restrict access to the role by adding the following line to the top:
 
-access_control :DEFAULT => 'Role name goes here'
+     access_control :DEFAULT => 'ROLE NAME GOES HERE'
 
-Note that by default, users must also have the generic "administrator" role to access any of the controllers derived from the main admin controller.
+   Note that by default, users must also have the generic "administrator" role to access any of the controllers derived from the main admin controller.
 
 6. Add your new controller to the admin navigation menu by editing "views/admin/_navigation.html.erb"
-See the existing links for restricting the display of menu items to the specific role you have identified in step 5.
+   See the existing links for restricting the display of menu items to the specific role you have identified in step 5.
 
 7. Make sure you've got at least one admin user with access to the correct role, log in and test.
 
@@ -238,60 +238,63 @@ In production mode it is CRITICALLY important to understand the automated loggin
 precious data.  To develop logging features, run the following tasks in the given order to populate your logging database with mock
 data... 
 
-- rake logging:clear						           # Deletes all logging-related records. (WARNING: NEVER run this in production.)
-- rake logging:dimension:mock THOUSANDS=2	 # Creates 2,000 psedo-random mock log entries (a.k.a. primary data).
-- rake logging:geocode:all					       # Performs geocoding on the primary data, using caches where possible.
-- rake logging:fact:all						         # Derives secondary data from primary data.
+  rake logging:clear						           # Deletes all logging-related records. (WARNING: NEVER run this in production.)
+  rake logging:dimension:mock THOUSANDS=2	 # Creates 2,000 psedo-random mock log entries (a.k.a. primary data).
+  rake logging:geocode:all					       # Performs geocoding on the primary data, using caches where possible.
+  rake logging:fact:all						         # Derives secondary data from primary data.
 
 ...at this point you should see data in the graph pages of the web application. Alternatively, run the following which does all of
 the above in one step....
 
-- script/runner script/logging_mock
+  script/runner script/logging_mock
 
-for cron jobs, you'll likely want to log all facts for a particular date range:
+For cron jobs, you'll likely want to log all facts for a particular date range:
 
- - rake logging:fact:today
- - rake logging:fact:yesterday
- - rake logging:fact:range FROM='01/15/2007' TO='12/19/2008'
+   rake logging:fact:today
+   rake logging:fact:yesterday
+   rake logging:fact:range FROM='01/15/2007' TO='12/19/2008'
 
 == EXTERNAL LINK TRACKING
 
 Any links to external sites that need to be tracked should use the following two helpers:
 
-eol_return_linked_text(text,url)      # (aliased as link_text as well)
-eol_return_linked_image(image,url)
+  eol_return_linked_text(text,url)      # (aliased as link_text as well)
+  eol_return_linked_image(image,url)
 
 Both will generate a link (with either the supplied text or the supplied image url) to the supplied URL.  The link will be logged in the 
 database, and if the $USE_EXTERNAL_LINK_POPUPS parameter is set to TRUE in the environment.rb file, a javascript pop-up warning window is shown
 prior to following the link.  The following additional parameters can be passed after the URL for both methods:
 
-:new_window=>true or false -- determines if link appears in new browser window (defaults to true)
-:show_only_if_link=>true or false -- determines if image or text is shown if no URL was supplied (defaults to false)
-:show_link_icon=>true or false -- determines if the external icon image is shown after the link (defaults to true for text links and false for image links)
+  :new_window=>true or false -- determines if link appears in new browser window (defaults to true)
+  :show_only_if_link=>true or false -- determines if image or text is shown if no URL was supplied (defaults to false)
+  :show_link_icon=>true or false -- determines if the external icon image is shown after the link (defaults to true for text links and false for image links)
 
 For images, the following parameters can also be passed:
-:alt=>'value' -- alt tag is set with the value passed
-:title=>'value' -- title tag is set with the value passed
+  :alt=>'value' -- alt tag is set with the value passed
+  :title=>'value' -- title tag is set with the value passed
 
 Currently no reports are provided for external link tracking, all links are stored in the "external_link_logs" in the logging database for later reporting.
 
 == FRAGMENT CACHING
 
 Fragment caching is enabled in the specific environment file (e.g. config/production.rb) and the storage mechanism (i.e. memcached)
-must be se as well.
+must be set as well.
 
-For memcahed:   config.cache_store = :mem_cache_store, '10.0.0.1:11211', '10.0.0.2:11211'
-To enable caching: config.action_controller.perform_caching             = true
+For memcahed:   
+  config.cache_store = :mem_cache_store, '10.0.0.1:11211', '10.0.0.2:11211'
 
-All "static" pages coming out of the CMS are fragment cached and cleared each hour (or as set in the $CACHE_CLEAR_IN_HOURS value set in
-the config/environment.rb file), using language as key to enable multiple fragments.  The header and footer navigation of each page is also 
-fragment cached on cleared at the same time interval.  The entire home page is cached, also autocleared on the interval set.
+To enable caching:
+ config.action_controller.perform_caching             = true
+
+All "static" pages coming out of the CMS are fragment cached and the home page cache is cleared each hour
+(or as set in the $CACHE_CLEAR_IN_HOURS value set in the config/environment.rb file), using language as key to enable multiple fragments.
+The header and footer navigation of each page is also fragment cached on cleared at the same time interval.
 When changes are made in the admin interface, these caches are automatically cleared.
 
 Names searches are cached by query type, language and vetted/non-vetted status.
 
 Species pages are cached using the following attributes as keys (since each will cause a different species page to be created).
-Note that when logged in an administrator or content partner, the pages are not cached and are generated dynamically each time.
+Note that when logged in as an administrator or content partner, the pages are not cached and are generated dynamically each time.
 
 Variables for naming species page fragment caches:
 - taxon_id
@@ -307,51 +310,54 @@ Clearing a species page cache automatically clears all of its ancestors as well.
 The following URLs can be used to trigger page expiration either manually in the browser or via a web service call.  They only work if called
 from "allowed" IPs (i.e. as specified in configuration) as defined in the application level method "allowed_request" (which returns TRUE or FALSE).
 
-/expire_all    == expire all non-species pages
-/expire_taxon/TAXON_ID  == expire specified taxon ID (and it's ancestors)
-/expire_taxa/?taxa_ids=ID1,ID2,ID3 == will expire a list of taxon IDs (and their unique ancestors) specified in the querystring (or post) parameter "taxa_ids" (separate by commas)
-/clear_caches == expire all fragment caches (if supported by data store mechanism)
+  localhost:3000/expire_all    # expire all non-species pages
+  localhost:3000/expire_taxon/TAXON_ID  # expire specified taxon ID (and it's ancestors)
+  localhost:3000/expire_taxa/?taxa_ids=ID1,ID2,ID3 # will expire a list of taxon IDs (and their unique ancestors) specified in the querystring (or post) parameter "taxa_ids" (separate by commas)
+  localhost:3000/clear_caches # expire all fragment caches (if supported by data store mechanism)
 
 From within the Rails applications, use the following application level methods:
 
-expire_all   == expire all non-species pages
-expire_taxon(taxon_ID)  == expire specified taxon id and ancestors (unless :expire_ancestors=>false is set)
-expire_taxa(taxon_ID_array) == expire specified array of taxon ID and unique ancestors (unless :expire_ancestors=>false is set)
-clear_all_caches == expire all fragment caches (everything!)
+  expire_all   # expire all non-species pages
+  expire_taxon(taxon_ID)  # expire specified taxon id and ancestors (unless :expire_ancestors=>false is set)
+  expire_taxa(taxon_ID_array)# expire specified array of taxon ID and unique ancestors (unless :expire_ancestors=>false is set)
+  clear_all_caches # expire all fragment caches (everything!)
 
-For testing purposes:
-To install memcached on a Mac: http://readystate4.com/2008/08/19/installing-memcached-on-os-x-1054-leopard/
-If you have a local memcached server installed on your Mac, start it with: "memcached -d -m 24 -p 11211" and stop it with "killall memcached"
+For testing purposes, to install memcached on a Mac see http://readystate4.com/2008/08/19/installing-memcached-on-os-x-1054-leopard/
+If you have a local memcached server installed (Mac/Linux), start it with: "memcached -d -m 24 -p 11211" and stop it with "killall memcached"
 
 == ASSETT PACKAGER (CSS and JS)
 
-This is now using a plugin, see details at http://synthesis.sbecker.net/pages/asset_packager
+This is now using the asset_packager plugin, see details at http://synthesis.sbecker.net/pages/asset_packager
 
-If you add an javascript include files and you want them included in the page, you must edit the "config/asset_packager.yml" file and place them in the order you wish them to be loaded.
-When running in development mode, the JS and CSS are included separately each time.
-
-When running in production mode, assets are included from packaged entities.  A rake task is used to combined and minify CSS and JS 
-referenced.  You must run this rake task each time the JS/CSS is updated to ensure the latest version is present when running in production mode.
+If you add a javascript include files and you want them included in the page, you must edit the "config/asset_packager.yml" file and place them in the order you wish them to be loaded.
+When running in development mode, the JS and CSS are included separately each time. When running in production mode, assets are included from packaged
+entities.  A rake task is used to combine and minify CSS and JS  referenced.  
+You must run this rake task each time the JS/CSS is updated to ensure the latest version is present when running in production mode.  The minification
+process is very sensitive to missing semicolons, extra commas and what not that are dealt with by modern browsers (not IE though...).  You have been
+warned - minification can and will break your JS if you are not careful!
 
 To update/create the combined versions:
 
-rake asset:packager:build_all
+  rake asset:packager:build_all
 
-In production, this rake command is run as part of the deploy.
+In production, this rake command is run as part of the capistrano deploy script.
 
 == TAXONCONCEPT ATTRIBUTION NOTES
 
 To get attribution for a given taxon concept ID:
- 1. Get TaxonConcept
-    e.g. t=TaxonConcept.find(101)
- 2. Look at hierarchy_entry for that taxon (could be many) 
-     e.g. he_all=t.hierarchy_entries  OR  he=t.entry (for the default)
- 3. Look at the associated hierarchy (could be one of many if you get them all)
-     e.g. h=he_all[0].hierarchy    OR  h=he.hierarcy
-          h.label
-          h.agent.full_name
-          h.agent.hompage
-          h.agent.logo_cache_url
- 4. Look at the associated agents for the hierarchy_entry
-     e.g. agents=he[0].agents   OR  agents=he.agents
-          agents.each {|agent| puts agent.full_name + " " + agent.homepage + " " + agent.logo_cache_url}
+1. Get TaxonConcept
+   e.g.
+     t=TaxonConcept.find(101)
+2. Look at hierarchy_entry for that taxon (could be many) 
+   e.g.
+     he_all=t.hierarchy_entries  OR  he=t.entry (for the default)
+3. Look at the associated hierarchy (could be one of many if you get them all)
+   e.g.
+      h=he_all[0].hierarchy #   OR  h=he.hierarcy
+      h.label
+      h.agent.full_name
+      h.agent.hompage
+      h.agent.logo_cache_url
+4. Look at the associated agents for the hierarchy_entry
+    e.g. agents=he[0].agents  # OR  agents=he.agents
+        agents.each {|agent| puts agent.full_name + " " + agent.homepage + " " + agent.logo_cache_url}

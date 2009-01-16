@@ -12,7 +12,7 @@
 		<strong>User agent:</strong><%= @error.user_agent%><br />
 		<strong>User ID:</strong><%= @error.user_id%><br />
 		<strong>Details:</strong> <br />
-    <%= @error.backtrace.gsub(/\n/,"<br />") %>
+    <pre><%= @error.backtrace.gsub(/\n/,"<br />") %></pre>
 
 	</div>
 						

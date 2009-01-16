@@ -72,7 +72,8 @@ namespace :logging do
     task :all => :environment do
       mine_all
     end
-
+    
+    #TODO: Implement this rake task
     task :date => :environment do
       raise 'TODO Need to implement this rake task!'     
     end

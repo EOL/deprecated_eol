@@ -70,6 +70,7 @@ function eol_update_image(large_image_url, params) {
   if (!params.curated) {
     $$('div#large-image-trust-button a')[0].href="/data_objects/"+params.data_object_id+"/curate?_method=put&curator_activity_id=3";
     $$('div#large-image-untrust-button a')[0].href="/data_objects/"+params.data_object_id+"/curate?_method=put&curator_activity_id=7";
+    $$('div#large-image-untrust-button a')[0].writeAttribute('data-data_object_id', params.data_object_id);
 
     $('large-image-trust-button').appear();
     $('large-image-untrust-button').appear();

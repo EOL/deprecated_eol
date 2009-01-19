@@ -70,7 +70,8 @@
                                    ",data_supplier_url: '" + escape_javascript(data_supplier_url) + "'" +
                                    ",data_supplier_icon: '" + escape_javascript(data_supplier_icon) + "'" +
                                    ", data_object_id: '#{image.id}'" +
-                                   ", curated: #{image.curated}"
+                                   ", curated: #{image.curated}" +
+                                   ", smart_image: '#{escape_javascript(image.smart_image)}'"
             unless image.license_text.nil?
                 image_attribution_hash += ",license_text: '" + escape_javascript(image.license_text || "") +
                                           "',license_logo: '" + escape_javascript(image.license_logo) +
@@ -89,9 +90,14 @@
             image_icon = preview_icon({:style=>"position:relative;top:-53px;left:-28px;"}) unless image.published?
             image_icon = published_icon({:style=>"position:relative;top:-53px;left:-28px;", :agent_name => data_supplier.full_name }) if published_by_agent == 1
             -%>
+
+            <script type="text/javascript">
+              EOL.MediaCenter.image_hash[<%=image.id%>] = <%=image_attribution_hash%>;
+            </script>
+
             <%= link_to_function("<span style=\"display:block;margin-left:4px;width:60px;height:48px;text-align:left;\"><img src=\"#{image.smart_thumb}\" alt=\"#{hh(image.scientific_name)}\"/></span>#{image_icon}",
-                                 %Q{return eol_update_image('#{ escape_javascript(image.smart_image)}',#{image_attribution_hash})},
-                                 :title => hh(image.scientific_name), :class=>class_name,:id=>"thumbnail#{counter}") %>
+                                 %Q{return eol_update_image('#{ escape_javascript(image.smart_image)}',EOL.MediaCenter.image_hash[#{image.id}])},
+                                 :title => hh(image.scientific_name), :class=>class_name,:id=>"thumbnail_#{image.id}") %>
           
             
             <% if counter == 1 

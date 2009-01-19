@@ -37,8 +37,6 @@
 
               <div id="left-image-buttons">
                 <ul id="large-image-button-group" style="text-align: left;">
-                  <%- if false  -%>
-                  <%- end -%>
                   <li id="large-image-attribution-button" class="attribution-icon">
                     <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', attribution_data_object_path(@images[0]), 
                       :id => "large-image-attribution-button-popup-link", :class => 'popup-link' %>
@@ -54,10 +52,10 @@
                       <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
                     </div>
                     <div id="large-image-trust-button" <%='style="display: none"' if @images[0].curated?%>>
-                      <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s} %>
+                      <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => @images[0].id} %>
                     </div>
                     <div id="large-image-untrust-button" <%='style="display: none"' if @images[0].curated?%>>
-                      <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s} %>
+                      <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => @images[0].id} %>
                     </div>
                     <div id="large-image-curator-button">
                       <%= popup_link 'curator', curation_data_object_path(@images[0]) %>

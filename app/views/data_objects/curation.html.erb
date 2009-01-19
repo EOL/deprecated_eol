@@ -14,13 +14,13 @@
 </div>
 
 <div class="vetted">
-  <% form_remote_tag :url => curate_data_object_path(@data_object), :method => 'put', :complete => "$$('#large-image-curator-button-popup-link_popup_content .vetted form')[0].enable();$$('#large-image-curator-button-popup-link_popup_content .vetted form img')[0].fade();" do %>
+  <% form_remote_tag :url => curate_data_object_path(@data_object), :method => 'put', :complete => "EOL.Curation.after_curate(#{@data_object.id});" do %>
     <div class="label">VETTED <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.approve!.id.to_s, @data_object.trusted? %> Trusted
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.approve!.id.to_s, @data_object.trusted?, {:id => 'curate_trust'} %> Trusted
     </div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.disapprove!.id.to_s, @data_object.untrusted? %> Untrusted
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.disapprove!.id.to_s, @data_object.untrusted?, {:id => 'curate_untrust'} %> Untrusted
     </div>
   <% end %>
 </div>

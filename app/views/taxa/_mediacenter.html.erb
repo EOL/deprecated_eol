@@ -39,7 +39,7 @@
                 <ul id="large-image-button-group" style="text-align: left;">
                   <%- if false  -%>
                   <%- end -%>
-                  <li id="large-image-attribution-button" class="attribution-icon">
+                  <li alt="More information" title="More information" id="large-image-attribution-button" class="attribution-icon">
                     <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', attribution_data_object_path(@images[0]), 
                       :id => "large-image-attribution-button-popup-link", :class => 'popup-link' %>
                   </li>
@@ -53,22 +53,22 @@
                     <div id="spinner">
                       <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
                     </div>
-                    <div id="large-image-trust-button" <%='style="display: hidden"' if @images[0].curated?%>>
+                    <div alt="Trust this object" title="Trust this object" id="large-image-trust-button" <%='style="display: hidden"' if @images[0].curated?%>>
                       <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s} %>
                     </div>
-                    <div id="large-image-untrust-button" <%='style="display: hidden"' if @images[0].curated?%>>
+                    <div alt="Do not trust this object" title="Do not trust this object"  id="large-image-untrust-button" <%='style="display: hidden"' if @images[0].curated?%>>
                       <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s} %>
                     </div>
-                    <div id="large-image-curator-button">
+                    <div alt="Curate object" title="Curate object" id="large-image-curator-button">
                       <%= popup_link 'curator', curation_data_object_path(@images[0]) %>
                     </div> <!-- /large-image-curator-button -->
                   <% end %>
 
-                  <div id="large-image-tagging-button">
+                  <div alt="Tag object" title="Tag object" id="large-image-tagging-button">
                     <%= popup_link 'tagging', data_object_tags_path(@images[0]) %>
                   </div> <!-- /large-image-tagging-button -->
 
-                  <div id="large-image-comment-button">
+                  <div alt="Comment on object" title="Comment on object" id="large-image-comment-button">
                     <%= popup_link 'comment', data_object_comments_path(@images[0]) %>
                   </div> <!-- /large-image-comment-button -->
                 </div> <!-- /large-image-button-popup -->

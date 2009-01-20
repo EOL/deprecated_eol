@@ -2924,6 +2924,7 @@ form div#browser-text li {list-style-type: none;}
 
 #large-image-curator-button-popup-link_popup .visibility {
   margin-bottom: 5px;
+  border-top: 1px solid #999999;
   border-bottom: 1px solid #999999;
   padding-bottom: 5px;
 }

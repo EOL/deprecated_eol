@@ -53,22 +53,22 @@
                     <div id="spinner">
                       <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
                     </div>
-                    <div alt="Trust this object" title="Trust this object" id="large-image-trust-button" <%='style="display: hidden"' if @images[0].curated?%>>
+                    <div alt="Trust this image" title="Trust this image" id="large-image-trust-button" <%='style="display: hidden"' if @images[0].curated?%>>
                       <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s} %>
                     </div>
-                    <div alt="Do not trust this object" title="Do not trust this object"  id="large-image-untrust-button" <%='style="display: hidden"' if @images[0].curated?%>>
+                    <div alt="Do not trust this image" title="Do not trust this image"  id="large-image-untrust-button" <%='style="display: hidden"' if @images[0].curated?%>>
                       <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s} %>
                     </div>
-                    <div alt="Curate object" title="Curate object" id="large-image-curator-button">
+                    <div alt="Curate image" title="Curate image" id="large-image-curator-button">
                       <%= popup_link 'curator', curation_data_object_path(@images[0]) %>
                     </div> <!-- /large-image-curator-button -->
                   <% end %>
 
-                  <div alt="Tag object" title="Tag object" id="large-image-tagging-button">
+                  <div alt="Tag image" title="Tag image" id="large-image-tagging-button">
                     <%= popup_link 'tagging', data_object_tags_path(@images[0]) %>
                   </div> <!-- /large-image-tagging-button -->
 
-                  <div alt="Comment on object" title="Comment on object" id="large-image-comment-button">
+                  <div alt="Comment on image" title="Comment on image" id="large-image-comment-button">
                     <%= popup_link 'comment', data_object_comments_path(@images[0]) %>
                   </div> <!-- /large-image-comment-button -->
                 </div> <!-- /large-image-button-popup -->
@@ -112,7 +112,7 @@
             <div id="map-url"><%= h(@map.map_image) %></div>
             <div id="map-title"><%= h(@taxon.name(:natural_form)) %> - distribution map</div>
           </div>
-          <div class="attribution_link">
+          <div alt="More information" title="More information" class="attribution_link">
               <%= link_to '', attribution_data_object_path(@map), :id => 'map_attributions',:class => 'popup-link attribution-icon' %>
           </div>
         <% end %>
@@ -152,7 +152,7 @@
         <% end %>
         </div> <!-- /video-list -->
         <% if @videos.blank? == false %>
-          <div class="attribution_link" style="display: none">
+          <div alt="More information" title="More information" class="attribution_link" style="display: none">
               <%= link_to '', attribution_data_object_path(@videos[0]), :id => 'video_attributions',:class => 'popup-link attribution-icon' %>
           </div>
         <%end%>
@@ -168,7 +168,7 @@
 	<div id="sliding-close">	
 		<div id="textarea">
     	<%="Classification"[]%> : <a href="#" onclick="JavaScript:eol_change_to_text_browser();return false;"><%= "Text"[] %></a>
-      | <a href="#" onclick="JavaScript:eol_change_to_flash_browser();return false;"><%= "Graphic"[] %></a> | <a id="classification-attribution-button" href="#" class="static-popup-link attribution-icon" onclick="return false;"></a>
+      | <a href="#" onclick="JavaScript:eol_change_to_flash_browser();return false;"><%= "Graphic"[] %></a> | <a id="classification-attribution-button" href="#" class="static-popup-link attribution-icon" alt="More information" title="More information" onclick="return false;"></a>
    	</div> <!-- /textarea -->
 		<div id="classification-attribution-button_popup_content" class="attribution" style="display:none;">
   

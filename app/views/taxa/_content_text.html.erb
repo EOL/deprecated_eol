@@ -60,7 +60,7 @@ comments_style=(@ajax_update ? '' : 'display:none;')  # comments start out as hi
             <li class="text-comment-button">
               <%# This link begins life hidden, so that it is only viewable (hence clickable) after Javascript (hence Behaviours)
                   have been loaded: %>
-                  <%= link_to image_tag('comment_button.png'), data_object_comments_path(content_item), :style => comments_style,
+                  <%= link_to image_tag('comment_button.png'), data_object_comments_path(content_item), :style => comments_style, :alt=>'Comment on text above', :title=>'Comment on text above',
                               :class => 'slide-in-link' %>
             </li>
           </ul>

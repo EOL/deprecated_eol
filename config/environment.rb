@@ -128,6 +128,7 @@ Rails::Initializer.run do |config|
   
   # ERROR HANDLING CONFIGURATION
   $EXCEPTION_NOTIFY = false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
+  $EXCEPTION_EMAIL_ADDRESS = %("EOL Application Error" <no-reply@example.comma>) 
   $ERROR_LOGGING = true # set to true to record uncaught application errors in sql database file 
   $IGNORED_EXCEPTIONS = ["CGI::Session::CookieStore::TamperedWithCookie","taxa id not supplied","static page without id"] # array of exceptions to ignore when logging or notifying
   
@@ -166,6 +167,7 @@ Rails::Initializer.run do |config|
     
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store
+    CGI::Session::ActiveRecordStore::Session.connection = ActiveRecord::Base.establish_connection("master_database")
   end
   
   begin
@@ -173,12 +175,15 @@ Rails::Initializer.run do |config|
   rescue LoadError
   #  puts 'Could not load environments local.rb file'
   end
+  #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
+  begin
+    require 'environment_eol_org'
+  rescue LoadError
+    #puts 'Could not load environment_eol_org.rb file'
+  end
   
 end
 
-if $USE_SQL_SESSION_MANAGEMENT
-  CGI::Session::ActiveRecordStore::Session.connection = ActiveRecord::Base.establish_connection("master_database")
-end
 
 # Windows users are colorblind:
 ActiveRecord::Base.colorize_logging = false if PLATFORM =~ /win32/
@@ -192,7 +197,7 @@ ENV['APP_VERSION'] = ''
 
 # if exception_notify is true, configure below
 ExceptionNotifier.exception_recipients = [] # email addresses of people to get exception notifications, separated by spaces, blank array if nobody, can also set $EXCEPTION_NOTIFY to false
-ExceptionNotifier.sender_address = %("EOL Application Error" <no-reply@example.comma>)
+ExceptionNotifier.sender_address = $EXCEPTION_EMAIL_ADDRESS
 ExceptionNotifier.email_prefix = "[EOL] "
 
 require 'extensions'
@@ -212,10 +217,4 @@ class String
   end
 end
 
-#This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
-begin
-  require 'environment_eol_org'
-rescue LoadError
-  puts '*****************WARNING: COULD NOT LOAD ENVIRONMENT_EOL_ORG FILE***********************'
-end
 

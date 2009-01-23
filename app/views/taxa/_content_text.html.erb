@@ -1,16 +1,12 @@
 <% 
-unvetted_counter=0
-unvetted_banner_shown=false
+unknown_banner_shown=false
+untrusted_banner_shown=false
 comments_style=(@ajax_update ? '' : 'display:none;')  # comments start out as hidden on first page load (shown when entire page is loaded, but for ajax updates, show immediately)
  
- unless @content[:data_objects].nil?
+unless @content[:data_objects].nil?
   for content_item in @content[:data_objects]
-    
-    unvetted_counter+=1 if content_item.vetted_id != Vetted.trusted.id
-    
-    author_attribution_html = agent_partial(content_item.authors)
+    vetted_id_style = ''
     source_attribution_html = agent_partial(content_item.sources)
-    sources_icons_linked    = agent_icons_partial(content_item.sources)
 
         # first try and link the source agents to the object link
     additional_attribution_html = link_text(agent_partial(content_item.sources, :linked=>false),
@@ -21,20 +17,28 @@ comments_style=(@ajax_update ? '' : 'display:none;')  # comments start out as hi
     # if we don't have any direct object link, then we won't have a source link above the text, so next try to get it using the source
     additional_attribution_html = source_attribution_html unless additional_attribution_html.blank?
 
-        license_attribution_html = ''
+    license_attribution_html = ''
     unless content_item.license.nil?
       license_attribution_html += content_item.license.description + '<br/>' unless content_item.license.description.blank?
       license_attribution_html += eol_return_linked_image(content_item.license.small_logo_url,
                                 content_item.license.source_url,
                                 :alt=>(content_item.license.title || ''))  
     end -%>
-    
-    <% if unvetted_counter == 1 && !unvetted_banner_shown 
-       unvetted_banner_shown=true %>
-      <%= render :partial=>'/shared/unvetted_text_warning_box' -%>
+    <% if content_item.vetted_id == Vetted.unknown.id && !unknown_banner_shown %>
+      <% unknown_banner_shown=true %>
+      <%= render :partial=>'/shared/unknown_text_warning_box' -%>
+    <% elsif content_item.vetted_id == Vetted.untrusted.id && !untrusted_banner_shown %>
+      <% untrusted_banner_shown=true %>
+      <%= render :partial=>'/shared/untrusted_text_warning_box' -%>
+    <% end %>
+
+    <% if content_item.vetted_id == Vetted.unknown.id %>
+      <% vetted_id_style = 'unknown-background-image' %>
+    <% elsif content_item.vetted_id == Vetted.untrusted.id %>
+      <% vetted_id_style = 'untrusted-background-image' %>
     <% end %>
     
-    <div class="content-article">
+    <div class="content-article <%=vetted_id_style%>" id="text_<%=content_item.id%>">
       <% if content_item.object_title.blank? == false && content_item.object_title != @content[:category_name] %>
         <h1><%= hh(content_item.object_title) %></h1>
       <% end %>
@@ -53,20 +57,30 @@ comments_style=(@ajax_update ? '' : 'display:none;')  # comments start out as hi
        <%- end -%>
        <%= content_item.description %>
       </div>
+    </div>
 
-      <div class="text-buttons">
-        <div class="text-right-buttons">
-          <ul class="text-button-group">
-            <li class="text-comment-button">
-              <%# This link begins life hidden, so that it is only viewable (hence clickable) after Javascript (hence Behaviours)
-                  have been loaded: %>
-                  <%= link_to image_tag('comment_button.png'), data_object_comments_path(content_item), :style => comments_style,
-                              :class => 'slide-in-link' %>
-            </li>
-          </ul>
+    <div class="text_buttons" id="text_buttons_<%=content_item.id%>">
+      <% if current_user.can_curate?(@taxon) && !content_item.curated?%>
+        <div class="spinner">
+          <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
         </div>
+        <div class="trust_button">
+          <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
+        </div>
+        <div class="untrust_button">
+          <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
+        </div>
+      <% end %>
+      <!--
+      <div class="curate_button">
+        <%= popup_link 'curator', curation_data_object_path(content_item) %>
+      </div>
+      -->
+      <div class="comment_button">
+        <%= link_to image_tag('comment_button.png'), data_object_comments_path(content_item), :style => comments_style, :class => 'slide-in-link' %>
       </div>
     </div>
+
     <div id="text-comments-<%= content_item.id %>-loading" style="display:none;">
       <%# TODO - we re-use this indicator a lot.  Put it in a CSS class. %> 
       <p><%= image_tag 'indicator_arrows_black.gif' %> Retrieving comments, please wait...</p>

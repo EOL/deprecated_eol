@@ -48,14 +48,14 @@
                 <div id="large-image-button-popup">
                   <%#The inner divs on the links are hacks to get the links to work in ie6. there's probably a better way to do this%>
                   <% if current_user.can_curate?(@taxon) %>
-                    <div id="spinner">
+                    <div class="spinner">
                       <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
                     </div>
-                    <div id="large-image-trust-button" <%='style="display: none"' if @images[0].curated?%>>
-                      <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => @images[0].id} %>
+                    <div id="large-image-trust-button" class="trust_button" <%='style="display: none"' if @images[0].curated?%>>
+                        <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => @images[0].id, 'data-data_object_type' => DataType.image_type_ids[0]} %>
                     </div>
-                    <div id="large-image-untrust-button" <%='style="display: none"' if @images[0].curated?%>>
-                      <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => @images[0].id} %>
+                    <div id="large-image-untrust-button" class="untrust_button" <%='style="display: none"' if @images[0].curated?%>>
+                        <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => @images[0].id, 'data-data_object_type' => DataType.image_type_ids[0]} %>
                     </div>
                     <div id="large-image-curator-button">
                       <%= popup_link 'curator', curation_data_object_path(@images[0]) %>

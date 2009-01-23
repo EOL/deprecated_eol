@@ -84,7 +84,7 @@ a.close-button:hover {
 }
 
 /* styles for specific popups */
-div#right-image-buttons div#spinner {
+div#right-image-buttons div.spinner {
  position: absolute;
  top: 0px;
  left: 0px;

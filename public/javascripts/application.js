@@ -25,7 +25,7 @@ Event.addBehavior(
   },
 
   // slide in text comments (TEXT OBJECT - slides down, doesn't POPUP)
-  '.text-comment-button a:click': function(e) {
+  'div.text_buttons div.comment_button a:click': function(e) {
     EOL.slide_in(this);
     e.stop();
   },

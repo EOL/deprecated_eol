@@ -1072,12 +1072,21 @@ ul#global-navigation {
       background-color: #f4f4f4;
     }
 
-		#unvetted-text-warning-box {
+		#unknown-text-warning-box {
 			margin-bottom:1em;
 			border:1px solid #FFCC00;
 			border-left: 10px solid #FFCC00;
 			padding:7px;
 			background-color:#FFFF99;			
+			margin-bottom: 1em;
+		}
+
+        #untrusted-text-warning-box {
+			margin-bottom:1em;
+			border:1px solid #FF0000;
+			border-left: 10px solid #FF0000;
+			padding:7px;
+			background-color:#FF9999;
 			margin-bottom: 1em;
 		}
 
@@ -1163,7 +1172,7 @@ ul#global-navigation {
 			background-color: #FFFF99;
 		}
 		
-		.unvetted-message-box {
+		.message-box {
 			font-weight: bold;
 			line-height: 1.2em;
 			font-size: 12px;
@@ -1913,9 +1922,6 @@ ul#global-navigation {
     {
       font-weight: 700;
     }    
-
-    .content-article {
-    }
 
     #content #page-content #center-page-content .cpc-content p {
       padding-bottom: 0px;
@@ -2992,7 +2998,19 @@ div.generic_report div.settings fieldset { border: 1px solid rgb(204, 204, 204);
 
 form#search_form div.search_options { padding-top: 5px; }
 
-li.text-comment-button {list-style-type: none;} 
+div.content-article {
+  padding: 5px;
+}
+
+div.text_buttons { position: relative; height: 30px; margin-top: 2px; }
+div.text_buttons div { position: absolute; top: 0px; }
+div.text_buttons div.spinner { left: 280px; }
+div.text_buttons div.trust_button { left: 310px; background: transparent url(/images/thumb_up.png) no-repeat; }
+div.text_buttons div.untrust_button { left: 340px; background: transparent url(/images/thumb_down.png) no-repeat; }
+div.text_buttons div.curate_button { left: 370px; background: transparent url(/images/icons/icons.gif) no-repeat -23px 0px; }
+div.text_buttons div.curate_button:hover { background: transparent url(/images/icons/icons.gif) no-repeat -23px -32px; }
+div.text_buttons div.comment_button { left: 400px; background: transparent url(/images/icons/icons.gif) no-repeat -72px 0px; }
+div.text_buttons div.comment_button:hover { background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px; }
 
 /* Clade selector on signup page for curator registration */
 

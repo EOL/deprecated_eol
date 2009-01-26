@@ -1,5 +1,4 @@
-module EOL
-  
+class EOL
   module DB
     module Create
       def all
@@ -77,7 +76,7 @@ module EOL
     end
     
   end
-  
+
   module Print
     
     # prints out HierarchyEntry notes for a given Hierarchy ID, displaying depths, eg:
@@ -115,5 +114,4 @@ module EOL
     end
     
   end
-  
 end

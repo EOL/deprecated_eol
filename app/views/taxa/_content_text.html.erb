@@ -77,16 +77,14 @@ unless @content[:data_objects].nil?
       </div>
       -->
       <div class="comment_button">
-        <%= link_to image_tag('comment_button.png'), data_object_comments_path(content_item), :style => comments_style, :class => 'slide-in-link' %>
+        <%= link_to image_tag('comment_button.png'), data_object_comments_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
       </div>
     </div>
 
-    <div id="text-comments-<%= content_item.id %>-loading" style="display:none;">
-      <%# TODO - we re-use this indicator a lot.  Put it in a CSS class. %> 
-      <p><%= image_tag 'indicator_arrows_black.gif' %> Retrieving comments, please wait...</p>
-    </div>
-    <div class="text-comment-border" id="text-comments-border-<%= content_item.id %>" style="display:none;">
-      <div class="text-comment-div" id="text-comments-<%= content_item.id %>" style="display:none;">
+    <div id="text-comments-wrapper-<%= content_item.id %>" style="display:none;" class="text-comment-border">
+      <div id="text-comments-<%= content_item.id %>" class="text-comment-container">
+        <%# TODO - we re-use this indicator a lot.  Put it in a CSS class. %>
+        <p><%= image_tag 'indicator_arrows_black.gif' %> Retrieving comments, please wait...</p>
       </div>
     </div>
     <div class="divider"></div>  

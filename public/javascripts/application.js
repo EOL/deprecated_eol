@@ -26,7 +26,18 @@ Event.addBehavior(
 
   // slide in text comments (TEXT OBJECT - slides down, doesn't POPUP)
   'div.text_buttons div.comment_button a:click': function(e) {
-    EOL.slide_in(this);
+    data_object_id = this.readAttribute('data-data_object_id');
+    textComments = "text-comments-" + data_object_id;
+    textCommentsWrapper = "text-comments-wrapper-" + data_object_id;
+    if ($(textCommentsWrapper).style.display == 'none') {
+      new Ajax.Updater(textComments, this.href,
+                       {asynchronous:true, evalScripts:true, method:'get',
+                        parameters: { body_div_name: textComments },
+                        onLoading: Effect.BlindDown(textCommentsWrapper)
+                        });
+    } else {
+      Effect.DropOut(textCommentsBorder);
+    }
     e.stop();
   },
 

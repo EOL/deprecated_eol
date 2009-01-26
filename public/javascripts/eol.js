@@ -51,27 +51,6 @@ EOL.current_path = function() {
   return window.location.toString().gsub(/https?:\/\//,'').gsub(/^([^/])/,'');
 };
 
-// Slide-in a new area in the center-content block:
-EOL.slide_in = function(el) {
-  textComments = "text-comments-" + el.href.match(/data_objects\/(\d+)\//)[1];
-  textCommentsBorder = "text-comments-border-" + el.href.match(/data_objects\/(\d+)\//)[1];
-  if ($(textCommentsBorder).style.display == 'none') {
-    $(textComments).style.display = 'block';
-    $(textComments).innerHTML = '';
-    new Ajax.Updater(textComments, el.href,
-                     {asynchronous:true, evalScripts:true, method:'get',
-                      parameters: { body_div_name: textComments },
-                      onLoading:function() {Effect.BlindDown(textComments + '-loading', {duration: 0.6});},
-                      onSuccess:function() {
-                        Effect.BlindUp(textComments + '-loading', {duration: 0.4});
-                        $(textCommentsBorder).appear();
-                      }
-                      });
-  } else {
-    Effect.DropOut(textCommentsBorder);
-  }
-}
-
 // Some behaviors to perform when Ajax new calls start or finish (when all have finished)
 //
 // these functions handle their own # of active ajax requests because we have requests coming 

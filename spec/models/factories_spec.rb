@@ -2,13 +2,13 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Factory do
 
-  # we'll go thru and get all model classes ... for right now, tho, we'll 
-  # set these manually to make it a bit easier to handle ...
-  def self.all_model_classes
+  # using for now, in place of all_model_classes
+  def self.some_model_classes
     [ TaxonConcept, HierarchyEntry ]
   end
 
-  all_model_classes.each do |klass|
+  # use all_model_classes if you want *all* ... all 97 of them  :)
+  some_model_classes.each do |klass|
     it "should generate #{klass}" do
       3.times do
         lambda {

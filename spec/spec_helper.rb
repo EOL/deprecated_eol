@@ -4,8 +4,12 @@ require 'spec'
 require 'spec/rails'
 load 'composite_primary_keys/fixtures.rb' 
 require File.expand_path(File.dirname(__FILE__) + "/factories")
+require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
+# require File.expand_path(File.dirname(__FILE__) + "/custom_matchers") # eval this with config context?
 
 Spec::Runner.configure do |config|
+  include EOL::Spec::Helpers
+
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
@@ -32,6 +36,7 @@ Spec::Runner.configure do |config|
       Thread.current['open_transactions'] = 0
     end
   end
+
 end
 
 # quite down any migrations that run during tests

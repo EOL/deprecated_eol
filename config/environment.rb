@@ -11,6 +11,9 @@
 require File.join(File.dirname(__FILE__), 'boot')
 require 'eol_web_service'
 
+# put this into lib?  we should have an EOL class which we can use for namespacing as well as configuration options, etc
+class EOL; end
+
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
 
@@ -226,4 +229,3 @@ begin
 rescue LoadError
   puts '*****************WARNING: COULD NOT LOAD ENVIRONMENT_EOL_ORG FILE***********************'
 end
-

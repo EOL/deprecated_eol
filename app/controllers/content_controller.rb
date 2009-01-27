@@ -135,7 +135,7 @@ class ContentController < ApplicationController
     if verify_recaptcha && @contact.save  
       Notifier.deliver_contact_us_auto_response(@contact)
       flash[:notice]="Thank you for your feedback."[:thanks_for_feedback]
-      redirect_to return_to_url
+      redirect_back_or_default
     else
       @verification_did_not_match="The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
     end
@@ -159,7 +159,7 @@ class ContentController < ApplicationController
     if verify_recaptcha && @contact.save
       Notifier.deliver_media_contact_auto_response(@contact)
       flash[:notice]="Your message was sent."[:your_message_was_sent]
-      redirect_to return_to_url      
+      redirect_back_or_default 
     else
       @verification_did_not_match="The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
     end

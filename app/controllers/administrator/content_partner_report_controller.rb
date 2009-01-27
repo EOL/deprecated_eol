@@ -63,9 +63,11 @@ class Administrator::ContentPartnerReportController < AdminController
   def edit_agreement
     
     @agent=Agent.find(params[:id])
-    
+
+    # if we are posting, create the new agreement
     if request.post?
-      @agreement=ContentPartnerAgreement.create_new(@agent.id)
+      agreement=params[:agreement].merge(:agent_id=>@agent.id)
+      @agreement=ContentPartnerAgreement.create_new(agreement)
       if @agreement.valid?
         flash[:notice]='Content partner agreement was updated.'
         redirect_to :action=>'show',:id=>params[:id]
@@ -76,7 +78,7 @@ class Administrator::ContentPartnerReportController < AdminController
       @agreement=ContentPartnerAgreement.find_by_agent_id_and_is_current(@agent.id,true,:order=>'created_at DESC')
 
       # if this is the first time they are viewing the agreement, create it from the default template
-      @agreement=ContentPartnerAgreement.create_new(@agent.id) if @agreement.nil?
+      @agreement=ContentPartnerAgreement.create_new(:agent_id=>@agent.id) if @agreement.nil?
 
     end
 

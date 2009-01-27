@@ -1,7 +1,200 @@
 require 'factory_girl'
+require 'faker'
+
+Factory.define :agent_contact do |ac|
+  ac.association :agent
+  ac.association :agent_contact_role
+  ac.given_name  { Faker::Name.first_name }
+  ac.family_name { Faker::Name.last_name }
+  ac.full_name   {|a| "#{a.first_name} #{a.last_name}" }
+  ac.email       {|a| "#{a.first_name}.#{a.last_name}@example.com".downcase }
+end
+
+Factory.define :agent_status do |as|
+  as.label 'SomeNewStatus'
+end
+
+Factory.define :agent do |agent|
+  agent.created_at       { 5.days.ago }
+  agent.homepage         ''
+  agent.full_name        { Faker::Name.name }
+  agent.username         {|a| a.full_name.gsub(/\W+/, '').downcase }
+  agent.email            { Faker::Internet.email }
+  agent.hashed_password  { Digest::MD5.hexdigest('test password') }
+  agent.agent_status_id  { AgentStatus.active.id }
+end
+
+Factory.define :agents_data_object do |ado|
+  ado.association :data_object
+  ado.association :agent
+  ado.association :agent_role
+  ado.view_order  0
+end
+
+Factory.define :agents_hierarchy_entry do |ahe|
+  ahe.association :agent
+  ahe.association :agent_role
+  ahe.association :hierarchy_entry
+  ahe.view_order  2
+end
+
+Factory.define :agents_resource do |ar|
+  ar.association :agent
+  ar.association :resource
+  ar.association :resource_agent_role
+end
+
+Factory.define :canonical_form do |cform|
+  cform.string 'Cononica idenitifii'
+end
+
+Factory.define :collection do |col|
+  col.association :agent
+  col.title       'New Collection'
+  col.description 'Testing New Colleciton'
+  col.uri         'http://testing.new.collecti.on'
+  col.link        'http://clicky.link.com'
+  col.logo_url    'grin.jpg'
+  col.vetted      1
+end
+
+Factory.define :content_page do |cp|
+  cp.association :content_section
+  cp.page_name    'Test Content Page'
+  cp.title        'Test Content Page'
+  cp.left_content '<h3>This is Left Content in a Test Content Page</h3>'
+  cp.main_content '<h1>Main Content for Test Content Page ROCKS!</h1>'
+  cp.sort_order   1
+  cp.url          '' # This would imply that the content was external.
+
+end
+
+Factory.define :content_partner do |cp|
+  cp.auto_publish              false
+  cp.association               :agent
+  cp.description               'Our Testing Content Partner'
+  cp.description_of_data       'Civil Protection!'
+  cp.created_at                { 5.days.ago }
+  cp.partner_seen_step         { 5.days.ago }
+  cp.partner_complete_step     { 5.days.ago }
+  cp.contacts_seen_step        { 5.days.ago }
+  cp.contacts_complete_step    { 5.days.ago }
+  cp.attribution_seen_step     { 5.days.ago }
+  cp.attribution_complete_step { 5.days.ago }
+  cp.roles_seen_step           { 5.days.ago }
+  cp.roles_complete_step       { 5.days.ago }
+  cp.ipr_accept                true
+  cp.attribution_accept        true
+  cp.roles_accept              true
+  cp.show_on_partner_page      true
+  cp.vetted                    false
+end
+
+Factory.define :content_section do |cs|
+  cs.name 'Test Content Section'
+end
+
+Factory.define :curator_activity do |ca|
+  ca.code 'TestActivity'
+end
+
+Factory.define :curator_activity_log_daily do |cald|
+  cald.association :user
+end
+
+Factory.define :curator_comment_log do |ccl|
+  ccl.association :comment
+end
+
+Factory.define :curator_data_object_log do |cdol|
+  cdol.association :data_object
+end
+
+Factory.define :data_object do |dato|
+  dato.guid                   ''
+  dato.association            :data_type
+  dato.association            :mime_type
+  dato.object_title           ''
+  dato.association            :language
+  dato.association            :license
+  dato.rights_statement       ''
+  dato.rights_holder          ''
+  dato.bibliographic_citation ''
+  dato.source_url             ''
+  dato.description            'Test Data Object'
+  dato.object_url             ''
+  dato.object_cache_url       ''
+  dato.thumbnail_url          ''
+  dato.thumbnail_cache_url    ''
+  dato.location               ''
+  dato.latitude               0
+  dato.longitude              0
+  dato.altitude               0
+  dato.object_created_at      { 5.days.ago }
+  dato.object_modified_at     { 2.days.ago }
+  dato.created_at             { 5.days.ago }
+  dato.updated_at             { 3.days.ago }
+  dato.data_rating            0.5
+  dato.vetted_id              { Vetted.trusted.id }
+  dato.visibility_id          { Visibility.visible.id }
+  dato.published              true
+end
+
+Factory.define :data_objects_harvest_event do |dohe|
+  dohe.association :harvest_event
+  dohe.association :data_object
+  dohe.guid        { s = ''; 32.times { s += ((0..9).to_a.map{|n| n.to_s} + %w{a b c d e f}).rand }; s } # ICK!
+  dohe.status_id   { Status.inserted.id }
+end
+
+Factory.define :data_objects_table_of_content do |dato|
+  dato.association :data_object
+  dato.association :toc_item
+end
+
+Factory.define :data_objects_taxon do |dot|
+  dot.identifier  ''
+  dot.association :taxon
+  dot.association :data_object
+end
+
+Factory.define :data_type do |dt|
+  dt.schema_value 'http://purl.org/dc/dcmitype/ThisLinkWillFail.JustTesting'
+  dt.label        'TestDataType'
+end
+
+Factory.define :harvest_event do |he|
+  he.association :resource
+  he.began_at     { 5.hours.ago }
+  he.completed_at { 4.hours.ago }
+  he.published_at { 3.hours.ago }
+end
+
+Factory.define :hierarchy do |hierarchy|
+  hierarchy.label                   "A nested structure of divisions related to their probable evolutionary descent"
+  hierarchy.url                     ''
+  hierarchy.hierarchy_group_version 0
+  hierarchy.association             :hierarchy_group
+  hierarchy.description             ''
+  hierarchy.association             :agent
+end
+
+# TODO - This should probable assume you want some content, and build it.  Not sure, though.
+Factory.define :hierarchies_content do |hc|
+  hc.association    :hierarchy_entry
+  hc.text           0
+  hc.image          0
+  hc.child_image    0
+  hc.flash          0
+  hc.youtube        0
+  hc.internal_image 0
+  hc.gbif_image     0
+  hc.content_level  1
+  hc.association    :image_object
+end
 
 Factory.define :hierarchy_entry do |he|
-  he.remote_id        ''
+  he.remote_id        '' # This is an ID on the foreign web site, NOT in our DB.
   he.depth            2
   he.ancestry         ''
   he.lft              1
@@ -12,6 +205,183 @@ Factory.define :hierarchy_entry do |he|
   he.rgt              2
   he.identifier       ''
   he.association      :hierarchy
+end
+
+Factory.define :info_item do |ii|
+  ii.schema_value 'http://rs.tdwg.org/ontology/voc/ThisWontWork.JustForTesting'
+  ii.label        'TestInfoItem'
+  ii.association  :toc
+end
+
+# BHL Stuff:
+Factory.define :item_page do |ip|
+  ip.association :title_item
+  ip.year        '1999'
+  ip.volume      '2'
+  ip.issue       '42'
+  ip.prefix      'Page'
+  ip.number      '6'
+  ip.url         'http://www.biodiversitylibrary.org/page/ThisWontWork.JustTesting'
+end
+
+Factory.define :language do |l|
+  l.iso_639_1    'kl'
+  l.name         'Klingon'
+  l.sort_order   1
+  l.activated_on { 5.days.ago }
+end
+
+Factory.define :license do |l|
+  l.title       'Test License Type'
+  l.description 'Rights?  What Rights?'
+  l.source_url  ''
+  l.version     0
+  l.logo_url    ''
+end
+
+Factory.define :mapping do |m|
+  m.association :collection
+  m.association :name
+  m.foreign_key 7357 # Arbitrary, off-site number
+end
+
+Factory.define :name do |name|
+  name.italicized          '<i>Somethia specificus</i> Posford & R. Ram'
+  name.canonical_form      {|cform| cform.association(:canonical_form, :string => 'Somethia specificus')}
+  name.string              'Somethia specificus Posford & R. Ram'
+  name.canonical_verified  0
+  name.italicized_verified 0
+  name.namebank_id         0
+end
+
+Factory.define :normalized_link do |nl|
+  nl.association :normalized_name
+  nl.association :name
+  nl.seq         0
+  nl.normalized_qualifier_id 1 # Identify which role the string is playing in the name (name, author, year)... but now is all name (1)
+end
+
+# This table exists, but there is no model for it and we aren't using it at the moment.
+# Factory.define :normalized_qualifier do |nq|
+# end
+
+Factory.define :normalized_name do |nn|
+  nn.name_part 'TestNormalizedName'
+end
+
+# BHL Stuff:
+Factory.define :page_name do |pn|
+  pn.association :name
+  pn.association :item_page
+end
+
+# BHL Stuff:
+Factory.define :publication_title do |pt|
+  pt.title   'Test Publication Title'
+  pt.details 'Nifty Titles Are Our Business'
+  pt.url     'http://publication.titles.te.st'
+end
+
+# TODO - this should actually create a valid TC and use its information
+Factory.define :random_taxon do |rt|
+  rt.association   :language
+  rt.association   :data_object
+  rt.name_id       { Factory(:name).id } # TODO - ick.  ...But there is a "name" attribute as well, so, tricky.
+  rt.image_url     200810081262788
+  rt.name          '<i>Rodomicus fortesti<i> Factory TestFramework'
+  rt.content_level 3
+  rt.created_at    { 14.days.ago }
+  rt.association   :taxon_concept
+end
+
+# I *don't* think these all actually relate to the rank_id's found elsewhere here. If so, we should change them to associations.
+Factory.define :rank do |r|
+  r.label 'TestRank'
+end
+
+Factory.define :resource_agent_role do |rar|
+  rar.label 'TestAgentRole'
+end
+
+Factory.define :resource do |r|
+  r.auto_publish false
+  r.title        'Testing Resource'
+  r.subject      'Test Resource Subject'
+  r.association  :license     
+end
+
+Factory.define :resources_taxon do |rt|
+  rt.association       :taxon
+  rt.association       :resource
+  rt.identifier        ''
+  rt.source_url        ''
+  rt.taxon_created_at  { 5.hours.ago }
+  rt.taxon_modified_at { 1.hours.ago }
+end
+
+Factory.define :role do |r|
+  r.title 'TestRole'
+end
+
+Factory.define :roles_user do |ru|
+  ru.association  :user
+  ru.association  :role
+end
+
+Factory.define :search_suggestion do |ss|
+  ss.term            'searchterm'
+  ss.scientific_name 'TestSearchTerm ScientificName'
+  ss.common_name     'TestSearchTerm CommonName'
+  ss.language_label  'en'
+  ss.image_url       '/images/eol_logo_header.png'
+  ss.association     :taxon
+  ss.sort_order      1
+  ss.active          1
+  ss.created_at      { 48.hours.ago }
+end
+
+Factory.define :status do |s|
+  s.label 'TestStatus'
+end
+
+Factory.define :synonym_relation do |sr|
+  sr.label 'TestSynonymRelation'
+end
+
+# TODO - would be neat to make this relationship a synonym by default, but there's no nice way to do that yet
+Factory.define :synonym do |s|
+  s.association :name
+  s.association :synonym_relation
+  s.language_id { Language.english.id }
+  s.association :hierarchy_entry
+  s.preferred   0
+  s.association :hierarchy   # This isn't really needed.
+end
+
+Factory.define :taxon do |t|
+  t.guid          ''
+  t.taxon_kingdom ''
+  t.taxon_phylum  ''
+  t.taxon_class   ''
+  t.taxon_order   ''
+  t.taxon_family  ''
+  t.association   :name
+  t.created_at    { 48.hours.ago }
+  t.updated_at    { 42.minutes.ago }
+end
+
+# We may want the default to actually have some content.  Not sure.
+Factory.define :taxon_concept_content do |tcc|
+  tcc.association :taxon_concept
+  tcc.text           0
+  tcc.image          0
+  tcc.child_image    0
+  tcc.flash          0
+  tcc.youtube        0
+  tcc.internal_image 0
+  tcc.gbif_image     0
+  tcc.content_level  1
+  tcc.association    :image_object
 end
 
 Factory.define :taxon_concept do |tc|
@@ -29,24 +399,51 @@ Factory.define :taxon_concept_name do |tcn|
   tcn.association            :taxon_concept
 end
 
-Factory.define :name do |name|
-  name.italicized          '<i>Somethia specificus</i> Posford & R. Ram'
-  name.canonical_form      {|cform| cform.association(:canonical_form, :string => 'Somethia specificus')}
-  name.string              'Somethia specificus Posford & R. Ram'
-  name.canonical_verified  0
-  name.italicized_verified 0
-  name.namebank_id         0
+# BHL stuff:
+Factory.define :title_item do |ti|
+  ti.association  :publication_title
+  ti.bar_code     '73577357735742'
+  ti.marc_item_id 'i11604463' # I don't know what this is, but hey.
+  ti.call_number  'QK1 .H38'
+  ti.volume_info  '1864 v. 3'
+  ti.url          'http://www.biodiversitylibrary.org/item/ThisWontWork.OnlyTesting'
 end
 
-Factory.define :canonical_form do |cform|
-  cform.string 'Cononica idenitifii'
+Factory.define :toc_item do |ti|
+  ti.association :parent
+  ti.label       'TestTitleItem'
+  ti.view_order  1 # This competes with Overview... not sure if this is wise.
 end
 
-Factory.define :hierarchy do |hierarchy|
-  hierarchy.label                   "A nested structure of divisions related to their probable evolutionary descent"
-  hierarchy.url                     ""
-  hierarchy.hierarchy_group_version 0
-  hierarchy.hierarchy_group_id      1 # TODO - associate
-  hierarchy.description             ""
-  hierarchy.agent_id                11 # TODO - associate
+Factory.define :top_image do |ti|
+  ti.association :hierarchy_entry
+  ti.association :data_object
+  ti.view_order  1                 # Perhaps this should be in a sequence, but I don't want to figure out how to persist the same HE
+end
+
+Factory.define :top_unpublished_image do |tui|
+  tui.association :hierarchy_entry
+  tui.association :data_object
+  tui.view_order  1 # Again, this should be sequential, but...
+end
+
+Factory.define :user do |u|
+  u.default_taxonomic_browser 'text'
+  u.expertise                 'middle'
+  u.remote_ip                 '128.167.250.123' # TODO - fake this?
+  u.content_level             2
+  u.email                     { Faker::Internet.email }
+  u.given_name                { Faker::Name.first_name }
+  u.family_name               { Faker::Name.last_name }
+  u.flash_enabled             true
+  u.language_id               { Language.english.id }
+  u.mailing_list              true
+  u.vetted                    false
+  u.username                  { |user| user.email.gsub(/@.*$/, '') }
+  u.active                    true
+  u.hashed_password           { Digest::MD5.hexdigest('test password') }
+  u.curator_hierarchy_entry   { |user| user.association(:hierarchy_entry) }
+  u.curator_approved          true
+  u.curator_verdict_by_id     2 # I am not sure what this is all about
+  u.curator_verdict_at        { 32.hours.ago }
 end

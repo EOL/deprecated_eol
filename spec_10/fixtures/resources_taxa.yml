@@ -5,6 +5,7 @@ cafeteria_taxon_with_resource:
   source_url: ""
   taxon_created_at: 0000-00-00 00:00:00
   taxon_modified_at: 0000-00-00 00:00:00
+
 # == Schema Info
 # Schema version: 20081020144900
 #

@@ -158,25 +158,12 @@ class ContentPartnerController < ApplicationController
 
   def contact_us
 
-    @page_header='Contact Us' 
-    @contact = AgentContactForm.new(params[:contact])
-    unless request.post? || current_agent.primary_contact.nil?
-      @contact.name=current_agent.primary_contact.full_name 
-      @contact.email=current_agent.primary_contact.email
-    end
-    @subject = params[:subject]
-    return unless request.post?
+    # just redirect to standard contact us form
+    redirect_to :controller=>'content', :action=>'contact_us', :default_name=>current_agent.primary_contact.full_name,:default_email=>current_agent.primary_contact.email,:default_subject=>'Content Partner Support'
+    return
     
-    if @contact.save
-      Notifier::deliver_agent_contact_form_email(current_agent, @contact, $CONTENT_PARTNER_REGISTRY_EMAIL_ADDRESS)
-      redirect_to(:action => 'contact_thanks')
-    end
   end
-  
-  def contact_thanks    
-    @page_header='Thanks' 
-  end
-  
+    
   def help
     @page_header="Help"
   end

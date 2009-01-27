@@ -21,8 +21,11 @@ class ContentPartnerAgreement < SpeciesSchemaModel
     self.template.blank?
   end
   
-  def self.create_new(agent_id)
-    agreement=ContentPartnerAgreement.create(:agent_id=>agent_id,:last_viewed=>Time.now,:template=>IO.read('app/views/content_partner/agreement_template.html.erb'),:is_current=>true,:number_of_views=>0) 
+  def self.create_new(params={})
+    params[:agent_id] ||= '0'
+    params[:template] ||= IO.read('app/views/content_partner/agreement_template.html.erb')
+    params[:mou_url] ||= ''
+    agreement=ContentPartnerAgreement.create(:agent_id=>params[:agent_id],:mou_url=>params[:mou_url],:last_viewed=>Time.now,:template=>params[:template],:is_current=>true,:number_of_views=>0) 
   end
   
 end

@@ -427,6 +427,8 @@ Factory.define :top_unpublished_image do |tui|
   tui.view_order  1 # Again, this should be sequential, but...
 end
 
+# Note - I started by making this guy approved for an assoicated HE... but the verdict_by clause had me worried about circular
+# logic.
 Factory.define :user do |u|
   u.default_taxonomic_browser 'text'
   u.expertise                 'middle'
@@ -442,8 +444,8 @@ Factory.define :user do |u|
   u.username                  { |user| user.email.gsub(/@.*$/, '') }
   u.active                    true
   u.hashed_password           { Digest::MD5.hexdigest('test password') }
-  u.curator_hierarchy_entry   { |user| user.association(:hierarchy_entry) }
-  u.curator_approved          true
-  u.curator_verdict_by_id     2 # I am not sure what this is all about
-  u.curator_verdict_at        { 32.hours.ago }
+  u.curator_hierarchy_entry   nil
+  u.curator_approved          false
+  u.curator_verdict_by_id     0
+  u.curator_verdict_at        nil
 end

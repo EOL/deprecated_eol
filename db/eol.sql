@@ -64,16 +64,6 @@ CREATE TABLE `contact_subjects` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `contact_subjects`
---
-
-LOCK TABLES `contact_subjects` WRITE;
-/*!40000 ALTER TABLE `contact_subjects` DISABLE KEYS */;
-INSERT INTO `contact_subjects` VALUES (1,'Media Contact (interviews, image requests)','ByrnesB@si.edu',1,'2009-01-15 21:06:46','2009-01-15 21:06:46'),(2,'Request to curate a page','affiliate@example.com',1,'2009-01-15 21:06:46','2009-01-15 21:06:46'),(3,'Request to upload images','affiliate@example.com',1,'2009-01-15 21:06:46','2009-01-15 21:06:46'),(4,'Make a correction (images, spelling & grammar, information)','content-comments@example.com',1,'2009-01-15 21:06:46','2009-01-15 21:06:46'),(5,'Give feedback','content-comments@example.com',1,'2009-01-15 21:06:46','2009-01-15 21:06:46'),(6,'Make a financial contribution','ByrnesB@si.edu',1,'2009-01-15 21:06:46','2009-01-15 21:06:46'),(7,'Technical problems (difficulties with the website, search tool or user accounts)','support@example.com',1,'2009-01-15 21:06:46','2009-01-15 21:06:46'),(8,'Other (ideas for the website, things you would like to see)','support@example.com',1,'2009-01-15 21:06:46','2009-01-15 21:06:46');
-/*!40000 ALTER TABLE `contact_subjects` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `contacts`
 --
 

@@ -554,7 +554,7 @@ private
         other_visibilities = preview_objects
       end
       if options[:user].vetted == false
-        vetted += [Vetted.unknown.id]
+        vetted += [Vetted.unknown.id,Vetted.untrusted.id]
       end
     end
     if options[:agent] # Content partner ... note that some of this is handled via the join in join_agents_clause().

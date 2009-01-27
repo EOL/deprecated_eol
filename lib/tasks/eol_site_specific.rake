@@ -13,7 +13,7 @@ namespace :eol do
 Usage: 
 
 #to create site-specific files:
-rake eol:site_spedific repo=uri_to_repository
+rake eol:site_specific repo=uri_to_repository
 
 #to clean up
 rake eol:clean_site_specific

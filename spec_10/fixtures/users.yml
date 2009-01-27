@@ -1,4 +1,3 @@
-#
 # NOTE:
 #
 # Because we store hashed PW's, we have to hard-code the plaintext passwords.  So DON'T CHANGE THEM.

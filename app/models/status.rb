@@ -14,7 +14,9 @@ class Status < SpeciesSchemaModel
       @@unchanged ||= Status.find_by_label('unchanged')
     end
 
-end# == Schema Info
+end
+
+# == Schema Info
 # Schema version: 20081002192244
 #
 # Table name: statuses

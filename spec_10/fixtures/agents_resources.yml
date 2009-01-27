@@ -2,6 +2,7 @@ cafeteria_iucn:
   agent_id: 27
   resource_id: 1
   resource_agent_role_id: 3
+
 spiders_fishbase:
   agent_id: 2
   resource_id: 4

@@ -1,6 +1,7 @@
 one:
   user_id: 2
   role_id: 1
+
 two:
   user_id: 2
   role_id: 2    

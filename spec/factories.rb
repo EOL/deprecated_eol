@@ -1,6 +1,8 @@
 require 'factory_girl'
 require 'faker'
 
+# Note - at the end of this file is Factory.prerequisites, which creates all of the "default" vaules the app counts on.
+
 Factory.define :agent_contact do |ac|
   ac.association :agent
   ac.association :agent_contact_role
@@ -56,6 +58,14 @@ Factory.define :collection do |col|
   col.link        'http://clicky.link.com'
   col.logo_url    'grin.jpg'
   col.vetted      1
+end
+
+Factory.define :contact_subject do |cs|
+  cs.title      'TestContactSubject'
+  cs.recipients { Faker::Internet.email }
+  cs.active     true
+  cs.created_at { 48.hours.ago }
+  cs.updated_at { 48.hours.ago }
 end
 
 Factory.define :content_page do |cp|
@@ -427,7 +437,7 @@ Factory.define :top_unpublished_image do |tui|
   tui.view_order  1 # Again, this should be sequential, but...
 end
 
-# Note - I started by making this guy approved for an assoicated HE... but the verdict_by clause had me worried about circular
+# Note - I started by making this guy approved for an associated HE... but the verdict_by clause had me worried about circular
 # logic.
 Factory.define :user do |u|
   u.default_taxonomic_browser 'text'
@@ -448,4 +458,12 @@ Factory.define :user do |u|
   u.curator_approved          false
   u.curator_verdict_by_id     0
   u.curator_verdict_at        nil
+end
+
+# Creates all of the "default" vaules the app counts on.
+class Factory
+  def self.prerequisites
+    Factory(:contact_subject) # There just needs to be one of these, doesn't matter which.
+    Factory(:content_page, :page_name => 'Home', :language_abbr => 'en')
+  end
 end

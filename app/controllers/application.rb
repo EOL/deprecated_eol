@@ -183,7 +183,7 @@ end
 
   # retrieve the stored URL that we want to go back to
   def return_to_url
-    session[:return_to]
+    session[:return_to] || home_page_url
   end
 
   # get the full current url being shown

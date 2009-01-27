@@ -184,7 +184,7 @@ class ContentPartnerController < ApplicationController
   def agreement
     
     # TO UPDATE THE CONTENT PARTNER AGREEMENT TEMPLATE AND ENSURE THAT EACH PREVIOUS CONTENT PARTNER GETS A NEW ONE WITH THE NEWLY UPDATED TEMPLATE,
-    # SET THEIR CURRENT CONTENT PARTNER AGREEMENT TO "IS_CURRENT=FALSE"
+    # SET THEIR CURRENT CONTENT PARTNER AGREEMENT TO "IS_CURRENT=FALSE" --- This is done automatically when using the admin interface to edit
     agreement_id=params[:agreement_id] || ""
     
     # if we are calling this method from the content partner registry, the agent is currently logged in so use that one
@@ -196,20 +196,20 @@ class ContentPartnerController < ApplicationController
     
     unless @agent.ready_for_agreement?
       flash[:warning] = "The agreement for this partner is not available."
-      return
       redirect_to(:action => 'index')
+      return
     end
     
     # find their agreement
     if agreement_id.empty? 
       @agreement=@agent.agreement      
       # if this is the first time they are viewing the agreement, create it from the default template
-      @agreement=ContentPartnerAgreement.create_new(@agent.id) if @agreement.nil?
+      @agreement=ContentPartnerAgreement.create_new(:agent_id=>@agent.id) if @agreement.nil?
       # update the number of views if the content partner is viewing it
       @agreement.update_attributes(:number_of_views=>@agreement.number_of_views+=1,:last_viewed=>Time.now) if !current_agent.nil?
     elsif current_user.is_admin?
       @agreement=ContentPartnerAgreement.find_by_id_and_agent_id(params[:agreement_id],@agent.id,:order=>'created_at DESC')
-      @agreement=ContentPartnerAgreement.create_new(@agent.id) if @agreement.nil?
+      @agreement=ContentPartnerAgreement.create_new(:agent_id=>@agent.id) if @agreement.nil?
     end
     
     @primary_contact=@agent.primary_contact  

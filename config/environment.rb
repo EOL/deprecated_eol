@@ -132,6 +132,7 @@ Rails::Initializer.run do |config|
   # ERROR HANDLING CONFIGURATION
   $EXCEPTION_NOTIFY = false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
   $ERROR_LOGGING = true # set to true to record uncaught application errors in sql database file 
+  $EXCEPTION_EMAIL_ADDRESS = %("EOL Application Error" <no-reply@example.comma>) 
   $IGNORED_EXCEPTIONS = ["CGI::Session::CookieStore::TamperedWithCookie","taxa id not supplied","static page without id"] # array of exceptions to ignore when logging or notifying
   
   # EMAIL NOTIFIER CONFIGURATION
@@ -195,7 +196,7 @@ ENV['APP_VERSION'] = ''
 
 # if exception_notify is true, configure below
 ExceptionNotifier.exception_recipients = [] # email addresses of people to get exception notifications, separated by spaces, blank array if nobody, can also set $EXCEPTION_NOTIFY to false
-ExceptionNotifier.sender_address = %("EOL Application Error" <no-reply@example.comma>)
+ExceptionNotifier.sender_address = $EXCEPTION_EMAIL_ADDRESS
 ExceptionNotifier.email_prefix = "[EOL] "
 
 require 'extensions'
@@ -227,5 +228,4 @@ end
 begin
   require 'environment_eol_org'
 rescue LoadError
-  puts '*****************WARNING: COULD NOT LOAD ENVIRONMENT_EOL_ORG FILE***********************'
 end

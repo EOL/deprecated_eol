@@ -1,27 +1,31 @@
-<div class="visibility">
-  <% form_remote_tag :url => curate_data_object_path(@data_object), :method => 'put', :complete => "$$('#large-image-curator-button-popup-link_popup_content .visibility form')[0].enable();$$('#large-image-curator-button-popup-link_popup_content .visibility form img')[0].fade();" do %>
-    <div class="label">VISIBILITY <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
-    <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.hide!.id.to_s, @data_object.invisible? %> Hide
-    </div>
-    <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.show!.id.to_s, @data_object.visible? %> Show
-    </div>
-    <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.inappropriate!.id.to_s, @data_object.inappropriate? %> Inappropriate
-    </div>
-  <% end %>
-</div>
+<h1>Object Curation</h1>
 
 <div class="vetted">
   <% form_remote_tag :url => curate_data_object_path(@data_object), :method => 'put', :complete => "EOL.Curation.after_curate(#{@data_object.id});" do %>
-    <div class="label">VETTED <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
+    <div class="label">This object is <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
     <div class="option">
       <%= radio_button_tag 'curator_activity_id', CuratorActivity.approve!.id.to_s, @data_object.trusted?, {:id => 'curate_trust'} %> Trusted
     </div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.disapprove!.id.to_s, @data_object.untrusted?, {:id => 'curate_untrust'} %> Untrusted
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.disapprove!.id.to_s, @data_object.untrusted?, {:id => 'curate_untrust'} %> Not trusted
     </div>
   <% end %>
 </div>
+
+<div class="visibility">
+  <% form_remote_tag :url => curate_data_object_path(@data_object), :method => 'put', :complete => "$$('#large-image-curator-button-popup-link_popup_content .visibility form')[0].enable();$$('#large-image-curator-button-popup-link_popup_content .visibility form img')[0].fade();" do %>
+    <div class="label">This object should be<%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
+    <div class="option">
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.show!.id.to_s, @data_object.visible? %> Shown
+    </div>
+    <div class="option">
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.hide!.id.to_s, @data_object.invisible? %> Hidden
+    </div>
+    <div class="option">
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.inappropriate!.id.to_s, @data_object.inappropriate? %> Marked As Inappropriate
+    </div>
+  <% end %>
+</div>
+
+Note that some changes may take 24 hours to be shown on the website to other users and you may not see your changes until you refresh this page.
 

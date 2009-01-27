@@ -120,11 +120,14 @@ class ContentController < ApplicationController
     @subjects = ContactSubject.find(:all, :conditions=>'active=1',:order => 'title')
 
     @contact = Contact.new(params[:contact])
+    store_location(params[:return_to]) if !params[:return_to].nil? && request.get? # store the page we came from so we can return there if it's passed in the URL
     
     if request.post? == false
+      return_to=params[:return_to] || ''
       # grab default subject to select in list if it's passed in the querystring
       @contact.contact_subject=ContactSubject.find_by_title(params[:default_subject]) if params[:default_subject].nil? == false   
-      store_location
+      @contact.name=params[:default_name] if params[:default_name].nil? == false
+      @contact.email=params[:default_email] if params[:default_email].nil? == false
       return
     end 
     

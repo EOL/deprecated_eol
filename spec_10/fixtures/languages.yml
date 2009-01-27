@@ -5,7 +5,7 @@ en:
   name: English
   sort_order: 1
   activated_on: <%= 5.days.ago.to_s :db %>
-  
+
 fr:
   id: 2
   iso_639_1: fr

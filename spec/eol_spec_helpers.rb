@@ -17,6 +17,25 @@ module EOL::Spec
       end
     end
 
+    # scenarios to load in spec - most useful for loading up the 'foundation' in blackbox specs
+    #
+    #   scenario  :foo
+    #   scenarios :foo, :bar
+    #   scenarios :foo, :bar, :before => :all
+    #   scenarios :foo, :bar, :before => :each
+    #
+    # defaults to before each
+    #
+    def scenario *scenarios
+      require 'scenario'
+      options = (scenarios.last.is_a?Hash) ? scenarios.pop : { }
+      options[:before] ||= :each
+      before options[:before] do
+        EOL::Scenario.load *scenarios
+      end
+    end
+    alias scenarios scenario
+
   end
 end
 

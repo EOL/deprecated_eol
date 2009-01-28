@@ -5,7 +5,10 @@ require 'spec/rails'
 load 'composite_primary_keys/fixtures.rb' 
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
+
 require 'scenario'
+EOL::Scenario.load_paths = [ File.join(RAILS_ROOT, 'spec', 'scenarios') ]
+
 require 'rackbox'
 # require File.expand_path(File.dirname(__FILE__) + "/custom_matchers") # eval this with config context?
 

@@ -20,6 +20,7 @@
 class Taxon < SpeciesSchemaModel
 
   belongs_to :name
+  belongs_to :hierarchy_entry
 
   has_and_belongs_to_many :resource
   has_and_belongs_to_many :refs

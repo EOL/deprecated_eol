@@ -1,3 +1,5 @@
+# NOTE i haven't bothered alphabetizing these or anything ... i'll clean them up later!
+
 require 'factory_girl'
 require 'faker'
 
@@ -5,7 +7,7 @@ require 'faker'
 
 #### Sequences
 
-Factory.sequence( :string ){|n| "uniquestring#{n}" } # 'string' isn't elegant, but it's perfect for right now!
+Factory.sequence( :string ){|n| "unique#{ n }string" } # 'string' isn't elegant, but it's perfect for right now!
 Factory.sequence( :email  ){|n| "bob#{n}@smith.com" }
 
 #### Factories
@@ -127,6 +129,8 @@ end
 
 Factory.define :curator_data_object_log do |cdol|
   cdol.association :data_object
+  cdol.association :user
+  cdol.association :curator_activity
 end
 
 Factory.define :data_object do |dato|
@@ -193,7 +197,7 @@ Factory.define :hierarchy do |hierarchy|
   hierarchy.label                   "A nested structure of divisions related to their probable evolutionary descent"
   hierarchy.url                     ''
   hierarchy.hierarchy_group_version 0
-  hierarchy.association             :hierarchy_group
+  hierarchy.hierarchy_group_id 1
   hierarchy.description             ''
   hierarchy.association             :agent
 end
@@ -229,12 +233,12 @@ end
 Factory.define :info_item do |ii|
   ii.schema_value 'http://rs.tdwg.org/ontology/voc/ThisWontWork.JustForTesting'
   ii.label        'TestInfoItem'
-  ii.association  :toc
+  ii.toc_id       1
 end
 
-# BHL Stuff:
 Factory.define :item_page do |ip|
   ip.association :title_item
+  ip.page_type ''
   ip.year        '1999'
   ip.volume      '2'
   ip.issue       '42'
@@ -290,14 +294,21 @@ Factory.define :normalized_name do |nn|
   nn.name_part 'TestNormalizedName'
 end
 
-# BHL Stuff:
 Factory.define :page_name do |pn|
   pn.association :name
   pn.association :item_page
 end
 
-# BHL Stuff:
 Factory.define :publication_title do |pt|
+  pt.short_title 'hello'
+  pt.author  'bob'
+  pt.call_number ''
+  pt.end_year ''
+  pt.start_year ''
+  pt.language ''
+  pt.marc_leader ''
+  pt.abbreviation ''
+  pt.marc_bib_id ''
   pt.title   'Test Publication Title'
   pt.details 'Nifty Titles Are Our Business'
   pt.url     'http://publication.titles.te.st'
@@ -321,7 +332,7 @@ Factory.define :rank do |r|
 end
 
 Factory.define :resource_agent_role do |rar|
-  rar.label 'TestAgentRole'
+  rar.label { Factory.next(:string) }
 end
 
 Factory.define :resource do |r|
@@ -387,6 +398,8 @@ Factory.define :taxon do |t|
   t.taxon_order   ''
   t.taxon_family  ''
   t.association   :name
+  t.scientific_name ''
+  t.association :hierarchy_entry
   t.created_at    { 48.hours.ago }
   t.updated_at    { 42.minutes.ago }
 end
@@ -420,7 +433,6 @@ Factory.define :taxon_concept_name do |tcn|
   tcn.association            :taxon_concept
 end
 
-# BHL stuff:
 Factory.define :title_item do |ti|
   ti.association  :publication_title
   ti.bar_code     '73577357735742'
@@ -491,46 +503,20 @@ end
   end
 end
 
-Factory.define :user_log_daily do |x|
+Factory.define :visibility do |x|
+  x.label { Factory.next(:string) }
 end
 
-Factory.define :unique_visitor do |x|
+Factory.define :vetted do |x|
+  x.label { Factory.next(:string) }
 end
 
-Factory.define :hierarchy_group do |x|
+Factory.define :mime_type do |x|
+  x.label { Factory.next(:string) }
 end
 
-Factory.define :parent do |x|
-end
-
-Factory.define :taxon_stat do |x|
-end
-
-Factory.define :hierarchy_group do |x|
-end
-
-Factory.define :image_object do |x|
-end
-
-Factory.define :hierarchy_group do |x|
-end
-
-Factory.define :survey_response do |x|
-end
-
-Factory.define :state_log_daily do |x|
-end
-
-Factory.define :search_log do |x|
-end
-
-Factory.define :news_item do |x|
-end
-
-Factory.define :hierarchy_group do |x|
-end
-
-Factory.define :error_log do |x|
+Factory.define :agent_role do |x|
+  x.label { Factory.next(:string) }
 end
 
 Factory.define :data_object_tags do |x|
@@ -541,15 +527,6 @@ end
 Factory.define :data_object_tag do |x|
   x.key   { Factory.next(:string) }
   x.value { Factory.next(:string) }
-end
-
-Factory.define :content_page_archive do |x|
-end
-
-Factory.define :contact_subject do |x|
-end
-
-Factory.define :contact do |x|
 end
 
 Factory.define :comment do |x|
@@ -564,4 +541,16 @@ Factory.define :log_daily do |x|
   x.total 0
   x.user_agent 'Cool/Browser'
   x.association :data_type
+end
+
+Factory.define :contact do |x|
+  x.name { Factory.next(:string) }
+  x.email { Factory.next(:email) }
+  x.association :contact_subject
+  x.comments %w( foo bar )
+end
+
+Factory.define :contact_subject do |x|
+  x.title { Factory.next(:string) }
+  x.recipients { Factory.next(:string) }
 end

@@ -21,6 +21,7 @@ class EOL
     def name
       File.basename(file_path).sub(/\.rb$/, '')
     end
+    alias to_s name
 
     # if the first line of the scenario's source code 
     # is a comment, we use it as the scenario's description
@@ -87,8 +88,16 @@ class EOL
       # we do this here so we can easily eval in a certain context, 
       # if we want to add a context later
       #
-      def load scenario
-        eval scenario.source_code # right now, we just eval in this context
+      #   EOL::Scenario.load @scenario1, @scenario2
+      #   EOL::Scenario.load :names, 'work', :too
+      #
+      def load *scenarios
+        require File.join(RAILS_ROOT, 'spec', 'factories') # most scenarios will want to use factories
+        scenarios.each do |scenario|
+          scenario = self[scenario] unless scenario.is_a?Scenario # try getting using self[] if not a scenario
+          puts "loading #{ scenario.name } (#{ scenario.description })" if scenario.is_a?Scenario
+          eval scenario.source_code if scenario.is_a?Scenario
+        end
       end
     end  
 

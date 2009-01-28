@@ -66,7 +66,7 @@ describe EOL::Scenario do
     $set_by_first_scenario.should == 'hello from first scenario!'
   end
 
-  it 'should be able to easily load multiple scenarios' do
+  it 'should be able to load multiple scenarios' do
     EOL::Scenario.load_paths << path_to_more_scenarios
 
     $set_by_first_scenario.should be_nil
@@ -76,6 +76,22 @@ describe EOL::Scenario do
 
     $set_by_first_scenario.should == 'hello from first scenario!'
     $set_by_foo.should == 'hello from foo!'
+  end
+
+  it 'should be really easy to load multiple scenarios' do
+    EOL::Scenario.load_paths << path_to_more_scenarios
+
+    $set_by_first_scenario.should be_nil
+    $set_by_foo.should be_nil
+
+    EOL::Scenario.load :first, :foo
+
+    $set_by_first_scenario.should == 'hello from first scenario!'
+    $set_by_foo.should == 'hello from foo!'
+  end
+
+  it 'to_s should be the scenario name' do
+    EOL::Scenario[:first].to_s.should == 'first'
   end
 
 end

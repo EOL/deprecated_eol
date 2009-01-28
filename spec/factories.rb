@@ -3,11 +3,18 @@ require 'faker'
 
 # Note - at the end of this file is Factory.prerequisites, which creates all of the "default" vaules the app counts on.
 
+#### Sequences
+
+Factory.sequence( :string ){|n| "#{n} hello there #{n}" }
+Factory.sequence( :email  ){|n| "bob#{n}@smith.com" }
+
+#### Factories
+
 Factory.define :agent_contact do |ac|
   ac.association :agent
   ac.association :agent_contact_role
-  ac.given_name  { Faker::Name.first_name }
-  ac.family_name { Faker::Name.last_name }
+  ac.given_name  { Factory.next(:string) }
+  ac.family_name { Factory.next(:string) }
   ac.full_name   {|a| "#{a.first_name} #{a.last_name}" }
   ac.email       {|a| "#{a.first_name}.#{a.last_name}@example.com".downcase }
 end
@@ -19,9 +26,9 @@ end
 Factory.define :agent do |agent|
   agent.created_at       { 5.days.ago }
   agent.homepage         ''
-  agent.full_name        { Faker::Name.name }
+  agent.full_name        { Factory.next(:string) }
   agent.username         {|a| a.full_name.gsub(/\W+/, '').downcase }
-  agent.email            { Faker::Internet.email }
+  agent.email            { Factory.next(:email) }
   agent.hashed_password  { Digest::MD5.hexdigest('test password') }
   agent.agent_status_id  { AgentStatus.active.id }
 end
@@ -101,11 +108,11 @@ Factory.define :content_partner do |cp|
 end
 
 Factory.define :content_section do |cs|
-  cs.name 'Test Content Section'
+  cs.name { Factory.next(:string) }
 end
 
 Factory.define :curator_activity do |ca|
-  ca.code 'TestActivity'
+  ca.code { Factory.next(:string) }
 end
 
 Factory.define :curator_activity_log_daily do |cald|
@@ -444,9 +451,9 @@ Factory.define :user do |u|
   u.expertise                 'middle'
   u.remote_ip                 '128.167.250.123' # TODO - fake this?
   u.content_level             2
-  u.email                     { Faker::Internet.email }
-  u.given_name                { Faker::Name.first_name }
-  u.family_name               { Faker::Name.last_name }
+  u.email                     { Factory.next(:email) }
+  u.given_name                { Factory.next(:string) }
+  u.family_name               { Factory.next(:string) }
   u.flash_enabled             true
   u.language_id               { Language.english.id }
   u.mailing_list              true
@@ -466,4 +473,75 @@ class Factory
     Factory(:contact_subject) # There just needs to be one of these, doesn't matter which.
     Factory(:content_page, :page_name => 'Home', :language_abbr => 'en')
   end
+end
+
+### will sort these ... so many factories!  split into 1 file per factory?
+#
+# the following all need work, i just wanna get rid of the 'no such factory' messages
+#
+
+%w( visibility vetted mime_type agent_role ).each do |enum|
+  Factory.define enum.to_sym do |x|
+    x.label { Factory.next(:string) }
+  end
+end
+
+Factory.define :user_log_daily do |x|
+end
+
+Factory.define :unique_visitor do |x|
+end
+
+Factory.define :hierarchy_group do |x|
+end
+
+Factory.define :parent do |x|
+end
+
+Factory.define :taxon_stat do |x|
+end
+
+Factory.define :hierarchy_group do |x|
+end
+
+Factory.define :image_object do |x|
+end
+
+Factory.define :hierarchy_group do |x|
+end
+
+Factory.define :survey_response do |x|
+end
+
+Factory.define :state_log_daily do |x|
+end
+
+Factory.define :search_log do |x|
+end
+
+Factory.define :news_item do |x|
+end
+
+Factory.define :hierarchy_group do |x|
+end
+
+Factory.define :error_log do |x|
+end
+
+Factory.define :data_object_tags do |x|
+end
+
+Factory.define :data_object_tag do |x|
+end
+
+Factory.define :content_page_archive do |x|
+end
+
+Factory.define :contact_subject do |x|
+end
+
+Factory.define :contact do |x|
+end
+
+Factory.define :comment do |x|
 end

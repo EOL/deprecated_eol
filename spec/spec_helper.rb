@@ -37,6 +37,12 @@ Spec::Runner.configure do |config|
     end
   end
 
+  # this is expensive so we should run it once before running 
+  # the *whole* suite, not once per spec ... putting it here for now, tho
+  config.before(:all) do
+    truncate_all_tables
+  end
+
 end
 
 # quite down any migrations that run during tests

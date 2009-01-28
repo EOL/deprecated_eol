@@ -20,7 +20,30 @@ namespace :scenarios do
         names = ENV['NAME'].split(',')
         EOL::Scenario.load *names
       else
-        puts "you need to pass NAME=scenario_name to load a scenario" unless ENV['NAME']
+        puts "you need to pass NAME=scenario_name to load a scenario"
+      end
+    else
+      puts "sorry, i'm not comfortable doing this in any environment but 'test'"
+    end
+  end
+
+  desc 'this will clear the database, load scenarios, & run the site'
+  task :run => :environment do
+    if RAILS_ENV == 'test'
+      if ENV['NAME']
+
+        puts "clearing database ..."
+        Rake::Task[:truncate].invoke
+
+        puts "loading scenarios ..."
+        names = ENV['NAME'].split(',')
+        EOL::Scenario.load *names
+
+        puts "running the site ..."
+        require 'commands/server'
+
+      else
+        puts "Usage: rake:run NAME=the_names,of_some,scenarios_to_load RAILS_ENV=test"
       end
     else
       puts "sorry, i'm not comfortable doing this in any environment but 'test'"

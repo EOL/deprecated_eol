@@ -5,7 +5,7 @@ require 'faker'
 
 #### Sequences
 
-Factory.sequence( :string ){|n| "#{n} hello there #{n}" }
+Factory.sequence( :string ){|n| "uniquestring#{n}" } # 'string' isn't elegant, but it's perfect for right now!
 Factory.sequence( :email  ){|n| "bob#{n}@smith.com" }
 
 #### Factories
@@ -121,6 +121,8 @@ end
 
 Factory.define :curator_comment_log do |ccl|
   ccl.association :comment
+  ccl.association :user
+  ccl.association :curator_activity
 end
 
 Factory.define :curator_data_object_log do |cdol|
@@ -242,10 +244,12 @@ Factory.define :item_page do |ip|
 end
 
 Factory.define :language do |l|
-  l.iso_639_1    'kl'
+  l.iso_639_1    ''
+  l.iso_639_2    ''
+  l.iso_639_3    ''
+  l.source_form  ''
   l.name         'Klingon'
-  l.sort_order   1
-  l.activated_on { 5.days.ago }
+  l.label        'kl'
 end
 
 Factory.define :license do |l|
@@ -458,9 +462,10 @@ Factory.define :user do |u|
   u.language_id               { Language.english.id }
   u.mailing_list              true
   u.vetted                    false
-  u.username                  { |user| user.email.gsub(/@.*$/, '') }
+  u.username                  { Factory.next(:string) }
   u.active                    true
   u.hashed_password           { Digest::MD5.hexdigest('test password') }
+  u.entered_password          'test password'
   u.curator_hierarchy_entry   nil
   u.curator_approved          false
   u.curator_verdict_by_id     0
@@ -529,9 +534,13 @@ Factory.define :error_log do |x|
 end
 
 Factory.define :data_object_tags do |x|
+  x.association :data_object
+  x.association :data_object_tag
 end
 
 Factory.define :data_object_tag do |x|
+  x.key   { Factory.next(:string) }
+  x.value { Factory.next(:string) }
 end
 
 Factory.define :content_page_archive do |x|
@@ -544,4 +553,15 @@ Factory.define :contact do |x|
 end
 
 Factory.define :comment do |x|
+  x.association :parent, :factory => :data_object
+  x.parent_type 'data_object'
+  x.body { Factory.next(:string) }
+  x.association :user
+end
+
+Factory.define :log_daily do |x|
+  x.day Date.today
+  x.total 0
+  x.user_agent 'Cool/Browser'
+  x.association :data_type
 end

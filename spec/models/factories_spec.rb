@@ -8,7 +8,9 @@ describe Factory do
   # that the factories are implemented well
   #
   def self.model_classes
-    [ MimeType, AgentRole, DataType, Agent, ContentPartner, CuratorActivity ]
+    [ MimeType, AgentRole, DataType, Agent, ContentPartner, CuratorActivity,
+      Language, License, Visibility, Vetted, DataType, Role, User,
+      DataObjectTag, DataObjectTags, DataObject, Comment, CuratorCommentLog ]
   end
 
   # gets the names of the factories for classes ( default: model_classes )
@@ -22,6 +24,7 @@ describe Factory do
   factories.each do |factory, klass|
 
     it "should generate #{klass}" do
+      klass.delete_all
       lambda {   3.times { Factory(factory).should be_valid }   }.should change(klass, :count).by(3)
     end
 

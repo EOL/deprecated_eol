@@ -45,8 +45,7 @@ Rails::Initializer.run do |config|
   # Load models in subdirectories as well.
   config.load_paths += Dir["#{RAILS_ROOT}/app/models/**"].map { |dir| dir }
 
-  # Rails 2.1 prefers to have gems installed with a rake task.  JRice is not sure this is wise for deployment, but so it goes...
-  # (by the way, you use 'rake gems:install' to install them.)
+  # require gems - all gems that don't require native compilation should be unpacked in ./vendor/gems/
   config.gem 'hpricot'
   config.gem 'mislav-will_paginate', :version => '>= 2.3.2', :lib => 'will_paginate', :source => 'http://gems.github.com/'
   config.gem 'ruby-debug'

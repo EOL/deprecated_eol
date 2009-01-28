@@ -13,7 +13,7 @@ class DataObjectTag < ActiveRecord::Base
   validates_presence_of :key, :value
   validates_uniqueness_of :value, :scope => :key # value must be unique for given key
   #validates_format_of :key,   :with => /^\w+$/, :message => 'Key can only contain alphanumeric characters'
-  validates_format_of :value, :with => /^\w+$/, :message => 'Key can only contain alphanumeric chartacters'
+  #validates_format_of :value, :with => /^\w+$/, :message => 'Key can only contain alphanumeric chartacters'
   validates_length_of :key,   :maximum => 30
   before_save :normalizes_case_and_spaces
   

@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Factory do
 
+  ########## helpers #########
+
   # this isn't actually *all* model classes yet.
   #
   # for right now, i'm adding models in here, a few at a time, to make sure 
@@ -44,15 +46,12 @@ describe Factory do
     }.compact
   end
 
+  ########## spec ##########
+
   factories.each do |factory, klass|
     it "should generate #{klass}" do
-      klass.delete_all
-      lambda {   
-      if klass == AgentRole
-        puts "there are #{ AgentRole.count } agent_roles"
-      end
-        3.times { Factory(factory).should be_valid }
-      }.should change(klass, :count).by(3)
+      klass.truncate
+      lambda {   3.times { Factory(factory).should be_valid }   }.should change(klass, :count).by(3)
     end
   end
 

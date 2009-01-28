@@ -22,7 +22,7 @@ Factory.define :agent_contact do |ac|
 end
 
 Factory.define :agent_status do |as|
-  as.label 'SomeNewStatus'
+  as.label { Factory.next(:string) }
 end
 
 Factory.define :agent do |agent|
@@ -32,7 +32,7 @@ Factory.define :agent do |agent|
   agent.username         {|a| a.full_name.gsub(/\W+/, '').downcase }
   agent.email            { Factory.next(:email) }
   agent.hashed_password  { Digest::MD5.hexdigest('test password') }
-  agent.agent_status_id  { AgentStatus.active.id }
+  agent.association :agent_status
 end
 
 Factory.define :agents_data_object do |ado|
@@ -158,8 +158,8 @@ Factory.define :data_object do |dato|
   dato.created_at             { 5.days.ago }
   dato.updated_at             { 3.days.ago }
   dato.data_rating            0.5
-  dato.vetted_id              { Vetted.trusted.id }
-  dato.visibility_id          { Visibility.visible.id }
+  dato.association            :vetted
+  dato.association            :visibility
   dato.published              true
 end
 
@@ -167,7 +167,7 @@ Factory.define :data_objects_harvest_event do |dohe|
   dohe.association :harvest_event
   dohe.association :data_object
   dohe.guid        { s = ''; 32.times { s += ((0..9).to_a.map{|n| n.to_s} + %w{a b c d e f}).rand }; s } # ICK!
-  dohe.status_id   { Status.inserted.id }
+  dohe.association :status
 end
 
 Factory.define :data_objects_table_of_content do |dato|
@@ -183,7 +183,7 @@ end
 
 Factory.define :data_type do |dt|
   dt.schema_value 'http://purl.org/dc/dcmitype/ThisLinkWillFail.JustTesting'
-  dt.label        'TestDataType'
+  dt.label        { Factory.next(:string) }
 end
 
 Factory.define :harvest_event do |he|
@@ -373,7 +373,7 @@ Factory.define :search_suggestion do |ss|
 end
 
 Factory.define :status do |s|
-  s.label 'TestStatus'
+  s.label { Factory.next(:string) }
 end
 
 Factory.define :synonym_relation do |sr|
@@ -384,7 +384,7 @@ end
 Factory.define :synonym do |s|
   s.association :name
   s.association :synonym_relation
-  s.language_id { Language.english.id }
+  s.association :language
   s.association :hierarchy_entry
   s.preferred   0
   s.association :hierarchy   # This isn't really needed.
@@ -420,7 +420,6 @@ end
 
 Factory.define :taxon_concept do |tc|
   tc.published      0
-  tc.vetted_id      { Vetted.trusted.id }
   tc.supercedure_id 0
 end
 
@@ -428,7 +427,7 @@ Factory.define :taxon_concept_name do |tcn|
   tcn.preferred              1
   tcn.vern                   0
   tcn.source_hierarchy_entry {|he| he.association(:hierarchy_entry) }
-  tcn.language_id            { Language.scientific.id }
+  tcn.association            :language
   tcn.association            :name
   tcn.association            :taxon_concept
 end
@@ -471,7 +470,7 @@ Factory.define :user do |u|
   u.given_name                { Factory.next(:string) }
   u.family_name               { Factory.next(:string) }
   u.flash_enabled             true
-  u.language_id               { Language.english.id }
+  u.association               :language
   u.mailing_list              true
   u.vetted                    false
   u.username                  { Factory.next(:string) }

@@ -3008,10 +3008,8 @@ div.text_buttons div { position: absolute; top: 0px; }
 div.text_buttons div.spinner { left: 280px; }
 div.text_buttons div.trust_button { left: 310px; background: transparent url(/images/thumb_up.png) no-repeat; }
 div.text_buttons div.untrust_button { left: 340px; background: transparent url(/images/thumb_down.png) no-repeat; }
-div.text_buttons div.curate_button { left: 370px; background: transparent url(/images/icons/icons.gif) no-repeat -23px 0px; }
-div.text_buttons div.curate_button:hover { background: transparent url(/images/icons/icons.gif) no-repeat -23px -32px; }
-div.text_buttons div.comment_button { left: 400px; background: transparent url(/images/icons/icons.gif) no-repeat -72px 0px; }
-div.text_buttons div.comment_button:hover { background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px; }
+div.text_buttons div.curate_button { left: 370px; }
+div.text_buttons div.comment_button { left: 400px; }
 
 /* Clade selector on signup page for curator registration */
 
@@ -3045,3 +3043,13 @@ form .pagination .current {background:#a3d117;color:#fff;padding:1px 2px;}
 form .pagination span {color:#959595;display: inline;}
 
 #left-pane h3 {margin-left:20px;}
+
+/*styles for div that slides down when you click the curate or comment button below text data objects*/
+.text-slidebox-container { padding: 5px; background-color: #FFFFFF; border:1px solid #83991E; }
+.text-slidebox-border { border: 1px solid #83991e; padding: 2px; background-color: #a2b736; }
+
+/*styles for button images*/
+.comment-button-image { background: transparent url(/images/icons/icons.gif) no-repeat -72px 0px; }
+.comment-button-image:hover { background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px; }
+.curate-button-image { background: transparent url(/images/icons/icons.gif) no-repeat -23px 0px; }
+.curate-button-image:hover { background: transparent url(/images/icons/icons.gif) no-repeat -23px -32px; }

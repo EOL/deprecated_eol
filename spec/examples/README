@@ -1,0 +1,6 @@
+any resources you need for your tests can go here
+
+are you hitting a web API and you need to store the example 
+XML somewhere, for your specs?
+
+try ./spec/examples/google_charts/*

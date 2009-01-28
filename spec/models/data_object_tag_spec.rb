@@ -14,11 +14,8 @@ describe DataObjectTag do
 
   it 'should require a unique key / value paid' do
     Factory(:data_object_tag, :key => 'foo', :value => 'w00t' ).should be_valid
-    #Factory(:data_object_tag, :key => 'foo', :value => 'w00t' ).should_not be_valid
-    #Factory(:data_object_tag, :key => 'foo', :value => 'w00t-2' ).should be_valid
-    
-    # ^ instead of not being valid, it throws an exception!!  Factory-Girl must use create! instead of create ???
-    #   TODO figure this out
+    Factory.build(:data_object_tag, :key => 'foo', :value => 'w00t' ).should_not be_valid
+    Factory.build(:data_object_tag, :key => 'foo', :value => 'w00t-2' ).should be_valid
   end
 
 end

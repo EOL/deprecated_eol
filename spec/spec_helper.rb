@@ -1,8 +1,10 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
+
 require 'spec'
 require 'spec/rails'
 load 'composite_primary_keys/fixtures.rb' 
+
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
 
@@ -51,5 +53,5 @@ Spec::Runner.configure do |config|
 
 end
 
-# quite down any migrations that run during tests
+# quiet down any migrations that run during tests
 ActiveRecord::Migration.verbose = false

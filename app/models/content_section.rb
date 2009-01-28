@@ -14,9 +14,10 @@ class ContentSection < ActiveRecord::Base
   
   # helper method to find active pages given a section name
   def self.find_pages_by_section(section_name)
-    
-    return ContentPage.find_all_by_content_section_id_and_language_abbr_and_active(ContentSection.find_by_name(section_name).id,'en',true,:order=>'sort_order')
-   
+    content_section = ContentSection.find_by_name section_name
+    return [] unless content_section
+    return ContentPage.find_all_by_content_section_id_and_language_abbr_and_active(
+      content_section.id, 'en', true, :order => 'sort_order' )
   end
   
 end

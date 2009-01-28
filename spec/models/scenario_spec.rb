@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 # with out development and speccing
 describe EOL::Scenario do
 
-  def path_to_scenarios
+  def path_to_test_scenarios
     File.join RAILS_ROOT, 'spec', 'examples', 'scenarios'
   end
   def path_to_more_scenarios
@@ -12,16 +12,23 @@ describe EOL::Scenario do
   end
 
   before do
-    EOL::Scenario.load_paths = [ path_to_scenarios ]
+    EOL::Scenario.load_paths = [ path_to_test_scenarios ]
     $set_by_first_scenario = nil
     $set_by_foo = nil
+  end
+
+  before :all do
+    @original_scenario_paths = EOL::Scenario.load_paths
+  end
+  after :all do
+    EOL::Scenario.load_paths = @original_scenario_paths
   end
 
   it 'should find scenario files properly' do
     EOL::Scenario.load_paths = []
     EOL::Scenario.all.should be_empty
 
-    EOL::Scenario.load_paths = [ path_to_scenarios ]
+    EOL::Scenario.load_paths = [ path_to_test_scenarios ]
     EOL::Scenario.all.length.should == 1
     EOL::Scenario.all.first.name.should == 'first'
 

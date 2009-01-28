@@ -118,22 +118,14 @@ div#large-image-untrust-button:hover {
  background: transparent url(/images/thumb_down.png) no-repeat;
 }
 div#large-image-curator-button {
- background: transparent url(/images/icons/icons.gif) no-repeat -23px 0px;
  position: absolute;
  top: 0px;
  left: 90px;
 }
-div#large-image-curator-button:hover {
- background: transparent url(/images/icons/icons.gif) no-repeat -23px -32px;
-}
 div#large-image-comment-button {
- background: transparent url(/images/icons/icons.gif) no-repeat -72px 0px;
  position: absolute;
  top: 0px;
  left: 120px;
-}
-div#large-image-comment-button:hover {
- background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px;
 }
 div#large-image-tagging-button {
  position: absolute;
@@ -167,11 +159,6 @@ li#large-image-attribution-button.unknown:hover {
 .text-comments-head p {
   font-size: 6pt;
   padding-top: 2px;
-}
-.text-comment-border {
-  border: 1px solid #83991e;
-  padding: 2px;
-  background-color: #a2b736;
 }
 .text-comment-div {
   border: 1px solid #83991e;

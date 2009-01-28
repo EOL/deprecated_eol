@@ -20,12 +20,7 @@ EOL.Curation.after_quick_curate = function(element, vetted_id) {
     eol_update_credit(EOL.MediaCenter.image_hash[data_object_id]);
     EOL.Curation.update_thumbnail_background(vetted_id, data_object_id);
   } else if(data_object_type == EOL.Curation.TEXT_ID) {
-    $('text_'+data_object_id).removeClassName('untrusted-background-image');
-    $('text_'+data_object_id).removeClassName('unknown-background-image');
-    if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
-      $('text_'+data_object_id).addClassName('untrusted-background-image');
-    }
-    
+    EOL.Curation.update_text_background(data_object_id, vetted_id);
   }
 };
 
@@ -41,31 +36,48 @@ EOL.Curation.update_thumbnail_background = function(vetted_id, data_object_id) {
   }
 };
 
-EOL.Curation.after_curate = function(id) {
-  $$('#large-image-curator-button-popup-link_popup_content .vetted form')[0].enable();
-  $$('#large-image-curator-button-popup-link_popup_content .vetted form img')[0].fade();
-  EOL.MediaCenter.image_hash[id].curated = true;
-  if ($('curate_trust').checked) {
-      EOL.MediaCenter.image_hash[id].vetted_id = EOL.Curation.TRUSTED_ID;
-      EOL.Curation.update_thumbnail_background(EOL.Curation.TRUSTED_ID, id);
-  } else if ($('curate_untrust').checked) {
-      EOL.MediaCenter.image_hash[id].vetted_id = EOL.Curation.UNTRUSTED_ID;
-      EOL.Curation.update_thumbnail_background(EOL.Curation.UNTRUSTED_ID, id);
+EOL.Curation.update_text_background = function(data_object_id, vetted_id) {
+  $('text_'+data_object_id).removeClassName('untrusted-background-image');
+  $('text_'+data_object_id).removeClassName('unknown-background-image');
+  if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
+    $('text_'+data_object_id).addClassName('untrusted-background-image');
   }
-  eol_update_credit(EOL.MediaCenter.image_hash[id]);
 }
 
+EOL.Curation.after_curate = function(form,vetted_id) {
+  id = form.readAttribute('data-data_object_id');
+  type = form.readAttribute('data-data_object_type');
+  form.enable();
+  form.down('div.label img').fade();
+  if(type == EOL.Curation.IMAGE_ID) {
+    EOL.MediaCenter.image_hash[id].curated = true;
+    if ($('curate_trust_'+id).checked) {
+      EOL.MediaCenter.image_hash[id].vetted_id = EOL.Curation.TRUSTED_ID;
+      EOL.Curation.update_thumbnail_background(EOL.Curation.TRUSTED_ID, id);
+    } else if ($('curate_untrust_'+id).checked) {
+      EOL.MediaCenter.image_hash[id].vetted_id = EOL.Curation.UNTRUSTED_ID;
+      EOL.Curation.update_thumbnail_background(EOL.Curation.UNTRUSTED_ID, id);
+    }
+    eol_update_credit(EOL.MediaCenter.image_hash[id]);
+  } else if(type == EOL.Curation.TEXT_ID) {
+    EOL.Curation.update_text_background(id, vetted_id);
+  }
+};
+
 EOL.Curation.Behaviors = {
-  '#large-image-curator-button-popup-link_popup_content .visibility input:click': function(e) {
-    $$('#large-image-curator-button-popup-link_popup_content .visibility form')[0].onsubmit();
-    $$('#large-image-curator-button-popup-link_popup_content .visibility form img')[0].appear();
-    $$('#large-image-curator-button-popup-link_popup_content .visibility form')[0].disable();
-  },
-  
-  '#large-image-curator-button-popup-link_popup_content .vetted input:click': function(e) {
-    $$('#large-image-curator-button-popup-link_popup_content .vetted form')[0].onsubmit();
-    $$('#large-image-curator-button-popup-link_popup_content .vetted form img')[0].appear();
-    $$('#large-image-curator-button-popup-link_popup_content .vetted form')[0].disable();
+  'div.visibility form div.option input:click, div.vetted form div.option input:click': function(e) {
+    this.form.down('div.label img').appear();
+    form = this.form
+    vetted_id = this.readAttribute('data-vetted_id');
+    new Ajax.Request(this.form.action,
+                     {
+                       asynchronous:true,
+                       evalScripts:true,
+                       method:'put',
+                       onComplete:function(){EOL.Curation.after_curate(form,vetted_id);}.bind(form,vetted_id),
+                       parameters:Form.serialize(this.form)
+                     });
+    this.form.disable();
   },
   
   'div.trust_button a:click': function(e) {

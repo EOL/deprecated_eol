@@ -1,31 +1,31 @@
 <h1>Object Curation</h1>
 
 <div class="vetted">
-  <% form_remote_tag :url => curate_data_object_path(@data_object), :method => 'put', :complete => "EOL.Curation.after_curate(#{@data_object.id});" do %>
-    <div class="label">This object is <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
+  <form action="<%= curate_data_object_path(@data_object) %>" data-data_object_id="<%= @data_object.id %>" data-data_object_type="<%=@data_object.data_type_id%>">
+    <div class="label">VETTED <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.approve!.id.to_s, @data_object.trusted?, {:id => 'curate_trust'} %> Trusted
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.approve!.id.to_s, @data_object.trusted?, {:id => "curate_trust_#{@data_object.id}", 'data-vetted_id' => Vetted.trusted.id} %> Trusted
     </div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.disapprove!.id.to_s, @data_object.untrusted?, {:id => 'curate_untrust'} %> Not trusted
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.disapprove!.id.to_s, @data_object.untrusted?, {:id => "curate_untrust_#{@data_object.id}", 'data-vetted_id' => Vetted.untrusted.id} %> Untrusted
     </div>
-  <% end %>
+  </form>
 </div>
 
 <div class="visibility">
-  <% form_remote_tag :url => curate_data_object_path(@data_object), :method => 'put', :complete => "$$('#large-image-curator-button-popup-link_popup_content .visibility form')[0].enable();$$('#large-image-curator-button-popup-link_popup_content .visibility form img')[0].fade();" do %>
-    <div class="label">This object should be<%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
+  <form action="<%= curate_data_object_path(@data_object) %>" data-data_object_id="<%= @data_object.id %>" data-data_object_type="<%=@data_object.data_type_id%>">
+    <div class="label">VISIBILITY <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.show!.id.to_s, @data_object.visible? %> Shown
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.hide!.id.to_s, @data_object.invisible?, {:id => "#{@data_object.id}_curator_activity_id_#{CuratorActivity.hide!.id.to_s}", 'data-visibility_id' => Visibility.invisible.id} %> Hide
     </div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.hide!.id.to_s, @data_object.invisible? %> Hidden
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.show!.id.to_s, @data_object.visible?, {:id => "#{@data_object.id}_curator_activity_id_#{CuratorActivity.show!.id.to_s}", 'data-visibility_id' => Visibility.visible.id} %> Show
     </div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.inappropriate!.id.to_s, @data_object.inappropriate? %> Marked As Inappropriate
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.inappropriate!.id.to_s, @data_object.inappropriate?, {:id => "#{@data_object.id}_curator_activity_id_#{CuratorActivity.inappropriate!.id.to_s}", 'data-visibility_id' => Visibility.inappropriate.id} %> Inappropriate
     </div>
-  <% end %>
+  </form>
 </div>
 
-Note that some changes may take 24 hours to be shown on the website to other users and you may not see your changes until you refresh this page.
+Note that some changes may take 24 hours to be shown on the website to other users.
 

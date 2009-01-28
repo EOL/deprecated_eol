@@ -57,7 +57,7 @@
                     <div alt="Do not trust this image" title="Do not trust this image" id="large-image-untrust-button" class="untrust_button" <%='style="display: none"' if @images[0].curated?%>>
                         <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => @images[0].id, 'data-data_object_type' => DataType.image_type_ids[0]} %>
                     </div>
-                    <div alt="Curate image" title="Curate image" id="large-image-curator-button">
+                    <div alt="Curate image" title="Curate image" id="large-image-curator-button" class="curate-button-image">
                       <%= popup_link 'curator', curation_data_object_path(@images[0]) %>
                     </div> <!-- /large-image-curator-button -->
                   <% end %>
@@ -66,7 +66,7 @@
                     <%= popup_link 'tagging', data_object_tags_path(@images[0]) %>
                   </div> <!-- /large-image-tagging-button -->
 
-                  <div alt="Comment on image" title="Comment on image" id="large-image-comment-button">
+                  <div alt="Comment on image" title="Comment on image" id="large-image-comment-button" class="comment-button-image">
                     <%= popup_link 'comment', data_object_comments_path(@images[0]) %>
                   </div> <!-- /large-image-comment-button -->
                 </div> <!-- /large-image-button-popup -->

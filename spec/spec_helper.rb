@@ -7,15 +7,17 @@ load 'composite_primary_keys/fixtures.rb'
 
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
+require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
 
 require 'scenario'
 EOL::Scenario.load_paths = [ File.join(RAILS_ROOT, 'spec', 'scenarios') ]
 
 require 'rackbox'
-# require File.expand_path(File.dirname(__FILE__) + "/custom_matchers") # eval this with config context?
 
 Spec::Runner.configure do |config|
   include EOL::Spec::Helpers
+
+  config.include EOL::Spec::Matchers
 
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false

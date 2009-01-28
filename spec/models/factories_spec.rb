@@ -10,7 +10,8 @@ describe Factory do
   def self.model_classes
     [ MimeType, AgentRole, DataType, Agent, ContentPartner, CuratorActivity,
       Language, License, Visibility, Vetted, DataType, Role, User,
-      DataObjectTag, DataObjectTags, DataObject, Comment, CuratorCommentLog ]
+      DataObjectTag, DataObjectTags, DataObject, Comment, CuratorCommentLog,
+      CuratorDataObjectLog ]
   end
 
   # gets the names of the factories for classes ( default: model_classes )

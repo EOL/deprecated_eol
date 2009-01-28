@@ -36,7 +36,24 @@ Event.addBehavior(
                         onLoading: Effect.BlindDown(textCommentsWrapper)
                         });
     } else {
-      Effect.DropOut(textCommentsBorder);
+      Effect.DropOut(textCommentsWrapper);
+    }
+    e.stop();
+  },
+
+  'div.text_buttons div.curate_button a:click': function(e) {
+    data_object_id = this.readAttribute('data-data_object_id');
+    textCuration = "text-curation-" + data_object_id;
+    textCurationWrapper = "text-curation-wrapper-" + data_object_id;
+    if ($(textCurationWrapper).style.display == 'none') {
+      new Ajax.Updater(textCuration, this.href,
+                       {asynchronous:true, evalScripts:true, method:'get',
+                        parameters: { body_div_name: textCuration },
+                        onLoading: Effect.BlindDown(textCurationWrapper),
+                        onComplete: EOL.reload_behaviors
+                        });
+    } else {
+      Effect.DropOut(textCurationWrapper);
     }
     e.stop();
   },

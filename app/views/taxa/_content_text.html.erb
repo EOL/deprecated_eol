@@ -71,23 +71,29 @@ unless @content[:data_objects].nil?
           <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
         </div>
       <% end %>
-      <!--
-      <div class="curate_button">
-        <%= popup_link 'curator', curation_data_object_path(content_item) %>
+      <div class="curate_button curate-button-image">
+        <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', curation_data_object_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
       </div>
-      -->
-      <div class="comment_button">
-        <%= link_to image_tag('comment_button.png'), data_object_comments_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
+      <div class="comment_button comment-button-image">
+        <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', data_object_comments_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
       </div>
     </div>
 
-    <div id="text-comments-wrapper-<%= content_item.id %>" style="display:none;" class="text-comment-border">
-      <div id="text-comments-<%= content_item.id %>" class="text-comment-container">
+    <div id="text-comments-wrapper-<%= content_item.id %>" style="display:none;" class="text-slidebox-border">
+      <div id="text-comments-<%= content_item.id %>" class="text-slidebox-container">
         <%# TODO - we re-use this indicator a lot.  Put it in a CSS class. %>
         <p><%= image_tag 'indicator_arrows_black.gif' %> Retrieving comments, please wait...</p>
       </div>
     </div>
-    <div class="divider"></div>  
+
+    <div id="text-curation-wrapper-<%= content_item.id %>" style="display:none;" class="text-slidebox-border">
+      <div id="text-curation-<%= content_item.id %>" class="text-slidebox-container">
+        <%# TODO - we re-use this indicator a lot.  Put it in a CSS class. %>
+        <p><%= image_tag 'indicator_arrows_black.gif' %> Loading curation controls, please wait...</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
     <p></p><%
   end 
 end -%>

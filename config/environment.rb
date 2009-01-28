@@ -10,9 +10,7 @@
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 require 'eol_web_service'
-
-# put this into lib?  we should have an EOL class which we can use for namespacing as well as configuration options, etc
-class EOL; end
+require 'eol'
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here

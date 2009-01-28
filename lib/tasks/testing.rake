@@ -7,30 +7,6 @@ task :truncate => :environment do
     include EOL::Spec::Helpers
     truncate_all_tables :verbose => true
   else
-    puts "hmmm ... are you really sure you want to truncate all tables in an environment besides 'test'?  i'm not gonna let you!"
+    puts "sorry, i'm not comfortable doing this in any environment but 'test'"
   end
-end
-
-# SCENARIOS
-
-desc 'Print all available scenarios'
-task :scenarios do
-  require File.join(RAILS_ROOT, 'spec', 'scenario')
-  if EOL::Scenario.all.empty?
-    puts "there are no scenarios.  add some to ./spec/scenarios"
-  else
-    EOL::Scenario.all.each do |scenario|
-      puts "#{ scenario.name }: #{ scenario.description }"
-    end  
-  end
-end
-
-namespace :scenarios do
-
-  desc 'scenarios:load NAME=foo'
-  task :load do
-    name = ENV['NAME']
-    puts "would load scenario: #{name}"
-  end
-
 end

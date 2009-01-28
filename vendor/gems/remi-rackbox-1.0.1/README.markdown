@@ -61,12 +61,7 @@ on how things work in [Merb][] so I can duplicate any functionality I'm missing.
 `request` gives you a [`Rack::Response`](http://rack.rubyforge.org/doc/classes/Rack/Response.html) which has 
 `body`, `headers`, `status` methods ([and more](http://rack.rubyforge.org/doc/classes/Rack/Response.html))
 
-There are still a number of TODOs!
 
- - add sticky sessions
- - add configuration option for spec/(directory name)
- - default :method to :post when :params are provided, unless :method is explicitly set
- - support some kindof a helpful request('/').should have\_tag syntax
 
 [rackbox]:  http://github.com/remi/rackbox
 [merb]:     http://merbivore.com

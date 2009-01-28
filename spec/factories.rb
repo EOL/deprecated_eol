@@ -475,8 +475,8 @@ Factory.define :user do |u|
   u.vetted                    false
   u.username                  { Factory.next(:string) }
   u.active                    true
-  u.hashed_password           { Digest::MD5.hexdigest('test password') }
   u.entered_password          'test password'
+  u.hashed_password           {|u| Digest::MD5.hexdigest(u.entered_password) }
   u.curator_hierarchy_entry   nil
   u.curator_approved          false
   u.curator_verdict_by_id     0

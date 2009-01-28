@@ -6,6 +6,7 @@ load 'composite_primary_keys/fixtures.rb'
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
 require 'scenario'
+require 'rackbox'
 # require File.expand_path(File.dirname(__FILE__) + "/custom_matchers") # eval this with config context?
 
 Spec::Runner.configure do |config|
@@ -13,6 +14,7 @@ Spec::Runner.configure do |config|
 
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
+  config.use_blackbox               = true
   config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
 
   # taken from use_db/lib/override_test_case.rb

@@ -95,7 +95,7 @@ class EOL
         require File.join(RAILS_ROOT, 'spec', 'factories') # most scenarios will want to use factories
         scenarios.each do |scenario|
           scenario = self[scenario] unless scenario.is_a?Scenario # try getting using self[] if not a scenario
-          puts "loading #{ scenario.name } (#{ scenario.description })" if scenario.is_a?Scenario
+          # puts "loading #{ scenario.name } (#{ scenario.description })" if scenario.is_a?Scenario
           eval scenario.source_code if scenario.is_a?Scenario
         end
       end

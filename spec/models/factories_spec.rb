@@ -9,9 +9,17 @@ describe Factory do
   #
   def self.model_classes
     [ MimeType, AgentRole, DataType, Agent, ContentPartner, CuratorActivity,
-      Language, License, Visibility, Vetted, DataType, Role, User,
+      Language, License, Visibility, Vetted, DataType, Role, User, ItemPage,
       DataObjectTag, DataObjectTags, DataObject, Comment, CuratorCommentLog,
-      CuratorDataObjectLog ]
+      CuratorDataObjectLog, Hierarchy, HierarchyEntry, TaxonConcept, PageName,
+      NormalizedLink, PublicationTitle, InfoItem, Taxon, DataObjectsTaxon,
+      Contact, ContactSubject ].uniq
+
+    # ... some to pick from (this isn't all of them) ...
+    #
+    # AgentContact, AgentsResource, AgentsHierarchyEntry, CuratorActivityLogDaily,
+    # DataObjectsHarvestEvent, DataObjectsTableOfContent,
+    # HarvestEvent, HierarchiesContent,
   end
 
   # gets the names of the factories for classes ( default: model_classes )
@@ -22,13 +30,30 @@ describe Factory do
     model_classes.map {|klass| [ klass.to_s.underscore.to_sym, klass ] }
   end
 
-  factories.each do |factory, klass|
+  # returns the names of all of the factories defined in factories.rb
+  def self.factories_defined
+    factories = File.read(File.join(RAILS_ROOT, 'spec', 'factories.rb')).grep(/^Factory.define :(.*) do/){ |x| $1.to_sym }
+    puts factories.inspect
+    factories.map {|name| 
+      begin
+        [ name, name.to_s.classify.constantize ]
+      rescue NameError
+        puts "couldn't find constant #{ name.to_s.classify } for factory #{ name }"
+        nil
+      end
+    }.compact
+  end
 
+  factories.each do |factory, klass|
     it "should generate #{klass}" do
       klass.delete_all
-      lambda {   3.times { Factory(factory).should be_valid }   }.should change(klass, :count).by(3)
+      lambda {   
+      if klass == AgentRole
+        puts "there are #{ AgentRole.count } agent_roles"
+      end
+        3.times { Factory(factory).should be_valid }
+      }.should change(klass, :count).by(3)
     end
-
   end
 
 end

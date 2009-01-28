@@ -56,7 +56,7 @@ class EOL
       # any .rb file found in these directories is assumed to 
       # be a scenario
       #
-      attr_accessor :load_paths
+      attr_accessor :load_paths, :verbose
 
       # returns all Scenarios found using Scenario#load_paths
       def all
@@ -95,13 +95,14 @@ class EOL
         require File.join(RAILS_ROOT, 'spec', 'factories') # most scenarios will want to use factories
         scenarios.each do |scenario|
           scenario = self[scenario] unless scenario.is_a?Scenario # try getting using self[] if not a scenario
-          # puts "loading #{ scenario.name } (#{ scenario.description })" if scenario.is_a?Scenario
+          puts "loading #{ scenario.name } (#{ scenario.description })" if Scenario.verbose && scenario.is_a?(Scenario)
           eval scenario.source_code if scenario.is_a?Scenario
         end
       end
     end  
 
     EOL::Scenario.load_paths ||= [ File.join(RAILS_ROOT, 'spec', 'scenarios') ]
+    EOL::Scenario.verbose = false
 
   end
 end

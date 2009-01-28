@@ -1,4 +1,5 @@
 require 'scenario'
+EOL::Scenario.verbose = true
 
 desc 'Print all available scenarios'
 task :scenarios do

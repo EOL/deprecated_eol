@@ -7,9 +7,11 @@ module EOL::Spec
     end
 
     # truncates all tables in all databases
-    def truncate_all_tables
+    def truncate_all_tables options = { }
+      options[:verbose] ||= false
       all_connections.each do |conn|
         conn.tables.each   do |table|
+          puts "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
           conn.execute "TRUNCATE TABLE`#{table}`"
         end
       end

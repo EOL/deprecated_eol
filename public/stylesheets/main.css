@@ -3006,10 +3006,10 @@ div.content-article {
 div.text_buttons { position: relative; height: 30px; margin-top: 2px; }
 div.text_buttons div { position: absolute; top: 0px; }
 div.text_buttons div.spinner { left: 280px; }
-div.text_buttons div.trust_button { left: 310px; background: transparent url(/images/thumb_up.png) no-repeat; }
-div.text_buttons div.untrust_button { left: 340px; background: transparent url(/images/thumb_down.png) no-repeat; }
 div.text_buttons div.curate_button { left: 370px; }
 div.text_buttons div.comment_button { left: 400px; }
+div.text_buttons div.trust_button { left: 310px; }
+div.text_buttons div.untrust_button { left: 340px; }
 
 /* Clade selector on signup page for curator registration */
 
@@ -3053,3 +3053,11 @@ form .pagination span {color:#959595;display: inline;}
 .comment-button-image:hover { background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px; }
 .curate-button-image { background: transparent url(/images/icons/icons.gif) no-repeat -23px 0px; }
 .curate-button-image:hover { background: transparent url(/images/icons/icons.gif) no-repeat -23px -32px; }
+.yellow-thumbs-up-image { background: transparent url(/images/icons/dual-states/thumbs-up-yellow.png) no-repeat 0px 0px; }
+.yellow-thumbs-up-image:hover {background: transparent url(/images/icons/dual-states/thumbs-up-yellow.png) no-repeat 0px -32px; }
+.green-thumbs-up-image { background: transparent url(/images/icons/dual-states/thumbs-up-green.png) no-repeat 0px 0px; }
+.green-thumbs-up-image:hover {background: transparent url(/images/icons/dual-states/thumbs-up-green.png) no-repeat 0px -32px; }
+.yellow-thumbs-down-image { background: transparent url(/images/icons/dual-states/thumbs-down-yellow.png) no-repeat 0px 0px; }
+.yellow-thumbs-down-image:hover {background: transparent url(/images/icons/dual-states/thumbs-down-yellow.png) no-repeat 0px -32px; }
+.green-thumbs-down-image { background: transparent url(/images/icons/dual-states/thumbs-down-green.png) no-repeat 0px 0px; }
+.green-thumbs-down-image:hover {background: transparent url(/images/icons/dual-states/thumbs-down-green.png) no-repeat 0px -32px; }

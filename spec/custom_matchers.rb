@@ -16,4 +16,6 @@ module EOL::Spec::Matchers
     true # everything is awesome  :P
   }
 
+  matcher(:be_a_curator_of) {|user, clade| user.can_curate? clade }
+
 end

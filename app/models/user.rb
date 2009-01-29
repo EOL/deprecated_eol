@@ -74,7 +74,7 @@ class User < ActiveRecord::Base
   def can_curate? object
     return false unless curator_approved
     return false unless curator_hierarchy_entry_id
-    return false unless object # and object.respond_to?:is_curatable_by?
+    return false unless object
     raise "Don't know how to curate object of type #{ object.class }" unless object.respond_to?:is_curatable_by?
     object.is_curatable_by? self
   end

@@ -1151,6 +1151,10 @@ ul#global-navigation {
 			background-color: #FF9999 !important;
 		}
 
+        .trusted-background-image {
+            border: 1px solid #FFFFFF;
+        }
+
         .unknown-background-image {
 			border: 1px solid #FFCC00;
 			background-color: #FFFF99 !important;

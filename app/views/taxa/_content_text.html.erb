@@ -32,13 +32,7 @@ unless @content[:data_objects].nil?
       <%= render :partial=>'/shared/untrusted_text_warning_box' -%>
     <% end %>
 
-    <% if content_item.vetted_id == Vetted.unknown.id %>
-      <% vetted_id_style = 'unknown-background-image' %>
-    <% elsif content_item.vetted_id == Vetted.untrusted.id %>
-      <% vetted_id_style = 'untrusted-background-image' %>
-    <% end %>
-    
-    <div class="content-article <%=vetted_id_style%>" id="text_<%=content_item.id%>">
+    <div class="content-article <%=vetted_id_class(content_item)%>" id="text_<%=content_item.id%>">
       <% if content_item.object_title.blank? == false && content_item.object_title != @content[:category_name] %>
         <h1><%= hh(content_item.object_title) %></h1>
       <% end %>

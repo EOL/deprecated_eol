@@ -100,22 +100,14 @@ div#right-image-buttons div.spinner {
  left: 0px;
 }
 div#large-image-trust-button {
- background: transparent url(/images/thumb_up.png) no-repeat;
  position: absolute;
  top: 0px;
  left: 30px;
 }
-div#large-image-trust-button:hover {
- background: transparent url(/images/thumb_up.png) no-repeat;
-}
 div#large-image-untrust-button {
- background: transparent url(/images/thumb_down.png) no-repeat;
  position: absolute;
  top: 0px;
  left: 60px;
-}
-div#large-image-untrust-button:hover {
- background: transparent url(/images/thumb_down.png) no-repeat;
 }
 div#large-image-curator-button {
  position: absolute;

@@ -2,7 +2,7 @@ class Role < ActiveRecord::Base
   
   has_and_belongs_to_many :users
   validates_presence_of :title
-    
+
   def self.curator
     @cur ||= Role.find_by_title('Curator')
   end

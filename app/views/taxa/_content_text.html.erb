@@ -60,20 +60,22 @@ unless @content[:data_objects].nil?
     </div>
 
     <div class="text_buttons" id="text_buttons_<%=content_item.id%>">
-      <% if current_user.can_curate?(@taxon) && !content_item.curated?%>
-        <div class="spinner">
-          <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
-        </div>
-        <div class="trust_button thumbs-up-image">
-          <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
-        </div>
-        <div class="untrust_button thumbs-down-image">
-          <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
+      <% if current_user.can_curate?(@taxon)%>
+        <% if !content_item.curated? %>
+          <div class="spinner">
+            <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
+          </div>
+          <div class="trust_button thumbs-up-image">
+            <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
+          </div>
+          <div class="untrust_button thumbs-down-image">
+            <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
+          </div>
+        <% end %>
+        <div class="curate_button curate-button-image">
+          <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', curation_data_object_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
         </div>
       <% end %>
-      <div class="curate_button curate-button-image">
-        <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', curation_data_object_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
-      </div>
       <div class="comment_button comment-button-image">
         <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', data_object_comments_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
       </div>

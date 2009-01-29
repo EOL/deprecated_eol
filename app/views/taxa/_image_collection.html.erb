@@ -82,11 +82,6 @@
             image_attribution_hash+="}"
             counter += 1
             image_icon = ""
-            if image.untrusted?
-              class_name='untrusted-background-image'
-            elsif image.unknown?
-              class_name='unknown-background-image'
-            end
             image_icon = preview_icon({:style=>"position:relative;top:-53px;left:-28px;"}) unless image.published?
             image_icon = published_icon({:style=>"position:relative;top:-53px;left:-28px;", :agent_name => data_supplier.full_name }) if published_by_agent == 1
             -%>
@@ -97,7 +92,7 @@
 
             <%= link_to_function("<span style=\"display:block;margin-left:4px;width:60px;height:48px;text-align:left;\"><img src=\"#{image.smart_thumb}\" alt=\"#{hh(image.scientific_name)}\"/></span>#{image_icon}",
                                  %Q{return eol_update_image('#{ escape_javascript(image.smart_image)}',EOL.MediaCenter.image_hash[#{image.id}])},
-                                 :title => hh(image.scientific_name), :class=>class_name,:id=>"thumbnail_#{image.id}") %>
+                                 :title => hh(image.scientific_name), :class=>vetted_id_class(image),:id=>"thumbnail_#{image.id}") %>
           
             
             <% if counter == 1 

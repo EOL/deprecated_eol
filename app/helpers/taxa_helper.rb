@@ -7,6 +7,17 @@ module TaxaHelper
     link_to '<span style="display:block;width:24px;height:25px;"></span>', where, 
             :id => "large-image-#{which}-button-popup-link", :class => 'popup-link', :style => 'display:none;'
   end
+
+  def vetted_id_class(data_object)
+    case data_object.vetted_id
+      when Vetted.unknown.id
+        return 'unknown-background-image'
+      when Vetted.untrusted.id
+        return 'untrusted-background-image'
+      when Vetted.trusted.id
+        return 'trusted-background-image'
+    end
+  end
   
   def link_text(text,link="",params={})
     eol_return_linked_text(text,link,params)

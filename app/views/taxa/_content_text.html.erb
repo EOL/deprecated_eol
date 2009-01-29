@@ -64,10 +64,10 @@ unless @content[:data_objects].nil?
         <div class="spinner">
           <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
         </div>
-        <div class="trust_button<%= content_item.trusted? ? ' green-thumbs-up-image' : ' yellow-thumbs-up-image' %>">
+        <div class="trust_button thumbs-up-image">
           <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
         </div>
-        <div class="untrust_button<%= content_item.trusted? ? ' green-thumbs-down-image' : ' yellow-thumbs-down-image' %>">
+        <div class="untrust_button thumbs-down-image">
           <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
         </div>
       <% end %>

@@ -157,30 +157,19 @@ function eol_update_credit(params){
     $('mc-notes').removeClassName('untrusted-background-text');
     $('main-image-bg').removeClassName('unknown-background-image');
     $('main-image-bg').removeClassName('untrusted-background-image');
-    $('large-image-trust-button').removeClassName('green-thumbs-up-image');
-    $('large-image-trust-button').removeClassName('yellow-thumbs-up-image');
-    $('large-image-untrust-button').removeClassName('green-thumbs-down-image');
-    $('large-image-untrust-button').removeClassName('yellow-thumbs-down-image');
 
     if (params.vetted_id == EOL.Curation.UNKNOWN_ID) {
       $('mc-notes').addClassName('unknown-background-text');
       $('main-image-bg').addClassName('unknown-background-image');
-      $('large-image-trust-button').addClassName('yellow-thumbs-up-image');
-      $('large-image-untrust-button').addClassName('yellow-thumbs-down-image');
       $('large-image-attribution-button').addClassName('unknown');
       field_notes_area += '<br /><br /><strong>Note:</strong> The image from this source has not been reviewed.';
     } else if (params.vetted_id == EOL.Curation.UNTRUSTED_ID) {
       $('mc-notes').addClassName('untrusted-background-text');
       $('main-image-bg').addClassName('untrusted-background-image');
-      $('large-image-trust-button').addClassName('yellow-thumbs-up-image');
-      $('large-image-untrust-button').addClassName('yellow-thumbs-down-image');
       $('large-image-attribution-button').addClassName('untrusted');
       field_notes_area += '<br /><br /><strong>Note:</strong> The image from this source is not trusted.';
-    } else if (params.vetted_id == EOL.Curation.TRUSTED_ID) {
-      $('large-image-trust-button').addClassName('green-thumbs-up-image');
-      $('large-image-untrust-button').addClassName('green-thumbs-down-image');
     }
-
+    
     $('field-notes').innerHTML = field_notes_area; // this is the 'gray box'
     // ! FIELD NOTES ! </end>
 }

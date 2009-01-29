@@ -3053,11 +3053,7 @@ form .pagination span {color:#959595;display: inline;}
 .comment-button-image:hover { background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px; }
 .curate-button-image { background: transparent url(/images/icons/icons.gif) no-repeat -23px 0px; }
 .curate-button-image:hover { background: transparent url(/images/icons/icons.gif) no-repeat -23px -32px; }
-.yellow-thumbs-up-image { background: transparent url(/images/icons/dual-states/thumbs-up-yellow.png) no-repeat 0px 0px; }
-.yellow-thumbs-up-image:hover {background: transparent url(/images/icons/dual-states/thumbs-up-yellow.png) no-repeat 0px -32px; }
-.green-thumbs-up-image { background: transparent url(/images/icons/dual-states/thumbs-up-green.png) no-repeat 0px 0px; }
-.green-thumbs-up-image:hover {background: transparent url(/images/icons/dual-states/thumbs-up-green.png) no-repeat 0px -32px; }
-.yellow-thumbs-down-image { background: transparent url(/images/icons/dual-states/thumbs-down-yellow.png) no-repeat 0px 0px; }
-.yellow-thumbs-down-image:hover {background: transparent url(/images/icons/dual-states/thumbs-down-yellow.png) no-repeat 0px -32px; }
-.green-thumbs-down-image { background: transparent url(/images/icons/dual-states/thumbs-down-green.png) no-repeat 0px 0px; }
-.green-thumbs-down-image:hover {background: transparent url(/images/icons/dual-states/thumbs-down-green.png) no-repeat 0px -32px; }
+.thumbs-up-image { background: transparent url(/images/icons/dual-states/thumbs_up.png) no-repeat 0px 0px; }
+.thumbs-up-image:hover { background: transparent url(/images/icons/dual-states/thumbs_up.png) no-repeat 0px -32px; }
+.thumbs-down-image { background: transparent url(/images/icons/dual-states/thumbs_down.png) no-repeat 0px 0px; }
+.thumbs-down-image:hover { background: transparent url(/images/icons/dual-states/thumbs_down.png) no-repeat 0px -32px; }

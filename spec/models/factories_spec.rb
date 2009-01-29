@@ -51,7 +51,9 @@ describe Factory do
   factories.each do |factory, klass|
     it "should generate #{klass}" do
       klass.truncate
-      lambda {   3.times { Factory(factory).should be_valid }   }.should change(klass, :count).by(3)
+      # lambda {   3.times { Factory(factory).should be_valid }   }.should change(klass, :count).by(3)
+      # lambda {   3.times { klass.generate.should be_valid }   }.should change(klass, :count).by(3)
+      lambda {   3.times { klass.gen.should be_valid }   }.should change(klass, :count).by(3)
     end
   end
 

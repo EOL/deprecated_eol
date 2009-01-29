@@ -2,6 +2,7 @@
 
 require 'factory_girl'
 require 'faker'
+require File.dirname(__FILE__) + '/eol_factory_girl'
 
 # Note - at the end of this file is Factory.prerequisites, which creates all of the "default" vaules the app counts on.
 
@@ -486,8 +487,8 @@ end
 # Creates all of the "default" vaules the app counts on.
 class Factory
   def self.prerequisites
-    Factory(:contact_subject) # There just needs to be one of these, doesn't matter which.
-    Factory(:content_page, :page_name => 'Home', :language_abbr => 'en')
+    ContactSubject.generate # There just needs to be one of these, doesn't matter which.
+    ContentPage.generate :page_name => 'Home', :language_abbr => 'en'
   end
 end
 
@@ -495,12 +496,6 @@ end
 #
 # the following all need work, i just wanna get rid of the 'no such factory' messages
 #
-
-%w( visibility vetted mime_type agent_role ).each do |enum|
-  Factory.define enum.to_sym do |x|
-    x.label { Factory.next(:string) }
-  end
-end
 
 Factory.define :visibility do |x|
   x.label { Factory.next(:string) }

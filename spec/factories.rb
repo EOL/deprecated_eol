@@ -4,8 +4,6 @@ require 'factory_girl'
 require 'faker'
 require File.dirname(__FILE__) + '/eol_factory_girl'
 
-# Note - at the end of this file is Factory.prerequisites, which creates all of the "default" vaules the app counts on.
-
 #### Sequences
 
 Factory.sequence( :string ){|n| "unique#{ n }string" } # 'string' isn't elegant, but it's perfect for right now!
@@ -20,6 +18,10 @@ Factory.define :agent_contact do |ac|
   ac.family_name { Factory.next(:string) }
   ac.full_name   {|a| "#{a.first_name} #{a.last_name}" }
   ac.email       {|a| "#{a.first_name}.#{a.last_name}@example.com".downcase }
+end
+
+Factory.define :agent_role do |x|
+  x.label { Factory.next(:string) }
 end
 
 Factory.define :agent_status do |as|
@@ -70,9 +72,23 @@ Factory.define :collection do |col|
   col.vetted      1
 end
 
+Factory.define :comment do |x|
+  x.association :parent, :factory => :data_object
+  x.parent_type 'data_object'
+  x.body { Factory.next(:string) }
+  x.association :user
+end
+
+Factory.define :contact do |c|
+  c.name { Factory.next(:string) }
+  c.email { Factory.next(:email) }
+  c.association :contact_subject
+  c.comments %w( foo bar )
+end
+
 Factory.define :contact_subject do |cs|
-  cs.title      'TestContactSubject'
-  cs.recipients { Faker::Internet.email }
+  cs.title { Factory.next(:string) }
+  cs.recipients { Factory.next(:string) }
   cs.active     true
   cs.created_at { 48.hours.ago }
   cs.updated_at { 48.hours.ago }
@@ -162,6 +178,16 @@ Factory.define :data_object do |dato|
   dato.association            :vetted
   dato.association            :visibility
   dato.published              true
+end
+
+Factory.define :data_object_tag do |x|
+  x.key   { Factory.next(:string) }
+  x.value { Factory.next(:string) }
+end
+
+Factory.define :data_object_tags do |x|
+  x.association :data_object
+  x.association :data_object_tag
 end
 
 Factory.define :data_objects_harvest_event do |dohe|
@@ -265,10 +291,21 @@ Factory.define :license do |l|
   l.logo_url    ''
 end
 
+Factory.define :log_daily do |x|
+  x.day Date.today
+  x.total 0
+  x.user_agent 'Cool/Browser'
+  x.association :data_type
+end
+
 Factory.define :mapping do |m|
   m.association :collection
   m.association :name
   m.foreign_key 7357 # Arbitrary, off-site number
+end
+
+Factory.define :mime_type do |x|
+  x.label { Factory.next(:string) }
 end
 
 Factory.define :name do |name|
@@ -484,67 +521,10 @@ Factory.define :user do |u|
   u.curator_verdict_at        nil
 end
 
-# Creates all of the "default" vaules the app counts on.
-class Factory
-  def self.prerequisites
-    ContactSubject.generate # There just needs to be one of these, doesn't matter which.
-    ContentPage.generate :page_name => 'Home', :language_abbr => 'en'
-  end
-end
-
-### will sort these ... so many factories!  split into 1 file per factory?
-#
-# the following all need work, i just wanna get rid of the 'no such factory' messages
-#
-
-Factory.define :visibility do |x|
-  x.label { Factory.next(:string) }
-end
-
 Factory.define :vetted do |x|
   x.label { Factory.next(:string) }
 end
 
-Factory.define :mime_type do |x|
+Factory.define :visibility do |x|
   x.label { Factory.next(:string) }
-end
-
-Factory.define :agent_role do |x|
-  x.label { Factory.next(:string) }
-end
-
-Factory.define :data_object_tags do |x|
-  x.association :data_object
-  x.association :data_object_tag
-end
-
-Factory.define :data_object_tag do |x|
-  x.key   { Factory.next(:string) }
-  x.value { Factory.next(:string) }
-end
-
-Factory.define :comment do |x|
-  x.association :parent, :factory => :data_object
-  x.parent_type 'data_object'
-  x.body { Factory.next(:string) }
-  x.association :user
-end
-
-Factory.define :log_daily do |x|
-  x.day Date.today
-  x.total 0
-  x.user_agent 'Cool/Browser'
-  x.association :data_type
-end
-
-Factory.define :contact do |x|
-  x.name { Factory.next(:string) }
-  x.email { Factory.next(:email) }
-  x.association :contact_subject
-  x.comments %w( foo bar )
-end
-
-Factory.define :contact_subject do |x|
-  x.title { Factory.next(:string) }
-  x.recipients { Factory.next(:string) }
 end

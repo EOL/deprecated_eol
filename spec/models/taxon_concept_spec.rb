@@ -2,16 +2,12 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe TaxonConcept do
 
-  it 'should add a TaxonConcept to the database when created' do
-    lambda {
-      Factory(:taxon_concept).should be_valid
-    }.should change(TaxonConcept, :count).by(1)
-  end
+  it 'should have different names for different detail levels' do
+    concept = TaxonConcept.generate
 
-  it { should be_awesome }
-  
-  it 'should be awesome (not 1-liner)' do
-    TaxonConcept.should be_awesome
+    # trying to create a name ... seems to be *REALLY* hard to simply add a name to a TaxonConcept ...
+    tc.taxon_concept_names.create :name => Name.gen, :language => Language.gen, :preferred => true, :vern => 0, :source_hierarchy_entry_id => HierarchyEntry.gen.id
+    # ^ adds a valid TaxonConceptName but #name returns '?-?' (whatever that means) and #names returns [] ?
   end
 
 end

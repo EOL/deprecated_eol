@@ -33,3 +33,38 @@ task :specdoc do
   puts cmd
   exec cmd
 end
+
+desc 'Print HTML specdocs, MATCH=dog_spec,blackbox'
+task :spechtml do
+  # extract this match bit out into a method - DRY up!
+  if ENV['MATCH']
+    all_specs = Dir[ File.join(RAILS_ROOT, 'spec', '**', '*_spec.rb') ]
+    matchers  = ENV['MATCH'].split(',')
+    specs = all_specs.inject([]) do |specs, this_spec_filename|
+      matchers.each do |matcher|
+        if this_spec_filename.include? matcher
+          specs << this_spec_filename
+          break
+        end
+      end
+      specs
+    end
+    specs = specs.uniq.join(' ')
+  else
+    specs = 'spec/*/*_spec.rb'
+  end
+  dir = File.join RAILS_ROOT, 'tmp', 'spec_output'
+  unless File.directory?dir
+    require 'fileutils'
+    FileUtils::mkdir_p dir
+  end
+  html_filename = File.join dir, "#{ Time.now.strftime '%m%d%Y_%H%M%S' }_specdoc.html"
+
+  cmd = "cd '#{ RAILS_ROOT }' && ruby script/spec -f html #{ specs } > '#{ html_filename }'"
+  puts cmd
+  puts `#{ cmd }`
+
+  cmd = (PLATFORM =~ /darwin/i) ? "open '#{ html_filename }'" : "firefox '#{ html_filename }'"
+  puts cmd
+  puts `#{ cmd }`
+end

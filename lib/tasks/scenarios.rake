@@ -52,3 +52,13 @@ namespace :scenarios do
   end
 
 end
+
+# a helper until scenarios fully implement old fixtures
+desc 'Loads the old fixtures (unless scenarios are complete)'
+task :load_old_fixtures do
+  ENV['FIXTURES_DIR'] = 'spec_10/fixtures'
+  puts "truncating ..."
+  Rake::Task[:truncate].invoke
+  puts "loading old fixtures ..."
+  Rake::Task["spec:db:fixtures:load"].invoke
+end

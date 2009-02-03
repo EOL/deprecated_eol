@@ -1,0 +1,5 @@
+wait, why are these here ... shouldn't these be in spec/scenarios?
+
+scenarios aren't just used by specs.  i think they should have their own dir in the RAILS_ROOT
+
+we'll move spec/scenarios here!

@@ -40,6 +40,7 @@ EOL.Curation.update_thumbnail_background = function(vetted_id, data_object_id) {
 EOL.Curation.update_text_background = function(data_object_id, vetted_id) {
   $('text_'+data_object_id).removeClassName('untrusted-background-image');
   $('text_'+data_object_id).removeClassName('unknown-background-image');
+  $('text_'+data_object_id).removeClassName('trusted-background-image');
   if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
     $('text_'+data_object_id).addClassName('untrusted-background-image');
   }

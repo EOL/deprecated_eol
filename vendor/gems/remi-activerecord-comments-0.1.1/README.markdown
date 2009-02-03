@@ -26,14 +26,11 @@ Usage
     >> ActiveRecord::Base.comment :foxes
     => "Represents a Fox, a creature that craves chunky bacon"
 
+    >> ActiveRecord::Base.connection.comment :foxes
+    => "Represents a Fox, a creature that craves chunky bacon"
+
     >> Fox.columns
     => [#<ActiveRecord::...>, #<ActiveRecord::...>]
-
-    >> Fox.column_names
-    => ["id", "name", "has_had_truck_stolen"]
-
-    >> Fox.column_comments
-    => ["Primary Key", "Fox's name", "Whether or not this Fox has had his/her truck stolen"]
 
     >> Fox.columns.first.name
     => "id"
@@ -45,6 +42,9 @@ Usage
     => "Primary Key"
 
     >> ActiveRecord::Base.column_comment :id, :foxes
+    => "Primary Key"
+
+    >> ActiveRecord::Base.connection.column_comment :id, :foxes
     => "Primary Key"
 
 
@@ -73,6 +73,12 @@ this, or you can add comments to your `CREATE TABLE` declarations ...
     ) COMMENT 'this table rocks'
 
 for more MySQL examples, see [spec/mysql_comments_spec.rb][mysql_spec]
+
+
+Future Ideas
+------------
+
+- create `db-doc` or (something) that provides a system for documenting your database schema, whether it be via .yml files or as database comments or whatever.  then make `activerecord-comments` an extension to that (basically just a different data store for your schema documentation).  there should always be a way to easily document your schema, regardless of whether or not your database(s) supports comments.  and, with or without database comments, there should be an easy way to see which tables/columns you have and haven't documented!
 
 
 [mysql_adapter]: http://github.com/remi/activerecord-comments/tree/master/lib/activerecord-comments/mysql_adapter.rb

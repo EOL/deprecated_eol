@@ -1,0 +1,20 @@
+#! /usr/bin/env ruby
+
+if ARGV.empty?
+  puts "Usage: #{ $0 } foundation another-scenario yet_another_one"
+  puts ""
+  puts "to view available scenarios, run 'rake scenarios'"
+else
+  scenarios = ARGV.inject([]) { |all, this_one|
+    if this_one.include?(',')
+      all += this_one.split(',')
+    else
+      all << this_one
+    end
+    all
+  }
+  puts "loading scenarios: #{ scenarios.inspect }"
+  cmd = "rake scenarios:load NAME=#{ scenarios.join(',') }"
+  puts cmd
+  exec cmd
+end

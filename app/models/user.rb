@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   has_many :comments
   
   attr_accessor :entered_password,:entered_password_confirmation
-  attr_reader :full_name, :is_admin, :has_curator_role, :is_moderator
+  attr_reader :full_name, :is_admin, :is_moderator
   
   def full_name
     return_value = given_name || ""
@@ -228,7 +228,7 @@ class User < ActiveRecord::Base
   end
 
   def has_curator_role?
-    @has_curator_role ||= self.roles.include?(Role.curator)
+    self.roles.include?(Role.curator)
   end
 
   def is_admin?
@@ -240,7 +240,7 @@ class User < ActiveRecord::Base
   end
   
   def is_curator?
-    return (has_curator_role && !self.curator_hierarchy_entry.blank?)
+    return (has_curator_role? && !self.curator_hierarchy_entry.blank?)
   end
 
   def show_unvetted?

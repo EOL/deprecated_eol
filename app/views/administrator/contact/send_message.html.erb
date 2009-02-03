@@ -1,0 +1,19 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Send Contact Email'} %>
+
+<%= link_to '[cancel]',:back %> <br />
+
+To send this user an email, enter the text below and click 'Send'.
+<br />
+<% form_tag({:action=>'send_message'},:method=>'post') do -%>
+<table>
+  <tr><td><strong>Name:</strong></td><td><%=text_field_tag :name,@name%></td></tr>
+  <tr><td><strong>Email:</strong></td><td><%=text_field_tag :email,@email%></td></tr>
+  <tr><td><strong>Message:</strong></td><td><%=text_area_tag :message,@message,:cols=>'60',:rows=>'20'%></td></tr>
+  
+</table>
+
+<%= submit_tag 'Send' %>
+
+<% end %>
+			
+<%= render :partial => '/admin/content_bottom' %>

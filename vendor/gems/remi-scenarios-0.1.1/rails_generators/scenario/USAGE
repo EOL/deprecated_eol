@@ -1,0 +1,5 @@
+Description:
+    Creates a new scenario
+    
+Examples:
+    `./script/generate scenario Foo`

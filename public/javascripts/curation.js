@@ -25,6 +25,7 @@ EOL.Curation.after_quick_curate = function(element, vetted_id) {
 };
 
 EOL.Curation.update_thumbnail_background = function(vetted_id, data_object_id) {
+  $('thumbnail_'+data_object_id).removeClassName('trusted-background-image');
   $('thumbnail_'+data_object_id).removeClassName('unknown-background-image');
   $('thumbnail_'+data_object_id).removeClassName('untrusted-background-image');
   if(vetted_id == EOL.Curation.TRUSTED_ID) {

@@ -3,25 +3,74 @@
 # activerecord-comments needs a way to run these commands given 
 # an activerecord connection (so i can pass multiple connections)
 
+#
+# TODO this could really use some work!
+#
+
 namespace :comments do
 
   # returns an array of ActiveRecord base classes
   def activerecord_base_classes
     UseDbPlugin.all_use_dbs.map { |klass| klass }
   end
-  
-  desc 'Print out all table comments, ALL=true (will show tables without comments)'
-  task :tables => :environment do
-    require 'activerecord-comments'
 
-    puts_tables_without_comments = ( ENV['ALL'] == 'true' ) ? true : false
+  # TODO use an options Hash instead of all of these params
+  def print_comments include_tables_without_comments = false, 
+                     include_columns = false, 
+                     include_columns_without_comments = false
+
+    puts ""
+
+    require 'activerecord-comments'
 
     activerecord_base_classes.each do |base|
       base.connection.tables.each        do |table|
+        
         comment = base.comment(table)
-        puts "#{table}:  #{comment}" if comment || puts_tables_without_comments
-      end
-    end
+        if comment || include_tables_without_comments
+          if comment.length > 40
+            puts "[#{table}]\n  #{comment}\n"
+          else
+            puts "[#{table}]  #{comment}"
+          end
+        end
+
+        # columns
+        if include_columns
+          columns_and_comments = { }
+
+          base.connection.columns(table).each do |column|
+            column_comment = base.connection.column_comment column.name, table
+            if column_comment || include_columns_without_comments
+              columns_and_comments[column.name] = column_comment
+            end
+          end
+
+          unless columns_and_comments.empty?
+            longest_comment_name = columns_and_comments.keys.sort_by {|a| a.length }.last
+            minimum_spaces       = longest_comment_name.length + 1
+            columns_and_comments.each do |name, comment|
+              print '  '
+              print name
+              print ': '
+              number_of_spaces = minimum_spaces - name.length
+              print (" " * number_of_spaces)
+              puts comment
+            end
+          end
+
+        end # end 'include columns'
+
+        puts "\n" if comment || include_tables_without_comments
+      end # end 'each table'
+    end # end 'each DB connection'
+
+  end
+  
+  desc 'Print out all table comments, ALL=true (will show tables without comments)'
+  task :tables => :environment do
+    puts_tables_without_comments = ( ENV['ALL'] == 'true' ) ? true : false
+    print_comments puts_tables_without_comments, true
   end
 
 end

@@ -49,19 +49,20 @@ DROP TABLE IF EXISTS `agent_contacts`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `agent_contacts` (
-  `id` int(10) unsigned NOT NULL auto_increment,
+  `id` int(10) unsigned NOT NULL auto_increment COMMENT 'PK',
   `agent_id` int(10) unsigned NOT NULL,
   `agent_contact_role_id` tinyint(3) unsigned NOT NULL,
-  `full_name` varchar(255) NOT NULL,
+  `full_name` varchar(255) NOT NULL COMMENT 'the whole name!',
   `title` varchar(20) NOT NULL,
   `given_name` varchar(255) NOT NULL,
-  `family_name` varchar(255) NOT NULL,
+  `family_name` varchar(255) NOT NULL COMMENT 'families are awesome',
   `homepage` varchar(255) character set ascii NOT NULL,
   `email` varchar(75) NOT NULL,
   `telephone` varchar(30) character set ascii NOT NULL,
-  `address` text NOT NULL,
+  `address` text NOT NULL COMMENT 'where do i live?',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+COMMENT 'i am totally awesome';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -85,7 +86,7 @@ CREATE TABLE `agent_data_types` (
   `label` varchar(100) character set ascii NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT 'i love agent data types';
 SET character_set_client = @saved_cs_client;
 
 --

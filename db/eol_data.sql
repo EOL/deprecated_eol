@@ -23,11 +23,12 @@ DROP TABLE IF EXISTS `agent_contact_roles`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `agent_contact_roles` (
-  `id` tinyint(3) unsigned NOT NULL auto_increment,
-  `label` varchar(100) character set ascii NOT NULL,
+  `id` tinyint(3) unsigned NOT NULL auto_increment COMMENT 'primary key',
+  `label` varchar(100) character set ascii NOT NULL COMMENT 'a label!',
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 
+COMMENT 'i am the agent contact roles table';
 SET character_set_client = @saved_cs_client;
 
 --

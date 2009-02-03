@@ -51,6 +51,8 @@ EOL.Curation.after_curate = function(form,vetted_id) {
   form.enable();
   form.down('div.label img').fade();
   if(type == EOL.Curation.IMAGE_ID) {
+    $('large-image-trust-button').disappear();
+    $('large-image-untrust-button').disappear();
     EOL.MediaCenter.image_hash[id].curated = true;
     if ($('curate_trust_'+id).checked) {
       EOL.MediaCenter.image_hash[id].vetted_id = EOL.Curation.TRUSTED_ID;
@@ -61,6 +63,8 @@ EOL.Curation.after_curate = function(form,vetted_id) {
     }
     eol_update_credit(EOL.MediaCenter.image_hash[id]);
   } else if(type == EOL.Curation.TEXT_ID) {
+    $$('div#text_buttons_'+id+' div.trust_button')[0].disappear();
+    $$('div#text_buttons_'+id+' div.untrust_button')[0].disappear();
     EOL.Curation.update_text_background(id, vetted_id);
   }
 };

@@ -84,6 +84,15 @@
 				<td><%=format_date_time(@user.created_at)%><br /><%=format_date_time(@user.updated_at)%></td> 
 			</tr>				
 		<% end %>
+		<tr>
+			<td><strong>Send email:</strong></td>
+			<td><div id="email_toggle"><a href="#email" onclick="JavaScript:Element.show('email');Element.hide('email_toggle');return false;">[show email message area]</a></div>
+				<div style="display:none;" id="email">
+				  Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:<br />
+          <%=text_area_tag :message,@message,:cols=>'60',:rows=>'20'%>
+			  </div>
+			</td>
+		</tr>		
 	</table>
 	<br /><br />
 	<input type="button" onClick="document.location.href='/administrator/user/index';" id="cancel" name="Cancel" value="Cancel"> |

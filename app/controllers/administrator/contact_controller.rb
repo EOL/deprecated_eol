@@ -22,6 +22,22 @@ class Administrator::ContactController < AdminController
    
  end
  
+ def send_message
+ 
+   @name=params[:name]
+   @email=params[:email]
+   @message=params[:message]
+ 
+  if request.post? && !@message.blank? && !@email.blank?
+    Notifier.deliver_user_message(@name,@email,@message)
+    flash[:notice]='The message was sent.'
+    redirect_to :controller=>'/administrator/contact',:action=>'index'  
+  elsif request.post?
+    flash[:error]='Please enter a message and email address.'  
+  end
+   
+ end
+ 
  def export
    
      @contacts=Contact.find(:all,:include=>:contact_subject)

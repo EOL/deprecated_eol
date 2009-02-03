@@ -75,6 +75,27 @@ class Notifier < ActionMailer::Base
     body        :contact => contact     
   end
   
+  def curator_approved(user)
+    subject     "Your request to be a curator for the Encyclopedia of Life has been approved"
+    recipients  user.email
+    from        @@from
+    body        :user => user       
+  end
+
+  def curator_unapproved(user)
+    subject     "Your curator privileges for the Encyclopedia of Life have been removed"
+    recipients  user.email
+    from        @@from
+    body        :user => user       
+  end
+  
+  def user_message(name,email,message)
+    subject     "A message from the Encyclopedia of Life"
+    recipients  email
+    from        @@from
+    body        :name => name, :message => message           
+  end
+  
   def contact_email(contact)
     
     contact_subject=ContactSubject.find(contact.contact_subject_id)

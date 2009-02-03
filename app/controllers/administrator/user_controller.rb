@@ -41,9 +41,13 @@ class Administrator::UserController  < AdminController
   def create
     
     @user=User.create_new(params[:user])
+    @message=params[:message]
+
+    Notifier.deliver_user_message(@user.full_name,@user.email,@message) unless @message.blank?
     
     @user.password=@user.entered_password
     params[:user][:role_ids] ||= []
+    @user.set_curator(EOLConvert.to_boolean(params[:user][:curator_approved]),current_user)
     
     if @user.save
       flash[:notice]="The new user was created."
@@ -57,8 +61,13 @@ class Administrator::UserController  < AdminController
   def update
   
    @user = User.find(params[:id])  
+   @message=params[:message]
+
+   Notifier.deliver_user_message(@user.full_name,@user.email,@message) unless @message.blank?
+   
    @user.password=params[:user][:entered_password] unless params[:user][:entered_password].blank? && params[:user][:entered_password_confirmation].blank?
-   @user.set_curator(params[:user][:curator_approved],current_user)
+   @user.set_curator(EOLConvert.to_boolean(params[:user][:curator_approved]),current_user)
+   
    if @user.update_attributes(params[:user])
       flash[:notice]="The user was updated."
       redirect_to :action=>'index' 

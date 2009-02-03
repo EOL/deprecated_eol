@@ -92,9 +92,16 @@ class User < ActiveRecord::Base
 
   def set_curator approved,updated_by
 
+    if (approved == true && self.curator_approved == false) # send the approval message if the user wasn't a curator and is now approved
+      Notifier.deliver_curator_approved(self)
+    elsif (approved == false && self.curator_approved == true) # only send the unapproval message if the user *was* a curator and is now rejected
+      Notifier.deliver_curator_unapproved(self)       
+    end
+    
     self.curator_approved = approved
     self.curator_verdict_at = Time.now
     self.curator_verdict_by = updated_by
+    
     if approved
       self.roles << Role.curator unless self.roles.include?(Role.curator)
     else

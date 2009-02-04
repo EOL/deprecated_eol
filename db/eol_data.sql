@@ -32,16 +32,6 @@ COMMENT 'i am the agent contact roles table';
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `agent_contact_roles`
---
-
-LOCK TABLES `agent_contact_roles` WRITE;
-/*!40000 ALTER TABLE `agent_contact_roles` DISABLE KEYS */;
-INSERT INTO `agent_contact_roles` VALUES (2,'Administrative Contact'),(1,'Primary Contact'),(3,'Technical Contact');
-/*!40000 ALTER TABLE `agent_contact_roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `agent_contacts`
 --
 
@@ -66,15 +56,6 @@ COMMENT 'i am totally awesome';
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `agent_contacts`
---
-
-LOCK TABLES `agent_contacts` WRITE;
-/*!40000 ALTER TABLE `agent_contacts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `agent_contacts` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `agent_data_types`
 --
 
@@ -90,16 +71,6 @@ CREATE TABLE `agent_data_types` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `agent_data_types`
---
-
-LOCK TABLES `agent_data_types` WRITE;
-/*!40000 ALTER TABLE `agent_data_types` DISABLE KEYS */;
-INSERT INTO `agent_data_types` VALUES (1,'Audio'),(2,'Image'),(3,'Text'),(4,'Video');
-/*!40000 ALTER TABLE `agent_data_types` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `agent_provided_data_types`
 --
 
@@ -112,15 +83,6 @@ CREATE TABLE `agent_provided_data_types` (
   PRIMARY KEY  (`agent_data_type_id`,`agent_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `agent_provided_data_types`
---
-
-LOCK TABLES `agent_provided_data_types` WRITE;
-/*!40000 ALTER TABLE `agent_provided_data_types` DISABLE KEYS */;
-/*!40000 ALTER TABLE `agent_provided_data_types` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `agent_roles`
@@ -138,16 +100,6 @@ CREATE TABLE `agent_roles` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `agent_roles`
---
-
-LOCK TABLES `agent_roles` WRITE;
-/*!40000 ALTER TABLE `agent_roles` DISABLE KEYS */;
-INSERT INTO `agent_roles` VALUES (1,'Animator'),(2,'Author'),(3,'Compiler'),(4,'Composer'),(5,'Creator'),(6,'Director'),(7,'Editor'),(8,'Illustrator'),(9,'Photographer'),(10,'Project'),(11,'Publisher'),(12,'Recorder'),(13,'Source');
-/*!40000 ALTER TABLE `agent_roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `agent_statuses`
 --
 
@@ -161,16 +113,6 @@ CREATE TABLE `agent_statuses` (
   KEY `label` (`label`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `agent_statuses`
---
-
-LOCK TABLES `agent_statuses` WRITE;
-/*!40000 ALTER TABLE `agent_statuses` DISABLE KEYS */;
-INSERT INTO `agent_statuses` VALUES (2,'Active'),(3,'Archived'),(1,'Pending');
-/*!40000 ALTER TABLE `agent_statuses` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `agents`
@@ -204,15 +146,6 @@ CREATE TABLE `agents` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `agents`
---
-
-LOCK TABLES `agents` WRITE;
-/*!40000 ALTER TABLE `agents` DISABLE KEYS */;
-/*!40000 ALTER TABLE `agents` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `agents_data_objects`
 --
 
@@ -227,15 +160,6 @@ CREATE TABLE `agents_data_objects` (
   PRIMARY KEY  (`data_object_id`,`agent_id`,`agent_role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `agents_data_objects`
---
-
-LOCK TABLES `agents_data_objects` WRITE;
-/*!40000 ALTER TABLE `agents_data_objects` DISABLE KEYS */;
-/*!40000 ALTER TABLE `agents_data_objects` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `agents_hierarchy_entries`
@@ -254,15 +178,6 @@ CREATE TABLE `agents_hierarchy_entries` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `agents_hierarchy_entries`
---
-
-LOCK TABLES `agents_hierarchy_entries` WRITE;
-/*!40000 ALTER TABLE `agents_hierarchy_entries` DISABLE KEYS */;
-/*!40000 ALTER TABLE `agents_hierarchy_entries` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `agents_resources`
 --
 
@@ -276,15 +191,6 @@ CREATE TABLE `agents_resources` (
   PRIMARY KEY  (`agent_id`,`resource_id`,`resource_agent_role_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `agents_resources`
---
-
-LOCK TABLES `agents_resources` WRITE;
-/*!40000 ALTER TABLE `agents_resources` DISABLE KEYS */;
-/*!40000 ALTER TABLE `agents_resources` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `agents_synonyms`
@@ -303,15 +209,6 @@ CREATE TABLE `agents_synonyms` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `agents_synonyms`
---
-
-LOCK TABLES `agents_synonyms` WRITE;
-/*!40000 ALTER TABLE `agents_synonyms` DISABLE KEYS */;
-/*!40000 ALTER TABLE `agents_synonyms` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `audiences`
 --
 
@@ -327,16 +224,6 @@ CREATE TABLE `audiences` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `audiences`
---
-
-LOCK TABLES `audiences` WRITE;
-/*!40000 ALTER TABLE `audiences` DISABLE KEYS */;
-INSERT INTO `audiences` VALUES (3,'Children'),(1,'Expert users'),(2,'General public');
-/*!40000 ALTER TABLE `audiences` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `audiences_data_objects`
 --
 
@@ -349,15 +236,6 @@ CREATE TABLE `audiences_data_objects` (
   PRIMARY KEY  (`data_object_id`,`audience_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `audiences_data_objects`
---
-
-LOCK TABLES `audiences_data_objects` WRITE;
-/*!40000 ALTER TABLE `audiences_data_objects` DISABLE KEYS */;
-/*!40000 ALTER TABLE `audiences_data_objects` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `canonical_forms`
@@ -375,15 +253,6 @@ CREATE TABLE `canonical_forms` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `canonical_forms`
---
-
-LOCK TABLES `canonical_forms` WRITE;
-/*!40000 ALTER TABLE `canonical_forms` DISABLE KEYS */;
-/*!40000 ALTER TABLE `canonical_forms` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `clean_names`
 --
 
@@ -397,15 +266,6 @@ CREATE TABLE `clean_names` (
   KEY `clean_name` (`clean_name`(255))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `clean_names`
---
-
-LOCK TABLES `clean_names` WRITE;
-/*!40000 ALTER TABLE `clean_names` DISABLE KEYS */;
-/*!40000 ALTER TABLE `clean_names` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `collections`
@@ -428,15 +288,6 @@ CREATE TABLE `collections` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `collections`
---
-
-LOCK TABLES `collections` WRITE;
-/*!40000 ALTER TABLE `collections` DISABLE KEYS */;
-/*!40000 ALTER TABLE `collections` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `common_names`
 --
 
@@ -453,15 +304,6 @@ CREATE TABLE `common_names` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `common_names`
---
-
-LOCK TABLES `common_names` WRITE;
-/*!40000 ALTER TABLE `common_names` DISABLE KEYS */;
-/*!40000 ALTER TABLE `common_names` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `common_names_taxa`
 --
 
@@ -474,15 +316,6 @@ CREATE TABLE `common_names_taxa` (
   PRIMARY KEY  (`taxon_id`,`common_name_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `common_names_taxa`
---
-
-LOCK TABLES `common_names_taxa` WRITE;
-/*!40000 ALTER TABLE `common_names_taxa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `common_names_taxa` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `content_partner_agreements`
@@ -507,15 +340,6 @@ CREATE TABLE `content_partner_agreements` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `content_partner_agreements`
---
-
-LOCK TABLES `content_partner_agreements` WRITE;
-/*!40000 ALTER TABLE `content_partner_agreements` DISABLE KEYS */;
-/*!40000 ALTER TABLE `content_partner_agreements` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `content_partners`
@@ -565,15 +389,6 @@ CREATE TABLE `content_partners` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `content_partners`
---
-
-LOCK TABLES `content_partners` WRITE;
-/*!40000 ALTER TABLE `content_partners` DISABLE KEYS */;
-/*!40000 ALTER TABLE `content_partners` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `data_objects`
 --
 
@@ -619,15 +434,6 @@ CREATE TABLE `data_objects` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `data_objects`
---
-
-LOCK TABLES `data_objects` WRITE;
-/*!40000 ALTER TABLE `data_objects` DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_objects` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `data_objects_harvest_events`
 --
 
@@ -645,15 +451,6 @@ CREATE TABLE `data_objects_harvest_events` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `data_objects_harvest_events`
---
-
-LOCK TABLES `data_objects_harvest_events` WRITE;
-/*!40000 ALTER TABLE `data_objects_harvest_events` DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_objects_harvest_events` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `data_objects_info_items`
 --
 
@@ -666,15 +463,6 @@ CREATE TABLE `data_objects_info_items` (
   PRIMARY KEY  (`data_object_id`,`info_item_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `data_objects_info_items`
---
-
-LOCK TABLES `data_objects_info_items` WRITE;
-/*!40000 ALTER TABLE `data_objects_info_items` DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_objects_info_items` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `data_objects_refs`
@@ -691,15 +479,6 @@ CREATE TABLE `data_objects_refs` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `data_objects_refs`
---
-
-LOCK TABLES `data_objects_refs` WRITE;
-/*!40000 ALTER TABLE `data_objects_refs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_objects_refs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `data_objects_table_of_contents`
 --
 
@@ -712,40 +491,6 @@ CREATE TABLE `data_objects_table_of_contents` (
   PRIMARY KEY  (`data_object_id`,`toc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `data_objects_table_of_contents`
---
-
-LOCK TABLES `data_objects_table_of_contents` WRITE;
-/*!40000 ALTER TABLE `data_objects_table_of_contents` DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_objects_table_of_contents` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `data_objects_taxa`
---
-
-DROP TABLE IF EXISTS `data_objects_taxa`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `data_objects_taxa` (
-  `taxon_id` int(10) unsigned NOT NULL,
-  `data_object_id` int(10) unsigned NOT NULL,
-  `identifier` varchar(255) character set ascii NOT NULL,
-  PRIMARY KEY  (`taxon_id`,`data_object_id`),
-  KEY `data_object_id` (`data_object_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `data_objects_taxa`
---
-
-LOCK TABLES `data_objects_taxa` WRITE;
-/*!40000 ALTER TABLE `data_objects_taxa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_objects_taxa` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `data_types`
@@ -762,16 +507,6 @@ CREATE TABLE `data_types` (
   KEY `label` (`label`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `data_types`
---
-
-LOCK TABLES `data_types` WRITE;
-/*!40000 ALTER TABLE `data_types` DISABLE KEYS */;
-INSERT INTO `data_types` VALUES (1,'http://purl.org/dc/dcmitype/StillImage','Image'),(2,'http://purl.org/dc/dcmitype/Sound','Sound'),(3,'http://purl.org/dc/dcmitype/Text','Text'),(4,'http://purl.org/dc/dcmitype/MovingImage','Video');
-/*!40000 ALTER TABLE `data_types` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `harvest_events`
@@ -792,15 +527,6 @@ CREATE TABLE `harvest_events` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `harvest_events`
---
-
-LOCK TABLES `harvest_events` WRITE;
-/*!40000 ALTER TABLE `harvest_events` DISABLE KEYS */;
-/*!40000 ALTER TABLE `harvest_events` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `harvest_events_taxa`
 --
 
@@ -815,15 +541,6 @@ CREATE TABLE `harvest_events_taxa` (
   PRIMARY KEY  (`harvest_event_id`,`taxon_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `harvest_events_taxa`
---
-
-LOCK TABLES `harvest_events_taxa` WRITE;
-/*!40000 ALTER TABLE `harvest_events_taxa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `harvest_events_taxa` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hierarchies`
@@ -846,15 +563,6 @@ CREATE TABLE `hierarchies` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `hierarchies`
---
-
-LOCK TABLES `hierarchies` WRITE;
-/*!40000 ALTER TABLE `hierarchies` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hierarchies` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hierarchies_content`
 --
 
@@ -875,15 +583,6 @@ CREATE TABLE `hierarchies_content` (
   PRIMARY KEY  (`hierarchy_entry_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `hierarchies_content`
---
-
-LOCK TABLES `hierarchies_content` WRITE;
-/*!40000 ALTER TABLE `hierarchies_content` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hierarchies_content` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hierarchies_content_test`
@@ -911,15 +610,6 @@ CREATE TABLE `hierarchies_content_test` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `hierarchies_content_test`
---
-
-LOCK TABLES `hierarchies_content_test` WRITE;
-/*!40000 ALTER TABLE `hierarchies_content_test` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hierarchies_content_test` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hierarchies_resources`
 --
 
@@ -932,15 +622,6 @@ CREATE TABLE `hierarchies_resources` (
   PRIMARY KEY  (`resource_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `hierarchies_resources`
---
-
-LOCK TABLES `hierarchies_resources` WRITE;
-/*!40000 ALTER TABLE `hierarchies_resources` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hierarchies_resources` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hierarchy_entries`
@@ -972,15 +653,6 @@ CREATE TABLE `hierarchy_entries` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `hierarchy_entries`
---
-
-LOCK TABLES `hierarchy_entries` WRITE;
-/*!40000 ALTER TABLE `hierarchy_entries` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hierarchy_entries` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `hierarchy_entry_names`
 --
 
@@ -998,15 +670,6 @@ CREATE TABLE `hierarchy_entry_names` (
   PRIMARY KEY  (`hierarchy_entry_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `hierarchy_entry_names`
---
-
-LOCK TABLES `hierarchy_entry_names` WRITE;
-/*!40000 ALTER TABLE `hierarchy_entry_names` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hierarchy_entry_names` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `hierarchy_entry_relationships`
@@ -1027,15 +690,6 @@ CREATE TABLE `hierarchy_entry_relationships` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `hierarchy_entry_relationships`
---
-
-LOCK TABLES `hierarchy_entry_relationships` WRITE;
-/*!40000 ALTER TABLE `hierarchy_entry_relationships` DISABLE KEYS */;
-/*!40000 ALTER TABLE `hierarchy_entry_relationships` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `info_items`
 --
 
@@ -1051,16 +705,6 @@ CREATE TABLE `info_items` (
   KEY `label` (`label`)
 ) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `info_items`
---
-
-LOCK TABLES `info_items` WRITE;
-/*!40000 ALTER TABLE `info_items` DISABLE KEYS */;
-INSERT INTO `info_items` VALUES (1,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations','Associations',0),(2,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour','Behaviour',0),(3,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus','ConservationStatus',0),(4,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cyclicity','Cyclicity',0),(5,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cytology','Cytology',0),(6,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#DiagnosticDescription','DiagnosticDescription',0),(7,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Diseases','Diseases',0),(8,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Dispersal','Dispersal',0),(9,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution','Distribution',0),(10,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Evolution','Evolution',0),(11,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription','GeneralDescription',0),(12,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Genetics','Genetics',0),(13,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Growth','Growth',0),(14,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat','Habitat',0),(15,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Legislation','Legislation',0),(16,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeCycle','LifeCycle',0),(17,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeExpectancy','LifeExpectancy',0),(18,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LookAlikes','LookAlikes',0),(19,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Management','Management',0),(20,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Migration','Migration',0),(21,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#MolecularBiology','MolecularBiology',0),(22,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology','Morphology',0),(23,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Physiology','Physiology',0),(24,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#PopulationBiology','PopulationBiology',0),(25,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Procedures','Procedures',0),(26,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Reproduction','Reproduction',0),(27,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#RiskStatement','RiskStatement',0),(28,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Size','Size',0),(29,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology','TaxonBiology',0),(30,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Threats','Threats',0),(31,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Trends','Trends',0),(32,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TrophicStrategy','TrophicStrategy',0),(33,'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses','Uses',0);
-/*!40000 ALTER TABLE `info_items` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `item_pages`
@@ -1082,15 +726,6 @@ CREATE TABLE `item_pages` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `item_pages`
---
-
-LOCK TABLES `item_pages` WRITE;
-/*!40000 ALTER TABLE `item_pages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `item_pages` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `languages`
@@ -1115,16 +750,6 @@ CREATE TABLE `languages` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `languages`
---
-
-LOCK TABLES `languages` WRITE;
-/*!40000 ALTER TABLE `languages` DISABLE KEYS */;
-INSERT INTO `languages` VALUES (1,'','English','en','','','',1,'2008-01-01 05:00:00'),(2,'','Francais','fr','','','',2,'2008-01-01 05:00:00'),(3,'','Deutsch','de','','','',3,'2008-01-01 05:00:00'),(4,'','Russian','ru','','','',4,'2008-01-01 05:00:00'),(5,'','Ukrainian','ua','','','',5,'2008-01-01 05:00:00'),(501,'','','scient','','','',1,NULL);
-/*!40000 ALTER TABLE `languages` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `licenses`
 --
 
@@ -1146,16 +771,6 @@ CREATE TABLE `licenses` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `licenses`
---
-
-LOCK TABLES `licenses` WRITE;
-/*!40000 ALTER TABLE `licenses` DISABLE KEYS */;
-INSERT INTO `licenses` VALUES (1,'public domain','No rights reserved','','0','',1),(2,'all rights reserved','&#169; All rights reserved','','0','',0),(3,'cc-by-nc 3.0','Some rights reserved','http://creativecommons.org/licenses/by-nc/3.0/','0','/images/licenses/cc_by_nc_small.png',1),(4,'cc-by 3.0','Some rights reserved','http://creativecommons.org/licenses/by/3.0/','0','/images/licenses/cc_by_small.png',1),(5,'cc-by-sa 3.0','Some rights reserved','http://creativecommons.org/licenses/by-sa/3.0/','0','/images/licenses/cc_by_sa_small.png',1),(6,'cc-by-nc-sa 3.0','Some rights reserved','http://creativecommons.org/licenses/by-nc-sa/3.0/','0','/images/licenses/cc_by_nc_sa_small.png',1),(7,'gnu-fdl','Some rights reserved','http://www.gnu.org/licenses/fdl.html','0','/images/licenses/gnu_fdl_small.png',0),(8,'gnu-gpl','Some rights reserved','http://www.gnu.org/licenses/gpl.html','0','/images/licenses/gnu_fdl_small.png',0),(9,'no license','The material cannot be licensed','','0','',0);
-/*!40000 ALTER TABLE `licenses` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `mappings`
 --
 
@@ -1173,15 +788,6 @@ CREATE TABLE `mappings` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `mappings`
---
-
-LOCK TABLES `mappings` WRITE;
-/*!40000 ALTER TABLE `mappings` DISABLE KEYS */;
-/*!40000 ALTER TABLE `mappings` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `mime_types`
 --
 
@@ -1195,16 +801,6 @@ CREATE TABLE `mime_types` (
   KEY `label` (`label`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `mime_types`
---
-
-LOCK TABLES `mime_types` WRITE;
-/*!40000 ALTER TABLE `mime_types` DISABLE KEYS */;
-INSERT INTO `mime_types` VALUES (1,'audio/mpeg'),(2,'audio/x-ms-wma'),(3,'audio/x-pn-realaudio'),(4,'audio/x-realaudio'),(5,'audio/x-wav'),(6,'image/bmp'),(7,'image/gif'),(8,'image/jpeg'),(9,'image/png'),(10,'image/svg+xml'),(11,'image/tiff'),(12,'text/html'),(13,'text/plain'),(14,'text/richtext'),(15,'text/rtf'),(16,'text/xml'),(17,'video/mp4'),(18,'video/mpeg'),(19,'video/quicktime'),(20,'video/x-flv'),(21,'video/x-ms-wmv');
-/*!40000 ALTER TABLE `mime_types` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `name_languages`
@@ -1222,15 +818,6 @@ CREATE TABLE `name_languages` (
   KEY `parent_name_id` (`parent_name_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `name_languages`
---
-
-LOCK TABLES `name_languages` WRITE;
-/*!40000 ALTER TABLE `name_languages` DISABLE KEYS */;
-/*!40000 ALTER TABLE `name_languages` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `names`
@@ -1253,15 +840,6 @@ CREATE TABLE `names` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `names`
---
-
-LOCK TABLES `names` WRITE;
-/*!40000 ALTER TABLE `names` DISABLE KEYS */;
-/*!40000 ALTER TABLE `names` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `normalized_links`
 --
 
@@ -1279,15 +857,6 @@ CREATE TABLE `normalized_links` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `normalized_links`
---
-
-LOCK TABLES `normalized_links` WRITE;
-/*!40000 ALTER TABLE `normalized_links` DISABLE KEYS */;
-/*!40000 ALTER TABLE `normalized_links` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `normalized_names`
 --
 
@@ -1301,15 +870,6 @@ CREATE TABLE `normalized_names` (
   KEY `name_part` (`name_part`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `normalized_names`
---
-
-LOCK TABLES `normalized_names` WRITE;
-/*!40000 ALTER TABLE `normalized_names` DISABLE KEYS */;
-/*!40000 ALTER TABLE `normalized_names` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `normalized_qualifiers`
@@ -1326,16 +886,6 @@ CREATE TABLE `normalized_qualifiers` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `normalized_qualifiers`
---
-
-LOCK TABLES `normalized_qualifiers` WRITE;
-/*!40000 ALTER TABLE `normalized_qualifiers` DISABLE KEYS */;
-INSERT INTO `normalized_qualifiers` VALUES (1,'Name'),(2,'Author'),(3,'Year');
-/*!40000 ALTER TABLE `normalized_qualifiers` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `page_names`
 --
 
@@ -1348,15 +898,6 @@ CREATE TABLE `page_names` (
   PRIMARY KEY  (`name_id`,`item_page_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `page_names`
---
-
-LOCK TABLES `page_names` WRITE;
-/*!40000 ALTER TABLE `page_names` DISABLE KEYS */;
-/*!40000 ALTER TABLE `page_names` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `publication_titles`
@@ -1384,15 +925,6 @@ CREATE TABLE `publication_titles` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `publication_titles`
---
-
-LOCK TABLES `publication_titles` WRITE;
-/*!40000 ALTER TABLE `publication_titles` DISABLE KEYS */;
-/*!40000 ALTER TABLE `publication_titles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `random_taxa`
 --
 
@@ -1418,15 +950,6 @@ CREATE TABLE `random_taxa` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `random_taxa`
---
-
-LOCK TABLES `random_taxa` WRITE;
-/*!40000 ALTER TABLE `random_taxa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `random_taxa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `ranks`
 --
 
@@ -1441,15 +964,6 @@ CREATE TABLE `ranks` (
   KEY `label` (`label`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `ranks`
---
-
-LOCK TABLES `ranks` WRITE;
-/*!40000 ALTER TABLE `ranks` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ranks` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `ref_identifier_types`
@@ -1467,16 +981,6 @@ CREATE TABLE `ref_identifier_types` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `ref_identifier_types`
---
-
-LOCK TABLES `ref_identifier_types` WRITE;
-/*!40000 ALTER TABLE `ref_identifier_types` DISABLE KEYS */;
-INSERT INTO `ref_identifier_types` VALUES (1,'bici'),(2,'coden'),(3,'doi'),(4,'eissn'),(5,'handle'),(7,'isbn'),(6,'issn'),(8,'lsid'),(9,'oclc'),(10,'sici'),(11,'url'),(12,'urn');
-/*!40000 ALTER TABLE `ref_identifier_types` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `ref_identifiers`
 --
 
@@ -1490,15 +994,6 @@ CREATE TABLE `ref_identifiers` (
   PRIMARY KEY  (`ref_id`,`ref_identifier_type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `ref_identifiers`
---
-
-LOCK TABLES `ref_identifiers` WRITE;
-/*!40000 ALTER TABLE `ref_identifiers` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ref_identifiers` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `refs`
@@ -1515,15 +1010,6 @@ CREATE TABLE `refs` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `refs`
---
-
-LOCK TABLES `refs` WRITE;
-/*!40000 ALTER TABLE `refs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `refs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `refs_taxa`
 --
 
@@ -1536,15 +1022,6 @@ CREATE TABLE `refs_taxa` (
   PRIMARY KEY  (`taxon_id`,`ref_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `refs_taxa`
---
-
-LOCK TABLES `refs_taxa` WRITE;
-/*!40000 ALTER TABLE `refs_taxa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `refs_taxa` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `resource_agent_roles`
@@ -1562,16 +1039,6 @@ CREATE TABLE `resource_agent_roles` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `resource_agent_roles`
---
-
-LOCK TABLES `resource_agent_roles` WRITE;
-/*!40000 ALTER TABLE `resource_agent_roles` DISABLE KEYS */;
-INSERT INTO `resource_agent_roles` VALUES (6,'Administrative'),(1,'Data Administrator'),(4,'Data Host'),(3,'Data Supplier'),(2,'System Administrator'),(5,'Technical Host');
-/*!40000 ALTER TABLE `resource_agent_roles` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `resource_statuses`
 --
 
@@ -1586,16 +1053,6 @@ CREATE TABLE `resource_statuses` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `resource_statuses`
---
-
-LOCK TABLES `resource_statuses` WRITE;
-/*!40000 ALTER TABLE `resource_statuses` DISABLE KEYS */;
-INSERT INTO `resource_statuses` VALUES (1,'Uploading','2009-01-15 21:06:53','2009-01-15 21:06:53'),(2,'Uploaded','2009-01-15 21:06:53','2009-01-15 21:06:53'),(3,'Upload Failed','2009-01-15 21:06:53','2009-01-15 21:06:53'),(4,'Moved to Content Server','2009-01-15 21:06:53','2009-01-15 21:06:53'),(5,'Validated','2009-01-15 21:06:53','2009-01-15 21:06:53'),(6,'Validation Failed','2009-01-15 21:06:53','2009-01-15 21:06:53'),(7,'Being Processed','2009-01-15 21:06:53','2009-01-15 21:06:53'),(8,'Processed','2009-01-15 21:06:53','2009-01-15 21:06:53'),(9,'Processing Failed','2009-01-15 21:06:53','2009-01-15 21:06:53'),(10,'Published','2009-01-15 21:06:53','2009-01-15 21:06:53');
-/*!40000 ALTER TABLE `resource_statuses` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `resources`
@@ -1637,15 +1094,6 @@ CREATE TABLE `resources` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `resources`
---
-
-LOCK TABLES `resources` WRITE;
-/*!40000 ALTER TABLE `resources` DISABLE KEYS */;
-/*!40000 ALTER TABLE `resources` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `resources_taxa`
 --
 
@@ -1664,15 +1112,6 @@ CREATE TABLE `resources_taxa` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `resources_taxa`
---
-
-LOCK TABLES `resources_taxa` WRITE;
-/*!40000 ALTER TABLE `resources_taxa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `resources_taxa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `service_types`
 --
 
@@ -1686,16 +1125,6 @@ CREATE TABLE `service_types` (
   KEY `label` (`label`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `service_types`
---
-
-LOCK TABLES `service_types` WRITE;
-/*!40000 ALTER TABLE `service_types` DISABLE KEYS */;
-INSERT INTO `service_types` VALUES (1,'EOL Transfer Schema');
-/*!40000 ALTER TABLE `service_types` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `statuses`
@@ -1713,16 +1142,6 @@ CREATE TABLE `statuses` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `statuses`
---
-
-LOCK TABLES `statuses` WRITE;
-/*!40000 ALTER TABLE `statuses` DISABLE KEYS */;
-INSERT INTO `statuses` VALUES (1,'Inserted'),(3,'Unchanged'),(2,'Updated');
-/*!40000 ALTER TABLE `statuses` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `synonym_relations`
 --
 
@@ -1736,15 +1155,6 @@ CREATE TABLE `synonym_relations` (
   KEY `label` (`label`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `synonym_relations`
---
-
-LOCK TABLES `synonym_relations` WRITE;
-/*!40000 ALTER TABLE `synonym_relations` DISABLE KEYS */;
-/*!40000 ALTER TABLE `synonym_relations` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `synonyms`
@@ -1767,15 +1177,6 @@ CREATE TABLE `synonyms` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `synonyms`
---
-
-LOCK TABLES `synonyms` WRITE;
-/*!40000 ALTER TABLE `synonyms` DISABLE KEYS */;
-/*!40000 ALTER TABLE `synonyms` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `table_of_contents`
 --
 
@@ -1791,15 +1192,6 @@ CREATE TABLE `table_of_contents` (
   KEY `label` (`label`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `table_of_contents`
---
-
-LOCK TABLES `table_of_contents` WRITE;
-/*!40000 ALTER TABLE `table_of_contents` DISABLE KEYS */;
-/*!40000 ALTER TABLE `table_of_contents` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `taxa`
@@ -1827,15 +1219,6 @@ CREATE TABLE `taxa` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `taxa`
---
-
-LOCK TABLES `taxa` WRITE;
-/*!40000 ALTER TABLE `taxa` DISABLE KEYS */;
-/*!40000 ALTER TABLE `taxa` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `taxon_concept_content`
 --
 
@@ -1856,15 +1239,6 @@ CREATE TABLE `taxon_concept_content` (
   PRIMARY KEY  (`taxon_concept_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `taxon_concept_content`
---
-
-LOCK TABLES `taxon_concept_content` WRITE;
-/*!40000 ALTER TABLE `taxon_concept_content` DISABLE KEYS */;
-/*!40000 ALTER TABLE `taxon_concept_content` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `taxon_concept_content_test`
@@ -1892,15 +1266,6 @@ CREATE TABLE `taxon_concept_content_test` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `taxon_concept_content_test`
---
-
-LOCK TABLES `taxon_concept_content_test` WRITE;
-/*!40000 ALTER TABLE `taxon_concept_content_test` DISABLE KEYS */;
-/*!40000 ALTER TABLE `taxon_concept_content_test` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `taxon_concept_names`
 --
 
@@ -1922,15 +1287,6 @@ CREATE TABLE `taxon_concept_names` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `taxon_concept_names`
---
-
-LOCK TABLES `taxon_concept_names` WRITE;
-/*!40000 ALTER TABLE `taxon_concept_names` DISABLE KEYS */;
-/*!40000 ALTER TABLE `taxon_concept_names` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `taxon_concept_relationships`
 --
 
@@ -1949,15 +1305,6 @@ CREATE TABLE `taxon_concept_relationships` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `taxon_concept_relationships`
---
-
-LOCK TABLES `taxon_concept_relationships` WRITE;
-/*!40000 ALTER TABLE `taxon_concept_relationships` DISABLE KEYS */;
-/*!40000 ALTER TABLE `taxon_concept_relationships` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `taxon_concepts`
 --
 
@@ -1972,15 +1319,6 @@ CREATE TABLE `taxon_concepts` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `taxon_concepts`
---
-
-LOCK TABLES `taxon_concepts` WRITE;
-/*!40000 ALTER TABLE `taxon_concepts` DISABLE KEYS */;
-/*!40000 ALTER TABLE `taxon_concepts` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `title_items`
@@ -2002,15 +1340,6 @@ CREATE TABLE `title_items` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `title_items`
---
-
-LOCK TABLES `title_items` WRITE;
-/*!40000 ALTER TABLE `title_items` DISABLE KEYS */;
-/*!40000 ALTER TABLE `title_items` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `top_images`
 --
 
@@ -2026,15 +1355,6 @@ CREATE TABLE `top_images` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `top_images`
---
-
-LOCK TABLES `top_images` WRITE;
-/*!40000 ALTER TABLE `top_images` DISABLE KEYS */;
-/*!40000 ALTER TABLE `top_images` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `top_unpublished_images`
 --
 
@@ -2048,15 +1368,6 @@ CREATE TABLE `top_unpublished_images` (
   PRIMARY KEY  (`hierarchy_entry_id`,`data_object_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `top_unpublished_images`
---
-
-LOCK TABLES `top_unpublished_images` WRITE;
-/*!40000 ALTER TABLE `top_unpublished_images` DISABLE KEYS */;
-/*!40000 ALTER TABLE `top_unpublished_images` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `vetted`
@@ -2075,16 +1386,6 @@ CREATE TABLE `vetted` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `vetted`
---
-
-LOCK TABLES `vetted` WRITE;
-/*!40000 ALTER TABLE `vetted` DISABLE KEYS */;
-INSERT INTO `vetted` VALUES (0,'Unknown','2009-01-15 21:06:58','2009-01-15 21:06:58'),(1,'Untrusted','2009-01-15 21:06:58','2009-01-15 21:06:58'),(2,'Trusted','2009-01-15 21:06:58','2009-01-15 21:06:58');
-/*!40000 ALTER TABLE `vetted` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `visibilities`
 --
 
@@ -2100,17 +1401,7 @@ CREATE TABLE `visibilities` (
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
---
--- Dumping data for table `visibilities`
---
-
-LOCK TABLES `visibilities` WRITE;
-/*!40000 ALTER TABLE `visibilities` DISABLE KEYS */;
-INSERT INTO `visibilities` VALUES (0,'Invisible','2009-01-15 21:06:57','2009-01-15 21:06:57'),(1,'Visible','2009-01-15 21:06:52','2009-01-15 21:06:52'),(2,'Preview','2009-01-15 21:06:52','2009-01-15 21:06:52'),(3,'Inappropriate','2009-01-15 21:06:52','2009-01-15 21:06:52');
-/*!40000 ALTER TABLE `visibilities` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

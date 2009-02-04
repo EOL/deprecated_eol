@@ -15,7 +15,8 @@ describe Factory do
       DataObjectTag, DataObjectTags, DataObject, Comment, CuratorCommentLog,
       CuratorDataObjectLog, Hierarchy, HierarchyEntry, TaxonConcept, PageName,
       NormalizedLink, PublicationTitle, InfoItem, Taxon, DataObjectsTaxon,
-      Contact, ContactSubject ].uniq
+      Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
+      AgentDataType, AgentContactRole, ServiceType ].uniq
 
     # ... some to pick from (this isn't all of them) ...
     #

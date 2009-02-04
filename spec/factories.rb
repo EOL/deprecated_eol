@@ -20,6 +20,14 @@ Factory.define :agent_contact do |ac|
   ac.email       {|a| "#{a.first_name}.#{a.last_name}@example.com".downcase }
 end
 
+Factory.define :agent_contact_role do |x|
+  x.label { Factory.next(:string) }
+end
+
+Factory.define :agent_data_type do |x|
+  x.label { Factory.next(:string) }
+end
+
 Factory.define :agent_role do |x|
   x.label { Factory.next(:string) }
 end
@@ -56,6 +64,10 @@ Factory.define :agents_resource do |ar|
   ar.association :agent
   ar.association :resource
   ar.association :resource_agent_role
+end
+
+Factory.define :audience do |a|
+  a.label { Factory.next(:string) }
 end
 
 Factory.define :canonical_form do |cform|
@@ -97,9 +109,9 @@ end
 Factory.define :content_page do |cp|
   cp.association :content_section
   cp.page_name    'Test Content Page'
-  cp.title        'Test Content Page'
-  cp.left_content '<h3>This is Left Content in a Test Content Page</h3>'
-  cp.main_content '<h1>Main Content for Test Content Page ROCKS!</h1>'
+  cp.title        {|cp| cp.page_name }
+  cp.left_content {|cp| "<h3>This is Left Content in a #{cp.page_name}</h3>" }
+  cp.main_content {|cp| "<h1>Main Content for #{cp.page_name} ROCKS!</h1>" }
   cp.sort_order   1
   cp.url          '' # This would imply that the content was external.
 
@@ -260,7 +272,7 @@ end
 Factory.define :info_item do |ii|
   ii.schema_value 'http://rs.tdwg.org/ontology/voc/ThisWontWork.JustForTesting'
   ii.label        'TestInfoItem'
-  ii.toc_id       1
+  ii.toc_id       0
 end
 
 Factory.define :item_page do |ip|
@@ -284,11 +296,12 @@ Factory.define :language do |l|
 end
 
 Factory.define :license do |l|
-  l.title       'Test License Type'
-  l.description 'Rights?  What Rights?'
-  l.source_url  ''
-  l.version     0
-  l.logo_url    ''
+  l.title                    'Test License Type'
+  l.description              'Rights?  What Rights?'
+  l.source_url               ''
+  l.version                  0
+  l.logo_url                 ''
+  l.show_to_content_partners true
 end
 
 Factory.define :log_daily do |x|
@@ -369,6 +382,10 @@ Factory.define :rank do |r|
   r.label 'TestRank'
 end
 
+Factory.define :ref_identifier_type do |rit|
+  rit.label { Factory.next(:string) }
+end
+
 Factory.define :resource_agent_role do |rar|
   rar.label { Factory.next(:string) }
 end
@@ -378,6 +395,10 @@ Factory.define :resource do |r|
   r.title        'Testing Resource'
   r.subject      'Test Resource Subject'
   r.association  :license     
+end
+
+Factory.define :resource_status do |rs|
+  rs.label { Factory.next(:string) }
 end
 
 Factory.define :resources_taxon do |rt|
@@ -408,6 +429,10 @@ Factory.define :search_suggestion do |ss|
   ss.sort_order      1
   ss.active          1
   ss.created_at      { 48.hours.ago }
+end
+
+Factory.define :service_type do |s|
+  s.label { Factory.next(:string) }
 end
 
 Factory.define :status do |s|

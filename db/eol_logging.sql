@@ -33,15 +33,6 @@ CREATE TABLE `agent_log_dailies` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `agent_log_dailies`
---
-
-LOCK TABLES `agent_log_dailies` WRITE;
-/*!40000 ALTER TABLE `agent_log_dailies` DISABLE KEYS */;
-/*!40000 ALTER TABLE `agent_log_dailies` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `country_log_dailies`
 --
 
@@ -58,15 +49,6 @@ CREATE TABLE `country_log_dailies` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `country_log_dailies`
---
-
-LOCK TABLES `country_log_dailies` WRITE;
-/*!40000 ALTER TABLE `country_log_dailies` DISABLE KEYS */;
-/*!40000 ALTER TABLE `country_log_dailies` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `curator_activities`
@@ -117,15 +99,6 @@ CREATE TABLE `curator_activity_log_dailies` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `curator_activity_log_dailies`
---
-
-LOCK TABLES `curator_activity_log_dailies` WRITE;
-/*!40000 ALTER TABLE `curator_activity_log_dailies` DISABLE KEYS */;
-/*!40000 ALTER TABLE `curator_activity_log_dailies` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `curator_comment_logs`
 --
 
@@ -142,15 +115,6 @@ CREATE TABLE `curator_comment_logs` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `curator_comment_logs`
---
-
-LOCK TABLES `curator_comment_logs` WRITE;
-/*!40000 ALTER TABLE `curator_comment_logs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `curator_comment_logs` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `curator_data_object_logs`
@@ -171,15 +135,6 @@ CREATE TABLE `curator_data_object_logs` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `curator_data_object_logs`
---
-
-LOCK TABLES `curator_data_object_logs` WRITE;
-/*!40000 ALTER TABLE `curator_data_object_logs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `curator_data_object_logs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `data_object_log_dailies`
 --
 
@@ -196,15 +151,6 @@ CREATE TABLE `data_object_log_dailies` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `data_object_log_dailies`
---
-
-LOCK TABLES `data_object_log_dailies` WRITE;
-/*!40000 ALTER TABLE `data_object_log_dailies` DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_object_log_dailies` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `data_object_logs`
@@ -231,15 +177,6 @@ CREATE TABLE `data_object_logs` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `data_object_logs`
---
-
-LOCK TABLES `data_object_logs` WRITE;
-/*!40000 ALTER TABLE `data_object_logs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `data_object_logs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `external_link_logs`
 --
 
@@ -259,15 +196,6 @@ CREATE TABLE `external_link_logs` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `external_link_logs`
---
-
-LOCK TABLES `external_link_logs` WRITE;
-/*!40000 ALTER TABLE `external_link_logs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `external_link_logs` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `ip_addresses`
@@ -294,15 +222,6 @@ CREATE TABLE `ip_addresses` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `ip_addresses`
---
-
-LOCK TABLES `ip_addresses` WRITE;
-/*!40000 ALTER TABLE `ip_addresses` DISABLE KEYS */;
-/*!40000 ALTER TABLE `ip_addresses` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `search_logs`
@@ -336,15 +255,6 @@ CREATE TABLE `search_logs` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Dumping data for table `search_logs`
---
-
-LOCK TABLES `search_logs` WRITE;
-/*!40000 ALTER TABLE `search_logs` DISABLE KEYS */;
-/*!40000 ALTER TABLE `search_logs` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `state_log_dailies`
 --
 
@@ -361,15 +271,6 @@ CREATE TABLE `state_log_dailies` (
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
-
---
--- Dumping data for table `state_log_dailies`
---
-
-LOCK TABLES `state_log_dailies` WRITE;
-/*!40000 ALTER TABLE `state_log_dailies` DISABLE KEYS */;
-/*!40000 ALTER TABLE `state_log_dailies` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `user_log_dailies`
@@ -389,16 +290,7 @@ CREATE TABLE `user_log_dailies` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
---
--- Dumping data for table `user_log_dailies`
---
-
-LOCK TABLES `user_log_dailies` WRITE;
-/*!40000 ALTER TABLE `user_log_dailies` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_log_dailies` ENABLE KEYS */;
-UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

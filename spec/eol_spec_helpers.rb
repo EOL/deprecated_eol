@@ -3,6 +3,8 @@ module EOL::Spec
 
     # returns a connection for each of our databases, eg: 1 for Data, 1 for Logging ...
     def all_connections
+      # use_db lazy-loads its db list, so the classes in logging/ are ignored unless you reference one:
+      CuratorActivity.first
       UseDbPlugin.all_use_dbs.map {|db| db.connection }
     end
 

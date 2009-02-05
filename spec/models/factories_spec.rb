@@ -14,7 +14,7 @@ describe Factory do
       Language, License, Visibility, Vetted, DataType, Role, User, ItemPage,
       DataObjectTag, DataObjectTags, DataObject, Comment, CuratorCommentLog,
       CuratorDataObjectLog, Hierarchy, HierarchyEntry, TaxonConcept, PageName,
-      NormalizedLink, PublicationTitle, InfoItem, Taxon, DataObjectsTaxon,
+      NormalizedLink, PublicationTitle, InfoItem, Taxon,
       Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
       AgentDataType, AgentContactRole, ServiceType ].uniq
 

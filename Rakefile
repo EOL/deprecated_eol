@@ -10,7 +10,7 @@ begin
   #   $ sudo gem install mislav-hanna
   # see: http://github.com/mislav/hanna
   require 'hanna/rdoctask'
-rescue LoadErrir
+rescue LoadError
   require 'rake/rdoctask' # default to normal RDoc template
 end
 

@@ -362,3 +362,4 @@ To get attribution for a given taxon concept ID:
 4. Look at the associated agents for the hierarchy_entry
     e.g. agents=he[0].agents  # OR  agents=he.agents
         agents.each {|agent| puts agent.full_name + " " + agent.homepage + " " + agent.logo_cache_url}
+

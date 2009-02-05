@@ -5,7 +5,14 @@ require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
+begin
+  # let's try the hanna template, if it's installed
+  #   $ sudo gem install mislav-hanna
+  # see: http://github.com/mislav/hanna
+  require 'hanna/rdoctask'
+rescue LoadErrir
+  require 'rake/rdoctask' # default to normal RDoc template
+end
 
 require 'tasks/rails'
 

@@ -1,4 +1,9 @@
-# NOTE i haven't bothered alphabetizing these or anything ... i'll clean them up later!
+# REMINDER: default model factories, eg. :user, should *only* generate required fields
+#
+# If you want a model loaded up with all kinds of goodies, make a different generator, 
+# eg. :admin_user
+#
+# We will make helpers for easily generating User.gen_admin (or something like this)
 
 require 'factory_girl'
 require 'faker'

@@ -2,6 +2,9 @@ require 'net/http'
 require 'uri'
 require 'socket'
 
+# Be careful not to use this class in tests!
+# It makes real network connections!
+# Will *not* work offline.
 class EOLWebService
    
 # confirm the passed in URL is valid and responses with a proper code
@@ -19,6 +22,7 @@ class EOLWebService
   
   #finds local ip used by the host for remote connection
   def self.local_ip
+    return nil if RAILS_ENV == 'test'
     orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
 
     UDPSocket.open do |s|

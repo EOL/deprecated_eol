@@ -23,12 +23,11 @@ DROP TABLE IF EXISTS `agent_contact_roles`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `agent_contact_roles` (
-  `id` tinyint(3) unsigned NOT NULL auto_increment COMMENT 'primary key',
-  `label` varchar(100) character set ascii NOT NULL COMMENT 'a label!',
+  `id` tinyint(3) unsigned NOT NULL auto_increment,
+  `label` varchar(100) character set ascii NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 
-COMMENT 'i am the agent contact roles table';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -39,20 +38,19 @@ DROP TABLE IF EXISTS `agent_contacts`;
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `agent_contacts` (
-  `id` int(10) unsigned NOT NULL auto_increment COMMENT 'PK',
+  `id` int(10) unsigned NOT NULL auto_increment,
   `agent_id` int(10) unsigned NOT NULL,
   `agent_contact_role_id` tinyint(3) unsigned NOT NULL,
-  `full_name` varchar(255) NOT NULL COMMENT 'the whole name!',
+  `full_name` varchar(255) NOT NULL,
   `title` varchar(20) NOT NULL,
   `given_name` varchar(255) NOT NULL,
-  `family_name` varchar(255) NOT NULL COMMENT 'families are awesome',
+  `family_name` varchar(255) NOT NULL,
   `homepage` varchar(255) character set ascii NOT NULL,
   `email` varchar(75) NOT NULL,
   `telephone` varchar(30) character set ascii NOT NULL,
-  `address` text NOT NULL COMMENT 'where do i live?',
+  `address` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
-COMMENT 'i am totally awesome';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -67,7 +65,7 @@ CREATE TABLE `agent_data_types` (
   `label` varchar(100) character set ascii NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT 'i love agent data types';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -828,15 +826,16 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `names` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `namebank_id` int(10) unsigned NOT NULL,
-  `string` varchar(300) NOT NULL,
-  `italicized` varchar(300) NOT NULL,
-  `italicized_verified` tinyint(3) unsigned NOT NULL,
-  `canonical_form_id` int(10) unsigned NOT NULL,
-  `canonical_verified` tinyint(3) unsigned NOT NULL,
+  `namebank_id` int(10) unsigned NOT NULL COMMENT '? why is this required ?',
+  `string` varchar(300) NOT NULL COMMENT 'the actual name',
+  `italicized` varchar(300) NOT NULL COMMENT '? why is this required ?',
+  `italicized_verified` tinyint(3) unsigned NOT NULL COMMENT '? why is this required ?',
+  `canonical_form_id` int(10) unsigned NOT NULL COMMENT '? why is this required ?',
+  `canonical_verified` tinyint(3) unsigned NOT NULL COMMENT '? why is this required ?',
   PRIMARY KEY  (`id`),
   KEY `canonical_form_id` (`canonical_form_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8
+COMMENT 'Represents the name of a species';
 SET character_set_client = @saved_cs_client;
 
 --

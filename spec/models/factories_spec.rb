@@ -52,9 +52,12 @@ describe Factory do
   factories.each do |factory, klass|
     it "should generate #{klass}" do
       klass.truncate
-      # lambda {   3.times { Factory(factory).should be_valid }   }.should change(klass, :count).by(3)
-      # lambda {   3.times { klass.generate.should be_valid }   }.should change(klass, :count).by(3)
-      lambda {   3.times { klass.gen.should be_valid }   }.should change(klass, :count).by(3)
+      begin
+        lambda {   3.times { klass.gen.should be_valid }   }.should change(klass, :count).by(3)
+      rescue => ex
+        raise "#{ klass }.gen blew up!  Maybe try calling #{ klass }.gen yourself in a console?  " + 
+              "remember to require 'spec/spec_helper' to get all of the factories / etc.  \n\n #{ ex }"
+      end
     end
   end
 

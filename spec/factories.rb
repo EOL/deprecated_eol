@@ -219,12 +219,6 @@ Factory.define :data_objects_table_of_content do |dato|
   dato.association :toc_item
 end
 
-Factory.define :data_objects_taxon do |dot|
-  dot.identifier  ''
-  dot.association :taxon
-  dot.association :data_object
-end
-
 Factory.define :data_type do |dt|
   dt.schema_value 'http://purl.org/dc/dcmitype/ThisLinkWillFail.JustTesting'
   dt.label        { Factory.next(:string) }

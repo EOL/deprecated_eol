@@ -1,4 +1,8 @@
-# TODO - ADD COMMENTS
+# Name is used for storing different variations of names of species (TaxonConcept)
+#
+# These names are not "official."  If they have a CanonicalForm, the 
+# CanonicalForm is the "accepted" scientific name for the species.
+#
 class Name < SpeciesSchemaModel
 
   belongs_to :canonical_form
@@ -8,6 +12,10 @@ class Name < SpeciesSchemaModel
   has_many :hierarchy_entries
   has_many :normalized_links
   has_many :mappings
+
+  validates_presence_of :string
+  validates_presence_of :italicized
+  validates_presence_of :canonical_form
 
   def taxon_concepts
     return taxon_concept_names.collect {|tc_name| tc_name.taxon_concept}.flatten

@@ -15,7 +15,8 @@ namespace :comments do
   end
 
   # TODO use an options Hash instead of all of these params
-  def print_comments include_tables_without_comments = false, 
+  def print_comments specific_tables = nil,
+                     include_tables_without_comments = false, 
                      include_columns = false, 
                      include_columns_without_comments = false
 
@@ -24,7 +25,16 @@ namespace :comments do
     require 'activerecord-comments'
 
     activerecord_base_classes.each do |base|
-      base.connection.tables.each        do |table|
+      
+      base.connection.tables.each do |table|
+
+        if specific_tables
+          match = false
+          specific_tables.each do |matcher|
+            match = true if table =~ /#{matcher}/
+          end
+          next unless match
+        end
         
         comment = base.comment(table)
         if comment || include_tables_without_comments
@@ -67,10 +77,11 @@ namespace :comments do
 
   end
   
-  desc 'Print out all table comments, ALL=true (will show tables without comments)'
+  desc 'Print out [all] table comments, TABLES=users,foo ALL=true (will show tables without comments)'
   task :tables => :environment do
     puts_tables_without_comments = ( ENV['ALL'] == 'true' ) ? true : false
-    print_comments puts_tables_without_comments, true
+    specific_tables = ( ENV['TABLES'] ) ? ENV['TABLES'].split(',') : nil
+    print_comments specific_tables, puts_tables_without_comments, true
   end
 
 end

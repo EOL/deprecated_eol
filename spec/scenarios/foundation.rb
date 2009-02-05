@@ -1,6 +1,5 @@
 # sets up a basic foundation - enough data to run the application, but no content
 
-puts ".. starting in #{ENV['RAILS_ENV']}.  There are #{Visibility.count} visibilities"
 # This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
 ContentPage.gen :page_name => 'Home',           :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Home Page')
 ContentPage.gen :page_name => 'Who We Are',     :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'About EOL')
@@ -180,5 +179,3 @@ Factory :visibility, :label => 'Invisible'      # This really wants an ID of 0, 
 Factory :visibility, :label => 'Visible'
 Factory :visibility, :label => 'Preview'
 Factory :visibility, :label => 'Inappropriate'
-
-puts ".. finished.  There are #{Visibility.count} visibilities"

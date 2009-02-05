@@ -1,3 +1,4 @@
+# TODO document - i'm not sure where Role is used
 class Role < ActiveRecord::Base
   
   has_and_belongs_to_many :users

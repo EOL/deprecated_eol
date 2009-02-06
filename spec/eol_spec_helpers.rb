@@ -19,28 +19,6 @@ module EOL::Spec
       end
     end
 
-    # TODO move into scenarios gem
-    #
-    # scenarios to load in spec - most useful for loading up the 'foundation' in blackbox specs
-    #
-    #   scenario  :foo
-    #   scenarios :foo, :bar
-    #   scenarios :foo, :bar, :before => :all
-    #   scenarios :foo, :bar, :before => :each
-    #
-    # defaults to before each
-    #
-    def scenario *scenarios
-      puts "scenario called from spec, wanting to load: #{ scenarios.inspect }" if Scenario.verbose
-      options = (scenarios.last.is_a?Hash) ? scenarios.pop : { }
-      options[:before] ||= :each
-      before options[:before] do
-        puts "spec before block: Scenario.load #{ scenarios.inspect }" if Scenario.verbose
-        Scenario.load *scenarios
-      end
-    end
-    alias scenarios scenario
-
   end
 end
 

@@ -1,6 +1,6 @@
 == Guide to capistrano ==
 
-Check out the project
+Check out the project.
 Capify - This has already been done, and the existing file has been modified.
 Check that there's a mongrel_cluster.yml 
 

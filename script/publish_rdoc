@@ -1,0 +1,37 @@
+#! /bin/bash
+
+RAILS_ROOT=$PWD
+GITHUB_PAGES_DIR=$1
+
+if [[ -z "$GITHUB_PAGES_DIR" ]]; then
+	echo "Usage: $0 path-to-git-clone-of-eol.github.com-project"
+	echo ""
+	echo "To clone the project: "
+	echo "  $ git clone git@github.com:eol/eol.github.com.git"
+	echo ""
+	exit
+fi
+
+if [[ ! -f "$RAILS_ROOT/Rakefile" ]] || [[ ! -d "$RAILS_ROOT/app" ]]; then
+	echo "This script needs to be run from the RAILS_ROOT of the EOL project"
+	exit
+fi
+
+if [[ ! -d "$GITHUB_PAGES_DIR/.git" ]]; then
+	echo "$GITHUB_PAGES_DIR doesn't appear to exist or be a git repository"
+	exit
+fi
+
+echo "RAILS_ROOT:       $RAILS_ROOT"
+echo "GITHUB_PAGES_DIR: $GITHUB_PAGES_DIR"
+
+echo "Genarating RDoc"
+cd $RAILS_ROOT
+rake doc:reapp
+
+echo "Pushing updated RDoc to github"
+cd $GITHUB_PAGES_DIR
+cp -r $RAILS_ROOT/doc/app/* .
+git add .
+git commit -a -m "Updated RDoc"
+git push origin master

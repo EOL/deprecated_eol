@@ -9,7 +9,7 @@ class ScenarioGenerator < Rails::Generator::Base
   #   runtime_options: {:quiet=>false, :generator=>"scenario", :command=>:create, :collision=>:ask}
   #
   def initialize(runtime_args, runtime_options = {})
-    # setup_rails_to_run_scenarios
+    setup_rails_to_run_scenarios
     @name_of_scenario_to_create      = runtime_args.join(' ')
     @name_of_scenario_file_to_create = runtime_args.join('_').downcase
     super
@@ -17,7 +17,15 @@ class ScenarioGenerator < Rails::Generator::Base
 
   # this should be done by ./script/generate blackbox
   def setup_rails_to_run_scenarios
-    # bootstrap
+    rakefile = File.join RAILS_ROOT, 'Rakefile'
+    if File.file? rakefile
+      source = File.read rakefile
+      unless source =~ /require .scenarios.tasks./
+        File.open( rakefile, 'a' ) do |f|
+          f << %[require 'scenarios/tasks']
+        end
+      end
+    end
   end
 
   def manifest

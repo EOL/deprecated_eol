@@ -19,6 +19,8 @@ module EOL::Spec
       end
     end
 
+    # TODO move into scenarios gem
+    #
     # scenarios to load in spec - most useful for loading up the 'foundation' in blackbox specs
     #
     #   scenario  :foo
@@ -29,11 +31,12 @@ module EOL::Spec
     # defaults to before each
     #
     def scenario *scenarios
-      require 'scenario'
+      puts "scenario called from spec, wanting to load: #{ scenarios.inspect }" if Scenario.verbose
       options = (scenarios.last.is_a?Hash) ? scenarios.pop : { }
       options[:before] ||= :each
       before options[:before] do
-        EOL::Scenario.load *scenarios
+        puts "spec before block: Scenario.load #{ scenarios.inspect }" if Scenario.verbose
+        Scenario.load *scenarios
       end
     end
     alias scenarios scenario

@@ -49,3 +49,12 @@ what else?
 ----------
 
 more documentation to come soon!
+
+
+TODO
+----
+
+ - i forgot to import the `scenarios` method so it's accessible from test / specs ... fix!
+ - make the scenario directory for the generator configurable (and that dir should always be included in the Scenario loadpath
+ - make all scenarios load within a specific context and add hooks so people can update/modify that context
+ - write a spec to make sure that the load paths work properly and multiple directories can have scenarios with the same name ... the directories added last should override the previous ones.  also make sure paths are uniq ... if i add 'foo' and 'foo' is already there, it should make foo the last path (move it to the end)

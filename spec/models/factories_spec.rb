@@ -2,6 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Factory do
 
+  # WHERE ARE THE EXAMPLES ???
+  #
+  # see the # spec # section below !
+
   ########## helpers #########
 
   # this isn't actually *all* model classes yet.
@@ -49,16 +53,37 @@ describe Factory do
 
   ########## spec ##########
 
+  # q: what in the world does this do
+  #
+  # a: this makes sure that our factories work!  eventually this should
+  #    run *all* of our factories.  right now, we have an array of 
+  #    models (see #model_classes above) and, for each of those models, 
+  #    we run its generator 3 times.  we specify that each of the 3 generated 
+  #    models should be valid and 3 additional database records should exist.
+  #
+  #    why do we generate *3*?  all factories should be runnable multiple times.
+  #    that means your factories need to account for things like unique fields!
+  #
+  #    Dog.gen should return a valid Dog
+  #    Dog.gen should return *another* valid Dog (if need be, this Dog should have a unique name)
+  #    Dog.gen should return another valid Dog, just to be sure that we can generate more than 2
+  #
+  #    i think that generating 3 models will catch some bugs that generating 2 models wouldn't,
+  #    specifically with regards to uniqueness.
+  #
   factories.each do |factory, klass|
+
     it "should generate #{klass}" do
       klass.truncate
       begin
         lambda {   3.times { klass.gen.should be_valid }   }.should change(klass, :count).by(3)
       rescue => ex
         raise "#{ klass }.gen blew up!  Maybe try calling #{ klass }.gen yourself in a console?  " + 
-              "remember to require 'spec/spec_helper' to get all of the factories / etc.  \n\n #{ ex }"
+              "remember to require 'spec/spec_helper' to get all of the factories / etc.  \n\n" + 
+              "this spec: spec/models/factories_spec.rb \n\n#{ ex }"
       end
     end
+
   end
 
 end

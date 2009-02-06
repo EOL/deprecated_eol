@@ -71,6 +71,15 @@ class Scenario
       end
     end
 
+    def verbose= value
+      if value == true && @verbose != true
+        puts "Scenario verbose enable."
+        puts "Scenario load_paths => #{ Scenario.load_paths.inspect }"
+        puts "#{ Scenario.all.length } scenario(s) found"
+      end
+      @verbose = value
+    end
+
     # run some block of code before any scenarios run
     #
     # good for last-minute require statements and whatnot
@@ -88,7 +97,10 @@ class Scenario
     # scenarios (or an empty array)
     #
     def [] *names
+      puts "looking for scenario(s) with name(s): #{ names.inspect }" if Scenario.verbose
       if names.length == 1
+        puts "all scenario names: #{ all.map(&:name) }" if Scenario.verbose
+        puts "btw, the load paths are: #{ load_paths.inspect }" if Scenario.verbose
         all.find {|scenario| scenario.name.downcase == names.first.to_s.downcase }
       else
         names.map {|name| self[ name ] }.compact
@@ -104,13 +116,23 @@ class Scenario
     #   Scenario.load :names, 'work', :too
     #
     def load *scenarios
+      puts "called Scenario.load with scenarios #{ scenarios.inspect }" if Scenario.verbose
       @before_blocks.each { |b| b.call } if @before_blocks and not @before_blocks.empty?
       # TODO should be able to define some block that scenarios get evaluated in!
       #      or some things that scenarios might want to require or ...
       scenarios.each do |scenario|
         scenario = self[scenario] unless scenario.is_a?Scenario # try getting using self[] if not a scenario
         puts "loading #{ scenario.name } (#{ scenario.description })" if Scenario.verbose && scenario.is_a?(Scenario)
-        eval scenario.source_code if scenario.is_a?Scenario
+        begin
+          if scenario.is_a?Scenario
+            puts "eval'ing scenario: #{ scenario.inspect }" if Scenario.verbose
+            eval scenario.source_code
+          else
+            puts "Unsure how to load scenario: #{ scenario.inspect }"
+          end
+        rescue => ex
+          raise "An Exception was thrown by scenario: #{ scenario.name }\n\n#{ ex }"
+        end
       end
     end
   end  

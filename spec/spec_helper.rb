@@ -10,7 +10,7 @@ require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
 require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
 
 require 'scenarios'
-Scenario.load_paths = [ File.join(RAILS_ROOT, 'spec', 'scenarios') ]
+Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios'), File.join(RAILS_ROOT, 'spec', 'scenarios') ]
 
 require 'rackbox'
 

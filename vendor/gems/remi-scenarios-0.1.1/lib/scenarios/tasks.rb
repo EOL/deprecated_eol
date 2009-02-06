@@ -5,7 +5,6 @@
 #   Scenario.load_paths = [ 'path/to/my/scenarios/**/*' ]
 
 require 'scenarios'
-Scenario.verbose = true
 
 desc 'Print all available scenarios'
 task :scenarios do
@@ -22,8 +21,10 @@ namespace :scenarios do
 
   desc 'scenarios:load NAME=foo OR NAME=a,b,c'
   task :load => ( (defined?RAILS_ENV) ? :environment : nil ) do
+    puts "called scenarios:load" if Scenario.verbose
     if ENV['NAME']
       names = ENV['NAME'].split(',')
+      puts "Scenario.load #{ names.inspect }" if Scenario.verbose
       Scenario.load *names
     else
       puts "you need to pass NAME=scenario_name to load a scenario"

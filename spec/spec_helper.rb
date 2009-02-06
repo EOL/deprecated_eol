@@ -15,6 +15,7 @@ Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios'), File.join(RAILS_ROOT
 require 'rackbox'
 
 Spec::Runner.configure do |config|
+  include Scenario::Spec
   include EOL::Spec::Helpers
 
   config.include EOL::Spec::Matchers

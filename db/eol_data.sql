@@ -491,6 +491,23 @@ CREATE TABLE `data_objects_table_of_contents` (
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `data_objects_taxa`
+--
+
+DROP TABLE IF EXISTS `data_objects_taxa`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `data_objects_taxa` (
+  `taxon_id` int(10) unsigned NOT NULL,
+  `data_object_id` int(10) unsigned NOT NULL,
+  `identifier` varchar(255) character set ascii NOT NULL,
+  PRIMARY KEY  (`taxon_id`,`data_object_id`),
+  KEY `data_object_id` (`data_object_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
+
+
+--
 -- Table structure for table `data_types`
 --
 

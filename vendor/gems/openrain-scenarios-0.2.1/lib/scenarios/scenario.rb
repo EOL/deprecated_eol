@@ -1,5 +1,3 @@
-$:.unshift File.dirname(__FILE__)
-
 # a Scenario is some set of data/logic that can be loaded up easily 
 # to run an application against.
 #
@@ -136,8 +134,5 @@ class Scenario
       end
     end
   end  
-
-  Scenario.load_paths ||= [ 'scenarios' ] # default to a 'scenarios' directory relative to your current location
-  Scenario.verbose = false
 
 end

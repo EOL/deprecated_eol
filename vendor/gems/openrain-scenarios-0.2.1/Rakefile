@@ -9,7 +9,7 @@ begin
     s.name        = "scenarios"
     s.summary     = "Create, Organize, and Run arbitrary snippets of Ruby code"
     s.email       = "remi@remitaylor.com"
-    s.homepage    = "http://github.com/remi/scenarios"
+    s.homepage    = "http://github.com/openrain/scenarios"
     s.description = "Create, Organize, and Run arbitrary snippets of Ruby code"
     s.authors     = %w( remi )
     s.files       = FileList["[A-Z]*", "{lib,spec,examples,rails_generators}/**/*"]

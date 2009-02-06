@@ -1,2 +1,0 @@
-let's get rid of this dir and move all of these to RAILS_ROOT / scenarios as 
-scenarios aren't spec-specific

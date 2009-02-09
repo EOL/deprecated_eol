@@ -4,6 +4,8 @@
 # not see any other ref to it.
 class TopImage < SpeciesSchemaModel
   set_primary_keys :hierarchy_entry_id, :data_object_id
+  belongs_to :hierarchy_entry
+  belongs_to :data_object
 end
 
 # == Schema Info

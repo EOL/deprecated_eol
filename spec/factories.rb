@@ -13,8 +13,20 @@ require File.dirname(__FILE__) + '/eol_factory_girl'
 
 Factory.sequence( :string ){|n| "unique#{ n }string" } # 'string' isn't elegant, but it's perfect for right now!
 Factory.sequence( :email  ){|n| "bob#{n}@smith.com" }
+# Faker names have a very high level of uniqueness, but let's just make absolutely sure:
+Factory.sequence( :name   ){|n| "#{Faker::Name.first_name}#{n}#{Faker::Name.last_name}" }
 
 #### Factories
+
+Factory.define :agent do |agent|
+  agent.created_at      { 5.days.ago }
+  agent.homepage        ''
+  agent.full_name       { Factory.next(:name) }
+  agent.username        {|a| a.full_name.gsub(/\W+/, '').downcase[0..15] }
+  agent.email           { Factory.next(:email) }
+  agent.hashed_password { Digest::MD5.hexdigest('test password') }
+  agent.association     :agent_status
+end
 
 Factory.define :agent_contact do |ac|
   ac.association :agent
@@ -39,16 +51,6 @@ end
 
 Factory.define :agent_status do |as|
   as.label { Factory.next(:string) }
-end
-
-Factory.define :agent do |agent|
-  agent.created_at       { 5.days.ago }
-  agent.homepage         ''
-  agent.full_name        { Factory.next(:string) }
-  agent.username         {|a| a.full_name.gsub(/\W+/, '').downcase }
-  agent.email            { Factory.next(:email) }
-  agent.hashed_password  { Digest::MD5.hexdigest('test password') }
-  agent.association :agent_status
 end
 
 Factory.define :agents_data_object do |ado|
@@ -219,6 +221,12 @@ Factory.define :data_objects_table_of_content do |dato|
   dato.association :toc_item
 end
 
+Factory.define :data_objects_taxon do |dot|
+  dot.association :taxon
+  dot.association :data_object
+  dot.identifier  '' # No idea what this is supposed to be, but it cannot be nil
+end
+
 Factory.define :data_type do |dt|
   dt.schema_value 'http://purl.org/dc/dcmitype/ThisLinkWillFail.JustTesting'
   dt.label        { Factory.next(:string) }
@@ -240,7 +248,6 @@ Factory.define :hierarchy do |hierarchy|
   hierarchy.association             :agent
 end
 
-# TODO - This should probable assume you want some content, and build it.  Not sure, though.
 Factory.define :hierarchies_content do |hc|
   hc.association    :hierarchy_entry
   hc.text           0
@@ -255,17 +262,17 @@ Factory.define :hierarchies_content do |hc|
 end
 
 Factory.define :hierarchy_entry do |he|
-  he.remote_id        '' # This is an ID on the foreign web site, NOT in our DB.
-  he.depth            2
-  he.ancestry         ''
-  he.lft              1
-  he.rank_id          184
-  he.parent_id        0
-  he.association      :name
-  he.association      :taxon_concept
-  he.rgt              2
-  he.identifier       ''
-  he.association      :hierarchy
+  he.remote_id   '' # This is an ID on the foreign web site, NOT in our DB.
+  he.depth       2
+  he.ancestry    ''
+  he.lft         1
+  he.rank_id     184
+  he.parent_id   0
+  he.name_id     '1234' # This is NOT a reference to a Name!  This is a ref to another DB!  But it cannot be null...
+  he.association :taxon_concept
+  he.rgt         2
+  he.identifier  ''
+  he.association :hierarchy
 end
 
 Factory.define :info_item do |ii|
@@ -321,11 +328,12 @@ Factory.define :mime_type do |x|
 end
 
 Factory.define :name do |name|
-  name.italicized          '<i>Somethia specificus</i> Posford & R. Ram'
   name.canonical_form      {|cform| cform.association(:canonical_form, :string => 'Somethia specificus')}
   name.string              'Somethia specificus Posford & R. Ram'
-  name.canonical_verified  0
-  name.italicized_verified 0
+  name.canonical_verified  0 # I don't know that Rails ever uses this...
+  name.italicized_verified 0 # I don't know that Rails ever uses this...
+  # The strip  at the end handles strings that are only two words; it is useless with three or more.
+  name.italicized          {|n| n.string.split[0] == n.string ? "<i>#{n.string}</i>" : ('<i>' + n.string.split[0..1].join(' ') + '</i> ' +  n.string.split[2..-1].join(' ')).strip }
   name.namebank_id         0
 end
 
@@ -364,7 +372,6 @@ Factory.define :publication_title do |pt|
   pt.url     'http://publication.titles.te.st'
 end
 
-# TODO - this should actually create a valid TC and use its information
 Factory.define :random_taxon do |rt|
   rt.association   :language
   rt.association   :data_object
@@ -385,15 +392,16 @@ Factory.define :ref_identifier_type do |rit|
   rit.label { Factory.next(:string) }
 end
 
-Factory.define :resource_agent_role do |rar|
-  rar.label { Factory.next(:string) }
+Factory.define :resource do |r|
+  r.auto_publish    false
+  r.title           'Testing Resource'
+  r.subject         'Test Resource Subject'
+  r.association     :license
+  r.association     :resource_status
 end
 
-Factory.define :resource do |r|
-  r.auto_publish false
-  r.title        'Testing Resource'
-  r.subject      'Test Resource Subject'
-  r.association  :license     
+Factory.define :resource_agent_role do |rar|
+  rar.label { Factory.next(:string) }
 end
 
 Factory.define :resource_status do |rs|
@@ -466,6 +474,11 @@ Factory.define :taxon do |t|
   t.updated_at    { 42.minutes.ago }
 end
 
+Factory.define :taxon_concept do |tc|
+  tc.published      0
+  tc.supercedure_id 0
+end
+
 # We may want the default to actually have some content.  Not sure.
 Factory.define :taxon_concept_content do |tcc|
   tcc.association :taxon_concept
@@ -480,15 +493,10 @@ Factory.define :taxon_concept_content do |tcc|
   tcc.association    :image_object
 end
 
-Factory.define :taxon_concept do |tc|
-  tc.published      0
-  tc.supercedure_id 0
-end
-
 Factory.define :taxon_concept_name do |tcn|
-  tcn.preferred              1
-  tcn.vern                   0
-  tcn.source_hierarchy_entry {|he| he.association(:hierarchy_entry) }
+  tcn.preferred              true
+  tcn.vern                   false
+  tcn.source_hierarchy_entry {|he| he.association(:hierarchy_entry) } # Does this work?
   tcn.association            :language
   tcn.association            :name
   tcn.association            :taxon_concept
@@ -504,7 +512,7 @@ Factory.define :title_item do |ti|
 end
 
 Factory.define :toc_item do |ti|
-  ti.association :parent
+  ti.parent_id   0
   ti.label       'TestTitleItem'
   ti.view_order  1 # This competes with Overview... not sure if this is wise.
 end

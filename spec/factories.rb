@@ -15,6 +15,7 @@ Factory.sequence( :string ){|n| "unique#{ n }string" } # 'string' isn't elegant,
 Factory.sequence( :email  ){|n| "bob#{n}@smith.com" }
 # Faker names have a very high level of uniqueness, but let's just make absolutely sure:
 Factory.sequence( :name   ){|n| "#{Faker::Name.first_name}#{n}#{Faker::Name.last_name}" }
+Factory.sequence(:species ){|n| "#{Faker::Lorem.words[0]}#{n} #{Faker::Lorem.words[0]}" }
 
 #### Factories
 
@@ -268,7 +269,7 @@ Factory.define :hierarchy_entry do |he|
   he.lft         1
   he.rank_id     184
   he.parent_id   0
-  he.name_id     '1234' # This is NOT a reference to a Name!  This is a ref to another DB!  But it cannot be null...
+  he.association :name
   he.association :taxon_concept
   he.rgt         2
   he.identifier  ''
@@ -373,14 +374,17 @@ Factory.define :publication_title do |pt|
 end
 
 Factory.define :random_taxon do |rt|
-  rt.association   :language
-  rt.association   :data_object
-  rt.name_id       { Factory(:name).id } # TODO - ick.  ...But there is a "name" attribute as well, so, tricky.
-  rt.image_url     200810081262788
-  rt.name          '<i>Rodomicus fortesti<i> Factory TestFramework'
-  rt.content_level 3
-  rt.created_at    { 14.days.ago }
-  rt.association   :taxon_concept
+  rt.association    :language
+  rt.association    :data_object
+  rt.name_id        { Factory(:name).id } # TODO - ick.  ...But there is a "name" attribute as well, so, tricky.
+  rt.image_url      200810081262788
+  rt.name           { "<i>#{ Factory.next(:species) }<i> Factory TestFramework" }
+  rt.content_level  3
+  rt.created_at     { 14.days.ago }
+  rt.association    :taxon_concept
+  rt.common_name_en {|taxon| Factory.next(:species) + ' (test common name)'}
+  rt.common_name_fr {|taxon| Factory.next(:species) + ' (pretend this is French)'}
+  rt.thumb_url      200810061400963 # Not sure this is right.
 end
 
 # I *don't* think these all actually relate to the rank_id's found elsewhere here. If so, we should change them to associations.

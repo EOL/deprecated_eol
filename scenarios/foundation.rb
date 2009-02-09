@@ -179,3 +179,13 @@ Factory :visibility, :label => 'Invisible'      # This really wants an ID of 0, 
 Factory :visibility, :label => 'Visible'
 Factory :visibility, :label => 'Preview'
 Factory :visibility, :label => 'Inappropriate'
+
+ref_and_info = TocItem.gen :label => 'References and More Information', :view_order => 9
+TocItem.gen :label => 'Biodiversity Heritage Library', :parent_id => ref_and_info.id, :view_order => 8
+TocItem.gen :label => 'Specialist Projects',           :parent_id => ref_and_info.id, :view_order => 10
+TocItem.gen :label => 'Search the Web',                :parent_id => ref_and_info.id, :view_order => 14
+TocItem.gen :label => 'Common Names'
+
+Agent.gen :full_name => 'IUCN'
+Agent.gen :full_name => 'Catalogue of Life'
+  

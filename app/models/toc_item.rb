@@ -98,6 +98,7 @@ class TocItem < SpeciesSchemaModel
   # looping through it is the path of the darkside.
   def self.add_empty_parents(toc)
     children = []
+    pp toc
     toc.each_with_index do |item, index|
       item.has_content = true
       if item.is_child?

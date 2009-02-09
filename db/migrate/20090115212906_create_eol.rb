@@ -10,8 +10,7 @@ class CreateEol < ActiveRecord::Migration
       # Note that this assumes that the file has been DOS-ified.
       IO.readlines("#{RAILS_ROOT}/db/eol.sql").to_s.split(/;\s*[\r\n]+/).each do |cmd|
         if cmd =~ /\w/m # Only run commands with text in them.  :)  A few were "\n\n".
-          filtered_cmd = cmd.strip
-          execute filtered_cmd.gsub(/`([^\.`]+)\.([^`]+)`/, "\\1.`\\2`")
+          execute cmd.strip
         end
       end
     else

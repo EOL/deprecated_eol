@@ -22,6 +22,10 @@ class TocItem < SpeciesSchemaModel
     @@common_names ||= TocItem.find_by_label('Common Names')
   end
   
+  def self.overview
+    @@search_the_web ||= TocItem.find_by_label('Overview')
+  end
+  
   def self.search_the_web
     @@search_the_web ||= TocItem.find_by_label('Search the Web')
   end

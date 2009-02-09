@@ -11,6 +11,9 @@ ContentPage.gen :page_name => 'Terms Of Use',   :language_abbr => 'en', :content
 CuratorActivity.gen :code => 'delete'
 CuratorActivity.gen :code => 'update'
 
+Agent.gen :full_name => 'IUCN'
+Agent.gen :full_name => 'Catalogue of Life'
+
 # We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
 # them.  Once we do, they should get added here.
 AgentContactRole.gen :label => 'Primary Contact'
@@ -48,6 +51,9 @@ DataType.gen :schema_value => 'http://purl.org/dc/dcmitype/StillImage',  :label 
 DataType.gen :schema_value => 'http://purl.org/dc/dcmitype/Sound',       :label => 'Sound'
 DataType.gen :schema_value => 'http://purl.org/dc/dcmitype/Text',        :label => 'Text'
 DataType.gen :schema_value => 'http://purl.org/dc/dcmitype/MovingImage', :label => 'Video'
+
+Hierarchy.gen :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007"
+Hierarchy.gen :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
 
 InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label => 'Associations'
 InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label => 'Behaviour'
@@ -165,6 +171,13 @@ Role.gen :title => 'Curator'
 Role.gen :title => 'Moderator'
 Role.gen :title => 'Administrator'
 
+TocItem.gen :label => 'Overview',                      :view_order => 1
+TocItem.gen :label => 'Common Names',                  :view_order => 10
+ref_and_info = TocItem.gen :label => 'References and More Information', :view_order => 9
+TocItem.gen :label => 'Biodiversity Heritage Library', :view_order => 8,  :parent_id => ref_and_info.id
+TocItem.gen :label => 'Specialist Projects',           :view_order => 10, :parent_id => ref_and_info.id
+TocItem.gen :label => 'Search the Web',                :view_order => 14, :parent_id => ref_and_info.id
+
 ServiceType.gen :label => 'EOL Transfer Schema'
 
 Status.gen :label => 'Inserted'
@@ -175,17 +188,7 @@ Vetted.gen :label => 'Unknown'    # This really wants an ID of 0, but only for P
 Vetted.gen :label => 'Untrusted'
 Vetted.gen :label => 'Trusted'
 
-Factory :visibility, :label => 'Invisible'      # This really wants an ID of 0, but only for PHP stuff.
-Factory :visibility, :label => 'Visible'
-Factory :visibility, :label => 'Preview'
-Factory :visibility, :label => 'Inappropriate'
-
-ref_and_info = TocItem.gen :label => 'References and More Information', :view_order => 9
-TocItem.gen :label => 'Biodiversity Heritage Library', :parent_id => ref_and_info.id, :view_order => 8
-TocItem.gen :label => 'Specialist Projects',           :parent_id => ref_and_info.id, :view_order => 10
-TocItem.gen :label => 'Search the Web',                :parent_id => ref_and_info.id, :view_order => 14
-TocItem.gen :label => 'Common Names'
-
-Agent.gen :full_name => 'IUCN'
-Agent.gen :full_name => 'Catalogue of Life'
-  
+Visibility.gen :label => 'Invisible'      # This really wants an ID of 0, but only for PHP stuff.
+Visibility.gen :label => 'Visible'
+Visibility.gen :label => 'Preview'
+Visibility.gen :label => 'Inappropriate'

@@ -977,7 +977,7 @@ CREATE TABLE `ranks` (
   `rank_group_id` smallint(6) NOT NULL COMMENT 'not required; there is no rank_groups table. This is used to group (reconcile) different strings for the same rank',
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores taxonomic ranks. Used in hierarchy_entries';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Stores taxonomic ranks (ex: phylum, order, class, family...). Used in hierarchy_entries';
 SET character_set_client = @saved_cs_client;
 
 --

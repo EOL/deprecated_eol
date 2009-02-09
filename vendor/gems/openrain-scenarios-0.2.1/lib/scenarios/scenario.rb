@@ -123,13 +123,14 @@ class Scenario
         puts "loading #{ scenario.name } (#{ scenario.description })" if Scenario.verbose && scenario.is_a?(Scenario)
         begin
           if scenario.is_a?Scenario
-            puts "eval'ing scenario: #{ scenario.inspect }" if Scenario.verbose
-            eval scenario.source_code
+            puts "loading scenario: #{ scenario.file_path }" if Scenario.verbose
+            Kernel::load scenario.file_path
           else
             puts "Unsure how to load scenario: #{ scenario.inspect }"
           end
         rescue => ex
-          raise "An Exception was thrown by scenario: #{ scenario.name }\n\n#{ ex }"
+          puts "An Exception was thrown by scenario: #{ scenario.name }"
+          raise ex
         end
       end
     end

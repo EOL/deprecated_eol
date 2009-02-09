@@ -27,7 +27,7 @@ CREATE TABLE `agent_contact_roles` (
   `label` varchar(100) character set ascii NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='For content partner agent_contacts';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -50,7 +50,7 @@ CREATE TABLE `agent_contacts` (
   `telephone` varchar(30) character set ascii NOT NULL,
   `address` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='For content partners';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `agent_data_types` (
   `label` varchar(100) character set ascii NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='For content partners';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `agent_provided_data_types` (
   `agent_data_type_id` int(10) unsigned NOT NULL,
   `agent_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`agent_data_type_id`,`agent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='For content partners';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `agent_roles` (
   `label` varchar(100) character set ascii NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='Identifies how agent is linked to data_object';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -140,7 +140,7 @@ CREATE TABLE `agents` (
   `updated_at` timestamp NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`),
   KEY `full_name` (`full_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Agents are content partners and used for object attribution';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -156,7 +156,7 @@ CREATE TABLE `agents_data_objects` (
   `agent_role_id` tinyint(3) unsigned NOT NULL,
   `view_order` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`data_object_id`,`agent_id`,`agent_role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Agents are associated with data objects in various roles';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -172,7 +172,7 @@ CREATE TABLE `agents_hierarchy_entries` (
   `agent_role_id` tinyint(3) unsigned NOT NULL,
   `view_order` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`hierarchy_entry_id`,`agent_id`,`agent_role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Agents are associated with hierarchy entries in various roles';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -187,7 +187,7 @@ CREATE TABLE `agents_resources` (
   `resource_id` int(10) unsigned NOT NULL,
   `resource_agent_role_id` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`agent_id`,`resource_id`,`resource_agent_role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Agents are associated with resources in various roles';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -203,7 +203,7 @@ CREATE TABLE `agents_synonyms` (
   `agent_role_id` tinyint(3) unsigned NOT NULL,
   `view_order` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`synonym_id`,`agent_id`,`agent_role_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Agents are associated with synonyms in various roles';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -218,7 +218,7 @@ CREATE TABLE `audiences` (
   `label` varchar(100) character set ascii NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='Controlled list for determining the "expertise" of a data object';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -232,7 +232,7 @@ CREATE TABLE `audiences_data_objects` (
   `data_object_id` int(10) unsigned NOT NULL,
   `audience_id` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`data_object_id`,`audience_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='A data object can have zero to many target audiences';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -244,10 +244,10 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `canonical_forms` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `string` varchar(300) NOT NULL,
+  `string` varchar(300) NOT NULL COMMENT 'a canonical form of a scientific name is the name parts without authorship, rank information, or anthing except the latinized name parts. These are for the most part algorithmically generated',
   PRIMARY KEY  (`id`),
   KEY `string` (`string`(255))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Every name string has one canonical form - a simplified version of the string';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -259,10 +259,10 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `clean_names` (
   `name_id` int(10) unsigned NOT NULL,
-  `clean_name` varchar(300) character set utf8 collate utf8_bin NOT NULL,
+  `clean_name` varchar(300) character set utf8 collate utf8_bin NOT NULL COMMENT 'there is a one to one reltaionship between a name string and a clean name. The clean name takes the string and lowercases it (uncluding diacriticals), removes leading/trailing whitespace, removes some punctuation (periods and more), and pads remaining punctuation with spaces.',
   PRIMARY KEY  (`name_id`),
   KEY `clean_name` (`clean_name`(255))
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Every name string as one clean name - a different simplified version of the string';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -274,15 +274,15 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `collections` (
   `id` mediumint(8) unsigned NOT NULL auto_increment,
-  `agent_id` int(10) unsigned NOT NULL,
-  `title` varchar(150) NOT NULL,
-  `description` varchar(300) NOT NULL,
-  `uri` varchar(255) character set ascii NOT NULL,
-  `link` varchar(255) character set ascii NOT NULL,
+  `agent_id` int(10) unsigned NOT NULL COMMENT 'our internal id of the project being linked to. Projects can have many collections - usually grouped by a theme (The mammals of X, The images of X, Species pages from X...)',
+  `title` varchar(150) NOT NULL COMMENT 'title of the collection of links for this project',
+  `description` varchar(300) NOT NULL COMMENT 'description of this collection of links to',
+  `uri` varchar(255) character set ascii NOT NULL COMMENT 'a base uri used to generate full uris when combined with mapping foreign keys. Often these will look something like http://site.org/id=FOREIGNKEY. The middleware will substitute FOREIGNKEY with foreignkey from mappings. This was designed as such to save DB space when storing millions of outlinks.',
+  `link` varchar(255) character set ascii NOT NULL COMMENT 'a link back to a descriptive page for this collection',
   `logo_url` varchar(255) character set ascii NOT NULL,
   `vetted` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Collections define projects which EOL links to using mappings. Websites may have several collections of different themes.';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -298,7 +298,7 @@ CREATE TABLE `common_names` (
   `language_id` smallint(5) unsigned NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `common_name` (`common_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Used only to cache common names supplied by content partners through their resources';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -312,7 +312,7 @@ CREATE TABLE `common_names_taxa` (
   `taxon_id` int(10) unsigned NOT NULL,
   `common_name_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`taxon_id`,`common_name_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='links a resources common names with its taxa';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -566,15 +566,15 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `hierarchies` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `agent_id` int(10) unsigned NOT NULL,
-  `label` varchar(255) NOT NULL,
-  `description` text NOT NULL,
-  `indexed_on` timestamp NOT NULL default CURRENT_TIMESTAMP,
-  `hierarchy_group_id` int(10) unsigned NOT NULL,
-  `hierarchy_group_version` tinyint(3) unsigned NOT NULL,
-  `url` varchar(255) character set ascii NOT NULL,
+  `agent_id` int(10) unsigned NOT NULL COMMENT 'recommended; our internal id of the source agent responsible for the entire hierarchy',
+  `label` varchar(255) NOT NULL COMMENT 'recommended; succinct title for the hierarchy (e.g. Catalogue of Life: Annual Checklist 2009)',
+  `description` text NOT NULL COMMENT 'not required; a more verbose description describing the hierarchy. Could be a paragraph describing what it is and what it contains',
+  `indexed_on` timestamp NOT NULL default CURRENT_TIMESTAMP COMMENT 'required; the date which we created and indexed the hierarchy',
+  `hierarchy_group_id` int(10) unsigned NOT NULL COMMENT 'not required; there is no hierarchy_groups table, but this field was meant to identify hierarchies of the same source so they can be verioned and older versions retained but not presented',
+  `hierarchy_group_version` tinyint(3) unsigned NOT NULL COMMENT 'not required; this is mean to uniquely identify hierarchies within the same group. This version number has been an internal incrementing value',
+  `url` varchar(255) character set ascii NOT NULL COMMENT 'not required; a link back to a web page describing this hierarchy',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='A container for hierarchy_entries. These are usually taxonomic hierarchies, but can be general collections of assertions about taxa.';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -596,7 +596,7 @@ CREATE TABLE `hierarchies_content` (
   `content_level` tinyint(3) unsigned NOT NULL,
   `image_object_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`hierarchy_entry_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Summarizes the data types available to a given hierarchy entry. Also lists its content level and the data_object_id of the first displayed image.';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -621,7 +621,7 @@ CREATE TABLE `hierarchies_content_test` (
   `content_level` tinyint(3) unsigned NOT NULL,
   `image_object_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`hierarchy_entry_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='NEWER: Summarizes the data types available to a given hierarchy entry. Also lists its content level and the data_object_id of the first displayed image.';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -647,17 +647,17 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `hierarchy_entries` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `identifier` varchar(255) character set ascii NOT NULL,
-  `remote_id` varchar(255) character set ascii NOT NULL,
-  `name_id` int(10) unsigned NOT NULL,
-  `parent_id` int(10) unsigned NOT NULL,
-  `hierarchy_id` smallint(5) unsigned NOT NULL,
-  `rank_id` smallint(5) unsigned NOT NULL,
-  `ancestry` varchar(500) character set ascii NOT NULL,
-  `lft` int(10) unsigned NOT NULL,
-  `rgt` int(10) unsigned NOT NULL,
-  `depth` tinyint(3) unsigned NOT NULL,
-  `taxon_concept_id` int(10) unsigned NOT NULL,
+  `identifier` varchar(255) character set ascii NOT NULL COMMENT 'recommended; a unique id from the provider for this node',
+  `remote_id` varchar(255) character set ascii NOT NULL COMMENT 'this is no longer used and should be removed',
+  `name_id` int(10) unsigned NOT NULL COMMENT 'recommended; the name string for this node. It is possible that nodes have no names, but most of the time they will',
+  `parent_id` int(10) unsigned NOT NULL COMMENT 'recommended; the parent_id references the hierarchy_entry_id of the parent of this node. Used to create trees. Root nodes will have a partent_id of 0',
+  `hierarchy_id` smallint(5) unsigned NOT NULL COMMENT 'required; the id of the container hierarchy',
+  `rank_id` smallint(5) unsigned NOT NULL COMMENT 'recommended; when available, this is the id of the rank string which defines the taxonomic rank of the node',
+  `ancestry` varchar(500) character set ascii NOT NULL COMMENT 'not required; perhaps now obsolete. Used to store the materialized path of this node\'s ancestors',
+  `lft` int(10) unsigned NOT NULL COMMENT 'required; the left value of this node within the hierarchy\'s nested set',
+  `rgt` int(10) unsigned NOT NULL COMMENT 'required; the right value of this node within the hierarchy\'s nested set',
+  `depth` tinyint(3) unsigned NOT NULL COMMENT 'recommended; the depth of this node in within the hierarchy\'s tree',
+  `taxon_concept_id` int(10) unsigned NOT NULL COMMENT 'required; the id of the taxon_concept described by this hierarchy_entry',
   PRIMARY KEY  (`id`),
   KEY `name_id` (`name_id`),
   KEY `parent_id` (`parent_id`),
@@ -683,7 +683,7 @@ CREATE TABLE `hierarchy_entry_names` (
   `common_name_en` varchar(300) NOT NULL,
   `common_name_fr` varchar(300) NOT NULL,
   PRIMARY KEY  (`hierarchy_entry_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='This table is now likely obsolete';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -794,12 +794,12 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `mappings` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `collection_id` mediumint(8) unsigned NOT NULL,
-  `name_id` int(10) unsigned NOT NULL,
-  `foreign_key` varchar(600) character set ascii NOT NULL,
+  `collection_id` mediumint(8) unsigned NOT NULL COMMENT 'required; the id of the container collection',
+  `name_id` int(10) unsigned NOT NULL COMMENT 'required; the id of the name as it appears in the external project',
+  `foreign_key` varchar(600) character set ascii NOT NULL COMMENT 'recommended; the unique identifier of this taxon in the project being linked to',
   PRIMARY KEY  (`id`),
   KEY `name_id` (`name_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Contents of a collection - outlinks to external projects';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -814,7 +814,7 @@ CREATE TABLE `mime_types` (
   `label` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 COMMENT='Type of data object. Controlled list used in the EOL schema';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -826,12 +826,12 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `name_languages` (
   `name_id` int(10) unsigned NOT NULL,
-  `language_id` smallint(5) unsigned NOT NULL,
-  `parent_name_id` int(10) unsigned NOT NULL,
-  `preferred` tinyint(3) unsigned NOT NULL,
+  `language_id` smallint(5) unsigned NOT NULL COMMENT 'required; the language of the string. \'Scientific name\' is a language',
+  `parent_name_id` int(10) unsigned NOT NULL COMMENT 'not required; associated a common name or surrogate with its proper scientific name',
+  `preferred` tinyint(3) unsigned NOT NULL COMMENT 'not required; identifies if the common names is preferred for the given scientific name in the given language',
   PRIMARY KEY  (`name_id`,`language_id`,`parent_name_id`),
   KEY `parent_name_id` (`parent_name_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Used mainly to identify which names are scientific names, and to link up common names';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -843,16 +843,15 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `names` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `namebank_id` int(10) unsigned NOT NULL COMMENT '? why is this required ?',
-  `string` varchar(300) NOT NULL COMMENT 'the actual name',
-  `italicized` varchar(300) NOT NULL COMMENT '? why is this required ?',
-  `italicized_verified` tinyint(3) unsigned NOT NULL COMMENT '? why is this required ?',
-  `canonical_form_id` int(10) unsigned NOT NULL COMMENT '? why is this required ?',
-  `canonical_verified` tinyint(3) unsigned NOT NULL COMMENT '? why is this required ?',
+  `namebank_id` int(10) unsigned NOT NULL COMMENT 'required; this identifies the uBio NameBank id for this string so that we can stay in sync. Many newer names will have this set to 0 as it is unknown if the name is in NameBank',
+  `string` varchar(300) NOT NULL COMMENT 'the actual name. This is unique - every unique sequence of characters has one and only one name_id (we should probably add a unique index to this field)',
+  `italicized` varchar(300) NOT NULL COMMENT 'required; this includes html <i> tags in the proper place to display the string in its italicized form. Generally only species and subspecific names are italizied. Usually algorithmically generated',
+  `italicized_verified` tinyint(3) unsigned NOT NULL COMMENT 'required; if an editor verifies the italicized form is correct, or corrects it, this should be set to 1 so it is not algorithmically replaced if we change the algorithm',
+  `canonical_form_id` int(10) unsigned NOT NULL COMMENT 'required; every name string has a canonical form',
+  `canonical_verified` tinyint(3) unsigned NOT NULL COMMENT 'required; same as with italicized form, if an editor verifies the canonical form we want to maintin their edits if we were to redo the canonical form algorithm',
   PRIMARY KEY  (`id`),
   KEY `canonical_form_id` (`canonical_form_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8
-COMMENT 'Represents the name of a species';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT 'Represents the name of a taxon';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -865,11 +864,11 @@ SET character_set_client = utf8;
 CREATE TABLE `normalized_links` (
   `normalized_name_id` int(10) unsigned NOT NULL,
   `name_id` int(10) unsigned NOT NULL,
-  `seq` tinyint(3) unsigned NOT NULL,
+  `seq` tinyint(3) unsigned NOT NULL COMMENT 'the position index of this word in the string',
   `normalized_qualifier_id` tinyint(3) unsigned NOT NULL,
   PRIMARY KEY  (`normalized_name_id`,`name_id`),
   KEY `name_id` (`name_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Joins name strings with their atomized single word parts. Used for efficient substring searching';
 SET character_set_client = @saved_cs_client;
 
 --

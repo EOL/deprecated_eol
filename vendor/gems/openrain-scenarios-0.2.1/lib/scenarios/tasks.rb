@@ -24,8 +24,10 @@ namespace :scenarios do
     puts "called scenarios:load" if Scenario.verbose
     if ENV['NAME']
       names = ENV['NAME'].split(',')
-      puts "Scenario.load #{ names.inspect }" if Scenario.verbose
-      Scenario.load *names
+      names.each do |scenario_name|
+        puts "Scenario.load #{scenario_name}"
+        Scenario.load scenario_name
+      end
     else
       puts "you need to pass NAME=scenario_name to load a scenario"
     end

@@ -12,6 +12,8 @@ def build_dato(type, desc, taxon, he = nil, options = {})
   DataObjectsTaxon.gen(:data_object => dato, :taxon => taxon)
   if type == 'Image'
     TopImage.gen :data_object => dato, :hierarchy_entry => he
+  elsif type == 'Text'
+    DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => bootstrap_toc.rand)
   end
   # TODO - I am not setting the mime type yet.  We never use it.
   # TODO - There are no models for all the refs_* tables, so I'm ignoring them.
@@ -30,8 +32,10 @@ def build_taxon_concept(parent, depth, options = {})
   he    = HierarchyEntry.gen(:hierarchy     => Hierarchy.default,
                              :parent_id     => parent,
                              :depth         => depth,
+                             :rank_id       => depth + 1, # Cheating. As long as the order is sane, this works well.
                              :taxon_concept => tc,
                              :name          => sname)
+  HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4)
   TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => he.id, :language => Language.english,
                        :name => sname, :taxon_concept => tc)
   TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => he.id, :language => Language.english,
@@ -50,11 +54,9 @@ def build_taxon_concept(parent, depth, options = {})
   end
   
   overview = build_dato('Text', "This is an overview of the <b>#{cform.string}</b> hierarchy entry.", taxon)
-  DataObjectsTableOfContent.gen(:data_object => overview, :toc_item => TocItem.overview)
   # Add more toc items:
   (rand(4)+1).times do
     dato = build_dato('Text', Faker::Lorem.paragraph, taxon)
-    DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => bootstrap_toc.rand)
   end
 
   RandomTaxon.gen(:language => Language.english, :data_object => images.last, :name_id => sname.id,
@@ -75,6 +77,11 @@ end
 
 # TODO - I am neglecting to set up agent content partners, contacts, provided data types, or agreements.  For now.
 
+%w{phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
+
+  Rank.gen :label => rank
+end
+
 resource = Resource.gen(:resource_status => ResourceStatus.published, :accesspoint_url => 'http://google.com')
 event = HarvestEvent.gen(:resource => resource)
 AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource, :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
@@ -84,5 +91,6 @@ kingdom = build_taxon_concept(0, 0, :canonical_form => 'Animalia', :common_name 
   build_taxon_concept(Hierarchy.default.hierarchy_entries.last.id, Hierarchy.default.hierarchy_entries.length)
 end
 
-# TODO - we need to rebuild the lft, rgt, and ancestry values on all of those HEs.
+include EOL::Data
+make_all_nested_sets
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants

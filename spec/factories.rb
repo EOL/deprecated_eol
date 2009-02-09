@@ -282,16 +282,16 @@ Factory.define :hierarchy do |hierarchy|
 end
 
 Factory.define :hierarchies_content do |hc|
-  hc.association    :hierarchy_entry
-  hc.text           0
-  hc.image          0
-  hc.child_image    0
-  hc.flash          0
-  hc.youtube        0
-  hc.internal_image 0
-  hc.gbif_image     0
-  hc.content_level  1
-  hc.association    :image_object
+  hc.association     :hierarchy_entry
+  hc.text            0
+  hc.image           0
+  hc.child_image     0
+  hc.flash           0
+  hc.youtube         0
+  hc.internal_image  0
+  hc.gbif_image      0
+  hc.content_level   1
+  hc.image_object_id 0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
 end
 
 Factory.define :hierarchy_entry do |he|
@@ -422,6 +422,7 @@ end
 # I *don't* think these all actually relate to the rank_id's found elsewhere here. If so, we should change them to associations.
 Factory.define :rank do |r|
   r.label 'TestRank'
+  r.rank_group_id 0
 end
 
 Factory.define :ref_identifier_type do |rit|

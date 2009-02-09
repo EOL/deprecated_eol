@@ -19,33 +19,6 @@ def build_dato(type, desc, taxon, he = nil, options = {})
   return dato
 end
 
-def rand_image
-  %w{
-    200810061400963 200812102286938 200901131511113 200810061535996 200810061235832 200810070724291 200810070393325 200810061499033
-    200810061956645 200901081611403 200902021821277 200901081525790 200810070370443 200810081234383 200901091228271 200810061332994
-  }.rand
-end
-
-def rand_name_part
- part = Faker::Lorem.words(1)[0]
- part += Faker::Lorem.words(1)[0] if part.length < 4
- part += %w{i a ii us is iae erox eron eri alia eli esi alia elia ens ica ator atus erus ensis alis alius osyne eles es ata}.rand
-end
-
-def rand_scientific_name
-  "#{rand_name_part} #{rand_name_part}"
-end
-
-def rand_common_name
-  ['common', "#{Faker::Name.first_name}'s", 'blue', 'red', 'pink', 'green', 'purple',
-   'painted', 'spiny', 'agitated', 'horny', 'blessed', 'sacred', 'sacrimonious', 'naughty',
-   'litte', 'tiny', 'giant', 'great', 'lesser', 'least', 'river', 'plains', 'city', 'sky', 'stream',
-   'thirsty', 'ravenous', 'bloody', 'cursed', 'cromulent'].rand + ' ' + rand_name_part
-end
-
-def rand_attribution
-  "#{Faker::Name.first_name[0..0]}. #{Faker::Name.last_name}"
-end
 
 # I am neglecting to set up agent content partners, contacts, provided data types, or agreements.  For now.
 overview = TocItem.gen(:label => 'Overview')
@@ -76,10 +49,10 @@ event     = HarvestEvent.gen(:resource => resource)
 AgentsResource.gen(:agent => agent, :resource => resource, :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 
 6.times do
-  attri = rand_attribution
-  cform = CanonicalForm.gen(:string => rand_scientific_name)
+  attri = Faker::Eol.attribution
+  cform = CanonicalForm.gen(:string => Faker::Eol.scientific_name)
   sname = Name.gen(:canonical_form => cform, :string => "#{cform.string} #{attri}", :italicized => "<i>#{cform.string}</i> #{attri}")
-  cname = Name.gen(:canonical_form => cform, :string => rn = rand_common_name, :italicized => rn)
+  cname = Name.gen(:canonical_form => cform, :string => rn = Faker::Eol.common_name, :italicized => rn)
   tc    = TaxonConcept.gen()
   he    = HierarchyEntry.gen(:hierarchy     => hierarchy,
                              :parent_id     => hierarchy.hierarchy_entries.last,
@@ -100,7 +73,7 @@ AgentsResource.gen(:agent => agent, :resource => resource, :resource_agent_role 
   taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => cform.string)
   images = []
   (rand(12)+3).times do
-    images << build_dato('Image', Faker::Lorem.sentence, taxon, he, :object_cache_url => rand_image)
+    images << build_dato('Image', Faker::Lorem.sentence, taxon, he, :object_cache_url => Faker::Eol.image)
   end
   
   overview_dato = build_dato('Text', "This is an overview of the <b>#{cform.string}</b> hierarchy entry.", taxon)

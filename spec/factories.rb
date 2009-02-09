@@ -9,6 +9,38 @@ require 'factory_girl'
 require 'faker'
 require File.dirname(__FILE__) + '/eol_factory_girl'
 
+#### Faker extensions
+
+module Faker
+  class Eol
+    class << self
+      def image
+        %w{
+          200810061400963 200812102286938 200901131511113 200810061535996 200810061235832 200810070724291 200810070393325 200810061499033
+          200810061956645 200901081611403 200902021821277 200901081525790 200810070370443 200810081234383 200901091228271 200810061332994
+        }.rand
+      end
+      def name_part
+        part = Faker::Lorem.words(1)[0]
+        part += Faker::Lorem.words(1)[0] if part.length < 4
+        part += %w{i a ii us is iae erox eron eri alia eli esi alia elia ens ica ator atus erus ensis alis alius osyne eles es ata}.rand
+      end
+      def scientific_name
+        "#{Faker::Eol.name_part} #{Faker::Eol.name_part}"
+      end
+      def common_name
+        ['common', "#{Faker::Name.first_name}'s", 'blue', 'red', 'pink', 'green', 'purple',
+         'painted', 'spiny', 'agitated', 'horny', 'blessed', 'sacred', 'sacrimonious', 'naughty',
+         'litte', 'tiny', 'giant', 'great', 'lesser', 'least', 'river', 'plains', 'city', 'sky', 'stream',
+         'thirsty', 'ravenous', 'bloody', 'cursed', 'cromulent'].rand + ' ' + Faker::Eol.name_part
+      end
+      def attribution
+        "#{Faker::Name.first_name[0..0]}. #{Faker::Name.last_name}"
+      end
+    end
+  end
+end
+
 #### Sequences
 
 Factory.sequence( :string ){|n| "unique#{ n }string" } # 'string' isn't elegant, but it's perfect for right now!

@@ -1,6 +1,8 @@
 # Put a few taxa (all within a new hierarchy) in the database with a range of
 # accoutrements.  Depends on foundation scenario!
 
+# NOTE - I am not setting the mime type yet.  We never use it.
+# NOTE - There are no models for all the refs_* tables, so I'm ignoring them.
 def build_dato(type, desc, taxon, he = nil, options = {})
     attributes = {:data_type   => DataType.find_by_label(type),
                   :description => desc,
@@ -11,13 +13,15 @@ def build_dato(type, desc, taxon, he = nil, options = {})
   dato = DataObject.gen(attributes.merge(options))
   DataObjectsTaxon.gen(:data_object => dato, :taxon => taxon)
   if type == 'Image'
-    TopImage.gen :data_object => dato, :hierarchy_entry => he
+    if dato.visibility == Visibility.visible and dato.vetted == Vetted.trusted
+      TopImage.gen :data_object => dato, :hierarchy_entry => he
+    else
+      TopUnpublishedImage.gen :data_object => dato, :hierarchy_entry => he
+    end
   elsif type == 'Text'
     DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => bootstrap_toc.rand)
   end
-  # TODO - I am not setting the mime type yet.  We never use it.
-  # TODO - There are no models for all the refs_* tables, so I'm ignoring them.
-  # TODO - we have no synonyms.
+  (rand(60) - 39).times { Comment.gen(:parent => dato, :user => bootstrap_users.rand) }
   return dato
 end
 
@@ -40,10 +44,11 @@ def build_taxon_concept(parent, depth, options = {})
                        :name => sname, :taxon_concept => tc)
   TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => he.id, :language => Language.english,
                        :name => cname, :taxon_concept => tc)
+  curator = Factory(:curator, :curator_hierarchy_entry => he)
   # TODO - add some alternate names.
   # TODO - do we need to add a relationship between this HE and the agent?  We don't have a HierarchiesResource model yet.
   # TODO - an IUCN entry would be nice.
-  # TODO - Creating other TOC items (common names, BHL, etc) would be nice 
+  # TODO - Creating other TOC items (common names, BHL, synonyms, etc) would be nice 
   # TODO - Movies, GBIF maps
 
   # Is this the correct name to relate this to?  ...I'm not sure:
@@ -52,6 +57,23 @@ def build_taxon_concept(parent, depth, options = {})
   (rand(12)+3).times do
     images << build_dato('Image', Faker::Lorem.sentence, taxon, he, :object_cache_url => Faker::Eol.image)
   end
+  # So, every HE will have each of the following, making testing easier:
+  images << build_dato('Image', 'untrusted', taxon, he, :object_cache_url => Faker::Eol.image,
+                       :vetted => Vetted.untrusted)
+  images << build_dato('Image', 'unknown', taxon, he, :object_cache_url => Faker::Eol.image,
+                       :vetted => Vetted.unknown)
+  images << build_dato('Image', 'invisible', taxon, he, :object_cache_url => Faker::Eol.image,
+                       :visibility => Visibility.invisible)
+  images << build_dato('Image', 'invisible, unknown', taxon, he, :object_cache_url => Faker::Eol.image,
+                       :visibility => Visibility.invisible, :vetted => Vetted.unknown)
+  images << build_dato('Image', 'invisible, untrusted', taxon, he, :object_cache_url => Faker::Eol.image,
+                       :visibility => Visibility.invisible, :vetted => Vetted.untrusted)
+  images << build_dato('Image', 'preview', taxon, he, :object_cache_url => Faker::Eol.image,
+                       :visibility => Visibility.preview)
+  images << build_dato('Image', 'preview, unknown', taxon, he, :object_cache_url => Faker::Eol.image,
+                       :visibility => Visibility.preview, :vetted => Vetted.unknown)
+  images << build_dato('Image', 'inappropriate', taxon, he, :object_cache_url => Faker::Eol.image,
+                       :visibility => Visibility.inappropriate)
   
   overview = build_dato('Text', "This is an overview of the <b>#{cform.string}</b> hierarchy entry.", taxon)
   # Add more toc items:
@@ -64,7 +86,15 @@ def build_taxon_concept(parent, depth, options = {})
                   :common_name_en => cname.string, :thumb_url => images.first.object_cache_url) # not sure thumb_url is right.
 end
 
-# This is just a singleton that creates a 12-item TOC once and only once:
+# A singleton that creates some users:
+def bootstrap_users
+  @@bootstrap_users ||= []
+  return @@bootstrap_users unless @@bootstrap_users.length == 0
+  12.times { @@bootstrap_users << User.gen }
+  return @@bootstrap_users
+end
+
+# A singleton that creates a 12-item TOC once and only once:
 def bootstrap_toc
   @@bootstrap_toc ||= [TocItem.overview]
   return @@bootstrap_toc unless @@bootstrap_toc.length == 1
@@ -75,10 +105,9 @@ def bootstrap_toc
   return @@bootstrap_toc
 end
 
-# TODO - I am neglecting to set up agent content partners, contacts, provided data types, or agreements.  For now.
+# TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 
 %w{phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
-
   Rank.gen :label => rank
 end
 

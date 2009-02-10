@@ -152,25 +152,6 @@ li#large-image-attribution-button.unknown:hover {
   font-size: 6pt;
   padding-top: 2px;
 }
-.text-comment-div {
-  border: 1px solid #83991e;
-  padding: 0;
-  background-color: #c9d54a;
-}
-.text-comment-div #commentsContain {background-color:#F4F4F4;padding:13px 12px;}
-#large-image-comment-button-popup-link_popup {
-  width:460px;
-  height:397px;
-  left: -200px;
-  top: 30px;
-  text-align: left;
-  line-height: normal;
-  max-height:397;
-  overflow:auto;
-  border:1px solid #6a8d00;
-  background-color:#F4F4F4;
-  padding:13px 12px;
-}
 
 #commentsContain .controls {
     text-align: left;

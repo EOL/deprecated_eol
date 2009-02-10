@@ -59,7 +59,7 @@ unless @content[:data_objects].nil?
     </div>
 
     <div id="text-comments-wrapper-<%= content_item.id %>" style="display:none;" class="text-slidebox-border">
-      <div id="text-comments-<%= content_item.id %>" class="text-slidebox-container">
+      <div id="text-comments-<%= content_item.id %>" class="text-slidebox-container text-comment-div">
         <%# TODO - we re-use this indicator a lot.  Put it in a CSS class. %>
         <p><%= image_tag 'indicator_arrows_black.gif' %> Retrieving comments, please wait...</p>
       </div>

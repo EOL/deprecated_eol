@@ -45,6 +45,7 @@ def build_taxon_concept(parent, depth, options = {})
   TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => he.id, :language => Language.english,
                        :name => cname, :taxon_concept => tc)
   curator = Factory(:curator, :curator_hierarchy_entry => he)
+  (rand(60) - 39).times { Comment.gen(:parent => tc, :parent_type => 'taxon_concept', :user => bootstrap_users.rand) }
   # TODO - add some alternate names.
   # TODO - do we need to add a relationship between this HE and the agent?  We don't have a HierarchiesResource model yet.
   # TODO - an IUCN entry would be nice.

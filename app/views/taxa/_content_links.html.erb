@@ -1,4 +1,3 @@
-
 <table class="results_table" cellspacing="0" summary="Links">
 	<tr><th>Item</th><th>Link</th></tr>
 <%
@@ -6,7 +5,7 @@
 		for content_item in @content[2]
 			column_class=cycle('odd','even') 
 			%>
-			<tr><td class="<%= column_class %>"><%= content_item['title'] %></td><td class="<%= column_class %>"><%= link_text("[additional information]",content_item['link']) %>  <%=external_link_icon%></td></tr>
+			<tr><td class="<%= column_class %>"><%= content_item['title'] %></td><td class="<%= column_class %>"><%= external_link_to("[additional information]",content_item['link']) %>  <%=external_link_icon%></td></tr>
 		<% end 
   end
 %>
@@ -15,8 +14,8 @@
 
 <div class="divider"></div>	
 <div class="content-attribution-area">
-    <div class="attribution-header2"><%= "Source and Additional Information"[] %></div>
-	<span class="source">Links above provided by <%=link_text("uBio","http://www.ubio.org")%></span>
+  <div class="attribution-header2"><%= "Source and Additional Information"[] %></div>
+	<span class="source">Links above provided by <%=external_link_to("uBio","http://www.ubio.org")%></span>
 </div>
 
 

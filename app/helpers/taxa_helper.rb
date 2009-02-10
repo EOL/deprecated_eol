@@ -18,10 +18,6 @@ module TaxaHelper
         return 'trusted-background-image'
     end
   end
-  
-  def link_text(text,link="",params={})
-    eol_return_linked_text(text,link,params)
-  end
     
   def agent_partial(original_agents, params={})
     return '' if original_agents.nil? or original_agents.blank?
@@ -35,7 +31,7 @@ module TaxaHelper
     agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
     agents = [agents[0]] if params[:only_first]
     agent_list = agents.collect do |agent|
-      params[:linked] ? link_text(hh(agent.full_name), agent.homepage, :show_link_icon => params[:show_link_icon]).strip : hh(agent.full_name)        
+      params[:linked] ? external_link_to(hh(agent.full_name), agent.homepage, {:show_link_icon => params[:show_link_icon]}) : hh(agent.full_name)
     end.join(', ') # I know this looks awkward, but I'm making it more readable.  : )
     agent_list += ', et al.' if params[:only_first] and original_agents.length > 1
     return agent_list
@@ -72,7 +68,7 @@ module TaxaHelper
         else
           if params[:linked] and not url.blank?
             text = agent_logo(agent,logo_size,params)
-            output_html << '<a onclick="JavaScript:external_link(\'' + CGI::escape(url) + '\',true,' + $USE_EXTERNAL_LINK_POPUPS.to_s + ');return false;" href="#">' + text + '</a>'          
+            output_html << external_link_to(text,url,{:show_link_icon => false})
           else
             output_html << agent_logo(agent,logo_size,params)
           end

@@ -6,24 +6,7 @@ comments_style=(@ajax_update ? '' : 'display:none;')  # comments start out as hi
 unless @content[:data_objects].nil?
   for content_item in @content[:data_objects]
     vetted_id_style = ''
-    source_attribution_html = agent_partial(content_item.sources)
-
-        # first try and link the source agents to the object link
-    additional_attribution_html = link_text(agent_partial(content_item.sources, :linked=>false),
-                        content_item.object_url,
-                        :show_only_if_linked=>true)
-    additional_attribution_html+= ' ' + external_link_icon unless additional_attribution_html.blank?
-    
-    # if we don't have any direct object link, then we won't have a source link above the text, so next try to get it using the source
-    additional_attribution_html = source_attribution_html unless additional_attribution_html.blank?
-
-    license_attribution_html = ''
-    unless content_item.license.nil?
-      license_attribution_html += content_item.license.description + '<br/>' unless content_item.license.description.blank?
-      license_attribution_html += eol_return_linked_image(content_item.license.small_logo_url,
-                                content_item.license.source_url,
-                                :alt=>(content_item.license.title || ''))  
-    end -%>
+    -%>
     <% if content_item.vetted_id == Vetted.unknown.id && !unknown_banner_shown %>
       <% unknown_banner_shown=true %>
       <%= render :partial=>'/shared/unknown_text_warning_box' -%>

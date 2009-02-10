@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
   helper :all
   
   helper_method :format_date,:format_date_time,:logged_in?, :current_user, :get_image_url, :get_first_agent, :return_to_url, :current_url
-  helper_method :is_user_in_role?, :is_user_admin?, :convert_to_nbsp,:remove_html,:get_video_url,:get_agents, :get_agent_icons, :hh
+  helper_method :is_user_in_role?, :is_user_admin?, :convert_to_nbsp,:remove_html,:get_video_url, :get_agent_icons, :hh
   helper_method :current_agent, :agent_logged_in?, :truncate, :allow_page_to_be_cached?
   around_filter :set_current_language
     
@@ -97,42 +97,6 @@ end
   # this method determines if the main taxa page is allowed to be cached or not        
   def allow_page_to_be_cached?
     !(agent_logged_in? || current_user.is_admin?) # if a content partner or admin is logged in, we do *not* want the page to be cached
-  end
-
-  # given a hash containing an agent node, return a comma delimited list of hyperlinked agents
-  # if :linked=>false, only the agents are returned even if links are available
-  # if :only_first=>true, only the first agent is returned even if there are multiple
-  # if :show_link_icon=>false, then the external link icons are not shown for any links that are made
-  def get_agents(data,params={})
-    
-     linked=params[:linked]
-     linked = true if linked.nil?
-     only_first=params[:only_first]
-     only_first = false if only_first.nil?
-      show_link_icon=params[:show_link_icon]
-      show_link_icon=true if show_link_icon.nil?
-    
-     if data.nil? == false && data['agent'].nil? == false
-        data=EOLConvert.convert_to_hashed_array(data['agent'])
-        agent_list=""
-        agent_counter=0
-        number_of_agents=data.size
-        for agent in data
-          agent_counter+=1
-          if linked
-            agent_list+=eol_return_linked_text(agent['agentName'],agent['agentHomepage'],:show_link_icon=>show_link_icon) + ", "
-          else
-            agent_list+=agent['agentName'] + ", "
-          end
-          break if only_first
-        end
-        agent_list.strip!.chop!
-        agent_list+=", et al." if only_first && number_of_agents > 1
-        return agent_list
-     else
-        return ''
-     end
-
   end
 
   # given a hash containing an agent node, returns a list of hyperlinked <img> tag icons

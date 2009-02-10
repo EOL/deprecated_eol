@@ -43,11 +43,12 @@ end
 
 #### Sequences
 
-Factory.sequence( :string ){|n| "unique#{ n }string" } # 'string' isn't elegant, but it's perfect for right now!
-Factory.sequence( :email  ){|n| "bob#{n}@smith.com" }
-# Faker names have a very high level of uniqueness, but let's just make absolutely sure:
-Factory.sequence( :name   ){|n| "#{Faker::Name.first_name}#{n}#{Faker::Name.last_name}" }
-Factory.sequence(:species ){|n| "#{Faker::Lorem.words[0]}#{n} #{Faker::Lorem.words[0]}" }
+Factory.sequence(:string ){|n| "unique#{ n }string" } # 'string' isn't elegant, but it's perfect for right now!
+Factory.sequence(:email  ){|n| "bob#{n}@smith.com" }
+# Faker names are frequently unique, but let's just make absolutely sure:
+Factory.sequence(:name   ){|n| "#{Faker::Name.first_name}#{n} #{Faker::Name.last_name}" }
+Factory.sequence(:species){|n| "#{Faker::Lorem.words[0]}#{n} #{Faker::Lorem.words[0]}" }
+Factory.sequence(:int    ){|n| n }
 
 #### Factories
 
@@ -127,7 +128,7 @@ end
 Factory.define :comment do |x|
   x.association :parent, :factory => :data_object
   x.parent_type 'data_object'
-  x.body { Factory.next(:string) }
+  x.body { Faker::Lorem.paragraph }
   x.association :user
 end
 
@@ -566,28 +567,48 @@ Factory.define :top_unpublished_image do |tui|
   tui.view_order  1 # Again, this should be sequential, but...
 end
 
-# Note - I started by making this guy approved for an associated HE... but the verdict_by clause had me worried about circular
-# logic.
 Factory.define :user do |u|
   u.default_taxonomic_browser 'text'
   u.expertise                 'middle'
   u.remote_ip                 '128.167.250.123' # TODO - fake this?
   u.content_level             2
   u.email                     { Factory.next(:email) }
-  u.given_name                { Factory.next(:string) }
-  u.family_name               { Factory.next(:string) }
+  u.given_name                { Faker::Name.first_name }
+  u.family_name               { Faker::Name.last_name }
   u.flash_enabled             true
   u.association               :language
   u.mailing_list              true
   u.vetted                    false
-  u.username                  { Factory.next(:string) }
+  u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}#{Factory.next(:int)}".gsub(/\s/, '_').downcase }
   u.active                    true
   u.entered_password          'test password'
-  u.hashed_password           {|u| Digest::MD5.hexdigest(u.entered_password) }
+  u.hashed_password           {|user| Digest::MD5.hexdigest(user.entered_password) }
   u.curator_hierarchy_entry   nil
   u.curator_approved          false
   u.curator_verdict_by_id     0
   u.curator_verdict_at        nil
+end
+
+Factory.define :curator, :class => User do |u|
+  u.default_taxonomic_browser 'text'
+  u.expertise                 'middle'
+  u.remote_ip                 '128.167.250.123' # TODO - fake this?
+  u.content_level             2
+  u.email                     { Factory.next(:email) }
+  u.given_name                { Faker::Name.first_name }
+  u.family_name               { Faker::Name.last_name }
+  u.flash_enabled             true
+  u.association               :language
+  u.mailing_list              true
+  u.vetted                    true
+  u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}#{Factory.next(:int)}".gsub(/\s/, '_').downcase }
+  u.active                    true
+  u.entered_password          'test password'
+  u.hashed_password           {|user| Digest::MD5.hexdigest(user.entered_password) }
+  u.curator_hierarchy_entry   { Factory(:hierarchy_entry) }
+  u.curator_approved          true
+  u.curator_verdict_by_id     { Factory(:user) }
+  u.curator_verdict_at        { 48.hours.ago }
 end
 
 Factory.define :vetted do |x|

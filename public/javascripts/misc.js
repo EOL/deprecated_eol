@@ -116,11 +116,11 @@ function eol_update_credit(params){
       }
     }
     if (params.license_text != '') {
-        field_notes_area += 'COPYRIGHT: ' + params.license_text + '<a href="' + params.license_link + '" target ="_blank"> <img src="'  + params.license_logo + '"></a><br />';
+        field_notes_area += 'COPYRIGHT: ' + params.license_text + '<a href="' + params.license_link + '" class="external_link"> <img src="'  + params.license_logo + '"></a><br />';
     }
     if (params.data_supplier != '') {
       if (params.data_supplier_url != '') {
-				field_notes_area += 'SUPPLIER: <a onclick="JavaScript:external_link(\'' + escape(params.data_supplier_url) + '\',true,false);return false;" href="#">' + params.data_supplier + ' <img alt="external link" src="/images/external_link.png"></a> ' + params.data_supplier_icon  + '<br />';
+		field_notes_area += 'SUPPLIER: <a href="'+params.data_supplier_url+'" class="external_link">' + params.data_supplier + ' <img alt="external link" src="/images/external_link.png"></a> ' + params.data_supplier_icon  + '<br />';
       } else { 
         field_notes_area += 'SUPPLIER: ' + params.data_supplier + '<br />';
       }
@@ -129,7 +129,7 @@ function eol_update_credit(params){
         field_notes_area += 'AUTHOR: ' + params.authors_linked + '<br />';
     }
     if (params.sources != '' && params.info_url != '' && params.info_url != null) {
- 				field_notes_area += 'SOURCE: <a onclick="JavaScript:external_link(\'' + escape(params.info_url) + '\',true,false);return false;" href="#">' +  params.sources + ' <img alt="external link" src="/images/external_link.png"></a><br />';
+ 		field_notes_area += 'SOURCE: <a href="'+params.info_url+'" class="external_link">' +  params.sources + ' <img alt="external link" src="/images/external_link.png"></a><br />';
     }
     else if (params.sources_linked != '') {
         field_notes_area += 'SOURCE:' + params.sources_linked + '<br />';
@@ -173,6 +173,8 @@ function eol_update_credit(params){
     
     $('field-notes').innerHTML = field_notes_area; // this is the 'gray box'
     // ! FIELD NOTES ! </end>
+
+    EOL.reload_behaviors();
 }
 
 // Updates the main image and calls eol_update_credit()
@@ -325,24 +327,6 @@ function hideAjaxIndicator(on_content_area) {
         Element.hide('center-page-content-loading');
     }    
     Element.hide('ajax-indicator');        
-}
-
-function external_link(link,new_window,show_popup) {
-  if (show_popup) {
-    var agree = confirm("The link you have clicked will take you to an external website.  Are you sure you wish to proceed?");
-  } else {
-    var agree = true;
-  }
-
-  if (agree) {
-    if (new_window) {
-      window.open('/external_link?url=' + link);
-    } else {
-      document.location.href='/external_link?url=' + link;
-    }
-  } else {
-    return false ;
-  }
 }
 
 function eol_log_data_objects_for_taxon_concept( taxon_concept_id, data_object_ids ) {

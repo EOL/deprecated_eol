@@ -94,7 +94,7 @@
             = cycle('</tr><tr>', '', '', '') 
             %td{:width => "125"}
               = f.radio_button :license_id, license.id
-              = eol_return_linked_text(license.title,license.source_url)
+              = external_link_to(license.title,license.source_url)
     .form_item
       = f.label :rights_statement, 'Default Rights Statement: '
       = f.text_field :rights_statement, :maxlength=>400, :size=>70 

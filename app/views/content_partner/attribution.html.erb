@@ -20,7 +20,7 @@
 									<td width="80%">
 										Authors: <%= current_agent.primary_contact.nil? ? 'Joe Sample' : current_agent.primary_contact.full_name %><br />
 										Some rights reserved<br />
-										Project: <%=  eol_return_linked_text(current_agent.full_name,current_agent.homepage,:show_link_icon=>true)%>
+										Project: <%=external_link_to(current_agent.full_name,current_agent.homepage,:show_link_icon=>true)%>
 									</td>
 									<td><%= agent_logo(current_agent,"small") %><br/><%=image_tag('licenses/cc_by_small.png')%></td>
 									<td></td>

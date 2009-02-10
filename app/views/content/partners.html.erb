@@ -25,7 +25,7 @@
 							if partner.ready_for_agreement? 
 								column_class=cycle('odd','even')  %>
 						    	<tr>
-						    	  <td width="25%" class="<%= column_class %>"><strong><%=eol_return_linked_text(partner.display_name,partner.homepage,:show_link_icon=>true)%></strong>
+						    	  <td width="25%" class="<%= column_class %>"><strong><%=external_link_to(partner.display_name,partner.homepage,{:show_link_icon => true})%></strong>
 						    	    <br /><%= agent_logo(partner,'large') if !partner.logo_cache_url.blank?%></td>
 						    	  <td class="<%= column_class %>"><%=partner.project_description%>
 						    	    <%if partner.show_mou_on_partner_page? %> <%=link_to("See #{partner.display_name} agreement",{:controller=>'content_partner',:action=>'agreement',:id=>partner.id},{:target=>'_blank'})%>.<% end %>

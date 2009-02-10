@@ -9,7 +9,17 @@
 		for project in @content[:projects]
 			column_class=cycle('odd','even') 
 			%>
-			<tr><td width="125" height="110" class="<%= column_class %>"><%=eol_return_linked_image("/images/collection_icons/#{project["icon"]}",project["url"], :alt => "Link to #{project["agent_name"]}")%><br /><br /><%=link_text("project homepage"[],project["collection_link"],:show_link_icon=>true)%></td><td class="<%= column_class %>"><%=link_text(project["collection_title"],project["url"],:show_link_icon=>true)%></td></tr>
+			<tr>
+        <td width="125" height="110" class="<%= column_class %>">
+          <%=external_link_to(image_tag("collection_icons/#{project["icon"]}", {:alt => "Link to #{project["agent_name"]}"}), project["url"], {:show_link_icon => false})%>
+          <br />
+          <br />
+          <%=external_link_to("project homepage"[],project["collection_link"],:show_link_icon=>true)%>
+        </td>
+        <td class="<%= column_class %>">
+          <%=external_link_to(project["collection_title"],project["url"],:show_link_icon=>true)%>
+        </td>
+      </tr>
 		<% end 
   end
 %>

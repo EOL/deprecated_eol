@@ -16,27 +16,9 @@ module ApplicationHelper
     end
     false
   end
-  
-  def eol_return_linked_text(text,link="",params={})
-    params[:show_only_if_linked] ||= false              
-    result=""
-    return "" if (link.blank? || text.blank?) && params[:show_only_if_linked]  # we don't have a URL and we are asked not to show the text, we won't
-    return text if link.blank?
-    # if we have a link, show it
-    result+=create_external_link(text,link,params) unless link.blank?
-    return result
-  end
-
-  def create_external_link(text,link,params)
-     params[:new_window] ||= true 
-     params[:show_link_icon] ||= true
-     result='<a onclick="JavaScript:external_link(\'' + CGI::escape(link) + '\',' + params[:new_window].to_s + ',' + $USE_EXTERNAL_LINK_POPUPS.to_s + ');return false;" href="'+link+'">' + h(text)
-     result+=" " + external_link_icon if params[:show_link_icon]
-     result.strip + '</a>'
-  end
     
   def external_link_icon
-    "<img alt=\"external link\" title=\"external link\" src=\"/images/external_link.png\" />"
+    image_tag('external_link.png',{:alt => 'external link', :title => 'external link'})
   end
 
 
@@ -219,62 +201,20 @@ module ApplicationHelper
     return logo_str
   end
 
-  ## Pass in text and an optional link, if the link is not blank or nil, you will
-  ## get an HTML <a href> tag linked to the url
-  ##  if the link is blank or nil, the text itself is returned
-  ##   this is used for creating the attribution links where we don't know if a URL exists or not
-  ## if :new_window=>false is passed, links are sent to new window (defaults to true)
-  ## if :show_only_if_link=>true is passed, no text is returned if there is no link present (defaults to false)
-  ## if :show_link_icon=>true, then the external link icons are shown for any links that are made (defaults to true)
-  
-  def eol_return_linked_text(text,link="",params={})
+  def external_link_to(*args, &block)
+    #return text of link is blank
+    return args[0] if args[1]==nil || args[1].blank?
 
-    params[:show_only_if_linked] ||= false              
-    result=""
+    html_options = args[2] || {}
+    html_options[:class] ||= ''
+    html_options[:class] += ' external_link'
+    html_options[:class] += ' external_link_popup' if $USE_EXTERNAL_LINK_POPUPS
 
-    return "" if (link.blank? || text.blank?) && params[:show_only_if_linked]  # we don't have a URL and we are asked not to show the text, we won't
-    
-    return text if link.blank?
-    # if we have a link, show it
-    result+=create_external_link(text,link,params) unless link.blank?
-   
-    return result
-    
-  end
-
-  ## Pass in image url and an optional link, if the link is not blank or nil, you will
-  ## get an HTML <a href> image tag linked to the url
-  ##  if the link is blank or nil, an image tag itself is returned
-  ##   this is used for creating the attribution image links where we don't know if a URL exists or not
-  ## if :new_window=>true is passed, links are sent to new window (defaults to true)
-  ## if :show_only_if_link=>true is passed, no image is returned if there is no link present (defaults to false)
-  ## if :alt=>'value' is passed, then the alt tag is set with the value passed
-  ## if :title=>'value' is passed, then the title tag is set with the value passed
-  def eol_return_linked_image(image,link="",params={})
-
-    params[:new_window] = true if params[:new_window].nil?
-    params[:show_only_if_linked] ||= false    
-    params[:show_link_icon] ||= false      
-    alt=params[:alt] || ""
-    title=params[:title] || ""
-    result=""
-
-    return "" if link.blank? && params[:show_only_if_linked]  # we don't have a URL and we are asked not to show the text, we won't
-    
-    result+='<a onclick="JavaScript:external_link(\'' + CGI::escape(link) + '\',' + params[:new_window].to_s + ',' + $USE_EXTERNAL_LINK_POPUPS.to_s + ');return false;" href="'+link+'">' unless link.blank?
-    
-    unless image.blank?
-      result+="<img src=\"" + image + "\"" 
-      result+=" alt=\"" + alt + "\" title=\"" + title + "\" />"
-      result+="</a>" unless link.blank? 
+    if html_options[:show_link_icon].nil? || html_options.delete(:show_link_icon) == true
+      args[0] += " #{external_link_icon}"
     end
-
-    result+=" " + external_link_icon if params[:show_link_icon]    
-    return result
-    
+    link_to(args[0],args[1],html_options, &block)
   end
-  
-
 
   def linked_name(taxon, link_name_string = '', new_window = false)
     return_html=""

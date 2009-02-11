@@ -5,14 +5,22 @@ class IpAddress < LoggingModel
   has_many :data_object_logs
   has_many :search_logs
 
-  validates_presence_of :country_code
-  
+  # these fields are required in the database 
+  # and they don't require successful geocoding
+  #
   validates_presence_of :number
   validates_numericality_of :number
-  
-  validates_presence_of :provider
-  validates_presence_of :latitude
-  validates_presence_of :longitude
+
+  # NO VALIDATIONS - we want to allow for this data
+  #                  to be blank to ease the logging 
+  #                  process and *cache* the fact that 
+  #                  certain IpAddresses come back 
+  #                  blank when attempting to be geocoded
+
+  # validates_presence_of :country_code
+  # validates_presence_of :provider
+  # validates_presence_of :latitude
+  # validates_presence_of :longitude
   
   # Converts an IPv4 address string to a 32-bit integer which can be stored in an ordinary 4-byte database integer column without truncation or decimal points.
   def self.ip2int(ip = '127.0.0.1')

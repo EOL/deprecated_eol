@@ -67,17 +67,19 @@ function eol_update_image(large_image_url, params) {
   $('main-image').title=params.nameString;
     
   // update the hrefs for the comment, curation, etc popups
-  if (!params.curated) {
-    $$('div#large-image-trust-button a')[0].href="/data_objects/"+params.data_object_id+"/curate?_method=put&curator_activity_id=3";
-    $$('div#large-image-untrust-button a')[0].href="/data_objects/"+params.data_object_id+"/curate?_method=put&curator_activity_id=7";
-    $$('div#large-image-untrust-button a')[0].writeAttribute('data-data_object_id', params.data_object_id);
-    $$('div#large-image-trust-button a')[0].writeAttribute('data-data_object_id', params.data_object_id);
-
-    $('large-image-trust-button').appear();
-    $('large-image-untrust-button').appear();
-  } else {
-    $('large-image-trust-button').disappear();
-    $('large-image-untrust-button').disappear();
+  if($$('div#large-image-trust-button a')[0]) {
+    if (!params.curated) {
+      $$('div#large-image-trust-button a')[0].href="/data_objects/"+params.data_object_id+"/curate?_method=put&curator_activity_id=3";
+      $$('div#large-image-untrust-button a')[0].href="/data_objects/"+params.data_object_id+"/curate?_method=put&curator_activity_id=7";
+      $$('div#large-image-untrust-button a')[0].writeAttribute('data-data_object_id', params.data_object_id);
+      $$('div#large-image-trust-button a')[0].writeAttribute('data-data_object_id', params.data_object_id);
+      
+      $('large-image-trust-button').appear();
+      $('large-image-untrust-button').appear();
+    } else {
+      $('large-image-trust-button').disappear();
+      $('large-image-untrust-button').disappear();
+    }
   }
   if ($('large-image-comment-button-popup-link'))     $('large-image-comment-button-popup-link').href = "/data_objects/" + params.data_object_id + "/comments";
   if ($('large-image-attribution-button-popup-link')) $('large-image-attribution-button-popup-link').href = "/data_objects/" + params.data_object_id + "/attribution"; 

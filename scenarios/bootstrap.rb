@@ -1,6 +1,9 @@
 # Put a few taxa (all within a new hierarchy) in the database with a range of
 # accoutrements.  Depends on foundation scenario!
 
+# This gives us some required methods:
+include EOL::Data
+
 # NOTE - I am not setting the mime type yet.  We never use it.
 # NOTE - There are no models for all the refs_* tables, so I'm ignoring them.
 def build_dato(type, desc, taxon, he = nil, options = {})
@@ -52,12 +55,7 @@ def build_taxon_concept(parent, depth, options = {})
   curator = Factory(:curator, :curator_hierarchy_entry => he)
   (rand(60) - 39).times { Comment.gen(:parent => tc, :parent_type => 'taxon_concept', :user => bootstrap_users.rand) }
   # TODO - add some alternate names.
-  # TODO - do we need to add a relationship between this HE and the agent?  We don't have a HierarchiesResource model yet.
-  # TODO - an IUCN entry would be nice.
-  # TODO - Creating other TOC items (common names, BHL, synonyms, etc) would be nice 
-  # TODO - Movies, GBIF maps
 
-  # Is this the correct name to relate this to?  ...I'm not sure:
   taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => cform.string)
   images = []
   (rand(12)+3).times do
@@ -81,15 +79,28 @@ def build_taxon_concept(parent, depth, options = {})
   images << build_dato('Image', 'inappropriate', taxon, he, :object_cache_url => Faker::Eol.image,
                        :visibility => Visibility.inappropriate)
   
+  # TODO - Does an IUCN entry *really* need its own taxon?  I am surprised by this (it seems dupicated):
+  iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => cform.string)
+  iucn = build_dato('IUCN', Faker::Eol.iucn, iucn_taxon)
+  # TODO - this is a TOTAL hack, but this is currently hard-coded and needs to be fixed:
+  HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_harvest_event)
+
+  # TODO - Movies, GBIF maps
+
   overview = build_dato('Text', "This is an overview of the <b>#{cform.string}</b> hierarchy entry.", taxon)
   # Add more toc items:
   (rand(4)+1).times do
     dato = build_dato('Text', Faker::Lorem.paragraph, taxon)
   end
+  # TODO - Creating other TOC items (common names, BHL, synonyms, etc) would be nice 
 
   RandomTaxon.gen(:language => Language.english, :data_object => images.last, :name_id => sname.id,
                   :image_url => images.last.object_cache_url, :name => sname.italicized, :content_level => 4, :taxon_concept => tc,
                   :common_name_en => cname.string, :thumb_url => images.first.object_cache_url) # not sure thumb_url is right.
+end
+
+def iucn_harvest_event
+  @@iucn_he ||= HarvestEvent.gen(:resource_id => 3)
 end
 
 # A singleton that creates some users:
@@ -119,9 +130,19 @@ end
   Rank.gen :label => rank
 end
 
-resource = Resource.gen(:resource_status => ResourceStatus.published, :accesspoint_url => 'http://google.com')
-event = HarvestEvent.gen(:resource => resource)
-AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource, :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
+# The third resource *must* be IUCN (for now), so I'm going to force the issue:
+Resource.delete_all # TODO - truncate  .,...I can't seem to include the right module to allow this, in a rush
+HarvestEvent.delete_all(:resource_id => 3)
+resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published)
+bogus    = Resource.gen(:title => 'Filler, ignore', :resource_status => ResourceStatus.published)
+iucn_res = Resource.gen(:title => 'IUCN import', :resource_status => ResourceStatus.published)
+raise "Something went wrong with creating the iucn resource--it must have an ID of 3" unless iucn_res.id == 3
+
+event    = HarvestEvent.gen(:resource => resource)
+AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource,
+                   :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
+AgentsResource.gen(:agent => Agent.iucn, :resource => iucn_res,
+                   :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 
 kingdom = build_taxon_concept(0, 0, :canonical_form => 'Animalia', :common_name => 'Animals')
 6.times do
@@ -136,7 +157,7 @@ name = Name.gen(:canonical_form => tc.canonical_form_object, :string => n = Fake
 agent2 = Agent.gen :username => 'test_cp'
 cp     = ContentPartner.gen :vetted => true, :agent => agent2
 cont   = AgentContact.gen :agent => agent2, :agent_contact_role => AgentContactRole.primary
-r2     = Resource.gen(:resource_status => ResourceStatus.processed, :accesspoint_url => 'http://google.com')
+r2     = Resource.gen(:title => 'Test ContentPartner import', :resource_status => ResourceStatus.processed)
 ev2    = HarvestEvent.gen(:resource => r2)
 ar     = AgentsResource.gen(:agent => agent2, :resource => r2, :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 hier   = Hierarchy.gen :agent => agent2
@@ -144,6 +165,5 @@ he     = build_hierarchy_entry 0, 0, tc, name, :hierarchy => hier
 img    = build_dato('Image', "This should only be seen by ContentPartner #{cp.description}", tc.images.first.taxa[0], he,
                   :object_cache_url => Faker::Eol.image, :vetted => Vetted.unknown, :visibility => Visibility.preview)
 
-include EOL::Data
 make_all_nested_sets
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants

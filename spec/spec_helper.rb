@@ -54,7 +54,7 @@ Spec::Runner.configure do |config|
   # TODO transactions should handle this, we should NOT have to do this ... FIX / figure out!
   #
   config.before(:all) do
-    truncate_all_tables
+    truncate_all_tables # GET RID OF THIS!  shows things down, hardcode!
   end
 
 end

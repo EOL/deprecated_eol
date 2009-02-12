@@ -4,6 +4,7 @@ require File.dirname(__FILE__) + '/../../lib/eol_data'
 class EOL::NestedSet; end
 EOL::NestedSet.send :extend, EOL::Data
 
+# TODO get rid of this!  extract out of here ... used this to initially get this spec working (need to create TaxonConcepts)
 class SearchSpec
   class << self
 
@@ -71,13 +72,20 @@ end
 
 describe 'Search' do
 
-  scenario :foundation, :before => :all
+  before :each do
+    truncate_all_tables
+    Scenario.load :foundation
+  end
 
   it 'should return a helpful message if no results' do
+    TaxonConcept.count.should == 0
+
     request('/search?q=tiger').body.should include("Your search on 'tiger' did not find any matches")
   end
 
   it 'should redirect to species page if only 1 possible match is found' do
+    TaxonConcept.count.should == 0
+
     tiger = SearchSpec.make_a_taxon 'Tiger', SearchSpec.animal_kingdom.id
     SearchSpec.nestify_everything_properly
     SearchSpec.recreate_normalized_names_and_links

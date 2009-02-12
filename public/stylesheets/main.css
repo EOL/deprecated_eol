@@ -992,6 +992,10 @@ ul#global-navigation {
           margin: 0;
         }
 
+        #left-mc .wrapper-mc .mc-img div#thumbnails a span {
+          display:block;margin-left:4px;width:60px;height:48px;text-align:left;
+        }
+
   .mc-navigation {
     margin:1px 0 0 5px;
     width: 210px;
@@ -2896,6 +2900,32 @@ form div#browser-text li {list-style-type: none;}
   float: left;
   padding-left:6px;
 }
+
+#media-images #large-image #large-image-buttons #left-image-buttons ul {
+  text-align: left;
+}
+
+#media-images #large-image #large-image-buttons #left-image-buttons li {
+  position:relative;
+  background-repeat:no-repeat
+}
+
+#media-images #large-image #large-image-buttons #left-image-buttons li.unpublished_icon {
+  background-image:url('/images/icons/unpublished.png');
+}
+
+#media-images #large-image #large-image-buttons #left-image-buttons li.published_icon {
+  background-image:url('/images/icons/published.png');
+}
+
+#media-images #large-image #large-image-buttons #left-image-buttons li.inappropriate_icon {
+  background-image:url('/images/icons/inappropriate.png');
+}
+
+#media-images #large-image #large-image-buttons #left-image-buttons li.invisible_icon {
+  background-image:url('/images/icons/invisible.png');
+}
+
 #media-images #large-image #large-image-buttons #right-image-buttons {
   float: right;
   position: relative;

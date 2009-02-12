@@ -333,11 +333,11 @@ module ApplicationHelper
     value.to_s.strip.downcase.gsub(' ','') # TODO update to strip out all non alphanumeric characters
   end
 
-  def preview_icon(options={})
+  def unpublished_icon(options={})
     style = options[:style] ? "style=\"#{options[:style]}\"" : ''
-    "<img src=\"/images/icons/preview.png\" alt=\"Unpublished\" title=\"Unpublished\" #{style} />"
+    "<img src=\"/images/icons/unpublished.png\" alt=\"Unpublished\" title=\"Unpublished\" #{style} />"
   end
-  
+
   def published_icon(options={})
     style = options[:style] ? "style=\"#{options[:style]}\"" : ''
     description = options[:agent_name] ? "From #{options[:agent_name]}" : ''

@@ -12,7 +12,7 @@
 
     <%- @taxa.each do |taxon| -%>
       
-      <%- unless @harvest_event.published_at -%><%= preview_icon %>&nbsp;<%- end -%><%= link_to hh(taxon.scientific_name), {:controller=>"taxa", :action=>"show", :id=>taxon.taxon_concept_id} %><br/>
+      <%- unless @harvest_event.published_at -%><%= unpublished_icon %>&nbsp;<%- end -%><%= link_to hh(taxon.scientific_name), {:controller=>"taxa", :action=>"show", :id=>taxon.taxon_concept_id} %><br/>
     <%- end -%>
 
     <%= will_paginate(@taxa) %>

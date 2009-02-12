@@ -1,4 +1,13 @@
 namespace :denormal do
+
+  desc 'Recreate Normalized Names & Links'
+  task :names_and_links => :environment do
+    require 'spec/eol_spec_helpers' # this has the truncate method
+    NormalizedName.truncate
+    NormalizedLink.truncate
+    Name.all.each {|name| NormalizedLink.parse! name }
+  end
+
   desc <<EODESC
 DEPRECATED.  Use PHP.
 

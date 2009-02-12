@@ -141,17 +141,17 @@ function eol_update_credit(params){
     }
     field_notes_area += '<br /><br />';
     field_notes_area += params.field_notes ? params.field_notes : "";				
-    
-    var left_buttons = $('large-image-button-group').childElements();
-    if (params.published){
-      if (left_buttons.size() > 1) {
-        left_buttons.first().remove();
-      }
+
+
+    if (params.published_by_agent){
+      $$('#large-image-button-group .unpublished_icon')[0].hide();
+      $$('#large-image-button-group .published_icon')[0].show();
+    } else if(!params.published) {
+      $$('#large-image-button-group .published_icon')[0].hide();
+      $$('#large-image-button-group .unpublished_icon')[0].show();
     } else {
-      if (left_buttons.size() == 1) {
-        var buttons = $('large-image-button-group').innerHTML;
-        $('large-image-button-group').innerHTML="<li style=\"position:relative;top:3px;background-image:url('/images/icons/preview.png');background-repeat:no-repeat\" title=\"Unpublished\" />\n" +buttons;
-      }
+      $$('#large-image-button-group .published_icon')[0].hide();
+      $$('#large-image-button-group .unpublished_icon')[0].hide();
     }
 
     $('large-image-attribution-button').removeClassName('unknown');

@@ -22,7 +22,7 @@ unless @content[:data_objects].nil?
 
       <!-- ATTRIBUTION GOES HERE -->
       <div class="content-attribution-area">
-        <div class="attribution-header2"><%- if !content_item.published -%><%= preview_icon %>&nbsp;<%- end -%><%= "Source and Additional Information"[] %></div>
+        <div class="attribution-header2"><%- if !content_item.published -%><%= unpublished_icon %>&nbsp;<%- end -%><%= "Source and Additional Information"[] %></div>
         <%= render :partial => 'data_objects/attribution', :locals => { :data_object => content_item } %>
       </div>        
 
@@ -30,7 +30,7 @@ unless @content[:data_objects].nil?
 
       <div <%='class="unvetted-background-text"' if content_item.vetted_id != Vetted.trusted.id %>>
        <%- if !content_item.published -%>
-         <%= preview_icon %>
+         <%= unpublished_icon %>
        <%- end -%>
        <%= content_item.description %>
       </div>

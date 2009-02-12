@@ -35,7 +35,7 @@ def build_hierarchy_entry(parent, depth, tc, name, options = {})
                              :rank_id       => depth + 1, # Cheating. As long as the order is sane, this works well.
                              :taxon_concept => tc,
                              :name          => name)
-  HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4, :gbif_image => 1)
+  HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4, :gbif_image => 1, :youtube => 1, :flash => 1)
   return he
 end
 
@@ -85,8 +85,9 @@ def build_taxon_concept(parent, depth, options = {})
   # TODO - this is a TOTAL hack, but this is currently hard-coded and needs to be fixed:
   HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_harvest_event)
 
-  # TODO - Movies, GBIF maps
-  map = build_dato('GBIF Image', Faker::Lorem.sentence, taxon, nil, :object_cache_url => Faker::Eol.map)
+  video   = build_dato('Flash',      Faker::Lorem.sentence,  taxon, nil, :object_cache_url => Faker::Eol.flash)
+  youtube = build_dato('YouTube',    Faker::Lorem.paragraph, taxon, nil, :object_cache_url => Faker::Eol.youtube)
+  map     = build_dato('GBIF Image', Faker::Lorem.sentence,  taxon, nil, :object_cache_url => Faker::Eol.map)
 
   overview = build_dato('Text', "This is an overview of the <b>#{cform.string}</b> hierarchy entry.", taxon)
   # Add more toc items:

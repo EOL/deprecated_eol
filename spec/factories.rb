@@ -48,6 +48,7 @@ Factory.sequence(:email  ){|n| "bob#{n}@smith.com" }
 # Faker names are frequently unique, but let's just make absolutely sure:
 Factory.sequence(:name   ){|n| "#{Faker::Name.first_name}#{n} #{Faker::Name.last_name}" }
 Factory.sequence(:species){|n| "#{Faker::Lorem.words[0]}#{n} #{Faker::Lorem.words[0]}" }
+Factory.sequence(:title  ){|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
 Factory.sequence(:int    ){|n| n }
 
 #### Factories
@@ -69,6 +70,10 @@ Factory.define :agent_contact do |ac|
   ac.family_name { Factory.next(:string) }
   ac.full_name   {|a| "#{a.first_name} #{a.last_name}" }
   ac.email       {|a| "#{a.first_name}.#{a.last_name}@example.com".downcase }
+  ac.homepage    'http://whatever.org'
+  ac.address     '1234 Doesntmatter St'
+  ac.title       'Call me SIR'
+  ac.telephone   '555-222-1111'
 end
 
 Factory.define :agent_contact_role do |x|
@@ -277,7 +282,7 @@ Factory.define :hierarchy do |hierarchy|
   hierarchy.label                   "A nested structure of divisions related to their probable evolutionary descent"
   hierarchy.url                     ''
   hierarchy.hierarchy_group_version 0
-  hierarchy.hierarchy_group_id 1
+  hierarchy.hierarchy_group_id      1
   hierarchy.description             ''
   hierarchy.association             :agent
 end
@@ -513,7 +518,8 @@ Factory.define :taxon do |t|
 end
 
 Factory.define :taxon_concept do |tc|
-  tc.published      0
+  tc.association    :vetted
+  tc.published      1
   tc.supercedure_id 0
 end
 
@@ -551,7 +557,7 @@ end
 
 Factory.define :toc_item do |ti|
   ti.parent_id   0
-  ti.label       'TestTitleItem'
+  ti.label       { Factory.next(:title) }
   ti.view_order  1 # This competes with Overview... not sure if this is wise.
 end
 

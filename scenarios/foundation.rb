@@ -11,14 +11,16 @@ ContentPage.gen :page_name => 'Terms Of Use',   :language_abbr => 'en', :content
 CuratorActivity.gen :code => 'delete'
 CuratorActivity.gen :code => 'update'
 
-Agent.gen :full_name => 'IUCN'
-Agent.gen :full_name => 'Catalogue of Life'
-
 # We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
 # them.  Once we do, they should get added here.
 AgentContactRole.gen :label => 'Primary Contact'
 AgentContactRole.gen :label => 'Administrative Contact'
 AgentContactRole.gen :label => 'Technical Contact'
+
+Agent.gen :full_name => 'IUCN'
+AgentContact.gen :agent => Agent.iucn, :agent_contact_role => AgentContactRole.primary
+Agent.gen :full_name => 'Catalogue of Life'
+AgentContact.gen :agent => Agent.catalogue_of_life, :agent_contact_role => AgentContactRole.primary
 
 AgentDataType.gen :label => 'Audio'
 AgentDataType.gen :label => 'Image'

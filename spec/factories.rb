@@ -453,7 +453,7 @@ end
 
 Factory.define :name do |name|
   name.canonical_form      {|cform| cform.association(:canonical_form, :string => 'Somethia specificus')}
-  name.string              'Somethia specificus Posford & R. Ram'
+  name.string              { Factory.next(:species) }
   name.canonical_verified  0 # I don't know that Rails ever uses this...
   name.italicized_verified 0 # I don't know that Rails ever uses this...
   # The strip  at the end handles strings that are only two words; it is useless with three or more.

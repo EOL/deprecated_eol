@@ -7,4 +7,9 @@ describe Name do
   it { should validate_presence_of(:italicized) }
   it { should validate_presence_of(:canonical_form) }
 
+  it "should require a valid #string" do
+    Name.gen( :string => 'Tiger' ).should be_valid
+    Name.build( :string => 'Tiger' ).should_not be_valid # because there's already a Tiger
+  end
+
 end

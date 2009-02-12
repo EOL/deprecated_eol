@@ -49,10 +49,15 @@ Audience.gen :label => 'Children'
 Audience.gen :label => 'Expert users'
 Audience.gen :label => 'General public'
 
-DataType.gen :schema_value => 'http://purl.org/dc/dcmitype/StillImage',  :label => 'Image'
-DataType.gen :schema_value => 'http://purl.org/dc/dcmitype/Sound',       :label => 'Sound'
-DataType.gen :schema_value => 'http://purl.org/dc/dcmitype/Text',        :label => 'Text'
-DataType.gen :schema_value => 'http://purl.org/dc/dcmitype/MovingImage', :label => 'Video'
+DataType.gen :label => 'Image',     :schema_value => 'http://purl.org/dc/dcmitype/StillImage'
+DataType.gen :label => 'Sound',     :schema_value => 'http://purl.org/dc/dcmitype/Sound'
+DataType.gen :label => 'Text',      :schema_value => 'http://purl.org/dc/dcmitype/Text'
+DataType.gen :label => 'Video',     :schema_value => 'http://purl.org/dc/dcmitype/MovingImage'
+DataType.gen :label => 'GBIF Image'
+DataType.gen :label => 'IUCN'
+DataType.gen :label => 'Flash'
+DataType.gen :label => 'YouTube'
+
 
 Hierarchy.gen :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007"
 Hierarchy.gen :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"

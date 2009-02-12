@@ -10,16 +10,7 @@ class SearchSpec
     def recreate_normalized_names_and_links
       NormalizedName.truncate
       NormalizedLink.truncate
-      Name.all.each do |name|
-        name_parts = name.string.gsub(' and ',' ').gsub(/[^\w ]/,'').split.join(' ')
-        name_parts.each_with_index do |name_part, index|
-          normalized_name = NormalizedName.find_or_create_by_name_part name_part
-          NormalizedLink.create :normalized_name_id      => normalized_name.id,
-                                :name_id                 => name.id,
-                                :seq                     => index,
-                                :normalized_qualifier_id => 1
-        end
-      end
+      Name.all.each {|name| NormalizedLink.parse! name }
     end
 
     def animal_kingdom

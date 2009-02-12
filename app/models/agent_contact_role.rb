@@ -1,6 +1,6 @@
 # See notes in "Agent" model.
 class AgentContactRole < SpeciesSchemaModel
-  
+  has_many :agent_contacts
   
   def self.primary
     return @@primary ||= self.find_by_label('Primary Contact')

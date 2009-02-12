@@ -25,6 +25,17 @@ def build_dato(type, desc, taxon, he = nil, options = {})
   return dato
 end
 
+def build_hierarchy_entry(parent, depth, tc, name, options = {})
+  he    = HierarchyEntry.gen(:hierarchy     => options[:hierarchy] || Hierarchy.default,
+                             :parent_id     => parent,
+                             :depth         => depth,
+                             :rank_id       => depth + 1, # Cheating. As long as the order is sane, this works well.
+                             :taxon_concept => tc,
+                             :name          => name)
+  HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4)
+  return he
+end
+
 def build_taxon_concept(parent, depth, options = {})
   attri = options[:attribution] || Faker::Eol.attribution
   common_name = options[:common_name] || Faker::Eol.common_name
@@ -32,14 +43,8 @@ def build_taxon_concept(parent, depth, options = {})
   sname = Name.gen(:canonical_form => cform, :string => "#{cform.string} #{attri}".strip,
                    :italicized     => "<i>#{cform.string}</i> #{attri}".strip)
   cname = Name.gen(:canonical_form => cform, :string => common_name, :italicized => common_name)
-  tc    = TaxonConcept.gen()
-  he    = HierarchyEntry.gen(:hierarchy     => Hierarchy.default,
-                             :parent_id     => parent,
-                             :depth         => depth,
-                             :rank_id       => depth + 1, # Cheating. As long as the order is sane, this works well.
-                             :taxon_concept => tc,
-                             :name          => sname)
-  HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4)
+  tc    = TaxonConcept.gen(:vetted => Vetted.trusted)
+  he    = build_hierarchy_entry(parent, depth, tc, sname)
   TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => he.id, :language => Language.english,
                        :name => sname, :taxon_concept => tc)
   TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => he.id, :language => Language.english,
@@ -106,6 +111,8 @@ def bootstrap_toc
   return @@bootstrap_toc
 end
 
+#### Real work begins
+
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 
 %w{phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
@@ -120,6 +127,22 @@ kingdom = build_taxon_concept(0, 0, :canonical_form => 'Animalia', :common_name 
 6.times do
   build_taxon_concept(Hierarchy.default.hierarchy_entries.last.id, Hierarchy.default.hierarchy_entries.length)
 end
+
+# Now that we're done with CoL, we add another content partner who overlaps with them:
+tc   = TaxonConcept.find(6) # Whatever.
+       # Give it a new name:
+name = Name.gen(:canonical_form => tc.canonical_form_object, :string => n = Faker::Eol.scientific_name,
+                :italicized     => "<i>#{n}</i> #{Faker::Eol.attribution}")
+agent2 = Agent.gen :username => 'test_cp'
+cp     = ContentPartner.gen :vetted => true, :agent => agent2
+cont   = AgentContact.gen :agent => agent2, :agent_contact_role => AgentContactRole.primary
+r2     = Resource.gen(:resource_status => ResourceStatus.processed, :accesspoint_url => 'http://google.com')
+ev2    = HarvestEvent.gen(:resource => r2)
+ar     = AgentsResource.gen(:agent => agent2, :resource => r2, :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
+hier   = Hierarchy.gen :agent => agent2
+he     = build_hierarchy_entry 0, 0, tc, name, :hierarchy => hier
+img    = build_dato('Image', "This should only be seen by ContentPartner #{cp.description}", tc.images.first.taxa[0], he,
+                  :object_cache_url => Faker::Eol.image, :vetted => Vetted.unknown, :visibility => Visibility.preview)
 
 include EOL::Data
 make_all_nested_sets

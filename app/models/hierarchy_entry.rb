@@ -27,6 +27,10 @@ class HierarchyEntry < SpeciesSchemaModel
     return raw_name(detail_level, language, context).firstcap
   end
 
+  def canonical_form
+    return name_object.canonical_form
+  end
+
   def raw_name(detail_level = :middle, language = Language.english, context = nil)
     return '?' if self[:name_id].nil?
     case detail_level.to_sym

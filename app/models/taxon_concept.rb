@@ -16,6 +16,7 @@
 class TaxonConcept < SpeciesSchemaModel
 
   #TODO belongs_to :taxon_concept_content
+  belongs_to :vetted
 
   has_many :hierarchy_entries
   has_many :taxon_concept_names
@@ -44,6 +45,11 @@ class TaxonConcept < SpeciesSchemaModel
     col_he = hierarchy_entries.detect {|he| he.hierarchy_id == default_hierarchy_id }
     return col_he.nil? ? alternate_classification_name(detail_level, language, context).firstcap : col_he.name(detail_level, language, context).firstcap
   end
+  
+  def canonical_form_object
+    return entry.canonical_form
+  end
+
 
   def alternate_classification_name(detail_level = :middle, language = Language.english, context = nil)
     #return col_he.nil? ? alternate_classification_name(detail_level, language, context) : col_he.name(detail_level, language, context)
@@ -89,6 +95,7 @@ class TaxonConcept < SpeciesSchemaModel
     return false
   end
 
+  # TODO - I believe these methods are obsolete (the more_* methods)
   # TODO = $MAX_IMAGES_PER_PAGE really should BE an int.
   def more_images
     return @length_of_images > $MAX_IMAGES_PER_PAGE.to_i if @length_of_images

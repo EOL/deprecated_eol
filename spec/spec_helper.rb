@@ -50,6 +50,9 @@ Spec::Runner.configure do |config|
 
   # this is expensive so we should run it once before running 
   # the *whole* suite, not once per spec ... putting it here for now, tho
+  #
+  # TODO transactions should handle this, we should NOT have to do this ... FIX / figure out!
+  #
   config.before(:all) do
     truncate_all_tables
   end

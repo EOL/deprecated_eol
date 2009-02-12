@@ -63,7 +63,7 @@ class SearchSpec
       taxon = Taxon.gen :name => scientific_name, :hierarchy_entry => hierarchy_entry, :scientific_name => canonical_form
 
       # trust the taxon_concept, by default
-      taxon_concept.vetted_id = Vetted.trusted.id
+      taxon_concept.vetted = Vetted.trusted
       taxon_concept.published = 1
       taxon_concept.save
 

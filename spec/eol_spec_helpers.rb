@@ -13,8 +13,10 @@ module EOL::Spec
       options[:verbose] ||= false
       all_connections.each do |conn|
         conn.tables.each   do |table|
-          puts "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
-          conn.execute "TRUNCATE TABLE`#{table}`"
+          unless table == 'schema_migrations'
+            puts "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
+            conn.execute "TRUNCATE TABLE`#{table}`"
+          end
         end
       end
     end

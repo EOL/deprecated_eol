@@ -345,7 +345,7 @@ Factory.define :data_objects_taxon do |dot|
 end
 
 Factory.define :data_type do |dt|
-  dt.schema_value 'http://purl.org/dc/dcmitype/ThisLinkWillFail.JustTesting'
+  dt.schema_value ''
   dt.label        { Factory.next(:string) }
 end
 
@@ -354,6 +354,13 @@ Factory.define :harvest_event do |he|
   he.began_at     { 5.hours.ago }
   he.completed_at { 4.hours.ago }
   he.published_at { 3.hours.ago }
+end
+
+Factory.define :harvest_events_taxon do |het|
+  het.association :harvest_event
+  het.association :taxon
+  het.guid        ''
+  het.association :status
 end
 
 Factory.define :hierarchy do |hierarchy|
@@ -513,12 +520,14 @@ Factory.define :ref_identifier_type do |rit|
   rit.label { Factory.next(:string) }
 end
 
+# TODO - Patrick might be adding a hierarchy reference to this table.
 Factory.define :resource do |r|
   r.auto_publish    false
   r.title           'Testing Resource'
   r.subject         'Test Resource Subject'
   r.association     :license
   r.association     :resource_status
+  r.accesspoint_url 'http://www.google.com' # Won't work without a real, live URL.
 end
 
 Factory.define :resource_agent_role do |rar|

@@ -1,6 +1,6 @@
 class HarvestEventsTaxon < SpeciesSchemaModel
   belongs_to :harvest_event
-  belongs_to :taxa
+  belongs_to :taxon
   belongs_to :status
 end# == Schema Info
 # Schema version: 20081002192244

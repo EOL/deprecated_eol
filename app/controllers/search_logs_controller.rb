@@ -7,8 +7,8 @@ class SearchLogsController < AdminController
   def index
     
     @term_search_string=params[:term_search_string]
-    @order_by=params[:order_by] || "search_term"
-    @sort_order=params[:sort_order] || "ASC"
+    @order_by=params[:order_by] || "frequency"
+    @sort_order=params[:sort_order] || "DESC"
     
     term_search_string='%' + @term_search_string + '%' unless @term_search_string.blank?
    
@@ -19,7 +19,7 @@ class SearchLogsController < AdminController
     
     sql << term_search_string unless term_search_string.blank?
     
-    @search_report = SearchLog.paginate_by_sql(ActiveRecord::Base.eol_escape_sql(sql),:page=>params[:page] || "1")
+    @search_report = SearchLog.paginate_by_sql(ActiveRecord::Base.eol_escape_sql(sql),:page=>params[:page] || "1",:per_page => params[:per_page] || "30")
     
   end
   

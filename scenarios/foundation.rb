@@ -177,6 +177,14 @@ ResourceStatus.gen :label => 'Published'
 Role.gen :title => 'Curator'
 Role.gen :title => 'Moderator'
 Role.gen :title => 'Administrator'
+Role.gen :title => 'Administrator - News Items'
+Role.gen :title => 'Administrator - Comments and Tags'
+Role.gen :title => 'Administrator - Web Users'
+Role.gen :title => 'Administrator - Contact Us Submissions'
+Role.gen :title => 'Administrator - Content Partners'
+Role.gen :title => 'Administrator - Error Logs'
+Role.gen :title => 'Administrator - Site CMS'
+Role.gen :title => 'Administrator - Usage Reports'
 
 TocItem.gen :label => 'Overview',                      :view_order => 1
 TocItem.gen :label => 'Common Names',                  :view_order => 10

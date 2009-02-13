@@ -35,3 +35,7 @@ $LOG_WEB_SERVICE_EXECUTION_TIME=true # if set to false, then execution times for
 #   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
 #   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel          
 # end
+
+# uncomment the line below if you want to use the minified/combined JS files from the asset packager for testing purposes
+# note that to create new combined asset files, use this rake task first: rake asset:packager:build_all
+#Synthesis::AssetPackage.merge_environments = ["development", "production"] 

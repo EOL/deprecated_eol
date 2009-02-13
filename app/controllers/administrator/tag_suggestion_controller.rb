@@ -2,8 +2,7 @@
 # show up as suggested (static public tags)
 class Administrator::TagSuggestionController < AdminController
 
-  access_control :DEFAULT => 'Administrator - Site CMS'
-  before_filter :redirect_if_not_allowed_ip  # only allow MBL/EOL IP addresses
+  access_control :DEFAULT => 'Administrator - Comments & Tags'
   
   layout 'administrator'
 

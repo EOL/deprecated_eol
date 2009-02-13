@@ -167,5 +167,18 @@ he     = build_hierarchy_entry 0, 0, tc, name, :hierarchy => hier
 img    = build_dato('Image', "This should only be seen by ContentPartner #{cp.description}", tc.images.first.taxa[0], he,
                   :object_cache_url => Faker::Eol.image, :vetted => Vetted.unknown, :visibility => Visibility.preview)
 
+# generate a default admin user (username,password=admin) and then set them up for the default roles
+User.gen :username=>'admin',:hashed_password=>'21232f297a57a5a743894a0e4a801fc3',:email=>'admin@test.com',:given_name=>'Admin',:family_name=>'User',:default_taxonomic_browser=>'text',:expertise=>'middle',:remote_ip=>'127.0.0.1',:content_level=>'2',:flash_enabled=>'1',:vetted=>'0',:mailing_list=>'0',:active=>'1',:language_id=>'1'
+admin=User.find_by_username('admin')
+admin.roles << Role.find_by_title('Administrator')
+admin.roles << Role.find_by_title('Administrator - Web Users')
+admin.roles << Role.find_by_title('Administrator - News Items')
+admin.roles << Role.find_by_title('Administrator - Comments and Tags')
+admin.roles << Role.find_by_title('Administrator - Contact Us Submissions')
+admin.roles << Role.find_by_title('Administrator - Content Partners')
+admin.roles << Role.find_by_title('Administrator - Error Logs')
+admin.roles << Role.find_by_title('Administrator - Site CMS')
+admin.roles << Role.find_by_title('Administrator - Usage Reports')
+                  
 make_all_nested_sets
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants

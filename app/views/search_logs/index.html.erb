@@ -3,8 +3,11 @@
 	<div id="content_page">
 	  
 		<% form_tag({:action=>'index'},:method=>'get',:id=>'form1') do -%>
-  	Search for terms containing: <%= text_field_tag(:term_search_string,@term_search_string)%> <%= submit_tag 'Search' %>  	<%= check_box_tag :sort_order, "DESC", @sort_order=="DESC", {:onclick=>"$('form1').submit();"}%> Inverse sort
-  	<br /><br />
+  	Search for terms containing: <%= text_field_tag(:term_search_string,@term_search_string)%> 
+  	<br />
+  	Show <%= select_tag(:per_page, options_for_select([['10', 10], ['30', '30'], ['50', '50'],['100', '100'],['200', '200']],params[:per_page] || "30")) %> per page | 
+    <%= check_box_tag :sort_order, "DESC", @sort_order=="DESC", {:onclick=>"$('form1').submit();"}%> Inverse sort <%= submit_tag 'Update' %>  	
+  	<br />
 
   	<%= hidden_field_tag :order_by, @order_by%>
     <%= will_paginate @search_report %>

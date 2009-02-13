@@ -1,0 +1,31 @@
+	<%= eol_lang_error_messages_for :comment %>
+		
+	<table>	
+  	<tr>
+  		<td><strong>Type:</strong></td>
+  		<td><%=@comment.parent_type_name%></td>
+  	</tr>
+  	<tr>
+  		<td><strong>Description:</strong></td>
+  		<td><%=link_to (@comment.parent_name,@comment.parent_url)%></td>
+  	</tr>
+  	<% if @comment.parent_type_name == 'Image' %>
+    	<tr>
+    		<td><strong>Original object:</strong></td>
+    		<td><%=image_tag(@comment.parent_image_url)%></td>
+    	</tr>  	
+    <% end %>
+	<tr>
+		<td valign="top"><strong>Body:</strong> </td>
+		<td><%=f.text_area :body,{:cols=>50}%>
+    </td>
+	</tr>
+  	<tr>
+  		<td><strong>Created at:</strong></td>
+  		<td><%=@comment.created_at%></td>
+  	</tr>
+	</table>
+	
+	<br /><br />
+	<input type="button" onClick="document.location.href='/administrator/comment/index';" id="cancel" name="Cancel" value="Cancel"> |
+	<%=f.submit%>

@@ -2,7 +2,7 @@ class NewsItem < ActiveRecord::Base
   
   belongs_to :user
   
-  validates_presence_of :body
+  validates_presence_of :title, :if => Proc.new {|m| m.body.blank? }; validates_presence_of :body,  :if => Proc.new {|m| m.title.blank? }
   
   def visible?
     self.activated_on <= Time.now && self.active

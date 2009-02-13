@@ -3,18 +3,22 @@
  <li><%= link_to 'home', :controller => '/admin', :action => 'index' %> </li>
  <!--<li><%= link_to 'view pop-up survey requests', :controller => '/admin', :action => 'surveys' %> </li>-->
 
-<% restrict_to "(Administrator - Site CMS|Administrator - News Items) & !blacklist" do %><h3>Website management</h3><% end %>
+<% restrict_to "(Administrator - Site CMS|Administrator - News Items|Administrator - Comments and Tags) & !blacklist" do %><h3>Website management</h3><% end %>
   <% restrict_to "(Administrator - Site CMS) & !blacklist" do %>
   	  <li><%= link_to 'edit page contents',:controller=>'administrator/content_page',:action=>'index'%> </li>
   	  <li><%= link_to 'edit contact us topics',:controller=>'administrator/contact_subject', :action=>'index'%> </li>
   	  <li><%= link_to 'edit search suggestions',:controller=>'administrator/search_suggestion', :action=>'index'%> </li>
-      <li><%= link_to 'edit tag suggestions', :controller => 'administrator/tag_suggestion', :action => 'index' %> </li>
       <li><%= link_to 'general site admin', :controller => 'administrator/site', :action => 'index' %> </li>
   <% end %>
   <% restrict_to "(Administrator - News Items) & !blacklist" do %>
   	  <li><%= link_to 'edit news items',:controller=>'administrator/news_item',:action=>'index'%> </li>
   <% end %>
-
+  <% restrict_to "(Administrator - Comments and Tags) & !blacklist" do %>
+    <li><%= link_to 'edit tag suggestions', :controller => 'administrator/tag_suggestion', :action => 'index' %> </li>
+    <!--<li><%#= link_to 'view user tags', :controller => 'administrator/tag', :action => 'index' %> </li>-->
+    <li><%= link_to 'view user comments', :controller => 'administrator/comment', :action => 'index' %> </li>
+  <% end %>
+  
 <% restrict_to "(Administrator - Web Users) & !blacklist" do %>
 	<h3>Web Users</h3>
 	<li><%= link_to 'edit web users',:controller=>'administrator/user', :action=>'index'%> </li>

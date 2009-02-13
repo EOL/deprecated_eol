@@ -350,16 +350,23 @@ This is now using the asset_packager plugin, see details at http://synthesis.sbe
 
 If you add a javascript include files and you want them included in the page, you must edit the "config/asset_packager.yml" file and place them in the order you wish them to be loaded.
 When running in development mode, the JS and CSS are included separately each time. When running in production mode, assets are included from packaged
-entities.  A rake task is used to combine and minify CSS and JS  referenced.  
+entities.  A rake task is used to combine and minify CSS and JS  referenced.  Note that the order the JS files are listed in the config file
+is the order they are merged together and this order can matter.
+
 You must run this rake task each time the JS/CSS is updated to ensure the latest version is present when running in production mode.  The minification
 process is very sensitive to missing semicolons, extra commas and what not that are dealt with by modern browsers (not IE though...).  You have been
-warned - minification can and will break your JS if you are not careful!
+warned - minification can and will break your JS if you are not careful (watch those semicolons)!  
 
 To update/create the combined versions:
 
   rake asset:packager:build_all
 
 In production, this rake command is run as part of the capistrano deploy script.
+
+For testing purposes, you can force the minified/combined version to be referenced in your pages for a particular environment
+by adding the following line to your "config/environments/development.rb" or "config/environment.rb" file:
+
+  Synthesis::AssetPackage.merge_environments = ["development", "production"]
 
 == TAXONCONCEPT ATTRIBUTION NOTES
 

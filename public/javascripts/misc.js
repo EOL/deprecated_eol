@@ -211,7 +211,7 @@ function eol_update_video(params) {
                 
     $('video-notes').innerHTML = video_notes_area;
 
-    // make a logging call to let the server know that we've viewed this image
+    // make a logging call to let the server know that we've viewed this video
     eol_log_data_objects_for_taxon_concept( params.taxon_concept_id, params.data_object_id );
 		    
     return false;

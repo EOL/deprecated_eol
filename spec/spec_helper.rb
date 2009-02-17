@@ -10,7 +10,7 @@ require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
 require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
 
 require 'scenarios'
-Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios'), File.join(RAILS_ROOT, 'spec', 'scenarios') ]
+Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
 
 require 'rackbox'
 
@@ -23,7 +23,7 @@ Spec::Runner.configure do |config|
   config.use_transactional_fixtures = true
   config.use_instantiated_fixtures  = false
   config.use_blackbox               = true
-  config.fixture_path = RAILS_ROOT + '/spec/fixtures/'
+  config.fixture_path               = 'we dont use fixtures'
 
   # taken from use_db/lib/override_test_case.rb
   #
@@ -36,6 +36,7 @@ Spec::Runner.configure do |config|
     end
 
     ActiveRecord::Base.active_connections.values.uniq.each do |conn|
+      puts "begining transaction for => #{ conn.instance_eval { @config[:database] } }"
       Thread.current['open_transactions'] ||= 0
       Thread.current['open_transactions'] += 1
       conn.begin_db_transaction
@@ -54,7 +55,7 @@ Spec::Runner.configure do |config|
   # TODO transactions should handle this, we should NOT have to do this ... FIX / figure out!
   #
   config.before(:all) do
-    truncate_all_tables # GET RID OF THIS!  shows things down, hardcode!
+    # truncate_all_tables # GET RID OF THIS!  shows things down, hardcode!
   end
 
 end

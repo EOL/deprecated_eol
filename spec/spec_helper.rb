@@ -57,6 +57,7 @@ Spec::Runner.configure do |config|
       conn.rollback_db_transaction
       Thread.current['open_transactions'] = 0
       # puts "ROLLBACK"
+      # TODO after rolling back, this might be a good place to reset the auto_increment on tables
     end
   end
 

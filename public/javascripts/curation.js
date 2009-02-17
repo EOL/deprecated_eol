@@ -46,6 +46,10 @@ EOL.Curation.update_text_background = function(data_object_id, vetted_id) {
   }
 }
 
+EOL.Curation.update_text_icons = function(data_object_id) {
+  
+};
+
 EOL.Curation.after_curate = function(form,vetted_id) {
   id = form.readAttribute('data-data_object_id');
   type = form.readAttribute('data-data_object_type');

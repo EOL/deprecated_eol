@@ -26,7 +26,4 @@ EOL.MediaCenter.update_thumbnail_icons = function(element) {
 };
 
 EOL.MediaCenter.Behaviors = {
-  'div#thumbnails a ul': function(e) {
-    EOL.MediaCenter.update_thumbnail_icons(this)
-  }
 };

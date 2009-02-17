@@ -1,5 +1,5 @@
-# EOL tweaks / extensions to factory-girl
-module EOL::FactoryGirlExtensions
+# EOL tweaks / extensions related to factory-girl ... could use some cleanup
+module EOL::FactoryGirlActiveRecordBaseExtensions
 
   attr_accessor :factory_name
 
@@ -34,8 +34,32 @@ module EOL::FactoryGirlExtensions
 
 end
 
+module EOL::FactoryGirlExtensions
+
+  def self.included base
+    base.class_eval {
+      alias_method_chain :create, :duplicate_entry_checking
+    }
+  end
+
+  def create_with_duplicate_entry_checking *args
+    begin
+      create_without_duplicate_entry_checking *args
+    rescue Exception => ex
+      if ex.message.include? "Mysql::Error: Duplicate entry '255'"
+        puts "\nTrying to generate a Factory resulted in a Mysql::Error" + 
+             "\nIt's likely that a table ran out of primary keys (255)"  + 
+             "\nYou should try truncating these tables first.\n\n"
+      end
+      raise ex
+    end
+  end
+
+end
+
 # Extends all ActiveRecord::Base models with extensions 
 # that integrate with factory-girl
 ActiveRecord::Base.class_eval do
-  extend EOL::FactoryGirlExtensions
+  extend EOL::FactoryGirlActiveRecordBaseExtensions
 end
+Factory.send :include, EOL::FactoryGirlExtensions

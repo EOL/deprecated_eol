@@ -2,9 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Home page' do
 
-  before :each do
-    Scenario.load :foundation
-  end
+  scenario :foundation
 
   it 'should say EOL somewhere' do
     request('/').body.should include('EOL')
@@ -33,4 +31,5 @@ describe 'Home page' do
   it 'should not show news, when no news exists'
   it 'should have an RSS link'
   it 'should show random featured taxoni with medium thumb and linked name'
+
 end

@@ -8,8 +8,20 @@ module EOL::Spec
       UseDbPlugin.all_use_dbs.map {|db| db.connection }
     end
 
+    # call truncate_all_tables but make sure it only 
+    # happens once in the Process
+    def truncate_all_tables_once
+      unless $truncated_all_tables_once
+        $truncated_all_tables_once = true
+        print "truncating tables ... "
+        truncate_all_tables
+        puts "done"
+      end
+    end
+
     # truncates all tables in all databases
     def truncate_all_tables options = { }
+      # puts "truncating all tables"
       options[:verbose] ||= false
       all_connections.each do |conn|
         conn.tables.each   do |table|

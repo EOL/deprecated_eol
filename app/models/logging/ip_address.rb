@@ -8,7 +8,7 @@ class IpAddress < LoggingModel
   # these fields are required in the database 
   # and they don't require successful geocoding
   #
-  validates_presence_of :number
+  validates_presence_of     :number
   validates_numericality_of :number
 
   # NO VALIDATIONS - we want to allow for this data

@@ -17,9 +17,17 @@ require 'rackbox'
 Spec::Runner.configure do |config|
   include Scenario::Spec
   include EOL::Spec::Helpers
+  
+  # truncate_all_tables_once # truncate all tables (once) # for now, we have to go back to 
+                                                          # truncating before :all  :/
 
   config.include EOL::Spec::Matchers
   config.use_blackbox = true
+
+  config.before(:all) do
+    truncate_all_tables # this tinyint primary keys + the fact that before(:all) doesn't run
+                        # properly within transactions means we need to do this (for now)
+  end
 
   # taken from use_db/lib/override_test_case.rb
   #
@@ -36,7 +44,7 @@ Spec::Runner.configure do |config|
       Thread.current['open_transactions'] ||= 0
       Thread.current['open_transactions'] += 1
       conn.begin_db_transaction
-      puts "BEGIN transaction"
+      # puts "BEGIN transaction"
     end
   end
   config.after(:each) do
@@ -48,7 +56,7 @@ Spec::Runner.configure do |config|
       conn = model.connection
       conn.rollback_db_transaction
       Thread.current['open_transactions'] = 0
-      puts "ROLLBACK"
+      # puts "ROLLBACK"
     end
   end
 

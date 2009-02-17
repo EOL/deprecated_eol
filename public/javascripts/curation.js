@@ -55,6 +55,7 @@ EOL.Curation.after_curate = function(form,vetted_id) {
     $('large-image-trust-button').disappear();
     $('large-image-untrust-button').disappear();
     EOL.MediaCenter.image_hash[id].curated = true;
+
     if ($('curate_trust_'+id).checked) {
       EOL.MediaCenter.image_hash[id].vetted_id = EOL.Curation.TRUSTED_ID;
       EOL.Curation.update_thumbnail_background(EOL.Curation.TRUSTED_ID, id);
@@ -62,7 +63,18 @@ EOL.Curation.after_curate = function(form,vetted_id) {
       EOL.MediaCenter.image_hash[id].vetted_id = EOL.Curation.UNTRUSTED_ID;
       EOL.Curation.update_thumbnail_background(EOL.Curation.UNTRUSTED_ID, id);
     }
+
+    if($('curate_invisible_'+id).checked) {
+      EOL.MediaCenter.image_hash[id].visibility_id = EOL.Curation.INVISIBLE_ID;
+    } else if($('curate_visible_'+id).checked) {
+      EOL.MediaCenter.image_hash[id].visibility_id = EOL.Curation.VISIBLE_ID;
+    } else if($('curate_inappropriate_'+id).checked) {
+      EOL.MediaCenter.image_hash[id].visibility_id = EOL.Curation.INAPPROPRIATE_ID;
+    }
+
     eol_update_credit(EOL.MediaCenter.image_hash[id]);
+
+    EOL.MediaCenter.update_thumbnail_icons($$('div#thumbnails a#thumbnail_'+id+' ul')[0]);
   } else if(type == EOL.Curation.TEXT_ID) {
     $$('div#text_buttons_'+id+' div.trust_button')[0].disappear();
     $$('div#text_buttons_'+id+' div.untrust_button')[0].disappear();
@@ -103,3 +115,7 @@ EOL.Curation.TRUSTED_ID = 2;
 
 EOL.Curation.TEXT_ID = 3;
 EOL.Curation.IMAGE_ID = 5;
+
+EOL.Curation.INVISIBLE_ID = 0;
+EOL.Curation.VISIBLE_ID = 1;
+EOL.Curation.INAPPROPRIATE_ID = 3;

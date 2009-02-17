@@ -992,6 +992,12 @@ ul#global-navigation {
           margin: 0;
         }
 
+        #left-mc .wrapper-mc .mc-img a ul {
+          position:relative;
+          top:-53px;
+          left:-20px;
+        }
+
         #left-mc .wrapper-mc .mc-img div#thumbnails a span {
           display:block;margin-left:4px;width:60px;height:48px;text-align:left;
         }
@@ -2905,24 +2911,28 @@ form div#browser-text li {list-style-type: none;}
   text-align: left;
 }
 
-#media-images #large-image #large-image-buttons #left-image-buttons li {
+
+li.status_icon {
   position:relative;
-  background-repeat:no-repeat
+  background-repeat:no-repeat;
+  height: 22px;
+  width: 22px;
+  display: inline-block;
 }
 
-#media-images #large-image #large-image-buttons #left-image-buttons li.unpublished_icon {
+li.unpublished_icon {
   background-image:url('/images/icons/unpublished.png');
 }
 
-#media-images #large-image #large-image-buttons #left-image-buttons li.published_icon {
+li.published_icon {
   background-image:url('/images/icons/published.png');
 }
 
-#media-images #large-image #large-image-buttons #left-image-buttons li.inappropriate_icon {
+li.inappropriate_icon {
   background-image:url('/images/icons/inappropriate.png');
 }
 
-#media-images #large-image #large-image-buttons #left-image-buttons li.invisible_icon {
+li.invisible_icon {
   background-image:url('/images/icons/invisible.png');
 }
 

@@ -72,7 +72,8 @@
                                    ", data_object_id: '#{image.id}'" +
                                    ", curated: #{image.curated}" +
                                    ", smart_image: '#{escape_javascript(image.smart_image)}'" +
-                                   ", published_by_agent: #{published_by_agent}"
+                                   ", published_by_agent: #{published_by_agent}" +
+                                   ", visibility_id: #{image.visibility_id}"
             unless image.license_text.nil?
                 image_attribution_hash += ",license_text: '" + escape_javascript(image.license_text || "") +
                                           "',license_logo: '" + escape_javascript(image.license_logo) +
@@ -82,19 +83,28 @@
             end    
             image_attribution_hash+="}"
             counter += 1
-            image_icons = '<ul>'
-            if !image.published?
-              image_icon = unpublished_icon({:style=>"position:relative;top:-53px;left:-28px;"})
-            elsif published_by_agent
-              image_icon = published_icon({:style=>"position:relative;top:-53px;left:-28px;", :agent_name => data_supplier.full_name })
-            end
+            image_icons = "<ul data-data_object_id='#{image.id}'>" +
+                          '<li class="unpublished_icon status_icon" style="display:none;" title="Unpublished" ></li>' +
+                          '<li class="published_icon status_icon" style="display:none;" title="Published" ></li>' +
+                          '<li class="inappropriate_icon status_icon" style="display:none;" title="Inappropriate" ></li>' +
+                          '<li class="invisible_icon status_icon" style="display:none;" title="Hidden" ></li>'
+
+            #if !image.published?
+              #image_icons += unpublished_icon({:style=>"position:relative;top:-53px;left:-28px;"})
+            #elsif published_by_agent
+              ##image_icons += published_icon({:style=>"position:relative;top:-53px;left:-28px;", :agent_name => data_supplier.full_name })
+              #image_icons += '<li class="published_icon status_icon" title="Published" ></li>'
+            #end
+
+
+            image_icons += '</ul>'
             -%>
 
             <script type="text/javascript">
               EOL.MediaCenter.image_hash[<%=image.id%>] = <%=image_attribution_hash%>;
             </script>
 
-            <%= link_to_function("<span>#{image_tag(image.smart_thumb, {:alt => hh(image.scientific_name)})}</span>#{image_icon}",
+            <%= link_to_function("<span>#{image_tag(image.smart_thumb, {:alt => hh(image.scientific_name)})}</span>#{image_icons}",
                                  %Q{return eol_update_image('#{ escape_javascript(image.smart_image)}',EOL.MediaCenter.image_hash[#{image.id}])},
                                  :title => hh(image.scientific_name), :class=>vetted_id_class(image),:id=>"thumbnail_#{image.id}") %>
           

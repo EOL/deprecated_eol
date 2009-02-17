@@ -143,15 +143,21 @@ function eol_update_credit(params){
     field_notes_area += params.field_notes ? params.field_notes : "";				
 
 
+    $$('#large-image-button-group .published_icon')[0].hide();
+    $$('#large-image-button-group .unpublished_icon')[0].hide();
+    $$('#large-image-button-group .inappropriate_icon')[0].hide();
+    $$('#large-image-button-group .invisible_icon')[0].hide();
+
     if (params.published_by_agent){
-      $$('#large-image-button-group .unpublished_icon')[0].hide();
       $$('#large-image-button-group .published_icon')[0].show();
     } else if(!params.published) {
-      $$('#large-image-button-group .published_icon')[0].hide();
       $$('#large-image-button-group .unpublished_icon')[0].show();
-    } else {
-      $$('#large-image-button-group .published_icon')[0].hide();
-      $$('#large-image-button-group .unpublished_icon')[0].hide();
+    }
+
+    if (params.visibility_id == EOL.Curation.INVISIBLE_ID) {
+      $$('#large-image-button-group .invisible_icon')[0].show();
+    } else if (params.visibility_id == EOL.Curation.INAPPROPRIATE_ID) {
+      $$('#large-image-button-group .inappropriate_icon')[0].show();
     }
 
     $('large-image-attribution-button').removeClassName('unknown');

@@ -21,6 +21,7 @@ module EOL::Spec
 
     # truncates all tables in all databases
     def truncate_all_tables options = { }
+      # TODO don't do 1 execute for each table!  do 1 execute for each connection!  should be faster
       # puts "truncating all tables"
       options[:verbose] ||= false
       all_connections.each do |conn|

@@ -72,18 +72,15 @@ end
 
 describe 'Search' do
 
-  before :each do
-    truncate_all_tables
-    Scenario.load :foundation
-  end
-
   it 'should return a helpful message if no results' do
+    eval Scenario[:foundation].source_code
     TaxonConcept.count.should == 0
 
     request('/search?q=tiger').body.should include("Your search on 'tiger' did not find any matches")
   end
 
   it 'should redirect to species page if only 1 possible match is found' do
+    eval Scenario[:foundation].source_code
     TaxonConcept.count.should == 0
 
     tiger = SearchSpec.make_a_taxon 'Tiger', SearchSpec.animal_kingdom.id

@@ -2,7 +2,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Login' do
 
-  scenario :foundation, :before => :all
+  before :each do
+    Scenario.load :foundation
+  end
 
   # helpers
 

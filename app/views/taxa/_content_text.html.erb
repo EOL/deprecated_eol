@@ -22,7 +22,12 @@ unless @content[:data_objects].nil?
 
       <!-- ATTRIBUTION GOES HERE -->
       <div class="content-attribution-area">
-        <div class="attribution-header2"><%- if !content_item.published -%><%= unpublished_icon %>&nbsp;<%- end -%><%= "Source and Additional Information"[] %></div>
+        <div class="attribution-header2">
+          <ul data-data_object_id='<%=content_item.id%>'>
+            <%=render :partial=>'data_object_states', :locals => {:dato => content_item}%>
+          </ul>
+          <%= "Source and Additional Information"[] %>
+        </div>
         <%= render :partial => 'data_objects/attribution', :locals => { :data_object => content_item } %>
       </div>        
 

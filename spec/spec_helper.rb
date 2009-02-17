@@ -19,11 +19,7 @@ Spec::Runner.configure do |config|
   include EOL::Spec::Helpers
 
   config.include EOL::Spec::Matchers
-
-  config.use_transactional_fixtures = true
-  config.use_instantiated_fixtures  = false
-  config.use_blackbox               = true
-  config.fixture_path               = 'we dont use fixtures'
+  config.use_blackbox = true
 
   # taken from use_db/lib/override_test_case.rb
   #
@@ -35,27 +31,25 @@ Spec::Runner.configure do |config|
       klass
     end
 
-    ActiveRecord::Base.active_connections.values.uniq.each do |conn|
-      puts "begining transaction for => #{ conn.instance_eval { @config[:database] } }"
+    [ User, CuratorActivity, Name ].each do |model|
+      conn = model.connection
       Thread.current['open_transactions'] ||= 0
       Thread.current['open_transactions'] += 1
       conn.begin_db_transaction
+      puts "BEGIN transaction"
     end
   end
   config.after(:each) do
-    ActiveRecord::Base.active_connections.values.uniq.each do |conn|                  
+    UseDbPlugin.all_use_dbs.collect do |klass|
+      klass
+    end
+
+    [ User, CuratorActivity, Name ].each do |model|
+      conn = model.connection
       conn.rollback_db_transaction
       Thread.current['open_transactions'] = 0
+      puts "ROLLBACK"
     end
-  end
-
-  # this is expensive so we should run it once before running 
-  # the *whole* suite, not once per spec ... putting it here for now, tho
-  #
-  # TODO transactions should handle this, we should NOT have to do this ... FIX / figure out!
-  #
-  config.before(:all) do
-    # truncate_all_tables # GET RID OF THIS!  shows things down, hardcode!
   end
 
 end

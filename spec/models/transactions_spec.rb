@@ -3,48 +3,55 @@ require File.dirname(__FILE__) + '/../spec_helper'
 # this tests to make sure transactions are working 
 # properly in our spec suite.  if this blows up, 
 # it's likely that lots of other specs will all blow up
-describe 'RSpec Transations' do
+describe 'RSpec Transactions' do
 
   # make sure that transactions are working 
   # for all of the different databases
+  #
+  # we're using a few models from each database 
+  # just incase it's the model there's a problem 
+  # with and not the database, itself
+  #
   {
-    'Rails Database'   => User,
-    'Data Database'    => Visibility,
-    'Logging Database' => IpAddress
+    'Rails Database'   => [ User, Comment, Role ],
+    'Logging Database' => [ CuratorActivity, IpAddress ],
+    'Data Database'    => [ Visibility, Name, Agent ]
   
-  }.each do |database, model|
+  }.each do |database, models|
 
     describe database do
 
-      it "should have no users are the start of an example" do
-        puts "testing transactions for #{ model.connection.instance_eval { @config[:database] } }"
-        model.count.should == 0
-        3.times { model.gen }
-        model.count.should == 3
-      end
+      models.each do |model|
 
-      it "should *still* have no users are the start of an example" do
-        puts "testing transactions for #{ model.connection.instance_eval { @config[:database] } }"
-        model.count.should == 0
-        3.times { model.gen }
-        model.count.should == 3
+        it "should have no #{ model.to_s.tableize } are the start of an example" do
+          model.count.should == 0
+          3.times { model.gen }
+          model.count.should == 3
+        end
+
+        it "should *still* have no #{ model.to_s.tableize } are the start of an example" do
+          model.count.should == 0
+          3.times { model.gen }
+          model.count.should == 3
+        end
+
       end
 
     end
 
   end
-
+   
   it "scenarios should respect transactions too" do
-    pending
     Visibility.count.should == 0
-    Scenario.load :foundation # load foundation
+    # Scenario.load :foundation # load foundation
+    eval Scenario[:foundation].source_code
     Visibility.count.should > 0
   end
 
   it "scenarios should *still* respect transactions too" do
-    pending
     Visibility.count.should == 0
-    Scenario.load :foundation # load foundation
+    # Scenario.load :foundation # load foundation
+    eval Scenario[:foundation].source_code
     Visibility.count.should > 0
   end
 

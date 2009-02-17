@@ -2,7 +2,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Home page' do
 
-  scenario :foundation, :before => :all
+  before :each do
+    Scenario.load :foundation
+  end
 
   it 'should say EOL somewhere' do
     request('/').body.should include('EOL')

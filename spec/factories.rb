@@ -405,6 +405,12 @@ Factory.define :info_item do |ii|
   ii.toc_id       0
 end
 
+Factory.define :ip_address do |ip|
+  ip.number { Factory.next(:int) }
+  ip.success false
+  ip.provider 'i have no idea what this is'
+end
+
 Factory.define :item_page do |ip|
   ip.association :title_item
   ip.page_type ''

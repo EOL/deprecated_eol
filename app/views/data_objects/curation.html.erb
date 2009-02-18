@@ -4,10 +4,10 @@
   <form action="<%= curate_data_object_path(@data_object) %>" data-data_object_id="<%= @data_object.id %>" data-data_object_type="<%=@data_object.data_type_id%>">
     <div class="label">VETTED <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.approve!.id.to_s, @data_object.trusted?, {:id => "curate_trust_#{@data_object.id}", 'data-vetted_id' => Vetted.trusted.id} %> Trusted
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.approve!.id.to_s, @data_object.trusted?%> Trusted
     </div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.disapprove!.id.to_s, @data_object.untrusted?, {:id => "curate_untrust_#{@data_object.id}", 'data-vetted_id' => Vetted.untrusted.id} %> Untrusted
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.disapprove!.id.to_s, @data_object.untrusted?%> Untrusted
     </div>
   </form>
 </div>
@@ -16,13 +16,13 @@
   <form action="<%= curate_data_object_path(@data_object) %>" data-data_object_id="<%= @data_object.id %>" data-data_object_type="<%=@data_object.data_type_id%>">
     <div class="label">VISIBILITY <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.show!.id.to_s, @data_object.visible?, {:id => "curate_visible_#{@data_object.id}", 'data-visibility_id' => Visibility.visible.id} %> Show to all users
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.show!.id.to_s, @data_object.visible?%> Show to all users
     </div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.hide!.id.to_s, @data_object.invisible?, {:id => "curate_invisible_#{@data_object.id}", 'data-visibility_id' => Visibility.invisible.id} %> Hide for all except curators
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.hide!.id.to_s, @data_object.invisible?%> Hide for all except curators
     </div>
     <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.inappropriate!.id.to_s, @data_object.inappropriate?, {:id => "curate_inappropriate_#{@data_object.id}", 'data-visibility_id' => Visibility.inappropriate.id} %> Permanently Remove
+      <%= radio_button_tag 'curator_activity_id', CuratorActivity.inappropriate!.id.to_s, @data_object.inappropriate?%> Permanently Remove
     </div>
   </form>
 </div>

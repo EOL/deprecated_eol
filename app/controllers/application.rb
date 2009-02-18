@@ -160,9 +160,9 @@ end
 
     # be sure we aren't returning the login, register or logout page
     if return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url
-      redirect_to(CGI.unescape(return_to_url))
+      redirect_to(CGI.unescape(return_to_url),:protocol => "http://")
     else
-      redirect_to(default)
+      redirect_to(default,:protocol => "http://")
     end
     store_location(nil)
     return false
@@ -372,6 +372,11 @@ end
   # send user to the SSL version of the page (used in the account controller, can be used elsewhere)
   def redirect_to_ssl
      redirect_to :protocol => "https://" unless (request.ssl? or local_request?)
+  end
+  
+  # send user back to the non-SSL version of the page
+  def redirect_back_to_http
+    redirect_to :protocol => "http://" if request.ssl?
   end
   
   # default new user when we don't have a logged in user

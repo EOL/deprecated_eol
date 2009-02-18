@@ -88,15 +88,10 @@
             </ul>
             <hr />
 
-            <% curators = @taxon.approved_curators %>
-            <% if curators.size > 0 %>
-              <div id="page-curator">
-                <h2><%="Page Curated by"[]%></h2><br />
-                <% curators.each do |c| %>
-                  <div class="curator_name"><%= link_to h("#{c.given_name} #{c.family_name}"), :controller => :account, :action => :show, :id => c.id %></div>
-                <% end %>
-              </div>
-            <% end %>
+            <% # don't show curators for now until we can only show curators that actually did something on this page
+               # Feb. 12, 2009 Peter Mangiafico
+               #= render :partial => 'curator_list'
+            %>
             
         </div> <!-- /left page content -->
         

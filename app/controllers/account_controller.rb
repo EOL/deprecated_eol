@@ -4,8 +4,10 @@ class AccountController < ApplicationController
   before_filter :check_authentication, :only => [:profile]
   before_filter :go_to_home_page_if_logged_in, :except => [:profile,:logout, :show, :new_openid_user]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
-  #before_filter :redirect_to_ssl, :only=>[:login,:authenticate,:signup]  # when we get SSL certs we can start redirecting to the encrypted page for these methods
-  
+  if $USE_SSL_FOR_LOGIN 
+    before_filter :redirect_to_ssl, :only=>[:login,:authenticate,:signup,:profile]  # when we get SSL certs we can start redirecting to the encrypted page for these methods
+  end
+
   if $SHOW_SURVEYS
     before_filter :check_for_survey
     after_filter :count_page_views
@@ -69,7 +71,7 @@ class AccountController < ApplicationController
       @user.entered_password=''
       @user.entered_password_confirmation=''
       Notifier.deliver_registration_confirmation(@user)
-      redirect_to :action=>'confirmation_sent'
+      redirect_to :action=>'confirmation_sent',:protocol => "http://"
       return
     else # verify recaptcha failed or other validation errors
       @verification_did_not_match="The verification phrase you entered did not match."[:verification_phrase_did_not_match] unless verify_recaptcha
@@ -216,14 +218,14 @@ class AccountController < ApplicationController
     # TODO - user.failed_logins = 0; user.save
     # could catch the fact that they are a new openid user here and redirect somewhere else if you wanted
     if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty? ) # if we're an admin we STILL would love a return, thank you very much!
-      redirect_to :controller => 'admin', :action => 'index'
+      redirect_to :controller => 'admin', :action => 'index', :protocol => "http://"
     else
       redirect_back_or_default
     end
   end
   
   def failed_login(message)
-    redirect_to :action => 'login'
+    redirect_to :action => 'login',:protocol => "http://"
     # TODO - user.failed_logins += 1; user.save
     # TODO - send an email to an admin if user.failed_logins > 10 # Smells like a dictionary attack!
     flash[:warning] = message

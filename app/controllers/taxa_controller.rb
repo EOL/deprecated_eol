@@ -2,7 +2,8 @@ class TaxaController < ApplicationController
   
   layout 'main'
   before_filter :set_user_settings, :only=>[:show,:search,:settings]
-
+  before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
+  
   if $SHOW_SURVEYS
     before_filter :check_for_survey, :only=>[:show,:search,:settings]
     after_filter :count_page_views, :only=>[:show,:search,:settings]

@@ -147,19 +147,21 @@
 		  <% unless @news_items.empty?%>
 			  <h1>What's New?</h1>
 			  <ul class="helplist">
-			  <% for news_item in @news_items%>
-			    <li><strong><%=format_date(news_item.display_date) %></strong> - 
-			    <% if news_item.title.blank? %> 
-			      <%= news_item.body %>
-			    <% else %>
-  			     <% if news_item.body.blank? %>			     
-    			     <%= news_item.title %>
-    			   <% else %>
-  			       <a href="#" onclick="JavaScript:EOL.Effect.toggle_with_effect('news_<%=news_item.id%>');return false;"><%= news_item.title%></a>
-  			       <div id="news_<%=news_item.id%>" style="display:none;"><%= news_item.body %></div>
+			  <% for news_item in @news_items
+			    if news_item.visible?%>
+  			    <li><strong><%=format_date(news_item.display_date) %></strong> - 
+  			    <% if news_item.title.blank? %> 
+  			      <%= news_item.body %>
+  			    <% else %>
+    			     <% if news_item.body.blank? %>			     
+      			     <%= news_item.title %>
+      			   <% else %>
+    			       <a href="#" onclick="JavaScript:EOL.Effect.toggle_with_effect('news_<%=news_item.id%>');return false;"><%= news_item.title%></a>
+    			       <div id="news_<%=news_item.id%>" style="display:none;"><%= news_item.body %></div>
+    			     <% end %>
   			     <% end %>
-			     <% end %>
-			     </li>
+  			     </li>
+  			  <% end %>
 			  <%end %>
 			  
 			  <li><%=link_to "more news...",:action=>'news'%> </li>

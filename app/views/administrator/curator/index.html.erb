@@ -10,7 +10,7 @@
 		<% if @users.nil? == false && @users.size > 0 %>
 			
 			A total of <%= @user_count %> users were found matching your criteria.<br />
-    	You may change clade level curator permissions on individual profile pages.
+    	You may change clade level curator permissions on individual profile pages.  If credentials are truncated, click to expand and show full credentials.
 			
 			<%= will_paginate @users %>
 			    <table class="results_table" cellspacing="0">
@@ -19,7 +19,7 @@
 					column_class=cycle('odd','even')  %>
 				    <tr>
 				    	<td class="<%= column_class %>"><%= link_to(user.username, :controller => 'administrator/user', :action=>'edit',:id=>user.id)%></td>
-						<td class="<%= column_class %>"><%= h user.credentials%></td>
+						<td class="<%= column_class %>"><a href="#" onclick="Element.toggle('credentials_<%=user.id%>');return false;"><%=truncate(user.credentials)%></a><div style="display:none;" id="credentials_<%=user.id%>"><%= allow_some_html(user.credentials) %></pre></div></td>
 						<td class="<%= column_class %>"><%= h user.given_name + ' ' + user.family_name%></td>
 						<td class="<%= column_class %>"><%= user.curator_hierarchy_entry.name %></td>
 						<% form_id = "user_curator_#{user.id}"%>

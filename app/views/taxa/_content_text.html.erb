@@ -47,11 +47,13 @@ unless @content[:data_objects].nil?
           <div class="spinner">
             <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
           </div>
-          <div class="trust_button thumbs-up-image">
-            <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
-          </div>
-          <div class="untrust_button thumbs-down-image">
-            <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
+          <div id="hide_these_controls_too_for_now" style="display:none">
+            <div class="trust_button thumbs-up-image">
+              <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
+            </div>
+            <div class="untrust_button thumbs-down-image">
+              <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
+            </div>
           </div>
         <% end %>
         <div class="curate_button curate-button-image">
@@ -72,7 +74,6 @@ unless @content[:data_objects].nil?
 
     <div id="text-curation-wrapper-<%= content_item.id %>" style="display:none;" class="text-slidebox-border">
       <div id="text-curation-<%= content_item.id %>" class="text-slidebox-container">
-        <%# TODO - we re-use this indicator a lot.  Put it in a CSS class. %>
         <p><%= image_tag 'indicator_arrows_black.gif' %> Loading curation controls, please wait...</p>
       </div>
     </div>

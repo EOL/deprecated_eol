@@ -75,6 +75,13 @@
 			</td>
 		</tr>
 		<tr>
+		  <td><strong><%= "Credentials"[:credentials] %></strong></td>
+		  <td>
+            <%= f.text_area :credentials, :rows => 9, :cols=>60 %>		
+		  </td>
+		</tr>
+		
+		<tr>
 			<td><strong>Curator Approved:</strong></td>
 			<td><%=f.check_box :curator_approved%> True</td> 
 		</tr>		

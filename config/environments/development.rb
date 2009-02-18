@@ -28,6 +28,7 @@ $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and co
 
 #$WEB_SERVICE_TIMEOUT_SECONDS=20 # how many seconds to wait when calling a webservice before timing out and returning nil
 $LOG_WEB_SERVICE_EXECUTION_TIME=true # if set to false, then execution times for web service calls will not be recorded
+$USE_SSL_FOR_LOGIN=false
 
 #set up the master database connection for writes using masochism plugin
 #NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)

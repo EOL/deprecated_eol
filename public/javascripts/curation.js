@@ -9,6 +9,7 @@ EOL.Curation.post_curate_text = function(data_object_id, visibility_id, vetted_i
     //no quick curate buttons
   }
   EOL.Curation.update_text_background(data_object_id, vetted_id);
+  EOL.Curation.update_text_icons(data_object_id, visibility_id);
 };
 
 EOL.Curation.post_curate_image = function(data_object_id, visibility_id, vetted_id) {
@@ -63,8 +64,15 @@ EOL.Curation.update_text_background = function(data_object_id, vetted_id) {
   }
 }
 
-EOL.Curation.update_text_icons = function(data_object_id) {
-  
+EOL.Curation.update_text_icons = function(data_object_id, visibility_id) {
+  $$('div#text_'+data_object_id+' div.attribution-header2 ul li.invisible_icon')[0].hide();
+  $$('div#text_'+data_object_id+' div.attribution-header2 ul li.inappropriate_icon')[0].hide();
+
+  if(visibility_id == EOL.Curation.INVISIBLE_ID) {
+    $$('div#text_'+data_object_id+' div.attribution-header2 ul li.invisible_icon')[0].show();
+  } else if(visibility_id == EOL.Curation.INAPPROPRIATE_ID) {
+    $$('div#text_'+data_object_id+' div.attribution-header2 ul li.inappropriate_icon')[0].show();
+  }
 };
 
 EOL.Curation.Behaviors = {

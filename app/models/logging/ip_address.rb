@@ -2,6 +2,8 @@ require 'ipaddr'
 
 class IpAddress < LoggingModel
 
+  before_validation :set_provider_if_null
+
   has_many :data_object_logs
   has_many :search_logs
 
@@ -32,4 +34,12 @@ class IpAddress < LoggingModel
     IPAddr.new(int, Socket::AF_INET).to_s
   end
   
+  protected
+
+  def set_provider_if_null
+    self.provider = '' unless self.provider   # database requires this field 
+                                              # but we want it to be OK for it 
+                                              # to be an empty string
+  end
+
 end

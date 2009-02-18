@@ -24,11 +24,13 @@
           		    <table class="results_table" width="100%" cellspacing="0">
           		    <tr><th>Date</th><th>News Item</th></tr>
           			<% for news_item in @news_items
-          				column_class=cycle('odd','even')  %>
-          			    <tr>
-          			    	<td width="15%" class="<%= column_class %>"><%=h format_date(news_item.display_date)%></td>
-            					<td class="<%= column_class %>"><%= "<strong>" + news_item.title + "</strong><br /> " unless news_item.title.blank?%><%=news_item.body%></td>
-          				</tr>									
+          			  if news_item.visible?
+            				column_class=cycle('odd','even')  %>
+            			    <tr>
+            			    	<td width="15%" class="<%= column_class %>"><%=h format_date(news_item.display_date)%></td>
+              					<td class="<%= column_class %>"><%= "<strong>" + news_item.title + "</strong><br /> " unless news_item.title.blank?%><%=news_item.body%></td>
+            				</tr>									
+            			<% end %>	
           			<% end %>
           		    </table>
 

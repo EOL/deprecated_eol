@@ -52,11 +52,13 @@
                     <div class="spinner">
                       <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
                     </div>
-                    <div alt="Trust this image" title="Trust this image" id="large-image-trust-button" class="trust_button thumbs-up-image" <%='style="display: none"' if @images[0].curated?%>>
-                        <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => @images[0].id, 'data-data_object_type' => DataType.image_type_ids[0]} %>
-                    </div>
-                    <div alt="Do not trust this image" title="Do not trust this image" id="large-image-untrust-button" class="untrust_button thumbs-down-image" <%='style="display: none"' if @images[0].curated?%>>
-                        <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => @images[0].id, 'data-data_object_type' => DataType.image_type_ids[0]} %>
+                    <div id="hide_these_controls_for_now" style="display:none">
+                        <div alt="Trust this image" title="Trust this image" id="large-image-trust-button" class="trust_button thumbs-up-image" <%='style="display: none"' if @images[0].curated?%>>
+                            <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => @images[0].id, 'data-data_object_type' => DataType.image_type_ids[0]} %>
+                        </div>
+                        <div alt="Do not trust this image" title="Do not trust this image" id="large-image-untrust-button" class="untrust_button thumbs-down-image" <%='style="display: none"' if @images[0].curated?%>>
+                            <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => @images[0].id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => @images[0].id, 'data-data_object_type' => DataType.image_type_ids[0]} %>
+                        </div>
                     </div>
                     <div alt="Curate image" title="Curate image" id="large-image-curator-button" class="curate-button-image">
                       <%= popup_link 'curator', curation_data_object_path(@images[0]) %>

@@ -3,6 +3,7 @@ class ContentPartnerController < ApplicationController
   before_filter :agent_login_required, :except => [:login, :forgot_password, :register, :check_username, :forgot_password, :agreement]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   helper_method :current_agent, :agent_logged_in?
+  
   layout 'main'
   
   # Dashboard
@@ -52,8 +53,6 @@ class ContentPartnerController < ApplicationController
     @agent = current_agent
     @content_partner=@agent.content_partner
     @content_partner.step  = :licensing
-    
-    @contact = AgentContactForm.new
     
     return unless request.post?
     

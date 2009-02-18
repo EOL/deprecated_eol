@@ -1,7 +1,6 @@
 class Administrator::NewsItemController < AdminController
 
   access_control :DEFAULT => 'Administrator - News Items'
-  before_filter :redirect_if_not_allowed_ip  # only allow MBL/EOL IP addresses
   
   def index
  

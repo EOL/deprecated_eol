@@ -238,6 +238,15 @@ module ApplicationHelper
         return image_item['localURL']
       end
   end
+
+  # Note that I change strong to b, 'cause strong appears to be overridden in our CSS.  Hrmph.
+  def allow_some_html(text)
+    ['i', 'b', 'strong', 'em', 'blockquote', 'small'].each do |tag|
+      text.gsub!(/&lt;(\/?)#{tag}&gt;/i, "<\\1#{tag.gsub(/strong/, 'b')}>")
+    end
+    text.gsub!(/\r\n/, '<br/>')
+    return text
+  end
   
   # render a version of the classification that allows you to choose a particular clade
   #

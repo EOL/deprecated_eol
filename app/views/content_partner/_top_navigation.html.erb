@@ -4,7 +4,7 @@
   <%=link_to "Log Out",:controller=>'/content_partner',:action => 'logout'%> 
   &nbsp; | &nbsp; <%=link_to "Account Profile",:controller=>'/content_partner',:action => 'profile'%> 
   <!-- &nbsp; | &nbsp; <%#=link_to "Help", :controller=>'/content_partner',:action => 'help', :anchor => action_name %> -->
-  &nbsp; | &nbsp; <%=link_to "Contact Us",:controller=>'/content', :action => 'contact_us', :return_to=>CGI.escape(request.request_uri),:default_name=>current_agent.primary_contact.full_name,:default_email=>current_agent.primary_contact.email,:default_subject=>'Content Partner Support'
+  &nbsp; | &nbsp; <%=link_to "Contact Us",:controller=>'/content', :action => 'contact_us', :return_to=>CGI.escape(request.request_uri),:default_name=>current_agent.full_name,:default_email=>current_agent.email,:default_subject=>'Content Partner Support'
    %>
 
 </div>

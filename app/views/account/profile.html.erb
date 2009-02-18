@@ -52,9 +52,9 @@
 					<br /><br />
 					<%= render(:partial=>'taxa/set_content_settings',:locals=>{:f=>f}) %>
           
-          <% if $ALLOW_CURATOR_SELF_REG %>
+          <% if $ALLOW_CURATOR_SELF_REG || @user.curator_approved %>
 			    <label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[:credentials] %> (CURATORS ONLY)</label>
-                  <%= f.text_area :credentials, :rows => 6 %>
+              <%= f.text_area :credentials, :rows => 9, :cols=>60 %>	
 
   					<% if @user.curator_approved %>
   					  <br />

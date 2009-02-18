@@ -8,41 +8,7 @@
         <p>
             Curator of <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %>
         </p>
-    </div>
-    <div id="account">
-        <h3>Account</h3>
-        <p>
-            <table>
-                <thead>
-                </thead>
-                <tbody>
-                    <tr class="<%= cycle('odd','even', :name => 'account')%>">
-                        <td>
-                            Username
-                        </td>
-                        <td>
-                            <%= h @user.username %>
-                        </td>
-                    </tr>
-                    <tr class="<%= cycle('odd','even', :name => 'account')%>">
-                        <td>
-                            Joined
-                        </td>
-                        <td>
-                            <%= @user.created_at %>
-                        </td>
-                    </tr>
-                    <tr class="<%= cycle('odd','even', :name => 'account')%>">
-                        <td>
-                            Approved Curator
-                        </td>
-                        <td>
-                            <%= @user.curator_approved ? 'Yes'[] : 'No'[] %>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </p>
+        <p>"<%= h @user.username %>" joined <%= format_date(@user.created_at) %></p>
     </div>
     <!--
     <div id="activity">
@@ -74,10 +40,8 @@
     </div>
     -->
     <div id="credentials">
-        <h2>Credentials</h2>
-        <p>
-            <%= h @user.credentials %>
-        </p>
+        <h3>Credentials</h3>
+            <%= allow_some_html(@user.credentials) %>
     </div>
 
 </div>

@@ -2012,7 +2012,12 @@ ul#global-navigation {
       color: #999;
       border-bottom: 1px solid #ccc;  
       text-transform: uppercase;                
-    }  
+    }
+
+    .attribution-header2 ul {
+      display: inline-block;
+      padding-right: 5px;
+    }
 
     .content-attribution-area {
       margin-top: 2px;

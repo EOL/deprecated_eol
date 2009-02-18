@@ -35,7 +35,7 @@ class DataObjectsController < ApplicationController
     
     respond_to do |format|
       format.html {redirect_to request.referer ? :back : '/'}
-      format.js {render :nothing => true}
+      format.js {render :action => 'curate.rjs'}
     end
   end
 

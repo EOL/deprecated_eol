@@ -1,0 +1,5 @@
+if @data_object.image?
+  page.call 'EOL.Curation.post_curate_image', @data_object.id, @data_object.visibility_id, @data_object.vetted_id
+elsif @data_object.text?
+  page.call 'EOL.Curation.post_curate_text', @data_object.id, @data_object.visibility_id, @data_object.vetted_id
+end

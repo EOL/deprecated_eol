@@ -12,10 +12,8 @@ require 'rspec-custom-matchers'
 module EOL::Spec::Matchers
   extend CustomMatcher::Helper
 
-  matcher(:be_awesome) {|x|
-    true # everything is awesome  :P
-  }
-
   matcher(:be_a_curator_of) {|user, clade| user.can_curate? clade }
+
+  matcher(:include) {|array, block| array.include? block }
 
 end

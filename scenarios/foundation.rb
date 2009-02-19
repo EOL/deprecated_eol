@@ -1,209 +1,217 @@
 # sets up a basic foundation - enough data to run the application, but no content
 
-# This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
-ContentPage.gen :page_name => 'Home',           :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Home Page')
-ContentPage.gen :page_name => 'Who We Are',     :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'About EOL')
-ContentPage.gen :page_name => 'Contact Us',     :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Feedback')
-ContentPage.gen :page_name => 'Screencasts',    :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Using the Site')
-ContentPage.gen :page_name => 'Press Releases', :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Press Room')
-ContentPage.gen :page_name => 'Terms Of Use',   :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Footer')
+def create_if_not_exists(klass, attributes)
+  begin
+    klass.send(:gen, attributes)
+  rescue ActiveRecord::RecordInvalid => e
+    # create_if_not_exists Do nothing; we don't care.  This is (usually, we hope) caused when such a thing already exists.
+  end
+end
 
-CuratorActivity.gen :code => 'delete'
-CuratorActivity.gen :code => 'update'
+# create_if_not_exists This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
+create_if_not_exists ContentPage, :title => 'Home',           :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Home Page')
+create_if_not_exists ContentPage, :title => 'Who We Are',     :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'About EOL')
+create_if_not_exists ContentPage, :title => 'Contact Us',     :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Feedback')
+create_if_not_exists ContentPage, :title => 'Screencasts',    :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Using the Site')
+create_if_not_exists ContentPage, :title => 'Press Releases', :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Press Room')
+create_if_not_exists ContentPage, :title => 'Terms Of Use',   :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Footer')
 
-# We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
-# them.  Once we do, they should get added here.
-AgentContactRole.gen :label => 'Primary Contact'
-AgentContactRole.gen :label => 'Administrative Contact'
-AgentContactRole.gen :label => 'Technical Contact'
+create_if_not_exists CuratorActivity, :code => 'delete'
+create_if_not_exists CuratorActivity, :code => 'update'
 
-Agent.gen :full_name => 'IUCN'
-AgentContact.gen :agent => Agent.iucn, :agent_contact_role => AgentContactRole.primary
-Agent.gen :full_name => 'Catalogue of Life'
-AgentContact.gen :agent => Agent.catalogue_of_life, :agent_contact_role => AgentContactRole.primary
+# create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
+# them.  create_if_not_exists Once we do, they should get added here.
+create_if_not_exists AgentContactRole, :label => 'Primary Contact'
+create_if_not_exists AgentContactRole, :label => 'Administrative Contact'
+create_if_not_exists AgentContactRole, :label => 'Technical Contact'
 
-AgentDataType.gen :label => 'Audio'
-AgentDataType.gen :label => 'Image'
-AgentDataType.gen :label => 'Text'
-AgentDataType.gen :label => 'Video'
+create_if_not_exists Agent, :full_name => 'IUCN'
+create_if_not_exists AgentContact, :agent => Agent.iucn, :agent_contact_role => AgentContactRole.primary
+create_if_not_exists Agent, :full_name => 'Catalogue of Life'
+create_if_not_exists AgentContact, :agent => Agent.catalogue_of_life, :agent_contact_role => AgentContactRole.primary
 
-AgentRole.gen :label => 'Animator'
-AgentRole.gen :label => 'Author'
-AgentRole.gen :label => 'Compiler'
-AgentRole.gen :label => 'Composer'
-AgentRole.gen :label => 'Creator'
-AgentRole.gen :label => 'Director'
-AgentRole.gen :label => 'Editor'
-AgentRole.gen :label => 'Illustrator'
-AgentRole.gen :label => 'Photographer'
-AgentRole.gen :label => 'Project'
-AgentRole.gen :label => 'Publisher'
-AgentRole.gen :label => 'Recorder'
-AgentRole.gen :label => 'Source'
+create_if_not_exists AgentDataType, :label => 'Audio'
+create_if_not_exists AgentDataType, :label => 'Image'
+create_if_not_exists AgentDataType, :label => 'Text'
+create_if_not_exists AgentDataType, :label => 'Video'
 
-AgentStatus.gen :label => 'Active'
-AgentStatus.gen :label => 'Archived'
-AgentStatus.gen :label => 'Pending'
+create_if_not_exists AgentRole, :label => 'Animator'
+create_if_not_exists AgentRole, :label => 'Author'
+create_if_not_exists AgentRole, :label => 'Compiler'
+create_if_not_exists AgentRole, :label => 'Composer'
+create_if_not_exists AgentRole, :label => 'Creator'
+create_if_not_exists AgentRole, :label => 'Director'
+create_if_not_exists AgentRole, :label => 'Editor'
+create_if_not_exists AgentRole, :label => 'Illustrator'
+create_if_not_exists AgentRole, :label => 'Photographer'
+create_if_not_exists AgentRole, :label => 'Project'
+create_if_not_exists AgentRole, :label => 'Publisher'
+create_if_not_exists AgentRole, :label => 'Recorder'
+create_if_not_exists AgentRole, :label => 'Source'
 
-Audience.gen :label => 'Children'
-Audience.gen :label => 'Expert users'
-Audience.gen :label => 'General public'
+create_if_not_exists AgentStatus, :label => 'Active'
+create_if_not_exists AgentStatus, :label => 'Archived'
+create_if_not_exists AgentStatus, :label => 'Pending'
 
-DataType.gen :label => 'Image',     :schema_value => 'http://purl.org/dc/dcmitype/StillImage'
-DataType.gen :label => 'Sound',     :schema_value => 'http://purl.org/dc/dcmitype/Sound'
-DataType.gen :label => 'Text',      :schema_value => 'http://purl.org/dc/dcmitype/Text'
-DataType.gen :label => 'Video',     :schema_value => 'http://purl.org/dc/dcmitype/MovingImage'
-DataType.gen :label => 'GBIF Image'
-DataType.gen :label => 'IUCN'
-DataType.gen :label => 'Flash'
-DataType.gen :label => 'YouTube'
+create_if_not_exists Audience, :label => 'Children'
+create_if_not_exists Audience, :label => 'Expert users'
+create_if_not_exists Audience, :label => 'General public'
+
+create_if_not_exists DataType, :label => 'Image',     :schema_value => 'http://purl.org/dc/dcmitype/StillImage'
+create_if_not_exists DataType, :label => 'Sound',     :schema_value => 'http://purl.org/dc/dcmitype/Sound'
+create_if_not_exists DataType, :label => 'Text',      :schema_value => 'http://purl.org/dc/dcmitype/Text'
+create_if_not_exists DataType, :label => 'Video',     :schema_value => 'http://purl.org/dc/dcmitype/MovingImage'
+create_if_not_exists DataType, :label => 'GBIF Image'
+create_if_not_exists DataType, :label => 'IUCN'
+create_if_not_exists DataType, :label => 'Flash'
+create_if_not_exists DataType, :label => 'YouTube'
 
 
-Hierarchy.gen :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007"
-Hierarchy.gen :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
+create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007"
+create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
 
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label => 'Associations'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label => 'Behaviour'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus',    :label => 'ConservationStatus'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cyclicity',             :label => 'Cyclicity'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cytology',              :label => 'Cytology'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#DiagnosticDescription', :label => 'DiagnosticDescription'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Diseases',              :label => 'Diseases'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Dispersal',             :label => 'Dispersal'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution',          :label => 'Distribution'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Evolution',             :label => 'Evolution'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription',    :label => 'GeneralDescription'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Genetics',              :label => 'Genetics'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Growth',                :label => 'Growth'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat',               :label => 'Habitat'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Legislation',           :label => 'Legislation'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeCycle',             :label => 'LifeCycle'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeExpectancy',        :label => 'LifeExpectancy'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LookAlikes',            :label => 'LookAlikes'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Management',            :label => 'Management'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Migration',             :label => 'Migration'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#MolecularBiology',      :label => 'MolecularBiology'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology',            :label => 'Morphology'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Physiology',            :label => 'Physiology'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#PopulationBiology',     :label => 'PopulationBiology'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Procedures',            :label => 'Procedures'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Reproduction',          :label => 'Reproduction'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#RiskStatement',         :label => 'RiskStatement'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Size',                  :label => 'Size'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology',          :label => 'TaxonBiology'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Threats',               :label => 'Threats'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Trends',                :label => 'Trends'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TrophicStrategy',       :label => 'TrophicStrategy'
-InfoItem.gen :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',                  :label => 'Uses'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label => 'Associations'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label => 'Behaviour'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus',    :label => 'ConservationStatus'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cyclicity',             :label => 'Cyclicity'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cytology',              :label => 'Cytology'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#DiagnosticDescription', :label => 'DiagnosticDescription'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Diseases',              :label => 'Diseases'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Dispersal',             :label => 'Dispersal'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution',          :label => 'Distribution'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Evolution',             :label => 'Evolution'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription',    :label => 'GeneralDescription'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Genetics',              :label => 'Genetics'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Growth',                :label => 'Growth'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat',               :label => 'Habitat'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Legislation',           :label => 'Legislation'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeCycle',             :label => 'LifeCycle'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeExpectancy',        :label => 'LifeExpectancy'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LookAlikes',            :label => 'LookAlikes'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Management',            :label => 'Management'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Migration',             :label => 'Migration'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#MolecularBiology',      :label => 'MolecularBiology'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology',            :label => 'Morphology'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Physiology',            :label => 'Physiology'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#PopulationBiology',     :label => 'PopulationBiology'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Procedures',            :label => 'Procedures'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Reproduction',          :label => 'Reproduction'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#RiskStatement',         :label => 'RiskStatement'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Size',                  :label => 'Size'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology',          :label => 'TaxonBiology'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Threats',               :label => 'Threats'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Trends',                :label => 'Trends'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TrophicStrategy',       :label => 'TrophicStrategy'
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',                  :label => 'Uses'
 
-Language.gen :name => 'English', :iso_639_1 => 'en'
-Language.gen :name => 'French',  :iso_639_1 => 'fr' # Technically not required, but nice to check translation file.
-Language.gen :name => 'scient',  :iso_639_1 => 'en' # Technically, this needs to be ID 501.  ...But only for PHP's sake.
+create_if_not_exists Language, :name => 'English', :iso_639_1 => 'en'
+create_if_not_exists Language, :name => 'French',  :iso_639_1 => 'fr' # Technically not required, but nice to check translation file.
+create_if_not_exists Language, :name => 'scient',  :iso_639_1 => 'en' # Technically, this needs to be ID 501.  ...But only for PHP's sake.
 
-License.gen :title => 'public domain',       :description => 'No rights reserved'
-License.gen :title => 'all rights reserved', :description => '&#169; All rights reserved'
-License.gen :title => 'cc-by-nc 3.0',        :description => 'Some rights reserved',
-              :source_url => 'http://creativecommons.org/licenses/by-nc/3.0/',    :logo_url => '/images/licenses/cc_by_nc_small.png'
-License.gen :title => 'cc-by 3.0',           :description => 'Some rights reserved',
-              :source_url => 'http://creativecommons.org/licenses/by/3.0/',       :logo_url => '/images/licenses/cc_by_small.png'
-License.gen :title => 'cc-by-sa 3.0',        :description => 'Some rights reserved',
-              :source_url => 'http://creativecommons.org/licenses/by-sa/3.0/',    :logo_url => '/images/licenses/cc_by_sa_small.png'
-License.gen :title => 'cc-by-nc-sa 3.0',     :description => 'Some rights reserved',
-              :source_url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/', :logo_url => '/images/licenses/cc_by_nc_sa_small.png'
-License.gen :title => 'gnu-fdl',             :description => 'Some rights reserved',
-              :source_url => 'http://www.gnu.org/licenses/fdl.html',              :logo_url => '/images/licenses/gnu_fdl_small.png'
-License.gen :title => 'gnu-gpl',             :description => 'Some rights reserved',
-              :source_url => 'http://www.gnu.org/licenses/gpl.html',              :logo_url => '/images/licenses/gnu_fdl_small.png'
-License.gen :title => 'no license',          :description => 'The material cannot be licensed'
+create_if_not_exists License, :title => 'public domain',       :description => 'No rights reserved'
+create_if_not_exists License, :title => 'all rights reserved', :description => '&#169; All rights reserved'
+create_if_not_exists License, :title => 'cc-by-nc 3.0',        :description => 'Some rights reserved',
+             :source_url => 'http://creativecommons.org/licenses/by-nc/3.0/',    :logo_url => '/images/licenses/cc_by_nc_small.png'
+create_if_not_exists License, :title => 'cc-by 3.0',           :description => 'Some rights reserved',
+             :source_url => 'http://creativecommons.org/licenses/by/3.0/',       :logo_url => '/images/licenses/cc_by_small.png'
+create_if_not_exists License, :title => 'cc-by-sa 3.0',        :description => 'Some rights reserved',
+             :source_url => 'http://creativecommons.org/licenses/by-sa/3.0/',    :logo_url => '/images/licenses/cc_by_sa_small.png'
+create_if_not_exists License, :title => 'cc-by-nc-sa 3.0',     :description => 'Some rights reserved',
+             :source_url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/', :logo_url => '/images/licenses/cc_by_nc_sa_small.png'
+create_if_not_exists License, :title => 'gnu-fdl',             :description => 'Some rights reserved',
+             :source_url => 'http://www.gnu.org/licenses/fdl.html',              :logo_url => '/images/licenses/gnu_fdl_small.png'
+create_if_not_exists License, :title => 'gnu-gpl',             :description => 'Some rights reserved',
+             :source_url => 'http://www.gnu.org/licenses/gpl.html',              :logo_url => '/images/licenses/gnu_fdl_small.png'
+create_if_not_exists License, :title => 'no license',          :description => 'The material cannot be licensed'
 
-MimeType.gen :label => 'audio/mpeg'
-MimeType.gen :label => 'audio/x-ms-wma'
-MimeType.gen :label => 'audio/x-pn-realaudio'
-MimeType.gen :label => 'audio/x-realaudio'
-MimeType.gen :label => 'audio/x-wav'
-MimeType.gen :label => 'image/bmp'
-MimeType.gen :label => 'image/gif'
-MimeType.gen :label => 'image/jpeg'
-MimeType.gen :label => 'image/png'
-MimeType.gen :label => 'image/svg+xml'
-MimeType.gen :label => 'image/tiff'
-MimeType.gen :label => 'text/html'
-MimeType.gen :label => 'text/plain'
-MimeType.gen :label => 'text/richtext'
-MimeType.gen :label => 'text/rtf'
-MimeType.gen :label => 'text/xml'
-MimeType.gen :label => 'video/mp4'
-MimeType.gen :label => 'video/mpeg'
-MimeType.gen :label => 'video/quicktime'
-MimeType.gen :label => 'video/x-flv'
-MimeType.gen :label => 'video/x-ms-wmv'
+create_if_not_exists MimeType, :label => 'audio/mpeg'
+create_if_not_exists MimeType, :label => 'audio/x-ms-wma'
+create_if_not_exists MimeType, :label => 'audio/x-pn-realaudio'
+create_if_not_exists MimeType, :label => 'audio/x-realaudio'
+create_if_not_exists MimeType, :label => 'audio/x-wav'
+create_if_not_exists MimeType, :label => 'image/bmp'
+create_if_not_exists MimeType, :label => 'image/gif'
+create_if_not_exists MimeType, :label => 'image/jpeg'
+create_if_not_exists MimeType, :label => 'image/png'
+create_if_not_exists MimeType, :label => 'image/svg+xml'
+create_if_not_exists MimeType, :label => 'image/tiff'
+create_if_not_exists MimeType, :label => 'text/html'
+create_if_not_exists MimeType, :label => 'text/plain'
+create_if_not_exists MimeType, :label => 'text/richtext'
+create_if_not_exists MimeType, :label => 'text/rtf'
+create_if_not_exists MimeType, :label => 'text/xml'
+create_if_not_exists MimeType, :label => 'video/mp4'
+create_if_not_exists MimeType, :label => 'video/mpeg'
+create_if_not_exists MimeType, :label => 'video/quicktime'
+create_if_not_exists MimeType, :label => 'video/x-flv'
+create_if_not_exists MimeType, :label => 'video/x-ms-wmv'
 
-# These don't exist yet, but will in the future:
-# NormalizedQualifier :label => 'Name'
-# NormalizedQualifier :label => 'Author'
-# NormalizedQualifier :label => 'Year'
+# create_if_not_exists These don't exist yet, but will in the future:
+# create_if_not_exists NormalizedQualifier :label => 'Name'
+# create_if_not_exists NormalizedQualifier :label => 'Author'
+# create_if_not_exists NormalizedQualifier :label => 'Year'
 
-RefIdentifierType.gen :label => 'bici'
-RefIdentifierType.gen :label => 'coden'
-RefIdentifierType.gen :label => 'doi'
-RefIdentifierType.gen :label => 'eissn'
-RefIdentifierType.gen :label => 'handle'
-RefIdentifierType.gen :label => 'isbn'
-RefIdentifierType.gen :label => 'issn'
-RefIdentifierType.gen :label => 'lsid'
-RefIdentifierType.gen :label => 'oclc'
-RefIdentifierType.gen :label => 'sici'
-RefIdentifierType.gen :label => 'url'
-RefIdentifierType.gen :label => 'urn'
+create_if_not_exists RefIdentifierType, :label => 'bici'
+create_if_not_exists RefIdentifierType, :label => 'coden'
+create_if_not_exists RefIdentifierType, :label => 'doi'
+create_if_not_exists RefIdentifierType, :label => 'eissn'
+create_if_not_exists RefIdentifierType, :label => 'handle'
+create_if_not_exists RefIdentifierType, :label => 'isbn'
+create_if_not_exists RefIdentifierType, :label => 'issn'
+create_if_not_exists RefIdentifierType, :label => 'lsid'
+create_if_not_exists RefIdentifierType, :label => 'oclc'
+create_if_not_exists RefIdentifierType, :label => 'sici'
+create_if_not_exists RefIdentifierType, :label => 'url'
+create_if_not_exists RefIdentifierType, :label => 'urn'
 
-ResourceAgentRole.gen :label => 'Administrative'
-ResourceAgentRole.gen :label => 'Data Administrator'
-ResourceAgentRole.gen :label => 'Data Host'
-ResourceAgentRole.gen :label => 'Data Supplier'
-ResourceAgentRole.gen :label => 'System Administrator'
-ResourceAgentRole.gen :label => 'Technical Host'
+create_if_not_exists ResourceAgentRole, :label => 'Administrative'
+create_if_not_exists ResourceAgentRole, :label => 'Data Administrator'
+create_if_not_exists ResourceAgentRole, :label => 'Data Host'
+create_if_not_exists ResourceAgentRole, :label => 'Data Supplier'
+create_if_not_exists ResourceAgentRole, :label => 'System Administrator'
+create_if_not_exists ResourceAgentRole, :label => 'Technical Host'
 
-ResourceStatus.gen :label => 'Uploading'
-ResourceStatus.gen :label => 'Uploaded'
-ResourceStatus.gen :label => 'Upload Failed'
-ResourceStatus.gen :label => 'Moved to Content Server'
-ResourceStatus.gen :label => 'Validated'
-ResourceStatus.gen :label => 'Validation Failed'
-ResourceStatus.gen :label => 'Being Processed'
-ResourceStatus.gen :label => 'Processed'
-ResourceStatus.gen :label => 'Processing Failed'
-ResourceStatus.gen :label => 'Published'
+create_if_not_exists ResourceStatus, :label => 'Uploading'
+create_if_not_exists ResourceStatus, :label => 'Uploaded'
+create_if_not_exists ResourceStatus, :label => 'Upload Failed'
+create_if_not_exists ResourceStatus, :label => 'Moved to Content Server'
+create_if_not_exists ResourceStatus, :label => 'Validated'
+create_if_not_exists ResourceStatus, :label => 'Validation Failed'
+create_if_not_exists ResourceStatus, :label => 'Being Processed'
+create_if_not_exists ResourceStatus, :label => 'Processed'
+create_if_not_exists ResourceStatus, :label => 'Processing Failed'
+create_if_not_exists ResourceStatus, :label => 'Published'
 
-Role.gen :title => 'Curator'
-Role.gen :title => 'Moderator'
-Role.gen :title => 'Administrator'
-Role.gen :title => 'Administrator - News Items'
-Role.gen :title => 'Administrator - Comments and Tags'
-Role.gen :title => 'Administrator - Web Users'
-Role.gen :title => 'Administrator - Contact Us Submissions'
-Role.gen :title => 'Administrator - Content Partners'
-Role.gen :title => 'Administrator - Error Logs'
-Role.gen :title => 'Administrator - Site CMS'
-Role.gen :title => 'Administrator - Usage Reports'
+create_if_not_exists Role, :title => 'Curator'
+create_if_not_exists Role, :title => 'Moderator'
+create_if_not_exists Role, :title => 'Administrator'
+create_if_not_exists Role, :title => 'Administrator - News Items'
+create_if_not_exists Role, :title => 'Administrator - Comments and Tags'
+create_if_not_exists Role, :title => 'Administrator - Web Users'
+create_if_not_exists Role, :title => 'Administrator - Contact Us Submissions'
+create_if_not_exists Role, :title => 'Administrator - Content Partners'
+create_if_not_exists Role, :title => 'Administrator - Error Logs'
+create_if_not_exists Role, :title => 'Administrator - Site CMS'
+create_if_not_exists Role, :title => 'Administrator - Usage Reports'
 
-TocItem.gen :label => 'Overview',                      :view_order => 1
-TocItem.gen :label => 'Common Names',                  :view_order => 10
-ref_and_info = TocItem.gen :label => 'References and More Information', :view_order => 9
-TocItem.gen :label => 'Biodiversity Heritage Library', :view_order => 8,  :parent_id => ref_and_info.id
-TocItem.gen :label => 'Specialist Projects',           :view_order => 10, :parent_id => ref_and_info.id
-TocItem.gen :label => 'Search the Web',                :view_order => 14, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Overview',                      :view_order => 1
+create_if_not_exists TocItem, :label => 'Common Names',                  :view_order => 10
+ref_and_info = create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 9
+create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 8,  :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 10, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 14, :parent_id => ref_and_info.id
 
-ServiceType.gen :label => 'EOL Transfer Schema'
+create_if_not_exists ServiceType, :label => 'EOL Transfer Schema'
 
-Status.gen :label => 'Inserted'
-Status.gen :label => 'Unchanged'
-Status.gen :label => 'Updated'
+create_if_not_exists Status, :label => 'Inserted'
+create_if_not_exists Status, :label => 'Unchanged'
+create_if_not_exists Status, :label => 'Updated'
 
-Vetted.gen :label => 'Unknown'    # This really wants an ID of 0, but only for PHP stuff.
-Vetted.gen :label => 'Untrusted'
-Vetted.gen :label => 'Trusted'
+create_if_not_exists Vetted, :label => 'Unknown'    # This really wants an ID of 0, but only for PHP stuff.
+create_if_not_exists Vetted, :label => 'Untrusted'
+create_if_not_exists Vetted, :label => 'Trusted'
 
-Visibility.gen :label => 'Invisible'      # This really wants an ID of 0, but only for PHP stuff.
-Visibility.gen :label => 'Visible'
-Visibility.gen :label => 'Preview'
-Visibility.gen :label => 'Inappropriate'
+create_if_not_exists Visibility, :label => 'Invisible'      # This really wants an ID of 0, but only for PHP stuff.
+create_if_not_exists Visibility, :label => 'Visible'
+create_if_not_exists Visibility, :label => 'Preview'
+create_if_not_exists Visibility, :label => 'Inappropriate'

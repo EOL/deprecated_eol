@@ -232,13 +232,13 @@ end
 
 Factory.define :content_page do |cp|
   cp.association :content_section
-  cp.page_name    'Test Content Page'
-  cp.title        {|cp| cp.page_name }
-  cp.left_content {|cp| "<h3>This is Left Content in a #{cp.page_name}</h3>" }
-  cp.main_content {|cp| "<h1>Main Content for #{cp.page_name} ROCKS!</h1>" }
-  cp.sort_order   1
-  cp.url          '' # This would imply that the content was external.
-
+  cp.language_abbr 'en'
+  cp.title         'Test Content Page'
+  cp.page_name     {|cp| cp.title }
+  cp.left_content  {|cp| "<h3>This is Left Content in a #{cp.title}</h3>" }
+  cp.main_content  {|cp| "<h1>Main Content for #{cp.title} ROCKS!</h1>" }
+  cp.sort_order    1
+  cp.url           '' # This would imply that the content was external.
 end
 
 Factory.define :content_partner do |cp|
@@ -264,6 +264,7 @@ end
 
 Factory.define :content_section do |cs|
   cs.name { Factory.next(:string) }
+  cs.language_key 'en'
 end
 
 Factory.define :curator_activity do |ca|
@@ -423,12 +424,14 @@ Factory.define :item_page do |ip|
 end
 
 Factory.define :language do |l|
-  l.iso_639_1    ''
-  l.iso_639_2    ''
-  l.iso_639_3    ''
   l.source_form  ''
   l.name         'Klingon'
-  l.label        'kl'
+  l.label        {|lang| lang.name[0..1].downcase }
+  l.iso_639_1    {|lang| lang.name[0..1].downcase }
+  l.iso_639_2    {|lang| lang.name[0..2].downcase }
+  l.iso_639_3    {|lang| lang.name[0..3].downcase }
+  l.activated_on { 5.hours.ago }
+  l.sort_order   { Factory.next(:int) }
 end
 
 Factory.define :license do |l|
@@ -465,6 +468,15 @@ Factory.define :name do |name|
   # The strip  at the end handles strings that are only two words; it is useless with three or more.
   name.italicized          {|n| n.string.split[0] == n.string ? "<i>#{n.string}</i>" : ('<i>' + n.string.split[0..1].join(' ') + '</i> ' +  n.string.split[2..-1].join(' ')).strip }
   name.namebank_id         0
+end
+
+Factory.define :news_item do |ni|
+  ni.body         { 'Test News Item Body' + Faker::Lorem.paragraph }
+  ni.title        { Faker::Lorem.words[rand(4) + 1].titleize }
+  ni.display_date { 2.days.ago }
+  ni.activated_on { 2.days.ago }
+  ni.association  :user
+  ni.active       1
 end
 
 Factory.define :normalized_link do |nl|

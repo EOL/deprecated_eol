@@ -13,6 +13,7 @@ class ContentSection < ActiveRecord::Base
   end
   
   # helper method to find active pages given a section name
+  # TODO - why do we have this?  A built-in rails function could probably do the same thing, yes?
   def self.find_pages_by_section(section_name)
     content_section = ContentSection.find_by_name section_name
     return [] unless content_section

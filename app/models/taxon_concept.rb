@@ -439,13 +439,10 @@ EOIUCNSQL
   end
 
   def self.exemplars
-    # TODO - this is now taxon-concept centric, so IDs will have to change.
     if @exemplars.nil?
       list = [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 482935, 392557, 484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558, 253397, 740699, 1044544, 802455, 1194666, 2485151]
     end
-    
     @@exemplars ||= TaxonConcept.find(:all, :conditions => ['id IN (?)', list])
-
   end
 
   def self.search(search_string, options = {})

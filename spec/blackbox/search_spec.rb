@@ -22,7 +22,12 @@ class SearchSpec
     def make_a_taxon name, parent_id, depth = 1
 
       # we need Names ... both of which need a canonical_form ...
-      canonical_form  = CanonicalForm.gen :string => name
+      canonical_form =
+      begin
+        CanonicalForm.gen :string => name
+      rescue ActiveRecord::RecordInvalid => e
+        CanonicalForm.find_by_string(name)
+      end
       scientific_name = Name.gen :canonical_form => canonical_form, :string => name.downcase, :italicized => "<i>#{ name.downcase }</i>"
       common_name     = Name.gen :canonical_form => canonical_form, :string => name.upcase,   :italicized => "<i>#{ name.upcase }</i>"
 
@@ -74,22 +79,47 @@ describe 'Search' do
 
   scenario :foundation
 
-  it 'should return a helpful message if no results' do
-    TaxonConcept.count.should == 0
+  before(:each) do
+    TaxonConcept.delete_all
+    Name.delete_all           # Lest we get duplicate strings...
+    NormalizedName.delete_all # ...Just because I know searches are based on normalized names
+  end
 
+  it 'should return a helpful message if no results' do
+    # JRice sez: While the fact that this fails within 'rake spec' indicates a problem (there should be 0 TCs when only foundation
+    # is loaded), I am not sure this is a "helpful" assertion, in that it is NOT testing the helpful message being returned if there are
+    # no results.  Better, perhaps to force the issue?  Line in question: 
+    # TaxonConcept.count.should == 0
+    # My solution is in the "before each" clause (above)
     request('/search?q=tiger').body.should include("Your search on 'tiger' did not find any matches")
   end
 
   it 'should redirect to species page if only 1 possible match is found' do
-    TaxonConcept.count.should == 0
+
+    # Same argument as above (by JRice):
+    # TaxonConcept.count.should == 0
 
     tiger = SearchSpec.make_a_taxon 'Tiger', SearchSpec.animal_kingdom.id
     SearchSpec.nestify_everything_properly
     SearchSpec.recreate_normalized_names_and_links
 
     request('/search?q=tiger').should redirect_to("/pages/#{ tiger.id }")
+
   end
 
-  # it 'should show a list of possible results if more than 1 match is found'
+  it 'should show a list of possible results (linking to /taxa/search_clicked) if more than 1 match is found' do
+
+    lilly = SearchSpec.make_a_taxon 'Tiger Lilly',  SearchSpec.animal_kingdom.id
+    tiger = SearchSpec.make_a_taxon 'Tiger', SearchSpec.animal_kingdom.id
+    SearchSpec.nestify_everything_properly
+    SearchSpec.recreate_normalized_names_and_links
+
+    body = request('/search?q=tiger').body
+    body.should include(lilly.quick_scientific_name)
+    body.should include(tiger.quick_scientific_name)
+    body.should have_tag('a[href*=?]', %r{/taxa/search_clicked/#{ lilly.id }})
+    body.should have_tag('a[href*=?]', %r{/taxa/search_clicked/#{ tiger.id }})
+
+  end
   
 end

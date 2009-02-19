@@ -16,12 +16,10 @@ class RandomTaxon < SpeciesSchemaModel
 
   def self.random_set(limit = 10)
     list = []
-    
     RandomTaxon.reset_count
     starting_id = rand(@@count - limit).floor
-    list = RandomTaxon.find_by_sql(['SELECT * FROM random_taxa LIMIT ?, ?',
-                                    starting_id, limit])
-
+    starting_id = 0 if starting_id > (@@count - limit) # This only applies when there are very few RandomTaxa.
+    list = RandomTaxon.find_by_sql(['SELECT * FROM random_taxa LIMIT ?, ?', starting_id, limit])
     return list
   end
   

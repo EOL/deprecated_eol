@@ -54,7 +54,7 @@ class ContentPage < ActiveRecord::Base
   end
 
   def page_url
-      return self.page_name.gsub(' ','_').downcase
+    return self.page_name.gsub(' ','_').downcase
   end
   
   # name to use for cached fragment

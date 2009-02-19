@@ -138,7 +138,7 @@ HarvestEvent.delete_all(:resource_id => 3)
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published)
 bogus    = Resource.gen(:title => 'Filler, ignore', :resource_status => ResourceStatus.published)
 iucn_res = Resource.gen(:title => 'IUCN import', :resource_status => ResourceStatus.published)
-raise "Something went wrong with creating the iucn resource--it must have an ID of 3" unless iucn_res.id == 3
+raise "Something went wrong with creating the iucn resource--it must have an ID of 3, got #{iucn_res.id}" unless iucn_res.id == 3
 
 event    = HarvestEvent.gen(:resource => resource)
 AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource,

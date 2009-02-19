@@ -10,15 +10,6 @@ describe 'Login' do
     Factory :user, :username => username, :entered_password => password
   end
 
-  def login_as options = { }
-    if options.is_a?User # let us pass a newly created user (with an entered_password)
-      options = { :username => options.username, :password => options.entered_password }
-    end
-    request('/account/authenticate', :params => { 
-        'user[username]' => options[:username], 
-        'user[password]' => options[:password] })
-  end
-
   # specs
 
   it 'login page should render OK' do

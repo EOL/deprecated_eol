@@ -103,7 +103,7 @@ class TaxaController < ApplicationController
       @default_image = @images[0].smart_image unless @images.nil? or @images.blank?
            
       # find first valid content area to use
-      first_content_item = @taxon.table_of_contents(:vetted_only=>current_user.vetted).detect {|item| item.has_content? }
+      first_content_item = @taxon.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }
       @category_id = first_content_item.nil? ? nil : first_content_item.id 
       @category_id = @specify_category_id unless @specify_category_id=='default'
       

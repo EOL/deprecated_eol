@@ -1836,6 +1836,16 @@ ul#global-navigation {
           width: 240px;
           border-bottom: 1px solid #E6E7E8;
         }
+
+        ul#toc li ul {
+          display: inline-block;
+          padding-top: 2px;
+        }
+
+        ul#toc li ul li.status_icon {
+          width: 22px;
+          height: 22px;
+        }
         
           ul#toc li ul li {
             width: 211px;
@@ -2012,11 +2022,6 @@ ul#global-navigation {
       color: #999;
       border-bottom: 1px solid #ccc;  
       text-transform: uppercase;                
-    }
-
-    .attribution-header2 ul {
-      display: inline-block;
-      padding-right: 5px;
     }
 
     .content-attribution-area {
@@ -3053,6 +3058,7 @@ div.content-article {
 }
 
 div.text_buttons { position: relative; height: 30px; margin-top: 2px; }
+div.text_button ul { display: inline-block; }
 div.text_buttons div { position: absolute; top: 0px; }
 div.text_buttons div.spinner { left: 280px; }
 div.text_buttons div.curate_button { left: 370px; }

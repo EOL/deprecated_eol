@@ -1,17 +1,25 @@
 <% item_class=item.is_child? ? 'li-sub' : '' %>
 <li class="<%=item_class%>">
-   <% if item.has_content? %>
+  <% if item.has_content? %>
  	  <a href="<%= url_for :action=>'show',:id=>@taxon_id, :category_id => item.id %>" onclick="eol_update_content_area(<%=@taxon_id%>,<%=item.id%>);this.className = 'active';return false;" class="<%= [@category_id, @item].include?(item.id) ? "active" : nil %>" title="<%= item.label %>"> 
-    <% else %>
-      <span class="no_toc_link">
-    <% end %>
-    <%- if item.has_unpublished_content? -%>
-      <%= unpublished_icon %>
-    <%- end -%>
-	    <%= item.label %>
+  <% else %>
+    <span class="no_toc_link">
+  <% end %>
+
+  <span>
+    <ul>
+      <li class="unpublished_icon status_icon"<%=' style="display:none;"' unless item.has_unpublished_content%> title="Unpublished" ></li>
+      <li class="published_icon status_icon"<%=' style="display:none;"' unless item.has_published_content %> title="Published" ></li>
+      <li class="inappropriate_icon status_icon"<%=' style="display:none;"' unless item.has_inappropriate_content %> title="Inappropriate" ></li>
+      <li class="invisible_icon status_icon"<%=' style="display:none;"' unless item.has_invisible_content %> title="Hidden" ></li>
+    </ul>
+  </span>
+
+  <%= item.label %>
+
 	<% if item.has_content? %>
 	   </a>
 	<% else %>
-       </span>
+     </span>
 	 <% end %>
 </li>

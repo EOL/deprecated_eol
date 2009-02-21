@@ -339,7 +339,7 @@ class TaxonConcept < SpeciesSchemaModel
   # pull list of categories for given taxa id
   def table_of_contents(options = {})
     #options = options.merge(:agent_id => @current_agent.id) unless @current_agent.nil?
-    return @table_of_contents ||= TocItem.toc_for(id, :agent => @current_agent, :user => @current_user)
+    return @table_of_contents ||= TocItem.toc_for(id, :agent => @current_agent, :user => @current_user, :agent_logged_in => options[:agent_logged_in])
   end
 
   # pull content type by given category for taxa id 

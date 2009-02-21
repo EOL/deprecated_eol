@@ -4,7 +4,7 @@ class TocItem < SpeciesSchemaModel
   acts_as_tree :order => 'view_order'
   
   attr_writer :has_content
-  attr_writer :has_unpublished_content
+  attr_accessor :has_unpublished_content, :has_invisible_content, :has_inappropriate_content, :has_published_content
   
   has_many :info_items, :foreign_key => :toc_id
   
@@ -34,10 +34,6 @@ class TocItem < SpeciesSchemaModel
     @has_content
   end
 
-  def has_unpublished_content?
-    @has_unpublished_content == true
-  end
-
   def is_child?
     !(self.parent_id.nil? or self.parent_id == 0) 
   end
@@ -45,12 +41,38 @@ class TocItem < SpeciesSchemaModel
   # TODO - make a version of this for Hierarchy Entry:
   # TODO - MEDIUM PRIO - refactor this to take a taxon directly, rather than the id.
   def self.toc_for(taxon_id, options = {})
-    
     toc = DataObject.for_taxon(TaxonConcept.find(taxon_id), :text, options)
     # Find out which toc items have unpublished content. Method published is accessible here  because
     # toc items are found by sql which has data_object fields. Every toc item corresponds to one data object
     # and is repeated potentially more than one time. They become unique after sort
-    toc = toc.map {|item| item.has_unpublished_content = true if item.published.to_i  == 0; item}
+    duplicates = {} #this duplicates seems super hacky, but the way the toc reuses columns from data objects seems super hacky as well
+    i = 0
+    toc = toc.map do |item|
+      item.has_unpublished_content = true if item.published.to_i == 0
+      item.has_published_content = true if item.published.to_i == 1 && options[:agent_logged_in] && !item.data_supplier_agent.blank? && current_agent.id == item.data_supplier_agent.id
+      item.has_invisible_content = true if item.visibility_id.to_i == Visibility.invisible.id
+      item.has_inappropriate_content = true if item.visibility_id.to_i == Visibility.inappropriate.id
+
+      if duplicates[item.label]
+        duplicates[item.label].each do |j|
+          toc[j].has_unpublished_content = true if item.has_unpublished_content
+          toc[j].has_published_content = true if item.has_published_content
+          if item.has_invisible_content
+            toc[j].has_invisible_content = true
+          end
+          toc[j].has_inappropriate_content = true if item.has_inappropriate_content
+        end
+
+        duplicates[item.label] << i
+      else
+        duplicates[item.label] = [i]
+      end
+
+      i += 1
+
+      item
+    end
+
     # Add specialist projects if there are entries in the mappings table for this name:
     if Mapping.count_by_sql([
       'SELECT 1 from mappings map, taxon_concept_names tcn WHERE map.name_id = tcn.name_id AND tcn.taxon_concept_id = ? LIMIT 1',

@@ -23,9 +23,6 @@ unless @content[:data_objects].nil?
       <!-- ATTRIBUTION GOES HERE -->
       <div class="content-attribution-area">
         <div class="attribution-header2">
-          <ul data-data_object_id='<%=content_item.id%>'>
-            <%=render :partial=>'data_object_states', :locals => {:dato => content_item}%>
-          </ul>
           <%= "Source and Additional Information"[] %>
         </div>
         <%= render :partial => 'data_objects/attribution', :locals => { :data_object => content_item } %>
@@ -34,14 +31,15 @@ unless @content[:data_objects].nil?
       <br />
 
       <div <%='class="unvetted-background-text"' if content_item.vetted_id != Vetted.trusted.id %>>
-       <%- if !content_item.published -%>
-         <%= unpublished_icon %>
-       <%- end -%>
        <%= content_item.description %>
       </div>
     </div>
 
     <div class="text_buttons" id="text_buttons_<%=content_item.id%>">
+      <ul data-data_object_id='<%=content_item.id%>'>
+        <%=render :partial=>'data_object_states', :locals => {:dato => content_item}%>
+      </ul>
+      
       <% if current_user.can_curate?(@taxon)%>
         <% if !content_item.curated? %>
           <div class="spinner">

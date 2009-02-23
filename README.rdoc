@@ -79,9 +79,7 @@ To install required gems:
   rake db:migrate
   rake db:migrate RAILS_ENV=test
   rake truncate
-  rake truncate RAILS_ENV=test
-  rake scenarios:load NAME=foundation,bootstrap RAILS_ENV=development   # Yes, you REALLY have to specify the environment.
-  rake scenarios:load NAME=foundation,bootstrap RAILS_ENV=test
+  rake scenarios:load NAME=foundation,bootstrap
   rake eol:site_specific repo=URL  # Your "URL" (or an alternative) will be provided to you privately.
 
 You may also need to make the "bin/recreate_databases" script executable, and then run it to automatically run all of those tasks above (assuming you are on a Mac/Linux).
@@ -97,11 +95,7 @@ Go to http://localhost:3000 and see stuff.
 
 == TESTING
 
-We're using RSpec for our testing (see the spec/ directory).  Run 'rake spec'
-
-If you ran the rake commands above, you should be able to load the website with minimal functionality.  Otherwise, run:
-
-  rake truncate ; rake scenarios:load NAME=foundation,bootstrap RAILS_ENV=development
+We're using RSpec for our testing (see the spec/ directory).  Run 'rake spec' (or 'rake specdoc' for specdoc output)
 
 === Additional tests
 

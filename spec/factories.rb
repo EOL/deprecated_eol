@@ -101,7 +101,7 @@ module Faker
       end
 
       def scientific_name
-        "#{Faker::Eol.name_part} #{Faker::Eol.name_part}"
+        "#{Faker::Eol.name_part.titleize} #{Faker::Eol.name_part}"
       end
 
       def common_name
@@ -265,6 +265,28 @@ end
 Factory.define :content_section do |cs|
   cs.name { Factory.next(:string) }
   cs.language_key 'en'
+end
+
+Factory.define :curator, :class => User do |u|
+  u.default_taxonomic_browser 'text'
+  u.expertise                 'middle'
+  u.remote_ip                 '128.167.250.123' # TODO - fake this?
+  u.content_level             2
+  u.email                     { Factory.next(:email) }
+  u.given_name                { Faker::Name.first_name }
+  u.family_name               { Faker::Name.last_name }
+  u.flash_enabled             true
+  u.association               :language
+  u.mailing_list              true
+  u.vetted                    true
+  u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}#{Factory.next(:int)}".gsub(/\s/, '_').downcase }
+  u.active                    true
+  u.entered_password          'test password'
+  u.hashed_password           {|user| Digest::MD5.hexdigest(user.entered_password) }
+  u.curator_hierarchy_entry   { Factory(:hierarchy_entry) }
+  u.curator_approved          true
+  u.curator_verdict_by        { Factory(:user) }
+  u.curator_verdict_at        { 48.hours.ago }
 end
 
 Factory.define :curator_activity do |ca|
@@ -698,28 +720,6 @@ Factory.define :user do |u|
   u.curator_approved          false
   u.curator_verdict_by_id     0
   u.curator_verdict_at        nil
-end
-
-Factory.define :curator, :class => User do |u|
-  u.default_taxonomic_browser 'text'
-  u.expertise                 'middle'
-  u.remote_ip                 '128.167.250.123' # TODO - fake this?
-  u.content_level             2
-  u.email                     { Factory.next(:email) }
-  u.given_name                { Faker::Name.first_name }
-  u.family_name               { Faker::Name.last_name }
-  u.flash_enabled             true
-  u.association               :language
-  u.mailing_list              true
-  u.vetted                    true
-  u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}#{Factory.next(:int)}".gsub(/\s/, '_').downcase }
-  u.active                    true
-  u.entered_password          'test password'
-  u.hashed_password           {|user| Digest::MD5.hexdigest(user.entered_password) }
-  u.curator_hierarchy_entry   { Factory(:hierarchy_entry) }
-  u.curator_approved          true
-  u.curator_verdict_by_id     { Factory(:user) }
-  u.curator_verdict_at        { 48.hours.ago }
 end
 
 Factory.define :vetted do |x|

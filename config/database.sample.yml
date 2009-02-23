@@ -18,121 +18,130 @@
 # each database in that environment.
 #
 # The convention for database names is "eol_<DATABASENAME>_<RAILS_ENV>"
-
-#######################
-# common settings for all environments
-common: &common
-  adapter: mysql
-  #socket: /data/mysql/mysql.sock
-  encoding: utf8
-
-# common settings for any development databases
-development_common: &development
-  host:     localhost
-  username: root
-  password:
-
-# common settings for all test databases
-test_common: &test
-  host:     localhost
-  username: root
-  password:
-
-# common settings for all demo databases
-demo_common: &demo
-  host:     localhost
-  username: username
-  password: password
-
-# common settings for all integration databases
-integration_common: &integration
-  host:     localhost
-  username: username
-  password: password
-
 # common settings for all production databases
-production_common: &production
-  host:     mdata.example.org
-  username: username
-  password: password
 
 #######################
 development:
-  <<: *common
-  <<: *development
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: root
+  password:
   database: eol_development
   
 development_data:
-  <<: *common
-  <<: *development
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: root
+  password:
   database: eol_data_development
 
 development_logging:
-  <<: *common
-  <<: *development
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: root
+  password:
   database: eol_logging_development
 
 ############################
 test:
-  <<: *common
-  <<: *test
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: root
+  password:
   database: eol_test
 
 test_data:
-  <<: *common
-  <<: *test
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: root
+  password:
   database: eol_data_test
 
 test_logging:
-  <<: *common
-  <<: *test
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: root
+  password:
   database: eol_logging_test
 
 ############################
 demo:
-  <<: *common
-  <<: *demo
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: username
+  password: password
   database: eol_demo
   
 demo_data:
-  <<: *common
-  <<: *demo
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: username
+  password: password
   database: eol_data_demo
 
 demo_logging:
-  <<: *common
-  <<: *demo
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: username
+  password: password
   database: eol_logging_demo
 
 ############################    
 integration:
-  <<: *common
-  <<: *integration
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: username
+  password: password
   database: eol_integration
 
 integration_data:
-  <<: *common
-  <<: *integration
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: username
+  password: password
   database: eol_data_integration
   
 integration_logging:
-  <<: *common
-  <<: *integration
+  adapter: mysql
+  encoding: utf8
+  host:     localhost
+  username: username
+  password: password
   database: eol_logging_integration
 ############################  
 production:
-  <<: *common
-  <<: *production
+  adapter: mysql
+  encoding: utf8
+  host:     mdata.example.org
+  username: username
+  password: password
   database: eol_production
 
 production_data:
-  <<: *common
-  <<: *production
+  adapter: mysql
+  encoding: utf8
+  host:     mdata.example.org
+  username: username
+  password: password
   database: eol_data_production
 
 production_logging:
-  <<: *common
-  <<: *production
+  adapter: mysql
+  encoding: utf8
+  host:     mdata.example.org
+  username: username
+  password: password
   database: eol_logging_production
   
 ############################  

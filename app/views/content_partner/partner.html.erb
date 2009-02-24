@@ -47,7 +47,7 @@
 
                 <div class = "form_item">
                   <%= f.label :logo, "Project Logo" %>
-                  Please select and upload a JPG, PNG or GIF image of approximately 100x100 pixels, and no larger than 500k.   We will create two logos, one with a maximum dimension of 100 pixels, and a smaller one depending on it's location on the website.
+                  Please select and upload a JPG, PNG or GIF image of approximately 100x100 pixels, and no larger than 500k.   We will create two logos, one with a maximum dimension of 100 pixels, and a smaller one depending on its location on the website.
                   <%= f.file_field :logo, :size=>60 %>
                   <% unless @agent.logo_url.blank? -%>
                       <br />

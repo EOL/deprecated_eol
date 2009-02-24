@@ -158,7 +158,7 @@ class ContentPartnerController < ApplicationController
   def contact_us
 
     # just redirect to standard contact us form
-    redirect_to :controller=>'content', :action=>'contact_us', :default_name=>current_agent.primary_contact.full_name,:default_email=>current_agent.primary_contact.email,:default_subject=>'Content Partner Support'
+    redirect_to :controller=>'content', :action=>'contact_us', :return_to=>CGI.escape(params[:return_to]),:default_name=>current_agent.full_name,:default_email=>current_agent.email,:default_subject=>'Content Partner Support'
     return
     
   end

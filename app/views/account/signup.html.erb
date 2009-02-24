@@ -53,15 +53,15 @@
 					
 	                    <label for="user_username" title="<%= "Please enter your username"[] %>"><%= "Username"[] %> (4 - 16 characters)<span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
 	                 	<!-- user_username ^[a-zA-Z0-9\-_]{4,16}$ false true //-->
-					    <%= f.text_field :username, {:maxlength=>16, :onblur=>'JavaScript:check_username();'} %>
-						 <span class="error" id="username_warn"></span>
+        					    <%= f.text_field :username, {:maxlength=>16, :onblur=>'JavaScript:check_username();'} %>
+        						 <span class="error" id="username_warn"></span>
 						 
 	                    <label for="user_entered_password" title="<%= "Please enter a password"[] %>"><%= "Password"[] %> (4 - 16 characters)<span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
-	                    <!-- user_entered_password ^[a-zA-Z0-9\-_]{4,16}$ false true //-->
+	                    <!-- user_entered_password .+ false true //-->
 	                    <%= f.password_field :entered_password, {:maxlength=>16} %>
 						 
 	                    <label for="user_entered_password_confirmation" title="<%= "Please enter the password again"[] %>"><%= "Confirm Password"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
-	                    <!-- user_entered_password_confirmation ^[a-zA-Z0-9\-_]{4,16}$ false true //-->
+	                    <!-- user_entered_password_confirmation .+ false true //-->
 	                    <%= f.password_field :entered_password_confirmation,{:maxlength=>16, :onblur=>'JavaScript:check_passwords();'}  %>
 						          <span class="error" id="password_warn"></span>
 	

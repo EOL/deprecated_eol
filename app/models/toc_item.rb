@@ -38,6 +38,10 @@ class TocItem < SpeciesSchemaModel
     !(self.parent_id.nil? or self.parent_id == 0) 
   end
 
+  def allow_user_text?
+    self.info_items.length > 0
+  end
+
   # TODO - make a version of this for Hierarchy Entry:
   # TODO - MEDIUM PRIO - refactor this to take a taxon directly, rather than the id.
   def self.toc_for(taxon_id, options = {})

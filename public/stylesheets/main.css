@@ -1851,7 +1851,7 @@ ul#global-navigation {
             width: 211px;
           }
         
-          ul#toc li a {
+          ul#toc li a.toc_item {
             width: 200px;
             display: block;
             padding-left: 36px;
@@ -1859,6 +1859,13 @@ ul#global-navigation {
             color: #959595;
             text-decoration: none;
             background: url(/images/toc.gif) 20px 1px no-repeat;
+          }
+
+          ul#toc li div.add_text_button {
+            background: url(/images/add_text_icon.gif) 0px 0px no-repeat;
+            width: 20px;
+            height: 20px;
+            float: right;
           }
 
           span.no_toc_link {
@@ -1872,7 +1879,7 @@ ul#global-navigation {
 
           }
 
-          ul#toc li a:hover , ul#toc li a.active {
+          ul#toc li a.toc_item:hover, ul#toc li a.toc_item.active {
             text-decoration: none;
             color: #666;
             background: url(/images/toc_hover.gif) 20px 1px no-repeat;
@@ -3112,3 +3119,5 @@ form .pagination span {color:#959595;display: inline;}
 .thumbs-up-image:hover { background: transparent url(/images/icons/dual-states/thumbs_up.png) no-repeat 0px -32px; }
 .thumbs-down-image { background: transparent url(/images/icons/dual-states/thumbs_down.png) no-repeat 0px 0px; }
 .thumbs-down-image:hover { background: transparent url(/images/icons/dual-states/thumbs_down.png) no-repeat 0px -32px; }
+
+

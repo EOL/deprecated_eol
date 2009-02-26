@@ -1,9 +1,12 @@
 #! /usr/bin/env ruby
-require 'api'
+require File.dirname(__FILE__) + '/api'
 require 'irb'
 
 puts %{
   Welcome to the EOL API console
+
+  Currently, this assumes that you have the EOL website 
+  running locally at http://localhost:3000
 
   Example Usage:
     >> tigers = Species.search('tiger')

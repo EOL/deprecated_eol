@@ -7,6 +7,7 @@ include EOL::Data
 # NOTE - I am not setting the mime type yet.  We never use it.
 # NOTE - There are no models for all the refs_* tables, so I'm ignoring them.
 def build_dato(type, desc, taxon, he = nil, options = {})
+  toc_item = options.delete(:toc_item)
     attributes = {:data_type   => DataType.find_by_label(type),
                   :description => desc,
                   :visibility  => Visibility.visible,
@@ -22,7 +23,7 @@ def build_dato(type, desc, taxon, he = nil, options = {})
       TopUnpublishedImage.gen :data_object => dato, :hierarchy_entry => he
     end
   elsif type == 'Text'
-    DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => bootstrap_toc.rand)
+    DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item || bootstrap_toc.rand)
   end
   (rand(60) - 39).times { Comment.gen(:parent => dato, :user => bootstrap_users.rand) }
   return dato
@@ -89,7 +90,8 @@ def build_taxon_concept(parent, depth, options = {})
   youtube = build_dato('YouTube',    Faker::Lorem.paragraph, taxon, nil, :object_cache_url => Faker::Eol.youtube)
   map     = build_dato('GBIF Image', Faker::Lorem.sentence,  taxon, nil, :object_cache_url => Faker::Eol.map)
 
-  overview = build_dato('Text', "This is an overview of the <b>#{cform.string}</b> hierarchy entry.", taxon)
+  overview = build_dato('Text', "This is an overview of the <b>#{cform.string}</b> hierarchy entry.", taxon,
+                        nil, :toc_item => TocItem.overview)
   # Add more toc items:
   (rand(4)+1).times do
     dato = build_dato('Text', Faker::Lorem.paragraph, taxon)

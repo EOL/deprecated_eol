@@ -201,6 +201,8 @@ create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_o
 create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 10, :parent_id => ref_and_info.id
 create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 14, :parent_id => ref_and_info.id
 
+create_if_not_exists InfoItem, :label => 'Foo', :toc_item => TocItem.overview
+
 create_if_not_exists ServiceType, :label => 'EOL Transfer Schema'
 
 create_if_not_exists Status, :label => 'Inserted'

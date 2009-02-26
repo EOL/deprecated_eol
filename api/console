@@ -1,0 +1,20 @@
+#! /usr/bin/env ruby
+require 'api'
+require 'irb'
+
+puts %{
+  Welcome to the EOL API console
+
+  Example Usage:
+    >> tigers = Species.search('tiger')
+    >> a_tiger = Species.search('tiger').first
+    >> images_of_a_tiger = a_tiger.images
+    >> image_urls = images_of_a_tiger.map &:url
+    >> Species.search('walter').first.images.map &:url
+    >> Species.random
+
+}
+
+include EOL::API
+
+IRB.start

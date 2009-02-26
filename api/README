@@ -1,0 +1,6 @@
+This is just an example client API implementation.
+
+ActiveResource doesn't have to be used to use the EOL Web API, 
+although ActiveResource should ideally "just work" with the EOL Web API.
+
+See console for an easy way to start playing with the client API.

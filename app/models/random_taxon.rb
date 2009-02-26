@@ -1,3 +1,8 @@
+#
+# ... why is this a model / table?
+#
+# Why isn't this just TaxonConcept.random?
+#
 class RandomTaxon < SpeciesSchemaModel
   belongs_to :language
   belongs_to :data_object

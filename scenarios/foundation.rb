@@ -98,7 +98,6 @@ create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Reproduction',          :label => 'Reproduction'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#RiskStatement',         :label => 'RiskStatement'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Size',                  :label => 'Size'
-create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology',          :label => 'TaxonBiology'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Threats',               :label => 'Threats'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Trends',                :label => 'Trends'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TrophicStrategy',       :label => 'TrophicStrategy'
@@ -201,7 +200,7 @@ create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_o
 create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 10, :parent_id => ref_and_info.id
 create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 14, :parent_id => ref_and_info.id
 
-create_if_not_exists InfoItem, :label => 'Foo', :toc_item => TocItem.overview
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology', :label => 'TaxonBiology', :toc_item => TocItem.overview
 
 create_if_not_exists ServiceType, :label => 'EOL Transfer Schema'
 

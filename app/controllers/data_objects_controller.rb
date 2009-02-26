@@ -4,6 +4,33 @@ class DataObjectsController < ApplicationController
 
   before_filter :set_data_object
 
+  # example urls this handles ...
+  #
+  #   /v1/species/5/images
+  #   /v1/species/5/videos
+  #   /v1/species/5/text          # not yet implemented
+  #   /v1/species/5/data_objects  # not yet implemented
+  #
+  def index
+    @species = TaxonConcept.find params[:species_id] if params[:species_id]
+    if @species
+      case request.path
+      when /images/
+        respond_to do |format|
+          format.xml  { render :xml  => @species.images.to_xml(serialization_options)  }
+          format.json { render :json => @species.images.to_json(serialization_options) }
+        end
+      when /videos/
+        respond_to do |format|
+          format.xml  { render :xml  => @species.videos.to_xml(serialization_options)  }
+          format.json { render :json => @species.videos.to_json(serialization_options) }
+        end
+      else
+        render :text => "Don't know how to render #{ params.inspect }"
+      end
+    end
+  end
+
   make_resourceful do
     actions :show
 
@@ -42,7 +69,13 @@ class DataObjectsController < ApplicationController
 protected
 
   def set_data_object
-    @data_object ||= DataObject.find params[:id]
+    @data_object ||= ( DataObject.find( params[:id] ) if params[:id] )
   end
+
+  def serialization_options
+    {
+      :methods => [ :thumb_or_object ]
+    }
+  end  
 
 end

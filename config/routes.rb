@@ -1,5 +1,24 @@
 ActionController::Routing::Routes.draw do |map|
 
+  # API
+  
+  # here are some experimental simple RESTful resources for an API
+  #
+  # the names may very well be changed, I just want to try out some 
+  # *simple* controllers before trying to refactor some of our current 
+  # controllers.
+  #
+  # this is a very lay-person type of name which we'll likely change, 
+  # this is just for prototyping!
+  #
+  map.resources :species, :path_prefix => 'v1', :collection => { :search => :get, :random => :get } do |species| 
+    species.resources :data_objects
+    species.resources :images, :controller => 'data_objects'
+    species.resources :videos, :controller => 'data_objects'
+  end
+
+  # Web Application
+
   map.resources :harvest_events, :has_many => [:taxa]
   map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]
   map.resources :search_logs

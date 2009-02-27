@@ -1,4 +1,5 @@
-# See notes in "Agent" model.
+# We allow multiple "kinds" of AgentContact relationships.  Primary Contact is the only role that is used within the code: the
+# rest are for the convenience of users.
 class AgentContactRole < SpeciesSchemaModel
   has_many :agent_contacts
   

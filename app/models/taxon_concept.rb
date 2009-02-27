@@ -7,12 +7,11 @@
 # +hierarchy_entries+ table. Currently TaxonConcept are groups of one or many HierarchyEntry. We will 
 # eventually create hierarchy_entries for each entry in the taxa table (Taxon).
 #
-# It is worth mentioning that the "eol.org/page/nnnn" route is a misnomer.  Those IDs are, for the
-# time-being, pointing to TaxonConcepts.
+# It is worth mentioning that the "eol.org/pages/nnnn" route is a misnomer.  Those IDs are, for the
+# time-being, pointing to TaxonConcept, not pages.
 #
 # See the comments at the top of the Taxon for more information on this.
 # I include there a basic biological definition of what a Taxon is.
-#
 class TaxonConcept < SpeciesSchemaModel
 
   #TODO belongs_to :taxon_concept_content
@@ -22,6 +21,7 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :taxon_concept_names
   has_many :comments, :as => :parent, :attributes => true
   has_many :names, :through => :taxon_concept_names
+  has_many :ranks, :through => :hierarchy_entries
   # The following are not (yet) possible, because tcn has a three-part Primary key.
   # has_many :taxa, :through => :names, :source => :taxon_concept_names
   # has_many :mappings, :through => :names, :source => :taxon_concept_names
@@ -40,16 +40,76 @@ class TaxonConcept < SpeciesSchemaModel
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
+  ##################################### 
+  # The following are the "nice" methods, which we want to publically expose.  ...As opposed to the down-and-dirty stuff that we
+  # want to shamefully hide.  These are the methods from which we can build nice, clean objects to serve to the general public:
+
+  # The canonical form is the simplest string we can use to identify a species--no variations, no attribution, nothing fancy:
+  def canonical_form
+    return name(:canonical)
+  end
+
+  # The common name will defaut to the current user's language.
+  def common_name
+    quick_common_name
+  end
+
+  # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get extra credit on
+  # their associated TC pages. This method returns an Array of those users.  If you want a Set, call #approved_curators.
+  def curators
+    approved_curators.to_a
+  end
+
+  # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
+  # species is.  This will default to "unknown" for species that are not being tracked.
+  def iucn_conservation_status
+    return iucn.description
+  end
+
+  # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
+  def scientific_name
+    quick_scientific_name(species_or_below? ? :italicized : :normal)
+  end
+
+  # If you just call "comments", you are actually getting comments that should really be invisible.  This method gets around this,
+  # and didn't see appropriate to do with a named_scpope:
+  def visible_comments(user = @current_user)
+    return comments if user and user.is_moderator?
+    comments.find_all {|comment| comment.visible? }
+  end
+
+  ##################################### 
+  # The rest of these methods are shamefully complex and probably require serious refactoring.
+
+  # Try not to call this unless you know what you're doing.  :) See scientific_name and common_name instead.
+  #
+  # That said, this method allows you to get other variations on a name.  See HierarchyEntry#name, to which this is really
+  # delegating, unless there is no entry in the default Hierarchy, in which case, see #alternate_classification_name.
+  #
+  # (Hey, I warned you these methods were ugly.)
   def name(detail_level = :middle, language = Language.english, context = nil)
-    default_hierarchy_id = Hierarchy.default.id rescue nil
-    col_he = hierarchy_entries.detect {|he| he.hierarchy_id == default_hierarchy_id }
+    col_he = hierarchy_entries.detect {|he| he.hierarchy_id == Hierarchy.default.id }
     return col_he.nil? ? alternate_classification_name(detail_level, language, context).firstcap : col_he.name(detail_level, language, context).firstcap
   end
   
+  # Call this instead of @current_user, so that you will be given the appropriate (and DRY) defaults.
+  def current_user
+    @current_user ||= User.create_new
+  end
+
+  # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
+  def current_user=(who)
+    @current_user = who
+  end
+
   def canonical_form_object
     return entry.canonical_form
   end
 
+  # If *any* of the associated HEs are species or below, we consider this to be a species:
+  def species_or_below?
+    hierarchy_entries.detect {|he| he.species_or_below? }
+  end
 
   def alternate_classification_name(detail_level = :middle, language = Language.english, context = nil)
     #return col_he.nil? ? alternate_classification_name(detail_level, language, context) : col_he.name(detail_level, language, context)
@@ -108,14 +168,14 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def videos
-    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => @current_user)
+    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => current_user)
     @length_of_videos = videos.length # cached, so we don't have to query this again.
     return videos
   end 
 
   def map
     # NOTE: there may be more than one map, but we only need one.
-    DataObject.for_taxon(self, :map, :agent => @current_agent, :user => @current_user)[0]
+    DataObject.for_taxon(self, :map, :agent => @current_agent, :user => current_user)[0]
   end
 
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
@@ -131,12 +191,8 @@ class TaxonConcept < SpeciesSchemaModel
     return @col_entry = hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy_id }
   end
 
-  def current_user=(user)
-    @current_user ||= user
-  end
-
   def current_agent=(agent)
-    @current_agent ||= agent
+    @current_agent = agent
   end
   
   def available_media
@@ -164,32 +220,18 @@ class TaxonConcept < SpeciesSchemaModel
     return content_level != 0
   end
 
-  # TODO - stop calling these.
-  def common_name
-    return name(:middle)
-  end
-  def scientific_name
-    tcn = taxon_concept_names.select {|n| n.vern == 0 && n.preferred == 1 && !n.name.nil? }.detect { |n| n.source_hierarchy_entry_id = entry.id }
-    puts "TCN name id: #{tcn.name_id}"
-    return tcn.nil? ? name(:expert) : tcn.name.string
-  end
-  def canonical_form
-    return name(:canonical)
-  end
-  
   def quick_common_name(language = nil)
-    language ||= (@current_user.nil? ? Language.english : @current_user.language) || Language.english
+    language ||= current_user.language
     common_name_results = SpeciesSchemaModel.connection.select_values("SELECT n.string FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1 LIMIT 1")
     if common_name_results.empty?
       return ""
     end
-    
     common_name_results[0].firstcap
   end
   
   def quick_scientific_name(type = :normal)
     scientific_name_results = []
-    # TODO - refactor this.  Duplication where italicized, but I think all four queries could be generalized.
+    # TODO - refactor this.  Duplication where italicized, but I think all three queries could be generalized.
     case type
       when :normal      then scientific_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id=he.id) WHERE tcn.taxon_concept_id=#{id} AND vern=0 AND preferred=1").all_hashes
       when :italicized  then scientific_name_results = SpeciesSchemaModel.connection.execute("SELECT n.italicized name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id=he.id) WHERE tcn.taxon_concept_id=#{id} AND vern=0 AND preferred=1").all_hashes
@@ -316,10 +358,6 @@ class TaxonConcept < SpeciesSchemaModel
 
   end
   
-  def iucn_conservation_status
-    return iucn.description
-  end
-
   def iucn_conservation_status_url
     return iucn.respond_to?(:agent_url) ? iucn.agent_url : iucn.source_url
   end
@@ -339,7 +377,7 @@ class TaxonConcept < SpeciesSchemaModel
   # pull list of categories for given taxa id
   def table_of_contents(options = {})
     #options = options.merge(:agent_id => @current_agent.id) unless @current_agent.nil?
-    return @table_of_contents ||= TocItem.toc_for(id, :agent => @current_agent, :user => @current_user, :agent_logged_in => options[:agent_logged_in])
+    return @table_of_contents ||= TocItem.toc_for(id, :agent => @current_agent, :user => current_user, :agent_logged_in => options[:agent_logged_in])
   end
 
   # pull content type by given category for taxa id 
@@ -352,7 +390,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   # This used to be singleton, but now we're changing the views (based on permissions) a lot, so I removed it.
   def images(options = {})
-    images = DataObject.for_taxon(self, :image, :user => @current_user, :agent => @current_agent)
+    images = DataObject.for_taxon(self, :image, :user => current_user, :agent => @current_agent)
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
     return images
   end
@@ -374,7 +412,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   def iucn
     # Notice that we use find_by, not find_all_by.  We require that only one match (or no match) is found.
-    my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id])[0]
+    my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id, Resource.iucn.id])[0]
 
     SELECT distinct do.*
       FROM taxon_concept_names tcn
@@ -384,7 +422,7 @@ class TaxonConcept < SpeciesSchemaModel
         JOIN data_objects_taxa dot ON (t.id=dot.taxon_id)
         JOIN data_objects do ON (dot.data_object_id=do.id)
       WHERE tcn.taxon_concept_id = ?
-        AND he.resource_id = 3 
+        AND he.resource_id = ? 
       LIMIT 1 # TaxonConcept.iucn
 
 EOIUCNSQL
@@ -511,11 +549,6 @@ EO_FIND_NAMES
     return id <=> other.id
   end
 
-  def visible_comments(user = @current_user)
-    return comments if (not user.nil?) and user.is_moderator?
-    comments.find_all {|comment| comment.visible? }
-  end
-
 #####################
 private
 
@@ -575,7 +608,7 @@ private
 #       }
 #     end
     
-    mappings = SpeciesSchemaModel.connection.execute("SELECT DISTINCT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name, c.title collection_title, c.link collection_link, c.logo_url icon, c.uri collection_uri FROM taxon_concept_names tcn JOIN mappings m ON (tcn.name_id=m.name_id) JOIN collections c ON (m.collection_id=c.id) JOIN agents a ON (c.agent_id=a.id) WHERE tcn.taxon_concept_id = #{id} AND (c.vetted=1 OR c.vetted=#{@current_user.vetted}) GROUP BY c.id").all_hashes
+    mappings = SpeciesSchemaModel.connection.execute("SELECT DISTINCT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name, c.title collection_title, c.link collection_link, c.logo_url icon, c.uri collection_uri FROM taxon_concept_names tcn JOIN mappings m ON (tcn.name_id=m.name_id) JOIN collections c ON (m.collection_id=c.id) JOIN agents a ON (c.agent_id=a.id) WHERE tcn.taxon_concept_id = #{id} AND (c.vetted=1 OR c.vetted=#{current_user.vetted}) GROUP BY c.id").all_hashes
     mappings.each do |mapping|
       mapping["url"] = mapping["collection_uri"].gsub!(/FOREIGNKEY/, mapping["foreign_key"])
     end
@@ -625,7 +658,7 @@ private
     result = {
       :content_type  => 'text',
       :category_name => TocItem.find(category_id).label,
-      :data_objects  => DataObject.for_taxon(self, :text, :toc_id => category_id, :agent => @current_agent, :user => @current_user)
+      :data_objects  => DataObject.for_taxon(self, :text, :toc_id => category_id, :agent => @current_agent, :user => current_user)
     }
     # TODO = this should not be hard-coded! IDEA = use partials.  Then we have variables and they can be dynamically changed.
     # NOTE: I tried to dynamically alter data_objects directly, below, but they didn't

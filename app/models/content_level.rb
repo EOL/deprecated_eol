@@ -1,3 +1,7 @@
+# All HierarchyEntry objects--and by extension all TaxonConcept objects--have a ContentLevel, which gives us a basic metric of how
+# much data we have for that object: 1 meaning minimal content (0 meaning nothing but a name), and 4 meaning we have a rich page.
+#
+# There are other features around the site that restrict views/searches to only the richer objects.
 class ContentLevel
   
   # class to represent content levels available in the system

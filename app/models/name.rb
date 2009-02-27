@@ -1,18 +1,16 @@
-#
 # Name is used for storing different variations of names of species (TaxonConcept)
 #
-# These names are not "official."  If they have a CanonicalForm, the 
-# CanonicalForm is the "accepted" scientific name for the species.
+# These names are not "official."  If they have a CanonicalForm, the CanonicalForm is the "accepted" scientific name for the
+# species.
 #
-# You might also want to see NormalizedName.  Name is broken down 
-# into unique parts (parsed by NormalizedName) which are linked 
-# back to a Name via NormalizedLinks
+# Even common names have an italicized form, which the PHP side auto-generates.  They can't always be trusted, but there are cases
+# where a name is both common and scientific, so it must be populated.
 #
-# NormalizedName is currently what we search on when we do string 
-# searches, then we use the NormalizedLink to find Name objects that 
-# use the NormalizedName ... and we can then find TaxonConcepts / HierarchyEntries 
-# that use the Name.
+# You might also want to see NormalizedName.  Name is broken down into unique parts (parsed by NormalizedName) which are linked back
+# to a Name via NormalizedLinks
 #
+# NormalizedName is currently what we search on when we do string searches, then we use the NormalizedLink to find Name objects that
+# use the NormalizedName ... and we can then find TaxonConcepts / HierarchyEntries that use the Name.
 class Name < SpeciesSchemaModel
 
   belongs_to :canonical_form

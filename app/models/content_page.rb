@@ -1,3 +1,6 @@
+# The top nav bar of the site is geared to handle ContentSection (q.v.) sections, each of which has one or more ContentPage
+# objects associated with it.  These pages are static content *or* links to external resources, and can be edited by
+# administrators.
 class ContentPage < ActiveRecord::Base
   
   belongs_to :content_section

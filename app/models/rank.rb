@@ -12,7 +12,6 @@ class Rank < SpeciesSchemaModel
     ids << Rank.find_by_label('subspecies').id
     ids << Rank.find_by_label('variety').id
     ids << Rank.find_by_label('form').id
-    
     ids
   end
   

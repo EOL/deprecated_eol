@@ -4,7 +4,7 @@
     <%  if logged_in? && item.allow_user_text? %>
       <div class="add_text_button">
         <%#= link_to("<span style='width:20px;height:20px;display:block;'></span>", { :controller => 'data_objects', :action => 'new', :params => { :my_taxon_id => @taxon_id, :current_category_id => item.id }} ) -%>
-        <%= link_to("<span style='width:20px;height:20px;display:block;'></span>", '#' ) -%>
+        <%= link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :toc_id => item.id, :taxon_id => @taxon_id}, :id => "add_text_#{item.id}" ) -%>
       </div>
     <% end %>
  	  <a href="<%= url_for :action=>'show',:id=>@taxon_id, :category_id => item.id %>" onclick="eol_update_content_area(<%=@taxon_id%>,<%=item.id%>);this.className = 'active';return false;" class="toc_item <%= [@category_id, @item].include?(item.id) ? "active" : nil %>" title="<%= item.label %>">

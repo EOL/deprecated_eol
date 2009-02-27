@@ -50,7 +50,7 @@ CREATE TABLE `agent_contacts` (
   `telephone` varchar(30) character set ascii NOT NULL,
   `address` text NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='For content partners';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='For content partners, specifying people to contact (each one has an agent_contact_role)';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -65,7 +65,7 @@ CREATE TABLE `agent_data_types` (
   `label` varchar(100) character set ascii NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `label` (`label`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='For content partners';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='For content partners, specifying what kind of data they think they will be supplying.  This helps us prioritize harvests.';
 SET character_set_client = @saved_cs_client;
 
 --
@@ -79,7 +79,7 @@ CREATE TABLE `agent_provided_data_types` (
   `agent_data_type_id` int(10) unsigned NOT NULL,
   `agent_id` int(10) unsigned NOT NULL,
   PRIMARY KEY  (`agent_data_type_id`,`agent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='For content partners';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='simple join table.';
 SET character_set_client = @saved_cs_client;
 
 --

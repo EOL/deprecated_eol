@@ -1,0 +1,98 @@
+<% button_name = 'Create' %>
+<% form_for(@data_object) do |f| %>
+	<%= f.error_messages %>
+
+   <table style="color: #666666">
+
+    <%#= hidden_field(:data_objects_taxa, :taxon_id) %>
+    <%#= hidden_field(:data_objects_toc_category, :toc_id) %>
+
+   	<input type="hidden" id="data_objects_taxa_taxon_id" name="data_objects_taxa[taxon_id]" value="<%= @data_objects_taxa.taxon_id %>" />
+<!--   	<input type="hidden" id="data_objects_toc_category_toc_id" name="data_objects_toc_category[toc_id]" value="<%#= @data_objects_toc_category.toc_id %>" />-->
+
+	<tr><td> <%= f.label "TOC category" %></td>
+	    <td>
+		<%= select("data_objects_toc_category", "toc_id",  TocItem.find(:all, :order => 'id').collect {|c| [c.label, c.id] }) %>
+	</td></tr>
+
+    <tr><td> <%= f.label :description %></td>
+    <td><%= f.text_area( :description, :size => "40x8" )%> </td></tr>
+
+    <%#alwais data_object[data_type_id] = 2 %>
+
+ 	<tr><td> <%= f.label :language_id %></td>
+    <td>
+	<%= select("data_object", "language_id", Language.find(:all).collect {|c| [c.name, c.id] }) %>
+	</td></tr>
+
+	<tr><td> <%= f.label :license_id %></td>
+    <td>
+	    <%= select("data_object", "license_id", License.find(:all).collect {|c| [c.title, c.id] }) %>
+	</td></tr>
+
+<!--	<tr><td> <%#= f.label :mime_type_id %></td>
+    <td>
+	<%#= select("data_object", "mime_type_id", MimeType.find(:all).collect {|c| [c.label, c.id] }) %> </td></tr>-->
+
+<!--	<tr><td> <%#= f.label :curated %></td>
+    <td>
+	<%#= f.check_box :curated %> </td></tr>-->
+
+	<tr><td> <%= f.label :object_title %></td>
+	<td><%= f.text_field :object_title %> </td></tr>
+
+  </table>
+
+<!--
+1) + taxon name
+	 subject metadata?
+	 EOL registrant ID
+	 version
+
+2) what else from below?
+	<tr><td> <%#= f.label :altitude %>
+	<%#= f.text_field :altitude %> </td></tr>
+
+	<tr><td> <%#= f.label :latitude %>
+	<%#= f.text_field :latitude %> </td></tr>
+
+	<tr><td> <%#= f.label :longitude %>
+	<%#= f.text_field :longitude %> </td></tr>
+
+	<tr><td> <%#= f.label :location %>
+	<%#= f.text_field :location %> </td></tr>
+
+ 	<tr><td> <%#= f.label :object_cache_url %>
+ 	<%#= f.text_field :object_cache_url %> </td></tr>
+
+  	<tr><td> <%#= f.label :object_url %>
+  	<%#= f.text_field :object_url %> </td></tr>
+
+	<tr><td> <%#= f.label :source_url %>
+    <%#= f.text_field :source_url %> </td></tr>
+
+   <tr><td> <%#= f.label :thumbnail_cache_url %>
+    <%#= f.text_field :thumbnail_cache_url %> </td></tr>
+
+    <tr><td> <%#= f.label :thumbnail_url %>
+    <%#= f.text_field :thumbnail_url %> </td></tr>
+
+	<tr><td> <%#= f.label :created_at %>
+    <%#= f.text_field :created_at  %> </td></tr>
+
+	<tr><td> <%#= f.label :object_created_at %>
+	<%#= f.text_field :object_created_at %> </td></tr>
+
+	<tr><td> <%#= f.label :object_modified_at %>
+	<%#= f.text_field :object_modified_at %> </td></tr>
+
+ 	<tr><td> <%#= f.label :updated_at %>
+ 	<%#= f.text_field :updated_at %> </td></tr>
+
+-->
+
+
+    <%= f.submit button_name  %>
+
+
+<% end %>

@@ -157,3 +157,5 @@ li#large-image-attribution-button.unknown:hover {
     text-align: left;
     padding-bottom: 10px;
 }
+
+.insert_text { position:relative !important; width: 417px !important}

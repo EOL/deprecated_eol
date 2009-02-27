@@ -2,7 +2,7 @@ class DataObjectsController < ApplicationController
 
   layout proc { |c| c.request.xhr? ? false : "main" }
 
-  before_filter :set_data_object
+  before_filter :set_data_object, :except => :new
 
   # example urls this handles ...
   #
@@ -54,6 +54,25 @@ class DataObjectsController < ApplicationController
   # we leave that to the #curate method
   #
   def curation
+  end
+
+  def new
+    @data_object = DataObject.new
+
+   #to link with taxa
+    @data_objects_taxa = DataObjectsTaxon.new
+    @data_objects_taxa.taxon_id = params[:taxon_id]
+
+   #to get Taxon.name
+    @current_taxa = Taxon.find(params[:taxon_id])
+    @current_taxa_name = Name.find(@current_taxa.name_id)
+
+   #to link with toc
+    @data_objects_toc_category = DataObjectsTableOfContent.new
+    @data_objects_toc_category.toc_id = params[:toc_id]
+
+   #to get TOC.category
+    @current_toc_category = TocItem.find(params[:toc_id])
   end
 
   # PUT /data_objects/1/curate

@@ -22,11 +22,14 @@ a Rails developer, some are already done (like installing Ruby).  If you are not
 visit www.rubyonrails.org for more information on getting started with Rails and then return to us when you have your feet wet. 
 The www.eol.org codebase probably shouldn't be the first Rails project you've ever seen.
 
-For seasoned Rails developers, you'll also notice the codebase does some mix and matching --- both restful controllers and regular controllers,
-both ERB and HAML.  We like the restful way of doing things and plan to move in that direction.  HAML vs ERB is still an open topic 
-for discussion, although we are sticking with ERB until it's settled.
+For seasoned Rails developers, you'll also notice the codebase does some mix and matching --- both restful controllers and regular
+controllers, both ERB and HAML.  We like the restful way of doing things and plan to move in that direction.  HAML vs ERB is still
+an open topic for discussion, although we are sticking with ERB until it's settled.
+
+Hint: start with the TaxonConcept model.  Everything stems from there.
 
 === INSTALLATION
+
 
 To get things up and running, these are the steps you need to take.  If you actually run 
 through this process, please update this list with any changes you notice being necessary!
@@ -381,3 +384,12 @@ To get attribution for a given taxon concept ID:
 4. Look at the associated agents for the hierarchy_entry
     e.g. agents=he[0].agents  # OR  agents=he.agents
         agents.each {|agent| puts agent.full_name + " " + agent.homepage + " " + agent.logo_cache_url}
+
+== DOCUMENTATION
+
+We're not keeping the docs in the svn repo, so you'll have to generate them on your own.  We recommend installing the allison gem,
+after which you can run this command:
+
+  template=`allison --path` rake doc:reapp
+
+...Just remove the template bit, if you don't care to have the pretty formatting.

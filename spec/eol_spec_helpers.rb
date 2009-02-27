@@ -36,8 +36,17 @@ module EOL::Spec
       end
     end
 
+    def login_content_partner options = { }
+      if options.is_a? Agent # let us pass a newly created user (with an entered_password)
+        options = { :username => options.username, :password => options.entered_password }
+      end
+      request('/content_partner/login', :params => { 
+          'agent[username]' => options[:username], 
+          'agent[password]' => options[:password] })
+    end
+
     def login_as options = { }
-      if options.is_a?User # let us pass a newly created user (with an entered_password)
+      if options.is_a? User # let us pass a newly created user (with an entered_password)
         options = { :username => options.username, :password => options.entered_password }
       end
       request('/account/authenticate', :params => { 
@@ -117,38 +126,38 @@ module EOL::Spec
         images << build_data_object('Image', Faker::Lorem.sentence, :taxon => taxon, :hierarchy_entry => he)
       end
       # So, every HE will have each of the following, making testing easier:
-      images << build_data_object('Image', 'untrusted', taxon, he, :object_cache_url => Faker::Eol.image,
-                           :vetted => Vetted.untrusted)
-      images << build_data_object('Image', 'unknown', taxon, he, :object_cache_url => Faker::Eol.image,
-                           :vetted => Vetted.unknown)
-      images << build_data_object('Image', 'invisible', taxon, he, :object_cache_url => Faker::Eol.image,
-                           :visibility => Visibility.invisible)
-      images << build_data_object('Image', 'invisible, unknown', taxon, he, :object_cache_url => Faker::Eol.image,
-                           :visibility => Visibility.invisible, :vetted => Vetted.unknown)
-      images << build_data_object('Image', 'invisible, untrusted', taxon, he, :object_cache_url => Faker::Eol.image,
-                           :visibility => Visibility.invisible, :vetted => Vetted.untrusted)
-      images << build_data_object('Image', 'preview', taxon, he, :object_cache_url => Faker::Eol.image,
-                           :visibility => Visibility.preview)
-      images << build_data_object('Image', 'preview, unknown', taxon, he, :object_cache_url => Faker::Eol.image,
-                           :visibility => Visibility.preview, :vetted => Vetted.unknown)
-      images << build_data_object('Image', 'inappropriate', taxon, he, :object_cache_url => Faker::Eol.image,
-                           :visibility => Visibility.inappropriate)
+      images << build_data_object('Image', 'untrusted', :taxon => taxon, :hierarchy_entry => he,
+                                  :object_cache_url => Faker::Eol.image, :vetted => Vetted.untrusted)
+      images << build_data_object('Image', 'unknown', :taxon => taxon, :hierarchy_entry => he,
+                                  :object_cache_url => Faker::Eol.image, :vetted => Vetted.unknown)
+      images << build_data_object('Image', 'invisible', :taxon => taxon, :hierarchy_entry => he,
+                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.invisible)
+      images << build_data_object('Image', 'invisible, unknown', :taxon => taxon, :hierarchy_entry => he,
+                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.invisible, :vetted => Vetted.unknown)
+      images << build_data_object('Image', 'invisible, untrusted', :taxon => taxon, :hierarchy_entry => he,
+                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.invisible, :vetted => Vetted.untrusted)
+      images << build_data_object('Image', 'preview', :taxon => taxon, :hierarchy_entry => he,
+                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.preview)
+      images << build_data_object('Image', 'preview, unknown', :taxon => taxon, :hierarchy_entry => he,
+                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.preview, :vetted => Vetted.unknown)
+      images << build_data_object('Image', 'inappropriate', :taxon => taxon, :hierarchy_entry => he,
+                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.inappropriate)
       
       # TODO - Does an IUCN entry *really* need its own taxon?  I am surprised by this (it seems dupicated):
       iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => cform.string)
-      iucn = build_data_object('IUCN', Faker::Eol.iucn, iucn_taxon)
+      iucn = build_data_object('IUCN', Faker::Eol.iucn, :taxon => iucn_taxon)
       # TODO - this is a TOTAL hack, but this is currently hard-coded and needs to be fixed:
       HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_harvest_event)
 
-      video   = build_data_object('Flash',      Faker::Lorem.sentence,  taxon, nil, :object_cache_url => Faker::Eol.flash)
-      youtube = build_data_object('YouTube',    Faker::Lorem.paragraph, taxon, nil, :object_cache_url => Faker::Eol.youtube)
-      map     = build_data_object('GBIF Image', Faker::Lorem.sentence,  taxon, nil, :object_cache_url => Faker::Eol.map)
+      video   = build_data_object('Flash',      Faker::Lorem.sentence,  :taxon => taxon, :object_cache_url => Faker::Eol.flash)
+      youtube = build_data_object('YouTube',    Faker::Lorem.paragraph, :taxon => taxon, :object_cache_url => Faker::Eol.youtube)
+      map     = build_data_object('GBIF Image', Faker::Lorem.sentence,  :taxon => taxon, :object_cache_url => Faker::Eol.map)
 
-      overview = build_data_object('Text', "This is an overview of the <b>#{cform.string}</b> hierarchy entry.", taxon,
+      overview = build_data_object('Text', "This is an overview of the <b>#{cform.string}</b> hierarchy entry.", :taxon => taxon,
                                    :toc_item => TocItem.overview)
       # Add more toc items:
       (rand(4)+1).times do
-        dato = build_data_object('Text', Faker::Lorem.paragraph, taxon)
+        dato = build_data_object('Text', Faker::Lorem.paragraph, :taxon => taxon)
       end
       # TODO - Creating other TOC items (common names, BHL, synonyms, etc) would be nice 
 

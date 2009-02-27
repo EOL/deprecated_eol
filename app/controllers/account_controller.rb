@@ -1,4 +1,5 @@
 require 'uri'
+
 class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:profile]
@@ -180,35 +181,34 @@ class AccountController < ApplicationController
   end
 
   def open_id_authentication(identity_url)
-    open_id_return_to = "https://#{request.host_with_port}/account/authenticate"
-    puts "++ Hey, let's come back to #{open_id_return_to}"
+    open_id_return_to = "#{realm}/account/authenticate"
     authenticate_with_open_id(identity_url,
                               :return_to => open_id_return_to,
-                              :optional => [ :fullname,:nickname, :email ]) do |result, identity_url, registration|
+                              :optional => [ :fullname, :nickname, :email ]) do |result, identity_url, registration|
       if result.successful? # open ID verification succeeded
-        user=User.find_by_identity_url_and_active(identity_url,true) # see if user has logged into EOL before
+        user = User.find_by_identity_url_and_active(identity_url,true) # see if user has logged into EOL before
         new_openid_user=false
         if user.nil? # if not, create them a row in our database
-          user = User.create_new()
-          temp_username='temp_openid_user'
-          user.identity_url=identity_url
-          user.username=temp_username
-          user.email=registration['email'] || ""
-          user.given_name=
-          user.remote_ip=request.remote_ip
+          new_openid_user   = true
+          user              = User.create_new()
+          temp_username     = 'temp_openid_user'
+          user.identity_url = identity_url
+          user.username     = temp_username
+          user.email        = registration['email'] || ""
+          user.given_name   = # TODO - is this right?  Do we really want the given_name to be the remote IP?
+          user.remote_ip    = request.remote_ip
           user.save
-          new_username='openid_user_' + user.id.to_s
+          new_username      = 'openid_user_' + user.id.to_s
           user.update_attributes(:username=>new_username,:given_name=>registration['nickname'] || new_username)
-          new_openid_user=true
         end
-        successful_login(user,new_openid_user)
+        successful_login(user, new_openid_user)
       else
         failed_login result.message
       end
     end
   end
 
-  def successful_login(user,new_openid_user=false)
+  def successful_login(user, new_openid_user = false)
     set_current_user(user)
     flash[:notice] = "Logged in successfully"[:logged_in]   
     # TODO - user.failed_logins = 0; user.save
@@ -226,5 +226,12 @@ class AccountController < ApplicationController
     # TODO - send an email to an admin if user.failed_logins > 10 # Smells like a dictionary attack!
     flash[:warning] = message
   end  
+
+private
+
+  # In order for AccountController to work with OpenID, we need to force it to use https when authenticating.  
+  def realm
+    return ENV['RAILS_ENV'] =~ /prod/ ? "https://#{request.host_with_port}" : "#{request.protocol + request.host_with_port}"
+  end
 
 end

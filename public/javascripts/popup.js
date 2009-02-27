@@ -27,7 +27,11 @@ EOL.Popup = Class.create({
     this.is_static = options.is_static || false;
     this.classes = options.additional_classes ? 'popup ' + options.additional_classes : 'popup';
     this.href = href;
-    this.element_before = element_to_insert_after;
+    if(options.insert_after != null) {
+      this.element_before = $(options.insert_after);
+    } else {
+      this.element_before = element_to_insert_after;
+    }
     if (this.element_before.id == '') {
       throw( "Element (" + this.element_before + ") passed to new Popup doesn't have an ID!" );
     }

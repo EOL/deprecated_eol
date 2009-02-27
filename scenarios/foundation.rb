@@ -1,10 +1,12 @@
 # sets up a basic foundation - enough data to run the application, but no content
 
+# Use a factory to build an object that may already be there.  This syntax sucks, it would be nice to move this to the same place
+# as ActiveRecord::Base#gen, which we're adding elsewhere...
 def create_if_not_exists(klass, attributes)
   begin
     klass.send(:gen, attributes)
   rescue ActiveRecord::RecordInvalid => e
-    # create_if_not_exists Do nothing; we don't care.  This is (usually, we hope) caused when such a thing already exists.
+    # Do nothing; we don't care.  This is (usually, we hope) caused when such a thing already exists.
   end
 end
 

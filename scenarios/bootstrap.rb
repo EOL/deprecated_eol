@@ -54,8 +54,9 @@ ev2    = HarvestEvent.gen(:resource => r2)
 ar     = AgentsResource.gen(:agent => agent2, :resource => r2, :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 hier   = Hierarchy.gen :agent => agent2
 he     = build_hierarchy_entry 0, 0, tc, name, :hierarchy => hier
-img    = build_data_object('Image', "This should only be seen by ContentPartner #{cp.description}", tc.images.first.taxa[0], he,
-                           :object_cache_url => Faker::Eol.image, :vetted => Vetted.unknown, :visibility => Visibility.preview)
+img    = build_data_object('Image', "This should only be seen by ContentPartner #{cp.description}", :taxon => tc.images.first.taxa[0],
+                           :hierarchy_entry => he, :object_cache_url => Faker::Eol.image, :vetted => Vetted.unknown,
+                           :visibility => Visibility.preview)
 
 # Generate a default admin user and then set them up for the default roles:
 admin = User.gen :username => 'admin', :entered_password => 'admin', :given_name => 'Admin', :family_name => 'User'

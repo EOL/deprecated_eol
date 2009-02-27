@@ -1,6 +1,7 @@
-# Represents any kind of object imported from a ContentPartner, eg.
-# am image, article, video, etc
 require 'set'
+
+# Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one of our primary
+# models, and an awful lot of work occurs here.
 class DataObject < SpeciesSchemaModel
 
   belongs_to :data_type
@@ -35,34 +36,19 @@ class DataObject < SpeciesSchemaModel
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
 
-  # comment on this
+  # Add a comment to this data object
   def comment(user, body)
     comment = comments.create :user_id => user.id, :body => body
     user.comments.reload # be friendly - update the user's comments automatically
     return comment
   end
 
+  # Test whether a user has curator rights on this object
   def is_curatable_by? user
     ( hierarchy_entries.collect {|entry| user.can_curate? entry } ).include? true
   end
   
-  # TODO - this is broken, but unused.  When we start using it again, it must be fixed.
-  def self.images_for_hierarchy_entry(he_id)
-    # NOTE - left join on the licenses, so they could be NULL.
-    # (But we don't want to miss images with no license!)
-    # TODO - MED PRIORITY - I'm assuming there's one HE for this data object, and there could be several.
-    DataObject.find_by_sql([%q{SELECT DISTINCT do.*, l.description license_text, l.logo_url license_logo, l.source_url license_url,
-                                      hierarchy_entry_id taxon_id, t.scientific_name
-                                FROM top_images ti JOIN hierarchy_entry_names hen USING (hierarchy_entry_id)
-                                  JOIN data_objects do        ON ti.data_object_id = do.id
-                                  JOIN data_objects_taxa dot  ON do.id = dot.data_object_id
-                                  JOIN taxa t                 ON dot.taxon_id = t.id
-                                  LEFT OUTER JOIN licenses l  ON do.license_id = l.id 
-                                WHERE hierarchy_entry_id = ? AND data_type_id IN (?) AND visibility_id = 1
-                                ORDER BY ti.view_order     # images_for_hierarchy_entry },
-                            he_id, DataType.image_type_ids])
-  end
-
+  # Find the Agent (only one) that supplied this data object to EOL.
   def data_supplier_agent
     Agent.find_by_sql(["select a.* from data_objects_harvest_events dohe join harvest_events he on (dohe.harvest_event_id=he.id) join agents_resources ar on (he.resource_id=ar.resource_id) join agents a on (ar.agent_id=a.id) where dohe.data_object_id=? and ar.resource_agent_role_id=3", self.id]).first
   end
@@ -147,21 +133,26 @@ class DataObject < SpeciesSchemaModel
     grouped_by_agent_role
   end
 
+  # Find all of the authors associated with this data object, including those that we dynamically add elsewhere
   def authors
     default_authors = agents_data_objects.find_all_by_agent_role_id(AgentRole.author_id).collect {|ado| ado.agent }.compact
     @fake_authors.nil? ? default_authors : default_authors + @fake_authors
   end
 
+  # Find all of the photographers associated with this data object, including those that we dynamically add elsewhere
+  # TODO - this is not required.  There are no fake photographers.  :)
   def photographers
     default_photographers = agents_data_objects.find_all_by_agent_role_id(AgentRole.photographer_id).collect {|ado| ado.agent }.compact
     @fake_photographers.nil? ? default_photographers : default_photographers + @fake_photographers
   end
   
+  # Add an author to this data object that isn't in the database.
   def fake_author(author_options)
     @fake_authors ||= []
     @fake_authors << Agent.new(author_options)
   end
 
+  # Find Agents associated with this data object as sources.  If there are none, find authors.
   def sources
     list = agents_data_objects.find_all_by_agent_role_id(AgentRole.source_id).collect {|ado| ado.agent }.compact
     return list unless list.blank?
@@ -584,29 +575,6 @@ EOVISBILITYCLAUSE
     else
       raise "I'm not sure what data type #{type} is."
     end
-  end
-
-  # TODO - this isn't used yet and hasn't been kept up to date with the above.
-  def self.for_hierarchy_entry(entry_id, type)
-    # There can be more than one of these; we take the first (note the [0])
-    # TEST - make sure the visible actually works; we also removed HE--just using concepts ... also, the video_type -> data_type,
-    # so we'll need to change that where it's used.
-    DataObject.find_by_sql([<<EOVIDEOSQL, entry_id, type == :map ? DataType.map_type_ids : DataType.video_type_ids])
-    
-    SELECT dt.label media_type, dato.*, t.scientific_name,
-           t.scientific_name, tcn.taxon_concept_id taxon_id,
-           l.description license_text, l.logo_url license_logo, l.source_url license_url
-      FROM taxon_concept_names tcn
-        INNER JOIN taxa t                    ON (tcn.name_id = t.name_id)
-        INNER JOIN data_objects_taxa dot     ON (t.id = dot.taxon_id)
-        INNER JOIN data_objects dato         ON (dot.data_object_id = dato.id)
-        INNER JOIN data_types dt             ON (dato.data_type_id = dt.id)
-        LEFT OUTER JOIN licenses l           ON (dato.license_id = l.id)
-      WHERE tcn.source_hierarchy_entry_id = (?) AND data_type_id IN (?) AND
-        dato.visibility_id = 1
-      ORDER BY dato.data_rating  # DataObject.for_hierarchy_entry
-
-EOVIDEOSQL
   end
 
   # add a DataObjectTag to a DataObject

@@ -27,6 +27,10 @@ class Resource < SpeciesSchemaModel
   validates_presence_of :title, :message => "can't be blank"  
   validates_presence_of :subject, :message => "can't be blank"
   validates_presence_of :license_id, :message => "must be indicated"
+
+  def self.iucn
+    @@iucn_resource ||= Resource.find_by_title('Initial IUCN Import')
+  end
   
   def status_label
     (resource_status.nil?) ? "Pending" : resource_status.label

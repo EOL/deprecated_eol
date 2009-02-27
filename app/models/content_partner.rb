@@ -1,8 +1,9 @@
-# See notes in "Agent" model.
+# This is a special kind of Agent (the relationship is mandatory; q.v.).  A ContentPartner is akin to a User, in that they can log
+# in (see ContentPartnerController).  Of course, content partners are those people or organizations who add data to our database.
 class ContentPartner < SpeciesSchemaModel
-    
+
   belongs_to :agent
-    
+
   unless defined? STEPS
     STEPS = [:partner, :contacts, :licensing, :attribution, :roles, :transfer_overview, :transfer_upload, :specialist_overview, :specialist_formatting] 
     STEPS.each { |s| define_method("#{s}_step?") { self.step.to_s == s.to_s }}
@@ -87,7 +88,7 @@ class ContentPartner < SpeciesSchemaModel
       SpeciesSchemaModel.connection.execute("update data_objects d, data_objects_harvest_events dh, harvest_events h, agents_resources ar set d.vetted_id = #{set_to_state} where d.curated = 0 and  d.id = dh.data_object_id and dh.harvest_event_id = h.id and h.resource_id =  ar.resource_id and ar.agent_id=#{self.agent.id}")
       self.vetted=vetted
     end
-    
+
     # Set these fields to blank because insistence on having NOT NULL columns on things that aren't populated
     # until certain steps.
     def blank_not_null_fields
@@ -95,44 +96,8 @@ class ContentPartner < SpeciesSchemaModel
       self.description_of_data ||= ""
       self.description ||=""
     end
-    
-end# == Schema Info
-# Schema version: 20080922224121
-#
-# Table name: content_partners
-#
-#  id                                  :integer(4)      not null, primary key
-#  agent_id                            :integer(4)      not null
-#  attribution_accept                  :integer(1)      not null, default(0)
-#  attribution_complete_step           :timestamp
-#  attribution_seen_step               :timestamp
-#  contacts_complete_step              :timestamp
-#  contacts_seen_step                  :timestamp
-#  description                         :text            not null
-#  description_of_data                 :text
-#  eol_notified_of_acceptance          :datetime
-#  ipr_accept                          :integer(1)      not null, default(0)
-#  last_completed_step                 :string(40)
-#  licensing_complete_step             :timestamp
-#  licensing_seen_step                 :timestamp
-#  notes                               :text            not null
-#  partner_complete_step               :timestamp
-#  partner_seen_step                   :timestamp
-#  partner_vetted                      :integer(1)      not null, default(0)
-#  roles_accept                        :integer(1)      not null, default(0)
-#  roles_complete_step                 :timestamp
-#  roles_seen_step                     :timestamp
-#  specialist_formatting_complete_step :timestamp
-#  specialist_formatting_seen_step     :timestamp
-#  specialist_overview_complete_step   :timestamp
-#  specialist_overview_seen_step       :timestamp
-#  transfer_overview_complete_step     :timestamp
-#  transfer_overview_seen_step         :timestamp
-#  transfer_schema_accept              :integer(1)      not null, default(0)
-#  transfer_upload_complete_step       :timestamp
-#  transfer_upload_seen_step           :timestamp
-#  created_at                          :timestamp       not null
-#  updated_at                          :timestamp       not null
+
+end
 
 # == Schema Info
 # Schema version: 20081020144900

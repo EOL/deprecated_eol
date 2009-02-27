@@ -1,4 +1,6 @@
-# See notes in "Agent" model.
+# These individuals are associated with the roles such as "administrative contact" or "technical contact"
+# are not used for attribution or logging in - they are simply used for administrative purposes when
+# contacting the project. 
 class AgentContact < SpeciesSchemaModel
   belongs_to :agent  
   belongs_to :agent_contact_role

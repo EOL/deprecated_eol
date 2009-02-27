@@ -1,3 +1,10 @@
+# If you aren't sure what a comment is, perhaps you should re-think your career using Rails.  :)
+# 
+# Comments are polymorphically related to either a TaxonConcept or a DataObject.
+#
+# Comments can be hidden (by curators).
+#
+# Note that we presently have no way to edit comments, and won't add this feature until it becomes important.
 class Comment < ActiveRecord::Base
 
   belongs_to :user
@@ -12,6 +19,7 @@ class Comment < ActiveRecord::Base
 
   attr_accessor :vetted_by
 
+  # Comments can be hidden.  This method checks to see if a non-curator can see it:
   def visible?
     return false if visible_at.nil?
     return visible_at <= Time.now
@@ -67,15 +75,18 @@ class Comment < ActiveRecord::Base
     return return_name
   end
   
+  # Test if the parent object (DataObject or TaxonConcept) can be curated by a user:
   def is_curatable_by? user
     user.can_curate? parent
   end
 
+  # TODO - this method should not have a bang.  (See Matz' rant)
   def show! user = nil
     self.vetted_by = user if user
     self.update_attribute :visible_at, Time.now unless visible_at
   end
 
+  # TODO - this method should not have a bang.  (See Matz' rant)
   def hide! user = nil
     self.vetted_by = user if user
     self.update_attribute :visible_at, nil
@@ -86,12 +97,14 @@ class Comment < ActiveRecord::Base
   alias vet!    show!
   alias unvet!  hide!
 
+  # Pagination uses this method to check for a default pagination size:
   def self.per_page
     10
   end
 
 protected
 
+  # Run when a comment is created, to ensure it is visible by default:
   def set_visible_at
     self.visible_at ||= Time.now
   end

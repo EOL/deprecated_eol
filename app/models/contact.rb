@@ -1,3 +1,4 @@
+# An item that is submitted via the "Contact Us" or "Media Contact" portion of the website.
 class Contact < ActiveRecord::Base
   
   validates_presence_of :name, :comments

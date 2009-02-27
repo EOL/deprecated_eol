@@ -41,7 +41,7 @@ class HierarchyEntry < SpeciesSchemaModel
     when :natural_form
       return name_object.string
     when :expert
-      if context == :classification and not HierarchyEntry.leaf_node_ranks.include? self[:rank_id]
+      if context == :classification and not Rank.italicized_ids.include? self[:rank_id]
         return name_object.string
       else
         # TODO - there are cases here where we need to pay attention to language.
@@ -78,7 +78,7 @@ class HierarchyEntry < SpeciesSchemaModel
 
   # This is a complete port of content_level_sub() from functions.php:
   def content_level
-    if is_leaf_node?
+    if species_or_below?
       return 4 if hierarchies_content.content_level == 4
       return 3 unless hierarchies_content.text == 0
       return 1
@@ -149,20 +149,8 @@ EOIUCNSQL
     end
   end
 
-  def self.species_rank
-    335
-  end
-
-  def self.infraspecies_rank
-    175
-  end
-
-  def self.leaf_node_ranks
-    [HierarchyEntry.species_rank, HierarchyEntry.infraspecies_rank]
-  end
-
-  def is_leaf_node?
-    return HierarchyEntry.leaf_node_ranks.include?(rank_id)
+  def species_or_below?
+    return Rank.italicized_ids.include?(rank_id)
   end
 
   # Singleton.  top_images, from which this is based, rarely changes.
@@ -186,7 +174,7 @@ EOIUCNSQL
 
   def enable
     return false if hierarchies_content.nil?
-    return is_leaf_node? ? (hierarchies_content.text == 1 or hierarchies_content.image == 1) : valid
+    return species_or_below? ? (hierarchies_content.text == 1 or hierarchies_content.image == 1) : valid
   end
 
   def ancestors
@@ -327,9 +315,9 @@ private
   end
   
   def node_to_hash(node, detail_level)
-    is_leaf_node = (node['rgt'].to_i - node['lft'].to_i == 1)
+    species_or_below = (node['rgt'].to_i - node['lft'].to_i == 1)
     name = (detail_level.to_sym == :expert) ? node['scientific_name'].firstcap : (node['common_name'] == nil  ? node['scientific_name'].firstcap : node['common_name'].firstcap)
-    #name = node['scientific_name_italicized'] if (is_leaf_node && (detail_level.to_sym == :expert || node['common_name'] == nil))
+    #name = node['scientific_name_italicized'] if (species_or_below && (detail_level.to_sym == :expert || node['common_name'] == nil))
     name = node['scientific_name_italicized'] if (Rank.italicized_ids.include?(node['rank_id'].to_i) && (detail_level.to_sym == :expert || node['common_name'] == nil))
     {
       :name => name,
@@ -338,7 +326,7 @@ private
       :rank_string => node['rank_string'],
       :hierarchy_entry_id => node['hierarchy_entry_id'],
       :valid => node['content_level'].to_i >= $VALID_CONTENT_LEVEL.to_i,
-      :enable => is_leaf_node ? (node['text'].to_i == 1 || node['image'].to_i == 1) : (node['text'].to_i == 1 || node['image'].to_i == 1 || node['child_image'].to_i == 1)
+      :enable => species_or_below ? (node['text'].to_i == 1 || node['image'].to_i == 1) : (node['text'].to_i == 1 || node['image'].to_i == 1 || node['child_image'].to_i == 1)
     }
   end
 end

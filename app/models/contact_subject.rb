@@ -1,3 +1,4 @@
+# A kind of topic for any given Contact (q.v.).
 class ContactSubject < ActiveRecord::Base
 
   has_many :contacts

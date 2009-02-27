@@ -1,3 +1,5 @@
+# As shoud be clear, this is simply a collection of older versions of ContentPages.
+# TODO - perhaps this would be better-accomplished with acts_as_versioned.
 class ContentPageArchive < ActiveRecord::Base
 
   belongs_to :content_page

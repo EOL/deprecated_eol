@@ -1,3 +1,4 @@
+# Associates an Agent with a HierarchyEntry while assigning an AgentRole.
 class AgentsHierarchyEntry < SpeciesSchemaModel
 
   belongs_to :hierarchy_entry

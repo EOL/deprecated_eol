@@ -1,3 +1,4 @@
+# Just a join table.  See Agent and AgentDataType.
 class AgentProvidedDataType < SpeciesSchemaModel
   belongs_to :agent
   belongs_to :agent_data_type

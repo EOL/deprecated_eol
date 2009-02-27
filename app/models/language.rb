@@ -5,10 +5,8 @@ class Language < SpeciesSchemaModel
 
   named_scope :find_active, lambda { { :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC' } }
 
-  @@SCIENTIFIC_ID=501 # TODO - Should not depend on this hardcoded ID for "scientific"
-    
   def self.scientific
-    @@scientific ||= Language.find(@@SCIENTIFIC_ID) 
+    @@scientific ||= Language.find_by_label('Scientific Name')
   end
 
   def self.english # because it's a default.  No other language will have this kind of method.

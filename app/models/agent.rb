@@ -1,27 +1,22 @@
 # An agent is any person, project or entity that is associated with EOL indexed
-#  data.  Example of agents include projects, authors, and photographers.
-#  Any given data object can be associated with multiple agents, each agent
-#  assigned a differing role based on their association to the associated data object.
-
+# data.  Example of agents include projects, authors, and photographers.
+# Any given data object can be associated with multiple agents, each agent
+# assigned a differing role based on their association to the associated data object.
+#
 # Projects that register using the content partner registry will also have a username and a password
-#  and the ability to log into the content partner system to retrieve reports.  These projects are
-#  also agents and are associated with any data objects they contribute through the content partner
-#  registry system.  In order to keep track of their status and movement through the registry, they
-#  also receive a row in the "content_partner" table, which is linked back to the corresponding agent.
-
+# and the ability to log into the content partner system to retrieve reports.  These projects are
+# also agents and are associated with any data objects they contribute through the content partner
+# registry system.  In order to keep track of their status and movement through the registry, they
+# also receive a row in the "content_partner" table, which is linked back to the corresponding agent.
+#
 # Usernames and passwords are only for agents that register with the content partner
-#  registry and are distinct from traditional web users (since these logins are for projects instead
-#  of for individuals.
-
-# Agents can also register important individuals associated with the project in the "agent_contact" table.
-#  These individuals are associated with the roles such as "administrative contact" or "technical contact"
-#  are not used for attribution or logging in - they are simply used for administrative purposes when
-#  contacting the project. 
-
-#TODO (Low Priority): Remove logo_url column on the agents table, which is not needed anymore
-
+# registry and are distinct from traditional web users (since these logins are for projects instead
+# of for individuals.
+#
+# Agents can also register important individuals associated with the project through AgentContact (q.v.)
 class Agent < SpeciesSchemaModel
 
+  #TODO (Low Priority): Remove logo_url column on the agents table, which is not needed anymore
   # Associations  
   
   belongs_to :agent_status

@@ -447,11 +447,11 @@ end
 
 Factory.define :language do |l|
   l.source_form  ''
-  l.name         'Klingon'
-  l.label        {|lang| lang.name[0..1].downcase }
-  l.iso_639_1    {|lang| lang.name[0..1].downcase }
-  l.iso_639_2    {|lang| lang.name[0..2].downcase }
-  l.iso_639_3    {|lang| lang.name[0..3].downcase }
+  l.label        'Klingon'
+  l.name         {|lang| lang.label[0..1].downcase }
+  l.iso_639_1    {|lang| lang.label[0..1].downcase }
+  l.iso_639_2    {|lang| lang.label[0..2].downcase }
+  l.iso_639_3    {|lang| lang.label[0..3].downcase }
   l.activated_on { 5.hours.ago }
   l.sort_order   { Factory.next(:int) }
 end
@@ -487,6 +487,8 @@ Factory.define :name do |name|
   name.string              { Factory.next(:species) }
   name.canonical_verified  0 # I don't know that Rails ever uses this...
   name.italicized_verified 0 # I don't know that Rails ever uses this...
+  # The italicized can NEVER be blank.  Even for common names.  ...Not that you can trust it for common names, but some names are
+  # both vernacular *and* scientific, so we're enforcing the presence of the value.
   # The strip  at the end handles strings that are only two words; it is useless with three or more.
   name.italicized          {|n| n.string.split[0] == n.string ? "<i>#{n.string}</i>" : ('<i>' + n.string.split[0..1].join(' ') + '</i> ' +  n.string.split[2..-1].join(' ')).strip }
   name.namebank_id         0

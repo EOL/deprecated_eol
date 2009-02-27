@@ -103,9 +103,9 @@ create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TrophicStrategy',       :label => 'TrophicStrategy'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',                  :label => 'Uses'
 
-create_if_not_exists Language, :name => 'English', :iso_639_1 => 'en'
-create_if_not_exists Language, :name => 'French',  :iso_639_1 => 'fr' # Technically not required, but nice to check translation file.
-create_if_not_exists Language, :name => 'scient',  :iso_639_1 => 'en' # Technically, this needs to be ID 501.  ...But only for PHP's sake.
+create_if_not_exists Language, :label => 'English',         :iso_639_1 => 'en'
+create_if_not_exists Language, :label => 'French',          :iso_639_1 => 'fr' # Technically not required, but to test i18n
+create_if_not_exists Language, :label => 'Scientific Name', :iso_639_1 => ''   # Should be ID 501.  ...But only for PHP's sake.
 
 create_if_not_exists License, :title => 'public domain',       :description => 'No rights reserved'
 create_if_not_exists License, :title => 'all rights reserved', :description => '&#169; All rights reserved'
@@ -150,6 +150,10 @@ create_if_not_exists MimeType, :label => 'video/x-ms-wmv'
 # create_if_not_exists NormalizedQualifier :label => 'Author'
 # create_if_not_exists NormalizedQualifier :label => 'Year'
 
+%w{phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
+  create_if_not_exists Rank, :label => rank
+end
+
 create_if_not_exists RefIdentifierType, :label => 'bici'
 create_if_not_exists RefIdentifierType, :label => 'coden'
 create_if_not_exists RefIdentifierType, :label => 'doi'
@@ -162,6 +166,8 @@ create_if_not_exists RefIdentifierType, :label => 'oclc'
 create_if_not_exists RefIdentifierType, :label => 'sici'
 create_if_not_exists RefIdentifierType, :label => 'url'
 create_if_not_exists RefIdentifierType, :label => 'urn'
+
+create_if_not_exists Resource, :title => 'Initial IUCN Import'
 
 create_if_not_exists ResourceAgentRole, :label => 'Administrative'
 create_if_not_exists ResourceAgentRole, :label => 'Data Administrator'

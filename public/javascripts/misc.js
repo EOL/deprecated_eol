@@ -38,7 +38,7 @@ function eol_update_content_area(taxon_id,category_id) {
             onLoading:function(request){showAjaxIndicator(true);},
             asynchronous:true,
             evalScripts:true});
-    $A(document.getElementsByClassName('active', $('toc'))).each(function(e) { e.className = ''; });
+    $A(document.getElementsByClassName('active', $('toc'))).each(function(e) { e.className = 'toc_item'; });
 }
 
 // show the pop-up in the div 

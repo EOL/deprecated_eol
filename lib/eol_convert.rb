@@ -14,10 +14,10 @@ class EOLConvert
    
   end    
 
-  # pass in a search type (currently "tag" or "text") and return either tag or text --- if nil or anything other than those two things are passed in, return "text"
+  # pass in a search type (currently "tag", "google", "text") and return either tag, text or google --- if nil or anything other than those two things are passed in, return "text"
   def self.get_search_type(search_type)
     search_type = (search_type.blank? ? 'text' : search_type)
-    search_type='text' unless ['tag','text'].include?(search_type.downcase)
+    search_type='text' unless ['tag','text','google'].include?(search_type.downcase)
     return search_type
   end
      

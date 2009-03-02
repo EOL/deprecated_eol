@@ -191,7 +191,7 @@
                     }
                         
                     EOL.Search.clear_field = function(form_field) {
-                      if (form_field.value == "<%=escape_javascript("Name of organism"[])%>") { 
+                      if (form_field.value != '') { 
                         form_field.value='';
                       }
                     }
@@ -201,14 +201,16 @@
                 <% form_tag(search_url, :method=>'get', :onsubmit=>"return EOL.Search.validate_parameters(this,false);") do -%>            
                   <div class="search_box">
                     <fieldset>
-                      <%= text_field_tag :q,@search_string || "Name of organism"[],{:size=>'20',:maxlength=>'250',:onfocus=>"EOL.Search.clear_field(this);",:class=>"left"} %>
+                      <%= text_field_tag :q,@search_string || '',{:size=>'20',:maxlength=>'250',:onfocus=>"EOL.Search.clear_field(this);",:class=>"left"} %>
                       &nbsp;<input name="search_image" id="search_image" value="" title="<%="Find"[]%>" type="submit"  /> 
                       <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;', :id => 'top_search_spinner')%>
                     </fieldset>
                   </div>
                   <div class="search_options">
+                    <%= render :partial=>'shared/google_custom_search_params'%>
                     <%= radio_button_tag('search_type','text',true) %> Names
                     <%= radio_button_tag('search_type','tag',false) %> Tags
+                    <%= radio_button_tag('search_type','google',false) %> Full-text
                   </div>
                   <span id="search_message"></span>
                 <% end %>

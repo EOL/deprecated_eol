@@ -23,6 +23,8 @@
                 <%= hidden_field_tag :search_log_id, @search.logged_search_id if @search.logged_search_id%>
                 <%= hidden_field_tag :user_id, current_user.id %>
 
+                <%= render :partial=>'shared/google_custom_search_params'%>                             
+
                 <fieldset>
                     <legend><%="SEARCH TERMS"[]%></legend>
                     <%= text_field_tag :q,@search.search_string,{:size=>"18",:maxlength=>"250"} %> 
@@ -30,6 +32,7 @@
                     <div class="search_options">
                       <%= radio_button_tag('search_type','text', @search.search_type == 'text' || @search.search_type.nil?) %> Names
                       <%= radio_button_tag('search_type','tag', @search.search_type == 'tag') %> Tags
+                      <%= radio_button_tag('search_type','google', @search.search_type == 'google') %> Full-text
                     </div>
                     <input name="search_image" id="search_image" title="<%="Find"[]%>" value="" type="submit" class="right" />
                     <br/>
@@ -71,7 +74,7 @@
 
             <div id="right-pane">    
  
-                    <% if @search.searching && @search.suggested_searches.length > 0 %>
+                    <% if @search.searching && !@search.suggested_searches.nil? && @search.suggested_searches.length > 0 %>
 
                     <div class="search_results" id="common_search_results">    
                         <table>
@@ -107,6 +110,19 @@
                     
                     <br/><br/>
                     <% end %>
+               <% if @search.search_type=='google'%>
+                 <div class="search_results" id="tag_search_results">    
+                  <div id="cse-search-results"></div>
+                   <script type="text/javascript">
+                     var googleSearchIframeName = "cse-search-results";
+                     var googleSearchFormName = "cse-search-box";
+                     var googleSearchFrameWidth = 650;
+                     var googleSearchDomain = "www.google.com";
+                     var googleSearchPath = "/cse";
+                   </script>
+                   <script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
+                  </div>
+               <% end %>
                
                <% if  @search.search_type=='text'%>
                  <% if allow_page_to_be_cached? %>

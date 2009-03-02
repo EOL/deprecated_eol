@@ -37,10 +37,7 @@ module EOL::Spec
     end
 
     def login_content_partner options = { }
-      if options.is_a? Agent # let us pass a newly created user (with an entered_password)
-        options = { :username => options.username, :password => options.entered_password }
-      end
-      request('/content_partner/login', :params => { 
+      f = request('/content_partner/login', :params => { 
           'agent[username]' => options[:username], 
           'agent[password]' => options[:password] })
     end

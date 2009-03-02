@@ -194,8 +194,8 @@ class AccountController < ApplicationController
           temp_username     = 'temp_openid_user'
           user.identity_url = identity_url
           user.username     = temp_username
-          user.email        = registration['email'] || ""
-          user.given_name   = # TODO - is this right?  Do we really want the given_name to be the remote IP?
+          user.email        = registration['email'] || ''
+          user.given_name   = registration['nickname'] || '' 
           user.remote_ip    = request.remote_ip
           user.save
           new_username      = 'openid_user_' + user.id.to_s
@@ -221,7 +221,7 @@ class AccountController < ApplicationController
   end
 
   def failed_login(message)
-    redirect_to :action => 'login',:protocol => "http://"
+    redirect_to :action => 'login',:protocol => "https://"
     # TODO - user.failed_logins += 1; user.save
     # TODO - send an email to an admin if user.failed_logins > 10 # Smells like a dictionary attack!
     flash[:warning] = message

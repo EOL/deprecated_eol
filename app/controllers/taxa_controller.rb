@@ -158,9 +158,10 @@ class TaxaController < ApplicationController
     last_published=HarvestEvent.last_published if params[:search_type].downcase == 'text' && allow_page_to_be_cached?
     @last_harvest_event_id=(last_published.blank? ? "0" : last_published.id.to_s)
     
+     # this is a non-cached text search      
     if params[:search_type] == 'text' && (!allow_page_to_be_cached? || !read_fragment(:controller=>'taxa',:part=>'search_' + params[:search_language] + '_' + params[:q] + '_' + current_user.vetted.to_s + '_' + @last_harvest_event_id))           
       
-      @search = Search.new(params, request, current_user, current_agent)  # this is a non-cached text search      
+      @search = Search.new(params, request, current_user, current_agent)  
       @cached = false
         
       # TODO - There is a much better way to do this, please clean me - it is also duplicated in search.rb model  
@@ -179,10 +180,15 @@ class TaxaController < ApplicationController
       @search = Search.new(params,request,current_user,current_agent,false) # set up some variables needed on the page, but don't actually execute the search
       @cached = true
       
-    else # this is a tag search (which is never cached)
+    elsif params[:search_type] == 'tag' # this is a tag search (which is never cached)
       
       @search = Search.new(params,request,current_user,current_agent)
       @cached = false
+    
+    else # this is a full-text serach (which is never cached)
+      
+      @search = Search.new(params,request,current_user,current_agent,false) # set up some variables needed on the page, but don't actually execute the search
+      @cached=false
       
     end
     

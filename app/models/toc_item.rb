@@ -53,7 +53,8 @@ class TocItem < SpeciesSchemaModel
     i = 0
     toc = toc.map do |item|
       item.has_unpublished_content = true if item.published.to_i == 0
-      item.has_published_content = true if item.published.to_i == 1 && options[:agent_logged_in] && !item.data_supplier_agent.blank? && current_agent.id == item.data_supplier_agent.id
+      #item.has_published_content = true if item.published.to_i == 1 && options[:agent_logged_in] && !item.data_supplier_agent.blank? && current_agent.id == item.data_supplier_agent.id
+      item.has_published_content = false
       item.has_invisible_content = true if item.visibility_id.to_i == Visibility.invisible.id
       item.has_inappropriate_content = true if item.visibility_id.to_i == Visibility.inappropriate.id
 

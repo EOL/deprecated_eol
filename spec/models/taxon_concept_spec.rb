@@ -1,7 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-require 'ruby-prof'
-
 describe TaxonConcept do
 
   scenario :foundation

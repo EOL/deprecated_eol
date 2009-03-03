@@ -35,6 +35,7 @@ Spec::Runner.configure do |config|
   # examples run within their own transactions for ALL 
   # active connections (works for ALL of our databases)
   config.before(:each) do
+    Rails.cache.clear # this resets all of the in-memory models, like Resource.iucn, so they will get new IDs as needed.
     UseDbPlugin.all_use_dbs.collect do |klass|
       klass
     end

@@ -34,19 +34,27 @@ class DataType < SpeciesSchemaModel
   end
   
   def self.image_type_ids
-    @@image_type_ids ||= DataType.get_type_ids(['Image'])
+    Rails.cache.fetch(:image_type_ids) do
+      DataType.get_type_ids(['Image'])
+    end
   end
   
   def self.video_type_ids
-    @@video_type_ids ||= DataType.get_type_ids(['YouTube', 'Flash'])
+    Rails.cache.fetch(:video_type_ids) do
+      DataType.get_type_ids(['YouTube', 'Flash'])
+    end
   end
 
   def self.map_type_ids
-    @@map_type_ids ||= DataType.get_type_ids(['GBIF Image'])
+    Rails.cache.fetch(:map_type_ids) do
+      DataType.get_type_ids(['GBIF Image'])
+    end
   end
 
   def self.text_type_ids
-    @@text_type_ids ||= DataType.get_type_ids(['Text'])
+    Rails.cache.fetch(:text_type_ids) do
+      DataType.get_type_ids(['Text'])
+    end
   end
 
 private

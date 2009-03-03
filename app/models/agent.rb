@@ -84,17 +84,22 @@ class Agent < SpeciesSchemaModel
       
   # Singleton class variable, so we only ever look it up once per thread:
   def self.iucn
-    @@iucn ||= Agent.find_by_full_name('IUCN')
+    Rails.cache.fetch(:iucn_agent) do
+      Agent.find_by_full_name('IUCN')
+    end
   end
   def self.catalogue_of_life
-    @@col ||= Agent.find_by_full_name('Catalogue of Life')
+    Rails.cache.fetch(:catalogue_of_life_agent) do
+      Agent.find_by_full_name('Catalogue of Life')
+    end
   end
   
   # get the CoL agent for use in classification attribution
   def self.catalogue_of_life_for_attribution
-    @@col_attr ||= Agent.catalogue_of_life
-    @@col_attr.full_name = @@col_attr.display_name = Hierarchy.default.label # To change the name from just "Catalogue of Life"
-    return @@col_attr
+    Rails.cache.fetch(:catalogue_of_life_for_attribution) do
+      col_attr = Agent.catalogue_of_life
+      col_attr.full_name = col_attr.display_name = Hierarchy.default.label # To change the name from just "Catalogue of Life"
+    end
   end
   
   # override the logo_url column in the database to contruct the path on the content server

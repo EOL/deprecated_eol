@@ -1,10 +1,11 @@
 # Put a few taxa (all within a new hierarchy) in the database with a range of
 # accoutrements.  Depends on foundation scenario!
 
-require 'spec/spec_helper'
-
-# This gives us some required methods:
+require 'spec/eol_spec_helpers'
+# This gives us the ability to recalculate some DB values:
 include EOL::Data
+# This gives us the ability to build taxon concepts:
+include EOL::Spec::Helpers
 
 # A singleton that creates some users:
 def bootstrap_users
@@ -36,9 +37,10 @@ AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource,
 AgentsResource.gen(:agent => Agent.iucn, :resource => Resource.iucn,
                    :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 
-kingdom = build_taxon_concept(0, 0, :canonical_form => 'Animalia', :common_name => 'Animals')
+kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
 5.times do
-  build_taxon_concept(Hierarchy.default.hierarchy_entries.last.id, Hierarchy.default.hierarchy_entries.length)
+  build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
+                      :depth => Hierarchy.default.hierarchy_entries.length)
 end
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
@@ -53,7 +55,7 @@ r2     = Resource.gen(:title => 'Test ContentPartner import', :resource_status =
 ev2    = HarvestEvent.gen(:resource => r2)
 ar     = AgentsResource.gen(:agent => agent2, :resource => r2, :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 hier   = Hierarchy.gen :agent => agent2
-he     = build_hierarchy_entry 0, 0, tc, name, :hierarchy => hier
+he     = build_hierarchy_entry 0, tc, name, :hierarchy => hier
 img    = build_data_object('Image', "This should only be seen by ContentPartner #{cp.description}", :taxon => tc.images.first.taxa[0],
                            :hierarchy_entry => he, :object_cache_url => Faker::Eol.image, :vetted => Vetted.unknown,
                            :visibility => Visibility.preview)

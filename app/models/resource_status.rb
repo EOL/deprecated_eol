@@ -2,43 +2,63 @@ class ResourceStatus < SpeciesSchemaModel
   has_many :resources
 
   def self.uploading
-    @@uploading ||= self.find_by_label('Uploading') 
+    Rails.cache.fetch(:uploading_res_status) do
+      self.find_by_label('Uploading') 
+    end
   end
   
   def self.uploaded
-    @@uploaded ||= self.find_by_label('Uploaded')
+    Rails.cache.fetch(:uploaded_res_status) do
+      self.find_by_label('Uploaded')
+    end
   end
   
   def self.upload_failed
-    @@upload_failed ||= self.find_by_label('Upload Failed')
+    Rails.cache.fetch(:upload_failed_res_status) do
+      self.find_by_label('Upload Failed')
+    end
   end
   
   def self.moved_to_content_server
-    @@moved_to_content_server ||= self.find_by_label('Moved to Content Server')
+    Rails.cache.fetch(:moved_to_content_server_res_status) do
+      self.find_by_label('Moved to Content Server')
+    end
   end
   
   def self.validated
-    @@validated ||= self.find_by_label('Validated')
+    Rails.cache.fetch(:validated_res_status) do
+      self.find_by_label('Validated')
+    end
   end
   
   def self.validation_failed
-    @@validation_failed ||= self.find_by_label('Validation Failed')
+    Rails.cache.fetch(:validation_failed_res_status) do
+      self.find_by_label('Validation Failed')
+    end
   end
   
   def self.being_processed
-    @@being_processed ||= self.find_by_label('Being Processed')
+    Rails.cache.fetch(:being_processed_res_status) do
+      self.find_by_label('Being Processed')
+    end
   end
   
   def self.processed
-    @@processed ||= self.find_by_label('Processed')
+    Rails.cache.fetch(:processed_res_status) do
+      self.find_by_label('Processed')
+    end
   end
   
   def self.processing_failed
-    @@processing_failed ||= self.find_by_label('Processing Failed')
+    Rails.cache.fetch(:processing_failed_res_status) do
+      self.find_by_label('Processing Failed')
+    end
   end
 
   def self.published
-    @@published ||= self.find_by_label('Published')
+    Rails.cache.fetch(:published_res_status) do
+      self.find_by_label('Published')
+    end
   end
 end
 # == Schema Info

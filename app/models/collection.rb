@@ -10,7 +10,9 @@ class Collection < SpeciesSchemaModel
   # Fishbase is a collection that we reference often and have specific behaviours for, thus we want to find it simply (and cache
   # it):
   def self.fishbase
-    @@fishbase ||= Collection.find_by_title('FishBase species detail')
+    Rails.cache.fetch(:fishbase_collection) do
+      Collection.find_by_title('FishBase species detail')
+    end
   end
 
   # Some collections want us to "ping" them every time a DataObject they authored is referenced on our site.  For now, this is

@@ -1,5 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+require 'ruby-prof'
+
 describe TaxonConcept do
 
   scenario :foundation
@@ -11,38 +13,22 @@ describe TaxonConcept do
   # If you want to think of this as more of a "black-box" test, that's fine.  I chose to put it in the models directory because,
   # well, it isn't testing a website, and it IS testing a *model*, so it seemed a "better" fit here, even if it isn't perfect.
   before(:each) do
+    Rails.cache.clear
     @canonical_form  = Faker::Eol.scientific_name
     @attribution     = Faker::Eol.attribution
     @common_name     = Faker::Eol.common_name.firstcap
     @scientific_name = "#{@canonical_form} #{@attribution}"
     @italicized      = "<i>#{@canonical_form}</i> #{@attribution}"
     @iucn_status     = Faker::Eol.iucn
-    tc = TaxonConcept.gen
-    cf = CanonicalForm.gen(:string => @canonical_form)
-    sn = Name.gen(:canonical_form => cf, :string => @scientific_name, :italicized => @italicized)
-    cn = Name.gen(:canonical_form => cf, :string => @common_name)
-    parent = 0
-    depth  = Rank.find_by_label('species').id - 1 # REALLY cheating, now.
-    he    = HierarchyEntry.gen(:hierarchy     => Hierarchy.default,
-                               :parent_id     => parent,
-                               :depth         => depth,
-                               :rank_id       => depth + 1, # Cheating. As long as the order is sane, this works well.
-                               :taxon_concept => tc,
-                               :name          => sn)
-    HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4, :gbif_image => 1, :youtube => 1,
-                           :flash => 1)
-    TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => he.id, :language => Language.scientific,
-                         :name => sn, :taxon_concept => tc)
-    TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => he.id, :language => Language.english,
-                         :name => cn, :taxon_concept => tc)
-    # TODO - Does an IUCN entry *really* need its own taxon?  I am surprised by this (it seems dupicated):
-    iucn_taxon = Taxon.gen(:name => sn, :hierarchy_entry => he, :scientific_name => @canonical_form)
-    iucn = build_data_object('IUCN', @iucn_status, :taxon => iucn_taxon)
-    iucn_he = HarvestEvent.find_by_resource_id(Resource.iucn.id)
-    iucn_he = HarvestEvent.gen(:resource_id => Resource.iucn.id) if iucn_he == nil
-    HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_he)
+    tc = build_taxon_concept(:rank            => 'species',
+                             :canonical_form  => @canonical_form,
+                             :attribution     => @attribution,
+                             :scientific_name => @scientific_name,
+                             :italicized      => @italicized,
+                             :common_name     => @common_name,
+                             :iucn_status     => @iucn_status)
     @id            = tc.id
-    @curator       = Factory(:curator, :curator_hierarchy_entry => he)
+    @curator       = Factory(:curator, :curator_hierarchy_entry => tc.entry)
     @taxon_concept = TaxonConcept.find(@id)
   end
 
@@ -63,10 +49,10 @@ describe TaxonConcept do
   end
 
   it 'should have curators' do
-    @taxon_concept.curators.should == [@curator]
+    @taxon_concept.curators.map(&:id).should include(@curator.id)
   end
 
-  it 'should have a scientific name' do
+  it 'should have a scientific name (italicized for species)' do
     @taxon_concept.scientific_name.should == @italicized
   end
 
@@ -74,7 +60,15 @@ describe TaxonConcept do
     @taxon_concept.common_name.should == @common_name
   end
 
-  it 'should set the common name to the correct language'
+  it 'should set the common name to the correct language' do
+    lang = Language.gen(:label => 'Frizzban')
+    user = User.gen(:language => lang)
+    str  = 'Frebblebup'
+    name = Name.gen(:string => str)
+    TaxonConceptName.gen(:language => lang, :name => name, :taxon_concept => @taxon_concept)
+    @taxon_concept.current_user = user
+    @taxon_concept.common_name.should == str
+  end
 
   it 'should let you get/set the current user' do
     user = User.gen

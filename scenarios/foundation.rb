@@ -68,7 +68,6 @@ create_if_not_exists DataType, :label => 'IUCN'
 create_if_not_exists DataType, :label => 'Flash'
 create_if_not_exists DataType, :label => 'YouTube'
 
-
 create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007"
 create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
 
@@ -152,7 +151,7 @@ create_if_not_exists MimeType, :label => 'video/x-ms-wmv'
 # create_if_not_exists NormalizedQualifier :label => 'Author'
 # create_if_not_exists NormalizedQualifier :label => 'Year'
 
-%w{phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
+%w{kingdom phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
   create_if_not_exists Rank, :label => rank
 end
 
@@ -170,6 +169,9 @@ create_if_not_exists RefIdentifierType, :label => 'url'
 create_if_not_exists RefIdentifierType, :label => 'urn'
 
 create_if_not_exists Resource, :title => 'Initial IUCN Import'
+
+# This is out of ourder, of course, because it depends on the IUCN resource.
+create_if_not_exists HarvestEvent, :resource_id => Resource.iucn.id
 
 create_if_not_exists ResourceAgentRole, :label => 'Administrative'
 create_if_not_exists ResourceAgentRole, :label => 'Data Administrator'

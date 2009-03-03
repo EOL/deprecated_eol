@@ -3,15 +3,21 @@ class Status < SpeciesSchemaModel
   has_many :data_objects_harvest_events
   
     def self.inserted
-      @@inserted ||= Status.find_by_label('inserted')
+      Rails.cache.fetch(:inserted_status) do
+        Status.find_by_label('inserted')
+      end
     end
 
     def self.updated
-      @@updated ||= Status.find_by_label('updated')
+      Rails.cache.fetch(:updated_status) do
+        Status.find_by_label('updated')
+      end
     end
 
     def self.unchanged
-      @@unchanged ||= Status.find_by_label('unchanged')
+      Rails.cache.fetch(:unchanged_status) do
+        Status.find_by_label('unchanged')
+      end
     end
 
 end

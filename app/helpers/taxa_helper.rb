@@ -21,9 +21,6 @@ module TaxaHelper
     
   def agent_partial(original_agents, params={})
     return '' if original_agents.nil? or original_agents.blank?
-    # I am going to cache values (in memory), since there is often a LOT of repetition, here.
-    # Note that I don't bother caching non-linked values, since that's just one variable, anyway.
-    @@cached_links ||= {}
     params[:linked] = true if params[:linked].nil?
     params[:only_first] ||= false
     params[:show_link_icon] = true if params[:show_link_icon].nil?

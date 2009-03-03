@@ -11,23 +11,33 @@ class TocItem < SpeciesSchemaModel
   has_and_belongs_to_many :data_objects, :join_table => 'data_objects_table_of_contents', :foreign_key => 'toc_id'
 
   def self.bhl
-    @@bhl ||= TocItem.find_by_label('Biodiversity Heritage Library')
+    Rails.cache.fetch(:bhl_toc) do
+      TocItem.find_by_label('Biodiversity Heritage Library')
+    end
   end
   
   def self.specialist_projects
-    @@specialist_projects ||= TocItem.find_by_label('Specialist Projects')
+    Rails.cache.fetch(:specialist_projects_toc) do
+      TocItem.find_by_label('Specialist Projects')
+    end
   end
   
   def self.common_names
-    @@common_names ||= TocItem.find_by_label('Common Names')
+    Rails.cache.fetch(:common_names_toc) do
+      TocItem.find_by_label('Common Names')
+    end
   end
   
   def self.overview
-    @@search_the_web ||= TocItem.find_by_label('Overview')
+    Rails.cache.fetch(:overview_toc) do
+      TocItem.find_by_label('Overview')
+    end
   end
   
   def self.search_the_web
-    @@search_the_web ||= TocItem.find_by_label('Search the Web')
+    Rails.cache.fetch(:search_the_web_toc) do
+      TocItem.find_by_label('Search the Web')
+    end
   end
   
   def has_content?

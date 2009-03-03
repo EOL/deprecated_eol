@@ -89,7 +89,7 @@ module EOL::Spec
       return dato
     end
 
-    def build_hierarchy_entry(parent, depth, tc, name, options = {})
+    def build_hierarchy_entry(depth, tc, name, options = {})
       he    = HierarchyEntry.gen(:hierarchy     => options[:hierarchy] || Hierarchy.default,
                                  :parent_id     => options[:parent_id] || 0,
                                  :depth         => depth,
@@ -100,15 +100,32 @@ module EOL::Spec
       return he
     end
 
-    def build_taxon_concept(parent, depth, options = {})
+    # == Options:
+    #
+    # These all have intelligent(ish) default values, so just specify those values that you feel are really salient.
+    #
+    #   +attribution+:: String to be used in scientific name as attribution
+    #   +canonical_form+:: String to use for canonical form (all names will reference this)
+    #   +common_name+:: String to use for thre preferred common name
+    #   +depth+:: Depth to apply to the attached hierarchy entry.  Don't supply this AND rank.
+    #   +iucn_status+:: String to use for IUCN description
+    #   +italicized+:: String to use for preferred scientific name's italicized form.
+    #   +rank+:: String form of the Rank you want this TC to be.  Default 'species'.
+    #   +scientific_name+:: String to use for the preferred scientific name.
+    #   +parent_hierarchy_entry_id+:: When building the associated HierarchyEntry, this id will be used for its parent.
+    def build_taxon_concept(options = {})
       attri = options[:attribution] || Faker::Eol.attribution
       common_name = options[:common_name] || Faker::Eol.common_name
-      cform = CanonicalForm.gen(:string => options[:canonical_form] || Faker::Eol.scientific_name)
-      sname = Name.gen(:canonical_form => cform, :string => "#{cform.string} #{attri}".strip,
-                       :italicized     => "<i>#{cform.string}</i> #{attri}".strip)
+      iucn_status = options[:iucn_status] || Faker::Eol.iucn
+      canon       = options[:canonical_form] || Faker::Eol.scientific_name
+      cform = CanonicalForm.find_by_string(canon) || CanonicalForm.gen(:string => canon)
+      sname = Name.gen(:canonical_form => cform, :string => options[:scientific_name] || "#{canon} #{attri}".strip,
+                       :italicized     => options[:italicized] || "<i>#{canon}</i> #{attri}".strip)
       cname = Name.gen(:canonical_form => cform, :string => common_name, :italicized => common_name)
       tc    = TaxonConcept.gen(:vetted => Vetted.trusted)
-      he    = build_hierarchy_entry(parent, depth, tc, sname)
+      # Note that this assumes the ranks are *in order* which is ONLY true with foundation loaded!
+      depth = options[:depth] || Rank.find_by_label(options[:rank] || 'species').id - 1
+      he    = build_hierarchy_entry(depth, tc, sname, :parent_id => options[:parent_hierarchy_entry_id])
       TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => he.id, :language => Language.scientific,
                            :name => sname, :taxon_concept => tc)
       TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => he.id, :language => Language.english,
@@ -117,7 +134,7 @@ module EOL::Spec
       (rand(60) - 39).times { Comment.gen(:parent => tc, :parent_type => 'taxon_concept', :user => User.all.rand) }
       # TODO - add some alternate names, including at least one in another language.
 
-      taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => cform.string)
+      taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => canon)
       images = []
       (rand(12)+3).times do
         images << build_data_object('Image', Faker::Lorem.sentence, :taxon => taxon, :hierarchy_entry => he)
@@ -140,17 +157,16 @@ module EOL::Spec
       images << build_data_object('Image', 'inappropriate', :taxon => taxon, :hierarchy_entry => he,
                                   :object_cache_url => Faker::Eol.image, :visibility => Visibility.inappropriate)
       
-      # TODO - Does an IUCN entry *really* need its own taxon?  I am surprised by this (it seems dupicated):
-      iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => cform.string)
-      iucn = build_data_object('IUCN', Faker::Eol.iucn, :taxon => iucn_taxon)
-      # TODO - this is a TOTAL hack, but this is currently hard-coded and needs to be fixed:
+      # TODO - Does an IUCN entry *really* need its own taxon?  I am surprised by this (it seems duplicated):
+      iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => canon)
+      iucn = build_data_object('IUCN', iucn_status, :taxon => iucn_taxon)
       HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_harvest_event)
 
       video   = build_data_object('Flash',      Faker::Lorem.sentence,  :taxon => taxon, :object_cache_url => Faker::Eol.flash)
       youtube = build_data_object('YouTube',    Faker::Lorem.paragraph, :taxon => taxon, :object_cache_url => Faker::Eol.youtube)
       map     = build_data_object('GBIF Image', Faker::Lorem.sentence,  :taxon => taxon, :object_cache_url => Faker::Eol.map)
 
-      overview = build_data_object('Text', "This is an overview of the <b>#{cform.string}</b> hierarchy entry.", :taxon => taxon,
+      overview = build_data_object('Text', "This is an overview of the <b>#{canon}</b> hierarchy entry.", :taxon => taxon,
                                    :toc_item => TocItem.overview)
       # Add more toc items:
       (rand(4)+1).times do
@@ -161,10 +177,14 @@ module EOL::Spec
       RandomTaxon.gen(:language => Language.english, :data_object => images.last, :name_id => sname.id,
                       :image_url => images.last.object_cache_url, :name => sname.italicized, :content_level => 4, :taxon_concept => tc,
                       :common_name_en => cname.string, :thumb_url => images.first.object_cache_url) # not sure thumb_url is right.
+      return tc
     end
 
     def iucn_harvest_event
-      @@iucn_he ||= HarvestEvent.gen(:resource_id => Resource.iucn.id)
+      # Why am I using cache?  ...Because I know we clear it when we nuke the DB...
+      Rails.cache.fetch(:iucn_harvest_event) do
+        HarvestEvent.find_by_resource_id(Resource.iucn.id) 
+      end
     end
 
   end

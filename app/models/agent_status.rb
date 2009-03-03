@@ -5,7 +5,9 @@ class AgentStatus < SpeciesSchemaModel
     
   # Find the "Active" AgentStatus.
   def self.active
-    @@active ||= AgentStatus.find_by_label('Active') 
+    Rails.cache.fetch(:active_agent_status) do
+      AgentStatus.find_by_label('Active') 
+    end
   end 
   
 end

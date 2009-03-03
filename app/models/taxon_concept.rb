@@ -412,7 +412,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   def iucn
     # Notice that we use find_by, not find_all_by.  We require that only one match (or no match) is found.
-    my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id, Resource.iucn.id])[0]
+    my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id, Resource.iucn.id]).first
 
     SELECT distinct do.*
       FROM taxon_concept_names tcn
@@ -477,10 +477,10 @@ EOIUCNSQL
   end
 
   def self.exemplars
-    if @exemplars.nil?
+    Rails.cache.fetch(:taxon_exemplars) do
       list = [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 482935, 392557, 484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558, 253397, 740699, 1044544, 802455, 1194666, 2485151]
+      @exemplars = TaxonConcept.find(:all, :conditions => ['id IN (?)', list])
     end
-    @@exemplars ||= TaxonConcept.find(:all, :conditions => ['id IN (?)', list])
   end
 
   def self.search(search_string, options = {})
@@ -494,8 +494,8 @@ EOIUCNSQL
     # TODO - I'm not sure this is really what we want to be doing, here: I simply reproduced Patrick's code (for the most part).
     search_terms = search_string.gsub(/\s+/, ' ').strip.split(/[ -&:\\'?;]+| and /)
 
-    sci_concepts  = []
-    com_concepts  = []
+    sci_concepts = []
+    com_concepts = []
     errors       = nil
     num_matches  = {}
 

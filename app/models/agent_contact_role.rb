@@ -4,7 +4,9 @@ class AgentContactRole < SpeciesSchemaModel
   has_many :agent_contacts
   
   def self.primary
-    return @@primary ||= self.find_by_label('Primary Contact')
+    Rails.cache.fetch(:primary_agent_contact_role) do
+      self.find_by_label('Primary Contact')
+    end
   end
   
 end

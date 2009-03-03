@@ -6,11 +6,15 @@ class Language < SpeciesSchemaModel
   named_scope :find_active, lambda { { :conditions => ['activated_on <= ?', Time.now.to_s(:db)], :order => 'sort_order ASC' } }
 
   def self.scientific
-    @@scientific ||= Language.find_by_label('Scientific Name')
+    Rails.cache.fetch(:scientific_language) do
+      Language.find_by_label('Scientific Name')
+    end
   end
 
   def self.english # because it's a default.  No other language will have this kind of method.
-    @@english ||= Language.find_by_iso_639_1('en')
+    Rails.cache.fetch(:english_language) do
+      Language.find_by_iso_639_1('en')
+    end
   end
   
   def display_code

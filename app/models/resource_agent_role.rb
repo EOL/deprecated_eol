@@ -2,7 +2,9 @@ class ResourceAgentRole < SpeciesSchemaModel
   belongs_to :agent_resource
 
   def self.content_partner_upload_role
-    @@content_partner_upload_role ||= ResourceAgentRole.find_by_label('Data Supplier')
+    Rails.cache.fetch(:content_partner_upload_role) do
+      ResourceAgentRole.find_by_label('Data Supplier')
+    end
   end
 
 end

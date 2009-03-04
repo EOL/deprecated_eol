@@ -28,7 +28,6 @@ class TaxonConcept < SpeciesSchemaModel
 
   # These are methods that are specific to a hierarchy, so we have to handle them through entry:
   delegate :kingdom, :to => :entry
-  delegate :children, :to => :entry
   delegate :children_hash, :to => :entry
   delegate :ancestors_hash, :to => :entry
   delegate :find_default_hierarchy_ancestor, :to => :entry
@@ -78,12 +77,19 @@ class TaxonConcept < SpeciesSchemaModel
     comments.find_all {|comment| comment.visible? }
   end
 
-  # Get a list of TaxonConcepts that are ancestors to this one.
+  # Get a list of TaxonConcept models that are ancestors to this one.
   #
   # Note that TCs have no notion of ancestry in and of themselves, so they must defer to the hierarchy entries to find ancestors.
   # And, of course, that yields HierarchyEntry values, so we need to convert them back.
   def ancestors
     entry.ancestors.map(&:taxon_concept)
+  end
+
+  # Get a list of TaxonConcept models that are children to this one.
+  #
+  # Same caveats as #ancestors (q.v.)
+  def children
+    entry.children.map(&:taxon_concept)
   end
 
   ##################################### 
@@ -554,6 +560,16 @@ EO_FIND_NAMES
   # This could use name... but I only need it for searches, and ID is all that matters, there.
   def <=>(other)
     return id <=> other.id
+  end
+
+  # Rather than going through TaxonConceptName, this takes advantage of the HierarchyEntry id in the +taxa+ table.
+  def taxa
+    Taxon.find_by_sql([%Q{
+      SELECT DISTINCT taxa.* 
+        FROM hierarchy_entries
+          JOIN taxa ON (taxa.hierarchy_entry_id = hierarchy_entries.id)
+      WHERE hierarchy_entries.taxon_concept_id = ?
+    }, self[:id]])
   end
 
 #####################

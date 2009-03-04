@@ -710,17 +710,17 @@ Factory.define :synonym do |s|
 end
 
 Factory.define :taxon do |t|
-  t.guid          ''
-  t.taxon_kingdom ''
-  t.taxon_phylum  ''
-  t.taxon_class   ''
-  t.taxon_order   ''
-  t.taxon_family  ''
-  t.association   :name
+  t.guid            ''
+  t.taxon_kingdom   ''
+  t.taxon_phylum    ''
+  t.taxon_class     ''
+  t.taxon_order     ''
+  t.taxon_family    ''
+  t.association     :name
   t.scientific_name ''
-  t.association :hierarchy_entry
-  t.created_at    { 48.hours.ago }
-  t.updated_at    { 42.minutes.ago }
+  t.association     :hierarchy_entry
+  t.created_at      { 48.hours.ago }
+  t.updated_at      { 42.minutes.ago }
 end
 
 Factory.define :taxon_concept do |tc|

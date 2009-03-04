@@ -15,8 +15,8 @@ class HierarchyEntry < SpeciesSchemaModel
   belongs_to :taxon_concept
 
   has_many :concepts
-  has_many :top_images, :foreign_key => :hierarchy_entry_id
   has_many :curators, :class_name => 'User', :foreign_key => :curator_hierarchy_entry_id
+  has_many :top_images, :foreign_key => :hierarchy_entry_id
 
   has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
                                       WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'

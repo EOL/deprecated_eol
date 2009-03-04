@@ -8,12 +8,6 @@ EOL::NestedSet.send :extend, EOL::Data
 class SearchSpec
   class << self
 
-    def recreate_normalized_names_and_links
-      NormalizedName.truncate
-      NormalizedLink.truncate
-      Name.all.each {|name| NormalizedLink.parse! name }
-    end
-
     def animal_kingdom
       @animal_kingdom ||= make_a_taxon 'Animals', 0, 0
     end

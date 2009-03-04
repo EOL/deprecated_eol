@@ -65,12 +65,12 @@ module EOL::Spec
 
       he              = options.delete(:hierarchy_entry)
       name            = options.delete(:name)            || Name.gen
-      scientific_name = options.delete(:scientific_name) || Faker::Eol.scientific_name
+      scientific_name = options.delete(:scientific_name) || Factory.next(:scientific_name)
       taxon           = options.delete(:taxon)
       toc_item        = options.delete(:toc_item)
       taxon         ||= Taxon.gen(:name => name, :hierarchy_entry => he, :scientific_name => scientific_name)
 
-      options[:object_cache_url] ||= Faker::Eol.image if type == 'Image'
+      options[:object_cache_url] ||= Factory.next(:image) if type == 'Image'
 
       dato            = DataObject.gen(attributes.merge(options))
 
@@ -114,10 +114,10 @@ module EOL::Spec
     #   +scientific_name+:: String to use for the preferred scientific name.
     #   +parent_hierarchy_entry_id+:: When building the associated HierarchyEntry, this id will be used for its parent.
     def build_taxon_concept(options = {})
-      attri = options[:attribution] || Faker::Eol.attribution
-      common_name = options[:common_name] || Faker::Eol.common_name
-      iucn_status = options[:iucn_status] || Faker::Eol.iucn
-      canon       = options[:canonical_form] || Faker::Eol.scientific_name
+      attri = options[:attribution] || Factory.next(:attribution)
+      common_name = options[:common_name] || Factory.next(:common_name)
+      iucn_status = options[:iucn_status] || Factory.next(:iucn)
+      canon       = options[:canonical_form] || Factory.next(:scientific_name)
       cform = CanonicalForm.find_by_string(canon) || CanonicalForm.gen(:string => canon)
       sname = Name.gen(:canonical_form => cform, :string => options[:scientific_name] || "#{canon} #{attri}".strip,
                        :italicized     => options[:italicized] || "<i>#{canon}</i> #{attri}".strip)
@@ -141,30 +141,30 @@ module EOL::Spec
       end
       # So, every HE will have each of the following, making testing easier:
       images << build_data_object('Image', 'untrusted', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Faker::Eol.image, :vetted => Vetted.untrusted)
+                                  :object_cache_url => Factory.next(:image), :vetted => Vetted.untrusted)
       images << build_data_object('Image', 'unknown', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Faker::Eol.image, :vetted => Vetted.unknown)
+                                  :object_cache_url => Factory.next(:image), :vetted => Vetted.unknown)
       images << build_data_object('Image', 'invisible', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.invisible)
+                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible)
       images << build_data_object('Image', 'invisible, unknown', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.invisible, :vetted => Vetted.unknown)
+                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible, :vetted => Vetted.unknown)
       images << build_data_object('Image', 'invisible, untrusted', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.invisible, :vetted => Vetted.untrusted)
+                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible, :vetted => Vetted.untrusted)
       images << build_data_object('Image', 'preview', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.preview)
+                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.preview)
       images << build_data_object('Image', 'preview, unknown', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.preview, :vetted => Vetted.unknown)
+                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.preview, :vetted => Vetted.unknown)
       images << build_data_object('Image', 'inappropriate', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Faker::Eol.image, :visibility => Visibility.inappropriate)
+                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.inappropriate)
       
       # TODO - Does an IUCN entry *really* need its own taxon?  I am surprised by this (it seems duplicated):
       iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => canon)
       iucn = build_data_object('IUCN', iucn_status, :taxon => iucn_taxon)
       HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_harvest_event)
 
-      video   = build_data_object('Flash',      Faker::Lorem.sentence,  :taxon => taxon, :object_cache_url => Faker::Eol.flash)
-      youtube = build_data_object('YouTube',    Faker::Lorem.paragraph, :taxon => taxon, :object_cache_url => Faker::Eol.youtube)
-      map     = build_data_object('GBIF Image', Faker::Lorem.sentence,  :taxon => taxon, :object_cache_url => Faker::Eol.map)
+      video   = build_data_object('Flash',      Faker::Lorem.sentence,  :taxon => taxon, :object_cache_url => Factory.next(:flash))
+      youtube = build_data_object('YouTube',    Faker::Lorem.paragraph, :taxon => taxon, :object_cache_url => Factory.next(:youtube))
+      map     = build_data_object('GBIF Image', Faker::Lorem.sentence,  :taxon => taxon, :object_cache_url => Factory.next(:map))
 
       overview = build_data_object('Text', "This is an overview of the <b>#{canon}</b> hierarchy entry.", :taxon => taxon,
                                    :toc_item => TocItem.overview)

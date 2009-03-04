@@ -25,7 +25,8 @@ class IpAddress < LoggingModel
   # validates_presence_of :longitude
   
   # Converts an IPv4 address string to a 32-bit integer which can be stored in an ordinary 4-byte database integer column without truncation or decimal points.
-  def self.ip2int(ip = '127.0.0.1')
+  def self.ip2int(ip)
+    ip ||=  '127.0.0.1'
     IPAddr.new(ip, Socket::AF_INET).to_i
   end
   

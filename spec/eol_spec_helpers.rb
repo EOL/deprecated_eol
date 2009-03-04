@@ -3,6 +3,21 @@ require 'lib/eol_data'
 module EOL::Spec
   module Helpers
 
+    def login_content_partner options = { }
+      f = request('/content_partner/login', :params => { 
+          'agent[username]' => options[:username], 
+          'agent[password]' => options[:password] })
+    end
+
+    def login_as options = { }
+      if options.is_a? User # let us pass a newly created user (with an entered_password)
+        options = { :username => options.username, :password => options.entered_password }
+      end
+      request('/account/authenticate', :params => { 
+          'user[username]' => options[:username], 
+          'user[password]' => options[:password] })
+    end
+
     # returns a connection for each of our databases, eg: 1 for Data, 1 for Logging ...
     def all_connections
       # use_db lazy-loads its db list, so the classes in logging/ are ignored unless you reference one:
@@ -36,19 +51,10 @@ module EOL::Spec
       end
     end
 
-    def login_content_partner options = { }
-      f = request('/content_partner/login', :params => { 
-          'agent[username]' => options[:username], 
-          'agent[password]' => options[:password] })
-    end
-
-    def login_as options = { }
-      if options.is_a? User # let us pass a newly created user (with an entered_password)
-        options = { :username => options.username, :password => options.entered_password }
-      end
-      request('/account/authenticate', :params => { 
-          'user[username]' => options[:username], 
-          'user[password]' => options[:password] })
+    def recreate_normalized_names_and_links
+      NormalizedName.truncate
+      NormalizedLink.truncate
+      Name.all.each {|name| NormalizedLink.parse! name }
     end
 
     # NOTE - I am not setting the mime type yet.  We never use it.
@@ -106,13 +112,19 @@ module EOL::Spec
     #
     #   +attribution+:: String to be used in scientific name as attribution
     #   +canonical_form+:: String to use for canonical form (all names will reference this)
+    #   +comments+:: Array of hashes.  Each hash can have a +:body+ and +:user+ key.
     #   +common_name+:: String to use for thre preferred common name
     #   +depth+:: Depth to apply to the attached hierarchy entry.  Don't supply this AND rank.
+    #   +flash+:: Array of flash videos, each member is a hash for the video options.  The keys you will want are +:description+ and
+    #             +:object_cache_url+.
     #   +iucn_status+:: String to use for IUCN description
     #   +italicized+:: String to use for preferred scientific name's italicized form.
+    #   +map+:: A hash to build a map data object with. The keys you will want are +:description+ and +:object_cache_url+.
+    #   +parent_hierarchy_entry_id+:: When building the associated HierarchyEntry, this id will be used for its parent.
     #   +rank+:: String form of the Rank you want this TC to be.  Default 'species'.
     #   +scientific_name+:: String to use for the preferred scientific name.
-    #   +parent_hierarchy_entry_id+:: When building the associated HierarchyEntry, this id will be used for its parent.
+    #   +youtube+:: Array of YouTube videos, each member is a hash for the video options.  The keys you will want are +:description+
+    #               and +:object_cache_url+.
     def build_taxon_concept(options = {})
       attri = options[:attribution] || Factory.next(:attribution)
       common_name = options[:common_name] || Factory.next(:common_name)
@@ -131,7 +143,15 @@ module EOL::Spec
       TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => he.id, :language => Language.english,
                            :name => cname, :taxon_concept => tc)
       curator = Factory(:curator, :curator_hierarchy_entry => he)
-      (rand(60) - 39).times { Comment.gen(:parent => tc, :parent_type => 'taxon_concept', :user => User.all.rand) }
+
+      comments = options[:comments] || [{}, {}, {}] # Array with three empty hashes (default #), which we will populate with defaults:
+      comments.each do |comment|
+        comment[:body]  ||= "This is a witty comment on the #{canon} taxon concept. Any resemblance to comments real or imagined is" +
+                            'coincidental.'
+        comment[:user] ||= User.all.rand
+        Comment.gen(:parent => tc, :parent_type => 'taxon_concept', :body => comment[:body], :user => comment[:user])
+      end
+
       # TODO - add some alternate names, including at least one in another language.
 
       taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => canon)
@@ -162,9 +182,25 @@ module EOL::Spec
       iucn = build_data_object('IUCN', iucn_status, :taxon => iucn_taxon)
       HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_harvest_event)
 
-      video   = build_data_object('Flash',      Faker::Lorem.sentence,  :taxon => taxon, :object_cache_url => Factory.next(:flash))
-      youtube = build_data_object('YouTube',    Faker::Lorem.paragraph, :taxon => taxon, :object_cache_url => Factory.next(:youtube))
-      map     = build_data_object('GBIF Image', Faker::Lorem.sentence,  :taxon => taxon, :object_cache_url => Factory.next(:map))
+      flash_options = options[:flash] || [{}] # Array with one empty hash, which we will populate with defaults:
+      flash_options.each do |flash_opt|
+        flash_opt[:description]      ||= Faker::Lorem.sentence
+        flash_opt[:object_cache_url] ||= Factory.next(:flash)
+        build_data_object('Flash', flash_opt[:description], :taxon => taxon, :object_cache_url => flash_opt[:object_cache_url])
+      end
+
+      youtube_options = options[:youtube] || [{}] # Array with one empty hash, which we will populate with defaults:
+      youtube_options.each do |youtube_opt|
+        youtube_opt[:description]      ||= Faker::Lorem.sentence
+        youtube_opt[:object_cache_url] ||= Factory.next(:youtube)
+        build_data_object('YouTube', youtube_opt[:description], :taxon => taxon, :object_cache_url => youtube_opt[:object_cache_url])
+      end
+
+      map_options = options[:map] || {} # Empty hash so that we can have default values for each key:
+      map_options[:description]      ||= Faker::Lorem.sentence
+      map_options[:object_cache_url] ||= Factory.next(:map)
+      map     = build_data_object('GBIF Image', map_options[:description],  :taxon => taxon,
+                                  :object_cache_url => map_options[:object_cache_url])
 
       overview = build_data_object('Text', "This is an overview of the <b>#{canon}</b> hierarchy entry.", :taxon => taxon,
                                    :toc_item => TocItem.overview)

@@ -78,6 +78,14 @@ class TaxonConcept < SpeciesSchemaModel
     comments.find_all {|comment| comment.visible? }
   end
 
+  # Get a list of TaxonConcepts that are ancestors to this one.
+  #
+  # Note that TCs have no notion of ancestry in and of themselves, so they must defer to the hierarchy entries to find ancestors.
+  # And, of course, that yields HierarchyEntry values, so we need to convert them back.
+  def ancestors
+    entry.ancestors.map(&:taxon_concept)
+  end
+
   ##################################### 
   # The rest of these methods are shamefully complex and probably require serious refactoring.
 
@@ -124,9 +132,16 @@ class TaxonConcept < SpeciesSchemaModel
   # Because nested has_many_through won't work with CPKs:
   # Also, so we can include collection.
   def mappings
-    return @mappings unless @mappings.nil?
-    @mappings = Mapping.find_by_sql("SELECT DISTINCT m.id, m.collection_id, m.name_id, m.foreign_key FROM taxon_concept_names tcn JOIN mappings m ON (tcn.name_id=m.name_id) JOIN collections c ON (m.collection_id=c.id) JOIN agents a ON (c.agent_id=a.id) WHERE tcn.taxon_concept_id = #{id} GROUP BY c.id")
-    return @mappings = @mappings.sort_by {|m| m.id }.uniq
+    Rails.cache.fetch([self, :mappings]) do
+      @mappings = Mapping.find_by_sql(%Q{
+        SELECT DISTINCT m.id, m.collection_id, m.name_id, m.foreign_key
+          FROM taxon_concept_names tcn
+            JOIN mappings m ON (tcn.name_id=m.name_id)
+            JOIN collections c ON (m.collection_id=c.id)
+            JOIN agents a ON (c.agent_id=a.id)
+          WHERE tcn.taxon_concept_id = #{id} GROUP BY c.id  -- TaxonConcept#mappings
+      }).sort_by {|m| m.id }.uniq
+    end
   end
 
   # I chose not to make this singleton since it should really only ever get called once:
@@ -207,14 +222,6 @@ class TaxonConcept < SpeciesSchemaModel
      :video  => video,
      :map    => map }
   end
-
-  # def available_media
-  #   {:images => hierarchies_content.image != 0 || hierarchies_content.child_image  != 0,
-  #    :video  => hierarchies_content.flash != 0 || hierarchies_content.youtube != 0,
-  #    :map    => hierarchies_content.gbif_image != 0}
-  #   
-  #   #return entry.media
-  # end
 
   def has_name?
     return content_level != 0
@@ -454,10 +461,9 @@ EOIUCNSQL
     taxon_concept_content.content_level
   end
   
-  def self.direct_ancestors(tc)
-    return [] if tc.nil?
+  def direct_ancestors
     he_all = []
-    tc.hierarchy_entries.each do |he|
+    hierarchy_entries.each do |he|
       he_all << he
       parent = he.parent
       until parent.nil?
@@ -469,7 +475,7 @@ EOIUCNSQL
   end
 
   def is_curatable_by? user
-    he_all = TaxonConcept.direct_ancestors(self)
+    he_all = direct_ancestors
     # hierarchy_entries_with_parents_above_clade = hierarchy_entries_with_parents
     # hierarchy_entries_with_parents_above_clade
     permitted = he_all.find {|entry| user.curator_hierarchy_entry_id == entry.id }
@@ -478,8 +484,9 @@ EOIUCNSQL
 
   def self.exemplars
     Rails.cache.fetch(:taxon_exemplars) do
-      list = [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 482935, 392557, 484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558, 253397, 740699, 1044544, 802455, 1194666, 2485151]
-      @exemplars = TaxonConcept.find(:all, :conditions => ['id IN (?)', list])
+      TaxonConcept.find(:all, :conditions => ['id IN (?)',
+                        [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 482935, 392557, 484592, 581125, 467045, 593213,
+                         209984, 795869, 1049164, 604595, 983558, 253397, 740699, 1044544, 802455, 1194666, 2485151]])
     end
   end
 

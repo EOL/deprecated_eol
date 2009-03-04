@@ -1,5 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+#
+# I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
+#
+
 describe TaxonConcept do
 
   scenario :foundation
@@ -77,5 +81,39 @@ describe TaxonConcept do
   it 'should have an IUCN conservation status' do
     @taxon_concept.iucn_conservation_status.should == @iucn_status
   end
+
+  it 'should be able to list its ancestors (by convention, ending with itself)' do
+    @kingdom = build_taxon_concept(:rank => 'kingdom', :depth => 0)
+    @phylum  = build_taxon_concept(:rank => 'phylum',  :depth => 1, :parent_hierarchy_entry_id => @kingdom.entry.id)
+    @order   = build_taxon_concept(:rank => 'order',   :depth => 2, :parent_hierarchy_entry_id => @phylum.entry.id)
+    # Now we attach our TC to those:
+    he = @taxon_concept.entry
+    he.parent_id = @order.entry.id
+    he.save
+    @taxon_concept.ancestors.map(&:id).should == [@kingdom.id, @phylum.id, @order.id, @taxon_concept.id]
+  end
+
+  # it 'should be able to list its children'
+  # it 'should be able to show a map'
+  # it 'should be able to show videos'
+  # it 'should be able to search'
+  # it 'should have visible comments'
+  # it 'should hide invisible comments'
+  # it 'should be able to show a table of contents'
+  # it 'should be able to show its images'
+  #
+  # Medium Priority:
+  #
+  # it 'should be able to list whom the species is recognized by'
+  # it 'should be able to add a comment'
+  # it 'should be able to list exemplars'
+  #
+  # Lower priority (at least for me!)
+  #
+  # it 'should know which hosts to ping'
+  # it 'should be able to set a current agent' # This is only worthwhile if we know what it should change...
+  # it 'should follow supercedure'
+  # it 'should be able to show a thumbnail'
+  # it 'should be able to show a single image'
 
 end

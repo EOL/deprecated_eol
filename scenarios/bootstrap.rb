@@ -46,8 +46,8 @@ end
 # Now that we're done with CoL, we add another content partner who overlaps with them:
 tc     = TaxonConcept.last # Whatever.
        # Give it a new name:
-name   = Name.gen(:canonical_form => tc.canonical_form_object, :string => n = Faker::Eol.scientific_name,
-                  :italicized     => "<i>#{n}</i> #{Faker::Eol.attribution}")
+name   = Name.gen(:canonical_form => tc.canonical_form_object, :string => n = Factory.next(:scientific_name),
+                  :italicized     => "<i>#{n}</i> #{Factory.next(:attribution)}")
 agent2 = Agent.gen :username => 'test_cp'
 cp     = ContentPartner.gen :vetted => true, :agent => agent2
 cont   = AgentContact.gen :agent => agent2, :agent_contact_role => AgentContactRole.primary
@@ -57,7 +57,7 @@ ar     = AgentsResource.gen(:agent => agent2, :resource => r2, :resource_agent_r
 hier   = Hierarchy.gen :agent => agent2
 he     = build_hierarchy_entry 0, tc, name, :hierarchy => hier
 img    = build_data_object('Image', "This should only be seen by ContentPartner #{cp.description}", :taxon => tc.images.first.taxa[0],
-                           :hierarchy_entry => he, :object_cache_url => Faker::Eol.image, :vetted => Vetted.unknown,
+                           :hierarchy_entry => he, :object_cache_url => Factory.next(:image), :vetted => Vetted.unknown,
                            :visibility => Visibility.preview)
 
 # Generate a default admin user and then set them up for the default roles:

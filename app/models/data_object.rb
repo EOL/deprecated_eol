@@ -10,7 +10,7 @@ class DataObject < SpeciesSchemaModel
   belongs_to :mime_type
   belongs_to :visibility
   belongs_to :vetted
-  
+
 	has_many :top_images
   has_many :languages
   has_many :agents_data_objects, :include => [ :agent, :agent_role ]
@@ -32,7 +32,7 @@ class DataObject < SpeciesSchemaModel
   has_and_belongs_to_many :toc_items, :join_table => 'data_objects_table_of_contents', :association_foreign_key => 'toc_id'
 
   attr_accessor :vetted_by # who changed the state of this object? (not persisted on DataObject but required by observer)
-  
+
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
 
@@ -47,12 +47,12 @@ class DataObject < SpeciesSchemaModel
   def is_curatable_by? user
     ( hierarchy_entries.collect {|entry| user.can_curate? entry } ).include? true
   end
-  
+
   # Find the Agent (only one) that supplied this data object to EOL.
   def data_supplier_agent
     Agent.find_by_sql(["select a.* from data_objects_harvest_events dohe join harvest_events he on (dohe.harvest_event_id=he.id) join agents_resources ar on (he.resource_id=ar.resource_id) join agents a on (ar.agent_id=a.id) where dohe.data_object_id=? and ar.resource_agent_role_id=3", self.id]).first
   end
-  
+
   # gets agents_data_objects, sorted by AgentRole, based on this objects' DataTypes' AgentRole attribution priorities
   #
   # we also fetch agents_data_objects, including (eager loading) Agents by default, assuming we will be using them
@@ -65,7 +65,7 @@ class DataObject < SpeciesSchemaModel
       all << agents_data_objects.select {|ado| ado.agent_role == agent_role }
       all
     end
-    
+
     # get rid of nils and sort the groups by view_order
     grouped_by_agent_role.compact!
     grouped_by_agent_role.each_with_index do |group, i|
@@ -118,7 +118,7 @@ class DataObject < SpeciesSchemaModel
     unless location.empty?
       grouped_by_agent_role << AgentsDataObject.new( :agent => Agent.new(:project_name => location), :agent_role => AgentRole.new(:label => 'Location'), :view_order => 0 )
     end
-    
+
     # we ALSO need the source_url
     unless source_url.empty?
       grouped_by_agent_role << AgentsDataObject.new( :agent => Agent.new(:project_name => 'View original data object', :homepage => source_url), 
@@ -145,7 +145,7 @@ class DataObject < SpeciesSchemaModel
     default_photographers = agents_data_objects.find_all_by_agent_role_id(AgentRole.photographer_id).collect {|ado| ado.agent }.compact
     @fake_photographers.nil? ? default_photographers : default_photographers + @fake_photographers
   end
-  
+
   # Add an author to this data object that isn't in the database.
   def fake_author(author_options)
     @fake_authors ||= []
@@ -168,15 +168,15 @@ class DataObject < SpeciesSchemaModel
   def image?
     return DataType.image_type_ids.include?(data_type_id)
   end
-  
+
   def map?
     return DataType.map_type_ids.include?(data_type_id)
   end
-  
+
   def text?
     return DataType.text_type_ids.include?(data_type_id)
   end
-  
+
   def self.cache_path(cache_url, subdir = $CONTENT_SERVER_CONTENT_PATH)
     (ContentServer.next + subdir +
       cache_url.to_s.gsub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/, "/\\1/\\2/\\3/\\4/\\5"))
@@ -190,7 +190,7 @@ class DataObject < SpeciesSchemaModel
     return false if thumbnail_cache_url.blank? or thumbnail_cache_url == 0
     return true
   end
-  
+
   def has_object_cache_url?
     return false if object_cache_url.blank? or object_cache_url == 0
     return true
@@ -203,11 +203,11 @@ class DataObject < SpeciesSchemaModel
   def smart_thumb
     thumb_or_object(:small)
   end
-  
+
   def smart_medium_thumb
     thumb_or_object(:medium)
   end
-  
+
   def smart_image
     thumb_or_object
   end  
@@ -244,7 +244,7 @@ class DataObject < SpeciesSchemaModel
 
   alias user_tags private_tags
   alias users_tags private_tags
-  
+
 
   # Names of taxa associated with this image
   def taxa_names_taxon_concept_ids
@@ -276,7 +276,7 @@ class DataObject < SpeciesSchemaModel
   def hierarchy_entries
     @hierarchy_entries ||= taxon_concepts.inject([]){|all,concept| all + concept.hierarchy_entries  }.uniq
   end
-  
+
   def curate!(action)
     activity = CuratorActivity.find(action)
 
@@ -294,7 +294,7 @@ class DataObject < SpeciesSchemaModel
       raise "Not sure how to #{activity.code} a DataObject"
     end
   end
-  
+
   def curated?
     self.curated
   end
@@ -308,11 +308,11 @@ class DataObject < SpeciesSchemaModel
   def inappropriate?
     visibility_id == Visibility.inappropriate.id
   end
-  
+
   def untrusted?
     vetted_id == Vetted.untrusted.id
   end
-  
+
   def unknown?
     vetted_id == Vetted.unknown.id
   end
@@ -446,9 +446,9 @@ class DataObject < SpeciesSchemaModel
         nested
     # NOTE - left join on the licenses, so they could be NULL.
     # (But we don't want to miss images with no license!)
-    
+
     #pp options
-    
+
     result=DataObject.find_by_sql([%Q{SELECT dato.*, l.description license_text, l.logo_url license_logo, l.source_url license_url,
                                       (?) taxon_id, t.scientific_name
                                 FROM #{options[:from]} ti
@@ -473,7 +473,7 @@ class DataObject < SpeciesSchemaModel
 
   def self.for_taxon(taxon, type, options = {})
     options[:user] = User.create_new if options[:user].nil?
-    
+
     # Just return the (much faster) cached images if there is no need to deal with permissions:
     # TODO - does this next line need to move to the bottom, to ADD these images?  I think not, but we should check.
     return DataObject.cached_images_for_taxon(taxon, options) if type == :image
@@ -515,6 +515,37 @@ SELECT DISTINCT dt.label media_type, dato.*, t.scientific_name, tcn.taxon_concep
 
 EOVIDEOSQL
 
+  end
+
+  alias :ar_to_xml :to_xml
+  # Be careful calling a block here.  We have our own builder, and you will be overriding that if you use a block.
+  def to_xml(options = {})
+    default_only   = [:id, :bibliographic_citation, :description, :guid, :rights_holder, :rights_statement]
+    default_only  += [:altitude, :latitude, :location, :longitude] unless map? or text?
+    options[:only] = (options[:only] ? options[:only] + default_only : default_only)
+    options[:methods] ||= [:data_supplier_agent, :tags_hash]
+    options[:methods] << :map_image if map?
+    default_block = lambda do |xml|
+      xml.attributions do
+        attributions.each do |attr|
+          xml.attribution do
+            xml.role attr.agent_role.label
+            attr.agent.to_xml(:builder => xml, :skip_instruct => true)
+          end
+        end
+      end
+      xml.language language.label unless map? or image?
+      xml.license license.title
+      xml.type data_type.label
+      xml.url thumb_or_object unless map?
+      xml.medium_thumb_url thumb_or_object(:medium) unless map?
+      xml.small_thumb_url thumb_or_object(:small) unless map?
+    end
+    if block_given?
+      ar_to_xml(options) { |xml| yield xml }
+    else 
+      ar_to_xml(options) { |xml| default_block.call(xml) }
+    end
   end
 
 private
@@ -594,7 +625,7 @@ EOVISBILITYCLAUSE
     end
     ( ! results.include?false ) # return true or false based on whether the new tag association was created OK
   end
-  
+
 end
 # == Schema Info
 # Schema version: 20081020144900

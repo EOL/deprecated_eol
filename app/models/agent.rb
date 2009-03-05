@@ -294,6 +294,13 @@ class Agent < SpeciesSchemaModel
     display_name
   end
   
+  alias :ar_to_xml :to_xml
+  def to_xml(options = {})
+    default_only   = [:id, :acronym, :display_name, :homepage, :username]
+    options[:only] = (options[:only] ? options[:only] + default_only : default_only)
+    ar_to_xml(options)
+  end
+  
   protected
 
     def encrypt_password

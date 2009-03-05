@@ -18,15 +18,16 @@ Spec::Runner.configure do |config|
   include Scenario::Spec
   include EOL::Spec::Helpers
   
-  # truncate_all_tables_once # truncate all tables (once) # for now, we have to go back to 
-                                                          # truncating before :all  :/
+  truncate_all_tables_once # truncate all tables (once) before running specs
 
   config.include EOL::Spec::Matchers
   config.use_blackbox = true
 
-  config.before(:all) do
-    truncate_all_tables # this tinyint primary keys + the fact that before(:all) doesn't run
-                        # properly within transactions means we need to do this (for now)
+  # blackbox specs often use scenarios ... which often make us max out the 
+  # primary keys of some of our tables ... reset the auto_incr for these 
+  # tables before/after blackbox specs, to try to catch most of these problems
+  config.after(:each, :type => :blackbox) do
+    reset_auto_increment_on_tables_with_tinyint_primary_keys
   end
 
   # taken from use_db/lib/override_test_case.rb
@@ -35,6 +36,7 @@ Spec::Runner.configure do |config|
   # examples run within their own transactions for ALL 
   # active connections (works for ALL of our databases)
   config.before(:each) do
+
     Rails.cache.clear # this resets all of the in-memory models, like Resource.iucn, so they will get new IDs as needed.
     UseDbPlugin.all_use_dbs.collect do |klass|
       klass

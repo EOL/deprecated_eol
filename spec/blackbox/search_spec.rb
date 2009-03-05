@@ -71,9 +71,8 @@ end
 
 describe 'Search' do
 
-  scenario :foundation
-
   before(:each) do
+    Scenario.load :foundation
     TaxonConcept.delete_all
     Name.delete_all           # Lest we get duplicate strings...
     NormalizedName.delete_all # ...Just because I know searches are based on normalized names
@@ -83,7 +82,7 @@ describe 'Search' do
     # JRice sez: While the fact that this fails within 'rake spec' indicates a problem (there should be 0 TCs when only foundation
     # is loaded), I am not sure this is a "helpful" assertion, in that it is NOT testing the helpful message being returned if there are
     # no results.  Better, perhaps to force the issue?  Line in question: 
-    # TaxonConcept.count.should == 0
+    TaxonConcept.count.should == 0
     # My solution is in the "before each" clause (above)
     request('/search?q=tiger').body.should include("Your search on 'tiger' did not find any matches")
   end

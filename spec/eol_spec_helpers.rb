@@ -3,6 +3,26 @@ require 'lib/eol_data'
 module EOL::Spec
   module Helpers
 
+    # get or set a variable that's stored on the spec (the describe block)
+    # so it's cached between examples
+    #
+    # obviously, be careful with this one ... only use this if 
+    # it makes sense to use this.  a good example is caching data 
+    # that you want to access in multiple examples but which is 
+    # expensive to create.
+    #
+    # before(:all) blocks can help with this too, except any database 
+    # modifications that happen in before(:all) blocks will happen 
+    # OUTSIDE the scope of transactions ... which is bad
+    #
+    def spec_variable name, value = :unset
+      if value == :unset
+        self.class.instance_variable_get "@#{ name.to_s }"
+      else
+        self.class.instance_variable_set "@#{ name.to_s }", value
+      end
+    end
+
     def login_content_partner options = { }
       f = request('/content_partner/login', :params => { 
           'agent[username]' => options[:username], 
@@ -33,6 +53,14 @@ module EOL::Spec
         print "truncating tables ... "
         truncate_all_tables
         puts "done"
+      end
+    end
+
+    def reset_auto_increment_on_tables_with_tinyint_primary_keys
+      %w( agent_contact_roles agent_data_types agent_roles agent_statuses 
+                audiences harvest_events resource_agent_roles ).
+      map {|table| "ALTER TABLE `#{ table }` AUTO_INCREMENT=1; " }.each do |sql|
+        SpeciesSchemaModel.connection.execute sql
       end
     end
 

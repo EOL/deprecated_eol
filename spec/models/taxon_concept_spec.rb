@@ -6,7 +6,13 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe TaxonConcept do
 
-  scenario :foundation
+  # we shouldn't need to use scenarios in model specs  :/
+  before :all do
+    Scenario.load :foundation
+  end
+  after :all do
+    truncate_all_tables
+  end
 
   # Why am I loading so many fixtures in a unit testing suite?  ...Because TaxonConcept is unlike other models: there is really
   # nothing to it: just an ID and a wee bit of ancillary data. At the same time, TC is *so* vital to everything we do, that I wanted

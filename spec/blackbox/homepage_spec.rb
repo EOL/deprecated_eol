@@ -16,19 +16,24 @@ end
 
 describe 'Home page' do
 
-  scenario :foundation
+  before :all do
+    Scenario.load :foundation
+    @homepage_with_foundation = RackBox.request('/') # cache the response the homepage gives before changes
+  end
+  after :all do
+    truncate_all_tables
+  end
 
   it 'should say EOL somewhere' do
-    request('/').body.should include('EOL')
+    @homepage_with_foundation.body.should include('EOL')
   end
 
   it "should have Edward O. Wilson's quote" do
-    request('/').body.should include('Imagine an electronic page for each species of organism on Earth')
+    @homepage_with_foundation.body.should include('Imagine an electronic page for each species of organism on Earth')
   end
 
   it 'should include the search box, for names and tags (defaulting to names)' do
-    body = request('/').body
-    body.should have_tag('form') do
+    @homepage_with_foundation.body.should have_tag('form') do
       with_tag('.search_box') do
         with_tag('input#q')
       end
@@ -40,8 +45,7 @@ describe 'Home page' do
   end
 
   it 'should include a "personal-space" div with login link and a create-account link, when not logged in' do
-    body = request('/').body
-    body.should have_tag('div#personal-space') do
+    @homepage_with_foundation.body.should have_tag('div#personal-space') do
       with_tag('a[href*=?]', /\/login/)
       with_tag('a[href*=?]', /\/register/)
     end
@@ -104,13 +108,11 @@ describe 'Home page' do
   end
 
   it 'should show left page content' do
-    body = request('/').body
-    body.should include ContentPage.find_by_title('Home').left_content
+    @homepage_with_foundation.body.should include(ContentPage.find_by_title('Home').left_content)
   end
 
   it 'should show main page content' do
-    body = request('/').body
-    body.should include ContentPage.find_by_title('Home').main_content
+    @homepage_with_foundation.body.should include(ContentPage.find_by_title('Home').main_content)
   end
 
   it 'should show "What\'s New" (plus news items), when news exists' do

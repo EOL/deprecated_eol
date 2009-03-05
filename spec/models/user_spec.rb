@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe User do
+  scenario :foundation
 
   # There are lots, LOTS more of these to do, I'm just keeping these here for examples:
   it { should validate_presence_of(:given_name) }
@@ -18,4 +19,13 @@ describe User do
     user.should_not be_a_curator_of(bad_clade)
   end
 
+  it 'should be able to curate taxon' do
+    tc = build_taxon_concept()
+
+    curator = Factory(:curator, :username => 'test_curator',
+                      :entered_password => 'test_password',
+                      :curator_hierarchy_entry => HierarchyEntry.gen(:taxon_concept => tc))
+
+    curator.can_curate_taxon_id?(tc.id).should be_true
+  end
 end

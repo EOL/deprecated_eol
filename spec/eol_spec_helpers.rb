@@ -117,12 +117,15 @@ module EOL::Spec
     #   +depth+:: Depth to apply to the attached hierarchy entry.  Don't supply this AND rank.
     #   +flash+:: Array of flash videos, each member is a hash for the video options.  The keys you will want are +:description+ and
     #             +:object_cache_url+.
-    #   +iucn_status+:: String to use for IUCN description
+    #   +images+:: Attay of hashes.  Each hash may have the following keys: +:description+, +:hierarchy_entry+, +:object_cache_url+,
+    #              +:taxon+, +:vetted+, +:visibility+  ...These are the args used to call #build_data_object
     #   +italicized+:: String to use for preferred scientific name's italicized form.
+    #   +iucn_status+:: String to use for IUCN description
     #   +map+:: A hash to build a map data object with. The keys you will want are +:description+ and +:object_cache_url+.
     #   +parent_hierarchy_entry_id+:: When building the associated HierarchyEntry, this id will be used for its parent.
     #   +rank+:: String form of the Rank you want this TC to be.  Default 'species'.
     #   +scientific_name+:: String to use for the preferred scientific name.
+    #   +toc+:: An array of hashes.  Each hash may have a +:toc_item+ key and a +:description+ key.
     #   +youtube+:: Array of YouTube videos, each member is a hash for the video options.  The keys you will want are +:description+
     #               and +:object_cache_url+.
     def build_taxon_concept(options = {})
@@ -155,27 +158,33 @@ module EOL::Spec
       # TODO - add some alternate names, including at least one in another language.
 
       taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => canon)
-      images = []
-      (rand(12)+3).times do
-        images << build_data_object('Image', Faker::Lorem.sentence, :taxon => taxon, :hierarchy_entry => he)
+
+      images = [] # This is used to build the RandomTaxon
+      if options[:images].nil?
+        options[:images] = []
+        (rand(12)+3).times do
+          options[:images] << {} # Defaults are handled below.
+        end
+        # So, every TC (which doesn't have a predefined list of images) will have each of the following, making testing easier:
+        options[:images] << {:description => 'untrusted', :object_cache_url => Factory.next(:image), :vetted => Vetted.untrusted}
+        options[:images] << {:description => 'unknown',   :object_cache_url => Factory.next(:image), :vetted => Vetted.unknown}
+        options[:images] << {:description => 'invisible', :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible}
+        options[:images] << {:description => 'preview', :object_cache_url => Factory.next(:image), :visibility => Visibility.preview}
+        options[:images] << {:description => 'invisible, unknown', 
+                             :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible, :vetted => Vetted.unknown}
+        options[:images] << {:description => 'invisible, untrusted', 
+                             :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible, :vetted => Vetted.untrusted}
+        options[:images] << {:description => 'preview, unknown', 
+                             :object_cache_url => Factory.next(:image), :visibility => Visibility.preview, :vetted => Vetted.unknown}
+        options[:images] << {:description => 'inappropriate', 
+                             :object_cache_url => Factory.next(:image), :visibility => Visibility.inappropriate}
       end
-      # So, every HE will have each of the following, making testing easier:
-      images << build_data_object('Image', 'untrusted', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Factory.next(:image), :vetted => Vetted.untrusted)
-      images << build_data_object('Image', 'unknown', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Factory.next(:image), :vetted => Vetted.unknown)
-      images << build_data_object('Image', 'invisible', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible)
-      images << build_data_object('Image', 'invisible, unknown', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible, :vetted => Vetted.unknown)
-      images << build_data_object('Image', 'invisible, untrusted', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible, :vetted => Vetted.untrusted)
-      images << build_data_object('Image', 'preview', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.preview)
-      images << build_data_object('Image', 'preview, unknown', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.preview, :vetted => Vetted.unknown)
-      images << build_data_object('Image', 'inappropriate', :taxon => taxon, :hierarchy_entry => he,
-                                  :object_cache_url => Factory.next(:image), :visibility => Visibility.inappropriate)
+      options[:images].each do |img|
+        description             = img.delete(:description) || Faker::Lorem.sentence
+        img[:taxon]           ||= taxon
+        img[:hierarchy_entry] ||= he
+        images << build_data_object('Image', description, img)
+      end
       
       # TODO - Does an IUCN entry *really* need its own taxon?  I am surprised by this (it seems duplicated):
       iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => canon)
@@ -202,11 +211,17 @@ module EOL::Spec
       map     = build_data_object('GBIF Image', map_options[:description],  :taxon => taxon,
                                   :object_cache_url => map_options[:object_cache_url])
 
-      overview = build_data_object('Text', "This is an overview of the <b>#{canon}</b> hierarchy entry.", :taxon => taxon,
-                                   :toc_item => TocItem.overview)
-      # Add more toc items:
-      (rand(4)+1).times do
-        dato = build_data_object('Text', Faker::Lorem.paragraph, :taxon => taxon)
+      if options[:toc].nil?
+        options[:toc] = [{:toc_item => TocItem.overview, :description => "This is an overview of the <b>#{canon}</b> hierarchy entry."}]
+        # Add more toc items:
+        (rand(4)+1).times do
+          options[:toc] << {} # Default values are applied below.
+        end
+      end
+      options[:toc].each do |toc_item|
+        toc_item[:toc_item]    ||= TocItem.all.rand
+        toc_item[:description] ||= Faker::Lorem.paragraph
+        build_data_object('Text', toc_item[:description], :taxon => taxon, :toc_item => toc_item[:toc_item])
       end
       # TODO - Creating other TOC items (common names, BHL, synonyms, etc) would be nice 
 

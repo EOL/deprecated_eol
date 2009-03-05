@@ -70,6 +70,12 @@ class TaxonConcept < SpeciesSchemaModel
     quick_scientific_name(species_or_below? ? :italicized : :normal)
   end
 
+  # pull list of categories for given taxa id
+  def table_of_contents(options = {})
+    return @table_of_contents ||= TocItem.toc_for(id, :agent => @current_agent, :user => current_user, :agent_logged_in => options[:agent_logged_in])
+  end
+  alias :toc :table_of_contents
+
   # If you just call "comments", you are actually getting comments that should really be invisible.  This method gets around this,
   # and didn't see appropriate to do with a named_scpope:
   def visible_comments(user = @current_user)
@@ -385,12 +391,6 @@ class TaxonConcept < SpeciesSchemaModel
 
   def classification_attribution
     return entry.classification_attribution rescue ""
-  end
-
-  # pull list of categories for given taxa id
-  def table_of_contents(options = {})
-    #options = options.merge(:agent_id => @current_agent.id) unless @current_agent.nil?
-    return @table_of_contents ||= TocItem.toc_for(id, :agent => @current_agent, :user => current_user, :agent_logged_in => options[:agent_logged_in])
   end
 
   # pull content type by given category for taxa id 

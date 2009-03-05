@@ -529,7 +529,7 @@ Factory.define :language do |l|
   l.iso_639_1    {|lang| lang.label[0..1].downcase }
   l.iso_639_2    {|lang| lang.label[0..2].downcase }
   l.iso_639_3    {|lang| lang.label[0..3].downcase }
-  l.activated_on { 5.hours.ago }
+  l.activated_on { 24.hours.ago }
   l.sort_order   { Factory.next(:int) }
 end
 

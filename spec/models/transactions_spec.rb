@@ -10,6 +10,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 # it's likely that lots of other specs will all blow up
 describe 'RSpec Transactions' do
 
+  before :all do
+    truncate_all_tables # shouldn't need this!
+  end
+
   # make sure that transactions are working 
   # for all of the different databases
   #

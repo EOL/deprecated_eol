@@ -78,7 +78,7 @@ class DataObjectsController < ApplicationController
   # PUT /data_objects/1/curate
   def curate
     if current_user.can_curate?(@data_object)
-      @data_object.curate!(params[:curator_activity_id])
+      @data_object.curate! params[:curator_activity_id], current_user
 
       @data_object.taxa.each do |taxon|
         expire_taxon(taxon.id)

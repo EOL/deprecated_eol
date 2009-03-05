@@ -59,7 +59,7 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-  config.active_record.observers = :data_object_observer, :comment_observer
+  config.active_record.observers = :comment_observer
 
   # Make Active Record use UTC-base instead of local time
   config.time_zone = 'UTC'

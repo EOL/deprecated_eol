@@ -276,8 +276,8 @@ class DataObject < SpeciesSchemaModel
   def hierarchy_entries
     @hierarchy_entries ||= taxon_concepts.inject([]){|all,concept| all + concept.hierarchy_entries  }.uniq
   end
-
-  def curate!(action)
+  
+  def curate! action, user = nil
     activity = CuratorActivity.find(action)
 
     if activity.code[/^approve$/i]
@@ -293,6 +293,9 @@ class DataObject < SpeciesSchemaModel
     else
       raise "Not sure how to #{activity.code} a DataObject"
     end
+
+    # log the fact that the user provided (if any user was passed) curacted this object with the given activity
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => activity if user
   end
 
   def curated?

@@ -2,7 +2,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Content Partners' do
 
-  scenario :foundation
+  before do
+    Scenario.load :foundation
+  end
 
   it 'should have desc-personal tag with "Hello [full_name]" and a logout link when logged in' do
     pass  = 'timey-wimey'

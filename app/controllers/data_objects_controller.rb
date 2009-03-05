@@ -77,7 +77,15 @@ class DataObjectsController < ApplicationController
 
   # PUT /data_objects/1/curate
   def curate
-    @data_object.curate!(params[:curator_activity_id]) if current_user.can_curate?(@data_object)
+    if current_user.can_curate?(@data_object)
+      @data_object.curate!(params[:curator_activity_id])
+
+      @data_object.taxa.each do |taxon|
+        expire_taxon(taxon.id)
+      end
+
+      #expire_taxon(@data_object)
+    end
     
     respond_to do |format|
       format.html {redirect_to request.referer ? :back : '/'}

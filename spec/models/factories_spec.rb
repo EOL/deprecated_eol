@@ -2,6 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Factory do
 
+  before :all do
+    reset_auto_increment_on_tables_with_tinyint_primary_keys
+  end
+
   # WHERE ARE THE EXAMPLES ???
   #
   # see the # spec # section below !

@@ -2,12 +2,17 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Login' do
 
-  scenario :foundation
+  before :all do
+    Scenario.load :foundation
+  end
+  after :all do
+    truncate_all_tables
+  end
 
   # helpers
 
   def create_user username, password
-    Factory :user, :username => username, :entered_password => password
+    User.gen :username => username, :entered_password => password
   end
 
   # specs

@@ -16,9 +16,10 @@ describe TaxonConcept do
   # well, it isn't testing a website, and it IS testing a *model*, so it seemed a "better" fit here, even if it isn't perfect.
   before(:each) do
     Rails.cache.clear
-    @toc_item_1      = TocItem.gen(:view_order => 2)
-    @toc_item_2      = TocItem.gen(:view_order => 3)
-    @toc_item_3      = TocItem.gen(:view_order => 4)
+    @overview        = TocItem.overview
+    @overview_text   = 'This is a test Overview, in all its glory'
+    @toc_item_2      = TocItem.gen(:view_order => 2)
+    @toc_item_3      = TocItem.gen(:view_order => 3)
     @canonical_form  = Faker::Eol.scientific_name
     @attribution     = Faker::Eol.attribution
     @common_name     = Faker::Eol.common_name.firstcap
@@ -48,23 +49,12 @@ describe TaxonConcept do
                              :comments        => [{:body => @comment_1}, {:body => @comment_bad}, {:body => @comment_2}],
                              :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
                                                   {:object_cache_url => @image_3}],
-                             :toc             => [{:toc_item => @toc_item_1}, {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
+                             :toc             => [{:toc_item => @overview, :description => @overview_text}, 
+                                                  {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
     @id            = tc.id
     @curator       = Factory(:curator, :curator_hierarchy_entry => tc.entry)
     @taxon_concept = TaxonConcept.find(@id)
     Comment.find_by_body(@comment_bad).hide!
-  end
-
-  it 'should have different names for different detail levels' do
-    concept = TaxonConcept.generate
-
-    # trying to create a name ... seems to be *REALLY* hard to simply add a name to a TaxonConcept ...
-    # tc.taxon_concept_names.create :name => Name.gen, :language => Language.gen, :preferred => true, :vern => 0, :source_hierarchy_entry_id => HierarchyEntry.gen.id
-    # ^ adds a valid TaxonConceptName but #name returns '?-?' (whatever that means) and #names returns [] ?
-    #
-    # JRice reponse: adding a name to a TC is REALLY difficult.  You need to have HE models underneath, with the proper kinds of
-    # names, PLUS a TaconConceptName that references the Name you've created on the HE. The Spec for Search (black-box) has a method
-    # for accomplishing this; it is on our TODO list to move that out and improve it.
   end
 
   it 'should have a canonical form' do
@@ -157,11 +147,15 @@ describe TaxonConcept do
   it 'should be able to show a table of contents' do
     # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are appropriate.  I
     # could test for those here, but that seems the perview of TocItem.  So, I'm only checking the first three elements:
-    @taxon_concept.toc[0..2].should == [@toc_item_1, @toc_item_2, @toc_item_3]
+    @taxon_concept.toc[0..2].should == [@overview, @toc_item_2, @toc_item_3]
   end
 
   it 'should be able to show its images' do
     @taxon_concept.images.map(&:object_cache_url).should == [@image_1, @image_2, @image_3]
+  end
+
+  it 'should be able to get an overview' do
+    @taxon_concept.overview.description.should == @overview_text
   end
 
   # Medium Priority:

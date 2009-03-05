@@ -65,6 +65,11 @@ class TaxonConcept < SpeciesSchemaModel
     return iucn.description
   end
 
+  # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)
+  def overview
+    return content_by_category(TocItem.overview)[:data_objects]
+  end
+
   # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
   def scientific_name
     quick_scientific_name(species_or_below? ? :italicized : :normal)
@@ -570,6 +575,48 @@ EO_FIND_NAMES
           JOIN taxa ON (taxa.hierarchy_entry_id = hierarchy_entries.id)
       WHERE hierarchy_entries.taxon_concept_id = ?
     }, self[:id]])
+  end
+
+  alias :ar_to_xml :to_xml
+  # Be careful calling a block here.  We have our own builder, and you will be overriding that if you use a block.
+  def to_xml(options = {})
+    default_only   = [:id]
+    options[:only] = (options[:only] ? options[:only] + default_only : default_only)
+    options[:methods] ||= [:canonical_form, :common_name, :iucn_conservation_status, :scientific_name]
+    default_block = lambda do |xml|
+
+      xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) }
+
+      xml.table_of_contents do
+        toc.each do |ti|
+          xml.item { xml.id ti.id ; xml.label ti.label }
+        end
+      end
+
+      # Careful!  We're doing TaxonConcepts, here, so we don't want recursion.
+      xml.ancestors { ancestors.each { |a| a.to_simplified_xml(:builder => xml, :skip_instruct => true) } }
+      # Careful!  We're doing TaxonConcepts, here, too, so we don't want recursion.
+      xml.children { children.each { |a| a.to_simplified_xml(:builder => xml, :skip_instruct => true) } }
+      xml.curators { curators.each {|c| c.to_xml(:builder => xml, :skip_instruct => true)} }
+      xml.map      { map.to_xml(:builder => xml, :skip_instruct => true) }
+
+      # There are potentially lots and lots of these, so let's just count them and let the user grab what they want:
+      xml.num_comments comments.length
+      xml.num_images   images.length
+      xml.num_videos   videos.length
+
+    end
+    if block_given?
+      ar_to_xml(options) { |xml| yield xml }
+    else 
+      ar_to_xml(options) { |xml| default_block.call(xml) }
+    end
+  end
+
+  def to_simplified_xml(options = {})
+    options[:only]    ||= [:id]
+    options[:methods] ||= [:canonical_form, :common_name, :iucn_conservation_status, :scientific_name]
+    ar_to_xml(options)
   end
 
 #####################

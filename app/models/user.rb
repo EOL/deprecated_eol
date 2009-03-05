@@ -256,6 +256,12 @@ class User < ActiveRecord::Base
     end
   end
 
+  alias :ar_to_xml :to_xml
+  def to_xml(options = {})
+    default_only   = [:id, :credentials, :username] # TODO - should we add Given / Family names? I'm not sure, privacy an issue
+    options[:only] = (options[:only] ? options[:only] + default_only : default_only)
+    ar_to_xml(options)
+  end
   
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 protected   

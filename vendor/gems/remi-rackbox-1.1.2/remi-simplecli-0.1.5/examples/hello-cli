@@ -1,0 +1,44 @@
+#! /usr/bin/env ruby
+
+require File.dirname(__FILE__) + '/../lib/simplecli'
+
+class Hello
+  include SimpleCLI
+
+  def usage
+    puts <<doco
+
+  Hello CLI
+
+    Usage:
+      #{ script_name } command [options]
+      
+    Futher help:
+      #{ script_name } commands         # list all available commands
+      #{ script_name } help <COMMAND>   # show help for COMMAND
+      #{ script_name } help             # show this help message
+
+doco
+  end
+
+  def sayhello_help
+    <<doco
+Usage: #{ script_name } sayhello [SAY]
+
+  Arguments:
+    SAY:         Something to say (default 'Hello World!')
+
+  Summary:
+    Says hello!
+doco
+  end
+  def sayhello *args
+    puts args.empty? ? "Hello World!" : args.join(' ')
+  end
+
+end
+
+# POSTAMBLE
+if __FILE__ == $0
+  Hello.new( ARGV, :default => 'sayhello' ).run
+end

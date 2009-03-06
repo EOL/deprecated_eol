@@ -1,5 +1,14 @@
-# Put a few taxa (all within a new hierarchy) in the database with a range of
-# accoutrements.  Depends on foundation scenario!
+# Put a few taxa (all within a new hierarchy) in the database with a range of accoutrements
+#
+#   TODO add a description here of what actually gets created!
+#
+#   This description block can be viewed (as well as other information 
+#   about this scenario) by running:
+#     $ rake scenarios:show NAME=bootstrap
+#
+# ---
+# dependencies: [ :foundation ]
+# arbitrary_variable: arbitrary value
 
 require 'spec/eol_spec_helpers'
 # This gives us the ability to recalculate some DB values:

@@ -15,8 +15,11 @@
 		<%= select("data_objects_toc_category", "toc_id",  TocItem.find(:all, :order => 'id').collect {|c| [c.label, c.id] }) %>
 	</td></tr>
 
+	<tr><td> <%= f.label 'Add new subchapter' %></td>
+	<td><%= f.text_field :object_title %> </td></tr>
+
     <tr><td> <%= f.label :description %></td>
-    <td><%= f.text_area( :description, :size => "40x8" )%> </td></tr>
+    <td><%= f.text_area( :description, :size => "33x8" )%> </td></tr>
 
     <%#alwais data_object[data_type_id] = 2 %>
 
@@ -38,8 +41,7 @@
     <td>
 	<%#= f.check_box :curated %> </td></tr>-->
 
-	<tr><td> <%= f.label :object_title %></td>
-	<td><%= f.text_field :object_title %> </td></tr>
+    <tr><td colspan="2"><input type="button" value="Preview"/>&nbsp;<input type="button" value="Confirm"/></td></tr>
 
   </table>
 
@@ -92,7 +94,5 @@
 -->
 
 
-    <%= f.submit button_name  %>
-
-
+    <%#= f.submit button_name  %>
 <% end %>

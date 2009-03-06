@@ -734,7 +734,6 @@ private
     # NOTE: I tried to dynamically alter data_objects directly, below, but they didn't
     # "stick".  Thus, I override the array:
     override_data_objects = []
-    puts "*" * 120
     result[:data_objects].each do |data_object|
       if data_object.sources.detect { |src| src.full_name == 'FishBase' }
         # TODO - We need a better way to choose which Agent to look at.  : \

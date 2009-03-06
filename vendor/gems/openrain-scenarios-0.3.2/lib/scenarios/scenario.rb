@@ -138,10 +138,8 @@ INFO
     # scenarios (or an empty array)
     #
     def [] *names
-      puts "looking for scenario(s) with name(s): #{ names.inspect }" if Scenario.verbose
+      # puts "Scenario#{ names.inspect }" if Scenario.verbose
       if names.length == 1
-        puts "all scenario names: #{ all.map(&:name) }" if Scenario.verbose
-        puts "btw, the load paths are: #{ load_paths.inspect }" if Scenario.verbose
         all.find {|scenario| scenario.name.downcase == names.first.to_s.downcase }
       else
         names.map {|name| self[ name ] }.compact
@@ -157,7 +155,7 @@ INFO
     #   Scenario.load :names, 'work', :too
     #
     def load *scenarios
-      puts "called Scenario.load with scenarios #{ scenarios.inspect }" if Scenario.verbose
+    puts "Scenario.load(#{ scenarios.map {|s| s.to_s }.join(', ') })" if Scenario.verbose
       @before_blocks.each { |b| b.call } if @before_blocks and not @before_blocks.empty?
       
       # TODO should be able to define some block that scenarios get evaluated in!
@@ -167,28 +165,40 @@ INFO
       options[:unique] ||= true # whether each scenario passed has to be unique ... will likely change this to be true by default
 
       # make sure everything is actually a Scenario object
+      #
+      # after this, we can safely assume that everything is a scenario!
+      #
       scenarios.map! do |scenario|
         scenario.is_a?(Scenario) ? scenario : self[scenario]
       end
-
-      scenarios.compact! # get rid of any nils
+      scenarios.compact!
 
       scenarios = scenarios.inject([]) do |all, scenario|
-        all << scenario
         all += Scenario[ nil, *scenario.dependencies ] if scenario.dependencies
+        all << scenario
         all
       end
+      scenarios.compact!
 
-      # TODO clean up this crazy lame mess ... also, this doesn't 
-      #      guarantee order, which is a huge fail wrt dependencies!
-      scenarios = scenarios.inject({}) { |all, scenario|
-        all[ scenario.name ] = scenario
+      puts "[ after dependencies, scenarios => #{ scenarios.map {|s| s.to_s }.join(', ') } ]" if Scenario.verbose
+
+      scenarios = scenarios.inject([]) do |all, scenario|
+        existing_scenario = all.find {|s| s.name == scenario.name }
+        if existing_scenario
+          # the last scenario with the given name "wins" (but we need to persist order)
+          index_of_existing_scenario = all.index existing_scenario
+          all.delete_at index_of_existing_scenario
+          all.insert index_of_existing_scenario, scenario
+        else
+          all << scenario
+        end
         all
-      }.values if options[:unique]
+      end if options[:unique]
 
+      puts "scenarios to load: #{ scenarios.map {|s| s.to_s }.join(', ') }" if Scenario.verbose
       scenarios.each do |scenario|
         scenario = self[scenario] unless scenario.is_a?Scenario # try getting using self[] if not a scenario
-        puts "loading #{ scenario.name } (#{ scenario.summary })" if Scenario.verbose && scenario.is_a?(Scenario)
+        puts "... loading #{ scenario.name } (#{ scenario.summary })" if Scenario.verbose
         begin
           if scenario.is_a?Scenario
             puts "loading scenario: #{ scenario.file_path }" if Scenario.verbose

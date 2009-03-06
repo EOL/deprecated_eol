@@ -161,7 +161,9 @@ describe TaxonConcept do
   end
 
   it 'should be able to get an overview' do
-    @taxon_concept.overview.description.should == @overview_text
+    results = @taxon_concept.overview
+    results.length.should == 1
+    results.first.description.should == @overview_text
   end
 
   # Medium Priority:

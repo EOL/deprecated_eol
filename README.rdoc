@@ -385,6 +385,18 @@ To get attribution for a given taxon concept ID:
     e.g. agents=he[0].agents  # OR  agents=he.agents
         agents.each {|agent| puts agent.full_name + " " + agent.homepage + " " + agent.logo_cache_url}
 
+== CREATING A GOOGLE SITEMAP
+
+To create Google SiteMap files in the correct format, run the following rake task for your requested environment:
+
+rake sitemap:create RAILS_ENV=production[,BASEURL="http://www.eol.org/pages/",BASEURL_SITEMAP="http://www.eol.org/sitemaps/",MAXPERFILE="50000",OUTPUTPREFIX="eol_sitemap",PRIORITY="1",CHANGEFREQ="monthly",LASTMOD="2009-03-01"]
+
+All of the parameters in brackets are optional and have the default shown (except for 'lastmod' which defaults to today).
+
+The URLS placed into the site map file are based on 'BASEURL/XXX' where XXX is a valid published, trusted taxon concept ID pulled
+from the specified environment.
+
+
 == DOCUMENTATION
 
 We're not keeping the docs in the svn repo, so you'll have to generate them on your own.  We recommend installing the allison gem,

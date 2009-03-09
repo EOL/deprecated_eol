@@ -59,7 +59,7 @@ class ContentController < ApplicationController
       rows.each do |row|
         @items << {
           :title => row['object_title'],
-          :link => "/pages/" + row['taxon_concept_id'],
+          :link => taxon_url(:id=>row['taxon_concept_id']),
           :guid => row['guid'],
           :thumbnail => DataObject.image_cache_path(row['object_cache_url'], :medium),
           :image => DataObject.image_cache_path(row['object_cache_url'], :orig)

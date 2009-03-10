@@ -121,11 +121,13 @@ end
 
 #### Sequences
 
+# Not unique, of course:
 Factory.sequence(:iucn) do |n|
   @seq_iucn = ["Extinct (EX)", "Data Deficient (DD)", "Endangered (EN)", "Vulnerable (VU)", "Critically Endangered (CR)", "Near Threatened (NT)", "Least Concern (LC)", "Conservation Dependent (LR/cd)", "Extinct in the Wild (EW)"]
   @seq_iucn[n % @seq_iucn.length]
 end
 
+# Not unique:
 Factory.sequence(:flash) do |n|
   @seq_flash = 
     [200811131313601, 200811131321659, 200811131394659, 200811131367814, 200811131351121, 200811131388288, 200811131382797,
@@ -136,11 +138,13 @@ Factory.sequence(:flash) do |n|
   @seq_flash[n % @seq_flash.length]
 end
 
+# Not unique:
 Factory.sequence(:youtube) do |n|
   @seq_youtube = ["http://www.youtube.com/v/tawTDADXvuM", "http://www.youtube.com/v/Sk1FhlPeQH8", "http://www.youtube.com/v/ymTMrg7G4Ac"]
   @seq_youtube[n % @seq_youtube.length]
 end
 
+# Not unique:
 Factory.sequence(:map) do |n|
   @seq_map = 
     [200810061219436, 200810061209958, 200810061282237, 200810061249555, 200810061295422, 200810061292832, 200810061231652,
@@ -157,6 +161,7 @@ Factory.sequence(:map) do |n|
   @seq_map[n % @seq_map.length]
 end
 
+# Not unique:
 Factory.sequence(:image) do |n|
   @seq_images ||=
     [200810061400963, 200812102286938, 200901131511113, 200810061535996, 200810061235832, 200810070724291, 200810070393325,
@@ -183,16 +188,19 @@ Factory.sequence(:image) do |n|
   @seq_images[n % @seq_images.length]
 end
 
+# Unique:
 Factory.sequence(:scientific_name) do |n|
   @seq_sci_name = ["Quibusdameli estculpaatus", "Estasperioreseli etquidemis", "Nesciunterox autrerumalis", "Voluptasalius optioerus", "Remrerumeron auteterus", "Veritatises idofficiisiae", "Accusamusalis pariatura", "Voluptateseri doloremosyne", "Autrecusandaees repudiandaeica", "Nihileri voluptasus", "Dignissimosii inutes", "Fugais utharumatus", "Minuseli ullamens", "Dignissimosatus nobisosyne", "Expeditaalia evenietelia", "Earumeles beataeata", "Culpaensis sapienteesi", "Utomnisesi sequialis", "Autaliquideri minimais", "Beataeelia etnemoiae", "Autema officiaalius", "Autemalius utsimiliqueesi", "Etconsequaturelia autenimalia", "Quoautesi natuseri", "Voluptatumeri esseensis", "Ameti maioresis", "Ipsamalius distinctioerox", "Maximees veritatisatus", "Molestiaeus rationealia", "Fugitens dolorealius", "Quisquamator sequieles", "Essees eaqueata", "Animiens atdoloribuseron", "Adaliasii iurea", "Nonnumquamerus numquamerus", "Autvoluptatesus temporaalis", "Excepturialia omnisa", "Estveroalia nihilata", "Quiincidunta culpaelia", "Providentalia estquaeratens", "Placeatalia uteosensis", "Ipsaensis architectoalius", "Deserunterox facereerox", "Suntalia estsitalius", "Aliasosyne quiadipisciatus", "Illoica exexplicaboalia", "Laboriosamerus quisis", "Optiois molestiasalia", "Ipsuma animius", "Quiserox eligendii", "Eteaiae nullais"]
-  @seq_sci_name[n % @seq_sci_name.length]
+  @seq_sci_name[n % @seq_sci_name.length] + "[#{n}]"
 end
 
+# Unique:
 Factory.sequence(:common_name) do |n|
   @seq_common_name = ["pink ipsumalia", "ravenous quaeeli", "red suntus", "darning needle", "tiger", "frizzlebek", "purple sitatius", "cloud swallow", "spiny possom", "common desert mouse", "lesser expeditaalia", "chartruse turtle", "horny toad", "scarlet vermillion", "Mozart's nemesis", "quick brown fox", "painted horse", "thirsty aphid", "bloody eel", "fruit bat", "giant ostrich", "common rat", "cursed doormouse", "great errorens", "stream newt", "blessed sparrow", "ravenous eagle", "common titmouse", "least ferret", "raccoon", "papa bear", "brown hornet", "urban crocidile", "classical enthusiast", "grungebutter", "bripplefoam frond", "elf's cup", "agitated harmonium", "stone dragon", "Werner's mite", "green anole", "killer bee", "thistle", "paramecium", "scorpion king", "tarantula", "cardinal", "sky fungus", "upbeat chickadee", "amoeba"]
-  @seq_common_name[n % @seq_common_name.length]
+  @seq_common_name[n % @seq_common_name.length] + "[#{n}]"
 end
 
+# Not Unique (obviously, given the repetition in the array):
 Factory.sequence(:attribution) do |n|
   @seq_attr = ["L.", "Linn.", "Linnaeus", "G. D'Amore", "R. Bergstrom", "L.", "Linn", "R. Cartwright", "L.", "Linn.", "Linnaeus", "N. Upton", "L. Carroll", "M. Port", "S. Posford", "Posford & Ram", "L.", "Linnaeus", "", "P. Leary", "Padderson", "Linnaeus", "L.", "M. Mayer"]
   @seq_attr[n % @seq_attr.length]
@@ -202,7 +210,7 @@ Factory.sequence(:string ){|n| "unique#{ n }string" } # 'string' isn't elegant, 
 Factory.sequence(:email  ){|n| "bob#{n}@smith.com" }
 # Faker names are frequently unique, but let's just make absolutely sure:
 Factory.sequence(:name   ){|n| "#{Faker::Name.first_name}#{n} #{Faker::Name.last_name}" }
-Factory.sequence(:species){|n| "#{Factory.next(:scientific_name)}[#{n}]" }
+Factory.sequence(:species){|n| Factory.next(:scientific_name) }
 Factory.sequence(:title  ){|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
 Factory.sequence(:int    ){|n| n }
 
@@ -560,13 +568,13 @@ Factory.define :mime_type do |x|
 end
 
 Factory.define :name do |name|
-  name.canonical_form      {|cform| cform.association(:canonical_form, :string => 'Somethia specificus')}
+  name.association         :canonical_form
   name.string              { Factory.next(:species) }
   name.canonical_verified  0 # I don't know that Rails ever uses this...
   name.italicized_verified 0 # I don't know that Rails ever uses this...
-  # The italicized can NEVER be blank.  Even for common names.  ...Not that you can trust it for common names, but some names are
-  # both vernacular *and* scientific, so we're enforcing the presence of the value.
-  # The strip  at the end handles strings that are only two words; it is useless with three or more.
+  # The italicized can NEVER be blank.  Even for common names.  ...Not that you can trust it for common names, but
+  # some names are both vernacular *and* scientific, so we're enforcing the presence of the value.
+  # The strip at the end handles strings that are only two words; it is useless with three or more.
   name.italicized          {|n| n.string.split[0] == n.string ? "<i>#{n.string}</i>" : ('<i>' + n.string.split[0..1].join(' ') + '</i> ' +  n.string.split[2..-1].join(' ')).strip }
   name.namebank_id         0
 end
@@ -592,7 +600,7 @@ end
 # end
 
 Factory.define :normalized_name do |nn|
-  nn.name_part 'TestNormalizedName'
+  nn.name_part Factory.next(:string)
 end
 
 Factory.define :page_name do |pn|
@@ -717,7 +725,7 @@ Factory.define :taxon do |t|
   t.taxon_order     ''
   t.taxon_family    ''
   t.association     :name
-  t.scientific_name ''
+  t.scientific_name Factory.next(:scientific_name)
   t.association     :hierarchy_entry
   t.created_at      { 48.hours.ago }
   t.updated_at      { 42.minutes.ago }

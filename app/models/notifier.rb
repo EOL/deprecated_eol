@@ -96,6 +96,13 @@ class Notifier < ActionMailer::Base
     body        :name => name, :message => message           
   end
   
+  def user_changed_mailer_setting(old_user,new_user,recipient)
+    subject     "EOL user changed their mailing list or email address setting"
+    recipients  recipient
+    from        @@from
+    body        :old_user => old_user, :new_user=>new_user
+  end
+  
   def contact_email(contact)
     
     contact_subject=ContactSubject.find(contact.contact_subject_id)

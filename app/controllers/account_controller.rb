@@ -126,7 +126,8 @@ class AccountController < ApplicationController
 
     # grab logged in user
     @user = current_user
-
+    old_user=@user.clone
+    
     unless request.post? # first time on page, get current settings
       # set expertise to a string so it will be picked up in web page controls
       @user.expertise=current_user.expertise.to_s
@@ -135,13 +136,14 @@ class AccountController < ApplicationController
     end
 
     user_params=params[:user]
-
+    
     # change password if user entered it
     @user.password=user_params[:entered_password] if user_params[:entered_password] !='' && user_params[:entered_password] != nil && user_params[:entered_password_confirmation] !='' && user_params[:entered_password_confirmation] != nil
 
     # The UI would not allow this, but a hacker might try to grant curator permissions to themselves in this manner.
     user_params.delete(:curator_hierarchy_entry_id) unless is_user_admin? 
     if @user.update_attributes(user_params)
+      user_changed_mailing_list_settings(old_user,@user) if (old_user.mailing_list != @user.mailing_list) || (old_user.email != @user.email)
       set_current_user(@user)
       flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated]
       redirect_back_or_default
@@ -229,6 +231,18 @@ class AccountController < ApplicationController
 
 private
 
+  # this method is called if a user changes their mailing list or email address settings
+  # TODO: do something more intelligent here to notify mailing service that a user changed their settings (like call a web service, or log in DB to create a report)
+  def user_changed_mailing_list_settings(old_user,new_user)
+    media_inquiry_subject=ContactSubject.find_by_id($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
+    if media_inquiry_subject.nil? 
+      recipient="test@eol.org"
+    else
+      recipient=media_inquiry_subject.recipients
+    end    
+    Notifier.deliver_user_changed_mailer_setting(old_user,new_user,recipient)
+  end
+  
   # In order for AccountController to work with OpenID, we need to force it to use https when authenticating.  
   def realm
     return ENV['RAILS_ENV'] =~ /prod/ ? "https://#{request.host_with_port}" : "#{request.protocol + request.host_with_port}"

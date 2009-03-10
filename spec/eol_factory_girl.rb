@@ -45,13 +45,6 @@ module EOL::FactoryGirlExtensions
   def create_with_duplicate_entry_checking *args
     begin
       create_without_duplicate_entry_checking *args
-    rescue ActiveRecord::RecordInvalid => ex
-      if ex.message =~ /Validation failed: (\S+) has already been taken/
-        field = $1
-        puts "\nTrying to generate a Factory with the following values failed:"
-        pp args
-        puts "\n...There was a duplicate entry with the same #{field}."
-      end
     rescue Exception => ex
       if ex.message.include? "Mysql::Error: Duplicate entry '255'"
         puts "\nTrying to generate a Factory resulted in a Mysql::Error" + 

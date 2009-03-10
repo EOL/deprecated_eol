@@ -19,17 +19,17 @@ describe 'Curation' do
     @taxon_concept = build_taxon_concept()
   end
 
-#  it 'should not show curation button' do
-#    request("/pages/#{@taxon_concept.id}").body.should_not have_tag('div#large-image-curator-button')
-#  end
-#
-#  it 'should show curation button' do
-#    curator = create_curator_for_taxon_concept(@taxon_concept)
-#
-#    login_as( curator ).should redirect_to('/index')
-#
-#    request("/pages/#{@taxon_concept.id}").body.should have_tag('div#large-image-curator-button')
-#  end
+  it 'should not show curation button' do
+    request("/pages/#{@taxon_concept.id}").body.should_not have_tag('div#large-image-curator-button')
+  end
+
+  it 'should show curation button' do
+    curator = create_curator_for_taxon_concept(@taxon_concept)
+
+    login_as( curator ).should redirect_to('/index')
+
+    request("/pages/#{@taxon_concept.id}").body.should have_tag('div#large-image-curator-button')
+  end
 
   it 'should expire taxon from cache' do
     curator = create_curator_for_taxon_concept(@taxon_concept)

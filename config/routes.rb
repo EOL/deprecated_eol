@@ -46,8 +46,9 @@ ActionController::Routing::Routes.draw do |map|
   end
 
   map.resources :taxon
-  map.taxon 'taxa/:id',  :controller => 'taxa', :action => 'taxa', :requirements => { :id => /\d+/ }
-  map.taxon 'pages/:id', :controller => 'taxa', :action => 'show', :requirements => { :id => /\d+/ }
+  map.taxon 'taxa/:id',          :controller => 'taxa', :action => 'taxa', :requirements => { :id => /\d+/ }
+  map.taxon 'pages/:id',         :controller => 'taxa', :action => 'show', :requirements => { :id => /\d+/ }
+  map.taxon 'pages/:id.:format', :controller => 'taxa', :action => 'show', :requirements => { :id => /\d+/ }
  
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
   map.set_flash_enabled 'set_flash_enabled', :controller => 'application', :action => 'set_flash_enabled'

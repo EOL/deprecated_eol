@@ -587,7 +587,8 @@ EO_FIND_NAMES
 
       xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) }
 
-      xml.table_of_contents do
+      # Using tag! here because hyphens are not legal ruby identifiers.
+      xml.tag!('table-of-contents') do
         toc.each do |ti|
           xml.item { xml.id ti.id ; xml.label ti.label }
         end
@@ -598,12 +599,14 @@ EO_FIND_NAMES
       # Careful!  We're doing TaxonConcepts, here, too, so we don't want recursion.
       xml.children { children.each { |a| a.to_simplified_xml(:builder => xml, :skip_instruct => true) } }
       xml.curators { curators.each {|c| c.to_xml(:builder => xml, :skip_instruct => true)} }
-      xml.map      { map.to_xml(:builder => xml, :skip_instruct => true) }
+      unless map.nil?
+        xml.map      { map.to_xml(:builder => xml, :skip_instruct => true) }
+      end
 
       # There are potentially lots and lots of these, so let's just count them and let the user grab what they want:
-      xml.num_comments comments.length
-      xml.num_images   images.length
-      xml.num_videos   videos.length
+      xml.comments { xml.count comments.length.to_s }
+      xml.images   { xml.count images.length.to_s }
+      xml.videos   { xml.count videos.length.to_s }
 
     end
     if block_given?

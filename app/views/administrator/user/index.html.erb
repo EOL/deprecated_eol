@@ -1,11 +1,20 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Web Users'} %>
 
+<%= calendar_date_select_includes %>
+<% CalendarDateSelect.format = :hyphen_ampm %>
+
 <div id="users">
 	<% form_tag({:action=>'index'},:method=>'get') do -%>
-	Search for users containing: <%= text_field_tag(:user_search_string,@user_search_string)%> <%= submit_tag 'Search' %>
+	Search for users containing: <%= text_field_tag(:user_search_string,@user_search_string)%> 
 	<br />
+	who registered from <%= calendar_date_select_tag "start_date", @start_date, :embedded => false, :year_range => 2008..2019 %>
+	to <%= calendar_date_select_tag "end_date", @end_date, :embedded => false, :year_range => 2008..2019 %>
+  
+  <br />
+
+  <%= submit_tag 'Search' %><br />
 	
-	<%=link_to "Add a new user",:action=>'new'%>
+	<%=link_to "Add a new user",:action=>'new'%> | <%=link_to 'Export this list as CSV',{:action=>'export',:start_date=>@start_date,:end_date=>@end_date,:user_search_string=>@user_search_string}%>
 	<br />
 	
 	<% if @users.nil? == false && @users.size > 0 %>

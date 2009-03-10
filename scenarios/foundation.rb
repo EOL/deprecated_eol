@@ -18,6 +18,8 @@ create_if_not_exists ContentPage, :title => 'Screencasts',    :language_abbr => 
 create_if_not_exists ContentPage, :title => 'Press Releases', :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Press Room')
 create_if_not_exists ContentPage, :title => 'Terms Of Use',   :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Footer')
 
+create_if_not_exists ContactSubject, :title => 'Media Contact', :recipients=>'test@test.com', :active=>true
+
 create_if_not_exists CuratorActivity, :code => 'delete'
 create_if_not_exists CuratorActivity, :code => 'update'
 

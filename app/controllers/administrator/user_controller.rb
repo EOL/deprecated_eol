@@ -6,8 +6,13 @@ class Administrator::UserController  < AdminController
     
     @user_search_string=params[:user_search_string] || ''
     search_string_parameter='%' + @user_search_string + '%' 
+    @start_date=params[:start_date] || "2008-02-26"
+    @end_date=params[:end_date] || Date.today.to_s(:db)
+  
     @users=User.paginate(
-      :conditions=>['id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?',
+      :conditions=>['(created_at>=? AND created_at<=?) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
+      @start_date,
+      @end_date,
       @user_search_string,
       search_string_parameter,
        search_string_parameter,
@@ -17,7 +22,9 @@ class Administrator::UserController  < AdminController
        search_string_parameter],
       :order=>'created_at desc',:page => params[:page])
     @user_count=User.count(
-      :conditions=>['id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?',
+      :conditions=>['(created_at>=? AND created_at<=?) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
+        @start_date,
+        @end_date,
       @user_search_string,
       search_string_parameter,
       search_string_parameter,
@@ -26,6 +33,37 @@ class Administrator::UserController  < AdminController
       search_string_parameter,
       search_string_parameter])
     
+  end
+
+  def export
+
+    @user_search_string=params[:user_search_string] || ''
+    search_string_parameter='%' + @user_search_string + '%' 
+    @start_date=params[:start_date] || "2008-02-26"
+    @end_date=params[:end_date] || Date.today.to_s(:db)
+    
+    @users=User.find(:all,
+       :conditions=>['(created_at>=? AND created_at<=?) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
+       @start_date,
+       @end_date,
+       @user_search_string,
+       search_string_parameter,
+        search_string_parameter,
+        search_string_parameter,
+        search_string_parameter,
+        search_string_parameter,
+        search_string_parameter],
+       :order=>'created_at desc')
+      report = StringIO.new
+      CSV::Writer.generate(report, ',') do |title|
+          title << ['Id', 'Username', 'Name', 'Email','Registered Date','Mailings?']
+          @users.each do |u|
+            title << [u.id,u.username,u.full_name,u.email,u.created_at.strftime("%m/%d/%y - %I:%M %p %Z"),u.mailing_list]       
+          end
+       end
+       report.rewind
+       send_data(report.read,:type=>'text/csv; charset=iso-8859-1; header=present',:filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')
+
   end
   
   def edit

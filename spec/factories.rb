@@ -202,7 +202,7 @@ Factory.sequence(:string ){|n| "unique#{ n }string" } # 'string' isn't elegant, 
 Factory.sequence(:email  ){|n| "bob#{n}@smith.com" }
 # Faker names are frequently unique, but let's just make absolutely sure:
 Factory.sequence(:name   ){|n| "#{Faker::Name.first_name}#{n} #{Faker::Name.last_name}" }
-Factory.sequence(:species){|n| "#{Faker::Lorem.words[0]}#{n} #{Faker::Lorem.words[0]}" }
+Factory.sequence(:species){|n| "#{Factory.next(:scientific_name)}[#{n}]" }
 Factory.sequence(:title  ){|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
 Factory.sequence(:int    ){|n| n }
 
@@ -272,7 +272,7 @@ Factory.define :audience do |a|
 end
 
 Factory.define :canonical_form do |cform|
-  cform.string 'Cononica idenitifii'
+  cform.string Factory.next(:species)
 end
 
 Factory.define :collection do |col|

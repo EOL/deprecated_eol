@@ -14,19 +14,19 @@ describe TaxonConcept do
     truncate_all_tables
   end
 
-  # Why am I loading so many fixtures in a unit testing suite?  ...Because TaxonConcept is unlike other models: there is really
-  # nothing to it: just an ID and a wee bit of ancillary data. At the same time, TC is *so* vital to everything we do, that I wanted
-  # to construct tests that really jog the model through all of its relationships.
+  # Why am I loading so many fixtures in a unit testing suite?  ...Because TaxonConcept is unlike other models: there 
+  # is really nothing to it: just an ID and a wee bit of ancillary data. At the same time, TC is *so* vital to
+  # everything we do, that I wanted to construct tests that really jog the model through all of its relationships.
   #
-  # If you want to think of this as more of a "black-box" test, that's fine.  I chose to put it in the models directory because,
-  # well, it isn't testing a website, and it IS testing a *model*, so it seemed a "better" fit here, even if it isn't perfect.
+  # If you want to think of this as more of a "black-box" test, that's fine.  I chose to put it in the models directory
+  # because, well, it isn't testing a website, and it IS testing a *model*, so it seemed a "better" fit here, even if
+  # it isn't perfect.
   before(:each) do
-    Rails.cache.clear
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
     @toc_item_2      = TocItem.gen(:view_order => 2)
     @toc_item_3      = TocItem.gen(:view_order => 3)
-    @canonical_form  = Faker::Eol.scientific_name
+    @canonical_form  = Factory.next(:species)
     @attribution     = Faker::Eol.attribution
     @common_name     = Faker::Eol.common_name.firstcap
     @scientific_name = "#{@canonical_form} #{@attribution}"
@@ -52,7 +52,7 @@ describe TaxonConcept do
                              :map             => {:description => @map_text},
                              :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
                              :youtube         => [{:description => @video_3_text}],
-                             :comments        => [{:body => @comment_1}, {:body => @comment_bad}, {:body => @comment_2}],
+                             :comments        => [{:body => @comment_1},{:body => @comment_bad},{:body => @comment_2}],
                              :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
                                                   {:object_cache_url => @image_3}],
                              :toc             => [{:toc_item => @overview, :description => @overview_text}, 
@@ -121,7 +121,9 @@ describe TaxonConcept do
 
   it 'should be able to show a (single) map' do
     # TODO - nice way to add a DO to a TC
-    build_data_object('GBIF Image', 'Second map that should not show up', :taxon => @taxon_concept.taxa.first,
+    build_data_object('GBIF Image', 'Second map that should not show up',
+                      :hierarchy_entry => @taxon_concept.hierarchy_entries.first,
+                      :taxon => @taxon_concept.taxa.first,
                       :object_cache_url => Factory.next(:map))
     @taxon_concept.map.should_not be_nil
     @taxon_concept.map.should_not be_an Array
@@ -155,6 +157,19 @@ describe TaxonConcept do
     # could test for those here, but that seems the perview of TocItem.  So, I'm only checking the first three elements:
     @taxon_concept.toc[0..2].should == [@overview, @toc_item_2, @toc_item_3]
   end
+
+  # TODO - this is failing, but low-priority, I added a bug for it: EOLINFRASTRUCTURE-657
+  # This was related to a bug (EOLINFRASTRUCTURE-598)
+  #it 'should return the table of contents with unpublished items when a content partner is specified' do
+    #cp   = ContentPartner.gen
+    #toci = TocItem.gen
+    #dato = build_data_object('Text', 'This is our target text',
+                             #:hierarchy_entry => @taxon_concept.hierarchy_entries.first, :content_partner => cp,
+                             #:published => false, :vetted => Vetted.unknown, :toc_item => toci)
+    #@taxon_concept.toc.map(&:id).should_not include(toci.id)
+    #@taxon_concept.current_agent = cp.agent
+    #@taxon_concept.toc.map(&:id).should include(toci.id)
+  #end
 
   it 'should be able to show its images' do
     @taxon_concept.images.map(&:object_cache_url).should == [@image_1, @image_2, @image_3]

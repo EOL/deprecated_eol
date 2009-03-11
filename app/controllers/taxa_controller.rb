@@ -145,7 +145,16 @@ class TaxaController < ApplicationController
 
         render :template=>'/taxa/show_cached' if allow_page_to_be_cached? && @specify_category_id == 'default' # if caching is allowed, see if fragment exists using this template
       end 
-      format.xml  { render :xml  => TaxonConcept.find(@taxon_id).to_xml  }
+      format.xml do
+        puts "++ Key exists? #{Rails.cache.exist?("#{@taxon_id}/xml")}"
+        xml = Rails.cache.fetch("#{@taxon_id}/xml") do #, :expires_in => 4.hours) do
+          puts "++ Cached"
+          TaxonConcept.find(@taxon_id).to_xml
+        end
+        puts "++ Key exists now? #{Rails.cache.exist?("#{@taxon_id}/xml")}"
+        pp xml
+        render :xml => xml
+      end
       # TODO - format.json { render :json => @species.to_json }
     end
 

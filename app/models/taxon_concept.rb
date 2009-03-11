@@ -149,8 +149,8 @@ class TaxonConcept < SpeciesSchemaModel
   # Because nested has_many_through won't work with CPKs:
   # Also, so we can include collection.
   def mappings
-    Rails.cache.fetch([self, :mappings]) do
-      @mappings = Mapping.find_by_sql(%Q{
+    Rails.cache.fetch("taxa/#{self.id}/mappings") do
+      Mapping.find_by_sql(%Q{
         SELECT DISTINCT m.id, m.collection_id, m.name_id, m.foreign_key
           FROM taxon_concept_names tcn
             JOIN mappings m ON (tcn.name_id=m.name_id)
@@ -248,7 +248,7 @@ class TaxonConcept < SpeciesSchemaModel
     language ||= current_user.language
     common_name_results = SpeciesSchemaModel.connection.select_values("SELECT n.string FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1 LIMIT 1")
     if common_name_results.empty?
-      return ""
+      return ''
     end
     common_name_results[0].firstcap
   end
@@ -262,16 +262,16 @@ class TaxonConcept < SpeciesSchemaModel
       when :canonical   then scientific_name_results = SpeciesSchemaModel.connection.execute("SELECT cf.string name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) JOIN canonical_forms cf ON (n.canonical_form_id=cf.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id=he.id) WHERE tcn.taxon_concept_id=#{id} AND vern=0 AND preferred=1").all_hashes
     end
     
-    scientific_name = ""
+    final_name = ''
     
     # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names 
     scientific_name_results.each_with_index do |result, i|
-      if scientific_name=="" || result['source_hierarchy_id'].to_i == Hierarchy.default.id
-        scientific_name = result['name'].firstcap
+      if final_name=='' || result['source_hierarchy_id'].to_i == Hierarchy.default.id
+        final_name = result['name'].firstcap
       end
     end
     
-    scientific_name
+    final_name
   end
   
   # Some TaxonConcepts are "superceded" by others, and we need to follow the chain as far as we can (up to a sane limit): 
@@ -395,7 +395,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def classification_attribution
-    return entry.classification_attribution rescue ""
+    return entry.classification_attribution rescue ''
   end
 
   # pull content type by given category for taxa id 

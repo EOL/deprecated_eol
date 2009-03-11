@@ -1861,11 +1861,19 @@ ul#global-navigation {
             background: url(/images/toc.gif) 20px 1px no-repeat;
           }
 
-          ul#toc li div.add_text_button {
+          .add_text_button {
             background: url(/images/add_text_icon.gif) 0px 0px no-repeat;
             width: 20px;
             height: 20px;
             float: right;
+            padding-right: 7px;
+          }
+
+          ul#toc li.add_text {
+            height:20px;
+            padding-left:22px;
+            padding-top:2px;
+            width: 220px;
           }
 
           span.no_toc_link {
@@ -1914,6 +1922,10 @@ ul#global-navigation {
     #content #page-content #center-page-content .cpc-header {
       margin-bottom: 12px;
       padding-bottom: 11px;
+    }
+
+    #content #page-content #center-page-content .cpc-header .add_text_button {
+      margin-top:15px;
     }
 
       #content #page-content #center-page-content .cpc-header a.contribute {

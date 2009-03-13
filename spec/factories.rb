@@ -538,7 +538,7 @@ Factory.define :language do |l|
   l.iso_639_2    {|lang| lang.label[0..2].downcase }
   l.iso_639_3    {|lang| lang.label[0..3].downcase }
   l.activated_on { 24.hours.ago }
-  l.sort_order   { Factory.next(:int) }
+  l.sort_order   { Factory.next(:int) % 128 }
 end
 
 Factory.define :license do |l|

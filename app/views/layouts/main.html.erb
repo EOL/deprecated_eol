@@ -23,7 +23,7 @@
     <%- end -%>
     
     <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-    <link rel="search" type="application/opensearchdescription+xml" title="Encyclopedia of Life" href="/search.xml"/>
+    <link rel="search" type="application/opensearchdescription+xml" title="Encyclopedia of Life" href="/opensearch.xml"/>
     <%= auto_discovery_link_tag(:rss, {:controller=>'content',:action=>'news',:format=>'rss'}, {:title => "EOL News RSS"}) if controller.class == ContentController %>
     
     <%= stylesheet_link_merged 'base-cached' %>

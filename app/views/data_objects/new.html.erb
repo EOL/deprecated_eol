@@ -10,13 +10,40 @@
    	<input type="hidden" id="data_objects_taxa_taxon_id" name="data_objects_taxa[taxon_id]" value="<%= @data_objects_taxa.taxon_id %>" />
 <!--   	<input type="hidden" id="data_objects_toc_category_toc_id" name="data_objects_toc_category[toc_id]" value="<%#= @data_objects_toc_category.toc_id %>" />-->
 
-	<tr><td> <%= f.label "TOC category" %></td>
-	    <td>
-		<%= select("data_objects_toc_category", "toc_id",  TocItem.find(:all, :order => 'id').collect {|c| [c.label, c.id] }) %>
-	</td></tr>
-
-	<tr><td> <%= f.label 'Add new subchapter' %></td>
-	<td><%= f.text_field :object_title %> </td></tr>
+	<tr>
+    <td colspan="2">
+      <div class="toc_select">
+        <div id="existing_toc">
+          <label for="data_object_TOC category">Toc category</label> <%= select("data_objects_toc_category", "toc_id",  TocItem.find(:all, :order => 'id').collect {|c| [c.label, c.id] } << ['New Table of Contents Item','new']) %>
+        </div>
+        <div id="new_toc" style="display:none;">
+          <table>
+            <tr>
+              <td colspan="2">
+                <a href="#">Use Existing Chapter</a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.label 'Add new chapter' %>
+              </td>
+              <td>
+                <%= f.text_field :object_title %>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <%= f.label 'Select Parent Chapter' %>
+              </td>
+              <td>
+                <%= select("data_objects_toc_category", "toc_id",  TocItem.find(:all, :order => 'id').collect {|c| [c.label, c.id] }) %>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    </td>
+  </tr>
 
     <tr><td> <%= f.label :description %></td>
     <td><%= f.text_area( :description, :size => "33x8" )%> </td></tr>

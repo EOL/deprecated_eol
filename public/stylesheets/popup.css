@@ -161,3 +161,7 @@ li#large-image-attribution-button.unknown:hover {
 .insert_text { position:relative !important; width: 417px !important}
 
 #insert_text_popup_content table td { padding: 5px; vertical-align:top; }
+
+.toc_select label {
+  display: inline !important;
+}

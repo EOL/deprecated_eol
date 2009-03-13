@@ -1862,15 +1862,19 @@ ul#global-navigation {
           }
 
           .add_text_button {
-            background: url(/images/add_text_icon.gif) 0px 0px no-repeat;
+            background: url(/images/icons/dual-states/add-text.png) 0px 0px no-repeat;
             width: 20px;
-            height: 20px;
+            height: 22px;
             float: right;
             padding-right: 7px;
           }
 
+          .add_text_button:hover {
+            background: url(/images/icons/dual-states/add-text.png) 0px -32px no-repeat;
+          }
+
           ul#toc li.add_text {
-            height:20px;
+            height:24px;
             padding-left:22px;
             padding-top:2px;
             width: 220px;

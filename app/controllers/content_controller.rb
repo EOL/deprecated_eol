@@ -27,7 +27,6 @@ class ContentController < ApplicationController
   end
   
   def news
-    
     @term_search_string=params[:term_search_string] || ''
     search_string_parameter='%' + @term_search_string + '%' 
     @news_items=NewsItem.paginate(:conditions=>['active=1 and body like ?',search_string_parameter],:order=>'display_date desc',:page => params[:page])
@@ -35,7 +34,6 @@ class ContentController < ApplicationController
        format.html
        format.rss { render :layout=>false }
      end    
-
   end
   
   def translate
@@ -75,7 +73,7 @@ class ContentController < ApplicationController
     
   def exemplars
     unless read_fragment(:controller=>'content',:part=>'exemplars')
-      @exemplars = TaxonConcept.exemplars.sort_by(&:quick_scientific_name)
+      @exemplars = TaxonConcept.exemplars # This is stored by memcached, so should go quite fast.
     end
   end
   

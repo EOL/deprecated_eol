@@ -1,7 +1,4 @@
-<% puts "Data Object:"
-   pp @data_object
-   puts "Image: #{@data_object.image?}"
-   if @data_object.image?
+<% if @data_object.image?
      title = @data_object.object_title
      if title.nil? or title.empty?
        title = @data_object.description

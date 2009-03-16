@@ -2,28 +2,51 @@ class DataObjectsController < ApplicationController
 
   layout proc { |c| c.request.xhr? ? false : "main" }
 
-  before_filter :set_data_object, :except => :new
+  before_filter :set_data_object, :except => :index
 
   # example urls this handles ...
   #
-  #   /v1/species/5/images
-  #   /v1/species/5/videos
-  #   /v1/species/5/text          # not yet implemented
-  #   /v1/species/5/data_objects  # not yet implemented
+  #   /pages/5/images/2.xml  # Second page of TaxonConcept 5's images.
+  #   /pages/5/videos/2.xml
   #
   def index
-    @species = TaxonConcept.find params[:species_id] if params[:species_id]
-    if @species
+    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
+    per_page = params[:per_page].to_i
+    per_page = 10 if per_page < 1
+    per_page = 50 if per_page > 50
+    page     = params[:page].to_i
+    page     = 1 if page < 1
+    if @taxon_concept
       case request.path
       when /images/
         respond_to do |format|
-          format.xml  { render :xml  => @species.images.to_xml(serialization_options)  }
-          format.json { render :json => @species.images.to_json(serialization_options) }
+          format.xml do
+            xml = Rails.cache.fetch("taxon.#{@taxon_id}/images/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
+              images = @taxon_concept.images
+              {
+                :images           => images.paginate(:per_page => per_page, :page => page),
+                'num-images'      => images.length,
+                'images-per-page' => per_page,
+                'page'            => page
+              }
+            end
+            render :xml => xml
+          end
         end
       when /videos/
         respond_to do |format|
-          format.xml  { render :xml  => @species.videos.to_xml(serialization_options)  }
-          format.json { render :json => @species.videos.to_json(serialization_options) }
+          format.xml do
+            xml = Rails.cache.fetch("taxon.#{@taxon_id}/videos/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
+              videos = @taxon_concept.videos
+              {
+                :videos           => videos.paginate(:per_page => per_page, :page => page),
+                'num-videos'      => videos.length,
+                'videos-per-page' => per_page,
+                'page'            => page
+              }
+            end
+            render :xml => xml
+          end
         end
       else
         render :text => "Don't know how to render #{ params.inspect }"
@@ -35,7 +58,7 @@ class DataObjectsController < ApplicationController
     actions :show
 
     before :show do
-      @data_object ||= current_object # Because we use a partial that assumes this is defined 
+      set_data_object
     end
   end
 
@@ -54,25 +77,6 @@ class DataObjectsController < ApplicationController
   # we leave that to the #curate method
   #
   def curation
-  end
-
-  def new
-    @data_object = DataObject.new
-
-   #to link with taxa
-    @data_objects_taxa = DataObjectsTaxon.new
-    @data_objects_taxa.taxon_id = params[:taxon_id]
-
-   #to get Taxon.name
-    @current_taxa = Taxon.find(params[:taxon_id])
-    @current_taxa_name = Name.find(@current_taxa.name_id)
-
-   #to link with toc
-    @data_objects_toc_category = DataObjectsTableOfContent.new
-    @data_objects_toc_category.toc_id = params[:toc_id]
-
-   #to get TOC.category
-    @current_toc_category = TocItem.find(params[:toc_id])
   end
 
   # PUT /data_objects/1/curate
@@ -96,13 +100,7 @@ class DataObjectsController < ApplicationController
 protected
 
   def set_data_object
-    @data_object ||= ( DataObject.find( params[:id] ) if params[:id] )
+    @data_object ||= current_object
   end
-
-  def serialization_options
-    {
-      :methods => [ :thumb_or_object ]
-    }
-  end  
 
 end

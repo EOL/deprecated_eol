@@ -103,6 +103,21 @@ class TaxonConcept < SpeciesSchemaModel
     entry.children.map(&:taxon_concept)
   end
 
+  # Get a list of some of our best TaxonConcept examples.  Results will be sorted by scientific name.
+  #
+  # The sorting is actually a moderately expensive operation, so this is cached.
+  #
+  # Lastly, note that the TaxonConcept IDs are hard-coded to our production database. TODO - move those IDs to a
+  # table somewhere.
+  def self.exemplars
+    Rails.cache.fetch(:taxon_exemplars) do
+      TaxonConcept.find(:all, :conditions => ['id IN (?)',
+        [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 482935, 392557,
+         484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558,
+         253397, 740699, 1044544, 802455, 1194666, 2485151]]).sort_by(&:quick_scientific_name)
+    end
+  end
+
   ##################################### 
   # The rest of these methods are shamefully complex and probably require serious refactoring.
 
@@ -294,6 +309,7 @@ class TaxonConcept < SpeciesSchemaModel
     options[:qualifier]       ||= 'contains'
     options[:scope]           ||= 'all'
     options[:search_language] ||= 'all'
+    options[:user]            ||= User.create_new
     
     # TODO - insert into search terms, popular searches, and the like.
     
@@ -493,14 +509,6 @@ EOIUCNSQL
     if permitted then true else false end
   end
 
-  def self.exemplars
-    Rails.cache.fetch(:taxon_exemplars) do
-      TaxonConcept.find(:all, :conditions => ['id IN (?)',
-                        [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 482935, 392557, 484592, 581125, 467045, 593213,
-                         209984, 795869, 1049164, 604595, 983558, 253397, 740699, 1044544, 802455, 1194666, 2485151]])
-    end
-  end
-
   def self.search(search_string, options = {})
     # TODO - we have qualifier, scope, and search_lang diabled for now, so I am ignoring them entirely.
     options[:qualifier]       ||= 'contains'
@@ -580,46 +588,51 @@ EO_FIND_NAMES
   alias :ar_to_xml :to_xml
   # Be careful calling a block here.  We have our own builder, and you will be overriding that if you use a block.
   def to_xml(options = {})
-    default_only   = [:id]
-    options[:only] = (options[:only] ? options[:only] + default_only : default_only)
-    options[:methods] ||= [:canonical_form, :common_name, :iucn_conservation_status, :scientific_name]
-    default_block = lambda do |xml|
-
-      xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) }
-
-      # Using tag! here because hyphens are not legal ruby identifiers.
-      xml.tag!('table-of-contents') do
-        toc.each do |ti|
-          xml.item { xml.id ti.id ; xml.label ti.label }
-        end
-      end
-
-      # Careful!  We're doing TaxonConcepts, here, so we don't want recursion.
-      xml.ancestors { ancestors.each { |a| a.to_simplified_xml(:builder => xml, :skip_instruct => true) } }
-      # Careful!  We're doing TaxonConcepts, here, too, so we don't want recursion.
-      xml.children { children.each { |a| a.to_simplified_xml(:builder => xml, :skip_instruct => true) } }
-      xml.curators { curators.each {|c| c.to_xml(:builder => xml, :skip_instruct => true)} }
-      unless map.nil?
-        xml.map      { map.to_xml(:builder => xml, :skip_instruct => true) }
-      end
-
-      # There are potentially lots and lots of these, so let's just count them and let the user grab what they want:
-      xml.comments { xml.count comments.length.to_s }
-      xml.images   { xml.count images.length.to_s }
-      xml.videos   { xml.count videos.length.to_s }
-
-    end
-    if block_given?
-      ar_to_xml(options) { |xml| yield xml }
-    else 
-      ar_to_xml(options) { |xml| default_block.call(xml) }
-    end
-  end
-
-  def to_simplified_xml(options = {})
+    options[:root] ||= 'taxon-page'
     options[:only]    ||= [:id]
     options[:methods] ||= [:canonical_form, :common_name, :iucn_conservation_status, :scientific_name]
-    ar_to_xml(options)
+    default_block = nil
+    if options[:full]
+      options[:methods] ||= [:canonical_form, :common_name, :iucn_conservation_status, :scientific_name]
+      default_block = lambda do |xml|
+
+        xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) }
+
+        # Using tag! here because hyphens are not legal ruby identifiers.
+        xml.tag!('table-of-contents') do
+          toc.each do |ti|
+            xml.item { xml.id ti.id ; xml.label ti.label }
+          end
+        end
+
+        # Careful!  We're doing TaxonConcepts, here, so we don't want recursion.
+        xml.ancestors { ancestors.each { |a| a.to_xml(:builder => xml, :skip_instruct => true) } }
+        # Careful!  We're doing TaxonConcepts, here, too, so we don't want recursion.
+        xml.children { children.each { |a| a.to_xml(:builder => xml, :skip_instruct => true) } }
+        xml.curators { curators.each {|c| c.to_xml(:builder => xml, :skip_instruct => true)} }
+        unless map.nil?
+          xml.map      { map.to_xml(:builder => xml, :skip_instruct => true) }
+        end
+
+        # There are potentially lots and lots of these, so let's just count them and let the user grab what they want:
+        xml.comments { xml.count comments.length.to_s }
+        xml.images   { xml.count images.length.to_s }
+        xml.videos   { xml.count videos.length.to_s }
+
+      end
+    end
+    if block_given?
+      puts "Blocky"
+      return ar_to_xml(options) { |xml| yield xml }
+    else 
+      if default_block.nil?
+        "Nillified"
+        return ar_to_xml(options)
+      else
+        "Defaulted"
+        return ar_to_xml(options) { |xml| default_block.call(xml) }
+      end
+    end
   end
 
 #####################

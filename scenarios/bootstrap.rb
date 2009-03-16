@@ -75,4 +75,5 @@ admin.roles = Role.find(:all, :conditions => 'title LIKE "Administrator%"')
 admin.save
 
 make_all_nested_sets
+recreate_normalized_names_and_links
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants

@@ -1,5 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
-
+require File.dirname(__FILE__) + '/../spec_helper' 
 require File.dirname(__FILE__) + '/../../lib/eol_data'
 class EOL::NestedSet; end
 EOL::NestedSet.send :extend, EOL::Data
@@ -9,56 +8,9 @@ class SearchSpec
   class << self
 
     def animal_kingdom
-      @animal_kingdom ||= make_a_taxon 'Animals', 0, 0
-    end
-
-    # trying to define the smallest about of data required to have a valid taxon concept that i can search for
-    def make_a_taxon name, parent_id, depth = 1
-
-      # we need Names ... both of which need a canonical_form ...
-      canonical_form =
-      begin
-        CanonicalForm.gen :string => name
-      rescue ActiveRecord::RecordInvalid => e
-        CanonicalForm.find_by_string(name)
-      end
-      scientific_name = Name.gen :canonical_form => canonical_form, :string => name.downcase, :italicized => "<i>#{ name.downcase }</i>"
-      common_name     = Name.gen :canonical_form => canonical_form, :string => name.upcase,   :italicized => "<i>#{ name.upcase }</i>"
-
-      # make the actual TaxonConcept ... doesn't have much data, itself
-      taxon_concept   = TaxonConcept.gen
-
-      hierarchy_entry = HierarchyEntry.gen :hierarchy => Hierarchy.default,
-                                           :parent_id     => parent_id,
-                                           :depth         => depth,
-                                           :rank_id       => depth + 1,
-                                           :taxon_concept => taxon_concept,
-                                           :name          => scientific_name
-
-      # associate names with TaxonConcept
-      TaxonConceptName.gen :preferred                 => true, 
-                           :vern                      => false, 
-                           :source_hierarchy_entry_id => hierarchy_entry.id, 
-                           :language                  => Language.english,
-                           :name                      => scientific_name, 
-                           :taxon_concept             => taxon_concept
-
-      TaxonConceptName.gen :preferred                 => true, 
-                           :vern                      => true, 
-                           :source_hierarchy_entry_id => hierarchy_entry.id, 
-                           :language                  => Language.english,
-                           :name                      => common_name, 
-                           :taxon_concept             => taxon_concept
-      
-      # is a taxon actually required?
-      taxon = Taxon.gen :name => scientific_name, :hierarchy_entry => hierarchy_entry, :scientific_name => canonical_form
-
-      # trust the taxon_concept, by default
-      taxon_concept.vetted = Vetted.trusted
-      taxon_concept.published = 1
-      taxon_concept.save
-
-      taxon_concept
+      @animal_kingdom ||= build_taxon_concept(:canonical_form => 'Animals',
+                                              :parent_hierarchy_entry_id => 0,
+                                              :depth => 0)
     end
 
     def nestify_everything_properly
@@ -92,7 +44,8 @@ describe 'Search' do
     # Same argument as above (by JRice):
     # TaxonConcept.count.should == 0
 
-    tiger = SearchSpec.make_a_taxon 'Tiger', SearchSpec.animal_kingdom.id
+    tiger = build_taxon_concept(:canonical_form => 'Tiger', :depth => 1,
+                                :parent_hierarchy_entry_id => SearchSpec.animal_kingdom.hierarchy_entries.first.id)
     SearchSpec.nestify_everything_properly
     SearchSpec.recreate_normalized_names_and_links
 
@@ -102,8 +55,10 @@ describe 'Search' do
 
   it 'should show a list of possible results (linking to /taxa/search_clicked) if more than 1 match is found' do
 
-    lilly = SearchSpec.make_a_taxon 'Tiger Lilly',  SearchSpec.animal_kingdom.id
-    tiger = SearchSpec.make_a_taxon 'Tiger', SearchSpec.animal_kingdom.id
+    lilly = build_taxon_concept(:canonical_form => 'Tiger Lilly', :depth => 1,
+                                :parent_hierarchy_entry_id => SearchSpec.animal_kingdom.hierarchy_entries.first.id)
+    tiger = build_taxon_concept(:canonical_form => 'Tiger', :depth => 1,
+                                :parent_hierarchy_entry_id => SearchSpec.animal_kingdom.hierarchy_entries.first.id)
     SearchSpec.nestify_everything_properly
     SearchSpec.recreate_normalized_names_and_links
 

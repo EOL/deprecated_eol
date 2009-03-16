@@ -104,8 +104,7 @@ module TaxaHelper
            "', video_type:'"    + escape_javascript(video.media_type) +
            "', video_url:'"     + escape_javascript("#{video.video_url}" || video.object_url || '') +
            "', data_object_id:'"+ escape_javascript(video.id.to_s) +
-           "', taxon_concept_id:'" + escape_javascript(taxon_concept_id) + 
-           "'}"
+           "', taxon_concept_id:'#{taxon_concept_id}'}"
   end
 
 

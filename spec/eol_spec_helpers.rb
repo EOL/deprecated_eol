@@ -97,6 +97,8 @@ module EOL::Spec
     #     Which HE to link this object to. If missing, defaults to the last HE in the table, so be careful.
     #   +name+::
     #     Which Name object (q.v.) to link the Taxon to. 
+    #   +num_comments+::
+    #     How many comments to attach to this object.
     #   +scientific_name+::
     #     Which raw scientific name the content provider assigned to the Taxon.  Defaults to the HE's. 
     #   +taxon+::
@@ -122,6 +124,7 @@ module EOL::Spec
       content_partner = options.delete(:content_partner)
       he              = options.delete(:hierarchy_entry) || HierarchyEntry.last
       name            = options.delete(:name)            || Name.gen
+      num_comments    = options.delete(:num_comments)    || 1
       scientific_name = options.delete(:scientific_name) || he.name(:expert) || Factory.next(:scientific_name)
       taxon           = options.delete(:taxon)
       toc_item        = options.delete(:toc_item)
@@ -143,7 +146,7 @@ module EOL::Spec
       elsif type == 'Text'
         DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item)
       end
-      (rand(60) - 39).times { Comment.gen(:parent => dato, :user => User.all.rand) }
+      num_comments.times { Comment.gen(:parent => dato, :user => User.all.rand) }
 
       unless content_partner.nil?
         agent_resource = content_partner.agent.agents_resources.detect do |ar|
@@ -202,6 +205,8 @@ module EOL::Spec
     #   +flash+::
     #     Array of flash videos, each member is a hash for the video options.  The keys you will want are
     #     +:description+ and +:object_cache_url+.
+    #   +id+::
+    #     Forces the ID of the TaxonConcept to be what you specify, useful for exemplars.
     #   +images+::
     #     Array of hashes.  Each hash may have the following keys: +:description+, +:hierarchy_entry+,
     #     +:object_cache_url+, +:taxon+, +:vetted+, +:visibility+ ...These are the args used to call
@@ -232,7 +237,15 @@ module EOL::Spec
       sname = Name.gen(:canonical_form => cform, :string => options[:scientific_name] || "#{canon} #{attri}".strip,
                        :italicized     => options[:italicized] || "<i>#{canon}</i> #{attri}".strip)
       cname = Name.gen(:canonical_form => cform, :string => common_name, :italicized => common_name)
+
       tc    = TaxonConcept.gen(:vetted => Vetted.trusted)
+      # HACK!  We need to force the IDs of one of the TaxonConcepts, so that the exmplar array isn't empty.  I
+      # hate to do it this way, but, alas, this is how it currently works:
+      if options[:id]
+        TaxonConcept.connection.execute("UPDATE taxon_concepts SET id = #{options[:id]} WHERE id = #{tc.id}")
+        tc = TaxonConcept.find(options[:id])
+      end
+
       # Note that this assumes the ranks are *in order* which is ONLY true with foundation loaded!
       depth = options[:depth] || Rank.find_by_label(options[:rank] || 'species').id - 1
       he    = build_hierarchy_entry(depth, tc, sname, :parent_id => options[:parent_hierarchy_entry_id])
@@ -243,7 +256,7 @@ module EOL::Spec
       curator = Factory(:curator, :curator_hierarchy_entry => he)
 
       # Array with three empty hashes (default #), which we will populate with defaults:
-      comments = options[:comments] || [{}, {}, {}]
+      comments = options[:comments] || [{}, {}]
       comments.each do |comment|
         comment[:body]  ||= "This is a witty comment on the #{canon} taxon concept. Any resemblance to comments real" +
                             'or imagined is coincidental.'
@@ -257,10 +270,7 @@ module EOL::Spec
 
       images = [] # This is used to build the RandomTaxon
       if options[:images].nil?
-        options[:images] = []
-        (rand(12)+3).times do
-          options[:images] << {} # Defaults are handled below.
-        end
+        options[:images] = [{:num_comments => 12}] # One "normal" image, lots of comments, everything else default.
         # So, every TC (which doesn't have a predefined list of images) will have each of the following, making
         # testing easier:
         options[:images] << {:description => 'untrusted', :object_cache_url => Factory.next(:image),

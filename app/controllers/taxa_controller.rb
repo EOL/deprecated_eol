@@ -53,14 +53,13 @@ class TaxaController < ApplicationController
 
   # a permanent redirect to the new taxon page
   def taxa
-  #  pp params
     headers["Status"] = "301 Moved Permanently"
     redirect_to(params.merge(:controller => 'taxa', :action => 'show', :id => HierarchyEntry.find(params[:id]).taxon_concept_id))
   end
 
   # Main taxon view
   def show
-    @taxon_id = params[:id]
+    @taxon_id = params[:id].to_i
     raise "taxa id not supplied" if @taxon_id.nil? 
 
     respond_to do |format|
@@ -146,13 +145,9 @@ class TaxaController < ApplicationController
         render :template=>'/taxa/show_cached' if allow_page_to_be_cached? && @specify_category_id == 'default' # if caching is allowed, see if fragment exists using this template
       end 
       format.xml do
-        puts "++ Key exists? #{Rails.cache.exist?("#{@taxon_id}/xml")}"
-        xml = Rails.cache.fetch("#{@taxon_id}/xml") do #, :expires_in => 4.hours) do
-          puts "++ Cached"
-          TaxonConcept.find(@taxon_id).to_xml
+        xml = Rails.cache.fetch("taxon.#{@taxon_id}/xml", :expires_in => 4.hours) do
+          TaxonConcept.find(@taxon_id).to_xml(:full => true)
         end
-        puts "++ Key exists now? #{Rails.cache.exist?("#{@taxon_id}/xml")}"
-        pp xml
         render :xml => xml
       end
       # TODO - format.json { render :json => @species.to_json }
@@ -163,47 +158,70 @@ class TaxaController < ApplicationController
   # execute search and show results
   def search
 
-    current_user.content_level = params[:content_level] unless params[:content_level].nil?
-    params[:search_language] ||= '*'
-    params[:search_type] = EOLConvert.get_search_type(params[:search_type])
-    params[:content_level] ||= '1'
-    params[:q] ||= ''
+    respond_to do |format|
+      # TODO - please, please, PLEASE refactor this.  There is WAY too much going on in this controller.
+      format.html do 
+        current_user.content_level = params[:content_level] unless params[:content_level].nil?
+        params[:search_language] ||= '*'
+        params[:search_type] = EOLConvert.get_search_type(params[:search_type])
+        params[:content_level] ||= '1'
+        params[:q] ||= ''
 
-    last_published=HarvestEvent.last_published if params[:search_type].downcase == 'text' && allow_page_to_be_cached?
-    @last_harvest_event_id=(last_published.blank? ? "0" : last_published.id.to_s)
+        last_published=HarvestEvent.last_published if params[:search_type].downcase == 'text' && allow_page_to_be_cached?
+        @last_harvest_event_id=(last_published.blank? ? "0" : last_published.id.to_s)
 
-     # this is a non-cached text search      
-    if params[:search_type] == 'text' && (!allow_page_to_be_cached? || !read_fragment(:controller=>'taxa',:part=>'search_' + params[:search_language] + '_' + params[:q] + '_' + current_user.vetted.to_s + '_' + @last_harvest_event_id))           
+         # this is a non-cached text search      
+        if params[:search_type] == 'text' && (!allow_page_to_be_cached? || !read_fragment(:controller=>'taxa',:part=>'search_' + params[:search_language] + '_' + params[:q] + '_' + current_user.vetted.to_s + '_' + @last_harvest_event_id))
 
-      @search = Search.new(params, request, current_user, current_agent)  
-      @cached = false
+          @search = Search.new(params, request, current_user, current_agent)  
+          @cached = false
 
-      # TODO - There is a much better way to do this, please clean me - it is also duplicated in search.rb model  
-      # if we have only one result, go straight to that page
-      if @search.search_returned && @search.total_search_results == 1
-        #taxon_id = (@search.common_name_results[0][0] || @search.scientific_name_results[0][0] || @search.tag_results[0][0].id)
-        taxon_id = @search.common_results.empty? ? nil : @search.common_results[0][:id]
-        taxon_id = taxon_id ? taxon_id : (@search.scientific_results.empty? ? nil : @search.scientific_results[0][:id])
-        taxon_id = taxon_id ? taxon_id : (@search.tag_results.empty? ? nil: @search.tag_results[0][0].id)
-        taxon_id = taxon_id ? taxon_id : @search.suggested_searches[0].taxon_id
-        redirect_to :controller => 'taxa', :action => 'show', :id => taxon_id
+          # TODO - There is a much better way to do this, please clean me - it is also duplicated in search.rb model  
+          # if we have only one result, go straight to that page
+          if @search.search_returned && @search.total_search_results == 1
+            #taxon_id = (@search.common_name_results[0][0] || @search.scientific_name_results[0][0] || @search.tag_results[0][0].id)
+            taxon_id = @search.common_results.empty? ? nil : @search.common_results[0][:id]
+            taxon_id = taxon_id ? taxon_id : (@search.scientific_results.empty? ? nil : @search.scientific_results[0][:id])
+            taxon_id = taxon_id ? taxon_id : (@search.tag_results.empty? ? nil: @search.tag_results[0][0].id)
+            taxon_id = taxon_id ? taxon_id : @search.suggested_searches[0].taxon_id
+            redirect_to :controller => 'taxa', :action => 'show', :id => taxon_id
+          end
+
+        elsif params[:search_type] == 'text' # this is a cached text search
+
+          @search = Search.new(params,request,current_user,current_agent,false) # set up some variables needed on the page, but don't actually execute the search
+          @cached = true
+
+        elsif params[:search_type] == 'tag' # this is a tag search (which is never cached)
+
+          @search = Search.new(params,request,current_user,current_agent)
+          @cached = false
+
+        else # this is a full-text serach (which is never cached)
+
+          @search = Search.new(params,request,current_user,current_agent,false) # set up some variables needed on the page, but don't actually execute the search
+          @cached=false
+
+        end
       end
-
-    elsif params[:search_type] == 'text' # this is a cached text search
-
-      @search = Search.new(params,request,current_user,current_agent,false) # set up some variables needed on the page, but don't actually execute the search
-      @cached = true
-
-    elsif params[:search_type] == 'tag' # this is a tag search (which is never cached)
-
-      @search = Search.new(params,request,current_user,current_agent)
-      @cached = false
-
-    else # this is a full-text serach (which is never cached)
-
-      @search = Search.new(params,request,current_user,current_agent,false) # set up some variables needed on the page, but don't actually execute the search
-      @cached=false
-
+      format.xml do
+        params[:search_language] ||= '*'
+        # Not thrilled about this cache key, but we MUST detaint them, and MUST include all criteria that affects
+        # the search:
+        xml =
+        Rails.cache.fetch(
+          "search/xml/#{params[:search_language].sub(/\*/, 'DEFAULT')}/#{params[:q].gsub(/[^-_A-Za-z0-9]/, '_')}",
+          :expires_in => 8.hours
+        ) do
+          results = TaxonConcept.quick_search(params[:q], :search_language => params[:search_language])
+          xml_hash = {
+            'taxon-pages' => (results[:scientific] + results[:common]).flatten.map { |r| TaxonConcept.find(r['id']) }
+          }
+          xml_hash['errors'] = results[:errors] unless results[:errors].nil?
+          xml_hash.to_xml(:root => 'results')
+        end
+        render :xml => xml
+      end
     end
 
   end

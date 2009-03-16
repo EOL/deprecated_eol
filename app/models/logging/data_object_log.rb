@@ -51,7 +51,7 @@ class DataObjectLog < LoggingModel
   # For now, we assume that all of the object passed in refer to a particular
   # user, came from a particular rails request, and refer to a particular taxon_concept
   def self.log data_objects, request, user, taxon_concept
-    if DataObjectLog.data_logging_enabled?
+    if DataObjectLog.data_logging_enabled? && EOL.allowed_user_agent?(request.user_agent)
       return nil if data_objects.nil? or request.nil? or user.nil? # allow nil taxon_concept, atleast for now.  maybe not all data object views refer to a TC?
       taxon_concept = taxon_concept.id if taxon_concept.is_a?TaxonConcept
       

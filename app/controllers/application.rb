@@ -548,12 +548,12 @@ private
   end
 
   def log_data_objects_for_taxon_concept taxon_concept, *objects
-    DataObjectLog.log objects, request, current_user, taxon_concept if $ENABLE_DATA_LOGGING
+    DataObjectLog.log objects, request, current_user, taxon_concept if $ENABLE_DATA_LOGGING && EOL.allowed_user_agent?(request.user_agent)
   end
 
   def log_search params
-    Search.log(params, request, current_user) if $ENABLE_DATA_LOGGING
-  end   
+    Search.log(params, request, current_user) if $ENABLE_DATA_LOGGING && EOL.allowed_user_agent?(request.user_agent)
+  end
 
   def update_logged_search params
     Search.update_log(params) if $ENABLE_DATA_LOGGING

@@ -1,8 +1,12 @@
 # See http://www.robotstxt.org/ for documentation on how to use the robots.txt file
 
 User-agent: *
+Crawl-delay: 1
+Request-rate: 1/1    
+Visit-time: 0600-1300
 Disallow: /data_objects
 Disallow: /comments
 Disallow: /uploads
 Disallow: /admin
 Disallow: /content_partner
+Disallow: /tax

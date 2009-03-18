@@ -1,4 +1,12 @@
-<% if @data_object.image?
+
+<% if @data_object.taxon_concepts.size > 0 %>
+
+  <h1><%=link_to (@data_object.taxon_concepts[0].scientific_name,taxon_url(:id=>@data_object.taxon_concepts[0].id)) if @data_object.taxon_concepts[0].published?%></h1>
+
+<% end %>
+
+<% 
+   if @data_object.image?
      title = @data_object.object_title
      if title.nil? or title.empty?
        title = @data_object.description
@@ -20,6 +28,6 @@
      source = "(Sources: #{@data_object.sources.collect {|src| src.full_name}.join(', ')})"
    end 
  -%>
-<h1><%= title %></h1>
+<h2><%= title %></h2>
 <% unless subtitle.nil? %><h2><%= subtitle %></h2><% end %>
 <p> <%= "#{license_attribution_html} by #{agent_partial(@data_object.authors)} #{source}" %></p>

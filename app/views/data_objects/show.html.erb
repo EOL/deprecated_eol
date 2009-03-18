@@ -11,8 +11,14 @@
 
   <!-- page content -->
   <div id="page-content" class="clearfix">
+  <div id="full-page-content">
     <div id="comment-image">
-      <img id="main-image" src="<%= @data_object.smart_image %>" alt="<%= @data_object.description %>">
+      <% case @data_object.data_type.label.downcase
+         when 'image' %>
+         <img id="main-image" src="<%= @data_object.smart_image %>" alt="<%= @data_object.description %>">
+        <% when 'text' %>
+          <p><%=@data_object.description%></p>
+      <% end %>
     </div>
     <div id="comments-container">
       <%# TODO: fix the comment rendering in a data object page

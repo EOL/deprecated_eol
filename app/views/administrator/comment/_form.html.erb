@@ -7,7 +7,7 @@
   	</tr>
   	<tr>
   		<td><strong>Description:</strong></td>
-  		<td><%=link_to (@comment.parent_name,@comment.parent_url)%></td>
+  		<td><%=link_to (truncate(@comment.parent_name),@comment.parent_url)%></td>
   	</tr>
   	<% if @comment.parent_type_name == 'Image' %>
     	<tr>

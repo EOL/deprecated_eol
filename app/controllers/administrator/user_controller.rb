@@ -8,11 +8,17 @@ class Administrator::UserController  < AdminController
     search_string_parameter='%' + @user_search_string + '%' 
     @start_date=params[:start_date] || "2008-02-26"
     @end_date=params[:end_date] || Date.today.to_s(:db)
-  
+    
+    begin
+      @start_date_db=(Date.parse(@start_date)).to_s(:db)
+      @end_date_db=(Date.parse(@end_date)+1).to_s(:db)
+    rescue
+    end
+    
     @users=User.paginate(
-      :conditions=>['(created_at>=? AND created_at<=?) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
-      @start_date,
-      @end_date,
+      :conditions=>['((created_at>=? AND created_at<=?) OR (created_at is null)) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
+      @start_date_db,
+      @end_date_db,
       @user_search_string,
       search_string_parameter,
        search_string_parameter,
@@ -22,9 +28,9 @@ class Administrator::UserController  < AdminController
        search_string_parameter],
       :order=>'created_at desc',:page => params[:page])
     @user_count=User.count(
-      :conditions=>['(created_at>=? AND created_at<=?) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
-        @start_date,
-        @end_date,
+      :conditions=>['((created_at>=? AND created_at<=?) OR (created_at is null)) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
+        @start_date_db,
+        @end_date_db,
       @user_search_string,
       search_string_parameter,
       search_string_parameter,
@@ -41,11 +47,17 @@ class Administrator::UserController  < AdminController
     search_string_parameter='%' + @user_search_string + '%' 
     @start_date=params[:start_date] || "2008-02-26"
     @end_date=params[:end_date] || Date.today.to_s(:db)
+
+    begin
+      @start_date_db=(Date.parse(@start_date)).to_s(:db)
+      @end_date_db=(Date.parse(@end_date)+1).to_s(:db)
+    rescue
+    end
     
     @users=User.find(:all,
-       :conditions=>['(created_at>=? AND created_at<=?) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
-       @start_date,
-       @end_date,
+       :conditions=>['((created_at>=? AND created_at<=?) OR (created_at is null)) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
+       @start_date_db,
+       @end_date_db,
        @user_search_string,
        search_string_parameter,
         search_string_parameter,
@@ -58,7 +70,9 @@ class Administrator::UserController  < AdminController
       CSV::Writer.generate(report, ',') do |title|
           title << ['Id', 'Username', 'Name', 'Email','Registered Date','Mailings?']
           @users.each do |u|
-            title << [u.id,u.username,u.full_name,u.email,u.created_at.strftime("%m/%d/%y - %I:%M %p %Z"),u.mailing_list]       
+            created_at=''
+            created_at=u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
+            title << [u.id,u.username,u.full_name,u.email,created_at,u.mailing_list]       
           end
        end
        report.rewind

@@ -115,6 +115,7 @@ class TaxonConcept < SpeciesSchemaModel
         [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 482935, 392557,
          484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558,
          253397, 740699, 1044544, 802455, 1194666]]).sort_by(&:quick_scientific_name)
+        # JRice removed 2485151 because it was without content.  There is a bug for this, not sure of the #
     end
   end
 

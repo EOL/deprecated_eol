@@ -76,4 +76,7 @@ admin.save
 
 make_all_nested_sets
 recreate_normalized_names_and_links
+
+exemplar = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
+
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants

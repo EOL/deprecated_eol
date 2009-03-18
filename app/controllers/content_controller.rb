@@ -72,8 +72,18 @@ class ContentController < ApplicationController
   end
     
   def exemplars
-    unless read_fragment(:controller=>'content',:part=>'exemplars')
-      @exemplars = TaxonConcept.exemplars # This is stored by memcached, so should go quite fast.
+    respond_to do |format|
+      format.html do
+        unless read_fragment(:controller=>'content',:part=>'exemplars')
+          @exemplars = TaxonConcept.exemplars # This is stored by memcached, so should go quite fast.
+        end
+      end
+      format.xml do
+        xml = Rails.cache.fetch('examplars/xml') do
+          TaxonConcept.exemplars.to_xml(:root => 'taxon-pages') # I don't know why the :root in TC doesn't work
+        end
+        render :xml => xml
+      end
     end
   end
   

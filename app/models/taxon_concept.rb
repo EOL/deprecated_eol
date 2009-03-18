@@ -588,7 +588,7 @@ EO_FIND_NAMES
   alias :ar_to_xml :to_xml
   # Be careful calling a block here.  We have our own builder, and you will be overriding that if you use a block.
   def to_xml(options = {})
-    options[:root] ||= 'taxon-page'
+    options[:root]    ||= 'taxon-page'
     options[:only]    ||= [:id]
     options[:methods] ||= [:canonical_form, :common_name, :iucn_conservation_status, :scientific_name]
     default_block = nil
@@ -622,14 +622,11 @@ EO_FIND_NAMES
       end
     end
     if block_given?
-      puts "Blocky"
       return ar_to_xml(options) { |xml| yield xml }
     else 
       if default_block.nil?
-        "Nillified"
         return ar_to_xml(options)
       else
-        "Defaulted"
         return ar_to_xml(options) { |xml| default_block.call(xml) }
       end
     end

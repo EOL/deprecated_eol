@@ -9,13 +9,14 @@ describe 'Taxa page XML' do
 
   before(:all) do
     Scenario.load :foundation
+    @exemplar        = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
     @parent          = build_taxon_concept
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
     @toc_item_2      = TocItem.gen(:view_order => 2)
     @toc_item_3      = TocItem.gen(:view_order => 3)
     @canonical_form  = Factory.next(:species)
-    @search_for      = @canonical_form.split[0]
+    @search_term     = @canonical_form.split[0]
     @attribution     = Faker::Eol.attribution
     @common_name     = Faker::Eol.common_name.firstcap
     @scientific_name = "#{@canonical_form} #{@attribution}"
@@ -183,7 +184,6 @@ describe 'Taxa page XML' do
       Rails.cache.clear
     end
     after(:all) do
-      @old_cache_val = ActionController::Base.perform_caching
       ActionController::Base.perform_caching = @old_cache_val
     end
 
@@ -193,9 +193,9 @@ describe 'Taxa page XML' do
       @taxon_concept.should_receive(:to_xml).exactly(1).times.and_return(
         '<?xml version="1.0" encoding="UTF-8"?>\n<taxon-page>Not Empty</taxon-page>\n'
       )
-      Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body).xpath('/taxon-page').should_not
+      Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body).xpath('//taxon-page').should_not
         be_empty
-      Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body).xpath('/taxon-page').should_not
+      Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body).xpath('//taxon-page').should_not
         be_empty
     end
 
@@ -203,9 +203,23 @@ describe 'Taxa page XML' do
       # I need to do this to ensure we can capture the to_xml call:
       TaxonConcept.should_receive(:find).with(@id.to_s).at_least(1).times.and_return(@taxon_concept)
       @taxon_concept.should_receive(:images).exactly(1).times.and_return(@images)
-      Nokogiri::XML(RackBox.request("/pages/#{@id}/images/2.xml").body).xpath('/taxon_concept').should_not
+      Nokogiri::XML(RackBox.request("/pages/#{@id}/images/2.xml").body).xpath('//images').should_not
         be_empty
-      Nokogiri::XML(RackBox.request("/pages/#{@id}/images/2.xml").body).xpath('/taxon_concept').should_not
+      Nokogiri::XML(RackBox.request("/pages/#{@id}/images/2.xml").body).xpath('//images').should_not
+        be_empty
+    end
+
+    it "should cache XML on call to /search.xml?q=#{@search_term}" do
+      # This hash was just literally copy/pasted from the console (but the ID was changed):
+      TaxonConcept.should_receive(:quick_search).with(@search_term, :search_language => '*').exactly(1).times.
+        and_return(
+          { :common=>[{"preferred"=>"1", "is_vern"=>"1", "matching_italicized_string"=>"frizzlebek[5]",
+            "id"=>"#{@id}", "content_level"=>nil, "hierarchy_id"=>"2", "matching_string"=>"frizzlebek[5]"}],
+            :scientific=>[], :errors=>nil }
+        )
+      Nokogiri::XML(RackBox.request("/search.xml?q=#{@search_term}").body).xpath('//taxon-pages').should_not
+        be_empty
+      Nokogiri::XML(RackBox.request("/search.xml?q=#{@search_term}").body).xpath('//taxon-pages').should_not
         be_empty
     end
 
@@ -216,7 +230,7 @@ describe 'Taxa page XML' do
     before(:all) do
       EOL::NestedSet.make_all_nested_sets
       recreate_normalized_names_and_links
-      @raw_xml    = RackBox.request("/search.xml?q=#{@search_for}").body
+      @raw_xml    = RackBox.request("/search.xml?q=#{@search_term}").body
       @search_xml = Nokogiri::XML(@raw_xml)
     end
 
@@ -238,6 +252,26 @@ describe 'Taxa page XML' do
       #</taxon-pages>
       #</results>
       @search_xml.xpath('//taxon-pages/taxon-page/id').should_not be_empty
+    end
+
+  end
+
+  describe 'exemplars' do
+
+    before(:all) do
+      EOL::NestedSet.make_all_nested_sets
+      recreate_normalized_names_and_links
+      @raw_xml    = RackBox.request("/exemplars.xml").body
+      @exemplar_xml = Nokogiri::XML(@raw_xml)
+    end
+
+    it 'should be valid XML' do
+      @exemplar_xml.xpath('//taxon-pages').should_not be_empty
+    end
+
+    it 'should have the ID of our expected TC as a result' do
+      @exemplar_xml.xpath('//taxon-pages/taxon-page/id').should_not be_empty
+      @exemplar_xml.xpath('//taxon-pages/taxon-page/id').first.content.should == @exemplar.id.to_s
     end
 
   end

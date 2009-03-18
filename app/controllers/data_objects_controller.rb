@@ -21,14 +21,14 @@ class DataObjectsController < ApplicationController
       when /images/
         respond_to do |format|
           format.xml do
-            xml = Rails.cache.fetch("taxon.#{@taxon_id}/images/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
+            xml = Rails.cache.fetch("taxon.#{params[:taxon_concept_id].to_i}/images/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
               images = @taxon_concept.images
               {
                 :images           => images.paginate(:per_page => per_page, :page => page),
                 'num-images'      => images.length,
                 'images-per-page' => per_page,
                 'page'            => page
-              }
+              }.to_xml(:root => 'results')
             end
             render :xml => xml
           end
@@ -43,7 +43,7 @@ class DataObjectsController < ApplicationController
                 'num-videos'      => videos.length,
                 'videos-per-page' => per_page,
                 'page'            => page
-              }
+              }.to_xml(:root => 'results')
             end
             render :xml => xml
           end

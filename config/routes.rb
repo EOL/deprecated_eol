@@ -1,7 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
 
   # API
-  
+
   # here are some experimental simple RESTful resources for an API
   #
   # the names may very well be changed, I just want to try out some 
@@ -33,7 +33,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :tags, :collection => { :search => :get }
   map.resources :public_tags, :controller => 'administrator/tag_suggestion'
-  
+
   map.open_id_complete 'authenticate', :controller => "account", :action => "authenticate", :requirements => { :method => :get }
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -54,7 +54,7 @@ ActionController::Routing::Routes.draw do |map|
     :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
   map.connect 'pages/:taxon_concept_id/videos/:page.:format', :controller => 'data_objects', :action => 'index',
     :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
- 
+
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
   map.set_flash_enabled 'set_flash_enabled', :controller => 'application', :action => 'set_flash_enabled'
 
@@ -63,26 +63,29 @@ ActionController::Routing::Routes.draw do |map|
 
   map.contact_us 'contact_us', :controller => 'content', :action => 'contact_us'
   map.media_contact 'media_contact', :controller => 'content', :action => 'media_contact'
-  
+
   map.help 'help', :controller => 'content', :action => 'page', :id => 'screencasts'
   map.screencasts 'screencasts', :controller => 'content', :action => 'page', :id => 'screencasts'
   map.faq 'faq', :controller => 'content', :action => 'page', :id => 'faqs'
   map.terms_of_use 'terms_of_use', :controller => 'content', :action => 'page', :id => 'terms_of_use'
   map.donate 'donate',:controller => 'content', :action => 'donate'
-  
+
   map.clear_caches 'clear_caches', :controller=>'content', :action=>'clear_caches'
   map.expire_all 'expire_all', :controller => 'content', :action => 'expire_all'
   map.expire 'expire/:id', :controller=>'content', :action=>'expire_single', :requirements => { :id => /\w+/ }
   map.expire_taxon 'expire_taxon/:id', :controller => 'content', :action => 'expire', :requirements => { :id => /\d+/ }
   map.expire_taxa 'expire_taxa', :controller => 'content', :action => 'expire_multiple'
 
+  map.exemplars 'exemplars.:format', :controller => 'content', :action => 'exemplars'
+
   map.external_link 'external_link',:controller=>'application', :action=>'external_link'
-   
+
   map.root :controller => 'content'
 
   map.search 'search', :controller => 'taxa', :action => 'search'
-  map.connect 'search.:format',:controller => 'taxa', :action => 'search'
-  
+  map.connect 'search.:format',    :controller => 'taxa', :action => 'search'
+
+
   map.connect 'content_partner/reports', :controller => 'content_partner/reports', :action => 'index' 
   map.connect 'content_partner/reports/:report', :controller => 'content_partner/reports', 
               :action => 'catch_all', :requirements => { :report => /.*/ }
@@ -90,7 +93,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'administrator/reports', :controller => 'administrator/reports', :action => 'index' 
   map.connect 'administrator/reports/:report', :controller => 'administrator/reports', 
               :action => 'catch_all', :requirements => { :report => /.*/ }
-              
+
   map.connect 'administrator/curator', :controller => 'administrator/curator', :action => 'index' 
 
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'index', :conditions => {:method => :get}

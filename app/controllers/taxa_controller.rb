@@ -206,13 +206,10 @@ class TaxaController < ApplicationController
       end
       format.xml do
         params[:search_language] ||= '*'
-        # Not thrilled about this cache key, but we MUST detaint them, and MUST include all criteria that affects
+        # Not thrilled about this cache key, but we MUST detaint them, and it MUST include all criteria that affects
         # the search:
-        xml =
-        Rails.cache.fetch(
-          "search/xml/#{params[:search_language].sub(/\*/, 'DEFAULT')}/#{params[:q].gsub(/[^-_A-Za-z0-9]/, '_')}",
-          :expires_in => 8.hours
-        ) do
+        key = "search/xml/#{params[:search_language].sub(/\*/, 'DEFAULT')}/#{params[:q].gsub(/[^-_A-Za-z0-9]/, '_')}"
+        xml = Rails.cache.fetch(key, :expires_in => 8.hours) do
           results = TaxonConcept.quick_search(params[:q], :search_language => params[:search_language])
           xml_hash = {
             'taxon-pages' => (results[:scientific] + results[:common]).flatten.map { |r| TaxonConcept.find(r['id']) }

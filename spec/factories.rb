@@ -285,12 +285,13 @@ end
 
 Factory.define :collection do |col|
   col.association :agent
-  col.title       'New Collection'
-  col.description 'Testing New Colleciton'
-  col.uri         'http://testing.new.collecti.on'
-  col.link        'http://clicky.link.com'
-  col.logo_url    'grin.jpg'
-  col.vetted      1
+  col.title         'New Collection'
+  col.description   'Testing New Colleciton'
+  col.uri           'http://testing.new.collecti.on'
+  col.link          'http://clicky.link.com'
+  col.logo_url      'grin.jpg'
+  col.ping_host_url nil
+  col.vetted        1
 end
 
 Factory.define :comment do |x|

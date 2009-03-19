@@ -15,18 +15,17 @@ class Collection < SpeciesSchemaModel
     end
   end
 
-  # Some collections want us to "ping" them every time a DataObject they authored is referenced on our site.  For now, this is
-  # only FishBase, but eventually this may be a field on the table:
+  # Some collections want us to "ping" them every time a DataObject they authored is referenced on our site.
   def ping_host?
-    return id == Collection.fishbase.id
+    return false if self[:ping_host_url].nil?
+    return true
   end
 
-  # If we are supposed to ping_host?, then we need the URL to post (including the ID of the object). The code to do the actual
-  # pinging is client-side, thus there is no method for it here.
-  # TODO - perhaps the ID should be calculated here, however.
-  def ping_host_url
-    return 'http://www.fishbase.ca/utility/log/eol/record.php?id=%ID%'
-  end
+  # If we are supposed to ping_host?, then we need the URL to post (including the ID of the object).
+  # The code to do the actual pinging is client-side, thus there is no method for it here.
+  # def ping_host_url
+    # return 'http://www.fishbase.ca/utility/log/eol/record.php?id=%ID%'
+  # end
 
 end
 

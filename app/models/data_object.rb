@@ -268,11 +268,11 @@ class DataObject < SpeciesSchemaModel
 
   # return all of the taxon concepts associated with this DataObject
   def taxon_concepts
-    # need to optimize with eager loading
+    # TODO - need to optimize with eager loading
     @taxon_concepts ||= DataObjectsTaxon.find_all_by_data_object_id(id).map(&:taxon).inject([]){|all,this_taxon| ( all + this_taxon.taxon_concepts ) }.uniq
   end
 
-  # this is even less efficient than #taxon_concepts - OPTIMIZE!
+  # this is even less efficient than #taxon_concepts TODO - OPTIMIZE!
   def hierarchy_entries
     @hierarchy_entries ||= taxon_concepts.inject([]){|all,concept| all + concept.hierarchy_entries  }.uniq
   end

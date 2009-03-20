@@ -1,3 +1,4 @@
+<% hide_nav ||= false %>
 <div id="content">
  	<div id="page-separator-general"></div>
 
@@ -11,16 +12,17 @@
     <div id="page-content" class="clearfix">
         <!-- center page content -->
  	
-		<div id="page-content-bgfauxinside"> 
+		<% unless hide_nav%><div id="page-content-bgfauxinside"> <% end %>
  
 	
 	    <div id="page-content" class="clearfix">
 	        <!-- center page content -->
 	        <div id="full-page-content">
 	        	
-				
-			        <div id="left-pane">
-				        	<%=render(:partial=>'/admin/navigation')%>
-												  
-			        </div>
-		   		    <div id="right-pane">
+			        <% unless hide_nav%>
+  			        <div id="left-pane">
+  				        	<%=render(:partial=>'/admin/navigation')%>	  
+  			        </div>
+			        
+  		   		    <div id="right-pane">
+  		   		  <% end %>

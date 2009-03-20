@@ -9,6 +9,7 @@
   	  <li><%= link_to 'edit contact us topics',:controller=>'administrator/contact_subject', :action=>'index'%> </li>
   	  <li><%= link_to 'edit search suggestions',:controller=>'administrator/search_suggestion', :action=>'index'%> </li>
       <li><%= link_to 'general site admin', :controller => 'administrator/site', :action => 'index' %> </li>
+      <li><%= link_to 'statistics and tools', :controller => 'administrator/stats', :action => 'index' %> </li>
   <% end %>
   <% restrict_to "(Administrator - News Items) & !blacklist" do %>
   	  <li><%= link_to 'edit news items',:controller=>'administrator/news_item',:action=>'index'%> </li>

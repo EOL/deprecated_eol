@@ -27,9 +27,14 @@ class ContentController < ApplicationController
   end
   
   def news
+    id=params[:id]
     @term_search_string=params[:term_search_string] || ''
     search_string_parameter='%' + @term_search_string + '%' 
-    @news_items=NewsItem.paginate(:conditions=>['active=1 and body like ?',search_string_parameter],:order=>'display_date desc',:page => params[:page])
+    if id.blank?
+      @news_items=NewsItem.paginate(:conditions=>['active=1 and body like ?',search_string_parameter],:order=>'display_date desc',:page => params[:page])
+    else
+      @news_item=NewsItem.find(id)
+    end
     respond_to do |format|
        format.html
        format.rss { render :layout=>false }

@@ -15,6 +15,7 @@ class Hierarchy < SpeciesSchemaModel
   belongs_to :agent           # This is the attribution.
 
   has_many :hierarchy_entries
+  alias entries hierarchy_entries
 
   def self.default
     Rails.cache.fetch(:default_hierarchy) do

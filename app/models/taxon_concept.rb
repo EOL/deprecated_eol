@@ -510,6 +510,22 @@ EOIUCNSQL
     if permitted then true else false end
   end
 
+  # Gets an Array of TaxonConcept given DataObjects or their IDs
+  #
+  # this goes data_objects => data_objects_taxa => taxa => taxon_concept_names => taxon_concepts
+  def self.from_data_objects *objects_or_ids
+    ids = objects_or_ids.map {|o| if   o.is_a? DataObject 
+                                  then o.id 
+                                  else o.to_i end }
+    sql = "select taxon_concepts.* from taxon_concepts
+    join taxon_concept_names on taxon_concept_names.taxon_concept_id = taxon_concepts.id
+    join taxa                on taxa.name_id                         = taxon_concept_names.name_id 
+    join data_objects_taxa   on data_objects_taxa.taxon_id           = taxa.id
+    join data_objects        on data_objects.id                      = data_objects_taxa.data_object_id
+    where data_objects.id IN (#{ ids.join(', ') })"
+    TaxonConcept.find_by_sql(sql).uniq
+  end
+
   def self.search(search_string, options = {})
     # TODO - we have qualifier, scope, and search_lang diabled for now, so I am ignoring them entirely.
     options[:qualifier]       ||= 'contains'

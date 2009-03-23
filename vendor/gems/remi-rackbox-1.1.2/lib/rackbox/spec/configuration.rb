@@ -27,45 +27,54 @@ if spec_configuration_class
       if bool == true
         
         before(:all, :type => :blackbox) do
-          self.class.instance_eval {
-            # include our own helpers, eg. RackBox::SpecHelpers#req
-            include RackBox::SpecHelpers
-            include RackBox::Matchers
+          dont_include_module = false
+          dont_include_module = true if defined?(Spec::Rails::Example::HelperExampleGroup) &&
+                                self.is_a?(Spec::Rails::Example::HelperExampleGroup)
+          unless dont_include_module
+            self.class.instance_eval {
+              # include our own helpers, eg. RackBox::SpecHelpers#req
+              include RackBox::SpecHelpers
+              include RackBox::Matchers
 
-            # include generated url methods, eg. login_path.
-            # default_url_options needs to have a host set for the Urls to work
-            if defined?ActionController::UrlWriter
-              include ActionController::UrlWriter
-              default_url_options[:host] = 'example.com'
-            end
-
-            # if we're not in a Rails app, let's try to load matchers from Webrat
-            unless defined?RAILS_ENV
-              begin
-                require 'webrat'
-                require 'webrat/core/matchers'
-                include Webrat::HaveTagMatcher
-              rescue LoadError
-                puts "Webrat not available.  have_tag & other matchers won't be available.  to install, sudo gem install webrat"
+              # include generated url methods, eg. login_path.
+              # default_url_options needs to have a host set for the Urls to work
+              if defined?ActionController::UrlWriter
+                include ActionController::UrlWriter
+                default_url_options[:host] = 'example.com'
               end
-            end
 
-            attr_accessor :rackbox_request
-          }
+              # if we're not in a Rails app, let's try to load matchers from Webrat
+              unless defined?RAILS_ENV
+                begin
+                  require 'webrat'
+                  require 'webrat/core/matchers'
+                  include Webrat::HaveTagMatcher
+                rescue LoadError
+                  puts "Webrat not available.  have_tag & other matchers won't be available.  to install, sudo gem install webrat"
+                end
+              end
+
+              attr_accessor :rackbox_request
+            }
+          end
         end
 
         before(:each, :type => :blackbox) do
+          dont_include_module = false
+          dont_include_module = true if defined?(Spec::Rails::Example::HelperExampleGroup) &&
+                                self.is_a?(Spec::Rails::Example::HelperExampleGroup)
+          unless dont_include_module
+            # i'm sure there's a better way to write this!
+            #
+            # i believe metaid would write this as:
+            #   metaclass.class_eval do ... end
+            #
+            (class << self; self; end).class_eval do 
+              include RackBox::Matchers
+            end
 
-          # i'm sure there's a better way to write this!
-          #
-          # i believe metaid would write this as:
-          #   metaclass.class_eval do ... end
-          #
-          (class << self; self; end).class_eval do 
-            include RackBox::Matchers
+            @rackbox_request = Rack::MockRequest.new RackBox.app
           end
-
-          @rackbox_request = Rack::MockRequest.new RackBox.app
         end
 
       end

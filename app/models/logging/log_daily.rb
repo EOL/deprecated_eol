@@ -1,3 +1,6 @@
+# TODO what if we could basically just give each LogDaily a SQL string which we use?
+#      these are too specific to DataObjectLog
+#
 # A nugget of information derived from the master log (DataObjectLog), intended to be optimized 
 # for data reporting purposes and not necessarily normalized for performance reasons.
 #
@@ -242,6 +245,7 @@ class LogDaily < LoggingModel
     return data.length, created, skipped
   end
 
+  # NOTE currently assumes logging from DataObjectLog!
   def self.mine_data date_range = nil, additional_options = {}
     options = { :select => "count(*) AS total, agent_id, data_type_id, DATE(data_object_logs.created_at) AS day, #{ self.unique_data_column }", 
       :group => "agent_id, data_type_id, #{ self.unique_data_column }, DATE(data_object_logs.created_at)" }

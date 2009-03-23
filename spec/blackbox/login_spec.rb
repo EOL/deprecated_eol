@@ -12,7 +12,7 @@ describe 'Login' do
   # helpers
 
   def create_user username, password
-    User.gen :username => username, :entered_password => password
+    User.gen :username => username, :password => password
   end
 
   # specs

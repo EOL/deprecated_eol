@@ -33,6 +33,14 @@
                             <%= @user.total_comments_curated %>
                         </td>
                     </tr>
+                    <tr class="<%= cycle('odd','even', :name => 'account')%>">
+                        <td>
+                            Species Curated
+                        </td>
+                        <td>
+                        <%= @user.total_species_curated %>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </p>

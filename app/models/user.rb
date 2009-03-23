@@ -58,6 +58,15 @@ class User < ActiveRecord::Base
     CuratorCommentLog.count :conditions => ['user_id = ?', id] 
   end 
 
+  def species_curated
+    # we need to get the IDs of the curated data objects and then get the species for those (cross-database, so we can't effectively join)
+    data_object_ids = CuratorDataObjectLog.find(:all, :select => 'distinct data_object_id', :conditions => [ 'user_id = ?', self.id ] ).map(&:data_object_id)
+    species = TaxonConcept.from_data_objects *data_object_ids
+  end
+  def total_species_curated
+    species_curated.length
+  end
+
   def data_object_tags_for data_object
     data_object_tags.find_all_by_data_object_id data_object.id, :include => :data_object_tag
   end

@@ -3,7 +3,7 @@ require 'uri'
 class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:profile]
-  before_filter :go_to_home_page_if_logged_in, :except => [:profile,:logout, :show, :new_openid_user]
+  before_filter :go_to_home_page_if_logged_in, :except => [:profile, :show, :logout, :new_openid_user]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login,:authenticate,:signup,:profile]  # when we get SSL certs we can start redirecting to the encrypted page for these methods

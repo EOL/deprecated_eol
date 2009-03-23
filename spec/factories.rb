@@ -367,8 +367,7 @@ Factory.define :curator, :class => User do |u|
   u.vetted                    true
   u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}#{Factory.next(:int)}".gsub(/\s/, '_').downcase }
   u.active                    true
-  u.entered_password          'test password'
-  u.hashed_password           {|user| Digest::MD5.hexdigest(user.entered_password) }
+  u.password                  'test password'
   u.curator_hierarchy_entry   { Factory(:hierarchy_entry) }
   u.curator_approved          true
   u.curator_verdict_by        { Factory(:user) }
@@ -802,8 +801,7 @@ Factory.define :user do |u|
   u.vetted                    false
   u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}#{Factory.next(:int)}".gsub(/\s/, '_').downcase }
   u.active                    true
-  u.entered_password          'test password'
-  u.hashed_password           {|user| Digest::MD5.hexdigest(user.entered_password) }
+  u.password                  'test password'
   u.curator_hierarchy_entry   nil
   u.curator_approved          false
   u.curator_verdict_by_id     0

@@ -22,7 +22,7 @@ class User < ActiveRecord::Base
 
   validates_presence_of   :username, :if => :not_openid?
   validates_length_of     :username, :within => 4..16, :if => :not_openid?
-  validates_length_of     :entered_password, :within => 4..16, :if => :not_openid?, :on=>:create
+  validates_length_of     :entered_password, :within => 4..16, :if => :not_openid?, :on => :create
   
   validates_presence_of   :given_name
   validates_format_of :email, :with =>%r{^(?:[_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i, :if => :not_openid?
@@ -35,7 +35,7 @@ class User < ActiveRecord::Base
   has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :comments
   
-  attr_accessor :entered_password,:entered_password_confirmation
+  attr_accessor :entered_password ,:entered_password_confirmation
   attr_reader :full_name, :is_admin, :is_moderator
   
   def full_name
@@ -125,16 +125,15 @@ class User < ActiveRecord::Base
   end
 
   # create a new user using default attributes and then update with supplied parameters
-  def self.create_new(params={})
-    new_user=User.new
+  def self.create_new options = {}
+    new_user = User.new
     new_user.set_defaults
-    new_user.attributes=params
-    return new_user
+    new_user.attributes = options
+    new_user
   end
   
   def self.authenticate(username,password)
-    
-    user=User.find_by_username_and_active(username,true)
+    user = User.find_by_username_and_active(username,true)
 
     # if we don't have any matching username for an active account, return nothing
     return nil if user.blank?
@@ -157,6 +156,9 @@ class User < ActiveRecord::Base
   end
 
   # reset the password of the given username and email address, returns false if a problem occurred with a message to show, or true if successful with the new password and email address
+  #
+  # == Returns
+  # [ Boolean, String ]:: Boolean fo whether the reset was successful & a message
   def self.reset_password(email,username)
   
     if username == '' # if user did not supply a username, just look by email address
@@ -168,7 +170,7 @@ class User < ActiveRecord::Base
     end
 
     if new_guy.size==0 
-        return false,"Sorry, but we could not locate your account."[:could_not_locate_account]
+        return false, "Sorry, but we could not locate your account."[:could_not_locate_account]
      elsif new_guy.size >1
         return false, "Sorry, but your email address is not unique - you must also specify a username."[:must_specify_username_too]      
     else
@@ -177,7 +179,7 @@ class User < ActiveRecord::Base
       8.times { new_password << chars[rand(chars.size)] }
       new_guy[0].password = new_password
       if new_guy[0].save
-        return true,new_password,new_guy[0].email
+        return true, new_password, new_guy[0].email
       else
         return false, "Sorry, a problem occurred updating your account - please try again later."[:problem_updating_account]      
       end  
@@ -204,9 +206,18 @@ class User < ActiveRecord::Base
     self.flash_enabled=true
   end
 
+  def password
+    entered_password
+  end
+
   # set the password
-  def password=(value)
-     self.hashed_password=User.hash_password(value)  
+  #
+  # this sets both the #entered_password (for temporary retrieval)
+  # and the #hashed_password
+  #
+  def password= value
+    self.entered_password = value
+    self.hashed_password = User.hash_password(value)
   end
   
   # set the language from the abbreviation

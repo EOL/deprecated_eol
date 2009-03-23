@@ -8,7 +8,7 @@ end
 
 def create_curator_for_taxon_concept(tc)
   Factory(:curator, :username => 'test_curator',
-          :entered_password => 'test_password',
+          :password => 'test_password',
           :curator_hierarchy_entry => HierarchyEntry.gen(:taxon_concept => tc))
 end
 

@@ -9,6 +9,7 @@
 #        "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", 
 #        "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
 #      ]
+#
 class Hierarchy < SpeciesSchemaModel
 
   belongs_to :agent           # This is the attribution.

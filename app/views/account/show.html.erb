@@ -10,7 +10,6 @@
         </p>
         <p>"<%= h @user.username %>" joined <%= format_date(@user.created_at) %></p>
     </div>
-    <!--
     <div id="activity">
         <h3>Activity</h3>
         <p>
@@ -23,7 +22,7 @@
                             Objects Curated
                         </td>
                         <td>
-                            <%= current_user.total_objects_curated %>
+                            <%= @user.total_objects_curated %>
                         </td>
                     </tr>
                     <tr class="<%= cycle('odd','even', :name => 'account')%>">
@@ -31,14 +30,13 @@
                             Comments Moderated
                         </td>
                         <td>
-                            <%= current_user.total_comments_curated %>
+                            <%= @user.total_comments_curated %>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </p>
     </div>
-    -->
     <div id="credentials">
         <h3>Credentials</h3>
             <%= allow_some_html(@user.credentials) %>

@@ -36,6 +36,26 @@ class DataObject < SpeciesSchemaModel
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
 
+  def rate(user,stars)
+    rating = UsersDataObjectsRating.find_by_data_object_id_and_user_id(self.id, user.id)
+    if rating.nil?
+      rating = UsersDataObjectsRating.new({:data_object_id => self.id, :user_id => user.id, :rating => stars})
+    else
+      rating.rating = stars
+    end
+    rating.save!
+
+    total = 0
+    ratings = UsersDataObjectsRating.find_all_by_data_object_id(self.id)
+    ratings.each do |rating|
+      total += rating.rating
+    end
+
+    self.data_rating = total / ratings.length
+
+    self.save!
+  end
+
   # Add a comment to this data object
   def comment(user, body)
     comment = comments.create :user_id => user.id, :body => body

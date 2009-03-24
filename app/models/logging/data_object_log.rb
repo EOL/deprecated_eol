@@ -83,6 +83,7 @@ class DataObjectLog < LoggingModel
 
   def self.create_log(obj, opts)
     logger.warn('Bogus invokation of DataObject creation function!') and return if obj.nil? or opts.nil? or obj.class != DataObject or opts.class != Hash
+    opts[:user_agent] ||= 'RSpec' # Because this is nil when we're testing.
     # Use 'data_type_id' instead of 'data_type.id' to avoid a lazy SQL load.
     DataObjectLog.create(opts.merge(:data_object_id => obj.id, :data_type_id => obj.data_type_id))
   end

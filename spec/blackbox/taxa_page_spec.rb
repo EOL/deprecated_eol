@@ -74,6 +74,7 @@ describe 'Taxa page (HTML)' do
   end
 
   it 'should be able to ping the collection host' do
+    debugger
     @result.body.should include(@ping_url)
   end
 

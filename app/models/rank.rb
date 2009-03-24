@@ -2,13 +2,11 @@ class Rank < SpeciesSchemaModel
   has_many :hierarchy_entries
 
   def self.italicized_ids
-    Rails.cache.fetch(:italicized_ids) do
-      self.italicized_ids_sub
-    end
+    self.italicized_ids_sub
   end
 
   def self.italicized_ids_sub
-    Rails.cache.fetch(:italicized_ids_sub) do 
+    Rails.cache.fetch('ranks/italicized') do 
       @@ids = Rank.find_by_sql(%q{SELECT * FROM ranks WHERE label IN (
                '?var',          'binomial',      'biovar',
                'Espéce',        'especie',       'f',

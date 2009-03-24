@@ -110,13 +110,13 @@ class TaxonConcept < SpeciesSchemaModel
   # Lastly, note that the TaxonConcept IDs are hard-coded to our production database. TODO - move those IDs to a
   # table somewhere.
   def self.exemplars
-    Rails.cache.fetch(:taxon_exemplars) do
+    YAML.load(Rails.cache.fetch('taxon_concepts/exemplars') do
       TaxonConcept.find(:all, :conditions => ['id IN (?)',
         [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 482935, 392557,
          484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558,
-         253397, 740699, 1044544, 802455, 1194666]]).sort_by(&:quick_scientific_name)
+         253397, 740699, 1044544, 802455, 1194666]]).sort_by(&:quick_scientific_name).to_yaml
         # JRice removed 2485151 because it was without content.  There is a bug for this, not sure of the #
-    end
+    end)
   end
 
   ##################################### 
@@ -163,9 +163,8 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   # Because nested has_many_through won't work with CPKs:
-  # Also, so we can include collection.
   def mappings
-    Rails.cache.fetch("taxa/#{self.id}/mappings") do
+    Rails.cache.fetch("taxon_concepts/#{self.id}/mappings") do
       Mapping.find_by_sql(%Q{
         SELECT DISTINCT m.id, m.collection_id, m.name_id, m.foreign_key
           FROM taxon_concept_names tcn

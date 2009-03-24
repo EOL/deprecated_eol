@@ -34,32 +34,26 @@ class DataType < SpeciesSchemaModel
   end
   
   def self.image_type_ids
-    Rails.cache.fetch(:image_type_ids) do
-      DataType.get_type_ids(['Image'])
-    end
+    DataType.get_type_ids(['Image'])
   end
   
   def self.video_type_ids
-    Rails.cache.fetch(:video_type_ids) do
-      DataType.get_type_ids(['YouTube', 'Flash'])
-    end
+    DataType.get_type_ids(['YouTube', 'Flash'])
   end
 
   def self.map_type_ids
-    Rails.cache.fetch(:map_type_ids) do
-      DataType.get_type_ids(['GBIF Image'])
-    end
+    DataType.get_type_ids(['GBIF Image'])
   end
 
   def self.text_type_ids
-    Rails.cache.fetch(:text_type_ids) do
-      DataType.get_type_ids(['Text'])
-    end
+    DataType.get_type_ids(['Text'])
   end
 
 private
   def self.get_type_ids(which)
-    return which.collect { |type| DataType.find_all_by_label(type) }.flatten.collect {|type| type.id }
+    Rails.cache.fetch("data_types/ids/#{which.join('+')}") do
+      return which.collect { |type| DataType.find_all_by_label(type) }.flatten.collect {|type| type.id }
+    end
   end
 
 end

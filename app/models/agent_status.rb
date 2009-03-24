@@ -5,9 +5,9 @@ class AgentStatus < SpeciesSchemaModel
     
   # Find the "Active" AgentStatus.
   def self.active
-    Rails.cache.fetch(:active_agent_status) do
-      AgentStatus.find_by_label('Active') 
-    end
+    YAML.load(Rails.cache.fetch('agent_statuses/active') do
+      AgentStatus.find_by_label('Active').to_yaml
+    end)
   end 
   
 end

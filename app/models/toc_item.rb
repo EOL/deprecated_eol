@@ -11,33 +11,33 @@ class TocItem < SpeciesSchemaModel
   has_and_belongs_to_many :data_objects, :join_table => 'data_objects_table_of_contents', :foreign_key => 'toc_id'
 
   def self.bhl
-    Rails.cache.fetch(:bhl_toc) do
-      TocItem.find_by_label('Biodiversity Heritage Library')
-    end
+    YAML.load(Rails.cache.fetch('toc_items/bhl') do
+      TocItem.find_by_label('Biodiversity Heritage Library').to_yaml
+    end)
   end
   
   def self.specialist_projects
-    Rails.cache.fetch(:specialist_projects_toc) do
-      TocItem.find_by_label('Specialist Projects')
-    end
+    YAML.load(Rails.cache.fetch('toc_items/specialist_projects') do
+      TocItem.find_by_label('Specialist Projects').to_yaml
+    end)
   end
   
   def self.common_names
-    Rails.cache.fetch(:common_names_toc) do
-      TocItem.find_by_label('Common Names')
-    end
+    YAML.load(Rails.cache.fetch('toc_items/common_names') do
+      TocItem.find_by_label('Common Names').to_yaml
+    end)
   end
   
   def self.overview
-    Rails.cache.fetch(:overview_toc) do
-      TocItem.find_by_label('Overview')
-    end
+    YAML.load(Rails.cache.fetch('toc_items/overview') do
+      TocItem.find_by_label('Overview').to_yaml
+    end)
   end
   
   def self.search_the_web
-    Rails.cache.fetch(:search_the_web_toc) do
-      TocItem.find_by_label('Search the Web')
-    end
+    YAML.load(Rails.cache.fetch('toc_items/search_the_web') do
+      TocItem.find_by_label('Search the Web').to_yaml
+    end)
   end
   
   def has_content?

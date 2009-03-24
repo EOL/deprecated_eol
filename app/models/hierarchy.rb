@@ -18,16 +18,16 @@ class Hierarchy < SpeciesSchemaModel
   alias entries hierarchy_entries
 
   def self.default
-    Rails.cache.fetch(:default_hierarchy) do
-      Hierarchy.find_by_label("Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008")
-    end
+    YAML.load(Rails.cache.fetch('hierarchies/default') do
+      Hierarchy.find_by_label("Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008").to_yaml
+    end)
   end
 
   # This is the first hierarchy we used, and we need it to serve "old" URLs (ie: /taxa/16222828 => Roenbergensis)
   def self.original
-    Rails.cache.fetch(:original_hierarchy) do
-      Hierarchy.find_by_label("Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007")
-    end
+    YAML.load(Rails.cache.fetch('hierarchies/original') do
+      Hierarchy.find_by_label("Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007").to_yaml
+    end)
   end
 
   def kingdoms(current_user = User.new(:expertise => $DEFAULT_EXPERTISE, :language => Language.english))

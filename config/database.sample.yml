@@ -157,3 +157,9 @@ production_logging:
 #  <<: *common
 #  <<: *development_common
 #  database: eol_data_development
+#
+# master database connection for logging database  
+#master_logging_database:
+#  <<: *common
+#  <<: *development_common
+#  database: eol_data_development

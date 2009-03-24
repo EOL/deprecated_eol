@@ -351,7 +351,7 @@ module EOL::Spec
 
     def iucn_harvest_event
       # Why am I using cache?  ...Because I know we clear it when we nuke the DB...
-      Rails.cache.fetch(:iucn_harvest_event) do
+      Rails.cache.fetch('harvest_events/iucn') do
         ev = HarvestEvent.find_by_resource_id(Resource.iucn.id)
         # TODO - this isn't working.  The harvest_events table does NOT clear, and thus the iucn resouce ID is wrong.
         # This is a workaround

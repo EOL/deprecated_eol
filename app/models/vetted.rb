@@ -4,19 +4,19 @@ class Vetted < SpeciesSchemaModel
   set_table_name "vetted"
   
   def self.untrusted
-    Rails.cache.fetch(:untrusted_vet) do
-      Vetted.find_by_label('Untrusted')
-    end
+    YAML.load(Rails.cache.fetch('vetted/untrusted') do
+      Vetted.find_by_label('Untrusted').to_yaml
+    end)
   end
   
   def self.trusted
-    Rails.cache.fetch(:trusted_vet) do
-      Vetted.find_by_label('Trusted')
-    end
+    YAML.load(Rails.cache.fetch('vetted/trusted') do
+      Vetted.find_by_label('Trusted').to_yaml
+    end)
   end
   
   def self.unknown
-    Rails.cache.fetch(:unknown_vet) do
+    YAML.load(Rails.cache.fetch('vetted/unknown') do
       unknown = Vetted.find_by_label('Unknown')
       # The ID *must* be 0 (PHP hard-coded; it also kinda makes sense, though I might have allowed nulls).
       # If it's not, we fix it now:
@@ -24,8 +24,8 @@ class Vetted < SpeciesSchemaModel
         Vetted.connection.execute("UPDATE vetted SET id = 0 WHERE id = #{unknown.id}")
         unknown = Vetted.find_by_label('Unknown')
       end
-      unknown
-    end
+      unknown.to_yaml
+    end)
   end
 
   def self.trusted_ids  

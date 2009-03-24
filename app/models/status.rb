@@ -2,23 +2,23 @@ class Status < SpeciesSchemaModel
   has_many :harvest_events_taxa
   has_many :data_objects_harvest_events
   
-    def self.inserted
-      Rails.cache.fetch(:inserted_status) do
-        Status.find_by_label('inserted')
-      end
-    end
+  def self.inserted
+    YAML.load(Rails.cache.fetch('statuses/inserted') do
+      Status.find_by_label('inserted').to_yaml
+    end)
+  end
 
-    def self.updated
-      Rails.cache.fetch(:updated_status) do
-        Status.find_by_label('updated')
-      end
-    end
+  def self.updated
+    YAML.load(Rails.cache.fetch('statuses/updated') do
+      Status.find_by_label('updated').to_yaml
+    end)
+  end
 
-    def self.unchanged
-      Rails.cache.fetch(:unchanged_status) do
-        Status.find_by_label('unchanged')
-      end
-    end
+  def self.unchanged
+    YAML.load(Rails.cache.fetch('statuses/unchanged') do
+      Status.find_by_label('unchanged').to_yaml
+    end)
+  end
 
 end
 

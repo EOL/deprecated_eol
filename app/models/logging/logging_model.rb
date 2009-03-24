@@ -9,4 +9,29 @@ class LoggingModel < ActiveRecord::Base
   # are all suffixed with "_logging" (development_logging, test_logging, etc)    
   use_db :suffix =>  '_logging'
 
+  def self.create(opts = {})
+    instance = self.new(opts)
+    if self.connection.prefetch_primary_key?(self.table_name)
+      instance.id = self.connection.next_sequence_value(self.sequence_name)
+    end
+
+    # HAAAAAACK:  TODO - is there a better way to get to this?
+    instance.instance_eval { def attribs ; attributes_with_quotes ; end ; def cols ; quoted_column_names ; end }
+    quoted_attributes = instance.attribs
+
+    statement = if quoted_attributes.empty?
+      self.connection.empty_insert_statement(self.table_name)
+    else
+      "INSERT DELAYED INTO #{self.quoted_table_name} " +
+      "(#{instance.cols.join(', ')}) " +
+      "VALUES(#{quoted_attributes.values.join(', ')})"
+    end
+
+    instance.id = self.connection.insert(statement, "#{self.name} Create",
+      self.primary_key, instance.id, self.sequence_name)
+
+    @new_record = false
+    instance
+  end
+
 end

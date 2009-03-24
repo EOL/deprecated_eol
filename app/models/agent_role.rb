@@ -7,21 +7,21 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the "Source" AgentRole.
   def self.source_id
-    Rails.cache.fetch(:source_agent_role_id) do
+    Rails.cache.fetch('agent_roles/source_id') do
       AgentRole.find_by_label('Source').id
     end
   end
   
   # Find the "Author" AgentRole.
   def self.author_id
-    Rails.cache.fetch(:author_agent_role_id) do
+    Rails.cache.fetch('agent_roles/author_id') do
       AgentRole.find_by_label('Author').id
     end
   end
   
   # Find the "Photographer" AgentRole.
   def self.photographer_id
-    Rails.cache.fetch(:photographer_agent_role_id) do
+    Rails.cache.fetch('agent_roles/photographer_id') do
       AgentRole.find_by_label('Photographer').id
     end
   end

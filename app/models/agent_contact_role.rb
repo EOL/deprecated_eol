@@ -4,9 +4,9 @@ class AgentContactRole < SpeciesSchemaModel
   has_many :agent_contacts
   
   def self.primary
-    Rails.cache.fetch(:primary_agent_contact_role) do
-      self.find_by_label('Primary Contact')
-    end
+    YAML.load(Rails.cache.fetch('agent_contact_roles/primary') do
+      self.find_by_label('Primary Contact').to_yaml
+    end)
   end
   
 end

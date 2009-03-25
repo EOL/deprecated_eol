@@ -75,6 +75,17 @@
                 </div> <!-- /large-image-button-popup -->
               </div> <!-- /right-image-buttons -->
 
+              <div class="image_rating">
+                <div>
+                  Average Rating: <%=@images[0].data_rating.to_s%>
+                </div>
+                <% if current_user.can_curate?(@taxon) %>
+                  <div>
+                    Your Rating: <%=(r = @images[0].rating_for_user(current_user)) ? r.rating : 0 %>
+                  </div>
+                <%end%>
+              </div>
+
           </div> <!-- /large-image-buttons -->
 
           <% end %><%# end of unless images.blank? %>

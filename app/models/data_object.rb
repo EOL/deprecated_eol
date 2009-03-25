@@ -56,6 +56,10 @@ class DataObject < SpeciesSchemaModel
     self.save!
   end
 
+  def rating_for_user(user)
+    UsersDataObjectsRating.find_by_data_object_id_and_user_id(self.id, user.id)
+  end
+
   # Add a comment to this data object
   def comment(user, body)
     comment = comments.create :user_id => user.id, :body => body

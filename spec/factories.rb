@@ -418,7 +418,7 @@ Factory.define :data_object do |dato|
   dato.object_modified_at     { 2.days.ago }
   dato.created_at             { 5.days.ago }
   dato.updated_at             { 3.days.ago }
-  dato.data_rating            0.5
+  dato.data_rating            0.0
   dato.association            :vetted
   dato.association            :visibility
   dato.published              true

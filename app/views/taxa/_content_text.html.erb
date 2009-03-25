@@ -42,28 +42,10 @@ unless @content[:data_objects].nil?
         <%=render :partial=>'data_object_states', :locals => {:dato => content_item}%>
       </ul>
 
-	<!-- RATINNG -->
-	Average star rating:
-	<span class="inline-rating">
-	<ul class="star-rating small-star">
-		<li class="current-rating" style="width:30%;">Currently 1.5/5 Stars.</li>
-		<li><a href="#" title="1 star out of 5" class="one-star">1</a></li>
-		<li><a href="#" title="2 stars out of 5" class="two-stars">2</a></li>
-		<li><a href="#" title="3 stars out of 5" class="three-stars">3</a></li>
-		<li><a href="#" title="4 stars out of 5" class="four-stars">4</a></li>
-		<li><a href="#" title="5 stars out of 5" class="five-stars">5</a></li>
-	</ul></span>
-	Rate this:
-	<span class="inline-rating">
-	<ul class="star-rating small-star">
-		<li class="current-rating" style="width:80%;">Currently 4/5 Stars.</li>
-		<li><a href="#" title="1 star out of 5" class="one-star">1</a></li>
-		<li><a href="#" title="2 stars out of 5" class="two-stars">2</a></li>
-		<li><a href="#" title="3 stars out of 5" class="three-stars">3</a></li>
-		<li><a href="#" title="4 stars out of 5" class="four-stars">4</a></li>
-		<li><a href="#" title="5 stars out of 5" class="five-stars">5</a></li>
-	</ul>
-	</span>
+	<!-- RATING -->
+  <div class="text-rating">
+    <%=render :partial => 'star_rating', :locals => {:data_object => content_item}%>
+  </div>
 
       <% if current_user.can_curate?(@taxon)%>
         <% if !content_item.curated? %>

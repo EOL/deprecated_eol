@@ -1,32 +1,25 @@
+<% rate_percentage = data_object.data_rating * 20 %>
+
 <% if current_user.can_curate?(@taxon) %>
+
   Average rating:
   <span class="inline-rating">
   <ul class="star-rating small-star">
-    <li class="current-rating" style="width:30%;">Currently 1.5/5 Stars.</li>
-    <li><a href="#" title="1 star out of 5" class="one-star">1</a></li>
-    <li><a href="#" title="2 stars out of 5" class="two-stars">2</a></li>
-    <li><a href="#" title="3 stars out of 5" class="three-stars">3</a></li>
-    <li><a href="#" title="4 stars out of 5" class="four-stars">4</a></li>
-    <li><a href="#" title="5 stars out of 5" class="five-stars">5</a></li>
+    <li class="current-rating" style="width:<%= rate_percentage %>%;">Average Rating: <%= data_object.data_rating.to_s %></li>
   </ul></span>
   Your rating:
   <span class="inline-rating">
   <ul class="star-rating small-star">
     <li class="current-rating" style="width:80%;">Currently 4/5 Stars.</li>
     <li><%= link_to('1', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 1}, :class => 'one-star') %></li>
-    <li><a href="#" title="2 stars out of 5" class="two-stars">2</a></li>
-    <li><a href="#" title="3 stars out of 5" class="three-stars">3</a></li>
-    <li><a href="#" title="4 stars out of 5" class="four-stars">4</a></li>
-    <li><a href="#" title="5 stars out of 5" class="five-stars">5</a></li>
+    <li><%= link_to('2', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 2}, :class => 'two-stars') %></li>
+    <li><%= link_to('3', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 3}, :class => 'three-stars') %></li>
+    <li><%= link_to('4', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 4}, :class => 'four-stars') %></li>
+    <li><%= link_to('5', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 5}, :class => 'five-stars') %></li>
   </ul>
   </span>
 <% else %>
   <ul class="star-rating">
-    <li class="current-rating" style="width:60%;">Currently 3/5 Stars.</li>
-    <li><a href="#" title="1 star out of 5" class="one-star">1</a></li>
-    <li><a href="#" title="2 stars out of 5" class="two-stars">2</a></li>
-    <li><a href="#" title="3 stars out of 5" class="three-stars">3</a></li>
-    <li><a href="#" title="4 stars out of 5" class="four-stars">4</a></li>
-    <li><a href="#" title="5 stars out of 5" class="five-stars">5</a></li>
+    <li class="current-rating" style="width:<%= rate_percentage %>%;">Average Rating: <%= data_object.data_rating.to_s %></li>
   </ul>
-<%end%>
+<% end %>

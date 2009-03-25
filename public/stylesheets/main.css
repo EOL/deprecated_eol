@@ -3136,4 +3136,16 @@ form .pagination span {color:#959595;display: inline;}
 .thumbs-down-image { background: transparent url(/images/icons/dual-states/thumbs_down.png) no-repeat 0px 0px; }
 .thumbs-down-image:hover { background: transparent url(/images/icons/dual-states/thumbs_down.png) no-repeat 0px -32px; }
 
+.image-rating {
+  float:left;
+  padding-left:50px;
+  padding-top:3px;
+}
 
+.text-rating {
+  padding-left:40px;
+}
+
+ul.small-star {
+  padding-left: 0px !important;
+}

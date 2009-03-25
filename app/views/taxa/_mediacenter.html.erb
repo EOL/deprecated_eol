@@ -45,16 +45,6 @@
                 </ul>
               </div> <!-- /left-image-buttons -->
 
-			  <!-- RATING -->
-			  <ul class="star-rating" style="margin-left: 100px; float: left">
-				<li class="current-rating" style="width:60%;">Currently 3/5 Stars.</li>
-				<li><a href="#" title="1 star out of 5" class="one-star">1</a></li>
-				<li><a href="#" title="2 stars out of 5" class="two-stars">2</a></li>
-				<li><a href="#" title="3 stars out of 5" class="three-stars">3</a></li>
-				<li><a href="#" title="4 stars out of 5" class="four-stars">4</a></li>
-				<li><a href="#" title="5 stars out of 5" class="five-stars">5</a></li>
-			   </ul>
-
               <div id="right-image-buttons">
                 <div id="large-image-button-popup">
                   <%#The inner divs on the links are hacks to get the links to work in ie6. there's probably a better way to do this%>
@@ -85,7 +75,12 @@
                 </div> <!-- /large-image-button-popup -->
               </div> <!-- /right-image-buttons -->
 
-              <div class="image_rating">
+              <!-- RATING -->
+              <div class="image-rating">
+                <%=render :partial => 'star_rating', :locals => {:data_object => @images[0]}%>
+              </div>
+
+              <div class="image_rating" style="display:none;">
                 <div>
                   Average Rating: <%=@images[0].data_rating.to_s%>
                 </div>

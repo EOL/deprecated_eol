@@ -4,6 +4,11 @@ class DataObjectsController < ApplicationController
 
   before_filter :set_data_object, :except => :index
 
+  def rate
+    dato = DataObject.find(params[:id])
+    dato.rate(current_user,params[:stars].to_i)
+  end
+
   # example urls this handles ...
   #
   #   /pages/5/images/2.xml  # Second page of TaxonConcept 5's images.

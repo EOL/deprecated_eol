@@ -12,6 +12,7 @@ describe 'Home page' do
   end
   after :all do
     truncate_all_tables
+    ActionController::Base.perform_caching = false
   end
 
   it 'should say EOL somewhere' do

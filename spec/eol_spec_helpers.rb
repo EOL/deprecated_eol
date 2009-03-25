@@ -33,6 +33,7 @@ module EOL::Spec
       if options.is_a? User # let us pass a newly created user (with an entered_password)
         options = { :username => options.username, :password => options.entered_password }
       end
+      User.find_by_username(options[:username]).hashed_password.should == Digest::MD5.hexdigest(options[:password])
       request('/account/authenticate', :params => { 
           'user[username]' => options[:username], 
           'user[password]' => options[:password] })

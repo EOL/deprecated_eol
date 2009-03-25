@@ -21,9 +21,11 @@ describe 'RSpec Transactions' do
   # just incase it's the model there's a problem 
   # with and not the database, itself
   #
+  # NOTE the Logging database's tables use MyISAM and 
+  #      therefore do NOT support transactions!
+  #
   {
     'Rails Database'   => [ User, Comment, Role ],
-    'Logging Database' => [ CuratorActivity, IpAddress ],
     'Data Database'    => [ Visibility, Name, Agent ]
   
   }.each do |database, models|

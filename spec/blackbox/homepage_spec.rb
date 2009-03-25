@@ -2,10 +2,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 include ActionController::Caching::Fragments
 
-def expire_fragment
-  ActionController::Base.cache_store.delete_matched(%r{content})
-end
-
 def content_section_tester(section_name)
   sec = ContentSection.find_by_name(section_name)
   sec.should_not be_nil
@@ -13,7 +9,6 @@ def content_section_tester(section_name)
   ContentPage.gen(:content_section => sec, :title => new_title)
   pages = ContentSection.find_pages_by_section(section_name)
   pages.map(&:title).should include(new_title)
-  expire_fragment
   body = RackBox.request('/').body
   # <a title="Feedback" id="feedback" class="dropdown">Feedback</a>
   body.should have_tag("a##{section_name.downcase.gsub(' ', '_')}", :text => /#{section_name}/)
@@ -59,16 +54,15 @@ describe 'Home page' do
   end
 
   it 'should have desc-personal tag with "Hello [username]", a preferences link, a logout link, and vetted status when logged in' do
-    user = User.gen(:password => 'wibbly-wobbly')
+    user = User.gen(:entered_password => 'wibbly-wobbly')
     login_as :username => user.username, :password => 'wibbly-wobbly'
-    expire_fragment
     body = RackBox.request('/').body
     body.should have_tag('div#personal-space') do
-      without_tag('a[href*=?]', /\/login/)
       with_tag('div.desc-personal', :text => /Hello,?\s+#{user.given_name}/) do
         with_tag('a[href=?]', '/profile?return_to=%252F')  # I could not for the life of me get the regex to work.
         with_tag('a[href*=?]', /logout/)
       end
+      without_tag('a[href*=?]', /\/login/)
     end
   end
 
@@ -78,7 +72,6 @@ describe 'Home page' do
     Language.gen(:name => 'Supernal', :iso_639_1 => 'sp', :activated_on => 24.hours.ago )
     active = Language.find_active
     active.map(&:name).should include('Supernal')
-    expire_fragment
     body = RackBox.request('/').body
     # <a title=\"Language: en\" class=\"dropdown\">Language: en</a>
     body.should have_tag('a[title=?]', "Language: #{en.iso_639_1}")
@@ -106,7 +99,6 @@ describe 'Home page' do
 
   it 'should show six random taxa with the div IDs that the Flash needs' do
     6.times { RandomTaxon.gen }
-    expire_fragment
     body = RackBox.request('/').body
     body.should have_tag('table#top-photos-table') do
       (1..6).to_a.each do |n|
@@ -127,7 +119,6 @@ describe 'Home page' do
 
   it 'should show "What\'s New" (plus news items), when news exists' do
     NewsItem.gen(:title => 'Mars Attacks!')
-    expire_fragment
     body = RackBox.request('/').body
     body.should include('What\'s New?')
     body.should include('Mars Attacks!')
@@ -135,14 +126,12 @@ describe 'Home page' do
 
   it 'should not show news, when no news exists' do
     NewsItem.delete_all
-    expire_fragment
     body = RackBox.request('/').body
     body.should_not include('What\'s New?')
   end
 
   it 'should have an RSS link (if there is news)' do
     NewsItem.gen(:title => 'Mars Attacks!')
-    expire_fragment
     RackBox.request('/').body.should have_tag('a[href=?]', '/content/news?format=rss')
   end
 

@@ -1,5 +1,9 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../vendor/plugins/rspec/lib"))
+# add vendor/gems gems to load path
+Dir[ File.join(File.dirname(__FILE__), '..', 'vendor', 'gems', '*', 'lib') ].each do |gem_lib_dir|
+  $LOAD_PATH << gem_lib_dir
+end
 require 'rubygems'
 require 'spec'
 exit ::Spec::Runner::CommandLine.run(::Spec::Runner::OptionParser.parse(ARGV, STDERR, STDOUT))

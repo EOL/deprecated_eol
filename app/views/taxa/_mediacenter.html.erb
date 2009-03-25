@@ -38,12 +38,22 @@
               <div id="left-image-buttons">
                 <ul id="large-image-button-group">
                   <li alt="More information" title="More information" id="large-image-attribution-button" class="attribution-icon">
-                    <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', attribution_data_object_path(@images[0]), 
+                    <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', attribution_data_object_path(@images[0]),
                       :id => "large-image-attribution-button-popup-link", :class => 'popup-link' %>
                   </li>
                   <%=render :partial=>'data_object_states', :locals => {:dato => @images[0]}%>
                 </ul>
               </div> <!-- /left-image-buttons -->
+
+			  <!-- RATING -->
+			  <ul class="star-rating" style="margin-left: 100px; float: left">
+				<li class="current-rating" style="width:60%;">Currently 3/5 Stars.</li>
+				<li><a href="#" title="1 star out of 5" class="one-star">1</a></li>
+				<li><a href="#" title="2 stars out of 5" class="two-stars">2</a></li>
+				<li><a href="#" title="3 stars out of 5" class="three-stars">3</a></li>
+				<li><a href="#" title="4 stars out of 5" class="four-stars">4</a></li>
+				<li><a href="#" title="5 stars out of 5" class="five-stars">5</a></li>
+			   </ul>
 
               <div id="right-image-buttons">
                 <div id="large-image-button-popup">
@@ -129,13 +139,13 @@
           </div>
         <% end %>
       </div> <!-- /media-maps -->
-      
-      
+
+
       <hr />
       <div id="media-videos" class="wrapper-mc clearfix" style="display: none;">
 				<div id="video-player">
 					<%="Select a video to the right to begin playback."[:select_video]%>
-				</div>	
+				</div>
         <div id="video-list" class="mc-info">
 					<% if @videos.blank? == false %>
             <div class="mc-header">
@@ -155,7 +165,7 @@
 									video_title = truncate(video.scientific_name,150) if video_title == '' %>
 									<li><%= link_to_function(video_title, "eol_update_video(#{video_hash(video,@taxon_id)})", :title=>video_title) %></li>
 								<% end %>
-							</ul>	                    	
+							</ul>
 						</div> <!-- /video-collection -->
             <div class="mc-video-notes">
               <span id="video-notes"></span>
@@ -177,29 +187,29 @@
       <hr />
     </div> <!-- /left-mc -->
 	</div> <!-- /media-center -->
-	<div id="sliding-close">	
+	<div id="sliding-close">
 		<div id="textarea">
     	<%="Classification"[]%> : <a href="#" onclick="JavaScript:eol_change_to_text_browser();return false;"><%= "Text"[] %></a>
       | <a href="#" onclick="JavaScript:eol_change_to_flash_browser();return false;"><%= "Graphic"[] %></a> | <a id="classification-attribution-button" href="#" class="static-popup-link attribution-icon" onclick="return false;"></a>
    	</div> <!-- /textarea -->
 		<div id="classification-attribution-button_popup_content" class="attribution" style="display:none;">
-  
+
       <div class="credit-title"><%= "Classification provided by"[] %></div>
       <div class="credit-value">
-			  <%= attributions = @taxon.classification_attribution.reverse    
+			  <%= attributions = @taxon.classification_attribution.reverse
             if attributions.blank?
                 'source unknown'
-            elsif attributions.include?(Agent.catalogue_of_life) 
-                agent_partial(attributions) + '<br />' + agent_icons_partial(attributions) 
-            else 
+            elsif attributions.include?(Agent.catalogue_of_life)
+                agent_partial(attributions) + '<br />' + agent_icons_partial(attributions)
+            else
                 # if we don't have CoL in classification attribution (e.g. name is from Flickr), we only show CoL here since the hiearchy we show in the browser is *only* CoL for now)
                 agent_partial(Agent.catalogue_of_life_for_attribution) + '</div><br /><div class="credit-title">' + agent_icons_partial(Agent.catalogue_of_life_for_attribution) + "<br /><br />#{@rank} recognized by<br />" + agent_partial(attributions)
             end %>
       </div>
 		</div> <!-- /classification-attribution_popup_content -->
-		
+
 		<div id="browser-flash" <%= "style=\"display:none;\"" if current_user.default_taxonomic_browser == "text" %> class="wrapper-mc clearfix">
-			<% if current_user.flash_enabled %> 
+			<% if current_user.flash_enabled %>
 				<script src="/javascripts/flashobjects.js" type="text/javascript"></script>
         <script type="text/javascript">
         <%

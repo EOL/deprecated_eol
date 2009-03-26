@@ -53,6 +53,15 @@ describe 'Home page' do
     end
   end
 
+  it 'should show logout instead of login when logged in' do
+    @homepage_with_foundation.body.should     have_tag('a[href*=?]', /login/)
+    @homepage_with_foundation.body.should_not have_tag('a[href*=?]', /logout/)
+    login_as User.gen
+    request('/').body.should_not have_tag('a[href*=?]', /login/)
+    request('/').body.should     have_tag('a[href*=?]', /logout/)
+  end
+
+
   it 'should have a language picker with all active languages' do
     en = Language.english
     # Let's add a new language to be sure it shows up:

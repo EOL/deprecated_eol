@@ -70,7 +70,7 @@ img    = build_data_object('Image', "This should only be seen by ContentPartner 
                            :visibility => Visibility.preview)
 
 # Generate a default admin user and then set them up for the default roles:
-admin = User.gen :username => 'admin', :entered_password => 'admin', :given_name => 'Admin', :family_name => 'User'
+admin = User.gen :username => 'admin', :password => 'admin', :given_name => 'Admin', :family_name => 'User'
 admin.roles = Role.find(:all, :conditions => 'title LIKE "Administrator%"')
 admin.save
 

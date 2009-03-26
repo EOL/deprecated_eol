@@ -163,6 +163,7 @@ INFO
 
       options = ( scenarios.last.is_a?(Hash) ) ? scenarios.pop : { }
       options[:unique] ||= true # whether each scenario passed has to be unique ... will likely change this to be true by default
+      options[:whiny] = true if options[:whiny].nil?
 
       # make sure everything is actually a Scenario object
       #
@@ -208,10 +209,10 @@ INFO
             #      line number that threw the exception, etc etc
             Kernel::load scenario.file_path
           else
-            puts "Unsure how to load scenario: #{ scenario.inspect }"
+            puts "Unsure how to load scenario: #{ scenario.inspect }" if options[:whiny]
           end
         rescue => ex
-          puts "An Exception was thrown by scenario: #{ scenario.name }"
+          puts "An Exception was thrown by scenario: #{ scenario.name }" if options[:whiny]
           raise ex
         end
       end

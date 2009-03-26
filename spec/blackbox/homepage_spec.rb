@@ -54,7 +54,7 @@ describe 'Home page' do
   end
 
   it 'should have desc-personal tag with "Hello [username]", a preferences link, a logout link, and vetted status when logged in' do
-    user = User.gen(:entered_password => 'wibbly-wobbly')
+    user = User.gen(:password => 'wibbly-wobbly')
     login_as :username => user.username, :password => 'wibbly-wobbly'
     body = RackBox.request('/').body
     body.should have_tag('div#personal-space') do

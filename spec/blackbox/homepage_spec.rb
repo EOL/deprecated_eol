@@ -53,19 +53,6 @@ describe 'Home page' do
     end
   end
 
-  it 'should have desc-personal tag with "Hello [username]", a preferences link, a logout link, and vetted status when logged in' do
-    user = User.gen(:password => 'wibbly-wobbly')
-    login_as :username => user.username, :password => 'wibbly-wobbly'
-    body = RackBox.request('/').body
-    body.should have_tag('div#personal-space') do
-      with_tag('div.desc-personal', :text => /Hello,?\s+#{user.given_name}/) do
-        with_tag('a[href=?]', '/profile?return_to=%252F')  # I could not for the life of me get the regex to work.
-        with_tag('a[href*=?]', /logout/)
-      end
-      without_tag('a[href*=?]', /\/login/)
-    end
-  end
-
   it 'should have a language picker with all active languages' do
     en = Language.english
     # Let's add a new language to be sure it shows up:

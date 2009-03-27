@@ -2,15 +2,16 @@
 
 <% if current_user.can_curate?(@taxon) %>
 
-  Average rating:
+  Overall:
   <span class="inline-rating">
   <ul class="star-rating small-star">
-    <li class="current-rating" style="width:<%= rate_percentage %>%;">Average Rating: <%= data_object.data_rating.to_s %></li>
+    <li class="current-rating" style="width:<%= rate_percentage %>%;">Overall: <%= data_object.data_rating.to_s %></li>
   </ul></span>
-  Your rating:
+
+  Your Rating:
   <span class="inline-rating">
   <ul class="star-rating small-star">
-    <li class="current-rating" style="width:80%;">Currently 4/5 Stars.</li>
+    <li class="current-rating" style="width:<%=(r = data_object.rating_for_user(current_user)) ? r.rating * 20 : 0 %>%;">Your Rating: <%=(r = data_object.rating_for_user(current_user)) ? r.rating : 0 %></li>
     <li><%= link_to('1', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 1}, :class => 'one-star') %></li>
     <li><%= link_to('2', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 2}, :class => 'two-stars') %></li>
     <li><%= link_to('3', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 3}, :class => 'three-stars') %></li>
@@ -19,7 +20,8 @@
   </ul>
   </span>
 <% else %>
+
   <ul class="star-rating">
-    <li class="current-rating" style="width:<%= rate_percentage %>%;">Average Rating: <%= data_object.data_rating.to_s %></li>
+    <li class="current-rating" style="width:<%= rate_percentage %>%;">Overall: <%= data_object.data_rating.to_s %></li>
   </ul>
 <% end %>

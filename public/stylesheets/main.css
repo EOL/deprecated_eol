@@ -3138,12 +3138,12 @@ form .pagination span {color:#959595;display: inline;}
 
 .image-rating {
   float:left;
-  padding-left:50px;
+  padding-left:10px;
   padding-top:3px;
 }
 
 .text-rating {
-  padding-left:40px;
+  padding-left:7px;
 }
 
 ul.small-star {

@@ -716,6 +716,7 @@ private
     
     return {
           :content_type => 'ubio_links',
+          :category_name => 'Specialist Projects',
           :projects => sorted_mappings
         }
 

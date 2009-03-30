@@ -3,6 +3,13 @@ class DataObjectsController < ApplicationController
   layout proc { |c| c.request.xhr? ? false : "main" }
 
   before_filter :set_data_object, :except => :index
+  before_filter :curator_only, :only => [:rate, :curate]
+
+  def curator_only
+    if !current_user.can_curate?(@data_object)
+      raise Exception.new 'Not logged in as curator'
+    end
+  end
 
   def rate
     dato = DataObject.find(params[:id])
@@ -86,14 +93,10 @@ class DataObjectsController < ApplicationController
 
   # PUT /data_objects/1/curate
   def curate
-    if current_user.can_curate?(@data_object)
-      @data_object.curate! params[:curator_activity_id], current_user
+    @data_object.curate! params[:curator_activity_id], current_user
 
-      @data_object.taxa.each do |taxon|
-        expire_taxon(taxon.id)
-      end
-
-      #expire_taxon(@data_object)
+    @data_object.taxa.each do |taxon|
+      expire_taxon(taxon.id)
     end
     
     respond_to do |format|

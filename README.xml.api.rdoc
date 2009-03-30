@@ -1,0 +1,354 @@
+This document describes the XML interface for the eol.org project.
+
+Please note that the API is in *ALPHA* stage at the moment, and is thus subject to radical change without notice.
+However, all input from those would like to use the interface is taken very seriously, so please do try it out and
+let us know what you might like added, removed, or changed.
+
+There are several URLs that can be used. Assume a taxon-page ID of "1234" and a page (explained below) of "1"
+for this list of URLs:
+
+  * exemplars.xml
+  * search.xml?q=species_name
+  * pages/1234.xml
+  * pages/1234/images/1.xml
+  * pages/1234/videos/1.xml
+
+Each of these queries is explained in more detail below:
+
+== exemplars.xml
+
+This will return an array of taxon pages with minimal information for each:
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <taxon-pages type="array">
+    <taxon-page>
+      <id type="integer">910093</id>
+      <canonical-form>Expeditaalia evenietelia[116]</canonical-form>
+      <common-name>Purple sitatius[6]</common-name>
+      <iucn-conservation-status>Conservation Dependent (LR/cd)</iucn-conservation-status>
+      <scientific-name>&lt;i&gt;Expeditaalia evenietelia[116]&lt;/i&gt; L.</scientific-name>
+    </taxon-page>
+  </taxon-pages>
+
+
+== search.xml?q=frizzlebek
+
+This will return an array of taxon-pages matching your query, up to a maximum of *TODO - there is no maximum*. TODO
+- there are several options allowed here (query_language, etc) which must be described
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <results>
+    <taxon-pages type="array">
+      <taxon-page>
+        <id type="integer">6</id>
+        <canonical-form>Suntalia estsitalius[94]</canonical-form>
+        <common-name>Frizzlebek[5]</common-name>
+        <iucn-conservation-status>Least Concern (LC)</iucn-conservation-status>
+        <scientific-name>Suntalia estsitalius[94] Linn</scientific-name>
+      </taxon-page>
+    </taxon-pages>
+  </results>
+
+
+== pages/6.xml
+
+This will return a (rather) detailed set of information for the taxon-page ID requested. *TODO - explain the
+nodes in more detail.*
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <taxon-page>
+    <id type="integer">6</id>
+    <canonical-form>Suntalia estsitalius[94]</canonical-form>
+    <common-name>Frizzlebek[5]</common-name>
+    <iucn-conservation-status>Least Concern (LC)</iucn-conservation-status>
+    <scientific-name>Suntalia estsitalius[94] Linn</scientific-name>
+    <overview>
+      <data-objects type="array">
+        <data-object>
+          <bibliographic-citation></bibliographic-citation>
+          <description>This is an overview of the &lt;b&gt;Suntalia estsitalius[94]&lt;/b&gt; hierarchy entry.</description>
+          <guid></guid>
+          <id type="integer">96</id>
+          <rights-holder></rights-holder>
+          <rights-statement></rights-statement>
+          <data-supplier-agent nil="true"></data-supplier-agent>
+          <tags-hash></tags-hash>
+          <attributions>
+            <attribution>
+              <role>Copyright</role>
+              <agent>
+                <acronym nil="true"></acronym>
+                <display-name>Some rights reserved</display-name>
+                <homepage>http://creativecommons.org/licenses/by/3.0/</homepage>
+                <username nil="true"></username>
+              </agent>
+            </attribution>
+          </attributions>
+          <language>Klingon</language>
+          <license>cc-by 3.0</license>
+          <type>Text</type>
+          <url>http://content2.eol.org/content_large.jpg</url>
+          <medium_thumb_url>http://content3.eol.org/content_medium.jpg</medium_thumb_url>
+          <small_thumb_url>http://content4.eol.org/content_small.jpg</small_thumb_url>
+        </data-object>
+      </data-objects>
+    </overview>
+    <table-of-contents>
+      <item>
+        <id>1</id>
+        <label>Overview</label>
+      </item>
+      <item>
+        <id>3</id>
+        <label>References and More Information</label>
+      </item>
+      <item>
+        <id>4</id>
+        <label>Biodiversity Heritage Library</label>
+      </item>
+      <item>
+        <id>2</id>
+        <label>Common Names</label>
+      </item>
+    </table-of-contents>
+    <ancestors>
+      <taxon-page>
+        <id type="integer">1</id>
+        <canonical-form>Animalia</canonical-form>
+        <common-name>Animals</common-name>
+        <iucn-conservation-status>Data Deficient (DD)</iucn-conservation-status>
+        <scientific-name>Animalia Linn.</scientific-name>
+      </taxon-page>
+      <taxon-page>
+        <id type="integer">2</id>
+        <canonical-form>Autemalius utsimiliqueesi[21]</canonical-form>
+        <common-name>Ravenous quaeeli[1]</common-name>
+        <iucn-conservation-status>Endangered (EN)</iucn-conservation-status>
+        <scientific-name>Autemalius utsimiliqueesi[21] Linnaeus</scientific-name>
+      </taxon-page>
+      <taxon-page>
+        <id type="integer">3</id>
+        <canonical-form>Quiincidunta culpaelia[38]</canonical-form>
+        <common-name>Red suntus[2]</common-name>
+        <iucn-conservation-status>Vulnerable (VU)</iucn-conservation-status>
+        <scientific-name>Quiincidunta culpaelia[38] G. D'Amore</scientific-name>
+      </taxon-page>
+      <taxon-page>
+        <id type="integer">4</id>
+        <canonical-form>Voluptateseri doloremosyne[58]</canonical-form>
+        <common-name>Darning needle[3]</common-name>
+        <iucn-conservation-status>Critically Endangered (CR)</iucn-conservation-status>
+        <scientific-name>Voluptateseri doloremosyne[58] R. Bergstrom</scientific-name>
+      </taxon-page>
+      <taxon-page>
+        <id type="integer">5</id>
+        <canonical-form>Voluptatumeri esseensis[75]</canonical-form>
+        <common-name>Tiger[4]</common-name>
+        <iucn-conservation-status>Near Threatened (NT)</iucn-conservation-status>
+        <scientific-name>Voluptatumeri esseensis[75] L.</scientific-name>
+      </taxon-page>
+      <taxon-page>
+        <id type="integer">6</id>
+        <canonical-form>Suntalia estsitalius[94]</canonical-form>
+        <common-name>Frizzlebek[5]</common-name>
+        <iucn-conservation-status>Least Concern (LC)</iucn-conservation-status>
+        <scientific-name>Suntalia estsitalius[94] Linn</scientific-name>
+      </taxon-page>
+    </ancestors>
+    <children>
+    </children>
+    <curators>
+      <user>
+        <credentials></credentials>
+        <id type="integer">6</id>
+        <username>a_abbott45</username>
+      </user>
+      <user>
+        <credentials></credentials>
+        <id type="integer">12</id>
+        <username>w_tillman107</username>
+      </user>
+      <user>
+        <credentials></credentials>
+        <id type="integer">2</id>
+        <username>h_harvey5</username>
+      </user>
+      <user>
+        <credentials></credentials>
+        <id type="integer">8</id>
+        <username>j_ankunding67</username>
+      </user>
+      <user>
+        <credentials></credentials>
+        <id type="integer">15</id>
+        <username>p_harvey131</username>
+      </user>
+      <user>
+        <credentials></credentials>
+        <id type="integer">4</id>
+        <username>a_borer26</username>
+      </user>
+      <user>
+        <credentials></credentials>
+        <id type="integer">10</id>
+        <username>j_keeling86</username>
+      </user>
+    </curators>
+    <map>
+      <data-object>
+        <bibliographic-citation></bibliographic-citation>
+        <description>Dolores voluptatem impedit sit ea rerum ut.</description>
+        <guid></guid>
+        <id type="integer">95</id>
+        <rights-holder></rights-holder>
+        <rights-statement></rights-statement>
+        <data-supplier-agent nil="true"></data-supplier-agent>
+        <tags-hash></tags-hash>
+        <map-image>http://content6.eol.org/content/2008/10/06/12/31652_orig.jpg</map-image>
+        <attributions>
+          <attribution>
+            <role>Copyright</role>
+            <agent>
+              <acronym nil="true"></acronym>
+              <display-name>No rights reserved</display-name>
+              <homepage></homepage>
+              <username nil="true"></username>
+            </agent>
+          </attribution>
+        </attributions>
+        <license>public domain</license>
+        <type>GBIF Image</type>
+      </data-object>
+    </map>
+    <comments>
+      <count>2</count>
+    </comments>
+    <images>
+      <count>1</count>
+    </images>
+    <videos>
+      <count>2</count>
+    </videos>
+  </taxon-page>
+
+
+== pages/6/images/1.xml
+
+Return a paginated list of images, up to a maximum of 10 per page.  TODO - there are some options allowed.
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <results>
+    <num-images type="integer">1</num-images>
+    <images type="array">
+      <image>
+        <altitude type="float">0.0</altitude>
+        <bibliographic-citation></bibliographic-citation>
+        <description>Qui enim deleniti sit.</description>
+        <guid></guid>
+        <id type="integer">83</id>
+        <latitude type="float">0.0</latitude>
+        <location></location>
+        <longitude type="float">0.0</longitude>
+        <rights-holder></rights-holder>
+        <rights-statement></rights-statement>
+        <data-supplier-agent nil="true"></data-supplier-agent>
+        <tags-hash></tags-hash>
+        <attributions>
+          <attribution>
+            <role>Copyright</role>
+            <agent>
+              <acronym nil="true"></acronym>
+              <display-name>Some rights reserved</display-name>
+              <homepage>http://www.gnu.org/licenses/gpl.html</homepage>
+              <username nil="true"></username>
+            </agent>
+          </attribution>
+        </attributions>
+        <license>gnu-gpl</license>
+        <type>Image</type>
+        <url>http://content2.eol.org/content/2008/10/07/01/46375_large.jpg</url>
+        <medium_thumb_url>http://content3.eol.org/content/2008/10/07/01/46375_medium.jpg</medium_thumb_url>
+        <small_thumb_url>http://content4.eol.org/content/2008/10/07/01/46375_small.jpg</small_thumb_url>
+      </image>
+    </images>
+    <page type="integer">1</page>
+    <images-per-page type="integer">10</images-per-page>
+  </results>
+
+
+== pages/6/videos/1.xml
+
+Identical interface as images (previous example), please read that description. However, this proides videos
+associated with the specified page, rather than images:
+
+  <?xml version="1.0" encoding="UTF-8"?>
+  <results>
+    <videos-per-page type="integer">10</videos-per-page>
+    <page type="integer">1</page>
+    <num-videos type="integer">2</num-videos>
+    <videos type="array">
+      <video>
+        <altitude type="float">0.0</altitude>
+        <bibliographic-citation></bibliographic-citation>
+        <description>Et dolor expedita fuga modi consequatur ut.</description>
+        <guid></guid>
+        <id type="integer">93</id>
+        <latitude type="float">0.0</latitude>
+        <location></location>
+        <longitude type="float">0.0</longitude>
+        <rights-holder></rights-holder>
+        <rights-statement></rights-statement>
+        <data-supplier-agent nil="true"></data-supplier-agent>
+        <tags-hash></tags-hash>
+        <attributions>
+          <attribution>
+            <role>Copyright</role>
+            <agent>
+              <acronym nil="true"></acronym>
+              <display-name>Rights?  What Rights?</display-name>
+              <homepage></homepage>
+              <username nil="true"></username>
+            </agent>
+          </attribution>
+        </attributions>
+        <language>Klingon</language>
+        <license>Test License Type</license>
+        <type>Flash</type>
+        <url>http://content2.eol.org/content/2008/11/13/13/82797_large.jpg</url>
+        <medium_thumb_url>http://content3.eol.org/content/2008/11/13/13/82797_medium.jpg</medium_thumb_url>
+        <small_thumb_url>http://content4.eol.org/content/2008/11/13/13/82797_small.jpg</small_thumb_url>
+      </video>
+      <video>
+        <altitude type="float">0.0</altitude>
+        <bibliographic-citation></bibliographic-citation>
+        <description>Explicabo et consectetur optio laboriosam maxime dolorem reprehenderit.</description>
+        <guid></guid>
+        <id type="integer">94</id>
+        <latitude type="float">0.0</latitude>
+        <location></location>
+        <longitude type="float">0.0</longitude>
+        <rights-holder></rights-holder>
+        <rights-statement></rights-statement>
+        <data-supplier-agent nil="true"></data-supplier-agent>
+        <tags-hash></tags-hash>
+        <attributions>
+          <attribution>
+            <role>Copyright</role>
+            <agent>
+              <acronym nil="true"></acronym>
+              <display-name>&amp;#169; All rights reserved</display-name>
+              <homepage></homepage>
+              <username nil="true"></username>
+            </agent>
+          </attribution>
+        </attributions>
+        <language>Klingon</language>
+        <license>all rights reserved</license>
+        <type>YouTube</type>
+        <url>http://content5.eol.org/content0_large.jpg</url>
+        <medium_thumb_url>http://content6.eol.org/content0_medium.jpg</medium_thumb_url>
+        <small_thumb_url>http://content7.eol.org/content0_small.jpg</small_thumb_url>
+      </video>
+    </videos>
+  </results>
+

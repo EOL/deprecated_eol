@@ -37,7 +37,9 @@ class EOLConvert
   
   # convert an integer (0/1) or string to false/true boolean
   def self.to_boolean(input_value)
-    
+      
+      return false if input_value.blank?
+      
       case input_value.to_s
         when "1","true"
             return true

@@ -22,7 +22,7 @@ To view contact us submission, select the topic below or <%=link_to('[export all
 			<br />
 			<%= will_paginate @contacts %>
 			    <table class="results_table" cellspacing="0">
-			    <tr><th>Name</th><th>Email</th><th width="100">Comments</th><% if @contact_subject_id == '*' %><th>Topic</th><%end%><th>Date</th><th>Taxon Group</th></tr>
+			    <tr><th>Name</th><th>Email</th><th>Comments</th><% if @contact_subject_id == '*' %><th>Topic</th><%end%><th>Date</th><th>Taxon Group</th></tr>
 				<% for contact in @contacts
 					column_class=cycle('odd','even')  %>
 				    <tr>

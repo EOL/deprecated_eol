@@ -7,14 +7,14 @@
 	<% form_tag({:action=>'index'},:method=>'get') do -%>
 	Search for users containing: <%= text_field_tag(:user_search_string,@user_search_string)%> 
 	<br />
-	who registered from <%= calendar_date_select_tag "start_date", @start_date, :embedded => false, :year_range => 2008..2019 %>
-	to <%= calendar_date_select_tag "end_date", @end_date, :embedded => false, :year_range => 2008..2019 %>
-  
+	who registered from <%= calendar_date_select_tag "start_date", @start_date, :embedded => false, :year_range => 2009..2019 %>
+	to <%= calendar_date_select_tag "end_date", @end_date, :embedded => false, :year_range => 2009..2019 %>
+  <br /><%= check_box_tag 'blank_dates','1',@blank_dates %> Also show unknown registered dates (all prior to Jan 5, 2009)
   <br />
 
   <%= submit_tag 'Search' %><br />
 	
-	<%=link_to "Add a new user",:action=>'new'%> | <%=link_to 'Export this list as CSV',{:action=>'export',:start_date=>@start_date,:end_date=>@end_date,:user_search_string=>@user_search_string}%>
+	<%=link_to "Add a new user",:action=>'new'%> | <%=link_to 'Export this list as CSV',{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:end_date=>@end_date,:user_search_string=>@user_search_string}%>
 	<br />
 	
 	<% if @users.nil? == false && @users.size > 0 %>
@@ -31,7 +31,7 @@
 					<td class="<%= column_class %>"><%=h user.email%></td>
 					<td class="<%= column_class %>"><%=h user.full_name%></td>
 					<td class="<%= column_class %>"><%=format_date_time(user.created_at)%></td>
-					<td class="<%= column_class %>"><%=!user.not_openid?%></td>
+					<td class="<%= column_class %>"><%=user.openid?%></td>
 				</tr>									
 			<% end %>
 		    </table>

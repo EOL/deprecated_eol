@@ -242,7 +242,11 @@ class User < ActiveRecord::Base
   def not_openid?      
     identity_url.blank? || identity_url.nil?
   end
-
+  
+  def openid?      
+    !not_openid?
+  end
+  
   def is_moderator?
     @is_moderator ||= self.roles.include?(Role.moderator)
   end

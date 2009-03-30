@@ -90,11 +90,8 @@ To install required gems:
   rake db:migrate RAILS_ENV=test
   rake truncate
   rake scenarios:load NAME=bootstrap
-  rake eol:site_specific repo=URL  # Your "URL" (or an alternative) will be provided to you privately.
+  rake eol:site_specific repo=URL  # Your "URL" (or an alternative) will be provided to you privately if needed.
 
-You may also need to make the "bin/recreate_databases" script executable, and then run it to automatically run all of those tasks above (assuming you are on a Mac/Linux).
-
-  ./bin/recreate_databases 
 
 === WATCHING IT COME TO LIFE
 

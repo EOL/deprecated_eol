@@ -6,8 +6,10 @@ class Administrator::UserController  < AdminController
     
     @user_search_string=params[:user_search_string] || ''
     search_string_parameter='%' + @user_search_string + '%' 
-    @start_date=params[:start_date] || "2008-02-26"
+    @start_date=params[:start_date] || "2009-01-05"
     @end_date=params[:end_date] || Date.today.to_s(:db)
+    @blank_dates=EOLConvert.to_boolean(params[:blank_dates])
+    export=params[:export]
     
     begin
       @start_date_db=(Date.parse(@start_date)).to_s(:db)
@@ -15,8 +17,39 @@ class Administrator::UserController  < AdminController
     rescue
     end
     
+    blank_date_condition=' OR (created_at is null)' if @blank_dates
+    
+    condition="((created_at>=? AND created_at<=?) #{blank_date_condition}) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
+        
+    if export
+      @users=User.find(:all,
+        :conditions=>[condition,
+        @start_date_db,
+        @end_date_db,
+        @user_search_string,
+        search_string_parameter,
+         search_string_parameter,
+         search_string_parameter,
+         search_string_parameter,
+         search_string_parameter,
+         search_string_parameter],
+        :order=>'created_at desc')
+      report = StringIO.new
+      CSV::Writer.generate(report, ',') do |title|
+          title << ['Id', 'Username', 'Name', 'Email','Registered Date','Mailings?','OpenID?']
+          @users.each do |u|
+            created_at=''
+            created_at=u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
+            title << [u.id,u.username,u.full_name,u.email,created_at,u.mailing_list,u.openid?]       
+          end
+       end
+       report.rewind
+       send_data(report.read,:type=>'text/csv; charset=iso-8859-1; header=present',:filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')
+       return false
+    end
+
     @users=User.paginate(
-      :conditions=>['((created_at>=? AND created_at<=?) OR (created_at is null)) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
+      :conditions=>[condition,
       @start_date_db,
       @end_date_db,
       @user_search_string,
@@ -27,8 +60,10 @@ class Administrator::UserController  < AdminController
        search_string_parameter,
        search_string_parameter],
       :order=>'created_at desc',:page => params[:page])
+
+      
     @user_count=User.count(
-      :conditions=>['((created_at>=? AND created_at<=?) OR (created_at is null)) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
+      :conditions=>[condition,
         @start_date_db,
         @end_date_db,
       @user_search_string,
@@ -39,45 +74,6 @@ class Administrator::UserController  < AdminController
       search_string_parameter,
       search_string_parameter])
     
-  end
-
-  def export
-
-    @user_search_string=params[:user_search_string] || ''
-    search_string_parameter='%' + @user_search_string + '%' 
-    @start_date=params[:start_date] || "2008-02-26"
-    @end_date=params[:end_date] || Date.today.to_s(:db)
-
-    begin
-      @start_date_db=(Date.parse(@start_date)).to_s(:db)
-      @end_date_db=(Date.parse(@end_date)+1).to_s(:db)
-    rescue
-    end
-    
-    @users=User.find(:all,
-       :conditions=>['((created_at>=? AND created_at<=?) OR (created_at is null)) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)',
-       @start_date_db,
-       @end_date_db,
-       @user_search_string,
-       search_string_parameter,
-        search_string_parameter,
-        search_string_parameter,
-        search_string_parameter,
-        search_string_parameter,
-        search_string_parameter],
-       :order=>'created_at desc')
-      report = StringIO.new
-      CSV::Writer.generate(report, ',') do |title|
-          title << ['Id', 'Username', 'Name', 'Email','Registered Date','Mailings?']
-          @users.each do |u|
-            created_at=''
-            created_at=u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
-            title << [u.id,u.username,u.full_name,u.email,created_at,u.mailing_list]       
-          end
-       end
-       report.rewind
-       send_data(report.read,:type=>'text/csv; charset=iso-8859-1; header=present',:filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')
-
   end
   
   def edit

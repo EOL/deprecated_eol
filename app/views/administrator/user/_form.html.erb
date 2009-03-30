@@ -7,20 +7,20 @@
 			<td><strong>Username:</strong></td>
 			<td><%=f.text_field :username,{:size=>'50',:maxlength=>'16'}%></td>
 		</tr>
-		<% if @user.not_openid?%>
-			<tr>
-				<td><strong>Password:</strong></td>
-				<td><%=f.password_field :entered_password,{:size=>'50',:maxlength=>'16'}%></td>
-			</tr>
-			<tr>
-				<td><strong>Confirm Password:</strong></td>
-				<td><%=f.password_field :entered_password_confirmation,{:size=>'50',:maxlength=>'16'}%></td>
-			</tr>				
+		<% if @user.openid?%>
+  		<tr>
+  			<td><strong>OpenID Identity URL:</strong></td>
+  			<td><%=f.hidden_field :identity_url%><%=@user.identity_url%></td>
+  		</tr>				
 		<% else %>
-			<tr>
-				<td><strong>OpenID Identity URL:</strong></td>
-				<td><%=f.hidden_field :identity_url%><%=@user.identity_url%></td>
-			</tr>		
+  		<tr>
+  			<td><strong>Password:</strong></td>
+  			<td><%=f.password_field :entered_password,{:size=>'50',:maxlength=>'16'}%></td>
+  		</tr>
+  		<tr>
+  			<td><strong>Confirm Password:</strong></td>
+  			<td><%=f.password_field :entered_password_confirmation,{:size=>'50',:maxlength=>'16'}%></td>
+  		</tr>
 		<% end %>
 		<tr>
 			<td><strong>Email:</strong></td>

@@ -1,9 +1,9 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Edit User #' + params[:id]} %>
 
-<% if @user.not_openid?%>
-	Only enter a new password if you wish to change it.
+<% if @user.openid?%>
+  This is an OpenID user.
 <% else %>
-	This is an OpenID user.
+  Only enter a new password if you wish to change it.
 <% end %>
   		    	
 	<% form_for :user,@user,:url => {:action=>'update',:id=>params[:id]},:html=>{:id=>'page_form'} do |f|  %>

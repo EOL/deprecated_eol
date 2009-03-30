@@ -19,18 +19,20 @@
 
                     <label>Username:</label> <%= current_user.username %><br />
 					
-					<% if @user.not_openid? %>
-					    <p><%="Only enter a new password if you wish to change it."[:only_enter_new_password_if_needed]%></p>
-	                	<label for="password"><%="New Password"[]%></label>
-	                	<%= f.password_field :entered_password %>
-	
-	                	<label for="password_confirmation"><%="Confirm New Password"[]%></label>
-	                	<%= f.password_field :entered_password_confirmation %>
-	                    <br />
+					<% if @user.openid? %>
+				  <label>Open ID URL:</label> <%= current_user.identity_url %><br />
+					<%= f.hidden_field :entered_password%>	
+					<%= f.hidden_field :entered_password_confirmation%>	
+
 					<% else %>
-					  <label>Open ID URL:</label> <%= current_user.identity_url %><br />
-						<%= f.hidden_field :entered_password%>	
-						<%= f.hidden_field :entered_password_confirmation%>	
+			    <p><%="Only enter a new password if you wish to change it."[:only_enter_new_password_if_needed]%></p>
+              	<label for="password"><%="New Password"[]%></label>
+              	<%= f.password_field :entered_password %>
+
+              	<label for="password_confirmation"><%="Confirm New Password"[]%></label>
+              	<%= f.password_field :entered_password_confirmation %>
+                  <br />
+
 					<% end %>
 					
 				    <label for="user_email" title="<%= "Please enter your email address"[] %>"><%= "Email Address"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>

@@ -1,4 +1,4 @@
-class ChangeLogsToMyIsam < ActiveRecord::Migration
+class ChangeLogsToMyisam < ActiveRecord::Migration
 
   def self.database_model
     return "LoggingModel"

@@ -1,4 +1,4 @@
-class ChangeLogsToInnodb < ActiveRecord::Migration
+class ChangeLogsToMyIsam < ActiveRecord::Migration
 
   def self.database_model
     return "LoggingModel"
@@ -12,7 +12,7 @@ class ChangeLogsToInnodb < ActiveRecord::Migration
 
   def self.down
     raise ActiveRecord::IrreversibleMigration.new(
-      'We just changed your tables to InnoDB, this is not something that should be undone.'
+      'We just changed your tables to MyISAM, this is not something that should be undone.'
     )
   end
 

@@ -178,7 +178,7 @@ EOIUCNSQL
   end
 
   def ancestors
-    Rails.cache.fetch([self, :ancestors]) do
+    Rails.cache.fetch("hierarchy_entries/#{id}/ancestors") do
       ancestors = [self]
       ancestors.unshift(find_default_hierarchy_ancestor) unless self.hierarchy_id == Hierarchy.default.id
       if ancestors.first.nil?

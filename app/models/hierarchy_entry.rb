@@ -178,7 +178,7 @@ EOIUCNSQL
   end
 
   def ancestors
-    Rails.cache.fetch("hierarchy_entries/#{id}/ancestors") do
+    YAML.load(Rails.cache.fetch("hierarchy_entries/#{id}/ancestors") do
       ancestors = [self]
       ancestors.unshift(find_default_hierarchy_ancestor) unless self.hierarchy_id == Hierarchy.default.id
       if ancestors.first.nil?
@@ -188,8 +188,8 @@ EOIUCNSQL
       until ancestors.first.parent.nil? do
         ancestors.unshift(ancestors.first.parent) 
       end 
-      ancestors
-    end
+      ancestors.to_yaml
+    end)
   end
 
   def ancestors_hash(detail_level = :middle, language = Language.english)

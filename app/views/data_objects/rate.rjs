@@ -1,0 +1,5 @@
+if @data_object.image?
+  page.call 'EOL.Rating.update_image_rating', @data_object.data_rating
+elsif @data_object.text?
+  page.call 'EOL.Rating.update_text_rating', @data_object.id, @data_object.data_rating
+end

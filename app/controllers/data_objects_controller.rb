@@ -12,8 +12,12 @@ class DataObjectsController < ApplicationController
   end
 
   def rate
-    dato = DataObject.find(params[:id])
-    dato.rate(current_user,params[:stars].to_i)
+    @data_object.rate(current_user,params[:stars].to_i)
+
+    respond_to do |format|
+      format.html {redirect_to request.referer ? :back : '/'} #todo, complete later
+      format.js {render :action => 'rate.rjs'}
+    end
   end
 
   # example urls this handles ...

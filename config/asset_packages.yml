@@ -16,6 +16,7 @@ javascripts:
   - tagging
   - search
   - curation
+  - rating
   - text_objects
   - media_center
   - popup

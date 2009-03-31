@@ -96,19 +96,6 @@ EOL.Curation.Behaviors = {
   'div.trust_button a:click, div.untrust_button a:click': function(e) {
     EOL.Curation.quick_curate(this);
     e.stop();
-  },
-
-  'ul.small-star li a:click': function(e) {
-    EOL.log(this.text);
-
-    new Ajax.Request(this.href,
-                     {
-                       asynchronous:true,
-                       evalScripts:true,
-                       method:'put'
-                     });
-
-    return false;
   }
 };
 

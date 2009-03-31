@@ -4,13 +4,13 @@
 
   Overall:
   <span class="inline-rating">
-  <ul class="star-rating small-star">
+  <ul class="star-rating small-star average-rating">
     <li class="current-rating" style="width:<%= rate_percentage %>%;">Overall: <%= data_object.data_rating.to_s %></li>
   </ul></span>
 
   Your Rating:
   <span class="inline-rating">
-  <ul class="star-rating small-star">
+  <ul class="star-rating small-star user-rating">
     <li class="current-rating" style="width:<%=(r = data_object.rating_for_user(current_user)) ? r.rating * 20 : 0 %>%;">Your Rating: <%=(r = data_object.rating_for_user(current_user)) ? r.rating : 0 %></li>
     <li><%= link_to('1', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 1}, :class => 'one-star') %></li>
     <li><%= link_to('2', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 2}, :class => 'two-stars') %></li>

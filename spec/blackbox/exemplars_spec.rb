@@ -4,6 +4,7 @@ describe 'Home page' do
 
   before :all do
     Scenario.load :foundation
+    @old_cache_val = ActionController::Base.perform_caching
     ActionController::Base.perform_caching = true
     ActionController::Base.cache_store = :memory_store
     Rails.cache.clear
@@ -12,7 +13,7 @@ describe 'Home page' do
   end
   after :all do
     truncate_all_tables
-    ActionController::Base.perform_caching = false
+    ActionController::Base.perform_caching = @old_cache_val
   end
 
   it 'should say EOL somewhere' do

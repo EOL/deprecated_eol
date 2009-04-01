@@ -83,7 +83,7 @@ class TaxaController < ApplicationController
           @cached=false
 
           @taxon.current_user = current_user
-
+          
           # get available media types
           @available_media = @taxon.available_media
 
@@ -98,7 +98,7 @@ class TaxaController < ApplicationController
           # TODO - this (image_page) is broken.  Can we remove it?
           @image_page = (params[:image_page] || 1).to_i
           @taxon.current_agent = current_agent unless current_agent.nil?
-          @images     = @taxon.images
+          @images     = @taxon.images.sort{ |x,y| y.data_rating <=> x.data_rating }
           @show_next_image_page_button = @taxon.more_images # indicates if more images are available
           @default_image = @images[0].smart_image unless @images.nil? or @images.blank?
 

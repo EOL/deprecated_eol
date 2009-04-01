@@ -1,0 +1,8 @@
+rake eol:db:drop:all 
+rake eol:db:drop:all RAILS_ENV=test
+rake eol:db:create:all
+rake eol:db:create:all RAILS_ENV=test
+rake db:migrate
+rake db:migrate RAILS_ENV=test
+rake truncate
+rake scenarios:load NAME=bootstrap

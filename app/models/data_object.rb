@@ -488,7 +488,7 @@ class DataObject < SpeciesSchemaModel
                                   AND data_type_id IN (?)
                                   #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
                                   GROUP BY dato.id
-                                ORDER BY dato.vetted_id DESC,dato.data_rating                          # DataObject.cached_images_for_taxon },
+                                ORDER BY dato.vetted_id DESC,dato.data_rating DESC                        # DataObject.cached_images_for_taxon },
                             taxon.id, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids])                            
     # Run a second query if we need unpublished or invisible images (but not if we're already doing it!!!):
     if not nested and ((not options[:agent].nil?) or options[:user].is_curator? or options[:user].is_admin?)
@@ -521,7 +521,7 @@ class DataObject < SpeciesSchemaModel
     join_toc     = type == :text         ? 'JOIN data_objects_table_of_contents dotoc ON dotoc.data_object_id = dato.id ' +
                                                  'JOIN table_of_contents toc ON toc.id = dotoc.toc_id' : ''
     where_toc    = options[:toc_id].nil? ? '' : ActiveRecord::Base.sanitize_sql(['AND toc.id = ?', options[:toc_id]])
-    sort         = 'dato.published, dato.vetted_id DESC, dato.data_rating' # unpublished first, then by data_rating.
+    sort         = 'dato.published, dato.vetted_id DESC, dato.data_rating DESC' # unpublished first, then by data_rating.
 
     ActiveRecord::Base.sanitize_sql([<<EOVIDEOSQL, taxon.id, DataObject.get_type_ids(type)])
 

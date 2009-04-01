@@ -84,7 +84,33 @@ function eol_update_image(large_image_url, params) {
   if ($('large-image-comment-button-popup-link'))     $('large-image-comment-button-popup-link').href = "/data_objects/" + params.data_object_id + "/comments";
   if ($('large-image-attribution-button-popup-link')) $('large-image-attribution-button-popup-link').href = "/data_objects/" + params.data_object_id + "/attribution"; 
   if ($('large-image-tagging-button-popup-link'))     $('large-image-tagging-button-popup-link').href = "/data_objects/" + params.data_object_id + "/tags"; 
-  if ($('large-image-curator-button-popup-link'))     $('large-image-curator-button-popup-link').href = "/data_objects/" + params.data_object_id + "/curation"; 
+  if ($('large-image-curator-button-popup-link'))     $('large-image-curator-button-popup-link').href = "/data_objects/" + params.data_object_id + "/curation";
+
+  //update star rating links
+  if($$('div.image-rating ul.user-rating a.one-star')[0]) {
+    $$('div.image-rating ul.user-rating a.one-star')[0].href = '/data_objects/rate/' + params.data_object_id +'?stars=1';
+    $$('div.image-rating ul.user-rating a.one-star')[0].writeAttribute('data-data_object_id', params.data_object_id);
+  }
+  if($$('div.image-rating ul.user-rating a.two-stars')[0]) {
+    $$('div.image-rating ul.user-rating a.two-stars')[0].href = '/data_objects/rate/' + params.data_object_id +'?stars=2';
+    $$('div.image-rating ul.user-rating a.two-stars')[0].writeAttribute('data-data_object_id', params.data_object_id);
+  }
+  if($$('div.image-rating ul.user-rating a.three-stars')[0]) {
+    $$('div.image-rating ul.user-rating a.three-stars')[0].href = '/data_objects/rate/' + params.data_object_id +'?stars=3';
+    $$('div.image-rating ul.user-rating a.three-stars')[0].writeAttribute('data-data_object_id', params.data_object_id);
+  }
+  if($$('div.image-rating ul.user-rating a.four-stars')[0]) {
+    $$('div.image-rating ul.user-rating a.four-stars')[0].href = '/data_objects/rate/' + params.data_object_id +'?stars=4';
+    $$('div.image-rating ul.user-rating a.four-stars')[0].writeAttribute('data-data_object_id', params.data_object_id);
+  }
+  if($$('div.image-rating ul.user-rating a.five-stars')[0]) {
+    $$('div.image-rating ul.user-rating a.five-stars')[0].href = '/data_objects/rate/' + params.data_object_id +'?stars=5';
+    $$('div.image-rating ul.user-rating a.five-stars')[0].writeAttribute('data-data_object_id', params.data_object_id);
+  }
+
+  EOL.Rating.update_average_image_rating(params.data_object_id, params.average_rating);
+
+  EOL.Rating.update_user_image_rating(params.data_object_id, params.user_rating);
 
   eol_update_credit(params);
 

@@ -73,7 +73,9 @@
                                    ", curated: #{image.curated}" +
                                    ", smart_image: '#{escape_javascript(image.smart_image)}'" +
                                    ", published_by_agent: #{published_by_agent}" +
-                                   ", visibility_id: #{image.visibility_id}"
+                                   ", visibility_id: #{image.visibility_id}" +
+                                   ", average_rating: #{image.data_rating}" +
+                                   ", user_rating: #{(r = image.rating_for_user(current_user)) ? r.rating : 0}"
             unless image.license_text.nil?
                 image_attribution_hash += ",license_text: '" + escape_javascript(image.license_text || "") +
                                           "',license_logo: '" + escape_javascript(image.license_logo) +

@@ -1,18 +1,32 @@
 if(!EOL) var EOL = {};
 if(!EOL.Rating) EOL.Rating = {};
 
-EOL.Rating.update_image_rating = function(rating) {
-  $$('div.image-rating ul.average-rating li')[0].setStyle('width: '+rating * 20+'%')
+EOL.Rating.update_average_image_rating = function(data_object_id, rating) {
+  $$('div.image-rating ul.average-rating li')[0].setStyle('width: '+rating * 20+'%');
+  EOL.MediaCenter.image_hash[data_object_id].average_rating = rating;
 };
 
-EOL.Rating.update_text_rating = function(id, rating) {
-  $$('div#text_buttons_'+id+' div.text-rating ul.average-rating li')[0].setStyle('width: '+rating * 20+'%')
+EOL.Rating.update_average_text_rating = function(data_object_id, rating) {
+  $$('div#text_buttons_'+data_object_id+' div.text-rating ul.average-rating li')[0].setStyle('width: '+rating * 20+'%');
+};
+
+EOL.Rating.update_user_image_rating = function(data_object_id, rating) {
+  $$('div.image-rating ul.user-rating li')[0].setStyle('width: '+rating * 20+'%');
+  EOL.MediaCenter.image_hash[data_object_id].user_rating = rating;
+};
+
+EOL.Rating.update_user_text_rating = function(data_object_id, rating) {
+  $$('div#text_buttons_'+data_object_id+' div.text-rating ul.user-rating li')[0].setStyle('width: '+rating * 20+'%');
 };
 
 EOL.Rating.Behaviors = {
   'ul.small-star li a:click': function(e) {
 
-    this.up().up().down('li').setStyle('width: '+(this.text * 20)+'%');
+    if(this.readAttribute('data-data_type') == 'image') {
+      EOL.Rating.update_user_image_rating(this.readAttribute('data-data_object_id'), this.text)
+    } else {
+      EOL.Rating.update_user_text_rating(this.readAttribute('data-data_object_id'), this.text)
+    }
 
     new Ajax.Request(this.href,
                      {

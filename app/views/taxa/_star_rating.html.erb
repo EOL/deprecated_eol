@@ -12,11 +12,11 @@
   <span class="inline-rating">
   <ul class="star-rating small-star user-rating">
     <li class="current-rating" style="width:<%=(r = data_object.rating_for_user(current_user)) ? r.rating * 20 : 0 %>%;">Your Rating: <%=(r = data_object.rating_for_user(current_user)) ? r.rating : 0 %></li>
-    <li><%= link_to('1', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 1}, :class => 'one-star') %></li>
-    <li><%= link_to('2', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 2}, :class => 'two-stars') %></li>
-    <li><%= link_to('3', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 3}, :class => 'three-stars') %></li>
-    <li><%= link_to('4', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 4}, :class => 'four-stars') %></li>
-    <li><%= link_to('5', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 5}, :class => 'five-stars') %></li>
+    <li><%= link_to('1', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 1}, :class => 'one-star', 'data-data_object_id' => data_object.id, 'data-data_type' => (data_object.image? ? 'image' : 'other')) %></li>
+    <li><%= link_to('2', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 2}, :class => 'two-stars', 'data-data_object_id' => data_object.id, 'data-data_type' => (data_object.image? ? 'image' : 'other')) %></li>
+    <li><%= link_to('3', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 3}, :class => 'three-stars', 'data-data_object_id' => data_object.id, 'data-data_type' => (data_object.image? ? 'image' : 'other')) %></li>
+    <li><%= link_to('4', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 4}, :class => 'four-stars', 'data-data_object_id' => data_object.id, 'data-data_type' => (data_object.image? ? 'image' : 'other')) %></li>
+    <li><%= link_to('5', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 5}, :class => 'five-stars', 'data-data_object_id' => data_object.id, 'data-data_type' => (data_object.image? ? 'image' : 'other')) %></li>
   </ul>
   </span>
 <% else %>

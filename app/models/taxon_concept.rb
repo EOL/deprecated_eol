@@ -715,6 +715,7 @@ private
     sorted_mappings = mappings.sort_by { |mapping| mapping["agent_name"] }
     
     return {
+          :category_name => 'Specialist Projects',
           :content_type => 'ubio_links',
           :category_name => 'Specialist Projects',
           :projects => sorted_mappings

@@ -51,7 +51,7 @@ class DataType < SpeciesSchemaModel
 
 private
   def self.get_type_ids(which)
-    Rails.cache.fetch("data_types/ids/#{which.join('+')}") do
+    Rails.cache.fetch("data_types/ids/#{which.join('+').gsub(' ','_')}") do
       return which.collect { |type| DataType.find_all_by_label(type) }.flatten.collect {|type| type.id }
     end
   end

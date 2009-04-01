@@ -42,7 +42,7 @@
 <tr><td><strong>Title:</strong></td><td><%=f.text_field :title, {:size=>'50',:maxlength=>'100'}%><br />shown to user as title of page</td></tr>
 <% if @page.content_section.name != 'Home Page' %>
   <tr><td><strong>Page Name:</strong></td><td><%=f.text_field :page_name, {:size=>'50',:maxlength=>'100'}%><br />used for URLS - should be unique (except for translated pages); if not, URLs to page must use page ID</td></tr>
-  <tr><td><strong>Redirect to URL:</strong></td><td><%=f.text_field :url, {:size=>'50',:maxlength=>'200'}%><br />if page is placeholder for a menu item to a specific URL, enter URL instead of entering content below</td></tr>
+  <tr><td><strong>Redirect to URL:</strong></td><td><%=f.text_field :url, {:size=>'50',:maxlength=>'200'}%><br />ONLY USE if page is placeholder for a menu item to a specific external URL, in this case: enter URL instead of entering content below; otherwise leave blank</td></tr>
   <tr><td><strong>Open in new window from menu:</strong></td><td><%=f.check_box :open_in_new_window%></td></tr>
   <tr><td><strong>Sort Order:</strong></td><td><%=f.text_field :sort_order, {:size=>'2',:maxlength=>'2'}%></td></tr>
   <tr><td><strong>Published:</strong></td><td><%=f.check_box :active%> - must be checked in order to view</td></tr>

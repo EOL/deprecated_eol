@@ -38,7 +38,11 @@ module Logging
     end
     
     def geocode_all
-            chunk_size = 200
+      # FOR ERROR LOGGING
+      num_logs_that_didnt_save  = 0
+      first_log_that_didnt_save = nil
+
+      chunk_size = 200
       require 'geo_kit/geocoders'
       include GeoKit::Geocoders
       
@@ -72,11 +76,36 @@ module Logging
 
             else
               # We can use the cached result!
-              log.ip_address = addr
-              log.save!
+              l.ip_address = addr
+
+              begin
+                l.save!
+              rescue Exception => ex
+                # for now, we need to deal with the fact that this is 
+                # getting production errors and just not save the log, 
+                # if there's an error
+                #
+                # we will figure out why some logs aren't working, in the future
+                #
+                # if most logs are coming through, that's what we really need!
+                #
+                # for now, eat errors here
+                #
+                num_logs_that_didnt_save += 1
+                first_log_that_didnt_save = l unless first_log_that_didnt_save
+              end
+
             end
           end
         end
+      end
+
+      if num_logs_that_didnt_save > 0
+        message = "#{ num_logs_that_didnt_save } logs threw errors while " + 
+                  "attempting to be saved!  the first log: #{ first_log_that_didnt_save.inspect }"
+        Rails.logger.error message
+        Rails.logger.flush # commit anything logged to the actual log file
+                                   # as Rails doen't enable auto_flushing in production mode
       end
     end
     

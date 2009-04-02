@@ -3,7 +3,7 @@
 .star-rating a:active,
 .star-rating a:focus,
 .star-rating .current-rating{
-	background: url(/images/star_rating/starbar.gif)  left -1200px repeat-x;
+	background: url(/images/star_rating/starbar.gif)  left -1000px repeat-x;
 
 }
 .star-rating{
@@ -24,7 +24,7 @@
 	position:absolute;
 	top:0;
 	left:0;
-	text-indent:-1200em;
+	text-indent:-1000em;
 	height:12px;
 	line-height:12px;
 	outline:none;

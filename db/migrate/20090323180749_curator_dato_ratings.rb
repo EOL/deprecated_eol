@@ -5,11 +5,6 @@ class CuratorDatoRatings < ActiveRecord::Migration
       t.integer :data_object_id
       t.integer :rating
     end
-
-    DataObject.find(:all).each do |dato|
-      dato.data_rating = 0.0
-      dato.save!
-    end
   end
 
   def self.down

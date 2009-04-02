@@ -22,15 +22,20 @@ class EOLWebService
   
   #finds local ip used by the host for remote connection
   def self.local_ip
-    return nil if RAILS_ENV == 'test'
-    orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
+    begin
+      return nil if RAILS_ENV == 'test'
+      orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
 
-    UDPSocket.open do |s|
-      s.connect '64.233.187.99', 1   # this is Google's IP address
-      s.addr.last
+      UDPSocket.open do |s|
+        s.connect '64.233.187.99', 1   # this is Google's IP address
+        s.addr.last
+      end
+    rescue Errno::ENETUNREACH
+      # do nothing, the network is unreachable
     end
+
     ensure
-    Socket.do_not_reverse_lookup = orig
+      Socket.do_not_reverse_lookup = orig
   end
    
  # calls the webservice with the supplied querystring parameters and returns the XML response if the call was successful, otherwise returns NIL

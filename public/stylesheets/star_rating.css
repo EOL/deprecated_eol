@@ -71,7 +71,7 @@
 
 /* smaller star */
 .small-star{
-	width:63px;
+	width:65px;
 	height:12px;
 }
 .small-star,
@@ -82,4 +82,7 @@
 	background-image: url(/images/star_rating/starbar.gif);
 	line-height: 12px;
 	height: 12px;
-}
+}
+
+
+

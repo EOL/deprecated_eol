@@ -19,9 +19,4 @@
     <li><%= link_to('5', {:controller => 'data_objects', :action => 'rate', :id => data_object.id, :stars => 5}, :class => 'five-stars', 'data-data_object_id' => data_object.id, 'data-data_type' => (data_object.image? ? 'image' : 'other')) %></li>
   </ul>
   </span>
-<% else %>
-
-  <ul class="star-rating">
-    <li class="current-rating" style="width:<%= rate_percentage %>%;">Overall: <%= data_object.data_rating.to_s %></li>
-  </ul>
 <% end %>

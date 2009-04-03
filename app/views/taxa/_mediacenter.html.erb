@@ -80,17 +80,6 @@
                 <%=render :partial => 'star_rating', :locals => {:data_object => @images[0]}%>
               </div>
 
-              <div class="image_rating" style="display:none;">
-                <div>
-                  Average Rating: <%=@images[0].data_rating.to_s%>
-                </div>
-                <% if current_user.can_curate?(@taxon) %>
-                  <div>
-                    Your Rating: <%=(r = @images[0].rating_for_user(current_user)) ? r.rating : 0 %>
-                  </div>
-                <%end%>
-              </div>
-
           </div> <!-- /large-image-buttons -->
 
           <% end %><%# end of unless images.blank? %>

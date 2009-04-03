@@ -76,10 +76,10 @@ module Logging
 
             else
               # We can use the cached result!
-              l.ip_address = addr
+              log.ip_address = addr
 
               begin
-                l.save!
+                log.save!
               rescue Exception => ex
                 # for now, we need to deal with the fact that this is 
                 # getting production errors and just not save the log, 
@@ -92,7 +92,7 @@ module Logging
                 # for now, eat errors here
                 #
                 num_logs_that_didnt_save += 1
-                first_log_that_didnt_save = l unless first_log_that_didnt_save
+                first_log_that_didnt_save = log unless first_log_that_didnt_save
               end
 
             end

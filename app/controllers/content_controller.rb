@@ -3,7 +3,7 @@ class ContentController < ApplicationController
   layout 'main'
 
   before_filter :check_for_survey if $SHOW_SURVEYS
-  before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
+  prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
 
   def index
 

@@ -128,7 +128,7 @@ class DataObject < SpeciesSchemaModel
       roles_to_insert_after = AgentRole[ :Author, :Source ]
       index_to_insert_rights = 0
       # logo_cache_url isn't working, nor is logo_url  :(
-      rights_agent  = Agent.new :project_name => (rights_statement.empty? ? a_license.description : "#{rights_statement} #{a_license.description}"), 
+      rights_agent  = Agent.new :project_name => (rights_statement.empty? ? a_license.description : "#{rights_statement.strip}. #{a_license.description}"), 
                                 :homepage => a_license.source_url, :logo_url => a_license.logo_url, :logo_cache_url => 0, 
                                 :logo_file_name => a_license.logo_url # <-- check for the presence of logo_file name
       rights_object = AgentsDataObject.new :agent => rights_agent, :agent_role => AgentRole.new(:label => 'Copyright'), :view_order => 0

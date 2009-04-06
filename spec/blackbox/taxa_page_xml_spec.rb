@@ -8,6 +8,12 @@ EOL::NestedSet.send :extend, EOL::Data
 describe 'Taxa page XML' do
 
   before(:all) do
+    begin
+      if TaxonConcept.find(910093)
+        truncate_all_tables
+      end
+    rescue
+    end
     Scenario.load :foundation
     @exemplar        = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
     @parent          = build_taxon_concept

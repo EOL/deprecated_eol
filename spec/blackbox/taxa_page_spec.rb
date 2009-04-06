@@ -8,7 +8,11 @@ describe 'Taxa page (HTML)' do
     Scenario.load :foundation
 
     # Long list of items to test:
-    @exemplar        = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
+    begin
+      @exemplar        = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
+    rescue
+      #there's already a tc with that id
+    end
     @parent          = build_taxon_concept
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'

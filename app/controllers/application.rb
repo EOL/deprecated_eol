@@ -155,6 +155,10 @@ end
     url_for(:controller=>controller_name, :action=>action_name)
   end
   
+  def referred_url
+    request.referer
+  end
+  
   # Redirect to the URL stored by the most recent store_location call or to the passed default.
   def redirect_back_or_default(default=home_page_url)
 

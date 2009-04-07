@@ -18,13 +18,15 @@ class Administrator::SearchSuggestionController < AdminController
   def new
 
     @search_suggestion = SearchSuggestion.new
-
+    store_location(referred_url) if request.get?    
+    
   end
 
   def edit
     
     @search_suggestion = SearchSuggestion.find(params[:id])
-  
+    store_location(referred_url) if request.get?    
+      
   end
 
   def create
@@ -35,7 +37,7 @@ class Administrator::SearchSuggestionController < AdminController
         
      if @search_suggestion.save
       flash[:notice] = 'The search suggestion was successfully created.'
-      redirect_to :action=>'index' 
+      redirect_back_or_default(url_for(:action=>'index'))
      else
       render :action => "new" 
     end
@@ -48,7 +50,7 @@ class Administrator::SearchSuggestionController < AdminController
 
     if @search_suggestion.update_attributes(params[:search_suggestion])
       flash[:notice] = 'The search suggestion was successfully updated.'
-      redirect_to :action=>'index' 
+      redirect_back_or_default(url_for(:action=>'index'))
     else
       render :action => "edit" 
     end
@@ -58,12 +60,12 @@ class Administrator::SearchSuggestionController < AdminController
 
   def destroy
 
-    (redirect_to :action=>'index';return) unless request.method == :delete
+    (redirect_to referred_url;return) unless request.method == :delete
     
     @search_suggestion = SearchSuggestion.find(params[:id])
     @search_suggestion.destroy
 
-    redirect_to :action=>'index' 
+    redirect_to referred_url 
   
   end
 

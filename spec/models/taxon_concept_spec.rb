@@ -126,7 +126,7 @@ describe TaxonConcept do
                       :taxon => @taxon_concept.taxa.first,
                       :object_cache_url => Factory.next(:map))
     @taxon_concept.map.should_not be_nil
-    @taxon_concept.map.should_not be_an Array
+    @taxon_concept.map.should_not be_an(Array)
     @taxon_concept.map.description.should == @map_text
   end
 

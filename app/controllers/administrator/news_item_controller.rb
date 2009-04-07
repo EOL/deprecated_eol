@@ -13,12 +13,14 @@ class Administrator::NewsItemController < AdminController
 
   def new
 
+    store_location(referred_url) if request.get?    
     @news_item = NewsItem.new
 
   end
 
   def edit
     
+    store_location(referred_url) if request.get?            
     @news_item = NewsItem.find(params[:id])
   
   end
@@ -30,7 +32,7 @@ class Administrator::NewsItemController < AdminController
      if @news_item.save
       flash[:notice] = 'The news item was successfully created.'
       expire_cache('Home')
-      redirect_to :action=>'index' 
+      redirect_back_or_default(url_for(:action=>'index'))
      else
       render :action => 'new' 
     end
@@ -44,7 +46,7 @@ class Administrator::NewsItemController < AdminController
     if @news_item.update_attributes(params[:news_item])
       flash[:notice] = 'The news item was successfully updated.'
       expire_cache('Home')
-      redirect_to :action=>'index' 
+      redirect_back_or_default(url_for(:action=>'index'))
     else
       render :action => 'edit' 
     end
@@ -54,13 +56,13 @@ class Administrator::NewsItemController < AdminController
 
   def destroy
     
-    (redirect_to :action=>'index';return) unless request.method == :delete
+    (redirect_to referred_url;return) unless request.method == :delete
     
     @news_item = NewsItem.find(params[:id])
     @news_item.destroy
     expire_cache('Home')
       
-    redirect_to :action=>'index' 
+    redirect_to referred_url
   
   end
 

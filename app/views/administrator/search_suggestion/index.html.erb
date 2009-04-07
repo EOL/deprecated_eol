@@ -24,7 +24,7 @@ be directed to as a suggestion.  Suggested results always appear above other res
 					<td class="<%= column_class %>"><%=search_suggestion.common_name%></td>
 					<td class="<%= column_class %>"><%=image_tag(search_suggestion.image_url) unless search_suggestion.image_url.blank?%></td>
 
-					<td class="<%= column_class %>"><%=link_to '[test search]',taxon_url(:id=>search_suggestion.taxon_id),:target=>'_blank'%><br /><%=link_to '[delete]',{:action=>'destroy',:id=>search_suggestion.id},:confirm => 'This cannot be undone; are you sure?', :method => :delete %></td>
+					<td class="<%= column_class %>"><%=link_to '[search]',taxon_url(:id=>search_suggestion.taxon_id),:target=>'_blank'%><br /><%=link_to '[delete]',{:action=>'destroy',:id=>search_suggestion.id},:confirm => 'This cannot be undone; are you sure?', :method => :delete %></td>
 				</tr>									
 			<% end %>
 		    </table>

@@ -77,12 +77,14 @@ class Administrator::UserController  < AdminController
   end
   
   def edit
-    
+
+    store_location(referred_url) if request.get?    
     @user=User.find(params[:id])
     
   end
   
   def new  
+    store_location(referred_url) if request.get?
     @user=User.create_new
   end
   
@@ -95,11 +97,11 @@ class Administrator::UserController  < AdminController
     
     @user.password=@user.entered_password
     params[:user][:role_ids] ||= []
-    @user.set_curator(EOLConvert.to_boolean(params[:user][:curator_approved]),current_user)
     
     if @user.save
+      @user.set_curator(EOLConvert.to_boolean(params[:user][:curator_approved]),current_user)
       flash[:notice]="The new user was created."
-      redirect_to :action=>'index'
+      redirect_back_or_default(url_for(:action=>'index'))
     else
       render :action=>'new'
     end
@@ -110,15 +112,15 @@ class Administrator::UserController  < AdminController
   
    @user = User.find(params[:id])  
    @message=params[:message]
-
+  
    Notifier.deliver_user_message(@user.full_name,@user.email,@message) unless @message.blank?
    
    @user.password=params[:user][:entered_password] unless params[:user][:entered_password].blank? && params[:user][:entered_password_confirmation].blank?
-   @user.set_curator(EOLConvert.to_boolean(params[:user][:curator_approved]),current_user)
    
    if @user.update_attributes(params[:user])
+      @user.set_curator(EOLConvert.to_boolean(params[:user][:curator_approved]),current_user)
       flash[:notice]="The user was updated."
-      redirect_to :action=>'index' 
+      redirect_back_or_default(url_for(:action=>'index'))
     else
       render :action=>'edit'
     end
@@ -127,12 +129,13 @@ class Administrator::UserController  < AdminController
 
  def destroy
 
-   (redirect_to :action=>'index';return) unless request.method == :delete
+   (redirect_to referred_url ;return) unless request.method == :delete
    
    @user = User.find(params[:id])
    @user.destroy
 
-   redirect_to :action=>'index' 
+   redirect_to referred_url 
+   
  end
  
   def toggle_curator

@@ -204,22 +204,26 @@ class TaxaController < ApplicationController
 
         end
       end
-      format.xml do
-        params[:search_language] ||= '*'
-        # Not thrilled about this cache key, but we MUST detaint them, and it MUST include all criteria that affects
-        # the search:
-        key = "search/xml/#{params[:search_language].sub(/\*/, 'DEFAULT')}/#{params[:q].gsub(/[^-_A-Za-z0-9]/, '_')}"
-        xml = Rails.cache.fetch(key, :expires_in => 8.hours) do
-          results = TaxonConcept.quick_search(params[:q], :search_language => params[:search_language])
-          xml_hash = {
-            'taxon-pages' => (results[:scientific] + results[:common]).flatten.map { |r| TaxonConcept.find(r['id']) }
-          }
-          xml_hash['errors'] = results[:errors] unless results[:errors].nil?
-          xml_hash.to_xml(:root => 'results')
+       format.xml do
+          params[:search_language] ||= '*'
+          # Not thrilled about this cache key, but we MUST detaint them, and it MUST include all criteria that affects
+          # the search:
+          if !params[:q].blank?
+            key = "search/xml/#{params[:search_language].sub(/\*/, 'DEFAULT')}/#{params[:q].gsub(/[^-_A-Za-z0-9]/, '_')}"
+            xml = Rails.cache.fetch(key, :expires_in => 8.hours) do
+              results = TaxonConcept.quick_search(params[:q], :search_language => params[:search_language])
+              xml_hash = {
+                'taxon-pages' => (results[:scientific] + results[:common]).flatten.map { |r| TaxonConcept.find(r['id']) }
+              }
+              xml_hash['errors'] = results[:errors] unless results[:errors].nil?
+              xml_hash.to_xml(:root => 'results')
+            end
+          else # user didn't send us any search parameter, so return a blank result
+            xml=Hash.new.to_xml(:root => 'results')
+          end
+          render :xml => xml
         end
-        render :xml => xml
       end
-    end
 
   end
 

@@ -11,6 +11,8 @@ class LoggingModel < ActiveRecord::Base
 
   def self.create(opts = {})
     instance = self.new(opts)
+    instance.created_at = Time.now if instance.respond_to? :created_at
+    instance.updated_at = Time.now if instance.respond_to? :updated_at
     if self.connection.prefetch_primary_key?(self.table_name)
       instance.id = self.connection.next_sequence_value(self.sequence_name)
     end

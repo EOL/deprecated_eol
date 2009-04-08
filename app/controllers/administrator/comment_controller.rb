@@ -12,7 +12,8 @@ class Administrator::CommentController  < AdminController
   end
 
   def edit
-    
+
+    store_location(referred_url) if request.get?    
     @comment = Comment.find(params[:id])
   
   end
@@ -20,11 +21,10 @@ class Administrator::CommentController  < AdminController
   def update
 
     @comment = Comment.find(params[:id])
-
+    
     if @comment.update_attributes(params[:comment])
       flash[:notice] = 'The comment was successfully updated.'
-      expire_cache('Home')
-      redirect_to :action=>'index' 
+      redirect_back_or_default(url_for(:action=>'index'))
     else
       render :action => 'edit' 
     end
@@ -34,12 +34,12 @@ class Administrator::CommentController  < AdminController
 
   def destroy
     
-    (redirect_to :action=>'index';return) unless request.method == :delete
+    (redirect_to referred_url;return) unless request.method == :delete
     
     @comment = Comment.find(params[:id])
     @comment.destroy
       
-    redirect_to :action=>'index' 
+    redirect_to referred_url 
   
   end
   

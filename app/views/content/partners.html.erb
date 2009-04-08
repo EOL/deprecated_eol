@@ -15,10 +15,10 @@
 				<div id="partners">
 
 					<% if @partners.nil? == false && @partners.size > 0 %>
-					<p>Encyclopedia of Life content partners serve authenticated species information through the EOL portal. After developing a joint commitment, the content partners work closely with the EOL component groups to make their data visible within EOL.</p>
+					<p>Encyclopedia of Life content partners serve authenticated species information through the EOL portal. After developing a joint commitment, the content partners work closely with the EOL component groups to make their data visible within EOL. Current content partners can <%=link_to 'log in',:controller=>'content_partner',:action=>'login' %> to manage their information, and new content partners can  <%=link_to 'register',:controller=>'content_partner',:action=>'register' %> or <%=link_to 'learn more',:controller=>'content',:action=>'page',:id=>'help_build_eol'%> about becoming involved.</p>
 				<br />
 					<p>Note that all of these partners maintain their own Web sites where you will find additional information not available through EOL. We urge you to click through to their sites to examine the richness of information each of them contains.</p>
-						<br />
+				  <br />					
 					    <table  width="100%" class="results_table" cellspacing="0">
 					    <tr><th>Partner</th><th>Description</th></tr>
 						<% for partner in @partners

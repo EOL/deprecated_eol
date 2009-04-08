@@ -17,7 +17,7 @@ class Administrator::UserController  < AdminController
     rescue
     end
     
-    blank_date_condition=' OR (created_at is null)' if @blank_dates
+    blank_date_condition=' OR (created_at is null)' unless @blank_dates
     
     condition="((created_at>=? AND created_at<=?) #{blank_date_condition}) AND (id=? OR email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
         

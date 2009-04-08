@@ -9,7 +9,7 @@
 	<br />
 	who registered from <%= calendar_date_select_tag "start_date", @start_date, :embedded => false, :year_range => 2009..2019 %>
 	to <%= calendar_date_select_tag "end_date", @end_date, :embedded => false, :year_range => 2009..2019 %>
-  <br /><%= check_box_tag 'blank_dates','1',@blank_dates %> Also show unknown registered dates (all prior to Jan 5, 2009)
+  <br /><%= check_box_tag 'blank_dates','1',@blank_dates %> Don't show unknown registered dates (all prior to Jan 5, 2009)
   <br />
 
   <%= submit_tag 'Search' %><br />
@@ -23,7 +23,7 @@
 		
 		<%= will_paginate @users %>
 		    <table class="results_table" cellspacing="0">
-		    <tr><th>UserName</th><th>Email</th><th>Name</th><th>Created At</th><th>OpenID?</th></tr>
+		    <tr><th>Username</th><th>Email</th><th>Name</th><th>Created At</th><th>OpenID?</th></tr>
 			<% for user in @users
 				column_class=cycle('odd','even')  %>
 			    <tr>

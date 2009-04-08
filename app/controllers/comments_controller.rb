@@ -9,6 +9,7 @@ class CommentsController < ApplicationController
 
     before :create do
       current_object.user_id = current_user.id
+      current_object.from_curator = parent_object.is_curatable_by?(current_user) 
     end
 
     after :create do

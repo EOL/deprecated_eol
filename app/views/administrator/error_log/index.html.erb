@@ -10,7 +10,7 @@
 		<% if @errors.nil? == false && @errors.size > 0 %>
     <form id="page-form" action="/administrator/error_log/index" method="post">
 		The following <%=@errors_count%> errors are in the error log <%="for date #{@date}" unless @date.blank?%>.  Filter by day: 
-		<%= select_tag(:date, '<option value="">--select--</option><option value="">all dates</option>' + options_from_collection_for_select(@distinct_dates,:date, :date,@date),{:onChange=>"JavaScript:$('page-form').submit();"}) %> 
+		<%= select_tag(:date, '<option value="">--select--</option><option value="all">all dates</option>' + options_from_collection_for_select(@distinct_dates,:date, :date,@date),{:onChange=>"JavaScript:$('page-form').submit();"}) %> 
 
 			<br />
 

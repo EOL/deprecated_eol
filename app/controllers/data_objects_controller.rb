@@ -7,7 +7,7 @@ class DataObjectsController < ApplicationController
 
   def curator_only
     if !current_user.can_curate?(@data_object)
-      raise Exception.new 'Not logged in as curator'
+      raise Exception.new('Not logged in as curator')
     end
   end
 

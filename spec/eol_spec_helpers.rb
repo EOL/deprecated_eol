@@ -238,12 +238,18 @@ module EOL::Spec
                        :italicized     => options[:italicized] || "<i>#{canon}</i> #{attri}".strip)
       cname = Name.gen(:canonical_form => cform, :string => common_name, :italicized => common_name)
 
-      tc    = TaxonConcept.gen(:vetted => Vetted.trusted)
+      tc    = nil # scope...
       # HACK!  We need to force the IDs of one of the TaxonConcepts, so that the exmplar array isn't empty.  I
       # hate to do it this way, but, alas, this is how it currently works:
       if options[:id]
-        TaxonConcept.connection.execute("UPDATE taxon_concepts SET id = #{options[:id]} WHERE id = #{tc.id}")
-        tc = TaxonConcept.find(options[:id])
+        tc = TaxonConcept.find(options[:id]) rescue nil
+        if tc.nil?
+          tc = TaxonConcept.gen(:vetted => Vetted.trusted)
+          TaxonConcept.connection.execute("UPDATE taxon_concepts SET id = #{options[:id]} WHERE id = #{tc.id}")
+          tc = TaxonConcept.find(options[:id])
+        end
+      else
+        tc = TaxonConcept.gen(:vetted => Vetted.trusted)
       end
 
       # Note that this assumes the ranks are *in order* which is ONLY true with foundation loaded!

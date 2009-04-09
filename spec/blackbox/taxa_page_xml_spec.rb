@@ -53,7 +53,8 @@ describe 'Taxa page XML' do
                          :comments        => [{:body => @comment_1},{:body => @comment_bad},{:body => @comment_2}],
                          # We want more than 10 images, to test pagination, but details don't matter:
                          :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
-                                              {:object_cache_url => @image_3}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+                                              {:object_cache_url => @image_3},
+                                              {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
                          :toc             => [{:toc_item => @overview, :description => @overview_text}, 
                                               {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
     @child1        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
@@ -156,8 +157,11 @@ describe 'Taxa page XML' do
       @images_xml.xpath('//images/image').length.should == 10
     end
 
-    # This test assumes that there are more than 10 images and less than 21.
     it 'should return second page of images XML on call to /pages/NNN/images/2.xml' do
+      # If these two tests are failing, something is wrong with build_taxon_concept.  They must pass for the rest of
+      # this test to be valid:
+      @taxon_concept.images.length.should > 10
+      @taxon_concept.images.length.should < 21
       images_xml_page_2 = Nokogiri::XML(RackBox.request("/pages/#{@taxon_concept.id}/images/2.xml").body)
       images_xml_page_2.xpath('//images').should_not be_empty
       images_xml_page_2.xpath('//images/image').length.should == @taxon_concept.images.length - 10

@@ -130,9 +130,8 @@ Event.addBehavior(
     } else {
       var agree = true;
     }
-
     if (agree) {
-      window.open('/external_link?url=' + this.href.escapeHTML());
+      window.open('/external_link?url=' + escape(this.href));
     } else {
       return false ;
     }

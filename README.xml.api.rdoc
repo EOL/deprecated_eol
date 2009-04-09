@@ -33,8 +33,7 @@ This will return an array of taxon pages with minimal information for each:
 
 == search.xml?q=frizzlebek
 
-This will return an array of taxon-pages matching your query, up to a maximum of *TODO - there is no maximum*. TODO
-- there are several options allowed here (query_language, etc) which must be described
+This will return an array of taxon-pages matching your query.
 
   <?xml version="1.0" encoding="UTF-8"?>
   <results>
@@ -52,8 +51,7 @@ This will return an array of taxon-pages matching your query, up to a maximum of
 
 == pages/6.xml
 
-This will return a (rather) detailed set of information for the taxon-page ID requested. *TODO - explain the
-nodes in more detail.*
+This will return a (rather) detailed set of information for the taxon-page ID requested.
 
   <?xml version="1.0" encoding="UTF-8"?>
   <taxon-page>
@@ -234,7 +232,7 @@ nodes in more detail.*
 
 == pages/6/images/1.xml
 
-Return a paginated list of images, up to a maximum of 10 per page.  TODO - there are some options allowed.
+Return a paginated list of images, up to a maximum of 10 per page.
 
   <?xml version="1.0" encoding="UTF-8"?>
   <results>

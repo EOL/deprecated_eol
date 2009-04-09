@@ -6,6 +6,7 @@ describe 'Taxa page (HTML)' do
   before(:all) do
 
     Scenario.load :foundation
+    HierarchiesContent.delete_all
 
     # Long list of items to test:
     @exemplar        = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.

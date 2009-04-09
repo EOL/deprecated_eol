@@ -15,6 +15,7 @@ describe 'Taxa page XML' do
     rescue
     end
     Scenario.load :foundation
+    HierarchiesContent.delete_all
     @exemplar        = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
     @parent          = build_taxon_concept
     @overview        = TocItem.overview

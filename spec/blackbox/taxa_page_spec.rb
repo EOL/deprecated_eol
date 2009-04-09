@@ -6,6 +6,7 @@ describe 'Taxa page (HTML)' do
   before(:all) do
 
     Scenario.load :foundation
+    HierarchiesContent.delete_all
 
     # Long list of items to test:
     begin

@@ -164,7 +164,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Because nested has_many_through won't work with CPKs:
   def mappings
-    Rails.cache.fetch("taxon_concepts/#{self.id}/mappings") do
+    YAML.load(Rails.cache.fetch("taxon_concepts/#{self.id}/mappings") do
       Mapping.find_by_sql(%Q{
         SELECT DISTINCT m.id, m.collection_id, m.name_id, m.foreign_key
           FROM taxon_concept_names tcn
@@ -172,8 +172,8 @@ class TaxonConcept < SpeciesSchemaModel
             JOIN collections c ON (m.collection_id=c.id)
             JOIN agents a ON (c.agent_id=a.id)
           WHERE tcn.taxon_concept_id = #{id} GROUP BY c.id  -- TaxonConcept#mappings
-      }).sort_by {|m| m.id }.uniq
-    end
+      }).sort_by {|m| m.id }.uniq.to_yaml
+    end)
   end
 
   # I chose not to make this singleton since it should really only ever get called once:

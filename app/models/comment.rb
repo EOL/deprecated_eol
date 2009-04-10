@@ -126,7 +126,6 @@ protected
   end
 
   def set_from_curator
-    #self.from_curator = parent.is_curatable_by?(user) if self.from_curator.nil?
     (self.from_curator = user.can_curate? parent) if self.from_curator.nil?
     return self.from_curator.to_s
   end

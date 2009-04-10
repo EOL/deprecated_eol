@@ -13,8 +13,8 @@ class Comment < ActiveRecord::Base
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
   named_scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
 
-  before_create :set_visible_at
-
+  before_create :set_visible_at, :set_from_curator
+  
   validates_presence_of :body
 
   attr_accessor :vetted_by
@@ -79,6 +79,22 @@ class Comment < ActiveRecord::Base
   def is_curatable_by? user
     user.can_curate? parent
   end
+  
+=begin
+  def parent
+    return_parent=self.parent_type
+    case self.parent_type
+     when 'TaxonConcept' then 
+        tc=TaxonConcept.find_by_id(self.parent_id)
+        return_name=tc.name unless tc.blank?
+     when 'DataObject' then
+        d=DataObject.find_by_id(self.parent_id)
+        return_name=d.description unless d.blank?
+    end
+    return return_name
+  end
+  ---
+=end
 
   # TODO - this method should not have a bang.  (See Matz' rant)
   def show! user = nil
@@ -108,6 +124,13 @@ protected
   def set_visible_at
     self.visible_at ||= Time.now
   end
+
+  def set_from_curator
+    #self.from_curator = parent.is_curatable_by?(user) if self.from_curator.nil?
+    (self.from_curator = user.can_curate? parent) if self.from_curator.nil?
+    return self.from_curator.to_s
+  end
+
 
 end
 

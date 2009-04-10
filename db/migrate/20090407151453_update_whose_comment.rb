@@ -3,12 +3,13 @@ class UpdateWhoseComment < ActiveRecord::Migration
   def self.up
     #for old comments marks from_curator as true if author of a comment can curate a object of commenting
     Comment.find(:all).each do |comment|
-			comment_user = User.find(comment.user_id)
-			comment.parent_type == 'DataObject' ? comment_parent = DataObject.find(comment.parent_id) : comment_parent = TaxonConcept.find(comment.parent_id) 
-
-			this_is_curatable = comment_parent.is_curatable_by?(comment_user)
-      
-			comment.update_attributes(:from_curator => this_is_curatable) # true, if author of a comment is a curator
+			comment_user = comment.user
+      # JRice changed this to use comment.user and comment.parent, instead of User.find() and the like.
+      # I was getting some errors in the test database, whose state is not... err... stable.
+      if comment.user && comment.parent
+        this_is_curatable = comment.parent.is_curatable_by?(comment.user)
+        comment.update_attributes(:from_curator => this_is_curatable) # true, if author of a comment is a curator
+      end
     end
   end
 
@@ -20,4 +21,3 @@ class UpdateWhoseComment < ActiveRecord::Migration
     end
   end
 end
-

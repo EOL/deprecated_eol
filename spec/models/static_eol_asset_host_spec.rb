@@ -17,7 +17,7 @@ describe StaticEolAssetHost do
     @asset_host.call(js).should =~ /static2/
   end
   
-  it "should use not use static1 or static2 for image assets" do
+  it "should use use neither static1 nor static2 for image assets" do
     png = "/images/test.png?1230601161"
     @asset_host.call(png).should_not =~ /static1/
     @asset_host.call(png).should_not =~ /static2/

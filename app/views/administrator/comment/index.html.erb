@@ -1,8 +1,10 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'User Comments'} %>
 
+All comments entered by users on the website are shown below, sorted inversely by time created.  
+Click on a username to view that user's detailed profile, click on the data type to view the object commented on (use your browser back button to return here), click on "edit" to edit the comment or click on "delete" the permanently delete the comment.
 <div id="comments">
 	<% form_tag({:action=>'index'},:method=>'get') do -%>
-	Search for comments containing: <%= text_field_tag(:term_search_string,@term_search_string)%> <%= submit_tag 'Search' %>
+	Search for comments containing the text: <%= text_field_tag(:term_search_string,@term_search_string)%> <%= submit_tag 'Search' %>
 	<br />
 
 	<br /><br />

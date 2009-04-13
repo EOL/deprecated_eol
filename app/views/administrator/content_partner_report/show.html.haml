@@ -9,7 +9,7 @@
 %br/
 
 - if @agent.ready_for_agreement?  
-  Click circles or checkmarks below to (checkmark indicates action has already been performed):
+  Click circles or checkmarks below to perform those actions (checkmark indicates action has already been performed):
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.show_on_partner_page?, :id => 'show_on_cp_page_img'),  :url => { :action => 'show_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_on_partner_page? ? 'hide' : 'show'} this partner on the content partner page?")
   Show
@@ -35,7 +35,7 @@
   = @agent.project_name
   is not ready for their agreement.
 
-%table.results_table{ :width => "80%" }
+%table.results_table{ :width => "100%" }
   %tr
     %th
       Step
@@ -63,7 +63,7 @@
       = content_partner_date(@agent.content_partner.contacts_complete_step)
     %td.even
       - if @agent.agent_contacts.any?
-        = link_to @agent.agent_contacts.count.to_s + ' contacts',:action=>'show_contacts',:id=>@agent.id.to_s
+        = link_to "show #{@agent.agent_contacts.count.to_s} contacts",:action=>'show_contacts',:id=>@agent.id.to_s
       - else
         None
   %tr
@@ -116,9 +116,9 @@
       %td.odd
         Agreement
         %br/
-        = link_to('View agreement',{:controller=>'/content_partner',:action=>'agreement',:id=>@agent.id},{:target=>'blank'})
+        = link_to('[view agreement]',{:controller=>'/content_partner',:action=>'agreement',:id=>@agent.id},{:target=>'blank'})
         |
-        = link_to('Edit agreement',:action=>'edit_agreement',:id=>@agent.id)        
+        = link_to('[edit agreement]',:action=>'edit_agreement',:id=>@agent.id)        
       %td.odd
         N/A
       %td.odd
@@ -131,7 +131,7 @@
   Resources Associated With This Content Partner:
   %br/
   %br/
-  %table.results_table{ :width => "70%" }
+  %table.results_table{ :width => "100%" }
     %tr
       %th
         Title
@@ -159,9 +159,9 @@
         %td{:class => column_class}
           = h (resource.license.blank? ? "unspecified" : resource.license.title)
         %td{:class => column_class}
-          = link_to 'Edit Resource', edit_resource_path(resource, :content_partner_id => @agent.id)
+          = link_to '[edit resource]', edit_resource_path(resource, :content_partner_id => @agent.id)
           %br/
-          = link_to 'View Harvests', resource_harvest_events_url(resource, :content_partner_id => @agent.id)
+          = link_to '[view harvests]', resource_harvest_events_url(resource, :content_partner_id => @agent.id)
 
 #message_area.message
 = render :partial => '/admin/content_bottom'

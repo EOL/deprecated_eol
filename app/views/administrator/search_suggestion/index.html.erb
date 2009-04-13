@@ -1,6 +1,6 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Search Suggestions'} %>
 This area is used to generate search suggestions for users by specifying a term that users are searching on and a page that they should
-be directed to as a suggestion.  Suggested results always appear above other results.
+be directed to as a suggestion.  Suggested results always appear above other results.  You can have multiple suggestions for a given search term.
 
 <div id="search_suggestions">
 	<% form_tag({:action=>'index'},:method=>'get') do -%>

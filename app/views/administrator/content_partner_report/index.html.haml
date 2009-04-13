@@ -1,5 +1,7 @@
-= render :partial => '/admin/content_top', :locals => {:name => 'Content Partner Reports'}
+= render :partial => '/admin/content_top', :locals => {:name => 'Content Partners'}
 
+This section is used to view registered content partners.  Click on a content partner to view details or click on a column
+to sort by that column.
 - form_tag({:action=>'index'},:method=>'get') do
   Search for partner names containing: 
   = text_field_tag(:partner_search_string,@partner_search_string)

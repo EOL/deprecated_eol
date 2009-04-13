@@ -2,7 +2,9 @@ if(!EOL) var EOL = {};
 if(!EOL.Rating) EOL.Rating = {};
 
 EOL.Rating.update_average_image_rating = function(data_object_id, rating) {
-  $$('div.image-rating ul.average-rating li')[0].setStyle('width: '+rating * 20+'%');
+  var items = $$('div.image-rating ul.average-rating li');
+  if (items.length > 0)
+    items[0].setStyle('width: ' + rating * 20 + '%');
   EOL.MediaCenter.image_hash[data_object_id].average_rating = rating;
 };
 
@@ -11,7 +13,9 @@ EOL.Rating.update_average_text_rating = function(data_object_id, rating) {
 };
 
 EOL.Rating.update_user_image_rating = function(data_object_id, rating) {
-  $$('div.image-rating ul.user-rating li')[0].setStyle('width: '+rating * 20+'%');
+  var items = $$('div.image-rating ul.user-rating li');
+  if (items.length > 0)
+    items[0].setStyle('width: ' + rating * 20 + '%');
   EOL.MediaCenter.image_hash[data_object_id].user_rating = rating;
 };
 

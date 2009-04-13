@@ -516,6 +516,7 @@ EOIUCNSQL
     ids = objects_or_ids.map {|o| if   o.is_a? DataObject 
                                   then o.id 
                                   else o.to_i end }
+    return [] if ids.nil? or ids.empty? # Fix for EOLINFRASTRUCTURE-808
     sql = "select taxon_concepts.* from taxon_concepts
     join taxon_concept_names on taxon_concept_names.taxon_concept_id = taxon_concepts.id
     join taxa                on taxa.name_id                         = taxon_concept_names.name_id 

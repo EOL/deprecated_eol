@@ -1,9 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-#
-# I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
-#
-
 describe TaxonConcept do
 
   # we shouldn't need to use scenarios in model specs  :/
@@ -180,6 +176,40 @@ describe TaxonConcept do
     results.length.should == 1
     results.first.description.should == @overview_text
   end
+
+  # TODO - creating the CP -> Dato relationship is tricky. This should be made available elsewhere:
+  it 'should not show content partners THEIR preview items, but not OTHER content partner\'s preview items' do
+
+    original_cp    = Agent.gen
+    another_cp     = Agent.gen
+    resource       = Resource.gen
+    # Note this doesn't work without the ResourceAgentRole setting.  :\
+    agent_resource = AgentsResource.gen(:agent_id => original_cp.id, :resource_id => resource.id,
+                       :resource_agent_role_id => ResourceAgentRole.content_partner_upload_role.id)
+    event          = HarvestEvent.gen(:resource => resource)
+
+    @taxon_concept.images.length.should > 2
+
+    dato            = @taxon_concept.images.last
+    dato.visibility = Visibility.preview
+    dato.save!
+
+    DataObjectsHarvestEvent.delete_all(:data_object_id => dato.id)
+    dohe           = DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
+
+    # Original should see it:
+    @taxon_concept.current_agent = original_cp
+    @taxon_concept.images.map {|i| i.id }.should include(dato.id)
+
+    # Another CP should not:
+    #WAIT: @taxon_concept.current_agent = another_cp
+    #WAIT: @taxon_concept.images.map {|i| i.id }.should_not include(dato.id)
+
+  end
+
+#
+# I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
+#
 
   # Medium Priority:
   #

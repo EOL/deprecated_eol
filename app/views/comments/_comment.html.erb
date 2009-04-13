@@ -1,5 +1,10 @@
 <li><div><p<%= comment.visible? ? '' : ' class="invisible-comment"' %>><%= allow_some_html(h(comment.body)) %></p></div>
-  <h6><strong><%= comment.user.nil? ? 'Anonymous' : comment.user.username %></strong>
+  <h6><strong><%= comment.user.nil? ? 'Anonymous' : comment.user.username %>
+  <% if comment.from_curator == true%>
+   (curator)
+  <%end%>
+	</strong>
+
   <%= comment.updated_at %>
   <% if ( current_user.is_moderator? || current_user.can_curate?(comment)) %><span id="vis_cmnt_<%= comment.id %>" class="invisible-comment"><% if comment.visible? %>[<%= link_to_remote('remove', :url => remove_comment_path(comment),
                                                                               :method  => :put,
@@ -12,4 +17,4 @@
                                         :update  => "vis_cmnt_#{comment.id}" %>]<% else %>&nbsp;<% end %></span>
   <% end %>
   </h6>
-</li> 
+</li>

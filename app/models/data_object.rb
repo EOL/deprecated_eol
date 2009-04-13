@@ -329,9 +329,11 @@ class DataObject < SpeciesSchemaModel
   def visible?
     visibility_id == Visibility.visible.id
   end
+
   def invisible?
     visibility_id == Visibility.invisible.id
   end
+
   def inappropriate?
     visibility_id == Visibility.inappropriate.id
   end
@@ -349,6 +351,10 @@ class DataObject < SpeciesSchemaModel
   end
   alias is_vetted? vetted?
   alias trusted? vetted?
+
+  def preview?
+    visibility_id == Visibility.preview.id
+  end
 
   def show! user = nil
     self.vetted_by = user if user
@@ -464,61 +470,84 @@ class DataObject < SpeciesSchemaModel
 
   def self.cached_images_for_taxon(taxon, options = {})
     options[:user] = User.create_new if options[:user].nil?
+    add_cp = join_agents = ''
     if options[:from].nil?
       options[:from] ||= 'top_images'
     else
       nested = true
     end
-    join_agents = options[:agent].nil?  ? '' : self.join_agents_clause(options[:agent]) if
-        nested
+    # Unpublished images require a few extra bits to the query:
+    if nested and not options[:agent].nil?
+      add_cp      = ', ar.agent_id agent_id'
+      join_agents = self.join_agents_clause(options[:agent])
+    end
+
     # NOTE - left join on the licenses, so they could be NULL.
-    # (But we don't want to miss images with no license!)
-
-    #pp options
-
-    result=DataObject.find_by_sql([%Q{SELECT dato.*, l.description license_text, l.logo_url license_logo, l.source_url license_url,
-                                      (?) taxon_id, t.scientific_name
-                                FROM #{options[:from]} ti
-                                  STRAIGHT_JOIN data_objects dato      ON ti.data_object_id = dato.id
-                                  STRAIGHT_JOIN data_objects_taxa dot  ON dato.id = dot.data_object_id
-                                  STRAIGHT_JOIN taxa t                 ON dot.taxon_id = t.id
-                                  #{join_agents}
-                                  LEFT JOIN licenses l        ON dato.license_id = l.id 
-                                WHERE ti.hierarchy_entry_id IN (?)
-                                  AND data_type_id IN (?)
-                                  #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
-                                  GROUP BY dato.id
-                                ORDER BY dato.vetted_id DESC,dato.data_rating DESC                        # DataObject.cached_images_for_taxon },
-                            taxon.id, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids])                            
+    # (We don't want to miss images with no license!)
+    result=DataObject.find_by_sql([%Q{
+      SELECT dato.*, l.description license_text, l.logo_url license_logo, l.source_url license_url,
+             (?) taxon_id, t.scientific_name #{add_cp}
+        FROM #{options[:from]} ti
+          STRAIGHT_JOIN data_objects dato      ON ti.data_object_id = dato.id
+          STRAIGHT_JOIN data_objects_taxa dot  ON dato.id = dot.data_object_id
+          STRAIGHT_JOIN taxa t                 ON dot.taxon_id = t.id
+          #{join_agents}
+          LEFT OUTER JOIN licenses l           ON dato.license_id = l.id 
+        WHERE ti.hierarchy_entry_id IN (?)
+          AND data_type_id IN (?)
+          #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
+          GROUP BY dato.id
+        ORDER BY dato.vetted_id DESC,dato.data_rating DESC               # DataObject.cached_images_for_taxon
+      }, taxon.id, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids])                            
     # Run a second query if we need unpublished or invisible images (but not if we're already doing it!!!):
     if not nested and ((not options[:agent].nil?) or options[:user].is_curator? or options[:user].is_admin?)
       result += DataObject.cached_images_for_taxon(taxon, options.merge(:from => 'top_unpublished_images'))
     end
-    taxon.includes_unvetted = true if result.detect {|d| d.vetted_id != Vetted.trusted.id }
     return result                            
   end
 
+  # Find all of the data objects of a particular type (text, image, etc) associated with a given taxon.
+  # Options may include current agents and/or users, to affect permissions of who sees what.
   def self.for_taxon(taxon, type, options = {})
+
     options[:user] = User.create_new if options[:user].nil?
 
-    # Just return the (much faster) cached images if there is no need to deal with permissions:
-    # TODO - does this next line need to move to the bottom, to ADD these images?  I think not, but we should check.
-    return DataObject.cached_images_for_taxon(taxon, options) if type == :image
-    klass = (type == :text && options[:toc_id].nil?) ? TocItem : DataObject
-    # puts "---- BIG QUERY " + '-' * 40
-    # puts DataObject.build_query(taxon, type, options)
-    # puts '-' * 60
-    results = klass.find_by_sql(DataObject.build_query(taxon, type, options))
+    results = nil # scope
+
+    if type == :image
+      # Just return the (much faster) cached images if that's the type we're dealing with:
+      results = DataObject.cached_images_for_taxon(taxon, options)
+    else
+      # usually, we want to return data objects.  But if we want text objects, we call them toc items...
+      klass = (type == :text && options[:toc_id].nil?) ? TocItem : DataObject
+      results = klass.find_by_sql(DataObject.build_query(taxon, type, options))
+    end
+
+    # In order to display a warning about pages that include unvetted material, we check now, while the
+    # information is most readily available (data objects are the only things that can be unvetted, and only
+    # if we have to check permissions), and then flag the taxon_concept model if anything is non-trusted.
     taxon.includes_unvetted = true if results.detect {|d| d.vetted_id != Vetted.trusted.id }
+
+    # Content Partners' query included ALL invisible, untrusted and unknown items... not JUST THEIRS.  We
+    # now need to exclude those items that they did not contribute:
+    if options[:agent]
+      results.delete_if do |dato|
+        dato.visibility_id == Visibility.preview.id and not dato['agent_id'].nil? and
+          dato['agent_id'] ||= options[:agent].id
+      end
+    end
+
     return results
+
   end
 
   # TODO - MED PRIORITY - I'm assuming there's one taxa for this data object, and there could be several.
   # TODO = licenses should simply be included, and referenced directly where needed.
   def self.build_query(taxon, type, options)
     add_toc      = (type == :text and options[:toc_id].nil?) ? ', toc.*' : ''
-    join_agents  = options[:agent].nil?  ? '' : self.join_agents_clause(options[:agent])
-    join_toc     = type == :text         ? 'JOIN data_objects_table_of_contents dotoc ON dotoc.data_object_id = dato.id ' +
+    add_cp       = options[:agent].nil? ? '' : ', ar.agent_id agent_id'
+    join_agents  = options[:agent].nil? ? '' : self.join_agents_clause(options[:agent])
+    join_toc     = type == :text        ? 'JOIN data_objects_table_of_contents dotoc ON dotoc.data_object_id = dato.id ' +
                                                  'JOIN table_of_contents toc ON toc.id = dotoc.toc_id' : ''
     where_toc    = options[:toc_id].nil? ? '' : ActiveRecord::Base.sanitize_sql(['AND toc.id = ?', options[:toc_id]])
     sort         = 'dato.published, dato.vetted_id DESC, dato.data_rating DESC' # unpublished first, then by data_rating.
@@ -526,7 +555,7 @@ class DataObject < SpeciesSchemaModel
     ActiveRecord::Base.sanitize_sql([<<EOVIDEOSQL, taxon.id, DataObject.get_type_ids(type)])
 
 SELECT DISTINCT dt.label media_type, dato.*, t.scientific_name, tcn.taxon_concept_id taxon_id,
-       l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc}
+       l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}
   FROM taxon_concept_names tcn
     STRAIGHT_JOIN taxa t                ON (tcn.name_id = t.name_id)
     STRAIGHT_JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
@@ -607,6 +636,8 @@ private
         vetted += [Vetted.unknown.id,Vetted.untrusted.id]
       end
     end
+    # TODO - The problem here is that we're Allowing CPs to see EVERYTHING, when they should only see THEIR
+    # invisibles, untrusteded, and unknowns.
     if options[:agent] # Content partner ... note that some of this is handled via the join in join_agents_clause().
       visibility << Visibility.invisible.id
       vetted += [Vetted.untrusted.id, Vetted.unknown.id]

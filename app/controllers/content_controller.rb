@@ -11,6 +11,7 @@ class ContentController < ApplicationController
 
     unless read_fragment(:controller=>'content',:part=>'home_' + current_user.language_abbr)
       @content=ContentPage.get_by_page_name_and_language_abbr('Home',current_user.language_abbr)
+      raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomTaxon.random_set(6)
       @featured_taxa = TaxonConcept.exemplars
       # get top news items less then a predetermined number of weeks old

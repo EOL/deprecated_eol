@@ -19,6 +19,17 @@
 	
 </script>
 
+  <a href="#" onclick="Element.toggle('instructions');return false;">Instructions</a>
+  <div id="instructions" style="display:none;">
+  	<ol>
+  	  <li>You should be comfortable with HTML before editing. Do not use unusual fonts or styles when editing or creating pages - use simple HTML and see current pages for examples.</li>
+  	  <li>Pages/items created in the "About EOL", "Press Room", "Using the Site" and "Feedback" sections will have links to them automatically created in the top navigation.</li>
+  	  <li>Pages/items created in the "Footer" section will have links to them automatically created in the footer.</li>
+  	  <li>Pages created in the "Other" section will not be added to any navigational menus -- you must link to these pages manually.</li>
+  	  <li>Changes are made immediately after submitting the form - be sure to use the preview button before publishing!   Due to caching it may take up to an hour for changes to be seen for all users.</li>
+      <li>If you make a mistake, use the "Archived Versions" drop-down menu to retrieve the previous version of the page.  You can then preview and publish to revert to the previous version.</li>
+  	</ol>
+	</div>
 	<form id="content_section_select">				
 	To administer site content, please select the section to work on:
 			<%= collection_select(:content_section,:id,@content_sections,:id,:name,{},{:onChange=>'JavaScript:select_content_section(this);'})%>

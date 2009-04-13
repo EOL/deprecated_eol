@@ -30,8 +30,10 @@ create_if_not_exists AgentContactRole, :label => 'Administrative Contact'
 create_if_not_exists AgentContactRole, :label => 'Technical Contact'
 
 create_if_not_exists Agent, :full_name => 'IUCN'
+create_if_not_exists ContentPartner, :agent => Agent.iucn
 create_if_not_exists AgentContact, :agent => Agent.iucn, :agent_contact_role => AgentContactRole.primary
 create_if_not_exists Agent, :full_name => 'Catalogue of Life'
+create_if_not_exists ContentPartner, :agent => Agent.catalogue_of_life
 create_if_not_exists AgentContact, :agent => Agent.catalogue_of_life, :agent_contact_role => AgentContactRole.primary
 
 create_if_not_exists AgentDataType, :label => 'Audio'
@@ -201,7 +203,7 @@ create_if_not_exists Role, :title => 'Administrator - Comments and Tags'
 create_if_not_exists Role, :title => 'Administrator - Web Users'
 create_if_not_exists Role, :title => 'Administrator - Contact Us Submissions'
 create_if_not_exists Role, :title => 'Administrator - Content Partners'
-create_if_not_exists Role, :title => 'Administrator - Error Logs'
+create_if_not_exists Role, :title => 'Administrator - Technical'
 create_if_not_exists Role, :title => 'Administrator - Site CMS'
 create_if_not_exists Role, :title => 'Administrator - Usage Reports'
 

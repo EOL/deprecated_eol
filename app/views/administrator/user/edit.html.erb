@@ -1,9 +1,10 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Edit User #' + params[:id]} %>
 
+Edit the user details below.  You can send this user an email from the system by clicking 'show email message area' below and entering in the text of the email. 
 <% if @user.openid?%>
-  This is an OpenID user.
+  This is an OpenID user and their password may not be changed.
 <% else %>
-  Only enter a new password if you wish to change it.
+  Only enter a new password if you wish to change it, otherwise leave it blank.
 <% end %>
   		    	
 	<% form_for :user,@user,:url => {:action=>'update',:id=>params[:id]},:html=>{:id=>'page_form'} do |f|  %>

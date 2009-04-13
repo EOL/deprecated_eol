@@ -1,9 +1,9 @@
-<%= render :partial => '/admin/content_top', :locals => {:name => 'Statistics and Tools',:hide_nav=>true} %>
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Page Statistics and Tools',:hide_nav=>true} %>
 
 <%=link_to '[admin home]',:controller=>'/admin',:action=>'index'%>
 
 <% form_tag({:action=>'index'}, :method=>'get') do -%>  
-  Select a tool and click 'Go': 
+  Please note that some of these tools are in beta and may change over time or have bugs.  <br />Select a tool and click 'Go': 
   <%= select_tag(:report_url, options_for_select(@reports_list,@report_url)) %> 
   <%=submit_tag 'Go' %>
 <% end %>

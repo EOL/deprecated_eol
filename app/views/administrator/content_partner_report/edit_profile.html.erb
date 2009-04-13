@@ -10,10 +10,11 @@ function check_passwords() {
 }
 </script>
 
+
 <%= render :partial => '/admin/content_top', :locals => {:name => "Edit Profile: #{@agent.display_name}" }%>
   
-  <%= link_to '[cancel]', :back %>
-                  
+<br />
+Content partner profiles can be updated below.  Only enter a new password to change it.                  
   <%= eol_lang_error_messages_for :agent %>
 
   <% form_for @agent, :url => { :action => 'edit_profile' },  :html => { :method => :post, :multipart => true, :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f| %>
@@ -65,7 +66,8 @@ function check_passwords() {
             
           <div class='button'>
               <%= submit_tag "Update Profile"[] + ' &#187;' %>
-          </div>                     
+        </div>                     
+                      <%=link_to 'Cancel', :back%>
       </fieldset>                
   <% end -%>
 

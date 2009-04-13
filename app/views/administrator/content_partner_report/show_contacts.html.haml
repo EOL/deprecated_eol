@@ -3,6 +3,14 @@
 = link_to '[go back]',:action=>'show', :id=>params[:id]
 %br/
 
+The following contacts were provided by the content partner when they registered.  Note that these email addresses are not
+associated with content partner login information.  To edit usernames, email addresses and passwords used by the content
+partner to log in, please
+=link_to 'update their profile',:action=>'edit_profile',:id=>@agent.id
+
+
+%br/
+
 %table.results_table{:width => "100%"}
   %tr
     %th Name

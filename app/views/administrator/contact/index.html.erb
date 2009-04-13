@@ -1,6 +1,6 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Contact Us Submissions'} %>
 
-To view contact us submission, select the topic below or <%=link_to('[export all as CSV]', :action=>'export')%><br />
+This area shows all submissions entered via the contact us or media contact pages.  To view entries, select the topic below or <%=link_to('export all of the entries as a CSV file', :action=>'export')%><br />
 <% form_tag({:action=>'index'},:method=>'get') do -%>
   <select name="id" id="contact_subject_id">
     <option value="*">All  (<%=@all_contacts_count%>)</option>

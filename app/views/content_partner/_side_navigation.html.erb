@@ -6,34 +6,33 @@ in_agreements_section = page_header.downcase.include?('partnering')
 in_resources_section = page_header.downcase.include?('resource')
 in_reports_section = page_header.downcase.include?('reports')
 %>
-
 <ul id="toc" style="list-style:none;margin-left:-25px;padding-left:-25px;">
-   <li><%= link_to 'DASHBOARD',{:controller=>'/content_partner',:action=>'index'},:class=>"#{in_dashboard_section ? 'active' : ''}" %></li>
+   <li><%= link_to 'DASHBOARD',{:controller=>'/content_partner',:action=>'index'},:class=>"#{in_dashboard_section ? 'active' : ''} toc_item" %></li>
 
-   <li><%= link_to 'PARTNER INFORMATION',{:controller=>'/content_partner',:action=>'partner'},:class=>"#{in_partner_section ? 'active' : ''}" %></li>
+   <li><%= link_to 'PARTNER INFORMATION',{:controller=>'/content_partner',:action=>'partner'},:class=>"#{in_partner_section ? 'active' : ''} toc_item" %></li>
 
-   <li><%= link_to 'CONTACT INFORMATION',{:controller=>'/content_partner',:action=>'contacts'},:class=>"#{in_contacts_section ? 'active' : ''}" %></li>
+   <li><%= link_to 'CONTACT INFORMATION',{:controller=>'/content_partner',:action=>'contacts'},:class=>"#{in_contacts_section ? 'active' : ''} toc_item" %></li>
 
-   <li><%= link_to 'PARTNERING STEPS',{:controller=>'/content_partner',:action=>'licensing'},:class=>"#{in_agreements_section ? 'active' : ''}" %></li>
+   <li><%= link_to 'PARTNERING STEPS',{:controller=>'/content_partner',:action=>'licensing'},:class=>"#{in_agreements_section ? 'active' : ''} toc_item" %></li>
  
    <% if in_agreements_section %>
-      <li style="padding-left: 10px;"><%= link_to 'Licensing Policy',{:controller=>'/content_partner',:action=>'licensing'}, :class=>"#{(@content_partner.step  == :licensing) ? 'active': ''}"%></li>
-      <li style="padding-left: 10px;"><%= link_to 'Attribution Guidelines',{:controller=>'/content_partner',:action=>'attribution'}, :class=>"#{(@content_partner.step  == :attribution) ? 'active': ''}"%></li>
-      <li style="padding-left: 10px;"><%= link_to 'Roles',{:controller=>'/content_partner',:action=>'roles'}, :class=>"#{(@content_partner.step  == :roles) ? 'active': ''}"%></li>
-      <li style="padding-left: 10px;"><%= link_to 'Transfer Schema Overview',{:controller=>'/content_partner',:action=>'transfer_overview'}, :class=>"#{(@content_partner.step  == :transfer_overview) ? 'active': ''}"%></li>
-      <li style="padding-left: 10px;"><%= link_to 'Transfer Schema Upload',{:controller=>'/content_partner',:action=>'transfer_upload'}, :class=>"#{(@content_partner.step  == :transfer_upload) ? 'active': ''}"%></li>
+      <li style="padding-left: 10px;"><%= link_to 'Licensing Policy',{:controller=>'/content_partner',:action=>'licensing'}, :class=>"#{(@content_partner.step  == :licensing) ? 'active': ''} toc_item"%></li>
+      <li style="padding-left: 10px;"><%= link_to 'Attribution Guidelines',{:controller=>'/content_partner',:action=>'attribution'}, :class=>"#{(@content_partner.step  == :attribution) ? 'active': ''} toc_item"%></li>
+      <li style="padding-left: 10px;"><%= link_to 'Roles',{:controller=>'/content_partner',:action=>'roles'}, :class=>"#{(@content_partner.step  == :roles) ? 'active': ''} toc_item"%></li>
+      <li style="padding-left: 10px;"><%= link_to 'Transfer Schema Overview',{:controller=>'/content_partner',:action=>'transfer_overview'}, :class=>"#{(@content_partner.step  == :transfer_overview) ? 'active': ''} toc_item"%></li>
+      <li style="padding-left: 10px;"><%= link_to 'Transfer Schema Upload',{:controller=>'/content_partner',:action=>'transfer_upload'}, :class=>"#{(@content_partner.step  == :transfer_upload) ? 'active': ''} toc_item"%></li>
    <% end %>
   <% if current_agent.ready_for_agreement? -%>
-    <li><%= link_to "YOUR AGREEMENT", {:controller=>'/content_partner',:action => "agreement"} , {:target=>"_new"} %></li>
-    <li><%= link_to 'MANAGE RESOURCES', resources_url, :class=>"#{in_resources_section ? 'active' : ''}" %></li>
+    <li><%= link_to "YOUR AGREEMENT", {:controller=>'/content_partner',:action => "agreement"} ,  {:class=>'toc_item',:target=>"_new"} %></li>
+    <li><%= link_to 'MANAGE RESOURCES', resources_url, :class=>"#{in_resources_section ? 'active' : ''} toc_item" %></li>
   <% end -%>
 
   <li>
-    <a href="<%= url_for :controller=>'/content_partner',:action=>'reports'%>" class="<%= in_reports_section ? 'active' : ''%>">USAGE REPORTS</a>
+    <a href="<%= url_for :controller=>'/content_partner',:action=>'reports'%>" class="<%= in_reports_section ? 'active' : ''%> toc_item">USAGE REPORTS</a>
     <% if controller.is_a? ContentPartner::ReportsController %>
     <ul style="list-style:none; margin-left: 25px;">
     <% for report_class in (LogDaily.report_classes - [AgentLogDaily]) %>
-      <li><%= link_to report_class.report_name, :controller => '/content_partner/reports', :action => report_class.path %></li>
+      <li><%= link_to report_class.report_name,{ :controller => '/content_partner/reports', :action => report_class.path}, :class=>'toc_item' %></li>
     <% end %>
     </ul>
     <% end %>

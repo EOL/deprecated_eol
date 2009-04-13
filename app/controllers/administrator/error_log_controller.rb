@@ -1,6 +1,6 @@
 class Administrator::ErrorLogController < AdminController
   
-  access_control :DEFAULT => 'Administrator - Error Logs'
+  access_control :DEFAULT => 'Administrator - Technical'
   
   def index
 

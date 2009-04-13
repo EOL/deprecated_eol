@@ -1,6 +1,6 @@
 class Administrator::RoleController < AdminController
 
-  access_control :DEFAULT => 'Administrator - Web Users'
+  access_control :DEFAULT => 'Administrator - Technical'
 
   def index
  

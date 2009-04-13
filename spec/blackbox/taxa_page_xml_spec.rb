@@ -267,6 +267,28 @@ describe 'Taxa page XML' do
 
   end
 
+  describe 'empty search' do
+
+    before(:all) do
+      EOL::NestedSet.make_all_nested_sets
+      recreate_normalized_names_and_links
+    end
+
+    it 'should be valid XML with empty result set for no parameter or non-result searches' do
+
+      @raw_xml    = RackBox.request("/search.xml").body
+      @search_xml = Nokogiri::XML(@raw_xml)
+      @search_xml.xpath('//results').should_not be_empty
+      @search_xml.xpath('//taxon-pages').should be_empty
+
+      @raw_xml    = RackBox.request("/search.xml?q=bogusness").body
+      @search_xml = Nokogiri::XML(@raw_xml)
+      @search_xml.xpath('//results').should_not be_empty
+
+    end
+
+  end
+  
   describe 'exemplars' do
 
     before(:all) do

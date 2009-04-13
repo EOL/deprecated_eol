@@ -79,22 +79,6 @@ class Comment < ActiveRecord::Base
   def is_curatable_by? user
     user.can_curate? parent
   end
-  
-=begin
-  def parent
-    return_parent=self.parent_type
-    case self.parent_type
-     when 'TaxonConcept' then 
-        tc=TaxonConcept.find_by_id(self.parent_id)
-        return_name=tc.name unless tc.blank?
-     when 'DataObject' then
-        d=DataObject.find_by_id(self.parent_id)
-        return_name=d.description unless d.blank?
-    end
-    return return_name
-  end
-  ---
-=end
 
   # TODO - this method should not have a bang.  (See Matz' rant)
   def show! user = nil
@@ -126,7 +110,7 @@ protected
   end
 
   def set_from_curator
-    (self.from_curator = user.can_curate? parent) if self.from_curator.nil?
+    self.from_curator = parent.is_curatable_by?(user) if self.from_curator.nil?
     return self.from_curator.to_s
   end
 

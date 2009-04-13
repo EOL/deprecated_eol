@@ -299,7 +299,6 @@ Factory.define :comment do |x|
   x.parent_type 'data_object'
   x.body { Faker::Lorem.paragraph }
   x.association :user
-  x.from_curator false
 end
 
 Factory.define :contact do |c|

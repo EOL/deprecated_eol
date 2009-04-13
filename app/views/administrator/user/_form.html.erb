@@ -47,17 +47,17 @@
 			</td>
 		</tr>			
 		<tr>
-			<td><strong>Only show vetted:</strong></td>
+			<td><strong>Only show authoritative content:</strong></td>
 			<td><%=f.check_box :vetted%> True</td> 
 		</tr>			
 		<tr>
-			<td><strong>Mailing List:</strong></td>
+			<td><strong>Request Mailing List:</strong></td>
 			<td><%=f.check_box :mailing_list%> Yes</td> 
 		</tr>	
 		<tr>
 			<td><strong>Active:</strong></td>
 			<td><%=f.check_box :active%> True 
-			  (<%=@user.failed_login_attempts%> failed login attempts)</td> 
+			  (<%=@user.failed_login_attempts%> failed login attempts)- must be checked for user to log in</td> 
 		</tr>
 		<tr>
 			<td><strong>Roles:</strong></td>
@@ -75,7 +75,7 @@
 			</td>
 		</tr>
 		<tr>
-		  <td><strong><%= "Credentials"[:credentials] %></strong></td>
+		  <td><strong><%= "Credentials"[:credentials] %>:</strong></td>
 		  <td>
             <%= f.text_area :credentials, :rows => 9, :cols=>60 %>		
 		  </td>

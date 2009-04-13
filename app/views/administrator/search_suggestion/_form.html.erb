@@ -1,28 +1,30 @@
 	<%= eol_lang_error_messages_for :search_suggestion %>
 					
 	<br />
-	Enter in a search term users are search for and then the resulting taxon/page ID they should be directed to as a suggestion for that search.
+	Enter in a search term users are searching for and then the resulting taxon/page ID they should be directed to as a suggestion for that search.  The taxon/page ID is found in the URL of the page
+	you wish to direct them to (e.g. www.eol.org/pages/5 has a taxon/page ID of 5).  The page name and the first image will be collected if available and stored with the result.
+	You can edit those later if needed.
 	
 	<table>	
 	<tr>
-		<td><strong>Search Term:</strong></td>
+		<td><strong>Search Term:</strong><br />trigger search term entered by the user</td>
 		<td><%=f.text_field :term,{:size=>'50',:maxlength=>'250'}%></td>
 	</tr>
 	<% if action_name != 'new' %>
 	  <tr>
-	    <td><strong>Page Linked To:</strong></td>
+	    <td><strong>Page Linked To:</strong><br />the suggested page to direct users to</td>
 	    <td><%=link_to @search_suggestion.scientific_name,taxon_url(:id=>@search_suggestion.taxon_id),:target=>'_blank'%></td>
 	  </tr>
   	<tr>
-  		<td><strong>Suggested Scientific Name:</strong></td>
+  		<td><strong>Suggested Scientific Name:</strong><br />as shown to the user in the suggestion</td>
   		<td><%=f.text_field :scientific_name,{:size=>'50',:maxlength=>'250'}%></td>
   	</tr>
   	<tr>
-  		<td><strong>Suggested Common name:</strong></td>
+  		<td><strong>Suggested Common name:</strong> <br />as shown to the user in the suggestion</td>
   		<td><%=f.text_field :common_name,{:size=>'50',:maxlength=>'250'}%></td>
   	</tr>
   	<tr>		
-  		<td><strong>Suggested Image URL :</strong></td>
+  		<td><strong>Suggested Image URL :</strong> <br />shown to the user in the suggestion</td>
   		<td><%=f.text_field :image_url,{:size=>'50',:maxlength=>'250'}%></td>
   	</tr>
   <% end %>
@@ -39,8 +41,8 @@
 		<td><%=f.text_field :content_notes,{:size=>'50',:maxlength=>'250'}%></td>
 	</tr>
 	<tr>
-		<td><strong>Sort Order (only if multiple suggestions for same term):</strong></td>
-		<td><%=f.text_field :sort_order,{:size=>'5',:maxlength=>'5'}%></td>
+		<td><strong>Sort Order:</strong></strong></td>
+		<td><%=f.text_field :sort_order,{:size=>'3',:maxlength=>'3'}%> (only if multiple suggestions for the same search term, sort is low-->high)</td>
 	</tr>
 	<tr>	
 		<td><strong>Language:</strong></td>
@@ -48,7 +50,7 @@
 	</tr>	
 	<tr>				
 		<td><strong>Active:</strong></td>
-		<td><%=f.check_box :active%></td> 
+		<td><%=f.check_box :active%> - must be checked to show to user</td> 
 	</tr>
 	</table>
 	

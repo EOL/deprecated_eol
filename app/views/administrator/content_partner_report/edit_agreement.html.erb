@@ -2,9 +2,8 @@
 				
 		<h2><%=@agent.project_name%></h2>
 
-		<%=link_to ('[go_back]',:action=>'show',:id=>params[:id])%>
     <br /><br />
-    Edit the agreement below or enter in a URL.  Be sure to leave all Ruby code in the template as is (code is identified by text in between &lt;% and %&gt;.  If a URL is entered, it will override the template.
+    Edit the agreement below or enter in a URL.  Be sure to leave all Ruby code in the template as is (code is identified by text in between &lt;% and %&gt;.  If a URL is entered (e.g. a full URL to a PDF), it will override the template.
   	<br /><br />
   	<strong>Created at:</strong> <%=format_date_time(@agreement.created_at)%><br />
   	<strong>Signed on:</strong> <%=format_date_time(@agreement.signed_on_date)%><br />
@@ -18,11 +17,13 @@
     	<br /><br />
     	<h3>OR</h3>
     	<br />
-    	<strong>Agreement URL (e.g. full or relative URL to a PDF or other file)</strong>
+    	<strong>Agreement URL (e.g. full or relative URL to a PDF or other file)</strong> - if entered, this overrides the template
     	<%=f.text_field :mou_url,{:size=>'70',:maxlength=>'250'}%>
     	<br /><br />
   		
     	<%=f.submit%>
+    	<br />
+    	    <%=link_to 'Cancel', :back%>
   	<% end %>
   	
   	<% unless @previous_agreements.empty? %>
@@ -35,7 +36,7 @@
   	  <% end %>
   	  </ul>
   	<% end%>
-		
+		          
 	
 						
 <%= render :partial => '/admin/content_bottom' %>

@@ -1,6 +1,6 @@
 class Administrator::StatsController < AdminController
   
-  access_control :DEFAULT => 'Administrator - Site CMS'
+  access_control :DEFAULT => 'Administrator - Usage Reports'
   
   def index
     

@@ -1,4 +1,6 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Edit Comment'} %>
+		
+		Edit the user's comment below.
 		   		    	
 	<% form_for :comment,@comment,:url => {:action=>'update', :id=>params[:id]},:html=>{:id=>'page_form'} do |f|  %>
 	

@@ -1,14 +1,14 @@
 	<%= eol_lang_error_messages_for :contact_subject %>
 					
 	<br />
-		
-	<strong>Topic area:</strong><br />
-	<%=f.text_field :title,{:size=>'70',:maxlength=>'250'}%>
+		Edit the topic area and email addresses below and check the active box to show to users on the contact us page of the website.
+	<strong>Topic area:</strong> (shown to the user)<br />
+	<%=f.text_field :title,{:size=>'70',:maxlength=>'250'} %>
 	<br /><br />
-	<strong>Email recipients (separate multiple email addresses with commas):</strong>
+	<strong>Email recipients:</strong> (separate multiple email addresses with commas)
 	<%=f.text_field :recipients,{:size=>'70',:maxlength=>'150'}%>
 	<br /><br />
-	<strong>Active:</strong> <%=f.check_box :active%>
+	<strong>Active:</strong> <%=f.check_box :active%>  - visible to users if checked
 	
 	<br /><br />
 	<input type="button" onClick="document.location.href='/administrator/contact_subject/index';" id="cancel" name="Cancel" value="Cancel"> |

@@ -1,5 +1,7 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Curators'} %>
 
+Click a username to view the user's detailed profile.  You may change the clade level curator permissions on the user profile pages.  If credentials are truncated, click to expand and show full credentials.
+
 <div id="users">
 	<% form_tag({:action=>'index'},:method=>'get') do %>
 		Search for curators containing: <%= text_field_tag(:user_search_string,@user_search_string)%> <%= submit_tag 'Search' %>
@@ -10,11 +12,10 @@
 		<% if @users.nil? == false && @users.size > 0 %>
 			
 			A total of <%= @user_count %> users were found matching your criteria.<br />
-    	You may change clade level curator permissions on individual profile pages.  If credentials are truncated, click to expand and show full credentials.
 			
 			<%= will_paginate @users %>
 			    <table class="results_table" cellspacing="0">
-			    <tr><th>UserName</th><th>Credentials</th><th>Name</th><th>Taxon</th><th>Approved?</th><th>On</th><th>By</th></tr>
+			    <tr><th>UserName</th><th>Credentials</th><th>Name</th><th>Clade</th><th>Approved?</th><th>On</th><th>By</th></tr>
 				<% for user in @users
 					column_class=cycle('odd','even')  %>
 				    <tr>

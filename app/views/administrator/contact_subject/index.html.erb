@@ -1,9 +1,10 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Contact Us Topics'} %>
 <br />
-<%=link_to "Add a new topic area",:action=>'new'%>					        
+<%=link_to "Add a new topic area",:action=>'new'%>	
+<br />				        
 	<div id="contact_us_topics">
 		<% if @contact_subjects.nil? == false %>
-		The following topic areas are available from the Contact Us page:<br /><br />
+		The following topic areas are available from the Contact Us page.  You may add or edit topic areas and their corresponding email addresses.  All changes are made immediately.<br /><br />
 		
 		    <table class="results_table" cellspacing="0">
 		    <tr><th>Topic Area</th><th>Recipients</th><th>Active</th><th>Action</th></tr>

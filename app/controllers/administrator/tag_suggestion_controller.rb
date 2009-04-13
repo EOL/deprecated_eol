@@ -2,7 +2,7 @@
 # show up as suggested (static public tags)
 class Administrator::TagSuggestionController < AdminController
 
-  access_control :DEFAULT => 'Administrator - Comments & Tags'
+  access_control :DEFAULT => 'Administrator - Comments and Tags'
   
   layout 'administrator'
 

@@ -5,7 +5,7 @@
 	<% if $COUNT_UNIQUE_VISITORS %>
 	  <tr><td class="odd">Visitors</td><td class="odd">As of <%=format_date_time(Time.now)%> there were <%=@visitors.count%> unique visitors</td></tr>
 	<% end %>
-	<tr><td class="odd">Requestor IP Address</td><td class="odd"><%=request.remote_ip%> (<%="internal IP address" if @allowed_ip%>)</td></tr>	
+	<tr><td class="odd">Your IP Address</td><td class="odd"><%=request.remote_ip%> (<%="internal IP address" if @allowed_ip%>)</td></tr>	
 	<tr><td class="even">Server IP Address</td> <td class="even"><%=$IP_ADDRESS_OF_SERVER%></td></tr>
 	<tr><td class="odd">Rails environment</td><td class="odd"><%=ENV["RAILS_ENV"]%></td></tr>
 	<tr><td class="even">Rails databases</td><td class="even">

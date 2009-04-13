@@ -3,13 +3,15 @@
 <%= calendar_date_select_includes %>
 <% CalendarDateSelect.format = :hyphen_ampm %>
 
+All web users registered in the system are shown below,  sorted inversely by time registered.  Note that the registration dates for users
+prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit that user.
 <div id="users">
 	<% form_tag({:action=>'index'},:method=>'get') do -%>
-	Search for users containing: <%= text_field_tag(:user_search_string,@user_search_string)%> 
+	Search for users containing <%= text_field_tag(:user_search_string,@user_search_string)%> in their username, name or email address.
 	<br />
 	who registered from <%= calendar_date_select_tag "start_date", @start_date, :embedded => false, :year_range => 2009..2019 %>
 	to <%= calendar_date_select_tag "end_date", @end_date, :embedded => false, :year_range => 2009..2019 %>
-  <br /><%= check_box_tag 'blank_dates','1',@blank_dates %> Don't show unknown registered dates (all prior to Jan 5, 2009)
+  <br /><%= check_box_tag 'blank_dates','1',@blank_dates %> Don't show unknown registered dates (V1 users, all prior to Jan 5, 2009)
   <br />
 
   <%= submit_tag 'Search' %><br />

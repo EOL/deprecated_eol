@@ -109,10 +109,12 @@ class ContentController < ApplicationController
      
      current_taxa = params[:current_taxa].split(',')
      explore_taxa       = RandomTaxon.random
-     # Ensure that we don't end up with duplicates:
-     while current_taxa.include?(explore_taxa.taxon_concept_id.to_s)
+     # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a bit haywire since there are only 7 random taxa in the fixtures
+  
+     while ENV["RAILS_ENV"].downcase == 'production' && current_taxa.include?(explore_taxa.taxon_concept_id.to_s)
        explore_taxa = RandomTaxon.random
      end
+  
      taxa_number        = params[:taxa_number]
      
      unless explore_taxa.nil? or taxa_number.nil? or taxa_number.empty?

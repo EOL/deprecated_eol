@@ -24,6 +24,8 @@ class DataObjectTags < ActiveRecord::Base
   alias tag data_object_tag
   alias object data_object
 
+  # NOT USED ANYWHERE: delegate :is_public, :data_object_tag
+
   DEFAULT_MIN_USAGE_FOR_PUBLIC_TAGS = 3
   class << self
     attr_accessor :minimum_usage_count_for_public_tags
@@ -42,15 +44,15 @@ class DataObjectTags < ActiveRecord::Base
   # named_scope :search_by_tags_and, lambda{|tags|{ :conditions => tags.map {|t| "data_object_tag_id = #{t.id}" }.join(' AND ') }}
   # SELECT * FROM t1 WHERE column1 = (SELECT column1 FROM t2);
   def self.search_by_tags_or(tags, user_id = nil) 
-    sql = "select dt.*, count(dt.id) do_count 
-            from data_object_tags t 
-              join data_object_data_object_tags dt 
-                on (t.id = dt.data_object_tag_id) 
-            where
+    sql = "SELECT dt.*, count(dt.id) do_count, MAX(t.is_public) is_public
+            FROM data_object_tags t 
+              JOIN data_object_data_object_tags dt 
+                ON (t.id = dt.data_object_tag_id) 
+            WHERE
               dt.data_object_tag_id in (#{tags.map(&:id).join(',')})
-            group by dt.data_object_id"
+            GROUP by dt.data_object_id"
     res = DataObjectTags.find_by_sql(sql);
-    res.select {|t| (t.do_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags || (user_id && t.user_id == user_id.to_i)) }
+    res.select {|t| (t.do_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags || (user_id && t.user_id == user_id.to_i)) || t.is_public }
   end
 
   def to_s
@@ -66,7 +68,7 @@ class DataObjectTags < ActiveRecord::Base
   def self.public_tags_for_data_object data_object
     id   = (data_object.is_a?Fixnum) ? data_object : data_object.id
     tags = self.tags_with_usage_count.find_all_by_data_object_id id
-    tags.select {|t| t.usage_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags }.map &:tag
+    tags.select {|t| t.usage_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags || t.is_public }.map &:tag
   end
 
   # Returns all of the tags that have been promoted to 'public' for a particular tag key, eg. "color"
@@ -85,7 +87,7 @@ class DataObjectTags < ActiveRecord::Base
   #
   def self.public_tags_for_tags tags
     public_tags = self.tags_with_usage_count.find :all, :conditions => ['data_object_tag_id IN (?)', tags.map(&:id) ], :include => :data_object_tag
-    public_tags = public_tags.select {|t| t.tag.is_public == true || t.usage_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags }.map &:tag
+    public_tags = public_tags.select {|t| t.usage_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags }.map &:tag
     # we have have been passed some tags that has .is_public set but they aren't actually *used* anywhere so they weren't returned by tags_with_usage_count
     public_tags = ( public_tags + tags.select {|t| t.is_public? } ).uniq
   end

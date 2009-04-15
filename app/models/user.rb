@@ -125,12 +125,12 @@ class User < ActiveRecord::Base
 
   # vet an object user can curate
   def vet object
-    object.vet!(self) if object and object.respond_to?:vet! and can_curate?object
+    object.vet!(self) if object and object.respond_to? :vet! and can_curate? object
   end
 
   # unvet an object user can curate
   def unvet object
-    object.unvet!(self) if object and object.respond_to?:unvet! and can_curate?object
+    object.unvet!(self) if object and object.respond_to? :unvet! and can_curate? object
   end
 
   # create a new user using default attributes and then update with supplied parameters
@@ -285,6 +285,10 @@ class User < ActiveRecord::Base
     default_only   = [:id, :credentials, :username] # TODO - should we add Given / Family names? I'm not sure, privacy an issue
     options[:only] = (options[:only] ? options[:only] + default_only : default_only)
     ar_to_xml(options)
+  end
+
+  def tags_are_public_for_data_object?(data_object)
+    return self.can_curate? data_object
   end
   
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

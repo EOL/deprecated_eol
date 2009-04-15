@@ -675,6 +675,10 @@ EOVISBILITYCLAUSE
     if data_object and key and values
       values.each do |value|
         tag    = DataObjectTag.find_or_create_by_key_and_value key.to_s, value.to_s
+        if user.tags_are_public_for_data_object?(data_object)
+          tag.is_public = true
+          tag.save!
+        end
         join   = DataObjectTags.new :data_object => data_object, :data_object_tag => tag, :user => user
         results << join.save
       end

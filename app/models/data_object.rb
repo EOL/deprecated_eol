@@ -533,7 +533,7 @@ class DataObject < SpeciesSchemaModel
     if options[:agent]
       results.delete_if do |dato|
         dato.visibility_id == Visibility.preview.id and not dato['agent_id'].nil? and
-          dato['agent_id'] ||= options[:agent].id
+          dato['agent_id'].to_i != options[:agent].id
       end
     end
 
@@ -610,10 +610,10 @@ private
     data_supplier_id = ResourceAgentRole.content_partner_upload_role.id
     return %Q{LEFT JOIN (agents_resources ar
               STRAIGHT_JOIN harvest_events he ON ar.resource_id = he.resource_id
-                  AND ar.agent_id = #{agent.id}
                   AND ar.resource_agent_role_id = #{data_supplier_id}
               STRAIGHT_JOIN data_objects_harvest_events dohe ON he.id = dohe.harvest_event_id)
                 ON (dato.id = dohe.data_object_id)}
+                  #AND ar.agent_id = #{agent.id}  -- We removed this because now we're filtering manually.
   end
 
   def self.visibility_clause(options)

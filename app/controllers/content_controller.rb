@@ -9,7 +9,7 @@ class ContentController < ApplicationController
 
     @home_page=true
 
-    unless read_fragment(:controller=>'content',:part=>'home_' + current_user.language_abbr)
+    unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.language_abbr)
       @content=ContentPage.get_by_page_name_and_language_abbr('Home',current_user.language_abbr)
       raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomTaxon.random_set(6)

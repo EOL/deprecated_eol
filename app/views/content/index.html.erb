@@ -97,6 +97,9 @@
 		//]]>
 </script>
 
+<% if @cached_fragment %>
+    <%= @cached_fragment %>
+<% else %>
 <% cache({:controller=>"content", :part => 'home_' + current_user.language_abbr}) do %>	
 	
 	<div id="page-separator-general"></div>
@@ -208,4 +211,5 @@
   </div>
 </div>
 
-<% end %>
+<% end %><%# end of the cache() block %>
+<% end %><%# end of the if @cached_fragment block %>

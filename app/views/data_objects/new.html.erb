@@ -1,72 +1,42 @@
-<% button_name = 'Create' %>
+<span id="missing_text_error" class="error" style="display:none;">
+  A Description must be entered.
+</div>
+
 <% form_for(@data_object) do |f| %>
-	<%= f.error_messages %>
+  <input type="hidden" name="taxon_concept_id" value="<%= @taxon_concept_id %>" />
+  <table>
+    <tr>
+      <td width="25%">
+        <label for="data_object_TOC category">Toc category</label>
+      </td>
+      <td>
+        <%= select("data_objects_toc_category", "toc_id", @selectable_toc) %>
+      </td>
+    </tr>
 
-   <table style="color: #666666">
+    <tr>
+      <td><%= f.label 'Title (optional)' %></td>
+      <td><%= f.text_field( :object_title )%> </td>
+    </tr>
 
-    <%#= hidden_field(:data_objects_taxa, :taxon_id) %>
-    <%#= hidden_field(:data_objects_toc_category, :toc_id) %>
+    <tr>
+      <td><%= f.label :description %></td>
+      <td><%= f.text_area( :description, :size => "33x8" )%> </td>
+    </tr>
 
-   	<input type="hidden" id="data_objects_taxa_taxon_id" name="data_objects_taxa[taxon_id]" value="<%= @data_objects_taxa.taxon_id %>" />
-<!--   	<input type="hidden" id="data_objects_toc_category_toc_id" name="data_objects_toc_category[toc_id]" value="<%#= @data_objects_toc_category.toc_id %>" />-->
+    <tr>
+      <td><%= f.label :language_id %></td>
+      <td>
+        <%= select("data_object", "language_id", @languages) %>
+      </td>
+    </tr>
 
-	<tr>
-    <td colspan="2">
-      <div class="toc_select">
-        <div id="existing_toc">
-          <label for="data_object_TOC category">Toc category</label> <%= select("data_objects_toc_category", "toc_id",  TocItem.find(:all, :order => 'id').collect {|c| [c.label, c.id] } << ['New Table of Contents Item','new']) %>
-        </div>
-        <div id="new_toc" style="display:none;">
-          <table>
-            <tr>
-              <td colspan="2">
-                <a href="#">Use Existing Chapter</a>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <%= f.label 'Add new chapter' %>
-              </td>
-              <td>
-                <%= f.text_field :object_title %>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <%= f.label 'Select Parent Chapter' %>
-              </td>
-              <td>
-                <%= select("data_objects_toc_category", "toc_id",  TocItem.find(:all, :order => 'id').collect {|c| [c.label, c.id] }) %>
-              </td>
-            </tr>
-          </table>
-        </div>
-      </div>
-    </td>
-  </tr>
-
-    <tr><td> <%= f.label :description %></td>
-    <td><%= f.text_area( :description, :size => "33x8" )%> </td></tr>
-
-    <%#alwais data_object[data_type_id] = 2 %>
-
- 	<tr><td> <%= f.label :language_id %></td>
-    <td>
-	<%= select("data_object", "language_id", Language.find(:all).collect {|c| [c.name, c.id] }) %>
-	</td></tr>
-
-	<tr><td> <%= f.label :license_id %></td>
-    <td>
-	    <%= select("data_object", "license_id", License.find(:all).collect {|c| [c.title, c.id] }) %>
-	</td></tr>
-
-<!--	<tr><td> <%#= f.label :mime_type_id %></td>
-    <td>
-	<%#= select("data_object", "mime_type_id", MimeType.find(:all).collect {|c| [c.label, c.id] }) %> </td></tr>-->
-
-<!--	<tr><td> <%#= f.label :curated %></td>
-    <td>
-	<%#= f.check_box :curated %> </td></tr>-->
+    <tr>
+      <td><%= f.label :license_id %></td>
+      <td>
+        <%= select("data_object", "license_id", @licenses) %>
+      </td>
+    </tr>
 
     <tr>
       <td><label>NOTE</label></td>
@@ -78,58 +48,10 @@
       </td>
     </tr>
 
-    <tr><td colspan="2"><input type="button" value="Preview"/>&nbsp;<input type="button" value="Confirm"/></td></tr>
-
+    <tr>
+      <td colspan="2">
+        <input id="preview_text" type="button" value="Preview"/>&nbsp;<input type="submit" value="Confirm"/>
+      </td>
+    </tr>
   </table>
-
-<!--
-1) + taxon name
-	 subject metadata?
-	 EOL registrant ID
-	 version
-
-2) what else from below?
-	<tr><td> <%#= f.label :altitude %>
-	<%#= f.text_field :altitude %> </td></tr>
-
-	<tr><td> <%#= f.label :latitude %>
-	<%#= f.text_field :latitude %> </td></tr>
-
-	<tr><td> <%#= f.label :longitude %>
-	<%#= f.text_field :longitude %> </td></tr>
-
-	<tr><td> <%#= f.label :location %>
-	<%#= f.text_field :location %> </td></tr>
-
- 	<tr><td> <%#= f.label :object_cache_url %>
- 	<%#= f.text_field :object_cache_url %> </td></tr>
-
-  	<tr><td> <%#= f.label :object_url %>
-  	<%#= f.text_field :object_url %> </td></tr>
-
-	<tr><td> <%#= f.label :source_url %>
-    <%#= f.text_field :source_url %> </td></tr>
-
-   <tr><td> <%#= f.label :thumbnail_cache_url %>
-    <%#= f.text_field :thumbnail_cache_url %> </td></tr>
-
-    <tr><td> <%#= f.label :thumbnail_url %>
-    <%#= f.text_field :thumbnail_url %> </td></tr>
-
-	<tr><td> <%#= f.label :created_at %>
-    <%#= f.text_field :created_at  %> </td></tr>
-
-	<tr><td> <%#= f.label :object_created_at %>
-	<%#= f.text_field :object_created_at %> </td></tr>
-
-	<tr><td> <%#= f.label :object_modified_at %>
-	<%#= f.text_field :object_modified_at %> </td></tr>
-
- 	<tr><td> <%#= f.label :updated_at %>
- 	<%#= f.text_field :updated_at %> </td></tr>
-
--->
-
-
-    <%#= f.submit button_name  %>
 <% end %>

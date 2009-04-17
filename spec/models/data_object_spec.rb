@@ -9,6 +9,28 @@ def set_content_variables
   @dato = DataObject.gen(:data_type => DataType.find_by_label('flash'), :object_cache_url => @big_int)
 end
 
+def create_user_text_object
+  Scenario.load :foundation
+
+  taxon_concept = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
+  toc_item = TocItem.gen({:label => 'Overview'})
+  params = {
+    :taxon_concept_id => taxon_concept.id,
+    :data_objects_toc_category => { :toc_id => toc_item.id}
+  }
+
+  do_params = {
+    :license_id => License.find_by_title('public domain').id,
+    :language_id => Language.find_by_label('English').id,
+    :description => 'a new text object',
+    :object_title => 'new title'
+  }
+
+  params[:data_object] = do_params
+
+  DataObject.create_user_text(params, User.gen)
+end
+
 describe DataObject do
 
   scenario :foundation # Just so we have DataType IDs and the like.
@@ -53,6 +75,16 @@ describe DataObject do
       r.rating.should eql(5)
     end
 
+  end
+
+  describe 'user submitted text' do
+    it 'should create valid data object' do
+      d = create_user_text_object
+      d.data_type.label.should == 'Text'
+      d.user.should_not eql(nil)
+      d.guid.length.should eql(32)
+      d.taxa.length.should eql(1)
+    end
   end
 
   describe '#to_s' do

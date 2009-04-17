@@ -77,6 +77,8 @@ class TaxaController < ApplicationController
           raise "taxa does not exist"  
         end
 
+        @curator = current_user.can_curate?(@taxon)
+
         # run all the queries if the page cannot be cached or the fragment is not found
         if !allow_page_to_be_cached? || @specify_category_id != 'default' || !read_fragment(:controller=>'taxa',:part=>'page_' + @taxon_id.to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + current_user.can_curate?(@taxon).to_s)    
 

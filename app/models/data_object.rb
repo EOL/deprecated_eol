@@ -1,5 +1,6 @@
 require 'set'
 require 'uuid'
+require 'erb'
 
 # Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one of our primary
 # models, and an awful lot of work occurs here.
@@ -53,8 +54,8 @@ class DataObject < SpeciesSchemaModel
       :altitude => 0,
       :object_url => '',
       :thumbnail_url => '',
-      :object_title => all_params[:data_object][:object_title],
-      :description => all_params[:data_object][:description],
+      :object_title => ERB::Util.h(all_params[:data_object][:object_title]),
+      :description => ERB::Util.h(all_params[:data_object][:description]),
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
       :vetted_id => Vetted.unknown.id,
@@ -83,8 +84,8 @@ class DataObject < SpeciesSchemaModel
       :altitude => 0,
       :object_url => '',
       :thumbnail_url => '',
-      :object_title => all_params[:data_object][:object_title],
-      :description => all_params[:data_object][:description],
+      :object_title => ERB::Util.h(all_params[:data_object][:object_title]),
+      :description => ERB::Util.h(all_params[:data_object][:description]),
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
       :vetted_id => Vetted.unknown.id,

@@ -51,6 +51,8 @@ Rails::Initializer.run do |config|
   config.gem 'composite_primary_keys'
   config.gem 'fastercsv'
   config.gem 'haml'
+  config.gem 'macaddr'
+  config.gem 'uuid'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

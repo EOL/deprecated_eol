@@ -7,6 +7,9 @@ class License < SpeciesSchemaModel
     return logo_url.sub(/\.(\w\w\w)$/, "_small.\\1")
   end
 
+  def self.valid_for_user_content
+    find_all_by_show_to_content_partners(1).collect {|c| [c.title, c.id] }
+  end
 end
 # == Schema Info
 # Schema version: 20081020144900

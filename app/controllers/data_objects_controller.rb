@@ -2,8 +2,37 @@ class DataObjectsController < ApplicationController
 
   layout proc { |c| c.request.xhr? ? false : "main" }
 
-  before_filter :set_data_object, :except => :index
+  before_filter :set_data_object, :except => [:index, :new, :create, :preview]
   before_filter :curator_only, :only => [:rate, :curate]
+
+  def create
+    data_object = DataObject.create_user_text(params, current_user)
+    @curator = current_user.can_curate?(TaxonConcept.find(params[:taxon_concept_id]))
+    @new_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
+  end
+
+  def preview
+    data_object = DataObject.preview_user_text(params)
+    @curator = false
+    @preview = true
+    @preview_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
+  end
+
+  def update
+
+  end
+
+  def edit
+    
+  end
+
+  def new
+    @data_object = DataObject.new
+    @selectable_toc = TocItem.find(:all, :order => 'id').select{|c| c.allow_user_text?}.collect {|c| [c.label, c.id] }
+    @taxon_concept_id = params[:taxon_concept_id]
+    @languages = Language.find(:all).collect {|c| [c.name, c.id] }
+    @licenses = License.valid_for_user_content
+  end
 
   def curator_only
     if !current_user.can_curate?(@data_object)

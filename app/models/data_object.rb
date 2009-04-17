@@ -1,4 +1,5 @@
 require 'set'
+require 'uuid'
 
 # Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one of our primary
 # models, and an awful lot of work occurs here.
@@ -35,6 +36,80 @@ class DataObject < SpeciesSchemaModel
 
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
+
+  def self.preview_user_text(all_params)
+    do_params = {
+      :guid => '',
+      :data_type => DataType.find_by_label('Text'),
+      :rights_statement => '',
+      :rights_holder => '',
+      :mime_type_id => MimeType.find_by_label('text/plain').id,
+      :location => '',
+      :latitude => 0,
+      :longitude => 0,
+      :object_title => '',
+      :bibliographic_citation => '',
+      :source_url => '',
+      :altitude => 0,
+      :object_url => '',
+      :thumbnail_url => '',
+      :object_title => all_params[:data_object][:object_title],
+      :description => all_params[:data_object][:description],
+      :language_id => all_params[:data_object][:language_id],
+      :license_id => all_params[:data_object][:license_id],
+      :vetted_id => Vetted.unknown.id,
+      :published => 1, #not sure if this is right
+      :visibility_id => Visibility.visible.id #not sure if this is right either
+    }
+
+    d = DataObject.new(do_params)
+    d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
+    d
+  end
+
+  def self.create_user_text(all_params,user)
+    do_params = {
+      :guid => UUID.generate.gsub('-',''),
+      :data_type => DataType.find_by_label('Text'),
+      :rights_statement => '',
+      :rights_holder => '',
+      :mime_type_id => MimeType.find_by_label('text/plain').id,
+      :location => '',
+      :latitude => 0,
+      :longitude => 0,
+      :object_title => '',
+      :bibliographic_citation => '',
+      :source_url => '',
+      :altitude => 0,
+      :object_url => '',
+      :thumbnail_url => '',
+      :object_title => all_params[:data_object][:object_title],
+      :description => all_params[:data_object][:description],
+      :language_id => all_params[:data_object][:language_id],
+      :license_id => all_params[:data_object][:license_id],
+      :vetted_id => Vetted.unknown.id,
+      :published => 1, #not sure if this is right
+      :visibility_id => Visibility.visible.id #not sure if this is right either
+    }
+
+    d = DataObject.new(do_params)
+    d.save!
+    d.user = user
+    d.taxa << TaxonConcept.find(all_params[:taxon_concept_id]).taxa[0]
+    d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
+    d.save!
+    d
+  end
+
+  def user=(user)
+    udo = UsersDataObject.new({:user_id => user.id, :data_object_id => self.id})
+    udo.save!
+  end
+
+  def user
+    udo = UsersDataObject.find_by_data_object_id(self.id)
+    udo.nil? ? nil : User.find(udo.user_id)
+  end
 
   def rate(user,stars)
     rating = UsersDataObjectsRating.find_by_data_object_id_and_user_id(self.id, user.id)

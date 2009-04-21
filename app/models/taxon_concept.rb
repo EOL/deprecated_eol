@@ -228,9 +228,13 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
-  def entry(hierarchy = Hierarchy.default)
-    hierarchy_id = hierarchy.id rescue nil
-    return hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy_id } || hierarchy_entries[0] || raise(Exception.new("Taxon concept must have at least one hierarchy entry"))
+  def entry(hierarchy = nil)
+    hierarchy ||= Hierarchy.default
+    raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
+    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
+    return hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
+      hierarchy_entries[0] ||
+      raise(Exception.new("Taxon concept must have at least one hierarchy entry"))
   end
 
   # We do have some content that is specific to COL, so we need a method that will ALWAYS reference it:

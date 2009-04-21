@@ -39,9 +39,7 @@
     <%= javascript_include_merged 'base-cached' %>
 
     <%# TODO - LOW PRI - Move this into a content_for :head block -%>
-    <% if @amcharts -%>
-		  <%= javascript_include_tag 'swfobject' %>
-    <% end -%>
+    <%= javascript_include_tag 'swfobject' %>
 
     <script language="javascript">
       EOL.USE_EXTERNAL_LINK_POPUPS = <%=$USE_EXTERNAL_LINK_POPUPS%>;

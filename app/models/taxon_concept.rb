@@ -194,6 +194,12 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return approved
   end
+  
+  def gbif_map_id
+    gbif_hierarchy = Hierarchy.find_by_agent_id(Agent.gbif.id) rescue nil
+    gbif_entry = hierarchy_entries.detect{ |he| he.hierarchy_id == gbif_hierarchy.id }
+    return gbif_entry.identifier rescue 1
+  end
 
   def hierarchy_entries_with_parents
     HierarchyEntry.with_parents self
@@ -255,6 +261,8 @@ class TaxonConcept < SpeciesSchemaModel
       video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0 rescue video
       map = true if entry.hierarchies_content.gbif_image != 0 rescue map
     end
+    
+    map = false if map == true and gbif_map_id == 1
     
     {:images => images,
      :video  => video,

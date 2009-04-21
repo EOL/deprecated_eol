@@ -93,6 +93,12 @@ class Agent < SpeciesSchemaModel
       Agent.find_by_full_name('Catalogue of Life').to_yaml
     end)
   end
+
+  def self.gbif
+    YAML.load(Rails.cache.fetch('agents/gbif') do
+      Agent.find_by_full_name('Global Biodiversity Information Facility (GBIF)').to_yaml
+    end)
+  end
   
   # get the CoL agent for use in classification attribution
   def self.catalogue_of_life_for_attribution

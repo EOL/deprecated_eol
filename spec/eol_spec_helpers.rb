@@ -179,6 +179,7 @@ module EOL::Spec
     def build_hierarchy_entry(depth, tc, name, options = {})
       he    = HierarchyEntry.gen(:hierarchy     => options[:hierarchy] || Hierarchy.default,
                                  :parent_id     => options[:parent_id] || 0,
+                                 :identifier    => options[:identifier] || '',
                                  :depth         => depth,
                                  :rank_id       => depth + 1, # Cheating. As long as the order is sane, this works well.
                                  :taxon_concept => tc,

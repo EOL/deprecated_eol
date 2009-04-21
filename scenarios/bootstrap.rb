@@ -46,6 +46,11 @@ AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource,
 AgentsResource.gen(:agent => Agent.iucn, :resource => Resource.iucn,
                    :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 
+gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (GBIF)")
+#gbif_agent = Agent.find_by_full_name('Global Biodiversity Information Facility (GBIF)');
+AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.primary)
+gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
+
 kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
 5.times do
   build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
@@ -68,6 +73,9 @@ he     = build_hierarchy_entry 0, tc, name, :hierarchy => hier
 img    = build_data_object('Image', "This should only be seen by ContentPartner #{cp.description}", :taxon => tc.images.first.taxa[0],
                            :hierarchy_entry => he, :object_cache_url => Factory.next(:image), :vetted => Vetted.unknown,
                            :visibility => Visibility.preview)
+
+# Some node in the GBIF Hierarchy to test maps on
+build_hierarchy_entry 0, tc, name, :hierarchy => gbif_hierarchy, :identifier => '13810203'
 
 # Generate a default admin user and then set them up for the default roles:
 admin = User.gen :username => 'admin', :password => 'admin', :given_name => 'Admin', :family_name => 'User'

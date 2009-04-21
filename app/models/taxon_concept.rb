@@ -92,6 +92,8 @@ class TaxonConcept < SpeciesSchemaModel
   #
   # Note that TCs have no notion of ancestry in and of themselves, so they must defer to the hierarchy entries to find ancestors.
   # And, of course, that yields HierarchyEntry values, so we need to convert them back.
+  #
+  # Also (IMPORTANT): there is another method called "ancestry", which is similar.  TODO - explain the diff
   def ancestors
     entry.ancestors.map(&:taxon_concept)
   end
@@ -313,7 +315,6 @@ class TaxonConcept < SpeciesSchemaModel
     
     # TODO - insert into search terms, popular searches, and the like.
     
-    # TODO - I'm not sure this is really what we want to be doing, here: I simply reproduced Patrick's code (for the most part).
     search_terms = search_string.downcase.gsub(/\s+/, ' ').strip.split(/[ -&:\\'?;]+| and /)
     
     sci_concepts  = []

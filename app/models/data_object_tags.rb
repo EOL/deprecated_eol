@@ -59,6 +59,10 @@ class DataObjectTags < ActiveRecord::Base
     "<DataObjectTags object:'#{object}' tag:'#{tag}' />"
   end
 
+  def is_public
+    data_object_tag.is_public?
+  end
+
   # how many users have tagged a data object with ? (what tags) ?
   #
   # Usage:

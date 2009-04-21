@@ -83,7 +83,6 @@ describe DataObject do
       d.data_type.label.should == 'Text'
       d.user.should_not eql(nil)
       d.guid.length.should eql(32)
-      d.taxa.length.should eql(1)
     end
   end
 

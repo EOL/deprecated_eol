@@ -94,17 +94,11 @@ class DataObject < SpeciesSchemaModel
     }
 
     d = DataObject.new(do_params)
-    d.save!
-    d.user = user
-    d.taxa << TaxonConcept.find(all_params[:taxon_concept_id]).taxa[0]
     d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
     d.save!
-    d
-  end
-
-  def user=(user)
-    udo = UsersDataObject.new({:user_id => user.id, :data_object_id => self.id})
+    udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!
+    d
   end
 
   def user
@@ -626,11 +620,10 @@ class DataObject < SpeciesSchemaModel
     join_toc     = type == :text        ? 'JOIN data_objects_table_of_contents dotoc ON dotoc.data_object_id = dato.id ' +
                                                  'JOIN table_of_contents toc ON toc.id = dotoc.toc_id' : ''
     where_toc    = options[:toc_id].nil? ? '' : ActiveRecord::Base.sanitize_sql(['AND toc.id = ?', options[:toc_id]])
-    sort         = 'dato.published, dato.vetted_id DESC, dato.data_rating DESC' # unpublished first, then by data_rating.
+    sort         = 'published, vetted_id DESC, data_rating DESC' # unpublished first, then by data_rating.
 
-    ActiveRecord::Base.sanitize_sql([<<EOVIDEOSQL, taxon.id, DataObject.get_type_ids(type)])
-
-SELECT DISTINCT dt.label media_type, dato.*, t.scientific_name, tcn.taxon_concept_id taxon_id,
+    query_string = %Q{
+(SELECT DISTINCT dt.label media_type, dato.*, t.scientific_name, tcn.taxon_concept_id taxon_id,
        l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}
   FROM taxon_concept_names tcn
     STRAIGHT_JOIN taxa t                ON (tcn.name_id = t.name_id)
@@ -639,15 +632,41 @@ SELECT DISTINCT dt.label media_type, dato.*, t.scientific_name, tcn.taxon_concep
     STRAIGHT_JOIN data_types dt         ON (dato.data_type_id = dt.id)
     #{join_agents} #{join_toc}
     LEFT OUTER JOIN licenses l       ON (dato.license_id = l.id)
-  WHERE tcn.taxon_concept_id = ?
-    AND data_type_id IN (?)
+  WHERE tcn.taxon_concept_id = :taxon_concept_id
+    AND data_type_id IN (:data_type_ids)
     #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
-    #{where_toc}
+    #{where_toc})
+UNION
+(SELECT dt.label media_type, dato.*, '' scientific_name, taxon_concept_id taxon_id,l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}
+FROM data_objects dato
+STRAIGHT_JOIN eol_development.users_data_objects udo ON (dato.id=udo.data_object_id)
+STRAIGHT_JOIN data_types dt ON (dato.data_type_id = dt.id)
+#{join_agents} #{join_toc}
+LEFT OUTER JOIN licenses l ON (dato.license_id = l.id)
+WHERE
+udo.taxon_concept_id=:taxon_concept_id
+AND data_type_id IN (:data_type_ids)
+#{DataObject.visibility_clause(options.merge(:taxon => taxon))}
+    #{where_toc})
   ORDER BY #{sort} # DataObject.for_taxon
+    }
 
-EOVIDEOSQL
-
+    ActiveRecord::Base.sanitize_sql([query_string, {:taxon_concept_id => taxon.id, :data_type_ids => DataObject.get_type_ids(type)}])
   end
+
+
+
+
+#  select dt.label media_type, dato.*, '' scientific_name
+#from data_objects dato
+#straight_join eol_development.users_data_objects udo ON (dato.id=udo.data_object_id)
+#straight_join data_types dt ON (dato.data_type_id = dt.id)
+#where
+#udo.taxon_concept_id=2
+#and data_type_id IN(3);
+#
+
+
 
   alias :ar_to_xml :to_xml
   # Be careful calling a block here.  We have our own builder, and you will be overriding that if you use a block.
@@ -681,7 +700,6 @@ EOVIDEOSQL
   end
 
 private
-
   def self.join_agents_clause(agent)
     data_supplier_id = ResourceAgentRole.content_partner_upload_role.id
     return %Q{LEFT JOIN (agents_resources ar

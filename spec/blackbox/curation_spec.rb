@@ -19,11 +19,11 @@ describe 'Curation' do
     @taxon_concept = build_taxon_concept()
   end
 
-  it 'should not show curation button' do
+  it 'should not show curation button when not logged in' do
     request("/pages/#{@taxon_concept.id}").body.should_not have_tag('div#large-image-curator-button')
   end
 
-  it 'should show curation button' do
+  it 'should show curation button when logged in as curator' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
 
     login_as( curator ).should redirect_to('/index')

@@ -16,7 +16,7 @@
 	<%- for taxa_link in @random_taxa -%>
 	  <tr>
 		  <td width="30%">
-        <%= link_to(%Q{<img border="0" title="#{h(remove_html(taxa_link.name))}" src="#{taxa_link.smart_thumb}" alt="#{h(remove_html(taxa_link.name))}"></img>}, 
+        <%= link_to(%Q{<img border="0" title="#{h(remove_html(taxa_link.name))}" src="#{taxa_link.smart_thumb}" alt="#{h(remove_html(taxa_link.name))}" />}, 
             :action => "show", :id=>taxa_link.taxon_concept_id) %>
 			</td>
 			<td>

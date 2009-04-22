@@ -196,8 +196,11 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def gbif_map_id
-    gbif_hierarchy_id = Hierarchy.find_by_agent_id(Agent.gbif.id).id rescue -1
-    gbif_entry = hierarchy_entries.detect{ |he| he.hierarchy_id == gbif_hierarchy_id }
+    #This method returns 1 instead of nils when things dont work as the maps need some ID even to gererate a blank map, and 1 is not a GBIF ID
+    gbif_hierarchy = Hierarchy.find_by_agent_id(Agent.gbif.id) rescue nil
+    return 1 if gbif_hierarchy.nil? 
+    
+    gbif_entry = hierarchy_entries.detect{ |he| he.hierarchy_id == gbif_hierarchy.id }
     return gbif_entry.identifier rescue 1
   end
 

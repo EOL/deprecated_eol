@@ -196,8 +196,8 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def gbif_map_id
-    gbif_hierarchy = Hierarchy.find_by_agent_id(Agent.gbif.id) rescue nil
-    gbif_entry = hierarchy_entries.detect{ |he| he.hierarchy_id == gbif_hierarchy.id }
+    gbif_hierarchy_id = Hierarchy.find_by_agent_id(Agent.gbif.id).id rescue -1
+    gbif_entry = hierarchy_entries.detect{ |he| he.hierarchy_id == gbif_hierarchy_id }
     return gbif_entry.identifier rescue 1
   end
 

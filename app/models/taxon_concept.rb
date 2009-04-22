@@ -194,7 +194,10 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def gbif_map_id
+    #This method returns 1 instead of nils when things dont work as the maps need some ID even to gererate a blank map, and 1 is not a GBIF ID
     gbif_hierarchy = Hierarchy.find_by_agent_id(Agent.gbif.id) rescue nil
+    return 1 if gbif_hierarchy.nil? 
+    
     gbif_entry = hierarchy_entries.detect{ |he| he.hierarchy_id == gbif_hierarchy.id }
     return gbif_entry.identifier rescue 1
   end
@@ -260,6 +263,7 @@ class TaxonConcept < SpeciesSchemaModel
       map = true if entry.hierarchies_content.gbif_image != 0 rescue map
     end
     
+    #1 is the default value for gbif_map_id as if it were 0 or nil the maps would explode rather than showing a blank map
     map = false if map == true and gbif_map_id == 1
     
     {:images => images,

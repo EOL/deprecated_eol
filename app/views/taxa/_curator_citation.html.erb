@@ -1,0 +1,15 @@
+<div id="page-citation">
+	<% curators = @taxon.approved_curators %>
+	<% if curators.size > 0 %>
+		<%= curators.map{|c| c.given_name + " " + c.family_name}.join(', ')%>.
+
+		<%# link to each curators account (bad commas) %>
+	    <%# curators.each do |c| %>
+			<%#= link_to h("#{c.given_name} #{c.family_name}"), :controller => :account, :action => :show, :id => c.id %>
+	    <%# end %>
+
+	<% end %>
+	"<%= @taxon.scientific_name %>". Encyclopedia of Life, available from <a href="<%= this_url = url_for(:controller=>'/taxa', :action=>'show', :id=>@taxon_id) %>" target="_blank">"http://www.eol.org<%= this_url %>"</a>. Accessed <%= Time.now.strftime("%d %b %Y") %>. 
+<!-- Example:	
+	Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, available from <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009. -->
+</div>

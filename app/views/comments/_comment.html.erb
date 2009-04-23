@@ -6,14 +6,18 @@
   <strong><%= comment.user.nil? ? 'Anonymous' : comment.user.username %></strong>
 
   <%= comment.updated_at %>
-  <% if ( current_user.is_moderator? || current_user.can_curate?(comment)) %><span id="vis_cmnt_<%= comment.id %>" class="invisible-comment"><% if comment.visible? %>[<%= link_to_remote('remove', :url => remove_comment_path(comment),
-                                                                              :method  => :put,
-                                                                              :confirm => 'Are you sure you want this hidden?',
-                                                                              :update  => "vis_cmnt_#{comment.id}") %>]<% end %>
+  <% if ( current_user.is_moderator? || current_user.can_curate?(comment))
+     %><span id="vis_cmnt_<%= comment.id %>" class="invisible-comment"><% if comment.visible?
+       %>[<%= link_to_remote('remove', :url => remove_comment_path(comment),
+                                       :method  => :put,
+                                       :confirm => 'Are you sure you want this hidden?',
+                                       :failure => "alert('HTTP Error ' + request.status + '!');return(false);",
+                                     :update  => {:success => "vis_cmnt_#{comment.id}", :failure => '' }) %>]<% end %>
     <% unless comment.visible? %>THIS COMMENT IS NOT VISIBLE
     [<%= link_to_remote 'make visible', :url     => make_visible_comment_path(comment),
                                         :method  => :put,
                                         :confirm => 'Are you sure you want this visible?',
+                                        :failure => "alert('HTTP Error ' + request.status + '!');return(false);",
                                         :update  => "vis_cmnt_#{comment.id}" %>]<% else %>&nbsp;<% end %></span>
   <% end %>
   </h6>

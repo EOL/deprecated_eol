@@ -3,6 +3,8 @@
 <h4><%="Contribute"[]%></h4>
 <div style="display:none;" id="contribute-info" class="popup"></div>
 
+<div id="number-of-curators">This page has <%= @taxon.approved_curators.size%> curators.</div>
+
 <ul class="bulletlist">
   <!--<li> <a href="#" onclick="JavaScript:eol_show_pop_up('contribute-info','contribute_text-help','<%=@taxon.name(:canonical)%>');return false;"><%="Submit a text description"[]%></a></li>  -->
   <li> <a href="#" onclick="JavaScript:eol_show_pop_up('contribute-info','contribute_photos-help','<%=@taxon.name(:canonical)%>');return false;"><%="Submit an image"[]%></a></li>

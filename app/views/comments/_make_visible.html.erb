@@ -2,4 +2,5 @@ This comment will be <span style="color:red">visible</span>.
 [<%= link_to_remote('undo', :url     => remove_comment_path(current_object),
                             :method  => :put,
                             :confirm => 'Are you sure you want this hidden again?',
+                            :failure => "alert('HTTP Error ' + request.status + '!');return(false);",
                             :update  => "vis_cmnt_#{current_object.id}") %>]

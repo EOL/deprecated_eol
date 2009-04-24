@@ -28,8 +28,8 @@ describe 'Curation' do
 
     login_as( curator ).should redirect_to('/index')
 
-    request("/pages/#{@taxon_concept.id}").body.should have_tag('div#large-image-curator-button')
-  end
+     request("/pages/#{@taxon_concept.id}").body.should have_tag('div#large-image-curator-button')
+   end
 
   it 'should expire taxon from cache' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
@@ -45,6 +45,7 @@ describe 'Curation' do
             '_method' => 'put',
             'curator_activity_id' => CuratorActivity.disapprove!.id})
 
+    Rails.cache.clear
     ActionController::Base.perform_caching = old_cache_val
   end
 end

@@ -137,16 +137,27 @@ describe DataObject do
   describe 'search_by_tags' do
 
     before(:each) do
+      @look_for_less_than_tags = true
       @dato = DataObject.gen
       DataObjectTag.delete_all(:key => 'foo', :value => 'bar')
       @tag = DataObjectTag.gen(:key => 'foo', :value => 'bar')
-      (DataObjectTags.minimum_usage_count_for_public_tags - 1).times do
+      how_many = (DataObjectTags.minimum_usage_count_for_public_tags - 1)
+      # In late April of 2008, we "dialed down" the number of tags that it takes... to one.  Which screws up
+      # the tests that assume you need more than one tag to make a tag public.  This logic fixes that, but
+      # in a way that's flexible enough that it will still work if we dial it back up.
+      if how_many < 1
+        how_many = 1
+        @look_for_less_than_tags = false
+      end
+      how_many.times do
         DataObjectTags.gen(:data_object_tag => @tag, :data_object => @dato, :user => User.gen)
       end
     end
 
     it 'should not find tags for which there are less than DEAFAULT_MIN_BLAHBLAHBLHA instances' do
-      DataObject.search_by_tags([[[:foo, 'bar']]]).should be_empty
+      if @look_for_less_than_tags
+        DataObject.search_by_tags([[[:foo, 'bar']]]).should be_empty
+      end
     end
 
     it 'should find tags specifically flagged as public, regardless of count' do

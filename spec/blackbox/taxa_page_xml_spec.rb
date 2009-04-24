@@ -5,16 +5,18 @@ require File.dirname(__FILE__) + '/../../lib/eol_data'
 class EOL::NestedSet; end
 EOL::NestedSet.send :extend, EOL::Data
 
+def pre_test_hook
+  puts "images: #{@taxon_concept.images.length}"
+  puts "TopImages: #{TopImage.count}"
+end
+
 describe 'Taxa page XML' do
 
   before(:all) do
-    begin
-      if TaxonConcept.find(910093)
-        truncate_all_tables
-      end
-    rescue
-    end
-    Scenario.load :foundation
+    truncate_all_tables # Please don't nest this in an "if find 910093" block; there is something else that
+                        # causes this to fail, and I've wasted enough time figuring out this fixed it to dig
+                        # into which table(s) need clearing.
+    Scenario.load :foundation # Here instead of earlier because of the truncating logic just above.
     HierarchiesContent.delete_all
     @exemplar        = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
     @parent          = build_taxon_concept
@@ -137,6 +139,8 @@ describe 'Taxa page XML' do
     end
 
     it 'should include images/count on call to /pages/NNN.xml' do
+      puts "images: #{@taxon_concept.images.length}"
+      puts "TopImage: #{TopImage.count}"
       @taxon_concept_xml.xpath('//images/count').first.content.should == @taxon_concept.images.length.to_s
     end
 
@@ -146,6 +150,7 @@ describe 'Taxa page XML' do
 
   end
 
+
   describe 'images' do
 
     before(:all) do
@@ -154,11 +159,13 @@ describe 'Taxa page XML' do
     end
 
     it 'should return a page of images XML on call to /pages/NNN/images/1.xml' do
+      pre_test_hook
       @images_xml.xpath('//images').should_not be_empty
       @images_xml.xpath('//images/image').length.should == 10
     end
 
     it 'should return second page of images XML on call to /pages/NNN/images/2.xml' do
+      pre_test_hook
       # If these two tests are failing, something is wrong with build_taxon_concept.  They must pass for the rest of
       # this test to be valid:
       @taxon_concept.images.length.should > 10
@@ -169,7 +176,7 @@ describe 'Taxa page XML' do
     end
 
   end
-
+  
   # Sure, I could test pagination on videos, but I'm going out on a limb and claiming that if one works, the other
   # will, too.
   describe 'videos' do

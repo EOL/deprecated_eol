@@ -26,7 +26,7 @@ class DataObjectTags < ActiveRecord::Base
 
   # NOT USED ANYWHERE: delegate :is_public, :data_object_tag
 
-  DEFAULT_MIN_USAGE_FOR_PUBLIC_TAGS = 3
+  DEFAULT_MIN_USAGE_FOR_PUBLIC_TAGS = 1 # Per EOLINFRASTRUCTURE-857, changed from 3 to 1
   class << self
     attr_accessor :minimum_usage_count_for_public_tags
     def minimum_usage_count_for_public_tags

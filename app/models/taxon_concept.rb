@@ -432,7 +432,9 @@ class TaxonConcept < SpeciesSchemaModel
 
   # pull content type by given category for taxa id 
   def content_by_category(category_id, options = {})
-    toc_item = TocItem.find(category_id)
+    category_id = category_id.id if category_id.is_a? TocItem
+    toc_item = TocItem.find(category_id) rescue nil
+    return nil if toc_item.nil?
     sub_name = toc_item.label.gsub(/\W/, '_').downcase
     return self.send(sub_name) if self.private_methods.include?(sub_name)
     return get_default_content(category_id, options)

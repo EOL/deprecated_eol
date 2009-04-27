@@ -266,6 +266,12 @@ class User < ActiveRecord::Base
   def is_curator?
     return (has_curator_role? && !self.curator_hierarchy_entry.blank?)
   end
+  
+  def last_curator_activity
+    lcd = LastCuratedDate.find_by_user_id(self.id, :order => 'last_curated DESC', :limit => 1)
+    return nil if lcd.nil?
+    return lcd.last_curated
+  end
 
   def show_unvetted?
     return !vetted

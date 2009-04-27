@@ -15,6 +15,9 @@ class Comment < ActiveRecord::Base
 
   before_create :set_visible_at, :set_from_curator
   
+  after_create :curator_activity_flag
+  after_update :curator_activity_flag
+  
   validates_presence_of :body
 
   attr_accessor :vetted_by
@@ -100,6 +103,19 @@ class Comment < ActiveRecord::Base
   # Pagination uses this method to check for a default pagination size:
   def self.per_page
     10
+  end
+  
+  def curator_activity_flag
+    if parent.is_curatable_by?(user)
+      if self.parent_type == "DataObject"
+        taxon_concept_id = parent.taxon_concepts[0].id
+      elsif self.parent_type == "TaxonConcept"
+        taxon_concept_id = parent.id
+      end
+        LastCuratedDate.create(:user_id => user.id, 
+        :taxon_concept_id => taxon_concept_id, 
+        :last_curated => Time.now)
+    end    
   end
 
 protected

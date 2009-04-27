@@ -17,6 +17,9 @@ class DataObjectTags < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :data_object_tag
   belongs_to :user
+  
+  after_create :curator_activity_flag
+  after_update :curator_activity_flag
 
   validates_presence_of :data_object_id, :data_object_tag_id
   validates_uniqueness_of :data_object_tag_id, :scope => [ :data_object_id, :user_id ]
@@ -94,6 +97,15 @@ class DataObjectTags < ActiveRecord::Base
     public_tags = public_tags.select {|t| t.usage_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags }.map &:tag
     # we have have been passed some tags that has .is_public set but they aren't actually *used* anywhere so they weren't returned by tags_with_usage_count
     public_tags = ( public_tags + tags.select {|t| t.is_public? } ).uniq
+  end
+  
+  def curator_activity_flag
+    if data_object.is_curatable_by?(user)
+        taxon_concept_id = data_object.taxon_concepts[0].id
+        LastCuratedDate.create(:user_id => user.id, 
+        :taxon_concept_id => taxon_concept_id, 
+        :last_curated => Time.now)
+    end    
   end
 
 end

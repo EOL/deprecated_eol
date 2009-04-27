@@ -96,6 +96,7 @@ class DataObject < SpeciesSchemaModel
     d = DataObject.new(do_params)
     d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
     d.save!
+    d.curator_activity_flag(user, all_params[:taxon_concept_id])
     udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!
     d
@@ -375,15 +376,15 @@ class DataObject < SpeciesSchemaModel
     activity = CuratorActivity.find(action)
 
     if activity.code[/^approve$/i]
-      vet!
+      vet! user
     elsif activity.code[/^disapprove$/i]
-      unvet!
+      unvet! user
     elsif activity.code[/^show$/i]
-      show!
+      show! user
     elsif activity.code[/^hide$/i]
-      hide!
+      hide! user
     elsif activity.code[/^inappropriate$/i]
-      inappropriate!
+      inappropriate! user
     else
       raise "Not sure how to #{activity.code} a DataObject"
     end
@@ -428,24 +429,40 @@ class DataObject < SpeciesSchemaModel
 
   def show! user = nil
     self.vetted_by = user if user
+    curator_activity_flag(user)
     update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
   end
   def hide! user = nil
     self.vetted_by = user if user
+    curator_activity_flag(user)
     update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
   end
   def vet! user = nil
     self.vetted_by = user if user
+    curator_activity_flag(user)
     update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
   end
   def unvet! user = nil
     self.vetted_by = user if user
+    curator_activity_flag(user)
     update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
   end
   def inappropriate! user = nil
     self.vetted_by = user if user
+    curator_activity_flag(user)
     update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
   end
+
+  def curator_activity_flag(user, taxon_concept_id = nil)
+    taxon_concept_id ||= taxon_concepts[0].id
+    return if taxon_concept_id == 0
+     if user and user.can_curate_taxon_id? taxon_concept_id.to_i
+         LastCuratedDate.create(:user_id => user.id, 
+           :taxon_concept_id => taxon_concept_id, 
+           :last_curated => Time.now)
+     end    
+  end
+
 
   def to_s
     "[DataObject id:#{id}]"

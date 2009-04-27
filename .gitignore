@@ -5,6 +5,8 @@ config/deploy.rb
 config/deploy
 vendor/eol_org
 public/search.xml
+public/javascripts/*-cached_packaged.js
+public/stylesheets/*-cached_packaged.css
 *eol_org.rb
 db/schema.rb
 tmp

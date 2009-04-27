@@ -418,7 +418,7 @@ CREATE TABLE `users` (
   `flash_enabled` tinyint(1) default NULL,
   `vetted` tinyint(1) default NULL,
   `mailing_list` tinyint(1) default NULL,  
-  `active` tinyint(1) default NULL COMMENT='when you create an account, you are sent an email to activate it',
+  `active` tinyint(1) default NULL,
   `language_id` int(11) default NULL,
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,

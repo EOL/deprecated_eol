@@ -775,6 +775,9 @@ EOVISBILITYCLAUSE
 
   # add a DataObjectTag to a DataObject
   #
+  # JRice asks: why is this a class method?  One necessarily passes a data_object as the first argument, so
+  # it seems to me that this is superfluous...
+  # 
   # returns true is a tag was successfully added, else false
   def self.tag data_object, key, values, user = nil
     values = [values.to_s] unless values.is_a?Array

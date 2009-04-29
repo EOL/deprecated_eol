@@ -365,14 +365,19 @@ Factory.define :curator, :class => User do |u|
   u.flash_enabled             true
   u.association               :language
   u.mailing_list              true
-  u.vetted                    true
   u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}#{Factory.next(:int)}".gsub(/\s/, '_').downcase }
   u.active                    true
   u.password                  'test password'
+  u.vetted                    true
   u.curator_hierarchy_entry   { Factory(:hierarchy_entry) }
   u.curator_approved          true
   u.curator_verdict_by        { Factory(:user) }
   u.curator_verdict_at        { 48.hours.ago }
+  # A curator isn't credited until she actually DOES something, which is handled thusly:
+  u.last_curated_dates        do |lcd|
+    [lcd.association(:last_curated_date,
+                     :taxon_concept => lcd.curator_hierarchy_entry.taxon_concept )]
+  end
 end
 
 Factory.define :curator_activity do |ca|
@@ -540,6 +545,12 @@ Factory.define :language do |l|
   l.iso_639_3    {|lang| lang.label[0..3].downcase }
   l.activated_on { 24.hours.ago }
   l.sort_order   { Factory.next(:int) % 128 }
+end
+
+Factory.define :last_curated_date do |l|
+  l.association  :user
+  l.association  :taxon_concept
+  l.last_curated { 1.minute.ago }
 end
 
 Factory.define :license do |l|
@@ -733,7 +744,7 @@ Factory.define :taxon do |t|
 end
 
 Factory.define :taxon_concept do |tc|
-  tc.association    :vetted
+  tc.vetted         { Vetted.trusted || Vetted.create(:label => 'Tusted') }
   tc.published      1
   tc.supercedure_id 0
 end

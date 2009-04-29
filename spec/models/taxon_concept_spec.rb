@@ -54,8 +54,12 @@ describe TaxonConcept do
                              :toc             => [{:toc_item => @overview, :description => @overview_text}, 
                                                   {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
     @id            = tc.id
-    @curator       = Factory(:curator, :curator_hierarchy_entry => tc.entry)
     @taxon_concept = TaxonConcept.find(@id)
+    # The curator factory cleverly hides a lot of stuff that User.gen can't handle:
+    @curator       = Factory(:curator, :curator_hierarchy_entry => tc.entry)
+    # Curators aren't recognized until they actually DO something, which is here:
+    LastCuratedDate.gen(:user => @curator, :taxon_concept => @taxon_concept)
+    # And we want one comment that the world cannot see:
     Comment.find_by_body(@comment_bad).hide!
   end
 

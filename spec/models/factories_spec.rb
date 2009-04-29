@@ -19,18 +19,12 @@ describe Factory do
   #
   def self.model_classes
     [ MimeType, AgentRole, DataType, Agent, ContentPartner, CuratorActivity,
-      Language, License, Visibility, Vetted, DataType, Role, User, ItemPage,
-      DataObjectTag, DataObjectTags, DataObject, Comment, CuratorCommentLog,
-      CuratorDataObjectLog, Hierarchy, HierarchyEntry, TaxonConcept, PageName,
-      NormalizedLink, PublicationTitle, InfoItem, Taxon,
+      LastCuratedDate, Language, License, Visibility, Vetted, DataType, Role, User,
+      ItemPage, DataObjectTag, DataObjectTags, DataObject, Comment,
+      CuratorCommentLog, CuratorDataObjectLog, Hierarchy, HierarchyEntry,
+      TaxonConcept, PageName, NormalizedLink, PublicationTitle, InfoItem, Taxon,
       Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
       AgentDataType, AgentContactRole, ServiceType ].uniq
-
-    # ... some to pick from (this isn't all of them) ...
-    #
-    # AgentContact, AgentsResource, AgentsHierarchyEntry, CuratorActivityLogDaily,
-    # DataObjectsHarvestEvent, DataObjectsTableOfContent,
-    # HarvestEvent, HierarchiesContent,
   end
 
   # gets the names of the factories for classes ( default: model_classes )

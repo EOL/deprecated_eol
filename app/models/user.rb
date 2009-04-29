@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   has_many :data_object_tags, :class_name => DataObjectTags.to_s
   has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :comments
+  has_many :last_curated_dates
   
   attr_accessor :entered_password ,:entered_password_confirmation
   attr_reader :full_name, :is_admin, :is_moderator

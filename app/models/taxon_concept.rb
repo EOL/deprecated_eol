@@ -18,6 +18,7 @@ class TaxonConcept < SpeciesSchemaModel
   belongs_to :vetted
 
   has_many :hierarchy_entries
+  has_many :last_curated_dates
   has_many :taxon_concept_names
   has_many :comments, :as => :parent, :attributes => true
   has_many :names, :through => :taxon_concept_names
@@ -90,10 +91,12 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Get a list of TaxonConcept models that are ancestors to this one.
   #
-  # Note that TCs have no notion of ancestry in and of themselves, so they must defer to the hierarchy entries to find ancestors.
-  # And, of course, that yields HierarchyEntry values, so we need to convert them back.
+  # Note that TCs have no notion of ancestry in and of themselves, so they must defer to the hierarchy
+  # entries to find ancestors. And, of course, that yields HierarchyEntry values, so we need to convert
+  # them back.
   #
-  # Also (IMPORTANT): there is another method called "ancestry", which is similar.  TODO - explain the diff
+  # Also (IMPORTANT): there is another method called "ancestry", which, confusingly, returns HierarchyEntry
+  # models, not TaxonConcept models.  Hmmmn.
   def ancestors
     entry.ancestors.map(&:taxon_concept)
   end
@@ -422,6 +425,9 @@ class TaxonConcept < SpeciesSchemaModel
   def current_node(hierarchy_id = nil)
     return entry(hierarchy_id)
   end
+
+  # Returns an array of HierarchyEntry models (not TaxonConcept models), useful for building navigable
+  # trees.  If you really want TCs, refer to #ancestors (yes, TODO - these sould be better-named!)
   def ancestry(hierarchy_id = nil)
     return entry(hierarchy_id).ancestors
   end

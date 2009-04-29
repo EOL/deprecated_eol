@@ -122,13 +122,14 @@ describe DataObject do
 
     it 'should mark tags as public if added by a curator' do
       tc      = build_taxon_concept
-      taxon   = Taxon.last # Hacktastic.  This assumes that the previous method was the last thing to add one.
-      DataObjectsTaxon.gen(:taxon => taxon, :data_object => @dato)
-      curator = User.gen(:curator_hierarchy_entry => tc.entry,
-                         :curator_approved        => true,
-                         :curator_verdict_by      => User.first,
-                         :curator_verdict_at      => 2.hours.ago)
-      @dato.tag 'color', 'blue', curator
+      curator = User.gen
+      dato    = tc.images.first # We CANNOT use @dato here, because it doesn't have all of the required
+                                # relationships to our TaxonConcept.
+      curator.approve_to_curate! tc.entry
+      # Curators aren't curators until they actually... curate.  SO:
+      LastCuratedDate.gen(:user => curator, :taxon_concept => tc)
+      dato.tag 'color', 'blue', curator
+      dotag = DataObjectTag.find_by_key_and_value('color', 'blue')
       DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true
     end
 

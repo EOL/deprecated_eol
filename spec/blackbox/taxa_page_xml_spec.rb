@@ -5,11 +5,6 @@ require File.dirname(__FILE__) + '/../../lib/eol_data'
 class EOL::NestedSet; end
 EOL::NestedSet.send :extend, EOL::Data
 
-def pre_test_hook
-  puts "images: #{@taxon_concept.images.length}"
-  puts "TopImages: #{TopImage.count}"
-end
-
 describe 'Taxa page XML' do
 
   before(:all) do
@@ -139,8 +134,6 @@ describe 'Taxa page XML' do
     end
 
     it 'should include images/count on call to /pages/NNN.xml' do
-      puts "images: #{@taxon_concept.images.length}"
-      puts "TopImage: #{TopImage.count}"
       @taxon_concept_xml.xpath('//images/count').first.content.should == @taxon_concept.images.length.to_s
     end
 
@@ -159,13 +152,11 @@ describe 'Taxa page XML' do
     end
 
     it 'should return a page of images XML on call to /pages/NNN/images/1.xml' do
-      pre_test_hook
       @images_xml.xpath('//images').should_not be_empty
       @images_xml.xpath('//images/image').length.should == 10
     end
 
     it 'should return second page of images XML on call to /pages/NNN/images/2.xml' do
-      pre_test_hook
       # If these two tests are failing, something is wrong with build_taxon_concept.  They must pass for the rest of
       # this test to be valid:
       @taxon_concept.images.length.should > 10

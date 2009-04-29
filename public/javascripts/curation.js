@@ -77,9 +77,9 @@ EOL.Curation.update_text_icons = function(data_object_id, visibility_id) {
 
 EOL.Curation.Behaviors = {
   'div.visibility form div.option input:click, div.vetted form div.option input:click': function(e) {
-    this.form.down('div.label img').appear();
-    form = this.form
-    new Ajax.Request(this.form.action,
+    var form = $(this.form);
+    form.down('div.label img').appear();
+    new Ajax.Request(form.action,
                      {
                        asynchronous:true,
                        evalScripts:true,
@@ -88,9 +88,9 @@ EOL.Curation.Behaviors = {
                          form.enable();
                          form.down('div.label img').fade();
                        }.bind(form),
-                       parameters:Form.serialize(this.form)
+                       parameters:Form.serialize(form)
                      });
-    this.form.disable();
+    form.disable();
   },
   
   'div.trust_button a:click, div.untrust_button a:click': function(e) {

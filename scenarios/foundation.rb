@@ -10,6 +10,8 @@ def create_if_not_exists(klass, attributes)
   end
 end
 
+Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn is set.
+
 # create_if_not_exists This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
 create_if_not_exists ContentPage, :title => 'Home',           :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Home Page')
 create_if_not_exists ContentPage, :title => 'Who We Are',     :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'About EOL')

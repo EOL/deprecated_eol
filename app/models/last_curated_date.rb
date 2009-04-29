@@ -1,8 +1,8 @@
 class LastCuratedDate < ActiveRecord::Base
-  validates_presence_of :user_id, :taxon_concept_id, :last_curated
+  validates_presence_of :user, :taxon_concept, :last_curated
 
-  has_one :user
-  has_one :taxon_concept
+  belongs_to :user
+  belongs_to :taxon_concept
   
 end
 

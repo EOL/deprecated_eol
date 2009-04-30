@@ -98,7 +98,8 @@ class TaxonConcept < SpeciesSchemaModel
   # Also (IMPORTANT): there is another method called "ancestry", which, confusingly, returns HierarchyEntry
   # models, not TaxonConcept models.  Hmmmn.
   def ancestors
-    entry.ancestors.map(&:taxon_concept)
+    entry.ancestors.map {|h| TaxonConcept.find(h.taxon_concept_id) } # Long-winded, but we *cache* these, and so the he.taxon_concept
+                                                                     # relationship doesn't work with disk_store.  Stupid YAML! # TODO - fix
   end
 
   # Get a list of TaxonConcept models that are children to this one.
@@ -202,7 +203,7 @@ class TaxonConcept < SpeciesSchemaModel
 
     # #This method returns 1 instead of nils when things dont work as the maps need some ID even to gererate a blank map, and 1 is not a GBIF ID
     for entry in hierarchy_entries
-      return entry.identifier if entry.hierarchies_content.gbif_image != 0 and !entry.identifier.nil? and entry.identifier != ""
+      return entry.identifier if entry.hierarchies_content and entry.hierarchies_content.gbif_image != 0 and !entry.identifier.nil? and entry.identifier != ""
     end
     
     return 1;

@@ -120,9 +120,11 @@ EOIUCNSQL
     he_all = taxon_concept.direct_ancestors
     ids = he_all.collect do |he| he.id end
     all = User.find(:all, :conditions => ["curator_hierarchy_entry_id IN (#{ids.join(',')}) and curator_approved IS TRUE"])
-    return all.reject {|user| user.last_curator_activity.nil? or
-                              user.last_curator_activity < 2.years.ago }
+    return all
   end
+  
+  # .reject {|user| user.last_curator_activity.nil? or
+  #                           user.last_curator_activity < 2.years.ago }
 
   def with_parents
     HierarchyEntry.with_parents self

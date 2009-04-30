@@ -1,7 +1,9 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'News Items'} %>
 
 This section is used to create news items.  News items are shown on the right part of the home page, as well as in an <%=link_to 'RSS feed',:controller=>'/content',:action=>'news',:format=>'rss'%> and
-the <%=link_to 'news archive page',:controller=>'/content',:action=>'news'%> page.  You must be comfortable with HTML if you wish to create hyperlinks of use formatting.
+the <%=link_to 'news archive page',:controller=>'/content',:action=>'news'%> page.  You must be comfortable with HTML if you wish to create hyperlinks or use formatting.
+Note that you can reference images with the HTML &lt;img&gt; tag, but they must exist at a URL, such as from the originating website or a site such as Flickr.  There is no
+facility to upload images for use directly in the news item.
 
 <div id="news">
 	<% form_tag({:action=>'index'},:method=>'get') do -%>

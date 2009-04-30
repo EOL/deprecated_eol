@@ -126,8 +126,6 @@ describe DataObject do
       dato    = tc.images.first # We CANNOT use @dato here, because it doesn't have all of the required
                                 # relationships to our TaxonConcept.
       curator.approve_to_curate! tc.entry
-      # Curators aren't curators until they actually... curate.  SO:
-      LastCuratedDate.gen(:user => curator, :taxon_concept => tc)
       dato.tag 'color', 'blue', curator
       dotag = DataObjectTag.find_by_key_and_value('color', 'blue')
       DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true

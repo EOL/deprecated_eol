@@ -259,6 +259,7 @@ end
   
   # just clear all fragment caches quickly
   def clear_all_caches
+    Rails.cache.clear
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore  
       ActionController::Base.cache_store.clear  
       return true

@@ -44,7 +44,6 @@ Rails::Initializer.run do |config|
   config.load_paths += Dir["#{RAILS_ROOT}/app/models/**"].map { |dir| dir }
 
   # require gems - all gems that don't require native compilation should be unpacked in ./vendor/gems/
-  config.gem 'hpricot'
   config.gem 'mislav-will_paginate', :version => '>= 2.3.2', :lib => 'will_paginate', :source => 'http://gems.github.com/'
   config.gem 'ruby-debug'
   config.gem 'faker'

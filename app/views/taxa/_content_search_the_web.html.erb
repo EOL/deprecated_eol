@@ -1,6 +1,6 @@
 <% blind_outlink_parameter=URI::escape(remove_html(@taxon.name(current_user.expertise, current_user.language))) %>
 <div class="cpc-header" >
-    <h3><%= TocItem.search_the_web.label %></h3>
+    <h3><%= TocItem.search_the_web.label %></h3> <!-- This title come not the same way like other partials in _content -->
 </div>
 <!-- /center page content header -->
 

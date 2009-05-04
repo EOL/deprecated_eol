@@ -1,6 +1,7 @@
-# A Collection represents... uhhh... a distinct collection (!) of data that a given Agent has.  For exampe, one website (one
-# Agent) may have a collection of butterflie data as well as a collection of shark data. This object allows us to distinquish the
-# two. This is important for citing a data object: the URI for the butterflies may be very different than the URI to sharks.
+# A Collection represents... uhhh... a distinct collection (!) of data that a given Agent has.  For exampe,
+# one website (one Agent) may have a collection of butterflie data as well as a collection of shark data.
+# This object allows us to distinquish the two. This is important for citing a data object: the URI for the
+# butterflies may be very different than the URI to sharks.
 class Collection < SpeciesSchemaModel
   belongs_to :agent
   has_many   :mappings
@@ -17,7 +18,7 @@ class Collection < SpeciesSchemaModel
 
   # Some collections want us to "ping" them every time a DataObject they authored is referenced on our site.
   def ping_host?
-    return false if self[:ping_host_url].nil?
+    return false if self[:ping_host_url].blank?
     return true
   end
 

@@ -65,7 +65,7 @@
       = f.text_field :subject, :maxlength=>200, :size=>50 
     .form_item
       = f.label :resource_created_at, 'Date This Resource Was Created:  <span title="required">*</span>'
-      = f.date_select :resource_created_at
+      = f.date_select :resource_created_at, :start_year => Time.now.year - 10, :end_year => Time.now.year
     .form_item
       = f.label :refresh_period_hours, 'Frequency Resource should be updated (only if you are providing a URL):  <span title="required">*</span>'
     
@@ -86,6 +86,9 @@
           %td{:width => "125"}
             = f.radio_button :refresh_period_hours, 91 * 24
             Quarterly
+    .form_item 
+      =# f.label :ping_host_url, 'If you want EOL to "ping" your site when a resource you contributed is displayed, enter the URL to "ping", here.  If you want the url to include the ID of the particular taxon being shown, use the string "%ID" (without the quotes), which will be replaced with the appropraite ID.'
+      =# f.text_field :ping_host_url, :maxlength=>200, :size=>50 
     .form_item 
       = f.label :license, 'Default License: <span title="required">*</span>'
       %table

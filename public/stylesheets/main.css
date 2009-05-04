@@ -765,7 +765,12 @@ ul#global-navigation {
     #page-curator { margin: 0px; }
 	#page-curator h2 {border-bottom:1px solid #E6E7E8;font-size:15px;padding:20px 0 4px 20px;text-transform:uppercase;width:220px;}
 	#page-curator .curator_name {padding: 0 0 0 30px;}
-	#page-citation {color: #959595; margin-top: 1%; text-align: center;}                                                 
+	#page-citation {
+	  border-top: 3px solid #ccc;
+    margin-bottom: 7px;
+	  padding-top: 5px; 
+	  color: #959595; 
+	  text-align: center;}                                                 
   #number-of-curators {                                                                                                
       font-size:10px;                                                                                                    
       padding-left:5px;                                                                                                        

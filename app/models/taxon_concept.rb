@@ -198,6 +198,14 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return approved
   end
+
+  def acting_curators
+    acting = Set.new
+    self.hierarchy_entries.each do |he|
+      acting.merge he.acting_curators
+    end
+    return acting 
+  end
   
   def gbif_map_id
 

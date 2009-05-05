@@ -6,7 +6,7 @@ class Administrator::UserController  < AdminController
     
     @user_search_string=params[:user_search_string] || ''
     search_string_parameter='%' + @user_search_string + '%' 
-    @start_date=params[:start_date] || "2009-01-05"
+    @start_date=params[:start_date] || "2008-02-28"
     @end_date=params[:end_date] || Date.today.to_s(:db)
     @blank_dates=EOLConvert.to_boolean(params[:blank_dates])
     export=params[:export]

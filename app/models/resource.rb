@@ -37,6 +37,7 @@ class Resource < SpeciesSchemaModel
   def status_label
     (resource_status.nil?) ? "Pending" : resource_status.label
   end
+  
   # vet or unvet entire resource (0 = unknown, 1 = vet)
   def set_vetted_status(vetted) 
     set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id

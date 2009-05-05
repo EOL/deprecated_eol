@@ -6,6 +6,7 @@ class Administrator::ContentPartnerReportController < AdminController
   
   def index
     @partner_search_string=params[:partner_search_string] || ''
+    @only_show_agents_with_unpublished_content=EOLConvert.to_boolean(params[:only_show_agents_with_unpublished_content])
     search_string_parameter='%' + @partner_search_string + '%' 
     page=params[:page] || '1'
     order_by=params[:order_by] || 'full_name ASC'

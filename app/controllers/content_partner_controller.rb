@@ -319,10 +319,10 @@ class ContentPartnerController < ApplicationController
         self.current_agent.remember_me
         cookies[:agent_auth_token] = { :value => self.current_agent.remember_token , :expires => self.current_agent.remember_token_expires_at }
       end
-      flash[:notice] = "Logged in successfully"
+      flash[:notice] = "Logged in successfully as #{self.current_agent.full_name}"
       agent_redirect_back_or_default(:action => 'index')
     else
-      flash.now[:error] = 'Invalid login credentials'
+      flash.now[:error] = 'Invalid content partner login credentials - if you are trying to login as an EOL user or curator, use the login link at the top of the page'
     end
   end
   

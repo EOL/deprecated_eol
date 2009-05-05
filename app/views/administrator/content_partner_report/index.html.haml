@@ -5,6 +5,9 @@ to sort by that column.
 - form_tag({:action=>'index'},:method=>'get') do
   Search for partner names containing: 
   = text_field_tag(:partner_search_string,@partner_search_string)
+  %br/
+  = check_box_tag('only_show_agents_with_unpublished_content','1',@only_show_agents_with_unpublished_content)
+  Only show partners with unpublished content or no resources
   = submit_tag 'Search' 
   %br/
   %br/
@@ -18,33 +21,43 @@ to sort by that column.
         = link_to 'Registered',{:order_by=>'content_partners.created_at DESC'}
       %th Steps
     - for agent in @agents 
-      - column_class=cycle('odd','even') 
+      - show=true
+      - if !agent.has_unpublished_content? && @only_show_agents_with_unpublished_content 
+        - show=false
+      
+      - if show
+        - column_class=cycle('odd','even') 
   
-      %tr{:valign => "top"}
-        %td{:width => "40%", :class => column_class}
-          = link_to(agent.project_name, { :action => 'show', :id => agent })
-          %br/
-          == Content partner has #{agent.resources.count} resources
-        %td{:class => column_class}
-          = format_date(agent.content_partner.created_at)
-        %td{:class => column_class}          	
-          = content_partner_check_box_image(agent.content_partner.partner_complete_step?)
-          Partner Information Completed
-          %br/
-          = content_partner_check_box_image(agent.agent_contacts.any?)
-          Contact Information Added
-          %br/
-          = content_partner_check_box_image(agent.terms_agreed_to?)
-          All Terms Agreed To
-          %br/
-          = content_partner_check_box_image(agent.agreement_accepted?)
-          Agreement accepted        
-          %br/ 
-          = content_partner_check_box_image(agent.vetted?)
-          Vetted by EOL
-          %br/ 
-          = content_partner_check_box_image(agent.show_on_partner_page?)
-          Shown on content partners page        
+        %tr{:valign => "top"}
+          %td{:width => "40%", :class => column_class}
+            = link_to(agent.project_name, { :action => 'show', :id => agent })
+            %br/
+            == Content partner has #{agent.resources.count} resources
+          %td{:class => column_class}
+            = 'Registered:' + format_date(agent.content_partner.created_at)
+            %br/
+            = 'Last action:' + format_date(agent.content_partner.last_action)
+          %td{:class => column_class}          	
+            = content_partner_check_box_image(agent.content_partner.partner_complete_step?)
+            Partner Information Completed
+            %br/
+            = content_partner_check_box_image(agent.agent_contacts.any?)
+            Contact Information Added
+            %br/
+            = content_partner_check_box_image(agent.terms_agreed_to?)
+            All Terms Agreed To
+            %br/
+            = content_partner_check_box_image(agent.agreement_accepted?)
+            Agreement accepted        
+            %br/ 
+            = content_partner_check_box_image(agent.vetted?)
+            Vetted by EOL
+            %br/ 
+            = content_partner_check_box_image(agent.show_on_partner_page?)
+            Shown on content partners page   
+            %br/ 
+            = content_partner_check_box_image(agent.has_unpublished_content?)
+            Has unpublished or no resource               
   %br/
   %br/
   = will_paginate @agents

@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'Login' do
 
   before :all do
+    RandomTaxon.delete_all # I'm wondering if this fixes the broken specs?
     Scenario.load :foundation
   end
   after :all do

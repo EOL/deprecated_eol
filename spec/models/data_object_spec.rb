@@ -84,6 +84,52 @@ describe DataObject do
       d.user.should_not eql(nil)
       d.guid.length.should eql(32)
     end
+
+    it 'should update existing data object' do
+      Scenario.load :foundation
+
+      taxon_concept = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
+      toc_item = TocItem.gen({:label => 'Overview'})
+      params = {
+        :taxon_concept_id => taxon_concept.id,
+        :data_objects_toc_category => { :toc_id => toc_item.id}
+      }
+
+      do_params = {
+        :license_id => License.find_by_title('public domain').id,
+        :language_id => Language.find_by_label('English').id,
+        :description => 'a new text object',
+        :object_title => 'new title'
+      }
+
+      params[:data_object] = do_params
+
+      d = DataObject.create_user_text(params, User.gen)
+      u = d.user
+
+      params = {
+        :taxon_concept_id => taxon_concept.id,
+        :data_objects_toc_category => { :toc_id => toc_item.id},
+        :id => d.id
+      }
+
+      do_params = {
+        :license_id => License.find_by_title('public domain').id,
+        :language_id => Language.find_by_label('English').id,
+        :description => 'a new text object',
+        :object_title => 'new title'
+      }
+
+      params[:data_object] = do_params
+
+      new_d = DataObject.update_user_text(params,u)
+      new_d.guid.should eql(d.guid)
+      DataObject.find_all_by_guid(d.guid).length.should eql(2)
+      new_d.object_title.should eql(d.object_title)
+      new_d.description.should eql(d.description)
+      new_d.license_id.should eql(d.license_id)
+      new_d.language_id.should eql(d.language_id)
+    end
   end
 
   describe '#to_s' do

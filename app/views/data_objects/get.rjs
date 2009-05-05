@@ -1,0 +1,1 @@
+page.call 'EOL.TextObjects.update_text', @text, @data_object.id, @data_object.id

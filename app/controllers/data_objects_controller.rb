@@ -15,23 +15,36 @@ class DataObjectsController < ApplicationController
     data_object = DataObject.preview_user_text(params)
     @curator = false
     @preview = true
+    @data_object_id = params[:id]
+    @hide = true
     @preview_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
   end
 
-  def update
+  def get
+    @taxon_concept_id = @taxon_id = params[:taxon_concept_id]
+    @curator = current_user.can_curate?(TaxonConcept.find(@taxon_concept_id))
+    @hide = true
+    @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
+  end
 
+  def update
+    @old_data_object_id = params[:id]
+    @data_object = DataObject.update_user_text(params, current_user)
+    @taxon_concept_id = @taxon_id = params[:taxon_concept_id]
+    @curator = current_user.can_curate?(TaxonConcept.find(@taxon_concept_id))
+    @hide = true
+    @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
   end
 
   def edit
-    
+    set_text_data_object_options
+    render :partial => 'edit_text'
   end
 
   def new
+    set_text_data_object_options
     @data_object = DataObject.new
-    @selectable_toc = TocItem.find(:all, :order => 'id').select{|c| c.allow_user_text?}.collect {|c| [c.label, c.id] }
-    @taxon_concept_id = params[:taxon_concept_id]
-    @languages = Language.find(:all).collect {|c| [c.name, c.id] }
-    @licenses = License.valid_for_user_content
+    render :partial => 'new_text'
   end
 
   def curator_only
@@ -144,4 +157,10 @@ protected
     @data_object ||= current_object
   end
 
+  def set_text_data_object_options
+    @selectable_toc = TocItem.find(:all, :order => 'id').select{|c| c.allow_user_text?}.collect {|c| [c.label, c.id] }
+    @taxon_concept_id = params[:taxon_concept_id]
+    @languages = Language.find(:all).collect {|c| [c.name, c.id] }
+    @licenses = License.valid_for_user_content
+  end
 end

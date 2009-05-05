@@ -158,7 +158,7 @@ li#large-image-attribution-button.unknown:hover {
     padding-bottom: 10px;
 }
 
-.insert_text { position:relative !important; width: 417px !important}
+.insert_text { position:relative !important; width: 423px !important; margin-bottom: 40px;}
 
 #insert_text_popup_content table td { padding: 5px; vertical-align:top; }
 

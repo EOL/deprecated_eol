@@ -2056,7 +2056,8 @@ ul#global-navigation {
       font-weight: 600;
       color: #999;
       border-bottom: 1px solid #ccc;  
-      text-transform: uppercase;                
+      text-transform: uppercase;
+      height:23px;
     }
 
     .content-attribution-area {
@@ -3160,4 +3161,11 @@ form .pagination span {color:#959595;display: inline;}
 
 ul.small-star {
   padding-left: 0px !important;
+}
+
+div.edit_text {
+  width: 20px;
+  height: 22px;
+  float: right;
+  padding-right: 5px;
 }

@@ -23,6 +23,21 @@ class ContentPartner < SpeciesSchemaModel
   # Callbacks
   before_save :blank_not_null_fields
   
+  # the date of the last action taken (the last time a contact was updated, or a step was viewed, or a resource was added/edited/published)
+  def last_action
+    dates_to_compare=[self.partner_seen_step,self.partner_complete_step,self.contacts_seen_step,self.contacts_complete_step,self.licensing_seen_step,self.licensing_complete_step,self.attribution_seen_step,self.attribution_complete_step,self.roles_seen_step,self.roles_complete_step,self.transfer_overview_seen_step,self.transfer_overview_complete_step,self.transfer_upload_seen_step,self.transfer_upload_complete_step]
+    resources=self.agent.resources.compact!
+    if resources
+      dates_to_compare << resources.sort_by{ |m| m.created_at }[0].created_at 
+    end
+    dates_to_compare.compact!
+    if dates_to_compare
+      dates_to_compare.sort[0]
+    else
+      nil
+    end
+  end
+  
   def step=(new_step)
     @step = new_step.to_sym
     

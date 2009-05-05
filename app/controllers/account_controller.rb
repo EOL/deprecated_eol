@@ -215,7 +215,7 @@ class AccountController < ApplicationController
     flash[:notice] = "Logged in successfully"[:logged_in]   
     # TODO - user.failed_logins = 0; user.save
     # could catch the fact that they are a new openid user here and redirect somewhere else if you wanted
-    if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty? ) # if we're an admin we STILL would love a return, thank you very much!
+    if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty?) # if we're an admin we STILL would love a return, thank you very much!
       redirect_to :controller => 'admin', :action => 'index', :protocol => "http://"
     else
       redirect_back_or_default

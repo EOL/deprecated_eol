@@ -104,6 +104,16 @@ Go to http://localhost:3000 and see stuff.
 
 We're using RSpec for our testing (see the spec/ directory).  Run 'rake spec' (or 'rake specdoc' for specdoc output)
 
+=== Test Logins
+
+admin user
+username: admin
+password: admin
+
+content partner
+username: test_cp
+password: test password
+
 === Additional tests
 
 You can log in as any of the users or content partners with the password "test password". There are no

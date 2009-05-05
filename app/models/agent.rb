@@ -151,6 +151,14 @@ class Agent < SpeciesSchemaModel
     self.content_partner.save
   end
 
+  def has_unpublished_content?
+    result=false
+    self.resources.each do |resource|
+      result=(resource.resource_status==ResourceStatus.published)
+    end
+    return !result
+  end
+  
   def notes
     self.content_partner.notes unless self.content_partner.nil? 
   end

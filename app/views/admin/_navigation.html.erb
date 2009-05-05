@@ -6,7 +6,6 @@
   <% restrict_to "(Administrator - Site CMS) & !blacklist" do %>
     <h3>Site CMS</h3>
   	  <li><%= link_to 'edit page contents',{:controller=>'administrator/content_page',:action=>'index'}, {:class=>'toc_item active'}%> </li>
-  	  <li><%= link_to 'edit contact us topics',{:controller=>'administrator/contact_subject', :action=>'index'}, {:class=>'toc_item active'}%> </li>
   	  <li><%= link_to 'edit search suggestions',{:controller=>'administrator/search_suggestion', :action=>'index'}, {:class=>'toc_item active'}%> </li>
   <% end %>
   
@@ -30,6 +29,7 @@
 
   <% restrict_to "(Administrator - Contact Us Submissions) & !blacklist" do %>
   	<h3>Contact Us Functions</h3>
+	  <li><%= link_to 'edit contact us topics',{:controller=>'administrator/contact_subject', :action=>'index'}, {:class=>'toc_item active'}%> </li>  	
   	<li><%= link_to 'view contact us submissions', {:controller => 'administrator/contact', :action => 'index'}, {:class=>'toc_item active'} %> </li>
   <% end %>
 

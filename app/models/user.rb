@@ -294,8 +294,9 @@ class User < ActiveRecord::Base
     ar_to_xml(options)
   end
 
+
   def tags_are_public_for_data_object?(data_object)
-    return self.can_curate? data_object
+    return self.can_curate?(data_object)
   end
   
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

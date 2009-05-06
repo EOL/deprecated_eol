@@ -1,0 +1,178 @@
+--- !ruby/object:Gem::Specification 
+name: jscruggs-metric_fu
+version: !ruby/object:Gem::Version 
+  version: 1.0.1
+platform: ruby
+authors: 
+- Jake Scruggs
+- Sean Soper
+- Andre Arko
+- Petrik de Heus
+- Grant McInnes
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-04-08 00:00:00 -06:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: flay
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.2.1
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: flog
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 2.1.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: rcov
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">"
+      - !ruby/object:Gem::Version 
+        version: 0.8.1
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: reek
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.0.0
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: roodi
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 1.3.5
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: chronic
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 0.2.3
+    version: 
+description: Code metrics from Flog, Flay, RCov, Saikuro, Churn, Reek, Roodi and Rails' stats task
+email: jake.scruggs@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- HISTORY
+- Manifest.txt
+- README
+files: 
+- README
+- HISTORY
+- TODO
+- MIT-LICENSE
+- Rakefile
+- lib/base/base_template.rb
+- lib/base/configuration.rb
+- lib/base/generator.rb
+- lib/base/md5_tracker.rb
+- lib/base/report.rb
+- lib/generators/churn.rb
+- lib/generators/flay.rb
+- lib/generators/flog.rb
+- lib/generators/rcov.rb
+- lib/generators/reek.rb
+- lib/generators/roodi.rb
+- lib/generators/saikuro.rb
+- lib/generators/stats.rb
+- lib/metric_fu.rb
+- lib/templates/standard/churn.html.erb
+- lib/templates/standard/default.css
+- lib/templates/standard/flay.html.erb
+- lib/templates/standard/flog.html.erb
+- lib/templates/standard/index.html.erb
+- lib/templates/standard/rcov.html.erb
+- lib/templates/standard/reek.html.erb
+- lib/templates/standard/roodi.html.erb
+- lib/templates/standard/saikuro.html.erb
+- lib/templates/standard/standard_template.rb
+- lib/templates/standard/stats.html.erb
+- tasks/metric_fu.rake
+- tasks/railroad.rake
+- vendor/saikuro/saikuro.rb
+- Manifest.txt
+- spec/base/base_template_spec.rb
+- spec/base/configuration_spec.rb
+- spec/base/generator_spec.rb
+- spec/base/md5_tracker_spec.rb
+- spec/base/report_spec.rb
+- spec/generators/churn_spec.rb
+- spec/generators/flay_spec.rb
+- spec/generators/flog_spec.rb
+- spec/generators/reek_spec.rb
+- spec/generators/saikuro_spec.rb
+- spec/generators/stats_spec.rb
+- spec/spec_helper.rb
+has_rdoc: true
+homepage: http://metric-fu.rubyforge.org/
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --main
+- README
+require_paths: 
+- bin
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.2
+signing_key: 
+specification_version: 2
+summary: A fistful of code metrics
+test_files: 
+- spec/base/base_template_spec.rb
+- spec/base/configuration_spec.rb
+- spec/base/generator_spec.rb
+- spec/base/md5_tracker_spec.rb
+- spec/base/report_spec.rb
+- spec/generators/churn_spec.rb
+- spec/generators/flay_spec.rb
+- spec/generators/flog_spec.rb
+- spec/generators/reek_spec.rb
+- spec/generators/saikuro_spec.rb
+- spec/generators/stats_spec.rb
+- spec/spec_helper.rb

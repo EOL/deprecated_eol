@@ -163,8 +163,6 @@ end
   def redirect_back_or_default(default=home_page_url)
 
     # be sure we aren't returning the login, register or logout page
-    puts 'return_to_url=' + return_to_url
-    puts 'url_for=' + url_for(:controller=>'content_partner',:action=>'login')
     if return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url && !url_for(:controller=>'content_partner',:action=>'login',:only_path=>true).include?(return_to_url) 
       redirect_to(CGI.unescape(return_to_url),:protocol => "http://")
     else

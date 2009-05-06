@@ -16,6 +16,7 @@ module ActiveSupport #:nodoc:
         #   x.round(1) # => 1.3
         #   x.round(2) # => 1.34
         def round_with_precision(precision = nil)
+          return 0 if self.to_s == 'NaN'
           precision.nil? ? round_without_precision : (self * (10 ** precision)).round / (10 ** precision).to_f
         end
       end

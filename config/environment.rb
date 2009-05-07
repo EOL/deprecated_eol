@@ -57,9 +57,10 @@ Rails::Initializer.run do |config|
   config.gem 'flog'
   config.gem 'roodi'
   config.gem 'reek'
-  config.gem 'saikuro'
-  config.gem 'rcov'
-  config.gem 'churn'
+  # Not gemified!  Grrr...   config.gem 'saikuro'
+  # I can't get this one to work for me in OS X config.gem 'rcov'
+  #This one is actually part of metric_fu (I think): config.gem 'churn'
+  # Not ready yet: config.gem 'jscruggs-metric_fu', :source => 'http://gems.github.com/'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

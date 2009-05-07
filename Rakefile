@@ -2,7 +2,7 @@
 # for example lib/tasks/capistrano.rake, and they will automatically be available to Rake.
 
 require(File.join(File.dirname(__FILE__), 'config', 'boot'))
-require(File.join(RAILS_ROOT, 'vendor', 'gems', 'jscruggs-metric_fu-1.0.1', 'lib', 'metric_fu'))
+# WAIT (says jrice): require(File.join(RAILS_ROOT, 'vendor', 'gems', 'jscruggs-metric_fu-1.0.1', 'lib', 'metric_fu'))
 
 require 'rake'
 require 'rake/testtask'

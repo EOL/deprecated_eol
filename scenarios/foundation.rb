@@ -1,24 +1,43 @@
 # sets up a basic foundation - enough data to run the application, but no content
 
-# Use a factory to build an object that may already be there.  This syntax sucks, it would be nice to move this to the same place
-# as ActiveRecord::Base#gen, which we're adding elsewhere...
+# Use a factory to build an object that may already be there.  This syntax sucks, it would be nice to move this
+# to the same place as ActiveRecord::Base#gen, which we're adding elsewhere...
+
 def create_if_not_exists(klass, attributes)
+  found = nil
   begin
-    klass.send(:gen, attributes)
+    # So, we only want to look up those values that are "simple".  We're not bothering looking up relationships
+    # (which are passed in as objects, and we would otherwise have to convert to ids):
+    searchable_attributes = {}
+    attributes.keys.each do |key|
+      searchable_attributes[key] = attributes[key] if attributes[key].class == String or
+                                                      attributes[key].class == Integer
+    end
+    # Assumes that .keys returns in same order as .values, which is appears is true:
+    found = klass.send("find_by_" << searchable_attributes.keys.join('_and_'), searchable_attributes.values) unless
+      searchable_attributes.keys.blank?
+    found = klass.send(:gen, attributes) if found.nil?
   rescue ActiveRecord::RecordInvalid => e
-    # Do nothing; we don't care.  This is (usually, we hope) caused when such a thing already exists.
+    puts "** Invalid Record : #{e.message}"
   end
+  return found
 end
 
 Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn is set.
 
-# create_if_not_exists This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
-create_if_not_exists ContentPage, :title => 'Home',           :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Home Page')
-create_if_not_exists ContentPage, :title => 'Who We Are',     :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'About EOL')
-create_if_not_exists ContentPage, :title => 'Contact Us',     :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Feedback')
-create_if_not_exists ContentPage, :title => 'Screencasts',    :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Using the Site')
-create_if_not_exists ContentPage, :title => 'Press Releases', :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Press Room')
-create_if_not_exists ContentPage, :title => 'Terms Of Use',   :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Footer')
+# This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
+create_if_not_exists ContentPage, :title => 'Home',
+  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Home Page')
+create_if_not_exists ContentPage, :title => 'Who We Are',
+  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'About EOL')
+create_if_not_exists ContentPage, :title => 'Contact Us',
+  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Feedback')
+create_if_not_exists ContentPage, :title => 'Screencasts',
+  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Using the Site')
+create_if_not_exists ContentPage, :title => 'Press Releases',
+  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Press Room')
+create_if_not_exists ContentPage, :title => 'Terms Of Use',
+  :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Footer')
 
 create_if_not_exists ContactSubject, :title => 'Media Contact', :recipients=>'test@test.com', :active=>true
 

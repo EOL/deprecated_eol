@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+#
+# Reek examines Ruby source code for smells.
+# Visit http://reek.rubyforge.org/ for docs etc.
+#
+# Author: Kevin Rutherford
+#
+
+require 'reek'
+require 'reek/source'
+require 'reek/options'
+
+exitstatus = 0
+source = Reek::Options.parse(ARGV)
+if source.smelly?
+  puts source.report
+  exitstatus = 2
+end
+exit(exitstatus)

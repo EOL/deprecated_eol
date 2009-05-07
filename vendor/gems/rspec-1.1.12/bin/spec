@@ -1,4 +1,16 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'spec'
+
+module Spec
+  module Runner
+    class Options
+      FILE_SORTERS = {
+        'mtime' => lambda {|file_a, file_b| File.mtime(file_b) <=> File.mtime(file_a)},
+        'path' => lambda {|file_a, file_b| file_a <=> file_b}
+      }
+    end
+  end
+end
+
 exit ::Spec::Runner::CommandLine.run

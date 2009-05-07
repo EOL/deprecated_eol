@@ -3,8 +3,12 @@ require File.expand_path(File.join(File.dirname(__FILE__), "..", "support", "pat
 # Commonly used webrat steps
 # http://github.com/brynary/webrat
 
-When /^I go to (.+)$/ do |page_name|
+When /^I go to (\S+)$/ do |page_name|
   visit path_to(page_name)
+end
+
+When /^I go to the page for Taxon Concept (.*)$/ do |tc_id|
+  visit taxon_url tc_id
 end
 
 When /^I press "(.*)"$/ do |button|
@@ -92,6 +96,10 @@ end
 
 Then /^I should not see "(.*)"$/ do |text|
   response.body.should_not =~ /#{text}/m
+end
+
+Then /^I should see an? "(.*)" tag with a "(.*)" attribute of "(.*)"$/ do |tag, attr, val|
+  response.should have_selector(tag, attr.to_sym => val)
 end
 
 Then /^the "(.*)" checkbox should be checked$/ do |label|

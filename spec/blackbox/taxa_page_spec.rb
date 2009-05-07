@@ -59,7 +59,6 @@ describe 'Taxa page (HTML)' do
     @child1        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @child2        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @id            = @taxon_concept.id
-    @images        = @taxon_concept.images
 
     # This is kind of confusing, but basically the next six lines will cause us to ping a host:
     @ping_url      = 'TEST_with_%ID%'

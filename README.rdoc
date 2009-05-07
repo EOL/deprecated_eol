@@ -201,6 +201,39 @@ app like TextMate, or with a rake command:
 
   rake notes:todo
 
+== TESTING
+
+Here are our rake stats as of May 7th:
+
+      +----------------------+-------+-------+---------+---------+-----+-------+
+      | Name                 | Lines |   LOC | Classes | Methods | M/C | LOC/M |
+      +----------------------+-------+-------+---------+---------+-----+-------+
+      | Controllers          |  3848 |  2665 |      34 |     262 |   7 |     8 |
+      | Helpers              |   713 |   503 |       2 |      49 |  24 |     8 |
+      | Models               |  7120 |  3981 |     104 |     473 |   4 |     6 |
+      | Libraries            |   980 |   676 |       9 |      69 |   7 |     7 |
+      | Model specs          |  1644 |   637 |       1 |       5 |   5 |   125 |
+      | View specs           |     0 |     0 |       0 |       0 |   0 |     0 |
+      | Controller specs     |     0 |     0 |       0 |       0 |   0 |     0 |
+      | Helper specs         |    10 |     7 |       0 |       0 |   0 |     0 |
+      | Library specs        |     0 |     0 |       0 |       0 |   0 |     0 |
+      +----------------------+-------+-------+---------+---------+-----+-------+
+      | Total                | 14315 |  8469 |     150 |     858 |   5 |     7 |
+      +----------------------+-------+-------+---------+---------+-----+-------+
+        Code LOC: 7825     Test LOC: 644     Code to Test Ratio: 1:0.1
+
+We really need to start improving our tests.  To that end, I would like to start using: 
+
+  rails stats (we need to tweak this to add blackbox tests)
+  reek
+  flay
+  flog
+  roodi
+  reek
+  saikuro
+  rcov
+  churn
+
 == USERS/ROLES/RIGHTS
 
 The site is using the acl_system plugin (http://brainspl.at/articles/2006/02/20/new-plugin-acl_system).

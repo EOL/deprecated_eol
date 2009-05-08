@@ -52,7 +52,7 @@ end
     def render_404
       respond_to do |type|
         flash.now[:warning]="The page you have requested does not exist."
-        type.html { render :template => "content/error" }
+        type.html { render :layout=>'main',:template => "content/error", :status => "404 Not Found" }
         type.all  { render :nothing => true, :status => "404 Not Found" }
       end
     end
@@ -69,7 +69,7 @@ end
            ) 
        end
       respond_to do |type|
-       type.html { render :template => "content/error" }
+       type.html { render :layout=>'main',:template => "content/error",:status => "500 Error" }
        type.all  { render :nothing => true, :status => "500 Error" }
       end
     end

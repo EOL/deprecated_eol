@@ -15,8 +15,9 @@ class Comment < ActiveRecord::Base
 
   before_create :set_visible_at, :set_from_curator
   
-  after_create :curator_activity_flag
-  after_update :curator_activity_flag
+  # uncomment for citation (May 11 2009)
+  # after_create :curator_activity_flag
+  # after_update :curator_activity_flag
   
   validates_presence_of :body
 

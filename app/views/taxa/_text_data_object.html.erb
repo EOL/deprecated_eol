@@ -8,11 +8,11 @@
 
     <!-- ATTRIBUTION GOES HERE -->
     <div class="content-attribution-area">
-      <% if !content_item.user.nil? && content_item.user.id == current_user.id %>
-        <div class="edit_text">
-          <%= link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_id}) -%>
-        </div>
-      <% end %>
+      <%# if !content_item.user.nil? && content_item.user.id == current_user.id %>
+        <%#*<div class="edit_text">%>
+          <%#= link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_id}) -%>
+        <%#*</div>%>
+      <%# end %>
       <div class="attribution-header2">
         <%= "Source and Additional Information"[] %>
       </div>

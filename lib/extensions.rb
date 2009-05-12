@@ -28,6 +28,16 @@ module ActiveRecord
   class Base
     class << self
 
+      # returns the full table name of this ActiveRecord::Base, 
+      # including the database name.
+      #
+      #   >> User.full_table_name
+      #   => "eol_development.users"
+      #
+      def full_table_name
+        database_name + '.' + table_name
+      end
+
       # returns a hash of configuration variables for this ActiveRecord::Base's connection adapter
       def database_config
         # in production, we have a ConnectionProxy with many adapters 

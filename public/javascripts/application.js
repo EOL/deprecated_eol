@@ -79,11 +79,29 @@ Event.addBehavior(
     }
   },
 
+  // when the image collection is loaded, this means we have images so ... check the location to see if #image-1234 is being requested
+  'div#image-collection': function() {
+    if (window.checked_for_image_hash_tag == null) {
+      window.checked_for_image_hash_tag = true;
+      var match = window.location.hash.match(/#image-(\d*)/);
+      if (match != null) {
+        var image_id = match[1];
+        var image_hash = EOL.MediaCenter.image_hash[image_id];
+        eol_update_image( image_hash.smart_image, image_hash );
+      }
+    }
+  },
+
   // clicking on a thumbnail in the mediacenter
   'div#image-collection div#thumbnails a:click': function(e) {
+    var image_id   = $(this).id.match(/\d*$/)[0]; // eg. id="thumbnail_123"
+    var image_hash = EOL.MediaCenter.image_hash[image_id];
+    eol_update_image( image_hash.smart_image, image_hash );
+
     for(var i in EOL.popups) {
       EOL.popups[i].destroy();
     }
+    e.stop();
   },
 
   //clicking on maps link in mediacenter

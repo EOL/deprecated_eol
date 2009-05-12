@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
     self.curator_verdict_by = updated_by
     
     if approved
-      self.roles << Role.curator unless self.roles.include?(Role.curator)
+      self.roles << Role.curator unless has_curator_role?
     else
       self.roles.delete(Role.curator)
     end
@@ -283,7 +283,8 @@ class User < ActiveRecord::Base
       self.curator_approved=false
       self.roles.delete(Role.curator) unless self.roles.blank?
     else # be sure they have the curator role set if they have a curator hierarchy entry set
-      self.roles << Role.curator unless self.roles.include?(Role.curator)
+      self.roles.reload
+      self.roles << Role.curator unless has_curator_role?
     end
   end
 

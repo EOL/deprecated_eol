@@ -23,3 +23,24 @@ class Hash
   end
 
 end
+
+module ActiveRecord
+  class Base
+    class << self
+
+      # returns a hash of configuration variables for this ActiveRecord::Base's connection adapter
+      def database_config
+        # in production, we have a ConnectionProxy with many adapters 
+        # otherwise #connection directly returns the adapter
+        adapter = self.connection.instance_eval { @current } || self.connection
+        adapter.instance_eval { @config }
+      end
+      
+      # returns the name of the database for this ActiveRecord::Base
+      def database_name
+        database_config[:database]
+      end
+
+    end
+  end
+end

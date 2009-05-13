@@ -16,4 +16,33 @@ module EOL::Spec::Matchers
 
   matcher(:include) {|array, block| array.include? block }
 
+  # We're only using this for testing Attributions, but it does DRY things up and make it much more readable:
+  class FindAfterAgentRole
+    def initialize(agent, role)
+      @agent = agent
+      @role  = role
+    end
+    def matches?(target)
+      @target = target
+      @target.each_with_index do |attribution, i|
+        if attribution.agent == @agent
+          return false if i == 0 # Because it should NOT be found at the beginning of the array!
+          return @target[i-1].agent_role == @role
+        end
+      end
+    end
+    def failure_message
+      "expected Agent for \"#{@agent.project_name}\" to come after \"#{@role.label}\" in [" <<
+      "#{@target.map {|ado| "#{ado.agent_role} Agent \"#{ado.agent.project_name}\"" }.join(', ')}]"
+    end
+    def negative_failure_message
+      "expected Agent for \"#{@agent.project_name}\" NOT to come after \"#{@role.label}\" in [" <<
+      "#{@target.map {|ado| "#{ado.agent_role} Agent \"#{ado.agent.project_name}\"" }.join(', ')}]"
+    end
+  end
+
+  def find_after_agent_role(agent, role)
+    FindAfterAgentRole.new(agent, role)
+  end
+
 end

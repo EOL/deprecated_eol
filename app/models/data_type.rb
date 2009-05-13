@@ -4,6 +4,9 @@ class DataType < SpeciesSchemaModel
 
   has_many :data_objects
 
+  # TODO - This actually looks like it once accomodated a difference in attribution order for different types of
+  # data objects.  This no longer appears to be the case (the lists are identical), so do we need all these
+  # methods?  Need to ask Ben, who I think worked on this.  Best to remove it if we can.
   class << self
     attr_accessor :attribution_order
     def attribution_order

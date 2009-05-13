@@ -35,234 +35,234 @@ describe DataObject do
 
   scenario :foundation # Just so we have DataType IDs and the like.
 
-#  describe 'ratings' do
-#
-#    it 'should have a default rating of 0.0' do
-#      d = DataObject.new
-#      d.data_rating.should eql(0.0)
-#    end
-#
-#    it 'should create new rating' do
-#      UsersDataObjectsRating.count.should eql(0)
-#
-#      d = DataObject.gen
-#      u = User.gen
-#      d.rate(u,5)
-#
-#      UsersDataObjectsRating.count.should eql(1)
-#      d.data_rating.should eql(5.0)
-#      r = UsersDataObjectsRating.find_by_user_id_and_data_object_id(u.id, d.id)
-#      r.rating.should eql(5)
-#    end
-#
-#    it 'should generate average rating' do
-#      d = DataObject.gen
-#      u1 = User.gen
-#      u2 = User.gen
-#      d.rate(u1,4)
-#      d.rate(u2,2)
-#      d.data_rating.should eql(3.0)
-#    end
-#
-#    it 'should update existing rating' do
-#      d = DataObject.gen
-#      u = User.gen
-#      d.rate(u,1)
-#      d.rate(u,5)
-#      d.data_rating.should eql(5.0)
-#      UsersDataObjectsRating.count.should eql(1)
-#      r = UsersDataObjectsRating.find_by_user_id_and_data_object_id(u.id, d.id)
-#      r.rating.should eql(5)
-#    end
-#
-#  end
-#
-#  describe 'user submitted text' do
-#    it 'should create valid data object' do
-#      d = create_user_text_object
-#      d.data_type.label.should == 'Text'
-#      d.user.should_not eql(nil)
-#      d.guid.length.should eql(32)
-#    end
-#
-#    it 'should update existing data object' do
-#      Scenario.load :foundation
-#
-#      taxon_concept = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
-#      toc_item = TocItem.gen({:label => 'Overview'})
-#      params = {
-#        :taxon_concept_id => taxon_concept.id,
-#        :data_objects_toc_category => { :toc_id => toc_item.id}
-#      }
-#
-#      do_params = {
-#        :license_id => License.find_by_title('public domain').id,
-#        :language_id => Language.find_by_label('English').id,
-#        :description => 'a new text object',
-#        :object_title => 'new title'
-#      }
-#
-#      params[:data_object] = do_params
-#
-#      d = DataObject.create_user_text(params, User.gen)
-#      u = d.user
-#
-#      params = {
-#        :taxon_concept_id => taxon_concept.id,
-#        :data_objects_toc_category => { :toc_id => toc_item.id},
-#        :id => d.id
-#      }
-#
-#      do_params = {
-#        :license_id => License.find_by_title('public domain').id,
-#        :language_id => Language.find_by_label('English').id,
-#        :description => 'a new text object',
-#        :object_title => 'new title'
-#      }
-#
-#      params[:data_object] = do_params
-#
-#      new_d = DataObject.update_user_text(params,u)
-#      new_d.guid.should eql(d.guid)
-#      DataObject.find_all_by_guid(d.guid).length.should eql(2)
-#      new_d.object_title.should eql(d.object_title)
-#      new_d.description.should eql(d.description)
-#      new_d.license_id.should eql(d.license_id)
-#      new_d.language_id.should eql(d.language_id)
-#    end
-#  end
-#
-#  describe '#to_s' do
-#    it 'should show the id for to_s (and be short)' do
-#      @dato = DataObject.gen
-#      @dato.to_s.should match(/#{@dato.id}/)
-#      @dato.to_s.length.should < 30
-#    end
-#  end
-#
-#  # TODO - DataObject.search_by_tag needs testing, but comments in the file suggest it will be changed significantly.
-#  # TODO - DataObject.search_by_tags needs testing, but comments in the file suggest it will be changed significantly.
-#
-#  describe 'tagging' do
-#
-#    before(:each) do
-#      @dato = DataObject.gen
-#      @user = User.gen
-#      @tag1 = DataObjectTag.gen(:key => 'foo',    :value => 'bar')
-#      @tag2 = DataObjectTag.gen(:key => 'foo',    :value => 'baz')
-#      @tag3 = DataObjectTag.gen(:key => 'boozer', :value => 'brimble')
-#      DataObjectTags.gen(:data_object_tag => @tag1, :data_object => @dato)
-#      DataObjectTags.gen(:data_object_tag => @tag2, :data_object => @dato)
-#      DataObjectTags.gen(:data_object_tag => @tag3, :data_object => @dato)
-#    end
-#
-#    it 'should create a tag hash' do
-#      result = @dato.tags_hash
-#      result['foo'].should    == ['bar', 'baz']
-#      result['boozer'].should == ['brimble']
-#    end
-#
-#    it 'should create tag keys' do
-#      @dato.tag_keys.should == ['foo', 'boozer']
-#    end
-#
-#    it 'should mark tags as public if added by a curator' do
-#      tc      = build_taxon_concept
-#      curator = User.gen
-#      dato    = tc.images.first # We CANNOT use @dato here, because it doesn't have all of the required
-#                                # relationships to our TaxonConcept.
-#      curator.approve_to_curate! tc.entry
-#      dato.tag 'color', 'blue', curator
-#      dotag = DataObjectTag.find_by_key_and_value('color', 'blue')
-#      DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true
-#    end
-#
-#  end
-#
-#  describe 'search_by_tags' do
-#
-#    before(:each) do
-#      @look_for_less_than_tags = true
-#      @dato = DataObject.gen
-#      DataObjectTag.delete_all(:key => 'foo', :value => 'bar')
-#      @tag = DataObjectTag.gen(:key => 'foo', :value => 'bar')
-#      how_many = (DataObjectTags.minimum_usage_count_for_public_tags - 1)
-#      # In late April of 2008, we "dialed down" the number of tags that it takes... to one.  Which screws up
-#      # the tests that assume you need more than one tag to make a tag public.  This logic fixes that, but
-#      # in a way that's flexible enough that it will still work if we dial it back up.
-#      if how_many < 1
-#        how_many = 1
-#        @look_for_less_than_tags = false
-#      end
-#      how_many.times do
-#        DataObjectTags.gen(:data_object_tag => @tag, :data_object => @dato, :user => User.gen)
-#      end
-#    end
-#
-#    it 'should not find tags for which there are less than DEAFAULT_MIN_BLAHBLAHBLHA instances' do
-#      if @look_for_less_than_tags
-#        DataObject.search_by_tags([[[:foo, 'bar']]]).should be_empty
-#      end
-#    end
-#
-#    it 'should find tags specifically flagged as public, regardless of count' do
-#      @tag.is_public = true
-#      @tag.save!
-#      DataObject.search_by_tags([[[:foo, 'bar']]]).map {|d| d.id }.should include(@dato.id)
-#    end
-#
-#  end
-#
-#  describe '#image?' do
-#
-#    it 'should return true if this is an image' do
-#      @dato = DataObject.gen(:data_type_id => DataType.image_type_ids.first)
-#      @dato.image?.should be_true
-#    end
-#
-#    it 'should return false if this is NOT an image' do
-#      @dato = DataObject.gen(:data_type_id => DataType.image_type_ids.sort.last + 1) # Clever girl...
-#      @dato.image?.should_not be_true
-#    end
-#
-#  end
-#
-#  describe '#video_url' do
-#    before(:each) do
-#      set_content_variables
-#    end
-#
-#    it 'should use object_url if non-flash' do
-#      @dato.data_type = DataType.gen(:label => 'AnythingButFlash')
-#      @dato.video_url.should == @dato.object_url
-#    end
-#
-#
-#
-#    # This one dosn't work, i was trying to fix it when I had to abort...
-#    #
-#
-#    #it 'should use object_cache_url (plus .flv) if available' do
-#      #@dato.object_cache_url = @image_int
-#      #debugger
-#      #@dato.video_url.should =~ /#{@test_str}\.flv$/
-#    #end
-#
-#    it 'should return empty string if no thumbnail (when Flash)' do
-#      @dato.object_cache_url = nil
-#      @dato.video_url.should == ''
-#      @dato.object_cache_url = ''
-#      @dato.video_url.should == ''
-#    end
-#
-#    # Also broken but I have NO IDEA WHY, and it's very frustrating.  Clearly my regex above (replacing the
-#    # number with \d+) isn't working, but WHY?!?
-#
-#    #it 'should use content servers' do
-#      #@dato.video_url.should match(@content_server_match)
-#    #end
-#
-#  end
+  describe 'ratings' do
+
+    it 'should have a default rating of 0.0' do
+      d = DataObject.new
+      d.data_rating.should eql(0.0)
+    end
+
+    it 'should create new rating' do
+      UsersDataObjectsRating.count.should eql(0)
+
+      d = DataObject.gen
+      u = User.gen
+      d.rate(u,5)
+
+      UsersDataObjectsRating.count.should eql(1)
+      d.data_rating.should eql(5.0)
+      r = UsersDataObjectsRating.find_by_user_id_and_data_object_id(u.id, d.id)
+      r.rating.should eql(5)
+    end
+
+    it 'should generate average rating' do
+      d = DataObject.gen
+      u1 = User.gen
+      u2 = User.gen
+      d.rate(u1,4)
+      d.rate(u2,2)
+      d.data_rating.should eql(3.0)
+    end
+
+    it 'should update existing rating' do
+      d = DataObject.gen
+      u = User.gen
+      d.rate(u,1)
+      d.rate(u,5)
+      d.data_rating.should eql(5.0)
+      UsersDataObjectsRating.count.should eql(1)
+      r = UsersDataObjectsRating.find_by_user_id_and_data_object_id(u.id, d.id)
+      r.rating.should eql(5)
+    end
+
+  end
+
+  describe 'user submitted text' do
+    it 'should create valid data object' do
+      d = create_user_text_object
+      d.data_type.label.should == 'Text'
+      d.user.should_not eql(nil)
+      d.guid.length.should eql(32)
+    end
+
+    it 'should update existing data object' do
+      Scenario.load :foundation
+
+      taxon_concept = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
+      toc_item = TocItem.gen({:label => 'Overview'})
+      params = {
+        :taxon_concept_id => taxon_concept.id,
+        :data_objects_toc_category => { :toc_id => toc_item.id}
+      }
+
+      do_params = {
+        :license_id => License.find_by_title('public domain').id,
+        :language_id => Language.find_by_label('English').id,
+        :description => 'a new text object',
+        :object_title => 'new title'
+      }
+
+      params[:data_object] = do_params
+
+      d = DataObject.create_user_text(params, User.gen)
+      u = d.user
+
+      params = {
+        :taxon_concept_id => taxon_concept.id,
+        :data_objects_toc_category => { :toc_id => toc_item.id},
+        :id => d.id
+      }
+
+      do_params = {
+        :license_id => License.find_by_title('public domain').id,
+        :language_id => Language.find_by_label('English').id,
+        :description => 'a new text object',
+        :object_title => 'new title'
+      }
+
+      params[:data_object] = do_params
+
+      new_d = DataObject.update_user_text(params,u)
+      new_d.guid.should eql(d.guid)
+      DataObject.find_all_by_guid(d.guid).length.should eql(2)
+      new_d.object_title.should eql(d.object_title)
+      new_d.description.should eql(d.description)
+      new_d.license_id.should eql(d.license_id)
+      new_d.language_id.should eql(d.language_id)
+    end
+  end
+
+  describe '#to_s' do
+    it 'should show the id for to_s (and be short)' do
+      @dato = DataObject.gen
+      @dato.to_s.should match(/#{@dato.id}/)
+      @dato.to_s.length.should < 30
+    end
+  end
+
+  # TODO - DataObject.search_by_tag needs testing, but comments in the file suggest it will be changed significantly.
+  # TODO - DataObject.search_by_tags needs testing, but comments in the file suggest it will be changed significantly.
+
+  describe 'tagging' do
+
+    before(:each) do
+      @dato = DataObject.gen
+      @user = User.gen
+      @tag1 = DataObjectTag.gen(:key => 'foo',    :value => 'bar')
+      @tag2 = DataObjectTag.gen(:key => 'foo',    :value => 'baz')
+      @tag3 = DataObjectTag.gen(:key => 'boozer', :value => 'brimble')
+      DataObjectTags.gen(:data_object_tag => @tag1, :data_object => @dato)
+      DataObjectTags.gen(:data_object_tag => @tag2, :data_object => @dato)
+      DataObjectTags.gen(:data_object_tag => @tag3, :data_object => @dato)
+    end
+
+    it 'should create a tag hash' do
+      result = @dato.tags_hash
+      result['foo'].should    == ['bar', 'baz']
+      result['boozer'].should == ['brimble']
+    end
+
+    it 'should create tag keys' do
+      @dato.tag_keys.should == ['foo', 'boozer']
+    end
+
+    it 'should mark tags as public if added by a curator' do
+      tc      = build_taxon_concept
+      curator = User.gen
+      dato    = tc.images.first # We CANNOT use @dato here, because it doesn't have all of the required
+                                # relationships to our TaxonConcept.
+      curator.approve_to_curate! tc.entry
+      dato.tag 'color', 'blue', curator
+      dotag = DataObjectTag.find_by_key_and_value('color', 'blue')
+      DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true
+    end
+
+  end
+
+  describe 'search_by_tags' do
+
+    before(:each) do
+      @look_for_less_than_tags = true
+      @dato = DataObject.gen
+      DataObjectTag.delete_all(:key => 'foo', :value => 'bar')
+      @tag = DataObjectTag.gen(:key => 'foo', :value => 'bar')
+      how_many = (DataObjectTags.minimum_usage_count_for_public_tags - 1)
+      # In late April of 2008, we "dialed down" the number of tags that it takes... to one.  Which screws up
+      # the tests that assume you need more than one tag to make a tag public.  This logic fixes that, but
+      # in a way that's flexible enough that it will still work if we dial it back up.
+      if how_many < 1
+        how_many = 1
+        @look_for_less_than_tags = false
+      end
+      how_many.times do
+        DataObjectTags.gen(:data_object_tag => @tag, :data_object => @dato, :user => User.gen)
+      end
+    end
+
+    it 'should not find tags for which there are less than DEAFAULT_MIN_BLAHBLAHBLHA instances' do
+      if @look_for_less_than_tags
+        DataObject.search_by_tags([[[:foo, 'bar']]]).should be_empty
+      end
+    end
+
+    it 'should find tags specifically flagged as public, regardless of count' do
+      @tag.is_public = true
+      @tag.save!
+      DataObject.search_by_tags([[[:foo, 'bar']]]).map {|d| d.id }.should include(@dato.id)
+    end
+
+  end
+
+  describe '#image?' do
+
+    it 'should return true if this is an image' do
+      @dato = DataObject.gen(:data_type_id => DataType.image_type_ids.first)
+      @dato.image?.should be_true
+    end
+
+    it 'should return false if this is NOT an image' do
+      @dato = DataObject.gen(:data_type_id => DataType.image_type_ids.sort.last + 1) # Clever girl...
+      @dato.image?.should_not be_true
+    end
+
+  end
+
+  describe '#video_url' do
+    before(:each) do
+      set_content_variables
+    end
+
+    it 'should use object_url if non-flash' do
+      @dato.data_type = DataType.gen(:label => 'AnythingButFlash')
+      @dato.video_url.should == @dato.object_url
+    end
+
+
+
+    # This one dosn't work, i was trying to fix it when I had to abort...
+    #
+
+    #it 'should use object_cache_url (plus .flv) if available' do
+      #@dato.object_cache_url = @image_int
+      #debugger
+      #@dato.video_url.should =~ /#{@test_str}\.flv$/
+    #end
+
+    it 'should return empty string if no thumbnail (when Flash)' do
+      @dato.object_cache_url = nil
+      @dato.video_url.should == ''
+      @dato.object_cache_url = ''
+      @dato.video_url.should == ''
+    end
+
+    # Also broken but I have NO IDEA WHY, and it's very frustrating.  Clearly my regex above (replacing the
+    # number with \d+) isn't working, but WHY?!?
+
+    #it 'should use content servers' do
+      #@dato.video_url.should match(@content_server_match)
+    #end
+
+  end
 
   describe 'attributions' do
 

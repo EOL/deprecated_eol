@@ -321,22 +321,37 @@ end
     
     # now expire the list of taxa, ignoring ancestors (since they are now included in our global list)
     for taxon_id in taxa_ids_to_expire
-      expire_taxon(taxon_id,:expire_ancestors=>false)
+      expire_taxon_concept(taxon_id,:expire_ancestors=>false)
     end
     
     return true
     
   end
+
+  def expire_data_object(data_object_id)
+    DataObject.find(data_object_id).taxon_concepts.each do |tc|
+      begin
+        tc.ancestors.each do |tca|
+          expire_taxon_concept(tca.id)
+        end
+      rescue Exception => e
+        if e.to_s != "Taxon concept must have at least one hierarchy entry"
+          raise e
+        end
+      end
+    end
+
+  end
   
   # expire the fragment cache for a specific taxon ID
   # (add :expire_ancestors=>false if you don't want to expire that taxon's ancestors as well)
   # TODO -- come up with a better way to expire taxa or name the cached parts -- this expiration process is very expensive due to all the iterations for each taxa id
-  def expire_taxon(taxon_id,params={})
+  def expire_taxon_concept(taxon_concept_id,params={})
    
    #expire the given taxon_id
-   return false if taxon_id == nil || taxon_id.to_i == 0
+   return false if taxon_concept_id == nil || taxon_concept_id.to_i == 0
    
-   taxon=TaxonConcept.find_by_id(taxon_id)
+   taxon=TaxonConcept.find_by_id(taxon_concept_id)
    return false if taxon.nil?
    
    expire_ancestors=params[:expire_ancestors]
@@ -345,7 +360,7 @@ end
    if expire_ancestors
      taxa_ids=taxon.ancestry.collect {|an| an.taxon_concept_id}
    else
-     taxa_ids=[taxon_id]
+     taxa_ids=[taxon_concept_id]
    end
    
    # expire given taxa for all active languages and possibilites    

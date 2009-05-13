@@ -298,7 +298,7 @@ class ContentController < ApplicationController
   def expire
     
     if allowed_request && !params[:id].nil?
-      if expire_taxon(params[:id])
+      if expire_taxon_concept(params[:id])
          render :text=>'Taxon ID ' + params[:id] + ' and its ancestors expired.',:layout=>false
       else
          render :text=>'Invalid taxon ID supplied',:layout=>false

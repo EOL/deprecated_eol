@@ -191,84 +191,22 @@ class DataObject < SpeciesSchemaModel
     Agent.find_by_sql(["select a.* from data_objects_harvest_events dohe join harvest_events he on (dohe.harvest_event_id=he.id) join agents_resources ar on (he.resource_id=ar.resource_id) join agents a on (ar.agent_id=a.id) where dohe.data_object_id=? and ar.resource_agent_role_id=3", self.id]).first
   end
 
-  # gets agents_data_objects, sorted by AgentRole, based on this objects' DataTypes' AgentRole attribution priorities
+  # Gets agents_data_objects, sorted by AgentRole, based on this objects' DataTypes' AgentRole attribution
+  # priorities
   #
   # we also fetch agents_data_objects, including (eager loading) Agents by default, assuming we will be using them
-  #
-  # TODO clean this up.  needs to be broken down into different methods.  this was clean until we added abunchof denormalizations
   def attributions
-    # for each of the agent roles in the attribution order, go thru agents_data_objects and 
-    # get all of the agents in that role => [ [role1, role1], nil, [role3], [role4], nil ]
-    grouped_by_agent_role = data_type.full_attribution_order.inject([]) do |all, agent_role|
-      all << agents_data_objects.select {|ado| ado.agent_role == agent_role }
-      all
-    end
 
-    # get rid of nils and sort the groups by view_order
-    grouped_by_agent_role.compact!
-    grouped_by_agent_role.each_with_index do |group, i|
-      grouped_by_agent_role[i] = group.sort_by {|g| g.view_order }
-    end
+    @attributions = Attributions.new(agents_data_objects, data_type)
 
-    # now, go through and put everything into 1 ordered list, no longer grouped
-    grouped_by_agent_role = grouped_by_agent_role.inject([]) do |all, sorted_group|
-      all += sorted_group
-      all
-    end
+    @attributions.add_supplier   self.data_supplier_agent 
+    @attributions.add_license    self.license, rights_statement
+    @attributions.add_location   self.location
+    @attributions.add_source_url self.source_url
+    @attributions.add_citation   self.bibliographic_citation
 
-    # we need to manually add the Data Supplier too ... TODO extract these custom things into the full_attribution_order method (or something?)
-    supplier = data_supplier_agent
-    if supplier
-      index_to_insert_data_supplier = 0
-      while grouped_by_agent_role[index_to_insert_data_supplier] and grouped_by_agent_role[index_to_insert_data_supplier].agent_role == AgentRole[:Author]
-        index_to_insert_data_supplier += 1
-      end
-      grouped_by_agent_role.insert index_to_insert_data_supplier, AgentsDataObject.new( :agent => supplier, 
-                                                              :agent_role => AgentRole.new(:label => 'Supplier'), :view_order => 0 )
-    end
+    return @attributions
 
-    # now, we need to go in and put the rights statement ... this is very hacky but the 
-    # rights statement is supposed to show up after the Source, but it's not actually an attribution
-    # so ... we have to stick it into the list somehow for it to show up  :/
-    # 
-    # it should show up *after* Source, if it exists, else Author, else it should show up first
-    #
-    #
-    # TODO this needs some serious cleanup
-    #
-    a_license = self.license
-    a_license ||= License.find_by_title('public domain') # if there's no license, we wanna display the 'No right reserved' license (aka public domain)
-    unless rights_statement.empty? && a_license.nil?
-      roles_to_insert_after = AgentRole[ :Author, :Source ]
-      index_to_insert_rights = 0
-      # logo_cache_url isn't working, nor is logo_url  :(
-      rights_agent  = Agent.new :project_name => (rights_statement.empty? ? a_license.description : "#{rights_statement.strip}. #{a_license.description}"), 
-                                :homepage => a_license.source_url, :logo_url => a_license.logo_url, :logo_cache_url => 0, 
-                                :logo_file_name => a_license.logo_url # <-- check for the presence of logo_file name
-      rights_object = AgentsDataObject.new :agent => rights_agent, :agent_role => AgentRole.new(:label => 'Copyright'), :view_order => 0
-      grouped_by_agent_role.each_with_index do |group, i|
-        index_to_insert_rights = i + 1 if roles_to_insert_after.include? group.agent_role
-      end
-      grouped_by_agent_role.insert index_to_insert_rights, rights_object
-    end
-
-    # we ALSO need Location
-    unless location.empty?
-      grouped_by_agent_role << AgentsDataObject.new( :agent => Agent.new(:project_name => location), :agent_role => AgentRole.new(:label => 'Location'), :view_order => 0 )
-    end
-
-    # we ALSO need the source_url
-    unless source_url.empty?
-      grouped_by_agent_role << AgentsDataObject.new( :agent => Agent.new(:project_name => 'View original data object', :homepage => source_url), 
-                                                    :agent_role => AgentRole.new(:label => 'Source URL'), :view_order => 0 )
-    end
-
-    # ... bibliographic_citation ...
-    unless bibliographic_citation.empty?
-      grouped_by_agent_role << AgentsDataObject.new( :agent => Agent.new(:project_name => bibliographic_citation), :agent_role => AgentRole.new(:label => 'Citation'), :view_order => 0 )
-    end
-
-    grouped_by_agent_role
   end
 
   # Find all of the authors associated with this data object, including those that we dynamically add elsewhere

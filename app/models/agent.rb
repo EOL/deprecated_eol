@@ -108,6 +108,22 @@ class Agent < SpeciesSchemaModel
       col_attr.to_yaml
     end)
   end
+
+  def self.from_license(license, rights_statement = nil)
+    Agent.new :project_name => (rights_statement.blank? ?
+                                license.description :
+                                "#{rights_statement.strip}. #{license.description}"), 
+              :homepage => license.source_url, :logo_url => license.logo_url, :logo_cache_url => 0, 
+              :logo_file_name => license.logo_url # <-- check for the presence of logo_file name
+  end
+
+  def self.just_project_name(location)
+    Agent.new :project_name => location
+  end
+  
+  def self.from_source_url(source_url)
+    Agent.new :project_name => 'View original data object', :homepage => source_url
+  end
   
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size='large')

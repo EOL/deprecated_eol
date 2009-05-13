@@ -53,7 +53,7 @@ class Administrator::SiteController  < AdminController
       render :nothing=>true
       return 
     end
-    if expire_taxon(taxon_id)
+    if expire_taxon_concept(taxon_id)
       message='Taxon ID ' + taxon_id + ' was expired on ' + format_date_time(Time.now) + '<br />'
     else
       message='Taxon ID ' + taxon_id + ' could not be expired<br />'

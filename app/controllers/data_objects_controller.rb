@@ -56,6 +56,8 @@ class DataObjectsController < ApplicationController
   def rate
     @data_object.rate(current_user,params[:stars].to_i)
 
+    expire_data_object(@data_object.id)
+
     respond_to do |format|
       format.html {redirect_to request.referer ? :back : '/'} #todo, complete later
       format.js {render :action => 'rate.rjs'}
@@ -141,9 +143,7 @@ class DataObjectsController < ApplicationController
   def curate
     @data_object.curate! params[:curator_activity_id], current_user
 
-    @data_object.taxa.each do |taxon|
-      expire_taxon(taxon.id)
-    end
+    expire_data_object(@data_object.id)
     
     respond_to do |format|
       format.html {redirect_to request.referer ? :back : '/'}

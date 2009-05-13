@@ -13,7 +13,7 @@
     <div id="page-content" class="clearfix">
         <!-- center page content -->
         <div id="full-page-content">
-        <div style="display:none;">
+        <div id="open_id_instructions">
             Attention Flickr, Yahoo, SmugMug, Blogger, AOL users (and others) -  <%= link_to 'you already have OpenID accounts', 'http://openid.net/get/',:target=>'_blank' %> and can now use
             them to log into EOL directly!
         </div>
@@ -30,16 +30,14 @@
                     <label for="user_password"><%= "Password"[] %></label>
                     <%= form.password_field 'password', :size=>'16',:maxlength=>'30' %>
 				<br />			
-        <div style="display:none;">
-					or
- 
+				or
+
+        <div id="openid">
    				  <label for="openid_url"><%= "OpenID"[] %></label>
             <%= text_field_tag 'openid_url', {},{:size=>100,:maxlength=>250,:class=>'openid'} %> 
   					<%= link_to 'What is OpenID?', 'http://openid.net/',:target=>'_blank' %> | <%= link_to 'Do I already have an OpenID?', 'http://openid.net/get/',:target=>'_blank' %> 
           </div>
-          	<br />
-          OpenID login is currently not available
-          			<br /><br />
+          <br />
             	<table border="0" width="500" cellpadding="20">
             		<tr>
             			<td valign="top"><%= submit_tag 'Login Now'[:login_now] + ' &#187;' %></td>

@@ -193,14 +193,14 @@ class AccountController < ApplicationController
         if user.nil? # if not, create them a row in our database
           new_openid_user   = true
           user              = User.create_new()
-          temp_username     = 'temp_openid_user'
+          temp_username     = "#{identity_url[0..31]}"
           user.identity_url = identity_url
           user.username     = temp_username
           user.email        = registration['email'] || ''
-          user.given_name   = registration['nickname'] || '' 
+          user.given_name   = registration['nickname'] || temp_username 
           user.remote_ip    = request.remote_ip
-          user.save
-          new_username      = 'openid_user_' + user.id.to_s
+          user.save!
+          new_username      = "openid_user_#{user.id.to_s}"
           user.update_attributes(:username=>new_username,:given_name=>registration['nickname'] || new_username)
         end
         successful_login(user, new_openid_user)

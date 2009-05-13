@@ -92,11 +92,14 @@
               EOL.MediaCenter.image_hash[<%=image.id%>] = <%=image_attribution_hash%>;
             </script>
 
-            <%= link_to_function("<span>#{image_tag(image.smart_thumb, {:alt => hh(image.scientific_name)})}</span>#{image_icons}",
-                                 %Q{return eol_update_image('#{ escape_javascript(image.smart_image)}',EOL.MediaCenter.image_hash[#{image.id}])},
-                                 :title => hh(image.scientific_name), :class=>vetted_id_class(image),:id=>"thumbnail_#{image.id}") %>
-          
-            
+            <a id="thumbnail_<%= image.id %>"  class="<%= vetted_id_class(image) %>" 
+               href="#image-<%= image.id %>" title="<%= hh(image.scientific_name) %>">
+              <span>
+                <%= image_tag image.smart_thumb, :alt => hh(image.scientific_name)  %>
+              </span>
+              <%= image_icons %>
+            </a>
+
             <% if counter == 1 
                 image_load_js_function="eol_update_image('" + escape_javascript(image.smart_image) + "'," + image_attribution_hash +");"
                 attribution_js_function="eol_update_credit(" + image_attribution_hash +");"

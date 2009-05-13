@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
     self.curator_verdict_by = updated_by
     
     if approved
-      self.roles << Role.curator unless self.roles.include?(Role.curator)
+      self.roles << Role.curator unless has_curator_role?
     else
       self.roles.delete(Role.curator)
     end
@@ -183,6 +183,8 @@ class User < ActiveRecord::Base
         return false, "Sorry, but we could not locate your account."[:could_not_locate_account]
      elsif new_guy.size >1
         return false, "Sorry, but your email address is not unique - you must also specify a username."[:must_specify_username_too]      
+    elsif new_guy[0].openid?
+        return false, "Sorry, but your account uses OpenID and you must reset your password with your OpenID provider."[:openid_user_cannot_reset_password]      
     else
       chars    = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789' # Notice no 0/O or 1/l, since they are lame.
       new_password = ''
@@ -283,7 +285,8 @@ class User < ActiveRecord::Base
       self.curator_approved=false
       self.roles.delete(Role.curator) unless self.roles.blank?
     else # be sure they have the curator role set if they have a curator hierarchy entry set
-      self.roles << Role.curator unless self.roles.include?(Role.curator)
+      self.roles.reload
+      self.roles << Role.curator unless has_curator_role?
     end
   end
 

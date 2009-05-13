@@ -17,7 +17,7 @@
                     <legend><%= "Account Information"[] %></legend>
 
 
-                    <label>Username:</label> <%= current_user.username %><br />
+                    <label>Username:</label> <%= f.text_field :username %><br />
 					
 					<% if @user.openid? %>
 				  <label>Open ID URL:</label> <%= current_user.identity_url %><br />

@@ -223,10 +223,10 @@ class AccountController < ApplicationController
   end
 
   def failed_login(message)
-    redirect_to :action => 'login'
     # TODO - user.failed_logins += 1; user.save
     # TODO - send an email to an admin if user.failed_logins > 10 # Smells like a dictionary attack!
     flash[:warning] = message
+    redirect_to :protocol => "https://", :action => 'login'
   end  
 
 private

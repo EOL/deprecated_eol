@@ -10,6 +10,11 @@ class License < SpeciesSchemaModel
   def self.valid_for_user_content
     find_all_by_show_to_content_partners(1).collect {|c| [c.title, c.id] }
   end
+
+  def self.public_domain
+    License.find_by_title('public domain')
+  end
+
 end
 # == Schema Info
 # Schema version: 20081020144900

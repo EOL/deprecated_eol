@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     include ExceptionNotifiable
     #local_addresses.clear   # uncomment this line if you want to test exception notification and db error logging even on localhost calls, you'll probably also need to set config.action_controller.consider_all_requests_local = false in your environment file
   end
-  
+
   # if recaptcha is not enabled, then override the method to always return true
   unless $ENABLE_RECAPTCHA
     def verify_recaptcha
@@ -24,31 +24,31 @@ class ApplicationController < ActionController::Base
   end
 
   include ContentPartnerAuthenticationModule
-  
+
   prepend_before_filter :set_session
-  before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS  
+  before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
 
   helper :all
-  
+
   helper_method :format_date,:format_date_time,:logged_in?, :current_user, :get_image_url, :get_first_agent, :return_to_url, :current_url
   helper_method :is_user_in_role?, :is_user_admin?, :convert_to_nbsp,:remove_html,:get_video_url, :get_agent_icons, :hh
   helper_method :current_agent, :agent_logged_in?, :truncate, :allow_page_to_be_cached?
   around_filter :set_current_language
-    
-## similar to h, but does not escape html code which is helpful for showing italisized names
-def hh(input) 
-  result = input.dup.strip 
 
-  result.gsub!(/["]|&(?![\w]+;)/) do | match | 
-    case match 
-    when '&' then '&amp;' 
-    when '"' then '&quot;' 
+## similar to h, but does not escape html code which is helpful for showing italisized names
+def hh(input)
+  result = input.dup.strip
+
+  result.gsub!(/["]|&(?![\w]+;)/) do | match |
+    case match
+    when '&' then '&amp;'
+    when '"' then '&quot;'
     end
   end
   result
 end
 
-  ## override exception notifiable default methods to redirect to our special error pages instead of the usual 404 and 500 and to do error logging  
+  ## override exception notifiable default methods to redirect to our special error pages instead of the usual 404 and 500 and to do error logging
     def render_404
       respond_to do |type|
         flash.now[:warning]="The page you have requested does not exist."
@@ -57,7 +57,7 @@ end
       end
     end
 
-    def render_500(exception=nil)  
+    def render_500(exception=nil)
       if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s)
          ErrorLog.create(
            :url=>request.url,
@@ -66,7 +66,7 @@ end
            :user_id=>current_user.id,
            :exception_name=>exception.to_s,
            :backtrace=>"Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
-           ) 
+           )
        end
       respond_to do |type|
        type.html { render :layout=>'main',:template => "content/error",:status => "500 Error" }
@@ -74,15 +74,15 @@ end
       end
     end
     ## end override of exception notifiable default methods
-    
+
     def format_date_time(inTime,params={})
          format_string=params[:format] || "long"
          case format_string
-          when "short" 
+          when "short"
             format_string="%m/%d/%Y - %I:%M %p %Z"
-          when "short_no_tz" 
-            format_string="%m/%d/%Y - %I:%M %p"           
-          when "long"  
+          when "short_no_tz"
+            format_string="%m/%d/%Y - %I:%M %p"
+          when "long"
             format_string="%A, %B %d, %Y - %I:%M %p %Z"
          end
          inTime.strftime(format_string) unless inTime==nil
@@ -93,8 +93,8 @@ end
     def format_date(date, format = "%m/%d/%Y")
       date.respond_to?(:strftime) ? date.strftime(format) : date.to_s
     end
-  
-  # this method determines if the main taxa page is allowed to be cached or not        
+
+  # this method determines if the main taxa page is allowed to be cached or not
   def allow_page_to_be_cached?
     !(agent_logged_in? || current_user.is_admin?) # if a content partner or admin is logged in, we do *not* want the page to be cached
   end
@@ -125,7 +125,7 @@ end
           agent_list+="<img border=\"0\" src=\"/images/collection_icons/" + icon + "\">" if icon != ''
           if linked && url != '' && icon != ''
             agent_list+="</a>"
-          end          
+          end
           agent_list+="&nbsp;" if icon != ''
         end
         return agent_list.strip.chop
@@ -134,12 +134,12 @@ end
      end
 
   end
-  
+
   # remove HTML from the given string
   def remove_html(input_string)
-    return input_string.gsub(/(<[^>]*>)|\n|\t/s) {""}.strip  
+    return input_string.gsub(/(<[^>]*>)|\n|\t/s) {""}.strip
   end
- 
+
   # store a given URL (defaults to current) in case we need to redirect back later
   def store_location(url=current_url)
       session[:return_to]=url
@@ -154,23 +154,23 @@ end
   def current_url
     url_for(:controller=>controller_name, :action=>action_name)
   end
-  
+
   def referred_url
     request.referer
   end
-  
+
   # Redirect to the URL stored by the most recent store_location call or to the passed default.
   def redirect_back_or_default(default=home_page_url)
 
     # be sure we aren't returning the login, register or logout page
-    if return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url && !url_for(:controller=>'content_partner',:action=>'login',:only_path=>true).include?(return_to_url) 
+    if return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url && !url_for(:controller=>'content_partner',:action=>'login',:only_path=>true).include?(return_to_url)
       redirect_to(CGI.unescape(return_to_url),:protocol => "http://")
     else
       redirect_to(default,:protocol => "http://")
     end
     store_location(nil)
     return false
-    
+
   end
 
   # get the local or remote image URL based on our preference setting
@@ -181,10 +181,10 @@ end
         return image_item['localURL']
       end
   end
-  
+
   # get the local or remote image URL based on the type of video
   def get_video_url(video_item)
-    case video_item['videoType'].downcase    
+    case video_item['videoType'].downcase
       when "youtube"
          return video_item['remoteURL']
       when "flash"
@@ -197,56 +197,56 @@ end
     model_object.errors.each{|attr,msg| error_list += "#{attr} #{msg}," }
     return error_list.chomp(',')
   end
-  
+
   # truncate a string to the maxlength passed and then add "..." if truncated
   def truncate(text, length = 30, truncate_string = "...")
     return if text.nil?
     l = length - truncate_string.chars.length
     text.chars.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
-  end  
-  
+  end
+
   # called to log and redirect a user to an external link
   def external_link
-        
+
     url=params[:url]
     if url.nil?
       render :nothing=>true
       return
     end
-    
-    ExternalLinkLog.log url, request, current_user if $ENABLE_DATA_LOGGING    
+
+    ExternalLinkLog.log url, request, current_user if $ENABLE_DATA_LOGGING
 
     redirect_to url
-    
+
   end
-  
+
   # check to see if a session exists, and create if it not
   #  even non-logged in users get a session to store their expertise and language preferences
   def set_session
-     
+
     # if we don't have a session yet, create it, set taxa views to 0 for this user, and increment number of unique visitors
-    if current_user.nil? 
-      
-       create_new_user  
+    if current_user.nil?
+
+       create_new_user
        clear_old_sessions if $USE_SQL_SESSION_MANAGEMENT
-       session[:page_views]=0 if $SHOW_SURVEYS  # if we are showing surveys, we need to record how many page views this user has done        
-                   
+       session[:page_views]=0 if $SHOW_SURVEYS  # if we are showing surveys, we need to record how many page views this user has done
+
        # expire home page fragment caches after specified internal to keep it fresh
        if $CACHE_CLEARED_LAST.advance(:hours=>$CACHE_CLEAR_IN_HOURS) < Time.now
-         expire_cache('home') 
+         expire_cache('home')
          $CACHE_CLEARED_LAST=Time.now()
-       end    
-       
+       end
+
     end
-    
+
   end
 
   # expire a single non-species page fragment cache
   def expire_cache(page_name)
 
     pages=ContentPage.find_all_by_page_name(page_name)
-    
-    if pages.length > 0 
+
+    if pages.length > 0
       for language in Language.find_active
         for page in pages
           expire_fragment(:controller=>'/content',:part=>page.id.to_s + '_' + language.iso_639_1)
@@ -254,31 +254,31 @@ end
         end
       end
     end
-               
+
   end
-  
+
   # just clear all fragment caches quickly
   def clear_all_caches
     Rails.cache.clear
-    if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore  
-      ActionController::Base.cache_store.clear  
+    if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
+      ActionController::Base.cache_store.clear
       return true
     else
       return false
     end
   end
-  
+
   # expire the header and footer caches
   def expire_menu_caches
-  
+
     for language in Language.find_active
       expire_fragment(:controller=>'/content' ,:part => 'top_nav_'+language.iso_639_1)
-      expire_fragment(:controller=>'/content' ,:part => 'footer_'+language.iso_639_1) 
+      expire_fragment(:controller=>'/content' ,:part => 'footer_'+language.iso_639_1)
       expire_fragment(:controller=>'/content' ,:part => 'exemplars_'+language.iso_639_1)
     end
-    
+
   end
-  
+
   # expire the non-species page fragment caches
   def expire_caches
 
@@ -293,21 +293,21 @@ end
     end
 
     $CACHE_CLEARED_LAST=Time.now()
-           
+
   end
-  
+
   # expire a list of taxa_ids specifed as an array
   # (add :expire_ancestors=>false if you don't want to expire that taxon's ancestors as well)
   # TODO -- optimize, this will result in a lot of queries if you expire a lot of taxa
   def expire_taxa(taxa_ids,params={})
 
     return false if taxa_ids == nil? || taxa_ids.class != Array
-   
+
     expire_ancestors=params[:expire_ancestors]
     expire_ancestors=true if params[:expire_ancestors].blank?
 
     taxa_ids_to_expire=[]
-    
+
     if expire_ancestors # also expire ancestors
       # go over taxa_ids and find ancestors, and add them to the list
       for taxon_id in taxa_ids
@@ -318,21 +318,23 @@ end
     else # don't expire ancestors, so just go through the supplied list and expire those
       taxa_ids_to_expire=taxa_ids
     end
-    
+
     # now expire the list of taxa, ignoring ancestors (since they are now included in our global list)
     for taxon_id in taxa_ids_to_expire
       expire_taxon_concept(taxon_id,:expire_ancestors=>false)
     end
-    
+
     return true
-    
+
   end
 
   def expire_data_object(data_object_id)
+    expired_ids = Set.new
     DataObject.find(data_object_id).taxon_concepts.each do |tc|
+      expire_taxon_concept(tc.id, :expire_ancestors => false) unless expired_ids.add?(tc.id)
       begin
         tc.ancestors.each do |tca|
-          expire_taxon_concept(tca.id)
+          expire_taxon_concept(tca.id, :expire_ancestors => false) unless expired_ids.add?(tca.id)
         end
       rescue Exception => e
         if e.to_s != "Taxon concept must have at least one hierarchy entry"
@@ -342,37 +344,37 @@ end
     end
 
   end
-  
+
   # expire the fragment cache for a specific taxon ID
   # (add :expire_ancestors=>false if you don't want to expire that taxon's ancestors as well)
   # TODO -- come up with a better way to expire taxa or name the cached parts -- this expiration process is very expensive due to all the iterations for each taxa id
   def expire_taxon_concept(taxon_concept_id,params={})
-   
+
    #expire the given taxon_id
    return false if taxon_concept_id == nil || taxon_concept_id.to_i == 0
-   
+
    taxon=TaxonConcept.find_by_id(taxon_concept_id)
    return false if taxon.nil?
-   
+
    expire_ancestors=params[:expire_ancestors]
-   expire_ancestors=true if params[:expire_ancestors].blank?
-   
+   expire_ancestors=true if params[:expire_ancestors].nil?
+
    if expire_ancestors
      taxa_ids=taxon.ancestry.collect {|an| an.taxon_concept_id}
    else
      taxa_ids=[taxon_concept_id]
    end
-   
-   # expire given taxa for all active languages and possibilites    
+
+   # expire given taxa for all active languages and possibilites
    for taxon_id in taxa_ids
      unless taxon_id.blank?
        for language in Language.find_active
           for expertise in %w{novice middle expert}
             for vetted in %w{true false}
               for default_taxonomic_browser in %w{text flash}
-                for can_curate in %w{true false}               
+                for can_curate in %w{true false}
                   part_name='page_' + taxon_id.to_s + '_' + language.iso_639_1 + '_' + expertise + '_' + vetted + '_' + default_taxonomic_browser + '_' + can_curate
-                  expire_fragment(:controller=>'/taxa',:part=>part_name)    
+                  expire_fragment(:controller=>'/taxa',:part=>part_name)
                 end
               end
             end
@@ -381,27 +383,27 @@ end
       end
     end
     return true
-      
+
   end
-  
+
   # check if the requesting IP address is allowed (used to resrict methods to specific IPs, such as MBL/EOL IPs)
   def allowed_request
     !((request.remote_ip =~ /127.0.0.1/).nil? && (request.remote_ip =~ /128.128./).nil? && (request.remote_ip =~ /10.19./).nil?)
   end
-  
+
   # send user to the SSL version of the page (used in the account controller, can be used elsewhere)
   def redirect_to_ssl
      redirect_to :protocol => "https://" unless (request.ssl? or local_request?)
   end
-  
+
   # send user back to the non-SSL version of the page
   def redirect_back_to_http
     redirect_to :protocol => "http://" if request.ssl?
   end
-  
+
   # default new user when we don't have a logged in user
   def create_new_user
-     new_user=User.create_new(:remote_ip=>request.remote_ip)  
+     new_user=User.create_new(:remote_ip=>request.remote_ip)
      session[:user]=new_user
   end
 
@@ -419,13 +421,13 @@ end
   def set_current_user(user)
     session[:user]=user
   end
-  
+
   # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous session
   # before we switched off user logins is booted out
   def clear_any_logged_in_session
     reset_session if logged_in?
   end
-  
+
   ###########
   # AUTHENTICATION/AUTHORIZATION METHODS
 
@@ -435,19 +437,19 @@ end
   end
 
  def check_authentication
-     must_log_in unless logged_in? 
+     must_log_in unless logged_in?
      return false
  end
-   
+
   # check membership in a specific role
   def is_user_in_role?(role)
-    return current_user.roles.include?(Role.find_by_title(role)) 
+    return current_user.roles.include?(Role.find_by_title(role))
   end
-  
+
   def is_user_admin?
     return is_user_in_role?("Administrator")
   end
-  
+
   # Returns true if the given user (or currently logged in user if not provided) has curator permissions
   # for the given TaxonConcept or any parent thereof.
   def is_curator?(tc, user = nil)
@@ -465,32 +467,32 @@ end
 
  def permission_granted
  end
- 
+
   # used as a before_filter on methods that you don't want users to see if they are logged in (such as the login or register page)
-  def go_to_home_page_if_logged_in   
+  def go_to_home_page_if_logged_in
       redirect_to(home_page_url) if logged_in?
    end
-    
+
    def must_log_in
       store_location
       redirect_to login_url
       return false
    end
-  
+
   # call this method if someone is not supposed to get a controller or action when user accounts are disabled
   def accounts_not_available
     flash[:warning]="We apologize, but the user registration system is not currently available.  Please try again later."[:user_system_down]
     redirect_to home_page_url
   end
-  
+
    # A user is not authorized for the particular controller based on the rights for the roles they are in
     def access_denied
       flash.now[:warning]='You are not authorized to perform this action.'
       request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to home_page_url)
-    end  
-#  
-#############    
-    
+    end
+#
+#############
+
   # Set the current language
   def set_language
     language = params[:language].to_s
@@ -499,9 +501,9 @@ end
     if params[:return_to].blank?
       render :nothing => true
     else
-      redirect_to CGI.unescape(params[:return_to])      
+      redirect_to CGI.unescape(params[:return_to])
     end
-  end  
+  end
 
   # ajax call to set the session variable for the user to indicate if flash is enabled or not
   def set_flash_enabled
@@ -511,16 +513,16 @@ end
     else
       current_user.flash_enabled = false
       current_user.default_taxonomic_browser="text"
-    end  
+    end
     render :nothing=>true
   end
 
     # pulled over from Rails core helper file so it can be used in controllers as well
     def escape_javascript(javascript)
-       (javascript || '').gsub('\\','\0\0').gsub('</','<\/').gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/) { |m| "\\#{m}" }  
+       (javascript || '').gsub('\\','\0\0').gsub('</','<\/').gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/) { |m| "\\#{m}" }
     end
 
-    # we are going to keep track of how many taxa pages the user has seen so we can determine if we are going to show the survey link or not    
+    # we are going to keep track of how many taxa pages the user has seen so we can determine if we are going to show the survey link or not
     # this defines our logic for if we show a survey or not on this page view
     def show_survey?
 
@@ -532,22 +534,22 @@ end
         else
           return false
         end
-      end   
+      end
 
     end
 
     def convert_to_nbsp(input_string)
       if input_string.nil? == false
         return input_string.gsub('&', '&amp;').gsub(' ','&nbsp;')
-      else 
+      else
         return ''
       end
     end
 
 private
-    
-  def clear_old_sessions 
-    CGI::Session::ActiveRecordStore::Session.destroy_all( ['updated_at <?', $SESSION_EXPIRY_IN_SECONDS.seconds.ago] ) 
+
+  def clear_old_sessions
+    CGI::Session::ActiveRecordStore::Session.destroy_all( ['updated_at <?', $SESSION_EXPIRY_IN_SECONDS.seconds.ago] )
   end
 
   # Set language around filter
@@ -559,7 +561,7 @@ private
   # we are going to keep track of how many pages the user has seen so we can determine if we are going to show the survey link or not
   def count_page_views
     session[:page_views]=0 if session[:page_views].nil?
-    session[:page_views]+=1    
+    session[:page_views]+=1
   end
 
   def check_for_survey
@@ -577,6 +579,6 @@ private
 
   def update_logged_search params
     Search.update_log(params) if $ENABLE_DATA_LOGGING
-  end 
-  
+  end
+
 end

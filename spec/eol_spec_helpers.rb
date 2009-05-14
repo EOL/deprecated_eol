@@ -66,16 +66,18 @@ module EOL::Spec
 
     # truncates all tables in all databases
     def truncate_all_tables options = { }
-      # TODO don't do 1 execute for each table!  do 1 execute for each connection!  should be faster
-      # puts "truncating all tables"
       options[:verbose] ||= false
       all_connections.each do |conn|
+        commands = []
+        output  = []
         conn.tables.each   do |table|
           unless table == 'schema_migrations'
-            puts "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
-            conn.execute "TRUNCATE TABLE`#{table}`"
+            output   << "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
+            commands << "TRUNCATE TABLE`#{table}`"
           end
         end
+        puts output.join("\n") unless output.empty?
+        conn.execute commands.join(';')
       end
     end
 
@@ -112,7 +114,7 @@ module EOL::Spec
     #
     # NOTE - I am not setting the mime type yet.  We never use it.  NOTE - There are no models for all the
     # refs_* tables, so I'm ignoring them.  TODO - in several places, I call Model.all.rand.  This is less than
-    # efficient and needs optimization. I'm presently banking on very small tables.  :)
+    # efficient and needs optimization. I'm presently banking on very small arrays!  :)
     def build_data_object(type, desc, options = {})
 
       attributes = {:data_type   => DataType.find_by_label(type),
@@ -139,7 +141,7 @@ module EOL::Spec
 
       if type == 'Image'
         if dato.visibility == Visibility.visible and dato.vetted == Vetted.trusted
-          TopImage.gen :data_object => dato, :hierarchy_entry => he
+          TopImage.gen :data_object => dato, :hierarchy_entry => taxon.hierarchy_entry
         else
           TopUnpublishedImage.gen :data_object => dato, :hierarchy_entry => he
         end
@@ -148,6 +150,7 @@ module EOL::Spec
       end
       num_comments.times { Comment.gen(:parent => dato, :user => User.all.rand) }
 
+      # TODO - so, really, for every DATO, I'm creating a harvest event?!?  Mistake.  pass this in.
       unless content_partner.nil?
         agent_resource = content_partner.agent.agents_resources.detect do |ar|
           ar.resource_agent_role_id == ResourceAgentRole.content_partner_upload_role.id
@@ -158,6 +161,7 @@ module EOL::Spec
         end
         event    = HarvestEvent.gen(:resource => agent_resource.resource)
         DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
+        # TODO - AgentsDataObject entries here (Author, Source, Publisher, Compiler)
       end
 
       return dato
@@ -177,15 +181,16 @@ module EOL::Spec
     #
     # TODO LOW_PRIO - the arguments to this method are lame and should be options with reasonable defaults.
     def build_hierarchy_entry(depth, tc, name, options = {})
-      he    = HierarchyEntry.gen(:hierarchy     => options[:hierarchy] || Hierarchy.default,
+      he    = HierarchyEntry.gen(:hierarchy     => options[:hierarchy] || Hierarchy.default, # TODO - This should *really* be the H associated with the Resource that's being "harvested"... technically, CoL shouldn't even have HEs...
                                  :parent_id     => options[:parent_id] || 0,
-                                 :identifier    => options[:identifier] || '',
+                                 :identifier    => options[:identifier] || '', # This is the foreign ID native to the Resouce, not EOL.
                                  :depth         => depth,
-                                 :rank_id       => depth + 1, # Cheating. As long as the order is sane, this works well.
+                                 :rank_id       => depth + 1, # Cheating. As long as *we* created Ranks with a scenario, this works.
                                  :taxon_concept => tc,
                                  :name          => name)
       HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4, :gbif_image => 1,
                              :youtube => 1, :flash => 1)
+      # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as roles
       return he
     end
 
@@ -230,15 +235,25 @@ module EOL::Spec
     #     Array of YouTube videos, each member is a hash for the video options.  The keys you will want are
     #     +:description+ and +:object_cache_url+.
     def build_taxon_concept(options = {})
-      attri = options[:attribution] || Factory.next(:attribution)
+
+      # TODO - Create a harvest event and a resource (status should be published) (and the resource needs a hierarchy, which we use for
+      # the HEs)
+
+      attri       = options[:attribution] || Factory.next(:attribution)
       common_name = options[:common_name] || Factory.next(:common_name)
-      iucn_status = options[:iucn_status] || Factory.next(:iucn)
+      iucn_status = options[:iucn_status] || Factory.next(:iucn)         # This should NOT be required, should be optional (and rare)
       canon       = options[:canonical_form] || Factory.next(:scientific_name)
+      complete    = options[:scientific_name] || "#{canon} #{attri}".strip
       cform = CanonicalForm.find_by_string(canon) || CanonicalForm.gen(:string => canon)
-      sname = Name.gen(:canonical_form => cform, :string => options[:scientific_name] || "#{canon} #{attri}".strip,
+      sname = Name.gen(:canonical_form => cform, :string => complete,
                        :italicized     => options[:italicized] || "<i>#{canon}</i> #{attri}".strip)
+      # TODO - You don't always need a common name, and in fact most don't; default should be NOT to have one
+      # TODO - This should also create an entry in Synonyms (see below) (don't need agents_synonyms though)
       cname = Name.gen(:canonical_form => cform, :string => common_name, :italicized => common_name)
 
+      # TODO - Normalize names ... when harvesting is done, this is done on-the-fly, so we should do it here.
+
+      # TODO - in the future, we may want to be able to muck with the vetted *and* the published fields...
       tc    = nil # scope...
       # HACK!  We need to force the IDs of one of the TaxonConcepts, so that the exmplar array isn't empty.  I
       # hate to do it this way, but, alas, this is how it currently works:
@@ -254,12 +269,16 @@ module EOL::Spec
       end
 
       # Note that this assumes the ranks are *in order* which is ONLY true with foundation loaded!
-      depth = options[:depth] || Rank.find_by_label(options[:rank] || 'species').id - 1
+      # ACTUALLY, depth is not something we *really* need.  It may be used in the future, but not now.
+      depth = options[:depth] || Rank.find_by_label(options[:rank] || 'species').id - 1 # This is an assumption...
       he    = build_hierarchy_entry(depth, tc, sname, :parent_id => options[:parent_hierarchy_entry_id])
       TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => he.id,
                            :language => Language.scientific, :name => sname, :taxon_concept => tc)
       TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => he.id,
                            :language => Language.english, :name => cname, :taxon_concept => tc)
+      # TODO - create the Synonym here, with the Language of English, the SynonymRelation of Common Name, and the HE we just
+      # created, and preferred...
+      # NOTE: when we denormalize the taxon_concept_names table, we should be looking at Synonyms as well as Names.
       curator = Factory(:curator, :curator_hierarchy_entry => he)
 
       # Array with three empty hashes (default #), which we will populate with defaults:
@@ -272,8 +291,12 @@ module EOL::Spec
       end
 
       # TODO - add some alternate names, including at least one in another language.
+      # TODO - create alternate scientific names... just make sure the relation makes sense and the language_id is either 0 or
+      # Language.scientific.
 
-      taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => canon)
+      taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => complete) # Okay that we don't set kingdom, phylum, etc
+      # TODO - Need a HarvestEventsTaxon entry here
+      # TODO - Create some references here ... just a string and an associated identifier (like a URL)
 
       images = [] # This is used to build the RandomTaxon
       if options[:images].nil?
@@ -303,12 +326,12 @@ module EOL::Spec
       options[:images].each do |img|
         description             = img.delete(:description) || Faker::Lorem.sentence
         img[:taxon]           ||= taxon
-        img[:hierarchy_entry] ||= he
         images << build_data_object('Image', description, img)
       end
       
-      # TODO - Does an IUCN entry *really* need its own taxon?  I am surprised by this (it seems duplicated):
-      iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => canon)
+      # iucn has its own taxon because it has its own hierarcy.
+      # TODO - 'he' is wrong, here: iucn needs its own HE in the IUCN hierarchy:
+      iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => complete)
       iucn = build_data_object('IUCN', iucn_status, :taxon => iucn_taxon)
       HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_harvest_event)
 
@@ -328,11 +351,8 @@ module EOL::Spec
                           :object_cache_url => youtube_opt[:object_cache_url])
       end
 
-      map_options = options[:map] || {} # Empty hash so that we can have default values for each key:
-      map_options[:description]      ||= Faker::Lorem.sentence
-      map_options[:object_cache_url] ||= Factory.next(:map)
-      map     = build_data_object('GBIF Image', map_options[:description],  :taxon => taxon,
-                                  :object_cache_url => map_options[:object_cache_url])
+      # TODO We need a HE in this taxon_concept, but using the GBIF hierarchy... if we want maps to work.
+      # This uses an identifier, so, we'll need a list of acceptable identifiers to get maps working.  Talk to Patrick.
 
       if options[:toc].nil?
         options[:toc] = [{:toc_item => TocItem.overview,
@@ -347,8 +367,13 @@ module EOL::Spec
         toc_item[:description] ||= Faker::Lorem.paragraph
         build_data_object('Text', toc_item[:description], :taxon => taxon, :toc_item => toc_item[:toc_item])
       end
-      # TODO - Creating other TOC items (common names, BHL, synonyms, etc) would be nice 
+      # We're missing the info items.  Technically, the toc_item would be referenced by looking at the info items (creating any we're
+      # missing).  TODO - we should build the info item first and let the toc_item resolve from that.
+      # TODO BHL - just create an entry in each of the four special tables, linked to any of the names.
+      # TODO Outlinks: create a Collection related to any agent, and then give it a mapping with a foreign_key that links to some external
+      # site. (optionally, you could use collection.uri and replace the FOREIGN_KEY bit)
 
+      # TODO - we really don't want to denomalize the names, so remove them (but check that this will work!)
       RandomTaxon.gen(:language => Language.english, :data_object => images.last, :name_id => sname.id,
                       :image_url => images.last.object_cache_url, :name => sname.italicized, :content_level => 4,
                       :taxon_concept => tc, :common_name_en => cname.string,

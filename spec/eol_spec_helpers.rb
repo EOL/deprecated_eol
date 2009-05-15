@@ -68,16 +68,12 @@ module EOL::Spec
     def truncate_all_tables options = { }
       options[:verbose] ||= false
       all_connections.each do |conn|
-        commands = []
-        output  = []
         conn.tables.each   do |table|
           unless table == 'schema_migrations'
-            output   << "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
-            commands << "TRUNCATE TABLE`#{table}`"
+            puts "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
+            conn.execute "TRUNCATE TABLE`#{table}`"
           end
         end
-        puts output.join("\n") unless output.empty?
-        conn.execute commands.join(';')
       end
     end
 

@@ -208,14 +208,10 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def gbif_map_id
-
-    # #This method returns 1 instead of nils when things dont work as the maps need some ID even to gererate a blank map, and 1 is not a GBIF ID
-    for entry in hierarchy_entries
-      return entry.identifier if entry.hierarchies_content and entry.hierarchies_content.gbif_image != 0 and !entry.identifier.nil? and entry.identifier != ""
+    hierarchy_entries.each do |entry|
+      return entry.identifier if entry.has_gbif_identifier?
     end
-    
-    return 1;
-    
+    return empty_map_id
   end
 
   def hierarchy_entries_with_parents
@@ -245,11 +241,6 @@ class TaxonConcept < SpeciesSchemaModel
     return videos
   end 
 
-  def map
-    # NOTE: there may be more than one map, but we only need one.
-    DataObject.for_taxon(self, :map, :agent => @current_agent, :user => current_user)[0]
-  end
-
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
   def entry(hierarchy = nil)
     hierarchy ||= Hierarchy.default
@@ -273,14 +264,16 @@ class TaxonConcept < SpeciesSchemaModel
   
   def available_media
     images = video = map = false
+    # TODO - JRice believes these rescues are bad.  They are--I assume--in here because sometimes there is no
+    # hierarchies_content.  However, IF there is one AND we get some other errors, then A) we're not handling them,
+    # and B) The value switches to false when it may have been true from a previous hierarchies_content.
     for entry in hierarchy_entries
       images = true if entry.hierarchies_content.image != 0 || entry.hierarchies_content.child_image != 0 rescue images
       video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0 rescue video
       map = true if entry.hierarchies_content.gbif_image != 0 rescue map
     end
     
-    #1 is the default value for gbif_map_id as if it were 0 or nil the maps would explode rather than showing a blank map
-    map = false if map == true and gbif_map_id == 1
+    map = false if map and gbif_map_id == empty_map_id # The "if map" avoids unecessary db hits; keep it.
     
     {:images => images,
      :video  => video,
@@ -663,9 +656,6 @@ EO_FIND_NAMES
         # Careful!  We're doing TaxonConcepts, here, too, so we don't want recursion.
         xml.children { children.each { |a| a.to_xml(:builder => xml, :skip_instruct => true) } }
         xml.curators { curators.each {|c| c.to_xml(:builder => xml, :skip_instruct => true)} }
-        unless map.nil?
-          xml.map      { map.to_xml(:builder => xml, :skip_instruct => true) }
-        end
 
         # There are potentially lots and lots of these, so let's just count them and let the user grab what they want:
         xml.comments { xml.count comments.length.to_s }
@@ -687,6 +677,10 @@ EO_FIND_NAMES
 
 #####################
 private
+
+  def empty_map_id
+    return 1
+  end
 
 # =============== The following are methods specific to content_by_category
 

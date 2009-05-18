@@ -312,6 +312,14 @@ EOIUCNSQL
     attribution += agents
   end
 
+  def has_gbif_identifier?
+    return false unless hierarchies_content
+    return false unless hierarchies_content.gbif_image
+    return false if hierarchies_content.gbif_image == 0
+    return false if identifier.blank?
+    return true
+  end
+
 private
   # Because we hijack the built-in name method...
   def name_object

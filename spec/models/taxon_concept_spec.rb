@@ -28,7 +28,7 @@ describe TaxonConcept do
     @scientific_name = "#{@canonical_form} #{@attribution}"
     @italicized      = "<i>#{@canonical_form}</i> #{@attribution}"
     @iucn_status     = Factory.next(:iucn)
-    @map_text        = 'Test Map'
+    @gbif_map_id     = '424242'
     @image_1         = Factory.next(:image)
     @image_2         = Factory.next(:image)
     @image_3         = Factory.next(:image)
@@ -45,7 +45,7 @@ describe TaxonConcept do
                              :italicized      => @italicized,
                              :common_name     => @common_name,
                              :iucn_status     => @iucn_status,
-                             :map             => {:description => @map_text},
+                             :gbif_map_id     => @gbif_map_id,
                              :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
                              :youtube         => [{:description => @video_3_text}],
                              :comments        => [{:body => @comment_1},{:body => @comment_bad},{:body => @comment_2}],
@@ -119,15 +119,8 @@ describe TaxonConcept do
     @taxon_concept.children.map(&:id).sort.should == [@subspecies1.id, @subspecies2.id, @subspecies3.id].sort
   end
 
-  it 'should be able to show a (single) map' do
-    # TODO - nice way to add a DO to a TC
-    build_data_object('GBIF Image', 'Second map that should not show up',
-                      :hierarchy_entry => @taxon_concept.hierarchy_entries.first,
-                      :taxon => @taxon_concept.taxa.first,
-                      :object_cache_url => Factory.next(:map))
-    @taxon_concept.map.should_not be_nil
-    @taxon_concept.map.should_not be_an(Array)
-    @taxon_concept.map.description.should == @map_text
+  it 'should find its GBIF map ID' do
+    @taxon_concept.gbif_map_id.should == @gbif_map_id
   end
 
   it 'should be able to show videos' do

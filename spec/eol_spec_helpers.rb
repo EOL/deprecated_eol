@@ -184,7 +184,7 @@ module EOL::Spec
                                  :rank_id       => depth + 1, # Cheating. As long as *we* created Ranks with a scenario, this works.
                                  :taxon_concept => tc,
                                  :name          => name)
-      HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4, :gbif_image => 1,
+      HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4, :gbif_image => options[:map] ? 1 : 0,
                              :youtube => 1, :flash => 1)
       # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as roles
       return he
@@ -217,8 +217,8 @@ module EOL::Spec
     #     String to use for preferred scientific name's italicized form.
     #   +iucn_status+::
     #     String to use for IUCN description
-    #   +map+::
-    #     A hash to build a map data object with. The keys you will want are +:description+ and +:object_cache_url+.
+    #   +gbif_map_id+::
+    #     The ID to use for the Map Data Object.
     #   +parent_hierarchy_entry_id+::
     #     When building the associated HierarchyEntry, this id will be used for its parent.
     #   +rank+::
@@ -347,8 +347,12 @@ module EOL::Spec
                           :object_cache_url => youtube_opt[:object_cache_url])
       end
 
-      # TODO We need a HE in this taxon_concept, but using the GBIF hierarchy... if we want maps to work.
-      # This uses an identifier, so, we'll need a list of acceptable identifiers to get maps working.  Talk to Patrick.
+      # Not many taxa have maps, so the user needs to specify if it has one:
+      if options[:gbif_map_id] 
+        gbif_he = build_hierarchy_entry(depth, tc, sname, :hierarchy => gbif_hierarchy, :map => true, :identifier => options[:gbif_map_id])
+        gbif_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => complete)
+        HarvestEventsTaxon.gen(:taxon => gbif_taxon, :harvest_event => gbif_harvest_event)
+      end
 
       if options[:toc].nil?
         options[:toc] = [{:toc_item => TocItem.overview,
@@ -375,6 +379,28 @@ module EOL::Spec
                       :taxon_concept => tc, :common_name_en => cname.string,
                       :thumb_url => images.first.object_cache_url) # TODO - not sure thumb_url is right.
       return tc
+    end
+
+    def gbif_hierarchy
+      # Why am I using cache?  ...Because I know we clear it when we nuke the DB...
+      Rails.cache.fetch('hierarchies/gbif') do
+        hierarchy = Hierarchy.find_by_label('GBIF') || Hierarchy.gen(:label => 'GBIF')
+      end
+    end
+
+    def gbif_harvest_event
+      # Why am I using cache?  ...Because I know we clear it when we nuke the DB...
+      Rails.cache.fetch('harvest_events/gbif') do
+        gbif_resource = Resource.find_by_title('Initial GBIF Import')
+        gbif_resource ||= Resource.gen(:title => 'Initial GBIF Import')
+        ev = HarvestEvent.find_by_resource_id(gbif_resource.id)
+        # TODO - this isn't working.  The harvest_events table does NOT clear, and thus the gbif resouce ID is wrong.
+        # This is a workaround
+        if ev.nil? 
+          ev = HarvestEvent.gen(:resource => gbif_resource)
+        end
+        ev
+      end
     end
 
     def iucn_harvest_event

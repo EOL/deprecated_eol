@@ -125,10 +125,6 @@ describe 'Taxa page XML' do
         @taxon_concept.curators.map {|c| c.id.to_s }.sort
     end
 
-    it 'should include map on call to /pages/NNN.xml' do
-      @taxon_concept_xml.xpath('//map//description').first.content.should == @map_text
-    end
-
     it 'should include comments/count on call to /pages/NNN.xml' do
       @taxon_concept_xml.xpath('//comments/count').first.content.should == @taxon_concept.comments.length.to_s
     end

@@ -331,10 +331,10 @@ end
   def expire_data_object(data_object_id)
     expired_ids = Set.new
     DataObject.find(data_object_id).taxon_concepts.each do |tc|
-      expire_taxon_concept(tc.id, :expire_ancestors => false) unless expired_ids.add?(tc.id)
+      expire_taxon_concept(tc.id, :expire_ancestors => false) if expired_ids.add?(tc.id)
       begin
         tc.ancestors.each do |tca|
-          expire_taxon_concept(tca.id, :expire_ancestors => false) unless expired_ids.add?(tca.id)
+          expire_taxon_concept(tca.id, :expire_ancestors => false) if expired_ids.add?(tca.id)
         end
       rescue Exception => e
         if e.to_s != "Taxon concept must have at least one hierarchy entry"

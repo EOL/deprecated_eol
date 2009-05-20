@@ -1,4 +1,4 @@
-<div id="text_wrapper_<%=content_item.id%>" <%="style='display:none'" if @hide%>
+<div id="text_wrapper_<%=content_item.id%>" <%="style='display:none'" if @hide%>>
   <div class="content-article <%=vetted_id_class(content_item)%>" id="text_<%=content_item.id%>">
     <% if content_item.object_title.blank? == false && content_item.object_title != category %>
       <h1><%= hh(content_item.object_title) %></h1>

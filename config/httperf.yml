@@ -1,0 +1,13 @@
+--- 
+uris: 
+- /
+- /pages/1
+- /pages/2
+- /pages/3
+- /pages/4
+- /search?q=Animalia
+- /search?q=Bergstrom
+- /content/page/who_we_are
+samples: 2
+servers: 
+- localhost:3000

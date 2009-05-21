@@ -192,7 +192,8 @@ module EOL::Spec
 
     # == Options:
     #
-    # These all have intelligent(ish) default values, so just specify those values that you feel are really salient.
+    # These all have intelligent(ish) default values, so just specify those values that you feel are really salient. Note that a TC will
+    # NOT have a map or an IUCN status unless you specify options that create them.
     #
     #   +attribution+::
     #     String to be used in scientific name as attribution
@@ -216,7 +217,7 @@ module EOL::Spec
     #   +italicized+::
     #     String to use for preferred scientific name's italicized form.
     #   +iucn_status+::
-    #     String to use for IUCN description
+    #     String to use for IUCN description, OR just set to true if you want a random IUCN status instead.
     #   +gbif_map_id+::
     #     The ID to use for the Map Data Object.
     #   +parent_hierarchy_entry_id+::
@@ -237,7 +238,6 @@ module EOL::Spec
 
       attri       = options[:attribution] || Factory.next(:attribution)
       common_name = options[:common_name] || Factory.next(:common_name)
-      iucn_status = options[:iucn_status] || Factory.next(:iucn)         # This should NOT be required, should be optional (and rare)
       canon       = options[:canonical_form] || Factory.next(:scientific_name)
       complete    = options[:scientific_name] || "#{canon} #{attri}".strip
       cform = CanonicalForm.find_by_string(canon) || CanonicalForm.gen(:string => canon)
@@ -265,7 +265,6 @@ module EOL::Spec
       end
 
       # Note that this assumes the ranks are *in order* which is ONLY true with foundation loaded!
-      # ACTUALLY, depth is not something we *really* need.  It may be used in the future, but not now.
       depth = options[:depth] || Rank.find_by_label(options[:rank] || 'species').id - 1 # This is an assumption...
       he    = build_hierarchy_entry(depth, tc, sname, :parent_id => options[:parent_hierarchy_entry_id])
       TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => he.id,
@@ -325,12 +324,6 @@ module EOL::Spec
         images << build_data_object('Image', description, img)
       end
       
-      # iucn has its own taxon because it has its own hierarcy.
-      # TODO - 'he' is wrong, here: iucn needs its own HE in the IUCN hierarchy:
-      iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => complete)
-      iucn = build_data_object('IUCN', iucn_status, :taxon => iucn_taxon)
-      HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_harvest_event)
-
       flash_options = options[:flash] || [{}] # Array with one empty hash, which we will populate with defaults:
       flash_options.each do |flash_opt|
         flash_opt[:description]      ||= Faker::Lorem.sentence
@@ -347,7 +340,14 @@ module EOL::Spec
                           :object_cache_url => youtube_opt[:object_cache_url])
       end
 
-      # Not many taxa have maps, so the user needs to specify if it has one:
+      if options[:iucn_status]
+        iucn_status = options[:iucn_status] == true ? Factory.next(:iucn) : options[:iucn_status]
+        iucn_he = build_hierarchy_entry(depth, tc, sname, :hierarchy => iucn_hierarchy)
+        iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => iucn_he, :scientific_name => complete)
+        iucn = build_data_object('IUCN', iucn_status, :taxon => iucn_taxon)
+        HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_harvest_event)
+      end
+
       if options[:gbif_map_id] 
         gbif_he = build_hierarchy_entry(depth, tc, sname, :hierarchy => gbif_hierarchy, :map => true, :identifier => options[:gbif_map_id])
         gbif_taxon = Taxon.gen(:name => sname, :hierarchy_entry => he, :scientific_name => complete)
@@ -382,38 +382,21 @@ module EOL::Spec
     end
 
     def gbif_hierarchy
-      # Why am I using cache?  ...Because I know we clear it when we nuke the DB...
-      Rails.cache.fetch('hierarchies/gbif') do
-        hierarchy = Hierarchy.find_by_label('GBIF') || Hierarchy.gen(:label => 'GBIF')
-      end
+      Hierarchy.find_by_label('GBIF') || Hierarchy.gen(:label => 'GBIF')
+    end
+
+    def iucn_hierarchy
+      Hierarchy.find_by_label('IUCN') || Hierarchy.gen(:label => 'IUCN')
     end
 
     def gbif_harvest_event
-      # Why am I using cache?  ...Because I know we clear it when we nuke the DB...
-      Rails.cache.fetch('harvest_events/gbif') do
-        gbif_resource = Resource.find_by_title('Initial GBIF Import')
-        gbif_resource ||= Resource.gen(:title => 'Initial GBIF Import')
-        ev = HarvestEvent.find_by_resource_id(gbif_resource.id)
-        # TODO - this isn't working.  The harvest_events table does NOT clear, and thus the gbif resouce ID is wrong.
-        # This is a workaround
-        if ev.nil? 
-          ev = HarvestEvent.gen(:resource => gbif_resource)
-        end
-        ev
-      end
+      gbif_resource = Resource.find_by_title('Initial GBIF Import')
+      gbif_resource ||= Resource.gen(:title => 'Initial GBIF Import')
+      HarvestEvent.find_by_resource_id(gbif_resource.id) || HarvestEvent.gen(:resource => gbif_resource)
     end
 
     def iucn_harvest_event
-      # Why am I using cache?  ...Because I know we clear it when we nuke the DB...
-      Rails.cache.fetch('harvest_events/iucn') do
-        ev = HarvestEvent.find_by_resource_id(Resource.iucn.id)
-        # TODO - this isn't working.  The harvest_events table does NOT clear, and thus the iucn resouce ID is wrong.
-        # This is a workaround
-        if ev.nil? 
-          ev = HarvestEvent.gen(:resource => Resource.iucn)
-        end
-        ev
-      end
+      HarvestEvent.find_by_resource_id(Resource.iucn[0].id) || HarvestEvent.gen(:resource => Resource.iucn[0])
     end
 
   end

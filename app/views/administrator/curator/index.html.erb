@@ -26,7 +26,7 @@ Click a username to view the user's detailed profile.  You may change the clade 
 						<% form_id = "user_curator_#{user.id}"%>
 						<td class="<%= column_class %>">
 							<% form_tag({:action => 'index'}, :id => form_id, :method => 'get') do %>
-							<input type="hidden" name="user[id]" value="<%= user.id %>">
+							<input type="hidden" name="user[id]" value="<%= user.id %>" />
 							<%= check_box_tag('user[curator_approved]', user.curator_approved, user.curator_approved) %>
 							<%= observe_form(form_id, :url => {:controller => 'administrator/user', :action => :toggle_curator}, :frequency => 0.10) %>
 							<% end %>

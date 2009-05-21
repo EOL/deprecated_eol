@@ -11,7 +11,7 @@ children_nodes_size ||= 0
 <li class="<%= classes.join(' ') %>" id="uid<%=taxonID%>">
 	<span class="<%= classes.join(' ') %>" id="nameuid<%=taxonID%>">
 	<% 	if exists	-%>
-		<input type="radio"  onclick="JavaScript: browser_text_click(<%= taxonID %>);" name="user[curator_hierarchy_entry_id]" value="<%= taxonID %>"></input>
+		<input type="radio"  onclick="JavaScript: browser_text_click(<%= taxonID %>);" name="user[curator_hierarchy_entry_id]" value="<%= taxonID %>" /></input>
 	<%=	link_to(convert_to_nbsp(namestring),
 						{:controller => "taxa",
 						 :action=>"show",

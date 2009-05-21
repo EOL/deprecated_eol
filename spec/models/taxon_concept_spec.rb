@@ -1,8 +1,38 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+def reset_iucn_datos
+  DataObject.delete_all(['data_type_id = ?', DataType.find_by_label('IUCN').id])
+end
+
+def build_secondary_iucn_hierarchy_and_resource
+  another_iucn_resource  = Resource.gen(:title  => 'Another IUCN')
+  another_iucn_hierarchy = Hierarchy.gen(:label => 'Another IUCN')
+  AgentsResource.gen(:agent => Agent.iucn, :resource => another_iucn_resource)
+  return [another_iucn_hierarchy, another_iucn_resource]
+end
+
+def build_iucn_entry(tc, status, options = {})
+  options[:hierarchy] ||= iucn_hierarchy
+  options[:event]     ||= iucn_harvest_event
+  name                  = tc.taxon_concept_names.first.name
+  # TODO - this code was yanked (and modified) from eol_spec_helper#build_taxon_concept and needs to be generalized:
+  iucn_he = build_hierarchy_entry(3, tc, name, :hierarchy => options[:hierarchy]) 
+  iucn_taxon = Taxon.gen(:name => name, :hierarchy_entry => iucn_he, :scientific_name => @scientific_name)
+  HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => options[:event])
+  build_data_object('IUCN', status, :taxon => iucn_taxon, :published => 1)
+end
+
 describe TaxonConcept do
 
-  # we shouldn't need to use scenarios in model specs  :/
+  # Why am I loading scenarios in a model spec?  ...Because TaxonConcept is unlike other models: there is
+  # really nothing to it: just an ID and a wee bit of ancillary data. At the same time, TC is *so* vital to
+  # everything we do, that I wanted to construct tests that really jog the model through all of its
+  # relationships.
+  #
+  # If you want to think of this as more of a "black-box" test, that's fine.  I chose to put it in the
+  # models directory because, well, it isn't testing a website, and it IS testing a *model*, so it seemed a
+  # "better" fit here, even if it isn't perfect.
+
   before :all do
     Scenario.load :foundation
   end
@@ -10,13 +40,6 @@ describe TaxonConcept do
     truncate_all_tables
   end
 
-  # Why am I loading so many fixtures in a unit testing suite?  ...Because TaxonConcept is unlike other models: there 
-  # is really nothing to it: just an ID and a wee bit of ancillary data. At the same time, TC is *so* vital to
-  # everything we do, that I wanted to construct tests that really jog the model through all of its relationships.
-  #
-  # If you want to think of this as more of a "black-box" test, that's fine.  I chose to put it in the models directory
-  # because, well, it isn't testing a website, and it IS testing a *model*, so it seemed a "better" fit here, even if
-  # it isn't perfect.
   before(:each) do
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
@@ -27,7 +50,6 @@ describe TaxonConcept do
     @common_name     = Faker::Eol.common_name.firstcap
     @scientific_name = "#{@canonical_form} #{@attribution}"
     @italicized      = "<i>#{@canonical_form}</i> #{@attribution}"
-    @iucn_status     = Factory.next(:iucn)
     @gbif_map_id     = '424242'
     @image_1         = Factory.next(:image)
     @image_2         = Factory.next(:image)
@@ -44,7 +66,6 @@ describe TaxonConcept do
                              :scientific_name => @scientific_name,
                              :italicized      => @italicized,
                              :common_name     => @common_name,
-                             :iucn_status     => @iucn_status,
                              :gbif_map_id     => @gbif_map_id,
                              :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
                              :youtube         => [{:description => @video_3_text}],
@@ -95,8 +116,44 @@ describe TaxonConcept do
     @taxon_concept.current_user.should == user
   end
 
+  it 'should have a default IUCN conservation status of NOT EVALUATED' do
+    reset_iucn_datos
+    @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
+  end
+
   it 'should have an IUCN conservation status' do
-    @taxon_concept.iucn_conservation_status.should == @iucn_status
+    reset_iucn_datos
+    iucn_status = Factory.next(:iucn)
+    build_iucn_entry(@taxon_concept, iucn_status)
+    @taxon_concept.iucn_conservation_status.should == iucn_status
+  end
+
+  it 'should have an IUCN conservation status even if it comes from another IUCN resource' do
+    reset_iucn_datos
+    iucn_status = Factory.next(:iucn)
+    (hierarchy, resource) = build_secondary_iucn_hierarchy_and_resource
+    build_iucn_entry(@taxon_concept, iucn_status, :hierarchy => hierarchy,
+                                                  :event => HarvestEvent.gen(:resource => resource))
+    @taxon_concept.iucn_conservation_status.should == iucn_status
+  end
+
+  it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
+    reset_iucn_datos
+    build_iucn_entry(@taxon_concept, Factory.next(:iucn))
+    build_iucn_entry(@taxon_concept, Factory.next(:iucn))
+    result = @taxon_concept.iucn
+    result.should be_an_instance_of DataObject # (not an Array, mind you.)
+  end
+
+  it 'should not use an unpublished IUCN status' do
+    reset_iucn_datos
+    iucn_status = Factory.next(:iucn)
+    bad_iucn = build_iucn_entry(@taxon_concept, iucn_status)
+    # We *must* know that it would have worked if it *were* published, otherwise the test proves nothing:
+    @taxon_concept.iucn_conservation_status.should == iucn_status
+    bad_iucn.published = 0
+    bad_iucn.save
+    @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
   end
 
   it 'should be able to list its ancestors (by convention, ending with itself)' do

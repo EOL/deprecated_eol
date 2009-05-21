@@ -30,7 +30,7 @@ class Resource < SpeciesSchemaModel
 
   def self.iucn
     YAML.load(Rails.cache.fetch('resources/iucn') do
-      Resource.find_by_title('Initial IUCN Import').to_yaml
+      Agent.iucn.resources.to_yaml
     end)
   end
   

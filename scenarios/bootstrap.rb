@@ -43,7 +43,7 @@ resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceSt
 event    = HarvestEvent.gen(:resource => resource)
 AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource,
                    :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
-AgentsResource.gen(:agent => Agent.iucn, :resource => Resource.iucn,
+AgentsResource.gen(:agent => Agent.iucn, :resource => Resource.iucn[0],
                    :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 
 gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (GBIF)")

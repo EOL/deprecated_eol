@@ -422,6 +422,28 @@ class TaxonConcept < SpeciesSchemaModel
 
   end
   
+  def iucn
+    # Notice that we use find_by, not find_all_by.  We require that only one match (or no match) is found.
+    my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id, Resource.iucn.map(&:id)]).first
+
+    SELECT distinct do.*
+      FROM taxon_concept_names tcn
+        JOIN taxa t ON (tcn.name_id=t.name_id)
+        JOIN harvest_events_taxa het ON (t.id=het.taxon_id)
+        JOIN harvest_events he ON (het.harvest_event_id=he.id)
+        JOIN data_objects_taxa dot ON (t.id=dot.taxon_id)
+        JOIN data_objects do ON (dot.data_object_id=do.id)
+      WHERE tcn.taxon_concept_id = ?
+        AND he.resource_id IN (?)
+        AND published = 1
+      LIMIT 1 # TaxonConcept.iucn
+
+EOIUCNSQL
+    temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/', :description => 'NOT EVALUATED') : my_iucn
+    temp_iucn.instance_eval { def agent_url; return Agent.iucn.homepage; end }
+    return temp_iucn
+  end
+
   def iucn_conservation_status_url
     return iucn.respond_to?(:agent_url) ? iucn.agent_url : iucn.source_url
   end
@@ -471,27 +493,6 @@ class TaxonConcept < SpeciesSchemaModel
     subtitle = quick_scientific_name(:canonical) if subtitle.empty?
     subtitle = "<i>#{subtitle}</i>" unless subtitle.empty? or subtitle =~ /<i>/
     @subtitle = subtitle.empty? ? name() : subtitle
-  end
-
-  def iucn
-    # Notice that we use find_by, not find_all_by.  We require that only one match (or no match) is found.
-    my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id, Resource.iucn.id]).first
-
-    SELECT distinct do.*
-      FROM taxon_concept_names tcn
-        JOIN taxa t ON (tcn.name_id=t.name_id)
-        JOIN harvest_events_taxa het ON (t.id=het.taxon_id)
-        JOIN harvest_events he ON (het.harvest_event_id=he.id)
-        JOIN data_objects_taxa dot ON (t.id=dot.taxon_id)
-        JOIN data_objects do ON (dot.data_object_id=do.id)
-      WHERE tcn.taxon_concept_id = ?
-        AND he.resource_id = ? 
-      LIMIT 1 # TaxonConcept.iucn
-
-EOIUCNSQL
-    temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/', :description => 'NOT EVALUATED') : my_iucn
-    temp_iucn.instance_eval { def agent_url; return Agent.iucn.homepage; end }
-    return temp_iucn
   end
 
   def smart_thumb

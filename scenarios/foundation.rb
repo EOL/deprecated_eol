@@ -50,7 +50,7 @@ create_if_not_exists AgentContactRole, :label => 'Primary Contact'
 create_if_not_exists AgentContactRole, :label => 'Administrative Contact'
 create_if_not_exists AgentContactRole, :label => 'Technical Contact'
 
-create_if_not_exists Agent, :full_name => 'IUCN'
+iucn_agent = create_if_not_exists Agent, :full_name => 'IUCN'
 create_if_not_exists ContentPartner, :agent => Agent.iucn
 create_if_not_exists AgentContact, :agent => Agent.iucn, :agent_contact_role => AgentContactRole.primary
 create_if_not_exists Agent, :full_name => 'Catalogue of Life'
@@ -193,10 +193,11 @@ create_if_not_exists RefIdentifierType, :label => 'sici'
 create_if_not_exists RefIdentifierType, :label => 'url'
 create_if_not_exists RefIdentifierType, :label => 'urn'
 
-create_if_not_exists Resource, :title => 'Initial IUCN Import'
+iucn_resource = create_if_not_exists Resource, :title => 'Initial IUCN Import'
+create_if_not_exists AgentsResource, :resource => iucn_resource, :agent => iucn_agent
 
 # This is out of ourder, of course, because it depends on the IUCN resource.
-create_if_not_exists HarvestEvent, :resource_id => Resource.iucn.id
+create_if_not_exists HarvestEvent, :resource_id => Resource.iucn[0].id
 
 create_if_not_exists ResourceAgentRole, :label => 'Administrative'
 create_if_not_exists ResourceAgentRole, :label => 'Data Administrator'

@@ -17,7 +17,7 @@ class HierarchyEntry < SpeciesSchemaModel
   has_many :concepts
   has_many :curators, :class_name => 'User', :foreign_key => :curator_hierarchy_entry_id
   has_many :top_images, :foreign_key => :hierarchy_entry_id
-
+  has_many :taxa # Sometimes we go through names (which we can't Railsify)... but this relationship also exists directly
   has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
                                       WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'
 
@@ -92,28 +92,6 @@ class HierarchyEntry < SpeciesSchemaModel
 
     rank.nil? ? "taxon" : rank.label
 
-  end
-
-  def iucn
-    # So, this used to add "dato.data_type_id = #{DaataType.find_by_label('Text')}".  But an intial version of the DB had IUCN types as
-    # images. I removed it, thinking that it doesn't really matter in the case of IUCN stuff... it'll only ever be one object, so we
-    # don't much care.
-    my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id, Agent.iucn.id])
-
-    SELECT dato.*
-      FROM resources r, agents_resources ar, data_objects dato, concepts c, taxa t, data_objects_taxa dot
-      WHERE
-        dot.data_object_id = dato.id AND
-        dot.taxon_id = t.id AND
-        t.resource_id = r.id AND
-        c.name_id = t.name_id AND
-        c.hierarchy_entry_id = ? AND
-        ar.resource_id = r.id AND
-        ar.agent_id = ?
-      LIMIT 1 # iucn
-
-EOIUCNSQL
-    return my_iucn.blank? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/', :description => 'NOT EVALUATED') : my_iucn
   end
 
   def approved_curators

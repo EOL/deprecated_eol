@@ -33,7 +33,7 @@
 
     <%# gonna see what i can do to get rid of these  :/  %>
     <%= javascript_include_merged 'jquery-cached' %>
-    <script type="text/javascript">var $j = jQuery.noConflict();</script>
+    <script language="javascript" type="text/javascript">var $j = jQuery.noConflict();</script>
 
     <%= javascript_include_merged 'prototype-cached' %>
     <%= javascript_include_merged 'base-cached' %>
@@ -41,7 +41,7 @@
     <%# TODO - LOW PRI - Move this into a content_for :head block -%>
     <%= javascript_include_tag 'swfobject' %>
 
-    <script language="javascript">
+    <script language="javascript" type="text/javascript">
       EOL.USE_EXTERNAL_LINK_POPUPS = <%=$USE_EXTERNAL_LINK_POPUPS%>;
     </script>
 
@@ -164,7 +164,7 @@
 
             <!-- search -->
             <div id="wrapper-search">
-                <script type="text/javascript">
+                <script language="javascript" type="text/javascript">
                   // <![CDATA[
                     EOL.Search.validate_parameters = function(form,advanced_search) {
                       if (form.q.value.length < 3 || form.q.value == "<%=escape_javascript("Name of organism"[])%>") {
@@ -237,7 +237,7 @@
 <% cache(:controller=>'/content',:part=>'footer_' + current_user.language_abbr) do %>
         <div id="footer">
             <!-- ADDTHIS BUTTON BEGIN -->
-            <script type="text/javascript">
+            <script language="javascript" type="text/javascript">
             addthis_pub = 'YOUR-ACCOUNT-ID';
             </script><a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s7.addthis.com/static/btn/lg-bookmark-en.gif" width="125" height="16" border="0" alt="Bookmark" /></a><script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
             <!-- ADDTHIS BUTTON END -->
@@ -256,7 +256,7 @@
     <div id="progress-bar">
         <div id="flash-good" style="display: block">
             <%= flash[:notice] %>
-            <script type="text/javascript">
+            <script language="javascript" type="text/javascript">
             // <![CDATA[
             new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50});
          //   new Effect.Pulsate('flash-good', {pulses: 2});
@@ -270,7 +270,7 @@
     <div id="progress-bar">
         <div id="flash-warning" style="display: block">
             <%= flash[:warning] %>
-            <script type="text/javascript">
+            <script language="javascript" type="text/javascript">
             // <![CDATA[
             new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50});
       //      new Effect.Pulsate('flash-warning', {pulses: 2});
@@ -284,7 +284,7 @@
     <div id="progress-bar">
         <div id="flash-error" style="display: block">
             <%= flash[:error] %>
-            <script type="text/javascript">
+            <script language="javascript" type="text/javascript">
             // <![CDATA[
             new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50});
      //       new Effect.Pulsate('flash-error', {pulses: 2});
@@ -300,7 +300,7 @@
     <div id="progress-bar">
         <div id="flash-survey" class="pop-up-panel" style="display:none;">
         <%= render :partial=> 'popups/survey'%>
-            <script type="text/javascript">
+            <script language="javascript" type="text/javascript">
             // <![CDATA[
               womAdd('setTimeout("Element.show(\'flash-survey\');new EOL.Effect.appear(\'progress-open\', {duration: 0.5, from: 0.0, to: 0.50})","5000");');
             // ]]>
@@ -311,11 +311,11 @@
 
 <% if $ENABLE_ANALYTICS %>
 
-  <script type="text/javascript">
+  <script language="javascript" type="text/javascript">
   var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
   document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
   </script>
-  <script type="text/javascript">
+  <script language="javascript" type="text/javascript">
   try {
   var pageTracker = _gat._getTracker("<%=$GOOGLE_ANALYTICS_ID%>");
   pageTracker._trackPageview();

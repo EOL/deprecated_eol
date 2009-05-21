@@ -696,7 +696,7 @@ class DataObject < SpeciesSchemaModel
 UNION
 (SELECT dt.label media_type, dato.*, '' scientific_name, taxon_concept_id taxon_id,l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}
 FROM data_objects dato
-STRAIGHT_JOIN #{ UsersDataObject.full_table_name } udo ON (dato.id=udo.data_object_id)
+JOIN #{ UsersDataObject.full_table_name } udo ON (dato.id=udo.data_object_id)
 STRAIGHT_JOIN data_types dt ON (dato.data_type_id = dt.id)
 #{join_agents} #{join_toc}
 LEFT OUTER JOIN licenses l ON (dato.license_id = l.id)

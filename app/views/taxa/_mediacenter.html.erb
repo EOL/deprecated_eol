@@ -37,9 +37,10 @@
 
               <div id="left-image-buttons">
                 <ul id="large-image-button-group">
-                  <li alt="More information" title="More information" id="large-image-attribution-button" class="attribution-icon">
+                  <li title="More information" id="large-image-attribution-button" class="attribution-icon">
                     <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', attribution_data_object_path(@images[0]),
-                      :id => "large-image-attribution-button-popup-link", :class => 'popup-link' %>
+                      :id => "large-image-attribution-button-popup-link", :class => 'popup-link',
+                      :alt => "More information" %>
                   </li>
                   <%=render :partial=>'data_object_states', :locals => {:dato => @images[0]}%>
                 </ul>

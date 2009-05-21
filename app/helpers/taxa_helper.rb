@@ -3,9 +3,11 @@ module TaxaHelper
   # These start out display:none, so we can show them only after JS behaviours have been applied.
   # which: a string to be used to create the ID of the anchor: try 'comment', 'tagging', or 'curator'.
   # where: the URL you want the anchor to reference (used by JS to create an Ajax request).
-  def popup_link(which, where)
-    link_to '<span style="display:block;width:24px;height:25px;"></span>', where, 
-            :id => "large-image-#{which}-button-popup-link", :class => 'popup-link', :style => 'display:none;'
+  def popup_link(which, where, options = {})
+    html_options = {
+      :id => "large-image-#{which}-button-popup-link", :class => 'popup-link', :style => 'display:none;'
+    }.merge(options)
+    link_to '<span style="display:block;width:24px;height:25px;"></span>', where, html_options
   end
 
   def vetted_id_class(data_object)

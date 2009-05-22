@@ -37,9 +37,9 @@ describe DataObject do
 
   describe 'ratings' do
 
-    it 'should have a default rating of 0.0' do
+    it 'should have a default rating of 2.5' do
       d = DataObject.new
-      d.data_rating.should eql(0.0)
+      d.data_rating.should eql(2.5)
     end
 
     it 'should create new rating' do

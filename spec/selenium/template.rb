@@ -1,6 +1,7 @@
 #!/opt/local/bin/ruby
-gem "rspec", "=1.1.12"
-gem "selenium-client", ">=1.2.13"
+require 'rubygems'
+gem "rspec"
+gem "selenium-client"
 require "selenium/client"
 require "selenium/rspec/spec_helper"
 

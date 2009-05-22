@@ -133,6 +133,15 @@ Install the gem (note the capitol S):
 
   sudo gem install Selenium
 
+Install the selenium-client gem:
+
+  sudo gem install selenium-client
+
+Install LOCAL versions of rspec and rspec-rails using the latest version (they are required by selenium-client).  Don't
+unpack these into the project (yet), we have some tests that will break if you do:
+
+  sudo gem install rspec rspec-rails
+
 The jar file that comes with this gem doesn't work well, so you need to install Selenium itself and steal the jar.  Start by grabbing the
 "Selenium RC" package:
 
@@ -183,7 +192,7 @@ contextual menu, there is an assertion called "waitForTextPresent", which you ca
 solutions, however.  Read around the web for alternatives.
 
 After your test is written, you can run it by simply calling it as a ruby script.  There is an example script called
-"spec/selenium/template.rb" which you can run, for example, by calling "ruby spec/selenium/template.rb".  
+"spec/selenium/template.rb" which you can run, for example, by calling "spec spec/selenium/template.rb".  
 
 This example, by the way, shows how you might use RSpec instead of Test::Unit.  (In fact, if you use this as a template, you MUST change
 all of your "assert"s to "should" syntax, otherwise you will get "undefined method `assert'" errors.)

@@ -83,7 +83,6 @@
                 <li>
                     <a href="<%=url_for(:controller=>'/taxa',:action=>'settings',:return_to=>CGI.escape(request.request_uri))%>" title="<%= "Preferences"[] %>"><%= "Preferences"[] %></a>
                 </li>
-                <% cache(:controller=>'/content', :part=>'top_nav_' + current_user.language_abbr) do %>
                 <li>
                     <a title="<%= "Language"[] %>: <%= Gibberish.current_language %>" class="dropdown"><%= "Language"[] %>: <%= Gibberish.current_language %></a>
                     <ul class="uppercase">
@@ -93,6 +92,7 @@
                     	<li><%=link_to 'Google Translate',{:controller=>'content', :action=>'translate', :return_to => request.request_uri}, {:title=>'Google Translate'}%></li>
 					          </ul>
                 </li>
+                <% cache(:controller=>'/content', :part=>'top_nav_' + current_user.language_abbr) do %>                
                 <li>
                     <a class="dropdown" id="feedback" title="<%="Feedback"[]%>"><%="Feedback"[]%></a>
                     <ul class="uppercase">

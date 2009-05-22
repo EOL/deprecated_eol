@@ -67,7 +67,7 @@
 	
 	                    <label for="user_email" title="<%= "Please enter your email address"[] %>"><%= "Email Address"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
 	                    <!-- user_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //-->
-	                    <%= f.text_field :email, {:maxlength=>60,:size=>30}  %>
+	                    <%= f.text_field :email, {:maxlength=>100,:size=>30}  %>
 						
 					    <label for="user_given_name" title="<%= "Please enter your given name"[:please_enter_given_name] %>"><%= "Given name"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
 	                    <!-- user_given_name .+ false true //-->

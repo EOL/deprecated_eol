@@ -412,3 +412,23 @@ class ActiveRecord::Base
   end
 
 end
+
+# MONKEY-PATCHING OUR MODELS...
+#
+# The problem is that we have *no* methods that make relating data between models easy... because this project is
+# largely read-only, so the methods have *no use* in production.  Therefore, we monkey-patch them here (TODO - move
+# these to a separate file) in order to have these methods available ONLY when we're testing. This keeps us from
+# worrying about the methods screwing things up in production: they don't exist.
+# 
+# Please *try* and KEEP THESE ALPHABETICAL for now.  When we have too many, we'll break them up into files, but that
+# will make loading much more complicated.
+
+Ref.class # lame way of getting rails to auto-load the class.  If we skip this step, Ref is defined here, and we 
+          # never load the model!
+class Ref
+  def add_identifier(type, identifier)
+    type = RefIdentifierType.find_by_label(type) || RefIdentifierType.gen(:label => type)
+    # TODO - I can take off the :ref => self, right?  For now, being safe.
+    self.ref_identifiers << RefIdentifier.gen(:ref_identifier_type => type, :identifier => identifier, :ref => self)
+  end
+end

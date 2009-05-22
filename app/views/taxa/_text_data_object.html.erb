@@ -4,8 +4,6 @@
       <h1><%= hh(content_item.object_title) %></h1>
     <% end %>
 
-
-
     <!-- ATTRIBUTION GOES HERE -->
     <div class="content-attribution-area">
       <%# if !content_item.user.nil? && content_item.user.id == current_user.id %>
@@ -13,7 +11,7 @@
           <%#= link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_id}) -%>
         <%#*</div>%>
       <%# end %>
-      <div class="attribution-header2">
+      <div class="attribution-header text-area-header">
         <%= "Source and Additional Information"[] %>
       </div>
       <%= render :partial => 'data_objects/attribution', :locals => { :data_object => content_item } %>
@@ -24,6 +22,27 @@
     <div <%='class="unvetted-background-text"' if content_item.vetted_id != Vetted.trusted.id %>>
      <%= content_item.description %>
     </div>
+
+    <%# -- REFERENCES -- %>
+    <% unless content_item.refs.blank? %>
+
+      <div class='references'>
+        <div class='text-area-header references-header'>References</div>
+        <ul>
+        <% content_item.refs.each do |ref| %>
+          <li><%= h ref.full_reference -%>
+            <% ref.ref_identifiers.each do |identifier| -%>
+              <%# we do not show identifier unless we know how to handle them: -%>
+              <% next unless identifier.display? %>
+              <%= link_to(identifier.identifier, identifier.link_to_identifier) %>
+            <% end %>
+          </li>
+        <% end %>
+        </ul>
+      </div>
+
+    <% end %>
+
   </div>
   <div class="text_buttons" id="text_buttons_<%=content_item.id%>">
     <ul data-data_object_id='<%=content_item.id%>'>

@@ -2044,19 +2044,15 @@ ul#global-navigation {
           text-align: right;
         }
 
-
-    .attribution-header1 {
+    .text-area-header {
       font-weight: 600;
       color: #999;
       text-transform: uppercase;
     }
 
-    .attribution-header2 
+    .attribution-header
     {
-      font-weight: 600;
-      color: #999;
       border-bottom: 1px solid #ccc;  
-      text-transform: uppercase;
       height:23px;
     }
 
@@ -2064,6 +2060,18 @@ ul#global-navigation {
       margin-top: 2px;
       padding-top: 2px;
       padding-bottom: 4px;
+    }
+
+    .references ul {
+      list-style-type: none !important;
+      padding-left:    2em  !important;
+    }
+    
+    .references-header {
+      border-bottom: 1px solid #ccc;  
+      height:23px;
+      margin-bottom:4pt;
+      margin-top:2em;
     }
 
     a.footnote {

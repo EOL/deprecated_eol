@@ -18,6 +18,7 @@ describe 'Taxa page (HTML)' do
     @parent          = build_taxon_concept
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
+    # TODO - add a reference to the text object
     @toc_item_2      = TocItem.gen(:view_order => 2)
     @toc_item_3      = TocItem.gen(:view_order => 3)
     @canonical_form  = Factory.next(:species)
@@ -38,23 +39,23 @@ describe 'Taxa page (HTML)' do
     @comment_2       = 'And I can comment multiple times'
 
     @taxon_concept   = build_taxon_concept(
-                         :parent_hierarchy_entry_id => @parent.hierarchy_entries.first.id,
-                         :rank            => 'species',
-                         :canonical_form  => @canonical_form,
-                         :attribution     => @attribution,
-                         :scientific_name => @scientific_name,
-                         :italicized      => @italicized,
-                         :common_name     => @common_name,
-                         :iucn_status     => @iucn_status,
-                         :map             => {:description => @map_text},
-                         :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
-                         :youtube         => [{:description => @video_3_text}],
-                         :comments        => [{:body => @comment_1},{:body => @comment_bad},{:body => @comment_2}],
-                         # We want more than 10 images, to test pagination, but details don't matter:
-                         :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
-                                              {:object_cache_url => @image_3}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
-                         :toc             => [{:toc_item => @overview, :description => @overview_text}, 
-                                              {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
+       :parent_hierarchy_entry_id => @parent.hierarchy_entries.first.id,
+       :rank            => 'species',
+       :canonical_form  => @canonical_form,
+       :attribution     => @attribution,
+       :scientific_name => @scientific_name,
+       :italicized      => @italicized,
+       :common_name     => @common_name,
+       :iucn_status     => @iucn_status,
+       :map             => {:description => @map_text},
+       :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
+       :youtube         => [{:description => @video_3_text}],
+       :comments        => [{:body => @comment_1},{:body => @comment_bad},{:body => @comment_2}],
+       # We want more than 10 images, to test pagination, but details don't matter:
+       :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
+                            {:object_cache_url => @image_3}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+       :toc             => [{:toc_item => @overview, :description => @overview_text}, 
+                            {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
 
     @child1        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @child2        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
@@ -80,6 +81,39 @@ describe 'Taxa page (HTML)' do
 
   it 'should be able to ping the collection host' do
     @result.body.should include(@ping_url)
+  end
+
+  it 'should show the Overview text by default' do
+    @result.body.should have_tag('h3', :text => 'Overview')
+    @result.body.should include(@overview_text)
+  end
+
+  it 'should NOT show references for the overview text when there aren\'t any' do
+    Ref.delete_all ; @taxon_concept.overview[0].refs = [] # Just to make sure nothing shows up.
+    @result.body.should_not have_tag('div.references')
+  end
+
+  it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
+    full_ref = 'This is the reference text that should show up'
+    # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
+    # extracted to do this:
+    url_identifier = 'some/url.html'
+    doi_identifier = '10.12355/foo/bar.baz.230'
+    bad_identifier = 'you should not see this identifier'
+    @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref)
+    # I heard you like RSpec, so we put a lot of tests in your test so you could spec while you're
+    # speccing.There are actually a lot of 'tests' in this test.  For one, we're testing that URLs will have http://
+    # added to them if they are blank.  We're also testing the regex that pulls DOIs out of potentially
+    # messy DOI identifiers:
+    ref.add_identifier('url', url_identifier)
+    ref.add_identifier('doi', "doi: #{doi_identifier}")
+    ref.add_identifier('bad', bad_identifier)
+    new_result = RackBox.request("/pages/#{@id}")
+    new_result.body.should have_tag('div.references')
+    new_result.body.should include(full_ref)
+    new_result.body.should have_tag("a[href=http://#{url_identifier}]")
+    new_result.body.should_not include(bad_identifier)
+    new_result.body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
   end
 
 end

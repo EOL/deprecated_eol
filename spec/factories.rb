@@ -655,6 +655,16 @@ Factory.define :rank do |r|
   r.rank_group_id 0
 end
 
+Factory.define :ref do |r|
+  r.full_reference { Factory.next(:string) }
+end
+
+Factory.define :ref_identifier do |ri|
+  ri.identifier  { Factory.next(:string) }
+  ri.association :ref_identifier_type
+  ri.association :ref
+end
+
 Factory.define :ref_identifier_type do |rit|
   rit.label { Factory.next(:string) }
 end

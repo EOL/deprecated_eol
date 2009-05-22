@@ -33,8 +33,9 @@
           <li><%= h ref.full_reference -%>
             <% ref.ref_identifiers.each do |identifier| -%>
               <%# we do not show identifier unless we know how to handle them: -%>
-              <% next unless identifier.display? %>
-              <%= link_to(identifier.identifier, identifier.link_to_identifier) %>
+              <% next unless identifier.display? -%>
+              &emsp;<%= external_link_to(identifier.identifier,
+                                identifier.link_to_identifier) %>
             <% end %>
           </li>
         <% end %>

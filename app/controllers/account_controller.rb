@@ -3,7 +3,7 @@ require 'uri'
 class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:profile]
-  before_filter :go_to_home_page_if_logged_in, :except => [:profile, :show, :logout, :new_openid_user]
+  before_filter :go_to_home_page_if_logged_in, :except => [:check_username,:profile, :show, :logout, :new_openid_user]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login,:authenticate,:signup,:profile]  # when we get SSL certs we can start redirecting to the encrypted page for these methods
@@ -138,8 +138,15 @@ class AccountController < ApplicationController
     user_params=params[:user]
     
     # change password if user entered it
-    @user.password=user_params[:entered_password] if user_params[:entered_password] !='' && user_params[:entered_password] != nil && user_params[:entered_password_confirmation] !='' && user_params[:entered_password_confirmation] != nil
-
+    # TODO This is pretty ugly, but validation on passwords is really only valid on create OR on update if users actually enter a password
+    unless user_params[:entered_password].blank? && user_params[:entered_password_confirmation].blank?
+       if user_params[:entered_password].length < 4 || user_params[:entered_password].length > 16
+          @user.errors.add_to_base("Password length must be between 4 and 16 characters."[:password_must_be_4to16_characters])
+          return
+      end
+      @user.password=user_params[:entered_password]
+    end
+    
     # The UI would not allow this, but a hacker might try to grant curator permissions to themselves in this manner.
     user_params.delete(:curator_hierarchy_entry_id) unless is_user_admin? 
     if @user.update_attributes(user_params)
@@ -155,7 +162,7 @@ class AccountController < ApplicationController
   def check_username
 
     username=params[:username] || ""
-    if User.unique_user?(username)
+    if User.unique_user?(username) || (logged_in? && current_user.username == username)
       message=""
     else
       message="{name} is already taken"[:username_taken,username]
@@ -226,7 +233,7 @@ class AccountController < ApplicationController
     # TODO - user.failed_logins += 1; user.save
     # TODO - send an email to an admin if user.failed_logins > 10 # Smells like a dictionary attack!
     flash[:warning] = message
-    redirect_to :protocol => "https://", :action => 'login'
+    redirect_to :action => 'login'
   end  
 
 private

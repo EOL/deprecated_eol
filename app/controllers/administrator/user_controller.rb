@@ -114,11 +114,20 @@ class Administrator::UserController  < AdminController
    @message=params[:message]
   
    Notifier.deliver_user_message(@user.full_name,@user.email,@message) unless @message.blank?
+  
+   user_params=params[:user]
+       
+   unless user_params[:entered_password].blank? && user_params[:entered_password_confirmation].blank?
+      if user_params[:entered_password].length < 4 || user_params[:entered_password].length > 16
+         @user.errors.add_to_base("Password length must be between 4 and 16 characters."[:password_must_be_4to16_characters])
+         render :action=>'edit'
+         return
+     end
+     @user.password=user_params[:entered_password]
+   end
    
-   @user.password=params[:user][:entered_password] unless params[:user][:entered_password].blank? && params[:user][:entered_password_confirmation].blank?
-   
-   if @user.update_attributes(params[:user])
-      @user.set_curator(EOLConvert.to_boolean(params[:user][:curator_approved]),current_user)
+   if @user.update_attributes(user_params)
+      @user.set_curator(EOLConvert.to_boolean(user_params[:curator_approved]),current_user)
       flash[:notice]="The user was updated."
       redirect_back_or_default(url_for(:action=>'index'))
     else

@@ -237,3 +237,6 @@ begin
   require 'environment_eol_org'
 rescue LoadError
 end
+
+# load the system configuration
+require 'config/systems/current/config' if File.file? 'config/systems/current/config.rb'

@@ -31,8 +31,9 @@ ActionController::Routing::Routes.draw do |map|
   # TODO - we would like to make this all restfull.  Is that even possible, with images/videos vs data_objects?
   map.resources :taxon
   map.taxon 'taxa/:id',  :controller => 'taxa', :action => 'taxa', :requirements => { :id => /\d+/ }
-  map.taxon 'pages/:id', :controller => 'taxa', :action => 'show', :requirements => { :id => /\d+/ }
-  map.connect 'pages/:id.:format', :controller => 'taxa', :action => 'show', :requirements => { :id => /\d+/ }
+  map.taxon 'pages/:id', :controller => 'taxa', :action => 'show'
+
+  map.connect 'pages/:id.:format', :controller => 'taxa', :action => 'show' 
   map.connect 'pages/:taxon_concept_id/images/:page.:format', :controller => 'data_objects', :action => 'index',
     :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
   map.connect 'pages/:taxon_concept_id/videos/:page.:format', :controller => 'data_objects', :action => 'index',
@@ -66,8 +67,8 @@ ActionController::Routing::Routes.draw do |map|
   map.root :controller => 'content'
 
   map.search 'search', :controller => 'taxa', :action => 'search'
-  map.connect 'search.:format',    :controller => 'taxa', :action => 'search'
-
+  map.connect 'search/:id', :controller => 'taxa', :action => 'search'
+  map.connect 'search.:format', :controller => 'taxa', :action => 'search'
 
   map.connect 'content_partner/reports', :controller => 'content_partner/reports', :action => 'index' 
   map.connect 'content_partner/reports/:report', :controller => 'content_partner/reports', 

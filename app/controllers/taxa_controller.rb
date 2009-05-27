@@ -61,7 +61,13 @@ class TaxaController < ApplicationController
   def show
     @taxon_id = params[:id].to_i
     raise "taxa id not supplied" if @taxon_id.nil? 
-
+    
+    # if the user passed in a string as an ID instead of a numeric ID, then just pass this off to the search --- which will auto-redirect to the correct taxon page if there is an exact match
+    if @taxon_id == 0
+      redirect_to :controller=>'taxa',:action=>'search', :id=>params[:id]
+      return
+    end
+    
     respond_to do |format|
       # TODO - please, please, PLEASE refactor this.  There is WAY too much going on in this controller.
       format.html do
@@ -159,7 +165,7 @@ class TaxaController < ApplicationController
 
   # execute search and show results
   def search
-
+    
     respond_to do |format|
       # TODO - please, please, PLEASE refactor this.  There is WAY too much going on in this controller.
       format.html do 
@@ -167,7 +173,7 @@ class TaxaController < ApplicationController
         params[:search_language] ||= '*'
         params[:search_type] = EOLConvert.get_search_type(params[:search_type])
         params[:content_level] ||= '1'
-        params[:q] ||= ''
+        params[:q] ||= params[:id] ||= '' # allow search strings to be passed in as ID (Rails style) or as the "q" querystring param (Google style)
 
         last_published=HarvestEvent.last_published if params[:search_type].downcase == 'text' && allow_page_to_be_cached?
         @last_harvest_event_id=(last_published.blank? ? "0" : last_published.id.to_s)

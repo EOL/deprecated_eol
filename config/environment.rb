@@ -131,7 +131,7 @@ Rails::Initializer.run do |config|
   $SHOW_ADDITIONAL_SEARCH_OPTIONS = false # if set to true, then user has the option to search for exact matches or for scientific/vernacular only
   $MAX_SEARCH_RESULTS = 200 # the maximum possible number of search results that can be returned
   $USE_EXTERNAL_LINK_POPUPS = false # if set to true, then attribution and other links will create a pop-up javascript when linking to external sites
-  $ALLOW_CURATOR_SELF_REG = false # set to allow curators to self-register
+  $ALLOW_CURATOR_SELF_REG = true # set to allow curators to self-register
   $USE_SSL_FOR_LOGIN = false # set to true to force users to use SSL for the login and signup pages 
   
   # DATA LOGGING CONFIGURATION

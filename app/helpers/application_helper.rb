@@ -241,8 +241,11 @@ module ApplicationHelper
 
   # Note that I change strong to b, 'cause strong appears to be overridden in our CSS.  Hrmph.
   def allow_some_html(text)
-    ['i', 'b', 'strong', 'em', 'blockquote', 'small'].each do |tag|
-      text.gsub!(/&lt;(\/?)#{tag}&gt;/i, "<\\1#{tag.gsub(/strong/, 'b')}>")
+    text.gsub!(/</, '&lt;')
+    text.gsub!(/>/, '&gt;')
+    @allowed_attributes_in_allow_some_html = /\s*\/|\s+href=['"][^'"]+['"]/ 
+    ['a', 'b', 'br', 'strong', 'em', 'blockquote', 'i', 'small'].each do |tag|
+      text.gsub!(/&lt;(\/)?#{tag}(#{@allowed_attributes_in_allow_some_html})?\s*&gt;/i, "<\\1#{tag.gsub(/strong/, 'b')}\\2>")
     end
     text.gsub!(/\r\n/, '<br/>')
     return text
@@ -261,7 +264,7 @@ module ApplicationHelper
   #   id:               ID of the outer-most HTML element of the clade selector (default: 'clade-selector')
   #   visible:          true/false - whether or not to show the clade selector by default (default: false)
   #   toggle:           true/false - whether or not to show the links to toggle the visibility (default: true)
-  #   hierarchy:        the actual Hierarchy to use (default: Hierarchy.find(106))
+  #   hierarchy:        the actual Hierarchy to use
   #   name:             the name of the input field to use (default: whatever you pass as field-name, or 'selected-clade-id')
   #   debug:            true/false - shows the hidden input field as a text field, if true
   #   show_clear:       true/false - whether or not to show the '[clear]' option to clear the selection
@@ -280,7 +283,7 @@ module ApplicationHelper
       :id => 'clade-selector',
       :visible => false,
       :toggle => true,
-      :hierarchy => Hierarchy.find(106),
+      :hierarchy => Hierarchy.default,
       :name => field_name,
       :show_text => 'show clade browser',
       :hide_text => 'hide clade browser',

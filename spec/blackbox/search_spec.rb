@@ -23,6 +23,16 @@ end
 
 describe 'Search' do
 
+  def create_taxa(namestring)
+
+    taxa = build_taxon_concept(:canonical_form => namestring, :depth => 1,
+                                :parent_hierarchy_entry_id => SearchSpec.animal_kingdom.hierarchy_entries.first.id)
+    SearchSpec.nestify_everything_properly
+    SearchSpec.recreate_normalized_names_and_links
+    return taxa
+
+  end
+  
   before(:each) do
     Scenario.load :foundation
     TaxonConcept.delete_all
@@ -39,28 +49,27 @@ describe 'Search' do
     request('/search?q=tiger').body.should include("Your search on 'tiger' did not find any matches")
   end
 
-  it 'should redirect to species page if only 1 possible match is found' do
+  it 'should redirect to species page if only 1 possible match is found (also for pages/searchterm)' do
 
     # Same argument as above (by JRice):
     # TaxonConcept.count.should == 0
-
-    tiger = build_taxon_concept(:canonical_form => 'Tiger', :depth => 1,
-                                :parent_hierarchy_entry_id => SearchSpec.animal_kingdom.hierarchy_entries.first.id)
-    SearchSpec.nestify_everything_properly
-    SearchSpec.recreate_normalized_names_and_links
-
+    tiger = create_taxa('Tiger')
     request('/search?q=tiger').should redirect_to("/pages/#{ tiger.id }")
+    request('/search/tiger').should redirect_to("/pages/#{ tiger.id }")    
 
   end
 
-  it 'should show a list of possible results (linking to /taxa/search_clicked) if more than 1 match is found' do
+  it 'should redirect to search page if a string is passed to a species page' do
+  
+      tiger = create_taxa('Tiger')
+      request('/pages/tiger').should redirect_to("/search/tiger")
+      
+  end
 
-    lilly = build_taxon_concept(:canonical_form => 'Tiger Lilly', :depth => 1,
-                                :parent_hierarchy_entry_id => SearchSpec.animal_kingdom.hierarchy_entries.first.id)
-    tiger = build_taxon_concept(:canonical_form => 'Tiger', :depth => 1,
-                                :parent_hierarchy_entry_id => SearchSpec.animal_kingdom.hierarchy_entries.first.id)
-    SearchSpec.nestify_everything_properly
-    SearchSpec.recreate_normalized_names_and_links
+  it 'should show a list of possible results (linking to /taxa/search_clicked) if more than 1 match is found  (also for pages/searchterm)' do
+
+    lilly = create_taxa('Tiger Lily')
+    tiger = create_taxa('Tiger')
 
     body = request('/search?q=tiger').body
     body.should include(lilly.quick_scientific_name)

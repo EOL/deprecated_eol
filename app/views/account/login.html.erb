@@ -24,14 +24,14 @@
                 <% form_for :user, :url => {:action=>'authenticate'} do |form| -%>
                 <fieldset>
    
-                    <label for="user_username"><%= "Username"[] %></label>
+                    <label for="user_username"><%= "Username"[] %> 	<%="or"[]%> <%= "Email Address"[] %>:</label>
                     <%= form.text_field 'username', :size=>'16',:maxlength=>'30' %>
-
-                    <label for="user_password"><%= "Password"[] %></label>
+                    <br /><br />
+                    <label for="user_password"><%= "Password"[] %>:</label>
                     <%= form.password_field 'password', :size=>'16',:maxlength=>'30' %>
-				<br />			
-				or
-
+				<br /><br />			
+				<%="or"[]%>
+        <br />
         <div id="openid">
    				  <label for="openid_url"><%= "OpenID"[] %></label>
             <%= text_field_tag 'openid_url', {},{:size=>100,:maxlength=>250,:class=>'openid'} %> 

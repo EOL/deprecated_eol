@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   before_save {|obj| obj.credentials = '' if obj.credentials.nil?}   # TODO Move this into the check_curator_status before_save method
 
   validates_presence_of   :username, :if => :not_openid?
-  validates_length_of     :username, :within => 4..16, :if => :not_openid?
+  validates_length_of     :username, :within => 4..32, :if => :not_openid?
   validates_length_of     :entered_password, :within => 4..16, :if => :not_openid?, :on => :create
   
   validates_presence_of   :given_name
@@ -143,23 +143,46 @@ class User < ActiveRecord::Base
   end
   
   def self.authenticate(username,password)
-    user = User.find_by_username_and_active(username,true)
 
-    # if we don't have any matching username for an active account, return nothing
-    return nil if user.blank?
+    # try username first
+    user = User.find_by_username_and_active(username,true)
+    if !user.blank? && user.hashed_password==User.hash_password(password) 
+      user.reset_login_attempts # found a matching username and password matched!
+      return true,user
+    elsif !user.blank?  # found a matching username, but password didn't match!
+      user.invalid_login_attempt
+      return false,"Invalid login or password"[]
+    end
     
-    # if we have a matching username active account, confirm the password too
-    if user.hashed_password==User.hash_password(password)
-      user.update_attributes(:failed_login_attempts=>0) # reset the user's failed login attempts
-      return user
+    # no match with username, next try email address, which is not necessarily unique in database
+    users=User.find_all_by_email_and_active(username,true)
+    return false,"Invalid login or password"[] if users.blank? # no email match either, returning nothing
+
+    users.each do |u| # check all users with matching email addresses to see if one of them matches the password
+      if u.hashed_password==User.hash_password(password) 
+        u.reset_login_attempts # found a match with email and password
+        return true,u
+      else
+        u.invalid_login_attempt # log the bad attempt for this user!
+      end
+    end
+    
+    if users.size > 1 
+      return false,"The email address is not unique - you must enter a username"[] # more than 1 email address with no matching passwords
     else
-      # user matched but not password, so log a failed login attempt and return nothing
-      user.update_attributes(:failed_login_attempts=>user.failed_login_attempts+1) 
-      return nil
+      return false,"Invalid login or password"[]  # no matches yet again :(
     end
     
   end
 
+  def reset_login_attempts
+    self.update_attributes(:failed_login_attempts=>0) # reset the user's failed login attempts
+  end
+  
+  def invalid_login_attempt
+   self.update_attributes(:failed_login_attempts=>self.failed_login_attempts+1)
+  end
+  
   # I wanted to centralize this call, so we can quickly change from one kind of hashing to another.
   def self.hash_password(raw)
     Digest::MD5.hexdigest(raw)
@@ -191,7 +214,7 @@ class User < ActiveRecord::Base
       8.times { new_password << chars[rand(chars.size)] }
       new_guy[0].password = new_password
       if new_guy[0].save
-        return true, new_password, new_guy[0].email
+        return true, new_password, new_guy[0]
       else
         return false, "Sorry, a problem occurred updating your account - please try again later."[:problem_updating_account]      
       end  

@@ -64,7 +64,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.external_link 'external_link',:controller=>'application', :action=>'external_link'
 
-  map.root :controller => 'content'
+  map.root :controller => 'content', :action=>'index'
 
   map.search 'search', :controller => 'taxa', :action => 'search'
   map.connect 'search/:id', :controller => 'taxa', :action => 'search'
@@ -82,7 +82,16 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'index', :conditions => {:method => :get}
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'create', :conditions => {:method => :post}
+
+  map.admin 'admin', :controller=>'admin', :action=>'index'
+  map.admin 'content_partner', :controller=>'content_partner', :action=>'index'
+  
+  # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)
+  map.connect ':id', :controller=>'taxa', :action=>'search'
+ 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'  
+  
+
 end

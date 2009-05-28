@@ -51,9 +51,9 @@
 	
 						<span class="error" id="verification_warn"><strong><%=@verification_did_not_match%></strong></span>
 					
-	                    <label for="user_username" title="<%= "Please enter your username"[] %>"><%= "Username"[] %> (4 - 16 characters)<span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
-	                 	<!-- user_username ^[a-zA-Z0-9\-_]{4,16}$ false true //-->
-        					    <%= f.text_field :username, {:maxlength=>16, :onblur=>'JavaScript:check_username();'} %>
+	                    <label for="user_username" title="<%= "Please enter your username"[] %>"><%= "Username"[] %> (4 - 32 characters)<span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
+	                 	<!-- user_username ^[a-zA-Z0-9\-_]{4,32}$ false true //-->
+        					    <%= f.text_field :username, {:maxlength=>32, :onblur=>'JavaScript:check_username();'} %>
         						 <span class="error" id="username_warn"></span>
 						 
 	                    <label for="user_entered_password" title="<%= "Please enter a password"[] %>"><%= "Password"[] %> (4 - 16 characters)<span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>

@@ -346,8 +346,8 @@ forgot_password_message: Enter the email address or username (or both) you regis
 could_not_locate_account: Sorry, but we could not locate your account.
 #Sorry, but your email address is not unique - you must also specify a username.
 must_specify_username_too: Sorry, but your email address is not unique - you must also specify a username.
-# A new password has been emailed to you.
-new_password_emailed: Новый пароль был отправлен на ваш e-mail адрес.
+# A new password has been emailed to you at {email}..
+new_password_emailed: Новый пароль был отправлен на ваш e-mail адрес {email}.
 #Sorry, a problem occurred updating your account - please try again later.
 problem_updating_account: Sorry, a problem occurred updating your account - please try again later.
 taxon_group_of_interest: Taxon group of interest

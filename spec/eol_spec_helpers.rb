@@ -126,7 +126,7 @@ module EOL::Spec
       scientific_name = options.delete(:scientific_name) || he.name(:expert) || Factory.next(:scientific_name)
       taxon           = options.delete(:taxon)
       toc_item        = options.delete(:toc_item)
-      toc_item      ||= TocItem.all.rand if type == 'Text'
+      toc_item      ||= TocItem.find_by_sql('select * from table_of_contents where id!=3').rand if type == 'Text'
       taxon         ||= Taxon.gen(:name => name, :hierarchy_entry => he, :scientific_name => scientific_name)
 
       options[:object_cache_url] ||= Factory.next(:image) if type == 'Image'
@@ -352,8 +352,8 @@ module EOL::Spec
       end
 
       if options[:toc].nil?
-        options[:toc] = [{:toc_item => TocItem.overview,
-                          :description => "This is an overview of the <b>#{canon}</b> hierarchy entry."}]
+        options[:toc] = [{:toc_item => TocItem.overview, :description => "This is an overview of the <b>#{canon}</b> hierarchy entry."},
+                         {:toc_item => TocItem.find_by_label('Description'), :description => "This is an description of the <b>#{canon}</b> hierarchy entry."}]
         # Add more toc items:
         (rand(4)+1).times do
           options[:toc] << {} # Default values are applied below.

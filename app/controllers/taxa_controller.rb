@@ -303,9 +303,12 @@ class TaxaController < ApplicationController
 
   end
 
+  def user_text_change_toc
+    @table_of_contents = TocItem.find(params[:toc_id])
+  end
+
   # AJAX: Render the requested content page
   def content
-
     if !request.xhr?
       render :nothing=>true
       return
@@ -332,6 +335,7 @@ class TaxaController < ApplicationController
           page.replace_html 'center-page-content', :partial => 'content.html.erb'
           page << "$('current_content').value = '#{@category_id}';"
           page << "Event.addBehavior.reload();"
+          page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id})}');"
           page['center-page-content'].set_style :height => 'auto'
         end
       end

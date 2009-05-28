@@ -5,7 +5,7 @@
       <label for="data_object_TOC category">Toc category</label>
     </td>
     <td>
-      <%= select("data_objects_toc_category", "toc_id", @selectable_toc) %>
+      <%= select("data_objects_toc_category", "toc_id", @selectable_toc, {}, {'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc')}) %>
     </td>
   </tr>
 
@@ -49,7 +49,7 @@
         <input type="button" id="cancel_edit_text" value="Cancel" data-data_object_id="<%=@data_object.id%>"/>
         &nbsp;
       <% end %>
-      <input id="preview_text" type="button" value="Preview"/>
+      <input id="preview_text" type="button" value="Preview" data-preview_url="<%=url_for(:controller => 'data_objects', :action => 'preview')%>"/>
       &nbsp;
       <input type="submit" value="Confirm"/>
       &nbsp;

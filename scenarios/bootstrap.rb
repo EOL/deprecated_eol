@@ -26,7 +26,7 @@ end
 
 # A singleton that creates a 12-item TOC once and only once:
 def bootstrap_toc
-  @@bootstrap_toc ||= [TocItem.overview]
+  @@bootstrap_toc ||= [TocItem.overview, TocItem.description]
   return @@bootstrap_toc unless @@bootstrap_toc.length == 1
   toc_len  = 1
   12.times do

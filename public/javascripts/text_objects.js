@@ -19,7 +19,7 @@ EOL.TextObjects.Behaviors = {
   'input#preview_text:click': function(e) {
     EOL.TextObjects.remove_preview();
     form = this.up(4);
-    new Ajax.Request(form.action.gsub('/data_objects/','/data_objects/preview/'),
+    new Ajax.Request(this.readAttribute('data-preview_url'),
                      {
                        asynchronous:true,
                        evalScripts:true,
@@ -62,6 +62,16 @@ EOL.TextObjects.Behaviors = {
 
       EOL.TextObjects.disable_form(form);
     }
+  },
+
+  'select#data_objects_toc_category_toc_id:change': function(e) {
+    new Ajax.Request(this.readAttribute('data-change_toc_url'),
+                       {
+                         asynchronous:true,
+                         evalScripts:true,
+                         method:'post',
+                         parameters:{toc_id: this[this.selectedIndex].value}
+                       });
   }
 };
 
@@ -139,11 +149,18 @@ EOL.TextObjects.remove_preview = function() {
   if($('text_wrapper_')) {
     jQuery('div#text_wrapper_').fadeOut(1000, function() {$('text_wrapper_').remove();});
   };
-}
+};
 
 EOL.TextObjects.update_text = function(text, data_object_id, old_data_object_id) {
   Element.insert("text_wrapper_"+old_data_object_id+"_popup", { before: text });
   Effect.Appear("text_wrapper_"+data_object_id);
   jQuery("div#text_wrapper_"+old_data_object_id+"_popup").fadeOut(1000, function() {EOL.popups[this.id].destroy();});
   EOL.reload_behaviors();
+};
+
+EOL.TextObjects.update_add_links = function(url) {
+  url = url.unescapeHTML();
+  $$('a#new_text_toc_text')[0].href = url;
+  $$('a#new_text_toc_button')[0].href = url;
+  $$('a#new_text_content_button')[0].href = url;
 };

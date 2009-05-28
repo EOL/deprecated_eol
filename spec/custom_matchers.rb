@@ -45,4 +45,35 @@ module EOL::Spec::Matchers
     FindAfterAgentRole.new(agent, role)
   end
 
+  class OnlyInclude
+    def initialize(fields)
+      @expected_fields = fields
+    end
+    
+    def matches?(array)
+      @array = array
+      @array.sort == @expected_fields.sort
+    end
+    
+    def description
+      "only include"
+    end
+    
+    def failure_message
+      if @expected_fields.length != @array.length
+        " expected to have #{@expected_fields.length} fields, but had #{@array.length}"
+      else
+        " expected #{@array.inspect} to include #{(@expected_fields - @array).inspect}"
+      end
+    end
+    
+    def negative_failure_message
+      " #{@array.inspect} expected to include other entries"
+    end
+  end
+
+  def only_include(*args)
+    OnlyInclude.new args
+  end
+
 end

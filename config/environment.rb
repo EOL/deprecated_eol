@@ -239,4 +239,4 @@ rescue LoadError
 end
 
 # load the system configuration
-require 'config/systems/current/config' if File.file? 'config/systems/current/config.rb'
+require 'config/system' if File.file? 'config/system.rb'

@@ -88,7 +88,7 @@ describe TaxonConcept do
   end
 
   it 'should set the common name to the correct language' do
-    lang = Language.gen(:label => 'Frizzban')
+    lang = Language.gen(:label => 'Ancient Egyptian')
     user = User.gen(:language => lang)
     str  = 'Frebblebup'
     name = Name.gen(:string => str)
@@ -153,8 +153,7 @@ describe TaxonConcept do
     @subspecies2  = build_taxon_concept(:rank => 'subspecies',   :depth => 0, :parent_hierarchy_entry_id => @taxon_concept.entry.id)
     @subspecies3  = build_taxon_concept(:rank => 'subspecies',   :depth => 0, :parent_hierarchy_entry_id => @taxon_concept.entry.id)
     @infraspecies = build_taxon_concept(:rank => 'infraspecies', :depth => 0, :parent_hierarchy_entry_id => @subspecies1.entry.id)
-    # Sorted because we don't care about order:
-    @taxon_concept.children.map(&:id).sort.should == [@subspecies1.id, @subspecies2.id, @subspecies3.id].sort
+    @taxon_concept.children.map(&:id).should only_include @subspecies1.id, @subspecies2.id, @subspecies3.id
   end
 
   it 'should find its GBIF map ID' do
@@ -163,8 +162,7 @@ describe TaxonConcept do
 
   it 'should be able to show videos' do
     @taxon_concept.videos.should_not be_nil
-    # Sorted because we don't care about order:
-    @taxon_concept.videos.map(&:description).sort.should == [@video_1_text, @video_2_text, @video_3_text].sort
+    @taxon_concept.videos.map(&:description)should only_include @video_1_text, @video_2_text, @video_3_text
   end
 
   it 'should be able to search' do

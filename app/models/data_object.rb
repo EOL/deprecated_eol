@@ -214,10 +214,8 @@ class DataObject < SpeciesSchemaModel
   end
 
   # Find all of the photographers associated with this data object, including those that we dynamically add elsewhere
-  # TODO - this is not required.  There are no fake photographers.  :)
   def photographers
-    default_photographers = agents_data_objects.find_all_by_agent_role_id(AgentRole.photographer_id).collect {|ado| ado.agent }.compact
-    @fake_photographers.nil? ? default_photographers : default_photographers + @fake_photographers
+    agents_data_objects.find_all_by_agent_role_id(AgentRole.photographer_id).collect {|ado| ado.agent }.compact
   end
 
   # Add an author to this data object that isn't in the database.

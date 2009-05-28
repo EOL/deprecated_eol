@@ -1,11 +1,10 @@
-	<%= eol_lang_error_messages_for :user %>
-					
+
 	<br />
 	
 	<table>	
 	  <tr>
 			<td><strong>Username:</strong></td>
-			<td><%=f.text_field :username,{:size=>'50',:maxlength=>'16'}%></td>
+			<td><%=f.text_field :username,{:size=>'50',:maxlength=>'32'}%></td>
 		</tr>
 		<% if @user.openid?%>
   		<tr>

@@ -18,9 +18,8 @@ class DataObjectTags < ActiveRecord::Base
   belongs_to :data_object_tag
   belongs_to :user
   
-  # uncomment for citation (May 11 2009)
-  # after_create :curator_activity_flag
-  # after_update :curator_activity_flag
+  after_create :curator_activity_flag
+  after_update :curator_activity_flag
 
   validates_presence_of :data_object_id, :data_object_tag_id
   validates_uniqueness_of :data_object_tag_id, :scope => [ :data_object_id, :user_id ]

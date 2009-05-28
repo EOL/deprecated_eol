@@ -114,10 +114,13 @@ class AccountController < ApplicationController
       email          = user[:email]
       reset_password = User.reset_password(email,username)
       if reset_password[0]
-        Notifier.deliver_forgot_password_email(username,reset_password[1],reset_password[2])
-        flash[:notice]="A new password has been emailed to you."[:new_password_emailed]    
+        new_password=reset_password[1]
+        user=reset_password[2]
+        email=user.email
+        Notifier.deliver_forgot_password_email(new_password,user)
+        flash.now[:notice]="A new password has been emailed to you at #{email}."[:new_password_emailed]    
       else
-        flash[:notice]=reset_password[1]
+        flash.now[:notice]=reset_password[1]
       end
     end
   end
@@ -182,10 +185,10 @@ class AccountController < ApplicationController
   protected
   def password_authentication(username, password)
     user = User.authenticate(username,password)
-    unless user.nil?
-      successful_login(user)
+    if user[0]
+      successful_login(user[1])
     else
-      failed_login "Invalid login or password"[]
+      failed_login(user[1])
     end
   end
 
@@ -220,7 +223,6 @@ class AccountController < ApplicationController
   def successful_login(user, new_openid_user = false)
     set_current_user(user)
     flash[:notice] = "Logged in successfully"[:logged_in]   
-    # TODO - user.failed_logins = 0; user.save
     # could catch the fact that they are a new openid user here and redirect somewhere else if you wanted
     if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty?) # if we're an admin we STILL would love a return, thank you very much!
       redirect_to :controller => 'admin', :action => 'index', :protocol => "http://"
@@ -230,7 +232,6 @@ class AccountController < ApplicationController
   end
 
   def failed_login(message)
-    # TODO - user.failed_logins += 1; user.save
     # TODO - send an email to an admin if user.failed_logins > 10 # Smells like a dictionary attack!
     flash[:warning] = message
     redirect_to :action => 'login'

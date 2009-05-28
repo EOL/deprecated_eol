@@ -7,16 +7,35 @@ describe User do
     @user.should_not be_a_new_record
   end
 
-  it 'should authenticate existing user with correct password' do
-    User.authenticate( @user.username, @user.password ).id.should == @user.id
+  it 'should authenticate existing user with correct password, returning true and user back' do
+    success,user=User.authenticate( @user.username, @user.password )
+    success.should be_true
+    user.id.should == @user.id
   end
 
-  it 'should return nil for non-existing user' do
-    User.authenticate('idontexistATALL', @user.password).should be_nil
+  it 'should authenticate existing user with correct email address and password, returning true and user back' do
+    success,user=User.authenticate( @user.email, @user.password )
+    success.should be_true
+    user.id.should == @user.id  
   end
 
-  it 'should return nil for user with incorrect password' do
-    User.authenticate(@user.username, 'totally wrong password').should be_nil
+  it 'should authenticate existing user with a duplicate email address, assuming password is correct, returning true and user back' do
+    user2 = User.gen :username => 'SpongeBob', :password => 'squarepants', :email=> @user.email
+    success,user=User.authenticate( user2.email, user2.password )
+    success.should be_true
+    user.id.should == user2.id  
+  end
+      
+  it 'should return false as first return value for non-existing user' do
+    success,message=User.authenticate('idontexistATALL', @user.password)
+    success.should be_false
+    message.should == 'Invalid login or password'    
+  end
+
+  it 'should return false as first return value for user with incorrect password' do
+    success,message=User.authenticate(@user.username, 'totally wrong password')
+    success.should be_false
+    message.should == 'Invalid login or password'
   end
 
   it 'should fail to change password if the account is not found' do
@@ -44,11 +63,11 @@ describe User do
     # TODO this API is very smelly.  User#reset_password returns different kinds of
     #      results depending on whether the reset succeeded or failed.  very frustrating.
     #      this would be a good candicate for refactoring.
-    success, password, email = User.reset_password @user.email, ''
+    success, password, user = User.reset_password @user.email, ''
     
     success.should be_true
     password.should_not == @user.password
-    email.should == @user.email
+    user.email.should == @user.email
 
     # confirm things really changed properly, in the database
     User.find(@user.id).hashed_password.should == User.hash_password(password)
@@ -56,11 +75,11 @@ describe User do
   end
 
   it 'should be able to reset the password on an account if both email address and username are entered' do
-    success, password, email = User.reset_password @user.email, @user.username
+    success, password, user = User.reset_password @user.email, @user.username
 
     success.should be_true
     password.should_not == @user_password
-    email.should == @user.email
+    user.email.should == @user.email
 
     User.find(@user.id).hashed_password.should == User.hash_password(password)
     User.find(@user.id).hashed_password.should_not == @user.hashed_password

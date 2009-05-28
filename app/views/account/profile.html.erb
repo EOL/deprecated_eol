@@ -33,7 +33,9 @@ function check_passwords() {
 	<div id="page-content" class="clearfix">
 	    <!-- center page content -->
     	<div id="full-page-content">	
-    <%= eol_lang_error_messages_for :user %>
+    	
+      	  <%=eol_lang_error_messages_for :user if request.post?%>
+
     	    <br />
 
               <% form_for :user, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f| -%>
@@ -41,9 +43,9 @@ function check_passwords() {
                     <legend><%= "Account Information"[] %></legend>
 
 
-                    <label>Username:</label> 
-	                 	<!-- user_username ^[a-zA-Z0-9\-_]{4,16}$ false true //-->
-	     					    <%= f.text_field :username, {:maxlength=>16, :onblur=>'JavaScript:check_username();'} %>
+                    <label>Username:  (4 - 32 characters)</label> 
+	                 	<!-- user_username ^[a-zA-Z0-9\-_]{4,32}$ false true //-->
+	     					    <%= f.text_field :username, {:maxlength=>32, :onblur=>'JavaScript:check_username();'} %>
        						 <span class="error" id="username_warn"></span>
 					
 					<% if @user.openid? %>
@@ -53,7 +55,7 @@ function check_passwords() {
 
 					<% else %>
 			      <p><%="Only enter a new password if you wish to change it."[:only_enter_new_password_if_needed]%></p>
-              	<label for="password"><%="New Password"[]%></label>
+              	<label for="password"><%="New Password"[]%>  (4 - 16 characters)</label>
               	<%= f.password_field :entered_password,{:maxlength=>16} %>
 
               	<label for="password_confirmation"><%="Confirm New Password"[]%></label>

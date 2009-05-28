@@ -1,25 +1,10 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-def reset_iucn_datos
-  DataObject.delete_all(['data_type_id = ?', DataType.find_by_label('IUCN').id])
-end
-
 def build_secondary_iucn_hierarchy_and_resource
   another_iucn_resource  = Resource.gen(:title  => 'Another IUCN')
   another_iucn_hierarchy = Hierarchy.gen(:label => 'Another IUCN')
   AgentsResource.gen(:agent => Agent.iucn, :resource => another_iucn_resource)
   return [another_iucn_hierarchy, another_iucn_resource]
-end
-
-def build_iucn_entry(tc, status, options = {})
-  options[:hierarchy] ||= iucn_hierarchy
-  options[:event]     ||= iucn_harvest_event
-  name                  = tc.taxon_concept_names.first.name
-  # TODO - this code was yanked (and modified) from eol_spec_helper#build_taxon_concept and needs to be generalized:
-  iucn_he = build_hierarchy_entry(3, tc, name, :hierarchy => options[:hierarchy]) 
-  iucn_taxon = Taxon.gen(:name => name, :hierarchy_entry => iucn_he, :scientific_name => @scientific_name)
-  HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => options[:event])
-  build_data_object('IUCN', status, :taxon => iucn_taxon, :published => 1)
 end
 
 describe TaxonConcept do
@@ -35,12 +20,6 @@ describe TaxonConcept do
 
   before :all do
     Scenario.load :foundation
-  end
-  after :all do
-    truncate_all_tables
-  end
-
-  before(:each) do
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
     @toc_item_2      = TocItem.gen(:view_order => 2)
@@ -83,6 +62,14 @@ describe TaxonConcept do
     # And we want one comment that the world cannot see:
     Comment.find_by_body(@comment_bad).hide!
   end
+  after :all do
+    truncate_all_tables
+  end
+
+  before(:each) do
+    # Deletion here is required for IUCN tests:
+    DataObject.delete_all(['data_type_id = ?', DataType.find_by_label('IUCN').id])
+  end
 
   it 'should have a canonical form' do
     @taxon_concept.canonical_form.should == @canonical_form
@@ -117,19 +104,16 @@ describe TaxonConcept do
   end
 
   it 'should have a default IUCN conservation status of NOT EVALUATED' do
-    reset_iucn_datos
     @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
   end
 
   it 'should have an IUCN conservation status' do
-    reset_iucn_datos
     iucn_status = Factory.next(:iucn)
     build_iucn_entry(@taxon_concept, iucn_status)
     @taxon_concept.iucn_conservation_status.should == iucn_status
   end
 
   it 'should have an IUCN conservation status even if it comes from another IUCN resource' do
-    reset_iucn_datos
     iucn_status = Factory.next(:iucn)
     (hierarchy, resource) = build_secondary_iucn_hierarchy_and_resource
     build_iucn_entry(@taxon_concept, iucn_status, :hierarchy => hierarchy,
@@ -138,7 +122,6 @@ describe TaxonConcept do
   end
 
   it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
-    reset_iucn_datos
     build_iucn_entry(@taxon_concept, Factory.next(:iucn))
     build_iucn_entry(@taxon_concept, Factory.next(:iucn))
     result = @taxon_concept.iucn
@@ -146,11 +129,9 @@ describe TaxonConcept do
   end
 
   it 'should not use an unpublished IUCN status' do
-    reset_iucn_datos
-    iucn_status = Factory.next(:iucn)
-    bad_iucn = build_iucn_entry(@taxon_concept, iucn_status)
+    bad_iucn = build_iucn_entry(@taxon_concept, 'bad value')
     # We *must* know that it would have worked if it *were* published, otherwise the test proves nothing:
-    @taxon_concept.iucn_conservation_status.should == iucn_status
+    @taxon_concept.iucn_conservation_status.should == 'bad value'
     bad_iucn.published = 0
     bad_iucn.save
     @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'

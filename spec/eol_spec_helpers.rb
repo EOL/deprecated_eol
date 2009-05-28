@@ -342,10 +342,7 @@ module EOL::Spec
 
       if options[:iucn_status]
         iucn_status = options[:iucn_status] == true ? Factory.next(:iucn) : options[:iucn_status]
-        iucn_he = build_hierarchy_entry(depth, tc, sname, :hierarchy => iucn_hierarchy)
-        iucn_taxon = Taxon.gen(:name => sname, :hierarchy_entry => iucn_he, :scientific_name => complete)
-        iucn = build_data_object('IUCN', iucn_status, :taxon => iucn_taxon)
-        HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => iucn_harvest_event)
+        build_iucn_entry(tc, iucn_status, :depth => depth)
       end
 
       if options[:gbif_map_id] 
@@ -381,22 +378,48 @@ module EOL::Spec
       return tc
     end
 
+    # Create a data object in the IUCN hierarchy. Can take options for :hierarchy and :event, both of which default to the usual IUCN
+    # values (which will be created if they don't exist already). Can also take :depth, though I'm not sure that matters much yet.  :name
+    # is another option (note this is a Name *object*, not a string); it will default to the TaxonConcept's first name.  
+    #
+    # Returns the data object built.
+    def build_iucn_entry(tc, status, options = {})
+      options[:hierarchy] ||= iucn_hierarchy
+      options[:event]     ||= iucn_harvest_event
+      options[:depth]     ||= 3 # Arbitrary, really.
+      options[:name]      ||= tc.taxon_concept_names.first.name
+      iucn_he = build_hierarchy_entry(options[:depth], tc, options[:name], :hierarchy => options[:hierarchy]) 
+      iucn_taxon = Taxon.gen(:name => options[:name], :hierarchy_entry => iucn_he, :scientific_name => options[:name].string)
+      HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => options[:event])
+      build_data_object('IUCN', status, :taxon => iucn_taxon, :published => 1)
+    end
+
+    def find_or_build_hierarchy(label)
+      Hierarchy.find_by_label(label) || Hierarchy.gen(:label => label)
+    end
+
+    def find_or_build_resource(title)
+      Resource.find_by_title(title) || Resource.gen(:title => title)
+    end
+
+    def find_or_build_harvest_event(resource)
+      HarvestEvent.find_by_resource_id(resource.id) || HarvestEvent.gen(:resource => resource)
+    end
+
     def gbif_hierarchy
-      Hierarchy.find_by_label('GBIF') || Hierarchy.gen(:label => 'GBIF')
+      find_or_build_hierarchy('GBIF')
     end
 
     def iucn_hierarchy
-      Hierarchy.find_by_label('IUCN') || Hierarchy.gen(:label => 'IUCN')
+      find_or_build_hierarchy('IUCN')
     end
 
     def gbif_harvest_event
-      gbif_resource = Resource.find_by_title('Initial GBIF Import')
-      gbif_resource ||= Resource.gen(:title => 'Initial GBIF Import')
-      HarvestEvent.find_by_resource_id(gbif_resource.id) || HarvestEvent.gen(:resource => gbif_resource)
+      find_or_build_harvest_event(find_or_build_resource('Initial GBIF Import'))
     end
 
     def iucn_harvest_event
-      HarvestEvent.find_by_resource_id(Resource.iucn[0].id) || HarvestEvent.gen(:resource => Resource.iucn[0])
+      find_or_build_harvest_event(Resource.iucn[0])
     end
 
   end

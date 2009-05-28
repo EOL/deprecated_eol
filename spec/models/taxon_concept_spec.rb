@@ -162,7 +162,7 @@ describe TaxonConcept do
 
   it 'should be able to show videos' do
     @taxon_concept.videos.should_not be_nil
-    @taxon_concept.videos.map(&:description)should only_include @video_1_text, @video_2_text, @video_3_text
+    @taxon_concept.videos.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
   end
 
   it 'should be able to search' do

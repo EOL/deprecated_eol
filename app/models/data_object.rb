@@ -73,8 +73,7 @@ class DataObject < SpeciesSchemaModel
     d = DataObject.new(do_params)
     d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
     d.save!
-    # uncomment for citation (May 11 2009)
-    # d.curator_activity_flag(user, all_params[:taxon_concept_id])
+    d.curator_activity_flag(user, all_params[:taxon_concept_id])
     udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!
     d
@@ -138,8 +137,7 @@ class DataObject < SpeciesSchemaModel
     d = DataObject.new(do_params)
     d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
     d.save!
-    # uncomment for citation (May 11 2009)
-    # d.curator_activity_flag(user, all_params[:taxon_concept_id])
+    d.curator_activity_flag(user, all_params[:taxon_concept_id])
     udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!
     d
@@ -372,8 +370,7 @@ class DataObject < SpeciesSchemaModel
 
     # log the fact that the user provided (if any user was passed) curacted this object with the given activity
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => activity if user
-    # uncomment for citation (May 11 2009)
-    # curator_activity_flag(user)
+    curator_activity_flag(user)
   end
 
   def curated?

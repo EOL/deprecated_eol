@@ -3,13 +3,12 @@
 <h4><%="Contribute"[]%></h4>
 <div style="display:none;" id="contribute-info" class="popup"></div>
 
-<!-- uncomment for citation (May 11 2009) -->
-<!-- <%# act_curators_size = @taxon.acting_curators.size %>
-<%# if act_curators_size > 0 %>
+<% act_curators_size = @taxon.acting_curators.size %>
+<% if act_curators_size > 0 %>
 <a href="#citaion">
-<div id="number-of-curators">This page has <%#= act_curators_size %> curators.</div>
+<div id="number-of-curators">This page has <%= act_curators_size %> curators.</div>
 </a>
-<%# end %> -->
+<% end %>
 
 <ul class="bulletlist">
   <!--<li> <a href="#" onclick="JavaScript:eol_show_pop_up('contribute-info','contribute_text-help','<%=@taxon.name(:canonical)%>');return false;"><%="Submit a text description"[]%></a></li>  -->

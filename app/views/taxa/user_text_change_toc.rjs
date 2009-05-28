@@ -1,0 +1,2 @@
+page << 'console.log("changing toc");'
+page << "$$('div#center-page-content div.cpc-header h3')[0].update('#{@table_of_contents.label}')"

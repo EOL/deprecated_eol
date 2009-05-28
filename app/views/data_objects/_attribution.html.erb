@@ -7,7 +7,7 @@
         Not all maps have occurrence information.</div></td>
       </tr>		
     </table>
-  <%elsif has_hidden_attributions?(data_object)%>
+  <%elsif has_hidden_attributions?(data_object) && !@preview%>
     <a href="#" id="tdo_<%=data_object.id%>" class="attribution-icon expand-text-attribution" title="View full attribution details" style="width: 25px; height: 25px"></a>
   <%end%>
   

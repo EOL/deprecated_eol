@@ -31,7 +31,7 @@ function textCounter(field,cntfield,maxlimit) {
 function eol_update_content_area(taxon_id,category_id) {
     // i feel like this could be a lot simpler ... 
     new Ajax.Request('/taxa/content/', {
-             parameters: { id: taxon_id, category_id: category_id },         
+            parameters: { id: taxon_id, category_id: category_id },         
             onComplete:function(request){hideAjaxIndicator(true);updateReferences();},
             onSuccess:function(request){hideAjaxIndicator(true);updateReferences();},
             onError: function(request){hideAjaxIndicator(true);},

@@ -1,16 +1,16 @@
 <div id="text_wrapper_<%=content_item.id%>" <%="style='display:none'" if @hide%>>
   <div class="content-article <%=vetted_id_class(content_item)%>" id="text_<%=content_item.id%>">
+    <% if !content_item.user.nil? && content_item.user.id == current_user.id %>
+      <div class="edit_text">
+        <%= link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_id}) -%>
+      </div>
+    <% end %>
     <% if content_item.object_title.blank? == false && content_item.object_title != category %>
       <h1><%= hh(content_item.object_title) %></h1>
     <% end %>
 
     <!-- ATTRIBUTION GOES HERE -->
     <div class="content-attribution-area">
-      <%# if !content_item.user.nil? && content_item.user.id == current_user.id %>
-        <%#*<div class="edit_text">%>
-          <%#= link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_id}) -%>
-        <%#*</div>%>
-      <%# end %>
       <div class="attribution-header text-area-header">
         <%= "Source and Additional Information"[] %>
       </div>

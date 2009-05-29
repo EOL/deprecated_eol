@@ -95,11 +95,7 @@ class TaxaController < ApplicationController
           # get available media types
           @available_media = @taxon.available_media
 
-          # TODO - all these @taxon.map/videos/images don't need to be full-class @variables.... just use taxon!
-          # get distribution map information
-          # 
-          # DISABLED! @taxon.map no longer exists! we need to fix this! 
-          # @map = @taxon.map if @available_media[:map]
+          # TODO - all these @taxon.videos/images/etc don't need to be full-class @variables.... just use taxon!
 
           # get videos for this taxon
           @videos=@taxon.videos if @available_media[:video]

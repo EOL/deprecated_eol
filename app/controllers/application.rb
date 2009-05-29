@@ -498,11 +498,8 @@ end
     language = params[:language].to_s
     languages = Gibberish.languages.map { |l| l.to_s } + ["en"]
     current_user.language = Language.find_by_iso_639_1(language) if languages.include?(language)
-    if params[:return_to].blank?
-      render :nothing => true
-    else
-      redirect_to CGI.unescape(params[:return_to])
-    end
+    return_to=(params[:return_to].blank? ? home_page_url : params[:return_to])
+    redirect_to return_to
   end
 
   # ajax call to set the session variable for the user to indicate if flash is enabled or not

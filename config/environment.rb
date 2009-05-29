@@ -239,4 +239,4 @@ rescue LoadError
 end
 
 # load the system configuration
-require 'config/system' if File.file? 'config/system.rb'
+require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')

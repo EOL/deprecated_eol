@@ -175,6 +175,10 @@ Event.addBehavior(
     } else {
       return false ;
     }
+  },
+
+  'a.return_to:click':function() {
+    EOL.addReturnTo(this);
   }
 
   }).merge(EOL.Tagging.Behaviors).merge(EOL.Search.Behaviors).merge(EOL.Curation.Behaviors).merge(EOL.MediaCenter.Behaviors).merge(EOL.TextObjects.Behaviors).merge(EOL.Rating.Behaviors).toObject()
@@ -190,7 +194,8 @@ Ajax.Responders.register({
 $j().ajaxStart( EOL.Ajax.start );
 $j().ajaxComplete( EOL.Ajax.finish );
 
-// Make our links show up once behaviours have been attached:
+// Things to do once all other behaviours have been attached:
 document.observe("dom:loaded", function() {
+  // Make our links show up
   $$('a.popup-link,a.slide-in-link').invoke('show');
 });

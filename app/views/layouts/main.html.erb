@@ -81,15 +81,18 @@
                     <a href="<%=home_page_url%>" title="<%= "Home"[] %>"><%= "Home"[] %></a>
                  </li>
                 <li>
-                    <a href="<%=url_for(:controller=>'/taxa',:action=>'settings',:return_to=>CGI.escape(request.request_uri))%>" title="<%= "Preferences"[] %>"><%= "Preferences"[] %></a>
+                  <%= link_to('Preferences'[], '/profile', {:alt => 'Preferences'[], :class => 'return_to'}) %>
                 </li>
                 <li>
                     <a title="<%= "Language"[] %>: <%= Gibberish.current_language %>" class="dropdown"><%= "Language"[] %>: <%= Gibberish.current_language %></a>
                     <ul class="uppercase">
                     	<% Language.find_active.each do |language| %>
-                 	       <li><a href="<%= set_language_url(:language => language.iso_639_1, :return_to => CGI.escape(request.request_uri)) %>" title="<%=language.name%>"><%=language.name + "<em>(" + language.display_code%>)</em></a></li>
+                      <li><%= link_to("#{language.name} <em>(#{language.display_code})</em>",
+                                      set_language_url(:language => language.iso_639_1),
+                                      :class => 'return_to', :alt => language.name) %></li>
                     	<% end %>
-                    	<li><%=link_to 'Google Translate',{:controller=>'content', :action=>'translate', :return_to => request.request_uri}, {:title=>'Google Translate'}%></li>
+                      <li><%= link_to 'Google Translate', {:controller => 'content', :action => 'translate'},
+                                                          {:class => 'return_to', :alt=>'Google Translate'} %></li>
 					          </ul>
                 </li>
                 <% cache(:controller=>'/content', :part=>'top_nav_' + current_user.language_abbr) do %>                
@@ -142,11 +145,15 @@
                     <p><strong><%= "Hello {user}"[:hello_user, current_user.given_name] %></strong>
                     <%= @home_page.nil? ? "</p><p>" : " | " %>
 					          <%=link_to("admin"[],{:controller=>'/admin',:action=>'index'}) + " | " if current_user.is_admin? %>
-					          <%=link_to("your preferences"[:your_preferences],{:controller=>'/account',:action=>'profile',:return_to=>CGI.escape(request.request_uri)})%> |
+                    <%=link_to("your preferences"[:your_preferences],
+                               {:controller => '/account', :action => 'profile'},
+                               {:class => 'return_to'})%> |
 					          <%=link_to("logout"[:logout],logout_url)%></p>
                 </div>
               <% elsif $ALLOW_USER_LOGINS && !agent_logged_in?-%>
-                 <p><%= link_to("login"[:login],{:controller=>'account',:action=>'login',:return_to=>CGI.escape(request.request_uri)})%> | <%=link_to("create an account"[:create_account], {:controller=>'account',:action=>'signup',:return_to=>CGI.escape(request.request_uri)})%></p>
+                <p><%= link_to("login"[:login], {:controller=>'account', :action=>'login'}, {:class => 'return_to'})%> |
+                   <%= link_to("create an account"[:create_account], {:controller => 'account', :action => 'signup'},
+                                                                     {:class => 'return_to'})%></p>
               <% elsif $ALLOW_USER_LOGINS == false && @home_page.nil? %>
                 	<p><%= "We apologize, but the user registration system is not currently available.  Please try again later."[:user_system_down]%></p>
               <% elsif agent_logged_in? %>

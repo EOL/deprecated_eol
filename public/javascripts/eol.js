@@ -103,6 +103,18 @@ EOL.Effect.toggle_with_effect = function(element) {
   }
 };
 
+// Notice that this does NOT interrupt the event.  If you add this to a click(), it may work.
+EOL.addReturnTo = function(link) {
+  if (link.href == null) { // Not a link, silly!
+    return;
+  } else if (link.href.match(/\?/) == null) { // There are no params in it yet
+    link.href += "?"
+  } else { // There are already params in this link
+    link.href += "&"
+  }
+  link.href += "return_to=" + location.href
+}
+
 /* 
  * Prototype Additions / Overrides
  *

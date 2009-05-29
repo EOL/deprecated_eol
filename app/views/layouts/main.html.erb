@@ -74,6 +74,7 @@
             <!-- /logo -->
 
 
+            <% cache(:controller=>'/content', :part=>'top_nav_' + current_user.language_abbr) do %>                
             <!-- global navigation -->
             <p class="hide"><%= "Global Navigation"[] %></p>
             <ul id="global-navigation">
@@ -95,7 +96,6 @@
                                                           {:class => 'return_to', :alt=>'Google Translate'} %></li>
 					          </ul>
                 </li>
-                <% cache(:controller=>'/content', :part=>'top_nav_' + current_user.language_abbr) do %>                
                 <li>
                     <a class="dropdown" id="feedback" title="<%="Feedback"[]%>"><%="Feedback"[]%></a>
                     <ul class="uppercase">
@@ -123,11 +123,10 @@
                         <%= render :partial=>'layouts/top_menu', :locals=>{:menu_items=>ContentSection.find_pages_by_section('About EOL')}%>
                     </ul>
                 </li>
-            <% end %>
             </ul>
             <hr />
             <!-- /global navigation -->
-
+            <% end %>
 
                   <div style="display:none;" class="ajax-indicator" id="ajax-indicator"><%=image_tag('indicator_arrows_black.gif', :alt => 'loading', :title => 'loading')%></div>
 

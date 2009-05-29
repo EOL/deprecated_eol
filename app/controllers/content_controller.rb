@@ -46,7 +46,8 @@ class ContentController < ApplicationController
     if params[:return_to].blank?
       @translate_url=home_page_url
     else
-      @translate_url="http://#{request.host}#{params[:return_to]}"
+      @translate_url=params[:return_to]
+      @translate_url="http://#{request.host}"+@translate_url if @translate_url.size > 4 && @translate_url[0..3]!='http'
     end
   end
   

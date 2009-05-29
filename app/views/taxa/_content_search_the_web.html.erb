@@ -1,4 +1,10 @@
-<% blind_outlink_parameter=URI::escape(remove_html(@taxon.name(current_user.expertise, current_user.language))) %>
+<%
+blind_outlink_parameter=URI::escape(remove_html(@taxon.name(current_user.expertise, current_user.language)))
+blind_outlink_parameter_scientific=URI::escape(remove_html(@taxon.scientific_name)) 
+
+show_both=(blind_outlink_parameter==blind_outlink_parameter_scientific ? false : true)
+%>
+
 <div class="cpc-header" >
     <h3><%= TocItem.search_the_web.label %></h3> <!-- This title come not the same way like other partials in _content -->
 </div>
@@ -9,13 +15,42 @@
 
   <div class="unvetted-background-text" id="links">
     <table cellspacing="0" summary="Links" class="results_table">
-      <tbody><tr><th>Item</th><th>Description</th></tr>
-        <tr><td width="100" height="60" class="odd"><%=external_link_to(image_tag('agent_icons/google.gif'),'http://www.google.com/search?q='+blind_outlink_parameter,{:show_link_icon => false})%></td><td class="odd"><%=external_link_to("Google","http://www.google.com/search?q="+blind_outlink_parameter,:show_link_icon=>true)%></td></tr>
-        <tr><td width="100" height="60" class="even"><%=external_link_to(image_tag('agent_icons/google.gif'),'http://images.google.com/images?q='+blind_outlink_parameter,{:show_link_icon => false})%></td><td class="even"><%=external_link_to("Google Images","http://images.google.com/search?q="+blind_outlink_parameter,:show_link_icon=>true)%></td></tr>
-        <tr><td width="100" height="60" class="odd"><%=external_link_to(image_tag('agent_icons/google.gif'),'http://scholar.google.com/scholar?q='+blind_outlink_parameter,{:show_link_icon => false})%></td><td class="odd"><%=external_link_to("Google Scholar","http://scholar.google.com/scholar?q="+blind_outlink_parameter,:show_link_icon=>true)%></td></tr>
-        <tr><td width="100" height="60" class="even"><%=external_link_to(image_tag('agent_icons/yahoo.gif'),'http://search.yahoo.com/search?p='+blind_outlink_parameter,{:show_link_icon => false})%></td><td class="even"><%=external_link_to("Yahoo","http://search.yahoo.com/search?p="+blind_outlink_parameter,:show_link_icon=>true)%></td></tr>
-        <tr><td width="100" height="60" class="odd"><%=external_link_to(image_tag('agent_icons/yahoo.gif'),'http://images.search.yahoo.com/search/images?p='+blind_outlink_parameter,{:show_link_icon => false})%></td><td class="odd"><%=external_link_to("Yahoo Images","http://images.search.yahoo.com/search/images?p="+blind_outlink_parameter,:show_link_icon=>true)%></td></tr>
-        <tr><td width="100" height="60" class="even"><%=external_link_to(image_tag('agent_icons/vivisimo.gif'),'http://vivisimo.com/vivisimo/cgi-bin/query-meta?query='+blind_outlink_parameter,{:show_link_icon => false})%></td><td class="even"><%=external_link_to("Vivisimo","http://vivisimo.com/vivisimo/cgi-bin/query-meta?query="+blind_outlink_parameter,:show_link_icon=>true)%></td></tr>
+      <tbody><tr><th><%="Project"[]%></th><th><%="Search"[]%></th><% if show_both %><th><%="by Scientific Name"[]%></th><% end %></tr>
+        <tr>
+          <td width="100" height="60" class="odd"><%=external_link_to(image_tag('agent_icons/google.gif'),'http://www.google.com/search?q='+blind_outlink_parameter,{:show_link_icon => false})%></td>
+          <td class="odd"><%=external_link_to("Google","http://www.google.com/search?q="+blind_outlink_parameter,:show_link_icon=>true)%></td>
+          <% if show_both %><td class="odd"><%=external_link_to("Google","http://www.google.com/search?q="+blind_outlink_parameter_scientific,:show_link_icon=>true)%></td><% end %>
+        </tr>
+        <tr>
+          <td width="100" height="60" class="even"><%=external_link_to(image_tag('agent_icons/google.gif'),'http://images.google.com/images?q='+blind_outlink_parameter,{:show_link_icon => false})%></td>
+          <td class="even"><%=external_link_to("Google Images","http://images.google.com/search?q="+blind_outlink_parameter,:show_link_icon=>true)%></td>
+          <% if show_both %><td class="even"><%=external_link_to("Google Images","http://images.google.com/search?q="+blind_outlink_parameter_scientific,:show_link_icon=>true)%></td><% end %>
+        </tr>
+        <tr>
+          <td width="100" height="60" class="odd"><%=external_link_to(image_tag('agent_icons/google.gif'),'http://scholar.google.com/scholar?q='+blind_outlink_parameter,{:show_link_icon => false})%></td>
+          <td class="odd"><%=external_link_to("Google Scholar","http://scholar.google.com/scholar?q="+blind_outlink_parameter,:show_link_icon=>true)%></td>
+          <% if show_both %><td class="odd"><%=external_link_to("Google Scholar","http://scholar.google.com/scholar?q="+blind_outlink_parameter_scientific,:show_link_icon=>true)%></td><% end %>
+        </tr>
+        <tr>
+          <td width="100" height="60" class="even"><%=external_link_to(image_tag('agent_icons/yahoo.gif'),'http://search.yahoo.com/search?p='+blind_outlink_parameter,{:show_link_icon => false})%></td>
+          <td class="even"><%=external_link_to("Yahoo","http://search.yahoo.com/search?p="+blind_outlink_parameter,:show_link_icon=>true)%></td>
+          <% if show_both %><td class="even"><%=external_link_to("Yahoo","http://search.yahoo.com/search?p="+blind_outlink_parameter_scientific,:show_link_icon=>true)%></td><% end %>
+        </tr>
+        <tr>
+          <td width="100" height="60" class="odd"><%=external_link_to(image_tag('agent_icons/yahoo.gif'),'http://images.search.yahoo.com/search/images?p='+blind_outlink_parameter,{:show_link_icon => false})%></td>
+          <td class="odd"><%=external_link_to("Yahoo Images","http://images.search.yahoo.com/search/images?p="+blind_outlink_parameter,:show_link_icon=>true)%></td>
+          <% if show_both %><td class="odd"><%=external_link_to("Yahoo Images","http://images.search.yahoo.com/search/images?p="+blind_outlink_parameter_scientific,:show_link_icon=>true)%></td><% end %>
+        </tr>
+        <tr>
+          <td width="100" height="60" class="even"><%=external_link_to(image_tag('agent_icons/vivisimo.gif'),'http://vivisimo.com/vivisimo/cgi-bin/query-meta?query='+blind_outlink_parameter,{:show_link_icon => false})%></td>
+          <td class="even"><%=external_link_to("Vivisimo","http://vivisimo.com/vivisimo/cgi-bin/query-meta?query="+blind_outlink_parameter,:show_link_icon=>true)%></td>
+          <% if show_both %><td class="even"><%=external_link_to("Vivisimo","http://vivisimo.com/vivisimo/cgi-bin/query-meta?query="+blind_outlink_parameter_scientific,:show_link_icon=>true)%></td><% end %>
+        </tr>
+        <tr>
+          <td width="100" height="60" class="even">SpeciesIndex.org</td>
+          <td class="even"><%=external_link_to("SpeciesIndex","http://speciesindex.org/index.jsp?search="+blind_outlink_parameter,:show_link_icon=>true)%></td>
+          <% if show_both %><td class="even"><%=external_link_to("SpeciesIndex","http://speciesindex.org/index.jsp?search="+blind_outlink_parameter_scientific,:show_link_icon=>true)%></td><% end %>
+        </tr>
       </tbody>
     </table>
   </div>

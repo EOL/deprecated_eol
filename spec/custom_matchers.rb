@@ -61,9 +61,9 @@ module EOL::Spec::Matchers
     
     def failure_message
       if @expected_fields.length != @array.length
-        " expected to have #{@expected_fields.length} fields, but had #{@array.length}"
+        "expected to have #{@expected_fields.length} entries, but had #{@array.length}: #{@array.inspect}"
       else
-        " expected #{@array.inspect} to include #{(@expected_fields - @array).inspect}"
+        "expected #{@array.inspect} to include #{(@expected_fields - @array).inspect}"
       end
     end
     

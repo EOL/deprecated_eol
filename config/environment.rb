@@ -58,9 +58,8 @@ Rails::Initializer.run do |config|
   # DEPENDENCIES ARE A PROBLEM config.gem 'roodi'
   # DEPENDENCIES ARE A PROBLEM config.gem 'reek'
   # Not gemified!  Grrr...   config.gem 'saikuro'
-  # I can't get this one to work for me in OS X config.gem 'rcov'
+  config.gem 'jscruggs-metric_fu', :lib => 'metric_fu', :source => 'http://gems.github.com/'
   #This one is actually part of metric_fu (I think): config.gem 'churn'
-  # Not ready yet: config.gem 'jscruggs-metric_fu', :source => 'http://gems.github.com/'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -128,7 +127,6 @@ Rails::Initializer.run do |config|
   
   $ALLOW_USER_LOGINS = true # if set to false, user login and registration area is not linked or shown on page
   $ENABLE_RECAPTCHA = true # set to true to enable recaptcha on registration and contact us form
-  $SHOW_ADDITIONAL_SEARCH_OPTIONS = false # if set to true, then user has the option to search for exact matches or for scientific/vernacular only
   $MAX_SEARCH_RESULTS = 200 # the maximum possible number of search results that can be returned
   $USE_EXTERNAL_LINK_POPUPS = false # if set to true, then attribution and other links will create a pop-up javascript when linking to external sites
   $ALLOW_CURATOR_SELF_REG = true # set to allow curators to self-register

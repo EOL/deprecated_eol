@@ -41,8 +41,9 @@ def hh(input)
 
   result.gsub!(/["]|&(?![\w]+;)/) do | match |
     case match
-    when '&' then '&amp;'
-    when '"' then '&quot;'
+      when '&' then '&amp;'
+      when '"' then '&quot;'
+      else          ''
     end
   end
   result
@@ -77,13 +78,15 @@ end
 
     def format_date_time(inTime,params={})
          format_string=params[:format] || "long"
-         case format_string
+         format_string = case format_string
           when "short"
-            format_string="%m/%d/%Y - %I:%M %p %Z"
+            "%m/%d/%Y - %I:%M %p %Z"
           when "short_no_tz"
-            format_string="%m/%d/%Y - %I:%M %p"
+            "%m/%d/%Y - %I:%M %p"
           when "long"
-            format_string="%A, %B %d, %Y - %I:%M %p %Z"
+            "%A, %B %d, %Y - %I:%M %p %Z"
+          else
+            nil
          end
          inTime.strftime(format_string) unless inTime==nil
     end
@@ -112,7 +115,7 @@ end
      if data.nil? == false && data['agent'].nil? == false
         data=EOLConvert.convert_to_hashed_array(data['agent'])
         agent_list=""
-        for agent in data
+        data.each do |agent|
           if normal_icon
               icon=agent['icon'] || ""
           else
@@ -184,11 +187,10 @@ end
 
   # get the local or remote image URL based on the type of video
   def get_video_url(video_item)
-    case video_item['videoType'].downcase
-      when "youtube"
-         return video_item['remoteURL']
-      when "flash"
-         return video_item['localURL']
+    return case video_item['videoType'].downcase
+      when "youtube" then video_item['remoteURL']
+      when "flash"   then video_item['localURL']
+      else                ''
     end
   end
 
@@ -247,8 +249,8 @@ end
     pages=ContentPage.find_all_by_page_name(page_name)
 
     if pages.length > 0
-      for language in Language.find_active
-        for page in pages
+      Language.find_active.each do |language|
+        pages.each do |page|
           expire_fragment(:controller=>'/content',:part=>page.id.to_s + '_' + language.iso_639_1)
           expire_fragment(:controller=>'/content',:part=>page.page_url + '_' + language.iso_639_1)
         end
@@ -271,7 +273,7 @@ end
   # expire the header and footer caches
   def expire_menu_caches
 
-    for language in Language.find_active
+    Language.find_active.each do |language|
       expire_fragment(:controller=>'/content' ,:part => 'top_nav_'+language.iso_639_1)
       expire_fragment(:controller=>'/content' ,:part => 'footer_'+language.iso_639_1)
       expire_fragment(:controller=>'/content' ,:part => 'exemplars_'+language.iso_639_1)
@@ -285,8 +287,8 @@ end
     expire_menu_caches
     pages=ContentPage.find_all_by_active(true)
 
-    for language in Language.find_active
-      for page in pages
+    Language.find_active.each do |language|
+      pages.each do |page|
         expire_fragment(:controller=>'/content',:part=>page.id.to_s + '_' + language.iso_639_1)
         expire_fragment(:controller=>'/content',:part=>page.page_url + '_' + language.iso_639_1)
       end
@@ -310,7 +312,7 @@ end
 
     if expire_ancestors # also expire ancestors
       # go over taxa_ids and find ancestors, and add them to the list
-      for taxon_id in taxa_ids
+      taxa_ids.each do |taxon_id|
         taxon=TaxonConcept.find_by_id(taxon_id)
         taxa_ids_to_expire += taxon.ancestry.collect {|an| an.taxon_concept_id} unless taxon.nil?
       end
@@ -320,7 +322,7 @@ end
     end
 
     # now expire the list of taxa, ignoring ancestors (since they are now included in our global list)
-    for taxon_id in taxa_ids_to_expire
+    taxa_ids_to_expire.each do |taxon_id|
       expire_taxon_concept(taxon_id,:expire_ancestors=>false)
     end
 
@@ -366,13 +368,13 @@ end
    end
 
    # expire given taxa for all active languages and possibilites
-   for taxon_id in taxa_ids
+   taxa_ids.each do |taxon_id|
      unless taxon_id.blank?
-       for language in Language.find_active
-          for expertise in %w{novice middle expert}
-            for vetted in %w{true false}
-              for default_taxonomic_browser in %w{text flash}
-                for can_curate in %w{true false}
+       Language.find_active.each do |language|
+          %w{novice middle expert}.each do |expertise|
+            %w{true false}.each do |vetted|
+              %w{text flash}.each do |default_taxonomic_browser|
+                %w{true false}.each do |can_curate|
                   part_name='page_' + taxon_id.to_s + '_' + language.iso_639_1 + '_' + expertise + '_' + vetted + '_' + default_taxonomic_browser + '_' + can_curate
                   expire_fragment(:controller=>'/taxa',:part=>part_name)
                 end

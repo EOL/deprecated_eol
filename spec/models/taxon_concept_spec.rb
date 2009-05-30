@@ -165,14 +165,14 @@ describe TaxonConcept do
     @taxon_concept.videos.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
   end
 
-  it 'should be able to search' do
+  it 'should be able to search, returning an array of hashes for each result type' do
     recreate_normalized_names_and_links
-    results = TaxonConcept.search(@common_name)
+    results = TaxonConcept.quick_search(@common_name)
     results[:common].should_not be_nil
-    results[:common].map(&:id).should include(@taxon_concept.id)
-    results = TaxonConcept.search(@scientific_name.sub(/\s.*$/, '')) # Removes the second half and attribution
+    results[:common].map {|h| h['id'].to_i }.should include(@taxon_concept.id)
+    results = TaxonConcept.quick_search(@scientific_name.sub(/\s.*$/, '')) # Removes the second half and attribution
     results[:scientific].should_not be_nil
-    results[:scientific].map(&:id).should include(@taxon_concept.id)
+    results[:scientific].map {|h| h['id'].to_i }.should include(@taxon_concept.id)
   end
 
   it 'should have visible comments that don\'t show invisible comments' do

@@ -14,14 +14,12 @@ class ContentLevel
     @short_name=short_name
   end
   
+  # List of content level IDs on specific page banner to user
   def self.description_by_id(id)
-    
-    # list of content level IDs on specific page banner to user
-    case id.to_s
-      when "1": return "Minimal Page"[]
-      when "2","3", "4": return ""
+    return case id.to_s
+      when '1' then "Minimal Page"[]
+      else ''
     end
-        
   end
   
   def self.find()

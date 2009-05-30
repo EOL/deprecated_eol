@@ -44,25 +44,6 @@
                 </fieldset>
                 <%end%>
                 
-            <% if $SHOW_ADDITIONAL_SEARCH_OPTIONS %>
-                <fieldset>
-                    <legend><%="Words"[]%></legend>
-                    <ul>
-                        <li><%= radio_button_tag :qualifier,:contains,@search.qualifier=='contains' %><%="Contains your term"[]%></li>
-                        <li><%= radio_button_tag :qualifier,:equals,@search.qualifier=='equals' %><%="Exact match only"[]%></li>
-                    </ul>
-                </fieldset>
-                            
-                <fieldset>
-                    <legend><%="Names"[]%></legend>
-                    <ul>
-                        <li><%= radio_button_tag :scope,:all,@search.scope=='all' %><%="All names"[]%></li>
-                        <li><%= radio_button_tag :scope,:vern,@search.scope=='vern' %><%="Only Common Names"[]%></li>
-                        <li><%= radio_button_tag :scope,:sci,@search.scope=='sci' %><%="Only Scientific Names"[]%></li>
-                    </ul>
-                </fieldset>
-               <% end %>
-                
                 <fieldset>
                     <legend><%="Language"[]%></legend>
                     <%=select_tag :search_language, options_for_select([['Any', '*']] + Language.find_active.collect {|al| [al.name, al.iso_639_1]},@search.search_language),:style=>'width:180px;'             %>

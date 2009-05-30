@@ -19,7 +19,8 @@ protected
       stringified_merge @url_params, @remote if @remote
       stringified_merge @url_params, @options[:params] if @options[:params]
       
-      if complex = param_name.index(/[^\w-]/)
+      complex = param_name.index(/[^\w-]/)
+      if complex
         page_param = (defined?(CGIMethods) ? CGIMethods : ActionController::AbstractRequest).
           parse_query_parameters("#{param_name}=#{page}")
         

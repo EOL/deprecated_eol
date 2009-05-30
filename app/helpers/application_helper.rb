@@ -89,13 +89,12 @@ module ApplicationHelper
 
   # show a description of the data quality in the 'title' tag of the data quality icons
   def data_quality_description(data_quality)
-    
     case data_quality.downcase
-      when "bronze" then "This content has not been scientifically vetted for accuracy."
-      when "silver" then "This content has been vetted but is not from a known trusted source."
-      when "gold" then "This content has been scientifically vetted and is from a known trusted source."
+      when 'bronze' then 'This content has not been scientifically vetted for accuracy.'[]
+      when 'silver' then 'This content has been vetted but is not from a known trusted source.'[]
+      when 'gold'   then 'This content has been scientifically vetted and is from a known trusted source.'[]
+      else               ''
     end
-    
   end
 
   # Version of error_messages_for that displays translated error messages
@@ -103,11 +102,8 @@ module ApplicationHelper
   # TODO: Move to a plugin?
   def eol_lang_error_messages_for(*params)
     options = params.extract_options!.symbolize_keys
-    if object = options.delete(:object)
-      objects = [object].flatten
-    else
-      objects = params.collect {|object_name| instance_variable_get("@#{object_name}") }.compact
-    end
+    object = options.delete(:object)
+    objects = object ? [object].flatten : params.collect {|object_name| instance_variable_get("@#{object_name}") }.compact
     count = objects.inject(0) {|sum, obj| sum + obj.errors.count }
     unless count.zero?
       html = {}

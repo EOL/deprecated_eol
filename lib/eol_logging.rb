@@ -130,9 +130,9 @@ module Logging
         ]
       agent_ids = [ 2, 25 ] # these are the ids of Agent objects that have actual logins, so we can test with them
     
-      (1..count.to_i).each do
+      count.times do
         ::DataObjectLog.transaction do
-          for n in 1..1000 do
+          (1..1000).each do |n|
             addr = "4.#{n % 10}.2.1"
             agent = agents[n % agents.size]
             attribute_hash[:ip_address_raw] = ::IpAddress.ip2int addr

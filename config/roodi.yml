@@ -1,0 +1,18 @@
+# This one was failing for me on "inverse" ifs: "foo = bar if this == that" fails.  (!?!) We may
+# want to check this one manually from time to time: re-enable it, run it, check it, comment it out again.
+# AssignmentInConditionalCheck:    { }
+CaseMissingElseCheck:            { }
+ClassLineCountCheck:             { line_count: 740 } # We want this to be around 300
+ClassNameCheck:                  { pattern: !ruby/regexp /^[A-Z][a-zA-Z0-9]*$/ }
+#ClassVariableCheck:              { }
+CyclomaticComplexityBlockCheck:  { complexity: 25 } # We want this to be around 4
+CyclomaticComplexityMethodCheck: { complexity: 25 } # We want this to be around 8
+# This one just doesn't seem to understand syntax well enough.  Inline rescues aren't handled, and (for example) a rescue block that calls
+# one method and nothing else also seems to be a false positive.  ...While I like the idea of this check, I can't trust it.  :\
+# EmptyRescueBodyCheck:            { }
+ForLoopCheck:                    { }
+MethodLineCountCheck:            { line_count: 100 } # We want this to be around 30
+MethodNameCheck:                 { pattern: !ruby/regexp /^[_a-z<>=\[|+-\/\*`]+[_a-z0-9_<>=~@\[\]]*[=!\?]?$/ }
+ModuleLineCountCheck:            { line_count: 352 } # We want this to be around 300 (close!)
+ModuleNameCheck:                 { pattern: !ruby/regexp /^[A-Z][a-zA-Z0-9]*$/ }
+ParameterNumberCheck:            { parameter_count: 5 }

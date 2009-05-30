@@ -9,6 +9,18 @@ class Mapping < SpeciesSchemaModel
     return collection.ping_host_url.gsub(/%ID%/, foreign_key)
   end
 
+  def self.for_taxon_concept_id(tc_id)
+    Mapping.find_by_sql(%Q{
+      SELECT DISTINCT m.id, m.collection_id, m.name_id, m.foreign_key
+        FROM taxon_concept_names tcn
+          JOIN mappings m ON (tcn.name_id=m.name_id)
+          JOIN collections c ON (m.collection_id=c.id)
+          JOIN agents a ON (c.agent_id=a.id)
+        WHERE tcn.taxon_concept_id = #{tc_id}
+        GROUP BY c.id                        -- Mapping#for_taxon_concept_id
+    })
+  end
+
 end
 
 # == Schema Info

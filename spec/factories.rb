@@ -191,13 +191,17 @@ end
 # Unique:
 Factory.sequence(:scientific_name) do |n|
   @seq_sci_name = ["Quibusdameli estculpaatus", "Estasperioreseli etquidemis", "Nesciunterox autrerumalis", "Voluptasalius optioerus", "Remrerumeron auteterus", "Veritatises idofficiisiae", "Accusamusalis pariatura", "Voluptateseri doloremosyne", "Autrecusandaees repudiandaeica", "Nihileri voluptasus", "Dignissimosii inutes", "Fugais utharumatus", "Minuseli ullamens", "Dignissimosatus nobisosyne", "Expeditaalia evenietelia", "Earumeles beataeata", "Culpaensis sapienteesi", "Utomnisesi sequialis", "Autaliquideri minimais", "Beataeelia etnemoiae", "Autema officiaalius", "Autemalius utsimiliqueesi", "Etconsequaturelia autenimalia", "Quoautesi natuseri", "Voluptatumeri esseensis", "Ameti maioresis", "Ipsamalius distinctioerox", "Maximees veritatisatus", "Molestiaeus rationealia", "Fugitens dolorealius", "Quisquamator sequieles", "Essees eaqueata", "Animiens atdoloribuseron", "Adaliasii iurea", "Nonnumquamerus numquamerus", "Autvoluptatesus temporaalis", "Excepturialia omnisa", "Estveroalia nihilata", "Quiincidunta culpaelia", "Providentalia estquaeratens", "Placeatalia uteosensis", "Ipsaensis architectoalius", "Deserunterox facereerox", "Suntalia estsitalius", "Aliasosyne quiadipisciatus", "Illoica exexplicaboalia", "Laboriosamerus quisis", "Optiois molestiasalia", "Ipsuma animius", "Quiserox eligendii", "Eteaiae nullais"]
-  @seq_sci_name[n % @seq_sci_name.length] + "[#{n}]"
+  pick = @seq_sci_name[n % @seq_sci_name.length]
+  (n / @seq_sci_name.length).times { pick.succ! }
+  pick
 end
 
 # Unique:
 Factory.sequence(:common_name) do |n|
   @seq_common_name = ["pink ipsumalia", "ravenous quaeeli", "red suntus", "darning needle", "tiger", "frizzlebek", "purple sitatius", "cloud swallow", "spiny possom", "common desert mouse", "lesser expeditaalia", "chartruse turtle", "horny toad", "scarlet vermillion", "Mozart's nemesis", "quick brown fox", "painted horse", "thirsty aphid", "bloody eel", "fruit bat", "giant ostrich", "common rat", "cursed doormouse", "great errorens", "stream newt", "blessed sparrow", "ravenous eagle", "common titmouse", "least ferret", "raccoon", "papa bear", "brown hornet", "urban crocidile", "classical enthusiast", "grungebutter", "bripplefoam frond", "elf's cup", "agitated harmonium", "stone dragon", "Werner's mite", "green anole", "killer bee", "thistle", "paramecium", "scorpion king", "tarantula", "cardinal", "sky fungus", "upbeat chickadee", "amoeba"]
-  @seq_common_name[n % @seq_common_name.length] + "[#{n}]"
+  pick = @seq_common_name[n % @seq_common_name.length]
+  (n / @seq_common_name.length).times { pick.succ! }
+  pick
 end
 
 # Not Unique (obviously, given the repetition in the array):

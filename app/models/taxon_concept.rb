@@ -171,14 +171,7 @@ class TaxonConcept < SpeciesSchemaModel
   # Because nested has_many_through won't work with CPKs:
   def mappings
     YAML.load(Rails.cache.fetch("taxon_concepts/#{self.id}/mappings") do
-      Mapping.find_by_sql(%Q{
-        SELECT DISTINCT m.id, m.collection_id, m.name_id, m.foreign_key
-          FROM taxon_concept_names tcn
-            JOIN mappings m ON (tcn.name_id=m.name_id)
-            JOIN collections c ON (m.collection_id=c.id)
-            JOIN agents a ON (c.agent_id=a.id)
-          WHERE tcn.taxon_concept_id = #{id} GROUP BY c.id  -- TaxonConcept#mappings
-      }).sort_by {|m| m.id }.uniq.to_yaml
+      Mapping.for_taxon_concept_id(self.id).sort_by {|m| m.id }.to_yaml
     end)
   end
 
@@ -267,7 +260,7 @@ class TaxonConcept < SpeciesSchemaModel
     # TODO - JRice believes these rescues are bad.  They are--I assume--in here because sometimes there is no
     # hierarchies_content.  However, IF there is one AND we get some other errors, then A) we're not handling them,
     # and B) The value switches to false when it may have been true from a previous hierarchies_content.
-    for entry in hierarchy_entries
+    hierarchy_entries.each do |entry|
       images = true if entry.hierarchies_content.image != 0 || entry.hierarchies_content.child_image != 0 rescue images
       video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0 rescue video
       map = true if entry.hierarchies_content.gbif_image != 0 rescue map
@@ -294,24 +287,32 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def quick_scientific_name(type = :normal)
+
     scientific_name_results = []
-    # TODO - refactor this.  Duplication where italicized, but I think all three queries could be generalized.
-    case type
-      when :normal      then scientific_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id=he.id) WHERE tcn.taxon_concept_id=#{id} AND vern=0 AND preferred=1").all_hashes
-      when :italicized  then scientific_name_results = SpeciesSchemaModel.connection.execute("SELECT n.italicized name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id=he.id) WHERE tcn.taxon_concept_id=#{id} AND vern=0 AND preferred=1").all_hashes
-      when :canonical   then scientific_name_results = SpeciesSchemaModel.connection.execute("SELECT cf.string name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) JOIN canonical_forms cf ON (n.canonical_form_id=cf.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id=he.id) WHERE tcn.taxon_concept_id=#{id} AND vern=0 AND preferred=1").all_hashes
+
+    search_type = case type
+      when :italicized  then {:name_field => 'n.italicized', :also_join => ''}
+      when :canonical   then {:name_field => 'cf.string',    :also_join => 'JOIN canonical_forms cf ON (n.canonical_form_id=cf.id)'}
+      else                   {:name_field => 'n.string',     :also_join => ''}
     end
-    
+
+    scientific_name_results = SpeciesSchemaModel.connection.execute(
+      "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
+       FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) #{search_type[:also_join]}
+         LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id=he.id)
+       WHERE tcn.taxon_concept_id=#{id} AND vern=0 AND preferred=1").all_hashes
+
     final_name = ''
     
     # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names 
-    scientific_name_results.each_with_index do |result, i|
-      if final_name=='' || result['source_hierarchy_id'].to_i == Hierarchy.default.id
+    scientific_name_results.each do |result|
+      if final_name == '' || result['source_hierarchy_id'].to_i == Hierarchy.default.id
         final_name = result['name'].firstcap
       end
     end
     
-    final_name
+    return final_name
+
   end
   
   # Some TaxonConcepts are "superceded" by others, and we need to follow the chain as far as we can (up to a sane limit): 
@@ -330,10 +331,6 @@ class TaxonConcept < SpeciesSchemaModel
   class << self; alias_method_chain :find, :supercedure ; end
 
   def self.quick_search(search_string, options = {})
-    # TODO - we have qualifier, scope, and search_lang diabled for now, so I am ignoring them entirely.
-    options[:qualifier]       ||= 'contains'
-    options[:scope]           ||= 'all'
-    options[:search_language] ||= 'all'
     options[:user]            ||= User.create_new
     
     # TODO - insert into search terms, popular searches, and the like.
@@ -554,67 +551,6 @@ EOIUCNSQL
     join data_objects        on data_objects.id                      = data_objects_taxa.data_object_id
     where data_objects.id IN (#{ ids.join(', ') })"
     TaxonConcept.find_by_sql(sql).uniq
-  end
-
-  def self.search(search_string, options = {})
-    # TODO - we have qualifier, scope, and search_lang diabled for now, so I am ignoring them entirely.
-    options[:qualifier]       ||= 'contains'
-    options[:scope]           ||= 'all'
-    options[:search_language] ||= 'all'
-
-    # TODO - insert into search terms, popular searches, and the like.
-
-    # TODO - I'm not sure this is really what we want to be doing, here: I simply reproduced Patrick's code (for the most part).
-    search_terms = search_string.gsub(/\s+/, ' ').strip.split(/[ -&:\\'?;]+| and /)
-
-    sci_concepts = []
-    com_concepts = []
-    errors       = nil
-    num_matches  = {}
-
-    search_terms.each do |orig_term|
-      term = orig_term.gsub(/\*/, 'EOL_WILDCARD').gsub(/[\W\-]/, '').gsub('EOL_WILDCARD', '%')
-      if term.gsub('%', '').length < 3
-        errors ||= []
-        errors << "All search terms must contain at least three characters. '#{orig_term}' is too short."
-      end
-      # I was going to make everything wildcarded, but....  term = "%#{term}%".gsub('%+', '%')
-      search_type = term.match(/%/) ? 'LIKE' : '='
-
-      # TODO - this will only search names (not authors or years), thanks to the hard-coded "1" below.
-#       concepts = TaxonConcept.find_by_sql([<<EO_FIND_NAMES, term])
-#   SELECT DISTINCT tc.id, tcn.vern vern
-#     FROM taxon_concepts tc
-#       JOIN taxon_concept_names tcn ON (tcn.taxon_concept_id = tc.id)
-#       JOIN normalized_links nl ON (nl.name_id = tcn.name_id)
-#       JOIN normalized_names nn ON (nn.id = nl.normalized_name_id)
-#     WHERE nn.name_part #{search_type} ?
-#       AND nl.normalized_qualifier_id = 1 # TaxonConcept.search
-# EO_FIND_NAMES
-
-      concepts = TaxonConcept.find_by_sql([<<EO_FIND_NAMES, term])
-  SELECT DISTINCT tcn.taxon_concept_id id, tcn.vern vern
-  FROM normalized_names nn
-  STRAIGHT_JOIN normalized_links nl ON (nn.id=nl.normalized_name_id)
-  STRAIGHT_JOIN taxon_concept_names tcn ON (nl.name_id=tcn.name_id)
-  WHERE nn.name_part #{search_type} ?
-  AND nl.normalized_qualifier_id = 1 # TaxonConcept.search
-EO_FIND_NAMES
-
-      # NOTE: For whatever reason, Rails makes TINYINTs into strings.  Thus the to_i.
-      sci_concepts += concepts.find_all {|concept| concept.vern.to_i == 0 }
-      com_concepts += concepts.find_all {|concept| concept.vern.to_i == 1 }
-      if concepts.length == 0
-        errors ||= []
-        errors << "There were no matches for the search term #{orig_term}"
-      end
-
-    end
-
-    return {:common     => com_concepts.compact.sort,
-            :scientific => sci_concepts.compact.sort,
-            :errors     => errors}
-
   end
 
   # This could use name... but I only need it for searches, and ID is all that matters, there.

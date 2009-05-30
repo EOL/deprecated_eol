@@ -46,10 +46,12 @@ class User < ActiveRecord::Base
   end
   
   def objects_vetted
-    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( self.id, CuratorActivity.approve! ).map &:object # this needs to allow for eager loading
+    # this needs to allow for eager loading
+    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( self.id, CuratorActivity.approve! ).map(&:object)
   end 
   def total_objects_vetted
-    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( self.id, CuratorActivity.approve! ).length # this needs to become a simple COUNT query
+    # this needs to become a simple COUNT query
+    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( self.id, CuratorActivity.approve! ).length
   end 
 
   def total_objects_curated
@@ -62,7 +64,7 @@ class User < ActiveRecord::Base
   def species_curated
     # we need to get the IDs of the curated data objects and then get the species for those (cross-database, so we can't effectively join)
     data_object_ids = CuratorDataObjectLog.find(:all, :select => 'distinct data_object_id', :conditions => [ 'user_id = ?', self.id ] ).map(&:data_object_id)
-    species = TaxonConcept.from_data_objects *data_object_ids
+    species = TaxonConcept.from_data_objects(*data_object_ids)
   end
   def total_species_curated
     species_curated.length
@@ -75,7 +77,7 @@ class User < ActiveRecord::Base
     data_object_tags_for(data_object).map(&:tag).uniq
   end
   def tagged_objects
-    data_object_tags.find_all.map &:object
+    data_object_tags.find_all.map(&:object)
   end
   def tag_keys
     tags.map(&:key).uniq

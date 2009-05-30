@@ -75,7 +75,7 @@ class DataObjectTags < ActiveRecord::Base
   def self.public_tags_for_data_object data_object
     id   = (data_object.is_a?Fixnum) ? data_object : data_object.id
     tags = self.tags_with_usage_count.find_all_by_data_object_id id
-    tags.select {|t| t.usage_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags || t.is_public }.map &:tag
+    tags.select {|t| t.usage_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags || t.is_public }.map(&:tag)
   end
 
   # Returns all of the tags that have been promoted to 'public' for a particular tag key, eg. "color"
@@ -94,7 +94,7 @@ class DataObjectTags < ActiveRecord::Base
   #
   def self.public_tags_for_tags tags
     public_tags = self.tags_with_usage_count.find :all, :conditions => ['data_object_tag_id IN (?)', tags.map(&:id) ], :include => :data_object_tag
-    public_tags = public_tags.select {|t| t.usage_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags }.map &:tag
+    public_tags = public_tags.select {|t| t.usage_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags }.map(&:tag)
     # we have have been passed some tags that has .is_public set but they aren't actually *used* anywhere so they weren't returned by tags_with_usage_count
     public_tags = ( public_tags + tags.select {|t| t.is_public? } ).uniq
   end

@@ -184,42 +184,9 @@ class TagsController < ApplicationController
     @tags_with_count = @tags_with_count.sort_by {|t| t.tag.to_s }.inject([]){|all,this| all << [this.usage_count.to_i, this.tag]; all }
   end
 
-  # AHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-  #   GROSS.
-  #     cleaning this up via spec/models/data_object_tag_search_spec.rb ...
-  #
-  # GET /tags/search?q=color:blue,habitat:marsh
+  # REDIRECT TO COMBINED SEARCH PAGE
   def search
-    
-    # REDIRECT TO COMBINED SEARCH PAGE
-    redirect_to :controller=>'taxa',:action=>'search',:q=>params[:q],:search_type=>'tag'
-    return
-    
-    # TODO: Remove deprecated tag search code below
-    if params[:q]
-      tags = params[:q].split(',').map &:strip
-      @tags = tags.inject([]) do |all,this|
-        if this.include?':'
-          key, value = this.split(':')
-        else
-          key, value = this.split('=')
-        end
-        if key && value
-          all << DataObjectTag[key, value]
-        elsif key
-          RAILS_DEFAULT_LOGGER.warn { "all += #{key}:#{ DataObjectTag[key].inspect }" }
-          all += DataObjectTag[key] # get all tags that use the given key
-        end
-        all
-      end
-      @tags = @tags.compact.uniq
-      RAILS_DEFAULT_LOGGER.warn { @tags.map(&:to_s).inspect }
-
-      options = (params['selected-clade-id'] and params['selected-clade-id'].to_i > 0) ? { :clade => params['selected-clade-id'].to_i } : {}
-      @data_objects = DataObject.search_by_tags @tags, options
-    else
-      @data_objects = []
-    end
+    redirect_to :controller=>'taxa', :action=>'search', :q=>params[:q], :search_type=>'tag'
   end
 
   protected

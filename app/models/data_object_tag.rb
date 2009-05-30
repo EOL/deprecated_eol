@@ -119,7 +119,7 @@ class DataObjectTag < ActiveRecord::Base
         tags = find :all, :conditions => ['`key` = ? AND `value` LIKE ?', key.to_s, "#{partial_value}%"], :order => '`value` ASC'
       end
     end
-    tags.map &:value if tags
+    tags.map(&:value) if tags
   end
 
   # get all of the keys that've ever been created

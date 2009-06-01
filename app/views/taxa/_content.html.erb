@@ -1,14 +1,14 @@
 <a name="center_content"></a>
 <!-- center page content header -->
 <div class="cpc-header">
-  <%# if logged_in? %>
-    <%# toc_item = TocItem.find_by_label(@content[:category_name]) %>
-    <%# if toc_item.allow_user_text? %>
-      <%#*<div class="add_text_button">%>
-        <%#= link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => 'new_text_content_button' ) -%>
-      <%#*</div>%>
-    <%# end %>
-  <%# end %>
+  <% if logged_in? %>
+    <% toc_item = TocItem.find_by_label(@content[:category_name]) %>
+    <% if toc_item.allow_user_text? %>
+      <div class="add_text_button">
+        <%= link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => 'new_text_content_button' ) -%>
+      </div>
+    <% end %>
+  <% end %>
 
   <h3><%= @content[:category_name] unless @content.nil? %></h3>
 

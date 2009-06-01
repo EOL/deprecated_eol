@@ -43,6 +43,11 @@ create_if_not_exists ContactSubject, :title => 'Media Contact', :recipients=>'te
 
 create_if_not_exists CuratorActivity, :code => 'delete'
 create_if_not_exists CuratorActivity, :code => 'update'
+create_if_not_exists CuratorActivity, :code => 'show'
+create_if_not_exists CuratorActivity, :code => 'hide'
+create_if_not_exists CuratorActivity, :code => 'inappropriate'
+create_if_not_exists CuratorActivity, :code => 'approve'
+create_if_not_exists CuratorActivity, :code => 'disapprove'
 
 # create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
 # them.  create_if_not_exists Once we do, they should get added here.

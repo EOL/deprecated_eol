@@ -834,6 +834,11 @@ Factory.define :user do |u|
   u.curator_verdict_at        nil
 end
 
+Factory.define :users_data_object do |u|
+  u.association :data_object
+  u.association :user
+end
+
 Factory.define :vetted do |x|
   x.label { Factory.next(:string) }
 end

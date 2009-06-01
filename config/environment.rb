@@ -58,6 +58,9 @@ Rails::Initializer.run do |config|
   # DEPENDENCIES ARE A PROBLEM config.gem 'roodi'
   # DEPENDENCIES ARE A PROBLEM config.gem 'reek'
   # Not gemified!  Grrr...   config.gem 'saikuro'
+  config.gem 'rubyforge', :version => '>=1.0.3'
+  config.gem 'hoe',       :version => '>=1.12.2'
+  config.gem 'chronic',   :version => '>=0.2.3'
   config.gem 'jscruggs-metric_fu', :lib => 'metric_fu', :source => 'http://gems.github.com/'
   #This one is actually part of metric_fu (I think): config.gem 'churn'
 

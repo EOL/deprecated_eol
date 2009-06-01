@@ -52,13 +52,6 @@ describe 'Curation' do
 
   # --- page citation ---
   
-  #what to test with selenium and what with spec?
-  #test model? 
-  #test methods (3 controllers)? (all those tests below check only view)
-  #check "_if_ can_curate" from views?
-  #refactor my view? (put part into model?) 
-  #and models? (3 similar methods in 3 models curator_activity_flag)
-
   it 'should confirm that the page doesn\'t have the citation if there is no active curator for the taxon' do
     LastCuratedDate.delete_all
     the_page = request("/pages/#{@taxon_concept.id}")
@@ -71,11 +64,20 @@ describe 'Curation' do
     @default_page.body.should have_tag('div#page-citation')
   end
 
-  it 'should change the number of curators if another curator did something' do
+  it 'should change the number of curators if another curator curates an image' do
     num_curators = @taxon_concept.acting_curators.length
     @default_page.body.should have_tag('div#number-of-curators', /#{num_curators}/)
     user = Factory(:curator, :curator_hierarchy_entry => @taxon_concept.entry)
     @taxon_concept.images.last.curator_activity_flag user, @taxon_concept.id
+    @taxon_concept.acting_curators.length.should == num_curators + 1
+    request("/pages/#{@taxon_concept.id}").body.should have_tag('div#number-of-curators', /#{num_curators+1}/)
+  end
+              
+  it 'should change the number of curators if another curator curates a text object' do
+    num_curators = @taxon_concept.acting_curators.length
+    @default_page.body.should have_tag('div#number-of-curators', /#{num_curators}/)
+    user = Factory(:curator, :curator_hierarchy_entry => @taxon_concept.entry)
+    @taxon_concept.overview.first.curator_activity_flag user, @taxon_concept.id
     @taxon_concept.acting_curators.length.should == num_curators + 1
     request("/pages/#{@taxon_concept.id}").body.should have_tag('div#number-of-curators', /#{num_curators+1}/)
   end

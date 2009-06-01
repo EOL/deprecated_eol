@@ -353,15 +353,15 @@ class DataObject < SpeciesSchemaModel
     activity = CuratorActivity.find(action)
 
     if activity.code[/^approve$/i]
-      vet!
+      vet
     elsif activity.code[/^disapprove$/i]
-      unvet!
+      unvet
     elsif activity.code[/^show$/i]
-      show!
+      make_visible
     elsif activity.code[/^hide$/i]
-      hide!
+      hide
     elsif activity.code[/^inappropriate$/i]
-      inappropriate!
+      inappropriate
     else
       raise "Not sure how to #{activity.code} a DataObject"
     end
@@ -403,27 +403,6 @@ class DataObject < SpeciesSchemaModel
 
   def preview?
     visibility_id == Visibility.preview.id
-  end
-
-  def show! user = nil
-    self.vetted_by = user if user
-    update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
-  end
-  def hide! user = nil
-    self.vetted_by = user if user
-    update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
-  end
-  def vet! user = nil
-    self.vetted_by = user if user
-    update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
-  end
-  def unvet! user = nil
-    self.vetted_by = user if user
-    update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
-  end
-  def inappropriate! user = nil
-    self.vetted_by = user if user
-    update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
   end
 
   def curator_activity_flag(user, taxon_concept_id = nil)
@@ -690,6 +669,28 @@ AND data_type_id IN (:data_type_ids)
   end
 
 private
+
+  def make_visible user = nil
+    self.vetted_by = user if user
+    update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
+  end
+  def hide user = nil
+    self.vetted_by = user if user
+    update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
+  end
+  def vet user = nil
+    self.vetted_by = user if user
+    update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
+  end
+  def unvet user = nil
+    self.vetted_by = user if user
+    update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
+  end
+  def inappropriate user = nil
+    self.vetted_by = user if user
+    update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
+  end
+  
   def self.join_agents_clause(agent)
     data_supplier_id = ResourceAgentRole.content_partner_upload_role.id
     return %Q{LEFT JOIN (agents_resources ar

@@ -101,10 +101,9 @@ class DataObjectTags < ActiveRecord::Base
   
   def curator_activity_flag
     if data_object.is_curatable_by?(user)
-        taxon_concept_id = data_object.taxon_concepts[0].id
-        LastCuratedDate.create(:user_id => user.id, 
-        :taxon_concept_id => taxon_concept_id, 
-        :last_curated => Time.now)
+      LastCuratedDate.create(:user_id          => user.id, 
+                             :taxon_concept_id => data_object.taxon_concepts[0].id, 
+                             :last_curated     => Time.now)
     end    
   end
 

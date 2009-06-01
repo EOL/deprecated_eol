@@ -17,10 +17,11 @@ describe 'Curation' do
 
   before :each do
     @taxon_concept = build_taxon_concept()
+    @default_page  = request("/pages/#{@taxon_concept.id}")
   end
 
   it 'should not show curation button when not logged in' do
-    request("/pages/#{@taxon_concept.id}").body.should_not have_tag('div#large-image-curator-button')
+    @default_page.body.should_not have_tag('div#large-image-curator-button')
   end
 
   it 'should show curation button when logged in as curator' do
@@ -48,4 +49,47 @@ describe 'Curation' do
     Rails.cache.clear
     ActionController::Base.perform_caching = old_cache_val
   end
+
+  # --- page citation ---
+  
+  #what to test with selenium and what with spec?
+  #test model? 
+  #test methods (3 controllers)? (all those tests below check only view)
+  #check "_if_ can_curate" from views?
+  #refactor my view? (put part into model?) 
+  #and models? (3 similar methods in 3 models curator_activity_flag)
+
+  it 'should confirm that the page doesn\'t have the citation if there is no active curator for the taxon' do
+    LastCuratedDate.delete_all
+    the_page = request("/pages/#{@taxon_concept.id}")
+    the_page.body.should_not have_tag('div#number-of-curators')
+    the_page.body.should_not have_tag('div#page-citation')
+  end
+    
+  it 'should say the page has citation (both lines)' do
+    @default_page.body.should have_tag('div#number-of-curators')
+    @default_page.body.should have_tag('div#page-citation')
+  end
+
+  it 'should change the number of curators if another curator did something' do
+    num_curators = @taxon_concept.acting_curators.length
+    @default_page.body.should have_tag('div#number-of-curators', /#{num_curators}/)
+    user = Factory(:curator, :curator_hierarchy_entry => @taxon_concept.entry)
+    @taxon_concept.images.last.curator_activity_flag user, @taxon_concept.id
+    @taxon_concept.acting_curators.length.should == num_curators + 1
+    request("/pages/#{@taxon_concept.id}").body.should have_tag('div#number-of-curators', /#{num_curators+1}/)
+  end
+              
+  it 'should have a link from N curators to the citation' do
+    @default_page.body.should have_tag('a[href*=?]', /#citation/) do
+      with_tag('div#number-of-curators')
+    end
+  end
+  
+  it 'should have a link from name of curator to account page' do
+    @default_page.body.should have_tag('div#page-citation') do
+      with_tag('a[href*=?]', /\/account\/show\/#{@taxon_concept.acting_curators.first.id}/)
+    end
+  end
+
 end

@@ -313,6 +313,67 @@ describe DataObject do
     end
 
   end
+  
+  describe '#curator_activity_flag' do
+    
+    before(:each) do
+      @taxon_concept = build_taxon_concept
+      @data_object   = @taxon_concept.images.last
+      @user          = @taxon_concept.acting_curators.to_a.last
+      @num_lcd       = LastCuratedDate.count
+    end
+    
+    it 'should create a new LastCuratedDate pointing to the right TC and user' do
+      @data_object.curator_activity_flag(@user, @taxon_concept.id)
+      LastCuratedDate.count.should == @num_lcd + 1
+      LastCuratedDate.last.taxon_concept_id.should == @taxon_concept.id
+      LastCuratedDate.last.user_id.should == @user.id
+    end
+    
+    it 'should do nothing if the current user cannot curate this DataObject' do
+      new_user   = User.gen
+      @data_object.curator_activity_flag(new_user, @taxon_concept.id)
+      LastCuratedDate.count.should_not == @num_lcd + 1
+    end
+    
+    it 'should set a last curated date when a curator curates this data object' do
+      current_count = @num_lcd
+      ['hide', 'show', 'inappropriate', 'approve', 'disapprove'].each do |method|
+        @data_object.curate! CuratorActivity.send("#{method}!"), @user
+        LastCuratedDate.count.should == (current_count += 1)
+      end
+    end
+    
+    it 'should set a last curated date when a curator creates a new text object' do
+      DataObject.create_user_text(
+        {:data_object => {:description => "fun!",
+                          :title => 'funnerer',
+                          :license_id => License.last.id,
+                          :language_id => Language.english.id},
+         :taxon_concept_id => @taxon_concept.id,
+         :data_objects_toc_category => {:toc_id => TocItem.overview.id}},
+        @user)
+      LastCuratedDate.count.should == @num_lcd + 1
+    end
+    
+    it 'should set a last curated date when a curator updates a text object' do
+      # I tried gen here, but it wasn't working (JRice)
+      UsersDataObject.create(:data_object_id => @data_object.id,
+                             :user_id => @user.id)
+      DataObject.update_user_text(
+        {:data_object => {:description => "fun!",
+                          :title => 'funnerer',
+                          :license_id => License.last.id,
+                          :language_id => Language.english.id},
+         :id => @data_object.id,
+         :taxon_concept_id => @taxon_concept.id,
+         :data_objects_toc_category => {:toc_id => TocItem.overview.id}},
+        @user)
+      LastCuratedDate.count.should == @num_lcd + 1
+    end
+    
+  end
+  
 
   #
   # I haven't touched these yet:

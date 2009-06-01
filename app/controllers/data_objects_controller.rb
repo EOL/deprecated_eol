@@ -159,6 +159,8 @@ protected
 
   def set_text_data_object_options
     @selectable_toc = TocItem.find(:all, :order => 'id').select{|c| c.allow_user_text?}.collect {|c| [c.label, c.id] }
+    toc = TocItem.find(params[:toc_id])
+    @selected_toc = [toc.label, toc.id]
     @taxon_concept_id = params[:taxon_concept_id]
     @languages = Language.find(:all).collect {|c| [c.name, c.id] }
     @licenses = License.valid_for_user_content

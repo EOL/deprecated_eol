@@ -85,14 +85,14 @@
                           %><%= render :partial => 'table_of_content_item', :locals=>{:item=>item} %> <%
                           end
                   end -%>
-                  <%# if logged_in? %>
-                    <%#*<li class="add_text">%>
-                      <%#*<div class="add_text_button">%>
-                        <%#= link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => 'new_text_toc_button') -%>
-                      <%#*</div>%>
-                      <%#= link_to("Add New", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => 'new_text_toc_text' ) -%>
-                    <%#*</li>%>
-                  <%# end %>
+                  <% if logged_in? %>
+                    <li class="add_text">
+                      <div class="add_text_button">
+                        <%= link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => 'new_text_toc_button') -%>
+                      </div>
+                      <%= link_to("Add New", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => 'new_text_toc_text' ) -%>
+                    </li>
+                  <% end %>
             </ul>
             <hr />
 

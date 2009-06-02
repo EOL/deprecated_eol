@@ -57,7 +57,6 @@ Rails::Initializer.run do |config|
   config.gem 'flog'
   config.gem 'roodi'
   config.gem 'reek'
-  config.gem 'saikuro'
   config.gem 'rubyforge'
   config.gem 'hoe'
   config.gem 'chronic'

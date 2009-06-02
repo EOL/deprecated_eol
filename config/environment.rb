@@ -60,6 +60,7 @@ Rails::Initializer.run do |config|
   config.gem 'rubyforge'
   config.gem 'hoe'
   config.gem 'chronic'
+  config.gem 'sexp_processor'
   config.gem 'jscruggs-metric_fu', :lib => 'metric_fu', :source => 'http://gems.github.com/'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe 'Account page (HTML)' do
+describe 'Account user profile page (HTML)' do
 
   Scenario.load :foundation
 

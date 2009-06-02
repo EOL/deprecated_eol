@@ -52,17 +52,6 @@ Rails::Initializer.run do |config|
   config.gem 'haml'
   config.gem 'macaddr'
   config.gem 'uuid'
-  # DEPENDENCIES ARE A PROBLEM config.gem 'reek'
-  # DEPENDENCIES ARE A PROBLEM config.gem 'flay'
-  # DEPENDENCIES ARE A PROBLEM config.gem 'flog'
-  # DEPENDENCIES ARE A PROBLEM config.gem 'roodi'
-  # DEPENDENCIES ARE A PROBLEM config.gem 'reek'
-  # Not gemified!  Grrr...   config.gem 'saikuro'
-  config.gem 'rubyforge', :version => '>=1.0.3'
-  config.gem 'hoe',       :version => '>=1.12.2'
-  config.gem 'chronic',   :version => '>=0.2.3'
-  config.gem 'jscruggs-metric_fu', :lib => 'metric_fu', :source => 'http://gems.github.com/'
-  #This one is actually part of metric_fu (I think): config.gem 'churn'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -140,7 +129,7 @@ Rails::Initializer.run do |config|
   
   # ERROR HANDLING CONFIGURATION
   $EXCEPTION_NOTIFY = false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
-  $ERROR_LOGGING = false # set to true to record uncaught application errors in sql database file 
+  $ERROR_LOGGING = true # set to true to record uncaught application errors in sql database file 
   $EXCEPTION_EMAIL_ADDRESS = %("EOL Application Error" <no-reply@example.comma>) 
   $IGNORED_EXCEPTIONS = ["CGI::Session::CookieStore::TamperedWithCookie","taxa id not supplied","static page without id"] # array of exceptions to ignore when logging or notifying
   

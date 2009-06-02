@@ -119,7 +119,10 @@ module EOL::Spec
                     :vetted      => Vetted.trusted,
                     :license     => License.all.rand}
 
+      agent_role      = options.delete(:agent_role)      || 'Author'
+      agent_role      = AgentRole.find_by_label(agent_role) || AgentRole.first
       content_partner = options.delete(:content_partner)
+      event           = options.delete(:event)
       he              = options.delete(:hierarchy_entry) || HierarchyEntry.last
       name            = options.delete(:name)            || Name.gen
       num_comments    = options.delete(:num_comments)    || 1
@@ -146,19 +149,30 @@ module EOL::Spec
       end
       num_comments.times { Comment.gen(:parent => dato, :user => User.all.rand) }
 
-      # TODO - so, really, for every DATO, I'm creating a harvest event?!?  Mistake.  pass this in.
-      unless content_partner.nil?
+      # TODO - Really, we always want these things.  There's no such thing as a "floating" data object.
+      # Either it is related to a user (text object submitted through website) or a HarvestEvent.
+      #
+      # However, that takes a LOT of CPU cycles (and DB time), so what I would like to do is have a
+      # "default" event (and content partner) which, unless specified, is attached.
+      agent = nil
+      if not event.nil? 
+        DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
+      elsif not content_partner.nil?
         agent_resource = content_partner.agent.agents_resources.detect do |ar|
           ar.resource_agent_role_id == ResourceAgentRole.content_partner_upload_role.id
         end
         if agent_resource.nil?
-          agent_resource = AgentsResource.gen(:agent => content_partner.agent,
+          agent = content_partner.agent
+          agent_resource = AgentsResource.gen(:agent => agent,
                                               :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
         end
         event    = HarvestEvent.gen(:resource => agent_resource.resource)
+        pp event
         DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
-        # TODO - AgentsDataObject entries here (Author, Source, Publisher, Compiler)
       end
+      agent ||= event.nil? ? Agent.gen : event.resource.agents.first
+
+      AgentsDataObject.gen(:agent => agent, :agent_role => agent_role, :data_object => dato)
 
       return dato
 
@@ -426,7 +440,7 @@ module EOL::Spec
 end
 
 class ActiveRecord::Base
-  
+
   # truncate's this model's table
   def self.truncate
     connection.execute "TRUNCATE TABLE #{ table_name }"

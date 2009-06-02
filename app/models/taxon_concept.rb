@@ -421,7 +421,9 @@ class TaxonConcept < SpeciesSchemaModel
   
   def iucn
     # Notice that we use find_by, not find_all_by.  We require that only one match (or no match) is found.
-    my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id, Resource.iucn.map(&:id)]).first
+    # TODO - hack on [].flatten to handle two cases, which we currently have between prod and dev.  Fix this in the
+    # next iteration (any after 2.9):
+    my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id, [Resource.iucn].flatten.map(&:id)]).first
 
     SELECT distinct do.*
       FROM taxon_concept_names tcn

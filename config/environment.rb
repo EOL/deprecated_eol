@@ -139,7 +139,7 @@ Rails::Initializer.run do |config|
   
   # ERROR HANDLING CONFIGURATION
   $EXCEPTION_NOTIFY = false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
-  $ERROR_LOGGING = false # set to true to record uncaught application errors in sql database file 
+  $ERROR_LOGGING = true # set to true to record uncaught application errors in sql database file 
   $EXCEPTION_EMAIL_ADDRESS = %("EOL Application Error" <no-reply@example.comma>) 
   $IGNORED_EXCEPTIONS = ["CGI::Session::CookieStore::TamperedWithCookie","taxa id not supplied","static page without id"] # array of exceptions to ignore when logging or notifying
   

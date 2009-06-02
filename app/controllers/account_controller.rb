@@ -47,12 +47,7 @@ class AccountController < ApplicationController
       return
     end
 
-    # Remove hierachy association if they selected one but then changed their minds.
-    if params['selected-clade-id'.to_sym] != nil && params['selected-clade-id'.to_sym] != ''
-      params[:user][:curator_hierarchy_entry_id] = params['selected-clade-id'.to_sym]
-    end
-    # Remove the pseudo-column before creating the real record.
-    params[:user].delete :curator
+    set_curator_clade(params)
 
     # create a new user with the defaults and then update with the user entered values on the signup form
     @user = User.create_new(params[:user])
@@ -151,7 +146,10 @@ class AccountController < ApplicationController
     end
     
     # The UI would not allow this, but a hacker might try to grant curator permissions to themselves in this manner.
-    user_params.delete(:curator_hierarchy_entry_id) unless is_user_admin? 
+    user_params.delete(:curator_approved) unless is_user_admin? 
+
+    set_curator_clade(params)
+
     if @user.update_attributes(user_params)
       user_changed_mailing_list_settings(old_user,@user) if (old_user.mailing_list != @user.mailing_list) || (old_user.email != @user.email)
       set_current_user(@user)
@@ -239,6 +237,15 @@ class AccountController < ApplicationController
 
 private
 
+  def set_curator_clade(params)
+    # Remove hierachy association if they selected one but then changed their minds.
+    if params['selected-clade-id'.to_sym] != nil && params['selected-clade-id'.to_sym] != ''
+      params[:user][:curator_hierarchy_entry_id] = params['selected-clade-id'.to_sym]
+    end
+    # Remove the pseudo-column before creating the real record.
+    params[:user].delete :curator
+  end
+  
   # this method is called if a user changes their mailing list or email address settings
   # TODO: do something more intelligent here to notify mailing service that a user changed their settings (like call a web service, or log in DB to create a report)
   def user_changed_mailing_list_settings(old_user,new_user)

@@ -86,13 +86,33 @@ function check_passwords() {
 					<%= render(:partial=>'taxa/set_content_settings',:locals=>{:f=>f}) %>
           
           <% if $ALLOW_CURATOR_SELF_REG || @user.curator_approved %>
-			    <label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[:credentials] %> (CURATORS ONLY)</label>
+			      <br /><br />
+	        <legend><%= "Curators Only"[] %></legend>
+  		       <% if !@user.is_curator? # if they aren't a curator yet, let them request it by selecting a clade%>
+	                   <span><%="To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will
+                     be notified via email if your application for curator privileges is accepted."[:curator_signup_message]%></span>
+
+           				    <label title="<%= "Select a clade"[] %>"><%= "Select a clade"[] %></label>
+           					<span id="curator_taxon">&nbsp;</span>
+
+           					<%= clade_selector options={:selectable_clade_level => 3} %>			 
+           	 <% else %>
+           	 <p>
+                 Curator of: <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %>
+             </p>      
+			       <% end %>
+			       
+			        <label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[:credentials] %></label>
               <%= f.text_area :credentials, :rows => 9, :cols=>60 %>	
 
+            
   					<% if @user.curator_approved %>
   					  <br />
   						<%= link_to 'View your curator profile', :controller => :account, :action => :show, :id => @user.id%>
   					<% end %>
+  					
+  					
+  					
           <% end %>
           
                 	<div class="button">

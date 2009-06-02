@@ -1,0 +1,6 @@
+0.1
+
+- Initial release of Columnize, a module to print an Array in
+  column-sorted order
+
+$Id: NEWS 9 2007-12-09 14:48:00Z rockyb $

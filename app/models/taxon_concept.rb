@@ -27,16 +27,7 @@ class TaxonConcept < SpeciesSchemaModel
   # has_many :taxa, :through => :names, :source => :taxon_concept_names
   # has_many :mappings, :through => :names, :source => :taxon_concept_names
 
-  # These are methods that are specific to a hierarchy, so we have to handle them through entry:
-  delegate :kingdom, :to => :entry
-  delegate :children_hash, :to => :entry
-  delegate :ancestors_hash, :to => :entry
-  delegate :find_default_hierarchy_ancestor, :to => :entry
-  
   has_one :taxon_concept_content
-
-  #delegate :content_level, :to => :entry # TODO remove this
-  #TODO delegate :content_level, :to => :taxon_concept_content
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
@@ -258,6 +249,21 @@ class TaxonConcept < SpeciesSchemaModel
     return hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
       hierarchy_entries[0] ||
       raise(Exception.new("Taxon concept must have at least one hierarchy entry"))
+  end
+
+  # These are methods that are specific to a hierarchy, so we have to handle them through entry:
+  # This was handled using delegate, before, but seemed to be causing problems, so I'm making it explicit:
+  def kingdom
+    return entry.kingdom
+  end
+  def children_hash
+    return entry.children_hash
+  end
+  def ancestors_hash
+    return entry.ancestors_hash
+  end
+  def find_default_hierarchy_ancestor
+    return entry.find_default_hierarchy_ancestor
   end
 
   # We do have some content that is specific to COL, so we need a method that will ALWAYS reference it:

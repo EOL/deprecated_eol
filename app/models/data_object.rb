@@ -338,15 +338,30 @@ class DataObject < SpeciesSchemaModel
     tags.map {|t| t.key }.uniq
   end
 
-  # return all of the taxon concepts associated with this DataObject
+  # Return all of the TCs associated with this Dato.  Not necessarily all the pages it shows up on,
+  # however, as Zea mays image will show up on Plantae
   def taxon_concepts
-    # TODO - need to optimize with eager loading
-    @taxon_concepts ||= DataObjectsTaxon.find_all_by_data_object_id(id).map(&:taxon).inject([]){|all,this_taxon| ( all + this_taxon.taxon_concepts ) }.uniq
+    @taxon_concepts ||= TaxonConcept.find_by_sql(["
+      SELECT tc.* FROM data_objects do
+      JOIN data_objects_taxa dot ON (do.id=dot.data_object_id)
+      JOIN taxa t ON (dot.taxon_id=t.id)
+      JOIN taxon_concept_names tcn ON (t.name_id=tcn.name_id)
+      JOIN taxon_concepts tc ON (tcn.taxon_concept_id=tc.id)
+      WHERE do.id=? -- DataObject#taxon_concepts
+    ", self.id])
   end
 
-  # this is even less efficient than #taxon_concepts TODO - OPTIMIZE!
+  # Return all of the HEs associated with this Dato.  Not necessarily all the pages it shows up on,
+  # however, as Zea mays image will show up on Plantae
   def hierarchy_entries
-    @hierarchy_entries ||= taxon_concepts.inject([]){|all,concept| all + concept.hierarchy_entries  }.uniq
+    @hierarchy_entries ||= HierarchyEntry.find_by_sql(["
+      SELECT he.* FROM data_objects do
+      JOIN data_objects_taxa dot ON (do.id=dot.data_object_id)
+      JOIN taxa t ON (dot.taxon_id=t.id)
+      JOIN taxon_concept_names tcn ON (t.name_id=tcn.name_id)
+      JOIN hierarchy_entries he ON (tcn.taxon_concept_id=he.taxon_concept_id)
+      WHERE do.id=? -- DataObject#hierarchy_entries
+    ", self.id])
   end
   
   def curate! action, user = nil

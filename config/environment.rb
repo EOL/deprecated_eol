@@ -52,16 +52,6 @@ Rails::Initializer.run do |config|
   config.gem 'haml'
   config.gem 'macaddr'
   config.gem 'uuid'
-  config.gem 'reek'
-  config.gem 'flay'
-  config.gem 'flog'
-  config.gem 'roodi'
-  config.gem 'reek'
-  config.gem 'rubyforge'
-  config.gem 'hoe'
-  config.gem 'chronic'
-  config.gem 'sexp_processor'
-  config.gem 'jscruggs-metric_fu', :lib => 'metric_fu', :source => 'http://gems.github.com/'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

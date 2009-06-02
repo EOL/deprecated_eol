@@ -1,0 +1,13 @@
+2007-12-09 14:48  rockyb
+
+	* ., NEWS, README, lib/columnize.rb, test/test-columnize.rb:
+	  Property changes for Id lines and to make test-columnize.rb
+	  executable.
+
+2007-12-09 14:40  rockyb
+
+	* columnize, ., AUTHORS, COPYING, ChangeLog, NEWS, README,
+	  Rakefile, VERSION, lib, lib/columnize.rb, test,
+	  test/test-columnize.rb: Initial release of Columnize, a module to
+	  print an Array in column-sorted order.
+

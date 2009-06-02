@@ -96,6 +96,7 @@
                                                           {:class => 'return_to', :alt=>'Google Translate'} %></li>
 					          </ul>
                 </li>
+                <% cache(:controller=>'/content', :part=>'top_nav_' + current_user.language_abbr) do %>                
                 <li>
                     <a class="dropdown" id="feedback" title="<%="Feedback"[]%>"><%="Feedback"[]%></a>
                     <ul class="uppercase">

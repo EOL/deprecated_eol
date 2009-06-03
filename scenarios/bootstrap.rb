@@ -52,10 +52,14 @@ AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.p
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
 kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
-5.times do
+4.times do
   build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
                       :depth => Hierarchy.default.hierarchy_entries.length)
 end
+# Sixth Taxon should have more images:
+build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
+                    :depth => Hierarchy.default.hierarchy_entries.length,
+                    :images => [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}])
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
 tc     = TaxonConcept.last # Whatever.

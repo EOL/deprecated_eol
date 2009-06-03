@@ -1,8 +1,16 @@
-# Settings specified here will take precedence over those in config/environment.rb
+#----------------------------------------------------------------
+#                     integration.rb
+# Environment specific settings for the Integration environment
+#
+# Settings specified here will override those in 
+# config/environment.rb.  Additional EOL location specific 
+# settings are in integration_eol_org.rb
+#---------------------------------------------------------------
 
 # In the development environment your application's code is reloaded on
-# every request.  This slows down response time but is perfect for development
-# since you don't have to restart the webserver when you make code changes.
+# every request.  This slows down response time but is perfect for 
+# development since you don't have to restart the webserver when you make 
+# code changes.
 config.cache_classes = false
 
 # Log error messages when you accidentally call methods on nil.
@@ -13,17 +21,36 @@ config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = false
 config.action_view.debug_rjs                         = false
 
-#config.cache_store = :mem_cache_store, '127.0.0.1:11211'
-config.cache_store = :file_store, "/data/cache"
-
-# Don't care if the mailer can't send
+# email error reporting 
 config.action_mailer.raise_delivery_errors = false
+
+# logging level
 config.log_level = :debug
 
-# OVERRIDEN BASE CONFIGURATION
-$EXCEPTION_NOTIFY=false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
-$ERROR_LOGGING=true # set to true to record uncaught application errors in sql database file 
-$ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
+# set to false turn off notification of exceptions via email 
+$EXCEPTION_NOTIFY=false
+ 
+# set to true to record uncaught application errors in sql database file
+$ERROR_LOGGING=true 
 
-$ENABLE_ANALYTICS=false
-$SHOW_SURVEYS=false  
+# set to true to enable recaptcha on registration and contact us form
+$ENABLE_RECAPTCHA=false
+
+# EVALUATIONS/SURVEYS CONFIGURATION
+# Set SHOW_SURVEYS to true to show surveys; logic on when to show 
+# surveys is set in the "show_survey?" method in the application 
+# controller
+$SHOW_SURVEYS=false 
+$SURVEY_URL="http://vovici.com/wsb.dll/s/6ea8g3124f"
+
+
+# ANALYTICS CONFIGURATION
+# Set ENABLE_ANALYTICS to true to enable google analytics.  The
+# GOOGLE_ANALYTICS_ID must be set to the google analytics ID
+# to use if analytics is enabled.
+$ENABLE_ANALYTICS=false 
+$GOOGLE_ANALYTICS_ID="UA-3298646-1" 
+
+~
+
+

@@ -240,11 +240,11 @@ class TaxonConcept < SpeciesSchemaModel
   def kingdom
     return entry.kingdom
   end
-  def children_hash
-    return entry.children_hash
+  def children_hash(detail_level, language)
+    return entry.children_hash(detail_level = :middle, language = Language.english)
   end
-  def ancestors_hash
-    return entry.ancestors_hash
+  def ancestors_hash(detail_level, language)
+    return entry.ancestors_hash(detail_level = :middle, language = Language.english)
   end
   def find_default_hierarchy_ancestor
     return entry.find_default_hierarchy_ancestor

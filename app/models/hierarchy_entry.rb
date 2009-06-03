@@ -298,6 +298,16 @@ class HierarchyEntry < SpeciesSchemaModel
     return true
   end
 
+  # Looks up the ancestry to find the nearest node that it can attach to which matches the default Hierarchy.
+  def find_default_hierarchy_ancestor
+    he = self
+    until he.taxon_concept.in_hierarchy(Hierarchy.default.id)
+      return nil if he.parent_id == 0
+      he = he.parent
+    end
+    he.taxon_concept.entry    
+  end
+
 private
   # Because we hijack the built-in name method...
   def name_object
@@ -314,15 +324,6 @@ private
       xml += "\t</#{name}>\n";
     end
     return xml
-  end
-
-  def find_default_hierarchy_ancestor
-    he = self
-    until he.taxon_concept.in_hierarchy(Hierarchy.default.id)
-      return nil if he.parent_id == 0
-      he = he.parent
-    end
-    he.taxon_concept.entry    
   end
 
   def node_to_hash(node, detail_level)

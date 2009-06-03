@@ -3,8 +3,11 @@
 # Environment specific settings for the Integration environment
 #
 # Settings specified here will override those in 
-# config/environment.rb.  Additional EOL location specific 
-# settings are in integration_eol_org.rb
+# config/environment.rb.
+# 1) config/environment.rb
+# 2) config/environments/[RAILS_ENV].rb
+# 3) config/environments/[RAILS_ENV]_eol_org.rb
+# 4) config/environment_eol_org.rb
 #---------------------------------------------------------------
 
 # In the development environment your application's code is reloaded on
@@ -51,6 +54,9 @@ $SURVEY_URL="http://vovici.com/wsb.dll/s/6ea8g3124f"
 $ENABLE_ANALYTICS=false 
 $GOOGLE_ANALYTICS_ID="UA-3298646-1" 
 
-~
-
-
+#This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
+begin
+  require File.join(File.dirname(__FILE__), 'integration_eol_org')
+rescue LoadError
+  puts '*************WARNING: COULD NOT LOAD integration_eol_org FILE***********************'
+end

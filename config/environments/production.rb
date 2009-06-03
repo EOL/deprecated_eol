@@ -1,4 +1,8 @@
 # Settings specified here will take precedence over those in config/environment.rb
+# 1) config/environment.rb
+# 2) config/environments/[RAILS_ENV].rb
+# 3) config/environments/[RAILS_ENV]_eol_org.rb
+# 4) config/environment_eol_org.rb
 
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new

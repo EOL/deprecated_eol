@@ -303,6 +303,15 @@ We really need to start improving our tests.  To that end, I would like to start
   rcov
   churn
 
+== CONFIGURATION SETTINGS LOAD ORDER
+
+There are lots of configuration settings, and they load in the following order:
+
+  1) config/environment.rb
+  2) config/environments/[RAILS_ENV].rb
+  3) config/environments/[RAILS_ENV]_eol_org.rb
+  4) config/environment_eol_org.rb
+
 == USERS/ROLES/RIGHTS
 
 The site is using the acl_system plugin (http://brainspl.at/articles/2006/02/20/new-plugin-acl_system).

@@ -11,7 +11,7 @@
   <%
     def tree_entry_text he, selectable_clade_level
       begin
-        name = he.name
+        name = he.taxon_concept.scientific_name
       rescue ActiveRecord::RecordNotFound
         name = 'unknown'
       end

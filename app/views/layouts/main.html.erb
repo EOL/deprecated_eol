@@ -145,6 +145,10 @@
                     <p><strong><%= "Hello {user}"[:hello_user, current_user.given_name] %></strong>
                     <%= @home_page.nil? ? "</p><p>" : " | " %>
 					          <%=link_to("admin"[],{:controller=>'/admin',:action=>'index'}) + " | " if current_user.is_admin? %>
+                    <% if current_user.is_curator? %>
+                      <%=link_to("curators",
+                                {:controller => '/content', :action => 'page', :id => 'curator_central'}) %> |
+                    <% end %>
                     <%=link_to("your preferences"[:your_preferences],
                                {:controller => '/account', :action => 'profile'},
                                {:class => 'return_to'})%> |

@@ -61,4 +61,23 @@ describe 'Login' do
     request('/').should_not include_text("Hello #{ @user.given_name }")
   end
   
+  it 'should not show the curator link' do
+    @user = create_user 'charliebrown', 'testing'
+    
+    login_as(@user)
+    request('/').should_not include_text('curators')
+  end
+  
+  describe "as a curator" do
+    it "should show the curator link" do
+      @tc = build_taxon_concept()
+      @user = Factory(:curator, :username => 'test_curator',
+              :password => 'test_password',
+              :curator_hierarchy_entry => HierarchyEntry.gen(:taxon_concept => @tc))
+
+      login_as(@user)
+      request('/').should include_text("curators")
+    end
+  end
+  
 end

@@ -19,13 +19,13 @@ config.action_mailer.raise_delivery_errors = false
 # Code is not reloaded between requests
 config.cache_classes = true
 
-#set up the master database connection for writes using masochism plugin
+# Set up the master database connection for writes using masochism plugin
 # NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)
-#config.after_initialize do 
-#  ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-#  ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
-#  ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
-#end
+config.after_initialize do 
+  ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
+  ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
+  ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
+end
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin

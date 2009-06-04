@@ -160,7 +160,7 @@ li#large-image-attribution-button.unknown:hover {
 
 .insert_text { position:relative !important; width: 423px !important; margin-bottom: 40px;}
 
-#insert_text_popup_content table td { padding: 5px; vertical-align:top; }
+div.insert_text table td { padding: 5px; vertical-align:top; }
 
 .toc_select label {
   display: inline !important;

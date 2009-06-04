@@ -32,12 +32,12 @@ EOL.TextObjects.Behaviors = {
   },
 
   'div.edit_text a': function(e) {
-    new EOL.PopupLink(this,{insert_after:this.up(3).id, additional_classes:'insert_text'});
+    new EOL.PopupLink(this,{insert_after:this.up(2).id, additional_classes:'insert_text'});
   },
 
   'div.edit_text a:click':function(e) {
     //scroll browser down to the bottom of the text, near where the popup will appear
-    Effect.ScrollTo(this.up().up().up().nextSiblings()[0].id);
+    Effect.ScrollTo(this.up(2).nextSiblings()[1].id);
   },
 
   'input#cancel_edit_text:click': function(e) {
@@ -70,7 +70,7 @@ EOL.TextObjects.Behaviors = {
                          asynchronous:true,
                          evalScripts:true,
                          method:'post',
-                         parameters:{toc_id: this[this.selectedIndex].value}
+                         parameters:Form.serialize(this.form)
                        });
   }
 };
@@ -164,3 +164,37 @@ EOL.TextObjects.update_add_links = function(url) {
   $$('a#new_text_toc_button')[0].href = url;
   $$('a#new_text_content_button')[0].href = url;
 };
+
+EOL.TextObjects.change_toc = function(toc_label, add_new_url, new_text, toc_item_id) {
+  //update header
+  $$('div#center-page-content div.cpc-header h3')[0].update(toc_label);
+
+  //update the links/buttons for adding new text
+  EOL.TextObjects.update_add_links(add_new_url);
+
+  //remove all text objects from page
+  jQuery('div#center-page-content div.cpc-content div.text_object').each(function(i) {
+    jQuery('#'+this.id).fadeOut("normal", function() {$(this.id).remove();}.bind(this));
+  });
+
+  //remove yellow warning box
+  jQuery('div#center-page-content div.cpc-content div#unknown-text-warning-box_wrapper').each(function(i) {
+    jQuery('#'+this.id).fadeOut("normal", function() {$(this.id).remove();}.bind(this));
+  });
+
+  //remove red warning box
+  jQuery('div#center-page-content div.cpc-content div#untrusted-text-warning-box_wrapper').each(function(i) {
+    jQuery('#'+this.id).fadeOut("normal", function() {$(this.id).remove();}.bind(this));
+  });
+
+  //add text from newly selected toc
+  $$('div#center-page-content div.cpc-content')[0].insert(new_text);
+
+  //update selected TOC
+  $A(document.getElementsByClassName('active', $('toc'))).each(function(e) { e.className = 'toc_item'; });
+  $('current_content').value = toc_item_id;
+
+  Event.addBehavior.reload();
+
+  $$('ul#toc a.toc_item[title='+toc_label+']')[0].className = 'active toc_item';
+}

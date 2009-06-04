@@ -302,7 +302,17 @@ class TaxaController < ApplicationController
   end
 
   def user_text_change_toc
-    @table_of_contents = TocItem.find(params[:toc_id])
+    @toc_item = TocItem.find(params[:data_objects_toc_category][:toc_id])
+    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+
+    @taxon_id = @taxon_concept.id
+    @taxon = @taxon_concept
+    @category_id = @toc_item.id
+    @taxon.current_agent = current_agent unless current_agent.nil?
+    @taxon.current_user = current_user
+    @ajax_update = true
+    @content = @taxon.content_by_category(@category_id)
+    @new_text = render_to_string(:partial => 'content_body')
   end
 
   # AJAX: Render the requested content page

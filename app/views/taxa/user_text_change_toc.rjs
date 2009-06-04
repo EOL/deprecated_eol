@@ -1,2 +1,1 @@
-page << 'console.log("changing toc");'
-page << "$$('div#center-page-content div.cpc-header h3')[0].update('#{@table_of_contents.label}')"
+page << "EOL.TextObjects.change_toc('#{@toc_item.label}', '#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @toc_item.id})}', '#{escape_javascript(@new_text)}', #{@toc_item.id});"

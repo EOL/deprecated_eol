@@ -5,6 +5,7 @@
       <label for="data_object_TOC category">Toc category</label>
     </td>
     <td>
+      <input type="hidden" id="original_toc_id" value="<%=@selected_toc[1]%>"/>
       <%= select_tag('data_objects_toc_category[toc_id]', options_for_select(@selectable_toc,@selected_toc), {'id' => 'data_objects_toc_category_toc_id', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc')}) %>
     </td>
   </tr>

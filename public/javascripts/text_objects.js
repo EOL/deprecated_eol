@@ -43,13 +43,13 @@ EOL.TextObjects.Behaviors = {
   'input#cancel_edit_text:click': function(e) {
     data_object_id = this.readAttribute('data-data_object_id');
 
+    //remove preview text
+    jQuery('div#text_wrapper_').fadeOut(1000, function() {this.remove();});
+
     //if the old text still exists on the page, just remove the edit div
-    if($('text_wrapper_'+data_object_id)) {
+    if($('text_wrapper_'+data_object_id) || $('original_toc_id').value != $('data_objects_toc_category_toc_id')[$('data_objects_toc_category_toc_id').selectedIndex].value) {
       jQuery("div#text_wrapper_"+data_object_id+"_popup").fadeOut(1000, function() {EOL.popups[this.id].destroy();});
     } else {
-      //remove preview text
-      jQuery('div#text_wrapper_').fadeOut(1000, function() {this.remove();});
-
       form = $('edit_data_object_'+data_object_id);
 
       new Ajax.Request(form.action.gsub('/data_objects/','/data_objects/get/'),

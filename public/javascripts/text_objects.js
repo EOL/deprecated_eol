@@ -17,16 +17,15 @@ EOL.TextObjects.Behaviors = {
   },
 
   'input#preview_text:click': function(e) {
+    form = this.form;
     EOL.TextObjects.remove_preview();
-    form = this.up(4);
     new Ajax.Request(this.readAttribute('data-preview_url'),
                      {
                        asynchronous:true,
                        evalScripts:true,
                        method:'post',
-                       parameters:Form.serialize(form)
+                       parameters:Form.serialize(form).gsub("_method=put&","id="+form.readAttribute('data-data_object_id')+"&") //this is hacky
                      });
-
     EOL.TextObjects.disable_form(form);
     return false;
   },

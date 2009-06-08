@@ -28,7 +28,7 @@ function textCounter(field,cntfield,maxlimit) {
 }
 
 // update the content area
-function eol_update_content_area(taxon_id,category_id) {
+function eol_update_content_area(taxon_id,category_id, allow_user_text) {
     // i feel like this could be a lot simpler ... 
     new Ajax.Request('/taxa/content/', {
             parameters: { id: taxon_id, category_id: category_id },         
@@ -39,6 +39,11 @@ function eol_update_content_area(taxon_id,category_id) {
             asynchronous:true,
             evalScripts:true});
     $A(document.getElementsByClassName('active', $('toc'))).each(function(e) { e.className = 'toc_item'; });
+    if(allow_user_text) {
+      $$('li.add_text')[0].show();
+    } else {
+      $$('li.add_text')[0].hide();
+    }
 }
 
 // show the pop-up in the div 

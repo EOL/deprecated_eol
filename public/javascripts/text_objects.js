@@ -2,8 +2,12 @@ if(!EOL) var EOL = {};
 if(!EOL.TextObjects) EOL.TextObjects = {};
 
 EOL.TextObjects.Behaviors = {
-  'li.add_text a, div.add_text_button a': function(e) {
+  'li.add_text>a': function(e) {
     new EOL.PopupLink(this,{insert_after:'insert_text', additional_classes:'insert_text'});
+  },
+
+  'div.add_text_button a:click': function(e) {
+    EOL.popup_links['new_text_toc_text'].click(e);
   },
 
   'div.insert_text form.edit_data_object:submit': function(e) {
@@ -197,3 +201,5 @@ EOL.TextObjects.change_toc = function(toc_label, add_new_url, new_text, toc_item
 
   $$('ul#toc a.toc_item[title='+toc_label+']')[0].className = 'active toc_item';
 }
+
+EOL.TextObjects.dialog_shown = false;

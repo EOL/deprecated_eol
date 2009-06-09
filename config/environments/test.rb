@@ -30,3 +30,5 @@ $ENABLE_ANALYTICS=false
 $SHOW_SURVEYS=false
 
 $IP_ADDRESS_OF_SERVER='127.0.0.1'
+
+config.gem "selenium-client", :version => "1.2.15", :lib => false

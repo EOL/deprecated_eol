@@ -127,75 +127,16 @@ Vetted/Visibility values: each combination is represented.
 Finally, pages/6 (TaxonConcept ID 6) has one additional image which is in "preview" mode for the test_cp
 Content Partner, and should be visibile only to her.
 
-=== Selenium
+=== Browser acceptance testing with Selenium
 
-Install the gem (note the capitol S):
+Acceptance testing with the browser is accomplished with Selenium RC and the selenium-client Rubygem. To run
+the Selenium acceptance tests, open a console:
 
-  sudo gem install Selenium
+1. Tab 1: ./script/selenium-server
 
-Install the selenium-client gem:
+2. Tab 2: rake test:acceptance:web 
 
-  sudo gem install selenium-client
-
-Install LOCAL versions of rspec and rspec-rails using the latest version (they are required by selenium-client).  Don't
-unpack these into the project (yet), we have some tests that will break if you do:
-
-  sudo gem install rspec rspec-rails
-
-The jar file that comes with this gem doesn't work well, so you need to install Selenium itself and steal the jar.  Start by grabbing the
-"Selenium RC" package:
-
-  http://seleniumhq.org/download/
-
-...Open that up and copy the jar file from wherever you unzipped things to the gem install location (careful here, you may have a
-slightly different version than in my example; also note that the target file adds the .txt extension to the file):
-
-  sudo cp /path/to/unzipped/selenium-server.jar \
-    /opt/local/lib/ruby/gems/1.8/gems/Selenium-1.1.14/lib/selenium/openqa/selenium-server.jar.txt
- 
-Install the Selenium plugin for Firefox:
-
-  https://addons.mozilla.org/en-US/firefox/addon/2079
-
-In one console, start the Selenium server:
-
-  selenium
-
-In another console, prepare the test environment:
-
-  rake truncate RAILS_ENV=test ; rake scenarios:load NAME=bootstrap RAILS_ENV=test
-
-start the test server (from your EOL project directory):
-
-  script/server -e test
-
-Open your browser and head to "http://localhost:3000".  Click on "Tools -> Selenium IDE".  Click on the red circle (record button). Begin
-navigating around the site, doing what you need to set up an assertion.  When you find something that needs to be tested, hilight it,
-right-click, and at the bottom of the contextual menu there is a list of available assertions: pick the one you want.  When you are done,
-return to the Selenium IDE window and click the red circle (record button) again to stop recording.
-
-Under "Options -> Format", there is a "Ruby - Selenium RC" option, which you need to have selected to put the format of the file in ruby.
-
-You can either save this entire test file in the project, or you can copy/paste the individual test (the last block in the code) and
-paste that into an existing script.  Note that the format of the tests is in Test::Unit format, rather than RSpec .should style, so you
-may wish to re-write a few of the assertions, but this is simple and not explicitly necessary.  Note that if you *do* change to RSpec
-style assertions, you need to add a few lines to the top of the file to enable them:
-
-  gem "rspec", "=1.1.12"
-  require "selenium/rspec/spec_helper"
-
-Also note that there are a whole host of problems associated with testing Ajax using Selenium... most notably the problem of waiting for
-"stuff to happen", without waiting for the whole page to load.  If you find you've written a test that is failing because some expected
-text is missing, it's likely that you need to add a wait function of some kind. There isn't an easy solution to this.  Try re-recording
-your test (or part of it) and right-clicking on some text that you "know" will be present after you take your Ajax action: in the
-contextual menu, there is an assertion called "waitForTextPresent", which you can use to some effect.  The problem may have other
-solutions, however.  Read around the web for alternatives.
-
-After your test is written, you can run it by simply calling it as a ruby script.  There is an example script called
-"spec/selenium/template.rb" which you can run, for example, by calling "spec spec/selenium/template.rb".  
-
-This example, by the way, shows how you might use RSpec instead of Test::Unit.  (In fact, if you use this as a template, you MUST change
-all of your "assert"s to "should" syntax, otherwise you will get "undefined method `assert'" errors.)
+The Selenium RC and Selenium-Client should be installed in the `vendor' directory.
 
 == MULTI-DATABASE AND MASTER/SLAVE DATABASES SETUP
 

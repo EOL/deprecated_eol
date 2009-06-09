@@ -91,13 +91,6 @@ class HierarchyEntry < SpeciesSchemaModel
     rank.nil? ? "taxon" : rank.label
   end
 
-  # Return the curators doing something ON THIS ENTRY ONLY (not ancestors or children) inside last two years
-  def acting_curators
-    all = User.find(:all, :conditions => ["curator_hierarchy_entry_id = ? and curator_approved IS TRUE", id])
-    return all.reject {|user| user.last_curator_activity.nil? or
-                              user.last_curator_activity < 2.years.ago }
-  end
-
   def with_parents
     HierarchyEntry.with_parents self
   end

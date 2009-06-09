@@ -65,6 +65,27 @@ class TaxonConcept < SpeciesSchemaModel
     ")
   end
 
+  # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
+  # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
+  # not all of it's children.  (For example.)
+  def acting_curators
+    # Cross-database join using a thousandfold more efficient algorithm than doing things separately:
+    ssm_db = SpeciesSchemaModel.connection.current_database
+    User.find_by_sql("
+      SELECT DISTINCT users.*
+      FROM users
+        JOIN last_curated_dates lcd ON (users.id = lcd.user_id AND lcd.last_curated >= '#{2.years.ago.to_s(:db)}')
+        JOIN #{ssm_db}.hierarchy_entries he1 ON (users.curator_hierarchy_entry_id = he1.id)
+        JOIN #{ssm_db}.hierarchy_entries he2 ON (he1.id = he2.id OR he1.hierarchy_id = he2.hierarchy_id
+                                                 AND he1.lft < he2.lft
+                                                 AND he1.rgt > he2.rgt)
+      WHERE curator_approved IS TRUE
+        AND lcd.taxon_concept_id = #{self.id}
+        AND he2.taxon_concept_id = #{self.id}  -- TaxonConcept#approved_curators
+    ")
+  end
+
+  
 
   # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
   # species is.  This will default to "unknown" for species that are not being tracked.
@@ -195,14 +216,6 @@ class TaxonConcept < SpeciesSchemaModel
     return host_urls
   end
 
-  def acting_curators
-    acting = Set.new
-    self.hierarchy_entries.each do |he|
-      acting.merge he.acting_curators
-    end
-    return acting 
-  end
-  
   def gbif_map_id
     hierarchy_entries.each do |entry|
       return entry.identifier if entry.has_gbif_identifier?

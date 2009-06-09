@@ -177,7 +177,10 @@ module EOL::Spec
     #
     # TODO LOW_PRIO - the arguments to this method are lame and should be options with reasonable defaults.
     def build_hierarchy_entry(depth, tc, name, options = {})
-      he    = HierarchyEntry.gen(:hierarchy     => options[:hierarchy] || Hierarchy.default, # TODO - This should *really* be the H associated with the Resource that's being "harvested"... technically, CoL shouldn't even have HEs...
+      # TODO - This should *really* be the H associated with the Resource that's being "harvested"...
+      # technically, CoL shouldn't even have HEs...
+      hierarchy = options[:hierarchy] || Hierarchy.default
+      he    = HierarchyEntry.gen(:hierarchy     => hierarchy,
                                  :parent_id     => options[:parent_id] || 0,
                                  :identifier    => options[:identifier] || '', # This is the foreign ID native to the Resouce, not EOL.
                                  :depth         => depth,
@@ -186,6 +189,7 @@ module EOL::Spec
                                  :name          => name)
       HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4, :gbif_image => options[:map] ? 1 : 0,
                              :youtube => 1, :flash => 1)
+      make_nested_set hierarchy
       # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as roles
       return he
     end

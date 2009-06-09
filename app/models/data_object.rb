@@ -181,7 +181,7 @@ class DataObject < SpeciesSchemaModel
 
   # Test whether a user has curator rights on this object
   def is_curatable_by? user
-    ( hierarchy_entries.collect {|entry| user.can_curate? entry } ).include? true
+    taxon_concepts.collect {|tc| tc.is_curatable_by?(user) }.include?(true)
   end
 
   # Find the Agent (only one) that supplied this data object to EOL.

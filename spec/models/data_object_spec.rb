@@ -167,6 +167,7 @@ describe DataObject do
     end
 
     it 'should mark tags as public if added by a curator' do
+      commit_transactions # We're looking at curators, here, we need cross-database joins.
       tc      = build_taxon_concept
       curator = User.gen
       dato    = tc.images.first # We CANNOT use @dato here, because it doesn't have all of the required
@@ -175,6 +176,7 @@ describe DataObject do
       dato.tag 'color', 'blue', curator
       dotag = DataObjectTag.find_by_key_and_value('color', 'blue')
       DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true
+      truncate_all_tables # Clean up after yourslef!
     end
 
   end
@@ -317,10 +319,15 @@ describe DataObject do
   describe '#curator_activity_flag' do
     
     before(:each) do
+      commit_transactions
       @taxon_concept = build_taxon_concept
       @data_object   = @taxon_concept.images.last
       @user          = @taxon_concept.acting_curators.to_a.last
       @num_lcd       = LastCuratedDate.count
+    end
+
+    after(:each) do
+      truncate_all_tables
     end
     
     it 'should create a new LastCuratedDate pointing to the right TC and user' do

@@ -7,17 +7,24 @@ def curator_for_taxon_id(id)
 end
 
 def create_curator_for_taxon_concept(tc)
-  Factory(:curator, :username => 'test_curator',
-          :password => 'test_password',
-          :curator_hierarchy_entry => HierarchyEntry.gen(:taxon_concept => tc))
+ user =  Factory(:curator, :curator_hierarchy_entry => tc.entry)
+ tc.images.last.curator_activity_flag user, tc.id
+ return user
 end
 
 describe 'Curation' do
   scenario :foundation
 
-  before :each do
-    @taxon_concept = build_taxon_concept()
+  before(:each) do
+    commit_transactions # Curators are not recognized if transactions are being used, thanks to a lovely
+                        # cross-database join.  You can't rollback, because of the Scenario stuff.  [sigh]
+    @taxon_concept = build_taxon_concept() # TODO - you REALLY don't want to be doing this before EACH, but...
+    @first_curator = create_curator_for_taxon_concept(@taxon_concept)
     @default_page  = request("/pages/#{@taxon_concept.id}")
+  end
+
+  after(:each) do
+    truncate_all_tables
   end
 
   it 'should not show curation button when not logged in' do

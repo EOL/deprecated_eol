@@ -82,7 +82,7 @@ EOL.TextObjects.Behaviors = {
 EOL.TextObjects.submit_text = function(form, event) {
   data_object_id = form.readAttribute('data-data_object_id');
   //error handling, just make sure there a description
-  if((data_object_id && $$('form#edit_data_object_'+data_object_id+' textarea')[0].value.strip() == '') || ($('form#new_data_object textarea') && $$('form#new_data_object textarea')[0].value.strip() == '')) {
+  if((data_object_id && $$('form#edit_data_object_'+data_object_id+' textarea')[0].value.strip() == '') || ($$('form#new_data_object textarea').length > 0 && $$('form#new_data_object textarea')[0].value.strip() == '')) {
     $('missing_text_error').show();
     Effect.Pulsate('missing_text_error');
     return false;

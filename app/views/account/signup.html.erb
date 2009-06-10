@@ -92,8 +92,13 @@
     						<%= clade_selector options={:selectable_clade_level => 3} %>	
 						
     						<label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[] %></label>
-    	          <!-- user_username ^[a-zA-Z0-9\-_]{4,16}$ false true //-->
-    					    <%= f.text_area :credentials, {:rows => 4, :cols => 80} %>
+    						Please state at least one specific credential from this list:<br />
+                <ol>
+                <li>faculty, staff, or graduate student status in a relevant university or college department</li>
+                <li>authorship of a peer-reviewed publication (provide reference)</li>
+                <li>member of a professional society</li>
+                </ol>
+    					    <%= f.text_area :credentials, {:rows => 7, :cols => 80} %>
             <% end %>
 	
 						<% if $ENABLE_RECAPTCHA %>

@@ -103,6 +103,12 @@ function check_passwords() {
 			       <% end %>
 			       
 			        <label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[:credentials] %></label>
+			        Please state at least one specific credential from this list:<br />
+              <ol>
+              <li>faculty, staff, or graduate student status in a relevant university or college department</li>
+              <li>authorship of a peer-reviewed publication (provide reference)</li>
+              <li>member of a professional society</li>
+              </ol>
               <%= f.text_area :credentials, :rows => 9, :cols=>60 %>	
 
             

@@ -17,8 +17,7 @@ $CONTENT_SERVERS = ['http://content.eol.org/']
 $CONTENT_SERVER_CONTENT_PATH = "content" # do not enter leading or trailing slashes
 $CONTENT_SERVER_RESOURCES_PATH = "/resources/"
 $CONTENT_SERVER_AGENT_LOGOS_PATH = "/content_partners/"
-$SPECIES_IMAGE_FORMAT = "jpg" # the extension of all species images on the con
-tent server
+$SPECIES_IMAGE_FORMAT = "jpg" # the extension of all species images on the content server
 
 
 # Static servers (asset_hosts) are where stylesheets and javascripts are 

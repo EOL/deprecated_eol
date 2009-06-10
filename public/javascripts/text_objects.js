@@ -4,10 +4,11 @@ if(!EOL.TextObjects) EOL.TextObjects = {};
 EOL.TextObjects.Behaviors = {
   'li.add_text>a': function(e) {
     new EOL.PopupLink(this,{insert_after:'insert_text', additional_classes:'insert_text'});
+    Event.stopObserving(this,'click');
   },
-
-  'div.add_text_button a:click': function(e) {
-    EOL.popup_links['new_text_toc_text'].click(e);
+  
+  'li.add_text>a:click, div.add_text_button a:click': function(e) {
+    EOL.TextObjects.toggle_dialog(e,EOL.popup_links['new_text_toc_text'],this);
   },
 
   'div.insert_text form.edit_data_object:submit': function(e) {
@@ -200,6 +201,40 @@ EOL.TextObjects.change_toc = function(toc_label, add_new_url, new_text, toc_item
   Event.addBehavior.reload();
 
   $$('ul#toc a.toc_item[title='+toc_label+']')[0].className = 'active toc_item';
-}
+};
 
-EOL.TextObjects.dialog_shown = false;
+EOL.TextObjects.toggle_dialog = function(e,popup,el) {
+  e.stop();
+
+  //hide old warnings
+  EOL.TextObjects.hide_multi_text_error();
+
+  if($('insert_text_popup') && $('insert_text_popup').style.display == '') {
+    //show warning because add/edit popup is already being displayed
+    if(el.id == "new_text_content_button") {
+      $$('div.cpc-header div.multi_new_text_error')[0].show();
+      $$('div.cpc-header div.multi_new_text_error')[0].pulsate();
+    } else {
+      $$('ul#toc li.multi_new_text_error')[0].show();
+      $$('ul#toc li.multi_new_text_error')[0].pulsate();
+    }
+  } else {
+    popup.href = popup.link.href; // reset, just incase the href has been changed
+    if (popup.popup == null || popup.popup.element == null) {
+      popup.popup = new Popup(popup.href, popup.link, popup.options);
+      popup.popup.toggle = function() {
+        if (this.element.visible()) {
+          jQuery('#'+this.id).fadeOut("normal", function() {this.destroy();}.bind(this));
+        } else {
+          this.show();
+        }
+      };
+      popup.popup.toggle();
+    }
+  }
+};
+
+EOL.TextObjects.hide_multi_text_error = function() {
+  $$('div.cpc-header div.multi_new_text_error')[0].hide();
+  $$('ul#toc li.multi_new_text_error')[0].hide();
+}

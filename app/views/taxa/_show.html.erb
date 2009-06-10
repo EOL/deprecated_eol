@@ -92,6 +92,9 @@
                       </div>
                       <%= link_to("Add New", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => 'new_text_toc_text' ) -%>
                     </li>
+                    <li class="multi_new_text_error" style="display:none;">
+                      Only one text object can be edited at a time.
+                    </li>
                   <% end %>
             </ul>
             <hr />

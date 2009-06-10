@@ -165,3 +165,5 @@ div.insert_text table td { padding: 5px; vertical-align:top; }
 .toc_select label {
   display: inline !important;
 }
+
+.multi_new_text_error { color:red; text-align:right; }

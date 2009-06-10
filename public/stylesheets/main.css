@@ -1941,7 +1941,7 @@ ul#global-navigation {
     }
 
     #content #page-content #center-page-content .cpc-header .add_text_button {
-      margin-top:15px;
+      margin-top:10px;
     }
 
       #content #page-content #center-page-content .cpc-header a.contribute {
@@ -3176,4 +3176,5 @@ div.edit_text {
   height: 22px;
   float: right;
   padding-right: 5px;
+  text-align: right;
 }

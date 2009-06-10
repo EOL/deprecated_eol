@@ -1,6 +1,9 @@
 <div id="text_wrapper_<%=content_item.id%>" <%="style='display:none'" if @hide%>  <%='class="text_object"' if !@preview%>>
   <div class="content-article <%=vetted_id_class(content_item)%>" id="text_<%=content_item.id%>">
     <% if !content_item.user.nil? && content_item.user.id == current_user.id %>
+      <div class="multi_new_text_error" style="display:none;">
+        Only one text object can be edited at a time.
+      </div>
       <div class="edit_text">
         <%= link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_id, :toc_id => @category_id}) -%>
       </div>

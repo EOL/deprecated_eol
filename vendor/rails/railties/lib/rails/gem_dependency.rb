@@ -113,14 +113,14 @@ module Rails
 
       def install_command
         cmd = %w(install) << @name
-        cmd << "--version" << %(#{@requirement.to_s.gsub(/[ ~>=]/, '')}) if @requirement
+        cmd << "--version" << %("#{@requirement.to_s}") if @requirement
         cmd << "--source"  << @source  if @source
         cmd
       end
 
       def unpack_command
         cmd = %w(unpack) << @name
-        cmd << "--version" << %(#{@requirement.to_s.gsub(/[ ~>=]/, '')}) if @requirement
+        cmd << "--version" << %("#{@requirement.to_s}") if @requirement
         cmd
       end
   end

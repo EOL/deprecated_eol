@@ -292,7 +292,7 @@ class User < ActiveRecord::Base
   end
   
   def is_curator?
-    return (!self.curator_hierarchy_entry.blank? && self.curator_approved) # && has_curator_role? 
+    return (has_curator_role? && !self.curator_hierarchy_entry.blank?)
   end
   
   def last_curator_activity

@@ -2,7 +2,8 @@ require 'flay'
 require 'flog'
 require 'roodi'
 require 'roodi_task'
-require 'metric_fu'
+## Disabled until we get Ci up to snuff:
+#require 'metric_fu'
 
 desc "Analyze for code complexity"
 task :flog do

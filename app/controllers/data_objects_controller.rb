@@ -8,6 +8,7 @@ class DataObjectsController < ApplicationController
   def create
     data_object = DataObject.create_user_text(params, current_user)
     @curator = current_user.can_curate?(TaxonConcept.find(params[:taxon_concept_id]))
+    @category_id = data_object.toc_items[0].id
     @new_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
   end
 
@@ -34,6 +35,7 @@ class DataObjectsController < ApplicationController
     @taxon_concept_id = @taxon_id = params[:taxon_concept_id]
     @curator = current_user.can_curate?(TaxonConcept.find(@taxon_concept_id))
     @hide = true
+    @category_id = @data_object.toc_items[0].id
     @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
   end
 

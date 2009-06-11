@@ -45,16 +45,54 @@ class TaxonConcept < SpeciesSchemaModel
     quick_common_name
   end
 
-  # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get extra credit on
-  # their associated TC pages. This method returns an Array of those users.  If you want a Set, call #approved_curators.
+  # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get
+  # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
-    approved_curators.to_a
+    # Cross-database join using a thousandfold more efficient algorithm than doing things separately:
+    ssm_db = SpeciesSchemaModel.connection.current_database
+    User.find_by_sql("
+      SELECT DISTINCT users.*
+      FROM users
+        JOIN #{ssm_db}.hierarchy_entries he1 ON (users.curator_hierarchy_entry_id = he1.id)
+        JOIN #{ssm_db}.hierarchy_entries he2 ON (he1.id = he2.id OR he1.hierarchy_id = he2.hierarchy_id
+                                                 AND he1.lft < he2.lft
+                                                 AND he1.rgt > he2.rgt)
+      WHERE curator_approved IS TRUE
+        AND he2.taxon_concept_id = #{self.id}  -- TaxonConcept#approved_curators
+    ")
   end
+
+  # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
+  # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
+  # not all of it's children.  (For example.)
+  def acting_curators
+    # Cross-database join using a thousandfold more efficient algorithm than doing things separately:
+    ssm_db = SpeciesSchemaModel.connection.current_database
+    User.find_by_sql("
+      SELECT DISTINCT users.*
+      FROM users
+        JOIN last_curated_dates lcd ON (users.id = lcd.user_id AND lcd.last_curated >= '#{2.years.ago.to_s(:db)}')
+        JOIN #{ssm_db}.hierarchy_entries he1 ON (users.curator_hierarchy_entry_id = he1.id)
+        JOIN #{ssm_db}.hierarchy_entries he2 ON (he1.id = he2.id OR he1.hierarchy_id = he2.hierarchy_id
+                                                 AND he1.lft < he2.lft
+                                                 AND he1.rgt > he2.rgt)
+      WHERE curator_approved IS TRUE
+        AND lcd.taxon_concept_id = #{self.id}
+        AND he2.taxon_concept_id = #{self.id}  -- TaxonConcept#approved_curators
+    ")
+  end
+
+  
 
   # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
   # species is.  This will default to "unknown" for species that are not being tracked.
   def iucn_conservation_status
     return iucn.description
+  end
+
+  # Returns true if the specified user has access to this TaxonConcept.
+  def is_curatable_by? user
+    curators.include?(user)
   end
 
   # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)
@@ -175,22 +213,6 @@ class TaxonConcept < SpeciesSchemaModel
     return host_urls
   end
 
-  def approved_curators
-    approved = Set.new
-    self.hierarchy_entries.each do |he|
-      approved.merge he.approved_curators
-    end
-    return approved
-  end
-
-  def acting_curators
-    acting = Set.new
-    self.hierarchy_entries.each do |he|
-      acting.merge he.acting_curators
-    end
-    return acting 
-  end
-  
   def gbif_map_id
     hierarchy_entries.each do |entry|
       return entry.identifier if entry.has_gbif_identifier?
@@ -285,7 +307,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   def quick_common_name(language = nil)
     language ||= current_user.language
-    common_name_results = SpeciesSchemaModel.connection.select_values("SELECT n.string FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1 LIMIT 1")
+    common_name_results = SpeciesSchemaModel.connection.select_values("SELECT n.string FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1 LIMIT 1")
     if common_name_results.empty?
       return ''
     end
@@ -298,14 +320,14 @@ class TaxonConcept < SpeciesSchemaModel
 
     search_type = case type
       when :italicized  then {:name_field => 'n.italicized', :also_join => ''}
-      when :canonical   then {:name_field => 'cf.string',    :also_join => 'JOIN canonical_forms cf ON (n.canonical_form_id=cf.id)'}
+      when :canonical   then {:name_field => 'cf.string',    :also_join => 'JOIN canonical_forms cf ON (n.canonical_form_id = cf.id)'}
       else                   {:name_field => 'n.string',     :also_join => ''}
     end
 
     scientific_name_results = SpeciesSchemaModel.connection.execute(
       "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
-       FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id=n.id) #{search_type[:also_join]}
-         LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id=he.id)
+       FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) #{search_type[:also_join]}
+         LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id)
        WHERE tcn.taxon_concept_id=#{id} AND vern=0 AND preferred=1").all_hashes
 
     final_name = ''
@@ -369,7 +391,7 @@ class TaxonConcept < SpeciesSchemaModel
               :errors     => errors}
     end
     
-    name_ids = SpeciesSchemaModel.connection.select_values("SELECT name_id, count(*) FROM normalized_names nn STRAIGHT_JOIN normalized_links nl ON (nn.id=nl.normalized_name_id) WHERE (#{modified_search_terms.join(' OR ')}) AND nl.normalized_qualifier_id=1 GROUP BY name_id HAVING count(*)>=#{modified_search_terms.length}")
+    name_ids = SpeciesSchemaModel.connection.select_values("SELECT name_id, count(*) FROM normalized_names nn STRAIGHT_JOIN normalized_links nl ON (nn.id = nl.normalized_name_id) WHERE (#{modified_search_terms.join(' OR ')}) AND nl.normalized_qualifier_id=1 GROUP BY name_id HAVING count(*)>=#{modified_search_terms.length}")
     
     if name_ids.length == 0 
       return {:common     => com_concepts,
@@ -380,7 +402,7 @@ class TaxonConcept < SpeciesSchemaModel
     
     agent_clause = ''
     if !options[:agent].nil? || (!options[:user].nil? && options[:user].is_admin?)
-      agent_clause = "LEFT JOIN (agents_resources ar JOIN hierarchies_resources hr ON (ar.resource_id=hr.resource_id AND ar.resource_agent_role_id = #{ResourceAgentRole.content_partner_upload_role.id}) JOIN hierarchy_entries he2 ON (hr.hierarchy_id=he2.hierarchy_id)) ON (he2.taxon_concept_id=tc.id)"
+      agent_clause = "LEFT JOIN (agents_resources ar JOIN hierarchies_resources hr ON (ar.resource_id = hr.resource_id AND ar.resource_agent_role_id = #{ResourceAgentRole.content_partner_upload_role.id}) JOIN hierarchy_entries he2 ON (hr.hierarchy_id = he2.hierarchy_id)) ON (he2.taxon_concept_id = tc.id)"
     end
     
     vetted_condition = options[:user].vetted ? "(published=1 AND tc.vetted_id=#{Vetted.trusted.id})" : "published=1"
@@ -389,7 +411,7 @@ class TaxonConcept < SpeciesSchemaModel
       agent_condition = "OR ar.agent_id IS NOT NULL"
     end
     
-    taxon_concept_ids = SpeciesSchemaModel.connection.execute("SELECT tcn.taxon_concept_id id, tcn.vern is_vern, tcn.preferred preferred, tcc.content_level content_level, n.string matching_string, n.italicized matching_italicized_string, he.hierarchy_id hierarchy_id FROM taxon_concept_names tcn STRAIGHT_JOIN names n ON (tcn.name_id=n.id) STRAIGHT_JOIN taxon_concepts tc ON (tc.id = tcn.taxon_concept_id) LEFT JOIN taxon_concept_content tcc ON (tcn.taxon_concept_id=tcc.taxon_concept_id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id=he.id) #{agent_clause} WHERE tcn.name_id IN (#{name_ids.join(',')}) AND (#{vetted_condition} #{agent_condition}) ORDER BY preferred DESC").all_hashes
+    taxon_concept_ids = SpeciesSchemaModel.connection.execute("SELECT tcn.taxon_concept_id id, tcn.vern is_vern, tcn.preferred preferred, tcc.content_level content_level, n.string matching_string, n.italicized matching_italicized_string, he.hierarchy_id hierarchy_id FROM taxon_concept_names tcn STRAIGHT_JOIN names n ON (tcn.name_id = n.id) STRAIGHT_JOIN taxon_concepts tc ON (tc.id = tcn.taxon_concept_id) LEFT JOIN taxon_concept_content tcc ON (tcn.taxon_concept_id = tcc.taxon_concept_id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) #{agent_clause} WHERE tcn.name_id IN (#{name_ids.join(',')}) AND (#{vetted_condition} #{agent_condition}) ORDER BY preferred DESC").all_hashes
     
     used_concept_ids = []
     sci_concepts = []
@@ -433,11 +455,11 @@ class TaxonConcept < SpeciesSchemaModel
 
     SELECT distinct do.*
       FROM taxon_concept_names tcn
-        JOIN taxa t ON (tcn.name_id=t.name_id)
-        JOIN harvest_events_taxa het ON (t.id=het.taxon_id)
-        JOIN harvest_events he ON (het.harvest_event_id=he.id)
-        JOIN data_objects_taxa dot ON (t.id=dot.taxon_id)
-        JOIN data_objects do ON (dot.data_object_id=do.id)
+        JOIN taxa t ON (tcn.name_id = t.name_id)
+        JOIN harvest_events_taxa het ON (t.id = het.taxon_id)
+        JOIN harvest_events he ON (het.harvest_event_id = he.id)
+        JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
+        JOIN data_objects do ON (dot.data_object_id = do.id)
       WHERE tcn.taxon_concept_id = ?
         AND he.resource_id IN (?)
         AND published = 1
@@ -523,27 +545,6 @@ EOIUCNSQL
     taxon_concept_content.content_level
   end
   
-  def direct_ancestors
-    he_all = []
-    hierarchy_entries.each do |he|
-      he_all << he
-      parent = he.parent
-      until parent.nil?
-        he_all << parent
-        parent = parent.parent
-      end
-    end
-    he_all
-  end
-
-  def is_curatable_by? user
-    he_all = direct_ancestors
-    # hierarchy_entries_with_parents_above_clade = hierarchy_entries_with_parents
-    # hierarchy_entries_with_parents_above_clade
-    permitted = he_all.find {|entry| user.curator_hierarchy_entry_id == entry.id }
-    if permitted then true else false end
-  end
-
   # Gets an Array of TaxonConcept given DataObjects or their IDs
   #
   # this goes data_objects => data_objects_taxa => taxa => taxon_concept_names => taxon_concepts
@@ -683,7 +684,7 @@ private
 #       }
 #     end
     
-    mappings = SpeciesSchemaModel.connection.execute("SELECT DISTINCT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name, c.title collection_title, c.link collection_link, c.logo_url icon, c.uri collection_uri FROM taxon_concept_names tcn JOIN mappings m ON (tcn.name_id=m.name_id) JOIN collections c ON (m.collection_id=c.id) JOIN agents a ON (c.agent_id=a.id) WHERE tcn.taxon_concept_id = #{id} AND (c.vetted=1 OR c.vetted=#{current_user.vetted}) GROUP BY c.id").all_hashes
+    mappings = SpeciesSchemaModel.connection.execute("SELECT DISTINCT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name, c.title collection_title, c.link collection_link, c.logo_url icon, c.uri collection_uri FROM taxon_concept_names tcn JOIN mappings m ON (tcn.name_id = m.name_id) JOIN collections c ON (m.collection_id = c.id) JOIN agents a ON (c.agent_id = a.id) WHERE tcn.taxon_concept_id = #{id} AND (c.vetted=1 OR c.vetted=#{current_user.vetted}) GROUP BY c.id").all_hashes
     mappings.each do |mapping|
       mapping["url"] = mapping["collection_uri"].gsub!(/FOREIGNKEY/, mapping["foreign_key"])
     end
@@ -700,17 +701,8 @@ private
   end
 
   def biodiversity_heritage_library
-    # items = ItemPage.find_by_sql([
-    #                         'SELECT pt.title title, pt.url title_url, pt.details details, ip.*
-    #                            FROM taxon_concept_names tcn 
-    #                              JOIN page_names pn USING (name_id) 
-    #                              JOIN item_pages ip ON (pn.item_page_id = ip.id)
-    #                              JOIN title_items ti ON (ip.title_item_id = ti.id)
-    #                              JOIN publication_titles pt ON (ti.publication_title_id = pt.id)
-    #                            WHERE tcn.taxon_concept_id = ?
-    #                             LIMIT 0,500 # TaxonConcept#bhl', id])  # TODO - sorting is wrong
     
-    items = SpeciesSchemaModel.connection.execute("SELECT DISTINCT ti.id item_id, pt.title publication_title, pt.url publication_url, pt.details publication_details, ip.year item_year, ip.volume item_volume, ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url FROM taxon_concept_names tcn JOIN page_names pn ON (tcn.name_id=pn.name_id) JOIN item_pages ip ON (pn.item_page_id=ip.id) JOIN title_items ti ON (ip.title_item_id=ti.id) JOIN publication_titles pt ON (ti.publication_title_id=pt.id) WHERE tcn.taxon_concept_id = #{id} LIMIT 0,1000").all_hashes
+    items = SpeciesSchemaModel.connection.execute("SELECT DISTINCT ti.id item_id, pt.title publication_title, pt.url publication_url, pt.details publication_details, ip.year item_year, ip.volume item_volume, ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url FROM taxon_concept_names tcn JOIN page_names pn ON (tcn.name_id = pn.name_id) JOIN item_pages ip ON (pn.item_page_id = ip.id) JOIN title_items ti ON (ip.title_item_id = ti.id) JOIN publication_titles pt ON (ti.publication_title_id = pt.id) WHERE tcn.taxon_concept_id = #{id} LIMIT 0,1000").all_hashes
     
     sorted_items = items.sort_by { |item| [item["publication_title"], item["item_year"], item["item_volume"], item["item_issue"], item["item_number"].to_i] }
     
@@ -719,6 +711,7 @@ private
           :category_name => 'Biodiversity Heritage Library',
           :items         => sorted_items
         }
+
   end
 
   def catalogue_of_life_synonyms

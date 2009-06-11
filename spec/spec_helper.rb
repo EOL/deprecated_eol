@@ -16,6 +16,8 @@ require 'rackbox'
 
 Spec::Runner.configure do |config|
   include Scenario::Spec
+  include EOL::Data # this gives us access to methods that clean up our data (ie: lft/rgt values)
+  include EOL::DB   # this gives us access to methods that handle transactions
   include EOL::Spec::Helpers
   
   truncate_all_tables_once # truncate all tables (once) before running specs
@@ -43,26 +45,15 @@ Spec::Runner.configure do |config|
       klass
     end
 
-    [ User, CuratorActivity, Name ].each do |model|
-      conn = model.connection
-      Thread.current['open_transactions'] ||= 0
-      Thread.current['open_transactions'] += 1
-      conn.begin_db_transaction
-      # puts "BEGIN transaction"
-    end
+    start_transactions
+
   end
   config.after(:each) do
     UseDbPlugin.all_use_dbs.collect do |klass|
       klass
     end
 
-    [ User, CuratorActivity, Name ].each do |model|
-      conn = model.connection
-      conn.rollback_db_transaction
-      Thread.current['open_transactions'] = 0
-      # puts "ROLLBACK"
-      # TODO after rolling back, this might be a good place to reset the auto_increment on tables
-    end
+    rollback_transactions
   end
 
 end

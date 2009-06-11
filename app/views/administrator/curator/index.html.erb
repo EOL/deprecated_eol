@@ -7,7 +7,7 @@ Click a username to view the user's detailed profile.  You may change the clade 
 		Search for curators containing: <%= text_field_tag(:user_search_string,@user_search_string)%> <%= submit_tag 'Search' %>
 		<br/>
 		<br/>
-			<% end %>
+
 
 		<% if @users.nil? == false && @users.size > 0 %>
 			
@@ -42,7 +42,7 @@ Click a username to view the user's detailed profile.  You may change the clade 
 	    <% else %>
 				No users are available matching your search criteria.
             <%end %>
-
+			<% end %>
 </div>
 						
 <%= render :partial => '/admin/content_bottom' %>

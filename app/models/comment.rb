@@ -74,7 +74,7 @@ class Comment < ActiveRecord::Base
   
   # Test if the parent object (DataObject or TaxonConcept) can be curated by a user:
   def is_curatable_by? user
-    user.can_curate? parent
+    parent.is_curatable_by?(user)
   end
 
   # TODO - this method should not have a bang.  (See Matz' rant)
@@ -100,7 +100,7 @@ class Comment < ActiveRecord::Base
   end
   
   def curator_activity_flag
-    if parent.is_curatable_by?(user)
+    if is_curatable_by?(user)
       if self.parent_type == "DataObject"
         taxon_concept_id = parent.taxon_concepts[0].id
       elsif self.parent_type == "TaxonConcept"
@@ -120,10 +120,9 @@ protected
   end
 
   def set_from_curator
-    self.from_curator = parent.is_curatable_by?(user) if self.from_curator.nil?
+    self.from_curator = is_curatable_by?(user) if self.from_curator.nil?
     return self.from_curator.to_s
   end
-
 
 end
 

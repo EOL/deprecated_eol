@@ -181,7 +181,7 @@ class DataObject < SpeciesSchemaModel
 
   # Test whether a user has curator rights on this object
   def is_curatable_by? user
-    ( hierarchy_entries.collect {|entry| user.can_curate? entry } ).include? true
+    taxon_concepts.collect {|tc| tc.is_curatable_by?(user) }.include?(true)
   end
 
   # Find the Agent (only one) that supplied this data object to EOL.
@@ -272,14 +272,17 @@ class DataObject < SpeciesSchemaModel
     return DataObject.image_cache_path(object_cache_url, size) 
   end
 
+  # Returns the src when you want an image tag containing a thumbnail.
   def smart_thumb
     thumb_or_object(:small)
   end
 
+  # Returns the src when you want an image tag containing a "larger" thumbnail (a'la main page).
   def smart_medium_thumb
     thumb_or_object(:medium)
   end
 
+  # Returns the src when you want an image tag containing the *full* image.
   def smart_image
     thumb_or_object
   end  

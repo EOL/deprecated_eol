@@ -11,6 +11,17 @@ EOL.TextObjects.Behaviors = {
     EOL.TextObjects.toggle_dialog(e,EOL.popup_links['new_text_toc_text'],this);
   },
 
+  'div.edit_text a': function(e) {
+    new EOL.PopupLink(this,{insert_after:this.up(2).id, additional_classes:'insert_text'});
+    Event.stopObserving(this,'click');
+  },
+
+  'div.edit_text a:click': function(e) {
+    //scroll browser down to the bottom of the text, near where the popup will appear
+    //Effect.ScrollTo(this.up(2).nextSiblings()[1].id);
+    EOL.TextObjects.toggle_dialog(e,EOL.popup_links[this.id],this);
+  },
+
   'div.insert_text form.edit_data_object:submit': function(e) {
     EOL.TextObjects.submit_text(this,e);
     return false;
@@ -33,15 +44,6 @@ EOL.TextObjects.Behaviors = {
                      });
     EOL.TextObjects.disable_form(form);
     return false;
-  },
-
-  'div.edit_text a': function(e) {
-    new EOL.PopupLink(this,{insert_after:this.up(2).id, additional_classes:'insert_text'});
-  },
-
-  'div.edit_text a:click':function(e) {
-    //scroll browser down to the bottom of the text, near where the popup will appear
-    Effect.ScrollTo(this.up(2).nextSiblings()[1].id);
   },
 
   'input#cancel_edit_text:click': function(e) {
@@ -207,16 +209,22 @@ EOL.TextObjects.toggle_dialog = function(e,popup,el) {
   e.stop();
 
   //hide old warnings
-  EOL.TextObjects.hide_multi_text_error();
+  $$('.multi_new_text_error').each(function(el) {el.hide();});
 
-  if($('insert_text_popup') && $('insert_text_popup').style.display == '') {
+  if($$('div.insert_text')[0] && $$('div.insert_text')[0].style.display == '') {
     //show warning because add/edit popup is already being displayed
     if(el.id == "new_text_content_button") {
+      //button on the top of the content area
       $$('div.cpc-header div.multi_new_text_error')[0].show();
       $$('div.cpc-header div.multi_new_text_error')[0].pulsate();
-    } else {
+    } else if(el.id == "new_text_toc_text" || el.id == "new_text_toc_button") {
+      //links in the toc
       $$('ul#toc li.multi_new_text_error')[0].show();
       $$('ul#toc li.multi_new_text_error')[0].pulsate();
+    } else {
+      //edit links
+      el.up(2).down('div.multi_new_text_error').show();
+      el.up(2).down('div.multi_new_text_error').pulsate();
     }
   } else {
     popup.href = popup.link.href; // reset, just incase the href has been changed
@@ -233,8 +241,3 @@ EOL.TextObjects.toggle_dialog = function(e,popup,el) {
     }
   }
 };
-
-EOL.TextObjects.hide_multi_text_error = function() {
-  $$('div.cpc-header div.multi_new_text_error')[0].hide();
-  $$('ul#toc li.multi_new_text_error')[0].hide();
-}

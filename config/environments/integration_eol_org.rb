@@ -7,7 +7,7 @@
 #============================================================
 
 # Uncomment the cache_store option desired.  The default is memcached
-config.cache_store = :mem_cache_store, '127.0.0.1:11211'
+Rails.configuration.cache_store = :mem_cache_store, '127.0.0.1:11211'
 # config.cache_store = :file_store, "/data/cache"
 
 

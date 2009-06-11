@@ -15,7 +15,6 @@ class HierarchyEntry < SpeciesSchemaModel
   belongs_to :taxon_concept
 
   has_many :concepts
-  has_many :curators, :class_name => 'User', :foreign_key => :curator_hierarchy_entry_id
   has_many :top_images, :foreign_key => :hierarchy_entry_id
   has_many :taxa # Sometimes we go through names (which we can't Railsify)... but this relationship also exists directly
   has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
@@ -89,25 +88,7 @@ class HierarchyEntry < SpeciesSchemaModel
   end
 
   def rank_label
-
     rank.nil? ? "taxon" : rank.label
-
-  end
-
-  def approved_curators
-    he_all = taxon_concept.direct_ancestors
-    ids = he_all.collect do |he| he.id end
-    all = User.find(:all, :conditions => ["curator_hierarchy_entry_id IN (#{ids.join(',')}) and curator_approved IS TRUE"])
-    return all
-  end
-
-#the curators doing something inside last two years
-  def acting_curators
-    he_all = taxon_concept.direct_ancestors
-    ids = he_all.collect do |he| he.id end
-    all = User.find(:all, :conditions => ["curator_hierarchy_entry_id IN (#{ids.join(',')}) and curator_approved IS TRUE"])
-    return all.reject {|user| user.last_curator_activity.nil? or
-                              user.last_curator_activity < 2.years.ago }
   end
 
   def with_parents
@@ -115,10 +96,11 @@ class HierarchyEntry < SpeciesSchemaModel
   end
   alias hierarchy_entries_with_parents with_parents
 
+  # Returns true if the specified user has access to the TaxonConcept that this HierarchyEntry belongs to
+  # (because curators have access to pages, not really specific HierarchyEntry instances.  This is confusing
+  # because users have a HierarchyEntry that their 
   def is_curatable_by? user
-    hierarchy_entries_with_parents_above_clade = taxon_concept.direct_ancestors
-    permitted = hierarchy_entries_with_parents_above_clade.find {|entry| user.curator_hierarchy_entry_id == entry.id }
-    if permitted then true else false end
+    return taxon_concept.is_curatable_by? user
   end
 
   # this is meant to be filtered by a taxon concept so it will find all hierarchy entries AND their ancestors/parents for a given TaxonConcept
@@ -298,7 +280,7 @@ class HierarchyEntry < SpeciesSchemaModel
     return true
   end
 
-  # Looks up the ancestry to find the nearest node that it can attach to which matches the default Hierarchy.
+  # Walk up the list of ancestors until you find a node that we can map to the default hierarchy.
   def find_default_hierarchy_ancestor
     he = self
     until he.taxon_concept.in_hierarchy(Hierarchy.default.id)

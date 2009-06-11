@@ -34,6 +34,35 @@ class EOL
         end
       end
     end
+
+    def start_transactions
+      [ User, CuratorActivity, Name ].each do |model|
+        conn = model.connection
+        Thread.current['open_transactions'] ||= 0
+        Thread.current['open_transactions'] += 1
+        conn.begin_db_transaction
+        # puts "BEGIN transaction"
+      end
+    end
+
+    def commit_transactions
+      [ User, CuratorActivity, Name ].each do |model|
+        conn = model.connection
+        conn.commit_db_transaction
+        Thread.current['open_transactions'] = 0
+      end
+    end
+
+    def rollback_transactions
+      [ User, CuratorActivity, Name ].each do |model|
+        conn = model.connection
+        conn.rollback_db_transaction
+        Thread.current['open_transactions'] = 0
+        # puts "ROLLBACK"
+        # TODO after rolling back, this might be a good place to reset the auto_increment on tables
+      end
+    end
+
   end
     
   module Data

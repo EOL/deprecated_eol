@@ -47,27 +47,7 @@ EOL.TextObjects.Behaviors = {
   },
 
   'input#cancel_edit_text:click': function(e) {
-    data_object_id = this.readAttribute('data-data_object_id');
-
-    //remove preview text
-    jQuery('div#text_wrapper_').fadeOut(1000, function() {this.remove();});
-
-    //if the old text still exists on the page, just remove the edit div
-    if($('text_wrapper_'+data_object_id) || $('original_toc_id').value != $('data_objects_toc_category_toc_id')[$('data_objects_toc_category_toc_id').selectedIndex].value) {
-      jQuery("div#text_wrapper_"+data_object_id+"_popup").fadeOut(1000, function() {EOL.popups[this.id].destroy();});
-    } else {
-      form = $('edit_data_object_'+data_object_id);
-
-      new Ajax.Request(form.action.gsub('/data_objects/','/data_objects/get/'),
-                       {
-                         asynchronous:true,
-                         evalScripts:true,
-                         method:'post',
-                         parameters:Form.serialize(form)
-                       });
-
-      EOL.TextObjects.disable_form(form);
-    }
+    EOL.TextObjects.cancel_edit(this.readAttribute('data-data_object_id'));
   },
 
   'select#data_objects_toc_category_toc_id:change': function(e) {
@@ -232,12 +212,39 @@ EOL.TextObjects.toggle_dialog = function(e,popup,el) {
       popup.popup = new Popup(popup.href, popup.link, popup.options);
       popup.popup.toggle = function() {
         if (this.element.visible()) {
-          jQuery('#'+this.id).fadeOut("normal", function() {this.destroy();}.bind(this));
+          if(this.id == 'insert_text_popup') {
+            EOL.TextObjects.remove_preview();
+            jQuery('#'+this.id).fadeOut("normal", function() {this.destroy();}.bind(this));
+          } else {
+            EOL.TextObjects.cancel_edit(this.element.down('form').readAttribute('data-data_object_id'));
+          }
         } else {
           this.show();
         }
       };
       popup.popup.toggle();
     }
+  }
+};
+
+EOL.TextObjects.cancel_edit = function(data_object_id) {
+  //remove preview text
+  EOL.TextObjects.remove_preview();
+
+  //if the old text still exists on the page, just remove the edit div
+  if($('text_wrapper_'+data_object_id) || $('original_toc_id').value != $('data_objects_toc_category_toc_id')[$('data_objects_toc_category_toc_id').selectedIndex].value) {
+    jQuery("div#text_wrapper_"+data_object_id+"_popup").fadeOut(1000, function() {EOL.popups[this.id].destroy();});
+  } else {
+    form = $('edit_data_object_'+data_object_id);
+
+    new Ajax.Request(form.action.gsub('/data_objects/','/data_objects/get/'),
+                     {
+                       asynchronous:true,
+                       evalScripts:true,
+                       method:'post',
+                       parameters:Form.serialize(form)
+                     });
+
+    EOL.TextObjects.disable_form(form);
   }
 };

@@ -5,7 +5,7 @@
         Only one text object can be edited at a time.
       </div>
       <div class="edit_text">
-        <%= link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_id, :toc_id => @category_id}) -%>
+        <%= link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => "edit_text_#{content_item.id}") -%>
       </div>
     <% end %>
     <% if content_item.object_title.blank? == false && content_item.object_title != category %>

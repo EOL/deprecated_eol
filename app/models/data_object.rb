@@ -5,6 +5,8 @@ require 'erb'
 # Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one of our primary
 # models, and an awful lot of work occurs here.
 class DataObject < SpeciesSchemaModel
+  
+  include UserActions
 
   belongs_to :data_type
   belongs_to :language
@@ -38,6 +40,7 @@ class DataObject < SpeciesSchemaModel
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
 
+  #----- user submitted text --------
   def self.update_user_text(all_params, user)
     dato = DataObject.find(all_params[:id])
     if dato.user.id != user.id
@@ -76,6 +79,7 @@ class DataObject < SpeciesSchemaModel
     d.curator_activity_flag(user, all_params[:taxon_concept_id])
     udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!
+    d.new_actions_histories(user, udo, 'users_submitted_text', 'update')
     d
   end
 
@@ -140,6 +144,7 @@ class DataObject < SpeciesSchemaModel
     d.curator_activity_flag(user, all_params[:taxon_concept_id])
     udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!
+    d.new_actions_histories(user, udo, 'users_submitted_text', 'create')
     d
   end
 
@@ -147,6 +152,15 @@ class DataObject < SpeciesSchemaModel
     udo = UsersDataObject.find_by_data_object_id(self.id)
     udo.nil? ? nil : User.find(udo.user_id)
   end
+  
+  def taxon_concept_for_users_text
+    unless self.user.nil?
+      udo = UsersDataObject.find_by_data_object_id(self.id)
+      TaxonConcept.find(udo.taxon_concept_id)
+    end
+  end
+
+  #----- end of user submitted text --------
 
   def rate(user,stars)
     rating = UsersDataObjectsRating.find_by_data_object_id_and_user_id(self.id, user.id)
@@ -176,6 +190,7 @@ class DataObject < SpeciesSchemaModel
   def comment(user, body)
     comment = comments.create :user_id => user.id, :body => body
     user.comments.reload # be friendly - update the user's comments automatically
+    new_actions_histories(user, comment, 'comment', 'create')
     return comment
   end
 
@@ -320,13 +335,11 @@ class DataObject < SpeciesSchemaModel
   alias user_tags private_tags
   alias users_tags private_tags
 
-
   # Names of taxa associated with this image
   def taxa_names_taxon_concept_ids
     taxa=Taxon.find_by_sql("select t.scientific_name as taxon_name, tcn.taxon_concept_id as taxon_concept_id from data_objects_taxa dot join taxa t on (dot.taxon_id=t.id) join taxon_concept_names tcn on (t.name_id=tcn.name_id) where data_object_id=#{self.id} group by t.id")
     taxa.map{|t| {:taxon_name => t.taxon_name, :taxon_concept_id => t.taxon_concept_id}}
   end
-
 
   # returns a hash in the format { 'tag_key' => ['value1','value2'] }
   def tags_hash
@@ -372,14 +385,19 @@ class DataObject < SpeciesSchemaModel
 
     if activity.code[/^approve$/i]
       vet
+      new_actions_histories(user, self, 'data_object', 'trusted')
     elsif activity.code[/^disapprove$/i]
       unvet
+      new_actions_histories(user, self, 'data_object', 'untrusted')
     elsif activity.code[/^show$/i]
       make_visible
+      new_actions_histories(user, self, 'data_object', 'show')
     elsif activity.code[/^hide$/i]
       hide
+      new_actions_histories(user, self, 'data_object', 'hide')
     elsif activity.code[/^inappropriate$/i]
       inappropriate
+      new_actions_histories(user, self, 'data_object', 'inappropriate')
     else
       raise "Not sure how to #{activity.code} a DataObject"
     end
@@ -432,7 +450,6 @@ class DataObject < SpeciesSchemaModel
            :last_curated => Time.now)
      end    
   end
-
 
   def to_s
     "[DataObject id:#{id}]"

@@ -24,7 +24,7 @@ describe Factory do
       CuratorCommentLog, CuratorDataObjectLog, Hierarchy, HierarchyEntry,
       TaxonConcept, PageName, NormalizedLink, PublicationTitle, InfoItem, Taxon,
       Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
-      AgentDataType, AgentContactRole, ServiceType ].uniq
+      AgentDataType, AgentContactRole, ServiceType, ActionWithObject, ChangeableObjectType ].uniq
   end
 
   # gets the names of the factories for classes ( default: model_classes )

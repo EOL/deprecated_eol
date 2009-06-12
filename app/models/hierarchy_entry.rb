@@ -147,18 +147,19 @@ class HierarchyEntry < SpeciesSchemaModel
   end
 
   def ancestors
-    YAML.load(Rails.cache.fetch("hierarchy_entries/#{id}/ancestors") do
+    Rails.cache.fetch("hierarchy_entries/#{id}/ancestors") do
       ancestors = [self]
       ancestors.unshift(find_default_hierarchy_ancestor) unless self.hierarchy_id == Hierarchy.default.id
       if ancestors.first.nil?
         ancestors = [self]
-        return ancestors
+        return ancestors # .to_yaml
       end
       until ancestors.first.parent.nil? do
-        ancestors.unshift(ancestors.first.parent) 
-      end 
-      ancestors.to_yaml
-    end)
+        ancestors.unshift(ancestors.first.parent)
+      end
+      return ancestors # .to_yaml
+    end
+    #YAML.load(yaml)
   end
 
   def ancestors_hash(detail_level = :middle, language = Language.english)

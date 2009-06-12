@@ -17,6 +17,7 @@
       <th>License</th>
       <th>Status</th>
       <th>Actions</th>
+      <th>RSS status</th>
     </tr>
 
   <% for resource in @resources %>
@@ -26,9 +27,8 @@
       <td align="center"><%=h frequency(resource.refresh_period_hours) %></td>
       <td><%=h (resource.license.blank? ? "unspecified" : resource.license.title) %></td>
       <td><%=h resource.status_label %></td>
-      <td>
-        <%= link_to 'Edit', edit_resource_path(resource) %>
-      </td>
+      <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
+      <td><%= link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=5&resource_id=#{resource.id}")%></td>
     </tr>
     <%- if !resource.description.blank? -%>
     <tr class="resource_rowsep">
@@ -44,5 +44,3 @@
 <%= link_to 'Create a new resource description', new_resource_path %>
 </div>
 <%= render :partial=> '/content_partner/bottom' %>
-
-

@@ -64,6 +64,7 @@ class CommentsController < ApplicationController
     end
   end
 
+#show/hide comment
   def remove
     current_user.unvet current_object 
     render :partial => current_object.save ? 'remove' : 'error'

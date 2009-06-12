@@ -220,6 +220,10 @@ Factory.sequence(:int    ){|n| n }
 
 #### Factories
 
+Factory.define :action_with_object do |awo|
+  awo.action_code { Factory.next(:string) }
+end
+
 Factory.define :agent do |agent|
   agent.created_at      { 5.days.ago }
   agent.homepage        ''
@@ -617,6 +621,10 @@ end
 
 Factory.define :normalized_name do |nn|
   nn.name_part Factory.next(:string)
+end
+
+Factory.define :changeable_object_type do |ot|
+  ot.ch_object_type { Factory.next(:string) }
 end
 
 Factory.define :page_name do |pn|

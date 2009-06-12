@@ -6,21 +6,23 @@
 #
 # Note that we presently have no way to edit comments, and won't add this feature until it becomes important.
 class Comment < ActiveRecord::Base
+  
+  include UserActions
 
   belongs_to :user
   belongs_to :parent, :polymorphic => true
-
+  
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
   named_scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
 
   before_create :set_visible_at, :set_from_curator
   
-  after_create :curator_activity_flag
+  after_create  :curator_activity_flag
   
   validates_presence_of :body
 
   attr_accessor :vetted_by
-
+  
   # Comments can be hidden.  This method checks to see if a non-curator can see it:
   def visible?
     return false if visible_at.nil?
@@ -101,15 +103,18 @@ class Comment < ActiveRecord::Base
   
   def curator_activity_flag
     if is_curatable_by?(user)
-      if self.parent_type == "DataObject"
-        taxon_concept_id = parent.taxon_concepts[0].id
-      elsif self.parent_type == "TaxonConcept"
-        taxon_concept_id = parent.id
-      end
         LastCuratedDate.create(:user_id => user.id, 
         :taxon_concept_id => taxon_concept_id, 
         :last_curated => Time.now)
     end    
+  end
+  
+  def taxon_concept_id
+    return_t_c = case self.parent_type
+     when 'TaxonConcept' then parent.id
+     when 'DataObject'   then parent.taxon_concepts[0].id
+    end
+    return return_t_c
   end
 
 protected

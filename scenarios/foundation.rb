@@ -49,6 +49,17 @@ create_if_not_exists CuratorActivity, :code => 'inappropriate'
 create_if_not_exists CuratorActivity, :code => 'approve'
 create_if_not_exists CuratorActivity, :code => 'disapprove'
 
+
+# what one can do with a data_object
+create_if_not_exists ActionWithObject, :action_code => 'create'
+create_if_not_exists ActionWithObject, :action_code => 'update'     #?
+create_if_not_exists ActionWithObject, :action_code => 'delete'
+create_if_not_exists ActionWithObject, :action_code => 'trusted'
+create_if_not_exists ActionWithObject, :action_code => 'untrusted'
+create_if_not_exists ActionWithObject, :action_code => 'show'
+create_if_not_exists ActionWithObject, :action_code => 'hide'
+create_if_not_exists ActionWithObject, :action_code => 'inappropriate'
+
 # create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
 # them.  create_if_not_exists Once we do, they should get added here.
 create_if_not_exists AgentContactRole, :label => 'Primary Contact'
@@ -182,6 +193,11 @@ create_if_not_exists MimeType, :label => 'video/x-ms-wmv'
 %w{kingdom phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
   create_if_not_exists Rank, :label => rank
 end
+
+create_if_not_exists ChangeableObjectType, :ch_object_type => 'data_object'
+create_if_not_exists ChangeableObjectType, :ch_object_type => 'comment'
+create_if_not_exists ChangeableObjectType, :ch_object_type => 'tag'
+create_if_not_exists ChangeableObjectType, :ch_object_type => 'users_submitted_text'
 
 create_if_not_exists RefIdentifierType, :label => 'bici'
 create_if_not_exists RefIdentifierType, :label => 'coden'

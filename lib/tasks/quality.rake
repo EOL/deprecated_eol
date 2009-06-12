@@ -1,4 +1,4 @@
-if(ENV['RAILS_ENV'] =~ /test/) do
+if(ENV['RAILS_ENV'] =~ /test/)
   require 'flay'
   require 'flog'
   require 'roodi'

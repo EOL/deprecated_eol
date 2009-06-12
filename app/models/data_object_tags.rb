@@ -17,7 +17,7 @@ class DataObjectTags < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :data_object_tag
   belongs_to :user
-  
+    
   after_create :curator_activity_flag
   after_update :curator_activity_flag
 

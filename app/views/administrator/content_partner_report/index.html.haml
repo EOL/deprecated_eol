@@ -64,4 +64,21 @@ to sort by that column.
       
   .message{:id =>"message_area"}	
 	
+  %br/
+  %strong
+    RSS updates of harvests
+  %br/
+  =	link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=1")
+  Recently harvested resources (last 20)	
+  %br/
+  =	link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=2")
+  Recently published resources (last 20)	
+  %br/
+  =	link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=3")
+  Harvested resources awaiting publication	
+  %br/
+  =	link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=4")
+  Resources with harvest errors
+
+  %br/
 = render :partial => '/admin/content_bottom'	

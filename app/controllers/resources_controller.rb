@@ -50,7 +50,7 @@ class ResourcesController < ApplicationController
     
     after :update do
       
-      if params.key?(:publish) && current_user && current_user.is_admin?
+      if current_user && current_user.is_admin?
         if params[:publish] == '1' and current_object.resource_status == ResourceStatus.processed
           if current_object.publish 
             flash[:notice] = "Resource is published"
@@ -64,14 +64,15 @@ class ResourcesController < ApplicationController
             flash[:error] = "Could not unpublish resource"
           end
         end
+        current_object.auto_publish=params[:auto_publish] if params[:auto_publish]=='1' 
+        current_object.set_vetted_status(params[:vetted]) if params[:vetted]=='1' 
       end
-      current_object.auto_publish=params[:auto_publish] if params.key?(:auto_publish) && current_user && current_user.is_admin?      
-      current_object.set_vetted_status(params[:vetted]) if params.key?(:vetted) && current_user && current_user.is_admin?   
 
       current_object.save
       expire_taxa current_object.taxon_concept_ids, :expire_ancestors => true
+
     end
-    
+
     before :destroy do
       
       # delete the association between the resource and the agent if you delete the resource

@@ -2,8 +2,11 @@
 #                     integration.rb
 # Environment specific settings for the Integration environment
 #
-# Settings specified here will override those in 
-# config/environment.rb.
+# Settings specified here will override those in config/environment.rb
+#
+# # Configuration files are loaded in the following order with the settings
+# in each file overriding the settings in prior files
+#
 # 1) config/environment.rb
 # 2) config/environments/[RAILS_ENV].rb
 # 3) config/environments/[RAILS_ENV]_eol_org.rb
@@ -46,6 +49,9 @@ $ENABLE_RECAPTCHA=false
 $SHOW_SURVEYS=false 
 $SURVEY_URL="http://vovici.com/wsb.dll/s/6ea8g3124f"
 
+# The following tells Rails to check the database connection every 2 minutes
+# and if it isn't connected reconnect instead of throwing an exception
+ActiveRecord::Base.verification_timeout = 120
 
 # ANALYTICS CONFIGURATION
 # Set ENABLE_ANALYTICS to true to enable google analytics.  The
@@ -53,6 +59,10 @@ $SURVEY_URL="http://vovici.com/wsb.dll/s/6ea8g3124f"
 # to use if analytics is enabled.
 $ENABLE_ANALYTICS=false 
 $GOOGLE_ANALYTICS_ID="UA-3298646-1" 
+
+# The following tells Rails to check the database connection every 2 minutes
+# and if it isn't connected reconnect instead of throwing an exception
+ActiveRecord::Base.verification_timeout = 120
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin

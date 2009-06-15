@@ -13,17 +13,17 @@ describe 'build_taxon_concept (spec helper method)' do
     )
   end
 
-  it 'should put all new hierarchy_entries under the default hierarchy if none supplied' # do
-#    @taxon_concept.hierarchy_entries.each do |he|
-#      he.hierarchy.should == Hierarchy.default
-#    end
-#  end
+  it 'should put all new hierarchy_entries under the default hierarchy if none supplied'  do
+    @taxon_concept.hierarchy_entries.each do |he|
+      he.hierarchy.should == Hierarchy.default
+    end
+  end
 
-  it 'should put all new hierarchy_entries under the hierarchy supplied' #do
-#    @taxon_concept_with_args.hierarchy_entries.each do |he|
-#      he.hierarchy.should == @hierarchy
-#    end
-#  end
+  it 'should put all new hierarchy_entries under the hierarchy supplied' do
+    @taxon_concept_with_args.hierarchy_entries.each do |he|
+      he.hierarchy.should == @hierarchy
+    end
+  end
 
   it 'should use ___ as a default HarvestEvent for the data objects created if none provided'
 

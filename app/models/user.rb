@@ -39,6 +39,7 @@ class User < ActiveRecord::Base
   
   attr_accessor :entered_password ,:entered_password_confirmation
   attr_reader :full_name, :is_admin, :is_moderator
+  attr_accessor :curator_request
   
   def full_name
     return_value = given_name || ""

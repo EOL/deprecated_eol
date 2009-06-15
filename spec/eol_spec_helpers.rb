@@ -380,7 +380,27 @@ module EOL::Spec
       end
       # We're missing the info items.  Technically, the toc_item would be referenced by looking at the info items (creating any we're
       # missing).  TODO - we should build the info item first and let the toc_item resolve from that.
-      # TODO BHL - just create an entry in each of the four special tables, linked to any of the names.
+
+      # :bhl => [{:publication => 'Foobar', :page => 23}, {:publication => 'Bazboozer', :page => 78}]
+      if options[:bhl].nil?
+        options[:bhl] = [{:publication => 'Great Big Journal of Fun', :page => 42},
+                         {:publication => 'Great Big Journal of Fun', :page => 44},
+                         {:publication => 'The Journal You Cannot Afford', :page => 1}]
+      end
+      options[:bhl].each do |bhl|
+        publication = nil # scope
+        if bhl[:publication].nil?
+          publication = default_publication
+        else 
+          publication = PublicationTitle.find_by_title(bhl[:publication])
+          publication ||= PublicationTitle.gen(:title => bhl[:publication])
+        end
+        page = bhl[:page].to_i || (rand(400) + 1).to_i
+        ti   = TitleItem.gen(:publication_title => publication)
+        ip   = ItemPage.gen(:title_item => ti)
+        pn   = PageName.gen(:item_page => ip, :name => sname)
+      end
+
       # TODO Outlinks: create a Collection related to any agent, and then give it a mapping with a foreign_key that links to some external
       # site. (optionally, you could use collection.uri and replace the FOREIGN_KEY bit)
 

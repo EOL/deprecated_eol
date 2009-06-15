@@ -7,6 +7,9 @@
       <div class="edit_text">
         <%= link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => content_item.id, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => "edit_text_#{content_item.id}") -%>
       </div>
+      <% if content_item.object_title.blank? || content_item.object_title == category%>
+        <h1>&nbsp;</h1>
+      <% end %>
     <% end %>
     <% if content_item.object_title.blank? == false && content_item.object_title != category %>
       <h1><%= hh(content_item.object_title) %></h1>

@@ -2,7 +2,6 @@
 <table>
   <tr>
     <td width="25%">
-      <label for="data_object_TOC category">Toc category</label>
     </td>
     <td>
       <input type="hidden" id="original_toc_id" value="<%=@selected_toc[1]%>"/>
@@ -16,7 +15,7 @@
   </tr>
 
   <tr>
-    <td><%= f.label :description %></td>
+    <td><%= f.label :text %></td>
     <td><%= f.text_area( :description, :size => "33x8" )%> </td>
   </tr>
 

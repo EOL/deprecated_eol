@@ -14,7 +14,7 @@ class TaxaController < ApplicationController
 
     # you need to be a content partner and logged in to get here
     if current_agent.nil?
-      redirect_to(home_page_url)
+      redirect_to(root_url)
       return
     end
 

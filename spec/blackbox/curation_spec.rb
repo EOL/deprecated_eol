@@ -34,7 +34,7 @@ describe 'Curation' do
   it 'should show curation button when logged in as curator' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
 
-    login_as( curator ).should redirect_to('/index')
+    login_as( curator ).should redirect_to('/')
 
     request("/pages/#{@taxon_concept.id}").body.should have_tag('div#large-image-curator-button')
   end
@@ -42,7 +42,7 @@ describe 'Curation' do
   it 'should expire taxon from cache' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
 
-    login_as( curator ).should redirect_to('/index')
+    login_as( curator ).should redirect_to('/')
 
     old_cache_val = ActionController::Base.perform_caching
     ActionController::Base.perform_caching = true

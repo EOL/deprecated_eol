@@ -150,7 +150,7 @@ end
 
   # retrieve the stored URL that we want to go back to
   def return_to_url
-    session[:return_to] || home_page_url
+    session[:return_to] || root_url
   end
 
   # get the full current url being shown
@@ -163,7 +163,7 @@ end
   end
 
   # Redirect to the URL stored by the most recent store_location call or to the passed default.
-  def redirect_back_or_default(default=home_page_url)
+  def redirect_back_or_default(default=root_url)
 
     # be sure we aren't returning the login, register or logout page
     if return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url && !url_for(:controller=>'content_partner',:action=>'login',:only_path=>true).include?(return_to_url)
@@ -464,7 +464,7 @@ end
 
  def permission_denied
    flash[:notice] = "You don't have privileges to access this action"
-   return redirect_to(home_page_url)
+   return redirect_to(root_url)
  end
 
  def permission_granted
@@ -472,7 +472,7 @@ end
 
   # used as a before_filter on methods that you don't want users to see if they are logged in (such as the login or register page)
   def go_to_home_page_if_logged_in
-      redirect_to(home_page_url) if logged_in?
+      redirect_to(root_url) if logged_in?
    end
 
    def must_log_in
@@ -484,13 +484,13 @@ end
   # call this method if someone is not supposed to get a controller or action when user accounts are disabled
   def accounts_not_available
     flash[:warning]="We apologize, but the user registration system is not currently available.  Please try again later."[:user_system_down]
-    redirect_to home_page_url
+    redirect_to root_url
   end
 
    # A user is not authorized for the particular controller based on the rights for the roles they are in
     def access_denied
       flash.now[:warning]='You are not authorized to perform this action.'
-      request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to home_page_url)
+      request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to root_url)
     end
 #
 #############
@@ -500,7 +500,7 @@ end
     language = params[:language].to_s
     languages = Gibberish.languages.map { |l| l.to_s } + ["en"]
     current_user.language = Language.find_by_iso_639_1(language) if languages.include?(language)
-    return_to=(params[:return_to].blank? ? home_page_url : params[:return_to])
+    return_to=(params[:return_to].blank? ? root_url : params[:return_to])
     redirect_to return_to
   end
 

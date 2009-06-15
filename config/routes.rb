@@ -42,7 +42,6 @@ ActionController::Routing::Routes.draw do |map|
   map.set_language 'set_language', :controller => 'application', :action => 'set_language'
   map.set_flash_enabled 'set_flash_enabled', :controller => 'application', :action => 'set_flash_enabled'
 
-  map.home_page 'index',:controller => 'content'  
   map.flash_xml 'flashxml/:id.:format', :controller => 'navigation', :action => 'flash_tree_view'
 
   map.contact_us 'contact_us', :controller => 'content', :action => 'contact_us'

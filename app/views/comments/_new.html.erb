@@ -1,5 +1,5 @@
 <% if !logged_in? && $ALLOW_USER_LOGINS%>
-  <p><strong>You must be <%= link_to('logged in', login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? home_page_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} ) %> to post comments.</strong></p>
+  <p><strong>You must be <%= link_to('logged in', login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} ) %> to post comments.</strong></p>
 <% elsif logged_in? %>
   <h2>Add a New Comment</h2>
 

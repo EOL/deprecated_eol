@@ -33,7 +33,7 @@
         <div class='text-area-header references-header'>References</div>
         <ul>
         <% content_item.refs.each do |ref| %>
-          <li><%= h ref.full_reference -%>
+          <li><%= allow_some_html ref.full_reference -%>
             <% ref.ref_identifiers.each do |identifier| -%>
               <%# we do not show identifier unless we know how to handle them: -%>
               <% next unless identifier.display? -%>

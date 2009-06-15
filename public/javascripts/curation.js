@@ -96,6 +96,12 @@ EOL.Curation.Behaviors = {
   'div.trust_button a:click, div.untrust_button a:click': function(e) {
     EOL.Curation.quick_curate(this);
     e.stop();
+  },
+  
+  'input#curator_request': function(e) {
+    $(this).observe("click", function() {
+      EOL.Effect.toggle_with_effect("curator_request_options");  
+    });
   }
 };
 

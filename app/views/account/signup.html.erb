@@ -78,27 +78,31 @@
 	
 					    <label for="user_mailing_list" title="<%= "Do you want to receive EOL notifications by email?"[] %>"><%= "Do you want to receive EOL notifications by email?"[] %></label>
 	                    <%= f.check_box :mailing_list %> <%= "Yes"[:yes_answer] %>
-	
+
+					    <label for="user_curator_signup" title="<%= "Do you want to be a curator"[] %>"><%= "Do you want to be a curator?"[] %></label>
+	                    <%= f.check_box :curator_request, {:id => "curator_request"} %> <%= "Yes"[:yes_answer] %>
 	          <br /><br />
 	          
 	          <% if $ALLOW_CURATOR_SELF_REG %>
-    	          <label for="user_credentials" title="<%= "Curators Only"[] %>"><%= "Curators Only"[] %></label>
-    	          <span><%="To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will
-    	          be notified via email if your application for curator privileges is accepted."[:curator_signup_message]%></span>
+	              <div id="curator_request_options" style="display:none;">
+      	          <label for="user_credentials" title="<%= "Curators Only"[] %>"><%= "Curators Only"[] %></label>
+      	          <span><%="To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will
+      	          be notified via email if your application for curator privileges is accepted."[:curator_signup_message]%></span>
 	          
-    					    <label title="<%= "Select a clade"[] %>"><%= "Select a clade"[] %></label>
-    						<span id="curator_taxon">&nbsp;</span>
+      					    <label title="<%= "Select a clade"[] %>"><%= "Select a clade"[] %></label>
+      						<span id="curator_taxon">&nbsp;</span>
 
-    						<%= clade_selector options={:selectable_clade_level => 3} %>	
+      						<%= clade_selector options={:selectable_clade_level => 3} %>	
 						
-    						<label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[] %></label>
-    						Please state at least one specific credential from this list:<br />
-                <ol>
-                <li>faculty, staff, or graduate student status in a relevant university or college department</li>
-                <li>authorship of a peer-reviewed publication (provide reference)</li>
-                <li>member of a professional society</li>
-                </ol>
-    					    <%= f.text_area :credentials, {:rows => 7, :cols => 80} %>
+      						<label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[] %></label>
+      						Please state at least one specific credential from this list:<br />
+                  <ol>
+                  <li>faculty, staff, or graduate student status in a relevant university or college department</li>
+                  <li>authorship of a peer-reviewed publication (provide reference)</li>
+                  <li>member of a professional society</li>
+                  </ol>
+      					    <%= f.text_area :credentials, {:rows => 7, :cols => 80} %>
+      					</div>
             <% end %>
 	
 						<% if $ENABLE_RECAPTCHA %>

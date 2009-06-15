@@ -385,10 +385,12 @@ module EOL::Spec
       # site. (optionally, you could use collection.uri and replace the FOREIGN_KEY bit)
 
       # TODO - we really don't want to denomalize the names, so remove them (but check that this will work!)
-      RandomTaxon.gen(:language => Language.english, :data_object => images.last, :name_id => sname.id,
-                      :image_url => images.last.object_cache_url, :name => sname.italicized, :content_level => 4,
-                      :taxon_concept => tc, :common_name_en => cname.string,
-                      :thumb_url => images.first.object_cache_url) # TODO - not sure thumb_url is right.
+      unless images.blank?
+        RandomTaxon.gen(:language => Language.english, :data_object => images.last, :name_id => sname.id,
+                        :image_url => images.last.object_cache_url, :name => sname.italicized, :content_level => 4,
+                        :taxon_concept => tc, :common_name_en => cname.string,
+                        :thumb_url => images.first.object_cache_url) # TODO - not sure thumb_url is right.
+      end
       return tc
     end
 

@@ -56,13 +56,19 @@ kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia',
   build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
                       :depth => Hierarchy.default.hierarchy_entries.length)
 end
+
+fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
+depth_now      = Hierarchy.default.hierarchy_entries.length
+
 # Sixth Taxon should have more images:
-build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
-                    :depth => Hierarchy.default.hierarchy_entries.length,
-                    :images => [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}])
+tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
+                    :depth => depth_now, :images => [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}])
+
+# Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
+build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
+                    :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
-tc     = TaxonConcept.last # Whatever.
        # Give it a new name:
 name   = Name.gen(:canonical_form => tc.canonical_form_object, :string => n = Factory.next(:scientific_name),
                   :italicized     => "<i>#{n}</i> #{Factory.next(:attribution)}")

@@ -22,8 +22,8 @@ end
 # Scenario.verbose = true
 
 ## Disabled until we figure out how best to get this working:
-require 'metric_fu'
-if (true)
+#require 'metric_fu'
+if (false)
   MetricFu::Configuration.run do |config|
     #define which metrics you want to use
     config.metrics  = [:churn, :saikuro, :stats, :flog, :flay, :reek, :roodi] #, :rcov]

@@ -702,7 +702,17 @@ private
 
   def biodiversity_heritage_library
     
-    items = SpeciesSchemaModel.connection.execute("SELECT DISTINCT ti.id item_id, pt.title publication_title, pt.url publication_url, pt.details publication_details, ip.year item_year, ip.volume item_volume, ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url FROM taxon_concept_names tcn JOIN page_names pn ON (tcn.name_id = pn.name_id) JOIN item_pages ip ON (pn.item_page_id = ip.id) JOIN title_items ti ON (ip.title_item_id = ti.id) JOIN publication_titles pt ON (ti.publication_title_id = pt.id) WHERE tcn.taxon_concept_id = #{id} LIMIT 0,1000").all_hashes
+    items = SpeciesSchemaModel.connection.execute(
+      "SELECT DISTINCT ti.id item_id, pt.title publication_title, pt.url publication_url,
+                       pt.details publication_details, ip.year item_year, ip.volume item_volume,
+                       ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url
+       FROM taxon_concept_names tcn
+         JOIN page_names pn ON (tcn.name_id = pn.name_id)
+         JOIN item_pages ip ON (pn.item_page_id = ip.id)
+         JOIN title_items ti ON (ip.title_item_id = ti.id)
+         JOIN publication_titles pt ON (ti.publication_title_id = pt.id)
+       WHERE tcn.taxon_concept_id = #{id}
+       LIMIT 0,1000").all_hashes
     
     sorted_items = items.sort_by { |item| [item["publication_title"], item["item_year"], item["item_volume"], item["item_issue"], item["item_number"].to_i] }
     

@@ -68,7 +68,7 @@
         <!-- header -->
         <div id="header">
             <!-- logo -->
-            <h1><a href="<%=home_page_url%>" title="<%= "Encyclopedia of Life"[:encyclopedia_of_life] %>"><span></span></a></h1>
+            <h1><a href="<%=root_url%>" title="<%= "Encyclopedia of Life"[:encyclopedia_of_life] %>"><span></span></a></h1>
 
             <hr />
             <!-- /logo -->
@@ -79,7 +79,7 @@
             <p class="hide"><%= "Global Navigation"[] %></p>
             <ul id="global-navigation">
                 <li>
-                    <a href="<%=home_page_url%>" title="<%= "Home"[] %>"><%= "Home"[] %></a>
+                    <a href="<%=root_url%>" title="<%= "Home"[] %>"><%= "Home"[] %></a>
                  </li>
                 <li>
                   <%= link_to('Preferences'[], '/profile', {:alt => 'Preferences'[], :class => 'return_to'}) %>

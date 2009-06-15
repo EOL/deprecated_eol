@@ -44,7 +44,7 @@ class ContentController < ApplicationController
   
   def translate
     if params[:return_to].blank?
-      @translate_url=home_page_url
+      @translate_url=root_url
     else
       @translate_url=params[:return_to]
       @translate_url="http://#{request.host}"+@translate_url if @translate_url.size > 4 && @translate_url[0..3]!='http'
@@ -266,7 +266,7 @@ class ContentController < ApplicationController
         render :text=>'Clearing all caches not supported for this cache store.', :layout=>false
       end  
     else
-      redirect_to home_page_url
+      redirect_to root_url
     end
     
   end
@@ -278,7 +278,7 @@ class ContentController < ApplicationController
       expire_caches  
       render :text=>"Non-species page caches expired.",:layout=>false
     else
-      redirect_to home_page_url
+      redirect_to root_url
     end
     
   end
@@ -290,7 +290,7 @@ class ContentController < ApplicationController
       expire_cache(params[:id])
       render :text=>"Non-species page '" + params[:id] + "' cache expired.",:layout=>false
     else
-      redirect_to home_page_url
+      redirect_to root_url
     end
     
   end
@@ -305,7 +305,7 @@ class ContentController < ApplicationController
          render :text=>'Invalid taxon ID supplied',:layout=>false
       end
     else
-      redirect_to home_page_url
+      redirect_to root_url
     end
 
   end
@@ -319,7 +319,7 @@ class ContentController < ApplicationController
       expire_taxa(taxa_ids.split(','))
       render :text=>'Taxa IDs ' + taxa_ids + ' and their ancestors expired.',:layout=>false
      else
-       redirect_to home_page_url
+       redirect_to root_url
      end
      
   end  

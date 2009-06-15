@@ -20,7 +20,7 @@
         <h2>This image has no public tags.</h2>
       <% end %>
       <% if !logged_in? && $ALLOW_USER_LOGINS %>
-        <br /><h2>You must be <%= link_to('logged in', login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? home_page_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => "login_link"}) %> to add your own tags.</h2>
+        <br /><h2>You must be <%= link_to('logged in', login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => "login_link"}) %> to add your own tags.</h2>
       <% end %>
 
     </div>

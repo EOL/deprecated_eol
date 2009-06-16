@@ -33,23 +33,23 @@ Rails::Initializer.run do |config|
     :secret      => '9c973cddf1823632f3e42c5e25a18ecf'
   }
 
-  #Load vendor'ed gems
-  config.load_paths += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir| 
-    File.directory?(lib = "#{dir}/lib") ? lib : dir
-  end
+  # #Load vendor'ed gems
+  # config.load_paths += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir| 
+  #   File.directory?(lib = "#{dir}/lib") ? lib : dir
+  # end
   
   # Load models in subdirectories as well.
   config.load_paths += Dir["#{RAILS_ROOT}/app/models/**"].map { |dir| dir }
 
   # require gems - all gems that don't require native compilation should be unpacked in ./vendor/gems/
   config.gem 'mislav-will_paginate', :version => '>= 2.3.2', :lib => 'will_paginate', :source => 'http://gems.github.com/'
-  config.gem 'ruby-debug'
-  config.gem 'faker'
   config.gem 'composite_primary_keys'
-  config.gem 'fastercsv'
-  config.gem 'haml'
-  config.gem 'macaddr'
-  config.gem 'uuid'
+  config.gem 'fastercsv', :version => "1.2.3"
+  config.gem 'haml', :version => "2.0.3"
+  config.gem 'macaddr', :version => "1.0.0"
+  config.gem 'uuid', :version => "2.0.1"
+  config.gem "ruby-openid", :version => "2.0.4", :lib => "openid"
+  config.gem "ruby-yadis", :version => "0.3.4", :lib => "yadis"
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

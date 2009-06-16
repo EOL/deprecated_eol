@@ -42,12 +42,14 @@ class DataObjectsController < ApplicationController
 
   def edit
     set_text_data_object_options
+    @selected_language = [@data_object.language.label,@data_object.language.id]
     render :partial => 'edit_text'
   end
 
   def new
     set_text_data_object_options
     @data_object = DataObject.new
+    @selected_language = [current_user.language.label,current_user.language.id]
     render :partial => 'new_text'
   end
 
@@ -166,7 +168,7 @@ protected
     toc = TocItem.find(params[:toc_id])
     @selected_toc = [toc.label, toc.id]
     @taxon_concept_id = params[:taxon_concept_id]
-    @languages = Language.find(:all).collect {|c| [c.name, c.id] }
+    @languages = Language.find_active.collect {|c| [c.label, c.id] }
     @licenses = License.valid_for_user_content
   end
 end

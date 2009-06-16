@@ -1,10 +1,9 @@
-if(ENV['RAILS_ENV'] =~ /test/)
+if(ENV['RAILS_ENV'] =~ /metrics/ or ENV['METRICS'] == 'true')
   require 'flay'
   require 'flog'
   require 'roodi'
   require 'roodi_task'
-  ## Disabled until we get Ci up to snuff:
-  #require 'metric_fu'
+  require 'metric_fu'
 
   desc "Analyze for code complexity"
   task :flog do

@@ -31,4 +31,11 @@ $SHOW_SURVEYS=false
 
 $IP_ADDRESS_OF_SERVER='127.0.0.1'
 
-config.gem "selenium-client", :version => "1.2.15", :lib => false
+config.gem "selenium-client", :lib => false # :version => "1.2.15"
+config.gem 'faker', :version => "0.3.1"
+config.gem "rspec-custom-matchers", :version => "0.1.0", :lib => false
+config.gem "remi-indifferent-variable-hash", :version => "0.1.0", :lib => false
+config.gem "openrain-scenarios", :version => "0.3.2", :lib => "scenarios"
+config.gem "rspec", :version => "1.1.12", :lib => false
+config.gem "rspec-rails", :version => "1.1.12", :lib => false
+config.gem "thoughtbot-factory_girl", :version => "1.1.5", :lib => false

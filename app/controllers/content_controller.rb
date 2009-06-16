@@ -44,7 +44,7 @@ class ContentController < ApplicationController
   
   def translate
     if params[:return_to].blank?
-      @translate_url=home_page_url
+      @translate_url=root_url
     else
       @translate_url=params[:return_to]
       @translate_url="http://#{request.host}"+@translate_url if @translate_url.size > 4 && @translate_url[0..3]!='http'
@@ -112,9 +112,15 @@ class ContentController < ApplicationController
      current_taxa = params[:current_taxa].split(',')
      explore_taxa       = RandomTaxon.random
 
-     # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a bit haywire since there are only 7 random taxa in the fixtures
-     while ENV["RAILS_ENV"].downcase == 'production' && !explore_taxa.blank? && current_taxa.include?(explore_taxa.taxon_concept_id.to_s)
+     # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a
+     # bit haywire since there are very few random taxa created by scenarios.
+     num_tries = 0
+     while(num_tries < 30 and
+           ENV["RAILS_ENV"].downcase == 'production' and
+           !explore_taxa.blank? and
+           current_taxa.include?(explore_taxa.taxon_concept_id.to_s))
        explore_taxa = RandomTaxon.random
+       num_tries += 1
      end
 
      taxa_number        = params[:taxa_number]
@@ -266,7 +272,7 @@ class ContentController < ApplicationController
         render :text=>'Clearing all caches not supported for this cache store.', :layout=>false
       end  
     else
-      redirect_to home_page_url
+      redirect_to root_url
     end
     
   end
@@ -278,7 +284,7 @@ class ContentController < ApplicationController
       expire_caches  
       render :text=>"Non-species page caches expired.",:layout=>false
     else
-      redirect_to home_page_url
+      redirect_to root_url
     end
     
   end
@@ -290,7 +296,7 @@ class ContentController < ApplicationController
       expire_cache(params[:id])
       render :text=>"Non-species page '" + params[:id] + "' cache expired.",:layout=>false
     else
-      redirect_to home_page_url
+      redirect_to root_url
     end
     
   end
@@ -305,7 +311,7 @@ class ContentController < ApplicationController
          render :text=>'Invalid taxon ID supplied',:layout=>false
       end
     else
-      redirect_to home_page_url
+      redirect_to root_url
     end
 
   end
@@ -319,7 +325,7 @@ class ContentController < ApplicationController
       expire_taxa(taxa_ids.split(','))
       render :text=>'Taxa IDs ' + taxa_ids + ' and their ancestors expired.',:layout=>false
      else
-       redirect_to home_page_url
+       redirect_to root_url
      end
      
   end  

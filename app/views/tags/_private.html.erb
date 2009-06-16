@@ -20,7 +20,7 @@
           <h2>You have not tagged this image yet.</h2>
         <% end %>
       <% elsif $ALLOW_USER_LOGINS %>
-        <h2>You must be <%= link_to 'logged in', login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? home_page_url : URI.parse(request.env["HTTP_REFERER"]).path }) %> to add your own tags.</h2>
+        <h2>You must be <%= link_to 'logged in', login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path }) %> to add your own tags.</h2>
       <% end %>
       </div>
     </div>

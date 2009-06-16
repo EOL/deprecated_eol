@@ -166,7 +166,7 @@ module ApplicationHelper
   
   def back_or_home(back_url)
     if back_url.blank?
-      home_page_url
+      root_url
     else
       URI.decode(back_url)
     end

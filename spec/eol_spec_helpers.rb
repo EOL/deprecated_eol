@@ -264,7 +264,9 @@ module EOL::Spec
       tc_builder.add_toc
       tc_builder.add_iucn
       tc_builder.gen_random_taxa
+      tc_builder.gen_bhl
       return tc_builder.tc
+
     end
 
     # Create a data object in the IUCN hierarchy. Can take options for :hierarchy and :event, both of which default to the usual IUCN

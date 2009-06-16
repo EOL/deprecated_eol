@@ -15,6 +15,7 @@ class EOL
       @canon       = @options[:canonical_form] || Factory.next(:scientific_name)
       @complete    = @options[:scientific_name] || "#{@canon} #{@attri}".strip
       @hierarchy   = @options[:hierarchy]       || nil # We'll let build_hierarchy_entry pick a default
+      set_default_options # TODO - include the stuff above into this method
       @cform = CanonicalForm.find_by_string(@canon) || CanonicalForm.gen(:string => @canon)
       @sname = Name.gen(:canonical_form => @cform, :string => @complete,
                        :italicized     => @options[:italicized] || "<i>#{@canon}</i> #{@attri}".strip)
@@ -77,31 +78,6 @@ class EOL
 
     def add_images
       puts "** Enter: add_images" if @debugging
-      @images = [] # This is used to build the RandomTaxon
-      if @options[:images].nil?
-        @options[:images] = [{:num_comments => 12}] # One "normal" image, lots of comments, everything else default.
-        # So, every TC (which doesn't have a predefined list of images) will have each of the following, making
-        # testing easier:
-        @options[:images] << {:description => 'untrusted', :object_cache_url => Factory.next(:image),
-                             :vetted => Vetted.untrusted}
-        @options[:images] << {:description => 'unknown',   :object_cache_url => Factory.next(:image),
-                             :vetted => Vetted.unknown}
-        @options[:images] << {:description => 'invisible', :object_cache_url => Factory.next(:image),
-                             :visibility => Visibility.invisible}
-        @options[:images] << {:description => 'preview', :object_cache_url => Factory.next(:image),
-                             :visibility => Visibility.preview}
-        @options[:images] << {:description => 'invisible, unknown', 
-                             :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
-                             :vetted => Vetted.unknown}
-        @options[:images] << {:description => 'invisible, untrusted', 
-                             :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
-                             :vetted => Vetted.untrusted}
-        @options[:images] << {:description => 'preview, unknown', 
-                             :object_cache_url => Factory.next(:image), :visibility => Visibility.preview,
-                             :vetted => Vetted.unknown}
-        @options[:images] << {:description => 'inappropriate', 
-                             :object_cache_url => Factory.next(:image), :visibility => Visibility.inappropriate}
-      end
       @options[:images].each do |img|
         description             = img.delete(:description) || Faker::Lorem.sentence
         img[:taxon]           ||= @taxon
@@ -152,14 +128,6 @@ class EOL
 
     def add_toc
       puts "** Enter: add_toc" if @debugging
-      if @options[:toc].nil?
-        @options[:toc] = [{:toc_item => TocItem.overview, :description => "This is an overview of the <b>#{@canon}</b> hierarchy entry."},
-                         {:toc_item => TocItem.find_by_label('Description'), :description => "This is an description of the <b>#{@canon}</b> hierarchy entry."}]
-        # Add more toc items:
-        (rand(4)+1).times do
-          @options[:toc] << {} # Default values are applied below.
-        end
-      end
       @options[:toc].each do |toc_item|
         toc_item[:toc_item]    ||= TocItem.all.rand
         toc_item[:description] ||= Faker::Lorem.paragraph
@@ -174,11 +142,30 @@ class EOL
 
     def gen_random_taxa
       puts "** Enter: gen_random_taxa" if @debugging
+      return if @images.blank? or @sname.blank? or @cname.blank?
       # TODO - we really don't want to denomalize the names, so remove them (but check that this will work!)
       RandomTaxon.gen(:language => Language.english, :data_object => @images.last, :name_id => @sname.id,
                       :image_url => @images.last.object_cache_url, :name => @sname.italicized, :content_level => 4,
                       :taxon_concept => @tc, :common_name_en => @cname.string,
                       :thumb_url => @images.first.object_cache_url) # TODO - not sure thumb_url is right.
+    end
+
+    # TODO - this comment should be integrated into the comment for the whole module
+    # :bhl => [{:publication => 'Foobar', :page => 23}, {:publication => 'Bazboozer', :page => 78}]
+    def gen_bhl
+      @options[:bhl].each do |bhl|
+        publication = nil # scope
+        if bhl[:publication].nil?
+          publication = default_publication
+        else 
+          publication = PublicationTitle.find_by_title(bhl[:publication])
+          publication ||= PublicationTitle.gen(:title => bhl[:publication])
+        end
+        page = bhl[:page].to_i || (rand(400) + 1).to_i
+        ti   = TitleItem.gen(:publication_title => publication)
+        ip   = ItemPage.gen(:title_item => ti)
+        pn   = PageName.gen(:item_page => ip, :name => @sname)
+      end
     end
 
     def build_entry_in_hierarchy(options)
@@ -189,6 +176,49 @@ class EOL
       puts "++ building entry in hierarchy" if @debugging
       pp options  if @debugging
       return build_hierarchy_entry(@depth, @tc, @sname, options)
+    end
+
+  private
+    # TODO - Too long: break this up
+    def set_default_options
+      @images = [] # This is used to build the RandomTaxon
+      if @options[:toc].nil?
+        @options[:toc] = [{:toc_item => TocItem.overview, :description => "This is an overview of the <b>#{@canon}</b> hierarchy entry."},
+                         {:toc_item => TocItem.find_by_label('Description'), :description => "This is an description of the <b>#{@canon}</b> hierarchy entry."}]
+        # Add more toc items:
+        (rand(4)+1).times do
+          @options[:toc] << {} # Default values are applied below.
+        end
+      end
+      if @options[:images].nil?
+        @options[:images] = [{:num_comments => 12}] # One "normal" image, lots of comments, everything else default.
+        # So, every TC (which doesn't have a predefined list of images) will have each of the following, making
+        # testing easier:
+        @options[:images] << {:description => 'untrusted', :object_cache_url => Factory.next(:image),
+                             :vetted => Vetted.untrusted}
+        @options[:images] << {:description => 'unknown',   :object_cache_url => Factory.next(:image),
+                             :vetted => Vetted.unknown}
+        @options[:images] << {:description => 'invisible', :object_cache_url => Factory.next(:image),
+                             :visibility => Visibility.invisible}
+        @options[:images] << {:description => 'preview', :object_cache_url => Factory.next(:image),
+                             :visibility => Visibility.preview}
+        @options[:images] << {:description => 'invisible, unknown', 
+                             :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
+                             :vetted => Vetted.unknown}
+        @options[:images] << {:description => 'invisible, untrusted', 
+                             :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
+                             :vetted => Vetted.untrusted}
+        @options[:images] << {:description => 'preview, unknown', 
+                             :object_cache_url => Factory.next(:image), :visibility => Visibility.preview,
+                             :vetted => Vetted.unknown}
+        @options[:images] << {:description => 'inappropriate', 
+                             :object_cache_url => Factory.next(:image), :visibility => Visibility.inappropriate}
+      end
+      if @options[:bhl].nil?
+        @options[:bhl] = [{:publication => 'Great Big Journal of Fun', :page => 42},
+                         {:publication => 'Great Big Journal of Fun', :page => 44},
+                         {:publication => 'The Journal You Cannot Afford', :page => 1}]
+      end
     end
 
   end

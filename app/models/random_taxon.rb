@@ -25,6 +25,7 @@ class RandomTaxon < SpeciesSchemaModel
     starting_id = rand(@@count - limit).floor
     starting_id = 0 if starting_id > (@@count - limit) # This only applies when there are very few RandomTaxa.
     list = RandomTaxon.find_by_sql(['SELECT * FROM random_taxa LIMIT ?, ?', starting_id, limit])
+    raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if list.blank?
     return list
   end
   

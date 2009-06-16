@@ -112,7 +112,7 @@ EOL.addReturnTo = function(link) {
   } else { // There are already params in this link
     link.href += "&"
   }
-  link.href += "return_to=" + location.href
+  link.href += "return_to=" + location.href.replace(/^http:\/\/[^\/]*/, '') // Removes protocol + host
 }
 
 /* 

@@ -39,10 +39,12 @@ function eol_update_content_area(taxon_id,category_id, allow_user_text) {
             asynchronous:true,
             evalScripts:true});
     $A(document.getElementsByClassName('active', $('toc'))).each(function(e) { e.className = 'toc_item'; });
-    if(allow_user_text) {
-      $$('li.add_text')[0].show();
-    } else {
-      $$('li.add_text')[0].hide();
+    if($$('li.add_text').length > 0) {
+      if(allow_user_text) {
+        $$('li.add_text')[0].show();
+      } else {
+        $$('li.add_text')[0].hide();
+      }
     }
 }
 

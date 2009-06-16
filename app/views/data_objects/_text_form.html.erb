@@ -22,7 +22,7 @@
   <tr>
     <td><%= f.label :language_id %></td>
     <td>
-      <%= select("data_object", "language_id", @languages) %>
+      <%= select_tag("data_object[language_id]", options_for_select(@languages,@selected_language)) %>
     </td>
   </tr>
 

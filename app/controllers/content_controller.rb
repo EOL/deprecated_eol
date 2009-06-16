@@ -112,9 +112,15 @@ class ContentController < ApplicationController
      current_taxa = params[:current_taxa].split(',')
      explore_taxa       = RandomTaxon.random
 
-     # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a bit haywire since there are only 7 random taxa in the fixtures
-     while ENV["RAILS_ENV"].downcase == 'production' && !explore_taxa.blank? && current_taxa.include?(explore_taxa.taxon_concept_id.to_s)
+     # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a
+     # bit haywire since there are very few random taxa created by scenarios.
+     num_tries = 0
+     while(num_tries < 30 and
+           ENV["RAILS_ENV"].downcase == 'production' and
+           !explore_taxa.blank? and
+           current_taxa.include?(explore_taxa.taxon_concept_id.to_s))
        explore_taxa = RandomTaxon.random
+       num_tries += 1
      end
 
      taxa_number        = params[:taxa_number]

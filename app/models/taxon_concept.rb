@@ -49,7 +49,9 @@ class TaxonConcept < SpeciesSchemaModel
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
     users = User.find_by_sql(default_hierarchy_curators_clause)
-    users += find_default_hierarchy_ancestor.taxon_concept.curators unless in_default_hierarchy?
+    unless in_default_hierarchy?
+      users += find_default_hierarchy_ancestor.taxon_concept.curators unless find_default_hierarchy_ancestor.nil?
+    end
     return users
   end
   def ssm_db

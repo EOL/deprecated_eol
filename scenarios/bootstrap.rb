@@ -37,6 +37,11 @@ end
 
 #### Real work begins
 
+# Before we create our new taxa, we should make sure the RandomTaxa table is clear of bogus entries:
+RandomTaxon.all.each do |rt|
+  RandomTaxon.delete("id = #{rt.id}") if (TaxonConcept.find(rt.taxon_concept_id)).nil?
+end
+
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published)

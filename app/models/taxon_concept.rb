@@ -48,18 +48,22 @@ class TaxonConcept < SpeciesSchemaModel
   # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
-    # Cross-database join using a thousandfold more efficient algorithm than doing things separately:
-    ssm_db = SpeciesSchemaModel.connection.current_database
-    User.find_by_sql("
-      SELECT DISTINCT users.*
+    users = User.find_by_sql(default_hierarchy_curators_clause)
+    users += find_default_hierarchy_ancestor.taxon_concept.curators unless in_default_hierarchy?
+    return users
+  end
+  def ssm_db
+    SpeciesSchemaModel.connection.current_database
+  end
+  def default_hierarchy_curators_clause
+     "SELECT DISTINCT users.*
       FROM users
-        JOIN #{ssm_db}.hierarchy_entries he1 ON (users.curator_hierarchy_entry_id = he1.id)
-        JOIN #{ssm_db}.hierarchy_entries he2 ON (he1.id = he2.id OR he1.hierarchy_id = he2.hierarchy_id
-                                                 AND he1.lft < he2.lft
-                                                 AND he1.rgt > he2.rgt)
+        JOIN #{ssm_db}.hierarchy_entries ancestor ON (users.curator_hierarchy_entry_id = ancestor.id)
+        JOIN #{ssm_db}.hierarchy_entries children ON (ancestor.id = children.id
+                                                      OR (ancestor.hierarchy_id = children.hierarchy_id
+                                                          AND children.lft BETWEEN ancestor.lft AND ancestor.rgt))
       WHERE curator_approved IS TRUE
-        AND he2.taxon_concept_id = #{self.id}  -- TaxonConcept#approved_curators
-    ")
+        AND children.taxon_concept_id = #{self.id}"
   end
 
   # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
@@ -72,13 +76,14 @@ class TaxonConcept < SpeciesSchemaModel
       SELECT DISTINCT users.*
       FROM users
         JOIN last_curated_dates lcd ON (users.id = lcd.user_id AND lcd.last_curated >= '#{2.years.ago.to_s(:db)}')
-        JOIN #{ssm_db}.hierarchy_entries he1 ON (users.curator_hierarchy_entry_id = he1.id)
-        JOIN #{ssm_db}.hierarchy_entries he2 ON (he1.id = he2.id OR he1.hierarchy_id = he2.hierarchy_id
-                                                 AND he1.lft < he2.lft
-                                                 AND he1.rgt > he2.rgt)
+        JOIN #{ssm_db}.hierarchy_entries ancestor ON (users.curator_hierarchy_entry_id = ancestor.id)
+        JOIN #{ssm_db}.hierarchy_entries children ON (ancestor.id = children.id
+                                                      OR (ancestor.hierarchy_id = children.hierarchy_id
+                                                          AND ancestor.lft < children.lft
+                                                          AND ancestor.rgt > children.rgt))
       WHERE curator_approved IS TRUE
         AND lcd.taxon_concept_id = #{self.id}
-        AND he2.taxon_concept_id = #{self.id}  -- TaxonConcept#approved_curators
+        AND children.taxon_concept_id = #{self.id}  -- TaxonConcept#approved_curators
     ")
   end
 
@@ -270,6 +275,13 @@ class TaxonConcept < SpeciesSchemaModel
   end
   def find_default_hierarchy_ancestor
     return entry.find_default_hierarchy_ancestor
+  end
+
+  def maps_to_default_hierarchy?
+    return !find_default_hierarchy_ancestor.nil?
+  end
+  def in_default_hierarchy?
+    return entry.hierarchy_id == Hierarchy.default.id
   end
 
   # We do have some content that is specific to COL, so we need a method that will ALWAYS reference it:

@@ -27,7 +27,7 @@
     </li>
   <%- end %>
   </ul>
-  <%- if @taxon.find_default_hierarchy_ancestor.nil? %>
+  <%- unless @taxon.maps_to_default_hierarchy? %>
     <ul><li><br/><b>Name not in 2008 Catalogue of Life</b></li></ul>
   <%- end %>
 </div>

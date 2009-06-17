@@ -39,3 +39,4 @@ config.gem "openrain-scenarios", :version => "0.3.2", :lib => "scenarios"
 config.gem "rspec", :version => "1.1.12", :lib => false
 config.gem "rspec-rails", :version => "1.1.12", :lib => false
 config.gem "thoughtbot-factory_girl", :version => "1.1.5", :lib => false
+config.gem "remi-rackbox", :version => "1.1.2", :lib => false

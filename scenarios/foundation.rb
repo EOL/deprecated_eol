@@ -275,3 +275,8 @@ create_if_not_exists Visibility, :label => 'Invisible'      # This really wants 
 create_if_not_exists Visibility, :label => 'Visible'
 create_if_not_exists Visibility, :label => 'Preview'
 create_if_not_exists Visibility, :label => 'Inappropriate'
+
+# The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
+# will need to DELETE these before they make their own!  But for foundation's purposes, this is required:
+RandomTaxon.delete_all
+10.times { RandomTaxon.gen }

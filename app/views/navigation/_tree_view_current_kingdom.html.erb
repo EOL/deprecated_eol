@@ -17,10 +17,8 @@
     <%- end %>
 <%- end %>
 
-<%# ------------------- Show the CHIDLREN  (err... if it makes sense to)
-# Don't show children if we aren't in the default hierarchy %>
-<%- if @taxon.entry.hierarchy_id == Hierarchy.default.id
-  # ...or if there are no children... %>
+<%# ------------------- Show the CHIDLREN  (err... if it makes sense to) %>
+<%- if @taxon.in_default_hierarchy? %>
   <%- unless children_nodes.blank? %>
     <div id="taxonomic-children">
     <ul>

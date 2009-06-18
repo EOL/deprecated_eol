@@ -140,13 +140,21 @@ Event.addBehavior(
       e.stop();
     },
 
-  // hide some of the text-object attribution ... should be able to expand to see these again, tho
+  // Hides text-object attribution
   //
-  // by default, we show the author(s), source(s), and right(s) but not anything else
+  // By default, we only authors, sources, copyrights, datasuppliers, and sourceurls
   //
   'div.content-article div.attribution div.credit': function() {
     var classes = $(this).classNames();
-    if (!classes.include('author') && !classes.include('source') && !classes.include('copyright') && !classes.include('datasupplier') && !classes.include('supplier'))
+    
+    if (!(
+        classes.include('author') ||
+        classes.include('source') ||
+        classes.include('copyright') ||
+        classes.include('datasupplier') ||
+        classes.include('supplier') ||
+        classes.include('sourceurl')
+        ))
       $(this).hide();
   },
   

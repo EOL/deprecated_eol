@@ -113,6 +113,8 @@ class TaxaController < ApplicationController
           @category_id = first_content_item.nil? ? nil : first_content_item.id 
           @category_id = @specify_category_id unless @specify_category_id=='default'
 
+          @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
+
           # default to regular page separator if we can't find a specific kingdom
           @page_separator="page-separator-general"
           @page_separator="page-separator-#{@taxon.kingdom.id}" unless @taxon.kingdom.nil? || !$KINGDOM_IDs.include?(@taxon.kingdom.id.to_s) 
@@ -302,10 +304,17 @@ class TaxaController < ApplicationController
   end
 
   def user_text_change_toc
-    @toc_item = TocItem.find(params[:data_objects_toc_category][:toc_id])
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-
     @taxon_id = @taxon_concept.id
+
+    if (params[:data_objects_toc_category] && (toc_id = params[:data_objects_toc_category][:toc_id]))
+      @toc_item = TocItem.find(toc_id)
+    else
+      tc = TaxonConcept.find(@taxon_id)
+      tc.current_user = current_user
+      @toc_item = tc.tocitem_for_new_text
+    end
+
     @taxon = @taxon_concept
     @category_id = @toc_item.id
     @taxon.current_agent = current_agent unless current_agent.nil?
@@ -327,25 +336,19 @@ class TaxaController < ApplicationController
     @category_id = params[:category_id].to_i
     @taxon.current_agent = current_agent unless current_agent.nil?
     @taxon.current_user = current_user
-    if @category_id == TocItem.search_the_web.id
-      render :update do |page|
-        page.replace_html 'center-page-content', :partial => 'content_search_the_web.html.erb'
-        page << "$('current_content').value = '#{@category_id}';"
-        page['center-page-content'].set_style :height => 'auto'
-      end
+
+    @content     = @taxon.content_by_category(@category_id)
+    @ajax_update=true
+    if @content.nil?
+      render :text => '[content missing]'
     else
-      @content     = @taxon.content_by_category(@category_id)
-      @ajax_update=true
-      if @content.nil?
-        render :text => '[content missing]'
-      else
-        render :update do |page|
-          page.replace_html 'center-page-content', :partial => 'content.html.erb'
-          page << "$('current_content').value = '#{@category_id}';"
-          page << "Event.addBehavior.reload();"
-          page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id})}');"
-          page['center-page-content'].set_style :height => 'auto'
-        end
+      @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
+      render :update do |page|
+        page.replace_html 'center-page-content', :partial => 'content.html.erb'
+        page << "$('current_content').value = '#{@category_id}';"
+        page << "Event.addBehavior.reload();"
+        page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @new_text_tocitem_id})}');"
+        page['center-page-content'].set_style :height => 'auto'
       end
     end
 
@@ -456,4 +459,11 @@ class TaxaController < ApplicationController
 
     end
 
+    def get_new_text_tocitem_id(category_id)
+      if TocItem.find(category_id).allow_user_text?
+        category_id
+      else
+        'none'
+      end
+    end
 end

@@ -88,10 +88,11 @@
                   <% if logged_in? %>
                     <li class="add_text">
                       <div class="add_text_button">
-                        <%= link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => 'new_text_toc_button') -%>
+                        <%= link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_button', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_id)) -%>
                       </div>
-                      <%= link_to("Add New", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @category_id}, :id => 'new_text_toc_text' ) -%>
+                      <%= link_to("Add New", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_text', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_id) ) -%>
                     </li>
+                    
                     <li class="multi_new_text_error" style="display:none;">
                       Only one text object can be edited at a time.
                     </li>

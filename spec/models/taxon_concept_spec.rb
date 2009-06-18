@@ -71,6 +71,29 @@ describe TaxonConcept do
     DataObject.delete_all(['data_type_id = ?', DataType.find_by_label('IUCN').id])
   end
 
+  it 'should return overview as first toc item which accepts user submitted text' do
+    @taxon_concept.tocitem_for_new_text.label.should == @overview.label
+    fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
+    depth_now      = Hierarchy.default.hierarchy_entries.length
+    tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
+                    :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
+                    :bhl => [])
+    tc.tocitem_for_new_text.label.should == @overview.label
+  end
+
+  it 'should return description as first toc item which accepts user submitted text' do
+    fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
+    depth_now      = Hierarchy.default.hierarchy_entries.length
+    description_toc = TocItem.find_by_label('Description')
+    InfoItem.gen(:toc_id => @overview.id)
+    InfoItem.gen(:toc_id => description_toc.id)
+    tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
+                    :depth => depth_now, :images => [], :toc => [{:toc_item => description_toc, :description => 'huh?'}], :flash => [], :youtube => [], :comments => [],
+                    :bhl => [])
+
+    tc.tocitem_for_new_text.label.should == description_toc.label
+  end
+
   it 'should have a canonical form' do
     @taxon_concept.canonical_form.should == @canonical_form
   end

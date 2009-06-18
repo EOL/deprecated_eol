@@ -146,9 +146,11 @@ EOL.TextObjects.update_text = function(text, data_object_id, old_data_object_id)
 
 EOL.TextObjects.update_add_links = function(url) {
   url = url.unescapeHTML();
-  $$('a#new_text_toc_text')[0].href = url;
-  $$('a#new_text_toc_button')[0].href = url;
-  $$('a#new_text_content_button')[0].href = url;
+  $('new_text_toc_text').href = url;
+  $('new_text_toc_button').href = url;
+  if($('new_text_content_button')) {
+    $('new_text_content_button').href = url;
+  }
 };
 
 EOL.TextObjects.change_toc = function(toc_label, add_new_url, new_text, toc_item_id) {
@@ -182,11 +184,15 @@ EOL.TextObjects.change_toc = function(toc_label, add_new_url, new_text, toc_item
 
   Event.addBehavior.reload();
 
-  $$('ul#toc a.toc_item[title='+toc_label+']')[0].className = 'active toc_item';
+  if($$('ul#toc a.toc_item[title='+toc_label+']').length > 0) {
+    $$('ul#toc a.toc_item[title='+toc_label+']')[0].className = 'active toc_item';
+  }
 };
 
 EOL.TextObjects.toggle_dialog = function(e,popup,el) {
-  e.stop();
+  if(e) {
+    e.stop();
+  }
 
   //hide old warnings
   $$('.multi_new_text_error').each(function(el) {el.hide();});
@@ -201,7 +207,7 @@ EOL.TextObjects.toggle_dialog = function(e,popup,el) {
       //links in the toc
       $$('ul#toc li.multi_new_text_error')[0].show();
       $$('ul#toc li.multi_new_text_error')[0].pulsate();
-    } else {
+    } else if(el.id.indexOf('edit_text_') == 0) {
       //edit links
       el.up(2).down('div.multi_new_text_error').show();
       el.up(2).down('div.multi_new_text_error').pulsate();
@@ -222,6 +228,15 @@ EOL.TextObjects.toggle_dialog = function(e,popup,el) {
           this.show();
         }
       };
+      if(popup.href.indexOf('toc_id=none') != -1) {
+        //if currently selected toc doesn't allow user submitted text
+        new Ajax.Request($('new_text_toc_text').readAttribute('data-change_toc_url'),
+                       {
+                         asynchronous:true,
+                         evalScripts:true,
+                         method:'post'
+                       });
+      }
       popup.popup.toggle();
     }
   }

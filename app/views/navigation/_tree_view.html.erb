@@ -12,7 +12,7 @@
                          :enable                => kingdom[:enable],
                          :kingdom               => true,
                          :first_kingdom         => kingdom == kingdoms.first,
-                         :current_kingdom       =>(kingdom[:id].to_i == @taxon.kingdom.taxon_concept_id),
+                         :current_kingdom       =>(!@taxon.kingdom.nil? && kingdom[:id].to_i == @taxon.kingdom.taxon_concept_id),
                          :level                 => 0,
                          :current_node          =>(kingdom[:id].to_i == @taxon.id)
                         }) %>

@@ -2,7 +2,7 @@
 <%- list_levels = 0 %>
 <%- current_treepath.each_with_index do |treepathnode, counter| %>
     <%# render this node in the treepath  %>
-    <%- if treepathnode.nil? == false && treepathnode[:id].to_i != @taxon.kingdom.taxon_concept_id %>
+    <%- if treepathnode.nil? == false && !@taxon.kingdom.nil? && treepathnode[:id].to_i != @taxon.kingdom.taxon_concept_id %>
       <%- list_levels += 1 %>
       <ul><%= render(:partial=>'navigation/tree_view_node',
                      :locals=>{:namestring              => treepathnode[:name],

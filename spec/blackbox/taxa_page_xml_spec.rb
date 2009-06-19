@@ -60,7 +60,7 @@ describe 'Taxa page XML' do
     @id            = @taxon_concept.id
     @images        = @taxon_concept.images
     @curator       = Factory(:curator, :curator_hierarchy_entry => @taxon_concept.entry)
-    Comment.find_by_body(@comment_bad).hide!
+    Comment.find_by_body(@comment_bad).hide! User.last
   end
 
   after :all do

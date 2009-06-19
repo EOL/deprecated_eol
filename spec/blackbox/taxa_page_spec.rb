@@ -37,6 +37,7 @@ describe 'Taxa page (HTML)' do
     @comment_1       = 'This is totally awesome'
     @comment_bad     = 'This is totally inappropriate'
     @comment_2       = 'And I can comment multiple times'
+    @user            = User.gen
 
     @taxon_concept   = build_taxon_concept(
        :parent_hierarchy_entry_id => @parent.hierarchy_entries.first.id,
@@ -50,7 +51,7 @@ describe 'Taxa page (HTML)' do
        :map             => {:description => @map_text},
        :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
        :youtube         => [{:description => @video_3_text}],
-       :comments        => [{:body => @comment_1},{:body => @comment_bad},{:body => @comment_2}],
+       :comments        => [{:user => @user, :body => @comment_1},{:user => @user, :body => @comment_bad},{:user => @user, :body => @comment_2}],
        # We want more than 10 images, to test pagination, but details don't matter:
        :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
                             {:object_cache_url => @image_3}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
@@ -70,7 +71,7 @@ describe 'Taxa page (HTML)' do
     @ping_url.sub!(/%ID%/, @ping_id) # So we can test that it was replaced by the code.
 
     @curator       = Factory(:curator, :curator_hierarchy_entry => @taxon_concept.entry)
-    Comment.find_by_body(@comment_bad).hide!
+    Comment.find_by_body(@comment_bad).hide! User.last
     @result        = RackBox.request("/pages/#{@id}") # cache the response the taxon page gives before changes
 
   end

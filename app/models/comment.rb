@@ -17,12 +17,12 @@ class Comment < ActiveRecord::Base
 
   before_create :set_visible_at, :set_from_curator
   
-  after_create  :curator_activity_flag
-  
-  validates_presence_of :body
+  after_create  :curator_activity_flag, :new_actions_histories_create_comment
+    
+  validates_presence_of :body, :user
 
   attr_accessor :vetted_by
-  
+    
   # Comments can be hidden.  This method checks to see if a non-curator can see it:
   def visible?
     return false if visible_at.nil?
@@ -75,20 +75,24 @@ class Comment < ActiveRecord::Base
   end
   
   # Test if the parent object (DataObject or TaxonConcept) can be curated by a user:
-  def is_curatable_by? user
-    parent.is_curatable_by?(user)
+  def is_curatable_by? by
+    parent.is_curatable_by?(by)
   end
 
   # TODO - this method should not have a bang.  (See Matz' rant)
-  def show! user = nil
-    self.vetted_by = user if user
+  def show! by
+    self.vetted_by = by if by
     self.update_attribute :visible_at, Time.now unless visible_at
+
+    new_actions_histories(by, self, 'comment', 'show')
   end
 
   # TODO - this method should not have a bang.  (See Matz' rant)
-  def hide! user = nil
-    self.vetted_by = user if user
+  def hide! by
+    self.vetted_by = by if by
     self.update_attribute :visible_at, nil
+    
+    new_actions_histories(by, self, 'comment', 'hide')    
   end
 
   # aliases to satisfy curation
@@ -116,9 +120,13 @@ class Comment < ActiveRecord::Base
     end
     return return_t_c
   end
-
+  
 protected
 
+  def new_actions_histories_create_comment
+    new_actions_histories(self.user, self, 'comment', 'create')
+  end
+  
   # Run when a comment is created, to ensure it is visible by default:
   def set_visible_at
     self.visible_at ||= Time.now

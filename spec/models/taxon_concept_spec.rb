@@ -60,7 +60,7 @@ describe TaxonConcept do
     # Curators aren't recognized until they actually DO something, which is here:
     LastCuratedDate.gen(:user => @curator, :taxon_concept => @taxon_concept)
     # And we want one comment that the world cannot see:
-    Comment.find_by_body(@comment_bad).hide!
+    Comment.find_by_body(@comment_bad).hide! User.last
   end
   after :all do
     truncate_all_tables

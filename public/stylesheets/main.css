@@ -1843,6 +1843,12 @@ ul#global-navigation {
         font-size: 15px;
         border-bottom: 1px solid #E6E7E8;
       }
+      
+      ul.content_partner {
+        list-style:none !important;
+        margin-left:-25px !important;
+        padding-left:-25px !important;
+      }
 
         ul#toc li {          
           width: 240px;
@@ -1871,6 +1877,10 @@ ul#global-navigation {
             color: #959595;
             text-decoration: none;
             background: url(/images/toc.gif) 20px 1px no-repeat;
+          }
+          
+          ul#toc li a.nested {
+            margin-left: 10px;
           }
 
           .add_text_button {
@@ -3178,3 +3188,12 @@ div.edit_text {
   padding-right: 5px;
   text-align: right;
 }
+
+div#report_from_eol h2 {
+  padding: 0px 0px 5px !important;
+}
+
+div#report_from_eol ul {
+  padding-left: 14px !important;
+}
+

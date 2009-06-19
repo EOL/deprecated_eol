@@ -49,7 +49,6 @@ create_if_not_exists CuratorActivity, :code => 'inappropriate'
 create_if_not_exists CuratorActivity, :code => 'approve'
 create_if_not_exists CuratorActivity, :code => 'disapprove'
 
-
 # what one can do with a data_object
 create_if_not_exists ActionWithObject, :action_code => 'create'
 create_if_not_exists ActionWithObject, :action_code => 'update'     #?

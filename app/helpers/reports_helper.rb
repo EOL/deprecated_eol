@@ -1,12 +1,12 @@
 module ReportsHelper
   
   def curator_or_plain_username(user)
-    if act_history.act_user.is_curator?
-        return(link_to(h("#{act_history.act_user.username}"), 
+    if user.is_curator?
+        return(link_to(h("#{user.username}"), 
           :controller => "../account", :action => :show, 
-          :id => act_history.act_user.id, :popup => true))   
+          :id => user.id, :popup => true))   
     else
-        return act_history.act_user.username
+        return user.username
     end
   end
   

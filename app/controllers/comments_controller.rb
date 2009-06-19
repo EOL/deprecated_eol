@@ -67,12 +67,12 @@ class CommentsController < ApplicationController
 #show/hide comment
   def remove
     current_user.unvet current_object 
-    render :partial => current_object.save ? 'remove' : 'error'
+    render :partial => 'remove'
   end
 
   def make_visible
-    current_object.visible_at = Time.now
-    render :partial => current_object.save ? 'make_visible' : 'error'
+    current_user.vet current_object 
+    render :partial => 'make_visible'
   end
 
 private

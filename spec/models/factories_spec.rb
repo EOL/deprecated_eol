@@ -4,6 +4,7 @@ describe Factory do
 
   before :all do
     reset_auto_increment_on_tables_with_tinyint_primary_keys
+    Scenario.load :foundation
   end
 
   # WHERE ARE THE EXAMPLES ???

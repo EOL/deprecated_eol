@@ -1,0 +1,18 @@
+<div id="report_from_eol">
+  <h2><%= @page_header %></h2>
+  
+  <ul>
+    <% for act_history in @act_histories -%>
+      <% if act_history.changeable_object_type_id == 4 -%>
+
+        <% act_date = time_ago_in_words(act_history.created_at) -%>  
+        <% current_act = act_history.action_with_object.action_code %>
+        
+  
+        <%= render :partial=> 'user_submitted_text_report.html.erb',
+                   :locals=>{:act_history => act_history, 
+                             :act_date => act_date, :current_act => current_act} %>
+      <% end -%>
+    <% end -%>
+  </ul>
+</div>

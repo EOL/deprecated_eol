@@ -47,10 +47,21 @@ class DataObjectsController < ApplicationController
   end
 
   def new
-    set_text_data_object_options
-    @data_object = DataObject.new
-    @selected_language = [current_user.language.label,current_user.language.id]
-    render :partial => 'new_text'
+    if(params[:toc_id]!='none')
+      set_text_data_object_options
+      @data_object = DataObject.new
+      @selected_language = [current_user.language.label,current_user.language.id]
+      render :partial => 'new_text'
+    else
+      tc = TaxonConcept.find(params[:taxon_concept_id])
+      tc.current_user = current_user
+      toc_item = tc.tocitem_for_new_text
+      params[:toc_id] = toc_item.id
+      set_text_data_object_options
+      @data_object = DataObject.new
+      @selected_language = [current_user.language.label,current_user.language.id]
+      render :partial => 'new_text'
+    end
   end
 
   def curator_only

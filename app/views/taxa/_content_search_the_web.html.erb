@@ -4,15 +4,7 @@ blind_outlink_parameter_scientific=URI::escape(remove_html(@taxon.scientific_nam
 
 show_both=(blind_outlink_parameter==blind_outlink_parameter_scientific ? false : true)
 %>
-
-<div class="cpc-header" >
-    <h3><%= TocItem.search_the_web.label %></h3> <!-- This title come not the same way like other partials in _content -->
-</div>
-<!-- /center page content header -->
-
-<!-- center page content main content -->
-<div class="cpc-content" >
-
+<div class="text_object" id="search_the_web_wrapper">
   <div class="unvetted-background-text" id="links">
     <table cellspacing="0" summary="Links" class="results_table">
       <tbody><tr><th><%="Project"[]%></th><th><%="Search"[]%></th><% if show_both %><th><%="by Scientific Name"[]%></th><% end %></tr>
@@ -54,5 +46,4 @@ show_both=(blind_outlink_parameter==blind_outlink_parameter_scientific ? false :
       </tbody>
     </table>
   </div>
-  
 </div>

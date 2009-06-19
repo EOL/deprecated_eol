@@ -5,31 +5,49 @@
 #
 module ReportsControllerModule
   
-  # GET /dicts
-  # GET /dicts.xml
+  
   def index
-    @act_histories      = ActionsHistory.find(:all, :order => 'updated_at DESC')    
-    
-    render :template => 'reports/index'
+    whole_report
+    # render :template => 'reports/index'
   end
 
-  # GET /dicts
-  # GET /dicts.xml
-  def comments
-    @act_histories      = ActionsHistory.find(:all, :order => 'updated_at DESC')    
+  def whole_report
+    @act_histories = act_histories
+    @page_header   = 'Changing of objects status and comments'
+    # @report.step   = :whole_report
     
-    render :template => 'reports/comments'
+    render :template => 'reports/whole_report'
+  end
+  
+  def comments_report
+    @act_histories = act_histories
+    @page_header   = 'Changing of comments'
+
+    render :template => 'reports/comments_report'
   end
 
-  # GET /dicts
-  # GET /dicts.xml
-  def statuses
-    @act_histories      = ActionsHistory.find(:all, :order => 'updated_at DESC')    
+  def statuses_report
+    @act_histories = act_histories
+    @page_header   = 'Changing of objects status'
     
-    render :template => 'reports/comments'
+    render :template => 'reports/statuses_report'
   end
 
-
+  private
+  
+  def agents_data_objects
+    Agent.find(current_agent.id).agents_data.map {|x| x.id}
+  end
+  
+  def agents_comments 
+    Comment.find_all_by_parent_id(agents_data_objects).map {|x| x.id}
+  end  
+  
+  def act_histories
+    ActionsHistory.find_all_by_object_id(agents_data_objects + agents_comments,
+                                         :order => 'updated_at DESC')
+  end
+  
 end  
   # 
   # 

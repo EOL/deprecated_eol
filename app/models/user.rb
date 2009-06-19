@@ -288,6 +288,10 @@ class User < ActiveRecord::Base
   def is_admin?
     @is_admin ||= self.roles.include?(Role.administrator)
   end
+  
+  def is_content_partner?
+    @is_content_partner ||= self.roles.include?(Role.administrator)
+  end
 
   def curator_attempted?
     !self.curator_hierarchy_entry.nil?

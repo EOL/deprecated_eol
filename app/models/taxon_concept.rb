@@ -35,6 +35,13 @@ class TaxonConcept < SpeciesSchemaModel
   # The following are the "nice" methods, which we want to publically expose.  ...As opposed to the down-and-dirty stuff that we
   # want to shamefully hide.  These are the methods from which we can build nice, clean objects to serve to the general public:
 
+  def tocitem_for_new_text
+    table_of_contents.each do |toc|
+      return toc if toc.allow_user_text?
+    end
+    TocItem.find_by_sql('select t.id, t.parent_id, t.label, t.view_order from table_of_contents t, info_items i where i.toc_id=t.id limit 1')[0]
+  end
+
   # The canonical form is the simplest string we can use to identify a species--no variations, no attribution, nothing fancy:
   def canonical_form
     return name(:canonical)
@@ -648,6 +655,14 @@ private
   # references_and_more_information
   # evolution_and_systematics
 
+  def search_the_web
+    {
+      :content_type => 'search the web',
+      :category_name => 'Search the Web',
+      :items => []
+    }
+  end
+
   def common_names
     # NOTES: we had a notion of "unspecified" language.  Results were sorted.
     result = {
@@ -708,7 +723,6 @@ private
     return {
           :category_name => 'Specialist Projects',
           :content_type => 'ubio_links',
-          :category_name => 'Specialist Projects',
           :projects => sorted_mappings
         }
 
@@ -736,15 +750,6 @@ private
           :items         => sorted_items
         }
 
-  end
-
-  def catalogue_of_life_synonyms
-    return {
-        :content_type  => 'synonyms',
-        :category_name => 'Catalogue of Life Synonyms',
-        :synonyms      => Synonym.by_taxon(col_entry.id).reject { |syn|
-                            syn.synonym_relation.label == 'common name' }.sort_by {|syn| syn.name.string }
-      }
   end
 
   def get_default_content(category_id, options)

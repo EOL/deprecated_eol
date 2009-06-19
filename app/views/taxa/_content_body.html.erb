@@ -1,7 +1,9 @@
 <% unless @content.nil?
+  %>
+  <div id="insert_text"></div>
+  <%
   # depending on which content type we are displaying, load a different partial
   case @content[:content_type]
-
     when "text"
       %>
       <%= render(:partial=>'content_text') %>
@@ -10,17 +12,9 @@
         womAdd('updateReferences();');
       </script>
       <%
-    when "links"
-      %>
-         <%= render(:partial=>'content_links') %>
-      <%
     when "common names"
       %>
          <%= render(:partial=>'content_names') %>
-      <%
-    when "synonyms"
-      %>
-         <%= render(:partial=>'content_synonyms') %>
       <%
     when "ubio_links"
       %>
@@ -29,6 +23,10 @@
     when "bhl"
       %>
          <%= render(:partial=>'content_bhl') %>
+      <%
+    when 'search the web'
+      %>
+         <%= render(:partial=>'content_search_the_web') %>
       <%
   end
 end%>

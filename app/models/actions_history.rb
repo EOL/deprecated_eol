@@ -5,16 +5,7 @@ class ActionsHistory < ActiveRecord::Base
   belongs_to :action_with_object
   
   validates_presence_of :user_id, :changeable_object_type_id, :action_with_object_id, :created_at 
-
-  #why method_from_user doesn't work?
-  def act_user                                                                                                               
-    User.find(user_id)                                                                                         
-  end    
-  
-  def action_w_object
-    ActionWithObject.find(action_with_object_id)
-  end           
-         
+    
   def taxon_name
     case changeable_object_type_id  
       when 1: 
@@ -27,7 +18,11 @@ class ActionsHistory < ActiveRecord::Base
         else
           taxon_name = comment_parent.taxon_concept_for_users_text.name
         end
+      when 3:    
+          #"tag"
+          #not counts at present
       when 4:
+      #"users_submitted_text"
         taxon_name = udo_taxon_concept.name
       end
     return taxon_name   
@@ -51,20 +46,7 @@ class ActionsHistory < ActiveRecord::Base
     end
     return taxon_id
   end
-  
-  def long_string(l_string)
-    n = 7 #chop too long text
-    if l_string.size > n
-      if l_string[n-1] == 32 #space " "
-        n -= 1 
-      end
-      l_string[0, n].to_s+"..."
-    else
-      l_string
-    end
-  end
-  #truncate("Once upon a time in a world far far away", :length => 14)
-       
+           
   #-------- data_object ---------
          
   def data_object 

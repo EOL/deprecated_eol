@@ -306,7 +306,7 @@ class ContentPartnerController < ApplicationController
   
   def login
     
-    redirect_to :action => 'index' and return if agent_logged_in?    
+    redirect_to(:controller => 'content_partner', :action => 'index') and return if agent_logged_in?    
     
     return unless request.post?
 

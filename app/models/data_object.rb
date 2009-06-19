@@ -190,7 +190,6 @@ class DataObject < SpeciesSchemaModel
   def comment(user, body)
     comment = comments.create :user_id => user.id, :body => body
     user.comments.reload # be friendly - update the user's comments automatically
-    new_actions_histories(user, comment, 'comment', 'create')
     return comment
   end
 

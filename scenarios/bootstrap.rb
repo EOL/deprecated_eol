@@ -102,6 +102,9 @@ admin = User.gen :username => 'admin', :password => 'admin', :given_name => 'Adm
 admin.roles = Role.find(:all, :conditions => 'title LIKE "Administrator%"')
 admin.save
 
+test_user2 = User.gen(:username => 'test_user2', :password => 'password', :given_name => 'test', :family_name => 'user2')
+test_user2.save
+
 make_all_nested_sets
 recreate_normalized_names_and_links
 

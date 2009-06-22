@@ -10,7 +10,15 @@
   <%elsif has_hidden_attributions?(data_object) && !@preview%>
     <a href="#" id="tdo_<%=data_object.id%>" class="attribution-icon expand-text-attribution" title="View full attribution details" style="width: 25px; height: 25px"></a>
   <%end%>
-  
+
+  <% if data_object.created_by_user? %>
+    <div class="credit supplier">
+      <div class="credit-caption">Supplier</div>
+      <div class="credit-value"><%=data_object.user.given_name%> <%=data_object.user.family_name%></div>
+      <div class="footer"></div>
+    </div>
+  <% end %>
+
   <% for attribution in data_object.attributions %>
     <div class="credit <%= css_class(attribution.agent_role) %>">
       <div class="credit-caption"><%= attribution.agent_role %></div>

@@ -141,6 +141,7 @@ class TaxonConcept < SpeciesSchemaModel
   # Also (IMPORTANT): there is another method called "ancestry", which, confusingly, returns HierarchyEntry
   # models, not TaxonConcept models.  Hmmmn.
   def ancestors
+    return [] unless entry
     entry.ancestors.map {|h| TaxonConcept.find(h.taxon_concept_id) } # Long-winded, but we *cache* these, and so the he.taxon_concept
                                                                      # relationship doesn't work with disk_store.  Stupid YAML! # TODO - fix
   end
@@ -149,6 +150,7 @@ class TaxonConcept < SpeciesSchemaModel
   #
   # Same caveats as #ancestors (q.v.)
   def children
+    return [] unless entry
     entry.children.map(&:taxon_concept)
   end
 
@@ -193,6 +195,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def canonical_form_object
+    return nil unless entry
     return entry.canonical_form
   end
 
@@ -268,21 +271,25 @@ class TaxonConcept < SpeciesSchemaModel
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
     return hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
       hierarchy_entries[0] ||
-      raise(Exception.new("Taxon concept must have at least one hierarchy entry"))
+      nil
   end
 
   # These are methods that are specific to a hierarchy, so we have to handle them through entry:
   # This was handled using delegate, before, but seemed to be causing problems, so I'm making it explicit:
   def kingdom
+    return nil if entry.nil?
     return entry.kingdom
   end
   def children_hash(detail_level = :middle, language = Language.english)
+    return {} unless entry
     return entry.children_hash(detail_level, language)
   end
   def ancestors_hash(detail_level = :middle, language = Language.english)
+    return {} unless entry
     return entry.ancestors_hash(detail_level, language)
   end
   def find_default_hierarchy_ancestor
+    return nil unless entry
     return entry.find_default_hierarchy_ancestor
   end
 
@@ -290,7 +297,7 @@ class TaxonConcept < SpeciesSchemaModel
     return !find_default_hierarchy_ancestor.nil?
   end
   def in_default_hierarchy?
-    return entry.hierarchy_id == Hierarchy.default.id
+    return entry && entry.hierarchy_id == Hierarchy.default.id
   end
 
   # We do have some content that is specific to COL, so we need a method that will ALWAYS reference it:
@@ -504,11 +511,14 @@ EOIUCNSQL
   # Returns an array of HierarchyEntry models (not TaxonConcept models), useful for building navigable
   # trees.  If you really want TCs, refer to #ancestors (yes, TODO - these sould be better-named!)
   def ancestry(hierarchy_id = nil)
-    return entry(hierarchy_id).ancestors
+    desired_entry = entry(hierarchy_id)
+    return [] unless desired_entry
+    return desired_entry.ancestors
   end
 
   def classification_attribution
-    return entry.classification_attribution rescue ''
+    return '' unless entry
+    return entry.classification_attribution
   end
 
   # pull content type by given category for taxa id 
@@ -764,7 +774,7 @@ private
     # "stick".  Thus, I override the array:
     override_data_objects = []
     result[:data_objects].each do |data_object|
-      if data_object.sources.detect { |src| src.full_name == 'FishBase' }
+      if entry && data_object.sources.detect { |src| src.full_name == 'FishBase' }
         # TODO - We need a better way to choose which Agent to look at.  : \
         # TODO - We need a better way to choose which Collection to look at.  : \
         # TODO - We need a better way to choose which Mapping to look at.  : \

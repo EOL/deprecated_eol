@@ -16,15 +16,6 @@ class NavigationController < ApplicationController
   # want to pass through the remote response as if it were local
   # Accessed via /flashxml/:taxon_id.xml
   def flash_tree_view
-    # @taxon  = TaxonConcept.find(params[:id])
-    #     @taxon.current_user = current_user
-    #     #TODO - something with params like this: raw_xml = @taxon.entry(params[:classifcation_id]).classification(:raw => true, :kingdoms=>true)
-    #     raw_xml = @taxon.entry.classification(:raw => true, :kingdoms=>true)
-    #     raw_xml.gsub!('&lt;i&gt;','') if raw_xml.nil? == false
-    #     raw_xml.gsub!('&lt;/i&gt;','') if raw_xml.nil? == false
-    #     respond_to do |format|
-    #       format.xml { render :xml => raw_xml }
-    #     end
     
     id = params[:id] rescue 0
     
@@ -42,6 +33,7 @@ class NavigationController < ApplicationController
     respond_to do |format|
       format.xml { render :xml => raw_xml }
     end
+
   end
 
   # AJAX call to set default taxonomic browser in session and save to profile

@@ -78,6 +78,16 @@ describe DataObject do
   end
 
   describe 'user submitted text' do
+    it 'should be created by user' do
+      d = create_user_text_object
+      d.created_by_user?.should eql(true)
+    end
+
+    it 'should not be created by user' do
+      d = DataObject.gen
+      d.created_by_user?.should eql(false)
+    end
+
     it 'should create valid data object' do
       d = create_user_text_object
       d.data_type.label.should == 'Text'

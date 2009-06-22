@@ -148,6 +148,10 @@ class DataObject < SpeciesSchemaModel
     d
   end
 
+  def created_by_user?
+    user != nil
+  end
+
   def user
     udo = UsersDataObject.find_by_data_object_id(self.id)
     udo.nil? ? nil : User.find(udo.user_id)

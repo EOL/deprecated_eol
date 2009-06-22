@@ -24,6 +24,8 @@ class ActionsHistory < ActiveRecord::Base
       when 4:
       #"users_submitted_text"
         taxon_name = udo_taxon_concept.name
+      else 
+        raise "Don't know how to get taxon name from a changeable object type of id #{changeable_object_type_id}"
       end
     return taxon_name   
   end
@@ -43,6 +45,8 @@ class ActionsHistory < ActiveRecord::Base
       when 4:
       #users_data_object
         taxon_id = udo_taxon_concept.id
+      else
+        raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"
     end
     return taxon_id
   end

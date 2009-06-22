@@ -15,7 +15,7 @@
     <%- if @taxon -%>
         <meta name="description" content="<%= hh(remove_html("#{@taxon.title} (#{@taxon.subtitle}) in Encyclopedia of Life")) %>" />
         <meta name="keywords" content="<%= meta_keywords(hh(@taxon.title) + ' ' + hh(@taxon.subtitle)) %>" />
-        <%- if !@taxon.entry.hierarchies_content.nil? && (@taxon.entry.hierarchies_content.image != 0 || @taxon.entry.hierarchies_content.child_image != 0) -%>
+        <%- if !@taxon.entry.nil? && !@taxon.entry.hierarchies_content.nil? && (@taxon.entry.hierarchies_content.image != 0 || @taxon.entry.hierarchies_content.child_image != 0) -%>
           <link id="media_rss" rel="alternate" href="/content/mediarss?format=rss&id=<%= @taxon.id %>" type="application/rss+xml" />
         <%- end -%>
     <%- else -%>

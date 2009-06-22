@@ -117,7 +117,9 @@ class Comment < ActiveRecord::Base
     return_t_c = case self.parent_type
      when 'TaxonConcept' then parent.id
      when 'DataObject'   then parent.taxon_concepts[0].id
+     else nil
     end
+    raise "Don't know how to handle a parent type of #{self.parent_type} (or t_c was nil)" if return_t_c.nil?
     return return_t_c
   end
   

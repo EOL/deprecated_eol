@@ -167,6 +167,7 @@ class HierarchyEntry < SpeciesSchemaModel
 
     if self.hierarchy_id != Hierarchy.default.id
       entry_in_common = find_default_hierarchy_ancestor
+      return {} if entry_in_common.nil?
       return entry_in_common.ancestors_hash(detail_level, language)
     end
 

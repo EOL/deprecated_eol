@@ -5,7 +5,9 @@ information about the number of results returned for that search term.  Click on
 Click on a search term to see information about which result users clicked on (if any) after searching.
 		
 	<div id="content_page">
-	  
+	  <br />
+	  Total searches: <%=@search_totals[0].num_searches%> | Total distinct searches: <%=@search_totals[0].distinct_searches%>
+    <br />
 		<% form_tag({:action=>'index'},:method=>'get',:id=>'form1') do -%>
   	Search for terms containing: <%= text_field_tag(:term_search_string,@term_search_string)%> 
   	<br />

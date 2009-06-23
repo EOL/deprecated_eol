@@ -12,39 +12,41 @@ module ReportsControllerModule
   end
 
   def whole_report
-    @act_histories = act_histories
-    @page_header   = 'Changing of objects status and comments'
-    # @report.step   = :whole_report
+    @act_histories    = act_histories
+    @sub_page_header  = 'Changing of objects status and comments'
+    @report_type      = :whole_report
     
     render :template => 'reports/whole_report'
   end
   
   def comments_report
-    @act_histories = act_histories
-    @page_header   = 'Changing of comments'
+    @act_histories    = act_histories
+    @sub_page_header  = 'Changing of comments'
+    @report_type      = :comments_report
 
     render :template => 'reports/comments_report'
   end
 
   def statuses_report
-    @act_histories = act_histories
-    @page_header   = 'Changing of objects status'
+    @act_histories    = act_histories
+    @sub_page_header  = 'Changing of objects status'
+    @report_type      = :statuses_report
     
     render :template => 'reports/statuses_report'
   end
 
   private
   
-  def agents_data_objects
+  def agents_data_object_ids
     Agent.find(current_agent.id).agents_data.map {|x| x.id}
   end
   
-  def agents_comments 
-    Comment.find_all_by_parent_id(agents_data_objects).map {|x| x.id}
+  def agents_comment_ids 
+    Comment.find_all_by_parent_id(agents_data_object_ids).map {|x| x.id if      (x.parent_type == "DataObject")}
   end  
   
   def act_histories
-    ActionsHistory.find_all_by_object_id(agents_data_objects + agents_comments,
+    ActionsHistory.find_all_by_object_id(agents_data_object_ids + agents_comment_ids,
                                          :order => 'updated_at DESC')
   end
   

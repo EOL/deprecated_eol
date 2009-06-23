@@ -1,18 +1,25 @@
 <div id="report_from_eol">
-  <h2><%= @page_header %></h2>
+  <h2><%= @sub_page_header %></h2>
   
   <ul>
+    <% n = 0%>
+    
     <% for act_history in @act_histories -%>
       <% if act_history.changeable_object_type_id == 1 -%>
 
         <% act_date = time_ago_in_words(act_history.created_at) -%>  
         <% current_act = act_history.action_with_object.action_code %>
         
-  
+        <% n += 1%>
         <%= render :partial=> 'statuses_report.html.erb',
                 :locals=>{:act_history => act_history, 
                           :act_date => act_date, :current_act => current_act} %>
       <% end -%>
-    <% end -%>
+    <% end -%>    
   </ul>
+  
+  <% if (n == 0) %>
+  Nothing To Report
+  <% end %>
+  
 </div>

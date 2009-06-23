@@ -5,9 +5,6 @@ in_contacts_section = (page_header.downcase=='contact information' || page_heade
 in_agreements_section = page_header.downcase.include?('partnering')
 in_resources_section = page_header.downcase.include?('resource')
 in_reports_section = page_header.downcase.include?('reports')
-in_whole_report_subsection = page_header.downcase.include?('changing of objects status and comments')
-in_comments_subsection = page_header.downcase.include?('changing of comments')
-in_statuses_subsection = page_header.downcase.include?('changing of objects status')
 %>
 <ul id="toc" class="content_partner">
    <li><%= link_to 'DASHBOARD',{:controller=>'/content_partner',:action=>'index'},:class=>"#{in_dashboard_section ? 'active' : ''} toc_item" %></li>
@@ -34,14 +31,10 @@ in_statuses_subsection = page_header.downcase.include?('changing of objects stat
     <a href="<%= url_for :controller=>'/content_partner',:action=>'reports'%>" class="<%= in_reports_section ? 'active' : ''%> toc_item">USAGE REPORTS</a>
     <% if controller.is_a? ContentPartner::ReportsController %>
     <!-- ASh -->
-    
-        <li><%= link_to 'All changes',{:controller=>'/content_partner/reports', :action=>'whole_report'}, :class=>"#{in_whole_report_subsection ? 'active' : ''} nested toc_item"%>
-          <li><%= link_to 'Comments',{:controller=>'/content_partner/reports', :action=>'comments_report'}, :class=>"#{in_comments_subsection ? 'active' : ''} nested toc_item"%>
-            <li><%= link_to 'Statuses',{:controller=>'/content_partner/reports', :action=>'statuses_report'}, :class=>"#{in_statuses_subsection ? 'active' : ''} nested toc_item"%>
+        <li><%= link_to 'All changes',{:controller=>'/content_partner/reports', :action=>'whole_report'}, :class=>"#{(@report_type  == :whole_report) ? 'active': ''} nested toc_item"%>
+        <li><%= link_to 'Comments',{:controller=>'/content_partner/reports', :action=>'comments_report'}, :class=>"#{(@report_type  == :comments_report) ? 'active': ''} nested toc_item"%>
+        <li><%= link_to 'Statuses',{:controller=>'/content_partner/reports', :action=>'statuses_report'}, :class=>"#{(@report_type  == :statuses_report) ? 'active': ''} nested toc_item"%>
         </li>
-        
-        <!-- <li><%#= link_to 'Licensing Policy',{:controller=>'/content_partner',:action=>'licensing'}, :class=>"#{(@content_partner.step  == :licensing) ? 'active': ''} nested toc_item"%></li> -->
-        
       
     <!-- We do not use log for that now -->
     <!-- /ASh -->      

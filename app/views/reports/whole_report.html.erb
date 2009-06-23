@@ -1,2 +1,41 @@
-<%= render :partial => 'reports/whole_report' %>
+<div id="report_from_eol">
+  <h2><%= @sub_page_header %></h2>
+  
+  <ul>
+    <% n = 0 %>
+    <% for act_history in @act_histories -%>
+    
+        <% act_date = time_ago_in_words(act_history.created_at) -%>  
+        <% current_act = act_history.action_with_object.action_code %>
 
+        <% case act_history.changeable_object_type_id  
+             when 1: -%>    <!-- "data_object" -->
+          <% n += 1%>
+          <%= render :partial=> 'statuses_report.html.erb',
+                    :locals=>{:act_history => act_history, 
+                              :act_date => act_date, :current_act => current_act} %>
+
+          <% when 2: -%>    <!-- "comment" -->
+          <% n += 1%>
+          <%= render :partial=> 'comments_report.html.erb',
+                    :locals=>{:act_history => act_history, 
+                              :act_date => act_date, :current_act => current_act} %>
+                   
+          <% when 3: -%>    <!-- <p>"tag"</p> -->
+           <%# not counts at present -%>
+          <% n += 1%>
+          <% when 4: -%>    <!-- <p>"users_submitted_text"</p> -->   
+            <%# not in use yet %>
+          <% n += 1%>
+            <%#= render :partial=> 'user_submitted_text_report.html.erb',
+                    :locals=>{:act_history => act_history, 
+                              :act_date => act_date, :current_act => current_act} %>
+          
+        <% end -%> 
+    <% end -%>                                                                                                                 
+  </ul>
+  
+  <% if (n == 0) %>
+      Nothing To Report
+  <% end %>
+</div> 

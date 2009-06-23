@@ -174,7 +174,9 @@ class TaxaController < ApplicationController
         params[:search_type] = EOLConvert.get_search_type(params[:search_type])
         params[:content_level] ||= '1'
         params[:q] ||= params[:id] ||= '' # allow search strings to be passed in as ID (Rails style) or as the "q" querystring param (Google style)
-
+        
+        params[:q].gsub!('_',' ') # convert underscores that might be used in friendly URLs into spaces
+        
         last_published=HarvestEvent.last_published if params[:search_type].downcase == 'text' && allow_page_to_be_cached?
         @last_harvest_event_id=(last_published.blank? ? "0" : last_published.id.to_s)
 

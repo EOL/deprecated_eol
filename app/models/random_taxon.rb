@@ -1,7 +1,6 @@
 #
-# ... why is this a model / table?
-#
-# Why isn't this just TaxonConcept.random?
+# ... why is this a model / table?   Why isn't this just TaxonConcept.random?   ...Because the table itself is
+# randomized to save time: we can grab 10 (or however many) taxa in a row and know that they are non-contiguous.
 #
 class RandomTaxon < SpeciesSchemaModel
   belongs_to :language
@@ -34,15 +33,6 @@ class RandomTaxon < SpeciesSchemaModel
     return self.random_set(1)[0]
   end
 
-  # NOTE - This is difficult to test with specs.  To test manually:
-  # 1) script/console
-  # 2) RandomTaxon.random should give you a taxon.
-  # 3) mysql; delete from random_taxa;
-  # 4) RandomTaxon.random should raise "There are no Random Taxa in the database".  DO NOT close your console!
-  # 5) rake denormal:build_random_taxa
-  # 6) RandomTaxon.random should give you a taxon again.
-
-  
   def self.reset_count
     if @@last_cleared.blank? || @@last_cleared.advance(:hours=>1) < Time.now
       @@last_cleared = Time.now()

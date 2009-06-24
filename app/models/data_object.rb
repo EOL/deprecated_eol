@@ -61,8 +61,8 @@ class DataObject < SpeciesSchemaModel
       :altitude => 0,
       :object_url => '',
       :thumbnail_url => '',
-      :object_title => ERB::Util.h(all_params[:data_object][:object_title]),
-      :description => ERB::Util.h(all_params[:data_object][:description]),
+      :object_title => ERB::Util.h(all_params[:data_object][:object_title]), # No HTML allowed
+      :description => all_params[:data_object][:description].allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
       :vetted_id => Vetted.unknown.id,
@@ -99,8 +99,8 @@ class DataObject < SpeciesSchemaModel
       :altitude => 0,
       :object_url => '',
       :thumbnail_url => '',
-      :object_title => ERB::Util.h(all_params[:data_object][:object_title]),
-      :description => ERB::Util.h(all_params[:data_object][:description]),
+      :object_title => ERB::Util.h(all_params[:data_object][:object_title]), # No HTML allowed
+      :description => all_params[:data_object][:description].allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
       :vetted_id => Vetted.unknown.id,
@@ -129,8 +129,8 @@ class DataObject < SpeciesSchemaModel
       :altitude => 0,
       :object_url => '',
       :thumbnail_url => '',
-      :object_title => ERB::Util.h(all_params[:data_object][:object_title]),
-      :description => ERB::Util.h(all_params[:data_object][:description]),
+      :object_title => ERB::Util.h(all_params[:data_object][:object_title]), # No HTML allowed
+      :description => all_params[:data_object][:description].allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
       :vetted_id => Vetted.unknown.id,

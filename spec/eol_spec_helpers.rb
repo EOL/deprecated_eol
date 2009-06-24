@@ -337,12 +337,56 @@ end
 # Please *try* and KEEP THESE ALPHABETICAL for now.  When we have too many, we'll break them up into files, but that
 # will make loading much more complicated.
 
-Ref.class # lame way of getting rails to auto-load the class.  If we skip this step, Ref is defined here, and we 
-          # never load the model!
-class Ref
+Ref.class_eval do
   def add_identifier(type, identifier)
     type = RefIdentifierType.find_by_label(type) || RefIdentifierType.gen(:label => type)
     # TODO - I can take off the :ref => self, right?  For now, being safe.
     self.ref_identifiers << RefIdentifier.gen(:ref_identifier_type => type, :identifier => identifier, :ref => self)
+  end
+end
+
+TaxonConcept.class_eval do
+  # Quickly adds some user-submitted text to a TaxonConcept.
+  #
+  # Options are:
+  #
+  #   +description+:
+  #     The actual text to add. Defaults to 'some random text' (literally).
+  #   +language+:
+  #     The language submitted, defaults to English.
+  #   +license+:
+  #     The license the text was submitted as.  Defaults to the last one in the DB.
+  #   +title+:
+  #     The title provided by the user (note none is required, and the default is none).
+  #   +toc_item+:
+  #     Under which TOC item it was added (careful, it's possible to add things to TocItems that the GUI disallows)
+  #   +user+:
+  #     The user who added it. Defaults to the last user in the DB.
+  #   +vetted+:
+  #     The text object will only be visible if the user is logged in with "All" rather than "Authoritative" mode.
+  #     Set this to true if you want it to be visible to "Authoritative", or to remove the yellow background.
+  def add_user_submitted_text(options)
+    options = {:description => 'some random text',
+               :user        => User.last,
+               :toc_item    => TocItem.overview,
+               :license     => License.last,
+               :language    => Language.english,
+               :vetted      => false
+              }.merge(options)
+    dato = DataObject.create_user_text({:taxon_concept_id => self.id,
+                                        :data_objects_toc_category => { :toc_id => options[:toc_item].id },
+                                        :data_object => {
+                                          :object_title => options[:title],
+                                          :description  => options[:description],
+                                          :language_id  => options[:language].id,
+                                          :license_id   => options[:license].id
+                                        }
+                                       }, options[:user])
+    if options[:vetted]
+      curator = self.curators.first
+      curator ||= User.first
+      dato.curate!(CuratorActivity.find_by_code('approve').id, curator)
+    end
+    return dato
   end
 end

@@ -8,9 +8,6 @@
 #
 # For developers:
 # 1. Make sure to setup your +development+ and +test+ environments
-# 2. During development, the "_data" databases should share the same name, 
-#    e.g. eol_data_shared. This is because the "denormal:build_random_taxa"
-#    rake task populates it with actual data useful for testing and dev.
 # 
 # Common settings for each environment assume that all four databases are on 
 # the same database server for each environment.  If this is not the case, 

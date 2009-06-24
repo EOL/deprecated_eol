@@ -237,14 +237,7 @@ module ApplicationHelper
 
   # Note that I change strong to b, 'cause strong appears to be overridden in our CSS.  Hrmph.
   def allow_some_html(text)
-    text.gsub!(/</, '&lt;')
-    text.gsub!(/>/, '&gt;')
-    @allowed_attributes_in_allow_some_html = /\s*\/|\s+href=['"][^'"]+['"]/ 
-    ['a', 'b', 'br', 'strong', 'em', 'blockquote', 'i', 'small'].each do |tag|
-      text.gsub!(/&lt;(\/)?#{tag}(#{@allowed_attributes_in_allow_some_html})?\s*&gt;/i, "<\\1#{tag.gsub(/strong/, 'b')}\\2>")
-    end
-    text.gsub!(/\r\n/, '<br/>')
-    return text
+    return text.allow_some_html
   end
   
   # render a version of the classification that allows you to choose a particular clade

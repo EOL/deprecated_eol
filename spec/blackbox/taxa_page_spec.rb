@@ -69,6 +69,12 @@ describe 'Taxa page (HTML)' do
     @collection    = Collection.gen(:ping_host_url => @ping_url)
     @mapping       = Mapping.gen(:collection => @collection, :name => @name, :foreign_key => @ping_id)
     @ping_url.sub!(/%ID%/, @ping_id) # So we can test that it was replaced by the code.
+    
+    description       = 'user wants <b>bold</b> and <i>italics</i> and <a href="link">links</a>'
+    @description_bold = /user wants <(b|strong)>bold<\/(b|strong)>/
+    @description_ital = /and <(i|em)>italics<\/(i|em)>/
+    @description_link = /and <a href="link">links<\/a>/
+    @taxon_concept.add_user_submitted_text(:description => description, :vetted => true)
 
     @curator       = Factory(:curator, :curator_hierarchy_entry => @taxon_concept.entry)
     Comment.find_by_body(@comment_bad).hide! User.last
@@ -115,6 +121,12 @@ describe 'Taxa page (HTML)' do
     new_result.body.should have_tag("a[href=http://#{url_identifier}]")
     new_result.body.should_not include(bad_identifier)
     new_result.body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
+  end
+
+  it 'should allow html in user-submitted text' do
+    @result.body.should match @description_bold
+    @result.body.should match @description_ital
+    @result.body.should match @description_link
   end
 
 end

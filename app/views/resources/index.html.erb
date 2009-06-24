@@ -28,7 +28,7 @@
       <td><%=h (resource.license.blank? ? "unspecified" : resource.license.title) %></td>
       <td><%=h resource.status_label %></td>
       <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
-      <td><%= link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=5&resource_id=#{resource.id}")%></td>
+      <td><%= link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=5&resources_id=#{resource.id}")%></td>
     </tr>
     <%- if !resource.description.blank? -%>
     <tr class="resource_rowsep">

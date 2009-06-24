@@ -4,16 +4,16 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="http://localhost:3000/" />
-<title>Auto switch TOC when attempting to add to invalid TOC</title>
+<title>information_slider_after_new_text</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Auto switch TOC when attempting to add to invalid TOC</td></tr>
+<tr><td rowspan="1" colspan="3">information_slider_after_new_text</td></tr>
 </thead><tbody>
 <tr>
 	<td>open</td>
-	<td>/pages/18?vetted=false</td>
+	<td>/pages/11?vetted=true</td>
 	<td></td>
 </tr>
 <tr>
@@ -38,13 +38,8 @@
 </tr>
 <tr>
 	<td>click</td>
-	<td>//a[@id='new_text_toc_button']/span</td>
+	<td>//a[@id='new_text_content_button']/span</td>
 	<td></td>
-</tr>
-<tr>
-	<td>waitForText</td>
-	<td>//div[@class='cpc-header']/h3</td>
-	<td>Overview</td>
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
@@ -54,12 +49,12 @@
 <tr>
 	<td>type</td>
 	<td>data_object_object_title</td>
-	<td>title</td>
+	<td>test auto slider</td>
 </tr>
 <tr>
 	<td>type</td>
 	<td>data_object_description</td>
-	<td>description</td>
+	<td>information slider change test</td>
 </tr>
 <tr>
 	<td>click</td>
@@ -69,17 +64,17 @@
 <tr>
 	<td>waitForText</td>
 	<td>//div[@class='text_object']/div[@class='content-article unknown-background-image']/h1</td>
-	<td>title</td>
+	<td>test auto slider</td>
 </tr>
 <tr>
 	<td>open</td>
-	<td>/pages/18?vetted=false</td>
+	<td>/pages/11</td>
 	<td></td>
 </tr>
 <tr>
 	<td>assertText</td>
-	<td>//div[@class='cpc-header']/h3</td>
-	<td>Overview</td>
+	<td>//div[@class='text_object']/div[@class='content-article unknown-background-image']/h1</td>
+	<td>test auto slider</td>
 </tr>
 <tr>
 	<td>clickAndWait</td>

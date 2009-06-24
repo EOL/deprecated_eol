@@ -78,6 +78,11 @@ describe DataObject do
   end
 
   describe 'user submitted text' do
+    it 'should return taxon concept' do
+     d = create_user_text_object
+     d.taxon_concepts.length.should eql(1)
+    end
+
     it 'should be created by user' do
       d = create_user_text_object
       d.created_by_user?.should eql(true)

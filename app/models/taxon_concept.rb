@@ -491,6 +491,7 @@ class TaxonConcept < SpeciesSchemaModel
       WHERE tcn.taxon_concept_id = ?
         AND he.resource_id IN (?)
         AND published = 1
+      ORDER BY do.id desc
       LIMIT 1 # TaxonConcept.iucn
 
 EOIUCNSQL

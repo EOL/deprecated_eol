@@ -462,7 +462,7 @@ class TaxaController < ApplicationController
     end
 
     def get_new_text_tocitem_id(category_id)
-      if TocItem.find(category_id).allow_user_text?
+      if category_id && TocItem.find(category_id).allow_user_text?
         category_id
       else
         'none'

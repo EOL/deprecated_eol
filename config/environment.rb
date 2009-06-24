@@ -198,27 +198,8 @@ ExceptionNotifier.email_prefix = "[EOL] "
 require 'extensions'
 require 'acts_as_enum'
 
-# ADD SOME STUFF TO RAILS BASE CLASSES
-
-# I need this to sanitize SQL into strings:
-class << ActiveRecord::Base
-  public :sanitize_sql
-end
-
-class String
-  def firstcap
-    #self.gsub(/^(\w)/) { $1.chars.capitalize }
-    self.gsub(/^(<[^>]*>)?([^ ]+)( |$)/) {  $1.to_s + $2.chars.capitalize + $3 }
-  end
-end
-
-class ActiveRecord::Migration
-  def self.not_okay_in_production
-    # Perhaps not the right error class to throw, but I'm not aware of good alternatives:
-    raise ActiveRecord::IrreversibleMigration.new("It is not okay to run this migration on a production database.") if
-      ENV['RAILS_ENV'] =~ /prod/i
-  end
-end
+# Add some stuff to Core/Rails base classes:
+require 'core_extensions'
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin

@@ -360,14 +360,18 @@ class DataObject < SpeciesSchemaModel
   # Return all of the TCs associated with this Dato.  Not necessarily all the pages it shows up on,
   # however, as Zea mays image will show up on Plantae
   def taxon_concepts
-    @taxon_concepts ||= TaxonConcept.find_by_sql(["
-      SELECT tc.* FROM data_objects do
-      JOIN data_objects_taxa dot ON (do.id=dot.data_object_id)
-      JOIN taxa t ON (dot.taxon_id=t.id)
-      JOIN taxon_concept_names tcn ON (t.name_id=tcn.name_id)
-      JOIN taxon_concepts tc ON (tcn.taxon_concept_id=tc.id)
-      WHERE do.id=? -- DataObject#taxon_concepts
-    ", self.id])
+    if created_by_user?
+      @taxon_concepts ||= [taxon_concept_for_users_text]
+    else
+      @taxon_concepts ||= TaxonConcept.find_by_sql(["
+        SELECT tc.* FROM data_objects do
+        JOIN data_objects_taxa dot ON (do.id=dot.data_object_id)
+        JOIN taxa t ON (dot.taxon_id=t.id)
+        JOIN taxon_concept_names tcn ON (t.name_id=tcn.name_id)
+        JOIN taxon_concepts tc ON (tcn.taxon_concept_id=tc.id)
+        WHERE do.id=? -- DataObject#taxon_concepts
+      ", self.id])
+    end
   end
 
   # Return all of the HEs associated with this Dato.  Not necessarily all the pages it shows up on,

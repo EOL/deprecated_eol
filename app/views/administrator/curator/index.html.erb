@@ -21,7 +21,7 @@ Click a username to view the user's detailed profile.  You may change the clade 
 				    <tr>
 				    	<td class="<%= column_class %>"><%= link_to(user.username, :controller => 'administrator/user', :action=>'edit',:id=>user.id)%></td>
 						<td class="<%= column_class %>"><a href="#" onclick="Element.toggle('credentials_<%=user.id%>');return false;"><%=truncate(h(user.credentials))%></a><div style="display:none;" id="credentials_<%=user.id%>"><%= allow_some_html(user.credentials) %></pre></div></td>
-						<td class="<%= column_class %>"><%= h user.given_name + ' ' + user.family_name%></td>
+						<td class="<%= column_class %>"><%= h user.full_name%></td>
 						<td class="<%= column_class %>"><%= user.curator_hierarchy_entry.name %></td>
 						<% form_id = "user_curator_#{user.id}"%>
 						<td class="<%= column_class %>">

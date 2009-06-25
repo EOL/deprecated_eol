@@ -105,13 +105,3 @@ EOL.Curation.Behaviors = {
   }
 };
 
-EOL.Curation.UNKNOWN_ID = 0;
-EOL.Curation.TRUSTED_ID = 3;
-EOL.Curation.UNTRUSTED_ID = 2;
-
-EOL.Curation.TEXT_ID = 3;
-EOL.Curation.IMAGE_ID = 5;
-
-EOL.Curation.VISIBLE_ID = 2;
-EOL.Curation.INVISIBLE_ID = 0;
-EOL.Curation.INAPPROPRIATE_ID = 4;

@@ -88,9 +88,10 @@ ActionController::Routing::Routes.draw do |map|
                                                              :conditions => {:method => :get}
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'create',
                                                              :conditions => {:method => :post}
-
+                                                             
   map.admin 'admin',           :controller => 'admin',           :action => 'index'
-  map.admin 'content_partner', :controller => 'content_partner', :action => 'index'
+  map.content_partner 'content_partner', :controller => 'content_partner', :action => 'index'
+  map.podcast 'podcast', :controller=>'content', :action=>'page', :id=>'podcast'
   
   # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)
   # ...with the exception of "index", which historically pointed to home:

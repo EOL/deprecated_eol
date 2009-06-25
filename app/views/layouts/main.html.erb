@@ -46,16 +46,14 @@
     </script>
     
     <script language="javascript" type="text/javascript">
-      EOL.Curation.TRUSTED_ID   = <%=Vetted.find_by_label('Unknown').id%>;
-      EOL.Curation.TRUSTED_ID   = <%=Vetted.find_by_label('Trusted').id%>;
-      EOL.Curation.UNTRUSTED_ID = <%=Vetted.find_by_label('Untrusted').id%>;
+      EOL.Curation.UNKNOWN_ID   = <%=Vetted.unknown.id.to_s%>;
+      EOL.Curation.TRUSTED_ID   = <%=Vetted.trusted.id.to_s%>;
+      EOL.Curation.UNTRUSTED_ID = <%=Vetted.untrusted.id.to_s%>;
     
-      EOL.Curation.INAPPROPRIATE_ID = <%=Visibility.find_by_label('Preview').id%>;
-      EOL.Curation.VISIBLE_ID       = <%=Visibility.find_by_label('Visible').id%>;
-      EOL.Curation.INVISIBLE_ID     = <%=Visibility.find_by_label('Invisible').id%>;
-      EOL.Curation.INAPPROPRIATE_ID = <%=Visibility.find_by_label('Inappropriate').id%>;
+      EOL.Curation.VISIBLE_ID       = <%=Visibility.visible.id.to_s%>;
+      EOL.Curation.INVISIBLE_ID     = <%=Visibility.invisible.id.to_s%>;
+      EOL.Curation.INAPPROPRIATE_ID = <%=Visibility.inappropriate.id.to_s%>;
     </script>
-    
 
 	<%#= javascript_include_tag 'http://s9.addthis.com/js/widget.php?v=10' %>
 

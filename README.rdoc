@@ -129,6 +129,19 @@ Content Partner, and should be visibile only to her.
 
 === Browser acceptance testing with Selenium
 
+To setup Selenium IDE point your Firefox browser at:
+
+https://addons.mozilla.org/en-US/firefox/addon/2079
+
+Once installed, it can be opened via the Tools menu of Firefox. All Selenium test suites
+and test cases are located under the spec/selenium directory. Before running the
+development test suite, the following should be run:
+
+rake truncate && rake scenarios:load NAME=bootstrap && script/server
+
+
+
+
 Acceptance testing with the browser is accomplished with Selenium RC and the selenium-client Rubygem. To run
 the Selenium acceptance tests, open a console:
 

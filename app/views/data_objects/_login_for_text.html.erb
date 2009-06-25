@@ -1,0 +1,1 @@
+<p><strong>You must be <%= link_to('logged in', login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} ) %> to add text.</strong></p>

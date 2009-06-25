@@ -25,5 +25,20 @@ class Administrator::CuratorController < AdminController
     search_string_parameter])
     
   end
+
+  def export
+
+    @users=User.find(:all,:conditions=>['curator_hierarchy_entry_id IS NOT NULL'])
+      report = StringIO.new
+      CSV::Writer.generate(report, ',') do |title|
+          title << ['Id', 'Username', 'Name', 'Email', 'Credentials','Clade','Approved','Date']
+          @users.each do |u|
+            title << [u.id,u.username,u.full_name,u.email,u.credentials,u.curator_hierarchy_entry.name,u.curator_approved,u.created_at.strftime("%m/%d/%y - %I:%M %p %Z")]       
+          end
+       end
+       report.rewind
+       send_data(report.read,:type=>'text/csv; charset=iso-8859-1; header=present',:filename => 'EOL_curators_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')
+
+  end
   
 end

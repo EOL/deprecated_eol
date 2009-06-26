@@ -189,6 +189,14 @@ Factory.sequence(:image) do |n|
 end
 
 # Unique:
+Factory.sequence(:guid) do |n|
+  @guids = ['3a117abf96e7fe8793ef87b14d166d5f', 'a509ebdb2fc8083f3a33ea17985bad42']
+  pick = @guids[n % @guids.length]
+  (n / @guids.length).times { pick.succ! }
+  pick
+end
+
+# Unique:
 Factory.sequence(:scientific_name) do |n|
   @seq_sci_name = ["Quibusdameli estculpaatus", "Estasperioreseli etquidemis", "Nesciunterox autrerumalis", "Voluptasalius optioerus", "Remrerumeron auteterus", "Veritatises idofficiisiae", "Accusamusalis pariatura", "Voluptateseri doloremosyne", "Autrecusandaees repudiandaeica", "Nihileri voluptasus", "Dignissimosii inutes", "Fugais utharumatus", "Minuseli ullamens", "Dignissimosatus nobisosyne", "Expeditaalia evenietelia", "Earumeles beataeata", "Culpaensis sapienteesi", "Utomnisesi sequialis", "Autaliquideri minimais", "Beataeelia etnemoiae", "Autema officiaalius", "Autemalius utsimiliqueesi", "Etconsequaturelia autenimalia", "Quoautesi natuseri", "Voluptatumeri esseensis", "Ameti maioresis", "Ipsamalius distinctioerox", "Maximees veritatisatus", "Molestiaeus rationealia", "Fugitens dolorealius", "Quisquamator sequieles", "Essees eaqueata", "Animiens atdoloribuseron", "Adaliasii iurea", "Nonnumquamerus numquamerus", "Autvoluptatesus temporaalis", "Excepturialia omnisa", "Estveroalia nihilata", "Quiincidunta culpaelia", "Providentalia estquaeratens", "Placeatalia uteosensis", "Ipsaensis architectoalius", "Deserunterox facereerox", "Suntalia estsitalius", "Aliasosyne quiadipisciatus", "Illoica exexplicaboalia", "Laboriosamerus quisis", "Optiois molestiasalia", "Ipsuma animius", "Quiserox eligendii", "Eteaiae nullais"]
   pick = @seq_sci_name[n % @seq_sci_name.length]
@@ -305,7 +313,7 @@ Factory.define :audience do |a|
 end
 
 Factory.define :canonical_form do |cform|
-  cform.string Factory.next(:species)
+  cform.string { Factory.next(:species) }
 end
 
 Factory.define :collection do |col|
@@ -426,7 +434,7 @@ Factory.define :curator_data_object_log do |cdol|
 end
 
 Factory.define :data_object do |dato|
-  dato.guid                   ''
+  dato.guid                   { Factory.next(:guid) }
   dato.association            :data_type
   dato.association            :mime_type
   dato.object_title           ''
@@ -637,7 +645,7 @@ end
 # end
 
 Factory.define :normalized_name do |nn|
-  nn.name_part Factory.next(:string)
+  nn.name_part { Factory.next(:string) }
 end
 
 Factory.define :changeable_object_type do |ot|
@@ -776,7 +784,7 @@ Factory.define :taxon do |t|
   t.taxon_order     ''
   t.taxon_family    ''
   t.association     :name
-  t.scientific_name Factory.next(:scientific_name)
+  t.scientific_name { Factory.next(:scientific_name) }
   t.association     :hierarchy_entry
   t.created_at      { 48.hours.ago }
   t.updated_at      { 42.minutes.ago }

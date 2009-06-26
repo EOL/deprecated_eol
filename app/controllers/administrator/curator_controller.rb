@@ -33,7 +33,7 @@ class Administrator::CuratorController < AdminController
       CSV::Writer.generate(report, ',') do |title|
           title << ['Id', 'Username', 'Name', 'Email', 'Credentials','Clade','Approved','Date']
           @users.each do |u|
-            title << [u.id,u.username,u.full_name,u.email,u.credentials,u.curator_hierarchy_entry.name,u.curator_approved,u.created_at.strftime("%m/%d/%y - %I:%M %p %Z")]       
+            title << [u.id,u.username,u.full_name,u.email,u.credentials.gsub(/\r\n/,'; '),u.curator_hierarchy_entry.name,u.curator_approved,u.created_at]       
           end
        end
        report.rewind

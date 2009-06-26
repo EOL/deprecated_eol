@@ -2,6 +2,7 @@ class InfoItem < SpeciesSchemaModel
   has_and_belongs_to_many :data_objects
   belongs_to :toc_item, :foreign_key => :toc_id
 end
+
 # == Schema Info
 # Schema version: 20081020144900
 #

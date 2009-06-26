@@ -68,12 +68,12 @@ describe 'Search' do
 
   it 'should show a list of possible results (linking to /taxa/search_clicked) if more than 1 match is found  (also for pages/searchterm)' do
 
-    lilly = create_taxa('Tiger Lily')
+    lilly = create_taxa('Tiger Lilly')
     tiger = create_taxa('Tiger')
 
     body = request('/search?q=tiger').body
-    body.should include(lilly.quick_scientific_name)
-    body.should include(tiger.quick_scientific_name)
+    body.should include(lilly.quick_scientific_name(:italicized))
+    body.should include(tiger.quick_scientific_name(:italicized))
     body.should have_tag('a[href*=?]', %r{/taxa/search_clicked/#{ lilly.id }})
     body.should have_tag('a[href*=?]', %r{/taxa/search_clicked/#{ tiger.id }})
 

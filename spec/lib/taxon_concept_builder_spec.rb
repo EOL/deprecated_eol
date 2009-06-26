@@ -25,12 +25,16 @@ describe 'build_taxon_concept (spec helper method)' do
     end
   end
 
-  it 'should use ___ as a default HarvestEvent for the data objects created if none provided'
+  it 'should use default HarvestEvent if no alternative provided' do
+    @taxon_concept.images.each do |img|
+      img.harvest_events.should only_include(default_harvest_event)
+    end
+  end
 
-  it 'should use the supplied HarvestEvent to create all data objects' # do
-#    @taxon_concept_with_args.images.each do |img|
-#      img.harvest_events.should only_include(@event)
-#    end
-#  end
+  it 'should use the supplied HarvestEvent to create all data objects' do
+    @taxon_concept_with_args.images.each do |img|
+      img.harvest_events.should only_include(@event)
+    end
+  end
 
 end

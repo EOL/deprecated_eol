@@ -204,6 +204,22 @@ Factory.sequence(:common_name) do |n|
   pick
 end
 
+# Unique:
+Factory.sequence(:last_name) do |n|
+  @seq_last_name = ["Cronin", "Reinger", "Jacobs", "Crona", "Parisian", "Bergstrom", "Rhys", "Murphy", "Connelly", "Runolfsson", "Ernser", "Nolan", "Mosciski", "Larkin", "Willms", "Deckow", "Stracke", "Deckow", "Na", "Torphy", "Mills", "Pollich", "Beatty", "Hettinger", "Okuneva", "Olson", "West", "Schowalter", "Hill", "Schneider", "McCullough", "Schamberger", "Bode", "Stehr", "Kuhic", "Wisozk", "Hansen", "Spencer", "Eichmann", "Corwin", "Rolfson", "Keller", "Toy", "Ankunding", "Beatty", "Botsford", "Mann", "Ankunding", "Leuschke", "Senger", "Luettgen", "Lubowitz", "Welch", "Harvey", "Schultz", "Keebler", "Hudson", "Leffler", "Gleason", "Schmidt", "Skiles", "Gleason", "Cummerata", "Stamm", "Beier", "Dickens", "Kulas", "Franecki", "Kuhic", "Padberg", "Haley", "Gorczany", "Hoeger"]
+  pick = @seq_last_name[n % @seq_last_name.length]
+  (n / @seq_last_name.length).times { pick.succ! }
+  pick
+end
+
+# Unique:
+Factory.sequence(:first_name) do |n|
+  @seq_first_name = ["Sean", "Janie", "Helmer", "Fiona", "Spencer", "Camren", "Ahmad", "Roxane", "Mariana", "Joshuah", "Antonia", "Eugene", "Kaitlin", "Otho", "Camila", "Colt", "Mathew", "Electa", "Damaris", "Aidan", "Dora", "Emmanuelle", "Sam", "Betty", "Reuben", "Ashley", "Vicente", "Heber", "Maybell", "Okey", "Leonardo", "Gerhard", "Cicero", "Maritza", "Alvah", "Wyatt", "Ming", "Shane", "Benton", "George", "Chanel", "Rosalia", "Christie", "Madelynn", "Jeramie", "Lavada", "Kailey", "Duane", "Herbert", "Rolfe", "Kali", "Jacky", "Marilie", "Jon", "Rachel", "Scot", "Rhea", "Greta", "Dameon", "Rasheed", "Bertrand"]
+  pick = @seq_first_name[n % @seq_first_name.length]
+  (n / @seq_first_name.length).times { pick.succ! }
+  pick
+end
+
 # Not Unique (obviously, given the repetition in the array):
 Factory.sequence(:attribution) do |n|
   @seq_attr = ["L.", "Linn.", "Linnaeus", "G. D'Amore", "R. Bergstrom", "L.", "Linn", "R. Cartwright", "L.", "Linn.", "Linnaeus", "N. Upton", "L. Carroll", "M. Port", "S. Posford", "Posford & Ram", "L.", "Linnaeus", "", "P. Leary", "Padderson", "Linnaeus", "L.", "M. Mayer"]
@@ -278,9 +294,10 @@ Factory.define :agents_hierarchy_entry do |ahe|
 end
 
 Factory.define :agents_resource do |ar|
-  ar.association :agent
-  ar.association :resource
-  ar.association :resource_agent_role
+  ar.association         :agent
+  ar.association         :resource
+  ar.resource_agent_role { ResourceAgentRole.content_partner_upload_role ||
+                           Factory(:resource_agent_role, :label => 'Data Supplier') }
 end
 
 Factory.define :audience do |a|
@@ -827,13 +844,13 @@ Factory.define :user do |u|
   u.remote_ip                 '128.167.250.123' # TODO - fake this?
   u.content_level             2
   u.email                     { Factory.next(:email) }
-  u.given_name                { Faker::Name.first_name }
-  u.family_name               { Faker::Name.last_name }
+  u.given_name                { Factory.next(:first_name) }
+  u.family_name               { Factory.next(:last_name) }
   u.flash_enabled             true
   u.association               :language
   u.mailing_list              true
   u.vetted                    false
-  u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}#{Factory.next(:int)}".gsub(/\s/, '_').downcase }
+  u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}".gsub(/\s/, '_').downcase }
   u.active                    true
   u.password                  'test password'
   u.curator_hierarchy_entry   nil

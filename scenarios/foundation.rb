@@ -6,12 +6,17 @@
 def create_if_not_exists(klass, attributes)
   found = nil
   begin
-    # So, we only want to look up those values that are "simple".  We're not bothering looking up relationships
-    # (which are passed in as objects, and we would otherwise have to convert to ids):
     searchable_attributes = {}
     attributes.keys.each do |key|
-      searchable_attributes[key] = attributes[key] if attributes[key].class == String or
-                                                      attributes[key].class == Integer
+      # Specified ids could be stored as Fixnum, not just int:
+      if attributes[key].class == String or attributes[key].class == Integer or attributes[key].class == Fixnum or
+         attributes[key].class == TrueClass or attributes[key].class == FalseClass
+        searchable_attributes[key] = attributes[key]
+      elsif attributes[key].class != Array
+        key_id = "#{key}_id"
+        key_id = 'toc_id' if key_id == 'toc_item_id'
+        searchable_attributes[key_id] = attributes[key].id
+      end
     end
     # Assumes that .keys returns in same order as .values, which is appears is true:
     found = klass.send("find_by_" << searchable_attributes.keys.join('_and_'), searchable_attributes.values) unless
@@ -19,11 +24,17 @@ def create_if_not_exists(klass, attributes)
     found = klass.send(:gen, attributes) if found.nil?
   rescue ActiveRecord::RecordInvalid => e
     puts "** Invalid Record : #{e.message}"
+  rescue ActiveRecord::StatementInvalid => e
+    raise e unless klass.name == "AgentsResource" # Okay, TOTAL hack.  But for some reason, this was the ONLY class
+                                                  # For which the above find() method failed.  No clue why.  - JRice
   end
   return found
 end
 
 Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn is set.
+
+# I AM NOT INDENTING THIS BLOCK (it seemed overkill)
+if User.find_by_username('foundation_already_loaded').nil?
 
 # This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
 create_if_not_exists ContentPage, :title => 'Home',
@@ -65,7 +76,7 @@ create_if_not_exists AgentContactRole, :label => 'Primary Contact'
 create_if_not_exists AgentContactRole, :label => 'Administrative Contact'
 create_if_not_exists AgentContactRole, :label => 'Technical Contact'
 
-iucn_agent = create_if_not_exists Agent, :full_name => 'IUCN'
+create_if_not_exists Agent, :full_name => 'IUCN'
 create_if_not_exists ContentPartner, :agent => Agent.iucn
 create_if_not_exists AgentContact, :agent => Agent.iucn, :agent_contact_role => AgentContactRole.primary
 create_if_not_exists Agent, :full_name => 'Catalogue of Life'
@@ -212,7 +223,7 @@ create_if_not_exists RefIdentifierType, :label => 'url'
 create_if_not_exists RefIdentifierType, :label => 'urn'
 
 iucn_resource = create_if_not_exists Resource, :title => 'Initial IUCN Import'
-create_if_not_exists AgentsResource, :resource => iucn_resource, :agent => iucn_agent
+create_if_not_exists AgentsResource, :resource => iucn_resource, :agent => Agent.iucn
 
 # This is out of ourder, of course, because it depends on the IUCN resource.
 create_if_not_exists HarvestEvent, :resource_id => Resource.iucn[0].id
@@ -220,7 +231,7 @@ create_if_not_exists HarvestEvent, :resource_id => Resource.iucn[0].id
 create_if_not_exists ResourceAgentRole, :label => 'Administrative'
 create_if_not_exists ResourceAgentRole, :label => 'Data Administrator'
 create_if_not_exists ResourceAgentRole, :label => 'Data Host'
-create_if_not_exists ResourceAgentRole, :label => 'Data Supplier'
+create_if_not_exists ResourceAgentRole, :label => 'Data Supplier'        # content_partner_upload_role
 create_if_not_exists ResourceAgentRole, :label => 'System Administrator'
 create_if_not_exists ResourceAgentRole, :label => 'Technical Host'
 
@@ -279,3 +290,10 @@ create_if_not_exists Visibility, :label => 'Inappropriate'
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:
 RandomTaxon.delete_all
 10.times { RandomTaxon.gen }
+
+# This prevents us from loading things twice, which it seems we were doing a lot!
+User.gen :username => 'foundation_already_loaded'
+
+else # THIS WAS NOT INDENTED.  It was an 'if' over almost the whole file, and didn't make sense to.
+  puts "** WARNING: You attempted to load the foundation scenario twice, here.  Please fix it."
+end # THIS WAS NOT INDENTED.  It was an 'if' over almost the whole file, and didn't make sense to.

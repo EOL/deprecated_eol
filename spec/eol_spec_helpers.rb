@@ -149,11 +149,6 @@ module EOL::Spec
       end
       num_comments.times { Comment.gen(:parent => dato, :user => User.all.rand) }
 
-      # TODO - Really, we always want these things.  There's no such thing as a "floating" data object.
-      # Either it is related to a user (text object submitted through website) or a HarvestEvent.
-      #
-      # However, that takes a LOT of CPU cycles (and DB time), so what I would like to do is have a
-      # "default" event (and content partner) which, unless specified, is attached.
       agent = nil
       if not event.nil? 
         DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
@@ -167,10 +162,15 @@ module EOL::Spec
                                               :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
         end
         event    = HarvestEvent.gen(:resource => agent_resource.resource)
-        pp event
         DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
+      else
+        DataObjectsHarvestEvent.gen(:harvest_event => default_harvest_event, :data_object => dato)
       end
-      agent ||= event.nil? ? Agent.gen : event.resource.agents.first
+      if not event.nil? and not event.resource.nil? and not event.resource.agents.blank?
+        agent ||= event.resource.agents.first
+      end
+      agent ||= Agent.last # Sheesh, they screwed up!  Let's assume they want the most recent agent...
+      agent ||= Agent.gen  # Wow, they have, like, nothing ready.  We have to create one.  Ick.
 
       AgentsDataObject.gen(:agent => agent, :agent_role => agent_role, :data_object => dato)
 
@@ -289,8 +289,14 @@ module EOL::Spec
       Hierarchy.find_by_label(label) || Hierarchy.gen(:label => label)
     end
 
-    def find_or_build_resource(title)
-      Resource.find_by_title(title) || Resource.gen(:title => title)
+    def find_or_build_resource(title, options = {})
+      first_try = Resource.find_by_title(title) 
+      return first_try unless first_try.nil?
+      resource = Resource.gen(:title => title)
+      if options[:agent]
+        AgentsResource.gen(:agent => options[:agent], :resource => resource)
+      end
+      return resource
     end
 
     def find_or_build_harvest_event(resource)
@@ -303,6 +309,10 @@ module EOL::Spec
 
     def iucn_hierarchy
       find_or_build_hierarchy('IUCN')
+    end
+
+    def default_harvest_event
+      find_or_build_harvest_event(find_or_build_resource('Test Framework Import', :agent => Agent.last))
     end
 
     def gbif_harvest_event

@@ -6,19 +6,20 @@ class EOL
 
     include EOL::Spec::Helpers
 
+    # TODO - stop using @options and just store everthing in instance vars.
     def initialize(options)
       @debugging = false
       puts "** Enter: initialize" if @debugging
       @options     = options
-      @attri       = @options[:attribution] || Factory.next(:attribution)
-      @common_name = @options[:common_name] || Factory.next(:common_name)
-      @canon       = @options[:canonical_form] || Factory.next(:scientific_name)
+      @attri       = @options[:attribution]     || Factory.next(:attribution)
+      @common_name = @options[:common_name]     || Factory.next(:common_name)
+      @canon       = @options[:canonical_form]  || Factory.next(:scientific_name)
       @complete    = @options[:scientific_name] || "#{@canon} #{@attri}".strip
       @hierarchy   = @options[:hierarchy]       || nil # We'll let build_hierarchy_entry pick a default
       set_default_options # TODO - include the stuff above into this method
       @cform = CanonicalForm.find_by_string(@canon) || CanonicalForm.gen(:string => @canon)
       @sname = Name.gen(:canonical_form => @cform, :string => @complete,
-                       :italicized     => @options[:italicized] || "<i>#{@canon}</i> #{@attri}".strip)
+                        :italicized     => @options[:italicized] || "<i>#{@canon}</i> #{@attri}".strip)
       # TODO - You don't always need a common name, and in fact most don't; default should be NOT to have one
       # TODO - This should also create an entry in Synonyms (see below) (don't need agents_synonyms though)
       @cname = Name.gen(:canonical_form => @cform, :string => @common_name, :italicized => @common_name)
@@ -81,7 +82,7 @@ class EOL
       @options[:images].each do |img|
         description             = img.delete(:description) || Faker::Lorem.sentence
         img[:taxon]           ||= @taxon
-        @images << build_data_object('Image', description, img)
+        @images << build_object_in_event('Image', description, img)
       end
     end
 
@@ -91,16 +92,16 @@ class EOL
       flash_options.each do |flash_opt|
         flash_opt[:description]      ||= Faker::Lorem.sentence
         flash_opt[:object_cache_url] ||= Factory.next(:flash)
-        build_data_object('Flash', flash_opt[:description], :taxon => @taxon,
-                          :object_cache_url => flash_opt[:object_cache_url])
+        build_object_in_event('Flash', flash_opt[:description], :taxon => @taxon,
+                              :object_cache_url => flash_opt[:object_cache_url])
       end
 
       youtube_options = @options[:youtube] || [{}] # Array with one empty hash, which we will populate with defaults:
       youtube_options.each do |youtube_opt|
         youtube_opt[:description]      ||= Faker::Lorem.sentence
         youtube_opt[:object_cache_url] ||= Factory.next(:youtube)
-        build_data_object('YouTube', youtube_opt[:description], :taxon => @taxon,
-                          :object_cache_url => youtube_opt[:object_cache_url])
+        build_object_in_event('YouTube', youtube_opt[:description], :taxon => @taxon,
+                              :object_cache_url => youtube_opt[:object_cache_url])
       end
     end
 
@@ -131,7 +132,7 @@ class EOL
       @options[:toc].each do |toc_item|
         toc_item[:toc_item]    ||= TocItem.all.rand
         toc_item[:description] ||= Faker::Lorem.paragraph
-        build_data_object('Text', toc_item[:description], :taxon => @taxon, :toc_item => toc_item[:toc_item])
+        build_object_in_event('Text', toc_item[:description], :taxon => @taxon, :toc_item => toc_item[:toc_item])
       end
       # We're missing the info items.  Technically, the toc_item would be referenced by looking at the info items (creating any we're
       # missing).  TODO - we should build the info item first and let the toc_item resolve from that.
@@ -169,18 +170,20 @@ class EOL
     end
 
     def build_entry_in_hierarchy(options)
-      puts "** Enter: build_entry_in_hierarchy" if @debugging
       raise "Cannot build a HierarchyEntry without depth, TaxonConcept, and Name" unless @depth && @tc && @sname
       options[:hierarchy] ||= @hierarchy
-      puts "-- @hierarchy is #{@hierarchy.inspect}" if @debugging
-      puts "++ building entry in hierarchy" if @debugging
-      pp options  if @debugging
       return build_hierarchy_entry(@depth, @tc, @sname, options)
+    end
+
+    def build_object_in_event(type, description, options = {})
+      options[:event] ||= @event
+      build_data_object(type, description, options)
     end
 
   private
     # TODO - Too long: break this up
     def set_default_options
+      @event = @options[:event] || default_harvest_event
       @images = [] # This is used to build the RandomTaxon
       if @options[:toc].nil?
         @options[:toc] = [{:toc_item => TocItem.overview, :description => "This is an overview of the <b>#{@canon}</b> hierarchy entry."},
@@ -195,29 +198,29 @@ class EOL
         # So, every TC (which doesn't have a predefined list of images) will have each of the following, making
         # testing easier:
         @options[:images] << {:description => 'untrusted', :object_cache_url => Factory.next(:image),
-                             :vetted => Vetted.untrusted}
+                              :vetted => Vetted.untrusted}
         @options[:images] << {:description => 'unknown',   :object_cache_url => Factory.next(:image),
-                             :vetted => Vetted.unknown}
+                              :vetted => Vetted.unknown}
         @options[:images] << {:description => 'invisible', :object_cache_url => Factory.next(:image),
-                             :visibility => Visibility.invisible}
+                              :visibility => Visibility.invisible}
         @options[:images] << {:description => 'preview', :object_cache_url => Factory.next(:image),
-                             :visibility => Visibility.preview}
+                              :visibility => Visibility.preview}
         @options[:images] << {:description => 'invisible, unknown', 
-                             :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
-                             :vetted => Vetted.unknown}
+                              :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
+                              :vetted => Vetted.unknown}
         @options[:images] << {:description => 'invisible, untrusted', 
-                             :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
-                             :vetted => Vetted.untrusted}
+                              :object_cache_url => Factory.next(:image), :visibility => Visibility.invisible,
+                              :vetted => Vetted.untrusted}
         @options[:images] << {:description => 'preview, unknown', 
-                             :object_cache_url => Factory.next(:image), :visibility => Visibility.preview,
-                             :vetted => Vetted.unknown}
+                              :object_cache_url => Factory.next(:image), :visibility => Visibility.preview,
+                              :vetted => Vetted.unknown}
         @options[:images] << {:description => 'inappropriate', 
-                             :object_cache_url => Factory.next(:image), :visibility => Visibility.inappropriate}
+                              :object_cache_url => Factory.next(:image), :visibility => Visibility.inappropriate}
       end
       if @options[:bhl].nil?
         @options[:bhl] = [{:publication => 'Great Big Journal of Fun', :page => 42},
-                         {:publication => 'Great Big Journal of Fun', :page => 44},
-                         {:publication => 'The Journal You Cannot Afford', :page => 1}]
+                          {:publication => 'Great Big Journal of Fun', :page => 44},
+                          {:publication => 'The Journal You Cannot Afford', :page => 1}]
       end
     end
 

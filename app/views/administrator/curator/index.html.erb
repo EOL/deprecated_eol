@@ -1,7 +1,7 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Curators'} %>
 
 Click a username to view the user's detailed profile.  You may change the clade level curator permissions on the user profile pages.  If credentials are truncated, click to expand and show full credentials.
-
+<%=link_to '[export all curators as CSV]',:action=>'export'%>
 <div id="users">
 	<% form_tag({:action=>'index'},:method=>'get') do %>
 		Search for curators containing: <%= text_field_tag(:user_search_string,@user_search_string)%> <%= submit_tag 'Search' %>

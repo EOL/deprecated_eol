@@ -37,6 +37,8 @@ end
 
 #### Real work begins
 
+Rails.cache.clear # We appear to be altering some of the cached classes here.  JRice 6/26/09
+
 # Before we create our new taxa, we should make sure the RandomTaxa table is clear of bogus entries:
 RandomTaxon.all.each do |rt|
   RandomTaxon.delete("id = #{rt.id}") if (TaxonConcept.find(rt.taxon_concept_id)).nil?
@@ -47,8 +49,6 @@ end
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published)
 event    = HarvestEvent.gen(:resource => resource)
 AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource,
-                   :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
-AgentsResource.gen(:agent => Agent.iucn, :resource => Resource.iucn[0],
                    :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 
 gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (GBIF)")

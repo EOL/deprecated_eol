@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>Change background/icons when curator changes vetted/visibility</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+  <tr><td rowspan="1" colspan="3">Change background/icons when curator changes vetted/visibility</td></tr>
+  </thead><tbody>
+  <tr>
+  	<td>setTimeout</td>
+  	<td>60000</td>
+  	<td></td>
+  </tr>
+  <!-- login -->
+  <tr>
+    <td>open</td>
+    <td>/pages/15?vetted=false</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>waitForPageToLoad</td>
+    <td>60000</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>clickAndWait</td>
+    <td>link=login</td>
+    <td></td>
+  </tr>
+  <tr>
+  	<td>waitForTextPresent</td>
+  	<td>Username or Email Address:</td>
+  	<td></td>
+  </tr>  
+  <tr>
+    <td>type</td>
+    <td>user_username</td>
+    <td>test_curator</td>
+  </tr>
+  <tr>
+    <td>type</td>
+    <td>user_password</td>
+    <td>password</td>
+  </tr>
+  <tr>
+  	<td>clickAndWait</td>
+  	<td>commit</td>
+  	<td></td>
+  </tr>
+  <tr>
+    <td>waitForTextPresent</td>
+    <td>Hello test</td>
+    <td></td>
+  </tr>
+  <!-- Image on gray bg? -->
+  <tr>
+    <td>assertElementPresent</td>
+    <td>//div[@id='main-image-bg'][@class='']</td>
+    <td></td>
+  </tr>
+  
+  
+  <!-- choose image (thumbnail) with yellow bg -->
+  <tr>
+    <td>assertElementPresent</td>
+    <td>//a[@class="unknown-background-image"]</td>
+    <td></td>
+  </tr>  
+  <tr>
+    <td>click</td>
+    <td>//a[@class="unknown-background-image"]/span/img</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>waitForElementPresent</td>
+    <td>//div[@id='main-image-bg'][@class='unknown-background-image']</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>verifyElementPresent</td>
+    <td>//a[@class="unknown-background-image"]/span/img</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>waitForElementPresent</td>
+    <td>//li[@id='large-image-attribution-button'][@class='attribution-icon unknown']</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>waitForElementPresent</td>
+    <td>//div[@id='mc-notes'][@class='mc-notes unknown-background-text']</td>
+    <td></td>
+  </tr>
+  
+  <!-- curate image -->
+  <!-- untrusted (red bg) -->
+  <tr>
+  	<td>click</td>
+  	<td>//a[@id='large-image-curator-button-popup-link']/span</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForTextPresent</td>
+  	<td>Object Curation</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>click</td>
+  	<td>curator_activity_id_7</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//div[@id='main-image-bg'][@class='untrusted-background-image']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a[@class='untrusted-background-image']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//li[@id='large-image-attribution-button'][@class='attribution-icon untrusted']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//div[@id='mc-notes'][@class='mc-notes untrusted-background-text']</td>
+  	<td></td>
+  </tr>
+  <!-- trusted (gray bg) -->
+  <tr>
+  	<td>click</td>
+  	<td>//a[@id='large-image-curator-button-popup-link']/span</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForTextPresent</td>
+  	<td>Object Curation</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>click</td>
+  	<td>curator_activity_id_6</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//div[@id='main-image-bg'][@class='']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a[@class='trusted-background-image']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//li[@id='large-image-attribution-button'][@class='attribution-icon']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//div[@id='mc-notes'][@class='mc-notes']</td>
+  	<td></td>
+  </tr>
+  <!-- "remove" icon -->
+  <tr>
+  	<td>click</td>
+  	<td>//a[@id='large-image-curator-button-popup-link']/span</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForTextPresent</td>
+  	<td>Object Curation</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>click</td>
+  	<td>curator_activity_id_5</td>
+  	<td></td>
+  </tr>
+  <!-- large image -->
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='published_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='inappropriate_icon status_icon']</td>
+  	<td></td>
+  </tr>
+  <!-- thumbnail -->
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='inappropriate_icon status_icon']</td>
+  	<td></td>
+  </tr>
+  <!-- "hide" icon -->
+  <tr>
+  	<td>click</td>
+  	<td>//a[@id='large-image-curator-button-popup-link']/span</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForTextPresent</td>
+  	<td>Object Curation</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>click</td>
+  	<td>curator_activity_id_4</td>
+  	<td></td>
+  </tr>
+  <!-- large image -->
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='published_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='invisible_icon status_icon']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <!-- thumbnail -->
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='invisible_icon status_icon']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <!-- no "remove"/"hide" icon -->
+  <tr>
+  	<td>click</td>
+  	<td>//a[@id='large-image-curator-button-popup-link']/span</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForTextPresent</td>
+  	<td>Object Curation</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>click</td>
+  	<td>curator_activity_id_3</td>
+  	<td></td>
+  </tr>
+  <!-- large image -->
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='published_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <!-- thumbnail -->
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>waitForElementPresent</td>
+  	<td>//a/ul/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
+  	<td></td>
+  </tr>
+  <tr>
+  	<td>click</td>
+  	<td>//div[@id='large-image-curator-button-popup-link_popup']/a</td>
+  	<td></td>
+  </tr>
+  
+  <!-- logout -->
+  <tr>
+    <td>clickAndWait</td>
+    <td>link=logout</td>
+    <td></td>
+  </tr>
+</tbody></table>
+</body>
+</html>
+

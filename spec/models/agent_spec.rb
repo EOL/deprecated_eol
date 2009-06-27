@@ -147,5 +147,45 @@ describe Agent do
     end
 
   end
-
+  
+   describe '#agents_data' do
+     
+     before(:all) do
+       Scenario.load :foundation
+     end
+     
+     # # Find the data_objects "belongs" to an Agent.
+     #  def agents_data
+     #      HarvestEvent.find_by_sql(["
+     #          SELECT DISTINCT he.id FROM agents a 
+     #                JOIN agents_resources ar ON (ar.agent_id=a.id)
+     #                JOIN harvest_events he ON (ar.resource_id=he.resource_id) 
+     #          WHERE  ar.agent_id=?
+     #              ORDER BY he.id DESC LIMIT 1", self.id])[0].data_objects
+     #  end
+     
+    it 'should get all data_objects that came from an agents last harvest' do
+      @agent       = Agent.gen
+      @resource    = Resource.gen
+      AgentsResource.gen(:agent => @agent, :resource => @resource)
+      @first_event = HarvestEvent.gen(:resource => @resource)
+      @first_datos = []
+      5.times do
+        @first_datos << DataObject.gen
+        DataObjectsHarvestEvent.gen(:harvest_event => @first_event,
+                                    :data_object   => @first_datos.last)
+      end
+      @last_event = HarvestEvent.gen(:resource => @resource)
+      @last_datos = []
+      5.times do
+        @last_datos << DataObject.gen
+        DataObjectsHarvestEvent.gen(:harvest_event => @last_event,
+                                    :data_object   => @last_datos.last)
+      end
+      @agent.agents_data.map {|ob| ob.id}.sort.should == 
+        @last_datos.map {|ob| ob.id}.sort
+    end
+    
+  end
+     
 end

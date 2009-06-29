@@ -1,40 +1,40 @@
 <div id="internal-nav">
 
-<h4><%="Contribute"[]%></h4>
-<div style="display:none;" id="contribute-info" class="popup"></div>
+  <h4><%="Contribute"[]%></h4>
+  <div style="display:none;" id="contribute-info" class="popup"></div>
 
-<% act_curators_size = @taxon.acting_curators.size %>
-<% if act_curators_size > 0 %>
-<a href="#citation">
-<div id="number-of-curators">This page has <%= act_curators_size %> curators.</div>
-</a>
-<% end %>
+  <% act_curators_size = @taxon.acting_curators.size %>
+  <% if act_curators_size > 0 %>
+    <a href="#citation"><div id="number-of-curators">This page has <%= act_curators_size %> curators.</div></a>
+  <% end %><%# if act_curators_size %>
 
-<ul class="bulletlist">
-  <!--<li> <a href="#" onclick="JavaScript:eol_show_pop_up('contribute-info','contribute_text-help','<%=@taxon.name(:canonical)%>');return false;"><%="Submit a text description"[]%></a></li>  -->
-  <li> <a href="#" onclick="JavaScript:eol_show_pop_up('contribute-info','contribute_photos-help','<%=@taxon.name(:canonical)%>');return false;"><%="Submit an image"[]%></a></li>
-</ul>
+  <ul class="bulletlist">
+    <li><a href="#" onclick="JavaScript:eol_show_pop_up('contribute-info','contribute_photos-help','<%=@taxon.name(:canonical)%>');return false;"><%="Submit an image"[]%></a></li>
+  </ul><%# bulletlist %>
 
-<br /><br />
-<%- unless @random_taxa.nil? -%>
-<h4><%="Explore"[]%></h4>
+  <br /><br />
+
+  <%- unless @random_taxa.nil? %>
+
+    <h4><%="Explore"[]%></h4>
+      
+    <table id="related-species-table" cellspacing="0" summary="top species">
+      <%- @random_taxa.each do |taxa_link| %>
+        <tr>
+          <td width="30%">
+            <%# The following link had a nice image_tag helper, but it was being really grumpy and appeared to have
+                been causing a formatting problem.  Writing it out longhand seems to have fixed it... %>
+            <%= link_to(%Q{<img border="0" title="#{h(remove_html(taxa_link.name))}" } <<
+                        %Q{src="#{taxa_link.smart_thumb}" alt="#{h(remove_html(taxa_link.name))}" />}, 
+                        :action => "show", :id=>taxa_link.taxon_concept_id) %>
+          </td>
+          <td>
+            <%= linked_name(taxa_link) %>
+          </td>
+        </tr>
+      <%- end %>
+    </table>
+
+  <%- end %><%# unless random_taxa nil %>
 	
-<table id="related-species-table" cellspacing="0" summary="top species">
-	<%- for taxa_link in @random_taxa -%>
-	  <tr>
-		  <td width="30%">
-        <%= link_to(%Q{<img border="0" title="#{h(remove_html(taxa_link.name))}" src="#{taxa_link.smart_thumb}" alt="#{h(remove_html(taxa_link.name))}" />}, 
-            :action => "show", :id=>taxa_link.taxon_concept_id) %>
-			</td>
-			<td>
-        <%= linked_name(taxa_link) %>
-			</td>
-		</tr>
-  <%- end -%>
-</table>
-
-<%- end 
-# of random taxa 
--%>
-	
-</div>
+</div><%# internal-nav %>

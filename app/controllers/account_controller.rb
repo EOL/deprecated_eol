@@ -260,7 +260,7 @@ private
   
   # In order for AccountController to work with OpenID, we need to force it to use https when authenticating.  
   def realm
-    return ENV['RAILS_ENV'] =~ /prod/ ? "https://#{request.host_with_port}" : "#{request.protocol + request.host_with_port}"
+    return $PRODUCTION_MODE ? "https://#{request.host_with_port}" : "#{request.protocol + request.host_with_port}"
   end
 
 end

@@ -75,6 +75,11 @@ Rails::Initializer.run do |config|
   # in the "environments" folder for the various environments (e.g. "production.rb") to see.
   # the following only generates assests1.eol.org or assets2.eol.org on up to any number specified below
   #config.action_controller.asset_host = "http://content0.eol.org" 
+
+  # We have a lot of production-like environments.  To quickly test if we're in one, rather than parsing the ENV,
+  # you may check $PRODUCTION_MODE.
+  $PRODUCTION_MODE = true if ENV['RAILS_ENV'] and
+    ['production', 'staging', 'siproduction', 'failover', 'preview'].include?(ENV['RAILS_ENV'].downcase)
     
   # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
   $CONTENT_SERVERS = ['http://content1.eol.org/', 'http://content2.eol.org/', 'http://content3.eol.org/', 'http://content4.eol.org/', 'http://content5.eol.org/', 
@@ -205,6 +210,10 @@ require 'core_extensions'
 begin
   require 'environment_eol_org'
 rescue LoadError
+end
+
+if ENV['BLEAK']
+  require 'bleak_house'
 end
 
 # load the system configuration

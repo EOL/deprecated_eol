@@ -44,7 +44,5 @@ $USE_SSL_FOR_LOGIN = true
 begin
   require File.join(File.dirname(__FILE__), 'production_eol_org')
 rescue LoadError
-  puts '*************WARNING: COULD NOT LOAD PRODUCTION_EOL_ORG FILE***********************'
+  puts '*************WARNING: COULD NOT LOAD production_eol_org FILE***********************'
 end
-
-

@@ -119,7 +119,7 @@ class ContentController < ApplicationController
      # bit haywire since there are very few random taxa created by scenarios.
      num_tries = 0
      while(num_tries < 30 and
-           ENV["RAILS_ENV"].downcase == 'production' and
+           $PRODUCTION_MODE and
            !explore_taxa.blank? and
            current_taxa.include?(explore_taxa.taxon_concept_id.to_s))
        explore_taxa = RandomTaxon.random

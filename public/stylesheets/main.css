@@ -1,6 +1,6 @@
 `/* CSS Document */
 
-/* = clearfix taken from http://www.positioniseverything.net/easyclearing.html ============================================ */
+/* = clearfix taken from http://www.positioniseverything.net/easyclearing.html ============ */
 
 .clearfix:after {
     content: "."; 
@@ -18,9 +18,6 @@
 * html .clearfix {height: 1%;}
 .clearfix {display: block;}
 /* End hide from IE-mac */ 
-
-/* = end of clearfix ================================================================================================================= */
-
 
 /* = global ============================================================================ */
 
@@ -57,11 +54,6 @@ h2 {
   display: none;
 }
 
-#other_links {
-  float:right;
-  padding:0 2em 1em;
-}
-
 #ajax-indicator {
   position: absolute;
   top: 185px;
@@ -88,8 +80,6 @@ h2 {
   color: green;
   font-weight: bold;
 }
-
-/* = end of global =================================================================================================================== */
 
 /* = header ============================================================================ */
 
@@ -127,12 +117,6 @@ h2 {
     width: 310px;
     float: left;
   }
-
-    #header #personal-space img {
-      float: left;
-      padding: 6px 7px 8px 6px;
-      background: url(/images/bg_personal_img.gif) left top no-repeat;
-    }
 
     #header #personal-space .desc-personal {
       float: left;
@@ -194,24 +178,6 @@ ul#global-navigation {
         color: #000;
       }
 
-      ul#global-navigation li a strong {
-        padding-left: 20px;
-        padding-bottom: 6px;
-        background: url(/images/m_gn_myeol_icon.gif) left top no-repeat;
-      }
-
-      ul#global-navigation li a.larger {
-        display: block;
-        overflow: hidden;
-        padding-left: 10px;
-        padding-top: 1px;
-        width: 136px;
-        height: 20px;
-        text-transform: uppercase;
-        color: #000;
-        text-decoration: none;
-      }
-
       ul#global-navigation li ul {      
         position: absolute;
         width: 168px;
@@ -240,10 +206,6 @@ ul#global-navigation {
             z-index: 9000;
           }
 
-            ul#global-navigation li ul li.last {
-              border-bottom: none;
-            }
-
             ul#global-navigation li ul li a {
               width: 168px;
               height: 21px;
@@ -260,158 +222,12 @@ ul#global-navigation {
               width: 158px;
             }
 
-            ul#global-navigation li ul li a em {
-              position: absolute;
-              left: 115px;
-            }
+              ul#global-navigation li ul li a em {
+                position: absolute;
+                left: 115px;
+              }
 
-/* = end of header ================================================================================================================ */
-
-/* = sub header ============================================================================ */
-
-#sub-header {
-  position: relative;
-  overflow: hidden;
-  width: 982px;
-  height: 98px;
-  padding-top: 2px;
-}
-
-  #sub-header .filter-content {
-    float: left;
-    height: 86px;
-  }  
-
-#fc-biome {
-  width: 254px;
-  border-right: 1px solid #ccc;
-}
-
-  #fc-biome .fc-nav table {
-    width: 235px;        
-  }  
-
-#fc-geography {
-  margin-left: 1px;
-  width: 234px;
-  border-right: 1px solid #ccc;
-}
-
-  #fc-geography .fc-nav table {
-    width: 215px;  
-  }
-
-#fc-organism {
-  margin-left: 1px;
-  width: 234px;
-  border-right: 1px solid #ccc;
-}
-
-  #fc-organism .fc-nav table {
-    width: 215px;            
-  }
-
-
-.fc-header {
-  position: relative;
-  padding-left: 20px;
-  height: 20px;
-  background: #ccc url(/images/bg_fc_header.gif) left top repeat-x;
-  border-bottom: 1px solid #ccc;
-}
-
-  .fc-header h4 {    
-    position: relative;
-    display: block;
-    overflow: hidden;      
-    width: 118px;
-    height: 20px;
-    text-transform: uppercase;
-    font-weight: 700;
-    font: 9px/21px Verdana, Arial, Helvetica, sans-serif;
-  }
-
-    .fc-header h4 span {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-
-  .fc-header span {
-    position: absolute;
-    right: 0;
-    top: 0;
-    width: 88px;
-    height: 20px;
-    text-align: center;
-    font: 9px/21px Verdana, Arial, Helvetica, sans-serif;          
-  }
-
-    .fc-header span a {
-      float: left;
-      position: relative;
-      overflow: hidden;
-      display: block;
-      width: 44px;
-      height: 20px;
-    }
-
-      .fc-header span a span {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-
-
-.fc-nav {
-  overflow: auto;
-  height: 65px;
-  font: 9px/16px Verdana, Arial, Helvetica, sans-serif;  
-}
-
-  .fc-nav table {
-    margin-left: 1px;
-    border-right: 1px solid #ccc;
-  }
-
-    .fc-nav table td {
-      text-align: left;
-      vertical-align: middle;    
-      padding-left: 19px;  
-      border-top: 1px solid #f7f7f7;
-      border-bottom: 1px solid #e3e2e2;        
-      background: #efefef;
-      cursor: pointer;
-    }
-
-      .fc-nav table td a {
-        width: 100%;
-        height: 100%;
-        display: block;
-        color: #333;
-        text-decoration: none;
-      }
-
-        .fc-nav table td a:hover {
-          text-decoration: none;
-        }
-
-          .fc-nav table td a span {
-            float: left;
-            width: 50%;
-          }
-
-    .fc-nav table td:hover , .fc-nav table td.selected {
-      background: #C4E1EC url(/images/bg_fc_nav.gif) left top repeat-x;
-    }
-
-  #header #wrapper-search {
+  #header #quick-search {
     float: left;
     padding: 10px 10px 5px;
     width: 234px;
@@ -421,66 +237,27 @@ ul#global-navigation {
     font: 9px/15px Verdana, Arial, Helvetica, sans-serif;  
   }
   
-    #header #wrapper-search .search_box {
+    #header #quick-search .search_box {
       height: 30px;
     }
   
-    #header #wrapper-search .search_options { 
+    #header #quick-search .search_options { 
       font-size: 12px;
     }
     
-    #header #wrapper-search #search_message {
+    #header #quick-search #search_message {
       
     }
 
-    #header #wrapper-search h4 {
-      position: relative;
-      z-index: 0;
-      padding: 2px;
-      overflow: hidden;
-      display:block;
-      width: 109px;
-      height: 12px;
-      text-transform: uppercase;
-      font-weight: 700;    
-    }
-
-      #header #wrapper-search h4 span {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-      }
-
-    #header #wrapper-search fieldset {
+    #header #quick-search fieldset {
       padding: 5px 0 0;
     }
 
-      #header #wrapper-search fieldset input.left {
+      #header #quick-search fieldset input.left {
         float: left;
       }
-      #header #wrapper-search fieldset input.right {
-        float: right;
-      }
-      #header #wrapper-search fieldset input.text {
-        margin-top: 1px;
-        width: 178px;
-        font-size: 15px;
-        height: 17px;
-      }
 
-      #header #wrapper-search fieldset input.radio {
-        margin-bottom: -2px;
-      }
-
-      #header #wrapper-search fieldset span {
-        padding-right: 15px;
-      }
-
-/* = end of sub header ============================================================================================================== */
-
-/* = non-species pages ============================================================================================================== */
+/* = non-species pages =========================================================== */
 
 #left-pane {
   float: left;
@@ -520,9 +297,6 @@ ul#global-navigation {
 #advanced_search_message {
   font-size: 14px;
 }
-
-/* = end non-species pages ========================================================================================================= */
-
 
 /* = content ============================================================================ */
 
@@ -600,15 +374,6 @@ ul#global-navigation {
 		background-color: #FD619E;
   }
 
-  a.page-help {
-    padding: 15px 3px 3px 3px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: underline;
-    color: #149ACC;
-    float:right;
-  }  
-
   .page-mode {
 	   float:right;
 	   text-transform: uppercase;
@@ -630,42 +395,17 @@ ul#global-navigation {
      background-color: #E6E7E8;
 	}
 	
-    #page-help {
-      float:right;
-      font-size: 12px;
-      color: #333;
-      width: 190px;
-      text-align: left;
- 	    border: 2px solid #6a8d00 !important;
-      padding: 20px;
-      background: #E6E7E8;
-      position: absolute;
-      left: 750px;
-      top: 30px;
-      margin-right: 20px;
-      z-index: 9999000;
-    }
+  .close-button {
+    float:right;
+  }
 
-
-    #page-help ol {
-    list-style:decimal;
-    list-style-position: inside;
-        padding-left: 4px;
-        border:0px;  
-    }    
-
-      .close-button {
-        float:right;
-      }
-
-
-    #page-title h1 {
-      padding: 0 0 10px 20px;
-      font-size: 32px;
-      line-height: 32px;
-      font-weight: 700;
-      color: #333;
-    }
+  #page-title h1 {
+    padding: 0 0 10px 20px;
+    font-size: 32px;
+    line-height: 32px;
+    font-weight: 700;
+    color: #333;
+  }
 
     #page-title h2 {
       padding: 0 0 15px 20px;
@@ -778,9 +518,6 @@ ul#global-navigation {
       width:200px;
   }
 
-  /* = end of page title =========================================================================================================== */
-
-
   /* = media center ============================================================================ */
 
   #page-media-center {
@@ -802,12 +539,6 @@ ul#global-navigation {
         left: 19px;
     }
 
-      #map
-    {
-      padding-left: 20px; 
-      padding-top: 5px;
-    }
-
     #media-maps
     {
       background-color: #f4f4f4;
@@ -815,21 +546,6 @@ ul#global-navigation {
       z-index: 1000;
     }
     
-    div#media-maps div.attribution_link {
-        padding-left:19px;
-        padding-top:6px;
-    }
-
-    div#media-maps .popup {
-      width: 350px;
-    }
-
-    #media-maps h3 {
-          font-size: 16px;
-          margin-bottom: 5px;
-      text-align: center;
-    }    
-
     #left-mc {
       float: left;
       width: 702px;
@@ -857,15 +573,6 @@ ul#global-navigation {
             width: 80px;  
           }
 
-          ul#tab_media_center li#podcasts , ul#tab_media_center li#rss-feeds , 
-          ul#tab_media_center li#podcasts a , ul#tab_media_center li#rss-feeds a { 
-            width: 92px;
-          }          
-
-          ul#tab_media_center li#expert-chat , ul#tab_media_center li#expert-chat a { 
-            width: 108px;
-          }
-
             ul#tab_media_center li a {
               position: relative;
               display: block;
@@ -890,28 +597,19 @@ ul#global-navigation {
                 ul#tab_media_center li#maps a span { background: url(/images/mc_nav_maps.gif) left top no-repeat }
                 ul#tab_media_center li#videos a span { background: url(/images/mc_nav_videos.gif) left top no-repeat }
                 ul#tab_media_center li#taxa-comments a span { background: url(/images/mc_nav_comments.gif) left top no-repeat }
-                ul#tab_media_center li#podcasts a span { background: url(/images/mc_nav_podcasts.gif) left top no-repeat }
-                ul#tab_media_center li#rss-feeds a span { background: url(/images/mc_nav_rss_feed.gif) left top no-repeat }  
-                ul#tab_media_center li#expert-chat a span { background: url(/images/mc_nav_expert_chat.gif) left top no-repeat } 
 
                 ul#tab_media_center li#image a:hover span , 
                 ul#tab_media_center li#sounds a:hover span ,
                 ul#tab_media_center li#maps a:hover span , 
                 ul#tab_media_center li#videos a:hover span ,
-                ul#tab_media_center li#taxa-comments a:hover span ,
-                ul#tab_media_center li#podcasts a:hover span ,
-                ul#tab_media_center li#rss-feeds a:hover span , 
-                ul#tab_media_center li#expert-chat a:hover span 
+                ul#tab_media_center li#taxa-comments a:hover span
                   { background-position: left -30px}  
 
                 ul#tab_media_center li#image a.active span , 
                 ul#tab_media_center li#sounds a.active span ,
                 ul#tab_media_center li#maps a.active span , 
                 ul#tab_media_center li#videos a.active span ,
-                ul#tab_media_center li#taxa-comments a.active span ,
-                ul#tab_media_center li#podcasts a.active span ,
-                ul#tab_media_center li#rss-feeds a.active span , 
-                ul#tab_media_center li#expert-chat a.active span 
+                ul#tab_media_center li#taxa-comments a.active span
                   { background-position: left -60px}  
 
     #left-mc .wrapper-mc {
@@ -1634,9 +1332,7 @@ ul#global-navigation {
 
     /* end text-based taxonomic browser */
 
-  /* = end of media center ================================================================================================== */
-
-  /* = image center ================================================================================================== */  
+  /* = image center ======================================================================================= */  
   #main-image {
     border: 0px solid #ddd;
     vertical-align: middle;
@@ -1996,64 +1692,6 @@ ul#global-navigation {
       padding-bottom: 0px;
     }
 
-    #content #page-content #center-page-content .cpc-sub-content .cpc-sub-content-header {
-      width: 447px;
-      padding: 10px 0;
-      border-bottom: 1px solid #ccc;
-    }
-
-      #content #page-content #center-page-content .cpc-sub-content .cpc-sub-content-header h4 {
-        float: left;
-        text-transform: uppercase;
-        font-size: 14px;
-        font-weight: 700;
-        color: #999;
-      }
-
-      #content #page-content #center-page-content .cpc-sub-content .cpc-sub-content-header span {
-        float: right;
-        text-transform: uppercase;
-        font-size: 11px;
-        color: #999;
-      }
-
-        #content #page-content #center-page-content .cpc-sub-content .cpc-sub-content-header span strong {
-          padding-right: 5px;
-          font-weight: 700;
-          color: #666;
-        }
-
-    #content #page-content #center-page-content .cpc-sub-content ul {
-      padding: 10px 0 20px;
-    }
-
-      #content #page-content #center-page-content .cpc-sub-content ul li {
-        width: 447px;
-        line-height: 21px;
-        border-bottom: 1px dotted #ccc;
-      }
-
-        #content #page-content #center-page-content .cpc-sub-content ul li a {
-          text-decoration: none;
-        }
-
-        #content #page-content #center-page-content .cpc-sub-content ul#sources li a {
-          float: left;
-        }
-
-        #content #page-content #center-page-content .cpc-sub-content ul li a:hover {
-          text-decoration: underline;
-        }
-
-        #content #page-content #center-page-content .cpc-sub-content ul li strong {
-          font-weight: 700;
-        }
-
-        #content #page-content #center-page-content .cpc-sub-content ul li em {
-          float: right;
-          text-align: right;
-        }
-
     .text-area-header {
       font-weight: 600;
       color: #999;
@@ -2173,108 +1811,6 @@ ul#global-navigation {
           color: #fff;
         }
 
-        #content #page-content #right-page-content #contribute p#contribute-menu {
-          padding: 0;
-          padding-left: 21px;
-        }
-
-        #content #page-content #right-page-content #contribute p#contribute-menu a {
-          width: 205px;
-          height: 25px;
-          display: block;
-          margin-left: 1px;
-          padding: 2px 0 0 0;
-          text-decoration: none;
-          text-align: center;
-          text-transform: uppercase;
-          font-size: 12px;
-          font-weight: 700;
-          color: #fff;
-          background: url(/images/bg_contributetoeol_menu.gif) center top no-repeat;
-        }
-
-        #content #page-content #right-page-content #contribute p#contribute-menu a:hover {
-          text-decoration: none;
-          color: #779319;
-        }
-
-      #content #page-content #right-page-content .articles {
-        position: relative;
-        margin-top: 5px;
-        padding: 20px 0 20px 21px;
-        background-color: #F6F6F7;
-      }
-
-        #content #page-content #right-page-content .articles  h4 {
-          padding-bottom: 20px;
-          text-transform: uppercase;
-          font-size: 15px;
-          color: #333;          
-        }
-
-        ul#tab_related_articles {
-          height: 27px;
-        }
-
-          ul#tab_related_articles li {
-            float: left;
-            margin-left: -2px;
-            text-align: center;
-            border-left: 2px solid #F6F6F7;
-            background-color: #E6E7E8;
-          }
-
-            ul#tab_related_articles li a {
-              width: 48px;
-              padding: 5px 12px 5px 9px;
-              display: block;
-              text-transform: uppercase;
-              text-decoration: none;
-              color: #666;
-              font: 9px/15px Verdana, Arial, Helvetica, sans-serif;
-              border-bottom: 2px solid #F6F6F7;
-            }
-
-            ul#tab_related_articles li a.active , ul#tab_related_articles li a:hover {
-              background-color: #fff;
-              border-bottom-color: #fff;
-            }
-
-        .articles .articles-content {
-          padding: 11px 10px 10px 13px;
-          width: 184px;
-          background-color: #fff;
-        }
-
-          .articles .articles-content ul li {
-            line-height: 21px;
-            border-bottom: 1px dotted #ccc;
-          }    
-
-            .articles .articles-content ul li a {
-              text-decoration: none;
-              font-style: italic;
-              font-size: 11px;
-            }  
-
-            .articles .articles-content ul li a:hover {
-              text-decoration: underline;
-            }  
-
-            .articles .articles-content ul li.last {
-              border-bottom: none;
-            }  
-
-      /* automatic literature parsing */      
-      .article {
-            text-indent: -2em;
-            margin-left: 2em;
-          }      
-
-        .book {
-          text-indent: -2em;
-          margin-left: 2em}    
-      /* automatic literature parsing */            
       #content #page-content #right-page-content #internal-nav #related dt { 
         margin: 0;
         padding: 0;
@@ -2382,11 +1918,6 @@ ul#global-navigation {
         color: #666666;
       }
 
-  /* = end of page content ========================================================================================================= */
-
-
-/* = end of content ================================================================================================================= */
-
 /* = footer ============================================================================ */
 
 #footer { 
@@ -2399,11 +1930,7 @@ ul#global-navigation {
   line-height: 13px;
   }
 
-
-
-/* = end of footer ================================================================================================================ */
-
-/* = Error Messages ============================================================================ */
+/* = Error Messages ==================================================================== */
 
 #errorExplanation {
   padding: 10px;
@@ -2483,7 +2010,6 @@ input.warn, textarea.warn {
   border-color:#aaa; 
   background-image: none;
 }
-/* = end of errors =============================================================================================================== */
 
 /* = Flash Message ==================================================================== */
 #progress-open {
@@ -2573,9 +2099,8 @@ input.warn, textarea.warn {
   text-align: left;
   font-size: 14px;
 }
-/* = end of flash message ====================================================================================================== */
 
-/* = homepage ================================================================================================================ */
+/* = homepage ====================================================================== */
 .photo_slider {
   position: relative; 
   width: 946px; 
@@ -2802,12 +2327,7 @@ input.warn, textarea.warn {
   background-position: -30px -572px;
 }
 
-/* = end of homepage ================================================================================================== */
-
-
-
-
-/* = text taxonomic browser ============================================================================================ */
+/* = text taxonomic browser ====================================================== */
 .current_node {
   font-weight: bold;
   font-style: italic;
@@ -2833,10 +2353,7 @@ input.warn, textarea.warn {
   color: #CCC
   }
 
-
-/* = end of text taxonomic browser ============================================================================= */
-
-/* = Image media center pagination ============================================================================ */
+/* = Image media center pagination ============================================= */
 #pages .pagination span {
     display: inline;
 }

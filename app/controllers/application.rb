@@ -245,18 +245,7 @@ end
 
   # expire a single non-species page fragment cache
   def expire_cache(page_name)
-
-    pages=ContentPage.find_all_by_page_name(page_name)
-
-    if pages.length > 0
-      Language.find_active.each do |language|
-        pages.each do |page|
-          expire_fragment(:controller=>'/content',:part=>page.id.to_s + '_' + language.iso_639_1)
-          expire_fragment(:controller=>'/content',:part=>page.page_url + '_' + language.iso_639_1)
-        end
-      end
-    end
-
+    expire_pages(ContentPage.find_all_by_page_name(page_name))
   end
 
   # just clear all fragment caches quickly
@@ -272,30 +261,14 @@ end
 
   # expire the header and footer caches
   def expire_menu_caches
-
-    Language.find_active.each do |language|
-      expire_fragment(:controller=>'/content' ,:part => 'top_nav_'+language.iso_639_1)
-      expire_fragment(:controller=>'/content' ,:part => 'footer_'+language.iso_639_1)
-      expire_fragment(:controller=>'/content' ,:part => 'exemplars_'+language.iso_639_1)
-    end
-
+    expire_pages(['top_nav', 'footer', 'exemplars'])
   end
 
   # expire the non-species page fragment caches
   def expire_caches
-
     expire_menu_caches
-    pages=ContentPage.find_all_by_active(true)
-
-    Language.find_active.each do |language|
-      pages.each do |page|
-        expire_fragment(:controller=>'/content',:part=>page.id.to_s + '_' + language.iso_639_1)
-        expire_fragment(:controller=>'/content',:part=>page.page_url + '_' + language.iso_639_1)
-      end
-    end
-
+    expire_pages(ContentPage.find_all_by_active(true))
     $CACHE_CLEARED_LAST=Time.now()
-
   end
 
   # expire a list of taxa_ids specifed as an array

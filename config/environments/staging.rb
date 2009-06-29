@@ -28,7 +28,7 @@ config.cache_classes = true
 
 # Set up the master database connection for writes using masochism plugin
 # NOTE: for this to work, you *must* also use config.cache_classes = true
-# (default for production)
+# (default for staging)
 config.after_initialize do 
   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
@@ -46,7 +46,5 @@ ActiveRecord::Base.verification_timeout = 120
 begin
   require File.join(File.dirname(__FILE__), 'staging_eol_org')
 rescue LoadError
-  puts '*************WARNING: COULD NOT LOAD STAGING_EOL_ORG FILE***********************'
+  puts '*************WARNING: COULD NOT LOAD staging_eol_org FILE***********************'
 end
-
-

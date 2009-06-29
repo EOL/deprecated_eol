@@ -1,5 +1,5 @@
 #----------------------------------------------------------------
-#                     demo.rb
+#                     preview.rb
 # Environment specific settings for the Preview (beta) environment
 #
 # Settings specified here will override those in config/environment.rb
@@ -63,7 +63,7 @@ ActiveRecord::Base.verification_timeout = 120
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin
-  require File.join(File.dirname(__FILE__), 'demo_eol_org')
+  require File.join(File.dirname(__FILE__), 'preview_eol_org')
 rescue LoadError
-  puts '*************WARNING: COULD NOT LOAD demo_eol_org FILE***********************'
+  puts '*************WARNING: COULD NOT LOAD preview_eol_org FILE***********************'
 end

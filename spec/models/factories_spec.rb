@@ -7,10 +7,6 @@ describe Factory do
     Scenario.load :foundation
   end
 
-  # WHERE ARE THE EXAMPLES ???
-  #
-  # see the # spec # section below !
-
   ########## helpers #########
 
   # this isn't actually *all* model classes yet.
@@ -21,7 +17,7 @@ describe Factory do
   def self.model_classes
     [ MimeType, AgentRole, DataType, Agent, ContentPartner, CuratorActivity,
       LastCuratedDate, Language, License, Visibility, Vetted, DataType, Role, User,
-      ItemPage, DataObjectTag, DataObjectTags, DataObject, Comment,
+      ItemPage, DataObjectTag, DataObjectTags, DataObject,
       CuratorCommentLog, CuratorDataObjectLog, Hierarchy, HierarchyEntry,
       TaxonConcept, PageName, NormalizedLink, PublicationTitle, InfoItem, Taxon,
       Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
@@ -75,11 +71,11 @@ describe Factory do
     it "should generate #{klass}" do
       klass.truncate
       begin
-        lambda {   3.times { klass.gen.should be_valid }   }.should change(klass, :count).by(3)
+        lambda {  3.times { klass.gen.should be_valid }  }.should change(klass, :count).by(3)
       rescue => ex
-        raise "#{ klass }.gen blew up!  Maybe try calling #{ klass }.gen yourself in a console?  " + 
-              "remember to require 'spec/spec_helper' to get all of the factories / etc.  \n\n" + 
-              "this spec: spec/models/factories_spec.rb \n\n#{ ex }"
+        raise "#{klass}.gen blew up!  Maybe try calling #{klass}.gen yourself in a console?  " <<
+              "remember to require 'spec/spec_helper' to get all of the factories / etc.\n\n" <<
+              "this spec: spec/models/factories_spec.rb\n\n#{ex.message}\n\n#{ex}"
       end
     end
 

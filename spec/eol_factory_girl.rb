@@ -37,9 +37,14 @@ end
 module EOL::FactoryGirlExtensions
 
   def self.included base
-    base.class_eval {
-      alias_method_chain :create, :duplicate_entry_checking
-    }
+    begin
+      base.class_eval {
+        alias_method_chain :create, :duplicate_entry_checking
+      }
+    rescue NameError 
+      puts "** WARNING: It seems you are trying to load 'spec/spec_helper' in development."
+      puts "   Try it in test; not all required gems are loaded in this environment."
+    end
   end
 
   def create_with_duplicate_entry_checking *args

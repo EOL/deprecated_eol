@@ -237,7 +237,6 @@ end
 Factory.sequence(:string ){|n| "unique#{ n }string" } # 'string' isn't elegant, but it's perfect for right now!
 Factory.sequence(:email  ){|n| "bob#{n}@smith.com" }
 # Faker names are frequently unique, but let's just make absolutely sure:
-Factory.sequence(:name   ){|n| "#{Faker::Name.first_name}#{n} #{Faker::Name.last_name}" }
 Factory.sequence(:species){|n| Factory.next(:scientific_name) }
 Factory.sequence(:title  ){|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
 Factory.sequence(:int    ){|n| n }
@@ -251,8 +250,8 @@ end
 Factory.define :agent do |agent|
   agent.created_at      { 5.days.ago }
   agent.homepage        ''
-  agent.full_name       { Factory.next(:name) }
-  agent.username        {|a| a.full_name.gsub(/\W+/, '').downcase[0..15] }
+  agent.full_name       { Factory.next(:first_name) << ' ' << Factory.next(:last_name) }
+  agent.username        {|a| a.full_name.gsub(/^(.)[^ ]+ (.*)$/, "\\1_\\2").downcase[0..15] }
   agent.email           { Factory.next(:email) }
   agent.hashed_password { Digest::MD5.hexdigest('test password') }
   agent.association     :agent_status
@@ -317,7 +316,7 @@ Factory.define :canonical_form do |cform|
 end
 
 Factory.define :collection do |col|
-  col.association :agent
+  col.association   :agent
   col.title         'New Collection'
   col.description   'Testing New Colleciton'
   col.uri           'http://testing.new.collecti.on'
@@ -327,19 +326,21 @@ Factory.define :collection do |col|
   col.vetted        1
 end
 
+# NOTE - the Comment model has some validations on it (create/update/etc) that will fail if you don't have a loaded
+# database, so don't expect this factory to work in all situations.
 Factory.define :comment do |x|
-  x.association :parent, :factory => :data_object
-  x.parent_type 'data_object'
-  x.body { Faker::Lorem.paragraph }
-  x.association :user
+  x.association  :parent, :factory => :data_object
+  x.parent_type  'data_object'
+  x.body         { Faker::Lorem.paragraph }
+  x.association  :user
   x.from_curator false
 end
 
 Factory.define :contact do |c|
-  c.name { Factory.next(:string) }
-  c.email { Factory.next(:email) }
+  c.name        { Factory.next(:string) }
+  c.email       { Factory.next(:email) }
   c.association :contact_subject
-  c.comments %w( foo bar )
+  c.comments    %w( foo bar )
 end
 
 Factory.define :contact_subject do |cs|

@@ -13,11 +13,7 @@
     <div id="page-content" class="clearfix">
         <!-- center page content -->
         <div id="full-page-content">
-        <div id="open_id_instructions">
-            Attention Flickr, Yahoo, SmugMug, Blogger, AOL users (and others) -  <%= link_to 'you already have OpenID accounts', 'http://openid.net/get/',:target=>'_blank' %> and can now use
-            them to log into EOL directly!
-        </div>
-        
+    
             <div style="float: left; width: 550px;">
  
               
@@ -33,9 +29,31 @@
 				<%="or"[]%>
         <br />
         <div id="openid">
+          <a href="#" onclick="Element.toggle('open_id_instructions');return false;">You may already have an OpenID account</a> and, if so, can log into EOL immediately.          <div id="open_id_instructions" style="display:none;">
+            The following websites where you may already have an account act as OpenID providers.  To use your existing account, find the website in the list below and then enter in the 
+            sample OpenID login in the OpenID box below, replacing the <strong>bold</strong> text in the sample login with your specific username for that website.
+          	<table class="results_table">
+          	  <tr><th width="40%">Website</th><th>Sample OpenID login</th></tr>
+              <tr><td class="odd"><a href="http://www.aol.com"><img class="favicon" src="http://openid.net/wp-content/uploads/aol.png" alt="" /></a> AOL </td><td class="odd"> openid.aol.com/<strong>screenname</strong></td></tr>
+              <tr><td class="even"><a href="http://www.livejournal.com"><img class="favicon" src="http://www.myspace.com/favicon.ico" alt="" /></a> MySpace </td><td class="even"> myspace.com/<strong>username</strong></td></tr>
+              <tr><td class="odd"><a href="http://www.yahoo.com"><img class="favicon" src="http://www.yahoo.com/favicon.ico" alt="" /></a> Yahoo! </td><td class="odd"> me.yahoo.com/<strong>username</strong></td></tr>
+              <tr><td class="even"><a href="http://www.blogger.com"><img class="favicon" src="http://www.blogger.com/favicon.ico" alt="" /></a> Blogger </td><td class="even"> <strong>blogname</strong>.blogspot.com</td></tr>
+              <tr><td class="odd"><a href="http://www.flickr.com"><img class="favicon" src="http://www.flickr.com/favicon.ico" alt="" /></a> Flickr </td><td class="odd">  www.flickr.com/photos/<strong>username</strong></td></tr>
+              <tr><td class="even"><a href="http://www.livedoor.com"><img class="favicon" src="http://www.livedoor.com/favicon.ico" alt="" /></a> LiveDoor </td><td class="even">  profile.livedoor.com/<strong>username</strong></td></tr>
+              <tr><td class="odd"><a href="http://www.livejournal.com"><img class="favicon" src="http://www.livejournal.com/favicon.ico" alt="" /></a> LiveJournal </td><td class="odd"> <strong>username</strong>.livejournal.com</td></tr>
+              <tr><td class="even"><a class="favicon" href="http://www.smugmug.com"><img class="favicon" src="http://openid.net/wp-content/uploads/smugmug.png" alt="" /></a> SmugMug </td><td class="even"> <strong>username</strong>.smugmug.com</td></tr>
+              <tr><td class="odd"><a href="http://www.technorati.com"><img class="favicon" src="http://www.technorati.com/favicon.ico" alt="" /></a> Technorati </td><td class="odd"> technorati.com/people/technorati/<strong>username</strong></td></tr>
+              <tr><td class="even"><img src="http://openid.net/wp-content/uploads/vox.png" alt="" /></a> Vox </td><td class="even"> <strong>member</strong>.vox.com</td></tr>
+              <tr><td class="odd"><a href="http://www.wordpress.com"><img class="favicon" src="http://openid.net/wp-content/uploads/wordpress.png" alt="" /></a> WordPress.com </td><td class="odd"> <strong>username</strong>.wordpress.com</td></tr>
+        	  </table>
+        	  <br />
+          	<%= link_to 'Learn more about OpenID providers', 'http://openid.net/get/',:target=>'_blank' %> 
+        	  <br />        	  <br />
+        	</div>
+          
    				  <label for="openid_url"><%= "OpenID"[] %></label>
             <%= text_field_tag 'openid_url', {},{:size=>100,:maxlength=>250,:class=>'openid'} %> 
-  					<%= link_to 'What is OpenID?', 'http://openid.net/',:target=>'_blank' %> | <%= link_to 'Do I already have an OpenID?', 'http://openid.net/get/',:target=>'_blank' %> 
+  					<%= link_to 'What is OpenID?', 'http://openid.net/',:target=>'_blank' %> | <a href="#" onclick="Element.toggle('open_id_instructions');return false;">How do I log in with OpenID?</a> 
           </div>
           <br />
             	<table border="0" width="500" cellpadding="20">

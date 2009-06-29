@@ -78,7 +78,7 @@ Rails::Initializer.run do |config|
 
   # We have a lot of production-like environments.  To quickly test if we're in one, rather than parsing the ENV,
   # you may check $PRODUCTION_MODE.
-  $PRODUCTION_MODE = true if
+  $PRODUCTION_MODE = true if ENV['RAILS_ENV'] and
     ['production', 'staging', 'siproduction', 'failover', 'preview'].include?(ENV['RAILS_ENV'].downcase)
     
   # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:

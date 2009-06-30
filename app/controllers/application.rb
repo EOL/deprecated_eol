@@ -520,6 +520,21 @@ end
 
 private
 
+  def expire_pages(pages)
+    if pages.length > 0
+      Language.find_active.each do |language|
+        pages.each do |page|
+          if page.class == ContentPage
+            expire_fragment(:controller => '/content', :part => "#{page.id.to_s }_#{language.iso_639_1}")
+            expire_fragment(:controller => '/content', :part => "#{page.page_url}_#{language.iso_639_1}")
+          else
+            expire_fragment(:controller => '/content', :part => "#{page}_#{language.iso_639_1}")
+          end
+        end
+      end
+    end
+  end
+
   def clear_old_sessions
     CGI::Session::ActiveRecordStore::Session.destroy_all( ['updated_at <?', $SESSION_EXPIRY_IN_SECONDS.seconds.ago] )
   end

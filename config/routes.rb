@@ -79,8 +79,10 @@ ActionController::Routing::Routes.draw do |map|
   # map.connect 'content_partner/reports/:report', :controller => 'content_partner/reports', :action => 'catch_all',
   #                                                :requirements => { :report => /.*/ }
   map.connect 'administrator/reports',         :controller => 'administrator/reports', :action => 'index' 
-  map.connect 'administrator/reports/:report', :controller => 'administrator/reports', :action => 'catch_all',
-                                               :requirements => { :report => /.*/ }
+  map.connect 'administrator/reports/:action', :controller => 'administrator/reports'
+  
+  # map.connect 'administrator/reports/:report', :controller => 'administrator/reports', :action => 'catch_all',
+  #                                              :requirements => { :report => /.*/ }
 
   map.connect 'administrator/curator', :controller => 'administrator/curator', :action => 'index' 
 

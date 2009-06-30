@@ -10,11 +10,18 @@ module ReportsControllerModule
     whole_report
     # render :template => 'reports/index'
   end
-
+  
+  def admin_whole_report
+    @act_histories    = ActionsHistory.find(:all, :order => 'updated_at DESC')
+    @sub_page_header  = 'Changing of objects status and comments'
+    @report_type      = :admin_whole_report
+    
+    render :template => 'reports/whole_report'
+  end
+  
+  #part below is for a content partner
   def whole_report
-    @act_histories    = 
-                      ActionsHistory.find_all_by_object_id(agents_data_object_ids +
-                        agents_comment_ids, :order => 'updated_at DESC')
+    @act_histories    = (valid_comments_history + valid_objects_history).sort{|a,b| b.updated_at <=> a.updated_at}    
         
     @sub_page_header  = 'Changing of objects status and comments'
     @report_type      = :whole_report
@@ -23,9 +30,7 @@ module ReportsControllerModule
   end
   
   def comments_report
-    @act_histories    = 
-                      ActionsHistory.find_all_by_object_id(agents_comment_ids,
-                        :order => 'updated_at DESC')
+    @act_histories    = valid_comments_history
     @sub_page_header  = 'Changing of comments'
     @report_type      = :comments_report
 
@@ -33,9 +38,7 @@ module ReportsControllerModule
   end
 
   def statuses_report
-    @act_histories    = 
-                      ActionsHistory.find_all_by_object_id(agents_data_object_ids,
-                        :order => 'updated_at DESC')
+    @act_histories    = valid_objects_history
     @sub_page_header  = 'Changing of objects status'
     @report_type      = :statuses_report
     
@@ -49,15 +52,19 @@ module ReportsControllerModule
   end
   
   def agents_comment_ids 
-    Comment.find_all_by_parent_id(agents_data_object_ids).map {|x| x.id if      (x.parent_type == "DataObject")}
+    Comment.find_all_by_parent_id(agents_data_object_ids).map {|x| x.id if      (x.parent_type == "DataObject")}    
   end  
   
-  # def act_histories
-  #   ActionsHistory.find_all_by_object_id(agents_data_object_ids + agents_comment_ids,
-  #                                        :order => 'updated_at DESC')
-  # end
+  def valid_comments_history
+    ActionsHistory.find_all_by_object_id(agents_comment_ids, :conditions => ["changeable_object_type_id = ?", 2], :order => 'updated_at DESC')
+  end
   
+  def valid_objects_history
+    ActionsHistory.find_all_by_object_id(agents_data_object_ids, :conditions => ["changeable_object_type_id = ?", 1], :order => 'updated_at DESC')
+  end
+      
 end  
+# -------- end of ASh stuff --------
   # 
   # 
   #   def self.included base

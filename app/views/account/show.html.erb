@@ -8,6 +8,7 @@
         <p>
             Curator of <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %>
         </p>
+        <p>Curator scope <%=@user.curator_scope%></p>
         <p>"<%= h @user.username %>" joined <%= format_date(@user.created_at) %></p>
     </div>
     <div id="activity">

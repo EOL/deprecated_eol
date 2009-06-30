@@ -1,6 +1,6 @@
 <div id="report_from_eol">
   <h2><%= @sub_page_header %></h2>
-  
+
   <ul>
     <% n = 0 %>
     <% for act_history in @act_histories -%>
@@ -11,13 +11,13 @@
         <% case act_history.changeable_object_type_id  
              when 1: -%>    <!-- "data_object" -->
           <% n += 1%>
-          <%= render :partial=> 'statuses_report.html.erb',
+          <%= render :partial=> 'reports/statuses_report.html.erb',
                     :locals=>{:act_history => act_history, 
                               :act_date => act_date, :current_act => current_act} %>
 
           <% when 2: -%>    <!-- "comment" -->
           <% n += 1%>
-          <%= render :partial=> 'comments_report.html.erb',
+          <%= render :partial=> 'reports/comments_report.html.erb',
                     :locals=>{:act_history => act_history, 
                               :act_date => act_date, :current_act => current_act} %>
                    
@@ -29,9 +29,9 @@
           <% n += 1%>
             <%#= render :partial=> 'user_submitted_text_report.html.erb',
                     :locals=>{:act_history => act_history, 
-                              :act_date => act_date, :current_act => current_act} %>
-          
+                              :act_date => act_date, :current_act => current_act} %>          
         <% end -%> 
+        
     <% end -%>                                                                                                                 
   </ul>
   

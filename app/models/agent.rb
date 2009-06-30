@@ -338,8 +338,8 @@ class Agent < SpeciesSchemaModel
           SELECT DISTINCT he.id FROM agents a 
                 JOIN agents_resources ar ON (ar.agent_id=a.id)
                 JOIN harvest_events he ON (ar.resource_id=he.resource_id) 
-        	WHERE  ar.agent_id=?
-	        ORDER BY he.id DESC LIMIT 1", self.id])[0].data_objects
+                WHERE  (ar.agent_id=? AND he.published_at != '')
+	              ORDER BY he.id DESC LIMIT 1", self.id])[0].data_objects
   end
   
   protected

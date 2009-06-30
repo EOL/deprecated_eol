@@ -6,7 +6,7 @@ describe 'Content Partner Pages' do
   
   describe '(Reports)' do
     
-    #TODO: do all this tests after EOLINFRASTRUCTURE-1061 will be fixed    
+    #TODO: do all this tests after fixing EOLINFRASTRUCTURE-1061   
       
     # before(:all) do
       # Scenario.load :foundation      

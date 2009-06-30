@@ -338,6 +338,7 @@ class TaxaController < ApplicationController
     @category_id = params[:category_id].to_i
     @taxon.current_agent = current_agent unless current_agent.nil?
     @taxon.current_user = current_user
+    @curator = current_user.can_curate?(@taxon)
 
     @content     = @taxon.content_by_category(@category_id)
     @ajax_update=true

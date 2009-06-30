@@ -407,6 +407,7 @@ Factory.define :curator, :class => User do |u|
   u.curator_approved          true
   u.curator_verdict_by        { Factory(:user) }
   u.curator_verdict_at        { 48.hours.ago }
+  u.curator_scope             ''
   # A curator isn't credited until she actually DOES something, which is handled thusly:
   u.last_curated_dates        do |lcd|
     [lcd.association(:last_curated_date,
@@ -866,6 +867,7 @@ Factory.define :user do |u|
   u.curator_approved          false
   u.curator_verdict_by_id     0
   u.curator_verdict_at        nil
+  u.curator_scope             ''
 end
 
 Factory.define :users_data_object do |u|

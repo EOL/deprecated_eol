@@ -11,7 +11,7 @@
         <% current_act = act_history.action_with_object.action_code %>
         
         <% n += 1%>
-        <%= render :partial=> 'statuses_report.html.erb',
+        <%= render :partial=> 'reports/statuses_report.html.erb',
                 :locals=>{:act_history => act_history, 
                           :act_date => act_date, :current_act => current_act} %>
       <% end -%>

@@ -52,6 +52,9 @@
       	<li><%= link_to 'search term reports',search_logs_url,{:class=>'toc_item active'} %> </li>
     	<h3>Data Usage Reports</h3>
     	  <li><%=link_to('Google Analytics (Google account and access required)','https://www.google.com/analytics/settings/?et=reset&hl=en#scid=3298646',:target=>'_blank', :class=>'toc_item active' )%> </li>
+    	  <li><%= link_to 'All changes',{:controller=>'/administrator/reports', :action=>'admin_whole_report'}, {:class=>"toc_item active"}%>
+        <!-- TODO: do bullets active dynamically, as for content-partner -->
+      
       <!-- <%# for report_class in LogDaily.report_classes %>
         <li><%#= link_to report_class.report_name, {:controller => 'administrator/reports', :action => report_class.path}, {:class=>'toc_item active'} %></li>
       <%# end %> -->

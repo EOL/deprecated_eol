@@ -99,6 +99,9 @@ function check_passwords() {
            	 <% else %>
            	 <p>
                  Curator of: <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %>
+                 <label title="<%= "Curation Scope"[] %>"><%= "Curation Scope"[] %></label>
+                 Please state the scope of your curatorial abilities for the selected clade.<br/>
+                 <%= f.text_area :curator_scope, {:rows => 7, :cols => 60} %>
              </p>      
 			       <% end %>
 			       

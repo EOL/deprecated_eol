@@ -4,21 +4,6 @@ require 'uri'
 # TODO - look these over.  I'm not sure all of them are used, and those that are... perhaps not efficiently.
 
 module ApplicationHelper
-  def expire_pages(pages)
-    if pages.length > 0
-      Language.find_active.each do |language|
-        pages.each do |page|
-          if page.class == ContentPage
-            expire_fragment(:controller => '/content', :part => "#{page.id.to_s }_#{language.iso_639_1}")
-            expire_fragment(:controller => '/content', :part => "#{page.page_url}_#{language.iso_639_1}")
-          else
-            expire_fragment(:controller => '/content', :part => "#{page}_#{language.iso_639_1}")
-          end
-        end
-      end
-    end
-  end
-
   #this only applies to text attributions for now
   #author, source, copyright, and data supplier should be shown
   def has_hidden_attributions?(data_object)

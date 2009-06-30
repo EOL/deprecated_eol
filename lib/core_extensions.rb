@@ -32,7 +32,7 @@ end
 class ActiveRecord::Migration
   def self.not_okay_in_production
     # Perhaps not the right error class to throw, but I'm not aware of good alternatives:
-    raise ActiveRecord::IrreversibleMigration.new("It is not okay to run this migration on a production database.") unless
+    raise ActiveRecord::IrreversibleMigration.new("It is not okay to run this migration on a production database.") if
       $PRODUCTION_MODE
   end
 end

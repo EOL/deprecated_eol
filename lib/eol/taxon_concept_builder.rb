@@ -7,22 +7,33 @@ class EOL
     include EOL::Spec::Helpers
 
     # TODO - stop using @options and just store everthing in instance vars.
+    # TODO - Create a harvest event and a resource (status should be published) (and the resource needs a hierarchy, which we use for
+    # the HEs)
+    # TODO - Normalize names ... when harvesting is done, this is done on-the-fly, so we should do it here.
     def initialize(options)
       @debugging = false
       puts "** Enter: initialize" if @debugging
       @options     = options
-      @attri       = @options[:attribution]     || Factory.next(:attribution)
-      @common_name = @options[:common_name]     || Factory.next(:common_name)
-      @canon       = @options[:canonical_form]  || Factory.next(:scientific_name)
-      @complete    = @options[:scientific_name] || "#{@canon} #{@attri}".strip
-      @hierarchy   = @options[:hierarchy]       || nil # We'll let build_hierarchy_entry pick a default
-      set_default_options # TODO - include the stuff above into this method
-      @cform = CanonicalForm.find_by_string(@canon) || CanonicalForm.gen(:string => @canon)
-      @sname = Name.gen(:canonical_form => @cform, :string => @complete,
-                        :italicized     => @options[:italicized] || "<i>#{@canon}</i> #{@attri}".strip)
-      # TODO - You don't always need a common name, and in fact most don't; default should be NOT to have one
-      # TODO - This should also create an entry in Synonyms (see below) (don't need agents_synonyms though)
-      @cname = Name.gen(:canonical_form => @cform, :string => @common_name, :italicized => @common_name)
+      set_default_options
+      build
+    end
+    
+  private
+
+    def build
+      puts "** Enter: build" if @debugging
+      gen_taxon_concept
+      gen_name
+      add_curator
+      add_comments
+      gen_taxon
+      add_images
+      add_videos
+      add_map
+      add_toc
+      add_iucn
+      gen_random_taxa
+      gen_bhl
     end
 
     def gen_taxon_concept
@@ -43,6 +54,9 @@ class EOL
       end
     end
 
+    # TODO - add some alternate names, including at least one in another language.
+    # TODO - create alternate scientific names... just make sure the relation makes sense and the language_id is
+    # either 0 or Language.scientific.
     def gen_name
       puts "** Enter: gen_name" if @debugging
       # Note that this assumes the ranks are *in order* which is ONLY true with foundation loaded!
@@ -55,8 +69,21 @@ class EOL
       # TODO - create the Synonym here, with the Language of English, the SynonymRelation of Common Name, and the HE we just
       # created, and preferred...
       # NOTE: when we denormalize the taxon_concept_names table, we should be looking at Synonyms as well as Names.
+    end
+
+    def add_curator
+      puts "** Enter: add_curator" if @debugging
       @curator = Factory(:curator, :curator_hierarchy_entry => @he)
-      pp @curator if @debugging
+      if @debugging
+        puts "&& TC:"
+        pp @tc
+        puts "&& Curator:"
+        pp @curator
+        puts "&& TC.Curators:"
+        pp @tc.curators
+        puts "&& TC.Acting Curators:"
+        pp @tc.acting_curators
+      end
     end
 
     def add_comments
@@ -152,9 +179,11 @@ class EOL
                       :thumb_url => @images.first.object_cache_url) # TODO - not sure thumb_url is right.
     end
 
+    # TODO - This is one of the slower methods.
     # TODO - this comment should be integrated into the comment for the whole module
     # :bhl => [{:publication => 'Foobar', :page => 23}, {:publication => 'Bazboozer', :page => 78}]
     def gen_bhl
+      puts "** Enter: gen_bhl" if @debugging
       @options[:bhl].each do |bhl|
         publication = nil # scope
         if bhl[:publication].nil?
@@ -171,19 +200,27 @@ class EOL
     end
 
     def build_entry_in_hierarchy(options)
+      puts "**** Enter: build_entry_in_hierarchy" if @debugging
       raise "Cannot build a HierarchyEntry without depth, TaxonConcept, and Name" unless @depth && @tc && @sname
       options[:hierarchy] ||= @hierarchy
       return build_hierarchy_entry(@depth, @tc, @sname, options)
     end
 
+    # TODO - this is one of the slowest events (and it's called a lot!)
     def build_object_in_event(type, description, options = {})
+      puts "**** Enter: build_object_in_event" if @debugging
       options[:event] ||= @event
       build_data_object(type, description, options)
     end
 
-  private
     # TODO - Too long: break this up
     def set_default_options
+      puts "** Enter: set_default_options" if @debugging
+      @attri       = @options[:attribution]     || Factory.next(:attribution)
+      @common_name = @options[:common_name]     || Factory.next(:common_name)
+      @canon       = @options[:canonical_form]  || Factory.next(:scientific_name)
+      @complete    = @options[:scientific_name] || "#{@canon} #{@attri}".strip
+      @hierarchy   = @options[:hierarchy]       || nil # We'll let build_hierarchy_entry pick a default
       @event = @options[:event] || default_harvest_event
       @images = [] # This is used to build the RandomTaxon
       if @options[:toc].nil?
@@ -223,6 +260,12 @@ class EOL
                           {:publication => 'Great Big Journal of Fun', :page => 44},
                           {:publication => 'The Journal You Cannot Afford', :page => 1}]
       end
+      @cform = CanonicalForm.find_by_string(@canon) || CanonicalForm.gen(:string => @canon)
+      @sname = Name.gen(:canonical_form => @cform, :string => @complete,
+                        :italicized     => @options[:italicized] || "<i>#{@canon}</i> #{@attri}".strip)
+      # TODO - You don't always need a common name, and in fact most don't; default should be NOT to have one
+      # TODO - This should also create an entry in Synonyms (see below) (don't need agents_synonyms though)
+      @cname = Name.gen(:canonical_form => @cform, :string => @common_name, :italicized => @common_name)
     end
 
   end

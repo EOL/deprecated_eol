@@ -1,6 +1,6 @@
 <% rate_percentage = data_object.data_rating * 20 %>
 
-<% if @curator %>
+<% if @taxon_concept.show_curator_controls? %>
 
   Overall:
   <span class="inline-rating">

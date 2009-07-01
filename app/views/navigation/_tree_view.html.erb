@@ -12,14 +12,14 @@
                          :enable                => kingdom[:enable],
                          :kingdom               => true,
                          :first_kingdom         => kingdom == kingdoms.first,
-                         :current_kingdom       =>(!@taxon.kingdom.nil? && kingdom[:id].to_i == @taxon.kingdom.taxon_concept_id),
+                         :current_kingdom       =>(!@taxon_concept.kingdom.nil? && kingdom[:id].to_i == @taxon_concept.kingdom.taxon_concept_id),
                          :level                 => 0,
-                         :current_node          =>(kingdom[:id].to_i == @taxon.id)
+                         :current_node          =>(kingdom[:id].to_i == @taxon_concept.id)
                         }) %>
-      <%- if kingdom[:id].to_i == @taxon.kingdom.taxon_concept_id %>
+      <%- if kingdom[:id].to_i == @taxon_concept.kingdom.taxon_concept_id %>
       <%= render(:partial => 'navigation/tree_view_current_kingdom',
-                 :locals => {:current_treepath => @taxon.ancestors_hash(current_user.expertise, current_user.language),
-                             :children_nodes   => @taxon.children_hash(current_user.expertise, current_user.language).sort { |a,b|
+                 :locals => {:current_treepath => @taxon_concept.ancestors_hash(current_user.expertise, current_user.language),
+                             :children_nodes   => @taxon_concept.children_hash(current_user.expertise, current_user.language).sort { |a,b|
                                  a[:name] <=> b[:name]
                             }}) %>
         <br />
@@ -27,7 +27,7 @@
     </li>
   <%- end %>
   </ul>
-  <%- unless @taxon.maps_to_default_hierarchy? %>
+  <%- unless @taxon_concept.maps_to_default_hierarchy? %>
     <ul><li><br/><b>Name not in 2008 Catalogue of Life</b></li></ul>
   <%- end %>
 </div>

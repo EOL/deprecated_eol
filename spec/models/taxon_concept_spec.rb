@@ -72,6 +72,14 @@ describe TaxonConcept do
     DataObject.delete_all(['data_type_id = ?', DataType.find_by_label('IUCN').id])
   end
 
+  it 'should determine and cache curation authorization' do
+    @curator.can_curate?(@taxon_concept).should == true
+    @curator.should_receive('can_curate?').and_return(true)
+    @taxon_concept.show_curator_controls?(@curator).should == true
+    @curator.should_not_receive('can_curate?')
+    @taxon_concept.show_curator_controls?(@curator).should == true
+  end
+
   it 'should return overview as first toc item which accepts user submitted text' do
     @taxon_concept.tocitem_for_new_text.label.should == @overview.label
     fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id

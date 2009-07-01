@@ -35,6 +35,16 @@ class TaxonConcept < SpeciesSchemaModel
   # The following are the "nice" methods, which we want to publically expose.  ...As opposed to the down-and-dirty stuff that we
   # want to shamefully hide.  These are the methods from which we can build nice, clean objects to serve to the general public:
 
+  def show_curator_controls?(user = nil)
+    return @show_curator_controls if !@show_curator_controls.nil?
+    user = @current_user if user.nil?
+    if user.nil?
+      raise "a user must be specified"
+    end
+    @show_curator_controls = user.can_curate?(self)
+    @show_curator_controls
+  end
+
   def tocitem_for_new_text
     table_of_contents.each do |toc|
       return toc if toc.allow_user_text?

@@ -61,7 +61,7 @@
       <%=render :partial => '/taxa/star_rating', :locals => {:data_object => content_item}%>
     </div>
 
-    <% if @curator%>
+    <% if @taxon_concept.show_curator_controls? %>
       <% if !content_item.curated? %>
         <div class="spinner">
           <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>

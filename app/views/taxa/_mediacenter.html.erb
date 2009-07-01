@@ -49,7 +49,7 @@
               <div id="right-image-buttons">
                 <div id="large-image-button-popup">
                   <%#The inner divs on the links are hacks to get the links to work in ie6. there's probably a better way to do this%>
-                  <% if current_user.can_curate?(@taxon_concept) %>
+                  <% if @taxon_concept.show_curator_controls? %>
                     <div class="spinner">
                       <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
                     </div>

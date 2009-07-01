@@ -19,7 +19,6 @@ describe TaxonConcept do
   # "better" fit here, even if it isn't perfect.
 
   before :all do
-    Scenario.verbose = true
     Scenario.load :foundation
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
@@ -62,6 +61,7 @@ describe TaxonConcept do
     LastCuratedDate.gen(:user => @curator, :taxon_concept => @taxon_concept)
     # And we want one comment that the world cannot see:
     Comment.find_by_body(@comment_bad).hide! User.last
+    recreate_normalized_names_and_links
   end
   after :all do
     truncate_all_tables
@@ -190,7 +190,6 @@ describe TaxonConcept do
   end
 
   it 'should be able to search, returning an array of hashes for each result type' do
-    recreate_normalized_names_and_links
     results = TaxonConcept.quick_search(@common_name)
     results[:common].should_not be_nil
     results[:common].map {|h| h['id'].to_i }.should include(@taxon_concept.id)

@@ -2,8 +2,6 @@
 #
 # If you want a model loaded up with all kinds of goodies, make a different generator, 
 # eg. :admin_user
-#
-# We will make helpers for easily generating User.gen_admin (or something like this)
 
 require 'factory_girl'
 require 'faker'
@@ -254,7 +252,7 @@ Factory.define :agent do |agent|
   agent.username        {|a| a.full_name.gsub(/^(.)[^ ]+ (.*)$/, "\\1_\\2").downcase[0..15] }
   agent.email           { Factory.next(:email) }
   agent.hashed_password { Digest::MD5.hexdigest('test password') }
-  agent.association     :agent_status
+  agent.agent_status    { AgentStatus.active || Factory(:agent_status, :label => 'Active') }
 end
 
 Factory.define :agent_contact do |ac|
@@ -397,7 +395,7 @@ Factory.define :curator, :class => User do |u|
   u.given_name                { Factory.next(:first_name) }
   u.family_name               { Factory.next(:last_name) }
   u.flash_enabled             true
-  u.association               :language
+  u.language                  { Language.english || Factory(:language, :label => 'English') }
   u.mailing_list              true
   u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}#{Factory.next(:int)}".gsub(/\s/, '_').downcase }
   u.active                    true
@@ -437,11 +435,14 @@ end
 
 Factory.define :data_object do |dato|
   dato.guid                   { Factory.next(:guid) }
-  dato.association            :data_type
-  dato.association            :mime_type
+  dato.data_type              { DataType.first || Factory(:data_type, :label => 'Image') }
+  dato.mime_type              { MimeType.find_by_label('image/jpeg') || Factory(:mime_type, :label => 'image/jpeg') }
   dato.object_title           ''
-  dato.association            :language
-  dato.association            :license
+  dato.language               { Language.english || Factory(:language, :label => 'English') }
+  dato.license                { License.find_by_title('cc-by 3.0') ||
+                                Factory(:license, :title => 'cc-by 3.0', :description => 'Some rights reserved',
+                                                  :source_url => 'http://creativecommons.org/licenses/by/3.0/',
+                                                  :logo_url => '/images/licenses/cc_by_small.png') }
   dato.rights_statement       ''
   dato.rights_holder          ''
   dato.bibliographic_citation ''
@@ -479,7 +480,7 @@ Factory.define :data_objects_harvest_event do |dohe|
   dohe.association :harvest_event
   dohe.association :data_object
   dohe.guid        { s = ''; 32.times { s += ((0..9).to_a.map{|n| n.to_s} + %w{a b c d e f}).rand }; s } # ICK!
-  dohe.association :status
+  dohe.status      { Status.inserted || Factory(:status, :label => 'inserted') }
 end
 
 Factory.define :data_objects_table_of_content do |dato|
@@ -675,7 +676,7 @@ Factory.define :publication_title do |pt|
 end
 
 Factory.define :random_taxon do |rt|
-  rt.association    :language
+  rt.language       { Language.english || Factory(:language, :label => 'English') }
   rt.association    :data_object
   rt.name_id        { Factory(:name).id } # TODO - ick.  ...But there is a "name" attribute as well, so, tricky.
   rt.image_url      200810081262788
@@ -713,8 +714,11 @@ Factory.define :resource do |r|
   r.auto_publish    false
   r.title           'Testing Resource'
   r.subject         'Test Resource Subject'
-  r.association     :license
-  r.association     :resource_status
+  r.license         { License.find_by_title('cc-by 3.0') ||
+                      Factory(:license, :title => 'cc-by 3.0', :description => 'Some rights reserved',
+                                        :source_url => 'http://creativecommons.org/licenses/by/3.0/',
+                                        :logo_url => '/images/licenses/cc_by_small.png') }
+  r.resource_status { ResourceStatus.find_by_label('Published') || Factory(:resource_status, :label => 'Published') }
   r.accesspoint_url 'http://www.google.com' # Won't work without a real, live URL.
 end
 
@@ -772,7 +776,7 @@ end
 Factory.define :synonym do |s|
   s.association :name
   s.association :synonym_relation
-  s.association :language
+  s.language    { Language.english || Factory(:language, :label => 'English') }
   s.association :hierarchy_entry
   s.preferred   0
   s.association :hierarchy   # This isn't really needed.
@@ -816,7 +820,7 @@ Factory.define :taxon_concept_name do |tcn|
   tcn.preferred              true
   tcn.vern                   false
   tcn.source_hierarchy_entry_id {|he| Factory(:hierarchy_entry).id } # Does this work?
-  tcn.association            :language
+  tcn.language               { Language.english || Factory(:language, :label => 'English') }
   tcn.association            :name
   tcn.association            :taxon_concept
 end
@@ -857,7 +861,7 @@ Factory.define :user do |u|
   u.given_name                { Factory.next(:first_name) }
   u.family_name               { Factory.next(:last_name) }
   u.flash_enabled             true
-  u.association               :language
+  u.language                  { Language.english || Factory(:language, :label => 'English') }
   u.mailing_list              true
   u.vetted                    false
   u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}".gsub(/\s/, '_').downcase }

@@ -19,6 +19,7 @@ describe TaxonConcept do
   # "better" fit here, even if it isn't perfect.
 
   before :all do
+    Scenario.verbose = true
     Scenario.load :foundation
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'

@@ -105,14 +105,14 @@ module Faker
       end
 
       def common_name
-        ['common', "#{Faker::Name.first_name}'s", 'blue', 'red', 'pink', 'green', 'purple',
+        ['common', "#{Factory.next(:first_name)}'s", 'blue', 'red', 'pink', 'green', 'purple',
          'painted', 'spiny', 'agitated', 'horny', 'blessed', 'sacred', 'sacrimonious', 'naughty',
          'litte', 'tiny', 'giant', 'great', 'lesser', 'least', 'river', 'plains', 'city', 'sky', 'stream',
          'thirsty', 'ravenous', 'bloody', 'cursed', 'cromulent'].rand + ' ' + Faker::Eol.name_part
       end
 
       def attribution
-        "#{Faker::Name.first_name[0..0]}. #{Faker::Name.last_name}"
+        "#{Factory.next(:first_name)[0..0]}. #{Factory.next(:last_name)}"
       end
 
     end
@@ -394,8 +394,8 @@ Factory.define :curator, :class => User do |u|
   u.remote_ip                 '128.167.250.123' # TODO - fake this?
   u.content_level             2
   u.email                     { Factory.next(:email) }
-  u.given_name                { Faker::Name.first_name }
-  u.family_name               { Faker::Name.last_name }
+  u.given_name                { Factory.next(:first_name) }
+  u.family_name               { Factory.next(:last_name) }
   u.flash_enabled             true
   u.association               :language
   u.mailing_list              true

@@ -6,6 +6,47 @@ class EOL
 
     include EOL::Spec::Helpers
 
+    # == Options:
+    #
+    # These all have intelligent(ish) default values, so just specify those values that you feel are really salient. Note that a TC will
+    # NOT have a map or an IUCN status unless you specify options that create them.
+    #
+    #   +attribution+::
+    #     String to be used in scientific name as attribution
+    #   +canonical_form+::
+    #     String to use for canonical form (all names will reference this)
+    #   +comments+::
+    #     Array of hashes.  Each hash can have a +:body+ and +:user+ key.
+    #   +common_name+::
+    #     String to use for thre preferred common name
+    #   +depth+::
+    #     Depth to apply to the attached hierarchy entry.  Don't supply this AND rank.
+    #   +flash+::
+    #     Array of flash videos, each member is a hash for the video options.  The keys you will want are
+    #     +:description+ and +:object_cache_url+.
+    #   +id+::
+    #     Forces the ID of the TaxonConcept to be what you specify, useful for exemplars.
+    #   +images+::
+    #     Array of hashes.  Each hash may have the following keys: +:description+, +:hierarchy_entry+,
+    #     +:object_cache_url+, +:taxon+, +:vetted+, +:visibility+ ...These are the args used to call
+    #     #build_data_object
+    #   +italicized+::
+    #     String to use for preferred scientific name's italicized form.
+    #   +iucn_status+::
+    #     String to use for IUCN description, OR just set to true if you want a random IUCN status instead.
+    #   +gbif_map_id+::
+    #     The ID to use for the Map Data Object.
+    #   +parent_hierarchy_entry_id+::
+    #     When building the associated HierarchyEntry, this id will be used for its parent.
+    #   +rank+::
+    #     String form of the Rank you want this TC to be.  Default 'species'.
+    #   +scientific_name+::
+    #     String to use for the preferred scientific name.
+    #   +toc+::
+    #     An array of hashes.  Each hash may have a +:toc_item+ key and a +:description+ key.
+    #   +youtube+::
+    #     Array of YouTube videos, each member is a hash for the video options.  The keys you will want are
+    #     +:description+ and +:object_cache_url+.
     # TODO - stop using @options and just store everthing in instance vars.
     # TODO - Create a harvest event and a resource (status should be published) (and the resource needs a hierarchy, which we use for
     # the HEs)

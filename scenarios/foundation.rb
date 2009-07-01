@@ -258,14 +258,17 @@ create_if_not_exists Role, :title => 'Administrator - Technical'
 create_if_not_exists Role, :title => 'Administrator - Site CMS'
 create_if_not_exists Role, :title => 'Administrator - Usage Reports'
 
-create_if_not_exists TocItem, :label => 'Overview',                      :view_order => 1
-description = create_if_not_exists TocItem, :label => 'Description',                   :view_order => 2
-ecology_and_distribution = create_if_not_exists TocItem, :label => 'Ecology and Distribution',      :view_order => 3
-create_if_not_exists TocItem, :label => 'Common Names',                  :view_order => 10
-ref_and_info = create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 9
-create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 8,  :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 10, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 14, :parent_id => ref_and_info.id
+  create_if_not_exists TocItem, :label => 'Overview',                      :view_order => 1
+description =
+  create_if_not_exists TocItem, :label => 'Description',                   :view_order => 2
+ecology_and_distribution =
+  create_if_not_exists TocItem, :label => 'Ecology and Distribution',      :view_order => 3
+  create_if_not_exists TocItem, :label => 'Common Names',                  :view_order => 10
+ref_and_info =
+  create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 9
+  create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 8,  :parent_id => ref_and_info.id
+  create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 10, :parent_id => ref_and_info.id
+  create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 14, :parent_id => ref_and_info.id
 
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology', :label => 'TaxonBiology', :toc_item => TocItem.overview
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription', :label => 'GeneralDescription', :toc_item => description

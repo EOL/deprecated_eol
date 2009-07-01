@@ -83,113 +83,9 @@ module EOL::Spec
       Name.all.each {|name| NormalizedLink.parse! name }
     end
 
-    # Builds a DataObject and creates all of the ancillary relationships.  Returns the DataObject.
-    #
-    # This takes three arguments.  The first is the type of the DataObject: acceptable values include 'Text',
-    # 'Image', 'GBIF Image', 'Flash', and 'YouTube'.  The second argument is the description, since all
-    # DataObject instances make use of this one.  The third argument is a hash of options.  Some key values are:
-    #
-    #   +content_partner+::
-    #     If specified, a Resource, HarvestEvent, and all relationships between them will be created.
-    #   +hierarchy_entry+::
-    #     Which HE to link this object to. If missing, defaults to the last HE in the table, so be careful.
-    #   +name+::
-    #     Which Name object (q.v.) to link the Taxon to. 
-    #   +num_comments+::
-    #     How many comments to attach to this object.
-    #   +scientific_name+::
-    #     Which raw scientific name the content provider assigned to the Taxon.  Defaults to the HE's. 
-    #   +taxon+::
-    #     Which Taxon (q.v.) to link this to.  If missing, one will be created. 
-    #   +toc_item+::
-    #     If this is a 'Text' type, this specifies which TocItem to link this to. If left blank, one is randomly
-    #     chosen.
-    #
-    # Any other options on this method will be passed directly to the DataObject#gen method (for example,
-    # lattitude, longitude, and the like).
-    #
-    # NOTE - I am not setting the mime type yet.  We never use it.  NOTE - There are no models for all the
-    # refs_* tables, so I'm ignoring them.
     def build_data_object(type, desc, options = {})
-
-      @mime_types ||= {
-        'Image'      => MimeType.find_by_label('image/jpeg'),
-        'Sound'      => MimeType.find_by_label('audio/mpeg'),
-        'Text'       => MimeType.find_by_label('text/html'),
-        'Video'      => MimeType.find_by_label('video/quicktime'),
-        'GBIF Image' => MimeType.find_by_label('image/jpeg'),
-        'IUCN'       => MimeType.find_by_label('text/plain'),
-        'Flash'      => MimeType.find_by_label('video/x-flv'),
-        'YouTube'    => MimeType.find_by_label('video/x-flv'),
-        :default     => MimeType.find_by_label('image/jpeg')
-      }
-
-      attributes = {:data_type   => DataType.find_by_label(type),
-                    :mime_type   => @mime_types[type] || @mime_type[:default], 
-                    :description => desc,
-                    :visibility  => Visibility.visible,
-                    :vetted      => Vetted.trusted,
-                    :license     => License.first,
-                    :language    => Language.english }
-
-      agent_role      = options.delete(:agent_role)      || 'Author'
-      agent_role      = AgentRole.find_by_label(agent_role) || AgentRole.first
-      content_partner = options.delete(:content_partner)
-      event           = options.delete(:event)
-      he              = options.delete(:hierarchy_entry) || HierarchyEntry.last
-      name            = options.delete(:name)            || Name.last
-      num_comments    = options.delete(:num_comments)    || 1
-      scientific_name = options.delete(:scientific_name) || he.name(:expert) || Factory.next(:scientific_name)
-      taxon           = options.delete(:taxon)
-      toc_item        = options.delete(:toc_item)
-      toc_item      ||= TocItem.find_by_sql('select * from table_of_contents where id!=3').rand if type == 'Text'
-      taxon         ||= Taxon.gen(:name => name, :hierarchy_entry => he, :scientific_name => scientific_name)
-
-      options[:object_cache_url] ||= Factory.next(:image) if type == 'Image'
-
-      dato            = DataObject.gen(attributes.merge(options))
-
-      DataObjectsTaxon.gen(:data_object => dato, :taxon => taxon)
-
-      if type == 'Image'
-        if dato.visibility == Visibility.visible and dato.vetted == Vetted.trusted
-          TopImage.gen :data_object => dato, :hierarchy_entry => taxon.hierarchy_entry
-        else
-          TopUnpublishedImage.gen :data_object => dato, :hierarchy_entry => he
-        end
-      elsif type == 'Text'
-        DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item)
-      end
-      user = User.last # not convinced it is faster to assign this rather than calling it repeatedly, but feeling saucy!
-      num_comments.times { Comment.gen(:parent => dato, :user => user) }
-
-      agent = nil
-      if not event.nil? 
-        DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
-      elsif not content_partner.nil?
-        agent_resource = content_partner.agent.agents_resources.detect do |ar|
-          ar.resource_agent_role_id == ResourceAgentRole.content_partner_upload_role.id
-        end
-        if agent_resource.nil?
-          agent = content_partner.agent
-          agent_resource = AgentsResource.gen(:agent => agent,
-                                              :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
-        end
-        event    = HarvestEvent.gen(:resource => agent_resource.resource)
-        DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
-      else
-        DataObjectsHarvestEvent.gen(:harvest_event => default_harvest_event, :data_object => dato)
-      end
-      if not event.nil? and not event.resource.nil? and not event.resource.agents.blank?
-        agent ||= event.resource.agents.first
-      end
-      agent ||= Agent.last # Sheesh, they screwed up!  Let's assume they want the most recent agent...
-      agent ||= Agent.gen  # Wow, they have, like, nothing ready.  We have to create one.  Ick.
-
-      AgentsDataObject.gen(:agent => agent, :agent_role => agent_role, :data_object => dato)
-
-      return dato
-
+      dato_builder = EOL::DataObjectBuilder.new(type, desc, options)
+      dato_builder.dato
     end
 
     # Builds a HierarchyEntry and creates all of the ancillary relationships.  Returns the HierarchyEntry.
@@ -218,47 +114,6 @@ module EOL::Spec
       return he
     end
 
-    # == Options:
-    #
-    # These all have intelligent(ish) default values, so just specify those values that you feel are really salient. Note that a TC will
-    # NOT have a map or an IUCN status unless you specify options that create them.
-    #
-    #   +attribution+::
-    #     String to be used in scientific name as attribution
-    #   +canonical_form+::
-    #     String to use for canonical form (all names will reference this)
-    #   +comments+::
-    #     Array of hashes.  Each hash can have a +:body+ and +:user+ key.
-    #   +common_name+::
-    #     String to use for thre preferred common name
-    #   +depth+::
-    #     Depth to apply to the attached hierarchy entry.  Don't supply this AND rank.
-    #   +flash+::
-    #     Array of flash videos, each member is a hash for the video options.  The keys you will want are
-    #     +:description+ and +:object_cache_url+.
-    #   +id+::
-    #     Forces the ID of the TaxonConcept to be what you specify, useful for exemplars.
-    #   +images+::
-    #     Array of hashes.  Each hash may have the following keys: +:description+, +:hierarchy_entry+,
-    #     +:object_cache_url+, +:taxon+, +:vetted+, +:visibility+ ...These are the args used to call
-    #     #build_data_object
-    #   +italicized+::
-    #     String to use for preferred scientific name's italicized form.
-    #   +iucn_status+::
-    #     String to use for IUCN description, OR just set to true if you want a random IUCN status instead.
-    #   +gbif_map_id+::
-    #     The ID to use for the Map Data Object.
-    #   +parent_hierarchy_entry_id+::
-    #     When building the associated HierarchyEntry, this id will be used for its parent.
-    #   +rank+::
-    #     String form of the Rank you want this TC to be.  Default 'species'.
-    #   +scientific_name+::
-    #     String to use for the preferred scientific name.
-    #   +toc+::
-    #     An array of hashes.  Each hash may have a +:toc_item+ key and a +:description+ key.
-    #   +youtube+::
-    #     Array of YouTube videos, each member is a hash for the video options.  The keys you will want are
-    #     +:description+ and +:object_cache_url+.
     def build_taxon_concept(options = {})
 
       tc_builder = EOL::TaxonConceptBuilder.new(options)

@@ -1,10 +1,11 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-  #------- Actions History ----------
+describe ActionsHistory do
+
+  Scenario.load :foundation
+    
   describe '#new_actions_histories' do
 
-    scenario :foundation # Just so we have DataType IDs and the like.
-    
     before(:each) do
       commit_transactions
       @taxon_concept = build_taxon_concept
@@ -15,7 +16,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
       @num_ah        = ActionsHistory.count
     end
 
-    after(:each) do
+    after(:all) do
       truncate_all_tables
     end
     
@@ -71,39 +72,15 @@ require File.dirname(__FILE__) + '/../spec_helper'
       ActionsHistory.count.should == @num_ah + 1
     end
     
-      # it 'should create a new ActionsHistory when smb delete an user submitted text'
-      #there is no "delete" in a model yet
-    
-    it 'should set an actions history when one create a comment' do
-      action_c       = ActionWithObject.find_by_action_code("create")
-      ch_object_type = ChangeableObjectType.find_by_ch_object_type("comment")
-      
+    it 'should set an actions history when one creates, hides, or shows a comment' do
       @dato_image.comment(@user, "My test text")
-      
+      ActionsHistory.count.should                          == (@num_ah += 1)
+      comment = @dato_image.comment(@user, "My test comment")
+      ActionsHistory.count.should                          == (@num_ah += 1)
+      comment = @dato_image.comment(@user, "My test comment")
       ActionsHistory.count.should                          == (@num_ah += 1)
     end
         
-    # join this two tests
-    
-    it 'should set an actions history when one hide a comment' do
-      action_c       = ActionWithObject.find_by_action_code("hide")
-      ch_object_type = ChangeableObjectType.find_by_ch_object_type("comment")
-      
-      comment = @dato_image.comment(@user, "My test comment")
-      comment.hide! @user
-      
-      ActionsHistory.count.should                          == (@num_ah += 2)
-    end
-    
-    it 'should set an actions history when one show a comment' do
-      action_c       = ActionWithObject.find_by_action_code("show")
-      ch_object_type = ChangeableObjectType.find_by_ch_object_type("comment")
-      
-      comment = @dato_image.comment(@user, "My test comment")
-      comment.show! @user
-      
-      ActionsHistory.count.should                          == (@num_ah += 2)
-    end
-
   end
   
+end

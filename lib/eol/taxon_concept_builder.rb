@@ -56,6 +56,7 @@ class EOL
       # created, and preferred...
       # NOTE: when we denormalize the taxon_concept_names table, we should be looking at Synonyms as well as Names.
       @curator = Factory(:curator, :curator_hierarchy_entry => @he)
+      pp @curator if @debugging
     end
 
     def add_comments

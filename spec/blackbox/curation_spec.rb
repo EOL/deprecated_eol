@@ -13,7 +13,7 @@ def create_curator_for_taxon_concept(tc)
 end
 
 describe 'Curation' do
-  scenario :foundation
+  Scenario.load :foundation
 
   before(:each) do
     commit_transactions # Curators are not recognized if transactions are being used, thanks to a lovely
@@ -23,7 +23,7 @@ describe 'Curation' do
     @default_page  = request("/pages/#{@taxon_concept.id}")
   end
 
-  after(:each) do
+  after(:all) do
     truncate_all_tables
   end
 

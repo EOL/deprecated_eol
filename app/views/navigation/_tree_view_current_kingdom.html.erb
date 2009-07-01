@@ -2,7 +2,7 @@
 <%- list_levels = 0 %>
 <%- current_treepath.each_with_index do |treepathnode, counter| %>
     <%# render this node in the treepath  %>
-    <%- if treepathnode.nil? == false && !@taxon.kingdom.nil? && treepathnode[:id].to_i != @taxon.kingdom.taxon_concept_id %>
+    <%- if treepathnode.nil? == false && !@taxon_concept.kingdom.nil? && treepathnode[:id].to_i != @taxon_concept.kingdom.taxon_concept_id %>
       <%- list_levels += 1 %>
       <ul><%= render(:partial=>'navigation/tree_view_node',
                      :locals=>{:namestring              => treepathnode[:name],
@@ -12,13 +12,13 @@
                                :enable                  => treepathnode[:enable],
                                :level                   => counter,
                                :kingdom                 => false,
-                               :current_node            => treepathnode[:id].to_i == @taxon.id
+                               :current_node            => treepathnode[:id].to_i == @taxon_concept.id
                               }) %>
     <%- end %>
 <%- end %>
 
 <%# ------------------- Show the CHIDLREN  (err... if it makes sense to) %>
-<%- if @taxon.in_default_hierarchy? %>
+<%- if @taxon_concept.in_default_hierarchy? %>
   <%- unless children_nodes.blank? %>
     <div id="taxonomic-children">
     <ul>

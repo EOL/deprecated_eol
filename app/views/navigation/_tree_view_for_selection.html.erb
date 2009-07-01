@@ -1,7 +1,9 @@
 <% kingdoms = Hierarchy.default.kingdoms(current_user) %>
 
 
-
+<%
+@taxon_concept = @taxon
+%>
 <div id="browser-text">
     <ul>
         <% for kingdom_counter in 0..kingdoms.size-1 %>

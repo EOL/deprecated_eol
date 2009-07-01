@@ -109,22 +109,35 @@ module EOL::Spec
     # lattitude, longitude, and the like).
     #
     # NOTE - I am not setting the mime type yet.  We never use it.  NOTE - There are no models for all the
-    # refs_* tables, so I'm ignoring them.  TODO - in several places, I call Model.all.rand.  This is less than
-    # efficient and needs optimization. I'm presently banking on very small arrays!  :)
+    # refs_* tables, so I'm ignoring them.
     def build_data_object(type, desc, options = {})
 
+      @mime_types ||= {
+        'Image'      => MimeType.find_by_label('image/jpeg'),
+        'Sound'      => MimeType.find_by_label('audio/mpeg'),
+        'Text'       => MimeType.find_by_label('text/html'),
+        'Video'      => MimeType.find_by_label('video/quicktime'),
+        'GBIF Image' => MimeType.find_by_label('image/jpeg'),
+        'IUCN'       => MimeType.find_by_label('text/plain'),
+        'Flash'      => MimeType.find_by_label('video/x-flv'),
+        'YouTube'    => MimeType.find_by_label('video/x-flv'),
+        :default     => MimeType.find_by_label('image/jpeg')
+      }
+
       attributes = {:data_type   => DataType.find_by_label(type),
+                    :mime_type   => @mime_types[type] || @mime_type[:default], 
                     :description => desc,
                     :visibility  => Visibility.visible,
                     :vetted      => Vetted.trusted,
-                    :license     => License.all.rand}
+                    :license     => License.first,
+                    :language    => Language.english }
 
       agent_role      = options.delete(:agent_role)      || 'Author'
       agent_role      = AgentRole.find_by_label(agent_role) || AgentRole.first
       content_partner = options.delete(:content_partner)
       event           = options.delete(:event)
       he              = options.delete(:hierarchy_entry) || HierarchyEntry.last
-      name            = options.delete(:name)            || Name.gen
+      name            = options.delete(:name)            || Name.last
       num_comments    = options.delete(:num_comments)    || 1
       scientific_name = options.delete(:scientific_name) || he.name(:expert) || Factory.next(:scientific_name)
       taxon           = options.delete(:taxon)
@@ -147,7 +160,8 @@ module EOL::Spec
       elsif type == 'Text'
         DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item)
       end
-      num_comments.times { Comment.gen(:parent => dato, :user => User.all.rand) }
+      user = User.last # not convinced it is faster to assign this rather than calling it repeatedly, but feeling saucy!
+      num_comments.times { Comment.gen(:parent => dato, :user => user) }
 
       agent = nil
       if not event.nil? 
@@ -248,23 +262,6 @@ module EOL::Spec
     def build_taxon_concept(options = {})
 
       tc_builder = EOL::TaxonConceptBuilder.new(options)
-      # TODO - Create a harvest event and a resource (status should be published) (and the resource needs a hierarchy, which we use for
-      # the HEs)
-      # TODO - Normalize names ... when harvesting is done, this is done on-the-fly, so we should do it here.
-      tc_builder.gen_taxon_concept
-      tc_builder.gen_name
-      tc_builder.add_comments
-      # TODO - add some alternate names, including at least one in another language.
-      # TODO - create alternate scientific names... just make sure the relation makes sense and the language_id is either 0 or
-      # Language.scientific.
-      tc_builder.gen_taxon
-      tc_builder.add_images
-      tc_builder.add_videos
-      tc_builder.add_map
-      tc_builder.add_toc
-      tc_builder.add_iucn
-      tc_builder.gen_random_taxa
-      tc_builder.gen_bhl
       return tc_builder.tc
 
     end

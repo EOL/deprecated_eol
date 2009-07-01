@@ -138,14 +138,18 @@ class DataObject < SpeciesSchemaModel
       :visibility_id => Visibility.visible.id #not sure if this is right either
     }
 
-    d = DataObject.new(do_params)
-    d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
-    d.save!
-    d.curator_activity_flag(user, all_params[:taxon_concept_id])
-    udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
+    dato = DataObject.new(do_params)
+    dato.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
+    dato.save!
+    dato.curator_activity_flag(user, all_params[:taxon_concept_id])
+    raise "Unable to build a UsersDataObject if user is nil" if user.nil?
+    raise "Unable to build a UsersDataObject if DataObject is nil" if dato.nil?
+    raise "Unable to build a UsersDataObject if taxon_concept_id is missing" if all_params[:taxon_concept_id].blank?
+    udo = UsersDataObject.new(:user_id => user.id, :data_object_id => dato.id,
+                              :taxon_concept_id => all_params[:taxon_concept_id])
     udo.save!
-    d.new_actions_histories(user, udo, 'users_submitted_text', 'create')
-    d
+    dato.new_actions_histories(user, udo, 'users_submitted_text', 'create')
+    dato
   end
 
   def created_by_user?

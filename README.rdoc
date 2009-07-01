@@ -113,9 +113,17 @@ content partner
 username: test_cp
 password: test password
 
+user
+username: test_user2
+password: password
+
+curator of Animalia (page #11 ATM)
+username: test_curator
+password: password
+
 === Additional tests
 
-You can log in as any of the users or content partners with the password "test password". There are no
+You can log in as any of the users or content partners with the password "test password". There are no other
 consistent users, so either create your own, log in with OpenID, or use the console to find a username.
 
 There are several consistent content partners, and the password is also "test password".  There will be IUCN,

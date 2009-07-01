@@ -10,8 +10,6 @@ def set_content_variables
 end
 
 def create_user_text_object
-  Scenario.load :foundation
-
   taxon_concept = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
   toc_item = TocItem.gen({:label => 'Overview'})
   params = {
@@ -33,7 +31,8 @@ end
 
 describe DataObject do
 
-  scenario :foundation # Just so we have DataType IDs and the like.
+  truncate_all_tables
+  Scenario.load :foundation # Just so we have DataType IDs and the like.
 
   describe 'ratings' do
 
@@ -101,7 +100,6 @@ describe DataObject do
     end
 
     it 'should update existing data object' do
-      Scenario.load :foundation
 
       taxon_concept = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
       toc_item = TocItem.gen({:label => 'Overview'})
@@ -171,6 +169,11 @@ describe DataObject do
       DataObjectTags.gen(:data_object_tag => @tag3, :data_object => @dato)
     end
 
+    after(:all) do
+      DataObjectTag.delete_all
+      DataObjectTags.delete_all
+    end
+
     it 'should create a tag hash' do
       result = @dato.tags_hash
       result['foo'].should    == ['bar', 'baz']
@@ -191,7 +194,6 @@ describe DataObject do
       dato.tag 'color', 'blue', curator
       dotag = DataObjectTag.find_by_key_and_value('color', 'blue')
       DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true
-      truncate_all_tables # Clean up after yourslef!
     end
 
   end
@@ -261,7 +263,6 @@ describe DataObject do
 
     #it 'should use object_cache_url (plus .flv) if available' do
       #@dato.object_cache_url = @image_int
-      #debugger
       #@dato.video_url.should =~ /#{@test_str}\.flv$/
     #end
 
@@ -341,7 +342,7 @@ describe DataObject do
       @num_lcd       = LastCuratedDate.count
     end
 
-    after(:each) do
+    after(:all) do
       truncate_all_tables
     end
     

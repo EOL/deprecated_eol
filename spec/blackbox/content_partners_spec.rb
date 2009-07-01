@@ -2,9 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Content Partners' do
 
-  before do
-    Scenario.load :foundation
-  end
+  Scenario.load :foundation
 
   it 'home page of EOL should have desc-personal tag with "Hello [full_name]" and a logout link when logged in' do
     pass  = 'timey-wimey'

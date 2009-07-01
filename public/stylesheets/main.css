@@ -2587,6 +2587,13 @@ form .pagination a:hover {color:black !important;}
 form .pagination .current {background:#a3d117;color:#fff;padding:1px 2px;}
 form .pagination span {color:#959595;display: inline;}
 
+/* Reports pagination ======================================================================= */
+div#report_from_eol .pagination {background:transparent;color:#959595;padding:8px 0 0 0;}
+div#report_from_eol  .pagination a, div#report_from_eol  .pagination a:link, div#report_from_eol  .pagination a:active {padding:1px 2px;color:#959595 !important;text-decoration:none;}
+div#report_from_eol  .pagination a:hover {color:black !important;}
+div#report_from_eol  .pagination .current {background:#a3d117;color:#fff;padding:1px 2px;}
+div#report_from_eol  .pagination span {color:#959595;display: inline;}
+
 #left-pane h3 {margin-left:20px;}
 
 /*styles for div that slides down when you click the curate or comment button below text data objects*/

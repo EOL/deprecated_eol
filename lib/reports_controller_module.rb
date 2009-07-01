@@ -5,14 +5,15 @@
 #
 module ReportsControllerModule
   
-  
+  # Are we really need that index?
   def index
     whole_report
     # render :template => 'reports/index'
-  end
+  end  
   
   def admin_whole_report
-    @act_histories    = ActionsHistory.find(:all, :order => 'updated_at DESC')
+    @act_histories = ActionsHistory.paginate(:page => params[:page] || 1, 
+      :per_page => params[:per_page] || "25", :order => 'created_at DESC')
     @sub_page_header  = 'Changing of objects status and comments'
     @report_type      = :admin_whole_report
     
@@ -21,8 +22,9 @@ module ReportsControllerModule
   
   #part below is for a content partner
   def whole_report
-    @act_histories    = (valid_comments_history + valid_objects_history).sort{|a,b| b.updated_at <=> a.updated_at}    
-        
+    act_histories     = (valid_comments_history + valid_objects_history).sort{|a,b| b.updated_at <=> a.updated_at}    
+    @act_histories    = act_histories.paginate(:page => params[:page] || 1, 
+          :per_page => params[:per_page] || "25")        
     @sub_page_header  = 'Changing of objects status and comments'
     @report_type      = :whole_report
     
@@ -30,7 +32,7 @@ module ReportsControllerModule
   end
   
   def comments_report
-    @act_histories    = valid_comments_history
+    @act_histories    = valid_comments_history.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
     @sub_page_header  = 'Changing of comments'
     @report_type      = :comments_report
 
@@ -38,7 +40,7 @@ module ReportsControllerModule
   end
 
   def statuses_report
-    @act_histories    = valid_objects_history
+    @act_histories    = valid_objects_history.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
     @sub_page_header  = 'Changing of objects status'
     @report_type      = :statuses_report
     

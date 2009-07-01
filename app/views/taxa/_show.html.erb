@@ -1,5 +1,5 @@
 <input type="hidden" id="data_objects_to_log" name="data_objects_to_log" value="<%= @data_object_ids_to_log.join(',') %>" />
-<input type="hidden" id="taxon_concept_to_log" name="data_objects_to_log" value="<%= @taxon.id %>" />
+<input type="hidden" id="taxon_concept_to_log" name="data_objects_to_log" value="<%= @taxon_concept.id %>" />
 
 <div class="page-separator" id="<%=@page_separator%>"></div>
 
@@ -13,19 +13,19 @@
           </div>     
        <%- end -%>
        
-        <% if @taxon.vetted_id != Vetted.trusted.id %>
+        <% if @taxon_concept.vetted_id != Vetted.trusted.id %>
             <div class="unvetted-title-names">
         <% end %>
-        <h1><%= hh(@taxon.title) %></h1>
-        <h2><%= hh(@taxon.subtitle) %></h2>
+        <h1><%= hh(@taxon_concept.title) %></h1>
+        <h2><%= hh(@taxon_concept.subtitle) %></h2>
         
         
           
         
         <hr />
-        <span class="classification-attribution-name"><%= @rank %> recognized by <%= agent_icons_partial(@taxon.classification_attribution.reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon)%></span><br />
+        <span class="classification-attribution-name"><%= @rank %> recognized by <%= agent_icons_partial(@taxon_concept.classification_attribution.reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)%></span><br />
         
-        <% if @taxon.vetted_id != Vetted.trusted.id %>
+        <% if @taxon_concept.vetted_id != Vetted.trusted.id %>
             </div>
         <% end %>
         
@@ -36,14 +36,15 @@
 
             <span class="iucn-status">
 
-                <% if @taxon.iucn_conservation_status != ''%>
-                    <%= "IUCN Red List Status"[] %>: <span class="iucn-status-value"><%=external_link_to(@taxon.iucn_conservation_status,@taxon.iucn_conservation_status_url)%></span>
+                <% if @taxon_concept.iucn_conservation_status != ''%>
+                    <%= "IUCN Red List Status"[] %>: <span class="iucn-status-value"><%=external_link_to(@taxon_concept.iucn_conservation_status,@taxon_concept.iucn_conservation_status_url)%></span>
                 <% else %>
                     &nbsp;
                 <% end %>
             </span>
             <span class="page-status">
-               <%= current_user.expertise.to_s == 'expert' ? link_to('Switch to common names',taxon_url(:id=>@taxon_id) + '?expertise=middle') : link_to('Switch to scientific names',taxon_url(:id=>@taxon_id) + '?expertise=expert') %>
+.
+<%= current_user.expertise.to_s == 'expert' ? link_to('Switch to common names',taxon_url(:id=>@taxon_concept.id) + '?expertise=middle') : link_to('Switch to scientific names',taxon_url(:id=>@taxon_concept.id) + '?expertise=expert') %>
             </span>
             <hr />             
         </div>
@@ -67,29 +68,29 @@
                 <div id="grid"></div>
             </div>
 
-            <input id="current_taxon_id" type="hidden" name="current_taxon_id" value="<%= @taxon_id %>" />
+            <input id="current_taxon_id" type="hidden" name="current_taxon_id" value="<%= @taxon_concept.id %>" />
             <input id="current_content" type="hidden" name="current_content" value="<%= @category_id %>" />
-            <input id="canonical_form" type="hidden" name="canonical_form" value="<%= remove_html(@taxon.canonical_form) %>" />
+            <input id="canonical_form" type="hidden" name="canonical_form" value="<%= remove_html(@taxon_concept.canonical_form) %>" />
 
             <script language="javascript" type="text/javascript">
             // <![CDATA[
-            eol_slider('<%= current_user.vetted.to_s %>', <%= @taxon.id %>);
+            eol_slider('<%= current_user.vetted.to_s %>', <%= @taxon_concept.id %>);
             // ]]>
             </script>
 
             <h4 id="toc-header"><%= "Table Of Contents"[] %></h4>
             <ul id="toc">
                 <% 
-                  unless @taxon.table_of_contents(:vetted_only=>current_user.vetted).blank?
-                      for item in @taxon.table_of_contents(:vetted_only=>true)
+                  unless @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?
+                      for item in @taxon_concept.table_of_contents(:vetted_only=>true)
                           %><%= render :partial => 'table_of_content_item', :locals=>{:item=>item} %> <%
                           end
                   end -%>
                   <li class="add_text">
                     <div class="add_text_button">
-                      <%= link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_button', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_id)) -%>
+                      <%= link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_button', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id)) -%>
                     </div>
-                    <%= link_to("Add New", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_text', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_id) ) -%>
+                    <%= link_to("Add New", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_text', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id) ) -%>
                   </li>
 
                   <li class="multi_new_text_error" style="display:none;">

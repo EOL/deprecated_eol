@@ -25,7 +25,7 @@
             <table id="main-image-table">
 						  <tr><td>
 								<% if !@images.blank? %>
-								  	<img onclick="toggle_image_attribution(); return false;" id="main-image" src="<%=@default_image%>" alt="<%= hh(remove_html(@taxon.title))%>" title="<%=hh(remove_html(@taxon.title))%>" />
+								  	<img onclick="toggle_image_attribution(); return false;" id="main-image" src="<%=@default_image%>" alt="<%= hh(remove_html(@taxon_concept.title))%>" title="<%=hh(remove_html(@taxon_concept.title))%>" />
 								<% end %>
 							</td></tr>
             </table>
@@ -49,7 +49,7 @@
               <div id="right-image-buttons">
                 <div id="large-image-button-popup">
                   <%#The inner divs on the links are hacks to get the links to work in ie6. there's probably a better way to do this%>
-                  <% if current_user.can_curate?(@taxon) %>
+                  <% if current_user.can_curate?(@taxon_concept) %>
                     <div class="spinner">
                       <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
                     </div>
@@ -120,7 +120,7 @@
       </div>
       <hr />
       <div id="media-maps" class="wrapper-mc clearfix" style="display: none;">
-            <input type="hidden" name="map-taxon-id" id="map-taxon-id" value="<%=@taxon.gbif_map_id%>" />
+            <input type="hidden" name="map-taxon-id" id="map-taxon-id" value="<%=@taxon_concept.gbif_map_id%>" />
             <input type="hidden" name="map-data-server-endpoint" id="map-data-server-endpoint" value="<%=$MAP_DATA_SERVER_ENDPOINT%>" />
             <input type="hidden" name="map-gmap-key" id="map-gmap-key" value="<%=$GOOGLE_MAP_API_KEY%>" />
             <input type="hidden" name="map-tile-server-1" id="map-tile-server-1" value="<%=$MAP_TILE_SERVER_1%>" />
@@ -154,7 +154,7 @@
 									# NOTE: JRice added a little sub here to take the first sentence from long desc's...
 									video_title = truncate(video.description.sub(/\.\s\s.*$/, '.'),150) if video_title == ''
 									video_title = truncate(video.scientific_name,150) if video_title == '' %>
-									<li><%= link_to_function(video_title, "eol_update_video(#{video_hash(video,@taxon_id)})", :title=>video_title) %></li>
+									<li><%= link_to_function(video_title, "eol_update_video(#{video_hash(video,@taxon_concept.id)})", :title=>video_title) %></li>
 								<% end %>
 							</ul>
 						</div> <!-- /video-collection -->
@@ -187,7 +187,7 @@
 
       <div class="credit-title"><%= "Classification provided by"[] %></div>
       <div class="credit-value">
-			  <%= attributions = @taxon.classification_attribution.reverse
+			  <%= attributions = @taxon_concept.classification_attribution.reverse
             if attributions.blank?
                 'source unknown'
             elsif attributions.include?(Agent.catalogue_of_life)
@@ -204,7 +204,7 @@
 				<script src="/javascripts/flashobjects.js" type="text/javascript"></script>
         <script type="text/javascript">
         <%
-            taxon_concept_id = @taxon.col_entry.nil? ? 0 : @taxon.col_entry.id;
+            taxon_concept_id = @taxon_concept.col_entry.nil? ? 0 : @taxon_concept.col_entry.id;
         %>
           // <![CDATA[
           object_eol_nav2('/taxa/', '/flashxml/', '<%= taxon_concept_id %>.xml');

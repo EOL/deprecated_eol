@@ -50,7 +50,8 @@ class NavigationController < ApplicationController
   
   def load_taxon_for_tree_view
     @taxon_id = params[:id]
-    @taxon = TaxonConcept.find(@taxon_id, :include => [:names])    
+    @taxon = TaxonConcept.find(@taxon_id, :include => [:names])
+    @taxon_concept = @taxon
     @taxon.current_user = current_user
   end
   

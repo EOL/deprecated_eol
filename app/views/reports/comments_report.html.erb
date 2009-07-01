@@ -1,6 +1,7 @@
 <div id="report_from_eol">
   <h2><%= @sub_page_header %></h2>
 
+  <%= will_paginate(@act_histories) %>
   <ul>
     <% n = 0%>
     <% for act_history in @act_histories -%>
@@ -19,4 +20,7 @@
   <% if (n == 0) %>
   Nothing To Report
   <% end %>
+  
+  <%= will_paginate(@act_histories) %>
+  
 </div>

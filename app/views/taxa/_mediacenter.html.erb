@@ -135,7 +135,7 @@
 					<%="Select a video to the right to begin playback."[:select_video]%>
 				</div>
         <div id="video-list" class="mc-info">
-					<% if @videos.blank? == false %>
+					<% if @taxon_concept.videos.blank? == false %>
             <div class="mc-header">
               <h3><%= "Videos" %></h3>
               <hr />
@@ -143,10 +143,10 @@
           <% else %>
 						No videos are available.
 					<% end %>
-          <% if @videos.blank? == false %>
+          <% if @taxon_concept.videos.blank? == false %>
             <div id="video-collection">
 	      			<ul>
-								<% for video in @videos
+								<% for video in @taxon_concept.videos
 									video_title = video.object_title || ''
 									# NOTE: JRice added a little sub here to take the first sentence from long desc's...
 									video_title = truncate(video.description.sub(/\.\s\s.*$/, '.'),150) if video_title == ''
@@ -161,9 +161,9 @@
             </div>
         <% end %>
         </div> <!-- /video-list -->
-        <% if @videos.blank? == false %>
+        <% if @taxon_concept.videos.blank? == false %>
           <div title="More information" class="attribution_link" style="display: none">
-            <%= link_to '', attribution_data_object_path(@videos[0]), :id => 'video_attributions',:class => 'popup-link attribution-icon', :alt => 'More information' %>
+            <%= link_to '', attribution_data_object_path(@taxon_concept.videos[0]), :id => 'video_attributions',:class => 'popup-link attribution-icon', :alt => 'More information' %>
           </div>
         <%end%>
       </div> <!-- /media-videos -->

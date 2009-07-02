@@ -121,7 +121,7 @@
 
   <div class="mc-navigation<%= (@show_next_image_page_button) ? '' : ' no-pagination' %>">
     <p class="hide"><%= "Page navigation"[] %></p>
-        <% if @image_page > 1 %>
+        <% if @image_page && @image_page > 1 %>
             <a href="#" onclick="<%= remote_function(:url => url_for(:action => 'image_collection', :taxon_id => @taxon_concept.id, :image_page => @image_page - 1),:loading=>"showAjaxIndicator();",:complete=>"hideAjaxIndicator();",:method => :post) %>;return false;" title="<%= "Back"[] %>"><span id="back"><%= "Back"[] %></span></a>
         <% else -%>
             <span id="noback"></span>

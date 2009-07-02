@@ -89,8 +89,6 @@ class TaxaController < ApplicationController
           @cached=false
 
           # get first set of images and if more images are available (for paging)
-          # TODO - this (image_page) is broken.  Can we remove it?
-          @image_page = (params[:image_page] || 1).to_i
           @taxon_concept.current_agent = current_agent unless current_agent.nil?
           @images     = @taxon_concept.images.sort{ |x,y| y.data_rating <=> x.data_rating }
           @show_next_image_page_button = @taxon_concept.more_images # indicates if more images are available

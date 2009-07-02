@@ -54,24 +54,4 @@
 
 	</table>
 
-	<% unless @taxon_stats.empty? %>
-	<br />
-	Statistics last updated at <%=format_date_time(@taxon_stats[0].created_at)%>
-	<table class="results_table" cellspacing="0">
-	<tr><th>Statistic</th><th>Count</th></tr>
-
-	<tr><td class="even">Total number of taxa</td> <td class="even"><%=format_number_with_commas(@taxon_stats[0].taxa)%></td></tr>
-	<tr><td class="odd">Number of taxa with text</td> <td class="odd"><%=format_number_with_commas(@taxon_stats[0].text)%></td></tr>
-	<tr><td class="even">Number of taxa with images</td> <td class="even"><%=format_number_with_commas(@taxon_stats[0].image)%></td></tr>
-	<tr><td class="odd">Number of taxa with text and images</td> <td class="odd"><%=format_number_with_commas(@taxon_stats[0].text_and_images)%></td></tr>
-	<tr><td class="even">Number of taxa in BHL with no text</td> <td class="even"><%=format_number_with_commas(@taxon_stats[0].bhl_no_text)%></td></tr>
-	<tr><td class="odd">Number of taxa with links and no text</td> <td class="odd"><%=format_number_with_commas(@taxon_stats[0].link_no_text)%></td></tr>
-	<tr><td class="even">Number of taxa with images and no text</td> <td class="even"><%=format_number_with_commas(@taxon_stats[0].image_no_text)%></td></tr>
-	<tr><td class="odd">Number of taxa with text and no images</td> <td class="odd"><%=format_number_with_commas(@taxon_stats[0].text_no_image)%></td></tr>
-	<tr><td class="even">Number of taxa with text or images</td> <td class="even"><%=format_number_with_commas(@taxon_stats[0].text_or_image)%></td></tr>
-	<tr><td class="odd">Number of taxa with text or child images</td> <td class="odd"><%=format_number_with_commas(@taxon_stats[0].text_or_child_image)%></td></tr>
-
-	</table>
-	<% end %>
-  	
 <%= render :partial => '/admin/content_bottom' %>

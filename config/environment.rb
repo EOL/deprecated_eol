@@ -50,6 +50,7 @@ Rails::Initializer.run do |config|
   config.gem 'uuid', :version => "2.0.1"
   config.gem "ruby-openid", :version => "2.0.4", :lib => "openid"
   config.gem "ruby-yadis", :version => "0.3.4", :lib => "yadis"
+  config.gem 'ezcrypto'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -156,6 +157,9 @@ Rails::Initializer.run do |config|
   $LOGO_UPLOAD_DIRECTORY = "#{RAILS_ROOT}/public/uploads/images/collection_icons/:id.:extension"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not server out of this area)
   $DATASET_UPLOAD_PATH = "/uploads/datasets/"  # directory to place uploaded content partner datasets, content server needs SFTP access to this folder 
   $DATASET_UPLOAD_DIRECTORY = "#{RAILS_ROOT}/public/uploads/datasets/:id.:extension"  # directory to place uploaded content partner datasets, content server needs SFTP access to this folder 
+
+  $CONTENT_UPLOAD_PATH = "/uploads/"  # directory to place uploaded content files, content server needs SFTP access to this folder 
+  $CONTENT_UPLOAD_DIRECTORY = "#{RAILS_ROOT}/public/uploads/:id.:extension"  # directory to place uploaded content
     
   # NEWS ITEMS ON HOME PAGE CONFIGURATION
   $NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY = 5 # the maximum number of news items to show on the home page at any time

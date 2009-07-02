@@ -25,7 +25,7 @@
 	        <div id="full-page-content">
 
 
-	        	For comments about the project in general, please <%= link_to 'visit the Forum','http://forum.eol.org', :target=>:new%>.  To contact a specific individual on the EOL project, please see the list of <%=link_to 'Component Leads',:action=>'page',:id=>'contact_eol'%>. For other needs, please use the form below.
+	        	For comments about the project in general, please <%= link_to 'visit the Forum','http://forum.eol.org', :target=>:new%>.  You can help us by <%=link_to 'suggesting or voting on features',:action=>'feedback'%><%unless logged_in?%> (register with EOL to track your suggestions)<%end%>. To contact a specific individual on the EOL project, please see the list of <%=link_to 'Component Leads',:action=>'page',:id=>'contact_eol'%>. For other needs, please use the form below.
                 
                 <%= eol_lang_error_messages_for :contact %>
 				<br /><span class="error" id="verification_warn"><strong><%=@verification_did_not_match%></strong></span>

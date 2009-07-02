@@ -201,7 +201,7 @@ class ContentController < ApplicationController
     # get the id parameter, which can be either a page ID # or a page name
     @page_id=params[:id]
 
-    raise "static page without id" if @page_id.nil? || @page_id==''
+    raise "static page without id" if @page_id.blank?
     
     unless read_fragment(:controller=>'content',:part=>@page_id + "_" + current_user.language_abbr)
         # if the id is not numeric, assume it's a page name
@@ -222,6 +222,27 @@ class ContentController < ApplicationController
         
     end
   
+  end
+  
+  # convenience method to reference the uploaded content from the CMS (usually a PDF file or an image used in the static pages)
+  def file
+    
+    content_upload_id=params[:id]
+
+    raise "content upload without id" if content_upload_id.blank?
+    
+    # if the id is not numeric, assume it's a link name
+    if content_upload_id.to_i == 0 
+      content_upload=ContentUpload.find_by_link_name(content_upload_id)
+    else # assume the id passed is numeric and find it by ID
+      content_upload=ContentUpload.find_by_id(content_upload_id)
+    end
+        
+    raise "content upload not found" if content_upload.blank?
+    
+    # send them to the file on the content server
+    redirect_to(content_upload.content_server_url)
+    
   end
   
   # error page
@@ -302,6 +323,23 @@ class ContentController < ApplicationController
       redirect_to root_url
     end
     
+  end
+  
+  # show the user some taxon stats
+  def stats
+    redirect_to root_url unless current_user.is_admin?  # don't release this yet...it's not ready for public consumption
+    @stats=PageStatsTaxon.latest
+  end
+  
+  # link to uservoice
+  def feedback
+    
+    if logged_in?
+      redirect_to :controller=>'account',:action=>'uservoice_login'
+    else
+      redirect_to $USERVOICE_URL
+    end
+      
   end
   
   # convenience page to expire a specific species page based on a taxon ID (call with http://www.eol.org/expire/TAXON_ID)

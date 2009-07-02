@@ -449,15 +449,14 @@ class TaxaController < ApplicationController
     end  
 
     @image_page = (params[:image_page] ||= 1).to_i
-    @taxon_id   = params[:taxon_id]
-    @taxon      = TaxonConcept.find(@taxon_id) 
-    @taxon.current_user = current_user
-    @taxon.current_agent = current_agent
+    @taxon_concept = TaxonConcept.find(params[:taxon_id])
+    @taxon_concept.current_user = current_user
+    @taxon_concept.current_agent = current_agent
     start       = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
     last        = start + $MAX_IMAGES_PER_PAGE - 1
-    @images     = @taxon.images[start..last]
+    @images     = @taxon_concept.images[start..last]
 
-    @show_next_image_page_button = (@taxon.images.length > (last + 1))
+    @show_next_image_page_button = (@taxon_concept.images.length > (last + 1))
 
     if @images.nil?
       render :nothing=>true

@@ -88,11 +88,6 @@ class TaxaController < ApplicationController
 
           @cached=false
 
-          # TODO - all these @taxon.videos/images/etc don't need to be full-class @variables.... just use taxon!
-
-          # get videos for this taxon
-          @taxon_concept.videos if @taxon_concept.has_video
-
           # get first set of images and if more images are available (for paging)
           # TODO - this (image_page) is broken.  Can we remove it?
           @image_page = (params[:image_page] || 1).to_i

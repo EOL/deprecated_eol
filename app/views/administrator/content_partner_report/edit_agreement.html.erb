@@ -18,6 +18,8 @@
     	<h3>OR</h3>
     	<br />
     	<strong>Agreement URL (e.g. full or relative URL to a PDF or other file)</strong> - if entered, this overrides the template
+    	<br />If you need to upload a PDF to reference here, use the <%=link_to 'upload content',:controller=>'administrator/content_upload',:action=>'index'%> feature first, and then reference the file once it is uploaded.
+      
     	<%=f.text_field :mou_url,{:size=>'70',:maxlength=>'250'}%>
     	<br /><br />
   		

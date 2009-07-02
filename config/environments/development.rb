@@ -34,6 +34,9 @@ $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and co
 $LOG_WEB_SERVICE_EXECUTION_TIME=true # if set to false, then execution times for web service calls will not be recorded
 $USE_SSL_FOR_LOGIN=false
 
+# THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
+$CONTENT_SERVERS = ['http://content.eol.org/']
+
 #set up the master database connection for writes using masochism plugin
 #NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)
 # config.after_initialize do 
@@ -44,3 +47,10 @@ $USE_SSL_FOR_LOGIN=false
 # uncomment the line below if you want to use the minified/combined JS files from the asset packager for testing purposes
 # note that to create new combined asset files, use this rake task first: rake asset:packager:build_all
 #Synthesis::AssetPackage.merge_environments = ["development", "production"] 
+
+#This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
+begin
+  require File.join(File.dirname(__FILE__), 'development_eol_org')
+rescue LoadError
+  puts '*************WARNING: COULD NOT LOAD development_eol_org FILE***********************'
+end

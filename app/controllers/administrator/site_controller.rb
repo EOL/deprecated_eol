@@ -3,7 +3,6 @@ class Administrator::SiteController  < AdminController
   access_control :DEFAULT => 'Administrator - Technical'
   
   def index
-    @taxon_stats=TaxonStat.find(:all,:limit=>1,:order=>'created_at DESC')
     @allowed_ip=allowed_request
     @config = Rails::Configuration.new
   end

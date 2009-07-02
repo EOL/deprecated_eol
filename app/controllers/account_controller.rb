@@ -1,9 +1,12 @@
 require 'uri'
+require 'ezcrypto'
+require 'cgi'
+require 'base64'
 
 class AccountController < ApplicationController
 
-  before_filter :check_authentication, :only => [:profile]
-  before_filter :go_to_home_page_if_logged_in, :except => [:check_username,:profile, :show, :logout, :new_openid_user]
+  before_filter :check_authentication, :only => [:profile, :uservoice_login]
+  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login,:check_username,:profile, :show, :logout, :new_openid_user]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login,:authenticate,:signup,:profile]  # when we get SSL certs we can start redirecting to the encrypted page for these methods
@@ -180,6 +183,28 @@ class AccountController < ApplicationController
     redirect_back_or_default unless @user.curator_approved
   end
 
+  # this is the uservoice single sign on redirect
+  def uservoice_login
+    
+    user=Hash.new
+    user[:guid]="eol_#{current_user.id}"
+    user[:expires]=Time.now + 5.hours
+    user[:email]=current_user.email
+    user[:display_name]=current_user.full_name
+    user[:locale]=current_user.language.iso_639_1
+    user[:admin]='deny'
+    user[:owner]=''
+    user[:url]='http://www.eol.org/profile'
+    json_token=user.to_json
+              
+    key = EzCrypto::Key.with_password $USERVOICE_ACCOUNT_KEY, $USERVOICE_API_KEY
+    encrypted = key.encrypt(json_token)
+    token = CGI.escape(Base64.encode64(encrypted)).gsub(/\n/, '')
+    
+    redirect_to "#{$USERVOICE_URL}?sso=#{token}"
+    
+  end
+  
   protected
   def password_authentication(username, password)
     user = User.authenticate(username,password)

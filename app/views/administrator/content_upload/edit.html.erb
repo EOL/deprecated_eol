@@ -1,0 +1,48 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'Edit Upload'} %>
+			   		    	
+	<% form_for :content_upload,@content_upload,:url => {:action=>'update',:id=>params[:id]},:html=>{ :method => :post, :multipart => true,:id=>'page_form'} do |f|  %>
+  <%= eol_lang_error_messages_for :content_upload %>
+  <br />
+  	<table>
+      <tr>
+    		<td><strong>File ID:</strong></td>
+    		<td><%= @content_upload.id%></td>
+    	</tr>	
+
+  	<%= render :partial => 'form', :locals => {:f=>f} %>
+      <tr>
+    		<td><strong>Friendly URL:</strong><br />(for PDFs & docs)</td>
+    		<td><%= link_to("http://#{request.domain}#{@content_upload.attachment_url}",@content_upload.attachment_url)%></td>
+    	</tr>	
+      <tr>
+    		<td><strong>Content Server Full URL:</strong><br />(for images to reference)</td>
+    		<td><%= link_to(@content_upload.content_server_url,@content_upload.content_server_url)%></td>
+    	</tr>	
+      <tr>
+    		<td><strong>Content Type:</strong></td>
+    		<td><%=@content_upload.attachment_content_type%></td>
+    	</tr>
+      <tr>
+    		<td><strong>File Size:</strong></td>
+    		<td><%="#{(@content_upload.attachment_file_size / 1024.0).round} kb" unless @content_upload.attachment_file_size.blank? %> </td>
+    	</tr>
+      <tr>
+    		<td><strong>Uploaded By:</strong></td>
+    		<td><%="#{@content_upload.user.full_name} (#{@content_upload.user.username})" %></td>
+    	</tr>
+      <tr>
+    		<td><strong>Date uploaded:</strong></td>
+    		<td><%=@content_upload.created_at%></td>
+    	</tr>
+    </table>
+	  <br /><br />
+    <input type="button" onClick="document.location.href='<%=url_for(:action=>'index')%>';" id="cancel" name="Cancel" value="Cancel" /> |
+    <%=f.submit 'Update'%>
+	<% end %>
+
+<%= render :partial => '/admin/content_bottom' %>
+
+
+</table>
+
+<%= render :partial => '/admin/content_bottom' %>

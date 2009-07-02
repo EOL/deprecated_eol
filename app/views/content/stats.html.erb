@@ -1,0 +1,24 @@
+<div id="content">
+ 	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+        <h1><%= "Statistics" %></h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+    <div id="page-content" class="clearfix">
+        <!-- center page content -->
+        <div id="full-page-content">
+            <p>The Encyclopedia of Life is an ongoing effort.  This page allows you to follow our progress with some overall statistics.</p>
+            <br />
+            <% unless @stats.blank? %>
+              <table class="results_table">
+                <tr><th>Statistic</th><th>Count</th></tr>
+                <tr><td class="even">Total number of pages</td><td class="even"><%=number_with_delimiter(@stats.pages_incol+@stats.pages_not_incol)%></td></tr>
+                <tr><td class="even">Total number of filled in pages</td><td class="even"><%=number_with_delimiter(@stats.taxa_count)%></td></tr>
+              </table>
+            <% end %>
+		    </div>
+    </div>
+</div>

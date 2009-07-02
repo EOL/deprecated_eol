@@ -6,6 +6,7 @@
   <% restrict_to "(Administrator - Site CMS) & !blacklist" do %>
     <h3>Site CMS</h3>
   	  <li><%= link_to 'edit page contents',{:controller=>'administrator/content_page',:action=>'index'}, {:class=>'toc_item active'}%> </li>
+  	  <li><%= link_to 'upload content',{:controller=>'administrator/content_upload', :action=>'index'}, {:class=>'toc_item active'}%> </li>
   	  <li><%= link_to 'edit search suggestions',{:controller=>'administrator/search_suggestion', :action=>'index'}, {:class=>'toc_item active'}%> </li>
   <% end %>
   

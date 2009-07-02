@@ -1,0 +1,23 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'New Upload'} %>
+		   		    	
+	<% form_for :content_upload,@content_upload,:url => {:action=>'create'},:html=>{ :method => :post, :multipart => true,:id=>'page_form'} do |f|  %>
+
+    <%= eol_lang_error_messages_for :content_upload %>
+    <br />
+    <table>
+  	<%= render :partial => 'form', :locals => {:f=>f} %>
+  	<tr>
+  		<td><strong>File:</strong></td>
+  		<td><%= f.file_field :attachment, :size=>50 %><br />(must be less than 5 MB in size, file will be stored as uploaded, i.e. no resizing of images will be performed)
+  		</td>
+  	</tr>
+
+    </table>
+
+    <br /><br />
+    <input type="button" onClick="document.location.href='<%=url_for(:action=>'index')%>';" id="cancel" name="Cancel" value="Cancel" /> |
+    <%=f.submit 'Upload'%>
+  
+	<% end %>
+
+<%= render :partial => '/admin/content_bottom' %>

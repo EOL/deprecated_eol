@@ -6,14 +6,11 @@
       <p class="hide"><%= "Media Center Navigation"[] %></p>
       <ul id="tab_media_center">
           <li id="image"><a href="#media-images" title="<%= "Image"[] %>" class="active"><%= "Image"[] %><span></span></a></li>
-        <% if @available_media[:map] %>
+        <% if @taxon_concept.has_map %>
 					<li id="maps"><a id="maps-link" href="#media-maps" title="<%= "Maps"[] %>"><%= "Maps"[] %><span></span></a></li>
         <% end %>
-        <% if @available_media[:video] %>
+        <% if @taxon_concept.has_video %>
 					<li id="videos"><a href="#media-videos" title="<%= "Videos"[] %>"><%= "Videos"[] %><span></span></a></li>
-				<% end %>
-        <% if @available_media[:sound] %>
-          <li id="sounds"><a href="#media-sounds" title="<%= "Sounds"[] %>"><%= "Sounds"[] %><span></span></a></li>
 				<% end %>
           <li id="taxa-comments"><a href="#media-taxa-comments" title="<%= "Comments"[] %>"><%= "Comments"[] %><span></span></a></li>
 			</ul>

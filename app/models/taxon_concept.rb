@@ -31,6 +31,8 @@ class TaxonConcept < SpeciesSchemaModel
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
+  attr_reader :has_media
+
   ##################################### 
   # The following are the "nice" methods, which we want to publically expose.  ...As opposed to the down-and-dirty stuff that we
   # want to shamefully hide.  These are the methods from which we can build nice, clean objects to serve to the general public:
@@ -320,6 +322,21 @@ class TaxonConcept < SpeciesSchemaModel
   def current_agent=(agent)
     @current_agent = agent
   end
+
+  def has_images
+    available_media if @has_media.nil?
+    @has_media[:images]
+  end
+
+  def has_video
+    available_media if @has_media.nil?
+    @has_media[:video]
+  end
+
+  def has_map
+    available_media if @has_media.nil?
+    @has_media[:map]
+  end
   
   def available_media
     images = video = map = false
@@ -333,10 +350,8 @@ class TaxonConcept < SpeciesSchemaModel
     end
     
     map = false if map and gbif_map_id == empty_map_id # The "if map" avoids unecessary db hits; keep it.
-    
-    {:images => images,
-     :video  => video,
-     :map    => map }
+
+    @has_media = {:images => images, :video  => video, :map    => map }
   end
 
   def has_name?

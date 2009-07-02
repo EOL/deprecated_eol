@@ -84,19 +84,14 @@ class TaxaController < ApplicationController
         @taxon_concept.current_user = current_user
 
         # run all the queries if the page cannot be cached or the fragment is not found
-        if !allow_page_to_be_cached? || category_id != 'default' || !read_fragment(:controller=>'taxa',:part=>'page_' + taxon_concept_id.to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + current_user.can_curate?(@taxon_concept).to_s)
+        if !allow_page_to_be_cached? || category_id != 'default' || !read_fragment(:controller=>'taxa',:part=>'page_' + taxon_concept_id.to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + @taxon_concept.show_curator_controls?.to_s)
 
           @cached=false
-
-          @taxon_concept.current_user = current_user
-
-          # get available media types
-          @available_media = @taxon_concept.available_media
 
           # TODO - all these @taxon.videos/images/etc don't need to be full-class @variables.... just use taxon!
 
           # get videos for this taxon
-          @taxon_concept.videos if @available_media[:video]
+          @taxon_concept.videos if @taxon_concept.has_video
 
           # get first set of images and if more images are available (for paging)
           # TODO - this (image_page) is broken.  Can we remove it?

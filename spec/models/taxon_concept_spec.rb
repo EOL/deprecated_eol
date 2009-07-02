@@ -72,6 +72,16 @@ describe TaxonConcept do
     DataObject.delete_all(['data_type_id = ?', DataType.find_by_label('IUCN').id])
   end
 
+  it 'should know available media types' do
+    @taxon_concept.has_media.should == nil
+    @taxon_concept.has_images.should == true
+    @taxon_concept.has_media.should_not == nil
+    @taxon_concept.has_video.should == true
+    @taxon_concept.has_media.should_not == nil
+    @taxon_concept.has_map.should == true
+    @taxon_concept.has_media.should_not == nil
+  end
+
   it 'should determine and cache curation authorization' do
     @curator.can_curate?(@taxon_concept).should == true
     @curator.should_receive('can_curate?').and_return(true)

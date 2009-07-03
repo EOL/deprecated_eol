@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>Change background/icons when curator changes vetted/visibility</title>
+<title>Change background/icons when curator changes vetted/visibility  on text description</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-  <tr><td rowspan="1" colspan="3">Change background/icons when curator changes vetted/visibility</td></tr>
+  <tr><td rowspan="1" colspan="3">Change background/icons when curator changes vetted/visibility on text description</td></tr>
   </thead><tbody>
   <tr>
   	<td>setTimeout</td>
@@ -59,13 +59,23 @@
   </tr>
     
   <!-- text description -->
-  <!-- unknown; TODO: there is no such texts in dev. db ATM -->
+  <!-- unknown; TODO: test. There is no such texts in dev. db ATM -->
+  
   <!-- curate -->
   <!-- untrusted -->
+  <!-- Whole test stops if there is no curation button -->
+  
   <tr>
   	<td>assertElementPresent</td>
   	<td>//div[@class='text_buttons']/div/a/span</td>
   	<td></td>
+  </tr>
+  
+  <!-- grab the id of the first text description (e.g. 'text_wrapper_85') -->
+  <tr>  
+  	<td>storeAttribute</td>
+  	<td>//div[@class='cpc-content']/div[@class='text_object']@id</td>
+  	<td>myTestText</td>
   </tr>
   <tr>
   	<td>click</td>
@@ -84,7 +94,7 @@
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//div[@class='content-article untrusted-background-image']</td>
+  	<td>//div[@class='cpc-content']/div[@id='${myTestText}'][@class='text_object']/div[@class='content-article untrusted-background-image']</td>
   	<td></td>
   </tr>
   <!-- trusted -->
@@ -95,33 +105,18 @@
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//div[@class='content-article']</td>
+  	  <td>//div[@class='cpc-content']/div[@id='${myTestText}'][@class='text_object']/div[@class='content-article']</td>
   	<td></td>
   </tr>
   <!-- "remove" icon -->
   <tr>
-  	<td>click</td>
+    <td>click</td>
   	<td>//div[@class='visibility']/form[@data-data_object_type='3']/div[4]/input</td>
   	<td></td>
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='inappropriate_icon status_icon']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
+  	<td>//div[@class='cpc-content']/div[@id='${myTestText}'][@class='text_object']/div/ul/li[@class='inappropriate_icon status_icon'][@title='Inappropriate'][@style='']</td>
   	<td></td>
   </tr>
   <!-- "hide" icon -->
@@ -132,22 +127,7 @@
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='invisible_icon status_icon']</td>
+  	<td>//div[@class='cpc-content']/div[@id='${myTestText}'][@class='text_object']/div/ul/li[@class='invisible_icon status_icon'][@title='Hidden'][@style='']</td>
   	<td></td>
   </tr>
   <!-- show = no hide/remove icon -->
@@ -158,22 +138,22 @@
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
+  	<td>//div[@class='cpc-content']/div[@id='${myTestText}'][@class='text_object']/div/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
   	<td></td>
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
+  	<td>//div[@class='cpc-content']/div[@id='${myTestText}'][@class='text_object']/div/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
   	<td></td>
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
+  	<td>//div[@class='cpc-content']/div[@id='${myTestText}'][@class='text_object']/div/ul/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
   	<td></td>
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//div[@class='text_buttons']/ul/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
+  	<td>//div[@class='cpc-content']/div[@id='${myTestText}'][@class='text_object']/div/ul/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
   	<td></td>
   </tr>
   <tr>

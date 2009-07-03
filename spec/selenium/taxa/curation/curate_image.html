@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>Change background/icons when curator changes vetted/visibility</title>
+<title>Change background/icons when curator changes vetted/visibility on image</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-  <tr><td rowspan="1" colspan="3">Change background/icons when curator changes vetted/visibility</td></tr>
+  <tr><td rowspan="1" colspan="3">Change background/icons when curator changes vetted/visibility on image</td></tr>
   </thead><tbody>
   <tr>
   	<td>setTimeout</td>
@@ -57,20 +57,20 @@
     <td>Hello test</td>
     <td></td>
   </tr>
-  <!-- Image on gray bg? -->
+  <!-- Whole test stops if main image not with grey bg... -->
   <tr>
     <td>assertElementPresent</td>
     <td>//div[@id='main-image-bg'][@class='']</td>
     <td></td>
   </tr>
   
-  
-  <!-- choose image (thumbnail) with yellow bg -->
+  <!-- ...and if there is no "unvetted" thumbnails with yellow bg -->
   <tr>
     <td>assertElementPresent</td>
     <td>//a[@class="unknown-background-image"]</td>
     <td></td>
   </tr>  
+  <!-- choose image (thumbnail) with yellow bg -->
   <tr>
     <td>click</td>
     <td>//a[@class="unknown-background-image"]/span/img</td>
@@ -81,9 +81,15 @@
     <td>//div[@id='main-image-bg'][@class='unknown-background-image']</td>
     <td></td>
   </tr>
+  <!-- grab the id of the thumbnail (e.g. 'thumbnail_13') -->
+  <tr>  
+  	<td>storeAttribute</td>
+  	<td>//a[@class="unknown-background-image"]@id</td>
+  	<td>myTestThumbnail</td>
+  </tr>
   <tr>
     <td>verifyElementPresent</td>
-    <td>//a[@class="unknown-background-image"]/span/img</td>
+  	<td>//a[@id='${myTestThumbnail}'][@class='unknown-background-image'] </td>
     <td></td>
   </tr>
   <tr>
@@ -121,7 +127,7 @@
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//a[@class='untrusted-background-image']</td>
+  	<td>//a[@id='${myTestThumbnail}'][@class='untrusted-background-image']</td>
   	<td></td>
   </tr>
   <tr>
@@ -137,16 +143,6 @@
   <!-- trusted (gray bg) -->
   <tr>
   	<td>click</td>
-  	<td>//a[@id='large-image-curator-button-popup-link']/span</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForTextPresent</td>
-  	<td>Object Curation</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>click</td>
   	<td>curator_activity_id_6</td>
   	<td></td>
   </tr>
@@ -157,7 +153,7 @@
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//a[@class='trusted-background-image']</td>
+  	<td>//a[@id='${myTestThumbnail}'][@class='']</td>
   	<td></td>
   </tr>
   <tr>
@@ -173,130 +169,53 @@
   <!-- "remove" icon -->
   <tr>
   	<td>click</td>
-  	<td>//a[@id='large-image-curator-button-popup-link']/span</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForTextPresent</td>
-  	<td>Object Curation</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>click</td>
   	<td>curator_activity_id_5</td>
   	<td></td>
   </tr>
-  <!-- large image -->
+  <!-- to be sure a click did work -->
   <tr>
   	<td>waitForElementPresent</td>
   	<td>//ul[@id='large-image-button-group']/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
   	<td></td>
   </tr>
+  <!-- large image -->
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//ul[@id='large-image-button-group']/li[@class='published_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//ul[@id='large-image-button-group']/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//ul[@id='large-image-button-group']/li[@class='inappropriate_icon status_icon']</td>
+  	<td>//div[@id='left-image-buttons']/ul/li[@class="inappropriate_icon status_icon"][@title="Inappropriate"][@style=""]</td>
   	<td></td>
   </tr>
   <!-- thumbnail -->
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='inappropriate_icon status_icon']</td>
+  	<td>//a[@id='${myTestThumbnail}']/ul/li[@class='inappropriate_icon status_icon'][@title='Inappropriate'][@style='']</td>
   	<td></td>
   </tr>
   <!-- "hide" icon -->
   <tr>
   	<td>click</td>
-  	<td>//a[@id='large-image-curator-button-popup-link']/span</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForTextPresent</td>
-  	<td>Object Curation</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>click</td>
   	<td>curator_activity_id_4</td>
   	<td></td>
   </tr>
-  <!-- large image -->
+  <!-- to be sure a click did work -->
   <tr>
   	<td>waitForElementPresent</td>
   	<td>//ul[@id='large-image-button-group']/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
   	<td></td>
   </tr>
+  
+  <!-- large image -->
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//ul[@id='large-image-button-group']/li[@class='published_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//ul[@id='large-image-button-group']/li[@class='invisible_icon status_icon']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//ul[@id='large-image-button-group']/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
+  	<td>//ul[@id='large-image-button-group']/li[@class='invisible_icon status_icon'][@title='Hidden'][@style='']</td>
   	<td></td>
   </tr>
   <!-- thumbnail -->
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='invisible_icon status_icon']</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
+  	<td>//a[@id='${myTestThumbnail}']/ul/li[@class='invisible_icon status_icon'][@title='Hidden'][@style='']</td>
   	<td></td>
   </tr>
   <!-- no "remove"/"hide" icon -->
-  <tr>
-  	<td>click</td>
-  	<td>//a[@id='large-image-curator-button-popup-link']/span</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>waitForTextPresent</td>
-  	<td>Object Curation</td>
-  	<td></td>
-  </tr>
   <tr>
   	<td>click</td>
   	<td>curator_activity_id_3</td>
@@ -326,22 +245,22 @@
   <!-- thumbnail -->
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
+  	<td>//a[@id='${myTestThumbnail}']/ul/li[@class='unpublished_icon status_icon'][@style='display: none;']</td>
   	<td></td>
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
+  	<td>//a[@id='${myTestThumbnail}']/ul/li[@class='published_icon status_icon'][@style='display: none;']</td>
   	<td></td>
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
+  	<td>//a[@id='${myTestThumbnail}']/ul/li[@class='invisible_icon status_icon'][@style='display: none;']</td>
   	<td></td>
   </tr>
   <tr>
   	<td>waitForElementPresent</td>
-  	<td>//a/ul/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
+  	<td>//a[@id='${myTestThumbnail}']/ul/li[@class='inappropriate_icon status_icon'][@style='display: none;']</td>
   	<td></td>
   </tr>
   <tr>

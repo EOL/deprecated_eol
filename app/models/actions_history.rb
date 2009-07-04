@@ -13,10 +13,14 @@ class ActionsHistory < ActiveRecord::Base
         taxon_name = data_object.taxa_names_taxon_concept_ids[0][:taxon_name]
       when 2: 
       #comment
-        if comment_parent.user.nil?
-          taxon_name = comment_parent.taxa_names_taxon_concept_ids[0][:taxon_name]
-        else
-          taxon_name = comment_parent.taxon_concept_for_users_text.name
+        if comment_object.parent_type == 'TaxonConcept'
+          taxon_name = comment_parent.scientific_name
+        elsif comment_object.parent_type == 'DataObject'
+          if comment_parent.user.nil?
+            taxon_name = comment_parent.taxa_names_taxon_concept_ids[0][:taxon_name]
+          else
+            taxon_name = comment_parent.taxon_concept_for_users_text.name
+          end
         end
       when 3:    
           #"tag"
@@ -37,11 +41,15 @@ class ActionsHistory < ActiveRecord::Base
         taxon_id = data_object.taxon_ids[0]
       when 2: 
       #comment
-        if comment_parent.user.nil?
-          taxon_id = comment_object.taxon_concept_id
+        if comment_object.parent_type == 'TaxonConcept'
+          taxon_id = comment_parent.id
         else
-          taxon_id = comment_parent.taxon_concept_for_users_text.id
-        end 
+          if comment_parent.user.nil?
+            taxon_id = comment_object.taxon_concept_id
+          else
+            taxon_id = comment_parent.taxon_concept_for_users_text.id
+          end 
+        end
       when 4:
       #users_data_object
         taxon_id = udo_taxon_concept.id
@@ -68,13 +76,18 @@ class ActionsHistory < ActiveRecord::Base
   #-------- comment ---------
   
   def comment_object
-    Comment.find(object_id)
-  end         
+    Comment.find(self.object_id)
+  end        
   
   def comment_parent
-     DataObject.find(comment_object.parent_id)
-  end
-
+    return_comment_parent = case comment_object.parent_type
+     when 'TaxonConcept' then TaxonConcept.find(comment_object.parent_id)
+     
+     when 'DataObject'   then DataObject.find(comment_object.parent_id)
+    end
+    return return_comment_parent    
+  end 
+  
   #-------- users_data_object ---------
 
   def users_data_object

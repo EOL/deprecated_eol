@@ -100,7 +100,7 @@ class HierarchyEntry < SpeciesSchemaModel
   # (because curators have access to pages, not really specific HierarchyEntry instances.  This is confusing
   # because users have a HierarchyEntry that their 
   def is_curatable_by? user
-    return taxon_concept.is_curatable_by? user
+    return taxon_concept.is_curatable_by?(user)
   end
 
   # this is meant to be filtered by a taxon concept so it will find all hierarchy entries AND their ancestors/parents for a given TaxonConcept

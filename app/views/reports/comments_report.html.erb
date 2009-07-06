@@ -1,6 +1,6 @@
 <div id="report_from_eol">
   <h2><%= @sub_page_header %></h2>
-
+<form>
   <%= will_paginate(@act_histories) %>
   <ul>
     <% n = 0%>
@@ -22,5 +22,5 @@
   <% end %>
   
   <%= will_paginate(@act_histories) %>
-  
+</form>
 </div>

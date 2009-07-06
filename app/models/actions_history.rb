@@ -6,6 +6,7 @@ class ActionsHistory < ActiveRecord::Base
   
   validates_presence_of :user_id, :changeable_object_type_id, :action_with_object_id, :created_at 
     
+  #TODO: These "magic numbers" in the case statement correspond to rows in the 'changeable_object_types' model, can they be refactored in such a way that they aren't harcoded in multiple methods?  
   def taxon_name
     case changeable_object_type_id  
       when 1: 
@@ -38,7 +39,7 @@ class ActionsHistory < ActiveRecord::Base
     case changeable_object_type_id  
       when 1: 
       #data_object
-        taxon_id = data_object.taxon_ids[0]
+        taxon_id = data_object.taxa_names_taxon_concept_ids[0][:taxon_concept_id]
       when 2: 
       #comment
         if comment_object.parent_type == 'TaxonConcept'

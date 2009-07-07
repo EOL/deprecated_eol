@@ -85,9 +85,11 @@ describe 'Taxa page XML' do
     it 'should include canonical-form on call to /pages/NNN.xml' do
       @taxon_concept_xml.xpath('/taxon-page/canonical-form').first.content.should == @canonical_form
     end
-
-    it 'should include common-name on call to /pages/NNN.xml' do
-      @taxon_concept_xml.xpath('/taxon-page/common-name').first.content.should == @common_name
+    
+    it 'should include common-names on call to /pages/NNN.xml' do
+      @taxon_concept_xml.xpath('/taxon-page/common-names/item').map { |cn|
+        cn.xpath('string').first.content
+      }.should == @taxon_concept.all_common_names.map(&:string)
     end
 
     it 'should include iucn-conservation-status on call to /pages/NNN.xml' do

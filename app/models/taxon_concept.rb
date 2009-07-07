@@ -639,12 +639,19 @@ EOIUCNSQL
   def to_xml(options = {})
     options[:root]    ||= 'taxon-page'
     options[:only]    ||= [:id]
-    options[:methods] ||= [:canonical_form, :common_name, :iucn_conservation_status, :scientific_name]
+    options[:methods] ||= [:canonical_form, :iucn_conservation_status, :scientific_name]
     default_block = nil
     if options[:full]
-      options[:methods] ||= [:canonical_form, :common_name, :iucn_conservation_status, :scientific_name]
+      options[:methods] ||= [:canonical_form, :iucn_conservation_status, :scientific_name]
       default_block = lambda do |xml|
 
+        # Using tag! here because hyphens are not legal ruby identifiers.
+        xml.tag!('common-names') do
+          all_common_names.each do |cn|
+            xml.item { xml.language_label cn.language_label ; xml.string cn.string }
+          end
+        end
+        
         xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) }
 
         # Using tag! here because hyphens are not legal ruby identifiers.
@@ -677,6 +684,16 @@ EOIUCNSQL
       end
     end
   end
+  
+  def all_common_names
+    Name.find_by_sql([
+                        'SELECT names.string, l.iso_639_1 language_label, l.label, l.name
+                           FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
+                             LEFT JOIN languages l ON (tcn.language_id = l.id)
+                           WHERE tcn.taxon_concept_id = ? AND vern = 1
+                           ORDER BY language_label, string', id])
+  end
+  
 
 #####################
 private

@@ -11,6 +11,17 @@ describe 'build_taxon_concept (spec helper method)' do
       :hierarchy => @hierarchy,
       :event     => @event
     )
+    @taxon_concept_naked = build_taxon_concept(
+      :images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => []
+    )
+  end
+
+  it 'should be able to make a TC with no common names and an empty TOC' do
+    @taxon_concept_naked.table_of_contents.blank?.should be_true
+  end
+
+  it 'should not have a common name by defaut' do
+    @taxon_concept.common_name.blank?.should be_true
   end
 
   it 'should put all new hierarchy_entries under the default hierarchy if none supplied'  do

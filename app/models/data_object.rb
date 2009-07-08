@@ -2,8 +2,8 @@ require 'set'
 require 'uuid'
 require 'erb'
 
-# Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one of our primary
-# models, and an awful lot of work occurs here.
+# Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one
+# of our primary models, and an awful lot of work occurs here.
 class DataObject < SpeciesSchemaModel
   
   include UserActions
@@ -326,9 +326,26 @@ class DataObject < SpeciesSchemaModel
     end
   end
 
-  # tag with a DataObjectTag
+  # add a DataObjectTag to a DataObject
   def tag(key, values, user = nil)
-    DataObject.tag self, key, values, user
+    values = [values.to_s] unless values.is_a?Array
+    if key and values
+      values.each do |value|
+        tag    = DataObjectTag.find_or_create_by_key_and_value key.to_s, value.to_s
+        if user.tags_are_public_for_data_object?(self)
+          tag.is_public = true
+          tag.save!
+        end
+        join   = DataObjectTags.new :data_object => self, :data_object_tag => tag, :user => user
+        begin
+          join.save!
+        rescue # TODO LOWPRIO - specific rescue types with nice, customer-facing explanations.
+          raise FailedToCreateTag.new("Failed to add #{key}:#{value} tag")
+        end
+      end
+      tags.reset
+      user.tags.reset if user # TODO - can we tag anonymously?  If not, clean this up to reflect that.
+    end
   end
 
   def public_tags
@@ -669,20 +686,6 @@ AND data_type_id IN (:data_type_ids)
     ActiveRecord::Base.sanitize_sql([query_string, {:taxon_concept_id => taxon.id, :data_type_ids => DataObject.get_type_ids(type)}])
   end
 
-
-
-
-#  select dt.label media_type, dato.*, '' scientific_name
-#from data_objects dato
-#straight_join eol_development.users_data_objects udo ON (dato.id=udo.data_object_id)
-#straight_join data_types dt ON (dato.data_type_id = dt.id)
-#where
-#udo.taxon_concept_id=2
-#and data_type_id IN(3);
-#
-
-
-
   alias :ar_to_xml :to_xml
   # Be careful calling a block here.  We have our own builder, and you will be overriding that if you use a block.
   def to_xml(options = {})
@@ -747,6 +750,8 @@ private
                   #AND ar.agent_id = #{agent.id}  -- We removed this because now we're filtering manually.
   end
 
+  # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based
+  # on their access.
   def self.visibility_clause(options)
     preview_objects = ActiveRecord::Base.sanitize_sql(['OR (dato.visibility_id = ? AND dato.published IN (0,1))', Visibility.preview.id])
     published    = [1] # Boolean
@@ -795,31 +800,6 @@ EOVISBILITYCLAUSE
     else
       raise "I'm not sure what data type #{type} is."
     end
-  end
-
-  # add a DataObjectTag to a DataObject
-  #
-  # JRice asks: why is this a class method?  One necessarily passes a data_object as the first argument, so
-  # it seems to me that this is superfluous...
-  # 
-  # returns true is a tag was successfully added, else false
-  def self.tag data_object, key, values, user = nil
-    values = [values.to_s] unless values.is_a?Array
-    results = []
-    if data_object and key and values
-      values.each do |value|
-        tag    = DataObjectTag.find_or_create_by_key_and_value key.to_s, value.to_s
-        if user.tags_are_public_for_data_object?(data_object)
-          tag.is_public = true
-          tag.save!
-        end
-        join   = DataObjectTags.new :data_object => data_object, :data_object_tag => tag, :user => user
-        results << join.save
-      end
-      data_object.tags.reset
-      user.tags.reset if user
-    end
-    ( ! results.include?false ) # return true or false based on whether the new tag association was created OK
   end
 
 end

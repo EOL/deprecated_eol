@@ -43,7 +43,7 @@ describe 'Taxa page XML' do
                          :attribution     => @attribution,
                          :scientific_name => @scientific_name,
                          :italicized      => @italicized,
-                         :common_name     => @common_name,
+                         :common_names    => [@common_name],
                          :iucn_status     => @iucn_status,
                          :map             => {:description => @map_text},
                          :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
@@ -59,7 +59,7 @@ describe 'Taxa page XML' do
     @child2        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @id            = @taxon_concept.id
     @images        = @taxon_concept.images
-    @curator       = Factory(:curator, :curator_hierarchy_entry => @taxon_concept.entry)
+    @curator       = build_curator(@taxon_concept)
     Comment.find_by_body(@comment_bad).hide! User.last
   end
 

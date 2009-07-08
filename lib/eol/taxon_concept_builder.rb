@@ -17,7 +17,7 @@ class EOL
     #     String to use for canonical form (all names will reference this)
     #   +comments+::
     #     Array of hashes.  Each hash can have a +:body+ and +:user+ key.
-    #   +common_name+::
+    #   +common_names+::
     #     String to use for thre preferred common name
     #   +depth+::
     #     Depth to apply to the attached hierarchy entry.  Don't supply this AND rank.
@@ -105,8 +105,10 @@ class EOL
       @he    = build_entry_in_hierarchy(:parent_id => @options[:parent_hierarchy_entry_id])
       TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => @he.id,
                            :language => Language.scientific, :name => @sname, :taxon_concept => @tc)
-      TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => @he.id,
-                           :language => Language.english, :name => @cname, :taxon_concept => @tc)
+      unless @cname.nil?
+        TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => @he.id,
+                             :language => Language.english, :name => @cname, :taxon_concept => @tc)
+      end
       # TODO - create the Synonym here, with the Language of English, the SynonymRelation of Common Name, and the HE we just
       # created, and preferred...
       # NOTE: when we denormalize the taxon_concept_names table, we should be looking at Synonyms as well as Names.
@@ -114,17 +116,7 @@ class EOL
 
     def add_curator
       puts "** Enter: add_curator" if @debugging
-      @curator = Factory(:curator, :curator_hierarchy_entry => @he)
-      if @debugging
-        puts "&& TC:"
-        pp @tc
-        puts "&& Curator:"
-        pp @curator
-        puts "&& TC.Curators:"
-        pp @tc.curators
-        puts "&& TC.Acting Curators:"
-        pp @tc.acting_curators
-      end
+      @curator = build_curator(@he)
     end
 
     def add_comments
@@ -212,12 +204,14 @@ class EOL
 
     def gen_random_taxa
       puts "** Enter: gen_random_taxa" if @debugging
-      return if @images.blank? or @sname.blank? or @cname.blank?
+      return if @images.blank? or @sname.blank?
       # TODO - we really don't want to denomalize the names, so remove them (but check that this will work!)
-      RandomTaxon.gen(:language => Language.english, :data_object => @images.last, :name_id => @sname.id,
-                      :image_url => @images.last.object_cache_url, :name => @sname.italicized, :content_level => 4,
-                      :taxon_concept => @tc, :common_name_en => @cname.string,
-                      :thumb_url => @images.first.object_cache_url) # TODO - not sure thumb_url is right.
+      options = {:language => Language.english, :data_object => @images.last, :name_id => @sname.id,
+                 :image_url => @images.last.object_cache_url, :name => @sname.italicized, :content_level => 4,
+                 :taxon_concept => @tc,
+                 :thumb_url => @images.first.object_cache_url}
+      options[:common_name_en] = @cname.string unless @cname.blank?
+      RandomTaxon.gen(options)
     end
 
     # TODO - This is one of the slower methods.
@@ -257,11 +251,11 @@ class EOL
     # TODO - Too long: break this up
     def set_default_options
       puts "** Enter: set_default_options" if @debugging
-      @attri       = @options[:attribution]     || Factory.next(:attribution)
-      @common_name = @options[:common_name]     || Factory.next(:common_name)
-      @canon       = @options[:canonical_form]  || Factory.next(:scientific_name)
-      @complete    = @options[:scientific_name] || "#{@canon} #{@attri}".strip
-      @hierarchy   = @options[:hierarchy]       || nil # We'll let build_hierarchy_entry pick a default
+      @attri        = @options[:attribution]     || Factory.next(:attribution)
+      @common_names = @options[:common_names]    || [] # MOST entries should NOT have a common name.
+      @canon        = @options[:canonical_form]  || Factory.next(:scientific_name)
+      @complete     = @options[:scientific_name] || "#{@canon} #{@attri}".strip
+      @hierarchy    = @options[:hierarchy]       || nil # We'll let build_hierarchy_entry pick a default
       @event = @options[:event] || default_harvest_event
       @images = [] # This is used to build the RandomTaxon
       if @options[:toc].nil?
@@ -304,9 +298,12 @@ class EOL
       @cform = CanonicalForm.find_by_string(@canon) || CanonicalForm.gen(:string => @canon)
       @sname = Name.gen(:canonical_form => @cform, :string => @complete,
                         :italicized     => @options[:italicized] || "<i>#{@canon}</i> #{@attri}".strip)
-      # TODO - You don't always need a common name, and in fact most don't; default should be NOT to have one
       # TODO - This should also create an entry in Synonyms (see below) (don't need agents_synonyms though)
-      @cname = Name.gen(:canonical_form => @cform, :string => @common_name, :italicized => @common_name)
+      cname_objects = []
+      @common_names.each do |common_name|
+        cname_objects << Name.gen(:canonical_form => @cform, :string => common_name, :italicized => common_name)
+      end
+      @cname = cname_objects.first
     end
 
   end

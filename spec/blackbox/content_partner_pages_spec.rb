@@ -19,7 +19,7 @@ describe 'Content Partner Pages' do
       # @another_taxon_concept = build_taxon_concept
       # @user             = User.gen
       # @short_comment_from_user = 'Comment from user'
-      # @curator          = Factory(:curator)
+      # @curator          = build_curator(@taxon_concept)
       # @taxon_concept.images.first.comment(@user, @short_comment_from_user)
       # login_content_partner(:username => @content_partner.username,
       #                       :password => password)

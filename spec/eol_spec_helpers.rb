@@ -96,29 +96,65 @@ module EOL::Spec
     #
     #   +hierarchy+::
     #     Which Hierarchy to link this to.  Defaults to... uhhh... the default (Hierarchy#default).
+    #   +identifier+::
+    #     The "foreign key" that the Resource supplying this refers to this HE as, used for outlinking.
+    #   +map+::
+    #     If defined, this HE will be marked as having a map, otherwise marked as not having one.
     #   +parent_id+::
     #     Which HierarchyEntry (by *ID*, not object) this links to.
     #
     # TODO LOW_PRIO - the arguments to this method are lame and should be options with reasonable defaults.
     def build_hierarchy_entry(depth, tc, name, options = {})
-      he    = HierarchyEntry.gen(:hierarchy     => options[:hierarchy] || Hierarchy.default, # TODO - This should *really* be the H associated with the Resource that's being "harvested"... technically, CoL shouldn't even have HEs...
-                                 :parent_id     => options[:parent_id] || 0,
-                                 :identifier    => options[:identifier] || '', # This is the foreign ID native to the Resouce, not EOL.
-                                 :depth         => depth,
-                                 :rank_id       => depth + 1, # Cheating. As long as *we* created Ranks with a scenario, this works.
-                                 :taxon_concept => tc,
-                                 :name          => name)
-      HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4, :gbif_image => options[:map] ? 1 : 0,
-                             :youtube => 1, :flash => 1)
+      he = HierarchyEntry.gen(:hierarchy     => options[:hierarchy] || Hierarchy.default, # TODO - This should *really*
+                                # be the H associated with the Resource that's being "harvested"... technically, CoL
+                                # shouldn't even have Data Objects. Hierarchy.last may be clever enough, really.  I
+                                # just don't want to change this *right now*--I have other problems...
+                              :parent_id     => options[:parent_id] || 0,
+                              :identifier    => options[:identifier] || '',
+                              :depth         => depth,
+                              # Cheating. As long as *we* created Ranks with a scenario, this works:
+                              :rank_id       => depth + 1,
+                              :taxon_concept => tc,
+                              :name          => name)
+      HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4,
+                             :gbif_image => options[:map] ? 1 : 0, :youtube => 1, :flash => 1)
       # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as roles
       return he
     end
 
     def build_taxon_concept(options = {})
-
       tc_builder = EOL::TaxonConceptBuilder.new(options)
       return tc_builder.tc
+    end
 
+    # Curators are tricky... not just a plain model, but require some activity before they are "active":
+    # The first argument is the TaxonConcept or HierarchyEntry to associate the curator to; the second argument is
+    # the options hash to use when building the User model.
+    def build_curator(entry, options = {})
+      entry ||= Factory(:hierarchy_entry)
+      tc = nil # scope
+      if entry.class == TaxonConcept
+        tc    = entry
+        entry = tc.entry 
+      end
+      tc ||= entry.taxon_concept
+      options = {
+        :vetted                  => true,
+        :curator_hierarchy_entry => entry,
+        :curator_approved        => true,
+        :curator_scope           => ''
+      }.merge(options)
+
+      # These two do "extra work", so I didn't want to use the merge on these (because they would be calculated even
+      # if not used:
+      options[:curator_verdict_by] ||= Factory(:user)
+      options[:curator_verdict_at] ||= 48.hours.ago
+
+      curator = User.gen(options)
+
+      # A curator isn't credited until she actually DOES something, which is handled thusly:
+      curator.last_curated_dates << LastCuratedDate.gen(:taxon_concept => tc, :user => curator)
+      return curator
     end
 
     # Create a data object in the IUCN hierarchy. Can take options for :hierarchy and :event, both of which default to the usual IUCN
@@ -227,7 +263,7 @@ TaxonConcept.class_eval do
   #   +vetted+:
   #     The text object will only be visible if the user is logged in with "All" rather than "Authoritative" mode.
   #     Set this to true if you want it to be visible to "Authoritative", or to remove the yellow background.
-  def add_user_submitted_text(options)
+  def add_user_submitted_text(options = {})
     options = {:description => 'some random text',
                :user        => User.last,
                :toc_item    => TocItem.overview,

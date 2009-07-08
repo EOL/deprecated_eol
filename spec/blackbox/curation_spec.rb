@@ -7,7 +7,7 @@ def curator_for_taxon_id(id)
 end
 
 def create_curator_for_taxon_concept(tc)
- user =  Factory(:curator, :curator_hierarchy_entry => tc.entry)
+ user =  build_curator(tc)
  tc.images.last.curator_activity_flag user, tc.id
  return user
 end
@@ -74,7 +74,7 @@ describe 'Curation' do
   it 'should change the number of curators if another curator curates an image' do
     num_curators = @taxon_concept.acting_curators.length
     @default_page.body.should have_tag('div#number-of-curators', /#{num_curators}/)
-    user = Factory(:curator, :curator_hierarchy_entry => @taxon_concept.entry)
+    user = build_curator(@taxon_concept)
     @taxon_concept.images.last.curator_activity_flag user, @taxon_concept.id
     @taxon_concept.acting_curators.length.should == num_curators + 1
     request("/pages/#{@taxon_concept.id}").body.should have_tag('div#number-of-curators', /#{num_curators+1}/)
@@ -83,7 +83,7 @@ describe 'Curation' do
   it 'should change the number of curators if another curator curates a text object' do
     num_curators = @taxon_concept.acting_curators.length
     @default_page.body.should have_tag('div#number-of-curators', /#{num_curators}/)
-    user = Factory(:curator, :curator_hierarchy_entry => @taxon_concept.entry)
+    user = build_curator(@taxon_concept)
     @taxon_concept.overview.first.curator_activity_flag user, @taxon_concept.id
     @taxon_concept.acting_curators.length.should == num_curators + 1
     request("/pages/#{@taxon_concept.id}").body.should have_tag('div#number-of-curators', /#{num_curators+1}/)

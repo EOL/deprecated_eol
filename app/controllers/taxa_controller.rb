@@ -103,9 +103,11 @@ class TaxaController < ApplicationController
 
           # default to regular page separator if we can't find a specific kingdom
           @page_separator="page-separator-general"
-          @page_separator="page-separator-#{@taxon_concept.kingdom.id}" unless @taxon_concept.kingdom.nil? || !$KINGDOM_IDs.include?(@taxon_concept.kingdom.id.to_s)
+          @page_separator="page-separator-#{@taxon_concept.kingdom.id}" unless
+            @taxon_concept.kingdom.nil? || !$KINGDOM_IDs.include?(@taxon_concept.kingdom.id.to_s)
 
-          @content     = @taxon_concept.content_by_category(@category_id) unless @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?
+          @content     = @taxon_concept.content_by_category(@category_id) unless
+            @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?
           @random_taxa = RandomTaxon.random_set(5)
 
           @ping_host_urls = @taxon_concept.ping_host_urls
@@ -146,99 +148,6 @@ class TaxaController < ApplicationController
         render :xml => xml
       end
     end
-
-#    respond_to do |format|
-#      # TODO - please, please, PLEASE refactor this.  There is WAY too much going on in this controller.
-#      format.html do
-#        @specify_category_id=params[:category_id] || 'default'
-#
-#        # reset the content level if it is in the querystring NOTE the expertise level is set by pre filter set_user_settings()
-#        current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
-#
-#        begin
-#          @taxon = TaxonConcept.find(@taxon_id)
-#          @taxon.current_user = current_user
-#        rescue ActiveRecord::RecordNotFound
-#          raise "taxa does not exist"
-#        end
-#
-#        @curator = current_user.can_curate?(@taxon)
-#
-#        # run all the queries if the page cannot be cached or the fragment is not found
-#        if !allow_page_to_be_cached? || @specify_category_id != 'default' || !read_fragment(:controller=>'taxa',:part=>'page_' + @taxon_id.to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + current_user.can_curate?(@taxon).to_s)
-#
-#          @cached=false
-#
-#          @taxon.current_user = current_user
-#
-#          # get available media types
-#          @available_media = @taxon.available_media
-#
-#          # TODO - all these @taxon.videos/images/etc don't need to be full-class @variables.... just use taxon!
-#
-#          # get videos for this taxon
-#          @videos=@taxon.videos if @available_media[:video]
-#
-#          # get first set of images and if more images are available (for paging)
-#          # TODO - this (image_page) is broken.  Can we remove it?
-#          @image_page = (params[:image_page] || 1).to_i
-#          @taxon.current_agent = current_agent unless current_agent.nil?
-#          @images     = @taxon.images.sort{ |x,y| y.data_rating <=> x.data_rating }
-#          @show_next_image_page_button = @taxon.more_images # indicates if more images are available
-#          @default_image = @images[0].smart_image unless @images.nil? or @images.blank?
-#
-#          # find first valid content area to use
-#          first_content_item = @taxon.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }
-#          @category_id = first_content_item.nil? ? nil : first_content_item.id
-#          @category_id = @specify_category_id unless @specify_category_id=='default'
-#
-#          @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
-#
-#          # default to regular page separator if we can't find a specific kingdom
-#          @page_separator="page-separator-general"
-#          @page_separator="page-separator-#{@taxon.kingdom.id}" unless @taxon.kingdom.nil? || !$KINGDOM_IDs.include?(@taxon.kingdom.id.to_s)
-#
-#          @content     = @taxon.content_by_category(@category_id) unless @category_id.nil? || @taxon.table_of_contents(:vetted_only=>current_user.vetted).blank?
-#          @random_taxa = RandomTaxon.random_set(5)
-#
-#          @ping_host_urls = @taxon.ping_host_urls
-#
-#          # just grab the first rank name (will be "taxon" if no rank available)
-#          @rank=@taxon.hierarchy_entries[0].rank_label.capitalize
-#
-#          # log data objects shown and build an array of data_object_ids to log, so we can stick this info in the cached page and when the page comes from the cache, we can log on the server side
-#          @data_object_ids_to_log=Array.new
-#          unless @images.blank?
-#            log_data_objects_for_taxon_concept @taxon, @images.first
-#            @data_object_ids_to_log << @images.first.id
-#          end
-#          unless @content.nil? || @content[:data_objects].blank?
-#            log_data_objects_for_taxon_concept @taxon, *@content[:data_objects]
-#            @content[:data_objects].each {|data_object| @data_object_ids_to_log << data_object.id }
-#          end
-#          @data_object_ids_to_log.compact!
-#
-#          @contains_unvetted_objects = false # per request by Jim Edwards on 11/5/2008 in Mexico, we should *not* show the top banner indicating there are unvetted objects on a page
-#          #@contains_unvetted_objects=((!current_user.vetted && @taxon.includes_unvetted) ? true : false)  # uncomment this line to show unvetted warning on page with those objects
-#
-#        else
-#
-#          @cached=true
-#
-#        end # end get full page since we couldn't read from cache
-#
-#        @taxon_page_title=remove_html(@taxon.title) # we always need the title
-#
-#        render :template=>'/taxa/show_cached' if allow_page_to_be_cached? && @specify_category_id == 'default' # if caching is allowed, see if fragment exists using this template
-#      end
-#      format.xml do
-#        xml = Rails.cache.fetch("taxon.#{@taxon_id}/xml", :expires_in => 4.hours) do
-#          TaxonConcept.find(@taxon_id).to_xml(:full => true)
-#        end
-#        render :xml => xml
-#      end
-#      # TODO - format.json { render :json => @species.to_json }
-#    end
 
   end
 

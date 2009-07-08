@@ -44,7 +44,7 @@ describe TaxonConcept do
                              :attribution     => @attribution,
                              :scientific_name => @scientific_name,
                              :italicized      => @italicized,
-                             :common_name     => @common_name,
+                             :common_names    => [@common_name],
                              :gbif_map_id     => @gbif_map_id,
                              :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
                              :youtube         => [{:description => @video_3_text}],
@@ -56,7 +56,7 @@ describe TaxonConcept do
     @id            = tc.id
     @taxon_concept = TaxonConcept.find(@id)
     # The curator factory cleverly hides a lot of stuff that User.gen can't handle:
-    @curator       = Factory(:curator, :curator_hierarchy_entry => tc.entry)
+    @curator       = build_curator(@taxon_concept)
     # Curators aren't recognized until they actually DO something, which is here:
     LastCuratedDate.gen(:user => @curator, :taxon_concept => @taxon_concept)
     # And we want one comment that the world cannot see:
@@ -92,24 +92,16 @@ describe TaxonConcept do
 
   it 'should return overview as first toc item which accepts user submitted text' do
     @taxon_concept.tocitem_for_new_text.label.should == @overview.label
-    fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
-    depth_now      = Hierarchy.default.hierarchy_entries.length
-    tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
-                    :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
-                    :bhl => [])
+    tc = build_taxon_concept(:images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => [])
     tc.tocitem_for_new_text.label.should == @overview.label
   end
 
   it 'should return description as first toc item which accepts user submitted text' do
-    fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
-    depth_now      = Hierarchy.default.hierarchy_entries.length
     description_toc = TocItem.find_by_label('Description')
     InfoItem.gen(:toc_id => @overview.id)
     InfoItem.gen(:toc_id => description_toc.id)
-    tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
-                    :depth => depth_now, :images => [], :toc => [{:toc_item => description_toc, :description => 'huh?'}], :flash => [], :youtube => [], :comments => [],
-                    :bhl => [])
-
+    tc = build_taxon_concept(:images => [], :flash => [], :youtube => [], :comments => [], :bhl => [],
+                             :toc => [{:toc_item => description_toc, :description => 'huh?'}])
     tc.tocitem_for_new_text.label.should == description_toc.label
   end
 
@@ -191,10 +183,14 @@ describe TaxonConcept do
   end
 
   it 'should be able to list its children (NOT descendants, JUST children--animalia would be a disaster!)' do
-    @subspecies1  = build_taxon_concept(:rank => 'subspecies',   :depth => 0, :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @subspecies2  = build_taxon_concept(:rank => 'subspecies',   :depth => 0, :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @subspecies3  = build_taxon_concept(:rank => 'subspecies',   :depth => 0, :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @infraspecies = build_taxon_concept(:rank => 'infraspecies', :depth => 0, :parent_hierarchy_entry_id => @subspecies1.entry.id)
+    @subspecies1  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
+                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
+    @subspecies2  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
+                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
+    @subspecies3  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
+                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
+    @infraspecies = build_taxon_concept(:rank => 'infraspecies', :depth => 4,
+                                        :parent_hierarchy_entry_id => @subspecies1.entry.id)
     @taxon_concept.children.map(&:id).should only_include @subspecies1.id, @subspecies2.id, @subspecies3.id
   end
 

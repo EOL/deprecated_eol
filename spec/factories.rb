@@ -786,7 +786,7 @@ Factory.define :taxon_concept_content do |tcc|
   tcc.internal_image 0
   tcc.gbif_image     0
   tcc.content_level  1
-  tcc.association    :image_object
+  tcc.image_object_id 1
 end
 
 Factory.define :taxon_concept_name do |tcn|

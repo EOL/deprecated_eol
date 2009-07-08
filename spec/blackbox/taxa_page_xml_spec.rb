@@ -281,6 +281,10 @@ describe 'Taxa page XML' do
       @search_xml = Nokogiri::XML(@raw_xml)
       @search_xml.xpath('//results').should_not be_empty
 
+      @raw_xml    = RackBox.request("/search.xml?q=bo").body
+      @search_xml = Nokogiri::XML(@raw_xml)
+      @search_xml.xpath('//results/errors/error').first.content.should == "All search terms must contain at least three characters. 'bo' is too short."
+
     end
 
   end

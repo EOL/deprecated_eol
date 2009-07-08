@@ -10,7 +10,9 @@ def set_content_variables
 end
 
 def create_user_text_object
-  taxon_concept = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
+  taxon_concept = TaxonConcept.last ||
+                  build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia',
+                                      :common_names => ['Animals'])
   toc_item = TocItem.gen({:label => 'Overview'})
   params = {
     :taxon_concept_id => taxon_concept.id,
@@ -33,6 +35,13 @@ describe DataObject do
 
   truncate_all_tables
   Scenario.load :foundation # Just so we have DataType IDs and the like.
+
+  before(:all) do
+    unless @already_built_tc
+      build_taxon_concept
+    end
+    @already_built_tc = true
+  end
 
   describe 'ratings' do
 
@@ -101,7 +110,9 @@ describe DataObject do
 
     it 'should update existing data object' do
 
-      taxon_concept = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
+      taxon_concept = TaxonConcept.last ||
+                      build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia',
+                                          :common_names => ['Animals'])
       toc_item = TocItem.gen({:label => 'Overview'})
       params = {
         :taxon_concept_id => taxon_concept.id,
@@ -186,11 +197,10 @@ describe DataObject do
 
     it 'should mark tags as public if added by a curator' do
       commit_transactions # We're looking at curators, here, we need cross-database joins.
-      tc      = build_taxon_concept
-      curator = User.gen
-      dato    = tc.images.first # We CANNOT use @dato here, because it doesn't have all of the required
-                                # relationships to our TaxonConcept.
-      curator.approve_to_curate! tc.entry
+      tc      = TaxonConcept.last || build_taxon_concept
+      curator = build_curator(tc)
+      # We CANNOT use @dato here, because it doesn't have all of the required relationships to our TaxonConcept:
+      dato    = tc.add_user_submitted_text
       dato.tag 'color', 'blue', curator
       dotag = DataObjectTag.find_by_key_and_value('color', 'blue')
       DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true
@@ -336,16 +346,12 @@ describe DataObject do
     
     before(:each) do
       commit_transactions
-      @taxon_concept = build_taxon_concept
-      @data_object   = @taxon_concept.images.last
+      @taxon_concept = TaxonConcept.last || build_taxon_concept
       @user          = @taxon_concept.acting_curators.to_a.last
+      @data_object   = @taxon_concept.add_user_submitted_text(:user => @user)
       @num_lcd       = LastCuratedDate.count
     end
 
-    after(:all) do
-      truncate_all_tables
-    end
-    
     it 'should create a new LastCuratedDate pointing to the right TC and user' do
       @data_object.curator_activity_flag(@user, @taxon_concept.id)
       LastCuratedDate.count.should == @num_lcd + 1

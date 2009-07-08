@@ -16,15 +16,8 @@ describe 'Home page' do
     ActionController::Base.perform_caching = @old_cache_val
   end
 
-  it 'should say EOL somewhere' do
+  it 'should include the exemplar taxon concept' do
     @page.body.should include(@taxon_concept.scientific_name)
   end
-
-#  Trying to reproduce a bug and failing:
-#  it 'should load twice without dying' do
-#    @page.body.should include(@taxon_concept.scientific_name)
-#    page2 = RackBox.request('/content/exemplars') # cache the response the homepage gives before changes
-#    page2.body.should include(@taxon_concept.scientific_name)
-#  end
 
 end

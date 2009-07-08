@@ -15,7 +15,7 @@ describe 'Taxa page (HTML)' do
     rescue
       #there's already a tc with that id
     end
-    @parent          = build_taxon_concept
+    @parent          = build_taxon_concept(:images => [], :toc => []) # Somewhat empty, to speed things up.
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
     # TODO - add a reference to the text object
@@ -46,7 +46,7 @@ describe 'Taxa page (HTML)' do
        :attribution     => @attribution,
        :scientific_name => @scientific_name,
        :italicized      => @italicized,
-       :common_name     => @common_name,
+       :common_names    => [@common_name],
        :iucn_status     => @iucn_status,
        :map             => {:description => @map_text},
        :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
@@ -76,7 +76,7 @@ describe 'Taxa page (HTML)' do
     @description_link = /and <a href="link">links<\/a>/
     @taxon_concept.add_user_submitted_text(:description => description, :vetted => true)
 
-    @curator       = Factory(:curator, :curator_hierarchy_entry => @taxon_concept.entry)
+    @curator       = build_curator(@taxon_concept)
     Comment.find_by_body(@comment_bad).hide! User.last
     @result        = RackBox.request("/pages/#{@id}") # cache the response the taxon page gives before changes
 

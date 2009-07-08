@@ -56,26 +56,31 @@ gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (
 AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.primary)
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
-kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_name => 'Animals')
+kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_names => ['Animals'])
 4.times do
   build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
-                      :depth => Hierarchy.default.hierarchy_entries.length)
+                      :depth => Hierarchy.default.hierarchy_entries.length,
+                      :common_names => [Factory.next(:common_name)])
 end
 
 fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
 depth_now      = Hierarchy.default.hierarchy_entries.length
 
-# Sixth Taxon should have more images:
-tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
-                    :depth => depth_now, :images => [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}])
+# Sixth Taxon should have more images, and have videos:
+tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
+                         :depth => depth_now, :images => [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}])
 
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
-build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
+build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
                     :bhl => [])
 
 # Eighth Taxon (now we're just getting greedy) should be the same as Seven, but with BHL:
-build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
+build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
+                    :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
+
+# Ninth Taxon is *totally* naked:
+build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [],
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
@@ -113,7 +118,7 @@ curator.save
 make_all_nested_sets
 recreate_normalized_names_and_links
 
-exemplar = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
+exemplar = build_taxon_concept(:common_names => ['wumpus'], :id => 910093) # That ID is one of the (hard-coded) exemplars.
 
 # Adds a ContentPage at the following URL: http://localhost:3000/content/page/curator_central
 

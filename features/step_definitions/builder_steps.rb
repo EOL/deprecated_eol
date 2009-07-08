@@ -13,7 +13,7 @@ truncate_all_tables_once
 EOL::Scenario.load :foundation
 
 Given /^a Taxon Concept (.*)$/ do |tc_id|
-  @taxon_concept = build_taxon_concept(:id => tc_id)
+  @taxon_concept = build_taxon_concept(:id => tc_id, :common_name => 'vulcan')
 end
 
 Given /Taxon Concept (.*) has an image with key "(.*)" harvested from (.*) with a ping_host_url of "(.*)"/ do

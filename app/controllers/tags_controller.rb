@@ -51,10 +51,11 @@ class TagsController < ApplicationController
       # strip out any spaces / newlines in values (model handles punctuation, etc, if found)
       values.map! {|v| v.gsub("\n",'').gsub(' ','') }
 
-      if @data_object.tag key, values, current_user
+      begin
+        @data_object.tag key, values, current_user
         flash[:notice] = 'New tag was successfully created'
-      else
-        # 
+      rescue FailedToCreateTag => e
+        flash[:notice] = e.message
       end
     end
     redirect_to request.referer ? :back : data_object_tags_path(@data_object.id)
@@ -85,7 +86,6 @@ class TagsController < ApplicationController
 
       @tags = DataObjectTags.find_all_by_data_object_id_and_data_object_tag_id(@data_object.id, @tag.id)
 
-      #if @data_object.has_tag?@tag
       if @tags
         # render :text => "DataObject is tagged with #{ params[:id] }"
         @my_tag = @tags.find {|t| current_user &&  t.user_id == current_user.id }

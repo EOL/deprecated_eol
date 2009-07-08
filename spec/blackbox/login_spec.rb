@@ -39,42 +39,36 @@ describe 'Login' do
   end
 
   it 'should redirect to index after a successful login' do
-    @user = create_user 'charliebrown', 'testing'
-    login_as( @user ).should redirect_to('/')
+    user = create_user 'charliebrown', 'testing'
+    login_as(user).should redirect_to('/')
   end
 
   it 'should say hello to the user after logging in' do
-    @user = create_user 'charliebrown', 'testing'
-
-    request('/').should_not include_text("Hello #{ @user.given_name }")
-    login_as( @user ).should redirect_to('/')
-    request('/').should include_text("Hello #{ @user.given_name }")
+    user = create_user 'charliebrown', 'testing'
+    request('/').should_not include_text("Hello #{ user.given_name }")
+    login_as(user).should redirect_to('/')
+    request('/').should include_text("Hello #{ user.given_name }")
   end
   
   it 'logout should work' do
-    @user = create_user 'charliebrown', 'testing'
+    user = create_user 'charliebrown', 'testing'
 
-    login_as( @user ).should redirect_to('/')
-    request('/').should include_text("Hello #{ @user.given_name }")
+    login_as(user).should redirect_to('/')
+    request('/').should include_text("Hello #{ user.given_name }")
     request('/logout')
-    request('/').should_not include_text("Hello #{ @user.given_name }")
+    request('/').should_not include_text("Hello #{ user.given_name }")
   end
   
   it 'should not show the curator link' do
-    @user = create_user 'charliebrown', 'testing'
-    
-    login_as(@user)
+    user = create_user 'charliebrown', 'testing'
+    login_as(user)
     request('/').should_not include_text('curators')
   end
   
   describe "as a curator" do
     it "should show the curator link" do
-      @tc = build_taxon_concept()
-      @user = Factory(:curator, :username => 'test_curator',
-              :password => 'test_password',
-              :curator_hierarchy_entry => HierarchyEntry.gen(:taxon_concept => @tc))
-
-      login_as(@user)
+      curator = build_curator(HierarchyEntry.gen, :username => 'test_curator', :password => 'test_password')
+      login_as(curator)
       request('/').should include_text("curators")
     end
   end

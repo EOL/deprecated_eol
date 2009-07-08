@@ -108,7 +108,8 @@ class EOL
       options =
         default_attributes.merge({:data_type   => DataType.find_by_label(@type),
                                   :description => desc,
-                                  :mime_type   => mime_types[@type] || mime_type[:default]})
+                                  :mime_type   => MimeType.find_by_label(mime_types[@type] || mime_type[:default])
+                                 })
       if @type == 'Image'
          options[:object_cache_url] ||= Factory.next(:image)
       end
@@ -171,15 +172,15 @@ class EOL
     # class is *used*... which makes sense, it relies on foundation in many other ways.
     def mime_types
       @mime_types ||= {
-        'Image'      => MimeType.find_by_label('image/jpeg'),
-        'Sound'      => MimeType.find_by_label('audio/mpeg'),
-        'Text'       => MimeType.find_by_label('text/html'),
-        'Video'      => MimeType.find_by_label('video/quicktime'),
-        'GBIF Image' => MimeType.find_by_label('image/jpeg'),
-        'IUCN'       => MimeType.find_by_label('text/plain'),
-        'Flash'      => MimeType.find_by_label('video/x-flv'),
-        'YouTube'    => MimeType.find_by_label('video/x-flv'),
-        :default     => MimeType.find_by_label('image/jpeg')
+        'Image'      => 'image/jpeg',
+        'Sound'      => 'audio/mpeg',
+        'Text'       => 'text/html',
+        'Video'      => 'video/quicktime',
+        'GBIF Image' => 'image/jpeg',
+        'IUCN'       => 'text/plain',
+        'Flash'      => 'video/x-flv',
+        'YouTube'    => 'video/x-flv',
+        :default     => 'image/jpeg'
       }
     end
     def default_attributes

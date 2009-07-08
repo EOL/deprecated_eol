@@ -386,33 +386,6 @@ Factory.define :content_section do |cs|
   cs.language_key 'en'
 end
 
-Factory.define :curator, :class => User do |u|
-  u.default_taxonomic_browser 'text'
-  u.expertise                 'middle'
-  u.remote_ip                 '128.167.250.123' # TODO - fake this?
-  u.content_level             2
-  u.email                     { Factory.next(:email) }
-  u.given_name                { Factory.next(:first_name) }
-  u.family_name               { Factory.next(:last_name) }
-  u.flash_enabled             true
-  u.language                  { Language.english || Factory(:language, :label => 'English') }
-  u.mailing_list              true
-  u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}#{Factory.next(:int)}".gsub(/\s/, '_').downcase }
-  u.active                    true
-  u.password                  'test password'
-  u.vetted                    true
-  u.curator_hierarchy_entry   { Factory(:hierarchy_entry) }
-  u.curator_approved          true
-  u.curator_verdict_by        { Factory(:user) }
-  u.curator_verdict_at        { 48.hours.ago }
-  u.curator_scope             ''
-  # A curator isn't credited until she actually DOES something, which is handled thusly:
-  u.last_curated_dates        do |lcd|
-    [lcd.association(:last_curated_date,
-                     :taxon_concept => lcd.curator_hierarchy_entry.taxon_concept )]
-  end
-end
-
 Factory.define :curator_activity do |ca|
   ca.code { Factory.next(:string) }
 end
@@ -461,8 +434,8 @@ Factory.define :data_object do |dato|
   dato.created_at             { 5.days.ago }
   dato.updated_at             { 3.days.ago }
   dato.data_rating            0.0
-  dato.association            :vetted
-  dato.association            :visibility
+  dato.vetted                 { Vetted.trusted || Factory(:vetted, :label => 'trusted') }
+  dato.visibility             { Visibility.visible || Factory(:visibility, :label => 'visible') }
   dato.published              true
 end
 

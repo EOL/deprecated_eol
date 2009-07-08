@@ -649,7 +649,13 @@ EOIUCNSQL
           end
         end
         
-        xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) }
+        xml.taxa {
+          taxa.map{|x| x.refs.to_xml(:builder => xml, :skip_instruct => true)}
+        }
+        
+        xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) 
+          overview.map{|x| x.refs.to_xml(:builder => xml, :skip_instruct => true) }
+          }
 
         # Using tag! here because hyphens are not legal ruby identifiers.
         xml.tag!('table-of-contents') do

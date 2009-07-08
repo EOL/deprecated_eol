@@ -213,7 +213,7 @@ class TaxaController < ApplicationController
               xml_hash = {
                 'taxon-pages' => (results[:scientific] + results[:common]).flatten.map { |r| TaxonConcept.find(r['id']) }
               }
-              xml_hash['errors'] = results[:errors] unless results[:errors].nil?
+              xml_hash['errors'] = XmlErrors.new(results[:errors]) unless results[:errors].nil?
               xml_hash.to_xml(:root => 'results')
             end
           else # user didn't send us any search parameter, so return a blank result

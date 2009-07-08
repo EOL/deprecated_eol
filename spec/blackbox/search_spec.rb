@@ -26,7 +26,7 @@ describe 'Search' do
   def create_taxa(namestring)
 
     taxa = build_taxon_concept(:canonical_form => namestring, :depth => 1,
-                                :parent_hierarchy_entry_id => SearchSpec.animal_kingdom.hierarchy_entries.first.id)
+                               :parent_hierarchy_entry_id => SearchSpec.animal_kingdom.hierarchy_entries.first.id)
     SearchSpec.nestify_everything_properly
     SearchSpec.recreate_normalized_names_and_links
     return taxa

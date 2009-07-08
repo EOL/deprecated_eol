@@ -1,4 +1,5 @@
-# Represents the vague idea of a Taxon.
+# Represents a group of HierearchyEntry instances that we consider "the same".  This amounts to a vague idea
+# of a taxon, which we serve as a single page.
 #
 # We get different interpretations of taxa from our partners (ContentPartner), often differing slightly 
 # and referring to basically the same thing, so TaxonConcept was created as a means to reconcile the 
@@ -33,10 +34,6 @@ class TaxonConcept < SpeciesSchemaModel
 
   attr_reader :has_media
 
-  ##################################### 
-  # The following are the "nice" methods, which we want to publically expose.  ...As opposed to the down-and-dirty stuff that we
-  # want to shamefully hide.  These are the methods from which we can build nice, clean objects to serve to the general public:
-
   def show_curator_controls?(user = nil)
     return @show_curator_controls if !@show_curator_controls.nil?
     user = @current_user if user.nil?
@@ -51,10 +48,14 @@ class TaxonConcept < SpeciesSchemaModel
     table_of_contents.each do |toc|
       return toc if toc.allow_user_text?
     end
-    TocItem.find_by_sql('select t.id, t.parent_id, t.label, t.view_order from table_of_contents t, info_items i where i.toc_id=t.id limit 1')[0]
+    TocItem.find_by_sql('SELECT t.id, t.parent_id, t.label, t.view_order
+                         FROM table_of_contents t, info_items i
+                         WHERE i.toc_id=t.id
+                         LIMIT 1')[0]
   end
 
-  # The canonical form is the simplest string we can use to identify a species--no variations, no attribution, nothing fancy:
+  # The canonical form is the simplest string we can use to identify a species--no variations, no attribution, nothing
+  # fancy:
   def canonical_form
     return name(:canonical)
   end
@@ -182,15 +183,11 @@ class TaxonConcept < SpeciesSchemaModel
     end)
   end
 
-  ##################################### 
-  # The rest of these methods are shamefully complex and probably require serious refactoring.
-
   # Try not to call this unless you know what you're doing.  :) See scientific_name and common_name instead.
   #
-  # That said, this method allows you to get other variations on a name.  See HierarchyEntry#name, to which this is really
-  # delegating, unless there is no entry in the default Hierarchy, in which case, see #alternate_classification_name.
-  #
-  # (Hey, I warned you these methods were ugly.)
+  # That said, this method allows you to get other variations on a name.  See HierarchyEntry#name, to which this is
+  # really delegated, unless there is no entry in the default Hierarchy, in which case, see
+  # #alternate_classification_name.
   def name(detail_level = :middle, language = Language.english, context = nil)
     col_he = hierarchy_entries.detect {|he| he.hierarchy_id == Hierarchy.default.id }
     return col_he.nil? ? alternate_classification_name(detail_level, language, context).firstcap : col_he.name(detail_level, language, context).firstcap

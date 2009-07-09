@@ -80,7 +80,7 @@ build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names 
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
 
 # Ninth Taxon is *totally* naked:
-build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [],
+build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [], :bhl => [],
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:

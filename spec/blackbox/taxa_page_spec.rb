@@ -129,5 +129,14 @@ describe 'Taxa page (HTML)' do
     @result.body.should match @description_link
   end
 
+  # I hate to do this, since it's SO SLOW, but:
+  it 'should render an "empty" page in authoritative mode' do
+    tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
+                             :comments => [], :bhl => [])
+    this_result = RackBox.request("/pages/#{tc.id}?vetted=true")
+    this_result.body.should_not include('Internal Server Error')
+    this_result.body.should have_tag('h1') # Whatever, let's just prove that it renders.
+  end
+
 end
 

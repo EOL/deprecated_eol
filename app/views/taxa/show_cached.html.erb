@@ -1,4 +1,4 @@
-<% cache(:controller=>'/taxa',:part=>'page_' + @taxon_id.to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + current_user.can_curate?(@taxon).to_s)  do %>
+<% cache(:controller=>'/taxa',:part=>'page_' + @taxon_concept.id.to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + @taxon_concept.show_curator_controls?.to_s)  do %>
 
   <%= render :partial=>'show' %>
     

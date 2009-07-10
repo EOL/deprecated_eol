@@ -37,6 +37,7 @@ describe Search do
     it "should execute a query" do
       cf = CanonicalForm.gen :string => "tiger"
       nn = NormalizedName.gen :name_part => "tiger"
+      Name.delete_all('string = "tiger"') # TODO - move this to the test AFTER which it's created and not cleaned up!
       nm = Name.gen :italicized => "ital", :canonical_form => cf, :string => "tiger", :canonical_verified => "cv"
       nl = NormalizedLink.gen :normalized_name => nn, :name => nm
       tc = TaxonConcept.gen(:vetted => Vetted.trusted, :published => "1")
@@ -47,7 +48,6 @@ describe Search do
       # pp Search.new(@params, @request, @user, @agent)
     end
     
-    # it "should "
   end
   
 end

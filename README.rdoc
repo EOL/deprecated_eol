@@ -139,25 +139,46 @@ Content Partner, and should be visibile only to her.
 
 To setup Selenium IDE point your Firefox browser at:
 
-https://addons.mozilla.org/en-US/firefox/addon/2079
+  https://addons.mozilla.org/en-US/firefox/addon/2079
 
-Once installed, it can be opened via the Tools menu of Firefox. All Selenium test suites
-and test cases are located under the spec/selenium directory. Before running the
-development test suite, the following should be run:
+Once installed, it can be opened via the Tools menu of Firefox. All Selenium test suites and test cases are located
+under the spec/selenium directory. Before running the development test suite, the following should be run:
 
-rake truncate && rake scenarios:load NAME=bootstrap && script/server
+  rake truncate && rake scenarios:load NAME=bootstrap && script/server
 
+Acceptance testing with the browser is accomplished with Selenium RC and the selenium-client Rubygem. To run the
+Selenium acceptance tests, open a console:
 
-
-
-Acceptance testing with the browser is accomplished with Selenium RC and the selenium-client Rubygem. To run
-the Selenium acceptance tests, open a console:
-
-1. Tab 1: ./script/selenium-server
-
-2. Tab 2: rake test:acceptance:web 
+  1. Tab 1: ./script/selenium-server
+  2. Tab 2: rake test:acceptance:web 
 
 The Selenium RC and Selenium-Client should be installed in the `vendor' directory.
+
+=== Measuring Code Quality
+
+The EOL code base uses metric_fu-1.0.2 to evaluate the overall code quality.
+
+==== Details
+
+In order to run the various metrics gems, an environment variable METRICS is required. This variable is observed if
+and only if the Rails environment RAILS_ENV=test.
+
+It is the team's opinion that metric-fu, and it's various dependencies, are system level tools (like ruby-debug) and
+should not be checked into the code base. A user or a CI server will require the installation of the
+jscruggs-metric_fu gem which properly install various dependencies such as flay, flog, reek, and roodi.
+
+==== Conclusion
+
+The following Rake tasks are available when METRICS=true and RAILS_ENV=test:
+
+  rake eol:quality:all # Runs metrics on EOL
+  rake eol:quality:flay # Analyze for code duplication
+  rake eol:quality:flog # Analyze for code complexity
+  rake eol:quality:roodi # Check for design issues in: app/*/.rb, lib/*/.rb
+
+An example of how to run them:
+
+  RAILS_ENV=test METRICS=true rake eol:quality:all
 
 == MULTI-DATABASE AND MASTER/SLAVE DATABASES SETUP
 

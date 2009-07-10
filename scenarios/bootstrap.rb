@@ -56,10 +56,12 @@ gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (
 AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.primary)
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
-kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_names => ['Animals'])
+kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_names => ['Animals'],
+                              :event => event)
 4.times do
   build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
                       :depth => Hierarchy.default.hierarchy_entries.length,
+                      :event => event,
                       :common_names => [Factory.next(:common_name)])
 end
 
@@ -68,19 +70,20 @@ depth_now      = Hierarchy.default.hierarchy_entries.length
 
 # Sixth Taxon should have more images, and have videos:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
-                         :depth => depth_now, :images => [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}])
+                         :depth => depth_now, :images => :testing, :event => event)
 
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
-                    :bhl => [])
+                    :bhl => [], :event => event)
 
 # Eighth Taxon (now we're just getting greedy) should be the same as Seven, but with BHL:
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
-                    :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
+                    :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
+                    :event => event)
 
 # Ninth Taxon is *totally* naked:
-build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [], :bhl => [],
+build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [], :bhl => [], :event => event,
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
@@ -95,8 +98,11 @@ ev2    = HarvestEvent.gen(:resource => r2)
 ar     = AgentsResource.gen(:agent => agent2, :resource => r2, :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 hier   = Hierarchy.gen :agent => agent2
 he     = build_hierarchy_entry 0, tc, name, :hierarchy => hier
-img    = build_data_object('Image', "This should only be seen by ContentPartner #{cp.description}", :taxon => tc.images.first.taxa[0],
-                           :hierarchy_entry => he, :object_cache_url => Factory.next(:image), :vetted => Vetted.unknown,
+img    = build_data_object('Image', "This should only be seen by ContentPartner #{cp.description}",
+                           :taxon => tc.images.first.taxa[0],
+                           :hierarchy_entry => he,
+                           :object_cache_url => Factory.next(:image),
+                           :vetted => Vetted.unknown,
                            :visibility => Visibility.preview)
 
 # Some node in the GBIF Hierarchy to test maps on
@@ -118,7 +124,7 @@ curator.save
 make_all_nested_sets
 recreate_normalized_names_and_links
 
-exemplar = build_taxon_concept(:common_names => ['wumpus'], :id => 910093) # That ID is one of the (hard-coded) exemplars.
+exemplar = build_taxon_concept(:event => event, :common_names => ['wumpus'], :id => 910093) # That ID is one of the (hard-coded) exemplars.
 
 # Adds a ContentPage at the following URL: http://localhost:3000/content/page/curator_central
 

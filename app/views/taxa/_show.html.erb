@@ -43,8 +43,7 @@
                 <% end %>
             </span>
             <span class="page-status">
-.
-<%= current_user.expertise.to_s == 'expert' ? link_to('Switch to common names',taxon_url(:id=>@taxon_concept.id) + '?expertise=middle') : link_to('Switch to scientific names',taxon_url(:id=>@taxon_concept.id) + '?expertise=expert') %>
+              <%= current_user.expertise.to_s == 'expert' ? link_to('Switch to common names',taxon_url(:id=>@taxon_concept.id) + '?expertise=middle') : link_to('Switch to scientific names',taxon_url(:id=>@taxon_concept.id) + '?expertise=expert') %>
             </span>
             <hr />             
         </div>

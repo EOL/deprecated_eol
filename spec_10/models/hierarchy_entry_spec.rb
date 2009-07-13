@@ -253,13 +253,13 @@ describe HierarchyEntry, '#ancestors' do
     @other_ancestry = []
     @other_ancestry2 = []
     8.times do
-      @default_ancestry << HierarchyEntry.create(:remote_id => '', :depth => 5, :ancestry => '', :lft => 3, :rgt => 3, :rank_id => 123, :name_id => 1, :identifier => '', :parent_id => (@default_ancestry.last.id rescue 0), :taxon_concept => TaxonConcept.create(:supercedure_id => 4), :hierarchy => @default_hierarchy)
+      @default_ancestry << HierarchyEntry.create(:depth => 5, :ancestry => '', :lft => 3, :rgt => 3, :rank_id => 123, :name_id => 1, :identifier => '', :parent_id => (@default_ancestry.last.id rescue 0), :taxon_concept => TaxonConcept.create(:supercedure_id => 4), :hierarchy => @default_hierarchy)
     end
     8.times do
-      @other_ancestry << HierarchyEntry.create(:remote_id => '', :depth => 5, :ancestry => '', :lft => 3, :rgt => 3, :rank_id => 123, :name_id => 1, :identifier => '', :parent_id => (@other_ancestry.last.id rescue 0), :taxon_concept => (@default_ancestry[@other_ancestry.length + 5].taxon_concept rescue TaxonConcept.create(:supercedure_id => 1)), :hierarchy => @other_hierarchy)
+      @other_ancestry << HierarchyEntry.create(:depth => 5, :ancestry => '', :lft => 3, :rgt => 3, :rank_id => 123, :name_id => 1, :identifier => '', :parent_id => (@other_ancestry.last.id rescue 0), :taxon_concept => (@default_ancestry[@other_ancestry.length + 5].taxon_concept rescue TaxonConcept.create(:supercedure_id => 1)), :hierarchy => @other_hierarchy)
     end
     8.times do
-      @other_ancestry2 << HierarchyEntry.create(:remote_id => '', :depth => 5, :ancestry => '', :lft => 3, :rgt => 3, :rank_id => 123, :name_id => 1, :identifier => '', :parent_id => (@other_ancestry2.last.id rescue 0), :taxon_concept => TaxonConcept.create(:supercedure_id => 1), :hierarchy => @other_hierarchy)
+      @other_ancestry2 << HierarchyEntry.create(:depth => 5, :ancestry => '', :lft => 3, :rgt => 3, :rank_id => 123, :name_id => 1, :identifier => '', :parent_id => (@other_ancestry2.last.id rescue 0), :taxon_concept => TaxonConcept.create(:supercedure_id => 1), :hierarchy => @other_hierarchy)
     end
 
     Hierarchy.stub!(:default).and_return(@default_hierarchy)

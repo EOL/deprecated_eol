@@ -509,7 +509,6 @@ Factory.define :hierarchies_content do |hc|
 end
 
 Factory.define :hierarchy_entry do |he|
-  he.remote_id   '' # This is an ID on the foreign web site, NOT in our DB.
   he.depth       2
   he.ancestry    ''
   he.lft         1

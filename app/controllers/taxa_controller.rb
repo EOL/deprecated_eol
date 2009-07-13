@@ -128,7 +128,6 @@ class TaxaController < ApplicationController
           @data_object_ids_to_log.compact!
 
           @contains_unvetted_objects = false # per request by Jim Edwards on 11/5/2008 in Mexico, we should *not* show the top banner indicating there are unvetted objects on a page
-          #@contains_unvetted_objects=((!current_user.vetted && @taxon.includes_unvetted) ? true : false)  # uncomment this line to show unvetted warning on page with those objects
 
         else
 
@@ -295,7 +294,7 @@ class TaxaController < ApplicationController
 
   def user_text_change_toc
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-    @taxon_id = @taxon_concept.id
+    @taxon_id = @taxon_concept.id # backwards compatability within views
 
     if (params[:data_objects_toc_category] && (toc_id = params[:data_objects_toc_category][:toc_id]))
       @toc_item = TocItem.find(toc_id)
@@ -305,13 +304,13 @@ class TaxaController < ApplicationController
       @toc_item = tc.tocitem_for_new_text
     end
 
-    @taxon = @taxon_concept
     @category_id = @toc_item.id
-    @taxon.current_agent = current_agent unless current_agent.nil?
-    @taxon.current_user = current_user
+    @taxon_concept.current_agent = current_agent unless current_agent.nil?
+    @taxon_concept.current_user = current_user
     @ajax_update = true
-    @content = @taxon.content_by_category(@category_id)
+    @content = @taxon_concept.content_by_category(@category_id)
     @new_text = render_to_string(:partial => 'content_body')
+    @taxon = @taxon_concept # backwards compatability within views
   end
 
   # AJAX: Render the requested content page
@@ -321,14 +320,14 @@ class TaxaController < ApplicationController
       return
     end
 
-    @taxon_id    = params[:id]
-    @taxon       = TaxonConcept.find(@taxon_id) 
-    @category_id = params[:category_id].to_i
-    @taxon.current_agent = current_agent unless current_agent.nil?
-    @taxon.current_user = current_user
-    @curator = current_user.can_curate?(@taxon)
+    @taxon_id      = params[:id]
+    @taxon_concept = TaxonConcept.find(@taxon_id) 
+    @category_id   = params[:category_id].to_i
+    @taxon_concept.current_agent = current_agent unless current_agent.nil?
+    @taxon_concept.current_user  = current_user
+    @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
 
-    @content     = @taxon.content_by_category(@category_id)
+    @content     = @taxon_concept.content_by_category(@category_id)
     @ajax_update=true
     if @content.nil?
       render :text => '[content missing]'
@@ -343,7 +342,8 @@ class TaxaController < ApplicationController
       end
     end
 
-    log_data_objects_for_taxon_concept @taxon, *@content[:data_objects] unless @content.nil?
+    log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
+    @taxon = @taxon_concept # backwards compatability for views
 
   end
 

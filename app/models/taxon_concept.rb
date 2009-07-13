@@ -820,6 +820,9 @@ private
     # "stick".  Thus, I override the array:
     override_data_objects = []
     result[:data_objects].each do |data_object|
+      
+      data_object.description = data_object.description_linked if !data_object.description_linked.nil?
+      
       if entry && data_object.sources.detect { |src| src.full_name == 'FishBase' }
         # TODO - We need a better way to choose which Agent to look at.  : \
         # TODO - We need a better way to choose which Collection to look at.  : \

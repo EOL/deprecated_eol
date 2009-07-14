@@ -7,9 +7,17 @@ module ReportsControllerModule
   
   # Are we really need that index?
   def index
-    whole_report
+    if Agent.find(current_agent.id).agents_data == ""
+      no_resources
+    else
+      whole_report
+    end
     # render :template => 'reports/index'
   end  
+  
+  def no_resources
+    render :template => 'reports/no_resources'
+  end
   
   def admin_whole_report
     @act_histories = ActionsHistory.paginate(:page => params[:page] || 1, 

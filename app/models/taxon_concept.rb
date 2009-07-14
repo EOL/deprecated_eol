@@ -821,6 +821,7 @@ private
     override_data_objects = []
     result[:data_objects].each do |data_object|
       
+      # override the object's description with the linked one if available
       data_object.description = data_object.description_linked if !data_object.description_linked.nil?
       
       if entry && data_object.sources.detect { |src| src.full_name == 'FishBase' }

@@ -334,12 +334,17 @@ class Agent < SpeciesSchemaModel
   
   # Find the data_objects "belongs" to an Agent.
   def agents_data
-    	HarvestEvent.find_by_sql(["
+    begin 
+      datos = HarvestEvent.find_by_sql(["
           SELECT DISTINCT he.id FROM agents a 
                 JOIN agents_resources ar ON (ar.agent_id=a.id)
                 JOIN harvest_events he ON (ar.resource_id=he.resource_id) 
                 WHERE  (ar.agent_id=? AND he.published_at != '')
 	              ORDER BY he.id DESC LIMIT 1", self.id])[0].data_objects
+	  rescue
+	    datos = ""
+	  end
+	  return datos
   end
   
   protected

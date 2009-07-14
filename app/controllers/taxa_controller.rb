@@ -307,11 +307,11 @@ class TaxaController < ApplicationController
     @ajax_update = true
     @content = @taxon_concept.content_by_category(@category_id)
     @new_text = render_to_string(:partial => 'content_body')
-    @taxon = @taxon_concept # backwards compatability within views
   end
 
   # AJAX: Render the requested content page
   def content
+
     if !request.xhr?
       render :nothing=>true
       return
@@ -339,7 +339,6 @@ class TaxaController < ApplicationController
     end
 
     log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
-    @taxon = @taxon_concept # backwards compatability for views
 
   end
 

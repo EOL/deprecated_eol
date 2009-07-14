@@ -58,7 +58,7 @@
                                    "',vetted_id: " + image.vetted_id.to_s +
                                    ",published: " + published.to_s +
                                    ",taxonID: '" + escape_javascript(image.taxon_id) +
-                                   "',current_taxa: " + (@taxon_id == image.taxon_id).to_s +
+                                   "',current_taxa: " + (@taxon_concept.id == image.taxon_id).to_s +
                                    ", nameString: '" + escape_javascript(hh(image.scientific_name)) +
                                    "',location: '" + escape_javascript(image.location) +
                                    "',info_url: '" + escape_javascript(image.object_url || '') +

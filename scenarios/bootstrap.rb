@@ -86,6 +86,12 @@ build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names 
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [], :bhl => [], :event => event,
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
 
+#20 has unvetted images and videos:         
+build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
+                    :depth => depth_now, :images => [{:vetted => Vetted.untrusted}], :toc => [], :flash => [{:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [],
+                    :bhl => [], :event => event)
+
+
 # Now that we're done with CoL, we add another content partner who overlaps with them:
        # Give it a new name:
 name   = Name.gen(:canonical_form => tc.canonical_form_object, :string => n = Factory.next(:scientific_name),

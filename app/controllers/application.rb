@@ -225,7 +225,6 @@ end
   # check to see if a session exists, and create if it not
   #  even non-logged in users get a session to store their expertise and language preferences
   def set_session
-
     # if we don't have a session yet, create it, set taxa views to 0 for this user, and increment number of unique visitors
     if current_user.nil?
 

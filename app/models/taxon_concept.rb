@@ -61,16 +61,16 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   # The common name will defaut to the current user's language.
-  def common_name
-    quick_common_name
+  def common_name(hierarchy = nil)
+    quick_common_name(hierarchy)
   end
 
   # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
     users = User.find_by_sql(default_hierarchy_curators_clause)
-    unless in_default_hierarchy?
-      users += find_default_hierarchy_ancestor.taxon_concept.curators unless find_default_hierarchy_ancestor.nil?
+    unless in_hierarchy(Hierarchy.default)
+      users += find_ancestor_in_hierarchy(Hierarchy.default).taxon_concept.curators if maps_to_hierarchy(Hierarchy.default)
     end
     return users
   end
@@ -128,8 +128,9 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
-  def scientific_name
-    quick_scientific_name(species_or_below? ? :italicized : :normal)
+  def scientific_name(hierarchy = nil)
+    hierarchy ||= Hierarchy.default
+    quick_scientific_name(species_or_below? ? :italicized : :normal, hierarchy)
   end
 
   # pull list of categories for given taxa id
@@ -218,11 +219,6 @@ class TaxonConcept < SpeciesSchemaModel
     self.hierarchy_entries[0].name(detail_level, language, context).firstcap rescue '?-?'
   end
 
-  def in_hierarchy(search_hierarchy_id = 0)
-    enries = hierarchy_entries.detect {|he| he.hierarchy_id == search_hierarchy_id }
-    return enries.nil? ? false : true
-  end
-
   # Because nested has_many_through won't work with CPKs:
   def mappings
     YAML.load(Rails.cache.fetch("taxon_concepts/#{self.id}/mappings") do
@@ -282,33 +278,56 @@ class TaxonConcept < SpeciesSchemaModel
       hierarchy_entries[0] ||
       nil
   end
+  
+  def entry_in_hierarchy(hierarchy)
+    raise "Hierarchy does not exist" if hierarchy.nil?
+    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
+    return hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
+      nil
+  end
 
   # These are methods that are specific to a hierarchy, so we have to handle them through entry:
   # This was handled using delegate, before, but seemed to be causing problems, so I'm making it explicit:
-  def kingdom
-    return nil if entry.nil?
-    return entry.kingdom
+  def kingdom(hierarchy = nil)
+    return nil if entry(hierarchy).nil?
+    return entry(hierarchy).kingdom(hierarchy)
   end
-  def children_hash(detail_level = :middle, language = Language.english)
-    return {} unless entry
-    return entry.children_hash(detail_level, language)
+  def children_hash(detail_level = :middle, language = Language.english, hierarchy = nil)
+    return {} unless entry(hierarchy)
+    return entry(hierarchy).children_hash(detail_level, language)
   end
-  def ancestors_hash(detail_level = :middle, language = Language.english)
-    return {} unless entry
-    return entry.ancestors_hash(detail_level, language)
+  def ancestors_hash(detail_level = :middle, language = Language.english, cross_reference_hierarchy = nil)
+    return {} unless entry(cross_reference_hierarchy)
+    return entry(cross_reference_hierarchy).ancestors_hash(detail_level, language, cross_reference_hierarchy)
+  end  
+  
+  # general versions of the above methods for any hierarchy
+  def find_ancestor_in_hierarchy(hierarchy)
+    hierarchy_entries.each do |entry|
+      this_entry_in = entry.find_ancestor_in_hierarchy(hierarchy)
+      return this_entry_in if this_entry_in
+    end
+    return nil
   end
-  def find_default_hierarchy_ancestor
-    return nil unless entry
-    return entry.find_default_hierarchy_ancestor
+  
+  def maps_to_hierarchy(hierarchy)
+    return !find_ancestor_in_hierarchy(hierarchy).nil?
   end
-
-  def maps_to_default_hierarchy?
-    return !find_default_hierarchy_ancestor.nil?
+  
+  def in_hierarchy(search_hierarchy = nil)
+    return false unless search_hierarchy
+    entries = hierarchy_entries.detect {|he| he.hierarchy_id == search_hierarchy.id }
+    return entries.nil? ? false : true
   end
-  def in_default_hierarchy?
-    return entry && entry.hierarchy_id == Hierarchy.default.id
-  end
-
+  
+  
+  
+  
+  
+  
+  
+  
+  
   # We do have some content that is specific to COL, so we need a method that will ALWAYS reference it:
   def col_entry
     return @col_entry unless @col_entry.nil?
@@ -355,19 +374,27 @@ class TaxonConcept < SpeciesSchemaModel
     return content_level != 0
   end
 
-  def quick_common_name(language = nil)
+  def quick_common_name(language = nil, hierarchy = nil)
     language ||= current_user.language
-    common_name_results = SpeciesSchemaModel.connection.select_values("SELECT n.string FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1 LIMIT 1")
-    if common_name_results.empty?
-      return ''
+    hierarchy ||= Hierarchy.default
+    common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1").all_hashes
+    
+    final_name = ''
+    
+    # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names 
+    common_name_results.each do |result|
+      if final_name == '' || result['source_hierarchy_id'].to_i == hierarchy.id
+        final_name = result['name'].firstcap
+      end
     end
-    common_name_results[0].firstcap
+    return final_name
   end
   
-  def quick_scientific_name(type = :normal)
-
+  def quick_scientific_name(type = :normal, hierarchy = nil)
+    hierarchy ||= Hierarchy.default
+    
     scientific_name_results = []
-
+    
     search_type = case type
       when :italicized  then {:name_field => 'n.italicized', :also_join => ''}
       when :canonical   then {:name_field => 'cf.string',    :also_join => 'JOIN canonical_forms cf ON (n.canonical_form_id = cf.id)'}
@@ -384,7 +411,7 @@ class TaxonConcept < SpeciesSchemaModel
     
     # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names 
     scientific_name_results.each do |result|
-      if final_name == '' || result['source_hierarchy_id'].to_i == Hierarchy.default.id
+      if final_name == '' || result['source_hierarchy_id'].to_i == hierarchy.id
         final_name = result['name'].firstcap
       end
     end
@@ -539,9 +566,10 @@ EOIUCNSQL
     return desired_entry.ancestors
   end
 
-  def classification_attribution
-    return '' unless entry
-    return entry.classification_attribution
+  def classification_attribution(hierarchy = nil)
+    hierarchy ||= Hierarchy.default
+    return '' unless entry(hierarchy)
+    return entry(hierarchy).classification_attribution
   end
 
   # pull content type by given category for taxa id 
@@ -562,16 +590,19 @@ EOIUCNSQL
   end
 
   # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
-  def title
+  def title(hierarchy = nil)
     return @title unless @title.nil?
-    title = quick_scientific_name(:italicized)
+    hierarchy ||= Hierarchy.default
+    
+    title = quick_scientific_name(:italicized, hierarchy)
     @title = title.empty? ? name(:scientific) : title
   end
 
-  def subtitle
+  def subtitle(hierarchy = nil)
     return @subtitle unless @subtitle.nil?
-    subtitle = quick_common_name()
-    subtitle = quick_scientific_name(:canonical) if subtitle.empty?
+    hierarchy ||= Hierarchy.default
+    subtitle = quick_common_name(nil, hierarchy)
+    subtitle = quick_scientific_name(:canonical, hierarchy) if subtitle.empty?
     subtitle = "<i>#{subtitle}</i>" unless subtitle.empty? or subtitle =~ /<i>/
     @subtitle = subtitle.empty? ? name() : subtitle
   end

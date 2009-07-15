@@ -3,6 +3,11 @@ class NavigationController < ApplicationController
   # caches_page :flash_tree_view
 
   def show_tree_view
+    # set the users default hierarchy if they haven't done so already
+    current_user.default_hierarchy_id = Hierarchy.default if current_user.default_hierarchy_id.nil?
+    @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
+    
+    
     load_taxon_for_tree_view
     render :layout => false, :partial => 'tree_view', :locals => { :current_user => current_user }
   end

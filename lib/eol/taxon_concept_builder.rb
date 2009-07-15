@@ -154,8 +154,8 @@ class EOL
     def add_images
       puts "** Enter: add_images" if @debugging
       @images.each do |img|
-        description             = img.delete(:description) || Faker::Lorem.sentence
-        img[:taxon]           ||= @taxon
+        description   = img.delete(:description) || Faker::Lorem.sentence
+        img[:taxon] ||= @taxon
         @image_objs << build_object_in_event('Image', description, img)
       end
     end
@@ -164,18 +164,18 @@ class EOL
       puts "** Enter: add_videos" if @debugging
       flash_options = @flash || [{}] # Array with one empty hash, which we will populate with defaults:
       flash_options.each do |flash_opt|
-        flash_opt[:description]      ||= Faker::Lorem.sentence
+        desc = flash_opt.delete(:description) || Faker::Lorem.sentence
         flash_opt[:object_cache_url] ||= Factory.next(:flash)
-        build_object_in_event('Flash', flash_opt[:description], :taxon => @taxon,
-                              :object_cache_url => flash_opt[:object_cache_url])
+        flash_opt[:taxon] ||= @taxon
+        build_object_in_event('Flash', desc, flash_opt)
       end
 
       youtube_options = @youtube || [{}] # Array with one empty hash, which we will populate with defaults:
       youtube_options.each do |youtube_opt|
-        youtube_opt[:description]      ||= Faker::Lorem.sentence
+        desc = youtube_opt.delete(:description) || Faker::Lorem.sentence
         youtube_opt[:object_cache_url] ||= Factory.next(:youtube)
-        build_object_in_event('YouTube', youtube_opt[:description], :taxon => @taxon,
-                              :object_cache_url => youtube_opt[:object_cache_url])
+        youtube_opt[:taxon] ||= @taxon
+        build_object_in_event('YouTube', desc, youtube_opt)
       end
     end
 

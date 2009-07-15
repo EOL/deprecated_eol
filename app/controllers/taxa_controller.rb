@@ -94,6 +94,19 @@ class TaxaController < ApplicationController
           @show_next_image_page_button = @taxon_concept.more_images # indicates if more images are available
           @default_image = @images[0].smart_image unless @images.nil? or @images.blank?
 
+          @videos = show_unvetted_videos #collect all videos (unvetted as well)
+                                                                                 
+          if params[:vet_flag] != "false"
+            params[:vet_flag] = "true"
+          end
+          
+          if params[:vet_flag] == "false"
+            @video_collection = @videos            
+          else 
+            @video_collection = @taxon_concept.videos unless @taxon_concept.videos.blank?
+          end
+            
+
           # find first valid content area to use
           first_content_item = @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }
           @category_id = first_content_item.nil? ? nil : first_content_item.id
@@ -128,7 +141,6 @@ class TaxaController < ApplicationController
           @data_object_ids_to_log.compact!
 
           @contains_unvetted_objects = false # per request by Jim Edwards on 11/5/2008 in Mexico, we should *not* show the top banner indicating there are unvetted objects on a page
-          #@contains_unvetted_objects=((!current_user.vetted && @taxon.includes_unvetted) ? true : false)  # uncomment this line to show unvetted warning on page with those objects
 
         else
 
@@ -295,7 +307,7 @@ class TaxaController < ApplicationController
 
   def user_text_change_toc
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-    @taxon_id = @taxon_concept.id
+    @taxon_id = @taxon_concept.id # backwards compatability within views
 
     if (params[:data_objects_toc_category] && (toc_id = params[:data_objects_toc_category][:toc_id]))
       @toc_item = TocItem.find(toc_id)
@@ -305,13 +317,13 @@ class TaxaController < ApplicationController
       @toc_item = tc.tocitem_for_new_text
     end
 
-    @taxon = @taxon_concept
     @category_id = @toc_item.id
-    @taxon.current_agent = current_agent unless current_agent.nil?
-    @taxon.current_user = current_user
+    @taxon_concept.current_agent = current_agent unless current_agent.nil?
+    @taxon_concept.current_user = current_user
     @ajax_update = true
-    @content = @taxon.content_by_category(@category_id)
+    @content = @taxon_concept.content_by_category(@category_id)
     @new_text = render_to_string(:partial => 'content_body')
+    @taxon = @taxon_concept # backwards compatability within views
   end
 
   # AJAX: Render the requested content page
@@ -321,14 +333,14 @@ class TaxaController < ApplicationController
       return
     end
 
-    @taxon_id    = params[:id]
-    @taxon       = TaxonConcept.find(@taxon_id) 
-    @category_id = params[:category_id].to_i
-    @taxon.current_agent = current_agent unless current_agent.nil?
-    @taxon.current_user = current_user
-    @curator = current_user.can_curate?(@taxon)
+    @taxon_id      = params[:id]
+    @taxon_concept = TaxonConcept.find(@taxon_id) 
+    @category_id   = params[:category_id].to_i
+    @taxon_concept.current_agent = current_agent unless current_agent.nil?
+    @taxon_concept.current_user  = current_user
+    @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
 
-    @content     = @taxon.content_by_category(@category_id)
+    @content     = @taxon_concept.content_by_category(@category_id)
     @ajax_update=true
     if @content.nil?
       render :text => '[content missing]'
@@ -343,7 +355,8 @@ class TaxaController < ApplicationController
       end
     end
 
-    log_data_objects_for_taxon_concept @taxon, *@content[:data_objects] unless @content.nil?
+    log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
+    @taxon = @taxon_concept # backwards compatability for views
 
   end
 
@@ -391,7 +404,7 @@ class TaxaController < ApplicationController
     end
 
   end
-
+  
   # AJAX: used to show a pop-up in a floating div, all views are in the "popups" subfolder
   def show_popup
 
@@ -461,4 +474,16 @@ class TaxaController < ApplicationController
         'none'
       end
     end
+    
+    def show_unvetted_videos
+      vetted_mode = @taxon_concept.current_user.vetted
+      @taxon_concept.current_user.vetted = false
+      if @taxon_concept.videos.blank? == false
+        videos = @taxon_concept.videos
+      end                                                                     
+      @taxon_concept.current_user.vetted = vetted_mode
+
+      return videos
+    end
+    
 end

@@ -2640,3 +2640,7 @@ div#report_from_eol ul {
   padding-left: 14px !important;
 }
 
+span#left_top_text {
+  padding-left: 13px;
+}
+

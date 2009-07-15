@@ -11,12 +11,17 @@
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="MSSmartTagsPreventParsing" content="true" />
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+    
+    <%-
+        puts 'main.html.erb'
+        pp @session_hierarchy
+    %>
 
-    <%- if @taxon -%>
-        <meta name="description" content="<%= hh(remove_html("#{@taxon.title} (#{@taxon.subtitle}) in Encyclopedia of Life")) %>" />
-        <meta name="keywords" content="<%= meta_keywords(hh(@taxon.title) + ' ' + hh(@taxon.subtitle)) %>" />
-        <%- if !@taxon.entry.nil? && !@taxon.entry.hierarchies_content.nil? && (@taxon.entry.hierarchies_content.image != 0 || @taxon.entry.hierarchies_content.child_image != 0) -%>
-          <link id="media_rss" rel="alternate" href="/content/mediarss?format=rss&id=<%= @taxon.id %>" type="application/rss+xml" />
+    <%- if @taxon_concept -%>
+        <meta name="description" content="<%= hh(remove_html("#{@taxon_concept.title(@session_hierarchy)} (#{@taxon_concept.subtitle(@session_hierarchy)}) in Encyclopedia of Life")) %>" />
+        <meta name="keywords" content="<%= meta_keywords(hh(@taxon_concept.title(@session_hierarchy)) + ' ' + hh(@taxon_concept.subtitle(@session_hierarchy))) %>" />
+        <%- if !@taxon_concept.entry.nil? && !@taxon_concept.entry.hierarchies_content.nil? && (@taxon_concept.entry.hierarchies_content.image != 0 || @taxon_concept.entry.hierarchies_content.child_image != 0) -%>
+          <link id="media_rss" rel="alternate" href="/content/mediarss?format=rss&id=<%= @taxon_concept.id %>" type="application/rss+xml" />
         <%- end -%>
     <%- else -%>
         <meta name="description" content="Encyclopedia of Life" />

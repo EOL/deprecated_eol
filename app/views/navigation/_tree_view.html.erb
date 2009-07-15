@@ -1,6 +1,14 @@
 <div id="taxonomic-text-container">
   <ul id="taxonomictext">
-  <%- kingdoms              = Hierarchy.default.kingdoms_hash(current_user.expertise, current_user.language) rescue [] %>
+    <%- 
+        # puts 'This is the current user'
+        # pp current_user
+        # pp @session_hierarchy
+        # pp @taxon_concept.kingdom(@session_hierarchy)
+        # pp @taxon_concept.kingdom(@session_hierarchy)
+        # pp @taxon_concept.ancestors_hash(current_user.expertise, current_user.language, @session_hierarchy)
+    %>
+  <%- kingdoms              = @session_hierarchy.kingdoms_hash(current_user.expertise, current_user.language) rescue [] %>
   <%- kingdoms.each do |kingdom| %>
     <%# show some visible segregation from other kingdoms if this is our current kingdom%>
     
@@ -12,14 +20,15 @@
                          :enable                => kingdom[:enable],
                          :kingdom               => true,
                          :first_kingdom         => kingdom == kingdoms.first,
-                         :current_kingdom       =>(!@taxon_concept.kingdom.nil? && kingdom[:id].to_i == @taxon_concept.kingdom.taxon_concept_id),
+                         :current_kingdom       =>(!@taxon_concept.kingdom(@session_hierarchy).nil? && kingdom[:id].to_i == @taxon_concept.kingdom(@session_hierarchy).taxon_concept_id),
                          :level                 => 0,
                          :current_node          =>(kingdom[:id].to_i == @taxon_concept.id)
                         }) %>
-      <%- if kingdom[:id].to_i == @taxon_concept.kingdom.taxon_concept_id %>
+      <%- if kingdom[:id].to_i == @taxon_concept.kingdom(@session_hierarchy).taxon_concept_id %>
+      
       <%= render(:partial => 'navigation/tree_view_current_kingdom',
-                 :locals => {:current_treepath => @taxon_concept.ancestors_hash(current_user.expertise, current_user.language),
-                             :children_nodes   => @taxon_concept.children_hash(current_user.expertise, current_user.language).sort { |a,b|
+                 :locals => {:current_treepath => @taxon_concept.ancestors_hash(current_user.expertise, current_user.language, @session_hierarchy),
+                             :children_nodes   => @taxon_concept.children_hash(current_user.expertise, current_user.language, @session_hierarchy).sort { |a,b|
                                  a[:name] <=> b[:name]
                             }}) %>
         <br />
@@ -27,7 +36,7 @@
     </li>
   <%- end %>
   </ul>
-  <%- unless @taxon_concept.maps_to_default_hierarchy? %>
-    <ul><li><br/><b>Name not in 2008 Catalogue of Life</b></li></ul>
+  <%- unless @taxon_concept.maps_to_hierarchy(@session_hierarchy) %>
+    <ul><li><br/><b>Name not in <%= @session_hierarchy.label %></b></li></ul>
   <%- end %>
 </div>

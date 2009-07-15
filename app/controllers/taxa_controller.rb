@@ -78,6 +78,12 @@ class TaxaController < ApplicationController
     respond_to do |format|
       format.html do
         category_id = params[:category_id] || 'default'
+        
+        # set the users default hierarchy if they haven't done so already
+        current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil?
+        pp Hierarchy.default
+        pp current_user
+        @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
 
         update_user_content_level
         
@@ -136,7 +142,7 @@ class TaxaController < ApplicationController
 
         end # end get full page since we couldn't read from cache
 
-        @taxon_page_title=remove_html(@taxon_concept.title) # we always need the title
+        @taxon_page_title=remove_html(@taxon_concept.title(@session_hierarchy)) # we always need the title
 
         render :template=>'/taxa/show_cached' if allow_page_to_be_cached? && category_id == 'default' # if caching is allowed, see if fragment exists using this template
       end

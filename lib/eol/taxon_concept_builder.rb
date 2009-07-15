@@ -248,6 +248,7 @@ class EOL
       puts "**** Enter: build_entry_in_hierarchy" if @debugging
       raise "Cannot build a HierarchyEntry without depth, TaxonConcept, and Name" unless @depth && @tc && @sname
       options[:hierarchy] ||= @hierarchy
+      options[:rank_id] ||= Rank.find_by_label(@rank).id rescue nil
       return build_hierarchy_entry(@depth, @tc, @sname, options)
     end
 

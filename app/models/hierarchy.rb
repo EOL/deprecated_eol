@@ -44,15 +44,12 @@ class Hierarchy < SpeciesSchemaModel
         
     kingdoms = SpeciesSchemaModel.connection.execute("
       SELECT n1.string scientific_name, n1.italicized scientific_name_italicized,
-             n2.string common_name, n2.italicized common_name_italicized,
              he.taxon_concept_id id, he.id hierarchy_entry_id, he.lft lft, he.rgt rgt, he.rank_id,
              hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image,
              r.label rank_string
         FROM hierarchy_entries he
           JOIN names n1 ON (he.name_id=n1.id)
           JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
-          LEFT JOIN (taxon_concept_names tcn JOIN names n2 ON (tcn.name_id=n2.id))
-            ON (he.taxon_concept_id=tcn.taxon_concept_id AND tcn.preferred=1 AND tcn.language_id=#{language.id})
           LEFT JOIN ranks r ON (he.rank_id=r.id)
         WHERE he.parent_id=0 AND hierarchy_id=#{id}
     ").all_hashes
@@ -76,6 +73,12 @@ class Hierarchy < SpeciesSchemaModel
       :valid => node['content_level'].to_i > $VALID_CONTENT_LEVEL,
       :enable => is_leaf_node ? (node['text'].to_i == 1 || node['image'].to_i == 1) : (node['text'].to_i == 1 || node['image'].to_i == 1 || node['child_image'].to_i == 1)
     }
+  end
+  
+  def attribution
+    string = [agent]
+    string.first.full_name = string.first.display_name = label # To change the name from just "Catalogue of Life"
+    return string
   end
 
 end

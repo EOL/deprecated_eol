@@ -2,8 +2,9 @@
 <%- list_levels = 0 %>
 <%- current_treepath.each_with_index do |treepathnode, counter| %>
     <%# render this node in the treepath  %>
-    <%- if treepathnode.nil? == false && !@taxon_concept.kingdom.nil? && treepathnode[:id].to_i != @taxon_concept.kingdom.taxon_concept_id %>
+    <%- if treepathnode.nil? == false && !@taxon_concept.kingdom(@session_hierarchy).nil? && treepathnode[:id].to_i != @taxon_concept.kingdom(@session_hierarchy).taxon_concept_id %>
       <%- list_levels += 1 %>
+      
       <ul><%= render(:partial=>'navigation/tree_view_node',
                      :locals=>{:namestring              => treepathnode[:name],
                                :italicized_namestring   => treepathnode[:italicized],
@@ -18,7 +19,7 @@
 <%- end %>
 
 <%# ------------------- Show the CHIDLREN  (err... if it makes sense to) %>
-<%- if @taxon_concept.in_default_hierarchy? %>
+<%- if @taxon_concept.in_hierarchy(@session_hierarchy) %>
   <%- unless children_nodes.blank? %>
     <div id="taxonomic-children">
     <ul>
@@ -39,7 +40,7 @@
     </div>
   <%- end %><%# end unless no-children %>
 <%- else %><%# if we aren't in the default hierarchy... %>
-  <ul><li><b>Name not in 2008 Catalogue of Life</b></li></ul>
+  <ul><li><b>Name not in <%= @session_hierarchy.label %></b></li></ul>
 <%- end %><%# end only-if-default-hierarchy %>
 <%- list_levels.times do %>
   </li>

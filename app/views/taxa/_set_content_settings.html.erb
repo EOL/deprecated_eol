@@ -2,6 +2,10 @@
 			<%= f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]} %><br/>						
 			<br />
 			
+			<label for="user_default_hierarchy_id" title="<%= "Which default browse hierarchy would you prefer?"[:hierarchy_preference] %>"><%= "Which default browse hierarchy would you prefer?"[:hierarchy_preference] %></label>		            
+			<%= f.select :default_hierarchy_id, [['-- always use default --', nil]] | Hierarchy.all.sort_by{|h| h.label}.collect {|h| [h.label, h.id]} %><br/>						
+			<br />
+			
 		    <label title="<%= "Do you want to include?"[:detail_level] %>"><%= "Do you want to include?"[:detail_level] %></label>		            
 			<%= f.radio_button :expertise, "novice"%> <%="Information intended for beginners"[]%> <br />
 			<%= f.radio_button :expertise, "middle"%> <%="Information for any audience"[]%> <br />

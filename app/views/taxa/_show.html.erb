@@ -16,14 +16,18 @@
         <% if @taxon_concept.vetted_id != Vetted.trusted.id %>
             <div class="unvetted-title-names">
         <% end %>
-        <h1><%= hh(@taxon_concept.title) %></h1>
-        <h2><%= hh(@taxon_concept.subtitle) %></h2>
+        <%-
+            puts '_show.html.erb'
+            pp @session_hierarchy
+        %>
+        <h1><%= hh(@taxon_concept.title(@session_hierarchy)) %></h1>
+        <h2><%= hh(@taxon_concept.subtitle(@session_hierarchy)) %></h2>
         
         
           
         
         <hr />
-        <span class="classification-attribution-name"><%= @rank %> recognized by <%= agent_icons_partial(@taxon_concept.classification_attribution.reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)%></span><br />
+        <span class="classification-attribution-name"><%= @rank %> recognized by <%= agent_icons_partial(@taxon_concept.classification_attribution(@session_hierarchy).reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)%></span><br />
         
         <% if @taxon_concept.vetted_id != Vetted.trusted.id %>
             </div>

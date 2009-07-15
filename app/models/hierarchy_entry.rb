@@ -146,34 +146,36 @@ class HierarchyEntry < SpeciesSchemaModel
     return species_or_below? ? (hierarchies_content.text == 1 or hierarchies_content.image == 1) : valid
   end
 
-  def ancestors
-    Rails.cache.fetch("hierarchy_entries/#{id}/ancestors") do
+  def ancestors(cross_reference_hierarchy = nil)
+    #Rails.cache.fetch("hierarchy_entries/#{id}/ancestors") do
       ancestors = [self]
-      ancestors.unshift(find_default_hierarchy_ancestor) unless self.hierarchy_id == Hierarchy.default.id
-      if ancestors.first.nil?
-        ancestors = [self]
-        return ancestors # .to_yaml
+      if cross_reference_hierarchy
+        ancestors.unshift(find_ancestor_in_hierarchy(cross_reference_hierarchy)) unless self.hierarchy_id == cross_reference_hierarchy.id
+        if ancestors.first.nil?
+          ancestors = [self]
+          return ancestors # .to_yaml
+        end
       end
-      until ancestors.first.parent.nil? do
+      until ancestors.first.parent_id == 0 || ancestors.first.parent.nil? do
         ancestors.unshift(ancestors.first.parent)
       end
       return ancestors # .to_yaml
-    end
+    #end
     #YAML.load(yaml)
   end
 
-  def ancestors_hash(detail_level = :middle, language = Language.english)
+  def ancestors_hash(detail_level = :middle, language = Language.english, cross_reference_hierarchy = nil)
     language ||= Language.english # Not sure why; this didn't work as a default to the argument.
 
-    if self.hierarchy_id != Hierarchy.default.id
-      entry_in_common = find_default_hierarchy_ancestor
+    if !cross_reference_hierarchy.nil? && self.hierarchy_id != cross_reference_hierarchy.id
+      entry_in_common = find_ancestor_in_hierarchy(cross_reference_hierarchy)
       return {} if entry_in_common.nil?
       return entry_in_common.ancestors_hash(detail_level, language)
     end
 
-    ancestors_ids = ancestors.map {|a| a.id}
+    ancestors_ids = ancestors(cross_reference_hierarchy).map {|a| a.id}
     nodes = SpeciesSchemaModel.connection.execute(%Q{
-      SELECT n1.string scientific_name, n1.italicized scientific_name_italicized, n2.string common_name,
+      SELECT he.id, he.taxon_concept_id, n1.string scientific_name, n1.italicized scientific_name_italicized, n2.string common_name,
              n2.italicized common_name_italicized, he.taxon_concept_id id, he.id hierarchy_entry_id, he.lft lft, he.rgt rgt,
              he.rank_id, hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image, r.label rank_string
         FROM hierarchy_entries he
@@ -188,7 +190,13 @@ class HierarchyEntry < SpeciesSchemaModel
         WHERE he.id in (#{ancestors_ids.join(",")})
         ORDER BY he.lft ASC                           -- HierarchyEntry.ancestors_hash
     }).all_hashes
-
+    
+    # nodes.each do |node|
+    #   if final_name == '' || result['source_hierarchy_id'].to_i == Hierarchy.default.id
+    #     final_name = result['name'].firstcap
+    #   end
+    # end
+    
     nodes.map do |node| 
       node_to_hash(node, detail_level)
     end
@@ -204,8 +212,8 @@ class HierarchyEntry < SpeciesSchemaModel
     end
   end
 
-  def kingdom
-    return ancestors.first rescue nil
+  def kingdom(hierarchy = nil)
+    return ancestors(hierarchy).first rescue nil
   end
 
   def smart_thumb
@@ -268,7 +276,6 @@ class HierarchyEntry < SpeciesSchemaModel
   end
 
   def classification_attribution(params={})
-    attribution=hierarchy.label
     attribution = [hierarchy.agent]
     attribution.first.full_name = attribution.first.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
     attribution += agents
@@ -282,14 +289,14 @@ class HierarchyEntry < SpeciesSchemaModel
     return true
   end
 
-  # Walk up the list of ancestors until you find a node that we can map to the default hierarchy.
-  def find_default_hierarchy_ancestor
+  # Walk up the list of ancestors until you find a node that we can map to the specified hierarchy.
+  def find_ancestor_in_hierarchy(hierarchy)
     he = self
-    until he.taxon_concept.in_hierarchy(Hierarchy.default.id)
+    until he.taxon_concept.in_hierarchy(hierarchy)
       return nil if he.parent_id == 0
       he = he.parent
     end
-    he.taxon_concept.entry    
+    he.taxon_concept.entry(hierarchy)
   end
 
 private

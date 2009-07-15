@@ -113,7 +113,7 @@ module EOL::Spec
                               :identifier    => options[:identifier] || '',
                               :depth         => depth,
                               # Cheating. As long as *we* created Ranks with a scenario, this works:
-                              :rank_id       => depth + 1,
+                              :rank_id       => options[:rank_id] || 0,
                               :taxon_concept => tc,
                               :name          => name)
       HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4,

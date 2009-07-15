@@ -1,6 +1,6 @@
 <%
-blind_outlink_parameter=URI::escape(remove_html(@taxon.name(current_user.expertise, current_user.language)))
-blind_outlink_parameter_scientific=URI::escape(remove_html(@taxon.scientific_name)) 
+blind_outlink_parameter=URI::escape(remove_html(@taxon_concept.name(current_user.expertise, current_user.language)))
+blind_outlink_parameter_scientific=URI::escape(remove_html(@taxon_concept.scientific_name)) 
 
 show_both=(blind_outlink_parameter==blind_outlink_parameter_scientific ? false : true)
 %>
@@ -47,3 +47,4 @@ show_both=(blind_outlink_parameter==blind_outlink_parameter_scientific ? false :
     </table>
   </div>
 </div>
+

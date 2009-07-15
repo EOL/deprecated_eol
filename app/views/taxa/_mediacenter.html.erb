@@ -128,30 +128,34 @@
             </div>
         </div> <!-- /media-maps -->
 
-
       <hr />
       <div id="media-videos" class="wrapper-mc clearfix" style="display: none;">
-				<div id="video-player">
-					<%="Select a video to the right to begin playback."[:select_video]%>
-				</div>
+        <div id="video-player">
+				<% if @taxon_concept.videos.blank? == true && @videos.blank? == false && params[:vet_flag] == "true" %>
+          No authoritative videos available. <%= link_to 'View unvetted videos for this group.', {:action=>"show", :vet_flag=>"false"} %> 
+        <% else %>
+  					<%="Select a video to the right to begin playback."[:select_video]%>
+        <% end %>
+        </div>				
         <div id="video-list" class="mc-info">
-					<% if @taxon_concept.videos.blank? == false %>
+					<% if @video_collection.blank? == false %>
             <div class="mc-header">
               <h3><%= "Videos" %></h3>
               <hr />
             </div>
           <% else %>
-						No videos are available.
+						<span id="left_top_text">No videos are available.</span>
 					<% end %>
-          <% if @taxon_concept.videos.blank? == false %>
+          <% if @video_collection.blank? == false %>
             <div id="video-collection">
 	      			<ul>
-								<% for video in @taxon_concept.videos
+								<% for video in @video_collection
 									video_title = video.object_title || ''
 									# NOTE: JRice added a little sub here to take the first sentence from long desc's...
 									video_title = truncate(video.description.sub(/\.\s\s.*$/, '.'),150) if video_title == ''
 									video_title = truncate(video.scientific_name,150) if video_title == '' %>
 									<li><%= link_to_function(video_title, "eol_update_video(#{video_hash(video,@taxon_concept.id)})", :title=>video_title) %></li>
+								  <%#= debug(video) %>
 								<% end %>
 							</ul>
 						</div> <!-- /video-collection -->
@@ -161,9 +165,9 @@
             </div>
         <% end %>
         </div> <!-- /video-list -->
-        <% if @taxon_concept.videos.blank? == false %>
+        <% if @video_collection.blank? == false %>
           <div title="More information" class="attribution_link" style="display: none">
-            <%= link_to '', attribution_data_object_path(@taxon_concept.videos[0]), :id => 'video_attributions',:class => 'popup-link attribution-icon', :alt => 'More information' %>
+            <%= link_to '', attribution_data_object_path(@video_collection[0]), :id => 'video_attributions',:class => 'popup-link attribution-icon', :alt => 'More information' %>
           </div>
         <%end%>
       </div> <!-- /media-videos -->

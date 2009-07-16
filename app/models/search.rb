@@ -4,7 +4,7 @@ class Search
                 :search_results, :search_returned, :common_name_results,
                 :scientific_name_results, :tag_results, :logged_search_id,
                 :scientific_results, :common_results, :search_type,
-                :error_message
+                :error_message, :current_page, :maximum
 
 
   def initialize(params, request, current_user, current_agent, execute_search=true)
@@ -13,13 +13,58 @@ class Search
     @search_language=params[:search_language]
     @parent_search_log_id = params[:search_log_id] || ''    
     @searching=true
-
+    @current_page = set_current_page(params[:page])
     if execute_search # execute a full search
       search(params, request, current_user, current_agent) 
     else # only do the suggested search
       suggested_search
       Search.log({:search_term=>@search_string,:search_type=>@search_type,:parent_search_log_id=>@parent_search_log_id},request,current_user)
     end
+  end
+  
+  # Returns an integer indicating the current page number. By default this method 
+  # will return 1, indicating the first page
+  def set_current_page(page_param)
+    page = page_param.to_i
+    if page == 0
+      page = 1
+    end
+    page
+  end
+  
+  # Hard coded return results
+  def per_page
+    10
+  end
+
+  # Returns a two member array containing the index of the first and the last result for proper pagination.
+  #
+  # For instance, given 24 search results:
+  #
+  # Page  First   Last
+  #    1      1     10
+  #    2     11     19 
+  #    3     20     24
+  def page_range(results)
+    index_start_offset = (@current_page - 1) * per_page
+    # pp [:page_range, @current_page, index_start_offset, per_page, results.size, results.size, results[index_start_offset, per_page]]
+    if results.size == 0
+      []
+    else
+      results[index_start_offset, per_page] # Will never return out of bound errors
+    end
+  end
+  
+  def start_offset
+    (@current_page - 1) * per_page
+  end
+  
+  def total_pages
+    tp = (@maximum / per_page)
+    if (@maximum % per_page) != 0
+      tp += 1
+    end
+    tp
   end
 
   def self.log(params, request, current_user)
@@ -229,6 +274,7 @@ class Search
       end
     end
 
+    results = page_range(results)
     @search_results = {:common => [], :scientific => [], :errors => [], :tags => results}    
   end
 
@@ -240,6 +286,12 @@ class Search
                                           :qualifier=>@qualifier,
                                           :scope=>@scope,
                                           :search_language=>@search_language)
+
+    sci_sz = @search_results[:scientific].size
+    vern_sz = @search_results[:common].size
+    @maximum = sci_sz > vern_sz ? sci_sz : vern_sz    
+    @search_results[:scientific] = page_range(@search_results[:scientific])
+    @search_results[:common] = page_range(@search_results[:common])
     @search_results[:tags] = []
   end
 

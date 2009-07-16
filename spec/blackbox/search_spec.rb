@@ -79,4 +79,53 @@ describe 'Search' do
 
   end
   
+  it 'should paginate' do
+    rv = []
+    rv << create_taxa('Tiger a0') # 1
+    rv << create_taxa('Tiger b0')
+    rv << create_taxa('Tiger c0')
+    rv << create_taxa('Tiger d0')
+    rv << create_taxa('Tiger e0')
+    rv << create_taxa('Tiger f0')
+    rv << create_taxa('Tiger g0')
+    rv << create_taxa('Tiger h0')
+    rv << create_taxa('Tiger i0')
+    rv << create_taxa('Tiger j0')
+    rv << create_taxa('Tiger l0')
+    rv << create_taxa('Tiger m0')
+    rv << create_taxa('Tiger n0') # 14
+
+    # First 10 results
+
+    body = request('/search?q=tiger').body
+    body.should have_tag('table[class=results_table]') do |table|
+      table.should have_tag("tr:nth-child(1)") # Header
+      table.should have_tag("tr:nth-child(2)") # First
+      table.should have_tag("tr:nth-child(3)")
+      table.should have_tag("tr:nth-child(4)")
+      table.should have_tag("tr:nth-child(5)")
+      table.should have_tag("tr:nth-child(6)")
+      table.should have_tag("tr:nth-child(7)")
+      table.should have_tag("tr:nth-child(8)")
+      table.should have_tag("tr:nth-child(9)")
+      table.should have_tag("tr:nth-child(10)")
+      table.should have_tag("tr:nth-child(11)") # Last
+      table.should_not have_tag("tr:nth-child(12)") # This shouldn't exist
+    end
+    body.should have_tag('div[class=serp_pagination]')
+
+    # Last 4 results
+
+    body = request('/search?q=tiger&page=2').body
+    body.should have_tag('table[class=results_table]') do |table|
+      table.should have_tag("tr:nth-child(1)") # Header
+      table.should have_tag("tr:nth-child(2)") # First
+      table.should have_tag("tr:nth-child(3)") # Last
+      table.should have_tag("tr:nth-child(4)") # Last
+      table.should_not have_tag("tr:nth-child(5)") # This shouldn't exist
+    end
+    body.should have_tag('div[class=serp_pagination]')
+  end
+  
+  
 end

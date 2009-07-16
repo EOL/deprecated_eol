@@ -24,11 +24,11 @@ module ContentPartnerAuthenticationModule
 
   def agent_access_denied
     agent_store_location
-    redirect_to url_for(:action => 'login')
+    redirect_to url_for(:controller=>'/content_partner',:action => 'login')
   end
 
   def agent_store_location
-    session[:agent_return_to] = request.request_uri
+    session[:agent_return_to] = url_for(:controller=>controller_name, :action=>action_name) # request.request_uri
   end
 
   def agent_login_from_session
@@ -44,7 +44,7 @@ module ContentPartnerAuthenticationModule
   end
 
   def agent_redirect_back_or_default(default)
-    redirect_to(session[:agent_return_to] || default)
+    redirect_to(session[:agent_return_to] || default, :protocol => 'http://')
     session[:agent_return_to] = nil
   end
 
@@ -54,7 +54,7 @@ module ContentPartnerAuthenticationModule
 
   def agent_must_be_agreeable
     unless current_agent.ready_for_agreement?
-      redirect_to :action => 'index', :controller => 'content_partner'
+      redirect_to :action => 'index', :controller => '/content_partner'
     end
   end
 

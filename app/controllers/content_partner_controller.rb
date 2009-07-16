@@ -3,6 +3,10 @@ class ContentPartnerController < ApplicationController
   before_filter :agent_login_required, :except => [:login, :forgot_password, :register, :check_username, :forgot_password, :agreement]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   helper_method :current_agent, :agent_logged_in?
+
+  if $USE_SSL_FOR_LOGIN 
+    before_filter :redirect_to_ssl, :only=>[:login,:register,:profile]
+  end
   
   layout 'main'
   
@@ -282,7 +286,7 @@ class ContentPartnerController < ApplicationController
       self.current_agent = @agent
       flash[:notice] = "Welcome"
       # Send to first step (partner information)
-      redirect_to(:action => 'index')
+      redirect_to(:action => 'index', :protocol => 'http://')
     end
     
   end
@@ -306,7 +310,7 @@ class ContentPartnerController < ApplicationController
   
   def login
     
-    redirect_to(:controller => 'content_partner', :action => 'index') and return if agent_logged_in?    
+    redirect_to(:controller => '/content_partner', :action => 'index', :protocol => 'http://') and return if agent_logged_in?    
     
     return unless request.post?
 
@@ -320,7 +324,7 @@ class ContentPartnerController < ApplicationController
         cookies[:agent_auth_token] = { :value => self.current_agent.remember_token , :expires => self.current_agent.remember_token_expires_at }
       end
       flash[:notice] = "Logged in successfully as #{self.current_agent.full_name}"
-      agent_redirect_back_or_default(:action => 'index')
+      redirect_to(:action=>'index',:protocol=>'http://')
     else
       flash.now[:error] = 'Invalid content partner login credentials - if you are trying to login as an EOL user or curator, use the login link at the top of the page'
     end
@@ -364,7 +368,7 @@ class ContentPartnerController < ApplicationController
     
     if @agent.update_attributes(params[:agent])
       flash[:notice] = "Profile updated"[]
-      redirect_to(:action => 'profile')
+      redirect_to(:action => 'index',:protocol=>'http://')
     end
   end
         

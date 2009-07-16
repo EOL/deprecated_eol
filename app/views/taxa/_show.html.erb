@@ -23,7 +23,7 @@
           
         
         <hr />
-        <span class="classification-attribution-name"><%= @rank %> recognized by <%= agent_icons_partial(@taxon_concept.classification_attribution.reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)%></span><br />
+        <span class="classification-attribution-name"><%= @taxon_concept.hierarchy_entries[0].rank_label.capitalize %> recognized by <%= agent_icons_partial(@taxon_concept.classification_attribution.reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)%></span><br />
         
         <% if @taxon_concept.vetted_id != Vetted.trusted.id %>
             </div>
@@ -114,7 +114,7 @@
                     
         <div id="right-page-content">
             <%= render :partial => 'internal_nav' %>            
-            <% @ping_host_urls.each do |host_url| %>
+            <% @taxon_concept.ping_host_urls.each do |host_url| %>
             <img style="display:none;" src="<%= host_url %>" alt="this image is giving credit to the content provider and should not render."/>
             <% end %>
         </div> <!-- /right page content -->

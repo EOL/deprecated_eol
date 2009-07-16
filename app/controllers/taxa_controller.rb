@@ -92,8 +92,7 @@ class TaxaController < ApplicationController
           @taxon_concept.current_agent = current_agent unless current_agent.nil?
           @images     = @taxon_concept.images.sort{ |x,y| y.data_rating <=> x.data_rating }
           @show_next_image_page_button = @taxon_concept.more_images # indicates if more images are available
-          @default_image = @images[0].smart_image unless @images.nil? or @images.blank?
-
+          
           @videos = show_unvetted_videos #collect all videos (unvetted as well)
                                                                                  
           if params[:vet_flag] != "false"
@@ -121,11 +120,6 @@ class TaxaController < ApplicationController
           @content     = @taxon_concept.content_by_category(@category_id) unless
             @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?
           @random_taxa = RandomTaxon.random_set(5)
-
-          @ping_host_urls = @taxon_concept.ping_host_urls
-
-          # just grab the first rank name (will be "taxon" if no rank available)
-          @rank = @taxon_concept.hierarchy_entries[0].rank_label.capitalize
 
           # log data objects shown and build an array of data_object_ids to log, so we can stick this info in the cached page and when the page comes from the cache, we can log on the server side
           @data_object_ids_to_log=Array.new
@@ -473,9 +467,7 @@ class TaxaController < ApplicationController
     def show_unvetted_videos
       vetted_mode = @taxon_concept.current_user.vetted
       @taxon_concept.current_user.vetted = false
-      if @taxon_concept.videos.blank? == false
-        videos = @taxon_concept.videos
-      end                                                                     
+      videos = @taxon_concept.videos unless @taxon_concept.videos.blank?
       @taxon_concept.current_user.vetted = vetted_mode
 
       return videos

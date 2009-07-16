@@ -197,7 +197,7 @@ class HierarchyEntry < SpeciesSchemaModel
     depth = 0
     nodes.each do |node|
       if !deduped_nodes[depth-1].nil? && node['id'] == deduped_nodes[depth-1]['id']
-        deduped_nodes[depth-1] = node if node['source_hierarchy_id'].to_i == cross_reference_hierarchy.id
+        deduped_nodes[depth-1] = node if !cross_reference_hierarchy.nil? && node['source_hierarchy_id'].to_i == cross_reference_hierarchy.id
       else
         deduped_nodes[depth] = node
         depth += 1
@@ -267,7 +267,7 @@ class HierarchyEntry < SpeciesSchemaModel
     xml += "\t</children>\n"
 
     xml += "\t<kingdoms>\n"
-    xml += Hierarchy.default.kingdoms_hash(current_user.expertise, current_user.language).collect {|a| HierarchyEntry.node_xml(a)}.join
+    xml += hierarchy.kingdoms_hash(current_user.expertise, current_user.language).collect {|a| HierarchyEntry.node_xml(a)}.join
     xml += "\t</kingdoms>\n"
 
     # siblings = HierarchyEntry.find_all_by_parent_id_and_hierarchy_id(self.parent_id, self.hierarchy_id, :include => :name)

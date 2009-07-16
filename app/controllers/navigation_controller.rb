@@ -24,13 +24,10 @@ class NavigationController < ApplicationController
     
     id = params[:id] rescue 0
     
-    # set the users default hierarchy if they haven't done so already
-    current_user.default_hierarchy_id = Hierarchy.default if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
-    
     if id.to_i == 0
       raw_xml = "";
     else
-      @entry  = HierarchyEntry.find(id)
+      @entry = HierarchyEntry.find(id)
       #@entry.current_user = current_user
       #TODO - something with params like this: raw_xml = @taxon.entry(params[:classifcation_id]).classification(:raw => true, :kingdoms=>true)
       raw_xml = @entry.classification(:raw => true, :kingdoms=>true)

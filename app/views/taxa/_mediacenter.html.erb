@@ -200,10 +200,10 @@
 				<script src="/javascripts/flashobjects.js" type="text/javascript"></script>
         <script type="text/javascript">
         <%
-            taxon_concept_id = @taxon_concept.col_entry.nil? ? 0 : @taxon_concept.col_entry.id;
+            hierarchy_entry_id = @taxon_concept.entry_in_hierarchy(@session_hierarchy).nil? ? 0 : @taxon_concept.entry_in_hierarchy(@session_hierarchy).id;
         %>
           // <![CDATA[
-          object_eol_nav2('/taxa/', '/flashxml/', '<%= taxon_concept_id %>.xml');
+          object_eol_nav2('/taxa/', '/flashxml/', '<%= hierarchy_entry_id %>.xml');
           //]]>
         </script>
 			<% else %>

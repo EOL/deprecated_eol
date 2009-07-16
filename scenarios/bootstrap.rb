@@ -44,6 +44,11 @@ RandomTaxon.all.each do |rt|
   RandomTaxon.delete("id = #{rt.id}") if (TaxonConcept.find(rt.taxon_concept_id)).nil?
 end
 
+# Before we create our new taxa, we should make sure the RandomTaxa table is clear of bogus entries:
+RandomHierarchyImage.all.each do |rhi|
+  RandomHierarchyImage.delete("id = #{rhi.id}") if (TaxonConcept.find(rhi.taxon_concept_id)).nil?
+end
+
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published)
@@ -118,7 +123,7 @@ test_user2 = User.gen(:username => 'test_user2', :password => 'password', :given
 test_user2.save
 
 #curator for selenium tests (NB: page #11, Animalia)
-curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 1, :curator_approved => true)
+curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 4, :curator_approved => true)
 curator.save
 
 

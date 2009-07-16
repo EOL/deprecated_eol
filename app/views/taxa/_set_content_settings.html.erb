@@ -3,7 +3,7 @@
 			<br />
 			
 			<label for="user_default_hierarchy_id" title="<%= "Which default browse hierarchy would you prefer?"[:hierarchy_preference] %>"><%= "Which default browse hierarchy would you prefer?"[:hierarchy_preference] %></label>		            
-			<%= f.select :default_hierarchy_id, [['-- always use default --', nil]] | Hierarchy.all.sort_by{|h| h.label}.collect {|h| [h.label, h.id]} %><br/>						
+			<%= f.select :default_hierarchy_id, [['-- always use default --', nil]] | Hierarchy.find_all_by_browsable(1).sort_by{|h| h.label}.collect {|h| [h.label, h.id]} %><br/>						
 			<br />
 			
 		    <label title="<%= "Do you want to include?"[:detail_level] %>"><%= "Do you want to include?"[:detail_level] %></label>		            

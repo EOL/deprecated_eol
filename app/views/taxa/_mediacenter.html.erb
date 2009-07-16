@@ -201,6 +201,9 @@
         <script type="text/javascript">
         <%
             hierarchy_entry_id = @taxon_concept.entry_in_hierarchy(@session_hierarchy).nil? ? 0 : @taxon_concept.entry_in_hierarchy(@session_hierarchy).id;
+            if hierarchy_entry_id == 0
+                hierarchy_entry_id = @taxon_concept.find_ancestor_in_hierarchy(@session_hierarchy).nil? ? 0 : @taxon_concept.find_ancestor_in_hierarchy(@session_hierarchy).id;
+            end
         %>
           // <![CDATA[
           object_eol_nav2('/taxa/', '/flashxml/', '<%= hierarchy_entry_id %>.xml');

@@ -144,7 +144,7 @@ r = Rank.gen(:label => 'superkingdom', :rank_group_id => 0)
 ### Adding another hierarchy to test switching from one to another
 ncbi_agent = Agent.gen(:full_name => "National Center for Biotechnology Information (NCBI)")
 AgentContact.gen(:agent => ncbi_agent, :agent_contact_role => AgentContactRole.primary)
-ncbi_hierarchy = Hierarchy.gen(:agent => ncbi_agent, :label => "NCBI Taxonomy")
+ncbi_hierarchy = Hierarchy.gen(:agent => ncbi_agent, :label => "NCBI Taxonomy", :browsable => 1)
 
 eukaryota = build_taxon_concept(:rank => 'superkingdom',
                                 :canonical_form => 'Eukaryota',

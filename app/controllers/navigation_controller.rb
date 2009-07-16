@@ -24,6 +24,9 @@ class NavigationController < ApplicationController
     
     id = params[:id] rescue 0
     
+    # set the users default hierarchy if they haven't done so already
+    current_user.default_hierarchy_id = Hierarchy.default if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
+    
     if id.to_i == 0
       raw_xml = "";
     else

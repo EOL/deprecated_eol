@@ -1,10 +1,9 @@
-  
-        <p class="hide"><%= "External links"[] %></p>
-        <ul id="other_links">
-            <% if @taxon.has_citation? %>
-			        <li><%=link_to_remote("Cite"[] + "<span></span>",{:update=>'page-cite',:loading=>'showAjaxIndicator();',:complete=>'hideAjaxIndicator();new EOL.Effect.appear(\'page-cite\');',:url=>{:action=>'citation',:id=>@taxon.id}},{:id=>"link-cite"})%></li>		
-        			<div style="display:none;" id="page-cite"></div>
-			        <%end %>
-            <li><a href="http://www.addthis.com/bookmark.php" onclick="addthis_url=location.href; addthis_title=document.title; return addthis_click(this);" target="_blank" title="<%= "Bookmark"[] %>" id="link-bookmark"><%= "Bookmark"[] %><span></span></a><script type="text/javascript">var addthis_pub = 'eol';</script></li>
-	        </ul>
-        <hr />
+<p class="hide"><%= "External links"[] %></p>
+<ul id="other_links">
+    <% if @taxon_concept.has_citation? %>
+      <li><%=link_to_remote("Cite"[] + "<span></span>",{:update=>'page-cite',:loading=>'showAjaxIndicator();',:complete=>'hideAjaxIndicator();new EOL.Effect.appear(\'page-cite\');',:url=>{:action=>'citation',:id=>@taxon_concept.id}},{:id=>"link-cite"})%></li>		
+      <div style="display:none;" id="page-cite"></div>
+      <%end %>
+    <li><a href="http://www.addthis.com/bookmark.php" onclick="addthis_url=location.href; addthis_title=document.title; return addthis_click(this);" target="_blank" title="<%= "Bookmark"[] %>" id="link-bookmark"><%= "Bookmark"[] %><span></span></a><script type="text/javascript">var addthis_pub = 'eol';</script></li>
+  </ul>
+<hr />

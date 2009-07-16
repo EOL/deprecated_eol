@@ -79,6 +79,7 @@ class EOL
       add_toc
       add_iucn
       gen_random_taxa
+      gen_random_hierarchy_image
       gen_bhl
     end
 
@@ -224,6 +225,18 @@ class EOL
                  :thumb_url => @image_objs.first.object_cache_url}
       options[:common_name_en] = @cname.string unless @cname.blank?
       RandomTaxon.gen(options)
+    end
+    
+    def gen_random_hierarchy_image
+      puts "** Enter: gen_random_hierarchy_image" if @debugging
+      return if @image_objs.blank? or @sname.blank?
+      # TODO - we really don't want to denormalize the names, so remove them (but check that this will work!)
+      options = {:data_object => @image_objs.last,
+                 :name => @sname.italicized,
+                 :hierarchy_entry => @tc.hierarchy_entries[0],
+                 :hierarchy => @tc.hierarchy_entries[0].hierarchy,
+                 :taxon_concept => @tc }
+      RandomHierarchyImage.gen(options)
     end
 
     # TODO - This is one of the slower methods.

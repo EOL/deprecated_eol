@@ -294,6 +294,10 @@ create_if_not_exists Visibility, :label => 'Inappropriate'
 RandomTaxon.delete_all
 10.times { RandomTaxon.gen }
 
+RandomHierarchyImage.delete_all
+10.times { RandomHierarchyImage.gen }
+
+
 # This prevents us from loading things twice, which it seems we were doing a lot!
 User.gen :username => 'foundation_already_loaded'
 

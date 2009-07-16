@@ -80,7 +80,7 @@ class TaxaController < ApplicationController
         category_id = params[:category_id] || 'default'
         
         # set the users default hierarchy if they haven't done so already
-        current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil?
+        current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
         pp Hierarchy.default
         pp current_user
         @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
@@ -114,7 +114,7 @@ class TaxaController < ApplicationController
 
           @content     = @taxon_concept.content_by_category(@category_id) unless
             @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?
-          @random_taxa = RandomTaxon.random_set(5)
+          @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy)
 
           @ping_host_urls = @taxon_concept.ping_host_urls
 

@@ -33,26 +33,31 @@ describe TaxonConcept do
     @image_1         = Factory.next(:image)
     @image_2         = Factory.next(:image)
     @image_3         = Factory.next(:image)
+    @image_unknown_trust = Factory.next(:image)
     @video_1_text    = 'First Test Video'
     @video_2_text    = 'Second Test Video'
     @video_3_text    = 'YouTube Test Video'
     @comment_1       = 'This is totally awesome'
     @comment_bad     = 'This is totally inappropriate'
     @comment_2       = 'And I can comment multiple times'
-    tc = build_taxon_concept(:rank            => 'species',
-                             :canonical_form  => @canonical_form,
-                             :attribution     => @attribution,
-                             :scientific_name => @scientific_name,
-                             :italicized      => @italicized,
-                             :common_names    => [@common_name],
-                             :gbif_map_id     => @gbif_map_id,
-                             :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
-                             :youtube         => [{:description => @video_3_text}],
-                             :comments        => [{:body => @comment_1},{:body => @comment_bad},{:body => @comment_2}],
-                             :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
-                                                  {:object_cache_url => @image_3}],
-                             :toc             => [{:toc_item => @overview, :description => @overview_text}, 
-                                                  {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
+    tc = build_taxon_concept(
+      :rank            => 'species',
+      :canonical_form  => @canonical_form,
+      :attribution     => @attribution,
+      :scientific_name => @scientific_name,
+      :italicized      => @italicized,
+      :common_names    => [@common_name],
+      :gbif_map_id     => @gbif_map_id,
+      :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
+      :youtube         => [{:description => @video_3_text}],
+      :comments        => [{:body => @comment_1}, {:body => @comment_bad}, {:body => @comment_2}],
+      :images          => [{:object_cache_url => @image_1},
+                           {:object_cache_url => @image_2},
+                           {:object_cache_url => @image_3},
+                           {:object_cache_url => @image_unknown_trust, :vetted => Vetted.unknown}],
+      :toc             => [{:toc_item => @overview, :description => @overview_text}, 
+                           {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}]
+    )
     @id            = tc.id
     @taxon_concept = TaxonConcept.find(@id)
     # The curator factory cleverly hides a lot of stuff that User.gen can't handle:
@@ -72,157 +77,157 @@ describe TaxonConcept do
     DataObject.delete_all(['data_type_id = ?', DataType.find_by_label('IUCN').id])
   end
 
-  it 'should know available media types' do
-    @taxon_concept.has_media.should == nil
-    @taxon_concept.has_images.should == true
-    @taxon_concept.has_media.should_not == nil
-    @taxon_concept.has_video.should == true
-    @taxon_concept.has_media.should_not == nil
-    @taxon_concept.has_map.should == true
-    @taxon_concept.has_media.should_not == nil
-  end
-
-  it 'should determine and cache curation authorization' do
-    @curator.can_curate?(@taxon_concept).should == true
-    @curator.should_receive('can_curate?').and_return(true)
-    @taxon_concept.show_curator_controls?(@curator).should == true
-    @curator.should_not_receive('can_curate?')
-    @taxon_concept.show_curator_controls?(@curator).should == true
-  end
-
-  it 'should return overview as first toc item which accepts user submitted text' do
-    @taxon_concept.tocitem_for_new_text.label.should == @overview.label
-    tc = build_taxon_concept(:images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => [])
-    tc.tocitem_for_new_text.label.should == @overview.label
-  end
-
-  it 'should return description as first toc item which accepts user submitted text' do
-    description_toc = TocItem.find_by_label('Description')
-    InfoItem.gen(:toc_id => @overview.id)
-    InfoItem.gen(:toc_id => description_toc.id)
-    tc = build_taxon_concept(:images => [], :flash => [], :youtube => [], :comments => [], :bhl => [],
-                             :toc => [{:toc_item => description_toc, :description => 'huh?'}])
-    tc.tocitem_for_new_text.label.should == description_toc.label
-  end
-
-  it 'should have a canonical form' do
-    @taxon_concept.canonical_form.should == @canonical_form
-  end
-
-  it 'should have curators' do
-    @taxon_concept.curators.map(&:id).should include(@curator.id)
-  end
-
-  it 'should have a scientific name (italicized for species)' do
-    @taxon_concept.scientific_name.should == @italicized
-  end
-
-  it 'should have a common name' do
-    @taxon_concept.common_name.should == @common_name
-  end
-
-  it 'should set the common name to the correct language' do
-    lang = Language.gen(:label => 'Ancient Egyptian')
-    user = User.gen(:language => lang)
-    str  = 'Frebblebup'
-    name = Name.gen(:string => str)
-    TaxonConceptName.gen(:language => lang, :name => name, :taxon_concept => @taxon_concept)
-    @taxon_concept.current_user = user
-    @taxon_concept.common_name.should == str
-  end
-
-  it 'should let you get/set the current user' do
-    user = User.gen
-    @taxon_concept.current_user = user
-    @taxon_concept.current_user.should == user
-  end
-
-  it 'should have a default IUCN conservation status of NOT EVALUATED' do
-    @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
-  end
-
-  it 'should have an IUCN conservation status' do
-    iucn_status = Factory.next(:iucn)
-    build_iucn_entry(@taxon_concept, iucn_status)
-    @taxon_concept.iucn_conservation_status.should == iucn_status
-  end
-
-  it 'should have an IUCN conservation status even if it comes from another IUCN resource' do
-    iucn_status = Factory.next(:iucn)
-    (hierarchy, resource) = build_secondary_iucn_hierarchy_and_resource
-    build_iucn_entry(@taxon_concept, iucn_status, :hierarchy => hierarchy,
-                                                  :event => HarvestEvent.gen(:resource => resource))
-    @taxon_concept.iucn_conservation_status.should == iucn_status
-  end
-
-  it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
-    build_iucn_entry(@taxon_concept, Factory.next(:iucn))
-    build_iucn_entry(@taxon_concept, Factory.next(:iucn))
-    result = @taxon_concept.iucn
-    result.should be_an_instance_of DataObject # (not an Array, mind you.)
-  end
-
-  it 'should not use an unpublished IUCN status' do
-    bad_iucn = build_iucn_entry(@taxon_concept, 'bad value')
-    # We *must* know that it would have worked if it *were* published, otherwise the test proves nothing:
-    @taxon_concept.iucn_conservation_status.should == 'bad value'
-    bad_iucn.published = 0
-    bad_iucn.save
-    @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
-  end
-
-  it 'should be able to list its ancestors (by convention, ending with itself)' do
-    @kingdom = build_taxon_concept(:rank => 'kingdom', :depth => 0)
-    @phylum  = build_taxon_concept(:rank => 'phylum',  :depth => 1, :parent_hierarchy_entry_id => @kingdom.entry.id)
-    @order   = build_taxon_concept(:rank => 'order',   :depth => 2, :parent_hierarchy_entry_id => @phylum.entry.id)
-    # Now we attach our TC to those:
-    he = @taxon_concept.entry
-    he.parent_id = @order.entry.id
-    he.save
-    @taxon_concept.ancestors.map(&:id).should == [@kingdom.id, @phylum.id, @order.id, @taxon_concept.id]
-  end
-
-  it 'should be able to list its children (NOT descendants, JUST children--animalia would be a disaster!)' do
-    @subspecies1  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @subspecies2  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @subspecies3  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @infraspecies = build_taxon_concept(:rank => 'infraspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @subspecies1.entry.id)
-    @taxon_concept.children.map(&:id).should only_include @subspecies1.id, @subspecies2.id, @subspecies3.id
-  end
-
-  it 'should find its GBIF map ID' do
-    @taxon_concept.gbif_map_id.should == @gbif_map_id
-  end
-
-  it 'should be able to show videos' do
-    @taxon_concept.videos.should_not be_nil
-    @taxon_concept.videos.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
-  end
-
-  it 'should be able to search, returning an array of hashes for each result type' do
-    results = TaxonConcept.quick_search(@common_name)
-    results[:common].should_not be_nil
-    results[:common].map {|h| h['id'].to_i }.should include(@taxon_concept.id)
-    results = TaxonConcept.quick_search(@scientific_name.sub(/\s.*$/, '')) # Removes the second half and attribution
-    results[:scientific].should_not be_nil
-    results[:scientific].map {|h| h['id'].to_i }.should include(@taxon_concept.id)
-  end
-
-  it 'should have visible comments that don\'t show invisible comments' do
-    user = User.gen
-    @taxon_concept.visible_comments.should_not be_nil
-    @taxon_concept.visible_comments.map(&:body).should == [@comment_1, @comment_2] # Order DOES matter, now.
-  end
-
-  it 'should be able to show a table of contents' do
-    # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are appropriate.  I
-    # could test for those here, but that seems the perview of TocItem.  So, I'm only checking the first three elements:
-    @taxon_concept.toc[0..2].should == [@overview, @toc_item_2, @toc_item_3]
-  end
+#  it 'should know available media types' do
+#    @taxon_concept.has_media.should == nil
+#    @taxon_concept.has_images.should == true
+#    @taxon_concept.has_media.should_not == nil
+#    @taxon_concept.has_video.should == true
+#    @taxon_concept.has_media.should_not == nil
+#    @taxon_concept.has_map.should == true
+#    @taxon_concept.has_media.should_not == nil
+#  end
+#
+#  it 'should determine and cache curation authorization' do
+#    @curator.can_curate?(@taxon_concept).should == true
+#    @curator.should_receive('can_curate?').and_return(true)
+#    @taxon_concept.show_curator_controls?(@curator).should == true
+#    @curator.should_not_receive('can_curate?')
+#    @taxon_concept.show_curator_controls?(@curator).should == true
+#  end
+#
+#  it 'should return overview as first toc item which accepts user submitted text' do
+#    @taxon_concept.tocitem_for_new_text.label.should == @overview.label
+#    tc = build_taxon_concept(:images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => [])
+#    tc.tocitem_for_new_text.label.should == @overview.label
+#  end
+#
+#  it 'should return description as first toc item which accepts user submitted text' do
+#    description_toc = TocItem.find_by_label('Description')
+#    InfoItem.gen(:toc_id => @overview.id)
+#    InfoItem.gen(:toc_id => description_toc.id)
+#    tc = build_taxon_concept(:images => [], :flash => [], :youtube => [], :comments => [], :bhl => [],
+#                             :toc => [{:toc_item => description_toc, :description => 'huh?'}])
+#    tc.tocitem_for_new_text.label.should == description_toc.label
+#  end
+#
+#  it 'should have a canonical form' do
+#    @taxon_concept.canonical_form.should == @canonical_form
+#  end
+#
+#  it 'should have curators' do
+#    @taxon_concept.curators.map(&:id).should include(@curator.id)
+#  end
+#
+#  it 'should have a scientific name (italicized for species)' do
+#    @taxon_concept.scientific_name.should == @italicized
+#  end
+#
+#  it 'should have a common name' do
+#    @taxon_concept.common_name.should == @common_name
+#  end
+#
+#  it 'should set the common name to the correct language' do
+#    lang = Language.gen(:label => 'Ancient Egyptian')
+#    user = User.gen(:language => lang)
+#    str  = 'Frebblebup'
+#    name = Name.gen(:string => str)
+#    TaxonConceptName.gen(:language => lang, :name => name, :taxon_concept => @taxon_concept)
+#    @taxon_concept.current_user = user
+#    @taxon_concept.common_name.should == str
+#  end
+#
+#  it 'should let you get/set the current user' do
+#    user = User.gen
+#    @taxon_concept.current_user = user
+#    @taxon_concept.current_user.should == user
+#  end
+#
+#  it 'should have a default IUCN conservation status of NOT EVALUATED' do
+#    @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
+#  end
+#
+#  it 'should have an IUCN conservation status' do
+#    iucn_status = Factory.next(:iucn)
+#    build_iucn_entry(@taxon_concept, iucn_status)
+#    @taxon_concept.iucn_conservation_status.should == iucn_status
+#  end
+#
+#  it 'should have an IUCN conservation status even if it comes from another IUCN resource' do
+#    iucn_status = Factory.next(:iucn)
+#    (hierarchy, resource) = build_secondary_iucn_hierarchy_and_resource
+#    build_iucn_entry(@taxon_concept, iucn_status, :hierarchy => hierarchy,
+#                                                  :event => HarvestEvent.gen(:resource => resource))
+#    @taxon_concept.iucn_conservation_status.should == iucn_status
+#  end
+#
+#  it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
+#    build_iucn_entry(@taxon_concept, Factory.next(:iucn))
+#    build_iucn_entry(@taxon_concept, Factory.next(:iucn))
+#    result = @taxon_concept.iucn
+#    result.should be_an_instance_of DataObject # (not an Array, mind you.)
+#  end
+#
+#  it 'should not use an unpublished IUCN status' do
+#    bad_iucn = build_iucn_entry(@taxon_concept, 'bad value')
+#    # We *must* know that it would have worked if it *were* published, otherwise the test proves nothing:
+#    @taxon_concept.iucn_conservation_status.should == 'bad value'
+#    bad_iucn.published = 0
+#    bad_iucn.save
+#    @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
+#  end
+#
+#  it 'should be able to list its ancestors (by convention, ending with itself)' do
+#    @kingdom = build_taxon_concept(:rank => 'kingdom', :depth => 0)
+#    @phylum  = build_taxon_concept(:rank => 'phylum',  :depth => 1, :parent_hierarchy_entry_id => @kingdom.entry.id)
+#    @order   = build_taxon_concept(:rank => 'order',   :depth => 2, :parent_hierarchy_entry_id => @phylum.entry.id)
+#    # Now we attach our TC to those:
+#    he = @taxon_concept.entry
+#    he.parent_id = @order.entry.id
+#    he.save
+#    @taxon_concept.ancestors.map(&:id).should == [@kingdom.id, @phylum.id, @order.id, @taxon_concept.id]
+#  end
+#
+#  it 'should be able to list its children (NOT descendants, JUST children--animalia would be a disaster!)' do
+#    @subspecies1  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
+#                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
+#    @subspecies2  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
+#                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
+#    @subspecies3  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
+#                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
+#    @infraspecies = build_taxon_concept(:rank => 'infraspecies', :depth => 4,
+#                                        :parent_hierarchy_entry_id => @subspecies1.entry.id)
+#    @taxon_concept.children.map(&:id).should only_include @subspecies1.id, @subspecies2.id, @subspecies3.id
+#  end
+#
+#  it 'should find its GBIF map ID' do
+#    @taxon_concept.gbif_map_id.should == @gbif_map_id
+#  end
+#
+#  it 'should be able to show videos' do
+#    @taxon_concept.videos.should_not be_nil
+#    @taxon_concept.videos.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
+#  end
+#
+#  it 'should be able to search, returning an array of hashes for each result type' do
+#    results = TaxonConcept.quick_search(@common_name)
+#    results[:common].should_not be_nil
+#    results[:common].map {|h| h['id'].to_i }.should include(@taxon_concept.id)
+#    results = TaxonConcept.quick_search(@scientific_name.sub(/\s.*$/, '')) # Removes the second half and attribution
+#    results[:scientific].should_not be_nil
+#    results[:scientific].map {|h| h['id'].to_i }.should include(@taxon_concept.id)
+#  end
+#
+#  it 'should have visible comments that don\'t show invisible comments' do
+#    user = User.gen
+#    @taxon_concept.visible_comments.should_not be_nil
+#    @taxon_concept.visible_comments.map(&:body).should == [@comment_1, @comment_2] # Order DOES matter, now.
+#  end
+#
+#  it 'should be able to show a table of contents' do
+#    # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are appropriate.  I
+#    # could test for those here, but that seems the perview of TocItem.  So, I'm only checking the first three elements:
+#    @taxon_concept.toc[0..2].should == [@overview, @toc_item_2, @toc_item_3]
+#  end
 
   # TODO - this is failing, but low-priority, I added a bug for it: EOLINFRASTRUCTURE-657
   # This was related to a bug (EOLINFRASTRUCTURE-598)
@@ -237,52 +242,59 @@ describe TaxonConcept do
     #@taxon_concept.toc.map(&:id).should include(toci.id)
   #end
 
-  it 'should be able to show its images' do
+  it 'should show its trusted images images only, by default' do
     @taxon_concept.images.map(&:object_cache_url).should == [@image_1, @image_2, @image_3]
   end
 
-  it 'should be able to get an overview' do
-    results = @taxon_concept.overview
-    results.length.should == 1
-    results.first.description.should == @overview_text
+  it 'should show unknown-trust images if the user wants them' do
+    old_user = @taxon_concept.current_user
+    @taxon_concept.current_user = User.gen(:vetted => false)
+    @taxon_concept.images.map(&:object_cache_url).should include(@image_unknown_trust)
+    @taxon_concept.current_user = old_user  # Cleaning up so as not to affect other tests
   end
 
-  # TODO - creating the CP -> Dato relationship is tricky. This should be made available elsewhere:
-  it 'should not show content partners THEIR preview items, but not OTHER content partner\'s preview items' do
-
-    original_cp    = Agent.gen
-    another_cp     = Agent.gen
-    resource       = Resource.gen
-    # Note this doesn't work without the ResourceAgentRole setting.  :\
-    agent_resource = AgentsResource.gen(:agent_id => original_cp.id, :resource_id => resource.id,
-                       :resource_agent_role_id => ResourceAgentRole.content_partner_upload_role.id)
-    event          = HarvestEvent.gen(:resource => resource)
-    # Note this *totally* doesn't work if you don't add it to top_unpublished_images!
-    TopUnpublishedImage.gen(:hierarchy_entry => @taxon_concept.entry,
-                            :data_object     => @taxon_concept.images.last)
-    how_many = @taxon_concept.images.length
-    how_many.should > 2
-    dato            = @taxon_concept.images.last  # Let's grab the last one...
-    # ... And remove it from top images:
-    TopImage.delete_all(:hierarchy_entry_id => @taxon_concept.entry.id,
-                        :data_object_id => @taxon_concept.images.last.id)
-    @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
-
-    dato.visibility = Visibility.preview
-    dato.save!
-
-    DataObjectsHarvestEvent.delete_all(:data_object_id => dato.id)
-    dohe           = DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
-
-    # Original should see it:
-    @taxon_concept.current_agent = original_cp
-    @taxon_concept.images.map {|i| i.id }.should include(dato.id)
-
-    # Another CP should not:
-    @taxon_concept.current_agent = another_cp
-    @taxon_concept.images.map {|i| i.id }.should_not include(dato.id)
-
-  end
+#  it 'should be able to get an overview' do
+#    results = @taxon_concept.overview
+#    results.length.should == 1
+#    results.first.description.should == @overview_text
+#  end
+#
+#  # TODO - creating the CP -> Dato relationship is tricky. This should be made available elsewhere:
+#  it 'should show content partners THEIR preview items, but not OTHER content partner\'s preview items' do
+#
+#    original_cp    = Agent.gen
+#    another_cp     = Agent.gen
+#    resource       = Resource.gen
+#    # Note this doesn't work without the ResourceAgentRole setting.  :\
+#    agent_resource = AgentsResource.gen(:agent_id => original_cp.id, :resource_id => resource.id,
+#                       :resource_agent_role_id => ResourceAgentRole.content_partner_upload_role.id)
+#    event          = HarvestEvent.gen(:resource => resource)
+#    # Note this *totally* doesn't work if you don't add it to top_unpublished_images!
+#    TopUnpublishedImage.gen(:hierarchy_entry => @taxon_concept.entry,
+#                            :data_object     => @taxon_concept.images.last)
+#    how_many = @taxon_concept.images.length
+#    how_many.should > 2
+#    dato            = @taxon_concept.images.last  # Let's grab the last one...
+#    # ... And remove it from top images:
+#    TopImage.delete_all(:hierarchy_entry_id => @taxon_concept.entry.id,
+#                        :data_object_id => @taxon_concept.images.last.id)
+#    @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
+#
+#    dato.visibility = Visibility.preview
+#    dato.save!
+#
+#    DataObjectsHarvestEvent.delete_all(:data_object_id => dato.id)
+#    dohe           = DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
+#
+#    # Original should see it:
+#    @taxon_concept.current_agent = original_cp
+#    @taxon_concept.images.map {|i| i.id }.should include(dato.id)
+#
+#    # Another CP should not:
+#    @taxon_concept.current_agent = another_cp
+#    @taxon_concept.images.map {|i| i.id }.should_not include(dato.id)
+#
+#  end
 
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:

@@ -689,12 +689,11 @@ EOIUCNSQL
   end
   
   def all_common_names
-    Name.find_by_sql([
-                        'SELECT names.string, l.iso_639_1 language_label, l.label, l.name
-                           FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
-                             LEFT JOIN languages l ON (tcn.language_id = l.id)
-                           WHERE tcn.taxon_concept_id = ? AND vern = 1
-                           ORDER BY language_label, string', id])
+    Name.find_by_sql(['SELECT names.string, l.iso_639_1 language_label, l.label, l.name
+                         FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
+                           LEFT JOIN languages l ON (tcn.language_id = l.id)
+                         WHERE tcn.taxon_concept_id = ? AND vern = 1
+                         ORDER BY language_label, string', id])
   end
   
 

@@ -63,6 +63,7 @@
     <![endif]-->
 
     <%= yield :head %>
+
 </head>
 <body id="<%=h controller.controller_name %>-page">
     <ul class="hide">
@@ -91,7 +92,7 @@
                     <a href="<%=root_url%>" title="<%= "Home"[] %>"><%= "Home"[] %></a>
                  </li>
                 <li>
-                  <%= link_to('Preferences'[], '/profile', {:alt => 'Preferences'[], :class => 'return_to'}) %>
+                  <%= link_to('Preferences'[], settings_url, {:alt => 'Preferences'[], :class => 'return_to'}) %>
                 </li>
                 <li>
                     <a title="<%= "Language"[] %>: <%= Gibberish.current_language %>" class="dropdown"><%= "Language"[] %>: <%= Gibberish.current_language %></a>

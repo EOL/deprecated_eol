@@ -133,8 +133,6 @@ class TaxaController < ApplicationController
           end
           @data_object_ids_to_log.compact!
 
-          @contains_unvetted_objects = false # per request by Jim Edwards on 11/5/2008 in Mexico, we should *not* show the top banner indicating there are unvetted objects on a page
-
         else
 
           @cached=true

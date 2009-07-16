@@ -105,7 +105,6 @@ class TaxaController < ApplicationController
           else 
             @video_collection = @taxon_concept.videos unless @taxon_concept.videos.blank?
           end
-            
 
           # find first valid content area to use
           first_content_item = @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }
@@ -272,7 +271,7 @@ class TaxaController < ApplicationController
   # TODO: Remove if it continues to not be used
   def citation
 
-    @taxon_id = params[:id]  
+    @taxon_concept = TaxonConcept.find(params[:id])
     render :partial=>'citation',:layout=>false
 
   end
@@ -307,19 +306,16 @@ class TaxaController < ApplicationController
 
   def user_text_change_toc
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-    @taxon_id = @taxon_concept.id # backwards compatability within views
+    @taxon_concept.current_agent = current_agent unless current_agent.nil?
+    @taxon_concept.current_user = current_user
 
     if (params[:data_objects_toc_category] && (toc_id = params[:data_objects_toc_category][:toc_id]))
       @toc_item = TocItem.find(toc_id)
     else
-      tc = TaxonConcept.find(@taxon_id)
-      tc.current_user = current_user
       @toc_item = tc.tocitem_for_new_text
     end
 
     @category_id = @toc_item.id
-    @taxon_concept.current_agent = current_agent unless current_agent.nil?
-    @taxon_concept.current_user = current_user
     @ajax_update = true
     @content = @taxon_concept.content_by_category(@category_id)
     @new_text = render_to_string(:partial => 'content_body')
@@ -328,13 +324,13 @@ class TaxaController < ApplicationController
 
   # AJAX: Render the requested content page
   def content
+
     if !request.xhr?
       render :nothing=>true
       return
     end
 
-    @taxon_id      = params[:id]
-    @taxon_concept = TaxonConcept.find(@taxon_id) 
+    @taxon_concept = TaxonConcept.find(params[:id]) 
     @category_id   = params[:category_id].to_i
     @taxon_concept.current_agent = current_agent unless current_agent.nil?
     @taxon_concept.current_user  = current_user
@@ -350,13 +346,12 @@ class TaxaController < ApplicationController
         page.replace_html 'center-page-content', :partial => 'content.html.erb'
         page << "$('current_content').value = '#{@category_id}';"
         page << "Event.addBehavior.reload();"
-        page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_id, :toc_id => @new_text_tocitem_id})}');"
+        page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id})}');"
         page['center-page-content'].set_style :height => 'auto'
       end
     end
 
     log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
-    @taxon = @taxon_concept # backwards compatability for views
 
   end
 

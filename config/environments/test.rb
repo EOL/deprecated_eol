@@ -48,5 +48,6 @@ if ENV["METRICS"] == "true"
   # In order to run the metrics on EOL via various Rake tasks, set set METRICS=true
   #
   # i.e. RAILS_ENV=test METRICS=true rake -T eol:quality 
-  config.gem 'jscruggs-metric_fu', :version => '1.0.2', :lib => 'metric_fu'
+  config.gem 'jscruggs-metric_fu', :version => '1.1.2', :lib => 'metric_fu', :source => 'http://gems.github.com'
+  require 'metric_fu' # Is this superfluous?  Not sure.  in a rush.  (TODO)
 end

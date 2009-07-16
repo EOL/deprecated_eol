@@ -97,7 +97,7 @@ class EOL
     end
 
     def build_top_image
-      if @dato.visibility == Visibility.visible and @dato.vetted == Vetted.trusted
+      if @dato.published
         TopImage.gen :data_object => @dato, :hierarchy_entry => @taxon.hierarchy_entry
       else
         TopUnpublishedImage.gen :data_object => @dato, :hierarchy_entry => @he

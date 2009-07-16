@@ -106,6 +106,49 @@ module TaxaHelper
            "', data_object_id:'"+ escape_javascript(video.id.to_s) +
            "', taxon_concept_id:'#{taxon_concept_id}'}"
   end
+  
+  def link_to_serp_url(str, link_page)
+    lparams = params.clone
+    lparams["page"] = link_page
+    lparams.delete("action")
+    "<a href='/search/?#{lparams.to_query}'>#{str}</a>"
+  end
+  
+  def paginate_results(search)
+    html = ""
+    tp = search.total_pages
+    
+    # prev_pg = search.current_page == 1 ? 1 : search.current_page - 1
+    # next_pg = search.current_page == tp ? tp : search.current_page + 1
+    
+    # Handle the << Prev link.
+    if search.current_page == 1
+      html += "&lt;&lt; Prev"
+    else
+      html += link_to_serp_url("&lt;&lt; Prev", search.current_page - 1)
+    end
+    html += "&nbsp;"
+
+    tp.times do |i|
+      if search.current_page == i+1 # current page
+        label = i+1
+      else
+        label = link_to_serp_url(i+1, i+1)
+      end
+      html += content_tag("span", label, :class => "pg_link")
+      html += "&nbsp;"
+    end
+    
+    # Handle the Next >> link.
+    if search.current_page == tp
+      html += "Next &gt;&gt;"
+    else
+      html += link_to_serp_url("Next &gt;&gt;", search.current_page + 1)
+    end
+    html += "&nbsp;"
+
+    content_tag("div", html, :class => "serp_pagination")
+  end
 
 
 end

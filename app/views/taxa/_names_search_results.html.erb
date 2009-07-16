@@ -97,6 +97,7 @@
                                  <td class="<%= thumbnail_column_class %>" align="center"><% unless thumbnail_cache_url.nil? %><a href="<%=url_for(:action=>'search_clicked',:id=>taxon_id.to_s,:search_id=> @search.logged_search_id)%>"><img alt="<%=remove_html(namestring)%>" title="<%=remove_html(namestring)%>" src="<%= DataObject.image_cache_path(thumbnail_cache_url, :medium) %>"/></a><%end%></td></tr>
                             <% end %>
                      </table>
+                     <%= paginate_results(@search) %>
                    </div>
                  <% end %>
       

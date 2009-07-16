@@ -11,16 +11,20 @@ class RandomHierarchyImage < SpeciesSchemaModel
   delegate :quick_scientific_name, :to => :taxon_concept
   delegate :quick_common_name, :to => :taxon_concept
   
-  @@last_cleared = nil
+  @@last_cleared = []
   @@count = []
   
   def self.random_set(limit = 10, hierarchy = nil)
     hierarchy ||= Hierarchy.default
     list = []
     RandomHierarchyImage.reset_count(hierarchy)
+    puts 'HIERARCHYIMAGE'
+    puts hierarchy.id
+    puts limit
     starting_id = rand(@@count[hierarchy.id] - limit).floor
     starting_id = 0 if starting_id > (@@count[hierarchy.id] - limit) # This only applies when there are very few RandomTaxa.
     list = RandomHierarchyImage.find_by_sql(['SELECT rhi.* FROM random_hierarchy_images rhi WHERE rhi.hierarchy_id=? LIMIT ?, ?', hierarchy.id, starting_id, limit])
+    list = self.random_set(limit, Hierarchy.default) if list.blank? && hierarchy.id != Hierarchy.default.id
     raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if list.blank?
     return list
   end
@@ -31,8 +35,8 @@ class RandomHierarchyImage < SpeciesSchemaModel
   end
 
   def self.reset_count(hierarchy)
-    if @@last_cleared.blank? || @@last_cleared.advance(:hours=>1) < Time.now
-      @@last_cleared = Time.now()
+    if @@last_cleared[hierarchy.id].blank? || @@last_cleared[hierarchy.id].advance(:hours=>1) < Time.now
+      @@last_cleared[hierarchy.id] = Time.now()
       @@count[hierarchy.id] = SpeciesSchemaModel.connection.select_value("select count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=#{hierarchy.id}").to_i
     end
   end

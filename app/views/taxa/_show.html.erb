@@ -4,14 +4,6 @@
 <div class="page-separator" id="<%=@page_separator%>"></div>
 
     <div id="page-title">
-
-      <%- if @contains_unvetted_objects -%>
-          <div id="unvetted-page-warning-box">
-            <div class="message-box">
-            <%= "This page contains information that has not been reviewed."[:page_has_not_been_review]%>
-            </div>
-          </div>     
-       <%- end -%>
        
         <% if @taxon_concept.vetted_id != Vetted.trusted.id %>
             <div class="unvetted-title-names">

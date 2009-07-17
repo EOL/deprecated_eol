@@ -50,6 +50,7 @@ ActionController::Routing::Routes.draw do |map|
   map.contact_us    'contact_us',    :controller => 'content', :action => 'contact_us'
   map.media_contact 'media_contact', :controller => 'content', :action => 'media_contact'
 
+  map.settings     'settings',     :controller => 'taxa',:action=>'settings'
   map.help         'help',         :controller => 'content', :action => 'page', :id => 'screencasts'
   map.screencasts  'screencasts',  :controller => 'content', :action => 'page', :id => 'screencasts'
   map.faq          'faq',          :controller => 'content', :action => 'page', :id => 'faqs'
@@ -98,7 +99,9 @@ ActionController::Routing::Routes.draw do |map|
   # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)
   # ...with the exception of "index", which historically pointed to home:
   map.connect '/index', :controller => 'content', :action => 'index'
-  map.connect ':id', :id => /\w+/,  :controller => 'taxa', :action => 'search'
+  map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID  
+  map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
+
  
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

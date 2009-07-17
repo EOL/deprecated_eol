@@ -241,6 +241,7 @@ class User < ActiveRecord::Base
     self.vetted = $DEFAULT_VETTED
     self.default_taxonomic_browser=$DEFAULT_TAXONOMIC_BROWSER
     self.credentials = ''
+    self.curator_scope = ''    
     self.active=true
     self.flash_enabled=true
   end

@@ -85,45 +85,35 @@ function check_passwords() {
 					<br /><br />
 					<%= render(:partial=>'taxa/set_content_settings',:locals=>{:f=>f}) %>
           
-          <% if $ALLOW_CURATOR_SELF_REG || @user.curator_approved %>
-			      <br /><br />
-	        <legend><%= "Curators Only"[] %></legend>
-  		       <% if !@user.is_curator? # if they aren't a curator yet, let them request it by selecting a clade%>
-	                   <span><%="To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will
-                     be notified via email if your application for curator privileges is accepted."[:curator_signup_message]%></span>
+          <% if $ALLOW_CURATOR_SELF_REG %>
+              <% if !@user.is_curator? %>
+              <br /><br />
+                <label for="user_curator_signup" title="<%= "Do you want to be a curator"[] %>"><%= "Do you want to be a curator?"[] %></label>
+  	                    <%= f.check_box :curator_request, {:id => "curator_request",:onclick=>'EOL.Effect.appear("curator_request_options");'} %> <%= "Yes"[:yes_answer] %>
+      
+              <% end %>
 
-           				    <label title="<%= "Select a clade"[] %>"><%= "Select a clade"[] %></label>
-           					<span id="curator_taxon">&nbsp;</span>
+ 	           <div id="curator_request_options" style="<%='display:none' unless @user.is_curator?%>">
+                <br /><label for="curator"><%= "Curator Information"[] %></label>
+    			      
+    			      <% if !@user.is_curator? %>
+      			      <span><%="To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will
+                  be notified via email if your application for curator privileges is accepted."[:curator_signup_message]%></span>
+                <% end %>
+                
+        		       <% if @user.is_curator? # show them the clade they have selected%>
+                   	 <p><%=@user.curator_approved ? "You are currently a curator of " : "You have requested curation of "%> <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %></p>      
+      			       <% end %>
 
-           					<%= clade_selector options={:selectable_clade_level => 3} %>			 
-           	 <% else %>
-           	 <p>
-                 Curator of: <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %>
-                 <label title="<%= "Curation Scope"[] %>"><%= "Curation Scope"[] %></label>
-                 Please state the scope of your curatorial abilities for the selected clade.<br/>
-                 <%= f.text_area :curator_scope, {:rows => 7, :cols => 60} %>
-             </p>      
-			       <% end %>
-			       
-			        <label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[:credentials] %></label>
-			        Please state at least one specific credential from this list:<br />
-              <ol>
-              <li>faculty, staff, or graduate student status in a relevant university or college department</li>
-              <li>authorship of a peer-reviewed publication (provide reference)</li>
-              <li>member of a professional society</li>
-              </ol>
-              <%= f.text_area :credentials, :rows => 9, :cols=>60 %>	
+      		          <%= render(:partial=>'curator_form',:locals=>{:f=>f}) %>
 
-            
-  					<% if @user.curator_approved %>
-  					  <br />
-  						<%= link_to 'View your curator profile', :controller => :account, :action => :show, :id => @user.id%>
-  					<% end %>
-  					
-  					
-  					
+        					<% if @user.curator_approved %>
+        					  <br />
+        						<%= link_to 'View your curator profile', :controller => :account, :action => :show, :id => @user.id%>
+        					<% end %>
+					
+              </div>
           <% end %>
-          
                 	<div class="button">
                 	    <input type="button" name="<%="Cancel"[]%>" onclick="document.location.href='<%=back_or_home(return_to_url)%>';" value="<%="Cancel"[]%>" /> &nbsp;&nbsp; <%= submit_tag 'Update Account'[] %>
                 	</div>

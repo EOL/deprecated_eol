@@ -311,7 +311,6 @@ class TaxaController < ApplicationController
     @ajax_update = true
     @content = @taxon_concept.content_by_category(@category_id)
     @new_text = render_to_string(:partial => 'content_body')
-    @taxon = @taxon_concept # backwards compatability within views
   end
 
   # AJAX: Render the requested content page

@@ -1,4 +1,0 @@
-#
-# To run Selenium IDE tests: start script/server then run this script
-# 
-java -jar vendor/selenium-remote-control/selenium-server-standalone.jar -htmlSuite "*firefox" "http://localhost:3000" spec/selenium/suite.html tmp/results.html

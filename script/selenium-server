@@ -1,3 +1,0 @@
-rake selenium:rc:start
-rake truncate RAILS_ENV=test && rake scenarios:load NAME=bootstrap RAILS_ENV=test && script/server -e test
-rake selenium:rc:stop

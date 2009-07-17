@@ -1,0 +1,17 @@
+<label title="<%= "Select a clade"[] %>"><%= "Select a clade"[] %></label>
+<span id="curator_taxon">&nbsp;</span>
+
+<%= clade_selector options={:selectable_clade_level => 3} %>	
+
+<label title="<%= "Curation Scope"[] %>"><%= "Curation Scope"[] %></label>
+Please state the scope of your curatorial abilities for the selected clade.
+<%= f.text_area :curator_scope, {:rows => 7, :cols => 80} %>
+
+<label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[] %></label>
+Please state at least one specific credential from this list:<br />
+<ol>
+<li>faculty, staff, or graduate student status in a relevant university or college department</li>
+<li>authorship of a peer-reviewed publication (provide reference)</li>
+<li>member of a professional society</li>
+</ol>
+  <%= f.text_area :credentials, {:rows => 7, :cols => 80} %>

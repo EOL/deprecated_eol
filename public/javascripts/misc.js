@@ -146,9 +146,15 @@ function eol_update_credit(params){
         field_notes_area += 'Image of <a href="/pages/' + params.taxaIDs[taxa_thats_not_the_current_page] + '">' + params.taxaNames[taxa_thats_not_the_current_page] + '</a><br />';
       }
     }
+    license_info='COPYRIGHT: ';
     if (params.license_text != '') {
-        field_notes_area += 'COPYRIGHT: ' + params.license_text + '<a href="' + params.license_link + '" class="external_link"> <img src="'  + params.license_logo + '"></a><br />';
+        license_info += params.license_text;
     }
+    if (params.license_logo != '') {
+        license_info += '&nbsp;&nbsp;<a href="' + params.license_link + '"  class="external_link"><img src="' + params.license_logo + '" border="0"></a>';
+    }
+		field_notes_area += license_info+'<br />'
+		
     if (params.data_supplier != '') {
       if (params.data_supplier_url != '') {
 		field_notes_area += 'SUPPLIER: <a href="'+params.data_supplier_url+'" class="external_link">' + params.data_supplier + ' <img alt="external link" src="/images/external_link.png"></a> ' + params.data_supplier_icon  + '<br />';
@@ -229,20 +235,20 @@ function eol_update_video(params) {
             asynchronous:true,
             evalScripts:true});
     
-    license_info='';
-    if (params.license_logo != '') {
-        license_info += '<a href="' + params.license_link + '" target="_blank"><img src="' + params.license_logo + '" border="0"></a>&nbsp;&nbsp;';
-    }
+    license_info='COPYRIGHT: ';
     if (params.license_text != '') {
         license_info += params.license_text;
-    }    
-    
+    }
+    if (params.license_logo != '') {
+        license_info += '&nbsp;&nbsp;<a href="' + params.license_link + '" class="external_link"><img src="' + params.license_logo + '" border="0"></a>';
+    }
+
     video_notes_area = '';
     video_notes_area += params.title +'<br /><br />';
-    if (params.author != '') {video_notes_area += 'AUTHOR: ' + params.author + '<br /><br />';}
-    if (params.collection != '') {video_notes_area += 'SOURCE: ' + params.collection + '<br /><br />';}
-    if (license_info != '') {video_notes_area += license_info + '<br /><br />';}
-          video_notes_area += params.field_notes ? params.field_notes : "";
+    if (license_info != '') {video_notes_area += license_info + '<br />';}
+    if (params.author != '') {video_notes_area += 'AUTHOR: ' + params.author + '<br />';}
+    if (params.collection != '') {video_notes_area += 'SOURCE: ' + params.collection + '<br />';}
+    video_notes_area += params.field_notes ? '<br />' + params.field_notes : '';
                 
     $('video-notes').innerHTML = video_notes_area;
 

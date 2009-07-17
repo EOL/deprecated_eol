@@ -31,7 +31,6 @@ $SHOW_SURVEYS=false
 
 $IP_ADDRESS_OF_SERVER='127.0.0.1'
 
-config.gem "selenium-client", :lib => false # :version => "1.2.15"
 config.gem 'faker', :version => "0.3.1"
 config.gem "rspec-custom-matchers", :version => "0.1.0", :lib => false
 config.gem "remi-indifferent-variable-hash", :version => "0.1.0", :lib => false

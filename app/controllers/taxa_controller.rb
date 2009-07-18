@@ -60,25 +60,17 @@ class TaxaController < ApplicationController
   # Main taxon view
   def show
     taxon_concept_id = params[:id].to_i
-    
-    if taxon_concept_id.nil?
-      raise "taxa id not supplied"
-    elsif taxon_concept_id == 0
+    if taxon_concept_id == 0
       # if the user passed in a string as an ID instead of a numeric ID, then just pass this off to the search --- which will auto-redirect to the correct taxon page if there is an exact match
       redirect_to :controller=>'taxa',:action=>'search', :id=>params[:id]
-      return
-    else
-      begin
-        @taxon_concept = TaxonConcept.find(taxon_concept_id)
-      rescue
-        raise "taxa does not exist"
-      end
+      return    
     end
+    
+    @taxon_concept = taxon_concept(taxon_concept_id)
 
     respond_to do |format|
       format.html do
         category_id = params[:category_id] || 'default'
-
         update_user_content_level
         
         @taxon_concept.current_user = current_user
@@ -90,9 +82,9 @@ class TaxaController < ApplicationController
 
           # get first set of images and if more images are available (for paging)
           @taxon_concept.current_agent = current_agent unless current_agent.nil?
-          @images     = @taxon_concept.images.sort{ |x,y| y.data_rating <=> x.data_rating }
+          @images = @taxon_concept.images.sort{ |x,y| y.data_rating <=> x.data_rating }          
           @show_next_image_page_button = @taxon_concept.more_images # indicates if more images are available
-          
+
           @videos = show_unvetted_videos #collect all videos (unvetted as well)
                                                                                  
           if params[:vet_flag] != "false"
@@ -107,7 +99,7 @@ class TaxaController < ApplicationController
 
           # find first valid content area to use
           first_content_item = @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }
-          @category_id = first_content_item.nil? ? nil : first_content_item.id
+          @category_id = first_content_item.nil? ? nil : first_content_item.id          
           @category_id = category_id unless category_id=='default'
 
           @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
@@ -259,43 +251,6 @@ class TaxaController < ApplicationController
   # AJAX CALLS
   ################
 
-  # AJAX: Render the requested citation into a floating div
-  # TODO: Remove if it continues to not be used
-  def citation
-
-    @taxon_concept = TaxonConcept.find(params[:id])
-    render :partial=>'citation',:layout=>false
-
-  end
-
-  # AJAX: Render the requested citation into an endnote file
-  # TODO: Remove if it continues to not be used
-  def endnote
-
-    taxon_id = params[:id]  
-    taxon    = TaxonConcept.find(taxon_id)
-
-    taxon.current_user = current_user
-
-    unless taxon.nil?
-        endnote_citation=''
-        ## TODO: This is obviously hardcoded and would need to be updated with dynamic citation data when we do this
-        endnote_citation+="%0 Web Page\n"
-        endnote_citation+="%T Taxonomic and natural history description of FAM: ARANEIDAE, Araneus marmoreus Clerck, 1757\n"
-        endnote_citation+="%A Shorthouse, David P.\n"
-        endnote_citation+="%E Shorthouse, David P.\n"
-        endnote_citation+="%D 2006\n"
-        endnote_citation+="%W http://www.canadianarachnology.org/data/canada_spiders/\n"
-        endnote_citation+="%N " + Time.now.strftime("%m/%d/%Y %H:%M:%S") +"\n"
-        endnote_citation+="%U http://www.canadianarachnology.org/data/spiders/15005\n"
-        endnote_citation+="%~ The Nearctic Spider Database\n"
-        endnote_citation+="%> http://www.canadianarachnology.org/data/spiderspdf/15005/Araneus%20marmoreus\n"
-
-        send_data(endnote_citation,:filename=>taxon.title[0..20] + '.enw',:type=>'application/x-endnote-refer',:disposition=>'attachment')
-    end
-
-  end
-
   def user_text_change_toc
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
     @taxon_concept.current_agent = current_agent unless current_agent.nil?
@@ -308,6 +263,7 @@ class TaxaController < ApplicationController
     end
 
     @category_id = @toc_item.id
+        
     @ajax_update = true
     @content = @taxon_concept.content_by_category(@category_id)
     @new_text = render_to_string(:partial => 'content_body')
@@ -322,7 +278,7 @@ class TaxaController < ApplicationController
     end
 
     @taxon_concept = TaxonConcept.find(params[:id]) 
-    @category_id   = params[:category_id].to_i
+    @category_id   = params[:category_id].to_i    
     @taxon_concept.current_agent = current_agent unless current_agent.nil?
     @taxon_concept.current_user  = current_user
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
@@ -361,7 +317,6 @@ class TaxaController < ApplicationController
     start       = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
     last        = start + $MAX_IMAGES_PER_PAGE - 1
     @images     = @taxon_concept.images[start..last]
-
     @show_next_image_page_button = (@taxon_concept.images.length > (last + 1))
 
     if @images.nil?
@@ -468,6 +423,19 @@ class TaxaController < ApplicationController
       @taxon_concept.current_user.vetted = vetted_mode
 
       return videos
+    end
+    
+    def taxon_concept(taxon_concept_id)
+      if taxon_concept_id.nil?
+        raise "taxa id not supplied"
+      else
+        begin
+          taxon_concept = TaxonConcept.find(taxon_concept_id)
+        rescue
+          raise "taxa does not exist"
+        end
+      end
+      return taxon_concept
     end
     
 end

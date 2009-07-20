@@ -88,9 +88,8 @@ build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names 
 
 #20 has unvetted images and videos:         
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
-                    :depth => depth_now, :images => [{:vetted => Vetted.untrusted}], :toc => [], :flash => [{:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [],
+                    :depth => depth_now, :images => [{}, {:vetted => Vetted.untrusted}, {:vetted => Vetted.unknown}], :flash => [{:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [],
                     :bhl => [], :event => event)
-
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
        # Give it a new name:
@@ -123,8 +122,8 @@ admin.save
 test_user2 = User.gen(:username => 'test_user2', :password => 'password', :given_name => 'test', :family_name => 'user2')
 test_user2.save
 
-#curator for selenium tests (NB: page #11, Animalia)
-curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 1, :curator_approved => true)
+#curator for selenium tests (NB: page #20)
+curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 5, :curator_approved => true)
 curator.save
 
 make_all_nested_sets

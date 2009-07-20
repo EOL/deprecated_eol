@@ -39,7 +39,6 @@ namespace :test do
         Rake::Task['scenarios:load'].invoke
         `script/server -e test -d`
         `java -jar vendor/selenium-remote-control/selenium-server-standalone.jar -htmlSuite "*firefox" "http://localhost:3000" spec/selenium/development_suite.html tmp/development_results.html`
-        `java -jar vendor/selenium-remote-control/selenium-server-standalone.jar -htmlSuite "*firefox" "http://localhost:3000" spec/selenium/production_suite.html tmp/production_results.html`
         `kill \`cat tmp/pids/mongrel.pid\``
       end
     end

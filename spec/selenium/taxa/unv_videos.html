@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>New Test</title>
+<title>Show untrusted videos in authoritative mode</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">New Test</td></tr>
+<tr><td rowspan="1" colspan="3">Show untrusted videos in authoritative mode</td></tr>
 </thead><tbody>
   
 <!-- authoritative mode (vetted==true), vetted-, unvetted+ -->
@@ -57,8 +57,8 @@
   
 <!-- check unvetted image - no -->
   <tr>
-  	<td>assertElementNotPresent</td>
-  	<td>//div[@id="main-image-bg"][@class="untrusted-background-image"]</td>
+  	<td>verifyElementNotPresent</td>
+  	<td>//div[@id="thumbnails"]/a[@class="untrusted-background-image"]</td>
   	<td></td>
   </tr>
   <tr>
@@ -90,10 +90,16 @@
   	<td>/pages/20?vetted=false&category_id=1</td>
   	<td></td>
   </tr>
+  <tr>
+    <td>waitForPageToLoad</td>
+    <td>60000</td>
+    <td></td>
+  </tr>
+  
   <!-- check image - yes -->
   <tr>
-  	<td>assertElementPresent</td>
-  	<td>//div[@id="main-image-bg"][@class="untrusted-background-image"]</td>
+  	<td>verifyElementPresent</td>
+  	<td>//div[@id="thumbnails"]/a[@class="untrusted-background-image"]</td>
   	<td></td>
   </tr>
   <tr>
@@ -113,99 +119,17 @@
   	<td>Videos</td>
   </tr>
 
-  <!-- authoritative mode (vetted==true), vetted-, unvetted- -->
-  <!-- image yes, link no, videos no -->
-  <tr>
-  	<td>open</td>
-  	<td>pages/17?vetted=true&category_id=1</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>verifyElementNotPresent</td>
-  	<td>//div[@id="main-image-bg"][@class="untrusted-background-image"]</td>
-  	<td></td>
-  </tr>
-  
-  <tr>
-  	<td>verifyTextPresent</td>
-  	<td>Select a video to the right to begin playback.</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>verifyTextPresent</td>
-  	<td>No videos are available.</td>
-  	<td></td>
-  </tr>
-  
-  <!-- all mode (vetted==false), vetted-, unvetted- -->
-  <!-- image yes, link no, videos no -->
-  <tr>
-  	<td>open</td>
-  	<td>pages/17?vetted=false&category_id=1</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>verifyTextPresent</td>
-  	<td>Select a video to the right to begin playback.</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>verifyTextPresent</td>
-  	<td>No videos are available.</td>
-  	<td></td>
-  </tr>
-  
-  <!-- page with all vetted -->
-  <!-- check both modes for text and videos and no link -->
-  <!-- authoritative mode (vetted==true), vetted+, unvetted- -->
-  <!-- image yes, link no, videos yes -->
-  <tr>
-  	<td>open</td>
-  	<td>pages/11?vetted=true&category_id=1</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>verifyElementNotPresent</td>
-  	<td>//div[@id="main-image-bg"][@class="untrusted-background-image"]</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>verifyTextPresent</td>
-  	<td>Select a video to the right to begin playback.</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>verifyElementPresent</td>
-  	<td>//div[@id="video-list"][@class="mc-info"]/div[@class="mc-header"]/h3</td>
-  	<td>Videos</td>
-  </tr>
-    
-  <!-- all mode (vetted==false), vetted+, unvetted- -->
-  <!-- image yes, link no, videos no -->
-  <tr>
-  	<td>open</td>
-  	<td>pages/11?vetted=false&category_id=1</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>verifyTextPresent</td>
-  	<td>Select a video to the right to begin playback.</td>
-  	<td></td>
-  </tr>
-  <tr>
-  	<td>verifyElementPresent</td>
-  	<td>//div[@id="video-list"][@class="mc-info"]/div[@class="mc-header"]/h3</td>
-  	<td>Videos</td>
-  </tr>
-  
-  <!-- page with 1 vetted and 1 unvetted -->
-  <!-- check both modes for text and videos and no link-->
-
   <tr>
   	<td>open</td>
   	<td>/pages/20?vetted=true&category_id=1</td>
   	<td></td>
   </tr>
+  <tr>
+    <td>waitForPageToLoad</td>
+    <td>60000</td>
+    <td></td>
+  </tr>
+  
   <tr>
   	<td>clickAndWait</td>
   	<td>link=View unvetted videos for this group.</td>
@@ -213,8 +137,8 @@
   </tr>
   <!-- check unvetted image - no -->
   <tr>
-  	<td>assertElementNotPresent</td>
-  	<td>//div[@id="main-image-bg"][@class="untrusted-background-image"]</td>
+  	<td>verifyElementNotPresent</td>
+  	<td>//div[@id="thumbnails"]/a[@class="untrusted-background-image"]</td>
   	<td></td>
   </tr>
   <tr>

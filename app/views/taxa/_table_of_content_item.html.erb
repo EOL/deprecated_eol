@@ -1,7 +1,8 @@
+<%# = debug(@category_id1) %>
 <% item_class=item.is_child? ? 'li-sub' : '' %>
 <li class="<%=item_class%>">
   <% if item.has_content? %>
- 	  <a href="<%= url_for :action=>'show',:id=>@taxon_concept.id, :category_id => item.id %>" onclick="eol_update_content_area(<%=@taxon_concept.id%>,<%=item.id%>, <%=item.allow_user_text?%>);this.className = 'active toc_item';return false;" class="toc_item" title="<%= item.label %>">
+ 	  <a href="<%= url_for :action=>'show',:id=>@taxon_concept.id, :category_id => item.id %>" onclick="eol_update_content_area(<%=@taxon_concept.id%>,<%=item.id%>, <%=item.allow_user_text?%>);this.className = 'active toc_item';return false;" class="toc_item <%= [@category_id].include?(item.id) ? "active" : nil %>" title="<%= item.label %>">
   <% else %>
     <span class="no_toc_link">
   <% end %>

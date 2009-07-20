@@ -65,10 +65,6 @@ class HierarchyEntry < SpeciesSchemaModel
     end
   end
 
-  def toc
-    TocItem.toc_for(id)
-  end
-
   def media
     {:images => hierarchies_content.image != 0 || hierarchies_content.child_image  != 0,
      :video  => hierarchies_content.flash != 0 || hierarchies_content.youtube != 0,

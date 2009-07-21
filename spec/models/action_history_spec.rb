@@ -38,9 +38,11 @@ describe ActionsHistory do
 
     it 'should set an actions history when a curator curates this data object' do
       current_count = @num_ah
-      ['hide', 'show', 'inappropriate', 'approve', 'disapprove'].each do |method|
-        @dato_image.curate! CuratorActivity.send("#{method}!"), @user
-        ActionsHistory.count.should == (current_count += 1)
+      [Vetted.trusted.id, Vetted.untrusted.id].each do |vetted_method|
+        [Visibility.invisible.id, Visibility.visible.id, Visibility.inappropriate.id].each do |visibility_method|
+          @dato_image.curate! vetted_method, visibility_method, @user
+          ActionsHistory.count.should == (current_count += 2)
+        end
       end
     end
     

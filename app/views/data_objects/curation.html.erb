@@ -1,31 +1,65 @@
-<h1>Object Curation</h1>
-
-<div class="vetted">
-  <form action="<%= curate_data_object_path(@data_object) %>" data-data_object_id="<%= @data_object.id %>" data-data_object_type="<%=@data_object.data_type_id%>">
-    <div class="label">VETTED <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
-    <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.approve!.id.to_s, @data_object.trusted?%> Trusted
+<% if @data_object.text? %>
+  <div class="text_curation_close">
+    <a class="close-button">
+    </a>
+  </div>
+<% end %>
+<div>
+  <h1>Object Curation</h1>
+  <form class="curation" action="<%= curate_data_object_path(@data_object) %>" data-data_object_id="<%= @data_object.id %>" data-data_object_type="<%=@data_object.data_type_id%>">
+    <div class="processing" style="display:none;">
+      <%=image_tag('indicator_arrows_black.gif')%> Please wait
     </div>
-    <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.disapprove!.id.to_s, @data_object.untrusted?%> Untrusted
+
+    <div class="vetted">
+      <div class="label">VETTED:</div>
+      <div class="options">
+        <div class="option trusted"><%= radio_button_tag 'vetted_id', Vetted.trusted.id.to_s, @data_object.trusted?%> Trusted</div>
+        <div class="option untrusted">
+          <div>
+            <%= radio_button_tag 'vetted_id', Vetted.untrusted.id.to_s, @data_object.untrusted?%> Untrusted
+          </div>
+          <div class="reason" <%='style="display:none;"' if !@data_object.untrusted?%>>
+            <div class="option">
+              <%= check_box_tag 'untrust_reasons[]', UntrustReason.misidentified.id.to_s, @data_object.untrust_reasons.include?(UntrustReason.misidentified), {:id => 'untrust_reason_misidentified'} %> Misidentified
+            </div>
+            <div class="option">
+              <%= check_box_tag 'untrust_reasons[]', UntrustReason.incorrect.id.to_s, @data_object.untrust_reasons.include?(UntrustReason.incorrect), {:id => 'untrust_reason_incorrect'} %> Incorrect/misleading information
+            </div>
+            <div class="option">
+              <%= check_box_tag 'untrust_reasons[]', UntrustReason.poor.id.to_s, @data_object.untrust_reasons.include?(UntrustReason.poor), {:id => 'untrust_reason_poor'} %> Poor writing/image/sound quality
+            </div>
+            <div class="option">
+              <%= check_box_tag 'untrust_reasons[]', UntrustReason.duplicate.id.to_s, @data_object.untrust_reasons.include?(UntrustReason.duplicate), {:id => 'untrust_reason_duplicate'} %> Redundant/duplicate
+            </div>
+            <div class="option">
+              <%= check_box_tag 'untrust_reasons[]', UntrustReason.other.id.to_s, @data_object.untrust_reasons.include?(UntrustReason.other), {:id => 'untrust_reason_other'} %> Other
+            </div>
+            <div class="comment">
+              <div>
+                Add a comment to explain your decision (optional)
+              </div>
+              <div>
+                <%= text_area_tag 'comment', nil, :rows => 7, :cols => 32 %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="visibility">
+      <div class="label">VISIBILITY:</div>
+      <div class="options">
+        <div class="option"><%= radio_button_tag 'visibility_id', Visibility.visible.id.to_s, @data_object.visible?%> Show to all users</div>
+        <div class="option"><%= radio_button_tag 'visibility_id', Visibility.invisible.id.to_s, @data_object.invisible?%> Hide for all except curators</div>
+        <div class="option"><%= radio_button_tag 'visibility_id', Visibility.inappropriate.id.to_s, @data_object.inappropriate?%> Permanently Remove</div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <input type="submit" value="Save"/>
+      <input class="cancel-button" type="button" value="Cancel"/>
     </div>
   </form>
 </div>
-
-<div class="visibility">
-  <form action="<%= curate_data_object_path(@data_object) %>" data-data_object_id="<%= @data_object.id %>" data-data_object_type="<%=@data_object.data_type_id%>">
-    <div class="label">VISIBILITY <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%></div>
-    <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.show!.id.to_s, @data_object.visible?%> Show to all users
-    </div>
-    <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.hide!.id.to_s, @data_object.invisible?%> Hide for all except curators
-    </div>
-    <div class="option">
-      <%= radio_button_tag 'curator_activity_id', CuratorActivity.inappropriate!.id.to_s, @data_object.inappropriate?%> Permanently Remove
-    </div>
-  </form>
-</div>
-
-Note that some changes may take 24 hours to be shown on the website to other users.
-

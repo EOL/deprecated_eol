@@ -76,9 +76,10 @@ EOL.Curation.update_text_icons = function(data_object_id, visibility_id) {
 };
 
 EOL.Curation.Behaviors = {
-  'div.visibility form div.option input:click, div.vetted form div.option input:click': function(e) {
+  'form.curation input[type="submit"]:click': function(e) {
+    e.stop();
     var form = $(this.form);
-    form.down('div.label img').appear();
+    form.down('div.processing').appear();
     new Ajax.Request(form.action,
                      {
                        asynchronous:true,
@@ -86,7 +87,7 @@ EOL.Curation.Behaviors = {
                        method:'put',
                        onComplete:function() {
                          form.enable();
-                         form.down('div.label img').fade();
+                         form.down('div.processing').fade();
                        }.bind(form),
                        parameters:Form.serialize(form)
                      });
@@ -102,6 +103,25 @@ EOL.Curation.Behaviors = {
     $(this).observe("click", function() {
       EOL.Effect.toggle_with_effect("curator_request_options");  
     });
+  },
+
+  'div.vetted div.untrusted div input[type="radio"]:click': function(e) {
+    this.up(2).down('div.reason').appear();
+  },
+
+  'div.vetted div.trusted input[type="radio"]:click': function(e) {
+    this.up(2).down('div.reason').fade();
+  },
+
+  'div#large-image-curator-button-popup-link_popup_content input.cancel-button:click': function(e) {
+    $('large-image-curator-button-popup-link_popup').disappear();
+  },
+
+  'div.text_curation_close a.close-button:click': function(e) {
+    this.up(2).fade();
+  },
+
+  'div.text-slidebox-container form.curation input.cancel-button:click':function(e) {
+    this.up(4).fade();
   }
 };
-

@@ -27,6 +27,8 @@ class DataObject < SpeciesSchemaModel
   has_many :data_object_tags, :class_name => DataObjectTags.to_s
   has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :data_objects_table_of_contents
+  has_many :data_objects_untrust_reasons
+  has_many :untrust_reasons, :through => :data_objects_untrust_reasons
 
   has_and_belongs_to_many :taxa
   has_and_belongs_to_many :info_items
@@ -408,30 +410,31 @@ class DataObject < SpeciesSchemaModel
     ", self.id])
   end
   
-  def curate! action, user = nil
-    activity = CuratorActivity.find(action)
-
-    if activity.code[/^approve$/i]
-      vet
-      new_actions_histories(user, self, 'data_object', 'trusted')
-    elsif activity.code[/^disapprove$/i]
-      unvet
-      new_actions_histories(user, self, 'data_object', 'untrusted')
-    elsif activity.code[/^show$/i]
-      make_visible
-      new_actions_histories(user, self, 'data_object', 'show')
-    elsif activity.code[/^hide$/i]
-      hide
-      new_actions_histories(user, self, 'data_object', 'hide')
-    elsif activity.code[/^inappropriate$/i]
-      inappropriate
-      new_actions_histories(user, self, 'data_object', 'inappropriate')
-    else
-      raise "Not sure how to #{activity.code} a DataObject"
+  def curate!(vetted_id, visibility_id, user, untrust_reason_ids = [], comment = nil)
+    if vetted_id
+      vetted_id = vetted_id.to_i
+      if vetted_id == Vetted.untrusted.id
+        untrust(user, untrust_reason_ids, comment)
+      elsif vetted_id == Vetted.trusted.id
+        trust(user)
+      else
+        raise "Cannot set data object vetted id to #{vetted_id}"
+      end
     end
 
-    # log the fact that the user provided (if any user was passed) curacted this object with the given activity
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => activity if user
+    if visibility_id
+      visibility_id = visibility_id.to_i
+      if visibility_id == Visibility.visible.id
+        show(user)
+      elsif visibility_id == Visibility.invisible.id
+        hide(user)
+      elsif visibility_id == Visibility.inappropriate.id
+        inappropriate(user)
+      else
+        raise "Cannot set data object visibility id to #{visibility_id}"
+      end
+    end
+
     curator_activity_flag(user)
   end
 
@@ -719,25 +722,49 @@ AND data_type_id IN (:data_type_ids)
 
 private
 
-  def make_visible user = nil
-    self.vetted_by = user if user
+  def show(user)
+    self.vetted_by = user
     update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
+    new_actions_histories(user, self, 'data_object', 'show')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show!
   end
-  def hide user = nil
-    self.vetted_by = user if user
+
+  def hide(user)
+    self.vetted_by = user
     update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
+    new_actions_histories(user, self, 'data_object', 'hide')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide!
   end
-  def vet user = nil
-    self.vetted_by = user if user
+
+  def trust(user)
+    self.vetted_by = user
     update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
+    DataObjectsUntrustReason.destroy_all(:data_object_id => self.id)
+    new_actions_histories(user, self, 'data_object', 'trusted')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve!
   end
-  def unvet user = nil
-    self.vetted_by = user if user
+
+  def untrust(user, untrust_reason_ids, comment)
+    self.vetted_by = user
     update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
+    DataObjectsUntrustReason.destroy_all(:data_object_id => self.id)
+    if untrust_reason_ids
+      untrust_reason_ids.each do |untrust_reason_id|
+        self.untrust_reasons << UntrustReason.find(untrust_reason_id)
+      end
+    end
+    if comment && !comment.blank?
+      self.comment(user, comment)
+    end
+    new_actions_histories(user, self, 'data_object', 'untrusted')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove!
   end
-  def inappropriate user = nil
-    self.vetted_by = user if user
+
+  def inappropriate(user)
+    self.vetted_by = user
     update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
+    new_actions_histories(user, self, 'data_object', 'inappropriate')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate!
   end
   
   def self.join_agents_clause(agent)

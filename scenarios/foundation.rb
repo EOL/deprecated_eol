@@ -280,6 +280,12 @@ create_if_not_exists Status, :label => 'Inserted'
 create_if_not_exists Status, :label => 'Unchanged'
 create_if_not_exists Status, :label => 'Updated'
 
+create_if_not_exists UntrustReason, :label => 'Misidentified'
+create_if_not_exists UntrustReason, :label => 'Incorrect'
+create_if_not_exists UntrustReason, :label => 'Poor'
+create_if_not_exists UntrustReason, :label => 'Duplicate'
+create_if_not_exists UntrustReason, :label => 'Other'
+
 create_if_not_exists Vetted, :label => 'Unknown'    # This really wants an ID of 0, but only for PHP stuff.
 create_if_not_exists Vetted, :label => 'Untrusted'
 create_if_not_exists Vetted, :label => 'Trusted'

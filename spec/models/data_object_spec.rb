@@ -43,6 +43,48 @@ describe DataObject do
     @already_built_tc = true
   end
 
+  describe 'curation' do
+    before(:each) do
+      commit_transactions
+      @taxon_concept = TaxonConcept.last || build_taxon_concept
+      @user          = @taxon_concept.acting_curators.to_a.last
+      @data_object   = @taxon_concept.add_user_submitted_text(:user => @user)
+    end
+
+    it 'should set to untrusted' do
+      @data_object.curate!(Vetted.untrusted.id, nil, @user)
+      @data_object.untrusted?.should eql(true)
+    end
+
+    it 'should set to trusted' do
+      @data_object.curate!(Vetted.trusted.id, nil, @user)
+      @data_object.trusted?.should eql(true)
+    end
+
+    it 'should set to untrusted and hidden' do
+      @data_object.curate!(Vetted.untrusted.id, Visibility.invisible.id, @user)
+      @data_object.untrusted?.should eql(true)
+      @data_object.invisible?.should eql(true)
+    end
+
+    it 'should set untrust reasons' do
+      @data_object.curate!(Vetted.untrusted.id, Visibility.visible.id, @user, [UntrustReason.misidentified.id, UntrustReason.poor.id, UntrustReason.other.id])
+      @data_object.untrust_reasons.length.should eql(3)
+      @data_object.curate!(Vetted.untrusted.id, Visibility.visible.id, @user, [UntrustReason.misidentified.id, UntrustReason.poor.id])
+      @data_object = DataObject.find(@data_object.id)
+      @data_object.untrust_reasons.length.should eql(2)
+      @data_object.curate!(Vetted.trusted.id, Visibility.visible.id, @user)
+      @data_object = DataObject.find(@data_object.id)
+      @data_object.untrust_reasons.length.should eql(0)
+    end
+
+    it 'should add comment when untrusting' do
+      comment_count = @data_object.comments.length
+      @data_object.curate!(Vetted.untrusted.id, Visibility.visible.id, @user, [], 'new comment')
+      @data_object.comments.length.should eql(comment_count+1)
+    end
+  end
+
   describe 'ratings' do
 
     it 'should have a default rating of 2.5' do
@@ -367,9 +409,11 @@ describe DataObject do
     
     it 'should set a last curated date when a curator curates this data object' do
       current_count = @num_lcd
-      ['hide', 'show', 'inappropriate', 'approve', 'disapprove'].each do |method|
-        @data_object.curate! CuratorActivity.send("#{method}!"), @user
-        LastCuratedDate.count.should == (current_count += 1)
+      [Vetted.trusted.id, Vetted.untrusted.id].each do |vetted_method|
+        [Visibility.invisible.id, Visibility.visible.id, Visibility.inappropriate.id].each do |visibility_method|
+          @data_object.curate! vetted_method, visibility_method, @user
+          LastCuratedDate.count.should == (current_count += 1)
+        end
       end
     end
     

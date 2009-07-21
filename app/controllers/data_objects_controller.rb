@@ -170,7 +170,7 @@ class DataObjectsController < ApplicationController
 
   # PUT /data_objects/1/curate
   def curate
-    @data_object.curate! params[:curator_activity_id], current_user
+    @data_object.curate! params[:vetted_id], params[:visibility_id], current_user, params[:untrust_reasons], params[:comment]
 
     expire_data_object(@data_object.id)
     

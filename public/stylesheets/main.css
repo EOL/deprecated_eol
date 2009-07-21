@@ -388,7 +388,7 @@ ul#global-navigation {
      z-index: 105;
      font-size: 12px;
      color: #333;
-     width: 245px;
+     width: 375px;
      text-align: left;
  		 border: 2px solid #6a8d00 !important;
      padding: 6px;
@@ -1330,7 +1330,7 @@ ul#global-navigation {
     font-weight: bold;
   }
   #content #page-content input {
-    font-size: 14px;
+    font-size: 12px;
   }
   #content #page-content .button {
     font-size: 14px;
@@ -1339,7 +1339,7 @@ ul#global-navigation {
     margin-top: 15px;
     font-size: 16px;
   }
-  #content #page-content #center-page-content h1,#content #page-content #full-page-content h1 {
+  #content #page-content #full-page-content h1 {
     padding: 2px 0 2px 0;
     font-size: 18px;
     font-weight: 700;
@@ -2490,28 +2490,6 @@ li.invisible_icon {
   float: left;
 }
 
-#large-image-curator-button-popup-link_popup {
-  background-color:#F4F4F4;	
-}
-
-#large-image-curator-button-popup-link_popup .label {
-  color: #999999;
-  font-size: 12px;
-  font-weight: 700;
-  line-height: 25px;
-}
-
-#large-image-curator-button-popup-link_popup .visibility {
-  margin-bottom: 5px;
-  border-top: 1px solid #999999;
-  border-bottom: 1px solid #999999;
-  padding-bottom: 5px;
-}
-
-#large-image-curator-button-popup-link_popup .option {
-  padding-left: 8px;
-}
-
 /* this is cool!  this is the version of comments as a TAB in the media center ... very neat ... adding one of these for tags could be really cool! */
 #media-taxa-comments-body {
   background-color:#EEF7D5;
@@ -2597,8 +2575,17 @@ div#report_from_eol  .pagination span {color:#959595;display: inline;}
 #left-pane h3 {margin-left:20px;}
 
 /*styles for div that slides down when you click the curate or comment button below text data objects*/
-.text-slidebox-container { padding: 5px; background-color: #FFFFFF; border:1px solid #83991E; }
-.text-slidebox-border { border: 1px solid #83991e; padding: 2px; background-color: #a2b736; }
+.text-slidebox-container { 
+  padding: 10px;
+  background-color:#F4F4F4;
+}
+.text-slidebox-border { 
+  border:2px solid #6A8D00 !important;
+}
+
+div.text_curation_close {
+  height:13px;
+}
 
 /*styles for button images*/
 .comment-button-image { background: transparent url(/images/icons/icons.gif) no-repeat -72px 0px; }

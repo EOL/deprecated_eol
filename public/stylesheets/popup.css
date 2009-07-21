@@ -55,11 +55,10 @@
   color: #570;
 }
 
-.popup-content h1 {
+.popup-content h1, #content #page-content #center-page-content h1 {
   font:normal 20px/21px verdana, arial;
   border-bottom: 2px solid #D6D6D6; /* gray */
   border-top: 2px solid #D6D6D6; /* gray */
-  width: 90%;
   margin-bottom: 5px;
   padding-top: 3px;
   padding-bottom: 5px;		
@@ -167,3 +166,42 @@ div.insert_text table td { padding: 5px; vertical-align:top; }
 }
 
 .multi_new_text_error { color:red; text-align:right; }
+
+form.curation .buttons { text-align:center; }
+
+form.curation .vetted .label { float: left; }
+
+form.curation .visibility .label { float: left; }
+
+form.curation .options {
+  padding-top: 5px;
+  padding-left: 65px;
+ }
+
+#large-image-curator-button-popup-link_popup {
+  background-color:#F4F4F4;
+}
+
+form.curation .label {
+  color: #999999;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 25px;
+}
+
+form.curation .vetted {
+  padding-top: 15px;
+}
+
+form.curation .visibility {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+form.curation div.option {
+  padding-left: 8px;
+}
+
+form.curation .options .untrusted .reason {
+  padding-left: 20px;
+}

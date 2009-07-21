@@ -824,6 +824,11 @@ Factory.define :top_unpublished_image do |tui|
   tui.view_order  1 # Again, this should be sequential, but...
 end
 
+Factory.define :untrust_reason do |ur|
+  ur.updated_at Time.now
+  ur.created_at Time.now
+end
+
 Factory.define :user do |u|
   u.default_taxonomic_browser 'text'
   u.expertise                 'middle'

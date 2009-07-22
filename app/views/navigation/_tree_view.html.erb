@@ -22,13 +22,14 @@
                          :first_kingdom         => kingdom == kingdoms.first,
                          :current_kingdom       =>(!@taxon_concept.kingdom(@session_hierarchy).nil? && kingdom[:id].to_i == @taxon_concept.kingdom(@session_hierarchy).taxon_concept_id),
                          :level                 => 0,
+                         :hierarchy_id          => kingdom[:hierarchy_id],
                          :current_node          =>(kingdom[:id].to_i == @taxon_concept.id)
                         }) %>
       <%- if kingdom[:id].to_i == @taxon_concept.kingdom(@session_hierarchy).taxon_concept_id %>
       
       <%= render(:partial => 'navigation/tree_view_current_kingdom',
-                 :locals => {:current_treepath => @taxon_concept.ancestors_hash(current_user.expertise, current_user.language, @session_hierarchy),
-                             :children_nodes   => @taxon_concept.children_hash(current_user.expertise, current_user.language, @session_hierarchy).sort { |a,b|
+                 :locals => {:current_treepath => @taxon_concept.ancestors_hash(current_user.expertise, current_user.language, @session_hierarchy, @session_secondary_hierarchy),
+                             :children_nodes   => @taxon_concept.children_hash(current_user.expertise, current_user.language, @session_hierarchy, @session_secondary_hierarchy).sort { |a,b|
                                  a[:name] <=> b[:name]
                             }}) %>
         <br />

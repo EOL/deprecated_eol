@@ -16,10 +16,6 @@
         <% if @taxon_concept.vetted_id != Vetted.trusted.id %>
             <div class="unvetted-title-names">
         <% end %>
-        <%-
-            puts '_show.html.erb'
-            pp @session_hierarchy
-        %>
         <h1><%= hh(@taxon_concept.title(@session_hierarchy)) %></h1>
         <h2><%= hh(@taxon_concept.subtitle(@session_hierarchy)) %></h2>
         

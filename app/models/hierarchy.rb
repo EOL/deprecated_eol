@@ -45,12 +45,12 @@ class Hierarchy < SpeciesSchemaModel
     kingdoms = SpeciesSchemaModel.connection.execute("
       SELECT n1.string scientific_name, n1.italicized scientific_name_italicized,
              n2.string common_name, n2.italicized common_name_italicized,
-             he.taxon_concept_id id, he.id hierarchy_entry_id, he.lft lft, he.rgt rgt, he.rank_id,
+             he.taxon_concept_id id, he.id hierarchy_entry_id, he.hierarchy_id, he.lft lft, he.rgt rgt, he.rank_id,
              hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image,
              r.label rank_string, he_source.hierarchy_id source_hierarchy_id
         FROM hierarchy_entries he
           JOIN names n1 ON (he.name_id=n1.id)
-          JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
+          LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
           LEFT JOIN (taxon_concept_names tcn JOIN names n2 ON (tcn.name_id=n2.id)
             LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id=he_source.id))
             ON (he.taxon_concept_id=tcn.taxon_concept_id AND tcn.preferred=1 AND tcn.language_id=#{language.id})
@@ -84,6 +84,7 @@ class Hierarchy < SpeciesSchemaModel
       :name => name,
       :italicized => detail_level.to_sym == :expert ? node['scientific_name_italicized'].firstcap : (node['common_name_italicized'] == nil  ? node['scientific_name_italicized'].firstcap : node['common_name_italicized'].firstcap),
       :id => node['id'],
+      :hierarchy_id => node['hierarchy_id'].to_i,
       :rank_string => node['rank_string'],
       :hierarchy_entry_id => node['hierarchy_entry_id'],
       :valid => node['content_level'].to_i > $VALID_CONTENT_LEVEL,

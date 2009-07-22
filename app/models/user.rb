@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
   attr_reader :full_name, :is_admin, :is_moderator
   attr_accessor :curator_request
   
+  def validate
+     errors.add_to_base "Secondary hierarchy must be different than default" if !secondary_hierarchy_id.nil? && secondary_hierarchy_id == default_hierarchy_id
+  end
+  
   def full_name
     return_value = given_name || ""
     return_value += " " + family_name unless family_name.blank?

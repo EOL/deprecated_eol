@@ -1193,6 +1193,10 @@ ul#global-navigation {
       color:#959595;
     }
 
+    #browser-text a.secondary {
+      color:#FF6666;
+    }
+
 
     #taxonomictext {
       font-size: 100%;

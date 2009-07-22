@@ -279,6 +279,10 @@ class TaxonConcept < SpeciesSchemaModel
       nil
   end
   
+  def test
+    return nil
+  end
+  
   def entry_in_hierarchy(hierarchy)
     raise "Hierarchy does not exist" if hierarchy.nil?
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
@@ -292,13 +296,13 @@ class TaxonConcept < SpeciesSchemaModel
     return nil if entry(hierarchy).nil?
     return entry(hierarchy).kingdom(hierarchy)
   end
-  def children_hash(detail_level = :middle, language = Language.english, hierarchy = nil)
+  def children_hash(detail_level = :middle, language = Language.english, hierarchy = nil, secondary_hierarchy = nil)
     return {} unless entry(hierarchy)
-    return entry(hierarchy).children_hash(detail_level, language)
+    return entry(hierarchy).children_hash(detail_level, language, hierarchy, secondary_hierarchy)
   end
-  def ancestors_hash(detail_level = :middle, language = Language.english, cross_reference_hierarchy = nil)
+  def ancestors_hash(detail_level = :middle, language = Language.english, cross_reference_hierarchy = nil, secondary_hierarchy = nil)
     return {} unless entry(cross_reference_hierarchy)
-    return entry(cross_reference_hierarchy).ancestors_hash(detail_level, language, cross_reference_hierarchy)
+    return entry(cross_reference_hierarchy).ancestors_hash(detail_level, language, cross_reference_hierarchy, secondary_hierarchy)
   end  
   
   # general versions of the above methods for any hierarchy
@@ -320,6 +324,9 @@ class TaxonConcept < SpeciesSchemaModel
     return entries.nil? ? false : true
   end
   
+  def self.find_entry_in_hierarchy(taxon_concept_id, hierarchy_id)
+    return HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchy_entries he WHERE taxon_concept_id=#{taxon_concept_id} AND hierarchy_id=#{hierarchy_id} LIMIT 1").first
+  end
   
   
   

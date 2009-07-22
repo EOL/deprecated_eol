@@ -18,9 +18,6 @@ class RandomHierarchyImage < SpeciesSchemaModel
     hierarchy ||= Hierarchy.default
     list = []
     RandomHierarchyImage.reset_count(hierarchy)
-    puts 'HIERARCHYIMAGE'
-    puts hierarchy.id
-    puts limit
     starting_id = rand(@@count[hierarchy.id] - limit).floor
     starting_id = 0 if starting_id > (@@count[hierarchy.id] - limit) # This only applies when there are very few RandomTaxa.
     list = RandomHierarchyImage.find_by_sql(['SELECT rhi.* FROM random_hierarchy_images rhi WHERE rhi.hierarchy_id=? LIMIT ?, ?', hierarchy.id, starting_id, limit])

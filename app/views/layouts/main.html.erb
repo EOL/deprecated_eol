@@ -11,11 +11,6 @@
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="MSSmartTagsPreventParsing" content="true" />
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-    
-    <%-
-        puts 'main.html.erb'
-        pp @session_hierarchy
-    %>
 
     <%- if @taxon_concept -%>
         <meta name="description" content="<%= hh(remove_html("#{@taxon_concept.title(@session_hierarchy)} (#{@taxon_concept.subtitle(@session_hierarchy)}) in Encyclopedia of Life")) %>" />

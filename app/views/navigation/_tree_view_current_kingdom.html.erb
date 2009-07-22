@@ -12,6 +12,7 @@
                                :valid                   => treepathnode[:valid],
                                :enable                  => treepathnode[:enable],
                                :level                   => counter,
+                               :hierarchy_id            => treepathnode[:hierarchy_id],
                                :kingdom                 => false,
                                :current_node            => treepathnode[:id].to_i == @taxon_concept.id
                               }) %>
@@ -19,7 +20,7 @@
 <%- end %>
 
 <%# ------------------- Show the CHIDLREN  (err... if it makes sense to) %>
-<%- if @taxon_concept.in_hierarchy(@session_hierarchy) %>
+<%- if (@session_secondary_hierarchy && @taxon_concept.in_hierarchy(@session_secondary_hierarchy)) || @taxon_concept.in_hierarchy(@session_hierarchy) %>
   <%- unless children_nodes.blank? %>
     <div id="taxonomic-children">
     <ul>
@@ -31,6 +32,7 @@
                             :valid                  => child_node[:valid],
                             :enable                 => child_node[:enable],
                             :level                  => current_treepath.size+2,
+                            :hierarchy_id           => child_node[:hierarchy_id],
                             :current_node           => false,
                             :kingdom                => false,
                             :close_li_tag           => true

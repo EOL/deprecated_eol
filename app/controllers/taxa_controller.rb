@@ -81,9 +81,8 @@ class TaxaController < ApplicationController
         
         # set the users default hierarchy if they haven't done so already
         current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
-        pp Hierarchy.default
-        pp current_user
         @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
+        @session_secondary_hierarchy = current_user.secondary_hierarchy_id.nil? ? nil : Hierarchy.find(current_user.secondary_hierarchy_id)
 
         update_user_content_level
         

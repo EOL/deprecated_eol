@@ -8,7 +8,8 @@ class DataObjectsController < ApplicationController
   def create
     data_object = DataObject.create_user_text(params, current_user)
     @curator = current_user.can_curate?(TaxonConcept.find(params[:taxon_concept_id]))
-    @taxon_concept_id = @taxon_id = params[:taxon_concept_id]
+    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+    @taxon_concept.current_user = current_user
     @category_id = data_object.toc_items[0].id
     current_user.vetted = false
     current_user.save!
@@ -16,7 +17,9 @@ class DataObjectsController < ApplicationController
   end
 
   def preview
-    data_object = DataObject.preview_user_text(params)
+    data_object = DataObject.preview_user_text(params, current_user)
+    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+    @taxon_concept.current_user = current_user
     @curator = false
     @preview = true
     @data_object_id = params[:id]

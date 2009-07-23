@@ -108,8 +108,9 @@ class TaxaController < ApplicationController
 
           # default to regular page separator if we can't find a specific kingdom
           @page_separator="page-separator-general"
-          @page_separator="page-separator-#{@taxon_concept.kingdom.id}" unless
-            @taxon_concept.kingdom.nil? || !$KINGDOM_IDs.include?(@taxon_concept.kingdom.id.to_s)
+          if entry_in_col = @taxon_concept.find_ancestor_in_hierarchy(Hierarchy.default)
+            @page_separator="page-separator-#{entry_in_col.kingdom.canonical_form.string.downcase}"
+          end
 
           @content     = @taxon_concept.content_by_category(@category_id) unless
             @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?

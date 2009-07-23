@@ -262,6 +262,10 @@ class HierarchyEntry < SpeciesSchemaModel
             deduped_children[used_concepts_indices[child['id'].to_i]] = child
           end
         else
+          # child_concept = TaxonConcept.find(child['id'].to_i)
+          # if entry_in_primary_hierarchy = child_concept.entry_in_hierarchy(primary_hierarchy)
+          #   child = entry_in_primary_hierarchy.details_hash(language)
+          # end
           if entry_in_primary_hierarchy = TaxonConcept.find_entry_in_hierarchy(child['id'].to_i, primary_hierarchy.id)
             next if entry_in_primary_hierarchy.parent_id != id
           end

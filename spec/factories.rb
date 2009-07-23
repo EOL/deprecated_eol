@@ -661,12 +661,12 @@ Factory.define :random_taxon do |rt|
   rt.thumb_url      200810061400963 # Not sure this is right.
 end
 
-Factory.define :random_hierarchy_image do |rt|
-  rt.association    :data_object
-  rt.name           { "<i>#{ Factory.next(:species) }<i> Factory TestFramework" }
-  rt.association    :taxon_concept
-  rt.association    :hierarchy_entry
-  rt.association    :hierarchy
+Factory.define :random_hierarchy_image do |rhi|
+  rhi.association   :data_object
+  rhi.name          { "<i>#{ Factory.next(:species) }<i> Factory TestFramework" }
+  rhi.association   :taxon_concept
+  rhi.association   :hierarchy_entry
+  rhi.hierarchy_id  :hierarchy
 end
 
 # I *don't* think these all actually relate to the rank_id's found elsewhere here. If so, we should change them to associations.

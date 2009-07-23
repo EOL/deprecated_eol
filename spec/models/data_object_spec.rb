@@ -196,6 +196,13 @@ describe DataObject do
       new_d.license_id.should eql(d.license_id)
       new_d.language_id.should eql(d.language_id)
     end
+
+    it 'should be trusted when created by curator' do
+      @taxon_concept = TaxonConcept.last || build_taxon_concept
+      @user          = @taxon_concept.acting_curators.to_a.last
+      @data_object   = @taxon_concept.add_user_submitted_text(:user => @user)
+      @data_object.vetted?.should eql(true)
+    end
   end
 
   describe '#to_s' do

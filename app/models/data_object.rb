@@ -48,6 +48,7 @@ class DataObject < SpeciesSchemaModel
     if dato.user.id != user.id
       raise 'Not original author'
     end
+    taxon_concept = TaxonConcept.find(all_params[:taxon_concept_id])
     do_params = {
       :guid => dato.guid,
       :data_type => DataType.find_by_label('Text'),
@@ -67,7 +68,7 @@ class DataObject < SpeciesSchemaModel
       :description => all_params[:data_object][:description].allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
-      :vetted_id => Vetted.unknown.id,
+      :vetted_id => (user.can_curate?(taxon_concept) ? Vetted.trusted.id : Vetted.unknown.id),
       :published => 1, #not sure if this is right
       :visibility_id => Visibility.visible.id #not sure if this is right either
     }
@@ -85,7 +86,9 @@ class DataObject < SpeciesSchemaModel
     d
   end
 
-  def self.preview_user_text(all_params)
+  def self.preview_user_text(all_params, user)
+    taxon_concept = TaxonConcept.find(all_params[:taxon_concept_id])
+
     do_params = {
       :guid => '',
       :data_type => DataType.find_by_label('Text'),
@@ -105,7 +108,7 @@ class DataObject < SpeciesSchemaModel
       :description => all_params[:data_object][:description].allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
-      :vetted_id => Vetted.unknown.id,
+      :vetted_id => (user.can_curate?(taxon_concept) ? Vetted.trusted.id : Vetted.unknown.id),
       :published => 1, #not sure if this is right
       :visibility_id => Visibility.visible.id #not sure if this is right either
     }
@@ -116,6 +119,8 @@ class DataObject < SpeciesSchemaModel
   end
 
   def self.create_user_text(all_params,user)
+    taxon_concept = TaxonConcept.find(all_params[:taxon_concept_id])
+
     do_params = {
       :guid => UUID.generate.gsub('-',''),
       :data_type => DataType.find_by_label('Text'),
@@ -135,7 +140,7 @@ class DataObject < SpeciesSchemaModel
       :description => all_params[:data_object][:description].allow_some_html,
       :language_id => all_params[:data_object][:language_id],
       :license_id => all_params[:data_object][:license_id],
-      :vetted_id => Vetted.unknown.id,
+      :vetted_id => (user.can_curate?(taxon_concept) ? Vetted.trusted.id : Vetted.unknown.id),
       :published => 1, #not sure if this is right
       :visibility_id => Visibility.visible.id #not sure if this is right either
     }
@@ -148,7 +153,7 @@ class DataObject < SpeciesSchemaModel
     raise "Unable to build a UsersDataObject if DataObject is nil" if dato.nil?
     raise "Unable to build a UsersDataObject if taxon_concept_id is missing" if all_params[:taxon_concept_id].blank?
     udo = UsersDataObject.new(:user_id => user.id, :data_object_id => dato.id,
-                              :taxon_concept_id => all_params[:taxon_concept_id])
+                              :taxon_concept_id => taxon_concept.id)
     udo.save!
     dato.new_actions_histories(user, udo, 'users_submitted_text', 'create')
     dato

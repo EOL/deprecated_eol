@@ -198,7 +198,7 @@ describe 'Taxa page XML' do
       # I need to do this to ensure we can capture the to_xml call (to_s is called in the controller in this case):
       TaxonConcept.should_receive(:find).with(@id).at_least(1).times.and_return(@taxon_concept)
       @taxon_concept.should_receive(:to_xml).exactly(1).times.and_return(
-        '<?xml version="1.0" encoding="UTF-8"?>\n<taxon-page>Not Empty</taxon-page>\n'
+        %Q{<?xml version="1.0" encoding="UTF-8"?>\n<taxon-page>Not Empty</taxon-page>\n}
       )
       Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body).xpath('//taxon-page').should_not
         be_empty

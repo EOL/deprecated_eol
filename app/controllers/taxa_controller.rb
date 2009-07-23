@@ -58,87 +58,21 @@ class TaxaController < ApplicationController
   end
 
   # Main taxon view
-  def show
-    taxon_concept_id = params[:id].to_i
-    if taxon_concept_id == 0
-      # if the user passed in a string as an ID instead of a numeric ID, then just pass this off to the search --- which will auto-redirect to the correct taxon page if there is an exact match
-      redirect_to :controller=>'taxa',:action=>'search', :id=>params[:id]
-      return    
+  def show    
+    
+    if this_request_is_really_a_search
+      do_the_search
+      return
     end
     
-    @taxon_concept = taxon_concept(taxon_concept_id)
+    @taxon_concept = taxon_concept
 
     respond_to do |format|
       format.html do
-        category_id = params[:category_id] || 'default'
-        update_user_content_level
-        
-        @taxon_concept.current_user = current_user
-
-        # run all the queries if the page cannot be cached or the fragment is not found
-        if !allow_page_to_be_cached? || category_id != 'default' || !read_fragment(:controller=>'taxa',:part=>'page_' + taxon_concept_id.to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + @taxon_concept.show_curator_controls?.to_s)
-
-          @cached=false
-
-          # get first set of images and if more images are available (for paging)
-          @taxon_concept.current_agent = current_agent unless current_agent.nil?
-          @images = @taxon_concept.images.sort{ |x,y| y.data_rating <=> x.data_rating }          
-          @show_next_image_page_button = @taxon_concept.more_images # indicates if more images are available
-
-          @videos = show_unvetted_videos #collect all videos (unvetted as well)
-                                                                                 
-          if params[:vet_flag] != "false"
-            params[:vet_flag] = "true"
-          end
-          
-          if params[:vet_flag] == "false"
-            @video_collection = @videos            
-          else 
-            @video_collection = @taxon_concept.videos unless @taxon_concept.videos.blank?
-          end
-
-          @category_id = show_category_id(@taxon_concept) #need to be an instant var as we use it in several views 
-          #and they use variables with that name from different methods in different cases    
-
-          @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
-
-          # default to regular page separator if we can't find a specific kingdom
-          @page_separator="page-separator-general"
-          @page_separator="page-separator-#{@taxon_concept.kingdom.id}" unless
-            @taxon_concept.kingdom.nil? || !$KINGDOM_IDs.include?(@taxon_concept.kingdom.id.to_s)
-
-          @content     = @taxon_concept.content_by_category(@category_id) unless
-            @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?
-          @random_taxa = RandomTaxon.random_set(5)
-
-          # log data objects shown and build an array of data_object_ids to log, so we can stick this info in the cached page and when the page comes from the cache, we can log on the server side
-          @data_object_ids_to_log=Array.new
-          unless @images.blank?
-            log_data_objects_for_taxon_concept @taxon_concept, @images.first
-            @data_object_ids_to_log << @images.first.id
-          end
-          unless @content.nil? || @content[:data_objects].blank?
-            log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects]
-            @content[:data_objects].each {|data_object| @data_object_ids_to_log << data_object.id }
-          end
-          @data_object_ids_to_log.compact!
-
-        else
-
-          @cached=true
-
-        end # end get full page since we couldn't read from cache
-
-        @taxon_page_title=remove_html(@taxon_concept.title) # we always need the title
-
-        render :template=>'/taxa/show_cached' if allow_page_to_be_cached? && category_id == 'default' # if caching is allowed, see if fragment exists using this template
+        show_taxa_html
       end
-
       format.xml do
-        xml = Rails.cache.fetch("taxon.#{@taxon_concept.id}/xml", :expires_in => 4.hours) do
-          @taxon_concept.to_xml(:full => true)
-        end
-        render :xml => xml
+        show_taxa_xml
       end
     end
 
@@ -260,8 +194,7 @@ class TaxaController < ApplicationController
       @toc_item = tc.tocitem_for_new_text
     end
 
-    @category_id = @toc_item.id
-        
+    @category_id = @toc_item.id    
     @ajax_update = true
     @content = @taxon_concept.content_by_category(@category_id)
     @new_text = render_to_string(:partial => 'content_body')
@@ -276,7 +209,8 @@ class TaxaController < ApplicationController
     end
 
     @taxon_concept = TaxonConcept.find(params[:id]) 
-    @category_id   = params[:category_id].to_i    
+    @category_id   = params[:category_id].to_i
+    
     @taxon_concept.current_agent = current_agent unless current_agent.nil?
     @taxon_concept.current_user  = current_user
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
@@ -293,7 +227,7 @@ class TaxaController < ApplicationController
         page << "Event.addBehavior.reload();"
         page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id})}');"
         page['center-page-content'].set_style :height => 'auto'
-      end
+      end      
     end
 
     log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
@@ -423,26 +357,24 @@ class TaxaController < ApplicationController
       return videos
     end
     
-    def taxon_concept(taxon_concept_id)
-      if taxon_concept_id.nil?
+    def taxon_concept
+      tc_id = params[:id].to_i     
+      if tc_id == 0
+        # TODO: sensible redirect / message here
         raise "taxa id not supplied"
       else
         begin
-          taxon_concept = TaxonConcept.find(taxon_concept_id)
+          taxon_concept = TaxonConcept.find(tc_id)
         rescue
+          # TODO: sensible redirect / message here
           raise "taxa does not exist"
         end
       end
       return taxon_concept
     end
-    
-    def first_content_item(taxon_concept)
-      # find first valid content area to use
-      taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
-    end
-    
+
     # wich TOC item choose to show
-    def show_category_id(taxon_concept)
+    def show_category_id
       category_id = params[:category_id] || 'default'
       
       # if page was called with &category_id=# - use it 
@@ -450,8 +382,97 @@ class TaxaController < ApplicationController
         show_category_id = category_id
       # by default use first TOC item
       else
-        show_category_id = first_content_item(taxon_concept).nil? ? nil : first_content_item(taxon_concept).id
+        show_category_id = first_content_item.nil? ? nil : first_content_item.id
       end
+    end
+    
+    def first_content_item
+      # find first valid content area to use
+      taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
+    end
+    
+    def this_request_is_really_a_search
+      params[:id].to_i == 0
+    end
+    
+    def do_the_search
+      redirect_to :controller => 'taxa', :action => 'search', :id => params[:id]
+    end
+    
+    def show_taxa_html
+      category_id = params[:category_id] || 'default'        
+      update_user_content_level
+      
+      @taxon_concept.current_user = current_user
+
+      # run all the queries if the page cannot be cached or the fragment is not found
+      if !allow_page_to_be_cached? || category_id != 'default' || !read_fragment(:controller => 'taxa', :part => taxa_page_html_fragment_name)
+
+        @cached=false
+
+        # get first set of images and if more images are available (for paging)
+        @taxon_concept.current_agent = current_agent unless current_agent.nil?
+        @images = @taxon_concept.images.sort{ |x,y| y.data_rating <=> x.data_rating }          
+        @show_next_image_page_button = @taxon_concept.more_images # indicates if more images are available
+
+        @videos = show_unvetted_videos #collect all videos (unvetted as well)
+                                                                               
+        if params[:vet_flag] != "false"
+          params[:vet_flag] = "true"
+        end
+        
+        if params[:vet_flag] == "false"
+          @video_collection = @videos            
+        else 
+          @video_collection = @taxon_concept.videos unless @taxon_concept.videos.blank?
+        end
+
+        @category_id = show_category_id #need to be an instant var as we use it in several views 
+        #and they use variables with that name from different methods in different cases    
+        @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
+
+        # default to regular page separator if we can't find a specific kingdom
+        @page_separator="page-separator-general"
+        @page_separator="page-separator-#{@taxon_concept.kingdom.id}" unless
+          @taxon_concept.kingdom.nil? || !$KINGDOM_IDs.include?(@taxon_concept.kingdom.id.to_s)
+
+        @content     = @taxon_concept.content_by_category(@category_id) unless
+          @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?
+        @random_taxa = RandomTaxon.random_set(5)
+
+        # log data objects shown and build an array of data_object_ids to log, so we can stick this info in the cached page and when the page comes from the cache, we can log on the server side
+        @data_object_ids_to_log=Array.new
+        unless @images.blank?
+          log_data_objects_for_taxon_concept @taxon_concept, @images.first
+          @data_object_ids_to_log << @images.first.id
+        end
+        unless @content.nil? || @content[:data_objects].blank?
+          log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects]
+          @content[:data_objects].each {|data_object| @data_object_ids_to_log << data_object.id }
+        end
+        @data_object_ids_to_log.compact!
+
+      else
+
+        @cached=true
+
+      end # end get full page since we couldn't read from cache
+
+      @taxon_page_title=remove_html(@taxon_concept.title) # we always need the title
+
+      render :template=>'/taxa/show_cached' if allow_page_to_be_cached? && category_id == 'default' # if caching is allowed, see if fragment exists using this template
+    end
+   
+    def show_taxa_xml
+      xml = Rails.cache.fetch("taxon.#{@taxon_concept.id}/xml", :expires_in => 4.hours) do
+        @taxon_concept.to_xml(:full => true)
+      end
+      render :xml => xml
+    end 
+    
+    def taxa_page_html_fragment_name
+      current_user = @taxon_concept.current_user
+      'page_' + params[:id].to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + @taxon_concept.show_curator_controls?.to_s
     end
     
 end

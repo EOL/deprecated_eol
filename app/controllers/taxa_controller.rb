@@ -66,7 +66,7 @@ class TaxaController < ApplicationController
       return    
     end
     
-    @taxon_concept = taxon_concept(taxon_concept_id)
+    @taxon_concept = show_taxon_concept
 
     respond_to do |format|
       format.html do
@@ -425,13 +425,15 @@ class TaxaController < ApplicationController
       return videos
     end
     
-    def taxon_concept(taxon_concept_id)
-      if taxon_concept_id.nil?
+    def show_taxon_concept      
+      if params[:id].nil?
+        # TODO: sensible redirect / message here
         raise "taxa id not supplied"
       else
         begin
-          taxon_concept = TaxonConcept.find(taxon_concept_id)
+          taxon_concept = TaxonConcept.find(params[:id])
         rescue
+          # TODO: sensible redirect / message here
           raise "taxa does not exist"
         end
       end

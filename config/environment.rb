@@ -91,9 +91,6 @@ Rails::Initializer.run do |config|
   $CONTENT_SERVER_AGENT_LOGOS_PATH = "/content_partners/"
   $SPECIES_IMAGE_FORMAT = "jpg" # the extension of all species images on the content server
   
-  # IDs of kingdoms in CoL, used to build page separator colors....also identified in CSS in page-separator IDs
-  $KINGDOM_IDs = %w{18874724 18882643 18875011 18878075 18880282 18880282 18875004 18879374 18879729}
-  
   # MEDIA CENTER CONFIGURATION
   $MAX_IMAGES_PER_PAGE = 9 # number of thumbnail images to show per page
   $PREFER_REMOTE_IMAGES = false # if set to true, then remote image URLs are used to show images when possible (helpful to preserve EOL bandwidth if needed)

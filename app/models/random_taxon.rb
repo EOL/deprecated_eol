@@ -9,7 +9,9 @@ class RandomTaxon < SpeciesSchemaModel
   
   delegate :quick_scientific_name, :to => :taxon_concept
   delegate :quick_common_name, :to => :taxon_concept
-
+  delegate :scientific_name, :to => :taxon_concept
+  delegate :common_name, :to => :taxon_concept
+  
   @@min     = nil
   @@max     = nil
   @@cl4_min = nil

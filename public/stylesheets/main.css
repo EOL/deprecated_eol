@@ -1417,6 +1417,13 @@ ul#global-navigation {
 	  color: grey;
 	}
 
+	.collection_icon {
+		max-width: 50px;
+	  max-height: 50px;
+	  width: expression(this.width > 50 ? "50px" : true);
+	  height: expression(this.height > 50 ? "50px" : true);
+	  
+	}
     /* = left page content ============================================================================ */
     #content #page-content #left-page-content {
       float: left;

@@ -66,7 +66,7 @@ class TaxaController < ApplicationController
       return    
     end
     
-    @taxon_concept = show_taxon_concept
+    @taxon_concept = taxon_concept(taxon_concept_id)
 
     respond_to do |format|
       format.html do
@@ -97,10 +97,8 @@ class TaxaController < ApplicationController
             @video_collection = @taxon_concept.videos unless @taxon_concept.videos.blank?
           end
 
-          # find first valid content area to use
-          first_content_item = @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }
-          @category_id = first_content_item.nil? ? nil : first_content_item.id          
-          @category_id = category_id unless category_id=='default'
+          @category_id = show_category_id(@taxon_concept) #need to be an instant var as we use it in several views 
+          #and they use variables with that name from different methods in different cases    
 
           @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
 
@@ -425,19 +423,35 @@ class TaxaController < ApplicationController
       return videos
     end
     
-    def show_taxon_concept      
-      if params[:id].nil?
-        # TODO: sensible redirect / message here
+    def taxon_concept(taxon_concept_id)
+      if taxon_concept_id.nil?
         raise "taxa id not supplied"
       else
         begin
-          taxon_concept = TaxonConcept.find(params[:id])
+          taxon_concept = TaxonConcept.find(taxon_concept_id)
         rescue
-          # TODO: sensible redirect / message here
           raise "taxa does not exist"
         end
       end
       return taxon_concept
+    end
+    
+    def first_content_item(taxon_concept)
+      # find first valid content area to use
+      taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
+    end
+    
+    # wich TOC item choose to show
+    def show_category_id(taxon_concept)
+      category_id = params[:category_id] || 'default'
+      
+      # if page was called with &category_id=# - use it 
+      unless category_id == 'default'
+        show_category_id = category_id
+      # by default use first TOC item
+      else
+        show_category_id = first_content_item(taxon_concept).nil? ? nil : first_content_item(taxon_concept).id
+      end
     end
     
 end

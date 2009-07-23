@@ -1,0 +1,126 @@
+
+	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+          <h1>Identify the Image</h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+
+    <script type="text/javascript">
+     var attempts=0;
+     var correct=0;
+     
+     function setup_drag_drop() {
+      <% for counter in 0..@num_images-1 %>
+        new Draggable('name_<%=@taxa[counter].taxon_concept_id%>', { 
+          revert: true 
+        });
+        Droppables.add('image_<%=@taxa[counter].taxon_concept_id%>', { 
+          accept: 'name',
+          hoverclass: 'border',
+          onDrop: function(name,answer_slot) {check_answer(name,answer_slot);}
+        });
+      <% end %>
+     }
+     
+     function check_answer(name,answer_slot) {
+       attempts+=1;
+       $('attempts').innerHTML=attempts
+       name_id=name.id.split('_')[1]
+       answer_slot_id=answer_slot.id.split('_')[1]
+       if (name_id == answer_slot_id) 
+       {
+         correct+=1;
+         $('game_feedback').innerHTML='RIGHT!'
+         $('answer_' + answer_slot_id).innerHTML='<a href="/pages/' + name_id + '" target="_blank">' + name.innerHTML + '</a>';
+         Element.remove(name);
+         Droppables.remove(answer_slot); 
+         if (correct==<%=@num_images.to_i%>) {
+              game_over();
+           } 
+       }
+       else
+       {
+         $('game_feedback').innerHTML='SORRY - TRY AGAIN!'
+       }
+     }  
+     
+     function game_over()
+     {
+       Element.remove('names');
+       $('game_feedback').innerHTML='GAME OVER'
+       final_results='<h2>Results</h2>';
+       final_results+='Number of attempts: ' + attempts + '<br />';
+       final_results+='Number of images: ' + correct + '<br />';
+       final_results+='Final score: ' + Math.round((correct/attempts) * 100) + '<br />';
+       final_results+='<br />Now click on the names to learn more about the species or <a href="<%=request.request_uri%>">play again</a>!';
+       $('game_results').innerHTML=final_results;
+     }
+     womAdd('setup_drag_drop();');
+     
+    </script>	
+    
+    <style type="text/css">
+     .name {
+       border: 1px solid grey;
+       padding: 5px;
+       margin: 5px 5px 5px 5px;
+     }
+     .border {
+       border: 3px solid yellow; 
+     }
+    </style>
+	
+	    <div id="page-content" class="clearfix">
+	        <!-- center page content -->
+	        <div id="full-page-content">
+	        	<p>This game requires you to match up photos with names.  To play, drag each name on top of the correct photo and drop it in place.</p>
+	        	<br />
+	        	
+	        	<table class="results_table" width="100%">
+	        	  <tr><th>Attempts: <span id="attempts" /></th><th colspan="<%=@num_images-1%>"><span id="game_feedback" /></th></tr>
+                <tr>
+    	        	   <% for counter in 0..@num_images-1
+        	        	   current_taxon=@taxa[counter]%>
+      	        	      <td width="<%=100/@num_images%>" class="odd"><%= image_tag(current_taxon.smart_medium_thumb,:id=>"image_#{current_taxon.taxon_concept_id}")%></td>
+                  <% end %>               
+                </tr>
+                <tr>
+   	        	   <% for counter in 0..@num_images-1 %>
+                   <td id="column_<%=counter%>" height="50" class="even"><span id="answer_<%=@taxa[counter].taxon_concept_id%>"></span></td>
+                 <% end %>
+                </tr>
+  	        	</table>
+               <div id="game_results"></div>  
+               <div id="names">      
+                 <br />
+	        	   <% for counter in 0..@num_images-1
+    	        	   random_taxon=@taxa[@random_order[counter]]%>
+  	        	      <span class="name" id="name_<%=random_taxon.taxon_concept_id%>"><%=random_taxon.scientific_name%> <%=" - #{random_taxon.common_name}" unless random_taxon.common_name.blank?%></span><br /><br />
+              <% end %>        
+              </div>         
+              <h2>Learn More</h2>
+              <a href="#" onclick="new Effect.Appear('learn_more');return false;">How are species named?</a><br />
+
+              <div style="display:none;" id="learn_more">
+                <p>Species are named according to the rules of "binomial nomenclature", which means a species name has two parts: the "genus" and the "species".  The
+                genus name tells us which grouping the species belongs to and thus how it is related to other similar species.  For example, the wolf is known as
+                <%=link_to 'Canis lupus',taxon_url(:id=>328607)%>, which means it belongs to the genus called "canis" and its species name is "lupus".  If you were to look at the genus <%=link_to 'Canis',taxon_url(:id=>14460)%>, you would
+                discover that (1) the coyote (<%=link_to 'Canis latrans',taxon_url(:id=>328608)%>) is in the same genus, (2) the domestic dog (<%=link_to 'Canis lupus familiaris',taxon_url(:id=>1228387)%>) is a "sub-species" of wolf, and (3) walking up the tree of life, you would find that all canis are in
+                the class of "Mammalia", meaning they are all mammals.  Placing these species into groupings in an overall "tree of life" is part of what scientists called "taxonomists" get to do!
+                When your browse the Encyclopedia of Life, you can use the "classification browser" on the right side of the species pages to browse the tree of life.</p>
+               <br />
+                <p>Taxonomists also discover new species and then give them a new species name and possibly a new genus name if a home for it
+                  can't be found in any other existing group.  Scientists write names according to pre-established rules, but over the years, some
+                  names have been used more than once or have changed over time, which makes it harder to find what you are looking for.  Technology is 
+                  helping us solve these problems and prevent from happening with new species by drawing the links between names and information.  The 
+                  Encyclopedia of Life is built to allow all this information to be collected on one page regardless of the name being referred to, be it
+                  "Canis lupus", "wolf", "loup" or any other language you can think of.</p>
+              </div>
+
+			    </div>
+	    </div>
+
+

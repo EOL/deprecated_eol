@@ -7,7 +7,7 @@
 
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="en-us" />
-    <title><%= hh(@taxon_concept.title) + ' -' if @taxon_concept and not @taxon_concept.title.blank? %>
+    <title><%= hh(remove_html(@taxon_concept.title)) + ' -' if @taxon_concept and not @taxon_concept.title.blank? %>
            <%= hh(page_title)%></title>
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="MSSmartTagsPreventParsing" content="true" />

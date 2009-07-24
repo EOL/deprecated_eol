@@ -150,5 +150,8 @@ module TaxaHelper
     content_tag("div", html, :class => "serp_pagination")
   end
 
-
+  def we_have_css_for_kingdom?(kingdom)
+    return false if kingdom.nil?
+    return $KINGDOM_IDs.include?(kingdom.id.to_s)
+  end
 end

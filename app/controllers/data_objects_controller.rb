@@ -28,8 +28,7 @@ class DataObjectsController < ApplicationController
   end
 
   def get
-    @taxon_concept_id = @taxon_id = params[:taxon_concept_id]
-    @curator = current_user.can_curate?(TaxonConcept.find(@taxon_concept_id))
+    @curator = current_user.can_curate?(TaxonConcept.find(params[:taxon_concept_id]))
     @hide = true
     @category_id = @data_object.toc_items[0].id
     @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
@@ -38,8 +37,7 @@ class DataObjectsController < ApplicationController
   def update
     @old_data_object_id = params[:id]
     @data_object = DataObject.update_user_text(params, current_user)
-    @taxon_concept_id = @taxon_id = params[:taxon_concept_id]
-    @curator = current_user.can_curate?(TaxonConcept.find(@taxon_concept_id))
+    @curator = current_user.can_curate?(TaxonConcept.find(params[:taxon_concept_id]))
     @hide = true
     @category_id = @data_object.toc_items[0].id
     current_user.vetted = false
@@ -128,7 +126,7 @@ class DataObjectsController < ApplicationController
       when /videos/
         respond_to do |format|
           format.xml do
-            xml = Rails.cache.fetch("taxon.#{@taxon_id}/videos/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
+            xml = Rails.cache.fetch("taxon.#{@taxon_concept.id}/videos/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
               videos = @taxon_concept.videos
               {
                 :videos           => videos.paginate(:per_page => per_page, :page => page),
@@ -193,7 +191,6 @@ protected
     @selectable_toc = TocItem.find(:all, :order => 'id').select{|c| c.allow_user_text?}.collect {|c| [c.label, c.id] }
     toc = TocItem.find(params[:toc_id])
     @selected_toc = [toc.label, toc.id]
-    @taxon_concept_id = params[:taxon_concept_id]
     @languages = Language.find_active.collect {|c| [c.label, c.id] }
     @licenses = License.valid_for_user_content
   end

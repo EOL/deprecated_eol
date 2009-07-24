@@ -1,7 +1,13 @@
 <input type="hidden" id="data_objects_to_log" name="data_objects_to_log" value="<%= @data_object_ids_to_log.join(',') %>" />
 <input type="hidden" id="taxon_concept_to_log" name="data_objects_to_log" value="<%= @taxon_concept.id %>" />
 
-<div class="page-separator" id="<%=@page_separator%>"></div>
+<%- # default to regular page separator if we can't find a specific kingdom
+    page_separator = "page-separator-general"
+    page_separator = "page-separator-#{@taxon_concept.kingdom.id}" if
+      we_have_css_for_kingdom?(@taxon_concept.kingdom)
+-%>
+
+<div class="page-separator" id="<%= page_separator %>"></div>
 
     <div id="page-title">
        

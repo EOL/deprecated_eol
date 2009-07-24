@@ -5,7 +5,7 @@
             new EOL.Effect.disappear('progress-open', { delay: 0.0, duration: 0.5, from: 0.50, to: 0.0});
 		  document.cookie ='survey_taken=' + user_response + '; expires=31 Dec 2008 23:59:59 UTC; path=/'
 	      new Ajax.Request('/taxa/survey_response/', {
-		 		parameters: { user_response: user_response, taxon_id: '<%=@taxon_id%>' }, 
+		 		parameters: { user_response: user_response, taxon_concept_id: '<%=@taxon_concept.id%>' }, 
 				asynchronous:true, 
 				evalScripts:true})
 				if (user_response=='yes') {

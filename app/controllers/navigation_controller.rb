@@ -24,7 +24,7 @@ class NavigationController < ApplicationController
     else
       @entry  = HierarchyEntry.find(id)
       #@entry.current_user = current_user
-      #TODO - something with params like this: raw_xml = @taxon.entry(params[:classifcation_id]).classification(:raw => true, :kingdoms=>true)
+      #TODO - something with params like this: raw_xml = @taxon_concept.entry(params[:classifcation_id]).classification(:raw => true, :kingdoms=>true)
       raw_xml = @entry.classification(:raw => true, :kingdoms=>true)
       raw_xml.gsub!('&lt;i&gt;','') if raw_xml.nil? == false
       raw_xml.gsub!('&lt;/i&gt;','') if raw_xml.nil? == false
@@ -49,10 +49,8 @@ class NavigationController < ApplicationController
   protected
   
   def load_taxon_for_tree_view
-    @taxon_id = params[:id]
-    @taxon = TaxonConcept.find(@taxon_id, :include => [:names])
-    @taxon_concept = @taxon
-    @taxon.current_user = current_user
+    @taxon_concept = TaxonConcept.find(params[:id].to_i, :include => [:names])
+    @taxon_concept.current_user = current_user
   end
   
 end

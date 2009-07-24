@@ -99,7 +99,8 @@ end
 
   # this method determines if the main taxa page is allowed to be cached or not
   def allow_page_to_be_cached?
-    !(agent_logged_in? || current_user.is_admin?) # if a content partner or admin is logged in, we do *not* want the page to be cached
+    return false if agent_logged_in? or
+                    current_user.is_admin?
   end
 
   # given a hash containing an agent node, returns a list of hyperlinked <img> tag icons

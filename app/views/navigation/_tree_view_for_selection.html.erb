@@ -1,9 +1,5 @@
 <% kingdoms = Hierarchy.default.kingdoms(current_user) %>
 
-
-<%
-@taxon_concept = @taxon
-%>
 <div id="browser-text">
     <ul>
         <% for kingdom_counter in 0..kingdoms.size-1 %>
@@ -12,7 +8,7 @@
 		    	    :level        => 0,
 		        	:taxonID      => kingdoms[kingdom_counter].taxon_concept_id,
 			        :namestring   => kingdoms[kingdom_counter].name(current_user.expertise, current_user.language, :classification),
-:current_node => (!@taxon.nil? && !@taxon.entry.nil? && kingdoms[kingdom_counter].id == @taxon.entry.id),
+:current_node => (!@taxon_concept.nil? && !@taxon_concept.entry.nil? && kingdoms[kingdom_counter].id == @taxon_concept.entry.id),
 			        :exists       => kingdoms[kingdom_counter].valid,
 		    	    :enabled      => kingdoms[kingdom_counter].enable}) -%>
         <% end %>

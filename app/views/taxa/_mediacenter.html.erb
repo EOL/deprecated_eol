@@ -131,14 +131,14 @@
       <hr />
       <div id="media-videos" class="wrapper-mc clearfix" style="display: none;">
         <div id="video-player">
-				<% if @taxon_concept.videos.blank? == true && @videos.blank? == false && params[:vet_flag] == "true" %>
+				<% if @taxon_concept.videos.blank? == true && @videos.blank? == false && params[:vet_flag] != "false" %>
           No authoritative videos available. <%= link_to 'View unvetted videos for this group.', {:action=>"show", :vet_flag=>"false"} %> 
         <% else %>
   					<%="Select a video to the right to begin playback."[:select_video]%>
         <% end %>
         </div>				
         <div id="video-list" class="mc-info">
-					<% if @video_collection.blank? == false %>
+					<% unless @videos.blank? %>
             <div class="mc-header">
               <h3><%= "Videos" %></h3>
               <hr />
@@ -146,10 +146,10 @@
           <% else %>
 						<span id="left_top_text">No videos are available.</span>
 					<% end %>
-          <% if @video_collection.blank? == false %>
+          <% unless @videos.blank? %>
             <div id="video-collection">
 	      			<ul>
-								<% for video in @video_collection
+								<% for video in @videos
 									video_title = video.object_title || ''
 									# NOTE: JRice added a little sub here to take the first sentence from long desc's...
 									video_title = truncate(video.description.sub(/\.\s\s.*$/, '.'),150) if video_title == ''
@@ -165,9 +165,9 @@
             </div>
         <% end %>
         </div> <!-- /video-list -->
-        <% if @video_collection.blank? == false %>
+        <% unless @videos.blank? %>
           <div title="More information" class="attribution_link" style="display: none">
-            <%= link_to '', attribution_data_object_path(@video_collection[0]), :id => 'video_attributions',:class => 'popup-link attribution-icon', :alt => 'More information' %>
+            <%= link_to '', attribution_data_object_path(@videos[0]), :id => 'video_attributions',:class => 'popup-link attribution-icon', :alt => 'More information' %>
           </div>
         <%end%>
       </div> <!-- /media-videos -->

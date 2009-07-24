@@ -388,7 +388,7 @@ class TaxaController < ApplicationController
       if params[:category_id].blank?
         show_category_id = first_content_item.nil? ? nil : first_content_item.id # by default use first TOC item
       else
-        show_category_id = category_id # if page was called with &category_id=# - use it 
+        show_category_id = params[:category_id] # if page was called with &category_id=# - use it 
       end
     end
     

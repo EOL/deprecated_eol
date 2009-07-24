@@ -154,4 +154,16 @@ module TaxaHelper
     return false if kingdom.nil?
     return $KINGDOM_IDs.include?(kingdom.id.to_s)
   end
+  
+  def show_next_image_page_button
+    if params[:image_page].blank?
+      show_next_image_page_button = @taxon_concept.more_images 
+    else
+      image_page = (params[:image_page] ||= 1).to_i
+      start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)
+      last        = start + $MAX_IMAGES_PER_PAGE - 1
+      show_next_image_page_button = (@taxon_concept.images.length > (last + 1))
+    end
+  end
+  
 end

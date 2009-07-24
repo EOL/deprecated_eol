@@ -357,15 +357,24 @@ class TaxaController < ApplicationController
       @taxon_concept.current_user.vetted = vetted_mode
       return videos
     end
-
+    
+    def show_unvetted_videos #collect all videos (unvetted as well)
+      vetted_mode = @taxon_concept.current_user.vetted
+      @taxon_concept.current_user.vetted = false
+      videos = @taxon_concept.videos unless @taxon_concept.videos.blank?
+      @taxon_concept.current_user.vetted = vetted_mode
+      return videos
+    end
+    
     def videos_to_show
-      if params[:vet_flag] and params[:vet_flag] == "false"
-        return show_unvetted_videos
+      @videos = show_unvetted_videos # instant variable used in _mediacenter
+      
+      if params[:vet_flag] == "false"
+        @video_collection = @videos            
       else 
-        return @taxon_concept.videos unless @taxon_concept.videos.blank?
+        @video_collection = @taxon_concept.videos unless @taxon_concept.videos.blank?
       end
     end
-
     
     def taxon_concept
       tc_id = params[:id].to_i     
@@ -443,8 +452,8 @@ class TaxaController < ApplicationController
       @taxon_concept.current_agent = current_agent unless current_agent.nil?
 
       @images = @taxon_concept.images.sort{ |x,y| y.data_rating <=> x.data_rating } # TODO - WOW, this is SO expensive
-      @videos = videos_to_show
-
+      @video_collection = videos_to_show
+      
       @category_id = show_category_id # need to be an instant var as we use it in several views and they use
                                       # variables with that name from different methods in different cases    
       @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)

@@ -287,13 +287,13 @@ class HierarchyEntry < SpeciesSchemaModel
     end
     he.taxon_concept.entry    
   end
-
-private
+  
   # Because we hijack the built-in name method...
   def name_object
     return Name.find(self[:name_id]) # Because we override the name() method.
   end
-
+  
+private
   def xml_for_group(group, name, current_user)
     xml = ''
     unless group.empty?

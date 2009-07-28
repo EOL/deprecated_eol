@@ -46,18 +46,18 @@ class TaxaController < ApplicationController
   def search_clicked
 
     # update the search log if we are coming from the search page, to indicate the user got here from a search
-    update_logged_search :id=>params[:search_id],:taxon_concept_id=>params[:id] if params.key? :search_id 
+    update_logged_search :id=>params[:search_id], :taxon_concept_id=>params[:id] if params.key? :search_id 
     redirect_to taxon_url, :id=>params[:id]
 
   end
 
-  # a permanent redirect to the new taxon page
+  # a permanent redirect to the new taxon_concept page
   def taxa
     headers["Status"] = "301 Moved Permanently"
     redirect_to(params.merge(:controller => 'taxa', :action => 'show', :id => HierarchyEntry.find(params[:id]).taxon_concept_id))
   end
 
-  # Main taxon view
+  # Main taxon_concept view
   def show    
     
     if this_request_is_really_a_search
@@ -104,12 +104,12 @@ class TaxaController < ApplicationController
           # TODO - There is a much better way to do this, please clean me - it is also duplicated in search.rb model  
           # if we have only one result, go straight to that page
           if @search.search_returned && @search.total_search_results == 1
-            #taxon_id = (@search.common_name_results[0][0] || @search.scientific_name_results[0][0] || @search.tag_results[0][0].id)
-            taxon_id = @search.common_results.empty? ? nil : @search.common_results[0][:id]
-            taxon_id = taxon_id ? taxon_id : (@search.scientific_results.empty? ? nil : @search.scientific_results[0][:id])
-            taxon_id = taxon_id ? taxon_id : (@search.tag_results.empty? ? nil: @search.tag_results[0][0].id)
-            taxon_id = taxon_id ? taxon_id : @search.suggested_searches[0].taxon_id
-            redirect_to :controller => 'taxa', :action => 'show', :id => taxon_id
+            #taxon_concept_id = (@search.common_name_results[0][0] || @search.scientific_name_results[0][0] || @search.tag_results[0][0].id)
+            taxon_concept_id = @search.common_results.empty? ? nil : @search.common_results[0][:id]
+            taxon_concept_id = taxon_concept_id ? taxon_concept_id : (@search.scientific_results.empty? ? nil : @search.scientific_results[0][:id])
+            taxon_concept_id = taxon_concept_id ? taxon_concept_id : (@search.tag_results.empty? ? nil: @search.tag_results[0][0].id)
+            taxon_concept_id = taxon_concept_id ? taxon_concept_id : @search.suggested_searches[0].taxon_id
+            redirect_to :controller => 'taxa', :action => 'show', :id => taxon_concept_id
           end
 
         elsif params[:search_type] == 'text' # this is a cached text search
@@ -312,9 +312,9 @@ class TaxaController < ApplicationController
   # AJAX: used to log when an object is viewed
   def view_object
     if !params[:id].blank? && request.post?  
-      taxon = params[:taxon_concept_id].to_i
+      taxon_concept = params[:taxon_concept_id].to_i
       # log each data object ID specified (separate multiple with commas)
-      params[:id].split(",").each { |id| log_data_objects_for_taxon_concept taxon, DataObject.find_by_id(id.to_i) }
+      params[:id].split(",").each { |id| log_data_objects_for_taxon_concept taxon_concept, DataObject.find_by_id(id.to_i) }
     end
     render :nothing => true
   end

@@ -33,7 +33,7 @@ class Administrator::SearchSuggestionController < AdminController
     
     @search_suggestion = SearchSuggestion.new(params[:search_suggestion])
     
-    @search_suggestion.scientific_name,@search_suggestion.common_name,@search_suggestion.image_url=get_names_and_image(params[:search_suggestion][:taxon_id])
+    @search_suggestion.scientific_name, @search_suggestion.common_name, @search_suggestion.image_url=get_names_and_image(params[:search_suggestion][:taxon_id])
         
      if @search_suggestion.save
       flash[:notice] = 'The search suggestion was successfully created.'
@@ -71,7 +71,7 @@ class Administrator::SearchSuggestionController < AdminController
 
   # ajax call to update name and image for a given taxon_id
   def update_names_and_image
-    scientific_name,common_name,image_url=get_names_and_image(params[:taxon_id])
+    scientific_name, common_name, image_url=get_names_and_image(params[:taxon_id])
     render :update do |page|
       page << "$('search_suggestion_scientific_name').value = '#{scientific_name}';"
       page << "$('search_suggestion_common_name').value = '#{common_name}';"
@@ -81,12 +81,12 @@ class Administrator::SearchSuggestionController < AdminController
   
   private 
   
-  def get_names_and_image(taxon_id)
+  def get_names_and_image(taxon_concept_id)
     scientific_name=''
     common_name=''
     image_url=''
-    unless taxon_id.blank?
-      taxon_concept=TaxonConcept.find_by_id(taxon_id)
+    unless taxon_concept_id.blank?
+      taxon_concept=TaxonConcept.find_by_id(taxon_concept_id)
       unless taxon_concept.nil?
         scientific_name=taxon_concept.name(:expert)
         common_name=taxon_concept.name

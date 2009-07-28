@@ -12,8 +12,8 @@
     <% end -%>  
     on 
     "<a href="<%= url_for(:controller=>'/taxa', :action=>'show',
-      :id=>act_history.taxon_id) -%>" 
-      target="_blank"><%= act_history.taxon_name -%></a>"
+      :id=>act_history.taxon_concept_id) -%>" 
+      target="_blank"><%= act_history.taxon_concept_name -%></a>"
     by 
     <%= curator_or_plain_username(act_history.user) %>
     <%= act_date -%> ago

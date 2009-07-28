@@ -54,8 +54,8 @@ class TocItem < SpeciesSchemaModel
 
   # TODO - make a version of this for Hierarchy Entry:
   # TODO - MEDIUM PRIO - refactor this to take a taxon directly, rather than the id.
-  def self.toc_for(taxon_id, options = {})
-    toc = DataObject.for_taxon(TaxonConcept.find(taxon_id), :text, options)
+  def self.toc_for(taxon_concept_id, options = {})
+    toc = DataObject.for_taxon(TaxonConcept.find(taxon_concept_id), :text, options)
     # Find out which toc items have unpublished content. Method published is accessible here  because
     # toc items are found by sql which has data_object fields. Every toc item corresponds to one data object
     # and is repeated potentially more than one time. They become unique after sort
@@ -91,7 +91,7 @@ class TocItem < SpeciesSchemaModel
     # Add specialist projects if there are entries in the mappings table for this name:
     if Mapping.count_by_sql([
       'SELECT 1 from mappings map, taxon_concept_names tcn WHERE map.name_id = tcn.name_id AND tcn.taxon_concept_id = ? LIMIT 1',
-      taxon_id]) > 0
+      taxon_concept_id]) > 0
         toc << TocItem.specialist_projects
     end
 
@@ -99,14 +99,14 @@ class TocItem < SpeciesSchemaModel
     # from concepts to page_names, using name_id, LIMIT 1 ...if they are there, add BHL node.
     if PageName.count_by_sql([
       'SELECT 1 FROM taxon_concept_names tcn JOIN page_names pn USING (name_id) WHERE tcn.taxon_concept_id = ? LIMIT 1',
-      taxon_id]) > 0
+      taxon_concept_id]) > 0
         toc << TocItem.bhl
     end
 
     # Common Names:
     if TaxonConcept.count_by_sql([
       'SELECT 1 from taxon_concept_names tcn WHERE taxon_concept_id = ? and vern = 1 LIMIT 1',
-      taxon_id]) > 0
+      taxon_concept_id]) > 0
         toc << TocItem.common_names
     end
     # from taxon_concepts to taxon_concept_names to name_languages.  Make sure the language_id != scientific_name, taxonomic_unit,

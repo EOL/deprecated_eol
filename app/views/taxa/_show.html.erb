@@ -16,10 +16,7 @@
         <% end %>
         <h1><%= hh(@taxon_concept.title) %></h1>
         <h2><%= hh(@taxon_concept.subtitle) %></h2>
-        
-        
           
-        
         <hr />
         <span class="classification-attribution-name"><%= @taxon_concept.hierarchy_entries[0].rank_label.capitalize %> recognized by <%= agent_icons_partial(@taxon_concept.classification_attribution.reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)%></span><br />
         
@@ -41,7 +38,7 @@
                 <% end %>
             </span>
             <span class="page-status">
-              <%= current_user.expertise.to_s == 'expert' ? link_to('Switch to common names',taxon_url(:id=>@taxon_concept.id) + '?expertise=middle') : link_to('Switch to scientific names',taxon_url(:id=>@taxon_concept.id) + '?expertise=expert') %>
+              <%= current_user.expertise.to_s == 'expert' ? link_to('Switch to common names', taxon_url(:id=>@taxon_concept.id) + '?expertise=middle') : link_to('Switch to scientific names', taxon_url(:id=>@taxon_concept.id) + '?expertise=expert') %>
             </span>
             <hr />             
         </div>
@@ -65,7 +62,7 @@
                 <div id="grid"></div>
             </div>
 
-            <input id="current_taxon_id" type="hidden" name="current_taxon_id" value="<%= @taxon_concept.id %>" />
+            <input id="current_taxon_concept_id" type="hidden" name="current_taxon_concept_id" value="<%= @taxon_concept.id %>" />
             <input id="current_content" type="hidden" name="current_content" value="<%= @category_id %>" />
             <input id="canonical_form" type="hidden" name="canonical_form" value="<%= remove_html(@taxon_concept.canonical_form) %>" />
 

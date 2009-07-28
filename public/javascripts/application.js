@@ -64,7 +64,7 @@ Event.addBehavior(
       var loaded = true;
       new Ajax.Updater('taxaCommentsWrap', '/comments/',
                        {asynchronous:true, evalScripts:true, method:'get',
-                        parameters: { body_div_name: 'taxaCommentsWrap', taxon_concept_id: $('current_taxon_id').value },
+                        parameters: { body_div_name: 'taxaCommentsWrap', taxon_concept_id: $('current_taxon_concept_id').value },
                         onLoading:function() {
                           // onloading sometimes runs twice, and second time moves comment div down. 
                           // A bit hackish way to fix it is to run onloading function only when 
@@ -109,7 +109,7 @@ Event.addBehavior(
       var map_div = $$('#media-maps div')[0];
       if (map_div && map_div.style.display == 'none') {
 
-          var taxon_id = $('map-taxon-id').value;
+          var taxon_concept_id = $('map-taxon-concept-id').value;
           var data_server_endpoint = $('map-data-server-endpoint').value;
           var gmap_key = $('map-gmap-key').value;
           var tile_server_1 = $('map-tile-server-1').value;
@@ -120,9 +120,9 @@ Event.addBehavior(
           var so = new SWFObject("/EOLSpeciesMap.swf", "swf", "100%", "100%", "9"); 
           so.addParam("allowFullScreen", "true");
           so.addVariable("swf", "");
-          //var taxon_id = $('map-taxon-id').value;
-          //var taxon_id = 13839800;
-          so.addVariable("taxon_id", taxon_id);
+          //var taxon_concept_id = $('map-taxon-concept-id').value;
+          //var taxon_concept_id = 13839800;
+          so.addVariable("taxon_concept_id", taxon_concept_id);
           so.addVariable("data_server_endpoint", data_server_endpoint);
           so.addVariable("gmap_key", gmap_key);
 

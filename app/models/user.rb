@@ -94,8 +94,8 @@ class User < ActiveRecord::Base
   end
   alias is_curator_for? can_curate?
 
-  def can_curate_taxon_id? taxon_id
-    can_curate? TaxonConcept.find(taxon_id)
+  def can_curate_taxon_concept_id? taxon_concept_id
+    can_curate? TaxonConcept.find(taxon_concept_id)
   end
   
   def approve_to_curate! clade

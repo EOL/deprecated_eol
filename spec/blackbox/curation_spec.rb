@@ -1,11 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-def curator_for_taxon_id(id)
-  User.find(:all).each do |user|
-    return user if user.can_curate_taxon_id?(id)
-  end
-end
-
 def create_curator_for_taxon_concept(tc)
  user =  build_curator(tc)
  tc.images.last.curator_activity_flag user, tc.id
@@ -39,7 +33,7 @@ describe 'Curation' do
     request("/pages/#{@taxon_concept.id}").body.should have_tag('div#large-image-curator-button')
   end
 
-  it 'should expire taxon from cache' do
+  it 'should expire taxon_concept from cache' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
 
     login_as( curator ).should redirect_to('/')
@@ -59,7 +53,7 @@ describe 'Curation' do
 
   # --- page citation ---
   
-  it 'should confirm that the page doesn\'t have the citation if there is no active curator for the taxon' do
+  it 'should confirm that the page doesn\'t have the citation if there is no active curator for the taxon_concept' do
     LastCuratedDate.delete_all
     the_page = request("/pages/#{@taxon_concept.id}")
     the_page.body.should_not have_tag('div#number-of-curators')

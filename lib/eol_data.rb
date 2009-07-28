@@ -104,6 +104,36 @@ class EOL
       return next_range_id
     end
     
+    
+    
+    
+    def rebuild_collection_type_nested_set
+      CollectionType.find(:all).each do |ct|
+        ct.lft = ct.rgt = 0
+        ct.save!
+      end
+      nested_set_value = 0
+      CollectionType.find_all_by_parent_id(0).each do |ct|
+        nested_set_value = rebuild_collection_type_nested_set_assign(ct, nested_set_value)
+      end
+    end
+    
+    def rebuild_collection_type_nested_set_assign(ct, nested_set_value)
+      ct.lft = nested_set_value
+      ct.save!
+      nested_set_value += 1
+      
+      CollectionType.find_all_by_parent_id(ct.id).each do |child_ct|
+        nested_set_value = rebuild_collection_type_nested_set_assign(child_ct, nested_set_value)
+      end
+      
+      ct.rgt = nested_set_value
+      ct.save!
+      nested_set_value += 1
+      
+      return nested_set_value
+    end
+    
   end
 
   module Print

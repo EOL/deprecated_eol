@@ -273,9 +273,9 @@ end
   end
 
   # expire a list of taxa_ids specifed as an array
-  # (add :expire_ancestors=>false if you don't want to expire that taxon's ancestors as well)
+  # (add :expire_ancestors=>false if you don't want to expire that taxon_concept's ancestors as well)
   # TODO -- optimize, this will result in a lot of queries if you expire a lot of taxa
-  def expire_taxa(taxa_ids,params={})
+  def expire_taxa(taxa_ids, params={})
 
     return false if taxa_ids == nil? || taxa_ids.class != Array
 
@@ -286,9 +286,9 @@ end
 
     if expire_ancestors # also expire ancestors
       # go over taxa_ids and find ancestors, and add them to the list
-      taxa_ids.each do |taxon_id|
-        taxon=TaxonConcept.find_by_id(taxon_id)
-        taxa_ids_to_expire += taxon.ancestry.collect {|an| an.taxon_concept_id} unless taxon.nil?
+      taxa_ids.each do |taxon_concept_id|
+        taxon_concept=TaxonConcept.find_by_id(taxon_concept_id)
+        taxa_ids_to_expire += taxon_concept.ancestry.collect {|an| an.taxon_concept_id} unless taxon_concept.nil?
       end
       taxa_ids_to_expire.uniq! # eliminate duplicates
     else # don't expire ancestors, so just go through the supplied list and expire those
@@ -296,8 +296,8 @@ end
     end
 
     # now expire the list of taxa, ignoring ancestors (since they are now included in our global list)
-    taxa_ids_to_expire.each do |taxon_id|
-      expire_taxon_concept(taxon_id,:expire_ancestors=>false)
+    taxa_ids_to_expire.each do |taxon_concept_id|
+      expire_taxon_concept(taxon_concept_id, :expire_ancestors=>false)
     end
 
     return true
@@ -321,35 +321,35 @@ end
 
   end
 
-  # expire the fragment cache for a specific taxon ID
-  # (add :expire_ancestors=>false if you don't want to expire that taxon's ancestors as well)
+  # expire the fragment cache for a specific taxon_concept ID
+  # (add :expire_ancestors=>false if you don't want to expire that s's ancestors as well)
   # TODO -- come up with a better way to expire taxa or name the cached parts -- this expiration process is very expensive due to all the iterations for each taxa id
   def expire_taxon_concept(taxon_concept_id,params={})
 
-   #expire the given taxon_id
+   #expire the given taxon_concept_id
    return false if taxon_concept_id == nil || taxon_concept_id.to_i == 0
 
-   taxon=TaxonConcept.find_by_id(taxon_concept_id)
-   return false if taxon.nil?
+   taxon_concept=TaxonConcept.find_by_id(taxon_concept_id)
+   return false if taxon_concept.nil?
 
    expire_ancestors=params[:expire_ancestors]
    expire_ancestors=true if params[:expire_ancestors].nil?
 
    if expire_ancestors
-     taxa_ids=taxon.ancestry.collect {|an| an.taxon_concept_id}
+     taxa_ids=taxon_concept.ancestry.collect {|an| an.taxon_concept_id}
    else
      taxa_ids=[taxon_concept_id]
    end
 
    # expire given taxa for all active languages and possibilites
-   taxa_ids.each do |taxon_id|
-     unless taxon_id.blank?
+   taxa_ids.each do |taxon_concept_id|
+     unless taxon_concept_id.blank?
        Language.find_active.each do |language|
           %w{novice middle expert}.each do |expertise|
             %w{true false}.each do |vetted|
               %w{text flash}.each do |default_taxonomic_browser|
                 %w{true false}.each do |can_curate|
-                  part_name='page_' + taxon_id.to_s + '_' + language.iso_639_1 + '_' + expertise + '_' + vetted + '_' + default_taxonomic_browser + '_' + can_curate
+                  part_name='page_' + taxon_concept_id.to_s + '_' + language.iso_639_1 + '_' + expertise + '_' + vetted + '_' + default_taxonomic_browser + '_' + can_curate
                   expire_fragment(:controller=>'/taxa',:part=>part_name)
                 end
               end

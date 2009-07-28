@@ -61,8 +61,8 @@
 
         <!-- show the image's species -->
         <div style="float: left; width: 650px; height: 60px; overflow: auto;">
-        <% for taxon in data_object.taxon_concepts -%>
-          <%= link_to taxon.name[0,40], taxon_path(taxon) %>
+        <% for taxon_concept in data_object.taxon_concepts -%>
+          <%= link_to taxon_concept.name[0,40], taxon_path(taxon_concept) %>
         <% end -%>
         </div>
 

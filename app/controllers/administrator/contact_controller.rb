@@ -42,11 +42,11 @@ class Administrator::ContactController < AdminController
    
      @contacts=Contact.find(:all,:include=>:contact_subject)
      report = StringIO.new
-     CSV::Writer.generate(report, ',') do |title|
-         title << ['Id', 'Topic', 'Name', 'Email', 'Comments','Taxon Group','Date','Referred Page','User ID']
-         @contacts.each do |c|
-           title << [c.id,c.contact_subject.title,c.name,c.email,c.comments,c.taxon_group,c.created_at.strftime("%m/%d/%y - %I:%M %p %Z"),c.referred_page,c.user_id]       
-         end
+     CSV::Writer.generate(report, ', ') do |title|
+       title << ['Id', 'Topic', 'Name', 'Email', 'Comments', 'Taxon Group', 'Date', 'Referred Page', 'User ID']
+       @contacts.each do |c|
+         title << [c.id, c.contact_subject.title, c.name, c.email, c.comments, c.taxon_group, c.created_at.strftime("%m/%d/%y - %I:%M %p %Z"), c.referred_page, c.user_id]   
+        end
       end
       report.rewind
       send_data(report.read,:type=>'text/csv; charset=iso-8859-1; header=present',:filename => 'EOL_contact_us_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')

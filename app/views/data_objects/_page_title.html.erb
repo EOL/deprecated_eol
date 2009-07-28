@@ -1,7 +1,7 @@
 
 <% if @data_object.taxon_concepts.size > 0 %>
 
-  <h1><%=link_to (@data_object.taxon_concepts[0].scientific_name,taxon_url(:id=>@data_object.taxon_concepts[0].id)) if @data_object.taxon_concepts[0].published?%></h1>
+  <h1><%=link_to (@data_object.taxon_concepts[0].scientific_name, taxon_url(:id=>@data_object.taxon_concepts[0].id)) if @data_object.taxon_concepts[0].published?%></h1>
 
 <% end %>
 

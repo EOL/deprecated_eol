@@ -8,12 +8,12 @@
 	<table>	
 	<tr>
 		<td><strong>Search Term:</strong><br />trigger search term entered by the user</td>
-		<td><%=f.text_field :term,{:size=>'50',:maxlength=>'250'}%></td>
+		<td><%=f.text_field :term, {:size=>'50', :maxlength=>'250'}%></td>
 	</tr>
 	<% if action_name != 'new' %>
 	  <tr>
 	    <td><strong>Page Linked To:</strong><br />the suggested page to direct users to</td>
-	    <td><%=link_to @search_suggestion.scientific_name,taxon_url(:id=>@search_suggestion.taxon_id),:target=>'_blank'%></td>
+	    <td><%=link_to @search_suggestion.scientific_name, taxon_url(:id=>@search_suggestion.taxon_id), :target=>'_blank'%></td>
 	  </tr>
   	<tr>
   		<td><strong>Suggested Scientific Name:</strong><br />as shown to the user in the suggestion</td>
@@ -30,7 +30,7 @@
   <% end %>
 	<tr>
 		<td><strong>Suggested Result Page ID:</strong></td>
-		<td><%=f.text_field :taxon_id,{:size=>'10',:maxlength=>'70'}%> <% if action_name != 'new'%><%= link_to_remote '[update names and image]',:url => {:action=>'update_names_and_image'}, :method => :post, :with => "'taxon_id=' + $('search_suggestion_taxon_id').value" %><% end %></td>
+		<td><%=f.text_field :taxon_id, {:size=>'10',:maxlength=>'70'}%> <% if action_name != 'new'%><%= link_to_remote '[update names and image]',:url => {:action=>'update_names_and_image'}, :method => :post, :with => "'taxon_id=' + $('search_suggestion_taxon_id').value" %><% end %></td>
 	</tr>
 	<tr>	
 		<td><strong>Notes (not shown to user):</strong></td>

@@ -14,7 +14,7 @@ class NavigationController < ApplicationController
   
   # Flash requires an additional product (flash remoting mx components) to do remote web service requests so we just
   # want to pass through the remote response as if it were local
-  # Accessed via /flashxml/:taxon_id.xml
+  # Accessed via /flashxml/:taxon_concept_id.xml
   def flash_tree_view
     
     id = params[:id] rescue 0

@@ -47,15 +47,15 @@ class Administrator::SiteController  < AdminController
   # AJAX method to expire all non-species pages
   def expire
 
-    taxon_id=params[:taxon_id]
-    unless request.xhr? && !taxon_id.blank?
+    taxon_concept_id=params[:taxon_id]
+    unless request.xhr? && !taxon_concept_id.blank?
       render :nothing=>true
       return 
     end
-    if expire_taxon_concept(taxon_id)
-      message='Taxon ID ' + taxon_id + ' was expired on ' + format_date_time(Time.now) + '<br />'
+    if expire_taxon_concept(taxon_concept_id)
+      message='Taxon ID ' + taxon_concept_id + ' was expired on ' + format_date_time(Time.now) + '<br />'
     else
-      message='Taxon ID ' + taxon_id + ' could not be expired<br />'
+      message='Taxon ID ' + taxon_concept_id + ' could not be expired<br />'
     end
     render :text=>message,:layout=>false
     

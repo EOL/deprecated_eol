@@ -155,11 +155,11 @@ class Search
 
         # if we have only one result, go straight to that page
         if total_search_results == 1
-          taxon_id = @common_results.empty? ? nil : @common_results[0][:id]
-          taxon_id = taxon_id ? taxon_id : (@scientific_results.empty? ? nil : @scientific_results[0][:id])
-          taxon_id = taxon_id ? taxon_id : (@tag_results.empty? ? nil: @tag_results[0][0].id)
-          taxon_id = taxon_id ? taxon_id : @suggested_searches[0].taxon_id
-          Search.update_log({:id=>@logged_search_id,:taxon_concept_id=>taxon_id})
+          taxon_concept_id = @common_results.empty? ? nil : @common_results[0][:id]
+          taxon_concept_id = taxon_concept_id ? taxon_concept_id : (@scientific_results.empty? ? nil : @scientific_results[0][:id])
+          taxon_concept_id = taxon_concept_id ? taxon_concept_id : (@tag_results.empty? ? nil: @tag_results[0][0].id)
+          taxon_concept_id = taxon_concept_id ? taxon_concept_id : @suggested_searches[0].taxon_concept_id
+          Search.update_log({:id=>@logged_search_id,:taxon_concept_id=>taxon_concept_id})
         end
       else # no results, but still log it
         #log search

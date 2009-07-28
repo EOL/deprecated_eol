@@ -8,23 +8,23 @@
       <%= link_to '[go back]', :back %>
           <table class="results_table">
             <tr><th>Taxon Selected From Search Results</th><th>Frequency</th><th>Clicked Time</th></tr>
-          <%- @clicked_taxa.each do |taxon|
+          <%- @clicked_taxa.each do |taxon_concept|
               column_class=cycle('odd','even')
-              unless TaxonConcept.find_by_id(taxon[:taxon_concept_id]).blank?
-                  scientific_name=(taxon.taxon_concept_id ? TaxonConcept.find(taxon[:taxon_concept_id]).name(:expert) : "None") 
+              unless TaxonConcept.find_by_id(taxon_concept[:taxon_concept_id]).blank?
+                  scientific_name=(taxon_concept.taxon_concept_id ? TaxonConcept.find(taxon_concept[:taxon_concept_id]).name(:expert) : "None") 
               else
-                  scientific_name="ERROR: Taxon #{taxon[:taxon_concept_id]} not found"
+                  scientific_name="ERROR: Taxon #{taxon_concept[:taxon_concept_id]} not found"
               end 
             -%>
             <tr>
               <td class="<%=column_class%>" style="width: 12em">
-                <%= taxon.taxon_concept_id ? link_to(scientific_name,taxon_url(:id=>taxon[:taxon_concept_id]),{:target=>'blank'}) : "None" %>
+                <%= taxon_concept.taxon_concept_id ? link_to(scientific_name, taxon_url(:id=>taxon_concept[:taxon_concept_id]), {:target=>'blank'}) : "None" %>
               </td>
-              <td class="<%=column_class%>"><%= taxon[:frequency] %></td>
+              <td class="<%=column_class%>"><%= taxon_concept[:frequency] %></td>
               <td class="<%=column_class%>">
                 <%
-                if taxon.taxon_concept_id 
-                  clicked_times = SearchLog.click_times_by_taxon_concept_id(taxon[:taxon_concept_id]) 
+                if taxon_concept.taxon_concept_id 
+                  clicked_times = SearchLog.click_times_by_taxon_concept_id(taxon_concept[:taxon_concept_id]) 
                   if clicked_times
                     %>
                     <table border="1">

@@ -83,8 +83,8 @@
 	        	  <tr><th>Attempts: <span id="attempts" /></th><th colspan="<%=@num_images-1%>"><span id="game_feedback" /></th></tr>
                 <tr>
     	        	   <% for counter in 0..@num_images-1
-        	        	   current_taxon=@taxa[counter]%>
-      	        	      <td width="<%=100/@num_images%>" class="odd"><%= image_tag(current_taxon.smart_medium_thumb,:id=>"image_#{current_taxon.taxon_concept_id}")%></td>
+        	        	   current_taxon_concept=@taxa[counter]%>
+      	        	      <td width="<%=100/@num_images%>" class="odd"><%= image_tag(current_taxon_concept.smart_medium_thumb,:id=>"image_#{current_taxon_concept.taxon_concept_id}")%></td>
                   <% end %>               
                 </tr>
                 <tr>
@@ -97,8 +97,8 @@
                <div id="names">      
                  <br />
 	        	   <% for counter in 0..@num_images-1
-    	        	   random_taxon=@taxa[@random_order[counter]]%>
-  	        	      <span class="name" id="name_<%=random_taxon.taxon_concept_id%>"><%=random_taxon.scientific_name%> <%=" - #{random_taxon.common_name}" unless random_taxon.common_name.blank?%></span><br /><br />
+    	        	   random_taxon_concept=@taxa[@random_order[counter]]%>
+  	        	      <span class="name" id="name_<%=random_taxon_concept.taxon_concept_id%>"><%=random_taxon_concept.scientific_name%> <%=" - #{random_taxon_concept.common_name}" unless random_taxon_concept.common_name.blank?%></span><br /><br />
               <% end %>        
               </div>         
               <h2>Learn More</h2>
@@ -107,8 +107,8 @@
               <div style="display:none;" id="learn_more">
                 <p>Species are named according to the rules of "binomial nomenclature", which means a species name has two parts: the "genus" and the "species".  The
                 genus name tells us which grouping the species belongs to and thus how it is related to other similar species.  For example, the wolf is known as
-                <%=link_to 'Canis lupus',taxon_url(:id=>328607)%>, which means it belongs to the genus called "canis" and its species name is "lupus".  If you were to look at the genus <%=link_to 'Canis',taxon_url(:id=>14460)%>, you would
-                discover that (1) the coyote (<%=link_to 'Canis latrans',taxon_url(:id=>328608)%>) is in the same genus, (2) the domestic dog (<%=link_to 'Canis lupus familiaris',taxon_url(:id=>1228387)%>) is a "sub-species" of wolf, and (3) walking up the tree of life, you would find that all canis are in
+                <%=link_to 'Canis lupus', taxon_url(:id=>328607)%>, which means it belongs to the genus called "canis" and its species name is "lupus".  If you were to look at the genus <%=link_to 'Canis', taxon_url(:id=>14460)%>, you would
+                discover that (1) the coyote (<%=link_to 'Canis latrans',taxon_url(:id=>328608)%>) is in the same genus, (2) the domestic dog (<%=link_to 'Canis lupus familiaris', taxon_url(:id=>1228387)%>) is a "sub-species" of wolf, and (3) walking up the tree of life, you would find that all canis are in
                 the class of "Mammalia", meaning they are all mammals.  Placing these species into groupings in an overall "tree of life" is part of what scientists called "taxonomists" get to do!
                 When your browse the Encyclopedia of Life, you can use the "classification browser" on the right side of the species pages to browse the tree of life.</p>
                <br />

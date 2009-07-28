@@ -4,7 +4,9 @@
 # butterflies may be very different than the URI to sharks.
 class Collection < SpeciesSchemaModel
   belongs_to :agent
+  belongs_to :resource
   has_many   :mappings
+  has_and_belongs_to_many :collection_types
 
   #TODO - Make logo associated with agents instead of a hardcoded field in the database called "logo_url" (so image can be moved to content server)
   

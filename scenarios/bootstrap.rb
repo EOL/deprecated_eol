@@ -136,3 +136,46 @@ exemplar = build_taxon_concept(:event => event, :common_names => ['wumpus'], :id
 ContentPage.gen(:page_name => "curator_central", :title => "Curator central", :left_content => "")
 
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants
+
+
+
+
+
+
+
+
+
+
+# creating collection / mapping data
+image_collection_type = CollectionType.gen(:label => "Images")
+specimen_image_collection_type = CollectionType.gen(:label => "Specimen", :parent_id => image_collection_type.id)
+natural_image_collection_type = CollectionType.gen(:label => "Natural", :parent_id => image_collection_type.id)
+
+species_pages_collection_type = CollectionType.gen(:label => "Species Pages")
+molecular_species_pages_collection_type = CollectionType.gen(:label => "Molecular", :parent_id => species_pages_collection_type.id)
+novice_pages_collection_type = CollectionType.gen(:label => "Novice", :parent_id => species_pages_collection_type.id)
+expert_pages_collection_type = CollectionType.gen(:label => "Expert", :parent_id => species_pages_collection_type.id)
+
+themes_collection_type = CollectionType.gen(:label => "Themes")
+marine_theme_collection_type = CollectionType.gen(:label => "Marine", :parent_id => themes_collection_type.id)
+bugs_theme_collection_type = CollectionType.gen(:label => "Bugs", :parent_id => themes_collection_type.id)
+
+rebuild_collection_type_nested_set
+
+
+name = Name.find_or_create_by_string('Animalia Linn.')
+
+specimen_image_collection = Collection.gen(:title => 'AntWeb', :description => 'Currently AntWeb contains information on the ant faunas of several areas in the Nearctic and Malagasy biogeographic regions, and global coverage of all ant genera.', :uri => 'http://www.antweb.org/specimen.do?name=FOREIGNKEY', :link => 'http://www.antweb.org/', :logo_url => 'antweb.png')
+CollectionTypesCollection.gen(:collection => specimen_image_collection, :collection_type => specimen_image_collection_type)
+CollectionTypesCollection.gen(:collection => specimen_image_collection, :collection_type => expert_pages_collection_type)
+CollectionTypesCollection.gen(:collection => specimen_image_collection, :collection_type => bugs_theme_collection_type)
+Mapping.gen(:collection => specimen_image_collection, :name => name, :foreign_key => 'casent0129891')
+Mapping.gen(:collection => specimen_image_collection, :name => name, :foreign_key => 'casent0496198')
+Mapping.gen(:collection => specimen_image_collection, :name => name, :foreign_key => 'casent0179524')
+
+
+molecular_species_pages_collection = Collection.gen(:title => 'National Center for Biotechnology Information', :description => 'Established in 1988 as a national resource for molecular biology information, NCBI creates public databases, conducts research in computational biology, develops software tools for analyzing genome data, and disseminates biomedical information - all for the better understanding of molecular processes affecting human health and disease', :uri => 'http://www.ncbi.nlm.nih.gov/sites/entrez?Db=genomeprj&cmd=ShowDetailView&TermToSearch=FOREIGNKEY', :link => 'http://www.ncbi.nlm.nih.gov/', :logo_url => 'ncbi.png')
+CollectionTypesCollection.gen(:collection => molecular_species_pages_collection, :collection_type => molecular_species_pages_collection_type)
+CollectionTypesCollection.gen(:collection => molecular_species_pages_collection, :collection_type => marine_theme_collection_type)
+Mapping.gen(:collection => molecular_species_pages_collection, :name => name, :foreign_key => '13646')
+Mapping.gen(:collection => molecular_species_pages_collection, :name => name, :foreign_key => '9551')

@@ -8,6 +8,10 @@ class Mapping < SpeciesSchemaModel
   def ping_host_url
     return collection.ping_host_url.gsub(/%ID%/, foreign_key)
   end
+  
+  def url
+    return collection.uri.gsub(/FOREIGNKEY/, foreign_key)
+  end
 
   def self.for_taxon_concept_id(tc_id)
     Mapping.find_by_sql(%Q{

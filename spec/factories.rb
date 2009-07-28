@@ -324,6 +324,18 @@ Factory.define :collection do |col|
   col.vetted        1
 end
 
+Factory.define :collection_type do |ct|
+  ct.parent_id  0
+  ct.lft        0
+  ct.rgt        0
+  ct.label      { Factory.next(:string) }
+end
+
+Factory.define :collection_types_collection do |ctc|
+  ctc.association :collection_type
+  ctc.association :collection
+end
+
 # NOTE - the Comment model has some validations on it (create/update/etc) that will fail if you don't have a loaded
 # database, so don't expect this factory to work in all situations.
 Factory.define :comment do |x|

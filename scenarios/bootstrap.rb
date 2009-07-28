@@ -163,7 +163,7 @@ bugs_theme_collection_type = CollectionType.gen(:label => "Bugs", :parent_id => 
 rebuild_collection_type_nested_set
 
 
-name = tc.entry.name_object
+name = kingdom.entry.name_object
 
 specimen_image_collection = Collection.gen(:title => 'AntWeb', :description => 'Currently AntWeb contains information on the ant faunas of several areas in the Nearctic and Malagasy biogeographic regions, and global coverage of all ant genera.', :uri => 'http://www.antweb.org/specimen.do?name=FOREIGNKEY', :link => 'http://www.antweb.org/', :logo_url => 'antweb.png')
 CollectionTypesCollection.gen(:collection => specimen_image_collection, :collection_type => specimen_image_collection_type)

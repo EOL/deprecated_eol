@@ -5,7 +5,11 @@ class CollectionType < SpeciesSchemaModel
   
   
   def materialized_path_labels
-    parent_path = parent.nil? ? '' : parent.materialized_path_labels + ' / '
+    if parent_id == 0 || parent.nil?
+      parent_path = ''
+    else
+      parent_path = parent.materialized_path_labels + ' / '
+    end
     return parent_path + label
   end
 end

@@ -3,10 +3,10 @@ This area is used to generate search suggestions for users by specifying a term 
 be directed to as a suggestion.  Suggested results always appear above other results.  You can have multiple suggestions for a given search term.
 
 <div id="search_suggestions">
-	<% form_tag({:action=>'index'},:method=>'get') do -%>
-	Search for terms containing: <%= text_field_tag(:term_search_string,@term_search_string)%> <%= submit_tag 'Search' %>
+	<% form_tag({:action=>'index'}, :method=>'get') do -%>
+	Search for terms containing: <%= text_field_tag(:term_search_string, @term_search_string)%> <%= submit_tag 'Search' %>
 	<br />
-			<%=link_to "Add a new search suggestion",:action=>'new'%>
+			<%=link_to "Add a new search suggestion", :action=>'new'%>
 	<br /><br />
 	
 	<% if @search_suggestions.nil? == false && @search_suggestions.size > 0 %>
@@ -17,14 +17,14 @@ be directed to as a suggestion.  Suggested results always appear above other res
 		    <table class="results_table" cellspacing="0">
 		    <tr><th>Term</th><th>Scientific Name</th><th>Common Name</th><th>Image</th><th>Action</th></tr>
 			<% for search_suggestion in @search_suggestions
-				column_class=cycle('odd','even')  %>
+				column_class=cycle('odd', 'even')  %>
 			    <tr>
-			    	<td class="<%= column_class %>"><%=link_to search_suggestion.term,:action=>'edit',:id=>search_suggestion.id%></td>
+			    	<td class="<%= column_class %>"><%=link_to search_suggestion.term, :action=>'edit', :id=>search_suggestion.id%></td>
 					<td class="<%= column_class %>"><%=search_suggestion.scientific_name%></td>
 					<td class="<%= column_class %>"><%=search_suggestion.common_name%></td>
 					<td class="<%= column_class %>"><%=image_tag(search_suggestion.image_url) unless search_suggestion.image_url.blank?%></td>
 
-					<td class="<%= column_class %>"><%=link_to '[search]',taxon_url(:id=>search_suggestion.taxon_id),:target=>'_blank'%><br /><%=link_to '[delete]',{:action=>'destroy',:id=>search_suggestion.id},:confirm => 'This cannot be undone; are you sure?', :method => :delete %></td>
+					<td class="<%= column_class %>"><%=link_to '[search]', taxon_url(:id=>search_suggestion.taxon_id), :target=>'_blank'%><br /><%=link_to '[delete]', {:action=>'destroy', :id=>search_suggestion.id}, :confirm => 'This cannot be undone; are you sure?', :method => :delete %></td>
 				</tr>									
 			<% end %>
 		    </table>

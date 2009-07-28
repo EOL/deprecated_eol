@@ -28,13 +28,13 @@ function textCounter(field,cntfield,maxlimit) {
 }
 
 // update the content area
-function eol_update_content_area(taxon_id,category_id, allow_user_text) {
+function eol_update_content_area(taxon_concept_id, category_id, allow_user_text) {
     if($('insert_text_popup')) {
       EOL.popup_links['new_text_toc_text'].popup.toggle();
     }
     // i feel like this could be a lot simpler ... 
     new Ajax.Request('/taxa/content/', {
-            parameters: { id: taxon_id, category_id: category_id },         
+            parameters: { id: taxon_concept_id, category_id: category_id },         
             onComplete:function(request){hideAjaxIndicator(true);updateReferences();},
             onSuccess:function(request){hideAjaxIndicator(true);updateReferences();},
             onError: function(request){hideAjaxIndicator(true);},
@@ -45,7 +45,7 @@ function eol_update_content_area(taxon_id,category_id, allow_user_text) {
 }
 
 // show the pop-up in the div 
-function eol_show_pop_up(div_name,partial_name,taxon_name) {
+function eol_show_pop_up(div_name, partial_name, taxon_name) {
 				if (partial_name==null) partial_name=div_name;
 				if (taxon_name==null) taxon_name='';
         new Ajax.Updater(
@@ -57,7 +57,7 @@ function eol_show_pop_up(div_name,partial_name,taxon_name) {
             method:'post', 
             onComplete:function(request){hideAjaxIndicator();EOL.Effect.toggle_with_effect(div_name);},
             onLoading:function(request){showAjaxIndicator();},
-            parameters:{name: partial_name,taxon_name: taxon_name}
+            parameters:{name: partial_name, taxon_name: taxon_name}
           }
     );
     
@@ -259,7 +259,7 @@ function eol_update_video(params) {
 }
 
 // Setup the EOL vetted slider
-function eol_slider(vetted, taxon_id) {
+function eol_slider(vetted, taxon_concept_id) {
     if (vetted == 'true') {
         $('slider').setStyle({ backgroundPosition: '-165px center' });
     } else {
@@ -276,7 +276,7 @@ function eol_slider(vetted, taxon_id) {
             });
         },
         onChange:function(v){
-            var base_url = "/pages/" + taxon_id + "?"
+            var base_url = "/pages/" + taxon_concept_id + "?"
             var params = new Hash({vetted: 'true'});
             if ($('current_content').value != "") { params.set('category_id', $('current_content').value); }
 

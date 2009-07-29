@@ -279,6 +279,7 @@ describe TaxonConcept do
     # ... And remove it from top images:
     TopImage.delete_all(:hierarchy_entry_id => @taxon_concept.entry.id,
                         :data_object_id => @taxon_concept.images.last.id)
+    @taxon_concept.current_user = @taxon_concept.current_user #hack to expire cached images
     @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
 
     dato.visibility = Visibility.preview

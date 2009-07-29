@@ -32,7 +32,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
-  attr_reader :has_media
+  attr_reader :has_media, :length_of_images
 
   def show_curator_controls?(user = nil)
     return @show_curator_controls if !@show_curator_controls.nil?
@@ -200,6 +200,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
   def current_user=(who)
+    @images = nil
     @current_user = who
   end
 
@@ -317,6 +318,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def current_agent=(agent)
+    @images = nil
     @current_agent = agent
   end
 
@@ -556,9 +558,9 @@ EOIUCNSQL
 
   # This used to be singleton, but now we're changing the views (based on permissions) a lot, so I removed it.
   def images(options = {})
-    images = DataObject.for_taxon(self, :image, :user => current_user, :agent => @current_agent)
-    @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
-    return images
+    @images ||= DataObject.for_taxon(self, :image, :user => current_user, :agent => @current_agent)
+    @length_of_images = @images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
+    return @images
   end
 
   # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)

@@ -100,7 +100,7 @@
               <%= image_icons %>
             </a>
 
-            <% if counter == 1 
+            <% if @selected_image.id == image.id
                 image_load_js_function="eol_update_image('" + escape_javascript(image.smart_image) + "'," + image_attribution_hash +");"
                 attribution_js_function="eol_update_credit(" + image_attribution_hash +");"
                 -%>
@@ -127,7 +127,7 @@
             <span id="noback"></span>
         <% end -%>
     
-    <% if show_next_image_page_button -%>
+    <% if @taxon_concept.length_of_images > $MAX_IMAGES_PER_PAGE -%>
     <span id="pages">
         Page <%=@image_page%>
     </span>

@@ -445,13 +445,33 @@ class TaxaController < ApplicationController
 
     def show_taxa_html_can_be_cached?
       return(allow_page_to_be_cached? and 
-             params[:category_id].blank?)
+             params[:category_id].blank? and
+             params[:image_id].blank?)
     end
 
     def set_taxa_page_instance_vars
       @taxon_concept.current_agent = current_agent unless current_agent.nil?
 
-      @images = @taxon_concept.images.sort{ |x,y| y.data_rating <=> x.data_rating } # TODO - WOW, this is SO expensive
+      @images = @taxon_concept.images
+
+      if(params[:image_id])
+        image_id = params[:image_id].to_i
+        selected_image_index = 0
+        @images.each_with_index do |image,i|
+          if image.id == image_id
+            selected_image_index = i
+            @selected_image = image
+            break
+          end
+        end
+
+        params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
+
+        @images = @images[((@image_page-1)*9)..((@image_page*9)-1)]
+      else
+        @selected_image = @images[0]
+      end
+
       @video_collection = videos_to_show
       
       @category_id = show_category_id # need to be an instant var as we use it in several views and they use

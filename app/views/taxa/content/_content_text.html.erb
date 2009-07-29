@@ -18,3 +18,8 @@ unless @content[:data_objects].nil?
     <%= render :partial=>'text_data_object', :locals => {:content_item => content_item, :comments_style => comments_style, :category => @content[:category_name]} %>
   <% end %>
 <% end %>
+
+<div id="scroll_to_bottom"></div>
+<script type="text/javascript">
+  womAdd('updateReferences();');
+</script>

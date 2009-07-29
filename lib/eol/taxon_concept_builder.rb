@@ -69,6 +69,7 @@ class EOL
     def build
       puts "** Enter: build" if @debugging
       gen_taxon_concept
+      gen_taxon_concept_content
       gen_name
       add_curator
       add_comments
@@ -82,6 +83,10 @@ class EOL
       gen_bhl
     end
 
+    # There isn't much involved with the actual TaxonConcept, in terms of the database and/or generation of the model
+    # itself.  It's basically just an ID which is either published/vetted or not.
+    #
+    # That said, sometimes, we want a particular ID, so this method includes a little hacking to get that done.
     def gen_taxon_concept
       puts "** Enter: gen_taxon_concept" if @debugging
       # TODO - in the future, we may want to be able to muck with the vetted *and* the published fields...
@@ -97,6 +102,13 @@ class EOL
       else
         @tc = TaxonConcept.gen(:vetted => Vetted.trusted)
       end
+    end
+
+    # This is vital for searches to function properly.
+    # TODO - a) this is not configurable in any way; b) this does not set text, image, child_image, flash, youtube,
+    # internal_image, gbif_image, or image_object_id; c) I'm not sure if any of the fields in (b) are used: check.
+    def gen_taxon_concept_content
+      TaxonConceptContent.gen(:content_level => 4, :taxon_concept => @tc)
     end
 
     # TODO - add some alternate names, including at least one in another language.

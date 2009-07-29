@@ -83,6 +83,22 @@ module TaxaHelper
 
   end
     
+  def we_have_css_for_kingdom?(kingdom)
+    return false if kingdom.nil?
+    return $KINGDOM_IDs.include?(kingdom.id.to_s)
+  end
+  
+  def show_next_image_page_button
+    if params[:image_page].blank?
+      show_next_image_page_button = @taxon_concept.more_images 
+    else
+      image_page = (params[:image_page] ||= 1).to_i
+      start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)
+      last        = start + $MAX_IMAGES_PER_PAGE - 1
+      show_next_image_page_button = (@taxon_concept.images.length > (last + 1))
+    end
+  end
+
   def video_hash(video,taxon_concept_id='')
     # TODO: (something of a big change, since it means altering the JS)
     #       Note that this won't handle the agent_partial stuff; handle separately:
@@ -107,53 +123,63 @@ module TaxaHelper
            "', taxon_concept_id:'#{taxon_concept_id}'}"
   end
   
-  def link_to_serp_url(str, link_page)
+  def paginate_results(search)
+    pages = search.total_pages
+    current_page = search.current_page
+    html  = Builder::XmlMarkup.new
+    html.div(:class => 'serp_pagination') do
+
+      html << deactivatable_link('&lt;&lt;&nbsp;Prev',
+                                 :href => search_by_page_href(current_page - 1),
+                                 :deactivated => current_page == 1)
+      
+      lower_bound = current_page - 10
+      lower_bound = 1 if lower_bound < 1
+      upper_bound = current_page + 10
+      upper_bound = pages if upper_bound > pages
+
+      (lower_bound..upper_bound).each do |page|
+        html.span(:class => 'pg_link') {
+          html << deactivatable_link(page.to_s,
+                                     :href => search_by_page_href(page),
+                                     :deactivated => current_page == page)
+        }
+      end
+      
+      html << deactivatable_link('Next&nbsp;&gt;&gt;',
+                                 :href => search_by_page_href(current_page + 1),
+                                 :deactivated => current_page == pages)
+
+    end
+  end
+
+# A *little* weird to have private methods in the helper, but these really help clean up the code for the methods
+# that are public, and, indeed, should never be called outside of this class.
+private
+  
+  def search_by_page_href(link_page)
     lparams = params.clone
     lparams["page"] = link_page
     lparams.delete("action")
-    "<a href='/search/?#{lparams.to_query}'>#{str}</a>"
+    "/search/?#{lparams.to_query}"
   end
   
-  def paginate_results(search)
-    html = ""
-    tp = search.total_pages
-    
-    # prev_pg = search.current_page == 1 ? 1 : search.current_page - 1
-    # next_pg = search.current_page == tp ? tp : search.current_page + 1
-    
-    # Handle the << Prev link.
-    if search.current_page == 1
-      html += "&lt;&lt; Prev"
+  def deactivatable_link(text, options)
+    deactivated = options.delete(:deactivated)
+    raise "Cannot create deactivatable link without href option" unless options.has_key? :href
+    raise "Cannot create deactivatable link without deactivated option" if deactivated.nil?
+    html = Builder::XmlMarkup.new
+    if deactivated
+      html << text
     else
-      html += link_to_serp_url("&lt;&lt; Prev", search.current_page - 1)
+      html.a(options) { html << text } # Block style, so that the text is handled 'raw', rather than interpolated
     end
-    html += "&nbsp;"
-
-    tp.times do |i|
-      if search.current_page == i+1 # current page
-        label = i+1
-      else
-        label = link_to_serp_url(i+1, i+1)
-      end
-      html += content_tag("span", label, :class => "pg_link")
-      html += "&nbsp;"
-    end
-    
-    # Handle the Next >> link.
-    if search.current_page == tp
-      html += "Next &gt;&gt;"
-    else
-      html += link_to_serp_url("Next &gt;&gt;", search.current_page + 1)
-    end
-    html += "&nbsp;"
-
-    content_tag("div", html, :class => "serp_pagination")
+    html << '&nbsp;'
+    return html.to_s # TODO - without the to_s, this injects some weird markup (<respond_to?:to_str>true</..etc>)
+                     # With this to_s, that problem is solved, but this STILL injects <to_s/>  ... WTF?
   end
 
-  def we_have_css_for_kingdom?(kingdom)
-    return false if kingdom.nil?
-    return $KINGDOM_IDs.include?(kingdom.id.to_s)
-  end
+
   
   def show_next_image_page_button
     if params[:image_page].blank?

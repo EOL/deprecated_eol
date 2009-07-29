@@ -2,7 +2,7 @@
 # want to check this one manually from time to time: re-enable it, run it, check it, comment it out again.
 # AssignmentInConditionalCheck:    { }
 CaseMissingElseCheck:            { }
-ClassLineCountCheck:             { line_count: 740 } # We want this to be around 300
+ClassLineCountCheck:             { line_count: 840 } # We want this to be around 300
 ClassNameCheck:                  { pattern: !ruby/regexp /^[A-Z][a-zA-Z0-9]*$/ }
 #ClassVariableCheck:              { }
 CyclomaticComplexityBlockCheck:  { complexity: 25 } # We want this to be around 4

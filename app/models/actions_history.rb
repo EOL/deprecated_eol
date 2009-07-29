@@ -83,8 +83,8 @@ class ActionsHistory < ActiveRecord::Base
   def comment_parent
     return_comment_parent = case comment_object.parent_type
      when 'TaxonConcept' then TaxonConcept.find(comment_object.parent_id)
-     
      when 'DataObject'   then DataObject.find(comment_object.parent_id)
+     else raise "Cannot comment on #{comment_object.parent_type.to_s.pluralize}"
     end
     return return_comment_parent    
   end 

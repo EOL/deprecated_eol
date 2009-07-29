@@ -546,14 +546,28 @@ EOIUCNSQL
     return entry.classification_attribution
   end
 
-  # pull content type by given category for taxa id 
+  # pull content type by given category for taxa id.
   def content_by_category(category_id, options = {})
-    category_id = category_id.id if category_id.is_a? TocItem
-    toc_item = TocItem.find(category_id) rescue nil
+    # Builds the content for a given category, or TocItem.
+    # This method delegates custom TOC renderings to the
+    # CategoryContentBuilder class
+
+    # Make toc_item point to a TocItem object
+    if category_id.is_a?(TocItem)
+      toc_item = category_id
+    else
+      toc_item = TocItem.find(category_id) rescue nil
+    end
     return nil if toc_item.nil?
-    sub_name = toc_item.label.gsub(/\W/, '_').downcase
-    return self.send(sub_name) if self.private_methods.include?(sub_name)
-    return get_default_content(category_id, options)
+
+    # The Category content builder currently only builds
+    # customized content. Text data objects is still 
+    # handled by TaxonConcept#get_default_content
+
+    ccb = CategoryContentBuilder.new
+    content = ccb.content_for(toc_item, options)
+    content = get_default_content(toc_item) if content.nil?
+    content
   end
 
   # This used to be singleton, but now we're changing the views (based on permissions) a lot, so I removed it.
@@ -706,110 +720,7 @@ private
     return 1
   end
 
-# =============== The following are methods specific to content_by_category
-
-  # These should never be called; they're containers, not a leaf nodes:
-  # references_and_more_information
-  # evolution_and_systematics
-
-  def search_the_web
-    {:content_type => 'search the web',
-     :category_name => 'Search the Web',
-     :items => []
-    }
-  end
-
-  def common_names
-    # NOTES: we had a notion of "unspecified" language.  Results were sorted.
-    result = {
-        :content_type  => 'common names',
-        :category_name => 'Common Names',
-        :items         => Name.find_by_sql([
-                            'SELECT names.string, l.iso_639_1 language_label, l.label, l.name
-                               FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
-                                 LEFT JOIN languages l ON (tcn.language_id = l.id)
-                               WHERE tcn.taxon_concept_id = ? AND vern = 1
-                               ORDER BY language_label, string', id])
-      }
-    return result
-  end
-
-  def specialist_projects
-    # I did not include these outlinks as data object in the traditional sense. For now, you'll need to go through the
-    # collections and mappings tables to figure out which links pertain to the taxon (mappings has the name_id field). I
-    # had some thoughts about including these in the taxa / data_object route, but I don't have plans to make this change
-    # any time soon.
-    # 
-    # I had the table hierarchies_content which was supposed to let us know roughly what we had for each hierarchies_entry
-    # (text, images, maps...). But, maybe it makes sense to cache the table of contents / taxon relationships as well as
-    # media. Another de-normalized table. It may seem sloppy, but I'm sure we'll have to use de-normalized tables a lot in
-    # this project.
-
-#     mappings = Mapping.find_by_sql([<<EO_MAPPING_SQL, id, @current_user.vetted])
-#       
-#       SELECT DISTINCT m.*, a.full_name agent_full_name, c.*
-#         FROM taxon_concept_names tcn
-#           LEFT JOIN mappings m USING (name_id)
-#           LEFT JOIN collections c ON (m.collection_id = c.id)
-#           LEFT JOIN agents a ON (c.agent_id = a.id)
-#         WHERE tcn.taxon_concept_id = ?
-#           AND (c.vetted = 1 OR c.vetted = ?) # Specialist Projects / Mappings
-# 
-# EO_MAPPING_SQL
-# 
-#     results = []
-#     mappings.each do |mapping|
-#       collection_url = mapping.collection.uri.gsub!(/FOREIGNKEY/, mapping.foreign_key)
-#       results << {
-#         :agent_name       => mapping.agent_full_name || '[unspecified]',
-#         :collection_title => mapping.collection.title,
-#         :collection_link  => mapping.collection.link,
-#         :url              => collection_url,
-#         :icon             => mapping.collection.logo_url # FIX THIS LATER TODO
-#       }
-#     end
-    
-    return_mapping_objects = []
-    mappings = SpeciesSchemaModel.connection.execute("SELECT DISTINCT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name, c.title collection_title, c.link collection_link, c.logo_url icon, c.uri collection_uri FROM taxon_concept_names tcn JOIN mappings m ON (tcn.name_id = m.name_id) JOIN collections c ON (m.collection_id = c.id) JOIN agents a ON (c.agent_id = a.id) WHERE tcn.taxon_concept_id = #{id} AND (c.vetted=1 OR c.vetted=#{current_user.vetted}) GROUP BY c.id").all_hashes
-    mappings.sort_by { |mapping| mapping["agent_name"] }.each do |m|
-      mapping_object = Mapping.find(m["mapping_id"].to_i)
-      return_mapping_objects << mapping_object
-    end
-    
-    return {
-          :category_name => 'Specialist Projects',
-          :content_type => 'ubio_links',
-          :mappings => return_mapping_objects
-        }
-
-  end
-
-  def biodiversity_heritage_library
-    
-    items = SpeciesSchemaModel.connection.execute(
-      "SELECT DISTINCT ti.id item_id, pt.title publication_title, pt.url publication_url,
-                       pt.details publication_details, ip.year item_year, ip.volume item_volume,
-                       ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url
-       FROM taxon_concept_names tcn
-         JOIN page_names pn ON (tcn.name_id = pn.name_id)
-         JOIN item_pages ip ON (pn.item_page_id = ip.id)
-         JOIN title_items ti ON (ip.title_item_id = ti.id)
-         JOIN publication_titles pt ON (ti.publication_title_id = pt.id)
-       WHERE tcn.taxon_concept_id = #{id}
-       LIMIT 0,1000").all_hashes
-    
-    sorted_items = items.sort_by { |item| [item["publication_title"], item["item_year"], item["item_volume"], item["item_issue"], item["item_number"].to_i] }
-    
-    return {
-          :content_type  => 'bhl',
-          :category_name => 'Biodiversity Heritage Library',
-          :items         => sorted_items
-        }
-
-  end
-
   def get_default_content(category_id, options)
-    options.merge(:agent_id => @current_agent.id) unless @current_agent.nil?
     result = {
       :content_type  => 'text',
       :category_name => TocItem.find(category_id).label,
@@ -841,7 +752,6 @@ private
     return result
   end
 
-# =============== END of content_by_category methods
 
 end
 # == Schema Info

@@ -18,16 +18,17 @@ class CategoryContentBuilder
     # biodiversity_heritage_library
 
     if sub_name == "search_the_web"
-      content = search_the_web
+      content = search_the_web(options)
       content[:content_type] = sub_name
     elsif sub_name == "common_names"
-      content = common_names
+      content = common_names(options)
       content[:content_type] = sub_name
+      pp [:common_names, content]
     elsif sub_name == "specialist_projects"
-      content = specialist_projects
+      content = specialist_projects(options)
       content[:content_type] = sub_name
     elsif sub_name == "biodiversity_heritage_library"
-      content = biodiversity_heritage_library
+      content = biodiversity_heritage_library(options)
       content[:content_type] = sub_name
     else
       nil
@@ -44,14 +45,14 @@ class CategoryContentBuilder
     # references_and_more_information
     # evolution_and_systematics
 
-    def search_the_web
+    def search_the_web(options)
       {
         :category_name => 'Search the Web',
         :items => []
       }
     end
 
-    def common_names
+    def common_names(options)
       # NOTES: we had a notion of "unspecified" language.  Results were sorted.
       result = {
           :category_name => 'Common Names',
@@ -60,12 +61,12 @@ class CategoryContentBuilder
                                  FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
                                    LEFT JOIN languages l ON (tcn.language_id = l.id)
                                  WHERE tcn.taxon_concept_id = ? AND vern = 1
-                                 ORDER BY language_label, string', id])
+                                 ORDER BY language_label, string', options[:taxon_concept_id]])
         }
       return result
     end
 
-    def specialist_projects
+    def specialist_projects(options)
       # I did not include these outlinks as data object in the traditional sense. For now, you'll need to go through the
       # collections and mappings tables to figure out which links pertain to the taxon (mappings has the name_id field). I
       # had some thoughts about including these in the taxa / data_object route, but I don't have plans to make this change
@@ -114,7 +115,7 @@ class CategoryContentBuilder
 
     end
 
-    def biodiversity_heritage_library
+    def biodiversity_heritage_library(options)
 
       items = SpeciesSchemaModel.connection.execute(
         "SELECT DISTINCT ti.id item_id, pt.title publication_title, pt.url publication_url,

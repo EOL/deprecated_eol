@@ -47,7 +47,6 @@ class Search
   #    3     20     24
   def page_range(results)
     index_start_offset = (@current_page - 1) * per_page
-    # pp [:page_range, @current_page, index_start_offset, per_page, results.size, results.size, results[index_start_offset, per_page]]
     if results.size == 0
       []
     else
@@ -133,25 +132,20 @@ class Search
           end
         end
 
+        # Handle empty results:
+        @scientific_name_results = [] unless @scientific_name_results
+        @common_name_results     = [] unless @common_name_results
+        @tag_results             = [] unless @tag_results
+
+        number_of_stub_page_results = count_stub_pages
+
         # Now filter out only those results that look good to us:
-        number_of_stub_page_results = @scientific_name_results.find_all {|result| result['content_level'].to_i < 2 }.size + 
-                                      @common_name_results.find_all {|result| result['content_level'].to_i < 2 }.size +
-                                      @tag_results.find_all {|result| result[0].content_level < 2}.size
-
-        # I commented this out becuase I'm not sure we're using content_level anymore
-        #@scientific_name_results = @scientific_name_results.find_all {|result| result['content_level'].to_i >= current_user.content_level.to_i }
-        #@common_name_results     = @common_name_results.find_all     {|result| result['content_level'].to_i >= current_user.content_level.to_i }
-
-        @tag_results = @tag_results.find_all {|results| results[0].content_level >= current_user.content_level.to_i }
+        filter_results_by_content_level(current_user.content_level.to_i)
 
         @scientific_results = search_results_by_ids(true, @scientific_name_results, current_user.language, current_user.vetted)
         @common_results = search_results_by_ids(false, @common_name_results, current_user.language, current_user.vetted)
 
-        #log search
-        total_number_of_results = @scientific_results.length + @common_results.length + @suggested_searches.length + @tag_results.length
-
-        logged_search = Search.log({:search_term=>@search_string, :search_type=>@search_type, :parent_search_log_id=>@parent_search_log_id, :total_number_of_results=>total_number_of_results, :number_of_common_name_results=>@common_name_results.length, :number_of_scientific_name_results=>@scientific_name_results.length, :number_of_tag_results => @tag_results.length, :number_of_suggested_results=>@suggested_searches.length, :number_of_stub_page_results=> number_of_stub_page_results}, request, current_user)
-        @logged_search_id=(logged_search.nil?) ? "" : logged_search.id
+        log_search(number_of_stub_page_results, request, current_user)
 
         # if we have only one result, go straight to that page
         if total_search_results == 1
@@ -159,11 +153,10 @@ class Search
           taxon_concept_id = taxon_concept_id ? taxon_concept_id : (@scientific_results.empty? ? nil : @scientific_results[0][:id])
           taxon_concept_id = taxon_concept_id ? taxon_concept_id : (@tag_results.empty? ? nil: @tag_results[0][0].id)
           taxon_concept_id = taxon_concept_id ? taxon_concept_id : @suggested_searches[0].taxon_concept_id
-          Search.update_log({:id=>@logged_search_id,:taxon_concept_id=>taxon_concept_id})
+          Search.update_log(:id=>@logged_search_id,:taxon_concept_id=>taxon_concept_id)
         end
-      else # no results, but still log it
-        #log search
-        Search.log({:search_term=>@search_string, :search_type=>@search_type, :parent_search_log_id=>@parent_search_log_id,:total_number_of_results=>0, :number_of_common_name_results=>0, :number_of_scientific_name_results=>0, :number_of_suggested_results=>0, :number_of_stub_page_results=> 0},request,current_user)
+      else
+        log_empty_search
       end
     else
       invalid_search
@@ -286,25 +279,72 @@ class Search
                                           :qualifier=>@qualifier,
                                           :scope=>@scope,
                                           :search_language=>@search_language)
-
-    sci_sz = @search_results[:scientific].size
-    vern_sz = @search_results[:common].size
-    @maximum = sci_sz > vern_sz ? sci_sz : vern_sz    
+    @maximum = [@search_results[:scientific].size, @search_results[:common].size].max
     @search_results[:scientific] = page_range(@search_results[:scientific])
-    @search_results[:common] = page_range(@search_results[:common])
-    @search_results[:tags] = []
+    @search_results[:common]     = page_range(@search_results[:common])
+    @search_results[:tags]       = []
   end
 
   # look for user's search term in suggested searches:  
   def suggested_search
-    @suggested_searches = SearchSuggestion.find_all_by_term_and_active(@search_string,true,:order=>'sort_order') if @search_type == 'text'
+    @suggested_searches = SearchSuggestion.find_all_by_term_and_active(@search_string,true,:order=>'sort_order') if
+      @search_type == 'text'
   end
 
   def invalid_search
-    @searching = false
-    @qualifier       = "contains"
-    @scope           = "all"    
-    @search_language = "*"  
-    @error_message = "Your search term was invalid."  
+    @searching       = false
+    @qualifier       = 'contains'
+    @scope           = 'all'
+    @search_language = '*'
+    @error_message   = 'Your search term was invalid.'
   end
+
+  def count_stub_pages
+    @scientific_name_results.find_all {|result| result['content_level'].to_i < 2 }.size + 
+      @common_name_results.find_all   {|result| result['content_level'].to_i < 2 }.size +
+      @tag_results.find_all           {|result| result[0].content_level < 2}.size
+  end
+
+  def filter_results_by_content_level(content_level)
+    @scientific_name_results =
+      @scientific_name_results.find_all {|result| result['content_level'].to_i >= content_level }
+    @common_name_results     =
+      @common_name_results.find_all     {|result| result['content_level'].to_i >= content_level }
+    @tag_results =
+      @tag_results.find_all             {|result| result[0].content_level >= content_level }
+  end
+
+  def total_number_of_results
+    @scientific_results.length + @common_results.length + @suggested_searches.length + @tag_results.length
+  end
+
+  def log_search(number_of_stub_page_results, request, current_user)
+    logged_search = Search.log({:search_term=>@search_string,
+                                :search_type=>@search_type,
+                                :parent_search_log_id=>@parent_search_log_id,
+                                :total_number_of_results=>total_number_of_results,
+                                :number_of_common_name_results=>@common_name_results.length,
+                                :number_of_scientific_name_results=>@scientific_name_results.length,
+                                :number_of_tag_results => @tag_results.length,
+                                :number_of_suggested_results=>@suggested_searches.length,
+                                :number_of_stub_page_results=> number_of_stub_page_results},
+                               request,
+                               current_user)
+    @logged_search_id = logged_search.nil? ? '' : logged_search.id
+  end
+  
+  # TODO - I think this is unnecessary. Meaning, we cn just let all the instance vars be 0.
+  def log_empty_search(request, current_user)
+    Search.log({:search_term=>@search_string,
+                :search_type=>@search_type,
+                :parent_search_log_id=>@parent_search_log_id,
+                :total_number_of_results=>0,
+                :number_of_common_name_results=>0,
+                :number_of_scientific_name_results=>0,
+                :number_of_suggested_results=>0,
+                :number_of_stub_page_results=> 0},
+               request,
+               current_user)
+  end
+
 end

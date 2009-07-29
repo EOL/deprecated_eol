@@ -466,7 +466,7 @@ class TaxonConcept < SpeciesSchemaModel
     used_concept_ids = []
     sci_concepts = []
     com_concepts = []
-    
+
     taxon_concept_ids.each do |result|
       if !used_concept_ids.include?(result['id'].to_i) || (result['hierarchy_id'].to_i == Hierarchy.default.id && result['preferred'].to_i == 1)
         
@@ -711,10 +711,9 @@ private
   # evolution_and_systematics
 
   def search_the_web
-    {
-      :content_type => 'search the web',
-      :category_name => 'Search the Web',
-      :items => []
+    {:content_type => 'search the web',
+     :category_name => 'Search the Web',
+     :items => []
     }
   end
 

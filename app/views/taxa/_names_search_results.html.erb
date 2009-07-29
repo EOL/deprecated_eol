@@ -1,37 +1,35 @@
  
                                       
                   <span id="advanced_search_message">
-          <% if @search.error_message %><%=h @search.error_message%><% end %>
-          <% if @search.searching && @search.total_search_results == 0 %>
+          <%- if @search.error_message %><%=h @search.error_message%><%- end %>
+          <%- if @search.searching && @search.total_search_results == 0 %>
                           <%=h "Your search on '{search_string}' did not find any matches."[:no_search_results,@search.search_string]%>
                           
-                          <% if (@search.num_results_not_shown) && $ALLOW_USER_TO_CHANGE_CONTENT_LEVEL%>
+                          <%- if (@search.num_results_not_shown) && $ALLOW_USER_TO_CHANGE_CONTENT_LEVEL%>
                               <br /><br />Also, we've got other pages you can view that have less 
                               content.  If you'd like, you can update your settings, and we can show the pages to you.  <a id="change_content_level">Click here to change the setting and view the updated search results.</a>
-                          <% end %>
-                            <% elsif @search.searching && @search.common_name_results.length == 0 && @search.scientific_name_results.length == 0 &&
+                          <%- end %>
+                            <%- elsif @search.searching && @search.common_name_results.length == 0 && @search.scientific_name_results.length == 0 &&
                                    @search.suggested_searches.length == 0 && @search.tag_results.length == 0 %>    
                           <%=h "Sorry, but the search could not return any results at this time due to high demand.  Please try a more specific search."[:search_timed_out]%>
-                      <% elsif @search.searching && (@search.common_name_results.length + @search.scientific_name_results.length) == $MAX_SEARCH_RESULTS %>
+                      <%- elsif @search.searching && (@search.common_name_results.length + @search.scientific_name_results.length) == $MAX_SEARCH_RESULTS %>
                           <%="Only the first {num_results} search results containing '{search_string}' are shown below - please try a more specific search term if you do not find what you are looking for."[:too_many_search_results,$MAX_SEARCH_RESULTS,@search.search_string]%>
-                      <% elsif @search.searching %>
-                          <%=h "The following {num_results} search results contain '{search_string}'."[:num_results_shown,@search.common_results.length + @search.scientific_results.length + @search.tag_results.length,@search.search_string]%>
-                      <% end %>    
+                      <%- end %>    
                   </span>    
                   
-                  <% if @search.searching && @search.common_results.length > 0 %>
+                  <%- if @search.searching && @search.common_results.length > 0 %>
                   <div class="search_results" id="common_search_results">    
                       
                       <table>
                           <tr>
                               <td width="50%"><a name="common_names"></a><h3><%="Common Names"[]%></h3></td>
-                              <td><% if @search.searching && @search.scientific_name_results.length > 0 %>[view <a href="#scientific_names"><%="Scientific Names"[]%></a>]<% end %></td>
+                              <td><%- if @search.searching && @search.scientific_name_results.length > 0 %>[view <a href="#scientific_names"><%="Scientific Names"[]%></a>]<%- end %></td>
                           </tr>
                        </table>
                        
                         <table class="results_table" cellspacing="0" summary="Common Names">
                             <tr><th><%="Common Name"[]%></th><th><%="Scientific Name"[]%></th><th><%="Language"[]%></th><th><%="Image"[]%></th></tr>
-                            <% @search.common_results.each_with_index do |result, i| 
+                            <%- @search.common_results.each_with_index do |result, i| 
                                   column_class          = cycle('odd','even')
                                   thumbnail_column_class  = column_class
                                   taxon_vetted_id         = result[:taxon_vetted_id]
@@ -50,30 +48,30 @@
                                   scientific_name       = result[:preferred_scientific_name_italicized].firstcap
                                   namestring            = result[:matching_string].firstcap %>
                                    <tr><td class="<%= column_class %>"><%= link_to namestring,{:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id}  %>
-                                    <% if remove_html(preferred_name) != remove_html(namestring) && preferred_name != '' %><br /><%="shown as"[]%> <%=preferred_name%><% end %>                                 
+                                    <%- if remove_html(preferred_name) != remove_html(namestring) && preferred_name != '' %><br /><%="shown as"[]%> <%=preferred_name%><%- end %>                                 
                                  </td><td class="<%= column_class %>"><%=scientific_name %></td>
                                  <td class="<%= column_class %>"><%=current_user.language.label%></td>
-                                  <td class="<%= thumbnail_column_class %>" align="center"><% unless thumbnail_cache_url.nil? %><a href="<%=url_for(:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id)%>"><img alt="<%=remove_html(namestring)%>" title="<%=remove_html(namestring)%>" src="<%= DataObject.image_cache_path(thumbnail_cache_url, :medium) %>"/></a><%end%></td></tr>
-                              <% end %>
+                                  <td class="<%= thumbnail_column_class %>" align="center"><%- unless thumbnail_cache_url.nil? %><a href="<%=url_for(:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id)%>"><img alt="<%=remove_html(namestring)%>" title="<%=remove_html(namestring)%>" src="<%= DataObject.image_cache_path(thumbnail_cache_url, :medium) %>"/></a><%end%></td></tr>
+                              <%- end %>
                           </table>    
                     </div>    
                   
                   <br/><br/>
-                  <% end %>
+                  <%- end %>
                   
-                 <% if @search.searching && @search.scientific_results.length > 0 %>
+                 <%- if @search.searching && @search.scientific_results.length > 0 %>
                    <div class="search_results" id="scientific_search_results">    
                   
                      <table>
                           <tr>
                               <td width="50%"><a name="scientific_names"></a><h3><%="Scientific Names"[]%></h3></td>
-                              <td><% if @search.searching && @search.common_name_results.length > 0 %>[view <a href="#common_names"><%="Common Names"[]%></a>]<% end %></td>
+                              <td><%- if @search.searching && @search.common_name_results.length > 0 %>[view <a href="#common_names"><%="Common Names"[]%></a>]<%- end %></td>
                           </tr>
                      </table>
                   
                      <table class="results_table" cellspacing="0" summary="Scientific Names">
                           <tr><th><%="Scientific Name"[]%></th><th><%="Common Name"[]%></th><th><%="Image"[]%></th></tr>
-                          <% @search.scientific_results.each_with_index do |result, i| 
+                          <%- @search.scientific_results.each_with_index do |result, i| 
                                 column_class            = cycle('odd','even')
                                 thumbnail_column_class  = column_class
                                 taxon_vetted_id         = result[:taxon_vetted_id]
@@ -92,12 +90,15 @@
                                 common_name         = result[:preferred_common_name] ? result[:preferred_common_name].firstcap : ""
                                 namestring          = result[:matching_italicized_string].firstcap %>
                                  <tr><td class="<%= column_class %>"><%= link_to namestring,{:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id}  %>
-                                  <% if remove_html(preferred_name) != remove_html(namestring) && preferred_name != '' %><br /><%="synonym of"[]%> <%=preferred_name%><% end %>                                 
+                                  <%- if remove_html(preferred_name) != remove_html(namestring) && preferred_name != '' %><br /><%="synonym of"[]%> <%=preferred_name%><%- end %>                                 
                                </td><td class="<%= column_class %>"><%=common_name if common_name != '' %></td>
-                                 <td class="<%= thumbnail_column_class %>" align="center"><% unless thumbnail_cache_url.nil? %><a href="<%=url_for(:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id)%>"><img alt="<%=remove_html(namestring)%>" title="<%=remove_html(namestring)%>" src="<%= DataObject.image_cache_path(thumbnail_cache_url, :medium) %>"/></a><%end%></td></tr>
-                            <% end %>
+                                 <td class="<%= thumbnail_column_class %>" align="center"><%- unless thumbnail_cache_url.nil? %><a href="<%=url_for(:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id)%>"><img alt="<%=remove_html(namestring)%>" title="<%=remove_html(namestring)%>" src="<%= DataObject.image_cache_path(thumbnail_cache_url, :medium) %>"/></a><%end%></td></tr>
+                            <%- end %>
                      </table>
-                     <%= paginate_results(@search) %>
                    </div>
-                 <% end %>
+                 <%- end %>
+
+                 <%- if @search.searching %>
+                   <%= paginate_results(@search) %>
+                 <%- end %>
       

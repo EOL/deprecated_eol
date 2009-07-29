@@ -135,7 +135,7 @@ function eol_update_credit(params){
     field_notes_area = '';
 
     if (params.taxaIDs.length > 0 ) {
-      var current_page_name_or_id = window.location.toString().sub(/.*\//,'');
+      var current_page_name_or_id = window.location.toString().sub(/.*\//,'').sub(/\?.*/,'');
       var taxa_thats_not_the_current_page = 0;    
       // loop thru and find a taxa that's NOT the current page's taxa
       while (params.taxaIDs[taxa_thats_not_the_current_page] != null && current_page_name_or_id == params.taxaIDs[taxa_thats_not_the_current_page].toString() ) {

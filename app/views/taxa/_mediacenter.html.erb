@@ -22,7 +22,7 @@
             <table id="main-image-table">
 						  <tr><td>
 								<% if !@images.blank? %>
-								  	<img onclick="toggle_image_attribution(); return false;" id="main-image" src="<%=@images[0].smart_image unless @images.nil? or @images.blank?%>" alt="<%= hh(remove_html(@taxon_concept.title))%>" title="<%=hh(remove_html(@taxon_concept.title))%>" />
+								  	<img onclick="toggle_image_attribution(); return false;" id="main-image" src="<%=@selected_image.smart_image unless @images.nil? or @images.blank?%>" alt="<%= hh(remove_html(@taxon_concept.title))%>" title="<%=hh(remove_html(@taxon_concept.title))%>" />
 								<% end %>
 							</td></tr>
             </table>
@@ -35,11 +35,11 @@
               <div id="left-image-buttons">
                 <ul id="large-image-button-group">
                   <li title="More information" id="large-image-attribution-button" class="attribution-icon">
-                    <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', attribution_data_object_path(@images[0]),
+                    <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', attribution_data_object_path(@selected_image),
                       :id => "large-image-attribution-button-popup-link", :class => 'popup-link',
                       :alt => "More information" %>
                   </li>
-                  <%=render :partial=>'data_object_states', :locals => {:dato => @images[0]}%>
+                  <%=render :partial=>'data_object_states', :locals => {:dato => @selected_image}%>
                 </ul>
               </div> <!-- /left-image-buttons -->
 
@@ -51,39 +51,39 @@
                       <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
                     </div>
                     <div id="hide_these_controls_for_now" style="display:none">
-                        <div title="Trust this image" id="large-image-trust-button" class="trust_button thumbs-up-image" <%='style="display: none"' if @images[0].curated?%>>
+                        <div title="Trust this image" id="large-image-trust-button" class="trust_button thumbs-up-image" <%='style="display: none"' if @selected_image.curated?%>>
                             <%= link_to '<span style="display:block;width:24px;height:25px;"></span>',
-                              {:controller => :data_objects, :action => :curate, :id => @images[0].id,
+                              {:controller => :data_objects, :action => :curate, :id => @selected_image.id,
                                '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s},
-                              {'data-data_object_id' => @images[0].id, :alt => 'Trust this image',
+                              {'data-data_object_id' => @selected_image.id, :alt => 'Trust this image',
                                'data-data_object_type' => DataType.image_type_ids[0]} %>
                         </div>
-                        <div title="Do not trust this image" id="large-image-untrust-button" class="untrust_button thumbs-down-image" <%='style="display: none"' if @images[0].curated?%>>
+                        <div title="Do not trust this image" id="large-image-untrust-button" class="untrust_button thumbs-down-image" <%='style="display: none"' if @selected_image.curated?%>>
                             <%= link_to '<span style="display:block;width:24px;height:25px;"></span>',
-                              {:controller => :data_objects, :action => :curate, :id => @images[0].id,
+                              {:controller => :data_objects, :action => :curate, :id => @selected_image.id,
                                '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s},
-                              {'data-data_object_id' => @images[0].id, :alt => 'Do not trust this image',
+                              {'data-data_object_id' => @selected_image.id, :alt => 'Do not trust this image',
                                'data-data_object_type' => DataType.image_type_ids[0]} %>
                         </div>
                     </div>
                     <div title="Curate image" id="large-image-curator-button" class="curate-button-image">
-                      <%= popup_link 'curator', curation_data_object_path(@images[0]), :alt => 'Curate image' %>
+                      <%= popup_link 'curator', curation_data_object_path(@selected_image), :alt => 'Curate image' %>
                     </div> <!-- /large-image-curator-button -->
                   <% end %>
 
                   <div title="Tag image" id="large-image-tagging-button">
-                    <%= popup_link 'tagging', data_object_tags_path(@images[0]), :alt => 'Tag image' %>
+                    <%= popup_link 'tagging', data_object_tags_path(@selected_image), :alt => 'Tag image' %>
                   </div> <!-- /large-image-tagging-button -->
 
                   <div title="Comment on image" id="large-image-comment-button" class="comment-button-image">
-                    <%= popup_link 'comment', data_object_comments_path(@images[0]), :alt => "Comment on image" %>
+                    <%= popup_link 'comment', data_object_comments_path(@selected_image), :alt => "Comment on image" %>
                   </div> <!-- /large-image-comment-button -->
                 </div> <!-- /large-image-button-popup -->
               </div> <!-- /right-image-buttons -->
 
               <!-- RATING -->
               <div class="image-rating">
-                <%=render :partial => 'star_rating', :locals => {:data_object => @images[0]}%>
+                <%=render :partial => 'star_rating', :locals => {:data_object => @selected_image}%>
               </div>
 
           </div> <!-- /large-image-buttons -->

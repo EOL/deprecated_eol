@@ -83,7 +83,7 @@ Event.addBehavior(
   'div#image-collection': function() {
     if (window.checked_for_image_hash_tag == null) {
       window.checked_for_image_hash_tag = true;
-      var match = window.location.hash.match(/#image-(\d*)/);
+      var match = window.location.href.match(/image_id=(\d*)/);
       if (match != null) {
         var image_id = match[1];
         var image_hash = EOL.MediaCenter.image_hash[image_id];

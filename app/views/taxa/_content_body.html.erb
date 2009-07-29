@@ -1,32 +1,5 @@
-<% unless @content.nil?
-  %>
+<% if @content %>
   <div id="insert_text"></div>
-  <%
-  # depending on which content type we are displaying, load a different partial
-  case @content[:content_type]
-    when "text"
-      %>
-      <%= render(:partial=>'content_text') %>
-      <div id="scroll_to_bottom"></div>
-      <script type="text/javascript">
-        womAdd('updateReferences();');
-      </script>
-      <%
-    when "common names"
-      %>
-         <%= render(:partial=>'content_names') %>
-      <%
-    when "ubio_links"
-      %>
-         <%= render(:partial=>'content_other_projects') %>
-      <%
-    when "bhl"
-      %>
-         <%= render(:partial=>'content_bhl') %>
-      <%
-    when 'search the web'
-      %>
-         <%= render(:partial=>'content_search_the_web') %>
-      <%
-  end
-end%>
+  <% pname = "taxa/content/content_#{@content[:content_type]}" %>
+  <%= render(:partial => pname) %>
+<% end %>

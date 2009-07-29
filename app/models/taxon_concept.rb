@@ -720,7 +720,7 @@ private
     return 1
   end
 
-  def get_default_content(category_id, options)
+  def get_default_content(category_id)
     result = {
       :content_type  => 'text',
       :category_name => TocItem.find(category_id).label,

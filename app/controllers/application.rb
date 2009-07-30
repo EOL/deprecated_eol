@@ -390,7 +390,7 @@ end
     if session[:user_id].nil?
       return create_new_user
     else
-      return Rails.cache.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) }
+      return YAML.load(Rails.cache.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]).to_yaml })
     end
   end
 

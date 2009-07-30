@@ -4,6 +4,7 @@ class ContentController < ApplicationController
 
   before_filter :check_for_survey if $SHOW_SURVEYS
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
+  before_filter :set_session_hierarchy_variable, :only => [:index, :explore_taxa, :replace_single_explore_taxa]
 
   def index
 
@@ -12,8 +13,6 @@ class ContentController < ApplicationController
     unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.language_abbr)
       @content=ContentPage.get_by_page_name_and_language_abbr('Home',current_user.language_abbr)
       raise "static page content not found" if @content.nil?
-      current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
-      @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
       @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy)
       @featured_taxa = TaxonConcept.exemplars
       # get top news items less then a predetermined number of weeks old
@@ -101,8 +100,6 @@ class ContentController < ApplicationController
   
   #AJAX call to show more explore taxa on the home page
   def explore_taxa
-    current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
-    @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
     @explore_taxa=RandomHierarchyImage.random_set(6, @session_hierarchy)
 
     render :layout=>false,:partial => 'explore_taxa'
@@ -114,9 +111,6 @@ class ContentController < ApplicationController
  
      params[:current_taxa] ||= ''
      params[:taxa_number] ||= '1'
-     
-     current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
-     @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
      
      current_taxa = params[:current_taxa].split(',')
      explore_taxa       = RandomHierarchyImage.random(@session_hierarchy)

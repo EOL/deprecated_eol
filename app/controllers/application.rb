@@ -376,21 +376,23 @@ end
 
   # default new user when we don't have a logged in user
   def create_new_user
-     new_user=User.create_new(:remote_ip=>request.remote_ip)
-     session[:user]=new_user
+    session[:user_id] = nil
+    User.create_new(:remote_ip=>request.remote_ip)
   end
 
   def reset_session
-      create_new_user
-      current_agent=nil
+    create_new_user
+    current_agent=nil
   end
 
   # return currently logged in user
   def current_user
-    if session[:user_id]
-      Rails.cache.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) }
+    if session[:user_id].nil?
+      puts "++ create"
+      return create_new_user
     else
-      Rails.cache.fetch("users/new") { create_new_user }
+      puts "++ fetch"
+      return Rails.cache.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) }
     end
   end
 
@@ -521,6 +523,13 @@ end
       end
     end
 
+    def set_session_hierarchy_variable
+      hierarchy_id = Hierarchy.default.id unless current_user.default_hierarchy_valid?
+      secondary_hierarchy_id = current_user.secondary_hierarchy_id
+      @session_hierarchy = Hierarchy.find(hierarchy_id)
+      @session_secondary_hierarchy = secondary_hierarchy_id.nil? ? nil : Hierarchy.find(secondary_hierarchy_id)
+    end
+
 private
 
   def expire_pages(pages)
@@ -544,6 +553,7 @@ private
 
   # Set language around filter
   def set_current_language
+    pp current_user
     current_user.language = Language.english if current_user.language.nil? or current_user.language_abbr == ""
     Gibberish.use_language(current_user.language_abbr) { yield }
   end

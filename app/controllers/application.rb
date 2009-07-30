@@ -226,8 +226,7 @@ end
   # check to see if a session exists, and create if it not
   #  even non-logged in users get a session to store their expertise and language preferences
   def set_session
-    # if we don't have a session yet, create it, set taxa views to 0 for this user, and increment number of unique visitors
-    if current_user.nil?
+    unless logged_in?
 
        create_new_user
        clear_old_sessions if $USE_SQL_SESSION_MANAGEMENT
@@ -240,7 +239,6 @@ end
        end
 
     end
-
   end
 
   # expire a single non-species page fragment cache
@@ -389,12 +387,17 @@ end
 
   # return currently logged in user
   def current_user
-    session[:user]
+    if session[:user_id]
+      Rails.cache.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) }
+    else
+      Rails.cache.fetch("users/new") { create_new_user }
+    end
   end
 
    # set current user in session
   def set_current_user(user)
-    session[:user]=user
+    session[:user_id]=user.id
+    Rails.cache.delete("users/#{session[:user_id]}")
   end
 
   # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous session
@@ -408,7 +411,7 @@ end
 
   # check to see if we have a logged in user
   def logged_in?
-    !current_user.id.nil?
+    return(not session[:user_id].nil?)
   end
 
  def check_authentication

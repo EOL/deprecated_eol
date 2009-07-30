@@ -3,6 +3,7 @@ class TaxaController < ApplicationController
   layout 'main'
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
   before_filter :set_user_settings, :only=>[:show,:search,:settings]
+  before_filter :set_session_hierarchy_variable, :only => [:show]
 
   if $SHOW_SURVEYS
     before_filter :check_for_survey, :only=>[:show,:search,:settings]
@@ -328,7 +329,7 @@ class TaxaController < ApplicationController
       current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
     end
 
-    # Set the page expertise and vetted defaults, get from  querystring, update the session with this value if found
+    # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
     def set_user_settings
 
       expertise = params[:expertise].to_sym if ['novice','middle','expert'].include?(params[:expertise])
@@ -416,8 +417,6 @@ class TaxaController < ApplicationController
     
     def show_taxa_html
       
-      set_session_hierarchy_instance_vars
-      
       update_user_content_level
       
       @taxon_concept.current_user = current_user
@@ -433,17 +432,6 @@ class TaxaController < ApplicationController
       render :template=>'/taxa/show_cached' if allow_page_to_be_cached? and not params[:category_id] # if caching is allowed, see if fragment exists using this template
     end
 
-    # TODO - we really want these to be helper methods, but those methods would involve caching, so I'm not going to make that change now - JRice
-    def set_session_hierarchy_instance_vars
-      fix_current_users_default_hierarchy
-      @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
-      @session_secondary_hierarchy = current_user.secondary_hierarchy_id.nil? ? nil : Hierarchy.find(current_user.secondary_hierarchy_id)
-    end
-    
-    def fix_current_users_default_hierarchy
-      current_user.default_hierarchy_id = Hierarchy.default.id unless current_user.default_hierarchy_valid?
-    end
-   
     def show_taxa_xml
       xml = Rails.cache.fetch("taxon.#{@taxon_concept.id}/xml", :expires_in => 4.hours) do
         @taxon_concept.to_xml(:full => true)
@@ -463,6 +451,8 @@ class TaxaController < ApplicationController
              params[:image_id].blank?)
     end
 
+    # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
+    # wrong.  We really need some classes or helpers to take care of these details.
     def set_taxa_page_instance_vars
       @taxon_concept.current_agent = current_agent unless current_agent.nil?
 

@@ -44,6 +44,11 @@ RandomTaxon.all.each do |rt|
   RandomTaxon.delete("id = #{rt.id}") if (TaxonConcept.find(rt.taxon_concept_id)).nil?
 end
 
+# Before we create our new taxa, we should make sure the RandomTaxa table is clear of bogus entries:
+RandomHierarchyImage.all.each do |rhi|
+  RandomHierarchyImage.delete("id = #{rhi.id}") if (TaxonConcept.find(rhi.taxon_concept_id)).nil?
+end
+
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published)
@@ -126,8 +131,6 @@ test_user2.save
 curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 5, :curator_approved => true)
 curator.save
 
-make_all_nested_sets
-recreate_normalized_names_and_links
 
 exemplar = build_taxon_concept(:event => event, :common_names => ['wumpus'], :id => 910093) # That ID is one of the (hard-coded) exemplars.
 
@@ -160,7 +163,6 @@ themes_collection_type = CollectionType.gen(:label => "Themes")
 marine_theme_collection_type = CollectionType.gen(:label => "Marine", :parent_id => themes_collection_type.id)
 bugs_theme_collection_type = CollectionType.gen(:label => "Bugs", :parent_id => themes_collection_type.id)
 
-rebuild_collection_type_nested_set
 
 
 name = kingdom.entry.name_object
@@ -179,3 +181,92 @@ CollectionTypesCollection.gen(:collection => molecular_species_pages_collection,
 CollectionTypesCollection.gen(:collection => molecular_species_pages_collection, :collection_type => marine_theme_collection_type)
 Mapping.gen(:collection => molecular_species_pages_collection, :name => name, :foreign_key => '13646')
 Mapping.gen(:collection => molecular_species_pages_collection, :name => name, :foreign_key => '9551')
+
+
+
+
+
+r = Rank.gen(:label => 'superkingdom', :rank_group_id => 0)
+
+### Adding another hierarchy to test switching from one to another
+ncbi_agent = Agent.gen(:full_name => "National Center for Biotechnology Information (NCBI)")
+AgentContact.gen(:agent => ncbi_agent, :agent_contact_role => AgentContactRole.primary)
+ncbi_hierarchy = Hierarchy.gen(:agent => ncbi_agent, :label => "NCBI Taxonomy", :browsable => 1)
+
+eukaryota = build_taxon_concept(:rank => 'superkingdom',
+                                :canonical_form => 'Eukaryota',
+                                :common_names => ['eukaryotes'],
+                                :event => event,
+                                :hierarchy => ncbi_hierarchy,
+                                :depth => 0)
+                                
+opisthokonts_name   = Name.gen(:canonical_form => cf = CanonicalForm.gen(:string => 'Metazoa'),
+                  :string => 'Metazoa',
+                  :italicized => '<i>Metazoa</i>')
+opisthokonts_common_name   = Name.gen(:canonical_form => cf = CanonicalForm.gen(:string => 'opisthokonts'),
+                  :string => 'opisthokonts',
+                  :italicized => '<i>opisthokonts</i>')
+opisthokonts = build_hierarchy_entry(0, kingdom, opisthokonts_name,
+            :rank_id => Rank.find_by_label('kingdom').id,
+            :parent_id => ncbi_hierarchy.hierarchy_entries.last.id,
+            :hierarchy => ncbi_hierarchy )
+TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => opisthokonts.id,
+                     :language => Language.english, :name => opisthokonts_common_name, :taxon_concept => kingdom)
+TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => opisthokonts.id,
+                     :language => Language.scientific, :name => opisthokonts_name, :taxon_concept => kingdom)
+
+4.times do
+  parent_id = ncbi_hierarchy.hierarchy_entries.last.id
+  depth = ncbi_hierarchy.hierarchy_entries.last.depth + 1
+  
+  sci_name = Factory.next(:scientific_name)
+  c_name = Factory.next(:common_name)
+  eukaryota = build_taxon_concept(:rank => '',
+                                  :canonical_form => sci_name,
+                                  :common_names => [c_name],
+                                  :event => event,
+                                  :hierarchy => ncbi_hierarchy,
+                                  :parent_hierarchy_entry_id => parent_id,
+                                  :depth => depth)
+  
+  sci_name = Factory.next(:scientific_name)
+  c_name = Factory.next(:common_name)
+  eukaryota = build_taxon_concept(:rank => '',
+                                  :canonical_form => sci_name,
+                                  :common_names => [c_name],
+                                  :event => event,
+                                  :hierarchy => ncbi_hierarchy,
+                                  :parent_hierarchy_entry_id => parent_id,
+                                  :depth => depth)
+end
+
+
+bacteria = build_taxon_concept(:rank => 'superkingdom',
+                                :canonical_form => 'Bacteria',
+                                :common_names => ['bacteria common name'],
+                                :event => event,
+                                :hierarchy => ncbi_hierarchy,
+                                :depth => 0)
+
+4.times do
+  parent_id = ncbi_hierarchy.hierarchy_entries.last.id
+  depth = ncbi_hierarchy.hierarchy_entries.last.depth + 1
+  
+  sci_name = Factory.next(:scientific_name)
+  c_name = Factory.next(:common_name)
+  eukaryota = build_taxon_concept(:rank => '',
+                                  :canonical_form => sci_name,
+                                  :common_names => [c_name],
+                                  :event => event,
+                                  :hierarchy => ncbi_hierarchy,
+                                  :parent_hierarchy_entry_id => parent_id,
+                                  :depth => depth)
+end
+
+
+
+
+
+make_all_nested_sets
+recreate_normalized_names_and_links
+rebuild_collection_type_nested_set

@@ -10,6 +10,7 @@ module EOL::FactoryGirlActiveRecordBaseExtensions
 
   # User.generate :username => 'bob'
   def generate *args
+    #puts "++ #{factory_name}"
     Factory.create factory_name, *args
   end
   alias gen generate

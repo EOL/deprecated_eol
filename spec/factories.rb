@@ -249,7 +249,13 @@ Factory.define :agent do |agent|
   agent.created_at      { 5.days.ago }
   agent.homepage        ''
   agent.full_name       { Factory.next(:first_name) << ' ' << Factory.next(:last_name) }
-  agent.username        {|a| a.full_name.gsub(/^(.)[^ ]+ (.*)$/, "\\1_\\2").downcase[0..15] }
+  agent.username                  do |a|
+    attempt = a.full_name.gsub(/^(.)[^ ]+ (.*)$/, "\\1_\\2").downcase[0..15]
+    while(Agent.find_by_username(attempt)) do
+      attempt.succ!
+    end
+    attempt
+  end
   agent.email           { Factory.next(:email) }
   agent.hashed_password { Digest::MD5.hexdigest('test password') }
   agent.agent_status    { AgentStatus.active || Factory(:agent_status, :label => 'Active') }
@@ -673,6 +679,14 @@ Factory.define :random_taxon do |rt|
   rt.thumb_url      200810061400963 # Not sure this is right.
 end
 
+Factory.define :random_hierarchy_image do |rhi|
+  rhi.association   :data_object
+  rhi.name          { "<i>#{ Factory.next(:species) }<i> Factory TestFramework" }
+  rhi.association   :taxon_concept
+  rhi.association   :hierarchy_entry
+  rhi.association   :hierarchy
+end
+
 # I *don't* think these all actually relate to the rank_id's found elsewhere here. If so, we should change them to associations.
 Factory.define :rank do |r|
   r.label 'TestRank'
@@ -847,13 +861,20 @@ Factory.define :user do |u|
   u.remote_ip                 '128.167.250.123' # TODO - fake this?
   u.content_level             2
   u.email                     { Factory.next(:email) }
+  u.default_hierarchy_id      nil
   u.given_name                { Factory.next(:first_name) }
   u.family_name               { Factory.next(:last_name) }
   u.flash_enabled             true
   u.language                  { Language.english || Factory(:language, :label => 'English') }
   u.mailing_list              true
   u.vetted                    false
-  u.username                  {|user| "#{user.given_name[0..0]}_#{user.family_name[0..9]}".gsub(/\s/, '_').downcase }
+  u.username                  do |user|
+    attempt = "#{user.given_name[0..0]}_#{user.family_name[0..9]}".gsub(/\s/, '_').downcase
+    while(User.find_by_username(attempt)) do
+      attempt.succ!
+    end
+    attempt
+  end
   u.active                    true
   u.password                  'test password'
   u.curator_hierarchy_entry   nil

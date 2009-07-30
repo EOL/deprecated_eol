@@ -415,6 +415,9 @@ class TaxaController < ApplicationController
     end
     
     def show_taxa_html
+      
+      set_session_hierarchy_instance_vars
+      
       update_user_content_level
       
       @taxon_concept.current_user = current_user
@@ -428,6 +431,17 @@ class TaxaController < ApplicationController
       end # end get full page since we couldn't read from cache
 
       render :template=>'/taxa/show_cached' if allow_page_to_be_cached? and not params[:category_id] # if caching is allowed, see if fragment exists using this template
+    end
+
+    # TODO - we really want these to be helper methods, but those methods would involve caching, so I'm not going to make that change now - JRice
+    def set_session_hierarchy_instance_vars
+      fix_current_users_default_hierarchy
+      @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
+      @session_secondary_hierarchy = current_user.secondary_hierarchy_id.nil? ? nil : Hierarchy.find(current_user.secondary_hierarchy_id)
+    end
+    
+    def fix_current_users_default_hierarchy
+      current_user.default_hierarchy_id = Hierarchy.default.id unless current_user.default_hierarchy_valid?
     end
    
     def show_taxa_xml
@@ -480,7 +494,7 @@ class TaxaController < ApplicationController
 
       @content     = @taxon_concept.content_by_category(@category_id) unless
         @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
-      @random_taxa = RandomTaxon.random_set(5)
+      @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy)
 
       @data_object_ids_to_log = data_object_ids_to_log
     end

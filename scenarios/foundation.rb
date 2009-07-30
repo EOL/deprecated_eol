@@ -120,8 +120,8 @@ create_if_not_exists DataType, :label => 'Flash'
 create_if_not_exists DataType, :label => 'YouTube'
 
 create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007"
-create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
-create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009"
+create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008", :browsable => 1
+default_hierarchy = create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009"
 
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label => 'Associations'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label => 'Behaviour'
@@ -298,8 +298,9 @@ create_if_not_exists Visibility, :label => 'Inappropriate'
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:
-RandomTaxon.delete_all
-10.times { RandomTaxon.gen }
+RandomHierarchyImage.delete_all
+10.times {  RandomHierarchyImage.gen(:hierarchy => default_hierarchy) }
+
 
 # This prevents us from loading things twice, which it seems we were doing a lot!
 User.gen :username => 'foundation_already_loaded'

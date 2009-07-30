@@ -12,7 +12,9 @@ class ContentController < ApplicationController
     unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.language_abbr)
       @content=ContentPage.get_by_page_name_and_language_abbr('Home',current_user.language_abbr)
       raise "static page content not found" if @content.nil?
-      @explore_taxa  = RandomTaxon.random_set(6)
+      current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
+      @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
+      @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy)
       @featured_taxa = TaxonConcept.exemplars
       # get top news items less then a predetermined number of weeks old
       @news_items = NewsItem.find_all_by_active(true,:limit=>$NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY,:order=>'display_date desc',:conditions=>'display_date >= "' + $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS.weeks.ago.to_s(:db) + '"')
@@ -22,7 +24,7 @@ class ContentController < ApplicationController
   
   # just shows the top set of species --- can be included on other websites
   def species_bar
-     @explore_taxa  = RandomTaxon.random_set(6)
+     @explore_taxa  = RandomHierarchyImage.random_set(6)
      @new_window = true
      render(:partial=>'explore_taxa')
   end
@@ -99,8 +101,9 @@ class ContentController < ApplicationController
   
   #AJAX call to show more explore taxa on the home page
   def explore_taxa
-
-    @explore_taxa=RandomTaxon.random_set(6)
+    current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
+    @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
+    @explore_taxa=RandomHierarchyImage.random_set(6, @session_hierarchy)
 
     render :layout=>false,:partial => 'explore_taxa'
     
@@ -112,8 +115,11 @@ class ContentController < ApplicationController
      params[:current_taxa] ||= ''
      params[:taxa_number] ||= '1'
      
+     current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
+     @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
+     
      current_taxa = params[:current_taxa].split(',')
-     explore_taxa       = RandomTaxon.random
+     explore_taxa       = RandomHierarchyImage.random(@session_hierarchy)
 
      # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a
      # bit haywire since there are very few random taxa created by scenarios.
@@ -122,7 +128,7 @@ class ContentController < ApplicationController
            $PRODUCTION_MODE and
            !explore_taxa.blank? and
            current_taxa.include?(explore_taxa.taxon_concept_id.to_s))
-       explore_taxa = RandomTaxon.random
+       explore_taxa = RandomHierarchyImage.random(@session_hierarchy)
        num_tries += 1
      end
 

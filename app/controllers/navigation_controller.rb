@@ -3,6 +3,12 @@ class NavigationController < ApplicationController
   # caches_page :flash_tree_view
 
   def show_tree_view
+    # set the users default hierarchy if they haven't done so already
+    current_user.default_hierarchy_id = Hierarchy.default if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
+    @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
+    @session_secondary_hierarchy = current_user.secondary_hierarchy_id.nil? ? nil : Hierarchy.find(current_user.secondary_hierarchy_id)
+    
+    
     load_taxon_for_tree_view
     render :layout => false, :partial => 'tree_view', :locals => { :current_user => current_user }
   end
@@ -22,7 +28,7 @@ class NavigationController < ApplicationController
     if id.to_i == 0
       raw_xml = "";
     else
-      @entry  = HierarchyEntry.find(id)
+      @entry = HierarchyEntry.find(id)
       #@entry.current_user = current_user
       #TODO - something with params like this: raw_xml = @taxon_concept.entry(params[:classifcation_id]).classification(:raw => true, :kingdoms=>true)
       raw_xml = @entry.classification(:raw => true, :kingdoms=>true)

@@ -8,7 +8,7 @@
 	<% elsif curators.size > 1 -%>
 		<%= "Eds." -%>
 	<% end -%>
-	"<%= @taxon_concept.scientific_name %>". Encyclopedia of Life, available from <a href="<%= this_url = url_for(:controller=>'/taxa', :action=>'show', :id=>@taxon_concept.id) %>" target="_blank">"http://www.eol.org<%= this_url %>"</a>. Accessed <%= Time.now.strftime("%d %b %Y") %>.
+	"<%= @taxon_concept.scientific_name(@session_hierarchy) %>". Encyclopedia of Life, available from <a href="<%= this_url = url_for(:controller=>'/taxa', :action=>'show', :id=>@taxon_concept.id) %>" target="_blank">"http://www.eol.org<%= this_url %>"</a>. Accessed <%= Time.now.strftime("%d %b %Y") %>.
 <!-- Example:	
 	Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, available from <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009. -->
   </div>

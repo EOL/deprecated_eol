@@ -2,9 +2,10 @@
 <input type="hidden" id="taxon_concept_to_log" name="data_objects_to_log" value="<%= @taxon_concept.id %>" />
 
 <%- # default to regular page separator if we can't find a specific kingdom
-    page_separator = "page-separator-general"
-    page_separator = "page-separator-#{@taxon_concept.kingdom.id}" if
-      we_have_css_for_kingdom?(@taxon_concept.kingdom)
+    page_separator="page-separator-general"
+    if entry_in_col = @taxon_concept.find_ancestor_in_hierarchy(Hierarchy.default)
+      @page_separator="page-separator-#{entry_in_col.kingdom.canonical_form.string.downcase}"
+    end
 -%>
 
 <div class="page-separator" id="<%= page_separator %>"></div>
@@ -14,11 +15,11 @@
         <% if @taxon_concept.vetted_id != Vetted.trusted.id %>
             <div class="unvetted-title-names">
         <% end %>
-        <h1><%= hh(@taxon_concept.title) %></h1>
-        <h2><%= hh(@taxon_concept.subtitle) %></h2>
+        <h1><%= hh(@taxon_concept.title(@session_hierarchy)) %></h1>
+        <h2><%= hh(@taxon_concept.subtitle(@session_hierarchy)) %></h2>
           
         <hr />
-        <span class="classification-attribution-name"><%= @taxon_concept.hierarchy_entries[0].rank_label.capitalize %> recognized by <%= agent_icons_partial(@taxon_concept.classification_attribution.reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)%></span><br />
+        <span class="classification-attribution-name"><%= @taxon_concept.hierarchy_entries[0].rank_label.capitalize %> recognized by <%= agent_icons_partial(@taxon_concept.classification_attribution(@session_hierarchy).reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)%></span><br />
         
         <% if @taxon_concept.vetted_id != Vetted.trusted.id %>
             </div>

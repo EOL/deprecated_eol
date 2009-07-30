@@ -39,16 +39,6 @@ end
 
 Rails.cache.clear # We appear to be altering some of the cached classes here.  JRice 6/26/09
 
-# Before we create our new taxa, we should make sure the RandomTaxa table is clear of bogus entries:
-RandomTaxon.all.each do |rt|
-  RandomTaxon.delete("id = #{rt.id}") if (TaxonConcept.find(rt.taxon_concept_id)).nil?
-end
-
-# Before we create our new taxa, we should make sure the RandomTaxa table is clear of bogus entries:
-RandomHierarchyImage.all.each do |rhi|
-  RandomHierarchyImage.delete("id = #{rhi.id}") if (TaxonConcept.find(rhi.taxon_concept_id)).nil?
-end
-
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published)
@@ -266,6 +256,19 @@ end
 
 
 
+
+
+
+TaxonConcept.all.each do |tc|
+  if tc.hierarchy_entries.empty?
+    TaxonConcept.delete(tc.id)
+  end
+end
+
+RandomHierarchyImage.delete_all
+HierarchyEntry.all.each do |he|
+  RandomHierarchyImage.gen(:hierarchy => he.hierarchy, :taxon_concept => he.taxon_concept, :hierarchy_entry => he, :data_object => he.taxon_concept.images[0]) if !he.taxon_concept.images[0].nil?
+end
 
 make_all_nested_sets
 recreate_normalized_names_and_links

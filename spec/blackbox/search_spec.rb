@@ -50,6 +50,10 @@ describe 'Search' do
     Name.delete_all           # Lest we get duplicate strings...
     NormalizedName.delete_all # ...Just because I know searches are based on normalized names
   end
+  
+  before :all do
+    truncate_all_tables
+  end
 
   it 'should return a helpful message if no results' do
     request('/search?q=tiger').body.should include("Your search on 'tiger' did not find any matches")
@@ -82,9 +86,9 @@ describe 'Search' do
   it 'should paginate' do
     results_per_page = 10
     extra_results   = 4
-
+  
     create_many_taxa(results_per_page + extra_results)
-
+  
     assert_results(:num_results_on_this_page => results_per_page)
     assert_results(:num_results_on_this_page => extra_results, :page => 2)
   end

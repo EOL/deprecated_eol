@@ -17,28 +17,29 @@ class RandomTaxon < SpeciesSchemaModel
   @@cl4_min = nil
   @@cl4_max = nil
   @@last_cleared = nil
-  @@count = nil
+  @@count = []
   @@looping = false
 
-  def self.random_set(limit = 10)
+  def self.random_set(limit = 10, hierarchy = nil)
+    hierarchy ||= Hierarchy.default
     list = []
-    RandomTaxon.reset_count
-    starting_id = rand(@@count - limit).floor
-    starting_id = 0 if starting_id > (@@count - limit) # This only applies when there are very few RandomTaxa.
-    list = RandomTaxon.find_by_sql(['SELECT * FROM random_taxa LIMIT ?, ?', starting_id, limit])
+    RandomTaxon.reset_count(hierarchy)
+    starting_id = rand(@@count[hierarchy.id] - limit).floor
+    starting_id = 0 if starting_id > (@@count[hierarchy.id] - limit) # This only applies when there are very few RandomTaxa.
+    list = RandomTaxon.find_by_sql(['SELECT rt.* FROM random_taxa rt JOIN hierarchy_entries he ON (rt.taxon_concept_id=he.taxon_concept_id) WHERE he.hierarchy_id=? LIMIT ?, ?', hierarchy.id, starting_id, limit])
     raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if list.blank?
     return list
   end
   
   # The first one takes a little longer, since it needs to populate the class variables.  But after that, it's quite fast:
-  def self.random()
-    return self.random_set(1)[0]
+  def self.random(hierarchy = nil)
+    return self.random_set(1, hierarchy)[0]
   end
 
-  def self.reset_count
+  def self.reset_count(hierarchy)
     if @@last_cleared.blank? || @@last_cleared.advance(:hours=>1) < Time.now
       @@last_cleared = Time.now()
-      @@count = SpeciesSchemaModel.connection.select_value('select count(*) count from random_taxa').to_i
+      @@count[hierarchy.id] = SpeciesSchemaModel.connection.select_value("select count(*) count from random_taxa rt JOIN hierarchy_entries he ON (rt.taxon_concept_id=he.taxon_concept_id) WHERE he.hierarchy_id=#{hierarchy.id}").to_i
     end
   end
 

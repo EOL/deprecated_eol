@@ -7,6 +7,7 @@ classes << "nopages " unless enable # no content below this node, so change colo
 classes << "lastone " if current_node # current node gets its own class
 classes << "kingdom"  if kingdom && !current_kingdom # kingdom get its own class
 classes << "current_kingdom" if kingdom && current_kingdom
+classes << "secondary" if hierarchy_id.to_i != @session_hierarchy.id
 children_nodes_size ||= 0
 
 converted_name = convert_to_nbsp(namestring)

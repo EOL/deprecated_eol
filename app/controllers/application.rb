@@ -388,10 +388,8 @@ end
   # return currently logged in user
   def current_user
     if session[:user_id].nil?
-      puts "++ create"
       return create_new_user
     else
-      puts "++ fetch"
       return Rails.cache.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) }
     end
   end
@@ -553,7 +551,6 @@ private
 
   # Set language around filter
   def set_current_language
-    pp current_user
     current_user.language = Language.english if current_user.language.nil? or current_user.language_abbr == ""
     Gibberish.use_language(current_user.language_abbr) { yield }
   end

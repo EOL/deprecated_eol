@@ -1,6 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'nokogiri'
 
+def find_unique_tc(options)
+  options[:in].hierarchy_entries.each do |entry|
+    return entry.taxon_concept unless entry.taxon_concept.in_hierarchy(options[:not_in])
+  end
+end
+
 describe 'Taxa page (HTML)' do
 
   before(:all) do
@@ -124,9 +130,9 @@ describe 'Taxa page (HTML)' do
   end
 
   it 'should allow html in user-submitted text' do
-    @result.body.should match @description_bold
-    @result.body.should match @description_ital
-    @result.body.should match @description_link
+    @result.body.should match(@description_bold)
+    @result.body.should match(@description_ital)
+    @result.body.should match(@description_link)
   end
 
   # I hate to do this, since it's SO SLOW, but:
@@ -137,6 +143,32 @@ describe 'Taxa page (HTML)' do
     this_result.body.should_not include('Internal Server Error')
     this_result.body.should have_tag('h1') # Whatever, let's just prove that it renders.
   end
+  
+  describe 'specified hierarchies' do
+    
+    before(:all) do
+      truncate_all_tables
+      Scenario.load :bootstrap # I *know* we shouldn't load bootstrap for testing, so if (when?) this breaks, that sceneraio's salient bits will
+                               # need extracting.
+      @ncbi = Hierarchy.find_by_label('NCBI Taxonomy')
+      @user_with_default_hierarchy = User.gen(:password => 'whatever', :default_hierarchy_id => Hierarchy.default.id)
+      @user_with_strange_hierarchy = User.gen(:password => 'whatever', :default_hierarchy_id => @ncbi.id)
+      @user_with_nil_hierarchy     = User.gen(:password => 'whatever', :default_hierarchy_id => nil)
+      @user_with_missing_hierarchy = User.gen(:password => 'whatever', :default_hierarchy_id => 100056) # Seems safe not to assert this
+      @default_tc = find_unique_tc(:in => Hierarchy.default, :not_in => @ncbi)
+      @ncbi_tc    = find_unique_tc(:not_in => Hierarchy.default, :in => @ncbi)
+    end
+    
+    it "should see 'not in hierarchy' message when the user doesn't specify a default hierarchy and page is not in default hierarchy" do
+      login_as @user_with_nil_hierarchy
+      result = RackBox.request("/pages/#{@ncbi_tc.id}").body
+      result.should include("Name not in #{Hierarchy.default.label}")
+    end
+    
+    it "should use the label from the default hierarchy when the user doesn't specify one and the page is in both hierarchies"
+    
+  end
+
 
 end
 

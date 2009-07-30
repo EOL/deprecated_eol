@@ -256,6 +256,7 @@ class TaxaController < ApplicationController
     if @images.nil?
       render :nothing=>true
     else
+      @selected_image = @images[0]
       render :update do |page|
         page.replace_html 'image-collection', :partial => 'image_collection' 
       end
@@ -395,10 +396,12 @@ class TaxaController < ApplicationController
 
     # wich TOC item choose to show
     def show_category_id
-      if params[:category_id].blank?
-        show_category_id = first_content_item.nil? ? nil : first_content_item.id # by default use first TOC item
+      if params[:category_id] && !params[:category_id].blank?
+        params[:category_id]
+      elsif !(first_content_item = @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }).nil?
+        first_content_item.id
       else
-        show_category_id = params[:category_id] # if page was called with &category_id=# - use it 
+        nil
       end
     end
     
@@ -479,7 +482,8 @@ class TaxaController < ApplicationController
       @video_collection = videos_to_show
       
       @category_id = show_category_id # need to be an instant var as we use it in several views and they use
-                                      # variables with that name from different methods in different cases    
+                                      # variables with that name from different methods in different cases
+
       @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
 
       @content     = @taxon_concept.content_by_category(@category_id) unless

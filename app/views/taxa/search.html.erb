@@ -19,9 +19,9 @@
         <div id="full-page-content">
             <div id="left-pane">
                <% form_tag({:controller=>"taxa",:action=>"search"},:id=>"search_form",:name=>"search_form",:method=>'get',:onSubmit=>"return EOL.Search.validate_parameters(this,true);") do -%>                
-                <%= hidden_field_tag :content_level,current_user.content_level %>
+                <%= hidden_field_tag :content_level, current_user.content_level %>
                 <%= hidden_field_tag :search_log_id, @search.logged_search_id if @search.logged_search_id%>
-                <%= hidden_field_tag :user_id, current_user.id %>
+                <%= hidden_field_tag :user_id,       current_user.id %>
 
                 <%= render :partial=>'shared/google_custom_search_params'%>                             
 
@@ -140,17 +140,15 @@
                                   <td class="<%= column_class %>"><% unless result[0].images.empty? %><a href="<%=url_for(:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id)%>"><img alt="<%=remove_html(namestring)%>" title="<%=remove_html(namestring)%>" src="<%= result[1].smart_medium_thumb %>"/></a><%end%></td></tr>
                               <% end %>
                        </table>
-                       <br />
-                       <%= paginate_results(@search) %>
+                       <%= paginate_results(@search) if @search.total_pages > 1 %>
                      </div>
                    <% elsif @search.search_type == 'tag' && @search.tag_results.length == 0 %>
-                   <h3>No tagged results were found</h3><br />
-                   <br /><br /> Please note that you may only search on images you have tagged or images which have "public tags" (images which have been tagged
-                   by many people in the same way).  Start tagging images in order to produce search results.
+                     <h3>No tagged results were found</h3><br />
+                     <br /><br /> Please note that you may only search on images you have tagged or images which have "public tags" (images which have been tagged
+                     by many people in the same way).  Start tagging images in order to produce search results.
                    <% end %>
 
                 </div>
-
             </div>
         </div>    
     </div>

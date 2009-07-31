@@ -156,8 +156,7 @@ class TaxonConcept < SpeciesSchemaModel
   # models, not TaxonConcept models.  Hmmmn.
   def ancestors
     return [] unless entry
-    entry.ancestors.map {|h| TaxonConcept.find(h.taxon_concept_id) } # Long-winded, but we *cache* these, and so the he.taxon_concept
-                                                                     # relationship doesn't work with disk_store.  Stupid YAML! # TODO - fix
+    entry.ancestors.map {|a| a.taxon_concept }
   end
 
   # Get a list of TaxonConcept models that are children to this one.
@@ -175,13 +174,12 @@ class TaxonConcept < SpeciesSchemaModel
   # Lastly, note that the TaxonConcept IDs are hard-coded to our production database. TODO - move those IDs to a
   # table somewhere.
   def self.exemplars
-    YAML.load(Rails.cache.fetch('taxon_concepts/exemplars') do
+    Rails.cache.fetch('taxon_concepts/exemplars') do
       TaxonConcept.find(:all, :conditions => ['id IN (?)',
         [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 482935, 392557,
          484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558,
-         253397, 740699, 1044544, 802455, 1194666]]).sort_by(&:quick_scientific_name).to_yaml
-        # JRice removed 2485151 because it was without content.  There is a bug for this, not sure of the #
-    end)
+         253397, 740699, 1044544, 802455, 1194666]]).sort_by(&:quick_scientific_name)
+    end
   end
 
   # Try not to call this unless you know what you're doing.  :) See scientific_name and common_name instead.
@@ -222,9 +220,9 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Because nested has_many_through won't work with CPKs:
   def mappings
-    YAML.load(Rails.cache.fetch("taxon_concepts/#{self.id}/mappings") do
-      Mapping.for_taxon_concept_id(self.id).sort_by {|m| m.id }.to_yaml
-    end)
+    Rails.cache.fetch("taxon_concepts/#{self.id}/mappings") do
+      Mapping.for_taxon_concept_id(self.id).sort_by {|m| m.id }
+    end
   end
 
   # I chose not to make this singleton since it should really only ever get called once:
@@ -704,11 +702,11 @@ EOIUCNSQL
             xml.item { xml.language_label cn.language_label ; xml.string cn.string }
           end
         end
-        
+
         xml.taxa {
           taxa.map{|x| x.refs.to_xml(:builder => xml, :skip_instruct => true)}
         }
-        
+
         xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) 
           overview.map{|x| x.refs.to_xml(:builder => xml, :skip_instruct => true) }
           }

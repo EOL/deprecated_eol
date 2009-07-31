@@ -268,6 +268,7 @@ class Search
     end
 
     results = page_range(results)
+    @maximum = results.length
     @search_results = {:common => [], :scientific => [], :errors => [], :tags => results}    
   end
 

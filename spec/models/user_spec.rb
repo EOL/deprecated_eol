@@ -115,4 +115,40 @@ describe User do
     User.create_new( :username => @user.username ).save.should be_false
   end
 
+  describe 'convenience methods (NOT used in production code)' do
+
+    # Okay, I could load foundation here and build a taxon concept... but that's heavy for what are really very
+    # simple tests, so I'm doing a little more work here to save significant amounts of time running these tests:
+    before(:each) do
+      User.delete_all
+      UsersDataObject.delete_all
+      DataObject.delete_all
+      @user = User.gen
+      @descriptions = ['these', 'do not really', 'matter much'].sort
+      @datos = @descriptions.map {|d| DataObject.gen(:description => d) }
+      @dato_ids = @datos.map{|d| d.id}.sort
+      @datos.each {|dato| UsersDataObject.create(:user_id => @user.id, :data_object_id => dato.id) }
+    end
+
+    it 'should return all of the data objects for the user' do
+      @user.all_submitted_datos.map {|d| d.id }.should == @dato_ids
+    end
+
+    it 'should return all data objects descriptions' do
+      @user.all_submitted_dato_descriptions.sort.should == @descriptions
+    end
+
+    it 'should be able to mark all data objects invisible and unvetted' do
+      Vetted.gen(:label => 'Untrusted') unless Vetted.find_by_label('Untrusted')
+      Visibility.gen(:label => 'Invisible') unless Visibility.find_by_label('Invisible')
+      @user.hide_all_submitted_datos
+      @datos.each do |stored_dato|
+        new_dato = DataObject.find(stored_dato.id) # we changed the values, so must re-load them. 
+        new_dato.vetted.should == Vetted.untrusted
+        new_dato.visibility.should == Visibility.invisible
+      end
+    end
+
+  end
+
 end

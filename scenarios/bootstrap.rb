@@ -63,17 +63,19 @@ end
 fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
 depth_now      = Hierarchy.default.hierarchy_entries.length
 
+# NOTE!  I am going to use HARDCODED common names *JUST* so that searching will have multiple results for one string.
+
 # Sixth Taxon should have more images, and have videos:
-tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
+tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => ['Tiger moth'],
                          :depth => depth_now, :images => :testing, :event => event)
 
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
-build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
+build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => ['Tiger lilly'],
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
                     :bhl => [], :event => event)
 
 # Eighth Taxon (now we're just getting greedy) should be the same as Seven, but with BHL:
-build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
+build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => ['Tiger'],
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
                     :event => event)
 

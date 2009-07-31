@@ -179,8 +179,6 @@ private
                      # With this to_s, that problem is solved, but this STILL injects <to_s/>  ... WTF?
   end
 
-
-  
   def show_next_image_page_button
     if params[:image_page].blank?
       show_next_image_page_button = @taxon_concept.more_images 

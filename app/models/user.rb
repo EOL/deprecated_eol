@@ -333,9 +333,33 @@ class User < ActiveRecord::Base
     ar_to_xml(options)
   end
 
-
   def tags_are_public_for_data_object?(data_object)
     return self.can_curate?(data_object)
+  end
+
+  # Returns an array of data objects submitted by this user.  NOT USED ANYWHERE.  This is a convenience method for
+  # developers to use.
+  def all_submitted_datos
+    UsersDataObject.find(:all, :conditions => "user_id = #{self[:id]}").map {|udo| DataObject.find(udo.data_object_id) }
+  end
+
+  # Returns an array of descriptions from all of the data objects submitted by this user.  NOT USED ANYWHERE.  This
+  # is a convenience method for developers to use.
+  def all_submitted_dato_descriptions
+    all_submitted_datos.map {|dato| dato.description }
+  end
+
+  # Sets the visibility to invisible and the vetted to untrusted on all DataObjects submitted by this users.  NOT
+  # USED ANYWHERE.  This is a convenience method for developers to use.  ...particularly where they are submitting
+  # lots of text objects for testing, but don't want the rest of the world to see them when they are done.
+  #
+  # No return value; will raise exceptions if things fail.
+  def hide_all_submitted_datos
+    all_submitted_datos.each do |dato|
+      dato.vetted = Vetted.untrusted
+      dato.visibility = Visibility.invisible
+      dato.save!
+    end
   end
   
   def default_hierarchy_valid?

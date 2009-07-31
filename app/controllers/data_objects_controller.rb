@@ -7,8 +7,8 @@ class DataObjectsController < ApplicationController
 
   def create
     data_object = DataObject.create_user_text(params, current_user)
-    @curator = current_user.can_curate?(TaxonConcept.find(params[:taxon_concept_id]))
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+    @curator = current_user.can_curate?(@taxon_concept)
     @taxon_concept.current_user = current_user
     @category_id = data_object.toc_items[0].id
     current_user.vetted = false
@@ -53,15 +53,15 @@ class DataObjectsController < ApplicationController
 
   def new
     if(logged_in?)
+      @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
       if(params[:toc_id]!='none')
         set_text_data_object_options
         @data_object = DataObject.new
         @selected_language = [current_user.language.label,current_user.language.id]
         render :partial => 'new_text'
       else
-        tc = TaxonConcept.find(params[:taxon_concept_id])
-        tc.current_user = current_user
-        toc_item = tc.tocitem_for_new_text
+        @taxon_concept.current_user = current_user
+        toc_item = @taxon_concept.tocitem_for_new_text
         params[:toc_id] = toc_item.id
         set_text_data_object_options
         @data_object = DataObject.new

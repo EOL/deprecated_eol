@@ -1,7 +1,8 @@
 = render :partial => '/admin/content_top', :locals => {:name => 'Content Partners'}
 
 This section is used to view registered content partners.  Click on a content partner to view details or click on a column
-to sort by that column.
+to sort by that column.  
+= link_to '[Export all content partners and their contacts]',{:action=>'export'}
 - form_tag({:action=>'index'},:method=>'get') do
   Search for partner names containing: 
   = text_field_tag(:partner_search_string,@partner_search_string)
@@ -22,9 +23,9 @@ to sort by that column.
       %th Steps
     - for agent in @agents 
       - show=true
-      - if !agent.has_unpublished_content? && @only_show_agents_with_unpublished_content 
+      - if (!agent.has_unpublished_content? && @only_show_agents_with_unpublished_content) || (agent.content_partner.blank?) 
         - show=false
-      
+
       - if show
         - column_class=cycle('odd','even') 
   
@@ -68,16 +69,16 @@ to sort by that column.
   %strong
     RSS updates of harvests
   %br/
-  =	link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=1")
+  =	link_to(image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=1")
   Recently harvested resources (last 20)	
   %br/
-  =	link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=2")
+  =	link_to(image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=2")
   Recently published resources (last 20)	
   %br/
-  =	link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=3")
+  =	link_to(image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=3")
   Harvested resources awaiting publication	
   %br/
-  =	link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=4")
+  =	link_to(image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=4")
   Resources with harvest errors
 
   %br/

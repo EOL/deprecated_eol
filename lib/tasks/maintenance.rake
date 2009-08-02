@@ -9,6 +9,14 @@ namespace :views do
   end
 end
 
+namespace :cache do
+   desc 'Clear memcache'
+   task :clear => :environment do
+     Rails.cache.clear
+     ActionController::Base.cache_store.clear
+   end
+end
+
 namespace :sitemap do
 
 

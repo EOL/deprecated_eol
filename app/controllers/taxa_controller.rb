@@ -197,7 +197,7 @@ class TaxaController < ApplicationController
 
     @category_id = @toc_item.id    
     @ajax_update = true
-    @content = @taxon_concept.content_by_category(@category_id)
+    @content = @taxon_concept.content_by_category(@category_id,:current_user=>current_user)
     @new_text = render_to_string(:partial => 'content_body')
   end
 
@@ -216,7 +216,7 @@ class TaxaController < ApplicationController
     @taxon_concept.current_user  = current_user
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
 
-    @content     = @taxon_concept.content_by_category(@category_id)
+    @content     = @taxon_concept.content_by_category(@category_id,:current_user=>current_user)
     @ajax_update=true
     if @content.nil?
       render :text => '[content missing]'
@@ -325,6 +325,7 @@ class TaxaController < ApplicationController
   protected
 
     # reset the content level if it is in the querystring NOTE the expertise level is set by pre filter
+    # TODO: Get rid of the content level, it is depracated and no longer needed
     # set_user_settings()
     def update_user_content_level
       current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
@@ -486,7 +487,7 @@ class TaxaController < ApplicationController
 
       @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
 
-      @content     = @taxon_concept.content_by_category(@category_id) unless
+      @content     = @taxon_concept.content_by_category(@category_id,:current_user=>current_user) unless
         @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
       @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy)
 

@@ -48,6 +48,7 @@ AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource,
 
 gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (GBIF)")
 #gbif_agent = Agent.find_by_full_name('Global Biodiversity Information Facility (GBIF)');
+gbif_cp    = ContentPartner.gen :vetted => true, :agent => gbif_agent
 AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.primary)
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 

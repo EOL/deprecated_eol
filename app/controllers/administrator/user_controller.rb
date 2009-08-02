@@ -155,5 +155,18 @@ class Administrator::UserController  < AdminController
     @user.save!
   
   end
-    
+  
+  def login_as_user
+
+      @user=User.find_by_id(params[:id])   
+
+      if !@user.blank?
+        reset_session
+        set_current_user(@user)
+        flash[:message]="You have been logged in as #{@user.username}"
+        redirect_to root_url
+      end
+      return
+  end  
+  
 end

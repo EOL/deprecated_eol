@@ -13,6 +13,29 @@ class Administrator::ContentPartnerReportController < AdminController
     @agents = Agent.paginate(:order => order_by, :conditions=>['full_name like ? AND username <>""',search_string_parameter],:page => page, :include=>:content_partner)
   end
 
+  def export
+    @agents = Agent.find(:all,:order => 'full_name', :conditions=>['username <>""'],:include=>[:content_partner,:agent_contacts])
+
+    report = StringIO.new
+    CSV::Writer.generate(report, ',') do |row|
+        row << ['Partner Name', 'Registered Date', 'Resources','Agent_ID']
+        row << ['','Role', 'Contact', 'Email', 'Telephone','Address','Homepage']
+        @agents.each do |agent|
+          created_at=''
+          created_at=agent.content_partner.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless agent.content_partner.created_at.blank?
+          row << [agent.project_name,created_at,agent.resources.count,agent.id]       
+          agent.agent_contacts.each do |contact|
+            row << ['',contact.agent_contact_role.label,contact.title + ' ' + contact.full_name,contact.email,contact.telephone,contact.address,contact.homepage]
+          end
+          row << ''
+        end
+     end
+     report.rewind
+     send_data(report.read,:type=>'text/csv; charset=iso-8859-1; header=present',:filename => 'EOL_content_partners_export_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')
+     return false
+    
+  end
+  
   def show
     @agent = Agent.find_by_id(params[:id])
     if @agent.blank?

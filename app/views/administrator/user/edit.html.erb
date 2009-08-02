@@ -1,4 +1,4 @@
-<%= render :partial => '/admin/content_top', :locals => {:name => 'Edit User #' + params[:id]} %>
+<%= render :partial => '/admin/content_top', :locals => {:name => "Edit #{@user.username}"} %>
 
 Edit the user details below.  You can send this user an email from the system by clicking 'show email message area' below and entering in the text of the email. 
 <% if @user.openid?%>
@@ -6,7 +6,11 @@ Edit the user details below.  You can send this user an email from the system by
 <% else %>
   Only enter a new password if you wish to change it, otherwise leave it blank.
 <% end %>
-  		    	
+  		   <br /> 
+<% if @user != current_user %>
+  <%= link_to "[login to the website as #{@user.username}]",{:action=>'login_as_user', :id=>params[:id]}, :confirm => "Are you sure you want to log into the website as this user?  If you do this, you will be logged out of the website as an administrator."%>
+<% end %>  		    	
+
 	<% form_for :user,@user,:url => {:action=>'update',:id=>params[:id]},:html=>{:id=>'page_form'} do |f|  %>
 
 	<%= render :partial => 'form', :locals => {:f=>f} %>

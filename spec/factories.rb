@@ -320,14 +320,14 @@ Factory.define :canonical_form do |cform|
 end
 
 Factory.define :collection do |col|
-  col.association   :agent
-  col.title         'New Collection'
-  col.description   'Testing New Colleciton'
-  col.uri           'http://testing.new.collecti.on'
-  col.link          'http://clicky.link.com'
-  col.logo_url      'grin.jpg'
-  col.ping_host_url nil
-  col.vetted        1
+  col.association     :agent
+  col.title           'New Collection'
+  col.description     'Testing New Colleciton'
+  col.uri             'http://testing.new.collecti.on'
+  col.link            'http://clicky.link.com'
+  col.logo_cache_url  '5404'
+  col.ping_host_url   nil
+  col.vetted          1
 end
 
 Factory.define :collection_type do |ct|

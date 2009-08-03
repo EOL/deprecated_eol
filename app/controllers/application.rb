@@ -522,7 +522,7 @@ end
     end
 
     def set_session_hierarchy_variable
-      hierarchy_id = Hierarchy.default.id unless current_user.default_hierarchy_valid?
+      hierarchy_id = current_user.default_hierarchy_valid? ? current_user.default_hierarchy_id : Hierarchy.default.id
       secondary_hierarchy_id = current_user.secondary_hierarchy_id
       @session_hierarchy = Hierarchy.find(hierarchy_id)
       @session_secondary_hierarchy = secondary_hierarchy_id.nil? ? nil : Hierarchy.find(secondary_hierarchy_id)

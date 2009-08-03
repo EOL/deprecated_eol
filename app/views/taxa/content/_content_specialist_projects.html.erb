@@ -33,7 +33,7 @@ unless projects.empty?
                 link_text=mapping.collection.title if link_text.blank? # if we don't have any mappings, just show the project name
                 %>
 
-                <%=external_link_to(image_tag("collection_icons/#{mapping.collection.logo_url}", {:class=>'collection_icon',:title=>"#{mapping.collection.agent.full_name}",:alt => "#{mapping.collection.agent.full_name}"}), mapping.collection.link, {:show_link_icon => false})%>
+                <%=external_link_to(collection_logo(mapping.collection,"small"), mapping.collection.link, {:show_link_icon => false})%>
                 <%=mapping.collection.title if link_text != mapping.collection.title %>
                 <br />                           
                 <%=external_link_to(link_text, mapping.url, :show_link_icon => true)%>

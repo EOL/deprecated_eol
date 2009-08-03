@@ -782,7 +782,7 @@ private
         data_object.fake_author(
           :full_name => 'See FishBase for additional references',
           :homepage  => "http://www.fishbase.org/References/SummaryRefList.cfm?ID=#{foreign_key}&GenusName=#{genus}&SpeciesName=#{species}",
-          :logo_url  => '')
+          :logo_cache_url  => '')
       end
       override_data_objects << data_object
     end

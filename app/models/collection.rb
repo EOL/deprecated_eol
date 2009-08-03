@@ -23,6 +23,18 @@ class Collection < SpeciesSchemaModel
     return false if self[:ping_host_url].blank?
     return true
   end
+  
+  # override the logo_url column in the database to contruct the path on the content server
+  def logo_url(size='large')
+    prefix=self.attributes['logo_cache_url']
+    if prefix.blank?
+       #self.logo.url # this is the "paperclip" plugin attached image, but it might only be on one of the application servers
+       result="/images/blank.gif"
+    else    
+       logo_size = (size == "large") ? "_large.png" : "_small.png"
+       result="#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
+    end
+  end
 
   # If we are supposed to ping_host?, then we need the URL to post (including the ID of the object).
   # The code to do the actual pinging is client-side, thus there is no method for it here.

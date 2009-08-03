@@ -196,6 +196,17 @@ module ApplicationHelper
     logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{hh(agent.project_name)}\" title=\"#{hh(agent.project_name)}\" class=\"agent-logo\" />"
     return logo_str
   end
+  
+  def collection_logo(collection, size = "large", params={})
+    src = ''
+    src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url!=0
+    return src if src.empty?
+    logo_str = "<img "
+    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
+    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
+    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{hh(collection.title)}\" title=\"#{hh(collection.title)}\" class=\"agent-logo\" />"
+    return logo_str
+  end
 
   def external_link_to(*args, &block)
     #return text of link is blank

@@ -102,19 +102,20 @@ class CategoryContentBuilder
   #     end
 
       current_user=options[:current_user]
-      
-      mappings = SpeciesSchemaModel.connection.execute("SELECT DISTINCT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name, c.title collection_title, c.link collection_link, c.logo_url icon, c.uri collection_uri FROM taxon_concept_names tcn JOIN mappings m ON (tcn.name_id = m.name_id) JOIN collections c ON (m.collection_id = c.id) JOIN agents a ON (c.agent_id = a.id) WHERE tcn.taxon_concept_id = #{id} AND (c.vetted=1 OR c.vetted=#{current_user.vetted}) GROUP BY c.id").all_hashes
-      mappings.each do |mapping|
-        mapping["url"] = mapping["collection_uri"].gsub!(/FOREIGNKEY/, mapping["foreign_key"])
-      end
+      vetted = current_user.blank? ? '0' : current_user.vetted
 
-      sorted_mappings = mappings.sort_by { |mapping| mapping["agent_name"] }
+      return_mapping_objects = []
+      mappings = SpeciesSchemaModel.connection.execute("SELECT DISTINCT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name, c.title collection_title, c.link collection_link, c.logo_url icon, c.uri collection_uri FROM taxon_concept_names tcn JOIN mappings m ON (tcn.name_id = m.name_id) JOIN collections c ON (m.collection_id = c.id) JOIN agents a ON (c.agent_id = a.id) WHERE tcn.taxon_concept_id = #{options[:taxon_concept_id]} AND (c.vetted=1 OR c.vetted=#{vetted}) GROUP BY c.id").all_hashes
+      mappings.sort_by { |mapping| mapping["agent_name"] }.each do |m|
+        mapping_object = Mapping.find(m["mapping_id"].to_i)
+        return_mapping_objects << mapping_object
+      end
 
       return {
             :category_name => 'Specialist Projects',
-            :projects => sorted_mappings
+            :projects => return_mapping_objects
           }
-
+      
     end
 
     def biodiversity_heritage_library(options)

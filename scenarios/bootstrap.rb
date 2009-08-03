@@ -160,7 +160,7 @@ bugs_theme_collection_type = CollectionType.gen(:label => "Bugs", :parent_id => 
 
 name = kingdom.entry.name_object
 
-specimen_image_collection = Collection.gen(:title => 'AntWeb', :description => 'Currently AntWeb contains information on the ant faunas of several areas in the Nearctic and Malagasy biogeographic regions, and global coverage of all ant genera.', :uri => 'http://www.antweb.org/specimen.do?name=FOREIGNKEY', :link => 'http://www.antweb.org/', :logo_url => 'antweb.png')
+specimen_image_collection = Collection.gen(:title => 'AntWeb', :description => 'Currently AntWeb contains information on the ant faunas of several areas in the Nearctic and Malagasy biogeographic regions, and global coverage of all ant genera.', :uri => 'http://www.antweb.org/specimen.do?name=FOREIGNKEY', :link => 'http://www.antweb.org/', :logo_cache_url => '7810')
 CollectionTypesCollection.gen(:collection => specimen_image_collection, :collection_type => specimen_image_collection_type)
 CollectionTypesCollection.gen(:collection => specimen_image_collection, :collection_type => expert_pages_collection_type)
 CollectionTypesCollection.gen(:collection => specimen_image_collection, :collection_type => bugs_theme_collection_type)
@@ -169,7 +169,7 @@ Mapping.gen(:collection => specimen_image_collection, :name => name, :foreign_ke
 Mapping.gen(:collection => specimen_image_collection, :name => name, :foreign_key => 'casent0179524')
 
 
-molecular_species_pages_collection = Collection.gen(:title => 'National Center for Biotechnology Information', :description => 'Established in 1988 as a national resource for molecular biology information, NCBI creates public databases, conducts research in computational biology, develops software tools for analyzing genome data, and disseminates biomedical information - all for the better understanding of molecular processes affecting human health and disease', :uri => 'http://www.ncbi.nlm.nih.gov/sites/entrez?Db=genomeprj&cmd=ShowDetailView&TermToSearch=FOREIGNKEY', :link => 'http://www.ncbi.nlm.nih.gov/', :logo_url => 'ncbi.png')
+molecular_species_pages_collection = Collection.gen(:title => 'National Center for Biotechnology Information', :description => 'Established in 1988 as a national resource for molecular biology information, NCBI creates public databases, conducts research in computational biology, develops software tools for analyzing genome data, and disseminates biomedical information - all for the better understanding of molecular processes affecting human health and disease', :uri => 'http://www.ncbi.nlm.nih.gov/sites/entrez?Db=genomeprj&cmd=ShowDetailView&TermToSearch=FOREIGNKEY', :link => 'http://www.ncbi.nlm.nih.gov/', :logo_cache_url => '1305')
 CollectionTypesCollection.gen(:collection => molecular_species_pages_collection, :collection_type => molecular_species_pages_collection_type)
 CollectionTypesCollection.gen(:collection => molecular_species_pages_collection, :collection_type => marine_theme_collection_type)
 Mapping.gen(:collection => molecular_species_pages_collection, :name => name, :foreign_key => '13646')

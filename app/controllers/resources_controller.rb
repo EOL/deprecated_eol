@@ -69,7 +69,11 @@ class ResourcesController < ApplicationController
       end
 
       current_object.save
-      expire_taxa current_object.taxon_concept_ids, :expire_ancestors => true
+      
+      # TODO - I think this is the line thats causing the timeout after resource publishing
+      #       it was deleting the cache for its pages, but the denormalized tables need to run anyway
+      #       so I really don't think we need to do this anymore
+      #expire_taxa current_object.taxon_concept_ids, :expire_ancestors => true
 
     end
 

@@ -1,27 +1,49 @@
-<div class="text_object" id="ubio_links_wrapper">
-  <table class="results_table" cellspacing="0" summary="Links">
-    <tr><th><%="Project"[]%></th><th><%="Description"[]%></th></tr>
-  <%
-    unless @content[:mappings].empty?
-      for mapping in @content[:mappings]
-        column_class=cycle('odd','even')
-        %>
-        <tr>
-          <td width="125" height="110" class="<%= column_class %>">
-            <%=external_link_to(image_tag("collection_icons/#{mapping.collection.logo_url}", {:alt => "Link to #{mapping.collection.agent.full_name}"}), mapping.url, {:show_link_icon => false})%>
-            <br />
-            <br />
-            <%=external_link_to("project homepage"[], mapping.collection.link, :show_link_icon => true)%>
-          </td>
-          <td class="<%= column_class %>">
-            <% mapping.collection.collection_types.each do |collection_type| %>
-             <%= collection_type.materialized_path_labels %><br/>
-            <% end %>
-            <%=external_link_to(mapping.collection.title, mapping.url, :show_link_icon => true)%>
-          </td>
-        </tr>
-      <% end
-    end
-  %>
+<%
+projects=@content[:projects]
+unless projects.empty?
+  on_row=0
+  max_columns=2
+  num_mappings=projects.size
+  num_columns=(num_mappings < max_columns ? num_mappings : max_columns) # if we have less than the max column total projects, we only need that many columns, otherwise the max
+  start_new_row=false
+  column_header=''
+  num_columns.times {column_header+='<th></th>'}
+%>
+  <table class="results_table" cellspacing="0">
+    <tr><%= column_header%></tr>
+     <tr>
+        <%
+        for mapping in projects
+            if on_row % num_columns == 0 
+              start_new_row=true   
+              column_class=cycle('odd','even')
+            else
+              start_new_row=false
+            end
+            on_row+=1
+          %>         
+            <%='</tr><tr>' if start_new_row%>
+              <td width="<%=100/num_columns%>%" valign="top" class="<%=column_class%>">
+                <% 
+                 link_text=''
+                 mapping.collection.collection_types.each do |collection_type| 
+                  link_text += "#{collection_type.materialized_path_labels} , "
+                end 
+                link_text.chomp!(' , ')
+                link_text=mapping.collection.title if link_text.blank? # if we don't have any mappings, just show the project name
+                %>
+
+                <%=external_link_to(image_tag("collection_icons/#{mapping.collection.logo_url}", {:class=>'collection_icon',:title=>"#{mapping.collection.agent.full_name}",:alt => "#{mapping.collection.agent.full_name}"}), mapping.collection.link, {:show_link_icon => false})%>
+                <%=mapping.collection.title if link_text != mapping.collection.title %>
+                <br />                           
+                <%=external_link_to(link_text, mapping.url, :show_link_icon => true)%>
+              </td>
+        <% end
+        final_columns=''
+        num_final_columns=(num_columns-(num_mappings % num_columns))
+        num_final_columns.times {final_columns+="<td class=\"#{column_class}\"></td>"}
+         %>
+        <%=final_columns if num_final_columns != num_columns %>
+  </tr>
   </table>
-</div>
+<% end %>

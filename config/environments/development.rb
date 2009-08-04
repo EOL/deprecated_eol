@@ -12,8 +12,9 @@ config.action_controller.consider_all_requests_local = true
 config.cache_classes                                 = false
 config.action_view.debug_rjs                         = false
 
+# We have code that RELIES on mem_cache running, so you MUST use this (or find a brilliant way to fix the code):
 config.cache_store = :mem_cache_store
-#config.cache_store = :file_store, "/data/cache"
+
 ### TO ENABLE CACHING ... ( make sure the config.cache_store is setup and it exists!  note: file_store uses an absolute path )
 config.action_controller.perform_caching             = false # Of course, you want to make this true if you're testing it.
 ### ^ to enable fragment caching for testing set to true...

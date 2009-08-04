@@ -165,10 +165,7 @@ class Search
 
   def search_results_by_ids(scientific = true, search_results = [], language = Language.english, vetted = true)
 
-    vern = 0
-    if !scientific
-      vern = 1
-    end
+    vernacular_flag = scientific ? 0 : 1
     taxon_concept_ids = []
     taxon_concept_names = []
     search_results.each_with_index do |result, i|
@@ -184,9 +181,60 @@ class Search
 
     vetted_clause = vetted ? " AND do.vetted_id = #{Vetted.trusted.id} " : ""
     if scientific
-      results = SpeciesSchemaModel.connection.execute("SELECT tc.id id, tc.vetted_id taxon_vetted_id, tcn.name_id name_id, n.string preferred_scientific_name, n.italicized preferred_scientific_name_italicized, n2.string preferred_common_name, do.object_cache_url thumbnail_cache_url, do.vetted_id thumbnail_vetted_id, he_source.hierarchy_id source_hierarchy_id FROM taxon_concepts tc STRAIGHT_JOIN taxon_concept_names tcn ON (tc.id=tcn.taxon_concept_id) STRAIGHT_JOIN names n ON tcn.name_id=n.id LEFT JOIN (hierarchy_entries he STRAIGHT_JOIN top_images ti ON (he.id=ti.hierarchy_entry_id) STRAIGHT_JOIN data_objects do ON (ti.data_object_id=do.id AND ti.view_order=1 #{vetted_clause})) ON he.taxon_concept_id=tcn.taxon_concept_id LEFT OUTER JOIN (taxon_concept_names tcn2 STRAIGHT_JOIN names n2 ON (tcn2.name_id=n2.id AND tcn2.language_id=#{language.id} AND tcn2.preferred=1)) ON (tcn.taxon_concept_id=tcn2.taxon_concept_id) LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id=he_source.id AND tcn.source_hierarchy_entry_id!=0) WHERE tc.id IN (#{taxon_concept_ids.uniq.join(",")}) AND tcn.vern=#{vern} AND tcn.preferred=1 AND tc.supercedure_id=0 GROUP BY tc.id, tcn.name_id, he_source.hierarchy_id ORDER BY n.string ASC").all_hashes
+      results = SpeciesSchemaModel.connection.execute(%Q{
+        SELECT tc.id id, tc.vetted_id taxon_vetted_id,
+               tcn.name_id name_id,
+               n.string preferred_scientific_name, n.italicized preferred_scientific_name_italicized,
+               n2.string preferred_common_name,
+               do.object_cache_url thumbnail_cache_url, do.vetted_id thumbnail_vetted_id,
+               he_source.hierarchy_id source_hierarchy_id
+        FROM taxon_concepts tc
+          STRAIGHT_JOIN taxon_concept_names tcn ON (tc.id=tcn.taxon_concept_id)
+          STRAIGHT_JOIN names n ON tcn.name_id=n.id
+          LEFT JOIN (hierarchy_entries he
+              STRAIGHT_JOIN top_images ti ON (he.id=ti.hierarchy_entry_id)
+              STRAIGHT_JOIN data_objects do ON (ti.data_object_id=do.id AND ti.view_order=1 #{vetted_clause}))
+            ON he.taxon_concept_id=tcn.taxon_concept_id
+          LEFT OUTER JOIN (taxon_concept_names tcn2
+              STRAIGHT_JOIN names n2 ON (tcn2.name_id=n2.id AND tcn2.language_id=#{language.id} AND tcn2.preferred=1))
+            ON (tcn.taxon_concept_id=tcn2.taxon_concept_id)
+          LEFT JOIN hierarchy_entries he_source
+            ON (tcn.source_hierarchy_entry_id=he_source.id AND tcn.source_hierarchy_entry_id!=0)
+        WHERE tc.id IN (#{taxon_concept_ids.uniq.join(",")})
+          AND tcn.vern=#{vernacular_flag}
+          AND tcn.preferred=1
+          AND tc.supercedure_id=0
+        GROUP BY tc.id, tcn.name_id, he_source.hierarchy_id
+        ORDER BY n.string ASC
+      }).all_hashes
     else
-      results = SpeciesSchemaModel.connection.execute("SELECT tc.id id, tc.vetted_id taxon_vetted_id, tcn.name_id name_id, n.string preferred_common_name, n.italicized preferred_common_name_italicized, n2.italicized preferred_scientific_name_italicized, do.object_cache_url thumbnail_cache_url, do.vetted_id thumbnail_vetted_id, he_source.hierarchy_id source_hierarchy_id FROM taxon_concepts tc STRAIGHT_JOIN taxon_concept_names tcn ON (tc.id=tcn.taxon_concept_id) STRAIGHT_JOIN names n ON tcn.name_id=n.id LEFT JOIN (hierarchy_entries he STRAIGHT_JOIN top_images ti ON (he.id=ti.hierarchy_entry_id) STRAIGHT_JOIN data_objects do ON (ti.data_object_id=do.id AND ti.view_order=1 #{vetted_clause})) ON he.taxon_concept_id=tcn.taxon_concept_id LEFT OUTER JOIN (taxon_concept_names tcn2 STRAIGHT_JOIN names n2 ON (tcn2.name_id=n2.id AND tcn2.vern=0 AND tcn2.preferred=1)) ON (tcn.taxon_concept_id=tcn2.taxon_concept_id) LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id=he_source.id AND tcn.source_hierarchy_entry_id!=0) WHERE tc.id IN (#{taxon_concept_ids.uniq.join(",")}) AND tcn.vern=#{vern} AND tcn.language_id=#{language.id} AND n2.italicized IS NOT NULL AND tc.supercedure_id=0 GROUP BY tc.id, tcn.name_id, he_source.hierarchy_id ORDER BY n.string ASC").all_hashes
+      results = SpeciesSchemaModel.connection.execute(%Q{
+        SELECT tc.id id, tc.vetted_id taxon_vetted_id,
+               tcn.name_id name_id,
+               n.string preferred_common_name, n.italicized preferred_common_name_italicized,
+               n2.italicized preferred_scientific_name_italicized,
+               do.object_cache_url thumbnail_cache_url, do.vetted_id thumbnail_vetted_id,
+               he_source.hierarchy_id source_hierarchy_id
+        FROM taxon_concepts tc
+          STRAIGHT_JOIN taxon_concept_names tcn ON (tc.id=tcn.taxon_concept_id)
+          STRAIGHT_JOIN names n ON tcn.name_id=n.id
+          LEFT JOIN (hierarchy_entries he
+              STRAIGHT_JOIN top_images ti ON (he.id=ti.hierarchy_entry_id)
+              STRAIGHT_JOIN data_objects do ON (ti.data_object_id=do.id AND ti.view_order=1 #{vetted_clause}))
+            ON he.taxon_concept_id=tcn.taxon_concept_id
+          LEFT OUTER JOIN (taxon_concept_names tcn2
+              STRAIGHT_JOIN names n2 ON (tcn2.name_id=n2.id AND tcn2.vern=0 AND tcn2.preferred=1))
+            ON (tcn.taxon_concept_id=tcn2.taxon_concept_id)
+          LEFT JOIN hierarchy_entries he_source
+            ON (tcn.source_hierarchy_entry_id=he_source.id AND tcn.source_hierarchy_entry_id!=0)
+        WHERE tc.id IN (#{taxon_concept_ids.uniq.join(",")})
+          AND tcn.vern=#{vernacular_flag}
+          AND tcn.language_id=#{language.id}
+          AND n2.italicized IS NOT NULL
+          AND tc.supercedure_id=0
+        GROUP BY tc.id, tcn.name_id, he_source.hierarchy_id
+        ORDER BY n.string ASC
+      }).all_hashes
     end
 
     used_concept_ids = []

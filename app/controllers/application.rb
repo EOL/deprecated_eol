@@ -381,7 +381,7 @@ end
 
   # For the duration of the request, change some of the values on this User.
   #
-  # NOTE: if you want to change a User's settings for more than one request, you need to #save that User within your
+  # NOTE: if you want to change a User's settings for more than one request, use alter_current_user
   # function.
   def set_current_user(user)
     if user.new_record?
@@ -389,6 +389,15 @@ end
     else
       set_logged_in_user(user)
     end
+  end
+
+  # This is actually kind of tricky, since we need to actually save things if the user is logged in, but not if they
+  # aren't.  It also involves cache-clearing and the like, so be careful about skipping the set_current_user method.
+  def alter_current_user(&block)
+    user = current_user
+    yield(user)
+    user.save! if logged_in?
+    set_current_user(user)
   end
 
   # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous
@@ -454,19 +463,21 @@ end
     redirect_to root_url
   end
 
-   # A user is not authorized for the particular controller based on the rights for the roles they are in
-    def access_denied
-      flash.now[:warning]='You are not authorized to perform this action.'
-      request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to root_url)
-    end
-#
-#############
+  # A user is not authorized for the particular controller based on the rights for the roles they are in
+  def access_denied
+    flash.now[:warning]='You are not authorized to perform this action.'
+    request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to root_url)
+  end
 
   # Set the current language
   def set_language
     language = params[:language].to_s
     languages = Gibberish.languages.map { |l| l.to_s } + ["en"]
-    current_user.language = Language.find_by_iso_639_1(language) if languages.include?(language)
+    if languages.include?(language)
+      alter_current_user do |user|
+        user.language = Language.find_by_iso_639_1(language)
+      end
+    end
     return_to=(params[:return_to].blank? ? root_url : params[:return_to])
     redirect_to return_to
   end
@@ -474,11 +485,13 @@ end
   # ajax call to set the session variable for the user to indicate if flash is enabled or not
   def set_flash_enabled
     flash_enabled=params[:flash_enabled]
-    if EOLConvert.to_boolean(flash_enabled)
-      current_user.flash_enabled = true
-    else
-      current_user.flash_enabled = false
-      current_user.default_taxonomic_browser="text"
+    alter_current_user do |user|
+      if EOLConvert.to_boolean(flash_enabled)
+        user.flash_enabled = true
+      else
+        user.flash_enabled = false
+        user.default_taxonomic_browser="text"
+      end
     end
     render :nothing=>true
   end
@@ -542,7 +555,7 @@ private
 
   # There are several things we need to do when we change the (temporary) values on a logged-in user:
   # 
-  # NOTE: if you want to change a user's settings, you need to #save that user within your function.
+  # NOTE: if you want to change a user's settings, you need to use alter_current_user
   def set_logged_in_user(user)
     set_temporary_logged_in_user(user)
     session[:user_id] = user.id

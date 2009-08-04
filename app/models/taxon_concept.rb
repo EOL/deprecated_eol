@@ -599,6 +599,7 @@ EOIUCNSQL
     # handled by TaxonConcept#get_default_content
 
     ccb = CategoryContentBuilder.new
+    options[:vetted] = current_user.vetted
     options[:taxon_concept_id] = id
     content = ccb.content_for(toc_item, options)
     content = get_default_content(toc_item) if content.nil?

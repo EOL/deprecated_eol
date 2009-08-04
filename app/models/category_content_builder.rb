@@ -7,6 +7,7 @@ class CategoryContentBuilder
   
   # toc_item points to a TocItem object. 
   # options is a hash of content specific options
+  # Mandatory keys include :vetted and :taxon_concept_id
   def content_for(toc_item, options)
     sub_name = toc_item.label.gsub(/\W/, '_').downcase
 
@@ -23,7 +24,6 @@ class CategoryContentBuilder
     elsif sub_name == "common_names"
       content = common_names(options)
       content[:content_type] = sub_name
-      pp [:common_names, content]
     elsif sub_name == "specialist_projects"
       content = specialist_projects(options)
       content[:content_type] = sub_name
@@ -53,6 +53,8 @@ class CategoryContentBuilder
     end
 
     def common_names(options)
+      tc_id = options[:taxon_concept_id]
+
       # NOTES: we had a notion of "unspecified" language.  Results were sorted.
       result = {
           :category_name => 'Common Names',
@@ -61,7 +63,7 @@ class CategoryContentBuilder
                                  FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
                                    LEFT JOIN languages l ON (tcn.language_id = l.id)
                                  WHERE tcn.taxon_concept_id = ? AND vern = 1
-                                 ORDER BY language_label, string', options[:taxon_concept_id]])
+                                 ORDER BY language_label, string', tc_id])
         }
       return result
     end
@@ -101,11 +103,18 @@ class CategoryContentBuilder
   #       }
   #     end
 
-      current_user=options[:current_user]
-      vetted = current_user.blank? ? '0' : current_user.vetted
+      tc_id = options[:taxon_concept_id]
+      vetted = options[:vetted]
 
       return_mapping_objects = []
-      mappings = SpeciesSchemaModel.connection.execute("SELECT DISTINCT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name, c.title collection_title, c.link collection_link, c.uri collection_uri FROM taxon_concept_names tcn JOIN mappings m ON (tcn.name_id = m.name_id) JOIN collections c ON (m.collection_id = c.id) JOIN agents a ON (c.agent_id = a.id) WHERE tcn.taxon_concept_id = #{options[:taxon_concept_id]} AND (c.vetted=1 OR c.vetted=#{vetted}) GROUP BY c.id").all_hashes
+      mappings = SpeciesSchemaModel.connection.execute(
+        "SELECT DISTINCT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name, c.title collection_title, c.link collection_link, c.uri collection_uri 
+           FROM taxon_concept_names tcn 
+           JOIN mappings m ON (tcn.name_id = m.name_id) 
+           JOIN collections c ON (m.collection_id = c.id) 
+           JOIN agents a ON (c.agent_id = a.id) 
+           WHERE tcn.taxon_concept_id = #{options[:taxon_concept_id]} AND (c.vetted=1 OR c.vetted=#{vetted}) 
+           GROUP BY c.id").all_hashes
       mappings.sort_by { |mapping| mapping["agent_name"] }.each do |m|
         mapping_object = Mapping.find(m["mapping_id"].to_i)
         return_mapping_objects << mapping_object
@@ -119,6 +128,7 @@ class CategoryContentBuilder
     end
 
     def biodiversity_heritage_library(options)
+      tc_id = options[:taxon_concept_id]
 
       items = SpeciesSchemaModel.connection.execute(
         "SELECT DISTINCT ti.id item_id, pt.title publication_title, pt.url publication_url,
@@ -129,7 +139,7 @@ class CategoryContentBuilder
            JOIN item_pages ip ON (pn.item_page_id = ip.id)
            JOIN title_items ti ON (ip.title_item_id = ti.id)
            JOIN publication_titles pt ON (ti.publication_title_id = pt.id)
-         WHERE tcn.taxon_concept_id = #{id}
+         WHERE tcn.taxon_concept_id = #{tc_id}
          LIMIT 0,1000").all_hashes
 
       sorted_items = items.sort_by { |item| [item["publication_title"], item["item_year"], item["item_volume"], item["item_issue"], item["item_number"].to_i] }

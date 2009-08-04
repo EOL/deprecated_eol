@@ -5,6 +5,7 @@ class ChangeCollectionLogos < ActiveRecord::Migration
 
   def self.up
     execute('alter table collections add `logo_cache_url` bigint(20) unsigned default NULL after `logo_url`')
+    
     execute("update collections set logo_cache_url=6385 where logo_url='itis.png'")
     execute("update collections set logo_cache_url=3601 where logo_url='algaebase.png'")
     execute("update collections set logo_cache_url=5027 where logo_url='ildis.png'")
@@ -39,11 +40,14 @@ class ChangeCollectionLogos < ActiveRecord::Migration
     execute("update collections set logo_cache_url=8456 where logo_url='bold.png'")
     execute("update collections set logo_cache_url=1904 where logo_url='arkive.png'")
     execute("update collections set logo_cache_url=8987 where logo_url='xenocanto.png'")
+    execute("update collections set logo_cache_url=3187 where logo_url='ligercat.png'")
+    
     remove_column :collections, :logo_url
   end
 
   def self.down
     execute('aleter table collections add `logo_url` varchar(255) character set ascii NOT NULL after `link`')
+    
     execute("update collections set logo_url='itis.png' where logo_cache_url=6385")
     execute("update collections set logo_url='algaebase.png' where logo_cache_url=3601")
     execute("update collections set logo_url='ildis.png' where logo_cache_url=5027")
@@ -78,6 +82,7 @@ class ChangeCollectionLogos < ActiveRecord::Migration
     execute("update collections set logo_url='bold.png' where logo_cache_url=8456")
     execute("update collections set logo_url='arkive.png' where logo_cache_url=1904")
     execute("update collections set logo_url='xenocanto.png' where logo_cache_url=8987")
+    execute("update collections set  logo_url='ligercat.png' where logo_cache_url=3187")
     
     remove_column :collections, :logo_cache_url
   end

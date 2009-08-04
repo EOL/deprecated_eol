@@ -338,23 +338,7 @@ end
      taxa_ids=[taxon_concept_id]
    end
 
-   # expire given taxa for all active languages and possibilites
-   taxa_ids.each do |taxon_concept_id|
-     unless taxon_concept_id.blank?
-       Language.find_active.each do |language|
-          %w{novice middle expert}.each do |expertise|
-            %w{true false}.each do |vetted|
-              %w{text flash}.each do |default_taxonomic_browser|
-                %w{true false}.each do |can_curate|
-                  part_name='page_' + taxon_concept_id.to_s + '_' + language.iso_639_1 + '_' + expertise + '_' + vetted + '_' + default_taxonomic_browser + '_' + can_curate
-                  expire_fragment(:controller=>'/taxa',:part=>part_name)
-                end
-              end
-            end
-          end
-        end
-      end
-    end
+   expire_all_variants_of_taxa(taxa_ids)
     return true
 
   end
@@ -387,21 +371,28 @@ end
 
   # return currently logged in user
   def current_user
-    if session[:user_id].nil?
-      return create_new_user
+    if logged_in?
+      return temporary_logged_in_user ? temporary_logged_in_user :
+                                        set_temporary_logged_in_user(cached_user)
     else
-      return YAML.load(Rails.cache.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]).to_yaml })
+      session[:user] ||= create_new_user
     end
   end
 
-   # set current user in session
+  # For the duration of the request, change some of the values on this User.
+  #
+  # NOTE: if you want to change a User's settings for more than one request, you need to #save that User within your
+  # function.
   def set_current_user(user)
-    session[:user_id]=user.id
-    Rails.cache.delete("users/#{session[:user_id]}")
+    if user.new_record?
+      set_unlogged_in_user(user)
+    else
+      set_logged_in_user(user)
+    end
   end
 
-  # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous session
-  # before we switched off user logins is booted out
+  # this method is used as a before_filter when user logins are disabled to ensure users who may have had a previous
+  # session before we switched off user logins is booted out
   def clear_any_logged_in_session
     reset_session if logged_in?
   end
@@ -529,6 +520,67 @@ end
     end
 
 private
+
+  # Rails cache (memcached, probably) version of the user, by id: 
+  def cached_user
+    User # KNOWN BUG (in Rails): if you end up with "undefined class/module" errors in a fetch() call, you must call
+         # that class beforehand.
+    Rails.cache.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) }
+  end
+
+  # Having a *temporary* logged in user, as opposed to reading the user from the cache, lets us change some values
+  # (such as language or vetting) within the scope of a request *without* storing it the database.  So, for example,
+  # when a URL includes "&vetted=true" (or some-such), we can serve that request with *temporary* user values that
+  # don't change the user's DB values.
+  def temporary_logged_in_user
+    @user
+  end
+
+  def set_temporary_logged_in_user(user)
+    @user = user
+  end
+
+  # There are several things we need to do when we change the (temporary) values on a logged-in user:
+  # 
+  # NOTE: if you want to change a user's settings, you need to #save that user within your function.
+  def set_logged_in_user(user)
+    set_temporary_logged_in_user(user)
+    session[:user_id] = user.id
+    set_unlogged_in_user(nil)
+    Rails.cache.delete("users/#{session[:user_id]}")
+  end
+
+  def unlogged_in_user
+    session[:user]
+  end
+
+  def set_unlogged_in_user(user)
+    session[:user] = user
+  end
+
+  def expire_all_variants_of_taxa(tc_ids)
+    tc_ids.each do |taxon_concept_id|
+      unless taxon_concept_id.blank?
+        Language.find_active.each do |language|
+          %w{novice middle expert}.each do |expertise|
+            %w{true false}.each do |vetted|
+              %w{text flash}.each do |default_taxonomic_browser|
+                %w{true false}.each do |can_curate|
+                  part_name = 'page_' + taxon_concept_id.to_s +
+                                  '_' + language.iso_639_1 +
+                                  '_' + expertise +
+                                  '_' + vetted +
+                                  '_' + default_taxonomic_browser +
+                                  '_' + can_curate
+                  expire_fragment(:controller => '/taxa', :part => part_name)
+                end
+              end
+            end
+          end
+        end
+      end
+    end
+  end
 
   def expire_pages(pages)
     if pages.length > 0

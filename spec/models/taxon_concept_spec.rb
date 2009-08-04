@@ -210,8 +210,6 @@ describe TaxonConcept do
 
   it 'should be able to search, returning an array of hashes for each result type' do
     results = TaxonConcept.quick_search(@common_name)
-    puts "++ Hey, remove this next line (and this one):"
-    pp results
     results[:common].should_not be_nil
     results[:common].map {|h| h['id'].to_i }.should include(@taxon_concept.id)
     results = TaxonConcept.quick_search(@scientific_name.sub(/\s.*$/, '')) # Removes the second half and attribution

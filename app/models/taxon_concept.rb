@@ -450,13 +450,11 @@ class TaxonConcept < SpeciesSchemaModel
     
     search_terms = search_string.downcase.gsub(/\s+/, ' ').strip.split(/[ -&:\\'?;]+| and /)
     
-    sci_concepts  = []
-    com_concepts  = []
-    errors       = nil
-    num_matches  = {}
-    
-    
+    sci_concepts          = []
+    com_concepts          = []
     modified_search_terms = []
+    errors = nil
+
     search_terms.uniq.each do |orig_term|
       term = orig_term.gsub(/\*/, 'EOL_WILDCARD').gsub(/[\W\-]/, '').gsub('EOL_WILDCARD', '%')
       if term.gsub('%', '').length < 3
@@ -469,14 +467,18 @@ class TaxonConcept < SpeciesSchemaModel
       modified_search_terms << "nn.name_part #{search_type} '#{term}'"
     end
     
-    
     if modified_search_terms.length == 0 
       return {:common     => com_concepts,
               :scientific => sci_concepts,
               :errors     => errors}
     end
     
-    name_ids = SpeciesSchemaModel.connection.select_values("SELECT name_id, count(*) FROM normalized_names nn STRAIGHT_JOIN normalized_links nl ON (nn.id = nl.normalized_name_id) WHERE (#{modified_search_terms.join(' OR ')}) AND nl.normalized_qualifier_id=1 GROUP BY name_id HAVING count(*)>=#{modified_search_terms.length}")
+    name_ids = SpeciesSchemaModel.connection.select_values(%Q{
+      SELECT name_id, count(*)
+      FROM normalized_names nn STRAIGHT_JOIN normalized_links nl ON (nn.id = nl.normalized_name_id)
+      WHERE (#{modified_search_terms.join(' OR ')}) AND nl.normalized_qualifier_id=1
+      GROUP BY name_id HAVING count(*)>=#{modified_search_terms.length}
+    })
     
     if name_ids.length == 0 
       return {:common     => com_concepts,
@@ -484,10 +486,16 @@ class TaxonConcept < SpeciesSchemaModel
               :errors     => errors}
     end
     
-    
     agent_clause = ''
     if !options[:agent].nil? || (!options[:user].nil? && options[:user].is_admin?)
-      agent_clause = "LEFT JOIN (agents_resources ar JOIN hierarchies_resources hr ON (ar.resource_id = hr.resource_id AND ar.resource_agent_role_id = #{ResourceAgentRole.content_partner_upload_role.id}) JOIN hierarchy_entries he2 ON (hr.hierarchy_id = he2.hierarchy_id)) ON (he2.taxon_concept_id = tc.id)"
+      agent_clause = %Q{
+        LEFT JOIN (agents_resources ar
+                   JOIN hierarchies_resources hr
+                     ON (ar.resource_id = hr.resource_id
+                         AND ar.resource_agent_role_id = #{ResourceAgentRole.content_partner_upload_role.id})
+                   JOIN hierarchy_entries he2 ON (hr.hierarchy_id = he2.hierarchy_id))
+          ON (he2.taxon_concept_id = tc.id)
+      }
     end
     
     vetted_condition = options[:user].vetted ? "(published=1 AND tc.vetted_id=#{Vetted.trusted.id})" : "published=1"
@@ -496,7 +504,20 @@ class TaxonConcept < SpeciesSchemaModel
       agent_condition = "OR ar.agent_id IS NOT NULL"
     end
     
-    taxon_concept_ids = SpeciesSchemaModel.connection.execute("SELECT tcn.taxon_concept_id id, tcn.vern is_vern, tcn.preferred preferred, tcc.content_level content_level, n.string matching_string, n.italicized matching_italicized_string, he.hierarchy_id hierarchy_id FROM taxon_concept_names tcn STRAIGHT_JOIN names n ON (tcn.name_id = n.id) STRAIGHT_JOIN taxon_concepts tc ON (tc.id = tcn.taxon_concept_id) LEFT JOIN taxon_concept_content tcc ON (tcn.taxon_concept_id = tcc.taxon_concept_id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) #{agent_clause} WHERE tcn.name_id IN (#{name_ids.join(',')}) AND (#{vetted_condition} #{agent_condition}) ORDER BY preferred DESC").all_hashes
+    taxon_concept_ids = SpeciesSchemaModel.connection.execute(%Q{
+      SELECT tcn.taxon_concept_id id, tcn.vern is_vern, tcn.preferred preferred,
+             tcc.content_level content_level,
+             n.string matching_string, n.italicized matching_italicized_string,
+             he.hierarchy_id hierarchy_id
+      FROM taxon_concept_names tcn
+        STRAIGHT_JOIN names n ON (tcn.name_id = n.id)
+        STRAIGHT_JOIN taxon_concepts tc ON (tc.id = tcn.taxon_concept_id)
+        LEFT JOIN taxon_concept_content tcc ON (tcn.taxon_concept_id = tcc.taxon_concept_id)
+        LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) #{agent_clause}
+      WHERE tcn.name_id IN (#{name_ids.join(',')})
+        AND (#{vetted_condition} #{agent_condition})
+      ORDER BY preferred DESC
+    }).all_hashes
     
     used_concept_ids = []
     sci_concepts = []

@@ -11,8 +11,7 @@
 <thead>
 <tr><td rowspan="1" colspan="3">First TOC item should be active after load a page and that should keep the same TOC item open after changing a mode</td></tr>
 </thead><tbody>
-
-  <tr>
+<tr>
 	<td>clickAndWait</td>
 	<td>link=login</td>
 	<td></td>
@@ -44,7 +43,7 @@
 </tr>
 <tr>
 	<td>open</td>
-	<td>http://localhost:3000/pages/20?vetted=true</td>
+	<td>/pages/30?vetted=true</td>
 	<td></td>
 </tr>
 <tr>
@@ -55,7 +54,7 @@
 <!-- After reload first item should be active -->
 <tr>
 	<td>verifyElementPresent</td>
-	<td>//a[@title="Overview"][@class="toc_item active"]</td>
+	<td>//a[@title=&quot;Overview&quot;][@class=&quot;toc_item active&quot;]</td>
 	<td></td>
 </tr>
 <tr>
@@ -65,18 +64,18 @@
 </tr>
 <tr>
 	<td>waitForElementPresent</td>
-	<td>//a[@title="Description"][@class="active toc_item"]</td>
+	<td>//a[@title=&quot;Description&quot;][@class=&quot;active toc_item&quot;]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>waitForText</td>
-	<td>//div[@class="cpc-header"]/h3</td>
+	<td>//div[@class=&quot;cpc-header&quot;]/h3</td>
 	<td>Description</td>
 </tr>
 <!-- after changing a mode the item should be the same -->
 <tr>
 	<td>open</td>
-	<td>http://localhost:3000/pages/20?vetted=false&category_id=2</td>
+	<td>/pages/30?vetted=false&amp;category_id=2</td>
 	<td></td>
 </tr>
 <tr>
@@ -92,7 +91,7 @@
   </tr>   -->
 <tr>
 	<td>verifyText</td>
-	<td>//div[@class="cpc-header"]/h3</td>
+	<td>//div[@class=&quot;cpc-header&quot;]/h3</td>
 	<td>Description</td>
 </tr>
 <!-- logout -->
@@ -101,6 +100,7 @@
 	<td>link=logout</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>

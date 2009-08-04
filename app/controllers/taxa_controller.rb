@@ -192,7 +192,7 @@ class TaxaController < ApplicationController
     if (params[:data_objects_toc_category] && (toc_id = params[:data_objects_toc_category][:toc_id]))
       @toc_item = TocItem.find(toc_id)
     else
-      @toc_item = tc.tocitem_for_new_text
+      @toc_item = @taxon_concept.tocitem_for_new_text
     end
 
     @category_id = @toc_item.id    

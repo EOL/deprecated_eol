@@ -328,13 +328,6 @@ class TaxonConcept < SpeciesSchemaModel
     return HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchy_entries he WHERE taxon_concept_id=#{taxon_concept_id} AND hierarchy_id=#{hierarchy_id} LIMIT 1").first
   end
   
-  
-  
-  
-  
-  
-  
-  
   # We do have some content that is specific to COL, so we need a method that will ALWAYS reference it:
   def col_entry
     return @col_entry unless @col_entry.nil?
@@ -427,18 +420,27 @@ class TaxonConcept < SpeciesSchemaModel
     return final_name
 
   end
-  
-  # Some TaxonConcepts are "superceded" by others, and we need to follow the chain as far as we can (up to a sane limit): 
+
+  def superceded_the_requested_id?
+    @superceded_the_requested_id
+  end
+
+  def superceded_the_requested_id
+    @superceded_the_requested_id = true
+  end
+
+  # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit): 
   def self.find_with_supercedure(*args)
     concept = TaxonConcept.find_without_supercedure(*args)
     return nil if concept.nil?
-    id = args[0]
-    return concept unless id =~ /^\d+$/
-    attempts = 6
+    return concept unless concept.respond_to? :supercedure_id # sometimes it's an array.
+    return concept if concept.supercedure_id == 0
+    attempts = 0
     while concept.supercedure_id != 0 and attempts <= 6
       concept = TaxonConcept.find_without_supercedure(concept.supercedure_id, *args[1..-1])
       attempts += 1
     end
+    concept.superceded_the_requested_id # Sets a flag that we can check later.
     return concept
   end
   class << self; alias_method_chain :find, :supercedure ; end

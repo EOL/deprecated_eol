@@ -68,6 +68,11 @@ class TaxaController < ApplicationController
     
     @taxon_concept = taxon_concept
 
+    if inaccessible_page?(@taxon_concept)
+      render(:layout => 'main', :template => "content/missing")
+      return
+    end
+
     redirect_to(params.merge(:controller => 'taxa', :action => 'show', :id => @taxon_concept.id)) if
       @taxon_concept.superceded_the_requested_id?
 
@@ -324,192 +329,195 @@ class TaxaController < ApplicationController
     render :nothing => true
   end
 
-  ###############################################
-  protected
+###############################################
+private
 
-    # reset the content level if it is in the querystring NOTE the expertise level is set by pre filter
-    # TODO: Get rid of the content level, it is depracated and no longer needed
-    # set_user_settings()
-    def update_user_content_level
-      current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
+  # reset the content level if it is in the querystring NOTE the expertise level is set by pre filter
+  # TODO: Get rid of the content level, it is depracated and no longer needed
+  # set_user_settings()
+  def update_user_content_level
+    current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
+  end
+
+  # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
+  def set_user_settings
+
+    expertise = params[:expertise].to_sym if ['novice','middle','expert'].include?(params[:expertise])
+    current_user.expertise=expertise unless expertise.nil?
+
+    vetted = params[:vetted]
+    current_user.vetted=EOLConvert.to_boolean(vetted) unless vetted.blank? 
+
+    # save user in database if they are logged in
+    current_user.save if logged_in?
+
+  end
+
+  def get_new_text_tocitem_id(category_id)
+    if category_id && TocItem.find(category_id).allow_user_text?
+      category_id
+    else
+      'none'
     end
-
-    # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
-    def set_user_settings
-
-      expertise = params[:expertise].to_sym if ['novice','middle','expert'].include?(params[:expertise])
-      current_user.expertise=expertise unless expertise.nil?
-
-      vetted = params[:vetted]
-      current_user.vetted=EOLConvert.to_boolean(vetted) unless vetted.blank? 
-
-      # save user in database if they are logged in
-      current_user.save if logged_in?
-
+  end
+  
+  def show_unvetted_videos
+    vetted_mode = @taxon_concept.current_user.vetted
+    @taxon_concept.current_user.vetted = false
+    videos = @taxon_concept.videos unless @taxon_concept.videos.blank?
+    @taxon_concept.current_user.vetted = vetted_mode
+    return videos
+  end
+  
+  def show_unvetted_videos #collect all videos (unvetted as well)
+    vetted_mode = @taxon_concept.current_user.vetted
+    @taxon_concept.current_user.vetted = false
+    videos = @taxon_concept.videos unless @taxon_concept.videos.blank?
+    @taxon_concept.current_user.vetted = vetted_mode
+    return videos
+  end
+  
+  def videos_to_show
+    @videos = show_unvetted_videos # instant variable used in _mediacenter
+    
+    if params[:vet_flag] == "false"
+      @video_collection = @videos            
+    else 
+      @video_collection = @taxon_concept.videos unless @taxon_concept.videos.blank?
     end
-
-    def get_new_text_tocitem_id(category_id)
-      if category_id && TocItem.find(category_id).allow_user_text?
-        category_id
-      else
-        'none'
+  end
+  
+  def taxon_concept
+    tc_id = params[:id].to_i     
+    if tc_id == 0
+      # TODO: sensible redirect / message here
+      raise "taxa id not supplied"
+    else
+      begin
+        taxon_concept = TaxonConcept.find(tc_id)
+      rescue
+        return nil
       end
     end
-    
-    def show_unvetted_videos
-      vetted_mode = @taxon_concept.current_user.vetted
-      @taxon_concept.current_user.vetted = false
-      videos = @taxon_concept.videos unless @taxon_concept.videos.blank?
-      @taxon_concept.current_user.vetted = vetted_mode
-      return videos
+    return taxon_concept
+  end
+
+  # wich TOC item choose to show
+  def show_category_id
+    if params[:category_id] && !params[:category_id].blank?
+      params[:category_id]
+    elsif !(first_content_item = @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }).nil?
+      first_content_item.id
+    else
+      nil
     end
+  end
+  
+  def first_content_item
+    # find first valid content area to use
+    taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
+  end
+  
+  def this_request_is_really_a_search
+    params[:id].to_i == 0
+  end
+  
+  def do_the_search
+    redirect_to :controller => 'taxa', :action => 'search', :id => params[:id]
+  end
+  
+  def show_taxa_html
     
-    def show_unvetted_videos #collect all videos (unvetted as well)
-      vetted_mode = @taxon_concept.current_user.vetted
-      @taxon_concept.current_user.vetted = false
-      videos = @taxon_concept.videos unless @taxon_concept.videos.blank?
-      @taxon_concept.current_user.vetted = vetted_mode
-      return videos
+    update_user_content_level
+    
+    @taxon_concept.current_user = current_user
+
+    if show_taxa_html_can_be_cached? or
+       fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
+      @cached=true
+    else
+      @cached=false
+      set_taxa_page_instance_vars
+    end # end get full page since we couldn't read from cache
+
+    render :template=>'/taxa/show_cached' if allow_page_to_be_cached? and not params[:category_id] # if caching is allowed, see if fragment exists using this template
+  end
+
+  def show_taxa_xml
+    xml = Rails.cache.fetch("taxon.#{@taxon_concept.id}/xml", :expires_in => 4.hours) do
+      @taxon_concept.to_xml(:full => true)
     end
-    
-    def videos_to_show
-      @videos = show_unvetted_videos # instant variable used in _mediacenter
-      
-      if params[:vet_flag] == "false"
-        @video_collection = @videos            
-      else 
-        @video_collection = @taxon_concept.videos unless @taxon_concept.videos.blank?
-      end
-    end
-    
-    def taxon_concept
-      tc_id = params[:id].to_i     
-      if tc_id == 0
-        # TODO: sensible redirect / message here
-        raise "taxa id not supplied"
-      else
-        begin
-          taxon_concept = TaxonConcept.find(tc_id)
-        rescue
-          # TODO: sensible redirect / message here
-          raise "taxa does not exist"
+    render :xml => xml
+  end 
+  
+  def taxa_page_html_fragment_name
+    current_user = @taxon_concept.current_user
+    'page_' + params[:id].to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + @taxon_concept.show_curator_controls?.to_s
+  end
+  helper_method(:taxa_page_html_fragment_name)
+
+  def show_taxa_html_can_be_cached?
+    return(allow_page_to_be_cached? and 
+           params[:category_id].blank? and
+           params[:image_id].blank?)
+  end
+
+  # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
+  # wrong.  We really need some classes or helpers to take care of these details.
+  def set_taxa_page_instance_vars
+    @taxon_concept.current_agent = current_agent unless current_agent.nil?
+
+    @images = @taxon_concept.images
+
+    if(params[:image_id])
+      image_id = params[:image_id].to_i
+      selected_image_index = 0
+      @images.each_with_index do |image,i|
+        if image.id == image_id
+          selected_image_index = i
+          @selected_image = image
+          break
         end
       end
-      return taxon_concept
+
+      params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
+
+      @images = @images[((@image_page-1)*9)..((@image_page*9)-1)]
+    else
+      @selected_image = @images[0]
     end
 
-    # wich TOC item choose to show
-    def show_category_id
-      if params[:category_id] && !params[:category_id].blank?
-        params[:category_id]
-      elsif !(first_content_item = @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }).nil?
-        first_content_item.id
-      else
-        nil
-      end
-    end
+    @video_collection = videos_to_show
     
-    def first_content_item
-      # find first valid content area to use
-      taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
+    @category_id = show_category_id # need to be an instant var as we use it in several views and they use
+                                    # variables with that name from different methods in different cases
+
+    @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
+
+    @content     = @taxon_concept.content_by_category(@category_id,:current_user=>current_user) unless
+      @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
+    @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy)
+
+    @data_object_ids_to_log = data_object_ids_to_log
+  end
+
+  # when a page is viewed (even a cached page), we want to know which data objects were viewed.  This method
+  # builds that array, which later invokes an Ajax call.
+  def data_object_ids_to_log
+    ids = Array.new
+    unless @images.blank?
+      log_data_objects_for_taxon_concept @taxon_concept, @images.first
+      ids << @images.first.id
     end
-    
-    def this_request_is_really_a_search
-      params[:id].to_i == 0
+    unless @content.nil? || @content[:data_objects].blank?
+      log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects]
+      @content[:data_objects].each {|data_object| ids << data_object.id }
     end
-    
-    def do_the_search
-      redirect_to :controller => 'taxa', :action => 'search', :id => params[:id]
-    end
-    
-    def show_taxa_html
-      
-      update_user_content_level
-      
-      @taxon_concept.current_user = current_user
+    return ids.compact
+  end
 
-      if show_taxa_html_can_be_cached? or
-         fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
-        @cached=true
-      else
-        @cached=false
-        set_taxa_page_instance_vars
-      end # end get full page since we couldn't read from cache
-
-      render :template=>'/taxa/show_cached' if allow_page_to_be_cached? and not params[:category_id] # if caching is allowed, see if fragment exists using this template
-    end
-
-    def show_taxa_xml
-      xml = Rails.cache.fetch("taxon.#{@taxon_concept.id}/xml", :expires_in => 4.hours) do
-        @taxon_concept.to_xml(:full => true)
-      end
-      render :xml => xml
-    end 
-    
-    def taxa_page_html_fragment_name
-      current_user = @taxon_concept.current_user
-      'page_' + params[:id].to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + @taxon_concept.show_curator_controls?.to_s
-    end
-    helper_method(:taxa_page_html_fragment_name)
-
-    def show_taxa_html_can_be_cached?
-      return(allow_page_to_be_cached? and 
-             params[:category_id].blank? and
-             params[:image_id].blank?)
-    end
-
-    # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
-    # wrong.  We really need some classes or helpers to take care of these details.
-    def set_taxa_page_instance_vars
-      @taxon_concept.current_agent = current_agent unless current_agent.nil?
-
-      @images = @taxon_concept.images
-
-      if(params[:image_id])
-        image_id = params[:image_id].to_i
-        selected_image_index = 0
-        @images.each_with_index do |image,i|
-          if image.id == image_id
-            selected_image_index = i
-            @selected_image = image
-            break
-          end
-        end
-
-        params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
-
-        @images = @images[((@image_page-1)*9)..((@image_page*9)-1)]
-      else
-        @selected_image = @images[0]
-      end
-
-      @video_collection = videos_to_show
-      
-      @category_id = show_category_id # need to be an instant var as we use it in several views and they use
-                                      # variables with that name from different methods in different cases
-
-      @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
-
-      @content     = @taxon_concept.content_by_category(@category_id,:current_user=>current_user) unless
-        @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
-      @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy)
-
-      @data_object_ids_to_log = data_object_ids_to_log
-    end
-
-    # when a page is viewed (even a cached page), we want to know which data objects were viewed.  This method
-    # builds that array, which later invokes an Ajax call.
-    def data_object_ids_to_log
-      ids = Array.new
-      unless @images.blank?
-        log_data_objects_for_taxon_concept @taxon_concept, @images.first
-        ids << @images.first.id
-      end
-      unless @content.nil? || @content[:data_objects].blank?
-        log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects]
-        @content[:data_objects].each {|data_object| ids << data_object.id }
-      end
-      return ids.compact
-    end
+  def inaccessible_page?(taxon_concept)
+    return(taxon_concept.nil? or taxon_concept.published == 0)
+  end
 
 end

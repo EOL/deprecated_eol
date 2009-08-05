@@ -7,15 +7,18 @@
 
     <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <meta http-equiv="Content-Language" content="en-us" />
-    <title><%= hh(remove_html(@taxon_concept.title(@session_hierarchy))) + ' -' if @taxon_concept and not @taxon_concept.title(@session_hierarchy).blank? %>
-           <%= hh(page_title)%></title>
+    <title><%= page_title = "Encyclopedia of Life"[:encyclopedia_of_life]
+               page_title = "#{@taxon_concept.title(@session_hierarchy)} - #{page_title}" if
+                 @taxon_concept and not @taxon_concept.title(@session_hierarchy).blank?
+               h(strip_tags(page_title)) %></title>
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="MSSmartTagsPreventParsing" content="true" />
     <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 
     <%- if @taxon_concept -%>
-        <meta name="description" content="<%= hh(remove_html("#{@taxon_concept.title} (#{@taxon_concept.subtitle}) in Encyclopedia of Life")) %>" />
-        <meta name="keywords" content="<%= meta_keywords(hh(@taxon_concept.title) + ' ' + hh(@taxon_concept.subtitle)) %>" />
+        <meta name="description" content="<%= h strip_tags("#{@taxon_concept.title} (#{@taxon_concept.subtitle}) in Encyclopedia of Life") %>" />
+        <meta name="keywords" content="<%=
+          meta_keywords(h(strip_tags(@taxon_concept.title + ' ' + @taxon_concept.subtitle))) %>" />
         <%- if !@taxon_concept.entry.nil? && !@taxon_concept.entry.hierarchies_content.nil? && (@taxon_concept.entry.hierarchies_content.image != 0 || @taxon_concept.entry.hierarchies_content.child_image != 0) -%>
           <link id="media_rss" rel="alternate" href="/content/mediarss?format=rss&id=<%= @taxon_concept.id %>" type="application/rss+xml" />
         <%- end -%>

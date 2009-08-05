@@ -22,7 +22,7 @@
             <table id="main-image-table">
 						  <tr><td>
 								<% if !@images.blank? %>
-								  	<img onclick="toggle_image_attribution(); return false;" id="main-image" src="<%=@selected_image.smart_image unless @images.nil? or @images.blank?%>" alt="<%= hh(remove_html(@taxon_concept.title))%>" title="<%=hh(remove_html(@taxon_concept.title))%>" />
+								  	<img onclick="toggle_image_attribution(); return false;" id="main-image" src="<%=@selected_image.smart_image unless @images.nil? or @images.blank?%>" alt="<%= sanitize(strip_tags(@taxon_concept.title))%>" title="<%=sanitize(strip_tags(@taxon_concept.title))%>" />
 								<% end %>
 							</td></tr>
             </table>

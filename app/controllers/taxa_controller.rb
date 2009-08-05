@@ -68,6 +68,9 @@ class TaxaController < ApplicationController
     
     @taxon_concept = taxon_concept
 
+    redirect_to(params.merge(:controller => 'taxa', :action => 'show', :id => @taxon_concept.id)) if
+      @taxon_concept.superceded_the_requested_id?
+
     respond_to do |format|
       format.html do
         show_taxa_html
@@ -385,12 +388,12 @@ class TaxaController < ApplicationController
         # TODO: sensible redirect / message here
         raise "taxa id not supplied"
       else
-        #begin
+        begin
           taxon_concept = TaxonConcept.find(tc_id)
-        #rescue
-          ## TODO: sensible redirect / message here
-          #raise "taxa does not exist"
-        #end
+        rescue
+          # TODO: sensible redirect / message here
+          raise "taxa does not exist"
+        end
       end
       return taxon_concept
     end

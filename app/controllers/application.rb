@@ -2,41 +2,45 @@ require 'uri'
 
 # make the sanitize_sql protected method in ActiveRecord base available as a public method called "eol_escape_sql"
 module ActiveRecord
-    class Base
-        def self.eol_escape_sql(sql)
-            sanitize_sql(sql)
-        end
-   end
+  class Base
+    def self.eol_escape_sql(sql)
+      sanitize_sql(sql)
+    end
+  end
 end
 
 class ApplicationController < ActionController::Base
 
- if $EXCEPTION_NOTIFY || $ERROR_LOGGING
+  include ContentPartnerAuthenticationModule
+
+  if $EXCEPTION_NOTIFY || $ERROR_LOGGING
     include ExceptionNotifiable
-    #local_addresses.clear   # uncomment this line if you want to test exception notification and db error logging even on localhost calls, you'll probably also need to set config.action_controller.consider_all_requests_local = false in your environment file
+    # Uncomment this line if you want to test exception notification and db error logging even on localhost calls.
+    # You'll probably also need to set config.action_controller.consider_all_requests_local = false in your
+    # environment file:
+    #local_addresses.clear
   end
 
-  # if recaptcha is not enabled, then override the method to always return true
+  # If recaptcha is not enabled, then override the method to always return true
   unless $ENABLE_RECAPTCHA
     def verify_recaptcha
       true
     end
   end
 
-  include ContentPartnerAuthenticationModule
-
   prepend_before_filter :set_session
   before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
 
   helper :all
 
-  helper_method :format_date,:format_date_time,:logged_in?, :current_user, :get_image_url, :get_first_agent, :return_to_url, :current_url
-  helper_method :is_user_in_role?, :is_user_admin?, :convert_to_nbsp,:remove_html,:get_video_url, :get_agent_icons, :hh
-  helper_method :current_agent, :agent_logged_in?, :truncate, :allow_page_to_be_cached?
+  helper_method :format_date, :format_date_time, :logged_in?, :current_user, :get_image_url, :get_first_agent,
+                :return_to_url, :current_url, :is_user_in_role?, :is_user_admin?, :convert_to_nbsp,
+                :get_video_url, :get_agent_icons, :hh, :current_agent, :agent_logged_in?, :truncate,
+                :allow_page_to_be_cached?
   around_filter :set_current_language
 
   # similar to h, but does not escape html code which is helpful for showing italisized names
-  # TODO - there are other methods much like this : allow_some_html and ... ummmm... remove_html
+  # TODO - stop using this.  Trust, instead, the built-in method (in views) called #sanitize
   def hh(input)
     result = input.dup.strip
 
@@ -139,11 +143,6 @@ class ApplicationController < ActionController::Base
         return ''
      end
 
-  end
-
-  # remove HTML from the given string
-  def remove_html(input_string)
-    return input_string.gsub(/(<[^>]*>)|\n|\t/s) {""}.strip
   end
 
   # store a given URL (defaults to current) in case we need to redirect back later

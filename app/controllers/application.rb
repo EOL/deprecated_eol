@@ -35,67 +35,69 @@ class ApplicationController < ActionController::Base
   helper_method :current_agent, :agent_logged_in?, :truncate, :allow_page_to_be_cached?
   around_filter :set_current_language
 
-## similar to h, but does not escape html code which is helpful for showing italisized names
-def hh(input)
-  result = input.dup.strip
+  # similar to h, but does not escape html code which is helpful for showing italisized names
+  # TODO - there are other methods much like this : allow_some_html and ... ummmm... remove_html
+  def hh(input)
+    result = input.dup.strip
 
-  result.gsub!(/["]|&(?![\w]+;)/) do | match |
-    case match
-      when '&' then '&amp;'
-      when '"' then '&quot;'
-      else          ''
+    result.gsub!(/["]|&(?![\w]+;)/) do | match |
+      case match
+        when '&' then '&amp;'
+        when '"' then '&quot;'
+        else          ''
+      end
+    end
+    result
+  end
+
+  # override exception notifiable default methods to redirect to our special error pages instead of the usual 404
+  # and 500 and to do error logging
+  def render_404
+    respond_to do |type|
+      type.html { render :layout=>'main',:template => "content/missing"}
+      type.all  { render :nothing => true }
     end
   end
-  result
-end
 
-  ## override exception notifiable default methods to redirect to our special error pages instead of the usual 404 and 500 and to do error logging
-    def render_404
-      respond_to do |type|
-        flash.now[:warning]="The page you have requested does not exist."
-        type.html { render :layout=>'main',:template => "content/error"}
-        type.all  { render :nothing => true }
-      end
+  def render_500(exception=nil)
+    if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s)
+       ErrorLog.create(
+         :url=>request.url,
+         :ip_address=>request.remote_ip,
+         :user_agent=>request.user_agent,
+         :user_id=>current_user.id,
+         :exception_name=>exception.to_s,
+         :backtrace=>"Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
+         )
+     end
+    respond_to do |type|
+     type.html { render :layout=>'main',:template => "content/error"}
+     type.all  { render :nothing => true }
     end
+  end
+  ## end override of exception notifiable default methods
 
-    def render_500(exception=nil)
-      if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s)
-         ErrorLog.create(
-           :url=>request.url,
-           :ip_address=>request.remote_ip,
-           :user_agent=>request.user_agent,
-           :user_id=>current_user.id,
-           :exception_name=>exception.to_s,
-           :backtrace=>"Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
-           )
-       end
-      respond_to do |type|
-       type.html { render :layout=>'main',:template => "content/error"}
-       type.all  { render :nothing => true }
-      end
+  # TODO - Rails has built-in helpers for just this kind of stuff.
+  def format_date_time(inTime,params={})
+    format_string = params[:format] || "long"
+    format_string = case format_string
+    when "short"
+      "%m/%d/%Y - %I:%M %p %Z"
+    when "short_no_tz"
+      "%m/%d/%Y - %I:%M %p"
+    when "long"
+      "%A, %B %d, %Y - %I:%M %p %Z"
+    else
+      nil
     end
-    ## end override of exception notifiable default methods
+    inTime.strftime(format_string) unless inTime==nil
+  end
 
-    def format_date_time(inTime,params={})
-         format_string=params[:format] || "long"
-         format_string = case format_string
-          when "short"
-            "%m/%d/%Y - %I:%M %p %Z"
-          when "short_no_tz"
-            "%m/%d/%Y - %I:%M %p"
-          when "long"
-            "%A, %B %d, %Y - %I:%M %p %Z"
-          else
-            nil
-         end
-         inTime.strftime(format_string) unless inTime==nil
-    end
-
-    # Return a formatted date
-    # Default format: %m/%d/%Y
-    def format_date(date, format = "%m/%d/%Y")
-      date.respond_to?(:strftime) ? date.strftime(format) : date.to_s
-    end
+  # Return a formatted date
+  # Default format: %m/%d/%Y
+  def format_date(date, format = "%m/%d/%Y")
+    date.respond_to?(:strftime) ? date.strftime(format) : date.to_s
+  end
 
   # this method determines if the main taxa page is allowed to be cached or not
   def allow_page_to_be_cached?

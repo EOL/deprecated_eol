@@ -1,0 +1,19 @@
+<div id="content">
+ 	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+        <h1><%= "Sorry, the page you have requested does not exist."[:sorry_page_does_not_exist] %></h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+    <div id="page-content" class="clearfix">
+        <!-- center page content -->
+        <div id="full-page-content">
+            <%="Sorry, but a problem has occurred - you have requested a page with an ID that does not exist, or was removed."[:you_requested_a_page_that_does_not_exist]%>
+            <%="If you followed a link here, please tell the author of the page with that link that this URL is not valid."[:if_you_followed_a_link_here_tell_the_author]%>
+            <br /><br />
+            <%= link_to 'Return to the home page', root_url  %>
+		    </div>
+    </div>
+</div>

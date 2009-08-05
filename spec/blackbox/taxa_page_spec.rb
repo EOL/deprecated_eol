@@ -98,6 +98,29 @@ describe 'Taxa page (HTML)' do
     truncate_all_tables
   end
 
+  # This is kind of a baseline, did-the-page-actually-load test:
+  it 'should include the italicized name in the header' do
+    @result.body.should have_tag('div#page-title') do
+      with_tag('h1', :text => @scientific_name)
+    end
+  end
+
+  it 'should use supercedure to find taxon concept' do
+    superceded = TaxonConcept.gen(:supercedure_id => @id)
+    RackBox.request("/pages/#{superceded.id}").should redirect_to("/pages/#{@id}")
+  end
+
+  it 'should tell the user the page is missing if the page is... uhhh... missing' do
+    missing_id = TaxonConcept.last.id + 1
+    while(TaxonConcept.exists?(missing_id)) { missing_id += 1 }
+    RackBox.request("/pages/#{missing.id}").should include("The page you have requested does not exist.")
+  end
+
+  it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
+    unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
+    RackBox.request("/pages/#{unpublished.id}").should include("The page you have requested does not exist.")
+  end
+
   it 'should be able to ping the collection host' do
     @result.body.should include(@ping_url)
   end
@@ -154,8 +177,8 @@ describe 'Taxa page (HTML)' do
     
     before(:all) do
       truncate_all_tables
-      Scenario.load :bootstrap # I *know* we shouldn't load bootstrap for testing, so if (when?) this breaks, that sceneraio's salient bits will
-                               # need extracting.
+      Scenario.load :bootstrap # I *know* we shouldn't load bootstrap for testing, so if (when?) this breaks, that
+                               # sceneraio's salient bits will need extracting.
       @ncbi = Hierarchy.find_by_label('NCBI Taxonomy')
       @user_with_default_hierarchy = User.gen(:password => 'whatever', :default_hierarchy_id => Hierarchy.default.id)
       @user_with_ncbi_hierarchy    = User.gen(:password => 'whatever', :default_hierarchy_id => @ncbi.id)

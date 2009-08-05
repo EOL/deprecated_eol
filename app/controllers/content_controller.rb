@@ -1,5 +1,7 @@
 class ContentController < ApplicationController
 
+  include ActionView::Helpers::SanitizeHelper
+
   layout 'main'
 
   before_filter :check_for_survey if $SHOW_SURVEYS
@@ -109,37 +111,37 @@ class ContentController < ApplicationController
   #AJAX call to replace a single explore taxa for the home page
   def replace_single_explore_taxa
  
-     params[:current_taxa] ||= ''
-     params[:taxa_number] ||= '1'
+    params[:current_taxa] ||= ''
+    params[:taxa_number] ||= '1'
      
-     current_taxa = params[:current_taxa].split(',')
-     explore_taxa       = RandomHierarchyImage.random(@session_hierarchy)
+    current_taxa = params[:current_taxa].split(',')
+    explore_taxa       = RandomHierarchyImage.random(@session_hierarchy)
 
-     # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a
-     # bit haywire since there are very few random taxa created by scenarios.
-     num_tries = 0
-     while(num_tries < 30 and
-           $PRODUCTION_MODE and
-           !explore_taxa.blank? and
-           current_taxa.include?(explore_taxa.taxon_concept_id.to_s))
-       explore_taxa = RandomHierarchyImage.random(@session_hierarchy)
-       num_tries += 1
-     end
+    # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a
+    # bit haywire since there are very few random taxa created by scenarios.
+    num_tries = 0
+    while(num_tries < 30 and
+          $PRODUCTION_MODE and
+          !explore_taxa.blank? and
+          current_taxa.include?(explore_taxa.taxon_concept_id.to_s))
+      explore_taxa = RandomHierarchyImage.random(@session_hierarchy)
+      num_tries += 1
+    end
 
-     taxa_number        = params[:taxa_number]
-     
-     unless explore_taxa.nil? or taxa_number.nil? or taxa_number.empty?
-       render :update do |page|
-          page['top_image_tag_'+taxa_number].alt          = remove_html(explore_taxa.taxon_concept.name(:expert))
-          page['top_image_tag_'+taxa_number].title        = remove_html(explore_taxa.taxon_concept.name(:expert))
-          page['top_image_tag_'+taxa_number].src          = explore_taxa.data_object.smart_medium_thumb
-          page['top_image_tag_'+taxa_number+'_href'].href = "/pages/" + explore_taxa.taxon_concept_id.to_s
-          page.replace_html 'top_name_'+taxa_number, linked_name(explore_taxa.taxon_concept)
-       end
-     else
-       render :nothing=>true
-     end
-     
+    taxa_number = params[:taxa_number]
+    
+    unless explore_taxa.nil? or taxa_number.nil? or taxa_number.empty?
+      render :update do |page|
+        page['top_image_tag_'+taxa_number].alt          = sanitize(explore_taxa.taxon_concept.name(:expert))
+        page['top_image_tag_'+taxa_number].title        = sanitize(explore_taxa.taxon_concept.name(:expert))
+        page['top_image_tag_'+taxa_number].src          = explore_taxa.data_object.smart_medium_thumb
+        page['top_image_tag_'+taxa_number+'_href'].href = "/pages/" + explore_taxa.taxon_concept_id.to_s
+        page.replace_html 'top_name_'+taxa_number, linked_name(explore_taxa.taxon_concept)
+      end
+    else
+      render :nothing=>true
+    end
+    
   end
   
   def contact_us

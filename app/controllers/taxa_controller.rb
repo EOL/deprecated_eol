@@ -462,6 +462,15 @@ private
            params[:image_id].blank?)
   end
 
+  def find_selected_image_index(images,image_id)
+    images.each_with_index do |image,i|
+      if image.id == image_id
+        return i
+      end
+    end
+    return nil
+  end
+
   # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
   # wrong.  We really need some classes or helpers to take care of these details.
   def set_taxa_page_instance_vars
@@ -472,13 +481,23 @@ private
     if(params[:image_id])
       image_id = params[:image_id].to_i
       selected_image_index = 0
-      @images.each_with_index do |image,i|
-        if image.id == image_id
-          selected_image_index = i
-          @selected_image = image
-          break
-        end
+
+      selected_image_index = find_selected_image_index(@images,image_id)
+      if selected_image_index.nil?
+        current_user.vetted=false
+
+        # save user in database if they are logged in
+        current_user.save if logged_in?
+
+        @taxon_concept.current_user = current_user
+        @images = @taxon_concept.images
+
+        selected_image_index = find_selected_image_index(@images,image_id)
       end
+      if selected_image_index.nil?
+        selected_image_index = 0
+      end
+      @selected_image = @images[selected_image_index]
 
       params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
 

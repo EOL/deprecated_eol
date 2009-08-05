@@ -112,13 +112,19 @@ describe 'Taxa page (HTML)' do
 
   it 'should tell the user the page is missing if the page is... uhhh... missing' do
     missing_id = TaxonConcept.last.id + 1
-    while(TaxonConcept.exists?(missing_id)) { missing_id += 1 }
-    RackBox.request("/pages/#{missing.id}").should include("The page you have requested does not exist.")
+    while(TaxonConcept.exists?(missing_id)) do
+      missing_id += 1
+    end
+    RackBox.request("/pages/#{missing_id}").body.should have_tag("div#page-title") do
+      with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
+    end
   end
 
   it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
     unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
-    RackBox.request("/pages/#{unpublished.id}").should include("The page you have requested does not exist.")
+    RackBox.request("/pages/#{unpublished.id}").body.should have_tag("div#page-title") do
+      with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
+    end
   end
 
   it 'should be able to ping the collection host' do

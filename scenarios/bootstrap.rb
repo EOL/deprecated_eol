@@ -121,7 +121,7 @@ test_user2 = User.gen(:username => 'test_user2', :password => 'password', :given
 test_user2.save
 
 #curator for selenium tests (NB: page #20)
-curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 5, :curator_approved => true)
+curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 11, :curator_approved => true)
 curator.save
 
 

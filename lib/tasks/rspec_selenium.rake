@@ -32,11 +32,16 @@ desc 'Run acceptance tests in the browser'
 namespace :test do
   namespace :acceptance do
     task :web do
+
+      # If SKIP_SELENIUM is set, skip the selenium tests. This task utilizes 
+      # an approach that relies solely on shelling out commands.
+      #
+      # Setting ENV["RAILS_ENV"] = "test" did not force the configuration. 
+      # In other words, Rails.env #=> "development", using the dev env instead.
       if !ENV["SKIP_SELENIUM"]
-        ENV["RAILS_ENV"] = "test"
-        Rake::Task['truncate'].invoke
-        ENV["NAME"] = "bootstrap"
-        Rake::Task['scenarios:load'].invoke
+        `rake truncate RAILS_ENV=test`
+        `rake scenarios:load RAILS_ENV=test NAME=bootstrap`
+
         `script/server -e test -d`
         `java -jar vendor/selenium-remote-control/selenium-server-standalone.jar -htmlSuite "*firefox" "http://localhost:3000" spec/selenium/development_suite.html tmp/development_results.html`
         `kill \`cat tmp/pids/mongrel.pid\``

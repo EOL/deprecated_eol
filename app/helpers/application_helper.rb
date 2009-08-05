@@ -4,6 +4,9 @@ require 'uri'
 # TODO - look these over.  I'm not sure all of them are used, and those that are... perhaps not efficiently.
 
 module ApplicationHelper
+
+  include ActionView::Helpers::SanitizeHelper
+
   #this only applies to text attributions for now
   #author, source, copyright, and data supplier should be shown
   def has_hidden_attributions?(data_object)
@@ -26,11 +29,6 @@ module ApplicationHelper
     return "/taxon_concepts/#{taxon_concept.id}/comments/"
   end
        
-   # HTML page title 
-   def page_title
-     "Encyclopedia of Life"[:encyclopedia_of_life]
-   end
-
    def recaptch_theme
      theme="<script type='text/javascript'>"
      theme+="var RecaptchaOptions = { theme : 'clean'};"
@@ -65,7 +63,7 @@ module ApplicationHelper
   def meta_keywords(input_string,strip_html=true)
 
     keyword_list=''
-    input_string=remove_html(input_string) if strip_html
+    input_string=strip_tags(input_string) if strip_html
     input_string.split(' ').each {|word| keyword_list+=word + ","}
     keyword_list.chop! if keyword_list.length>0
     return keyword_list
@@ -175,7 +173,7 @@ module ApplicationHelper
   def medium_thumb_partial(taxon, image_id_name = '', new_window = false)
     return_html = ''
     unless taxon.nil? or taxon.smart_medium_thumb.nil? or taxon.name.nil? 
-      name = hh(remove_html(taxon.name(current_user.expertise)))
+      name = sanitize(strip_tags(taxon.name(current_user.expertise)))
       return_html = %Q{<a}
       return_html+= %Q{ target=\"_blank\" } if new_window
       return_html+= %Q{ id="#{image_id_name}_href"}       unless image_id_name == ''           
@@ -193,7 +191,7 @@ module ApplicationHelper
     logo_str = "<img "
     logo_str += "width='#{params[:width]}'" unless params[:width].nil?
     logo_str += "height='#{params[:height]}'" unless params[:height].nil?
-    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{hh(agent.project_name)}\" title=\"#{hh(agent.project_name)}\" class=\"agent-logo\" />"
+    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(agent.project_name)}\" title=\"#{sanitize(agent.project_name)}\" class=\"agent-logo\" />"
     return logo_str
   end
   
@@ -204,7 +202,7 @@ module ApplicationHelper
     logo_str = "<img "
     logo_str += "width='#{params[:width]}'" unless params[:width].nil?
     logo_str += "height='#{params[:height]}'" unless params[:height].nil?
-    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{hh(collection.title)}\" title=\"#{hh(collection.title)}\" class=\"agent-logo\" />"
+    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(collection.title)}\" title=\"#{sanitize(collection.title)}\" class=\"agent-logo\" />"
     return logo_str
   end
 
@@ -231,8 +229,8 @@ module ApplicationHelper
       return_html = %Q{<a }
       return_html+= %Q{ target=\"_blank\" } if new_window
       return_html+= %Q{ id=\"" + h(scientific_name) + "\"}  unless link_name_string.empty?
-      return_html+= %Q{ href="/pages/#{taxon.respond_to?(:taxon_concept_id) ? taxon.taxon_concept_id : taxon.id}">#{hh(scientific_name)}</a><br />}
-      return_html+= %Q{#{hh(common_name)}} unless common_name.empty?
+      return_html+= %Q{ href="/pages/#{taxon.respond_to?(:taxon_concept_id) ? taxon.taxon_concept_id : taxon.id}">#{sanitize(scientific_name)}</a><br />}
+      return_html+= %Q{#{sanitize(common_name)}} unless common_name.empty?
     end
     return return_html
   end

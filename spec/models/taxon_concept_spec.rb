@@ -297,6 +297,17 @@ describe TaxonConcept do
     @taxon_concept.images.map {|i| i.id }.should_not include(dato.id)
 
   end
+  
+  it "should have common names" do
+    TaxonConcept.common_names_for?(@taxon_concept.id).should == true
+  end
+
+  it "should not have common names" do
+    tc = build_taxon_concept(:toc=> [
+      {:toc_item => TocItem.common_names}
+    ])  
+    TaxonConcept.common_names_for?(tc.id).should == false
+  end
 
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:

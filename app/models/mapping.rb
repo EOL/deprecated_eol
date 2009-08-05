@@ -25,6 +25,14 @@ class Mapping < SpeciesSchemaModel
     })
   end
 
+  # Returns true if there are entries in the mappings table for a given TaxonConcept:
+  def self.specialist_projects_for?(taxon_concept_id)
+    return Mapping.count_by_sql(['SELECT 1 FROM mappings map, taxon_concept_names tcn 
+                                   WHERE map.name_id = tcn.name_id 
+                                     AND tcn.taxon_concept_id = ? 
+                                   LIMIT 1', taxon_concept_id]) > 0
+  end
+
 end
 
 # == Schema Info

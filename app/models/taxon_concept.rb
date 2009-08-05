@@ -135,7 +135,11 @@ class TaxonConcept < SpeciesSchemaModel
 
   # pull list of categories for given taxa id
   def table_of_contents(options = {})
-    return @table_of_contents ||= TocItem.toc_for(id, :agent => @current_agent, :user => current_user, :agent_logged_in => options[:agent_logged_in])
+    if @table_of_contents.nil?
+      tb = TocBuilder.new
+      @table_of_contents = tb.toc_for(id, :agent => @current_agent, :user => current_user, :agent_logged_in => options[:agent_logged_in])
+    end
+    @table_of_contents
   end
   alias :toc :table_of_contents
 
@@ -772,6 +776,13 @@ EOIUCNSQL
                            LEFT JOIN languages l ON (tcn.language_id = l.id)
                          WHERE tcn.taxon_concept_id = ? AND vern = 1
                          ORDER BY language_label, string', id])
+  end
+  
+  def self.common_names_for?(taxon_concept_id)
+    return TaxonConcept.count_by_sql(['SELECT 1 FROM taxon_concept_names tcn 
+                                        WHERE taxon_concept_id = ? 
+                                          AND vern = 1 
+                                        LIMIT 1',taxon_concept_id]) > 0
   end
   
 

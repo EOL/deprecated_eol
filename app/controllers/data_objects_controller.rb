@@ -11,8 +11,9 @@ class DataObjectsController < ApplicationController
     @curator = current_user.can_curate?(@taxon_concept)
     @taxon_concept.current_user = current_user
     @category_id = data_object.toc_items[0].id
-    current_user.vetted = false
-    current_user.save!
+    alter_current_user do |user|
+      user.vetted=false
+    end
     @new_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
   end
 
@@ -40,8 +41,9 @@ class DataObjectsController < ApplicationController
     @curator = current_user.can_curate?(TaxonConcept.find(params[:taxon_concept_id]))
     @hide = true
     @category_id = @data_object.toc_items[0].id
-    current_user.vetted = false
-    current_user.save!
+    alter_current_user do |user|
+      user.vetted=false
+    end
     @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
   end
 

@@ -18,13 +18,6 @@ describe User do
     success.should be_true
     user.id.should == @user.id  
   end
-
-  it 'should authenticate existing user with a duplicate email address, assuming password is correct, returning true and user back' do
-    user2 = User.gen :username => 'SpongeBob', :password => 'squarepants', :email=> @user.email
-    success,user=User.authenticate( user2.email, user2.password )
-    success.should be_true
-    user.id.should == user2.id  
-  end
       
   it 'should return false as first return value for non-existing user' do
     success,message=User.authenticate('idontexistATALL', @user.password)
@@ -50,13 +43,6 @@ describe User do
     success, message = User.reset_password 'junk@email.com', 'more_junk'
     success.should be_false
     message.should == 'Sorry, but we could not locate your account.'
-  end
-
-  it 'should fail to change password if only email addresses is entered and it is not unique' do
-    User.gen :email => @user.email
-    success, message = User.reset_password @user.email, ''
-    success.should be_false
-    message.should == 'Sorry, but your email address is not unique - you must also specify a username.'
   end
 
   it 'should reset the password if only email address is entered and it is unique' do

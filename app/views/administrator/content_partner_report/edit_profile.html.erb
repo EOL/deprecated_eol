@@ -46,9 +46,13 @@ Content partner profiles can be updated below.  Only enter a new password to cha
             <%= f.label :project_abbreviation, "Project Abbreviation" %>
             Please fill in an abbreviated name for the project.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE<br />
             <%= f.text_field :project_abbreviation, :maxlength => 20  %>
+
+            <%= f.label :display_name, "Display Name" %>
+            This is optional.  If you enter a name here, it will be used instead of the 'Project Name' when shown on the website, otherwise the 'Project Name' will be used.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE IF ENTERED<br />
+            <%= f.text_field :display_name, :size=>50, :maxlength => 100 %>
        
             <%= f.label :url, "Project URL" %>
-          This will be used to link to your project from the website.<br />
+            This will be used to link to your project from the website.<br />
             <%= f.text_field :url, :maxlength => 250, :size=>50  %>
 
             <%= f.label :project_description, 'Project Description <span title="required">*</span>' %>

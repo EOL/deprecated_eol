@@ -6,7 +6,7 @@ require 'base64'
 class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:profile, :uservoice_login]
-  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login,:check_username,:profile, :show, :logout, :new_openid_user]
+  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login,:check_username,:check_email,:profile, :show, :logout, :new_openid_user]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login,:authenticate,:signup,:profile]
@@ -178,6 +178,22 @@ class AccountController < ApplicationController
 
   end
 
+  # AJAX call to check if email is unique from signup page
+  def check_email
+
+    email=params[:email] || ""
+    if User.unique_email?(email) || (logged_in? && current_user.email == email)
+      message=""
+    else
+      message="{email} is already taken"[:username_taken,email]
+    end
+
+    render :update do |page|
+      page.replace_html 'email_warn', message
+    end
+
+  end
+  
   def show
     @user = User.find(params[:id])
     redirect_back_or_default unless @user.curator_approved

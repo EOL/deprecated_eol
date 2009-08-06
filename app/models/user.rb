@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
   validates_format_of :email, :with =>%r{^(?:[_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i, :if => :not_openid?
   
   validates_uniqueness_of :username, :allow_nil => true
+  validates_uniqueness_of :email, :allow_nil => true
   
   validates_confirmation_of :entered_password
 
@@ -233,6 +234,11 @@ class User < ActiveRecord::Base
   # returns true or false indicating if username is unique
   def self.unique_user?(username)
     return User.find_by_username(username).nil?
+  end
+
+  # returns true or false indicating if email is unique
+  def self.unique_email?(email)
+    return User.find_by_email(email).nil?
   end
   
   # set the defaults on this user object

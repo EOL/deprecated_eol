@@ -225,6 +225,8 @@ describe 'Taxa page (HTML)' do
     it 'should switch current_user.vetted to false when image_id is specified and is a unknown or untrusted image'
 
     it 'should paginate to the correct page when image_id is specified and does not exist on the first page of thumbnails'
+
+    it 'should switch selected TOC when text_id is specified and not on the default selected TOC'
   end
 
   # Red background/icon on untrusted videos

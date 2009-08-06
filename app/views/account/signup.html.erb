@@ -11,7 +11,15 @@
 				asynchronous:true,
 				evalScripts:true});		
 	}
-	
+
+	// ajax call to determine if email is unique
+	function check_email() {
+		new Ajax.Request('/account/check_email/', {
+		 		parameters: { email: $('user_email').value }, 		
+				asynchronous:true,
+				evalScripts:true});		
+	}
+		
 	// instant feedback to user about password matching
 	function check_passwords() {
 		if ($('user_entered_password').value != $('user_entered_password_confirmation').value)
@@ -67,8 +75,9 @@
 	
 	                    <label for="user_email" title="<%= "Please enter your email address"[] %>"><%= "Email Address"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
 	                    <!-- user_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //-->
-	                    <%= f.text_field :email, {:maxlength=>100,:size=>30}  %>
-						
+	                    <%= f.text_field :email, {:maxlength=>100,:size=>30, :onblur=>'JavaScript:check_email();'}  %>
+        						 <span class="error" id="email_warn"></span>
+        						 						
 					    <label for="user_given_name" title="<%= "Please enter your given name"[:please_enter_given_name] %>"><%= "Given name"[] %><span title="required">*</span> <span class="warn">(<%= "Required"[] %>)</span></label>
 	                    <!-- user_given_name .+ false true //-->
 	                    <%= f.text_field :given_name,{:maxlength=>30} %>

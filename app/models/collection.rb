@@ -10,12 +10,18 @@ class Collection < SpeciesSchemaModel
 
   #TODO - Make logo associated with agents instead of a hardcoded field in the database called "logo_url" (so image can be moved to content server)
   
-  # Fishbase is a collection that we reference often and have specific behaviours for, thus we want to find it simply (and cache
-  # it):
+  # Fishbase is a collection that we reference often and have specific behaviours for
   def self.fishbase
-    YAML.load(Rails.cache.fetch('collections/fishbase') do
-      Collection.find_by_title('FishBase species detail').to_yaml
-    end)
+    Rails.cache.fetch('collections/fishbase') do
+      Collection.find_by_title('FishBase species detail')
+    end
+  end
+
+  # A particular TocEntry is created for these guys:
+  def self.ligercat
+    Rails.cache.fetch('collections/ligercat') do
+      Collection.find_by_title('LigerCat')
+    end
   end
 
   # Some collections want us to "ping" them every time a DataObject they authored is referenced on our site.
@@ -35,12 +41,6 @@ class Collection < SpeciesSchemaModel
        result="#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
     end
   end
-
-  # If we are supposed to ping_host?, then we need the URL to post (including the ID of the object).
-  # The code to do the actual pinging is client-side, thus there is no method for it here.
-  # def ping_host_url
-    # return 'http://www.fishbase.ca/utility/log/eol/record.php?id=%ID%'
-  # end
 
 end
 

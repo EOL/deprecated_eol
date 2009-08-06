@@ -110,6 +110,10 @@ describe TaxonConcept do
     tc.tocitem_for_new_text.label.should == description_toc.label
   end
 
+  it 'should include the LigerCat TocItem when the TaxonConcept has one'
+
+  it 'should NOT include the LigerCat TocItem when the TaxonConcept does NOT have one'
+
   it 'should have a canonical form' do
     @taxon_concept.canonical_form.should == @canonical_form
   end

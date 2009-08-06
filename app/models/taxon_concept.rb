@@ -137,7 +137,7 @@ class TaxonConcept < SpeciesSchemaModel
   def table_of_contents(options = {})
     if @table_of_contents.nil?
       tb = TocBuilder.new
-      @table_of_contents = tb.toc_for(id, :agent => @current_agent, :user => current_user, :agent_logged_in => options[:agent_logged_in])
+      @table_of_contents = tb.toc_for(self, :agent => @current_agent, :user => current_user, :agent_logged_in => options[:agent_logged_in])
     end
     @table_of_contents
   end
@@ -607,11 +607,11 @@ EOIUCNSQL
     return entry(hierarchy).classification_attribution
   end
 
-  # pull content type by given category for taxa id.
+  # Pull text content by given category for taxa id.
+  # Builds the content for a given category, or TocItem.
+  # This method delegates custom TOC renderings to the
+  # CategoryContentBuilder class
   def content_by_category(category_id, options = {})
-    # Builds the content for a given category, or TocItem.
-    # This method delegates custom TOC renderings to the
-    # CategoryContentBuilder class
 
     # Make toc_item point to a TocItem object
     if category_id.is_a?(TocItem)
@@ -742,7 +742,7 @@ EOIUCNSQL
         # Using tag! here because hyphens are not legal ruby identifiers.
         xml.tag!('table-of-contents') do
           toc.each do |ti|
-            xml.item { xml.id ti.id ; xml.label ti.label }
+            xml.item { xml.id ti.category_id ; xml.label ti.label }
           end
         end
 

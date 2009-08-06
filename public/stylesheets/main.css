@@ -839,6 +839,22 @@ ul#global-navigation {
 			top: 38px;
 			left: 486px;
 		}
+
+    #untrusted-video-warning-box {
+			padding:2px;
+			border:1px solid #FF0000;
+			border-left: 6px solid #FF0000;
+			padding-left:5px;
+			text-align: left;
+			background-color:#FF9999;
+			margin-bottom:3px;
+			width: 190px;
+			margin-bottom: 10px;
+			/* position: absolute; */
+			top: 38px;
+			left: 486px;
+			margin-left: 6px; 
+		}
 				
 		.untrusted-background-text {
 			border-top: 1px solid #FF0000;
@@ -880,8 +896,13 @@ ul#global-navigation {
 			background-color: #FFFF99 !important;
 		}
 		
+    /*we don't use that*/
 		.unvetted-background-color {
 			background-color: #FFFF99 !important;			
+		}
+		
+		.untrusted-background-color {
+			background-color: #FF9999 !important;			
 		}
 
 		#unvetted-page-warning-box {

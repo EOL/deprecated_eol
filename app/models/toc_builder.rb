@@ -1,72 +1,24 @@
 class TocBuilder
 
-  # TODO - make a version of this for Hierarchy Entry:
-  # TODO - MEDIUM PRIO - refactor this to take a taxon directly, rather than the id.
-  def toc_for(taxon_concept_id, options = {})
-    toc = DataObject.for_taxon(TaxonConcept.find(taxon_concept_id), :text, options)
-    # Find out which toc items have unpublished content. Method published is accessible here  because
-    # toc items are found by sql which has data_object fields. Every toc item corresponds to one data object
-    # and is repeated potentially more than one time. They become unique after sort
-    duplicates = {} #this duplicates seems super hacky, but the way the toc reuses columns from data objects seems super hacky as well
-    i = 0
-    toc = toc.map do |item|
-      item.has_unpublished_content = true if item.published.to_i == 0
-      #item.has_published_content = true if item.published.to_i == 1 && options[:agent_logged_in] && !item.data_supplier_agent.blank? && current_agent.id == item.data_supplier_agent.id
-      item.has_published_content = false
-      item.has_invisible_content = true if item.visibility_id.to_i == Visibility.invisible.id
-      item.has_inappropriate_content = true if item.visibility_id.to_i == Visibility.inappropriate.id
-
-      if duplicates[item.label]
-        duplicates[item.label].each do |j|
-          toc[j].has_unpublished_content = true if item.has_unpublished_content
-          toc[j].has_published_content = true if item.has_published_content
-          if item.has_invisible_content
-            toc[j].has_invisible_content = true
-          end
-          toc[j].has_inappropriate_content = true if item.has_inappropriate_content
-        end
-
-        duplicates[item.label] << i
-      else
-        duplicates[item.label] = [i]
-      end
-
-      i += 1
-
-      item
+  def toc_for(taxon_concept, options = {})
+    text_toc_items = DataObject.for_taxon(taxon_concept, :text, options)
+    toc = convert_toc_items_to_toc_entries(text_toc_items)
+    add_special_toc_entries_to_toc_based_on_tc_id(toc, taxon_concept.id)
+    if user_allows_unvetted_items(options)
+      toc << TocEntry.new(TocItem.search_the_web )
     end
-
-    # Add specialist projects if there are entries in the mappings table for this name:
-    if Mapping.specialist_projects_for?(taxon_concept_id)
-      toc << TocItem.specialist_projects
-    end
-
-    # Add BHL content if there are corresponding page_names
-    if PageName.page_names_for?(taxon_concept_id)
-      toc << TocItem.bhl
-    end
-
-    # Add common names content if there Common Names:
-    if TaxonConcept.common_names_for?(taxon_concept_id)
-      toc << TocItem.common_names
-    end
-
-    vetted_only = (options[:user].blank? ? false : options[:user].vetted)
-    if !vetted_only
-      toc << TocItem.search_the_web 
-    end
-  
     return sort_toc(add_empty_parents(toc))
   end
 
-  # Find all the parents and sort it's children
+private
+
+  # Find all the parents and sort it's children.  Yes, it's true that the view_order does NOT account for parents.
   def sort_toc(toc)
-    parents = toc.select { |item| item.parent_id == 0 }.uniq.sort_by{ |item| item.view_order }
     new_toc = []
-    # Now append the parent, then all its sorted children
+    parents = toc.select { |item| item.is_parent? }.uniq.sort
     parents.each do |parent|
       new_toc << parent
-      new_toc += toc.select { |item| item.parent_id == parent.id }.uniq.sort_by { |item| item.view_order }
+      new_toc += toc.select { |item| item.parent_id == parent.category_id }.uniq.sort
     end
     return new_toc
   end
@@ -76,17 +28,73 @@ class TocBuilder
   def add_empty_parents(toc)
     children = []
     toc.each_with_index do |item, index|
-      item.has_content = true
       if item.is_child?
-        children << [index, item.parent_id]
+        children << {:where => index, :parent_id => item.parent_id}
       end
     end
     # So here we loop through those elements and add empty parents to the TOC:
     children.each do |child|
-      toc[child[0], 0] = TocItem.find(child[1]) unless
-        toc.any? {|i| i.id == child[1]} # This says, "unless the parent is already in the TOC"
+      toc[child[:where], 0] = TocEntry.new(TocItem.find(child[:parent_id]), :has_content => false) unless
+        toc.any? {|i| i.category_id == child[:parent_id]} # This says, "unless the parent is already in the TOC"
     end
     return toc
   end
 
+  # Find out which toc items have unpublished content. Method published is accessible here because
+  # toc items are found by sql which has data_object fields. Every toc item corresponds to one data object
+  # and is repeated potentially more than one time. They become unique after sort
+  def convert_toc_items_to_toc_entries(toc_items)
+    toc = [] # Our new toc starts empty.
+    toc_items.each do |toc_item|
+
+      # If this toc_item is already in the toc, find it:
+      toc_entry_index = index_of_toc_entry_by_toc_item_id_in(toc_item.id, toc)
+
+      if toc_entry_index.nil? # It's not there, add it:
+        toc << TocEntry.new(toc_item)
+      else # There already was one:
+        toc[toc_entry_index].merge_attribues_with(toc_item)
+      end
+
+    end
+
+    return toc
+
+  end
+
+  def index_of_toc_entry_by_toc_item_id_in(item_id, toc)
+    matches = toc.select {|te| te.category_id == item_id}
+    return nil if matches.blank?
+    return toc.index(matches.first)
+  end
+
+  def add_special_toc_entries_to_toc_based_on_tc_id(toc, taxon_concept_id)
+
+    # Add specialist projects if there are entries in the mappings table for this name:
+    if Mapping.specialist_projects_for?(taxon_concept_id)
+      toc << TocEntry.new(TocItem.specialist_projects)
+    end
+
+    # Add BHL content if there are corresponding page_names
+    if PageName.page_names_for?(taxon_concept_id)
+      toc << TocEntry.new(TocItem.bhl)
+    end
+
+    # Add common names content if there Common Names:
+    if TaxonConcept.common_names_for?(taxon_concept_id)
+      toc << TocEntry.new(TocItem.common_names)
+    end
+
+    # Add Medical Concepts if there is a LigerCat tag cloud available:
+    if Mapping.specialist_projects_for?(taxon_concept_id, :collection_id => Collection.ligercat.id)
+      toc << TocEntry.new(TocItem.medical_concepts)
+    end
+
+  end
+
+  def user_allows_unvetted_items(options = {})
+    return(false) if options[:user].blank?
+    return true if options[:user] and not options[:user].vetted
+  end
+  
 end

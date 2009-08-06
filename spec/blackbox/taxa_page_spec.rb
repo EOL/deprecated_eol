@@ -239,5 +239,10 @@ describe 'Taxa page (HTML)' do
   it "should show red background for notes area if untrusted video plays"
   it "should not show red background for notes area if trusted video plays"
 
+  # LigerCat Medical Concepts Tag Cloud
+  it 'should link to LigerCat when the Medical Concepts content is displayed'
+    # TODO - this will simply: 1) ensure the TC has a medical_concepts toc item, 2) load that page with the
+    # content_id for medical_concepts, and 3) verify that the page includes the URL we expect.
+
 end
 

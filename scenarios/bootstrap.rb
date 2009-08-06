@@ -130,22 +130,16 @@ curator = User.gen(:username => 'test_curator', :password => 'password', 'given_
 curator.save
 
 
-exemplar = build_taxon_concept(:event => event, :common_names => ['wumpus'], :id => 910093) # That ID is one of the (hard-coded) exemplars.
+exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-coded) exemplars.
+                               :event => event,
+                               :common_names => ['wumpus'],
+                               :medical_concepts => true) # LigerCat powers, ACTIVATE!
 
 # Adds a ContentPage at the following URL: http://localhost:3000/content/page/curator_central
 
 ContentPage.gen(:page_name => "curator_central", :title => "Curator central", :left_content => "")
 
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants
-
-
-
-
-
-
-
-
-
 
 # creating collection / mapping data
 image_collection_type = CollectionType.gen(:label => "Images")
@@ -160,8 +154,6 @@ expert_pages_collection_type = CollectionType.gen(:label => "Expert", :parent_id
 marine_theme_collection_type = CollectionType.gen(:label => "Marine")
 bugs_theme_collection_type = CollectionType.gen(:label => "Bugs")
 
-
-
 name = kingdom.entry.name_object
 
 specimen_image_collection = Collection.gen(:title => 'AntWeb', :description => 'Currently AntWeb contains information on the ant faunas of several areas in the Nearctic and Malagasy biogeographic regions, and global coverage of all ant genera.', :uri => 'http://www.antweb.org/specimen.do?name=FOREIGNKEY', :link => 'http://www.antweb.org/', :logo_cache_url => '7810')
@@ -172,16 +164,16 @@ Mapping.gen(:collection => specimen_image_collection, :name => name, :foreign_ke
 Mapping.gen(:collection => specimen_image_collection, :name => name, :foreign_key => 'casent0496198')
 Mapping.gen(:collection => specimen_image_collection, :name => name, :foreign_key => 'casent0179524')
 
-
-molecular_species_pages_collection = Collection.gen(:title => 'National Center for Biotechnology Information', :description => 'Established in 1988 as a national resource for molecular biology information, NCBI creates public databases, conducts research in computational biology, develops software tools for analyzing genome data, and disseminates biomedical information - all for the better understanding of molecular processes affecting human health and disease', :uri => 'http://www.ncbi.nlm.nih.gov/sites/entrez?Db=genomeprj&cmd=ShowDetailView&TermToSearch=FOREIGNKEY', :link => 'http://www.ncbi.nlm.nih.gov/', :logo_cache_url => '1305')
+molecular_species_pages_collection = Collection.gen(
+  :title => 'National Center for Biotechnology Information',
+  :description => 'Established in 1988 as a national resource for molecular biology information, NCBI creates public databases, conducts research in computational biology, develops software tools for analyzing genome data, and disseminates biomedical information - all for the better understanding of molecular processes affecting human health and disease',
+  :uri => 'http://www.ncbi.nlm.nih.gov/sites/entrez?Db=genomeprj&cmd=ShowDetailView&TermToSearch=FOREIGNKEY',
+  :link => 'http://www.ncbi.nlm.nih.gov/',
+  :logo_cache_url => '1305')
 CollectionTypesCollection.gen(:collection => molecular_species_pages_collection, :collection_type => molecular_species_pages_collection_type)
 CollectionTypesCollection.gen(:collection => molecular_species_pages_collection, :collection_type => marine_theme_collection_type)
 Mapping.gen(:collection => molecular_species_pages_collection, :name => name, :foreign_key => '13646')
 Mapping.gen(:collection => molecular_species_pages_collection, :name => name, :foreign_key => '9551')
-
-
-
-
 
 r = Rank.gen(:label => 'superkingdom', :rank_group_id => 0)
 

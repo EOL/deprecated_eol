@@ -157,9 +157,8 @@ molecular_species_pages_collection_type = CollectionType.gen(:label => "Molecula
 novice_pages_collection_type = CollectionType.gen(:label => "Novice", :parent_id => species_pages_collection_type.id)
 expert_pages_collection_type = CollectionType.gen(:label => "Expert", :parent_id => species_pages_collection_type.id)
 
-themes_collection_type = CollectionType.gen(:label => "Themes")
-marine_theme_collection_type = CollectionType.gen(:label => "Marine", :parent_id => themes_collection_type.id)
-bugs_theme_collection_type = CollectionType.gen(:label => "Bugs", :parent_id => themes_collection_type.id)
+marine_theme_collection_type = CollectionType.gen(:label => "Marine")
+bugs_theme_collection_type = CollectionType.gen(:label => "Bugs")
 
 
 

@@ -16,7 +16,7 @@ class TocEntry
   def initialize(toc_item, options = {})
     set_fixed_attributes_from(toc_item)
     merge_attribues_with(toc_item)
-    @has_content = options[:has_content] || true
+    @has_content = options[:has_content].nil? ? true : options[:has_content]
   end
 
   # If the TocItem passed in was built from a DataObject (using DataObject.for_taxon), it has some information about

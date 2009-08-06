@@ -361,14 +361,6 @@ private
     end
   end
   
-  def show_unvetted_videos
-    vetted_mode = @taxon_concept.current_user.vetted
-    @taxon_concept.current_user.vetted = false
-    videos = @taxon_concept.videos unless @taxon_concept.videos.blank?
-    @taxon_concept.current_user.vetted = vetted_mode
-    return videos
-  end
-  
   def show_unvetted_videos #collect all videos (unvetted as well)
     vetted_mode = @taxon_concept.current_user.vetted
     @taxon_concept.current_user.vetted = false

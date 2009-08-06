@@ -137,6 +137,11 @@ div#large-image-tagging-button:hover {
 li#large-image-attribution-button.untrusted {
  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;display:block;
  }
+
+a#video_attributions.untrusted {
+  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;display:block;
+  }
+ 
 li#large-image-attribution-button.untrusted:hover {
  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px -32px;display:block;
 }

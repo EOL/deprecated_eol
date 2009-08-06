@@ -1,0 +1,97 @@
+
+<div id="media-images" class="wrapper-mc clearfix">
+  <%# Media Center image -%>
+  <div id="large-image">
+    <div id="main-image-bg">
+      <table id="main-image-table">
+			  <tr><td>
+					<% if !@images.blank? %>
+					  	<img onclick="toggle_image_attribution(); return false;" id="main-image" src="<%=@selected_image.smart_image unless @images.nil? or @images.blank?%>" alt="<%= sanitize(strip_tags(@taxon_concept.title))%>" title="<%=sanitize(strip_tags(@taxon_concept.title))%>" />
+					<% end %>
+				</td></tr>
+      </table>
+    </div> <!-- /main-image-bg -->
+    <hr />
+		<% unless @images.blank? %>
+    <!-- TODO simplify the IDs of the button links ... they need to have unique IDs but thats all -->
+    <div id="large-image-buttons">
+
+        <div id="left-image-buttons">
+          <ul id="large-image-button-group">
+            <li title="More information" id="large-image-attribution-button" class="attribution-icon">
+              <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', attribution_data_object_path(@selected_image),
+                :id => "large-image-attribution-button-popup-link", :class => 'popup-link',
+                :alt => "More information" %>
+            </li>
+            <%=render :partial=>'data_object_states', :locals => {:dato => @selected_image}%>
+          </ul>
+        </div> <!-- /left-image-buttons -->
+
+        <div id="right-image-buttons">
+          <div id="large-image-button-popup">
+            <%#The inner divs on the links are hacks to get the links to work in ie6. there's probably a better way to do this%>
+            <% if @taxon_concept.show_curator_controls? %>
+              <div class="spinner">
+                <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
+              </div>
+              <div id="hide_these_controls_for_now" style="display:none">
+                  <div title="Trust this image" id="large-image-trust-button" class="trust_button thumbs-up-image" <%='style="display: none"' if @selected_image.curated?%>>
+                      <%= link_to '<span style="display:block;width:24px;height:25px;"></span>',
+                        {:controller => :data_objects, :action => :curate, :id => @selected_image.id,
+                         '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s},
+                        {'data-data_object_id' => @selected_image.id, :alt => 'Trust this image',
+                         'data-data_object_type' => DataType.image_type_ids[0]} %>
+                  </div>
+                  <div title="Do not trust this image" id="large-image-untrust-button" class="untrust_button thumbs-down-image" <%='style="display: none"' if @selected_image.curated?%>>
+                      <%= link_to '<span style="display:block;width:24px;height:25px;"></span>',
+                        {:controller => :data_objects, :action => :curate, :id => @selected_image.id,
+                         '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s},
+                        {'data-data_object_id' => @selected_image.id, :alt => 'Do not trust this image',
+                         'data-data_object_type' => DataType.image_type_ids[0]} %>
+                  </div>
+              </div>
+              <div title="Curate image" id="large-image-curator-button" class="curate-button-image">
+                <%= popup_link 'curator', curation_data_object_path(@selected_image), :alt => 'Curate image' %>
+              </div> <!-- /large-image-curator-button -->
+            <% end %>
+
+            <div title="Tag image" id="large-image-tagging-button">
+              <%= popup_link 'tagging', data_object_tags_path(@selected_image), :alt => 'Tag image' %>
+            </div> <!-- /large-image-tagging-button -->
+
+            <div title="Comment on image" id="large-image-comment-button" class="comment-button-image">
+              <%= popup_link 'comment', data_object_comments_path(@selected_image), :alt => "Comment on image" %>
+            </div> <!-- /large-image-comment-button -->
+          </div> <!-- /large-image-button-popup -->
+        </div> <!-- /right-image-buttons -->
+
+        <!-- RATING -->
+        <div class="image-rating">
+          <%=render :partial => 'star_rating', :locals => {:data_object => @selected_image}%>
+        </div>
+
+    </div> <!-- /large-image-buttons -->
+
+    <% end %><%# end of unless images.blank? %>
+  </div> <!-- /large-image -->
+  <div id="image-thumbnails" class="mc-info">
+		<% if @images.blank? == false %>
+      <div class="mc-header">
+          <h3><%= "Images" %></h3>
+          <hr />
+      </div>
+    <% else %>
+			<div class="noimages">
+			</div>
+		<% end %>
+		<p></p><br />
+		<% unless @images.blank? -%>
+    	<div id="image-collection">
+				<%= render :partial => 'image_collection', :locals=>{:update_attribution_on_load=>true} %>
+			</div> <!-- /image-collection -->
+			<div id="mc-notes" class="mc-notes">
+				<span id="field-notes"><!--- this will be replaced by javascript --></span>	<hr />
+			</div>
+		<% end -%>
+  </div> <!-- /image-thumbnails -->
+</div> <!-- /media-images -->

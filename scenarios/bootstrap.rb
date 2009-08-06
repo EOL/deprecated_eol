@@ -84,9 +84,14 @@ build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names 
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [], :bhl => [], :event => event,
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
 
-#20 has unvetted images and videos:         
+#30 has unvetted images and videos, please don't change this one, needed for selenum tests:         
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
                     :depth => depth_now, :images => [{}, {:vetted => Vetted.untrusted}, {:vetted => Vetted.unknown}], :flash => [{:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [],
+                    :bhl => [], :event => event)
+                    
+#31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
+build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
+                    :depth => depth_now, :images => [], :flash => [{}, {:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [],
                     :bhl => [], :event => event)
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
@@ -120,8 +125,8 @@ admin.save
 test_user2 = User.gen(:username => 'test_user2', :password => 'password', :given_name => 'test', :family_name => 'user2')
 test_user2.save
 
-#curator for selenium tests (NB: page #20)
-curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 11, :curator_approved => true)
+#curator for selenium tests (NB: page #30)
+curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 20, :curator_approved => true)
 curator.save
 
 

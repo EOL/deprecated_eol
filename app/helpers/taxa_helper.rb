@@ -118,6 +118,7 @@ module TaxaHelper
            "', license_link: '" + escape_javascript(video.license_url || '') +
            "', title:'"         + escape_javascript(video.object_title) +
            "', video_type:'"    + escape_javascript(video.media_type) +
+           "', video_trusted:'" + escape_javascript(video.vetted_id.to_s) +
            "', video_url:'"     + escape_javascript("#{video.video_url}" || video.object_url || '') +
            "', data_object_id:'"+ escape_javascript(video.id.to_s) +
            "', taxon_concept_id:'#{taxon_concept_id}'}"

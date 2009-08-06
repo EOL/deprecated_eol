@@ -11,37 +11,43 @@
                 
                 <div class = "form_item">
                   <%= f.label :project_name, 'Project Name <span title="required">*</span>' %>
-      Please fill in the full name of the project or web site from which the information will come as you want it to be visible in the Encyclopedia of Life.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE<br />
+                    Please fill in the full name of the project or web site from which the information will come as you want it to be visible in the Encyclopedia of Life.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE<br />
                   <%= f.text_field :project_name, :maxlength => 100, :size=>50  %>
+                </div>
+
+                <div class = "form_item">
+                  <%= f.label :display_name, 'Display Name' %>
+                  This is optional.  If you enter a name here, it will be used instead of the 'Project Name' when shown on the website, otherwise the 'Project Name' will be used.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE IF ENTERED<br />
+                  <%= f.text_field :display_name, :size=>50, :maxlength => 100 %>
                 </div>
                 
                 <div class = "form_item">
                   <%= f.label :project_abbreviation, "Project Abbreviation" %>
-      Please fill in an abbreviated name for the project.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE<br />
+                    Please fill in an abbreviated name for the project.  THIS INFORMATION WILL BE VISIBLE ON THE WEB SITE<br />
                   <%= f.text_field :project_abbreviation, :maxlength => 20  %>
                 </div>
 
                 <div class = "form_item">
                   <%= f.label :url, "Project URL" %>
-      This will be used to link to your project from the website.<br />
+                    This will be used to link to your project from the website.<br />
                   <%= f.text_field :url, :maxlength => 250, :size=>50  %>
 					      </div>
 
                 <div class = "form_item">
                   <%= f.label :project_description, 'Project Description <span title="required">*</span>' %>
-      Describe the project as you would like it to appear on the Encyclopedia of Life web site.
+                    Describe the project as you would like it to appear on the Encyclopedia of Life web site.
                   <%= f.text_area :project_description, :cols => 70, :rows => 10 %>
 					      </div>
 
                 <div class = "form_item">
                   <%= f.label :description_of_data, "Description of Data" %>
-        Please provide us with a description of the type of information you have, how many items are available, what organisms they relate to, and whether they have been assembled or checked by qualified experts or by a knowledgeable community.  The information that you write here will NOT be visible on the web site.
+                    Please provide us with a description of the type of information you have, how many items are available, what organisms they relate to, and whether they have been assembled or checked by qualified experts or by a knowledgeable community.  The information that you write here will NOT be visible on the web site.
                   <%= f.text_area :description_of_data, :cols => 70, :rows => 10 %>
 					      </div>
 
                 <div class = "form_item">
                   <%= f.label :notes, "Notes" %>
-      Enter in any other notes or comments about your project or content.
+                    Enter in any other notes or comments about your project or content.
                   <%= f.text_area :notes, :cols => 70, :rows => 10 %>						
 					      </div>
 

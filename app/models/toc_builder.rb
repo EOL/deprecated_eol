@@ -1,16 +1,17 @@
 class TocBuilder
 
   def toc_for(taxon_concept, options = {})
-    text_toc_items = DataObject.for_taxon(taxon_concept, :text, options)
-    toc = convert_toc_items_to_toc_entries(text_toc_items)
-    add_special_toc_entries_to_toc_based_on_tc_id(toc, taxon_concept.id)
-    if user_allows_unvetted_items(options)
-      toc << TocEntry.new(TocItem.search_the_web )
-    end
+    toc = get_normal_text_toc_entries_for_taxon(taxon_concept, options)
+    add_special_toc_entries_to_toc_based_on_tc_id(toc, taxon_concept.id, options)
     return sort_toc(add_empty_parents(toc))
   end
 
 private
+
+  def get_normal_text_toc_entries_for_taxon(taxon_concept, options)
+    text_toc_items = DataObject.for_taxon(taxon_concept, :text, options)
+    return convert_toc_items_to_toc_entries(text_toc_items)
+  end
 
   # Find all the parents and sort it's children.  Yes, it's true that the view_order does NOT account for parents.
   def sort_toc(toc)
@@ -68,7 +69,7 @@ private
     return toc.index(matches.first)
   end
 
-  def add_special_toc_entries_to_toc_based_on_tc_id(toc, taxon_concept_id)
+  def add_special_toc_entries_to_toc_based_on_tc_id(toc, taxon_concept_id, options)
 
     # Add specialist projects if there are entries in the mappings table for this name:
     if Mapping.specialist_projects_for?(taxon_concept_id)
@@ -88,6 +89,10 @@ private
     # Add Medical Concepts if there is a LigerCat tag cloud available:
     if Mapping.specialist_projects_for?(taxon_concept_id, :collection_id => Collection.ligercat.id)
       toc << TocEntry.new(TocItem.medical_concepts)
+    end
+
+    if user_allows_unvetted_items(options)
+      toc << TocEntry.new(TocItem.search_the_web)
     end
 
   end

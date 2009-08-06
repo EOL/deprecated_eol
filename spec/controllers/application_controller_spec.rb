@@ -19,10 +19,4 @@ describe ApplicationController do
     @controller.send(:hh, @taxon_name).should == @taxon_name_with_amp
   end
 
-  # This is a built-in rails function.  I'm only testing it here to make it clear how it differs from hh and
-  # remove_html:
-  it 'should have h' do
-    @controller.send(:h, @taxon_name).should == @taxon_name_no_html
-  end
-
 end

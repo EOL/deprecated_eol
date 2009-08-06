@@ -1,0 +1,18 @@
+<div class="text_object" id="mesh_terms">
+  These terms are derived from PubMed using the taxon name. Their relative size indicates the number of results returned.  Click on a term to perform a PubMed search.
+
+  <%# There should only be one mapping for LigerCat, but if there are several, this will show all: %>
+  <% for mapping in @content[:items] %>
+    <%= render :partial => '/shared/embed_external_page',
+               :locals  => {:height => '100%',
+                            :width  => '100%',
+                            :url    => mapping.url} %>
+
+  <% end %>
+  
+  <div class="divider"></div>
+  <div class="content-attribution-area">
+      <div class="attribution-header text-area-header"><%= "Source and Additional Information"[] %></div>
+    <span class="source">Terms provided by <%=external_link_to 'PubMed',:url=>'http://www.ncbi.nlm.nih.gov/pubmed/'%>. Clouds provided by the MBL <%=external_link_to 'Biology of Aging project',:url=>'http://aging.ubio.org'%>.</span>
+  </div>
+</div>

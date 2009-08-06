@@ -227,6 +227,17 @@ describe 'Taxa page (HTML)' do
     it 'should paginate to the correct page when image_id is specified and does not exist on the first page of thumbnails'
   end
 
+  # Red background/icon on untrusted videos
+  it "should show red background for untrusted video links"
+  it "should not show red background for trusted video links"
+  it "should show red box with 'Videos in red are not trusted.' if there are untrusted videos"
+  it "should not show red box with 'Videos in red are not trusted.' if there are no untrusted videos"
+  it "should show red background around player for untrusted videos"
+  it "should not show red background around player for trusted videos"
+  it "should show red information button if untrusted video plays"
+  it "should show green information button if trusted video plays"
+  it "should show red background for notes area if untrusted video plays"
+  it "should not show red background for notes area if trusted video plays"
 
 end
 

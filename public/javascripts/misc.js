@@ -229,12 +229,21 @@ function eol_update_video(params) {
     $('video_attributions').href = "/data_objects/" + params.data_object_id + "/attribution"; 
 
     new Ajax.Request('/taxa/show_video/', {
-             parameters: { video_type: params.video_type, video_url: params.video_url},
+             parameters: { video_type: params.video_type, video_url: params.video_url },
             onComplete:function(request){hideAjaxIndicator();},
             onLoading:function(request){showAjaxIndicator();},
             asynchronous:true,
             evalScripts:true});
-    
+            
+    $('video-notes').removeClassName('untrusted-background-text');         
+    $('video-player').removeClassName('untrusted-background-color');         
+    $('video_attributions').removeClassName('untrusted');         
+    if (params.video_trusted == EOL.Curation.UNTRUSTED_ID){
+      $('video-notes').addClassName('untrusted-background-text');
+      $('video-player').addClassName('untrusted-background-color');         
+      $('video_attributions').addClassName('untrusted');         
+    }
+        
     license_info='COPYRIGHT: ';
     if (params.license_text != '') {
         license_info += params.license_text;
@@ -249,7 +258,7 @@ function eol_update_video(params) {
     if (params.author != '') {video_notes_area += 'AUTHOR: ' + params.author + '<br />';}
     if (params.collection != '') {video_notes_area += 'SOURCE: ' + params.collection + '<br />';}
     video_notes_area += params.field_notes ? '<br />' + params.field_notes : '';
-                
+             
     $('video-notes').innerHTML = video_notes_area;
 
     // make a logging call to let the server know that we've viewed this video

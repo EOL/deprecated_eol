@@ -24,3 +24,11 @@
   <%= render(:partial => 'content_body') %>
 </div> <!-- /cpc-content -->
 
+<% if @selected_text %>
+  <script language="javascript" type="text/javascript">
+    document.observe("dom:loaded", function() {
+      Effect.ScrollTo('text_wrapper_<%=@selected_text.id%>');
+    });
+  </script>
+<% end %>
+

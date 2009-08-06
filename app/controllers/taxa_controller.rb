@@ -343,14 +343,15 @@ private
   def set_user_settings
 
     expertise = params[:expertise].to_sym if ['novice','middle','expert'].include?(params[:expertise])
-    current_user.expertise=expertise unless expertise.nil?
+    alter_current_user do |user|
+      user.expertise=expertise unless expertise.nil?
+    end
+
 
     vetted = params[:vetted]
-    current_user.vetted=EOLConvert.to_boolean(vetted) unless vetted.blank? 
-
-    # save user in database if they are logged in
-    current_user.save if logged_in?
-
+    alter_current_user do |user|
+      user.vetted=EOLConvert.to_boolean(vetted) unless vetted.blank?
+    end
   end
 
   def get_new_text_tocitem_id(category_id)
@@ -463,13 +464,7 @@ private
     return nil
   end
 
-  # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
-  # wrong.  We really need some classes or helpers to take care of these details.
-  def set_taxa_page_instance_vars
-    @taxon_concept.current_agent = current_agent unless current_agent.nil?
-
-    @images = @taxon_concept.images
-
+  def set_image_permalink_data
     if(params[:image_id])
       image_id = params[:image_id].to_i
       selected_image_index = 0
@@ -477,8 +472,6 @@ private
       selected_image_index = find_selected_image_index(@images,image_id)
       if selected_image_index.nil?
         current_user.vetted=false
-
-        # save user in database if they are logged in
         current_user.save if logged_in?
 
         @taxon_concept.current_user = current_user
@@ -497,6 +490,39 @@ private
     else
       @selected_image = @images[0]
     end
+  end
+
+  def set_text_permalink_data
+    if(params[:text_id])
+      text_id = params[:text_id].to_i
+
+      @selected_text = DataObject.find(text_id)
+
+      if @selected_text.taxon_concepts.include?(@taxon_concept)
+        selected_toc = @selected_text.toc_items[0]
+
+        params[:category_id] = selected_toc.id
+
+        @category_id = show_category_id
+
+        if current_user.vetted && (@selected_text.untrusted? || @selected_text.unknown?)
+          current_user.vetted = false
+          current_user.save if logged_in?
+        end
+      end
+    end
+  end
+
+  # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
+  # wrong.  We really need some classes or helpers to take care of these details.
+  def set_taxa_page_instance_vars
+    @taxon_concept.current_agent = current_agent unless current_agent.nil?
+
+    @images = @taxon_concept.images
+
+    set_image_permalink_data
+
+    set_text_permalink_data
 
     @video_collection = videos_to_show
     

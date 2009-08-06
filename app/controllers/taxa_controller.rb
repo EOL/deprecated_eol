@@ -198,12 +198,12 @@ class TaxaController < ApplicationController
     @taxon_concept.current_user = current_user
 
     if (params[:data_objects_toc_category] && (toc_id = params[:data_objects_toc_category][:toc_id]))
-      @toc_item = TocItem.find(toc_id)
+      @toc_item = TocEntry.new(TocItem.find(toc_id), :has_content => false)
     else
-      @toc_item = @taxon_concept.tocitem_for_new_text
+      @toc_item = TocEntry.new(@taxon_concept.tocitem_for_new_text, :has_content => false)
     end
 
-    @category_id = @toc_item.id    
+    @category_id = @toc_item.category_id    
     @ajax_update = true
     @content = @taxon_concept.content_by_category(@category_id,:current_user=>current_user)
     @new_text = render_to_string(:partial => 'content_body')
@@ -399,7 +399,7 @@ private
     if params[:category_id] && !params[:category_id].blank?
       params[:category_id]
     elsif !(first_content_item = @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }).nil?
-      first_content_item.id
+      first_content_item.category_id
     else
       nil
     end

@@ -83,6 +83,20 @@ create_if_not_exists Agent, :full_name => 'Catalogue of Life'
 create_if_not_exists ContentPartner, :agent => Agent.catalogue_of_life
 create_if_not_exists AgentContact, :agent => Agent.catalogue_of_life, :agent_contact_role => AgentContactRole.primary
 
+boa_agent =
+  create_if_not_exists Agent, :full_name => 'Biology of Aging'
+liger_cat =
+  create_if_not_exists Collection, :title          => 'LigerCat',
+                                   :description    => 'LigerCat Medical Concepts Tag Cloud',
+                                   :uri            => 'http://ligercat.ubio.org/eol/FOREIGNKEY.cloud',
+                                   :link           => 'http://ligercat.ubio.org',
+                                   :logo_cache_url => '3187',
+                                   :agent_id => boa_agent.id # Using id to make c_i_n_e work.
+links = CollectionType.gen(:label => "Links")
+lit   = CollectionType.gen(:label => "Literature")
+CollectionTypesCollection.gen(:collection => liger_cat, :collection_type => links)
+CollectionTypesCollection.gen(:collection => liger_cat, :collection_type => lit)
+
 create_if_not_exists AgentDataType, :label => 'Audio'
 create_if_not_exists AgentDataType, :label => 'Image'
 create_if_not_exists AgentDataType, :label => 'Text'
@@ -259,17 +273,20 @@ create_if_not_exists Role, :title => 'Administrator - Technical'
 create_if_not_exists Role, :title => 'Administrator - Site CMS'
 create_if_not_exists Role, :title => 'Administrator - Usage Reports'
 
-  create_if_not_exists TocItem, :label => 'Overview',                      :view_order => 1
+create_if_not_exists TocItem, :label => 'Overview',                      :view_order => 1
 description =
   create_if_not_exists TocItem, :label => 'Description',                   :view_order => 2
 ecology_and_distribution =
   create_if_not_exists TocItem, :label => 'Ecology and Distribution',      :view_order => 3
-  create_if_not_exists TocItem, :label => 'Common Names',                  :view_order => 10
+create_if_not_exists TocItem, :label => 'Common Names',                  :view_order => 10
 ref_and_info =
   create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 9
-  create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 8,  :parent_id => ref_and_info.id
-  create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 10, :parent_id => ref_and_info.id
-  create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 14, :parent_id => ref_and_info.id
+
+# Note that in all these "children", the view_order resets.  ...That reflects the real DB.
+create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 1, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 4, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Medical Concepts',              :view_order => 8, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 12,:parent_id => ref_and_info.id
 
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology', :label => 'TaxonBiology', :toc_item => TocItem.overview
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription', :label => 'GeneralDescription', :toc_item => description

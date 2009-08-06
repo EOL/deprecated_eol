@@ -28,6 +28,8 @@ class EOL
     #   +flash+::
     #     Array of flash videos, each member is a hash for the video options.  The keys you will want are
     #     +:description+ and +:object_cache_url+.
+    #   +gbif_map_id+::
+    #     The ID to use for the Map Data Object.
     #   +id+::
     #     Forces the ID of the TaxonConcept to be what you specify, useful for exemplars.
     #   +images+::
@@ -40,8 +42,9 @@ class EOL
     #     String to use for preferred scientific name's italicized form.
     #   +iucn_status+::
     #     String to use for IUCN description, OR just set to true if you want a random IUCN status instead.
-    #   +gbif_map_id+::
-    #     The ID to use for the Map Data Object.
+    #   +medical_concepts+::
+    #     Set to true (default is false) if you want the TOC to include an entry for Medical Concepts.  Note that
+    #     this is the "LigerCat Tag Cloud" entry.
     #   +parent_hierarchy_entry_id+::
     #     When building the associated HierarchyEntry, this id will be used for its parent.
     #   +rank+::
@@ -49,7 +52,9 @@ class EOL
     #   +scientific_name+::
     #     String to use for the preferred scientific name.
     #   +toc+::
-    #     An array of hashes.  Each hash may have a +:toc_item+ key and a +:description+ key.
+    #     An array of hashes.  Each hash may have a +:toc_item+ key and a +:description+ key. Note that there are
+    #     some toc entries that you CANNOT affect here, like common_names, bhl, or medical_concepts, since they are
+    #     "special" and require more work.  See the options of those names for more information.
     #   +youtube+::
     #     Array of YouTube videos, each member is a hash for the video options.  The keys you will want are
     #     +:description+ and +:object_cache_url+.
@@ -82,6 +87,7 @@ class EOL
       gen_random_taxa
       gen_random_hierarchy_image
       gen_bhl
+      gen_medical_concepts
     end
 
     # There isn't much involved with the actual TaxonConcept, in terms of the database and/or generation of the model
@@ -102,6 +108,7 @@ class EOL
         end
       else
         @tc = TaxonConcept.gen(:vetted => Vetted.trusted)
+        @id = @tc.id
       end
     end
 
@@ -269,6 +276,13 @@ class EOL
       end
     end
 
+    def gen_medical_concepts
+      puts "** Enter: gen_medical_concepts" if @debugging
+      if @medical_concepts
+        Mapping.gen(:collection => Collection.ligercat, :name => @sname, :foreign_key => @id)
+      end
+    end
+
     def build_entry_in_hierarchy(options)
       puts "**** Enter: build_entry_in_hierarchy" if @debugging
       raise "Cannot build a HierarchyEntry without depth, TaxonConcept, and Name" unless @depth && @tc && @sname
@@ -305,6 +319,7 @@ class EOL
       @image_objs   = [] # These are the ACTUAL DataObjects, for convenience and speed (@tc.images w/ use DB).
       @italicized   = options[:italicized]
       @iucn_status  = options[:iucn_status]
+      @medical_concepts = options[:medical_concepts]
       @parent_hierarchy_entry_id = options[:parent_hierarchy_entry_id]
       @rank         = options[:rank]
       @toc          = options[:toc]             || default_toc_option

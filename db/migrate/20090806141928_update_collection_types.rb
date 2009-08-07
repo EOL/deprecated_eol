@@ -78,7 +78,7 @@ class UpdateCollectionTypes < ActiveRecord::Migration
       c.collection_types << CollectionType.find_by_label('Name information')
     end
     if c = Collection.find_by_title('Morphbank taxon images')
-      c.collection_types << CollectionType.find_by_label('Imgaes')
+      c.collection_types << CollectionType.find_by_label('Images')
     end
     if c = Collection.find_by_title('Tree of Life taxon details')
       c.collection_types << CollectionType.find_by_label('Description')
@@ -116,7 +116,7 @@ class UpdateCollectionTypes < ActiveRecord::Migration
     end
     if c = Collection.find_by_title('ARKive - images of life on Earth')
       c.collection_types << CollectionType.find_by_label('Taxonomy')
-      c.collection_types << CollectionType.find_by_label('Imgaes')
+      c.collection_types << CollectionType.find_by_label('Images')
       c.collection_types << CollectionType.find_by_label('Distribution')
     end
     if c = Collection.find_by_title('xeno-canto Pages')

@@ -1,5 +1,10 @@
-<div class="text_object" id="mesh_terms">
-  These terms are derived from PubMed using the taxon name. Their relative size indicates the number of results returned.  Click on a term to perform a PubMed search.
+<div class="text_object" id="mesh_terms">These terms are derived by searching the biomedical literature database,
+<%= external_link_to 'PubMed', :url => 'http://pubmed.gov' %> for the name "<%= @taxon_concept.quick_scientific_name %>
+The results are analyzed with the <%= external_link_to 'LigerCat', :url => 'http://ligercat.ubio.org' %> tool, which
+builds the cloud from the most relevant Medical Subject Headings (<%= external_link_to 'MeSH'
+:url => 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=mesh' %>). Each term's relative size indicates how many times it
+appears in the Pubmed search results. Click on a term to access the full LigerCat cloud, with live PubMed search
+capabilities.
 
   <%# There should only be one mapping for LigerCat, but if there are several, this will show all: %>
   <% for mapping in @content[:items] %>
@@ -12,7 +17,9 @@
   
   <div class="divider"></div>
   <div class="content-attribution-area">
-      <div class="attribution-header text-area-header"><%= "Source and Additional Information"[] %></div>
-    <span class="source">Terms provided by <%=external_link_to 'PubMed',:url=>'http://www.ncbi.nlm.nih.gov/pubmed/'%>. Clouds provided by the MBL <%=external_link_to 'Biology of Aging project',:url=>'http://aging.ubio.org'%>.</span>
+    <div class="attribution-header text-area-header"><%= "Source and Additional Information"[] %></div>
+    <span class="source">Terms provided by <%= external_link_to 'PubMed', :url => 'http://www.ncbi.nlm.nih.gov/pubmed/'
+      %>. Clouds provided by the MBL <%= external_link_to 'Biology of Aging project', :url=>'http://aging.ubio.org'
+      %>.</span>
   </div>
 </div>

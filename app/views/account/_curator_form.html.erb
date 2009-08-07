@@ -4,8 +4,8 @@
 <%= clade_selector options={:selectable_clade_level => 3} %>	
 
 <label title="<%= "Curation Scope"[] %>"><%= "Curation Scope"[] %></label>
-Please state the scope of your curatorial abilities for the selected clade.
-<%= f.text_area :curator_scope, {:rows => 7, :cols => 80} %>
+Please note the scope of your expertise if it is smaller than the clade you signed up for. For example: "Rodents of Borneo," or "Tri-trophic interactions," or "Conservation issues in fish." This will not limit your ability to curate but will inform the EOL community. 
+<%= f.text_area :curator_scope, {:rows => 3, :cols => 80} %>
 
 <label for="user_credentials" title="<%= "Credentials"[] %>"><%= "Credentials"[] %></label>
 Please state at least one specific credential from this list:<br />

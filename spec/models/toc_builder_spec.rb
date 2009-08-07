@@ -16,6 +16,11 @@ describe TocBuilder do
       tc = build_taxon_concept(
         :toc=> [
           {:toc_item => TocItem.overview}, 
+          # TODO - these three are specified incorrectly.
+          # Search the Web is only created when the user (specified in options) has vetted = false.
+          # Specialist Projects is only when there are collections and mappings for the TC.
+          # BHL is only when there are really BHL entries.  There is an argument to build_taxon_concept that allows
+          # you to specify these directly.
           {:toc_item => TocItem.search_the_web}, 
           {:toc_item => TocItem.specialist_projects}, 
           {:toc_item => TocItem.bhl}

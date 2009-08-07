@@ -208,8 +208,7 @@ class AccountController < ApplicationController
     user[:email]=current_user.email
     user[:display_name]=current_user.full_name
     user[:locale]=current_user.language.iso_639_1
-    current_user.is_admin? ? user[:admin]='accept' : user[:admin]='deny'
-    user[:owner]=''
+  #  current_user.is_admin? ? user[:admin]='accept' : user[:admin]='deny'
     json_token=user.to_json
               
     key = EzCrypto::Key.with_password $USERVOICE_ACCOUNT_KEY, $USERVOICE_API_KEY

@@ -24,18 +24,54 @@ def bootstrap_users
   return @@bootstrap_users
 end
 
-# A singleton that creates a 12-item TOC once and only once:
+# This used to be... random.  Now, I'm creating a small subset of the "real" TocItems.
 def bootstrap_toc
-  @@bootstrap_toc ||= [TocItem.overview, TocItem.description]
-  return @@bootstrap_toc unless @@bootstrap_toc.length == 1
-  toc_len  = 1
-  12.times do
-    @@bootstrap_toc << TocItem.gen(:parent_id  => (rand(100) > 70) ? @@bootstrap_toc.last.id : 0, :view_order => (toc_len += 1))
+  current_order = TocItem.count # Just a reasonable place to start counting for "parent" items.
+  description_labels = [
+      'Succinct',
+      'Diagnosis of genus and species',
+      'Physical Description',
+      'Formal Description',
+      'Molecular Biology and Genetics',
+      'Phenology',
+      'Life History',
+      'Geographical Distribution',
+      'Etymology',
+      'Adult Characteristics',
+      'Comparison with Similar Species',
+      'Host, Oviposition, and Larval Feeding Habits',
+      'Type',
+      'Characteristics',
+      'General Description'
+  ]
+  make_toc_children(TocItem.find_by_label('Description').id, description_labels)
+  TocItem.gen(:label => 'Reproductive Behavior', :parent_id => 0, :view_order => current_order += 1)
+  TocItem.gen(:label => 'Conservation', :parent_id => 0, :view_order => current_order += 1)
+  TocItem.gen(:label => 'Evolution and Systematics', :parent_id => 0, :view_order => current_order += 1)
+  relevance = TocItem.gen(:label => 'Relevance', :parent_id => 0, :view_order => current_order += 1)
+  relevance_labels = [
+    'Harmful Blooms',
+    'Relation to Humans',
+    'Toxicity, Symptoms and Treatment',
+    'Cultivation',
+    'Culture',
+    'Ethnobotany',
+    'Suppliers'
+  ]
+  make_toc_children(relevance.id, relevance_labels)
+end
+
+def make_toc_children(parent_id, labels)
+  current_order = 0
+  labels.each do |label|
+    current_order += 1
+    TocItem.gen(:label => label, :parent_id => parent_id, :view_order => current_order)
   end
-  return @@bootstrap_toc
 end
 
 #### Real work begins
+
+bootstrap_toc
 
 Rails.cache.clear # We appear to be altering some of the cached classes here.  JRice 6/26/09
 

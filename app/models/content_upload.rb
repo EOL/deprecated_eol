@@ -15,7 +15,7 @@ class ContentUpload < ActiveRecord::Base
     :default_url => "/images/blank.gif"
 
   validates_attachment_presence :attachment  
-  validates_attachment_size :attachment, :in => 0..5.0.megabyte
+  validates_attachment_size :attachment, :in => 0..10.0.megabyte
 
   def attachment_url # friendly_url, uses the content controller, file method
     "/content/file/#{self.link_name}"    

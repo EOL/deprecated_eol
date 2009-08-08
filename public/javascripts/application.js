@@ -61,21 +61,8 @@ Event.addBehavior(
   // Fade in the taxa comments! (TAB)
   '#taxa-comments a:click': function(e) {
     if (!$('taxaCommentsWrap').childNodes[2]) {
-      var loaded = true;
-      new Ajax.Updater('taxaCommentsWrap', '/comments/',
-                       {asynchronous:true, evalScripts:true, method:'get',
-                        parameters: { body_div_name: 'taxaCommentsWrap', taxon_concept_id: $('current_taxon_concept_id').value },
-                        onLoading:function() {
-                          // onloading sometimes runs twice, and second time moves comment div down. 
-                          // A bit hackish way to fix it is to run onloading function only when 
-                          // taxaCommentsWrap is hidden
-                          if ($('taxaCommentsWrap').style.display != 'none'){
-                            EOL.Effect.appear('loading-comments');
-                            $('taxaCommentsWrap').style.display = 'none';
-                          }
-                        },
-                        onSuccess:function() {EOL.Effect.disappear('loading-comments');EOL.Effect.appear('taxaCommentsWrap');}
-                       });
+      var loaded = true;// TODO - I think this is unused and should be deleted, but I am a chicken and won't do it myself (JRice)
+      EOL.load_taxon_comments_tab();
     }
   },
 

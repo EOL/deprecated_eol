@@ -78,7 +78,13 @@ class CommentsController < ApplicationController
 private
   def current_objects
     @current_objects ||= current_user.is_moderator? ? current_model.find(:all) : current_model.visible
-    @current_objects.paginate(:page => params[:page], :per_page => Comment.per_page)
+    # @current_objects.paginate(:page => params[:page], :per_page => Comment.per_page)
+    if params[:page_to_comment_id]
+      @current_objects.paginate(:page => params[:page], :per_page => Comment.per_page, 
+                                :conditions => ['id = ?', "#{params[:page_to_comment_id]}"])
+    else
+      @current_objects.paginate(:page => params[:page], :per_page => Comment.per_page) 
+    end
   end
 
 end

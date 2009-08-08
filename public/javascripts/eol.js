@@ -126,3 +126,20 @@ Element.addMethods({
   disappear: EOL.Effect.disappear,
   toggle_with_effect: EOL.Effect.toggle_with_effect
 });
+
+EOL.load_taxon_comments_tab = function(extra_params) {
+  new Ajax.Updater('taxaCommentsWrap', '/comments/',
+                   {asynchronous:true, evalScripts:true, method:'get',
+                    parameters: $H({ body_div_name: 'taxaCommentsWrap', taxon_concept_id: $('current_taxon_concept_id').value }).merge(extra_params),
+                    onLoading:function() {
+                      // onloading sometimes runs twice, and second time moves comment div down. 
+                      // A bit hackish way to fix it is to run onloading function only when 
+                      // taxaCommentsWrap is hidden
+                      if ($('taxaCommentsWrap').style.display != 'none'){
+                        EOL.Effect.appear('loading-comments');
+                        $('taxaCommentsWrap').style.display = 'none';
+                      }
+                    },
+                    onSuccess:function() {EOL.Effect.disappear('loading-comments');EOL.Effect.appear('taxaCommentsWrap');}
+                   });
+}

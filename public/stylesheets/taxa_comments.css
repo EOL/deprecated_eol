@@ -1,4 +1,4 @@
-f#taxaCommentsWrap {border:1px solid #6a8d00;background:#8bad1c;padding:2px;width:692px;height:382px;}
+#taxaCommentsWrap {border:1px solid #6a8d00;background:#8bad1c;padding:2px;width:692px;height:382px;}
 #taxaCommentsWrap #commentsContain {overflow-y:scroll;border:1px solid #6a8d00;background-color:#F4F4F4;padding:13px 12px;height:354px;}
 #taxaCommentsWrap .controls {overflow:hidden;width:96%;}
 #taxaCommentsWrap h2 {font:normal 14px/15px verdana, arial;color:#333;padding:1px 0 0 5px;margin:0;width:90%;}

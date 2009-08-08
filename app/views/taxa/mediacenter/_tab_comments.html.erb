@@ -1,4 +1,25 @@
-<div id="media-taxa-comments" class="wrapper-mc clearfix" style="display: none;">                                      
-  <p id="loading-comments"><%= image_tag 'indicator_arrows_black.gif' %> Retrieving comments, please wait...</p>       
-  <div id="taxaCommentsWrap" style="display: none;"></div>                                                             
-</div>                                                                                                                 
+<div id="media-taxa-comments" class="wrapper-mc clearfix" style="display: <%= we_have_a_taxon_comment ? 'block' : 'none' %>;">
+  <p id="loading-comments"><%= image_tag 'indicator_arrows_black.gif' %> Retrieving comments, please wait...</p>
+  <div id="taxaCommentsWrap" style="display: none;"></div>
+<% if(we_have_a_taxon_comment) %>
+  <script type="text/javascript">
+    window.onload = function() {
+      EOL.load_taxon_comments_tab($H({page_to_comment_id: <%= @comment.id %>}));
+      $('media-images').hide();
+      if($('image').childNodes[0].className='active'){
+        $('image').childNodes[0].removeClassName('active');
+      } 
+      $('taxa-comments').childNodes[0].addClassName('active');
+    }
+    var id_arrays = $$('#tab_media_center li').pluck('id');
+    function hide_taxa_comment(element){
+      $(element).childNodes[0].observe('click', function()
+      {
+        $('media-taxa-comments').hide();
+      })
+    }
+    id_arrays.forEach(hide_taxa_comment);
+  </script>
+<% end %>
+</div>
+

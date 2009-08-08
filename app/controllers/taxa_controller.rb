@@ -519,6 +519,9 @@ private
     @taxon_concept.current_agent = current_agent unless current_agent.nil?
 
     @images = @taxon_concept.images
+    
+    comment_id = params[:comment_id].to_i
+    @comment = Comment.find(comment_id) if comment_id != 0
 
     set_image_permalink_data
 

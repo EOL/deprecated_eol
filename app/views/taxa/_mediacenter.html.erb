@@ -1,3 +1,5 @@
+<% we_have_a_taxon_comment = @comment and @comment.parent_type_name == 'TaxonConcept' %>
+
 <a name="media-center" />
 <div id="page-media-center">
 	<div id="media-center" class="clearfix">
@@ -5,7 +7,7 @@
       <%# Media Center navigation (tabs) -%>
       <p class="hide"><%= "Media Center Navigation"[] %></p>
       <ul id="tab_media_center">
-          <li id="image"><a href="#media-images" title="<%= "Image"[] %>" class="active"><%= "Image"[] %><span></span></a></li>
+          <li id="image"><a href="#media-images" title="<%= "Image"[] %>"><%= "Image"[] %><span></span></a></li>
         <% if @taxon_concept.has_map %>
 					<li id="maps"><a id="maps-link" href="#media-maps" title="<%= "Maps"[] %>"><%= "Maps"[] %><span></span></a></li>
         <% end %>
@@ -23,7 +25,7 @@
       <hr />
       <%=render :partial=>'taxa/mediacenter/tab_videos' -%>
       <hr />
-      <%=render :partial=>'taxa/mediacenter/tab_comments' -%>      
+      <%=render :partial=>'taxa/mediacenter/tab_comments', :locals=> {:we_have_a_taxon_comment => we_have_a_taxon_comment} -%>      
       <hr />
     </div> <!-- /left-mc -->
 	</div> <!-- /media-center -->

@@ -8,9 +8,7 @@
       
       <%= will_paginate(current_objects, :renderer => 'RemoteLinkRenderer',
           :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id,
-          :update => body_div_name, :body_div_name => body_div_name },
-          :prev_label => 'Previous', :previous_label => 'Previous',
-          :next_label => 'Next') unless current_objects[0].nil? %>
+          :update => body_div_name, :body_div_name => body_div_name }) unless current_objects[0].nil? %>
 
       <% if @title != ''  %>
         <div>
@@ -22,9 +20,8 @@
       
       <%= will_paginate(current_objects, :renderer => 'RemoteLinkRenderer',
           :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id,
-          :update => body_div_name, :body_div_name => body_div_name },
-          :prev_label => 'Previous', :previous_label => 'Previous',
-          :next_label => 'Next') unless current_objects[0].nil? %>
+          :update => body_div_name, :body_div_name => body_div_name }
+          ) unless current_objects[0].nil? %>
 
       <small><%= info = page_entries_info current_objects; info == 'No entries found' ? '' : info %></small>
     <% end %>
@@ -39,9 +36,8 @@
   </ul><!--end comments-->
   <%= will_paginate(current_objects, :renderer => 'RemoteLinkRenderer',
       :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id,
-      :update => body_div_name, :body_div_name => body_div_name },
-      :prev_label => 'Previous', :previous_label => 'Previous',
-      :next_label => 'Next') unless current_objects[0].nil? %>
+      :update => body_div_name, :body_div_name => body_div_name }
+      ) unless current_objects[0].nil? %>
 <% end %>
 
   <div id="new-comment">

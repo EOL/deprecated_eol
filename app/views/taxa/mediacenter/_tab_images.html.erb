@@ -59,7 +59,19 @@
             </div> <!-- /large-image-tagging-button -->
 
             <div title="Comment on image" id="large-image-comment-button" class="comment-button-image">
-              <%= popup_link 'comment', data_object_comments_path(@selected_image), :alt => "Comment on image" %>
+              <%= popup_link 'comment', data_object_comments_path(@selected_image, (@selected_image_comment.nil? ? {} : {:comment_id => @selected_image_comment.id})), :alt => "Comment on image" %>
+
+              <% if @selected_image_comment %>
+                <script language="javascript" type="text/javascript">
+                  document.observe("dom:loaded", function() {
+                    EOL.popup_links["large-image-comment-button-popup-link"].scroll_to = 'comment_<%=@selected_image_comment.id%>';
+                    EOL.popup_links["large-image-comment-button-popup-link"].click();
+                    Effect.ScrollTo('large-image-comment-button');
+
+                    //jQuery('#large-image-comment-button-popup-link_popup').scrollTo(jQuery('#comment_62'), 1000)
+                  });
+                </script>
+              <% end %>
             </div> <!-- /large-image-comment-button -->
           </div> <!-- /large-image-button-popup -->
         </div> <!-- /right-image-buttons -->

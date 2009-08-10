@@ -176,7 +176,7 @@ Event.addBehavior(
     EOL.addReturnTo(this);
   }
 
-  }).merge(EOL.Tagging.Behaviors).merge(EOL.Search.Behaviors).merge(EOL.Curation.Behaviors).merge(EOL.MediaCenter.Behaviors).merge(EOL.TextObjects.Behaviors).merge(EOL.Rating.Behaviors).toObject()
+  }).merge(EOL.Tagging.Behaviors).merge(EOL.Search.Behaviors).merge(EOL.Curation.Behaviors).merge(EOL.MediaCenter.Behaviors).merge(EOL.TextObjects.Behaviors).merge(EOL.Rating.Behaviors).merge(EOL.Comments.Behaviors).toObject()
 );
 
 // Let's also register some Ajax callbacks

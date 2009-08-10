@@ -1,4 +1,4 @@
-<li><div><p<%= comment.visible? ? '' : ' class="invisible-comment"' %>><%= allow_some_html(h(comment.body)) %></p></div>
+<li><div id="comment_<%= comment.id %>"><p<%= comment.visible? ? '' : ' class="invisible-comment"' %>><%= allow_some_html(h(comment.body)) %></p></div>
   <h6>
     <% if comment.from_curator %>
   		<img src="/images/icons/link-visited/star.gif" width="18" height="18" alt="curator">

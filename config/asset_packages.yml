@@ -16,6 +16,7 @@ javascripts:
   - tagging
   - search
   - curation
+  - comments
   - rating
   - text_objects
   - media_center
@@ -34,6 +35,7 @@ javascripts:
   - jquery
   - jquery-selectboxes
   - jquery-autocomplete
+  - jquery.scrollTo-min
 
 stylesheets: 
 - base-cached: 

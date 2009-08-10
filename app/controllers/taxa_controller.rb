@@ -513,6 +513,21 @@ private
     end
   end
 
+  def set_image_comment_permalink_data
+    if params[:image_id].nil? && params[:image_comment_id]
+      comment_id = params[:image_comment_id].to_i
+
+      comment = Comment.find(comment_id)
+
+      if comment.parent_type == 'DataObject'
+        data_object = DataObject.find(comment.parent_id)
+        if data_object.taxon_concepts.include?(@taxon_concept) && data_object.image?
+          @selected_image_comment = comment
+        end
+      end
+    end
+  end
+
   # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
   # wrong.  We really need some classes or helpers to take care of these details.
   def set_taxa_page_instance_vars
@@ -530,6 +545,8 @@ private
     set_image_permalink_data
 
     set_text_permalink_data
+
+    set_image_comment_permalink_data
 
     @video_collection = videos_to_show
     

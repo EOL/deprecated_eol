@@ -3,22 +3,7 @@
   <div id="taxaCommentsWrap" style="display: none;"></div>
 <% if(we_have_a_taxon_comment) %>
   <script type="text/javascript">
-    window.onload = function() {
-      EOL.load_taxon_comments_tab($H({page_to_comment_id: <%= @comment.id %>}));
-      $('media-images').hide();
-      if($('image').childNodes[0].className='active'){
-        $('image').childNodes[0].removeClassName('active');
-      } 
-      $('taxa-comments').childNodes[0].addClassName('active');
-    }
-    var id_arrays = $$('#tab_media_center li').pluck('id');
-    function hide_taxa_comment(element){
-      $(element).childNodes[0].observe('click', function()
-      {
-        $('media-taxa-comments').hide();
-      })
-    }
-    id_arrays.forEach(hide_taxa_comment);
+    taxon_comments_permalink(<%= @comment.id %>);
   </script>
 <% end %>
 </div>

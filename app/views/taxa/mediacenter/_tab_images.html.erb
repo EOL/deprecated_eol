@@ -59,7 +59,7 @@
             </div> <!-- /large-image-tagging-button -->
 
             <div title="Comment on image" id="large-image-comment-button" class="comment-button-image">
-              <%= popup_link 'comment', data_object_comments_path(@selected_image, (@selected_image_comment.nil? ? {} : {:comment_id => @selected_image_comment.id})), :alt => "Comment on image" %>
+              <%= popup_link 'comment', data_object_comments_path(@selected_image, (@selected_image_comment.nil? ? {} : {:comment_id => @selected_image_comment.id, :page => @comment_page})), :alt => "Comment on image" %>
 
               <% if @selected_image_comment %>
                 <script language="javascript" type="text/javascript">

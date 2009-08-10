@@ -546,10 +546,11 @@ private
 
   def set_comment_permalink_data
     begin
-      comment_id = params[:comment_id].to_i
-      @comment = Comment.find(comment_id) if comment_id != 0
-      if @comment.parent_id != @taxon_concept.id || @comment.parent_type != 'TaxonConcept'
-        raise 'Comment not for this species'
+      if params[:comment_id]
+        @comment = Comment.find(params[:comment_id].to_i)
+        if @comment.parent_id != @taxon_concept.id || @comment.parent_type != 'TaxonConcept'
+          raise 'Comment not for this species'
+        end
       end
     rescue
       render_404

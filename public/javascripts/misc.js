@@ -389,3 +389,22 @@ function eol_log_data_objects_for_taxon_concept( taxon_concept_id, data_object_i
     asynchronous: true 
   });	
 }
+
+function taxon_comments_permalink(comment_id) {
+  window.onload = function() {
+    EOL.load_taxon_comments_tab({page_to_comment_id: comment_id});
+    $('media-images').hide();
+    if($('image').childNodes[0].className='active'){
+      $('image').childNodes[0].removeClassName('active');
+    } 
+    $('taxa-comments').childNodes[0].addClassName('active');
+  }
+  var id_arrays = $$('#tab_media_center li').pluck('id');
+  function hide_taxa_comment(element){
+    $(element).childNodes[0].observe('click', function()
+    {
+      $('media-taxa-comments').hide();
+    })
+  }
+  id_arrays.forEach(hide_taxa_comment);
+}

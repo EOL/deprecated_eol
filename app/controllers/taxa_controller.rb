@@ -520,8 +520,12 @@ private
 
     @images = @taxon_concept.images
     
-    comment_id = params[:comment_id].to_i
-    @comment = Comment.find(comment_id) if comment_id != 0
+    begin
+      comment_id = params[:comment_id].to_i
+      @comment = Comment.find(comment_id) if comment_id != 0
+    rescue 
+      render_404
+    end
 
     set_image_permalink_data
 

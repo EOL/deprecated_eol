@@ -21,10 +21,11 @@
 EOL.popups = {};
 
 EOL.Popup = Class.create({
-  initialize: function(href, element_to_insert_after){
+  initialize: function(href, element_to_insert_after, scroll_to){
     default_options = {is_static: false, additional_classes: ''};
     options = Object.extend(default_options, arguments[2]);
     this.is_static = options.is_static || false;
+    this.scroll_to = scroll_to;
     this.classes = options.additional_classes ? 'popup ' + options.additional_classes : 'popup';
     this.href = href;
     if(options.insert_after != null) {
@@ -50,7 +51,7 @@ EOL.Popup = Class.create({
     
     //   a.close-button
     this.close_button = new Element('a', { 'class': 'close-button' });
-    Event.observe(this.close_button, 'click', function(e){ this.toggle(); }.bind(this));
+    Event.observe(this.close_button, 'click', function(e){ console.log(this);this.toggle(); }.bind(this));
     this.element.insert(this.close_button);
     //   div #name_content.popup-content
     if(this.is_static) {
@@ -91,7 +92,16 @@ EOL.Popup = Class.create({
   },
   reload: function() {
     if(!this.is_static) {
-      new Ajax.Updater( this.content_id, this.href, { asynchronous: true, method: 'get', onComplete: EOL.reload_behaviors });
+      scroll_to = this.scroll_to
+      new Ajax.Updater(
+        this.content_id,
+        this.href,
+        {
+          asynchronous: true,
+          method: 'get',
+          onComplete: function() {EOL.PopupHelpers.after_load(scroll_to)}.bind(scroll_to)
+        }
+      );
     }
   },
   load: function() {
@@ -145,7 +155,7 @@ EOL.PopupLink = Class.create({
     if (e) e.stop();
     this.href = this.link.href; // reset, just incase the href has been changed
     if (this.popup == null || this.popup.element == null) {
-      this.popup = new Popup(this.href, this.link, this.options);
+      this.popup = new Popup(this.href, this.link, this.scroll_to, this.options);
     } else if (this.href != this.popup.href) {
       this.popup.href = this.href;
       this.popup.reload();
@@ -154,3 +164,9 @@ EOL.PopupLink = Class.create({
   }
 });
 var PopupLink = EOL.PopupLink; // alias
+
+EOL.PopupHelpers = {}
+EOL.PopupHelpers.after_load = function(scroll_to) {
+  EOL.reload_behaviors();
+  jQuery('#large-image-comment-button-popup-link_popup').scrollTo(jQuery('#'+scroll_to), 1000)
+}

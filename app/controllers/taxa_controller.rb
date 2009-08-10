@@ -522,7 +522,23 @@ private
       if comment.parent_type == 'DataObject'
         data_object = DataObject.find(comment.parent_id)
         if data_object.taxon_concepts.include?(@taxon_concept) && data_object.image?
+          params[:image_id] = data_object.id
+
+          set_image_permalink_data
+
           @selected_image_comment = comment
+
+          all_comments = Comment.find_all_by_parent_id_and_parent_type(data_object.id,'DataObject')
+
+          comment_index = nil
+          all_comments.each_with_index do |c, i|
+            if c == comment
+              comment_index = i
+              break
+            end
+          end
+
+          @comment_page = ((comment_index).to_f / 10).floor + 1
         end
       end
     end

@@ -544,19 +544,26 @@ private
     end
   end
 
+  def set_comment_permalink_data
+    begin
+      comment_id = params[:comment_id].to_i
+      @comment = Comment.find(comment_id) if comment_id != 0
+      if @comment.parent_id != @taxon_concept.id || @comment.parent_type != 'TaxonConcept'
+        raise 'Comment not for this species'
+      end
+    rescue
+      render_404
+    end
+  end
+
   # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
   # wrong.  We really need some classes or helpers to take care of these details.
   def set_taxa_page_instance_vars
     @taxon_concept.current_agent = current_agent unless current_agent.nil?
 
     @images = @taxon_concept.images
-    
-    begin
-      comment_id = params[:comment_id].to_i
-      @comment = Comment.find(comment_id) if comment_id != 0
-    rescue 
-      render_404
-    end
+
+    set_comment_permalink_data
 
     set_image_permalink_data
 

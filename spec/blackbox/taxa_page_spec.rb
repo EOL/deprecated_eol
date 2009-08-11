@@ -257,5 +257,12 @@ describe 'Taxa page (HTML)' do
 
   #text permalinks
   it 'should switch selected TOC when text_id is specified and not on the default selected TOC'
+  it 'should current_user.vetted to false when permalink with text_id is specified for a text object which is unknown or untrusted'
+  it 'should return 404 page when loading permalink for text which doesn\'t exist in the database'
+  it 'should return 404 page when loading permalink for text which isn\'t associated with species page'
+  it 'should return 404 page when loading permalink for text which is hidden when the user isn\'t a curator'
+  it 'should load hidden text via permalink when user is a curator of the page'
+  it 'should return 404 page when loading permalink for text which has been removed and user isn\'t an admin'
+  it 'should load removed text via permalink when user is an admin'
 end
 

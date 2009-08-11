@@ -497,9 +497,9 @@ private
     if(params[:text_id])
       text_id = params[:text_id].to_i
 
-      @selected_text = DataObject.find(text_id)
+      @selected_text = DataObject.find_by_id(text_id)
 
-      if @selected_text.taxon_concepts.include?(@taxon_concept)
+      if @selected_text && @selected_text.taxon_concepts.include?(@taxon_concept) && (@selected_text.visible? || (@selected_text.invisible? && current_user.can_curate?(@selected_text)) || (@selected_text.inappropriate? && current_user.is_admin?))
         selected_toc = @selected_text.toc_items[0]
 
         params[:category_id] = selected_toc.id
@@ -510,6 +510,8 @@ private
           current_user.vetted = false
           current_user.save if logged_in?
         end
+      else
+        render_404
       end
     end
   end

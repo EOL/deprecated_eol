@@ -16,11 +16,10 @@ class User < ActiveRecord::Base
   
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.nil? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.nil? }
-  #validates_presence_of :curator_hierarchy_entry, :if => Proc.new { |obj| !obj.curator_verdict_at.nil? }
-  #validates_presence_of :credentials, :allow_blank => true #:allow_nil => false, :allow_blank => true #:if => Proc.new {|obj| obj.credentials.nil?}
   before_save {|obj| obj.credentials = '' if obj.credentials.nil?}   # TODO Move this into the check_curator_status before_save method
 
   validates_presence_of   :username, :if => :not_openid?
+
   validates_length_of     :username, :within => 4..32, :if => :not_openid?
   validates_length_of     :entered_password, :within => 4..16, :if => :not_openid?, :on => :create
   
@@ -38,12 +37,21 @@ class User < ActiveRecord::Base
   has_many :last_curated_dates
   has_many :actions_histories
   
-  attr_accessor :entered_password ,:entered_password_confirmation
+  attr_accessor :entered_password,:entered_password_confirmation,:curator_request
   attr_reader :full_name, :is_admin, :is_moderator
-  attr_accessor :curator_request
   
   def validate
+    
      errors.add_to_base "Secondary hierarchy must be different than default" if !secondary_hierarchy_id.nil? && secondary_hierarchy_id == default_hierarchy_id
+     
+     if EOLConvert.to_boolean(curator_request) && credentials.blank?
+       errors.add_to_base "You must indicate your credentials and area of expertise to request curator privileges."
+    end
+ 
+    if !credentials.blank? && (curator_scope.blank? && curator_hierarchy_entry_id.blank?)
+       errors.add_to_base "You must either select a clade or indicate your scope to request curator privileges."
+    end
+    
   end
   
   def full_name
@@ -283,11 +291,11 @@ class User < ActiveRecord::Base
   def not_openid?      
     identity_url.blank? || identity_url.nil?
   end
-  
+
   def openid?      
     !not_openid?
   end
-  
+      
   def is_moderator?
     @is_moderator ||= self.roles.include?(Role.moderator)
   end

@@ -480,7 +480,8 @@ private
         selected_image_index = find_selected_image_index(@images,image_id)
       end
       if selected_image_index.nil?
-        selected_image_index = 0
+        render_404
+        return
       end
       @selected_image = @images[selected_image_index]
 

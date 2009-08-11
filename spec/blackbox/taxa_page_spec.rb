@@ -219,14 +219,6 @@ describe 'Taxa page (HTML)' do
       login_as @user_with_ncbi_hierarchy
       request("/pages/#{@common_tc.id}").should include_text("recognized by #{@ncbi.label}")
     end
-
-    it 'should load image as main image when image_id is specified'
-
-    it 'should switch current_user.vetted to false when image_id is specified and is a unknown or untrusted image'
-
-    it 'should paginate to the correct page when image_id is specified and does not exist on the first page of thumbnails'
-
-    it 'should switch selected TOC when text_id is specified and not on the default selected TOC'
   end
 
   # Red background/icon on untrusted videos
@@ -252,5 +244,18 @@ describe 'Taxa page (HTML)' do
   it 'should have only comments tab active (blue dot)'
   it 'should not show comment when another tab chosen'
 
+  #image permalinks
+  it 'should load image as main image when image_id is specified'
+  it 'should switch current_user.vetted to false when image_id is specified and is a unknown or untrusted image'
+  it 'should paginate to the correct page when image_id is specified and does not exist on the first page of thumbnails'
+  it 'should return 404 page when permalink image_id is specified that doesn\'t exist in the database'
+  it 'should return 404 page when permalink image_id is specified that isn\'t associated with species page'
+  it 'should return 404 page when permalink image_id is specified for an image which is hidden and user which isn\'t a curator'
+  it 'should load hidden image via permalink when user is a curator of the page'
+  it 'should return 404 page when permalink image_id is specified for an image which has been removed'
+  it 'should load removed image via permalink when user is an admin'
+
+  #text permalinks
+  it 'should switch selected TOC when text_id is specified and not on the default selected TOC'
 end
 

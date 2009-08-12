@@ -520,9 +520,9 @@ private
     if params[:image_id].nil? && params[:image_comment_id]
       comment_id = params[:image_comment_id].to_i
 
-      comment = Comment.find(comment_id)
+      comment = Comment.find_by_id(comment_id)
 
-      if comment.parent_type == 'DataObject'
+      if comment && comment.parent_type == 'DataObject'
         data_object = DataObject.find(comment.parent_id)
         if data_object.taxon_concepts.include?(@taxon_concept) && data_object.image?
           params[:image_id] = data_object.id
@@ -542,7 +542,11 @@ private
           end
 
           @comment_page = ((comment_index).to_f / 10).floor + 1
+        else
+          render_404
         end
+      else
+        render_404
       end
     end
   end

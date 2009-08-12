@@ -4,7 +4,7 @@ class NavigationController < ApplicationController
 
   def show_tree_view
     # set the users default hierarchy if they haven't done so already
-    current_user.default_hierarchy_id = Hierarchy.default if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
+    current_user.default_hierarchy_id = Hierarchy.default.id if current_user.default_hierarchy_id.nil? || !Hierarchy.exists?(current_user.default_hierarchy_id)
     @session_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
     @session_secondary_hierarchy = current_user.secondary_hierarchy_id.nil? ? nil : Hierarchy.find(current_user.secondary_hierarchy_id)
     

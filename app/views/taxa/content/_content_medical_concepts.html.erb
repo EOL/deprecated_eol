@@ -1,8 +1,8 @@
 <div class="text_object" id="mesh_terms">These terms are derived by searching the biomedical literature database,
-<%= external_link_to 'PubMed', :url => 'http://pubmed.gov' %> for the name "<%= @taxon_concept.quick_scientific_name %>
-The results are analyzed with the <%= external_link_to 'LigerCat', :url => 'http://ligercat.ubio.org' %> tool, which
-builds the cloud from the most relevant Medical Subject Headings (<%= external_link_to 'MeSH'
-:url => 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=mesh' %>). Each term's relative size indicates how many times it
+<%= external_link_to 'PubMed', 'http://pubmed.gov' %> for the name "<%= @taxon_concept.quick_scientific_name %>
+The results are analyzed with the <%= external_link_to 'LigerCat', 'http://ligercat.ubio.org' %> tool, which
+builds the cloud from the most relevant Medical Subject Headings (<%= external_link_to 'MeSH',
+'http://www.ncbi.nlm.nih.gov/sites/entrez?db=mesh' %>). Each term's relative size indicates how many times it
 appears in the Pubmed search results. Click on a term to access the full LigerCat cloud, with live PubMed search
 capabilities.
 
@@ -11,15 +11,15 @@ capabilities.
     <%= render :partial => '/shared/embed_external_page',
                :locals  => {:height => '100%',
                             :width  => '100%',
-                            :url    => mapping.url} %>
+                            :url    => "#{mapping.url}.cloud"} %>
 
   <% end %>
   
   <div class="divider"></div>
   <div class="content-attribution-area">
     <div class="attribution-header text-area-header"><%= "Source and Additional Information"[] %></div>
-    <span class="source">Terms provided by <%= external_link_to 'PubMed', :url => 'http://www.ncbi.nlm.nih.gov/pubmed/'
-      %>. Clouds provided by the MBL <%= external_link_to 'Biology of Aging project', :url=>'http://aging.ubio.org'
+    <span class="source">Terms provided by <%= external_link_to 'PubMed', 'http://www.ncbi.nlm.nih.gov/pubmed/'
+      %>. Clouds provided by the MBL <%= external_link_to 'Biology of Aging project', 'http://aging.ubio.org'
       %>.</span>
   </div>
 </div>

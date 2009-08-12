@@ -855,6 +855,22 @@ ul#global-navigation {
 			left: 486px;
 			margin-left: 6px; 
 		}
+		
+		#unknown-video-warning-box {
+			padding:2px;
+			border:1px solid #FFCC00;
+			border-left: 6px solid #FFCC00;
+			padding-left:5px;
+			text-align: left;
+			background-color:#FFFF99;
+			margin-bottom:3px;
+			width: 190px;
+			margin-bottom: 10px;
+			/* position: absolute; */
+			top: 38px;
+			left: 486px;
+			margin-left: 6px; 
+		}
 				
 		.untrusted-background-text {
 			border-top: 1px solid #FF0000;
@@ -865,7 +881,7 @@ ul#global-navigation {
 			margin-bottom: 2em;	
 		}
 
-        .unknown-background-text {
+    .unknown-background-text {
 			border-top: 1px solid rgb(255, 204, 0);
 			border-bottom: medium none;
 			padding-top: 10px;
@@ -898,6 +914,10 @@ ul#global-navigation {
 		
     /*we don't use that*/
 		.unvetted-background-color {
+			background-color: #FFFF99 !important;			
+		}
+		
+		.unknown-background-color {
 			background-color: #FFFF99 !important;			
 		}
 		

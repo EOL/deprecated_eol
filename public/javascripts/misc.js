@@ -237,11 +237,21 @@ function eol_update_video(params) {
             
     $('video-notes').removeClassName('untrusted-background-text');         
     $('video-player').removeClassName('untrusted-background-color');         
-    $('video_attributions').removeClassName('untrusted');         
+    $('video_attributions').removeClassName('untrusted');     
+       
+    $('video-notes').removeClassName('unknown-background-text');         
+    $('video-player').removeClassName('unknown-background-color');         
+    $('video_attributions').removeClassName('unknown');
+     
     if (params.video_trusted == EOL.Curation.UNTRUSTED_ID){
       $('video-notes').addClassName('untrusted-background-text');
       $('video-player').addClassName('untrusted-background-color');         
       $('video_attributions').addClassName('untrusted');         
+    }
+    else if (params.video_trusted == EOL.Curation.UNKNOWN_ID){
+      $('video-notes').addClassName('unknown-background-text');
+      $('video-player').addClassName('unknown-background-color');         
+      $('video_attributions').addClassName('unknown');         
     }
         
     license_info='COPYRIGHT: ';

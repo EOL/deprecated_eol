@@ -140,6 +140,8 @@ EOL.load_taxon_comments_tab = function(extra_params) {
                         $('taxaCommentsWrap').style.display = 'none';
                       }
                     },
-                    onSuccess:function() {EOL.Effect.disappear('loading-comments');EOL.Effect.appear('taxaCommentsWrap');}
+                    onSuccess:function() {EOL.Effect.disappear('loading-comments');
+                      EOL.Effect.appear('taxaCommentsWrap');}
                    });
 }
+

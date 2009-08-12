@@ -141,6 +141,10 @@ li#large-image-attribution-button.untrusted {
 a#video_attributions.untrusted {
   background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;display:block;
   }
+  
+a#video_attributions.unknown {
+  background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px 0px;display:block;
+  }
  
 li#large-image-attribution-button.untrusted:hover {
  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px -32px;display:block;

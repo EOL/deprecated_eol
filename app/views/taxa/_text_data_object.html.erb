@@ -81,7 +81,34 @@
     <% end %>
     <% if !@preview %>
       <div class="comment_button comment-button-image">
-        <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', data_object_comments_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
+        <% if(@selected_text_comment) %>
+          <script language="javascript" type="text/javascript">
+
+            document.observe("dom:loaded", function(e) {
+              data_object_id  = <%= content_item.id %>;
+              text_comment_id = <%= @selected_text_comment.id %>;              
+              comment_page    = <%= @comment_page %>;              
+              // window.alert('/data_objects/'+data_object_id+'/comments');
+              // $('text_buttons_<%=content_item.id%>').scrollTo();
+                textComments = "text-comments-" + data_object_id;
+                textCommentsWrapper = "text-comments-wrapper-" + data_object_id;
+                if ($(textCommentsWrapper).style.display == 'none') {
+                  new Ajax.Updater(textComments, '/data_objects/'+data_object_id+'/comments',
+                                   {asynchronous:true, evalScripts:true, method:'get',
+                                    parameters: { body_div_name: textComments, comment_id: text_comment_id, page: comment_page },
+                                    onLoading: Effect.BlindDown(textCommentsWrapper)
+                                    });
+                                    
+                } else {
+                  Effect.DropOut(textCommentsWrapper);
+                }
+                // $('comment_'+text_comment_id).scrollTo();
+                e.stop();
+            });
+          </script>
+        <% else %>
+          <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', data_object_comments_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
+        <% end %>
       </div>
     <% end %>
   </div>

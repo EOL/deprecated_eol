@@ -547,6 +547,46 @@ private
     end
   end
 
+
+  def set_text_comment_permalink_data
+    if params[:text_id].nil? && params[:text_comment_id]
+      begin
+        comment_id = params[:text_comment_id].to_i
+
+        comment = Comment.find(comment_id)
+
+        if comment.parent_type == 'DataObject'
+          data_object = DataObject.find(comment.parent_id)
+          if data_object.taxon_concepts.include?(@taxon_concept) && data_object.text?
+            params[:text_id] = data_object.id
+
+            set_text_permalink_data
+
+            @selected_text_comment = comment
+
+            all_comments = Comment.find_all_by_parent_id_and_parent_type(data_object.id, 'DataObject')
+
+            comment_index = nil
+            all_comments.each_with_index do |c, i|
+              if c == comment
+                comment_index = i
+                break
+              end
+            end
+
+            @comment_page = ((comment_index).to_f / 10).floor + 1
+          else
+            render_404
+          end
+        else
+          render_404        
+        end
+      rescue
+        render_404
+      end
+    end
+  end
+
   def set_comment_permalink_data
     begin
       if params[:comment_id]
@@ -574,6 +614,8 @@ private
     set_text_permalink_data
 
     set_image_comment_permalink_data
+    
+    set_text_comment_permalink_data
 
     @video_collection = videos_to_show
     

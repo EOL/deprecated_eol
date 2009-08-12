@@ -106,6 +106,24 @@ depth_now      = Hierarchy.default.hierarchy_entries.length
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => ['Tiger moth'],
                          :depth => depth_now, :images => :testing, :event => event)
 
+#TODO: omg this is HORRIBLE!
+u = User.gen
+u.vetted = false
+tc.current_user = u
+tc.images[2].comments[0].body = 'First comment'
+tc.images[2].comments[0].save!
+tc.images[2].comment(u, 'Second comment')
+tc.images[2].comment(u, 'Third comment')
+tc.images[2].comment(u, 'Forth comment')
+tc.images[2].comment(u, 'Fifth comment')
+tc.images[2].comment(u, 'Sixth comment')
+tc.images[2].comment(u, 'Seventh comment')
+tc.images[2].comment(u, 'Eighth comment')
+tc.images[2].comment(u, 'Nineth comment')
+tc.images[2].comment(u, 'Tenth comment')
+tc.images[2].comment(u, 'Eleventh comment')
+tc.images[2].comment(u, 'Twelveth comment')
+
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => ['Tiger lilly'],
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],

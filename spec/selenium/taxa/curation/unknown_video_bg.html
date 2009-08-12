@@ -4,12 +4,12 @@
 <head profile="http://selenium-ide.openqa.org/profiles/test-case">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <link rel="selenium.base" href="" />
-<title>Red background/icons on untrusted videos</title>
+<title>Yellow background/icons on unknown videos</title>
 </head>
 <body>
 <table cellpadding="1" cellspacing="1" border="1">
 <thead>
-<tr><td rowspan="1" colspan="3">Red background/icons on untrusted videos</td></tr>
+<tr><td rowspan="1" colspan="3">Yellow background/icons on unknown videos</td></tr>
 </thead><tbody>
 <tr>
 	<td>setTimeout</td>
@@ -69,30 +69,30 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>//*[@id="untrusted-video-warning-box"]</td>
+	<td>//*[@id="unknown-video-warning-box"]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>//div[@class="untrusted-background-color"]</td>
+	<td>//div[@class="unknown-background-color"]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@class="untrusted-background-color"]/li/a</td>
+	<td>//div[@class="unknown-background-color"]/li/a</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>//*[@id="video-player"][@class="untrusted-background-color"]</td>
+	<td>//*[@id="video-player"][@class="unknown-background-color"]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>//*[@id="video_attributions"][@class="popup-link attribution-icon untrusted"]</td>
+	<td>//*[@id="video_attributions"][@class="popup-link attribution-icon unknown"]</td>
 	<td></td>
 </tr>
-<!-- check red background disappear -->
+<!-- check yellow background disappear -->
 <tr>
 	<td>click</td>
 	<td>//*[@id="video-collection"]/ul/div/li/a</td>
@@ -100,12 +100,12 @@
 </tr>
 <tr>
 	<td>verifyElementNotPresent</td>
-	<td>//*[@id="video-player"][@class="untrusted-background-color"]</td>
+	<td>//*[@id="video-player"][@class="unknown-background-color"]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementNotPresent</td>
-	<td>//*[@id="video_attributions"][@class="popup-link attribution-icon untrusted"]</td>
+	<td>//*[@id="video_attributions"][@class="popup-link attribution-icon unknown"]</td>
 	<td></td>
 </tr>
 <!-- logout -->

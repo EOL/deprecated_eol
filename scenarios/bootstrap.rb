@@ -127,7 +127,7 @@ build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names 
                     
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
-                    :depth => depth_now, :images => [{}, {:vetted => Vetted.untrusted}, {:vetted => Vetted.unknown}], :flash => [{}, {:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [{}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}, {}],
+                    :depth => depth_now, :images => [{}, {:vetted => Vetted.untrusted}, {:vetted => Vetted.unknown}], :flash => [{}, {:vetted => Vetted.unknown}], :youtube => [{:vetted => Vetted.unknown}, {:vetted => Vetted.untrusted}], :comments => [],
                     :bhl => [], :event => event)
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:

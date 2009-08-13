@@ -795,7 +795,7 @@ Factory.define :taxon do |t|
 end
 
 Factory.define :taxon_concept do |tc|
-  tc.vetted         { Vetted.trusted || Vetted.create(:label => 'Tusted') }
+  tc.vetted         { Vetted.trusted || Vetted.create(:label => 'Trusted') }
   tc.published      1
   tc.supercedure_id 0
 end

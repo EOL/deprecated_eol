@@ -142,11 +142,30 @@ build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names 
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
                     :depth => depth_now, :images => [{}, {:vetted => Vetted.untrusted}, {:vetted => Vetted.unknown}], :flash => [{:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [],
                     :bhl => [], :event => event)
-                    
+                   
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
                     :depth => depth_now, :images => [{}, {:vetted => Vetted.untrusted}, {:vetted => Vetted.unknown}], :flash => [{}, {:vetted => Vetted.unknown}], :youtube => [{:vetted => Vetted.unknown}, {:vetted => Vetted.untrusted}], :comments => [],
                     :bhl => [], :event => event)
+                    
+#32
+user = User.gen
+overv = TocItem.find_by_label('Overview')
+desc = TocItem.find_by_label('Description')
+tc = build_taxon_concept(:toc => [{:toc_item => overv}, {:toc_item => desc}], :comments => [{}])
+description_dato = tc.content_by_category(desc)[:data_objects].first
+description_dato.comment(user, 'First comment')
+description_dato.comment(user, 'Second comment')  
+description_dato.comment(user, 'Third comment')
+description_dato.comment(user, 'Forth comment')
+description_dato.comment(user, 'Fifth comment')
+description_dato.comment(user, 'Sixth comment')
+description_dato.comment(user, 'Seventh comment')
+description_dato.comment(user, 'Eighth comment')
+description_dato.comment(user, 'Ninth comment')
+description_dato.comment(user, 'Tenth comment')
+description_dato.comment(user, 'Eleventh comment')
+description_dato.comment(user, 'Twelfth comment')
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
        # Give it a new name:

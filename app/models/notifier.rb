@@ -92,6 +92,7 @@ class Notifier < ActionMailer::Base
   def user_message(name,email,message)
     subject     "A message from the Encyclopedia of Life"
     recipients  email
+    cc          "affiliate@eol.org"
     from        @@from
     body        :name => name, :message => message           
   end

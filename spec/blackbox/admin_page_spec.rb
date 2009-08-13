@@ -52,3 +52,12 @@ describe 'Content Partner Pages' do
   
 end
 
+describe 'Administrator Web Users Pages' do
+  
+  Scenario.load :foundation
+  
+  describe 'user/edit' do
+   it 'should have "Cc: affiliate@eol.org" in a head of an email from /administrator/user/edit/# page'
+  end
+  
+end

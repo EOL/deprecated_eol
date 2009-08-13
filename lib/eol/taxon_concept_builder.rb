@@ -330,7 +330,7 @@ class EOL
       toc = [{:toc_item => TocItem.overview, :description => "This is an overview of the <b>#{@canon}</b> hierarchy entry."},
                        {:toc_item => TocItem.find_by_label('Description'), :description => "This is an description of the <b>#{@canon}</b> hierarchy entry."}]
       # Add more toc items:
-      (rand(4)+1).times do
+      (2).times do
         toc << {} # Default values are applied below.
       end
       return toc

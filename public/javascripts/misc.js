@@ -418,3 +418,25 @@ function taxon_comments_permalink(comment_id) {
   }
   id_arrays.forEach(hide_taxa_comment);
 }
+
+function text_comments_permalink(data_object_id, text_comment_id, comment_page) {
+  document.observe("dom:loaded", function(e) {
+    textComments        = "text-comments-" + data_object_id;
+    textCommentsWrapper = "text-comments-wrapper-" + data_object_id;
+    if ($(textCommentsWrapper).style.display == 'none') {
+      new Ajax.Updater(textComments, '/data_objects/'+data_object_id+'/comments',
+                       {asynchronous:true, evalScripts:true, method:'get',
+                        parameters: { body_div_name: textComments,
+                          comment_id: text_comment_id, 
+                          page: comment_page},
+                        onLoading: Effect.BlindDown(textCommentsWrapper),
+                        onComplete: function() {
+                          $('comment_'+text_comment_id).scrollTo();
+                         }
+                        });
+      } else {
+        Effect.DropOut(textCommentsWrapper);
+      }
+      e.stop();
+  });
+}

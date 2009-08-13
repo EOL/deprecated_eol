@@ -531,17 +531,7 @@ private
 
           @selected_image_comment = comment
 
-          all_comments = Comment.find_all_by_parent_id_and_parent_type(data_object.id,'DataObject')
-
-          comment_index = nil
-          all_comments.each_with_index do |c, i|
-            if c == comment
-              comment_index = i
-              break
-            end
-          end
-
-          @comment_page = ((comment_index).to_f / 10).floor + 1
+          set_comment_permalink_pagination(data_object.id, comment)
         else
           render_404
         end
@@ -568,17 +558,7 @@ private
 
             @selected_text_comment = comment
 
-            all_comments = Comment.find_all_by_parent_id_and_parent_type(data_object.id, 'DataObject')
-
-            comment_index = nil
-            all_comments.each_with_index do |c, i|
-              if c == comment
-                comment_index = i
-                break
-              end
-            end
-
-            @comment_page = ((comment_index).to_f / 10).floor + 1
+            set_comment_permalink_pagination(data_object.id, comment)
           else
             render_404
           end
@@ -589,6 +569,21 @@ private
         render_404
       end
     end
+  end
+  
+  def set_comment_permalink_pagination(data_object_id, comment)
+
+    all_comments = Comment.find_all_by_parent_id_and_parent_type(data_object_id, 'DataObject')
+
+    comment_index = nil
+    all_comments.each_with_index do |c, i|
+      if c == comment
+        comment_index = i
+        break
+      end
+    end
+
+    @comment_page = ((comment_index).to_f / 10).floor + 1
   end
 
   def set_comment_permalink_data

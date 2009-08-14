@@ -73,17 +73,18 @@ class DataObject < SpeciesSchemaModel
       :visibility_id => Visibility.visible.id #not sure if this is right either
     }
 
-    dato.published = false
-    dato.save!
-
     d = DataObject.new(do_params)
     d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
-    d.save!
+    if (ds = d.save!)
+      dato.published = false
+      dato.save!
+    end        
     d.curator_activity_flag(user, all_params[:taxon_concept_id])
     udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!
     d.new_actions_histories(user, udo, 'users_submitted_text', 'update')
     d
+
   end
 
   def self.preview_user_text(all_params, user)

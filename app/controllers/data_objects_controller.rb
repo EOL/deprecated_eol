@@ -49,6 +49,7 @@ class DataObjectsController < ApplicationController
 
   def edit
     set_text_data_object_options
+    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
     @selected_language = [@data_object.language.label,@data_object.language.id]
     render :partial => 'edit_text'
   end

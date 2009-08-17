@@ -36,6 +36,7 @@ class DataObjectsController < ApplicationController
   end
 
   def update
+    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
     @old_data_object_id = params[:id]
     @data_object = DataObject.update_user_text(params, current_user)
     @curator = current_user.can_curate?(TaxonConcept.find(params[:taxon_concept_id]))

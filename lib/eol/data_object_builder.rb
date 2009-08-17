@@ -98,11 +98,15 @@ class EOL
 
     def build_top_image
       if @dato.published
-        TopImage.gen :data_object => @dato, :hierarchy_entry => @taxon.hierarchy_entry
+        @taxon.hierarchy_entry.ancestors.each do |he|
+          TopImage.gen :data_object => @dato, :hierarchy_entry => he
+        end
       else
-        TopUnpublishedImage.gen :data_object => @dato, :hierarchy_entry => @he
+        @taxon.hierarchy_entry.ancestors.each do |he|
+          TopUnpublishedImage.gen :data_object => @dato, :hierarchy_entry => he
+        end
       end
-    end
+    end      
 
     def dynamic_attributes(desc)
       options =

@@ -75,10 +75,10 @@ class DataObject < SpeciesSchemaModel
 
     d = DataObject.new(do_params)
     d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
-    if (ds = d.save!)
-      dato.published = false
-      dato.save!
-    end        
+    d.save!
+    dato.published = false
+    dato.save!
+    # TODO - go through the old dato comments and move them to the new dato.
     d.curator_activity_flag(user, all_params[:taxon_concept_id])
     udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!

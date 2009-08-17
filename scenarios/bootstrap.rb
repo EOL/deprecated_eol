@@ -337,7 +337,11 @@ TaxonConcept.all.each do |tc|
   end
 end
 
-RandomHierarchyImage.delete_all
+RandomHierarchyImage.all.each do |rhi|
+  d = DataObject.find(rhi.data_object_id)
+  d.destroy
+  rhi.destroy
+end
 HierarchyEntry.all.each do |he|
   RandomHierarchyImage.gen(:hierarchy => he.hierarchy, :taxon_concept => he.taxon_concept, :hierarchy_entry => he, :data_object => he.taxon_concept.images[0]) if !he.taxon_concept.images[0].nil?
 end

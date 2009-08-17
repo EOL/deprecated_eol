@@ -175,7 +175,7 @@ describe DataObject do
 
       params = {
         :taxon_concept_id => taxon_concept.id,
-        :data_objects_toc_category => { :toc_id => toc_item.id},
+        :data_objects_toc_category => {:toc_id => toc_item.id},
         :id => d.id
       }
 
@@ -187,14 +187,42 @@ describe DataObject do
       }
 
       params[:data_object] = do_params
-
-      new_d = DataObject.update_user_text(params,u)
+      new_d = DataObject.update_user_text(params, u)
+            
       new_d.guid.should eql(d.guid)
       DataObject.find_all_by_guid(d.guid).length.should eql(2)
       new_d.object_title.should eql(d.object_title)
       new_d.description.should eql(d.description)
       new_d.license_id.should eql(d.license_id)
       new_d.language_id.should eql(d.language_id)
+    end
+    
+    it 'should do old text unpublished only if new one saved' do
+      @taxon_concept = TaxonConcept.last || build_taxon_concept
+      @user          = @taxon_concept.acting_curators.to_a.last
+      @data_object   = @taxon_concept.add_user_submitted_text(:user => @user)
+      toc_item = TocItem.gen({:label => 'Overview'})
+      params = {
+        :taxon_concept_id => @taxon_concept.id,
+        :data_objects_toc_category => {:toc_id => toc_item.id},
+        :id => @data_object.id
+      }
+      do_params = {
+        :license_id   => License.find_by_title('public domain').id,
+        :language_id  => Language.find_by_label('English').id,
+        :description  => 'a new text object',
+        :object_title => 'new title'
+      }
+      params[:data_object] = do_params
+      
+      new_dato = mock_model(DataObject)
+      new_dato.should_receive(:save!).and_raise("Some error")
+      new_dato.stub!(:toc_items).and_return([])
+      DataObject.should_receive(:new).and_return(new_dato)
+      
+      lambda { DataObject.update_user_text(params, @user) }.should raise_error
+      @data_object.published.should be_true
+      
     end
 
     it 'should be trusted when created by curator' do

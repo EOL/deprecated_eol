@@ -29,7 +29,9 @@ class DataObjectsController < ApplicationController
   end
 
   def get
-    @curator = current_user.can_curate?(TaxonConcept.find(params[:taxon_concept_id]))
+    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
+    @taxon_concept.current_user = current_user
+    @curator = current_user.can_curate?(@taxon_concept)
     @hide = true
     @category_id = @data_object.toc_items[0].id
     @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
@@ -40,7 +42,7 @@ class DataObjectsController < ApplicationController
     @taxon_concept.current_user = current_user
     @old_data_object_id = params[:id]
     @data_object = DataObject.update_user_text(params, current_user)
-    @curator = current_user.can_curate?(TaxonConcept.find(params[:taxon_concept_id]))
+    @curator = current_user.can_curate?(@taxon_concept)
     @hide = true
     @category_id = @data_object.toc_items[0].id
     alter_current_user do |user|

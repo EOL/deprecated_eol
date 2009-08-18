@@ -25,7 +25,7 @@ describe TocBuilder do
           {:toc_item => TocItem.specialist_projects}, 
           {:toc_item => TocItem.bhl}
         ],
-        :medical_concepts => true, # The LigerCat entry.
+        :biomedical_terms => true, # The LigerCat entry.
         :images => [],  # this just speeds things up
         :comments => [] # this also speeds things up a bit.
       )
@@ -38,7 +38,7 @@ describe TocBuilder do
       toc[1].label.should == "References and More Information"
       toc[2].label.should == "Biodiversity Heritage Library"
       toc[3].label.should == "Specialist Projects"
-      toc[4].label.should == "Medical Concepts"
+      toc[4].label.should == "Biomedical Terms"
       toc[5].label.should == "Search the Web"
     end
 

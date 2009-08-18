@@ -217,11 +217,6 @@ class TaxonConcept < SpeciesSchemaModel
     hierarchy_entries.detect {|he| he.species_or_below? }
   end
 
-  def alternate_classification_name(detail_level = :middle, language = Language.english, context = nil)
-    #return col_he.nil? ? alternate_classification_name(detail_level, language, context) : col_he.name(detail_level, language, context)
-    self.hierarchy_entries[0].name(detail_level, language, context).firstcap rescue '?-?'
-  end
-
   # Because nested has_many_through won't work with CPKs:
   def mappings
     Rails.cache.fetch("taxon_concepts/#{self.id}/mappings") do
@@ -278,7 +273,7 @@ class TaxonConcept < SpeciesSchemaModel
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
     return hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
-      hierarchy_entries[0] ||
+      hierarchy_entries.compact[0] ||
       nil
   end
   
@@ -788,6 +783,11 @@ EOIUCNSQL
 
 #####################
 private
+
+  def alternate_classification_name(detail_level = :middle, language = Language.english, context = nil)
+    #return col_he.nil? ? alternate_classification_name(detail_level, language, context) : col_he.name(detail_level, language, context)
+    self.entry.name(detail_level, language, context).firstcap rescue '?-?'
+  end
 
   def empty_map_id
     return 1

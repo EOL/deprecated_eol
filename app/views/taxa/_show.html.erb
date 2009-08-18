@@ -19,7 +19,7 @@
         <h2><%= hh(@taxon_concept.subtitle(@session_hierarchy)) %></h2>
           
         <hr />
-        <span class="classification-attribution-name"><%= @taxon_concept.hierarchy_entries[0].rank_label.capitalize %> recognized by <%= agent_icons_partial(@taxon_concept.classification_attribution(@session_hierarchy).reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)%></span><br />
+        <span class="classification-attribution-name"><%= @taxon_concept.entry.rank_label.capitalize %> recognized by <%= agent_icons_partial(@taxon_concept.classification_attribution(@session_hierarchy).reverse, :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)%></span><br />
         
         <% if @taxon_concept.vetted_id != Vetted.trusted.id %>
             </div>

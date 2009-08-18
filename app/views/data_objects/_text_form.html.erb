@@ -29,7 +29,8 @@
   <tr>
     <td><%= f.label :license_id %></td>
     <td>
-      <%= select("data_object", "license_id", @licenses) %>
+      <%= select("data_object", "license_id", @licenses) %><br />
+      <%=link_to "Read the EOL Licensing Policy"[],"/content/page/eol_licensing_policy",{:target=>'_blank'}%>
     </td>
   </tr>
 

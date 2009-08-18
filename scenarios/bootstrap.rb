@@ -145,7 +145,7 @@ build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names 
                    
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
-                    :depth => depth_now, :images => [{}, {:vetted => Vetted.untrusted}, {:vetted => Vetted.unknown}], :flash => [{}, {:vetted => Vetted.unknown}], :youtube => [{:vetted => Vetted.unknown}, {:vetted => Vetted.untrusted}], :comments => [],
+                    :depth => depth_now, :images => [], :flash => [{}, {:vetted => Vetted.unknown}], :youtube => [{:vetted => Vetted.unknown}, {:vetted => Vetted.untrusted}], :comments => [],
                     :bhl => [], :event => event)
                     
 #32
@@ -206,7 +206,7 @@ curator.save
 exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-coded) exemplars.
                                :event => event,
                                :common_names => ['wumpus'],
-                               :medical_concepts => true) # LigerCat powers, ACTIVATE!
+                               :biomedical_terms => true) # LigerCat powers, ACTIVATE!
 
 # Adds a ContentPage at the following URL: http://localhost:3000/content/page/curator_central
 

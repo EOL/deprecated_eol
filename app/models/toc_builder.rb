@@ -88,7 +88,7 @@ private
 
     # Add Medical Concepts if there is a LigerCat tag cloud available:
     if Mapping.specialist_projects_for?(taxon_concept_id, :collection_id => Collection.ligercat.id)
-      toc << TocEntry.new(TocItem.medical_concepts)
+      toc << TocEntry.new(TocItem.biomedical_terms)
     end
 
     if user_allows_unvetted_items(options)

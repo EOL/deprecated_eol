@@ -17,6 +17,11 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :tags, :collection => { :search => :get }
   map.resources :public_tags, :controller => 'administrator/tag_suggestion'
 
+  map.settings     'settings',     :controller => 'taxa',:action=>'settings'
+
+  map.connect 'boom',
+              :controller => 'content', :action => 'error' 
+
   map.open_id_complete 'authenticate', :controller => "account", :action => "authenticate", :requirements => { :method => :get }
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -101,7 +106,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/index', :controller => 'content', :action => 'index'
   map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID  
   map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
- 
+
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'  

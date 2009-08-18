@@ -235,8 +235,8 @@ describe 'Taxa page (HTML)' do
 
   # LigerCat Medical Concepts Tag Cloud
   it 'should link to LigerCat when the Medical Concepts content is displayed'
-    # TODO - this will simply: 1) ensure the TC has a medical_concepts toc item, 2) load that page with the
-    # content_id for medical_concepts, and 3) verify that the page includes the URL we expect.
+    # TODO - this will simply: 1) ensure the TC has a biomedical_terms toc item, 2) load that page with the
+    # content_id for biomedical_terms, and 3) verify that the page includes the URL we expect.
     
   # permalinks for species comments
   it 'should load comment with the id when comment_id is specified'

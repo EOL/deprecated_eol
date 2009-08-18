@@ -646,7 +646,7 @@ private
   end
 
   def inaccessible_page?(taxon_concept)
-    return(taxon_concept.nil? or taxon_concept.published == 0)
+    return(taxon_concept.nil? or taxon_concept.entry.nil? or taxon_concept.published == 0)
   end
 
 end

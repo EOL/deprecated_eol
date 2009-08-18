@@ -15,7 +15,7 @@ class CategoryContentBuilder
     #
     # biodiversity_heritage_library
     # common_names
-    # medical_concepts
+    # biomedical_terms
     # search_the_web
     # specialist_projects
 
@@ -28,8 +28,8 @@ class CategoryContentBuilder
       content.merge! biodiversity_heritage_library(options)
     elsif sub_name == "common_names"
       content.merge! common_names(options)
-    elsif sub_name == "medical_concepts"
-      content.merge! medical_concepts(options)
+    elsif sub_name == "biomedical_terms"
+      content.merge! biomedical_terms(options)
     elsif sub_name == "search_the_web"
       content.merge! search_the_web(options)
     elsif sub_name == "specialist_projects"
@@ -82,7 +82,7 @@ private
       }
   end
 
-  def medical_concepts(options)
+  def biomedical_terms(options)
     return {:items => Mapping.for_taxon_concept_id(options[:taxon_concept_id],
                                                    :collection_id => Collection.ligercat.id)}
   end

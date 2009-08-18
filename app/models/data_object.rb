@@ -193,7 +193,12 @@ class DataObject < SpeciesSchemaModel
       total += rating.rating
     end
 
-    self.data_rating = total / ratings.length
+    divisor = ratings.length
+    if divisor == 0
+      self.data_rating = total
+    else
+      self.data_rating = total / ratings.length
+    end
 
     self.save!
   end

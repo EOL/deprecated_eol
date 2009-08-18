@@ -6,15 +6,19 @@ builds the cloud from the most relevant Medical Subject Headings (<%= external_l
 appears in the Pubmed search results. Click on a term to access the full LigerCat cloud, with live PubMed search
 capabilities.
 
+  <p><br/></p>
+
   <%# There should only be one mapping for LigerCat, but if there are several, this will show all: %>
   <% for mapping in @content[:items] %>
     <%= render :partial => '/shared/embed_external_page',
-               :locals  => {:height => '100%',
+               :locals  => {:height => '400',
                             :width  => '100%',
                             :url    => "#{mapping.url}.cloud"} %>
 
   <% end %>
   
+  <p><br/></p>
+
   <div class="divider"></div>
   <div class="content-attribution-area">
     <div class="attribution-header text-area-header"><%= "Source and Additional Information"[] %></div>

@@ -373,6 +373,7 @@ class ApplicationController < ActionController::Base
   # return currently logged in user
   def current_user
     if logged_in?
+      session[:user] = nil
       return temporary_logged_in_user ? temporary_logged_in_user :
                                         set_temporary_logged_in_user(cached_user)
     else
@@ -528,7 +529,7 @@ class ApplicationController < ActionController::Base
 
     def set_session_hierarchy_variable
       hierarchy_id = current_user.default_hierarchy_valid? ? current_user.default_hierarchy_id : Hierarchy.default.id
-      secondary_hierarchy_id = current_user.secondary_hierarchy_id
+      secondary_hierarchy_id = current_user.secondary_hierarchy_id rescue nil
       @session_hierarchy = Hierarchy.find(hierarchy_id)
       @session_secondary_hierarchy = secondary_hierarchy_id.nil? ? nil : Hierarchy.find(secondary_hierarchy_id)
     end
@@ -559,6 +560,7 @@ private
   # NOTE: if you want to change a user's settings, you need to use alter_current_user
   def set_logged_in_user(user)
     set_temporary_logged_in_user(user)
+    session[:user]    = nil # This was the "new user", before.
     session[:user_id] = user.id
     set_unlogged_in_user(nil)
     Rails.cache.delete("users/#{session[:user_id]}")

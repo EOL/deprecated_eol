@@ -214,7 +214,7 @@ class ContentController < ApplicationController
           @content=ContentPage.get_by_id_and_language_abbr(@page_id,current_user.language_abbr)
         end
         
-        raise "static page content not found" if @content.nil?
+        raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?
         
         # if this static page is simply a redirect, then go there
         if !@content.url.blank?
@@ -249,7 +249,6 @@ class ContentController < ApplicationController
   
   # error page
   def error
-    
   end
   
   # get the list of content partners

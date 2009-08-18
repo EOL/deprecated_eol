@@ -39,9 +39,9 @@ class TocItem < SpeciesSchemaModel
     end
   end
   
-  def self.medical_concepts
-    Rails.cache.fetch('toc_items/medical_concepts') do
-      TocItem.find_by_label('Medical Concepts')
+  def self.biomedical_terms
+    Rails.cache.fetch('toc_items/biomedical_terms') do
+      TocItem.find_by_label('Biomedical Terms')
     end
   end
   

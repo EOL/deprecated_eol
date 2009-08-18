@@ -87,7 +87,7 @@ boa_agent =
   create_if_not_exists Agent, :full_name => 'Biology of Aging'
 liger_cat =
   create_if_not_exists Collection, :title          => 'LigerCat',
-                                   :description    => 'LigerCat Medical Concepts Tag Cloud',
+                                   :description    => 'LigerCat Biomedical Terms Tag Cloud',
                                    :uri            => 'http://ligercat.ubio.org/eol/FOREIGNKEY.cloud',
                                    :link           => 'http://ligercat.ubio.org',
                                    :logo_cache_url => '3187',
@@ -285,7 +285,7 @@ ref_and_info =
 # Note that in all these "children", the view_order resets.  ...That reflects the real DB.
 create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 1, :parent_id => ref_and_info.id
 create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 4, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Medical Concepts',              :view_order => 8, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Biomedical Terms',              :view_order => 8, :parent_id => ref_and_info.id
 create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 12,:parent_id => ref_and_info.id
 
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology', :label => 'TaxonBiology', :toc_item => TocItem.overview

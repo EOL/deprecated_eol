@@ -42,9 +42,10 @@ class Administrator::CuratorController < AdminController
     @users=User.find(:all,:conditions=>['curator_hierarchy_entry_id IS NOT NULL OR credentials <> "" OR curator_scope<> ""'])
       report = StringIO.new
       CSV::Writer.generate(report, ',') do |title|
-          title << ['Id', 'Username', 'Name', 'Email', 'Credentials','Clade','Approved','Date']
+          title << ['Id', 'Username', 'Name', 'Email', 'Credentials','Scope','Clade','Approved','Registered Date']
           @users.each do |u|
-            title << [u.id,u.username,u.full_name,u.email,u.credentials.gsub(/\r\n/,'; '),u.curator_hierarchy_entry.name,u.curator_approved,u.created_at]       
+            clade_name = u.curator_hierarchy_entry.nil? ? '' : u.curator_hierarchy_entry.name
+            title << [u.id,u.username,u.full_name,u.email,u.credentials.gsub(/\r\n/,'; '),u.curator_scope.gsub(/\r\n/,'; '),clade_name,u.curator_approved,u.created_at]       
           end
        end
        report.rewind

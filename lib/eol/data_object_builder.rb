@@ -81,7 +81,10 @@ class EOL
 
     def add_comments
       user = User.last # not convinced it is faster to assign this rather than calling it repeatedly, but feeling saucy!
-      @num_comments.times { Comment.gen(:parent => @dato, :user => user) }
+      # You cannot add comments to anything but images and text (for now):
+      if @type == 'Image' or @type == 'Text'
+        @num_comments.times { Comment.gen(:parent => @dato, :user => user) }
+      end
     end
 
     def build_taxon_relation

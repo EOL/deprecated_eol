@@ -479,6 +479,11 @@ Factory.define :data_objects_table_of_content do |dato|
   dato.association :toc_item
 end
 
+Factory.define :data_objects_ref do |dor|
+  dor.association :data_object
+  dor.association :ref
+end
+
 Factory.define :data_objects_taxon do |dot|
   dot.association :taxon
   dot.association :data_object
@@ -695,6 +700,11 @@ end
 
 Factory.define :ref do |r|
   r.full_reference { Factory.next(:string) }
+end
+
+Factory.define :refs_taxon do |rt|
+  rt.association :taxon
+  rt.association :ref
 end
 
 Factory.define :ref_identifier do |ri|

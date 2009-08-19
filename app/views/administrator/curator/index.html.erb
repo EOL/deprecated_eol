@@ -1,9 +1,21 @@
+<script language="JavaScript">
+
+ function remove_curatorship(user_id) {
+
+   var notes = prompt ("Are you sure you want to remove this user from the curator list?  If so, enter a reason below.  They will be removed immediately, their clade, credentials and scope will be cleared immediately, and they will not be notified.","")
+   if (notes != null) {
+     new Ajax.Request('/administrator/user/clear_curatorship?id=' + user_id + '&notes=' + escape(notes), {asynchronous:true, evalScripts:true, onComplete:function(request){EOL.Effect.disappear('row_'+user_id);}});
+    }; 
+   }
+    
+</script>
+
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Curators'} %>
 
 Click a username to view the user's detailed profile.  You may change the clade level curator permissions on the user profile pages.  If credentials are truncated, click to expand and show full credentials.
 <%=link_to '[export all curators as CSV]',:action=>'export'%>
 <div id="users">
-	<% form_tag({:action=>'index'},:method=>'get') do %>
+	<% form_tag({:action=>'index'},:id=>'search',:method=>'get') do %>
 		Search for curators containing: <%= text_field_tag(:user_search_string,@user_search_string)%> 
     <br /><%= check_box_tag 'only_unapproved','1',@only_unapproved %> Only show unapproved curators | <%= check_box_tag 'only_without_clade','1',@only_without_clade %> Only show curators with no clade selected
     
@@ -11,17 +23,18 @@ Click a username to view the user's detailed profile.  You may change the clade 
 		<br/>
 		<br/>
 
-
+<% end %>
 		<% if @users.nil? == false && @users.size > 0 %>
 			
 			A total of <%= @user_count %> users were found matching your criteria.<br />
-			
+			<form>
 			<%= will_paginate @users %>
+		</form>
 			    <table class="results_table" cellspacing="0">
-			    <tr><th>UserName</th><th>Credentials</th><th>Name</th><th>Clade</th><th>Approved?</th><th>On</th><th>By</th></tr>
+			    <tr><th>UserName</th><th>Credentials</th><th>Name</th><th>Clade</th><th>Approved?</th><th>Remove</th><th>On</th><th>By</th></tr>
 				<% for user in @users
 					column_class=cycle('odd','even')  %>
-				    <tr>
+				    <tr id="<%="row_#{user.id}"%>">
 				    	<td class="<%= column_class %>"><%= link_to(user.username, :controller => 'administrator/user', :action=>'edit',:id=>user.id)%></td>
 						<td class="<%= column_class %>"><a href="#" onclick="Element.toggle('credentials_<%=user.id%>');return false;"><%=truncate(h(user.credentials))%></a><div style="display:none;" id="credentials_<%=user.id%>"><%= allow_some_html(user.credentials) %></pre></div></td>
 						<td class="<%= column_class %>"><%= h user.full_name%></td>
@@ -30,26 +43,30 @@ Click a username to view the user's detailed profile.  You may change the clade 
 						<td class="<%= column_class %>">
 						  <% if !user.curator_hierarchy_entry.blank? %>
   							<% form_tag({:action => 'index'}, :id => form_id, :method => 'get') do %>
-  							<input type="hidden" name="user[id]" value="<%= user.id %>" />
-  							<%= check_box_tag('user[curator_approved]', user.curator_approved, user.curator_approved) %>
+  							<input type="hidden" name="id" value="<%= user.id %>" />
+  							<%= check_box_tag('curator_approved', user.curator_approved, user.curator_approved) %>
   							<%= observe_form(form_id, :url => {:controller => 'administrator/user', :action => :toggle_curator}, :frequency => 0.10) %>
   							<% end %>
   						<% else %>
   						  N/A
   						<% end %>
 						</td>
+						<td class="<%= column_class %>">
+						  <a href="#" onclick="JavaScript:remove_curatorship('<%=user.id%>');return false;">remove</a>
+					  </td>
 						<td class="<%= column_class %>" id="<%= form_id %>_at"><%= format_date_time(user.curator_verdict_at) unless user.curator_verdict_at.nil? %></td>
 						<td class="<%= column_class %>" id="<%= form_id %>_by"><%= link_to(user.curator_verdict_by.username,:action=>'edit',:id=>user.id) unless user.curator_verdict_by.nil? %></td>
 					</tr>									
 				<% end %>
 			    </table>		
 				<br />
-			<%= will_paginate @users %>
-			
+				<form>
+		  	<%= will_paginate @users %>
+		  </form>
 	    <% else %>
 				No users are available matching your search criteria.
-            <%end %>
-			<% end %>
+      <%end %>
+
 </div>
 						
 <%= render :partial => '/admin/content_bottom' %>

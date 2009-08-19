@@ -340,6 +340,9 @@ end
 
 RandomHierarchyImage.all.each do |rhi|
   d = DataObject.find(rhi.data_object_id)
+  Comment.find_all_by_parent_type_and_parent_id('DataObject',d.id).each do |c|
+    c.destroy
+  end
   d.destroy
   rhi.destroy
 end

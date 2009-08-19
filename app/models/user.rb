@@ -129,6 +129,7 @@ class User < ActiveRecord::Base
     self.curator_approved = approved
     self.curator_verdict_at = Time.now
     self.curator_verdict_by = updated_by
+    self.save
     
     if approved
       self.roles << Role.curator unless has_curator_role?
@@ -136,6 +137,19 @@ class User < ActiveRecord::Base
       self.roles.delete(Role.curator)
     end
     
+  end
+  
+  def clear_curatorship updated_by,update_notes=''
+    self.curator_approved=false
+    self.credentials=''
+    self.curator_scope=''
+    self.curator_hierarchy_entry_id=''
+    self.curator_verdict_at = Time.now
+    self.curator_verdict_by = updated_by 
+    self.roles.delete(Role.curator)
+    self.notes='' if self.notes.nil?
+    (self.notes+=' ; (' + updated_by.username + ' on ' + Date.today.to_s + '): ' + update_notes) unless update_notes.blank?
+    self.save
   end
   
   # TODO - PRI MED - the vet/unvet methods inefficiently heck whether or not this user can_curate? the OBJECT.  that might involve lots of queries.

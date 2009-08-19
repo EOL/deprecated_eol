@@ -78,8 +78,12 @@ class DataObject < SpeciesSchemaModel
     d.save!
     dato.published = false
     dato.save!
-    # TODO - go through the old dato comments and move them to the new dato.
+    
+    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => dato.id})        
+    comments_from_old_dato.map { |c| c.update_attribute :parent_id, d.id  }
+
     d.curator_activity_flag(user, all_params[:taxon_concept_id])
+    
     udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!
     d.new_actions_histories(user, udo, 'users_submitted_text', 'update')

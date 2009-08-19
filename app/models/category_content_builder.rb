@@ -34,6 +34,8 @@ class CategoryContentBuilder
       content.merge! search_the_web(options)
     elsif sub_name == "specialist_projects"
       content.merge! specialist_projects(options)
+    elsif sub_name == "literature_references"
+      content.merge! literature_references(options)
     else
       return nil # We don't handle this toc_item.
     end
@@ -124,6 +126,11 @@ private
 
     return {:projects => return_mapping_objects}
     
+  end
+  
+  def literature_references(options)
+    tc_id = options[:taxon_concept_id]
+    return {:items => Ref.find_refs_for(tc_id)}
   end
 
 end

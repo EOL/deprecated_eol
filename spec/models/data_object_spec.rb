@@ -224,6 +224,50 @@ describe DataObject do
       @data_object.published.should be_true
       
     end
+    
+    it 'should move comments to new object after update' do
+      taxon_concept = TaxonConcept.last ||
+                      build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia',
+                                          :common_names => ['Animals'])
+      toc_item = TocItem.gen({:label => 'Overview'})
+      params = {
+        :taxon_concept_id => taxon_concept.id,
+        :data_objects_toc_category => { :toc_id => toc_item.id}
+      }
+
+      do_params = {
+        :license_id => License.find_by_title('public domain').id,
+        :language_id => Language.find_by_label('English').id,
+        :description => 'a new text object',
+        :object_title => 'new title'
+      }
+
+      params[:data_object] = do_params
+
+      d = DataObject.create_user_text(params, User.gen)
+      u = d.user
+
+      params = {
+        :taxon_concept_id => taxon_concept.id,
+        :data_objects_toc_category => {:toc_id => toc_item.id},
+        :id => d.id
+      }
+
+      do_params = {
+        :license_id => License.find_by_title('public domain').id,
+        :language_id => Language.find_by_label('English').id,
+        :description => 'a new text object',
+        :object_title => 'new title'
+      }
+
+      params[:data_object] = do_params
+      comment = d.comment(u, "The comment")      
+      Comment.find_all_by_parent_id(d.id).length.should     eql(1)
+      upd_d = DataObject.update_user_text(params, u)
+      Comment.find_all_by_parent_id(upd_d.id).length.should eql(1)
+      Comment.find_all_by_parent_id(d.id).length.should     eql(0)
+    end
+    
 
     it 'should be trusted when created by curator' do
       @taxon_concept = TaxonConcept.last || build_taxon_concept

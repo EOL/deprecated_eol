@@ -1,0 +1,19 @@
+<div class="text_object" id="literature_references_wrapper">
+  <table class="results_table" cellspacing="0" summary="Literature References">
+    <tr><th scope="col"><%="References"[]%></th></tr>
+  <% 
+    @content[:items].each do |ref|
+    column_class=cycle('odd','even')
+  %>
+    <tr>
+      <td class="<%= column_class %>"><%= h ref.full_reference %></td>
+    </tr>
+  <% end -%>
+  </table>
+  <!-- <div class="divider"></div>
+  <div class="content-attribution-area">
+      <div class="attribution-header text-area-header"><%= "Source and Additional Information"[] %></div>
+    <span class="source">Names come from multiple sources.</span>
+  </div>
+  -->
+</div>

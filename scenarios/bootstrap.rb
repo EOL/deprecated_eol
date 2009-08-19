@@ -48,6 +48,7 @@ def bootstrap_toc
   TocItem.gen(:label => 'Reproductive Behavior', :parent_id => 0, :view_order => current_order += 1)
   TocItem.gen(:label => 'Conservation', :parent_id => 0, :view_order => current_order += 1)
   TocItem.gen(:label => 'Evolution and Systematics', :parent_id => 0, :view_order => current_order += 1)
+  TocItem.gen(:label => 'Literature References', :parent_id => 0, :view_order => current_order += 1)
   relevance = TocItem.gen(:label => 'Relevance', :parent_id => 0, :view_order => current_order += 1)
   relevance_labels = [
     'Harmful Blooms',

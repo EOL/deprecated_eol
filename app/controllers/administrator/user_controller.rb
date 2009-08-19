@@ -127,7 +127,11 @@ class Administrator::UserController  < AdminController
    end
    
    if @user.update_attributes(user_params)
-      @user.set_curator(EOLConvert.to_boolean(user_params[:curator_approved]),current_user)
+      if params[:curator_denied]
+        @user.clear_curatorship(current_user)
+      else
+        @user.set_curator(EOLConvert.to_boolean(user_params[:curator_approved]),current_user)
+      end
       flash[:notice]="The user was updated."
       redirect_back_or_default(url_for(:action=>'index'))
     else
@@ -140,8 +144,8 @@ class Administrator::UserController  < AdminController
 
    (redirect_to referred_url ;return) unless request.method == :delete
    
-   @user = User.find(params[:id])
-   @user.destroy
+   user = User.find(params[:id])
+   user.destroy
 
    redirect_to referred_url 
    
@@ -149,24 +153,34 @@ class Administrator::UserController  < AdminController
  
   def toggle_curator
     
-    id = params[:user][:id]
-    @user = User.find(id)
-    @user.set_curator(!params[:user][:curator_approved].nil?,current_user)
+    @user = User.find(params[:id])
+    @user.set_curator(!params[:curator_approved].nil?,current_user)
     @user.save!
+  
+  end
+
+  def clear_curatorship
+
+    user = User.find(params[:id])
+    user.clear_curatorship(current_user,params[:notes])
+    user.save!
+    
+    render :nothing => true
   
   end
   
   def login_as_user
 
-      @user=User.find_by_id(params[:id])   
+      user=User.find_by_id(params[:id])   
 
-      if !@user.blank?
+      if !user.blank?
         reset_session
-        set_current_user(@user)
+        set_current_user(user)
         flash[:message]="You have been logged in as #{@user.username}"
         redirect_to root_url
       end
       return
+      
   end  
   
 end

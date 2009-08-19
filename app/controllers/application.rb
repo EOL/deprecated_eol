@@ -548,11 +548,11 @@ private
   # when a URL includes "&vetted=true" (or some-such), we can serve that request with *temporary* user values that
   # don't change the user's DB values.
   def temporary_logged_in_user
-    @user
+    @logged_in_user
   end
 
   def set_temporary_logged_in_user(user)
-    @user = user
+    @logged_in_user = user
   end
 
   # There are several things we need to do when we change the (temporary) values on a logged-in user:

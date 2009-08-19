@@ -25,7 +25,7 @@ prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit th
 		
 		<%= will_paginate @users %>
 		    <table class="results_table" cellspacing="0">
-		    <tr><th>Username</th><th>Email</th><th>Name</th><th>Created At</th><th>OpenID?</th></tr>
+		    <tr><th>Username</th><th>Email</th><th>Name</th><th>Created At</th><th>OpenID?</th><th>Curator?</th></tr>
 			<% for user in @users
 				column_class=cycle('odd','even')  %>
 			    <tr>
@@ -34,6 +34,8 @@ prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit th
 					<td class="<%= column_class %>"><%=h user.full_name%></td>
 					<td class="<%= column_class %>"><%=format_date_time(user.created_at)%></td>
 					<td class="<%= column_class %>"><%=user.openid?%></td>
+					<td class="<%= column_class %>"><%=user.is_curator?%></td>
+
 				</tr>									
 			<% end %>
 		    </table>

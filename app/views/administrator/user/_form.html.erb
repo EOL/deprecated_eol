@@ -87,8 +87,29 @@
 		
 		<tr>
 			<td><strong>Curator Approved:</strong></td>
-			<td><%=f.check_box :curator_approved%> True</td> 
+			<td><%=f.check_box :curator_approved%> True
+			  <% if !(@user.curator_verdict_by.blank? && @user.curator_verdict_at.blank?) %>
+			    (Curator status changed by <%=@user.curator_verdict_by.full_name%> on <%=format_date_time(@user.curator_verdict_at)%>)
+			  <% end %>
+			  </td> 
 		</tr>		
+
+		<tr>
+			<td colspan="2"></td>
+		</tr>		
+
+		<tr>
+			<td><strong>Remove curatorship:</strong></td>
+			<td><%=check_box_tag :curator_denied%> If checked and user is saved, then credentials, scope, approval and selected clade are all removed and user no longer shows up as a curator.  You should add a note below to indicate the reason.  No information is sent to the user.</td> 
+		</tr>		
+
+
+    <tr>
+      <td><strong>Admin notes (not visible to user):</strong>
+        </td>
+      <td><%= f.text_area :notes, :rows => 3, :cols=>60 %></td>
+    </tr>
+    		
 		<% unless @user.id.nil? %>
 			<tr>
 				<td><strong>Created:</strong><br /><strong>Updated:</strong></td>

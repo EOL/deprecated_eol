@@ -5,6 +5,41 @@ class Ref < SpeciesSchemaModel
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :taxa
 
+  # Returns a list of Literature References. Will return an empty array if there aren't any results
+  def self.find_refs_for(taxon_concept_id)
+    refs = Ref.find_by_sql([
+      " SELECT refs.* FROM hierarchy_entries he 
+                  JOIN taxa t ON (he.id=t.hierarchy_entry_id) 
+                  JOIN data_objects_taxa dot ON (t.id=dot.taxon_id) 
+                  JOIN data_objects_refs dor USING (data_object_id) 
+                  JOIN refs ON (dor.ref_id=refs.id)
+                  WHERE he.taxon_concept_id=?
+        UNION
+        SELECT refs.* FROM hierarchy_entries he 
+                    JOIN taxa t ON (he.id=t.hierarchy_entry_id) 
+                    JOIN refs_taxa rt ON (t.id=rt.taxon_id) 
+                    JOIN refs ON (rt.ref_id=refs.id)
+                    WHERE he.taxon_concept_id=?", taxon_concept_id, taxon_concept_id])
+  end
+
+  # Determines whether or not the TaxonConcept has Literature References
+  def self.literature_references_for?(taxon_concept_id)
+    # a. TC -> HE -> T -> data_objects_taxa -> data_objects -> data_objects_refs -> refs       
+    # b. tc -> he -> taxa -> refs_taxa
+    ref_count = Ref.count_by_sql([
+      "SELECT 1 FROM hierarchy_entries he 
+                JOIN taxa t ON (he.id=t.hierarchy_entry_id) 
+                JOIN data_objects_taxa dot ON (t.id=dot.taxon_id) 
+                JOIN data_objects_refs dor USING (data_object_id) 
+                WHERE he.taxon_concept_id=? LIMIT 1
+      UNION
+      SELECT 1 FROM hierarchy_entries he 
+                JOIN taxa t ON (he.id=t.hierarchy_entry_id) 
+                JOIN refs_taxa rt ON (t.id=rt.taxon_id) 
+                WHERE he.taxon_concept_id=? LIMIT 1", taxon_concept_id, taxon_concept_id])
+    ref_count > 0
+  end
+
 end
 # == Schema Info
 # Schema version: 20081020144900

@@ -91,6 +91,11 @@ private
       toc << TocEntry.new(TocItem.biomedical_terms)
     end
 
+    # Add Literature references entry if references exists
+    if Ref.literature_references_for?(taxon_concept_id)
+      toc << TocEntry.new(TocItem.literature_references)
+    end
+
     if user_allows_unvetted_items(options)
       toc << TocEntry.new(TocItem.search_the_web)
     end

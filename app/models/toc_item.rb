@@ -45,6 +45,12 @@ class TocItem < SpeciesSchemaModel
     end
   end
   
+  def self.literature_references
+    Rails.cache.fetch('toc_items/literature_references') do
+      TocItem.find_by_label('Literature References')
+    end
+  end
+  
   def is_child?
     !(self.parent_id.nil? or self.parent_id == 0) 
   end

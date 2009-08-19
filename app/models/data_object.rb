@@ -58,7 +58,6 @@ class DataObject < SpeciesSchemaModel
       :location => '',
       :latitude => 0,
       :longitude => 0,
-      :object_title => '',
       :bibliographic_citation => '',
       :source_url => '',
       :altitude => 0,

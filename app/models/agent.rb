@@ -84,9 +84,9 @@ class Agent < SpeciesSchemaModel
       
   # Singleton class variable, so we only ever look it up once per thread:
   def self.iucn
-    YAML.load(Rails.cache.fetch('agents/iucn') do
-      Agent.find_by_full_name('IUCN').to_yaml
-    end)
+    Rails.cache.fetch('agents/iucn') do
+      Agent.find_by_full_name('IUCN')
+    end
   end
   def self.catalogue_of_life
     YAML.load(Rails.cache.fetch('agents/catalogue_of_life') do

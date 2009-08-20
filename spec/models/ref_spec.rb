@@ -16,6 +16,10 @@ describe Ref do
       @tc = Factory(:taxon_concept)
     end
     
+    after(:all) do
+      Rails.cache.clear
+    end
+    
     describe "when a Data object taxon exists" do
       before(:each) do
         @he = []

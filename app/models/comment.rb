@@ -22,7 +22,31 @@ class Comment < ActiveRecord::Base
   validates_presence_of :body, :user
 
   attr_accessor :vetted_by
-    
+
+  def self.feed(taxon_concept_id = nil, max_results = 100)
+    if taxon_concept_id.nil?
+      Comment.find_by_sql("select * from #{Comment.full_table_name} order by created_at DESC limit #{max_results}")
+    else
+      query_string = %Q{
+        (SELECT c.* FROM #{HierarchyEntry.full_table_name} he_parent
+        JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt AND he_parent.hierarchy_id=he_children.hierarchy_id)
+        JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id)
+        JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id)
+        JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id)
+        JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id AND c.parent_type='DataObject')
+        WHERE he_parent.taxon_concept_id=#{taxon_concept_id} AND do.published=1)
+        UNION
+        (SELECT c.* FROM #{HierarchyEntry.full_table_name} he_parent
+        JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt)
+        JOIN #{Comment.full_table_name} c ON(c.parent_id=he_children.taxon_concept_id AND c.parent_type='TaxonConcept')
+        WHERE he_parent.taxon_concept_id=#{taxon_concept_id})
+        order by created_at DESC limit #{max_results}
+      }
+
+      Comment.find_by_sql(query_string)
+    end
+  end
+
   # Comments can be hidden.  This method checks to see if a non-curator can see it:
   def visible?
     return false if visible_at.nil?

@@ -69,11 +69,14 @@ class TaxaController < ApplicationController
     @taxon_concept = taxon_concept
 
     if inaccessible_page?(@taxon_concept)
-      render(:layout => 'main', :template => "content/missing")
+      render(:layout => 'main', :template => "content/missing", :status => 404)
       return
     end
 
-    redirect_to(params.merge(:controller => 'taxa', :action => 'show', :id => @taxon_concept.id)) if
+    redirect_to(params.merge(:controller => 'taxa',
+                             :action => 'show',
+                             :id => @taxon_concept.id,
+                             :status => :moved_permanently)) if
       @taxon_concept.superceded_the_requested_id?
 
     respond_to do |format|

@@ -1,8 +1,8 @@
 -- MySQL dump 10.11
 --
--- Host: localhost    Database: eol_development_rails
+-- Host: localhost    Database: eol_production
 -- ------------------------------------------------------
--- Server version	5.0.67
+-- Server version	5.0.74-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,6 +16,57 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `action_with_objects`
+--
+
+DROP TABLE IF EXISTS `action_with_objects`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `action_with_objects` (
+  `id` int(11) NOT NULL auto_increment,
+  `action_code` varchar(255) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `actions_histories`
+--
+
+DROP TABLE IF EXISTS `actions_histories`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `actions_histories` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) default NULL,
+  `object_id` int(11) default NULL,
+  `changeable_object_type_id` int(11) default NULL,
+  `action_with_object_id` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2376 DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `changeable_object_types`
+--
+
+DROP TABLE IF EXISTS `changeable_object_types`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `changeable_object_types` (
+  `id` int(11) NOT NULL auto_increment,
+  `ch_object_type` varchar(255) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `comments`
 --
 
@@ -24,16 +75,17 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `comments` (
   `id` int(11) NOT NULL auto_increment,
-  `user_id` int(11) default NULL,
+  `user_id` int(11) NOT NULL,
   `parent_id` int(11) NOT NULL,
   `parent_type` varchar(255) NOT NULL,
   `body` text NOT NULL,
   `visible_at` datetime default NULL,
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
+  `from_curator` tinyint(1) NOT NULL,
   PRIMARY KEY  (`id`),
   KEY `index_comments_on_parent_id` (`parent_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1170 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -51,7 +103,7 @@ CREATE TABLE `contact_subjects` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -74,7 +126,7 @@ CREATE TABLE `contacts` (
   `updated_at` datetime default NULL,
   `taxon_group` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2820 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -100,9 +152,9 @@ CREATE TABLE `content_page_archives` (
   `language_abbr` varchar(255) NOT NULL default 'en',
   `url` varchar(255) default '',
   `open_in_new_window` tinyint(1) default '0',
-  `last_update_user_id` int(11) NOT NULL default '2',
+  `last_update_user_id` int(11) NOT NULL default '3',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=496 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -127,9 +179,9 @@ CREATE TABLE `content_pages` (
   `language_abbr` varchar(255) NOT NULL default 'en',
   `url` varchar(255) default '',
   `open_in_new_window` tinyint(1) default '0',
-  `last_update_user_id` int(11) NOT NULL default '2',
+  `last_update_user_id` int(11) NOT NULL default '3',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -150,6 +202,29 @@ CREATE TABLE `content_sections` (
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `content_uploads`
+--
+
+DROP TABLE IF EXISTS `content_uploads`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `content_uploads` (
+  `id` int(11) NOT NULL auto_increment,
+  `description` varchar(100) default NULL,
+  `link_name` varchar(70) default NULL,
+  `attachment_cache_url` bigint(20) default NULL,
+  `attachment_extension` varchar(10) default NULL,
+  `attachment_content_type` varchar(255) default NULL,
+  `attachment_file_name` varchar(255) default NULL,
+  `attachment_file_size` int(11) default NULL,
+  `user_id` int(11) default NULL,
+  `created_at` datetime default NULL,
+  `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `data_object_data_object_tags`
 --
 
@@ -162,7 +237,7 @@ CREATE TABLE `data_object_data_object_tags` (
   `data_object_tag_id` int(11) NOT NULL,
   `user_id` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=282 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -181,7 +256,7 @@ CREATE TABLE `data_object_tags` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=139 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -201,8 +276,25 @@ CREATE TABLE `error_logs` (
   `ip_address` varchar(255) default NULL,
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `index_error_logs_on_created_at` (`created_at`)
+) ENGINE=InnoDB AUTO_INCREMENT=440534 DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `last_curated_dates`
+--
+
+DROP TABLE IF EXISTS `last_curated_dates`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `last_curated_dates` (
+  `id` int(11) NOT NULL auto_increment,
+  `taxon_concept_id` int(11) default NULL,
+  `user_id` int(11) default NULL,
+  `last_curated` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1694 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -223,7 +315,7 @@ CREATE TABLE `news_items` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=84 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -242,7 +334,7 @@ CREATE TABLE `open_id_authentication_associations` (
   `server_url` blob,
   `secret` blob,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=280 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -258,7 +350,7 @@ CREATE TABLE `open_id_authentication_nonces` (
   `server_url` varchar(255) default NULL,
   `salt` varchar(255) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=335 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -274,7 +366,7 @@ CREATE TABLE `roles` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -288,6 +380,19 @@ CREATE TABLE `roles_users` (
   `user_id` int(11) NOT NULL default '0',
   `role_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`role_id`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `schema_migrations`
+--
+
+DROP TABLE IF EXISTS `schema_migrations`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `schema_migrations` (
+  `version` varchar(255) NOT NULL,
+  UNIQUE KEY `unique_schema_migrations` (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
@@ -313,7 +418,7 @@ CREATE TABLE `search_suggestions` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=140 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -352,32 +457,7 @@ CREATE TABLE `survey_responses` (
   `created_at` datetime default NULL,
   `updated_at` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
-
---
--- Table structure for table `taxon_stats`
---
-
-DROP TABLE IF EXISTS `taxon_stats`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `taxon_stats` (
-  `id` int(11) NOT NULL auto_increment,
-  `taxa` varchar(255) default NULL,
-  `text` varchar(255) default NULL,
-  `image` varchar(255) default NULL,
-  `text_and_images` varchar(255) default NULL,
-  `bhl_no_text` varchar(255) default NULL,
-  `link_no_text` varchar(255) default NULL,
-  `image_no_text` varchar(255) default NULL,
-  `text_no_image` varchar(255) default NULL,
-  `text_or_image` varchar(255) default NULL,
-  `text_or_child_image` varchar(255) default NULL,
-  `created_at` datetime default NULL,
-  `updated_at` datetime default NULL,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4368 DEFAULT CHARSET=latin1;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -417,7 +497,7 @@ CREATE TABLE `users` (
   `hashed_password` varchar(32) default NULL,
   `flash_enabled` tinyint(1) default NULL,
   `vetted` tinyint(1) default NULL,
-  `mailing_list` tinyint(1) default NULL,  
+  `mailing_list` tinyint(1) default NULL,
   `active` tinyint(1) default NULL,
   `language_id` int(11) default NULL,
   `created_at` datetime default NULL,
@@ -430,11 +510,49 @@ CREATE TABLE `users` (
   `credentials` text NOT NULL,
   `validation_code` varchar(255) default '',
   `failed_login_attempts` int(11) default '0',
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  `curator_scope` text NOT NULL,
+  `default_hierarchy_id` int(11) default NULL,
+  `secondary_hierarchy_id` int(11) default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `index_users_on_created_at` (`created_at`)
+) ENGINE=InnoDB AUTO_INCREMENT=37229 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
+--
+-- Table structure for table `users_data_objects`
+--
+
+DROP TABLE IF EXISTS `users_data_objects`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `users_data_objects` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) default NULL,
+  `data_object_id` int(11) default NULL,
+  `taxon_concept_id` int(11) default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `index_users_data_objects_on_data_object_id` (`data_object_id`),
+  KEY `index_users_data_objects_on_taxon_concept_id` (`taxon_concept_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=170 DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Table structure for table `users_data_objects_ratings`
+--
+
+DROP TABLE IF EXISTS `users_data_objects_ratings`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `users_data_objects_ratings` (
+  `id` int(11) NOT NULL auto_increment,
+  `user_id` int(11) default NULL,
+  `data_object_id` int(11) default NULL,
+  `rating` int(11) default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6702 DEFAULT CHARSET=utf8;
+SET character_set_client = @saved_cs_client;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
@@ -443,4 +561,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-01-15 21:10:54
+-- Dump completed on 2009-08-20 15:54:37

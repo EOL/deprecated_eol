@@ -287,4 +287,16 @@ TaxonConcept.class_eval do
     end
     return dato
   end
+
+  # Add a specific toc item to this TC's toc:
+  def add_toc_item(toc_item, options = {})
+    dato = DataObject.gen(:data_type => DataType.find_by_label('Text'))
+    if options[:vetted] == false
+      dato.vetted = Vetted.untrusted
+    end
+    DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item)
+    dato.save!
+    DataObjectsTaxon.gen(:data_object => dato, :taxon => taxa.first)
+  end
+
 end

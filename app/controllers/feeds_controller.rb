@@ -80,12 +80,43 @@ class FeedsController < ApplicationController
 
   def comments
     feed = Atom::Feed.new do |f|
-      f.title = 'Latest comments' #TODO: add which species in the tree this feed is for
-      f.links << Atom::Link.new(:href => "http://eol.org/") #TODO: link to the species for the page
       f.updated = Time.now #TODO: not sure if this is right
 #      f.authors << Atom::Person.new(:name => 'John Doe')
 #      f.id = "urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6"
-      comments = Comment.find_by_sql("select * from #{Comment.full_table_name} order by created_at DESC limit 100") #TODO: add additional conditions for species selected
+
+      if((taxon_concept_id = params[:page]).nil?)
+        f.links << Atom::Link.new(:href => root_url)
+        f.title = 'Latest Comments'
+        comments = Comment.find_by_sql("select * from #{Comment.full_table_name} order by created_at DESC limit 100")
+      else
+        begin
+          taxon_concept = TaxonConcept.find(taxon_concept_id)
+        rescue
+          render_404
+          return false
+        end
+        f.title = "Latest Comments for #{taxon_concept.names[0].string}"
+        f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
+
+        query_string = %Q{
+          (SELECT c.* FROM #{HierarchyEntry.full_table_name} he_parent
+          JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt)
+          JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id)
+          JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id)
+          JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id)
+          JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id AND c.parent_type='DataObject')
+          WHERE he_parent.taxon_concept_id=#{taxon_concept.id} AND do.published=1)
+          UNION
+          (SELECT c.* FROM #{HierarchyEntry.full_table_name} he_parent
+          JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt)
+          JOIN #{Comment.full_table_name} c ON(c.parent_id=he_children.taxon_concept_id AND c.parent_type='TaxonConcept')
+          WHERE he_parent.taxon_concept_id=#{taxon_concept.id})
+          order by created_at DESC limit 100
+        }
+
+        comments = Comment.find_by_sql(query_string)
+      end
+
       comments.each do |comment|
         f.entries << Atom::Entry.new do |e|
           if comment.parent_type == 'TaxonConcept'

@@ -78,14 +78,15 @@ class TaxonConcept < SpeciesSchemaModel
     SpeciesSchemaModel.connection.current_database
   end
   def default_hierarchy_curators_clause
-     "SELECT DISTINCT users.*
-      FROM users
-        JOIN #{ssm_db}.hierarchy_entries ancestor ON (users.curator_hierarchy_entry_id = ancestor.id)
-        JOIN #{ssm_db}.hierarchy_entries children ON (ancestor.id = children.id
-                                                      OR (ancestor.hierarchy_id = children.hierarchy_id
-                                                          AND children.lft BETWEEN ancestor.lft AND ancestor.rgt))
-      WHERE curator_approved IS TRUE
-        AND children.taxon_concept_id = #{self.id}"
+    "SELECT DISTINCT users.*
+     FROM eol_data_production.hierarchy_entries children
+       JOIN eol_data_production.hierarchy_entries ancestor
+         ON (children.lft BETWEEN ancestor.lft AND ancestor.rgt AND children.hierarchy_id=ancestor.hierarchy_id)
+       JOIN eol_data_production.hierarchy_entries ancestor_concepts
+         ON (ancestor.taxon_concept_id=ancestor_concepts.taxon_concept_id)
+       JOIN users ON (ancestor_concepts.id=users.curator_hierarchy_entry_id)
+     WHERE curator_approved IS TRUE
+       AND children.taxon_concept_id = #{self.id}"
   end
 
   # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done

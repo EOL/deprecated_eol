@@ -59,7 +59,7 @@ class ApplicationController < ActionController::Base
   # and 500 and to do error logging
   def render_404
     respond_to do |type|
-      type.html { render :layout=>'main',:template => "content/missing"}
+      type.html { render :layout => 'main', :template => "content/missing", :status => 404} # status may be redundant
       type.all  { render :nothing => true }
     end
   end

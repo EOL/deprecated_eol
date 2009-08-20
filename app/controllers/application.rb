@@ -1,5 +1,6 @@
 require 'uri'
 
+# TODO - this deosn't belong here.  Move this to lib/extensions.rb
 # make the sanitize_sql protected method in ActiveRecord base available as a public method called "eol_escape_sql"
 module ActiveRecord
   class Base

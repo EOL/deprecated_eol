@@ -95,5 +95,14 @@ describe 'Curation' do
       with_tag('a[href*=?]', /\/account\/show\/#{@taxon_concept.acting_curators.first.id}/)
     end
   end
+  
+  it 'should still have a curator name in citation after changing clade' do
+    @default_page.body.should have_tag('div#page-citation', /#{@first_curator.family_name}/)
+    uu = User.find(@first_curator.id)
+    uu.curator_hierarchy_entry_id = uu.curator_hierarchy_entry_id + 1
+    uu.save!
+    @first_curator = uu
+    request("/pages/#{@taxon_concept.id}").body.should have_tag('div#page-citation', /#{@first_curator.family_name}/)
+  end
 
 end

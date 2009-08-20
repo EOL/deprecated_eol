@@ -185,8 +185,7 @@ class TaxaController < ApplicationController
     set_current_user(@user)
     flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated]
     redirect_back_or_default
-
-  end
+  end  
 
   ################
   # AJAX CALLS
@@ -327,7 +326,7 @@ class TaxaController < ApplicationController
       params[:id].split(",").each { |id| log_data_objects_for_taxon_concept taxon_concept, DataObject.find_by_id(id.to_i) }
     end
     render :nothing => true
-  end
+  end  
 
 ###############################################
 private
@@ -341,12 +340,10 @@ private
 
   # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
   def set_user_settings
-
-    expertise = params[:expertise].to_sym if ['novice','middle','expert'].include?(params[:expertise])
+    expertise = params[:expertise] if ['novice','middle','expert'].include?(params[:expertise])
     alter_current_user do |user|
       user.expertise=expertise unless expertise.nil?
     end
-
 
     vetted = params[:vetted]
     alter_current_user do |user|

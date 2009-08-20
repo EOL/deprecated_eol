@@ -42,6 +42,23 @@ class DataObject < SpeciesSchemaModel
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
 
+  #----- queries for rss feeds ------
+  def self.feed_images(taxon_concept_id = nil, max_results = 100)
+    if taxon_concept_id.nil?
+      DataObject.find_by_sql("select * from #{DataObject.full_table_name} where data_type_id=#{DataType.image_type_ids[0]} AND published=1 order by created_at DESC limit #{max_results}")
+    else
+      DataObject.find_by_sql("SELECT do.* FROM #{HierarchyEntry.full_table_name} he_parent JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt AND he_parent.hierarchy_id=he_children.hierarchy_id) JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id) JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id) JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id) WHERE he_parent.taxon_concept_id=#{taxon_concept_id} AND do.published=1 AND do.data_type_id=#{DataType.image_type_ids[0]} order by do.created_at DESC limit #{max_results};")
+    end
+  end
+
+  def self.feed_text(taxon_concept_id = nil, max_results = 100)
+    if taxon_concept_id.nil?
+      DataObject.find_by_sql("select * from #{DataObject.full_table_name} where data_type_id=#{DataType.text_type_ids[0]} AND published=1 order by created_at DESC limit #{max_results}")
+    else
+      DataObject.find_by_sql("SELECT do.* FROM #{HierarchyEntry.full_table_name} he_parent JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt AND he_parent.hierarchy_id=he_children.hierarchy_id) JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id) JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id) JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id) WHERE he_parent.taxon_concept_id=#{taxon_concept_id} AND do.published=1 AND do.data_type_id=#{DataType.text_type_ids[0]} order by do.created_at DESC limit #{max_results};")
+    end
+  end
+
   #----- user submitted text --------
   def self.update_user_text(all_params, user)
     dato = DataObject.find(all_params[:id])

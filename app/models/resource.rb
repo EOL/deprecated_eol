@@ -29,9 +29,9 @@ class Resource < SpeciesSchemaModel
   validates_presence_of :license_id, :message => "must be indicated"
 
   def self.iucn
-    YAML.load(Rails.cache.fetch('resources/iucn') do
-      Agent.iucn.resources.to_yaml
-    end)
+    Rails.cache.fetch('resources/iucn') do
+      Agent.iucn.resources
+    end
   end
   
   def status_label

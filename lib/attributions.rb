@@ -47,8 +47,8 @@ class Attributions
   end
 
   # Puts a Source URL Agent into the array, at the end
-  def add_source_url(source_url)
-    if source_url # If it's nil, don't bother doing anything...
+  def add_source_url(source_url)                                                  
+    unless source_url.empty? # If it's empty, don't bother doing anything...
       @attributions << AgentsDataObject.new(:agent => Agent.from_source_url(source_url),
                                             :agent_role => AgentRole.new(:label => 'Source URL'),
                                             :view_order => 0)

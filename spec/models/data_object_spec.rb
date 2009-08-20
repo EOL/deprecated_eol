@@ -454,6 +454,12 @@ describe DataObject do
       @dato.should_receive(:source_url).at_least(1).times.and_return(source)
       @dato.attributions.map {|ado| ado.agent.homepage }.should include(source) # Note HOMEPAGE, not project_name
     end
+    
+    it 'should show nothing if there is no Source URL' do
+      source = ''
+      @dato.should_receive(:source_url).at_least(1).times.and_return(source)
+      @dato.attributions.map {|ado| ado.agent.homepage }.should_not include(source) 
+    end
 
     it 'should add an attribution based on Citation' do
       citation = 'http://some.biological.edu/with/good/data'

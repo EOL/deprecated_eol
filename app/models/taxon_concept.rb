@@ -110,7 +110,12 @@ class TaxonConcept < SpeciesSchemaModel
     ")
   end
 
-  
+  # if curator is no longer able to curate the page, citation should still show up, so we grab all users wich had have curator activity in 2 last years on this page
+  def curator_has_citation
+    last_curated_dates = LastCuratedDate.find(:all, :conditions => ["taxon_concept_id = ? AND last_curated > ?", self.id, 2.years.ago.to_s(:db)])
+    user_ids = last_curated_dates.map { |a| a[:user_id] }.uniq
+    User.find(user_ids)
+  end
 
   # The International Union for Conservation of Nature keeps a status for most known species, representing how endangered that
   # species is.  This will default to "unknown" for species that are not being tracked.

@@ -28,10 +28,11 @@ class Resource < SpeciesSchemaModel
   validates_presence_of :subject, :message => "can't be blank"
   validates_presence_of :license_id, :message => "must be indicated"
 
+  # trying to change it to memcache got error after reload a page
   def self.iucn
-    Rails.cache.fetch('resources/iucn') do
-      Agent.iucn.resources
-    end
+    YAML.load(Rails.cache.fetch('resources/iucn') do
+      Agent.iucn.resources.to_yaml
+    end)
   end
   
   def status_label

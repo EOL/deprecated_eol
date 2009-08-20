@@ -93,13 +93,11 @@ class AccountController < ApplicationController
 
       params[:id] ||= ''
       params[:validation_code] ||= ''
-      user=User.find_by_username_and_validation_code(params[:id],params[:validation_code])
+      @user=User.find_by_username_and_validation_code(params[:id],params[:validation_code])
 
-      if !user.blank?
-        user.update_attributes(:active=>true) # activate their account
-        Notifier.deliver_welcome_registration(user) # send them a welcome message
-        flash[:notice]="Thanks for confirming your registration.  You may now login."
-        redirect_to login_url
+      if !@user.blank?
+        @user.update_attributes(:active=>true) # activate their account
+        Notifier.deliver_welcome_registration(@user) # send them a welcome message
       end
 
   end

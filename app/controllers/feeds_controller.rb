@@ -1,7 +1,30 @@
 class FeedsController < ApplicationController
   def all
     feed = Atom::Feed.new do |f|
-      f.title = "Example Feed"
+      f.updated = Time.now
+      if((taxon_concept_id = params[:page]).nil?)
+        f.links << Atom::Link.new(:href => root_url)
+        f.title = 'Latest Images, Text and Comments'
+        all = DataObject.feed_images_and_text + Comment.feed
+      else
+        begin
+          taxon_concept = TaxonConcept.find(taxon_concept_id)
+        rescue
+          render_404
+          return false
+        end
+        f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
+        f.title = "Latest Images, Text and Comments for #{taxon_concept.names[0].string}" #TODO: select more appropriate name?
+
+        all = DataObject.feed_images_and_text(taxon_concept.id) + Comment.feed(taxon_concept_id)
+      end
+
+      all.sort! {|x,y| y.created_at <=> x.created_at}
+      all = all[0..100]
+
+      all.each do |entry|
+        f.entries << create_entry(entry)
+      end
     end
     render :text => feed.to_xml
   end
@@ -93,8 +116,14 @@ class FeedsController < ApplicationController
   end
 
   protected
-  def create_entry
-    
+  def create_entry(entry)
+    if entry.class == DataObject && entry.data_type_id == DataType.image_type_ids[0]
+      image_entry(entry)
+    elsif entry.class == DataObject && entry.data_type_id == DataType.text_type_ids[0]
+      text_entry(entry)
+    elsif entry.class == Comment
+      comment_entry(entry)
+    end
   end
 
   def image_entry(image)

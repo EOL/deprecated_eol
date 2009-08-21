@@ -30,11 +30,11 @@
                         <table class="results_table" cellspacing="0" summary="Common Names">
                             <tr><th><%="Common Name"[]%></th><th><%="Scientific Name"[]%></th><th><%="Language"[]%></th><th><%="Image"[]%></th></tr>
                             <%- @search.common_results.each_with_index do |result, i| 
-                                  column_class          = cycle('odd','even')
-                                  thumbnail_column_class  = column_class
-                                  taxon_vetted_id         = result[:taxon_vetted_id]
-                                  thumbnail_vetted_id     = result[:thumbnail_vetted_id]
-                                  thumbnail_cache_url     = result[:thumbnail_cache_url]
+                                  column_class           = cycle('odd','even')
+                                  thumbnail_column_class = column_class
+                                  taxon_vetted_id        = result[:taxon_vetted_id]
+                                  thumbnail_vetted_id    = result[:thumbnail_vetted_id]
+                                  thumbnail_cache_url    = result[:thumbnail_cache_url]
 
                                   if taxon_vetted_id != Vetted.trusted.id
                                       column_class = column_class + "_unvetted"
@@ -43,10 +43,10 @@
                                       thumbnail_column_class = column_class + "_unvetted"
                                   end
                                   
-                                  taxon_concept_id      = result[:id]
-                                  preferred_name        = result[:preferred_common_name_italicized].firstcap
-                                  scientific_name       = result[:preferred_scientific_name_italicized].firstcap
-                                  namestring            = result[:matching_string].firstcap %>
+                                  taxon_concept_id = result[:id]
+                                  preferred_name   = result[:preferred_common_name_italicized].firstcap
+                                  scientific_name  = result[:preferred_scientific_name_italicized].firstcap
+                                  namestring       = result[:matching_string].firstcap %>
                                    <tr><td class="<%= column_class %>"><%= link_to namestring,{:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id}  %>
                                     <%- if strip_tags(preferred_name) != strip_tags(namestring) && preferred_name != '' %><br /><%="shown as"[]%> <%=preferred_name%><%- end %>                                 
                                  </td><td class="<%= column_class %>"><%=scientific_name %></td>
@@ -85,10 +85,10 @@
                                     thumbnail_column_class = column_class + "_unvetted"
                                 end
                                 
-                                taxon_concept_id    = result[:id]
-                                preferred_name      = result[:preferred_scientific_name_italicized].firstcap
-                                common_name         = result[:preferred_common_name] ? result[:preferred_common_name].firstcap : ""
-                                namestring          = result[:matching_italicized_string].firstcap %>
+                                taxon_concept_id = result[:id]
+                                preferred_name   = result[:preferred_scientific_name_italicized].firstcap
+                                common_name      = result[:preferred_common_name] ? result[:preferred_common_name].firstcap : ""
+                                namestring       = result[:matching_italicized_string].firstcap %>
                                  <tr><td class="<%= column_class %>"><%= link_to namestring,{:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id}  %>
                                   <%- if strip_tags(preferred_name) != strip_tags(namestring) && preferred_name != '' %><br /><%="synonym of"[]%> <%=preferred_name%><%- end %>                                 
                                </td><td class="<%= column_class %>"><%=common_name if common_name != '' %></td>

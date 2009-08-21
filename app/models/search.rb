@@ -1,3 +1,15 @@
+# Confusing model that needs to be replaced with Solr.  Actually, text searches end up using
+# TaxonConcept#quick_search
+#
+# For testing this, I did the following:
+#
+#   params = {:search_language => '*', :search_type => 'text', :content_level => '1', :q => 'cod' }
+#   class FakeRequest ; def remote_ip ; return '128.0.0.1' ; end ; def user_agent; return 'foo' ; end ; def
+#   request_uri ; return 'whatever' ; end ; end
+#   @search = Search.new(params,FakeRequest.new,User.create_new,nil) 
+#
+# Works.
+#
 class Search
   attr_accessor :search_string, :searching, :num_results_not_shown, :qualifier,
                 :scope, :search_language, :parent_search_log_id, :suggested_searches,
@@ -38,13 +50,6 @@ class Search
   end
 
   # Returns a two member array containing the index of the first and the last result for proper pagination.
-  #
-  # For instance, given 24 search results:
-  #
-  # Page  First   Last
-  #    1      1     10
-  #    2     11     19 
-  #    3     20     24
   def page_range(results)
     index_start_offset = (@current_page - 1) * per_page
     if results.size == 0
@@ -142,8 +147,21 @@ class Search
         # Now filter out only those results that look good to us:
         filter_results_by_content_level(current_user.content_level.to_i)
 
-        @scientific_results = search_results_by_ids(true, @scientific_name_results, current_user.language, current_user.vetted)
-        @common_results = search_results_by_ids(false, @common_name_results, current_user.language, current_user.vetted)
+        @scientific_results = search_results_by_ids(true,
+                                                    @scientific_name_results,
+                                                    current_user.language,
+                                                    current_user.vetted)
+        @common_results = search_results_by_ids(false,
+                                                @common_name_results,
+                                                current_user.language,
+                                                current_user.vetted)
+
+        # We've filtered the results; we need to adjust our lengths:
+        @maximum = total_number_of_results
+
+        # And now we need to paginate those results:
+        @scientific_results = page_range(@scientific_results)
+        @common_results     = page_range(@common_results)
 
         log_search(number_of_stub_page_results, request, current_user)
 
@@ -329,8 +347,6 @@ class Search
                                           :scope=>@scope,
                                           :search_language=>@search_language)
     @maximum = [@search_results[:scientific].size, @search_results[:common].size].max
-    @search_results[:scientific] = page_range(@search_results[:scientific])
-    @search_results[:common]     = page_range(@search_results[:common])
     @search_results[:tags]       = []
   end
 
@@ -364,7 +380,11 @@ class Search
   end
 
   def total_number_of_results
-    @scientific_results.length + @common_results.length + @suggested_searches.length + @tag_results.length
+    total = 0
+    total += @scientific_results.length unless @scientific_results.nil?
+    total += @common_results.length unless @common_results.nil?
+    total += @suggested_searches.length unless @suggested_searches.nil?
+    total += @tag_results.length unless @tag_results.nil?
   end
 
   def log_search(number_of_stub_page_results, request, current_user)

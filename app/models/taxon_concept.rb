@@ -79,10 +79,10 @@ class TaxonConcept < SpeciesSchemaModel
   end
   def default_hierarchy_curators_clause
     "SELECT DISTINCT users.*
-     FROM eol_data_production.hierarchy_entries children
-       JOIN eol_data_production.hierarchy_entries ancestor
+     FROM  #{ssm_db}.hierarchy_entries children
+       JOIN  #{ssm_db}.hierarchy_entries ancestor
          ON (children.lft BETWEEN ancestor.lft AND ancestor.rgt AND children.hierarchy_id=ancestor.hierarchy_id)
-       JOIN eol_data_production.hierarchy_entries ancestor_concepts
+       JOIN  #{ssm_db}.hierarchy_entries ancestor_concepts
          ON (ancestor.taxon_concept_id=ancestor_concepts.taxon_concept_id)
        JOIN users ON (ancestor_concepts.id=users.curator_hierarchy_entry_id)
      WHERE curator_approved IS TRUE
@@ -451,9 +451,7 @@ class TaxonConcept < SpeciesSchemaModel
   class << self; alias_method_chain :find, :supercedure ; end
 
   def self.quick_search(search_string, options = {})
-    options[:user]            ||= User.create_new
-    
-    # TODO - insert into search terms, popular searches, and the like.
+    options[:user] ||= User.create_new
     
     search_terms = search_string.downcase.gsub(/\s+/, ' ').strip.split(/[ -&:\\'?;]+| and /)
     

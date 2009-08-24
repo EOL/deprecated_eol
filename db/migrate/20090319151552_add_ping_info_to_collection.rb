@@ -13,7 +13,6 @@ class AddPingInfoToCollection < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :collections, :ping_host_url
   end
 
 end

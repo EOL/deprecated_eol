@@ -147,13 +147,13 @@ describe Agent do
     end
 
   end
-  
+
    describe '#agents_data' do
-     
+
      before(:all) do
        Scenario.load :foundation
      end
-     
+
      # # Find the data_objects "belongs" to an Agent.
      #  def agents_data
      #      HarvestEvent.find_by_sql(["
@@ -163,7 +163,7 @@ describe Agent do
      #          WHERE  ar.agent_id=?
      #              ORDER BY he.id DESC LIMIT 1", self.id])[0].data_objects
      #  end
-     
+
     it 'should get all data_objects that came from an agents last harvest' do
       @agent       = Agent.gen
       @resource    = Resource.gen
@@ -185,7 +185,35 @@ describe Agent do
       @agent.agents_data.map {|ob| ob.id}.sort.should == 
         @last_datos.map {|ob| ob.id}.sort
     end
-    
+      
+  end
+
+  describe 'latest harvest event contains...' do
+
+    before(:all) do
+      @contains_tc = TaxonConcept.gen # no need to do the build_taxon_concept thing
+      he = HierarchyEntry.gen(:taxon_concept => @contains_tc)
+      contains_taxon = Taxon.gen(:hierarchy_entry => he)
+      @doesnt_contain_tc = TaxonConcept.gen # no need to do the build_taxon_concept thing
+      he = HierarchyEntry.gen(:taxon_concept => @doesnt_contain_tc)
+      Taxon.gen(:hierarchy_entry => he)
+      @agent = Agent.gen
+      resource = Resource.gen
+      AgentsResource.gen(:agent => @agent, :resource => resource)
+      event = HarvestEvent.gen(:resource => resource)
+      HarvestEventsTaxon.gen(:harvest_event => event, :taxon => contains_taxon)
+    end
+
+    it 'should know if a taxon_concept was in its latest harvest event' do
+      @agent.latest_harvest_contains?(@contains_tc).should be_true    # Takes both a TaxonConcept...
+      @agent.latest_harvest_contains?(@contains_tc.id).should be_true # ...and just an ID
+    end
+
+    it 'should know if a taxon_concept was NOT in its latest harvest event' do
+      @agent.latest_harvest_contains?(@doesnt_contain_tc).should_not be_true    # Takes both a TaxonConcept...
+      @agent.latest_harvest_contains?(@doesnt_contain_tc.id).should_not be_true # ...and just an ID
+    end
+
   end
      
 end

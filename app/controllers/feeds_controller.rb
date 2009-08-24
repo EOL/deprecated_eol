@@ -1,8 +1,10 @@
 class FeedsController < ApplicationController
+  caches_page :all, :images, :text, :comments, :expires_in => 2.minutes
+
   def all
     feed = Atom::Feed.new do |f|
       f.updated = Time.now
-      if((taxon_concept_id = params[:page]).nil?)
+      if((taxon_concept_id = params[:id]).nil?)
         f.links << Atom::Link.new(:href => root_url)
         f.title = 'Latest Images, Text and Comments'
         all = DataObject.feed_images_and_text + Comment.feed
@@ -34,7 +36,7 @@ class FeedsController < ApplicationController
       f.updated = Time.now
 #      f.authors << Atom::Person.new(:name => 'John Doe')
 #      f.id = "urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6"
-      if((taxon_concept_id = params[:page]).nil?)
+      if((taxon_concept_id = params[:id]).nil?)
         f.links << Atom::Link.new(:href => root_url)
         f.title = 'Latest Images'
         images = DataObject.feed_images
@@ -62,7 +64,7 @@ class FeedsController < ApplicationController
       f.updated = Time.now
 #      f.authors << Atom::Person.new(:name => 'John Doe')
 #      f.id = "urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6"
-      if((taxon_concept_id = params[:page]).nil?)
+      if((taxon_concept_id = params[:id]).nil?)
         f.links << Atom::Link.new(:href => root_url)
         f.title = 'Latest Text'
         text_entries = DataObject.feed_text
@@ -91,7 +93,7 @@ class FeedsController < ApplicationController
 #      f.authors << Atom::Person.new(:name => 'John Doe')
 #      f.id = "urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6"
 
-      if((taxon_concept_id = params[:page]).nil?)
+      if((taxon_concept_id = params[:id]).nil?)
         f.links << Atom::Link.new(:href => root_url)
         f.title = 'Latest Comments'
         comments = Comment.feed

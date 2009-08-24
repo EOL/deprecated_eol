@@ -250,6 +250,11 @@ class ApplicationController < ActionController::Base
   # just clear all fragment caches quickly
   def clear_all_caches
     Rails.cache.clear
+    
+    #remove cached feeds
+    FileUtils.rm_rf("#{RAILS_ROOT}/public/feeds") #TODO: wish there was a better way to do this
+                                                  #using expire_page doesn't expire pages with id's
+    
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
       ActionController::Base.cache_store.clear
       return true

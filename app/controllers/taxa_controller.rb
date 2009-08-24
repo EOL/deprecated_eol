@@ -425,7 +425,7 @@ private
     
     @taxon_concept.current_user = current_user
 
-    if show_taxa_html_can_be_cached? or
+    if show_taxa_html_can_be_cached? &&
        fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
       @cached=true
     else

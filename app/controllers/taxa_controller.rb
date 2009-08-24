@@ -68,7 +68,7 @@ class TaxaController < ApplicationController
     
     @taxon_concept = taxon_concept
 
-    if inaccessible_page?(@taxon_concept)
+    unless accessible_page?(@taxon_concept)
       render(:layout => 'main', :template => "content/missing", :status => 404)
       return
     end
@@ -645,8 +645,14 @@ private
     return ids.compact
   end
 
-  def inaccessible_page?(taxon_concept)
-    return(taxon_concept.nil? or taxon_concept.entry.nil? or taxon_concept.published == 0)
+  # For regular users, a page is accessible only if the taxon_concept is published.
+  # If an agent is logged in, then it's only accessible if the taxon_concept is 
+  # referenced by the Agent's most recent harvest events
+  def accessible_page?(taxon_concept)
+    return false if taxon_concept.nil?      # TC wasn't found.
+    return true if taxon_concept.published? # Anyone can see published TCs
+    return true if agent_logged_in? and current_agent.latest_harvest_contains?(taxon_concept.id)
+    return false # current agent can't see this unpublished page, or agent isn't logged in.
   end
 
 end

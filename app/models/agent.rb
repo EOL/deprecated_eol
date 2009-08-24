@@ -325,14 +325,14 @@ class Agent < SpeciesSchemaModel
   def to_s
     display_name
   end
-  
+
   alias :ar_to_xml :to_xml
   def to_xml(options = {})
     default_only   = [:id, :acronym, :display_name, :homepage, :username]
     options[:only] = (options[:only] ? options[:only] + default_only : default_only)
     ar_to_xml(options)
   end
-  
+
   # Find the data_objects "belongs" to an Agent.
   def agents_data
     begin 
@@ -346,6 +346,27 @@ class Agent < SpeciesSchemaModel
 	    datos = ""
 	  end
 	  return datos
+  end
+
+  # Returns true if the Agent's latest harvest contains this taxon_concept or taxon_concept id (the raw ID is
+  # preferred)
+  def latest_harvest_contains?(taxon_concept_id)
+    taxon_concept_id = taxon_concept_id.id if taxon_concept_id.class == TaxonConcept
+    resources.each do |resource|
+      event = resource.latest_harvest_event
+      # TODO - look for the TC within this Event
+      tc = TaxonConcept.find_by_sql([%q{
+        SELECT taxon_concepts.id
+        FROM taxon_concepts
+          JOIN hierarchy_entries ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id)
+          JOIN taxa ON (taxa.hierarchy_entry_id = hierarchy_entries.id)
+          JOIN harvest_events_taxa ON (harvest_events_taxa.taxon_id = taxa.id)
+        WHERE harvest_events_taxa.harvest_event_id = ?
+          AND taxon_concepts.id = ?
+      }, event.id, taxon_concept_id])
+      return true unless tc.blank?
+    end
+    return false
   end
   
   protected

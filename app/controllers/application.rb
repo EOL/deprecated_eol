@@ -106,8 +106,7 @@ class ApplicationController < ActionController::Base
 
   # this method determines if the main taxa page is allowed to be cached or not
   def allow_page_to_be_cached?
-    return false if agent_logged_in? or
-                    current_user.is_admin?
+    return !(agent_logged_in? or current_user.is_admin?)
   end
 
   # given a hash containing an agent node, returns a list of hyperlinked <img> tag icons

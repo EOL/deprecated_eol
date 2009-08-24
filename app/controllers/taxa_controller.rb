@@ -430,7 +430,8 @@ private
       @cached=true
     else
       @cached=false
-      set_taxa_page_instance_vars
+      failure = set_taxa_page_instance_vars
+      return false if failure
     end # end get full page since we couldn't read from cache
 
     render :template=>'/taxa/show_cached' if allow_page_to_be_cached? and not params[:category_id] # if caching is allowed, see if fragment exists using this template
@@ -480,8 +481,7 @@ private
         selected_image_index = find_selected_image_index(@images,image_id)
       end
       if selected_image_index.nil?
-        render_404
-        return
+        raise 'Image not found'
       end
       @selected_image = @images[selected_image_index]
 
@@ -511,7 +511,7 @@ private
           current_user.save if logged_in?
         end
       else
-        render_404
+        raise 'Text not found'
       end
     end
   end
@@ -533,10 +533,10 @@ private
 
           set_comment_permalink_pagination(data_object.id, comment)
         else
-          render_404
+          raise "No image with id #{data_object.id} for taxon concept with id #{@taxon_concept.id} or not of type image"
         end
       else
-        render_404
+        raise "Comment not for a data object"
       end
     end
   end
@@ -544,29 +544,25 @@ private
 
   def set_text_comment_permalink_data
     if params[:text_id].nil? && params[:text_comment_id]
-      begin
-        comment_id = params[:text_comment_id].to_i
+      comment_id = params[:text_comment_id].to_i
 
-        comment = Comment.find(comment_id)
+      comment = Comment.find(comment_id)
 
-        if comment.parent_type == 'DataObject'
-          data_object = DataObject.find(comment.parent_id)
-          if data_object.taxon_concepts.include?(@taxon_concept) && data_object.text?
-            params[:text_id] = data_object.id
+      if comment.parent_type == 'DataObject'
+        data_object = DataObject.find(comment.parent_id)
+        if data_object.taxon_concepts.include?(@taxon_concept) && data_object.text?
+          params[:text_id] = data_object.id
 
-            set_text_permalink_data
+          set_text_permalink_data
 
-            @selected_text_comment = comment
+          @selected_text_comment = comment
 
-            set_comment_permalink_pagination(data_object.id, comment)
-          else
-            render_404
-          end
+          set_comment_permalink_pagination(data_object.id, comment)
         else
-          render_404        
+          raise "No text with id #{data_object.id} for taxon concept with id #{@taxon_concept.id} or not of type text"
         end
-      rescue
-        render_404
+      else
+        raise "Comment not for a data object"
       end
     end
   end
@@ -587,15 +583,11 @@ private
   end
 
   def set_comment_permalink_data
-    begin
-      if params[:comment_id]
-        @comment = Comment.find(params[:comment_id].to_i)
-        if @comment.parent_id != @taxon_concept.id || @comment.parent_type != 'TaxonConcept'
-          raise 'Comment not for this species'
-        end
+    if params[:comment_id]
+      @comment = Comment.find(params[:comment_id].to_i)
+      if @comment.parent_id != @taxon_concept.id || @comment.parent_type != 'TaxonConcept'
+        raise 'Comment not for this species'
       end
-    rescue
-      render_404
     end
   end
 
@@ -606,15 +598,16 @@ private
 
     @images = @taxon_concept.images
 
-    set_comment_permalink_data
-
-    set_image_permalink_data
-
-    set_text_permalink_data
-
-    set_image_comment_permalink_data
-    
-    set_text_comment_permalink_data
+    begin
+      set_comment_permalink_data
+      set_image_permalink_data
+      set_text_permalink_data
+      set_image_comment_permalink_data
+      set_text_comment_permalink_data
+    rescue
+      render_404
+      return true
+    end
 
     @video_collection = videos_to_show
     

@@ -89,7 +89,7 @@
                 <% end %>
                 
         		       <% if @user.is_curator? # show them the clade they have selected%>
-                   	 <p><%=@user.curator_approved ? "You are currently a curator of " : "You have requested curation of "%> <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %></p>      
+                   	 <p><%=@user.curator_approved ? "You are currently a curator of " : "You have requested curation of "%> <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %> <%=link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @user.curator_hierarchy_entry.taxon_concept_id)%></p>
       			       <% end %>
 
       		          <%= render(:partial=>'curator_form',:locals=>{:f=>f}) %>

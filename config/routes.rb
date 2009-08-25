@@ -112,5 +112,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'  
   
   map.root :controller => 'content', :action => 'index'
+  
+  map.tc_api_with_pages '/content/tc_api/page/:page', :controller => 'content', :action => 'tc_api'
 
 end

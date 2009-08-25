@@ -1,6 +1,8 @@
 class ContentController < ApplicationController
 
   include ActionView::Helpers::SanitizeHelper
+    
+  caches_page :tc_api
 
   layout 'main'
 
@@ -83,6 +85,36 @@ class ContentController < ApplicationController
     end
     
   end
+  
+  def tc_api
+    all_taxon_concepts = TaxonConcept.find(:all, :conditions => ["published = 1 AND  (supercedure_id = ? OR supercedure_id = ?)", 0, NIL])
+
+    @all_taxon_concepts = all_taxon_concepts.paginate(:page => params[:page], :per_page => 25)
+    
+    @date_generated = "Generated on #{Time.now.strftime("%A, %B %d, %Y - %I:%M %p %Z")}"
+    text_tc   = all_taxon_concepts.map {|t| tc_api_tab(t) + "\n"}
+    file_path = "#{RAILS_ROOT}/public/content/tc_api.gz"
+    
+  	Zlib::GzipWriter.open(file_path) do |gzip|
+  	  gzip << @date_generated.to_s + "\n" + text_tc.to_s
+  	  gzip.close
+  	end
+
+    unless @all_taxon_concepts.blank?
+      respond_to do |format|
+         format.html
+      end
+    else
+     render_404
+    end
+  end
+  
+  def tc_api_tab(taxon_concept)
+        taxon_concept.id.to_s + "\t" + 
+        taxon_concept.scientific_name.gsub(/\t/, ' ') + "\t" + 
+        taxon_concept.common_name.gsub(/\t/, ' ')
+  end
+  helper_method(:tc_api_tab)
     
   def exemplars
     respond_to do |format|

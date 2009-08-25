@@ -6,7 +6,7 @@
     <div id="about">
         <h1><%= h @user.given_name %>&nbsp;<%= h @user.family_name %></h1>
         <p>
-            Curator of <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %>
+            Curator of <%= link_to (@user.curator_hierarchy_entry.name), :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id %> <%=link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @user.curator_hierarchy_entry.taxon_concept_id)%>
         </p>
         <p>Curator scope <%=@user.curator_scope%></p>
         <p>"<%= h @user.username %>" joined <%= format_date(@user.created_at) %></p>

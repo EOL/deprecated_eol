@@ -643,6 +643,11 @@ class DataObject < SpeciesSchemaModel
           GROUP BY dato.id
         ORDER BY dato.vetted_id DESC,dato.data_rating DESC               # DataObject.cached_images_for_taxon
       }, taxon.id, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids])                            
+    
+    result.each do |obj|
+      obj.description = obj.description_linked if !obj.description_linked.nil?
+    end
+    
     # Run a second query if we need unpublished or invisible images (but not if we're already doing it!!!):
     if not nested and ((not options[:agent].nil?) or options[:user].is_curator? or options[:user].is_admin?)
       result += DataObject.cached_images_for_taxon(taxon, options.merge(:from => 'top_unpublished_images'))

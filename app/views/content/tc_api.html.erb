@@ -1,0 +1,23 @@
+<div id="content">
+	<div id="page-separator-general"></div>
+
+    <!-- page title -->
+    <div id="page-title">
+          <h1><%="Taxon Concepts"[]%></h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+	
+	    <div id="page-content" class="clearfix">
+	        <!-- center page content -->
+	        <div id="full-page-content">
+          <h3><%= @date_generated %></h3>
+            <%= will_paginate @all_taxon_concepts %>
+              <% for taxon_concept in @all_taxon_concepts -%>
+              <%= tc_api_tab(taxon_concept) -%>
+              <br />
+              <% end -%>
+            <%= will_paginate @all_taxon_concepts %>          		
+			   </div>
+	  </div>
+</div>

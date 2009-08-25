@@ -1,4 +1,6 @@
 class FeedsController < ApplicationController
+  before_filter :set_session_hierarchy_variable
+
   caches_page :all, :images, :text, :comments, :expires_in => 2.minutes
 
   def all
@@ -16,7 +18,7 @@ class FeedsController < ApplicationController
           return false
         end
         f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
-        f.title = "Latest Images, Text and Comments for #{taxon_concept.names[0].string}" #TODO: select more appropriate name?
+        f.title = "Latest Images, Text and Comments for #{taxon_concept.quick_scientific_name(:normal,@session_hierarchy)}"
 
         all = DataObject.feed_images_and_text(taxon_concept.id) + Comment.feed(taxon_concept_id)
       end
@@ -48,7 +50,7 @@ class FeedsController < ApplicationController
           return false
         end
         f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
-        f.title = "Latest Images for #{taxon_concept.names[0].string}" #TODO: select more appropriate name?
+        f.title = "Latest Images for #{taxon_concept.quick_scientific_name(:normal,@session_hierarchy)}"
         images = DataObject.feed_images(taxon_concept.id)
       end
       
@@ -76,7 +78,7 @@ class FeedsController < ApplicationController
           return false
         end
         f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
-        f.title = "Latest Text for #{taxon_concept.names[0].string}" #TODO: select more appropriate name?
+        f.title = "Latest Text for #{taxon_concept.quick_scientific_name(:normal,@session_hierarchy)}"
         text_entries = DataObject.feed_text(taxon_concept.id)
       end
 
@@ -104,7 +106,7 @@ class FeedsController < ApplicationController
           render_404
           return false
         end
-        f.title = "Latest Comments for #{taxon_concept.names[0].string}"
+        f.title = "Latest Comments for #{taxon_concept.quick_scientific_name(:normal,@session_hierarchy)}"
         f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
 
         comments = Comment.feed(taxon_concept.id)

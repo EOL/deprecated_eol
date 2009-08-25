@@ -32,6 +32,8 @@ config.action_mailer.raise_delivery_errors = false
 
 # logging level
 config.log_level = :debug
+config.cache_store = :mem_cache_store
+
 
 # set to false turn off notification of exceptions via email 
 $EXCEPTION_NOTIFY=false

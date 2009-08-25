@@ -254,6 +254,9 @@ class ApplicationController < ActionController::Base
     #remove cached feeds
     FileUtils.rm_rf("#{RAILS_ROOT}/public/feeds") #TODO: wish there was a better way to do this
                                                   #using expire_page doesn't expire pages with id's
+    #remove cached list of taxon_concepts                                             
+    FileUtils.rm_rf("#{RAILS_ROOT}/public/content/tc_api/page")
+    expire_page( :controller => 'content', :action => 'tc_api' )
     
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
       ActionController::Base.cache_store.clear

@@ -287,6 +287,7 @@ create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_o
 create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 4, :parent_id => ref_and_info.id
 create_if_not_exists TocItem, :label => 'Biomedical Terms',              :view_order => 8, :parent_id => ref_and_info.id
 create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 12,:parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Literature References',         :view_order => 16,:parent_id => ref_and_info.id
 
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology', :label => 'TaxonBiology', :toc_item => TocItem.overview
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription', :label => 'GeneralDescription', :toc_item => description

@@ -143,7 +143,7 @@ build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names 
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
                     :id => 30, :depth => depth_now, :images => :testing, :flash => [{:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [],
                     :bhl => [], :event => event)
-                   
+
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)], :id => 31, 
                     :depth => depth_now, :flash => [{}, {:vetted => Vetted.unknown}], :youtube => [{:vetted => Vetted.unknown}, {:vetted => Vetted.untrusted}], :comments => [],
@@ -262,7 +262,7 @@ eukaryota = build_taxon_concept(:rank => 'superkingdom',
                                 :event => event,
                                 :hierarchy => ncbi_hierarchy,
                                 :depth => 0)
-                                
+
 opisthokonts_name   = Name.gen(:canonical_form => cf = CanonicalForm.gen(:string => 'Metazoa'),
                   :string => 'Metazoa',
                   :italicized => '<i>Metazoa</i>')
@@ -291,7 +291,7 @@ TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry
                                   :hierarchy => ncbi_hierarchy,
                                   :parent_hierarchy_entry_id => parent_id,
                                   :depth => depth)
-  
+
   sci_name = Factory.next(:scientific_name)
   c_name = Factory.next(:common_name)
   eukaryota = build_taxon_concept(:rank => '',
@@ -353,3 +353,13 @@ end
 make_all_nested_sets
 recreate_normalized_names_and_links
 rebuild_collection_type_nested_set
+
+DataObject.find(:all).each_with_index do |d,i|
+  d.created_at = Time.now - i.hours
+  d.save!
+end
+
+Comment.find(:all).each_with_index do |c,i|
+  c.created_at = Time.now - i.hours
+  c.save!
+end

@@ -109,7 +109,7 @@ Event.addBehavior(
           so.addVariable("swf", "");
           //var taxon_concept_id = $('map-taxon-concept-id').value;
           //var taxon_concept_id = 13839800;
-          so.addVariable("taxon_concept_id", taxon_concept_id);
+          so.addVariable("taxon_id", taxon_concept_id);
           so.addVariable("data_server_endpoint", data_server_endpoint);
           so.addVariable("gmap_key", gmap_key);
 

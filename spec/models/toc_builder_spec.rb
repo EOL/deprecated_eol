@@ -29,6 +29,9 @@ describe TocBuilder do
       # In order to get specialist projects, we need a mapping realted to one of the tc's names.
       Mapping.gen(:name => Name.last) # Cheating.  I know that the last name built was created for this TC
 
+      # Literature References will be added if there is a reference to this TC:
+      RefsTaxon.gen(:taxon => tc.entry.taxa.first)
+
       # Just asserting an assumption about label ordering.
       tb = TocBuilder.new
       
@@ -39,6 +42,7 @@ describe TocBuilder do
       toc[3].label.should == "Specialist Projects"
       toc[4].label.should == "Biomedical Terms"
       toc[5].label.should == "Search the Web"
+      toc[6].label.should == "Literature References"
     end
 
   end

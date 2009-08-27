@@ -7,7 +7,7 @@ class GamesController < ApplicationController
      @num_images=5
      
      # original ordering of random taxa
-     @taxa  = RandomTaxon.random_set(@num_images)
+     @taxa  = RandomHierarchyImage.random_set(@num_images, @session_hierarchy)
      
      # now scramble the order into an array
      @random_order = Array.new

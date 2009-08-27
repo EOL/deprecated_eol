@@ -59,6 +59,18 @@ Content partner profiles can be updated below.  Only enter a new password to cha
             Describe the project as you would like it to appear on the Encyclopedia of Life web site.
             <%= f.text_area :project_description, :cols => 70, :rows => 10 %>
 
+              <%= f.label :description_of_data, "Description of Data" %>
+              Please provide us with a description of the type of information you have, how many items are available, what organisms they relate to, and whether they have been assembled or checked by qualified experts or by a knowledgeable community.  The information that you write here will NOT be visible on the web site.
+              <%= f.text_area :description_of_data, :cols => 70, :rows => 10 %>
+
+              <%= f.label :notes, "Notes" %>
+                These notes were entered by the partner.
+              <%= f.text_area :notes, :cols => 70, :rows => 10 %>						
+
+              <%= f.label :admin_notes, "Admin Notes" %>
+                Enter in any other notes or comments -- these will not be visible on the website or to the partner.
+              <%= f.text_area :admin_notes, :cols => 70, :rows => 10 %>						
+
               <%= f.label :logo, "Project Logo" %>
               Please select and upload a JPG, PNG or GIF image of approximately 100x100 pixels, and no larger than 500k.   We will create two logos, one with a maximum dimension of 100 pixels, and a smaller one depending on it's location on the website.
               <%= f.file_field :logo, :size=>60 %>

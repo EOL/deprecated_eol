@@ -184,6 +184,15 @@ class Agent < SpeciesSchemaModel
     self.content_partner.notes=notes
     self.content_partner.save
   end
+
+  def admin_notes
+    self.content_partner.admin_notes unless self.content_partner.nil? 
+  end
+  
+  def admin_notes=(admin_notes)
+    self.content_partner.admin_notes=admin_notes
+    self.content_partner.save
+  end
     
   def primary_contact
     self.agent_contacts.detect {|c| c.agent_contact_role_id == AgentContactRole.primary.id } || self.agent_contacts.first
@@ -231,7 +240,7 @@ class Agent < SpeciesSchemaModel
   # Authenticates a user by their username and unencrypted password.  Returns the user or nil.
   def self.authenticate(username, password)
     a = find_by_username(username)
-    a && a.authenticated?(password) ? a : nil
+    a && a.authenticated?(password) && a.agent_status != AgentStatus.inactive ? a : nil
   end
 
   def authenticated?(password)

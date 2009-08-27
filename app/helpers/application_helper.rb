@@ -29,13 +29,6 @@ module ApplicationHelper
     return "/taxon_concepts/#{taxon_concept.id}/comments/"
   end
        
-   def recaptch_theme
-     theme="<script type='text/javascript'>"
-     theme+="var RecaptchaOptions = { theme : 'clean'};"
-     theme+="</script>"
-     return theme
-   end
-
    # format numbers with commas for digit separators
    def format_number_with_commas(st)
      st.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")

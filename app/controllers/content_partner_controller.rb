@@ -326,7 +326,7 @@ class ContentPartnerController < ApplicationController
       flash[:notice] = "Logged in successfully as #{self.current_agent.full_name}"
       redirect_to(:action=>'index',:protocol=>'http://')
     else
-      flash.now[:error] = 'Invalid content partner login credentials - if you are trying to login as an EOL user or curator, use the login link at the top of the page'
+      flash.now[:error] = 'Either your content partner login credentials are incorrect or your account was inactivated.  If you are trying to login as an EOL user or curator, use the login link at the top of the page.'
     end
   end
   

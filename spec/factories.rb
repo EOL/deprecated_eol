@@ -258,7 +258,7 @@ Factory.define :agent do |agent|
   end
   agent.email           { Factory.next(:email) }
   agent.hashed_password { Digest::MD5.hexdigest('test password') }
-  agent.agent_status    { AgentStatus.active || Factory(:agent_status, :label => 'Active') }
+  agent.agent_status    { AgentStatus.find_by_label('Active') || Factory(:agent_status, :label => 'Active') }
 end
 
 Factory.define :agent_contact do |ac|

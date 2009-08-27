@@ -21,5 +21,7 @@ unless @content[:data_objects].nil?
 
 <div id="scroll_to_bottom"></div>
 <script type="text/javascript">
-  womAdd('updateReferences();');
+  document.observe("dom:loaded", function() {
+    updateReferences();
+  });
 </script>

@@ -1,11 +1,12 @@
   <%= javascript_include_tag 'users' %>
   
 	<script type="text/javascript">
-
-  	womAdd('$(\'user_username\').focus();');
-  	<% if params[:user] && params[:user][:curator_request] %>
-  	  womAdd('reset_curator_panel();');
-  	<% end %>	
+    document.observe("dom:loaded", function() {
+      $('user_username').focus();
+      <% if params[:user] && params[:user][:curator_request] %>
+        reset_curator_panel();
+      <% end %>
+    });
 	</script>
 
 	<div id="registration">

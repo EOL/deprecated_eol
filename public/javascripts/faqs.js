@@ -103,4 +103,6 @@ function expandDLTree(className){
 	}
 }
 
-womAdd('initDLTree("faqBlock");');
+document.observe("dom:loaded", function() {
+  initDLTree("faqBlock");
+});

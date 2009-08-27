@@ -107,7 +107,9 @@
                 <script type="text/javascript">
                   // <![CDATA[
                     <% if update_attribution_on_load %>
-                        womAdd('<%=escape_javascript(attribution_js_function)%>');
+                      document.observe("dom:loaded", function() {
+                        <%=attribution_js_function%>
+                      });
                     <% else %>
                         <%=image_load_js_function%>
                     <% end %>

@@ -91,9 +91,11 @@
   		}
   		
   	}
-  	
-  	womAdd('eol_update_flash_enabled();');
-  	womAdd('setTimeout("start_explore_updates()",' + num_seconds_between_image_loads*1000 + ');');
+
+    document.observe("dom:loaded", function() {
+      eol_update_flash_enabled();
+      setTimeout("start_explore_updates()",num_seconds_between_image_loads*1000);
+    });
   	//]]>
 </script>
 

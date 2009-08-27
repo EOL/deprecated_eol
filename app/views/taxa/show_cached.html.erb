@@ -6,7 +6,11 @@
 
 <% if @cached %>
   <script language="JavaScript" type="text/javascript">
-    if ($('data_objects_to_log').value != '') { womAdd("eol_log_data_objects_for_taxon_concept( $('taxon_concept_to_log').value, $('data_objects_to_log').value );"); }
+    document.observe("dom:loaded", function() {
+      if ($('data_objects_to_log').value != '') {
+        eol_log_data_objects_for_taxon_concept( $('taxon_concept_to_log').value, $('data_objects_to_log').value );
+      }
+    });
   </script>
 <% end %>
 

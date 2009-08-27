@@ -58,8 +58,10 @@
        final_results+='<br />Now click on the names to learn more about the species or <a href="<%=request.request_uri%>">play again</a>!';
        $('game_results').innerHTML=final_results;
      }
-     womAdd('setup_drag_drop();');
-     
+
+    document.observe("dom:loaded", function() {
+      setup_drag_drop();
+    });
     </script>	
     
     <style type="text/css">

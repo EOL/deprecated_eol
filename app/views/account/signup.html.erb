@@ -1,13 +1,13 @@
   <%= javascript_include_tag 'users' %>
   
-	<script type="text/javascript">
+	<% javascript_tag do %>
     document.observe("dom:loaded", function() {
       $('user_username').focus();
       <% if params[:user] && params[:user][:curator_request] %>
         reset_curator_panel();
       <% end %>
     });
-	</script>
+	<% end %>
 
 	<div id="registration">
 

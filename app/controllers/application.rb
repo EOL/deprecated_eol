@@ -106,8 +106,7 @@ class ApplicationController < ActionController::Base
 
   # this method determines if the main taxa page is allowed to be cached or not
   def allow_page_to_be_cached?
-    return false if agent_logged_in? or
-                    current_user.is_admin?
+    return !(agent_logged_in? or current_user.is_admin?)
   end
 
   # given a hash containing an agent node, returns a list of hyperlinked <img> tag icons
@@ -251,6 +250,14 @@ class ApplicationController < ActionController::Base
   # just clear all fragment caches quickly
   def clear_all_caches
     Rails.cache.clear
+    
+    #remove cached feeds
+    FileUtils.rm_rf("#{RAILS_ROOT}/public/feeds") #TODO: wish there was a better way to do this
+                                                  #using expire_page doesn't expire pages with id's
+    #remove cached list of taxon_concepts                                             
+    FileUtils.rm_rf("#{RAILS_ROOT}/public/content/tc_api/page")
+    expire_page( :controller => 'content', :action => 'tc_api' )
+    
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
       ActionController::Base.cache_store.clear
       return true

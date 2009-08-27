@@ -9,6 +9,10 @@ to sort by that column.
   %br/
   = check_box_tag('only_show_agents_with_unpublished_content','1',@only_show_agents_with_unpublished_content)
   Only show partners with unpublished content or no resources
+  %br/
+  Only show partners with this status:
+  = select_tag(:agent_status_id, "<option value=''>All status types</option>" + options_from_collection_for_select(@agent_status, :id, :label,@agent_status_id.to_i)) 
+  	
   = submit_tag 'Search' 
   %br/
   %br/
@@ -17,13 +21,13 @@ to sort by that column.
   %table.results_table{:width => "100%", :cellspacing => "0"}
     %tr
       %th
-        = link_to 'Partner',{:order_by=>'full_name'}
+        = link_to 'Partner',{:order_by=>'a.full_name ASC'}
       %th
-        = link_to 'Registered',{:order_by=>'content_partners.created_at DESC'}
+        = link_to 'Registered',{:order_by=>'cp.created_at DESC'}
       %th Steps
     - for agent in @agents 
       - show=true
-      - if (!agent.has_unpublished_content? && @only_show_agents_with_unpublished_content) || (agent.content_partner.blank?) 
+      - if (!agent.has_unpublished_content? && @only_show_agents_with_unpublished_content)
         - show=false
 
       - if show
@@ -31,15 +35,21 @@ to sort by that column.
   
         %tr{:valign => "top"}
           %td{:width => "40%", :class => column_class}
-            = link_to(agent.project_name, { :action => 'show', :id => agent })
+            = link_to(agent.project_name, { :action => 'show', :id => agent.id })
             %br/
             == Content partner has #{agent.resources.count} resources
-          %td{:class => column_class}
-            = 'Registered:' + format_date(agent.content_partner.created_at)
             %br/
-            = 'Last action:' + format_date(agent.content_partner.last_action)
+            - if agent.agent_status.blank?
+              Status: unknown
+            - else
+              = "Status: #{agent.agent_status.label}" 
+              
+          %td{:class => column_class}
+            = 'Registered:' + format_date(agent.created_at)
+            %br/
+            = 'Last action: ' + format_date(ContentPartner.find_by_agent_id(agent.id).last_action)
           %td{:class => column_class}          	
-            = content_partner_check_box_image(agent.content_partner.partner_complete_step?)
+            = content_partner_check_box_image(agent.partner_complete_step?)
             Partner Information Completed
             %br/
             = content_partner_check_box_image(agent.agent_contacts.any?)

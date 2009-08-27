@@ -42,5 +42,17 @@ EOL.Admin.Behaviors = {
 				parameters: 'content_page_archive_id=' + content_page_archive_id + '&content_page_id=' + this.form.readAttribute('data-page_id')
 			});
 		}
+  },
+
+  'form#content_section_select select#content_section_id:change': function(e) {
+    content_section_id=this.options[this.selectedIndex].value;
+    new Ajax.Request('/administrator/content_page/get_content_pages',{
+      asynchronous:true,
+      evalScripts:true,
+      method:'post',
+      onComplete:function(request){hideAjaxIndicator();},
+      onLoading:function(request){showAjaxIndicator();},
+      parameters:'id='+content_section_id
+    });
   }
 };

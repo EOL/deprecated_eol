@@ -9,6 +9,13 @@ class AgentStatus < SpeciesSchemaModel
       AgentStatus.find_by_label('Active').to_yaml
     end)
   end 
+
+  # Find the "Inactive" AgentStatus.
+  def self.inactive
+    YAML.load(Rails.cache.fetch('agent_statuses/inactive') do
+      AgentStatus.find_by_label('Inactive').to_yaml
+    end)
+  end 
   
 end
 # == Schema Info

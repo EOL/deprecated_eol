@@ -7,23 +7,34 @@ class Administrator::ContentPartnerReportController < AdminController
   def index
     @partner_search_string=params[:partner_search_string] || ''
     @only_show_agents_with_unpublished_content=EOLConvert.to_boolean(params[:only_show_agents_with_unpublished_content])
+    @agent_status=AgentStatus.find(:all,:order=>'label')
+    @agent_status_id=params[:agent_status_id] || AgentStatus.active.id
+    where_clause = (@agent_status_id.blank? ? '' : "agent_status_id=#{@agent_status_id} AND ")
     search_string_parameter='%' + @partner_search_string + '%' 
     page=params[:page] || '1'
     order_by=params[:order_by] || 'full_name ASC'
-    @agents = Agent.paginate(:order => order_by, :conditions=>['full_name like ? AND username <>""',search_string_parameter],:page => page, :include=>:content_partner)
+    @agents = Agent.paginate_by_sql(["select a.id,a.full_name,a.agent_status_id,partner_complete_step,show_on_partner_page,cp.vetted,cp.created_at from agents a inner join content_partners cp on cp.agent_id=a.id WHERE #{where_clause} full_name like ? ORDER BY #{order_by}",search_string_parameter],:page=>page)
   end
 
   def export
-    @agents = Agent.find(:all,:order => 'full_name', :conditions=>['username <>""'],:include=>[:content_partner,:agent_contacts])
+    @agents = Agent.find_by_sql('select * from agents a inner join content_partners cp on cp.agent_id=a.id order by a.full_name ASC')
 
     report = StringIO.new
     CSV::Writer.generate(report, ',') do |row|
-        row << ['Partner Name', 'Registered Date', 'Resources','Agent_ID']
+        row << ['Partner Name', 'Registered Date', 'Resources','Status','Agent_ID']
         row << ['','Role', 'Contact', 'Email', 'Telephone','Address','Homepage']
         @agents.each do |agent|
-          created_at=''
-          created_at=agent.content_partner.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless agent.content_partner.created_at.blank?
-          row << [agent.project_name,created_at,agent.resources.count,agent.id]       
+          if agent.created_at.blank?
+            created_at=''
+          else
+            created_at=agent.created_at.strftime("%m/%d/%y - %I:%M %p %Z") 
+          end if
+          if agent.agent_status.blank?
+            agent_status = 'unknown'
+          else
+            agent_status = agent.agent_status.label
+          end
+          row << [agent.project_name,agent.created_at,agent.resources.count,agent_status,agent.agent_id]       
           agent.agent_contacts.each do |contact|
             row << ['',contact.agent_contact_role.label,contact.title + ' ' + contact.full_name,contact.email,contact.telephone,contact.address,contact.homepage]
           end
@@ -42,6 +53,7 @@ class Administrator::ContentPartnerReportController < AdminController
       redirect_to :action=>'index' 
       return
     end
+    @agent_status=AgentStatus.find(:all,:order=>'label')    
     @agent.content_partner=ContentPartner.new if @agent.content_partner.nil?
     @current_agreement=ContentPartnerAgreement.find_by_agent_id_and_is_current(@agent.id,true,:order=>'created_at DESC')
     if @current_agreement == nil || @current_agreement.signed_by.blank?
@@ -151,6 +163,13 @@ class Administrator::ContentPartnerReportController < AdminController
     end
   end
 
+  def set_agent_status
+    @agent = Agent.find(params[:id])
+    @agent.agent_status_id = params[:agent_status_id]
+    @agent.save!
+    render :nothing=>true
+  end
+  
   def auto_publish
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:auto_publish)

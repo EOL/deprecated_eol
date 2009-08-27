@@ -1,24 +1,4 @@
 <%= render :partial => '/admin/content_top', :locals => {:name => 'Edit Page Contents'} %>
-
-<script type="text/javascript">
-	
-	function select_content_section(form_value) {
-		content_section_id=form_value.options[form_value.selectedIndex].value;
-		new Ajax.Request(
-		'/administrator/content_page/get_content_pages',
-		  {
-		  	asynchronous:true, 
-			evalScripts:true, 
-			method:'post', 
-			onComplete:function(request){hideAjaxIndicator();},
-			onLoading:function(request){showAjaxIndicator();},
-			parameters:'id='+content_section_id
-		  }
-		);
-		}
-	
-</script>
-
   <a href="#" onclick="Element.toggle('instructions');return false;">Instructions</a>
   <div id="instructions" style="display:none;">
   	<ol>
@@ -34,7 +14,7 @@
 	</div>
 	<form id="content_section_select">				
 	To administer site content, please select the section to work on:
-			<%= collection_select(:content_section,:id,@content_sections,:id,:name,{},{:onChange=>'JavaScript:select_content_section(this);'})%>
+			<%= collection_select(:content_section,:id,@content_sections,:id,:name,{})%>
 	</form>
 	<div id="content_page_list">
 		<%=render(:partial=>'content_page_list')%>

@@ -16,6 +16,7 @@ javascripts:
   - search
   - curation
   - comments
+  - admin
   - rating
   - text_objects
   - media_center

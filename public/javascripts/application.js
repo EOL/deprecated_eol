@@ -194,3 +194,5 @@ document.observe("dom:loaded", function() {
   // Make our links show up
   $$('a.popup-link,a.slide-in-link').invoke('show');
 });
+
+var RecaptchaOptions = { theme : 'clean'};

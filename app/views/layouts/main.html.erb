@@ -323,9 +323,11 @@
         <div id="flash-survey" class="pop-up-panel" style="display:none;">
         <%= render :partial=> 'popups/survey'%>
             <script language="javascript" type="text/javascript">
-            // <![CDATA[
-              womAdd('setTimeout("Element.show(\'flash-survey\');new EOL.Effect.appear(\'progress-open\', {duration: 0.5, from: 0.0, to: 0.50})","5000");');
-            // ]]>
+              // <![CDATA[
+              document.observe("dom:loaded", function() {
+                setTimeout("Element.show('flash-survey');new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50})",5000);
+              });
+              // ]]>
             </script>
         </div>
     </div>

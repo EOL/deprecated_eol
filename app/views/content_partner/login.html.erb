@@ -1,5 +1,7 @@
 <script type="text/javascript">
-	womAdd('$(\'agent_username\').focus();');
+  document.observe("dom:loaded", function() {
+    $('agent_username').focus();
+  });
 </script>
     <div id="page-separator-general"></div>
 

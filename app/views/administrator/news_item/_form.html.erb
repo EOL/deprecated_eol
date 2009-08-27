@@ -8,11 +8,14 @@
 	    textCounter($('news_item_title'),$('title_remaining_length'),250);
 	    preview_news_item();
 	  }
-    womAdd("check_title_remaining();");
-    womAdd("check_body_remaining();");
     function preview_news_item() {
       $('previewed_news_item').innerHTML='<strong><%=Date.today%></strong> - ' + $('news_item_title').value + ' - ' + $('news_item_body').value;
     }
+
+    document.observe("dom:loaded", function() {
+      check_title_remaining();
+      check_body_remaining();
+    });
 	</script>				
 	<br />
 	Edit the news item below.  HTML is allowed in both fields, and *either* title or the body is required.  For best results, just use the title and enter a short news item.  When creating hyperlinks to other sites, you can use <%=link_to 'TinyURL','http://www.tinyurl.com',:target=>'_blank'%> to create shorter URLs to conserve characters.

@@ -1,0 +1,1 @@
+page << "EOL.Effect.disappear('row_#{params[:id]}');"

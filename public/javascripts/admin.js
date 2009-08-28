@@ -63,5 +63,17 @@ EOL.Admin.Behaviors = {
     else {
       $('password_warn').hide();
     }
+  },
+
+  'div#users a.remove_link:click': function(e) {
+    var notes = prompt ("Are you sure you want to remove this user from the curator list?  If so, enter a reason below.  They will be removed immediately, their clade, credentials and scope will be cleared immediately, and they will not be notified.","")
+    if (notes != null) {
+      new Ajax.Request(this.href, {
+        asynchronous:true,
+        evalScripts:true,
+        parameters:'notes='+escape(notes)
+      });
+    }
+    return false;
   }
 };

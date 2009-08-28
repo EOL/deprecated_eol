@@ -160,13 +160,9 @@ class Administrator::UserController  < AdminController
   end
 
   def clear_curatorship
-
     user = User.find(params[:id])
     user.clear_curatorship(current_user,params[:notes])
     user.save!
-    
-    render :nothing => true
-  
   end
   
   def login_as_user

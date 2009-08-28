@@ -1,16 +1,3 @@
-<script type="text/javascript">
-// instant feedback to user about password matching
-function check_passwords() {
-	if ($('agent_password').value != $('agent_password_confirmation').value) {
-		$('password_warn').innerHTML='<%=escape_javascript("Passwords must match"[])%>.';
-	}
-	else {
-		$('password_warn').innerHTML='';
-	}
-}
-</script>
-
-
 <%= render :partial => '/admin/content_top', :locals => {:name => "Edit Profile: #{@agent.display_name}" }%>
   
 <br />
@@ -31,11 +18,11 @@ Content partner profiles can be updated below.  Only enter a new password to cha
           <%= f.text_field :email, :maxlength => 60, :size => 30 %>
 
           <%= f.label :password, "#{'Password'[]} (4-16 characters)"[] %>
-          <%= f.password_field :password, :maxlength => 16, :onblur => "check_passwords();" %>
-          <span class="error" id="password_warn"></span>
+          <%= f.password_field :password, :maxlength => 16 %>
+          <span class="error" id="password_warn" style="display:none;"><%= "Passwords must match"[] %></span>
 
           <%= f.label :password_confirmation, "Confirm Password"[] %>
-          <%= f.password_field :password_confirmation, :maxlength => 16, :onblur => "check_passwords();" %>
+          <%= f.password_field :password_confirmation, :maxlength => 16 %>
 
           <br /><br />
           <legend><%= "Project Information"[] %></legend>

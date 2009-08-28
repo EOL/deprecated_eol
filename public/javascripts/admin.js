@@ -54,5 +54,14 @@ EOL.Admin.Behaviors = {
       onLoading:function(request){showAjaxIndicator();},
       parameters:'id='+content_section_id
     });
+  },
+
+  'input#agent_password:blur, input#agent_password_confirmation:blur': function(e) {
+    if ($('agent_password').value != $('agent_password_confirmation').value) {
+      $('password_warn').show();
+    }
+    else {
+      $('password_warn').hide();
+    }
   }
 };

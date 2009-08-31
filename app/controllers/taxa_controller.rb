@@ -3,7 +3,7 @@ class TaxaController < ApplicationController
   layout 'main'
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
   before_filter :set_user_settings, :only=>[:show,:search,:settings]
-  before_filter :set_session_hierarchy_variable, :only => [:show]
+  before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution]
 
   if $SHOW_SURVEYS
     before_filter :check_for_survey, :only=>[:show,:search,:settings]
@@ -88,6 +88,11 @@ class TaxaController < ApplicationController
       end
     end
 
+  end
+
+  def classification_attribution
+    @taxon_concept = taxon_concept
+    render :partial => 'classification_attribution', :locals => {:taxon_concept => taxon_concept}
   end
 
   # execute search and show results

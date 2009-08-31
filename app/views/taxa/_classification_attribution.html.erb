@@ -1,0 +1,12 @@
+<div class="credit-title"><%= "Classification provided by"[] %></div>
+<div class="credit-value">
+  <%= attributions = @taxon_concept.classification_attribution(@session_hierarchy).reverse
+      if attributions.blank?
+          'source unknown'
+      elsif attributions[0].full_name == @session_hierarchy.label
+          agent_partial(attributions) + '<br />' + agent_icons_partial(attributions)
+      else
+          # if we don't have CoL in classification attribution (e.g. name is from Flickr), we only show CoL here since the hiearchy we show in the browser is *only* CoL for now)
+          agent_partial(@session_hierarchy.attribution) + '</div><br /><div class="credit-title">' + agent_icons_partial(@session_hierarchy.attribution) + "<br /><br />#{@taxon_concept.entry.rank_label.capitalize} recognized by<br />" + agent_partial(attributions)
+      end %>
+</div>

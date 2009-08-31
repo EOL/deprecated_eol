@@ -46,7 +46,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'pages/:taxon_concept_id/videos/:page.:format',
               :controller => 'data_objects', :action => 'index',
               :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
-
+  map.connect 'pages/:id/best_images.:format', :controller => 'content', :action => 'best_images'
+  
   map.set_language      'set_language',      :controller => 'application', :action => 'set_language'
   map.set_flash_enabled 'set_flash_enabled', :controller => 'application', :action => 'set_flash_enabled'
 
@@ -106,6 +107,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/index', :controller => 'content', :action => 'index'
   map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID  
   map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
+
+  map.tc_api_with_pages '/content/tc_api/page/:page', :controller => 'content', :action => 'tc_api'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

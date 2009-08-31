@@ -9,28 +9,36 @@
         <% act_date = time_ago_in_words(act_history.created_at) -%>  
         <% current_act = act_history.action_with_object.action_code %>
 
-        <% case act_history.changeable_object_type_id  
-             when 1: -%>    <!-- "data_object" -->
-          <% n += 1%>
-          <%= render :partial=> 'reports/statuses_report.html.erb',
-                    :locals=>{:act_history => act_history, 
-                              :act_date => act_date, :current_act => current_act} %>
+        <%# TODO - it is not wise to rescue this.  We need a better solution. 
+                   The problem is, for example, comments that have been removed from the DB manually. -%> 
+        <% begin -%> 
 
-          <% when 2: -%>    <!-- "comment" -->
-          <% n += 1%>
-          <%= render :partial=> 'reports/comments_report.html.erb',
-                    :locals=>{:act_history => act_history, 
-                              :act_date => act_date, :current_act => current_act} %>
-                   
-          <% when 3: -%>    <!-- <p>"tag"</p> -->
-           <%# not counts at present -%>
-          <% n += 1%>
-          <% when 4: -%>    <!-- <p>"users_submitted_text"</p> -->   
-            <%# not in use yet %>
-          <% n += 1%>
-            <%#= render :partial=> 'user_submitted_text_report.html.erb',
-                    :locals=>{:act_history => act_history, 
-                              :act_date => act_date, :current_act => current_act} %>          
+          <% case act_history.changeable_object_type_id  
+               when 1: -%>    <!-- "data_object" -->
+            <% n += 1%>
+            <%= render :partial=> 'reports/statuses_report.html.erb',
+                      :locals=>{:act_history => act_history, 
+                                :act_date => act_date, :current_act => current_act} %>
+
+            <% when 2: -%>    <!-- "comment" -->
+            <% n += 1%>
+            <%= render :partial=> 'reports/comments_report.html.erb',
+                      :locals=>{:act_history => act_history, 
+                                :act_date => act_date, :current_act => current_act} %>
+                     
+            <% when 3: -%>    <!-- <p>"tag"</p> -->
+             <%# not counts at present -%>
+            <% n += 1%>
+            <% when 4: -%>    <!-- <p>"users_submitted_text"</p> -->   
+              <%# not in use yet %>
+            <% n += 1%>
+              <%#= render :partial=> 'user_submitted_text_report.html.erb',
+                      :locals=>{:act_history => act_history, 
+                                :act_date => act_date, :current_act => current_act} %>          
+          <% end -%> 
+
+        <% rescue -%> 
+          <li>[an object was removed&mdash;the data was not recoverable]</li>
         <% end -%> 
         
     <% end -%>                                                                                                                 

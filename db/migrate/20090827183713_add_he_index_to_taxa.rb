@@ -6,6 +6,6 @@ class AddHeIndexToTaxa < ActiveRecord::Migration
     add_index :taxa, :hierarchy_entry_id
   end
   def self.down
-    # Not worth doing
+    remove_index :taxa, :column => :branch_id
   end
 end

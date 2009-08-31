@@ -46,7 +46,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   def tocitem_for_new_text
     table_of_contents.each do |toc|
-      return toc if toc.allow_user_text?
+      return TocItem.find(toc.category_id) if toc.allow_user_text?
     end
     TocItem.find_by_sql('SELECT t.id, t.parent_id, t.label, t.view_order
                          FROM table_of_contents t, info_items i

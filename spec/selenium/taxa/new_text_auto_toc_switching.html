@@ -88,6 +88,76 @@
 </tr>
 <tr>
 	<td>open</td>
+	<td>/pages/26?vetted=false</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Search the Web</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForTextPresent</td>
+	<td>Google</td>
+	<td></td>
+</tr>
+<tr>
+	<td>pause</td>
+	<td>5000</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>new_text_toc_text</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//div[@class='cpc-header']/h3</td>
+	<td>Overview</td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>new_data_object</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>data_object_object_title</td>
+	<td>new title</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>data_object_description</td>
+	<td>new description</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//input[@value='Confirm']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForText</td>
+	<td>//div[@class='text_object']/div[@class='content-article unknown-background-image']/h1</td>
+	<td>new title</td>
+</tr>
+<tr>
+	<td>open</td>
+	<td>/pages/26?vetted=false</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@class='cpc-header']/h3</td>
+	<td>Overview</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>new title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>open</td>
 	<td>/logout</td>
 	<td></td>
 </tr>

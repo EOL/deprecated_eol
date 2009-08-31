@@ -16,6 +16,11 @@
 	<td>60000</td>
 	<td></td>
 </tr>
+<tr>
+	<td>open</td>
+	<td>/logout</td>
+	<td></td>
+</tr>
 <!-- login -->
 <tr>
 	<td>open</td>
@@ -28,34 +33,34 @@
 	<td></td>
 </tr>
 <tr>
-  <td>clickAndWait</td>
-  <td>link=login</td>
-  <td></td>
+	<td>clickAndWait</td>
+	<td>link=login</td>
+	<td></td>
 </tr>
 <tr>
-  <td>waitForTextPresent</td>
-  <td>Username or Email Address:</td>
-  <td></td>
+	<td>waitForTextPresent</td>
+	<td>Username or Email Address:</td>
+	<td></td>
 </tr>
 <tr>
-  <td>type</td>
-  <td>user_username</td>
-  <td>test_user2</td>
+	<td>type</td>
+	<td>user_username</td>
+	<td>test_user2</td>
 </tr>
 <tr>
-  <td>type</td>
-  <td>user_password</td>
-  <td>password</td>
+	<td>type</td>
+	<td>user_password</td>
+	<td>password</td>
 </tr>
 <tr>
-  <td>clickAndWait</td>
-  <td>commit</td>
-  <td></td>
+	<td>clickAndWait</td>
+	<td>commit</td>
+	<td></td>
 </tr>
 <tr>
-  <td>waitForTextPresent</td>
-  <td>Hello test</td>
-  <td></td>
+	<td>waitForTextPresent</td>
+	<td>Hello test</td>
+	<td></td>
 </tr>
 <tr>
 	<td>open</td>
@@ -69,43 +74,43 @@
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>//*[@id="unknown-video-warning-box"]</td>
+	<td>//*[@id=&quot;unknown-video-warning-box&quot;]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>//div[@class="unknown-background-color"]</td>
+	<td>//div[@class=&quot;unknown-background-color&quot;]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>click</td>
-	<td>//div[@class="unknown-background-color"]/li/a</td>
+	<td>//div[@class=&quot;unknown-background-color&quot;]/li/a</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>//*[@id="video-player"][@class="unknown-background-color"]</td>
+	<td>//*[@id=&quot;video-player&quot;][@class=&quot;unknown-background-color&quot;]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementPresent</td>
-	<td>//*[@id="video_attributions"][@class="popup-link attribution-icon unknown"]</td>
+	<td>//*[@id=&quot;video_attributions&quot;][@class=&quot;popup-link attribution-icon unknown&quot;]</td>
 	<td></td>
 </tr>
 <!-- check yellow background disappear -->
 <tr>
 	<td>click</td>
-	<td>//*[@id="video-collection"]/ul/div/li/a</td>
+	<td>//*[@id=&quot;video-collection&quot;]/ul/div/li/a</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementNotPresent</td>
-	<td>//*[@id="video-player"][@class="unknown-background-color"]</td>
+	<td>//*[@id=&quot;video-player&quot;][@class=&quot;unknown-background-color&quot;]</td>
 	<td></td>
 </tr>
 <tr>
 	<td>verifyElementNotPresent</td>
-	<td>//*[@id="video_attributions"][@class="popup-link attribution-icon unknown"]</td>
+	<td>//*[@id=&quot;video_attributions&quot;][@class=&quot;popup-link attribution-icon unknown&quot;]</td>
 	<td></td>
 </tr>
 <!-- logout -->
@@ -114,6 +119,7 @@
 	<td>link=logout</td>
 	<td></td>
 </tr>
+
 </tbody></table>
 </body>
 </html>

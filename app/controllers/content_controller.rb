@@ -86,23 +86,52 @@ class ContentController < ApplicationController
     
   end
   
+  # ------ API -------
+
   def tc_api
     all_taxon_concepts = TaxonConcept.find(:all, :conditions => ["published = 1 AND  (supercedure_id = ? OR supercedure_id = ?)", 0, NIL])
 
     @all_taxon_concepts = all_taxon_concepts.paginate(:page => params[:page], :per_page => 25)
     
-    @date_generated = "Generated on #{Time.now.strftime("%A, %B %d, %Y - %I:%M %p %Z")}"
     text_tc   = all_taxon_concepts.map {|t| tc_api_tab(t) + "\n"}
     file_path = "#{RAILS_ROOT}/public/content/tc_api.gz"
     
-  	Zlib::GzipWriter.open(file_path) do |gzip|
-  	  gzip << @date_generated.to_s + "\n" + text_tc.to_s
-  	  gzip.close
-  	end
+    write_gz_api(text_tc, file_path)
+    
+      api_render(@all_taxon_concepts)
+    end
 
-    unless @all_taxon_concepts.blank?
+    def best_images
+      min_show = 2
+      taxon_concept_id = params[:id] || 0
+      taxon_concept = TaxonConcept.find(taxon_concept_id) rescue nil
+      @title = "Highest-Rated Images for "+taxon_concept.scientific_name.to_s
+
+      unless taxon_concept.nil?
+        five_star_images = taxon_concept.images.map{|d| d.data_rating == 5.0 ? d : nil}.compact            
+        if five_star_images.empty?
+          @text_to_write = "Sorry, there are no images with 5-star rating for "+taxon_concept.scientific_name
+        elsif five_star_images.size < min_show
+          @text_to_write = url_to_write(five_star_images)
+        else
+          begin rand_best_images = Array.new(min_show){ five_star_images[ rand( five_star_images.size ) ] } 
+          end until rand_best_images.uniq.size == min_show 
+          # @text_to_write = rand_best_images.map {|t| t.object_url+"\n"}    
+          @text_to_write = url_to_write(rand_best_images)
+        end
+        file_path = "#{RAILS_ROOT}/public/content/best_images.gz"
+        write_gz_api(@text_to_write, file_path)
+        api_render(@text_to_write)
+      else
+        render_404
+      end
+    end
+
+    def api_render(array_to_render)
+      unless array_to_render.blank?
       respond_to do |format|
          format.html
+         format.xml { render :layout=>false }
       end
     else
      render_404
@@ -116,6 +145,20 @@ class ContentController < ApplicationController
   end
   helper_method(:tc_api_tab)
     
+  def write_gz_api(text_to_write, file_path)
+    date_generated = "Generated on #{Time.now.strftime("%A, %B %d, %Y - %I:%M %p %Z")}"
+    Zlib::GzipWriter.open(file_path) do |gzip|
+  	  gzip << date_generated.to_s + "\n" + text_to_write.to_s
+  	  gzip.close
+  	end
+  end
+
+  def url_to_write(best_images)
+    best_images.map {|t| DataObject.image_cache_path(t['object_cache_url'], :orig) + "\n"} 
+  end
+
+  # ------ /API -------
+  
   def exemplars
     respond_to do |format|
       format.html do

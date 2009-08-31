@@ -51,7 +51,7 @@ EOL.Popup = Class.create({
     
     //   a.close-button
     this.close_button = new Element('a', { 'class': 'close-button' });
-    Event.observe(this.close_button, 'click', function(e){ console.log(this);this.toggle(); }.bind(this));
+    Event.observe(this.close_button, 'click', function(e){ EOL.log(this);this.toggle(); }.bind(this));
     this.element.insert(this.close_button);
     //   div #name_content.popup-content
     if(this.is_static) {

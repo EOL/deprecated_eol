@@ -32,23 +32,8 @@
 	<div id="sliding-close">
 		<div id="textarea">
     	<%="Classification"[]%> : <a href="#" onclick="JavaScript:eol_change_to_text_browser();return false;"><%= "Text"[] %></a>
-      | <a href="#" onclick="JavaScript:eol_change_to_flash_browser();return false;"><%= "Graphic"[] %></a> | <a id="classification-attribution-button" href="#" class="static-popup-link attribution-icon" onclick="return false;"></a>
+      | <a href="#" onclick="JavaScript:eol_change_to_flash_browser();return false;"><%= "Graphic"[] %></a> | <a id="classification-attribution-button" href="<%= @taxon_concept.id %>/classification_attribution" class="static-popup-link attribution-icon" onclick="return false;"></a>
    	</div> <!-- /textarea -->
-		<div id="classification-attribution-button_popup_content" class="attribution" style="display:none;">
-
-      <div class="credit-title"><%= "Classification provided by"[] %></div>
-      <div class="credit-value">
-			  <%= attributions = @taxon_concept.classification_attribution(@session_hierarchy).reverse
-            if attributions.blank?
-                'source unknown'
-            elsif attributions[0].full_name == @session_hierarchy.label
-                agent_partial(attributions) + '<br />' + agent_icons_partial(attributions)
-            else
-                # if we don't have CoL in classification attribution (e.g. name is from Flickr), we only show CoL here since the hiearchy we show in the browser is *only* CoL for now)
-                agent_partial(@session_hierarchy.attribution) + '</div><br /><div class="credit-title">' + agent_icons_partial(@session_hierarchy.attribution) + "<br /><br />#{@taxon_concept.entry.rank_label.capitalize} recognized by<br />" + agent_partial(attributions)
-            end %>
-      </div>
-		</div> <!-- /classification-attribution_popup_content -->
 
 		<div id="browser-flash" <%= "style=\"display:none;\"" if current_user.default_taxonomic_browser == "text" %> class="wrapper-mc clearfix">
 			<% if current_user.flash_enabled %>

@@ -13,6 +13,7 @@ Dir[ File.join(RAILS_ROOT, 'vendor', 'gems', '*', 'lib') ].each do |gem_lib_dir|
 end
 
 require 'tasks/rails'
+#require 'sunspot/rails/tasks'
 
 require 'scenarios/tasks'
 Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]

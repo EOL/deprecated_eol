@@ -19,8 +19,13 @@ def create_if_not_exists(klass, attributes)
       end
     end
     # Assumes that .keys returns in same order as .values, which is appears is true:
-    found = klass.send("find_by_" << searchable_attributes.keys.join('_and_'), searchable_attributes.values) unless
-      searchable_attributes.keys.blank?
+    begin
+      found = klass.send("find_by_" << searchable_attributes.keys.join('_and_'), searchable_attributes.values) unless
+        searchable_attributes.keys.blank?
+    rescue NoMethodError
+      raise "It seems there is a bad column on #{klass}. One of its expected attributes seems to be missing: " +
+            "#{searchable_attributes.join(', ')}"
+    end
     found = klass.send(:gen, attributes) if found.nil?
   rescue ActiveRecord::RecordInvalid => e
     puts "** Invalid Record : #{e.message}"

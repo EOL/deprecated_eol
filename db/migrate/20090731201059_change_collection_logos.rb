@@ -46,7 +46,7 @@ class ChangeCollectionLogos < ActiveRecord::Migration
   end
 
   def self.down
-    execute('aleter table collections add `logo_url` varchar(255) character set ascii NOT NULL after `link`')
+    execute('alter table collections add `logo_url` varchar(255) character set ascii NOT NULL after `link`')
     
     execute("update collections set logo_url='itis.png' where logo_cache_url=6385")
     execute("update collections set logo_url='algaebase.png' where logo_cache_url=3601")

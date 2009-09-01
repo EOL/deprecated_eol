@@ -38,7 +38,9 @@ ActionController::Routing::Routes.draw do |map|
   map.taxon 'taxa/:id',  :controller => 'taxa', :action => 'taxa', :requirements => { :id => /\d+/ }
   map.taxon 'pages/:id', :controller => 'taxa', :action => 'show'
 
-  map.connect 'pages/:id/',
+  map.connect 'pages/:id',
+              :controller => 'taxa', :action => 'show' 
+  map.connect 'pages/:id.:format',
               :controller => 'taxa', :action => 'show' 
   map.classification_attribution 'pages/:id/classification_attribution',
               :controller => 'taxa', :action => 'classification_attribution' 

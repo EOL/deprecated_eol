@@ -58,6 +58,10 @@ EOL.TextObjects.Behaviors = {
                          method:'post',
                          parameters:Form.serialize(this.form)
                        });
+  },
+
+  'div#add_user_text_references input#add_more_user_text_reference:click': function(e) {
+    $('add_user_text_references_input').insert({bottom: '<textarea rows="3" name="references[]" id="references[]" cols="33"/>'})
   }
 };
 

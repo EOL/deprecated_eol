@@ -8,10 +8,12 @@ class MoveGeneralDescriptionToBeFirstUnderDescription < ActiveRecord::Migration
         raise "Expected to find a 'General Description' label in the toc_items table." unless general_description
         current_child_order = 1
         general_description.view_order = current_child_order
-        descriptions.each do |child|
-          current_child_order += 1
-          next if child.id = general_description.id # We've already set this one to the first position.
+        general_description.save!
+        descriptions.sort_by{ |d| d.view_order }.each do |child|
+          current_child_order += 4
+          next if child.id == general_description.id # We've already set this one to the first position.
           child.view_order = current_child_order
+          child.save!
         end
       else
         puts "** IMPORTANT **\n"

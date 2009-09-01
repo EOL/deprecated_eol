@@ -24,7 +24,7 @@ class User < ActiveRecord::Base
   validates_length_of     :entered_password, :within => 4..16, :if => :not_openid?, :on => :create
   
   validates_presence_of   :given_name
-  validates_format_of :email, :with =>%r{^(?:[_a-z0-9-]+)(\.[_a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i, :if => :not_openid?
+  validates_format_of :email, :with =>%r{^(?:[_%\+a-z0-9-]+)(\.[_%\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i, :if => :not_openid?
   
   validates_uniqueness_of :username, :allow_nil => true
   # JRice removed this.  It was destroying staging, and would wreak havoc on over 700 users in production:
@@ -308,6 +308,9 @@ class User < ActiveRecord::Base
   end
 
   def openid?      
+    puts "email: #{email}"
+    puts "email match 1: #{email}"
+    puts "email match 2: #{email}"
     !not_openid?
   end
       

@@ -1031,6 +1031,7 @@ ul#global-navigation {
       overflow:hidden;
       height: 1px;
     }
+
   div.attribution .credit img.agent-logo {
     /*
     float: right;
@@ -1040,21 +1041,6 @@ ul#global-navigation {
     */
   }
         
-    .credit-open {
-      position: absolute;
-      left: 25px;
-      bottom: 20px;
-      padding: 3px 10px 0 0;
-      z-index: 99;
-      font-size: 9px;
-      line-height: 16px;
-    }
-
-    tr.credit-line td {
-      border-bottom: 1px solid #E6E7E8;
-    }
-
-
     .credit-title {
       text-transform: uppercase;
       font-weight: 700;

@@ -112,12 +112,11 @@ class ContentController < ApplicationController
         if five_star_images.empty?
           @text_to_write = "Sorry, there are no images with 5-star rating for "+taxon_concept.scientific_name
         elsif five_star_images.size < min_show
-          @text_to_write = url_to_write(five_star_images)
+          @text_to_write = five_star_images
         else
           begin rand_best_images = Array.new(min_show){ five_star_images[ rand( five_star_images.size ) ] } 
           end until rand_best_images.uniq.size == min_show 
-          # @text_to_write = rand_best_images.map {|t| t.object_url+"\n"}    
-          @text_to_write = url_to_write(rand_best_images)
+          @text_to_write = rand_best_images
         end
         file_path = "#{RAILS_ROOT}/public/content/best_images.gz"
         write_gz_api(@text_to_write, file_path)
@@ -151,10 +150,6 @@ class ContentController < ApplicationController
   	  gzip << date_generated.to_s + "\n" + text_to_write.to_s
   	  gzip.close
   	end
-  end
-
-  def url_to_write(best_images)
-    best_images.map {|t| DataObject.image_cache_path(t['object_cache_url'], :orig) + "\n"} 
   end
 
   # ------ /API -------

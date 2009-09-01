@@ -2683,3 +2683,11 @@ span#left_top_text {
   padding-left: 13px;
 }
 
+div#add_user_text_references {
+  text-align:right;
+  width:275px;
+}
+
+div#add_user_text_references input#add_more_user_text_reference{
+  margin-top:2px;
+}

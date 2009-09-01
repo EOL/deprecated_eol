@@ -28,6 +28,8 @@ def create_user_text_object
 
   params[:data_object] = do_params
 
+  params[:references] = ['foo','bar']
+
   DataObject.create_user_text(params, User.gen)
 end
 
@@ -274,6 +276,11 @@ describe DataObject do
       @user          = @taxon_concept.acting_curators.to_a.last
       @data_object   = @taxon_concept.add_user_submitted_text(:user => @user)
       @data_object.vetted?.should eql(true)
+    end
+
+    it 'should create references' do
+      d = create_user_text_object
+      d.refs.length.should eql(2)
     end
   end
 

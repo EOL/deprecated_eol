@@ -99,6 +99,13 @@ class DataObject < SpeciesSchemaModel
 
     d = DataObject.new(do_params)
     d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
+
+    if all_params[:references]
+      all_params[:references].each do |reference|
+        d.refs << Ref.new({:full_reference => reference, :user_submitted => true}) if reference.strip != ''
+      end
+    end
+
     d.save!
     dato.published = false
     dato.save!
@@ -144,6 +151,13 @@ class DataObject < SpeciesSchemaModel
 
     d = DataObject.new(do_params)
     d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
+
+    if all_params[:references]
+      all_params[:references].each do |reference|
+        d.refs << Ref.new({:full_reference => reference, :user_submitted => true}) if reference.strip != ''
+      end
+    end
+
     d
   end
 
@@ -176,6 +190,13 @@ class DataObject < SpeciesSchemaModel
 
     dato = DataObject.new(do_params)
     dato.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
+
+    if all_params[:references]
+      all_params[:references].each do |reference|
+        dato.refs << Ref.new({:full_reference => reference, :user_submitted => true}) if reference.strip != ''
+      end
+    end
+
     dato.save!
     dato.curator_activity_flag(user, all_params[:taxon_concept_id])
     raise "Unable to build a UsersDataObject if user is nil" if user.nil?

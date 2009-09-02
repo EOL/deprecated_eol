@@ -82,8 +82,12 @@ class Search
   end
 
   def total_search_results
-    #@scientific_name_results.length + @common_name_results.length + @tag_results.length
-    @scientific_results.length + @common_results.length + @suggested_searches.length + @tag_results.length
+    length = 0
+    length += @scientific_results.length if @scientific_results
+    length += @common_results.length if @common_results
+    length += @suggested_results.length if @suggested_results
+    length += @tag_results.length if @tag_results
+    length
   end
 
   def to_xml(options = {})
@@ -150,18 +154,18 @@ class Search
         @scientific_results = search_results_by_ids(true,
                                                     @scientific_name_results,
                                                     current_user.language,
-                                                    current_user.vetted)
+                                                    current_user.vetted) || []
         @common_results = search_results_by_ids(false,
                                                 @common_name_results,
                                                 current_user.language,
-                                                current_user.vetted)
+                                                current_user.vetted) || []
 
         # We've filtered the results; we need to adjust our lengths:
         @maximum = total_number_of_results
 
         # And now we need to paginate those results:
-        @scientific_results = page_range(@scientific_results)
-        @common_results     = page_range(@common_results)
+        @scientific_results = page_range(@scientific_results) || []
+        @common_results     = page_range(@common_results) || []
 
         log_search(number_of_stub_page_results, request, current_user)
 

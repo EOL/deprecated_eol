@@ -51,10 +51,18 @@ class Resource < SpeciesSchemaModel
     SpeciesSchemaModel.connection.select_values("select distinct tc.id from resources r join harvest_events h on r.id=h.resource_id join harvest_events_taxa ht on h.id=ht.harvest_event_id join taxa t on t.id=ht.taxon_id join hierarchy_entries he on he.id=t.hierarchy_entry_id join taxon_concepts tc on tc.id=he.taxon_concept_id where r.id=#{self.id.to_s}")
   end
   
-  def hide_latest_harvest
-    self.harvest_events.last.make_invisible
+  def latest_unpublished_harvest_event
+    HarvestEvent.find(:first, :conditions => ["published_at IS NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
+                              :limit => 1,
+                              :order => 'completed_at desc')
   end
-  
+
+  def latest_harvest_event
+    HarvestEvent.find(:first, :conditions => ["published_at IS NOT NULL AND resource_id = ?", id],
+                              :limit => 1,
+                              :order => 'published_at desc')
+  end
+
   def validate
     if accesspoint_url.blank? && dataset_file_name.blank?
        errors.add_to_base("You must either provide a URL or upload a resource file")   

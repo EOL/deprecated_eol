@@ -174,7 +174,7 @@ class Search
           taxon_concept_id = @common_results.empty? ? nil : @common_results[0][:id]
           taxon_concept_id = taxon_concept_id ? taxon_concept_id : (@scientific_results.empty? ? nil : @scientific_results[0][:id])
           taxon_concept_id = taxon_concept_id ? taxon_concept_id : (@tag_results.empty? ? nil: @tag_results[0][0].id)
-          taxon_concept_id = taxon_concept_id ? taxon_concept_id : @suggested_searches[0].taxon_concept_id
+          taxon_concept_id = taxon_concept_id ? taxon_concept_id : @suggested_searches[0].taxon_id
           Search.update_log(:id=>@logged_search_id,:taxon_concept_id=>taxon_concept_id)
         end
       else

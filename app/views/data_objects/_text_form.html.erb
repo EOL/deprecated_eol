@@ -34,18 +34,31 @@
     </td>
   </tr>
 
+<!--
+  <%#*<tr>%>
+    <%#*<td><%= f.label :references %></td>%>
+    <%#*<td>%>
+      <%#*<div id="add_user_text_references">%>
+        <%#*<div id="add_user_text_references_input">%>
+          <%# @data_object.refs.each do |ref| %>
+            <%#= text_area_tag( 'references[]', ref.full_reference, :size => "33x3" )%>
+          <%# end %>
+          <%#= text_area_tag( 'references[]', nil, :size => "33x3" )%>
+        <%#*</div>%>
+        <%#*<input type="button" id="add_more_user_text_reference" value="Add More"/>%>
+      <%#*</div>%>
+    <%#*</td>%>
+  <%#*</tr>%>
+-->
+
   <tr>
     <td><%= f.label :references %></td>
     <td>
-      <div id="add_user_text_references">
-        <div id="add_user_text_references_input">
-          <% @data_object.refs.each do |ref| %>
-            <%= text_area_tag( 'references[]', ref.full_reference, :size => "33x3" )%>
-          <% end %>
-          <%= text_area_tag( 'references[]', nil, :size => "33x3" )%>
-        </div>
-        <input type="button" id="add_more_user_text_reference" value="Add More"/>
-      </div>
+      <% refs = '' %>
+      <% @data_object.refs.each do |ref| %>
+        <% refs += ref.full_reference %>
+      <% end %>
+      <%= text_area_tag( 'references', refs, :size => "33x8" )%>
     </td>
   </tr>
 

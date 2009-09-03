@@ -6,6 +6,7 @@ class DataObjectsController < ApplicationController
   before_filter :curator_only, :only => [:rate, :curate]
 
   def create
+    params[:references] = params[:references].split("\n")
     data_object = DataObject.create_user_text(params, current_user)
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
     @curator = current_user.can_curate?(@taxon_concept)
@@ -18,6 +19,7 @@ class DataObjectsController < ApplicationController
   end
 
   def preview
+    params[:references] = params[:references].split("\n")
     data_object = DataObject.preview_user_text(params, current_user)
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
     @taxon_concept.current_user = current_user
@@ -38,6 +40,7 @@ class DataObjectsController < ApplicationController
   end
 
   def update
+    params[:references] = params[:references].split("\n")
     @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
     @taxon_concept.current_user = current_user
     @old_data_object_id = params[:id]

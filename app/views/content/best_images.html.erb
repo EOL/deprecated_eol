@@ -15,9 +15,10 @@
 	    <div id="page-content" class="clearfix">
 	        <!-- center page content -->
 	        <div id="full-page-content">
+
           <h3><%= @date_generated %></h3>
               <% for hr_images in @text_to_write -%>
-              <%= hr_images -%>
+              <%= hr_images.thumb_or_object -%>
               <br />
               <% end -%>
 			   </div>

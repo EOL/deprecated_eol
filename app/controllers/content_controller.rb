@@ -102,22 +102,24 @@ class ContentController < ApplicationController
   end
 
   # put here an amount of random 5-star images we are needed
-  MIN_SHOW = 1
   def best_images
     taxon_concept_id = params[:id] || 0
+    limit = params[:limit].to_i || 1
+    limit = 1 if !limit.is_a? Integer
+    limit = 1 if limit < 1
+    limit = 100 if limit > 100
     taxon_concept = TaxonConcept.find(taxon_concept_id) rescue nil
 
     unless taxon_concept.nil?
-      @title = "Highest-Rated Images for "+taxon_concept.scientific_name.to_s
-      five_star_images = taxon_concept.images.map{|d| d.data_rating == 5.0 ? d : nil}.compact            
+      five_star_images = DataObject.for_taxon(taxon_concept, :image).map{|d| d.data_rating == 5.0 ? d : nil}.compact            
       if five_star_images.empty?
         @text_to_write = ""
       # @text_to_write = "Sorry, there are no images with 5-star rating for "+taxon_concept.scientific_name
-      elsif five_star_images.size < MIN_SHOW
+      elsif five_star_images.size < limit
         @text_to_write = five_star_images
       else
-        begin rand_best_images = Array.new(MIN_SHOW){ five_star_images[ rand( five_star_images.size ) ] } 
-        end until rand_best_images.uniq.size == MIN_SHOW 
+        begin rand_best_images = Array.new(limit){ five_star_images[ rand( five_star_images.size ) ] } 
+        end until rand_best_images.uniq.size == limit 
         @text_to_write = rand_best_images
       end
       # uncomment if we need write .gz file on a disk
@@ -166,58 +168,45 @@ class ContentController < ApplicationController
     
     image_params = Hash[]
     
-    image_params["identifier"]    = item.guid
-    # image_params["dc:identifier"] = item.guid
+    image_params["identifier"]    = item.id
     image_params["mimeType"]      = item.mime_type.label
+    image_params["agents"] = []
     item.agents_data_objects.each do |ado|
-      image_params["homepage"]    = ado.agent.homepage
-      image_params["logoURL"]     = ado.agent.logo_url
-      image_params["role"]        = ado.agent_role.label
+      agent = Hash[]
+      agent["homepage"] = ado.agent.homepage
+      if ado.agent.logo_url
+        agent["logoURL"] = "http://www.eol.org" + ado.agent.logo_url 
+      end
+      agent["role"]        = ado.agent_role.label.downcase
+      agent["fullName"] = ado.agent.full_name
+      image_params["agents"] << agent
     end
 		image_params["created"]		    = item.object_created_at
 		image_params["modified"]	    = item.object_modified_at
-		image_params["language"]	    = item.language.label
-		image_params["license"]		    = item.license.title
+		image_params["language"]	    = item.language.iso_639_1
+		image_params["license"]		    = item.license.source_url
 		image_params["rights"]		    = item.rights_statement
 		image_params["rightsHolder"]  = item.rights_holder
 		image_params["bibliographicCitation"] = item.bibliographic_citation
 		image_params["source"]	      = item.source_url
 		image_params["description"]		= item.description
-    # image_params["dcterms:created"]   = item.object_created_at
-    # image_params["dcterms:modified"]  = item.object_modified_at
-    # image_params["dc:language"]       = item.language.label
-    # image_params["license"]           = item.license.title
-    # image_params["dc:rights"]         = item.rights_statement
-    # image_params["dcterms:rightsHolder"]          = item.rights_holder
-    # image_params["dcterms:bibliographicCitation"] = item.bibliographic_citation
-    # image_params["dc:source"]         = item.source_url
-    # image_params["dc:description"]    = item.description
 		image_params["mediaURL"]		      = item.thumb_or_object
 		image_params["thumbnailURL"]		  = item.thumb_or_object(:small)
-    # image_params["location"]          =
-    # image_params["geo:Point"]         =
-    # image_params["reference"]         =
+    image_params["location"]          = item.location
     
     return image_params                                                              
   end
 
   def best_images_taxon_to_xml(taxon_concept)
-    
+    schema_ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus']
     taxon_params = Hash[];
-		taxon_params["identifier"] = taxon_concept.id
-    # taxon_params["dc:identifier"] = taxon_concept.id
-    # taxon_params["dc:source"] = taxon_concept.
-    taxon_concept.ancestors_hash.each do |mm|
-      taxon_params["#{mm[:rank_string].to_s}"] = "#{mm[:name].to_s}" unless mm[:rank_string].nil?
+    taxon_params["identifier"] = taxon_concept.id
+    taxon_concept.entry.ancestors.each do |ancestor|
+      if ancestor.rank && schema_ranks.include?(ancestor.rank.label)
+        taxon_params[ancestor.rank.label] = ancestor.name
+      end
     end
-		taxon_params["ScientificName"] = taxon_concept.scientific_name
-    # taxon_params["dwc:ScientificName"] = taxon_concept.scientific_name
-    # taxon_params["commonName"] = taxon_concept.
-    # taxon_params["synonym"] = taxon_concept.
-    # taxon_params["dcterms:created"] = taxon_concept.
-    # taxon_params["dcterms:modified"] = taxon_concept.
-    # taxon_params["reference"] = taxon_concept.
-    
+    taxon_params["ScientificName"] = taxon_concept.scientific_name
     return taxon_params                                                               
   end
   # ------ /API -------

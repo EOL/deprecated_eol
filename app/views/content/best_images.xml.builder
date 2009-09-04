@@ -1,34 +1,46 @@
+# http://services.eol.org/schema/documentation_0_2.pdf
 # http://localhost:3000/pages/25/best_images.xml
+
 xml.instruct! :xml, :version => "1.0", :encoding => "UTF-8", :standalone => "yes"
- 
-xml.images do
+
+xml.highly_rated_images do                                                                                                               
   xml.title "Encyclopedia of Life #{@title}"
+
+  xml.taxon_concept do
+    xml.identifier      @best_images_taxon_to_xml["identifier"]
+    xml.Kingdom					@best_images_taxon_to_xml["kingdom"]
+    xml.Phylum					@best_images_taxon_to_xml["phylum"]
+    xml.Class					  @best_images_taxon_to_xml["class"]
+    xml.Order					  @best_images_taxon_to_xml["order"]
+    xml.Family					@best_images_taxon_to_xml["family"]
+    xml.Genus 					@best_images_taxon_to_xml["genus"]
+    xml.ScientificName  @best_images_taxon_to_xml["ScientificName"]
+  end
   
-  @text_to_write.each do |item|
-    xml.image do 
-      xml.id item.id.to_s
-      xml.description item.description
-      xml.guid item.guid
-      xml.rights_holder item.rights_holder
-      xml.rights_statement item.rights_statement
-      xml.data_supplier_agent item.data_supplier_agent
-      xml.attributions do
-        xml.author do
-          item.agents.each do |agent|
-            xml.author_name agent.full_name 
-            xml.homepage agent.homepage 
-          end        
+  xml.images do
+    for item in @array_to_render
+      xml.image do 
+        xml.identifier item["identifier"]
+        # item["dc:identifier"]
+        xml.mimeType item["mimeType"]     
+        xml.agent do
+          xml.homepage item["homepage"] 
+          xml.logoURL  item["logoURL"]  
+          xml.role     item["role"]     
         end
-        xml.license do
-          xml.type item.license.title
-          xml.description item.license.description
-        end
-        xml.location item.location
-        xml.source_url item.source_url        
+  
+        xml.created  item["created"]  
+        xml.modified item["modified"]
+        xml.language item["language"]      
+        xml.license  item["license"]           
+        xml.rights   item["rights"]        
+        xml.rightsHolder item["rightsHolder"]        
+        xml.bibliographicCitation item["bibliographicCitation"]
+        xml.source       item["source"]       
+        xml.description  item["description"]  
+        xml.mediaURL     item["mediaURL"] 
+        xml.thumbnailURL item["thumbnailURL"]
       end
-      xml.url item.thumb_or_object
-      xml.medium_thumb_url item.thumb_or_object(:medium)
-      xml.small_thumb_url item.thumb_or_object(:small)
     end
   end
 end

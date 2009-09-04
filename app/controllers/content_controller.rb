@@ -98,40 +98,50 @@ class ContentController < ApplicationController
     
     write_gz_api(text_tc, file_path)
     
-      api_render(@all_taxon_concepts)
-    end
+    api_render(@all_taxon_concepts)
+  end
 
-    def best_images
-      min_show = 2
-      taxon_concept_id = params[:id] || 0
-      taxon_concept = TaxonConcept.find(taxon_concept_id) rescue nil
+  # put here an amount of random 5-star images we are needed
+  MIN_SHOW = 1
+  def best_images
+    taxon_concept_id = params[:id] || 0
+    taxon_concept = TaxonConcept.find(taxon_concept_id) rescue nil
+
+    unless taxon_concept.nil?
       @title = "Highest-Rated Images for "+taxon_concept.scientific_name.to_s
-
-      unless taxon_concept.nil?
-        five_star_images = taxon_concept.images.map{|d| d.data_rating == 5.0 ? d : nil}.compact            
-        if five_star_images.empty?
-          @text_to_write = "Sorry, there are no images with 5-star rating for "+taxon_concept.scientific_name
-        elsif five_star_images.size < min_show
-          @text_to_write = five_star_images
-        else
-          begin rand_best_images = Array.new(min_show){ five_star_images[ rand( five_star_images.size ) ] } 
-          end until rand_best_images.uniq.size == min_show 
-          @text_to_write = rand_best_images
-        end
-        file_path = "#{RAILS_ROOT}/public/content/best_images.gz"
-        write_gz_api(@text_to_write, file_path)
-        api_render(@text_to_write)
+      five_star_images = taxon_concept.images.map{|d| d.data_rating == 5.0 ? d : nil}.compact            
+      if five_star_images.empty?
+        @text_to_write = ""
+      # @text_to_write = "Sorry, there are no images with 5-star rating for "+taxon_concept.scientific_name
+      elsif five_star_images.size < MIN_SHOW
+        @text_to_write = five_star_images
       else
-        render_404
+        begin rand_best_images = Array.new(MIN_SHOW){ five_star_images[ rand( five_star_images.size ) ] } 
+        end until rand_best_images.uniq.size == MIN_SHOW 
+        @text_to_write = rand_best_images
       end
+      # uncomment if we need write .gz file on a disk
+      # file_path = "#{RAILS_ROOT}/public/content/best_images.gz"
+      # write_gz_api(@text_to_write, file_path)
+      @best_images_taxon_to_xml = best_images_taxon_to_xml(taxon_concept)
+      
+      @array_to_render = []
+      for item in @text_to_write
+         @array_to_render.push(best_images_to_xml(taxon_concept, item))           
+      end    
+          
+      api_render(@array_to_render)
+    else
+      render_404
     end
+  end
 
-    def api_render(array_to_render)
-      unless array_to_render.blank?
-      respond_to do |format|
-         format.html
-         format.xml { render :layout=>false }
-      end
+  def api_render(array_to_render)
+    unless array_to_render.blank?
+    respond_to do |format|
+       format.html
+       format.xml { render :layout=>false }
+    end
     else
      render_404
     end
@@ -150,8 +160,66 @@ class ContentController < ApplicationController
   	  gzip << date_generated.to_s + "\n" + text_to_write.to_s
   	  gzip.close
   	end
+  end  
+
+  def best_images_to_xml(taxon_concept, item)
+    
+    image_params = Hash[]
+    
+    image_params["identifier"]    = item.guid
+    # image_params["dc:identifier"] = item.guid
+    image_params["mimeType"]      = item.mime_type.label
+    item.agents_data_objects.each do |ado|
+      image_params["homepage"]    = ado.agent.homepage
+      image_params["logoURL"]     = ado.agent.logo_url
+      image_params["role"]        = ado.agent_role.label
+    end
+		image_params["created"]		    = item.object_created_at
+		image_params["modified"]	    = item.object_modified_at
+		image_params["language"]	    = item.language.label
+		image_params["license"]		    = item.license.title
+		image_params["rights"]		    = item.rights_statement
+		image_params["rightsHolder"]  = item.rights_holder
+		image_params["bibliographicCitation"] = item.bibliographic_citation
+		image_params["source"]	      = item.source_url
+		image_params["description"]		= item.description
+    # image_params["dcterms:created"]   = item.object_created_at
+    # image_params["dcterms:modified"]  = item.object_modified_at
+    # image_params["dc:language"]       = item.language.label
+    # image_params["license"]           = item.license.title
+    # image_params["dc:rights"]         = item.rights_statement
+    # image_params["dcterms:rightsHolder"]          = item.rights_holder
+    # image_params["dcterms:bibliographicCitation"] = item.bibliographic_citation
+    # image_params["dc:source"]         = item.source_url
+    # image_params["dc:description"]    = item.description
+		image_params["mediaURL"]		      = item.thumb_or_object
+		image_params["thumbnailURL"]		  = item.thumb_or_object(:small)
+    # image_params["location"]          =
+    # image_params["geo:Point"]         =
+    # image_params["reference"]         =
+    
+    return image_params                                                              
   end
 
+  def best_images_taxon_to_xml(taxon_concept)
+    
+    taxon_params = Hash[];
+		taxon_params["identifier"] = taxon_concept.id
+    # taxon_params["dc:identifier"] = taxon_concept.id
+    # taxon_params["dc:source"] = taxon_concept.
+    taxon_concept.ancestors_hash.each do |mm|
+      taxon_params["#{mm[:rank_string].to_s}"] = "#{mm[:name].to_s}" unless mm[:rank_string].nil?
+    end
+		taxon_params["ScientificName"] = taxon_concept.scientific_name
+    # taxon_params["dwc:ScientificName"] = taxon_concept.scientific_name
+    # taxon_params["commonName"] = taxon_concept.
+    # taxon_params["synonym"] = taxon_concept.
+    # taxon_params["dcterms:created"] = taxon_concept.
+    # taxon_params["dcterms:modified"] = taxon_concept.
+    # taxon_params["reference"] = taxon_concept.
+    
+    return taxon_params                                                               
+  end
   # ------ /API -------
   
   def exemplars

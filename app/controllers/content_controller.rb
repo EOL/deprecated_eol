@@ -109,30 +109,27 @@ class ContentController < ApplicationController
     limit = 1 if limit < 1
     limit = 100 if limit > 100
     taxon_concept = TaxonConcept.find(taxon_concept_id) rescue nil
-
     unless taxon_concept.nil?
       five_star_images = DataObject.for_taxon(taxon_concept, :image).map{|d| d.data_rating == 5.0 ? d : nil}.compact            
       if five_star_images.empty?
-        @text_to_write = ""
-      # @text_to_write = "Sorry, there are no images with 5-star rating for "+taxon_concept.scientific_name
+        text_to_write = ""
       elsif five_star_images.size < limit
-        @text_to_write = five_star_images
+        text_to_write = five_star_images
       else
         begin rand_best_images = Array.new(limit){ five_star_images[ rand( five_star_images.size ) ] } 
         end until rand_best_images.uniq.size == limit 
-        @text_to_write = rand_best_images
+        text_to_write = rand_best_images
       end
       # uncomment if we need write .gz file on a disk
       # file_path = "#{RAILS_ROOT}/public/content/best_images.gz"
-      # write_gz_api(@text_to_write, file_path)
-      @best_images_taxon_to_xml = best_images_taxon_to_xml(taxon_concept)
-      
+      # write_gz_api(text_to_write, file_path)
+            
+      @taxon_to_xml = taxon_to_xml(taxon_concept)
       @array_to_render = []
-      for item in @text_to_write
-         @array_to_render.push(best_images_to_xml(taxon_concept, item))           
-      end    
-          
-      api_render(@array_to_render)
+      for dato in text_to_write
+         @array_to_render.push(dato_to_xml(dato))           
+      end   
+      text_to_write.blank? ? api_render(@taxon_to_xml) : api_render(@array_to_render)
     else
       render_404
     end
@@ -140,10 +137,10 @@ class ContentController < ApplicationController
 
   def api_render(array_to_render)
     unless array_to_render.blank?
-    respond_to do |format|
-       format.html
-       format.xml { render :layout=>false }
-    end
+      respond_to do |format|
+         format.html
+         format.xml { render :layout=>false }
+      end
     else
      render_404
     end
@@ -164,40 +161,9 @@ class ContentController < ApplicationController
   	end
   end  
 
-  def best_images_to_xml(taxon_concept, item)
-    
-    image_params = Hash[]
-    
-    image_params["identifier"]    = item.id
-    image_params["mimeType"]      = item.mime_type.label
-    image_params["agents"] = []
-    item.agents_data_objects.each do |ado|
-      agent = Hash[]
-      agent["homepage"] = ado.agent.homepage
-      if ado.agent.logo_url
-        agent["logoURL"] = "http://www.eol.org" + ado.agent.logo_url 
-      end
-      agent["role"]        = ado.agent_role.label.downcase
-      agent["fullName"] = ado.agent.full_name
-      image_params["agents"] << agent
-    end
-		image_params["created"]		    = item.object_created_at
-		image_params["modified"]	    = item.object_modified_at
-		image_params["language"]	    = item.language.iso_639_1
-		image_params["license"]		    = item.license.source_url
-		image_params["rights"]		    = item.rights_statement
-		image_params["rightsHolder"]  = item.rights_holder
-		image_params["bibliographicCitation"] = item.bibliographic_citation
-		image_params["source"]	      = item.source_url
-		image_params["description"]		= item.description
-		image_params["mediaURL"]		      = item.thumb_or_object
-		image_params["thumbnailURL"]		  = item.thumb_or_object(:small)
-    image_params["location"]          = item.location
-    
-    return image_params                                                              
-  end
-
-  def best_images_taxon_to_xml(taxon_concept)
+  #TODO: add all tags from EOL Schema to use for all future APIs (e.g. see best_images.xml.builder)
+  # http://services.eol.org/schema/documentation_0_2.pdf
+  def taxon_to_xml(taxon_concept)
     schema_ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus']
     taxon_params = Hash[];
     taxon_params["identifier"] = taxon_concept.id
@@ -209,6 +175,43 @@ class ContentController < ApplicationController
     taxon_params["ScientificName"] = taxon_concept.scientific_name
     return taxon_params                                                               
   end
+
+  #TODO: add all tags from EOL Schema to use for all future APIs (e.g. see best_images.xml.builder)
+  # http://services.eol.org/schema/documentation_0_2.pdf
+  def dato_to_xml(dato)
+    
+    dato_params = Hash[]
+    
+    dato_params["identifier"]    = dato.id
+    dato_params["dataType"]      = dato.data_type.schema_value
+    dato_params["mimeType"]      = dato.mime_type.label
+    dato_params["agents"] = []
+    dato.agents_data_objects.each do |ado|
+      agent = Hash[]
+      agent["homepage"] = ado.agent.homepage
+      if ado.agent.logo_url
+        agent["logoURL"] = "http://www.eol.org" + ado.agent.logo_url 
+      end
+      agent["role"]        = ado.agent_role.label.downcase
+      agent["fullName"] = ado.agent.full_name
+      dato_params["agents"] << agent
+    end
+		dato_params["created"]		    = dato.object_created_at
+		dato_params["modified"]	    = dato.object_modified_at
+		dato_params["language"]	    = dato.language.iso_639_1
+		dato_params["license"]		    = dato.license.source_url
+		dato_params["rights"]		    = dato.rights_statement
+		dato_params["rightsHolder"]  = dato.rights_holder
+		dato_params["bibliographicCitation"] = dato.bibliographic_citation
+		dato_params["source"]	      = dato.source_url
+		dato_params["description"]		= dato.description
+		dato_params["mediaURL"]		  = dato.thumb_or_object
+		dato_params["thumbnailURL"]	= dato.thumb_or_object(:small)
+    dato_params["location"]      = dato.location
+    
+    return dato_params                                                              
+  end
+
   # ------ /API -------
   
   def exemplars

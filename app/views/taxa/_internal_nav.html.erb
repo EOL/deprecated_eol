@@ -6,6 +6,7 @@
   <% act_curators_size = @taxon_concept.acting_curators.size %>
   <% if act_curators_size > 0 %>
     <a href="#citation"><div id="number-of-curators">This page has <%= act_curators_size %> curators.</div></a>
+    <div id="number-of-curators">Last curated: <%= LastCuratedDate.find(:last, :conditions => ["taxon_concept_id = ?", @taxon_concept]).last_curated.strftime("%d %b %Y") %></div>
   <% end %><%# if act_curators_size %>
 
   <ul class="bulletlist">

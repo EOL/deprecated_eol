@@ -109,11 +109,16 @@ class TaxaController < ApplicationController
         
         params[:q].gsub!('_',' ') # convert underscores that might be used in friendly URLs into spaces
         
-        last_published=HarvestEvent.last_published if params[:search_type].downcase == 'text' && allow_page_to_be_cached?
+        last_published=HarvestEvent.last_published if allow_text_search_to_be_cached?
+
         @last_harvest_event_id=(last_published.blank? ? "0" : last_published.id.to_s)
 
          # this is a non-cached text search      
-        if params[:search_type] == 'text' && (!allow_page_to_be_cached? || !read_fragment(:controller=>'taxa',:part=>'search_' + params[:search_language] + '_' + params[:q] + '_' + current_user.vetted.to_s + '_' + @last_harvest_event_id))
+        if text_search? && (!allow_page_to_be_cached? ||
+                            !read_fragment(search_fragment_name(
+                                             params[:search_language],
+                                             params[:q],
+                                             params[:page])))
 
           @search = Search.new(params, request, current_user, current_agent)  
           @cached = false
@@ -649,8 +654,23 @@ private
   def accessible_page?(taxon_concept)
     return false if taxon_concept.nil?      # TC wasn't found.
     return true if taxon_concept.published? # Anyone can see published TCs
-    return true if agent_logged_in? and current_agent.latest_harvest_contains?(taxon_concept.id)
+    return true if agent_logged_in? and current_agent.latest_unpublished_harvest_contains?(taxon_concept.id)
     return false # current agent can't see this unpublished page, or agent isn't logged in.
   end
+
+  def allow_text_search_to_be_cached?
+    text_search? and allow_page_to_be_cached?
+  end
+
+  def text_search?
+    params[:search_type].downcase == 'text'
+  end
+
+  def search_fragment_name(lang, query, page)
+    page ||= 1
+    {:controller => 'taxa',
+     :part => "search_#{lang}_#{query}_#{page}_#{current_user.vetted}_#{@last_harvest_event_id}"}
+  end
+  helper_method(:search_fragment_name)
 
 end

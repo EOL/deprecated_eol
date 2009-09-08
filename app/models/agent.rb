@@ -363,6 +363,7 @@ class Agent < SpeciesSchemaModel
     taxon_concept_id = taxon_concept_id.id if taxon_concept_id.class == TaxonConcept
     resources.each do |resource|
       event = resource.latest_unpublished_harvest_event
+      return false unless event # They don't HAVE an unpublished event!  Of course it's not there.
       # TODO - look for the TC within this Event
       tc = TaxonConcept.find_by_sql([%q{
         SELECT taxon_concepts.id

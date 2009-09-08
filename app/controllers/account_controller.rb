@@ -120,7 +120,7 @@ class AccountController < ApplicationController
         user=reset_password[2]
         email=user.email
         Notifier.deliver_forgot_password_email(new_password,user)
-        flash.now[:notice]="A new password has been emailed to you at #{email}."[:new_password_emailed]    
+        flash.now[:notice]="A new password has been emailed to you."[:new_password_emailed]    
       else
         flash.now[:notice]=reset_password[1]
       end

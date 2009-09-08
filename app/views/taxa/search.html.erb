@@ -105,7 +105,7 @@
                   </div>
                <% end %>
                
-               <% if  @search.search_type=='text'%>
+               <% if @search.search_type == 'text' %>
                  <% if allow_page_to_be_cached? %>
                    <%= render :partial=>'names_search_results_cached' %>
                  <% else %>

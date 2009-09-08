@@ -11,6 +11,8 @@ Edit the user details below.  You can send this user an email from the system by
   <%= link_to "[login to the website as #{@user.username}]",{:action=>'login_as_user', :id=>params[:id]}, :confirm => "Are you sure you want to log into the website as this user?  If you do this, you will be logged out of the website as an administrator."%>
 <% end %>  		    	
 
+<%=eol_lang_error_messages_for :user if request.post?%>
+
 	<% form_for :user,@user,:url => {:action=>'update',:id=>params[:id]},:html=>{:id=>'page_form'} do |f|  %>
 
 	<%= render :partial => 'form', :locals => {:f=>f} %>

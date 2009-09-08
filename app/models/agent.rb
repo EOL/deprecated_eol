@@ -359,10 +359,10 @@ class Agent < SpeciesSchemaModel
 
   # Returns true if the Agent's latest harvest contains this taxon_concept or taxon_concept id (the raw ID is
   # preferred)
-  def latest_harvest_contains?(taxon_concept_id)
+  def latest_unpublished_harvest_contains?(taxon_concept_id)
     taxon_concept_id = taxon_concept_id.id if taxon_concept_id.class == TaxonConcept
     resources.each do |resource|
-      event = resource.latest_harvest_event
+      event = resource.latest_unpublished_harvest_event
       # TODO - look for the TC within this Event
       tc = TaxonConcept.find_by_sql([%q{
         SELECT taxon_concepts.id

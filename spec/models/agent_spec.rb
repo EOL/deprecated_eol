@@ -200,18 +200,18 @@ describe Agent do
       @agent = Agent.gen
       resource = Resource.gen
       AgentsResource.gen(:agent => @agent, :resource => resource)
-      event = HarvestEvent.gen(:resource => resource)
+      event = HarvestEvent.gen(:resource => resource, :published_at => nil)
       HarvestEventsTaxon.gen(:harvest_event => event, :taxon => contains_taxon)
     end
 
     it 'should know if a taxon_concept was in its latest harvest event' do
-      @agent.latest_harvest_contains?(@contains_tc).should be_true    # Takes both a TaxonConcept...
-      @agent.latest_harvest_contains?(@contains_tc.id).should be_true # ...and just an ID
+      @agent.latest_unpublished_harvest_contains?(@contains_tc).should be_true    # Takes both a TaxonConcept...
+      @agent.latest_unpublished_harvest_contains?(@contains_tc.id).should be_true # ...and just an ID
     end
 
     it 'should know if a taxon_concept was NOT in its latest harvest event' do
-      @agent.latest_harvest_contains?(@doesnt_contain_tc).should_not be_true    # Takes both a TaxonConcept...
-      @agent.latest_harvest_contains?(@doesnt_contain_tc.id).should_not be_true # ...and just an ID
+      @agent.latest_unpublished_harvest_contains?(@doesnt_contain_tc).should_not be_true    # Takes both a TaxonConcept...
+      @agent.latest_unpublished_harvest_contains?(@doesnt_contain_tc.id).should_not be_true # ...and just an ID
     end
 
   end

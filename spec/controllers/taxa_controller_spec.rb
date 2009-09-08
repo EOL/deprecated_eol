@@ -51,12 +51,12 @@ describe TaxaController do
       end
 
       it "should NOT be accessible if the taxon_concept is referenced by the latest harvest entry" do
-        controller.current_agent.stub!(:latest_harvest_contains?).with(@taxon_concept.id).and_return(true) # ref
+        controller.current_agent.stub!(:latest_unpublished_harvest_contains?).with(@taxon_concept.id).and_return(true) # ref
         accessible_page?(@taxon_concept).should be_true
       end
       
       it "should NOT not be accessible if the taxon_concept is not referenced by the latest harvest entry" do
-        controller.current_agent.stub!(:latest_harvest_contains?).with(@taxon_concept.id).and_return(false) # not ref
+        controller.current_agent.stub!(:latest_unpublished_harvest_contains?).with(@taxon_concept.id).and_return(false) # not ref
         accessible_page?(@taxon_concept).should_not be_true
       end
 

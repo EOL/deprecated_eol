@@ -14,6 +14,11 @@ class ContentPartnerController < ApplicationController
   def index
     @page_header='Content Partner Dashboard'    
   end
+
+  def content
+    page=params[:page] || '1'
+    @taxon_concepts = Agent.taxon_concepts(params[:id], page)
+  end
   
   def partner
     @page_header='Partner Information'

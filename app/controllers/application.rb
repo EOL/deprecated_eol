@@ -252,8 +252,8 @@ class ApplicationController < ActionController::Base
     Rails.cache.clear
     
     #remove cached feeds
-    FileUtils.rm_rf("#{RAILS_ROOT}/public/feeds") #TODO: wish there was a better way to do this
-                                                  #using expire_page doesn't expire pages with id's
+    FileUtils.rm_rf(Dir.glob("#{RAILS_ROOT}/public/feeds/*")) # TODO: wish there was a better way to do this
+                                                              # using expire_page doesn't expire pages with id's
     #remove cached list of taxon_concepts                                             
     FileUtils.rm_rf("#{RAILS_ROOT}/public/content/tc_api/page")
     expire_page( :controller => 'content', :action => 'tc_api' )

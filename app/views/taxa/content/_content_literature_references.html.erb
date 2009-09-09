@@ -2,18 +2,29 @@
   <table class="results_table" cellspacing="0" summary="Literature References">
     <tr><th scope="col"><%="References"[]%></th></tr>
   <% 
-    @content[:items].each do |ref|
+    find_long_links = />\s*http:\/\/([^\s\/<]+)[^<]*\s*<\/a/i
+    @content[:items].sort do |a,b| # This does something like a natural sort.  ...Kinda.  Only for starting digits.
+      re = /^\s*(\d+)/
+      a_num = nil
+      b_num = nil
+      if a.full_reference =~ re
+        a_num = $1.to_i
+      end
+      if b.full_reference =~ re
+        b_num = $1.to_i
+      end
+      if a_num and b_num
+        a_num <=> b_num 
+      else
+        a.full_reference <=> b.full_reference
+      end
+    end.each do |ref|
     column_class=cycle('odd','even')
-  %>
-    <tr>
-      <td class="<%= column_class %>"><%= h ref.full_reference %></td>
+  %>    <tr> 
+<%# Safari was being "nice" and widening the table to allow really long words... which ended up being links.  This
+    "fix" changes all link text (not the link itself) to JUST the host that it refers to, which I think is nice: %>
+      <td class="<%= column_class %>"><%= allow_some_html ref.full_reference.gsub(find_long_links, ">\\1</a") %></td>
     </tr>
   <% end -%>
   </table>
-  <!-- <div class="divider"></div>
-  <div class="content-attribution-area">
-      <div class="attribution-header text-area-header"><%= "Source and Additional Information"[] %></div>
-    <span class="source">Names come from multiple sources.</span>
-  </div>
-  -->
 </div>

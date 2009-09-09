@@ -45,25 +45,83 @@ class DataObject < SpeciesSchemaModel
   #----- queries for rss feeds ------
   def self.feed_images_and_text(taxon_concept_id = nil, max_results = 100)
     if taxon_concept_id.nil?
-      DataObject.find_by_sql("select * from #{DataObject.full_table_name} where data_type_id IN (#{DataType.image_type_ids[0]},#{DataType.text_type_ids[0]}) AND published=1 order by created_at DESC limit #{max_results}")
+      DataObject.find_by_sql(%Q{
+        SELECT * FROM #{DataObject.full_table_name}
+        WHERE data_type_id IN (#{DataType.image_type_ids[0]}, #{DataType.text_type_ids[0]})
+          AND published=1
+        ORDER BY created_at DESC
+        LIMIT #{max_results}
+      })
     else
-      DataObject.find_by_sql("SELECT do.* FROM #{HierarchyEntry.full_table_name} he_parent JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt AND he_parent.hierarchy_id=he_children.hierarchy_id) JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id) JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id) JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id) WHERE he_parent.taxon_concept_id=#{taxon_concept_id} AND do.published=1 AND do.data_type_id IN (#{DataType.image_type_ids[0]},#{DataType.text_type_ids[0]}) order by do.created_at DESC limit #{max_results};")
+      Set.new(DataObject.find_by_sql(%Q{
+        SELECT do.*
+        FROM #{HierarchyEntry.full_table_name} he_parent
+          JOIN #{HierarchyEntry.full_table_name} he_children
+            ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
+                AND he_parent.hierarchy_id=he_children.hierarchy_id)
+          JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id)
+          JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id)
+          JOIN #{DataObject.full_table_name} do
+            ON (dot.data_object_id=do.id)
+        WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
+          AND do.published=1
+          AND do.data_type_id IN (#{DataType.image_type_ids[0]},#{DataType.text_type_ids[0]})
+        ORDER BY do.created_at DESC
+        LIMIT #{max_results};
+      })).to_a
     end
   end
 
   def self.feed_images(taxon_concept_id = nil, max_results = 100)
     if taxon_concept_id.nil?
-      DataObject.find_by_sql("select * from #{DataObject.full_table_name} where data_type_id=#{DataType.image_type_ids[0]} AND published=1 order by created_at DESC limit #{max_results}")
+      DataObject.find_by_sql(%Q{
+        SELECT * FROM #{DataObject.full_table_name}
+        WHERE data_type_id=#{DataType.image_type_ids[0]} AND published=1
+        ORDER BY created_at DESC
+        LIMIT #{max_results}
+      })
     else
-      DataObject.find_by_sql("SELECT do.* FROM #{HierarchyEntry.full_table_name} he_parent JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt AND he_parent.hierarchy_id=he_children.hierarchy_id) JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id) JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id) JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id) WHERE he_parent.taxon_concept_id=#{taxon_concept_id} AND do.published=1 AND do.data_type_id=#{DataType.image_type_ids[0]} order by do.created_at DESC limit #{max_results};")
+      Set.new(DataObject.find_by_sql(%Q{
+        SELECT do.*
+        FROM #{HierarchyEntry.full_table_name} he_parent
+          JOIN #{HierarchyEntry.full_table_name} he_children
+            ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
+                AND he_parent.hierarchy_id=he_children.hierarchy_id)
+          JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id)
+          JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id)
+          JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id)
+        WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
+          AND do.published=1
+          AND do.data_type_id=#{DataType.image_type_ids[0]}
+        ORDER BY do.created_at DESC
+        LIMIT #{max_results};
+      })).to_a
     end
   end
 
   def self.feed_text(taxon_concept_id = nil, max_results = 100)
     if taxon_concept_id.nil?
-      DataObject.find_by_sql("select * from #{DataObject.full_table_name} where data_type_id=#{DataType.text_type_ids[0]} AND published=1 order by created_at DESC limit #{max_results}")
+      DataObject.find_by_sql(%Q{
+        SELECT * FROM #{DataObject.full_table_name}
+        WHERE data_type_id=#{DataType.text_type_ids[0]} AND published=1 order by created_at DESC 
+        LIMIT #{max_results}
+      })
     else
-      DataObject.find_by_sql("SELECT do.* FROM #{HierarchyEntry.full_table_name} he_parent JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt AND he_parent.hierarchy_id=he_children.hierarchy_id) JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id) JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id) JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id) WHERE he_parent.taxon_concept_id=#{taxon_concept_id} AND do.published=1 AND do.data_type_id=#{DataType.text_type_ids[0]} order by do.created_at DESC limit #{max_results};")
+      Set.new(DataObject.find_by_sql(%Q{
+        SELECT do.*
+        FROM #{HierarchyEntry.full_table_name} he_parent
+          JOIN #{HierarchyEntry.full_table_name} he_children
+            ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
+                AND he_parent.hierarchy_id=he_children.hierarchy_id)
+          JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id)
+          JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id)
+          JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id)
+        WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
+          AND do.published=1
+          AND do.data_type_id=#{DataType.text_type_ids[0]}
+        ORDER BY do.created_at DESC
+        LIMIT #{max_results};
+      })).to_a
     end
   end
 

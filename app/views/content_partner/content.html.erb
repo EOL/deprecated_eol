@@ -1,0 +1,31 @@
+<div id="browse_content_partner_species">
+  <div id="page-title">
+    <h1>Pages with content contributed by <%=params[:id]%></h1>
+  </div>
+
+  <%= will_paginate @taxon_concepts %>
+
+  <table id="content-partners-species">
+    <tr>
+    <% @taxon_concepts.each_with_index do |tc, i| %>
+      <% classname='image' %>
+      <% if i % 6 == 5 %>
+        <% classname+='-last'%>
+        <% last_cell = true %>
+      <% end %>
+
+      <td class="<%=classname%>">
+        <%= medium_thumb_partial(tc,'top_image_tag_'+i.to_s,false) %>
+        <div id="top_name_<%=i%>"><%= linked_name(tc,'',false) %></div>
+      </td>
+
+      <% if last_cell %>
+        </tr>
+        <tr>
+      <% end %>
+    <% end %>
+    </tr>
+  </table>
+
+  <%= will_paginate @taxon_concepts %>
+</div>

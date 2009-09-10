@@ -18,6 +18,7 @@ class ContentPartnerController < ApplicationController
   def content
     page=params[:page] || '1'
     @taxon_concepts = Agent.taxon_concepts(params[:id], page)
+    @taxon_concepts_count = Agent.taxon_concepts_count(params[:id])
   end
   
   def partner

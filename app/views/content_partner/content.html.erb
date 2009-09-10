@@ -3,6 +3,10 @@
     <h1>Pages with content contributed by <%=params[:id]%></h1>
   </div>
 
+  <div id='content_partner_stats'>
+    <%=params[:id]%> has contributed to a total of <%=@taxon_concepts_count%> species pages.
+  </div>
+
   <%= will_paginate @taxon_concepts %>
 
   <table id="content-partners-species">

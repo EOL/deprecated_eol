@@ -94,6 +94,7 @@ class Administrator::ContentPageController < AdminController
     render :update do |page|
         page.replace_html 'content_page_list', :partial => 'content_page_list'
         page.replace_html 'content_page', :partial => 'form'
+        page << 'EOL.reload_behaviors();'
     end   
     
  end
@@ -105,6 +106,7 @@ class Administrator::ContentPageController < AdminController
     
     render :update do |page|
         page.replace_html 'content_page', :partial => 'form'
+        page << 'EOL.reload_behaviors();'
     end  
     
  end

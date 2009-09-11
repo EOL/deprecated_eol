@@ -1,4 +1,5 @@
 require 'lib/eol_data'
+require 'nokogiri'
 
 module EOL::Spec
   module Helpers

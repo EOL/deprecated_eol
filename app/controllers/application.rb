@@ -34,10 +34,7 @@ class ApplicationController < ActionController::Base
 
   helper :all
 
-  helper_method :format_date, :format_date_time, :logged_in?, :current_user, :get_image_url, :get_first_agent,
-                :return_to_url, :current_url, :is_user_in_role?, :is_user_admin?, :convert_to_nbsp,
-                :get_video_url, :get_agent_icons, :current_agent, :agent_logged_in?, :truncate,
-                :allow_page_to_be_cached?
+  helper_method :logged_in?, :current_user, :return_to_url, :current_agent, :agent_logged_in?, :allow_page_to_be_cached?
   around_filter :set_current_language
 
   def view_helper_methods
@@ -77,82 +74,19 @@ class ApplicationController < ActionController::Base
   end
   ## end override of exception notifiable default methods
 
-  # TODO - Rails has built-in helpers for just this kind of stuff.
-  def format_date_time(inTime,params={})
-    format_string = params[:format] || "long"
-    format_string = case format_string
-    when "short"
-      "%m/%d/%Y - %I:%M %p %Z"
-    when "short_no_tz"
-      "%m/%d/%Y - %I:%M %p"
-    when "long"
-      "%A, %B %d, %Y - %I:%M %p %Z"
-    else
-      nil
-    end
-    inTime.strftime(format_string) unless inTime==nil
-  end
-
-  # Return a formatted date
-  # Default format: %m/%d/%Y
-  def format_date(date, format = "%m/%d/%Y")
-    date.respond_to?(:strftime) ? date.strftime(format) : date.to_s
-  end
-
   # this method determines if the main taxa page is allowed to be cached or not
   def allow_page_to_be_cached?
     return !(agent_logged_in? or current_user.is_admin?)
   end
 
-  # given a hash containing an agent node, returns a list of hyperlinked <img> tag icons
-  # if :linked=>false, only the agent icons are returned even if links are available
-  # if :normal_icon=>true the then normal sized icon is returned, otherwise the small version is returned
-  def get_agent_icons(data,params={})
-
-     linked=params[:linked]
-     linked = true if linked.nil?
-     normal_icon=params[:normal_icon]
-     normal_icon = false if normal_icon.nil?
-
-     if data.nil? == false && data['agent'].nil? == false
-        data=EOLConvert.convert_to_hashed_array(data['agent'])
-        agent_list=""
-        data.each do |agent|
-          if normal_icon
-              icon=agent['icon'] || ""
-          else
-              icon=agent['smallIcon'] || ""
-          end
-          url=agent['agentHomepage'] || ""
-          if linked && url != '' && icon != ''
-            agent_list+="<a href=\"" + url + "\" target=\"_blank\">"
-          end
-          agent_list+="<img border=\"0\" src=\"/images/collection_icons/" + icon + "\">" if icon != ''
-          if linked && url != '' && icon != ''
-            agent_list+="</a>"
-          end
-          agent_list+="&nbsp;" if icon != ''
-        end
-        return agent_list.strip.chop
-     else
-        return ''
-     end
-
-  end
-
   # store a given URL (defaults to current) in case we need to redirect back later
-  def store_location(url=current_url)
+  def store_location(url=url_for(:controller=>controller_name, :action=>action_name))
       session[:return_to]=url
   end
 
   # retrieve the stored URL that we want to go back to
   def return_to_url
     session[:return_to] || root_url
-  end
-
-  # get the full current url being shown
-  def current_url
-    url_for(:controller=>controller_name, :action=>action_name)
   end
 
   def referred_url
@@ -173,35 +107,10 @@ class ApplicationController < ActionController::Base
 
   end
 
-  # get the local or remote image URL based on our preference setting
-  def get_image_url(image_item)
-      if ($PREFER_REMOTE_IMAGES && image_item['remoteURL'].nil? == false) or (image_item['localURL'].nil?)
-        return image_item['remoteURL']
-      else
-        return image_item['localURL']
-      end
-  end
-
-  # get the local or remote image URL based on the type of video
-  def get_video_url(video_item)
-    return case video_item['videoType'].downcase
-      when "youtube" then video_item['remoteURL']
-      when "flash"   then video_item['localURL']
-      else                ''
-    end
-  end
-
   def collected_errors(model_object)
     error_list=''
     model_object.errors.each{|attr,msg| error_list += "#{attr} #{msg}," }
     return error_list.chomp(',')
-  end
-
-  # truncate a string to the maxlength passed and then add "..." if truncated
-  def truncate(text, length = 30, truncate_string = "...")
-    return if text.nil?
-    l = length - truncate_string.chars.length
-    text.chars.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
   end
 
   # called to log and redirect a user to an external link
@@ -424,13 +333,8 @@ class ApplicationController < ActionController::Base
      return false
  end
 
-  # check membership in a specific role
-  def is_user_in_role?(role)
-    return current_user.roles.include?(Role.find_by_title(role))
-  end
-
   def is_user_admin?
-    return is_user_in_role?("Administrator")
+    return current_user.roles.include?(Role.find_by_title("Administrator"))
   end
 
   # Returns true if the given user (or currently logged in user if not provided) has curator permissions
@@ -520,14 +424,6 @@ class ApplicationController < ActionController::Base
         end
       end
 
-    end
-
-    def convert_to_nbsp(input_string)
-      if input_string.nil? == false
-        return input_string.gsub('&', '&amp;').gsub(' ','&nbsp;')
-      else
-        return ''
-      end
     end
 
     def set_session_hierarchy_variable

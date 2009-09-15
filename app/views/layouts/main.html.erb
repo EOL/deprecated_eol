@@ -165,7 +165,7 @@
                     <%=link_to("your preferences"[:your_preferences],
                                {:controller => '/account', :action => 'profile'},
                                {:class => 'return_to'})%> |
-					          <%=link_to("logout"[:logout],logout_url)%></p>
+					          <%=link_to("logout"[:logout], logout_url, {:class => 'return_to'})%></p>
                 </div>
               <% elsif $ALLOW_USER_LOGINS && !agent_logged_in?-%>
                 <p><%= link_to("login"[:login], {:controller=>'account', :action=>'login'}, {:class => 'return_to'})%> |
@@ -178,7 +178,8 @@
                   <p><strong><%= "Hello {user}"[:hello_user, current_agent.full_name] %></strong>
                     <%= @home_page.nil? ? "</p><p>" : " | " %>
 					          <%=link_to("dashboard"[],:controller=>'/content_partner',:action => 'index')%> |
-					          <%=link_to("logout"[:logout],:controller=>'/content_partner',:action => 'logout')%></p>
+					          <%=link_to("logout"[:logout], {:controller=>'/content_partner',:action => 'logout'}, 
+					                                        {:class => 'return_to'})%></p>
               </div>
               <% end -%>
               <hr />

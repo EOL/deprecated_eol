@@ -337,12 +337,16 @@ class ContentPartnerController < ApplicationController
   end
   
   def logout
+    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.
+    
     self.current_agent.forget_me if agent_logged_in?
     cookies.delete :agent_auth_token
     reset_session   
     session[:agent_id] = nil
     flash[:notice] = "You have been logged out."
-    redirect_to(:action => 'index')
+    
+    store_location(params[:return_to])
+    redirect_back_or_default
   end
     
   def forgot_password

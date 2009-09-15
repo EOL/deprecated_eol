@@ -103,8 +103,10 @@ class AccountController < ApplicationController
   end
 
   def logout
+    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.
+        
     reset_session 
-    store_location
+    store_location(params[:return_to])
     flash[:notice] = "You have been logged out."[:you_have_been_logged_out]
     redirect_back_or_default
   end

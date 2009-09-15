@@ -25,7 +25,7 @@ class Administrator::SiteController  < AdminController
       return 
     end
     if clear_all_caches
-      message='All caches cleared on ' + format_date_time(Time.now)
+      message='All caches cleared on ' + view_helper_methods.format_date_time(Time.now)
     else
       message='Caches could not be cleared'
     end    
@@ -40,7 +40,7 @@ class Administrator::SiteController  < AdminController
       return 
     end
     expire_caches
-    message='Non-species page caches cleared on ' + format_date_time($CACHE_CLEARED_LAST)
+    message='Non-species page caches cleared on ' + view_helper_methods.format_date_time($CACHE_CLEARED_LAST)
     render :text=>message,:layout=>false
   end
 
@@ -53,7 +53,7 @@ class Administrator::SiteController  < AdminController
       return 
     end
     if expire_taxon_concept(taxon_concept_id)
-      message='Taxon ID ' + taxon_concept_id + ' was expired on ' + format_date_time(Time.now) + '<br />'
+      message='Taxon ID ' + taxon_concept_id + ' was expired on ' + view_helper_methods.format_date_time(Time.now) + '<br />'
     else
       message='Taxon ID ' + taxon_concept_id + ' could not be expired<br />'
     end

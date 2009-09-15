@@ -19,6 +19,70 @@ module TaxaHelper
     end
   end
     
+  def agent_partial(original_agents, params={})
+    return '' if original_agents.nil? or original_agents.blank?
+    params[:linked] = true if params[:linked].nil?
+    params[:only_first] ||= false
+    params[:show_link_icon] = true if params[:show_link_icon].nil?
+    agents = original_agents.clone # so we can be destructive.
+    agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
+    agents = [agents[0]] if params[:only_first]
+    agent_list = agents.collect do |agent|
+      params[:linked] ? external_link_to(hh(agent.full_name), agent.homepage, {:show_link_icon => params[:show_link_icon]}) : hh(agent.full_name)
+    end.join(', ') # I know this looks awkward, but I'm making it more readable.  : )
+    agent_list += ', et al.' if params[:only_first] and original_agents.length > 1
+    return agent_list
+  end
+
+  def agent_icons_partial(original_agents,params={})
+    return '' if original_agents.nil? or original_agents.blank?
+    params[:linked] = true if params[:linked].nil?
+    params[:show_text_if_no_icon] ||= false
+    params[:only_show_col_icon] ||= false
+    params[:normal_icon] ||= false
+    params[:separator] ||= "&nbsp;"
+    params[:last_separator] ||= params[:separator]
+    params[:taxon] ||= false
+    
+    is_default_col = false
+    if(params[:taxon] != false && !params[:taxon].col_entry.nil?)
+      is_default_col = true
+    end
+    
+    agents = original_agents.clone # so we can be destructive.
+    agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
+    
+    output_html = Array.new
+    
+    agents.each do |agent|
+      logo_size=(agent == Agent.catalogue_of_life ? "large" : "small") # CoL gets their logo big     
+      if agent.logo_cache_url.blank? 
+        output_html << agent_partial(agent,params) if params[:show_text_if_no_icon] 
+      else
+        url = agent.homepage.strip || ''
+        if params[:only_show_col_icon] && !is_default_col # if we are only asked to show the logo if it's COL and the current agent is *not* COL, then show text
+          output_html << agent_partial(agent,params)
+        else
+          if params[:linked] and not url.blank?
+            text = agent_logo(agent,logo_size,params)
+            output_html << external_link_to(text,url,{:show_link_icon => false})
+          else
+            output_html << agent_logo(agent,logo_size,params)
+          end
+        end
+      end
+      
+    end
+    
+    if output_html.size > 1 && params[:last_separator] != params[:separator]
+      # stich the last two elements together with the "last separator" column before joining if there is more than 1 element and the last separator is different
+      output_html[output_html.size-2] += params[:last_separator] + output_html.pop
+		end
+
+    return output_html.compact.join(params[:separator]) 
+
+  end
+    
   def we_have_css_for_kingdom?(kingdom)
     return false if kingdom.nil?
     return $KINGDOM_IDs.include?(kingdom.id.to_s)

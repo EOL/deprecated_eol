@@ -16,7 +16,7 @@ describe ApplicationController do
   end
 
   it 'should have hh' do
-    @controller.send(:hh, @taxon_name).should == @taxon_name_with_amp
+    @controller.view_helper_methods.send(:hh, @taxon_name).should == @taxon_name_with_amp
   end
 
 end

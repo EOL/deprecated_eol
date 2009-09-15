@@ -187,7 +187,17 @@ module ApplicationHelper
       return_html+= %Q{ title="#{name}"/></a>}
     end
     return return_html
-  end  
+  end
+  
+  def agent_logo(agent, size = "large", params={})
+    src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
+    return src if src.empty?
+    logo_str = "<img "
+    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
+    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
+    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(agent.project_name)}\" title=\"#{sanitize(agent.project_name)}\" class=\"agent-logo\" />"
+    return logo_str
+  end
   
   def collection_logo(collection, size = "large", params={})
     src = ''
@@ -198,7 +208,36 @@ module ApplicationHelper
     logo_str += "height='#{params[:height]}'" unless params[:height].nil?
     logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(collection.title)}\" title=\"#{sanitize(collection.title)}\" class=\"agent-logo\" />"
     return logo_str
-  end 
+  end
+
+  def external_link_to(*args, &block)
+    #return text of link is blank
+    return args[0] if args[1]==nil || args[1].blank?
+
+    html_options = args[2] || {}
+    html_options[:class] ||= ''
+    html_options[:class] += ' external_link'
+    html_options[:class] += ' external_link_popup' if $USE_EXTERNAL_LINK_POPUPS
+
+    if html_options[:show_link_icon].nil? || html_options.delete(:show_link_icon) == true
+      args[0] += " #{external_link_icon}"
+    end
+    link_to(args[0],args[1],html_options, &block)
+  end
+
+  def linked_name(taxon, link_name_string = '', new_window = false)
+    return_html=""
+    unless taxon.nil?
+      scientific_name = taxon.quick_scientific_name(:italicized)
+      common_name = taxon.quick_common_name(current_user.language)
+      return_html = %Q{<a }
+      return_html+= %Q{ target=\"_blank\" } if new_window
+      return_html+= %Q{ id=\"" + h(scientific_name) + "\"}  unless link_name_string.empty?
+      return_html+= %Q{ href="/pages/#{taxon.respond_to?(:taxon_concept_id) ? taxon.taxon_concept_id : taxon.id}">#{sanitize(scientific_name)}</a><br />}
+      return_html+= %Q{#{sanitize(common_name)}} unless common_name.empty?
+    end
+    return return_html
+  end
   
   # get the local or remote image URL based on our preference setting
   def get_image_url(image_item)

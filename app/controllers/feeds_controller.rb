@@ -137,13 +137,7 @@ class FeedsController < ApplicationController
       e.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => tc.id, :image_id => image.id))
 #      e.id = "urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a"
       e.updated = image.created_at
-
-      content = "<a href='#{url_for(:controller => :taxa, :action => :show, :id => tc.id, :image_id => image.id)}'><img src='#{image.smart_image}'/></a>"
-      for attribution in image.attributions
-        content += "<br/><b>#{attribution.agent_role}: </b> #{agent_partial(attribution.agent)} #{agent_icons_partial(attribution.agent)}"  
-      end
-
-      e.content = Atom::Content::Html.new(content)
+      e.content = Atom::Content::Html.new("<a href='#{url_for(:controller => :taxa, :action => :show, :id => tc.id, :image_id => image.id)}'><img src='#{image.smart_image}'/></a>")
 #      e.summary = ""
     end
   end
@@ -159,13 +153,7 @@ class FeedsController < ApplicationController
       e.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => tc.id, :text_id => text.id))
 #      e.id = "urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a"
       e.updated = text.created_at
-
-      content = "<b>#{text.object_title}</b><br/>#{text.description}"
-      for attribution in text.attributions
-        content += "<br/><b>#{attribution.agent_role}: </b> #{agent_partial(attribution.agent)} #{agent_icons_partial(attribution.agent)}"
-      end
-
-      e.content = Atom::Content::Html.new(content)
+      e.content = Atom::Content::Html.new("<b>#{text.object_title}</b><br/>#{text.description}")
 #      e.summary = "<img src='#{image.smart_image}'/><br/>Image for #{tc.names[0].string}"
     end
   end

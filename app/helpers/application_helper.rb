@@ -7,6 +7,21 @@ module ApplicationHelper
 
   include ActionView::Helpers::SanitizeHelper
 
+  # similar to h, but does not escape html code which is helpful for showing italisized names
+  # TODO - stop using this.  Trust, instead, the built-in method (in views) called #sanitize
+  def hh(input)
+    result = input.dup.strip
+
+    result.gsub!(/["]|&(?![\w]+;)/) do | match |
+      case match
+        when '&' then '&amp;'
+        when '"' then '&quot;'
+        else          ''
+      end
+    end
+    result
+  end
+
   #this only applies to text attributions for now
   #author, source, copyright, and data supplier should be shown
   def has_hidden_attributions?(data_object)

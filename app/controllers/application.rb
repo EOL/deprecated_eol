@@ -36,23 +36,18 @@ class ApplicationController < ActionController::Base
 
   helper_method :format_date, :format_date_time, :logged_in?, :current_user, :get_image_url, :get_first_agent,
                 :return_to_url, :current_url, :is_user_in_role?, :is_user_admin?, :convert_to_nbsp,
-                :get_video_url, :get_agent_icons, :hh, :current_agent, :agent_logged_in?, :truncate,
+                :get_video_url, :get_agent_icons, :current_agent, :agent_logged_in?, :truncate,
                 :allow_page_to_be_cached?
   around_filter :set_current_language
 
-  # similar to h, but does not escape html code which is helpful for showing italisized names
-  # TODO - stop using this.  Trust, instead, the built-in method (in views) called #sanitize
-  def hh(input)
-    result = input.dup.strip
+  def view_helper_methods
+    Helper.instance
+  end
 
-    result.gsub!(/["]|&(?![\w]+;)/) do | match |
-      case match
-        when '&' then '&amp;'
-        when '"' then '&quot;'
-        else          ''
-      end
-    end
-    result
+  class Helper
+    include Singleton
+    include TaxaHelper
+    include ApplicationHelper
   end
 
   # override exception notifiable default methods to redirect to our special error pages instead of the usual 404

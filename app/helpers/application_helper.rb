@@ -7,6 +7,35 @@ module ApplicationHelper
 
   include ActionView::Helpers::SanitizeHelper
 
+  # truncate a string to the maxlength passed and then add "..." if truncated
+  def truncate(text, length = 30, truncate_string = "...")
+    return if text.nil?
+    l = length - truncate_string.chars.length
+    text.chars.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
+  end  
+
+  # TODO - Rails has built-in helpers for just this kind of stuff.
+  def format_date_time(inTime,params={})
+    format_string = params[:format] || "long"
+    format_string = case format_string
+    when "short"
+      "%m/%d/%Y - %I:%M %p %Z"
+    when "short_no_tz"
+      "%m/%d/%Y - %I:%M %p"
+    when "long"
+      "%A, %B %d, %Y - %I:%M %p %Z"
+    else
+      nil
+    end
+    inTime.strftime(format_string) unless inTime==nil
+  end
+
+  # Return a formatted date
+  # Default format: %m/%d/%Y
+  def format_date(date, format = "%m/%d/%Y")
+    date.respond_to?(:strftime) ? date.strftime(format) : date.to_s
+  end
+
   # similar to h, but does not escape html code which is helpful for showing italisized names
   # TODO - stop using this.  Trust, instead, the built-in method (in views) called #sanitize
   def hh(input)
@@ -252,16 +281,7 @@ module ApplicationHelper
       return_html+= %Q{#{sanitize(common_name)}} unless common_name.empty?
     end
     return return_html
-  end
-  
-  # get the local or remote image URL based on our preference setting
-  def get_image_url(image_item)
-      if ($PREFER_REMOTE_IMAGES && image_item['remoteURL'].nil? == false) or (image_item['localURL'].nil?)
-        return image_item['remoteURL']
-      else
-        return image_item['localURL']
-      end
-  end
+  end 
 
   # Note that I change strong to b, 'cause strong appears to be overridden in our CSS.  Hrmph.
   def allow_some_html(text)

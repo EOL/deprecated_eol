@@ -1,6 +1,7 @@
 class InfoItem < SpeciesSchemaModel
-  has_and_belongs_to_many :data_objects
-  belongs_to :toc_item, :foreign_key => :toc_id
+  belongs_to :toc_item, :foreign_key => :toc_id 
+  has_many   :data_objects_info_items
+  has_many   :data_objects, :through => :data_objects_info_items
 end
 
 # == Schema Info

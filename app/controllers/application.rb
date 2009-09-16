@@ -357,14 +357,14 @@ class ApplicationController < ActionController::Base
 
   # used as a before_filter on methods that you don't want users to see if they are logged in (such as the login or register page)
   def go_to_home_page_if_logged_in
-      redirect_to(root_url) if logged_in?
-   end
+    redirect_to(root_url) if logged_in?
+  end
 
-   def must_log_in
-      store_location
-      redirect_to login_url
-      return false
-   end
+  def must_log_in
+    store_location
+    redirect_to login_url
+    return false
+  end
 
   # call this method if someone is not supposed to get a controller or action when user accounts are disabled
   def accounts_not_available

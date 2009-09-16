@@ -479,6 +479,11 @@ Factory.define :data_objects_table_of_content do |dato|
   dato.association :toc_item
 end
 
+Factory.define :data_objects_info_item do |doii|
+  doii.association :data_object
+  doii.association :info_item
+end
+
 Factory.define :data_objects_ref do |dor|
   dor.association :data_object
   dor.association :ref

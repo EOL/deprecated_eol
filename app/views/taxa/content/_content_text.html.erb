@@ -4,6 +4,8 @@ untrusted_banner_shown=false
 comments_style=(@ajax_update ? '' : 'display:none;')  # comments start out as hidden on first page load (shown when entire page is loaded, but for ajax updates, show immediately)
 
 unless @content[:data_objects].nil?
+  @content[:data_objects].size == 1 ? hide_subtitle = true : hide_subtitle = false
+  
   for content_item in @content[:data_objects]
     vetted_id_style = ''
     -%>
@@ -15,7 +17,7 @@ unless @content[:data_objects].nil?
       <%= render :partial=>'/shared/untrusted_text_warning_box' -%>
     <% end %>
 
-    <%= render :partial=>'text_data_object', :locals => {:content_item => content_item, :comments_style => comments_style, :category => @content[:category_name]} %>
+    <%= render :partial=>'text_data_object', :locals => {:content_item => content_item, :comments_style => comments_style, :category => @content[:category_name], :hide_subtitle => hide_subtitle} %>
   <% end %>
 <% end %>
 

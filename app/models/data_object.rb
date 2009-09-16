@@ -29,9 +29,10 @@ class DataObject < SpeciesSchemaModel
   has_many :data_objects_table_of_contents
   has_many :data_objects_untrust_reasons
   has_many :untrust_reasons, :through => :data_objects_untrust_reasons
+  has_many :data_objects_info_items
+  has_many :info_items, :through => :data_objects_info_items
 
   has_and_belongs_to_many :taxa
-  has_and_belongs_to_many :info_items
   has_and_belongs_to_many :audiences
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :agents
@@ -41,7 +42,7 @@ class DataObject < SpeciesSchemaModel
 
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
-
+  
   #----- queries for rss feeds ------
   def self.feed_images_and_text(taxon_concept_id = nil, max_results = 100)
     if taxon_concept_id.nil?
@@ -284,6 +285,15 @@ class DataObject < SpeciesSchemaModel
   end
 
   #----- end of user submitted text --------
+  
+  def subtitle_to_show
+    if object_title.blank? && !info_items.blank?
+      subtitle = info_items.first.label
+    else 
+      subtitle = object_title
+    end
+    return subtitle
+  end
 
   def rate(user,stars)
     rating = UsersDataObjectsRating.find_by_data_object_id_and_user_id(self.id, user.id)

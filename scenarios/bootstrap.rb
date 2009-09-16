@@ -153,7 +153,7 @@ build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names 
 user = User.gen
 overv = TocItem.find_by_label('Overview')
 desc = TocItem.find_by_label('Description')
-tc = build_taxon_concept(:id => 32, :toc => [{:toc_item => overv}, {:toc_item => desc}], :comments => [{}])
+tc = build_taxon_concept(:id => 32, :toc => [{:toc_item => overv}, {:toc_item => overv}, {:toc_item => desc}], :comments => [{}])
 description_dato = tc.content_by_category(desc)[:data_objects].first
 description_dato.comment(user, 'First comment')
 description_dato.comment(user, 'Second comment')  
@@ -167,6 +167,9 @@ description_dato.comment(user, 'Ninth comment')
 description_dato.comment(user, 'Tenth comment')
 description_dato.comment(user, 'Eleventh comment')
 description_dato.comment(user, 'Twelfth comment')
+
+DataObjectsInfoItem.gen(:data_object => tc.overview.first, :info_item => InfoItem.find(:first, :order => 'rand()'))
+DataObjectsInfoItem.gen(:data_object => tc.overview.last, :info_item => InfoItem.find_by_label("Distribution"))
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
        # Give it a new name:
@@ -202,7 +205,6 @@ test_user2.save
 #curator for selenium tests (NB: page #30)
 curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 20, :curator_approved => true)
 curator.save
-
 
 exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-coded) exemplars.
                                :event => event,

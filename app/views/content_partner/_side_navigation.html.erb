@@ -31,12 +31,12 @@ in_reports_section = page_header.downcase.include?('reports')
     <a href="<%= url_for :controller=>'/content_partner',:action=>'reports'%>" class="<%= in_reports_section ? 'active' : ''%> toc_item">USAGE REPORTS</a>
     <% if controller.is_a? ContentPartner::ReportsController %>
     <!-- ASh -->
-        <li><%= link_to 'All changes',{:controller=>'/content_partner/reports', :action=>'whole_report'}, :class=>"#{(@report_type  == :whole_report) ? 'active': ''} nested toc_item"%>
+        <li><%= link_to 'Monthly Page Statistics',{:controller=>'/content_partner/reports', :action=>'page_stats'}, :class=>"#{(@report_type  == :whole_report) ? 'active': ''} nested toc_item"%>
+        <li><%= link_to 'Curation and Comments',{:controller=>'/content_partner/reports', :action=>'whole_report'}, :class=>"#{(@report_type  == :whole_report) ? 'active': ''} nested toc_item"%>
         <li><%= link_to 'Comments',{:controller=>'/content_partner/reports', :action=>'comments_report'}, :class=>"#{(@report_type  == :comments_report) ? 'active': ''} nested toc_item"%>
-        <li><%= link_to 'Statuses',{:controller=>'/content_partner/reports', :action=>'statuses_report'}, :class=>"#{(@report_type  == :statuses_report) ? 'active': ''} nested toc_item"%>
+        <li><%= link_to 'Curation Activity',{:controller=>'/content_partner/reports', :action=>'statuses_report'}, :class=>"#{(@report_type  == :statuses_report) ? 'active': ''} nested toc_item"%>
         </li>
       
-    <!-- We do not use log for that now -->
     <!-- /ASh -->      
     
     <!-- <%# for report_class in (LogDaily.report_classes - [AgentLogDaily]) %>

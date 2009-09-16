@@ -7,13 +7,19 @@ module ReportsControllerModule
   
   # Are we really need that index?
   def index
-    if Agent.find(current_agent.id).agents_data == ""
-      no_resources
-    else
-      whole_report
-    end
-    # render :template => 'reports/index'
+    no_resources if Agent.find(current_agent.id).agents_data == ""
+    render :template => 'reports/index'
   end  
+  
+  def page_stats
+    no_resources if Agent.find(current_agent.id).agents_data == ""
+    @agent_id=current_agent.id
+    last_month=Time.now - 1.month
+    report_year=last_month.year.to_s
+    report_month="%02d" % last_month.month.to_s
+    @report_date="#{report_year}_#{report_month}"
+    render :template => 'reports/page_stats'
+  end
   
   def no_resources
     render :template => 'reports/no_resources'

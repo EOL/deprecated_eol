@@ -273,5 +273,23 @@ describe 'Taxa page (HTML)' do
     @result.body.should_not have_tag('a', :text => /#{@toc_item_with_no_trusted_items.label}/)
   end
 
+  it 'should show info item label for the overview text when there isn\'t an object_title' do
+    info_item_title = InfoItem.find(:last)
+    data_object = @taxon_concept.overview.first
+    DataObjectsInfoItem.gen(:data_object => data_object, :info_item => InfoItem.find(:last))
+    
+    data_object.object_title = ""
+    data_object.save!
+    new_result = RackBox.request("/pages/#{@id}")
+    new_result.body.should include(info_item_title.label)
+    
+    # show object_title if it exists
+    data_object.object_title = "Some Title"
+    data_object.save!
+    new_result = RackBox.request("/pages/#{@id}")
+    new_result.body.should include(data_object.object_title)
+    new_result.body.should_not include(info_item_title.label)        
+  end
+
 end
 

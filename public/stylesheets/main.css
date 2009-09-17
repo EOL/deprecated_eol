@@ -2567,10 +2567,10 @@ div.content-article {
 /* text buttons */
 
 div.text_buttons {
-  min-height: 15px;
+/*  min-height: 15px;*/
+  height: 25px;
   margin-top: 0px;
   padding: 0px;
-  padding-bottom: 5px;
 }
 
 div.text_buttons #left_text_buttons_group  {
@@ -2593,6 +2593,13 @@ div.text_buttons #right_text_button {
   width: 24px;
   margin-right: 5px;
   top: 0px;
+  bottom: 0px;
+}
+
+#span_block {
+  display: block;
+  width: 24px;
+  height: 25px;
 }
 
 /* /text buttons */

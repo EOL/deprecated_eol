@@ -52,45 +52,61 @@
     <% end %>
 
   </div>
+  
   <div class="text_buttons" id="text_buttons_<%=content_item.id%>">
-    <ul data-data_object_id='<%=content_item.id%>'>
-      <%=render :partial=>'/taxa/data_object_states', :locals => {:dato => content_item}%>
-    </ul>
-
+    <div id="left_text_buttons_group">
+      <ul data-data_object_id='<%=content_item.id%>'>
+        <%=render :partial=>'/taxa/data_object_states', :locals => {:dato => content_item}%>
+      </ul>
+    </div>
+    
+    <div id="right_text_buttons_group">
+      <% if @taxon_concept.show_curator_controls? %>
+        <% if !content_item.curated? %>
+          <div class="spinner">
+            <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
+          </div>
+          <div id="hide_these_controls_too_for_now" style="display:none">
+            <div class="trust_button thumbs-up-image" id="right_text_button">
+              <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
+            </div>
+            <div class="untrust_button thumbs-down-image" id="right_text_button">
+              <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
+            </div>
+          </div>
+        <% end %>
+        <div title="Curate image" class="curate_button curate-button-image" id="right_text_button">
+          <%= link_to '<span style="display: block; width: 24px; height: 25px;"></span>', 
+          curation_data_object_path(content_item), 
+          {'data-data_object_id' => content_item.id, 
+            :style => comments_style, 
+            :class => 'slide-in-link', 
+            
+            :alt => 'Curate image'} %>
+        </div>
+      <% end %> 
+      <% if !@preview %>
+        <div title="Comment on image" class="comment-button comment-button-image" id="right_text_button">
+          <% if(@selected_text_comment) %>
+            <script language="javascript" type="text/javascript">
+              text_comments_permalink(<%= content_item.id %>, <%= @selected_text_comment.id %>, <%= @comment_page %>);
+            </script>
+          <% else %>
+            <%= link_to '<span style="display: block; width: 24px; height: 25px;"></span>', 
+            data_object_comments_path(content_item), 
+            {'data-data_object_id' => content_item.id, 
+              :style => comments_style, 
+              :class => 'slide-in-link', 
+              :alt => "Comment on image"} %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
     <!-- RATING -->
     <div class="text-rating">
       <%=render :partial => '/taxa/star_rating', :locals => {:data_object => content_item}%>
     </div>
-
-    <% if @taxon_concept.show_curator_controls? %>
-      <% if !content_item.curated? %>
-        <div class="spinner">
-          <%=image_tag('indicator_arrows_black.gif', :style => 'display:none;')%>
-        </div>
-        <div id="hide_these_controls_too_for_now" style="display:none">
-          <div class="trust_button thumbs-up-image">
-            <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
-          </div>
-          <div class="untrust_button thumbs-down-image">
-            <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', {:controller => :data_objects, :action => :curate, :id => content_item.id, '_method' => :put, :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, {'data-data_object_id' => content_item.id, 'data-data_object_type' => DataType.text_type_ids[0]} %>
-          </div>
-        </div>
-      <% end %>
-      <div class="curate_button curate-button-image">
-        <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', curation_data_object_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
-      </div>
-    <% end %>
-    <% if !@preview %>
-      <div class="comment_button comment-button-image">
-        <% if(@selected_text_comment) %>
-          <script language="javascript" type="text/javascript">
-            text_comments_permalink(<%= content_item.id %>, <%= @selected_text_comment.id %>, <%= @comment_page %>);
-          </script>
-        <% else %>
-          <%= link_to '<span style="display:block;width:24px;height:25px;"></span>', data_object_comments_path(content_item), {'data-data_object_id' => content_item.id, :style => comments_style, :class => 'slide-in-link'} %>
-        <% end %>
-      </div>
-    <% end %>
+    
   </div>
 
   <div id="text-comments-wrapper-<%= content_item.id %>" style="display:none;" class="text-slidebox-border">

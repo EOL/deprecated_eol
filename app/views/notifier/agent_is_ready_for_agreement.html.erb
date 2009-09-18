@@ -5,5 +5,7 @@ Partner Information
 ID#: <%= @agent.id %>
 Username: <%= @agent.username %>
 E-mail: <%= @agent.email %>
-Project Name: <%= @agent.project_name %>
+Project Name: <%= @agent.full_name %>
 Date:	   <%=Time.now%>
+
+http://www.eol.org/administrator/content_partner_report/show/<%=@agent.id%>

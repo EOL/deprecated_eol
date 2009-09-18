@@ -5,7 +5,7 @@
 # 4) config/environment_eol_org.rb
 
 # Set the environment for Passenger
-ENV['RAILS_ENV'] = 'test'
+ENV['RAILS_ENV'] ||= 'test'
 
 # The test environment is used exclusively to run your application's
 # test suite.  You never need to work with it otherwise.  Remember that

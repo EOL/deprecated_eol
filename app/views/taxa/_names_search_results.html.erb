@@ -23,7 +23,6 @@
                       <table>
                           <tr>
                               <td width="50%"><a name="common_names"></a><h3><%="Common Names"[]%></h3></td>
-                              <td><%- if @search.searching && @search.scientific_name_results.length > 0 %>[view <a href="#scientific_names"><%="Scientific Names"[]%></a>]<%- end %></td>
                           </tr>
                        </table>
                        
@@ -65,7 +64,6 @@
                      <table>
                           <tr>
                               <td width="50%"><a name="scientific_names"></a><h3><%="Scientific Names"[]%></h3></td>
-                              <td><%- if @search.searching && @search.common_name_results.length > 0 %>[view <a href="#common_names"><%="Common Names"[]%></a>]<%- end %></td>
                           </tr>
                      </table>
                   

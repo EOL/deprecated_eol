@@ -22,7 +22,7 @@ class RandomHierarchyImage < SpeciesSchemaModel
     starting_id = 0 if starting_id > (@@count[hierarchy.id] - limit) # This only applies when there are very few RandomTaxa.
     list = RandomHierarchyImage.find_by_sql(['SELECT rhi.* FROM random_hierarchy_images rhi WHERE rhi.hierarchy_id=? LIMIT ?, ?', hierarchy.id, starting_id, limit])
     list = self.random_set(limit, Hierarchy.default) if list.blank? && hierarchy.id != Hierarchy.default.id
-    raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if list.blank?
+    #raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if list.blank?
     return list
   end
   

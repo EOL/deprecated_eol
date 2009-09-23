@@ -89,13 +89,14 @@ gbif_cp    = ContentPartner.gen :vetted => true, :agent => gbif_agent
 AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.primary)
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
-kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :common_names => ['Animals'],
-                              :event => event)
+kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :event => event)
+kingdom.add_comon_name('Animals')
+
 4.times do
-  build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
-                      :depth => Hierarchy.default.hierarchy_entries.length,
-                      :event => event,
-                      :common_names => [Factory.next(:common_name)])
+  tc = build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
+                           :depth => Hierarchy.default.hierarchy_entries.length,
+                           :event => event)
+  tc.add_common_name(Factory.next(:common_name))
 end
 
 fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
@@ -104,8 +105,9 @@ depth_now      = Hierarchy.default.hierarchy_entries.length
 # NOTE!  I am going to use HARDCODED common names *JUST* so that searching will have multiple results for one string.
 
 # Sixth Taxon should have more images, and have videos:
-tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => ['Tiger moth'],
+tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id
                          :depth => depth_now, :images => :testing, :event => event)
+tc.add_common_name('Tiger moth')
 
 #TODO: omg this is HORRIBLE!
 u = User.gen
@@ -126,23 +128,27 @@ tc.images[2].comment(u, 'Eleventh comment')
 tc.images[2].comment(u, 'Twelveth comment')
 
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
-build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => ['Tiger lilly'],
-                    :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
-                    :bhl => [], :event => event)
+tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id
+                         :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
+                         :bhl => [], :event => event)
+tc.add_common_name('Tiger lilly')
 
 # Eighth Taxon (now we're just getting greedy) should be the same as Seven, but with BHL:
-build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => ['Tiger'],
-                    :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
-                    :event => event)
+tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
+                         :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
+                         :event => event)
+tc.add_common_name('Tiger')
 
 # Ninth Taxon is *totally* naked:
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [], :bhl => [], :event => event,
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
 
 #30 has unvetted images and videos, please don't change this one, needed for selenum tests:         
-build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)],
-                    :id => 30, :depth => depth_now, :images => :testing, :flash => [{:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [],
+tc30 = build_taxon_concept(:id => 30, :parent_hierarchy_entry_id => fifth_entry_id,
+                    :depth => depth_now, :images => :testing, :flash => [{:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [],
                     :bhl => [], :event => event)
+tc30.add_common_name(Factory.next(:common_name))
+
 
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)], :id => 31, 

@@ -24,7 +24,7 @@ def create_if_not_exists(klass, attributes)
         searchable_attributes.keys.blank?
     rescue NoMethodError
       raise "It seems there is a bad column on #{klass}. One of its expected attributes seems to be missing: " +
-            "#{searchable_attributes.join(', ')}"
+            "#{searchable_attributes.to_s}"
     end
     found = klass.send(:gen, attributes) if found.nil?
   rescue ActiveRecord::RecordInvalid => e

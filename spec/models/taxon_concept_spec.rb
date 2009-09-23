@@ -46,7 +46,6 @@ describe TaxonConcept do
       :attribution     => @attribution,
       :scientific_name => @scientific_name,
       :italicized      => @italicized,
-      :common_names    => [@common_name],
       :gbif_map_id     => @gbif_map_id,
       :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
       :youtube         => [{:description => @video_3_text}],
@@ -58,6 +57,8 @@ describe TaxonConcept do
       :toc             => [{:toc_item => @overview, :description => @overview_text}, 
                            {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}]
     )
+    # TODO - I am slowly trying to convert all of the above options to methods to make testing clearer:
+    tc.add_common_name(@common_name)
     @id            = tc.id
     @taxon_concept = TaxonConcept.find(@id)
     # The curator factory cleverly hides a lot of stuff that User.gen can't handle:

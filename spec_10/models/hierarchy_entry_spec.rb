@@ -609,12 +609,12 @@ describe HierarchyEntry, '#media' do
     content.stub!(:child_image).and_return(0)
     content.stub!(:flash).and_return(0)
     content.stub!(:youtube).and_return(0)
-    content.stub!(:gbif_image).and_return(0)
+    content.stub!(:map).and_return(0)
     @he.hierarchies_content = content
   end
 
-  it 'should have map when gbif_image is set' do
-    @he.hierarchies_content.should_receive(:gbif_image).and_return(1)
+  it 'should have map when map is set' do
+    @he.hierarchies_content.should_receive(:map).and_return(1)
     @he.media[:map].should be_true
   end
 

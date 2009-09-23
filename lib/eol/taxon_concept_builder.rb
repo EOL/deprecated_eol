@@ -13,14 +13,14 @@ class EOL
     #
     #   +attribution+::
     #     String to be used in scientific name as attribution
-    #   +bhl+:
+    #   +bhl+::
     #     Example: [{:publication => 'Foobar', :page => 23}, {:publication => 'Bazboozer', :page => 78}]
     #   +canonical_form+::
     #     String to use for canonical form (all names will reference this)
     #   +comments+::
     #     Array of hashes.  Each hash can have a +:body+ and +:user+ key.
     #   +common_names+::
-    #     String to use for thre preferred common name
+    #     Array of strings to use for the common names.
     #   +depth+::
     #     Depth to apply to the attached hierarchy entry.  Don't supply this AND rank.
     #   +event+::
@@ -50,7 +50,7 @@ class EOL
     #   +rank+::
     #     String form of the Rank you want this TC to be.  Default 'species'.
     #   +scientific_name+::
-    #     String to use for the preferred scientific name.
+    #     String to use for the preferred scientific name.  The first in the list will be "preferred"
     #   +toc+::
     #     An array of hashes.  Each hash may have a +:toc_item+ key and a +:description+ key. Note that there are
     #     some toc entries that you CANNOT affect here, like common_names, bhl, or biomedical_terms, since they are
@@ -114,7 +114,7 @@ class EOL
 
     # This is vital for searches to function properly.
     # TODO - a) this is not configurable in any way; b) this does not set text, image, child_image, flash, youtube,
-    # internal_image, gbif_image, or image_object_id; c) I'm not sure if any of the fields in (b) are used: check.
+    # internal_image, map, or image_object_id; c) I'm not sure if any of the fields in (b) are used: check.
     def gen_taxon_concept_content
       TaxonConceptContent.gen(:content_level => 4, :taxon_concept => @tc)
     end

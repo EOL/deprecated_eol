@@ -196,7 +196,7 @@ end
 
 # Unique:
 Factory.sequence(:scientific_name) do |n|
-  @seq_sci_name = ["Quibusdameli estculpaatus", "Estasperioreseli etquidemis", "Nesciunterox autrerumalis", "Voluptasalius optioerus", "Remrerumeron auteterus", "Veritatises idofficiisiae", "Accusamusalis pariatura", "Voluptateseri doloremosyne", "Autrecusandaees repudiandaeica", "Nihileri voluptasus", "Dignissimosii inutes", "Fugais utharumatus", "Minuseli ullamens", "Dignissimosatus nobisosyne", "Expeditaalia evenietelia", "Earumeles beataeata", "Culpaensis sapienteesi", "Utomnisesi sequialis", "Autaliquideri minimais", "Beataeelia etnemoiae", "Autema officiaalius", "Autemalius utsimiliqueesi", "Etconsequaturelia autenimalia", "Quoautesi natuseri", "Voluptatumeri esseensis", "Ameti maioresis", "Ipsamalius distinctioerox", "Maximees veritatisatus", "Molestiaeus rationealia", "Fugitens dolorealius", "Quisquamator sequieles", "Essees eaqueata", "Animiens atdoloribuseron", "Adaliasii iurea", "Nonnumquamerus numquamerus", "Autvoluptatesus temporaalis", "Excepturialia omnisa", "Estveroalia nihilata", "Quiincidunta culpaelia", "Providentalia estquaeratens", "Placeatalia uteosensis", "Ipsaensis architectoalius", "Deserunterox facereerox", "Suntalia estsitalius", "Aliasosyne quiadipisciatus", "Illoica exexplicaboalia", "Laboriosamerus quisis", "Optiois molestiasalia", "Ipsuma animius", "Quiserox eligendii", "Eteaiae nullais"]
+  @seq_sci_name = ["Quibusdameli estculpaatus", "Estasperioreseli etquidemis", "Nesciunterox autrerumalis", "Voluptasalius optioerus", "Remrerumeron auteterus", "Veritatises idofficiisiae", "Accusamusalis pariatura", "Voluptateseri doloremosyne", "Autrecusandaees repudiandaeica", "Nihileri voluptasus", "Dignissimosii inutes", "Fugais utharumatus", "Minuseli ullamens", "Dignissimosatus nobisosyne", "Expeditaalia evenietelia", "Earumeles beataeata", "Culpaensis sapienteesi", "Utomnisesi sequialis", "Autaliquideri minimais", "Beataeelia etnemoiae", "Autema officiaalius", "Autemalius utsimiliqueesi", "Etconsequaturelia autenimalia", "Quoautesi natuseri", "Voluptatumeri esseensis", "Ameti maioresis", "Ipsamalius distinctioerox", "Maximees veritatisatus", "Molestiaeus rationealia", "Fugitens dolorealius", "Quisquamator sequieles", "Essees eaqueata", "Animiens atdoloribuseron", "Adaliasii iurea", "Nonnumquamerus numquamerus", "Autvoluptatesus temporaalis", "Excepturialia omnisa", "Estveroalia nihilata", "Quiincidunta culpaelia", "Providentalia estquaeratens", "Placeatalia uteosensis", "Ipsaensis architectoalius", "Deserunterox facererox", "Suntalia estsitalius", "Aliasosyne quiadipisciatus", "Illoica exexplicaboalia", "Laboriosamerus quisis", "Optiois molestiasalia", "Ipsuma animius", "Quiserox eligendii", "Eteaiae nullais"]
   pick = @seq_sci_name[n % @seq_sci_name.length]
   (n / @seq_sci_name.length).times { pick.succ! }
   pick
@@ -204,7 +204,7 @@ end
 
 # Unique:
 Factory.sequence(:common_name) do |n|
-  @seq_common_name = ["pink ipsumalia", "ravenous quaeeli", "red suntus", "darning needle", "tiger", "frizzlebek", "purple sitatius", "cloud swallow", "spiny possom", "common desert mouse", "lesser expeditaalia", "chartruse turtle", "horny toad", "scarlet vermillion", "Mozart's nemesis", "quick brown fox", "painted horse", "thirsty aphid", "bloody eel", "fruit bat", "giant ostrich", "common rat", "cursed doormouse", "great errorens", "stream newt", "blessed sparrow", "ravenous eagle", "common titmouse", "least ferret", "raccoon", "papa bear", "brown hornet", "urban crocidile", "classical enthusiast", "grungebutter", "bripplefoam frond", "elf's cup", "agitated harmonium", "stone dragon", "Werner's mite", "green anole", "killer bee", "thistle", "paramecium", "scorpion king", "tarantula", "cardinal", "sky fungus", "upbeat chickadee", "amoeba"]
+  @seq_common_name = ["pink quaist", "ravenous clover", "red suntus", "darning needle", "tiger", "frizzlebek", "purple dust crab", "cloud swallow", "spiny possom", "common desert mouse", "fisher", "chartruse turtle", "horny toad", "scarlet vermillion", "Mozart's nemesis", "quick brown fox", "painted horse", "thirsty aphid", "bloody eel", "fruit bat", "giant ostrich", "common rat", "cursed doormouse", "great shrimp", "stream newt", "blessed sparrow", "ravenous eagle", "common titmouse", "least ferret", "raccoon", "papa bear", "brown hornet", "urban crocidile", "classical enthusiast", "grungebutter", "bripplefoam frond", "elf's cup", "agitated harmonium", "stone dragon", "Werner's mite", "green anole", "killer bee", "thistle", "paramecium", "scorpion king", "tarantula", "cardinal", "moon fungus", "upbeat chickadee", "amoeba"]
   pick = @seq_common_name[n % @seq_common_name.length]
   (n / @seq_common_name.length).times { pick.succ! }
   pick
@@ -232,10 +232,16 @@ Factory.sequence(:attribution) do |n|
   @seq_attr[n % @seq_attr.length]
 end
 
-Factory.sequence(:string ){|n| "unique#{ n }string" } # 'string' isn't elegant, but it's perfect for right now!
+Factory.sequence(:string ){|n| "unique#{ n }string" }
 Factory.sequence(:email  ){|n| "bob#{n}@smith.com" }
 # Faker names are frequently unique, but let's just make absolutely sure:
-Factory.sequence(:species){|n| Factory.next(:scientific_name) }
+Factory.sequence(:species) do |n|
+  s = Factory.next(:scientific_name)
+  while (Name.find_by_string(s)) do
+    s = Factory.next(:scientific_name)
+  end
+  s
+end
 Factory.sequence(:title  ){|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
 Factory.sequence(:int    ){|n| n }
 
@@ -525,15 +531,17 @@ end
 
 Factory.define :hierarchies_content do |hc|
   hc.association     :hierarchy_entry
-  hc.text            0
-  hc.image           0
-  hc.child_image     0
-  hc.flash           0
-  hc.youtube         0
-  hc.internal_image  0
-  hc.gbif_image      0
-  hc.content_level   1
-  hc.image_object_id 0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
+  hc.text                     0
+  hc.text_unpublished         0
+  hc.image                    0
+  hc.image_unpublished        0
+  hc.child_image              0
+  hc.child_image_unpublished  0
+  hc.flash                    0
+  hc.youtube                  0
+  hc.map                      0
+  hc.content_level            1
+  hc.image_object_id          0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
 end
 
 Factory.define :hierarchy_entry do |he|
@@ -547,6 +555,8 @@ Factory.define :hierarchy_entry do |he|
   he.rgt         2
   he.identifier  ''
   he.association :hierarchy
+  he.published   1
+  he.vetted      { Vetted.trusted || Vetted.create(:label => 'Trusted') }
 end
 
 Factory.define :info_item do |ii|
@@ -678,7 +688,7 @@ end
 Factory.define :random_taxon do |rt|
   rt.language       { Language.english || Factory(:language, :label => 'English') }
   rt.association    :data_object
-  rt.name_id        { Factory(:name).id } # TODO - ick.  ...But there is a "name" attribute as well, so, tricky.
+  rt.name_id        { Factory(:name).id } # There is a "name" attribute as well, so, tricky.
   rt.image_url      200810081262788
   rt.name           { "<i>#{ Factory.next(:species) }<i> Factory TestFramework" }
   rt.content_level  3
@@ -722,7 +732,6 @@ Factory.define :ref_identifier_type do |rit|
   rit.label { Factory.next(:string) }
 end
 
-# TODO - Patrick might be adding a hierarchy reference to this table.
 Factory.define :resource do |r|
   r.auto_publish    false
   r.title           'Testing Resource'
@@ -785,14 +794,16 @@ Factory.define :synonym_relation do |sr|
   sr.label 'TestSynonymRelation'
 end
 
-# TODO - would be neat to make this relationship a synonym by default, but there's no nice way to do that yet
 Factory.define :synonym do |s|
-  s.association :name
-  s.association :synonym_relation
-  s.language    { Language.english || Factory(:language, :label => 'English') }
-  s.association :hierarchy_entry
-  s.preferred   0
-  s.association :hierarchy   # This isn't really needed.
+  s.association      :name
+  s.synonym_relation { SynonymRelation.find_by_label('Synonym') ||
+                         Factory(:synonym_relation, :label => 'Synonym') }
+  s.language         { Language.english || Factory(:language, :label => 'English') }
+  s.association      :hierarchy_entry
+  s.hierarchy_id     { |syn| syn.hierarchy_entry.hierarchy.id }
+  s.preferred        1
+  s.published        1
+  s.vetted           { Vetted.trusted || Vetted.create(:label => 'Trusted') }
 end
 
 Factory.define :taxon do |t|
@@ -818,15 +829,17 @@ end
 # We may want the default to actually have some content.  Not sure.
 Factory.define :taxon_concept_content do |tcc|
   tcc.association :taxon_concept
-  tcc.text           0
-  tcc.image          0
-  tcc.child_image    0
-  tcc.flash          0
-  tcc.youtube        0
-  tcc.internal_image 0
-  tcc.gbif_image     0
-  tcc.content_level  1
-  tcc.image_object_id 1
+  tcc.text                     0
+  tcc.text_unpublished         0
+  tcc.image                    0
+  tcc.image_unpublished        0
+  tcc.child_image              0
+  tcc.child_image_unpublished  0
+  tcc.flash                    0
+  tcc.youtube                  0
+  tcc.map                      0
+  tcc.content_level            1
+  tcc.image_object_id          0 # the preferred image for that hierarchy_entry, but probably not used (still, accurate in production)
 end
 
 Factory.define :taxon_concept_name do |tcn|
@@ -873,7 +886,7 @@ end
 Factory.define :user do |u|
   u.default_taxonomic_browser 'text'
   u.expertise                 'middle'
-  u.remote_ip                 '128.167.250.123' # TODO - fake this?
+  u.remote_ip                 { "123.45.67.1#{rand(10)}" }
   u.content_level             2
   u.email                     { Factory.next(:email) }
   u.default_hierarchy_id      nil

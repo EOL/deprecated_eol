@@ -1,11 +1,12 @@
 # TODO - ADD COMMENTS
 class Synonym < SpeciesSchemaModel
 
+  belongs_to :hierarchy
   belongs_to :hierarchy_entry
-  #NOT_YET: belongs_to :hierarchy 
   belongs_to :language
-  belongs_to :synonym_relation
   belongs_to :name
+  belongs_to :synonym_relation
+  belongs_to :vetted
 
   def self.by_taxon(taxon_id)
     return Synonym.find_all_by_hierarchy_entry_id(taxon_id, :include => [:synonym_relation, :name])

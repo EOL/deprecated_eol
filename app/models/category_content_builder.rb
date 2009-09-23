@@ -74,14 +74,14 @@ private
 
   def common_names(options)
     return {
-        :items => Name.find_by_sql([%q{
-                    SELECT names.string, l.iso_639_1 language_label, l.label, l.name
-                    FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
-                      LEFT JOIN languages l ON (tcn.language_id = l.id)
-                    WHERE tcn.taxon_concept_id = ? AND vern = 1
-                    ORDER BY language_label, string
-                  }, options[:taxon_concept_id]])
-      }
+      :items => Name.find_by_sql([%q{
+                  SELECT names.string name_string, l.label language_label, l.name language_name, l.id language_id
+                  FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
+                    LEFT JOIN languages l ON (tcn.language_id = l.id)
+                  WHERE tcn.taxon_concept_id = ? AND vern = 1
+                  ORDER BY language_label, language_name, string
+                }, options[:taxon_concept_id]])
+    }
   end
 
   def biomedical_terms(options)

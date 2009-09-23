@@ -118,7 +118,7 @@ module EOL::Spec
                               :taxon_concept => tc,
                               :name          => name)
       HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4,
-                             :gbif_image => options[:map] ? 1 : 0, :youtube => 1, :flash => 1)
+                             :map => options[:map] ? 1 : 0, :youtube => 1, :flash => 1)
       # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as roles
       return he
     end
@@ -298,6 +298,29 @@ TaxonConcept.class_eval do
     DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item)
     dato.save!
     DataObjectsTaxon.gen(:data_object => dato, :taxon => taxa.first)
+  end
+
+  # Only used in testing context, this returns the actual Name object for the canonical form for this TaxonConcept.
+  # Note that, since the canonical form is what you see when browsing the site, this really comes from the Catalogue
+  # of Life specifically, which may present a problem later.
+  def canonical_form_object
+    CanonicalForm.find(entry.name_object.canonical_form_id) # Yuck.  But true.
+  end
+
+  # Adds a single common name to this TC.
+  # Options:
+  #   +preferred+::
+  #     Boolean to flag which name is preferred for this TC.  Default is true, but be careful that you only set one.
+  #   +language+::
+  #     Language object to use for this name.  Default is Language.english
+  #     
+  def add_common_name(name, options = {})
+    preferred = options[:preferred] || true
+    language  = options[:language]  || Language.english
+    name_obj  = Name.gen(:canonical_form => canonical_form_object, :string => name, :italicized => name)
+    Synonym.gen()
+    TaxonConceptName.gen(:preferred => preferred, :vern => true, :source_hierarchy_entry_id => entry.id,
+                         :language => language, :name => name_obj, :taxon_concept => self)
   end
 
 end

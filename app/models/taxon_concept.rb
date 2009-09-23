@@ -368,7 +368,7 @@ class TaxonConcept < SpeciesSchemaModel
     hierarchy_entries.each do |entry|
       images = true if entry.hierarchies_content.image != 0 || entry.hierarchies_content.child_image != 0 rescue images
       video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0 rescue video
-      map = true if entry.hierarchies_content.gbif_image != 0 rescue map
+      map = true if entry.hierarchies_content.map != 0 rescue map
     end
     
     map = false if map and gbif_map_id == empty_map_id # The "if map" avoids unecessary db hits; keep it.
@@ -503,7 +503,7 @@ class TaxonConcept < SpeciesSchemaModel
       }
     end
     
-    vetted_condition = options[:user].vetted ? "(published=1 AND tc.vetted_id=#{Vetted.trusted.id})" : "published=1"
+    vetted_condition = options[:user].vetted ? "(tc.published=1 AND tc.vetted_id=#{Vetted.trusted.id})" : "tc.published=1"
     agent_condition =  options[:agent].nil? ? '' : "OR ar.agent_id=#{options[:agent].id}"
     if !options[:user].nil? && options[:user].is_admin?
       agent_condition = "OR ar.agent_id IS NOT NULL"

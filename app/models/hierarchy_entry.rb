@@ -10,15 +10,16 @@ class HierarchyEntry < SpeciesSchemaModel
   acts_as_tree :order => 'lft'
 
   belongs_to :hierarchy 
-  belongs_to :rank 
   belongs_to :name
+  belongs_to :rank 
   belongs_to :taxon_concept
+  belongs_to :vetted
 
+  has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
+                                      WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'
   has_many :concepts
   has_many :top_images, :foreign_key => :hierarchy_entry_id
   has_many :taxa # Sometimes we go through names (which we can't Railsify)... but this relationship also exists directly
-  has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
-                                      WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'
 
   has_one :hierarchies_content
 
@@ -68,7 +69,7 @@ class HierarchyEntry < SpeciesSchemaModel
   def media
     {:images => hierarchies_content.image != 0 || hierarchies_content.child_image  != 0,
      :video  => hierarchies_content.flash != 0 || hierarchies_content.youtube != 0,
-     :map    => hierarchies_content.gbif_image != 0}
+     :map    => hierarchies_content.map != 0}
   end
 
   # This is a complete port of content_level_sub() from functions.php:
@@ -352,8 +353,8 @@ class HierarchyEntry < SpeciesSchemaModel
 
   def has_gbif_identifier?
     return false unless hierarchies_content
-    return false unless hierarchies_content.gbif_image
-    return false if hierarchies_content.gbif_image == 0
+    return false unless hierarchies_content.map
+    return false if hierarchies_content.map == 0
     return false if identifier.blank?
     return true
   end

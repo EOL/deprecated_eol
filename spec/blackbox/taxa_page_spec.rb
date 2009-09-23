@@ -58,7 +58,6 @@ describe 'Taxa page (HTML)' do
        :attribution     => @attribution,
        :scientific_name => @scientific_name,
        :italicized      => @italicized,
-       :common_names    => [@common_name],
        :iucn_status     => @iucn_status,
        :map             => {:description => @map_text},
        :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
@@ -70,6 +69,8 @@ describe 'Taxa page (HTML)' do
        :toc             => [{:toc_item => @overview, :description => @overview_text}, 
                             {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
 
+    # TODO - I am slowly trying to move all of those options over to methods, to make things clearer:
+    @taxon_concept.add_common_name(@common_name)
     @child1        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @child2        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @id            = @taxon_concept.id

@@ -265,6 +265,13 @@ function eol_update_video(params) {
     video_notes_area = '';
     video_notes_area += params.title +'<br /><br />';
     if (license_info != '') {video_notes_area += license_info + '<br />';}
+    // if (params.data_supplier != '') {
+    //   if (params.data_supplier_url != '') {
+    //    video_notes_area += 'SUPPLIER: <a href="'+params.data_supplier_url+'" class="external_link">' + params.data_supplier + ' <img alt="external link" src="/images/external_link.png"></a> ' + params.data_supplier_icon  + '<br />';
+    //   } else { 
+    //     video_notes_area += 'SUPPLIER: ' + params.data_supplier + '<br />';
+    //   }
+    // }
     if (params.author != '') {video_notes_area += 'AUTHOR: ' + params.author + '<br />';}
     if (params.collection != '') {video_notes_area += 'SOURCE: ' + params.collection + '<br />';}
     video_notes_area += params.field_notes ? '<br />' + params.field_notes : '';

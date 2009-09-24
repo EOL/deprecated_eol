@@ -13,8 +13,8 @@ config.cache_classes                                 = false
 config.action_view.debug_rjs                         = false
 
 # We have code that RELIES on mem_cache running, so you MUST use this (or find a brilliant way to fix the code):
-#config.cache_store = :mem_cache_store
-config.cache_store = :memory_store
+config.cache_store = :mem_cache_store
+#config.cache_store = :memory_store
 #(you might be able to use memory_store if you don't have memcached installed when in development)
 
 ### TO ENABLE CACHING ... ( make sure the config.cache_store is setup and it exists!  note: file_store uses an absolute path )

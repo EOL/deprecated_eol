@@ -116,7 +116,13 @@ class EOL
     # TODO - a) this is not configurable in any way; b) this does not set text, image, child_image, flash, youtube,
     # internal_image, map, or image_object_id; c) I'm not sure if any of the fields in (b) are used: check.
     def gen_taxon_concept_content
-      TaxonConceptContent.gen(:content_level => 4, :taxon_concept => @tc)
+      tcc = TaxonConceptContent.find_by_taxon_concept_id(@tc.id)
+      if tcc 
+        tcc.content_level = 4
+        tcc.save!
+      else
+        TaxonConceptContent.gen(:content_level => 4, :taxon_concept => @tc)
+      end
     end
 
     # TODO - add some alternate names, including at least one in another language.

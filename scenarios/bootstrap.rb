@@ -90,7 +90,7 @@ AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.p
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
 kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :event => event)
-kingdom.add_comon_name('Animals')
+kingdom.add_common_name('Animals')
 
 4.times do
   tc = build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
@@ -105,7 +105,7 @@ depth_now      = Hierarchy.default.hierarchy_entries.length
 # NOTE!  I am going to use HARDCODED common names *JUST* so that searching will have multiple results for one string.
 
 # Sixth Taxon should have more images, and have videos:
-tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id
+tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
                          :depth => depth_now, :images => :testing, :event => event)
 tc.add_common_name('Tiger moth')
 
@@ -128,7 +128,7 @@ tc.images[2].comment(u, 'Eleventh comment')
 tc.images[2].comment(u, 'Twelveth comment')
 
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
-tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id
+tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
                          :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
                          :bhl => [], :event => event)
 tc.add_common_name('Tiger lilly')

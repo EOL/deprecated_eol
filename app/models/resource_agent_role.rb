@@ -6,6 +6,11 @@ class ResourceAgentRole < SpeciesSchemaModel
       ResourceAgentRole.find_by_label('Data Supplier').to_yaml
     end)
   end
+  
+  class << self
+    alias :data_supplier :content_partner_upload_role 
+  end
+  
 
 end
 

@@ -338,7 +338,7 @@ class DataObject < SpeciesSchemaModel
 
   # Find the Agent (only one) that supplied this data object to EOL.
   def data_supplier_agent
-    Agent.find_by_sql(["select a.* from data_objects_harvest_events dohe join harvest_events he on (dohe.harvest_event_id=he.id) join agents_resources ar on (he.resource_id=ar.resource_id) join agents a on (ar.agent_id=a.id) where dohe.data_object_id=? and ar.resource_agent_role_id=3", self.id]).first
+    Agent.find_by_sql(["select a.* from data_objects_harvest_events dohe join harvest_events he on (dohe.harvest_event_id=he.id) join agents_resources ar on (he.resource_id=ar.resource_id) join agents a on (ar.agent_id=a.id) where dohe.data_object_id=? and ar.resource_agent_role_id=?", self.id, ResourceAgentRole.data_supplier.id]).first
   end
 
   # Gets agents_data_objects, sorted by AgentRole, based on this objects' DataTypes' AgentRole attribution

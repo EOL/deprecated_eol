@@ -78,7 +78,7 @@ Rails.cache.clear # We appear to be altering some of the cached classes here.  J
 
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 
-resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published)
+resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published) #2
 event    = HarvestEvent.gen(:resource => resource)
 AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource,
                    :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
@@ -113,19 +113,19 @@ tc.add_common_name('Tiger moth')
 u = User.gen
 u.vetted = false
 tc.current_user = u
-tc.images[2].comments[0].body = 'First comment'
-tc.images[2].comments[0].save!
-tc.images[2].comment(u, 'Second comment')
-tc.images[2].comment(u, 'Third comment')
-tc.images[2].comment(u, 'Forth comment')
-tc.images[2].comment(u, 'Fifth comment')
-tc.images[2].comment(u, 'Sixth comment')
-tc.images[2].comment(u, 'Seventh comment')
-tc.images[2].comment(u, 'Eighth comment')
-tc.images[2].comment(u, 'Nineth comment')
-tc.images[2].comment(u, 'Tenth comment')
-tc.images[2].comment(u, 'Eleventh comment')
-tc.images[2].comment(u, 'Twelveth comment')
+tc.images[0].comments[0].body = 'First comment'
+tc.images[0].comments[0].save!
+tc.images[0].comment(u, 'Second comment')
+tc.images[0].comment(u, 'Third comment')
+tc.images[0].comment(u, 'Forth comment')
+tc.images[0].comment(u, 'Fifth comment')
+tc.images[0].comment(u, 'Sixth comment')
+tc.images[0].comment(u, 'Seventh comment')
+tc.images[0].comment(u, 'Eighth comment')
+tc.images[0].comment(u, 'Nineth comment')
+tc.images[0].comment(u, 'Tenth comment')
+tc.images[0].comment(u, 'Eleventh comment')
+tc.images[0].comment(u, 'Twelveth comment')
 
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,

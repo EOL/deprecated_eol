@@ -107,7 +107,12 @@ module TaxaHelper
       taxon_concepts=video.taxa_names_taxon_concept_ids
       taxon_concept_id = taxon_concepts[0][:taxon_concept_id] unless taxon_concepts.blank?
     end
-    return "{author: '"        + escape_javascript(agent_partial(video.authors)) +
+    data_supplier = video.data_supplier_agent
+    data_supplier_name = data_supplier ? data_supplier.full_name : ''
+    data_supplier_url = data_supplier ? data_supplier.homepage : ''
+    data_supplier_icon = data_supplier ? agent_icons_partial(data_supplier) : ''
+    
+    return "{author: '"         + escape_javascript(agent_partial(video.authors)) +
            "', nameString: '"   + escape_javascript(video.scientific_name) +
            "', collection: '"   + escape_javascript(agent_partial(video.sources)) +
            "', location: '"     + escape_javascript(video.location || '') +
@@ -119,6 +124,10 @@ module TaxaHelper
            "', title:'"         + escape_javascript(video.object_title) +
            "', video_type:'"    + escape_javascript(video.media_type) +
            "', video_trusted:'" + escape_javascript(video.vetted_id.to_s) +
+           "', video_data_supplier:'" + escape_javascript(data_supplier.to_s) +
+           "', video_supplier_name:'" + escape_javascript(data_supplier_name.to_s) +
+           "', video_supplier_url:'"  + escape_javascript(data_supplier_url.to_s) +
+           "', video_supplier_icon:'" + escape_javascript(data_supplier_icon.to_s) +
            "', video_url:'"     + escape_javascript("#{video.video_url}" || video.object_url || '') +
            "', data_object_id:'"+ escape_javascript(video.id.to_s) +
            "', taxon_concept_id:'#{taxon_concept_id}'}"

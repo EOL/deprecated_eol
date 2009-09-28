@@ -5,6 +5,7 @@
 # Every Name should have a CanonicalForm.
 class CanonicalForm < SpeciesSchemaModel
   has_many :names
+  belongs_to :name # Yes, really.
 end
 
 # == Schema Info

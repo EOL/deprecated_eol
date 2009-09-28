@@ -318,7 +318,7 @@ TaxonConcept.class_eval do
     preferred = options[:preferred] || true
     language  = options[:language]  || Language.english
     name_obj  = Name.gen(:canonical_form => canonical_form_object, :string => name, :italicized => name)
-    Synonym.gen()
+    Synonym.gen(:name => name_obj, :hierarchy_entry => entry, :language => language, :preferred => preferred)
     TaxonConceptName.gen(:preferred => preferred, :vern => true, :source_hierarchy_entry_id => entry.id,
                          :language => language, :name => name_obj, :taxon_concept => self)
   end

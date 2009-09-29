@@ -183,10 +183,12 @@ class TaxonConcept < SpeciesSchemaModel
   #
   # Lastly, note that the TaxonConcept IDs are hard-coded to our production database. TODO - move those IDs to a
   # table somewhere.
+  #
+  # EXEMPLARS THAT WE NO LONGER TRUST: 482935, 
   def self.exemplars
     Rails.cache.fetch('taxon_concepts/exemplars') do
       TaxonConcept.find(:all, :conditions => ['id IN (?)',
-        [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 482935, 392557,
+        [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 392557,
          484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558,
          253397, 740699, 1044544, 802455, 1194666]]).sort_by(&:quick_scientific_name)
     end

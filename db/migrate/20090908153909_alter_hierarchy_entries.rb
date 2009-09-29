@@ -4,6 +4,11 @@ class AlterHierarchyEntries < ActiveRecord::Migration
   end
   
   def self.up
+
+    # A quick fix before doing anything else:
+    execute("update hierarchies_content_test hct join hierarchies_content hc using (hierarchy_entry_id) set hct.map=1 where hc.gbif_image=1")
+    execute("update hierarchies_content hc join hierarchy_entries he on (hc.hierarchy_entry_id=he.id) join taxon_concept_content tcc on (he.taxon_concept_id=tcc.taxon_concept_id) set tcc.gbif_image=1 where hc.gbif_image=1")
+    execute("update hierarchies_content hc join hierarchy_entries he on (hc.hierarchy_entry_id=he.id) join taxon_concept_content_test tcct on (he.taxon_concept_id=tcct.taxon_concept_id) set tcct.map=1 where hc.gbif_image=1")
     
     # adding fields to hierarchy_entries for curation
     execute("alter table hierarchy_entries add `vetted_id` tinyint(3) unsigned NOT NULL default '0' after `taxon_concept_id`")

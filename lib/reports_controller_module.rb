@@ -5,7 +5,6 @@
 #
 module ReportsControllerModule
   
-  # Are we really need that index?
   def index
     no_resources if Agent.find(current_agent.id).agents_data == ""
     render :template => 'reports/index'
@@ -19,6 +18,12 @@ module ReportsControllerModule
     report_month="%02d" % last_month.month.to_s
     @report_date="#{report_year}_#{report_month}"
     render :template => 'reports/page_stats'
+  end
+
+  def data_object_stats
+    no_resources if Agent.find(current_agent.id).agents_data == ""
+    @agent_id=current_agent.id
+     render :template => 'reports/data_object_stats'
   end
   
   def no_resources

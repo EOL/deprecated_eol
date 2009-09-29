@@ -142,7 +142,7 @@ class Administrator::ContentPageController < AdminController
    new_page=ContentPage.new
    new_page.page_name='New Page'
    new_page.title='New Page'
-   new_page.active=true
+   new_page.active=false
    new_page.url=''
    new_page.main_content='Content goes here'
    new_page.left_content=''

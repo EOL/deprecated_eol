@@ -89,8 +89,9 @@ To install required gems:
   rake db:migrate RAILS_ENV=test
   rake truncate
   rake scenarios:load NAME=bootstrap
-  rake eol:site_specific repo=URL  # Your "URL" (or an alternative) will be provided to you privately if needed.
 
+  # Your "URL" (or an alternative) will be provided to you privately if needed.  Most developers who will not run code in production can skip this one.
+  rake eol:site_specific repo=URL
 
 === INSTALLING AND RUNNING MEMCACHED
 

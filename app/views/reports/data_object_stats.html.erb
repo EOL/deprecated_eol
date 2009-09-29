@@ -1,0 +1,11 @@
+
+<div id="report_from_eol">
+  <h2>Data Object Statistics</h2>
+  <p>The following report shows the harvests that have completed with your data and the number of data objects for each harvest as well as the number of taxa affected.</p>
+
+    <%= render :partial => '/shared/embed_external_page',
+               :locals  => {:height => '600',
+                            :width  => '100%',
+                            :url    => "http://services.eol.org/eol_php_code/applications/partner_stat/index.php?agent_id=#{@agent_id}"} %>
+
+</div> 

@@ -263,8 +263,15 @@ class ApplicationController < ActionController::Base
 
   # send user to the SSL version of the page (used in the account controller, can be used elsewhere)
   def redirect_to_ssl
-     redirect_to :protocol => "https://" unless (request.ssl? or local_request?)
+    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.
+    
+    if params[:return_to]
+      redirect_to :protocol => "https://", :return_to => params[:return_to] unless (request.ssl? or local_request?)
+    else
+      redirect_to :protocol => "https://" unless (request.ssl? or local_request?)
+    end
   end
+
 
   # send user back to the non-SSL version of the page
   def redirect_back_to_http

@@ -216,14 +216,14 @@ describe 'Taxa page (HTML)' do
       request("/pages/#{@default_tc.id}").should include_text("Name not in #{@ncbi.label}")
     end
     
-    it "should use the label from the default hierarchy when the user doesn't specify one and the page is in both hierarchies" do
+    it "should attribute the default hierarchy when the user doesn't specify one and the page is in both hierarchies" do
       login_as @user_with_nil_hierarchy
-      request("/pages/#{@common_tc.id}").should include_text("recognized by #{CGI.escapeHTML(Hierarchy.default.label)}")
+      request("/pages/#{@common_tc.id}").should include_text("recognized by <a href=\"#{Hierarchy.default.agent.homepage.strip}")
     end
     
-    it "should use the label from the default hierarchy when the user has it as the default and page is in both hierarchies" do
+    it "should attribute the default hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_default_hierarchy
-      request("/pages/#{@common_tc.id}").should include_text("recognized by #{CGI.escapeHTML(Hierarchy.default.label)}")
+      request("/pages/#{@common_tc.id}").should include_text("recognized by <a href=\"#{Hierarchy.default.agent.homepage.strip}")
     end
     
     it "should use the label from the NCBI hierarchy when the user has it as the default and page is in both hierarchies" do

@@ -84,7 +84,7 @@ create_if_not_exists AgentContactRole, :label => 'Technical Contact'
 create_if_not_exists Agent, :full_name => 'IUCN'
 create_if_not_exists ContentPartner, :agent => Agent.iucn
 create_if_not_exists AgentContact, :agent => Agent.iucn, :agent_contact_role => AgentContactRole.primary
-create_if_not_exists Agent, :full_name => 'Catalogue of Life'
+create_if_not_exists Agent, :full_name => 'Catalogue of Life', :logo_cache_url => '2190', :homepage => 'http://www.catalogueoflife.org/'
 create_if_not_exists ContentPartner, :agent => Agent.catalogue_of_life
 create_if_not_exists AgentContact, :agent => Agent.catalogue_of_life, :agent_contact_role => AgentContactRole.primary
 
@@ -265,6 +265,9 @@ create_if_not_exists ResourceStatus, :label => 'Being Processed'
 create_if_not_exists ResourceStatus, :label => 'Processed'
 create_if_not_exists ResourceStatus, :label => 'Processing Failed'
 create_if_not_exists ResourceStatus, :label => 'Published'
+create_if_not_exists ResourceStatus, :label => 'Publish Pending'
+create_if_not_exists ResourceStatus, :label => 'Unpublish Pending'
+create_if_not_exists ResourceStatus, :label => 'Force Harvest'
 
 create_if_not_exists Role, :title => 'Curator'
 create_if_not_exists Role, :title => 'Moderator'

@@ -221,6 +221,13 @@ exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-code
 
 ContentPage.gen(:page_name => "curator_central", :title => "Curator central", :left_content => "")
 
+
+
+col_collection = Collection.gen(:agent => Agent.catalogue_of_life, :title => "Catalogue of Life Collection", :uri => "http://www.catalogueoflife.org/browse_taxa.php?selected_taxon=FOREIGNKEY", :logo_cache_url => 4130)
+col_mapping    = Mapping.gen(:collection => col_collection, :name => kingdom.entry.name_object)
+
+
+
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants
 
 # creating collection / mapping data
@@ -260,7 +267,7 @@ Mapping.gen(:collection => molecular_species_pages_collection, :name => name, :f
 r = Rank.gen(:label => 'superkingdom', :rank_group_id => 0)
 
 ### Adding another hierarchy to test switching from one to another
-ncbi_agent = Agent.gen(:full_name => "National Center for Biotechnology Information (NCBI)")
+ncbi_agent = Agent.gen(:full_name => "National Center for Biotechnology Information (NCBI)", :logo_cache_url => nil)
 AgentContact.gen(:agent => ncbi_agent, :agent_contact_role => AgentContactRole.primary)
 ncbi_hierarchy = Hierarchy.gen(:agent => ncbi_agent, :label => "NCBI Taxonomy", :browsable => 1)
 

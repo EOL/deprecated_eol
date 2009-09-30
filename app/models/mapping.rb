@@ -10,7 +10,7 @@ class Mapping < SpeciesSchemaModel
   end
   
   def url
-    return collection.uri.gsub(/FOREIGNKEY/, foreign_key)
+    return collection.uri.gsub(/FOREIGNKEY/, foreign_key.to_s)
   end
 
   def self.for_taxon_concept_id(tc_id, options = {})

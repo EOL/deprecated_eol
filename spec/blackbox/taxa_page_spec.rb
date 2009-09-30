@@ -95,6 +95,7 @@ describe 'Taxa page (HTML)' do
 
     @curator       = build_curator(@taxon_concept)
     Comment.find_by_body(@comment_bad).hide! User.last
+    # doesn't work, why?
     @result        = RackBox.request("/pages/#{@id}") # cache the response the taxon page gives before changes
 
   end
@@ -105,6 +106,7 @@ describe 'Taxa page (HTML)' do
 
   # This is kind of a baseline, did-the-page-actually-load test:
   it 'should include the italicized name in the header' do
+    @result = RackBox.request("/pages/#{@id}")
     @result.body.should have_tag('div#page-title') do
       with_tag('h1', :text => @scientific_name)
     end
@@ -133,16 +135,19 @@ describe 'Taxa page (HTML)' do
   end
 
   it 'should be able to ping the collection host' do
+    @result = RackBox.request("/pages/#{@id}")
     @result.body.should include(@ping_url)
   end
 
   it 'should show the Overview text by default' do
+    @result = RackBox.request("/pages/#{@id}")
     @result.body.should have_tag('h3', :text => 'Overview')
     @result.body.should include(@overview_text)
   end
 
   it 'should NOT show references for the overview text when there aren\'t any' do
     Ref.delete_all ; @taxon_concept.overview[0].refs = [] # Just to make sure nothing shows up.
+    @result = RackBox.request("/pages/#{@id}")
     @result.body.should_not have_tag('div.references')
   end
 
@@ -170,6 +175,7 @@ describe 'Taxa page (HTML)' do
   end
 
   it 'should allow html in user-submitted text' do
+    @result = RackBox.request("/pages/#{@id}")
     @result.body.should match(@description_bold)
     @result.body.should match(@description_ital)
     @result.body.should match(@description_link)
@@ -271,6 +277,7 @@ describe 'Taxa page (HTML)' do
   it 'should load removed text via permalink when user is an admin'
 
   it 'should not include the TocItem with only unvetted content in it' do
+    @result = RackBox.request("/pages/#{@id}")
     @result.body.should_not have_tag('a', :text => /#{@toc_item_with_no_trusted_items.label}/)
   end
 

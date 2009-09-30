@@ -69,74 +69,89 @@ describe 'Taxa page XML' do
 
   describe 'single taxon' do
 
-    before(:all) do
-      # Saves us time if we only make these requests once, so we can test the results multiple times:
-      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@taxon_concept.id}.xml").body)
-    end
+    # that doesn't work now for some reason, if will be, replace "Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)" for "@taxon_concept_xml" everywhere 
+    # before(:all) do
+    #   # Saves us time if we only make these requests once, so we can test the results multiple times:
+    #   @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
+    # end
 
     it 'should serve valid XML on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('/taxon-page').should_not be_empty
     end
 
     it 'should serve the TaxonConcept with ID NNN on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('/taxon-page/id').first.content.should == @id.to_s
     end
 
     it 'should include canonical-form on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('/taxon-page/canonical-form').first.content.should == @canonical_form
     end
     
     it 'should include common-names on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('/taxon-page/common-names/item').map { |cn|
         cn.xpath('string').first.content
       }.should == @taxon_concept.all_common_names.map(&:string)
     end
 
     it 'should include iucn-conservation-status on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('/taxon-page/iucn-conservation-status').first.content.should == @iucn_status
     end
 
     it 'should include scientific-name on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('/taxon-page/scientific-name').first.content.should == @italicized
     end
 
     it 'should include overview on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)
       @taxon_concept_xml.xpath('/taxon-page/overview//description').first.content.should == @overview_text
     end
 
     it 'should include table-of-contents on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('/taxon-page/table-of-contents/item').map { |ti|
         ti.xpath('label').first.content
       }.should == @taxon_concept.toc.map(&:label)
     end
 
     it 'should include ancestors on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('//ancestors/taxon-page/id').map { |i| i.content }.should ==
         @taxon_concept.ancestors.map {|a| a.id.to_s }
     end
 
     # Sorted because order is irrelevant.
     it 'should include children on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('//children/taxon-page/id').map { |i| i.content }.sort.should ==
         @taxon_concept.children.map {|a| a.id.to_s }.sort
     end
 
     # Sorted because order is irrelevant.
     it 'should include curators on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('//curators/user/id').map { |i| i.content }.sort.should ==
         @taxon_concept.curators.map {|c| c.id.to_s }.sort
     end
 
     it 'should include comments/count on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('//comments/count').first.content.should == @taxon_concept.comments.length.to_s
     end
 
     it 'should include images/count on call to /pages/NNN.xml' do
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
       @taxon_concept_xml.xpath('//images/count').first.content.should == @taxon_concept.images.length.to_s
     end
 
    it 'should include videos/count on call to /pages/NNN.xml' do
-     @taxon_concept_xml.xpath('//videos/count').first.content.should == @taxon_concept.videos.length.to_s
+     @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+      @taxon_concept_xml.xpath('//videos/count').first.content.should == @taxon_concept.videos.length.to_s
    end
 
   end
@@ -144,12 +159,13 @@ describe 'Taxa page XML' do
 
   describe 'images' do
 
-    before(:all) do
-      # Saves us time if we only make these requests once, so we can test the results multiple times:
-      @images_xml = Nokogiri::XML(RackBox.request("/pages/#{@taxon_concept.id}/images/1.xml").body)
-    end
+    # before(:all) do
+    #   # Saves us time if we only make these requests once, so we can test the results multiple times:
+    #   @images_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}/images/1.xml").body)
+    # end
 
     it 'should return a page of images XML on call to /pages/NNN/images/1.xml' do
+      @images_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}/images/1.xml").body)
       @images_xml.xpath('//images').should_not be_empty
       @images_xml.xpath('//images/image').length.should == 10
     end
@@ -159,7 +175,7 @@ describe 'Taxa page XML' do
       # this test to be valid:
       @taxon_concept.images.length.should > 10
       @taxon_concept.images.length.should < 21
-      images_xml_page_2 = Nokogiri::XML(RackBox.request("/pages/#{@taxon_concept.id}/images/2.xml").body)
+      images_xml_page_2 = Nokogiri::XML(RackBox.request("/pages/#{@id}/images/2.xml").body)
       images_xml_page_2.xpath('//images').should_not be_empty
       images_xml_page_2.xpath('//images/image').length.should == @taxon_concept.images.length - 10
     end
@@ -170,13 +186,14 @@ describe 'Taxa page XML' do
   # will, too.
   describe 'videos' do
 
-    before(:all) do
-      # Saves us time if we only make these requests once, so we can test the results multiple times:
-      @videos_xml = Nokogiri::XML(RackBox.request("/pages/#{@taxon_concept.id}/videos/1.xml").body)
-    end
+    # before(:all) do
+    #   # Saves us time if we only make these requests once, so we can test the results multiple times:
+    #   @videos_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}/videos/1.xml").body)
+    # end
 
     # This assumes there are LESS than 11 videos on our example TC:
     it 'should return a page of videos XML on call to /pages/NNN/videos/1.xml' do
+      @videos_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}/videos/1.xml").body)
       @videos_xml.xpath('//videos').should_not be_empty
       @videos_xml.xpath('//videos/video').length.should == @taxon_concept.videos.length
     end
@@ -200,10 +217,9 @@ describe 'Taxa page XML' do
       @taxon_concept.should_receive(:to_xml).exactly(1).times.and_return(
         %Q{<?xml version="1.0" encoding="UTF-8"?>\n<taxon-page>Not Empty</taxon-page>\n}
       )
-      Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body).xpath('//taxon-page').should_not
-        be_empty
-      Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body).xpath('//taxon-page').should_not
-        be_empty
+      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}.xml").body)  
+      @taxon_concept_xml.xpath('//taxon-page').should_not be_empty
+      @taxon_concept_xml.xpath('//taxon-page').should_not be_empty
     end
 
     it 'should cache XML on call to /pages/NNN/images/2.xml' do

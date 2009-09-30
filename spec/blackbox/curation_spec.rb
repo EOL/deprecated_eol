@@ -30,7 +30,7 @@ describe 'Curation' do
 
     foo = login_as( curator )
     login_as( curator ).should redirect_to('/')
-
+    
     request("/pages/#{@taxon_concept.id}").body.should have_tag('div#large-image-curator-button')
   end
 

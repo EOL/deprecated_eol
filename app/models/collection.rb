@@ -41,6 +41,11 @@ class Collection < SpeciesSchemaModel
        result="#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
     end
   end
+  
+  def find_mappings_by_taxon_concept(taxon_concept = nil)
+    return nil if taxon_concept.nil?
+    return Mapping.find_by_sql("select m.* from taxon_concept_names tcn join mappings m on (tcn.name_id=m.name_id) where tcn.taxon_concept_id=#{taxon_concept.id} and tcn.vern=0 and m.collection_id=#{id}")
+  end
 
 end
 

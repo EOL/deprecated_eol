@@ -60,6 +60,25 @@ class ResourceStatus < SpeciesSchemaModel
       self.find_by_label('Published')
     end
   end
+  
+  def self.publish_pending
+    Rails.cache.fetch('resource_statuses/publish_pending') do
+      self.find_by_label('Publish Pending')
+    end
+  end
+  
+  def self.unpublish_pending
+    Rails.cache.fetch('resource_statuses/unpublish_pending') do
+      self.find_by_label('Unpublish Pending')
+    end
+  end
+  
+  def self.force_harvest
+    Rails.cache.fetch('resource_statuses/force_harvest') do
+      self.find_by_label('Unpublish Pending')
+    end
+  end
+  
 end
 # == Schema Info
 # Schema version: 20081020144900

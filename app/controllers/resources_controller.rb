@@ -52,36 +52,32 @@ class ResourcesController < ApplicationController
       
       if current_user && current_user.is_admin?
         if params[:publish] == '1' and current_object.resource_status == ResourceStatus.processed
-          if current_object.publish 
-            flash[:notice] = "Resource is published"
-          else
-            flash[:error] = "Could not publish resource"
-          end
+          current_object.resource_status = ResourceStatus.publish_pending
+          flash[:notice] = "Resource is scheduled to be published"
         elsif params[:publish] == '0' and current_object.resource_status == ResourceStatus.published
-          if current_object.unpublish 
-            flash[:notice] = "Resource is unpublished"
-          else
-            flash[:error] = "Could not unpublish resource"
-          end
+          current_object.resource_status = ResourceStatus.unpublish_pending
+          flash[:notice] = "Resource is scheduled to be unpublished"
         end
-        current_object.auto_publish=params[:auto_publish] if params[:auto_publish]=='1' 
-        current_object.set_vetted_status(params[:vetted]) if params[:vetted]=='1' 
+        
+        if params[:auto_publish]=='1'
+          current_object.auto_publish = 1 if current_object.auto_publish != 1
+        else
+          current_object.auto_publish = 0 if current_object.auto_publish != 0
+        end
+        
+        if params[:vetted]=='1'
+          current_object.set_vetted_status(1) if current_object.vetted != 1
+        else
+          current_object.set_vetted_status(0) if current_object.vetted != 0
+        end
       end
-
-      current_object.save
       
-      # TODO - I think this is the line thats causing the timeout after resource publishing
-      #       it was deleting the cache for its pages, but the denormalized tables need to run anyway
-      #       so I really don't think we need to do this anymore
-      #expire_taxa current_object.taxon_concept_ids, :expire_ancestors => true
-
+      current_object.save
     end
 
     before :destroy do
-      
       # delete the association between the resource and the agent if you delete the resource
       AgentsResource.find_all_by_resource_id(current_object.id).each {|agent_resource| agent_resource.destroy }
-      
     end  
 
   end

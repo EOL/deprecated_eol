@@ -36,37 +36,26 @@ class Resource < SpeciesSchemaModel
   end
   
   def status_label
-    (resource_status.nil?) ? "Pending" : resource_status.label
+    (resource_status.nil?) ? "Created" : resource_status.label
   end
   
-  # vet or unvet entire resource (0 = unknown, 1 = vet)
-  def set_vetted_status(vetted) 
-    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
-    SpeciesSchemaModel.connection.execute("update data_objects d, data_objects_harvest_events dh, harvest_events h set d.vetted_id = #{set_to_state} where d.curated = 0 and  d.id = dh.data_object_id and dh.harvest_event_id = h.id and h.resource_id =  #{self.id}")
-    self.vetted=vetted
-    true
-  end
-
-  def taxon_concept_ids
-    SpeciesSchemaModel.connection.select_values("select distinct tc.id from resources r join harvest_events h on r.id=h.resource_id join harvest_events_taxa ht on h.id=ht.harvest_event_id join taxa t on t.id=ht.taxon_id join hierarchy_entries he on he.id=t.hierarchy_entry_id join taxon_concepts tc on tc.id=he.taxon_concept_id where r.id=#{self.id.to_s}")
-  end
-
   def latest_unpublished_harvest_event
     HarvestEvent.find(:first, :conditions => ["published_at IS NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
                               :limit => 1,
                               :order => 'completed_at desc')
   end
 
-  def latest_harvest_event
-    HarvestEvent.find(:first, :conditions => ["published_at IS NOT NULL AND resource_id = ?", id],
+  def latest_published_harvest_event
+    HarvestEvent.find(:first, :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
                               :limit => 1,
                               :order => 'published_at desc')
   end
-
-  def hide_latest_harvest
-    latest_harvest_event.make_invisible
+  
+  def all_harvest_events
+    HarvestEvent.find(:first, :conditions => ["resource_id = ?", id],
+                              :order => 'completed_at desc')
   end
-
+  
   def validate
     if accesspoint_url.blank? && dataset_file_name.blank?
        errors.add_to_base("You must either provide a URL or upload a resource file")   
@@ -74,24 +63,24 @@ class Resource < SpeciesSchemaModel
        errors.add_to_base("The resource data URL is not valid")
     end
   end
-
-  def publish(a_harvest_event = nil)
-    a_harvest_event ||= latest_harvest_event
-    published = false
-    if self.resource_status = ResourceStatus.processed
-      published = a_harvest_event.publish
-      self.resource_status = ResourceStatus.published if published
+  
+  # vet or unvet entire resource (0 = unknown, 1 = vet)
+  def set_vetted_status(vetted) 
+    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
+    
+    # update the vetted_id of all data_objects associated with the latest
+    SpeciesSchemaModel.connection.execute("update harvest_events he straight_join data_objects_harvest_events dohe on (he.id=dohe.harvest_event_id) straight_join data_objects do on (dohe.data_object_id=do.id) set do.vetted_id = #{set_to_state} where do.vetted_id = 0 and he.resource_id = #{self.id}")
+    
+    if set_to_state == Vetted.trusted.id && !Resource.hierarchy.nil?
+      # update the vetted_id of all concepts associated with this resource - only vet them never unvet them
+      SpeciesSchemaModel.connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET tc.vetted_id=#{Vetted.trusted.id} WHERE hierarchy_id=#{Resource.hierarchy.id}")
     end
-    published
+    
+    self.vetted=vetted
+    
+    true
   end
   
-  def unpublish(change_resource_status = true)
-    unpublished = false
-    SpeciesSchemaModel.connection.execute("update data_objects d, data_objects_harvest_events dh, harvest_events h set d.published = 0 where d.published = 1 and  d.id = dh.data_object_id and dh.harvest_event_id = h.id and h.resource_id =  #{self.id}")
-    self.update_attribute(:resource_status_id,ResourceStatus.processed.id) if change_resource_status
-    unpublished = true
-  end
-    
   
 end
 # == Schema Info
@@ -123,66 +112,3 @@ end
 #  harvested_at           :datetime
 #  resource_created_at    :datetime
 #  resource_modified_at   :datetime
-
-# == Schema Info
-# Schema version: 20081002192244
-#
-# Table name: resources
-#
-#  id                     :integer(4)      not null, primary key
-#  language_id            :integer(2)
-#  license_id             :integer(1)      not null
-#  resource_status_id     :integer(4)
-#  service_type_id        :integer(4)      not null, default(1)
-#  accesspoint_url        :string(255)
-#  bibliographic_citation :string(400)
-#  dataset_content_type   :string(255)
-#  dataset_file_name      :string(255)
-#  dataset_file_size      :integer(4)
-#  description            :string(255)
-#  logo_url               :string(255)
-#  metadata_url           :string(255)
-#  refresh_period_hours   :integer(2)
-#  resource_set_code      :string(255)
-#  rights_holder          :string(255)
-#  rights_statement       :string(400)
-#  service_version        :string(255)
-#  subject                :string(255)     not null
-#  title                  :string(255)     not null
-#  created_at             :timestamp       not null
-#  harvested_at           :datetime
-#  resource_created_at    :datetime
-#  resource_modified_at   :datetime
-
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: resources
-#
-#  id                     :integer(4)      not null, primary key
-#  language_id            :integer(2)
-#  license_id             :integer(1)      not null
-#  resource_status_id     :integer(4)
-#  service_type_id        :integer(4)      not null, default(1)
-#  accesspoint_url        :string(255)
-#  auto_publish           :boolean(1)      not null
-#  bibliographic_citation :string(400)
-#  dataset_content_type   :string(255)
-#  dataset_file_name      :string(255)
-#  dataset_file_size      :integer(4)
-#  description            :string(255)
-#  logo_url               :string(255)
-#  metadata_url           :string(255)
-#  refresh_period_hours   :integer(2)
-#  resource_set_code      :string(255)
-#  rights_holder          :string(255)
-#  rights_statement       :string(400)
-#  service_version        :string(255)
-#  subject                :string(255)     not null
-#  title                  :string(255)     not null
-#  vetted                 :boolean(1)      not null
-#  created_at             :timestamp       not null
-#  harvested_at           :datetime
-#  resource_created_at    :datetime
-#  resource_modified_at   :datetime
-

@@ -1,28 +1,28 @@
 <div class="text_object" id="common_names_wrapper">
   <table class="results_table" cellspacing="0" summary="Common Names">
-    <tr><th scope="col"><%="Name"[]%></th><th scope="col"><%="Language"[]%></th></tr>
+    <tr><th scope="col"><%= "Name"[] %></th><th scope="col"><%= "Language"[] %></th></tr>
   <% unless @content[:items].blank?
     # Render each name in the current user's preferred language:
     @content[:items].each do |name|
       next unless name[:language_id] == current_user.language_id
-      %><%= render(:partial => 'taxa/content/content_common_names_row',
-             :locals => {
-               :column_class   => cycle('odd', 'even'),
-               :name_string    => name[:name_string],
-               :language_label => name[:language_label],
-               :language_name  => name[:language_name]
-      }) %>
+      -%><%= render(:partial => 'taxa/content/content_common_names_row',
+                    :locals => {
+                      :column_class   => cycle('odd', 'even'),
+                      :name_string    => name[:name_string],
+                      :language_label => name[:language_label],
+                      :language_name  => name[:language_name]
+      }) -%><%
     end
     # Render every OTHER name (not in her preferred language):
     @content[:items].each do |name|
       next if name[:language_id] == current_user.language_id
-      %><%= render(:partial => 'taxa/content/content_common_names_row',
-             :locals => {
-               :column_class   => cycle('odd', 'even'),
-               :name_string    => name[:name_string],
-               :language_label => name[:language_label],
-               :language_name  => name[:language_name]
-      }) %>
+      -%><%= render(:partial => 'taxa/content/content_common_names_row',
+                    :locals => {
+                      :column_class   => cycle('odd', 'even'),
+                      :name_string    => name[:name_string],
+                      :language_label => name[:language_label],
+                      :language_name  => name[:language_name]
+      }) -%><%
     end
   end -%>
   </table>
@@ -32,4 +32,3 @@
     <span class="source">Names come from multiple sources.</span>
   </div>
 </div>
-

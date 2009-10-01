@@ -1,7 +1,0 @@
-delete:
-  id: 1
-  code: delete
-  
-update:
-  id: 2
-  code: update

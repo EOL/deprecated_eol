@@ -78,7 +78,7 @@ Rails.cache.clear # We appear to be altering some of the cached classes here.  J
 
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 
-resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published) #2
+resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published)
 event    = HarvestEvent.gen(:resource => resource)
 AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource,
                    :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
@@ -113,19 +113,19 @@ tc.add_common_name('Tiger moth')
 u = User.gen
 u.vetted = false
 tc.current_user = u
-tc.images[0].comments[0].body = 'First comment'
-tc.images[0].comments[0].save!
-tc.images[0].comment(u, 'Second comment')
-tc.images[0].comment(u, 'Third comment')
-tc.images[0].comment(u, 'Forth comment')
-tc.images[0].comment(u, 'Fifth comment')
-tc.images[0].comment(u, 'Sixth comment')
-tc.images[0].comment(u, 'Seventh comment')
-tc.images[0].comment(u, 'Eighth comment')
-tc.images[0].comment(u, 'Nineth comment')
-tc.images[0].comment(u, 'Tenth comment')
-tc.images[0].comment(u, 'Eleventh comment')
-tc.images[0].comment(u, 'Twelveth comment')
+tc.images.first.comments[0].body = 'First comment'
+tc.images.first.comments[0].save!
+tc.images.first.comment(u, 'Second comment')
+tc.images.first.comment(u, 'Third comment')
+tc.images.first.comment(u, 'Forth comment')
+tc.images.first.comment(u, 'Fifth comment')
+tc.images.first.comment(u, 'Sixth comment')
+tc.images.first.comment(u, 'Seventh comment')
+tc.images.first.comment(u, 'Eighth comment')
+tc.images.first.comment(u, 'Nineth comment')
+tc.images.first.comment(u, 'Tenth comment')
+tc.images.first.comment(u, 'Eleventh comment')
+tc.images.first.comment(u, 'Twelveth comment')
 
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
@@ -297,34 +297,41 @@ TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry
   parent_id = ncbi_hierarchy.hierarchy_entries.last.id
   depth = ncbi_hierarchy.hierarchy_entries.last.depth + 1
   
-  sci_name = Factory.next(:scientific_name)
-  c_name = Factory.next(:common_name)
-  eukaryota = build_taxon_concept(:rank => '',
-                                  :canonical_form => sci_name,
-                                  :common_names => [c_name],
-                                  :event => event,
-                                  :hierarchy => ncbi_hierarchy,
-                                  :parent_hierarchy_entry_id => parent_id,
-                                  :depth => depth)
+  2.times do
+    sci_name = Factory.next(:scientific_name)
+    c_name = Factory.next(:common_name)
+    build_taxon_concept(:rank => '',
+                        :canonical_form => sci_name,
+                        :common_names => [c_name],
+                        :event => event,
+                        :hierarchy => ncbi_hierarchy,
+                        :parent_hierarchy_entry_id => parent_id,
+                        :depth => depth)
+  end
 
-  sci_name = Factory.next(:scientific_name)
-  c_name = Factory.next(:common_name)
-  eukaryota = build_taxon_concept(:rank => '',
-                                  :canonical_form => sci_name,
-                                  :common_names => [c_name],
-                                  :event => event,
-                                  :hierarchy => ncbi_hierarchy,
-                                  :parent_hierarchy_entry_id => parent_id,
-                                  :depth => depth)
 end
 
 
 bacteria = build_taxon_concept(:rank => 'superkingdom',
                                 :canonical_form => 'Bacteria',
-                                :common_names => ['bacteria common name'],
                                 :event => event,
                                 :hierarchy => ncbi_hierarchy,
                                 :depth => 0)
+
+# We need to be able to test changing the preferred name across several languages:
+english = Language.english
+bacteria.add_common_name("bacteria", :language => english, :preferred => true)
+bacteria.add_common_name("bugs", :language => english, :preferred => false)
+bacteria.add_common_name("grime", :language => english, :preferred => false)
+bacteria.add_common_name("critters", :language => english, :preferred => false)
+german  = Language.gen(:label => 'German', :iso_639_1 => 'de')
+bacteria.add_common_name("bakteria", :language => german, :preferred => true)
+bacteria.add_common_name("die buggen", :language => german, :preferred => false)
+bacteria.add_common_name("das greim", :language => german, :preferred => false)
+french = Language.find_by_label('French') # Assumes French was defined in foundation
+bacteria.add_common_name("baseteir", :language => french, :preferred => true)
+bacteria.add_common_name("le grimme", :language => french, :preferred => false)
+bacteria.add_common_name("ler petit bugge", :language => french, :preferred => false)
 
 4.times do
   parent_id = ncbi_hierarchy.hierarchy_entries.last.id
@@ -332,13 +339,13 @@ bacteria = build_taxon_concept(:rank => 'superkingdom',
   
   sci_name = Factory.next(:scientific_name)
   c_name = Factory.next(:common_name)
-  eukaryota = build_taxon_concept(:rank => '',
-                                  :canonical_form => sci_name,
-                                  :common_names => [c_name],
-                                  :event => event,
-                                  :hierarchy => ncbi_hierarchy,
-                                  :parent_hierarchy_entry_id => parent_id,
-                                  :depth => depth)
+  build_taxon_concept(:rank => '',
+                      :canonical_form => sci_name,
+                      :common_names => [c_name],
+                      :event => event,
+                      :hierarchy => ncbi_hierarchy,
+                      :parent_hierarchy_entry_id => parent_id,
+                      :depth => depth)
 end
 
 

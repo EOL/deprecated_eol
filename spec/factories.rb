@@ -800,7 +800,7 @@ Factory.define :synonym do |s|
                          Factory(:synonym_relation, :label => 'Synonym') }
   s.language         { Language.english || Factory(:language, :label => 'English') }
   s.association      :hierarchy_entry
-  s.hierarchy_id     { |syn| syn.hierarchy_entry.hierarchy.id }
+  s.hierarchy_id     { |syn| syn.hierarchy_entry ? syn.hierarchy_entry.hierarchy.id : Hierarchy.default.id }
   s.preferred        1
   s.published        1
   s.vetted           { Vetted.trusted || Vetted.create(:label => 'Trusted') }

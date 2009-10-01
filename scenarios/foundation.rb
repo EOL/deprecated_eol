@@ -174,7 +174,7 @@ create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',                  :label => 'Uses'
 
 create_if_not_exists Language, :label => 'English',         :iso_639_1 => 'en'
-create_if_not_exists Language, :label => 'French',          :iso_639_1 => 'fr' # Technically not required, but to test i18n
+create_if_not_exists Language, :label => 'French',          :iso_639_1 => 'fr' # Bootstrap uses this, tests i18n
 create_if_not_exists Language, :label => 'Scientific Name', :iso_639_1 => ''   # Should be ID 501.  ...But only for PHP's sake.
 
 create_if_not_exists License, :title => 'public domain',       :description => 'No rights reserved'

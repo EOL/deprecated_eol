@@ -315,7 +315,7 @@ TaxonConcept.class_eval do
   #     Language object to use for this name.  Default is Language.english
   #     
   def add_common_name(name, options = {})
-    preferred = options[:preferred] || true
+    preferred = options.has_key?(:preferred) ? options[:preferred] : true
     language  = options[:language]  || Language.english
     name_obj  = Name.gen(:canonical_form => canonical_form_object, :string => name, :italicized => name)
     Synonym.gen(:name => name_obj, :hierarchy_entry => entry, :language => language, :preferred => preferred)

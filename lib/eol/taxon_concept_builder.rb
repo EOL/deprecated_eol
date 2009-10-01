@@ -75,7 +75,10 @@ class EOL
       puts "** Enter: build" if @debugging
       gen_taxon_concept
       gen_taxon_concept_content
-      gen_name
+      set_depth
+      gen_canonical_name
+      gen_he
+      gen_other_names
       add_curator
       add_comments
       gen_taxon
@@ -125,24 +128,37 @@ class EOL
       end
     end
 
+    def set_depth
+      # Note that this assumes the ranks are *in order* which is ONLY true with foundation loaded!
+      @depth = @depth || Rank.find_by_label(@rank || 'species').id - 1 # This is an assumption...
+    end
+
+    def gen_he
+      @he    = build_entry_in_hierarchy(:parent_id => @parent_hierarchy_entry_id)
+    end
+
     # TODO - add some alternate names, including at least one in another language.
-    # TODO - This should also create an entry in Synonyms (see below) (don't need agents_synonyms though)
     # TODO - create alternate scientific names... just make sure the relation makes sense and the language_id is
     # either 0 or Language.scientific.
-    def gen_name
-      puts "** Enter: gen_name" if @debugging
+    def gen_canonical_name
+      puts "** Enter: gen_canonical_name" if @debugging
       @cform = CanonicalForm.find_by_string(@canon) || CanonicalForm.gen(:string => @canon)
       @sname = Name.gen(:canonical_form => @cform, :string => @complete,
                         :italicized     => @italicized || "<i>#{@canon}</i> #{@attri}".strip)
+    end
+
+    # TODO - add some alternate names, including at least one in another language.
+    # TODO - create alternate scientific names... just make sure the relation makes sense and the language_id is
+    # either 0 or Language.scientific.
+    def gen_other_names
+      puts "** Enter: gen_other_names" if @debugging
       cname_objects = []
       @common_names.each do |common_name|
         cname_objects << Name.gen(:canonical_form => @cform, :string => common_name, :italicized => common_name)
+        preferred = cname_objects.length == 1
+        Synonym.gen(:name => cname_objects.last, :hierarchy_entry => @he, :preferred => preferred)
       end
       @cname = cname_objects.first
-
-      # Note that this assumes the ranks are *in order* which is ONLY true with foundation loaded!
-      @depth = @depth || Rank.find_by_label(@rank || 'species').id - 1 # This is an assumption...
-      @he    = build_entry_in_hierarchy(:parent_id => @parent_hierarchy_entry_id)
       TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => @he.id,
                            :language => Language.scientific, :name => @sname, :taxon_concept => @tc)
       unless @cname.nil?

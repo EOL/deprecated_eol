@@ -332,7 +332,7 @@ class Search
     data_objects.each do |data_object|
       if !vetted_only || data_object.vetted_id == Vetted.trusted.id
         data_object.taxon_concepts.each do |taxon_concept|
-          results << [taxon_concept,data_object] if (!vetted_only || taxon_concept.vetted_id == Vetted.trusted.id) && taxon_concept.published==1
+            results << [taxon_concept, data_object] if (!vetted_only || taxon_concept.vetted_id == Vetted.trusted.id) && taxon_concept.published == 1 && taxon_concept.supercedure_id == 0           
         end
       end
     end

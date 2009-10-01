@@ -1,1 +1,11 @@
-<tr><td class="<%= column_class %>"><%=h name_string %></td><td class="<%= column_class  %>"><%=h language_label %> <%= h "- #{language_name}" unless language_name.blank?%></td></tr>
+<tr><td class="<%= column_class %>"><%=h name_string %></td><td class="<%= column_class  %>"><%=h language_label %> <%= h "- #{language_name}" unless language_name.blank?%></td><%
+  if is_curator
+    if language_id.to_i == current_user.language_id -%>
+      <td class="<%= column_class %> preferred_name_selector" style="text-align:center;">
+        <%= radio_button_tag('name_id', name_id, preferred == '1') -%>
+      </td><%
+    else -%>
+      <td class="<%= column_class %>"></td>
+    <% end
+  end
+%></tr>

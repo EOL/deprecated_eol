@@ -341,6 +341,16 @@ class TaxaController < ApplicationController
     render :nothing => true
   end  
 
+  # Ajax method to change the preferred name on a Taxon Concept:
+  def set_preferred_name
+    tc = taxon_concept
+    if tc.is_curatable_by?(current_user)
+      tc.set_preferred_name(current_user.language, params[:name_id].to_i)
+      expire_taxa(tc.id)
+    end
+    render :nothing => true
+  end
+
 ###############################################
 private
 
@@ -391,7 +401,8 @@ private
   end
   
   def taxon_concept
-    tc_id = params[:id].to_i     
+    tc_id = params[:id].to_i
+    tc_id = params[:taxon_concept_id].to_i if tc_id == 0
     if tc_id == 0
       # TODO: sensible redirect / message here
       raise "taxa id not supplied"

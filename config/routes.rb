@@ -51,6 +51,7 @@ ActionController::Routing::Routes.draw do |map|
               :controller => 'data_objects', :action => 'index',
               :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
   map.connect 'pages/:id/best_images.:format', :controller => 'content', :action => 'best_images'
+  map.connect '/pages/:taxon_concept_id/set_preferred_name', :controller => 'taxa', :action => 'set_preferred_name'
   
   map.set_language      'set_language',      :controller => 'application', :action => 'set_language'
   map.set_flash_enabled 'set_flash_enabled', :controller => 'application', :action => 'set_flash_enabled'

@@ -72,10 +72,13 @@ private
 
   end
 
+  # TODO - does this need to use Synonyms, now?
   def common_names(options)
     return {
       :items => Name.find_by_sql([%q{
-                  SELECT names.string name_string, l.label language_label, l.name language_name, l.id language_id
+                  SELECT names.id name_id, names.string name_string,
+                         l.label language_label, l.name language_name, l.id language_id,
+                         tcn.preferred preferred
                   FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
                     LEFT JOIN languages l ON (tcn.language_id = l.id)
                   WHERE tcn.taxon_concept_id = ? AND vern = 1

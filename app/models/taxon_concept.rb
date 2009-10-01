@@ -65,6 +65,30 @@ class TaxonConcept < SpeciesSchemaModel
     quick_common_name(hierarchy)
   end
 
+  # Given a Languge (object) and name_id, this sets all other names within that language to non-preferred, and the
+  # provided name_id to preferred for this TaxonConcept and Language.
+  def set_preferred_name(language, name_id)
+    old_preferred_names = []
+    new_preferred_name = nil 
+    taxon_concept_names.each do |tcn|
+      old_preferred_names << tcn if tcn.language_id == language.id and tcn.preferred == 1
+      new_preferred_name = tcn if tcn.language_id == language.id and tcn.name_id == name_id
+    end
+    if new_preferred_name
+      new_preferred_name.preferred = 1
+      new_preferred_name.save!
+      unless old_preferred_names.empty?
+        old_preferred_names.each do |old_preferred_name|
+          old_preferred_name.preferred = 0
+          old_preferred_name.save!
+        end
+      end
+    else
+      raise "Couldn't find a TaxonConceptName with a name_id of #{name_id}"
+    end
+    return true
+  end
+
   # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
@@ -717,7 +741,6 @@ EOIUCNSQL
   alias :ar_to_xml :to_xml
   # Be careful calling a block here.  We have our own builder, and you will be overriding that if you use a block.
   def to_xml(options = {})
-    debugger
     options[:root]    ||= 'taxon-page'
     options[:only]    ||= [:id]
     options[:methods] ||= [:canonical_form, :iucn_conservation_status, :scientific_name]

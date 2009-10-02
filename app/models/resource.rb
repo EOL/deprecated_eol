@@ -12,6 +12,8 @@ class Resource < SpeciesSchemaModel
   has_many :resources_taxa
   has_many :harvest_events
   
+  has_one :hierarchies_resource
+  
   has_and_belongs_to_many :taxa
   
 #  has_many :agents_resources, :class_name => 'AgentsResource' #, :foreign_key => :foreign_key
@@ -71,14 +73,21 @@ class Resource < SpeciesSchemaModel
     # update the vetted_id of all data_objects associated with the latest
     SpeciesSchemaModel.connection.execute("update harvest_events he straight_join data_objects_harvest_events dohe on (he.id=dohe.harvest_event_id) straight_join data_objects do on (dohe.data_object_id=do.id) set do.vetted_id = #{set_to_state} where do.vetted_id = 0 and he.resource_id = #{self.id}")
     
-    if set_to_state == Vetted.trusted.id && !Resource.hierarchy.nil?
+    if set_to_state == Vetted.trusted.id && !hierarchy.nil?
       # update the vetted_id of all concepts associated with this resource - only vet them never unvet them
-      SpeciesSchemaModel.connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET tc.vetted_id=#{Vetted.trusted.id} WHERE hierarchy_id=#{Resource.hierarchy.id}")
+      SpeciesSchemaModel.connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET tc.vetted_id=#{Vetted.trusted.id} WHERE hierarchy_id=#{hierarchy.id}")
     end
     
     self.vetted=vetted
     
     true
+  end
+  
+  def hierarchy
+    if hr = hierarchies_resource
+      return hr.hierarchy
+    end
+    return nil
   end
   
   

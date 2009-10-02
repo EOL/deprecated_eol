@@ -316,28 +316,31 @@ class Search
           all << DataObjectTag.find(:all, :conditions => ["value = ?", key] )
         end
       end
-      tags = tags.compact.uniq
-
+      tags    = tags.compact.uniq
       options = (params['selected-clade-id'] && params['selected-clade-id'].to_i > 0) ? { :clade => params['selected-clade-id'].to_i } : {}
-      user_id=current_user.id unless current_user.blank?
-      user_id=params['user_id'] if user_id.blank? && !params['user_id'].blank?
+      user_id = current_user.id unless current_user.blank?
+      user_id = params['user_id'] if user_id.blank? && !params['user_id'].blank?
       options.merge!(user_id.blank? ? {:user_id => nil} : {:user_id => user_id})
       data_objects = DataObject.search_by_tags tags, options
     else
       data_objects = []
     end        
     results = []
-    user = options[:user_id] ? User.find(options[:user_id]) : nil
+    taxon_concept_ids  = []
+    user        = options[:user_id] ? User.find(options[:user_id]) : nil
     vetted_only = user && user.vetted
     data_objects.each do |data_object|
       if !vetted_only || data_object.vetted_id == Vetted.trusted.id
         data_object.taxon_concepts.each do |taxon_concept|
+          unless taxon_concept_ids.include?(taxon_concept.id)
+            taxon_concept_ids  << taxon_concept.id
             results << [taxon_concept, data_object] if (!vetted_only || taxon_concept.vetted_id == Vetted.trusted.id) && taxon_concept.published == 1 && taxon_concept.supercedure_id == 0           
+          end
         end
       end
     end
 
-    results = page_range(results)
+    results  = page_range(results)
     @maximum = results.length
     @search_results = {:common => [], :scientific => [], :errors => [], :tags => results}    
   end

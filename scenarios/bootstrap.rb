@@ -90,7 +90,7 @@ AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.p
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
 kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :event => event)
-kingdom.add_comon_name('Animals')
+kingdom.add_common_name('Animals')
 
 4.times do
   tc = build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
@@ -290,34 +290,41 @@ TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry
   parent_id = ncbi_hierarchy.hierarchy_entries.last.id
   depth = ncbi_hierarchy.hierarchy_entries.last.depth + 1
   
-  sci_name = Factory.next(:scientific_name)
-  c_name = Factory.next(:common_name)
-  eukaryota = build_taxon_concept(:rank => '',
-                                  :canonical_form => sci_name,
-                                  :common_names => [c_name],
-                                  :event => event,
-                                  :hierarchy => ncbi_hierarchy,
-                                  :parent_hierarchy_entry_id => parent_id,
-                                  :depth => depth)
+  2.times do
+    sci_name = Factory.next(:scientific_name)
+    c_name = Factory.next(:common_name)
+    build_taxon_concept(:rank => '',
+                        :canonical_form => sci_name,
+                        :common_names => [c_name],
+                        :event => event,
+                        :hierarchy => ncbi_hierarchy,
+                        :parent_hierarchy_entry_id => parent_id,
+                        :depth => depth)
+  end
 
-  sci_name = Factory.next(:scientific_name)
-  c_name = Factory.next(:common_name)
-  eukaryota = build_taxon_concept(:rank => '',
-                                  :canonical_form => sci_name,
-                                  :common_names => [c_name],
-                                  :event => event,
-                                  :hierarchy => ncbi_hierarchy,
-                                  :parent_hierarchy_entry_id => parent_id,
-                                  :depth => depth)
 end
 
 
 bacteria = build_taxon_concept(:rank => 'superkingdom',
                                 :canonical_form => 'Bacteria',
-                                :common_names => ['bacteria common name'],
                                 :event => event,
                                 :hierarchy => ncbi_hierarchy,
                                 :depth => 0)
+
+# We need to be able to test changing the preferred name across several languages:
+english = Language.english
+bacteria.add_common_name("bacteria", :language => english, :preferred => true)
+bacteria.add_common_name("bugs", :language => english, :preferred => false)
+bacteria.add_common_name("grime", :language => english, :preferred => false)
+bacteria.add_common_name("critters", :language => english, :preferred => false)
+german  = Language.gen(:label => 'German', :iso_639_1 => 'de')
+bacteria.add_common_name("bakteria", :language => german, :preferred => true)
+bacteria.add_common_name("die buggen", :language => german, :preferred => false)
+bacteria.add_common_name("das greim", :language => german, :preferred => false)
+french = Language.find_by_label('French') # Assumes French was defined in foundation
+bacteria.add_common_name("baseteir", :language => french, :preferred => true)
+bacteria.add_common_name("le grimme", :language => french, :preferred => false)
+bacteria.add_common_name("ler petit bugge", :language => french, :preferred => false)
 
 4.times do
   parent_id = ncbi_hierarchy.hierarchy_entries.last.id
@@ -325,13 +332,13 @@ bacteria = build_taxon_concept(:rank => 'superkingdom',
   
   sci_name = Factory.next(:scientific_name)
   c_name = Factory.next(:common_name)
-  eukaryota = build_taxon_concept(:rank => '',
-                                  :canonical_form => sci_name,
-                                  :common_names => [c_name],
-                                  :event => event,
-                                  :hierarchy => ncbi_hierarchy,
-                                  :parent_hierarchy_entry_id => parent_id,
-                                  :depth => depth)
+  build_taxon_concept(:rank => '',
+                      :canonical_form => sci_name,
+                      :common_names => [c_name],
+                      :event => event,
+                      :hierarchy => ncbi_hierarchy,
+                      :parent_hierarchy_entry_id => parent_id,
+                      :depth => depth)
 end
 
 

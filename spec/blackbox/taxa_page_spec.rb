@@ -83,6 +83,9 @@ describe 'Taxa page (HTML)' do
     @mapping       = Mapping.gen(:collection => @collection, :name => @name, :foreign_key => @ping_id)
     @ping_url.sub!(/%ID%/, @ping_id) # So we can test that it was replaced by the code.
     
+    @col_collection = Collection.gen(:agent => Agent.catalogue_of_life, :title => "Catalogue of Life Collection", :uri => "http://www.catalogueoflife.org/browse_taxa.php?selected_taxon=FOREIGNKEY")
+    @col_mapping    = Mapping.gen(:collection => @col_collection, :name => @taxon_concept.taxon_concept_names.first.name)
+    
     description       = 'user wants <b>bold</b> and <i>italics</i> and <a href="link">links</a>'
     @description_bold = /user wants <(b|strong)>bold<\/(b|strong)>/
     @description_ital = /and <(i|em)>italics<\/(i|em)>/
@@ -111,12 +114,12 @@ describe 'Taxa page (HTML)' do
       with_tag('h1', :text => @scientific_name)
     end
   end
-
+  
   it 'should use supercedure to find taxon concept' do
     superceded = TaxonConcept.gen(:supercedure_id => @id)
     RackBox.request("/pages/#{superceded.id}").should redirect_to("/pages/#{@id}")
   end
-
+  
   it 'should tell the user the page is missing if the page is... uhhh... missing' do
     missing_id = TaxonConcept.last.id + 1
     while(TaxonConcept.exists?(missing_id)) do
@@ -126,31 +129,31 @@ describe 'Taxa page (HTML)' do
       with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
     end
   end
-
+  
   it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
     unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
     RackBox.request("/pages/#{unpublished.id}").body.should have_tag("div#page-title") do
       with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
     end
   end
-
+  
   it 'should be able to ping the collection host' do
     @result = RackBox.request("/pages/#{@id}")
     @result.body.should include(@ping_url)
   end
-
+  
   it 'should show the Overview text by default' do
     @result = RackBox.request("/pages/#{@id}")
     @result.body.should have_tag('h3', :text => 'Overview')
     @result.body.should include(@overview_text)
   end
-
+  
   it 'should NOT show references for the overview text when there aren\'t any' do
     Ref.delete_all ; @taxon_concept.overview[0].refs = [] # Just to make sure nothing shows up.
     @result = RackBox.request("/pages/#{@id}")
     @result.body.should_not have_tag('div.references')
   end
-
+  
   it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
     full_ref = 'This is the reference text that should show up'
     # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
@@ -173,14 +176,14 @@ describe 'Taxa page (HTML)' do
     new_result.body.should_not include(bad_identifier)
     new_result.body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
   end
-
+  
   it 'should allow html in user-submitted text' do
     @result = RackBox.request("/pages/#{@id}")
     @result.body.should match(@description_bold)
     @result.body.should match(@description_ital)
     @result.body.should match(@description_link)
   end
-
+  
   # I hate to do this, since it's SO SLOW, but:
   it 'should render an "empty" page in authoritative mode' do
     tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
@@ -188,6 +191,16 @@ describe 'Taxa page (HTML)' do
     this_result = RackBox.request("/pages/#{tc.id}?vetted=true")
     this_result.body.should_not include('Internal Server Error')
     this_result.body.should have_tag('h1') # Whatever, let's just prove that it renders.
+  end
+  
+  it 'should show the Catalogue of Life link in Specialist Projects' do
+    this_result = RackBox.request("/pages/#{@taxon_concept.id}?category_id=#{TocItem.specialist_projects.id}")
+    this_result.body.should include(@col_collection.title)
+  end
+  
+  it 'should show the Catalogue of Life link in the header' do
+    this_result = RackBox.request("/pages/#{@taxon_concept.id}")
+    this_result.body.should include("recognized by <a href=\"#{@col_mapping.url}\"")
   end
 
   describe 'specified hierarchies' do
@@ -231,7 +244,7 @@ describe 'Taxa page (HTML)' do
       request("/pages/#{@common_tc.id}").should include_text("recognized by #{@ncbi.label}")
     end
   end
-
+  
   # Red background/icon on untrusted videos
   it "should show red background for untrusted video links"
   it "should not show red background for trusted video links"
@@ -243,7 +256,7 @@ describe 'Taxa page (HTML)' do
   it "should show green information button if trusted video plays"
   it "should show red background for notes area if untrusted video plays"
   it "should not show red background for notes area if trusted video plays"
-
+  
   # LigerCat Medical Concepts Tag Cloud
   it 'should link to LigerCat when the Medical Concepts content is displayed'
     # TODO - this will simply: 1) ensure the TC has a biomedical_terms toc item, 2) load that page with the
@@ -254,7 +267,7 @@ describe 'Taxa page (HTML)' do
   it 'should hide image when load comment'
   it 'should have only comments tab active (blue dot)'
   it 'should not show comment when another tab chosen'
-
+  
   #image permalinks
   it 'should load image as main image when image_id is specified'
   it 'should switch current_user.vetted to false when image_id is specified and is a unknown or untrusted image'
@@ -265,7 +278,7 @@ describe 'Taxa page (HTML)' do
   it 'should load hidden image via permalink when user is a curator of the page'
   it 'should return 404 page when permalink image_id is specified for an image which has been removed'
   it 'should load removed image via permalink when user is an admin'
-
+  
   #text permalinks
   it 'should switch selected TOC when text_id is specified and not on the default selected TOC'
   it 'should current_user.vetted to false when permalink with text_id is specified for a text object which is unknown or untrusted'
@@ -275,12 +288,12 @@ describe 'Taxa page (HTML)' do
   it 'should load hidden text via permalink when user is a curator of the page'
   it 'should return 404 page when loading permalink for text which has been removed and user isn\'t an admin'
   it 'should load removed text via permalink when user is an admin'
-
+  
   it 'should not include the TocItem with only unvetted content in it' do
     @result = RackBox.request("/pages/#{@id}")
     @result.body.should_not have_tag('a', :text => /#{@toc_item_with_no_trusted_items.label}/)
   end
-
+  
   it 'should show info item label for the overview text when there isn\'t an object_title' do
     info_item_title = InfoItem.find(:last)
     data_object = @taxon_concept.overview.first

@@ -10,11 +10,12 @@
 
 <%- unless @resource.resource_status == ResourceStatus.published 
 -%>
+<br/>
 <div>
   <%- if current_user.is_admin? -%>
-    Please 
+    *** <b>NOTICE:</b> Please <b>
     <%= link_to "publish", edit_resource_path(@resource, :content_partner_id => content_partner_id) %> 
-    this resource first
+    </b>this resource here ***
   <%- else -%>
     This resource is not set as published by the administrator at this time.
   <%- end -%>
@@ -56,10 +57,16 @@
           <%- if count == 1 -%> 
             currently published
           <%- else -%>
-            <%= link_to "rollback", resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => "Are you sure you want to revert to this harvest and delete all newer harvests?  This action is not reversible." %>
+            previously published
+            <%= 
+            #link_to "rollback", resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => "Are you sure you want to revert to this harvest and delete all newer harvests?  This action is not reversible." 
+            %>
           <%- end -%>
         <%- else -%>
-          <%= current_user.is_admin? ? link_to("publish", resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => "Are you sure you want to publish this harvest? This action is not reversible.") : "n/a" %>
+          unpublished
+          <%= 
+          #current_user.is_admin? ? link_to("publish", resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => "Are you sure you want to publish this harvest? This action is not reversible.") : "n/a" 
+          %>
         <%- end -%>
         </td>
       </tr>

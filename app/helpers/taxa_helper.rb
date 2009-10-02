@@ -60,12 +60,15 @@ module TaxaHelper
         output_html << agent_partial(agent,params) if params[:show_text_if_no_icon] 
       else
         url = agent.homepage.strip || ''
+        
+        # if the agent is Catalogue of Life then look for a mapping and link the logo to their site
         if agent == Agent.catalogue_of_life && params[:taxon]
           if collection = Collection.find_by_agent_id(agent.id, :limit => 1, :order => 'id desc')
             mappings = collection.find_mappings_by_taxon_concept(params[:taxon])
             url = mappings[0].url if !mappings.empty?
           end
         end
+        
         if params[:only_show_col_icon] && !is_default_col # if we are only asked to show the logo if it's COL and the current agent is *not* COL, then show text
           output_html << agent_partial(agent,params)
         else

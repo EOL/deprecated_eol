@@ -333,6 +333,10 @@ bacteria.add_common_name("baseteir", :language => french, :preferred => true)
 bacteria.add_common_name("le grimme", :language => french, :preferred => false)
 bacteria.add_common_name("ler petit bugge", :language => french, :preferred => false)
 
+# Another Selenium curator
+curator2 = User.gen(:username => 'curator_two', :password => 'iliketocurate')
+curator2.approve_to_curate! bacteria.entry
+
 4.times do
   parent_id = ncbi_hierarchy.hierarchy_entries.last.id
   depth = ncbi_hierarchy.hierarchy_entries.last.depth + 1

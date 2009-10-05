@@ -9,7 +9,15 @@ class TaxonConceptName < SpeciesSchemaModel
   named_scope :common_preferred, :conditions => { :vern => 1, :preferred => 1 }
   named_scope :scientific_preferred, :conditions => { :vern => 0, :preferred => 1 }
 
+  def set_preferred(val)
+    update_sql([%q{UPDATE taxon_concept_names
+                   SET preferred = ?
+                   WHERE name_id = ? AND taxon_concept_id = ? AND source_hierarchy_entry_id = ? AND language_id = ?},
+                val, name_id, taxon_concept_id, source_hierarchy_entry_id, language_id])
+  end
+
 end
+
 # == Schema Info
 # Schema version: 20081020144900
 #

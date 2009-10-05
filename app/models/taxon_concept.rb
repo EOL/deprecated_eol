@@ -75,14 +75,15 @@ class TaxonConcept < SpeciesSchemaModel
       new_preferred_name = tcn if tcn.language_id == language.id and tcn.name_id == name_id
     end
     if new_preferred_name
-      new_preferred_name.preferred = 1
-      new_preferred_name.save!
       unless old_preferred_names.empty?
         old_preferred_names.each do |old_preferred_name|
           old_preferred_name.preferred = 0
           old_preferred_name.save!
         end
       end
+      # Important to do this AFTER the above code, lest the DB complain about duplicate keys:
+      new_preferred_name.preferred = 1
+      new_preferred_name.save!
     else
       raise "Couldn't find a TaxonConceptName with a name_id of #{name_id}"
     end

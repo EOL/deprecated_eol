@@ -77,10 +77,10 @@ class TaxonConcept < SpeciesSchemaModel
     if new_preferred_name
       unless old_preferred_names.empty?
         old_preferred_names.each do |old_preferred_name|
-          old_preferred_name.update_attribute(:preferred, 0)
+          old_preferred_name.set_preferred(0)
         end
       end
-      old_preferred_name.update_attribute(:preferred, 1)
+      new_preferred_name.set_preferred(1)
     else
       raise "Couldn't find a TaxonConceptName with a name_id of #{name_id}"
     end

@@ -21,8 +21,16 @@ class ResourcesController < ApplicationController
     after :create do
       
       resource_role=ResourceAgentRole.content_partner_upload_role
-     # associate this uploaded resource with the current agent and the role of "data provider"
-      AgentsResource.create(:resource_id=>current_object.id, :agent_id=>current_agent.id, :resource_agent_role_id=>resource_role.id)
+      # associate this uploaded resource with the current agent and the role of "data provider"
+      # EOLINFRASTRUCTURE-1223: sometimes SPG is getting a duplicate entry, which is... weird.  I'm trying to
+      # avoid the second one being created.
+      if AgentsResource.find_by_resource_id_and_resource_agent_role_id(current_object.id, resource_role.id)
+        flash[:notice] = "Warning: you attempted to create a link from this resource to two agents. Only one allowed."[]
+      else 
+        AgentsResource.create(:resource_id => current_object.id,
+                              :agent_id => current_agent.id,
+                              :resource_agent_role_id => resource_role.id)
+      end
 
       current_object.resource_status=ResourceStatus.uploaded if current_object.accesspoint_url.blank?
       

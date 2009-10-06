@@ -6,6 +6,7 @@ require 'uri'
 module ApplicationHelper
 
   include ActionView::Helpers::SanitizeHelper
+  include ActionView::Helpers::AssetTagHelper
 
   # truncate a string to the maxlength passed and then add "..." if truncated
   def truncate(text, length = 30, truncate_string = "...")

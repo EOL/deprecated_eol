@@ -1,7 +1,7 @@
 This document describes the XML interface for the eol.org project.
 
 Please note that the API is in *ALPHA* stage at the moment, and is thus subject to radical change without notice.
-However, all input from those would like to use the interface is taken very seriously, so please do try it out and
+However, all input from those who would like to use the interface is taken very seriously, so please do try it out and
 let us know what you might like added, removed, or changed.
 
 There are several URLs that can be used. Assume a taxon-page ID of "1234" and a page (explained below) of "1"
@@ -276,7 +276,7 @@ Return a paginated list of images, up to a maximum of 10 per page.
 
 == pages/6/videos/1.xml
 
-Identical interface as images (previous example), please read that description. However, this proides videos
+Identical interface as images (previous example), please read that description. However, this provides videos
 associated with the specified page, rather than images:
 
   <?xml version="1.0" encoding="UTF-8"?>

@@ -103,7 +103,7 @@ Rails::Initializer.run do |config|
   $DEFAULT_TAXONOMIC_BROWSER = "text" # can be either text or flash
   
   # SITE CONTENT CONFIGURATION
-  $DEFAULT_VETTED = true # default to showing only vetted content
+  $DEFAULT_VETTED = false # default to showing all content (changed October 6, 2009 by Peter Mangiafico at request of Gary Borisy)
   $DEFAULT_EXPERTISE = :expert # default expertise level (options are :middle, :novice, :expert)
   $DEFAULT_TITLE_EXPERTISE = :italicized_canonical
   $DEFAULT_SUBTITLE_EXPERTISE = :middle

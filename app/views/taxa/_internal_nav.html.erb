@@ -1,6 +1,6 @@
 <div id="internal-nav">
 
-  <h4><%="Contribute"[]%></h4>
+  <h4 class="margin-header right-margin-header"><%="Contribute"[]%></h4>
   <div style="display:none;" id="contribute-info" class="popup"></div>
 
   <% act_curators_size = @taxon_concept.acting_curators.size %>
@@ -21,7 +21,7 @@
 
   <%- unless @random_taxa.nil? %>
 
-    <h4><%="Explore"[]%></h4>
+    <h4 class="margin-header right-margin-header"><%="Explore"[]%></h4>
       
     <table id="related-species-table" cellspacing="0" summary="top species">
       <%- @random_taxa.each do |taxa_link| %>

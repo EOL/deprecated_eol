@@ -4,6 +4,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :harvest_events, :has_many => [:taxa]
   map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]
+  map.force_harvest_resource 'content_partner/resources/force_harvest/:id', :method => :post,
+      :controller => 'resources', :action => 'force_harvest'
   map.resources :search_logs
 
   map.resources :comments, :member => { :make_visible => :put, :remove => :put }

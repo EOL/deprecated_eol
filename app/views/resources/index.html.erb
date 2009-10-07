@@ -1,10 +1,11 @@
 <%= render :partial=> '/content_partner/top',:locals=>{:page_header => 'Manage Resources'} %>
 
 <div id="resources">
-	This area is used to notify EOL of a resource (i.e. data set) that is available for processing and 
+  <p>This area is used to notify EOL of a resource (i.e. data set) that is available for processing and 
 	entry in the EOL database.  You can either upload
 	your resource or place it on a public server and indicate its URL.  Currently, the resource files you provide must be in
-	the <%=link_to 'EOL Transfer Schema format.',:controller=>'content_partner',:action=>'transfer_overview'%>
+  the <%=link_to 'EOL Transfer Schema format',:controller=>'content_partner',:action=>'transfer_overview'%>.</p>
+  <p>Use the 'Force' action to force your resource to be harvested tonight, regardless of its normal schedule. Note that you do not need to use this option when you first create your resource--it will be harvested tonight by default.</p>
   <% if current_objects.empty? %>
   <p>You currently have no resources described.</p>
   <% else %>
@@ -25,9 +26,12 @@
       <td><%= link_to h(resource.title), resource_harvest_events_url(resource) %></td>
       <td><%=h resource.accesspoint_url.blank? ? resource.dataset_file_name : resource.accesspoint_url %></td>
       <td align="center"><%=h frequency(resource.refresh_period_hours) %></td>
-      <td><%=h (resource.license.blank? ? "unspecified" : resource.license.title) %></td>
-      <td><%=h resource.status_label %></td>
-      <td><%= link_to 'Edit', edit_resource_path(resource) %></td>
+      <td><%= h (resource.license.blank? ? "unspecified" : resource.license.title) %></td>
+      <td><span id="status_<%= resource.id %>"><%=h resource.status_label %></span></td>
+      <td><%= link_to 'Edit', edit_resource_path(resource) %>&nbsp;<%=
+        link_to_remote 'Force', :url => force_harvest_resource_path(resource),
+          :method => :post, :update => "status_#{resource.id}",
+          :confirm => 'Are you sure you want this resource harvested tonight?' %></td>
       <td><%= link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=5&resources_id=#{resource.id}")%></td>
     </tr>
     <%- if !resource.description.blank? -%>

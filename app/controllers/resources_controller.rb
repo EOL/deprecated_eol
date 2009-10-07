@@ -92,7 +92,13 @@ class ResourcesController < ApplicationController
 
   def invalid_resource
   end
-  
+
+  def force_harvest
+    current_object.resource_status = ResourceStatus.force_harvest
+    render :text => current_object.save ? current_object.status_label :
+                                          '<span style="color:brown;">Force FAILED</span>'
+  end
+
   #AJAX method to check for a valid URL
   def check_url    
     message = 'The supplied URL could not be located.' 

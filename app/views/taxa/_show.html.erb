@@ -60,7 +60,7 @@
             <input id="current_content" type="hidden" name="current_content" value="<%= @category_id %>" />
             <input id="canonical_form" type="hidden" name="canonical_form" value="<%= strip_tags(@taxon_concept.canonical_form) %>" />
 
-            <h4 id="toc-header" style="background-color:#F6F7F8; border-bottom:1px solid #E6E7E8; border-right:5px solid #E6E7E8; color:#303030; font-size:15px; font-weight:700; margin-bottom:15px; padding:20px 0 20px 0; text-align:center; text-transform:uppercase; width:240px;"><%= "Contents"[] %></h4>
+            <h4 id="toc-header" class="margin-header left-margin-header"><%= "Contents"[] %></h4>
             <ul id="toc">
                 <% 
                   unless @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?

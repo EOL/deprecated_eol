@@ -1328,7 +1328,7 @@ ul#global-navigation {
   }
   #content #page-content {
     width: 982px;
-    border-top: 1px solid #E6E7E8;
+    border-top: 5px solid #E6E7E8;
     padding-bottom: 10px;
   }
 
@@ -1489,12 +1489,27 @@ ul#global-navigation {
           z-index: 1;
         }
 
-      h4#toc-header {
-        width: 220px;
-        padding: 20px 0 25px 20px;
-        text-transform: uppercase;
-        font-size: 15px;
-        border-bottom: 1px solid #E6E7E8;
+      h4.margin-header {
+        background-color:#F6F7F8;
+        border-bottom:1px solid #E6E7E8;
+        color:#303030;
+        font-size:15px;
+        font-weight:700;
+        margin-bottom:15px;
+        padding:12px 0 12px 0;
+        text-align:center;
+        text-transform:uppercase;
+        border-top:1px solid #E6E7E8;
+      }
+
+      h4.left-margin-header {
+        width:240px;
+        border-right:5px solid #E6E7E8;
+      }
+      
+      h4.right-margin-header {
+        width:246px;
+        margin-left: -1px;
       }
       
       ul.content_partner {
@@ -1693,20 +1708,8 @@ ul#global-navigation {
 
       #content #page-content #right-page-content #internal-nav {
         padding: 0;
-        border-top: solid #E6E7E8 4px;
         border-bottom: solid #E6E7E8 1px;
       }
-
-        #content #page-content #right-page-content #internal-nav h4 {
-          width: 224px;
-          padding: 15px 0 15px 7px;
-          text-transform: uppercase;
-          font-size: 15px;
-          color: #333;
-          border-bottom: solid #E6E7E8 1px;
-        }
-
-
 
       #content #page-content #right-page-content #contribute {
         padding: 16px 0 15px 0;

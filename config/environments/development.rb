@@ -38,7 +38,7 @@ $LOG_WEB_SERVICE_EXECUTION_TIME=true # if set to false, then execution times for
 $USE_SSL_FOR_LOGIN=false
 
 # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
-$CONTENT_SERVERS = ['http://content.eol.org/']
+$CONTENT_SERVERS = ['http://content.eol.org/'] if !$CONTENT_SERVERS
 
 #set up the master database connection for writes using masochism plugin
 #NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)

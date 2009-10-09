@@ -391,19 +391,22 @@ class Agent < SpeciesSchemaModel
     taxon_concept_id = taxon_concept_id.id if taxon_concept_id.class == TaxonConcept
     resources.each do |resource|
       event = resource.latest_unpublished_harvest_event
-      return false unless event # They don't HAVE an unpublished event!  Of course it's not there.
-      # TODO - look for the TC within this Event
-      tc = TaxonConcept.find_by_sql([%q{
-        SELECT taxon_concepts.id
-        FROM taxon_concepts
-          JOIN hierarchy_entries ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id)
-          JOIN taxa ON (taxa.hierarchy_entry_id = hierarchy_entries.id)
-          JOIN harvest_events_taxa ON (harvest_events_taxa.taxon_id = taxa.id)
-        WHERE harvest_events_taxa.harvest_event_id = ?
-          AND taxon_concepts.id = ?
-      }, event.id, taxon_concept_id])
-      return true unless tc.blank?
+      if event # They do HAVE an unpublished event
+        # TODO - look for the TC within this Event
+        tc = TaxonConcept.find_by_sql([%q{
+          SELECT taxon_concepts.id
+          FROM taxon_concepts
+            JOIN hierarchy_entries ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id)
+            JOIN taxa ON (taxa.hierarchy_entry_id = hierarchy_entries.id)
+            JOIN harvest_events_taxa ON (harvest_events_taxa.taxon_id = taxa.id)
+          WHERE harvest_events_taxa.harvest_event_id = ?
+            AND taxon_concepts.id = ?
+        }, event.id, taxon_concept_id])
+        return true unless tc.blank?
+      end
     end
+    
+    # we looked at ALL resources and found none applicable
     return false
   end
   

@@ -330,7 +330,7 @@ class DataObject < SpeciesSchemaModel
     user.comments.reload # be friendly - update the user's comments automatically
     return comment
   end
-
+  
   # Test whether a user has curator rights on this object
   def is_curatable_by? user
     taxon_concepts.collect {|tc| tc.is_curatable_by?(user) }.include?(true)
@@ -382,6 +382,18 @@ class DataObject < SpeciesSchemaModel
     return list unless list.blank?
     # I ended up with empty lists in cases where I thought I shouldn't, so tried to defer to authors for those:
     return authors
+  end
+
+  def find_all_for_reharvested_dato
+    DataObject.find_all_by_guid(self.guid)
+  end
+  
+  def all_comments
+    all_comments = []
+    find_all_for_reharvested_dato.each do |parent|
+      all_comments += Comment.find_all_by_parent_id(parent.id)
+    end
+    return all_comments
   end
 
   def visible_comments(user = nil)

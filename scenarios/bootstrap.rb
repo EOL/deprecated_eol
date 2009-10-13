@@ -70,6 +70,60 @@ def make_toc_children(parent_id, labels)
   end
 end
 
+# TODO - this is a handy function and should be moved to eol_spec_helpers, and put directly on the DataObject class.
+def build_reharvested_dato(dato)
+  new_dato = DataObject.gen(
+  :guid                   => dato.guid,
+  :data_type              => dato.data_type,
+  :mime_type              => dato.mime_type,
+  :object_title           => dato.object_title,
+  :language               => dato.language,
+  :license                => dato.license,
+  :rights_statement       => dato.rights_statement,
+  :rights_holder          => dato.rights_holder,
+  :bibliographic_citation => dato.bibliographic_citation,
+  :source_url             => dato.source_url,
+  :description            => dato.description,
+  :object_url             => dato.object_url,
+  :object_cache_url       => dato.object_cache_url,
+  :thumbnail_url          => dato.thumbnail_url,
+  :thumbnail_cache_url    => dato.thumbnail_cache_url,
+  :location               => dato.location,
+  :latitude               => dato.latitude,
+  :longitude              => dato.longitude,
+  :altitude               => dato.altitude,
+  :object_created_at      => dato.object_created_at,
+  :object_modified_at     => dato.object_modified_at,
+  :created_at             => Time.now,
+  :updated_at             => Time.now,
+  :data_rating            => dato.data_rating,
+  :vetted                 => dato.vetted,
+  :visibility             => dato.visibility,
+  :published              => true
+  )
+  #   2c) data_objects_table_of_contents
+  if dato.text?
+    old_dotoc = DataObjectsTableOfContent.find_by_data_object_id(dato.id)
+    DataObjectsTableOfContent.gen(:data_object_id => new_dato.id,
+                                  :toc_id => old_dotoc.toc_id)
+  end
+  #   2d) data_objects_taxa
+  dato.taxa.each do |taxon|
+    DataObjectsTaxon.gen(:data_object_id => new_dato.id, :taxon_id => taxon.id)
+  end
+  #   2e) if this is an image, remove the old image from top_images and insert the new image.
+  if dato.image?
+    TopImage.delete_all("data_object_id = #{dato.id}")
+    TopImage.gen(:data_object_id => new_dato.id,
+                 :hierarchy_entry_id => dato.hierarchy_entries.first.id)
+  end
+  # TODO - this could also handle tags, info items, and refs.
+  # 3) unpublish old version 
+  dato.published = false
+  dato.save!
+  return new_dato
+end
+
 #### Real work begins
 
 bootstrap_toc
@@ -149,6 +203,54 @@ tc30 = build_taxon_concept(:id => 30, :parent_hierarchy_entry_id => fifth_entry_
                     :bhl => [], :event => event)
 tc30.add_common_name(Factory.next(:common_name))
 
+# Add some comments for testing re-harvesting preserves such things:
+# 1) create comments on text (and all the same for image?)
+#   1a) one is visible, second with visible_at = NULL
+text_dato = tc30.overview.last # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
+text_dato.comment(User.last, 'this is a comment applied to the old overview')
+invis_comment = text_dato.comment(User.last, 'this is an invisible comment applied to the old overview')
+invis_comment.hide! User.first
+
+image_dato = tc30.images.last
+image_dato.comment(User.last, 'this is a comment applied to the old image')
+invis_image = image_dato.comment(User.last, 'this is an invisible comment applied to the old image')
+invis_image.hide! User.first
+
+# 2) create new dato with the same guid
+new_text_dato = build_reharvested_dato(text_dato)
+new_image_dato = build_reharvested_dato(image_dato)
+
+#   2a) a new harvest_event
+#   2b) new links in data_objects_harvest_events (should happen automatically)
+old_image_harvest_event = image_dato.harvest_events.first
+new_image_harvest_event = HarvestEvent.gen(
+  :resource => old_image_harvest_event.resource
+)
+DataObjectsHarvestEvent.gen(
+  :data_object => image_dato,
+  :harvest_event => new_image_harvest_event,
+  :guid => image_dato.data_objects_harvest_events.first.guid
+)
+
+old_text_harvest_event = text_dato.harvest_events.first
+new_text_harvest_event = HarvestEvent.gen(
+  :resource => old_text_harvest_event.resource
+)
+DataObjectsHarvestEvent.gen(
+  :data_object => text_dato,
+  :harvest_event => new_text_harvest_event,
+  :guid => text_dato.data_objects_harvest_events.first.guid
+)
+
+
+# 4) create comments on new version
+new_text_dato.comment(User.last, 'brand new comment on the re-harvested overview')
+invis_comment = new_text_dato.comment(User.last, 'and an invisible comment on the re-harvested overview')
+invis_comment.hide! User.first
+
+new_image_dato.comment(User.last, 'lovely comment added after re-harvesting to the image')
+invis_image = new_image_dato.comment(User.last, 'even wittier invisible comments on image after the harvest was redone.')
+invis_image.hide! User.first
 
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)], :id => 31, 
@@ -211,6 +313,11 @@ test_user2.save
 #curator for selenium tests (NB: page #30)
 curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 20, :curator_approved => true)
 curator.save
+
+#moderator for selenium test
+moderator = User.gen :username => 'moderator', :password => 'moderator', :given_name => 'Moderator', :family_name => 'User'
+moderator.roles = Role.find(:all, :conditions => 'title LIKE "Moderator"')
+moderator.save
 
 exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-coded) exemplars.
                                :event => event,

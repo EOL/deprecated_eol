@@ -88,6 +88,7 @@ class ContentController < ApplicationController
   
   # ------ API -------
 
+  #http://localhost:3000/content/tc_api/ shows all taxon concepts and http://localhost:3000/content/tc_api/page/2 shows second page of list. Also in public/content/ tc_api.gz appears
   def tc_api
     all_taxon_concepts = TaxonConcept.find(:all, :conditions => ["published = 1 AND  (supercedure_id = ? OR supercedure_id = ?)", 0, NIL])
 

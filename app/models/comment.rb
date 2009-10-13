@@ -36,8 +36,9 @@ class Comment < ActiveRecord::Base
             JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id)
             JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id)
             JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id)
-            JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id AND c.parent_type='DataObject')
-          WHERE he_parent.taxon_concept_id=#{taxon_concept_id} AND do.published=1
+            JOIN #{DataObject.full_table_name} do1 ON (do.guid=do1.guid)
+            JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id)
+          WHERE he_parent.taxon_concept_id=#{taxon_concept_id} AND do1.published=1  AND c.parent_type='DataObject'          
         ) UNION (
           SELECT c.*
           FROM #{HierarchyEntry.full_table_name} he_parent
@@ -153,7 +154,7 @@ class Comment < ActiveRecord::Base
     raise "Don't know how to handle a parent type of #{self.parent_type} (or t_c was nil)" if return_t_c.nil?
     return return_t_c
   end
-  
+    
 protected
 
   def new_actions_histories_create_comment

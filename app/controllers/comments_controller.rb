@@ -74,11 +74,29 @@ class CommentsController < ApplicationController
     current_user.vet current_object 
     render :partial => 'make_visible'
   end
-
+  
 private
+  def current_comments
+    current_comments = []
+    if parent_name == 'data_object'
+      current_comments = parent_object.all_comments
+    else #"taxon_concept"
+      current_comments = current_model.find(:all)
+    end
+    return current_comments
+  end
+  
+  def current_comments_visible
+    current_comments_visible = []
+    current_comments.each do |comment|
+      comment.visible? ? current_comments_visible << comment : nil
+    end 
+    return current_comments_visible
+  end
+  
   def current_objects
-    @current_objects ||= current_user.is_moderator? ? current_model.find(:all) : current_model.visible
-    # @current_objects.paginate(:page => params[:page], :per_page => Comment.per_page)
+    @current_objects ||= current_user.is_moderator? ? current_comments : current_comments_visible
+
     if params[:page_to_comment_id]
       @current_objects.paginate(:page => params[:page], :per_page => Comment.per_page, 
                                 :conditions => ['id = ?', "#{params[:page_to_comment_id]}"])

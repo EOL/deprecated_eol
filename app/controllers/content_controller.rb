@@ -52,7 +52,7 @@ class ContentController < ApplicationController
       @translate_url=root_url
     else
       if params[:return_to][0..3]!='http'
-        @translate_url="http://#{request.host}#{params[:return_to]}"       
+        @translate_url="http://#{request.host}#{params[:return_to]}"
       else
         @translate_url=params[:return_to]
       end
@@ -67,7 +67,7 @@ class ContentController < ApplicationController
     if !taxon_concept.nil?
       @title = "for "+ taxon_concept.quick_scientific_name(:normal)
     
-      rows = SpeciesSchemaModel.connection.execute("SELECT tcn.taxon_concept_id, do.object_cache_url, do.object_title, do.guid FROM hierarchy_entries he JOIN top_images ti ON (he.id=ti.hierarchy_entry_id) JOIN data_objects do ON (ti.data_object_id=do.id) JOIN data_objects_taxa dot ON (do.id=dot.data_object_id) JOIN taxa t ON (dot.taxon_id=t.id) JOIN taxon_concept_names tcn ON (t.name_id=tcn.name_id) WHERE he.taxon_concept_id=#{taxon_concept.id} GROUP BY do.id ORDER BY ti.view_order").all_hashes
+      rows = SpeciesSchemaModel.connection.execute("SELECT he.taxon_concept_id, do.object_cache_url, do.object_title, do.guid, do.data_rating FROM hierarchy_entries he JOIN top_images ti ON (he.id=ti.hierarchy_entry_id) JOIN data_objects do ON (ti.data_object_id=do.id) WHERE he.taxon_concept_id=#{taxon_concept.id} AND ti.view_order<400 GROUP BY do.id").all_hashes
       
       rows.each do |row|
         @items << {
@@ -75,9 +75,12 @@ class ContentController < ApplicationController
           :link => taxon_url(:id=>row['taxon_concept_id']),
           :guid => row['guid'],
           :thumbnail => DataObject.image_cache_path(row['object_cache_url'], :medium),
-          :image => DataObject.image_cache_path(row['object_cache_url'], :orig)
+          :image => DataObject.image_cache_path(row['object_cache_url'], :orig),
+          :data_rating => row['data_rating']
         }
       end
+      
+      @items.sort! { |a, b| b[:data_rating].to_f <=> a[:data_rating].to_f }
     end
     
     respond_to do |format|

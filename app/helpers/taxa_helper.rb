@@ -28,7 +28,7 @@ module TaxaHelper
     agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
     agents = [agents[0]] if params[:only_first]
     agent_list = agents.collect do |agent|
-      params[:linked] ? external_link_to(hh(agent.full_name), agent.homepage, {:show_link_icon => params[:show_link_icon]}) : hh(agent.full_name)
+      params[:linked] ? external_link_to(allow_some_html(agent.full_name), agent.homepage, {:show_link_icon => params[:show_link_icon]}) : allow_some_html(agent.full_name)
     end.join(', ') # I know this looks awkward, but I'm making it more readable.  : )
     agent_list += ', et al.' if params[:only_first] and original_agents.length > 1
     return agent_list

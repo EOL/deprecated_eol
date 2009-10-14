@@ -457,7 +457,7 @@ Factory.define :data_object do |dato|
   dato.object_modified_at     { 2.days.ago }
   dato.created_at             { 5.days.ago }
   dato.updated_at             { 3.days.ago }
-  dato.data_rating            0.0
+  dato.data_rating            2.5
   dato.vetted                 { Vetted.trusted || Factory(:vetted, :label => 'trusted') }
   dato.visibility             { Visibility.visible || Factory(:visibility, :label => 'visible') }
   dato.published              true

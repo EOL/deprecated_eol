@@ -115,7 +115,12 @@ div#globalWrapper hr {
 	margin: .2em 0 .2em 0;
 }
 
-div#globalWrapper h1, h2, h3, h4, h5, h6 {
+div#globalWrapper h1,
+div#globalWrapper h2,
+div#globalWrapper h3,
+div#globalWrapper h4,
+div#globalWrapper h5,
+div#globalWrapper h6 {
 	color: black;
 	background: none;
 	font-weight: normal;
@@ -149,11 +154,11 @@ div#globalWrapper ul {
 	list-style-type: square;
 	margin: .3em 0 0 1.5em;
 	padding: 0;
-	list-style-image: url(bullet.gif);
+/*  list-style-image: url(bullet.gif);*/
 }
 div#globalWrapper ol {
 	line-height: 1.5em;
-	margin: .3em 0 0 3.2em;
+	margin: .3em 0 0 0em;
 	padding: 0;
 	list-style-image: none;
 }
@@ -674,7 +679,7 @@ div#globalWrapper .portlet h4 {
 div#globalWrapper .portlet ul {
 	line-height: 1.5em;
 	list-style-type: square;
-	list-style-image: url(bullet.gif);
+/*  list-style-image: url(bullet.gif);*/
 	font-size: 95%;
 }
 div#globalWrapper .portlet li {
@@ -810,7 +815,7 @@ in bg url to hide it from iemac */
 div#globalWrapper li#pt-userpage,
 div#globalWrapper li#pt-anonuserpage,
 div#globalWrapper li#pt-login {
-	background: url(user.gif) top left no-repeat;
+/*  background: url(user.gif) top left no-repeat;*/
 	padding-left: 20px;
 	text-transform: none;
 }
@@ -1489,11 +1494,86 @@ div#globalWrapper .navbox-odd {
 background:transparent none repeat scroll 0 0;
 }
 
+div#globalWrapper .infobox {
+background-color:#F9F9F9;
+border:1px solid #AAAAAA;
+clear:right;
+color:black;
+float:right;
+margin:0.5em 0 0.5em 1em;
+padding:0.2em;
+}
+div#globalWrapper .infobox td, div#globalWrapper .infobox th {
+vertical-align:top;
+}
+div#globalWrapper .infobox caption {
+font-size:larger;
+}
+div#globalWrapper .infobox.bordered {
+border-collapse:collapse;
+}
+div#globalWrapper .infobox.bordered td, div#globalWrapper .infobox.bordered th {
+border:1px solid #AAAAAA;
+}
+div#globalWrapper .infobox.bordered .borderless td, div#globalWrapper .infobox.bordered .borderless th {
+border:0 none;
+}
+div#globalWrapper .infobox.sisterproject {
+font-size:90%;
+width:20em;
+}
+div#globalWrapper .infobox.standard-talk {
+background-color:#F8EABA;
+border:1px solid #C0C090;
+}
+div#globalWrapper .infobox.standard-talk.bordered td, div#globalWrapper .infobox.standard-talk.bordered th {
+border:1px solid #C0C090;
+}
+div#globalWrapper .infobox.bordered .mergedtoprow td, div#globalWrapper .infobox.bordered .mergedtoprow th {
+border-color:#AAAAAA #AAAAAA -moz-use-text-color -moz-use-text-color;
+border-style:solid solid none none;
+border-width:1px 1px 0 0;
+}
+div#globalWrapper .infobox.bordered .mergedrow td, div#globalWrapper .infobox.bordered .mergedrow th {
+border-color:-moz-use-text-color #AAAAAA -moz-use-text-color -moz-use-text-color;
+border-style:none solid none none;
+border-width:0 1px 0 0;
+}
+div#globalWrapper .infobox.geography {
+border-collapse:collapse;
+font-size:90%;
+line-height:1.2em;
+text-align:left;
+}
+div#globalWrapper .infobox.geography td, div#globalWrapper .infobox.geography th {
+border-top:1px solid #AAAAAA;
+padding:0.4em 0.6em;
+}
+div#globalWrapper .infobox.geography .mergedtoprow td, div#globalWrapper .infobox.geography .mergedtoprow th {
+border-top:1px solid #AAAAAA;
+padding:0.4em 0.6em 0.2em;
+}
+div#globalWrapper .infobox.geography .mergedrow td, div#globalWrapper .infobox.geography .mergedrow th {
+border:0 none;
+padding:0 0.6em 0.2em;
+}
+div#globalWrapper .infobox.geography .mergedbottomrow td, div#globalWrapper .infobox.geography .mergedbottomrow th {
+border-bottom:1px solid #AAAAAA;
+border-top:0 none;
+padding:0 0.6em 0.4em;
+}
+div#globalWrapper .infobox.geography .maptable td, div#globalWrapper .infobox.geography .maptable th {
+border:0 none;
+padding:0;
+}
+.
+
 .ogg-player-options {
 	border: solid 1px #ccc;
 	padding: 2pt;
 	text-align: left;
 	font-size: 10pt;
 }
+
 
 

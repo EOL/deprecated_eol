@@ -215,6 +215,60 @@ module EOL::Spec
   end
 end
 
+  def DataObject.build_reharvested_dato(dato)
+    new_dato = self.gen(
+    :guid                   => dato.guid,
+    :data_type              => dato.data_type,
+    :mime_type              => dato.mime_type,
+    :object_title           => dato.object_title,
+    :language               => dato.language,
+    :license                => dato.license,
+    :rights_statement       => dato.rights_statement,
+    :rights_holder          => dato.rights_holder,
+    :bibliographic_citation => dato.bibliographic_citation,
+    :source_url             => dato.source_url,
+    :description            => dato.description,
+    :object_url             => dato.object_url,
+    :object_cache_url       => dato.object_cache_url,
+    :thumbnail_url          => dato.thumbnail_url,
+    :thumbnail_cache_url    => dato.thumbnail_cache_url,
+    :location               => dato.location,
+    :latitude               => dato.latitude,
+    :longitude              => dato.longitude,
+    :altitude               => dato.altitude,
+    :object_created_at      => dato.object_created_at,
+    :object_modified_at     => dato.object_modified_at,
+    :created_at             => Time.now,
+    :updated_at             => Time.now,
+    :data_rating            => dato.data_rating,
+    :vetted                 => dato.vetted,
+    :visibility             => dato.visibility,
+    :published              => true
+    )                                                      
+    
+    #   2c) data_objects_table_of_contents
+    if dato.text?
+      old_dotoc = DataObjectsTableOfContent.find_by_data_object_id(dato.id)
+      DataObjectsTableOfContent.gen(:data_object_id => new_dato.id,
+                                    :toc_id => old_dotoc.toc_id)
+    end
+    #   2d) data_objects_taxa
+    dato.taxa.each do |taxon|
+      DataObjectsTaxon.gen(:data_object_id => new_dato.id, :taxon_id => taxon.id)
+    end
+    #   2e) if this is an image, remove the old image from top_images and insert the new image.
+    if dato.image?
+      TopImage.delete_all("data_object_id = #{dato.id}")
+      TopImage.gen(:data_object_id => new_dato.id,
+                   :hierarchy_entry_id => dato.hierarchy_entries.first.id)
+    end
+    # TODO - this could also handle tags, info items, and refs.
+    # 3) unpublish old version 
+    dato.published = false
+    dato.save!
+    return new_dato
+  end
+
 class ActiveRecord::Base
 
   # truncate's this model's table

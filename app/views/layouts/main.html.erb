@@ -34,6 +34,7 @@
     <%= stylesheet_link_merged 'base-cached' %>
     <%= eol_lang_main_stylesheet 'buttons', :media => "all" %>
     <%= stylesheet_link_tag 'star_rating' %>
+    <%= stylesheet_link_tag 'wikipedia' %>
 
     <%= javascript_include_merged 'jquery-cached' %>
     <script language="javascript" type="text/javascript">var $j = jQuery.noConflict();</script>
@@ -43,6 +44,7 @@
 
     <%# TODO - LOW PRI - Move this into a content_for :head block -%>
     <%= javascript_include_tag 'swfobject' %>
+    <%= javascript_include_tag 'wiki_ogg_player' %>
 
     <script language="javascript" type="text/javascript">
       EOL.USE_EXTERNAL_LINK_POPUPS = <%=$USE_EXTERNAL_LINK_POPUPS%>;

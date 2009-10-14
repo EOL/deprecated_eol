@@ -296,16 +296,16 @@ class DataObject < SpeciesSchemaModel
   end
 
   def rate(user,stars)
-    rating = UsersDataObjectsRating.find_by_data_object_id_and_user_id(self.id, user.id)
+    rating = UsersDataObjectsRating.find_by_data_object_guid_and_user_id(self.guid, user.id)
     if rating.nil?
-      rating = UsersDataObjectsRating.new({:data_object_id => self.id, :user_id => user.id, :rating => stars})
+      rating = UsersDataObjectsRating.new({:data_object_guid => self.guid, :user_id => user.id, :rating => stars})
     else
       rating.rating = stars
     end
     rating.save!
 
     total = 0
-    ratings = UsersDataObjectsRating.find_all_by_data_object_id(self.id)
+    ratings = UsersDataObjectsRating.find_all_by_data_object_guid(self.guid)
     ratings.each do |rating|
       total += rating.rating
     end
@@ -321,7 +321,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def rating_for_user(user)
-    UsersDataObjectsRating.find_by_data_object_id_and_user_id(self.id, user.id)
+    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(self.guid, user.id)
   end
 
   # Add a comment to this data object

@@ -103,7 +103,7 @@ describe DataObject do
 
       UsersDataObjectsRating.count.should eql(1)
       d.data_rating.should eql(5.0)
-      r = UsersDataObjectsRating.find_by_user_id_and_data_object_id(u.id, d.id)
+      r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
       r.rating.should eql(5)
     end
 
@@ -115,7 +115,42 @@ describe DataObject do
       d.rate(u2,2)
       d.data_rating.should eql(3.0)
     end
+    
+    it 'should show rating for old and new version of re-harvested dato' do
+      taxon_concept = TaxonConcept.last || build_taxon_concept
+      curator    = create_curator(taxon_concept)  
+      text_dato  = taxon_concept.overview.last 
+      image_dato = taxon_concept.images.last 
 
+      text_dato.rate(curator, 4)
+      image_dato.rate(curator, 4)
+   
+      text_dato.data_rating.should eql(4.0)
+      image_dato.data_rating.should eql(4.0)
+
+      new_text_dato  = DataObject.build_reharvested_dato(text_dato)
+      new_image_dato = DataObject.build_reharvested_dato(image_dato)
+
+      new_text_dato.data_rating.should eql(4.0)
+      new_image_dato.data_rating.should eql(4.0)
+
+      new_text_dato.rate(curator, 2)
+      new_image_dato.rate(curator, 2)
+
+      new_text_dato.data_rating.should eql(2.0)
+      new_image_dato.data_rating.should eql(2.0)
+    end
+    
+    it 'should verify uniqueness of pair guid/user in users_data_objects_ratings' do
+      UsersDataObjectsRating.count.should eql(0)
+      d = DataObject.gen
+      u = User.gen
+      d.rate(u,5)
+      UsersDataObjectsRating.count.should eql(1)
+      d.rate(u,1)
+      UsersDataObjectsRating.count.should eql(1)      
+    end
+    
     it 'should update existing rating' do
       d = DataObject.gen
       u = User.gen
@@ -123,10 +158,10 @@ describe DataObject do
       d.rate(u,5)
       d.data_rating.should eql(5.0)
       UsersDataObjectsRating.count.should eql(1)
-      r = UsersDataObjectsRating.find_by_user_id_and_data_object_id(u.id, d.id)
+      r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
       r.rating.should eql(5)
     end
-
+    
   end
 
   describe 'user submitted text' do

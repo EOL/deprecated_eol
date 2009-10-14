@@ -10,4 +10,5 @@ describe 'Curator Feeds' do
   it 'should verify that text feed for a species with childen in the tree has text for itself and all its children'
 
   it 'should verify that all feed contains text, images, and comments'
+  it 'should verify that comments feed has comments for old and new version of re-harvested data'
 end

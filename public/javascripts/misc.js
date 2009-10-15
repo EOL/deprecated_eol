@@ -289,39 +289,6 @@ function eol_update_video(params) {
     return false;
 }
 
-// Setup the EOL vetted slider
-function eol_slider(vetted, taxon_concept_id) {
-    if (vetted == 'true') {
-        $('slider').setStyle({ backgroundPosition: '-165px center' });
-    } else {
-        $('slider').setStyle({ backgroundPosition: '-50px center' });
-    }
-    new Control.Slider('handle','slider',{
-        range:$R(0,100),
-        sliderValue: (vetted == 'true') ? 20 : 75,
-        onSlide:function(v){
-            var x = v / 100 * 205;
-            x = (-205 + Number(x.toFixed()));
-            $('slider').setStyle({
-                backgroundPosition: x+'px center'
-            });
-        },
-        onChange:function(v){
-            var base_url = "/pages/" + taxon_concept_id + "?"
-            var params = new Hash({vetted: 'true'});
-            if ($('current_content').value != "") { params.set('category_id', $('current_content').value); }
-
-            if(v <= 45) {
-                params.set('vetted', 'true');
-            } else {
-                params.set('vetted', 'false');
-            }
-
-            window.location.href = base_url + params.toQueryString();
-        }
-    });
-}
-
 function displayNode(id) {
 	displayNode(id, false)
 }

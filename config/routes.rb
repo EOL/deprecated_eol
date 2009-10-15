@@ -107,14 +107,15 @@ ActionController::Routing::Routes.draw do |map|
   map.admin 'admin',           :controller => 'admin',           :action => 'index'
   map.content_partner 'content_partner', :controller => 'content_partner', :action => 'index'
   map.podcast 'podcast', :controller=>'content', :action=>'page', :id=>'podcast'
+
+  map.tc_api_with_pages '/content/tc_api/page/:page', :controller => 'content', :action => 'tc_api'
   
+  ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####
   # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)
   # ...with the exception of "index", which historically pointed to home:
   map.connect '/index', :controller => 'content', :action => 'index'
   map.connect ':id', :id => /\d+/,  :controller => 'taxa', :action => 'show' # only a number passed in to the root of the web, then assume a specific taxon concept ID  
   map.connect ':id', :id => /[A-Za-z0-9% ]+/,  :controller => 'taxa', :action => 'search'  # if text, then go to the search page
-
-  map.tc_api_with_pages '/content/tc_api/page/:page', :controller => 'content', :action => 'tc_api'
 
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'

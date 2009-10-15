@@ -29,7 +29,7 @@
   <tr>
     <td><%= f.label :license_id %></td>
     <td>
-      <%= select("data_object", "license_id", @licenses) %><br />
+      <%= select_tag("data_object[license_id]", options_for_select(@licenses,@selected_license)) %><br />
       <%=link_to "Read the EOL Licensing Policy"[],"/content/page/eol_licensing_policy",{:target=>'_blank'}%>
     </td>
   </tr>
@@ -65,10 +65,7 @@
   <tr>
     <td><label>NOTE</label></td>
     <td>
-      After submitting your text entry it will appear as an untrusted entry.
-      To view your entry, make sure your Information slider is set to All. Your
-      entry will appear with a yellow (untrusted) background until a curator
-      marks it as trusted.
+      After submitting your text entry it will appear with a yellow background until a curator marks it as trusted.
     </td>
   </tr>
 

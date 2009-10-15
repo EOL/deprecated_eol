@@ -14,6 +14,14 @@ class License < SpeciesSchemaModel
   def self.public_domain
     License.find_by_title('public domain')
   end
+  
+  def self.cc
+    License.find_by_title('cc-by 3.0')
+  end
+  
+  def self.by_nc
+    License.find_by_title('cc-by-nc 3.0')
+  end
 
 end
 # == Schema Info

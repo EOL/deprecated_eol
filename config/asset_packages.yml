@@ -22,7 +22,6 @@ javascripts:
   - media_center
   - popup
   - misc
-  - slider
   - validator
   - faqs
   - unittest

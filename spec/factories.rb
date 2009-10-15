@@ -471,6 +471,7 @@ end
 Factory.define :data_object_tags do |x|
   x.association :data_object
   x.association :data_object_tag
+  x.data_object_guid { |r| r.data_object.guid }
 end
 
 Factory.define :data_objects_harvest_event do |dohe|

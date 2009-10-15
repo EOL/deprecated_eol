@@ -16,13 +16,13 @@
           
 <% if showing_unknown_image %>
   <div id="unknown-thumbnail-warning-box">
-    <span>Images in yellow are not reviewed.</span>
+    <span><%="Images in yellow are not reviewed."[]%></span>
   </div>
 <% end %>
 
 <% if showing_untrusted_image %>
   <div id="untrusted-thumbnail-warning-box">
-    Images in red are not trusted.
+    <span><%="Images in red are not trusted."[]%></span>
   </div>
 <%  end %>
 
@@ -121,7 +121,7 @@
     <hr />
 </div>
 
-  <div class="mc-navigation<%= show_next_image_page_button ? '' : ' no-pagination' %>">
+  <div class="mc-navigation<%= !show_next_image_page_button && @taxon_concept.length_of_images < $MAX_IMAGES_PER_PAGE  ? ' no-pagination' : '' %>">
     <p class="hide"><%= "Page navigation"[] %></p>
         <% if (@image_page ||= 1) > 1 %>
             <a href="#" onclick="<%= remote_function(:url => url_for(:action => 'image_collection', :taxon_id => @taxon_concept.id, :image_page => @image_page - 1),:loading=>"showAjaxIndicator();",:complete=>"hideAjaxIndicator();",:method => :post) %>;return false;" title="<%= "Back"[] %>"><span id="back"><%= "Back"[] %></span></a>

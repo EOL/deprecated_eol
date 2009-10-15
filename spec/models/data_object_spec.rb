@@ -20,7 +20,7 @@ def create_user_text_object
   }
 
   do_params = {
-    :license_id => License.find_by_title('public domain').id,
+    :license_id => License.find_by_title('cc-by-nc 3.0').id,
     :language_id => Language.find_by_label('English').id,
     :description => 'a new text object',
     :object_title => 'new title'
@@ -199,7 +199,7 @@ describe DataObject do
       }
 
       do_params = {
-        :license_id => License.find_by_title('public domain').id,
+        :license_id => License.find_by_title('cc-by-nc 3.0').id,
         :language_id => Language.find_by_label('English').id,
         :description => 'a new text object',
         :object_title => 'new title'
@@ -217,7 +217,7 @@ describe DataObject do
       }
 
       do_params = {
-        :license_id => License.find_by_title('public domain').id,
+        :license_id => License.find_by_title('cc-by-nc 3.0').id,
         :language_id => Language.find_by_label('English').id,
         :description => 'a new text object',
         :object_title => 'new title'
@@ -245,7 +245,7 @@ describe DataObject do
         :id => @data_object.id
       }
       do_params = {
-        :license_id   => License.find_by_title('public domain').id,
+        :license_id   => License.find_by_title('cc-by-nc 3.0').id,
         :language_id  => Language.find_by_label('English').id,
         :description  => 'a new text object',
         :object_title => 'new title'
@@ -273,7 +273,7 @@ describe DataObject do
       }
 
       do_params = {
-        :license_id => License.find_by_title('public domain').id,
+        :license_id => License.find_by_title('cc-by-nc 3.0').id,
         :language_id => Language.find_by_label('English').id,
         :description => 'a new text object',
         :object_title => 'new title'
@@ -291,7 +291,7 @@ describe DataObject do
       }
 
       do_params = {
-        :license_id => License.find_by_title('public domain').id,
+        :license_id => License.find_by_title('cc-by-nc 3.0').id,
         :language_id => Language.find_by_label('English').id,
         :description => 'a new text object',
         :object_title => 'new title'

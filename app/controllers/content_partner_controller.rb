@@ -290,7 +290,7 @@ class ContentPartnerController < ApplicationController
     if @agent.save
       @agent.content_partner=ContentPartner.new
       self.current_agent = @agent
-      flash[:notice] = "Welcome"
+      flash[:notice] = "Welcome"[]
       # Send to first step (partner information)
       redirect_to(:action => 'index', :protocol => 'http://')
     end

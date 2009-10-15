@@ -37,7 +37,7 @@
                   <%= f.hidden_field :entered_password_confirmation%>	
                 <% else %>
                   <p style="padding-bottom:8pt;">
-                    <br/><%="Only enter a new password if you wish to change it."[:only_enter_new_password_if_needed]%>
+                    <br/><%="Only enter new password if you wish to change."[:only_enter_new_password_if_needed]%>
                   </p>
                   <label for="password"><%="New Password"[]%>  (4 - 16 characters)</label>
                   <%= f.password_field :entered_password,{:maxlength=>16} %>

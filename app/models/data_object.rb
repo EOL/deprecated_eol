@@ -478,7 +478,7 @@ class DataObject < SpeciesSchemaModel
           tag.is_public = true
           tag.save!
         end
-        join   = DataObjectTags.new :data_object => self, :data_object_tag => tag, :user => user
+        join   = DataObjectTags.new :data_object => self, :data_object_guid => self.guid, :data_object_tag => tag, :user => user
         begin
           join.save!
         rescue # TODO LOWPRIO - specific rescue types with nice, customer-facing explanations.
@@ -494,10 +494,12 @@ class DataObject < SpeciesSchemaModel
     DataObjectTags.public_tags_for_data_object self
   end
 
+  # TODO: DELETE (NOT USED)
   def private_tags user
-    DataObjectTags.private_tags.find_all_by_data_object_id_and_user_id id, user.id
+    DataObjectTags.private_tags.find_all_by_data_object_guid_and_user_id id, user.id
   end
-
+  
+  # TODO: DELETE (NOT USED)
   alias user_tags private_tags
   alias users_tags private_tags
 

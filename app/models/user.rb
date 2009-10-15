@@ -87,7 +87,7 @@ class User < ActiveRecord::Base
   end
 
   def data_object_tags_for data_object
-    data_object_tags.find_all_by_data_object_id data_object.id, :include => :data_object_tag
+    data_object_tags.find_all_by_data_object_guid data_object.guid, :include => :data_object_tag
   end
   def tags_for data_object
     data_object_tags_for(data_object).map(&:tag).uniq

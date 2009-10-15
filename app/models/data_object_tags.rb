@@ -37,9 +37,12 @@ class DataObjectTags < ActiveRecord::Base
     end
   end
 
-  named_scope :private_tags, :conditions => 'user_id IS NOT NULL', :include => :data_object_tag
+  # TODO: DELETE (NOT USED)
+  named_scope :private_tags, :conditions => 'user_id IS NOT NULL', :include => :data_object_tag  
   named_scope :private_tags_for, lambda {|user|{ :conditions => ['user_id = ?', user.id], :include => :data_object_tag }}
-  named_scope :tags_with_usage_count, :select => "data_object_id, data_object_tag_id, count(user_id) as usage_count", 
+  # END TODO
+  
+  named_scope :tags_with_usage_count, :select => "data_object_guid, data_object_tag_id, count(user_id) as usage_count", 
                                       :group => 'data_object_tag_id'
   named_scope :search_by_tag,  lambda{|tag|{  :conditions => ['data_object_tag_id = ?', tag.id] }}
   #named_scope :search_by_tags_or, lambda{|tags|{ :conditions => "data_object_tag_id IN (#{tags.map(&:id).join(',')})" }}
@@ -50,10 +53,10 @@ class DataObjectTags < ActiveRecord::Base
     sql = "SELECT dt.*, count(dt.id) do_count, MAX(t.is_public) is_public
             FROM data_object_tags t 
               JOIN data_object_data_object_tags dt 
-                ON (t.id = dt.data_object_tag_id) 
+                ON (t.id = dt.data_object_tag_id)
             WHERE
               dt.data_object_tag_id in (#{tags.map(&:id).join(',')})
-            GROUP by dt.data_object_id"
+            GROUP by dt.data_object_guid"
     res = DataObjectTags.find_by_sql(sql);
     res.select {|t| (t.do_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags || (user_id && t.user_id == user_id.to_i)) || t.is_public }
   end
@@ -70,11 +73,12 @@ class DataObjectTags < ActiveRecord::Base
   #
   # Usage:
   #   DataObjectTags.public_tags_for_data_object @data_object
-  #   DataObjectTags.public_tags_for_data_object @data_object.id
   #
+  # !!!
   def self.public_tags_for_data_object data_object
-    id   = (data_object.is_a?Fixnum) ? data_object : data_object.id
-    tags = self.tags_with_usage_count.find_all_by_data_object_id id
+    guid = data_object.guid
+    tags = self.tags_with_usage_count.find_all_by_data_object_guid guid
+    tags.map {|t| t.usage_count }
     tags.select {|t| t.usage_count.to_i >= DataObjectTags::minimum_usage_count_for_public_tags || t.is_public }.map(&:tag)
   end
 
@@ -118,4 +122,5 @@ end
 #  data_object_id     :integer(4)      not null
 #  data_object_tag_id :integer(4)      not null
 #  user_id            :integer(4)
+#  data_object_guid   :varchar(32)     not null
 

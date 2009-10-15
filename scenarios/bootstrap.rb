@@ -156,7 +156,7 @@ image_dato = tc30.images.last
 text_dato.rate(curator_for_tc30, 1)
 image_dato.rate(curator_for_tc30, 1)
 # 3) create new dato with the same guid and comments on new version
-add_comments_to_reharvested_data_objects(tc30)
+add_comments_and_tags_to_reharvested_data_objects(tc30)
 
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)], :id => 31, 

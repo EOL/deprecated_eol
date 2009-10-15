@@ -1,18 +1,28 @@
-		    <label for="user_language_abbr" title="<%= "Which language do you prefer?"[:language_preference] %>"><%= "Which language do you prefer?"[:language_preference] %></label>		            
-			<%= f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]} %><br/>						
-			<br />
-			
+      <h3 class="preference-header"><%= "Content Settings"[] %></h3>
+
+      <p>EOL has the ability to filter its content by hierarchy.  This allows you to change the list of taxa availble and, optionally, the images shown. For instance, if you choose a hierarchy containing only marine taxa, then your view of EOL will only show those taxa and images recognized by the marine hierarchy. Further, you can request to filter the images such that no taxon's images will appear unless they are in your selected hierarchy.</p>
+
+      <br/>
 			<label for="user_default_hierarchy_id" title="<%= "Which default browse hierarchy would you prefer?"[:hierarchy_preference] %>"><%= "Which default browse hierarchy would you prefer?"[:hierarchy_preference] %></label>		            
-			<%= f.select :default_hierarchy_id, [['-- always use default --', nil]] | Hierarchy.find_all_by_browsable(1).sort_by{|h| h.label}.collect {|h| [h.label, h.id]} %><br/>						
+			<%= f.select :default_hierarchy_id, [['-- always use default --', nil]] + Hierarchy.find_all_by_browsable(1).sort_by{|h| h.label}.collect {|h| [h.label, h.id]} %><br/>						
 			<br />
 			
-      <!-- Default Browse Hierarchies are disabled:
 			<label for="user_secondary_hierarchy_id" title="<%= "Which secondary browse hierarchy would you prefer?"[:secondary_hierarchy_preference] %>"><%= "Which secondary browse hierarchy would you prefer?"[:hierarchy_preference] %></label>		            
-			<%= f.select :secondary_hierarchy_id, [['-- none --', nil]] | Hierarchy.find_all_by_browsable(1).sort_by{|h| h.label}.collect {|h| [h.label, h.id]} %><br/>						
+			<%= f.select :secondary_hierarchy_id, [['-- none --', nil]] + Hierarchy.browsable_by_label.collect {|h| [h.label, h.id]} %><br/>						
 			<br />
-      END Default Browse Hierarchies disabled -->
+
+      <table>
+        <tr>
+          <td style="padding-right:1em;"><%= f.check_box :filter_content_by_hierarchy %></td><td><%= f.label :filter_content_by_hierarchy, 'Filter images based on your primary browse hieararchy?'[:filter_content_by_hierarchy_preference] %></td>
+        </tr>
+      </table>
+
+			<br />
+      <label for="user_language_abbr" title="<%= "Which language do you prefer?"[:language_preference] %>"><%= "Which language do you prefer?"[:language_preference] %></label>		            
+			<%= f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]} %><br/>						
 			
-		    <label title="<%= "Do you want to include?"[:detail_level] %>"><%= "Do you want to include?"[:detail_level] %></label>		            
+      <br/>
+      <label title="<%= "Do you want to include?"[:detail_level] %>"><%= "Do you want to include?"[:detail_level] %></label>		            
 			<%= f.radio_button :expertise, "novice"%> <%="Information intended for beginners"[]%> <br />
 			<%= f.radio_button :expertise, "middle"%> <%="Information for any audience"[]%> <br />
 			<%= f.radio_button :expertise, "expert"%> <%="Information intended for experts"[]%> <br />					

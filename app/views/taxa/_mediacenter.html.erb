@@ -1,4 +1,4 @@
-<% we_have_a_taxon_comment = @comment and @comment.parent_type_name == 'TaxonConcept' %>
+<% we_have_a_taxon_comment = @comment and @comment.taxa_comment? %>
 
 <a name="media-center" />
 <div id="page-media-center">

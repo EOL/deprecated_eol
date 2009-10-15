@@ -9,7 +9,7 @@
   		<td><strong>Description:</strong></td>
   		<td><%=link_to (truncate(@comment.parent_name),@comment.parent_url)%></td>
   	</tr>
-  	<% if @comment.parent_type_name == 'Image' %>
+  	<% if @comment.image_comment? %>
     	<tr>
     		<td><strong>Original object:</strong></td>
     		<td><%=image_tag(@comment.parent_image_url)%></td>

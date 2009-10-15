@@ -39,7 +39,7 @@
   <% if data_object.text? || data_object.image? %>
     <div class="credit permalink">
      <div class="credit-caption"><%="Permalink"[]%></div>
-     <div class="credit-value"><input onclick="this.select();" size="35" type="text" value="<%="http://#{request.domain}/pages/#{data_object.taxon_concepts[0].id}?#{data_object.data_type.label.downcase}_id=#{data_object.id}"%>"></input></div>
+     <div class="credit-value"><form><input onclick="this.select();" size="35" type="text" value="<%="http://#{request.domain}/pages/#{data_object.taxon_concepts[0].id}?#{data_object.data_type.label.downcase}_id=#{data_object.id}"%>"/></form></div>
     <div class="footer"></div>
   </div>
   <% end %>

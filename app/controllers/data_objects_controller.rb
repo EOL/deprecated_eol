@@ -58,16 +58,18 @@ class DataObjectsController < ApplicationController
     set_text_data_object_options
     @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
     @selected_language = [@data_object.language.label,@data_object.language.id]
+    @selected_license = [@data_object.license.title,@data_object.license.id]
     render :partial => 'edit_text'
   end
 
   def new
     if(logged_in?)
       @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+      @selected_license = [License.by_nc.title,License.by_nc.id]        
+      @selected_language = [current_user.language.label,current_user.language.id]
       if(params[:toc_id]!='none')
         set_text_data_object_options
         @data_object = DataObject.new
-        @selected_language = [current_user.language.label,current_user.language.id]
         render :partial => 'new_text'
       else
         @taxon_concept.current_user = current_user
@@ -75,7 +77,6 @@ class DataObjectsController < ApplicationController
         params[:toc_id] = toc_item.id
         set_text_data_object_options
         @data_object = DataObject.new
-        @selected_language = [current_user.language.label,current_user.language.id]
         render :partial => 'new_text'
       end
     else

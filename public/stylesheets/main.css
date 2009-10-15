@@ -548,8 +548,8 @@ ul#global-navigation {
     
     #left-mc {
       float: left;
-      width: 702px;
-      height: 420`px;
+      width: 701px;
+      height: 420px;
     }
 
       ul#tab_media_center {
@@ -785,10 +785,10 @@ ul#global-navigation {
     .mc-info .mc-notes {
       position: relative;
       overflow: auto;
-      margin: 4px 0 0 9px;
+      margin: 0px 0 0 9px;
       padding: 0 4px;
-      width: 194px;
-      height: 115px;
+      width: 200px;
+      height: 110px;
       background-color: #f4f4f4;
     }
 
@@ -814,12 +814,10 @@ ul#global-navigation {
 			padding:2px;
 			border:1px solid #FFCC00;
 			border-left: 6px solid #FFCC00;
-			padding-left:5px;
 			text-align: left;
 			background-color:#FFFF99; 
-			margin-bottom:3px;
+			margin:2px 0 2px 6px;
 			width: 190px;
-			margin-bottom: 10px;
 			/* position: absolute; */
 			top: 38px;
 			left: 486px;			
@@ -829,12 +827,10 @@ ul#global-navigation {
 			padding:2px;
 			border:1px solid #FF0000;
 			border-left: 6px solid #FF0000;
-			padding-left:5px;
 			text-align: left;
 			background-color:#FF9999;
-			margin-bottom:3px;
+			margin:2px 0 2px 6px;
 			width: 190px;
-			margin-bottom: 10px;
 			/* position: absolute; */
 			top: 38px;
 			left: 486px;
@@ -847,25 +843,21 @@ ul#global-navigation {
 			padding-left:5px;
 			text-align: left;
 			background-color:#FF9999;
-			margin-bottom:3px;
+			margin:2px 0 2px 6px;
 			width: 190px;
-			margin-bottom: 10px;
 			/* position: absolute; */
 			top: 38px;
 			left: 486px;
-			margin-left: 6px; 
 		}
 		
 		#unknown-video-warning-box {
 			padding:2px;
 			border:1px solid #FFCC00;
 			border-left: 6px solid #FFCC00;
-			padding-left:5px;
 			text-align: left;
 			background-color:#FFFF99;
-			margin-bottom:3px;
+			margin:2px 0 2px 6px;
 			width: 190px;
-			margin-bottom: 10px;
 			/* position: absolute; */
 			top: 38px;
 			left: 486px;
@@ -1328,7 +1320,7 @@ ul#global-navigation {
   }
   #content #page-content {
     width: 982px;
-    border-top: 1px solid #E6E7E8;
+    border-top: 5px solid #E6E7E8;
     padding-bottom: 10px;
   }
 
@@ -1465,39 +1457,27 @@ ul#global-navigation {
     }
 
 
+      h4.margin-header {
+        background-color:#F6F7F8;
+        border-bottom:1px solid #E6E7E8;
+        color:#303030;
+        font-size:14px;
+        font-weight:700;
+        margin-bottom:15px;
+        padding:12px 0 12px 0;
+        text-align:center;
+        text-transform:uppercase;
+        border-top:1px solid #E6E7E8;
+      }
 
-        #slider {
-          margin-left: 20px;
-          width: 205px; 
-          height:28px;
-          background: url(/images/slider_bar.gif) no-repeat -205px center;
-        }
-        #handle {
-          position: absolute;
-          margin-left: 20px;
-          width: 13px;
-          height:28px;
-          background: url(/images/slider_button.gif) left top no-repeat;
-          z-index: 2;
-          cursor: pointer;
-        }
-
-        #grid {
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 240px;
-          height: 71px;
-          background: url(/images/sliding_toggle.gif) left top no-repeat;
-          z-index: 1;
-        }
-
-      h4#toc-header {
-        width: 220px;
-        padding: 20px 0 25px 20px;
-        text-transform: uppercase;
-        font-size: 15px;
-        border-bottom: 1px solid #E6E7E8;
+      h4.left-margin-header {
+        width:240px;
+        border-right:5px solid #E6E7E8;
+      }
+      
+      h4.right-margin-header {
+        width:246px;
+        margin-left: -1px;
       }
       
       ul.content_partner {
@@ -1696,20 +1676,8 @@ ul#global-navigation {
 
       #content #page-content #right-page-content #internal-nav {
         padding: 0;
-        border-top: solid #E6E7E8 4px;
         border-bottom: solid #E6E7E8 1px;
       }
-
-        #content #page-content #right-page-content #internal-nav h4 {
-          width: 224px;
-          padding: 15px 0 15px 7px;
-          text-transform: uppercase;
-          font-size: 15px;
-          color: #333;
-          border-bottom: solid #E6E7E8 1px;
-        }
-
-
 
       #content #page-content #right-page-content #contribute {
         padding: 16px 0 15px 0;

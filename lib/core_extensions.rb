@@ -2,6 +2,7 @@
 # (ActiveRecord and what-not).
 class String
 
+  # Note that I change strong to b, 'cause strong appears to be overridden in our CSS.  Hrmph.
   def allow_some_html
     # inline RegEx passed to gsub calls leak memory! We declare them first:
     @allowed_attributes_in_allow_some_html = /\s*\/|\s+href=['"][^'"]+['"]/ 

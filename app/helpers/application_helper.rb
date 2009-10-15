@@ -256,7 +256,7 @@ module ApplicationHelper
   end
 
   def external_link_to(*args, &block)
-    #return text of link is blank
+    #return text if link is blank
     return args[0] if args[1]==nil || args[1].blank?
 
     html_options = args[2] || {}
@@ -284,7 +284,6 @@ module ApplicationHelper
     return return_html
   end 
 
-  # Note that I change strong to b, 'cause strong appears to be overridden in our CSS.  Hrmph.
   def allow_some_html(text)
     return text.allow_some_html
   end

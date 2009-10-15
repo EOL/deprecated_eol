@@ -63,7 +63,6 @@ ActionController::Routing::Routes.draw do |map|
   map.contact_us    'contact_us',    :controller => 'content', :action => 'contact_us'
   map.media_contact 'media_contact', :controller => 'content', :action => 'media_contact'
 
-  map.settings     'settings',     :controller => 'taxa',:action=>'settings'
   map.help         'help',         :controller => 'content', :action => 'page', :id => 'screencasts'
   map.screencasts  'screencasts',  :controller => 'content', :action => 'page', :id => 'screencasts'
   map.faq          'faq',          :controller => 'content', :action => 'page', :id => 'faqs'

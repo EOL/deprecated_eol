@@ -289,9 +289,9 @@ describe 'Taxa page (HTML)' do
   it 'should return 404 page when loading permalink for text which has been removed and user isn\'t an admin'
   it 'should load removed text via permalink when user is an admin'
   
-  it 'should not include the TocItem with only unvetted content in it' do
+  it 'should include the TocItem with only unvetted content in it' do
     @result = RackBox.request("/pages/#{@id}")
-    @result.body.should_not have_tag('a', :text => /#{@toc_item_with_no_trusted_items.label}/)
+    @result.body.should have_tag('a', :text => /#{@toc_item_with_no_trusted_items.label}/)
   end
   
   it 'should show info item label for the overview text when there isn\'t an object_title' do

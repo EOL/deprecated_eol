@@ -14,6 +14,7 @@ describe 'build_taxon_concept (spec helper method)' do
     @taxon_concept_naked = build_taxon_concept(
       :images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => []
     )
+    @taxon_concept_naked.current_user = User.gen(:vetted => true) # Otherwise things aren't empty
   end
 
   it 'should be able to make a TC with no common names and an empty TOC' do

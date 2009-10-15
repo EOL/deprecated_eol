@@ -4,7 +4,7 @@
     "<%= truncate(act_history.comment_object.body, 30) -%>" 
   
     <% if current_act == 'create' -%>
-      was added to 
+      was added to the
       <%= act_history.comment_object.parent_type_name -%>
     <% elsif current_act == 'hide' || 'show' -%>
       was changed to 

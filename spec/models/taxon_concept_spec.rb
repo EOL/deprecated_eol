@@ -247,15 +247,15 @@ describe TaxonConcept do
     #@taxon_concept.toc.map(&:id).should include(toci.id)
   #end
 
-  it 'should show its trusted images images only, by default' do
+  it 'should show its untrusted images images, by default' do
     @taxon_concept.current_user = User.create_new # It's okay if this one "sticks", so no cleanup code
-    @taxon_concept.images.map(&:object_cache_url).should == [@image_1, @image_2, @image_3]
+    @taxon_concept.images.map(&:object_cache_url).should include(@image_unknown_trust)
   end
 
-  it 'should show unknown-trust images if the user wants them' do
+  it 'should show only trusted images if the user prefers' do
     old_user = @taxon_concept.current_user
-    @taxon_concept.current_user = User.gen(:vetted => false)
-    @taxon_concept.images.map(&:object_cache_url).should include(@image_unknown_trust)
+    @taxon_concept.current_user = User.gen(:vetted => true)
+    @taxon_concept.images.map(&:object_cache_url).should == [@image_1, @image_2, @image_3]
     @taxon_concept.current_user = old_user  # Cleaning up so as not to affect other tests
   end
 

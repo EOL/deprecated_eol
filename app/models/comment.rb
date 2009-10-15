@@ -72,6 +72,18 @@ class Comment < ActiveRecord::Base
     return return_name
   end
 
+  def taxa_comment?
+    return parent_type == 'TaxonConcept'
+  end
+
+  def image_comment?
+    return(parent_type == 'DataObject' and parent.data_type.label == 'Image')
+  end
+
+  def text_comment?
+    return(parent_type == 'DataObject' and parent.data_type.label == 'Text')
+  end
+
   # the image url being commented on, if it's an image
   def parent_image_url
     return_url = case self.parent_type
@@ -93,14 +105,17 @@ class Comment < ActiveRecord::Base
     return return_url    
   end
   
-  # a friendly version of the parent name (e.g. "Image", "Taxon Concept", etc.)
+  # A friendly version of the parent name (e.g. "Image", "Taxon Concept", etc.)
+  #
+  # DO *NOT* COMPARE THIS STRING. It is subject to change.  Use the image_comment?, taxa_comment?, and text_comment?
+  # methods instead.
   def parent_type_name
     return_name = case self.parent_type
      when 'TaxonConcept' then 
-        'Taxon concept'
+        'page'
      when 'DataObject' then
         d=DataObject.find_by_id(self.parent_id)
-        d.nil? ? '' : d.data_type.label
+        d.nil? ? '' : d.data_type.label.downcase
      else ''
     end
     return return_name

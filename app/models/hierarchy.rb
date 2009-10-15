@@ -14,8 +14,14 @@ class Hierarchy < SpeciesSchemaModel
 
   belongs_to :agent           # This is the attribution.
 
+  named_scope :browsable, :conditions => {:browsable => 1}
+
   has_many :hierarchy_entries
   alias entries hierarchy_entries
+
+  def self.browsable_by_label
+    Hierarchy.browsable.sort_by {|h| h.label }
+  end
 
   def self.default
     YAML.load(Rails.cache.fetch('hierarchies/default') do

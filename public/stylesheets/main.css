@@ -1356,6 +1356,9 @@ ul#global-navigation {
     font-weight: bold;
     font-size: 14px;
   }
+  .preference-header {
+    padding-bottom: 1.5em !important;
+  }
   #content #page-content label {
     display: block;
     font-weight: bold;

@@ -24,13 +24,13 @@ module EOL::Spec
       end
     end
 
-    def login_content_partner options = { }
+    def login_content_partner(options = {})
       f = request('/content_partner/login', :params => { 
           'agent[username]' => options[:username], 
           'agent[password]' => options[:password] })
     end
 
-    def login_as options = { }
+    def login_as(options = {})
       if options.is_a? User # let us pass a newly created user (with an entered_password)
         options = { :username => options.username, :password => options.entered_password }
       end

@@ -660,11 +660,11 @@ EOIUCNSQL
   def images(options = {})
     
     # set hierarchy to filter images by
-    #if current_user.filter_content_by_hierarchy && current_user.default_hierarchy_valid?
-    #  filter_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
-    #else
+    if current_user.filter_content_by_hierarchy && current_user.default_hierarchy_valid?
+      filter_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
+    else
       filter_hierarchy = nil
-    #end
+    end
     perform_filter =  !filter_hierarchy.nil?
     
     @images ||= DataObject.for_taxon(self, :image, :user => current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy)

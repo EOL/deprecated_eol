@@ -331,6 +331,12 @@ describe DataObject do
   # TODO - DataObject.search_by_tags needs testing, but comments in the file suggest it will be changed significantly.
 
   describe 'tagging' do
+    
+    before(:all) do
+      @taxon_concept = TaxonConcept.last || build_taxon_concept
+      @image_dato    = @taxon_concept.images.last       
+    end
+    
 
     before(:each) do
       @dato = DataObject.gen
@@ -358,6 +364,30 @@ describe DataObject do
       @dato.tag_keys.should == ['foo', 'boozer']
     end
 
+    it 'should create tag saving guid of the data_object into DataObjectTags' do
+      count = DataObjectTags.count
+      @dato.tag("key1", "value1", @user)
+      DataObjectTags.count.should == count + 1
+      DataObjectTags.last.data_object_guid.should == @dato.guid
+    end
+    
+    it 'should verify uniqness of data_object_guid/data_object_tag_id/user_id combination during create'
+    
+    it 'should show up public and private tags for old and new version of dato after re-harvesting' do
+      curator       = build_curator(@taxon_concept)  
+      count         = DataObjectTags.count
+      
+      @image_dato.tag("key-private-old", "value-private-old", @user)
+      @image_dato.tag("key-old", "value-old", curator)
+      new_image_dato = DataObject.build_reharvested_dato(@image_dato)
+      new_image_dato.tag("key-private_new", "value-private-new", @user)
+      new_image_dato.tag("key-new", "value-new", curator)
+      
+      DataObjectTags.count.should == count + 4
+      @image_dato.public_tags.size.should == 4
+      @user.tags_for(@image_dato).size.should == 2
+    end
+    
     it 'should mark tags as public if added by a curator' do
       commit_transactions # We're looking at curators, here, we need cross-database joins.
       tc      = TaxonConcept.last || build_taxon_concept
@@ -368,7 +398,6 @@ describe DataObject do
       dotag = DataObjectTag.find_by_key_and_value('color', 'blue')
       DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true
     end
-
   end
 
   describe 'search_by_tags' do

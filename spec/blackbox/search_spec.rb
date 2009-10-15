@@ -93,5 +93,18 @@ describe 'Search' do
     assert_results(:num_results_on_this_page => extra_results, :page => 2)
   end
   
+  it 'should find tags' do
+    taxon_concept = build_taxon_concept(:images => [{}])
+    image_dato   = taxon_concept.images.last
+    user = User.gen :username => 'username', :password => 'password'
+    image_dato.tag("key-old", "value-old", user)
+    # during reharvesting this object will be recreated with the same guid and different id
+    # it should still find all tags because it uses guid, not id for finding relevant information
+    new_image_dato = DataObject.build_reharvested_dato(image_dato)
+    new_image_dato.tag("key-new", "value-new", user)
+    
+    res = request('/search?q=value-old&search_type=tag')
+    res.body.should include(taxon_concept.name)
+  end
   
 end

@@ -33,7 +33,7 @@ describe Search do
       SearchLog.should_receive(:log).with(@expected_params, @request, @user)
       Search.new(@params, @request, @user, @agent, false)
     end
-  
+      
     it "should execute a query" do
       cf = CanonicalForm.gen :string => "tiger"
       nn = NormalizedName.gen :name_part => "tiger"
@@ -49,5 +49,4 @@ describe Search do
     end
     
   end
-  
 end

@@ -47,7 +47,7 @@ class DataObjectTag < ActiveRecord::Base
     (tags.nil?) ? 0 : tags.usage_count.to_i
   end
 
-  # shotcut finder method for getting all tags by key or getting a key+value pair
+  # shortcut finder method for getting all tags by key or getting a key+value pair
   #
   # Usage:
   #   DataObjectTag[:key] => [<DataObjectTag>,<DataObjectTag>]

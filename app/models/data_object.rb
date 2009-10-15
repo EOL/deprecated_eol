@@ -715,12 +715,20 @@ class DataObject < SpeciesSchemaModel
 
   def self.cached_images_for_taxon(taxon, options = {})
     options[:user] = User.create_new if options[:user].nil?
-    add_cp = join_agents = ''
+    add_cp = join_agents = join_hierarchy = ''
+    
     if options[:from].nil?
       options[:from] ||= 'top_images'
     else
       nested = true
     end
+    
+    if !options[:filter_by_hierarchy].nil? && !options[:hierarchy].nil?
+      join_hierarchy = "JOIN hierarchy_entries he_filter ON (ti.hierarchy_entry_id=he_filter.id AND he_filter.hierarchy_id=#{options[:hierarchy].id})"
+      options[:from] = 'top_species_images' if options[:from].nil?
+    end
+      
+      
     # Unpublished images require a few extra bits to the query:
     if nested and not options[:agent].nil?
       add_cp      = ', ar.agent_id agent_id'
@@ -737,6 +745,7 @@ class DataObject < SpeciesSchemaModel
           STRAIGHT_JOIN data_objects_taxa dot  ON dato.id = dot.data_object_id
           STRAIGHT_JOIN taxa t                 ON dot.taxon_id = t.id
           #{join_agents}
+          #{join_hierarchy}
           LEFT OUTER JOIN licenses l           ON dato.license_id = l.id 
         WHERE ti.hierarchy_entry_id IN (?)
           AND data_type_id IN (?)
@@ -754,7 +763,9 @@ class DataObject < SpeciesSchemaModel
     
     # Run a second query if we need unpublished or invisible images (but not if we're already doing it!!!):
     if not nested and ((not options[:agent].nil?) or options[:user].is_curator? or options[:user].is_admin?)
-      result += DataObject.cached_images_for_taxon(taxon, options.merge(:from => 'top_unpublished_images'))
+      from = 'top_unpublished_images'
+      from = 'top_unpublished_species_images' if !options[:filter_by_hierarchy].nil? && !options[:hierarchy].nil?
+      result += DataObject.cached_images_for_taxon(taxon, options.merge(:from => from))
     end
     return result                            
   end

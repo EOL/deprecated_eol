@@ -16,9 +16,9 @@
 			<%= f.select :default_hierarchy_id, [['-- always use default --', nil]] + Hierarchy.find_all_by_browsable(1).sort_by{|h| h.label}.collect {|h| [h.label, h.id]} %><br/>						
 			<br />
 			
-			<label for="user_secondary_hierarchy_id" title="<%= "Which secondary browse hierarchy would you prefer?"[:secondary_hierarchy_preference] %>"><%= "Which secondary browse hierarchy would you prefer?"[:hierarchy_preference] %></label>		            
-			<%= f.select :secondary_hierarchy_id, [['-- none --', nil]] + Hierarchy.browsable_by_label.collect {|h| [h.label, h.id]} %><br/>						
-			<br />
+      <!-- <label for="user_secondary_hierarchy_id" title="<%= "Which secondary browse hierarchy would you prefer?"[:secondary_hierarchy_preference] %>"><%= "Which secondary browse hierarchy would you prefer?"[:hierarchy_preference] %></label>               
+      <%= f.select :secondary_hierarchy_id, [['-- none --', nil]] + Hierarchy.browsable_by_label.collect {|h| [h.label, h.id]} %><br/>            
+      <br /> -->
 
       <table>
         <tr>

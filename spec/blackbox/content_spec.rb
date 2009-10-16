@@ -1,32 +1,41 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require 'nokogiri'
 
 describe 'APIs' do
-  Scenario.load :foundation
-
-  # describe 'Taxon Concepts API' 
-  # do
-    # it 'a call to the URL should create .gz file' do
-    #   file_dir = File.dirname(__FILE__) + "/../../public/content/tc_api.gz"
-    # 
-    #   RackBox.request("/content/tc_api/")
-    #   File.exist?(file_dir).should eql(true)
-    # end
-  # end
-  
-  describe 'Highest-Rated Images API' do
-    
+  describe 'Best Images' do
     before(:all) do
-      t1 = TaxonConcept.find(1)
-      t1.destroy if t1                            
-      @taxon_concept = build_taxon_concept(:id => 1)
-      @taxon_concept.images.each {|i| i.data_rating = 5.0}
-      @taxon_concept.images.each {|i| i.save}
-      @taxon_concept_xml = Nokogiri::XML(RackBox.request("/pages/#{@taxon_concept.id}/best_images.xml").body)
+      @image_1 = Factory.next(:image)
+      @image_2 = Factory.next(:image)
+      @image_3 = Factory.next(:image)
+      @taxon_concept   = build_taxon_concept(
+         :images          => [{:object_cache_url => @image_1, :data_rating => 5},
+                              {:object_cache_url => @image_2, :data_rating => 5},
+                              {:object_cache_url => @image_3, :data_rating => 5}])
+      @id = @taxon_concept.id
     end
     
-    it 'should serve XML on call to /pages/1/best_images.xml' do
-      @taxon_concept_xml.at(:dataObject).inner_html.should_not be_empty
+    after(:all) do
+      @taxon_concept.destroy
+    end
+    
+    it 'should generate the best images xml' do
+      @best_images_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}/best_images.xml").body)  
+      @best_images_xml.xpath('/eol:response', {'eol' => 'http://www.eol.org/transfer/content/0.2'}).should_not be_empty
+      @best_images_xml.xpath('/eol:response/eol:taxon', {'eol' => 'http://www.eol.org/transfer/content/0.2'}).should_not be_empty
+      @best_images_xml.xpath('/eol:response/eol:taxon', {'eol' => 'http://www.eol.org/transfer/content/0.2'}).length.should == 1
+      @best_images_xml.xpath('///eol:dataObject', {'eol' => 'http://www.eol.org/transfer/content/0.2'}).length.should == 1
+    end
+    
+    it 'should limit the results based on parameter' do
+      @best_images_xml = Nokogiri::XML(RackBox.request("/pages/#{@id}/best_images.xml?limit=3").body)  
+      @best_images_xml.xpath('///eol:dataObject', {'eol' => 'http://www.eol.org/transfer/content/0.2'}).length.should == 3
+    end
+    
+    it 'should generate the best image html' do
+      @result = RackBox.request("/pages/#{@id}/best_images.html")
+      @result.body.should have_tag('img')
+      @result.body.should include('.eol.org/content')
+      @result.body.should include('Generated on')
     end
   end
-  
 end

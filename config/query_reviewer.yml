@@ -30,7 +30,7 @@ all:
     critical_affected_rows: 100
 
 development:
-    enabled: true
+    enabled: false
 
 production:
     enabled: false

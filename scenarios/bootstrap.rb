@@ -139,29 +139,37 @@ tc.add_common_name('Tiger')
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [], :bhl => [], :event => event,
                     :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [])
 
-#30 has unvetted images and videos, please don't change this one, needed for selenum tests:         
-tc30 = build_taxon_concept(:id => 30, :parent_hierarchy_entry_id => fifth_entry_id,
-                    :depth => depth_now, :images => :testing, :flash => [{:vetted => Vetted.untrusted}], :youtube => [{:vetted => Vetted.untrusted}], :comments => [],
-                    :bhl => [], :event => event)
+#30 has unvetted images and videos, overview and description TOC, please don't change this one, needed for selenum tests:         
+tc30 = build_taxon_concept(:id => 30, 
+                    :parent_hierarchy_entry_id => fifth_entry_id,
+                    :depth    => depth_now, 
+                    :images   => :testing, 
+                    :flash    => [{:vetted   => Vetted.untrusted}], 
+                    :youtube  => [{:vetted   => Vetted.untrusted}], 
+                    :comments => [], 
+                    :bhl      => [], 
+                    :event    => event)
+                    
 tc30.add_common_name(Factory.next(:common_name))
 
-#(:username => 'curator_for_tc', :password => 'password')
-curator_for_tc30 = create_curator(tc30) 
-
-# 1) create comments on text (and the same for image)
-#   1a) one is visible, second with visible_at = NULL
-text_dato = tc30.overview.last # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
-image_dato = tc30.images.last
-# 2) rating of old version of dato was 1
-text_dato.rate(curator_for_tc30, 1)
-image_dato.rate(curator_for_tc30, 1)
-# 3) create new dato with the same guid and comments on new version
-add_comments_and_tags_to_reharvested_data_objects(tc30)
-
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
-build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)], :id => 31, 
+tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)], :id => 31, 
                     :depth => depth_now, :flash => [{}, {:vetted => Vetted.unknown}], :youtube => [{:vetted => Vetted.unknown}, {:vetted => Vetted.untrusted}], :comments => [],
                     :bhl => [], :event => event)
+                    
+#(:username => 'curator_for_tc', :password => 'password')
+curator_for_tc31 = create_curator(tc31) 
+# curator = build_curator(HierarchyEntry.gen, :username => 'test_curator', :password => 'test_password')
+# curator_for_tc = build_curator(HierarchyEntry.find(fifth_entry_id, :username => 'curator_for_tc', :password => 'password')
+# RAILS_DEFAULT_LOGGER.debug "URA, curator_for_tc = "+curator_for_tc.inspect.to_s                                                          
+
+text_dato = tc31.overview.first # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
+image_dato = tc31.images.first
+# rating of old version of dato was 1
+text_dato.rate(curator_for_tc31, 1)
+image_dato.rate(curator_for_tc31, 1)
+# create new dato with the same guid and comments on new version
+add_comments_and_tags_to_reharvested_data_objects(tc31)
                     
 #32
 user = User.gen

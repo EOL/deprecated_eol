@@ -1312,7 +1312,7 @@ ul#global-navigation {
 
   /* = page content ============================================================================ */
 
-  #content {
+  #container > #content {
       background: #ffffff;
 			min-height: 600px;
 			height:auto !important;

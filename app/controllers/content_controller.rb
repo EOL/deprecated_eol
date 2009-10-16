@@ -107,6 +107,8 @@ class ContentController < ApplicationController
 
   # put here an amount of random 5-star images we are needed
   def best_images
+    @date_generated = "Generated on #{Time.now.strftime("%A, %B %d, %Y - %I:%M %p %Z")}"
+    
     taxon_concept_id = params[:id] || 0
     limit = params[:limit].to_i || 1
     limit = 1 if !limit.is_a? Integer
@@ -116,13 +118,13 @@ class ContentController < ApplicationController
     unless taxon_concept.nil?
       five_star_images = DataObject.for_taxon(taxon_concept, :image).map{|d| d.data_rating == 5.0 ? d : nil}.compact            
       if five_star_images.empty?
-        text_to_write = ""
+        @text_to_write = ""
       elsif five_star_images.size < limit
-        text_to_write = five_star_images
+        @text_to_write = five_star_images
       else
         begin rand_best_images = Array.new(limit){ five_star_images[ rand( five_star_images.size ) ] } 
         end until rand_best_images.uniq.size == limit 
-        text_to_write = rand_best_images
+        @text_to_write = rand_best_images
       end
       # uncomment if we need write .gz file on a disk
       # file_path = "#{RAILS_ROOT}/public/content/best_images.gz"
@@ -130,10 +132,10 @@ class ContentController < ApplicationController
             
       @taxon_to_xml = taxon_to_xml(taxon_concept)
       @array_to_render = []
-      for dato in text_to_write
+      for dato in @text_to_write
          @array_to_render.push(dato_to_xml(dato))           
       end   
-      text_to_write.blank? ? api_render(@taxon_to_xml) : api_render(@array_to_render)
+      @text_to_write.blank? ? api_render(@taxon_to_xml) : api_render(@array_to_render)
     else
       render_404
     end
@@ -188,30 +190,33 @@ class ContentController < ApplicationController
     
     dato_params["identifier"]    = dato.id
     dato_params["dataType"]      = dato.data_type.schema_value
-    dato_params["mimeType"]      = dato.mime_type.label
+    dato_params["mimeType"] = dato.mime_type.label if dato.mime_type
     dato_params["agents"] = []
-    dato.agents_data_objects.each do |ado|
-      agent = Hash[]
-      agent["homepage"] = ado.agent.homepage
-      if ado.agent.logo_url
-        agent["logoURL"] = "http://www.eol.org" + ado.agent.logo_url 
+    
+    if dato.agents_data_objects
+      dato.agents_data_objects.each do |ado|
+        agent = Hash[]
+        agent["homepage"] = ado.agent.homepage
+        if ado.agent.logo_url
+          agent["logoURL"] = "http://www.eol.org" + ado.agent.logo_url 
+        end
+        agent["role"] = ado.agent_role.label.downcase if ado.agent_role
+        agent["fullName"] = ado.agent.full_name
+        dato_params["agents"] << agent
       end
-      agent["role"]        = ado.agent_role.label.downcase
-      agent["fullName"] = ado.agent.full_name
-      dato_params["agents"] << agent
     end
-		dato_params["created"]		    = dato.object_created_at
-		dato_params["modified"]	    = dato.object_modified_at
-		dato_params["language"]	    = dato.language.iso_639_1
-		dato_params["license"]		    = dato.license.source_url
-		dato_params["rights"]		    = dato.rights_statement
-		dato_params["rightsHolder"]  = dato.rights_holder
-		dato_params["bibliographicCitation"] = dato.bibliographic_citation
-		dato_params["source"]	      = dato.source_url
-		dato_params["description"]		= dato.description
-		dato_params["mediaURL"]		  = dato.thumb_or_object
-		dato_params["thumbnailURL"]	= dato.thumb_or_object(:small)
-    dato_params["location"]      = dato.location
+    dato_params["created"] = dato.object_created_at
+    dato_params["modified"] = dato.object_modified_at
+    dato_params["language"] = dato.language.iso_639_1 if dato.language
+    dato_params["license"] = dato.license.source_url
+    dato_params["rights"] = dato.rights_statement
+    dato_params["rightsHolder"] = dato.rights_holder
+    dato_params["bibliographicCitation"] = dato.bibliographic_citation
+    dato_params["source"] = dato.source_url
+    dato_params["description"] = dato.description
+    dato_params["mediaURL"] = dato.thumb_or_object
+    dato_params["thumbnailURL"] = dato.thumb_or_object(:small)
+    dato_params["location"] = dato.location
     
     return dato_params                                                              
   end

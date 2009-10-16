@@ -1,26 +1,20 @@
 <div id="content">
-	<div id="page-separator-general"></div>
-<!-- <a id="media_rss" rel="alternate" href="/content/mediarss?format=rss&id=<%#= @taxon_concept_id %>" type="application/rss+xml" >media_rss</a> -->
-  <!--   <link id="best" rel="alternate" href="/content/mediarss?format=rss&id=<%#= @
-  taxon_concept.id %>" type="application/rss+xml" /> -->
-  
-
-    <!-- page title -->
-    <div id="page-title">
-          <h1><%= @title %></h1>
-        <hr />
+  <div id="page-separator-general"></div>
+  <div id="page-title">
+    <h1><%= @title %></h1>
+    <hr />
+  </div>
+  <div id="page-content" class="clearfix">
+    <div id="full-page-content">
+      <h3><%= @date_generated %></h3>
+      <% if !@text_to_write.empty? -%>
+        <% for dato in @text_to_write -%>
+          <img border="0" src="<%= dato.thumb_or_object %>"/>
+          <br /><br />
+        <% end -%>
+      <% else -%>
+        No images for this taxon
+      <% end -%>
     </div>
-    <!-- /page title -->
-	
-	    <div id="page-content" class="clearfix">
-	        <!-- center page content -->
-	        <div id="full-page-content">
-
-          <h3><%= @date_generated %></h3>
-              <% for hr_images in @text_to_write -%>
-              <%= hr_images.thumb_or_object -%>
-              <br />
-              <% end -%>
-			   </div>
-	  </div>
+  </div>
 </div>

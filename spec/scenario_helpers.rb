@@ -6,16 +6,16 @@ include EOL::Spec::Helpers
 
 # Add some comments for testing re-harvesting preserves such things:
 def add_comments_and_tags_to_reharvested_data_objects(tc)
-  user = User.last
+  user = User.first
   
   # 1) create comments on text (and all the same for image)
   #   1a) one is visible, second with visible_at = NULL
-  text_dato = tc.overview.last # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
+  text_dato = tc.overview.first # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
   text_dato.comment(user, 'this is a comment applied to the old overview')
   invis_comment = text_dato.comment(user, 'this is an invisible comment applied to the old overview')
   invis_comment.hide! user
   
-  image_dato = tc.images.last
+  image_dato = tc.images.first
   image_dato.comment(user, 'this is a comment applied to the old image')
   invis_image = image_dato.comment(user, 'this is an invisible comment applied to the old image')
   invis_image.hide! user
@@ -28,15 +28,16 @@ def add_comments_and_tags_to_reharvested_data_objects(tc)
   new_text_dato = DataObject.build_reharvested_dato(text_dato)
   new_image_dato = DataObject.build_reharvested_dato(image_dato)  
 
+  #   2a) add tag
   new_image_dato.tag('color', 'green', user)
 
-  #   2a) a new harvest_event
-  #   2b) new links in data_objects_harvest_events (should happen automatically)
+  #   2b) a new harvest_event
+  #   2c) new links in data_objects_harvest_events (should happen automatically)
   old_image_harvest_event = image_dato.harvest_events.first
   new_image_harvest_event = HarvestEvent.gen(
     :resource => old_image_harvest_event.resource
   )
-  #  2c
+  #  2d)
 
   DataObjectsHarvestEvent.gen(
     :data_object => image_dato,
@@ -54,7 +55,6 @@ def add_comments_and_tags_to_reharvested_data_objects(tc)
     :harvest_event => new_text_harvest_event,
     :guid => text_dato.data_objects_harvest_events.first.guid
   )
-
 
   # 4) create comments on new version
   new_text_dato.comment(user, 'brand new comment on the re-harvested overview')

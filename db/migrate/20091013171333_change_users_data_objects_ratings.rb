@@ -3,15 +3,17 @@ class ChangeUsersDataObjectsRatings < ActiveRecord::Migration
   
   def self.up
     execute "update users_data_objects_ratings u join #{DataObject.full_table_name} d on d.id=u.data_object_id set data_object_guid = d.guid"
-    val = execute "select d.guid, user_id from users_data_objects_ratings u join #{DataObject.full_table_name} d on d.id=u.data_object_id group by d.guid, user_id having count(*) > 1"
+    execute "delete from users_data_objects_ratings where data_object_guid = ''"
+    val = execute "select data_object_guid, user_id from users_data_objects_ratings group by data_object_guid, user_id having count(*) > 1"
     #remove_column :users_data_objects_ratings, :data_object_id
     val.each do |guid, user_id|
-     u = UsersDataObjectsRating.find_all_by_user_id_and_data_object_guid(user_id, guid, :order => 'data_object_id')
-     u[0...-1].each do |udor|
+      u = UsersDataObjectsRating.find_all_by_user_id_and_data_object_guid(user_id, guid, :order => 'data_object_id')
+      u[0...-1].each do |udor|
         udor.destroy
       end
     end
-    add_index :users_data_objects_ratings, [:data_object_guid, :user_id], :name => 'idx_users_data_objects_ratings_1'
+    add_index :users_data_objects_ratings, [:data_object_guid, :user_id], :name => 'idx_users_data_objects_ratings_1', :unique => true
+    #remove_column :users_data_objects_ratings, :data_object_id
   end
 
   def self.down

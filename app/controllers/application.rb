@@ -487,14 +487,17 @@ private
           %w{novice middle expert}.each do |expertise|
             %w{true false}.each do |vetted|
               %w{text flash}.each do |default_taxonomic_browser|
-                %w{true false}.each do |can_curate|
-                  part_name = 'page_' + taxon_concept_id.to_s +
-                                  '_' + language.iso_639_1 +
-                                  '_' + expertise +
-                                  '_' + vetted +
-                                  '_' + default_taxonomic_browser +
-                                  '_' + can_curate
-                  expire_fragment(:controller => '/taxa', :part => part_name)
+                [nil.to_s, Hierarchy.browsable_by_label.map {|h| h.id.to_s }].flatten.each do |default_hierarchy_id|
+                  %w{true false}.each do |can_curate|
+                    part_name = 'page_' + taxon_concept_id.to_s +
+                                    '_' + language.iso_639_1 +
+                                    '_' + expertise +
+                                    '_' + vetted +
+                                    '_' + default_taxonomic_browser +
+                                    '_' + default_hierarchy_id +
+                                    '_' + can_curate
+                    expire_fragment(:controller => '/taxa', :part => part_name)
+                  end
                 end
               end
             end

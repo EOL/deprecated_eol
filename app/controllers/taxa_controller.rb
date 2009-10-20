@@ -467,7 +467,7 @@ private
   
   def taxa_page_html_fragment_name
     current_user = @taxon_concept.current_user
-    'page_' + params[:id].to_s + '_' + current_user.language_abbr + '_' + current_user.expertise.to_s + '_' + current_user.vetted.to_s + '_' + current_user.default_taxonomic_browser.to_s + '_' + @taxon_concept.show_curator_controls?.to_s
+    return "page_#{params[:id]}_#{current_user.taxa_page_cache_str}_#{@taxon_concept.show_curator_controls?}"
   end
   helper_method(:taxa_page_html_fragment_name)
 

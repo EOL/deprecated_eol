@@ -71,8 +71,15 @@ class User < ActiveRecord::Base
   end 
 
   def total_objects_curated
-    CuratorDataObjectLog.count :conditions => ['user_id = ?', id] 
+    # CuratorDataObjectLog.count :conditions => ['user_id = ?', id] 
+    # CuratorDataObjectLog.count :conditions => ['user_id = 35200'] 
+    #     => 316
+    # CuratorDataObjectLog.find_all_by_user_id(35200).map(&:data_object_id).uniq.size
+    #     => 302
+
+    CuratorDataObjectLog.find_all_by_user_id(id).map(&:data_object_id).uniq.size
   end 
+  
   def total_comments_curated
     CuratorCommentLog.count :conditions => ['user_id = ?', id] 
   end 

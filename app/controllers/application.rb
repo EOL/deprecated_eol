@@ -88,6 +88,11 @@ class ApplicationController < ActionController::Base
   def return_to_url
     session[:return_to] || root_url
   end
+  
+  def valid_return_to_url
+    return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url && !url_for(:controller=>'content_partner',:action=>'login',:only_path=>true).include?(return_to_url)
+  end
+
 
   def referred_url
     request.referer
@@ -95,17 +100,27 @@ class ApplicationController < ActionController::Base
 
   # Redirect to the URL stored by the most recent store_location call or to the passed default.
   def redirect_back_or_default(default=root_url)
-
     # be sure we aren't returning the login, register or logout page
-    if return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url && !url_for(:controller=>'content_partner',:action=>'login',:only_path=>true).include?(return_to_url)
-      redirect_to(CGI.unescape(return_to_url),:protocol => "http://")
+    if valid_return_to_url
+      redirect_to(CGI.unescape(return_to_url), :protocol => "http://")
     else
-      redirect_to(default,:protocol => "http://")
+      redirect_to(default, :protocol => "http://")
     end
     store_location(nil)
     return false
-
   end
+  
+  # send user to the SSL version of the page (used in the account controller, can be used elsewhere)
+  def redirect_to_ssl
+    if valid_return_to_url 
+      redirect_to(:protocol => "http://", :return_to => CGI.unescape(return_to_url)) unless (request.ssl? or local_request?)
+    else
+      redirect_to(:protocol => "https://") unless (request.ssl? or local_request?)
+    end
+    store_location(nil)
+    return false
+  end
+
 
   def collected_errors(model_object)
     error_list=''
@@ -259,17 +274,6 @@ class ApplicationController < ActionController::Base
   # check if the requesting IP address is allowed (used to resrict methods to specific IPs, such as MBL/EOL IPs)
   def allowed_request
     !((request.remote_ip =~ /127.0.0.1/).nil? && (request.remote_ip =~ /128.128./).nil? && (request.remote_ip =~ /10.19./).nil?)
-  end
-
-  # send user to the SSL version of the page (used in the account controller, can be used elsewhere)
-  def redirect_to_ssl
-    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.
-    
-    if params[:return_to]
-      redirect_to :protocol => "https://", :return_to => params[:return_to] unless (request.ssl? or local_request?)
-    else
-      redirect_to :protocol => "https://" unless (request.ssl? or local_request?)
-    end
   end
 
 

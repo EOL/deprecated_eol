@@ -660,7 +660,7 @@ EOIUCNSQL
   def images(options = {})
 
     # TODO - dump this.  Forces a check to see if the current user is valid:
-    #current_user = User.create_new unless current_user.respond_to? :filter_content_by_hierarchy
+    current_user = User.create_new unless current_user.respond_to? :filter_content_by_hierarchy
     
     # set hierarchy to filter images by
     if current_user.filter_content_by_hierarchy && current_user.default_hierarchy_valid?

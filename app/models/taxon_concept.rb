@@ -660,7 +660,7 @@ EOIUCNSQL
   def images(options = {})
 
     # TODO - dump this.  Forces a check to see if the current user is valid:
-    current_user = User.create_new unless current_user.respond_to? :filter_content_by_hierarchy
+    #current_user = User.create_new unless current_user.respond_to? :filter_content_by_hierarchy
     
     # set hierarchy to filter images by
     if current_user.filter_content_by_hierarchy && current_user.default_hierarchy_valid?
@@ -672,6 +672,21 @@ EOIUCNSQL
     
     @images ||= DataObject.for_taxon(self, :image, :user => current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy)
     @length_of_images = @images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
+
+    @images = @images.sort do |a,b|
+      if a.vetted_id == b.vetted_id
+        # TODO - this should probably also sort on visibility.
+        if a.data_rating == b.data_rating
+          rand(100) <=> rand(100) # Images with the same rating are randomly sorted.
+        else
+          b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
+        end
+      else
+        @@vetted_weight ||= {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3}
+        @@vetted_weight[a.vetted_id] <=> @@vetted_weight[b.vetted_id]
+      end
+    end
+
     return @images
   end
 

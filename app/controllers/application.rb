@@ -297,8 +297,9 @@ class ApplicationController < ActionController::Base
                                         set_temporary_logged_in_user(cached_user)
     else
       session[:user] ||= create_new_user # if there wasn't one
-      session[:user] = create_new_user unless session[:user].respond_to(:stale?)
+      session[:user] = create_new_user unless session[:user].respond_to?(:stale?)
       session[:user] = create_new_user if session[:user].stale?
+      return session[:user]
     end
   end
 

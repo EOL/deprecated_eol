@@ -1,5 +1,8 @@
 require "digest"
 
+# NOTE - there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
+# to the user model.  We *could* achieve a similar result with method_missing, but I worry that it would cause other
+# problems.
 class User < ActiveRecord::Base
 
   belongs_to :language
@@ -401,6 +404,14 @@ class User < ActiveRecord::Base
   
   def taxa_page_cache_str
     return "#{language_abbr}_#{expertise}_#{vetted}_#{default_taxonomic_browser}_#{default_hierarchy_id}"
+  end
+
+  # This is a method that checks if the user model pulled from a session is actually up-to-date:
+  #
+  # YOU SHOULD ADD NEW USER ATTRIBUTES TO THIS METHOD WHEN YOU TWEAK THE USER TABLE.
+  def stale?
+    # if you add to this, use 'and'; KEEP ALL OLD METHOD CHECKS.
+    return true unless self.respond_to?(:filter_content_by_hierarchy)
   end
 
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

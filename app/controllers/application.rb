@@ -296,9 +296,9 @@ class ApplicationController < ActionController::Base
       return temporary_logged_in_user ? temporary_logged_in_user :
                                         set_temporary_logged_in_user(cached_user)
     else
+      session[:user] ||= create_new_user
       # This checks that changes made to the user weren't persisted in people's cookies:
       session[:user] = create_new_user if session[:user].stale? rescue create_new_user
-      session[:user] ||= create_new_user
     end
   end
 

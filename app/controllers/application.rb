@@ -112,15 +112,15 @@ class ApplicationController < ActionController::Base
   
   # send user to the SSL version of the page (used in the account controller, can be used elsewhere)
   def redirect_to_ssl
-    if valid_return_to_url 
-      redirect_to(:protocol => "http://", :return_to => CGI.unescape(return_to_url)) unless (request.ssl? or local_request?)
-    else
-      redirect_to(:protocol => "https://") unless (request.ssl? or local_request?)
+    url_to_return = params[:return_to] ? CGI.unescape(params[:return_to]).strip : nil
+    unless request.ssl? || local_request?
+      if url_to_return && url_to_return[0...1] == '/'  #return to local url
+        redirect_to :protocol => "https://", :return_to => url_to_return 
+      else
+        redirect_to :protocol => "https://"  
+      end
     end
-    store_location(nil)
-    return false
   end
-
 
   def collected_errors(model_object)
     error_list=''

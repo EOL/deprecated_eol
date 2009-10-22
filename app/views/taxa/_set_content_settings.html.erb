@@ -30,13 +30,14 @@
       <label for="user_language_abbr" title="<%= "Which language do you prefer?"[:language_preference] %>"><%= "Which language do you prefer?"[:language_preference] %></label>		            
 			<%= f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]} %><br/>						
 			
-      <br/>
+      <!-- <br/>
       <label title="<%= "Do you want to include?"[:detail_level] %>"><%= "Do you want to include?"[:detail_level] %></label>		            
 			<%= f.radio_button :expertise, "novice"%> <%="Information intended for beginners"[]%> <br />
 			<%= f.radio_button :expertise, "middle"%> <%="Information for any audience"[]%> <br />
 			<%= f.radio_button :expertise, "expert"%> <%="Information intended for experts"[]%> <br />					
-			<br />
+      -->
 			
+			<br />
 			<% if $ALLOW_USER_TO_CHANGE_CONTENT_LEVEL%>
 				<label for="user_content_level" title="<%= "Do you want to see?"[:content_level] %>"><%= "Do you want to see?"[:content_level] %></label>		            
 				<% ContentLevel.find.each do |content_level| %>

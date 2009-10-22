@@ -677,7 +677,7 @@ EOIUCNSQL
       if a.vetted_id == b.vetted_id
         # TODO - this should probably also sort on visibility.
         if a.data_rating == b.data_rating
-          rand(100) <=> rand(100) # Images with the same rating are randomly sorted.
+          b.id <=> a.id # essentially, orders images by date.
         else
           b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
         end

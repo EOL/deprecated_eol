@@ -660,7 +660,7 @@ EOIUCNSQL
   def images(options = {})
 
     # TODO - dump this.  Forces a check to see if the current user is valid:
-    unless self.current_user.respond_to? :filter_content_by_hierarchy
+    unless self.current_user.attributes.keys.include?('filter_content_by_hierarchy')
       self.current_user = User.create_new
     end
     

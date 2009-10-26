@@ -411,7 +411,7 @@ class User < ActiveRecord::Base
   # YOU SHOULD ADD NEW USER ATTRIBUTES TO THIS METHOD WHEN YOU TWEAK THE USER TABLE.
   def stale?
     # if you add to this, use 'and'; KEEP ALL OLD METHOD CHECKS.
-    return true unless self.respond_to?(:filter_content_by_hierarchy)
+    return true unless self.attributes.keys.include?('filter_content_by_hierarchy')
   end
 
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

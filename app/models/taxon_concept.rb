@@ -660,17 +660,17 @@ EOIUCNSQL
   def images(options = {})
 
     # TODO - dump this.  Forces a check to see if the current user is valid:
-    current_user = User.create_new unless current_user.respond_to? :filter_content_by_hierarchy
+    self.current_user = User.create_new unless self.current_user.respond_to? :filter_content_by_hierarchy
     
     # set hierarchy to filter images by
-    if current_user.filter_content_by_hierarchy && current_user.default_hierarchy_valid?
-      filter_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
+    if self.current_user.filter_content_by_hierarchy && self.current_user.default_hierarchy_valid?
+      filter_hierarchy = Hierarchy.find(self.current_user.default_hierarchy_id)
     else
       filter_hierarchy = nil
     end
     perform_filter =  !filter_hierarchy.nil?
     
-    @images ||= DataObject.for_taxon(self, :image, :user => current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy)
+    @images ||= DataObject.for_taxon(self, :image, :user => self.current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy)
     @length_of_images = @images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
 
     @images = @images.sort do |a,b|

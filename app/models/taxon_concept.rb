@@ -663,6 +663,8 @@ EOIUCNSQL
     unless self.current_user.attributes.keys.include?('filter_content_by_hierarchy')
       self.current_user = User.create_new
     end
+
+    pp self.current_user
     
     # set hierarchy to filter images by
     if self.current_user.filter_content_by_hierarchy && self.current_user.default_hierarchy_valid?

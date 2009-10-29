@@ -718,19 +718,18 @@ class DataObject < SpeciesSchemaModel
   def self.cached_images_for_taxon(taxon, options = {})
     options[:user] = User.create_new if options[:user].nil?
     add_cp = join_agents = join_hierarchy = ''
-    
+
     if options[:from].nil?
       options[:from] ||= 'top_images'
     else
       nested = true
     end
-    
+
     if !options[:filter_by_hierarchy].nil? && !options[:hierarchy].nil?
       join_hierarchy = "JOIN hierarchy_entries he_filter ON (ti.hierarchy_entry_id=he_filter.id AND he_filter.hierarchy_id=#{options[:hierarchy].id})"
       options[:from] = 'top_species_images' if options[:from].nil?
     end
-      
-      
+
     # Unpublished images require a few extra bits to the query:
     if nested and not options[:agent].nil?
       add_cp      = ', ar.agent_id agent_id'

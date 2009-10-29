@@ -9,13 +9,7 @@
 # ---
 # dependencies: [ :foundation ]
 # arbitrary_variable: arbitrary value
-
-require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'
-# This gives us the ability to recalculate some DB values:
-include EOL::Data
-# This gives us the ability to build taxon concepts:
-include EOL::Spec::Helpers
 
 # A singleton that creates some users:
 def bootstrap_users
@@ -157,14 +151,17 @@ tc30 = build_taxon_concept(:id => 30,
                     :event    => event)
                     
 tc30.add_common_name(Factory.next(:common_name))
-curator = build_curator(tc30, :username => 'test_curator', :password => 'password', :given_name => 'test', :family_name => 'curator') 
 
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
 tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)], :id => 31, 
                     :depth => depth_now, :flash => [{}, {:vetted => Vetted.unknown}], :youtube => [{:vetted => Vetted.unknown}, {:vetted => Vetted.untrusted}], :comments => [],
                     :bhl => [], :event => event)
                     
-curator_for_tc31 = build_curator(tc31, :username => 'curator_for_tc', :password => 'password') 
+#(:username => 'curator_for_tc', :password => 'password')
+curator_for_tc31 = create_curator(tc31) 
+# curator = build_curator(HierarchyEntry.gen, :username => 'test_curator', :password => 'test_password')
+# curator_for_tc = build_curator(HierarchyEntry.find(fifth_entry_id, :username => 'curator_for_tc', :password => 'password')
+# RAILS_DEFAULT_LOGGER.debug "URA, curator_for_tc = "+curator_for_tc.inspect.to_s                                                          
 
 text_dato = tc31.overview.first # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
 image_dato = tc31.images.first
@@ -227,6 +224,10 @@ admin.save
 test_user2 = User.gen(:username => 'test_user2', :password => 'password', :given_name => 'test', :family_name => 'user2')
 test_user2.save
 
+#curator for selenium tests (NB: page #30)
+curator = User.gen(:username => 'test_curator', :password => 'password', 'given_name' => 'test', :family_name => 'curator', :curator_hierarchy_entry_id => 20, :curator_approved => true)
+curator.save
+
 #moderator for selenium test
 moderator = User.gen :username => 'moderator', :password => 'moderator', :given_name => 'Moderator', :family_name => 'User'
 moderator.roles = Role.find(:all, :conditions => 'title LIKE "Moderator"')
@@ -241,8 +242,12 @@ exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-code
 
 ContentPage.gen(:page_name => "curator_central", :title => "Curator central", :left_content => "")
 
+
+
 col_collection = Collection.gen(:agent => Agent.catalogue_of_life, :title => "Catalogue of Life Collection", :uri => "http://www.catalogueoflife.org/browse_taxa.php?selected_taxon=FOREIGNKEY", :logo_cache_url => 4130)
 col_mapping    = Mapping.gen(:collection => col_collection, :name => kingdom.entry.name_object)
+
+
 
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants
 
@@ -350,7 +355,8 @@ bacteria.add_common_name("le grimme", :language => french, :preferred => false)
 bacteria.add_common_name("ler petit bugge", :language => french, :preferred => false)
 
 # Another Selenium curator
-curator2 = build_curator(bacteria, :username => 'curator_two', :password => 'iliketocurate') 
+curator2 = User.gen(:username => 'curator_two', :password => 'iliketocurate')
+curator2.approve_to_curate! bacteria.entry
 
 4.times do
   parent_id = ncbi_hierarchy.hierarchy_entries.last.id
@@ -367,6 +373,12 @@ curator2 = build_curator(bacteria, :username => 'curator_two', :password => 'ili
                       :depth => depth)
 end
 
+
+
+
+
+
+
 TaxonConcept.all.each do |tc|
   if tc.hierarchy_entries.empty?
     TaxonConcept.delete(tc.id)
@@ -381,7 +393,6 @@ RandomHierarchyImage.all.each do |rhi|
   d.destroy
   rhi.destroy
 end
-
 HierarchyEntry.all.each do |he|
   RandomHierarchyImage.gen(:hierarchy => he.hierarchy, :taxon_concept => he.taxon_concept, :hierarchy_entry => he, :data_object => he.taxon_concept.images[0]) if !he.taxon_concept.images[0].nil?
 end

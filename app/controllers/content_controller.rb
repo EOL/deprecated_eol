@@ -14,7 +14,7 @@ class ContentController < ApplicationController
 
     @home_page=true
 
-    unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.language_abbr)
+    unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.content_page_cache_str)
       @content=ContentPage.get_by_page_name_and_language_abbr('Home',current_user.language_abbr)
       raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy)
@@ -344,7 +344,7 @@ class ContentController < ApplicationController
 
     raise "static page without id" if @page_id.blank?
     
-    unless read_fragment(:controller=>'content',:part=>@page_id + "_" + current_user.language_abbr)
+    unless read_fragment(:controller=>'content',:part=>@page_id + "_" + current_user.content_page_cache_str)
         # if the id is not numeric, assume it's a page name
         if @page_id.to_i == 0 
           page_name=@page_id.gsub(' ','_').gsub('_',' ')

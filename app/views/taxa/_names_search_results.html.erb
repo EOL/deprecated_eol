@@ -97,6 +97,6 @@
                  <%- end %>
 
                  <%- if @search.searching %>
-                   <%= paginate_results(@search) %>
+                   <%= paginate_results(@search) if @search.total_pages > 1 %>
                  <%- end %>
       

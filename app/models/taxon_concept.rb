@@ -30,13 +30,16 @@ class TaxonConcept < SpeciesSchemaModel
 
   has_one :taxon_concept_content
 
+  #searchable :auto_index => false, :auto_remove => false do
+  #end
+
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
   attr_reader :has_media, :length_of_images
 
   def show_curator_controls?(user = nil)
     return @show_curator_controls if !@show_curator_controls.nil?
-    user = @current_user if user.nil?
+    user = @current_user if user.nil? # This needs to check the actual instance variable, please keep it here.
     if user.nil?
       raise "a user must be specified"
     end
@@ -165,16 +168,18 @@ class TaxonConcept < SpeciesSchemaModel
   def table_of_contents(options = {})
     if @table_of_contents.nil?
       tb = TocBuilder.new
-      @table_of_contents = tb.toc_for(self, :agent => @current_agent, :user => current_user, :agent_logged_in => options[:agent_logged_in])
+      @table_of_contents = tb.toc_for(self, :agent => @current_agent, :user => self.current_user, :agent_logged_in => options[:agent_logged_in])
     end
     @table_of_contents
   end
   alias :toc :table_of_contents
 
-  # If you just call "comments", you are actually getting comments that should really be invisible.  This method gets around this,
-  # and didn't see appropriate to do with a named_scpope:
-  def visible_comments(user = @current_user)
-    return comments if user and user.is_moderator?
+  # If you just call "comments", you are actually getting comments that should really be invisible.  This method gets
+  # around this, and didn't see appropriate to do with a named_scope.
+  # Note that the argument is simply to match the interface of the same method on other classes that can be parents
+  # of comments.
+  def visible_comments(ignore_user = nil)
+    return comments if self.current_user.is_moderator?
     comments.find_all {|comment| comment.visible? }
   end
 
@@ -233,8 +238,12 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
   def current_user=(who)
-    @images = nil
+    expire_cached_images
     @current_user = who
+  end
+
+  def expire_cached_images
+    @images = nil
   end
 
   def canonical_form_object
@@ -292,7 +301,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def videos
-    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => current_user)
+    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => self.current_user)
     @length_of_videos = videos.length # cached, so we don't have to query this again.
     return videos
   end 
@@ -405,7 +414,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def quick_common_name(language = nil, hierarchy = nil)
-    language ||= current_user.language
+    language ||= self.current_user.language
     hierarchy ||= Hierarchy.default
     common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1").all_hashes
     
@@ -649,7 +658,7 @@ EOIUCNSQL
     # handled by TaxonConcept#get_default_content
 
     ccb = CategoryContentBuilder.new
-    options[:vetted] = current_user.vetted
+    options[:vetted] = self.current_user.vetted
     options[:taxon_concept_id] = id
     content = ccb.content_for(toc_item, options)
     content = get_default_content(toc_item) if content.nil?
@@ -658,17 +667,40 @@ EOIUCNSQL
 
   # This used to be singleton, but now we're changing the views (based on permissions) a lot, so I removed it.
   def images(options = {})
-    
+
+    # TODO - dump this.  Forces a check to see if the current user is valid:
+    unless self.current_user.attributes.keys.include?('filter_content_by_hierarchy')
+      self.current_user = User.create_new
+    end
+
     # set hierarchy to filter images by
-    if current_user.filter_content_by_hierarchy && current_user.default_hierarchy_valid?
-      filter_hierarchy = Hierarchy.find(current_user.default_hierarchy_id)
+    if self.current_user.filter_content_by_hierarchy && self.current_user.default_hierarchy_valid?
+      filter_hierarchy = Hierarchy.find(self.current_user.default_hierarchy_id)
     else
       filter_hierarchy = nil
     end
     perform_filter =  !filter_hierarchy.nil?
     
-    @images ||= DataObject.for_taxon(self, :image, :user => current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy)
+    @images ||= DataObject.for_taxon(self, :image, :user => self.current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy)
     @length_of_images = @images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
+
+    @images = @images.sort do |a,b|
+      if a.vetted_id == b.vetted_id
+        # TODO - this should probably also sort on visibility.
+        if a.data_rating == b.data_rating
+          b.id <=> a.id # Note this is reversed; ends up being roughly by date.
+        else
+          b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
+        end
+      else
+        # Account for the rare (read: nigh impossible) cases that Vetted is something else or missing:
+        return 0 if a.vetted.nil? and b.vetted.nil?
+        return 1 if a.vetted.nil?
+        return -1 if b.vetted.nil?
+        a.vetted.sort_weight <=> b.vetted.sort_weight
+      end
+    end
+
     return @images
   end
 
@@ -721,14 +753,12 @@ EOIUCNSQL
                                   then o.id 
                                   else o.to_i end }
     return [] if ids.nil? or ids.empty? # Fix for EOLINFRASTRUCTURE-808
-    sql = "SELECT taxon_concepts.* FROM taxon_concepts
-    JOIN taxon_concept_names ON taxon_concept_names.taxon_concept_id = taxon_concepts.id
-    JOIN taxa                ON taxa.name_id                         = taxon_concept_names.name_id 
-    JOIN data_objects_taxa   ON data_objects_taxa.taxon_id           = taxa.id
-    JOIN data_objects        ON data_objects.id                      = data_objects_taxa.data_object_id
-    WHERE data_objects.id IN (#{ ids.join(', ') }) 
-      AND taxon_concepts.supercedure_id = 0
-      AND taxon_concepts.published      = 1"
+    sql = "select taxon_concepts.* from taxon_concepts
+    join taxon_concept_names on taxon_concept_names.taxon_concept_id = taxon_concepts.id
+    join taxa                on taxa.name_id                         = taxon_concept_names.name_id 
+    join data_objects_taxa   on data_objects_taxa.taxon_id           = taxa.id
+    join data_objects        on data_objects.id                      = data_objects_taxa.data_object_id
+    where data_objects.id IN (#{ ids.join(', ') })"
     TaxonConcept.find_by_sql(sql).uniq
   end
 
@@ -836,7 +866,7 @@ private
     result = {
       :content_type  => 'text',
       :category_name => TocItem.find(category_id).label,
-      :data_objects  => DataObject.for_taxon(self, :text, :toc_id => category_id, :agent => @current_agent, :user => current_user)
+      :data_objects  => DataObject.for_taxon(self, :text, :toc_id => category_id, :agent => @current_agent, :user => self.current_user)
     }
     # TODO = this should not be hard-coded! IDEA = use partials.  Then we have variables and they can be dynamically changed.
     # NOTE: I tried to dynamically alter data_objects directly, below, but they didn't

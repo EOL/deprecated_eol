@@ -873,7 +873,19 @@ Factory.define :top_image do |ti|
   ti.view_order  1                 # Perhaps this should be in a sequence, but I don't want to figure out how to persist the same HE
 end
 
+Factory.define :top_species_image do |ti|
+  ti.association :hierarchy_entry
+  ti.association :data_object
+  ti.view_order  1                 # Again, this should be sequential, but...
+end
+
 Factory.define :top_unpublished_image do |tui|
+  tui.association :hierarchy_entry
+  tui.association :data_object
+  tui.view_order  1 # Again, this should be sequential, but...
+end
+
+Factory.define :top_unpublished_species_image do |tui|
   tui.association :hierarchy_entry
   tui.association :data_object
   tui.view_order  1 # Again, this should be sequential, but...
@@ -911,6 +923,7 @@ Factory.define :user do |u|
   u.curator_verdict_by_id     0
   u.curator_verdict_at        nil
   u.curator_scope             ''
+  u.filter_content_by_hierarchy false
 end
 
 Factory.define :users_data_object do |u|

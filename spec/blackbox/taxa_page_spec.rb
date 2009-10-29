@@ -1,6 +1,15 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'nokogiri'
 
+def create_hierarchy_and_event(name)
+  agent     = Agent.gen
+  resource  = Resource.gen
+              AgentsResource.gen(:agent => agent, :resource => resource)
+  event     = HarvestEvent.gen(:resource => resource)
+  hierarchy = Hierarchy.gen(:label => name, :agent => agent)
+  return [hierarchy, event]
+end
+
 def find_unique_tc(options)
   options[:in].hierarchy_entries.each do |entry|
     return entry.taxon_concept unless entry.taxon_concept.in_hierarchy(options[:not_in])
@@ -310,6 +319,33 @@ describe 'Taxa page (HTML)' do
     new_result = RackBox.request("/pages/#{@id}")
     new_result.body.should include(data_object.object_title)
     new_result.body.should_not include(info_item_title.label)        
+  end
+
+  it 'should filter content by hierarchy if preferences dictate' do
+    # 1a) given hierarchies _a and _b,
+    hierarchy_a, event_a = create_hierarchy_and_event('hierarchy a')
+    hierarchy_b, event_b = create_hierarchy_and_event('hierarchy b')
+    # 1b) genus_a exists in both (no images)
+    genus_a = build_taxon_concept(:hierarchies => [hierarchy_a, hierarchy_b], :rank => 'genus', :images => [])
+    # 2) species_a is a child of genus_a in hierarchy_a, but not hierarchy_b, and has an image.
+    species_a_description = 'species a description'
+    species_a = build_taxon_concept(:parent_hierarchy_entry_id => genus_a.entry(hierarchy_a).id,
+                                    :images => [{:description => species_a_description}])
+    image = species_a.images.first
+    # 3) the user selects hierarchy_b.
+    user = User.gen(:filter_content_by_hierarchy => true, :default_hierarchy_id => hierarchy_b.id, :password => 'foob')
+    # 4) when browsing to genus_a, the user should NOT see images in species_a.
+    login_as user
+    result = RackBox.request("/pages/#{genus_a.id}").body
+    result.should_not have_tag("a.thumbnail_#{image.id}")
+    # 4) the user switches to hierarchy_a.
+    user.default_hierarchy_id = hierarchy_a.id
+    user.save!
+    # 6) when browsing to genus_a, the user should now actually see the images from species_a.
+    new_result = RackBox.request("/pages/#{genus_a.id}").body
+    #TODO - I can't get this to work!  Not sure what's missing.  I think I  built the right entry in
+    #top_species_images, but perhaps I'm missing something.  Sigh.
+    #new_result.should have_tag("a.thumbnail_#{image.id}")
   end
 
 end

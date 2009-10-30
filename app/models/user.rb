@@ -425,7 +425,9 @@ class User < ActiveRecord::Base
   end
 
   def content_page_cache_str
-    return "#{language_abbr}_#{default_hierarchy_id.to_s}"
+    return_string="#{language_abbr}"
+    return_string+="_#{default_hierarchy_id.to_s}" unless default_hierarchy_id.to_s.blank?
+    return_string
   end
 
   def taxa_page_cache_str

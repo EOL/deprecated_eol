@@ -45,7 +45,7 @@
               <tr><td class="odd"><a href="http://www.livejournal.com"><img class="favicon" src="http://www.livejournal.com/favicon.ico" alt="" /></a> LiveJournal </td><td class="odd"> <strong>username</strong>.livejournal.com</td></tr>
               <tr><td class="even"><a class="favicon" href="http://www.smugmug.com"><img class="favicon" src="http://openid.net/wp-content/uploads/smugmug.png" alt="" /></a> SmugMug </td><td class="even"> <strong>username</strong>.smugmug.com</td></tr>
               <tr><td class="odd"><a href="http://www.technorati.com"><img class="favicon" src="http://www.technorati.com/favicon.ico" alt="" /></a> Technorati </td><td class="odd"> technorati.com/people/technorati/<strong>username</strong></td></tr>
-              <tr><td class="even"><img src="http://openid.net/wp-content/uploads/vox.png" alt="" /></a> Vox </td><td class="even"> <strong>member</strong>.vox.com</td></tr>
+              <tr><td class="even"><a href="http://www.vox.com"><img src="http://openid.net/wp-content/uploads/vox.png" alt="" /></a> Vox </td><td class="even"> <strong>member</strong>.vox.com</td></tr>
               <tr><td class="odd"><a href="http://www.wordpress.com"><img class="favicon" src="http://openid.net/wp-content/uploads/wordpress.png" alt="" /></a> WordPress.com </td><td class="odd"> <strong>username</strong>.wordpress.com</td></tr>
         	  </table>
         	  <br />
@@ -58,6 +58,9 @@
   					<%= link_to 'What is OpenID?', 'http://openid.net/',:target=>'_blank' %> | <a href="#" onclick="Element.toggle('open_id_instructions');return false;">How do I log in with OpenID?</a> 
           </div>
           <br />
+          <label for="remember_me"><%= "Remember Me"[]%></label>
+          <%= check_box_tag 'remember_me'%> <%="check to stay logged in automatically for up to two weeks (do NOT use on public computers)"[:remember_me_message]%>
+            	<br /><br />
             	<table border="0" width="500" cellpadding="20">
             		<tr>
             			<td valign="top"><%= submit_tag 'Login Now'[:login_now] + ' &#187;' %></td>

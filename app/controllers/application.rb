@@ -31,10 +31,11 @@ class ApplicationController < ActionController::Base
 
   prepend_before_filter :set_session
   before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
+  before_filter :set_user_settings
 
   helper :all
 
-  helper_method :logged_in?, :current_user, :return_to_url, :current_agent, :agent_logged_in?, :allow_page_to_be_cached?
+  helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?, :allow_page_to_be_cached?
   around_filter :set_current_language
 
   def view_helper_methods
@@ -88,9 +89,29 @@ class ApplicationController < ActionController::Base
   def return_to_url
     session[:return_to] || root_url
   end
+  
+  # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
+  def set_user_settings
+    expertise = params[:expertise] if ['novice','middle','expert'].include?(params[:expertise])
+    alter_current_user do |user|
+      user.expertise=expertise unless expertise.nil?
+    end
+    vetted = params[:vetted]
+    alter_current_user do |user|
+      user.vetted=EOLConvert.to_boolean(vetted) unless vetted.blank?
+    end
+  end
 
   def referred_url
     request.referer
+  end
+
+  def current_url(remove_querystring=true)
+    if remove_querystring
+      current_url=URI.parse(request.url).path
+    else
+      request.url
+    end
   end
 
   # Redirect to the URL stored by the most recent store_location call or to the passed default.
@@ -335,7 +356,22 @@ class ApplicationController < ActionController::Base
 
   # check to see if we have a logged in user
   def logged_in?
-    return(not session[:user_id].nil?)
+    return(logged_in_from_session? || logged_in_from_cookie?)
+  end
+  
+  def logged_in_from_session?
+    not session[:user_id].nil?
+  end
+  
+  def logged_in_from_cookie?
+    user = cookies[:user_auth_token] && User.find_by_remember_token(cookies[:user_auth_token])
+    if user && user.remember_token?
+      cookies[:user_auth_token] = { :value => user.remember_token, :expires => user.remember_token_expires_at }
+      set_logged_in_user(user)
+      return true
+    else
+      return false
+    end    
   end
 
  def check_authentication
@@ -358,7 +394,7 @@ class ApplicationController < ActionController::Base
   alias is_curator is_curator?
 
  def permission_denied
-   flash[:notice] = "You don't have privileges to access this action"
+   flash[:warning] = "You are not authorized to perform this action."[]
    return redirect_to(root_url)
  end
 
@@ -384,7 +420,7 @@ class ApplicationController < ActionController::Base
 
   # A user is not authorized for the particular controller based on the rights for the roles they are in
   def access_denied
-    flash.now[:warning]='You are not authorized to perform this action.'
+    flash.now[:warning]="You are not authorized to perform this action."[]
     request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to root_url)
   end
 
@@ -469,7 +505,8 @@ private
   # NOTE: if you want to change a user's settings, you need to use alter_current_user
   def set_logged_in_user(user)
     set_temporary_logged_in_user(user)
-    session[:user]    = nil # This was the "new user", before.
+    #TODO: Remove old session flushing code
+    session[:user]    = nil # This was the "new user", before we updated the code -- this is here to ensure we flush all old sessions and can probably safely be removed now.
     session[:user_id] = user.id
     set_unlogged_in_user(nil)
     Rails.cache.delete("users/#{session[:user_id]}")

@@ -557,6 +557,11 @@ private
           else
             expire_fragment(:controller => '/content', :part => "#{page}_#{language.iso_639_1}")
           end
+          if page.class == ContentPage && page.page_url == 'home'
+            Hierarchy.all.each do |h|
+              expire_fragment(:controller => '/content', :part=>"home_#{language.iso_639_1}_#{h.id.to_s}") # this is because the home page fragment is dependent on the user's selected hierarchy entry ID, unlike the other content pages
+            end
+          end
         end
       end
     end

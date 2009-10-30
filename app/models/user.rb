@@ -338,6 +338,11 @@ class User < ActiveRecord::Base
     return (has_curator_role? && !self.curator_hierarchy_entry.blank?)
   end
   
+  def selected_default_hierarchy
+    hierarchy=Hierarchy.find_by_id(self.default_hierarchy_id)
+    hierarchy.blank? ? '' : hierarchy.label
+  end
+  
   def last_curator_activity
     lcd = LastCuratedDate.find_by_user_id(self.id, :order => 'last_curated DESC', :limit => 1)
     return nil if lcd.nil?
@@ -398,10 +403,31 @@ class User < ActiveRecord::Base
     return(self[:default_hierarchy_id] and Hierarchy.exists?(self[:default_hierarchy_id]))
   end
 
+  # These create and unset the fields required for remembering users between browser closes
+  def remember_me
+    remember_me_for 2.weeks
+  end
+
+  def remember_me_for(time)
+    remember_me_until time.from_now.utc
+  end
+
+  def remember_me_until(time)
+    self.remember_token_expires_at = time
+    self.remember_token            = User.hash_password("#{email}--#{remember_token_expires_at}")
+    save(false)
+  end
+
+  def forget_me
+    self.remember_token_expires_at = nil
+    self.remember_token            = nil
+    save(false)
+  end
+
   def content_page_cache_str
     return "#{language_abbr}_#{default_hierarchy_id.to_s}"
   end
-  
+
   def taxa_page_cache_str
     return "#{language_abbr}_#{expertise}_#{vetted}_#{default_taxonomic_browser}_#{default_hierarchy_id}"
   end

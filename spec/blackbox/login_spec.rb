@@ -32,7 +32,7 @@ describe 'Login' do
 
   it 'should tell us if we logged in incorrectly' do
     # first, we fail a login attempt
-    login_as( :username => 'snoopy', :password => 'secret' ).should be_redirect
+    login_as( :username => 'snoopy', :password => 'secret',:remember_me=>'1' ).should be_redirect
 
     # ^ it'll redirect us back to login ... when we get there, we should have a flash message
     request('/login').body.should include('Invalid login')
@@ -41,6 +41,11 @@ describe 'Login' do
   it 'should redirect to index after a successful login' do
     user = create_user 'charliebrown', 'testing'
     login_as(user).should redirect_to('/')
+  end
+  
+  it 'should set a remember token for us if we asked to be remembered' do
+    user = create_user 'charliebrown', 'testing'
+    login_as(:username => 'charliebrown', :password => 'testing',:remember_me=>'1' ).should(User.find_by_username('charliebrown').remember_token.empty? == false && redirect_to('/'))
   end
 
   it 'should say hello to the user after logging in' do

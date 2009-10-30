@@ -329,7 +329,10 @@ class Search
     taxon_concept_ids  = []
     user        = options[:user_id] ? User.find(options[:user_id]) : nil
     vetted_only = user && user.vetted
-    data_objects.each do |data_object|
+
+    data_objects_sort = data_objects.sort_by {|a| a.taxon_concepts[0].scientific_name}
+        
+    data_objects_sort.each do |data_object|
       if !vetted_only || data_object.vetted_id == Vetted.trusted.id
         data_object.taxon_concepts.each do |taxon_concept|
           unless taxon_concept_ids.include?(taxon_concept.id)
@@ -340,7 +343,8 @@ class Search
       end
     end
 
-    results  = page_range(results)
+    # that commented out, because allow only 10 tags to show up
+    # results  = page_range(results)
     @maximum = results.length
     @search_results = {:common => [], :scientific => [], :errors => [], :tags => results}    
   end

@@ -18,7 +18,7 @@ class ContentController < ApplicationController
       @content=ContentPage.get_by_page_name_and_language_abbr('Home',current_user.language_abbr)
       raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy)
-      @featured_taxa = TaxonConcept.exemplars
+      @featured_taxa = TaxonConcept.exemplars # comment this out to make featured taxa go away on home page!     
       # get top news items less then a predetermined number of weeks old
       @news_items = NewsItem.find_all_by_active(true,:limit=>$NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY,:order=>'display_date desc',:conditions=>'display_date >= "' + $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS.weeks.ago.to_s(:db) + '"')
     end
@@ -344,7 +344,7 @@ class ContentController < ApplicationController
 
     raise "static page without id" if @page_id.blank?
     
-    unless read_fragment(:controller=>'content',:part=>@page_id + "_" + current_user.content_page_cache_str)
+    unless read_fragment(:controller=>'content',:part=>@page_id + "_" + current_user.language_abbr)
         # if the id is not numeric, assume it's a page name
         if @page_id.to_i == 0 
           page_name=@page_id.gsub(' ','_').gsub('_',' ')

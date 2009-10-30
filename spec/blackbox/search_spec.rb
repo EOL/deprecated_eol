@@ -33,6 +33,22 @@ def assert_results(options)
   end
 end
 
+def assert_tag_results(options)
+  res = request("/search?search_type=tag&q=value#{options[:page] ? "&page=#{options[:page]}" : ''}").body
+  res.should have_tag('div[class=serp_pagination]')
+  res.should have_tag('table[class=results_table]') do |table|
+    header_index = 1
+    result_index = header_index + 1
+    table.should have_tag("tr:nth-child(#{header_index})")
+    options[:num_results_on_this_page].times do
+      table.should have_tag("tr:nth-child(#{result_index})")
+      result_index += 1
+    end
+    table.should_not have_tag("tr:nth-child(#{result_index})")
+  end
+end
+
+
 describe 'Search' do
 
   def create_taxon(namestring)
@@ -106,5 +122,42 @@ describe 'Search' do
     res = request('/search?q=value-old&search_type=tag')
     res.body.should include(taxon_concept.name)
   end
+
+#   remove after pagination implementing
+  it 'should show > 10 tags' do
+    user   = User.gen :username => 'username', :password => 'password'
+    all_tc = []
+    amount_of_taxa  = 15
+    
+    amount_of_taxa.times do
+      taxon_concept = build_taxon_concept(:images => [{}])
+      image_dato    = taxon_concept.images.last
+      image_dato.tag("key", "value", user)
+      all_tc << taxon_concept.name
+    end
+        
+    res = request('/search?search_type=tag&q=value')
+    for tc_name in all_tc
+      res.body.should include(tc_name)
+    end
+  end
+  
+# # open after pagination implementing  
+#   it 'should show pagination if there are > 10 tags' do
+#     user   = User.gen :username => 'username', :password => 'password'
+#     all_tc = []
+#     results_per_page = 10
+#     extra_results    = 3
+#     amount_of_taxa   = results_per_page + extra_results
+#     
+#     amount_of_taxa.times do
+#       taxon_concept = build_taxon_concept(:images => [{}])
+#       image_dato    = taxon_concept.images.last
+#       image_dato.tag("key", "value", user)
+#     end
+#         
+#     assert_tag_results(:num_results_on_this_page => results_per_page)
+#     assert_tag_results(:num_results_on_this_page => extra_results, :page => 2)    
+#   end
   
 end

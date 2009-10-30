@@ -27,7 +27,8 @@ module EOL::Spec
     def login_content_partner(options = {})
       f = request('/content_partner/login', :params => { 
           'agent[username]' => options[:username], 
-          'agent[password]' => options[:password] })
+          'agent[password]' => options[:password],
+          'remember_me' => options[:remember_me] || '' })
     end
 
     def login_as(options = {})
@@ -36,7 +37,8 @@ module EOL::Spec
       end
       request('/account/authenticate', :params => { 
           'user[username]' => options[:username], 
-          'user[password]' => options[:password] })
+          'user[password]' => options[:password],
+          'remember_me' => options[:remember_me] || '' })
     end
 
     # returns a connection for each of our databases, eg: 1 for Data, 1 for Logging ...

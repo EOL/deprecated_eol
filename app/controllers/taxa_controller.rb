@@ -2,7 +2,6 @@ class TaxaController < ApplicationController
 
   layout 'main'
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
-  before_filter :set_user_settings, :only=>[:show,:search,:settings]
   before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution]
 
   if $SHOW_SURVEYS
@@ -354,24 +353,10 @@ class TaxaController < ApplicationController
 ###############################################
 private
 
-  # reset the content level if it is in the querystring NOTE the expertise level is set by pre filter
   # TODO: Get rid of the content level, it is depracated and no longer needed
   # set_user_settings()
   def update_user_content_level
     current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
-  end
-
-  # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
-  def set_user_settings
-    expertise = params[:expertise] if ['novice','middle','expert'].include?(params[:expertise])
-    alter_current_user do |user|
-      user.expertise=expertise unless expertise.nil?
-    end
-
-    vetted = params[:vetted]
-    alter_current_user do |user|
-      user.vetted=EOLConvert.to_boolean(vetted) unless vetted.blank?
-    end
   end
 
   def get_new_text_tocitem_id(category_id)

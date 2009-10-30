@@ -27,6 +27,9 @@
                     <label for="password"><%= "Password"[] %></label>
                     <%= form.password_field 'password', :size=>16,:maxlength=>30 %>
 
+                    <label for="remember_me"><%= "Remember Me"[]%></label>
+                    <%= check_box_tag 'remember_me'%> <%="check to stay logged in automatically for up to two weeks (do NOT use on public computers)"[:remember_me_message]%>
+
                     <br /><br />
                     <table border="0" width="500" cellpadding="20">
                         <tr>

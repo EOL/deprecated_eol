@@ -664,8 +664,6 @@ EOIUCNSQL
       self.current_user = User.create_new
     end
 
-    pp self.current_user
-    
     # set hierarchy to filter images by
     if self.current_user.filter_content_by_hierarchy && self.current_user.default_hierarchy_valid?
       filter_hierarchy = Hierarchy.find(self.current_user.default_hierarchy_id)
@@ -686,8 +684,11 @@ EOIUCNSQL
           b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
         end
       else
-        @@vetted_weight ||= {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3}
-        @@vetted_weight[a.vetted_id] <=> @@vetted_weight[b.vetted_id]
+        # Account for the rare (read: nigh impossible) cases that Vetted is something else or missing:
+        return 0 if a.vetted.nil? and b.vetted.nil?
+        return 1 if a.vetted.nil?
+        return -1 if b.vetted.nil?
+        a.vetted.sort_weight <=> b.vetted.sort_weight
       end
     end
 

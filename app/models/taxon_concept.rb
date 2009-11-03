@@ -753,12 +753,14 @@ EOIUCNSQL
                                   then o.id 
                                   else o.to_i end }
     return [] if ids.nil? or ids.empty? # Fix for EOLINFRASTRUCTURE-808
-    sql = "select taxon_concepts.* from taxon_concepts
-    join taxon_concept_names on taxon_concept_names.taxon_concept_id = taxon_concepts.id
-    join taxa                on taxa.name_id                         = taxon_concept_names.name_id 
-    join data_objects_taxa   on data_objects_taxa.taxon_id           = taxa.id
-    join data_objects        on data_objects.id                      = data_objects_taxa.data_object_id
-    where data_objects.id IN (#{ ids.join(', ') })"
+    sql = "SELECT taxon_concepts.* FROM taxon_concepts
+    JOIN taxon_concept_names ON taxon_concept_names.taxon_concept_id = taxon_concepts.id
+    JOIN taxa                ON taxa.name_id                         = taxon_concept_names.name_id 
+    JOIN data_objects_taxa   ON data_objects_taxa.taxon_id           = taxa.id
+    JOIN data_objects        ON data_objects.id                      = data_objects_taxa.data_object_id
+    WHERE data_objects.id IN (#{ ids.join(', ') }) 
+      AND taxon_concepts.supercedure_id = 0
+      AND taxon_concepts.published      = 1"
     TaxonConcept.find_by_sql(sql).uniq
   end
 

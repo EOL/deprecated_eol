@@ -14,11 +14,11 @@ class ContentController < ApplicationController
 
     @home_page=true
 
-    unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.content_page_cache_str)
+    unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.language_abbr)
       @content=ContentPage.get_by_page_name_and_language_abbr('Home',current_user.language_abbr)
       raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy)
-      @featured_taxa = TaxonConcept.exemplars # comment this out to make featured taxa go away on home page!     
+      @featured_taxa = TaxonConcept.exemplars
       # get top news items less then a predetermined number of weeks old
       @news_items = NewsItem.find_all_by_active(true,:limit=>$NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY,:order=>'display_date desc',:conditions=>'display_date >= "' + $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS.weeks.ago.to_s(:db) + '"')
     end

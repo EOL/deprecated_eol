@@ -140,7 +140,7 @@
                                   <td class="<%= column_class %>"><% unless result[0].images.empty? %><a href="<%=url_for(:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id)%>"><img alt="<%=strip_tags(namestring)%>" title="<%=strip_tags(namestring)%>" src="<%= result[1].smart_medium_thumb %>"/></a><%end%></td></tr>
                               <% end %>
                        </table>
-                       <%#= paginate_results(@search) if @search.total_pages > 1 %>
+                       <%= paginate_results(@search) if @search.total_pages > 1 %>
                      </div>
                    <% elsif @search.search_type == 'tag' && @search.tag_results.length == 0 %>
                      <h3>No tagged results were found</h3><br />

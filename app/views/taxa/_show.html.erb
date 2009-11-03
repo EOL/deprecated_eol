@@ -39,7 +39,7 @@
                 <% end %>
             </span>
             <span class="page-status">
-              Showing: <%= current_user.expertise.to_s == 'expert' ? link_to('scientific names', taxon_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'}) %>
+              <%= current_user.expertise.to_s == 'expert' ? link_to('Switch to common names', taxon_url(:id=>@taxon_concept.id) + '?expertise=middle') : link_to('Switch to scientific names', taxon_url(:id=>@taxon_concept.id) + '?expertise=expert') %>
             </span>
             <hr />             
         </div>
@@ -59,8 +59,7 @@
             <input id="current_taxon_concept_id" type="hidden" name="current_taxon_concept_id" value="<%= @taxon_concept.id %>" />
             <input id="current_content" type="hidden" name="current_content" value="<%= @category_id %>" />
             <input id="canonical_form" type="hidden" name="canonical_form" value="<%= strip_tags(@taxon_concept.canonical_form) %>" />
-            &nbsp;&nbsp;<a class="smalltext" href="#" onclick="JavaScript:eol_show_pop_up('slider-help','slider-help');return false;"><%="What happened to the slider?"[]%></a>
-            <div style="display:none;" id="slider-help" class="popup"></div>
+
             <h4 id="toc-header" class="margin-header left-margin-header"><%= "Table of Contents"[] %></h4>
             <ul id="toc">
                 <% 
@@ -77,7 +76,7 @@
                   </li>
 
                   <li class="multi_new_text_error" style="display:none;">
-                    <%="Only one text object can be edited at a time."[]%>
+                    Only one text object can be edited at a time.
                   </li>
             </ul>
             <hr />

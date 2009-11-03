@@ -34,6 +34,7 @@ describe TaxonConcept do
     @image_2         = Factory.next(:image)
     @image_3         = Factory.next(:image)
     @image_unknown_trust = Factory.next(:image)
+    @image_untrusted = Factory.next(:image)
     @video_1_text    = 'First Test Video'
     @video_2_text    = 'Second Test Video'
     @video_3_text    = 'YouTube Test Video'
@@ -50,9 +51,10 @@ describe TaxonConcept do
       :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
       :youtube         => [{:description => @video_3_text}],
       :comments        => [{:body => @comment_1}, {:body => @comment_bad}, {:body => @comment_2}],
-      :images          => [{:object_cache_url => @image_1},
-                           {:object_cache_url => @image_2},
-                           {:object_cache_url => @image_3},
+      :images          => [{:object_cache_url => @image_1, :data_rating => 2},
+                           {:object_cache_url => @image_2, :data_rating => 3},
+                           {:object_cache_url => @image_untrusted, :vetted => Vetted.untrusted},
+                           {:object_cache_url => @image_3, :data_rating => 4},
                            {:object_cache_url => @image_unknown_trust, :vetted => Vetted.unknown}],
       :toc             => [{:toc_item => @overview, :description => @overview_text}, 
                            {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}]
@@ -67,6 +69,7 @@ describe TaxonConcept do
     LastCuratedDate.gen(:user => @curator, :taxon_concept => @taxon_concept)
     # And we want one comment that the world cannot see:
     Comment.find_by_body(@comment_bad).hide! User.last
+    @user = User.gen
     recreate_normalized_names_and_links
   end
   after :all do
@@ -255,7 +258,7 @@ describe TaxonConcept do
   it 'should show only trusted images if the user prefers' do
     old_user = @taxon_concept.current_user
     @taxon_concept.current_user = User.gen(:vetted => true)
-    @taxon_concept.images.map(&:object_cache_url).should == [@image_1, @image_2, @image_3]
+    @taxon_concept.images.map(&:object_cache_url).should only_include(@image_1, @image_2, @image_3)
     @taxon_concept.current_user = old_user  # Cleaning up so as not to affect other tests
   end
 
@@ -312,6 +315,17 @@ describe TaxonConcept do
       {:toc_item => TocItem.common_names}
     ])  
     TaxonConcept.common_names_for?(tc.id).should == false
+  end
+
+  it 'should return images sorted by trusted, unknown, untrusted' do
+    @taxon_concept.current_user = @user
+    @taxon_concept.images.map {|i| i.vetted }.should ==
+      [Vetted.trusted, Vetted.trusted, Vetted.trusted, Vetted.unknown, Vetted.untrusted]
+  end
+
+  it 'should sort the vetted images by data rating' do
+    @taxon_concept.current_user = @user
+    @taxon_concept.images[0..2].map(&:object_cache_url).should == [@image_3, @image_2, @image_1]
   end
 
   #

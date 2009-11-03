@@ -49,5 +49,5 @@
 			<% end %>
 			
 		    <label title="<%= "Do you want to see?"[:content_level] %>"><%= "Do you want to see?"[:content_level] %></label>		            
-			<%= f.radio_button :vetted, "true"%> <%="Only authoritative information"[:view_only_vetted_content]%> <br />
+			<%= f.radio_button :vetted, "true"%> <%="Only information that comes from authoritative sources"[:view_only_vetted_content]%> <br />
 			<%= f.radio_button :vetted, "false"%> <%="All information"[]%> 		

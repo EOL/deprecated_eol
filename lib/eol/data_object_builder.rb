@@ -102,13 +102,11 @@ class EOL
     def build_top_image
       if @dato.published
         @taxon.hierarchy_entry.ancestors.each do |he|
-          TopSpeciesImage.gen :data_object => @dato, :hierarchy_entry => he
-          TopImage.gen        :data_object => @dato, :hierarchy_entry => he
+          TopImage.gen :data_object => @dato, :hierarchy_entry => he
         end
       else
         @taxon.hierarchy_entry.ancestors.each do |he|
-          TopUnpublishedSpeciesImage.gen :data_object => @dato, :hierarchy_entry => he
-          TopUnpublishedImage.gen        :data_object => @dato, :hierarchy_entry => he
+          TopUnpublishedImage.gen :data_object => @dato, :hierarchy_entry => he
         end
       end
     end      

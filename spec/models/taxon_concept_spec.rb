@@ -41,11 +41,7 @@ describe TaxonConcept do
     @comment_1       = 'This is totally awesome'
     @comment_bad     = 'This is totally inappropriate'
     @comment_2       = 'And I can comment multiple times'
-    @kingdom = build_taxon_concept(:rank => 'kingdom', :depth => 0)
-    @phylum  = build_taxon_concept(:rank => 'phylum',  :depth => 1, :parent_hierarchy_entry_id => @kingdom.entry.id)
-    @order   = build_taxon_concept(:rank => 'order',   :depth => 2, :parent_hierarchy_entry_id => @phylum.entry.id)
     tc = build_taxon_concept(
-      :parent_hierarchy_entry_id => @order.entry.id,
       :rank            => 'species',
       :canonical_form  => @canonical_form,
       :attribution     => @attribution,
@@ -75,14 +71,6 @@ describe TaxonConcept do
     Comment.find_by_body(@comment_bad).hide! User.last
     @user = User.gen
     recreate_normalized_names_and_links
-    @subspecies1  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @subspecies2  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @subspecies3  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @infraspecies = build_taxon_concept(:rank => 'infraspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @subspecies1.entry.id)
   end
   after :all do
     truncate_all_tables
@@ -197,10 +185,25 @@ describe TaxonConcept do
   end
 
   it 'should be able to list its ancestors (by convention, ending with itself)' do
+    @kingdom = build_taxon_concept(:rank => 'kingdom', :depth => 0)
+    @phylum  = build_taxon_concept(:rank => 'phylum',  :depth => 1, :parent_hierarchy_entry_id => @kingdom.entry.id)
+    @order   = build_taxon_concept(:rank => 'order',   :depth => 2, :parent_hierarchy_entry_id => @phylum.entry.id)
+    # Now we attach our TC to those:
+    he = @taxon_concept.entry
+    he.parent_id = @order.entry.id
+    he.save
     @taxon_concept.ancestors.map(&:id).should == [@kingdom.id, @phylum.id, @order.id, @taxon_concept.id]
   end
 
   it 'should be able to list its children (NOT descendants, JUST children--animalia would be a disaster!)' do
+    @subspecies1  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
+                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
+    @subspecies2  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
+                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
+    @subspecies3  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
+                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
+    @infraspecies = build_taxon_concept(:rank => 'infraspecies', :depth => 4,
+                                        :parent_hierarchy_entry_id => @subspecies1.entry.id)
     @taxon_concept.children.map(&:id).should only_include @subspecies1.id, @subspecies2.id, @subspecies3.id
   end
 
@@ -248,10 +251,8 @@ describe TaxonConcept do
   #end
 
   it 'should show its untrusted images images, by default' do
-    old_user = @taxon_concept.current_user
-    @taxon_concept.current_user = User.create_new
+    @taxon_concept.current_user = User.create_new # It's okay if this one "sticks", so no cleanup code
     @taxon_concept.images.map(&:object_cache_url).should include(@image_unknown_trust)
-    @taxon_concept.current_user = old_user  # Cleaning up so as not to affect other tests
   end
 
   it 'should show only trusted images if the user prefers' do
@@ -286,7 +287,7 @@ describe TaxonConcept do
     # ... And remove it from top images:
     TopImage.delete_all(:hierarchy_entry_id => @taxon_concept.entry.id,
                         :data_object_id => @taxon_concept.images.last.id)
-    @taxon_concept.expire_cached_images
+    @taxon_concept.current_user = @taxon_concept.current_user #hack to expire cached images
     @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
 
     dato.visibility = Visibility.preview
@@ -317,18 +318,14 @@ describe TaxonConcept do
   end
 
   it 'should return images sorted by trusted, unknown, untrusted' do
-    old_user = @taxon_concept.current_user
     @taxon_concept.current_user = @user
-    @taxon_concept.images.map {|i| i.vetted.label }.should ==
-      [Vetted.trusted.label, Vetted.trusted.label, Vetted.trusted.label, Vetted.unknown.label, Vetted.untrusted.label]
-    @taxon_concept.current_user = old_user  # Cleaning up so as not to affect other tests
+    @taxon_concept.images.map {|i| i.vetted }.should ==
+      [Vetted.trusted, Vetted.trusted, Vetted.trusted, Vetted.unknown, Vetted.untrusted]
   end
 
   it 'should sort the vetted images by data rating' do
-    old_user = @taxon_concept.current_user
     @taxon_concept.current_user = @user
     @taxon_concept.images[0..2].map(&:object_cache_url).should == [@image_3, @image_2, @image_1]
-    @taxon_concept.current_user = old_user  # Cleaning up so as not to affect other tests
   end
 
   #

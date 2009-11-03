@@ -79,7 +79,8 @@ class User < ActiveRecord::Base
     #     => 316
     # CuratorDataObjectLog.find_all_by_user_id(35200).map(&:data_object_id).uniq.size
     #     => 302
-    CuratorDataObjectLog.find_all_by_user_id(id).map(&:data_object_id).uniq.size    
+
+    CuratorDataObjectLog.find_all_by_user_id(id).map(&:data_object_id).uniq.size
   end 
   
   def total_comments_curated

@@ -43,15 +43,14 @@
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.auto_publish?, :id => 'auto_publish_img'),  :url => { :action => 'auto_publish', :id => @agent }, :confirm => "Are you sure you want to #{@agent.auto_publish? ? 'disable' : 'enable'} auto-publish for this partner?  If enabled, all data objects are immediately published when imported (i.e. no preview and further approval is required).")
   = "#{@agent.auto_publish? ? 'Disable' : 'Enable'} auto-publish for " + @agent.project_name + "." 
+  %br/
+  Content partner status: 
+  = collection_select(:agent,:agent_status_id,@agent_status,:id,:label,{},{:onChange=>'JavaScript:update_partner_status(' + @agent.id.to_s + ',this);'})
 
 - else
   = @agent.project_name
   is not ready for their agreement.
 %br/
-Content partner status: 
-= collection_select(:agent,:agent_status_id,@agent_status,:id,:label,{},{:onChange=>'JavaScript:update_partner_status(' + @agent.id.to_s + ',this);'})
-%br/
-
 - if !@agent.content_partner.last_action.blank?
   This partner's last action was 
   = format_date_time(@agent.content_partner.last_action)

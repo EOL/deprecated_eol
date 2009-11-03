@@ -35,11 +35,6 @@ class Vetted < SpeciesSchemaModel
   def self.untrusted_ids
     [self.untrusted.id,self.unknown.id].join(',') 
   end
-
-  def sort_weight
-    @@vetted_weight ||= {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3}
-    return @@vetted_weight.has_key?(id) ? @@vetted_weight[id] : 4
-  end
  
 end
 

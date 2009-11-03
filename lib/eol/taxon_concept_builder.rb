@@ -4,13 +4,12 @@ class EOL
 
     attr_reader :tc
 
-    include EOL::Spec::Helpers # gbif_hierarchy iucn_hierarchy default_harvest_event gbif_harvest_event
-                               # iucn_harvest_event (and others, but I think those we want)
+    include EOL::Spec::Helpers
 
     # == Options:
     #
-    # These all have intelligent(ish) default values, so just specify those values that you feel are really salient.
-    # Note that a TC will NOT have a map or an IUCN status unless you specify options that create them.
+    # These all have intelligent(ish) default values, so just specify those values that you feel are really salient. Note that a TC will
+    # NOT have a map or an IUCN status unless you specify options that create them.
     #
     #   +attribution+::
     #     String to be used in scientific name as attribution
@@ -31,11 +30,6 @@ class EOL
     #     +:description+ and +:object_cache_url+.
     #   +gbif_map_id+::
     #     The ID to use for the Map Data Object.
-    #   +hierarchy+::
-    #     Put all generated hierarchy_entries in this hierarhcy.
-    #   +hierarchies+::
-    #     If you want multiple hierarchy entries, supply a list of hierarchies and they will all be created. The last
-    #     one will be considered the "main" entry, under which all data objects are attached.
     #   +id+::
     #     Forces the ID of the TaxonConcept to be what you specify, useful for exemplars.
     #   +images+::
@@ -64,8 +58,8 @@ class EOL
     #   +youtube+::
     #     Array of YouTube videos, each member is a hash for the video options.  The keys you will want are
     #     +:description+ and +:object_cache_url+.
-    # TODO - Create a harvest event and a resource (status should be published) (and the resource needs a hierarchy,
-    # which we use for the HEs)
+    # TODO - Create a harvest event and a resource (status should be published) (and the resource needs a hierarchy, which we use for
+    # the HEs)
     # TODO - Normalize names ... when harvesting is done, this is done on-the-fly, so we should do it here.
     # NOTE: when we denormalize the taxon_concept_names table, we should be looking at Synonyms as well as Names.
     def initialize(options)
@@ -140,17 +134,7 @@ class EOL
     end
 
     def gen_he
-      parent_he = HierarchyEntry.find(@parent_hierarchy_entry_id) rescue nil # Ick, but...
-      @entries = []
-      @hierarchies.each do |hierarchy|
-        this_is_the_primary = parent_he ? (parent_he.hierarchy_id == hierarchy.id) : false
-        options = {:hierarchy => hierarchy}
-        options.merge(:parent_hierarchy_entry_id => @parent_hierarchy_entry_id) if this_is_the_primary
-        entry = build_entry_in_hierarchy(options)
-        @entries << entry
-        @he = entry if this_is_the_primary
-      end
-      @he = @entries.last unless @he
+      @he    = build_entry_in_hierarchy(:parent_id => @parent_hierarchy_entry_id)
     end
 
     # TODO - add some alternate names, including at least one in another language.
@@ -204,11 +188,9 @@ class EOL
 
     def gen_taxon
       puts "** Enter: gen_taxon" if @debugging
-      @entries.each do |entry|
-        @taxon = Taxon.gen(:name => @sname, :hierarchy_entry => entry, :scientific_name => @complete) # Okay that we don't set kingdom, phylum, etc
-        HarvestEventsTaxon.gen(:taxon => @taxon, :harvest_event => @event)
-        # TODO - Create some references here ... just a string and an associated identifier (like a URL)
-      end
+      @taxon = Taxon.gen(:name => @sname, :hierarchy_entry => @he, :scientific_name => @complete) # Okay that we don't set kingdom, phylum, etc
+      HarvestEventsTaxon.gen(:taxon => @taxon, :harvest_event => @event)
+      # TODO - Create some references here ... just a string and an associated identifier (like a URL)
     end
 
     def add_images
@@ -250,6 +232,7 @@ class EOL
     def add_map
       puts "** Enter: add_map" if @debugging
       if @gbif_map_id 
+        #gbif_he = build_hierarchy_entry(@depth, @tc, @sname, :hierarchy => gbif_hierarchy, :map => true,
         puts "++ Add map!" if @debugging
         puts "GBIF hierarchy:" if @debugging
         pp gbif_hierarchy if @debugging
@@ -343,7 +326,6 @@ class EOL
 
     def set_default_options(options)
       puts "** Enter: set_default_options" if @debugging
-      set_hierarchy_options(options)
       @attri        = options[:attribution]     || Factory.next(:attribution)
       @bhl          = options[:bhl]             || [{:publication => 'Great Big Journal of Fun', :page => 42},
                                                     {:publication => 'Great Big Journal of Fun', :page => 44},
@@ -356,6 +338,7 @@ class EOL
       @event        = options[:event]           || default_harvest_event # Note this method is in eol_spec_helper
       @flash        = options[:flash]
       @gbif_map_id  = options[:gbif_map_id]
+      @hierarchy    = options[:hierarchy]
       @id           = options[:id]
       @images       = options[:images]          || [{}, {}]
       @images       = testing_images if @images == :testing
@@ -367,17 +350,6 @@ class EOL
       @rank         = options[:rank]
       @toc          = options[:toc]             || default_toc_option
       @youtube      = options[:youtube]
-    end
-
-    # "Intelligently" figures out which hierarchy or hierarchies the caller wants to create entries (and taxa, and
-    # harvest events) in.
-    def set_hierarchy_options(options)
-      puts "** Enter: set_hierarchy_options" if @debugging
-      @hierarchy    = options[:hierarchy]
-      @hierarchies  = options[:hierarchies]
-      @hierarchy    = options[:hierarchies].last if @hierarchies and not @hierarchy
-      @hierarchy    = Hierarchy.default unless @hierarchy
-      @hierarchies  = [@hierarchy] unless @hierarchies
     end
 
     def default_toc_option

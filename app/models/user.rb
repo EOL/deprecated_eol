@@ -1,5 +1,8 @@
 require "digest"
 
+# NOTE - there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
+# to the user model.  We *could* achieve a similar result with method_missing, but I worry that it would cause other
+# problems.
 class User < ActiveRecord::Base
 
   belongs_to :language
@@ -401,7 +404,23 @@ class User < ActiveRecord::Base
   def default_hierarchy_valid?
     return(self[:default_hierarchy_id] and Hierarchy.exists?(self[:default_hierarchy_id]))
   end
+
+  def content_page_cache_str
+    return "#{language_abbr}_#{default_hierarchy_id.to_s}"
+  end
   
+  def taxa_page_cache_str
+    return "#{language_abbr}_#{expertise}_#{vetted}_#{default_taxonomic_browser}_#{default_hierarchy_id}"
+  end
+
+  # This is a method that checks if the user model pulled from a session is actually up-to-date:
+  #
+  # YOU SHOULD ADD NEW USER ATTRIBUTES TO THIS METHOD WHEN YOU TWEAK THE USER TABLE.
+  def stale?
+    # if you add to this, use 'and'; KEEP ALL OLD METHOD CHECKS.
+    return true unless self.attributes.keys.include?('filter_content_by_hierarchy')
+  end
+
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 protected   
   def password_required?
@@ -409,33 +428,3 @@ protected
   end
 
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: users
-#
-#  id                         :integer(4)      not null, primary key
-#  curator_hierarchy_entry_id :integer(4)
-#  curator_verdict_by_id      :integer(4)
-#  language_id                :integer(4)
-#  active                     :boolean(1)
-#  content_level              :integer(4)
-#  credentials                :text            not null
-#  curator_approved           :boolean(1)      not null
-#  default_taxonomic_browser  :string(24)
-#  email                      :string(255)
-#  expertise                  :string(24)
-#  family_name                :string(255)
-#  flash_enabled              :boolean(1)
-#  given_name                 :string(255)
-#  hashed_password            :string(32)
-#  identity_url               :string(255)
-#  mailing_list               :boolean(1)
-#  notes                      :text
-#  remote_ip                  :string(24)
-#  username                   :string(32)
-#  vetted                     :boolean(1)
-#  created_at                 :datetime
-#  curator_verdict_at         :datetime
-#  updated_at                 :datetime
-

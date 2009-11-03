@@ -300,7 +300,10 @@ class ApplicationController < ActionController::Base
       return temporary_logged_in_user ? temporary_logged_in_user :
                                         set_temporary_logged_in_user(cached_user)
     else
-      session[:user] ||= create_new_user
+      session[:user] ||= create_new_user # if there wasn't one
+      session[:user] = create_new_user unless session[:user].respond_to?(:stale?)
+      session[:user] = create_new_user if session[:user].stale?
+      return session[:user]
     end
   end
 
@@ -491,14 +494,17 @@ private
           %w{novice middle expert}.each do |expertise|
             %w{true false}.each do |vetted|
               %w{text flash}.each do |default_taxonomic_browser|
-                %w{true false}.each do |can_curate|
-                  part_name = 'page_' + taxon_concept_id.to_s +
-                                  '_' + language.iso_639_1 +
-                                  '_' + expertise +
-                                  '_' + vetted +
-                                  '_' + default_taxonomic_browser +
-                                  '_' + can_curate
-                  expire_fragment(:controller => '/taxa', :part => part_name)
+                [nil.to_s, Hierarchy.browsable_by_label.map {|h| h.id.to_s }].flatten.each do |default_hierarchy_id|
+                  %w{true false}.each do |can_curate|
+                    part_name = 'page_' + taxon_concept_id.to_s +
+                                    '_' + language.iso_639_1 +
+                                    '_' + expertise +
+                                    '_' + vetted +
+                                    '_' + default_taxonomic_browser +
+                                    '_' + default_hierarchy_id +
+                                    '_' + can_curate
+                    expire_fragment(:controller => '/taxa', :part => part_name)
+                  end
                 end
               end
             end

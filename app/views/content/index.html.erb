@@ -102,7 +102,7 @@
 <%- if @cached_fragment %>
     <%= @cached_fragment %>
 <%- else %>
-  <%- cache({:controller=>"content", :part => 'home_' + current_user.content_page_cache_str}) do %>  
+  <%- cache({:controller=>"content", :part => 'home_' + current_user.language_abbr}) do %>  
 
     <div id="page-separator-general"></div>
 
@@ -132,7 +132,7 @@
       <div id="sidebar-b">
 
         <%- unless @news_items.empty? %>
-          <h1><%="What's New?"[]%></h1>
+          <h1>What's New?</h1>
           <ul class="helplist">
             <%- @news_items.each do |news_item|
               if news_item.visible? %>
@@ -154,32 +154,44 @@
             <li>To subscribe via RSS, click <%=link_to image_tag('rss.png'), {:action=>'news',:format=>'rss'}%>, or add this URL to your RSS reader: http://<%=request.host + url_for(:action=>'news',:format=>'rss')%></li>
           </ul><%# .helplist %>
         <%- end %><%# unless news_items empty %>
-              
+        
+        <%= @content.main_content %>
+      
       </div><%# sidebar-b %>
 
-      <div id="home-center-content">
+      <div id="home-content-species">
         <%- unless @featured_taxa.nil? %>
+            
+          <%- featured_taxon = @featured_taxa.sort_by{rand}[0] %>
 
-              <%- featured_taxon = @featured_taxa.sort_by{rand}[0] %>
+          <h1><%="Featured"[]%></h1>
 
-              <h1><%="Featured"[]%></h1>
+          <table id="featured-species-table" cellspacing="0" summary="featured table">       
+            <tr>	
+              <td class="image">
+                <%= medium_thumb_partial(featured_taxon) %>
+              </td>
+            </tr>
+            <tr>
+              <td><%= linked_name(featured_taxon) %></td>
+            </tr>
+          </table><%# featured-species-table %>
 
-              <table id="featured-species-table" cellspacing="0" summary="featured table">       
-                <tr>	
-                  <td class="image">
-                    <%= medium_thumb_partial(featured_taxon) %>
-                  </td>
-                </tr>
-                <tr>
-                  <td><%= linked_name(featured_taxon) %></td>
-                </tr>
-              </table><%# featured-species-table %>
-
-            <%- end %><%# unless featured_taxa nil %>
-
-        <%= @content.main_content %>
-
-      </div><%# home-center-content %>
+        <%- end %><%# unless featured_taxa nil %>
+      
+        <br /><%# TODO - this is useless.  What we really want is a div of a given height... %>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+      </div><%# home-content-species %>
 
     </div><%# home-content-wrap %>
 

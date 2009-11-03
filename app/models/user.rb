@@ -1,8 +1,5 @@
 require "digest"
 
-# NOTE - there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
-# to the user model.  We *could* achieve a similar result with method_missing, but I worry that it would cause other
-# problems.
 class User < ActiveRecord::Base
 
   belongs_to :language
@@ -74,8 +71,15 @@ class User < ActiveRecord::Base
   end 
 
   def total_objects_curated
-    CuratorDataObjectLog.count :conditions => ['user_id = ?', id] 
+    # CuratorDataObjectLog.count :conditions => ['user_id = ?', id] 
+    # CuratorDataObjectLog.count :conditions => ['user_id = 35200'] 
+    #     => 316
+    # CuratorDataObjectLog.find_all_by_user_id(35200).map(&:data_object_id).uniq.size
+    #     => 302
+
+    CuratorDataObjectLog.find_all_by_user_id(id).map(&:data_object_id).uniq.size
   end 
+  
   def total_comments_curated
     CuratorCommentLog.count :conditions => ['user_id = ?', id] 
   end 
@@ -338,11 +342,6 @@ class User < ActiveRecord::Base
     return (has_curator_role? && !self.curator_hierarchy_entry.blank?)
   end
   
-  def selected_default_hierarchy
-    hierarchy=Hierarchy.find_by_id(self.default_hierarchy_id)
-    hierarchy.blank? ? '' : hierarchy.label
-  end
-  
   def last_curator_activity
     lcd = LastCuratedDate.find_by_user_id(self.id, :order => 'last_curated DESC', :limit => 1)
     return nil if lcd.nil?
@@ -402,46 +401,7 @@ class User < ActiveRecord::Base
   def default_hierarchy_valid?
     return(self[:default_hierarchy_id] and Hierarchy.exists?(self[:default_hierarchy_id]))
   end
-
-  # These create and unset the fields required for remembering users between browser closes
-  def remember_me
-    remember_me_for 2.weeks
-  end
-
-  def remember_me_for(time)
-    remember_me_until time.from_now.utc
-  end
-
-  def remember_me_until(time)
-    self.remember_token_expires_at = time
-    self.remember_token            = User.hash_password("#{email}--#{remember_token_expires_at}")
-    save(false)
-  end
-
-  def forget_me
-    self.remember_token_expires_at = nil
-    self.remember_token            = nil
-    save(false)
-  end
-
-  def content_page_cache_str
-    return_string="#{language_abbr}"
-    return_string+="_#{default_hierarchy_id.to_s}" unless default_hierarchy_id.to_s.blank?
-    return_string
-  end
-
-  def taxa_page_cache_str
-    return "#{language_abbr}_#{expertise}_#{vetted}_#{default_taxonomic_browser}_#{default_hierarchy_id}"
-  end
-
-  # This is a method that checks if the user model pulled from a session is actually up-to-date:
-  #
-  # YOU SHOULD ADD NEW USER ATTRIBUTES TO THIS METHOD WHEN YOU TWEAK THE USER TABLE.
-  def stale?
-    # if you add to this, use 'and'; KEEP ALL OLD METHOD CHECKS.
-    return true unless self.attributes.keys.include?('filter_content_by_hierarchy')
-  end
-
+  
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 protected   
   def password_required?
@@ -449,3 +409,33 @@ protected
   end
 
 end
+# == Schema Info
+# Schema version: 20081020144900
+#
+# Table name: users
+#
+#  id                         :integer(4)      not null, primary key
+#  curator_hierarchy_entry_id :integer(4)
+#  curator_verdict_by_id      :integer(4)
+#  language_id                :integer(4)
+#  active                     :boolean(1)
+#  content_level              :integer(4)
+#  credentials                :text            not null
+#  curator_approved           :boolean(1)      not null
+#  default_taxonomic_browser  :string(24)
+#  email                      :string(255)
+#  expertise                  :string(24)
+#  family_name                :string(255)
+#  flash_enabled              :boolean(1)
+#  given_name                 :string(255)
+#  hashed_password            :string(32)
+#  identity_url               :string(255)
+#  mailing_list               :boolean(1)
+#  notes                      :text
+#  remote_ip                  :string(24)
+#  username                   :string(32)
+#  vetted                     :boolean(1)
+#  created_at                 :datetime
+#  curator_verdict_at         :datetime
+#  updated_at                 :datetime
+

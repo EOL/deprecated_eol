@@ -6,7 +6,7 @@ require 'spec/rails'
 load 'composite_primary_keys/fixtures.rb' 
 
 require File.expand_path(File.dirname(__FILE__) + "/factories")
-require File.expand_path(File.dirname(__FILE__) + "/scenario_helpers")
+require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
 require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
 
 require 'scenarios'

@@ -52,8 +52,6 @@ Rails::Initializer.run do |config|
   config.gem "ruby-yadis", :version => "0.3.4", :lib => "yadis"
   config.gem 'ezcrypto'
   config.gem 'ratom', :lib => 'atom'
-  #config.gem 'outoftime-sunspot', :lib => 'sunspot'
-  #config.gem 'outoftime-sunspot_rails', :lib => 'sunspot/rails'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -150,7 +148,7 @@ Rails::Initializer.run do |config|
 
    # CACHE CONFIGURATION
    $CACHE_CLEARED_LAST = Time.now()  # This variable will record the last time the home page cache was cleared
-   $CACHE_CLEAR_IN_HOURS = 1 # automatically expire home page cached fragment at this time interval (in hours)
+   $CACHE_CLEAR_IN_HOURS = 1 # automatically expire home page cached fragment at this time interval
  
   # CONTENT PARTNER REGISTRY CONFIGURATION
   $LOGO_UPLOAD_PATH = "/uploads/images/collection_icons/"  # directory to place uploaded content partner logos from CP registry, content server needs SFTP access to this folder (logos are not served out of this area)

@@ -1,30 +1,28 @@
       <h3 class="preference-header"><%= "Content Settings"[] %></h3>
 
-      <a href="#" onclick="new Effect.Appear('filtering_help');return false;"><%="Learn more about browse classification and filtering"[]%></a>
+      <a href="#" onclick="new Effect.Appear('filtering_help');return false;"><%="Learn more about browse hierarchies and filtering"[]%></a>
       <div style="display:none;" id="filtering_help">
-        <p>EOL has the ability to filter its content by a classification (or hierarchy).  This allows you to change the
-          list of taxa shown in the classification browser on the right side of a species page and, optionally,
-          create a filter for EOL based on this classification.
-          <br /><br />
-          For instance, if you choose a classification containing only marine taxa and select the filtering option, then
-          your view of EOL will only show those taxa and images recognized by the marine classification - an
-          Encyclopedia of Marine Life!  You can still search for any taxa using the search page. 
-      <!-- <br /><br />
-      You can also choose two classifications if you wish, which will be seamlessly merged together as you browse this website - this feature may be useful for biologists and taxonomists. --></p>
+      <p>EOL has the ability to filter its content by a hierarchy (or classification).  This allows you to change the list of taxa shown in the classification
+        browser on the right side of a species page and, optionally, create a filter for EOL based on this hierarchy.
+      <br /><br />
+        For instance, if you choose a hierarchy containing only marine taxa and select the filtering option, then your view of EOL will only show those taxa and images recognized by the marine hierarchy - an Encyclopedia of Marine Life!  You can still
+        search for any taxa using the search page. 
+      <br /><br />
+      You can also choose two hierarchies if you wish, which will be seamlessly merged together as you browse this website - this feature may be useful for biologists and taxonomists.</p>
       </div>
       
       <br/>
-			<label for="user_default_hierarchy_id" title="<%= "Which default browse classification would you prefer?"[:classification_preference] %>"><%= "Which default browse classification would you prefer?"[:classification_preference] %></label>		            
+			<label for="user_default_hierarchy_id" title="<%= "Which default browse hierarchy would you prefer?"[:hierarchy_preference] %>"><%= "Which default browse hierarchy would you prefer?"[:hierarchy_preference] %></label>		            
 			<%= f.select :default_hierarchy_id, [['-- always use default --', nil]] + Hierarchy.find_all_by_browsable(1).sort_by{|h| h.label}.collect {|h| [h.label, h.id]} %><br/>						
 			<br />
 			
-      <!-- <label for="user_secondary_hierarchy_id" title="<%= "Which secondary browse classification would you prefer?"[:secondary_hierarchy_preference] %>"><%= "Which secondary browse classification would you prefer?"[:classification_preference] %></label>               
+      <!-- <label for="user_secondary_hierarchy_id" title="<%= "Which secondary browse hierarchy would you prefer?"[:secondary_hierarchy_preference] %>"><%= "Which secondary browse hierarchy would you prefer?"[:hierarchy_preference] %></label>               
       <%= f.select :secondary_hierarchy_id, [['-- none --', nil]] + Hierarchy.browsable_by_label.collect {|h| [h.label, h.id]} %><br/>            
       <br /> -->
 
       <table>
         <tr>
-          <td style="padding-right:1em;"><%= f.check_box :filter_content_by_hierarchy %></td><td><%= f.label :filter_content_by_hierarchy, 'Filter EOL based on your primary browse classification?'[:filter_content_by_classification_preference] %></td>
+          <td style="padding-right:1em;"><%= f.check_box :filter_content_by_hierarchy %></td><td><%= f.label :filter_content_by_hierarchy, 'Filter EOL based on your primary browse hierarchy?'[:filter_content_by_hierarchy_preference] %></td>
         </tr>
       </table>
 
@@ -32,14 +30,13 @@
       <label for="user_language_abbr" title="<%= "Which language do you prefer?"[:language_preference] %>"><%= "Which language do you prefer?"[:language_preference] %></label>		            
 			<%= f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]} %><br/>						
 			
-      <!-- <br/>
+      <br/>
       <label title="<%= "Do you want to include?"[:detail_level] %>"><%= "Do you want to include?"[:detail_level] %></label>		            
 			<%= f.radio_button :expertise, "novice"%> <%="Information intended for beginners"[]%> <br />
 			<%= f.radio_button :expertise, "middle"%> <%="Information for any audience"[]%> <br />
 			<%= f.radio_button :expertise, "expert"%> <%="Information intended for experts"[]%> <br />					
-      -->
-			
 			<br />
+			
 			<% if $ALLOW_USER_TO_CHANGE_CONTENT_LEVEL%>
 				<label for="user_content_level" title="<%= "Do you want to see?"[:content_level] %>"><%= "Do you want to see?"[:content_level] %></label>		            
 				<% ContentLevel.find.each do |content_level| %>
@@ -49,5 +46,5 @@
 			<% end %>
 			
 		    <label title="<%= "Do you want to see?"[:content_level] %>"><%= "Do you want to see?"[:content_level] %></label>		            
-			<%= f.radio_button :vetted, "true"%> <%="Only authoritative information"[:view_only_vetted_content]%> <br />
+			<%= f.radio_button :vetted, "true"%> <%="Only information that comes from authoritative sources"[:view_only_vetted_content]%> <br />
 			<%= f.radio_button :vetted, "false"%> <%="All information"[]%> 		

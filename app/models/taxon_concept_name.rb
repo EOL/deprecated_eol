@@ -15,7 +15,7 @@ class TaxonConceptName < SpeciesSchemaModel
   # Returns the number of rows affected.  (Should always be either 1 or 0 because of PKs.)
   def set_preferred(val)
     raise "Cannot set the Preferred value to anything other than 1 or 0)" unless val == 0 or val == 1 # detaint
-    connection.execute(%Q{
+    connection.update_sql(%Q{
       UPDATE taxon_concept_names
       SET preferred = #{val}
       WHERE name_id = #{name_id.to_i} AND taxon_concept_id = #{taxon_concept_id.to_i}

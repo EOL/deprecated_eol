@@ -35,16 +35,15 @@ class AccountController < ApplicationController
 
   def authenticate
 
-    # reset the agent session in case there are any content partners logged in to avoid any funny things
+    # reset the session in case there are any content partners logged in to avoid any funny things
     session[:agent_id] = nil
 
     user_params=params[:user]
-    remember_me=EOLConvert.to_boolean(params[:remember_me])
-        
+
     if using_open_id?
-      open_id_authentication(params[:openid_url],remember_me)
+      open_id_authentication(params[:openid_url])
     else
-      password_authentication(user_params[:username],user_params[:password],remember_me)
+      password_authentication(user_params[:username],user_params[:password])
     end
 
   end
@@ -105,7 +104,7 @@ class AccountController < ApplicationController
 
   def logout
     params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.
-    cookies.delete :user_auth_token       
+        
     reset_session 
     store_location(params[:return_to])
     flash[:notice] = "You have been logged out."[:you_have_been_logged_out]
@@ -227,17 +226,17 @@ class AccountController < ApplicationController
   end
   
   protected
-  def password_authentication(username, password, remember_me)
+  def password_authentication(username, password)
     user = User.authenticate(username,password)
     if user[0]
-      successful_login(user[1],remember_me)
+      successful_login(user[1])
     else
       failed_login(user[1])
     end
   end
 
-  def open_id_authentication(identity_url,remember_me)
-    open_id_return_to = "#{realm}/account/authenticate?remember_me=#{remember_me}"
+  def open_id_authentication(identity_url)
+    open_id_return_to = "#{realm}/account/authenticate"
     authenticate_with_open_id(identity_url,
                               :return_to => open_id_return_to,
                               :optional => [ :fullname, :nickname, :email ]) do |result, identity_url, registration|
@@ -256,25 +255,17 @@ class AccountController < ApplicationController
           user.save!
           new_username      = "openid_user_#{user.id.to_s}"
           user.update_attributes(:username=>new_username,:given_name=>registration['nickname'] || new_username)
-          new_openid_user=true
         end
-        successful_login(user, remember_me, new_openid_user)
+        successful_login(user, new_openid_user)
       else
         failed_login result.message
       end
     end
   end
 
-  def successful_login(user, remember_me, new_openid_user = false)
+  def successful_login(user, new_openid_user = false)
     set_current_user(user)
-    notice_message="Logged in successfully."[:logged_in]   
-    if remember_me && !user.is_admin?
-      user.remember_me
-      cookies[:user_auth_token] = { :value => user.remember_token , :expires => user.remember_token_expires_at }
-    elsif remember_me && user.is_admin?
-      notice_message+=" NOTE: for security reasons, administrators cannot use the remember me feature."[:admin_remind_me_message]
-    end    
-    flash[:notice] = notice_message
+    flash[:notice] = "Logged in successfully"[:logged_in]   
     # could catch the fact that they are a new openid user here and redirect somewhere else if you wanted
     if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty?) # if we're an admin we STILL would love a return, thank you very much!
       redirect_to :controller => 'admin', :action => 'index', :protocol => "http://"

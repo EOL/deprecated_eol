@@ -326,28 +326,23 @@ class Search
       data_objects = []
     end        
     results = []
-    taxon_concept_ids = []
+    taxon_concept_ids  = []
     user        = options[:user_id] ? User.find(options[:user_id]) : nil
     vetted_only = user && user.vetted
-
     data_objects.each do |data_object|
       if !vetted_only || data_object.vetted_id == Vetted.trusted.id
         data_object.taxon_concepts.each do |taxon_concept|
           unless taxon_concept_ids.include?(taxon_concept.id)
-            taxon_concept_ids << taxon_concept.id
+            taxon_concept_ids  << taxon_concept.id
             results << [taxon_concept, data_object] if (!vetted_only || taxon_concept.vetted_id == Vetted.trusted.id) && taxon_concept.published == 1 && taxon_concept.supercedure_id == 0           
           end
         end
       end
     end
-    
-    # sorting by scientific_name without <i>
-    results_sort = results.sort_by {|a| a[0].scientific_name.gsub(/<\/?[^>]*>/,  "")}
 
-    # that commented out, because not allows more than 10 tags to show up
-    # results  = page_range(results)
+    results  = page_range(results)
     @maximum = results.length
-    @search_results = {:common => [], :scientific => [], :errors => [], :tags => results_sort}    
+    @search_results = {:common => [], :scientific => [], :errors => [], :tags => results}    
   end
 
   def text_search(current_user, current_agent)

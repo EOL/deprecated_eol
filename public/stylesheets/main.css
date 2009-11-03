@@ -378,14 +378,12 @@ ul#global-navigation {
 	   float:right;
 	   text-transform: uppercase;
      font-weight: 700;  
-		 text-align: right;
-		 height: 200px;
      font-size: 10px;
 		 color: #666666;
 		 margin-right: 10px;
-		 margin-top: 5px;
+		 margin-top: 10px;
 	}
-	
+
 	.popup {
      z-index: 105;
      font-size: 12px;
@@ -480,7 +478,7 @@ ul#global-navigation {
           text-decoration: none;
         }
 
-      #post-info .page-status {
+      #post-info .page-status a{
         float: right;
         padding-right: 20px;
         width: 471px;
@@ -488,6 +486,7 @@ ul#global-navigation {
         color: #666;
         text-decoration: none;
       }
+
 
     #page-cite {
       font-size: 12px;
@@ -2111,10 +2110,8 @@ input.warn, textarea.warn {
 }
 
 
-#home-center-content {
+#home-content-species {
     padding: 10px;
-		height: 100%;
-		min-height: 100px;
 }
 
 

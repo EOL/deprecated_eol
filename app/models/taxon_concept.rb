@@ -30,16 +30,13 @@ class TaxonConcept < SpeciesSchemaModel
 
   has_one :taxon_concept_content
 
-  #searchable :auto_index => false, :auto_remove => false do
-  #end
-
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
   attr_reader :has_media, :length_of_images
 
   def show_curator_controls?(user = nil)
     return @show_curator_controls if !@show_curator_controls.nil?
-    user = @current_user if user.nil? # This needs to check the actual instance variable, please keep it here.
+    user = @current_user if user.nil?
     if user.nil?
       raise "a user must be specified"
     end
@@ -168,18 +165,16 @@ class TaxonConcept < SpeciesSchemaModel
   def table_of_contents(options = {})
     if @table_of_contents.nil?
       tb = TocBuilder.new
-      @table_of_contents = tb.toc_for(self, :agent => @current_agent, :user => self.current_user, :agent_logged_in => options[:agent_logged_in])
+      @table_of_contents = tb.toc_for(self, :agent => @current_agent, :user => current_user, :agent_logged_in => options[:agent_logged_in])
     end
     @table_of_contents
   end
   alias :toc :table_of_contents
 
-  # If you just call "comments", you are actually getting comments that should really be invisible.  This method gets
-  # around this, and didn't see appropriate to do with a named_scope.
-  # Note that the argument is simply to match the interface of the same method on other classes that can be parents
-  # of comments.
-  def visible_comments(ignore_user = nil)
-    return comments if self.current_user.is_moderator?
+  # If you just call "comments", you are actually getting comments that should really be invisible.  This method gets around this,
+  # and didn't see appropriate to do with a named_scpope:
+  def visible_comments(user = @current_user)
+    return comments if user and user.is_moderator?
     comments.find_all {|comment| comment.visible? }
   end
 
@@ -238,12 +233,8 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
   def current_user=(who)
-    expire_cached_images
-    @current_user = who
-  end
-
-  def expire_cached_images
     @images = nil
+    @current_user = who
   end
 
   def canonical_form_object
@@ -301,7 +292,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def videos
-    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => self.current_user)
+    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => current_user)
     @length_of_videos = videos.length # cached, so we don't have to query this again.
     return videos
   end 
@@ -414,7 +405,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def quick_common_name(language = nil, hierarchy = nil)
-    language ||= self.current_user.language
+    language ||= current_user.language
     hierarchy ||= Hierarchy.default
     common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1").all_hashes
     
@@ -658,7 +649,7 @@ EOIUCNSQL
     # handled by TaxonConcept#get_default_content
 
     ccb = CategoryContentBuilder.new
-    options[:vetted] = self.current_user.vetted
+    options[:vetted] = current_user.vetted
     options[:taxon_concept_id] = id
     content = ccb.content_for(toc_item, options)
     content = get_default_content(toc_item) if content.nil?
@@ -688,7 +679,7 @@ EOIUCNSQL
       if a.vetted_id == b.vetted_id
         # TODO - this should probably also sort on visibility.
         if a.data_rating == b.data_rating
-          b.id <=> a.id # Note this is reversed; ends up being roughly by date.
+          b.id <=> a.id # essentially, orders images by date.
         else
           b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
         end
@@ -868,7 +859,7 @@ private
     result = {
       :content_type  => 'text',
       :category_name => TocItem.find(category_id).label,
-      :data_objects  => DataObject.for_taxon(self, :text, :toc_id => category_id, :agent => @current_agent, :user => self.current_user)
+      :data_objects  => DataObject.for_taxon(self, :text, :toc_id => category_id, :agent => @current_agent, :user => current_user)
     }
     # TODO = this should not be hard-coded! IDEA = use partials.  Then we have variables and they can be dynamically changed.
     # NOTE: I tried to dynamically alter data_objects directly, below, but they didn't

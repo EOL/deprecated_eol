@@ -842,6 +842,57 @@ EOIUCNSQL
                                         LIMIT 1',taxon_concept_id]) > 0
   end
   
+  # You don't want to call this directly.  Nor do you want to call paginate_all_by_solr.  Neither will work.
+  #
+  # When will_paginate calls this, it MUST have a total_entries argument, otherwise it won't work. It will
+  # throw some error about solr not being a valid field, because it attempts to #count using solr as its argument.
+  #
+  # To avoid this, call #search_with_pagination ... which will do all the right things.
+  def self.find_all_by_solr(*args)
+    query   = args.first
+    options = args.last
+    page  = options[:offset] ? options[:offset] + 1 : 1
+    return @@search_results_for["#{query}_#{page}_#{options[:limit] || 10}"]
+  end
+
+  # Returns an array of result hashes, using will_paginate.  Don't use paginate_all_by_solr directly, as that will either fail
+  # or cause duplicate queries.
+  # TODO - use a class rather than a class variable for search_results_for
+  def self.search_with_pagination(query, options)
+    obj = TaxonConcept.solr_search(query, options)
+    # Store the results of the search to "fake" them coming from find_all_by_solr:
+    @@search_results_for["#{query}_#{options[:page] || 1}_#{options[:per_page] || 10}"] = obj['response']['docs']
+    TaxonConcept.find_all_by_solr(query, options.merge(:total_entries => obj['response']['numFound']))
+  end
+
+  # Returns the actual search results object.  Generally, you will want to use search_with_pagination instead. Results look
+  # like this:
+  # {"response"=>
+  #   {"start"=>0,
+  #    "docs"=>
+  #     [{"published"=>[true],
+  #       "pref_sci_name"=>["Procyon lotor"],
+  #       "vetted_id"=>[1],
+  #       "taxon_concept_id"=>[12]}],
+  #    "numFound"=>1},
+  #  "responseHeader"=>
+  #   {"QTime"=>1,
+  #    "params"=>
+  #     {"indent"=>"on",
+  #      "version"=>"2.2",
+  #      "q"=>"pref_sci_name:procyon",
+  #      "start"=>"0",
+  #      "rows"=>"10",
+  #      "wt"=>"json"},
+  #    "status"=>0}}
+  def self.solr_search(query, options)
+    url =  'http://localhost:8983/solr/select/?version=2.2&start=0&rows=10&indent=on&wt=json&q='
+    url << URI.encode("pref_sci_name:#{query}")
+    url << '&start=' << URI.encode(query) if options[:offset]
+    url << '&rows='  << URI.encode(query) if options[:limit]
+    res = open(url).read # TODO - add offset and limit
+    return JSON.load res
+  end
 
 #####################
 private

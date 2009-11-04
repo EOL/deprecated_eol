@@ -319,8 +319,11 @@ describe TaxonConcept do
 
   it 'should return images sorted by trusted, unknown, untrusted' do
     @taxon_concept.current_user = @user
-    @taxon_concept.images.map {|i| i.vetted }.should ==
-      [Vetted.trusted, Vetted.trusted, Vetted.trusted, Vetted.unknown, Vetted.untrusted]
+    puts "+++++ NOW!"
+    trusted   = Vetted.trusted.id
+    unknown   = Vetted.unknown.id
+    untrusted = Vetted.untrusted.id
+    @taxon_concept.images.map {|i| i.vetted_id }.should == [trusted, trusted, trusted, unknown, untrusted]
   end
 
   it 'should sort the vetted images by data rating' do

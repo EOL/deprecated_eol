@@ -37,8 +37,16 @@ class Vetted < SpeciesSchemaModel
   end
 
   def sort_weight
+    weights = vetted_weight
+    return weights.has_key?(id) ? weights[id] : 4
+  end
+
+private
+
+  def vetted_weight
+    @@vetted_weight = {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3} if
+      ENV['RAILS_ENV'] =~ /test/ # Set it every time, because it changes a lot in the test env!
     @@vetted_weight ||= {Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3}
-    return @@vetted_weight.has_key?(id) ? @@vetted_weight[id] : 4
   end
  
 end

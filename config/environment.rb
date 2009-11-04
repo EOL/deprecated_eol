@@ -52,6 +52,7 @@ Rails::Initializer.run do |config|
   config.gem "ruby-yadis", :version => "0.3.4", :lib => "yadis"
   config.gem 'ezcrypto'
   config.gem 'ratom', :lib => 'atom'
+  config.gem 'json'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

@@ -1,20 +1,20 @@
 
 <div id="page-separator-general"></div>
 
-  <!-- page title -->
-  <div id="page-title">
-      <h1><%= "Account Confirmation"[] %></h1>
-      <hr />
+<!-- page title -->
+<div id="page-title">
+    <h1><%= "Account Confirmation"[] %></h1>
+    <hr />
 
-  </div>
-  <!-- /page title -->
-  <div id="page-content" class="clearfix">
-      <!-- center page content -->
-      <div id="full-page-content">
-        <% if @user.blank? %>
-          Sorry, but the account confirmation was not successful.  Please check the link you received in your email and be sure the entire link was pasted into your browser's address bar.
-	  	  <% else %>
-          Thanks, your account confirmation is now complete and you may <%=link_to 'login'[],:action=>'login'%>.	  	  
-	  	  <% end %>
-	  	</div>
-  </div>
+</div>
+<!-- /page title -->
+<div id="page-content" class="clearfix">
+    <!-- center page content -->
+    <div id="full-page-content">
+      <% if @user.blank? %>
+        Sorry, but the account confirmation was not successful.  Please check the link you received in your email and be sure the entire link was pasted into your browser's address bar.
+      <% else %>
+        Thanks, your account confirmation is now complete and you may <%=link_to 'login'[],:action=>'login'%>.	  	  
+      <% end %>
+    </div>
+</div>

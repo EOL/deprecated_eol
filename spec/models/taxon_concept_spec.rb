@@ -319,7 +319,6 @@ describe TaxonConcept do
 
   it 'should return images sorted by trusted, unknown, untrusted' do
     @taxon_concept.current_user = @user
-    puts "+++++ NOW!"
     trusted   = Vetted.trusted.id
     unknown   = Vetted.unknown.id
     untrusted = Vetted.untrusted.id

@@ -53,7 +53,7 @@ Rails::Initializer.run do |config|
   config.gem 'ezcrypto'
   config.gem 'ratom', :lib => 'atom'
   config.gem 'json'
-  config.gem 'sanitize', :version => '1.1.0', :source => 'http://gems.github.com/'
+  config.gem 'sanitize', :version => '1.1.0'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

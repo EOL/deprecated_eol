@@ -22,6 +22,48 @@ class String
     @firstcap_regex = /^(<[^>]*>)?([^ ]+)( |$)/
     self.gsub(@firstcap_regex) { $1.to_s + $2.chars.capitalize + $3 }
   end
+    
+  def sanitize_html
+    text = self
+    
+    eol_relaxed = {
+      :elements => 
+      #  old list from gem:
+      # [ 'a', 'b', 'blockquote', 'br', 'caption', 'cite', 'code', 'col', 'colgroup', 'dd', 'dl', 'dt', 'em', 'embed', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'u', 'ul' ],
+      # more full list:
+      [
+        'address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'strike', 'strong', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var'
+        ],
+
+      :attributes => {
+        'a'          => ['href', 'title'],
+        'blockquote' => ['cite'],
+        'col'        => ['span', 'width'],
+        'colgroup'   => ['span', 'width'],
+        'embed'      => ['id', 'type', 'src', 'flashvars'],
+        'img'        => ['align', 'alt', 'height', 'src', 'title', 'width'],
+        'ol'         => ['start', 'type'],
+        'q'          => ['cite'],
+        'table'      => ['summary', 'width'],
+        'td'         => ['abbr', 'axis', 'colspan', 'rowspan', 'width'],
+        'th'         => ['abbr', 'axis', 'colspan', 'rowspan', 'scope',
+                         'width'],
+        'ul'         => ['type']
+      },
+      
+      :protocols => {
+        'a'          => {'href' => ['ftp', 'http', 'https', 'mailto',
+                                    :relative]},
+        'blockquote' => {'cite' => ['http', 'https', :relative]},
+        'embed'      => {'src' => ['http', 'https', :relative]},
+        'img'        => {'src'  => ['http', 'https', :relative]},
+        'q'          => {'cite' => ['http', 'https', :relative]}
+      }
+    }
+    
+    Sanitize.clean(text, eol_relaxed)
+    
+  end
 
 end
 

@@ -27,7 +27,7 @@
     <br />
 
     <div <%='class="unvetted-background-text"' if content_item.vetted_id != Vetted.trusted.id %>>
-     <%= content_item.description %>
+     <%= content_item.description.sanitize_html %>
     </div>
 
     <%# -- REFERENCES -- %>
@@ -37,7 +37,7 @@
         <div class='text-area-header references-header'>References</div>
         <ul>
         <% content_item.refs.each do |ref| %>
-          <li><%= allow_some_html ref.full_reference -%>
+          <li><%= allow_some_html ref.full_reference.sanitize_html -%>
             <% ref.ref_identifiers.each do |identifier| -%>
               <%# we do not show identifier unless we know how to handle them: -%>
               <% next unless identifier.display? -%>

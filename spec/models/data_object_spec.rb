@@ -603,7 +603,31 @@ describe DataObject do
     
   end
   
+  describe 'close tag' do
+    # 'Gofas, S.; Le Renard, J.; Bouchet, P. (2001). Mollusca, <B><I>in</I></B>: Costello, M.J. <i>et al.</i> (Ed.) (2001). <i>European register of marine species: a check-list of the marine species in Europe and a bibliography of guides to their identification.'
+    before(:each) do
+      @dato = DataObject.gen(:data_type_id => DataType.text_type_ids.first, :description => 'That <b>description has unclosed <i>html tags')
+    end
 
+    it 'should close tags in data_objects (incl. users)' do
+      dato_descr_before = @dato.description
+      dato_descr_after  = @dato.description.sanitize_html
+      
+      dato_descr_after.should eql('That <b>description has unclosed <i>html tags</i></b>')
+    end
+
+    it 'should close tags in references' do
+      full_ref          = 'a <b>b</div></HTML><i'
+      full_repaired_ref = 'a <b>b</b><i></i>' 
+      
+      @dato.refs << ref = Ref.gen(:full_reference => full_ref)
+      ref_before = @dato.refs[0].full_reference
+      ref_after  = @dato.refs[0].full_reference.sanitize_html
+      
+      ref_after.should eql(full_repaired_ref)
+    end
+  end
+  
   #
   # I haven't touched these yet:
   #

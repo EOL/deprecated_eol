@@ -12,7 +12,7 @@ ul#tab_media_center li#sounds a span { background: url(/images/mc_nav_sounds.gif
 ul#tab_media_center li#maps a span { background: url(/images/mc_nav_maps.gif) left top no-repeat }
 ul#tab_media_center li#videos a span { background: url(/images/mc_nav_videos.gif) left top no-repeat }
 
-#search_image  { 
+.search_image  { 
 				background: url(/images/fc_find.gif) left top no-repeat;
 			     width: 43px;
 				 height: 25px; 

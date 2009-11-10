@@ -1,0 +1,157 @@
+<link rel="search" type="application/opensearchdescription+xml" title="Encyclopedia of Life" href="/opensearch.xml">
+
+<div id="content">
+    <!-- page title -->
+    <div id="page-title">
+        <h1>
+            <% if @search.searching %>
+                <%= "Search Results"[:search_results] %>
+            <% else %>
+                <%= "Search"[:search] %>
+            <% end %>
+        </h1>
+        <hr />
+    </div>
+    <!-- /page title -->
+    <div id="page-content-bgfauxinside"> 
+    <div id="page-content" class="clearfix">
+        <!-- center page content -->
+        <div id="full-page-content">
+            <div id="left-pane">
+               <% form_tag({:controller=>"taxa",:action=>"search"},:id=>"search_form",:name=>"search_form",:method=>'get',:onSubmit=>"return EOL.Search.validate_parameters(this,true);") do -%>                
+                <%= hidden_field_tag :content_level, current_user.content_level %>
+                <%= hidden_field_tag :search_log_id, @search.logged_search_id if @search.logged_search_id%>
+                <%= hidden_field_tag :user_id,       current_user.id %>
+
+                <%= render :partial=>'shared/google_custom_search_params'%>                             
+
+                <fieldset>
+                    <legend><%="SEARCH TERMS"[]%></legend>
+                    <%= text_field_tag :q,@search.search_string,{:size=>"18",:maxlength=>"250"} %> 
+                    <br/>
+                    <div class="search_options">
+                      <%= radio_button_tag('search_type','text', @search.search_type == 'text' || @search.search_type.nil?) %> Names
+                      <%= radio_button_tag('search_type','tag', @search.search_type == 'tag') %> Tags
+                      <%= radio_button_tag('search_type','google', @search.search_type == 'google') %> Full-text
+                    </div>
+                    <input name="search_image" id="search_image" title="<%="Find"[]%>" value="" type="submit" class="right" />
+                    <br/>
+                </fieldset>
+                
+                <%if false%>
+                <fieldset>
+                    <legend><%="CLADE FILTER"[]%></legend>
+                </fieldset>
+                <%end%>
+                
+                <fieldset>
+                    <legend><%="Language"[]%></legend>
+                    <%=select_tag :search_language, options_for_select([['Any', '*']] + Language.find_active.collect {|al| [al.name, al.iso_639_1]},@search.search_language),:style=>'width:180px;'             %>
+                </fieldset>
+                
+                <% end %>
+
+              </div>    
+
+            <div id="right-pane">    
+ 
+                    <% if @search.searching && !@search.suggested_searches.nil? && @search.suggested_searches.length > 0 %>
+
+                    <div class="search_results" id="common_search_results">    
+                        <table>
+                            <tr>
+                                <td><a name="suggested_results"></a><h3><%="Suggested Results"[]%></h3></td>
+                            </tr>
+                         </table>
+                        
+                        <% if !@search.suggested_searches[0].common_name.downcase.include? @search.search_string.downcase  %>
+                            <%=h "Based on your search of '{search_string}', you might be interested in the following species."[:suggsted_search_results_message,@search.search_string]%>                        
+                         <% end %>
+                        
+                          <table class="results_table" cellspacing="0" summary="Suggested Names">
+                              <tr><th><%="Common Name"[]%></th><th><%="Scientific Name"[]%></th><th><%="Language"[]%></th><th><%="Image"[]%></th></tr>
+                            <% for result in @search.suggested_searches                         
+                              column_class=cycle('odd','even') 
+                              taxon_concept_id=result.taxon_id
+                              language=result.language
+                              common_name=result.common_name || ""
+                              scientific_name=result.scientific_name || ""
+                              image=result.image_url || ""
+                              %>
+                                <tr>
+                                    <td class="<%= column_class %>"><%= link_to common_name, {:action=>'search_clicked', :id=>taxon_concept_id.to_s, :search_id=> @search.logged_search_id}, :method=>:post %></td>
+                                    <td class="<%= column_class %>"><%= scientific_name%></td>
+                                <td class="<%= column_class %>"><%= h language %>
+                                <td class="<%= column_class %>"><%if image != '' %><a href="<%=url_for(:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id)%>"><img alt="<%=strip_tags(scientific_name)%>" title="<%=strip_tags(scientific_name)%>" src="<%=image%>"/></a><%end%></td></tr>
+                            <%
+                            end %>
+                            </table>    
+                      </div>    
+ 
+                    
+                    <br/><br/>
+                    <% end %>
+               <% if @search.search_type=='google'%>
+                 <div class="search_results" id="tag_search_results">    
+                  <div id="cse-search-results"></div>
+                   <script type="text/javascript">
+                     var googleSearchIframeName = "cse-search-results";
+                     var googleSearchFormName = "cse-search-box";
+                     var googleSearchFrameWidth = 650;
+                     var googleSearchDomain = "www.google.com";
+                     var googleSearchPath = "/cse";
+                   </script>
+                   <script type="text/javascript" src="http://www.google.com/afsonline/show_afs_search.js"></script>
+                  </div>
+               <% end %>
+               
+               <% if @search.search_type == 'text' %>
+                 <% if allow_page_to_be_cached? %>
+                   <%= render :partial=>'names_search_results_cached' %>
+                 <% else %>
+                   <%= render :partial=>'names_search_results' %>
+                 <% end %>
+                <% else %>
+                  <span id="advanced_search_message"></span>
+                <% end %>
+                                      
+                   <% if @search.searching && @search.search_type == 'tag' && @search.tag_results.length > 0 %>
+                    <div class="search_results" id="tag_search_results">    
+                    
+                       <table>
+                            <tr>
+                                <td width="50%"><a name="tag_names"></a><h3><%="Tagged"[]%> with <%=@search.search_string%></h3></td>
+                                <td><% if @search.searching && @search.common_name_results.length > 0 %>[view <a href="#common_names"><%="Common Names"[]%></a>]<% end %></td>
+                            </tr>
+                       </table>
+                    
+                       <table class="results_table" cellspacing="0" summary="Scientific Names">
+                            <tr><th><%="Scientific Name"[]%></th><th><%="Common Name"[]%></th><th><%="Image"[]%></th></tr>
+                            <% for result in @search.tag_results 
+                                  column_class   = cycle('odd','even') 
+                                  column_class = column_class + "_unvetted" unless result[0].vetted_id == Vetted.trusted.id
+                                  taxon_concept_id = result[0].id
+                                  preferred_name   = result[0].name(:expert)
+                                  common_name      = result[0].name(:middle)
+                                  namestring       = result[0].name(current_user.expertise, current_user.language) %>
+                                   <tr><td class="<%= column_class %>"><%= link_to namestring, {:action=>'search_clicked', :id=>taxon_concept_id.to_s, :search_id=> @search.logged_search_id}  %>
+                                    <% if strip_tags(preferred_name) != strip_tags(namestring) && preferred_name != '' %><br /><%="synonym of"[]%> <%=preferred_name%><% end %>                                 
+                                 </td><td class="<%= column_class %>"><%=common_name if common_name != '' %></td>
+                                  <td class="<%= column_class %>"><% unless result[0].images.empty? %><a href="<%=url_for(:action=>'search_clicked',:id=>taxon_concept_id.to_s,:search_id=> @search.logged_search_id)%>"><img alt="<%=strip_tags(namestring)%>" title="<%=strip_tags(namestring)%>" src="<%= result[1].smart_medium_thumb %>"/></a><%end%></td></tr>
+                              <% end %>
+                       </table>
+                       <%#= paginate_results(@search) if @search.total_pages > 1 %>
+                     </div>
+                   <% elsif @search.search_type == 'tag' && @search.tag_results.length == 0 %>
+                     <h3>No tagged results were found</h3><br />
+                     <br /><br /> Please note that you may only search on images you have tagged or images which have "public tags" (images which have been tagged
+                     by many people in the same way).  Start tagging images in order to produce search results.
+                   <% end %>
+
+                </div>
+            </div>
+        </div>    
+    </div>
+</div>
+
+

@@ -1,0 +1,39 @@
+<%- if !results.blank? -%>
+  <div class="search_results" id="<%= title.downcase.underscore %>">    
+    <table>
+      <tr>
+        <td><a name="<%= title.downcase.underscore %>"></a><h3><%="#{title}"[]%></h3></td>
+      </tr>
+    </table>
+              
+    <%= will_paginate(results) %>
+
+    <table class="results_table" cellspacing="0" summary="<%= title %>" style="width:100%;">
+      <tr><th style="width:50%;"><%="Common Name"[]%></th><th style="width:50%;"><%="Scientific Name"[]%></th><th
+          style="width:152px;"><%="Image"[]%></th></tr>
+      <% for result in results
+         tc_id = result['taxon_concept_id'][0]
+         common_name = result["common_name"] ? result["common_name"][0] : nil
+         common_name ||= result['preferred_scientific_name'][0]
+         scientific_name = result['preferred_scientific_name'][0]
+         top_image = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil
+         column_class = cycle('odd','even') 
+      %>
+        <tr>
+          <td class="<%= column_class %>"><%= link_to common_name,
+                                                      {:action => 'search_clicked', :id => tc_id},
+                                                      :method=>:post %></td>
+          <td class="<%= column_class %>"><%= scientific_name %></td>
+          <td class="<%= column_class %>"><% unless top_image.nil? %>
+            <a href="<%= url_for(:action => 'search_clicked', :id => tc_id) %>"><img
+              alt="<%= strip_tags(scientific_name) %>" title="<%= strip_tags(scientific_name) %>" src="<%= top_image.smart_medium_thumb %>"/></a>
+          <%end%></td>
+        </tr>
+      <% end %>
+    </table>    
+
+    <%= will_paginate(results) %>
+
+  </div> <%# /search_results %>
+  <br />
+<%- end -%>

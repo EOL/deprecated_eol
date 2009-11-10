@@ -851,46 +851,50 @@ EOIUCNSQL
   def self.find_all_by_solr(*args)
     query   = args.first
     options = args.last
-    page  = options[:offset] ? options[:offset] + 1 : 1
-    return @@search_results_for["#{query}_#{page}_#{options[:limit] || 10}"]
+    per_page = options[:limit] ? options[:limit].to_i : 10
+    offset = options[:offset] ? options[:offset].to_i : 0
+    page = offset_to_page(offset, per_page)
+    return @@search_results_for["#{query}_#{page}_#{per_page}"]
+  end
+
+  def self.offset_to_page(offset, limit)
+    raise "offset and limit should be integers" unless offset.class == Fixnum and limit.class == Fixnum
+    offset / limit + 1
+  end
+
+  def self.page_to_offset(page, limit)
+    raise "page and limit should be integers" unless  page.class == Fixnum and limit.class == Fixnum
+    (page - 1) * limit
   end
 
   # Returns an array of result hashes, using will_paginate.  Don't use paginate_all_by_solr directly, as that will either fail
   # or cause duplicate queries.
   # TODO - use a class rather than a class variable for search_results_for
-  def self.search_with_pagination(query, options)
-    obj = TaxonConcept.solr_search(query, options)
+  def self.search_with_pagination(query, options = {})
+    options[:page]        ||= 1
+    options[:per_page]    ||= 10
+    options[:search_type] ||= :common_name
+    clean_query = query.gsub('_', ' ') # Handles some of the "clean" URL "ids" that may get passed in.
+    obj = TaxonConcept.solr_search(clean_query, options)
     # Store the results of the search to "fake" them coming from find_all_by_solr:
-    @@search_results_for["#{query}_#{options[:page] || 1}_#{options[:per_page] || 10}"] = obj['response']['docs']
-    TaxonConcept.find_all_by_solr(query, options.merge(:total_entries => obj['response']['numFound']))
+    @@search_results_for ||= {}
+    @@search_results_for["#{clean_query}_#{options[:page]}_#{options[:per_page]}"] = obj['response']['docs']
+    TaxonConcept.paginate_all_by_solr(clean_query, options.merge(:total_entries => obj['response']['numFound']))
   end
-
-  # Returns the actual search results object.  Generally, you will want to use search_with_pagination instead. Results look
-  # like this:
-  # {"response"=>
-  #   {"start"=>0,
-  #    "docs"=>
-  #     [{"published"=>[true],
-  #       "pref_sci_name"=>["Procyon lotor"],
-  #       "vetted_id"=>[1],
-  #       "taxon_concept_id"=>[12]}],
-  #    "numFound"=>1},
-  #  "responseHeader"=>
-  #   {"QTime"=>1,
-  #    "params"=>
-  #     {"indent"=>"on",
-  #      "version"=>"2.2",
-  #      "q"=>"pref_sci_name:procyon",
-  #      "start"=>"0",
-  #      "rows"=>"10",
-  #      "wt"=>"json"},
-  #    "status"=>0}}
-  def self.solr_search(query, options)
-    url =  'http://localhost:8983/solr/select/?version=2.2&start=0&rows=10&indent=on&wt=json&q='
-    url << URI.encode("pref_sci_name:#{query}")
-    url << '&start=' << URI.encode(query) if options[:offset]
-    url << '&rows='  << URI.encode(query) if options[:limit]
-    res = open(url).read # TODO - add offset and limit
+  
+  # Returns the actual search results object.  Generally, you will want to use search_with_pagination instead.
+  # Restult looks like this:
+  # [{"top_image_id"=>1, "preferred_scientific_name"=>["Procyon lotor"], "published"=>[true], "scientific_name"=>["Procyon
+  # lotor"], "supercedure_id"=>[0], "vetted_id"=>[1], "taxon_concept_id"=>[14]}]
+  def self.solr_search(query, options = {})
+    url =  'http://localhost:8983/solr/select/?version=2.2&indent=on&wt=json&q='
+    url << URI.encode(%Q[{!lucene} #{options[:search_type]}:"#{query}" AND published:1 AND supercedure_id:0])
+    limit  = options[:per_page] ? options[:per_page].to_i : 10
+    page = options[:page] ? options[:page].to_i : 1
+    offset = page_to_offset(page, limit)
+    url << '&start=' << URI.encode(offset.to_s)
+    url << '&rows='  << URI.encode(limit.to_s)
+    res = open(url).read
     return JSON.load res
   end
 

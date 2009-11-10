@@ -1,4 +1,4 @@
-class EOL
+module EOL
   class DataObjectBuilder
 
     attr_reader :dato

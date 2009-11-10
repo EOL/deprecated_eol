@@ -1,4 +1,4 @@
-class EOL
+module EOL
 
   class TaxonConceptBuilder
 
@@ -109,6 +109,7 @@ class EOL
           TaxonConcept.connection.execute("UPDATE taxon_concepts SET id = #{@id} WHERE id = #{@tc.id}")
           @tc = TaxonConcept.find(@id)
         end
+        @tc = @tc.first if @tc.class == Array  # TODO - why in the WORLD is this an array?  ...but it is...
       else
         @tc = TaxonConcept.gen(:vetted => Vetted.trusted)
         @id = @tc.id

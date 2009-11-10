@@ -6,9 +6,9 @@ describe TaxaController do
     Factory(:language, :label => 'English')
   end
   
-  it "should report an invalid search term" do
+  it "should find no results on an empty search" do
     get :search
-    assigns[:search].error_message.should == "Your search term was invalid."
+    assigns[:all_results].should == []
   end
   
   describe "ACL rules for pages" do

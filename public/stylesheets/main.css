@@ -2604,11 +2604,11 @@ ul.tree li.selected {
 #loading-comments {padding: 100px 0 0 220px;}
 
 /* = Admin Search results pagination ======================================================================= */
-form .pagination {background:transparent;color:#959595;padding:8px 0 0 0;}
-form .pagination a, form .pagination a:link, form .pagination a:active {padding:1px 2px;color:#959595 !important;text-decoration:none;}
-form .pagination a:hover {color:black !important;}
-form .pagination .current {background:#a3d117;color:#fff;padding:1px 2px;}
-form .pagination span {color:#959595;display: inline;}
+.pagination {background:transparent;color:#959595;padding:8px 0 0 0;}
+.pagination a, form .pagination a:link, form .pagination a:active {padding:1px 2px;color:#959595 !important;text-decoration:none;}
+.pagination a:hover {color:black !important;}
+.pagination .current {background:#a3d117;color:#fff;padding:1px 2px;}
+.pagination span {color:#959595;display: inline;}
 
 /* Reports pagination ======================================================================= */
 div#report_from_eol .pagination {background:transparent;color:#959595;padding:8px 0 0 0;}

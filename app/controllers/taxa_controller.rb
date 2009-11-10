@@ -96,10 +96,10 @@ class TaxaController < ApplicationController
 
   # TODO - log that a search was performed
   def search
-    search_type = params[:search_type] || 'text'
-    if search_type == 'google'
+    @search_type = params[:search_type] || 'text'
+    if @search_type == 'google'
       render :html => 'google_search'
-    elsif search_type == 'tag'
+    elsif @search_type == 'tag'
       search_tag
     else
       search_text

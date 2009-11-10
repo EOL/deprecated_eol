@@ -171,6 +171,10 @@ Rails::Initializer.run do |config|
   $LOG_WEB_SERVICE_EXECUTION_TIME = false # if set to false, then execution times for web service calls will not be recorded
   $WEB_SERVICE_BASE_URL = '' # web service is used for importing content partners' data
 
+
+  #SOLR SERVER
+  $SOLR_SERVER = 'http://localhost:8983/solr/select'
+
   #Server's IP address
   $IP_ADDRESS_OF_SERVER = EOLWebService.local_ip
     

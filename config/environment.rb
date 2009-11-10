@@ -53,7 +53,8 @@ Rails::Initializer.run do |config|
   config.gem 'ezcrypto'
   config.gem 'ratom', :lib => 'atom'
   config.gem 'json'
-  config.gem 'sanitize', :version => '1.1.0'
+  config.gem 'sanitize'
+  config.gem 'nokogiri'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -209,6 +210,7 @@ require 'acts_as_enum'
 
 # Add some stuff to Core/Rails base classes:
 require 'core_extensions'
+require 'open-uri'
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin

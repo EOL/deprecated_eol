@@ -143,5 +143,35 @@ EOL.load_taxon_comments_tab = function(extra_params) {
                     onSuccess:function() {EOL.Effect.disappear('loading-comments');
                       EOL.Effect.appear('taxaCommentsWrap');}
                    });
+};
+
+EOL.validate_search_parameters = function(form,advanced_search) {
+  if (form.q.value.trim() == "") {
+    error_message='';
+    $('search_message').update(error_message);
+    if (advanced_search == true) {
+      $('advanced_search_message').update(error_message);
+    }
+    $('q').focus();
+    return false;
+  } else {
+    Element.hide('search_image');
+    if (advanced_search == true) {
+      $('advanced_search_message').update('Searching...');
+    } else {
+      $('search_message').update('Searching...');
+    }
+    if(!advanced_search) {
+      EOL.Search.show_top_spinner();
+    } else {
+      Element.show('ajax-indicator');
+    }
+    return true;
+  }
 }
 
+EOL.clear_search_field = function(form_field) {
+  if (form_field.value != '') {
+    form_field.value='';
+  }
+}

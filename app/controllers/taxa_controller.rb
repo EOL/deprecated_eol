@@ -94,83 +94,74 @@ class TaxaController < ApplicationController
     render :partial => 'classification_attribution', :locals => {:taxon_concept => taxon_concept}
   end
 
-  # execute search and show results
+  # TODO - log that a search was performed
   def search
-    
+    search_type = params[:search_type] || 'text'
+    if search_type == 'google'
+      render :html => 'google_search'
+    elsif search_type == 'tag'
+      search_tag
+    else
+      search_text
+    end
+  end
+
+  def search_tag
+    @search = Search.new(params, request, current_user, current_agent)
+    results = @search.search_results[:tags].map do |tag_result|
+      tc = tag_result[0]
+      dato = tag_result[1]
+      {'taxon_concept_id' => [tc.id],
+       'preferred_scientific_name' => [tc.scientific_name],
+       'common_name' => [tc.common_name],
+       'top_image_id' => dato.id }
+    end
+    results = results.paginate(:page => 1, :per_page => results.length)
+    if current_user.expertise.to_s == 'expert'
+      @scientific_results = results
+      @common_results = []
+    else 
+      @scientific_results = []
+      @common_results = results.sort_by {|tc| tc['common_name'] } 
+    end
+    @suggested_results = []
+    @all_results = (@suggested_results + @scientific_results + @common_results)
+  end
+
+  def search_text
+    @querystring = params[:q] || params[:id]
+    if @querystring.blank?
+      @all_results = []
+    else
+      # TODO - suggest results are TOTALLY broken, since they are in a different format.
+      @suggested_results  = SearchSuggestion.find_all_by_term_and_active(@querystring, true, :order=>'sort_order')
+      @scientific_results = TaxonConcept.search_with_pagination(@querystring, params.merge({:search_type => :scientific_name})) # Pass params for pagination?
+      @common_results     = TaxonConcept.search_with_pagination(@querystring, params.merge({:search_type => :common_name})) # Pass params for pagination?
+      @all_results = (@suggested_results + @scientific_results + @common_results)
+    end
     respond_to do |format|
-      # TODO - please, please, PLEASE refactor this.  There is WAY too much going on in this controller.
       format.html do 
-        current_user.content_level = params[:content_level] unless params[:content_level].nil?
-        params[:search_language] ||= '*'
-        params[:search_type] = EOLConvert.get_search_type(params[:search_type])
-        params[:content_level] ||= '1'
-        params[:q] ||= params[:id] ||= '' # allow search strings to be passed in as ID (Rails style) or as the "q" querystring param (Google style)
-        
-        params[:q].gsub!('_',' ') # convert underscores that might be used in friendly URLs into spaces
-        
-        last_published=HarvestEvent.last_published if allow_text_search_to_be_cached?
-
-        @last_harvest_event_id=(last_published.blank? ? "0" : last_published.id.to_s)
-
-         # this is a non-cached text search      
-        if text_search? && (!allow_page_to_be_cached? ||
-                            !read_fragment(search_fragment_name(
-                                             params[:search_language],
-                                             params[:q],
-                                             params[:page])))
-
-          @search = Search.new(params, request, current_user, current_agent)  
-          @cached = false
-
-          # TODO - There is a much better way to do this, please clean me - it is also duplicated in search.rb model  
-          # if we have only one result, go straight to that page
-          if @search.search_returned && @search.total_search_results == 1
-            #taxon_concept_id = (@search.common_name_results[0][0] || @search.scientific_name_results[0][0] || @search.tag_results[0][0].id)
-            taxon_concept_id = @search.common_results.empty? ? nil : @search.common_results[0][:id]
-            taxon_concept_id = taxon_concept_id ? taxon_concept_id : (@search.scientific_results.empty? ? nil : @search.scientific_results[0][:id])
-            taxon_concept_id = taxon_concept_id ? taxon_concept_id : (@search.tag_results.empty? ? nil: @search.tag_results[0][0].id)
-            taxon_concept_id = taxon_concept_id ? taxon_concept_id : @search.suggested_searches[0].taxon_id
-            redirect_to :controller => 'taxa', :action => 'show', :id => taxon_concept_id
-          end
-
-        elsif params[:search_type] == 'text' # this is a cached text search
-
-          @search = Search.new(params,request,current_user,current_agent,false) # set up some variables needed on the page, but don't actually execute the search
-          @cached = true
-
-        elsif params[:search_type] == 'tag' # this is a tag search (which is never cached)
-
-          @search = Search.new(params,request,current_user,current_agent)
-          @cached = false
-
-        else # this is a full-text serach (which is never cached)
-
-          @search = Search.new(params,request,current_user,current_agent,false) # set up some variables needed on the page, but don't actually execute the search
-          @cached=false
-
-        end
+        redirect_to_taxa_page(@all_results) if @all_results.length == 1
       end
-       format.xml do
-          params[:search_language] ||= '*'
-          # Not thrilled about this cache key, but we MUST detaint them, and it MUST include all criteria that affects
-          # the search:
-          if !params[:q].blank?
-            key = "search/xml/#{params[:search_language].sub(/\*/, 'DEFAULT')}/#{params[:q].gsub(/[^-_A-Za-z0-9]/, '_')}"
-            xml = Rails.cache.fetch(key, :expires_in => 8.hours) do
-              results = TaxonConcept.quick_search(params[:q], :search_language => params[:search_language])
-              xml_hash = {
-                'taxon-pages' => (results[:scientific] + results[:common]).flatten.map { |r| TaxonConcept.find(r['id']) }
-              }
-              xml_hash['errors'] = XmlErrors.new(results[:errors]) unless results[:errors].nil?
-              xml_hash.to_xml(:root => 'results')
-            end
-          else # user didn't send us any search parameter, so return a blank result
-            xml=Hash.new.to_xml(:root => 'results')
+      format.xml do
+        if @all_results.blank?
+          xml = Hash.new.to_xml(:root => 'results')
+        else
+          key = "search/xml/#{@querystring.gsub(/[^-_A-Za-z0-9]/, '_')}"
+          xml = Rails.cache.fetch(key, :expires_in => 8.hours) do
+            xml_hash = {
+              'suggested-results'  => @suggested_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },
+              'scientific-results' => @scientific_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },
+              'common-results'     => @common_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) }
+            }
+            # TODO xml_hash['errors'] = XmlErrors.new(results[:errors]) unless results[:errors].nil?
+            xml_hash.to_xml(:root => 'results')
           end
-          render :xml => xml
         end
+        render :xml => xml
       end
-
+    end
+      
   end
 
   # page that will allows a non-logged in user to change content settings
@@ -668,5 +659,9 @@ private
      :part => "search_#{lang}_#{query}_#{page}_#{current_user.vetted}_#{@last_harvest_event_id}"}
   end
   helper_method(:search_fragment_name)
+
+  def redirect_to_taxa_page(result_set)
+    redirect_to :controller => 'taxa', :action => 'show', :id => result_set.first['taxon_concept_id']
+  end
 
 end

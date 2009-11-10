@@ -1,4 +1,4 @@
-class EOL
+module EOL
   module DB
     module Create
       def all

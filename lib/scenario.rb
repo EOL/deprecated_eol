@@ -1,4 +1,4 @@
-class EOL
+module EOL
 
   # a Scenario is some set of data/logic that can be loaded up easily 
   # to run the application against.

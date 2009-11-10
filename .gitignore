@@ -12,3 +12,4 @@ db/schema.rb
 tmp
 log
 doc/app
+.DS_Store

@@ -8,9 +8,9 @@
   </div>
   <div class="search_options">
     <%= render :partial=>'shared/google_custom_search_params'%>
-    <%= radio_button_tag('search_type','text',true) %> Names
-    <%= radio_button_tag('search_type','tag',false) %> Tags
-    <%= radio_button_tag('search_type','google',false) %> Full-text
+    <%= radio_button_tag('search_type', 'text',   (@search_type == nil or @search_type == 'text')) %> Names
+    <%= radio_button_tag('search_type', 'tag',    @search_type == 'tag') %> Tags
+    <%= radio_button_tag('search_type', 'google', @search_type == 'google') %> Full-text
   </div>
   <span id="search_message"></span>
 <% end %>

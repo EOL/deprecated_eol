@@ -296,6 +296,18 @@ class ApplicationController < ActionController::Base
     !((request.remote_ip =~ /127.0.0.1/).nil? && (request.remote_ip =~ /128.128./).nil? && (request.remote_ip =~ /10.19./).nil?)
   end
 
+  # send user to the SSL version of the page (used in the account controller, can be used elsewhere)
+  def redirect_to_ssl
+    url_to_return = params[:return_to] ? CGI.unescape(params[:return_to]).strip : nil
+    unless request.ssl? || local_request?
+      if url_to_return && url_to_return[0...1] == '/'  #return to local url
+        redirect_to :protocol => "https://", :return_to => url_to_return 
+      else
+        redirect_to :protocol => "https://"  
+      end
+    end
+  end
+  
 
   # send user back to the non-SSL version of the page
   def redirect_back_to_http

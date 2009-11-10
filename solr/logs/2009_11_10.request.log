@@ -1,0 +1,8 @@
+127.0.0.1 -  -  [10/11/2009:15:55:50 +0000] "GET /solr/select/?version=2.2&indent=on&wt=json&q=%7B!lucene%7D%20scientific_name:%22tiger%22%20AND%20published:1%20AND%20supercedure_id:0&start=0&rows=10 HTTP/1.1" 200 270 
+127.0.0.1 -  -  [10/11/2009:15:55:50 +0000] "GET /solr/select/?version=2.2&indent=on&wt=json&q=%7B!lucene%7D%20common_name:%22tiger%22%20AND%20published:1%20AND%20supercedure_id:0&start=0&rows=10 HTTP/1.1" 200 533 
+127.0.0.1 -  -  [10/11/2009:16:04:15 +0000] "GET /solr/select/?version=2.2&indent=on&wt=json&q=%7B!lucene%7D%20scientific_name:%22tiger%22%20AND%20published:1%20AND%20supercedure_id:0&start=0&rows=10 HTTP/1.1" 200 270 
+127.0.0.1 -  -  [10/11/2009:16:04:15 +0000] "GET /solr/select/?version=2.2&indent=on&wt=json&q=%7B!lucene%7D%20common_name:%22tiger%22%20AND%20published:1%20AND%20supercedure_id:0&start=0&rows=10 HTTP/1.1" 200 533 
+127.0.0.1 -  -  [10/11/2009:16:26:23 +0000] "GET /solr/select/?version=2.2&indent=on&wt=json&q=%7B!lucene%7D%20scientific_name:%22tiger%22%20AND%20published:1%20AND%20supercedure_id:0&start=0&rows=10 HTTP/1.1" 200 270 
+127.0.0.1 -  -  [10/11/2009:16:26:23 +0000] "GET /solr/select/?version=2.2&indent=on&wt=json&q=%7B!lucene%7D%20common_name:%22tiger%22%20AND%20published:1%20AND%20supercedure_id:0&start=0&rows=10 HTTP/1.1" 200 533 
+127.0.0.1 -  -  [10/11/2009:16:45:21 +0000] "GET /solr/select/?version=2.2&indent=on&wt=json&q=%7B!lucene%7D%20scientific_name:%22tiger%22%20AND%20published:1%20AND%20supercedure_id:0&start=0&rows=10 HTTP/1.1" 200 270 
+127.0.0.1 -  -  [10/11/2009:16:45:21 +0000] "GET /solr/select/?version=2.2&indent=on&wt=json&q=%7B!lucene%7D%20common_name:%22tiger%22%20AND%20published:1%20AND%20supercedure_id:0&start=0&rows=10 HTTP/1.1" 200 533 

@@ -45,17 +45,16 @@ class DataObject < SpeciesSchemaModel
   
   #----- queries for rss feeds ------
   def self.feed_images_and_text(taxon_concept_id = nil, max_results = 100)
-    min_date = (Time.now() - 30.days).strftime('%Y-%m-%d')
     if taxon_concept_id.nil?
-      result = DataObject.find_by_sql(%Q{
+      DataObject.find_by_sql(%Q{
         SELECT * FROM #{DataObject.full_table_name}
-        USE INDEX (index_data_objects_on_created_at)
         WHERE data_type_id IN (#{DataType.image_type_ids[0]}, #{DataType.text_type_ids[0]})
           AND published=1
-          AND created_at > '#{min_date}'
+        ORDER BY created_at DESC
+        LIMIT #{max_results}
       })
     else
-      result = Set.new(DataObject.find_by_sql(%Q{
+      Set.new(DataObject.find_by_sql(%Q{
         SELECT do.*
         FROM #{HierarchyEntry.full_table_name} he_parent
           JOIN #{HierarchyEntry.full_table_name} he_children
@@ -72,7 +71,6 @@ class DataObject < SpeciesSchemaModel
         LIMIT #{max_results};
       })).to_a
     end
-    result.sort! {|a, b| b.created_at <=> a.created_at}[0..max_results]
   end
 
   def self.feed_images(taxon_concept_id = nil, max_results = 100)

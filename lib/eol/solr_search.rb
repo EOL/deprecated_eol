@@ -9,10 +9,10 @@ module EOL
         options[:per_page]    ||= 10
         options[:search_type] ||= :common_name
         clean_query = query.gsub('_', ' ') # Handles some of the "clean" URL "ids" that may get passed in.
-        res = solr_search(clean_query, options)['results'].paginate :page => options[:page], :per_page => options[:per_page]
-        puts 'URA'
-        pp res
-        res
+        res = solr_search(clean_query, options)
+        data = res['response']['docs']
+        total_results = res['response']['numFound']
+        data.paginate :page => options[:page], :per_page => options[:per_page], :total_entries => total_results
       end
       
       private

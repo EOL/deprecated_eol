@@ -1,0 +1,188 @@
+<add>
+<doc>
+  <field name="taxon_concept_id">13</field>
+  <field name="preferred_scientific_name">Dendrocopus provincialis</field>
+  <field name="scientific_name">Dendrocopus provincialis</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">66</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">14</field>
+  <field name="preferred_scientific_name">Procyon lotor</field>
+  <field name="scientific_name">Procyon lotor</field>
+  <field name="common_name">Common raccoon</field>
+  <field name="common_name">Енот Полоскун</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">66</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">25</field>
+  <field name="preferred_scientific_name">Deserunterox facererox L.</field>
+  <field name="scientific_name">Deserunterox facererox L.</field>
+  <field name="common_name">Tiger</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">66</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">16</field>
+  <field name="preferred_scientific_name">Procyon lotor X</field>
+  <field name="scientific_name">Procyon lotor X</field>
+  <field name="common_name">Raccoons</field>
+  <field name="common_name">provincialis raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">51</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">17</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">purple raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">18</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">grey raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">19</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">blue raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">20</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">pink raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">21</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">pale raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">22</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">dark raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">23</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">killer raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">24</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">Psychotic raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">26</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">Trippy raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">27</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">Hyper raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">28</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">Frivilous raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">29</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">Manic raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+<doc>
+  <field name="taxon_concept_id">30</field>
+  <field name="preferred_scientific_name">Procyon</field>
+  <field name="scientific_name">Procyon</field>
+  <field name="common_name">Demented Raccoon</field>
+  <field name="vetted_id">1</field>
+  <field name="published">1</field>
+  <field name="top_image_id">43</field>
+  <field name="supercedure_id">0</field>
+</doc>
+</add>
+
+  <!--
+  <fields>
+    <field name="taxon_concept_id" type="integer" indexed="true" stored="true" required="true" /> 
+    <field name="preferred_scientific_name" type="text" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="scientific_name" type="text" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="common_name" type="text" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="rank_id" type="integer" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="hierarchy_id" type="integer" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="top_image_id" type="integer" indexed="true" stored="true" required="false" multiValued="false" />
+    <field name="vetted_id" type="integer" indexed="true" stored="true" required="true" />
+    <field name="published" type="boolean" indexed="true" stored="true" required="true" />
+    <field name="supercedure_id" type="integer" indexed="true" stored="true" required="false" />
+  </fields>
+  -->

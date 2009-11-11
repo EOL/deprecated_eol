@@ -777,7 +777,7 @@ Factory.define :search_suggestion do |ss|
   ss.common_name     'TestSearchTerm CommonName'
   ss.language_label  'en'
   ss.image_url       '/images/eol_logo_header.png'
-  ss.association     :taxon
+  ss.taxon_id        1 
   ss.sort_order      1
   ss.active          1
   ss.created_at      { 48.hours.ago }

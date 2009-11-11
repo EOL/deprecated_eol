@@ -41,12 +41,12 @@
     </td>
   </tr>
 	<tr>
-		<td><strong>News Item Date as shown to user:</strong></td>
-		<td><%=f.date_select :display_date%></td>
+		<td><strong>News Item Date as shown to user (time only shown in RSS feed):</strong></td>
+		<td><%=f.datetime_select :display_date%></td>
 	</tr>
 	<tr>
 		<td valign="top"><strong>News Item is visible on website after this time:</strong></td>
-		<td><%=f.datetime_select :activated_on%><br />Note that this time is UTC (Greenwich Mean Time)<br />
+		<td><%=f.datetime_select :activated_on%><br />Note that all times are UTC (Greenwich Mean Time)<br />
 		<%=f.check_box :active%> Publish item based on time set above (uncheck to always hide)</td>
 	</tr>
 	<% if (controller.action_name != 'new' && controller.action_name != 'create') && @news_item.user.nil? == false %>

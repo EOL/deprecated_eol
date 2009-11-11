@@ -1,29 +1,39 @@
-#page-title ul li a#link-save span { background: url(/images/link_save.gif) no-repeat;}
-#page-title ul li a#link-email span { background: url(/images/link_email.gif) no-repeat;}
-#page-title ul li a#link-print span { background: url(/images/link_print.gif) no-repeat;}
-#page-title ul li a#link-alerts span { background: url(/images/link_alerts.gif) no-repeat;}
-#page-title ul li a#link-bookmark span { background: url(/images/link_bookmark.gif) no-repeat;}
-#page-title ul li a#link-delicious span { background: url(/images/link_delicious.gif) no-repeat;}
-#page-title ul li a#link-google span { background: url(/images/link_google.gif) no-repeat ;}
-#page-title ul li a#link-cite span { background: url(/images/link_cite.gif) no-repeat ;}
+#page-title ul li a#link-save span {
+  background: url(/images/link_save.gif) no-repeat; }
+#page-title ul li a#link-email span {
+  background: url(/images/link_email.gif) no-repeat; }
+#page-title ul li a#link-print span {
+  background: url(/images/link_print.gif) no-repeat; }
+#page-title ul li a#link-alerts span {
+  background: url(/images/link_alerts.gif) no-repeat; }
+#page-title ul li a#link-bookmark span {
+  background: url(/images/link_bookmark.gif) no-repeat; }
+#page-title ul li a#link-delicious span {
+  background: url(/images/link_delicious.gif) no-repeat; }
+#page-title ul li a#link-google span {
+  background: url(/images/link_google.gif) no-repeat; }
+#page-title ul li a#link-cite span {
+  background: url(/images/link_cite.gif) no-repeat; }
 
-ul#tab_media_center li#image a span { background: url(/images/mc_nav_images.gif) left top no-repeat}
-ul#tab_media_center li#sounds a span { background: url(/images/mc_nav_sounds.gif) left top no-repeat }
-ul#tab_media_center li#maps a span { background: url(/images/mc_nav_maps.gif) left top no-repeat }
-ul#tab_media_center li#videos a span { background: url(/images/mc_nav_videos.gif) left top no-repeat }
+ul#tab_media_center li#image a span {
+  background: url(/images/mc_nav_images.gif) left top no-repeat; }
+ul#tab_media_center li#sounds a span {
+  background: url(/images/mc_nav_sounds.gif) left top no-repeat; }
+ul#tab_media_center li#maps a span {
+  background: url(/images/mc_nav_maps.gif) left top no-repeat; }
+ul#tab_media_center li#videos a span {
+  background: url(/images/mc_nav_videos.gif) left top no-repeat; }
 
-.search_image  { 
-				background: url(/images/fc_find.gif) left top no-repeat;
-			     width: 43px;
-				 height: 25px; 
-				 border: 0px;
-				}
+.search_image {
+  background: url(/images/fc_find.gif) left top no-repeat;
+  width: 43px;
+  height: 25px;
+  border: 0px; }
 
 #content #page-content #left-page-content #sliding-toggle {
-	position: relative;
-	padding: 15px 0 0 0;
-	width: 240px;
-	height: 56px;
-	display: block;
-	background: #E6E7E8 url(/images/sliding_toggle.jpg) left top no-repeat;
-}
+  position: relative;
+  padding: 15px 0 0 0;
+  width: 240px;
+  height: 56px;
+  display: block;
+  background: #E6E7E8 url(/images/sliding_toggle.jpg) left top no-repeat; }

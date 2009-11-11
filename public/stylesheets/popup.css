@@ -1,216 +1,182 @@
-/*
- * The styles used for standard EOL popups
- *
- * NOTES:
- *
- *   some of these might be specific to comments (which they have been ported from)
- *
- *   using an hr-like separator in your popup? use: 2px solid #A2B636
- *
- *   dark-ish green vetted color: #9c0; (aka #99CC00)
- *
- *   yellow, unvetted color: #FFFF99;
- */
-
 .popup {
   background-color: #E6E7E8;
   border: 2px solid #6a8d00 !important;
   position: absolute;
   z-index: 1000;
-  padding: 10px;
-}
+  padding: 10px; }
 
 #large-image-attribution-button-popup-link_popup {
-  width: 345px; /*TODO: this was necessary for IE, should be removed so div can expand with content*/
-  left: 0px;   /* Fixes IE's bogus positioning--IE thinks position is absolute, and 'fixing' that causes other problems. */
-  top:  36px;
-}
+  width: 345px;
+  left: 0px;
+  top: 36px; }
 
 #classification-attribution-button_popup {
-  left: 5px;   /* Fixes IE's bogus positioning--IE thinks position is absolute, and 'fixing' that causes other problems. */
-  top:  36px;
-}
+  left: 5px;
+  top: 36px; }
 
 .popup-min-width {
   width: 245px;
   height: 0px;
-  line-height: 0px; /* IE6: makes the actual height work. */
-	overflow:hidden;
-}
+  line-height: 0px;
+  overflow: hidden; }
 
 .popup.vetted {
   border-color: #99CC00;
-  border-left: 20px solid #99CC00;
-}
+  border-left: 20px solid #99CC00; }
 .popup.unvetted {
   border-color: #D8C142;
-  border-left: 20px solid #FFFF99;
-}
+  border-left: 20px solid #FFFF99; }
 
 .popup-content {
-  margin-top: 13px; /* <--- not perfect ... let's us see the (X) close button, but i don't like this solution ... nothing should cover the (X) instead */
-}
+  margin-top: 13px; }
+  .popup-content h3 {
+    color: #570; }
+  .popup-content h1 {
+    font: normal 20px/21px verdana, arial;
+    border-bottom: 2px solid #D6D6D6;
+    border-top: 2px solid #D6D6D6;
+    margin-bottom: 5px;
+    padding-top: 3px;
+    padding-bottom: 5px; }
 
-.popup-content h3 {
-  color: #570;
-}
-
-.popup-content h1, #content #page-content #center-page-content h1 {
-  font:normal 20px/21px verdana, arial;
-  border-bottom: 2px solid #D6D6D6; /* gray */
-  border-top: 2px solid #D6D6D6; /* gray */
+#content #page-content #center-page-content h1 {
+  font: normal 20px/21px verdana, arial;
+  border-bottom: 2px solid #D6D6D6;
+  border-top: 2px solid #D6D6D6;
   margin-bottom: 5px;
   padding-top: 3px;
-  padding-bottom: 5px;		
-}
+  padding-bottom: 5px; }
 
 .popup h3 {
   font-size: 14pt;
   font-weight: 500 !important;
   letter-spacing: -1px;
-  line-height: 6pt;
-}
-
+  line-height: 6pt; }
 .popup span.date {
-  color: #570;
-}
+  color: #570; }
 
 .pop-up-ajax-indicator {
-	float: right;
-  z-index: 2005;
-}
+  float: right;
+  z-index: 2005; }
 
-a.close-button { 
-  float: right; /* <--- this is pretty specific to popups */
-  height: 12px !important; 
-  width: 12px !important; 
+a.close-button {
+  float: right;
+  height: 12px !important;
+  width: 12px !important;
   background-image: url(/images/close_button.gif);
   background-repeat: no-repeat;
-  z-index: 1000;
-}
-a.close-button:hover {
-  background-image: url(/images/close_button_active.gif);
-}
+  z-index: 1000; }
+  a.close-button:hover {
+    background-image: url(/images/close_button_active.gif); }
 
-/* styles for specific popups */
 div#right-image-buttons div.spinner {
- position: absolute;
- top: 0px;
- left: 0px;
-}
+  position: absolute;
+  top: 0px;
+  left: 0px; }
 div#large-image-trust-button {
- position: absolute;
- top: 0px;
- left: 30px;
-}
+  position: absolute;
+  top: 0px;
+  left: 30px; }
 div#large-image-untrust-button {
- position: absolute;
- top: 0px;
- left: 60px;
-}
+  position: absolute;
+  top: 0px;
+  left: 60px; }
 div#large-image-curator-button {
- position: absolute;
- top: 0px;
- left: 90px;
-}
+  position: absolute;
+  top: 0px;
+  left: 90px; }
 div#large-image-comment-button {
- position: absolute;
- top: 0px;
- left: 120px;
-}
+  position: absolute;
+  top: 0px;
+  left: 120px; }
 div#large-image-tagging-button {
- position: absolute;
- top: 0px;
- left: 150px;
- background: transparent url(/images/icons/icons.gif) no-repeat -47px 0px;
-}
-div#large-image-tagging-button:hover {
- background: transparent url(/images/icons/icons.gif) no-repeat -47px -32px;
-}
+  position: absolute;
+  top: 0px;
+  left: 150px;
+  background: transparent url(/images/icons/icons.gif) no-repeat -47px 0px; }
+  div#large-image-tagging-button:hover {
+    background: transparent url(/images/icons/icons.gif) no-repeat -47px -32px; }
+
 .attribution-icon {
- background: transparent url(/images/icons/icons.gif) no-repeat 1px 0px;display:inline-block;width:25px;height:24px;
- }
-.attribution-icon a { display:inline-block; height:100%; width:100%; }
-.attribution-icon:hover {
- background: transparent url(/images/icons/icons.gif) no-repeat 1px -32px;display:inline-block; 
-}
+  background: transparent url(/images/icons/icons.gif) no-repeat 1px 0px;
+  display: inline-block;
+  width: 25px;
+  height: 24px; }
+  .attribution-icon a {
+    display: inline-block;
+    height: 100%;
+    width: 100%; }
+  .attribution-icon:hover {
+    background: transparent url(/images/icons/icons.gif) no-repeat 1px -32px;
+    display: inline-block; }
+
 li#large-image-attribution-button.untrusted {
- background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;display:block;
- }
+  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;
+  display: block; }
 
 a#video_attributions.untrusted {
-  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;display:block;
-  }
-  
+  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;
+  display: block; }
 a#video_attributions.unknown {
-  background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px 0px;display:block;
-  }
- 
+  background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px 0px;
+  display: block; }
+
 li#large-image-attribution-button.untrusted:hover {
- background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px -32px;display:block;
-}
+  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px -32px;
+  display: block; }
 li#large-image-attribution-button.unknown {
- background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px 0px;display:block;
- }
-li#large-image-attribution-button.unknown:hover {
- background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px -32px;display:block;
-}
+  background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px 0px;
+  display: block; }
+  li#large-image-attribution-button.unknown:hover {
+    background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px -32px;
+    display: block; }
 
 .text-comments-head p {
   font-size: 6pt;
-  padding-top: 2px;
-}
+  padding-top: 2px; }
 
 #commentsContain .controls {
-    text-align: left;
-    padding-bottom: 10px;
-}
+  text-align: left;
+  padding-bottom: 10px; }
 
-.insert_text { position:relative !important; width: 423px !important; margin-bottom: 40px;}
+.insert_text {
+  position: relative !important;
+  width: 423px !important;
+  margin-bottom: 40px; }
 
-div.insert_text table td { padding: 5px; vertical-align:top; }
+div.insert_text table td {
+  padding: 5px;
+  vertical-align: top; }
 
 .toc_select label {
-  display: inline !important;
-}
+  display: inline !important; }
 
-.multi_new_text_error { color:red; text-align:right; }
+.multi_new_text_error {
+  color: red;
+  text-align: right; }
 
-form.curation .buttons { text-align:center; }
-
-form.curation .vetted .label { float: left; }
-
-form.curation .visibility .label { float: left; }
-
+form.curation .buttons {
+  text-align: center; }
+form.curation .vetted .label, form.curation .visibility .label {
+  float: left; }
 form.curation .options {
   padding-top: 5px;
-  padding-left: 65px;
- }
+  padding-left: 65px; }
 
 #large-image-curator-button-popup-link_popup {
-  background-color:#F4F4F4;
-}
+  background-color: #F4F4F4; }
 
 form.curation .label {
   color: #999999;
   font-size: 12px;
   font-weight: 700;
-  line-height: 25px;
-}
-
+  line-height: 25px; }
 form.curation .vetted {
-  padding-top: 15px;
-}
-
+  padding-top: 15px; }
 form.curation .visibility {
   padding-top: 15px;
-  padding-bottom: 15px;
-}
-
+  padding-bottom: 15px; }
 form.curation div.option {
-  padding-left: 8px;
-}
-
+  padding-left: 8px; }
 form.curation .options .untrusted .reason {
-  padding-left: 20px;
-}
+  padding-left: 20px; }

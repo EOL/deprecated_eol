@@ -1,70 +1,343 @@
-#taxaCommentsWrap {border:1px solid #6a8d00;background:#8bad1c;padding:2px;width:692px;height:382px;}
-#taxaCommentsWrap #commentsContain {overflow-y:scroll;border:1px solid #6a8d00;background-color:#F4F4F4;padding:13px 12px;height:354px;}
-#taxaCommentsWrap .controls {overflow:hidden;width:96%;}
-#taxaCommentsWrap h2 {font:normal 14px/15px verdana, arial;color:#333;padding:1px 0 0 5px;margin:0;width:90%;}
-#taxaCommentsWrap h2 b{font-weight:normal;color:#666;}
-#taxaCommentsWrap small {float:left;display:block;font:normal 10px/11px "trebuchet ms", verdana, arial;color:#333;padding:6px 0 0 27px;margin:0 0 15px 0;width:250px;}
-#taxaCommentsWrap ul.pages {width:300px;float:right;margin:0;}
-#taxaCommentsWrap ul.pages li{list-style-type:none;float:right;font:normal 10px/11px "trebuchet ms", arial, sans-serif;color:#fff;border-right:1px solid #6a8d00;border-left:1px solid #b1d02c;background:#769a14;text-transform:uppercase;padding:3px 5px 3px 5px;}
-#taxaCommentsWrap ul.pages li a, ul.pages li a:link, ul.pages li a:visited {padding:1px 3px;margin:0;font:normal 10px/11px "trebuchet ms", arial, sans-serif;color:#fff;text-decoration:none;}
-#taxaCommentsWrap ul.pages li a:hover, ul.pages li a:active {background:#6a8d00;}
-#taxaCommentsWrap ul.pages.bttm {padding:10px 0;}
-#taxaCommentsWrap ul.pages li.pagesNext {background:url(/images/controlsBkg.gif) no-repeat 100% 0 transparent;border-right:none;}
-#taxaCommentsWrap ul.pages li.pagesPrev {background:url(/images/controlsBkg.gif) no-repeat 0 0 transparent;border-left:none;text-align:right;}
-#taxaCommentsWrap .comments {clear:both;float:left;display:block;padding:0;margin:0;}
-#taxaCommentsWrap .comments li {background:url(/images/bubbleBttm.gif) no-repeat 0 100%;display:block;float:left;list-style-type:none;padding:0;margin:0 0 12px 0;}
-#taxaCommentsWrap .comments li div{background:url(/images/bubbleTop.gif) no-repeat 0 0;display:block;float:left;width:420px;padding:15px 40px 14px 20px;}
-#taxaCommentsWrap .comments li h6{display:block;width:150px;float:right;font:normal 11px/15px "trebuchet ms", arial, sans-serif;color:#6a8d00;padding:3px 0 0 3px;margin:0;}
-#taxaCommentsWrap .comments li h6 strong {display:block;font:normal 14px/15px verdana, arial, sans-serif;color:#555;padding:0 0 4px 0;margin:0;}
-#commentsContain .comments li h6 a, .comments li h6 a:link, .comments li h6 a:visited{font:normal 11px/15px "trebuchet ms", arial, sans-serif;color:#6a8d00;text-decoration:none;}
-#commentsContain .comments li h6 a:hover, .comments li h6 a:active{color:#6a8d00;text-decoration:underline;}
-#commentsContain .comments li p{text-align:left;font:normal 11px/15px verdana, arial, sans-serif;color:#555;padding:0;margin:0 0 1em 0;}
-#taxaCommentsWrap h3{float:left;font:normal 14px/15px verdana, arial;color:#333;padding:12px 0 0 26px;margin:12px 0 0 0;}
-#commentsContain #no-comments {text-align:center;clear:both;}
-#new-comment {clear:both;border-top:2px solid #c5c5c3;padding:10px 0 15px 0;margin-top:10px;}
-#new-comment h3 {padding:0 0 10px 0;}
-#new-comment p {padding:12px 0 0 0;}
-#new-comment h2 {width:300px !important;background:url(/images/icons/greenComment.gif) no-repeat 0 0;padding:1px 0 10px 26px !important;margin:0;height:24px;float:none;}
-#new-comment textarea {width:393px;padding:10px;border:1px solid #c5c5c3;color:#555;font:normal 13px/16px "trebuchet ms", arial, sans-serif;letter-spacing: .1px;}
-#new-comment .post_comment {display:block;border:1px solid #6a8d00;background:#8bad1c;padding:1px;color:#fff;font:normal 11px/12px "trebuchet ms", arial, sans-serif;text-transform: uppercase;margin:8px 0;}
-.invisible-comment {color:#888 !important;}
+#taxaCommentsWrap {
+  border: 1px solid #6a8d00;
+  background: #8bad1c;
+  padding: 2px;
+  width: 692px;
+  height: 382px; }
+  #taxaCommentsWrap #commentsContain {
+    overflow-y: scroll;
+    border: 1px solid #6a8d00;
+    background-color: #F4F4F4;
+    padding: 13px 12px;
+    height: 354px; }
+  #taxaCommentsWrap .controls {
+    overflow: hidden;
+    width: 96%; }
+  #taxaCommentsWrap h2 {
+    font: normal 14px/15px verdana, arial;
+    color: #333;
+    padding: 1px 0 0 5px;
+    margin: 0;
+    width: 90%; }
+    #taxaCommentsWrap h2 b {
+      font-weight: normal;
+      color: #666; }
+  #taxaCommentsWrap small {
+    float: left;
+    display: block;
+    font: normal 10px/11px "trebuchet ms", verdana, arial;
+    color: #333;
+    padding: 6px 0 0 27px;
+    margin: 0 0 15px 0;
+    width: 250px; }
+  #taxaCommentsWrap ul.pages {
+    width: 300px;
+    float: right;
+    margin: 0; }
+    #taxaCommentsWrap ul.pages li {
+      list-style-type: none;
+      float: right;
+      font: normal 10px/11px "trebuchet ms", arial, sans-serif;
+      color: #fff;
+      border-right: 1px solid #6a8d00;
+      border-left: 1px solid #b1d02c;
+      background: #769a14;
+      text-transform: uppercase;
+      padding: 3px 5px 3px 5px; }
+      #taxaCommentsWrap ul.pages li a {
+        padding: 1px 3px;
+        margin: 0;
+        font: normal 10px/11px "trebuchet ms", arial, sans-serif;
+        color: #fff;
+        text-decoration: none; }
 
-/* Text-area and image comments */
+ul.pages li a:link, ul.pages li a:visited {
+  padding: 1px 3px;
+  margin: 0;
+  font: normal 10px/11px "trebuchet ms", arial, sans-serif;
+  color: #fff;
+  text-decoration: none; }
+
+#taxaCommentsWrap ul.pages li a:hover, ul.pages li a:active {
+  background: #6a8d00; }
+
+#taxaCommentsWrap ul.pages.bttm {
+  padding: 10px 0; }
+#taxaCommentsWrap ul.pages li.pagesNext {
+  background: url(/images/controlsBkg.gif) no-repeat 100% 0 transparent;
+  border-right: none; }
+#taxaCommentsWrap ul.pages li.pagesPrev {
+  background: url(/images/controlsBkg.gif) no-repeat 0 0 transparent;
+  border-left: none;
+  text-align: right; }
+#taxaCommentsWrap .comments {
+  clear: both;
+  float: left;
+  display: block;
+  padding: 0;
+  margin: 0; }
+  #taxaCommentsWrap .comments li {
+    background: url(/images/bubbleBttm.gif) no-repeat 0 100%;
+    display: block;
+    float: left;
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 12px 0; }
+    #taxaCommentsWrap .comments li div {
+      background: url(/images/bubbleTop.gif) no-repeat 0 0;
+      display: block;
+      float: left;
+      width: 420px;
+      padding: 15px 40px 14px 20px; }
+    #taxaCommentsWrap .comments li h6 {
+      display: block;
+      width: 150px;
+      float: right;
+      font: normal 11px/15px "trebuchet ms", arial, sans-serif;
+      color: #6a8d00;
+      padding: 3px 0 0 3px;
+      margin: 0; }
+      #taxaCommentsWrap .comments li h6 strong {
+        display: block;
+        font: normal 14px/15px verdana, arial, sans-serif;
+        color: #555;
+        padding: 0 0 4px 0;
+        margin: 0; }
+
+#commentsContain .comments li h6 a {
+  font: normal 11px/15px "trebuchet ms", arial, sans-serif;
+  color: #6a8d00;
+  text-decoration: none; }
+
+.comments li h6 a:link, .comments li h6 a:visited {
+  font: normal 11px/15px "trebuchet ms", arial, sans-serif;
+  color: #6a8d00;
+  text-decoration: none; }
+
+#commentsContain .comments li h6 a:hover, .comments li h6 a:active {
+  color: #6a8d00;
+  text-decoration: underline; }
+
+#commentsContain .comments li p {
+  text-align: left;
+  font: normal 11px/15px verdana, arial, sans-serif;
+  color: #555;
+  padding: 0;
+  margin: 0 0 1em 0; }
+
+#taxaCommentsWrap h3 {
+  float: left;
+  font: normal 14px/15px verdana, arial;
+  color: #333;
+  padding: 12px 0 0 26px;
+  margin: 12px 0 0 0; }
+
+#commentsContain #no-comments {
+  text-align: center;
+  clear: both; }
+
+#new-comment {
+  clear: both;
+  border-top: 2px solid #c5c5c3;
+  padding: 10px 0 15px 0;
+  margin-top: 10px; }
+  #new-comment h3 {
+    padding: 0 0 10px 0; }
+  #new-comment p {
+    padding: 12px 0 0 0; }
+  #new-comment h2 {
+    width: 300px !important;
+    background: url(/images/icons/greenComment.gif) no-repeat 0 0;
+    padding: 1px 0 10px 26px !important;
+    margin: 0;
+    height: 24px;
+    float: none; }
+  #new-comment textarea {
+    width: 393px;
+    padding: 10px;
+    border: 1px solid #c5c5c3;
+    color: #555;
+    font: normal 13px/16px "trebuchet ms", arial, sans-serif;
+    letter-spacing: .1px; }
+  #new-comment .post_comment {
+    display: block;
+    border: 1px solid #6a8d00;
+    background: #8bad1c;
+    padding: 1px;
+    color: #fff;
+    font: normal 11px/12px "trebuchet ms", arial, sans-serif;
+    text-transform: uppercase;
+    margin: 8px 0; }
+
+.invisible-comment {
+  color: #888 !important; }
+
 #large-image-comment-button-popup-link_popup {
-  width:460px;
-  height:397px;
+  width: 460px;
+  height: 397px;
   left: -200px;
   top: 30px;
   text-align: left;
   line-height: normal;
-  max-height:397;
-  overflow:auto;
-  border:1px solid #6a8d00;
-  background-color:#F4F4F4;
-  padding:13px 12px;
-}
-#large-image-comment-button-popup-link_popup .comments {clear:both;float:left;display:block;padding:0;margin:0;width:450px;}
-#large-image-comment-button-popup-link_popup .comments li {width:auto !important;background:url(/images/bubbleTop2.gif) no-repeat 0 0;display:block !important;list-style-type:none;padding:5px 0 5px 0;margin:0 0 12px 0;height:auto !important;}
-#large-image-comment-button-popup-link_popup .comments li div{background:url(/images/bubbleBttm2.gif) no-repeat 0 100%;display:block;padding:15px 40px 14px 20px;}
+  max-height: 397;
+  overflow: auto;
+  border: 1px solid #6a8d00;
+  background-color: #F4F4F4;
+  padding: 13px 12px; }
+  #large-image-comment-button-popup-link_popup .comments {
+    clear: both;
+    float: left;
+    display: block;
+    padding: 0;
+    margin: 0;
+    width: 450px; }
+    #large-image-comment-button-popup-link_popup .comments li {
+      width: auto !important;
+      background: url(/images/bubbleTop2.gif) no-repeat 0 0;
+      display: block !important;
+      list-style-type: none;
+      padding: 5px 0 5px 0;
+      margin: 0 0 12px 0;
+      height: auto !important; }
+      #large-image-comment-button-popup-link_popup .comments li div {
+        background: url(/images/bubbleBttm2.gif) no-repeat 0 100%;
+        display: block;
+        padding: 15px 40px 14px 20px; }
 
-.text-comment-div h2, #large-image-comment-button-popup-link_popup h2 {clear:left;float:left;font:normal 20px/21px verdana, arial;color:#333;padding:0;margin:0 0 20px 0;width:200px;}
-.text-comment-div small, #large-image-comment-button-popup-link_popup small {float:left;display:block;font:normal 10px/11px "trebuchet ms", verdana, arial;color:#333;padding:0;margin:0;width:220px;}
-.text-comment-div ul.pages, #large-image-comment-button-popup-link_popup ul.pages {float:right;margin:0;}
-.text-comment-div ul.pages li, #large-image-comment-button-popup-link_popup ul.pages li{list-style-type:none;float:right;font:normal 10px/11px "trebuchet ms", arial, sans-serif;color:#fff;border-right:1px solid #6a8d00;border-left:1px solid #b1d02c;background:#769a14;text-transform:uppercase;padding:3px 5px 3px 5px;}
-.text-comment-div #large-image-comment-button-popup-link_popup ul.pages li a, .text-comment-div ul.pages li a:link, .text-comment-div ul.pages li a:visited, #large-image-comment-button-popup-link_popup ul.pages li a, #large-image-comment-button-popup-link_popup ul.pages li a:link, #large-image-comment-button-popup-link_popup ul.pages li a:visited {padding:1px 3px;margin:0;font:normal 10px/11px "trebuchet ms", arial, sans-serif;color:#fff;text-decoration:none;}
-.text-comment-div ul.pages li a:hover, .text-comment-div ul.pages li a:active, #large-image-comment-button-popup-link_popup ul.pages li a:hover, #large-image-comment-button-popup-link_popup ul.pages li a:active {background:#6a8d00;}
-.text-comment-div ul.pages.bttm, #large-image-comment-button-popup-link_popup ul.pages.bttm {padding:10px 0;}
-.text-comment-div ul.pages li.pagesNext, #large-image-comment-button-popup-link_popup ul.pages li.pagesNext {background:url(/images/controlsBkg.gif) no-repeat 100% 0 transparent;border-right:none;}
-.text-comment-div ul.pages li.pagesPrev, #large-image-comment-button-popup-link_popup ul.pages li.pagesPrev {background:url(/images/controlsBkg.gif) no-repeat 0 0 transparent;border-left:none;text-align:right;}
-.text-comment-div .comments {clear:both;float:left;display:block;padding:0 !important;margin:0;width:410px;}
-.text-comment-div .comments li{width:auto !important;background:url(/images/bubbleTop_thin.gif) no-repeat 0 0;display:block !important;list-style-type:none;padding:5px 0 55px 0 !important;}
-.text-comment-div .comments li div{background:url(/images/bubbleBttm_thin.gif) no-repeat 0 100%;display:block;padding:15px 40px 14px 20px;}
-.text-comment-div .comments li h6, #large-image-comment-button-popup-link_popup .comments li h6{text-align:left;background:url(/images/bubTip.gif) no-repeat 15px 0;display:block;font:normal 11px/15px "trebuchet ms", arial, sans-serif; color:#6a8d00;padding:6px 0 0 32px;margin:0;}
-.text-comment-div .comments li h6 strong, #large-image-comment-button-popup-link_popup .comments li h6 strong {display:inline;font:normal 14px/15px verdana, arial, sans-serif; color:#555;padding:0 0 4px 0;margin:0;}
+.text-comment-div h2, #large-image-comment-button-popup-link_popup h2 {
+  clear: left;
+  float: left;
+  font: normal 20px/21px verdana, arial;
+  color: #333;
+  padding: 0;
+  margin: 0 0 20px 0;
+  width: 200px; }
 
-#commentsContain .pagination {float:right;background:#8EA62C;text-align:right !important;font-size:10px !important;margin:8px 0 8px;padding:0 4px 0 6px;color:white !important;line-height:19px;text-transform:uppercase;border:1px solid #768B1C;}
-#commentsContain .pagination .current, .pagination .prev_page, .pagination .next_page, .pagination a {padding: 1px 2px 3px 2px;} 
-#commentsContain .pagination .current {background:#768B1C;} 
-#commentsContain .pagination .current, .pagination .next_page, .pagination .prev_page {} 
-#commentsContain .pagination a:visited, .pagination a:hover, .pagination a:link {color: white !important; text-decoration: none;}
+.text-comment-div small, #large-image-comment-button-popup-link_popup small {
+  float: left;
+  display: block;
+  font: normal 10px/11px "trebuchet ms", verdana, arial;
+  color: #333;
+  padding: 0;
+  margin: 0;
+  width: 220px; }
 
+.text-comment-div ul.pages, #large-image-comment-button-popup-link_popup ul.pages {
+  float: right;
+  margin: 0; }
+
+.text-comment-div ul.pages li, #large-image-comment-button-popup-link_popup ul.pages li {
+  list-style-type: none;
+  float: right;
+  font: normal 10px/11px "trebuchet ms", arial, sans-serif;
+  color: #fff;
+  border-right: 1px solid #6a8d00;
+  border-left: 1px solid #b1d02c;
+  background: #769a14;
+  text-transform: uppercase;
+  padding: 3px 5px 3px 5px; }
+
+.text-comment-div #large-image-comment-button-popup-link_popup ul.pages li a {
+  padding: 1px 3px;
+  margin: 0;
+  font: normal 10px/11px "trebuchet ms", arial, sans-serif;
+  color: #fff;
+  text-decoration: none; }
+.text-comment-div ul.pages li a:link, .text-comment-div ul.pages li a:visited {
+  padding: 1px 3px;
+  margin: 0;
+  font: normal 10px/11px "trebuchet ms", arial, sans-serif;
+  color: #fff;
+  text-decoration: none; }
+
+#large-image-comment-button-popup-link_popup ul.pages li a {
+  padding: 1px 3px;
+  margin: 0;
+  font: normal 10px/11px "trebuchet ms", arial, sans-serif;
+  color: #fff;
+  text-decoration: none; }
+  #large-image-comment-button-popup-link_popup ul.pages li a:link, #large-image-comment-button-popup-link_popup ul.pages li a:visited {
+    padding: 1px 3px;
+    margin: 0;
+    font: normal 10px/11px "trebuchet ms", arial, sans-serif;
+    color: #fff;
+    text-decoration: none; }
+
+.text-comment-div ul.pages li a:hover, .text-comment-div ul.pages li a:active {
+  background: #6a8d00; }
+
+#large-image-comment-button-popup-link_popup ul.pages li a:hover, #large-image-comment-button-popup-link_popup ul.pages li a:active {
+  background: #6a8d00; }
+
+.text-comment-div ul.pages.bttm, #large-image-comment-button-popup-link_popup ul.pages.bttm {
+  padding: 10px 0; }
+
+.text-comment-div ul.pages li.pagesNext, #large-image-comment-button-popup-link_popup ul.pages li.pagesNext {
+  background: url(/images/controlsBkg.gif) no-repeat 100% 0 transparent;
+  border-right: none; }
+
+.text-comment-div ul.pages li.pagesPrev, #large-image-comment-button-popup-link_popup ul.pages li.pagesPrev {
+  background: url(/images/controlsBkg.gif) no-repeat 0 0 transparent;
+  border-left: none;
+  text-align: right; }
+
+.text-comment-div .comments {
+  clear: both;
+  float: left;
+  display: block;
+  padding: 0 !important;
+  margin: 0;
+  width: 410px; }
+  .text-comment-div .comments li {
+    width: auto !important;
+    background: url(/images/bubbleTop_thin.gif) no-repeat 0 0;
+    display: block !important;
+    list-style-type: none;
+    padding: 5px 0 55px 0 !important; }
+    .text-comment-div .comments li div {
+      background: url(/images/bubbleBttm_thin.gif) no-repeat 0 100%;
+      display: block;
+      padding: 15px 40px 14px 20px; }
+    .text-comment-div .comments li h6 {
+      text-align: left;
+      background: url(/images/bubTip.gif) no-repeat 15px 0;
+      display: block;
+      font: normal 11px/15px "trebuchet ms", arial, sans-serif;
+      color: #6a8d00;
+      padding: 6px 0 0 32px;
+      margin: 0; }
+
+#large-image-comment-button-popup-link_popup .comments li h6 {
+  text-align: left;
+  background: url(/images/bubTip.gif) no-repeat 15px 0;
+  display: block;
+  font: normal 11px/15px "trebuchet ms", arial, sans-serif;
+  color: #6a8d00;
+  padding: 6px 0 0 32px;
+  margin: 0; }
+
+.text-comment-div .comments li h6 strong, #large-image-comment-button-popup-link_popup .comments li h6 strong {
+  display: inline;
+  font: normal 14px/15px verdana, arial, sans-serif;
+  color: #555;
+  padding: 0 0 4px 0;
+  margin: 0; }
+
+#commentsContain .pagination {
+  float: right;
+  background: #8EA62C;
+  text-align: right !important;
+  font-size: 10px !important;
+  margin: 8px 0 8px;
+  padding: 0 4px 0 6px;
+  color: white !important;
+  line-height: 19px;
+  text-transform: uppercase;
+  border: 1px solid #768B1C; }
+  #commentsContain .pagination .current, #commentsContain .pagination .prev_page, #commentsContain .pagination .next_page, #commentsContain .pagination a {
+    padding: 1px 2px 3px 2px; }
+  #commentsContain .pagination .current {
+    background: #768B1C; }
+  #commentsContain .pagination a:visited, #commentsContain .pagination a:hover, #commentsContain .pagination a:link {
+    color: white !important;
+    text-decoration: none; }

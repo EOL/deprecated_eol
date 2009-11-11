@@ -8,7 +8,8 @@ module EOL
         options[:page]        ||= 1
         options[:per_page]    ||= 10
         options[:search_type] ||= :common_name
-        clean_query = query.gsub('_', ' ') # Handles some of the "clean" URL "ids" that may get passed in.
+        query_prefix, query_suffix = query.split(":")[0], query.split(":")[1..-1].join(":")
+        clean_query = query_prefix + ":" + query_suffix.gsub('_', ' ') # Handles some of the "clean" URL "ids" that may get passed in.
         res = solr_search(clean_query, options)
         data = res['response']['docs']
         total_results = res['response']['numFound']
@@ -23,7 +24,7 @@ module EOL
       # lotor"], "supercedure_id"=>[0], "vetted_id"=>[1], "taxon_concept_id"=>[14]}]
       def solr_search(query, options = {})
         url =  $SOLR_SERVER + '/?version=2.2&indent=on&wt=json&q='
-        url << URI.encode(%Q[{!lucene} #{options[:search_type]}:"#{query}" AND published:1 AND supercedure_id:0])
+        url << URI.encode(%Q[{!lucene} #{query} AND published:1 AND supercedure_id:0])
         limit  = options[:per_page] ? options[:per_page].to_i : 10
         page = options[:page] ? options[:page].to_i : 1
         offset = page_to_offset(page, limit)

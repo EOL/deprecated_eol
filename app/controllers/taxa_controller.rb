@@ -133,10 +133,13 @@ class TaxaController < ApplicationController
     if @querystring.blank?
       @all_results = []
     else
-      # TODO - suggest results are TOTALLY broken, since they are in a different format.
       @suggested_results  = SearchSuggestion.find_all_by_term_and_active(@querystring, true, :order=>'sort_order')
-      @scientific_results = TaxonConcept.search_with_pagination(@querystring, params.merge({:search_type => :scientific_name})) # Pass params for pagination?
-      @common_results     = TaxonConcept.search_with_pagination(@querystring, params.merge({:search_type => :common_name})) # Pass params for pagination?
+      suggested_results_query = @suggested_results.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
+      suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
+      @suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params) 
+      @scientific_results = TaxonConcept.search_with_pagination('scientific_name:' + @querystring, params) # Pass params for pagination?
+      @common_results     = TaxonConcept.search_with_pagination('common_name:' + @querystring, params) # Pass params for pagination?
+      
       @all_results = (@suggested_results + @scientific_results + @common_results)
     end
     respond_to do |format|

@@ -46,25 +46,25 @@ def stub_search_method(results, options = {})
   current_page = 1
   options[:pages].times do 
     # These are the "normal" options, used when calling search correctly.
-    options_we_expect = {"action"=>"search", "search_type"=>:scientific_name, "q"=>'tiger', "controller"=>"taxa"}
+    options_we_expect = {"action"=>"search", "q"=>'tiger', "controller"=>"taxa"}
     # These are the "weird" options, caused by searches that result from /pages/tiger URLs.  Peter's code.  ;)
-    alt_options_we_expect = {"action"=>"search", "search_type"=>:scientific_name, "id"=>'tiger', "controller"=>"taxa"}
+    alt_options_we_expect = {"action"=>"search", "id"=>'tiger', "controller"=>"taxa"}
     options_we_expect.merge!({'page' => current_page.to_s}) if current_page > 1
     # Scientific names:
     TaxonConcept.stub!(:search_with_pagination).with(
-      'tiger', alt_options_we_expect).and_return(options[:no_sci_result] ?
+      'scientific_name:tiger', alt_options_we_expect).and_return(options[:no_sci_result] ?
                                                   [].paginate(:page => current_page, :per_page => 10) :
                                                   results.paginate(:page => current_page, :per_page => 10))
     TaxonConcept.stub!(:search_with_pagination).with(
-      'tiger', options_we_expect).and_return(options[:no_sci_result] ?
+      'scientific_name:tiger', options_we_expect).and_return(options[:no_sci_result] ?
                                               [].paginate(:page => current_page, :per_page => 10) :
                                               results.paginate(:page => current_page, :per_page => 10))
     # Common names:
     TaxonConcept.stub!(:search_with_pagination).with(
-      'tiger', alt_options_we_expect.merge({'search_type' => :common_name})).and_return(
+      'common_name:tiger', alt_options_we_expect).and_return(
         results.paginate(:page => current_page, :per_page => 10))
     TaxonConcept.stub!(:search_with_pagination).with(
-      'tiger', options_we_expect.merge({'search_type' => :common_name})).and_return(
+      'common_name:tiger', options_we_expect).and_return(
         results.paginate(:page => current_page, :per_page => 10))
     current_page += 1
   end
@@ -151,12 +151,57 @@ describe 'Search' do
   it 'should paginate' do
     results_per_page = 10
     extra_results    = 4
-
     create_many_taxa(results_per_page + extra_results, :pages => 2)
 
     assert_results(:num_results_on_this_page => results_per_page)
     assert_results(:num_results_on_this_page => extra_results, :page => 2)
   end
+
+  it 'should return no suggested search if it is not found' do
+    res = request('/search?q=no+results&search_type=text')
+    res.body.should include("No search results were found")
+  end
+
+  it 'should return one suggested search' do
+    tc = build_taxon_concept(:scientific_name => 'Plantago major', :common_names => ['Common plantain'])
+    ss = SearchSuggestion.gen(:taxon_id => tc.id, :scientific_name => tc.scientific_name, :common_name => 'Common plantain')
+    result = [{'taxon_concept_id' => [tc.id],
+     'preferred_scientific_name' => [tc.scientific_name],
+     'scientific_name' => [tc.scientific_name],
+     'common_name' => [tc.common_name]
+  }]
+    stub_search_method(result)
+    TaxonConcept.stub!(:search_with_pagination).and_return(result.paginate(:page => 1, :per_page => 10))
+
+    res = request('/search?q=Plantago+major&search_type=text')
+    res.body.should have_tag('table[summary=Suggested Search Results]') do |table|
+      table.should have_tag("td:nth-child(2)", :text => 'Plantago major')
+    end
+  end
+
+  it 'should return two suggested searches' do
+    tc1 = build_taxon_concept(:scientific_name => 'Canis lupus familiaris', :common_names => ['Domestic dog'])
+    tc2 = build_taxon_concept(:scientific_name => 'Canis lupus', :common_names => ['Wolf'])
+    ss1 = SearchSuggestion.gen(:taxon_id => tc1.id, :scientific_name => tc1.scientific_name, :common_name => tc1.common_name)
+    ss2 = SearchSuggestion.gen(:taxon_id => tc2.id, :scientific_name => tc2.scientific_name, :common_name => tc2.common_name)
+    all_tc = [tc1, tc2]
+    results = []
+    all_tc.each do |tc|
+      results << {'taxon_concept_id' => [tc.id],
+     'preferred_scientific_name'     => [tc.scientific_name],
+     'scientific_name'               => [tc.scientific_name],
+     'common_name'                   => [tc.common_name]} 
+    end 
+    TaxonConcept.stub!(:search_with_pagination).and_return(results.paginate(:page => 1, :per_page => 10))
+    
+    res = request('/search?q=Plantago+major&search_type=text')
+    res.body.should have_tag('table[summary=Suggested Search Results]') do |table|
+      table.should have_tag("td:nth-child(2)", :text => 'Canis lupus familiaris')
+      table.should have_tag("td", :text => 'Canis lupus')    
+    end
+  end
+
+  #-------- tag search -------
 
   it 'should find tags' do
     taxon_concept = build_taxon_concept(:images => [{}])

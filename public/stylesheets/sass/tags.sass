@@ -1,0 +1,220 @@
+.clear_both
+  clear: both
+
+
+div
+  &.data_object_tagging
+    float: left
+    padding: 2px
+    font: normal 13px/14px "trebuchet ms", arial, sans-serif
+   
+
+
+  &#public_data_object_tags
+    width: 300px
+
+  &#private_data_object_tags
+    width: 520px
+
+  &.data_object_tagging
+    .label
+      float: left
+      width: 70px
+      text-align: right
+      margin-right: 10px
+
+    .values
+      float: left
+      width: 150px
+
+    .values>*
+      margin-right: 10px
+      white-space: nowrap
+
+    select
+      width: 165px
+
+    input[type=text]
+      width: 162px
+
+    #add_data_object_tags input[type=submit]
+      display: block
+      margin-left: 78px
+
+    span
+      color: #7a9e0e
+
+  &.data_object_tagging>div
+    float: left
+    width: 280px
+
+  &#public_data_object_tags.data_object_tagging>div
+    width: 100%
+
+  &.data_object_tagging
+    h1
+      font: normal 20px/21px verdana, arial
+      border-bottom: 2px solid #D6D6D6
+      border-top: 2px solid #D6D6D6
+      width: 90%
+      margin-bottom: 5px
+      padding-top: 3px
+      padding-bottom: 5px
+
+    h2
+      font-size: 0.8em
+      font-weight: normal
+      margin: 0
+      padding-left: 28px
+      white-space: nowrap
+
+    h1 img
+      padding: 0 5px 0 5px
+
+    #add_data_object_tags h1 img
+      padding-top: 6px
+
+
+.tag-submit
+  border: 1px solid #1589b4
+  background: #19a1d4
+  padding: 1px
+  color: #fff
+  font: normal 11px/12px "trebuchet ms", arial, sans-serif
+  text-transform: uppercase
+  margin: 8px 0
+
+
+#my_data_object_tags
+  width: 240px
+
+
+span.data_object_tag_key_value
+
+input.destroy-x
+  background-image: url(/images/icons/tag_delete.gif)
+  height: 16px
+  width: 16px
+  border: 0
+  margin: 0
+  padding: 0
+  margin-left: 3px
+
+  &:hover
+    background-image: url(/images/icons/tag_delete.gif)
+    cursor: pointer
+
+
+span.data_object_tag_key_value a
+  color: #509CBF
+  font-weight: bold
+  line-height: 20px
+
+
+#add_data_object_tags
+
+#add_data_object_tags_fields
+  margin-top: 5px
+
+
+#large-image-tagging-button-popup-link_popup
+  background-color: #F4F4F4
+  width: 500px
+
+
+#public_and_private_data_object_tags
+  text-align: left
+
+  h3 a
+    float: left
+    background: url(/images/greyBttn.gif) no-repeat 0 0
+    font: normal 12px/13px "trebuchet ms", arial, sans-serif
+    color: #149acc
+    text-decoration: none
+    display: block
+    padding: 3px 3px 3px 3px
+    width: 77px
+    height: 14px
+    text-decoration: none
+    margin-left: 5px
+
+    &:hover
+      background: url(/images/greyBttn.gif) no-repeat 0 -19px
+
+  div.headers
+    width: 200px
+
+
+#public_data_object_tags_container, #private_data_object_tags_container
+  width: 500px
+
+
+.data_object_tag_key_value form
+  display: inline
+  padding: 0
+  margin: 0
+
+  div
+    display: inline
+    padding: 0
+    margin: 0
+
+
+.ac_results
+  padding: 0
+  border: 1px solid WindowFrame
+  background-color: Window
+  overflow: hidden
+  z-index: 1001
+  text-align: left
+
+  ul
+    width: 100%
+    list-style-position: outside
+    list-style: none
+    padding: 0
+    margin: 0
+
+  iframe
+    display: none
+    display/**/: block
+    position: absolute
+    top: 0
+    left: 0
+    z-index: -1
+    filter: mask()
+    width: 3000px
+    height: 3000px
+
+  li
+    margin: 0
+    padding: 2px 5px
+    cursor: pointer
+    display: block
+    width: 100%
+    font: menu
+    font-size: 12px
+    overflow: hidden
+
+
+.ac_loading
+  background: Window url('/images/indicator_arrows_black.gif') right center no-repeat
+
+
+.ac_over
+  background-color: Highlight
+  color: HighlightText
+
+
+body#tag_suggestion-page fieldset#new-public-tag
+  border: 1px solid #eee
+  margin-top: 20px
+
+  label span
+    width: 60px
+    color: #444
+    font-size: 1.0em
+    display: inline-block
+
+  input[type=submit]
+    margin-top: 5px

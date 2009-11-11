@@ -1,87 +1,71 @@
-/* i hate naming things like this ... */
 .clear_both {
-  clear: both;
-}
+  clear: both; }
 
-/* the whole tagging section */
 div.data_object_tagging {
-	float:left;padding:2px;
-  font: normal 13px/14px "trebuchet ms", arial, sans-serif
-  /* min-width: 400px; */ /* because stuff floats ... this div doesn't expand properly? ... :( */
-}
-  div#public_data_object_tags {
-	
-    width: 300px;
-  }
-  div#private_data_object_tags {
-    width: 520px;
-  }
+  float: left;
+  padding: 2px;
+  font: normal 13px/14px "trebuchet ms", arial, sans-serif; }
+div#public_data_object_tags {
+  width: 300px; }
+div#private_data_object_tags {
+  width: 520px; }
 div.data_object_tagging .label {
   float: left;
-  width: 70px; /* <--- TODO - MED PRI - this is a problem!  if people's tag names are long ... screws things up ... hmmm ... */
+  width: 70px;
   text-align: right;
-  margin-right: 10px;
-}
+  margin-right: 10px; }
 div.data_object_tagging .values {
   float: left;
-  width: 150px;
-}
+  width: 150px; }
 div.data_object_tagging .values>* {
   margin-right: 10px;
-  white-space: nowrap;
-}
+  white-space: nowrap; }
 div.data_object_tagging select {
-  width: 165px;
-}
+  width: 165px; }
 div.data_object_tagging input[type=text] {
-  width: 162px;
-}
+  width: 162px; }
 div.data_object_tagging #add_data_object_tags input[type=submit] {
   display: block;
-  margin-left: 78px;
-}
+  margin-left: 78px; }
 div.data_object_tagging span {
-	color:#7a9e0e;
-}
+  color: #7a9e0e; }
 div.data_object_tagging>div {
   float: left;
-  width: 280px; /* this makes public tags unhappy */
-}
+  width: 280px; }
 div#public_data_object_tags.data_object_tagging>div {
-  width: 100%;
-}
+  width: 100%; }
 div.data_object_tagging h1 {
-  font:normal 20px/21px verdana, arial;
-  border-bottom: 2px solid #D6D6D6; /* gray */
-  border-top: 2px solid #D6D6D6; /* gray */
+  font: normal 20px/21px verdana, arial;
+  border-bottom: 2px solid #D6D6D6;
+  border-top: 2px solid #D6D6D6;
   width: 90%;
   margin-bottom: 5px;
   padding-top: 3px;
-  padding-bottom: 5px;
-}
+  padding-bottom: 5px; }
 div.data_object_tagging h2 {
   font-size: 0.8em;
   font-weight: normal;
   margin: 0;
   padding-left: 28px;
-  white-space: nowrap;
-}
+  white-space: nowrap; }
 div.data_object_tagging h1 img {
-  padding: 0 5px 0 5px;
-}
+  padding: 0 5px 0 5px; }
 div.data_object_tagging #add_data_object_tags h1 img {
-  padding-top: 6px;
-}
+  padding-top: 6px; }
 
-/* MY TAGS */
 .tag-submit {
-	border:1px solid #1589b4;background:#19a1d4;padding:1px;color:#fff;font:normal 11px/12px "trebuchet ms", arial, sans-serif;text-transform: uppercase;margin:8px 0;	
-}
+  border: 1px solid #1589b4;
+  background: #19a1d4;
+  padding: 1px;
+  color: #fff;
+  font: normal 11px/12px "trebuchet ms", arial, sans-serif;
+  text-transform: uppercase;
+  margin: 8px 0; }
+
 #my_data_object_tags {
-  width: 240px;
-}
-span.data_object_tag_key_value {
-}
+  width: 240px; }
+
+
 input.destroy-x {
   background-image: url(/images/icons/tag_delete.gif);
   height: 16px;
@@ -89,64 +73,54 @@ input.destroy-x {
   border: 0;
   margin: 0;
   padding: 0;
-  margin-left: 3px;
-}
-input.destroy-x:hover {
-  background-image: url(/images/icons/tag_delete.gif);
-  cursor: pointer;
-}
-span.data_object_tag_key_value a {
-  color: #509CBF; /* light blue */
-  font-weight: bold;
-  line-height: 20px;
-}
+  margin-left: 3px; }
+  input.destroy-x:hover {
+    background-image: url(/images/icons/tag_delete.gif);
+    cursor: pointer; }
 
-/* ADD TAGS */
-#add_data_object_tags {}
+span.data_object_tag_key_value a {
+  color: #509CBF;
+  font-weight: bold;
+  line-height: 20px; }
+
+
 #add_data_object_tags_fields {
-  margin-top: 5px;
-}
+  margin-top: 5px; }
 
 #large-image-tagging-button-popup-link_popup {
-  background-color:#F4F4F4;
-  width: 500px;
-}
+  background-color: #F4F4F4;
+  width: 500px; }
 
 #public_and_private_data_object_tags {
-  text-align: left;
-}
-#public_and_private_data_object_tags h3 a {
-		float:left;background:url(/images/greyBttn.gif) no-repeat 0 0;font:normal 12px/13px "trebuchet ms", arial, sans-serif;color:#149acc;text-decoration:none;display:block;padding:3px 3px 3px 3px;width:77px;height:14px;
+  text-align: left; }
+  #public_and_private_data_object_tags h3 a {
+    float: left;
+    background: url(/images/greyBttn.gif) no-repeat 0 0;
+    font: normal 12px/13px "trebuchet ms", arial, sans-serif;
+    color: #149acc;
     text-decoration: none;
-		margin-left: 5px;
-}
-#public_and_private_data_object_tags h3 a:hover {
-	background:url(/images/greyBttn.gif) no-repeat 0 -19px;
-}
-#public_and_private_data_object_tags div.headers {
-    width:200px;
-}
+    display: block;
+    padding: 3px 3px 3px 3px;
+    width: 77px;
+    height: 14px;
+    text-decoration: none;
+    margin-left: 5px; }
+    #public_and_private_data_object_tags h3 a:hover {
+      background: url(/images/greyBttn.gif) no-repeat 0 -19px; }
+  #public_and_private_data_object_tags div.headers {
+    width: 200px; }
 
-#public_data_object_tags_container {
-    width: 500px;
-}
+#public_data_object_tags_container, #private_data_object_tags_container {
+  width: 500px; }
 
-#private_data_object_tags_container {
-    width: 500px;
-}
-	
 .data_object_tag_key_value form {
   display: inline;
   padding: 0;
-  margin: 0; 
-}
-.data_object_tag_key_value form div {
-  display: inline;
-  padding: 0;
-  margin: 0; 
-}
-
-/* tagging autocomplete */
+  margin: 0; }
+  .data_object_tag_key_value form div {
+    display: inline;
+    padding: 0;
+    margin: 0; }
 
 .ac_results {
   padding: 0;
@@ -154,61 +128,47 @@ span.data_object_tag_key_value a {
   background-color: Window;
   overflow: hidden;
   z-index: 1001;
-  text-align: left;
-}
-
-.ac_results ul {
-  width: 100%;
-  list-style-position: outside;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.ac_results iframe {
-  display: none;/*sorry for IE5*/
-  display/**/: block;/*sorry for IE5*/
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-  filter: mask();
-  width: 3000px;
-  height: 3000px;
-}
-
-.ac_results li {
-  margin: 0;
-  padding: 2px 5px;
-  cursor: pointer;
-  display: block;
-  width: 100%;
-  font: menu;
-  font-size: 12px;
-  overflow: hidden;
-}
+  text-align: left; }
+  .ac_results ul {
+    width: 100%;
+    list-style-position: outside;
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+  .ac_results iframe {
+    display: none;
+    display/**/: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    filter: mask();
+    width: 3000px;
+    height: 3000px; }
+  .ac_results li {
+    margin: 0;
+    padding: 2px 5px;
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    font: menu;
+    font-size: 12px;
+    overflow: hidden; }
 
 .ac_loading {
-  background: Window url('/images/indicator_arrows_black.gif') right center no-repeat;
-}
+  background: Window url('/images/indicator_arrows_black.gif') right center no-repeat; }
 
 .ac_over {
   background-color: Highlight;
-  color: HighlightText;
-}
-
-/* admin tagging */
+  color: HighlightText; }
 
 body#tag_suggestion-page fieldset#new-public-tag {
   border: 1px solid #eee;
-  margin-top: 20px;
-}
-body#tag_suggestion-page fieldset#new-public-tag label span {
-  width: 60px;
-  color: #444;
-  font-size: 1.0em;
-  display: inline-block;
-}
-body#tag_suggestion-page fieldset#new-public-tag input[type=submit] {
-  margin-top: 5px;
-}
+  margin-top: 20px; }
+  body#tag_suggestion-page fieldset#new-public-tag label span {
+    width: 60px;
+    color: #444;
+    font-size: 1.0em;
+    display: inline-block; }
+  body#tag_suggestion-page fieldset#new-public-tag input[type=submit] {
+    margin-top: 5px; }

@@ -1,6 +1,15 @@
+<script language="JavaScript">
+  function auto_check_filter_box_if_needed() {
+    if ($('user_default_hierarchy_id').value == '')
+     {$('user_filter_content_by_hierarchy').checked = false}
+     else
+     {$('user_filter_content_by_hierarchy').checked = true}
+  }
+</script>
+
       <h3 class="preference-header"><%= "Content Settings"[] %></h3>
 
-      <a href="#" onclick="new Effect.Appear('filtering_help');return false;"><%="Learn more about browse classification and filtering"[]%></a>
+        <a href="#" onclick="EOL.Effect.appear('filtering_help');return false;"><%="Learn more about browse classification and filtering"[]%></a>
       <div style="display:none;" id="filtering_help">
         <p>EOL has the ability to filter its content by a classification (or hierarchy).  This allows you to change the
           list of taxa shown in the classification browser on the right side of a species page and, optionally,
@@ -15,7 +24,7 @@
       
       <br/>
 			<label for="user_default_hierarchy_id" title="<%= "Which default browse classification would you prefer?"[:classification_preference] %>"><%= "Which default browse classification would you prefer?"[:classification_preference] %></label>		            
-			<%= f.select :default_hierarchy_id, [['-- always use default --', nil]] + Hierarchy.find_all_by_browsable(1).sort_by{|h| h.label}.collect {|h| [h.label, h.id]} %><br/>						
+			<%= f.select :default_hierarchy_id, [['-- always use default --', nil]] + Hierarchy.find_all_by_browsable(1).sort_by{|h| h.label}.collect {|h| [h.label, h.id]},{},{:onchange=>'auto_check_filter_box_if_needed();'} %><br/>						
 			<br />
 			
       <!-- <label for="user_secondary_hierarchy_id" title="<%= "Which secondary browse classification would you prefer?"[:secondary_hierarchy_preference] %>"><%= "Which secondary browse classification would you prefer?"[:classification_preference] %></label>               

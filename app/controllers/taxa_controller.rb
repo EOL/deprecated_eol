@@ -116,8 +116,8 @@ class TaxaController < ApplicationController
        'common_name' => [tc.common_name],
        'top_image_id' => dato.id }
     end
-    results = results.paginate(:page => 1, :per_page => results.length)
-    if current_user.expertise.to_s == 'expert'
+    results = results.paginate(:page => 1, :per_page => results.length + 1)
+     if current_user.expertise.to_s == 'expert'
       @scientific_results = results
       @common_results = []
     else 
@@ -131,7 +131,7 @@ class TaxaController < ApplicationController
   def search_text
     @querystring = params[:q] || params[:id]
     if @querystring.blank?
-      @all_results = []
+      @all_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
     else
       @suggested_results  = SearchSuggestion.find_all_by_term_and_active(@querystring, true, :order=>'sort_order')
       suggested_results_query = @suggested_results.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')

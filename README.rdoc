@@ -119,10 +119,12 @@ Note that you do NOT need to install the "memcache" Ruby gem.
   rake eol:site_specific repo=URL
 
 === WATCHING IT COME TO LIFE
-
+  
+  #In one console run development solr server
   cd solr
   java -jar start.jar
-  cd ..
+  
+  #In another console run Ruby on Rails
   script/server
 
 Go to http://localhost:3000 and see stuff.

@@ -7,31 +7,18 @@ module EOL
       def search_with_pagination(query, options = {})
         options[:page]        ||= 1
         options[:per_page]    ||= 10
+        options[:search_type] ||= :common_name
         query_prefix, query_suffix = query.split(":")[0], query.split(":")[1..-1].join(":")
         clean_query = query_prefix + ":" + query_suffix.gsub('_', ' ') # Handles some of the "clean" URL "ids" that may get passed in.
-        obj = solr_search(clean_query, options)
-        data = obj['response']['docs']
-        total_results = obj['response']['numFound']
-        @@search_results_for ||= {}
-        @@search_results_for["#{clean_query}_#{options[:page]}_#{options[:per_page]}"] = data
-        paginate_all_by_solr(clean_query, :page => options[:page], :per_page => options[:per_page], :total_entries => total_results)
+        res = solr_search(clean_query, options)
+        data = res['response']['docs']
+        total_results = res['response']['numFound']
+        WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
+          pager.replace data
+        end
       end
       
       private
-        # You don't want to call this directly.  Nor do you want to call paginate_all_by_solr.  Neither will work.
-        #
-        # When will_paginate calls this, it MUST have a total_entries argument, otherwise it won't work. It will
-        # throw some error about solr not being a valid field, because it attempts to #count using solr as its argument.
-        #
-        # To avoid this, call #search_with_pagination ... which will do all the right things.
-        def find_all_by_solr(*args)
-          query   = args.first
-          options = args.last
-          per_page = options[:limit] ? options[:limit].to_i : 10
-          offset = options[:offset] ? options[:offset].to_i : 0
-          page = offset_to_page(offset, per_page)
-          return @@search_results_for["#{query}_#{page}_#{per_page}"]
-        end
       
       # Returns the actual search results object.  Generally, you will want to use search_with_pagination instead.
       # Restult looks like this:

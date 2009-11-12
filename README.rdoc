@@ -120,6 +120,9 @@ Note that you do NOT need to install the "memcache" Ruby gem.
 
 === WATCHING IT COME TO LIFE
 
+  cd solr
+  java -jar start.jar
+  cd ..
   script/server
 
 Go to http://localhost:3000 and see stuff.

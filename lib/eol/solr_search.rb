@@ -7,6 +7,7 @@ module EOL
       def search_with_pagination(query, options = {})
         options[:page]        ||= 1
         options[:per_page]    ||= 10
+        options[:per_page] = 10 if options[:per_page] == 0
         options[:search_type] ||= :common_name
         query_prefix, query_suffix = query.split(":")[0], query.split(":")[1..-1].join(":")
         clean_query = query_prefix + ":" + query_suffix.gsub('_', ' ') # Handles some of the "clean" URL "ids" that may get passed in.

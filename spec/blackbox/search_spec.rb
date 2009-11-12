@@ -235,6 +235,10 @@ describe 'Search' do
       res.body.should include(tc_name)
     end
   end
+
+  it 'should have pagination working with solr'
+
+  it 'should be able to do tag search correctly'
   
   # WHEN WE HAVE PAGINATION FOR TAGS (TODO):
   #

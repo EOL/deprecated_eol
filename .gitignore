@@ -16,3 +16,4 @@ tmp
 log
 doc/app
 .DS_Store
+solr/logs/*.*

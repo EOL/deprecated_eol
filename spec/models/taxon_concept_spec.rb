@@ -221,7 +221,7 @@ describe TaxonConcept do
     TaxonConcept.should_receive(:solr_search).and_return(
       {"response"=>{"start"=>0, "docs"=>[{"common_name"=>["purple raccoon"], "top_image_id"=>43, "preferred_scientific_name"=>["Procyon"], "published"=>[true], "scientific_name"=>["Procyon"], "supercedure_id"=>[0], "vetted_id"=>[1], "taxon_concept_id"=>[17]}], "numFound"=>15}, "responseHeader"=>{"QTime"=>1, "params"=>{"indent"=>"on", "version"=>"2.2", "q"=>"{!lucene} common_name:\"raccoon\" AND published:1 AND supercedure_id:0", "start"=>"0", "rows"=>"1", "wt"=>"json"}, "status"=>0}}
     )
-    obj = TaxonConcept.search_with_pagination('raccoon') 
+    obj = TaxonConcept.search_with_pagination('common_name:raccoon') 
     obj.class.should == WillPaginate::Collection
     obj[0]["preferred_scientific_name"].should == ["Procyon"]
   end

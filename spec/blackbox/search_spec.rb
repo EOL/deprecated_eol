@@ -158,6 +158,7 @@ describe 'Search' do
   end
 
   it 'should return no suggested search if it is not found' do
+    TaxonConcept.stub!(:search_with_pagination).and_return([].paginate(:page => 1, :per_page => 10))
     res = request('/search?q=no+results&search_type=text')
     res.body.should include("No search results were found")
   end
@@ -170,7 +171,6 @@ describe 'Search' do
      'scientific_name' => [tc.scientific_name],
      'common_name' => [tc.common_name]
   }]
-    stub_search_method(result)
     TaxonConcept.stub!(:search_with_pagination).and_return(result.paginate(:page => 1, :per_page => 10))
 
     res = request('/search?q=Plantago+major&search_type=text')

@@ -23,7 +23,7 @@ module EOL
       # [{"top_image_id"=>1, "preferred_scientific_name"=>["Procyon lotor"], "published"=>[true], "scientific_name"=>["Procyon
       # lotor"], "supercedure_id"=>[0], "vetted_id"=>[1], "taxon_concept_id"=>[14]}]
       def solr_search(query, options = {})
-        url =  $SOLR_SERVER + '/?version=2.2&indent=on&wt=json&q='
+        url =  $SOLR_SERVER + '/select/?version=2.2&indent=on&wt=json&q='
         url << URI.encode(%Q[{!lucene} #{query} AND published:1 AND supercedure_id:0])
         limit  = options[:per_page] ? options[:per_page].to_i : 10
         page = options[:page] ? options[:page].to_i : 1

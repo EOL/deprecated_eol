@@ -23,7 +23,9 @@
           <td class="<%= column_class %>"><%= link_to common_name,
                                                       {:action => 'search_clicked', :id => tc_id},
                                                       :method=>:post %></td>
-          <td class="<%= column_class %>"><%= scientific_name %></td>
+          <td class="<%= column_class %>"><%= link_to scientific_name,
+                                                      {:action => 'search_clicked', :id => tc_id},
+                                                      :method=>:post %></td>          
           <td class="<%= column_class %>"><% unless top_image.nil? %>
             <a href="<%= url_for(:action => 'search_clicked', :id => tc_id) %>"><img
               alt="<%= strip_tags(scientific_name) %>" title="<%= strip_tags(scientific_name) %>" src="<%= top_image.smart_medium_thumb %>"/></a>

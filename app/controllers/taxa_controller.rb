@@ -116,16 +116,16 @@ class TaxaController < ApplicationController
        'common_name' => [tc.common_name],
        'top_image_id' => dato.id }
     end
-    results = results.paginate(:page => 1, :per_page => results.length + 1)
-     if current_user.expertise.to_s == 'expert'
-      @scientific_results = results
-      @common_results = []
+    results = results
+    if current_user.expertise.to_s == 'expert'
+      @scientific_results = results.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length)
+      @common_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
     else 
-      @scientific_results = []
-      @common_results = results.sort_by {|tc| tc['common_name'] } 
+      @scientific_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
+      @common_results = results.sort_by {|tc| tc['common_name'] }.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length) 
     end
-    @suggested_results = []
-    @all_results = (@suggested_results + @scientific_results + @common_results)
+    @suggested_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
+    @all_results = results
   end
 
   def search_text

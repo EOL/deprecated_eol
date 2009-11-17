@@ -4,8 +4,8 @@ class FeedsController < ApplicationController
   caches_page :all, :images, :text, :comments, :expires_in => 2.minutes
 
   def all
-    render :nothing => true
-    return nil
+    #render :nothing => true
+    #return nil
     feed = Atom::Feed.new do |f|
       f.updated = Time.now
       if((taxon_concept_id = params[:id]).nil?)

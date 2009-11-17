@@ -129,11 +129,12 @@ class TaxaController < ApplicationController
   end
 
   def search_text
-    @querystring = params[:q] || params[:id]
+    @querystring = params[:q] || params[:id].gsub('_', ' ') rescue ''
     if @querystring.blank?
       @all_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
     else
       @suggested_results  = SearchSuggestion.find_all_by_term_and_active(@querystring, true, :order=>'sort_order')
+      
       suggested_results_query = @suggested_results.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
       suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
       @suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params) 

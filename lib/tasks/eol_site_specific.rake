@@ -29,12 +29,12 @@ HELP_MSG
     puts "Adding links to site-specific files..."
     Dir.glob(site_dir + "/**/*").each do |file|
       if FileTest::file? file
-         file_link = RAILS_ROOT + file.gsub(site_dir,'')
-         dir =  File.dirname file_link
-         FileUtils::mkdir_p(dir) unless FileTest.exists?(dir)
-         FileUtils::rm file_link if FileTest.exists?(file_link)
-         FileUtils::ln_s file, file_link
-         puts ' ' * 5  + file_link
+        file_link = RAILS_ROOT + file.gsub(site_dir,'')
+        dir =  File.dirname file_link
+        FileUtils::mkdir_p(dir) unless FileTest.exists?(dir)
+        FileUtils::rm file_link if FileTest.exists?(file_link)
+        FileUtils::ln_s file, file_link
+        puts ' ' * 5  + file_link
       end
     end
   end
@@ -45,8 +45,12 @@ HELP_MSG
     if FileTest.exists? site_dir
       Dir.glob(site_dir + "/**/*").each do |file|
         if FileTest::file? file
-           file_link = RAILS_ROOT + file.gsub(site_dir,'')
-           FileUtils::rm file_link if FileTest.exists?(file_link)
+          file_link = RAILS_ROOT + file.gsub(site_dir,'')
+          begin
+            FileUtils::rm file_link 
+          rescue SystemCallError
+            puts 'WARNING: Could not find file ' + file
+          end
         end
       end
       FileUtils::rm_rf site_dir

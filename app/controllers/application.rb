@@ -46,6 +46,7 @@ class ApplicationController < ActionController::Base
     include Singleton
     include TaxaHelper
     include ApplicationHelper
+    include ActionView::Helpers::SanitizeHelper
   end
 
   # override exception notifiable default methods to redirect to our special error pages instead of the usual 404

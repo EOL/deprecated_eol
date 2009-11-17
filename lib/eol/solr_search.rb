@@ -9,8 +9,7 @@ module EOL
         options[:per_page]    ||= 10
         options[:per_page] = 10 if options[:per_page] == 0
         options[:search_type] ||= :common_name
-        query_prefix, query_suffix = query.split(":")[0], query.split(":")[1..-1].join(":")
-        clean_query = query_prefix + ":" + query_suffix.gsub('_', ' ') # Handles some of the "clean" URL "ids" that may get passed in.
+        clean_query = options[:escape_query_underscore] ? query.gsub('_', ' ') : query # Handles some of the "clean" URL "ids" that may get passed in.
         res = solr_search(clean_query, options)
         data = res['response']['docs']
         total_results = res['response']['numFound']
@@ -22,7 +21,7 @@ module EOL
       private
       
       # Returns the actual search results object.  Generally, you will want to use search_with_pagination instead.
-      # Restult looks like this:
+      # Result looks like this:
       # [{"top_image_id"=>1, "preferred_scientific_name"=>["Procyon lotor"], "published"=>[true], "scientific_name"=>["Procyon
       # lotor"], "supercedure_id"=>[0], "vetted_id"=>[1], "taxon_concept_id"=>[14]}]
       def solr_search(query, options = {})
@@ -33,6 +32,7 @@ module EOL
         offset = page_to_offset(page, limit)
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
+        puts 'URA solr' + url
         res = open(url).read
         JSON.load res
       end

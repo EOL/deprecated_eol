@@ -51,6 +51,7 @@ class String
         'script'     => ['type'],
         'style'      => ['align', 'alt', 'background', 'border', 'color', 'dir', 'font', 'font-family', 'font-size', 'font-style', 'font-weight', 'lang', 'line-height', 'margin', 'margin-left', 'margin-right', 'margin-top', 'media', 'padding', 'src', 'text-align', 'text-decoration', 'text-indent', 'title', 'type'],
         'span'       => ['class', 'id', 'style', 'title'],
+        'sub'        => ['class', 'id', 'title', 'style'],
         'sup'        => ['class', 'id', 'title', 'style'],
         'table'      => ['summary', 'width', 'cellspacing', 'class', 'id', 'title', 'style'],
         'td'         => ['abbr', 'axis', 'colspan', 'rowspan', 'width', 'class', 'title', 'style'],

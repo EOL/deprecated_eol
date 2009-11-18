@@ -32,20 +32,24 @@ class String
       # [ 'a', 'b', 'blockquote', 'br', 'caption', 'cite', 'code', 'col', 'colgroup', 'dd', 'dl', 'dt', 'em', 'embed', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'u', 'ul' ],
       # more full list:
       [
-        'address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'strike', 'strong', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var'
+        'address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var'
         ],
 
       :attributes => {
-        'a'          => ['href', 'title'],
+        'a'          => ['target', 'href', 'title', 'class', 'style'],
         'blockquote' => ['cite'],
         'col'        => ['span', 'width'],
         'colgroup'   => ['span', 'width'],
+        'div'        => ['id', 'class'],
         'embed'      => ['id', 'type', 'src', 'flashvars'],
-        'img'        => ['align', 'alt', 'height', 'src', 'title', 'width'],
+        'img'        => ['align', 'alt', 'src', 'title'],
         'ol'         => ['start', 'type'],
         'q'          => ['cite'],
-        'table'      => ['summary', 'width'],
-        'td'         => ['abbr', 'axis', 'colspan', 'rowspan', 'width'],
+        'style'      => ['align', 'alt', 'background', 'border', 'color', 'dir', 'font', 'font-family', 'font-size', 'font-style', 'font-weight', 'lang', 'line-height', 'margin', 'margin-left', 'margin-right', 'margin-top', 'media', 'padding', 'src', 'text-align', 'text-decoration', 'text-indent', 'title', 'type'],
+        'span'       => ['class', 'id'],
+        'sup'        => ['class', 'title', 'style'],
+        'table'      => ['summary', 'width', 'class', 'title', 'style'],
+        'td'         => ['abbr', 'axis', 'colspan', 'rowspan', 'width', 'class', 'title', 'style'],
         'th'         => ['abbr', 'axis', 'colspan', 'rowspan', 'scope',
                          'width'],
         'ul'         => ['type']

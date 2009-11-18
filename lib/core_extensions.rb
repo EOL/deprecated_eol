@@ -35,20 +35,24 @@ class String
         'address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var'
         ],
 
+#width, height and postion removed to prevent hardcoding in provider's HTML
       :attributes => {
         'a'          => ['class', 'href', 'rel', 'style', 'target', 'title'],
         'blockquote' => ['cite'],
+        'cite'       => ['id', 'style']
         'col'        => ['span', 'width'],
         'colgroup'   => ['span', 'width'],
         'div'        => ['id', 'class', 'style'],
         'embed'      => ['id', 'type', 'src', 'flashvars'],
         'img'        => ['align', 'alt', 'src', 'title'],
-        'ol'         => ['start', 'type'],
+        'li'         => ['class', 'id']
+        'ol'         => ['class', 'id', 'start', 'type'],
         'q'          => ['cite'],
+        'script'     => ['type'],
         'style'      => ['align', 'alt', 'background', 'border', 'color', 'dir', 'font', 'font-family', 'font-size', 'font-style', 'font-weight', 'lang', 'line-height', 'margin', 'margin-left', 'margin-right', 'margin-top', 'media', 'padding', 'src', 'text-align', 'text-decoration', 'text-indent', 'title', 'type'],
         'span'       => ['class', 'id', 'style', 'title'],
-        'sup'        => ['class', 'title', 'style'],
-        'table'      => ['summary', 'width', 'cellspacing', 'class', 'title', 'style'],
+        'sup'        => ['class', 'id', 'title', 'style'],
+        'table'      => ['summary', 'width', 'cellspacing', 'class', 'id', 'title', 'style'],
         'td'         => ['abbr', 'axis', 'colspan', 'rowspan', 'width', 'class', 'title', 'style'],
         'tr'         => ['style'],
         'th'         => ['abbr', 'axis', 'class', 'colspan', 'rowspan', 'scope', 'style',

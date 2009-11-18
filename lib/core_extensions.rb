@@ -39,13 +39,13 @@ class String
       :attributes => {
         'a'          => ['class', 'href', 'rel', 'style', 'target', 'title'],
         'blockquote' => ['cite'],
-        'cite'       => ['id', 'style']
+        'cite'       => ['id', 'style'],
         'col'        => ['span', 'width'],
         'colgroup'   => ['span', 'width'],
         'div'        => ['id', 'class', 'style'],
         'embed'      => ['id', 'type', 'src', 'flashvars'],
         'img'        => ['align', 'alt', 'src', 'title'],
-        'li'         => ['class', 'id']
+        'li'         => ['class', 'id'],
         'ol'         => ['class', 'id', 'start', 'type'],
         'q'          => ['cite'],
         'script'     => ['type'],

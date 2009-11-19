@@ -47,7 +47,6 @@ module EOL
         (page - 1) * limit
       end
 
-
     end
   end
 end

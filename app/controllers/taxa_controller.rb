@@ -103,6 +103,9 @@ class TaxaController < ApplicationController
     else
       search_text
     end
+    @suggested_results = append_search_results_from_db(@suggested_results)
+    @common_results = append_search_results_from_db(@common_results)
+    @scientific_results = append_search_results_from_db(@scientific_results)
   end
 
   def search_tag
@@ -664,6 +667,16 @@ private
 
   def redirect_to_taxa_page(result_set)
     redirect_to :controller => 'taxa', :action => 'show', :id => result_set.first['taxon_concept_id']
+  end
+
+  def append_search_results_from_db(search_results)
+    search_results.each do |res|
+      tc = TaxonConcept.find(res['taxon_concept_id'][0])
+      res.merge!({
+        'preferred_scientific_name' => tc.title(@session_hierarchy),
+        'preferred_common_name'     => tc.subtitle(@session_hierarchy)
+        })
+    end
   end
 
 end

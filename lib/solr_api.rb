@@ -12,16 +12,24 @@ class SolrAPI
 
   def delete_all_documents
     data = '<delete><query>*:*</query></delete>' #{:delete => {:query => '*:*'}}.to_json
-    res = post('update', data)
+    post('update', data)
     commit
   end
 
   def get_results(query)
-    pp get(query)   
+    res = get(query)
+    res = JSON.load res.body
+    res['response']
   end
 
   def commit
-    res = post('update', '<commit />')
+    post('update', '<commit />')
+  end
+
+  def create
+  end
+
+  def query
   end
 
   private
@@ -31,12 +39,12 @@ class SolrAPI
     request.body = data
     request.content_type='application/xml'
     response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.request(request)}
-    response == Net::HTTPSuccess ? response : response.error!
+    #response == Net::HTTPSuccess ? response : response.error!
   end
 
   def get(query)
-    response = Net::HTTP.stasrt(@server_url.host, @server_url.port) {|http| http.request(@server_url.path + "/search/?#{URI.escape(query)}&version=2.2&start=0&rows=10&indent=on&wt=json")}
-    response == Net::HTTPSuccess ? response : response.error!
+    response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.get(@server_url.path + "/select/?q=*:*&version=2.2&start=0&rows=10&indent=on&wt=json")}
+    response
   end
   
 end

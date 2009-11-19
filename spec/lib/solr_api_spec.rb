@@ -13,8 +13,9 @@ describe SolrAPI do
 
   it 'should be able to run search on the server' do
     @solr.delete_all_documents
-    @solr.get_results("*:*")['numFound'].class.should == 0
+    @solr.get_results("*:*")['numFound'].should == 0
   end
 
+  it 'should create solr doc'
 
 end

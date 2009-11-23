@@ -16,6 +16,10 @@ describe SolrAPI do
     @solr.get_results("*:*")['numFound'].should == 0
   end
 
-  it 'should create solr doc'
+  it 'should create solr doc out of ruby hash' do
+    data = {:common_name => ['Atlantic cod', 'Pacific cod'], :preferred_scientific_name => ['Gadus mohua'], :taxon_concept_id => ['1'], :top_image => 'http:/example.com/img1.jpg'}
+    res = @solr.build_solr_xml('add', data)
+    res.should == ''
+  end
 
 end

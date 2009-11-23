@@ -29,24 +29,13 @@ module EOL
         url << URI.encode(%Q[{!lucene} #{query} AND published:1 AND supercedure_id:0])
         limit  = options[:per_page] ? options[:per_page].to_i : 10
         page = options[:page] ? options[:page].to_i : 1
-        offset = page_to_offset(page, limit)
+        offset = (page - 1) * limit
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
         puts 'URA solr' + url
         res = open(url).read
         JSON.load res
       end
-      
-      def offset_to_page(offset, limit)
-        raise "offset and limit should be integers" unless offset.class == Fixnum and limit.class == Fixnum
-        offset / limit + 1
-      end
-
-      def page_to_offset(page, limit)
-        raise "page and limit should be integers" unless  page.class == Fixnum and limit.class == Fixnum
-        (page - 1) * limit
-      end
-
     end
   end
 end

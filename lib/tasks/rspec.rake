@@ -25,6 +25,8 @@ begin
   task :default => [:spec, "test:acceptance:web"]
   task :stats => "spec:statsetup"
 
+  task :spec => ["solr:start"]
+
   desc "Run all specs in spec directory (excluding plugin specs)"
   Spec::Rake::SpecTask.new(:spec => spec_prereq) do |t|
     t.spec_opts = ['--options', "\"#{RAILS_ROOT}/spec/spec.opts\""]

@@ -3,6 +3,7 @@ require 'escape'
 namespace :solr do
   desc 'Start the Solr instance'
   task :start => :environment do
+    puts "** Starting Background Solr instance for EOL..."
     if RUBY_PLATFORM =~ /w(in)?32$/
       abort('This command does not work on Windows. Please use rake sunspot:solr:run to run Solr in the foreground.')
     end
@@ -19,6 +20,7 @@ namespace :solr do
 
   desc 'Run the Solr instance in the foreground'
   task :run => :environment do
+    puts "** Starting Foreground Solr instance for EOL..."
     if RUBY_PLATFORM =~ /w(in)?32$/
       abort('This command does not work on Windows.')
     end
@@ -35,6 +37,7 @@ namespace :solr do
 
   desc 'Stop the Solr instance'
   task :stop => :environment do
+    puts "** Stopping Background Solr instance for EOL..."
     FileUtils.cd($SOLR_DIR) do
       system(Escape.shell_command(["#{RAILS_ROOT}/bin/solr", 'stop']))
     end

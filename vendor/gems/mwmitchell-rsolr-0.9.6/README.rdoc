@@ -1,0 +1,148 @@
+=RSolr
+
+A Ruby client for Apache Solr. RSolr has been developed to be simple and extendable. It features transparent JRuby DirectSolrConnection support and a simple Hash-in, Hash-out architecture.
+
+== Installation:
+  gem sources -a http://gems.github.com
+  sudo gem install mwmitchell-rsolr
+
+==Related Resources & Projects
+* {Solr}[http://lucene.apache.org/solr/]
+* {RSolr Google Group}[http://groups.google.com/group/rsolr]
+* {RSolr::Ext}[http://github.com/mwmitchell/rsolr-ext] -- an extension kit for RSolr
+* {Sunspot}[http://github.com/outoftime/sunspot] -- an awesome Solr DSL, built with RSolr
+* {Blacklight}[http://blacklightopac.org] -- a next generation Library OPAC, built with RSolr
+* {solr-ruby}[http://wiki.apache.org/solr/solr-ruby] -- the original Solr Ruby Gem
+
+== Simple usage:
+  require 'rubygems'
+  require 'rsolr'
+  solr = RSolr.connect :url=>'http://solrserver.com'
+  
+  # send a request to /select
+  response = rsolr.select :q=>'*:*'
+  
+  # send a request to a custom request handler; /catalog
+  response = rsolr.request '/catalog', :q=>'*:*'
+  
+  # alternative to above:
+  response = rsolr.catalog :q=>'*:*'
+  
+To use a DirectSolrConnection (no http) in JRuby:
+  
+  solr = RSolr.connect(:direct,
+    :home_dir=>'/path/to/solr/home',
+    :dist_dir=>'/path/to/solr/distribution'
+  )
+
+For more information about DirecSolrConnection, see the {API}[http://lucene.apache.org/solr/api/org/apache/solr/servlet/DirectSolrConnection.html].
+
+
+== Querying
+Use the #select method to send requests to the /select handler:
+  response = solr.select({
+    :q=>'washington',
+    :start=>0,
+    :rows=>10
+  })
+
+The params sent into the method are sent to Solr as-is. The one exception is if a value is an array. When an array is used, multiple parameters are generated for the Solr query. Example:
+  
+  solr.select :q=>'roses', :fq=>['red', 'violet']
+
+The above statement generates this Solr query:
+  
+  ?q=roses&fq=red&fq=violet
+
+Use the #request method for a custom request handler path:
+  response = solr.request '/documents', :q=>'test'
+
+A shortcut for the above example:
+  response = solr.documents :q=>'test'
+
+
+== Updating Solr
+Updating can be done using native Ruby structures. Hashes are used for single documents and arrays are used for a collection of documents (hashes). These structures get turned into simple XML "messages". Raw XML strings can also be used.
+
+Raw XML via  #update
+  solr.update '</commit>'
+  solr.update '</optimize>'
+
+Single document via #add
+  solr.add :id=>1, :price=>1.00
+
+Multiple documents via #add
+  documents = [{:id=>1, :price=>1.00}, {:id=>2, :price=>10.50}]
+  solr.add documents
+
+When adding, you can also supply "add" xml element attributes and/or a block for manipulating other "add" related elements (docs and fields) when using the #add method:
+  
+  doc = {:id=>1, :price=>1.00}
+  add_attributes = {:allowDups=>false, :commitWithin=>10.0}
+  solr.add(doc, add_attributes) do |doc|
+    # boost each document
+    doc.attrs[:boost] = 1.5
+    # boost the price field:
+    doc.field_by_name(:price).attrs[:boost] = 2.0
+  end
+
+Delete by id
+  solr.delete_by_id 1
+or an array of ids
+  solr.delete_by_id [1, 2, 3, 4]
+
+Delete by query:
+  solr.delete_by_query 'price:1.00'
+Delete by array of queries
+  solr.delete_by_query ['price:1.00', 'price:10.00']
+
+Commit & optimize shortcuts
+  solr.commit
+  solr.optimize
+
+===XML Builders for RSolr
+As of version 0.9.1, RSolr can use LibXml to create the update messages sent to solr. To switch from Builder to LibXml, set the RSolr::Message.builder like:
+  solr = RSolr.connect
+  solr.message.adapter = RSolr::Message::Adapter::Libxml.new
+
+
+== Response Formats
+The default response format is Ruby. When the :wt param is set to :ruby, the response is eval'd resulting in a Hash. You can get a raw response by setting the :wt to "ruby" - notice, the string -- not a symbol. RSolr will eval the Ruby string ONLY if the :wt value is :ruby. All other response formats are available as expected, :wt=>'xml' etc..
+
+===Evaluated Ruby (default)
+  solr.select(:wt=>:ruby) # notice :ruby is a Symbol
+===Raw Ruby
+  solr.select(:wt=>'ruby') # notice 'ruby' is a String
+
+===XML:
+  solr.select(:wt=>:xml)
+===JSON:
+  solr.select(:wt=>:json)
+
+You can access the original request context (path, params, url etc.) by calling the #adapter_response method:
+  response = solr.select :q=>'*:*'
+  response.adapter_response[:status_code]
+  response.adapter_response[:body]
+  response.adapter_response[:url]
+
+The adapter_response is a hash that contains the generated params, url, path, post data, headers etc., very useful for debugging and testing.
+
+
+== HTTP Client Adapter
+You can specify the http client adapter:
+  :net_http     uses the standard Net::HTTP library
+  :curb         uses the C based "curl" library
+
+NOTE: The Net::Http is the default adapter.
+
+Example:
+  
+  RSolr.connect(:adapter => :curb)
+  RSolr.connect(:adapter => :net_http)
+
+Intereseting read about Ruby's Net::HTTP library:
+http://apocryph.org/2008/11/09/more_indepth_analysis_ruby_http_client_performance
+
+NOTE: You can't use the :curb adapter under jRuby. To install curb:
+  
+  sudo gem install curb

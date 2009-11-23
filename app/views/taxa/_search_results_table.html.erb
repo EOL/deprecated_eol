@@ -15,7 +15,7 @@
          tc_id = result['taxon_concept_id'][0]
          common_name = result["preferred_common_name"]
          scientific_name = result['preferred_scientific_name']
-         top_image = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil
+         top_image = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil rescue nil
          column_class = cycle('odd','even') 
       %>
         <tr>

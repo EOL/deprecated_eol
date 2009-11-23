@@ -11,7 +11,7 @@ class SolrAPI
   end
 
   def delete_all_documents
-    data = '<delete><query>*:*</query></delete>' #{:delete => {:query => '*:*'}}.to_json
+    data = '<delete><query>*:*</query></delete>' 
     post('update', data)
     commit
   end
@@ -51,21 +51,8 @@ class SolrAPI
         end
       end
     end
-    puts builder.to_xml
+    builder.to_xml
   end  
-  #  builder = Nokogiri::XML::Builder.new do |sxml|
-  #    sxml.doc do
-  #      sxml.some_tag 'blabla'
-  #    end
-  #  end
-   #     ruby_data.keys.each do |key|
-   #       ruby_data[key] = ruby_data[:key].to_a if ruby_data[:key].class != Array
-   #       sxml.send(key, ruby_data[key]) 
-   #     end
-   #   end
-   # end
-  #  builder.to_xml
-  #end 
 
   private
 

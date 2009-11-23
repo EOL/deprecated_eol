@@ -171,8 +171,8 @@ Rails::Initializer.run do |config|
   $WEB_SERVICE_BASE_URL = '' # web service is used for importing content partners' data
 
 
-  #SOLR SERVER
   $SOLR_SERVER = 'http://localhost:8983/solr'
+  $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
 
   #Server's IP address
   $IP_ADDRESS_OF_SERVER = EOLWebService.local_ip

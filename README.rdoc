@@ -51,6 +51,13 @@ Windows).
 Next, continue with the following sections:  "INSTALLING REQUIRED GEMS", "SETTING UP THE DATABASES",
 "INSTALLING AND RUNNING MEMCACHED", and "WATCHING IT COME TO LIFE"
 
+=== SOLR
+
+EOL requires Solr (a fast indexing engine) to run properly.  Solr is run using Java, and the require JAR file is included
+with the EOL project's source code.  (TODO - we need to check the legal situtaion with this--we may need to include a
+LICENCSE for it.)  There is a rake task for starting (solr:start) and stopping (solr:stop) the Solr server.  Searches will
+not function without Solr, and at some point, the entire codebase (rendering a taxa page) may require Solr as well.
+
 === INSTALLING REQUIRED GEMS
 
 The following gems are required on your local machine for development but NOT deployment (deployment gems
@@ -119,16 +126,13 @@ Note that you do NOT need to install the "memcache" Ruby gem.
   rake eol:site_specific repo=URL
 
 === WATCHING IT COME TO LIFE
+
+Run the following two commands:
   
-  #In one console run development solr server
-  cd solr
-  java -jar start.jar
-  
-  #In another console run Ruby on Rails
+  rake solr:start
   script/server
 
 Go to http://localhost:3000 and see stuff.
-
 
 == TESTING
 

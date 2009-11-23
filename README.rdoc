@@ -79,6 +79,15 @@ To install required gems:
   rake gems:install # if there were gems that are STILL missing...
   # please manually install gems that are still missing or failed to install.
 
+==== INSTALLING NEW GEMS
+
+If you want to add a new gem to the project, please:
+
+1. Add the config.gem line to the config/environment.rb file.
+2. Install the gem using "rake gems:install".
+3. Unpack the gem into the vendor directory with "rake gems:unpack".
+4. Be sure to "svn add" the new directories that were created.
+
 
 === SETTING UP THE DATABASES
 

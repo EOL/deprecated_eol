@@ -135,13 +135,13 @@ class TaxaController < ApplicationController
     if @querystring.blank?
       @all_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
     else
-      @querystring = '"' + @querystring + '"'
       @suggested_results  = SearchSuggestion.find_all_by_term_and_active(@querystring, true, :order=>'sort_order')
       suggested_results_query = @suggested_results.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
       suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
       @suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params) 
-      @scientific_results = TaxonConcept.search_with_pagination('preferred_scientific_name:' + @querystring, params) # Pass params for pagination?
-      @common_results     = TaxonConcept.search_with_pagination('common_name:' + @querystring, params) # Pass params for pagination?
+      
+      @scientific_results = TaxonConcept.search_with_pagination(prepare_solr_querystring(@querystring,'preferred_scientific_name'), params) # Pass params for pagination?
+      @common_results     = TaxonConcept.search_with_pagination(prepare_solr_querystring(@querystring,'common_name'), params) # Pass params for pagination?
       
       @all_results = (@suggested_results + @scientific_results + @common_results)
     end
@@ -675,9 +675,18 @@ private
       tc = TaxonConcept.find(res['taxon_concept_id'][0])
       res.merge!({
         'preferred_scientific_name' => tc.title(@session_hierarchy),
-        'preferred_common_name'     => tc.subtitle(@session_hierarchy)
+        'preferred_common_name'     => tc.common_name(@session_hierarchy)
         })
     end
+  end
+
+  def prepare_solr_querystring(query, field)
+    literal_query = "#{field}:\"#{query}\"^5"
+    query = query.gsub /\s{1,}/, ' '
+    query = query.split(' ').map {|w| "+#{w}"}.join(' ')
+    query = "(#{literal_query} OR #{field}:(#{query}))"
+    #puts 'URA' + query
+    query
   end
 
 end

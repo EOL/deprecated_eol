@@ -59,6 +59,23 @@ class SolrAPI
     builder.to_xml
   end  
 
+  # This method creates indexes based on the *actual* TaxonConcept instances passed in as an argument (enumerable).
+  def build_indexes(taxon_concepts = nil)
+    taxon_concepts ||= TaxonConcept.all
+    data = []
+    taxon_concepts.each do |taxon_concept|
+      images = taxon_concept.images
+      data << {:common_name => taxon_concept.all_common_names.map {|n| n.string},
+               :preferred_scientific_name => [taxon_concept.scientific_name],
+               :taxon_concept_id => [taxon_concept.id],
+               :vetted_id => taxon_concept.vetted_id,
+               :published => taxon_concept.published,
+               :supercedure_id => taxon_concept.supercedure_id,
+               :top_image_id => images.blank? ? '' : taxon_concept.images.first.id}
+    end
+    create(data)
+  end
+
   private
 
   def post(method, data) 

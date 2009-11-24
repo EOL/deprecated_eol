@@ -147,7 +147,7 @@ class TaxaController < ApplicationController
     end
     respond_to do |format|
       format.html do 
-        redirect_to_taxa_page(@all_results) if @all_results.length == 1
+        redirect_to_taxa_page(@all_results) if (@all_results.length == 1 and not params[:page].to_i > 1)
       end
       format.xml do
         if @all_results.blank?

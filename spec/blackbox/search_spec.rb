@@ -3,85 +3,31 @@ require File.dirname(__FILE__) + '/../../lib/eol_data'
 class EOL::NestedSet; end
 EOL::NestedSet.send :extend, EOL::Data
 
+require 'solr_api'
+
 def animal_kingdom
   @animal_kingdom ||= build_taxon_concept(:canonical_form => 'Animals',
                                           :parent_hierarchy_entry_id => 0,
                                           :depth => 0)
 end
 
-def create_fake_search_data(name)
-  next_id ||= 1
-  dato ||= DataObject.gen(:data_type_id => DataType.image_type_ids.first)
-  {'taxon_concept_id' => [next_id += 1],
-   'preferred_scientific_name' => [name],
-   'scientific_name' => [name],
-   'common_name' => [name],
-   'top_image_id' => dato.id
-  }
-end
-
-def create_many_taxa(count, options = {})
-  options[:base_name] ||= 'Tiger'
-  results = [] ; options[:extra_string] ||= 'lilly'
-  count.times do
-    results << create_fake_search_data("#{options[:base_name]} #{options[:extra_string]}")
-    options[:extra_string].succ!
-  end
-  stub_search_method(results, options)
-end
-
-# Ick.
-#
-# There are a lot of stubs here, to account for the many different situations in which these things /could/ get called.
-# Sadly, this is the nature of using .with() on stubs: you need to be specific with the params, and there are variations
-# in this case.
-#
-# Another thing to note here is that the result-set needs to be paginatated.
-#
-# Also: this assumes that the search will ALWAYS be "tiger".
-def stub_search_method(results, options = {})
-  # This is the "blanket" response, which handles the cases where we don't want results for a given search call:
-  TaxonConcept.stub!(:search_with_pagination).and_return([].paginate(:page => 2, :per_page => 10))
-  options[:pages] ||= 1
-  current_page = 1
-  options[:pages].times do 
-    # These are the "normal" options, used when calling search correctly.
-    options_we_expect = {"action"=>"search", "q"=>'tiger', "controller"=>"taxa"}
-    # These are the "weird" options, caused by searches that result from /pages/tiger URLs.  Peter's code.  ;)
-    alt_options_we_expect = {"action"=>"search", "id"=>'tiger', "controller"=>"taxa"}
-    options_we_expect.merge!({'page' => current_page.to_s}) if current_page > 1
-    # Scientific names:
-    TaxonConcept.stub!(:search_with_pagination).with(
-      'scientific_name:tiger', alt_options_we_expect).and_return(options[:no_sci_result] ?
-                                                  [].paginate(:page => current_page, :per_page => 10) :
-                                                  results.paginate(:page => current_page, :per_page => 10))
-    TaxonConcept.stub!(:search_with_pagination).with(
-      'scientific_name:tiger', options_we_expect).and_return(options[:no_sci_result] ?
-                                              [].paginate(:page => current_page, :per_page => 10) :
-                                              results.paginate(:page => current_page, :per_page => 10))
-    # Common names:
-    TaxonConcept.stub!(:search_with_pagination).with(
-      'common_name:tiger', alt_options_we_expect).and_return(
-        results.paginate(:page => current_page, :per_page => 10))
-    TaxonConcept.stub!(:search_with_pagination).with(
-      'common_name:tiger', options_we_expect).and_return(
-        results.paginate(:page => current_page, :per_page => 10))
-    current_page += 1
-  end
+def recreate_indexes
+  solr = SolrAPI.new
+  solr.delete_all_documents
+  solr.build_indexes
 end
 
 # Checks the table of results, makes sure it has the right string(s) and number of rows.
 def assert_results(options)
-  body = request("/search?q=tiger#{options[:page] ? "&page=#{options[:page]}" : ''}").body
+  search_string = options[:search_string] || 'tiger'
+  per_page = options[:per_page] || 10
+  body =
+    request("/search?q=#{search_string}&per_page=#{per_page}#{options[:page] ? "&page=#{options[:page]}" : ''}").body
   body.should have_tag('table[class=results_table]') do |table|
     header_index = 1
-    result_index = header_index + 1
-    table.should have_tag("tr:nth-child(#{header_index})")
-    options[:num_results_on_this_page].times do
-      table.should have_tag("tr:nth-child(#{result_index})")
-      result_index += 1
-    end
-    table.should_not have_tag("tr:nth-child(#{result_index})")
+    result_index = header_index + options[:num_results_on_this_page]
+    with_tag("tr:nth-child(#{result_index})")
+    without_tag("tr:nth-child(#{result_index + 1})").should be_false
   end
 end
 
@@ -100,104 +46,93 @@ def assert_tag_results(options)
   end
 end
 
-
 describe 'Search' do
-
-  before(:each) do
-    Scenario.load :foundation
-    TaxonConcept.delete_all
-    TaxonConceptContent.delete_all
-    Name.delete_all           # Lest we get duplicate strings...
-    NormalizedName.delete_all # ...Just because I know searches are based on normalized names
-  end
 
   before :all do
     truncate_all_tables
+    Scenario.load :foundation
+    # TODO - move these to a foundation for searching?
+    @doesnt_exist = 'Bozo'
+    @panda_name = 'panda'
+    @panda = build_taxon_concept(:common_names => [@panda_name])
+    @tiger_name = 'Tiger'
+    @tiger = build_taxon_concept(:common_names => [@tiger_name])
+    @tiger_lilly_name = "#{@tiger_name} lilly"
+    @tiger_lilly = build_taxon_concept(:common_names => [@tiger_lilly_name])
+    @tiger_moth_name = "#{@tiger_name} moth"
+    @tiger_moth = build_taxon_concept(:common_names => [@tiger_moth_name])
+    @plantain_name = 'Plantago major'
+    @plantain_common = 'Plantain'
+    @plantain = build_taxon_concept(:scientific_name => @plantain_name, :common_names => [@plantain_common])
+    build_taxon_concept(:scientific_name => "#{@plantain_name} L.", :common_names => ["big #{@plantain_common}"])
+    SearchSuggestion.gen(:taxon_id => @plantain.id, :scientific_name => @plantain_name,
+                         :term => @plantain_name, :common_name => @plantain_common)
+    @dog_name      = 'Dog'
+    @domestic_name = "Domestic #{@dog_name}"
+    @dog_sci_name  = 'Canis lupus familiaris'
+    @wolf_name     = 'Wolf'
+    @wolf_sci_name = 'Canis lupus'
+    @dog  = build_taxon_concept(:scientific_name => @dog_sci_name, :common_names => [@domestic_name])
+    @wolf = build_taxon_concept(:scientific_name => @wolf_sci_name, :common_names => [@wolf_name])
+    SearchSuggestion.gen(:taxon_id => @dog.id, :term => @dog_name, :scientific_name => @dog.scientific_name,
+                         :common_name => @dog.common_name)
+    SearchSuggestion.gen(:taxon_id => @wolf.id, :term => @dog_name, :scientific_name => @wolf.scientific_name,
+                         :common_name => @wolf.common_name)
+    recreate_indexes
+    @tiger_search = request("/search?q=#{@tiger_name}").body
   end
 
   it 'should return a helpful message if no results' do
     TaxonConcept.should_receive(:search_with_pagination).at_least(2).times.and_return([])
-    request('/search?q=tiger').body.should have_tag('h3', :text => 'No search results were found')
+    request("/search?q=#{@doesnt_exist}").body.should have_tag('h3', :text => 'No search results were found')
   end
 
   it 'should redirect to species page if only 1 possible match is found (also for pages/searchterm)' do
-    tiger = create_fake_search_data('Tiger')
-    build_taxon_concept(:id => tiger['taxon_concept_id'])
-    stub_search_method([tiger], :no_sci_result => true)
-    request('/search?q=tiger').should redirect_to("/pages/#{ tiger['taxon_concept_id'] }")
-    request('/search/tiger').should redirect_to("/pages/#{ tiger['taxon_concept_id'] }")    
+    request("/search?q=#{@panda_name}").should redirect_to("/pages/#{ @panda.id }")
+    request("/search/#{@panda_name}").should redirect_to("/pages/#{ @panda.id }")    
   end
 
   it 'should redirect to search page if a string is passed to a species page' do
-    tiger = create_fake_search_data('Tiger')
-    stub_search_method([tiger], :no_sci_result => true)
-    request('/pages/tiger').should redirect_to("/search/tiger")
+    request("/pages/#{@panda_name}").should redirect_to("/search/#{@panda_name}")
   end
 
   it 'should show a list of possible results (linking to /taxa/search_clicked) if more than 1 match is found  (also for pages/searchterm)' do
 
-    lilly = create_fake_search_data('Tiger Lilly')
-    tiger = create_fake_search_data('Tiger')
-    stub_search_method([lilly, tiger])
-
-    body = request('/search?q=tiger').body
-    body.should have_tag('td', :text => 'Tiger Lilly')
-    body.should have_tag('td', :text => 'Tiger')
-    body.should have_tag('a[href*=?]', %r{/taxa/search_clicked/#{ lilly['taxon_concept_id'] }})
-    body.should have_tag('a[href*=?]', %r{/taxa/search_clicked/#{ tiger['taxon_concept_id'] }})
+    body = @tiger_search
+    body.should have_tag('td', :text => @tiger_name)
+    body.should have_tag('td', :text => @tiger_lilly_name)
+    body.should have_tag('a[href*=?]', %r{/taxa/search_clicked/#{ @tiger_lilly.id }})
+    body.should have_tag('a[href*=?]', %r{/taxa/search_clicked/#{ @tiger.id }})
 
   end
 
   it 'should paginate' do
-    results_per_page = 10
-    extra_results    = 4
-    create_many_taxa(results_per_page + extra_results, :pages => 2)
-
-    assert_results(:num_results_on_this_page => results_per_page)
-    assert_results(:num_results_on_this_page => extra_results, :page => 2)
+    results_per_page = 2
+    extra_results    = 1
+    assert_results(:num_results_on_this_page => results_per_page, :per_page => results_per_page)
+    assert_results(:num_results_on_this_page => extra_results, :page => 2, :per_page => results_per_page)
   end
 
-  it 'should return no suggested search if it is not found' do
-    TaxonConcept.stub!(:search_with_pagination).and_return([].paginate(:page => 1, :per_page => 10))
-    res = request('/search?q=no+results&search_type=text')
-    res.body.should include("No search results were found")
+  it 'return no suggested results for tiger' do
+    body = @tiger_search
+    body.should_not have_tag('table[summary=Suggested Search Results]')
   end
 
   it 'should return one suggested search' do
-    tc = build_taxon_concept(:scientific_name => 'Plantago major', :common_names => ['Common plantain'])
-    ss = SearchSuggestion.gen(:taxon_id => tc.id, :scientific_name => tc.scientific_name, :common_name => 'Common plantain')
-    result = [{'taxon_concept_id' => [tc.id],
-     'preferred_scientific_name' => [tc.scientific_name],
-     'scientific_name' => [tc.scientific_name],
-     'common_name' => [tc.common_name]
-  }]
-    TaxonConcept.stub!(:search_with_pagination).and_return(result.paginate(:page => 1, :per_page => 10))
-
-    res = request('/search?q=Plantago+major&search_type=text')
+    res = request("/search?q=#{@plantain_name.gsub(/ /, '+')}&search_type=text")
     res.body.should have_tag('table[summary=Suggested Search Results]') do |table|
-      table.should have_tag("td:nth-child(2)", :text => 'Plantago major')
+      #debugger
+      table.should have_tag("td:nth-child(1)", :text => @plantain_common)
     end
   end
 
+  # When we first created suggested results, it worked fine for one, but failed for two, so we feel we need to test
+  # two entires AND one entry...
   it 'should return two suggested searches' do
-    tc1 = build_taxon_concept(:scientific_name => 'Canis lupus familiaris', :common_names => ['Domestic dog'])
-    tc2 = build_taxon_concept(:scientific_name => 'Canis lupus', :common_names => ['Wolf'])
-    ss1 = SearchSuggestion.gen(:taxon_id => tc1.id, :scientific_name => tc1.scientific_name, :common_name => tc1.common_name)
-    ss2 = SearchSuggestion.gen(:taxon_id => tc2.id, :scientific_name => tc2.scientific_name, :common_name => tc2.common_name)
-    all_tc = [tc1, tc2]
-    results = []
-    all_tc.each do |tc|
-      results << {'taxon_concept_id' => [tc.id],
-     'preferred_scientific_name'     => [tc.scientific_name],
-     'scientific_name'               => [tc.scientific_name],
-     'common_name'                   => [tc.common_name]} 
-    end 
-    TaxonConcept.stub!(:search_with_pagination).and_return(results.paginate(:page => 1, :per_page => 10))
-    
-    res = request('/search?q=Plantago+major&search_type=text')
+    res = request("/search?q=#{@dog_name}&search_type=text")
     res.body.should have_tag('table[summary=Suggested Search Results]') do |table|
-      table.should have_tag("td:nth-child(2)", :text => 'Canis lupus familiaris')
-      table.should have_tag("td", :text => 'Canis lupus')    
+      table.should have_tag("td:nth-child(1)", :text => @domestic_name)
+      table.should have_tag("td", :text => @wolf_name)
     end
   end
 

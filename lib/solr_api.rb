@@ -26,15 +26,20 @@ class SolrAPI
     post('update', '<commit />')
   end
 
+  # See the solr_api library spec for some examples.
   def create(ruby_data)
     solr_xml = build_solr_xml('add', ruby_data)
     post('update', solr_xml)
+    commit
   end
 
   def query
   end
   
-  #Takes an array of hashes. Each hash has only string or array of strings values. Array is converted into an xml ready for either create or update methods of Solr API
+  # Takes an array of hashes. Each hash has only string or array of strings values. Array is converted into an xml ready
+  # for either create or update methods of Solr API
+  #
+  # See the solr_api library spec for some examples.
   def build_solr_xml(command, ruby_data)
     builder = Nokogiri::XML::Builder.new do |sxml|
       sxml.send(command) do 
@@ -42,7 +47,7 @@ class SolrAPI
         ruby_data.each do |data|
           sxml.doc_ do
             data.keys.each do |key|
-              data[key] = data[key].to_a if data[key].class != Array
+              data[key] = [data[key]] if data[key].class != Array
               data[key].each do |val|
                 sxml.field(val, :name => key.to_s) 
               end
@@ -59,9 +64,8 @@ class SolrAPI
   def post(method, data) 
     request = Net::HTTP::Post.new(@server_url.path + "/#{method}")
     request.body = data
-    request.content_type='application/xml'
+    request.content_type = 'application/xml'
     response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.request(request)}
-    #response == Net::HTTPSuccess ? response : response.error!
   end
 
   def get(query)

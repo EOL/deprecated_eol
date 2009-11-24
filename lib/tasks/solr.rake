@@ -49,23 +49,10 @@ namespace :solr do
     solr = SolrAPI.new
     puts "** Deleting all existing entries..."
     solr.delete_all_documents
-    print "** Creating indexes"
-    data = []
+    puts "** Creating indexes..."
     count = TaxonConcept.count
     puts "** You have #{count} Taxon Concepts.  In the interest of time, this task will only add the first 100." if 
       count > 100
-    TaxonConcept.all[0..99].each do |taxon_concept|
-      print '.'
-      images = taxon_concept.images
-      data =  {:common_name => taxon_concept.all_common_names.map {|n| n.string},
-               :preferred_scientific_name => [taxon_concept.scientific_name],
-               :taxon_concept_id => [taxon_concept.id],
-               :vetted_id => taxon_concept.vetted_id,
-               :published => taxon_concept.published,
-               :supercedure_id => taxon_concept.supercedure_id,
-               :top_image_id => images.blank? ? '' : taxon_concept.images.first.id}
-      solr.create(data)
-    end
-    print "\n"
+    solr.build_indexes(TaxonConcept.all[0..99])
   end
 end

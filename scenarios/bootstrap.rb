@@ -160,9 +160,28 @@ tc30.add_common_name(Factory.next(:common_name))
 curator = build_curator(tc30, :username => 'test_curator', :password => 'password', :given_name => 'test', :family_name => 'curator') 
 
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
+overv = TocItem.find_by_label('Overview')
+desc = TocItem.find_by_label('Description')
 tc31 = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [Factory.next(:common_name)], :id => 31, 
-                    :depth => depth_now, :flash => [{}, {:vetted => Vetted.unknown}], :youtube => [{:vetted => Vetted.unknown}, {:vetted => Vetted.untrusted}], :comments => [],
-                    :bhl => [], :event => event)
+                  :depth => depth_now, 
+                  :flash => [{}, {:vetted => Vetted.unknown}], 
+                  :youtube => [{:vetted => Vetted.unknown}, 
+                               {:vetted => Vetted.untrusted}], 
+                  :comments => [],
+                  :bhl => [], 
+                  :event => event, 
+                  :toc => [{
+                    :toc_item => overv, 
+                    :description => 'overview text for re-harvest'
+                    }, 
+                    {
+                    :toc_item => desc, 
+                    :description => 'description text for re-harvest'
+                    }],
+                  :images => [{
+                    :description => '1st image description for re-harvest'
+                    }]
+)
                     
 curator_for_tc31 = build_curator(tc31, :username => 'curator_for_tc', :password => 'password') 
 

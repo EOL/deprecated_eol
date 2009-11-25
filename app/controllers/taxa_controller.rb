@@ -95,7 +95,9 @@ class TaxaController < ApplicationController
 
   # TODO - log that a search was performed
   def search
+    @querystring = params[:q] || params[:id]
     @search_type = params[:search_type] || 'text'
+    @page_title = "EOL Search: #{@querystring}"
     if @search_type == 'google'
       render :html => 'google_search'
     elsif @search_type == 'tag'
@@ -131,15 +133,14 @@ class TaxaController < ApplicationController
   end
 
   def search_text
-    @querystring = params[:q] || params[:id]
     if @querystring.blank?
       @all_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
     else
       @suggested_results  = SearchSuggestion.find_all_by_term_and_active(@querystring, true, :order=>'sort_order')
       suggested_results_query = @suggested_results.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
       suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
-      @suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params) 
       
+      @suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params)
       @scientific_results = TaxonConcept.search_with_pagination(prepare_solr_querystring(@querystring,'preferred_scientific_name'), params) # Pass params for pagination?
       @common_results     = TaxonConcept.search_with_pagination(prepare_solr_querystring(@querystring,'common_name'), params) # Pass params for pagination?
       
@@ -675,7 +676,7 @@ private
     search_results.each do |res|
       tc = TaxonConcept.find(res['taxon_concept_id'][0])
       res.merge!({
-        'preferred_scientific_name' => tc.title(@session_hierarchy),
+        'title' => tc.title(@session_hierarchy),
         'preferred_common_name'     => tc.common_name(@session_hierarchy)
         })
     end

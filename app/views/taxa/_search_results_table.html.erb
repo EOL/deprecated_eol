@@ -1,34 +1,34 @@
 <%- if !results.blank? -%>
   <div class="search_results" id="<%= title.downcase.underscore %>">    
-    <table>
-      <tr>
-        <td><a name="<%= title.downcase.underscore %>"></a><h3><%="#{title}"[]%></h3></td>
-      </tr>
-    </table>
+    <h3 class="search_result_subtitle"><%="#{title}"[]%></h3>
+    <p> Results <%= results.offset + 1 %> - <%= results.offset + [results.per_page, results.total_entries].min %> of <%= results.total_entries %> for <em><%= @querystring %></em></p>
               
-    <%= will_paginate(results) %>
-
     <table class="results_table" cellspacing="0" summary="<%= title %>" style="width:100%;">
-      <tr><th style="width:50%;"><%="Common Name"[]%></th><th style="width:50%;"><%="Scientific Name"[]%></th><th
-          style="width:152px;"><%="Image"[]%></th></tr>
+      <tr>
+        <th style="width:152px;"><%="Image"[]%></th>
+        <th style="width:50%;"><%="Common Name"[]%></th>
+        <th style="width:50%;"><%="Scientific Name"[]%></th>
+      </tr>
       <% for result in results
          tc_id = result['taxon_concept_id'][0]
          common_name = result["preferred_common_name"]
-         scientific_name = result['preferred_scientific_name']
+         all_common_names = result['common_name'] || []
+         scientific_name = result['title']
+         all_scientific_names = result['preferred_scientific_name'] || []
          top_image = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil rescue nil
          column_class = cycle('odd','even') 
       %>
         <tr>
-          <td class="<%= column_class %>"><%= link_to common_name,
-                                                      {:action => 'search_clicked', :id => tc_id},
-                                                      :method=>:post %></td>
-          <td class="<%= column_class %>"><%= link_to scientific_name,
-                                                      {:action => 'search_clicked', :id => tc_id},
-                                                      :method=>:post %></td>          
           <td class="<%= column_class %>"><% unless top_image.nil? %>
             <a href="<%= url_for(:action => 'search_clicked', :id => tc_id) %>"><img
               alt="<%= strip_tags(scientific_name) %>" title="<%= strip_tags(scientific_name) %>" src="<%= top_image.smart_medium_thumb %>"/></a>
           <%end%></td>
+          <td class="<%= column_class %>"><%= link_to common_name,
+                                                      {:action => 'search_clicked', :id => tc_id},
+                                                      :method=>:post %><br /><%#all_common_names.join("; ") %></td>
+          <td class="<%= column_class %>"><%= link_to scientific_name,
+                                                      {:action => 'search_clicked', :id => tc_id},
+                                                      :method=>:post %><br /><%#all_scientific_names.join("; ")%></td>          
         </tr>
       <% end %>
     </table>    

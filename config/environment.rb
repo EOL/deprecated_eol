@@ -56,6 +56,7 @@ Rails::Initializer.run do |config|
   config.gem 'sanitize'
   config.gem 'mwmitchell-rsolr', :lib => 'rsolr'
   config.gem 'solr-ruby', :lib => 'solr'
+  config.gem 'optiflag'
   config.gem 'escape'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.

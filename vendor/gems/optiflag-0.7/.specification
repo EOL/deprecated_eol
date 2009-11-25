@@ -1,0 +1,107 @@
+--- !ruby/object:Gem::Specification 
+name: optiflag
+version: !ruby/object:Gem::Version 
+  version: "0.7"
+platform: ruby
+authors: 
+- Daniel Eklund
+autorequire: 
+bindir: bin
+cert_chain: 
+date: 2009-10-19 00:00:00 -04:00
+default_executable: 
+dependencies: []
+
+description: 
+email: doeklund@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- examples
+- examples/example_1.rb
+- examples/example_1_1.rb
+- examples/example_1_2.rb
+- examples/example_2.rb
+- examples/example_2_1.rb
+- examples/example_2_2.rb
+- examples/example_2_3.rb
+- examples/example_2_4.rb
+- examples/example_2_5.rb
+- examples/example_2_6.rb
+- examples/example_3.rb
+- examples/example_6.rb
+- examples/example_7.rb
+- examples/example_8.rb
+- optiflag-help.rb
+- optiflag-parse.rb
+- optiflag.gemspec
+- optiflag.rb
+- ReleaseNotes.txt
+- testcases
+- testcases/tc_advanced_usage_helping.rb
+- testcases/tc_basic_alternate_forms.rb
+- testcases/tc_basic_char_flags.rb
+- testcases/tc_basic_optional_flag.rb
+- testcases/tc_basic_parsing.rb
+- testcases/tc_basic_usage_helping.rb
+- testcases/tc_basic_value_validation.rb
+- testcases/tc_bug_one.rb
+- testcases/tc_bug_two.rb
+- testcases/tc_change_symbols.rb
+- testcases/tc_enumerated_value_validation.rb
+- testcases/tc_flagall.rb
+- testcases/tc_flagless_arg.rb
+- testcases/tc_keyword.rb
+- testcases/tc_new_basic_parsing.rb
+- testcases/tc_poro_tester.rb
+- testcases/tc_values_as_hash.rb
+has_rdoc: true
+homepage: http://rubyforge.org/projects/optiflag/
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- bin
+- .
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">"
+    - !ruby/object:Gem::Version 
+      version: 0.0.0
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: optiflag
+rubygems_version: 1.3.5
+signing_key: 
+specification_version: 1
+summary: OptiFlag is an embeddable DSL library for declaring and using command-line options/flags in any Ruby program.
+test_files: 
+- testcases/tc_advanced_usage_helping.rb
+- testcases/tc_basic_alternate_forms.rb
+- testcases/tc_basic_char_flags.rb
+- testcases/tc_basic_optional_flag.rb
+- testcases/tc_basic_parsing.rb
+- testcases/tc_basic_usage_helping.rb
+- testcases/tc_basic_value_validation.rb
+- testcases/tc_bug_one.rb
+- testcases/tc_bug_two.rb
+- testcases/tc_change_symbols.rb
+- testcases/tc_enumerated_value_validation.rb
+- testcases/tc_flagless_arg.rb
+- testcases/tc_keyword.rb
+- testcases/tc_new_basic_parsing.rb
+- testcases/tc_poro_tester.rb
+- testcases/tc_values_as_hash.rb

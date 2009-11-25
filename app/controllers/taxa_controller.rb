@@ -671,6 +671,7 @@ private
   end
 
   def append_search_results_from_db(search_results)
+    return nil unless search_results
     search_results.each do |res|
       tc = TaxonConcept.find(res['taxon_concept_id'][0])
       res.merge!({

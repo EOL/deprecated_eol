@@ -10,6 +10,7 @@
     <title><%= page_title = "Encyclopedia of Life"[:encyclopedia_of_life]
                page_title = "#{@taxon_concept.title(@session_hierarchy)} - #{page_title}" if
                  @taxon_concept and not @taxon_concept.title(@session_hierarchy).blank?
+               page_title = @page_title if @page_title
                h(strip_tags(page_title)) %></title>
     <meta http-equiv="imagetoolbar" content="no" />
     <meta name="MSSmartTagsPreventParsing" content="true" />
@@ -200,22 +201,23 @@
 
             </div>
             <!-- /search -->
-            <div class="page-mode">
-                  <% 
-                  case current_user.vetted
-                    when true:  current_mode="authoritative information"[];change_mode="all information"[];set_vetted="false"
-                    when false: current_mode="all information"[];change_mode="authoritative information"[];set_vetted="true"
-                  end
-                  %>
-                  Showing: <a title="click to show <%=change_mode%>" href="<%=current_url%>?vetted=<%=set_vetted%>"><%=current_mode%></a><br />
-                  <%- if (current_user.default_hierarchy_id.to_s != Hierarchy.default.id.to_s && !current_user.default_hierarchy_id.blank?) -%>
-                   <a title="using <%=current_user.selected_default_hierarchy%>, click to change" href="<%=url_for(settings_url)%>"><%="Alternate classification"[]%></a> <br />                 
-                  <%- end -%>    
-                  <%- if current_user.filter_content_by_hierarchy -%>
-                    <a title="click to change settings" href="<%=url_for(settings_url)%>"><%="Filtered information"[]%></a><br />
-                  <%- end -%>
-                </div>
-
+            <%- if @taxon_concept -%>
+              <div class="page-mode">
+                <% 
+                case current_user.vetted
+                  when true:  current_mode="authoritative information"[];change_mode="all information"[];set_vetted="false"
+                  when false: current_mode="all information"[];change_mode="authoritative information"[];set_vetted="true"
+                end
+                %>
+                Showing: <a title="click to show <%=change_mode%>" href="<%=current_url%>?vetted=<%=set_vetted%>"><%=current_mode%></a><br />
+                <%- if (current_user.default_hierarchy_id.to_s != Hierarchy.default.id.to_s && !current_user.default_hierarchy_id.blank?) -%>
+                 <a title="using <%=current_user.selected_default_hierarchy%>, click to change" href="<%=url_for(settings_url)%>"><%="Alternate classification"[]%></a> <br />                 
+                <%- end -%>    
+                <%- if current_user.filter_content_by_hierarchy -%>
+                  <a title="click to change settings" href="<%=url_for(settings_url)%>"><%="Filtered information"[]%></a><br />
+                <%- end -%>
+              </div>
+            <%- end -%>
 
         </div>
         <!-- /header -->

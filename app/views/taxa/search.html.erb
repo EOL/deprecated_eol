@@ -12,9 +12,9 @@
       <%- else -%>
         <%= render :partial => 'search_results_table', :locals => {:title => 'Suggested Search Results', 
                                                                    :results => @suggested_results }  %>
-        <%= render :partial => 'search_results_table', :locals => {:title => 'Common Search Results', 
+        <%= render :partial => 'search_results_table', :locals => {:title => 'Common Names Search Results', 
                                                                    :results => @common_results }  %>
-        <%= render :partial => 'search_results_table', :locals => {:title => 'Scientific Search Results', 
+        <%= render :partial => 'search_results_table', :locals => {:title => 'Scientific Names Search Results', 
                                                                    :results => @scientific_results }  %>
       <%- end -%> 
       <br/><br/>

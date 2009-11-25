@@ -174,7 +174,7 @@ ul#global-navigation {
 
 #header #quick-search {
   float: left;
-  padding: 10px 10px 5px;
+  padding: 25px 10px 5px;
   width: 234px;
   height: 76px;
   z-index: 0;
@@ -2199,3 +2199,6 @@ div#content_partner_stats {
   font-size: 16px;
   font-style: italic;
   padding: 10px; }
+
+h3.search_result_subtitle {
+  margin-bottom: 1em !important; }

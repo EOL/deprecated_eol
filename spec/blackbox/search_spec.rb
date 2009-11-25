@@ -136,6 +136,12 @@ describe 'Search' do
     end
   end
 
+  it 'should treat empty string search gracefully when javascript is switched off' do
+    res = request('/search?q=')
+    res.body.should_not include "500 Internal Server Error"
+  end
+
+
   #-------- tag search -------
 
   it 'should find tags' do

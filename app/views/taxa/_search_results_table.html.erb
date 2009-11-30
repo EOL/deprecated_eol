@@ -11,10 +11,14 @@
       </tr>
       <% for result in results
          tc_id = result['taxon_concept_id'][0]
-         common_name = result["preferred_common_name"]
-         all_common_names = result['common_name'] || []
+         common_name = result['best_matched_common_name'] 
+         if (result["best_matched_common_name"].blank? 
+              or result["preferred_common_name"].blank? 
+              or result["preferred_common_name"].downcase == result['best_matched_common_name'].downcase)
+          shown_name = '' 
+         else "shown as '#{result['preferred_common_name']}'"
+         end
          scientific_name = result['title']
-         all_scientific_names = result['preferred_scientific_name'] || []
          vetted_value = ''
          vetted_value = '_unvetted' if result['vetted_id'][0].to_i == Vetted.find_by_label('Unknown').id
          vetted_value = '_untrusted' if result['vetted_id'][0].to_i == Vetted.find_by_label('Untrusted').id
@@ -29,10 +33,11 @@
           <%end%></td>
           <td class="<%= column_class %>"><%= link_to common_name,
                                                       {:action => 'search_clicked', :id => tc_id},
-                                                      :method=>:post %><br /><%#all_common_names.join("; ") %></td>
+                                                      :method=>:post %><br /><%= shown_name %>
+                                                      </td>
           <td class="<%= column_class %>"><%= link_to scientific_name,
                                                       {:action => 'search_clicked', :id => tc_id},
-                                                      :method=>:post %><br /><%#all_scientific_names.join("; ")%></td>          
+                                                      :method=>:post %><br /></td>          
         </tr>
       <% end %>
     </table>    

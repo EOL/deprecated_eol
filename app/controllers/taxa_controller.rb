@@ -105,9 +105,9 @@ class TaxaController < ApplicationController
     else
       search_text
     end
-    @suggested_results = append_search_results_from_db(@suggested_results)
-    @common_results = append_search_results_from_db(@common_results)
-    @scientific_results = append_search_results_from_db(@scientific_results)
+    @suggested_results = append_search_results_from_db(@querystring, @suggested_results)
+    @common_results = append_search_results_from_db(@querystring, @common_results)
+    @scientific_results = append_search_results_from_db(@querystring, @scientific_results)
   end
 
   def search_tag
@@ -671,24 +671,41 @@ private
     redirect_to :controller => 'taxa', :action => 'show', :id => result_set.first['taxon_concept_id']
   end
 
-  def append_search_results_from_db(search_results)
+  def append_search_results_from_db(querystring, search_results)
     return nil unless search_results
+    querystring = querystring.gsub(/\s+/, ' ').split(" ").to_set
     search_results.each do |res|
+      find_matched_common_name(querystring, res)
       tc = TaxonConcept.find(res['taxon_concept_id'][0])
       res.merge!({
         'title' => tc.title(@session_hierarchy),
-        'preferred_common_name'     => tc.common_name(@session_hierarchy)
+        'preferred_common_name' => (tc.common_name(@session_hierarchy) || '')
         })
     end
   end
 
-  def prepare_solr_querystring(query, field)
-    literal_query = "#{field}:\"#{query}\"^5"
-    query = query.gsub /\s{1,}/, ' '
-    query = query.split(' ').map {|w| "+#{w}"}.join(' ')
-    query = "(#{literal_query} OR #{field}:(#{query}))"
-    #puts 'URA' + query
-    query
+  def find_matched_common_name(querystring, search_result)
+    res = search_result
+    if res['common_name'] 
+      names = []
+      intersections = res['common_name'].map do |name|
+        name_set = name.downcase.gsub(/[;:,\.\(\)\[\]\!\?\*_\\\/\"\']/, '').gsub(/\s+/, ' ').split(" ").to_set
+        intersect = name_set.intersection(querystring)
+        names << [name, intersect.size] 
+      end
+      res['best_matched_common_name'] = names.sort_by {|i| i[1]}[-1][0] 
+    else
+      res['common_name'] = ['']
+      res['best_matched_common_name'] = ''
+    end
   end
+  
+  def prepare_solr_querystring(query, field)
+    literal_query = "#{field}:\"#{query}\""
+    query = query.gsub /\s+/, ' '
+    query = query.split(' ').map {|w| "+#{w}"}.join(' ')
+    query = "(#{literal_query})" #OR #{field}:(#{query}))"
+  end
+
 
 end

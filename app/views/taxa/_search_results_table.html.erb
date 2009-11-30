@@ -15,8 +15,12 @@
          all_common_names = result['common_name'] || []
          scientific_name = result['title']
          all_scientific_names = result['preferred_scientific_name'] || []
+         vetted_value = ''
+         vetted_value = '_unvetted' if result['vetted_id'][0].to_i == Vetted.find_by_label('Unknown').id
+         vetted_value = '_untrusted' if result['vetted_id'][0].to_i == Vetted.find_by_label('Untrusted').id
+
          top_image = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil rescue nil
-         column_class = cycle('odd','even') 
+         column_class = cycle('odd' + vetted_value, 'even' + vetted_value)
       %>
         <tr>
           <td class="<%= column_class %>"><% unless top_image.nil? %>

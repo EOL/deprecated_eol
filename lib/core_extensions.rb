@@ -22,9 +22,16 @@ class String
     @firstcap_regex = /^(<[^>]*>)?([^ ]+)( |$)/
     self.gsub(@firstcap_regex) { $1.to_s + $2.chars.capitalize + $3 }
   end
+  
+  def change_bad_html                                                                                                       
+    text = self                                                                                                             
+    text = text.gsub(/[\<](\s*[0-9])/, "&lt;\\1")                                                                                        
+    text = text.gsub(/[\>](\s*[0-9])/, "&gt;\\1")                                                                                        
+  end
     
   def sanitize_html
     text = self
+    text = text.change_bad_html                                                                                             
     
     eol_relaxed = {
       :elements => 

@@ -28,7 +28,6 @@ describe 'Curation' do
   it 'should show curation button when logged in as curator' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
 
-    foo = login_as( curator )
     login_as( curator ).should redirect_to('/')
     
     request("/pages/#{@taxon_concept.id}").body.should have_tag('div#large-image-curator-button')

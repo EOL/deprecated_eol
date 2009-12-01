@@ -1,6 +1,6 @@
 This comment is now <span style="color:red">hidden</span>.
-[<%= link_to_remote('undo', :url     => make_visible_comment_path(current_object),
-                            :method  => :put,
-                            :confirm => 'Are you sure you want this visible again?',
-                            :failure => "alert('HTTP Error ' + request.status + '!');return(false);",
-                            :update  => "vis_cmnt_#{current_object.id}") %>]
+[<%= link_to_remote('unhide', :url     => make_visible_comment_path(current_object),
+                              :method  => :put,
+                              :confirm => 'Are you sure you want this visible again?',
+                              :failure => "alert('HTTP Error ' + request.status + '!');return(false);",
+                              :update  => "vis_cmnt_#{current_object.id}") %>]

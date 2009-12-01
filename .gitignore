@@ -18,3 +18,5 @@ doc/app
 .DS_Store
 solr/logs/*.*
 solr/solr/eol-solr.pid
+solr/solr/data/index/*
+public/feeds

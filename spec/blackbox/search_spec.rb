@@ -23,6 +23,7 @@ def assert_results(options)
   per_page = options[:per_page] || 10
   body =
     request("/search?q=#{search_string}&per_page=#{per_page}#{options[:page] ? "&page=#{options[:page]}" : ''}").body
+    debugger
   body.should have_tag('table[class=results_table]') do |table|
     header_index = 1
     result_index = header_index + options[:num_results_on_this_page]
@@ -159,9 +160,7 @@ describe 'Search' do
 
   it 'should return preferred common name as "shown" name' do
     res = request("/search?q=panther")
-    # debugger
-    res.body.should == ''
-    # tc.common_name(@session_hierarchy)
+    res.body.should include "shown as 'Tiger lilly'"
   end
   
   #-------- tag search -------

@@ -116,9 +116,10 @@ class TaxaController < ApplicationController
       tc = tag_result[0]
       dato = tag_result[1]
       {'taxon_concept_id' => [tc.id],
+       'vetted_id'        => [tc.vetted_id],
        'preferred_scientific_name' => [tc.scientific_name],
-       'common_name' => [tc.common_name],
-       'top_image_id' => dato.id }
+       'common_name'      => [tc.common_name],
+       'top_image_id'     => dato.id }
     end
     results = results
     if current_user.expertise.to_s == 'expert'

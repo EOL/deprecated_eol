@@ -12,19 +12,15 @@
       <% for result in results
          tc_id = result['taxon_concept_id'][0]
          common_name = result['best_matched_common_name'] 
-      %>
-      result["preferred_common_name"] = <%= debug (result["preferred_common_name"]) %>
-      result["best_matched_common_name"] = <%= debug (result["best_matched_common_name"]) %>
-      <% if (result["best_matched_common_name"].blank? or result["preferred_common_name"].blank? or result["preferred_common_name"].downcase == result['best_matched_common_name'].downcase) 
+         if (result["best_matched_common_name"].blank? or result["preferred_common_name"].blank? or result["preferred_common_name"].downcase == result['best_matched_common_name'].downcase) 
            shown_name = '' 
          else 
            shown_name = "shown as '#{result['preferred_common_name']}'"
          end
          scientific_name = result['title']
          vetted_value = ''
-         vetted_value = '_unvetted' if result['vetted_id'][0].to_i == Vetted.find_by_label('Unknown').id
-         vetted_value = '_untrusted' if result['vetted_id'][0].to_i == Vetted.find_by_label('Untrusted').id
-
+           vetted_value = '_unvetted' if (result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.unknown.id)
+           vetted_value = '_untrusted' if (result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.untrusted.id)
          top_image = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil rescue nil
          column_class = cycle('odd' + vetted_value, 'even' + vetted_value)
       %>

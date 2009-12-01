@@ -23,7 +23,6 @@ def assert_results(options)
   per_page = options[:per_page] || 10
   body =
     request("/search?q=#{search_string}&per_page=#{per_page}#{options[:page] ? "&page=#{options[:page]}" : ''}").body
-    debugger
   body.should have_tag('table[class=results_table]') do |table|
     header_index = 1
     result_index = header_index + options[:num_results_on_this_page]
@@ -124,10 +123,9 @@ describe 'Search' do
   end
 
   it 'should return one suggested search' do
-    res = request("/search?q=#{@plantain_name.gsub(/ /, '+')}&search_type=text")
+    res = request("/search?q=#{URI.escape @plantain_name.gsub(/ /, '+')}&search_type=text")
     res.body.should have_tag('table[summary=Suggested Search Results]') do |table|
-      #debugger
-      table.should have_tag("td:nth-child(1)", :text => @plantain_common)
+      table.should have_tag("td", :text => @plantain_common)
     end
   end
 
@@ -136,7 +134,7 @@ describe 'Search' do
   it 'should return two suggested searches' do
     res = request("/search?q=#{@dog_name}&search_type=text")
     res.body.should have_tag('table[summary=Suggested Search Results]') do |table|
-      table.should have_tag("td:nth-child(1)", :text => @domestic_name)
+      table.should have_tag("td", :text => @domestic_name)
       table.should have_tag("td", :text => @wolf_name)
     end
   end

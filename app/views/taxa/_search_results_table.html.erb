@@ -12,7 +12,10 @@
       <% for result in results
          tc_id = result['taxon_concept_id'][0]
          common_name = result['best_matched_common_name'] 
-         if (result["best_matched_common_name"].blank? or result["preferred_common_name"].blank? or result["preferred_common_name"].downcase == result['best_matched_common_name'].downcase)
+      %>
+      result["preferred_common_name"] = <%= debug (result["preferred_common_name"]) %>
+      result["best_matched_common_name"] = <%= debug (result["best_matched_common_name"]) %>
+      <%   if (result["best_matched_common_name"].blank? or result["preferred_common_name"].blank? or result["preferred_common_name"].downcase == result['best_matched_common_name'].downcase)
           shown_name = '' 
          else "shown as '#{result['preferred_common_name']}'"
          end

@@ -131,14 +131,27 @@ tc.images.first.comment(u, 'Twelveth comment')
 
 # Seventh Taxon (sign of the apocolypse?) should be a child of fifth and be "empty", other than common names:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
-                         :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
-                         :bhl => [], :event => event)
+                         :depth => depth_now, 
+                         :images => [], 
+                         :toc => [], 
+                         :flash => [], 
+                         :youtube => [], 
+                         :comments => [],
+                         :bhl => [], 
+                         :event => event,
+                         :vetted => 'untrusted')
 tc.add_common_name('Tiger lilly')
 
 # Eighth Taxon (now we're just getting greedy) should be the same as Seven, but with BHL:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
-                         :depth => depth_now, :images => [], :toc => [], :flash => [], :youtube => [], :comments => [],
-                         :event => event)
+                         :depth => depth_now, 
+                         :images => [], 
+                         :toc => [], 
+                         :flash => [], 
+                         :youtube => [], 
+                         :comments => [],
+                         :event => event,
+                         :vetted => 'unknown')
 tc.add_common_name('Tiger')
 
 # Ninth Taxon is *totally* naked:

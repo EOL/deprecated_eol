@@ -32,6 +32,8 @@ module EOL
     #     The ID to use for the Map Data Object.
     #   +id+::
     #     Forces the ID of the TaxonConcept to be what you specify, useful for exemplars.
+    #   +vetted+::
+    #   Modifies taxon concept vetted status. Can be 'trusted', 'untrusted', 'unknown', default is 'trusted'
     #   +images+::
     #     Array of hashes.  Each hash may have the following keys: +:description+, +:hierarchy_entry+,
     #     +:object_cache_url+, +:taxon+, +:vetted+, +:visibility+ ...These are the args used to call #build_data_object
@@ -105,13 +107,13 @@ module EOL
       if @id
         @tc = TaxonConcept.find(@id) rescue nil
         if @tc.nil?
-          @tc = TaxonConcept.gen(:vetted => Vetted.trusted)
+          @tc = TaxonConcept.gen(:vetted => Vetted.send(@vetted.to_sym))
           TaxonConcept.connection.execute("UPDATE taxon_concepts SET id = #{@id} WHERE id = #{@tc.id}")
           @tc = TaxonConcept.find(@id)
         end
         @tc = @tc.first if @tc.class == Array  # TODO - why in the WORLD is this an array?  ...but it is...
       else
-        @tc = TaxonConcept.gen(:vetted => Vetted.trusted)
+        @tc = TaxonConcept.gen(:vetted => Vetted.send(@vetted.to_sym))
         @id = @tc.id
       end
     end
@@ -163,8 +165,12 @@ module EOL
       TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => @he.id,
                            :language => Language.scientific, :name => @sname, :taxon_concept => @tc)
       unless @cname.nil?
-        TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => @he.id,
-                             :language => Language.english, :name => @cname, :taxon_concept => @tc)
+        count = 0
+        cname_objects.each do |cname|
+          TaxonConceptName.gen(:preferred => count == 0, :vern => true, :source_hierarchy_entry_id => @he.id,
+                               :language => Language.english, :name => cname, :taxon_concept => @tc)
+          count += 1
+        end
       end
       # TODO - create the Synonym here, with the Language of English, the SynonymRelation of Common Name, and the HE we just
       # created, and preferred...
@@ -350,6 +356,7 @@ module EOL
       @parent_hierarchy_entry_id = options[:parent_hierarchy_entry_id]
       @rank         = options[:rank]
       @toc          = options[:toc]             || default_toc_option
+      @vetted       = (options[:vetted] and ['trusted', 'untrusted', 'unknown'].include? options[:vetted]) ? options[:vetted] : 'trusted'
       @youtube      = options[:youtube]
     end
 

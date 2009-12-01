@@ -56,11 +56,15 @@ describe 'Search' do
     @panda_name = 'panda'
     @panda = build_taxon_concept(:common_names => [@panda_name])
     @tiger_name = 'Tiger'
-    @tiger = build_taxon_concept(:common_names => [@tiger_name])
+    @tiger = build_taxon_concept(:common_names => [@tiger_name],
+                                 :vetted       => 'untrusted')
     @tiger_lilly_name = "#{@tiger_name} lilly"
-    @tiger_lilly = build_taxon_concept(:common_names => [@tiger_lilly_name])
+    @tiger_lilly = build_taxon_concept(:common_names => 
+                                        [@tiger_lilly_name, 'Panther tigris'],
+                                       :vetted => 'unknown')
     @tiger_moth_name = "#{@tiger_name} moth"
-    @tiger_moth = build_taxon_concept(:common_names => [@tiger_moth_name])
+    @tiger_moth = build_taxon_concept(:common_names => 
+                                       [@tiger_moth_name, 'Panther moth'])
     @plantain_name = 'Plantago major'
     @plantain_common = 'Plantain'
     @plantain = build_taxon_concept(:scientific_name => @plantain_name, :common_names => [@plantain_common])
@@ -141,7 +145,25 @@ describe 'Search' do
     res.body.should_not include "500 Internal Server Error"
   end
 
+  it 'should detect untrusted and unknown Taxon Concepts' do
+    body = @tiger_search
+    body.should have_tag('td.odd_untrusted')
+    body.should have_tag('td.odd_unvetted')
+  end
+  
+  it 'should show only common names which include whole search query' do
+    res = request("/search?q=#{URI.escape @tiger_lilly_name}")
+    res.headers['Location'].should match /\/pages\/\d+/
+    res.status.should == 302
+  end
 
+  it 'should return preferred common name as "shown" name' do
+    res = request("/search?q=panther")
+    # debugger
+    res.body.should == ''
+    # tc.common_name(@session_hierarchy)
+  end
+  
   #-------- tag search -------
 
   it 'should find tags' do

@@ -38,6 +38,9 @@ $SHOW_SURVEYS=false
 
 $IP_ADDRESS_OF_SERVER='127.0.0.1'
 
+$SOLR_SERVER = 'http://localhost:8080/solr'
+$SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
+
 config.gem 'faker', :version => "0.3.1"
 config.gem "rspec-custom-matchers", :version => "0.1.0", :lib => false
 config.gem "remi-indifferent-variable-hash", :version => "0.1.0", :lib => false

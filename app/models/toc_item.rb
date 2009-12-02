@@ -33,6 +33,12 @@ class TocItem < SpeciesSchemaModel
     end
   end
   
+  def self.education
+    Rails.cache.fetch('toc_items/education') do
+      TocItem.find_by_label('Education')
+    end
+  end
+  
   def self.search_the_web
     Rails.cache.fetch('toc_items/search_the_web') do
       TocItem.find_by_label('Search the Web')

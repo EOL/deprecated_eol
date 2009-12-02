@@ -172,6 +172,7 @@ create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Trends',                :label => 'Trends'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TrophicStrategy',       :label => 'TrophicStrategy'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',                  :label => 'Uses'
+create_if_not_exists InfoItem, :schema_value => 'http://www.eol.org/voc/table_of_contents#Education',                 :label => 'Education'
 
 create_if_not_exists Language, :label => 'English',         :iso_639_1 => 'en'
 create_if_not_exists Language, :label => 'French',          :iso_639_1 => 'fr' # Bootstrap uses this, tests i18n

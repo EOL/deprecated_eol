@@ -825,6 +825,7 @@ Factory.define :taxon_concept do |tc|
   tc.vetted         { Vetted.trusted || Vetted.create(:label => 'Trusted') }
   tc.published      1
   tc.supercedure_id 0
+  tc.split_from     0
 end
 
 # We may want the default to actually have some content.  Not sure.

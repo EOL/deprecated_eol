@@ -100,10 +100,10 @@ describe TaxonConcept do
     @taxon_concept.show_curator_controls?(@curator).should == true
   end
 
-  it 'should return overview as first toc item which accepts user submitted text' do
-    @taxon_concept.tocitem_for_new_text.label.should == @overview.label
+  it 'should return a toc item which accepts user submitted text' do
+    @taxon_concept.tocitem_for_new_text.class.should == TocItem
     tc = build_taxon_concept(:images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => [])
-    tc.tocitem_for_new_text.label.should == @overview.label
+    tc.tocitem_for_new_text.class.should == TocItem
   end
 
   it 'should return description as first toc item which accepts user submitted text' do

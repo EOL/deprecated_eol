@@ -50,6 +50,11 @@ def bootstrap_toc
   TocItem.gen(:label => 'Conservation', :parent_id => 0, :view_order => current_order += 1)
   TocItem.gen(:label => 'Evolution and Systematics', :parent_id => 0, :view_order => current_order += 1)
   TocItem.gen(:label => 'Literature References', :parent_id => 0, :view_order => current_order += 1)
+  education = TocItem.gen(:label => 'Education', :parent_id => 0, :view_order => current_order += 1)
+  if ii = InfoItem.find_by_label('Education')
+    ii.toc_id = education.id
+    ii.save
+  end
   relevance = TocItem.gen(:label => 'Relevance', :parent_id => 0, :view_order => current_order += 1)
   relevance_labels = [
     'Harmful Blooms',
@@ -227,6 +232,40 @@ description_dato.comment(user, 'Twelfth comment')
 
 DataObjectsInfoItem.gen(:data_object => tc.overview.first, :info_item => InfoItem.find(:first, :order => 'rand()'))
 DataObjectsInfoItem.gen(:data_object => tc.overview.last, :info_item => InfoItem.find_by_label("Distribution"))
+
+
+
+# create a content_partner that we can log in as for testing (user:password = testcp:testcp)
+a = Agent.gen(:username => 'testcp', :password => 'testcp', :password_confirmation => 'testcp', :full_name => 'Test Content Partner', :display_name => 'Test Content Partner')
+ac = AgentContact.gen(:agent => a, :agent_contact_role => AgentContactRole.primary)
+cp = ContentPartner.gen(:agent => a,
+                        :partner_seen_step => '2009-10-21 10:00:00',
+                        :partner_complete_step => '2009-10-21 10:00:00',
+                        :contacts_seen_step => '2009-10-21 10:00:00',
+                        :contacts_complete_step => '2009-10-21 10:00:00',
+                        :licensing_seen_step => '2009-10-21 10:00:00',
+                        :licensing_complete_step => '2009-10-21 10:00:00',
+                        :attribution_seen_step => '2009-10-21 10:00:00',
+                        :attribution_complete_step => '2009-10-21 10:00:00',
+                        :roles_seen_step => '2009-10-21 10:00:00',
+                        :roles_complete_step => '2009-10-21 10:00:00',
+                        :transfer_overview_seen_step => '2009-10-21 10:00:00',
+                        :transfer_overview_complete_step => '2009-10-21 10:00:00',
+                        :transfer_upload_seen_step => '2009-10-21 10:00:00',
+                        :transfer_upload_complete_step => '2009-10-21 10:00:00',
+                        :specialist_overview_seen_step => '2009-10-21 10:00:00',
+                        :specialist_overview_complete_step => '2009-10-21 10:00:00',
+                        :specialist_formatting_seen_step => '2009-10-21 10:00:00',
+                        :specialist_formatting_complete_step => '2009-10-21 10:00:00',
+                        :description => 'description of the partner',
+                        :ipr_accept => true,
+                        :attribution_accept => true,
+                        :roles_accept => true,
+                        :transfer_schema_accept => true,
+                        :auto_publish => false,
+                        :vetted => true)
+
+
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
        # Give it a new name:

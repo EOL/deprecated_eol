@@ -146,8 +146,8 @@ describe 'Search' do
 
   it 'should detect untrusted and unknown Taxon Concepts' do
     body = @tiger_search
-    body.should have_tag('td.odd_untrusted')
-    body.should have_tag('td.odd_unvetted')
+    body.should match /td class=\"(odd|even)_untrusted/
+    body.should match /td class=\"(odd|even)_unvetted/
   end
   
   it 'should show only common names which include whole search query' do
@@ -161,6 +161,11 @@ describe 'Search' do
     res.body.should include "shown as 'Tiger lilly'"
   end
   
+  it 'should have odd and even rows in search result table' do
+    body = @tiger_search
+    body.should include "td class=\"odd"
+    body.should include "td class=\"even"
+  end 
   #-------- tag search -------
 
   it 'should find tags' do
@@ -200,6 +205,27 @@ describe 'Search' do
 
   it 'should be able to do tag search correctly'
   
+  it 'should show unvetted status for tag search' do
+    # body = @tiger_search
+    #   body.should have_tag('td.odd_untrusted')
+    #   body.should have_tag('td.odd_unvetted')
+    user   = User.gen :username => 'username', :password => 'password'
+    all_tc = []
+    vetted_methods  = ['untrusted', 'unknown', 'trusted']
+    
+    vetted_methods.each do |v_method|
+      taxon_concept = build_taxon_concept(:images => [{}], :vetted => v_method)
+      image_dato    = taxon_concept.images.last
+      image_dato.tag("key", "value", user)
+      all_tc << taxon_concept.scientific_name
+    end
+        
+    res = request('/search?search_type=tag&q=value')
+    res.body.should match /(odd|even)[^_]/
+    res.body.should match /(odd|even)_untrusted/
+    res.body.should match /(odd|even)_unvetted/    
+  end
+    
   # WHEN WE HAVE PAGINATION FOR TAGS (TODO):
   #
   #   it 'should show pagination if there are > 10 tags' do

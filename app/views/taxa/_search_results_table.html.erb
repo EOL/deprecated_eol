@@ -22,7 +22,8 @@
            vetted_value = '_unvetted' if (result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.unknown.id)
            vetted_value = '_untrusted' if (result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.untrusted.id)
          top_image = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil rescue nil
-         column_class = cycle('odd' + vetted_value, 'even' + vetted_value)
+         column_class = cycle('odd', 'even')
+         column_class += vetted_value
       %>
         <tr>
           <td class="<%= column_class %>"><% unless top_image.nil? %>

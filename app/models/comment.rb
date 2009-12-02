@@ -24,8 +24,10 @@ class Comment < ActiveRecord::Base
   attr_accessor :vetted_by
 
   def self.feed(taxon_concept_id = nil, max_results = 100)
+    min_date = 30.days.ago.strftime('%Y-%m-%d')
+    result = []
     if taxon_concept_id.nil?
-      Comment.find_by_sql("select * from #{Comment.full_table_name} order by created_at DESC limit #{max_results}")
+      $result = Set.new(Comment.find_by_sql("select * from #{Comment.full_table_name} WHERE created_at > '#{min_date}'")).to_a
     else
       query_string = %Q{
         ( SELECT c.*
@@ -38,7 +40,10 @@ class Comment < ActiveRecord::Base
             JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id)
             JOIN #{DataObject.full_table_name} do1 ON (do.guid=do1.guid)
             JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id)
-          WHERE he_parent.taxon_concept_id=#{taxon_concept_id} AND do1.published=1  AND c.parent_type='DataObject'          
+          WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
+          AND do1.published=1
+          AND c.parent_type='DataObject'
+          AND c.created_at > '#{min_date}'
         ) UNION (
           SELECT c.*
           FROM #{HierarchyEntry.full_table_name} he_parent
@@ -48,11 +53,14 @@ class Comment < ActiveRecord::Base
             JOIN #{Comment.full_table_name} c
               ON(c.parent_id=he_children.taxon_concept_id AND c.parent_type='TaxonConcept')
           WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
-        ) ORDER BY created_at DESC limit #{max_results}
+          AND c.created_at > '#{min_date}'
+        )
       }
-
-      Set.new(Comment.find_by_sql(query_string)).to_a
+      
+      result = Set.new(Comment.find_by_sql(query_string)).to_a
     end
+    return result.sort_by(&:created_at).reverse[0..max_results]
+    
   end
 
   # Comments can be hidden.  This method checks to see if a non-curator can see it:

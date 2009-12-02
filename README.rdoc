@@ -53,19 +53,19 @@ Next, continue with the following sections:  "INSTALLING REQUIRED GEMS", "SETTIN
 
 === SOLR
 
-EOL requires Solr (a fast indexing engine) to run properly.  Solr is run using Java, and the require JAR file is
-included with the EOL project's source code.  (TODO - we need to check the legal situtaion with this--we may need to
-include a LICENCSE for it.)  There is a rake task for starting (solr:start) and stopping (solr:stop) the Solr server.
-Searches will not function without Solr, and at some point, the entire codebase (rendering a taxa page) may require
-Solr as well.
+EOL requires Solr (a fast indexing engine) to run properly.  Solr is run using Java, and the require JAR
+file is included with the EOL project's source code.  (TODO - we need to check the legal situtaion with
+this--we may need to include a LICENCSE for it.)  There is a rake task for starting (solr:start) and
+stopping (solr:stop) the Solr server.  Searches will not function without Solr, and at some point, the
+entire codebase (rendering a taxa page) may require Solr as well.
 
 To re-build your indexes for Solr searching (up to 100 TaxonConcepts), run the command:
 
   rake solr:build
 
-...Note that this command first deletes all existing entries, then adds entires (max: 100) for each TaxonConcept in
-the development.  If you want to build indexes based on the data in your test (or integration, or...) environments,
-specify the RAILS_ENV:
+...Note that this command first deletes all existing entries, then adds entires (max: 100) for each
+TaxonConcept in the development.  If you want to build indexes based on the data in your test (or
+integration, or...) environments, specify the RAILS_ENV:
 
   rake solr:build RAILS_ENV=test
 
@@ -157,6 +157,13 @@ Go to http://localhost:3000 and see stuff.
 == TESTING
 
 We're using RSpec for our testing (see the spec/ directory).  Run 'rake spec' (or 'rake specdoc' for specdoc output)
+
+Note that Solr must be running in the test RAILS_ENV before tests will pass:
+
+  rake solr:stop RAILS_ENV=test
+  rake solr:start RAILS_ENV=test
+
+Also note that the solr:stop command works even if the server was started in the development environment.
 
 === Test Logins
 

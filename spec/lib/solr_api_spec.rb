@@ -22,7 +22,6 @@ describe SolrAPI do
   it 'should connect to solr server from environment' do
     @solr.server_url.host.should == 'localhost'
     @solr.server_url.path.should == '/solr'
-    @solr.server_url.port.should == 8983
   end
 
   it 'should be able to run search on the server' do

@@ -6,9 +6,9 @@ end
 
 describe 'User Profile' do
 
-  Scenario.load :foundation
 
   before(:all) do
+    Scenario.load :foundation
     @username = 'userprofilespec'
     @password = 'beforeall'
     @user     = create_user(@username, @password)

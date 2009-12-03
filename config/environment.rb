@@ -58,6 +58,7 @@ Rails::Initializer.run do |config|
   config.gem 'solr-ruby', :lib => 'solr'
   config.gem 'optiflag'
   config.gem 'escape'
+  config.gem 'bmabey-email_spec', :lib => 'email_spec' 
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

@@ -120,10 +120,10 @@ class AccountController < ApplicationController
       user_with_forgotten_pass = User.find_by_username(username) or User.find_by_email(email)
       if user_with_forgotten_pass
         Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
-        flash[:notice]="Check your email to reset your password"[:reset_password_instructions_emailed] #TODO remove old add new translation
+        flash[:notice] = "Check your email to reset your password"[:reset_password_instructions_emailed] #TODO remove old add new translation
         redirect_to root_url 
       else
-        flash.now[:notice]="No matching accounts found"[:cannot_find_user_or_email] #TODO remove old add new translation
+        flash.now[:notice] = "No matching accounts found"[:cannot_find_user_or_email] #TODO remove old add new translation
       end
     end
   end

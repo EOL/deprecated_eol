@@ -5,6 +5,14 @@ require 'spec'
 require 'spec/rails'
 load 'composite_primary_keys/fixtures.rb' 
 
+require "email_spec/helpers"
+require "email_spec/matchers"
+Spec::Runner.configure do |config|
+  config.include(EmailSpec::Helpers)
+  config.include(EmailSpec::Matchers)
+end
+
+
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
 require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")

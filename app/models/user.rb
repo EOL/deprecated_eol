@@ -449,6 +449,12 @@ class User < ActiveRecord::Base
     return true unless self.attributes.keys.include?('filter_content_by_hierarchy')
   end
 
+  def password_reset_url(port)
+    port = port.to_s == '80' ? ':' + port.to_s : ''
+    perishable_token = rand(10**50).to_s(16)
+    "https://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{perishable_token}"
+  end
+
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 protected   
   def password_required?

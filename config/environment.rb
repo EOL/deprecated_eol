@@ -180,6 +180,7 @@ Rails::Initializer.run do |config|
 
   #Server's IP address
   $IP_ADDRESS_OF_SERVER = EOLWebService.local_ip
+  $SITE_DOMAIN_OR_IP = $IP_ADDRESS_OF_SERVER #domain name for url links communicated outside, for example for emails
     
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store

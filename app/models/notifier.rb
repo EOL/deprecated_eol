@@ -3,18 +3,18 @@ class Notifier < ActionMailer::Base
   @@from = $WEBSITE_EMAIL_FROM_ADDRESS
   @@test_recipient = "junk@example.com" # testing only if needed
 
-  def forgot_password_email(new_password,user)
+  def forgot_password_email(user, port)
     subject     "EOL Forgot Password"
     recipients  user.email
     from        @@from
-    body        :user => user,:new_password=>new_password
+    body        :user => user, :password_reset_url=>user.password_reset_url(port)
   end
   
   def agent_forgot_password_email(agent, new_password)
     subject     "EOL Forgot Password"
     recipients  agent.email
     from        @@from
-    body        :agent => agent, :password => new_password
+    body        :agent => agent
   end
   
   def agent_is_ready_for_agreement(agent,recipient)

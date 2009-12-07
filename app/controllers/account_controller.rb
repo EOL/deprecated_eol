@@ -66,21 +66,21 @@ class AccountController < ApplicationController
     @user.roles = []
 
     # give them a validation code and make their account not active by default
-    @user.validation_code=User.hash_password(@user.username)
-    @user.active=false
+    @user.validation_code = User.hash_password(@user.username)
+    @user.active = false
 
     # set the password and the remote_IP address
-    @user.password=@user.entered_password
-    @user.remote_ip=request.remote_ip
+    @user.password = @user.entered_password
+    @user.remote_ip = request.remote_ip
 
     if verify_recaptcha && @user.save
-      @user.entered_password=''
-      @user.entered_password_confirmation=''
+      @user.entered_password = ''
+      @user.entered_password_confirmation = ''
       Notifier.deliver_registration_confirmation(@user)
-      redirect_to :action=>'confirmation_sent',:protocol => "http://"
+      redirect_to :action => 'confirmation_sent',:protocol => "http://"
       return
     else # verify recaptcha failed or other validation errors
-      @verification_did_not_match="The verification phrase you entered did not match."[:verification_phrase_did_not_match] unless verify_recaptcha
+      @verification_did_not_match = "The verification phrase you entered did not match."[:verification_phrase_did_not_match] unless verify_recaptcha
     end
 
   end
@@ -124,6 +124,31 @@ class AccountController < ApplicationController
         redirect_to root_url 
       else
         flash.now[:notice] = "No matching accounts found"[:cannot_find_user_or_email] #TODO remove old add new translation
+      end
+    end
+  end
+
+  def reset_password
+    if request.post?
+       
+    else
+      debugger
+      password_reset_token = params[:id]
+      user = User.find_by_password_reset_token(password_reset_token)
+      if user
+        is_expired = Time.now > user.password_reset_token_expires_at
+        if is_expired
+          flash[:notice] = "Expired link, you can generate it again[:old_reset_password_link]"
+          delete_password_reset_token(user)
+          redirect_to account_forgot_password_url
+          
+        else
+          set_current_user(user)
+          delete_password_reset_token(user)
+          render
+        end
+      else
+        redirect_to root_url
       end
     end
   end
@@ -225,6 +250,11 @@ class AccountController < ApplicationController
   end
   
   protected
+
+  def delete_password_reset_token(user)
+    user.update_attributes(:password_reset_token => nil, :password_reset_token_expires_at => nil)
+  end
+
   def password_authentication(username, password, remember_me)
     user = User.authenticate(username,password)
     if user[0]

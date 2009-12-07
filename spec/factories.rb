@@ -912,6 +912,8 @@ Factory.define :user do |u|
   u.curator_verdict_by_id     0
   u.curator_verdict_at        nil
   u.curator_scope             ''
+  u.password_reset_token      nil
+  u.password_reset_token_expires_at  nil
 end
 
 Factory.define :users_data_object do |u|

@@ -31,53 +31,67 @@ describe User do
     message.should == 'Invalid login or password'
   end
 
-  it 'should fail to change password if the account is not found' do
-    success, message = User.reset_password '', 'junk'
-    success.should be_false
-    message.should == 'Sorry, but we could not locate your account.'
-
-    success, message = User.reset_password 'junk@mail.com', ''
-    success.should be_false
-    message.should == 'Sorry, but we could not locate your account.'
-
-    success, message = User.reset_password 'junk@email.com', 'more_junk'
-    success.should be_false
-    message.should == 'Sorry, but we could not locate your account.'
+  it 'should return url for the reset password email' do 
+    url1 = /https:\/\/\/account\/reset_password\//
+    url2 = /https:\/\/.*:3000\/account\/reset_password\//
+    user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com') 
+    user.password_reset_url(80).should match url1
+    user.password_reset_url(3000).should match url2
+    user = User.find(user.id)
+    user.password_reset_token.should > 0
+    user.password_reset_token.should <= 10000000000000000000
+    user.password_reset_token_expires_at.should > 23.hours.from_now
+    user.password_reset_token_expires_at.should < 24.hours.from_now
   end
 
-  it 'should reset the password if only email address is entered and it is unique' do
-    # TODO this API is very smelly.  User#reset_password returns different kinds of
-    #      results depending on whether the reset succeeded or failed.  very frustrating.
-    #      this would be a good candicate for refactoring.
-    success, password, user = User.reset_password @user.email, ''
-    
-    success.should be_true
-    password.should_not == @user.password
-    user.email.should == @user.email
+# We should not need reset password anymore
+#  it 'should fail to change password if the account is not found' do
+#    success, message = User.reset_password '', 'junk'
+#    success.should be_false
+#    message.should == 'Sorry, but we could not locate your account.'
+#
+#    success, message = User.reset_password 'junk@mail.com', ''
+#    success.should be_false
+#    message.should == 'Sorry, but we could not locate your account.'
+#
+#    success, message = User.reset_password 'junk@email.com', 'more_junk'
+#    success.should be_false
+#    message.should == 'Sorry, but we could not locate your account.'
+#  end
+#
+#  it 'should reset the password if only email address is entered and it is unique' do
+#    # TODO this API is very smelly.  User#reset_password returns different kinds of
+#    #      results depending on whether the reset succeeded or failed.  very frustrating.
+#    #      this would be a good candicate for refactoring.
+#    success, password, user = User.reset_password @user.email, ''
+#    
+#    success.should be_true
+#    password.should_not == @user.password
+#    user.email.should == @user.email
+#
+#    # confirm things really changed properly, in the database
+#    User.find(@user.id).hashed_password.should == User.hash_password(password)
+#    User.find(@user.id).hashed_password.should_not == @user.hashed_password
+#  end
 
-    # confirm things really changed properly, in the database
-    User.find(@user.id).hashed_password.should == User.hash_password(password)
-    User.find(@user.id).hashed_password.should_not == @user.hashed_password
-  end
-
-  it 'should be able to reset the password on an account if both email address and username are entered' do
-    success, password, user = User.reset_password @user.email, @user.username
-
-    success.should be_true
-    password.should_not == @user_password
-    user.email.should == @user.email
-
-    User.find(@user.id).hashed_password.should == User.hash_password(password)
-    User.find(@user.id).hashed_password.should_not == @user.hashed_password
-  end
-  
-  it 'should not create the same random password two times in a row...' do
-    success1, password1, email1 = User.reset_password @user.email, @user.username
-    success2, password2, email2 = User.reset_password @user.email, @user.username
-
-    password1.should_not == password2
-  end
-
+#  it 'should be able to reset the password on an account if both email address and username are entered' do
+#    success, password, user = User.reset_password @user.email, @user.username
+#
+#    success.should be_true
+#    password.should_not == @user_password
+#    user.email.should == @user.email
+#
+#    User.find(@user.id).hashed_password.should == User.hash_password(password)
+#    User.find(@user.id).hashed_password.should_not == @user.hashed_password
+#  end
+#  
+#  it 'should not create the same random password two times in a row...' do
+#    success1, password1, email1 = User.reset_password @user.email, @user.username
+#    success2, password2, email2 = User.reset_password @user.email, @user.username
+#
+#    password1.should_not == password2
+#  end
+#
   it 'should say a new username is unique' do
     User.unique_user?('this name does not exist').should be_true
   end

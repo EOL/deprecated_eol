@@ -17,6 +17,7 @@ describe Notifier do
 
     it "should contain a link for resetting password" do
       link = @user.password_reset_url(80)
+      puts link
       @email.should have_text(/link/)
     end
 

@@ -136,9 +136,9 @@ class ApplicationController < ActionController::Base
     url_to_return = params[:return_to] ? CGI.unescape(params[:return_to]).strip : nil
     unless request.ssl? || local_request?
       if url_to_return && url_to_return[0...1] == '/'  #return to local url
-        redirect_to :protocol => "https://", :return_to => url_to_return 
+        redirect_to :protocol => "https://", :return_to => url_to_return, :method => request.method
       else
-        redirect_to :protocol => "https://"  
+        redirect_to :protocol => "https://", :method => request.method
       end
     end
   end

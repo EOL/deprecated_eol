@@ -115,9 +115,9 @@ class AccountController < ApplicationController
   def forgot_password
     if request.post?
       user           = params[:user]
-      username       = user[:username]
-      email          = user[:email]
-      user_with_forgotten_pass = User.find_by_username(username) or User.find_by_email(email)
+      username_string       = user[:username].strip == '' ? nil : user[:username].strip
+      email_string          = user[:email].strip == '' ? nil : user[:email].strip
+      user_with_forgotten_pass = User.find_by_username(username_string) || User.find_by_email(email_string) 
       if user_with_forgotten_pass
         Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
         flash[:notice] = "Check your email to reset your password"[:reset_password_instructions_emailed] #TODO remove old add new translation
@@ -131,23 +131,30 @@ class AccountController < ApplicationController
   def reset_password
     if request.post?
       user = params[:user]
+      puts 'URA ' * 40
+      pp user
       password = user[:entered_password]
       password_confirmation = user[:confirmation]
       User.find(user[:id]).update_attributes(:entered_password => password, :password => password, :entered_password_confirmation => password_confirmation)
-      flash[:notice] = "You password is updated"[:user_password_updated_successfully]
+      pp User.find(user[:id])
+      flash[:notice] = "Your password is updated"[:user_password_updated_successfully]
+      pp flash
       redirect_to root_url
     else
+      puts 'URA did not get post'
+      puts 'post?'
+      puts request.post?
       password_reset_token = params[:id]
       user = User.find_by_password_reset_token(password_reset_token)
       if user
         is_expired = Time.now > user.password_reset_token_expires_at
         if is_expired
-          flash[:notice] = "Expired link, you can generate it again"[:old_reset_password_link]
+          flash[:notice] = "Expired link, you can generate it again"[:expired_reset_password_link]
           delete_password_reset_token(user)
           redirect_to '/account/forgot_password'
         else
           set_current_user(user)
-          delete_password_reset_token(user)
+          #delete_password_reset_token(user)
           render
         end
       else

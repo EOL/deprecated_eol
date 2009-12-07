@@ -348,6 +348,10 @@ could_not_locate_account: Sorry, but we could not locate your account.
 must_specify_username_too: Sorry, but your email address is not unique - you must also specify a username.
 # A new password has been emailed to you at {email}.
 new_password_emailed: A new password has been emailed to you at {email}..
+reset_password_instructions_emailed: Check your email to reset your password
+cannot_find_user_or_email: No matching accounts found
+user_password_updated_successfully: Your password is updated
+expired_reset_password_link: Expired link, you can generate it again
 #Sorry, a problem occurred updating your account - please try again later.
 problem_updating_account: Sorry, a problem occurred updating your account - please try again later.
 taxon_group_of_interest: Taxon group of interest

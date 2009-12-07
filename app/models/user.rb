@@ -230,41 +230,6 @@ class User < ActiveRecord::Base
     Digest::MD5.hexdigest(raw)
   end
 
-# We should not need reste password function anymore
-#  # reset the password of the given username and email address, returns false if a problem occurred with a message to show, or true if successful with the new password and email address
-#  #
-#  # == Returns
-#  # [ Boolean, String ]:: Boolean fo whether the reset was successful & a message
-#  def self.reset_password(email,username)
-#  
-#    if username == '' # if user did not supply a username, just look by email address
-#      new_guy = User.find_all_by_email_and_active(email,true)
-#    elsif email == '' # if user did not supply an email, just look by username
-#      new_guy = User.find_all_by_username_and_active(username,true)
-#    else # otherwise look by both
-#      new_guy = User.find_all_by_username_and_email_and_active(username, email, true)
-#    end
-#
-#    if new_guy.size==0 
-#        return false, "Sorry, but we could not locate your account."[:could_not_locate_account]
-#     elsif new_guy.size >1
-#        return false, "Sorry, but your email address is not unique - you must also specify a username."[:must_specify_username_too]      
-#    elsif new_guy[0].openid?
-#        return false, "Sorry, but your account uses OpenID and you must reset your password with your OpenID provider."[:openid_user_cannot_reset_password]      
-#    else
-#      chars    = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789' # Notice no 0/O or 1/l, since they are lame.
-#      new_password = ''
-#      8.times { new_password << chars[rand(chars.size)] }
-#      new_guy[0].password = new_password
-#      if new_guy[0].save
-#        return true, new_password, new_guy[0]
-#      else
-#        return false, "Sorry, a problem occurred updating your account - please try again later."[:problem_updating_account]      
-#      end  
-#    end
-#
-#  end
-
   # returns true or false indicating if username is unique
   def self.unique_user?(username)
     return User.find_by_username(username).nil?
@@ -452,10 +417,11 @@ class User < ActiveRecord::Base
 
   def password_reset_url(port)
     port = port.to_s == "80" ? "" : ":" + port.to_s
-    password_reset_token = Digest::SHA1.hexdigest(rand(10**30))
+    password_reset_token = Digest::SHA1.hexdigest(rand(10**30).to_s)
     success = self.update_attributes(:password_reset_token => password_reset_token, :password_reset_token_expires_at => 24.hours.from_now)
+    http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
     if success
-      return "https://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{password_reset_token}"
+      return "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{password_reset_token}"
     else
       raise RuntimeError("Cannot save reset password data to the database")
     end

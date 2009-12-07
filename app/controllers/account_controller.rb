@@ -9,7 +9,7 @@ class AccountController < ApplicationController
   before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show, :logout, :new_openid_user]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
-    before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile]
+    before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password]
   end
 
   if $SHOW_SURVEYS
@@ -130,18 +130,21 @@ class AccountController < ApplicationController
 
   def reset_password
     if request.post?
-       
+      user = params[:user]
+      password = user[:entered_password]
+      password_confirmation = user[:confirmation]
+      User.find(user[:id]).update_attributes(:entered_password => password, :password => password, :entered_password_confirmation => password_confirmation)
+      flash[:notice] = "You password is updated"[:user_password_updated_successfully]
+      redirect_to root_url
     else
-      debugger
       password_reset_token = params[:id]
       user = User.find_by_password_reset_token(password_reset_token)
       if user
         is_expired = Time.now > user.password_reset_token_expires_at
         if is_expired
-          flash[:notice] = "Expired link, you can generate it again[:old_reset_password_link]"
+          flash[:notice] = "Expired link, you can generate it again"[:old_reset_password_link]
           delete_password_reset_token(user)
-          redirect_to account_forgot_password_url
-          
+          redirect_to '/account/forgot_password'
         else
           set_current_user(user)
           delete_password_reset_token(user)

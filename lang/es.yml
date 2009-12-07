@@ -215,6 +215,10 @@ verification_phrase_did_not_match: La frase no coincidió
 
 # a new password has been emailed to {email}
 new_password_emailed: Una nueva contraseña ha sido enviada por correo electrónico a {email}.
+reset_password_instructions_emailed: Check your email to reset your password
+cannot_find_user_or_email: No matching accounts found
+user_password_updated_successfully: Your password is updated
+expired_reset_password_link: Expired link, you can generate it again
 username_taken: Nombre de usuario ya utilizado
 passwords_must_match: Las contraseñas deben coincidir
 new_password: contraseña nueva

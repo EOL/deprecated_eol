@@ -18,8 +18,8 @@ describe 'account/reset_password' do
   it 'should redirect to the home page and delete token if token is expired' do
     res = request("/account/reset_password/#{@user_expired.password_reset_token}")
     res.redirect?.should be_true
-    User.find(@user_expired.id).password_reset_token.should be_nil
-    User.find(@user_expired.id).password_reset_token_expires_at.should be_nil
+    User.find(@user_expired).password_reset_token.should be_nil
+    User.find(@user_expired).password_reset_token_expires_at.should be_nil
   end
 
 
@@ -27,8 +27,8 @@ describe 'account/reset_password' do
     res = request("/account/reset_password/#{@user.password_reset_token}")
     res.success?.should be_true
     res.body.should_not include '500 Internal Server Error'
-    User.find(@user_expired.id).password_reset_token.should be_nil
-    User.find(@user_expired.id).password_reset_token_expires_at.should be_nil
+    User.find(@user).password_reset_token.should be_nil
+    User.find(@user).password_reset_token_expires_at.should be_nil
   end
   
   it 'should show form' do

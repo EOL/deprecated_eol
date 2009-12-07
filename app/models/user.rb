@@ -13,9 +13,9 @@ class User < ActiveRecord::Base
   #  TODO - this should be okay, but the account controller doesn't seem to like using this, because it forces this param in some cases:
 #  attr_protected :curator_hierarchy_entry_id # Can't change this with update_attributes()
 
-  belongs_to :curator_hierarchy_entry, :class_name => 'HierarchyEntry', :foreign_key => :curator_hierarchy_entry_id
-  belongs_to :curator_verdict_by, :class_name => 'User', :foreign_key => :curator_verdict_by_id
-  has_many   :curators_evaluated, :class_name => 'User', :foreign_key => :curator_verdict_by_id
+  belongs_to :curator_hierarchy_entry, :class_name => "HierarchyEntry", :foreign_key => :curator_hierarchy_entry_id
+  belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
+  has_many   :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
   
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.nil? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.nil? }
@@ -84,12 +84,12 @@ class User < ActiveRecord::Base
   end 
   
   def total_comments_curated
-    CuratorCommentLog.count :conditions => ['user_id = ?', id] 
+    CuratorCommentLog.count :conditions => ["user_id = ?", id] 
   end 
 
   def species_curated
     # we need to get the IDs of the curated data objects and then get the species for those (cross-database, so we can't effectively join)
-    data_object_ids = CuratorDataObjectLog.find(:all, :select => 'distinct data_object_id', :conditions => [ 'user_id = ?', self.id ] ).map(&:data_object_id)
+    data_object_ids = CuratorDataObjectLog.find(:all, :select => "distinct data_object_id", :conditions => [ "user_id = ?", self.id ] ).map(&:data_object_id)
     species = TaxonConcept.from_data_objects(*data_object_ids)
   end
   def total_species_curated
@@ -149,15 +149,15 @@ class User < ActiveRecord::Base
     
   end
   
-  def clear_curatorship updated_by,update_notes=''
+  def clear_curatorship updated_by,update_notes=""
     self.curator_approved=false
-    self.credentials=''
-    self.curator_scope=''
-    self.curator_hierarchy_entry_id=''
+    self.credentials=""
+    self.curator_scope=""
+    self.curator_hierarchy_entry_id=""
     self.curator_verdict_at = Time.now
     self.curator_verdict_by = updated_by 
     self.roles.delete(Role.curator)
-    self.notes='' if self.notes.nil?
+    self.notes="" if self.notes.nil?
     (self.notes+=' ; (' + updated_by.username + ' on ' + Date.today.to_s + '): ' + update_notes) unless update_notes.blank?
     self.save
   end
@@ -230,39 +230,40 @@ class User < ActiveRecord::Base
     Digest::MD5.hexdigest(raw)
   end
 
-  # reset the password of the given username and email address, returns false if a problem occurred with a message to show, or true if successful with the new password and email address
-  #
-  # == Returns
-  # [ Boolean, String ]:: Boolean fo whether the reset was successful & a message
-  def self.reset_password(email,username)
-  
-    if username == '' # if user did not supply a username, just look by email address
-      new_guy = User.find_all_by_email_and_active(email,true)
-    elsif email == '' # if user did not supply an email, just look by username
-      new_guy = User.find_all_by_username_and_active(username,true)
-    else # otherwise look by both
-      new_guy = User.find_all_by_username_and_email_and_active(username, email, true)
-    end
-
-    if new_guy.size==0 
-        return false, "Sorry, but we could not locate your account."[:could_not_locate_account]
-     elsif new_guy.size >1
-        return false, "Sorry, but your email address is not unique - you must also specify a username."[:must_specify_username_too]      
-    elsif new_guy[0].openid?
-        return false, "Sorry, but your account uses OpenID and you must reset your password with your OpenID provider."[:openid_user_cannot_reset_password]      
-    else
-      chars    = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789' # Notice no 0/O or 1/l, since they are lame.
-      new_password = ''
-      8.times { new_password << chars[rand(chars.size)] }
-      new_guy[0].password = new_password
-      if new_guy[0].save
-        return true, new_password, new_guy[0]
-      else
-        return false, "Sorry, a problem occurred updating your account - please try again later."[:problem_updating_account]      
-      end  
-    end
-
-  end
+# We should not need reste password function anymore
+#  # reset the password of the given username and email address, returns false if a problem occurred with a message to show, or true if successful with the new password and email address
+#  #
+#  # == Returns
+#  # [ Boolean, String ]:: Boolean fo whether the reset was successful & a message
+#  def self.reset_password(email,username)
+#  
+#    if username == '' # if user did not supply a username, just look by email address
+#      new_guy = User.find_all_by_email_and_active(email,true)
+#    elsif email == '' # if user did not supply an email, just look by username
+#      new_guy = User.find_all_by_username_and_active(username,true)
+#    else # otherwise look by both
+#      new_guy = User.find_all_by_username_and_email_and_active(username, email, true)
+#    end
+#
+#    if new_guy.size==0 
+#        return false, "Sorry, but we could not locate your account."[:could_not_locate_account]
+#     elsif new_guy.size >1
+#        return false, "Sorry, but your email address is not unique - you must also specify a username."[:must_specify_username_too]      
+#    elsif new_guy[0].openid?
+#        return false, "Sorry, but your account uses OpenID and you must reset your password with your OpenID provider."[:openid_user_cannot_reset_password]      
+#    else
+#      chars    = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789' # Notice no 0/O or 1/l, since they are lame.
+#      new_password = ''
+#      8.times { new_password << chars[rand(chars.size)] }
+#      new_guy[0].password = new_password
+#      if new_guy[0].save
+#        return true, new_password, new_guy[0]
+#      else
+#        return false, "Sorry, a problem occurred updating your account - please try again later."[:problem_updating_account]      
+#      end  
+#    end
+#
+#  end
 
   # returns true or false indicating if username is unique
   def self.unique_user?(username)
@@ -446,13 +447,18 @@ class User < ActiveRecord::Base
   # YOU SHOULD ADD NEW USER ATTRIBUTES TO THIS METHOD WHEN YOU TWEAK THE USER TABLE.
   def stale?
     # if you add to this, use 'and'; KEEP ALL OLD METHOD CHECKS.
-    return true unless self.attributes.keys.include?('filter_content_by_hierarchy')
+    return true unless self.attributes.keys.include?("filter_content_by_hierarchy")
   end
 
   def password_reset_url(port)
-    port = port.to_s == '80' ? ':' + port.to_s : ''
-    perishable_token = rand(10**50).to_s(16)
-    "https://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{perishable_token}"
+    port = port.to_s == "80" ? "" : ":" + port.to_s
+    password_reset_token = Digest::SHA1.hexdigest(rand(10**30))
+    success = self.update_attributes(:password_reset_token => password_reset_token, :password_reset_token_expires_at => 24.hours.from_now)
+    if success
+      return "https://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{password_reset_token}"
+    else
+      raise RuntimeError("Cannot save reset password data to the database")
+    end
   end
 
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-

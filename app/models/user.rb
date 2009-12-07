@@ -423,7 +423,7 @@ class User < ActiveRecord::Base
     if success
       return "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{password_reset_token}"
     else
-      raise RuntimeError("Cannot save reset password data to the database")
+      raise RuntimeError("Cannot save reset password data to the database") #TODO write it correctly
     end
   end
 

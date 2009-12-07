@@ -38,8 +38,8 @@ describe User do
     user.password_reset_url(80).should match url1
     user.password_reset_url(3000).should match url2
     user = User.find(user.id)
-    user.password_reset_token.should > 0
-    user.password_reset_token.should <= 10000000000000000000
+    user.password_reset_token.size.should == 40
+    user.password_reset_token.should match /[\da-f]/
     user.password_reset_token_expires_at.should > 23.hours.from_now
     user.password_reset_token_expires_at.should < 24.hours.from_now
   end

@@ -32,8 +32,8 @@ describe User do
   end
 
   it 'should return url for the reset password email' do 
-    url1 = /https:\/\/\/account\/reset_password\//
-    url2 = /https:\/\/.*:3000\/account\/reset_password\//
+    url1 = /http[s]?:\/\/\/account\/reset_password\//
+    url2 = /http[s]?:\/\/.*:3000\/account\/reset_password\//
     user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com') 
     user.password_reset_url(80).should match url1
     user.password_reset_url(3000).should match url2

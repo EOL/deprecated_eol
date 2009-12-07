@@ -9,7 +9,7 @@ class AccountController < ApplicationController
   before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show, :logout, :new_openid_user, :reset_password, :save_reset_password]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
-    before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile] #removed temporarily , reset_password] 
+    before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password] 
   end
 
   if $SHOW_SURVEYS

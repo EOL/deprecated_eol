@@ -27,6 +27,8 @@
                     <br /><br />
                     <label for="user_password"><%= "Password"[] %>:</label>
                     <%= form.password_field 'password', :size=>'16',:maxlength=>'30' %>
+                    &nbsp;&nbsp;
+                    <%=link_to("Forgot password?"[],:action=>'forgot_password')%>
 				<br /><br />			
 				<%="or"[]%>
         <br />
@@ -55,7 +57,8 @@
           
    				  <label for="openid_url"><%= "OpenID"[] %></label>
             <%= text_field_tag 'openid_url', {},{:size=>100,:maxlength=>250,:class=>'openid'} %> 
-  					<%= link_to 'What is OpenID?', 'http://openid.net/',:target=>'_blank' %> | <a href="#" onclick="Element.toggle('open_id_instructions');return false;">How do I log in with OpenID?</a> 
+  					&nbsp;&nbsp;
+            <%= link_to 'What is OpenID?', 'http://openid.net/',:target=>'_blank' %> | <a href="#" onclick="Element.toggle('open_id_instructions');return false;">How do I log in with OpenID?</a> 
           </div>
           <br />
           <label for="remember_me"><%= "Remember Me"[]%></label>
@@ -64,7 +67,7 @@
             	<table border="0" width="500" cellpadding="20">
             		<tr>
             			<td valign="top"><%= submit_tag 'Login Now'[:login_now] + ' &#187;' %></td>
-						<td valign="middle"><%=link_to("Forgot Password"[],:action=>'forgot_password')%><br /><%=link_to("If you don't have an account, click here to register"[:click_here_to_register],:action=>'signup')%></td>
+						<td valign="middle"><%=link_to("If you don't have an account, click here to register"[:click_here_to_register],:action=>'signup')%></td>
 					</tr>
 				</table>
 

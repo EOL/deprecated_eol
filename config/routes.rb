@@ -25,6 +25,7 @@ ActionController::Routing::Routes.draw do |map|
               :controller => 'content', :action => 'error' 
 
   map.open_id_complete 'authenticate', :controller => "account", :action => "authenticate", :requirements => { :method => :get }
+  map.save_reset_password 'account/save_reset_password', :controller => "account", :action => "save_reset_password"
 
   # The priority is based upon order of creation: first created -> highest priority.
   map.with_options(:controller => 'account') do |account|

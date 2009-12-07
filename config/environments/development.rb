@@ -4,6 +4,9 @@
 # 3) config/environments/[RAILS_ENV]_eol_org.rb
 # 4) config/environment_eol_org.rb
 
+# Allow breakpoints in mongrel:
+require "ruby-debug"
+
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = true
 

@@ -6,10 +6,10 @@ require 'base64'
 class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:profile, :uservoice_login]
-  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show, :logout, :new_openid_user]
+  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show, :logout, :new_openid_user, :reset_password, :save_reset_password]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
-    before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password]
+    before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile] #removed temporarily , reset_password] 
   end
 
   if $SHOW_SURVEYS
@@ -128,38 +128,29 @@ class AccountController < ApplicationController
     end
   end
 
+  def save_reset_password
+    password = params[:user][:entered_password]
+    password_confirmation = params[:user][:entered_password_confirmation]
+    user = User.find(params[:user][:id])
+    user.update_attributes(:entered_password => password, :password => password, :entered_password_confirmation => password_confirmation)
+    flash[:notice] = "Your password is updated"[:user_password_updated_successfully]
+    redirect_to root_url
+  end
+
   def reset_password
-    if request.post?
-      user = params[:user]
-      puts 'URA ' * 40
-      pp user
-      password = user[:entered_password]
-      password_confirmation = user[:confirmation]
-      User.find(user[:id]).update_attributes(:entered_password => password, :password => password, :entered_password_confirmation => password_confirmation)
-      pp User.find(user[:id])
-      flash[:notice] = "Your password is updated"[:user_password_updated_successfully]
-      pp flash
-      redirect_to root_url
-    else
-      puts 'URA did not get post'
-      puts 'post?'
-      puts request.post?
-      password_reset_token = params[:id]
-      user = User.find_by_password_reset_token(password_reset_token)
-      if user
-        is_expired = Time.now > user.password_reset_token_expires_at
-        if is_expired
-          flash[:notice] = "Expired link, you can generate it again"[:expired_reset_password_link]
-          delete_password_reset_token(user)
-          redirect_to '/account/forgot_password'
-        else
-          set_current_user(user)
-          #delete_password_reset_token(user)
-          render
-        end
+    password_reset_token = params[:id]
+    user = User.find_by_password_reset_token(password_reset_token)
+    if user
+      is_expired = Time.now > user.password_reset_token_expires_at
+      if is_expired
+        go_to_forgot_password(user)
       else
-        redirect_to root_url
+        set_current_user(user)
+        delete_password_reset_token(user)
+        render
       end
+    else
+      go_to_forgot_password(user)
     end
   end
 
@@ -259,10 +250,16 @@ class AccountController < ApplicationController
     
   end
   
-  protected
+  private
 
   def delete_password_reset_token(user)
-    user.update_attributes(:password_reset_token => nil, :password_reset_token_expires_at => nil)
+    user.update_attributes(:password_reset_token => nil, :password_reset_token_expires_at => nil) if user
+  end
+
+  def go_to_forgot_password(user)
+    flash[:notice] = "Expired link, you can generate it again"[:expired_reset_password_link]
+    delete_password_reset_token(user)
+    redirect_to '/account/forgot_password'
   end
 
   def password_authentication(username, password, remember_me)
@@ -326,8 +323,6 @@ class AccountController < ApplicationController
     flash[:warning] = message
     redirect_to :action => 'login'
   end  
-
-private
 
   def set_curator_clade(params)
     # Remove hierachy association if they selected one but then changed their minds.

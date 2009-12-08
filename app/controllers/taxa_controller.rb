@@ -105,9 +105,9 @@ class TaxaController < ApplicationController
     else
       search_text
     end
-    @suggested_results = append_search_results_from_db(@querystring, @suggested_results)
-    @common_results = append_search_results_from_db(@querystring, @common_results)
-    @scientific_results = append_search_results_from_db(@querystring, @scientific_results)
+    @suggested_results  = append_search_results_from_db(@querystring, @suggested_results,  :type => :suggested)
+    @common_results     = append_search_results_from_db(@querystring, @common_results,     :type => :common)
+    @scientific_results = append_search_results_from_db(@querystring, @scientific_results, :type => :scientific)
   end
 
   def search_tag
@@ -672,35 +672,58 @@ private
     redirect_to :controller => 'taxa', :action => 'show', :id => result_set.first['taxon_concept_id']
   end
 
-  def append_search_results_from_db(querystring, search_results)
+  def append_search_results_from_db(querystring, search_results, options = {})
     return nil unless search_results
-    querystring = querystring.gsub(/\s+/, ' ').split(" ").to_set
     search_results.each do |res|
-      find_matched_common_name(querystring, res)
       tc = TaxonConcept.find(res['taxon_concept_id'][0])
       res.merge!({
         'title' => tc.title(@session_hierarchy),
         'preferred_common_name' => (tc.common_name(@session_hierarchy) || '')
         })
+      if options[:type] == :common # Common name search, we want to show them the best matched common name:
+        find_matched_common_name(querystring, res)
+      else
+        res.merge!('best_matched_common_name' => res['preferred_common_name']) # Show them the preferred name
+      end
     end
   end
 
-  def find_matched_common_name(querystring, search_result)
-    res = search_result
-    if res['common_name'] 
-      names = []
-      intersections = res['common_name'].map do |name|
-        name_set = name.downcase.gsub(/[;:,\.\(\)\[\]\!\?\*_\\\/\"\']/, '').gsub(/\s+/, ' ').split(" ").to_set
-        intersect = name_set.intersection(querystring)
-        names << [name, intersect.size] 
+  # TODO - this doesn't belong here.  We need a class for these result sets, and it belongs there.
+  def find_matched_common_name(original_querystring, search_result)
+    common_names = search_result['common_name'].clone
+    querystring  = normalize_name(original_querystring).split(' ').to_set
+    if common_names # TODO - this else clause is really a separate method to "repair" missing common names
+      # TODO - this smells like a class method:
+      common_names.map! do |name|
+        name_set  = normalize_name(name).split(' ').to_set
+        intersect = name_set.intersection(querystring) # TODO - make sure querystring members are all downcased.
+        [name, intersect.size]
       end
-      res['best_matched_common_name'] = names.sort_by {|i| i[1]}[-1][0] 
-    else
-      res['common_name'] = ['']
-      res['best_matched_common_name'] = ''
+      common_names = common_names.sort_by {|i| i[1]}.reverse 
+      # if we have only 0s, return the preferred name:
+      if common_names.first[1] == 0
+        search_result['best_matched_common_name'] = search_result['preferred_common_name']
+      else
+        # if the best matches *include* the preferred name, use that:
+        best_matches = common_names.find_all {|i| i[1] == common_names.first[1]}.map {|i| i[0] }
+        if best_matches.include?(normalize_name(search_result['preferred_common_name']))
+          search_result['best_matched_common_name'] = search_result['preferred_common_name']
+        else # Otherwise, just use the best match:
+          search_result['best_matched_common_name'] = common_names.first[0]
+        end
+      end
+    else # Common names were bogus:
+      search_result['common_name'] = ['']
+      search_result['best_matched_common_name'] = ''
     end
   end
-  
+
+  def normalize_name(name)
+    @@normalization_regex ||= /[;:,\.\(\)\[\]\!\?\*_\\\/\"\']/
+    @@spaces_regex        ||= /\s+/
+    return name.downcase.gsub(@@normalization_regex, '').gsub(@@spaces_regex, ' ')
+  end
+
   def prepare_solr_querystring(query, field)
     literal_query = "#{field}:\"#{query}\""
     query = query.gsub /\s+/, ' '

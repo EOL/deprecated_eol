@@ -513,7 +513,7 @@ class DataObject < SpeciesSchemaModel
 
   # Names of taxa associated with this image
   def taxa_names_taxon_concept_ids
-    taxa=Taxon.find_by_sql("select t.scientific_name as taxon_name, tcn.taxon_concept_id as taxon_concept_id from data_objects_taxa dot join taxa t on (dot.taxon_id=t.id) join taxon_concept_names tcn on (t.name_id=tcn.name_id) where data_object_id=#{self.id}")
+    taxa=Taxon.find_by_sql("select t.scientific_name as taxon_name, he.taxon_concept_id from data_objects_taxa dot join taxa t on (dot.taxon_id=t.id) join hierarchy_entries he on (t.hierarchy_entry_id=he.id) where data_object_id=#{self.id}")
     taxa.map{|t| {:taxon_name => t.taxon_name, :taxon_concept_id => t.taxon_concept_id}}
   end
 
@@ -540,8 +540,8 @@ class DataObject < SpeciesSchemaModel
         SELECT tc.* FROM data_objects do
         JOIN data_objects_taxa dot ON (do.id=dot.data_object_id)
         JOIN taxa t ON (dot.taxon_id=t.id)
-        JOIN taxon_concept_names tcn ON (t.name_id=tcn.name_id)
-        JOIN taxon_concepts tc ON (tcn.taxon_concept_id=tc.id)
+        JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
+        JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id)
         WHERE do.id=? -- DataObject#taxon_concepts
       ", self.id])
     end
@@ -554,8 +554,7 @@ class DataObject < SpeciesSchemaModel
       SELECT he.* FROM data_objects do
       JOIN data_objects_taxa dot ON (do.id=dot.data_object_id)
       JOIN taxa t ON (dot.taxon_id=t.id)
-      JOIN taxon_concept_names tcn ON (t.name_id=tcn.name_id)
-      JOIN hierarchy_entries he ON (tcn.taxon_concept_id=he.taxon_concept_id)
+      JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
       WHERE do.id=? -- DataObject#hierarchy_entries
     ", self.id])
   end
@@ -826,16 +825,16 @@ class DataObject < SpeciesSchemaModel
     sort         = 'published, vetted_id DESC, data_rating DESC' # unpublished first, then by data_rating.
 
     query_string = %Q{
-(SELECT DISTINCT dt.label media_type, dato.*, t.scientific_name, tcn.taxon_concept_id taxon_id,
+(SELECT DISTINCT dt.label media_type, dato.*, t.scientific_name, he.taxon_concept_id taxon_id,
        l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}
-  FROM taxon_concept_names tcn
-    STRAIGHT_JOIN taxa t                ON (tcn.name_id = t.name_id)
+  FROM hierarchy_entries he
+    STRAIGHT_JOIN taxa t                ON (he.id = t.hierarchy_entry_id)
     STRAIGHT_JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
     STRAIGHT_JOIN data_objects dato     ON (dot.data_object_id = dato.id)
     STRAIGHT_JOIN data_types dt         ON (dato.data_type_id = dt.id)
     #{join_agents} #{join_toc}
     LEFT OUTER JOIN licenses l       ON (dato.license_id = l.id)
-  WHERE tcn.taxon_concept_id = :taxon_concept_id
+  WHERE he.taxon_concept_id = :taxon_concept_id
     AND data_type_id IN (:data_type_ids)
     #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
     #{where_toc})

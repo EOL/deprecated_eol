@@ -513,7 +513,7 @@ class DataObject < SpeciesSchemaModel
 
   # Names of taxa associated with this image
   def taxa_names_taxon_concept_ids
-    taxa=Taxon.find_by_sql("select t.scientific_name as taxon_name, tcn.taxon_concept_id as taxon_concept_id from data_objects_taxa dot join taxa t on (dot.taxon_id=t.id) join taxon_concept_names tcn on (t.name_id=tcn.name_id) where data_object_id=#{self.id} group by t.id")
+    taxa=Taxon.find_by_sql("select t.scientific_name as taxon_name, tcn.taxon_concept_id as taxon_concept_id from data_objects_taxa dot join taxa t on (dot.taxon_id=t.id) join taxon_concept_names tcn on (t.name_id=tcn.name_id) where data_object_id=#{self.id}")
     taxa.map{|t| {:taxon_name => t.taxon_name, :taxon_concept_id => t.taxon_concept_id}}
   end
 
@@ -761,9 +761,8 @@ class DataObject < SpeciesSchemaModel
           AND data_type_id IN (?)
           AND ti.view_order < 400
           
-          #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
-          GROUP BY dato.id # DataObject.cached_images_for_taxon
-      }, taxon.id, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids])
+          #{DataObject.visibility_clause(options.merge(:taxon => taxon))} # DataObject.cached_images_for_taxon
+      }, taxon.id, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids]).uniq
     
     result.sort! { |a, b| b.data_rating.to_f <=> a.data_rating.to_f }
     

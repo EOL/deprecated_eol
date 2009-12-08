@@ -23,6 +23,64 @@ class ContentPartner < SpeciesSchemaModel
   # Callbacks
   before_save :blank_not_null_fields
   
+  def self.find_by_full_name(full_name)
+    content_partners = ContentPartner.find_by_sql(%Q{
+        SELECT cp.*
+        FROM agents a
+        JOIN content_partners cp ON (a.id=cp.agent_id)
+        WHERE a.full_name='#{full_name}' })
+    
+    return nil if content_partners.nil?
+    content_partners[0]
+  end
+  
+  def concepts_for_gallery()
+    results = SpeciesSchemaModel.connection.execute(%Q{
+        SELECT
+        ar.resource_id
+        FROM agents_resources ar
+        JOIN resources r ON (ar.resource_id=r.id)
+        WHERE ar.agent_id='#{agent_id}'
+        AND ar.resource_agent_role_id=#{ResourceAgentRole.content_partner_upload_role.id}}).all_hashes
+    
+    resource = nil
+    results.each do |result|
+      resource = Resource.find(result['resource_id'].to_i)
+      break
+    end
+    
+    return nil if resource.nil?
+    
+    all_concepts = SpeciesSchemaModel.connection.execute(%Q{
+        SELECT tc.id, n.string name_string, do.object_cache_url
+        FROM harvest_events_taxa het
+        JOIN taxa t ON (het.taxon_id=t.id)
+        JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
+        JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id)
+        JOIN names n ON (he.name_id=n.id)
+        LEFT JOIN (
+          top_images ti
+          JOIN data_objects do ON (ti.data_object_id=do.id AND ti.view_order=1)
+        ) ON (he.id=ti.hierarchy_entry_id)
+        
+        
+
+        WHERE het.harvest_event_id=#{resource.latest_published_harvest_event.id} AND tc.published=1 AND tc.supercedure_id=0}).all_hashes.uniq
+    
+    used_concepts = []
+    all_concepts.each do |concept|
+      next if used_concepts[concept['id'].to_i]
+      used_concepts[concept['id'].to_i] = 1
+      if concept['object_cache_url'].nil?
+        concept['image_src'] = '/images/eol_logo_gray.gif' 
+      else
+        concept['image_src'] = DataObject.image_cache_path(concept['object_cache_url'], :medium)
+      end
+    end
+    
+    all_concepts.sort_by {|tc| tc['name_string'] }
+  end
+  
   # the date of the last action taken (the last time a contact was updated, or a step was viewed, or a resource was added/edited/published)
   def last_action
     dates_to_compare=[self.partner_seen_step,self.partner_complete_step,self.contacts_seen_step,self.contacts_complete_step,self.licensing_seen_step,self.licensing_complete_step,self.attribution_seen_step,self.attribution_complete_step,self.roles_seen_step,self.roles_complete_step,self.transfer_overview_seen_step,self.transfer_overview_complete_step,self.transfer_upload_seen_step,self.transfer_upload_complete_step]

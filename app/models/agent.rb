@@ -81,35 +81,8 @@ class Agent < SpeciesSchemaModel
   alias_attribute :project_name, :full_name
   alias_attribute :project_abbreviation, :acronym
   alias_attribute :url, :homepage
-
-  def self.taxon_concepts_count(agent_name)
-    TaxonConcept.find_by_sql([%q{
-        SELECT DISTINCT
-        tc.* from taxon_concepts tc
-        JOIN hierarchy_entries he ON (he.taxon_concept_id=tc.id)
-        JOIN taxa t ON (t.hierarchy_entry_id=he.id)
-        JOIN harvest_events_taxa het ON (het.taxon_id=t.id)
-        JOIN harvest_events hevt ON (hevt.id=het.harvest_event_id)
-        JOIN agents_resources ar ON (ar.resource_id=hevt.resource_id)
-        JOIN agents a ON (a.id=ar.agent_id)
-        WHERE a.full_name=? AND tc.published=1 AND ar.resource_agent_role_id=?
-      }, agent_name, ResourceAgentRole.content_partner_upload_role]).length
-  end
-
-  def self.taxon_concepts(agent_name, page)
-    TaxonConcept.paginate_by_sql([%q{
-        SELECT DISTINCT
-        tc.* from taxon_concepts tc
-        JOIN hierarchy_entries he ON (he.taxon_concept_id=tc.id)
-        JOIN taxa t ON (t.hierarchy_entry_id=he.id)
-        JOIN harvest_events_taxa het ON (het.taxon_id=t.id)
-        JOIN harvest_events hevt ON (hevt.id=het.harvest_event_id)
-        JOIN agents_resources ar ON (ar.resource_id=hevt.resource_id)
-        JOIN agents a ON (a.id=ar.agent_id)
-        WHERE a.full_name=? AND tc.published=1 AND ar.resource_agent_role_id=?
-      }, agent_name, ResourceAgentRole.content_partner_upload_role], :page => page, :per_page => 24)
-  end
-
+  
+  
   # Singleton class variable, so we only ever look it up once per thread:  
   def self.iucn
     Rails.cache.fetch('agents/iucn') do

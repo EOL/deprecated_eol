@@ -84,10 +84,13 @@ ActionController::Routing::Routes.draw do |map|
   map.search  'search',         :controller => 'taxa', :action => 'search'
   map.connect 'search/:id',     :controller => 'taxa', :action => 'search'
   map.connect 'search.:format', :controller => 'taxa', :action => 'search'
-
+  
+  
+  
   map.connect 'content_partner/reports', :controller => 'content_partner/reports', :action => 'index' 
   map.connect 'content_partner/reports/login', :controller => 'content_partner', :action => 'login'
   map.connect 'content_partner/reports/:action', :controller => 'content_partner/reports'
+  map.connect 'content_partner/content/:id', :controller => 'content_partner', :action => 'content', :requirements => { :id => /.*/}
   
   # map.connect 'content_partner/reports',         :controller => 'content_partner/reports', :action => 'index' 
   # map.connect 'content_partner/reports/:report', :controller => 'content_partner/reports', :action => 'catch_all',

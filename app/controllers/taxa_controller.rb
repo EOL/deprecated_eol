@@ -672,6 +672,20 @@ private
     redirect_to :controller => 'taxa', :action => 'show', :id => result_set.first['taxon_concept_id']
   end
 
+  def get_suggested_search_results(querystring)
+    suggested_results_original = SearchSuggestion.find_all_by_term_and_active(querystring, true, :order=>'sort_order')
+    suggested_results_query = suggested_results_original.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
+    suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
+    suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params)
+    suggested_results_original = suggested_results_original.inject({}) {|res, sugg_search| res[sugg_search.taxon_id] = sugg_search; res}
+    suggested_results.each do |res| 
+      common_name = suggested_results_original[res["taxon_concept_id"][0].to_s].common_name 
+      res["common_name"] = [common_name]
+      res["preferred_common_name"] = common_name
+    end
+    suggested_results
+  end
+
   def append_search_results_from_db(querystring, search_results, options = {})
     return nil unless search_results
     search_results.each do |res|

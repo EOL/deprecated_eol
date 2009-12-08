@@ -1,35 +1,44 @@
-<div id="browse_content_partner_species">
+<% if @content_partner.nil? %>
   <div id="page-title">
-    <h1>Pages with content contributed by <%=params[:id]%></h1>
+    <h1>No content partner <i><%=params[:id]%></i></h1>
   </div>
+<% else %>
+  <div id="browse_content_partner_species">
+    <div id="page-title">
+      <h1>Pages with content contributed by <%=params[:id]%></h1>
+    </div>
 
-  <div id='content_partner_stats'>
-    <%=params[:id]%> has contributed to a total of <%=@taxon_concepts_count%> pages.
-  </div>
+    <div id='content_partner_stats'>
+      <%=params[:id]%> has contributed to a total of <%=@taxon_concepts_count%> pages.
+    </div>
+  
+    <% if !@taxon_concepts.nil? %>
+      <%= will_paginate @taxon_concepts %>
 
-  <%= will_paginate @taxon_concepts %>
-
-  <table id="content-partners-species">
-    <tr>
-    <% @taxon_concepts.each_with_index do |tc, i| %>
-      <% classname='image' %>
-      <% if i % 6 == 5 %>
-        <% classname+='-last'%>
-        <% last_cell = true %>
-      <% end %>
-
-      <td class="<%=classname%>">
-        <%= medium_thumb_partial(tc,'top_image_tag_'+i.to_s,false) %>
-        <div id="top_name_<%=i%>"><%= linked_name(tc,'',false) %></div>
-      </td>
-
-      <% if last_cell %>
-        </tr>
+      <table id="content-partners-species" width="100%">
         <tr>
-      <% end %>
-    <% end %>
-    </tr>
-  </table>
+        <% @taxon_concepts.each_with_index do |tc, i| %>
+          <% classname='image' %>
+          <% if i % 6 == 5 %>
+            <% classname+='-last'%>
+            <% last_cell = true %>
+          <% end %>
 
-  <%= will_paginate @taxon_concepts %>
-</div>
+          <td class="<%=classname%>">
+        
+            <a href="/pages/<%= tc['id'] %>"><img src="<%= tc['image_src'] %>" border="0"/></a>
+            <div id="top_name_<%=i%>"><a href="/pages/<%= tc['id'] %>"><%= tc['name_string'] %></a></div>
+          </td>
+
+          <% if last_cell %>
+            </tr>
+            <tr>
+          <% end %>
+        <% end %>
+        </tr>
+      </table>
+    
+      <%= will_paginate @taxon_concepts %>
+    <% end %>
+  </div>
+<% end %>

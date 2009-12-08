@@ -592,15 +592,15 @@ class TaxonConcept < SpeciesSchemaModel
     my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id, [Resource.iucn].flatten.map(&:id)]).first
 
     SELECT distinct do.*
-      FROM taxon_concept_names tcn
-        JOIN taxa t ON (tcn.name_id = t.name_id)
+      FROM hierarchy_entries he
+        JOIN taxa t ON (he.id = t.hierarchy_entry_id)
         JOIN harvest_events_taxa het ON (t.id = het.taxon_id)
-        JOIN harvest_events he ON (het.harvest_event_id = he.id)
+        JOIN harvest_events hevt ON (het.harvest_event_id = hevt.id)
         JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
         JOIN data_objects do ON (dot.data_object_id = do.id)
-      WHERE tcn.taxon_concept_id = ?
-        AND he.resource_id IN (?)
-        AND published = 1
+      WHERE he.taxon_concept_id = ?
+        AND hevt.resource_id IN (?)
+        AND do.published = 1
       ORDER BY do.id desc
       LIMIT 1 # TaxonConcept.iucn
 
@@ -741,15 +741,15 @@ EOIUCNSQL
   
   # Gets an Array of TaxonConcept given DataObjects or their IDs
   #
-  # this goes data_objects => data_objects_taxa => taxa => taxon_concept_names => taxon_concepts
+  # this goes data_objects => data_objects_taxa => taxa => hierarchy_entries => taxon_concepts
   def self.from_data_objects *objects_or_ids
     ids = objects_or_ids.map {|o| if   o.is_a? DataObject 
                                   then o.id 
                                   else o.to_i end }
     return [] if ids.nil? or ids.empty? # Fix for EOLINFRASTRUCTURE-808
     sql = "SELECT taxon_concepts.* FROM taxon_concepts
-    JOIN taxon_concept_names ON taxon_concept_names.taxon_concept_id = taxon_concepts.id
-    JOIN taxa                ON taxa.name_id                         = taxon_concept_names.name_id 
+    JOIN hierarchy_entries   ON taxon_concepts.id                    = hierarchy_entries.taxon_concept_id
+    JOIN taxa                ON taxa.hierarchy_entry_id              = hierarchy_entries.id 
     JOIN data_objects_taxa   ON data_objects_taxa.taxon_id           = taxa.id
     JOIN data_objects        ON data_objects.id                      = data_objects_taxa.data_object_id
     WHERE data_objects.id IN (#{ ids.join(', ') }) 

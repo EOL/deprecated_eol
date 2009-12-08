@@ -13,6 +13,9 @@
 # 4) config/environment_eol_org.rb
 #---------------------------------------------------------------
 
+# Allow debugger breakpoints:
+require "ruby-debug"
+
 # In the development environment your application's code is reloaded on
 # every request.  This slows down response time but is perfect for 
 # development since you don't have to restart the webserver when you make 

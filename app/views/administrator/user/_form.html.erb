@@ -32,7 +32,14 @@
 		<tr>
 			<td><strong>Family Name:</strong></td>
 			<td><%=f.text_field :family_name,{:size=>'50',:maxlength=>'255'}%></td>
-		</tr>	
+		</tr>
+		<% if @user.curator_approved %>
+      <tr>
+			  <td><strong>Profile:</strong></td>
+			  <td><%= external_link_to('curator profile', :controller => '/account', :action => :show, :id => @user.id, :show_link_icon => false) %></td>
+		  </tr>
+		<% end %>
+	  	
 		<tr>
 			<td><strong>Language:</strong></td>
 			<td><%= f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]} %></td>

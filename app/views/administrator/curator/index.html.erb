@@ -24,6 +24,9 @@ Click a username to view the user's detailed profile.  You may change the clade 
         <tr id="<%="row_#{user.id}"%>">
           <td class="<%= column_class %>">
             <%= link_to(user.username, :controller => 'administrator/user', :action=>'edit',:id=>user.id)%>
+            <% if user.curator_approved %>
+              <br/><small>(<%= link_to('curator profile', :controller => '/account', :action => :show, :id => user.id) %>)</small>
+            <% end %>
           </td>
           <td class="<%= column_class %>">
             <a href="#" onclick="Element.toggle('credentials_<%=user.id%>');return false;">

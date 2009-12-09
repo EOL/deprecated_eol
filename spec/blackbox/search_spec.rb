@@ -65,7 +65,7 @@ describe 'Search' do
     @tiger_moth_name = "#{@tiger_name} moth"
     @tiger_moth = build_taxon_concept(:common_names => 
                                        [@tiger_moth_name, 'Panther moth'])
-    @plantain_name = 'Plantago major'
+    @plantain_name   = 'Plantago major'
     @plantain_common = 'Plantain'
     @plantain = build_taxon_concept(:scientific_name => @plantain_name, :common_names => [@plantain_common])
     build_taxon_concept(:scientific_name => "#{@plantain_name} L.", :common_names => ["big #{@plantain_common}"])
@@ -123,6 +123,7 @@ describe 'Search' do
   end
 
   it 'should return one suggested search' do
+    puts "** Plantain search:"
     res = request("/search?q=#{URI.escape @plantain_name.gsub(/ /, '+')}&search_type=text")
     res.body.should have_tag('table[summary=Suggested Search Results]') do |table|
       table.should have_tag("td", :text => @plantain_common)

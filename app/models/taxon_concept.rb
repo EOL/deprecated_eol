@@ -891,11 +891,4 @@ private
 
 
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: taxon_concepts
-#
-#  id             :integer(4)      not null, primary key
-#  supercedure_id :integer(4)      not null
 

@@ -1,7 +1,10 @@
 class FeedsController < ApplicationController
+
+  #/feeds/images/25 or texts or comments or all
+
   before_filter :set_session_hierarchy_variable
 
-  caches_page :all, :images, :text, :comments, :expires_in => 2.minutes
+  caches_page :all, :images, :texts, :comments, :expires_in => 2.minutes
 
   def all
     #render :nothing => true
@@ -11,7 +14,7 @@ class FeedsController < ApplicationController
       if((taxon_concept_id = params[:id]).nil?)
         f.links << Atom::Link.new(:href => root_url)
         f.title = 'Latest Images, Text and Comments'
-        all = DataObject.feed_images_and_text + Comment.feed
+        all = DataObject.feed_images_and_texts + Comment.feed
       else
         begin
           taxon_concept = TaxonConcept.find(taxon_concept_id)
@@ -21,8 +24,8 @@ class FeedsController < ApplicationController
         end
         f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
         f.title = "Latest Images, Text and Comments for #{taxon_concept.quick_scientific_name(:normal, @session_hierarchy)}"
-        all_dato    = DataObject.feed_images_and_text(taxon_concept.id)
-        all_comment = Comment.feed(taxon_concept_id)
+        all_dato    = DataObject.feed_images_and_texts(taxon_concept.id)
+        all_comment = Comment.feed_comments(taxon_concept_id)
         all = all_dato + all_comment
       end
 
@@ -32,115 +35,63 @@ class FeedsController < ApplicationController
       set_all_attributions(all_dato)
       
       all.each do |entry|
-        f.entries << create_entry(entry)
+        type = ""
+        if entry.class == DataObject
+          type = DataType.find(entry.data_type_id).label.downcase.pluralize
+        elsif entry.class == Comment
+          type = "comments"
+        end
+        f.entries << self.send("#{type}_entry", entry)
       end
     end
     render :text => feed.to_xml
   end
   
   def images
-    feed = Atom::Feed.new do |f|
-      f.updated = Time.now
-#      f.authors << Atom::Person.new(:name => 'John Doe')
-#      f.id = "urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6"
-      if((taxon_concept_id = params[:id]).nil?)
-        f.links << Atom::Link.new(:href => root_url)
-        f.title = 'Latest Images'
-        images = DataObject.feed_images
-      else
-        begin
-          taxon_concept = TaxonConcept.find(taxon_concept_id)
-        rescue
-          render_404
-          return false
-        end
-        f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
-        f.title = "Latest Images for #{taxon_concept.quick_scientific_name(:normal, @session_hierarchy)}"
-        images = DataObject.feed_images(taxon_concept.id)
-      end
-      
-      set_all_attributions(images)
-      
-      images.each do |image|
-        f.entries << image_entry(image)
-      end
-    end
-    render :text => feed.to_xml
+    make_feed('images', DataObject)
   end
 
-  def text
-    feed = Atom::Feed.new do |f|
-      f.updated = Time.now
-#      f.authors << Atom::Person.new(:name => 'John Doe')
-#      f.id = "urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6"
-      if((taxon_concept_id = params[:id]).nil?)
-        f.links << Atom::Link.new(:href => root_url)
-        f.title = 'Latest Text'
-        text_entries = DataObject.feed_text
-      else
-        begin
-          taxon_concept = TaxonConcept.find(taxon_concept_id)
-        rescue
-          render_404
-          return false
-        end
-        f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
-        f.title = "Latest Text for #{taxon_concept.quick_scientific_name(:normal, @session_hierarchy)}"
-        text_entries = DataObject.feed_text(taxon_concept.id)
-      end
-
-      set_all_attributions(text_entries)
-      
-      text_entries.each do |text|
-        f.entries << text_entry(text)
-      end
-    end
-    render :text => feed.to_xml
+  def texts
+    make_feed('texts', DataObject)
   end
-
+  
   def comments
-    feed = Atom::Feed.new do |f|
-      f.updated = Time.now
-#      f.authors << Atom::Person.new(:name => 'John Doe')
-#      f.id = "urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6"
-
-      if((taxon_concept_id = params[:id]).nil?)
-        f.links << Atom::Link.new(:href => root_url)
-        f.title = 'Latest Comments'
-        comments = Comment.feed
-      else
-        begin
-          taxon_concept = TaxonConcept.find(taxon_concept_id)
-        rescue
-          render_404
-          return false
-        end
-        f.title = "Latest Comments for #{taxon_concept.quick_scientific_name(:normal, @session_hierarchy)}"
-        f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
-
-        comments = Comment.feed(taxon_concept.id)
-      end
-
-      comments.each do |comment|
-        f.entries << comment_entry(comment)
-      end
-    end
-    render :text => feed.to_xml
+    make_feed('comments', Comment)
   end
 
   private
-
-  def create_entry(entry)
-    if entry.class == DataObject && entry.data_type_id == DataType.image_type_ids[0]
-      image_entry(entry)
-    elsif entry.class == DataObject && entry.data_type_id == DataType.text_type_ids[0]
-      text_entry(entry)
-    elsif entry.class == Comment
-      comment_entry(entry)
+  
+  def make_feed(type, object_class)
+    feed = Atom::Feed.new do |f|
+      f.updated = Time.now
+#      f.authors << Atom::Person.new(:name => 'John Doe')
+#      f.id = "urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6"
+      if((taxon_concept_id = params[:id]).nil?)
+        f.links << Atom::Link.new(:href => root_url)
+        f.title = "Latest #{type.capitalize}"
+        data = object_class.send("feed_#{type}".to_sym)
+      else
+        begin
+          taxon_concept = TaxonConcept.find(taxon_concept_id)
+        rescue
+          render_404
+          return false
+        end
+        f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
+        f.title = "Latest #{type.capitalize} for #{taxon_concept.quick_scientific_name(:normal, @session_hierarchy)}"
+        data = object_class.send("feed_#{type}".to_sym, taxon_concept.id)
+      end
+      
+      set_all_attributions(data)
+      
+      data.each do |datum|
+        f.entries << self.send("#{type}_entry", datum)
+      end
     end
+    render :text => feed.to_xml
   end
 
-  def image_entry(image)
+  def images_entry(image)
     Atom::Entry.new do |e|
       tc = image.taxon_concepts[0]
       e.title = "New image for #{tc.quick_scientific_name(:normal,@session_hierarchy)}"
@@ -157,7 +108,7 @@ class FeedsController < ApplicationController
     end
   end
 
-  def text_entry(text)
+  def texts_entry(text)
     Atom::Entry.new do |e|
       tc = text.taxon_concepts[0]
       if text.created_by_user?
@@ -177,7 +128,7 @@ class FeedsController < ApplicationController
     end
   end
 
-  def comment_entry(comment)
+  def comments_entry(comment)
     Atom::Entry.new do |e|
       if comment.parent_type == 'TaxonConcept'
         tc = TaxonConcept.find(comment.parent.id)
@@ -236,7 +187,7 @@ class FeedsController < ApplicationController
   end
 
   def set_supplier(dato_ids)
-    unless dato_ids.empty?
+  unless dato_ids.empty?
       suppliers = SpeciesSchemaModel.connection.execute("
         SELECT a.id, dohe.data_object_id 
          FROM #{DataObjectsHarvestEvent.full_table_name} dohe 
@@ -319,9 +270,9 @@ class FeedsController < ApplicationController
                  "       
      end
     content += @roles if @roles
-    content += "<br/><b>Location</b>: #{dato.location}" if dato.location
+    content += "<br/><b>Location</b>: #{dato.location}" unless dato.location.blank?
     content += "<br/><b>Source URL</b>: #{text_link(source_url_text, dato.source_url)}"
-    content += "<br/><b>Citation</b>: #{dato.bibliographic_citation}" if dato.bibliographic_citation
+    content += "<br/><b>Citation</b>: #{dato.bibliographic_citation}" unless dato.bibliographic_citation.blank?
     return content
   end  
 end

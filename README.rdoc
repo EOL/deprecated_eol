@@ -459,8 +459,8 @@ For cron jobs, you'll likely want to log all facts for a particular date range:
 
 Any links to external sites that need to be tracked should use the following two helpers:
 
-  external_link_to(text,url)
-  external_link_to(image_tag(image),url)
+  external_link_to(text, url)
+  external_link_to(image_tag(image), url)
 
 Both will generate a link (with either the supplied text or the supplied image url) to the supplied URL.  The
 link will be logged in the database, and if the $USE_EXTERNAL_LINK_POPUPS parameter is set to TRUE in the

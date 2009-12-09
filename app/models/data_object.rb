@@ -346,7 +346,14 @@ class DataObject < SpeciesSchemaModel
 
   # Find the Agent (only one) that supplied this data object to EOL.
   def data_supplier_agent
-    Agent.find_by_sql(["select a.* from data_objects_harvest_events dohe join harvest_events he on (dohe.harvest_event_id=he.id) join agents_resources ar on (he.resource_id=ar.resource_id) join agents a on (ar.agent_id=a.id) where dohe.data_object_id=? and ar.resource_agent_role_id=?", self.id, ResourceAgentRole.data_supplier.id]).first
+    Agent.find_by_sql(["SELECT a.* 
+                        FROM data_objects_harvest_events dohe 
+                          JOIN harvest_events he ON (dohe.harvest_event_id=he.id)     
+                          JOIN agents_resources ar ON (he.resource_id=ar.resource_id) 
+                          JOIN agents a ON (ar.agent_id=a.id) 
+                        WHERE dohe.data_object_id=? 
+                        AND ar.resource_agent_role_id=?", self.id,
+                        ResourceAgentRole.data_supplier.id]).first
   end
 
   # Gets agents_data_objects, sorted by AgentRole, based on this objects' DataTypes' AgentRole attribution
@@ -839,7 +846,7 @@ class DataObject < SpeciesSchemaModel
     #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
     #{where_toc})
 UNION
-(SELECT dt.label media_type, dato.*, '' scientific_name, taxon_concept_id taxon_id,l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}
+(SELECT dt.label media_type, dato.*, '' scientific_name, taxon_concept_id taxon_id, l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}
 FROM data_objects dato
 JOIN #{ UsersDataObject.full_table_name } udo ON (dato.id=udo.data_object_id)
 STRAIGHT_JOIN data_types dt ON (dato.data_type_id = dt.id)

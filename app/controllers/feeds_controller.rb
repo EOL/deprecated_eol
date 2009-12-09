@@ -189,7 +189,7 @@ class FeedsController < ApplicationController
   def set_supplier(dato_ids)
   unless dato_ids.empty?
       suppliers = SpeciesSchemaModel.connection.execute("
-        SELECT a.id, dohe.data_object_id 
+        SELECT a.id, a.logo_cache_url, a.homepage, a.full_name, dohe.data_object_id 
          FROM #{DataObjectsHarvestEvent.full_table_name} dohe 
          JOIN #{HarvestEvent.full_table_name} he ON (dohe.harvest_event_id=he.id) 
          JOIN #{AgentsResource.full_table_name} ar ON (he.resource_id=ar.resource_id) 
@@ -199,15 +199,16 @@ class FeedsController < ApplicationController
          AND rar.label = 'Data Supplier'
       ").all_hashes         
     
-      agents_hash = []
-      suppliers.each do |m|
-        h = {}
-        h["data_object_id"] = m['data_object_id']
-        h["agent"] = Agent.find([m["id"]])
-        agents_hash << h
-      end
+#      agents_hash = []
+#      suppliers.each do |m|
+#        h = {}
+#        h["data_object_id"] = m['data_object_id']
+#        h["agent"] = Agent.find([m["id"]])
+#        agents_hash << h
+#      end
     end
-    return dato_id_hash(agents_hash) || ""
+    return dato_id_hash(suppliers) || ""
+    
   end
   
   def dato_id_hash(data)
@@ -261,14 +262,20 @@ class FeedsController < ApplicationController
                             dato_copyright['source_url'])}
               " if dato_copyright                
     if @dato_agent[dato_id]
-      agent = @dato_agent[dato_id][0]['agent'][0] 
-      logo_size = (agent == Agent.catalogue_of_life ? "large" : "small")
+      agent_data = @dato_agent[dato_id][0]
+      img_logo = ""
+      if agent_data["logo_cache_url"]
+        logo_size = (agent_data["full_name"] == Agent.catalogue_of_life.full_name ? "large" : "small")
+        img_url = ContentServer.next[0...-1] + $CONTENT_SERVER_AGENT_LOGOS_PATH
+        img_url += "#{agent_data["logo_cache_url"]}_#{logo_size}.png"
+        img_logo = image_link(img_url, agent_data['homepage'])
+      end
       content += "<br/><b>Supplier</b>:
-                  #{text_link(agent.full_name, 
-                              agent.homepage)} 
-                  #{view_helper_methods.agent_logo(agent, logo_size)}
+                  #{text_link(agent_data['full_name'], 
+                              agent_data['homepage'])} 
+                  #{img_logo}
                  "       
-     end
+    end
     content += @roles if @roles
     content += "<br/><b>Location</b>: #{dato.location}" unless dato.location.blank?
     content += "<br/><b>Source URL</b>: #{text_link(source_url_text, dato.source_url)}"

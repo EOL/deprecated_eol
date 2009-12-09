@@ -123,7 +123,6 @@ describe 'Search' do
   end
 
   it 'should return one suggested search' do
-    puts "** Plantain search:"
     res = request("/search?q=#{URI.escape @plantain_name.gsub(/ /, '+')}&search_type=text")
     res.body.should have_tag('table[summary=Suggested Search Results]') do |table|
       table.should have_tag("td", :text => @plantain_common)

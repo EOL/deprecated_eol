@@ -18,7 +18,7 @@ class FeedsController < ApplicationController
 
         unless attribution_for_feed.empty?
           attribution_for_feed.each do |i|
-            @dato_attribution[i['data_object_id'].to_i] ? @dato_attribution[i['data_object_id'].to_i] << i : @dato_attribution[i['data_object_id'].to_i] = i
+            @dato_attribution[i['data_object_id'].to_i] ? @dato_attribution[i['data_object_id'].to_i] << i : @dato_attribution[i['data_object_id'].to_i] = [i]
           end
         end
       end
@@ -31,13 +31,14 @@ class FeedsController < ApplicationController
            FROM #{DataObjectsHarvestEvent.full_table_name} dohe 
            JOIN #{HarvestEvent.full_table_name} he ON (dohe.harvest_event_id=he.id) 
            JOIN #{AgentsResource.full_table_name} ar ON (he.resource_id=ar.resource_id) 
+           JOIN #{ResourceAgentRole.full_table_name} rar ON (ar.resource_agent_role_id = rar.id)
            JOIN #{Agent.full_table_name} a ON (ar.agent_id=a.id) 
            WHERE dohe.data_object_id IN (#{dato_ids})
-           AND ar.resource_agent_role_id = 1
-        ").all_hashes 
+           AND rar.label = 'Data Supplier'
+        ").all_hashes         
 
-      puts "URA 1 " * 50
-      puts "suppliers = "+suppliers.inspect.to_s
+      # puts "URA 1 " * 50
+      # puts "suppliers = "+suppliers.inspect.to_s
       
       agents_hash = []
       suppliers.each do |m|
@@ -47,8 +48,8 @@ class FeedsController < ApplicationController
         agents_hash << h
       end
 
-      puts "URA 2 " * 50
-      puts "agents_hash = "+agents_hash.inspect.to_s
+      # puts "URA 2 " * 50
+      # puts "agents_hash = "+agents_hash.inspect.to_s
 
       dato_agent_hash = {}
       agents_hash.each do |i|
@@ -56,12 +57,12 @@ class FeedsController < ApplicationController
         dato_agent_hash[i['data_object_id'].to_i] ? dato_agent_hash[i['data_object_id'].to_i] << i : dato_agent_hash[i['data_object_id'].to_i] = i
 
       end
-      puts "URA^&*" * 50
-      puts "dato_agent_hash = " + dato_agent_hash.inspect.to_s
+      # puts "URA^&*" * 50
+      # puts "dato_agent_hash = " + dato_agent_hash.inspect.to_s
 # h = {161=>{"id"=>"2", "data_object_id"=>"161"}, 142=>{"id"=>"2", "data_object_id"=>"142"}, 47=>{"id"=>"2", "data_object_id"=>"47"}, 66=>{"id"=>"2", "data_object_id"=>"66"}, 152=>{"id"=>"2", "data_object_id"=>"152"}, 114=>{"id"=>"2", "data_object_id"=>"114"}, 19=>{"id"=>"2", "data_object_id"=>"19"}, 57=>{"id"=>"2", "data_object_id"=>"57"}, 162=>{"id"=>"2", "data_object_id"=>"162"}, 143=>{"id"=>"2", "data_object_id"=>"143"}, 48=>{"id"=>"2", "data_object_id"=>"48"}, 67=>{"id"=>"2", "data_object_id"=>"67"}, 
       @dato_agent_hash = dato_agent_hash
-      puts "URA===" * 50
-      puts "@dato_agent_hash = " + @dato_agent_hash.inspect.to_s
+      # puts "URA===" * 50
+      # puts "@dato_agent_hash = " + @dato_agent_hash.inspect.to_s
       
       end
     end
@@ -225,11 +226,11 @@ class FeedsController < ApplicationController
     
     source_url_text = "View original data object"
     
-    puts "!=" * 50
-    puts "@dato_agent_hash = "+@dato_agent_hash.inspect.to_s
-    puts "!=" * 50
-    puts "@dato_agent_hash[dato_id] = " 
-    pp @dato_agent_hash[dato_id].inspect.to_s
+    # puts "!=" * 50
+    # puts "@dato_agent_hash = "+@dato_agent_hash.inspect.to_s
+    # puts "!=" * 50
+    # puts "@dato_agent_hash[dato_id] = " 
+    # pp @dato_agent_hash[dato_id].inspect.to_s
 
     
     unless @dato_agent_hash.empty?
@@ -241,7 +242,10 @@ class FeedsController < ApplicationController
                   #{view_helper_methods.agent_logo(agent, logo_size)}
                  "       
      end
-     content += "<br/><b>#{@dato_attribution[dato_id]['agent_role']}</b>: #{text_link(@dato_attribution[dato_id]['agent_name'], @dato_attribution[dato_id]['homepage'])}"
+
+     @dato_attribution[dato_id].each do |d_attr|
+       content += "<br/><b>#{d_attr['agent_role']}</b>: #{text_link(d_attr['agent_name'], d_attr['homepage'])}"
+     end     
      content += "<br/><b>Copyright</b>: 
                  #{text_link(dato.license[:description], 
                              dato.license[:source_url])}

@@ -3,69 +3,57 @@ class FeedsController < ApplicationController
 
   caches_page :all, :images, :text, :comments, :expires_in => 2.minutes
 
-    def get_attribution_for_feed(dato_ids)
-      unless dato_ids.empty?
-        attribution_for_feed = SpeciesSchemaModel.connection.execute("
-          SELECT a.id AS agent_id, ar.label AS agent_role, 
-                 a.full_name AS agent_name, a.homepage, ado.data_object_id
-          FROM #{AgentsDataObject.full_table_name} ado 
-            JOIN #{Agent.full_table_name} a ON (ado.agent_id=a.id) 
-            LEFT JOIN #{AgentRole.full_table_name} ar ON (ado.agent_role_id = ar.id) 
-          WHERE ado.data_object_id IN (#{dato_ids})
-        ").all_hashes
+  def get_attribution_for_feed(dato_ids)
+    unless dato_ids.empty?
+      attribution_for_feed = SpeciesSchemaModel.connection.execute("
+        SELECT a.id AS agent_id, ar.label AS agent_role, 
+               a.full_name AS agent_name, a.homepage, ado.data_object_id
+        FROM #{AgentsDataObject.full_table_name} ado 
+          JOIN #{Agent.full_table_name} a ON (ado.agent_id=a.id) 
+          LEFT JOIN #{AgentRole.full_table_name} ar ON (ado.agent_role_id = ar.id) 
+        WHERE ado.data_object_id IN (#{dato_ids})
+      ").all_hashes
 
-        @dato_attribution = {}
-
-        unless attribution_for_feed.empty?
-          attribution_for_feed.each do |i|
-            @dato_attribution[i['data_object_id'].to_i] ? @dato_attribution[i['data_object_id'].to_i] << i : @dato_attribution[i['data_object_id'].to_i] = [i]
-          end
-        end
-      end
+      @dato_attribution = dato_id_hash(attribution_for_feed)
     end
+  end
 
-    def get_supplier(dato_ids)
-      unless dato_ids.empty?
-        suppliers = SpeciesSchemaModel.connection.execute("
-          SELECT a.id, dohe.data_object_id 
-           FROM #{DataObjectsHarvestEvent.full_table_name} dohe 
-           JOIN #{HarvestEvent.full_table_name} he ON (dohe.harvest_event_id=he.id) 
-           JOIN #{AgentsResource.full_table_name} ar ON (he.resource_id=ar.resource_id) 
-           JOIN #{ResourceAgentRole.full_table_name} rar ON (ar.resource_agent_role_id = rar.id)
-           JOIN #{Agent.full_table_name} a ON (ar.agent_id=a.id) 
-           WHERE dohe.data_object_id IN (#{dato_ids})
-           AND rar.label = 'Data Supplier'
-        ").all_hashes         
-
-      # puts "URA 1 " * 50
-      # puts "suppliers = "+suppliers.inspect.to_s
-      
-      agents_hash = []
-      suppliers.each do |m|
-        h = {}
-        h["data_object_id"] = m['data_object_id']
-        h["agent"] = Agent.find([m["id"]])
-        agents_hash << h
-      end
-
-      # puts "URA 2 " * 50
-      # puts "agents_hash = "+agents_hash.inspect.to_s
-
-      dato_agent_hash = {}
-      agents_hash.each do |i|
-
-        dato_agent_hash[i['data_object_id'].to_i] ? dato_agent_hash[i['data_object_id'].to_i] << i : dato_agent_hash[i['data_object_id'].to_i] = i
-
-      end
-      # puts "URA^&*" * 50
-      # puts "dato_agent_hash = " + dato_agent_hash.inspect.to_s
-# h = {161=>{"id"=>"2", "data_object_id"=>"161"}, 142=>{"id"=>"2", "data_object_id"=>"142"}, 47=>{"id"=>"2", "data_object_id"=>"47"}, 66=>{"id"=>"2", "data_object_id"=>"66"}, 152=>{"id"=>"2", "data_object_id"=>"152"}, 114=>{"id"=>"2", "data_object_id"=>"114"}, 19=>{"id"=>"2", "data_object_id"=>"19"}, 57=>{"id"=>"2", "data_object_id"=>"57"}, 162=>{"id"=>"2", "data_object_id"=>"162"}, 143=>{"id"=>"2", "data_object_id"=>"143"}, 48=>{"id"=>"2", "data_object_id"=>"48"}, 67=>{"id"=>"2", "data_object_id"=>"67"}, 
-      @dato_agent_hash = dato_agent_hash
-      # puts "URA===" * 50
-      # puts "@dato_agent_hash = " + @dato_agent_hash.inspect.to_s
-      
-      end
+  def get_license_attr(dato_ids)
+    unless dato_ids.empty?
+      license_attrs = SpeciesSchemaModel.connection.execute("
+      SELECT l.description, l.source_url, l.logo_url, dato.rights_statement, dato.id AS data_object_id 
+      FROM #{License.full_table_name} l
+      JOIN #{DataObject.full_table_name} dato ON (dato.license_id = l.id)
+      WHERE dato.id IN (#{dato_ids});").all_hashes
+          
+      @dato_copyright = dato_id_hash(license_attrs)
     end
+  end
+
+  def get_supplier(dato_ids)
+    unless dato_ids.empty?
+      suppliers = SpeciesSchemaModel.connection.execute("
+        SELECT a.id, dohe.data_object_id 
+         FROM #{DataObjectsHarvestEvent.full_table_name} dohe 
+         JOIN #{HarvestEvent.full_table_name} he ON (dohe.harvest_event_id=he.id) 
+         JOIN #{AgentsResource.full_table_name} ar ON (he.resource_id=ar.resource_id) 
+         JOIN #{ResourceAgentRole.full_table_name} rar ON (ar.resource_agent_role_id = rar.id)
+         JOIN #{Agent.full_table_name} a ON (ar.agent_id=a.id) 
+         WHERE dohe.data_object_id IN (#{dato_ids})
+         AND rar.label = 'Data Supplier'
+      ").all_hashes         
+    
+    agents_hash = []
+    suppliers.each do |m|
+      h = {}
+      h["data_object_id"] = m['data_object_id']
+      h["agent"] = Agent.find([m["id"]])
+      agents_hash << h
+    end
+    
+    @dato_agent = dato_id_hash(agents_hash)
+    end
+  end
 
   def all
     #render :nothing => true
@@ -93,9 +81,7 @@ class FeedsController < ApplicationController
       all.sort! {|x,y| y.created_at <=> x.created_at}
       all = all[0..100]
 
-      dato_ids = all_dato.map {|x| x.id}.join(',')
-      get_attribution_for_feed(dato_ids)
-      get_supplier(dato_ids)
+      get_all_attributions(all_dato)
       
       all.each do |entry|
         f.entries << create_entry(entry)
@@ -105,8 +91,6 @@ class FeedsController < ApplicationController
   end
   
   def images
-    # puts "&" * 40
-    # puts "URA start images feeds"
     feed = Atom::Feed.new do |f|
       f.updated = Time.now
 #      f.authors << Atom::Person.new(:name => 'John Doe')
@@ -125,11 +109,9 @@ class FeedsController < ApplicationController
         f.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => taxon_concept.id))
         f.title = "Latest Images for #{taxon_concept.quick_scientific_name(:normal, @session_hierarchy)}"
         images = DataObject.feed_images(taxon_concept.id)
-        
       end
-      dato_ids = images.map {|x| x.id}.join(',')
-      get_attribution_for_feed(dato_ids)
-      get_supplier(dato_ids)
+      
+      get_all_attributions(images)
       
       images.each do |image|
         f.entries << image_entry(image)
@@ -159,9 +141,7 @@ class FeedsController < ApplicationController
         text_entries = DataObject.feed_text(taxon_concept.id)
       end
 
-      dato_ids = text_entries.map {|x| x.id}.join(',')
-      get_attribution_for_feed(dato_ids)
-      get_supplier(dato_ids)
+      get_all_attributions(text_entries)
       
       text_entries.each do |text|
         f.entries << text_entry(text)
@@ -200,7 +180,26 @@ class FeedsController < ApplicationController
     render :text => feed.to_xml
   end
 
-  protected
+  private
+  
+  def get_all_attributions(dato)
+    dato_ids = dato.map {|x| x.id}.join(',')
+    get_attribution_for_feed(dato_ids)
+    get_supplier(dato_ids)
+    get_license_attr(dato_ids)
+  end
+  
+  def dato_id_hash(data)
+    info_hash = {}
+
+    unless data.empty?
+      data.each do |i|
+        info_hash[i['data_object_id'].to_i] ? info_hash[i['data_object_id'].to_i] << i : info_hash[i['data_object_id'].to_i] = [i]
+      end
+    end   
+    return info_hash   
+  end
+  
   def create_entry(entry)
     
     if entry.class == DataObject && entry.data_type_id == DataType.image_type_ids[0]
@@ -219,22 +218,37 @@ class FeedsController < ApplicationController
   def image_link(image, url, params = {:show_link_icon => false})
     view_helper_methods.external_link_to(view_helper_methods.image_tag(image), url, params) 
   end
+  
+  def dato_roles(dato_id)
+    @roles = @author = ""
+    @dato_attribution[dato_id].each do |d_attr|
+      if d_attr['agent_role'] == "Author"
+        @author += "<br/><b>#{d_attr['agent_role']}</b>: #{text_link(d_attr['agent_name'], d_attr['homepage'])}"
+      else
+        @roles += "<br/><b>#{d_attr['agent_role']}</b>: #{text_link(d_attr['agent_name'], d_attr['homepage'])}"
+      end
+    end     
+  end
 
   def feeds_attributions(dato)
     content = ""
     dato_id = dato.id.to_i
-    
+    dato_roles(dato_id) # cache strings for author and other roles separately
+    dato_copyright      = @dato_copyright[dato_id][0]                             
+    rights_statement    = dato_copyright["rights_statement"]
+    license_description = dato_copyright["description"]
+    copyright_string    = (rights_statement.blank? ? license_description : "#{rights_statement.strip}. #{license_description}")
     source_url_text = "View original data object"
     
-    # puts "!=" * 50
-    # puts "@dato_agent_hash = "+@dato_agent_hash.inspect.to_s
-    # puts "!=" * 50
-    # puts "@dato_agent_hash[dato_id] = " 
-    # pp @dato_agent_hash[dato_id].inspect.to_s
-
-    
-    unless @dato_agent_hash.empty?
-      agent = @dato_agent_hash[dato_id]["agent"][0] 
+    content += @author
+    content += "<br/><b>Copyright</b>: 
+               #{text_link(copyright_string, 
+                           dato_copyright['source_url'])}
+               #{image_link(dato_copyright['logo_url'], 
+                            dato_copyright['source_url'])}
+              "                 
+    unless @dato_agent.empty?
+      agent = @dato_agent[dato_id][0]['agent'][0] 
       logo_size = (agent == Agent.catalogue_of_life ? "large" : "small")
       content += "<br/><b>Supplier</b>:
                   #{text_link(agent.full_name, 
@@ -242,21 +256,10 @@ class FeedsController < ApplicationController
                   #{view_helper_methods.agent_logo(agent, logo_size)}
                  "       
      end
-
-     @dato_attribution[dato_id].each do |d_attr|
-       content += "<br/><b>#{d_attr['agent_role']}</b>: #{text_link(d_attr['agent_name'], d_attr['homepage'])}"
-     end     
-     content += "<br/><b>Copyright</b>: 
-                 #{text_link(dato.license[:description], 
-                             dato.license[:source_url])}
-                 #{image_link(dato.license[:logo_url], 
-                              dato.license[:source_url])}
-                "                 
-    content += "<br/><b>Location</b>: #{dato.location}" unless 
-    dato.location == ""
+    content += @roles if @roles
+    content += "<br/><b>Location</b>: #{dato.location}" unless dato.location.empty?
     content += "<br/><b>Source URL</b>: #{text_link(source_url_text, dato.source_url)}"
-    content += "<br/><b>Citation</b>: #{dato.bibliographic_citation}" unless 
-    dato.bibliographic_citation == ""  
+    content += "<br/><b>Citation</b>: #{dato.bibliographic_citation}" unless dato.bibliographic_citation.empty?
     return content
   end
 

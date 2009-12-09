@@ -137,11 +137,7 @@ class TaxaController < ApplicationController
     if @querystring.blank?
       @all_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
     else
-      @suggested_results  = SearchSuggestion.find_all_by_term_and_active(@querystring, true, :order=>'sort_order')
-      suggested_results_query = @suggested_results.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
-      suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
-      
-      @suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params)
+      @suggested_results = get_suggested_search_results(@querystring)
       @scientific_results = TaxonConcept.search_with_pagination(prepare_solr_querystring(@querystring,'preferred_scientific_name'), params) # Pass params for pagination?
       @common_results     = TaxonConcept.search_with_pagination(prepare_solr_querystring(@querystring,'common_name'), params) # Pass params for pagination?
       
@@ -692,7 +688,7 @@ private
       tc = TaxonConcept.find(res['taxon_concept_id'][0])
       res.merge!({
         'title' => tc.title(@session_hierarchy),
-        'preferred_common_name' => (tc.common_name(@session_hierarchy) || '')
+        'preferred_common_name' => (res["preferred_common_name"] || tc.common_name(@session_hierarchy) || '')
         })
       if options[:type] == :common # Common name search, we want to show them the best matched common name:
         find_matched_common_name(querystring, res)
@@ -719,7 +715,7 @@ private
         search_result['best_matched_common_name'] = search_result['preferred_common_name']
       else
         # if the best matches *include* the preferred name, use that:
-        best_matches = common_names.find_all {|i| i[1] == common_names.first[1]}.map {|i| i[0] }
+        best_matches = common_names.select {|i| i[1] == common_names.first[1]}.map {|i| normalize_name(i[0])}
         if best_matches.include?(normalize_name(search_result['preferred_common_name']))
           search_result['best_matched_common_name'] = search_result['preferred_common_name']
         else # Otherwise, just use the best match:

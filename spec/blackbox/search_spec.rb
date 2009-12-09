@@ -201,10 +201,6 @@ describe 'Search' do
     end
   end
 
-  it 'should have pagination working with solr'
-
-  it 'should be able to do tag search correctly'
-  
   it 'should show unvetted status for tag search' do
     # body = @tiger_search
     #   body.should have_tag('td.odd_untrusted')

@@ -24,6 +24,16 @@ class Hash
 
 end
 
+class String
+  # Normalize a string for better matching, e.g. for searches
+  def normalize
+    @@normalization_regex ||= /[;:,\.\(\)\[\]\!\?\*_\\\/\"\']/
+    @@spaces_regex        ||= /\s+/
+    name = self.clone
+    return name.downcase.gsub(@@normalization_regex, '').gsub(@@spaces_regex, ' ')
+  end
+end
+
 module ActiveRecord
   class Base
     class << self

@@ -43,8 +43,21 @@ class TaxaController < ApplicationController
     raise "boom" 
   end
 
-  def search_clicked
+  # TODO - log that a search was performed
+  def search
+    @querystring = params[:q] || params[:id]
+    @search_type = params[:search_type] || 'text'
+    @page_title = "EOL Search: #{@querystring}"
+    if @search_type == 'google'
+      render :html => 'google_search'
+    elsif @search_type == 'tag'
+      search_tag
+    else
+      search_text
+    end
+  end
 
+  def search_clicked
     # update the search log if we are coming from the search page, to indicate the user got here from a search
     update_logged_search :id=>params[:search_id], :taxon_concept_id=>params[:id] if params.key? :search_id 
     redirect_to taxon_url, :id=>params[:id]
@@ -93,53 +106,29 @@ class TaxaController < ApplicationController
     render :partial => 'classification_attribution', :locals => {:taxon_concept => taxon_concept}
   end
 
-  # TODO - log that a search was performed
-  def search
-    @querystring = params[:q] || params[:id]
-    @search_type = params[:search_type] || 'text'
-    @page_title = "EOL Search: #{@querystring}"
-    if @search_type == 'google'
-      render :html => 'google_search'
-    elsif @search_type == 'tag'
-      search_tag
-    else
-      search_text
-    end
-    @suggested_results  = append_search_results_from_db(@querystring, @suggested_results,  :type => :suggested)
-    @common_results     = append_search_results_from_db(@querystring, @common_results,     :type => :common)
-    @scientific_results = append_search_results_from_db(@querystring, @scientific_results, :type => :scientific)
-  end
-
   def search_tag
     @search = Search.new(params, request, current_user, current_agent)
-    results = @search.search_results[:tags].map do |tag_result|
-      tc = tag_result[0]
-      dato = tag_result[1]
-      {'taxon_concept_id' => [tc.id],
-       'vetted_id'        => [tc.vetted_id],
-       'preferred_scientific_name' => [tc.scientific_name],
-       'common_name'      => [tc.common_name],
-       'top_image_id'     => dato.id }
-    end
-    results = results
+    # The Search class (above) is using 'old' result sets, which we need to adapt to the Solr-style:
+    results = adapt_old_tag_search_results_to_solr_style_results(@search.search_results[:tags])
     if current_user.expertise.to_s == 'expert'
       @scientific_results = results.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length)
-      @common_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
+      @common_results = empty_paginated_set
     else 
-      @scientific_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
+      @scientific_results = empty_paginated_set
       @common_results = results.sort_by {|tc| tc['common_name'] }.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length) 
     end
-    @suggested_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
+    @suggested_results = empty_paginated_set
     @all_results = results
   end
 
   def search_text
     if @querystring.blank?
-      @all_results = [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
+      @all_results = empty_paginated_set
     else
-      @suggested_results = get_suggested_search_results(@querystring)
-      @scientific_results = TaxonConcept.search_with_pagination(prepare_solr_querystring(@querystring,'preferred_scientific_name'), params) # Pass params for pagination?
-      @common_results     = TaxonConcept.search_with_pagination(prepare_solr_querystring(@querystring,'common_name'), params) # Pass params for pagination?
+      @suggested_results  = get_suggested_search_results(@querystring)
+      # Are we passing params here for pagination?
+      @scientific_results = TaxonConcept.search_with_pagination(@querystring, params)
+      @common_results     = TaxonConcept.search_with_pagination(@querystring, params.merge(:type => :common))
       
       @all_results = (@suggested_results + @scientific_results + @common_results)
     end
@@ -148,24 +137,9 @@ class TaxaController < ApplicationController
         redirect_to_taxa_page(@all_results) if (@all_results.length == 1 and not params[:page].to_i > 1)
       end
       format.xml do
-        if @all_results.blank?
-          xml = Hash.new.to_xml(:root => 'results')
-        else
-          key = "search/xml/#{@querystring.gsub(/[^-_A-Za-z0-9]/, '_')}"
-          xml = Rails.cache.fetch(key, :expires_in => 8.hours) do
-            xml_hash = {
-              'suggested-results'  => @suggested_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },
-              'scientific-results' => @scientific_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },
-              'common-results'     => @common_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) }
-            }
-            # TODO xml_hash['errors'] = XmlErrors.new(results[:errors]) unless results[:errors].nil?
-            xml_hash.to_xml(:root => 'results')
-          end
-        end
-        render :xml => xml
+        render_search_xml
       end
     end
-      
   end
 
   # page that will allows a non-logged in user to change content settings
@@ -669,6 +643,7 @@ private
   end
 
   def get_suggested_search_results(querystring)
+    debugger if querystring =~ /major/
     suggested_results_original = SearchSuggestion.find_all_by_term_and_active(querystring, true, :order=>'sort_order')
     suggested_results_query = suggested_results_original.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
     suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
@@ -682,64 +657,42 @@ private
     suggested_results
   end
 
-  def append_search_results_from_db(querystring, search_results, options = {})
-    return nil unless search_results
-    search_results.each do |res|
-      tc = TaxonConcept.find(res['taxon_concept_id'][0])
-      res.merge!({
-        'title' => tc.title(@session_hierarchy),
-        'preferred_common_name' => (res["preferred_common_name"] || tc.common_name(@session_hierarchy) || '')
-        })
-      if options[:type] == :common # Common name search, we want to show them the best matched common name:
-        find_matched_common_name(querystring, res)
-      else
-        res.merge!('best_matched_common_name' => res['preferred_common_name']) # Show them the preferred name
+  def render_search_xml
+    if @all_results.blank?
+      xml = Hash.new.to_xml(:root => 'results')
+    else
+      key = "search/xml/#{@querystring.gsub(/[^-_A-Za-z0-9]/, '_')}"
+      xml = Rails.cache.fetch(key, :expires_in => 8.hours) do
+        xml_hash = {
+          'suggested-results'  => @suggested_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },
+          'scientific-results' => @scientific_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },
+          'common-results'     => @common_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) }
+        }
+        # TODO xml_hash['errors'] = XmlErrors.new(results[:errors]) unless results[:errors].nil?
+        xml_hash.to_xml(:root => 'results')
       end
     end
+    render :xml => xml
   end
 
-  # TODO - this doesn't belong here.  We need a class for these result sets, and it belongs there.
-  def find_matched_common_name(original_querystring, search_result)
-    common_names = search_result['common_name'].clone
-    querystring  = normalize_name(original_querystring).split(' ').to_set
-    if common_names # TODO - this else clause is really a separate method to "repair" missing common names
-      # TODO - this smells like a class method:
-      common_names.map! do |name|
-        name_set  = normalize_name(name).split(' ').to_set
-        intersect = name_set.intersection(querystring) # TODO - make sure querystring members are all downcased.
-        [name, intersect.size]
-      end
-      common_names = common_names.sort_by {|i| i[1]}.reverse 
-      # if we have only 0s, return the preferred name:
-      if common_names.first[1] == 0
-        search_result['best_matched_common_name'] = search_result['preferred_common_name']
-      else
-        # if the best matches *include* the preferred name, use that:
-        best_matches = common_names.select {|i| i[1] == common_names.first[1]}.map {|i| normalize_name(i[0])}
-        if best_matches.include?(normalize_name(search_result['preferred_common_name']))
-          search_result['best_matched_common_name'] = search_result['preferred_common_name']
-        else # Otherwise, just use the best match:
-          search_result['best_matched_common_name'] = common_names.first[0]
-        end
-      end
-    else # Common names were bogus:
-      search_result['common_name'] = ['']
-      search_result['best_matched_common_name'] = ''
+  def empty_paginated_set
+    [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
+  end
+
+  def adapt_old_tag_search_results_to_solr_style_results(results)
+    results.map do |tag_result|
+      tc = tag_result[0]
+      dato = tag_result[1]
+      common_name = tc.common_name(@session_hierarchy)
+      {'taxon_concept_id'          => [tc.id],
+       'vetted_id'                 => [tc.vetted_id],
+       'preferred_scientific_name' => [tc.scientific_name(@session_hierarchy)],
+       'common_name'               => [common_name],
+       'preferred_common_name'     => [common_name],
+       'best_matched_common_name'  => common_name,
+       'title'                     => tc.title(@session_hierarchy),
+       'top_image_id'              => dato.id }
     end
   end
-
-  def normalize_name(name)
-    @@normalization_regex ||= /[;:,\.\(\)\[\]\!\?\*_\\\/\"\']/
-    @@spaces_regex        ||= /\s+/
-    return name.downcase.gsub(@@normalization_regex, '').gsub(@@spaces_regex, ' ')
-  end
-
-  def prepare_solr_querystring(query, field)
-    literal_query = "#{field}:\"#{query}\""
-    query = query.gsub /\s+/, ' '
-    query = query.split(' ').map {|w| "+#{w}"}.join(' ')
-    query = "(#{literal_query})" #OR #{field}:(#{query}))"
-  end
-
 
 end

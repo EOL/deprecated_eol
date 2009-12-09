@@ -9,7 +9,7 @@ namespace :solr do
     end
     port = $SOLR_SERVER.gsub(/^.*:(\d+).*$/, '\\1')
     FileUtils.cd(File.join($SOLR_DIR)) do
-      command = ["#{RAILS_ROOT}/bin/solr", 'start', '--', '-p', port.to_s] #, '-d', data_path]
+      command = ["#{RAILS_ROOT}/bin/solr", 'start', '--', '-p', port.to_s]
       if $SOLR_DIR
         command << '-s' << $SOLR_DIR
       end
@@ -27,7 +27,7 @@ namespace :solr do
     # FileUtils.mkdir_p(data_path)
     port = $SOLR_SERVER
     port.gsub!(/^.*:(\d+).*$/, '\\1')
-    command = ["#{RAILS_ROOT}/bin/solr", 'run', '--', '-p', port.to_s] #, '-d', data_path]
+    command = ["#{RAILS_ROOT}/bin/solr", 'run', '--', '-p', port.to_s]
     if $SOLR_DIR
       command << '-s' << $SOLR_DIR
     end

@@ -44,7 +44,7 @@ class DataObject < SpeciesSchemaModel
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
   
   #----- queries for rss feeds ------
-  def self.feed_images_and_text(taxon_concept_id = nil, max_results = 100)
+  def self.feed_images_and_texts(taxon_concept_id = nil, max_results = 100)
     min_date = 10.days.ago.strftime('%Y-%m-%d')
     result = []
     if taxon_concept_id.nil?
@@ -105,7 +105,7 @@ class DataObject < SpeciesSchemaModel
     return result.sort_by(&:created_at).reverse[0..max_results]
   end
 
-  def self.feed_text(taxon_concept_id = nil, max_results = 100)
+  def self.feed_texts(taxon_concept_id = nil, max_results = 100)
     min_date = 10.days.ago.strftime('%Y-%m-%d')
     result = []
     if taxon_concept_id.nil?

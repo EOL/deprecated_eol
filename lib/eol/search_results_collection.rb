@@ -1,4 +1,6 @@
 module EOL
+  # A relatively simple Enumerable class for handling the results from EOL's Solr search, since there's some sorting and
+  # re-populating of the data that needs to happen before anything is displayed.
   class SearchResultsCollection
 
     include Enumerable
@@ -9,8 +11,18 @@ module EOL
     def initialize(results, options = {})
       @results       = results
       @total_results = options[:total_results] || results.length
-      @type          = options[:type] # Used to flag special behavior
+      @type          = options[:type] # Used to flag special behavior that gets the 'best' common name match
       @querystring   = options[:querystring]
+
+      # The follwing are not yet options, but will be someday:
+      @best_match_field_name         = 'best_matched_common_name'
+      @default_best_match_field_name = 'preferred_common_name'
+      @match_field_name              = 'common_name'
+
+      if @type == :common
+        @find_match                    = true
+      end
+
       # We don't actually want to do this next step unless we *know* the results are based on TaxonConcept... but, for the
       # time being, we always are.  In the future, this will want to be abstracted out, so that we inherit all the common
       # behaviour and add this behaviour if it's a TC-based search:
@@ -27,16 +39,17 @@ module EOL
       end
     end
 
+  private
+
     def update_results_with_current_data
       return nil unless @results
       @results.each do |result|
         result.merge!(get_current_data_from_taxon_concept_id(result['taxon_concept_id'][0], result))
-        # TODO - actually, this is too hard-coded.  Ideally, we would know which results to look through, which to match to
-        # the search results, and which to leave alone... but that's a lot of work!  :D
-        if @type == :common # Common name search, we want to show them the best matched common name:
-          find_matched_common_name(result)
+        repair_missing_match_fields(result)
+        if @find_match
+          find_best_match(result)
         else
-          result.merge!('best_matched_common_name' => result['preferred_common_name']) # Show them the preferred name
+          result.merge!(@best_match_field_name => result[@default_best_match_field_name]) # Show them the preferred name
         end
       end
     end
@@ -46,39 +59,52 @@ module EOL
         tc = TaxonConcept.find(id)
         return {'title'                 => tc.title(@session_hierarchy),
                 'preferred_common_name' => (result["preferred_common_name"] || tc.common_name(@session_hierarchy) || '') }
+      # Really, we don't want to save these exceptions, since what good is a search result if the TC is missing?
+      # However, tests sometimes create situations where this is possible and not "wrong", (creating TCs is expensive!) so:
       rescue ActiveRecord::RecordNotFound
         return {'title'                 => result['preferred_scientific_name'],
                 'preferred_common_name' => (result["preferred_common_name"] || '') }
       end
     end
 
-    def find_matched_common_name(search_result)
-      common_names = search_result['common_name'].clone
-      querystring  = @querystring.normalize.split(' ').to_set
-      if common_names # TODO - this else clause is really a separate method to "repair" missing common names
-        # TODO - this smells like a class method:
-        common_names.map! do |name|
-          name_set  = name.normalize.split(' ').to_set
-          intersect = name_set.intersection(@querystring) # TODO - make sure querystring members are all downcased.
-          [name, intersect.size]
+    def find_best_match(search_result)
+      return if search_result[@match_field_name].length <= 1 and search_result[@match_field_name].first.blank? # Nothing to do
+      common_names = create_sorted_list_of_intersection_distances(search_result[@match_field_name])
+      # if we have only 0s, return the preferred name:
+      if common_names.first[:intersection] == 0
+        search_result[@best_match_field_name] = search_result[@default_best_match_field_name]
+      else
+        # if the best matches *include* the preferred name, use that:
+        best_matches = best_matched_names(common_names)
+        if best_matches.include?(search_result[@default_best_match_field_name].normalize)
+          search_result[@best_match_field_name] = search_result[@default_best_match_field_name]
+        else # Otherwise, just use the best match:
+          search_result[@best_match_field_name] = common_names.first[:name]
         end
-        common_names = common_names.sort_by {|i| i[1]}.reverse 
-        # if we have only 0s, return the preferred name:
-        if common_names.first[1] == 0
-          search_result['best_matched_common_name'] = search_result['preferred_common_name']
-        else
-          # if the best matches *include* the preferred name, use that:
-          best_matches = common_names.select {|i| i[1] == common_names.first[1]}.map {|i| i[0].normalize }
-          if best_matches.include?(search_result['preferred_common_name'].normalize)
-            search_result['best_matched_common_name'] = search_result['preferred_common_name']
-          else # Otherwise, just use the best match:
-            search_result['best_matched_common_name'] = common_names.first[0]
-          end
-        end
-      else # Common names were bogus:
-        search_result['common_name'] = ['']
-        search_result['best_matched_common_name'] = ''
       end
+    end
+
+    # TODO - I'm not sure these matching methods belong in this class, but I can't think of a better place to put them right
+    # now.
+    def create_sorted_list_of_intersection_distances(original_common_names)
+      common_names = original_common_names.clone
+      querystrings = @querystring.normalize.split(' ').to_set
+      common_names.map! do |name|
+        name_set  = name.normalize.split(' ').to_set
+        intersect = name_set.intersection(querystrings) # TODO - make sure querystring members are all downcased.
+        {:name => name, :intersection => intersect.size}
+      end
+      common_names.sort_by {|pair| pair[:intersection] }.reverse 
+    end
+
+    def best_matched_names(names)
+      best_intersection = names.first[:intersection]
+      names.select {|pair| pair[:intersection] == best_intersection}.map {|pair| pair[:name].normalize }
+    end
+
+    def repair_missing_match_fields(result)
+      result[@match_field_name]      ||= ['']
+      result[@best_match_field_name] ||= ''
     end
 
   end

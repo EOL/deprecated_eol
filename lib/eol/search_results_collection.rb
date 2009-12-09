@@ -29,19 +29,26 @@ module EOL
 
     def update_results_with_current_data
       return nil unless @results
-      @results.each do |res|
-        tc = TaxonConcept.find(res['taxon_concept_id'][0])
-        res.merge!({
-          'title' => tc.title(@session_hierarchy),
-          'preferred_common_name' => (res["preferred_common_name"] || tc.common_name(@session_hierarchy) || '')
-          })
+      @results.each do |result|
+        result.merge!(get_current_data_from_taxon_concept_id(result['taxon_concept_id'][0], result))
         # TODO - actually, this is too hard-coded.  Ideally, we would know which results to look through, which to match to
         # the search results, and which to leave alone... but that's a lot of work!  :D
         if @type == :common # Common name search, we want to show them the best matched common name:
-          find_matched_common_name(res)
+          find_matched_common_name(result)
         else
-          res.merge!('best_matched_common_name' => res['preferred_common_name']) # Show them the preferred name
+          result.merge!('best_matched_common_name' => result['preferred_common_name']) # Show them the preferred name
         end
+      end
+    end
+
+    def get_current_data_from_taxon_concept_id(id, result)
+      begin
+        tc = TaxonConcept.find(id)
+        return {'title'                 => tc.title(@session_hierarchy),
+                'preferred_common_name' => (result["preferred_common_name"] || tc.common_name(@session_hierarchy) || '') }
+      rescue ActiveRecord::RecordNotFound
+        return {'title'                 => result['preferred_scientific_name'],
+                'preferred_common_name' => (result["preferred_common_name"] || '') }
       end
     end
 

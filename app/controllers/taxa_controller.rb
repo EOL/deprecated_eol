@@ -47,7 +47,7 @@ class TaxaController < ApplicationController
   def search
     @querystring = params[:q] || params[:id]
     @search_type = params[:search_type] || 'text'
-    @page_title = "EOL Search: #{@querystring}"
+    @page_title  = "EOL Search: #{@querystring}"
     if @search_type == 'google'
       render :html => 'google_search'
     elsif @search_type == 'tag'
@@ -643,16 +643,16 @@ private
   end
 
   def get_suggested_search_results(querystring)
-    debugger if querystring =~ /major/
     suggested_results_original = SearchSuggestion.find_all_by_term_and_active(querystring, true, :order=>'sort_order')
+    return [] if suggested_results_original.blank?
     suggested_results_query = suggested_results_original.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
     suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"
     suggested_results  = TaxonConcept.search_with_pagination(suggested_results_query, params)
     suggested_results_original = suggested_results_original.inject({}) {|res, sugg_search| res[sugg_search.taxon_id] = sugg_search; res}
     suggested_results.each do |res| 
-      common_name = suggested_results_original[res["taxon_concept_id"][0].to_s].common_name 
-      res["common_name"] = [common_name]
-      res["preferred_common_name"] = common_name
+      common_name = suggested_results_original[res['taxon_concept_id'][0].to_s].common_name 
+      res['common_name'] = [common_name]
+      res['preferred_common_name'] = common_name
     end
     suggested_results
   end

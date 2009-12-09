@@ -23,7 +23,7 @@ class Comment < ActiveRecord::Base
 
   attr_accessor :vetted_by
 
-  def self.feed(taxon_concept_id = nil, max_results = 100)
+  def self.feed_comments(taxon_concept_id = nil, max_results = 100)
     min_date = 30.days.ago.strftime('%Y-%m-%d')
     result = []
     if taxon_concept_id.nil?

@@ -14,7 +14,9 @@ class FeedsController < ApplicationController
       if((taxon_concept_id = params[:id]).nil?)
         f.links << Atom::Link.new(:href => root_url)
         f.title = 'Latest Images, Text and Comments'
-        all = DataObject.feed_images_and_texts + Comment.feed
+        all_dato    = DataObject.feed_images_and_texts
+        all_comment = Comment.feed_comments
+        all = all_dato + all_comment
       else
         begin
           taxon_concept = TaxonConcept.find(taxon_concept_id)
@@ -31,7 +33,7 @@ class FeedsController < ApplicationController
 
       all.sort! {|x,y| y.created_at <=> x.created_at}
       all = all[0..100]
-
+      
       set_all_attributions(all_dato)
       
       all.each do |entry|
@@ -152,7 +154,6 @@ class FeedsController < ApplicationController
       e.updated = comment.created_at
     end
   end
-
   
   def set_all_attributions(dato)
     dato_ids = dato.map {|x| x.id}.join(',')
@@ -198,14 +199,6 @@ class FeedsController < ApplicationController
          WHERE dohe.data_object_id IN (#{dato_ids})
          AND rar.label = 'Data Supplier'
       ").all_hashes         
-    
-#      agents_hash = []
-#      suppliers.each do |m|
-#        h = {}
-#        h["data_object_id"] = m['data_object_id']
-#        h["agent"] = Agent.find([m["id"]])
-#        agents_hash << h
-#      end
     end
     return dato_id_hash(suppliers) || ""
     
@@ -221,7 +214,6 @@ class FeedsController < ApplicationController
     end   
     return info_hash   
   end
-
   
   def text_link(text, url, params = {:show_link_icon => true})
     view_helper_methods.external_link_to(text, url, params) 

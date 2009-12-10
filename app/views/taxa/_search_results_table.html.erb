@@ -10,32 +10,24 @@
         <th style="width:50%;"><%="Scientific Name"[]%></th>
       </tr>
       <% for result in results
-         tc_id = result['taxon_concept_id'][0]
-         common_name = result['best_matched_common_name'] 
-         if (result["best_matched_common_name"].blank? or result["preferred_common_name"].blank? or result["preferred_common_name"].downcase == result['best_matched_common_name'].downcase) 
-           shown_name = '' 
-         else 
-           shown_name = "shown as '#{result['preferred_common_name']}'"
-         end
-         scientific_name = result['title']
          vetted_value = ''
-           vetted_value = '_unvetted' if (result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.unknown.id)
-           vetted_value = '_untrusted' if (result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.untrusted.id)
-         top_image = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil rescue nil
+           vetted_value = '_unvetted'  if result['unknown']
+           vetted_value = '_untrusted' if result['untrusted']
          column_class = cycle('odd', 'even')
          column_class += vetted_value
       %>
         <tr>
-          <td class="<%= column_class %>"><% unless top_image.nil? %>
-            <a href="<%= url_for(:action => 'search_clicked', :id => tc_id) %>"><img
-              alt="<%= strip_tags(scientific_name) %>" title="<%= strip_tags(scientific_name) %>" src="<%= top_image.smart_medium_thumb %>"/></a>
+          <td class="<%= column_class %>"><% unless result['top_image'].nil? %>
+            <a href="<%= url_for(:action => 'search_clicked', :id => result['id']) %>"><img
+              alt="<%= strip_tags(result['title']) %>" title="<%= strip_tags(result['title']) %>"
+              src="<%= result['top_image'].smart_medium_thumb %>"/></a>
           <%end%></td>
-          <td class="<%= column_class %>"><%= link_to common_name,
-                                                      {:action => 'search_clicked', :id => tc_id},
-                                                      :method=>:post %><br /><%= shown_name %>
+          <td class="<%= column_class %>"><%= link_to result['best_matched_common_name'],
+                                                      {:action => 'search_clicked', :id => result['id']},
+                                                      :method=>:post %><br /><%= result['shown_as'] %>
                                                       </td>
-          <td class="<%= column_class %>"><%= link_to scientific_name,
-                                                      {:action => 'search_clicked', :id => tc_id},
+          <td class="<%= column_class %>"><%= link_to result['title'],
+                                                      {:action => 'search_clicked', :id => result['id']},
                                                       :method=>:post %><br /></td>          
         </tr>
       <% end %>

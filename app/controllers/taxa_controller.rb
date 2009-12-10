@@ -48,6 +48,7 @@ class TaxaController < ApplicationController
     @querystring = params[:q] || params[:id]
     @search_type = params[:search_type] || 'text'
     @page_title  = "EOL Search: #{@querystring}"
+    @parent_search_log_id = params[:search_log_id] || 0 # Keeps track of searches done immediately after other searches
     if @search_type == 'google'
       render :html => 'google_search'
     elsif @search_type == 'tag'
@@ -55,6 +56,7 @@ class TaxaController < ApplicationController
     else
       search_text
     end
+    log_search(request)
   end
 
   def search_clicked
@@ -677,6 +679,28 @@ private
 
   def empty_paginated_set
     [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
+  end
+
+  # Add an entry to the database desrcibing the fruitfullness of this search.
+  def log_search(req)
+    logged_search = SearchLog.log(
+      {:search_term                       => @querystring,
+       :search_type                       => @search_type,
+       :parent_search_log_id              => @parent_search_log_id,
+       :total_number_of_results           => get_num_results(@all_results),
+       :number_of_common_name_results     => get_num_results(@common_results),
+       :number_of_scientific_name_results => get_num_results(@scientific_results),
+       :number_of_suggested_results       => get_num_results(@suggested_results) },
+      req,
+      current_user)
+    @logged_search_id = logged_search.nil? ? '' : logged_search.id
+  end
+
+  def get_num_results(set)
+    return 0 if set.nil?
+    set.respond_to?(:total_entries) ?
+      set.total_entries :
+      set.length
   end
 
 end

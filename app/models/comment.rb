@@ -27,7 +27,7 @@ class Comment < ActiveRecord::Base
     min_date = 30.days.ago.strftime('%Y-%m-%d')
     result = []
     if taxon_concept_id.nil?
-      $result = Set.new(Comment.find_by_sql("select * from #{Comment.full_table_name} WHERE created_at > '#{min_date}'")).to_a
+      result = Set.new(Comment.find_by_sql("select * from #{Comment.full_table_name} WHERE created_at > '#{min_date}'")).to_a
     else
       query_string = %Q{
         ( SELECT c.*

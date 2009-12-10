@@ -27,6 +27,8 @@ module EOL
       # time being, we always are.  In the future, this will want to be abstracted out, so that we inherit all the common
       # behaviour and add this behaviour if it's a TC-based search:
       update_results_with_current_data
+
+      adapt_results_for_view
     end
 
     def each
@@ -36,6 +38,45 @@ module EOL
     def paginate(options)
       WillPaginate::Collection.create(options[:page], options[:per_page], @total_results) do |pager|
         pager.replace @results
+      end
+    end
+
+    def adapt_results_for_view
+      results.map! do |result|
+        result['id'] = result['taxon_concept_id'][0].to_i
+        if (result['best_matched_common_name'].blank? or
+            result['preferred_common_name'].blank? or
+            result['preferred_common_name'].downcase == result['best_matched_common_name'].downcase)
+          result['shown_as'] = '' 
+        else 
+          result['shown_as'] = "shown as '#{result['preferred_common_name']}'"
+        end
+        result['top_image'] = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil rescue nil
+        result['unknown']   = true if result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.unknown.id
+        result['untrusted'] = true if result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.untrusted.id
+        result
+      end
+    end
+
+    # This is also a nice illustration of what the view expects to see.  ;)
+    def self.adapt_old_tag_search_results_to_solr_style_results(results)
+      results.map do |tag_result|
+        tc = tag_result[0]
+        dato = tag_result[1]
+        common_name = tc.common_name(@session_hierarchy)
+        {'taxon_concept_id'          => [tc.id],
+         'id'                        => tc.id,
+         'vetted_id'                 => [tc.vetted_id],
+         'unknown'                   => tc.vetted_id == Vetted.unknown.id,
+         'untrusted'                 => tc.vetted_id == Vetted.untrusted.id,
+         'preferred_scientific_name' => [tc.scientific_name(@session_hierarchy)],
+         'common_name'               => [common_name],
+         'preferred_common_name'     => [common_name],
+         'shown_as'                  => '',
+         'best_matched_common_name'  => common_name,
+         'title'                     => tc.title(@session_hierarchy),
+         'top_image'                 => dato,
+         'top_image_id'              => dato.id }
       end
     end
 

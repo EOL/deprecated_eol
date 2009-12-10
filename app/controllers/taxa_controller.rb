@@ -109,7 +109,7 @@ class TaxaController < ApplicationController
   def search_tag
     @search = Search.new(params, request, current_user, current_agent)
     # The Search class (above) is using 'old' result sets, which we need to adapt to the Solr-style:
-    results = adapt_old_tag_search_results_to_solr_style_results(@search.search_results[:tags])
+    results = EOL::SearchResultsCollection.adapt_old_tag_search_results_to_solr_style_results(@search.search_results[:tags])
     if current_user.expertise.to_s == 'expert'
       @scientific_results = results.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length)
       @common_results = empty_paginated_set
@@ -639,7 +639,7 @@ private
   helper_method(:search_fragment_name)
 
   def redirect_to_taxa_page(result_set)
-    redirect_to :controller => 'taxa', :action => 'show', :id => result_set.first['taxon_concept_id']
+    redirect_to :controller => 'taxa', :action => 'show', :id => result_set.first['id']
   end
 
   def get_suggested_search_results(querystring)
@@ -677,22 +677,6 @@ private
 
   def empty_paginated_set
     [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
-  end
-
-  def adapt_old_tag_search_results_to_solr_style_results(results)
-    results.map do |tag_result|
-      tc = tag_result[0]
-      dato = tag_result[1]
-      common_name = tc.common_name(@session_hierarchy)
-      {'taxon_concept_id'          => [tc.id],
-       'vetted_id'                 => [tc.vetted_id],
-       'preferred_scientific_name' => [tc.scientific_name(@session_hierarchy)],
-       'common_name'               => [common_name],
-       'preferred_common_name'     => [common_name],
-       'best_matched_common_name'  => common_name,
-       'title'                     => tc.title(@session_hierarchy),
-       'top_image_id'              => dato.id }
-    end
   end
 
 end

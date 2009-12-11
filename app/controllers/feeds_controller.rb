@@ -7,8 +7,6 @@ class FeedsController < ApplicationController
   caches_page :all, :images, :texts, :comments, :expires_in => 2.minutes
 
   def all
-    #render :nothing => true
-    #return nil
     feed = Atom::Feed.new do |f|
       f.updated = Time.now
       if((taxon_concept_id = params[:id]).nil?)
@@ -66,8 +64,6 @@ class FeedsController < ApplicationController
   def make_feed(type, object_class)
     feed = Atom::Feed.new do |f|
       f.updated = Time.now
-#      f.authors << Atom::Person.new(:name => 'John Doe')
-#      f.id = "urn:uuid:60a76c80-d399-11d9-b93C-0003939e0af6"
       if((taxon_concept_id = params[:id]).nil?)
         f.links << Atom::Link.new(:href => root_url)
         f.title = "Latest #{type.capitalize}"
@@ -98,7 +94,6 @@ class FeedsController < ApplicationController
       tc = image.taxon_concepts[0]
       e.title = "New image for #{tc.quick_scientific_name(:normal,@session_hierarchy)}"
       e.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => tc.id, :image_id => image.id))
-#      e.id = "urn:uuid:1225c695-cfb8-4ebb-aaaa-80da344efa6a"
       e.updated = image.created_at
 
       content   = "<a href='#{url_for(:controller => :taxa, :action => :show, :id => tc.id, :image_id => image.id)}'><img src='#{image.smart_image}'/></a><br/>"

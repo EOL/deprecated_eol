@@ -6,6 +6,9 @@ describe 'Curator Feeds' do
     DataObject.delete_all
     @tc = build_taxon_concept()
   end
+  after(:all) do
+    truncate_all_tables
+  end
 
   it "should render: 'texts', 'images', 'comments', 'all' feeds" do
     ["/feeds/texts/", "/feeds/images/", "/feeds/comments/"].each do |feed_url|
@@ -17,9 +20,8 @@ describe 'Curator Feeds' do
     end
   end
 
-  it 'should verify that comments feed for a species with no childen in tree only has comment for that species' do
-    
-  end
+  it 'should verify that comments feed for a species with no childen in tree only has comment for that species'
+
 #  it 'should verify that images feed for a species with no childen in tree only has images for that species'
 #  it 'should verify that text feed for a species with no childen in tree only has text for that species'
 #
@@ -35,7 +37,6 @@ describe 'Curator Feeds' do
     result.body.downcase.should include('new comment')
 
     result = RackBox.request("/feeds/all/")
-    pp result.body
     result.body.downcase.should include('image')
     result.body.downcase.should include('new text')
     result.body.downcase.should include('new comment')

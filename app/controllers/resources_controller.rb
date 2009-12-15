@@ -37,10 +37,15 @@ class ResourcesController < ApplicationController
       # call to file uploading web service 
       file_path=(current_object.accesspoint_url.blank? ? 'http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s + $DATASET_UPLOAD_PATH + current_object.id.to_s + "."+ current_object.dataset_file_name.split(".")[-1] : current_object.accesspoint_url)  
       parameters='function=upload_resource&resource_id=' + current_object.id.to_s + '&file_path=' + file_path
-      response=EOLWebService.call(:parameters=>parameters)
-      if response.blank?
+      begin
+        response = EOLWebService.call(:parameters=>parameters)
+      rescue 
+        ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service has an error") if $ERROR_LOGGING
+        current_object.resource_status=ResourceStatus.upload_failed
+      end
+      if response.nil? || response.blank?
         ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service timed out") if $ERROR_LOGGING
-        current_object.resource_status=ResourceStatus.upload_failed      
+        current_object.resource_status=ResourceStatus.upload_failed
       else
         response = Hash.from_xml(response)
         if response["response"].key? "status"

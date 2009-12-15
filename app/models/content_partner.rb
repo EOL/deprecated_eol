@@ -81,6 +81,68 @@ class ContentPartner < SpeciesSchemaModel
     all_concepts.sort_by {|tc| tc['name_string'] }
   end
   
+  # has this agent submitted data_objects which are currently published
+  def has_published_resources?
+    has_resources = SpeciesSchemaModel.connection.execute(%Q{
+        SELECT 1
+        FROM agents a
+        JOIN agents_resources ar ON (a.id=ar.agent_id)
+        JOIN harvest_events he ON (ar.resource_id=he.resource_id)
+        WHERE ar.agent_id=#{id} AND he.published_at IS NOT NULL LIMIT 1}).all_hashes
+    return !has_resources.empty?
+  end
+  
+  def data_objects_actions_history
+    
+    latest_published_harvest_event_ids = []
+    agent.resources.each do |r|
+      if he = r.latest_published_harvest_event
+        latest_published_harvest_event_ids << he.id
+      end
+    end
+    return [] if latest_published_harvest_event_ids.empty?
+    
+    objects_history = ActionsHistory.find_by_sql(%Q{
+      SELECT ah.*, do.data_type_id, dt.label data_object_type_label, 'data_object' history_type
+      FROM #{DataObjectsHarvestEvent.full_table_name} dohe
+      JOIN #{DataObject.full_table_name} do ON (dohe.data_object_id=do.id)
+      JOIN #{DataType.full_table_name} dt ON (do.data_type_id=dt.id)
+      JOIN #{ActionsHistory.full_table_name} ah ON (do.id=ah.object_id)
+      WHERE dohe.harvest_event_id IN (#{latest_published_harvest_event_ids.join(',')})
+      AND ah.changeable_object_type_id=#{ChangeableObjectType.find_by_ch_object_type('data_object').id}
+    }).uniq
+    
+    objects_history.sort! do |a,b|
+      b.created_at <=> a.created_at
+    end
+  end
+  
+  def comments_actions_history
+    
+    latest_published_harvest_event_ids = []
+    agent.resources.each do |r|
+      if he = r.latest_published_harvest_event
+        latest_published_harvest_event_ids << he.id
+      end
+    end
+    return [] if latest_published_harvest_event_ids.empty?
+    
+    comments_history = ActionsHistory.find_by_sql(%Q{
+      SELECT ah.*, do.data_type_id, dt.label data_object_type_label, c.body comment_body, 'comment' history_type
+      FROM #{DataObjectsHarvestEvent.full_table_name} dohe
+      JOIN #{DataObject.full_table_name} do ON (dohe.data_object_id=do.id)
+      JOIN #{DataType.full_table_name} dt ON (do.data_type_id=dt.id)
+      JOIN #{Comment.full_table_name} c ON (do.id=c.parent_id)
+      JOIN #{ActionsHistory.full_table_name} ah ON (c.id=ah.object_id)
+      WHERE dohe.harvest_event_id IN (#{latest_published_harvest_event_ids.join(',')})
+      AND ah.changeable_object_type_id=#{ChangeableObjectType.find_by_ch_object_type('comment').id}
+    }).uniq
+    
+    comments_history.sort! do |a,b|
+      b.created_at <=> a.created_at
+    end
+  end
+  
   # the date of the last action taken (the last time a contact was updated, or a step was viewed, or a resource was added/edited/published)
   def last_action
     dates_to_compare=[self.partner_seen_step,self.partner_complete_step,self.contacts_seen_step,self.contacts_complete_step,self.licensing_seen_step,self.licensing_complete_step,self.attribution_seen_step,self.attribution_complete_step,self.roles_seen_step,self.roles_complete_step,self.transfer_overview_seen_step,self.transfer_overview_complete_step,self.transfer_upload_seen_step,self.transfer_upload_complete_step]

@@ -1,28 +1,24 @@
 <div id="report_from_eol">
   <h2><%= @sub_page_header %></h2>
-  <form>
+  
+  <% if @act_histories.empty? %>
+    Nothing To Report
+  <% end %>
+  
   <%= will_paginate(@act_histories) %>
   <ul>
-    <% n = 0%>
-    
     <% for act_history in @act_histories -%>
       <% if act_history.changeable_object_type_id == 1 -%>
-
+        
         <% act_date = time_ago_in_words(act_history.created_at) -%>  
         <% current_act = act_history.action_with_object.action_code %>
         
-        <% n += 1%>
-        <%= render :partial=> 'reports/statuses_report.html.erb',
+        <%= render :partial=> 'content_partner/reports/statuses_report.html.erb',
                 :locals=>{:act_history => act_history, 
                           :act_date => act_date, :current_act => current_act} %>
       <% end -%>
     <% end -%>    
   </ul>
-  
-  <% if (n == 0) %>
-  Nothing To Report
-  <% end %>
 
   <%= will_paginate(@act_histories) %>
-  </form>
 </div>

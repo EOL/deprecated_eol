@@ -5,84 +5,9 @@
 #
 module ReportsControllerModule
   
-  def index
-    no_resources if Agent.find(current_agent.id).agents_data == ""
-    render :template => 'reports/index'
-  end  
-  
-  def page_stats
-    no_resources if Agent.find(current_agent.id).agents_data == ""
-    @agent_id=current_agent.id
-    last_month=Time.now - 1.month
-    report_year=last_month.year.to_s
-    report_month="%02d" % last_month.month.to_s
-    @report_date="#{report_year}_#{report_month}"
-    render :template => 'reports/page_stats'
-  end
 
-  def data_object_stats
-    no_resources if Agent.find(current_agent.id).agents_data == ""
-    @agent_id=current_agent.id
-     render :template => 'reports/data_object_stats'
-  end
-  
-  def no_resources
-    render :template => 'reports/no_resources'
-  end
-  
-  def admin_whole_report
-    @act_histories = ActionsHistory.paginate(:page => params[:page] || 1, 
-      :per_page => params[:per_page] || "25", :order => 'created_at DESC')
-    @sub_page_header  = 'Changing of objects status and comments'
-    @report_type      = :admin_whole_report
-    
-    render :template => 'reports/whole_report'
-  end
-  
-  #part below is for a content partner
-  def whole_report
-    act_histories     = (valid_comments_history + valid_objects_history).sort{|a,b| b.updated_at <=> a.updated_at}    
-    @act_histories    = act_histories.paginate(:page => params[:page] || 1, 
-          :per_page => params[:per_page] || "25")        
-    @sub_page_header  = 'Changing of objects status and comments'
-    @report_type      = :whole_report
-    
-    render :template => 'reports/whole_report'
-  end
-  
-  def comments_report
-    @act_histories    = valid_comments_history.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
-    @sub_page_header  = 'Changing of comments'
-    @report_type      = :comments_report
 
-    render :template => 'reports/comments_report'
-  end
 
-  def statuses_report
-    @act_histories    = valid_objects_history.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
-    @sub_page_header  = 'Changing of objects status'
-    @report_type      = :statuses_report
-    
-    render :template => 'reports/statuses_report'
-  end
-
-  private
-  
-  def agents_data_object_ids
-    Agent.find(current_agent.id).agents_data.map {|x| x.id}
-  end
-  
-  def agents_comment_ids 
-    Comment.find_all_by_parent_id(agents_data_object_ids).map {|x| x.id if      (x.parent_type == "DataObject")}    
-  end  
-  
-  def valid_comments_history
-    ActionsHistory.find_all_by_object_id(agents_comment_ids, :conditions => ["changeable_object_type_id = ?", 2], :order => 'updated_at DESC')
-  end
-  
-  def valid_objects_history
-    ActionsHistory.find_all_by_object_id(agents_data_object_ids, :conditions => ["changeable_object_type_id = ?", 1], :order => 'updated_at DESC')
-  end
       
 end  
 # -------- end of ASh stuff --------

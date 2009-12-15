@@ -54,9 +54,9 @@ class CommentsController < ApplicationController
       @title = '' # @parent.description.blank? ? 'Above Image' : @parent.description
       @current_params = "data_object_id=#{params[:data_object_id]}"
     elsif @type == :text
-      @title          = "#{@parent.authors.collect {|a| a.full_name}.join(',<br />')}"
+      @title          = '' # "#{@parent.authors.collect {|a| a.full_name}.join(',<br />')}"
       @title_label    = 'above text'
-      @title_label   += ' by' unless @title.empty?
+      #@title_label   += ' by' unless @title.empty?
       @current_params = "data_object_id=#{params[:data_object_id]}"
     elsif @type == :taxon
       @title          = @parent.title

@@ -1,13 +1,11 @@
   <li>
-    <%#= debug() %>
-    <p> Comment 
-    "<%= truncate(act_history.comment_object.body, 30) -%>" 
-  
+    <p>Comment: "<%= truncate(act_history.comment_body, 300) -%>"
+    <br><i>
     <% if current_act == 'create' -%>
-      was added to the
+      added to the
       <%= act_history.comment_object.parent_type_name -%>
     <% elsif current_act == 'hide' || 'show' -%>
-      was changed to 
+      changed to 
       "<%= current_act -%>" 
     <% end -%>  
     on 
@@ -17,5 +15,5 @@
     by 
     <%= curator_or_plain_username(act_history.user) %>
     <%= act_date -%> ago
-   </p>
+   </i></p><br/>
   </li>

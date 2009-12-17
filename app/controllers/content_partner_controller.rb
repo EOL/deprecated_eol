@@ -16,14 +16,15 @@ class ContentPartnerController < ApplicationController
   end
 
   def content
-    page=params[:page] || '1'
+    page = params[:page] || '1'
+    per_page = 36
     @content_partner = ContentPartner.find_by_full_name(params[:id])
-    taxon_concept_results = @content_partner.nil? ? nil : @content_partner.concepts_for_gallery
+    taxon_concept_results = @content_partner.nil? ? nil : @content_partner.concepts_for_gallery(page.to_i, per_page)
     if taxon_concept_results.nil?
       @taxon_concepts = nil
       @taxon_concepts_count = 0
     else
-      @taxon_concepts = taxon_concept_results.paginate(:page => page, :per_page => 36)
+      @taxon_concepts = taxon_concept_results.paginate(:page => page, :per_page => per_page)
       @taxon_concepts_count = taxon_concept_results.length
     end
   end

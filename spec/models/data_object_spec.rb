@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../scenario_helpers'
 
 def set_content_variables
   @big_int = 20081014234567
@@ -627,7 +628,49 @@ describe DataObject do
       ref_after.should eql(full_repaired_ref)
     end
   end
-  
+
+  describe 'feeds functions' do
+    before(:all) do
+      truncate_all_tables
+      Scenario.load('foundation')
+      DataObject.delete_all
+      @tc = build_taxon_concept()
+    end
+
+    it 'should find text data objects for feeds' do
+      [nil, @tc.id].each do |tc_id|
+        res = DataObject.feed_texts(tc_id)
+        res.class.should == Array
+        data_types = res.map {|i| i.data_type_id}.uniq
+        data_types.size.should == 1
+        DataType.find(data_types[0]).should == DataType.find_by_label("Text")
+      end
+    end
+    
+    it 'should find image data objects for feeds' do
+      [nil, @tc.id].each do |tc_id|
+        res = DataObject.feed_images(tc_id)
+        res.class.should == Array
+        data_types = res.map {|i| i.data_type_id}.uniq
+        data_types.size.should == 1
+        DataType.find(data_types[0]).should == DataType.find_by_label("Image")
+      end
+    end
+
+    it 'should find image and text data objects for feeds' do
+      [nil, @tc.id].each do |tc_id|
+        res = DataObject.feed_images_and_texts(tc_id)
+        res.class.should == Array
+        data_types = res.map {|i| i.data_type_id}.uniq
+        data_types.size.should == 2
+        data_types = data_types.map {|i| DataType.find(i).label}.sort
+        data_types.should == ["Image", "Text"]
+      end
+      
+    end
+
+  end
+
   #
   # I haven't touched these yet:
   #

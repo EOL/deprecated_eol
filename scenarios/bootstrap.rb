@@ -420,6 +420,8 @@ bacteria.add_common_name("baseteir", :language => french, :preferred => true)
 bacteria.add_common_name("le grimme", :language => french, :preferred => false)
 bacteria.add_common_name("ler petit bugge", :language => french, :preferred => false)
 
+bacteria.add_scientific_name('microbia')
+
 # Another Selenium curator
 curator2 = build_curator(bacteria, :username => 'curator_two', :password => 'iliketocurate') 
 

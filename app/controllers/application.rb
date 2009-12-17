@@ -120,12 +120,14 @@ class ApplicationController < ActionController::Base
   end
 
   # Redirect to the URL stored by the most recent store_location call or to the passed default.
-  def redirect_back_or_default(default=root_url)
+  def redirect_back_or_default(default=root_url(:protocol => "http"))
     # be sure we aren't returning the login, register or logout page
     if valid_return_to_url
-      redirect_to(CGI.unescape(return_to_url), :protocol => "http://")
+      url = CGI.unescape(return_to_url) 
+      url = {:controller => url, :protocol => "http"} unless  url.match("://")
+      redirect_to(url)
     else
-      redirect_to(default, :protocol => "http://")
+      redirect_to(default)
     end
     store_location(nil)
     return false

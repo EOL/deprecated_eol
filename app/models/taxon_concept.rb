@@ -837,7 +837,14 @@ EOIUCNSQL
                          WHERE tcn.taxon_concept_id = ? AND vern = 1
                          ORDER BY language_label, string', id])
   end
-  
+
+  # Unlike all_common_names, this method doesn't return language information.  In theory, they are all "scientific", anyway.
+  def all_scientific_names
+    Name.find_by_sql(['SELECT names.string
+                         FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
+                         WHERE tcn.taxon_concept_id = ? AND vern = 0', id])
+  end
+
   def self.common_names_for?(taxon_concept_id)
     return TaxonConcept.count_by_sql(['SELECT 1 FROM taxon_concept_names tcn 
                                         WHERE taxon_concept_id = ? 

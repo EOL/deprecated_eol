@@ -31,7 +31,7 @@ module EOL
       # TODO - clearly, I don't like the hard-coded field.  We want to pass in the search_field as an option... but in a nice
       # way.  Later.
       def prepare_querystring(query, options)
-        field = options[:type] == :common ? 'common_name' : 'preferred_scientific_name'
+        field = options[:type] == :common ? 'common_name' : 'scientific_name'
         literal_query = "#{field}:\"#{query}\""
         query = query.gsub /\s+/, ' '
         query = query.split(' ').map {|w| "+#{w}"}.join(' ')

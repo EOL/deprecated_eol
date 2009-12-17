@@ -34,7 +34,8 @@ class ContentPartner < SpeciesSchemaModel
     content_partners[0]
   end
   
-  def concepts_for_gallery()
+  def concepts_for_gallery(page, per_page)
+    page = page - 1
     results = SpeciesSchemaModel.connection.execute(%Q{
         SELECT
         ar.resource_id
@@ -51,34 +52,53 @@ class ContentPartner < SpeciesSchemaModel
     
     return nil if resource.nil?
     
-    all_concepts = SpeciesSchemaModel.connection.execute(%Q{
-        SELECT tc.id, n.string name_string, do.object_cache_url
+    count_result = SpeciesSchemaModel.connection.execute(%Q{
+        SELECT count(distinct t.hierarchy_entry_id) count
         FROM harvest_events_taxa het
         JOIN taxa t ON (het.taxon_id=t.id)
-        JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
-        JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id)
-        JOIN names n ON (he.name_id=n.id)
-        LEFT JOIN (
-          top_images ti
-          JOIN data_objects do ON (ti.data_object_id=do.id AND ti.view_order=1)
-        ) ON (he.id=ti.hierarchy_entry_id)
-        
-        
-
-        WHERE het.harvest_event_id=#{resource.latest_published_harvest_event.id} AND tc.published=1 AND tc.supercedure_id=0}).all_hashes.uniq
+        LEFT JOIN resources_taxa rt ON (t.id=rt.taxon_id)
+        WHERE het.harvest_event_id=#{resource.latest_published_harvest_event.id}}).all_hashes
+    total_taxa_count = count_result[0]['count'].to_i
     
-    used_concepts = []
-    all_concepts.each do |concept|
-      next if used_concepts[concept['id'].to_i]
-      used_concepts[concept['id'].to_i] = 1
-      if concept['object_cache_url'].nil?
-        concept['image_src'] = '/images/eol_logo_gray.gif' 
-      else
-        concept['image_src'] = DataObject.image_cache_path(concept['object_cache_url'], :medium)
+    sorted_hierarchy_entries = SpeciesSchemaModel.connection.execute(%Q{
+        SELECT t.hierarchy_entry_id, rt.source_url
+        FROM harvest_events_taxa het
+        JOIN taxa t ON (het.taxon_id=t.id)
+        LEFT JOIN resources_taxa rt ON (t.id=rt.taxon_id)
+        WHERE het.harvest_event_id=#{resource.latest_published_harvest_event.id}
+        GROUP BY t.hierarchy_entry_id
+        ORDER BY t.scientific_name LIMIT #{page*per_page}, #{per_page} }).all_hashes
+    
+    start_index = page * per_page
+    end_index = start_index + per_page
+    
+    all_concepts = []
+    for i in 0...total_taxa_count
+      all_concepts[i] = {}
+      if i >= start_index && i < end_index 
+        
+        entry = sorted_hierarchy_entries[i-start_index]
+        name_and_image = SpeciesSchemaModel.connection.execute("SELECT he.taxon_concept_id, n.string, do.object_cache_url
+          FROM hierarchy_entries he
+          JOIN names n ON (he.name_id=n.id)
+          LEFT JOIN (
+            top_images ti
+            JOIN data_objects do ON (ti.data_object_id=do.id AND ti.view_order=1)
+          ) ON (he.id=ti.hierarchy_entry_id)
+          WHERE he.id=#{entry['hierarchy_entry_id']} LIMIT 1").all_hashes
+        
+        all_concepts[i]['id'] = name_and_image[0]['taxon_concept_id']
+        all_concepts[i]['name_string'] = name_and_image[0]['string']
+        all_concepts[i]['partner_source_url'] = entry['source_url']
+        if name_and_image[0] && !name_and_image[0]['object_cache_url'].nil?
+          all_concepts[i]['image_src'] = DataObject.image_cache_path(name_and_image[0]['object_cache_url'], :medium)
+        else
+          all_concepts[i]['image_src'] = '/images/eol_logo_gray.gif'
+        end
       end
     end
     
-    all_concepts.sort_by {|tc| tc['name_string'] }
+    all_concepts
   end
   
   # has this agent submitted data_objects which are currently published

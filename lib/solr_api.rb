@@ -65,13 +65,14 @@ class SolrAPI
     data = []
     taxon_concepts.each do |taxon_concept|
       images = taxon_concept.images
-      data << {:common_name => taxon_concept.all_common_names.map {|n| n.string},
+      data << {:common_name => taxon_concept.all_common_names.map {|n| n.string },
                :preferred_scientific_name => [taxon_concept.scientific_name],
+               :scientific_name => taxon_concept.all_scientific_names.map {|n| n.string },
                :taxon_concept_id => [taxon_concept.id],
                :vetted_id => taxon_concept.vetted_id,
                :published => taxon_concept.published,
                :supercedure_id => taxon_concept.supercedure_id,
-               :top_image_id => images.blank? ? '' : taxon_concept.images.first.id}
+               :top_image_id => images.blank? ? '' : taxon_concept.images.first.id }
     end
     create(data)
   end
@@ -82,11 +83,11 @@ class SolrAPI
     request = Net::HTTP::Post.new(@server_url.path + "/#{method}")
     request.body = data
     request.content_type = 'application/xml'
-    response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.request(request)}
+    response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.request(request) }
   end
 
   def get(query)
-    response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.get(@server_url.path + "/select/?q=*:*&version=2.2&start=0&rows=10&indent=on&wt=json")}
+    response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.get(@server_url.path + "/select/?q=*:*&version=2.2&start=0&rows=10&indent=on&wt=json") }
     response
   end
 

@@ -11,7 +11,7 @@
 
   <ul class="bulletlist">
     <%# NOT WORKING RIGHT NOW: %>
-    <!-- <li><%=link_to("Latest Changes", :controller => :feeds, :action => :all, :id => @taxon_concept.id)%> <%=link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @taxon_concept.id)%></li> -->
+    <li><%=link_to("Latest Changes", :controller => :feeds, :action => :all, :id => @taxon_concept.id)%> <%=link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @taxon_concept.id)%></li>
     <li><a href="#" onclick="JavaScript:eol_show_pop_up('contribute-info','contribute_photos-help','<%=@taxon_concept.name(:canonical)%>');return false;"><%="Submit an image"[]%></a></li>
     <li><a href="#" onclick="JavaScript:eol_show_pop_up('contribute-info','contribute_text-help','<%=@taxon_concept.name(:canonical)%>');return false;"><%="Submit text"[]%></a></li>
     <li><a href="/content/page/help_build_eol"><%="More information on how to help"[]%></a></li>

@@ -29,7 +29,9 @@
                     <%= form.password_field 'password', :size=>'16',:maxlength=>'30' %>
                     &nbsp;&nbsp;
                     <%=link_to("Forgot password?"[],:action=>'forgot_password')%>
-				<br /><br />			
+				<br />
+<%- if false -%><%# removing openid %>
+        < br />			
 				<%="or"[]%>
         <br />
         <div id="openid">
@@ -61,6 +63,7 @@
             <%= link_to 'What is OpenID?', 'http://openid.net/',:target=>'_blank' %> | <a href="#" onclick="Element.toggle('open_id_instructions');return false;">How do I log in with OpenID?</a> 
           </div>
           <br />
+<%- end -%><%# end of removing openid %>
           <label for="remember_me"><%= "Remember Me"[]%></label>
           <%= check_box_tag 'remember_me'%> <%="check to stay logged in automatically for up to two weeks (do NOT use on public computers)"[:remember_me_message]%>
             	<br /><br />

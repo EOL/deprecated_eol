@@ -28,6 +28,20 @@ describe 'Content Partners' do
       with_tag('a[href*=?]', /logout/)
     end
   end
+  
+  it 'content partner should have a gallery' do
+    agent = Agent.gen(:full_name => 'gallery_test_agent')
+    cp = ContentPartner.gen(:agent => agent)
+    image = build_data_object('Image', "the image description", :content_partner => cp)
+    
+    # the data_object builder doesn't properly associate the image's taxon with the resource, so that's done here
+    cp.agent.resources[0].harvest_events.each do |he|
+      he.taxa << image.taxa[0]
+    end
+    body = request("/content_partner/content/#{cp.agent.full_name}").body
+    body.should include("#{cp.agent.full_name} has contributed to a total of 1 pages")
+    body.should include("pages/#{image.taxa[0].hierarchy_entry.taxon_concept.id}")
+  end
 
 
 end

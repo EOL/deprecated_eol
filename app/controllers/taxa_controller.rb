@@ -129,7 +129,7 @@ class TaxaController < ApplicationController
     else
       @suggested_results  = get_suggested_search_results(@querystring)
       # Are we passing params here for pagination?
-      @scientific_results = TaxonConcept.search_with_pagination(@querystring, params)
+      @scientific_results = TaxonConcept.search_with_pagination(@querystring, params.merge(:type => :scientific))
       @common_results     = TaxonConcept.search_with_pagination(@querystring, params.merge(:type => :common))
       
       @all_results = (@suggested_results + @scientific_results + @common_results)

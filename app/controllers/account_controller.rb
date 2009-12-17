@@ -121,7 +121,7 @@ class AccountController < ApplicationController
       if user_with_forgotten_pass
         Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
         flash[:notice] = "Check your email to reset your password"[:reset_password_instructions_emailed] #TODO remove old add new translation
-        redirect_to root_url 
+        redirect_to root_url(:protocol => "http")  # need protocol for flash to survive
       else
         flash.now[:notice] = "No matching accounts found"[:cannot_find_user_or_email] #TODO remove old add new translation
       end
@@ -132,9 +132,9 @@ class AccountController < ApplicationController
     password = params[:user][:entered_password]
     password_confirmation = params[:user][:entered_password_confirmation]
     user = User.find(params[:user][:id])
-    user.update_attributes(:entered_password => password, :password => password, :entered_password_confirmation => password_confirmation)
+    user.update_attributes(:active => true, :entered_password => password, :password => password, :entered_password_confirmation => password_confirmation)
     flash[:notice] = "Your password is updated"[:user_password_updated_successfully]
-    redirect_to root_url
+    redirect_to root_url(:protocol => "http")
   end
 
   def reset_password
@@ -259,7 +259,7 @@ class AccountController < ApplicationController
   def go_to_forgot_password(user)
     flash[:notice] = "Expired link, you can generate it again"[:expired_reset_password_link]
     delete_password_reset_token(user)
-    redirect_to '/account/forgot_password'
+    redirect_to :action => "forgot_password", :protocol => "http"
   end
 
   def password_authentication(username, password, remember_me)

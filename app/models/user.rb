@@ -415,8 +415,8 @@ class User < ActiveRecord::Base
     return true unless self.attributes.keys.include?("filter_content_by_hierarchy")
   end
 
-  def password_reset_url(port)
-    port = port.to_s == "80" ? "" : ":" + port.to_s
+  def password_reset_url(original_port)
+    port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
     password_reset_token = Digest::SHA1.hexdigest(rand(10**30).to_s)
     success = self.update_attributes(:password_reset_token => password_reset_token, :password_reset_token_expires_at => 24.hours.from_now)
     http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"

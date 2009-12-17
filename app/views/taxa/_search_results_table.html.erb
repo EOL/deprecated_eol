@@ -5,9 +5,9 @@
               
     <table class="results_table" cellspacing="0" summary="<%= title %>" style="width:100%;">
       <tr>
-        <th style="width:152px;"><%="Image"[]%></th>
-        <th style="width:50%;"><%="Common Name"[]%></th>
-        <th style="width:50%;"><%="Scientific Name"[]%></th>
+        <th style="width:152px;"><%= "Image"[] %></th>
+        <th style="width:50%;"><%=   "Common Name"[] %></th>
+        <th style="width:50%;"><%=   "Scientific Name"[] %></th>
       </tr>
       <% for result in results
          vetted_value = ''
@@ -19,16 +19,17 @@
         <tr>
           <td class="<%= column_class %>"><% unless result['top_image'].nil? %>
             <a href="<%= url_for(:action => 'search_clicked', :id => result['id']) %>"><img
-              alt="<%= strip_tags(result['title']) %>" title="<%= strip_tags(result['title']) %>"
+              alt="<%= strip_tags(result['best_matched_scientific_name']) %>"
+              title="<%= strip_tags(result['best_matched_scientific_name']) %>"
               src="<%= result['top_image'].smart_medium_thumb %>"/></a>
           <%end%></td>
           <td class="<%= column_class %>"><%= link_to result['best_matched_common_name'],
                                                       {:action => 'search_clicked', :id => result['id']},
-                                                      :method=>:post %><br /><%= result['shown_as'] %>
+                                                      :method=>:post %><br /><%= result['common_shown_as'] %>
                                                       </td>
-          <td class="<%= column_class %>"><%= link_to result['title'],
+          <td class="<%= column_class %>"><%= link_to result['best_matched_scientific_name'],
                                                       {:action => 'search_clicked', :id => result['id']},
-                                                      :method=>:post %><br /></td>          
+                                                      :method=>:post %><br /><%= result['scientific_shown_as'] %></td>          
         </tr>
       <% end %>
     </table>    

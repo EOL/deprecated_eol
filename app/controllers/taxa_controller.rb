@@ -43,20 +43,19 @@ class TaxaController < ApplicationController
     raise "boom" 
   end
 
-  # TODO - log that a search was performed
   def search
     @querystring = params[:q] || params[:id]
     @search_type = params[:search_type] || 'text'
     @page_title  = "EOL Search: #{@querystring}"
     @parent_search_log_id = params[:search_log_id] || 0 # Keeps track of searches done immediately after other searches
+    log_search(request)
     if @search_type == 'google'
-      render :html => 'google_search'
+      render :action => 'google_search'
     elsif @search_type == 'tag'
       search_tag
     else
       search_text
     end
-    log_search(request)
   end
 
   def search_clicked

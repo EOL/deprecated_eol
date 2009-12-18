@@ -215,7 +215,7 @@ class TaxonConcept < SpeciesSchemaModel
       TaxonConcept.find(:all, :conditions => ['id IN (?)',
         [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 392557,
          484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558,
-         253397, 740699, 1044544, 802455, 1194666]]).sort_by(&:quick_scientific_name)
+         253397, 740699, 1044544, 683359, 1194666]]).sort_by(&:quick_scientific_name)
     end
   end
 

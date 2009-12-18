@@ -24,11 +24,11 @@ class ContentPartner < SpeciesSchemaModel
   before_save :blank_not_null_fields
   
   def self.find_by_full_name(full_name)
-    content_partners = ContentPartner.find_by_sql(%Q{
+    content_partners = ContentPartner.find_by_sql([%Q{
         SELECT cp.*
         FROM agents a
         JOIN content_partners cp ON (a.id=cp.agent_id)
-        WHERE a.full_name='#{full_name}' })
+        WHERE a.full_name=? }, full_name])
     
     return nil if content_partners.nil?
     content_partners[0]

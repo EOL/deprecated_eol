@@ -629,6 +629,7 @@ end
 Factory.define :name do |name|
   name.association         :canonical_form
   name.string              { Factory.next(:species) }
+  name.clean_name          { |n| Name.prepare_clean_name(n.string) }
   name.canonical_verified  0 # I don't know that Rails ever uses this...
   name.italicized_verified 0 # I don't know that Rails ever uses this...
   # The italicized can NEVER be blank.  Even for common names.  ...Not that you can trust it for common names, but

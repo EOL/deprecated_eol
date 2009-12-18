@@ -5,7 +5,7 @@ namespace :solr do
   task :start => :environment do
     puts "** Starting Background Solr instance for EOL..."
     if RUBY_PLATFORM =~ /w(in)?32$/
-      abort('This command does not work on Windows. Please use rake sunspot:solr:run to run Solr in the foreground.')
+      abort('This command does not work on Windows. Please use rake solr:run to run Solr in the foreground.')
     end
     port = $SOLR_SERVER.gsub(/^.*:(\d+).*$/, '\\1')
     FileUtils.cd(File.join($SOLR_DIR)) do

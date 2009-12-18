@@ -46,6 +46,20 @@ class Name < SpeciesSchemaModel
     string
   end
 
+  # Duplicate of clean_name function from php code
+  def self.clean_name(name)
+    name = name.gsub(/[.,;]/," ").gsub(/[\-\(\)\[\]\{\}:&\*?×]/,' \0 ').gsub(/ (and|et) /," & ")
+    name = name.gsub(/\s+/, " ").downcase
+    name = name.gsub("À","à").gsub("Â","â").gsub("Å","å").gsub("Ã","ã").gsub("Ä","ä")
+    name = name.gsub("Á","á").gsub("Æ","æ").gsub("C","c").gsub("Ç","ç").gsub("Č","č")
+    name = name.gsub("É","é").gsub("È","è").gsub("Ë","ë").gsub("Í","í").gsub("Ì","ì")
+    name = name.gsub("Ï","ï").gsub("Ň","ň").gsub("Ñ","ñ").gsub("Ñ","ñ").gsub("Ó","ó")
+    name = name.gsub("Ò","ò").gsub("Ô","ô").gsub("Ø","ø").gsub("Õ","õ").gsub("Ö","ö")
+    name = name.gsub("Ú","ú").gsub("Ù","ù").gsub("Ü","ü").gsub("R","r").gsub("Ŕ","ŕ")
+    name = name.gsub("Ř","ř").gsub("Ŗ","ŗ").gsub("Š","š").gsub("Š","š").gsub("Ş","ş")
+    name.gsub("Ž","ž").gsub("Œ","œ").strip
+  end 
+
 end
 
 # == Schema Info

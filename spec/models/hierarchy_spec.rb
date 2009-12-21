@@ -25,4 +25,9 @@ describe Hierarchy do
   # i have no idea how to create HierarchyEntries without having to create 
   # a lot of additional dependencies
 
+  it 'should be able to find the Encyclopedia of Life Curators hierarchy with #eol_curators' do
+    curators_hierarchy = Hierarchy.find_by_label('Encyclopedia of Life Curators') || Hierarchy.gen(:label => 'Encyclopedia of Life Curators')
+    Hierarchy.eol_curators.should == curators_hierarchy
+  end
+
 end

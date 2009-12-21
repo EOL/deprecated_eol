@@ -73,7 +73,7 @@ class Name < SpeciesSchemaModel
     name_string = name_string.strip.gsub(/\s+/,' ') if name_string.class == String
     return nil if name_string.blank?
     
-    clean_name_string = Name.prepare_clean_name name_string # JRice changed this from just clean_name name_string... should I have?
+    clean_name_string = Name.prepare_clean_name name_string
     common_name = Name.find_by_clean_name(clean_name_string)
     return common_name unless common_name.blank?
     

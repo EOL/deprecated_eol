@@ -3,7 +3,7 @@ require 'nokogiri'
 
 # describe 'Taxa page (HTML)' do
 
-describe '/data_object/1/tags' do
+describe 'data object tags' do
   before(:all) do
     Scenario.load :foundation
     taxon_concept = build_taxon_concept(:images => [{}])

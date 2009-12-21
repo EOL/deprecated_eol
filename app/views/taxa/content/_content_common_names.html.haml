@@ -4,11 +4,13 @@
     Sorry! There was an error sending the curation request; please try again later.
   #common_names_spinner{ :style => "text-align:right;float:right;" }
     = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
-  = form_tag "/pages/#{@taxon_concept.id}/set_preferred_name", :method => :put, :id => 'set_preferred_name'
+
 #common_names_wrapper.text_object
   - if is_curator
     %p
-      = "As a curator, you can select the preferred common name in your default language by selecting the radio button next to the name.  This will select the common name shown on the top of the page and in the classification browser.  Note that due to data import issues, you may not be able to select any name even if it is in your language.  Future updates will address this issue."[:common_names_message]
+      = "As a curator, you can select the preferred common name in your default language by selecting the radio button next to the name.  This will select the common name shown on the top of the page and in the classification browser."[:common_names_message]
+    = form_tag "/pages/#{@taxon_concept.id}/set_preferred_name", :method => :put, :id => 'set_preferred_name'
+  %br
   %table.results_table{ :cellspacing => "0", :summary => "Common Names" }
     %tr
       %th{ :scope => "col" }
@@ -20,7 +22,7 @@
     - unless @content[:items].blank?
       - # Render each name in the current user's preferred language:
       - @content[:items].each do |name|
-        - next unless name[:language_id] == current_user.language_id
+        - next unless name[:language_id].to_i == current_user.language_id
         = render(:partial => 'taxa/content/content_common_names_row', |
             :locals => { |
             :column_class   => cycle('odd', 'even'), |
@@ -34,7 +36,7 @@
             }) |
       - # Render every OTHER name (not in her preferred language):
       - @content[:items].each do |name|
-        - next if name[:language_id] == current_user.language_id
+        - next if name[:language_id].to_i == current_user.language_id
         = render(:partial => 'taxa/content/content_common_names_row', |
            :locals => { |
            :column_class   => cycle('odd', 'even'), |
@@ -46,13 +48,19 @@
            :name_string    => name[:name_string], |
            :preferred      => name[:preferred] |
            }) |
+  = "</form>" if is_curator
+  %br
+  - if is_curator
+    - form_tag "/pages/#{@taxon_concept.id}/common_names", :method => :post, :id => 'add_common_name' do
+      = label_tag :name, 'Add a new common name:'
+      = text_field :name, :string, :size => 20
+  %br
   .divider
   .content-attribution-area
     .attribution-header.text-area-header
       = "Source and Additional Information"[]
     %span.source
       Names come from multiple sources.
-= "</form>" if is_curator
 :javascript
   if (!EOL) var EOL = {};
   if (!EOL.CommonNameCuration) EOL.CommonNameCuration = {};

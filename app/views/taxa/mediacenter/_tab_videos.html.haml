@@ -1,0 +1,62 @@
+- showing_untrusted_video = false
+- showing_unknown_video = false 
+- unless @video_collection.nil?
+  - @video_collection.each do |video|
+    - showing_untrusted_video = true if video.untrusted?
+    - showing_unknown_video = true if video.unknown?
+
+#media-videos.wrapper-mc.clearfix{ :style => "display: none;" }
+  #video-player
+    - if @taxon_concept.videos.blank? == true && @videos.blank? == false && params[:vet_flag] != "false"
+      No authoritative videos available.
+      = link_to 'View unvetted videos for this group.', {:action=>"show", :vet_flag=>"false"}
+    - else
+      = "Select a video to the right to begin playback."[:select_video]
+  
+  #video-list.mc-info
+    
+    - unless @video_collection.blank?
+      .mc-header
+        %h3= "Videos"
+        %hr
+    - else
+      %span#left_top_text
+        No videos are available.
+
+    - unless @video_collection.blank?
+      %p
+      %br
+      - if showing_unknown_video
+        #unknown-video-warning-box
+        %span
+          = "Items in yellow are not trusted."[]
+      - if showing_untrusted_video
+        #untrusted-video-warning-box
+          %span= "Items in red are not trusted."[]
+      #video-collection
+        %ul
+          - for video in @video_collection
+            - video_title = video.object_title || ''
+            - # NOTE: JRice added a little sub here to take the first sentence from long desc's...
+            - video_title = truncate(video.description.sub(/\.\s\s.*$/, '.'),150) if video_title == ''
+            - video_title = truncate(video.scientific_name,150) if video_title == ''
+            - if video.untrusted?
+              .untrusted-background-color
+            - elsif video.unknown?
+              .unknown-background-color
+            - else
+              %div
+            %li
+              = link_to_function(video_title, "eol_update_video(#{video_hash(video, @taxon_concept.id)})", :title=>video_title)
+      / end video-collection
+      .mc-video-notes
+        %span#video-notes
+        %hr
+    -# end unless @video_collection.blank? 
+  / end video-list
+  - unless @video_collection.blank?
+    .attribution_link{ :title => "More information", :style => "display: none" }    
+      = link_to('', attribution_data_object_path(@video_collection[0]),             |
+        :id => 'video_attributions', :class => 'popup-link attribution-icon',       |
+        :alt => 'More information')                                                 |
+/ end media-videos

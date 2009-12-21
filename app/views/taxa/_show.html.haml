@@ -1,0 +1,82 @@
+%input#data_objects_to_log{ :name => "data_objects_to_log", :type => "hidden", :value => @data_object_ids_to_log.join(',') }
+%input#taxon_concept_to_log{ :name => "data_objects_to_log", :type => "hidden", :value => @taxon_concept.id }
+- # default to regular page separator if we can't find a specific kingdom
+- page_separator="page-separator-general"
+- if entry_in_col = @taxon_concept.find_ancestor_in_hierarchy(Hierarchy.default)
+  - page_separator="page-separator-#{entry_in_col.kingdom.canonical_form.string.downcase}"
+.page-separator{ :id => page_separator }
+#page-title
+  - title_names_class =  (@taxon_concept.vetted_id != Vetted.trusted.id) ? "unvetted-title-names" : ""
+  %div{:class => title_names_class}
+    %h1
+      = hh(@taxon_concept.title(@session_hierarchy))
+    %h2
+      = hh(@taxon_concept.subtitle(@session_hierarchy))
+    %hr
+    %span.classification-attribution-name
+      == #{@taxon_concept.entry.rank_label.capitalize} recognized by |
+        #{agent_icons_partial(@taxon_concept.classification_attribution(@session_hierarchy).reverse, |
+          :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', |
+          :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)} |
+    %br
+    #post-info.clearfix
+      %span.iucn-status
+        - if @taxon_concept.iucn_conservation_status != ''
+          = "IUCN Red List Status"[]
+          \:
+          %span.iucn-status-value
+            = external_link_to(@taxon_concept.iucn_conservation_status,@taxon_concept.iucn_conservation_status_url)
+        - else
+          &nbsp;
+      %span.page-status
+        Showing:
+        = current_user.expertise.to_s == 'expert' ? link_to('scientific names', taxon_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'})
+      %hr
+/ end page title
+= render(:partial => 'mediacenter', :locals => {:current_user => current_user})
+/ page content
+#page-content-bgfaux
+  #page-content.clearfix
+    / left page content
+    #left-page-content
+      %input#current_taxon_concept_id{ :name => "current_taxon_concept_id", :type => "hidden", :value => @taxon_concept.id }
+      %input#current_content{ :name => "current_content", :type => "hidden", :value => @category_id }
+      %input#canonical_form{ :name => "canonical_form", :type => "hidden", :value => strip_tags(@taxon_concept.canonical_form) }
+      \&nbsp;&nbsp;
+      %a.smalltext{ :href => "#", :onclick => "JavaScript:eol_show_pop_up('slider-help','slider-help');return false;" }
+        = "What happened to the slider?"[]
+      #slider-help.popup{ :style => "display:none;" }
+      %h4#toc-header.margin-header.left-margin-header
+        = "Table of Contents"[]
+      %ul#toc
+        - unless @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted).blank?
+          - for item in @taxon_concept.table_of_contents(:vetted_only=>true)
+            - item_class = item.is_child? ? 'li-sub' : ''
+            - # NOTE: yes, we really DO need to show items with no content: they can be "parents" to other items.  Do not remove.
+            %li{ :class => item_class }
+              
+              - if item.has_content?
+                %a{ :href => url_for(:action=>'show'), :id => @taxon_concept.id, :category_id => item.category_id, :class => "toc_item #{[@category_id].include?(item.category_id) ? "active" : nil}", :title => item.label, :onclick => "eol_update_content_area(#{@taxon_concept.id},#{item.category_id}, #{item.allow_user_text?});this.className = 'active toc_item';return false;" }
+                  = render :partial => 'table_of_content_item', :locals=>{:item=>item}
+              - else
+                %span.no_toc_link
+                  = render :partial => 'table_of_content_item', :locals=>{:item=>item}
+        %li.add_text
+          .add_text_button
+            = link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_button', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id))
+          = link_to("Add New", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_text', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id) )
+        %li.multi_new_text_error{ :style => "display:none;" }
+          = "Only one text object can be edited at a time."[]
+      %hr
+    / end left page content
+    #center-page-content
+      = render :partial => 'content'
+    #center-page-content-loading{ :style => "display:none;" }
+      = image_tag 'indicator_arrows_black.gif', :alt=>'Working...'
+    #right-page-content
+      = render :partial => 'internal_nav'
+      - @taxon_concept.ping_host_urls.each do |host_url|
+        %img{ :src => host_url, :alt => "this image is giving credit to the content provider and should not render.", :style => "display:none;" }
+  / end page-content
+/ end page-content-bgfaux
+= render :partial => 'curator_citation'

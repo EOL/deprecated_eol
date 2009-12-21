@@ -1,0 +1,72 @@
+- we_have_a_taxon_comment = @comment and @comment.taxa_comment?
+%a{ :name => "media-center" }
+#page-media-center
+  #media-center.clearfix
+    #left-mc
+      - # Media Center navigation (tabs)
+      %p.hide
+        = "Media Center Navigation"[]
+      %ul#tab_media_center
+        %li#image
+          %a{ :href => "#media-images", :title => "Image"[] }
+            = "Image"[]
+            %span
+        - if @taxon_concept.has_map
+          %li#maps
+            %a#maps-link{ :href => "#media-maps", :title => "Maps"[] }
+              = "Maps"[]
+              %span
+        - if @taxon_concept.has_video
+          %li#videos
+            %a{ :href => "#media-videos", :title => "Videos"[] }
+              = "Videos"[]
+              %span
+        %li#taxa-comments
+          %a{ :href => "#media-taxa-comments", :title => "Comments"[] }
+            = "Comments"[]
+            %span
+      %hr
+      = render :partial=>'taxa/mediacenter/tab_images'
+      %hr
+      = render :partial=>'taxa/mediacenter/tab_sounds'
+      %hr
+      = render :partial=>'taxa/mediacenter/tab_maps'
+      %hr
+      = render :partial=>'taxa/mediacenter/tab_videos'
+      %hr
+      = render :partial=>'taxa/mediacenter/tab_comments', :locals=> {:we_have_a_taxon_comment => we_have_a_taxon_comment}
+      %hr
+    / endleft-mc
+  / end media-center
+  #sliding-close
+    #textarea
+      = "Classification"[]
+      \:
+      %a{ :href => "#", :onclick => "JavaScript:eol_change_to_text_browser();return false;" }
+        = "Text"[]
+      |
+      %a{ :href => "#", :onclick => "JavaScript:eol_change_to_flash_browser();return false;" }
+        = "Graphic"[]
+      |
+      %a#classification-attribution-button.static-popup-link.attribution-icon{ :href => "#{@taxon_concept.id}/classification_attribution", :onclick => "return false;" }
+    / end textarea
+    - browser_flash_style = current_user.default_taxonomic_browser == "text" ? "display:none" : ""
+    #browser-flash{:style => browser_flash_style, :class => "wrapper-mc clearfix"}
+      - if current_user.flash_enabled
+        %script{ :src => "/javascripts/flashobjects.js", :type => "text/javascript" }
+        - hierarchy_entry_id = @taxon_concept.entry_in_hierarchy(@session_hierarchy).nil? ? 0 : @taxon_concept.entry_in_hierarchy(@session_hierarchy).id;
+        - if hierarchy_entry_id == 0
+          - hierarchy_entry_id = @taxon_concept.find_ancestor_in_hierarchy(@session_hierarchy).nil? ? 0 : @taxon_concept.find_ancestor_in_hierarchy(@session_hierarchy).id;
+
+          :javascript
+            object_eol_nav2('/taxa/', '/flashxml/', '<%= hierarchy_entry_id %>.xml');
+      - else
+        You must have the free Flash Player installed to view the flash version of the browser.
+    / end browser-flash
+    #browser-text{:style => (current_user.default_taxonomic_browser == "flash" ? "display:none" : "")}
+      = render(:partial => 'navigation/tree_view', :locals => {:current_user => current_user})
+    / end browser-text
+  / end sliding-close
+/ end page-media-center
+:javascript
+  var tabs=new Control.Tabs('tab_media_center');

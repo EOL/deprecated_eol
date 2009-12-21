@@ -1,0 +1,18 @@
+<% form_tag(search_url(:protocol => "http"), :method => "get", :onsubmit => "return EOL.validate_search_parameters(this, false);") do -%>
+
+  <div class="search_box">
+    <fieldset>
+      <%= hidden_field_tag(:search_log_id, @logged_search_id) if @logged_search_id%>
+      <%= text_field_tag :q, params[:q] || "", {:size=>"20", :maxlength=>"250", :onfocus=>"this.select();", :class=>"left"} %>
+      &nbsp;<input name="search_image" class="search_image"   value="" title="<%="Find"[]%>" type="submit"  />
+      <%=image_tag("indicator_arrows_black.gif", :style => "display:none;", :id => "top_search_spinner")%>
+    </fieldset>
+  </div>
+  <div class="search_options">
+    <%= render :partial=>"shared/google_custom_search_params"%>
+    <%= radio_button_tag("search_type", "text", (['text', nil].include? @search_type)) %> Names
+    <%= radio_button_tag("search_type", "tag", @search_type == "tag") %> Tags
+    <%= radio_button_tag("search_type", "google", @search_type == "google") %> Full-text
+  </div>
+  <span id="search_message"></span>
+<% end %>

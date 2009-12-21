@@ -1,0 +1,8 @@
+%span
+  %ul
+    %li{:class => "unpublished_icon status_icon", :style => (item.has_unpublished_content ? nil : "display:none"), :title => "Unpublished"}
+    %li{:class => "published_icon status_icon", :style => (item.has_published_content ? nil : "display:none"), :title => "Published"}
+    %li{:class => "inappropriate_icon status_icon", :style => (item.has_inappropriate_content ? "" : "display:none"), :title => "Inappropriate"}  
+    %li{:class => "invisible_icon status_icon", :style => (item.has_invisible_content ? nil : "display:none"), :title => "Hidden"}
+
+= item.label

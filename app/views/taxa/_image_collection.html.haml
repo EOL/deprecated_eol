@@ -1,0 +1,126 @@
+- update_attribution_on_load ||= false
+-# 
+  TODO this generation of a big ol' hash is a big gross and seemingly difficult to maintain
+  *especially* now that it has to account for things like vetted status, etc ...
+  if the client-side needs this data, we could render JSON ... but i'm thinking
+  that this is used to do some client-side logic that renders HTML which could,
+  instead, be created on the server-side?
+
+- showing_untrusted_image = false
+- showing_unknown_image = false
+
+- @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
+  - showing_untrusted_image = true if image.untrusted?
+  - showing_unknown_image = true if image.unknown?
+
+- if showing_unknown_image
+  #unknown-thumbnail-warning-box
+    %span= "Items in yellow are not reviewed."[]
+
+- if showing_untrusted_image
+  #untrusted-thumbnail-warning-box
+    %span= "Items in red are not trusted."[]
+
+.mc-img.clearfix
+  %p.hide= "Choose images"[]
+  
+  #thumbnails
+    - counter = 0
+    - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
+     
+      - authors=agent_partial(image.authors + image.photographers,:linked=>false)
+      - sources=agent_partial(image.sources,:linked=>false)
+      - # TODO - LOW - I am ever-so-slightly bothered that we're essentially calling the same thing twice on the same data, and
+      - # wonder if we can improve this.
+      - authors_linked=agent_partial(image.authors + image.photographers)
+      - sources_linked=agent_partial(image.sources)
+      - sources_icons_linked=agent_icons_partial(image.sources)
+      - taxa_info = image.taxa_names_taxon_concept_ids
+      - data_supplier = image.data_supplier_agent
+      - data_supplier_name = data_supplier ? data_supplier.full_name : ''
+      - data_supplier_url = data_supplier ? data_supplier.homepage : ''
+      - data_supplier_icon = data_supplier ? agent_icons_partial(data_supplier) : ''
+      - published = image.published ? 1 : 0
+      - published_by_agent = (image.published? && agent_logged_in? && !data_supplier.blank? && current_agent.id == data_supplier.id)
+       
+      - # TODO this is seriously icky ... used for the "grey" notes area under the thumbnails... maybe we should just render @some_object.to_json ?
+      - image_attribution_hash="{authors: '" + escape_javascript(authors) + |
+          "',sources: '" + escape_javascript(sources) + |
+          "',authors_linked: '" + escape_javascript(authors_linked) + |
+          "',sources_linked: '" + escape_javascript(sources_linked) + |
+          "',sources_icons_linked: '" + escape_javascript(sources_icons_linked) + |
+          "',vetted_id: " + image.vetted_id.to_s + |
+          ",published: " + published.to_s + |
+          ",taxonID: '" + escape_javascript(image.taxon_id) + |
+          "',current_taxa: " + (@taxon_concept.id == image.taxon_id).to_s + |
+          ", nameString: '" + escape_javascript(hh(image.scientific_name)) + |
+          "',location: '" + escape_javascript(image.location) + |
+          "',info_url: '" + escape_javascript(image.object_url || '') + |
+          "',taxaIDs: ['" + taxa_info.map{|x| x[:taxon_concept_id].to_s}.join("','") + "']" + |
+          ",taxaNames: ['" + taxa_info.map{|x| x[:taxon_name].to_s}.map{|y|escape_javascript(y)}.join("','") + "']" + |
+          ",field_notes: '" + escape_javascript(image.description) + |
+          "',comments: '#{image.visible_comments.length}'" + |
+          ",data_supplier: '" + escape_javascript(data_supplier_name) + "'" + |
+          ",data_supplier_url: '" + escape_javascript(data_supplier_url) + "'" + |
+          ",data_supplier_icon: '" + escape_javascript(data_supplier_icon) + "'" + |
+          ", data_object_id: '#{image.id}'" + |
+          ", curated: #{image.curated}" + |
+          ", smart_image: '#{escape_javascript(image.smart_image)}'" + |
+          ", published_by_agent: #{published_by_agent}" + |
+          ", visibility_id: #{image.visibility_id}" + |
+          ", average_rating: #{image.data_rating}" + |
+          ", user_rating: #{(r = image.rating_for_user(current_user)) ? r.rating : 0}" |
+      - unless image.license_text.nil?
+        - image_attribution_hash += ",license_text: '" + escape_javascript(image.license_text || "") + |
+          "',license_logo: '" + escape_javascript(image.license_logo) + |
+          "',license_link: '" + escape_javascript(image.license_url || "") + "'" |
+      - else
+        - image_attribution_hash+=",license_text: '',license_logo: '',license_link: ''"
+
+      - image_attribution_hash += "}"
+      - counter += 1
+      - image_icons = "<ul data-data_object_id='#{image.id}'>" + render(:partial=>'data_object_states', :locals => {:dato => image}) +'</ul>'
+
+      :javascript
+        EOL.MediaCenter.image_hash[#{image.id}] = #{image_attribution_hash};
+          
+      %a{ :href => "#image-#{image.id}", :class => vetted_id_class(image), :title => hh(image.scientific_name), :id => "thumbnail_#{image.id}" }
+        %span
+          = image_tag image.smart_thumb, :alt => hh(image.scientific_name)
+        = image_icons
+
+      - if @selected_image.id == image.id
+        - image_load_js_function="eol_update_image('" + escape_javascript(image.smart_image) + "'," + image_attribution_hash +");"
+        - attribution_js_function="eol_update_credit(" + image_attribution_hash +");"
+        
+        - if update_attribution_on_load
+          :javascript
+            document.observe("dom:loaded", function() {
+              #{attribution_js_function}
+            });
+        - else
+          :javascript
+            #{image_load_js_function}
+
+  %hr
+
+%div{ :class => "mc-navigation#{!show_next_image_page_button && @taxon_concept.length_of_images < $MAX_IMAGES_PER_PAGE  ? ' no-pagination' : ''}" }
+  %p.hide
+    = "Page navigation"[]
+  - if (@image_page ||= 1) > 1
+    %a{ :href => "#", :title => "Back"[], :onclick => "#{remote_function(:url => url_for(:action => 'image_collection', :taxon_id => @taxon_concept.id, :image_page => @image_page - 1),:loading=>"showAjaxIndicator();",:complete=>"hideAjaxIndicator();",:method => :post)};return false;" }
+      %span#back
+        = "Back"[]
+  - else
+    %span#noback
+
+  - if @taxon_concept.length_of_images > $MAX_IMAGES_PER_PAGE
+    
+    %span#pages
+      Page
+      = @image_page
+  - if show_next_image_page_button
+    %a{ :href => "#", :title => "Next"[], :onclick => "#{remote_function(:url => url_for(:action => 'image_collection', :taxon_id => @taxon_concept.id, :image_page => @image_page + 1),:loading=>"showAjaxIndicator();",:complete=>"hideAjaxIndicator();",:method => :post)};return false;" }
+      %span#next
+        = "Next"[]
+  %hr

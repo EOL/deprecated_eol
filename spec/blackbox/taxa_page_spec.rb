@@ -199,10 +199,10 @@ describe 'Taxa page (HTML)' do
   end
   
   it 'should show the Catalogue of Life link in the header' do
-    this_result = RackBox.request("/pages/#{@taxon_concept.id}")
-    this_result.body.should include("recognized by <a href=\"#{@col_mapping.url}\"")
+    body = RackBox.request("/pages/#{@taxon_concept.id}").body
+    body.should include("recognized by <a href=\"#{@col_mapping.url}\"")
   end
-
+  
   describe 'specified hierarchies' do
     
     before(:all) do

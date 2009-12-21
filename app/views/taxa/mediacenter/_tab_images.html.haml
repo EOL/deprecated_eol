@@ -1,0 +1,100 @@
+#media-images.wrapper-mc.clearfix
+  - # Media Center image
+  #large-image
+    #main-image-bg
+      %table#main-image-table
+        %tr
+          %td
+            - unless @images.blank?
+              %img#main-image{ :title => sanitize(strip_tags(@taxon_concept.title)),           |
+                :src => (@selected_image.smart_image unless (@images.nil? or @images.blank?)), |
+                :onclick => "toggle_image_attribution(); return false;",                       |
+                :alt => sanitize(strip_tags(@taxon_concept.title)) }                           |
+    / end main-image-bg
+    %hr
+    - unless @images.blank?
+      / TODO simplify the IDs of the button links ... they need to have unique IDs but thats all
+      #large-image-buttons
+        #left-image-buttons
+          %ul#large-image-button-group
+            %li#large-image-attribution-button.attribution-icon{ :title => "More information" }
+              = link_to '<span style="display:block;width:24px;height:25px;"></span>',  |
+                attribution_data_object_path(@selected_image),                          |
+                :id => "large-image-attribution-button-popup-link",                     |
+                :class => 'popup-link', :alt => "More information"                      |
+            = render :partial=>'data_object_states', :locals => {:dato => @selected_image}
+        / end left-image-buttons
+        #right-image-buttons
+          #large-image-button-popup
+            - #The inner divs on the links are hacks to get the links to work in ie6. there's probably a better way to do this
+
+            - if @taxon_concept.show_curator_controls?
+              .spinner
+                = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
+              #hide_these_controls_for_now{ :style => "display:none" }
+                - thumb_up_style = @selected_image.curated? ? "display:none" : ""  
+                #large-image-trust-button.trust_button.thumbs-up-image{:title => "Trust this image", :style => thumb_up_style}
+                  = link_to '<span style="display:block;width:24px;height:25px;"></span>',         |
+                    {:controller => :data_objects, :action => :curate, :id => @selected_image.id,  |
+                     '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, | 
+                    {'data-data_object_id' => @selected_image.id, :alt => 'Trust this image',      |
+                     'data-data_object_type' => DataType.image_type_ids[0]}                        |
+                - thumb_down_style = @selected_image.curated? ? "display: none" : "" 
+                #large-image-untrust-button.untrust_button.thumbs-down-image{:title => "Do not trust this image", :style => thumb_down_style}
+                  = link_to('<span style="display:block;width:24px;height:25px;"></span>',  |
+                     {:controller => :data_objects, :action => :curate,                     |
+                     :id => @selected_image.id, '_method' => :put,                          |
+                     :curator_activity_id => CuratorActivity.disapprove!.id.to_s},          |
+                     {'data-data_object_id' => @selected_image.id,                          |
+                     :alt => 'Do not trust this image',                                     | 
+                     'data-data_object_type' => DataType.image_type_ids[0]})                |
+              #large-image-curator-button.curate-button-image{ :title => "Curate image" }
+                = popup_link 'curator', curation_data_object_path(@selected_image), :alt => 'Curate image'
+            
+            #large-image-tagging-button{:title => "Tag image"}
+              = popup_link 'tagging', data_object_tags_path(@selected_image), :alt => 'Tag image'
+            #large-image-comment-button.comment-button-image{:title => "Comment on image"}
+              = popup_link 'comment', data_object_comments_path(                             |
+                  @selected_image, (@selected_image_comment.nil? ? {} : {                    |
+                    :comment_id => @selected_image_comment.id, :page => @comment_page        |
+                    })),                                                                     |
+                  :alt => "Comment on image"                                                 |
+              - if @selected_image_comment
+                :javascript
+                  document.observe("dom:loaded", function() {
+                    EOL.popup_links["large-image-comment-button-popup-link"].scroll_to = "comment_#{@selected_image_comment.id}";
+                    EOL.popup_links["large-image-comment-button-popup-link"].click();
+                    Effect.ScrollTo("large-image-comment-button");
+
+                    //jQuery('#large-image-comment-button-popup-link_popup').scrollTo(jQuery('#comment_62'), 1000)
+                  });                
+            / end large-image-comment-button
+          / end large-image-button-popup
+        / end right-image-buttons
+
+        / RATING
+        .image-rating
+          = render :partial => 'star_rating', :locals => {:data_object => @selected_image}
+      / end large-image-buttons
+    - # end of unless images.blank?
+  / end large-image
+  #image-thumbnails.mc-info
+
+    - if @images.blank? == false
+      .mc-header
+        %h3
+          = "Images"
+        %hr
+    - else
+      .noimages
+    
+    - unless @images.blank?
+      #image-collection
+        = render :partial => 'image_collection', :locals=>{:update_attribution_on_load=>true}
+    
+      #mc-notes.mc-notes
+        %span#field-notes
+          / - this will be replaced by javascript
+          %hr
+  / end image-thumbnails
+/ end media-images

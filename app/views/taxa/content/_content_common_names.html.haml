@@ -1,0 +1,81 @@
+- is_curator = @taxon_concept.is_curatable_by?(current_user)
+- if is_curator
+  #common_names_error{ :style => "color:brown;text-align:center;padding-bottom:8px;display:none;" }
+    Sorry! There was an error sending the curation request; please try again later.
+  #common_names_spinner{ :style => "text-align:right;float:right;" }
+    = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
+  = form_tag "/pages/#{@taxon_concept.id}/set_preferred_name", :method => :put, :id => 'set_preferred_name'
+#common_names_wrapper.text_object
+  - if is_curator
+    %p
+      = "As a curator, you can select the preferred common name in your default language by selecting the radio button next to the name.  This will select the common name shown on the top of the page and in the classification browser.  Note that due to data import issues, you may not be able to select any name even if it is in your language.  Future updates will address this issue."[:common_names_message]
+  %table.results_table{ :cellspacing => "0", :summary => "Common Names" }
+    %tr
+      %th{ :scope => "col" }
+        = "Name"[]
+      %th{ :scope => "col" }
+        = "Language"[]
+      - if is_curator
+        %th Preferred
+    - unless @content[:items].blank?
+      - # Render each name in the current user's preferred language:
+      - @content[:items].each do |name|
+        - next unless name[:language_id] == current_user.language_id
+        = render(:partial => 'taxa/content/content_common_names_row', |
+            :locals => { |
+            :column_class   => cycle('odd', 'even'), |
+            :is_curator     => is_curator, |
+            :language_id    => name[:language_id], |
+            :language_label => name[:language_label], |
+            :language_name  => name[:language_name], |
+            :name_id        => name[:name_id], |
+            :name_string    => name[:name_string], |
+            :preferred      => name[:preferred] |
+            }) |
+      - # Render every OTHER name (not in her preferred language):
+      - @content[:items].each do |name|
+        - next if name[:language_id] == current_user.language_id
+        = render(:partial => 'taxa/content/content_common_names_row', |
+           :locals => { |
+           :column_class   => cycle('odd', 'even'), |
+           :is_curator     => is_curator, |
+           :language_id    => name[:language_id], |
+           :language_label => name[:language_label], |
+           :language_name  => name[:language_name], |
+           :name_id        => name[:name_id], |
+           :name_string    => name[:name_string], |
+           :preferred      => name[:preferred] |
+           }) |
+  .divider
+  .content-attribution-area
+    .attribution-header.text-area-header
+      = "Source and Additional Information"[]
+    %span.source
+      Names come from multiple sources.
+= "</form>" if is_curator
+:javascript
+  if (!EOL) var EOL = {};
+  if (!EOL.CommonNameCuration) EOL.CommonNameCuration = {};
+
+  Event.addBehavior({
+      'td.preferred_name_selector input[type="radio"]:click': function(e) {
+          var form = $(this.form);
+          $$('div#common_names_spinner img')[0].appear();
+          $('common_names_error').disappear();
+          new Ajax.Request(form.action,
+          {
+              asynchronous: true,
+              evalScripts: true,
+              method: 'put',
+              onError: function() {
+                  $('common_names_error').appear();
+                  $$('div#common_names_spinner img')[0].disappear();
+              }.bind(form),
+              onComplete: function() {
+                  $$('div#common_names_spinner img')[0].disappear();
+              }.bind(form),
+              parameters: Form.serialize(form)
+          });
+      }
+  });
+

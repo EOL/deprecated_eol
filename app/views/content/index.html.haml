@@ -1,0 +1,172 @@
+= javascript_include_tag 'flash_detect_min','prototype-extensions'
+:javascript
+  var pe;
+  var updates_started=true;
+  var taxa_number_to_replace = 1;
+  var num_seconds_between_image_loads = 10;
+  
+  function eol_update_flash_enabled(flash_enabled) {
+    // if flash is not enabled send this message to the server so it can be stored in the session (we default to enabled, so we only need to send this message if flash not enabled)
+    if (FlashDetect.installed == false) {
+      new Ajax.Request('<%=set_flash_enabled_url%>', {
+        parameters: {
+          flash_enabled: FlashDetect.installed
+        },
+        asynchronous: true,
+        evalScripts: true
+      })
+    }
+  }
+  
+  function explore_more_taxa() {
+    if (pe) {
+      pe.stop();
+      pe=null;
+    }
+    new Ajax.Updater('photos_area','/content/explore_taxa',
+      {
+        onComplete:function(request){taxa_number_to_replace = 1;setTimeout("start_explore_updates()",num_seconds_between_image_loads*1000);new EOL.Effect.appear('photos_area',{duration: 0.2,from:0.05,to:1.0});},
+        onLoading:function(request){new EOL.Effect.disappear('photos_area',{duration: 0.2,from:1.0,to:0.05});},
+        asynchronous:true, 
+        evalScripts:true	
+      }
+    )	
+  }
+  
+  function replace_single_taxa(taxa_number) {
+    r = new RegExp("[0-9]+$");
+    var current_taxa = [];
+    ["top_name_1","top_name_2","top_name_3","top_name_4","top_name_5","top_name_6"].each(function(el) {
+      current_taxa.push(r.exec($(el).descendants()[0].href));
+    });
+    new Ajax.Request('/content/replace_single_explore_taxa',
+      {
+        parameters: {taxa_number: taxa_number, current_taxa: current_taxa.join(',')},
+        onFailure:function(request){new EOL.Effect.appear('top_image_tag_'+taxa_number,{duration: 0.5,from:0.00,to:1.0});},
+        onSuccess:function(request){new EOL.Effect.appear('top_image_tag_'+taxa_number,{delay: 0.5,duration: 0.5,from:0.00,to:1.0});},
+        onLoading:function(request){new Element.hide('top_image_tag_'+taxa_number);},					
+        asynchronous:true, 
+        evalScripts:true	
+      }
+    
+    )			
+    taxa_number_to_replace += 1;
+    
+  }
+  
+  function get_new_explore_taxa() {
+    if (taxa_number_to_replace > 6) {taxa_number_to_replace=1;}
+    replace_single_taxa(taxa_number_to_replace);
+  }
+  
+  function pause_explore_updates() {
+    if (pe) {
+      pe.stop();
+      pe = null;
+    }
+    $('play-button').src='/images/homepage/play.gif';			
+    $('play-button').alt='play';			
+    updates_started=false;
+  }
+  
+  function start_explore_updates() {
+    if (pe) {
+      pe.stop();
+      pe = null;
+    }
+    pe=new PeriodicalExecuter(get_new_explore_taxa,num_seconds_between_image_loads);
+    $('play-button').src='/images/homepage/pause.gif';
+    $('play-button').alt='pause';
+    updates_started=true;
+  }
+  
+  function toggle_explore_updates() {
+    if (updates_started) {
+      pause_explore_updates();
+    }
+    else
+    {
+      start_explore_updates();
+    }
+    
+  }
+
+  document.observe("dom:loaded", function() {
+    eol_update_flash_enabled();
+    setTimeout("start_explore_updates()",num_seconds_between_image_loads*1000);
+  });
+- if @cached_fragment
+  = @cached_fragment
+- else
+  - cache({:controller=>"content", :part => 'home_' + current_user.content_page_cache_str}) do
+    #page-separator-general
+    #photo-area-wrapper
+      .photo_slider
+        %h1
+          = "Explore"[]
+        .nav_buttons
+          %span.more
+            %a{ :href => "#", :onclick => "JavaScript:explore_more_taxa();return false;" }
+              = "more species"[:more_species]
+          %p.play
+            %a{ :href => "#", :onclick => "JavaScript:toggle_explore_updates();return false;" }
+              %img#play-button{ :src => "/images/homepage/pause.gif", :height => "28", :alt => "pause", :width => "27" }
+        - # nav_buttons
+        #photos_area
+        - if @explore_taxa.nil? == false
+          = render(:partial=>'explore_taxa')
+        - # photos_area
+      - # photo_slider
+    - # photo-area-wrapper
+    #home-content-wrap
+      #sidebar-a
+        = @content.left_content
+      - # sidebar-a
+      #sidebar-b
+        - unless @news_items.empty?
+          %h1= "What's New?"[]
+          %ul.helplist
+            - @news_items.each do |news_item|
+              - if news_item.visible?
+                %li
+                  %strong= format_date(news_item.display_date)
+                  \-
+                - if news_item.title.blank?
+                  = news_item.body
+                - else
+                  - if news_item.body.blank?
+                    = news_item.title
+                  - else
+                    %a{ :href => "#", :onclick => "JavaScript:EOL.Effect.toggle_with_effect('news_#{news_item.id}');return false;" }
+                    = news_item.title
+                    %div{ :id => "news_#{news_item.id}", :style => "display:none;" }
+                    = news_item.body
+              - # news_item visible
+            - # news_items.each
+            %li= link_to "more news...",:action=>'news'
+            %li
+              To subscribe via RSS, click
+              = link_to image_tag('rss.png'), {:action=>'news',:format=>'rss'}
+              , or add this URL to your RSS reader: http://
+              = request.host + url_for(:action=>'news',:format=>'rss')
+          - # .helplist
+        - # unless news_items empty
+      - # sidebar-b
+      #home-center-content
+        - if @featured_taxa
+          - featured_taxon = @featured_taxa.sort_by{rand}[0]
+          %h1= "Featured"[]
+          %table#featured-species-table{ :cellspacing => "0", :summary => "featured table" }
+            %tr
+              %td.image
+                = medium_thumb_partial(featured_taxon)
+            %tr
+              %td
+                = linked_name(featured_taxon)
+          - # featured-species-table
+        - # unless featured_taxa nil
+        = @content.main_content
+      - # home-center-content
+    - # home-content-wrap
+  - # cache
+- # if @cached_fragment

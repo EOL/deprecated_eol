@@ -305,7 +305,7 @@ moderator.save
 
 exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-coded) exemplars.
                                :event => event,
-                               :common_names => ['wumpus'],
+                               :common_names => ['wumpus', 'wompus', 'wampus'],
                                :biomedical_terms => true) # LigerCat powers, ACTIVATE!
 
 # Adds a ContentPage at the following URL: http://localhost:3000/content/page/curator_central

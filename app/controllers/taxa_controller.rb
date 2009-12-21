@@ -212,7 +212,7 @@ class TaxaController < ApplicationController
     else
       @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
       render :update do |page|
-        page.replace_html 'center-page-content', :partial => 'content.html.erb'
+        page.replace_html 'center-page-content', :partial => 'content'
         page << "$('current_content').value = '#{@category_id}';"
         page << "Event.addBehavior.reload();"
         page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id})}');"

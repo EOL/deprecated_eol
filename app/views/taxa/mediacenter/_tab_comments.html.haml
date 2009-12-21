@@ -1,0 +1,8 @@
+#media-taxa-comments.wrapper-mc.clearfix{ :style => "display: #{we_have_a_taxon_comment ? 'block' : 'none'};" }
+  %p#loading-comments
+    = image_tag 'indicator_arrows_black.gif'
+    Retrieving comments, please wait...
+  #taxaCommentsWrap{ :style => "display: none;" }
+  - if(we_have_a_taxon_comment)
+    :javascript
+      taxon_comments_permalink(#{@comment.id});

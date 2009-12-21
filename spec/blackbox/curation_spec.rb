@@ -104,7 +104,15 @@ describe 'Curation' do
     request("/pages/#{@taxon_concept.id}").body.should have_tag('div#page-citation', /#{@first_curator.family_name}/)
   end
 
-  describe "taxa/content/common_names" do 
+  # I wanted to use a describe() block here, but it was causing build_taxon_concept to fail for some odd reason...
+
+  it 'should show a curator the ability to add a new common name' do
+    @curator = create_curator_for_taxon_concept(@taxon_concept)
+    common_names_toc_id = TocItem.common_names.id
+#    @not_logged_in_page = request("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}").body
+    login_as( @curator ).should redirect_to('/')
+    @logged_in_page = request("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}").body
+    @logged_in_page.should include('Add a new common name')
   end
 
 end

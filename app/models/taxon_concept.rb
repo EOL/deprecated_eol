@@ -852,8 +852,80 @@ EOIUCNSQL
                                         LIMIT 1',taxon_concept_id]) > 0
   end
   
+  # Add a synonym to this TC.
+  def add_scientific_name(name, options = {})
+    add_name(name, options.merge(:vern => false, :preferred => false))
+  end
+
+  # Adds a single common name to this TC.
+  # Options:
+  #   +preferred+::
+  #     Boolean to flag which name is preferred for this TC.  Default is true, but be careful that you only set one.
+  #   +language+::
+  #     Language object to use for this name.  Default is Language.english
+  def add_common_name(name, options = {})
+    add_name(name, options.merge(:vern => true))
+  end
+
+  # Only used in testing context, this returns the actual Name object for the canonical form for this TaxonConcept.
+  # Note that, since the canonical form is what you see when browsing the site, this really comes from the Catalogue
+  # of Life specifically, which may present a problem later.
+  def canonical_form_object
+    CanonicalForm.find(entry.name_object.canonical_form_id) # Yuck.  But true.
+  end
+
+
 #####################
 private
+
+  def add_name(name, options = {})
+    language  = options[:language]  || Language.english
+    preferred = options.has_key?(:preferred) ? options[:preferred] : true
+    vern      = options.has_key?(:vern) ? options[:vern] : true
+    name_obj = safely_generate_name(name)
+    safely_generate_synonym(name_obj, :preferred => preferred, :language => language)
+    safely_generate_tc_name(name_obj, :preferred => preferred, :language => language, :vern => vern)
+  end
+
+  def safely_generate_name(name)
+    name_obj = nil # scope
+    begin
+      name_obj = Name.gen(:canonical_form => canonical_form_object, :string => name, :italicized => name)
+    rescue ActiveRecord::RecordInvalid
+      name_obj = Name.find_by_string(name)
+    end
+    name_obj
+  end
+
+  def safely_generate_tc_name(name_obj, options = {})
+    language  = options[:language]  || Language.english
+    preferred = options.has_key?(:preferred) ? options[:preferred] : true
+    vern      = options.has_key?(:vern) ? options[:vern] : true
+    tcn = nil # scope
+    begin
+      tcn = TaxonConceptName.gen(:preferred => preferred, :vern => vern, :source_hierarchy_entry_id => entry.id,
+                                 :language => language, :name => name_obj, :taxon_concept => self)
+    rescue ActiveRecord::StatementInvalid
+      tcn = TaxonConceptName.find_by_name_id(name_obj.id)
+    end
+    tcn
+  end
+
+  def safely_generate_synonym(name_obj, options = {})
+    language  = options[:language]  || Language.english
+    preferred = options.has_key?(:preferred) ? options[:preferred] : true
+    synonym = Synonym.find_by_hierarchy_entry_id_and_language_id_and_name_id_and_preferred(entry.id,
+                                                                                           language.id,
+                                                                                           name_obj.id,
+                                                                                           preferred)
+    unless synonym
+      begin
+        synonym = Synonym.gen(:name => name_obj, :hierarchy_entry => entry, :language => language, :preferred => preferred)
+      rescue ActiveRecord::StatementInvalid
+        synonym = Synonym.find_by_name_id(name_obj.id) # Looser find... not sure this is great, but it keeps things from dying.
+      end
+    end
+  end
 
   def alternate_classification_name(detail_level = :middle, language = Language.english, context = nil)
     #return col_he.nil? ? alternate_classification_name(detail_level, language, context) : col_he.name(detail_level, language, context)

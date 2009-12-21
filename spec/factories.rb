@@ -895,6 +895,7 @@ Factory.define :user do |u|
   u.default_hierarchy_id      nil
   u.given_name                { Factory.next(:first_name) }
   u.family_name               { Factory.next(:last_name) }
+  u.agent_id                  {|user| Factory(:agent, :full_name => "#{user.given_name} #{user.family_name}").id }
   u.flash_enabled             true
   u.language                  { Language.english || Factory(:language, :label => 'English') }
   u.mailing_list              true

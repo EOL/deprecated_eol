@@ -141,6 +141,7 @@ create_if_not_exists DataType, :label => 'YouTube'
 create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007"
 create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008", :browsable => 1
 default_hierarchy = create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009"
+create_if_not_exists Hierarchy, :label => "Encyclopedia of Life Curators"
 
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label => 'Associations'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label => 'Behaviour'

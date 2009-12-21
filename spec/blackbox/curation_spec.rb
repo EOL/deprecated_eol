@@ -104,4 +104,7 @@ describe 'Curation' do
     request("/pages/#{@taxon_concept.id}").body.should have_tag('div#page-citation', /#{@first_curator.family_name}/)
   end
 
+  describe "taxa/content/common_names" do 
+  end
+
 end

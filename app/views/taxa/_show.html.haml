@@ -13,25 +13,26 @@
     %h2
       = hh(@taxon_concept.subtitle(@session_hierarchy))
     %hr
-    %span.classification-attribution-name
-      == #{@taxon_concept.entry.rank_label.capitalize} recognized by |
-        #{agent_icons_partial(@taxon_concept.classification_attribution(@session_hierarchy).reverse, |
-          :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', |
-          :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)} |
-    %br
-    #post-info.clearfix
-      %span.iucn-status
-        - if @taxon_concept.iucn_conservation_status != ''
-          = "IUCN Red List Status"[]
-          \:
-          %span.iucn-status-value
-            = external_link_to(@taxon_concept.iucn_conservation_status,@taxon_concept.iucn_conservation_status_url)
-        - else
-          &nbsp;
-      %span.page-status
-        Showing:
-        = current_user.expertise.to_s == 'expert' ? link_to('scientific names', taxon_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'})
-      %hr
+    - if !@taxon_concept.classification_attribution(@session_hierarchy).empty?
+      %span.classification-attribution-name
+        == #{@taxon_concept.entry.rank_label.capitalize} recognized by |
+          #{agent_icons_partial(@taxon_concept.classification_attribution(@session_hierarchy).reverse, |
+            :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', |
+            :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)} |
+      %br
+  #post-info.clearfix
+    %span.iucn-status
+      - if @taxon_concept.iucn_conservation_status != ''
+        = "IUCN Red List Status"[]
+        \:
+        %span.iucn-status-value
+          = external_link_to(@taxon_concept.iucn_conservation_status,@taxon_concept.iucn_conservation_status_url)
+      - else
+        &nbsp;
+    %span.page-status
+      Showing:
+      = current_user.expertise.to_s == 'expert' ? link_to('scientific names', taxon_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'})
+    %hr
 / end page title
 = render(:partial => 'mediacenter', :locals => {:current_user => current_user})
 / page content

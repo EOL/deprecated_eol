@@ -346,8 +346,13 @@ class HierarchyEntry < SpeciesSchemaModel
   end
 
   def classification_attribution(params={})
-    attribution = [hierarchy.agent]
-    attribution.first.full_name = attribution.first.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
+    attribution = []
+    
+    # its possible that the hierarchy is not associated with an agent
+    if hierarchy.agent
+      attribution = [hierarchy.agent]
+      attribution.first.full_name = attribution.first.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
+    end
     attribution += agents
   end
 

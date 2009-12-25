@@ -1,0 +1,24 @@
+- unknown_banner_shown = false
+- untrusted_banner_shown = false
+-# comments start out as hidden on first page load (shown when entire page is loaded, but for ajax updates, show immediately)
+- comments_style=(@ajax_update ? '' : 'display:none;')  
+
+- unless @content[:data_objects].nil?
+  - hide_subtitle = @content[:data_objects].size == 1 ? true : false
+  
+  - @content[:data_objects].each do |content_item|
+    - vetted_id_style = ''
+
+    - if content_item.vetted_id == Vetted.unknown.id && !unknown_banner_shown
+      - unknown_banner_shown = true
+      = render :partial => '/shared/unknown_text_warning_box'
+    - elsif content_item.vetted_id == Vetted.untrusted.id && !untrusted_banner_shown
+      - untrusted_banner_shown = true
+      = render :partial=>'/shared/untrusted_text_warning_box'
+    
+    = render :partial=>'text_data_object', :locals => {:content_item => content_item, :comments_style => comments_style, :category => @content[:category_name], :hide_subtitle => hide_subtitle}
+#scroll_to_bottom
+:javascript
+  document.observe("dom:loaded", function() {
+    updateReferences();
+  });

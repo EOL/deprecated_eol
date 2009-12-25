@@ -1,0 +1,70 @@
+- blind_outlink_parameter = URI.encode(sanitize(strip_tags(@taxon_concept.name(current_user.expertise, current_user.language))))
+- blind_outlink_parameter_scientific = URI.encode(sanitize(strip_tags(@taxon_concept.scientific_name)))
+- show_both=(blind_outlink_parameter == blind_outlink_parameter_scientific ? false : true)
+#search_the_web_wrapper.text_object
+  #links.unvetted-background-text
+    %table.results_table{:cellspacing => "0", :summary => "Links"}
+      %tbody
+        %tr
+          %th
+            = "Project"[]
+          %th
+            = "Search"[]
+          - if show_both
+            %th= "by Scientific Name"[]
+        %tr
+          %td.odd{:height => "60", :width => "100"}
+            = external_link_to(image_tag('agent_icons/google.gif'), 'http://www.google.com/search?q=' + blind_outlink_parameter, :show_link_icon => false)
+          %td.odd
+            = external_link_to("Google", "http://www.google.com/search?q=" + blind_outlink_parameter, :show_link_icon => true)
+          - if show_both
+            %td.odd
+              = external_link_to("Google", "http://www.google.com/search?q=" + blind_outlink_parameter_scientific, :show_link_icon=>true)
+        %tr
+          %td.even{:height => "60", :width => "100"}
+            = external_link_to(image_tag('agent_icons/google.gif'), 'http://images.google.com/images?q=' + blind_outlink_parameter, :show_link_icon => false)
+          %td.even
+            = external_link_to("Google Images", "http://images.google.com/search?q=" + blind_outlink_parameter, :show_link_icon => true)
+          - if show_both
+            %td.even
+              = external_link_to("Google Images", "http://images.google.com/search?q=" + blind_outlink_parameter_scientific, :show_link_icon => true)
+        %tr
+          %td.odd{:height => "60", :width => "100"}
+            = external_link_to(image_tag('agent_icons/google.gif'), 'http://scholar.google.com/scholar?q=' + blind_outlink_parameter, :show_link_icon => false)
+          %td.odd
+            = external_link_to("Google Scholar", "http://scholar.google.com/scholar?q=" + blind_outlink_parameter, :show_link_icon => true)
+          - if show_both
+            %td.odd
+              = external_link_to("Google Scholar", "http://scholar.google.com/scholar?q=" + blind_outlink_parameter_scientific, :show_link_icon => true)
+        %tr
+          %td.even{:height => "60", :width => "100"}
+            = external_link_to(image_tag('agent_icons/yahoo.gif'), 'http://search.yahoo.com/search?p=' + blind_outlink_parameter, :show_link_icon => false)
+          %td.even
+            = external_link_to("Yahoo", "http://search.yahoo.com/search?p=" + blind_outlink_parameter, :show_link_icon => true)
+          - if show_both
+            %td.even
+              = external_link_to("Yahoo", "http://search.yahoo.com/search?p=" + blind_outlink_parameter_scientific, :show_link_icon => true)
+        %tr
+          %td.odd{:height => "60", :width => "100"}
+            = external_link_to(image_tag('agent_icons/yahoo.gif'),'http://images.search.yahoo.com/search/images?p=' + blind_outlink_parameter, :show_link_icon => false)
+          %td.odd
+            = external_link_to("Yahoo Images", "http://images.search.yahoo.com/search/images?p=" + blind_outlink_parameter, :show_link_icon => true)
+          - if show_both
+            %td.odd
+              = external_link_to("Yahoo Images", "http://images.search.yahoo.com/search/images?p=" + blind_outlink_parameter_scientific, :show_link_icon => true)
+        %tr
+          %td.even{:height => "60", :width => "100"}
+            = external_link_to(image_tag('agent_icons/vivisimo.gif'), 'http://vivisimo.com/vivisimo/cgi-bin/query-meta?query=' + blind_outlink_parameter, :show_link_icon => false)
+          %td.even
+            = external_link_to("Vivisimo", "http://vivisimo.com/vivisimo/cgi-bin/query-meta?query=" + blind_outlink_parameter, :show_link_icon => true)
+          - if show_both
+            %td.even
+              = external_link_to("Vivisimo", "http://vivisimo.com/vivisimo/cgi-bin/query-meta?query=" + blind_outlink_parameter_scientific, :show_link_icon => true)
+        %tr
+          %td.even{:height => "60", :width => "100"}
+            SpeciesIndex.org
+          %td.even
+            = external_link_to("SpeciesIndex", "http://speciesindex.org/index.jsp?search=" + blind_outlink_parameter, :show_link_icon => true)
+          - if show_both
+            %td.even
+              = external_link_to("SpeciesIndex", "http://speciesindex.org/index.jsp?search=" + blind_outlink_parameter_scientific, :show_link_icon => true)

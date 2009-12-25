@@ -23,8 +23,7 @@
   #post-info.clearfix
     %span.iucn-status
       - if @taxon_concept.iucn_conservation_status != ''
-        = "IUCN Red List Status"[]
-        \:
+        == #{"IUCN Red List Status"[]}:
         %span.iucn-status-value
           = external_link_to(@taxon_concept.iucn_conservation_status,@taxon_concept.iucn_conservation_status_url)
       - else

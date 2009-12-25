@@ -44,9 +44,9 @@
       %input#current_content{ :name => "current_content", :type => "hidden", :value => @category_id }
       %input#canonical_form{ :name => "canonical_form", :type => "hidden", :value => strip_tags(@taxon_concept.canonical_form) }
       \&nbsp;&nbsp;
-      %a.smalltext{ :href => "#", :onclick => "JavaScript:eol_show_pop_up('slider-help','slider-help');return false;" }
-        = "What happened to the slider?"[]
-      #slider-help.popup{ :style => "display:none;" }
+      /%a.smalltext{ :href => "#", :onclick => "JavaScript:eol_show_pop_up('slider-help','slider-help');return false;" }
+      /  = "What happened to the slider?"[]
+      /#slider-help.popup{ :style => "display:none;" }
       %h4#toc-header.margin-header.left-margin-header
         = "Table of Contents"[]
       %ul#toc

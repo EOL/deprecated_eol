@@ -320,6 +320,18 @@ class TaxaController < ApplicationController
     render :nothing => true
   end
 
+  def add_common_name
+    if params[:name][:name_string]
+      tc = TaxonConcept.find(params[:taxon_concept_id])
+      name, synonym, taxon_concept_name = tc.add_common_name params[:name][:name_string]
+      agent_role = AgentRole.find_by_label("Contributor")
+      agent = Agent.find(current_user.agent_id) 
+      as = AgentsSynonym.create!(:synonym => synonym, :agent => agent, :agent_role => agent_role, :view_order => 0)
+      expire_taxa(tc.id)
+    end
+    redirect_to "/pages/#{tc.id}"
+  end
+
 ###############################################
 private
 

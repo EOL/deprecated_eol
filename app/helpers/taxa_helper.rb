@@ -172,8 +172,29 @@ module TaxaHelper
       html << deactivatable_link('Next&nbsp;&gt;&gt;',
                                  :href => search_by_page_href(current_page + 1),
                                  :deactivated => current_page == pages)
-
     end
+  end
+  
+  def reformat_specialist_projects(projects)
+    max_columns = 2
+    num_mappings = projects.size
+    num_columns = num_mappings < max_columns ? num_mappings : max_columns
+    res = []
+    until projects.empty? do
+      res << projects.shift(num_columns)
+    end
+    (num_columns - res[-1].size).times do
+      res[-1] << nil
+    end
+    [res, num_columns]
+  end
+
+  def specialist_project_collection_link(collection)
+    links = []
+    collection.collection_types.each do |collection_type|
+      links << collection_type.materialized_path_labels
+    end
+    links.empty? ? collection.title : links.join(', ')
   end
 
 # A *little* weird to have private methods in the helper, but these really help clean up the code for the methods
@@ -212,5 +233,6 @@ private
       show_next_image_page_button = (@taxon_concept.images.length > (last + 1))
     end
   end
+
   
 end

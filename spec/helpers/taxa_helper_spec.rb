@@ -24,4 +24,20 @@ describe TaxaHelper do
     @response.should_not =~ /page=6/
   end
 
+  it "should reformat projects into 2 dimentional array" do
+    projects = [1,2,3,4,5]
+    helper.reformat_specialist_projects(projects).should == [[[1,2],[3,4],[5,nil]], 2]
+  end
+
+  it "should create link_text for specialis project" do
+    collection_types = [CollectionType.gen(:label => 'Type1'), CollectionType.gen(:label => 'Type2')]
+    collection = Collection.gen(:title => 'Collection title')
+    collection_types.each do |ct|
+      CollectionTypesCollection.gen(:collection_type => ct, :collection => collection)
+    end
+    helper.specialist_project_collection_link(collection).should == "Type1, Type2"
+    empty_collection = Collection.gen(:title => "Empty Collection")
+    helper.specialist_project_collection_link(empty_collection).should == "Empty Collection"
+  end
+
 end

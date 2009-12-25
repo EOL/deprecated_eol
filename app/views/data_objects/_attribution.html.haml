@@ -1,0 +1,43 @@
+%div{ :class => "attribution #{data_object.id}" }
+  - if data_object.map?
+    %table{ :cellspacing => "0", :width => "100%", :cellpadding => "0" }
+      %tr.credit-line
+        %td
+          .credit-caption
+            = "Legend"[]
+        %td
+          .credit-value
+            = image_tag 'gbif_legend.gif', :title=>'GBIF Map Legend',:alt=>'GBIF Map Legend'
+            %br
+            Not all maps have occurrence information.
+  - elsif has_hidden_attributions?(data_object) && !@preview
+    %a.attribution-icon.expand-text-attribution{ :href => "#", :title => "View full attribution details", :id => "tdo_#{data_object.id}", :style => "width: 25px; height: 25px" }
+  - if data_object.created_by_user?
+    .credit.supplier
+      .credit-caption
+        Supplier
+      .credit-value
+        = data_object.user.given_name
+        = data_object.user.family_name
+      .footer
+  - data_object.attributions.each do |attribution|
+    %div{ :class => "credit #{css_class(attribution.agent_role)}" }
+      .credit-caption
+        = attribution.agent_role
+      .credit-value
+        / agent partial
+        = agent_partial(attribution.agent)
+        / agent icon
+        = agent_icons_partial(attribution.agent)
+      .footer
+  - if data_object.text? || data_object.image?
+    .credit.permalink
+      .credit-caption
+        = "Permalink"[]
+      .credit-value
+        = "Copy and paste in email or document"[]
+        \:
+        %br
+        %form
+          %input{ :size => data_object.text? ? '45' : '35', :type => "text", :value => "http://#{$SITE_DOMAIN_OR_IP}/pages/#{data_object.taxon_concepts[0].id}?#{data_object.data_type.label.downcase}_id=#{data_object.id}", :onclick => "this.select();" }
+      .footer

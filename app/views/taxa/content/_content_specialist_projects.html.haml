@@ -1,0 +1,21 @@
+- projects = @content[:projects]
+- unless projects.empty?
+  - projects_rows, num_columns = reformat_specialist_projects(projects) 
+  %table.results_table{:cellspacing => "0"}
+    %tr
+      - num_columns.times do
+        %th
+          = ''
+    - projects_rows.each do |row|
+      %tr
+        - column_class = cycle('odd', 'even')
+        - row.each do |mapping|
+          %td{:class => column_class, :valign => "top", :style => "width:#{100/num_columns}%"}
+            - if mapping
+              - link_text = specialist_project_collection_link(mapping.collection)
+              = external_link_to(collection_logo(mapping.collection, "small"), mapping.collection.link, :show_link_icon => false)
+              = mapping.collection.title unless link_text == mapping.collection.title
+              %br
+              = external_link_to(link_text, mapping.url, :show_link_icon => true)
+            - else
+              &nbsp;

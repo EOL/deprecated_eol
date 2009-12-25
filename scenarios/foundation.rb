@@ -120,6 +120,9 @@ create_if_not_exists AgentRole, :label => 'Project'
 create_if_not_exists AgentRole, :label => 'Publisher'
 create_if_not_exists AgentRole, :label => 'Recorder'
 create_if_not_exists AgentRole, :label => 'Source'
+create_if_not_exists AgentRole, :label => 'Source Database'
+create_if_not_exists AgentRole, :label => 'Contact Person'
+create_if_not_exists AgentRole, :label => 'Contributor'
 
 create_if_not_exists AgentStatus, :label => 'Active'
 create_if_not_exists AgentStatus, :label => 'Archived'
@@ -139,9 +142,8 @@ create_if_not_exists DataType, :label => 'Flash'
 create_if_not_exists DataType, :label => 'YouTube'
 
 create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007"
-create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008", :browsable => 1
 default_hierarchy = create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009"
-create_if_not_exists Hierarchy, :label => "Encyclopedia of Life Curators"
+create_if_not_exists Hierarchy, :label => "Encyclopedia of Life Contributors"
 
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label => 'Associations'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label => 'Behaviour'
@@ -283,14 +285,11 @@ create_if_not_exists Role, :title => 'Administrator - Technical'
 create_if_not_exists Role, :title => 'Administrator - Site CMS'
 create_if_not_exists Role, :title => 'Administrator - Usage Reports'
 
-create_if_not_exists TocItem, :label => 'Overview',                      :view_order => 1
-description =
-  create_if_not_exists TocItem, :label => 'Description',                   :view_order => 2
-ecology_and_distribution =
-  create_if_not_exists TocItem, :label => 'Ecology and Distribution',      :view_order => 3
-create_if_not_exists TocItem, :label => 'Common Names',                  :view_order => 10
-ref_and_info =
-  create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 9
+create_if_not_exists TocItem, :label => 'Overview', :view_order => 1
+description = create_if_not_exists TocItem, :label => 'Description', :view_order => 2
+ecology_and_distribution = create_if_not_exists TocItem, :label => 'Ecology and Distribution', :view_order => 3
+create_if_not_exists TocItem, :label => 'Common Names', :view_order => 10
+ref_and_info = create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 9
 
 # Note that in all these "children", the view_order resets.  ...That reflects the real DB.
 create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 1, :parent_id => ref_and_info.id
@@ -319,10 +318,63 @@ create_if_not_exists Vetted, :label => 'Unknown'    # This really wants an ID of
 create_if_not_exists Vetted, :label => 'Untrusted'
 create_if_not_exists Vetted, :label => 'Trusted'
 
+create_if_not_exists SynonymRelation, :label => "synonym"
+create_if_not_exists SynonymRelation, :label => "common name"
+create_if_not_exists SynonymRelation, :label => "acronym"
+create_if_not_exists SynonymRelation, :label => "anamorph"
+create_if_not_exists SynonymRelation, :label => "blast name"
+create_if_not_exists SynonymRelation, :label => "equivalent name"
+create_if_not_exists SynonymRelation, :label => "genbank acronym"
+create_if_not_exists SynonymRelation, :label => "genbank anamorph"
+create_if_not_exists SynonymRelation, :label => "genbank common name"
+create_if_not_exists SynonymRelation, :label => "genbank synonym"
+create_if_not_exists SynonymRelation, :label => "in-part"
+create_if_not_exists SynonymRelation, :label => "includes"
+create_if_not_exists SynonymRelation, :label => "misnomer"
+create_if_not_exists SynonymRelation, :label => "misspelling"
+create_if_not_exists SynonymRelation, :label => "teleomorph"
+create_if_not_exists SynonymRelation, :label => "ambiguous synonym"
+create_if_not_exists SynonymRelation, :label => "misapplied name"
+create_if_not_exists SynonymRelation, :label => "provisionally accepted name"
+create_if_not_exists SynonymRelation, :label => "accepted name"
+create_if_not_exists SynonymRelation, :label => "database artifact"
+create_if_not_exists SynonymRelation, :label => "other, see comments"
+create_if_not_exists SynonymRelation, :label => "orthographic variant (misspelling)"
+create_if_not_exists SynonymRelation, :label => "misapplied"
+create_if_not_exists SynonymRelation, :label => "rejected name"
+create_if_not_exists SynonymRelation, :label => "homonym (illegitimate)"
+create_if_not_exists SynonymRelation, :label => "pro parte"
+create_if_not_exists SynonymRelation, :label => "superfluous renaming (illegitimate)"
+create_if_not_exists SynonymRelation, :label => "nomen oblitum"
+create_if_not_exists SynonymRelation, :label => "junior synonym"
+create_if_not_exists SynonymRelation, :label => "unavailable, database artifact"
+create_if_not_exists SynonymRelation, :label => "unnecessary replacement"
+create_if_not_exists SynonymRelation, :label => "subsequent name/combination"
+create_if_not_exists SynonymRelation, :label => "unavailable, literature misspelling"
+create_if_not_exists SynonymRelation, :label => "original name/combination"
+create_if_not_exists SynonymRelation, :label => "unavailable, incorrect orig. spelling"
+create_if_not_exists SynonymRelation, :label => "junior homonym"
+create_if_not_exists SynonymRelation, :label => "homonym & junior synonym"
+create_if_not_exists SynonymRelation, :label => "unavailable, suppressed by ruling"
+create_if_not_exists SynonymRelation, :label => "unjustified emendation"
+create_if_not_exists SynonymRelation, :label => "unavailable, other"
+create_if_not_exists SynonymRelation, :label => "unavailable, nomen nudum"
+create_if_not_exists SynonymRelation, :label => "nomen dubium"
+create_if_not_exists SynonymRelation, :label => "invalidly published, other"
+create_if_not_exists SynonymRelation, :label => "invalidly published, nomen nudum"
+create_if_not_exists SynonymRelation, :label => "basionym"
+create_if_not_exists SynonymRelation, :label => "heterotypic synonym"
+create_if_not_exists SynonymRelation, :label => "homotypic synonym"
+create_if_not_exists SynonymRelation, :label => "unavailable name"
+create_if_not_exists SynonymRelation, :label => "valid name"
+
+
 create_if_not_exists Visibility, :label => 'Invisible'      # This really wants an ID of 0, but only for PHP stuff.
 create_if_not_exists Visibility, :label => 'Visible'
 create_if_not_exists Visibility, :label => 'Preview'
 create_if_not_exists Visibility, :label => 'Inappropriate'
+create_if_not_exists Visibility, :label => 'Visible' 
+
 
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:

@@ -4,6 +4,7 @@ class AgentRole < SpeciesSchemaModel
   acts_as_enum
 
   has_many :agents_data_objects
+  has_many :agents_synonyms
   
   # Find the "Source" AgentRole.
   def self.source_id

@@ -51,9 +51,10 @@
   = "</form>" if is_curator
   %br
   - if is_curator
-    - form_tag "/pages/#{@taxon_concept.id}/common_names", :method => :post, :id => 'add_common_name' do
+    - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
       = label_tag :name, 'Add a new common name:'
-      = text_field :name, :string, :size => 20
+      = text_field :name, :name_string, :size => 40, :maxlength => 300
+      = submit_tag :name, :value => 'Add'
   %br
   .divider
   .content-attribution-area

@@ -7,6 +7,8 @@ class Synonym < SpeciesSchemaModel
   belongs_to :name
   belongs_to :synonym_relation
   belongs_to :vetted
+  
+  has_many :agents_synonyms
 
   def self.by_taxon(taxon_id)
     return Synonym.find_all_by_hierarchy_entry_id(taxon_id, :include => [:synonym_relation, :name])

@@ -1,7 +1,8 @@
 - form_tag(search_url(:protocol => "http"), :method => "get", :onsubmit => "return EOL.validate_search_parameters(this, false);") do
   .search_box
     %fieldset
-      = hidden_field_tag(:search_log_id, @logged_search_id) if @logged_search_id
+      - if @logged_search_id
+        = hidden_field_tag(:search_log_id, @logged_search_id)
       = text_field_tag :q, params[:q] || "", {:size=>"20", :maxlength=>"250", :onfocus=>"this.select();", :class=>"left"}
       \&nbsp;
       %input.search_image{ :name => "search_image", :title => "Find"[], :value => "", :type => "submit" }

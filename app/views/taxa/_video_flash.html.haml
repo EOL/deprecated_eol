@@ -1,0 +1,2 @@
+- video_url ||= @video_url
+%embed{ :src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :type => "application/x-shockwave-flash", :height => "335", :flashvars => "file=#{video_url}&displayheight=335&usefullscreen=false&autostart=true&usecaptions=false", :width => "425" }

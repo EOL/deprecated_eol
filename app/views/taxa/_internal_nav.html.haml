@@ -4,12 +4,13 @@
   #contribute-info.popup{:style => "display:none;"}
   - act_curators_size = @taxon_concept.acting_curators.size
   - if act_curators_size > 0
-    %a{ :href => "#citation" }
-    #number-of-curators
-      This page has
-      = act_curators_size
-      curators.
-    #number-of-curators
+    .number-of-curators
+      %a{ :href => "#citation" }
+        This page has
+        = act_curators_size
+        == curator#{act_curators_size == 1 ? "." : "s."}
+
+    .number-of-curators
       Last curated:
       = LastCuratedDate.find(:last, :conditions => ["taxon_concept_id = ?", @taxon_concept]).last_curated.strftime("%d %b %Y")
   -# if act_curators_size

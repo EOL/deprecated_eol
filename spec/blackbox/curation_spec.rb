@@ -56,36 +56,36 @@ describe 'Curation' do
   it 'should confirm that the page doesn\'t have the citation if there is no active curator for the taxon_concept' do
     LastCuratedDate.delete_all
     the_page = request("/pages/#{@taxon_concept.id}")
-    the_page.body.should_not have_tag('div#number-of-curators')
+    the_page.body.should_not have_tag('div.number-of-curators')
     the_page.body.should_not have_tag('div#page-citation')
   end
     
   it 'should say the page has citation (both lines)' do
-    @default_page.body.should have_tag('div#number-of-curators')
+    @default_page.body.should have_tag('div.number-of-curators')
     @default_page.body.should have_tag('div#page-citation')
   end
 
   it 'should change the number of curators if another curator curates an image' do
     num_curators = @taxon_concept.acting_curators.length
-    @default_page.body.should have_tag('div#number-of-curators', /#{num_curators}/)
+    @default_page.body.should have_tag('div.number-of-curators', /#{num_curators}/)
     user = build_curator(@taxon_concept)
     @taxon_concept.images.last.curator_activity_flag user, @taxon_concept.id
     @taxon_concept.acting_curators.length.should == num_curators + 1
-    request("/pages/#{@taxon_concept.id}").body.should have_tag('div#number-of-curators', /#{num_curators+1}/)
+    request("/pages/#{@taxon_concept.id}").body.should have_tag('div.number-of-curators', /#{num_curators+1}/)
   end
               
   it 'should change the number of curators if another curator curates a text object' do
     num_curators = @taxon_concept.acting_curators.length
-    @default_page.body.should have_tag('div#number-of-curators', /#{num_curators}/)
+    @default_page.body.should have_tag("div.number-of-curators", /#{num_curators}/)
     user = build_curator(@taxon_concept)
     @taxon_concept.overview.first.curator_activity_flag user, @taxon_concept.id
     @taxon_concept.acting_curators.length.should == num_curators + 1
-    request("/pages/#{@taxon_concept.id}").body.should have_tag('div#number-of-curators', /#{num_curators+1}/)
+    request("/pages/#{@taxon_concept.id}").body.should have_tag("div.number-of-curators", /#{num_curators+1}/)
   end
               
   it 'should have a link from N curators to the citation' do
-    @default_page.body.should have_tag('a[href*=?]', /#citation/) do
-      with_tag('div#number-of-curators')
+    @default_page.body.should have_tag("div.number-of-curators") do
+      with_tag('a[href*=?]', /#citation/)
     end
   end
   

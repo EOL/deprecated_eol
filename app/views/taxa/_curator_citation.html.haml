@@ -1,0 +1,18 @@
+- curators = @taxon_concept.curator_has_citation
+- if (curators.size > 0)
+  %a{ :name => "citation" }
+    #page-citation
+      = curators.map{|c| link_to h("#{c.given_name} #{c.family_name}"), :controller => :account, :action => :show, :id => c.id, :popup => true}.join(', ') + "."
+      - if curators.size == 1
+        = "Ed."
+      - elsif curators.size > 1
+        = "Eds."
+      == "#{@taxon_concept.scientific_name(@session_hierarchy)}". Encyclopedia of Life, available from
+      %a{ :href => this_url = url_for(:controller=>'/taxa', :action=>'show', :id=>@taxon_concept.id), :target => "_blank" }>
+        == "http://#{$SITE_DOMAIN_OR_IP}#{this_url}"
+      \. Accessed
+      == #{Time.now.strftime("%d %b %Y")}.
+      
+      /
+        Example:
+        Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, available from <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009.

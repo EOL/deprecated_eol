@@ -56,10 +56,10 @@ module TaxaHelper
     agents = original_agents.clone # so we can be destructive.
     agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
     
-    output_html = Array.new
+    output_html = []
     
     agents.each do |agent|
-      logo_size=(agent == Agent.catalogue_of_life ? "large" : "small") # CoL gets their logo big     
+      logo_size = (agent == Agent.catalogue_of_life ? "large" : "small") # CoL gets their logo big     
       if agent.logo_cache_url.blank? 
         output_html << agent_partial(agent,params) if params[:show_text_if_no_icon] 
       else

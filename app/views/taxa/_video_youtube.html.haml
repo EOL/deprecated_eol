@@ -1,0 +1,8 @@
+- video_url ||= @video_url
+%object{:data => video_url, :type => "application/x-shockwave-flash", :height => "355", :width => "425"}
+  %param{:name => "flashvars", :value => "flickr_show_info_box=true"}
+  %param{:name => "wmode", :value => "transparent"}
+  %param{:name => "movie", :value => video_url}
+  %param{:name => "bgcolor", :value => "#000000"}
+  %param{:name => "allowFullScreen", :value => "true"}
+  %embed{:src => video_url, :allowfullscreen => "true", :type => "application/x-shockwave-flash", :height => "355", :flashvars => "flickr_show_info_box=true", :bgcolor => "#000000", :width => "425"}

@@ -240,10 +240,10 @@
     - if @display_survey
       #progress-bar
         #flash-survey.pop-up-panel{ :style => "display:none;" }
-          = render :partial=> 'popups/survey'
+          = render :partial => 'popups/survey'
           :javascript
             document.observe("dom:loaded", function() {
-              setTimeout("Element.show('flash-survey');new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50})",5000);
+              setTimeout("Element.show('flash-survey');new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50})", 5000);
             });
     - if $ENABLE_ANALYTICS
       :javascript

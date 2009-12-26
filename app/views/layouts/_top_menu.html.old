@@ -1,0 +1,5 @@
+<% for menu_item in menu_items %>
+	<li>
+		<%= link_to hh(menu_item.title[menu_item.key]), (menu_item.url.blank? ? "/content/page/" + menu_item.page_url : menu_item.url), :title=>hh(menu_item.title[menu_item.key]), :target=>(menu_item.open_in_new_window ? "_blank" : "_self") %>
+	</li>
+<% end %>

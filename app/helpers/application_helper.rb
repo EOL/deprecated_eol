@@ -242,7 +242,7 @@ module ApplicationHelper
     logo_str = "<img "
     logo_str += "width='#{params[:width]}'" unless params[:width].nil?
     logo_str += "height='#{params[:height]}'" unless params[:height].nil?
-    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(agent.project_name)}\" title=\"#{sanitize(agent.project_name)}\" class=\"agent-logo\" />"
+    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{hh(sanitize(agent.project_name))}\" title=\"#{hh(sanitize(agent.project_name))}\" class=\"agent-logo\" />"
     return logo_str
   end
   

@@ -21,7 +21,7 @@
               = link_to '<span style="display:block;width:24px;height:25px;"></span>',  |
                 attribution_data_object_path(@selected_image),                          |
                 :id => "large-image-attribution-button-popup-link",                     |
-                :class => 'popup-link', :alt => "More information"                      |
+                :class => 'popup-link', :title => "More information"                      |
             = render :partial=>'data_object_states', :locals => {:dato => @selected_image}
         / end left-image-buttons
         #right-image-buttons
@@ -37,7 +37,7 @@
                   = link_to '<span style="display:block;width:24px;height:25px;"></span>',         |
                     {:controller => :data_objects, :action => :curate, :id => @selected_image.id,  |
                      '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, | 
-                    {'data-data_object_id' => @selected_image.id, :alt => 'Trust this image',      |
+                    {'data-data_object_id' => @selected_image.id, :title => 'Trust this image',      |
                      'data-data_object_type' => DataType.image_type_ids[0]}                        |
                 - thumb_down_style = @selected_image.curated? ? "display: none" : "" 
                 #large-image-untrust-button.untrust_button.thumbs-down-image{:title => "Do not trust this image", :style => thumb_down_style}
@@ -46,19 +46,19 @@
                      :id => @selected_image.id, '_method' => :put,                          |
                      :curator_activity_id => CuratorActivity.disapprove!.id.to_s},          |
                      {'data-data_object_id' => @selected_image.id,                          |
-                     :alt => 'Do not trust this image',                                     | 
+                     :title => 'Do not trust this image',                                     | 
                      'data-data_object_type' => DataType.image_type_ids[0]})                |
               #large-image-curator-button.curate-button-image{ :title => "Curate image" }
-                = popup_link 'curator', curation_data_object_path(@selected_image), :alt => 'Curate image'
+                = popup_link 'curator', curation_data_object_path(@selected_image), :title => 'Curate image'
             
             #large-image-tagging-button{:title => "Tag image"}
-              = popup_link 'tagging', data_object_tags_path(@selected_image), :alt => 'Tag image'
+              = popup_link 'tagging', data_object_tags_path(@selected_image), :title => 'Tag image'
             #large-image-comment-button.comment-button-image{:title => "Comment on image"}
               = popup_link 'comment', data_object_comments_path(                             |
                   @selected_image, (@selected_image_comment.nil? ? {} : {                    |
                     :comment_id => @selected_image_comment.id, :page => @comment_page        |
                     })),                                                                     |
-                  :alt => "Comment on image"                                                 |
+                  :title => "Comment on image"                                                 |
               - if @selected_image_comment
                 :javascript
                   document.observe("dom:loaded", function() {

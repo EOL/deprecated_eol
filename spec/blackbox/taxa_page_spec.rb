@@ -221,7 +221,8 @@ describe 'Taxa page (HTML)' do
     
     it "should see 'not in hierarchy' message when the user doesn't specify a default hierarchy and page is not in default hierarchy" do
       login_as @user_with_nil_hierarchy
-      request("/pages/#{@ncbi_tc.id}").should include_text("Name not in #{Hierarchy.default.label}")
+      res = request("/pages/#{@ncbi_tc.id}")
+      res.should include_text("Name not in #{Hierarchy.default.label.gsub("&", "&amp;")}")
     end
     
     it "should see 'not in hierarchy' message when the user has NCBI hierarchy and page is not in NCBI" do

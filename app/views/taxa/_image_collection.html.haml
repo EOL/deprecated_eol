@@ -79,7 +79,7 @@
 
       - image_attribution_hash += "}"
       - counter += 1
-      - image_icons = "<ul data-data_object_id='#{image.id}'>" + render(:partial=>'data_object_states', :locals => {:dato => image}) +'</ul>'
+      
 
       :javascript
         EOL.MediaCenter.image_hash[#{image.id}] = #{image_attribution_hash};
@@ -87,8 +87,8 @@
       %a{ :href => "#image-#{image.id}", :class => vetted_id_class(image), :title => hh(image.scientific_name), :id => "thumbnail_#{image.id}" }
         %span
           = image_tag image.smart_thumb, :alt => hh(image.scientific_name)
-        = image_icons
-
+        %ul{:"data-data_object_id" => image.id}
+          = render(:partial=>'data_object_states', :locals => {:dato => image})
       - if @selected_image.id == image.id
         - image_load_js_function="eol_update_image('" + escape_javascript(image.smart_image) + "'," + image_attribution_hash +");"
         - attribution_js_function="eol_update_credit(" + image_attribution_hash +");"

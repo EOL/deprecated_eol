@@ -1,7 +1,11 @@
-%li.unpublished_icon.status_icon{:style => (dato.published? ? "display:none" : nil), :title => "Unpublished"} 
+- unless dato.published?
+  %li.unpublished_icon.status_icon{:title => "Unpublished"} 
 
-%li.published_icon.status_icon{:style => ((dato.published? && agent_logged_in? && !dato.data_supplier_agent.blank? && current_agent.id == dato.data_supplier_agent.id) ? nil : "display:none"), :title => "Published"}
+- if dato.published? && agent_logged_in? && !dato.data_supplier_agent.blank? && current_agent.id == dato.data_supplier_agent.id
+  %li.published_icon.status_icon{:title => "Published"}
 
-%li.inappropriate_icon.status_icon{:style => (dato.inappropriate? ? nil : "display:none"), :title => "Inappropriate"}
+- if dato.inappropriate?
+  %li.inappropriate_icon.status_icon{:title => "Inappropriate"}
 
-%li.invisible_icon.status_icon{:style => (dato.invisible? ? nil : "display:none"), :title => "Hidden"}
+- if dato.invisible?
+  %li.invisible_icon.status_icon{:title => "Hidden"}

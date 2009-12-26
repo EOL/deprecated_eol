@@ -2193,13 +2193,12 @@ div#add_user_text_references {
     margin-top: 2px; }
 
 table#content-partners-species {
-  border-collapse: separate;
-  height: 100%; }
+  border-collapse: separate; }
   table#content-partners-species td {
     height: 147px;
     padding: 4px;
     text-align: center;
-    vertical-align: bottom; }
+    vertical-align: top; }
     table#content-partners-species td.image {
       border-right: 1px solid #E6E7E8;
       border-bottom: 1px solid #E6E7E8; }

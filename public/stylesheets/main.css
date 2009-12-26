@@ -390,7 +390,7 @@ ul#global-navigation {
   color: #959595;
   text-align: center; }
 
-#number-of-curators {
+div.number-of-curators {
   font-size: 10px;
   padding-left: 5px;
   text-align: left;
@@ -2061,7 +2061,7 @@ div.text_buttons {
     top: 0px;
     bottom: 0px; }
 
-#span_block {
+span.span_block {
   display: block;
   width: 24px;
   height: 25px; }

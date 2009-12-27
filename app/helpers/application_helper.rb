@@ -239,22 +239,24 @@ module ApplicationHelper
   def agent_logo(agent, size = "large", params={})
     src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
     return src if src.empty?
-    logo_str = "<img "
-    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
-    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
-    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{hh(sanitize(agent.project_name))}\" title=\"#{hh(sanitize(agent.project_name))}\" class=\"agent-logo\" />"
-    return logo_str
+    project_name = hh(sanitize(agent.project_name))
+    capture_haml do
+      haml_tag :img, {:width => params[:width], :height => params[:height], 
+                      :src => src,  :border => 0, :alt => project_name, 
+                      :title => project_name, :class => "agent_logo"}
+    end
   end
   
   def collection_logo(collection, size = "large", params={})
     src = ''
     src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url!=0
     return src if src.empty?
-    logo_str = "<img "
-    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
-    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
-    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(collection.title)}\" title=\"#{sanitize(collection.title)}\" class=\"agent-logo\" />"
-    return logo_str
+    collection_title = hh(sanitize(collection.title))
+    capture_haml do
+      haml_tag :img, {:width => params[:width], :height => params[:height],
+                      :src => src, :border => 0, :alt => collection_title, 
+                      :title => collection_title, :class => "agent-logo"}
+    end
   end
 
   def external_link_to(*args, &block)

@@ -1,0 +1,21 @@
+%label{ :title => "Select a clade"[] }= "Select a clade"[]
+
+%span#curator_taxon== &nbsp; #{clade_selector(options = { :selectable_clade_level => 3 })}
+
+%label{ :title => "Curation Scope"[] }
+  = "Curation Scope"[]
+
+Please note the scope of your expertise if it is smaller than the clade you signed up for. For example: "Rodents of Borneo," or "Tri-trophic interactions," or "Conservation issues in fish." This will not limit your ability to curate but will inform the EOL community.
+
+= f.text_area :curator_scope, { :rows => 3, :cols => 80 }
+
+%label{ :title => "Credentials"[], :for => "user_credentials" }= "Credentials"[]
+
+Please state at least one specific credential from this list:
+
+%br
+%ol
+  %li faculty, staff, or graduate student status in a relevant university or college department
+  %li authorship of a peer-reviewed publication (provide reference)
+  %li member of a professional society
+= f.text_area :credentials, { :rows => 7, :cols => 80 }

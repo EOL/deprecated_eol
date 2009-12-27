@@ -1,0 +1,34 @@
+- unless results.blank?
+  .search_results{ :id => title.downcase.gsub(" ", "_")}
+    %h3.search_result_subtitle= "#{title}"[]
+    %p
+      == Results #{results.offset + 1} - #{results.offset + [results.per_page, results.total_entries].min} of
+      == #{results.total_entries} for
+      %em= @querystring
+    %table.results_table{ :cellspacing => "0", :summary => title, :style => "width:100%;" }
+      %tr
+        %th{ :style => "width:152px;" }= "Image"[]
+        %th{ :style => "width:50%;" }= "Common Name"[]
+        %th{ :style => "width:50%;" }= "Scientific Name"[]
+      - results.each do |result|
+        - vetted_value = ''
+        - vetted_value = '_unvetted'  if result['unknown']
+        - vetted_value = '_untrusted' if result['untrusted']
+        - column_class = cycle('odd', 'even') + vetted_value
+        %tr
+          %td{ :class => column_class }
+            - unless result['top_image'].nil?
+              %a{ :href => url_for(:action => 'search_clicked', :id => result['id']) }
+                %img{ :title => strip_tags(result['best_matched_scientific_name']), :src => result['top_image'].smart_medium_thumb, :alt => strip_tags(result['best_matched_scientific_name']) }
+          %td{ :class => column_class }
+            = link_to hh(result['best_matched_common_name']), {:action => 'search_clicked', :id => result['id']}, :method=>:post
+            %br
+            = result['common_shown_as']
+          %td{ :class => column_class }
+            = link_to hh(result['best_matched_scientific_name']), {:action => 'search_clicked', :id => result['id']}, :method=>:post
+            %br
+            = result['scientific_shown_as']
+      -# end results.each
+    = will_paginate(results)
+  - # /search_results
+  %br

@@ -1,0 +1,97 @@
+= javascript_include_tag 'users'
+:javascript
+  document.observe("dom:loaded", function() {
+  $('user_username').focus();
+  if(#{params[:user] && params[:user][:curator_request] ? 'true' :'false'}) reset_curator_panel();
+  });
+#registration
+  #page-separator-general
+  #page-title
+    %h1= "Registration"[]
+    %hr
+  #page-content.clearfix
+    / center page content
+    #full-page-content
+      -# remove openid message for now
+      -# Attention Flickr, Yahoo, SmugMug, Blogger, AOL users (and others) - 
+      -# #{link_to 'you already have OpenID accounts', 'http://openid.net/get/',:target=&amp;gt;'_blank'} 
+      -# and can now usethem to #{link_to 'log into', login_url} EOL directly! 
+      -# There is no need to register below unless you wish to be considered for curator privileges.
+      -#  %br
+      %br
+      Please note that you will be required to click a link in a confirmation email sent to the email address you enter below - so you must provide a valid, working email address.
+      = eol_lang_error_messages_for :user
+      - form_for :user, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f|
+        %fieldset
+          %span#verification_warn.error
+            %strong= @verification_did_not_match
+          %label{ :title => "Please enter your username"[], :for => "user_username" }
+            = "Username"[]
+            (4 - 32 characters)
+            %span{ :title => "required" }
+              *
+            %span.warn== (#{"Required"[]})
+          / user_username ^[a-zA-Z0-9\-_]{4,32}$ false true //
+          = f.text_field :username, {:maxlength=>32, :onblur=>'JavaScript:check_username();'}
+          %span#username_warn.error
+          %label{ :title => "Please enter a password"[], :for => "user_entered_password" }
+            = "Password"[]
+            (4 - 16 characters)
+            %span{ :title => "required" }
+              *
+            %span.warn== (#{ "Required"[] })
+          / user_entered_password .+ false true //
+          = f.password_field :entered_password, { :maxlength => 16 }
+          %label{ :title => "Please enter the password again"[], :for => "user_entered_password_confirmation" }
+            = "Confirm Password"[]
+            %span{ :title => "required" }
+              *
+            %span.warn== (#{"Required"[]})
+          / user_entered_password_confirmation .+ false true //
+          = f.password_field :entered_password_confirmation, { :maxlength => 16, :onblur => 'JavaScript:check_passwords();' }
+          %span#password_warn.error
+          %label{ :title => "Please enter your email address"[], :for => "user_email" }
+            = "Email Address"[]
+            %span{ :title => "required" }
+              *
+            %span.warn== (#{"Required"[]})
+          / user_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //
+          = f.text_field :email, { :maxlength => 100, :size => 30, :onblur => 'JavaScript:check_email();' }
+          %span#email_warn.error
+          %label{ :title => "Please enter your given name"[:please_enter_given_name], :for => "user_given_name" }
+            = "Given name"[]
+            %span{ :title => "required" }
+              *
+            %span.warn== (#{"Required"[]})
+          / user_given_name .+ false true //
+          = f.text_field :given_name, { :maxlength => 30 }
+          %label{ :title => "Please enter your family name"[:please_enter_family_name], :for => "user_family_name" }
+            = "Family name"[]
+          = f.text_field :family_name, { :maxlength => 30}
+          %label{ :title => "Do you want to receive EOL notifications by email?"[], :for => "user_mailing_list" }
+            = "Do you want to receive EOL notifications by email?"[]
+          = f.check_box :mailing_list
+          = "Yes"[:yes_answer]
+          - if $ALLOW_CURATOR_SELF_REG
+            %label{ :title => "Do you want to be a curator"[], :for => "curator_request" }
+              = "Do you want to be a curator?"[]
+            = f.check_box :curator_request, { :id => "curator_request" }
+            = "Yes"[:yes_answer]
+            %br
+            %br
+            #curator_request_options{ :style => "display:none;" }
+              %span
+                = "To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted."[:curator_signup_message]
+              = render(:partial=>'curator_form',:locals=>{ :f => f })
+          -# end if $ALLOW_CURATOR_SELF_REG
+          - if $ENABLE_RECAPTCHA
+            %br
+            %label{ :title => "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha], :for => "recaptcha" }
+              = "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha]
+            = recaptcha_tags
+          -# end if $ENABLE_RECAPTCHA
+          %br
+          .button
+            = submit_tag "Register Now"[] + ' &#187;'
+      -# end form_for :user
+      %br

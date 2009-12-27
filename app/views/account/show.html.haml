@@ -1,0 +1,47 @@
+#page-separator-general
+#user_show.clearfix
+  = link_to '[go back]', :back
+  - if @user == current_user
+    = link_to '[edit]', profile_path
+  #about
+    %h1
+      = h @user.given_name
+      &nbsp;
+      = h @user.family_name
+    %p
+      Curator of
+      = link_to(@user.curator_hierarchy_entry.name, :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id)
+      = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @user.curator_hierarchy_entry.taxon_concept_id)
+    %p
+      = @user.curator_scope
+    %p
+      "
+      = h @user.username
+      " joined
+      = format_date(@user.created_at)
+  #activity
+    %h3
+      Activity
+    %p
+    %table
+      %thead
+      %tbody
+        %tr{ :class => cycle('odd','even', :name => 'account') }
+          %td
+            Objects Curated
+          %td
+            = @user.total_objects_curated
+        %tr{ :class => cycle('odd','even', :name => 'account') }
+          %td
+            Comments Moderated
+          %td
+            = @user.total_comments_curated
+        %tr{ :class => cycle('odd','even', :name => 'account') }
+          %td
+            Species Curated
+          %td
+            = @user.total_species_curated
+  #credentials
+    %h3
+      Credentials
+    = allow_some_html(@user.credentials)

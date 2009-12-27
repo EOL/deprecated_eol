@@ -1,0 +1,107 @@
+= javascript_include_tag 'users'
+:javascript
+  document.observe("dom:loaded", function() {
+  $('user_username').focus();
+    if (#{params[:user] && params[:user][:curator_request] ? 'true' : 'false'}) reset_curator_panel();
+  });
+#page-separator-general
+#page-title
+  %h1= "Your Preferences"[]
+  %hr
+#page-content.clearfix
+  #full-page-content
+    = eol_lang_error_messages_for :user if request.post?
+    %p
+      - form_for :user, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
+        %fieldset
+          %table
+            %tr
+              %td{ :valign => "top", :style => "padding-right:30px;" }
+                %h3.preference-header= "Account Information"[]
+                %label Username:  (4 - 32 characters)
+                = f.text_field :username, {:maxlength=>32, :onblur=>'JavaScript:check_username();'}
+                %span#username_warn.error
+                -# do not show open ide users for now
+                - if @user.openid? and false
+                  %label
+                    Open ID URL:
+                  = current_user.identity_url
+                  %br
+                  = f.hidden_field :entered_password
+                  = f.hidden_field :entered_password_confirmation
+                - else
+                  %p{ :style => "padding-bottom:8pt;" }
+                    %br
+                    = "Only enter new password if you wish to change."[:only_enter_new_password_if_needed]
+                  %label{ :for => "entered_password" }== #{"New Password"[]} (4 - 16 characters)
+                  = f.password_field :entered_password, { :maxlength => 16 }
+                  %label{ :for => "password_confirmation" }= "Confirm New Password"[]
+                  = f.password_field :entered_password_confirmation, {:maxlength=>16, :onblur=>'JavaScript:check_passwords();'}
+                  %span#password_warn.error
+                  %br
+                -# end if @user.open_id?
+                %p
+                  %br
+                %label{ :title => "Please enter your email address"[], :for => "user_email" }
+                  = "Email Address"[]
+                  %span{ :title => "required" }
+                    *
+                  %span.warn== (#{"Required"[]})
+                = f.text_field :email, { :maxlength => 100, :size => 30, :onblur => 'JavaScript:check_email();'}
+                %span#email_warn.error
+                %p
+                  %br
+                %label{ :title => "Please enter your given name"[], :for => "user_given_name" }
+                  = "Given name"[:given_name]
+                  %span{ :title => "required" }
+                    *
+                  %span.warn== (#{"Required"[]})
+                = f.text_field :given_name, { :maxlength => 30 }
+                %label{ :title => "Please enter your family name"[], :for => "user_family_name" }
+                  = "Family name"[:family_name]
+                = f.text_field :family_name, { :maxlength => 30 }
+                %p
+                  %br
+                %label{ :title => "Do you want to receive EOL notifications?"[], :for => "user_mailing_list" }
+                  = "Do you want to receive EOL notifications?"[]
+                = f.check_box :mailing_list
+                = "Yes"[:yes_answer]
+                %br
+                %br
+              %td{ :valign => "top" }
+                = render(:partial => 'taxa/set_content_settings', :locals => {:f => f})
+          - if $ALLOW_CURATOR_SELF_REG
+            %h3.preference-header= "Curators"[]
+            - if !@user.is_curator?
+              %label{ :title => "Do you want to be a curator"[], :for => "user_curator_signup" }
+                = "Do you want to be a curator?"[]
+              = f.check_box :curator_request, {:id => "curator_request", :onclick => 'EOL.Effect.appear("curator_request_options");'}
+              = "Yes"[:yes_answer]
+            - # end of not-user-is-curator
+            #curator_request_options{ :style => ('display:none' unless @user.is_curator?) }
+              %br
+              %label{ :for => "curator" }
+                = "Curator Information"[]
+              - if @user.is_curator? # show them the clade they have selected
+                %p
+                  = @user.curator_approved ? "You are currently a curator of " : "You have requested curation of "
+                  = link_to(@user.curator_hierarchy_entry.name, :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id)
+                  = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @user.curator_hierarchy_entry.taxon_concept_id)
+              - else
+                %span= "To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted."[:curator_signup_message]
+              - # end user-really-is-curator
+              = render(:partial=>'curator_form',:locals=>{:f=>f})
+              - if @user.curator_approved
+                %br
+                = link_to 'View your curator profile', :controller => :account, :action => :show, :id => @user.id
+              - # end curator-approved
+            - # end curator_request_options
+          - # end $ALLOW_CURATOR_SELF_REG
+          .button
+            %input{ :name => "Cancel"[], :type => "button", :value => "Cancel"[], :onclick => "document.location.href='#{back_or_home(return_to_url)}';" }
+            &nbsp;&nbsp;
+            = submit_tag 'Update Account'[]
+          - # end class-button
+      - # end form_for :user
+  - # end full-page-content
+- # end page-content

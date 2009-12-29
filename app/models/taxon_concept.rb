@@ -860,20 +860,19 @@ EOIUCNSQL
   #     Language object to use for this name.  Default is Language.english
   def add_common_name(name, options = {})
     language  = options[:language]  || Language.english
-    preferred = options.has_key?(:preferred) ? options[:preferred] : false 
+    preferred = options.has_key?(:preferred) ? options[:preferred] : false
+    preferred = true if (all_common_names.blank?)  
+    relation = SynonymRelation.find_by_label("common name")
     vern      = true
     name_obj  = generate_common_name(name)
-    syn = safely_generate_synonym(name_obj, :preferred => preferred, :language => language)
-    tcn = safely_generate_tc_name(name_obj, :preferred => preferred, :language => language, :vern => vern)
+    syn = generate_synonym(name_obj, :preferred => preferred, :language => language, :relation => relation)
+    tcn = generate_tc_name(name_obj, :preferred => preferred, :language => language, :vern => vern)
     [name_obj, syn, tcn]
   end
   
 
 #####################
 private
-  
-  def add_name(name, options = {})
-  end
   
   def generate_common_name(name)
     name_obj = nil # scope
@@ -884,10 +883,10 @@ private
     name_obj
   end
   
-  def safely_generate_synonym(name_obj, contributor_hierarchy, options = {})
+  def generate_synonym(name_obj, options = {})
     language  = options[:language]  || Language.english
-    common_name_type = SynonymRelation.find_by_label("common name")
-    preferred = options.has_key?(:preferred) ? options[:preferred] : true
+    synonym_relation = options[:relation]
+    preferred = options[:preferred]
     contributor_hierarchy = Hierarchy.find_by_label("Encyclopedia of Life Contributors") 
     synonym = Synonym.find_by_hierarchy_entry_id_and_language_id_and_name_id_and_preferred(entry.id, 
               language.id, 
@@ -898,16 +897,16 @@ private
                                :hierarchy        => contributor_hierarchy, 
                                :hierarchy_entry  => entry, 
                                :language         => language,
-                               :synonym_relation => common_name_type,
+                               :synonym_relation => synonym_relation,
                                :preferred        => preferred)
     end
   end
 
-  def safely_generate_tc_name(name_obj, options = {})
+  def generate_tc_name(name_obj, options = {})
     language  = options[:language]  || Language.english
-    preferred = options.has_key?(:preferred) ? options[:preferred] : true
+    preferred = options[:preferred]
     vern      = options.has_key?(:vern) ? options[:vern] : true
-    tcn       = TaxonConceptName.find_by_name_id(name_obj.id)
+    tcn       = TaxonConceptName.find_by_taxon_concept_id_and_name_id(self.id, name_obj.id)
     if tcn.blank?
       tcn = TaxonConceptName.create(:preferred => preferred, 
                                     :vern => vern, 

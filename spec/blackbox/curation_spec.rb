@@ -115,4 +115,17 @@ describe 'Curation' do
     @logged_in_page.should include('Add a new common name')
   end
 
+  it 'should add a new name using post' do
+    @curator = create_curator_for_taxon_concept(@taxon_concept)
+    common_names_toc_id = TocItem.common_names.id
+    tcn_count = TaxonConceptName.count
+    syn_count = Synonym.count
+    login_as(@curator).should redirect_to('/')
+    
+    res = request("/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :params => {:taxon_concept_id => @taxon_concept_id, :name => {:name_string => "new name", :category_id => common_names_toc_id}})
+    res.should redirect_to("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}")
+    TaxonConceptName.count.should == tcn_count + 1
+    Synonym.count.should == syn_count + 1
+  end
+
 end

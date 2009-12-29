@@ -53,6 +53,7 @@
   %br
   - if is_curator
     - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
+      = hidden_field :name, 'category_id', :value => params[:category_id]
       = label_tag :name, 'Add a new common name:'
       = text_field :name, :name_string, :size => 40, :maxlength => 300
       = submit_tag :name, :value => 'Add'

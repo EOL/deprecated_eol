@@ -217,24 +217,6 @@ describe TaxonConcept do
     @taxon_concept.videos.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
   end
 
-  it 'should have a search_with_pagination method (default to common name) which returns Solr results' do
-    TaxonConcept.should_receive(:solr_search).and_return(
-      {"response"=>{"start"=>0, "docs"=>[{"common_name"=>["purple raccoon"], "top_image_id"=>43, "preferred_scientific_name"=>["Procyon"], "published"=>[true], "scientific_name"=>["Procyon"], "supercedure_id"=>[0], "vetted_id"=>[1], "taxon_concept_id"=>[17]}], "numFound"=>15}, "responseHeader"=>{"QTime"=>1, "params"=>{"indent"=>"on", "version"=>"2.2", "q"=>"{!lucene} common_name:\"raccoon\" AND published:1 AND supercedure_id:0", "start"=>"0", "rows"=>"1", "wt"=>"json"}, "status"=>0}}
-    )
-    obj = TaxonConcept.search_with_pagination('common_name:raccoon') 
-    obj.class.should == WillPaginate::Collection
-    obj[0]["preferred_scientific_name"].should == ["Procyon"]
-  end
-
-  #it 'should be able to search, returning an array of hashes for each result type' do
-    #results = TaxonConcept.quick_search(@common_name)
-    #results[:common].should_not be_nil
-    #results[:common].map {|h| h['id'].to_i }.should include(@taxon_concept.id)
-    #results = TaxonConcept.quick_search(@scientific_name.sub(/\s.*$/, '')) # Removes the second half and attribution
-    #results[:scientific].should_not be_nil
-    #results[:scientific].map {|h| h['id'].to_i }.should include(@taxon_concept.id)
-  #end
-
   it 'should have visible comments that don\'t show invisible comments' do
     user = User.gen
     @taxon_concept.visible_comments.should_not be_nil
@@ -338,6 +320,14 @@ describe TaxonConcept do
   it 'should sort the vetted images by data rating' do
     @taxon_concept.current_user = @user
     @taxon_concept.images[0..2].map(&:object_cache_url).should == [@image_3, @image_2, @image_1]
+  end
+
+  it 'should create a common name as a preferred common name, if there are no other common names for the taxon' do
+    tc = build_taxon_concept(:common_names => [])
+    tc.add_common_name('A name')
+    tc.quick_common_name.should == "A name"
+    tc.add_common_name("Another name")
+    tc.quick_common_name.should == "A name"
   end
 
   #

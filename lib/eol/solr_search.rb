@@ -11,13 +11,8 @@ module EOL
         options[:search_type] ||= :common_name
         clean_query = options[:escape_query_underscore] ? query.gsub('_', ' ') : query # Handles some of the "clean" URL "ids" that may get passed in.
         querystring = ''
-        if clean_query =~ /:/ # This was passed in as a prepared querystring TODO - this s/b a separate method
-          querystring  = clean_query
-          @@field_spec = /\w+:/
-          query        = clean_query.gsub(@@field_spec, '') # TODO - this may not handle complex querystrings well.
-        else # This was just a raw string, we need to make a query out of it:
-          querystring = prepare_querystring(clean_query, options)
-        end
+        # This was just a raw string, we need to make a query out of it:
+        querystring = prepare_querystring(clean_query, options)
         res  = solr_search(querystring, options)
         data = EOL::SearchResultsCollection.new(res['response']['docs'],
                                                 options.merge(

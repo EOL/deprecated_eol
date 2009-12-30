@@ -43,7 +43,6 @@ class TaxaController < ApplicationController
     raise "boom" 
   end
 
-  # TODO - log that a search was performed
   def search
     # remove colon from query, because it reserved for fields separation
     @colon_warning_flag = 0
@@ -53,14 +52,16 @@ class TaxaController < ApplicationController
     else 
       @querystring   = params[:q] || params[:id]
     end
-    @search_type     = params[:search_type] || 'text'
-    @page_title      = "EOL Search: #{@querystring}"
-    if @search_type    == 'google'
-      render :html => 'google_search'
+    @search_type = params[:search_type] || 'text'
+    @page_title  = "EOL Search: #{@querystring}"
+    @parent_search_log_id = params[:search_log_id] || 0 # Keeps track of searches done immediately after other searches
+    log_search(request)
+    if @search_type == 'google'
+      render :action => 'google_search'
     elsif @search_type == 'tag'
       search_tag
     else
-      search_text      
+      search_text
     end
   end
 
@@ -116,7 +117,7 @@ class TaxaController < ApplicationController
   def search_tag
     @search = Search.new(params, request, current_user, current_agent)
     # The Search class (above) is using 'old' result sets, which we need to adapt to the Solr-style:
-    results = adapt_old_tag_search_results_to_solr_style_results(@search.search_results[:tags])
+    results = EOL::SearchResultsCollection.adapt_old_tag_search_results_to_solr_style_results(@search.search_results[:tags])
     if current_user.expertise.to_s == 'expert'
       @scientific_results = results.paginate(:page => 1, :per_page => results.length + 1, :total_entries => results.length)
       @common_results = empty_paginated_set
@@ -134,7 +135,7 @@ class TaxaController < ApplicationController
     else
       @suggested_results  = get_suggested_search_results(@querystring)
       # Are we passing params here for pagination?
-      @scientific_results = TaxonConcept.search_with_pagination(@querystring, params)
+      @scientific_results = TaxonConcept.search_with_pagination(@querystring, params.merge(:type => :scientific))
       @common_results     = TaxonConcept.search_with_pagination(@querystring, params.merge(:type => :common))
       
       @all_results = (@suggested_results + @scientific_results + @common_results)
@@ -218,7 +219,7 @@ class TaxaController < ApplicationController
     else
       @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
       render :update do |page|
-        page.replace_html 'center-page-content', :partial => 'content.html.erb'
+        page.replace_html 'center-page-content', :partial => 'content'
         page << "$('current_content').value = '#{@category_id}';"
         page << "Event.addBehavior.reload();"
         page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id})}');"
@@ -332,15 +333,12 @@ class TaxaController < ApplicationController
       name, synonym, taxon_concept_name = tc.add_common_name params[:name][:name_string]
       agent_role = AgentRole.find_by_label("Contributor")
       agent = Agent.find(current_user.agent_id)
-    if tc.is_curatable_by?(current_user)
-      as = AgentsSynonym.create!(:synonym    => synonym, 
-                                 :agent      => agent, 
-                                 :agent_role => agent_role, 
-                                 :view_order => 0)
-    else
-      flash[:error] = "User #{current_user.full_name} does not have enough privileges to add a common name to the taxon"
-    end
-    expire_taxa(tc.id)
+      if tc.is_curatable_by?(current_user)
+        as = AgentsSynonym.create!(:synonym => synonym, :agent => agent, :agent_role => agent_role, :view_order => 0)
+      else
+        flash[:error] = "User #{current_user.full_name} does not have enough privileges to add a common name to the taxon"
+      end
+      expire_taxa(tc.id)
     end
     redirect_to "/pages/#{tc.id}?category_id=#{params[:name][:category_id]}"
   end
@@ -665,7 +663,7 @@ private
   helper_method(:search_fragment_name)
 
   def redirect_to_taxa_page(result_set)
-    redirect_to :controller => 'taxa', :action => 'show', :id => result_set.first['taxon_concept_id']
+    redirect_to :controller => 'taxa', :action => 'show', :id => result_set.first['id']
   end
 
   def get_suggested_search_results(querystring)
@@ -705,20 +703,26 @@ private
     [].paginate(:page => 1, :per_page => 10, :total_entries => 0)
   end
 
-  def adapt_old_tag_search_results_to_solr_style_results(results)
-    results.map do |tag_result|
-      tc = tag_result[0]
-      dato = tag_result[1]
-      common_name = tc.common_name(@session_hierarchy)
-      {'taxon_concept_id'          => [tc.id],
-       'vetted_id'                 => [tc.vetted_id],
-       'preferred_scientific_name' => [tc.scientific_name(@session_hierarchy)],
-       'common_name'               => [common_name],
-       'preferred_common_name'     => [common_name],
-       'best_matched_common_name'  => common_name,
-       'title'                     => tc.title(@session_hierarchy),
-       'top_image_id'              => dato.id }
-    end
+  # Add an entry to the database desrcibing the fruitfullness of this search.
+  def log_search(req)
+    logged_search = SearchLog.log(
+      {:search_term                       => @querystring,
+       :search_type                       => @search_type,
+       :parent_search_log_id              => @parent_search_log_id,
+       :total_number_of_results           => get_num_results(@all_results),
+       :number_of_common_name_results     => get_num_results(@common_results),
+       :number_of_scientific_name_results => get_num_results(@scientific_results),
+       :number_of_suggested_results       => get_num_results(@suggested_results) },
+      req,
+      current_user)
+    @logged_search_id = logged_search.nil? ? '' : logged_search.id
+  end
+
+  def get_num_results(set)
+    return 0 if set.nil?
+    set.respond_to?(:total_entries) ?
+      set.total_entries :
+      set.length
   end
 
 end

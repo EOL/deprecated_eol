@@ -1,7 +1,4 @@
 - unless results.blank?
-  - if @colon_warning_flag == 1
-    %h2== Sorry, there is no result with a colon "#{params[:q]}". See result for "#{@querystring}".
-    %br
   .search_results{ :id => title.downcase.gsub(" ", "_")}
     %h3.search_result_subtitle= "#{title}"[]
     %p

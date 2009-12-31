@@ -1,0 +1,15 @@
+%table{ :cellspacing => "5", :border => "0", :width => "100%", :cellpadding => "5" }
+  %tr
+    %td{ :align => "center", :valign => "top", :width => "40%" }
+      = external_link_to(image_tag('/images/ncbi.gif'),"http://www.ncbi.nlm.nih.gov/guide/", {:show_link_icon => false})
+    %td{:valign => "top"}
+      %span.smalltext
+        The mission of the National Center for Biotechnology Information is to develop new information technologies to aid in the understanding of fundamental molecular and genetic processes that control health and disease.
+      %br
+      %span.smalltext
+        The 
+        = external_link_to 'NCBI Taxonomy', 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy'
+        database contains the names of all organisms that are represented in the genetic databases with at least one nucleotide or protein sequence.
+      %br
+      %br
+      = external_link_to 'See this taxon in the NCBI Taxonomy Browser', "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@content[:hierarchy_entry].identifier}&lvl=0"

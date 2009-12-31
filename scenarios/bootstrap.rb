@@ -312,7 +312,7 @@ exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-code
 
 ContentPage.gen(:page_name => "curator_central", :title => "Curator central", :left_content => "")
 
-col_collection = Collection.gen(:agent => Agent.catalogue_of_life, :title => "Catalogue of Life Collection", :uri => "http://www.catalogueoflife.org/browse_taxa.php?selected_taxon=FOREIGNKEY", :logo_cache_url => 4130)
+col_collection = Collection.gen(:agent => Agent.catalogue_of_life, :title => "Catalogue of Life Collection", :uri => "http://www.catalogueoflife.org/browse_taxa.php?selected_taxon=FOREIGNKEY", :logo_cache_url => 413000)
 col_mapping    = Mapping.gen(:collection => col_collection, :name => kingdom.entry.name_object)
 
 # TODO - we need to build TopImages such that ancestors contain the images of their descendants
@@ -332,7 +332,7 @@ bugs_theme_collection_type = CollectionType.gen(:label => "Bugs")
 
 name = kingdom.entry.name_object
 
-specimen_image_collection = Collection.gen(:title => 'AntWeb', :description => 'Currently AntWeb contains information on the ant faunas of several areas in the Nearctic and Malagasy biogeographic regions, and global coverage of all ant genera.', :uri => 'http://www.antweb.org/specimen.do?name=FOREIGNKEY', :link => 'http://www.antweb.org/', :logo_cache_url => '7810')
+specimen_image_collection = Collection.gen(:title => 'AntWeb', :description => 'Currently AntWeb contains information on the ant faunas of several areas in the Nearctic and Malagasy biogeographic regions, and global coverage of all ant genera.', :uri => 'http://www.antweb.org/specimen.do?name=FOREIGNKEY', :link => 'http://www.antweb.org/', :logo_cache_url => '781000')
 CollectionTypesCollection.gen(:collection => specimen_image_collection, :collection_type => specimen_image_collection_type)
 CollectionTypesCollection.gen(:collection => specimen_image_collection, :collection_type => expert_pages_collection_type)
 CollectionTypesCollection.gen(:collection => specimen_image_collection, :collection_type => bugs_theme_collection_type)
@@ -345,7 +345,7 @@ molecular_species_pages_collection = Collection.gen(
   :description => 'Established in 1988 as a national resource for molecular biology information, NCBI creates public databases, conducts research in computational biology, develops software tools for analyzing genome data, and disseminates biomedical information - all for the better understanding of molecular processes affecting human health and disease',
   :uri => 'http://www.ncbi.nlm.nih.gov/sites/entrez?Db=genomeprj&cmd=ShowDetailView&TermToSearch=FOREIGNKEY',
   :link => 'http://www.ncbi.nlm.nih.gov/',
-  :logo_cache_url => '1305')
+  :logo_cache_url => '130500')
 CollectionTypesCollection.gen(:collection => molecular_species_pages_collection, :collection_type => molecular_species_pages_collection_type)
 CollectionTypesCollection.gen(:collection => molecular_species_pages_collection, :collection_type => marine_theme_collection_type)
 Mapping.gen(:collection => molecular_species_pages_collection, :name => name, :foreign_key => '13646')
@@ -354,15 +354,13 @@ Mapping.gen(:collection => molecular_species_pages_collection, :name => name, :f
 r = Rank.gen(:label => 'superkingdom', :rank_group_id => 0)
 
 ### Adding another hierarchy to test switching from one to another
-ncbi_agent = Agent.gen(:full_name => "National Center for Biotechnology Information (NCBI)", :logo_cache_url => nil)
-AgentContact.gen(:agent => ncbi_agent, :agent_contact_role => AgentContactRole.primary)
-ncbi_hierarchy = Hierarchy.gen(:agent => ncbi_agent, :label => "NCBI Taxonomy", :browsable => 1)
+AgentContact.gen(:agent => Agent.ncbi, :agent_contact_role => AgentContactRole.primary)
 
 eukaryota = build_taxon_concept(:rank => 'superkingdom',
                                 :canonical_form => 'Eukaryota',
                                 :common_names => ['eukaryotes'],
                                 :event => event,
-                                :hierarchy => ncbi_hierarchy,
+                                :hierarchy => Hierarchy.ncbi,
                                 :depth => 0)
 
 opisthokonts_name   = Name.gen(:canonical_form => cf = CanonicalForm.gen(:string => 'Metazoa'),
@@ -373,16 +371,17 @@ opisthokonts_common_name   = Name.gen(:canonical_form => cf = CanonicalForm.gen(
                   :italicized => '<i>opisthokonts</i>')
 opisthokonts = build_hierarchy_entry(0, kingdom, opisthokonts_name,
             :rank_id => Rank.find_by_label('kingdom').id,
-            :parent_id => ncbi_hierarchy.hierarchy_entries.last.id,
-            :hierarchy => ncbi_hierarchy )
+            :identifier => 33154,
+            :parent_id => Hierarchy.ncbi.hierarchy_entries.last.id,
+            :hierarchy => Hierarchy.ncbi )
 TaxonConceptName.gen(:preferred => true, :vern => true, :source_hierarchy_entry_id => opisthokonts.id,
                      :language => Language.english, :name => opisthokonts_common_name, :taxon_concept => kingdom)
 TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => opisthokonts.id,
                      :language => Language.scientific, :name => opisthokonts_name, :taxon_concept => kingdom)
 
 4.times do
-  parent_id = ncbi_hierarchy.hierarchy_entries.last.id
-  depth = ncbi_hierarchy.hierarchy_entries.last.depth + 1
+  parent_id = Hierarchy.ncbi.hierarchy_entries.last.id
+  depth = Hierarchy.ncbi.hierarchy_entries.last.depth + 1
   
   2.times do
     sci_name = Factory.next(:scientific_name)
@@ -391,7 +390,7 @@ TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry
                         :canonical_form => sci_name,
                         :common_names => [c_name],
                         :event => event,
-                        :hierarchy => ncbi_hierarchy,
+                        :hierarchy => Hierarchy.ncbi,
                         :parent_hierarchy_entry_id => parent_id,
                         :depth => depth)
   end
@@ -402,7 +401,7 @@ end
 bacteria = build_taxon_concept(:rank => 'superkingdom',
                                 :canonical_form => 'Bacteria',
                                 :event => event,
-                                :hierarchy => ncbi_hierarchy,
+                                :hierarchy => Hierarchy.ncbi,
                                 :depth => 0)
 
 # We need to be able to test changing the preferred name across several languages:
@@ -426,8 +425,8 @@ bacteria.add_scientific_name('microbia')
 curator2 = build_curator(bacteria, :username => 'curator_two', :password => 'iliketocurate') 
 
 4.times do
-  parent_id = ncbi_hierarchy.hierarchy_entries.last.id
-  depth = ncbi_hierarchy.hierarchy_entries.last.depth + 1
+  parent_id = Hierarchy.ncbi.hierarchy_entries.last.id
+  depth = Hierarchy.ncbi.hierarchy_entries.last.depth + 1
   
   sci_name = Factory.next(:scientific_name)
   c_name = Factory.next(:common_name)
@@ -435,7 +434,7 @@ curator2 = build_curator(bacteria, :username => 'curator_two', :password => 'ili
                       :canonical_form => sci_name,
                       :common_names => [c_name],
                       :event => event,
-                      :hierarchy => ncbi_hierarchy,
+                      :hierarchy => Hierarchy.ncbi,
                       :parent_hierarchy_entry_id => parent_id,
                       :depth => depth)
 end

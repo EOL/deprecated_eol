@@ -525,7 +525,7 @@ Factory.define :hierarchy do |hierarchy|
   hierarchy.label                   "A nested structure of divisions related to their probable evolutionary descent"
   hierarchy.url                     ''
   hierarchy.hierarchy_group_version 0
-  hierarchy.hierarchy_group_id      1
+  hierarchy.hierarchy_group_id      0
   hierarchy.description             ''
   hierarchy.association             :agent
 end

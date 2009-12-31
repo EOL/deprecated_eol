@@ -36,6 +36,8 @@ class CategoryContentBuilder
       content.merge! specialist_projects(options)
     elsif sub_name == "literature_references"
       content.merge! literature_references(options)
+    elsif sub_name == "nucleotide_sequences"
+      content.merge! nucleotide_sequences(options)
     else
       return nil # We don't handle this toc_item.
     end
@@ -135,5 +137,12 @@ private
     tc_id = options[:taxon_concept_id]
     return {:items => Ref.find_refs_for(tc_id)}
   end
+  
+  def nucleotide_sequences(options)
+    tc_id = options[:taxon_concept_id]
+    entry = TaxonConcept.find_entry_in_hierarchy(tc_id, Hierarchy.ncbi.id)
+    return {:hierarchy_entry => entry}
+  end
+  
 
 end

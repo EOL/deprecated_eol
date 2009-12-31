@@ -84,9 +84,11 @@ create_if_not_exists AgentContactRole, :label => 'Technical Contact'
 create_if_not_exists Agent, :full_name => 'IUCN'
 create_if_not_exists ContentPartner, :agent => Agent.iucn
 create_if_not_exists AgentContact, :agent => Agent.iucn, :agent_contact_role => AgentContactRole.primary
-create_if_not_exists Agent, :full_name => 'Catalogue of Life', :logo_cache_url => '2190', :homepage => 'http://www.catalogueoflife.org/'
+create_if_not_exists Agent, :full_name => 'Catalogue of Life', :logo_cache_url => '219000', :homepage => 'http://www.catalogueoflife.org/'
 create_if_not_exists ContentPartner, :agent => Agent.catalogue_of_life
 create_if_not_exists AgentContact, :agent => Agent.catalogue_of_life, :agent_contact_role => AgentContactRole.primary
+create_if_not_exists Agent, :full_name => 'National Center for Biotechnology Information', :acronym => 'NCBI', :logo_cache_url => '921800', :homepage => 'http://www.ncbi.nlm.nih.gov/'
+
 
 boa_agent =
   create_if_not_exists Agent, :full_name => 'Biology of Aging'
@@ -95,7 +97,7 @@ liger_cat =
                                    :description    => 'LigerCat Biomedical Terms Tag Cloud',
                                    :uri            => 'http://ligercat.ubio.org/eol/FOREIGNKEY.cloud',
                                    :link           => 'http://ligercat.ubio.org',
-                                   :logo_cache_url => '3187',
+                                   :logo_cache_url => '318700',
                                    :agent_id => boa_agent.id # Using id to make c_i_n_e work.
 links = CollectionType.gen(:label => "Links")
 lit   = CollectionType.gen(:label => "Literature")
@@ -144,6 +146,15 @@ create_if_not_exists DataType, :label => 'YouTube'
 create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007"
 default_hierarchy = create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009"
 create_if_not_exists Hierarchy, :label => "Encyclopedia of Life Contributors"
+first_ncbi = Hierarchy.gen(:agent => Agent.ncbi, :label => "NCBI Taxonomy")
+first_ncbi.hierarchy_group_id = 101
+first_ncbi.hierarchy_group_version = 1
+first_ncbi.save!
+second_ncbi = Hierarchy.gen(:agent => Agent.ncbi, :label => "NCBI Taxonomy")
+second_ncbi.hierarchy_group_id = 101
+second_ncbi.hierarchy_group_version = 2
+second_ncbi.save!
+
 
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label => 'Associations'
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label => 'Behaviour'
@@ -292,6 +303,7 @@ create_if_not_exists TocItem, :label => 'Common Names', :view_order => 10
 ref_and_info = create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 9
 
 # Note that in all these "children", the view_order resets.  ...That reflects the real DB.
+create_if_not_exists TocItem, :label => 'Nucleotide Sequences',          :view_order => 5, :parent_id => description.id
 create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 1, :parent_id => ref_and_info.id
 create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 4, :parent_id => ref_and_info.id
 create_if_not_exists TocItem, :label => 'Biomedical Terms',              :view_order => 8, :parent_id => ref_and_info.id

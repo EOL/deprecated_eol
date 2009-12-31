@@ -42,7 +42,13 @@ class Hierarchy < SpeciesSchemaModel
       Hierarchy.find_by_label("Encyclopedia of Life Curators").to_yaml
     end)
   end
-
+  
+  def self.ncbi
+    YAML.load(Rails.cache.fetch('hierarchies/ncbi') do
+      Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc").to_yaml
+    end)
+  end
+  
   def kingdoms(current_user = User.new(:expertise => $DEFAULT_EXPERTISE, :language => Language.english))
     kingdoms = HierarchyEntry.find_all_by_parent_id_and_hierarchy_id(0, id).reject {|he| he.taxon_concept.nil?}
     kingdoms.sort! do |a,b|

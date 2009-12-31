@@ -754,27 +754,19 @@ class DataObject < SpeciesSchemaModel
     # NOTE - left join on the licenses, so they could be NULL.
     # (We don't want to miss images with no license!)
     result=DataObject.find_by_sql([%Q{
-      SELECT dato.*, l.description license_text, l.logo_url license_logo, l.source_url license_url,
-             (?) taxon_id, t.scientific_name #{add_cp}
+      SELECT dato.id, dato.visibility_id, dato.data_rating, dato.vetted_id, v.view_order vetted_view_order #{add_cp}
         FROM #{options[:from]} ti
           STRAIGHT_JOIN data_objects dato      ON ti.data_object_id = dato.id
+          STRAIGHT_JOIN vetted v               ON dato.vetted_id = v.id
           STRAIGHT_JOIN data_objects_taxa dot  ON dato.id = dot.data_object_id
           STRAIGHT_JOIN taxa t                 ON dot.taxon_id = t.id
           #{join_agents}
           #{join_hierarchy}
-          LEFT OUTER JOIN licenses l           ON dato.license_id = l.id 
         WHERE ti.hierarchy_entry_id IN (?)
           AND data_type_id IN (?)
-          AND ti.view_order < 400
           
           #{DataObject.visibility_clause(options.merge(:taxon => taxon))} # DataObject.cached_images_for_taxon
-      }, taxon.id, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids]).uniq
-    
-    result.sort! { |a, b| b.data_rating.to_f <=> a.data_rating.to_f }
-    
-    result.each do |obj|
-      obj.description = obj.description_linked if !obj.description_linked.nil?
-    end
+      }, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids])
     
     # Run a second query if we need unpublished or invisible images (but not if we're already doing it!!!):
     if not nested and ((not options[:agent].nil?) or options[:user].is_curator? or options[:user].is_admin?)
@@ -782,7 +774,56 @@ class DataObject < SpeciesSchemaModel
       from = 'top_unpublished_species_images' if !options[:filter_by_hierarchy].nil? && !options[:hierarchy].nil?
       result += DataObject.cached_images_for_taxon(taxon, options.merge(:from => from))
     end
-    return result                            
+    
+    # when we have all the images then get the uniquq list and sort them by
+    # vetted order ASC (so trusted are first), rating DESC (so best are first), id DESC (so newest are first)
+    result = result.uniq
+    result.sort! do |a, b|
+      if a.vetted_view_order == b.vetted_view_order
+        # TODO - this should probably also sort on visibility.
+        if a.data_rating == b.data_rating
+          b.id <=> a.id # essentially, orders images by date.
+        else
+          b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
+        end
+      else
+        a.vetted_view_order <=> b.vetted_view_order
+      end
+    end
+    
+    return result if result.empty?
+    
+    # figure out which page if images we are on and get the extra stuff only for those pages
+    image_page    = (options[:image_page] ||= 1).to_i
+    start         = $MAX_IMAGES_PER_PAGE * (image_page - 1)
+    last          = start + $MAX_IMAGES_PER_PAGE - 1
+    ids_to_lookup = result[start..last].collect {|r| r.id}.join(',')
+    
+    image_metadata = DataObject.find_by_sql(%Q{
+        SELECT dato.*, v.view_order vetted_view_order, l.description license_text, l.logo_url license_logo, l.source_url license_url,
+               #{taxon.id} taxon_id, t.scientific_name
+         FROM data_objects dato
+           STRAIGHT_JOIN vetted v               ON dato.vetted_id = v.id
+           STRAIGHT_JOIN data_objects_taxa dot  ON dato.id = dot.data_object_id
+           STRAIGHT_JOIN taxa t                 ON dot.taxon_id = t.id
+           LEFT OUTER JOIN licenses l           ON dato.license_id = l.id 
+         WHERE dato.id IN (#{ids_to_lookup})})
+    
+    # need to loop through the whole array so the index get incremented
+    result.each_with_index do |r, index|
+      next if index < start || index > last
+      image_metadata.each do |im|
+        if im.id.to_i == r.id.to_i
+          # the agent_id only comes from the first query, so it needs to be passed to the metadata result
+          im['agent_id'] = r['agent_id']
+          im.description = im.description_linked if !im.description_linked.nil?
+          result[index] = im
+          break
+        end
+      end
+    end
+    
+    return result
   end
 
   # Find all of the data objects of a particular type (text, image, etc) associated with a given taxon.
@@ -805,7 +846,8 @@ class DataObject < SpeciesSchemaModel
     # In order to display a warning about pages that include unvetted material, we check now, while the
     # information is most readily available (data objects are the only things that can be unvetted, and only
     # if we have to check permissions), and then flag the taxon_concept model if anything is non-trusted.
-    taxon.includes_unvetted = true if results.detect {|d| d.vetted_id != Vetted.trusted.id }
+    trusted_id = Vetted.trusted.id
+    taxon.includes_unvetted = true if results.detect {|d| d.vetted_id != trusted_id }
 
     # Content Partners' query included ALL invisible, untrusted and unknown items... not JUST THEIRS.  We
     # now need to exclude those items that they did not contribute:

@@ -57,6 +57,12 @@ class TocItem < SpeciesSchemaModel
     end
   end
   
+  def self.nucleotide_sequences
+    Rails.cache.fetch('toc_items/nucleotide_sequences') do
+      TocItem.find_by_label('Nucleotide Sequences')
+    end
+  end
+  
   def is_child?
     !(self.parent_id.nil? or self.parent_id == 0) 
   end

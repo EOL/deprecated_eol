@@ -104,6 +104,12 @@ class Agent < SpeciesSchemaModel
     end)
   end
   
+  def self.ncbi
+    YAML.load(Rails.cache.fetch('agents/ncbi') do
+      Agent.find_by_full_name('National Center for Biotechnology Information').to_yaml
+    end)
+  end
+  
   # get the CoL agent for use in classification attribution
   def self.catalogue_of_life_for_attribution
     YAML.load(Rails.cache.fetch('agents/catalogue_of_life_for_attribution') do

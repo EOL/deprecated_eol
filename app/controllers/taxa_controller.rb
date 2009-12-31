@@ -247,7 +247,7 @@ class TaxaController < ApplicationController
     @taxon_concept.current_agent = current_agent
     start       = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
     last        = start + $MAX_IMAGES_PER_PAGE - 1
-    @images     = @taxon_concept.images[start..last]
+    @images     = @taxon_concept.images(:image_page => @image_page)[start..last]
 
     if @images.nil?
       render :nothing=>true

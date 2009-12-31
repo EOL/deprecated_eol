@@ -675,26 +675,11 @@ EOIUCNSQL
     end
     perform_filter =  !filter_hierarchy.nil?
     
-    @images ||= DataObject.for_taxon(self, :image, :user => self.current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy)
+    image_page = (options[:image_page] ||= 1).to_i
+    @images ||= DataObject.for_taxon(self, :image, :user => self.current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page)
     @length_of_images = @images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
-
-    @images = @images.sort do |a,b|
-      if a.vetted_id == b.vetted_id
-        # TODO - this should probably also sort on visibility.
-        if a.data_rating == b.data_rating
-          b.id <=> a.id # essentially, orders images by date.
-        else
-          b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
-        end
-      else
-        # Account for the rare (read: nigh impossible) cases that Vetted is something else or missing:
-        return 0 if a.vetted.nil? and b.vetted.nil?
-        return 1 if a.vetted.nil?
-        return -1 if b.vetted.nil?
-        a.vetted.sort_weight <=> b.vetted.sort_weight
-      end
-    end
-
+    
+    #puts "this is the end of TaxonConcept.images"
     return @images
   end
 

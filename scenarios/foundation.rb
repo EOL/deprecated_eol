@@ -326,9 +326,9 @@ create_if_not_exists UntrustReason, :label => 'Poor'
 create_if_not_exists UntrustReason, :label => 'Duplicate'
 create_if_not_exists UntrustReason, :label => 'Other'
 
-create_if_not_exists Vetted, :label => 'Unknown'    # This really wants an ID of 0, but only for PHP stuff.
-create_if_not_exists Vetted, :label => 'Untrusted'
-create_if_not_exists Vetted, :label => 'Trusted'
+create_if_not_exists Vetted, :label => 'Unknown', :view_order => 2    # This really wants an ID of 0, but only for PHP stuff.
+create_if_not_exists Vetted, :label => 'Untrusted', :view_order => 3
+create_if_not_exists Vetted, :label => 'Trusted', :view_order => 1
 
 create_if_not_exists SynonymRelation, :label => "synonym"
 create_if_not_exists SynonymRelation, :label => "common name"

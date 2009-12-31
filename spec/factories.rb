@@ -925,6 +925,7 @@ end
 
 Factory.define :vetted do |x|
   x.label { Factory.next(:string) }
+  x.view_order 1
 end
 
 Factory.define :visibility do |x|

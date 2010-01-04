@@ -178,6 +178,7 @@ class User < ActiveRecord::Base
 
   # create a new user using default attributes and then update with supplied parameters
   def self.create_new options = {}
+    #please note the agent_id is assigned in account controller, not in the model
     new_user = User.new
     new_user.set_defaults
     new_user.attributes = options

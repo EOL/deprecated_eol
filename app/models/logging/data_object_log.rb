@@ -70,7 +70,8 @@ class DataObjectLog < LoggingModel
       result = []
       DataObjectLog.transaction do
         data_objects.each do |obj|
-          agent_id = obj.data_supplier_agent.nil? ? (obj.agents.first.nil? ? 0 : obj.agents.first.id) : obj.data_supplier_agent.id
+          supplier = obj.data_supplier_agent
+          agent_id = supplier.nil? ? (obj.agents.first.nil? ? 0 : obj.agents.first.id) : supplier.id
           result << create_log(obj, opts.merge({ :agent_id => agent_id, :taxon_concept_id => taxon_concept }))
         end
       end

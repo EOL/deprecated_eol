@@ -83,7 +83,14 @@ class Agent < SpeciesSchemaModel
   alias_attribute :project_name, :full_name
   alias_attribute :project_abbreviation, :acronym
   alias_attribute :url, :homepage
-  
+
+  # To make users be able to change species pages (add a common name for example)
+  # we have create an agent bypassing all the usual safety checks
+  def self.create_agent_from_user(full_name)
+    full_name = SpeciesSchemaModel.eol_escape_sql(["?",full_name])
+    agent_id = SpeciesSchemaModel.connection.insert("insert into agents (full_name) values (#{full_name})")
+    Agent.find(agent_id)
+  end
   
   # Singleton class variable, so we only ever look it up once per thread:  
   def self.iucn

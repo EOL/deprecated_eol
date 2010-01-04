@@ -50,7 +50,6 @@ class AccountController < ApplicationController
   end
 
   def signup
-
     unless request.post?
       current_user.id=nil 
       store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
@@ -72,8 +71,8 @@ class AccountController < ApplicationController
     # set the password and the remote_IP address
     @user.password = @user.entered_password
     @user.remote_ip = request.remote_ip
-
-    if verify_recaptcha && @user.save
+    if verify_recaptcha &&  @user.save
+      @user.update_attribute :agent_id, Agent.create_agent_from_user(:full_name => @user.full_name).id
       @user.entered_password = ''
       @user.entered_password_confirmation = ''
       Notifier.deliver_registration_confirmation(@user)

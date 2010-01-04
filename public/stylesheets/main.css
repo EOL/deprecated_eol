@@ -1025,8 +1025,10 @@ li.current_kingdom {
   padding: 0;
   overflow: hidden; }
 #content #page-content fieldset {
-  background-color: #FFF;
+  background-color: #fff;
   padding: 10px; }
+  #content #page-content fieldset.standout {
+    border: 1px #ccc solid; }
 #content #page-content legend {
   font-weight: bold;
   font-size: 14px; }

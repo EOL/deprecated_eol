@@ -8,6 +8,10 @@ class Language < SpeciesSchemaModel
   def self.scientific
     Language.find_by_label('Scientific Name')
   end
+  
+  def self.with_iso_639_1
+    Language.find_by_sql("select * from languages where iso_639_1 != ''") 
+  end
 
   def self.english # because it's a default.  No other language will have this kind of method.
     Language.find_by_iso_639_1('en')

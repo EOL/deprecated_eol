@@ -91,6 +91,7 @@ class TaxaController < ApplicationController
       render(:layout => 'main', :template => "content/missing", :status => 404)
       return
     end
+    append_content_instance_variables(params[:category_id].to_i) if params[:category_id]
 
     redirect_to(params.merge(:controller => 'taxa',
                              :action => 'show',
@@ -199,7 +200,7 @@ class TaxaController < ApplicationController
 
   # AJAX: Render the requested content page
   def content
-
+    
     if !request.xhr?
       render :nothing=>true
       return
@@ -212,8 +213,9 @@ class TaxaController < ApplicationController
     @taxon_concept.current_user  = current_user
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
 
-    @content     = @taxon_concept.content_by_category(@category_id,:current_user=>current_user)
+    @content     = @taxon_concept.content_by_category(@category_id, :current_user => current_user)
     @ajax_update=true
+    append_content_instance_variables(@category_id)
     if @content.nil?
       render :text => '[content missing]'
     else
@@ -330,7 +332,8 @@ class TaxaController < ApplicationController
   def add_common_name
     if params[:name][:name_string]
       tc = TaxonConcept.find(params[:taxon_concept_id])
-      name, synonym, taxon_concept_name = tc.add_common_name params[:name][:name_string]
+      language = Language.find(params[:name][:language])
+      name, synonym, taxon_concept_name = tc.add_common_name(params[:name][:name_string], :language => language)
       agent_role = AgentRole.find_by_label("Contributor")
       agent = Agent.find(current_user.agent_id)
       if tc.is_curatable_by?(current_user)
@@ -725,4 +728,15 @@ private
       set.length
   end
 
+  def append_content_instance_variables(category_id)
+    if TocItem.common_names.id == category_id
+      @languages = Language.with_iso_639_1.map  do |lang|
+        {
+          :label    => lang.label, 
+          :id       => lang.id, 
+          :selected => lang.id == (current_user && current_user.language_id) ? "selected" : nil
+        }
+      end
+    end
+  end
 end

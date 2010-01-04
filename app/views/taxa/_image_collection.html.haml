@@ -28,15 +28,15 @@
     - counter = 0
     - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
      
-      - authors=agent_partial(image.authors + image.photographers,:linked=>false)
-      - sources=agent_partial(image.sources,:linked=>false)
+      - authors=agent_partial(image['authors'] + image['photographers'],:linked=>false)
+      - sources=agent_partial(image['sources'],:linked=>false)
       - # TODO - LOW - I am ever-so-slightly bothered that we're essentially calling the same thing twice on the same data, and
       - # wonder if we can improve this.
-      - authors_linked=agent_partial(image.authors + image.photographers)
-      - sources_linked=agent_partial(image.sources)
-      - sources_icons_linked=agent_icons_partial(image.sources)
+      - authors_linked=agent_partial(image['authors'] + image['photographers'])
+      - sources_linked=agent_partial(image['sources'])
+      - sources_icons_linked=agent_icons_partial(image['sources'])
       - taxa_info = image.taxa_names_taxon_concept_ids
-      - data_supplier = image.data_supplier_agent
+      - data_supplier = image['data_supplier']
       - data_supplier_name = data_supplier ? data_supplier.full_name : ''
       - data_supplier_url = data_supplier ? data_supplier.homepage : ''
       - data_supplier_icon = data_supplier ? agent_icons_partial(data_supplier) : ''
@@ -53,13 +53,13 @@
           ",published: " + published.to_s + |
           ",taxonID: '" + escape_javascript(image.taxon_id) + |
           "',current_taxa: " + (@taxon_concept.id == image.taxon_id).to_s + |
-          ", nameString: '" + escape_javascript(hh(image.scientific_name)) + |
+          ", nameString: '" + escape_javascript(hh(image['scientific_name'])) + |
           "',location: '" + escape_javascript(image.location) + |
           "',info_url: '" + escape_javascript(image.object_url || '') + |
           "',taxaIDs: ['" + taxa_info.map{|x| x[:taxon_concept_id].to_s}.join("','") + "']" + |
           ",taxaNames: ['" + taxa_info.map{|x| x[:taxon_name].to_s}.map{|y|escape_javascript(y)}.join("','") + "']" + |
           ",field_notes: '" + escape_javascript(image.description) + |
-          "',comments: '#{image.visible_comments.length}'" + |
+          "',comments: '#{image['comments_count']}'" + |
           ",data_supplier: '" + escape_javascript(data_supplier_name) + "'" + |
           ",data_supplier_url: '" + escape_javascript(data_supplier_url) + "'" + |
           ",data_supplier_icon: '" + escape_javascript(data_supplier_icon) + "'" + |
@@ -69,7 +69,7 @@
           ", published_by_agent: #{published_by_agent}" + |
           ", visibility_id: #{image.visibility_id}" + |
           ", average_rating: #{image.data_rating}" + |
-          ", user_rating: #{(r = image.rating_for_user(current_user)) ? r.rating : 0}" |
+          ", user_rating: #{image['user_rating'] ? image['user_rating'] : 0}" |
       - unless image.license_text.nil?
         - image_attribution_hash += ",license_text: '" + escape_javascript(image.license_text || "") + |
           "',license_logo: '" + escape_javascript(image.license_logo) + |
@@ -84,9 +84,9 @@
       :javascript
         EOL.MediaCenter.image_hash[#{image.id}] = #{image_attribution_hash};
           
-      %a{ :href => "#image-#{image.id}", :class => vetted_id_class(image), :title => hh(image.scientific_name), :id => "thumbnail_#{image.id}" }
+      %a{ :href => "#image-#{image.id}", :class => vetted_id_class(image), :title => hh(image['scientific_name']), :id => "thumbnail_#{image.id}" }
         %span
-          = image_tag image.smart_thumb, :alt => hh(image.scientific_name)
+          = image_tag image.smart_thumb, :alt => hh(image['scientific_name'])
         %ul{:"data-data_object_id" => image.id}
           = render(:partial=>'data_object_states', :locals => {:dato => image})
       - if @selected_image.id == image.id

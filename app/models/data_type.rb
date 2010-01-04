@@ -36,20 +36,52 @@ class DataType < SpeciesSchemaModel
     attribution_order + other_roles
   end
   
+  def self.text
+    Rails.cache.fetch('data_type/text') do
+      DataType.find_by_label('Text')
+    end
+  end
+  
+  def self.image
+    Rails.cache.fetch('data_type/image') do
+      DataType.find_by_label('Image')
+    end
+  end
+  
+  def self.youtube
+    Rails.cache.fetch('data_type/youtube') do
+      DataType.find_by_label('YouTube')
+    end
+  end
+  
+  def self.flash
+    Rails.cache.fetch('data_type/flash') do
+      DataType.find_by_label('Flash')
+    end
+  end
+  
+  def self.gbif_image
+    Rails.cache.fetch('data_type/gbif_image') do
+      DataType.find_by_label('GBIF Image')
+    end
+  end
+  
+  
+  
   def self.image_type_ids
-    DataType.get_type_ids(['Image'])
+    ids = [DataType.image.id]
   end
   
   def self.video_type_ids
-    DataType.get_type_ids(['YouTube', 'Flash'])
+    ids = [DataType.youtube.id, DataType.flash.id]
   end
 
   def self.map_type_ids
-    DataType.get_type_ids(['GBIF Image'])
+    ids = [DataType.gbif_image.id]
   end
 
   def self.text_type_ids
-    DataType.get_type_ids(['Text'])
+    ids = [DataType.text.id]
   end
 
 private

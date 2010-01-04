@@ -35,7 +35,7 @@
       - authors_linked=agent_partial(image['authors'] + image['photographers'])
       - sources_linked=agent_partial(image['sources'])
       - sources_icons_linked=agent_icons_partial(image['sources'])
-      - taxa_info = image.taxa_names_taxon_concept_ids
+      - taxa_info = image['taxa_names_ids']
       - data_supplier = image['data_supplier']
       - data_supplier_name = data_supplier ? data_supplier.full_name : ''
       - data_supplier_url = data_supplier ? data_supplier.homepage : ''
@@ -56,8 +56,8 @@
           ", nameString: '" + escape_javascript(hh(image['scientific_name'])) + |
           "',location: '" + escape_javascript(image.location) + |
           "',info_url: '" + escape_javascript(image.object_url || '') + |
-          "',taxaIDs: ['" + taxa_info.map{|x| x[:taxon_concept_id].to_s}.join("','") + "']" + |
-          ",taxaNames: ['" + taxa_info.map{|x| x[:taxon_name].to_s}.map{|y|escape_javascript(y)}.join("','") + "']" + |
+          "',taxaIDs: ['" + taxa_info.map{|x| x['taxon_concept_id'].to_s}.join("','") + "']" + |
+          ",taxaNames: ['" + taxa_info.map{|x| x['taxon_name'].to_s}.map{|y|escape_javascript(y)}.join("','") + "']" + |
           ",field_notes: '" + escape_javascript(image.description) + |
           "',comments: '#{image['comments_count']}'" + |
           ",data_supplier: '" + escape_javascript(data_supplier_name) + "'" + |

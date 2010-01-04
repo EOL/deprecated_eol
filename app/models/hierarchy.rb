@@ -75,7 +75,6 @@ class Hierarchy < SpeciesSchemaModel
             ON (he.taxon_concept_id=tcn.taxon_concept_id AND tcn.preferred=1 AND tcn.language_id=#{language.id})
           LEFT JOIN ranks r ON (he.rank_id=r.id)
         WHERE he.parent_id=0 AND he.hierarchy_id=#{id}
-        ORDER BY hierarchy_entry_id
     ").all_hashes
     
     deduped_kingdoms = []

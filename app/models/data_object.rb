@@ -753,6 +753,7 @@ class DataObject < SpeciesSchemaModel
 
     # NOTE - left join on the licenses, so they could be NULL.
     # (We don't want to miss images with no license!)
+    # the limiting by view order means we'll have no more than 30 pages of images
     result=DataObject.find_by_sql([%Q{
       SELECT dato.id, dato.visibility_id, dato.data_rating, dato.vetted_id, v.view_order vetted_view_order #{add_cp}
         FROM #{options[:from]} ti
@@ -764,7 +765,7 @@ class DataObject < SpeciesSchemaModel
           #{join_hierarchy}
         WHERE ti.hierarchy_entry_id IN (?)
           AND data_type_id IN (?)
-          
+          AND ti.view_order < 270
           #{DataObject.visibility_clause(options.merge(:taxon => taxon))} # DataObject.cached_images_for_taxon
       }, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids])
     
@@ -793,37 +794,91 @@ class DataObject < SpeciesSchemaModel
     
     return result if result.empty?
     
-    # figure out which page if images we are on and get the extra stuff only for those pages
+    # get the rest of the metadata
     image_page    = (options[:image_page] ||= 1).to_i
     start         = $MAX_IMAGES_PER_PAGE * (image_page - 1)
     last          = start + $MAX_IMAGES_PER_PAGE - 1
-    ids_to_lookup = result[start..last].collect {|r| r.id}.join(',')
+    ids_to_lookup = result[start..last].collect {|r| r.id}
+    image_metadata = DataObject.metadata_for_images(taxon.id, ids_to_lookup, {:user => options[:user]})
     
-    image_metadata = DataObject.find_by_sql(%Q{
-        SELECT dato.*, v.view_order vetted_view_order, l.description license_text, l.logo_url license_logo, l.source_url license_url,
-               #{taxon.id} taxon_id, t.scientific_name
-         FROM data_objects dato
-           STRAIGHT_JOIN vetted v               ON dato.vetted_id = v.id
-           STRAIGHT_JOIN data_objects_taxa dot  ON dato.id = dot.data_object_id
-           STRAIGHT_JOIN taxa t                 ON dot.taxon_id = t.id
-           LEFT OUTER JOIN licenses l           ON dato.license_id = l.id 
-         WHERE dato.id IN (#{ids_to_lookup})})
-    
-    # need to loop through the whole array so the index get incremented
+    # need to loop through the whole array so the index gets incremented
     result.each_with_index do |r, index|
       next if index < start || index > last
-      image_metadata.each do |im|
-        if im.id.to_i == r.id.to_i
-          # the agent_id only comes from the first query, so it needs to be passed to the metadata result
-          im['agent_id'] = r['agent_id']
-          im.description = im.description_linked if !im.description_linked.nil?
-          result[index] = im
-          break
+      if !image_metadata[r.id.to_i].nil?
+        md = image_metadata[r.id.to_i]
+        # the agent_id only comes from the first query, so it needs to be passed to the metadata result
+        md['agent_id'] = r['agent_id']
+        md.description = md.description_linked if !md.description_linked.nil?
+        result[index] = md
+      end
+    end
+    return result
+  end
+  
+  def self.metadata_for_images(taxon_id, data_object_ids, options = {})
+    comments_clause = " AND c.visible_at IS NOT NULL"
+    comments_clause = "" if !options[:user].nil? && options[:user].is_moderator?
+    
+    rating_select = " 0 as user_rating"
+    rating_from = " "
+    if !options[:user].nil? && options[:user].id
+      rating_select = "udor.rating user_rating"
+      rating_from = " LEFT OUTER JOIN #{UsersDataObjectsRating.full_table_name} udor ON (dato.guid=udor.data_object_guid AND udor.user_id=#{options[:user].id})"
+    end
+    
+    data_objects_with_metadata = DataObject.find_by_sql(%Q{
+        SELECT dato.*, v.view_order vetted_view_order, l.description license_text, l.logo_url license_logo, l.source_url license_url,
+               #{taxon_id} taxon_id, t.scientific_name, count(distinct c.id) as comments_count, #{rating_select}
+         FROM #{DataObject.full_table_name} dato
+           STRAIGHT_JOIN #{Vetted.full_table_name} v              ON (dato.vetted_id=v.id)
+           STRAIGHT_JOIN #{DataObjectsTaxon.full_table_name} dot  ON (dato.id=dot.data_object_id)
+           STRAIGHT_JOIN #{Taxon.full_table_name} t               ON (dot.taxon_id=t.id)
+           LEFT OUTER JOIN #{License.full_table_name} l           ON (dato.license_id=l.id)
+           LEFT OUTER JOIN #{Comment.full_table_name} c           ON (c.parent_id=dato.id AND c.parent_type='DataObject' #{comments_clause})
+           #{rating_from}
+         WHERE dato.id IN (#{data_object_ids.join(',')})
+         GROUP BY dato.id })
+    
+    metadata = {}
+    # add the DataObject metadata
+    data_objects_with_metadata.each do |dom|
+      metadata[dom.id.to_i] = dom
+      metadata[dom.id.to_i]['data_supplier'] = nil
+      metadata[dom.id.to_i]['photographers'] = []
+      metadata[dom.id.to_i]['authors'] = []
+      metadata[dom.id.to_i]['sources'] = []
+    end
+    
+    data_supplier_id = ResourceAgentRole.content_partner_upload_role.nil? ? 0 : ResourceAgentRole.content_partner_upload_role.id
+    data_object_agents = Agent.find_by_sql(%Q{
+        (SELECT a.*, 0 as data_supplier, ado.agent_role_id, ado.data_object_id
+          FROM agents_data_objects ado JOIN agents a ON (ado.agent_id=a.id)
+          WHERE ado.data_object_id IN (#{data_object_ids.join(',')}))
+        UNION
+        (SELECT a.* , 1 as data_supplier, NULL, dohe.data_object_id
+          FROM data_objects_harvest_events dohe 
+          JOIN harvest_events he                ON (dohe.harvest_event_id=he.id) 
+          JOIN agents_resources ar              ON (he.resource_id=ar.resource_id) 
+          JOIN agents a                         ON (ar.agent_id=a.id) 
+          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})
+          AND ar.resource_agent_role_id=#{data_supplier_id}) 
+         })
+    
+    # add the agent info
+    data_object_agents.each do |a|
+      if !metadata[a['data_object_id'].to_i].nil?
+        if a['data_supplier'].to_i == 1
+          metadata[a['data_object_id'].to_i]['data_supplier'] = a
+        elsif a['agent_role_id'].to_i == AgentRole.photographer_id.to_i
+          metadata[a['data_object_id'].to_i]['photographers'] << a
+        elsif a['agent_role_id'].to_i == AgentRole.author_id.to_i
+          metadata[a['data_object_id'].to_i]['authors'] << a
+        elsif a['agent_role_id'].to_i ==AgentRole.source_id.to_i
+          metadata[a['data_object_id'].to_i]['sources'] << a
         end
       end
     end
-    
-    return result
+    return metadata
   end
 
   # Find all of the data objects of a particular type (text, image, etc) associated with a given taxon.

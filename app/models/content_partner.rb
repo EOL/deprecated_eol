@@ -108,7 +108,7 @@ class ContentPartner < SpeciesSchemaModel
         FROM agents a
         JOIN agents_resources ar ON (a.id=ar.agent_id)
         JOIN harvest_events he ON (ar.resource_id=he.resource_id)
-        WHERE ar.agent_id=#{id} AND he.published_at IS NOT NULL LIMIT 1}).all_hashes
+        WHERE ar.agent_id=#{agent_id} AND he.published_at IS NOT NULL LIMIT 1}).all_hashes
     return !has_resources.empty?
   end
   

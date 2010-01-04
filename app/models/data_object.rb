@@ -194,7 +194,7 @@ class DataObject < SpeciesSchemaModel
 
     do_params = {
       :guid => '',
-      :data_type => DataType.find_by_label('Text'),
+      :data_type => DataType.text,
       :rights_statement => '',
       :rights_holder => '',
       :mime_type_id => MimeType.find_by_label('text/plain').id,
@@ -233,7 +233,7 @@ class DataObject < SpeciesSchemaModel
 
     do_params = {
       :guid => UUID.generate.gsub('-',''),
-      :data_type => DataType.find_by_label('Text'),
+      :data_type => DataType.text,
       :rights_statement => '',
       :rights_holder => '',
       :mime_type_id => MimeType.find_by_label('text/plain').id,
@@ -346,7 +346,7 @@ class DataObject < SpeciesSchemaModel
 
   # Find the Agent (only one) that supplied this data object to EOL.
   def data_supplier_agent
-    Agent.find_by_sql(["SELECT a.* 
+    @data_supplier_agent ||= Agent.find_by_sql(["SELECT a.* 
                         FROM data_objects_harvest_events dohe 
                           JOIN harvest_events he ON (dohe.harvest_event_id=he.id)     
                           JOIN agents_resources ar ON (he.resource_id=ar.resource_id) 
@@ -847,6 +847,7 @@ class DataObject < SpeciesSchemaModel
       metadata[dom.id.to_i]['photographers'] = []
       metadata[dom.id.to_i]['authors'] = []
       metadata[dom.id.to_i]['sources'] = []
+      metadata[dom.id.to_i]['taxa_names_ids'] = []
     end
     
     data_supplier_id = ResourceAgentRole.content_partner_upload_role.nil? ? 0 : ResourceAgentRole.content_partner_upload_role.id
@@ -878,6 +879,22 @@ class DataObject < SpeciesSchemaModel
         end
       end
     end
+    
+    data_object_taxa_names = Taxon.find_by_sql(%Q{
+        SELECT t.scientific_name as taxon_name, he.taxon_concept_id, dot.data_object_id
+          FROM data_objects_taxa dot
+          JOIN taxa t on (dot.taxon_id=t.id)
+          JOIN hierarchy_entries he on (t.hierarchy_entry_id=he.id)
+          WHERE dot.data_object_id IN (#{data_object_ids.join(',')})})
+    
+    # add the names info
+    data_object_taxa_names.each do |t|
+      if !metadata[t['data_object_id'].to_i].nil?
+        metadata[t['data_object_id'].to_i]['taxa_names_ids'] << t
+      end
+    end
+
+    
     return metadata
   end
 

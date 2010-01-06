@@ -83,8 +83,6 @@ def read_test_file(filename)
       field_names.each_with_index do |field_name, ii|
         result[field_name] = fields[ii]
       end
-      puts "result = "
-      debugger
       yield(result)
     end
   end

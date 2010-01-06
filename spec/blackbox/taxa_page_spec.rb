@@ -149,7 +149,7 @@ describe 'Taxa page (HTML)' do
     end
     
     it 'should NOT show references for the overview text when there aren\'t any' do
-      Ref.delete_all ; @taxon_concept.overview[0].refs = [] # Just to make sure nothing shows up.
+      Ref.delete_all
       @result = RackBox.request("/pages/#{@id}")
       @result.body.should_not have_tag('div.references')
     end
@@ -161,7 +161,7 @@ describe 'Taxa page (HTML)' do
       url_identifier = 'some/url.html'
       doi_identifier = '10.12355/foo/bar.baz.230'
       bad_identifier = 'you should not see this identifier'
-      @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref)
+      @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
       # I heard you like RSpec, so we put a lot of tests in your test so you could spec while you're
       # speccing.There are actually a lot of 'tests' in this test.  For one, we're testing that URLs will have http://
       # added to them if they are blank.  We're also testing the regex that pulls DOIs out of potentially
@@ -176,6 +176,21 @@ describe 'Taxa page (HTML)' do
       new_result.body.should_not include(bad_identifier)
       new_result.body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
     end
+    
+    it 'should NOT show references for the overview text when reference is invisible' do
+      full_ref = 'This is the reference text that should show up'
+      @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
+      new_result = RackBox.request("/pages/#{@id}")
+      new_result.body.should_not have_tag('div.references')
+    end
+    
+    it 'should NOT show references for the overview text when reference is unpublished' do
+      full_ref = 'This is the reference text that should show up'
+      @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
+      new_result = RackBox.request("/pages/#{@id}")
+      new_result.body.should_not have_tag('div.references')
+    end
+    
     
     it 'should allow html in user-submitted text' do
       @result = RackBox.request("/pages/#{@id}")

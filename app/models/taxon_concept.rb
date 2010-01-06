@@ -777,11 +777,11 @@ EOIUCNSQL
         end
 
         xml.taxa {
-          taxa.map{|x| x.refs.to_xml(:builder => xml, :skip_instruct => true)}
+          taxa.map{|x| x.visible_references.to_xml(:builder => xml, :skip_instruct => true)}
         }
 
         xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) 
-          overview.map{|x| x.refs.to_xml(:builder => xml, :skip_instruct => true) }
+          overview.map{|x| x.visible_references.to_xml(:builder => xml, :skip_instruct => true) }
           }
 
         # Using tag! here because hyphens are not legal ruby identifiers.

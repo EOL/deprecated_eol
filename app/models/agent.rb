@@ -137,6 +137,13 @@ class Agent < SpeciesSchemaModel
   def self.just_project_name(location)
     Agent.new :project_name => location
   end
+
+  def self.content_partners_contact_info
+      SpeciesSchemaModel.connection.select_all("SELECT agents.full_name, agents.email, agents.username
+        FROM agents
+        INNER JOIN content_partners ON agents.id = content_partners.agent_id
+        ORDER BY agents.full_name ASC")
+  end
   
   def self.from_source_url(source_url)
     Agent.new :project_name => 'View original data object', :homepage => source_url

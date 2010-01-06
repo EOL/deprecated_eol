@@ -44,6 +44,9 @@
   <% restrict_to "(Administrator - Content Partners) & !blacklist" do %>
   	<h3>Content Partners</h3>
   	<li><%= link_to 'content partner details', {:controller => 'administrator/content_partner_report', :action => 'index'}, {:class=>'toc_item active'} %> </li>
+    <%- if false -%>
+    <li><%= link_to 'monthly notification', {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active'} %> </li>
+    <%- end -%>
   <% end %>
 
   <% restrict_to "(Administrator - Usage Reports) & !blacklist" do %>

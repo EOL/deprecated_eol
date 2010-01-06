@@ -183,4 +183,10 @@ class Administrator::ContentPartnerReportController < AdminController
     end
   end
 
+  def monthly_stats_email
+    Agent.content_partners_contact_info.each do |recipient|
+      Notifier.deliver_monthly_stats(recipient)
+    end
+  end
+
 end

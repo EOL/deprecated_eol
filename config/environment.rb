@@ -144,6 +144,7 @@ Rails::Initializer.run do |config|
   
   # EMAIL NOTIFIER CONFIGURATION
   $WEBSITE_EMAIL_FROM_ADDRESS = "from@example.com"
+  $STATISTICS_EMAIL_FROM_ADDRESS = "from@example.com"
   $MEDIA_INQUIRY_CONTACT_SUBJECT_ID = 1 # this should match the ContactSubject table with the ID of the media inquiry row (used on the special Media Contact page)
   $CONTRIBUTE_INQUIRY_CONTACT_SUBJECT_IDS = "13,14" # this should match the ContactSubject table with the IDs of the request to curate or contribute rows as a string in comma delimuted format  (used on the Contact us page to show an extra field)
   $CONTENT_PARTNER_REGISTRY_EMAIL_ADDRESS = "content@example.com" # the contact us form on the data partner registry goes into this address

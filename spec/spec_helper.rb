@@ -4,6 +4,7 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'spec'
 require 'spec/rails'
 load 'composite_primary_keys/fixtures.rb' 
+require 'csv'
 
 require "email_spec/helpers"
 require "email_spec/matchers"
@@ -68,3 +69,24 @@ end
 
 # quiet down any migrations that run during tests
 ActiveRecord::Migration.verbose = false
+
+
+def read_test_file(filename)
+  csv_obj = CSV.open(File.expand_path(File.dirname("__FILE__") + "../../spec/csv_files/" + filename), "r", "\t")
+  field_names = []
+  field_name = ''
+  csv_obj.each_with_index do |fields, i|
+    if i == 0
+      field_names = fields
+    else
+      result = {}
+      field_names.each_with_index do |field_name, ii|
+        result[field_name] = fields[ii]
+      end
+      puts "result = "
+      debugger
+      yield(result)
+    end
+  end
+end
+

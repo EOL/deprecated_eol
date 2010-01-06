@@ -13,13 +13,17 @@ describe Name do
   end
 
   describe "#prepare_clean_name" do
+
     it "should prepare a clean name" do
-      Name.prepare_clean_name('a.b,c;d').should == "a b c d"
-      Name.prepare_clean_name("-a(b)c[d]e{f}g:i&j*k?l×").should == "- a ( b ) c [ d ] e { f } g : i & j * k ? l ×"
-      Name.prepare_clean_name("  a and b et. c ").should == "a & b & c"
-      Name.prepare_clean_name("ABCDEFGHIJKLMNOPQRSTUVWXYZ").should == "abcdefghijklmnopqrstuvwxyz"
-      Name.prepare_clean_name("ÀÂÅÃÁÆCÇČÉÈËÍÌÏŇÑÑÓÒÔØÕÖÚÙÜRŔŘŖŠŠŞŽŒ").should == "àâåãáæcçčéèëíìïňññóòôøõöúùürŕřŗššşžœ"
-      Name.prepare_clean_name("\t    a     \t\tb     c    ").should == "a b c" 
+      read_test_file("clean_name.csv") do |row|
+        Name.prepare_clean_name(row["original_string"]).should == row["clean_string"]
+      end
+      # Name.prepare_clean_name('a.b,c;d').should == "a b c d"
+      # Name.prepare_clean_name("-a(b)c[d]e{f}g:i&j*k?l×").should == "- a ( b ) c [ d ] e { f } g : i & j * k ? l ×"
+      # Name.prepare_clean_name("  a and b et. c ").should == "a & b & c"
+      # Name.prepare_clean_name("ABCDEFGHIJKLMNOPQRSTUVWXYZ").should == "abcdefghijklmnopqrstuvwxyz"
+      # Name.prepare_clean_name("ÀÂÅÃÁÆCÇČÉÈËÍÌÏŇÑÑÓÒÔØÕÖÚÙÜRŔŘŖŠŠŞŽŒ").should == "àâåãáæcçčéèëíìïňññóòôøõöúùürŕřŗššşžœ"
+      # Name.prepare_clean_name("\t    a     \t\tb     c    ").should == "a b c" 
     end
   end
   

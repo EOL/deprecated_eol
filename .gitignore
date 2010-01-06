@@ -3,6 +3,7 @@
 config/database.yml
 config/deploy.rb
 config/deploy
+config/environments/local.*
 vendor/eol_org
 config/remi-deploy.rb
 config/systems/

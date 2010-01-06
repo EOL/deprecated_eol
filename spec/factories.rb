@@ -716,7 +716,10 @@ Factory.define :rank do |r|
 end
 
 Factory.define :ref do |r|
-  r.full_reference { Factory.next(:string) }
+  r.full_reference  { Factory.next(:string) }
+  r.user_submitted  0
+  r.visibility      { Visibility.visible || Factory(:visibility, :label => 'visible') }
+  r.published       1
 end
 
 Factory.define :refs_taxon do |rt|

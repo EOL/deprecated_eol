@@ -314,9 +314,11 @@ describe DataObject do
       @data_object.vetted?.should eql(true)
     end
 
-    it 'should create references' do
+    it 'should create published and visible references' do
       d = create_user_text_object
-      d.refs.length.should eql(2)
+      d.visible_references.length.should eql(2)
+      d.visible_references[0].visibility_id.should eql(Visibility.visible.id)
+      d.visible_references[0].published.should eql(1)
     end
   end
 
@@ -621,9 +623,9 @@ describe DataObject do
       full_ref          = 'a <b>b</div></HTML><i'
       full_repaired_ref = 'a <b>b</b><i></i>' 
       
-      @dato.refs << ref = Ref.gen(:full_reference => full_ref)
-      ref_before = @dato.refs[0].full_reference
-      ref_after  = @dato.refs[0].full_reference.sanitize_html
+      @dato.refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
+      ref_before = @dato.visible_references[0].full_reference
+      ref_after  = @dato.visible_references[0].full_reference.sanitize_html
       
       ref_after.should eql(full_repaired_ref)
     end

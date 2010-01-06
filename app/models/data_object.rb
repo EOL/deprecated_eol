@@ -169,7 +169,7 @@ class DataObject < SpeciesSchemaModel
 
     if all_params[:references]
       all_params[:references].each do |reference|
-        d.refs << Ref.new({:full_reference => reference, :user_submitted => true}) if reference.strip != ''
+        d.refs << Ref.new({:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible}) if reference.strip != ''
       end
     end
 
@@ -221,7 +221,7 @@ class DataObject < SpeciesSchemaModel
 
     if all_params[:references]
       all_params[:references].each do |reference|
-        d.refs << Ref.new({:full_reference => reference, :user_submitted => true}) if reference.strip != ''
+        d.refs << Ref.new({:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible}) if reference.strip != ''
       end
     end
 
@@ -260,7 +260,7 @@ class DataObject < SpeciesSchemaModel
 
     if all_params[:references]
       all_params[:references].each do |reference|
-        dato.refs << Ref.new({:full_reference => reference, :user_submitted => true}) if reference.strip != ''
+        dato.refs << Ref.new({:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible}) if reference.strip != ''
       end
     end
 
@@ -636,6 +636,10 @@ class DataObject < SpeciesSchemaModel
            :taxon_concept_id => taxon_concept_id, 
            :last_curated => Time.now)
      end    
+  end
+  
+  def visible_references(options = {})
+    @all_refs ||= refs.delete_if {|r| r.published!=1 || r.visibility_id!=Visibility.visible.id}
   end
 
   def to_s

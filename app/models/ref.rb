@@ -1,6 +1,7 @@
 class Ref < SpeciesSchemaModel
 
   has_many :ref_identifiers
+  belongs_to :visibility
   
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :taxa
@@ -14,12 +15,17 @@ class Ref < SpeciesSchemaModel
                   JOIN data_objects_refs dor USING (data_object_id) 
                   JOIN refs ON (dor.ref_id=refs.id)
                   WHERE he.taxon_concept_id=?
+                  AND refs.published=1
+                  AND refs.visibility_id=?
         UNION
         SELECT refs.* FROM hierarchy_entries he 
                     JOIN taxa t ON (he.id=t.hierarchy_entry_id) 
                     JOIN refs_taxa rt ON (t.id=rt.taxon_id) 
                     JOIN refs ON (rt.ref_id=refs.id)
-                    WHERE he.taxon_concept_id=?", taxon_concept_id, taxon_concept_id])
+                    WHERE he.taxon_concept_id=?
+                    AND refs.published=1
+                    AND refs.visibility_id=?
+                    ", taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id])
   end
 
   # Determines whether or not the TaxonConcept has Literature References
@@ -31,12 +37,20 @@ class Ref < SpeciesSchemaModel
                 JOIN taxa t ON (he.id=t.hierarchy_entry_id) 
                 JOIN data_objects_taxa dot ON (t.id=dot.taxon_id) 
                 JOIN data_objects_refs dor USING (data_object_id) 
-                WHERE he.taxon_concept_id=? LIMIT 1
+                JOIN refs ON (dor.ref_id=refs.id)
+                WHERE he.taxon_concept_id=?
+                AND refs.published=1
+                AND refs.visibility_id=?
+                LIMIT 1
       UNION
       SELECT 1 FROM hierarchy_entries he 
                 JOIN taxa t ON (he.id=t.hierarchy_entry_id) 
                 JOIN refs_taxa rt ON (t.id=rt.taxon_id) 
-                WHERE he.taxon_concept_id=? LIMIT 1", taxon_concept_id, taxon_concept_id])
+                JOIN refs ON (rt.ref_id=refs.id)
+                WHERE he.taxon_concept_id=?
+                AND refs.published=1
+                AND refs.visibility_id=?
+                LIMIT 1", taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id])
     ref_count > 0
   end
 

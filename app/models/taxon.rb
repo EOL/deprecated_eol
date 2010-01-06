@@ -50,6 +50,11 @@ class Taxon < SpeciesSchemaModel
     end
   end  
   
+  def visible_references(options = {})
+    @all_refs ||= refs.delete_if {|r| r.published!=1 || r.visibility_id!=Visibility.visible.id}
+  end
+  
+  
 end
 # == Schema Info
 # Schema version: 20080923175821

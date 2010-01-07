@@ -1,9 +1,16 @@
 %tr
-  %td{ :class => column_class }
+  %td{ :id => "name_#{name_id}", :class => column_class }
     = h name_string
   %td{ :class => column_class }
     = h("#{language_label} - #{language_name}") unless language_name.blank?
   - if is_curator
+    - if current_user.agent_id == agent_id
+      %small
+        = '&nbsp;['
+        = link_to_remote 'edit', :update => "name_#{name_id}", :url => { :action => 'edit_common_name', |
+          :id => name_id, |
+          :language_id => language_id } |
+        = ']'
     - if language_id.to_i == current_user.language_id
       %td{ :class => "#{column_class} preferred_name_selector", :style => "text-align:center;" }
         = radio_button_tag('name_id', name_id, preferred == '1')

@@ -674,7 +674,11 @@ describe DataObject do
   end
 
   #
-  # I haven't touched these yet:
+  # I haven't touched these yet.
+  #
+  # These are REALLY old tests, from before we decided to break things up into blackbox and model specs.  They were really
+  # fragile because of the heavy use of should_receive.  We'll need to work through these and decide whether or not to keep
+  # each one, but I suspect much of this is reusable (since this is a model spec and should_receive is generally allowed).
   #
   #
 #

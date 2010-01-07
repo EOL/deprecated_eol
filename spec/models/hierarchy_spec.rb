@@ -26,8 +26,8 @@ describe Hierarchy do
   # a lot of additional dependencies
 
   it 'should be able to find the Encyclopedia of Life Curators hierarchy with #eol_curators' do
-    curators_hierarchy = Hierarchy.find_by_label('Encyclopedia of Life Curators') || Hierarchy.gen(:label => 'Encyclopedia of Life Curators')
-    Hierarchy.eol_curators.should == curators_hierarchy
+    contributors_hierarchy = Hierarchy.find_by_label('Encyclopedia of Life Contributors') || Hierarchy.gen(:label => 'Encyclopedia of Life Contributors')
+    Hierarchy.eol_contributors.should == contributors_hierarchy
   end
 
 end

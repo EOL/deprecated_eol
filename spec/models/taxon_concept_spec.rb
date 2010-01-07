@@ -60,12 +60,13 @@ describe TaxonConcept do
       :toc             => [{:toc_item => @overview, :description => @overview_text}, 
                            {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}]
     )
-    # TODO - I am slowly trying to convert all of the above options to methods to make testing clearer:
-    tc.add_common_name(@common_name)
     @id            = tc.id
     @taxon_concept = TaxonConcept.find(@id)
     # The curator factory cleverly hides a lot of stuff that User.gen can't handle:
     @curator       = build_curator(@taxon_concept)
+    # TODO - I am slowly trying to convert all of the above options to methods to make testing clearer:
+    (@common_name_obj, @synonym_for_common_name, @tcn_for_common_name) =
+      tc.add_common_name(@common_name, :agent_id => @curator.agent_id)
     # Curators aren't recognized until they actually DO something, which is here:
     LastCuratedDate.gen(:user => @curator, :taxon_concept => @taxon_concept)
     # And we want one comment that the world cannot see:
@@ -328,6 +329,60 @@ describe TaxonConcept do
     tc.quick_common_name.should == "A name"
     tc.add_common_name("Another name")
     tc.quick_common_name.should == "A name"
+  end
+
+  describe '#edit_common_name' do
+
+    before(:all) do
+      @new_common_name = 'hecklefripp'
+      @english = Language.english
+    end
+
+    it 'should raise an error if name_id is missing' do
+      lambda { @taxon_concept.edit_common_name(@new_common_name,
+                                               :language_id => @english.id,
+                                               :agent_id    => @curator.agent_id) }.should raise_error(/name_id/)
+    end
+
+    it 'should raise an error if language_id is missing' do
+      lambda { @taxon_concept.edit_common_name(@new_common_name,
+                                               :name_id     => @common_name_obj.id,
+                                               :agent_id    => @curator.agent_id) }.should raise_error(/language_id/)
+    end
+
+    it 'should raise an error if agent_id is missing' do
+      lambda { @taxon_concept.edit_common_name(@new_common_name,
+                                               :name_id     => @common_name_obj.id,
+                                               :language_id => @english.id) }.should raise_error(/agent_id/)
+    end
+
+    it 'should raise an error if no TaxonConceptName matches the name_id' do
+      lambda { @taxon_concept.edit_common_name(@new_common_name,
+                                               :name_id     => @common_name_obj.id + 1,
+                                               :language_id => @english.id,
+                                               :agent_id    => @curator.agent_id) }.should raise_error(/matching taxon.conce/i)
+    end
+
+    it 'should generate a new name object' do
+      old_count = Name.count
+      @taxon_concept.edit_common_name(@new_common_name,
+                                      :name_id     => @common_name_obj.id,
+                                      :language_id => @english.id,
+                                      :agent_id    => @curator.agent_id)
+      Name.count.should == old_count + 1
+    end
+
+    it 'should update the name_id on the TaxonConceptName and Synonym objects' do
+      @taxon_concept.edit_common_name(@new_common_name,
+                                      :name_id     => @common_name_obj.id,
+                                      :language_id => @english.id,
+                                      :agent_id    => @curator.agent_id)
+      new_name_id = Name.find_by_string(@new_common_name).id
+      @synonym_for_common_name.reload.name_id.should == new_name_id
+      # Note that we're not just using @tcn_for_common_name, because it should have been deleted by now.
+      TaxonConceptName.find_by_synonym_id(@synonym_for_common_name.id).name_id.should == new_name_id
+    end
+
   end
 
   #

@@ -134,6 +134,7 @@ class TaxonConcept < SpeciesSchemaModel
         AND children.taxon_concept_id = #{self.id}  -- TaxonConcept#approved_curators
     ")
   end
+  alias :active_curators :acting_curators
 
   # if curator is no longer able to curate the page, citation should still show up, so we grab all users wich had have curator activity in 2 last years on this page
   def curator_has_citation
@@ -839,28 +840,68 @@ EOIUCNSQL
   
   # Adds a single common name to this TC.
   # Options:
-  #   +preferred+::
-  #     Boolean to flag which name is preferred for this TC.  Default is true, but be careful that you only set one.
+  #   +agent_id+::
+  #     The id of the agent (which should be linked to a curator's user account) adding the name
   #   +language+::
   #     Language object to use for this name.  Default is Language.english
+  #   +preferred+::
+  #     Boolean to flag which name is preferred for this TC.  Default is true, but be careful that you only set one.
+  # Returns:
+  #   A three-element array, including:
+  #     The Name object
+  #     The Synonym object
+  #     The TaxonConceptName object.
   def add_common_name(name, options = {})
-    language  = options[:language]  || Language.english
+    language  = options[:language] || current_user.language
     preferred = options.has_key?(:preferred) ? options[:preferred] : false
     preferred = true if (all_common_names.blank?)  
     relation = SynonymRelation.find_by_label("common name")
     vern      = true
     name_obj  = generate_common_name(name)
-    syn = generate_synonym(name_obj, :preferred => preferred, :language => language, :relation => relation)
-    tcn = generate_tc_name(name_obj, :preferred => preferred, :language => language, :vern => vern)
+    syn = generate_synonym(name_obj, :preferred => preferred,
+                                     :language => language,
+                                     :relation => relation,
+                                     :agent_id => options[:agent_id])
+    tcn = generate_tc_name(name_obj, :preferred => preferred,
+                                     :language => language,
+                                     :vern => vern,
+                                     :synonym_id => syn.id)
     [name_obj, syn, tcn]
   end
-  
+
+  # Takes a string and a set of options that MUST include name_id, language_id, and agent_id as input (only user-added names
+  # may be altered), finds the appropriate objects, alters them, and returns the new name_id.
+  #
+  # Raises exceptions when any options are missing, or when it cannot locate the objects to modify.
+  def edit_common_name(new_name, options)
+    raise("Cannot edit a common name without a name_id, language_id, and agent_id as options") unless
+      options[:name_id] and options[:language_id] and options[:agent_id]
+    old_tcn  = TaxonConceptName.find_by_name_id_and_language_id_and_taxon_concept_id(
+      options[:name_id],
+      options[:language_id],
+      self.id)
+    raise("Could not find a matching Taxon Concept Name") unless old_tcn
+    old_syn = old_tcn.synonym
+    raise("Could not find a matching Synonym") unless old_syn 
+    raise("This agent has insufficient ownership of the Common Name.") unless
+      old_syn.agents.detect {|a| a.id == options[:agent_id] }
+    name_obj = generate_common_name(new_name)
+    old_syn.update_attribute(:name_id, name_obj.id) ; old_syn.save!
+    # Okay, this is unusual, but because name_id is part of the primary key, we cannot update attributes on the TCN.
+    # So we are going to create a new one, then delete the old:
+    preferred = old_tcn.preferred
+    vern      = old_tcn.vern
+    TaxonConceptName.delete_all(:synonym_id => old_syn.id)
+    generate_tc_name(name_obj, :preferred   => preferred,
+                               :language_id => options[:language_id],
+                               :vern        => vern,
+                               :synonym_id  => old_syn.id)
+  end
 
 #####################
 private
   
   def generate_common_name(name)
-    name_obj = nil # scope
     name_obj = Name.find_by_string(name)
     if name_obj.blank?
       name_obj = Name.create_common_name(name)
@@ -870,35 +911,44 @@ private
   
   def generate_synonym(name_obj, options = {})
     language  = options[:language]  || Language.english
-    synonym_relation = options[:relation]
+    synonym_relation = options[:relation] || SynonymRelation.synonym
     preferred = options[:preferred]
-    contributor_hierarchy = Hierarchy.find_by_label("Encyclopedia of Life Contributors") 
     synonym = Synonym.find_by_hierarchy_entry_id_and_language_id_and_name_id_and_preferred(entry.id, 
               language.id, 
               name_obj.id, 
               preferred)
     unless synonym
       synonym = Synonym.create(:name             => name_obj, 
-                               :hierarchy        => contributor_hierarchy, 
+                               :hierarchy        => Hierarchy.eol_contributors, 
                                :hierarchy_entry  => entry, 
                                :language         => language,
                                :synonym_relation => synonym_relation,
                                :preferred        => preferred)
+      if options[:agent_id]
+        AgentsSynonym.create(:agent_id      => options[:agent_id],
+                             :agent_role_id => AgentRole.contributor_id,
+                             :synonym_id    => synonym.id,
+                             :view_order    => 1)
+      end
     end
+    synonym
   end
 
+  # Note that if the TCN already exists, the user may end up confused because they cannot *edit* that TCN--it "belongs" to
+  # another hierarchy.
   def generate_tc_name(name_obj, options = {})
     language  = options[:language]  || Language.english
     preferred = options[:preferred]
     vern      = options.has_key?(:vern) ? options[:vern] : true
     tcn       = TaxonConceptName.find_by_taxon_concept_id_and_name_id(self.id, name_obj.id)
     if tcn.blank?
-      tcn = TaxonConceptName.create(:preferred => preferred, 
-                                    :vern => vern, 
+      tcn = TaxonConceptName.create(:synonym_id => options[:synonym_id],
+                                    :language => language,
+                                    :name => name_obj,
+                                    :preferred => preferred,
                                     :source_hierarchy_entry_id => entry.id,
-                                    :language => language, 
-                                    :name => name_obj, 
-                                    :taxon_concept => self)
+                                    :taxon_concept => self,
+                                    :vern => vern)
     end
     tcn
   end

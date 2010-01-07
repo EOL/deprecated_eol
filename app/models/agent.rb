@@ -23,6 +23,7 @@ class Agent < SpeciesSchemaModel
 
   has_one :content_partner
   has_one :content_partner_agreement
+  has_one :user
   
   has_many :agent_provided_data_types, :dependent => :destroy
   has_many :agent_data_types, :through => :agent_provided_data_types

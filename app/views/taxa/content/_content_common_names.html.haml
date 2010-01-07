@@ -25,28 +25,30 @@
         - next unless name[:language_id].to_i == current_user.language_id
         = render(:partial => 'taxa/content/content_common_names_row', |
             :locals => { |
-            :column_class   => cycle('odd', 'even'), |
-            :is_curator     => is_curator, |
-            :language_id    => name[:language_id], |
-            :language_label => name[:language_label], |
-            :language_name  => name[:language_name], |
-            :name_id        => name[:name_id], |
-            :name_string    => name[:name_string], |
-            :preferred      => name[:preferred] |
+              :agent_id       => name[:agent_id].to_i, |
+              :column_class   => cycle('odd', 'even'), |
+              :is_curator     => is_curator, |
+              :language_id    => name[:language_id], |
+              :language_label => name[:language_label], |
+              :language_name  => name[:language_name], |
+              :name_id        => name[:name_id], |
+              :name_string    => name[:name_string], |
+              :preferred      => name[:preferred] |
             }) |
       - # Render every OTHER name (not in her preferred language):
       - @content[:items].each do |name|
         - next if name[:language_id].to_i == current_user.language_id
         = render(:partial => 'taxa/content/content_common_names_row', |
            :locals => { |
-           :column_class   => cycle('odd', 'even'), |
-           :is_curator     => is_curator, |
-           :language_id    => name[:language_id], |
-           :language_label => name[:language_label], |
-           :language_name  => name[:language_name], |
-           :name_id        => name[:name_id], |
-           :name_string    => name[:name_string], |
-           :preferred      => name[:preferred] |
+             :agent_id       => name[:agent_id], |
+             :column_class   => cycle('odd', 'even'), |
+             :is_curator     => is_curator, |
+             :language_id    => name[:language_id], |
+             :language_label => name[:language_label], |
+             :language_name  => name[:language_name], |
+             :name_id        => name[:name_id], |
+             :name_string    => name[:name_string], |
+             :preferred      => name[:preferred] |
            }) |
   -# ugly - should make parital instead?
   = "</form>" if is_curator

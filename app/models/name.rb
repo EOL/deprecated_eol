@@ -81,8 +81,8 @@ class Name < SpeciesSchemaModel
     canonical_form_string = given_canonical_form.blank? ? name_string : given_canonical_form
     canonical_form = CanonicalForm.create(:string => canonical_form_string);
     italicized_form_string = "<i>#{name_string}</i>" #all we need to do for common names 
-    common_name = Name.create(:string => name_string, :italicized => italicized_form_string, :italicized_verified => 0, :namebank_id => 0, # TODO - is this namebank ok?
-                              :canonical_form_id => canonical_form.id, :canonical_verified => 0, :clean_name => clean_name_string)
+    Name.create(:string => name_string, :italicized => italicized_form_string, :italicized_verified => 0, :namebank_id => 0,
+                :canonical_form_id => canonical_form.id, :canonical_verified => 0, :clean_name => clean_name_string)
   end
 
 end

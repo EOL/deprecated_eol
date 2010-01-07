@@ -13,6 +13,13 @@ class AgentRole < SpeciesSchemaModel
     end
   end
   
+  # Find the "contributor" AgentRole.
+  def self.contributor_id
+    Rails.cache.fetch('agent_roles/contributor_id') do
+      AgentRole.find_by_label('Contributor').id
+    end
+  end
+  
   # Find the "Author" AgentRole.
   def self.author_id
     Rails.cache.fetch('agent_roles/author_id') do

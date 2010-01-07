@@ -6,6 +6,7 @@ require "digest"
 class User < ActiveRecord::Base
 
   belongs_to :language
+  belongs_to :agent
   has_and_belongs_to_many :roles
 
   before_save :check_curator_status

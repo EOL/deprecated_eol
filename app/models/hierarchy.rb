@@ -36,13 +36,12 @@ class Hierarchy < SpeciesSchemaModel
     end)
   end
 
-  # This is the first hierarchy we used, and we need it to serve "old" URLs (ie: /taxa/16222828 => Roenbergensis)
-  def self.eol_curators
-    YAML.load(Rails.cache.fetch('hierarchies/eol_curators') do
-      Hierarchy.find_by_label("Encyclopedia of Life Curators").to_yaml
+  def self.eol_contributors
+    YAML.load(Rails.cache.fetch('hierarchies/eol_contributors') do
+      Hierarchy.find_by_label("Encyclopedia of Life Contributors").to_yaml
     end)
   end
-  
+
   def self.ncbi
     YAML.load(Rails.cache.fetch('hierarchies/ncbi') do
       Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc").to_yaml

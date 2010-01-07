@@ -332,10 +332,11 @@ class TaxaController < ApplicationController
   def add_common_name
     if params[:name][:name_string]
       tc = TaxonConcept.find(params[:taxon_concept_id])
+      agent = current_user.agent
       language = Language.find(params[:name][:language])
-      name, synonym, taxon_concept_name = tc.add_common_name(params[:name][:name_string], :language => language)
+      name, synonym, taxon_concept_name =
+        tc.add_common_name(params[:name][:name_string], :agent_id => agent.id, :language => language)
       agent_role = AgentRole.find_by_label("Contributor")
-      agent = Agent.find(current_user.agent_id)
       if tc.is_curatable_by?(current_user)
         as = AgentsSynonym.create!(:synonym => synonym, :agent => agent, :agent_role => agent_role, :view_order => 0)
       else

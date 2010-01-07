@@ -334,11 +334,9 @@ class TaxaController < ApplicationController
       tc = TaxonConcept.find(params[:taxon_concept_id])
       agent = current_user.agent
       language = Language.find(params[:name][:language])
-      name, synonym, taxon_concept_name =
-        tc.add_common_name(params[:name][:name_string], :agent_id => agent.id, :language => language)
-      agent_role = AgentRole.find_by_label("Contributor")
       if tc.is_curatable_by?(current_user)
-        as = AgentsSynonym.create!(:synonym => synonym, :agent => agent, :agent_role => agent_role, :view_order => 0)
+        name, synonym, taxon_concept_name =
+          tc.add_common_name(params[:name][:name_string], :agent_id => agent.id, :language => language)
       else
         flash[:error] = "User #{current_user.full_name} does not have enough privileges to add a common name to the taxon"
       end

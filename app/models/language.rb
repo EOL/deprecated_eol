@@ -16,6 +16,10 @@ class Language < SpeciesSchemaModel
   def self.english # because it's a default.  No other language will have this kind of method.
     Language.find_by_iso_639_1('en')
   end
+
+  def self.unknown
+    Language.find_by_label("Unknown")
+  end
   
   def display_code
     iso_639_1.upcase

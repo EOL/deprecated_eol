@@ -852,7 +852,7 @@ EOIUCNSQL
   #     The Synonym object
   #     The TaxonConceptName object.
   def add_common_name(name, options = {})
-    language  = options[:language] || current_user.language
+    language  = options[:language] || Language.unknown
     preferred = options.has_key?(:preferred) ? options[:preferred] : false
     preferred = true if (all_common_names.blank?)  
     relation = SynonymRelation.find_by_label("common name")

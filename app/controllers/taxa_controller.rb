@@ -320,10 +320,14 @@ class TaxaController < ApplicationController
   end  
 
   # Ajax method to change the preferred name on a Taxon Concept:
-  def set_preferred_name
+  def update_common_names
     tc = taxon_concept
     if tc.is_curatable_by?(current_user)
       tc.set_preferred_name(current_user.language, params[:name_id].to_i)
+      puts '-' * 80
+      pp params 
+      puts '-' * 80
+     #   tc.edit_common_name(params[
       expire_taxa(tc.id)
     end
     render :nothing => true

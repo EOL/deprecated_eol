@@ -54,7 +54,7 @@ ActionController::Routing::Routes.draw do |map|
               :controller => 'data_objects', :action => 'index',
               :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
   map.connect 'pages/:id/best_images.:format', :controller => 'content', :action => 'best_images'
-  map.connect '/pages/:taxon_concept_id/set_preferred_name', :controller => 'taxa', :action => 'set_preferred_name'
+  map.connect '/pages/:taxon_concept_id/update_common_names', :controller => 'taxa', :action => 'update_common_names'
   map.connect '/pages/:taxon_concept_id/add_common_name', :controller => 'taxa', :action => 'add_common_name'
   
   map.set_language      'set_language',      :controller => 'application', :action => 'set_language'

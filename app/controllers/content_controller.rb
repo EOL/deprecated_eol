@@ -17,8 +17,10 @@ class ContentController < ApplicationController
     unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.content_page_cache_str)
       @content=ContentPage.get_by_page_name_and_language_abbr('Home',current_user.language_abbr)
       raise "static page content not found" if @content.nil?
-      @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy)
-      @featured_taxa = TaxonConcept.exemplars # comment this out to make featured taxa go away on home page!     
+      @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy, {:language => current_user.language, :size => :medium})
+      featured_taxa = TaxonConcept.exemplars # comment this out to make featured taxa go away on home page!     
+      random_index = rand(featured_taxa.length)
+      @featured_taxon = featured_taxa[random_index]
       # get top news items less then a predetermined number of weeks old
       @news_items = NewsItem.find_all_by_active(true,:limit=>$NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY,:order=>'display_date desc',:conditions=>'display_date >= "' + $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS.weeks.ago.to_s(:db) + '"')
     end
@@ -27,7 +29,7 @@ class ContentController < ApplicationController
   
   # just shows the top set of species --- can be included on other websites
   def species_bar
-     @explore_taxa  = RandomHierarchyImage.random_set(6)
+     @explore_taxa  = RandomHierarchyImage.random_set(6, nil, {:language => current_user.language, :size => :medium})
      @new_window = true
      render(:partial=>'explore_taxa')
   end
@@ -241,7 +243,7 @@ class ContentController < ApplicationController
   
   #AJAX call to show more explore taxa on the home page
   def explore_taxa
-    @explore_taxa=RandomHierarchyImage.random_set(6, @session_hierarchy)
+    @explore_taxa=RandomHierarchyImage.random_set(6, @session_hierarchy, {:language => current_user.language, :size => :medium})
 
     render :layout=>false,:partial => 'explore_taxa'
     
@@ -254,16 +256,16 @@ class ContentController < ApplicationController
     params[:taxa_number] ||= '1'
      
     current_taxa = params[:current_taxa].split(',')
-    explore_taxa       = RandomHierarchyImage.random(@session_hierarchy)
-
+    explore_taxa       = RandomHierarchyImage.random(@session_hierarchy, {:language => current_user.language, :size => :medium})
+    
     # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a
     # bit haywire since there are very few random taxa created by scenarios.
     num_tries = 0
     while(num_tries < 30 and
           $PRODUCTION_MODE and
           !explore_taxa.blank? and
-          current_taxa.include?(explore_taxa.taxon_concept_id.to_s))
-      explore_taxa = RandomHierarchyImage.random(@session_hierarchy)
+          current_taxa.include?(explore_taxa['taxon_concept_id'].to_s))
+      explore_taxa = RandomHierarchyImage.random(@session_hierarchy, {:language => current_user.language, :size => :medium})
       num_tries += 1
     end
 
@@ -271,11 +273,11 @@ class ContentController < ApplicationController
     
     unless explore_taxa.nil? or taxa_number.nil? or taxa_number.empty?
       render :update do |page|
-        page['top_image_tag_'+taxa_number].alt          = sanitize(explore_taxa.taxon_concept.name(:expert))
-        page['top_image_tag_'+taxa_number].title        = sanitize(explore_taxa.taxon_concept.name(:expert))
-        page['top_image_tag_'+taxa_number].src          = explore_taxa.data_object.smart_medium_thumb
-        page['top_image_tag_'+taxa_number+'_href'].href = "/pages/" + explore_taxa.taxon_concept_id.to_s
-        page.replace_html 'top_name_'+taxa_number, linked_name(explore_taxa.taxon_concept)
+        page['top_image_tag_'+taxa_number].alt          = sanitize(explore_taxa['scientific_name'])
+        page['top_image_tag_'+taxa_number].title        = sanitize(explore_taxa['scientific_name'])
+        page['top_image_tag_'+taxa_number].src          = explore_taxa['image_cache_path']
+        page['top_image_tag_'+taxa_number+'_href'].href = "/pages/" + explore_taxa['taxon_concept_id'].to_s
+        page.replace_html 'top_name_'+taxa_number, random_image_linked_name(explore_taxa)
       end
     else
       render :nothing=>true

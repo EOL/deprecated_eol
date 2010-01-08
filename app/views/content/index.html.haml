@@ -113,8 +113,8 @@
               %img#play-button{ :src => "/images/homepage/pause.gif", :height => "28", :alt => "pause", :width => "27" }
         - # nav_buttons
         #photos_area
-        - if @explore_taxa.nil? == false
-          = render(:partial=>'explore_taxa')
+          - if @explore_taxa.nil? == false
+            = render(:partial=>'explore_taxa')
         - # photos_area
       - # photo_slider
     - # photo-area-wrapper
@@ -153,16 +153,15 @@
         - # unless news_items empty
       - # sidebar-b
       #home-center-content
-        - if @featured_taxa
-          - featured_taxon = @featured_taxa.sort_by{rand}[0]
+        - if @featured_taxon
           %h1= "Featured"[]
           %table#featured-species-table{ :cellspacing => "0", :summary => "featured table" }
             %tr
               %td.image
-                = medium_thumb_partial(featured_taxon)
+                = random_image_thumb_partial(@featured_taxon)
             %tr
               %td
-                = linked_name(featured_taxon)
+                = random_image_linked_name(@featured_taxon)
           - # featured-species-table
         - # unless featured_taxa nil
         = @content.main_content

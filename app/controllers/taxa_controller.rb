@@ -619,7 +619,7 @@ private
 
     @content     = @taxon_concept.content_by_category(@category_id,:current_user=>current_user) unless
       @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
-    @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy)
+    @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy, {:language => current_user.language, :size => :small})
 
     @data_object_ids_to_log = data_object_ids_to_log
   end

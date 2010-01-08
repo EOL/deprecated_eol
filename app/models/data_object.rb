@@ -769,7 +769,7 @@ class DataObject < SpeciesSchemaModel
           #{join_hierarchy}
         WHERE ti.hierarchy_entry_id IN (?)
           AND data_type_id IN (?)
-          AND ti.view_order < 270
+          AND ti.view_order < 180
           #{DataObject.visibility_clause(options.merge(:taxon => taxon))} # DataObject.cached_images_for_taxon
       }, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids])
     

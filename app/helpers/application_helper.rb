@@ -236,6 +236,21 @@ module ApplicationHelper
     return return_html
   end
   
+  def random_image_thumb_partial(random_image, image_id_name = '', new_window = false)
+    return_html=""
+    unless random_image.nil?
+      name = sanitize(strip_tags(random_image['scientific_name']))
+      return_html = %Q{<a}
+      return_html+= %Q{ target=\"_blank\" } if new_window
+      return_html+= %Q{ id="#{image_id_name}_href"}       unless image_id_name == ''
+      return_html+= %Q{ href="/pages/#{random_image['taxon_concept_id']}"><img}
+      return_html+= %Q{ id="#{image_id_name}"}            unless image_id_name == ''
+      return_html+= %Q{ src="#{random_image['image_cache_path']}" alt="#{name}"}
+      return_html+= %Q{ title="#{name}"/></a>}
+    end
+    return return_html
+  end
+  
   def agent_logo(agent, size = "large", params={})
     src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
     return src if src.empty?
@@ -286,7 +301,21 @@ module ApplicationHelper
       return_html+= %Q{#{sanitize(common_name)}} unless common_name.empty?
     end
     return return_html
-  end 
+  end
+  
+  def random_image_linked_name(random_image, new_window = false)
+    return_html=""
+    unless random_image.nil?
+      scientific_name = random_image['scientific_name']
+      common_name = random_image['common_name']
+      return_html = %Q{<a }
+      return_html+= %Q{ target=\"_blank\" } if new_window
+      return_html+= %Q{ id=\"" + h(scientific_name) + "\"}
+      return_html+= %Q{ href="/pages/#{random_image['taxon_concept_id']}">#{sanitize(scientific_name)}</a><br />}
+      return_html+= %Q{#{sanitize(common_name.firstcap)}} unless common_name.nil?
+    end
+    return return_html
+  end
 
   def allow_some_html(text)
     return text.allow_some_html

@@ -39,7 +39,7 @@
           %td{ :width => "30%" }
             -# The following link had a nice image_tag helper, but it was being really grumpy and appeared to have
             -# been causing a formatting problem.  Writing it out longhand seems to have fixed it...
-            = link_to(%Q{<img border="0" title="#{h(strip_tags(taxa_link.name))}" } << %Q{src="#{taxa_link.smart_thumb}" alt="#{h(strip_tags(taxa_link.name))}" />},  :action => "show", :id=>taxa_link.taxon_concept_id)
-          %td= linked_name(taxa_link)
+            = link_to(%Q{<img border="0" title="#{h(strip_tags(taxa_link['scientific_name']))}" } << %Q{src="#{taxa_link['image_cache_path']}" alt="#{h(strip_tags(taxa_link['scientific_name']))}" />},  :action => "show", :id=>taxa_link['taxon_concept_id'])
+          %td= random_image_linked_name(taxa_link)
   - # if random_taxa
 - # internal-nav

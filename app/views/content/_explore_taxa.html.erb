@@ -7,7 +7,7 @@
 		classname=classname+'-last' if counter == 6 %>
 		
 		<td class="<%=classname%>">
-			<%= medium_thumb_partial(@explore_taxa[counter-1],'top_image_tag_'+counter.to_s,new_window) %>
+			<%= random_image_thumb_partial(@explore_taxa[counter-1],'top_image_tag_'+counter.to_s,new_window) %>
 		</td>
 	  <% end %>	
 		</tr>
@@ -17,7 +17,7 @@
 		classname="name"
 		classname=classname+'-last' if counter == 6	%>			
 		<td class="<%=classname%>">
-			<span id="top_name_<%=counter%>"><%= linked_name(@explore_taxa[counter-1],'',new_window) %></span>
+			<span id="top_name_<%=counter%>"><%= random_image_linked_name(@explore_taxa[counter-1],new_window) %></span>
 		</td>
 	  <% end %>
 	</tr>

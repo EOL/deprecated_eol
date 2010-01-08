@@ -157,17 +157,19 @@ describe TaxonConcept do
   end
 
   it 'should have an IUCN conservation status' do
+    tc = build_taxon_concept()
     iucn_status = Factory.next(:iucn)
-    build_iucn_entry(@taxon_concept, iucn_status)
-    @taxon_concept.iucn_conservation_status.should == iucn_status
+    build_iucn_entry(tc, iucn_status)
+    tc.iucn_conservation_status.should == iucn_status
   end
 
   it 'should have an IUCN conservation status even if it comes from another IUCN resource' do
+    tc = build_taxon_concept()
     iucn_status = Factory.next(:iucn)
     (hierarchy, resource) = build_secondary_iucn_hierarchy_and_resource
-    build_iucn_entry(@taxon_concept, iucn_status, :hierarchy => hierarchy,
+    build_iucn_entry(tc, iucn_status, :hierarchy => hierarchy,
                                                   :event => HarvestEvent.gen(:resource => resource))
-    @taxon_concept.iucn_conservation_status.should == iucn_status
+    tc.iucn_conservation_status.should == iucn_status
   end
 
   it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
@@ -178,12 +180,16 @@ describe TaxonConcept do
   end
 
   it 'should not use an unpublished IUCN status' do
-    bad_iucn = build_iucn_entry(@taxon_concept, 'bad value')
+    tc = build_taxon_concept()
+    bad_iucn = build_iucn_entry(tc, 'bad value')
+    tc.iucn_conservation_status.should == 'bad value'
+    
     # We *must* know that it would have worked if it *were* published, otherwise the test proves nothing:
-    @taxon_concept.iucn_conservation_status.should == 'bad value'
-    bad_iucn.published = 0
-    bad_iucn.save
-    @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
+    tc2 = build_taxon_concept()
+    bad_iucn2 = build_iucn_entry(tc2, 'bad value')
+    bad_iucn2.published = 0
+    bad_iucn2.save
+    tc2.iucn_conservation_status.should == 'NOT EVALUATED'
   end
 
   it 'should be able to list its ancestors (by convention, ending with itself)' do

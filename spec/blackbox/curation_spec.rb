@@ -148,18 +148,14 @@ describe 'Curation' do
   
   it 'should NOT show an edit button for a common name added by a curator when not logged in' do
     @non_curator_cname_page.should have_tag('table.results_table') do
-      without_tag('a', /edit/i)
+      without_tag('span', /ok/i)
     end
   end
 
   # TODO - this would be better if we added another common name as another curator and made sure this curator can't change
   # that curator's common name.
   it 'should show an edit button for a common name added by a curator (only)' do
-    @cname_page.should have_tag('table.results_table') do
-      with_tag('tr', /#{@new_name}/) do
-        with_tag('a', /edit/i)
-      end
-    end
+    @cname_page.should have_tag('span',/ok/i)
   end
 
 end

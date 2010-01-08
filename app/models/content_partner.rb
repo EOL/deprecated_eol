@@ -36,28 +36,23 @@ class ContentPartner < SpeciesSchemaModel
   
   def concepts_for_gallery(page, per_page)
     page = page - 1
-    results = SpeciesSchemaModel.connection.execute(%Q{
+    partner_resources = Resource.find_by_sql(%Q{
         SELECT
-        ar.resource_id
+        r.*
         FROM agents_resources ar
         JOIN resources r ON (ar.resource_id=r.id)
-        WHERE ar.agent_id='#{agent_id}'
-        AND ar.resource_agent_role_id=#{ResourceAgentRole.content_partner_upload_role.id}}).all_hashes
+        WHERE ar.agent_id=#{agent_id}
+        AND ar.resource_agent_role_id=#{ResourceAgentRole.content_partner_upload_role.id}})
     
-    resource = nil
-    results.each do |result|
-      resource = Resource.find(result['resource_id'].to_i)
-      break
-    end
-    
-    return nil if resource.nil?
+    return nil if partner_resources.nil?
+    harvest_event_ids = partner_resources.collect{|r| r.latest_published_harvest_event.id || nil }
     
     count_result = SpeciesSchemaModel.connection.execute(%Q{
         SELECT count(distinct t.hierarchy_entry_id) count
         FROM harvest_events_taxa het
         JOIN taxa t ON (het.taxon_id=t.id)
         LEFT JOIN resources_taxa rt ON (t.id=rt.taxon_id)
-        WHERE het.harvest_event_id=#{resource.latest_published_harvest_event.id}}).all_hashes
+        WHERE het.harvest_event_id IN (#{harvest_event_ids.join(',')})}).all_hashes
     total_taxa_count = count_result[0]['count'].to_i
     
     sorted_hierarchy_entries = SpeciesSchemaModel.connection.execute(%Q{
@@ -65,7 +60,7 @@ class ContentPartner < SpeciesSchemaModel
         FROM harvest_events_taxa het
         JOIN taxa t ON (het.taxon_id=t.id)
         LEFT JOIN resources_taxa rt ON (t.id=rt.taxon_id)
-        WHERE het.harvest_event_id=#{resource.latest_published_harvest_event.id}
+        WHERE het.harvest_event_id IN (#{harvest_event_ids.join(',')})
         GROUP BY t.hierarchy_entry_id
         ORDER BY t.scientific_name LIMIT #{page*per_page}, #{per_page} }).all_hashes
     

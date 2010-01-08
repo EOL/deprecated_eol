@@ -692,7 +692,7 @@ Factory.define :random_taxon do |rt|
   rt.association    :data_object
   rt.name_id        { Factory(:name).id } # There is a "name" attribute as well, so, tricky.
   rt.image_url      200810081262788
-  rt.name           { "<i>#{ Factory.next(:species) }<i> Factory TestFramework" }
+  rt.name           { "<i>#{ Factory.next(:species) }</i> Factory TestFramework" }
   rt.content_level  3
   rt.created_at     { 14.days.ago }
   rt.association    :taxon_concept
@@ -703,7 +703,7 @@ end
 
 Factory.define :random_hierarchy_image do |rhi|
   rhi.association   :data_object
-  rhi.name          { "<i>#{ Factory.next(:species) }<i> Factory TestFramework" }
+  rhi.name          { "<i>#{ Factory.next(:species) }</i> Factory TestFramework" }
   rhi.association   :taxon_concept
   rhi.association   :hierarchy_entry
   rhi.association   :hierarchy

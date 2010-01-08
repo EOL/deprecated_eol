@@ -20,7 +20,8 @@ describe 'Taxa page XML' do
                         # into which table(s) need clearing.
     Scenario.load :foundation # Here instead of earlier because of the truncating logic just above.
     HierarchiesContent.delete_all
-    @exemplar        = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
+    exemplar_he      = HierarchyEntry.gen(:hierarchy => Hierarchy.default)
+    @exemplar        = build_taxon_concept(:id => 910093, :parent_hierarchy_entry_id => exemplar_he.id) # That ID is one of the (hard-coded) exemplars.
     @parent          = build_taxon_concept
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
@@ -318,8 +319,10 @@ describe 'Taxa page XML' do
     end
 
     it 'should have the ID of our expected TC as a result' do
-      @exemplar_xml.xpath('//taxon-pages/taxon-page/id').should_not be_empty
-      @exemplar_xml.xpath('//taxon-pages/taxon-page/id').first.content.should == @exemplar.id.to_s
+      # @exemplar_xml.xpath('//taxon-pages/taxon-page/id').should_not be_empty
+      # @exemplar_xml.xpath('//taxon-pages/taxon-page/id').first.content.should == @exemplar.id.to_s
+      @exemplar_xml.xpath('//taxon-pages/taxon-page/taxon-concept-id').should_not be_empty
+      @exemplar_xml.xpath('//taxon-pages/taxon-page/taxon-concept-id').first.content.should == @exemplar.id.to_s
     end
 
   end

@@ -19,7 +19,7 @@
 				 	<tr><th><%="Image"[]%></th><th><%="Name"[]%></th>
 						<% for exemplar in @exemplars
 							column_class=cycle('odd','even')  %>
-						    <tr><td height="105" class="<%= column_class %>"><%= medium_thumb_partial(exemplar) %></td><td class="<%= column_class %>"><%= linked_name(exemplar) %></td></tr>
+						    <tr><td height="105" class="<%= column_class %>"><%=random_image_thumb_partial(exemplar) %></td><td class="<%= column_class %>"><%= random_image_linked_name(exemplar) %></td></tr>
 						<% end %>
 				</table>
             

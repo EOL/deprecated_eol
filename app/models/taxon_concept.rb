@@ -211,13 +211,38 @@ class TaxonConcept < SpeciesSchemaModel
   # table somewhere.
   #
   # EXEMPLARS THAT WE NO LONGER TRUST: 482935, 
-  def self.exemplars
+  def self.exemplars(options = {})
     Rails.cache.fetch('taxon_concepts/exemplars') do
-      TaxonConcept.find(:all, :conditions => ['id IN (?)',
-        [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 392557,
-         484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558,
-         253397, 740699, 1044544, 683359, 1194666]]).sort_by(&:quick_scientific_name)
+      TaxonConcept.lookup_exemplars(options)
     end
+  end
+  
+  def self.lookup_exemplars(options = {})
+    options[:language] ||= Language.english
+    options[:size] ||= :medium
+    exemplar_taxon_concept_ids = [910093, 1009706, 912371, 976559, 597748, 1061748, 373667, 392557,
+      484592, 581125, 467045, 593213, 209984, 795869, 1049164, 604595, 983558,
+      253397, 740699, 1044544, 683359, 1194666]
+    exemplar_hashes = SpeciesSchemaModel.connection.select_all("
+      SELECT rhi.taxon_concept_id, rhi.name scientific_name, n.string common_name, do.object_cache_url
+        FROM random_hierarchy_images rhi
+        JOIN data_objects do ON (rhi.data_object_id=do.id)
+        LEFT JOIN (
+          taxon_concept_names tcn
+          JOIN names n ON (tcn.name_id=n.id AND tcn.language_id=#{options[:language].id} AND tcn.preferred=1)
+        ) ON (rhi.taxon_concept_id=tcn.taxon_concept_id)
+      WHERE rhi.taxon_concept_id IN (#{exemplar_taxon_concept_ids.join(',')})
+      AND rhi.hierarchy_id=#{Hierarchy.default.id}")
+    
+    used_concepts = {}
+    exemplar_taxa = []
+    exemplar_hashes.each do |ex|
+      next if !used_concepts[ex['taxon_concept_id']].nil?
+      ex['image_cache_path'] = DataObject.image_cache_path(ex['object_cache_url'], options[:size])
+      exemplar_taxa << ex
+      used_concepts[ex['taxon_concept_id']] = true
+    end
+    exemplar_taxa.sort_by {|ex| ex['scientific_name']}
   end
 
   # Try not to call this unless you know what you're doing.  :) See scientific_name and common_name instead.
@@ -587,6 +612,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def iucn
+    return @iucn if !@iucn.nil?
     # Notice that we use find_by, not find_all_by.  We require that only one match (or no match) is found.
     # TODO - hack on [].flatten to handle two cases, which we currently have between prod and dev.  Fix this in the
     # next iteration (any after 2.9):
@@ -608,7 +634,8 @@ class TaxonConcept < SpeciesSchemaModel
 EOIUCNSQL
     temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/', :description => 'NOT EVALUATED') : my_iucn
     temp_iucn.instance_eval { def agent_url; return Agent.iucn.homepage; end }
-    return temp_iucn
+    @iucn = temp_iucn
+    return @iucn
   end
 
   def iucn_conservation_status_url

@@ -1,4 +1,5 @@
-- is_editable = is_curator && current_user.agent_id == agent_id
+-# false disables the edit block
+- is_editable = (is_curator && current_user.agent_id == agent_id) && false
 %tr
   %td{ :class => column_class }
     - if is_editable 

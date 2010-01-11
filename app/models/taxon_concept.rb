@@ -22,6 +22,8 @@ class TaxonConcept < SpeciesSchemaModel
   belongs_to :vetted
 
   has_many :hierarchy_entries
+  has_many :top_concept_images
+  has_many :top_unpublished_concept_images
   has_many :last_curated_dates
   has_many :taxon_concept_names
   has_many :comments, :as => :parent, :attributes => true

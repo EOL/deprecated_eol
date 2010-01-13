@@ -337,10 +337,41 @@ describe TaxonConcept do
     tc.quick_common_name.should == "A name"
   end
 
+  describe "#add_common_name" do
+    before(:all) do
+      @tcn_count = TaxonConceptName.count
+      @syn_count = Synonym.count
+      @name_count = Name.count
+      @name, @synonym, @tc_name = @taxon_concept.add_common_name("Piping plover", Agent.find(@curator.agent_id), :language => Language.english)
+    end
+
+    it "should increase name count, taxon name count, synonym count" do
+      TaxonConceptName.count.should == @tcn_count + 1
+      Synonym.count.should == @syn_count + 1
+      Name.count.should == @name_count + 1
+    end
+
+    it "should create new name object" do
+      @name.class.should == Name
+      @name.string.should == "Piping plover"
+    end
+
+    it "should create synonym" do
+      @synonym.class.should == Synonym
+      @synonym.name.should == @name
+      @synonym.agents.should == [@curator.agent]
+    end
+
+    it "should create taxon_concept_name" do
+      @tc_name.class.should == TaxonConceptName
+      @tc_name.synonym.should == @synonym
+    end
+  end
+
 
   describe "#delete_common_name" do
-    before(:each) do
-      @name, @synonym, @tc_name = @taxon_concept.add_common_name("Giant weasel", Agent.find(@curator.agent_id), :language => Language.english)
+    before(:all) do
+      @name, @synonym, @tc_name = @taxon_concept.add_common_name("Piping plover", Agent.find(@curator.agent_id), :language => Language.english)
       @tcn_count = TaxonConceptName.count
       @syn_count = Synonym.count
       @name_count = Name.count
@@ -353,16 +384,17 @@ describe TaxonConcept do
       Name.count.should == @name_count #name is not deleted
     end
 
-    it "should not delete a preffered common name only if it is the only name for the language" do
+    it "should delete preffered common names, should mark last common name for a language as preferred" do
       pref_en_name = TaxonConceptName.find_by_taxon_concept_id_and_language_id_and_preferred(@taxon_concept, Language.english, true)
       all_en_names = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, Language.english)
-      all_en_names.size.should > 1
-      lambda {@taxon_concept.delete_common_name(pref_en_name)}.should raise_error(/is a preferred/)
-      TaxonConceptName.count.should == @tcn_count
-      Synonym.count.should == @syn_count
-      Name.count.should == @name_count
-      @taxon_concept.delete_common_name(@tc_name)
+      all_en_names.size.should == 2
+      @tc_name.preferred?.should be_false
       @taxon_concept.delete_common_name(pref_en_name) #it should work now because it is the only name left
+      TaxonConceptName.count.should == @tcn_count - 1
+      Synonym.count.should == @syn_count - 1
+      Name.count.should == @name_count
+      TaxonConceptName.find_by_synonym_id(@tc_name.synonym.id).preferred?.should be_true
+      @taxon_concept.delete_common_name(@tc_name)
       TaxonConceptName.count.should == @tcn_count - 2
       Synonym.count.should == @syn_count - 2
       Name.count.should == @name_count

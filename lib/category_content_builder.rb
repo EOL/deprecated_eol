@@ -77,11 +77,11 @@ private
       :items => Name.find_by_sql([%q{
                   SELECT names.id name_id, names.string name_string,
                          l.label language_label, l.name language_name, l.id language_id,
-                         agsyn.agent_id agent_id, tcn.preferred preferred
+                         agsyn.agent_id agent_id, syn.id synonym_id, tcn.preferred preferred
                   FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
                     LEFT JOIN languages l ON (tcn.language_id = l.id)
-                    LEFT JOIN synonyms ON (tcn.synonym_id = synonyms.id)
-                    LEFT JOIN agents_synonyms agsyn ON (synonyms.id = agsyn.synonym_id)
+                    LEFT JOIN synonyms syn ON (tcn.synonym_id = syn.id)
+                    LEFT JOIN agents_synonyms agsyn ON (syn.id = agsyn.synonym_id)
                   WHERE tcn.taxon_concept_id = ? AND vern = 1
                   ORDER BY language_label, language_name, string
                 }, options[:taxon_concept_id]])

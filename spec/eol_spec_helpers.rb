@@ -366,7 +366,7 @@ TaxonConcept.class_eval do
     relation = SynonymRelation.find_by_label("synonym")
     
     name_obj = Name.find_by_string(name) || Name.gen(:canonical_form => canonical_form_object, :string => name, :italicized => name)
-    generate_synonym(name_obj, :preferred => preferred, :language => language, :relation => relation)
+    generate_synonym(name_obj, Agent.first, :preferred => preferred, :language => language, :relation => relation)
     generate_tc_name(name_obj, :preferred => preferred, :language => language, :vern => vern)
   end
 

@@ -26,6 +26,7 @@ describe 'Curation' do
     @taxon_concept.add_common_name @new_name, Agent.find(@cn_curator.agent_id), :preferred => false
     login_as( @cn_curator ).should redirect_to('/')
     @cname_page    = request("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}").body
+    @common_names_toc_id = TocItem.common_names.id
   end
 
   after(:all) do
@@ -125,6 +126,28 @@ describe 'Curation' do
     @logged_in_page.should include('Add a new common name')
   end
   
+  it 'should add a new name using post' do
+    tcn_count = TaxonConceptName.count
+    syn_count = Synonym.count
+    login_as(@first_curator).should redirect_to('/')
+    language = Language.with_iso_639_1.last
+    res = request("/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :params => {:taxon_concept_id => @taxon_concept_id, :name => {:name_string => "new name", :language => language.id, :category_id => @common_names_toc_id}})
+    res.should redirect_to("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
+    TaxonConceptName.count.should == tcn_count + 1
+    Synonym.count.should == syn_count + 1
+    Synonym.last.language.should == language
+  end
+
+  it "should be able to delete a common name using post" do
+    name, synonym, taxon_concept_name = @taxon_concept.add_common_name("New name", @first_curator.agent, :language => Language.english)
+    tcn_count = TaxonConceptName.count
+    syn_count = Synonym.count
+    res = request("/pages/#{@taxon_concept.id}/delete_common_name", :method => :post, :params => {:synonym_id => synonym.id, :category_id => @common_names_toc_id, :taxon_concept_id => @taxon_concept.id})
+    res.should redirect_to("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
+    TaxonConceptName.count.should == tcn_count - 1
+    Synonym.count.should == syn_count - 1
+  end
+  
   # This tests are for editing common names which is not in this code 
   # it 'should show a textbox where a curator can pick a language for the new common name' do
   #   common_names_toc_id = TocItem.common_names.id
@@ -134,18 +157,6 @@ describe 'Curation' do
   #   @logged_in_page.should have_tag("select#name_language")
   # end
 
-  it 'should add a new name using post' do
-    common_names_toc_id = TocItem.common_names.id
-    tcn_count = TaxonConceptName.count
-    syn_count = Synonym.count
-    login_as(@first_curator).should redirect_to('/')
-    language = Language.with_iso_639_1.last
-    res = request("/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :params => {:taxon_concept_id => @taxon_concept_id, :name => {:name_string => "new name", :language => language.id, :category_id => common_names_toc_id}})
-    res.should redirect_to("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}")
-    TaxonConceptName.count.should == tcn_count + 1
-    Synonym.count.should == syn_count + 1
-    Synonym.last.language.should == language
-  end
 
   # This tests are for editing common names which is not in this code 
   # it 'should NOT show an edit button for a common name added by a curator when not logged in' do

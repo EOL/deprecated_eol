@@ -22,9 +22,7 @@
     - unless @content[:items].blank?
       - # Render each name in the current user's preferred language:
       - @content[:items].each do |name|
-        - next unless name[:language_id].to_i == current_user.language_id
-        = render(:partial => 'taxa/content/content_common_names_row', |
-            :locals => { |
+        - locals = { |
               :agent_id       => name[:agent_id].to_i, |
               :column_class   => cycle('odd', 'even'), |
               :is_curator     => is_curator, |
@@ -33,23 +31,29 @@
               :language_name  => name[:language_name], |
               :name_id        => name[:name_id], |
               :name_string    => name[:name_string], |
-              :preferred      => name[:preferred] |
-            }) |
+              :synonym_id     => name[:synonym_id], |
+              :preferred      => name[:preferred], |
+              :category_id    => params[:category_id] |
+            } |
+        - next unless name[:language_id].to_i == current_user.language_id
+        = render(:partial => 'taxa/content/content_common_names_row', :locals => locals) 
       - # Render every OTHER name (not in her preferred language):
       - @content[:items].each do |name|
+        - locals = { |
+              :agent_id       => name[:agent_id].to_i, |
+              :column_class   => cycle('odd', 'even'), |
+              :is_curator     => is_curator, |
+              :language_id    => name[:language_id], |
+              :language_label => name[:language_label], |
+              :language_name  => name[:language_name], |
+              :name_id        => name[:name_id], |
+              :name_string    => name[:name_string], |
+              :synonym_id     => name[:synonym_id], |
+              :preferred      => name[:preferred], |
+              :category_id    => params[:category_id] |
+            } |
         - next if name[:language_id].to_i == current_user.language_id
-        = render(:partial => 'taxa/content/content_common_names_row', |
-           :locals => { |
-             :agent_id       => name[:agent_id].to_i, |
-             :column_class   => cycle('odd', 'even'), |
-             :is_curator     => is_curator, |
-             :language_id    => name[:language_id], |
-             :language_label => name[:language_label], |
-             :language_name  => name[:language_name], |
-             :name_id        => name[:name_id], |
-             :name_string    => name[:name_string], |
-             :preferred      => name[:preferred] |
-           }) |
+        = render(:partial => 'taxa/content/content_common_names_row', :locals => locals)
   -# ugly - should make parital instead?
   = "</form>" if is_curator
   %br
@@ -103,27 +107,21 @@
   Event.addBehavior({
     'td.preferred_name_selector input[type="radio"]:click': function(e) {
       update_common_names(update_form);
-    },
-    '.update_name_ok:click': function(e) {
-      update_common_names(update_form);
-    },
-    '.update_language:change': function(e) {
-      update_common_names(update_form);
     }
   });
 
-  $("add_common_name_button").observe('click', confirmAddCommonName)
+  $("add_common_name_button").observe('click', confirmAddCommonName);
 
   function confirmAddCommonName(e) {
     var name = $("name_name_string").value.strip();
     var language = $("name_language").value;
     if (name != '') {
-      i_agree = confirm("You are about to submit a new common name \n\n'" + name + "' \n\nYou can always delete it later");
+      i_agree = confirm("Create a new common name?\n\nYou can always delete it later");
       if (i_agree) {
         var form = e.element().form;
         form.submit();
       }
-    } else alert("Your new common name is empty");
-    
+    } else alert("Add a new common name first");
   }
+
 

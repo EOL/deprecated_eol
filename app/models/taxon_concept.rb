@@ -885,10 +885,10 @@ EOIUCNSQL
     relation = SynonymRelation.find_by_label("common name")
     vern      = true
     name_obj  = generate_common_name(name)
-    syn = generate_synonym(name_obj, :preferred => preferred,
+    syn = generate_synonym(name_obj, agent,
+                                     :preferred => preferred,
                                      :language => language,
-                                     :relation => relation,
-                                     :agent_id => agent)
+                                     :relation => relation)
     tcn = generate_tc_name(name_obj, :preferred => preferred,
                                      :language => language,
                                      :vern => vern,
@@ -897,18 +897,16 @@ EOIUCNSQL
   end
 
   def delete_common_name(taxon_concept_name)
+    language_id = taxon_concept_name.language.id
     syn_id = taxon_concept_name.synonym.id
-    lang_id = taxon_concept_name.language.id
-    preferred = taxon_concept_name.preferred?
-    tcns = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(self.id, lang_id)
-    if (tcns.size > 1 && preferred)
-      raise "Cannot delete commmon name if it is a preferred name out of a several for a language"
-    else
-      TaxonConceptName.delete_all(:synonym_id => syn_id)
-      taxon_concept_name.synonym.agents.each do |agent|
-        AgentsSynonym.delete_all(:synonym_id => syn_id)
-      end
-      Synonym.delete(syn_id)
+    TaxonConceptName.delete_all(:synonym_id => syn_id)
+    AgentsSynonym.delete_all(:synonym_id => syn_id)
+    Synonym.delete(syn_id)
+    # if only one name left for the language -- make it preferred
+    tcns = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(self.id, language_id)
+    if tcns.size == 1
+      tcns[0].preferred = 1 
+      tcns[0].save!
     end
   end
 
@@ -954,7 +952,7 @@ private
     name_obj
   end
   
-  def generate_synonym(name_obj, options = {})
+  def generate_synonym(name_obj, agent, options = {})
     language  = options[:language]  || Language.english
     synonym_relation = options[:relation] || SynonymRelation.synonym
     preferred = options[:preferred]
@@ -969,12 +967,10 @@ private
                                :language         => language,
                                :synonym_relation => synonym_relation,
                                :preferred        => preferred)
-      if options[:agent_id]
-        AgentsSynonym.create(:agent_id      => options[:agent_id],
-                             :agent_role_id => AgentRole.contributor_id,
-                             :synonym_id    => synonym.id,
-                             :view_order    => 1)
-      end
+      AgentsSynonym.create(:agent      => agent,
+                           :agent_role_id => AgentRole.contributor_id,
+                           :synonym    => synonym,
+                           :view_order    => 1)
     end
     synonym
   end

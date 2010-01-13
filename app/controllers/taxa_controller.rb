@@ -349,6 +349,15 @@ class TaxaController < ApplicationController
     redirect_to "/pages/#{tc.id}?category_id=#{params[:name][:category_id]}"
   end
 
+  def delete_common_name
+    tc = TaxonConcept.find(params[:taxon_concept_id].to_i)
+    synonym_id = params[:synonym_id].to_i
+    category_id = params[:category_id].to_i
+    tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, tc.id)
+    tc.delete_common_name(tcn)
+    redirect_to "/pages/#{tc.id}?category_id=#{category_id}"
+  end
+
 ###############################################
 private
 

@@ -16,14 +16,14 @@ describe 'Curation' do
     # TODO - you REALLY don't want to be doing this before EACH, but...
     @taxon_concept = build_taxon_concept()
     @common_name   = 'boring name'
-    @taxon_concept.add_common_name @common_name, :agent_id => @taxon_concept.acting_curators.first.agent_id
+    @taxon_concept.add_common_name @common_name, Agent.find(@taxon_concept.acting_curators.first.agent_id)
     @first_curator = create_curator_for_taxon_concept(@taxon_concept)
     @default_num_curators = @taxon_concept.acting_curators.length
     @default_page  = request("/pages/#{@taxon_concept.id}").body
     @non_curator_cname_page = request("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}").body
     @cn_curator    = create_curator_for_taxon_concept(@taxon_concept)
     @new_name      = 'habrish lammer'
-    @taxon_concept.add_common_name @new_name, :preferred => false, :agent_id => @cn_curator.agent_id
+    @taxon_concept.add_common_name @new_name, Agent.find(@cn_curator.agent_id), :preferred => false
     login_as( @cn_curator ).should redirect_to('/')
     @cname_page    = request("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}").body
   end

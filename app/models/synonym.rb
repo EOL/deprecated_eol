@@ -8,6 +8,7 @@ class Synonym < SpeciesSchemaModel
   belongs_to :synonym_relation
   belongs_to :vetted
   
+  has_one  :taxon_concept_name
   has_many :agents_synonyms
   has_many :agents, :through => :agents_synonyms
 

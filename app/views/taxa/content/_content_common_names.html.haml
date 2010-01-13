@@ -53,23 +53,22 @@
   -# ugly - should make parital instead?
   = "</form>" if is_curator
   %br
-  /
-    - if is_curator
-      - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
-        %fieldset.standout
-          %legend Add a new common name
-          = hidden_field :name, "category_id", :value => params[:category_id]
-          = label_tag :name_name_string, "Name"
-          = text_field :name, :name_string, :size => 40, :maxlength => 300
-          %br
-          %br
-          = label_tag :name_language, "Name's Language"
-          %select{:id => "name_language", :name => "name[language]"}
-            - @languages.each do |language|
-              %option{ :selected => language[:selected], :value => language[:id] }= language[:label]
-          %br
-          %br
-          = submit_tag :name, :value => "Add"
+  - if is_curator
+    - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
+      %fieldset.standout
+        %legend Add a new common name
+        = hidden_field :name, "category_id", :value => params[:category_id]
+        = label_tag :name_name_string, "Name"
+        = text_field :name, :name_string, :size => 40, :maxlength => 300
+        %br
+        %br
+        = label_tag :name_language, "Name's Language"
+        %select{:id => "name_language", :name => "name[language]"}
+          - @languages.each do |language|
+            %option{ :selected => language[:selected], :value => language[:id] }= language[:label]
+        %br
+        %br
+        %input{:type => "button", :name => "add_common_name_button", :value => "Add", :id => "add_common_name_button"}
   %br
   .divider
   .content-attribution-area
@@ -112,4 +111,19 @@
       update_common_names(update_form);
     }
   });
+
+  $("add_common_name_button").observe('click', confirmAddCommonName)
+
+  function confirmAddCommonName(e) {
+    var name = $("name_name_string").value.strip();
+    var language = $("name_language").value;
+    if (name != '') {
+      i_agree = confirm("You are about to submit a new common name \n\n'" + name + "' \n\nYou can always delete it later");
+      if (i_agree) {
+        var form = e.element().form;
+        form.submit();
+      }
+    } else alert("Your new common name is empty");
+    
+  }
 

@@ -1,15 +1,20 @@
 %table{ :cellspacing => "5", :border => "0", :width => "100%", :cellpadding => "5" }
   %tr
-    %td{ :align => "center", :valign => "top", :width => "40%" }
-      = external_link_to(image_tag('/images/ncbi.gif'),"http://www.ncbi.nlm.nih.gov/guide/", {:show_link_icon => false})
+    %td{ :align => "center", :valign => "top", :width => "20%" }
+      = external_link_to(image_tag('/images/ncbi.gif'),"http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@content[:hierarchy_entry].identifier}&lvl=0", {:show_link_icon => false})
     %td{:valign => "top"}
       %span.smalltext
-        The mission of the National Center for Biotechnology Information is to develop new information technologies to aid in the understanding of fundamental molecular and genetic processes that control health and disease.
+        The mission of the
+        = external_link_to('National Center for Biotechnology Information', 'http://www.ncbi.nlm.nih.gov/', {:show_link_icon => false})
+        is to develop new information technologies to aid in the understanding of fundamental molecular and genetic processes that control health and disease.
       %br
       %span.smalltext
         The 
-        = external_link_to 'NCBI Taxonomy', 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy'
-        database contains the names of all organisms that are represented in the genetic databases with at least one nucleotide or protein sequence.
+        = external_link_to('NCBI Taxonomy', 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=taxonomy', {:show_link_icon => false})
+        database contains the names of all organisms that are represented in the genetic databases with at least one nucleotide or protein sequence. You can
+        = link_to('browse EOL', url_for(settings_url))
+        using the NCBI Taxonomy.
       %br
-      %br
-      = external_link_to 'See this taxon in the NCBI Taxonomy Browser', "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@content[:hierarchy_entry].identifier}&lvl=0"
+%br
+%p{ :align => "center" }
+  = external_link_to "View protein and nucleotide sequences in NCBI", "http://www.ncbi.nlm.nih.gov/Taxonomy/Browser/wwwtax.cgi?id=#{@content[:hierarchy_entry].identifier}&lvl=0"

@@ -364,10 +364,9 @@ TaxonConcept.class_eval do
     vern      = false
     preferred = false
     relation = SynonymRelation.find_by_label("synonym")
-    
     name_obj = Name.find_by_string(name) || Name.gen(:canonical_form => canonical_form_object, :string => name, :italicized => name)
-    generate_synonym(name_obj, Agent.first, :preferred => preferred, :language => language, :relation => relation)
-    generate_tc_name(name_obj, :preferred => preferred, :language => language, :vern => vern)
+    synonym = generate_synonym(name_obj, Agent.first, :preferred => preferred, :language => language, :relation => relation)
+    generate_tc_name(name_obj, synonym.id, :preferred => preferred, :language => language, :vern => vern)
   end
 
   # Only used in testing context, this returns the actual Name object for the canonical form for this TaxonConcept.

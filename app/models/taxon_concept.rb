@@ -882,6 +882,7 @@ EOIUCNSQL
     language  = options[:language] || Language.unknown
     preferred = options.has_key?(:preferred) ? options[:preferred] : false
     preferred = true if (all_common_names.blank?)  #should it also be true if there are no names of this language?
+    #TODO if no name exist for this language make name preferred
     relation = SynonymRelation.find_by_label("common name")
     vern      = true
     name_obj  = generate_common_name(name)
@@ -889,10 +890,10 @@ EOIUCNSQL
                                      :preferred => preferred,
                                      :language => language,
                                      :relation => relation)
-    tcn = generate_tc_name(name_obj, :preferred => preferred,
+    tcn = generate_tc_name(name_obj, syn.id, 
+                                     :preferred => preferred,
                                      :language => language,
-                                     :vern => vern,
-                                     :synonym_id => syn.id)
+                                     :vern => vern)
     [name_obj, syn, tcn]
   end
 
@@ -955,14 +956,16 @@ private
   def generate_synonym(name_obj, agent, options = {})
     language  = options[:language]  || Language.english
     synonym_relation = options[:relation] || SynonymRelation.synonym
+    hierarchy = Hierarchy.eol_contributors 
     preferred = options[:preferred]
-    synonym = Synonym.find_by_hierarchy_entry_id_and_language_id_and_name_id_and_preferred(entry.id, 
+    synonym = Synonym.find_by_hierarchy_id_and_hierarchy_entry_id_and_language_id_and_name_id(
+              hierarchy.id, 
+              entry.id, 
               language.id, 
-              name_obj.id, 
-              preferred)
+              name_obj.id)
     unless synonym
       synonym = Synonym.create(:name             => name_obj, 
-                               :hierarchy        => Hierarchy.eol_contributors, 
+                               :hierarchy        => hierarchy,
                                :hierarchy_entry  => entry, 
                                :language         => language,
                                :synonym_relation => synonym_relation,
@@ -977,13 +980,13 @@ private
 
   # Note that if the TCN already exists, the user may end up confused because they cannot *edit* that TCN--it "belongs" to
   # another hierarchy.
-  def generate_tc_name(name_obj, options = {})
+  def generate_tc_name(name_obj, synonym_id, options = {})
     language  = options[:language]  || Language.english
     preferred = options[:preferred]
     vern      = options.has_key?(:vern) ? options[:vern] : true
-    tcn       = TaxonConceptName.find_by_taxon_concept_id_and_name_id(self.id, name_obj.id)
+    tcn       = TaxonConceptName.find_by_synonym_id(synonym_id)
     if tcn.blank?
-      tcn = TaxonConceptName.create(:synonym_id => options[:synonym_id],
+      tcn = TaxonConceptName.create(:synonym_id => synonym_id, 
                                     :language => language,
                                     :name => name_obj,
                                     :preferred => preferred,

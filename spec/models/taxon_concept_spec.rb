@@ -342,7 +342,8 @@ describe TaxonConcept do
       @tcn_count = TaxonConceptName.count
       @syn_count = Synonym.count
       @name_count = Name.count
-      @name, @synonym, @tc_name = @taxon_concept.add_common_name("Piping plover", Agent.find(@curator.agent_id), :language => Language.english)
+      @name_string = "Piping plover"
+      @name, @synonym, @tc_name = @taxon_concept.add_common_name(@name_string, Agent.find(@curator.agent_id), :language => Language.english)
     end
 
     it "should increase name count, taxon name count, synonym count" do
@@ -353,7 +354,7 @@ describe TaxonConcept do
 
     it "should create new name object" do
       @name.class.should == Name
-      @name.string.should == "Piping plover"
+      @name.string.should == @name_string
     end
 
     it "should create synonym" do
@@ -365,6 +366,13 @@ describe TaxonConcept do
     it "should create taxon_concept_name" do
       @tc_name.class.should == TaxonConceptName
       @tc_name.synonym.should == @synonym
+    end
+
+    it "should be create a common name with the same name but different language" do
+      @taxon_concept.add_common_name(@name_string, Agent.find(@curator.agent_id), :language => Language.find_by_label("French"))
+      TaxonConceptName.count.should == @tcn_count + 2
+      Synonym.count.should == @syn_count + 2
+      Name.count.should == @name_count + 1
     end
   end
 

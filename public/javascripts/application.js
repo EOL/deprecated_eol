@@ -92,7 +92,7 @@ Event.addBehavior(
   },
 
   //clicking on maps link in mediacenter
-    '#media-center #tab_media_center #maps a:click': function(e) {
+    '#tab_media_center #maps a:click': function(e) {
       var map_div = $$('#media-maps div')[0];
       if (map_div && map_div.style.display == 'none') {
 

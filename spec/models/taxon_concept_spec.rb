@@ -343,13 +343,21 @@ describe TaxonConcept do
       @syn_count = Synonym.count
       @name_count = Name.count
       @name_string = "Piping plover"
-      @name, @synonym, @tc_name = @taxon_concept.add_common_name(@name_string, Agent.find(@curator.agent_id), :language => Language.english)
+      @language = Language.english
+      @name, @synonym, @tc_name = @taxon_concept.add_common_name(@name_string, Agent.find(@curator.agent_id), :language => @language)
     end
 
     it "should increase name count, taxon name count, synonym count" do
       TaxonConceptName.count.should == @tcn_count + 1
       Synonym.count.should == @syn_count + 1
       Name.count.should == @name_count + 1
+    end
+
+    it "should set first preffered name for a language as true name" do
+      TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, @language).size.should == 1
+      @tc_name.preferred?.should be_true
+      n,s,tcn = @taxon_concept.add_common_name("Another name", Agent.find(@curator.agent_id), :language => @language)
+      tcn.preferred?.should be_false
     end
 
     it "should create new name object" do
@@ -409,60 +417,6 @@ describe TaxonConcept do
     end
     
   end
-
-  # describe '#edit_common_name' do
-
-  #   before(:all) do
-  #     @new_common_name = 'hecklefripp'
-  #     @english = Language.english
-  #   end
-
-  #   it 'should raise an error if name_id is missing' do
-  #     lambda { @taxon_concept.edit_common_name(@new_common_name,
-  #                                              :language_id => @english.id,
-  #                                              :agent_id    => @curator.agent_id) }.should raise_error(/name_id/)
-  #   end
-
-  #   it 'should raise an error if language_id is missing' do
-  #     lambda { @taxon_concept.edit_common_name(@new_common_name,
-  #                                              :name_id     => @common_name_obj.id,
-  #                                              :agent_id    => @curator.agent_id) }.should raise_error(/language_id/)
-  #   end
-
-  #   it 'should raise an error if agent_id is missing' do
-  #     lambda { @taxon_concept.edit_common_name(@new_common_name,
-  #                                              :name_id     => @common_name_obj.id,
-  #                                              :language_id => @english.id) }.should raise_error(/agent_id/)
-  #   end
-
-  #   it 'should raise an error if no TaxonConceptName matches the name_id' do
-  #     lambda { @taxon_concept.edit_common_name(@new_common_name,
-  #                                              :name_id     => @common_name_obj.id + 1,
-  #                                              :language_id => @english.id,
-  #                                              :agent_id    => @curator.agent_id) }.should raise_error(/matching taxon.conce/i)
-  #   end
-
-  #   it 'should generate a new name object' do
-  #     old_count = Name.count
-  #     @taxon_concept.edit_common_name(@new_common_name,
-  #                                     :name_id     => @common_name_obj.id,
-  #                                     :language_id => @english.id,
-  #                                     :agent_id    => @curator.agent_id)
-  #     Name.count.should == old_count + 1
-  #   end
-
-  #   it 'should update the name_id on the TaxonConceptName and Synonym objects' do
-  #     @taxon_concept.edit_common_name(@new_common_name,
-  #                                     :name_id     => @common_name_obj.id,
-  #                                     :language_id => @english.id,
-  #                                     :agent_id    => @curator.agent_id)
-  #     new_name_id = Name.find_by_string(@new_common_name).id
-  #     @synonym_for_common_name.reload.name_id.should == new_name_id
-  #     # Note that we're not just using @tcn_for_common_name, because it should have been deleted by now.
-  #     TaxonConceptName.find_by_synonym_id(@synonym_for_common_name.id).name_id.should == new_name_id
-  #   end
-
-  # end
 
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:

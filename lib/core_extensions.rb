@@ -30,8 +30,8 @@ class String
   end
 
   def firstcap
-    @firstcap_regex = /^(<[^>]*>)?([^ ]+)( |$)/
-    self.gsub(@firstcap_regex) { $1.to_s + $2.chars.capitalize + $3 }
+    @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
+    self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.chars.capitalize + $4 }
   end
   
   #  old list from gem:

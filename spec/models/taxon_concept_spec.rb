@@ -1,4 +1,3 @@
-
 require File.dirname(__FILE__) + '/../spec_helper'
 
 def build_secondary_iucn_hierarchy_and_resource
@@ -66,7 +65,7 @@ describe TaxonConcept do
     @curator       = build_curator(@taxon_concept)
     # TODO - I am slowly trying to convert all of the above options to methods to make testing clearer:
     (@common_name_obj, @synonym_for_common_name, @tcn_for_common_name) =
-      tc.add_common_name(@common_name, Agent.find(@curator.agent_id), :language => Language.english)
+      tc.add_common_name(@common_name, @curator.agent, :language => Language.english)
     # Curators aren't recognized until they actually DO something, which is here:
     LastCuratedDate.gen(:user => @curator, :taxon_concept => @taxon_concept)
     # And we want one comment that the world cannot see:
@@ -78,50 +77,11 @@ describe TaxonConcept do
     truncate_all_tables
   end
 
-  before(:each) do
-    # Deletion here is required for IUCN tests:
-    DataObject.delete_all(['data_type_id = ?', DataType.find_by_label('IUCN').id])
-  end
-
-  it 'should know available media types' do
-    @taxon_concept.has_media.should == nil
-    @taxon_concept.has_images.should == true
-    @taxon_concept.has_media.should_not == nil
-    @taxon_concept.has_video.should == true
-    @taxon_concept.has_media.should_not == nil
-    @taxon_concept.has_map.should == true
-    @taxon_concept.has_media.should_not == nil
-  end
-
-  it 'should determine and cache curation authorization' do
-    @curator.can_curate?(@taxon_concept).should == true
-    @curator.should_receive('can_curate?').and_return(true)
-    @taxon_concept.show_curator_controls?(@curator).should == true
-    @curator.should_not_receive('can_curate?')
-    @taxon_concept.show_curator_controls?(@curator).should == true
-  end
-
-  it 'should return a toc item which accepts user submitted text' do
-    @taxon_concept.tocitem_for_new_text.class.should == TocItem
-    tc = build_taxon_concept(:images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => [])
-    tc.tocitem_for_new_text.class.should == TocItem
-  end
-
-  it 'should return description as first toc item which accepts user submitted text' do
-    description_toc = TocItem.find_by_label('Description')
-    InfoItem.gen(:toc_id => @overview.id)
-    InfoItem.gen(:toc_id => description_toc.id)
-    tc = build_taxon_concept(:images => [], :flash => [], :youtube => [], :comments => [], :bhl => [],
-                             :toc => [{:toc_item => description_toc, :description => 'huh?'}])
-    tc.tocitem_for_new_text.label.should == description_toc.label
-  end
-
-  it 'should include the LigerCat TocItem when the TaxonConcept has one'
-
-  it 'should NOT include the LigerCat TocItem when the TaxonConcept does NOT have one'
-
-  it 'should have a canonical form' do
-    @taxon_concept.canonical_form.should == @canonical_form
+  it 'should capitalize the title (even if the name starts with a quote)' do
+    good_title = %Q{"Good title"}
+    bad_title = good_title.downcase
+    tc = build_taxon_concept(:canonical_form => bad_title)
+    tc.title.should =~ /#{good_title}/
   end
 
   it 'should have curators' do
@@ -249,7 +209,7 @@ describe TaxonConcept do
     #@taxon_concept.toc.map(&:id).should include(toci.id)
   #end
 
-  it 'should show its untrusted images images, by default' do
+  it 'should show its untrusted images, by default' do
     @taxon_concept.current_user = User.create_new # It's okay if this one "sticks", so no cleanup code
     @taxon_concept.images.map(&:object_cache_url).should include(@image_unknown_trust)
   end
@@ -331,11 +291,56 @@ describe TaxonConcept do
 
   it 'should create a common name as a preferred common name, if there are no other common names for the taxon' do
     tc = build_taxon_concept(:common_names => [])
-    tc.add_common_name('A name', Agent.last, :language => Language.english)
+    agent = Agent.last # TODO - I don't like this.  We shouldn't need it for tests.  Overload the method for testing?
+    tc.add_common_name('A name', agent, :language => Language.english)
     tc.quick_common_name.should == "A name"
-    tc.add_common_name("Another name", Agent.last, :language => Language.english)
+    tc.add_common_name("Another name", agent, :language => Language.english)
     tc.quick_common_name.should == "A name"
   end
+
+  it 'should determine and cache curation authorization' do
+    @curator.can_curate?(@taxon_concept).should == true
+    @curator.should_receive('can_curate?').and_return(true)
+    @taxon_concept.show_curator_controls?(@curator).should == true
+    @curator.should_not_receive('can_curate?')
+    @taxon_concept.show_curator_controls?(@curator).should == true
+  end
+
+  it 'should return a toc item which accepts user submitted text' do
+    @taxon_concept.tocitem_for_new_text.class.should == TocItem
+    tc = build_taxon_concept(:images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => [])
+    tc.tocitem_for_new_text.class.should == TocItem
+  end
+
+  it 'should return description as first toc item which accepts user submitted text' do
+    description_toc = TocItem.find_by_label('Description')
+    InfoItem.gen(:toc_id => @overview.id)
+    InfoItem.gen(:toc_id => description_toc.id)
+    tc = build_taxon_concept(:images => [], :flash => [], :youtube => [], :comments => [], :bhl => [],
+                             :toc => [{:toc_item => description_toc, :description => 'huh?'}])
+    tc.tocitem_for_new_text.label.should == description_toc.label
+  end
+
+  it 'should include the LigerCat TocItem when the TaxonConcept has one'
+
+  it 'should NOT include the LigerCat TocItem when the TaxonConcept does NOT have one'
+
+  it 'should have a canonical form' do
+    @taxon_concept.canonical_form.should == @canonical_form
+  end
+
+  # TODO - this is failing, but low-priority, I added a bug for it: EOLINFRASTRUCTURE-657
+  # This was related to a bug (EOLINFRASTRUCTURE-598)
+  #it 'should return the table of contents with unpublished items when a content partner is specified' do
+    #cp   = ContentPartner.gen
+    #toci = TocItem.gen
+    #dato = build_data_object('Text', 'This is our target text',
+                             #:hierarchy_entry => @taxon_concept.hierarchy_entries.first, :content_partner => cp,
+                             #:published => false, :vetted => Vetted.unknown, :toc_item => toci)
+    #@taxon_concept.toc.map(&:id).should_not include(toci.id)
+    #@taxon_concept.current_agent = cp.agent
+    #@taxon_concept.toc.map(&:id).should include(toci.id)
+  #end
 
   describe "#add_common_name" do
     before(:all) do

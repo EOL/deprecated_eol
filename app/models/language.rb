@@ -18,7 +18,9 @@ class Language < SpeciesSchemaModel
   end
 
   def self.unknown
-    Language.find_by_label("Unknown")
+    unknown_language = Language.find_by_label("Unknown")
+    raise("There is no unknown language") unless unknown_language
+    unknown_language
   end
   
   def display_code

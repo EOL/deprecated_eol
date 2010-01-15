@@ -717,7 +717,8 @@ EOIUCNSQL
     hierarchy ||= Hierarchy.default
     
     title = quick_scientific_name(:italicized, hierarchy)
-    @title = title.empty? ? name(:scientific) : title
+    title = title.empty? ? name(:scientific) : title
+    @title = title.firstcap
   end
 
   def subtitle(hierarchy = nil)
@@ -916,6 +917,9 @@ private
       SpeciesSchemaModel.connection.execute("UPDATE taxon_concept_names SET `preferred` = 1 where (language_id = #{tcn.language_id}) and (name_id = #{tcn.name_id}) AND (taxon_concept_id = #{tcn.taxon_concept_id}) AND (source_hierarchy_entry_id = #{tcn.source_hierarchy_entry_id})")
     end
   end
+
+#####################
+private
   
   def generate_common_name(name)
     name_obj = Name.find_by_string(name)

@@ -881,8 +881,6 @@ EOIUCNSQL
   def add_common_name(name, agent, options = {})
     language  = options[:language] || Language.unknown
     preferred = options.has_key?(:preferred) ? options[:preferred] : false
-    preferred = true if (all_common_names.blank?)  #should it also be true if there are no names of this language?
-    #TODO if no name exist for this language make name preferred
     relation = SynonymRelation.find_by_label("common name")
     vern      = true
     name_obj  = generate_common_name(name)
@@ -894,6 +892,7 @@ EOIUCNSQL
                                      :preferred => preferred,
                                      :language => language,
                                      :vern => vern)
+    set_preffered_when_known(language.id)
     [name_obj, syn, tcn]
   end
 
@@ -903,47 +902,20 @@ EOIUCNSQL
     TaxonConceptName.delete_all(:synonym_id => syn_id)
     AgentsSynonym.delete_all(:synonym_id => syn_id)
     Synonym.delete(syn_id)
-    # if only one name left for the language -- make it preferred
-    tcns = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(self.id, language_id)
-    if tcns.size == 1
-      tcns[0].preferred = 1 
-      tcns[0].save!
-    end
+    set_preffered_when_known(language_id)
   end
-
-
-
-  # Takes a string and a set of options that MUST include name_id, language_id, and agent_id as input (only user-added names
-  # may be altered), finds the appropriate objects, alters them, and returns the new name_id.
-  #
-  # Raises exceptions when any options are missing, or when it cannot locate the objects to modify.
-  # def edit_common_name(new_name, options)
-  #   raise("Cannot edit a common name without a name_id, language_id, and agent_id as options") unless
-  #     options[:name_id] and options[:language_id] and options[:agent_id]
-  #   old_tcn  = TaxonConceptName.find_by_name_id_and_language_id_and_taxon_concept_id(
-  #     options[:name_id],
-  #     options[:language_id],
-  #     self.id)
-  #   raise("Could not find a matching Taxon Concept Name") unless old_tcn
-  #   old_syn = old_tcn.synonym
-  #   raise("Could not find a matching Synonym") unless old_syn 
-  #   raise("This agent has insufficient ownership of the Common Name.") unless
-  #     old_syn.agents.detect {|a| a.id == options[:agent_id] }
-  #   name_obj = generate_common_name(new_name)
-  #   old_syn.update_attribute(:name_id, name_obj.id) ; old_syn.save!
-  #   # Okay, this is unusual, but because name_id is part of the primary key, we cannot update attributes on the TCN.
-  #   # So we are going to create a new one, then delete the old:
-  #   preferred = old_tcn.preferred
-  #   vern      = old_tcn.vern
-  #   TaxonConceptName.delete_all(:synonym_id => old_syn.id)
-  #   generate_tc_name(name_obj, :preferred   => preferred,
-  #                              :language_id => options[:language_id],
-  #                              :vern        => vern,
-  #                              :synonym_id  => old_syn.id)
-  # end
 
 #####################
 private
+  def set_preffered_when_known(language_id)
+    # if only one name left for the language -- make it preferred
+    tcns = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(self.id, language_id)
+    if tcns.size == 1
+      tcn = tcns[0]
+      tcn.preferred = 1
+      SpeciesSchemaModel.connection.execute("UPDATE taxon_concept_names SET `preferred` = 1 where (language_id = #{tcn.language_id}) and (name_id = #{tcn.name_id}) AND (taxon_concept_id = #{tcn.taxon_concept_id}) AND (source_hierarchy_entry_id = #{tcn.source_hierarchy_entry_id})")
+    end
+  end
   
   def generate_common_name(name)
     name_obj = Name.find_by_string(name)
@@ -954,7 +926,7 @@ private
   end
   
   def generate_synonym(name_obj, agent, options = {})
-    language  = options[:language]  || Language.english
+    language  = options[:language] || Language.unknown
     synonym_relation = options[:relation] || SynonymRelation.synonym
     hierarchy = Hierarchy.eol_contributors 
     preferred = options[:preferred]
@@ -981,7 +953,7 @@ private
   # Note that if the TCN already exists, the user may end up confused because they cannot *edit* that TCN--it "belongs" to
   # another hierarchy.
   def generate_tc_name(name_obj, synonym_id, options = {})
-    language  = options[:language]  || Language.english
+    language  = options[:language]  || Language.unknown
     preferred = options[:preferred]
     vern      = options.has_key?(:vern) ? options[:vern] : true
     tcn       = TaxonConceptName.find_by_synonym_id(synonym_id)

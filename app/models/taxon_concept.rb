@@ -880,15 +880,15 @@ EOIUCNSQL
   #     The TaxonConceptName object.
   def add_common_name(name, agent, options = {})
     language  = options[:language] || Language.unknown
-    preferred = options.has_key?(:preferred) ? options[:preferred] : false
-    relation = SynonymRelation.find_by_label("common name")
+    preferred = !!options[:preferred]
+    relation  = SynonymRelation.find_by_label("common name")
     vern      = true
     name_obj  = generate_common_name(name)
-    syn = generate_synonym(name_obj, agent,
+    syn       = generate_synonym(name_obj, agent,
                                      :preferred => preferred,
                                      :language => language,
                                      :relation => relation)
-    tcn = generate_tc_name(name_obj, syn.id, 
+    tcn       = generate_tc_name(name_obj, syn.id, 
                                      :preferred => preferred,
                                      :language => language,
                                      :vern => vern)

@@ -97,13 +97,13 @@ AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.p
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
 kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :event => event)
-kingdom.add_common_name('Animals', agent_col)
+kingdom.add_common_name('Animals', agent_col, :language => Language.english)
 
 4.times do
   tc = build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
                            :depth => Hierarchy.default.hierarchy_entries.length,
                            :event => event)
-  tc.add_common_name(Factory.next(:common_name), agent_col)
+  tc.add_common_name(Factory.next(:common_name), agent_col, :language => Language.english)
 end
 
 fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
@@ -114,7 +114,7 @@ depth_now      = Hierarchy.default.hierarchy_entries.length
 # Sixth Taxon should have more images, and have videos:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
                          :depth => depth_now, :images => :testing, :event => event)
-tc.add_common_name('Tiger moth', agent_col)
+tc.add_common_name('Tiger moth', agent_col, :language => Language.english)
 
 #TODO: omg this is HORRIBLE!
 u = User.gen
@@ -145,7 +145,7 @@ tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
                          :bhl => [], 
                          :event => event,
                          :vetted => 'untrusted')
-tc.add_common_name('Tiger lilly', agent_col)
+tc.add_common_name('Tiger lilly', agent_col, :language => Language.english)
 
 # Eighth Taxon (now we're just getting greedy) should be the same as Seven, but with BHL:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
@@ -157,7 +157,7 @@ tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
                          :comments => [],
                          :event => event,
                          :vetted => 'unknown')
-tc.add_common_name('Tiger', agent_col)
+tc.add_common_name('Tiger', agent_col, :language => Language.english)
 
 # Ninth Taxon is *totally* naked:
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [], :bhl => [], :event => event,
@@ -174,7 +174,7 @@ tc30 = build_taxon_concept(:id => 30,
                     :bhl      => [], 
                     :event    => event)
                     
-tc30.add_common_name(Factory.next(:common_name), agent_col)
+tc30.add_common_name(Factory.next(:common_name), agent_col, :language => Language.english)
 curator = build_curator(tc30, :username => 'test_curator', :password => 'password', :given_name => 'test', :family_name => 'curator') 
 
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         

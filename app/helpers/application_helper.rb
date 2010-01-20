@@ -295,8 +295,8 @@ module ApplicationHelper
       scientific_name = taxon.quick_scientific_name(:italicized)
       common_name = taxon.quick_common_name(current_user.language)
       return_html = %Q{<a }
-      return_html+= %Q{ target=\"_blank\" } if new_window
-      return_html+= %Q{ id=\"" + h(scientific_name) + "\"}  unless link_name_string.empty?
+      return_html+= %Q{ target="_blank" } if new_window
+      # return_html+= %Q{ id="#{h(scientific_name)}" }  unless link_name_string.empty? very strange id and was broken so I commented it out
       return_html+= %Q{ href="/pages/#{taxon.respond_to?(:taxon_concept_id) ? taxon.taxon_concept_id : taxon.id}">#{sanitize(scientific_name)}</a><br />}
       return_html+= %Q{#{sanitize(common_name)}} unless common_name.empty?
     end
@@ -309,8 +309,8 @@ module ApplicationHelper
       scientific_name = random_image['scientific_name']
       common_name = random_image['common_name']
       return_html = %Q{<a }
-      return_html+= %Q{ target=\"_blank\" } if new_window
-      return_html+= %Q{ id=\"" + h(scientific_name) + "\"}
+      return_html+= %Q{ target="_blank" } if new_window
+      #return_html+= %Q{ id="#{h(scientific_name)}"} very strange id and it was broken so I commented it out
       return_html+= %Q{ href="/pages/#{random_image['taxon_concept_id']}">#{sanitize(scientific_name)}</a><br />}
       return_html+= %Q{#{sanitize(common_name.firstcap)}} unless common_name.nil?
     end

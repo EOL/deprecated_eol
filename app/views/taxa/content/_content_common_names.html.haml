@@ -10,7 +10,7 @@
   - names_by_language.each do |language_names|
     - language = language_names[1][:language]
     - locals = {:names => language_names[1][:names], :language_id => language[:id]} 
-    %h3
+    .title
       = "Language:"[]
       = language[:label]
     - if is_curator

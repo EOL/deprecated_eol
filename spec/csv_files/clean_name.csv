@@ -4,6 +4,5 @@ original_string	clean_string
 "  a and b et. c "	"a & b & c"
 "ABCDEFGHIJKLMNOPQRSTUVWXYZ"	"abcdefghijklmnopqrstuvwxyz"
 "ÀÂÅÃÁÆCÇČÉÈËÍÌÏŇÑÑÓÒÔØÕÖÚÙÜRŔŘŖŠŠŞŽŒ"	"àâåãáæcçčéèëíìïňññóòôøõöúùürŕřŗššşžœ"
-"    a     b     c    "	"a b c"
+"	    a     		b     c    "	"a b c"
 "a'b"	"a'b"
-"a	b"	"a	b"

@@ -51,7 +51,7 @@ class Name < SpeciesSchemaModel
   # TODO: Write a test that is universal for php and ruby code for this method to ensure both methods are in sync
   def self.prepare_clean_name(name)
     name = name.gsub(/[.,;]/," ").gsub(/[\-\(\)\[\]\{\}:&\*?×]/,' \0 ').gsub(/ (and|et) /," & ")
-    name = name.gsub(/ +/, " ").downcase
+    name = name.gsub(/\s+/, " ").downcase
     name = name.gsub("À","à").gsub("Â","â").gsub("Å","å").gsub("Ã","ã").gsub("Ä","ä")
     name = name.gsub("Á","á").gsub("Æ","æ").gsub("C","c").gsub("Ç","ç").gsub("Č","č")
     name = name.gsub("É","é").gsub("È","è").gsub("Ë","ë").gsub("Í","í").gsub("Ì","ì")

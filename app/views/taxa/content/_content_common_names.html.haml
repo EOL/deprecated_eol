@@ -1,4 +1,5 @@
 - is_curator = @taxon_concept.is_curatable_by?(current_user)
+- names_by_language = common_names_by_language(@content[:items], current_user.language_id)
 - if is_curator
   #common_names_error{ :style => "color:brown;text-align:center;padding-bottom:8px;display:none;" }
     Sorry! There was an error sending the curation request; please try again later.
@@ -6,56 +7,16 @@
     = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
 
 #common_names_wrapper.text_object
-  - if is_curator
-    %p
-      = "As a curator, you can select the preferred common name in your default language by selecting the radio button next to the name.  This will select the common name shown on the top of the page and in the classification browser."[:common_names_message]
-    = form_tag "/pages/#{@taxon_concept.id}/update_common_names", :method => :put, :id => 'update_common_names'
-  %br
-  %table.results_table{ :cellspacing => "0", :summary => "Common Names" }
-    %tr
-      %th{ :scope => "col" }
-        = "Name"[]
-      %th{ :scope => "col" }
-        = "Language"[]
-      - if is_curator
-        %th Preferred
-    - unless @content[:items].blank?
-      - # Render each name in the current user's preferred language:
-      - @content[:items].each do |name|
-        - locals = { |
-              :agent_id       => name[:agent_id].to_i, |
-              :column_class   => cycle('odd', 'even'), |
-              :is_curator     => is_curator, |
-              :language_id    => name[:language_id], |
-              :language_label => name[:language_label], |
-              :language_name  => name[:language_name], |
-              :name_id        => name[:name_id], |
-              :name_string    => name[:name_string], |
-              :synonym_id     => name[:synonym_id], |
-              :preferred      => name[:preferred], |
-              :category_id    => params[:category_id] |
-            } |
-        - next unless name[:language_id].to_i == current_user.language_id
-        = render(:partial => 'taxa/content/content_common_names_row', :locals => locals) 
-      - # Render every OTHER name (not in her preferred language):
-      - @content[:items].each do |name|
-        - locals = { |
-              :agent_id       => name[:agent_id].to_i, |
-              :column_class   => cycle('odd', 'even'), |
-              :is_curator     => is_curator, |
-              :language_id    => name[:language_id], |
-              :language_label => name[:language_label], |
-              :language_name  => name[:language_name], |
-              :name_id        => name[:name_id], |
-              :name_string    => name[:name_string], |
-              :synonym_id     => name[:synonym_id], |
-              :preferred      => name[:preferred], |
-              :category_id    => params[:category_id] |
-            } |
-        - next if name[:language_id].to_i == current_user.language_id
-        = render(:partial => 'taxa/content/content_common_names_row', :locals => locals)
-  -# ugly - should make parital instead?
-  = "</form>" if is_curator
+  - names_by_language.each do |language_names|
+    - language = language_names[1][:language]
+    - locals = {:names => language_names[1][:names], :language_id => language[:id]} 
+    %h3
+      = "Language:"[]
+      = language[:label]
+    - if is_curator
+      = render(:partial => 'taxa/content/content_language_common_names_curator', :locals => locals) 
+    - else
+      = render(:partial => 'taxa/content/content_language_common_names', :locals => locals) 
   %br
   - if is_curator
     - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
@@ -110,7 +71,7 @@
     }
   });
 
-  $("add_common_name_button").observe('click', confirmAddCommonName);
+  if ($("add_common_name_button")) $("add_common_name_button").observe('click', confirmAddCommonName);
 
   function confirmAddCommonName(e) {
     var name = $("name_name_string").value.strip();

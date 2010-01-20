@@ -369,6 +369,13 @@ describe TaxonConcept do
       TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
     end
 
+    it "should not mark first created name as preffered for unknown language" do
+      language = Language.unknown
+      n, s, tcn = @taxon_concept.add_common_name("Саблезубая сосиска", @agent, :language => language)
+      TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
+      TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
+    end
+
     it "should create new name object" do
       @name.class.should == Name
       @name.string.should == @name_string
@@ -424,7 +431,7 @@ describe TaxonConcept do
       Synonym.count.should == @syn_count - 2
       Name.count.should == @name_count
     end
-    
+
   end
 
   #

@@ -909,6 +909,8 @@ EOIUCNSQL
 #####################
 private
   def set_preffered_when_known(language_id)
+    languages_to_skip = [Language.unknown].map {|l| l.id}
+    return if languages_to_skip.include? language_id
     # if only one name left for the language -- make it preferred
     tcns = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(self.id, language_id)
     if tcns.size == 1

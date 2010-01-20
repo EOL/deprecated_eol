@@ -68,6 +68,9 @@ ActiveRecord::Base.verification_timeout = 120
 $ENABLE_ANALYTICS=false 
 $GOOGLE_ANALYTICS_ID="UA-3298646-1" 
 
+$SOLR_SERVER = 'http://10.19.19.43:8080/solr/taxon_concepts'
+
+
 # The following tells Rails to check the database connection every 2 minutes
 # and if it isn't connected reconnect instead of throwing an exception
 ActiveRecord::Base.verification_timeout = 120

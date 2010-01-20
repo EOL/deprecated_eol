@@ -1011,13 +1011,6 @@ li.current_kingdom {
   height: auto !important;
   height: 600px; }
 
-#content #common_names_wrapper .title {
-  color: #666666;
-  text-transform: uppercase;
-  font-weight: 600; }
-#content #common_names_wrapper p {
-  margin-left: 1.5em;
-  color: #666666; }
 #content #page-content {
   width: 982px;
   border-top: 5px solid #E6E7E8;
@@ -1399,7 +1392,6 @@ a.footnote {
       color: #666666; }
 
 .results_table {
-  border-left: 2px solid #e6e7e9;
   padding: 0;
   margin: 0; }
   .results_table th {

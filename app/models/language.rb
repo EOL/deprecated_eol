@@ -18,7 +18,7 @@ class Language < SpeciesSchemaModel
   end
 
   def self.unknown
-    @@unknown_language ||= Language.find_by_label("Unknown")
+    Language.find_by_label("Unknown")
   end
   
   def display_code

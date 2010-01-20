@@ -1,15 +1,25 @@
-- is_editable = is_curator && current_user.agent_id == agent_id 
+-# false disables the edit block
+- is_editable = (is_curator && current_user.agent_id == agent_id) && false
 %tr
   %td{ :class => column_class }
-    - if is_editable
-      %a{:href => "/pages/#{@taxon_concept.id}/delete_common_name", :onclick => "if (confirm('Do you really want to delete this name?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); f.appendChild(m); var s = document.createElement('input'); s.setAttribute('type', 'hidden'); s.setAttribute('name', 'synonym_id'); s.setAttribute('value', #{synonym_id}); f.appendChild(s); var s = document.createElement('input'); s.setAttribute('type', 'hidden'); s.setAttribute('name', 'category_id'); s.setAttribute('value', #{category_id}); f.appendChild(s); f.submit(); };return false;"}
-        %img{:src => "/images/close-active.png", :alt => "delete a name", :title => "delete the name you added before"}
-    = h name_string
+    - if is_editable 
+      %small
+        = 'You added this name:'
+      = text_field_tag "names[#{name_id}][string]", name_string
+      %span{:name => "names[#{name_id}][ok]", :id => "names_#{name_id}_ok", :class => "update_name_ok"} OK
+    - else
+      = h name_string
   %td{ :class => column_class }
-    = h("#{language_label} - #{language_name}") unless language_name.blank?
+    - if is_editable
+      %select{:id => "name_#{name_id}_language_id", :class => 'update_language', :name => "language_id"}
+        - @languages.each do |language|
+          %option{ :selected => (language[:label] == language_label) ? "selected" : nil, :value => language[:id] }= language[:label]
+    - else
+      = h("#{language_label} - #{language_name}") unless language_name.blank?
   - if is_curator
     - if language_id.to_i == current_user.language_id
       %td{ :class => "#{column_class} preferred_name_selector", :style => "text-align:center;" }
         = radio_button_tag('name_id', name_id, preferred == '1')
     - else
       %td{ :class => column_class }
+:javascript 

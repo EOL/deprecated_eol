@@ -884,6 +884,18 @@ Factory.define :top_unpublished_image do |tui|
   tui.view_order  1 # Again, this should be sequential, but...
 end
 
+Factory.define :top_concept_image do |ti|
+  ti.association :taxon_concept
+  ti.association :data_object
+  ti.view_order  1
+end
+
+Factory.define :top_unpublished_concept_image do |tui|
+  tui.association :taxon_concept
+  tui.association :data_object
+  tui.view_order  1
+end
+
 Factory.define :untrust_reason do |ur|
   ur.updated_at Time.now
   ur.created_at Time.now

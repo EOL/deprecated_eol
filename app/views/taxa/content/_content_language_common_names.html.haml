@@ -1,0 +1,4 @@
+%table{:style => "margin-left:1em;margin-top:0.5em;margin-bottom:1em"}
+  - names.each do |name|
+    %tr
+      %td= name[:preferred] ? "<strong>#{name[:string]}</strong>" : name[:string]

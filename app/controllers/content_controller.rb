@@ -69,7 +69,7 @@ class ContentController < ApplicationController
     if !taxon_concept.nil?
       @title = "for "+ taxon_concept.quick_scientific_name(:normal)
     
-      rows = SpeciesSchemaModel.connection.execute("SELECT he.taxon_concept_id, do.object_cache_url, do.object_title, do.guid, do.data_rating FROM hierarchy_entries he JOIN top_images ti ON (he.id=ti.hierarchy_entry_id) JOIN data_objects do ON (ti.data_object_id=do.id) WHERE he.taxon_concept_id=#{taxon_concept.id} AND ti.view_order<400").all_hashes.uniq
+      rows = SpeciesSchemaModel.connection.execute("SELECT tci.taxon_concept_id, do.object_cache_url, do.object_title, do.guid, do.data_rating FROM top_concept_images tci JOIN data_objects do ON (tci.data_object_id=do.id) WHERE tci.taxon_concept_id=#{taxon_concept.id} AND tci.view_order<400").all_hashes.uniq
       
       rows.each do |row|
         @items << {

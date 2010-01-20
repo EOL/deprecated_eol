@@ -84,10 +84,10 @@ bootstrap_toc
 Rails.cache.clear # We appear to be altering some of the cached classes here.  JRice 6/26/09
 
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
-agent_col = Agent.catalogue_of_life
+
 resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published)
 event    = HarvestEvent.gen(:resource => resource)
-AgentsResource.gen(:agent => agent_col, :resource => resource,
+AgentsResource.gen(:agent => Agent.catalogue_of_life, :resource => resource,
                    :resource_agent_role => ResourceAgentRole.content_partner_upload_role)
 
 gbif_agent = Agent.gen(:full_name => "Global Biodiversity Information Facility (GBIF)")
@@ -97,13 +97,13 @@ AgentContact.gen(:agent => gbif_agent, :agent_contact_role => AgentContactRole.p
 gbif_hierarchy = Hierarchy.gen(:agent => gbif_agent, :label => "GBIF Nub Taxonomy")
 
 kingdom = build_taxon_concept(:rank => 'kingdom', :canonical_form => 'Animalia', :event => event)
-kingdom.add_common_name('Animals', agent_col, :language => Language.english)
+kingdom.add_common_name('Animals')
 
 4.times do
   tc = build_taxon_concept(:parent_hierarchy_entry_id => Hierarchy.default.hierarchy_entries.last.id,
                            :depth => Hierarchy.default.hierarchy_entries.length,
                            :event => event)
-  tc.add_common_name(Factory.next(:common_name), agent_col, :language => Language.english)
+  tc.add_common_name(Factory.next(:common_name))
 end
 
 fifth_entry_id = Hierarchy.default.hierarchy_entries.last.id
@@ -114,7 +114,7 @@ depth_now      = Hierarchy.default.hierarchy_entries.length
 # Sixth Taxon should have more images, and have videos:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
                          :depth => depth_now, :images => :testing, :event => event)
-tc.add_common_name('Tiger moth', agent_col, :language => Language.english)
+tc.add_common_name('Tiger moth')
 
 #TODO: omg this is HORRIBLE!
 u = User.gen
@@ -145,7 +145,7 @@ tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
                          :bhl => [], 
                          :event => event,
                          :vetted => 'untrusted')
-tc.add_common_name('Tiger lilly', agent_col, :language => Language.english)
+tc.add_common_name('Tiger lilly')
 
 # Eighth Taxon (now we're just getting greedy) should be the same as Seven, but with BHL:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
@@ -157,7 +157,7 @@ tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
                          :comments => [],
                          :event => event,
                          :vetted => 'unknown')
-tc.add_common_name('Tiger', agent_col, :language => Language.english)
+tc.add_common_name('Tiger')
 
 # Ninth Taxon is *totally* naked:
 build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id, :common_names => [], :bhl => [], :event => event,
@@ -174,7 +174,7 @@ tc30 = build_taxon_concept(:id => 30,
                     :bhl      => [], 
                     :event    => event)
                     
-tc30.add_common_name(Factory.next(:common_name), agent_col, :language => Language.english)
+tc30.add_common_name(Factory.next(:common_name))
 curator = build_curator(tc30, :username => 'test_curator', :password => 'password', :given_name => 'test', :family_name => 'curator') 
 
 #31 has unvetted and vetted videos, please don't change this one, needed for selenum test:         
@@ -406,18 +406,18 @@ bacteria = build_taxon_concept(:rank => 'superkingdom',
 
 # We need to be able to test changing the preferred name across several languages:
 english = Language.english
-bacteria.add_common_name("bacteria", agent_col, :language => english, :preferred => true)
-bacteria.add_common_name("bugs", agent_col, :language => english, :preferred => false)
-bacteria.add_common_name("grime", agent_col, :language => english, :preferred => false)
-bacteria.add_common_name("critters",agent_col, :language => english, :preferred => false)
+bacteria.add_common_name("bacteria", :language => english, :preferred => true)
+bacteria.add_common_name("bugs", :language => english, :preferred => false)
+bacteria.add_common_name("grime", :language => english, :preferred => false)
+bacteria.add_common_name("critters", :language => english, :preferred => false)
 german  = Language.gen(:label => 'German', :iso_639_1 => 'de')
-bacteria.add_common_name("bakteria",agent_col, :language => german, :preferred => true)
-bacteria.add_common_name("die buggen",agent_col, :language => german, :preferred => false)
-bacteria.add_common_name("das greim",agent_col, :language => german, :preferred => false)
+bacteria.add_common_name("bakteria", :language => german, :preferred => true)
+bacteria.add_common_name("die buggen", :language => german, :preferred => false)
+bacteria.add_common_name("das greim", :language => german, :preferred => false)
 french = Language.find_by_label('French') # Assumes French was defined in foundation
-bacteria.add_common_name("baseteir",agent_col, :language => french, :preferred => true)
-bacteria.add_common_name("le grimme",agent_col, :language => french, :preferred => false)
-bacteria.add_common_name("ler petit bugge",agent_col, :language => french, :preferred => false)
+bacteria.add_common_name("baseteir", :language => french, :preferred => true)
+bacteria.add_common_name("le grimme", :language => french, :preferred => false)
+bacteria.add_common_name("ler petit bugge", :language => french, :preferred => false)
 
 bacteria.add_scientific_name('microbia')
 

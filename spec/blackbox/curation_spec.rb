@@ -121,9 +121,17 @@ describe 'Curation' do
 
   it 'should show a curator the ability to add a new common name' do
     common_names_toc_id = TocItem.common_names.id
-    login_as( @first_curator ).should redirect_to('/')
+    login_as( @first_curator ).should redirect_to("/")
     @logged_in_page = request("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}").body
-    @logged_in_page.should include('Add a new common name')
+    @logged_in_page.should have_tag("form#add_common_name")
+    @logged_in_page.should have_tag("form.update_common_names")
+  end
+
+  it 'should not show editing common name environment if curator is not logged in' do
+    request("/logout").should redirect_to("/")
+    @logged_in_page = request("/pages/#{@taxon_concept.id}?category_id=#{TocItem.common_names.id}").body
+    @logged_in_page.should_not have_tag("form#add_common_name")
+    @logged_in_page.should_not have_tag("form.update_common_names")
   end
   
   it 'should add a new name using post' do

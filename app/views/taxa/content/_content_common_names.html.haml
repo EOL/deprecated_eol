@@ -1,5 +1,4 @@
 - is_curator = @taxon_concept.is_curatable_by?(current_user)
-- names_by_language = common_names_by_language(@content[:items], current_user.language_id)
 - if is_curator
   #common_names_error{ :style => "color:brown;text-align:center;padding-bottom:8px;display:none;" }
     Sorry! There was an error sending the curation request; please try again later.
@@ -7,33 +6,70 @@
     = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
 
 #common_names_wrapper.text_object
-  - names_by_language.each do |language_names|
-    - language = language_names[1][:language]
-    - locals = {:names => language_names[1][:names], :language_id => language[:id]} 
-    .title
-      = "Language:"[]
-      = language[:label]
-    - if is_curator
-      = render(:partial => 'taxa/content/content_language_common_names_curator', :locals => locals) 
-    - else
-      = render(:partial => 'taxa/content/content_language_common_names', :locals => locals) 
-  %br
   - if is_curator
-    - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
-      %fieldset.standout
-        %legend Add a new common name
-        = hidden_field :name, "category_id", :value => params[:category_id]
-        = label_tag :name_name_string, "Name"
-        = text_field :name, :name_string, :size => 40, :maxlength => 300
-        %br
-        %br
-        = label_tag :name_language, "Name's Language"
-        %select{:id => "name_language", :name => "name[language]"}
-          - @languages.each do |language|
-            %option{ :selected => language[:selected], :value => language[:id] }= language[:label]
-        %br
-        %br
-        %input{:type => "button", :name => "add_common_name_button", :value => "Add", :id => "add_common_name_button"}
+    %p
+      = "As a curator, you can select the preferred common name in your default language by selecting the radio button next to the name.  This will select the common name shown on the top of the page and in the classification browser."[:common_names_message]
+    = form_tag "/pages/#{@taxon_concept.id}/update_common_names", :method => :put, :id => 'update_common_names'
+  %br
+  %table.results_table{ :cellspacing => "0", :summary => "Common Names" }
+    %tr
+      %th{ :scope => "col" }
+        = "Name"[]
+      %th{ :scope => "col" }
+        = "Language"[]
+      - if is_curator
+        %th Preferred
+    - unless @content[:items].blank?
+      - # Render each name in the current user's preferred language:
+      - @content[:items].each do |name|
+        - next unless name[:language_id].to_i == current_user.language_id
+        = render(:partial => 'taxa/content/content_common_names_row', |
+            :locals => { |
+              :agent_id       => name[:agent_id].to_i, |
+              :column_class   => cycle('odd', 'even'), |
+              :is_curator     => is_curator, |
+              :language_id    => name[:language_id], |
+              :language_label => name[:language_label], |
+              :language_name  => name[:language_name], |
+              :name_id        => name[:name_id], |
+              :name_string    => name[:name_string], |
+              :preferred      => name[:preferred] |
+            }) |
+      - # Render every OTHER name (not in her preferred language):
+      - @content[:items].each do |name|
+        - next if name[:language_id].to_i == current_user.language_id
+        = render(:partial => 'taxa/content/content_common_names_row', |
+           :locals => { |
+             :agent_id       => name[:agent_id].to_i, |
+             :column_class   => cycle('odd', 'even'), |
+             :is_curator     => is_curator, |
+             :language_id    => name[:language_id], |
+             :language_label => name[:language_label], |
+             :language_name  => name[:language_name], |
+             :name_id        => name[:name_id], |
+             :name_string    => name[:name_string], |
+             :preferred      => name[:preferred] |
+           }) |
+  -# ugly - should make parital instead?
+  = "</form>" if is_curator
+  %br
+  /
+    - if is_curator
+      - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
+        %fieldset.standout
+          %legend Add a new common name
+          = hidden_field :name, "category_id", :value => params[:category_id]
+          = label_tag :name_name_string, "Name"
+          = text_field :name, :name_string, :size => 40, :maxlength => 300
+          %br
+          %br
+          = label_tag :name_language, "Name's Language"
+          %select{:id => "name_language", :name => "name[language]"}
+            - @languages.each do |language|
+              %option{ :selected => language[:selected], :value => language[:id] }= language[:label]
+          %br
+          %br
+          = submit_tag :name, :value => "Add"
   %br
   .divider
   .content-attribution-area
@@ -68,21 +104,12 @@
   Event.addBehavior({
     'td.preferred_name_selector input[type="radio"]:click': function(e) {
       update_common_names(update_form);
+    },
+    '.update_name_ok:click': function(e) {
+      update_common_names(update_form);
+    },
+    '.update_language:change': function(e) {
+      update_common_names(update_form);
     }
   });
-
-  if ($("add_common_name_button")) $("add_common_name_button").observe('click', confirmAddCommonName);
-
-  function confirmAddCommonName(e) {
-    var name = $("name_name_string").value.strip();
-    var language = $("name_language").value;
-    if (name != '') {
-      i_agree = confirm("Create a new common name?\n\nYou can always delete it later");
-      if (i_agree) {
-        var form = e.element().form;
-        form.submit();
-      }
-    } else alert("Add a new common name first");
-  }
-
 

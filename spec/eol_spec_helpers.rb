@@ -265,6 +265,9 @@ def DataObject.build_reharvested_dato(dato)
     TopImage.delete_all("data_object_id = #{dato.id}")
     TopImage.gen(:data_object_id => new_dato.id,
                  :hierarchy_entry_id => dato.hierarchy_entries.first.id)
+    TopConceptImage.delete_all("data_object_id = #{dato.id}")
+    TopConceptImage.gen(:data_object_id => new_dato.id,
+                 :taxon_concept_id => dato.hierarchy_entries.first.taxon_concept_id)
   end
   # TODO - this could also handle tags, info items, and refs.
   # 3) unpublish old version 
@@ -364,9 +367,10 @@ TaxonConcept.class_eval do
     vern      = false
     preferred = false
     relation = SynonymRelation.find_by_label("synonym")
+    
     name_obj = Name.find_by_string(name) || Name.gen(:canonical_form => canonical_form_object, :string => name, :italicized => name)
-    synonym = generate_synonym(name_obj, Agent.first, :preferred => preferred, :language => language, :relation => relation)
-    generate_tc_name(name_obj, synonym.id, :preferred => preferred, :language => language, :vern => vern)
+    generate_synonym(name_obj, :preferred => preferred, :language => language, :relation => relation)
+    generate_tc_name(name_obj, :preferred => preferred, :language => language, :vern => vern)
   end
 
   # Only used in testing context, this returns the actual Name object for the canonical form for this TaxonConcept.

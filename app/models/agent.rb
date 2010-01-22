@@ -34,6 +34,7 @@ class Agent < SpeciesSchemaModel
   has_many :resources, :through => :agents_resources
   has_many :agents_synonyms
   has_many :synonyms, :through => :agents_synonyms
+  has_many :google_analytics_partner_summaries
   
   has_and_belongs_to_many :data_objects
 
@@ -139,11 +140,16 @@ class Agent < SpeciesSchemaModel
     Agent.new :project_name => location
   end
 
-  def self.content_partners_contact_info
-      SpeciesSchemaModel.connection.select_all("SELECT agents.full_name, agents.email, agents.username
-        FROM agents
-        INNER JOIN content_partners ON agents.id = content_partners.agent_id
-        ORDER BY agents.full_name ASC")
+  def self.content_partners_contact_info(month,year)
+    
+    
+    SpeciesSchemaModel.connection.select_all("Select agents.full_name, 'eli@eol.org' as email, agents.id agent_id From agents
+        Inner Join content_partners ON agents.id = content_partners.agent_id
+        Inner Join google_analytics_partner_summaries ON content_partners.agent_id = google_analytics_partner_summaries.agent_id
+        where google_analytics_partner_summaries.`year` = #{year}
+        and google_analytics_partner_summaries.`month` = #{month} limit 2 ")        
+        
+        
   end
   
   def self.from_source_url(source_url)

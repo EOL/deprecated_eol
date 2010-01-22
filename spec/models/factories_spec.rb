@@ -21,7 +21,8 @@ describe Factory do
       CuratorCommentLog, CuratorDataObjectLog, Hierarchy, HierarchyEntry,
       TaxonConcept, PageName, PublicationTitle, InfoItem, Taxon,
       Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
-      AgentDataType, AgentContactRole, ServiceType, ActionWithObject, ChangeableObjectType ].uniq
+      AgentDataType, AgentContactRole, ServiceType, ActionWithObject, ChangeableObjectType, 
+      GoogleAnalyticsSummary, GoogleAnalyticsPartnerSummary, GoogleAnalyticsPageStat].uniq
   end
 
   # gets the names of the factories for classes ( default: model_classes )

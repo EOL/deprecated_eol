@@ -17,7 +17,7 @@ describe 'Taxa page (HTML)' do
 
   before(:all) do
 
-    RandomTaxon.delete_all # this should make us green again
+    #RandomTaxon.delete_all # this should make us green again
     Scenario.load :foundation
     HierarchiesContent.delete_all
 

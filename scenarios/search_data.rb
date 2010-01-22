@@ -27,7 +27,6 @@ def create_taxa(namestring)
   taxa = build_taxon_concept(:canonical_form => namestring, :depth => 1,
                              :parent_hierarchy_entry_id => animal_kingdom.hierarchy_entries.first.id)
   nestify_everything_properly
-  recreate_normalized_names_and_links
   return taxa
 end
 

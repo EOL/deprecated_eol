@@ -94,7 +94,7 @@ describe 'Home page' do
   end
 
   it 'should show six random taxa with the div IDs that the Flash needs' do
-    6.times { RandomTaxon.gen }
+    6.times { RandomHierarchyImage.gen }
     body = RackBox.request('/').body
     body.should have_tag('table#top-photos-table') do
       (1..6).to_a.each do |n|

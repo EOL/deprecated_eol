@@ -459,7 +459,6 @@ HierarchyEntry.all.each do |he|
 end
 
 make_all_nested_sets
-recreate_normalized_names_and_links
 rebuild_collection_type_nested_set
 
 DataObject.find(:all).each_with_index do |d,i|

@@ -72,7 +72,6 @@ describe TaxonConcept do
     # And we want one comment that the world cannot see:
     Comment.find_by_body(@comment_bad).hide! User.last
     @user = User.gen
-    recreate_normalized_names_and_links
   end
   after :all do
     truncate_all_tables
@@ -266,6 +265,17 @@ describe TaxonConcept do
     results.length.should == 1
     results.first.description.should == @overview_text
   end
+  
+  it 'should cache the top images for a default session' do
+    top_images_before_delete = @taxon_concept.images.length
+    top_images_before_delete.should > 2
+    
+    #getting rid of all top images which would normally cause taxon_concept.images to return 0 results
+    TopImage.delete_all
+    TopConceptImage.delete_all
+    top_images_after_delete = @taxon_concept.images.length
+    top_images_after_delete.should == top_images_before_delete
+  end
 
   # TODO - creating the CP -> Dato relationship is tricky. This should be made available elsewhere:
   it 'should show content partners THEIR preview items, but not OTHER content partner\'s preview items' do
@@ -290,7 +300,8 @@ describe TaxonConcept do
                         :data_object_id => @taxon_concept.images.last.id)
     TopConceptImage.delete_all(:taxon_concept_id => @taxon_concept.id,
                         :data_object_id => @taxon_concept.images.last.id)
-    @taxon_concept.current_user = @taxon_concept.current_user #hack to expire cached images
+    
+    Rails.cache.delete("data_object/cached_images_for/#{@taxon_concept.id}")  # deleting the concept image cache
     @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
 
     dato.visibility = Visibility.preview

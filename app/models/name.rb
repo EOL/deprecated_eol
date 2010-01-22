@@ -6,11 +6,6 @@
 # Even common names have an italicized form, which the PHP side auto-generates.  They can't always be trusted, but there are cases
 # where a name is both common and scientific, so it must be populated.
 #
-# You might also want to see NormalizedName.  Name is broken down into unique parts (parsed by NormalizedName) which are linked back
-# to a Name via NormalizedLinks
-#
-# NormalizedName is currently what we search on when we do string searches, then we use the NormalizedLink to find Name objects that
-# use the NormalizedName ... and we can then find TaxonConcepts / HierarchyEntries that use the Name.
 class Name < SpeciesSchemaModel
 
   belongs_to :canonical_form
@@ -18,7 +13,6 @@ class Name < SpeciesSchemaModel
   has_many :taxon_concept_names
   has_many :taxa
   has_many :hierarchy_entries
-  has_many :normalized_links
   has_many :mappings
 
   validates_presence_of   :string

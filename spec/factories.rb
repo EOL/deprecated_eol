@@ -647,22 +647,7 @@ Factory.define :news_item do |ni|
   ni.association  :user
   ni.active       1
 end
-
-Factory.define :normalized_link do |nl|
-  nl.association :normalized_name
-  nl.association :name
-  nl.seq         0
-  nl.normalized_qualifier_id 1 # Identify which role the string is playing in the name (name, author, year)... but now is all name (1)
-end
-
-# This table exists, but there is no model for it and we aren't using it at the moment.
-# Factory.define :normalized_qualifier do |nq|
-# end
-
-Factory.define :normalized_name do |nn|
-  nn.name_part { Factory.next(:string) }
-end
-
+ 
 Factory.define :changeable_object_type do |ot|
   ot.ch_object_type { Factory.next(:string) }
 end
@@ -685,20 +670,6 @@ Factory.define :publication_title do |pt|
   pt.title   'Test Publication Title'
   pt.details 'Nifty Titles Are Our Business'
   pt.url     'http://publication.titles.te.st'
-end
-
-Factory.define :random_taxon do |rt|
-  rt.language       { Language.english || Factory(:language, :label => 'English') }
-  rt.association    :data_object
-  rt.name_id        { Factory(:name).id } # There is a "name" attribute as well, so, tricky.
-  rt.image_url      200810081262788
-  rt.name           { "<i>#{ Factory.next(:species) }</i> Factory TestFramework" }
-  rt.content_level  3
-  rt.created_at     { 14.days.ago }
-  rt.association    :taxon_concept
-  rt.common_name_en {|taxon| Factory.next(:species) + ' (test common name)'}
-  rt.common_name_fr {|taxon| Factory.next(:species) + ' (pretend this is French)'}
-  rt.thumb_url      200810061400963 # Not sure this is right.
 end
 
 Factory.define :random_hierarchy_image do |rhi|

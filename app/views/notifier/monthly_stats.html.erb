@@ -1,3 +1,9 @@
 Dear <%= @contact["full_name"] %>,
 
-Some text will be here
+This is an automated e-mail notification.
+You can now check last month's web usage of your data in EOL.
+Thank you.
+
+http://127.0.0.1:3000/content_partner/reports/list?agent_id=<%= @contact["agent_id"] %>&month=<%= @month %>&year=<%= @year %>
+
+-Encylopedia of Life

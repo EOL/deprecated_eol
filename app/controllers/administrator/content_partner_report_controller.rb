@@ -184,9 +184,18 @@ class Administrator::ContentPartnerReportController < AdminController
   end
 
   def monthly_stats_email
-    Agent.content_partners_contact_info.each do |recipient|
-      Notifier.deliver_monthly_stats(recipient)
+    
+    last_month = Time.now - 1.month
+    @year = last_month.year.to_s
+    @month = last_month.month.to_s    
+    
+    Agent.content_partners_contact_info(@month,@year).each do |recipient|
+      Notifier.deliver_monthly_stats(recipient,@month,@year)
     end
+    
+    #for testing the query result
+    @rset = Agent.content_partners_contact_info(@month,@year)
+    
   end
 
 end

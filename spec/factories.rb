@@ -186,11 +186,20 @@ Factory.sequence(:image) do |n|
   @seq_images[n % @seq_images.length]
 end
 
+Factory.sequence(:year) do |n|
+  1990 + n
+end
+
+Factory.sequence(:month) do |n|
+  @month ||= (1..12).to_a.cycle
+  @month.next
+end
+
 # Unique:
 Factory.sequence(:guid) do |n|
   @guids = ['3a117abf96e7fe8793ef87b14d166d5f', 'a509ebdb2fc8083f3a33ea17985bad42']
   pick = @guids[n % @guids.length]
-  (n / @guids.length).times { pick.succ! }
+  (n / @guids.length).times { pick.succ! }  
   pick
 end
 
@@ -237,9 +246,9 @@ Factory.sequence(:email  ){|n| "bob#{n}@smith.com" }
 # Faker names are frequently unique, but let's just make absolutely sure:
 Factory.sequence(:species) do |n|
   s = Factory.next(:scientific_name)
-  while (Name.find_by_string(s)) do
+  while (Name.find_by_string(s)) do 
     s = Factory.next(:scientific_name)
-  end
+  end 
   s
 end
 Factory.sequence(:title  ){|n| "#{n} " + Faker::Lorem.words(rand(3)+1).map(&:titleize).join(' ') }
@@ -916,4 +925,42 @@ end
 
 Factory.define :visibility do |x|
   x.label { Factory.next(:string) }
+end
+
+Factory.define :google_analytics_summary do |g|
+  g.year { Factory.next(:year) }
+  g.month { Factory.next(:month) }
+  g.visits rand(1000)
+  g.visitors rand(100)
+  g.pageviews rand(10000)
+  g.unique_pageviews rand(1000)
+  g.ave_pages_per_visit rand(100)/10.0
+  g.ave_time_on_site "00:%02d:%02d" % [rand(60), rand(60)]
+  g.ave_time_on_page "00:%02d:%02d" % [rand(60), rand(60)]
+  g.per_new_visits rand(100)/10.0
+  g.bounce_rate rand(100)/10.0
+  g.per_exit rand(100)/10.0
+  g.taxa_pages rand(1000)
+  g.taxa_pages_viewed rand(100)
+  g.time_on_pages rand(1000)
+end
+
+Factory.define :google_analytics_partner_summary do |g|
+  g.year { Factory.next :year }
+  g.month { Factory.next :month }
+  g.association :agent
+  g.taxa_pages rand(1000)
+  g.taxa_pages_viewed rand(100)
+  g.page_views rand(10000)
+  g.unique_page_views rand(1000)
+  g.time_on_page rand(1000)
+end
+
+Factory.define :google_analytics_page_stat do |g|
+  g.association :taxon_concept
+  g.year { Factory.next :year }
+  g.month { Factory.next :month }
+  g.page_views rand(1000)
+  g.unique_page_views rand(100)
+  g.time_on_page rand(1000)
 end

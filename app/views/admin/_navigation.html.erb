@@ -45,7 +45,7 @@
   	<h3>Content Partners</h3>
   	<li><%= link_to 'content partner details', {:controller => 'administrator/content_partner_report', :action => 'index'}, {:class=>'toc_item active'} %> </li>
     <%- if false -%>
-    <li><%= link_to 'monthly notification', {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active'} %> </li>
+    <li><%= link_to 'monthly notification', {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active', :confirm => "Send email notification of\nmonthly stats to all partners"} %> </li>
     <%- end -%>
   <% end %>
 

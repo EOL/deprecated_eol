@@ -19,7 +19,46 @@ class ContentPartner::ReportsController < ContentPartnerController
     report_month = "%02d" % last_month.month.to_s
     @report_date = "#{report_year}_#{report_month}"
     @report_type = :page_stats
+  end  
+  
+  def get_year_month_list    
+    arr=[]
+    start="2009_07"
+    str=""
+    var_date = Time.now
+    while( start != str )
+      var_date = var_date - 1.month
+      str = var_date.year.to_s + "_" + "%02d" % var_date.month.to_s
+      arr << str
+    end    
+    return arr
   end
+  
+  def monthly_page_stats
+
+    @year_month_list = get_year_month_list()
+    
+    if(params[:agent_id]) then
+      @agent_id = params[:agent_id]
+      params[:year], params[:month] = params[:year_month].split("_") if params[:year_month]    
+      @report_year  = params[:year].to_i
+      @report_month = params[:month].to_i
+      @year_month   = params[:year] + "_" + "%02d" % params[:month]
+    else
+      @agent_id = current_agent.id  
+      last_month = Time.now - 1.month
+      @report_year = last_month.year.to_s
+      @report_month = last_month.month.to_s
+    end
+  
+    @partner = Agent.find(@agent_id, :select => [:full_name])
+    @recs = GoogleAnalyticsPartnerSummary.summary(@agent_id, @report_year, @report_month)    
+            
+    page = params[:page] || 1
+    @posts = GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)
+    
+  end
+
   
   def data_object_stats
     content_partner = ContentPartner.find_by_agent_id(current_agent.id)

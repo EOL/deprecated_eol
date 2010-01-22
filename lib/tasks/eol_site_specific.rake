@@ -6,7 +6,7 @@ namespace :eol do
     if ENV['repo']
       puts "Checking out files from repository..."
       FileUtils::rm_rf site_dir if FileTest.exists? site_dir
-      sh "svn co #{ENV['repo']} #{site_dir}"
+      sh "svn co #{ENV['repo']} '#{site_dir}'"
     else
       puts <<HELP_MSG
 

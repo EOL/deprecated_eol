@@ -117,11 +117,11 @@ class Notifier < ActionMailer::Base
     
   end 
 
-  def monthly_stats(contact_recipient)
+  def monthly_stats(contact_recipient,month,year)
     subject "EOL Monthly Statistics Notification"
     recipients  contact_recipient["email"]
     from        $STATISTICS_EMAIL_FROM_ADDRESS
-    body        :contact => contact_recipient 
+    body        :contact => contact_recipient , :month => month , :year => year
   end
   
 end

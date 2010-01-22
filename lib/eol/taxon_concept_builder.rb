@@ -89,7 +89,6 @@ module EOL
       add_map
       add_toc
       add_iucn
-      gen_random_taxa
       gen_random_hierarchy_image
       gen_bhl
       gen_biomedical_terms
@@ -261,18 +260,6 @@ module EOL
       # missing).  TODO - we should build the info item first and let the toc_item resolve from that.
       # TODO Outlinks: create a Collection related to any agent, and then give it a mapping with a foreign_key that links to some external
       # site. (optionally, you could use collection.uri and replace the FOREIGN_KEY bit)
-    end
-
-    def gen_random_taxa
-      puts "** Enter: gen_random_taxa" if @debugging
-      return if @image_objs.blank? or @sname.blank?
-      # TODO - we really don't want to denormalize the names, so remove them (but check that this will work!)
-      options = {:language => Language.english, :data_object => @image_objs.last, :name_id => @sname.id,
-                 :image_url => @image_objs.last.object_cache_url, :name => @sname.italicized, :content_level => 4,
-                 :taxon_concept => @tc,
-                 :thumb_url => @image_objs.first.object_cache_url}
-      options[:common_name_en] = @cname.string unless @cname.blank?
-      RandomTaxon.gen(options)
     end
     
     def gen_random_hierarchy_image

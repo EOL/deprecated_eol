@@ -80,13 +80,7 @@ module EOL
           end
         end
       end
-
-      def recreate_normalized_names_and_links
-        NormalizedName.truncate
-        NormalizedLink.truncate
-        Name.all.each {|name| NormalizedLink.parse! name }
-      end
-
+      
       def build_data_object(type, desc, options = {})
         dato_builder = EOL::DataObjectBuilder.new(type, desc, options)
         dato_builder.dato

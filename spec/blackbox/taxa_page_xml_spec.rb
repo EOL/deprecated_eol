@@ -259,7 +259,6 @@ describe 'Taxa page XML' do
 
     before(:all) do
       EOL::NestedSet.make_all_nested_sets
-      recreate_normalized_names_and_links
       stub_solr
       @raw_xml    = RackBox.request("/search.xml?q=#{@search_term}").body
       @search_xml = Nokogiri::XML(@raw_xml)
@@ -285,7 +284,6 @@ describe 'Taxa page XML' do
 
     before(:all) do
       EOL::NestedSet.make_all_nested_sets
-      recreate_normalized_names_and_links
       stub_solr
     end
 
@@ -309,7 +307,6 @@ describe 'Taxa page XML' do
 
     before(:all) do
       EOL::NestedSet.make_all_nested_sets
-      recreate_normalized_names_and_links
       @raw_xml    = RackBox.request("/exemplars.xml").body
       @exemplar_xml = Nokogiri::XML(@raw_xml)
     end

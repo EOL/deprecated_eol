@@ -22,7 +22,7 @@ describe Factory do
       TaxonConcept, PageName, PublicationTitle, InfoItem, Taxon,
       Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
       AgentDataType, AgentContactRole, ServiceType, ActionWithObject, ChangeableObjectType, 
-      GoogleAnalyticsSummary, GoogleAnalyticsPartnerSummary, GoogleAnalyticsPageStat].uniq
+      GoogleAnalyticsSummary, GoogleAnalyticsPartnerSummary, GoogleAnalyticsPageStat, GoogleAnalyticsPartnerTaxon].uniq
   end
 
   # gets the names of the factories for classes ( default: model_classes )

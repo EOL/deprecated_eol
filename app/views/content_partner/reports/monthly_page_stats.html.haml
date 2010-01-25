@@ -1,0 +1,101 @@
+#report_from_eol
+  %ol
+  %table{ :border => "1" }
+    %tr{ :align => "center" }
+      %td
+        - form_for :hello, :url => { :action => :monthly_page_stats } do |form|
+          %input{ :name => "agent_id", :type => "hidden", :value => @agent_id }
+          = select_tag "year_month", options_for_select(@year_month_list,@year_month)
+          = submit_tag("Submit")
+        %h1
+          = @partner.full_name
+        Agent ID:
+        = @agent_id
+        %br
+        Year =
+        = @report_year
+        Month =
+        = @report_month
+      %td
+        Taxa Pages with
+        %br
+        Provider Content
+      %td
+        EOL Site
+      %td
+        Provider
+        %br
+        Percentage
+    - @recs.each do |list|
+      %tr
+        %td
+          Count of Taxa Pages
+        %td{ :align => "right" }
+          = list.taxa_pages
+        %td{ :align => "right" }
+          = list.eol_taxa_pages
+      %tr
+        %td
+          Count of Taxa Pages that were viewed during the month
+        %td{ :align => "right" }
+          = list.taxa_pages_viewed
+        %td{ :align => "right" }
+          = list.eol_taxa_pages_viewed
+      %tr
+        %td
+          Total Unique Page Views for the Month
+        %td{ :align => "right" }
+          = list.unique_page_views
+        %td{ :align => "right" }
+          = list.unique_pageviews
+      %tr
+        %td
+          Total Page Views for the Month
+        %td{ :align => "right" }
+          = list.page_views
+        %td{ :align => "right" }
+          = list.pageviews
+      %tr
+        %td
+          Total Time on Pages for the Month (hours)
+        %td{ :align => "right" }
+          = list.timeonpage
+        %td{ :align => "right" }
+          = list.timeonpages
+    %tr{ :align => "center" }
+      %td{ :colspan => "4" }
+        %table{ :border => "1" }
+          %tr
+            %td{ :colspan => "5" }
+              = will_paginate @posts
+          %tr{ :align => "center" }
+            %td
+              ID
+            %td
+              Scientific Name
+            %td
+              Total
+              %br
+              Page Views
+            %td
+              Total Unique
+              %br
+              Page Views
+            %td
+              Total Time
+              %br
+              On Page Seconds
+          - @posts.each do |post|
+            %tr
+              %td{ :align => "center" }
+                = post.taxon_concept_id
+              %td
+                %i
+                  = post.scientific_name
+              %td{ :align => "right" }
+                = post.page_views
+              %td{ :align => "right" }
+                = post.unique_page_views
+              %td{ :align => "right" }
+                = post.timeonpage
+                

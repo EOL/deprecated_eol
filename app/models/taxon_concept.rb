@@ -32,6 +32,8 @@ class TaxonConcept < SpeciesSchemaModel
   # The following are not (yet) possible, because tcn has a three-part Primary key.
   # has_many :taxa, :through => :names, :source => :taxon_concept_names
   # has_many :mappings, :through => :names, :source => :taxon_concept_names
+  has_many :google_analytics_partner_taxa
+  
 
   has_one :taxon_concept_content
 

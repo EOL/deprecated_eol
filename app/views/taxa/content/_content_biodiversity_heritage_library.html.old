@@ -1,4 +1,4 @@
-<div class=".ext_object" id="bhl_wrapper">
+<div class="text_object" id="bhl_wrapper">
   <table width="100%" cellspacing="5" cellpadding="5" border="0">
     <tr>
       <td valign="top"><%=external_link_to(image_tag('/images/bhl_logo.gif'),"http://www.biodiversitylibrary.org", {:show_link_icon => false})%></td>

@@ -52,7 +52,7 @@ class RandomHierarchyImage < SpeciesSchemaModel
       break if random_images.length >= limit
     end
     
-    random_images = self.random_set(limit, Hierarchy.default, :size => options[:size]) if list.blank? && hierarchy.id != Hierarchy.default.id
+    random_images = self.random_set(limit, Hierarchy.default) if list.blank? && hierarchy.id != Hierarchy.default.id
     #raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if list.blank?
     return random_images
   end

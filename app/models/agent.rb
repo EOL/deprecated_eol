@@ -35,6 +35,8 @@ class Agent < SpeciesSchemaModel
   has_many :agents_synonyms
   has_many :synonyms, :through => :agents_synonyms
   has_many :google_analytics_partner_summaries
+  has_many :google_analytics_partner_taxa
+  
   
   has_and_belongs_to_many :data_objects
 

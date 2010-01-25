@@ -470,3 +470,15 @@ Comment.find(:all).each_with_index do |c,i|
   c.created_at = Time.now - i.hours
   c.save!
 end
+
+(-12..12).each do |n|
+  date = n.month.ago
+  year = date.year
+  month = date.month
+  GoogleAnalyticsPartnerSummary.gen(:year => year, :month => month, :agent => Agent.catalogue_of_life)
+  GoogleAnalyticsSummary.gen(:year => year, :month => month)  
+  GoogleAnalyticsPageStat.gen(:year => year, :month => month, :taxon_concept => tc30 )    
+  GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => tc30, :agent => Agent.catalogue_of_life )
+end
+
+

@@ -56,6 +56,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'pages/:id/best_images.:format', :controller => 'content', :action => 'best_images'
   map.connect '/pages/:taxon_concept_id/update_common_names', :controller => 'taxa', :action => 'update_common_names'
   map.connect '/pages/:taxon_concept_id/add_common_name', :controller => 'taxa', :action => 'add_common_name'
+  map.connect '/pages/:taxon_concept_id/delete_common_name', :controller => 'taxa', :action => 'delete_common_name'
   
   map.set_language      'set_language',      :controller => 'application', :action => 'set_language'
   map.set_flash_enabled 'set_flash_enabled', :controller => 'application', :action => 'set_flash_enabled'

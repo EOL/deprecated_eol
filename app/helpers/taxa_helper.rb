@@ -234,5 +234,28 @@ private
     end
   end
 
+  def common_names_by_language(names, preferred_language_id)
+    res = {}
+    eng = Language.english
+    pref = Language.find(preferred_language_id)
+    unknown = Language.unknown
+    names.each do |name|
+      language = {:id => name[:language_id], :label => name[:language_label], :name => name[:language_name]}
+      names = {:agent_id => name[:agent_id].to_i, :id => name[:name_id].to_i, 
+               :string => name[:name_string], :synonym_id => name[:synonym_id].to_i, 
+               :preferred => name[:preferred].to_i > 0} 
+      k = name[:language_label]
+      res.key?(k) ? res[k][:names] << names : res[k] = {:language => language, :names => [names]}
+    end
+    names_by_lang = []
+    names_by_lang << [pref.label, res.delete(pref.label)] if res.key?(pref.label)
+    names_by_lang << [eng.label, res.delete(eng.label)] if res.key?(eng.label)
+    unknown_data = res.key?(unknown.label) ? [unknown.label, res.delete(unknown.label)] : nil
+    res.to_a.sort_by {|a| a[0]}.each {|a| names_by_lang << a}
+    names_by_lang << unknown_data if unknown_data
+    #names_by_lang.each {|l| l[1][:names] = l[1][:names].sort_by {|n| n[:name_string]}} #we probably do not need this line
+    names_by_lang
+  end
+
   
 end

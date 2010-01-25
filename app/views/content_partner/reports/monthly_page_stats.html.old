@@ -66,3 +66,71 @@
     </table>
 </ol>
 </div> 
+<div id="report_from_eol">
+<ol>
+    <table border="1">
+        <tr align="center">
+	        <td>
+	
+				<% form_for :hello, :url => { :action => :list } do |form| %>
+	   				<input type='hidden' name='agent_id' value='<%= @agent_id %>'>	   
+	   				<%= select_tag "year_month", options_for_select(@year_month_list,@year_month) %>    
+					<%= submit_tag("Submit") %>
+				<% end %>
+				
+	        	<h1><%= @partner.full_name %></h1>
+				Agent ID:<%= @agent_id %> <br> 
+				Year = <%= @report_year %>
+				Month = <%= @report_month %>
+				
+			</td>
+            <td>Taxa Pages with<br> Provider Content</td>
+            <td>EOL Site</td>
+            <td>Provider<br> Percentage</td>
+        </tr>
+        <% @recs.each do |list| %>
+        <tr><td>Count of Taxa Pages</td>
+            <td align="right"><%= list.taxa_pages %></td>
+            <td align="right"><%= list.eol_taxa_pages %></td>
+            </tr>
+        <tr><td>Count of Taxa Pages that were viewed during the month</td>
+            <td align="right"><%= list.taxa_pages_viewed %></td>
+            <td align="right"><%= list.eol_taxa_pages_viewed %></td>
+            </tr>
+        <tr><td>Total Unique Page Views for the Month</td>
+            <td align="right"><%= list.unique_page_views %></td>
+            <td align="right"><%= list.unique_pageviews %></td>
+            </tr>
+        <tr><td>Total Page Views for the Month</td>
+            <td align="right"><%= list.page_views %></td>
+            <td align="right"><%= list.pageviews %></td>
+            </tr>
+        <tr><td>Total Time on Pages for the Month (hours)</td>
+            <td align="right"><%= list.timeonpage %></td>
+            <td align="right"><%= list.timeonpages %></td>
+            </tr>    
+        <% end -%>
+        <tr align="center"><td colspan="4">
+        <table border="1">
+        <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
+        <tr align="center">
+            <td>ID</td>
+            <td>Scientific Name</td>
+            <td>Total<br> Page Views</td>
+            <td>Total Unique<br> Page Views</td>
+            <td>Total Time<br> On Page Seconds</td>
+        </tr>
+        <% @posts.each do |post|  -%>
+            <tr>
+                <td align="center"><%= post.taxon_concept_id %></td>
+                <td><i><%= post.scientific_name %></i></td>
+                <td align="right"><%= post.page_views %></td>
+                <td align="right"><%= post.unique_page_views %></td>
+                <td align="right"><%= post.timeonpage %></td>
+            </tr>        
+        <% end -%>
+        </table>
+        </td></tr>    
+    </table>
+</ol>
+</div> 

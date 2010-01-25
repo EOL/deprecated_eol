@@ -1,4 +1,4 @@
-# REMINDER: default model factories, eg. :user, should *only* generate required fields
+# REMINDER: default model factories, eg. :user, should *only* generate required field s
 #
 # If you want a model loaded up with all kinds of goodies, make a different generator, 
 # eg. :admin_user
@@ -962,5 +962,17 @@ Factory.define :google_analytics_page_stat do |g|
   g.month { Factory.next :month }
   g.page_views rand(1000)
   g.unique_page_views rand(100)
-  g.time_on_page rand(1000)
+  g.time_on_page "00:%02d:%02d" % [rand(60), rand(60)]
 end
+
+Factory.define :google_analytics_partner_taxon do |g|
+  g.association :taxon_concept
+  g.association :agent
+  g.year { Factory.next :year }
+  g.month { Factory.next :month }  
+end
+
+
+
+
+

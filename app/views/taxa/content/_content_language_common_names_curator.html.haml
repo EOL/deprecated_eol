@@ -1,0 +1,18 @@
+- form_tag "/pages/#{@taxon_concept.id}/update_common_names", :method => :put, :class => 'update_common_names' do
+  %table.results_table{ :cellspacing => "0", :summary => "Common Names" }
+    %tr
+      %th{ :scope => "col" }
+        = "Name"[]
+      %th= "Preferred"[]
+    - names.each do |name|
+      - is_agent = current_user.agent_id == name[:agent_id]
+      - column_class = cycle("odd", "even")
+      %tr
+        %td{ :class => column_class }
+          - if is_agent
+            %a{:href => "/pages/#{@taxon_concept.id}/delete_common_name", :onclick => "if (confirm('Do you really want to delete this name?')) { var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'POST'; f.action = this.href;var m = document.createElement('input'); m.setAttribute('type', 'hidden'); f.appendChild(m); var s = document.createElement('input'); s.setAttribute('type', 'hidden'); s.setAttribute('name', 'synonym_id'); s.setAttribute('value', #{name[:synonym_id]}); f.appendChild(s); var s = document.createElement('input'); s.setAttribute('type', 'hidden'); s.setAttribute('name', 'category_id'); s.setAttribute('value', #{params[:category_id]}); f.appendChild(s); f.submit(); };return false;"}
+              %img{:src => "/images/close-active.png", :alt => "delete a name", :title => "delete the name you added before"}
+          = h name[:string]
+        %td{ :class => "#{column_class} preferred_name_selector", :style => "text-align:center;" }
+          = radio_button_tag('name_id', name[:id], name[:preferred])
+%br            

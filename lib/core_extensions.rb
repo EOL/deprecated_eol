@@ -30,24 +30,30 @@ class String
   end
 
   def firstcap
-    @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
-    self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.chars.capitalize + $4 }
+    @firstcap_regex = /^(<[^>]*>)?([^ ]+)( |$)/
+    self.gsub(@firstcap_regex) { $1.to_s + $2.chars.capitalize + $3 }
   end
   
-  #  old list from gem:
-  # [ 'a', 'b', 'blockquote', 'br', 'caption', 'cite', 'code', 'col', 'colgroup', 'dd', 'dl', 'dt', 'em', 'embed', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'u', 'ul' ],
-  # more full list:
-  def appropriate_html_tags
-    ['address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var']
+  def change_bad_html                                                                                                       
+    text = self                                                                                                             
+    text = text.gsub(/[\<](\s*[0-9])/, "&lt;\\1")                                                                                        
+    text = text.gsub(/[\>](\s*[0-9])/, "&gt;\\1")                                                                                        
   end
-      
+    
   def sanitize_html
     text = self
+    text = text.change_bad_html                                                                                             
     
     eol_relaxed = {
-      :elements => appropriate_html_tags,
+      :elements => 
+      #  old list from gem:
+      # [ 'a', 'b', 'blockquote', 'br', 'caption', 'cite', 'code', 'col', 'colgroup', 'dd', 'dl', 'dt', 'em', 'embed', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'u', 'ul' ],
+      # more full list:
+      [
+        'address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var'
+        ],
 
-    #width, height and postion removed to prevent hardcoding in provider's HTML
+#width, height and postion removed to prevent hardcoding in provider's HTML
       :attributes => {
         'a'          => ['class', 'href', 'rel', 'style', 'target', 'title'],
         'blockquote' => ['cite'],

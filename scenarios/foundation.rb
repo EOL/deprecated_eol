@@ -191,7 +191,6 @@ create_if_not_exists InfoItem, :schema_value => 'http://www.eol.org/voc/table_of
 create_if_not_exists Language, :label => 'English',         :iso_639_1 => 'en'
 create_if_not_exists Language, :label => 'French',          :iso_639_1 => 'fr' # Bootstrap uses this, tests i18n
 create_if_not_exists Language, :label => 'Scientific Name', :iso_639_1 => ''   # Should be ID 501.  ...But only for PHP's sake.
-create_if_not_exists Language, :label => 'Unknown', :iso_639_1 => ''
 
 create_if_not_exists License, :title => 'public domain',       :description => 'No rights reserved'
 create_if_not_exists License, :title => 'all rights reserved', :description => '&#169; All rights reserved'

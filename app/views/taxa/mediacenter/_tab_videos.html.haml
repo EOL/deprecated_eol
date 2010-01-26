@@ -28,8 +28,7 @@
       %br
       - if showing_unknown_video
         #unknown-video-warning-box
-        %span
-          = "Items in yellow are not trusted."[]
+          %span= "Items in yellow are not trusted."[]
       - if showing_untrusted_video
         #untrusted-video-warning-box
           %span= "Items in red are not trusted."[]
@@ -40,14 +39,14 @@
             - # NOTE: JRice added a little sub here to take the first sentence from long desc's...
             - video_title = truncate(video.description.sub(/\.\s\s.*$/, '.'),150) if video_title == ''
             - video_title = truncate(video.scientific_name,150) if video_title == ''
+            - video_color = nil
             - if video.untrusted?
-              .untrusted-background-color
+              - video_color = "untrusted-background-color"
             - elsif video.unknown?
-              .unknown-background-color
-            - else
-              %div
-            %li
-              = link_to_function(video_title, "eol_update_video(#{video_hash(video, @taxon_concept.id)})", :title=>video_title)
+              - video_color = "unknown-background-color"
+            %div{:class => video_color}
+              %li
+                = link_to_function(video_title, "eol_update_video(#{video_hash(video, @taxon_concept.id)})", :title=>video_title)
       / end video-collection
       .mc-video-notes
         %span#video-notes

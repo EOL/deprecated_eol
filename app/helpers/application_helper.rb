@@ -251,28 +251,53 @@ module ApplicationHelper
     return return_html
   end
   
+  # def agent_logo(agent, size = "large", params={})
+  #   src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
+  #   return src if src.empty?
+  #   project_name = hh(sanitize(agent.project_name))
+  #   capture_haml do
+  #     haml_tag :img, {:width => params[:width], :height => params[:height], 
+  #                     :src => src,  :border => 0, :alt => project_name, 
+  #                     :title => project_name, :class => "agent_logo"}
+  #   end
+  # end
+  
+  # def collection_logo(collection, size = "large", params={})
+  #   src = ''
+  #   src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url!=0
+  #   return src if src.empty?
+  #   collection_title = hh(sanitize(collection.title))
+  #   capture_haml do
+  #     haml_tag :img, {:width => params[:width], :height => params[:height],
+  #                     :src => src, :border => 0, :alt => collection_title, 
+  #                     :title => collection_title, :class => "agent-logo"}
+  #   end
+  # end
+
   def agent_logo(agent, size = "large", params={})
     src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
     return src if src.empty?
-    project_name = hh(sanitize(agent.project_name))
-    capture_haml do
-      haml_tag :img, {:width => params[:width], :height => params[:height], 
-                      :src => src,  :border => 0, :alt => project_name, 
-                      :title => project_name, :class => "agent_logo"}
-    end
+    logo_str = "<img "
+    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
+    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
+    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(agent.project_name)}\" title=\"#{sanitize(agent.project_name)}\" class=\"agent-logo\" />"
+    return logo_str
   end
   
   def collection_logo(collection, size = "large", params={})
     src = ''
     src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url!=0
     return src if src.empty?
-    collection_title = hh(sanitize(collection.title))
-    capture_haml do
-      haml_tag :img, {:width => params[:width], :height => params[:height],
-                      :src => src, :border => 0, :alt => collection_title, 
-                      :title => collection_title, :class => "agent-logo"}
-    end
+    logo_str = "<img "
+    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
+    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
+    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(collection.title)}\" title=\"#{sanitize(collection.title)}\" class=\"agent-logo\" />"
+    return logo_str
   end
+
+
+
+  #change this methods to haml methods after conversion 
 
   def external_link_to(*args, &block)
     #return text if link is blank
@@ -295,8 +320,8 @@ module ApplicationHelper
       scientific_name = taxon.quick_scientific_name(:italicized)
       common_name = taxon.quick_common_name(current_user.language)
       return_html = %Q{<a }
-      return_html+= %Q{ target="_blank" } if new_window
-      # return_html+= %Q{ id="#{h(scientific_name)}" }  unless link_name_string.empty? very strange id and was broken so I commented it out
+      return_html+= %Q{ target=\"_blank\" } if new_window
+      return_html+= %Q{ id=\"" + h(scientific_name) + "\"}  unless link_name_string.empty?
       return_html+= %Q{ href="/pages/#{taxon.respond_to?(:taxon_concept_id) ? taxon.taxon_concept_id : taxon.id}">#{sanitize(scientific_name)}</a><br />}
       return_html+= %Q{#{sanitize(common_name)}} unless common_name.empty?
     end
@@ -309,8 +334,8 @@ module ApplicationHelper
       scientific_name = random_image['scientific_name']
       common_name = random_image['common_name']
       return_html = %Q{<a }
-      return_html+= %Q{ target="_blank" } if new_window
-      #return_html+= %Q{ id="#{h(scientific_name)}"} very strange id and it was broken so I commented it out
+      return_html+= %Q{ target=\"_blank\" } if new_window
+      return_html+= %Q{ id=\"" + h(scientific_name) + "\"}
       return_html+= %Q{ href="/pages/#{random_image['taxon_concept_id']}">#{sanitize(scientific_name)}</a><br />}
       return_html+= %Q{#{sanitize(common_name.firstcap)}} unless common_name.nil?
     end

@@ -226,17 +226,6 @@ describe TaxonConcept do
     results.first.description.should == @overview_text
   end
   
-  it 'should cache the top images for a default session' do
-    top_images_before_delete = @taxon_concept.images.length
-    top_images_before_delete.should > 2
-    
-    #getting rid of all top images which would normally cause taxon_concept.images to return 0 results
-    TopImage.delete_all
-    TopConceptImage.delete_all
-    top_images_after_delete = @taxon_concept.images.length
-    top_images_after_delete.should == top_images_before_delete
-  end
-
   # TODO - creating the CP -> Dato relationship is tricky. This should be made available elsewhere:
   it 'should show content partners THEIR preview items, but not OTHER content partner\'s preview items' do
 

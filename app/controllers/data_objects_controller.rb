@@ -199,7 +199,7 @@ protected
   end
 
   def set_text_data_object_options
-    @selectable_toc = TocItem.find(:all, :order => 'label').select{|c| c.allow_user_text?}.collect {|c| [c.label, c.id] }
+    @selectable_toc = TocItem.find(:all, :order => 'label').select{|c| c.allow_user_text? && !c.wikipedia?}.collect {|c| [c.label, c.id] }
     toc = TocItem.find(params[:toc_id])
     @selected_toc = [toc.label, toc.id]
     @languages = Language.find_active.collect {|c| [c.label, c.id] }

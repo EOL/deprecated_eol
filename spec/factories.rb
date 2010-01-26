@@ -191,8 +191,7 @@ Factory.sequence(:year) do |n|
 end
 
 Factory.sequence(:month) do |n|
-  @month ||= (1..12).to_a.cycle
-  @month.next
+  (n % 12) + 1
 end
 
 # Unique:

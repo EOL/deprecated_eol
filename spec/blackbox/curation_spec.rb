@@ -16,16 +16,17 @@ describe 'Curation' do
     # TODO - you REALLY don't want to be doing this before EACH, but...
     @taxon_concept = build_taxon_concept()
     @common_name   = 'boring name'
-    @taxon_concept.add_common_name @common_name, :agent_id => @taxon_concept.acting_curators.first.agent_id
+    @taxon_concept.add_common_name @common_name, Agent.find(@taxon_concept.acting_curators.first.agent_id), :language => Language.english
     @first_curator = create_curator_for_taxon_concept(@taxon_concept)
     @default_num_curators = @taxon_concept.acting_curators.length
     @default_page  = request("/pages/#{@taxon_concept.id}").body
     @non_curator_cname_page = request("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}").body
     @cn_curator    = create_curator_for_taxon_concept(@taxon_concept)
     @new_name      = 'habrish lammer'
-    @taxon_concept.add_common_name @new_name, :preferred => false, :agent_id => @cn_curator.agent_id
+    @taxon_concept.add_common_name @new_name, Agent.find(@cn_curator.agent_id), :preferred => false, :language => Language.english
     login_as( @cn_curator ).should redirect_to('/')
     @cname_page    = request("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}").body
+    @common_names_toc_id = TocItem.common_names.id
   end
 
   after(:all) do
@@ -120,44 +121,39 @@ describe 'Curation' do
 
   it 'should show a curator the ability to add a new common name' do
     common_names_toc_id = TocItem.common_names.id
-    login_as( @first_curator ).should redirect_to('/')
+    login_as( @first_curator ).should redirect_to("/")
     @logged_in_page = request("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}").body
-    @logged_in_page.should include('Add a new common name')
+    @logged_in_page.should have_tag("form#add_common_name")
+    @logged_in_page.should have_tag("form.update_common_names")
+  end
+
+  it 'should not show editing common name environment if curator is not logged in' do
+    request("/logout").should redirect_to("/")
+    @logged_in_page = request("/pages/#{@taxon_concept.id}?category_id=#{TocItem.common_names.id}").body
+    @logged_in_page.should_not have_tag("form#add_common_name")
+    @logged_in_page.should_not have_tag("form.update_common_names")
   end
   
-  # This tests are for editing common names which is not in this code 
-  # it 'should show a textbox where a curator can pick a language for the new common name' do
-  #   common_names_toc_id = TocItem.common_names.id
-  #   login_as(@first_curator).should redirect_to("/")
-  #   @logged_in_page = request("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}").body
-  #   @logged_in_page.should include("Name's Language")
-  #   @logged_in_page.should have_tag("select#name_language")
-  # end
-
   it 'should add a new name using post' do
-    common_names_toc_id = TocItem.common_names.id
     tcn_count = TaxonConceptName.count
     syn_count = Synonym.count
     login_as(@first_curator).should redirect_to('/')
     language = Language.with_iso_639_1.last
-    res = request("/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :params => {:taxon_concept_id => @taxon_concept_id, :name => {:name_string => "new name", :language => language.id, :category_id => common_names_toc_id}})
-    res.should redirect_to("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}")
+    res = request("/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :params => {:taxon_concept_id => @taxon_concept_id, :name => {:name_string => "new name", :language => language.id, :category_id => @common_names_toc_id}})
+    res.should redirect_to("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
     TaxonConceptName.count.should == tcn_count + 1
     Synonym.count.should == syn_count + 1
     Synonym.last.language.should == language
   end
 
-  # This tests are for editing common names which is not in this code 
-  # it 'should NOT show an edit button for a common name added by a curator when not logged in' do
-  #   @non_curator_cname_page.should have_tag('table.results_table') do
-  #     without_tag('span', /ok/i)
-  #   end
-  # end
-
-  # # TODO - this would be better if we added another common name as another curator and made sure this curator can't change
-  # # that curator's common name.
-  # it 'should show an edit button for a common name added by a curator (only)' do
-  #   @cname_page.should have_tag('span',/ok/i)
-  # end
+  it "should be able to delete a common name using post" do
+    name, synonym, taxon_concept_name = @taxon_concept.add_common_name("New name", @first_curator.agent, :language => Language.english)
+    tcn_count = TaxonConceptName.count
+    syn_count = Synonym.count
+    res = request("/pages/#{@taxon_concept.id}/delete_common_name", :method => :post, :params => {:synonym_id => synonym.id, :category_id => @common_names_toc_id, :taxon_concept_id => @taxon_concept.id})
+    res.should redirect_to("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
+    TaxonConceptName.count.should == tcn_count - 1
+    Synonym.count.should == syn_count - 1
+  end
 
 end

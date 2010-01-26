@@ -4,7 +4,7 @@
         <tr align="center">
 	        <td>
 	
-				<% form_for :hello, :url => { :action => :list } do |form| %>
+				<% form_for :hello, :url => { :action => :monthly_page_stats } do |form| %>
 	   				<input type='hidden' name='agent_id' value='<%= @agent_id %>'>	   
 	   				<%= select_tag "year_month", options_for_select(@year_month_list,@year_month) %>    
 					<%= submit_tag("Submit") %>
@@ -24,22 +24,31 @@
         <tr><td>Count of Taxa Pages</td>
             <td align="right"><%= list.taxa_pages %></td>
             <td align="right"><%= list.eol_taxa_pages %></td>
+			<td align="right"><%= list.p_taxa_pages %></td>
             </tr>
         <tr><td>Count of Taxa Pages that were viewed during the month</td>
             <td align="right"><%= list.taxa_pages_viewed %></td>
             <td align="right"><%= list.eol_taxa_pages_viewed %></td>
+			
+			<td align="right"><%= list.p_taxa_pages_viewed %></td>
             </tr>
         <tr><td>Total Unique Page Views for the Month</td>
             <td align="right"><%= list.unique_page_views %></td>
             <td align="right"><%= list.unique_pageviews %></td>
+			<td align="right"><%= list.p_unique_page_views %></td>
+			
             </tr>
         <tr><td>Total Page Views for the Month</td>
             <td align="right"><%= list.page_views %></td>
             <td align="right"><%= list.pageviews %></td>
+			<td align="right"><%= list.p_page_views %></td>
+			
             </tr>
         <tr><td>Total Time on Pages for the Month (hours)</td>
             <td align="right"><%= list.timeonpage %></td>
             <td align="right"><%= list.timeonpages %></td>
+			<td align="right"><%= list.p_timeonpage %></td>
+			
             </tr>    
         <% end -%>
         <tr align="center"><td colspan="4">

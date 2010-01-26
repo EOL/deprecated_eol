@@ -138,9 +138,9 @@
                     = news_item.title
                   - else
                     %a{ :href => "#", :onclick => "JavaScript:EOL.Effect.toggle_with_effect('news_#{news_item.id}');return false;" }
-                    = news_item.title
+                      = news_item.title
                     %div{ :id => "news_#{news_item.id}", :style => "display:none;" }
-                    = news_item.body
+                      = news_item.body
               - # news_item visible
             - # news_items.each
             %li= link_to "more news...",:action=>'news'

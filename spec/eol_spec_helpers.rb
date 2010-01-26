@@ -259,6 +259,9 @@ def DataObject.build_reharvested_dato(dato)
     TopImage.delete_all("data_object_id = #{dato.id}")
     TopImage.gen(:data_object_id => new_dato.id,
                  :hierarchy_entry_id => dato.hierarchy_entries.first.id)
+    TopConceptImage.delete_all("data_object_id = #{dato.id}")
+    TopConceptImage.gen(:data_object_id => new_dato.id,
+                 :taxon_concept_id => dato.hierarchy_entries.first.taxon_concept_id)
   end
   # TODO - this could also handle tags, info items, and refs.
   # 3) unpublish old version 

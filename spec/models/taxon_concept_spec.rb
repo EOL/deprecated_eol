@@ -250,6 +250,8 @@ describe TaxonConcept do
     # Note this *totally* doesn't work if you don't add it to top_unpublished_images!
     TopUnpublishedImage.gen(:hierarchy_entry => @taxon_concept.entry,
                             :data_object     => @taxon_concept.images.last)
+    TopUnpublishedConceptImage.gen(:taxon_concept => @taxon_concept,
+                            :data_object     => @taxon_concept.images.last)
     how_many = @taxon_concept.images.length
     how_many.should > 2
     dato            = @taxon_concept.images.last  # Let's grab the last one...
@@ -268,9 +270,14 @@ describe TaxonConcept do
 
     DataObjectsHarvestEvent.delete_all(:data_object_id => dato.id)
     dohe           = DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
-
+    
+    # puts 'okok'
+    # pp @taxon_concept.top_concept_images
+    # pp @taxon_concept.top_unpublished_concept_images
+    # pp @taxon_concept.entry.top_unpublished_images
     # Original should see it:
     @taxon_concept.current_agent = original_cp
+    # pp @taxon_concept.images
     @taxon_concept.images.map {|i| i.id }.should include(dato.id)
 
     # Another CP should not:

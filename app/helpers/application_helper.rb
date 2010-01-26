@@ -274,6 +274,29 @@ module ApplicationHelper
   #   end
   # end
 
+  def agent_logo(agent, size = "large", params={})
+    src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
+    return src if src.empty?
+    logo_str = "<img "
+    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
+    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
+    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(agent.project_name)}\" title=\"#{sanitize(agent.project_name)}\" class=\"agent-logo\" />"
+    return logo_str
+  end
+  
+  def collection_logo(collection, size = "large", params={})
+    src = ''
+    src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url!=0
+    return src if src.empty?
+    logo_str = "<img "
+    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
+    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
+    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(collection.title)}\" title=\"#{sanitize(collection.title)}\" class=\"agent-logo\" />"
+    return logo_str
+  end
+
+
+
   #change this methods to haml methods after conversion 
 
   def external_link_to(*args, &block)

@@ -68,7 +68,7 @@ class TocItem < SpeciesSchemaModel
   end
 
   def allow_user_text?
-    self.info_items.length > 0
+    self.info_items.length > 0 && !["Wikipedia", "Barcode"].include?(self.label)
   end
 
   def wikipedia?

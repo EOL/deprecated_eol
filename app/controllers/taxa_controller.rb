@@ -334,19 +334,28 @@ class TaxaController < ApplicationController
   end
 
   def add_common_name
-    if params[:name][:name_string]
-      tc = TaxonConcept.find(params[:taxon_concept_id])
+    tc = TaxonConcept.find(params[:taxon_concept_id])
+    if params[:name][:name_string] && params[:name][:name_string].strip != ""
       agent = current_user.agent
       language = Language.find(params[:name][:language])
       if tc.is_curatable_by?(current_user)
         name, synonym, taxon_concept_name =
-          tc.add_common_name(params[:name][:name_string], :agent_id => agent.id, :language => language)
+          tc.add_common_name(params[:name][:name_string], agent, :language => language)
       else
         flash[:error] = "User #{current_user.full_name} does not have enough privileges to add a common name to the taxon"
       end
       expire_taxa(tc.id)
     end
     redirect_to "/pages/#{tc.id}?category_id=#{params[:name][:category_id]}"
+  end
+
+  def delete_common_name
+    tc = TaxonConcept.find(params[:taxon_concept_id].to_i)
+    synonym_id = params[:synonym_id].to_i
+    category_id = params[:category_id].to_i
+    tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, tc.id)
+    tc.delete_common_name(tcn)
+    redirect_to "/pages/#{tc.id}?category_id=#{category_id}"
   end
 
 ###############################################

@@ -71,6 +71,10 @@ class TocItem < SpeciesSchemaModel
     self.info_items.length > 0
   end
 
+  def wikipedia?
+    self.label == "Wikipedia" 
+  end
+
 end
 
 # == Schema Info

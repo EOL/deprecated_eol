@@ -62,6 +62,8 @@
           = list.timeonpage
         %td{ :align => "right" }
           = list.timeonpages
+          
+          
     %tr{ :align => "center" }
       %td{ :colspan => "4" }
         %table{ :border => "1" }

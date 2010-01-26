@@ -63,8 +63,8 @@
                   = render :partial => 'table_of_content_item', :locals=>{:item=>item}
         %li.add_text
           .add_text_button
-            = link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_button', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id))
-          = link_to("Add New", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_text', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id) )
+            = link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_button', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id), :title => "Add New Content")
+          = link_to("Add New Content", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_text', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id) )
         %li.multi_new_text_error{ :style => "display:none;" }
           = "Only one text object can be edited at a time."[]
       %hr

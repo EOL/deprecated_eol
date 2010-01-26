@@ -15,7 +15,8 @@ class DataObject < SpeciesSchemaModel
   belongs_to :visibility
   belongs_to :vetted
 
-	has_many :top_images
+  has_many :top_images
+  has_many :top_concept_images
   has_many :languages
   has_many :agents_data_objects, :include => [ :agent, :agent_role ]
   has_many :data_objects_taxa
@@ -732,52 +733,65 @@ class DataObject < SpeciesSchemaModel
       return data_object_tags.map(&:object).uniq
     end
   end
-
-  def self.cached_images_for_taxon(taxon, options = {})
-    options[:user] = User.create_new if options[:user].nil?
-    add_cp = join_agents = join_hierarchy = ''
+  
+  def self.build_top_images_query(taxon, options = {})
+    join_hierarchy = join_agents = ''
+    options[:unpublished] ||= false
+    options[:filter_hierarchy] ||= nil
+    from_table = options[:unpublished] ? 'top_unpublished_concept_images' : 'top_concept_images'
+    where_clause = "ti.taxon_concept_id=#{taxon.id}"
     
-    if options[:from].nil?
-      options[:from] ||= 'top_images'
-    else
-      nested = true
+    # filtering by hierarchy means we need the top_* tables which use hierarchy_entry_ids
+    if !options[:filter_hierarchy].nil?
+      from_table = options[:unpublished] ? 'top_unpublished_images' : 'top_images'
+      join_hierarchy = "JOIN hierarchy_entries he_filter ON (ti.hierarchy_entry_id=he_filter.id AND he_filter.hierarchy_id=#{options[:filter_by_hierarchy].id})"
+      where_clause = "ti.hierarchy_entry_id IN (#{taxon.hierarchy_entries.collect {|he| he.id }})"
     end
     
-    if !options[:filter_by_hierarchy].nil? && !options[:hierarchy].nil?
-      join_hierarchy = "JOIN hierarchy_entries he_filter ON (ti.hierarchy_entry_id=he_filter.id AND he_filter.hierarchy_id=#{options[:hierarchy].id})"
-      options[:from] = 'top_species_images' if options[:from].nil?
-    end
-      
-      
-    # Unpublished images require a few extra bits to the query:
-    if nested and not options[:agent].nil?
-      add_cp      = ', ar.agent_id agent_id'
+    # unpublished images require a few extra bits to the query:
+    if options[:unpublished]
+      from_cp = ', ar.agent_id agent_id'
       join_agents = self.join_agents_clause(options[:agent])
+    else
+      from_cp = ', NULL agent_id'
     end
-
-    # NOTE - left join on the licenses, so they could be NULL.
-    # (We don't want to miss images with no license!)
-    # the limiting by view order means we'll have no more than 30 pages of images
-    result=DataObject.find_by_sql([%Q{
-      SELECT dato.id, dato.visibility_id, dato.data_rating, dato.vetted_id, v.view_order vetted_view_order #{add_cp}
-        FROM #{options[:from]} ti
-          STRAIGHT_JOIN data_objects dato      ON ti.data_object_id = dato.id
-          STRAIGHT_JOIN vetted v               ON dato.vetted_id = v.id
-          STRAIGHT_JOIN data_objects_taxa dot  ON dato.id = dot.data_object_id
-          STRAIGHT_JOIN taxa t                 ON dot.taxon_id = t.id
+    
+    query_string = %Q{
+      SELECT dato.id, dato.visibility_id, dato.data_rating, dato.vetted_id, v.view_order vetted_view_order #{from_cp}
+        FROM #{from_table} ti
+          JOIN data_objects dato      ON ti.data_object_id = dato.id
+          JOIN vetted v               ON dato.vetted_id = v.id
           #{join_agents}
           #{join_hierarchy}
-        WHERE ti.hierarchy_entry_id IN (?)
-          AND data_type_id IN (?)
-          AND ti.view_order < 180
+        WHERE #{where_clause}
+          AND ti.view_order < 170
           #{DataObject.visibility_clause(options.merge(:taxon => taxon))} # DataObject.cached_images_for_taxon
-      }, taxon.hierarchy_entries.collect {|he| he.id }, DataType.image_type_ids])
+      }
+  end
+
+  def self.cached_images_for_taxon(taxon, options = {})
+    options[:user] = User.create_new if options[:user].nil?    
+    if !options[:filter_by_hierarchy].nil? && !options[:hierarchy].nil?
+      options[:filter_hierarchy] = options[:hierarchy]
+    end
     
-    # Run a second query if we need unpublished or invisible images (but not if we're already doing it!!!):
-    if not nested and ((not options[:agent].nil?) or options[:user].is_curator? or options[:user].is_admin?)
-      from = 'top_unpublished_images'
-      from = 'top_unpublished_species_images' if !options[:filter_by_hierarchy].nil? && !options[:hierarchy].nil?
-      result += DataObject.cached_images_for_taxon(taxon, options.merge(:from => from))
+    top_images_query = DataObject.build_top_images_query(taxon, options)
+    
+    # the user/agent has the ability to see some unpublished images, so create a UNION
+    show_unpublished = ((not options[:agent].nil?) or options[:user].is_curator? or options[:user].is_admin?)
+    if show_unpublished
+      options[:unpublished] = true
+      top_unpublished_images_query = DataObject.build_top_images_query(taxon, options)
+      top_images_query = "(#{top_images_query}) UNION (#{top_unpublished_images_query})"
+    end
+    
+    # if there is no filter hierarchy and we're just returning published images - the default
+    if options[:filter_hierarchy].nil? && !show_unpublished
+      result = Rails.cache.fetch("data_object/cached_images_for/#{taxon.id}") do
+        DataObject.find_by_sql(top_images_query)
+      end
+    else
+      result = DataObject.find_by_sql(top_images_query)
     end
     
     # when we have all the images then get the uniquq list and sort them by
@@ -798,7 +812,7 @@ class DataObject < SpeciesSchemaModel
     
     return result if result.empty?
     
-    # get the rest of the metadata
+    # get the rest of the metadata for the selected page
     image_page    = (options[:image_page] ||= 1).to_i
     start         = $MAX_IMAGES_PER_PAGE * (image_page - 1)
     last          = start + $MAX_IMAGES_PER_PAGE - 1
@@ -915,8 +929,11 @@ class DataObject < SpeciesSchemaModel
       results = DataObject.cached_images_for_taxon(taxon, options)
     else
       # usually, we want to return data objects.  But if we want text objects, we call them toc items...
-      klass = (type == :text && options[:toc_id].nil?) ? TocItem : DataObject
-      results = klass.find_by_sql(DataObject.build_query(taxon, type, options))
+      if type == :text && options[:toc_id].nil?
+        results = TocItem.find_by_sql(DataObject.build_query(taxon, type, options))
+      else
+        results = DataObject.find_by_sql(DataObject.build_query(taxon, type, options))
+      end
     end
 
     # In order to display a warning about pages that include unvetted material, we check now, while the
@@ -1062,8 +1079,8 @@ private
   def self.join_agents_clause(agent)
     data_supplier_id = ResourceAgentRole.content_partner_upload_role.id
     return %Q{LEFT JOIN (agents_resources ar
-              STRAIGHT_JOIN harvest_events hevt ON ar.resource_id = hevt.resource_id
-                  AND ar.resource_agent_role_id = #{data_supplier_id}
+              STRAIGHT_JOIN harvest_events hevt ON (ar.resource_id = hevt.resource_id
+                AND ar.resource_agent_role_id = #{data_supplier_id})
               STRAIGHT_JOIN data_objects_harvest_events dohe ON hevt.id = dohe.harvest_event_id)
                 ON (dato.id = dohe.data_object_id)}
                   #AND ar.agent_id = #{agent.id}  -- We removed this because now we're filtering manually.

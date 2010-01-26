@@ -70,7 +70,7 @@ describe 'Taxa page (HTML)' do
                             {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
 
     # TODO - I am slowly trying to move all of those options over to methods, to make things clearer:
-    @taxon_concept.add_common_name(@common_name, Agent.last, :language => Language.english)
+    @taxon_concept.add_common_name(@common_name)
     @child1        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @child2        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @id            = @taxon_concept.id

@@ -7,14 +7,22 @@ class GoogleAnalyticsPartnerSummary < SpeciesSchemaModel
     query = "Select 
     google_analytics_partner_summaries.taxa_pages,
     google_analytics_partner_summaries.taxa_pages_viewed,
-    google_analytics_partner_summaries.unique_page_views,
+    google_analytics_partner_summaries.unique_page_views,   
     google_analytics_partner_summaries.page_views,
     format(google_analytics_partner_summaries.time_on_page/60/60,2) `timeonpage`,
-    google_analytics_summaries.pageviews,
-    google_analytics_summaries.unique_pageviews,
+    
     google_analytics_summaries.taxa_pages eol_taxa_pages,
-    google_analytics_summaries.taxa_pages_viewed eol_taxa_pages_viewed,
+    google_analytics_summaries.taxa_pages_viewed eol_taxa_pages_viewed,  
+    google_analytics_summaries.unique_pageviews,
+    google_analytics_summaries.pageviews,
     format(google_analytics_summaries.time_on_pages/60/60,0) `timeonpages`
+    
+    ,format(google_analytics_partner_summaries.taxa_pages/google_analytics_summaries.taxa_pages * 100,2)             as p_taxa_pages
+    ,format(google_analytics_partner_summaries.taxa_pages_viewed/google_analytics_summaries.taxa_pages_viewed*100,2) as p_taxa_pages_viewed
+    ,format(google_analytics_partner_summaries.unique_page_views/google_analytics_summaries.unique_pageviews*100,2)  as p_unique_page_views
+    ,format(google_analytics_partner_summaries.page_views/google_analytics_summaries.pageviews*100,2)                as p_page_views
+    ,format((google_analytics_partner_summaries.time_on_page/60/60)/(google_analytics_summaries.time_on_pages/60/60)*100,2)    as p_timeonpage
+    
     From google_analytics_partner_summaries
     Inner Join google_analytics_summaries ON 
     google_analytics_partner_summaries.`year` = google_analytics_summaries.`year` AND 

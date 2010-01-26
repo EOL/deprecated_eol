@@ -26,9 +26,11 @@
             - column_class=cycle('odd','even')
             %tr
               %td{:class => column_class}
-                %a{ :href => "#BHL%3C%=counter.to_s%%3E" }= hh(content_item["publication_title"])
+                %a{ :href => "#BHL#{counter}" }
+                  = hh(content_item["publication_title"])
                 %br
                 %span.smalltext
+                  = hh(content_item["publication_details"])
     .divider
     - bhl_page_title = ''
     - @content[:items].each_with_index do |content_item, counter|

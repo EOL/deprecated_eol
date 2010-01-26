@@ -103,10 +103,12 @@ module EOL
       if @dato.published
         @taxon.hierarchy_entry.ancestors.each do |he|
           TopImage.gen :data_object => @dato, :hierarchy_entry => he
+          TopConceptImage.gen :data_object => @dato, :taxon_concept => he.taxon_concept
         end
       else
         @taxon.hierarchy_entry.ancestors.each do |he|
           TopUnpublishedImage.gen :data_object => @dato, :hierarchy_entry => he
+          TopUnpublishedConceptImage.gen :data_object => @dato, :taxon_concept => he.taxon_concept
         end
       end
     end      

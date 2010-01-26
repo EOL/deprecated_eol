@@ -145,7 +145,7 @@ module EOL
     def gen_canonical_name
       puts "** Enter: gen_canonical_name" if @debugging
       @cform = CanonicalForm.find_by_string(@canon) || CanonicalForm.gen(:string => @canon)
-      @sname = Name.find_by_string(@complete) || Name.gen(:canonical_form => @cform, :string => @complete,
+      @sname = Name.gen(:canonical_form => @cform, :string => @complete,
                         :italicized     => @italicized || "<i>#{@canon}</i> #{@attri}".strip)
     end
 

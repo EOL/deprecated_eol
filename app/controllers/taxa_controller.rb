@@ -334,28 +334,19 @@ class TaxaController < ApplicationController
   end
 
   def add_common_name
-    tc = TaxonConcept.find(params[:taxon_concept_id])
-    if params[:name][:name_string] && params[:name][:name_string].strip != ""
+    if params[:name][:name_string]
+      tc = TaxonConcept.find(params[:taxon_concept_id])
       agent = current_user.agent
       language = Language.find(params[:name][:language])
       if tc.is_curatable_by?(current_user)
         name, synonym, taxon_concept_name =
-          tc.add_common_name(params[:name][:name_string], agent, :language => language)
+          tc.add_common_name(params[:name][:name_string], :agent_id => agent.id, :language => language)
       else
         flash[:error] = "User #{current_user.full_name} does not have enough privileges to add a common name to the taxon"
       end
       expire_taxa(tc.id)
     end
     redirect_to "/pages/#{tc.id}?category_id=#{params[:name][:category_id]}"
-  end
-
-  def delete_common_name
-    tc = TaxonConcept.find(params[:taxon_concept_id].to_i)
-    synonym_id = params[:synonym_id].to_i
-    category_id = params[:category_id].to_i
-    tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, tc.id)
-    tc.delete_common_name(tcn)
-    redirect_to "/pages/#{tc.id}?category_id=#{category_id}"
   end
 
 ###############################################
@@ -478,30 +469,30 @@ private
     end
     return nil
   end
-
+  
   def set_image_permalink_data
     if(params[:image_id])
       image_id = params[:image_id].to_i
-      selected_image_index = 0
-
+      
       selected_image_index = find_selected_image_index(@images,image_id)
       if selected_image_index.nil?
         current_user.vetted=false
         current_user.save if logged_in?
-
+        
         @taxon_concept.current_user = current_user
-        @images = @taxon_concept.images
-
+        @images = @taxon_concept.images()
         selected_image_index = find_selected_image_index(@images,image_id)
       end
       if selected_image_index.nil?
         raise 'Image not found'
       end
-      @selected_image = @images[selected_image_index]
-
+      
       params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
-
-      @images = @images[((@image_page-1)*9)..((@image_page*9)-1)]
+      start       = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
+      last        = start + $MAX_IMAGES_PER_PAGE - 1
+      @images     = @taxon_concept.images(:image_page=>@image_page)[start..last]
+      adjusted_selected_image_index = selected_image_index % $MAX_IMAGES_PER_PAGE
+      @selected_image = @images[adjusted_selected_image_index]
     else
       @selected_image = @images[0]
     end
@@ -510,16 +501,16 @@ private
   def set_text_permalink_data
     if(params[:text_id])
       text_id = params[:text_id].to_i
-
+      
       @selected_text = DataObject.find_by_id(text_id)
-
+      
       if @selected_text && @selected_text.taxon_concepts.include?(@taxon_concept) && (@selected_text.visible? || (@selected_text.invisible? && current_user.can_curate?(@selected_text)) || (@selected_text.inappropriate? && current_user.is_admin?))
         selected_toc = @selected_text.toc_items[0]
-
+        
         params[:category_id] = selected_toc.id
-
+        
         @category_id = show_category_id
-
+        
         if current_user.vetted && (@selected_text.untrusted? || @selected_text.unknown?)
           current_user.vetted = false
           current_user.save if logged_in?
@@ -533,18 +524,18 @@ private
   def set_image_comment_permalink_data
     if params[:image_id].nil? && params[:image_comment_id]
       comment_id = params[:image_comment_id].to_i
-
+      
       comment = Comment.find_by_id(comment_id)
-
+      
       if comment && comment.parent_type == 'DataObject'
         data_object = DataObject.find(comment.parent_id)
         if data_object.taxon_concepts.include?(@taxon_concept) && data_object.image?
           params[:image_id] = data_object.id
-
+          
           set_image_permalink_data
-
+          
           @selected_image_comment = comment
-
+          
           set_comment_permalink_pagination(data_object.id, comment)
         else
           raise "No image with id #{data_object.id} for taxon concept with id #{@taxon_concept.id} or not of type image"
@@ -554,23 +545,23 @@ private
       end
     end
   end
-
-
+  
+  
   def set_text_comment_permalink_data
     if params[:text_id].nil? && params[:text_comment_id]
       comment_id = params[:text_comment_id].to_i
-
+      
       comment = Comment.find(comment_id)
-
+      
       if comment.parent_type == 'DataObject'
         data_object = DataObject.find(comment.parent_id)
         if data_object.taxon_concepts.include?(@taxon_concept) && data_object.text?
           params[:text_id] = data_object.id
-
+          
           set_text_permalink_data
-
+          
           @selected_text_comment = comment
-
+          
           set_comment_permalink_pagination(data_object.id, comment)
         else
           raise "No text with id #{data_object.id} for taxon concept with id #{@taxon_concept.id} or not of type text"
@@ -582,9 +573,9 @@ private
   end
   
   def set_comment_permalink_pagination(data_object_id, comment)
-
+    
     all_comments = Comment.find_all_by_parent_id_and_parent_type(data_object_id, 'DataObject')
-
+    
     comment_index = nil
     all_comments.each_with_index do |c, i|
       if c == comment
@@ -592,10 +583,10 @@ private
         break
       end
     end
-
+    
     @comment_page = ((comment_index).to_f / 10).floor + 1
   end
-
+  
   def set_comment_permalink_data
     if params[:comment_id]
       @comment = Comment.find(params[:comment_id].to_i)
@@ -604,14 +595,14 @@ private
       end
     end
   end
-
+  
   # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
   # wrong.  We really need some classes or helpers to take care of these details.
   def set_taxa_page_instance_vars
     @taxon_concept.current_agent = current_agent unless current_agent.nil?
-
+    
     @images = @taxon_concept.images
-
+    
     begin
       set_comment_permalink_data
       set_image_permalink_data
@@ -622,18 +613,18 @@ private
       render_404
       return true
     end
-
+    
     @video_collection = videos_to_show
     
     @category_id = show_category_id # need to be an instant var as we use it in several views and they use
                                     # variables with that name from different methods in different cases
-
+                                    
     @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
-
+    
     @content     = @taxon_concept.content_by_category(@category_id,:current_user=>current_user) unless
       @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
     @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy, {:language => current_user.language, :size => :small})
-
+    
     @data_object_ids_to_log = data_object_ids_to_log
   end
 
@@ -642,7 +633,11 @@ private
   def data_object_ids_to_log
     ids = Array.new
     unless @images.blank?
-      log_data_objects_for_taxon_concept @taxon_concept, @images.first
+      if !@selected_image.nil?
+        log_data_objects_for_taxon_concept @taxon_concept, @selected_image
+      else
+        log_data_objects_for_taxon_concept @taxon_concept, @images.first
+      end
       ids << @images.first.id
     end
     unless @content.nil? || @content[:data_objects].blank?

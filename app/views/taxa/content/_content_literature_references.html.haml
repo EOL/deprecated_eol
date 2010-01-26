@@ -1,8 +1,6 @@
 #literature_references_wrapper.text_object
-  -# Safari was being "nice" and widening the table to allow really long words... which ended up being links.  This
-  -# "fix" changes the style to force the issue:
   - find_starting_nums = /^\s*(\d+)/
-  - sorted_content = @content[:items].sort do |a,b| # This does something like a natural sort.  ...Kinda.  Only for starting digits.
+  - references = @content[:items].sort do |a,b| # This does something like a natural sort.  ...Kinda.  Only for starting digits.
     - a_num = nil
     - b_num = nil
     - if a.full_reference =~ find_starting_nums
@@ -13,11 +11,14 @@
       - a_num <=> b_num
     - else
       - a.full_reference <=> b.full_reference
+  - column_class = cycle('odd','even')
+  -# Safari was being "nice" and widening the table to allow really long words... which ended up being links.  This
+  -# "fix" changes the style to force the issue:
   %table.results_table{ :cellspacing => "0", :summary => "Literature References", :style => "table-layout:fixed; word-wrap:break-word; width:450px;" }
     %tr
       %th{ :scope => "col" }
         = "References"[]
-    - sorted_content.each do |ref|
-      - column_class = cycle('odd','even')
+    - references.each do |ref|
       %tr
-        %td{ :class => column_class }= allow_some_html ref.full_reference
+        %td{:class => column_class}
+          = allow_some_html ref.full_reference

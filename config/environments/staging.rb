@@ -11,7 +11,7 @@
 # 3) config/environments/[RAILS_ENV]_eol_org.rb
 # 4) config/environment_eol_org.rb
 #======================================================================
-
+require "ruby-debug"
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new
 
@@ -19,6 +19,9 @@
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
 config.action_view.debug_rjs                         = false
+
+config.log_level = :debug # :error
+
 
 # Disable delivery errors, bad email addresses will be ignored
 config.action_mailer.raise_delivery_errors = false
@@ -29,11 +32,11 @@ config.cache_classes = true
 # Set up the master database connection for writes using masochism plugin
 # NOTE: for this to work, you *must* also use config.cache_classes = true
 # (default for production)
-config.after_initialize do 
-  ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-  ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
-  ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
-end
+# config.after_initialize do 
+#   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
+#   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
+#   ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
+# end
 
 # set to true to force users to use SSL for the login and signup pages 
 $USE_SSL_FOR_LOGIN = true  

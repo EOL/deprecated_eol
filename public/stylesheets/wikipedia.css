@@ -263,7 +263,7 @@ div#globalWrapper div.floatleft p {
 div#globalWrapper div.thumb {
   margin-bottom: .5em;
   border-style: solid;
-  border-color: white;
+  border-color: transparent;
   width: auto; }
 div#globalWrapper div.thumbinner {
   border: 1px solid #ccc;

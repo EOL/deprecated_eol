@@ -251,7 +251,7 @@ private
     names_by_lang << [pref.label, res.delete(pref.label)] if res.key?(pref.label)
     names_by_lang << [eng.label, res.delete(eng.label)] if res.key?(eng.label)
     unknown_data = res.key?(unknown.label) ? [unknown.label, res.delete(unknown.label)] : nil
-    res.to_a.sort_by {|a| a[0]}.each {|a| names_by_lang << a}
+    res.to_a.sort_by {|a| a[0].to_s}.each {|a| names_by_lang << a}
     names_by_lang << unknown_data if unknown_data
     #names_by_lang.each {|l| l[1][:names] = l[1][:names].sort_by {|n| n[:name_string]}} #we probably do not need this line
     names_by_lang

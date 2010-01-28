@@ -419,7 +419,7 @@ bacteria.add_common_name_synonym("baseteir",agent_col, :language => french, :pre
 bacteria.add_common_name_synonym("le grimme",agent_col, :language => french, :preferred => false)
 bacteria.add_common_name_synonym("ler petit bugge",agent_col, :language => french, :preferred => false)
 
-bacteria.add_scientific_name('microbia')
+bacteria.add_scientific_name_synonym('microbia')
 
 # Another Selenium curator
 curator2 = build_curator(bacteria, :username => 'curator_two', :password => 'iliketocurate') 

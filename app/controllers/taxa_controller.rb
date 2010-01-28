@@ -170,10 +170,10 @@ class TaxaController < ApplicationController
       @user.expertise=current_user.expertise.to_s
       return
     end
-
     @user.attributes=params[:user]
     set_current_user(@user)
     flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated]
+    store_location(EOLWebService.uri_remove_param(return_to_url, 'vetted')) if valid_return_to_url
     redirect_back_or_default
   end  
 

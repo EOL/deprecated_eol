@@ -154,25 +154,12 @@ module EOL
     # either 0 or Language.scientific.
     def gen_other_names
       puts "** Enter: gen_other_names" if @debugging
-      cname_objects = []
-      @common_names.each do |common_name|
-        cname_objects << Name.gen(:canonical_form => @cform, :string => common_name, :italicized => common_name)
-        preferred = cname_objects.length == 1
-        Synonym.gen(:name => cname_objects.last, :hierarchy_entry => @he, :preferred => preferred)
+      sci_name = @common_names.size > 1 ? @common_names.pop : nil
+      @common_names.each_with_index do |common_name, count|
+        language = (count != 0 && count == @common_names.size) ? Language.find_by_label("French") : Language.english
+        @tc.add_common_name_synonym(common_name, Agent.col, :language => language)
       end
-      @cname = cname_objects.first
-      TaxonConceptName.gen(:preferred => true, :vern => false, :source_hierarchy_entry_id => @he.id,
-                           :language => Language.scientific, :name => @sname, :taxon_concept => @tc)
-      unless @cname.nil?
-        count = 0
-        cname_objects.each do |cname|
-          TaxonConceptName.gen(:preferred => count == 0, :vern => true, :source_hierarchy_entry_id => @he.id,
-                               :language => Language.english, :name => cname, :taxon_concept => @tc)
-          count += 1
-        end
-      end
-      # TODO - create the Synonym here, with the Language of English, the SynonymRelation of Common Name, and the HE we just
-      # created, and preferred...
+      @tc.add_scientific_name_synonym(sci_name, Agent.col) if sci_name
     end
 
     def add_curator

@@ -78,9 +78,9 @@ describe 'Search' do
       @plantain_common = 'Plantain'
       @plantain_synonym= 'Synonymous toplantagius'
       @plantain = build_taxon_concept(:scientific_name => @plantain_name, :common_names => [@plantain_common])
-      @plantain.add_scientific_name(@plantain_synonym)
+      @plantain.add_scientific_name_synonym(@plantain_synonym)
       another = build_taxon_concept(:scientific_name => "#{@plantain_name} L.", :common_names => ["big #{@plantain_common}"])
-      another.add_scientific_name(@plantain_synonym) # I'm only doing this so we get two results and not redirected.
+      another.add_scientific_name_synonym(@plantain_synonym) # I'm only doing this so we get two results and not redirected.
       SearchSuggestion.gen(:taxon_id => @plantain.id, :scientific_name => @plantain_name,
                            :term => @plantain_name, :common_name => @plantain_common)
       @dog_name      = 'Dog'

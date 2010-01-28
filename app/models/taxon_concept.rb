@@ -887,56 +887,23 @@ EOIUCNSQL
   #     The Name object
   #     The Synonym object
   #     The TaxonConceptName object.
-  def add_common_name_synonym(name, agent, options = {})
+  def add_common_name_synonym(name_string, agent, options = {})
     language  = options[:language] || Language.unknown
     preferred = !!options[:preferred]
     relation  = SynonymRelation.find_by_label("common name")
     vern      = true
-    name_obj  = generate_common_name(name)
-    syn       = generate_synonym(name_obj, agent,
-                                     :preferred => preferred,
-                                     :language => language,
-                                     :relation => relation)
-    # tcn       = generate_tc_name(name_obj, syn.id, 
-    #                                  :preferred => preferred,
-    #                                  :language => language,
-    #                                  :vern => vern)
-    #set_preffered_when_known(language.id)
-    syn
+    name_obj = Name.create_common_name(name_string)
+    generate_synonym(name_obj, agent, :preferred => preferred, :language => language, :relation => relation)
   end
 
   def delete_common_name(taxon_concept_name)
     language_id = taxon_concept_name.language.id
     syn_id = taxon_concept_name.synonym.id
     Synonym.find(syn_id).destroy
-    #set_preffered_when_known(language_id)
   end
 
 #####################
 private
-  def set_preffered_when_known(language_id)
-    languages_to_skip = [Language.unknown].map {|l| l.id}
-    return if languages_to_skip.include? language_id
-    # if only one name left for the language -- make it preferred
-    tcns = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(self.id, language_id)
-    if tcns.size == 1
-      tcn = tcns[0]
-      SpeciesSchemaModel.connection.execute("UPDATE taxon_concept_names SET `preferred` = 1 where (language_id = #{tcn.language_id}) and (name_id = #{tcn.name_id}) AND (taxon_concept_id = #{tcn.taxon_concept_id}) AND (source_hierarchy_entry_id = #{tcn.source_hierarchy_entry_id})")
-      SpeciesSchemaModel.connection.execute("UPDATE synonyms SET `preferred` = 1 where id = #{tcn.synonym_id}") 
-    end
-  end
-
-#####################
-private
-  
-  def generate_common_name(name)
-    # TODO - always find name by CLEAN NAME and not string (string is not indexed)
-    name_obj = Name.find_by_string(name)
-    if name_obj.blank?
-      name_obj = Name.create_common_name(name)
-    end
-    name_obj
-  end
   
   def generate_synonym(name_obj, agent, options = {})
     language  = options[:language] || Language.unknown
@@ -962,25 +929,6 @@ private
     end
     synonym
   end
-
-  # # Note that if the TCN already exists, the user may end up confused because they cannot *edit* that TCN--it "belongs" to
-  #  # another hierarchy.
-  #  def generate_tc_name(name_obj, synonym_id, options = {})
-  #    language  = options[:language]  || Language.unknown
-  #    preferred = options[:preferred]
-  #    vern      = options.has_key?(:vern) ? options[:vern] : true
-  #    tcn       = TaxonConceptName.find_by_synonym_id(synonym_id)
-  #    if tcn.blank?
-  #      tcn = TaxonConceptName.create(:synonym_id => synonym_id, 
-  #                                    :language => language,
-  #                                    :name => name_obj,
-  #                                    :preferred => preferred,
-  #                                    :source_hierarchy_entry_id => entry.id,
-  #                                    :taxon_concept => self,
-  #                                    :vern => vern)
-  #    end
-  #    tcn
-  #  end
  
   def alternate_classification_name(detail_level = :middle, language = Language.english, context = nil)
     #return col_he.nil? ? alternate_classification_name(detail_level, language, context) : col_he.name(detail_level, language, context)

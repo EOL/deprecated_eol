@@ -19,6 +19,7 @@ class Name < SpeciesSchemaModel
   validates_uniqueness_of :string
   validates_presence_of   :italicized
   validates_presence_of   :canonical_form
+  before_create :prepare_for_create
 
   def taxon_concepts
     return taxon_concept_names.collect {|tc_name| tc_name.taxon_concept}.flatten
@@ -56,14 +57,9 @@ class Name < SpeciesSchemaModel
     name.gsub("Ž","ž").gsub("Œ","œ").strip
   end
 
-
-  # Takes a name strings and creates new records for ... models.
-  # Currently this method works well only for common (vernacular) 
-  # names, because we do not need insertion of scientific names
-  # from ruby code at the moment. If we will need scientific names 
-  # in the future it migt make sense to overload 'create' method 
-  # of the model with this logic and speed everything up as well.
-  def self.create_common_name(name_string, given_canonical_form = "")
+  # Overloads Rails create method, in its current form it is good for common names and 'fake' scientific names.
+  # TODO: Revisit this method when you will have to use it for creation of 'real' scientific names.
+  def prepare_for_create(name_string, given_canonical_form = "")
     name_string = name_string.strip.gsub(/\s+/,' ') if name_string.class == String
     return nil if name_string.blank?
     
@@ -75,8 +71,8 @@ class Name < SpeciesSchemaModel
     canonical_form_string = given_canonical_form.blank? ? name_string : given_canonical_form
     canonical_form = CanonicalForm.create(:string => canonical_form_string);
     italicized_form_string = "<i>#{name_string}</i>" #all we need to do for common names 
-    Name.create(:string => name_string, :italicized => italicized_form_string, :italicized_verified => 0, :namebank_id => 0,
-                :canonical_form_id => canonical_form.id, :canonical_verified => 0, :clean_name => clean_name_string)
+    super(:string => name_string, :italicized => italicized_form_string, :italicized_verified => 0, :namebank_id => 0,
+          :canonical_form_id => canonical_form.id, :canonical_verified => 0, :clean_name => clean_name_string)
   end
 
 end

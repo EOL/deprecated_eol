@@ -891,8 +891,7 @@ EOIUCNSQL
     language  = options[:language] || Language.unknown
     preferred = !!options[:preferred]
     relation  = SynonymRelation.find_by_label("common name")
-    vern      = true
-    name_obj = Name.create_common_name(name_string)
+    name_obj  = Name.create_common_name(name_string)
     generate_synonym(name_obj, agent, :preferred => preferred, :language => language, :relation => relation)
   end
 
@@ -922,9 +921,9 @@ private
                                :language         => language,
                                :synonym_relation => synonym_relation,
                                :preferred        => preferred)
-      AgentsSynonym.create(:agent      => agent,
+      AgentsSynonym.create(:agent         => agent,
                            :agent_role_id => AgentRole.contributor_id,
-                           :synonym    => synonym,
+                           :synonym       => synonym,
                            :view_order    => 1)
     end
     synonym

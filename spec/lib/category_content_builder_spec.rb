@@ -7,8 +7,8 @@ describe CategoryContentBuilder do
     agent = Agent.gen
     tc = build_taxon_concept
     cn = "A name"
-    tc.add_common_name(cn, agent, Language.unknown)
-    tc.add_common_name(cn, agent, Language.english)
+    tc.add_common_name_synonym(cn, agent, :language => Language.unknown)
+    tc.add_common_name_synonym(cn, agent, :language => Language.english)
     res = ccb.content_for(TocItem.common_names, :taxon_concept_id => tc.id)
   end
 end

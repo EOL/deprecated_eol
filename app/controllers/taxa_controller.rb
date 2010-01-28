@@ -323,10 +323,13 @@ class TaxaController < ApplicationController
   def update_common_names
     tc = taxon_concept
     if tc.is_curatable_by?(current_user)
-      tc.set_preferred_name(current_user.language, params[:name_id].to_i)
-      puts '-' * 80
-      pp params 
-      puts '-' * 80
+      name = Name.find(params[:name_id])
+      language = Language.find(params[:language_id])
+      syn = tc.add_common_name_synonym(name.string, current_user.agent, :language => language, :preferred => true)
+      syn.preferred = 1
+      syn.save!
+      
+      #tc.set_preferred_name(current_user.language, params[:name_id].to_i)
      #   tc.edit_common_name(params[
       expire_taxa(tc.id)
     end
@@ -340,7 +343,7 @@ class TaxaController < ApplicationController
       language = Language.find(params[:name][:language])
       if tc.is_curatable_by?(current_user)
         name, synonym, taxon_concept_name =
-          tc.add_common_name(params[:name][:name_string], agent, :language => language)
+          tc.add_common_name_synonym(params[:name][:name_string], agent, :language => language)
       else
         flash[:error] = "User #{current_user.full_name} does not have enough privileges to add a common name to the taxon"
       end

@@ -4,12 +4,14 @@ describe 'build_taxon_concept (spec helper method)' do
 
   before(:all) do
     Scenario.load :foundation
-    @event         = HarvestEvent.gen
-    @hierarchy     = Hierarchy.gen
-    @taxon_concept = build_taxon_concept
+    @event           = HarvestEvent.gen
+    @scientific_name = 'Something cool'
+    @hierarchy       = Hierarchy.gen
+    @taxon_concept   = build_taxon_concept
     @taxon_concept_with_args = build_taxon_concept(
-      :hierarchy => @hierarchy,
-      :event     => @event
+      :hierarchy       => @hierarchy,
+      :event           => @event,
+      :scientific_name => @scientific_name
     )
     @taxon_concept_naked = build_taxon_concept(
       :images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => []
@@ -47,6 +49,15 @@ describe 'build_taxon_concept (spec helper method)' do
     @taxon_concept_with_args.images.each do |img|
       img.harvest_events.should only_include(@event)
     end
+  end
+
+  it 'should create a scientific name' do
+    @taxon_concept_naked.scientific_name.should_not be_nil
+    @taxon_concept_naked.scientific_name.should_not == ''
+  end
+
+  it 'should create a scientific name when specified' do
+    @taxon_concept_with_args.scientific_name.should == @scientific_name
   end
 
 end

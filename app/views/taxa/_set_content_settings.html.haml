@@ -1,9 +1,9 @@
-%script{ :language => "JavaScript" }
+:javascript
   function auto_check_filter_box_if_needed() {
-  if ($('user_default_hierarchy_id').value == '')
-  {$('user_filter_content_by_hierarchy').checked = false}
-  else
-  {$('user_filter_content_by_hierarchy').checked = true}
+    if ($('user_default_hierarchy_id').value == '')
+     {$('user_filter_content_by_hierarchy').checked = false}
+     else
+     {$('user_filter_content_by_hierarchy').checked = true}
   }
 %h3.preference-header
   = "Content Settings"[]
@@ -20,7 +20,8 @@
     your view of EOL will only show those taxa and images recognized by the marine classification - an
     Encyclopedia of Marine Life!  You can still search for any taxa using the search page.
     /
-      <br /><br />
+      %br
+      %br
       You can also choose two classifications if you wish, which will be seamlessly merged together as you browse this website - this feature may be useful for biologists and taxonomists.
 %br
 %label{ :title => "Which default browse classification would you prefer?"[:classification_preference], :for => "user_default_hierarchy_id" }
@@ -29,9 +30,11 @@
 %br
 %br
 /
-  <label for="user_secondary_hierarchy_id" title="<haml:loud> &amp;quot;Which secondary browse classification would you prefer?&amp;quot;[:secondary_hierarchy_preference] </haml:loud>"><haml:loud> &amp;quot;Which secondary browse classification would you prefer?&amp;quot;[:classification_preference] </haml:loud></label>
-  <haml:loud> f.select :secondary_hierarchy_id, [['-- none --', nil]] + Hierarchy.browsable_by_label.collect {|h| [h.label, h.id]} </haml:loud><br/>
-  <br />
+  %label{ :for => "user_secondary_hierarchy_id", :title => "Which secondary browse classification would you prefer?"[:secondary_hierarchy_preference]}
+    = "Which secondary browse classification would you prefer?"[:classification_preference]
+  = f.select :secondary_hierarchy_id, [['-- none --', nil]] + Hierarchy.browsable_by_label.collect {|h| [h.label, h.id]}
+  %br
+  %br
 %table
   %tr
     %td{ :style => "padding-right:1em;" }
@@ -44,26 +47,32 @@
 = f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]}
 %br
 /
-  <br/>
-  <label title="<haml:loud> &amp;quot;Do you want to include?&amp;quot;[:detail_level] </haml:loud>"><haml:loud> &amp;quot;Do you want to include?&amp;quot;[:detail_level] </haml:loud></label>
-  <haml:loud> f.radio_button :expertise, &amp;quot;novice&amp;quot;</haml:loud> <haml:loud>&amp;quot;Information intended for beginners&amp;quot;[]</haml:loud> <br />
-  <haml:loud> f.radio_button :expertise, &amp;quot;middle&amp;quot;</haml:loud> <haml:loud>&amp;quot;Information for any audience&amp;quot;[]</haml:loud> <br />
-  <haml:loud> f.radio_button :expertise, &amp;quot;expert&amp;quot;</haml:loud> <haml:loud>&amp;quot;Information intended for experts&amp;quot;[]</haml:loud> <br />
+  %br
+  %label{ :title => "Do you want to include?"[:detail_level] }
+    = "Do you want to include?"[:detail_level]
+  = f.radio_button :expertise, "novice"
+  = "Information intended for beginners"[]
+  %br
+  = f.radio_button :expertise, "middle"
+  = "Information for any audience"[]
+  %br
+  = f.radio_button :expertise, "expert"
+  = "Information intended for experts"[]
+  %br
 %br
 - if $ALLOW_USER_TO_CHANGE_CONTENT_LEVEL
-%label{ :title => "Do you want to see?"[:content_level], :for => "user_content_level" }
-  = "Do you want to see?"[:content_level]
-- ContentLevel.find.each do |content_level|
-= f.radio_button :content_level,content_level.id
-= content_level.name
-%br
-- end
-%br
-- end
+  %label{ :title => "Do you want to see?"[:content_level], :for => "user_content_level" }
+    = "Do you want to see?"[:content_level]
+  - ContentLevel.find.each do |content_level|
+    = f.radio_button :content_level,content_level.id
+    = content_level.name
+    %br
+  %br
 %label{ :title => "Do you want to see?"[:content_level] }
   = "Do you want to see?"[:content_level]
-= f.radio_button :vetted, "true"
-= "Only information that comes from authoritative sources"[:view_only_vetted_content]
-%br
-= f.radio_button :vetted, "false"
-= "All information"[]
+%label{ :for => "user_vetted_true" }
+  = f.radio_button :vetted, "true"
+  = "Only information that comes from authoritative sources"[:view_only_vetted_content]
+%label{ :for => "user_vetted_false" }
+  = f.radio_button :vetted, "false"
+  = "All information"[]

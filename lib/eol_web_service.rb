@@ -87,6 +87,20 @@ class EOLWebService
      end
      
   end
+  
+  # takes one or several parameters to delete from a url
+  def self.uri_remove_param(uri, params = nil)
+    return uri unless params
+    params = [params] if params.class == String
+    uri_parsed = URI.parse(uri)
+    return uri unless uri_parsed.query
+    escaped = uri_parsed.query.grep(/&amp;/).size > 0
+    new_params = uri_parsed.query.gsub(/&amp;/, '&').split('&').reject { |q| params.include?(q.split('=').first) }
+    uri = uri.split('?').first
+    amp = escaped ? '&amp;' : '&'
+    params = new_params.join(amp)
+    params.blank? ? uri : "#{uri}?#{params}"
+  end
  
 end
   

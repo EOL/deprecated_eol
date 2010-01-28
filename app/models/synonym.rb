@@ -32,6 +32,7 @@ class Synonym < SpeciesSchemaModel
       SpeciesSchemaModel.connection.execute("UPDATE synonyms SET preferred = 0 where hierarchy_entry_id = #{hierarchy_entry_id} and  language_id = #{language_id}")
       SpeciesSchemaModel.connection.execute("UPDATE taxon_concept_names set preferred = 0 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")
     end
+    self.preferred = 0 if language_id == Language.unknown.id
   end
   
   def update_taxon_concept_name
@@ -56,7 +57,7 @@ class Synonym < SpeciesSchemaModel
     TaxonConceptName.delete_all(:synonym_id => self.id)
     AgentsSynonym.delete_all(:synonym_id => self.id)
     count = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(tc_id, language_id).length
-    if count == 1  # this is the first name in this language for the concept
+    if count == 1 and language_id != Language.unknown.id  # this is the first name in this language for the concept and lang is known
       SpeciesSchemaModel.connection.execute("UPDATE taxon_concept_names set preferred = 1 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")
     end
   end

@@ -356,12 +356,12 @@ TaxonConcept.class_eval do
   end
 
   # Add a synonym to this TC.
-  def add_scientific_name_synonym(name, options = {})
+  def add_scientific_name_synonym(name_string, options = {})
     language  = Language.find_by_label("Scientific Name")
     vern      = false
     preferred = false
     relation = SynonymRelation.find_by_label("synonym")
-    name_obj = Name.find_by_string(name) || Name.gen(:canonical_form => canonical_form_object, :string => name, :italicized => name)
+    name_obj = Name.find_by_clean_name(Name.prepare_clean_name name_string) || Name.gen(:canonical_form => canonical_form_object, :string => name_string, :italicized => name_string)
     generate_synonym(name_obj, Agent.first, :preferred => preferred, :language => language, :relation => relation)
   end
 

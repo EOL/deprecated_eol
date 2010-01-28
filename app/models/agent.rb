@@ -109,6 +109,10 @@ class Agent < SpeciesSchemaModel
     end)
   end
 
+  def self.col
+    self.catalogue_of_life
+  end
+
   def self.gbif
     YAML.load(Rails.cache.fetch('agents/gbif') do
       Agent.find_by_full_name('Global Biodiversity Information Facility (GBIF)').to_yaml

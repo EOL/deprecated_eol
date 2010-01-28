@@ -1,0 +1,17 @@
+#page-separator-general
+
+#page-title
+  %h1= "Your Preferences"[]
+  %hr
+
+/ center page content
+#page-content.clearfix
+  #full-page-content
+    - form_for :user, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
+      %fieldset
+        = render(:partial=>'set_content_settings',:locals=>{:f=>f})				
+        .button
+          %input{ :type => "button", :name => "Cancel"[], :onclick => "document.location.href='#{back_or_home(return_to_url)}';", :value => "Cancel"[]}
+            &nbsp;&nbsp;
+            = submit_tag 'Update Preferences'[]
+    %br

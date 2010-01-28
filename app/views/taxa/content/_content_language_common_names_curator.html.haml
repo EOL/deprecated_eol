@@ -1,4 +1,5 @@
 - form_tag "/pages/#{@taxon_concept.id}/update_common_names", :method => :put, :class => 'update_common_names' do
+  = hidden_field_tag 'language_id', language_id
   %table.results_table{ :cellspacing => "0", :summary => "Common Names" }
     %tr
       %th{ :scope => "col" }
@@ -14,5 +15,5 @@
               %img{:src => "/images/close-active.png", :alt => "delete a name", :title => "delete the name you added before"}
           = h name[:string]
         %td{ :class => "#{column_class} preferred_name_selector", :style => "text-align:center;" }
-          = radio_button_tag('name_id', name[:id], name[:preferred])
+          = radio_button_tag 'name_id', name[:id], name[:preferred]
 %br            

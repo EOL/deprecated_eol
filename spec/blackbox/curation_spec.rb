@@ -16,14 +16,14 @@ describe 'Curation' do
     # TODO - you REALLY don't want to be doing this before EACH, but...
     @taxon_concept = build_taxon_concept()
     @common_name   = 'boring name'
-    @taxon_concept.add_common_name @common_name, Agent.find(@taxon_concept.acting_curators.first.agent_id), :language => Language.english
+    @taxon_concept.add_common_name_synonym @common_name, Agent.find(@taxon_concept.acting_curators.first.agent_id), :language => Language.english
     @first_curator = create_curator_for_taxon_concept(@taxon_concept)
     @default_num_curators = @taxon_concept.acting_curators.length
     @default_page  = request("/pages/#{@taxon_concept.id}").body
     @non_curator_cname_page = request("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}").body
     @cn_curator    = create_curator_for_taxon_concept(@taxon_concept)
     @new_name      = 'habrish lammer'
-    @taxon_concept.add_common_name @new_name, Agent.find(@cn_curator.agent_id), :preferred => false, :language => Language.english
+    @taxon_concept.add_common_name_synonym @new_name, Agent.find(@cn_curator.agent_id), :preferred => false, :language => Language.english
     login_as( @cn_curator ).should redirect_to('/')
     @cname_page    = request("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}").body
     @common_names_toc_id = TocItem.common_names.id
@@ -147,7 +147,7 @@ describe 'Curation' do
   end
 
   it "should be able to delete a common name using post" do
-    name, synonym, taxon_concept_name = @taxon_concept.add_common_name("New name", @first_curator.agent, :language => Language.english)
+    synonym = @taxon_concept.add_common_name_synonym("New name", @first_curator.agent, :language => Language.english)
     tcn_count = TaxonConceptName.count
     syn_count = Synonym.count
     res = request("/pages/#{@taxon_concept.id}/delete_common_name", :method => :post, :params => {:synonym_id => synonym.id, :category_id => @common_names_toc_id, :taxon_concept_id => @taxon_concept.id})

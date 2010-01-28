@@ -41,14 +41,14 @@ class Synonym < SpeciesSchemaModel
   end
 
   def create_taxon_concept_name
-    vern = (language_id.blank?) ? false : true
+    vern = (language_id == 0 or language_id == Language.scientific.id) ? false : true
     TaxonConceptName.create(:synonym_id => id, 
-                                 :language_id => language_id,
-                                 :name_id => name_id,
-                                 :preferred => self.preferred,
-                                 :source_hierarchy_entry_id => hierarchy_entry_id,
-                                 :taxon_concept_id => hierarchy_entry.taxon_concept_id,
-                                 :vern => vern)
+                            :language_id => language_id,
+                            :name_id => name_id,
+                            :preferred => self.preferred,
+                            :source_hierarchy_entry_id => hierarchy_entry_id,
+                            :taxon_concept_id => hierarchy_entry.taxon_concept_id,
+                            :vern => vern)
   end
   
   def set_preferred_true_for_last_synonym

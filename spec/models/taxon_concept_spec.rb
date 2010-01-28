@@ -65,7 +65,7 @@ describe TaxonConcept do
     @curator       = build_curator(@taxon_concept)
     # TODO - I am slowly trying to convert all of the above options to methods to make testing clearer:
     (@common_name_obj, @synonym_for_common_name, @tcn_for_common_name) =
-      tc.add_common_name(@common_name, @curator.agent, :language => Language.english)
+      tc.add_common_name_synonym(@common_name, @curator.agent, :language => Language.english)
     # Curators aren't recognized until they actually DO something, which is here:
     LastCuratedDate.gen(:user => @curator, :taxon_concept => @taxon_concept)
     # And we want one comment that the world cannot see:
@@ -302,9 +302,9 @@ describe TaxonConcept do
   it 'should create a common name as a preferred common name, if there are no other common names for the taxon' do
     tc = build_taxon_concept(:common_names => [])
     agent = Agent.last # TODO - I don't like this.  We shouldn't need it for tests.  Overload the method for testing?
-    tc.add_common_name('A name', agent, :language => Language.english)
+    tc.add_common_name_synonym('A name', agent, :language => Language.english)
     tc.quick_common_name.should == "A name"
-    tc.add_common_name("Another name", agent, :language => Language.english)
+    tc.add_common_name_synonym("Another name", agent, :language => Language.english)
     tc.quick_common_name.should == "A name"
   end
 
@@ -360,7 +360,9 @@ describe TaxonConcept do
       @name_string = "Piping plover"
       @agent = Agent.find(@curator.agent_id)
       @language = Language.english
-      @name, @synonym, @tc_name = @taxon_concept.add_common_name(@name_string, @agent, :language => @language)
+      @synonym = @taxon_concept.add_common_name_synonym(@name_string, @agent, :language => @language)
+      @name = @synonym.name
+      @tcn = @synonym.taxon_concept_name
     end
 
     it "should increase name count, taxon name count, synonym count" do
@@ -371,17 +373,17 @@ describe TaxonConcept do
 
     it "should mark first created name for a language as preferred automatically" do
       language = Language.gen(:label => "Russian") 
-      n, s, tcn = @taxon_concept.add_common_name("Саблезубая сосиска", @agent, :language => language)
+      s= @taxon_concept.add_common_name_synonym("Саблезубая сосиска", @agent, :language => language)
       TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
       TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_true
-      n, s, tcn = @taxon_concept.add_common_name("Голый землекоп", @agent, :language => language)
+      s = @taxon_concept.add_common_name_synonym("Голый землекоп", @agent, :language => language)
       TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 2
       TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
     end
 
     it "should not mark first created name as preffered for unknown language" do
       language = Language.unknown
-      n, s, tcn = @taxon_concept.add_common_name("Саблезубая сосиска", @agent, :language => language)
+      s = @taxon_concept.add_common_name_synonym("Саблезубая сосиска", @agent, :language => language)
       TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
       TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
     end
@@ -403,7 +405,7 @@ describe TaxonConcept do
     end
 
     it "should be able to create a common name with the same name string but different language" do
-      @taxon_concept.add_common_name(@name_string, Agent.find(@curator.agent_id), :language => Language.find_by_label("French"))
+      @taxon_concept.add_common_name_synonym(@name_string, Agent.find(@curator.agent_id), :language => Language.find_by_label("French"))
       TaxonConceptName.count.should == @tcn_count + 2
       Synonym.count.should == @syn_count + 2
       Name.count.should == @name_count + 1
@@ -413,7 +415,8 @@ describe TaxonConcept do
 
   describe "#delete_common_name" do
     before(:all) do
-      @name, @synonym, @tc_name = @taxon_concept.add_common_name("Piping plover", Agent.find(@curator.agent_id), :language => Language.english)
+      @synonym = @taxon_concept.add_common_name_synonym("Piping plover", Agent.find(@curator.agent_id), :language => Language.english)
+      @tc_name = @synonym.taxon_concept_name
       @tcn_count = TaxonConceptName.count
       @syn_count = Synonym.count
       @name_count = Name.count

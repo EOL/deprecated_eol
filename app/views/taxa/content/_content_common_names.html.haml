@@ -64,10 +64,9 @@
       });
   }
 
-  update_form = $('update_common_names');
   Event.addBehavior({
     'td.preferred_name_selector input[type="radio"]:click': function(e) {
-      update_common_names(update_form);
+      update_common_names(this.form);
     }
   });
 

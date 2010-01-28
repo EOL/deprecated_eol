@@ -95,12 +95,11 @@ describe TaxonConcept do
     @taxon_concept.common_name.should == @common_name
   end
 
-  it 'should set the common name to the correct language' do
+  it 'should show the common name from the current users language' do
     lang = Language.gen(:label => 'Ancient Egyptian')
     user = User.gen(:language => lang)
     str  = 'Frebblebup'
-    name = Name.gen(:string => str)
-    TaxonConceptName.gen(:language => lang, :name => name, :taxon_concept => @taxon_concept)
+    @taxon_concept.add_common_name_synonym(str, user.agent, :language => lang)
     @taxon_concept.current_user = user
     @taxon_concept.common_name.should == str
   end
@@ -400,8 +399,7 @@ describe TaxonConcept do
     end
 
     it "should create taxon_concept_name" do
-      @tc_name.class.should == TaxonConceptName
-      @tc_name.synonym.should == @synonym
+      @tcn.should_not be_nil
     end
 
     it "should be able to create a common name with the same name string but different language" do

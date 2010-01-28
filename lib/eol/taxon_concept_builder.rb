@@ -147,7 +147,6 @@ module EOL
       @cform = CanonicalForm.find_by_string(@canon) || CanonicalForm.gen(:string => @canon)
       @sname = Name.find_by_string(@complete) || Name.gen(:canonical_form => @cform, :string => @complete,
                         :italicized     => @italicized || "<i>#{@canon}</i> #{@attri}".strip)
-      puts "++ @sname is #{@sname.inspect}"
     end
 
     # TODO - add some alternate names, including at least one in another language.
@@ -157,7 +156,6 @@ module EOL
     def gen_other_names
       puts "** Enter: gen_other_names" if @debugging
       @common_names.each_with_index do |common_name, count|
-        puts "++ adding common name #{common_name}"
         language = (count != 0 && count == @common_names.size) ? Language.find_by_label("French") : Language.english
         @tc.add_common_name_synonym(common_name, Agent.col, :language => language)
       end

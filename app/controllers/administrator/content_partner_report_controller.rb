@@ -187,8 +187,8 @@ class Administrator::ContentPartnerReportController < AdminController
     
     last_month = Time.now - 1.month
     @year = last_month.year.to_s
-    @month = last_month.month.to_s    
-    
+    @month = last_month.month.to_s
+       
     Agent.content_partners_contact_info(@month,@year).each do |recipient|
       Notifier.deliver_monthly_stats(recipient,@month,@year)
     end

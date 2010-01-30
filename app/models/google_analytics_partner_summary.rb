@@ -5,15 +5,15 @@ class GoogleAnalyticsPartnerSummary < SpeciesSchemaModel
   
   def self.summary(agent_id, report_year, report_month)
     query = "Select 
-    google_analytics_partner_summaries.taxa_pages,
-    google_analytics_partner_summaries.taxa_pages_viewed,
-    google_analytics_partner_summaries.unique_page_views,   
+    format(google_analytics_partner_summaries.taxa_pages,0) taxa_pages,
+    format(google_analytics_partner_summaries.taxa_pages_viewed,0) taxa_pages_viewed,
+    format(google_analytics_partner_summaries.unique_page_views,0) unique_page_views,   
     google_analytics_partner_summaries.page_views,
     format(google_analytics_partner_summaries.time_on_page/60/60,2) `timeonpage`,
     
-    google_analytics_summaries.taxa_pages eol_taxa_pages,
-    google_analytics_summaries.taxa_pages_viewed eol_taxa_pages_viewed,  
-    google_analytics_summaries.unique_pageviews,
+    format(google_analytics_summaries.taxa_pages,0) eol_taxa_pages,
+    format(google_analytics_summaries.taxa_pages_viewed,0) eol_taxa_pages_viewed,  
+    format(google_analytics_summaries.unique_pageviews,0) as unique_pageviews,
     google_analytics_summaries.pageviews,
     format(google_analytics_summaries.time_on_pages/60/60,0) `timeonpages`
     

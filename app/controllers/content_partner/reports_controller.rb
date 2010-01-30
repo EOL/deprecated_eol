@@ -26,7 +26,7 @@ class ContentPartner::ReportsController < ContentPartnerController
     start="2009_07"
     str=""
     var_date = Time.now
-    while( start != str )
+    while( start != str)
       var_date = var_date - 1.month
       str = var_date.year.to_s + "_" + "%02d" % var_date.month.to_s
       arr << str
@@ -43,20 +43,29 @@ class ContentPartner::ReportsController < ContentPartnerController
       params[:year], params[:month] = params[:year_month].split("_") if params[:year_month]    
       @report_year  = params[:year].to_i
       @report_month = params[:month].to_i
-      @year_month   = params[:year] + "_" + "%02d" % params[:month]
+      @year_month   = params[:year] + "_" + "%02d" % params[:month].to_i
     else
       @agent_id = current_agent.id  
       last_month = Time.now - 1.month
       @report_year = last_month.year.to_s
       @report_month = last_month.month.to_s
+      @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
     end
+    
+    if(@year_month <= "2009_10") then
+      temp = page_stats
+      @report_date = @year_month
+      @agent_id = params[:agent_id]
+      render :action => "page_stats"      
+    end
+    
   
     @partner = Agent.find(@agent_id, :select => [:full_name])
     @recs = GoogleAnalyticsPartnerSummary.summary(@agent_id, @report_year, @report_month)    
             
     page = params[:page] || 1
-    @posts = GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)
-    
+    @posts = GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)    
+        
   end
 
   

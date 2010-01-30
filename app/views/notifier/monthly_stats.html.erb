@@ -2,8 +2,14 @@ Dear <%= @contact["full_name"] %>,
 
 This is an automated e-mail notification.
 You can now check last month's web usage of your data in EOL.
-Thank you.
 
-http://127.0.0.1:3000/content_partner/reports/list?agent_id=<%= @contact["agent_id"] %>&month=<%= @month %>&year=<%= @year %>
+Please login to your account in the EOL Content Partner registry to view your stats.
+Login here: http://www.eol.org/content_partner/reports/login
+
+This is the link to your web stats:
+http://<%= @SITE_DOMAIN_OR_IP %>/content_partner/reports/monthly_page_stats?agent_id=<%= @contact["agent_id"] %>&month=<%= @month %>&year=<%= @year %>
+
+Contact eli@eol.org for any comments.
+Thank you.
 
 -Encylopedia of Life

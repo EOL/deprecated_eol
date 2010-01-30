@@ -121,7 +121,7 @@ class Notifier < ActionMailer::Base
     subject "EOL Monthly Statistics Notification"
     recipients  contact_recipient["email"]
     from        $STATISTICS_EMAIL_FROM_ADDRESS
-    body        :contact => contact_recipient , :month => month , :year => year
+    body        :contact => contact_recipient , :month => month , :year => year , :SITE_DOMAIN_OR_IP => $SITE_DOMAIN_OR_IP
   end
   
 end

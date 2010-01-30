@@ -19,6 +19,6 @@ class GoogleAnalyticsPageStat < SpeciesSchemaModel
       google_analytics_partner_taxa.`month` = ?
       Group By google_analytics_page_stats.taxon_concept_id
       Order By google_analytics_page_stats.page_views Desc"
-    self.paginate_by_sql [query, agent_id, year, month], :page => page, :per_page => 5, :order => 'page_views'  
+    self.paginate_by_sql [query, agent_id, year, month], :page => page, :per_page => 100, :order => 'page_views'  
    end
 end

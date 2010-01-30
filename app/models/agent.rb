@@ -153,7 +153,8 @@ class Agent < SpeciesSchemaModel
         Inner Join content_partners ON agents.id = content_partners.agent_id
         Inner Join google_analytics_partner_summaries ON content_partners.agent_id = google_analytics_partner_summaries.agent_id
         where google_analytics_partner_summaries.`year` = #{year}
-        and google_analytics_partner_summaries.`month` = #{month} limit 2 ")        
+        and google_analytics_partner_summaries.`month` = #{month} and agents.email is not null 
+        limit 2 ")        
         
         
   end

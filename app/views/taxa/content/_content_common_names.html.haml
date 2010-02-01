@@ -7,11 +7,12 @@
     = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
 
 #common_names_wrapper.text_object
-  - names_by_language.each do |language_names|
+  - names_by_language.each_with_index do |language_names, index|
     - language = language_names[1][:language]
     - locals = {:names => language_names[1][:names], :language_id => language[:id]} 
     .title
-      = "Language:"[]
+      - if index == 0
+        = "Language:"[]
       == #{language[:label]} (#{language[:name]})
     - if is_curator
       = render(:partial => 'taxa/content/content_language_common_names_curator', :locals => locals) 

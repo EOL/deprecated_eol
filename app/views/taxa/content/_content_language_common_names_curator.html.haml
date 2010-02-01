@@ -1,10 +1,10 @@
 - form_tag "/pages/#{@taxon_concept.id}/update_common_names", :method => :put, :class => 'update_common_names' do
   = hidden_field_tag 'language_id', language_id
-  %table.results_table{ :cellspacing => "0", :summary => "Common Names" }
+  %table.results_table{ :cellspacing => "0", :summary => "Common Names", :style => "width:100%"}
     %tr
       %th{ :scope => "col" }
         = "Name"[]
-      %th= "Preferred"[]
+      %th{ :style => "width:7em" }= "Preferred"[]
     - names.each do |name|
       - is_agent = current_user.agent_id == name[:agent_id]
       - column_class = cycle("odd", "even")

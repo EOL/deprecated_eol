@@ -12,7 +12,7 @@
     - locals = {:names => language_names[1][:names], :language_id => language[:id]} 
     .title
       = "Language:"[]
-      = language[:label]
+      == #{language[:label]} (#{language[:name]})
     - if is_curator
       = render(:partial => 'taxa/content/content_language_common_names_curator', :locals => locals) 
     - else

@@ -909,22 +909,23 @@ private
     synonym_relation = options[:relation] || SynonymRelation.synonym
     hierarchy = Hierarchy.eol_contributors 
     preferred = options[:preferred]
-    synonym = Synonym.find_by_hierarchy_id_and_hierarchy_entry_id_and_language_id_and_name_id(
+    synonym = Synonym.find_by_hierarchy_id_and_hierarchy_entry_id_and_language_id_and_name_id_and_synonym_relation_id(
               hierarchy.id, 
               entry.id, 
               language.id, 
-              name_obj.id)
+              name_obj.id,
+              synonym_relation.id)
     unless synonym
-      synonym = Synonym.create(:name             => name_obj, 
-                               :hierarchy        => hierarchy,
-                               :hierarchy_entry  => entry, 
-                               :language         => language,
-                               :synonym_relation => synonym_relation,
-                               :preferred        => preferred)
-      AgentsSynonym.create(:agent         => agent,
-                           :agent_role_id => AgentRole.contributor_id,
-                           :synonym       => synonym,
-                           :view_order    => 1)
+      synonym = Synonym.create(:name_id             => name_obj.id, 
+                               :hierarchy_id        => hierarchy.id,
+                               :hierarchy_entry_id  => entry.id, 
+                               :language_id         => language.id,
+                               :synonym_relation_id => synonym_relation.id,
+                               :preferred           => preferred)
+      AgentsSynonym.create(:agent_id         => agent.id,
+                           :agent_role_id    => AgentRole.contributor_id,
+                           :synonym_id       => synonym.id,
+                           :view_order       => 1)
     end
     synonym
   end

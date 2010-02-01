@@ -243,7 +243,11 @@ private
     names_in_curator_hierarchy = {}
     names.each do |name|
       k = name[:language_label]
-      next if k.nil?
+      if k.nil?
+        name[:language_id] = unknown.id
+        name[:language_label] = unknown.label
+        name[:language_name] = unknown.name
+      end
       language = {:id => name[:language_id], :label => name[:language_label], :name => name[:language_name]}
       names = {:agent_id => name[:agent_id].to_i, :id => name[:name_id].to_i, 
                :string => name[:name_string], :synonym_id => name[:synonym_id].to_i, 

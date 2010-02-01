@@ -7,7 +7,8 @@ describe Administrator::ContentPartnerReportController do
   it "should send monthly report email" do
     Agent.should_receive(:content_partners_contact_info).exactly(2).times.and_return([{:username => "johndoe", :email => "johndoe@example.com", :full_name => "John Doe"}])
     # expect
-    Notifier.should_receive(:deliver_monthly_stats).with({:username=>"johndoe", :email=>"johndoe@example.com", :full_name=>"John Doe"}, "12", "2009")
+    last_month = 1.month.ago
+    Notifier.should_receive(:deliver_monthly_stats).with({:username=>"johndoe", :email=>"johndoe@example.com", :full_name=>"John Doe"}, last_month.month.to_s, last_month.year.to_s)
     # when
 
     admin = User.gen(:username => "admin", :password => "admin")

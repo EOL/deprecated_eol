@@ -75,7 +75,7 @@ The following gems are required on your local machine for development but NOT de
 should always be frozen into the project):
 
 1. ZenTest
-2. ruby-debug
+sudo gem install ruby-debug
 3. piston
 
 If you are on a Mac, you will also need ruby-growl. ... well, if you want to run autotest, you will.
@@ -83,7 +83,10 @@ If you are on a Mac, you will also need ruby-growl. ... well, if you want to run
 Plugins required to run the site in production should be frozen into the vendor folder as is the version of
 Rails the app depends on.
 
+
+
 To install required gems:
+  sudo gem install nokogiri
 
   rake gems         # This could give you some errors...
   rake gems:build   # if there are gems that aren't installed or you got that big error...

@@ -2,9 +2,7 @@ class ContentPartner::ReportsController < ContentPartnerController
   include ReportsControllerModule
 
   layout 'content_partner'
-  
-  
-  
+    
   def index
     content_partner = ContentPartner.find_by_agent_id(current_agent.id)
     @no_resources = !content_partner.has_published_resources?
@@ -52,13 +50,14 @@ class ContentPartner::ReportsController < ContentPartnerController
       @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
     end
     
-    if(@year_month <= "2009_10") then
+    if(@year_month <= "2009_11") then
       temp = page_stats
       @report_date = @year_month
       @agent_id = params[:agent_id]
       render :action => "page_stats"      
     end
     
+    @content_partners_with_published_data = Agent.content_partners_with_published_data
   
     @partner = Agent.find(@agent_id, :select => [:full_name])
     @recs = GoogleAnalyticsPartnerSummary.summary(@agent_id, @report_year, @report_month)    

@@ -146,17 +146,23 @@ class Agent < SpeciesSchemaModel
     Agent.new :project_name => location
   end
 
-  def self.content_partners_contact_info(month,year)
-    
-    
-    SpeciesSchemaModel.connection.select_all("Select agents.full_name, 'eli@eol.org' as email, agents.id agent_id From agents
+  def self.content_partners_contact_info(month,year)    
+    SpeciesSchemaModel.connection.select_all("Select agents.full_name, agents.email, agents.id agent_id, agents.username From agents
         Inner Join content_partners ON agents.id = content_partners.agent_id
         Inner Join google_analytics_partner_summaries ON content_partners.agent_id = google_analytics_partner_summaries.agent_id
         where google_analytics_partner_summaries.`year` = #{year}
         and google_analytics_partner_summaries.`month` = #{month} and agents.email is not null 
-        limit 2 ")        
-        
-        
+        limit 2 ")                  
+  end
+  
+  def self.content_partners_with_published_data
+    query = "Select distinct agents.id, agents.full_name From agents
+    Inner Join agents_resources ON agents.id = agents_resources.agent_id
+    Inner Join harvest_events ON agents_resources.resource_id = harvest_events.resource_id
+    Where harvest_events.published_at is not null
+    Order By agents.full_name Asc
+    "    
+    self.find_by_sql [query]
   end
   
   def self.from_source_url(source_url)

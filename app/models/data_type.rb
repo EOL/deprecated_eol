@@ -1,39 +1,16 @@
 class DataType < SpeciesSchemaModel
-
+  
   acts_as_enum
-
+  
   has_many :data_objects
-
-  # TODO - This actually looks like it once accomodated a difference in attribution order for different types of
-  # data objects.  This no longer appears to be the case (the lists are identical), so do we need all these
-  # methods?  Need to ask Ben, who I think worked on this.  Best to remove it if we can.
-  class << self
-    attr_accessor :attribution_order
-    def attribution_order
-      # define defaults 
-      @attribution_order ||= {
-        'Image' => AgentRole[ :Author, :Source, :Project, :Publisher ],
-        'Text' => AgentRole[ :Author, :Source, :Project, :Publisher ]
-      }
-    end
-  end
-
-  # shortcut reference to DataType.attribution_order[ @data_type.label ]
-  def attribution_order
-    self.class.attribution_order[ self.label ] ||= []
-  end
-
-  def attribution_order_for agent_role
-    agent_role_id = (agent_role.is_a?Fixnum) ? agent_role : agent_role.id
-    full_attribution_order.each_with_index do |ordered_agent_role, index|
-      return index if ordered_agent_role.id == agent_role_id
-    end
-    return -1 # doesn't exist!
-  end
-
-  def full_attribution_order
-    other_roles = AgentRole.all - attribution_order
-    attribution_order + other_roles
+  @@full_attribution_order = nil
+  
+  def self.full_attribution_order
+    return @@full_attribution_order if !@@full_attribution_order.nil?
+    # this is the order in which agents will be attributed
+    attribution_order = AgentRole[ :Author, :Source, :Project, :Publisher ]
+    remaining_roles = AgentRole.all - attribution_order
+    @@full_attribution_order = attribution_order + remaining_roles
   end
   
   def self.text

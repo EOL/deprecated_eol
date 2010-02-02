@@ -82,19 +82,19 @@ describe TaxonConcept do
     tc = build_taxon_concept(:canonical_form => bad_title)
     tc.title.should =~ /#{good_title}/
   end
-
+  
   it 'should have curators' do
     @taxon_concept.curators.map(&:id).should include(@curator.id)
   end
-
+  
   it 'should have a scientific name (italicized for species)' do
     @taxon_concept.scientific_name.should == @italicized
   end
-
+  
   it 'should have a common name' do
     @taxon_concept.common_name.should == @common_name
   end
-
+  
   it 'should show the common name from the current users language' do
     lang = Language.gen(:label => 'Ancient Egyptian')
     user = User.gen(:language => lang)
@@ -103,24 +103,24 @@ describe TaxonConcept do
     @taxon_concept.current_user = user
     @taxon_concept.common_name.should == str
   end
-
+  
   it 'should let you get/set the current user' do
     user = User.gen
     @taxon_concept.current_user = user
     @taxon_concept.current_user.should == user
   end
-
+  
   it 'should have a default IUCN conservation status of NOT EVALUATED' do
     @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
   end
-
+  
   it 'should have an IUCN conservation status' do
     tc = build_taxon_concept()
     iucn_status = Factory.next(:iucn)
     build_iucn_entry(tc, iucn_status)
     tc.iucn_conservation_status.should == iucn_status
   end
-
+  
   it 'should have an IUCN conservation status even if it comes from another IUCN resource' do
     tc = build_taxon_concept()
     iucn_status = Factory.next(:iucn)
@@ -129,14 +129,14 @@ describe TaxonConcept do
                                                   :event => HarvestEvent.gen(:resource => resource))
     tc.iucn_conservation_status.should == iucn_status
   end
-
+  
   it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
     build_iucn_entry(@taxon_concept, Factory.next(:iucn))
     build_iucn_entry(@taxon_concept, Factory.next(:iucn))
     result = @taxon_concept.iucn
     result.should be_an_instance_of DataObject # (not an Array, mind you.)
   end
-
+  
   it 'should not use an unpublished IUCN status' do
     tc = build_taxon_concept()
     bad_iucn = build_iucn_entry(tc, 'bad value')
@@ -149,7 +149,7 @@ describe TaxonConcept do
     bad_iucn2.save
     tc2.iucn_conservation_status.should == 'NOT EVALUATED'
   end
-
+  
   it 'should be able to list its ancestors (by convention, ending with itself)' do
     @kingdom = build_taxon_concept(:rank => 'kingdom', :depth => 0)
     @phylum  = build_taxon_concept(:rank => 'phylum',  :depth => 1, :parent_hierarchy_entry_id => @kingdom.entry.id)
@@ -160,7 +160,7 @@ describe TaxonConcept do
     he.save
     @taxon_concept.ancestors.map(&:id).should == [@kingdom.id, @phylum.id, @order.id, @taxon_concept.id]
   end
-
+  
   it 'should be able to list its children (NOT descendants, JUST children--animalia would be a disaster!)' do
     @subspecies1  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
                                         :parent_hierarchy_entry_id => @taxon_concept.entry.id)
@@ -172,28 +172,28 @@ describe TaxonConcept do
                                         :parent_hierarchy_entry_id => @subspecies1.entry.id)
     @taxon_concept.children.map(&:id).should only_include @subspecies1.id, @subspecies2.id, @subspecies3.id
   end
-
+  
   it 'should find its GBIF map ID' do
     @taxon_concept.gbif_map_id.should == @gbif_map_id
   end
-
+  
   it 'should be able to show videos' do
     @taxon_concept.videos.should_not be_nil
     @taxon_concept.videos.map(&:description).should only_include @video_1_text, @video_2_text, @video_3_text
   end
-
+  
   it 'should have visible comments that don\'t show invisible comments' do
     user = User.gen
     @taxon_concept.visible_comments.should_not be_nil
     @taxon_concept.visible_comments.map(&:body).should == [@comment_1, @comment_2] # Order DOES matter, now.
   end
-
+  
   it 'should be able to show a table of contents' do
     # Tricky, tricky. See, we add special things to the TOC like "Common Names" and "Search the Web", when they are appropriate.  I
     # could test for those here, but that seems the perview of TocItem.  So, I'm only checking the first three elements:
     @taxon_concept.toc[0..2].should == [@overview, @toc_item_2, @toc_item_3]
   end
-
+  
   # TODO - this is failing, but low-priority, I added a bug for it: EOLINFRASTRUCTURE-657
   # This was related to a bug (EOLINFRASTRUCTURE-598)
   #it 'should return the table of contents with unpublished items when a content partner is specified' do
@@ -206,19 +206,19 @@ describe TaxonConcept do
     #@taxon_concept.current_agent = cp.agent
     #@taxon_concept.toc.map(&:id).should include(toci.id)
   #end
-
+  
   it 'should show its untrusted images, by default' do
     @taxon_concept.current_user = User.create_new # It's okay if this one "sticks", so no cleanup code
     @taxon_concept.images.map(&:object_cache_url).should include(@image_unknown_trust)
   end
-
+  
   it 'should show only trusted images if the user prefers' do
     old_user = @taxon_concept.current_user
     @taxon_concept.current_user = User.gen(:vetted => true)
     @taxon_concept.images.map(&:object_cache_url).should only_include(@image_1, @image_2, @image_3)
     @taxon_concept.current_user = old_user  # Cleaning up so as not to affect other tests
   end
-
+  
   it 'should be able to get an overview' do
     results = @taxon_concept.overview
     results.length.should == 1
@@ -227,7 +227,7 @@ describe TaxonConcept do
   
   # TODO - creating the CP -> Dato relationship is tricky. This should be made available elsewhere:
   it 'should show content partners THEIR preview items, but not OTHER content partner\'s preview items' do
-
+  
     original_cp    = Agent.gen
     another_cp     = Agent.gen
     resource       = Resource.gen
@@ -252,10 +252,10 @@ describe TaxonConcept do
     Rails.cache.delete("data_object/cached_images_for/#{@taxon_concept.id}")  # deleting the concept image cache
     @taxon_concept.current_user = @taxon_concept.current_user #hack to expire cached images
     @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
-
+  
     dato.visibility = Visibility.preview
     dato.save!
-
+  
     DataObjectsHarvestEvent.delete_all(:data_object_id => dato.id)
     dohe           = DataObjectsHarvestEvent.gen(:harvest_event => event, :data_object => dato)
     
@@ -267,24 +267,24 @@ describe TaxonConcept do
     @taxon_concept.current_agent = original_cp
     # pp @taxon_concept.images
     @taxon_concept.images.map {|i| i.id }.should include(dato.id)
-
+  
     # Another CP should not:
     @taxon_concept.current_agent = another_cp
     @taxon_concept.images.map {|i| i.id }.should_not include(dato.id)
-
+  
   end
   
   it "should have common names" do
     TaxonConcept.common_names_for?(@taxon_concept.id).should == true
   end
-
+  
   it "should not have common names" do
     tc = build_taxon_concept(:toc=> [
       {:toc_item => TocItem.common_names}
     ])  
     TaxonConcept.common_names_for?(tc.id).should == false
   end
-
+  
   it 'should return images sorted by trusted, unknown, untrusted' do
     @taxon_concept.current_user = @user
     trusted   = Vetted.trusted.id
@@ -292,12 +292,12 @@ describe TaxonConcept do
     untrusted = Vetted.untrusted.id
     @taxon_concept.images.map {|i| i.vetted_id }.should == [trusted, trusted, trusted, unknown, untrusted]
   end
-
+  
   it 'should sort the vetted images by data rating' do
     @taxon_concept.current_user = @user
     @taxon_concept.images[0..2].map(&:object_cache_url).should == [@image_3, @image_2, @image_1]
   end
-
+  
   it 'should create a common name as a preferred common name, if there are no other common names for the taxon' do
     tc = build_taxon_concept(:common_names => [])
     agent = Agent.last # TODO - I don't like this.  We shouldn't need it for tests.  Overload the method for testing?
@@ -306,7 +306,7 @@ describe TaxonConcept do
     tc.add_common_name_synonym("Another name", agent, :language => Language.english)
     tc.quick_common_name.should == "A name"
   end
-
+  
   it 'should determine and cache curation authorization' do
     @curator.can_curate?(@taxon_concept).should == true
     @curator.should_receive('can_curate?').and_return(true)
@@ -314,13 +314,13 @@ describe TaxonConcept do
     @curator.should_not_receive('can_curate?')
     @taxon_concept.show_curator_controls?(@curator).should == true
   end
-
+  
   it 'should return a toc item which accepts user submitted text' do
     @taxon_concept.tocitem_for_new_text.class.should == TocItem
     tc = build_taxon_concept(:images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => [])
     tc.tocitem_for_new_text.class.should == TocItem
   end
-
+  
   it 'should return description as first toc item which accepts user submitted text' do
     description_toc = TocItem.find_by_label('Description')
     InfoItem.gen(:toc_id => @overview.id)
@@ -329,13 +329,59 @@ describe TaxonConcept do
                              :toc => [{:toc_item => description_toc, :description => 'huh?'}])
     tc.tocitem_for_new_text.label.should == description_toc.label
   end
-
+  
   it 'should include the LigerCat TocItem when the TaxonConcept has one'
-
+  
   it 'should NOT include the LigerCat TocItem when the TaxonConcept does NOT have one'
-
+  
   it 'should have a canonical form' do
     @taxon_concept.canonical_form.should == @canonical_form
+  end
+  
+  it 'should cite a vetted source for the page when there are both vetted and unvetted sources' do
+    h_vetted = Hierarchy.gen()
+    h_unvetted = Hierarchy.gen()
+    concept = TaxonConcept.gen(:published => 1, :vetted => Vetted.trusted)
+    concept.entry.should be_nil
+    
+    # adding an unvetted name and testing
+    unvetted_name = Name.gen(:canonical_form => cf = CanonicalForm.gen(:string => 'Annnvettedname'),
+                      :string => 'Annnvettedname',
+                      :italicized => '<i>Annnvettedname</i>')
+    he_unvetted = build_hierarchy_entry(0, concept, unvetted_name,
+                                :hierarchy => h_unvetted,
+                                :vetted_id => Vetted.unknown.id,
+                                :published => 1)
+    concept.entry.should_not be_nil
+    concept.entry.id.should == he_unvetted.id
+    concept.name.should == unvetted_name.italicized
+    
+    # adding a vetted name and testing
+    vetted_name = Name.gen(:canonical_form => cf = CanonicalForm.gen(:string => 'Avettedname'),
+                      :string => 'Avettedname',
+                      :italicized => '<i>Avettedname</i>')
+    he_vetted = build_hierarchy_entry(0, concept, vetted_name,
+                                :hierarchy => h_vetted,
+                                :vetted_id => Vetted.trusted.id,
+                                :published => 1)
+    concept.entry.id.should == he_vetted.id
+    concept.name.should == vetted_name.italicized
+    
+    # adding another unvetted name to test the vetted name remains
+    another_unvetted_name = Name.gen(:canonical_form => cf = CanonicalForm.gen(:string => 'Anotherunvettedname'),
+                      :string => 'Anotherunvettedname',
+                      :italicized => '<i>Anotherunvettedname</i>')
+    he_anotherunvetted = build_hierarchy_entry(0, concept, another_unvetted_name,
+                                :hierarchy => h_vetted,
+                                :vetted_id => Vetted.unknown.id,
+                                :published => 1)
+    concept.entry.id.should == he_vetted.id
+    concept.name.should == vetted_name.italicized
+    
+    # now remove the vetted hierarchy entry and make sure the first entry is the chosen one
+    he_vetted.destroy
+    concept.entry.id.should == he_unvetted.id
+    concept.name.should == unvetted_name.italicized
   end
 
   # TODO - this is failing, but low-priority, I added a bug for it: EOLINFRASTRUCTURE-657
@@ -350,7 +396,7 @@ describe TaxonConcept do
     #@taxon_concept.current_agent = cp.agent
     #@taxon_concept.toc.map(&:id).should include(toci.id)
   #end
-
+  
   describe "#add_common_name" do
     before(:all) do
       @tcn_count = TaxonConceptName.count
@@ -363,13 +409,13 @@ describe TaxonConcept do
       @name = @synonym.name
       @tcn = @synonym.taxon_concept_name
     end
-
+  
     it "should increase name count, taxon name count, synonym count" do
       TaxonConceptName.count.should == @tcn_count + 1
       Synonym.count.should == @syn_count + 1
       Name.count.should == @name_count + 1
     end
-
+  
     it "should mark first created name for a language as preferred automatically" do
       language = Language.gen(:label => "Russian") 
       s= @taxon_concept.add_common_name_synonym("Саблезубая сосиска", @agent, :language => language)
@@ -379,29 +425,29 @@ describe TaxonConcept do
       TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 2
       TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
     end
-
+  
     it "should not mark first created name as preffered for unknown language" do
       language = Language.unknown
       s = @taxon_concept.add_common_name_synonym("Саблезубая сосиска", @agent, :language => language)
       TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
       TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
     end
-
+  
     it "should create new name object" do
       @name.class.should == Name
       @name.string.should == @name_string
     end
-
+  
     it "should create synonym" do
       @synonym.class.should == Synonym
       @synonym.name.should == @name
       @synonym.agents.should == [@curator.agent]
     end
-
+  
     it "should create taxon_concept_name" do
       @tcn.should_not be_nil
     end
-
+  
     it "should be able to create a common name with the same name string but different language" do
       @taxon_concept.add_common_name_synonym(@name_string, Agent.find(@curator.agent_id), :language => Language.find_by_label("French"))
       TaxonConceptName.count.should == @tcn_count + 2
@@ -409,8 +455,8 @@ describe TaxonConcept do
       Name.count.should == @name_count + 1
     end
   end
-
-
+  
+  
   describe "#delete_common_name" do
     before(:all) do
       @synonym = @taxon_concept.add_common_name_synonym("Piping plover", Agent.find(@curator.agent_id), :language => Language.english)
@@ -419,14 +465,14 @@ describe TaxonConcept do
       @syn_count = Synonym.count
       @name_count = Name.count
     end
-
+  
     it "should delete a common name" do
       @taxon_concept.delete_common_name(@tc_name)
       TaxonConceptName.count.should == @tcn_count - 1
       Synonym.count.should == @syn_count - 1
       Name.count.should == @name_count #name is not deleted
     end
-
+  
     it "should delete preffered common names, should mark last common name for a language as preferred" do
       pref_en_name = TaxonConceptName.find_by_taxon_concept_id_and_language_id_and_preferred(@taxon_concept, Language.english, true)
       all_en_names = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, Language.english)
@@ -442,13 +488,13 @@ describe TaxonConcept do
       Synonym.count.should == @syn_count - 2
       Name.count.should == @name_count
     end
-
+  
   end
-
+  
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #
-
+  
   # Medium Priority:
   #
   # it 'should be able to list whom the species is recognized by' do

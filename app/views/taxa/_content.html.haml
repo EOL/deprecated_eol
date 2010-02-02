@@ -9,7 +9,7 @@
       .add_text_button
         = link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id}, :id => 'new_text_content_button', :title => "Add new content" )
     - if toc_item.wikipedia?
-      - url = (@content.key?(:data_objects) || @content.key?[:data_objects][0]) ?  @content[:data_objects][0].source_url << "&action=edit" : nil
+      - url = (@content.key?(:data_objects) || @content.key?[:data_objects][0]) ?  @content[:data_objects][0].source_url.clone << "&action=edit" : nil
       - if url
         .edit_wikipedia_button
           - url = EOLWebService.uri_remove_param(url, 'oldid')

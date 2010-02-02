@@ -37,7 +37,7 @@ describe Attributions do
   describe 'initialization' do
 
     before(:each) do
-      @data_type.stub!(:full_attribution_order).and_return(@fake_attribution_order)
+      DataType.stub!(:full_attribution_order).and_return(@fake_attribution_order)
     end
 
     it 'should raise an error without a list of ADOs' do
@@ -57,7 +57,7 @@ describe Attributions do
     end
 
     it 'should use its data_types\'s full attribution order' do
-      @data_type.should_receive(:full_attribution_order).and_return(@fake_attribution_order)
+      DataType.should_receive(:full_attribution_order).and_return(@fake_attribution_order)
       Attributions.new(@fake_ados, @data_type)
     end
 
@@ -71,7 +71,7 @@ describe Attributions do
   describe 'add_* methods' do
 
     before(:each) do
-      @data_type.stub!(:full_attribution_order).and_return(@fake_attribution_order)
+      DataType.stub!(:full_attribution_order).and_return(@fake_attribution_order)
       @attributions = Attributions.new(@fake_ados, @data_type)
     end
 

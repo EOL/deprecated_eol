@@ -339,8 +339,24 @@ class TaxonConcept < SpeciesSchemaModel
     hierarchy ||= Hierarchy.default
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
-    return hierarchy_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
-      hierarchy_entries.compact[0] ||
+    
+    # get all hierarchy entries
+    entries = HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id=#{id}")
+    # ..and order them by published DESC, vetted view_order ASC, id ASC - earliest entry first
+    entries.sort! do |a,b|
+      if a.published == b.published
+        if a.vetted_view_order == b.vetted_view_order
+          a.id <=> b.id # ID ascending
+        else
+          a.vetted_view_order <=> b.vetted_view_order # vetted view_order ascending
+        end
+      else
+        b.published <=> a.published # published descending
+      end
+    end
+    
+    return entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
+      entries[0] ||
       nil
   end
   
@@ -458,33 +474,23 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def quick_scientific_name(type = :normal, hierarchy = nil)
-    hierarchy ||= Hierarchy.default
-    
-    scientific_name_results = []
+    hierarchy_entry = entry(hierarchy)
+    # if hierarchy_entry is nil then this concept has no entries, and shouldn't be published
+    return nil if hierarchy_entry.nil?
     
     search_type = case type
       when :italicized  then {:name_field => 'n.italicized', :also_join => ''}
       when :canonical   then {:name_field => 'cf.string',    :also_join => 'JOIN canonical_forms cf ON (n.canonical_form_id = cf.id)'}
       else                   {:name_field => 'n.string',     :also_join => ''}
     end
-
+    
     scientific_name_results = SpeciesSchemaModel.connection.execute(
       "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
-       FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) #{search_type[:also_join]}
-         LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id)
-       WHERE tcn.taxon_concept_id=#{id} AND vern=0 AND preferred=1").all_hashes
-
-    final_name = ''
+       FROM hierarchy_entries he JOIN names n ON (he.name_id = n.id) #{search_type[:also_join]}
+       WHERE he.id=#{hierarchy_entry.id}").all_hashes
     
-    # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names 
-    scientific_name_results.each do |result|
-      if final_name == '' || result['source_hierarchy_id'].to_i == hierarchy.id
-        final_name = result['name'].firstcap
-      end
-    end
-    
+    final_name = scientific_name_results[0]['name'].firstcap
     return final_name
-
   end
 
   def superceded_the_requested_id?

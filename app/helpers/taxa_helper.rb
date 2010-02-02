@@ -276,7 +276,8 @@ private
     
     names_by_lang = []
     names_by_lang << [pref.label, res.delete(pref.label)] if res.key?(pref.label)
-    names_by_lang << [eng.label, res.delete(eng.label)] if res.key?(eng.label)
+    # if we want to show the English name second in the list, uncomment the next line
+    # names_by_lang << [eng.label, res.delete(eng.label)] if res.key?(eng.label)
     unknown_data = res.key?(unknown.label) ? [unknown.label, res.delete(unknown.label)] : nil
     res.to_a.sort_by {|a| a[0].to_s}.each {|a| names_by_lang << a}
     names_by_lang << unknown_data if unknown_data

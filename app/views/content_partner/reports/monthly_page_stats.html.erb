@@ -10,16 +10,23 @@
     	<thead>
         <tr align="center">
 	        <th>	
+				
 				<% form_for :hello, :url => { :action => :monthly_page_stats } do |form| %>
-	   				<input type='hidden' name='agent_id' value='<%= @agent_id %>'>	   
+					<!--
+					<input type='hidden' name='agent_id' value='<%= @agent_id %>'>
+					-->	   
+					<%= select_tag :agent_id, options_from_collection_for_select(  @content_partners_with_published_data, :id, :full_name, @agent_id.to_i ) %>
 	   				<%= select_tag "year_month", options_for_select(@year_month_list,@year_month) %>    
 					<%= submit_tag("Submit") %>
 				<% end %>
 				
+				<!--	
 	        	<h2><%= @partner.full_name %></h2>
 				Agent ID:<%= @agent_id %> <br> 
 				Year = <%= @report_year %>
 				Month = <%= @report_month %>
+				-->
+				
 				
 			</th>
             <th>Taxa Pages with<br> Provider Content</th>
@@ -28,6 +35,14 @@
         </tr>
 		</thead>
 		<tbody>
+		
+		<!--
+		<% @content_partners_with_published_data.each do |list| %>
+		<%= list.id %>
+		<%= list.full_name %>
+		<% end -%>
+		-->
+		
         <% @recs.each do |list| %>
         <tr><td class="odd">Count of Taxa Pages</td>
             <td class="odd" align="right"><%= list.taxa_pages %></td>

@@ -756,7 +756,6 @@ class DataObject < SpeciesSchemaModel
       from_cp = ', NULL agent_id'
     end
     
-    where_clause = "ti.taxon_concept_id" if where_clause == ''
     query_string = %Q{
       SELECT dato.id, dato.visibility_id, dato.data_rating, dato.vetted_id, v.view_order vetted_view_order #{from_cp}
         FROM #{from_table} ti
@@ -779,13 +778,21 @@ class DataObject < SpeciesSchemaModel
     top_images_query = DataObject.build_top_images_query(taxon, options)
     
     # the user/agent has the ability to see some unpublished images, so create a UNION
-    if ((not options[:agent].nil?) or options[:user].is_curator? or options[:user].is_admin?)
+    show_unpublished = ((not options[:agent].nil?) or options[:user].is_curator? or options[:user].is_admin?)
+    if show_unpublished
       options[:unpublished] = true
       top_unpublished_images_query = DataObject.build_top_images_query(taxon, options)
       top_images_query = "(#{top_images_query}) UNION (#{top_unpublished_images_query})"
     end
     
-    result = DataObject.find_by_sql(top_images_query)
+    # if there is no filter hierarchy and we're just returning published images - the default
+    if options[:filter_hierarchy].nil? && !show_unpublished
+      result = Rails.cache.fetch("data_object/cached_images_for/#{taxon.id}") do
+        DataObject.find_by_sql(top_images_query)
+      end
+    else
+      result = DataObject.find_by_sql(top_images_query)
+    end
     
     # when we have all the images then get the uniquq list and sort them by
     # vetted order ASC (so trusted are first), rating DESC (so best are first), id DESC (so newest are first)

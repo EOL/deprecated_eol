@@ -17,7 +17,7 @@ class Attributions
     # for each of the agent roles in the attribution order, go thru agents_data_objects and 
     # get all of the agents in that role => [ [role1, role1], nil, [role3], [role4], nil ]
     # and sort the groups by view_order
-    @attributions = data_type.full_attribution_order.map do |agent_role| 
+    @attributions = DataType.full_attribution_order.map do |agent_role| 
       agents_data_objects.select {|ado| ado.agent_role_id == agent_role.id }.sort_by {|g| g.view_order }
     end
 

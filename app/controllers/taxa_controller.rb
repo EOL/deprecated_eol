@@ -88,6 +88,7 @@ class TaxaController < ApplicationController
     @taxon_concept = taxon_concept
 
     unless accessible_page?(@taxon_concept)
+      @taxon_concept = nil
       render(:layout => 'main', :template => "content/missing", :status => 404)
       return
     end

@@ -20,23 +20,23 @@
       = render(:partial => 'taxa/content/content_language_common_names_curator', :locals => locals) 
     - else
       = render(:partial => 'taxa/content/content_language_common_names', :locals => locals) 
-  %br
-  - if is_curator
-    - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
-      %fieldset.standout
-        %legend Add a new common name
-        = hidden_field :name, "category_id", :value => params[:category_id]
-        = label_tag :name_name_string, "Name"
-        = text_field :name, :name_string, :size => 40, :maxlength => 300
+    - if index == 0 && is_curator
+      - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
+        %fieldset.standout
+          %legend Add a new common name
+          = hidden_field :name, "category_id", :value => params[:category_id]
+          = label_tag :name_name_string, "Name"
+          = text_field :name, :name_string, :size => 40, :maxlength => 300
+          %br
+          %br
+          = label_tag :name_language, "Name's Language"
+          %select{:id => "name_language", :name => "name[language]"}
+            - @languages.each do |language|
+              %option{ :selected => language[:selected], :value => language[:id] }= language[:label]
+          %br
+          %br
+          %input{:type => "button", :name => "add_common_name_button", :value => "Add", :id => "add_common_name_button"}
         %br
-        %br
-        = label_tag :name_language, "Name's Language"
-        %select{:id => "name_language", :name => "name[language]"}
-          - @languages.each do |language|
-            %option{ :selected => language[:selected], :value => language[:id] }= language[:label]
-        %br
-        %br
-        %input{:type => "button", :name => "add_common_name_button", :value => "Add", :id => "add_common_name_button"}
   %br
   .divider
   .content-attribution-area

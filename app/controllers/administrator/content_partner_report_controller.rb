@@ -17,7 +17,7 @@ class Administrator::ContentPartnerReportController < AdminController
   end
 
   def export
-    @agents = Agent.find_by_sql('select * from agents a inner join content_partners cp on cp.agent_id=a.id order by a.full_name ASC')
+    @agents = Agent.find_by_sql('select a.* from agents a inner join content_partners cp on cp.agent_id=a.id order by a.full_name ASC')
 
     report = StringIO.new
     CSV::Writer.generate(report, ',') do |row|
@@ -34,7 +34,7 @@ class Administrator::ContentPartnerReportController < AdminController
           else
             agent_status = agent.agent_status.label
           end
-          row << [agent.project_name,agent.created_at,agent.resources.count,agent_status,agent.agent_id]       
+          row << [agent.project_name,agent.created_at,agent.resources.count,agent_status,agent.id]       
           agent.agent_contacts.each do |contact|
             row << ['',contact.agent_contact_role.label,contact.title + ' ' + contact.full_name,contact.email,contact.telephone,contact.address,contact.homepage]
           end

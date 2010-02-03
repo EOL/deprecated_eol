@@ -69,9 +69,14 @@ describe 'Curation' do
     LastCuratedDate.delete_all
     the_page = request("/pages/#{@taxon_concept.id}")
     the_page.body.should_not have_tag('div.number-of-curators')
-    the_page.body.should_not have_tag('div#page-citation')
   end
-    
+
+  it 'should still have a page citation block when there are no curators' do
+    LastCuratedDate.delete_all
+    the_page = request("/pages/#{@taxon_concept.id}")
+    the_page.body.should have_tag('div#page-citation')
+  end
+
   it 'should say the page has citation (both lines)' do
     @default_page.should have_tag('div.number-of-curators')
     @default_page.should have_tag('div#page-citation')

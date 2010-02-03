@@ -238,7 +238,7 @@ class AccountController < ApplicationController
     user[:email]=current_user.email
     user[:display_name]=current_user.full_name
     user[:locale]=current_user.language.iso_639_1
-  #  current_user.is_admin? ? user[:admin]='accept' : user[:admin]='deny'
+    current_user.is_admin? ? user[:admin]='accept' : user[:admin]='deny'
     json_token=user.to_json
               
     key = EzCrypto::Key.with_password $USERVOICE_ACCOUNT_KEY, $USERVOICE_API_KEY
@@ -285,11 +285,12 @@ class AccountController < ApplicationController
           user.identity_url = identity_url
           user.username     = temp_username
           user.email        = registration['email'] || ''
-          user.given_name   = registration['nickname'] || temp_username 
+          user.given_name   = temp_username 
           user.remote_ip    = request.remote_ip
           user.save!
           new_username      = "openid_user_#{user.id.to_s}"
-          user.update_attributes(:username=>new_username,:given_name=>registration['nickname'] || new_username)
+          new_given_name    = (registration['nickname'].blank? ? new_username : registration['nickname']) 
+          user.update_attributes(:username=>new_username,:given_name=>new_given_name)
           new_openid_user=true
         end
         successful_login(user, remember_me, new_openid_user)

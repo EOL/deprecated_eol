@@ -25,7 +25,7 @@ class Hierarchy < SpeciesSchemaModel
 
   def self.default
     YAML.load(Rails.cache.fetch('hierarchies/default') do
-      Hierarchy.find_by_label("Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009").to_yaml
+      Hierarchy.find_by_label($DEFAULT_HIERARCHY_NAME).to_yaml
     end)
   end
 

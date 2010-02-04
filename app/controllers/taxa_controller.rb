@@ -323,17 +323,34 @@ class TaxaController < ApplicationController
   def update_common_names
     tc = taxon_concept
     if tc.is_curatable_by?(current_user)
-      name = Name.find(params[:name_id])
-      language = Language.find(params[:language_id])
-      syn = tc.add_common_name_synonym(name.string, current_user.agent, :language => language, :preferred => true)
-      syn.preferred = 1
-      syn.save!
+      puts "HEREIAM"
+      pp params
+      if !params[:preferred_name_id].nil?
+        name = Name.find(params[:preferred_name_id])
+        language = Language.find(params[:language_id])
+        syn = tc.add_common_name_synonym(name.string, current_user.agent, :language => language, :preferred => true)
+        syn.preferred = 1
+        syn.save!
+        expire_taxa(tc.id)
+      end
       
-      #tc.set_preferred_name(current_user.language, params[:name_id].to_i)
-     #   tc.edit_common_name(params[
-      expire_taxa(tc.id)
+      if params[:trusted_name_clicked_on] != "false"
+        puts "THIS IS GREAT"
+        if params[:trusted_name_checked] == "true"
+          puts "THIS IS ALSO GREAT"
+          name = Name.find(params[:trusted_name_clicked_on])
+          language = Language.find(params[:language_id])
+          syn = tc.add_common_name_synonym(name.string, current_user.agent, :language => language, :preferred => false)
+          syn.save!
+          expire_taxa(tc.id)
+        elsif params[:trusted_synonym_clicked_on] != "false"
+          puts "THIS IS EVEN GREATER"
+          tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(params[:trusted_synonym_clicked_on], tc.id)
+          tc.delete_common_name(tcn)
+        end
+      end
     end
-    render :nothing => true
+    redirect_to "/pages/#{tc.id}?category_id=#{params[:category_id]}"
   end
 
   def add_common_name

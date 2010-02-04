@@ -323,8 +323,6 @@ class TaxaController < ApplicationController
   def update_common_names
     tc = taxon_concept
     if tc.is_curatable_by?(current_user)
-      puts "HEREIAM"
-      pp params
       if !params[:preferred_name_id].nil?
         name = Name.find(params[:preferred_name_id])
         language = Language.find(params[:language_id])
@@ -335,18 +333,16 @@ class TaxaController < ApplicationController
       end
       
       if params[:trusted_name_clicked_on] != "false"
-        puts "THIS IS GREAT"
         if params[:trusted_name_checked] == "true"
-          puts "THIS IS ALSO GREAT"
           name = Name.find(params[:trusted_name_clicked_on])
           language = Language.find(params[:language_id])
           syn = tc.add_common_name_synonym(name.string, current_user.agent, :language => language, :preferred => false)
           syn.save!
           expire_taxa(tc.id)
         elsif params[:trusted_synonym_clicked_on] != "false"
-          puts "THIS IS EVEN GREATER"
           tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(params[:trusted_synonym_clicked_on], tc.id)
           tc.delete_common_name(tcn)
+          expire_taxa(tc.id)
         end
       end
     end

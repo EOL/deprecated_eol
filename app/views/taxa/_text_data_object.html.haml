@@ -48,30 +48,30 @@
           .spinner
             = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
           #hide_these_controls_too_for_now{:style => "display:none"}
-            #right_text_button.trust_button.thumbs-up-image{:title => "Trust this image"}
+            #right_text_button.trust_button.thumbs-up-image{:title => "Trust this text"}
               = link_to '<span class="span_block"></span>', | 
                 {:controller => :data_objects, :action => :curate, |
                   :id => content_item.id, '_method' => :put, |
                   :curator_activity_id => CuratorActivity.approve!.id.to_s}, |
                 {'data-data_object_id' => content_item.id, |
                 'data-data_object_type' => DataType.text_type_ids[0], |
-                :alt => 'Trust this image'} |
-            #right_text_button.untrust_button.thumbs-down-image{ :title => "Do not trust this image" }
+                :alt => 'Trust this text'} |
+            #right_text_button.untrust_button.thumbs-down-image{ :title => "Do not trust this text" }
               = link_to '<span class="span_block"></span>', |
                 {:controller => :data_objects, :action => :curate, |
                 :id => content_item.id, '_method' => :put, |
                 :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, |
                 {'data-data_object_id' => content_item.id, |
-                :alt => 'Do not trust this image', |
+                :alt => 'Do not trust this text', |
                 'data-data_object_type' => DataType.text_type_ids[0]} |
-        #right_text_button.curate_button.curate-button-image{ :title => "Curate image" }
+        #right_text_button.curate_button.curate-button-image{ :title => "Curate this text" }
           = link_to '<span class="span_block"></span>', |
             curation_data_object_path(content_item), |
             {'data-data_object_id' => content_item.id, |
             :style => comments_style, :class => 'slide-in-link', |
-            :alt => 'Curate image'} |
+            :alt => 'Curate this text'} |
       - if !@preview
-        #right_text_button.comment_button.comment-button-image{ :title => "Comment on image" }
+        #right_text_button.comment_button.comment-button-image{ :title => "Comment on this text" }
           - if(@selected_text_comment)
             :javascript
               text_comments_permalink(#{content_item.id}, #{@selected_text_comment.id}, #{@comment_page});
@@ -79,7 +79,7 @@
             = link_to '<span class="span_block"></span>', |
               data_object_comments_path(content_item), |
               {'data-data_object_id' => content_item.id, |
-              :style => comments_style, :alt => "Comment on image", |
+              :style => comments_style, :alt => "Comment on this text", |
               :class => 'slide-in-link'} |
 
   .text-slidebox-border{:id => "text-comments-wrapper-#{content_item.id}", :style => "display:none;"}

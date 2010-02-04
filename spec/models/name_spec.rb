@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Name do
 
   it { should belong_to(:canonical_form) }
+  # when I added the callbacks these started to fail - PL 2.2.2010
   #it { should validate_presence_of(:string) }
   #it { should validate_presence_of(:italicized) }
   #it { should validate_presence_of(:canonical_form) }

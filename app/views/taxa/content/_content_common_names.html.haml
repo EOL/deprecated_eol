@@ -7,69 +7,64 @@
     = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
 
 #common_names_wrapper.text_object
-  - names_by_language.each_with_index do |language_names, index|
-    - language = language_names[1][:language]
-    - locals = {:names => language_names[1][:names], :language_id => language[:id]} 
-    .title
-      - if index == 0
-        = "Language:"[]
-      == #{language[:label]}
-      - if !language[:name].empty?
-        == (#{language[:name]})
-    - if is_curator
-      = render(:partial => 'taxa/content/content_language_common_names_curator', :locals => locals) 
-    - else
-      = render(:partial => 'taxa/content/content_language_common_names', :locals => locals) 
-    - if index == 0 && is_curator
-      - form_tag "/pages/#{@taxon_concept.id}/add_common_name", :method => :post, :id => 'add_common_name' do
-        %fieldset.standout
-          %legend Add a new common name
-          = hidden_field :name, "category_id", :value => params[:category_id]
-          = label_tag :name_name_string, "Name"
-          = text_field :name, :name_string, :size => 40, :maxlength => 300
-          %br
-          %br
-          = label_tag :name_language, "Name's Language"
-          %select{:id => "name_language", :name => "name[language]"}
-            - @languages.each do |language|
-              %option{ :selected => language[:selected], :value => language[:id] }= language[:label]
-          %br
-          %br
-          %input{:type => "button", :name => "add_common_name_button", :value => "Add", :id => "add_common_name_button"}
-        %br
-  %br
-  .divider
-  .content-attribution-area
-    .attribution-header.text-area-header
-      = "Source and Additional Information"[]
-    %span.source
-      Names come from multiple sources.
+  - if names_by_language.empty?
+    = render(:partial => 'taxa/content/content_common_names_insert') 
+  - else
+    - names_by_language.each_with_index do |language_names, index|
+      - language = language_names[1][:language]
+      - locals = {:names => language_names[1][:names], :language_id => language[:id]} 
+      .title
+        - if index == 0
+          = "Language:"[]
+        == #{language[:label]}
+        - if !language[:name].empty? && language[:name] != language[:label]
+          == (#{language[:name]})
+      - if is_curator
+        = render(:partial => 'taxa/content/content_language_common_names_curator', :locals => locals) 
+      - else
+        = render(:partial => 'taxa/content/content_language_common_names', :locals => locals) 
+      - if index == 0 && is_curator
+        = render(:partial => 'taxa/content/content_common_names_insert', :locals => locals) 
+    %br
+    .divider
+    .content-attribution-area
+      .attribution-header.text-area-header
+        = "Source and Additional Information"[]
+      %span.source
+        Names come from multiple sources.
 :javascript
   if (!EOL) var EOL = {};
   if (!EOL.CommonNameCuration) EOL.CommonNameCuration = {};
 
-  update_common_names = function(form) {
-      $$('div#common_names_spinner img')[0].appear();
-      $('common_names_error').disappear();
-      new Ajax.Request(form.action,
-      {
-          asynchronous: true,
-          evalScripts: true,
-          method: 'put',
-          onError: function() {
-              $('common_names_error').appear();
-              $$('div#common_names_spinner img')[0].disappear();
-          }.bind(form),
-          onComplete: function() {
-              $$('div#common_names_spinner img')[0].disappear();
-          }.bind(form),
-          parameters: Form.serialize(form)
-      });
-  }
-
   Event.addBehavior({
     'td.preferred_name_selector input[type="radio"]:click': function(e) {
-      update_common_names(this.form);
+      var form = e.element().form;
+      form.submit();
+    }
+  });
+  
+  Event.addBehavior({
+    'td.preferred_name_selector input[type="checkbox"]:click': function(e) {
+      var form = e.element().form;
+      name_id = e.element().value
+      duplicate = form.elements["duplicate_" + name_id].value;
+      agent = form.elements["agent_" + name_id].value;
+      is_checked_now = e.element().checked;
+      do_submit = true;
+      if(is_checked_now == false && !duplicate)
+      {
+        do_submit = confirm("Are you sure you want to delete this common name added by "+agent+"?");
+      }
+      if(do_submit)
+      {
+        form.elements["trusted_name_clicked_on"].value = name_id;
+        form.elements["trusted_synonym_clicked_on"].value = form.elements["synonym_id_" + name_id].value;
+        form.elements["trusted_name_checked"].value = e.element().checked;
+        form.submit();
+      }else
+      {
+        e.element().checked = true
+      }
     }
   });
 

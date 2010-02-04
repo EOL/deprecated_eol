@@ -143,7 +143,7 @@ create_if_not_exists DataType, :label => 'IUCN'
 create_if_not_exists DataType, :label => 'Flash'
 create_if_not_exists DataType, :label => 'YouTube'
 
-create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007"
+create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME
 default_hierarchy = create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009"
 create_if_not_exists Hierarchy, :label => "Encyclopedia of Life Contributors"
 first_ncbi = Hierarchy.gen(:agent => Agent.ncbi, :label => "NCBI Taxonomy")

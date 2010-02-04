@@ -964,11 +964,12 @@ class DataObject < SpeciesSchemaModel
     join_toc     = type == :text        ? 'JOIN data_objects_table_of_contents dotoc ON dotoc.data_object_id = dato.id ' +
                                                  'JOIN table_of_contents toc ON toc.id = dotoc.toc_id' : ''
     where_toc    = options[:toc_id].nil? ? '' : ActiveRecord::Base.sanitize_sql(['AND toc.id = ?', options[:toc_id]])
-    sort         = 'published, vetted_id DESC, data_rating DESC' # unpublished first, then by data_rating.
+    #sort         = 'published, vetted_id DESC, data_rating DESC' # unpublished first, then by data_rating.
+    sort         = 'published, vetted_sort_order, data_rating DESC' # unpublished first, then by data_rating.    
 
     query_string = %Q{
 (SELECT DISTINCT dt.label media_type, dato.*, t.scientific_name, he.taxon_concept_id taxon_id,
-       l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}
+       l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}, null as vetted_sort_order
   FROM hierarchy_entries he
     STRAIGHT_JOIN taxa t                ON (he.id = t.hierarchy_entry_id)
     STRAIGHT_JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
@@ -982,6 +983,12 @@ class DataObject < SpeciesSchemaModel
     #{where_toc})
 UNION
 (SELECT dt.label media_type, dato.*, '' scientific_name, taxon_concept_id taxon_id, l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}
+
+    ,if(dato.vetted_id = #{Vetted.trusted.id},1,
+    if(dato.vetted_id = #{Vetted.unknown.id},2,
+    if(dato.vetted_id = #{Vetted.untrusted.id},3,4))) as vetted_sort_order
+
+
 FROM data_objects dato
 JOIN #{ UsersDataObject.full_table_name } udo ON (dato.id=udo.data_object_id)
 STRAIGHT_JOIN data_types dt ON (dato.data_type_id = dt.id)

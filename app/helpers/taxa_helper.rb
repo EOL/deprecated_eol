@@ -249,9 +249,11 @@ private
         name[:language_name] = unknown.name
       end
       language = {:id => name[:language_id], :label => name[:language_label], :name => name[:language_name]}
-      names = {:agent_id => name[:agent_id].to_i, :id => name[:name_id].to_i, 
-               :string => name[:name_string], :synonym_id => name[:synonym_id].to_i, 
-               :hierarchy_id => name[:hierarchy_id], :preferred => name[:preferred].to_i > 0} 
+      trusted = (!name[:hierarchy_id].nil? && name[:hierarchy_id].to_i == curator_hierarchy.id) ? true : false
+      this_name = { :agent_id     => name[:agent_id].to_i,  :id         => name[:name_id].to_i, 
+                    :string       => name[:name_string],    :synonym_id => name[:synonym_id].to_i, 
+                    :hierarchy_id => name[:hierarchy_id],   :preferred  => name[:preferred].to_i > 0,
+                    :trusted      => trusted,               :duplicate  => false} 
       
       # make note if the name was submitted by a curator
       if !name[:hierarchy_id].nil? && name[:hierarchy_id].to_i == curator_hierarchy.id
@@ -259,12 +261,23 @@ private
         names_in_curator_hierarchy[langauge_id] ||= {}
         names_in_curator_hierarchy[langauge_id][name[:name_id].to_i] = true
       end
-      res.key?(k) ? res[k][:names] << names : res[k] = {:language => language, :names => [names]}
+      res.key?(k) ? res[k][:names] << this_name : res[k] = {:language => language, :names => [this_name]}
     end
     
     # loop through languages and delete the name if its also in the Curator hierarchy
     res.each do |key, value|
       language_id = value[:language][:id].to_i
+      
+      value[:names].each_with_index do |name, index|
+        value[:names].each_with_index do |name2, index2|
+          next if index == index2
+          if name[:id] == name2[:id]
+            name[:duplicate] = true
+            name2[:duplicate] = true
+          end
+        end
+      end
+      
       value[:names].delete_if do |n|
         # was it submitted by a curator?
         is_curator_name = !n[:hierarchy_id].nil? && n[:hierarchy_id].to_i == curator_hierarchy.id

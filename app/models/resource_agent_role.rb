@@ -3,7 +3,7 @@ class ResourceAgentRole < SpeciesSchemaModel
 
   def self.content_partner_upload_role
     YAML.load(Rails.cache.fetch('resource_agent_roles/content_partner_upload') do
-      ResourceAgentRole.find_by_label('Data Supplier').to_yaml
+      ResourceAgentRole.find_or_create_by_label('Data Supplier').to_yaml
     end)
   end
   

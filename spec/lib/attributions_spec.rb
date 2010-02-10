@@ -41,29 +41,21 @@ describe Attributions do
     end
 
     it 'should raise an error without a list of ADOs' do
-      lambda { Attributions.new(nil, @data_type) }.should raise_error /ado/i
-    end
-
-    it 'should raise an error without a data type' do
-      lambda { Attributions.new(@fake_ados, nil) }.should raise_error /data.?type/i
+      lambda { Attributions.new(nil) }.should raise_error /ado/i
     end
 
     it 'should raise an error if list of ADOs contains non-ADOs' do
-      lambda { Attributions.new([{:hashes => 'will not work'}], @data_type) }.should raise_error /ado/i
-    end
-
-    it 'should raise an error if Data Type... isn\'t.' do
-      lambda { Attributions.new(@fake_ados, {:another => 'bogus hash'}) }.should raise_error /data.?type/i
+      lambda { Attributions.new([{:hashes => 'will not work'}]) }.should raise_error /ado/i
     end
 
     it 'should use its data_types\'s full attribution order' do
       DataType.should_receive(:full_attribution_order).and_return(@fake_attribution_order)
-      Attributions.new(@fake_ados, @data_type)
+      Attributions.new(@fake_ados)
     end
 
     it 'should sort by attribution order, then view order (also, with no nils)' do
       # Okay, this sucks... but I use map() to get the raw array, not the Attributions class:
-      Attributions.new(@fake_ados, @data_type).map {|f| f}.should == @return_order
+      Attributions.new(@fake_ados).map {|f| f}.should == @return_order
     end
 
   end
@@ -72,7 +64,7 @@ describe Attributions do
 
     before(:each) do
       DataType.stub!(:full_attribution_order).and_return(@fake_attribution_order)
-      @attributions = Attributions.new(@fake_ados, @data_type)
+      @attributions = Attributions.new(@fake_ados)
     end
 
     it 'should do nothing if supplier is nil' do
@@ -110,7 +102,7 @@ describe Attributions do
     it 'should insert the license after the source, if no author exists' do
       # ARGH.  I don't know why the stub! above doesn't work... but it doesn't.  Soooo:
       AgentRole.should_receive(:[]).with(:Author, :Source).and_return([@author, @source])
-      attributions = Attributions.new(@fake_ados.delete_if {|ado| ado.agent_role == @author}, @data_type)
+      attributions = Attributions.new(@fake_ados.delete_if {|ado| ado.agent_role == @author})
       @license = License.gen(:description => 'bombs bursting in air')
       attributions.add_license(@license, '')
       ado = attributions.detect {|attr| attr.agent.project_name == @license.description }
@@ -119,7 +111,7 @@ describe Attributions do
     end
 
     it 'should put the license first, if no author or source exists' do
-      attributions = Attributions.new(@fake_ados.delete_if {|ado| [@author, @source].include? ado.agent_role}, @data_type)
+      attributions = Attributions.new(@fake_ados.delete_if {|ado| [@author, @source].include? ado.agent_role})
       @license = License.gen(:description => 'our home and native land')
       attributions.add_license(@license, '')
       attributions[0].agent.project_name.should == @license.description

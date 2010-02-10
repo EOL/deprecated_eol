@@ -302,6 +302,7 @@ module EOL
     def build_object_in_event(type, description, options = {})
       puts "**** Enter: build_object_in_event" if @debugging
       options[:event] ||= @event
+      options[:taxon] ||= @taxon
       build_data_object(type, description, options)
     end
 

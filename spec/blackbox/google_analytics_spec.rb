@@ -30,7 +30,7 @@ describe "google analytics stats page" do
   
   it "should render monthly_page_stats page" do
     login_content_partner(:username => @agent.username, :password => @pass)
-    res = request("/content_partner/reports/monthly_page_stats")  
+    res = request("/content_partner/reports/monthly_page_stats")
     res.body.should have_tag("form[action=/content_partner/reports/monthly_page_stats]")
     res.body.should include @summary.pageviews.to_s
     res.body.should include @partner_summary.page_views.to_s

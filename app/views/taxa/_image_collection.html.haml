@@ -28,13 +28,13 @@
     - counter = 0
     - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
      
-      - authors=agent_partial(image['authors'] + image['photographers'],:linked=>false)
-      - sources=agent_partial(image['sources'],:linked=>false)
+      - authors=agent_partial(image['agents']['Author'] + image['agents']['Photographer'],:linked=>false)
+      - sources=agent_partial(image['agents']['Source'],:linked=>false)
       - # TODO - LOW - I am ever-so-slightly bothered that we're essentially calling the same thing twice on the same data, and
       - # wonder if we can improve this.
-      - authors_linked=agent_partial(image['authors'] + image['photographers'])
-      - sources_linked=agent_partial(image['sources'])
-      - sources_icons_linked=agent_icons_partial(image['sources'])
+      - authors_linked=agent_partial(image['agents']['Author'] + image['agents']['Photographer'])
+      - sources_linked=agent_partial(image['agents']['Source'])
+      - sources_icons_linked=agent_icons_partial(image['agents']['Source'])
       - taxa_info = image['taxa_names_ids']
       - data_supplier = image['data_supplier']
       - data_supplier_name = data_supplier ? data_supplier.full_name : ''

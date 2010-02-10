@@ -165,6 +165,9 @@ class DataObjectsController < ApplicationController
 
   # GET /data_objects/1/attribution
   def attribution
+    current_object['attributions'] = current_object.attributions
+    current_object['taxa_names_ids'] = [{'taxon_concept_id' => current_object.hierarchy_entries[0].taxon_concept_id}]
+    current_object['media_type'] = current_object.data_type.label
     render :partial => 'attribution', :locals => { :data_object => current_object }, :layout => @layout
   end
 

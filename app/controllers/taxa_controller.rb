@@ -486,6 +486,9 @@ private
   def set_image_permalink_data
     if(params[:image_id])
       image_id = params[:image_id].to_i
+      if obj = DataObject.latest_published_version_of(image_id)
+        image_id = obj.id
+      end
       
       selected_image_index = find_selected_image_index(@images,image_id)
       if selected_image_index.nil?
@@ -497,7 +500,7 @@ private
         selected_image_index = find_selected_image_index(@images,image_id)
       end
       if selected_image_index.nil?
-        raise 'Image not found'
+        raise "Image not found"
       end
       
       params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil

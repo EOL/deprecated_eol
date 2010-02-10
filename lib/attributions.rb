@@ -5,14 +5,12 @@ class Attributions
 
   # Push in an AgentsDataObject array (usually from a DataObject) as well as the DataType (so we know what order to put things in).
   # TODO - as of now, there is no difference in order based on DataType, so this could be cleaned up.
-  def initialize(agents_data_objects, data_type)
+  def initialize(agents_data_objects)
 
     raise "nil ADOs passed in to Attributions array" if agents_data_objects.nil?
-    raise "nil Data Type passed in to Attributions array" if data_type.nil?
     agents_data_objects.each do |ado|
       raise "non-ADO (#{ado.class}) passed in to Attributions array" unless ado.class == AgentsDataObject
     end
-    raise "non-DataType (#{data_type.class}) passed in to Attributions array" unless data_type.class == DataType
 
     # for each of the agent roles in the attribution order, go thru agents_data_objects and 
     # get all of the agents in that role => [ [role1, role1], nil, [role3], [role4], nil ]
@@ -24,8 +22,31 @@ class Attributions
     # get rid of nils and not grouped
     @attributions.compact!
     @attributions.flatten!
-
   end
+  
+  def self.from_agents_hash(data_object, agents_hash, data_type_id)
+    agents_data_objects = []
+    unless agents_hash.nil?
+      agents_hash['agents'].each do |agent_role_label, agents|
+        agents.each do |agent|
+          agents_data_objects << AgentsDataObject.new(:agent => agent,
+                                                      :agent_role_id => agent['agent_role_id'],
+                                                      :agent_role => AgentRole.new(
+                                                          :id => agent['agent_role_id'],
+                                                          :label => agent_role_label),
+                                                      :view_order => agent['view_order'] )
+        end
+      end
+    end
+    attributions = Attributions.new(agents_data_objects)
+    attributions.add_license    data_object.license, data_object.rights_statement if data_object.has_attribute?('license') || data_object.has_attribute?('rights_statement')
+    attributions.add_supplier   agents_hash['data_supplier'] unless agents_hash.nil? || agents_hash['data_supplier'].nil?
+    attributions.add_location   data_object.location if data_object.has_attribute?('location')
+    attributions.add_source_url data_object.source_url if data_object.has_attribute?('source_url')
+    attributions.add_citation   data_object.bibliographic_citation if data_object.has_attribute?('bibliographic_citation')
+    return attributions
+  end
+  
 
   # Puts a supplier Agent into the array, after the Author (or first, if no Author)
   def add_supplier(supplier)

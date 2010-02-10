@@ -341,9 +341,9 @@ class TaxonConcept < SpeciesSchemaModel
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
     
     # get all hierarchy entries
-    entries = HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id=#{id}")
+    @all_entries ||= HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id=#{id}")
     # ..and order them by published DESC, vetted view_order ASC, id ASC - earliest entry first
-    entries.sort! do |a,b|
+    @all_entries.sort! do |a,b|
       if a.published == b.published
         if a.vetted_view_order == b.vetted_view_order
           a.id <=> b.id # ID ascending
@@ -355,8 +355,8 @@ class TaxonConcept < SpeciesSchemaModel
       end
     end
     
-    return entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
-      entries[0] ||
+    return @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
+      @all_entries[0] ||
       nil
   end
   

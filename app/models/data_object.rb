@@ -7,6 +7,7 @@ require 'erb'
 class DataObject < SpeciesSchemaModel
   
   include UserActions
+  include ModelQueryHelper
 
   belongs_to :data_type
   belongs_to :language
@@ -282,8 +283,8 @@ class DataObject < SpeciesSchemaModel
   end
 
   def user
-    udo = UsersDataObject.find_by_data_object_id(self.id)
-    udo.nil? ? nil : User.find(udo.user_id)
+    @udo ||= UsersDataObject.find_by_data_object_id(self.id)
+    @udo_user ||= @udo.nil? ? nil : User.find(@udo.user_id)
   end
   
   def taxon_concept_for_users_text
@@ -363,7 +364,7 @@ class DataObject < SpeciesSchemaModel
   # we also fetch agents_data_objects, including (eager loading) Agents by default, assuming we will be using them
   def attributions
 
-    @attributions = Attributions.new(agents_data_objects, data_type)
+    @attributions = Attributions.new(agents_data_objects)
 
     @attributions.add_supplier   self.data_supplier_agent 
     @attributions.add_license    self.license, rights_statement
@@ -788,7 +789,7 @@ class DataObject < SpeciesSchemaModel
     # if there is no filter hierarchy and we're just returning published images - the default
     if options[:filter_hierarchy].nil? && !show_unpublished
       result = Rails.cache.fetch("data_object/cached_images_for/#{taxon.id}") do
-        DataObject.find_by_sql(top_images_query)
+        result = DataObject.find_by_sql(top_images_query)
       end
     else
       result = DataObject.find_by_sql(top_images_query)
@@ -813,27 +814,23 @@ class DataObject < SpeciesSchemaModel
     return result if result.empty?
     
     # get the rest of the metadata for the selected page
-    image_page    = (options[:image_page] ||= 1).to_i
-    start         = $MAX_IMAGES_PER_PAGE * (image_page - 1)
-    last          = start + $MAX_IMAGES_PER_PAGE - 1
-    ids_to_lookup = result[start..last].collect {|r| r.id}
-    image_metadata = DataObject.metadata_for_images(taxon.id, ids_to_lookup, {:user => options[:user]})
+    image_page        = (options[:image_page] ||= 1).to_i
+    start             = $MAX_IMAGES_PER_PAGE * (image_page - 1)
+    last              = start + $MAX_IMAGES_PER_PAGE - 1
+    results_to_lookup = result[start..last]
     
-    # need to loop through the whole array so the index gets incremented
-    result.each_with_index do |r, index|
-      next if index < start || index > last
-      if !image_metadata[r.id.to_i].nil?
-        md = image_metadata[r.id.to_i]
-        # the agent_id only comes from the first query, so it needs to be passed to the metadata result
-        md['agent_id'] = r['agent_id']
-        md.description = md.description_linked if !md.description_linked.nil?
-        result[index] = md
-      end
-    end
+    results_to_lookup = DataObject.metadata_for_images(taxon.id, results_to_lookup, {:user => options[:user]})
+    results_to_lookup = DataObject.add_attributions_to_result(results_to_lookup)
+    results_to_lookup = DataObject.add_taxa_names_to_result(results_to_lookup)
+    result[start..last] = results_to_lookup
+    
     return result
   end
-
-  def self.metadata_for_images(taxon_id, data_object_ids, options = {})
+  
+  def self.metadata_for_images(taxon_id, results, options = {})
+    data_object_ids = results.collect {|r| r.id}
+    return results if data_object_ids.empty?
+    
     comments_clause = " AND c.visible_at IS NOT NULL"
     comments_clause = "" if !options[:user].nil? && options[:user].is_moderator?
     
@@ -845,7 +842,7 @@ class DataObject < SpeciesSchemaModel
     end
     
     data_objects_with_metadata = DataObject.find_by_sql(%Q{
-        SELECT dato.*, v.view_order vetted_view_order, l.description license_text, l.logo_url license_logo, l.source_url license_url,
+        SELECT 'Image' media_type, dato.*, v.view_order vetted_view_order, l.description license_text, l.logo_url license_logo, l.source_url license_url,
                #{taxon_id} taxon_id, t.scientific_name, count(distinct c.id) as comments_count, #{rating_select}
          FROM #{DataObject.full_table_name} dato
            STRAIGHT_JOIN #{Vetted.full_table_name} v              ON (dato.vetted_id=v.id)
@@ -860,61 +857,127 @@ class DataObject < SpeciesSchemaModel
     metadata = {}
     # add the DataObject metadata
     data_objects_with_metadata.each do |dom|
+      dom.description = dom.description_linked if !dom.description_linked.nil?
       metadata[dom.id.to_i] = dom
-      metadata[dom.id.to_i]['data_supplier'] = nil
-      metadata[dom.id.to_i]['photographers'] = []
-      metadata[dom.id.to_i]['authors'] = []
-      metadata[dom.id.to_i]['sources'] = []
-      metadata[dom.id.to_i]['taxa_names_ids'] = []
     end
+    
+    results.each_with_index do |r, index|
+      if m = metadata[r.id.to_i]
+        results[index] = m
+      end
+    end
+    return results
+  end
+  
+  def self.add_attributions_to_result(results)
+    data_object_ids = results.collect {|r| r.id}
+    return results if data_object_ids.empty?
     
     data_supplier_id = ResourceAgentRole.content_partner_upload_role.nil? ? 0 : ResourceAgentRole.content_partner_upload_role.id
     data_object_agents = Agent.find_by_sql(%Q{
-        (SELECT a.*, 0 as data_supplier, ado.agent_role_id, ado.data_object_id
+        (SELECT a.*, 0 as data_supplier, ado.agent_role_id, ar.label agent_role_label, ado.data_object_id, ado.view_order
           FROM agents_data_objects ado JOIN agents a ON (ado.agent_id=a.id)
+          JOIN agent_roles ar ON (ado.agent_role_id=ar.id)
           WHERE ado.data_object_id IN (#{data_object_ids.join(',')}))
         UNION
-        (SELECT a.* , 1 as data_supplier, NULL, dohe.data_object_id
+        (SELECT a.* , 1 as data_supplier, NULL agent_role_id, NULL agent_role_label, dohe.data_object_id, 1 view_order
           FROM data_objects_harvest_events dohe 
           JOIN harvest_events he                ON (dohe.harvest_event_id=he.id) 
           JOIN agents_resources ar              ON (he.resource_id=ar.resource_id) 
           JOIN agents a                         ON (ar.agent_id=a.id) 
           WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})
-          AND ar.resource_agent_role_id=#{data_supplier_id}) 
+          AND ar.resource_agent_role_id=#{data_supplier_id})
+        ORDER BY view_order
          })
     
-    # add the agent info
+    
+    attributions = {}
     data_object_agents.each do |a|
-      if !metadata[a['data_object_id'].to_i].nil?
-        if a['data_supplier'].to_i == 1
-          metadata[a['data_object_id'].to_i]['data_supplier'] = a
-        elsif a['agent_role_id'].to_i == AgentRole.photographer_id.to_i
-          metadata[a['data_object_id'].to_i]['photographers'] << a
-        elsif a['agent_role_id'].to_i == AgentRole.author_id.to_i
-          metadata[a['data_object_id'].to_i]['authors'] << a
-        elsif a['agent_role_id'].to_i ==AgentRole.source_id.to_i
-          metadata[a['data_object_id'].to_i]['sources'] << a
+      do_id = a['data_object_id'].to_i
+      attributions[do_id] ||= {
+            'supplied_user_id'  => nil,
+            'data_supplier'     => nil,
+            'agents'            => {} }
+      if attributions[do_id]['agents'].empty?
+        @all_agent_roles ||= AgentRole.all.each
+        @all_agent_roles.each do |ar|
+          attributions[do_id]['agents'][ar.label] ||= []
         end
       end
+          
+      if a['data_supplier'].to_i == 1
+        attributions[do_id]['data_supplier'] = a
+      else
+        attributions[do_id]['agents'][a['agent_role_label']] ||= []
+        attributions[do_id]['agents'][a['agent_role_label']] << a
+      end
     end
+    
+    results.each do |r|
+      r['attributions'] = {}
+      if a = attributions[r.id.to_i]
+        r['data_supplier'] = a['data_supplier'] if !a['data_supplier'].nil?
+        a['attributions'] = Attributions.from_agents_hash(r, a, DataType.text.id)
+        a.each do |key, value|
+          r[key] = value
+        end
+      else
+        r['attributions'] = Attributions.from_agents_hash(r, nil, DataType.text.id)
+      end
+    end
+    
+    return results
+  end
+  
+  def self.add_taxa_names_to_result(results)
+    data_object_ids = results.collect {|r| r.id}
+    return results if data_object_ids.empty?
     
     data_object_taxa_names = Taxon.find_by_sql(%Q{
         SELECT t.scientific_name as taxon_name, he.taxon_concept_id, dot.data_object_id
           FROM data_objects_taxa dot
-          JOIN taxa t on (dot.taxon_id=t.id)
-          JOIN hierarchy_entries he on (t.hierarchy_entry_id=he.id)
+          JOIN taxa t ON (dot.taxon_id=t.id)
+          JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
           WHERE dot.data_object_id IN (#{data_object_ids.join(',')})})
     
-    # add the names info
-    data_object_taxa_names.each do |t|
-      if !metadata[t['data_object_id'].to_i].nil?
-        metadata[t['data_object_id'].to_i]['taxa_names_ids'] << t
-      end
-    end
-
-    
-    return metadata
+    grouped_taxa_names = ModelQueryHelper.group_array_by_key(data_object_taxa_names, 'data_object_id')
+    results = ModelQueryHelper.add_hash_to_object_array_as_key(results, grouped_taxa_names, 'taxa_names_ids')
+    return results
   end
+  
+  def self.add_refs_to_result(results)
+    data_object_ids = results.collect {|r| r.id}
+    return results if data_object_ids.empty?
+    
+    refs = Ref.find_by_sql(%Q{
+        SELECT r.*, dor.data_object_id
+          FROM data_objects_refs dor
+          JOIN refs r ON (dor.ref_id=r.id)
+          WHERE dor.data_object_id IN (#{data_object_ids.join(',')})
+          AND r.published=1
+          AND r.visibility_id=#{Visibility.visible.id}})
+    
+    grouped_refs = ModelQueryHelper.group_array_by_key(refs, 'data_object_id')
+    results = ModelQueryHelper.add_hash_to_object_array_as_key(results, grouped_refs, 'refs')
+    return results
+  end
+  
+  def self.add_users_to_result(results)
+    data_object_ids = results.collect {|r| r.id}
+    return results if data_object_ids.empty?
+    
+    users = User.find_by_sql(%Q{
+        SELECT u.*, udo.data_object_id
+          FROM #{UsersDataObject.full_table_name} udo
+          JOIN #{User.full_table_name} u ON (udo.user_id=u.id)
+          WHERE udo.data_object_id IN (#{data_object_ids.join(',')})})
+    
+    grouped_users = ModelQueryHelper.group_array_by_key(users, 'data_object_id')
+    results = ModelQueryHelper.add_hash_to_object_array_as_key(results, grouped_users, 'users')
+    return results
+  end
+  
+  
 
   # Find all of the data objects of a particular type (text, image, etc) associated with a given taxon.
   # Options may include current agents and/or users, to affect permissions of who sees what.
@@ -932,7 +995,7 @@ class DataObject < SpeciesSchemaModel
       if type == :text && options[:toc_id].nil?
         results = TocItem.find_by_sql(DataObject.build_query(taxon, type, options))
       else
-        results = DataObject.find_by_sql(DataObject.build_query(taxon, type, options))
+        results = DataObject.other_type_for_taxon(taxon, type, options)
       end
     end
 
@@ -946,13 +1009,42 @@ class DataObject < SpeciesSchemaModel
     # now need to exclude those items that they did not contribute:
     if options[:agent]
       results.delete_if do |dato|
-        dato.visibility_id == Visibility.preview.id and not dato['agent_id'].nil? and
-          dato['agent_id'].to_i != options[:agent].id
+        dato.visibility_id == Visibility.preview.id and not dato['data_supplier'].nil? and
+          dato['data_supplier'].id != options[:agent].id
       end
     end
 
     return results
 
+  end
+  
+  def self.other_type_for_taxon(taxon, type, options)
+    # generate the query to search for data objects
+    query = DataObject.build_query(taxon, type, options)
+    # load the objects and the info we need to sort them
+    result = DataObject.find_by_sql(query)
+    result = result.uniq
+    
+    # sort objects by vetted order ASC (so trusted are first), rating DESC (so best are first), id DESC (so newest are first)
+    result.sort! do |a, b|
+      if a.vetted_view_order == b.vetted_view_order
+        # TODO - this should probably also sort on visibility.
+        if a.data_rating == b.data_rating
+          b.id <=> a.id # essentially, orders images by date.
+        else
+          b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
+        end
+      else
+        a.vetted_view_order <=> b.vetted_view_order
+      end
+    end
+    
+    # query result set for attribution info, taxa info (for permalinks), and references
+    result = DataObject.add_attributions_to_result(result)
+    result = DataObject.add_taxa_names_to_result(result)
+    result = DataObject.add_refs_to_result(result)
+    result = DataObject.add_users_to_result(result)
+    return result
   end
 
   # TODO - MED PRIORITY - I'm assuming there's one taxa for this data object, and there could be several.
@@ -966,43 +1058,37 @@ class DataObject < SpeciesSchemaModel
     where_toc    = options[:toc_id].nil? ? '' : ActiveRecord::Base.sanitize_sql(['AND toc.id = ?', options[:toc_id]])
     #sort         = 'published, vetted_id DESC, data_rating DESC' # unpublished first, then by data_rating.
     sort         = 'published, vetted_sort_order, data_rating DESC' # unpublished first, then by data_rating.    
-
+    data_type_ids = DataObject.get_type_ids(type)
+    
     query_string = %Q{
 (SELECT DISTINCT dt.label media_type, dato.*, t.scientific_name, he.taxon_concept_id taxon_id,
-       l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}, null as vetted_sort_order
+       l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}, v.view_order as vetted_view_order
   FROM hierarchy_entries he
-    STRAIGHT_JOIN taxa t                ON (he.id = t.hierarchy_entry_id)
-    STRAIGHT_JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
-    STRAIGHT_JOIN data_objects dato     ON (dot.data_object_id = dato.id)
-    STRAIGHT_JOIN data_types dt         ON (dato.data_type_id = dt.id)
+    JOIN taxa t                ON (he.id = t.hierarchy_entry_id)
+    JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
+    JOIN data_objects dato     ON (dot.data_object_id = dato.id)
+    JOIN vetted v              ON (dato.vetted_id=v.id)
+    JOIN data_types dt         ON (dato.data_type_id = dt.id)
     #{join_agents} #{join_toc}
     LEFT OUTER JOIN licenses l       ON (dato.license_id = l.id)
-  WHERE he.taxon_concept_id = :taxon_concept_id
-    AND data_type_id IN (:data_type_ids)
+  WHERE he.taxon_concept_id = #{taxon.id}
+    AND data_type_id IN (#{data_type_ids.join(',')})
     #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
     #{where_toc})
 UNION
-(SELECT dt.label media_type, dato.*, '' scientific_name, taxon_concept_id taxon_id, l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}
-
-    ,if(dato.vetted_id = #{Vetted.trusted.id},1,
-    if(dato.vetted_id = #{Vetted.unknown.id},2,
-    if(dato.vetted_id = #{Vetted.untrusted.id},3,4))) as vetted_sort_order
-
-
+(SELECT dt.label media_type, dato.*, '' scientific_name, taxon_concept_id taxon_id, l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}, v.view_order vetted_view_order
 FROM data_objects dato
+JOIN vetted v              ON (dato.vetted_id=v.id)
 JOIN #{ UsersDataObject.full_table_name } udo ON (dato.id=udo.data_object_id)
 STRAIGHT_JOIN data_types dt ON (dato.data_type_id = dt.id)
 #{join_agents} #{join_toc}
 LEFT OUTER JOIN licenses l ON (dato.license_id = l.id)
 WHERE
-udo.taxon_concept_id=:taxon_concept_id
-AND data_type_id IN (:data_type_ids)
+udo.taxon_concept_id=#{taxon.id}
+AND data_type_id IN (#{data_type_ids.join(',')})
 #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
-    #{where_toc})
-  ORDER BY #{sort} # DataObject.for_taxon
+    #{where_toc}) # DataObject.for_taxon
     }
-
-    ActiveRecord::Base.sanitize_sql([query_string, {:taxon_concept_id => taxon.id, :data_type_ids => DataObject.get_type_ids(type)}])
   end
 
   alias :ar_to_xml :to_xml
@@ -1034,6 +1120,12 @@ AND data_type_id IN (:data_type_ids)
     else 
       ar_to_xml(options) { |xml| default_block.call(xml) }
     end
+  end
+  
+  def self.latest_published_version_of(data_object_id)
+    obj = DataObject.find_by_sql("SELECT MAX(do.id) id FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1")[0]
+    return nil if obj.id.nil?
+    return DataObject.find(obj.id)
   end
 
 private

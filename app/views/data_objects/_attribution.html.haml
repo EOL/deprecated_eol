@@ -12,15 +12,15 @@
             Not all maps have occurrence information.
   - elsif has_hidden_attributions?(data_object) && !@preview
     %a.attribution-icon.expand-text-attribution{ :href => "#", :title => "View full attribution details", :id => "tdo_#{data_object.id}", :style => "width: 25px; height: 25px" }
-  - if data_object.created_by_user?
+  - unless data_object['users'].nil?
     .credit.supplier
       .credit-caption
         Supplier
       .credit-value
-        = data_object.user.given_name
-        = data_object.user.family_name
+        = data_object['users'][0].given_name
+        = data_object['users'][0].family_name
       .footer
-  - data_object.attributions.each do |attribution|
+  - data_object['attributions'].each do |attribution|
     %div{ :class => "credit #{css_class(attribution.agent_role)}" }
       .credit-caption
         = attribution.agent_role
@@ -30,7 +30,7 @@
         / agent icon
         = agent_icons_partial(attribution.agent)
       .footer
-  - if data_object.text? || data_object.image?
+  - if (data_object.text? || data_object.image?) && !data_object['taxa_names_ids'].nil?
     .credit.permalink
       .credit-caption
         = "Permalink"[]
@@ -39,5 +39,5 @@
         \:
         %br
         %form
-          %input{ :size => data_object.text? ? '45' : '35', :type => "text", :value => "http://#{$SITE_DOMAIN_OR_IP}/pages/#{data_object.taxon_concepts[0].id}?#{data_object.data_type.label.downcase}_id=#{data_object.id}", :onclick => "this.select();" }
+          %input{ :size => data_object.text? ? '45' : '35', :type => "text", :value => "http://#{$SITE_DOMAIN_OR_IP}/pages/#{data_object['taxa_names_ids'][0]['taxon_concept_id']}?#{data_object['media_type'].downcase}_id=#{data_object.id}", :onclick => "this.select();" }
       .footer

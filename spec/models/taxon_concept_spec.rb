@@ -269,8 +269,9 @@ describe TaxonConcept do
     @taxon_concept.images.map {|i| i.id }.should include(dato.id)
   
     # Another CP should not:
-    @taxon_concept.current_agent = another_cp
-    @taxon_concept.images.map {|i| i.id }.should_not include(dato.id)
+    tc = TaxonConcept.find(@taxon_concept.id) # hack to reload the object and delete instance variables
+    tc.current_agent = another_cp
+    tc.images.map {|i| i.id }.should_not include(dato.id)
   
   end
   
@@ -352,6 +353,7 @@ describe TaxonConcept do
                                 :hierarchy => h_unvetted,
                                 :vetted_id => Vetted.unknown.id,
                                 :published => 1)
+    concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
     concept.entry.should_not be_nil
     concept.entry.id.should == he_unvetted.id
     concept.name.should == unvetted_name.italicized
@@ -364,6 +366,7 @@ describe TaxonConcept do
                                 :hierarchy => h_vetted,
                                 :vetted_id => Vetted.trusted.id,
                                 :published => 1)
+    concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
     concept.entry.id.should == he_vetted.id
     concept.name.should == vetted_name.italicized
     
@@ -375,15 +378,17 @@ describe TaxonConcept do
                                 :hierarchy => h_vetted,
                                 :vetted_id => Vetted.unknown.id,
                                 :published => 1)
+    concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
     concept.entry.id.should == he_vetted.id
     concept.name.should == vetted_name.italicized
     
     # now remove the vetted hierarchy entry and make sure the first entry is the chosen one
     he_vetted.destroy
+    concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
     concept.entry.id.should == he_unvetted.id
     concept.name.should == unvetted_name.italicized
   end
-
+  
   # TODO - this is failing, but low-priority, I added a bug for it: EOLINFRASTRUCTURE-657
   # This was related to a bug (EOLINFRASTRUCTURE-598)
   #it 'should return the table of contents with unpublished items when a content partner is specified' do

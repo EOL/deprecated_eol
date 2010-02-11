@@ -24,5 +24,8 @@ class GoogleAnalyticsPageStat < SpeciesSchemaModel
     order by page_views desc "      
     self.paginate_by_sql [query, agent_id, year, month], :page => page, :per_page => 50 , :order => 'page_views'
     
+    #Post.paginate_by_sql [query, agent_id, year, month], :page => page, :per_page => 50 , :order => 'page_views'    
+    #return query
+    
    end
 end

@@ -1,6 +1,6 @@
 - unless results.blank?
   .search_results{ :id => title.downcase.gsub(" ", "_")}
-    %h3.search_result_subtitle= "#{title}"[]
+    %h3.search_result_subtitle= "#{title}"
     %p
       == Results #{results.offset + 1} - #{results.offset + [results.per_page, results.total_entries].min} of
       == #{results.total_entries} for

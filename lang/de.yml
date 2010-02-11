@@ -1,359 +1,512 @@
+﻿### EOL Web site translation template v.1.1
+### 
+### INSTRUCTIONS:
+### 
+### The file format looks like this:
+### 
+### #comment
+### key: phrase to be translated
+### 
+### Instructions:
+### 
+### 1. The formatting of the file is one phrase per line, with a
+### translated phrase and a "key" that is used in the code to refer to
+### that phrase.
+### 
+### 2. Comments are denoted with "#" at the start of the line.
+### 
+### 3. The key is always first on each line followed by a colon. The
+### phrase follows the colon. Keys shouldn't be changed of course.
+### 
+### 4. The key is usually the same as the phrase that needs to be
+### translated, in lowered case with underscores instead of spaces, except
+### when the phrase is quite long. In that case, the key has been
+### shortened and the phrase to be translated is shown *above* the key in
+### a comment.
+### 
+### 5. Some phrases have special brackets in them {like this}. Please
+### leave those brackets and the text inside them *as is* in your
+### translations and just move them to the correct place in your translation.
+### DO NOT TRANSLATE THE TEXT INSIDE THE BRACKETS. The text
+### between the brackets is replaced dynamically by the code (if the text
+### inside the brackets also needs to be translated, it will have it's own
+### key elsewhere).
+### 
+### 6. In some cases, it's important that the translation is not longer
+### than the english (for example, text in the menu structure). These
+### special cases are denoted at the top of the file.
+### 
+### 7. Please don't add extra characters anywhere else in the file and use a standard
+###    text editor only (for Windows, try jEdit or TextPad, for Mac, try TextWrangler - 
+###     each of these software products are either free or have a free demo).
+###    Be sure to not change the format of the file - it should be a .YML extension
+###    and it should be saved as Unicode (UTF-8).
+###
+### So, basically just change the translations from French to that language! 
+### 
+### Also, please supply the text for your language for the
+### language selection menu that would be good (e.g. the menu that says
+### "English - EN, Francais - FR, Deutch - DE" etc.):
+
+#MENU
+#English - EN: Your_language - 
+
 #EOL
 #-------------------------------------------
-encyclopedia_of_life: Enzyklopädie des Lebens
-welcome_to_the_encyclopedia_of_life: Willkommen bei der Enzyklopädie des Lebens
+encyclopedia_of_life: "Enzyklopädie des Lebens"
+welcome_to_the_encyclopedia_of_life: "Willkommen bei der Enzyklopädie des Lebens"
 
 ####################
 # TRANSLATIONS BELOW SHOULD NOT BE MUCH LONGER THAN THE ENGLISH
 ####################
 # Home Page
-explore: Entdecken
-related: Ähnliches
-featured: Empfehlung
-popular: Beliebt
-home: Home
+explore: "Entdecken"
+related: "Ähnliches"
+featured: "Empfehlung"
+popular: "Beliebt"
+home: "Home"
+
 # Menus
-language: Sprache
-my_preferences: Einstellungen
-about_eol: Über EOL
-profile_settings: Mein Profil
-your_preferences: Ihre Einstellungen
-preferences: Einstellungen
-feedback: Feedback
-press_room: Presse
-forum: Forum
-blog: Blog
-survey: Umfrage
-media_contact: Presse
-press_releases: Pressemitteilungen
-publications: Veröffentlichungen
-help: Hilfe
-screencasts: Screencasts
-faqs: FAQs
-using_the_site: Sitemap
-who_we_are: Wer wir sind
-institutional_partners: Partnerinstitutionen
-data_partners: Daten-Partner
-technology_partners: Technologiepartner
-milestones: Meilensteine
-upcoming_events: Künftige Ereignisse
-employment: Stellenangebote
-donors: Spenden
-newsletter: Newsletter
-project: Projekt
-description: Beschreibung 
-item: Objekt
-project_page: Projektseite
-terms_of_use: Nutzungsbedingungen
-contact_us: Kontakt
-cancel: Abbrechen
+language: "Sprache"
+my_preferences: "Einstellungen"
+about_eol: "Über EOL"
+profile_settings: "Mein Profil"
+your_preferences: "Ihre Einstellungen"
+preferences: "Einstellungen"
+feedback: "Feedback"
+press_room: "Presse"
+forum: "Forum"
+blog: "Blog"
+survey: "Umfrage"
+media_contact: "Presse"
+press_releases: "Pressemitteilungen"
+publications: "Veröffentlichungen"
+help: "Hilfe"
+screencasts: "Screencasts"
+faqs: "FAQs"
+using_the_site: "Sitemap"
+who_we_are: "Wer wir sind"
+institutional_partners: "Partnerinstitutionen"
+technology_partners: "Technologiepartner"
+milestones: "Meilensteine"
+upcoming_events: "Künftige Ereignisse"
+employment: "Stellenangebote"
+donors: "Spenden"
+newsletter: "Newsletter"
+project: "Projekt"
+description: "Beschreibung"
+item: "Objekt"
+project_page: "Projektseite"
+terms_of_use: "Nutzungsbedingungen"
+contact_us: "Kontakt"
+cancel: "Abbrechen"
 #Comments and Corrections
-comments_and_corrections: Kommentare / Berichtigungen
-search: Suche
-search_results: Suchergebnisse
-searching: Suche
-advanced_search: Erweiterte Suche
+comments_and_corrections: "Kommentare / Berichtigungen"
+search: "Suche"
+search_results: "Suchergebnisse"
+searching: "Suche"
+advanced_search: "Erweiterte Suche"
 # Term must have at least 3 characters.
-searching_error: Mindestens 3 Buchstaben erforderlich
-more_species: Weitere Arten
-status: Status
-source: Quelle
-source_of: Quelle von {title}
-updated: Aktualisiert
-sources: Quellen
-type: Typ
-source_and_additional_information: Quellen und weitere Informationen
+searching_error: "Mindestens 3 Buchstaben erforderlich"
+more_species: "Weitere Arten"
+status: "Status"
+source: "Quelle"
+# source of {title}
+source_of: "Quelle von {title}"
+updated: "Aktualisiert"
+sources: "Quellen"
+type: "Typ"
+source_and_additional_information: "Quellen und weitere Informationen"
 
 # Paging
 # -------------------------------------------
-back: Zurück
-next: Weiter
+back: "Zurück"
+next: "Weiter"
 
 ####################
 # TRANSLATIONS BELOW CAN BE LONGER THAN THE ENGLISH IF NEEDED
 ####################
 
 #Please select a topic area.
-select_topic: Wählen Sie ein Thema
-your_message_was_sent: Ihre Nachricht wurde gesendet.
-#Sorry, but the search could not return any results at this time due to high demand.  Please try a more specific search.
-search_timed_out: Es tut uns leid, aber Ihre Suche kann im Moment wegen zu hoher Nachfrage keine Ergebnisse liefern. Bitte versuchen Sie, Ihre Suche einzugrenzen. 
-#Only the first {num_results} search results are shown below for {search_string} - please try a more specific search term if you do not find what you are looking for.
-too_many_search_results: Nur die ersten {num_results}  Ergebnisse für {search_string} weden angezeigt - bitte versuchen Sie Ihre Suche einzugrenzen, wenn Sie nicht finden, wonach Sie gesucht haben.
-#The following {num_results} search results are shown below for {search_string}.
-num_results_shown: Die folgenden {num_results} Ergebnisse für {search_string} werden unten angezeigt.
-exemplar_pages: Beispielseiten
+select_topic: "Wählen Sie ein Thema"
+your_message_was_sent: "Ihre Nachricht wurde gesendet."
+#Sorry, but the search could not return any results at this time due to high demand. Please try a more specific search.
+search_timed_out: "Es tut uns leid, aber Ihre Suche kann im Moment wegen zu hoher Nachfrage keine Ergebnisse liefern. Bitte versuchen Sie, Ihre Suche einzugrenzen."
+#Only the first {num_results} search results containing {search_string} are shown below - please try a more specific search term if you do not find what you are looking for.
+too_many_search_results: "Nur die ersten {num_results}  Ergebnisse für {search_string} weden angezeigt - bitte versuchen Sie Ihre Suche einzugrenzen, wenn Sie nicht finden, wonach Sie gesucht haben."
+#The following {num_results} search results contain {search_string}.
+num_results_shown: "Die folgenden {num_results} Ergebnisse für {search_string} werden unten angezeigt."
+exemplar_pages: "Beispielseiten"
 
 # Authentication
 # -------------------------------------------
-hello_user: Hallo {user}!
-you_are_not_logged_in: Sie sind nicht angemeldet
+hello_user: "Hallo {user}!"
+you_are_not_logged_in: "Sie sind nicht angemeldet"
 #Please {login} or {create_an_account}
-please_login_or_create_account: Bitte {login} oder {create_an_account}
-logout: abmelden
-login: anmelden
-register: Registrieren
-create_account: erstellen Sie ein Benutzerkonto
-account_information: Benutzerkonto-Informationen
-username: Benutzername
-email_address: Email-Adresse
-password: Passwort
-confirm_password: Passwort bestätigen
-required: Pflichtfeld
-given_name: Vorname
-family_name: Nachname
+please_login_or_create_account: "Bitte {login} oder {create_an_account}"
+logout: "abmelden"
+login: "anmelden"
+register: "Registrieren"
+create_account: "erstellen Sie ein Benutzerkonto"
+account_information: "Benutzerkonto-Informationen"
+username: "Benutzername"
+email_address: "Email-Adresse"
+password: "Passwort"
+confirm_password: "Passwort bestätigen"
+required: "Pflichtfeld"
+given_name: "Vorname"
+family_name: "Nachname"
 # Do you want to include?
-detail_level: Was möchten Sie einschließen?
+detail_level: "Was möchten Sie einschließen?"
 # Do you want to see?
-content_level: Was möchten Sie sehen?
-only_enter_new_password_if_needed: Geben Sie nur ein neues Passwort ein, wenn Sie es ändern möchten.
-your_account: Ihr Benutzerkonto
-logged_in: Sie haben sich erfolgreich angemeldet.
-registration: Registrierung
-register_now: Jetzt registrieren
-update_account: Kontoeinstellungen speichern
-update_preferences: Einstellungen speichern
-forgot_password: Passwort vergessen
-name_of_organism: Artenname
+content_level: "Was möchten Sie sehen?"
+only_enter_new_password_if_needed: "Geben Sie nur ein neues Passwort ein, wenn Sie es ändern möchten."
+your_account: "Ihr Benutzerkonto"
+logged_in: "Sie haben sich erfolgreich angemeldet."
+registration: "Registrierung"
+register_now: "Jetzt registrieren"
+update_account: "Kontoeinstellungen speichern"
+update_preferences: "Einstellungen speichern"
+forgot_password: "Passwort vergessen"
+name_of_organism: "Artenname"
 
 #Which language do you prefer?
-language_preference: Welche Sprache bevorzugen Sie?
+language_preference: "Welche Sprache bevorzugen Sie?"
 #If you don't have an account, click here to register
-click_here_to_register: Wenn Sie noch kein Benutzerkonto haben, klicken Sie hier
+click_here_to_register: "Wenn Sie noch kein Benutzerkonto haben, klicken Sie hier"
 
 # Select a video to the right to begin playback.
-select_video: Wählen Sie rechts ein Video aus, um es abzuspielen
-#shown as <species name>
-shown_as: Angezeigt als
-#synonym of <species name>
-synonym_of: Synonym von
+select_video: "Wählen Sie rechts ein Video aus, um es abzuspielen"
+#shown as «species name»
+shown_as: "Angezeigt als"
+#synonym of «species name»
+synonym_of: "Synonym von"
 
-please_enter_a_username: Bitte geben Sie Ihren Benutzernamen ein.
-please_enter_a_password: Bitte geben Sie Ihr Passwort ein.
-please_enter_the_password_again: Bitte geben Sie Ihr Passwort erneut ein.
-please_enter_your_email_address: Bitte geben Sie Ihre E-Mail-Adresse ein.
-passwords_must_match: Die Passwörter müssen übereinstimmen.
-please_enter_given_name: Bitte geben Sie Ihren Vornamen ein.
-please_enter_family_name: Bitte geben Sie Ihren Nachnamen ein.
-do_you_want_to_receive_eol_notifications_by_email?: Möchten Sie regelmäßige Informationen zu EOL erhalten?
-yes_answer: Ja
+please_enter_a_username: "Bitte geben Sie Ihren Benutzernamen ein."
+please_enter_a_password: "Bitte geben Sie Ihr Passwort ein."
+please_enter_the_password_again: "Bitte geben Sie Ihr Passwort erneut ein."
+please_enter_your_email_address: "Bitte geben Sie Ihre E-Mail-Adresse ein."
+passwords_must_match: "Die Passwörter müssen übereinstimmen"
+please_enter_given_name: "Bitte geben Sie Ihren Vornamen ein."
+please_enter_family_name: "Bitte geben Sie Ihren Nachnamen ein."
+do_you_want_to_receive_eol_notifications_by_email?: "Möchten Sie regelmäßige Informationen zu EOL erhalten?"
+yes_answer: "Ja"
 
-login: anmelden
-login_now: Jetzt anmelden
-username_and_password: Benutzername und Passwort
-submit: Abschicken
+login: "anmelden"
+login_now: "Jetzt anmelden"
+username_and_password: "Benutzername und Passwort"
+submit: "Abschicken"
 
 #To sign up for a EOL notifications, please {create_account}
-sign_up_for_eol_notifications: Um sich für regelmäßige Nachrichten von EOL anzumelden {create_account}
-topic_area: Themengebiet
-your_name: Ihr Name
-your_email_address: Ihre E-Mail-Adresse
-comments: Comments
+sign_up_for_eol_notifications: "Um sich für regelmäßige Nachrichten von EOL anzumelden {create_account}"
+topic_area: "Themengebiet"
+your_name: "Ihr Name"
+your_email_address: "Ihre E-Mail-Adresse"
+comments: "Comments"
 
-#For verification, please enter the characters you see below.  Click the ? for assistance.
-recaptcha: Zur Bestätigung geben Sie bitte die untenstehenden Zeichen ein. Klicken Sie auf das Fragezeichen, um Hilfe zu erhalten
+#For verification, please enter the characters you see below. Click the ? for assistance.
+recaptcha: "Zur Bestätigung geben Sie bitte die untenstehenden Zeichen ein. Klicken Sie auf das Fragezeichen, um Hilfe zu erhalten"
 #The verification phrase you entered did not match.
-verification_phrase_did_not_match: Die Zeichen, die Sie zur Bestätigung eingegeben haben, stimmen nicht überein
+verification_phrase_did_not_match: "Die Zeichen, die Sie zur Bestätigung eingegeben haben, stimmen nicht überein"
 
-username_taken: Der Benutzername {username} ist bereits vergeben
-passwords_must_match: Die Passwörter müssen übereinstimmen
-new_password: Neues Passwort
-confirm_new_password: Bestätigen Sie das neue Passwort
+username_taken: "Der Benutzername {username} ist bereits vergeben"
+passwords_must_match: "Die Passwörter müssen übereinstimmen"
+new_password: "Neues Passwort"
+confirm_new_password: "Bestätigen Sie das neue Passwort"
 
 # If you are not "{user}", {login} or {create_account}.
-if_you_are_not_user_please_login_or_create_account: Wenn Sie nicht {user} sind, {login} oder {create_account}.
+if_you_are_not_user_please_login_or_create_account: "Wenn Sie nicht {user} sind, {login} oder {create_account}."
 
 # Only information that has comes from authoritative sources
-view_only_vetted_content: Nur Informationen, die von vertrauenswürdigen Quellen stammen
-all_information: Alle Informationen	
-information_intended_for_beginners: Informationen für Einsteiger
-information_intended_for_experts: Informationen für Experten
-information_for_any_audience: Informationen für alle Wissensstufen
+view_only_vetted_content: "Nur Informationen, die von vertrauenswürdigen Quellen stammen"
+all_information: "Alle Informationen"
+information_intended_for_beginners: "Informationen für Einsteiger"
+information_intended_for_experts: "Informationen für Experten"
+information_for_any_audience: "Informationen für alle Wissensstufen"
 
-minimal_species_page: Reduzierte Artenseite
+#TODO minimal_page:
 
-all_pages: Alle Seiten
+all_pages: "Alle Seiten"
 
-pages_with_pictures_and_text: Seiten mit Bildern und Text
-just_pages_with_pictures_and_text: Nur Seiten mit Bildern und Text
+pages_with_pictures_and_text: "Seiten mit Bildern und Text"
+just_pages_with_pictures_and_text: "Nur Seiten mit Bildern und Text"
 
 # Authentication flash notices
 # -------------------------------------------
 # Invalid login or password
-invalid_login_or_password: Benutzername oder Passwort inkorrekt.
+invalid_login_or_password: "Benutzername oder Passwort inkorrekt."
 # Thanks for registering!
-thanks_for_registering: Vielen Dank für die Registrierung!
+thanks_for_registering: "Vielen Dank für die Registrierung!"
 # Your profile has been updated.
-your_preferences_have_been_updated: Ihre Einstellungen wurden aktualisiert.
+your_preferences_have_been_updated: "Ihre Einstellungen wurden aktualisiert."
 # You have been logged out.
-you_have_been_logged_out: Sie wurden abgemeldet.
+you_have_been_logged_out: "Sie wurden abgemeldet."
 
 
 # Content / misc
 # -------------------------------------------
-image: Bild
-common_name: Umgangssprachlicher Name
-scientific_name: Wissenschaftlicher Name
-common_names: Umgangssprachliche Namen
-scientific_names: Wissenschaftliche Namen
-find: Suche
-find_by_name: Suche nach Namen
-words: Wörter
-names: Namen
-contains_your_term: Enthält Ihren Suchbegriff
-exact_match_only:  Suche ausschließlich nach
-all_names: Alle Namen
-only_common_names: Nur umgangssprachliche Namen
-only_scientific_names: Nur wissenschaftliche Namen
-no_search_results: Ihre Suche lieferte keine Ergebnisse.
-page_curated_by: Seite bearbeitet durch
-help_me_find_more_species: Ich möchte weitere Arten finden.
-continue: Weiter
+image: "Bild"
+common_name: "Umgangssprachlicher Name"
+scientific_name: "Wissenschaftlicher Name"
+common_names: "Umgangssprachliche Namen"
+scientific_names: "Wissenschaftliche Namen"
+find: "Suche"
+find_by_name: "Suche nach Namen"
+words: "Wörter"
+names: "Namen"
+contains_your_term: "Enthält Ihren Suchbegriff"
+exact_match_only: "Suche ausschließlich nach"
+all_names: "Alle Namen"
+only_common_names: "Nur umgangssprachliche Namen"
+only_scientific_names: "Nur wissenschaftliche Namen"
+no_search_results: "Ihre Suche lieferte keine Ergebnisse."
+page_curated_by: "Seite bearbeitet durch"
+help_me_find_more_species: "Ich möchte weitere Arten finden."
+continue: "Weiter"
 
 # Thank you for your feedback.
-thanks_for_feedback: Vielen Dank für Ihren Beitrag.
+thanks_for_feedback: "Vielen Dank für Ihren Beitrag."
 
 # Link Buttons
-bookmark: Lesezeichen
-cite: Zitieren
+bookmark: "Lesezeichen"
+cite: "Zitieren"
 
 # Table of conents
-table_of_contents: Inhaltsverzeichnis
+table_of_contents: "Inhaltsverzeichnis"
 # IUCN Redlist Status
-iucn_red_list_status: Gefährdungsstatus auf der Roten Liste der gefährdeten Arten
+iucn_red_list_status: "Gefährdungsstatus auf der Roten Liste der gefährdeten Arten"
 
 # sorry, we've encountered a problem
-sorry: Es tut uns leid, aber wir haben ein Problem festgestellt.
+sorry: "Es tut uns leid, aber wir haben ein Problem festgestellt."
 # We've logged the problem and notified the system administrators.
-problem: Wir haben das Problem registriert und die Systemadministratoren benachrichtigt.
+problem: "Wir haben das Problem registriert und die Systemadministratoren benachrichtigt."
 
 # tabs to switch between taxonomic browsers
-graphic: Grafisch
-text: Text
-classification: Klassifikation
-classification_provided_by: Klassifikation nach
+graphic: "Grafisch"
+text: "Text"
+classification: "Klassifikation"
+classification_provided_by: "Klassifikation nach"
 
 # Media center navigation tabs
 # -------------------------------------------
-images: Bilder
-maps: Karten
-videos: Videos
-sounds: Töne
-content: Inhalte
-charts: Diagramme
+images: "Bilder"
+maps: "Karten"
+videos: "Videos"
+sounds: "Töne"
+content: "Inhalte"
+charts: "Diagramme"
 
 # Media center image copyright information
 # -------------------------------------------
-author: Autor
-location: Ort
-name: Name
-taken: aufgenommen
-copyright: Copyright
-more_info: Weitere Informationen
-license: Lizenz
+author: "Autor"
+location: "Ort"
+name: "Name"
+taken: "aufgenommen"
+copyright: "Copyright"
+more_info: "Weitere Informationen"
+license: "Lizenz"
 
 # Accessibility
 # -------------------------------------------
-skip_to_navigation: Zur Navigation
-skip_to_table_of_contents: Zum Inhaltsverzeichnis
-skip_to_content: Zum Inhalt
-global_navigation: Globale Navigation
-personal_space: Persönliche Seite
-external_links: Externe Links
-media_center_navigation: Navigation Media-Center
-choose_link_images: Wählen Sie Link-Bilder
-choose_images: Wählen Sie Bilder
-page_navigation: Seitennavigation
+skip_to_navigation: "Zur Navigation"
+skip_to_table_of_contents: "Zum Inhaltsverzeichnis"
+skip_to_content: "Zum Inhalt"
+global_navigation: "Globale Navigation"
+personal_space: "Persönliche Seite"
+external_links: "Externe Links"
+media_center_navigation: "Navigation Media-Center"
+choose_link_images: "Wählen Sie Link-Bilder"
+choose_images: "Wählen Sie Bilder"
+page_navigation: "Seitennavigation"
 
 # Validation
 # -------------------------------------------
 # Validation Error
-validation_error: Gültigkeitsfehler
-# There were problems with the following fields
+validation_error: "Gültigkeitsfehler"
+# There were problems with the following fields:
 validation_following_fields: "Es traten bei folgenden Feldern Fehler auf:"
-# <field> can't be blank
-validation_blank: darf nicht leer sein
-# <field> is too short (minimum is {n} characters)
+# «field» can't be blank
+validation_blank: "darf nicht leer sein"
+# «field» is too short (minimum is {n} characters)
 validation_too_short: "ist zu kurz (mindestens {n} Buchstaben erforderlich)"
-# <field> is not a valid e-mail address
-validation_email: ist keine gültige E-Mail-Adresse
-# <field> must be equal to {n}
-validation_equal_to: muss gleich {n} sein
-# <field> is invalid
-validation_invalid: ist ungültig
-# <field> is the wrong length (should be {n} characters)
-validation_wrong_length: hat eine falsche Länge (sollte {n} Buchstaben sein)
-# <field> must be less than {n}
-validation_less_than: muss kleiner sein als {n}
-# <field> doesn't match confirmation
-validation_confirmation: stimmt nicht mit der Bestätigung überein
-# <field> has already been taken
-validation_taken: ist bereits vergeben
-# <field> can't be empty
-validation_empty: darf nicht leer sein
-# <field> must be less than or equal to {n}
-validation_less_than_or_equal_to: muss kleiner als oder gleich {n} sein
-# <field> must be accepted
-validation_accepted: muss akzeptiert werden
-# <field> is not a number
-validation_not_a_number: ist keine Nummer
-# <field> must be odd
-validation_odd: muss ungerade sein
-# <field> must be greater than {n}
-validation_greater_than: muss größer sein als {n} 
-# <field> is not included in the list
-validation_inclusion: ist nicht in der Liste enthalten
-# <field> must be even
-validation_even: muss gerade sein
-# <field> is too long (maximum is {n} characters)
-validation_too_long: ist zu lang (höchstens {n} Buchstaben )
-# <field> must be greater than or equal to {n}
-validation_greater_than_or_equal_to: muss größer als oder gleich {n} sein
-# <field> is reserved
-validation_exclusion: ist reserviert
+# «field» is not a valid e-mail address
+validation_email: "ist keine gültige E-Mail-Adresse"
+
+# «field» must be equal to {n}
+validation_equal_to: "muss gleich {n} sein"
+# «field» is invalid
+validation_invalid: "ist ungültig"
+# «field» is the wrong length (should be {n} characters)
+validation_wrong_length: "hat eine falsche Länge (sollte {n} Buchstaben sein)"
+# «field» must be less than {n}
+validation_less_than: "muss kleiner sein als {n}"
+# «field» doesn't match confirmation
+validation_confirmation: "stimmt nicht mit der Bestätigung überein"
+# «field» has already been taken
+validation_taken: "ist bereits vergeben"
+# «field» can't be empty
+validation_empty: "darf nicht leer sein"
+# «field» must be less than or equal to {n}
+validation_less_than_or_equal_to: "muss kleiner als oder gleich {n} sein"
+# «field» must be accepted
+validation_accepted: "muss akzeptiert werden"
+# «field» is not a number
+validation_not_a_number: "ist keine Nummer"
+# «field» must be odd
+validation_odd: "muss ungerade sein"
+# «field» must be greater than {n}
+validation_greater_than: "muss größer sein als {n}"
+# «field» is not included in the list
+validation_inclusion: "ist nicht in der Liste enthalten"
+# «field» must be even
+validation_even: "muss gerade sein"
+# «field» is too long (maximum is {n} characters)
+validation_too_long: "ist zu lang (höchstens {n} Buchstaben )"
+# «field» must be greater than or equal to {n}
+validation_greater_than_or_equal_to: "muss größer als oder gleich {n} sein"
+# «field» is reserved
+validation_exclusion: "ist reserviert"
 
 
-donate: Spenden
-donation_confirmation: Spendenbestätigung
-enter_amount: Summe eingeben
+donate: "Spenden"
+donation_confirmation: "Spendenbestätigung"
+enter_amount: "Summe eingeben"
 #We appreciate your generous support of the Encyclopedia of Life. Please select the amount you wish to donate.
-donation_message: Wir freuen uns über Ihre großzügige Unterstützung für die Enzyklopädie des Lebens. Bitte geben Sie Ihren Spendenbetrag.
-please_confirm_your_donation_details: Bitte bestätigen Sie Ihre Spendendetails
+donation_message: "Wir freuen uns über Ihre großzügige Unterstützung für die Enzyklopädie des Lebens. Bitte geben Sie Ihren Spendenbetrag."
 # Please select a donation amount.
-donation_error: Please select a donation amount.
+donation_error: "Please select a donation amount."
 # Please enter an amount using only numbers.
-donation_error2: Please enter an amount using only numbers.
-the_amount_entered_was: Der eigegebene Betrag war
+donation_error2: "Please enter an amount using only numbers."
+please_confirm_your_donation_details: "Bitte bestätigen Sie Ihre Spendendetails"
+the_amount_entered_was: "Der eigegebene Betrag war"
+thank_you_for_your_generous_support: "Vielen Dank für Ihre großzügige Unterstützung"
 #If this information is not correct, please {go_back} to make changes
-correct_donation_message: Wenn diese Informationen nicht korrekt sind, können Sie {go_back} um Veränderungen vorzunehmen.
-go_back: zurückgehen
-thank_you: Vielen Dank
+correct_donation_message: "Wenn diese Informationen nicht korrekt sind, können Sie {go_back} um Veränderungen vorzunehmen."
+go_back: "zurückgehen"
+thank_you: "Vielen Dank"
 #Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed.
-thanks_for_donation: Vielen Dank für Ihre Unterstützung der Enzyklopädie des Lebens. Ihre Informationen wurden übermittelt und werden bearbeitet.
+thanks_for_donation: "Vielen Dank für Ihre Unterstützung der Enzyklopädie des Lebens. Ihre Informationen wurden übermittelt und werden bearbeitet."
 # Please {return} to the EOL homepage
-thank_you_for_your_generous_support: Vielen Dank für Ihre großzügige Unterstützung
 return_home: "{return} zur EOL Homepage"
-return: Zurück
+return: "Zurück"
 
-invalid_login_information: Invalid login information
 #Enter the email address or username (or both) you registered with to retrieve your password
-forgot_password_message: Enter the email address or username (or both) you registered with to retrieve your password
+forgot_password_message: "Enter the email address or username (or both) you registered with to retrieve your password"
 #Sorry, but we could not locate your account
-could_not_locate_account: Sorry, but we could not locate your account.
+could_not_locate_account: "Sorry, but we could not locate your account."
 #Sorry, but your email address is not unique - you must also specify a username.
-must_specify_username_too: Sorry, but your email address is not unique - you must also specify a username.
+must_specify_username_too: "Sorry, but your email address is not unique - you must also specify a username."
 # A new password has been emailed to you at {email}.
-new_password_emailed: A new password has been emailed to you at {email}.
-reset_password_instructions_emailed: Check your email to reset your password
-cannot_find_user_or_email: No matching accounts found
-user_password_updated_successfully: Your password is updated
-expired_reset_password_link: Expired link, you can generate it again
+new_password_emailed: "A new password has been emailed to you at {email}."
+#TODO change_my_password:
+reset_password_instructions_emailed: "Check your email to reset your password"
+cannot_find_user_or_email: "No matching accounts found"
+user_password_updated_successfully: "Your password is updated"
+expired_reset_password_link: "Expired link, you can generate it again"
 #Sorry, a problem occurred updating your account - please try again later.
-problem_updating_account: Sorry, a problem occurred updating your account - please try again later.
-taxon_group_of_interest: Taxon group of interest
-suggested_results: Suggested Results
-suggested_search_results_message: Based on your search of '{search_string}', you might be interested in the following species.
-content_partners: Content Partners
+problem_updating_account: "Sorry, a problem occurred updating your account - please try again later."
+taxon_group_of_interest: "Taxon group of interest"
+suggested_results: "Suggested Results"
+suggested_search_results_message: "Based on your search of '{search_string}', you might be interested in the following species."
+content_partners: "Content Partners"
 
 #Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information.
-donation_security_message: Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information.
+donation_security_message: "Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information."
+#To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted.
+#TODO curator_signup_message:
+#TODO select_a_clade:
+#TODO curators_only:
+#strings found by rake tasks
+
+#/Users/dimus/code/eol/app/views/account/_curator_form.html.haml:6
+#TODO curation_scope:
+#/Users/dimus/code/eol/app/views/account/_curator_form.html.haml:12
+#TODO credentials:
+#/Users/dimus/code/eol/app/views/account/confirm.html.haml:3
+#TODO account_confirmation:
+#/Users/dimus/code/eol/app/views/account/confirmation_sent.html.haml:3
+#TODO confirmation_sent:
+#/Users/dimus/code/eol/app/views/account/login.html.haml:16
+#TODO username_or_email_address:
+#/Users/dimus/code/eol/app/views/account/login.html.haml:159
+#TODO remember_me:
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:66
+#TODO do_you_want_to_receive_eol_notifications:
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:74
+#TODO curators:
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:77
+#TODO do_you_want_to_be_a_curator:
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:84
+#TODO curator_information:
+#/Users/dimus/code/eol/app/views/account/signup.html.haml:72
+#TODO do_you_want_to_receive_eol_notifications_by_email:
+#/Users/dimus/code/eol/app/views/administrator/content_partner_report/edit_profile.html.erb:28
+#TODO project_information:
+#/Users/dimus/code/eol/app/views/content/donate.html.erb:43
+#TODO to_process_your_donation_please_proceed:
+#/Users/dimus/code/eol/app/views/content/donate.html.erb:48
+#TODO proceed_to_checkout_page:
+#/Users/dimus/code/eol/app/views/content/index.html.haml:127
+#TODO whats_new:
+#/Users/dimus/code/eol/app/views/content/tc_api.html.erb:6
+#TODO taxon_concepts:
+#/Users/dimus/code/eol/app/views/content_partner/_contact_form.html.erb:2
+#TODO contact:
+#/Users/dimus/code/eol/app/views/content_partner/forgot_password.html.erb:14
+#TODO enter_the_username_or_project_name_you_registered_with_to_retrieve_your_password:
+#/Users/dimus/code/eol/app/views/content_partner/forgot_password.html.erb:22
+#TODO project_name:
+#/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:7
+#TODO legend:
+#/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:36
+#TODO permalink:
+#/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:38
+#TODO copy_and_paste_in_email_or_document:
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:181
+#TODO authoritative_information:
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:191
+#TODO alternate_classification:
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:195
+#TODO filtered_information:
+#/Users/dimus/code/eol/app/views/taxa/_image_collection.html.haml:18
+#TODO items_in_yellow_are_not_reviewed:
+#/Users/dimus/code/eol/app/views/taxa/_image_collection.html.haml:22
+#TODO items_in_red_are_not_trusted:
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:3
+#TODO contribute:
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:23
+#TODO submit_an_image:
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:26
+#TODO submit_text:
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:29
+#TODO more_information_on_how_to_help:
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:9
+#TODO content_settings:
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:11
+#TODO learn_more_about_browse_classification_and_filtering:
+#/Users/dimus/code/eol/app/views/taxa/_show.html.haml:69
+#TODO only_one_text_object_can_be_edited_at_a_time:
+#/Users/dimus/code/eol/app/views/taxa/content/_content_language_common_names_curator.html.haml:7
+#TODO preferred:
+#/Users/dimus/code/eol/app/views/taxa/content/_content_literature_references.html.haml:20
+#TODO references:
+#/Users/dimus/code/eol/app/views/taxa/content/_content_search_the_web.html.haml:14
+#TODO by_scientific_name:
+#/Users/dimus/code/eol/app/views/taxa/mediacenter/_tab_videos.html.haml:31
+#TODO items_in_yellow_are_not_trusted:
+#/Users/dimus/code/eol/app/views/account/login.html.haml:161
+#TODO remember_me_message:
+#/Users/dimus/code/eol/app/views/content/missing.html.erb:6
+#TODO sorry_page_does_not_exist:
+#/Users/dimus/code/eol/app/views/content/missing.html.erb:13
+#TODO you_requested_a_page_that_does_not_exist:
+#/Users/dimus/code/eol/app/views/content/missing.html.erb:14
+#TODO if_you_followed_a_link_here_tell_the_author:
+#/Users/dimus/code/eol/app/views/content_partner/login.html.erb:10
+#TODO content_partner:
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:162
+#TODO user_system_down:
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:27
+#TODO classification_preference:
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:33
+#TODO secondary_hierarchy_preference:

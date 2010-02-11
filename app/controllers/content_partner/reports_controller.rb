@@ -61,9 +61,14 @@ class ContentPartner::ReportsController < ContentPartnerController
   
     @partner = Agent.find(@agent_id, :select => [:full_name])
     @recs = GoogleAnalyticsPartnerSummary.summary(@agent_id, @report_year, @report_month)    
-            
+    
+    
     page = params[:page] || 1
-    @posts = GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)    
+    @posts = GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)
+    
+    #@posts = paginate_by_sql [GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)], :page => page, :per_page => 50 , :order => 'page_views', :agent_id => @agent_id
+    #@posts = Post.paginate :page => params[:page]
+
         
   end
 

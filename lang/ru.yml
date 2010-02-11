@@ -1,366 +1,512 @@
+﻿### EOL Web site translation template v.1.1
+### 
+### INSTRUCTIONS:
+### 
+### The file format looks like this:
+### 
+### #comment
+### key: phrase to be translated
+### 
+### Instructions:
+### 
+### 1. The formatting of the file is one phrase per line, with a
+### translated phrase and a "key" that is used in the code to refer to
+### that phrase.
+### 
+### 2. Comments are denoted with "#" at the start of the line.
+### 
+### 3. The key is always first on each line followed by a colon. The
+### phrase follows the colon. Keys shouldn't be changed of course.
+### 
+### 4. The key is usually the same as the phrase that needs to be
+### translated, in lowered case with underscores instead of spaces, except
+### when the phrase is quite long. In that case, the key has been
+### shortened and the phrase to be translated is shown *above* the key in
+### a comment.
+### 
+### 5. Some phrases have special brackets in them {like this}. Please
+### leave those brackets and the text inside them *as is* in your
+### translations and just move them to the correct place in your translation.
+### DO NOT TRANSLATE THE TEXT INSIDE THE BRACKETS. The text
+### between the brackets is replaced dynamically by the code (if the text
+### inside the brackets also needs to be translated, it will have it's own
+### key elsewhere).
+### 
+### 6. In some cases, it's important that the translation is not longer
+### than the english (for example, text in the menu structure). These
+### special cases are denoted at the top of the file.
+### 
+### 7. Please don't add extra characters anywhere else in the file and use a standard
+###    text editor only (for Windows, try jEdit or TextPad, for Mac, try TextWrangler - 
+###     each of these software products are either free or have a free demo).
+###    Be sure to not change the format of the file - it should be a .YML extension
+###    and it should be saved as Unicode (UTF-8).
+###
+### So, basically just change the translations from French to that language! 
+### 
+### Also, please supply the text for your language for the
+### language selection menu that would be good (e.g. the menu that says
+### "English - EN, Francais - FR, Deutch - DE" etc.):
+
+#MENU
+#English - EN: Your_language - 
 
 #EOL
 #-------------------------------------------
-encyclopedia_of_life: Энциклопедия жизни
-welcome_to_the_encyclopedia_of_life: Добро пожаловать в Энциклопедию жизни
+encyclopedia_of_life: "Энциклопедия жизни"
+welcome_to_the_encyclopedia_of_life: "Добро пожаловать в Энциклопедию жизни"
 
 ####################
 # TRANSLATIONS BELOW SHOULD NOT BE MUCH LONGER THAN THE ENGLISH
 ####################
 # Home Page
-explore: Ознакомление
-related: Схожие
-featured: Рекомендуем
-popular: Популярные
-home: Главная
+explore: "Ознакомление"
+related: "Схожие"
+featured: "Рекомендуем"
+popular: "Популярные"
+home: "Главная"
 
 # Menus
-language: Язык
-my_preferences: Мои установки
-about_eol: Об EOL
-profile_settings: Установки профиля
-your_preferences: Ваши установки
-preferences: Установки
-feedback: Контакты
-press_room: Пресс-центр
-forum: Форум
-blog: Блог
-survey: Опрос
-media_contact: Контакты с прессой
-press_releases: Пресс-релизы
-publications: Публикации
-help: Помощь
-screencasts: Скринкасты
-faqs: ЧаВО
-using_the_site: Использование сайта
-who_we_are: О нас
-institutional_partners: Институты-партнёры
-data_partners: Единомышленники
-technology_partners: Партнеры по технологиям
-milestones: Важные вехи
-upcoming_events: Грядущие события
-employment: Работа
-donors: Спонсоры
-newsletter: Новостная рассылка
-project: Проект
-description: Описание
-item: Объект
-project_page: Страница проекта
-terms_of_use: Условия использования
-contact_us: Свяжитесь с нами
-cancel: Отмена
+language: "Язык"
+my_preferences: "Мои установки"
+about_eol: "Об EOL"
+profile_settings: "Установки профиля"
+your_preferences: "Ваши установки"
+preferences: "Установки"
+feedback: "Контакты"
+press_room: "Пресс-центр"
+forum: "Форум"
+blog: "Блог"
+survey: "Опрос"
+media_contact: "Контакты с прессой"
+press_releases: "Пресс-релизы"
+publications: "Публикации"
+help: "Помощь"
+screencasts: "Скринкасты"
+faqs: "ЧаВО"
+using_the_site: "Использование сайта"
+who_we_are: "О нас"
+institutional_partners: "Институты-партнёры"
+technology_partners: "Партнеры по технологиям"
+milestones: "Важные вехи"
+upcoming_events: "Грядущие события"
+employment: "Работа"
+donors: "Спонсоры"
+newsletter: "Новостная рассылка"
+project: "Проект"
+description: "Описание"
+item: "Объект"
+project_page: "Страница проекта"
+terms_of_use: "Условия использования"
+contact_us: "Свяжитесь с нами"
+cancel: "Отмена"
 #Comments and Corrections
-comments_and_corrections: Комментарии и исправления
-search: Поиск
-search_results: Результаты поиска
-searching: Поиск
-advanced_search: Расширенный поиск
+comments_and_corrections: "Комментарии и исправления"
+search: "Поиск"
+search_results: "Результаты поиска"
+searching: "Поиск"
+advanced_search: "Расширенный поиск"
 # Term must have at least 3 characters.
-searching_error: В запросе должно быть не менее 3 символов.
-more_species: Ещё виды
-status: Статус
-source: Источник
+searching_error: "В запросе должно быть не менее 3 символов."
+more_species: "Ещё виды"
+status: "Статус"
+source: "Источник"
 # source of {title}
-source_of: Источник {title}
-updated: Обновлено
-sources: Источники
-type: Тип
-source_and_additional_information: Источник и доп. информация
+source_of: "Источник {title}"
+updated: "Обновлено"
+sources: "Источники"
+type: "Тип"
+source_and_additional_information: "Источник и доп. информация"
 
 # Paging
 # -------------------------------------------
-back: Назад
-next: Вперёд
+back: "Назад"
+next: "Вперёд"
 
 ####################
 # TRANSLATIONS BELOW CAN BE LONGER THAN THE ENGLISH IF NEEDED
 ####################
 
 #Please select a topic area.
-select_topic: Пожалуйста, выберите тему сообщения
-your_message_was_sent: Ваше сообщение отослано
+select_topic: "Пожалуйста, выберите тему сообщения"
+your_message_was_sent: "Ваше сообщение отослано"
 #Sorry, but the search could not return any results at this time due to high demand. Please try a more specific search.
-search_timed_out: К сожалению, поиск на этот раз не дал результатов из-за слишком широкого запроса. Пожалуйста, попробуйте сузить запрос.
+search_timed_out: "К сожалению, поиск на этот раз не дал результатов из-за слишком широкого запроса. Пожалуйста, попробуйте сузить запрос."
 #Only the first {num_results} search results containing {search_string} are shown below - please try a more specific search term if you do not find what you are looking for.
-too_many_search_results: Ниже приведены только первые {num_results} результата(ов), содержащие '{search_string}' - пожалуйста, попытайтесь сузить запрос, если поиск не дал нужных результатов.
+too_many_search_results: "Ниже приведены только первые {num_results} результата(ов), содержащие '{search_string}' - пожалуйста, попытайтесь сузить запрос, если поиск не дал нужных результатов."
 #The following {num_results} search results contain {search_string}.
-num_results_shown: Следующие {num_results} результата(ов) поиска содержат '{search_string}'.
-exemplar_pages: Страницы для ознакомления
+num_results_shown: "Следующие {num_results} результата(ов) поиска содержат '{search_string}'."
+exemplar_pages: "Страницы для ознакомления"
 
 # Authentication
 # -------------------------------------------
-hello_user: Здравствуйте, {user}!
-you_are_not_logged_in: Вы не авторизованы
+hello_user: "Здравствуйте, {user}!"
+you_are_not_logged_in: "Вы не авторизованы"
 #Please {login} or {create_an_account}
-please_login_or_create_account: Пожалуйста, {login} или {create_an_account}
-logout: Выйти
-login: Войти
-register: Зарегистрироваться
-create_account: Создать профиль
-account_information: Информация профиля
-username: Имя пользователя
-email_address: Адрес электронной почты
-password: Пароль
-confirm_password: Подтвердите пароль
-required: Обязательные
-given_name: Имя
-family_name: Фамилия
+please_login_or_create_account: "Пожалуйста, {login} или {create_an_account}"
+logout: "Выйти"
+login: "Войти"
+register: "Зарегистрироваться"
+create_account: "Создать профиль"
+account_information: "Информация профиля"
+username: "Имя пользователя"
+email_address: "Адрес электронной почты"
+password: "Пароль"
+confirm_password: "Подтвердите пароль"
+required: "Обязательные"
+given_name: "Имя"
+family_name: "Фамилия"
 # Do you want to include?
-detail_level: Хотите ли Вы включить?
+detail_level: "Хотите ли Вы включить?"
 # Do you want to see?
-content_level: Хотите лы Вы видеть?
-only_enter_new_password_if_needed: Если это необходимо, введите новый пароль.
-your_account: Ваш профиль
-logged_in: Вы вошли в профиль.
-registration: Регистрация
-register_now: Зарегистрируйтесь прямо сейчас
-update_account: Обновите профиль
-update_preferences: Установки обновления
-forgot_password: Забыли пароль
-name_of_organism: Название организма
+content_level: "Хотите лы Вы видеть?"
+only_enter_new_password_if_needed: "Если это необходимо, введите новый пароль."
+your_account: "Ваш профиль"
+logged_in: "Вы вошли в профиль."
+registration: "Регистрация"
+register_now: "Зарегистрируйтесь прямо сейчас"
+update_account: "Обновите профиль"
+update_preferences: "Установки обновления"
+forgot_password: "Забыли пароль"
+name_of_organism: "Название организма"
 
 #Which language do you prefer?
-language_preference: Какой язык Вы предпочитаете?
+language_preference: "Какой язык Вы предпочитаете?"
 #If you don't have an account, click here to register
-click_here_to_register: Если у Вас нет профиля, нажмите здесь для прохождения регистрации
+click_here_to_register: "Если у Вас нет профиля, нажмите здесь для прохождения регистрации"
 
 # Select a video to the right to begin playback.
-select_video: Выберите видео справа для начала просмотра.
-#shown as В«species nameВ»
-shown_as: Показано как
-#synonym of В«species nameВ»
-synonym_of: синоним
+select_video: "Выберите видео справа для начала просмотра."
+#shown as «species name»
+shown_as: "Показано как"
+#synonym of «species name»
+synonym_of: "синоним"
 
-please_enter_a_username: Пожалуйста, введите имя пользователя
-please_enter_a_password: Пожалуйста, введите пароль
-please_enter_the_password_again: Пожалуйста, повторите ввод пароля
-please_enter_your_email_address: Пожалуйста, введите адрес Вашей электронной почты
-passwords_must_match: Пароли должны совпадать
-please_enter_given_name: Пожалуйста, введите Ваше имя
-please_enter_family_name: Пожалуйста, введите Вашу фамилию
-do_you_want_to_receive_eol_notifications_by_email?: Хотите ли Вы получать сообщения от EOL?
-yes_answer: Да
+please_enter_a_username: "Пожалуйста, введите имя пользователя"
+please_enter_a_password: "Пожалуйста, введите пароль"
+please_enter_the_password_again: "Пожалуйста, повторите ввод пароля"
+please_enter_your_email_address: "Пожалуйста, введите адрес Вашей электронной почты"
+passwords_must_match: "Пароли должны совпадать"
+please_enter_given_name: "Пожалуйста, введите Ваше имя"
+please_enter_family_name: "Пожалуйста, введите Вашу фамилию"
+do_you_want_to_receive_eol_notifications_by_email?: "Хотите ли Вы получать сообщения от EOL?"
+yes_answer: "Да"
 
-login: Войти
-login_now: Войти сейчас
-username_and_password: Имя пользователя и пароль
-submit: Передать
+login: "Войти"
+login_now: "Войти сейчас"
+username_and_password: "Имя пользователя и пароль"
+submit: "Передать"
 
 #To sign up for a EOL notifications, please {create_account}
-sign_up_for_eol_notifications: Для того, чтобы подписаться на сообщения от EOL, пожалуйста, {create_account}
-topic_area: Тема
-your_name: Ваше имя
-your_email_address: Адрес Вашей электронной почты
-comments: Комментарии
+sign_up_for_eol_notifications: "Для того, чтобы подписаться на сообщения от EOL, пожалуйста, {create_account}"
+topic_area: "Тема"
+your_name: "Ваше имя"
+your_email_address: "Адрес Вашей электронной почты"
+comments: "Комментарии"
 
 #For verification, please enter the characters you see below. Click the ? for assistance.
-recaptcha: Для проверки введите символы, которые Вы видите ниже. Для получения помощи нажмите ?
+recaptcha: "Для проверки введите символы, которые Вы видите ниже. Для получения помощи нажмите ?"
 #The verification phrase you entered did not match.
-verification_phrase_did_not_match: Введена неправильная проверочная фраза.
+verification_phrase_did_not_match: "Введена неправильная проверочная фраза."
 
-username_taken: Выбранное имя пользователя
-passwords_must_match: Пароли должны совпадать
-new_password: Новый пароль
-confirm_new_password: Повторите новый пароль
+username_taken: "Выбранное имя пользователя"
+passwords_must_match: "Пароли должны совпадать"
+new_password: "Новый пароль"
+confirm_new_password: "Повторите новый пароль"
 
 # If you are not "{user}", {login} or {create_account}.
 if_you_are_not_user_please_login_or_create_account: "Если Вы не {user}, то выполните: {login} или {create_account}."
 
 # Only information that has comes from authoritative sources
-view_only_vetted_content: Только информация, полученная из авторитетных источников
-all_information: Вся информация
-information_intended_for_beginners: Информация для начинающих
-information_intended_for_experts: Информация для экспертов
-information_for_any_audience: Информация для любой аудитории
+view_only_vetted_content: "Только информация, полученная из авторитетных источников"
+all_information: "Вся информация"
+information_intended_for_beginners: "Информация для начинающих"
+information_intended_for_experts: "Информация для экспертов"
+information_for_any_audience: "Информация для любой аудитории"
 
-minimal_page: Минимальная страница
+minimal_page: "Минимальная страница"
 
-all_pages: Все страницы
+all_pages: "Все страницы"
 
-pages_with_pictures_and_text: Страницы с иллюстрациями и текстом
-just_pages_with_pictures_and_text: Только страницы с иллюстрациями и текстом
+pages_with_pictures_and_text: "Страницы с иллюстрациями и текстом"
+just_pages_with_pictures_and_text: "Только страницы с иллюстрациями и текстом"
 
 # Authentication flash notices
 # -------------------------------------------
 # Invalid login or password
-invalid_login_or_password: Неправильное имя пользователя или пароль
+invalid_login_or_password: "Неправильное имя пользователя или пароль"
 # Thanks for registering!
-thanks_for_registering: Спасибо за регистрацию!
+thanks_for_registering: "Спасибо за регистрацию!"
 # Your profile has been updated.
-your_preferences_have_been_updated: Ваш профиль был обновлён.
+your_preferences_have_been_updated: "Ваш профиль был обновлён."
 # You have been logged out.
-you_have_been_logged_out: Вы вышли из профиля
+you_have_been_logged_out: "Вы вышли из профиля"
 
 
 # Content / misc
 # -------------------------------------------
-image: Иллюстрация
-common_name: Тривиальное название
-scientific_name: Научное название
-common_names: Тривиальные названия
-scientific_names: Научные названия
-find: Найти
-find_by_name: Найти по названию
-words: Слова
-names: Названия
-contains_your_term: Содержит Ваш термин
-exact_match_only: Только точные совпадения
-all_names: Все названия
-only_common_names: Только тривиальные названия
-only_scientific_names: Только научные названия
-no_search_results: Поиск '{search_string}' не дал результатов.
-page_curated_by: Страницу курирует
-help_me_find_more_species: Помогите мне найти больше видов
-continue: Продолжить
+image: "Иллюстрация"
+common_name: "Тривиальное название"
+scientific_name: "Научное название"
+common_names: "Тривиальные названия"
+scientific_names: "Научные названия"
+find: "Найти"
+find_by_name: "Найти по названию"
+words: "Слова"
+names: "Названия"
+contains_your_term: "Содержит Ваш термин"
+exact_match_only: "Только точные совпадения"
+all_names: "Все названия"
+only_common_names: "Только тривиальные названия"
+only_scientific_names: "Только научные названия"
+no_search_results: "Поиск '{search_string}' не дал результатов."
+page_curated_by: "Страницу курирует"
+help_me_find_more_species: "Помогите мне найти больше видов"
+continue: "Продолжить"
 
 # Thank you for your feedback.
-thanks_for_feedback: Спасибо за Ваше сообщение.
+thanks_for_feedback: "Спасибо за Ваше сообщение."
 
 # Link Buttons
-bookmark: Закладка
-cite: Ссылка
+bookmark: "Закладка"
+cite: "Ссылка"
 
 # Table of conents
-table_of_contents: Содержание
+table_of_contents: "Содержание"
 # IUCN Redlist Status
-iucn_red_list_status: Статус в Красном списке МСОП (UICN)
+iucn_red_list_status: "Статус в Красном списке МСОП (UICN)"
 
 # sorry, we've encountered a problem
-sorry: Извините, у нас возникла проблема
+sorry: "Извините, у нас возникла проблема"
 # We've logged the problem and notified the system administrators.
-problem: Мы зафиксировали проблему и сообщили системному администратору.
+problem: "Мы зафиксировали проблему и сообщили системному администратору."
 
 # tabs to switch between taxonomic browsers
-graphic: Графика
-text: Текст
-classification: Классификация
-classification_provided_by: Классификация предоставлена
+graphic: "Графика"
+text: "Текст"
+classification: "Классификация"
+classification_provided_by: "Классификация предоставлена"
 
 # Media center navigation tabs
 # -------------------------------------------
-images: Иллюстрации
-maps: Карты
-videos: Видео
-sounds: Звуки
-content: Содержание
-charts: Диаграммы
-
+images: "Иллюстрации"
+maps: "Карты"
+videos: "Видео"
+sounds: "Звуки"
+content: "Содержание"
+charts: "Диаграммы"
 
 # Media center image copyright information
 # -------------------------------------------
-author: Автор
-location: Место
-name: Название
-taken: Снято
-copyright: Авторское право
-more_info: Дополнительная информация
-license: Лицензия
+author: "Автор"
+location: "Место"
+name: "Название"
+taken: "Снято"
+copyright: "Авторское право"
+more_info: "Дополнительная информация"
+license: "Лицензия"
 
 # Accessibility
 # -------------------------------------------
-skip_to_navigation: Перейти к навигации
-skip_to_table_of_contents: Перейти к содержанию
-skip_to_content: Перейти к данным
-global_navigation: Общая навигация
-personal_space: Личное пространство
-external_links: Внешние ссылки
-media_center_navigation: Навигация медиа-центра
-choose_link_images: Выберите рисунки ссылки
-choose_images: Выберите рисунки
-page_navigation: Навигация по странице
-
+skip_to_navigation: "Перейти к навигации"
+skip_to_table_of_contents: "Перейти к содержанию"
+skip_to_content: "Перейти к данным"
+global_navigation: "Общая навигация"
+personal_space: "Личное пространство"
+external_links: "Внешние ссылки"
+media_center_navigation: "Навигация медиа-центра"
+choose_link_images: "Выберите рисунки ссылки"
+choose_images: "Выберите рисунки"
+page_navigation: "Навигация по странице"
 
 # Validation
 # -------------------------------------------
 # Validation Error
-validation_error: Ошибка проверки
+validation_error: "Ошибка проверки"
 # There were problems with the following fields:
 validation_following_fields: "Возникли проблемы со следующими полями:"
-# В«fieldВ» can't be blank
-validation_blank: не может быть оставлено пустым
-# В«fieldВ» is too short (minimum is {n} characters)
+# «field» can't be blank
+validation_blank: "не может быть оставлено пустым"
+# «field» is too short (minimum is {n} characters)
 validation_too_short: "слишком короткое (должно быть не менее {n} знаков)"
-# В«fieldВ» is not a valid e-mail address
-validation_email: не является адресом электронной почты
+# «field» is not a valid e-mail address
+validation_email: "не является адресом электронной почты"
 
-# В«fieldВ» must be equal to {n}
-validation_equal_to: должно быть равным {n}
-# В«fieldВ» is invalid
-validation_invalid: неверно
-# В«fieldВ» is the wrong length (should be {n} characters)
-validation_wrong_length: неправильной длины (должно содержать {n} символов)
-# В«fieldВ» must be less than {n}
-validation_less_than: должно быть менее, чем {n}
-# В«fieldВ» doesn't match confirmation
-validation_confirmation: не совпадает с подтверждением
-# В«fieldВ» has already been taken
-validation_taken: уже было использовано
-# В«fieldВ» can't be empty
-validation_empty: не может быть оставлено пустым
-# В«fieldВ» must be less than or equal to {n}
-validation_less_than_or_equal_to: должно быть равным {n} или менее
-# В«fieldВ» must be accepted
-validation_accepted: необходимо принять
-# В«fieldВ» is not a number
-validation_not_a_number: не является числом
-# В«fieldВ» must be odd
-validation_odd: должно быть нечётным
-# В«fieldВ» must be greater than {n}
-validation_greater_than: должно быть больше, чем {n}
-# В«fieldВ» is not included in the list
-validation_inclusion: не включено в список
-# В«fieldВ» must be even
-validation_even: должно быть чётным
-# В«fieldВ» is too long (maximum is {n} characters)
-validation_too_long: слишком длинное (не может быть более {n} символов)
-# В«fieldВ» must be greater than or equal to {n}
-validation_greater_than_or_equal_to: должно быть равным {n} или более
-# В«fieldВ» is reserved
-validation_exclusion: занято
+# «field» must be equal to {n}
+validation_equal_to: "должно быть равным {n}"
+# «field» is invalid
+validation_invalid: "неверно"
+# «field» is the wrong length (should be {n} characters)
+validation_wrong_length: "неправильной длины (должно содержать {n} символов)"
+# «field» must be less than {n}
+validation_less_than: "должно быть менее, чем {n}"
+# «field» doesn't match confirmation
+validation_confirmation: "не совпадает с подтверждением"
+# «field» has already been taken
+validation_taken: "уже было использовано"
+# «field» can't be empty
+validation_empty: "не может быть оставлено пустым"
+# «field» must be less than or equal to {n}
+validation_less_than_or_equal_to: "должно быть равным {n} или менее"
+# «field» must be accepted
+validation_accepted: "необходимо принять"
+# «field» is not a number
+validation_not_a_number: "не является числом"
+# «field» must be odd
+validation_odd: "должно быть нечётным"
+# «field» must be greater than {n}
+validation_greater_than: "должно быть больше, чем {n}"
+# «field» is not included in the list
+validation_inclusion: "не включено в список"
+# «field» must be even
+validation_even: "должно быть чётным"
+# «field» is too long (maximum is {n} characters)
+validation_too_long: "слишком длинное (не может быть более {n} символов)"
+# «field» must be greater than or equal to {n}
+validation_greater_than_or_equal_to: "должно быть равным {n} или более"
+# «field» is reserved
+validation_exclusion: "занято"
 
 
-donate: Внести пожертвование
-donation_confirmation: Подтверждение пожертвования
-enter_amount: Введите количество
-#We appreciate your generous support of the Encyclopedia of Life. Please enter the amount you wish to donate in the space below.
-donation_message: Мы признательны за Вашу великодушную поддержку Энциклопедии жизни. Пожалуйста, введите размер вашего пожертвования в окошке, расположенном ниже.
-#Please only enter numbers. Do not use commas or periods.
-donation_amount_instructions: Пожалуйста, вводите только цифры. Не используйте запятые и пробелы.
-please_confirm_your_donation_details: Пожалуйста, подтвердите данные о Вашем пожертвовании
-the_amount_entered_was: Был введён размер пожертвования
-thank_you_for_your_generous_support: Спасибо за Вашу великодушную поддержку
+donate: "Внести пожертвование"
+donation_confirmation: "Подтверждение пожертвования"
+enter_amount: "Введите количество"
+#We appreciate your generous support of the Encyclopedia of Life. Please select the amount you wish to donate.
+donation_message: "Мы признательны за Вашу великодушную поддержку Энциклопедии жизни. Пожалуйста, введите размер вашего пожертвования в окошке, расположенном ниже."
+# Please select a donation amount.
+donation_error: "Пожалуйста, выберите сумму пожертвования"
+# Please enter an amount using only numbers.
+donation_error2: "Пожалуйста, вводите только цифры"
+please_confirm_your_donation_details: "Пожалуйста, подтвердите данные о Вашем пожертвовании"
+the_amount_entered_was: "Был введён размер пожертвования"
+thank_you_for_your_generous_support: "Спасибо за Вашу великодушную поддержку"
 #If this information is not correct, please {go_back} to make changes
-correct_donation_message: Если данная информация неверна, пожалуйста, {go_back} и внесите изменения
-go_back: вернитесь
-thank_you: Спасибо
+correct_donation_message: "Если данная информация неверна, пожалуйста, {go_back} и внесите изменения"
+go_back: "вернитесь"
+thank_you: "Спасибо"
 #Thank you for supporting the Encyclopedia of Life.  Your information has been submitted and will be processed.
-thanks_for_donation: Спасибо за поддержку Энциклопедии жизни.  Ваша информация получена и будет обработана.
+thanks_for_donation: "Спасибо за поддержку Энциклопедии жизни.  Ваша информация получена и будет обработана."
 # Please {return} to the EOL homepage
-return_home: Пожалуйста, {return} на главную страницу EOL
-return: вернитесь
+return_home: "Пожалуйста, {return} на главную страницу EOL"
+return: "вернитесь"
 
-invalid_login_information: Invalid login information
 #Enter the email address or username (or both) you registered with to retrieve your password
-forgot_password_message: Enter the email address or username (or both) you registered with to retrieve your password
+forgot_password_message: "Enter the email address or username (or both) you registered with to retrieve your password"
 #Sorry, but we could not locate your account
-could_not_locate_account: Sorry, but we could not locate your account.
+could_not_locate_account: "Sorry, but we could not locate your account."
 #Sorry, but your email address is not unique - you must also specify a username.
-must_specify_username_too: Sorry, but your email address is not unique - you must also specify a username.
-# A new password has been emailed to you at {email}..
-new_password_emailed: Новый пароль был отправлен на ваш e-mail адрес {email}.
-reset_password_instructions_emailed: Проверьте e-mail чтобы сменить пароль
-cannot_find_user_or_email: Аккаунт не найден
-user_password_updated_successfully: Пароль сменен
-expired_reset_password_link: Ссылка устарела, создайте новую
+must_specify_username_too: "Sorry, but your email address is not unique - you must also specify a username."
+# A new password has been emailed to you at {email}.
+new_password_emailed: "Новый пароль был отправлен на ваш e-mail адрес {email}."
+change_my_password: "Измените пароль"
+reset_password_instructions_emailed: "Проверьте e-mail чтобы сменить пароль"
+cannot_find_user_or_email: "Аккаунт не найден"
+user_password_updated_successfully: "Пароль сменен"
+expired_reset_password_link: "Ссылка устарела, создайте новую"
 #Sorry, a problem occurred updating your account - please try again later.
-problem_updating_account: Sorry, a problem occurred updating your account - please try again later.
-taxon_group_of_interest: Taxon group of interest
-suggested_results: Suggested Results
-suggested_search_results_message: Based on your search of '{search_string}', you might be interested in the following species.
-content_partners: Content Partners
+problem_updating_account: "Sorry, a problem occurred updating your account - please try again later."
+taxon_group_of_interest: "Taxon group of interest"
+suggested_results: "Suggested Results"
+suggested_search_results_message: "Based on your search of '{search_string}', you might be interested in the following species."
+content_partners: "Content Partners"
 
 #Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information.
-donation_security_message: Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information.
+donation_security_message: "Заметьте, что эта страница и следующая страница подтверждения не будет сохранять персональную информацию или номер кредитной карты и поэтому не зашифрована. После того как Вы введете сумму которую вы хотите пожертвовать, Вы будете попадете на защищенную страницу для ввода банковской информации. Деньги будут сняты когда Вы отправите платежные данные"
+#To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted.
+curator_signup_message: "Чтобы запросить права на куратоство Вы должны выбрать группу на уровне Семейства или ниже и также ввести данные по Вашей экпертизы в данной группе. Вы получите подтверждающий емэйл если Ваш запрос будет удовлетворен"
+select_a_clade: "Выберите группу"
+curators_only: "Только для кураторов"
+#strings found by rake tasks
 
-#This page contains information that has not been reviewed.
-page_has_not_been_review: This page contains information that has not been reviewed.
+#/Users/dimus/code/eol/app/views/account/_curator_form.html.haml:6
+curation_scope: "Область курирования"
+#/Users/dimus/code/eol/app/views/account/_curator_form.html.haml:12
+credentials: "Экспертиза"
+#/Users/dimus/code/eol/app/views/account/confirm.html.haml:3
+account_confirmation: "Подтверждение аккаунта"
+#/Users/dimus/code/eol/app/views/account/confirmation_sent.html.haml:3
+confirmation_sent: "Подтверждение послано"
+#/Users/dimus/code/eol/app/views/account/login.html.haml:16
+username_or_email_address: "Имя пользователя или емэйл"
+#/Users/dimus/code/eol/app/views/account/login.html.haml:159
+remember_me: "Запомни меня"
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:66
+do_you_want_to_receive_eol_notifications: "Вы хотите получать извещения по емэйлу?"
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:74
+curators: "Кураторы"
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:77
+do_you_want_to_be_a_curator: "Хотите ли Вы быть куратором?"
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:84
+curator_information: "Информация для кураторов"
+#/Users/dimus/code/eol/app/views/account/signup.html.haml:72
+do_you_want_to_receive_eol_notifications_by_email: "Вы хотите получать новости энциклопедии по емэйлу?"
+#/Users/dimus/code/eol/app/views/administrator/content_partner_report/edit_profile.html.erb:28
+project_information: "Информация по проекту"
+#/Users/dimus/code/eol/app/views/content/donate.html.erb:43
+to_process_your_donation_please_proceed: "Продолжить оформление Вашего пожертвования"
+#/Users/dimus/code/eol/app/views/content/donate.html.erb:48
+proceed_to_checkout_page: "Страница посылки пожертвования"
+#/Users/dimus/code/eol/app/views/content/index.html.haml:127
+whats_new: "Что нового?"
+#/Users/dimus/code/eol/app/views/content/tc_api.html.erb:6
+taxon_concepts: "Таксономическая концепция"
+#/Users/dimus/code/eol/app/views/content_partner/_contact_form.html.erb:2
+contact: "Контакт"
+#/Users/dimus/code/eol/app/views/content_partner/forgot_password.html.erb:14
+enter_the_username_or_project_name_you_registered_with_to_retrieve_your_password: "Введите имя пользователя или название проекта Вы зарегистрировали чтобы получать Ваш пароль"
+#/Users/dimus/code/eol/app/views/content_partner/forgot_password.html.erb:22
+project_name: "Название проекта"
+#/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:7
+legend: "Аннотация"
+#/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:36
+permalink: "Стабильная ссылка"
+#/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:38
+copy_and_paste_in_email_or_document: "Скопируйте и вставьте в документ или емэйл"
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:181
+authoritative_information: "проверенная информация"
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:191
+alternate_classification: "Альтернативная классификация"
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:195
+filtered_information: "Отфильтрованная информация"
+#/Users/dimus/code/eol/app/views/taxa/_image_collection.html.haml:18
+items_in_yellow_are_not_reviewed: "Желтый фон для непроверенной информации"
+#/Users/dimus/code/eol/app/views/taxa/_image_collection.html.haml:22
+items_in_red_are_not_trusted: "Красный фон для неправильной информации"
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:3
+contribute: "Добавьте"
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:23
+submit_an_image: "Добавьте изображение"
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:26
+submit_text: "Добавьте текст"
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:29
+more_information_on_how_to_help: "Больше информации о том как помочь"
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:9
+content_settings: "Настройки для содержания"
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:11
+learn_more_about_browse_classification_and_filtering: "Помощь по фильтровке и навигации классификаций"
+#/Users/dimus/code/eol/app/views/taxa/_show.html.haml:69
+only_one_text_object_can_be_edited_at_a_time: "Только один текстовый объект может быть редактирован в конкретный момент"
+#/Users/dimus/code/eol/app/views/taxa/content/_content_language_common_names_curator.html.haml:7
+preferred: "Предпочтительный"
+#/Users/dimus/code/eol/app/views/taxa/content/_content_literature_references.html.haml:20
+references: "Ссылки"
+#/Users/dimus/code/eol/app/views/taxa/content/_content_search_the_web.html.haml:14
+by_scientific_name: "по научному имени"
+#/Users/dimus/code/eol/app/views/taxa/mediacenter/_tab_videos.html.haml:31
+items_in_yellow_are_not_trusted: "Желтый фон для непроверенной информации"
+#/Users/dimus/code/eol/app/views/account/login.html.haml:161
+remember_me_message: "Запомни меня"
+#/Users/dimus/code/eol/app/views/content/missing.html.erb:6
+sorry_page_does_not_exist: "Запрошенная Вами страница не существует"
+#/Users/dimus/code/eol/app/views/content/missing.html.erb:13
+you_requested_a_page_that_does_not_exist: "Вы запросили страницу которая не существует"
+#/Users/dimus/code/eol/app/views/content/missing.html.erb:14
+if_you_followed_a_link_here_tell_the_author: "Если Вы попали сюда по ссылки с другой страницы, Пожалуйста сообщите автору страницы что ссылка неправильная"  
+#/Users/dimus/code/eol/app/views/content_partner/login.html.erb:10
+content_partner: "Партнер по содержанию"
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:162
+user_system_down: "Извините, но система регистрации недоступна в данный момент, пожалуйста попробуйте позже."
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:27
+classification_preference: "Какую классификацию Вы бы хотели использовать по умолчанию?"
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:33
+secondary_hierarchy_preference: "Вторичная классификация для использования"

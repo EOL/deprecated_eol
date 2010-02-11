@@ -416,3 +416,97 @@ donation_security_message: Note that this page and the next confirmation page do
 curator_signup_message: To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted.
 select_a_clade: Select a clade
 curators_only: Curators Only
+#strings found by rake tasks
+
+#/Users/dimus/code/eol/app/views/account/_curator_form.html.haml:6
+curation_scope: "Curation Scope"
+#/Users/dimus/code/eol/app/views/account/_curator_form.html.haml:12
+credentials: "Credentials"
+#/Users/dimus/code/eol/app/views/account/confirm.html.haml:3
+account_confirmation: "Account Confirmation"
+#/Users/dimus/code/eol/app/views/account/confirmation_sent.html.haml:3
+confirmation_sent: "Confirmation Sent"
+#/Users/dimus/code/eol/app/views/account/login.html.haml:16
+username_or_email_address: "Username or Email Address"
+#/Users/dimus/code/eol/app/views/account/login.html.haml:159
+remember_me: "Remember Me"
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:66
+do_you_want_to_receive_eol_notifications: "Do you want to receive EOL notifications?"
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:74
+curators: "Curators"
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:77
+do_you_want_to_be_a_curator: "Do you want to be a curator?"
+#/Users/dimus/code/eol/app/views/account/profile.html.haml:84
+curator_information: "Curator Information"
+#/Users/dimus/code/eol/app/views/account/signup.html.haml:72
+do_you_want_to_receive_eol_notifications_by_email: "Do you want to receive EOL notifications by email?"
+#/Users/dimus/code/eol/app/views/administrator/content_partner_report/edit_profile.html.erb:28
+project_information: "Project Information"
+#/Users/dimus/code/eol/app/views/content/donate.html.erb:43
+to_process_your_donation_please_proceed: "To process your donation please proceed"
+#/Users/dimus/code/eol/app/views/content/donate.html.erb:48
+proceed_to_checkout_page: "Proceed to Checkout Page"
+#/Users/dimus/code/eol/app/views/content/index.html.haml:127
+whats_new: "What's New?"
+#/Users/dimus/code/eol/app/views/content/tc_api.html.erb:6
+taxon_concepts: "Taxon Concepts"
+#/Users/dimus/code/eol/app/views/content_partner/_contact_form.html.erb:2
+contact: "Contact"
+#/Users/dimus/code/eol/app/views/content_partner/forgot_password.html.erb:14
+enter_the_username_or_project_name_you_registered_with_to_retrieve_your_password: "Enter the username OR project name you registered with to retrieve your password:"
+#/Users/dimus/code/eol/app/views/content_partner/forgot_password.html.erb:22
+project_name: "Project Name"
+#/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:7
+legend: "Legend"
+#/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:36
+permalink: "Permalink"
+#/Users/dimus/code/eol/app/views/data_objects/_attribution.html.haml:38
+copy_and_paste_in_email_or_document: "Copy and paste in email or document"
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:181
+authoritative_information: "authoritative information"
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:191
+alternate_classification: "Alternate classification"
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:195
+filtered_information: "Filtered information"
+#/Users/dimus/code/eol/app/views/taxa/_image_collection.html.haml:18
+items_in_yellow_are_not_reviewed: "Items in yellow are not reviewed."
+#/Users/dimus/code/eol/app/views/taxa/_image_collection.html.haml:22
+items_in_red_are_not_trusted: "Items in red are not trusted."
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:3
+contribute: "Contribute"
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:23
+submit_an_image: "Submit an image"
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:26
+submit_text: "Submit text"
+#/Users/dimus/code/eol/app/views/taxa/_internal_nav.html.haml:29
+more_information_on_how_to_help: "More information on how to help"
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:9
+content_settings: "Content Settings"
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:11
+learn_more_about_browse_classification_and_filtering: "Learn more about browse classification and filtering"
+#/Users/dimus/code/eol/app/views/taxa/_show.html.haml:69
+only_one_text_object_can_be_edited_at_a_time: "Only one text object can be edited at a time."
+#/Users/dimus/code/eol/app/views/taxa/content/_content_language_common_names_curator.html.haml:7
+preferred: "Preferred"
+#/Users/dimus/code/eol/app/views/taxa/content/_content_literature_references.html.haml:20
+references: "References"
+#/Users/dimus/code/eol/app/views/taxa/content/_content_search_the_web.html.haml:14
+by_scientific_name: "by Scientific Name"
+#/Users/dimus/code/eol/app/views/taxa/mediacenter/_tab_videos.html.haml:31
+items_in_yellow_are_not_trusted: "Items in yellow are not trusted."
+#/Users/dimus/code/eol/app/views/account/login.html.haml:161
+remember_me_message: ""
+#/Users/dimus/code/eol/app/views/content/missing.html.erb:6
+sorry_page_does_not_exist: ""
+#/Users/dimus/code/eol/app/views/content/missing.html.erb:13
+you_requested_a_page_that_does_not_exist: ""
+#/Users/dimus/code/eol/app/views/content/missing.html.erb:14
+if_you_followed_a_link_here_tell_the_author: ""
+#/Users/dimus/code/eol/app/views/content_partner/login.html.erb:10
+content_partner: ""
+#/Users/dimus/code/eol/app/views/layouts/main.html.haml:162
+user_system_down: ""
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:27
+classification_preference: ""
+#/Users/dimus/code/eol/app/views/taxa/_set_content_settings.html.haml:33
+secondary_hierarchy_preference: ""

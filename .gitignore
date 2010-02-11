@@ -22,3 +22,4 @@ solr/solr/eol-solr.pid
 solr/solr/data/index/*
 public/feeds
 solr/work/*
+lang/tmp.yml

@@ -13,9 +13,7 @@
       - form_for :user, :url => {:action => 'authenticate'} do |form|
         %fieldset
           %label{ :for => "user_username" }
-            = "Username"[]
-            = "or"[]
-            == #{"Email Address"[]}:
+            == #{"Username or Email Address"[]}:
           = form.text_field 'username', :size => '16',:maxlength => '30'
           %br
           %br

@@ -77,7 +77,7 @@ private
     names = Name.find_by_sql([%q{
       SELECT names.id name_id, names.string name_string,
              l.label language_label, l.name language_name, l.id language_id,
-             agsyn.agent_id agent_id, syn.id synonym_id, tcn.preferred preferred
+             agsyn.agent_id agent_id, syn.id synonym_id, syn.hierarchy_id hierarchy_id, tcn.preferred preferred
       FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
         LEFT JOIN languages l ON (tcn.language_id = l.id)
         LEFT JOIN synonyms syn ON (tcn.synonym_id = syn.id)

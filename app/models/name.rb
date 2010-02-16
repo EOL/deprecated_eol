@@ -14,11 +14,20 @@ class Name < SpeciesSchemaModel
   has_many :taxa
   has_many :hierarchy_entries
   has_many :mappings
-
+  
   validates_presence_of   :string
-  validates_uniqueness_of :string
+  # this is being commented out because we are enforcing the uniqueness of clean_name not string
+  # string is not indexed so that was creating a query that took a long time to run
+  # we could do soemthing better with before_save callbacks - checking the clean_name and making sure its unique there
+  # validates_uniqueness_of :string
   validates_presence_of   :italicized
   validates_presence_of   :canonical_form
+  
+  validate :clean_name_must_be_unique
+  before_validation_on_create :set_default_values
+  before_validation_on_create :create_clean_name
+  before_validation_on_create :create_canonical_form
+  before_validation_on_create :create_italicized
 
   def taxon_concepts
     return taxon_concept_names.collect {|tc_name| tc_name.taxon_concept}.flatten
@@ -34,7 +43,7 @@ class Name < SpeciesSchemaModel
     return 'not assigned' unless canonical_form and canonical_form.string and not canonical_form.string.empty?
     return "<i>#{canonical_form.string}</i>"
   end
-
+  
   # String representation of a Name is its Name#string
   def to_s
     string
@@ -67,16 +76,68 @@ class Name < SpeciesSchemaModel
     name_string = name_string.strip.gsub(/\s+/,' ') if name_string.class == String
     return nil if name_string.blank?
     
-    clean_name_string = Name.prepare_clean_name name_string
-    common_name = Name.find_by_clean_name(clean_name_string)
+    common_name = Name.find_by_string(name_string)
     return common_name unless common_name.blank?
     
-    # Don't really have to do this for common names--name_string is always a canonical form for them:
-    canonical_form_string = given_canonical_form.blank? ? name_string : given_canonical_form
-    canonical_form = CanonicalForm.create(:string => canonical_form_string);
-    italicized_form_string = "<i>#{name_string}</i>" #all we need to do for common names 
-    Name.create(:string => name_string, :italicized => italicized_form_string, :italicized_verified => 0, :namebank_id => 0,
-                :canonical_form_id => canonical_form.id, :canonical_verified => 0, :clean_name => clean_name_string)
+    common_name = Name.new
+    common_name.string = name_string
+    common_name.namebank_id = 0
+    
+    if !given_canonical_form.blank?
+      common_name.canonical_form_id = CanonicalForm.find_or_create_by_string(given_canonical_form).id
+      common_name.canonical_verified = 1
+    end
+    
+    common_name.save!
+    return common_name
+  end
+  
+  def self.find_or_create_by_string(string)
+    if n = Name.find_by_string(string)
+      return n
+    end
+    return Name.create(:string => string)
+  end
+  
+  def self.find_by_string(string)
+    clean_string = Name.prepare_clean_name(string)
+    return Name.find_by_clean_name(clean_string)
+  end
+  
+  
+  private
+  def clean_name_must_be_unique
+    found_name = Name.find_by_string(self.string)
+    errors.add_to_base("Name string must be unique") unless found_name.nil?
+  end
+  
+  def set_default_values
+    self.namebank_id = 0
+  end
+  
+  def create_clean_name
+    self.namebank_id = 0
+    if self.clean_name.nil? || self.clean_name.blank?
+      self.clean_name = Name.prepare_clean_name(self.string)
+    end
+  end
+  
+  def create_canonical_form
+    if self.canonical_form_id.nil? || self.canonical_form_id == 0
+      self.canonical_form = CanonicalForm.find_or_create_by_string(self.string) #all we need to do for common names
+      self.canonical_verified = 0
+    else
+      self.canonical_verified = 1
+    end
+  end
+  
+  def create_italicized
+    if self.italicized.nil? || self.italicized.blank?
+      self.italicized = "<i>#{string}</i>" #all we need to do for common names 
+      self.italicized_verified = 0
+    else
+      self.italicized_verified = 1
+    end
   end
 
 end

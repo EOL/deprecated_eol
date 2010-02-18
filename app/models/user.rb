@@ -96,6 +96,12 @@ class User < ActiveRecord::Base
   def total_species_curated
     species_curated.length
   end
+  
+  def data_object_ids_curated
+    data_object_ids = CuratorDataObjectLog.find(:all, :select => "distinct data_object_id", :conditions => [ "user_id = ?", self.id ] ).map(&:data_object_id)
+  end
+  
+  
 
   def data_object_tags_for data_object
     data_object_tags.find_all_by_data_object_guid data_object.guid, :include => :data_object_tag

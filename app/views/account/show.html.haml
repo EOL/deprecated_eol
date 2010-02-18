@@ -29,8 +29,9 @@
         %tr{ :class => cycle('odd','even', :name => 'account') }
           %td
             Objects Curated
-          %td
-            = @user.total_objects_curated
+          %td                        
+            = link_to @user.total_objects_curated,{:controller=>'/account', :action=>:show_objects_curated, :id => @user.id}
+            
         %tr{ :class => cycle('odd','even', :name => 'account') }
           %td
             Comments Moderated

@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>ERB File</title>
+    </head>
+    <body>
+        <p>Objects Curated </p>
+        
+        
+        Curator:
+        <%= h @user.given_name %> <%= h @user.family_name %>
+        <%= link_to 'Back to profile',{:controller=>'/account', :action=>:show, :id => @user.id} %>
+        
+        <!--
+        <% @data_object_ids.each do |post|  -%>
+          <%= post.id%> <%= @data_object_ids.length %> <br>
+        <% end -%>
+        --->
+        
+
+                <table class="results_table">
+                    <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
+                    <thead align="center">
+                    <tr align="center">
+                        <th>Object ID</th>                        
+                        <th>Data Type</th>
+                        <th>Scientific Name</th>
+                        <th>Vetted</th>
+                        <th>Visible</th>
+                        <th>Description</th>
+                        
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% count = 0 %>        
+                    <% @posts.each do |post|  -%>
+                        <% 
+                        column_class=cycle('odd','even')
+                        count += 1
+                        if (post.taxon_concept_id) then
+                            concept = TaxonConcept.find(post.taxon_concept_id)
+                            name = concept.quick_scientific_name(:italicized)
+                        else
+                            name=""
+                        end
+                        %>
+                        <tr>
+                            <td class="<%=column_class%>">
+                                <%= count %>                          <%= post.id %></td>
+                            <td class="<%=column_class%>"><%= post.datatype %></td>
+                            <td class="<%=column_class%>"><i>
+                                <%= link_to name,{:controller=>'/taxa', :action=>:show, :id => post.taxon_concept_id} %></i>
+                                <% if(post.published) then %>                                   
+                                <% else %>                                    
+                                   *
+                                <% end %>
+
+                            </td>                            
+                            <td class="<%=column_class%>"><%= post.vetted_label %></td>
+                            <td class="<%=column_class%>"><%= post.visible %></td>                            
+                            <td class="<%=column_class%>"><%= post.description %>
+                            </td>    
+                                                    
+                        </tr>        
+                    <% end -%>
+                    </tbody>
+                    <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
+                </table>
+
+
+    </body>
+</html>

@@ -755,8 +755,8 @@ class DataObject < SpeciesSchemaModel
     # filtering by hierarchy means we need the top_* tables which use hierarchy_entry_ids
     if !options[:filter_hierarchy].nil?
       from_table = options[:unpublished] ? 'top_unpublished_images' : 'top_images'
-      join_hierarchy = "JOIN hierarchy_entries he_filter ON (ti.hierarchy_entry_id=he_filter.id AND he_filter.hierarchy_id=#{options[:filter_by_hierarchy].id})"
-      where_clause = "ti.hierarchy_entry_id IN (#{taxon.hierarchy_entries.collect {|he| he.id }})"
+      join_hierarchy = "JOIN hierarchy_entries he_filter ON (ti.hierarchy_entry_id=he_filter.id AND he_filter.hierarchy_id=#{options[:filter_hierarchy].id})"
+      where_clause = "ti.hierarchy_entry_id IN (#{taxon.hierarchy_entries.collect {|he| he.id }.join(',')})"
     end
     
     # unpublished images require a few extra bits to the query:

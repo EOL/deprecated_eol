@@ -187,8 +187,11 @@ class DataObject < SpeciesSchemaModel
     udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!
     d.new_actions_histories(user, udo, 'users_submitted_text', 'update')
+    
+    # this will give it the hash elements it needs for attributions
+    d['attributions'] = Attributions.from_agents_hash(d, nil)
+    d['refs'] = d.refs
     d
-
   end
 
   def self.preview_user_text(all_params, user)
@@ -226,7 +229,10 @@ class DataObject < SpeciesSchemaModel
         d.refs << Ref.new({:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible}) if reference.strip != ''
       end
     end
-
+    
+    # this will give it the hash elements it needs for attributions
+    d['attributions'] = Attributions.from_agents_hash(d, nil)
+    d['refs'] = d.refs
     d
   end
 
@@ -275,6 +281,10 @@ class DataObject < SpeciesSchemaModel
                               :taxon_concept_id => taxon_concept.id)
     udo.save!
     dato.new_actions_histories(user, udo, 'users_submitted_text', 'create')
+    
+    # this will give it the hash elements it needs for attributions
+    dato['attributions'] = Attributions.from_agents_hash(dato, nil)
+    dato['refs'] = dato.refs
     dato
   end
 
@@ -917,12 +927,12 @@ class DataObject < SpeciesSchemaModel
       r['attributions'] = {}
       if a = attributions[r.id.to_i]
         r['data_supplier'] = a['data_supplier'] if !a['data_supplier'].nil?
-        a['attributions'] = Attributions.from_agents_hash(r, a, DataType.text.id)
+        a['attributions'] = Attributions.from_agents_hash(r, a)
         a.each do |key, value|
           r[key] = value
         end
       else
-        r['attributions'] = Attributions.from_agents_hash(r, nil, DataType.text.id)
+        r['attributions'] = Attributions.from_agents_hash(r, nil)
       end
     end
     

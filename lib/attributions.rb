@@ -24,7 +24,7 @@ class Attributions
     @attributions.flatten!
   end
   
-  def self.from_agents_hash(data_object, agents_hash, data_type_id)
+  def self.from_agents_hash(data_object, agents_hash)
     agents_data_objects = []
     unless agents_hash.nil?
       agents_hash['agents'].each do |agent_role_label, agents|

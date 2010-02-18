@@ -20,16 +20,17 @@
         = data_object['users'][0].given_name
         = data_object['users'][0].family_name
       .footer
-  - data_object['attributions'].each do |attribution|
-    %div{ :class => "credit #{css_class(attribution.agent_role)}" }
-      .credit-caption
-        = attribution.agent_role
-      .credit-value
-        / agent partial
-        = agent_partial(attribution.agent)
-        / agent icon
-        = agent_icons_partial(attribution.agent)
-      .footer
+  - unless data_object['attributions'].nil?
+    - data_object['attributions'].each do |attribution|
+      %div{ :class => "credit #{css_class(attribution.agent_role)}" }
+        .credit-caption
+          = attribution.agent_role
+        .credit-value
+          / agent partial
+          = agent_partial(attribution.agent)
+          / agent icon
+          = agent_icons_partial(attribution.agent)
+        .footer
   - if (data_object.text? || data_object.image?) && !data_object['taxa_names_ids'].nil?
     .credit.permalink
       .credit-caption

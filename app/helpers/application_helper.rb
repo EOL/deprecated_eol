@@ -58,10 +58,12 @@ module ApplicationHelper
   #author, source, copyright, and data supplier should be shown
   def has_hidden_attributions?(data_object)
     return false if !data_object.text?
-    data_object['attributions'].each do |attribution|
-      #TODO: so.... copyright and datasource don't exist in the db. which foces me to do string compares, seems like a kudge 
-      if attribution.agent_role.to_s!='Author' && attribution.agent_role.to_s!='Source' && attribution.agent_role.to_s!='Copyright' && attribution.agent_role.to_s!='Supplier'
-        return true
+    unless data_object['attributions'].nil?
+      data_object['attributions'].each do |attribution|
+        #TODO: so.... copyright and datasource don't exist in the db. which foces me to do string compares, seems like a kudge 
+        if attribution.agent_role.to_s!='Author' && attribution.agent_role.to_s!='Source' && attribution.agent_role.to_s!='Copyright' && attribution.agent_role.to_s!='Supplier'
+          return true
+        end
       end
     end
     false

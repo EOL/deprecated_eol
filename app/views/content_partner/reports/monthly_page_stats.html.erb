@@ -10,15 +10,15 @@
         <% form_for :hello, :url => { :action => :monthly_page_stats } do |form| %>
         <thead>
         <tr>
-            <td colspan=4 align=center>
+            <td colspan="4" align="center">
             <%= select_tag :agent_id, options_from_collection_for_select(  @content_partners_with_published_data, :id, :full_name, @agent_id.to_i ) %>
             </td>
         </tr>
         <tr align="center">
-            <td>	
+            <td>    
                 <%= select_tag "year_month", options_for_select(@year_month_list,@year_month) %>    
-                <%= submit_tag("Submit") %>				
-                <!--	
+                <%= submit_tag("Submit") %>                
+                <!--    
                 <h2><%= @partner.full_name %></h2>
                 Agent ID:<%= @agent_id %> <br> 
                 Year = <%= @report_year %>
@@ -71,38 +71,38 @@
         </tbody>    
        </table>
 
-			  
-                <table class="results_table">
-                    <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
-                    <thead align="center">
-                    <tr align="center">
-                        <th>ID</th>
-                        <th>Scientific Name</th>
-                        <th>Total<br>Page Views</th>
-                        <th>Total Unique<br>Page Views</th>
-                        <th>Total Time<br>On Page Seconds</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <%- count = 0 -%>        
-                    <% @posts.each do |post|  -%>
-                        <% 
-                        column_class=cycle('odd','even')
-                        count += 1
-                        concept = TaxonConcept.find(post.taxon_concept_id)
-                        name = concept.quick_scientific_name(:italicized)
-                        %>
-                        <tr>
-                            <td class="<%=column_class%>"><%= post.taxon_concept_id %></td>
-                            <td class="<%=column_class%>"><i><%= name %></i></td>
-                            <td class="<%=column_class%>" align="right"><%= post.page_views %></td>
-                            <td class="<%=column_class%>" align="right"><%= post.unique_page_views %></td>
-                            <td class="<%=column_class%>" align="right"><%= post.timeonpage %></td>
-                        </tr>        
-                    <% end -%>
-                    </tbody>
-					<tr><td colspan="5"><%= will_paginate @posts %></td></tr>
-                </table>
+              
+    <table class="results_table">
+        <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
+        <thead align="center">
+        <tr align="center">
+            <th>ID</th>
+            <th>Scientific Name</th>
+            <th>Total<br>Page Views</th>
+            <th>Total Unique<br>Page Views</th>
+            <th>Total Time<br>On Page Seconds</th>
+        </tr>
+        </thead>
+        <tbody>
+        <%- count = 0 -%>        
+        <% @posts.each do |post|  -%>
+            <% 
+            column_class=cycle('odd','even')
+            count += 1
+            concept = TaxonConcept.find(post.taxon_concept_id)
+            name = concept.quick_scientific_name(:italicized)
+            %>
+            <tr>
+                <td class="<%=column_class%>"><%= post.taxon_concept_id %></td>
+                <td class="<%=column_class%>"><i><%= name %></i></td>
+                <td class="<%=column_class%>" align="right"><%= post.page_views %></td>
+                <td class="<%=column_class%>" align="right"><%= post.unique_page_views %></td>
+                <td class="<%=column_class%>" align="right"><%= post.timeonpage %></td>
+            </tr>        
+        <% end -%>
+        </tbody>
+        <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
+    </table>
 
 </ol>
 </div> 

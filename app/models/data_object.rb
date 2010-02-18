@@ -782,7 +782,7 @@ class DataObject < SpeciesSchemaModel
   
   def self.cached_images_for_taxon(taxon, options = {})
     options[:user] = User.create_new if options[:user].nil?    
-    if !options[:filter_by_hierarchy].nil? && !options[:hierarchy].nil?
+    if options[:filter_by_hierarchy] && !options[:hierarchy].nil?
       options[:filter_hierarchy] = options[:hierarchy]
     end
     

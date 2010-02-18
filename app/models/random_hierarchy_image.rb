@@ -21,7 +21,6 @@ class RandomHierarchyImage < SpeciesSchemaModel
     options[:size] ||= :medium
     options[:language] ||= Language.english
     
-    list = []
     RandomHierarchyImage.reset_min_id
     RandomHierarchyImage.reset_count(hierarchy)
     starting_id = rand(@@count[hierarchy.id] - limit).floor
@@ -52,8 +51,8 @@ class RandomHierarchyImage < SpeciesSchemaModel
       break if random_images.length >= limit
     end
     
-    random_images = self.random_set(limit, Hierarchy.default, :size => options[:size]) if list.blank? && hierarchy.id != Hierarchy.default.id
-    #raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if list.blank?
+    random_images = self.random_set(limit, Hierarchy.default, :size => options[:size]) if random_images.blank? && hierarchy.id != Hierarchy.default.id
+    #raise "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?
     return random_images
   end
   

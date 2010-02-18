@@ -6,7 +6,7 @@ require 'base64'
 class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:profile, :uservoice_login]
-  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show, :logout, :new_openid_user, :reset_password, :save_reset_password]
+  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show, :logout, :new_openid_user, :reset_password, :save_reset_password, :show_objects_curated]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password] 
@@ -228,6 +228,15 @@ class AccountController < ApplicationController
     @user = User.find(params[:id])
     redirect_back_or_default unless @user.curator_approved
   end
+  
+  def show_objects_curated    
+    @user = User.find(params[:id])    
+    @data_object_ids = @user.data_object_ids_curated
+    page = params[:page] || 1
+    @posts = DataObject.data_object_details(@data_object_ids, page)    
+  end
+  
+  
 
   # this is the uservoice single sign on redirect
   def uservoice_login

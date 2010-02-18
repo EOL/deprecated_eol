@@ -2,7 +2,7 @@
 %div{:id => "text_wrapper_#{content_item.id}", :class => (@preview ? nil : "text_object"), :style => (@hide ? "display:none" : nil)}
   %div{:class => "content-article #{vetted_id_class(content_item)}", :id => "text_#{content_item.id}"}
     
-    - if !content_item.user.nil? && content_item.user.id == current_user.id
+    - if !content_item['users'].nil? && content_item['users'][0].id == current_user.id
       .multi_new_text_error{:style => "display:none;"}
         Only one text object can be edited at a time.
       .edit_text

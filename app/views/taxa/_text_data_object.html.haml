@@ -29,7 +29,7 @@
         %ul
           - content_item['refs'].each do |ref|
             %li
-              = allow_some_html ref.full_reference.sanitize_html
+              = ref.full_reference.sanitize_html
               - ref.ref_identifiers.each do |identifier|
                 -# we do not show identifier unless we know how to handle them:
                 - next unless identifier.display?

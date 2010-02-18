@@ -797,7 +797,7 @@ class DataObject < SpeciesSchemaModel
     end
     
     # if there is no filter hierarchy and we're just returning published images - the default
-    if options[:filter_hierarchy].nil? && !show_unpublished
+    if options[:filter_hierarchy].nil? && !show_unpublished && !options[:user].vetted
       result = Rails.cache.fetch("data_object/cached_images_for/#{taxon.id}") do
         result = DataObject.find_by_sql(top_images_query)
       end

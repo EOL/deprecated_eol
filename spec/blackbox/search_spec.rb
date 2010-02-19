@@ -53,6 +53,10 @@ describe 'Search' do
     Scenario.load :foundation
   end
 
+  after :all do
+    truncate_all_tables
+  end
+
   it 'should return a helpful message if no results' do
     TaxonConcept.should_receive(:search_with_pagination).at_least(2).times.and_return([])
     request("/search?q=bozo").body.should have_tag('h3', :text => 'No search results were found')

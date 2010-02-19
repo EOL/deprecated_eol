@@ -14,10 +14,10 @@
      
      function setup_drag_drop() {
       <% for counter in 0..@num_images-1 %>
-        new Draggable('name_<%=@taxa[counter].taxon_concept_id%>', { 
+        new Draggable('name_<%=@taxa[counter]["taxon_concept_id"]%>', { 
           revert: true 
         });
-        Droppables.add('image_<%=@taxa[counter].taxon_concept_id%>', { 
+        Droppables.add('image_<%=@taxa[counter]["taxon_concept_id"]%>', { 
           accept: 'name',
           hoverclass: 'border',
           onDrop: function(name,answer_slot) {check_answer(name,answer_slot);}
@@ -87,13 +87,13 @@
     	        	   <% for counter in 0..@num_images-1
         	        	   current_taxon_concept=@taxa[counter]%>
       	        	      <td width="<%=100/@num_images%>" class="odd">
-      	        	        <%= image_tag(current_taxon_concept.smart_medium_thumb,:id=>"image_#{current_taxon_concept.taxon_concept_id}")%>
+      	        	        <%= image_tag(current_taxon_concept['image_cache_path'],:id=>"image_#{current_taxon_concept['taxon_concept_id']}")%>
       	        	      </td>
                   <% end %>               
                 </tr>
                 <tr>
    	        	   <% for counter in 0..@num_images-1 %>
-                   <td id="column_<%=counter%>" height="50" class="even"><span id="answer_<%=@taxa[counter].taxon_concept_id%>"></span></td>
+                   <td id="column_<%=counter%>" height="50" class="even"><span id="answer_<%=@taxa[counter]['taxon_concept_id']%>"></span></td>
                  <% end %>
                 </tr>
   	        	</table>
@@ -102,7 +102,7 @@
                  <br />
 	        	   <% for counter in 0..@num_images-1
     	        	   random_taxon_concept=@taxa[@random_order[counter]]%>
-  	        	      <span class="name" id="name_<%=random_taxon_concept.taxon_concept_id%>"><%=random_taxon_concept.name(:expert)%> <%=" - #{random_taxon_concept.name(:novice)}" unless random_taxon_concept.name(:novice).blank?%></span><br /><br />
+  	        	      <span class="name" id="name_<%=random_taxon_concept['taxon_concept_id']%>"><%=random_taxon_concept['scientific_name']%> <%=" - #{random_taxon_concept['common_name']}" unless random_taxon_concept['common_name'].blank?%></span><br /><br />
               <% end %>        
               </div>         
               <h2>Learn More</h2>

@@ -1,0 +1,67 @@
+<html>
+    <head>
+        <title>Species Curated</title>
+    </head>
+    <body>
+        <p>Species Curated </p>
+        
+        
+        Curator:
+        <%= h @user.given_name %> <%= h @user.family_name %>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= link_to 'Back to profile',{:controller=>'/account', :action=>:show, :id => @user.id} %>
+    
+		<% if(false) %>
+	 	<br>
+     	<% @taxon_concept_ids.each do |post|  -%>
+     	<%= post %> --  <%= @taxon_concept_ids.length %> <br>
+     	<% end -%>
+		<% end %>
+
+
+            <table class="results_table">
+                <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
+                <thead align="center">
+                <tr align="center">
+                    <th>Taxon ID</th>                        
+                    <th>Scientific Name</th>
+                    <th>Vetted</th>
+                   </tr>
+                </thead>
+                <tbody>
+                <% count = 0 %>        
+                <% @posts.each do |post|  -%>
+                    <% 
+                    column_class=cycle('odd','even')
+                    count += 1
+                    if (post.taxon_concept_id) then
+                        concept = TaxonConcept.find(post.taxon_concept_id)
+                        name = concept.quick_scientific_name(:italicized)
+                    else
+                        name=""
+                    end
+                    %>
+                    <tr>
+                        <td class="<%=column_class%>">
+                            <%= post.taxon_concept_id %></td>
+                        <td class="<%=column_class%>"><i>
+                            <%= link_to name,{:controller=>'/taxa', :action=>:show, :id => post.taxon_concept_id} %></i>
+                            <% if(post.published) then %>                                   
+                            <% else %>                                    
+                               *
+                            <% end %>
+
+                        </td>                            
+                        <td class="<%=column_class%>"><%= post.vetted_label %></td>
+                        </td>    
+                                                
+                    </tr>        
+                <% end -%>
+                </tbody>
+                <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
+            </table>
+
+
+
+    </body>
+</html>

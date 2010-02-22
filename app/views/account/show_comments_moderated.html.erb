@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <title>Comments Moderated</title>
+    </head>
+    <body>
+        <p>Comments Moderated </p>
+        
+        
+        Curator:
+        <%= h @user.given_name %> <%= h @user.family_name %>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <%= link_to 'Back to profile',{:controller=>'/account', :action=>:show, :id => @user.id} %>
+        
+        <% if(false) %>  
+        	<% @comment_ids.each do |post|  -%>
+          		<%= post%> <%= @comment_ids.length %> <br>
+        	<% end -%>
+		<% end -%>
+   
+        <% if(true) %>
+
+            <table class="results_table">
+                <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
+                <thead align="center">
+                <tr align="center">                                            
+                    <th>Type</th>
+					
+					<th>Comment</th>
+                    <th>Created</th>
+                    <th>Updated</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% count = 0 %>        
+                <% @posts.each do |post|  -%>
+                    <% 
+                    column_class=cycle('odd','even')
+                    count += 1 
+
+                    if (post.parent_type = "TaxonConcept") then
+                        concept = TaxonConcept.find(post.parent_id)
+                        name = concept.quick_scientific_name(:italicized)
+                    else
+                        name=""
+                    end
+                    %>
+                    <tr>
+                        <td class="<%=column_class%>">
+                        	<%= post.parent_type %>
+                        	<% if(name) %>
+								<br>
+                            	<%= link_to name,{:controller=>'/taxa', :action=>:show, :id => post.parent_id} %></i>
+							<% end %>
+
+						</td>
+
+						                            
+                        <td class="<%=column_class%>"><%= post.body %> </td>    
+						<td class="<%=column_class%>"><%= post.created_at %> </td>
+						<td class="<%=column_class%>"><%= post.updated_at %> </td>
+                                                
+                    </tr>        
+                <% end -%>
+                </tbody>
+                <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
+            </table>
+
+		<% end %>
+
+    </body>
+</html>

@@ -36,12 +36,13 @@
           %td
             Comments Moderated
           %td
-            = @user.total_comments_curated
+            = link_to @user.total_comments_curated,{:controller=>'/account', :action=>:show_comments_moderated, :id => @user.id}
+            
         %tr{ :class => cycle('odd','even', :name => 'account') }
           %td
             Species Curated
           %td
-            = @user.total_species_curated
+            = link_to @user.total_species_curated,{:controller=>'/account', :action=>:show_species_curated, :id => @user.id}
   #credentials
     %h3
       Credentials

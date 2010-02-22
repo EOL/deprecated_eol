@@ -33,6 +33,7 @@ class DataObject < SpeciesSchemaModel
   has_many :untrust_reasons, :through => :data_objects_untrust_reasons
   has_many :data_objects_info_items
   has_many :info_items, :through => :data_objects_info_items
+  
 
   has_and_belongs_to_many :taxa
   has_and_belongs_to_many :audiences
@@ -1153,7 +1154,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     # (2983141, 2985085, 2996805)
     # #{data_object_ids.join(',')}
     
-    self.paginate_by_sql [query, data_object_ids], :page => page, :per_page => 100 , :order => 'id'    
+    self.paginate_by_sql [query, data_object_ids], :page => page, :per_page => 50 , :order => 'id'    
     
    end
 

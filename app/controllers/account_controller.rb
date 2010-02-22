@@ -247,6 +247,7 @@ class AccountController < ApplicationController
   def show_comments_moderated    
     @user = User.find(params[:id])    
     @comment_ids = @user.comment_ids_curated(@user.id)
+    @comment_ids_activity = @user.comment_ids_moderated_with_activity(@user.id)
     page = params[:page] || 1
     @posts = Comment.get_comments(@comment_ids, page)
   end

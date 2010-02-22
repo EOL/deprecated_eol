@@ -786,6 +786,18 @@ EOIUCNSQL
     TaxonConcept.find_by_sql(sql).uniq
   end
 
+  def self.from_taxon_concepts(taxon_concept_ids,page) 
+    query="Select taxon_concepts.id taxon_concept_id, taxon_concepts.supercedure_id, taxon_concepts.published, vetted.label vetted_label
+    From taxon_concepts
+    Inner Join vetted ON taxon_concepts.vetted_id = vetted.id
+    WHERE taxon_concepts.id IN (#{ taxon_concept_ids.join(', ') })
+    "
+    self.paginate_by_sql [query, taxon_concept_ids], :page => page, :per_page => 20 , :order => 'id'  
+  end
+
+                          
+
+
   # This could use name... but I only need it for searches, and ID is all that matters, there.
   def <=>(other)
     return id <=> other.id

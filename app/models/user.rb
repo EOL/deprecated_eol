@@ -87,19 +87,60 @@ class User < ActiveRecord::Base
   def total_comments_curated
     CuratorCommentLog.count :conditions => ["user_id = ?", id] 
   end 
+  
+  def comment_ids_curated(user_id)
+    #comment_ids = CuratorCommentLog.find(:all, :select => "comment_id", :conditions => [ "user_id = ?", self.id ] )
+    sql = "SELECT curator_comment_logs.comment_id from curator_comment_logs where curator_comment_logs.user_id = ? " #this gets the last activity done on the data object
+    rset = CuratorCommentLog.find_by_sql([sql, user_id])
+
+    ids = Array.new
+    rset.each do |post|
+        ids << post.comment_id
+    end
+    return ids
+  end 
+  
 
   def species_curated
     # we need to get the IDs of the curated data objects and then get the species for those (cross-database, so we can't effectively join)
     data_object_ids = CuratorDataObjectLog.find(:all, :select => "distinct data_object_id", :conditions => [ "user_id = ?", self.id ] ).map(&:data_object_id)
     species = TaxonConcept.from_data_objects(*data_object_ids)
   end
+  
   def total_species_curated
     species_curated.length
   end
   
   def data_object_ids_curated
     data_object_ids = CuratorDataObjectLog.find(:all, :select => "distinct data_object_id", :conditions => [ "user_id = ?", self.id ] ).map(&:data_object_id)
+    #it will not affect order {, :order => "updated_at"}, no need to put order here
   end
+  
+  def data_object_ids_curated_with_activity(user_id)
+    sql = "SELECT curator_data_object_logs.*, curator_activities.code as activity_code FROM curator_data_object_logs
+    JOIN curator_activities   ON curator_data_object_logs.curator_activity_id                    = curator_activities.id
+    WHERE curator_data_object_logs.user_id = ? and curator_data_object_logs.data_object_id is not null 
+    order by curator_data_object_logs.updated_at " #this gets the last activity done on the data object
+    rset = CuratorDataObjectLog.find_by_sql([sql, user_id])
+        
+    obj_ids_activity = {} #same Hash.new
+    rset.each do |post|
+      obj_ids_activity["#{post.data_object_id}"] = "#{post.activity_code} <br> #{post.updated_at}"      
+    end
+    
+    return obj_ids_activity        
+  end
+  
+  
+  def taxon_concept_ids_curated
+    taxon_concept_ids = Array.new
+    species_curated.each do |post|
+        taxon_concept_ids << post.id
+    end
+    return taxon_concept_ids
+  end
+  
+  
   
   
 

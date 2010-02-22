@@ -121,16 +121,13 @@ class User < ActiveRecord::Base
     JOIN curator_activities   ON curator_data_object_logs.curator_activity_id                    = curator_activities.id
     WHERE curator_data_object_logs.user_id = ? and curator_data_object_logs.data_object_id is not null 
     order by curator_data_object_logs.updated_at " #this gets the last activity done on the data object
-    rset = CuratorDataObjectLog.find_by_sql([sql, user_id])
-        
+    rset = CuratorDataObjectLog.find_by_sql([sql, user_id])        
     obj_ids_activity = {} #same Hash.new
     rset.each do |post|
       obj_ids_activity["#{post.data_object_id}"] = "#{post.activity_code} <br> #{post.updated_at}"      
-    end
-    
+    end    
     return obj_ids_activity        
   end
-  
   
   def taxon_concept_ids_curated
     taxon_concept_ids = Array.new
@@ -138,6 +135,19 @@ class User < ActiveRecord::Base
         taxon_concept_ids << post.id
     end
     return taxon_concept_ids
+  end
+
+  def comment_ids_moderated_with_activity(user_id)
+    sql = "SELECT curator_comment_logs.*, curator_activities.code as activity_code FROM curator_comment_logs
+    JOIN curator_activities   ON curator_comment_logs.curator_activity_id                    = curator_activities.id
+    WHERE curator_comment_logs.user_id = ? and curator_comment_logs.comment_id is not null 
+    order by curator_comment_logs.updated_at " #this gets the last activity done on the data object
+    rset = CuratorCommentLog.find_by_sql([sql, user_id])        
+    comment_ids_activity = {} #same Hash.new
+    rset.each do |post|
+      comment_ids_activity["#{post.comment_id}"] = "#{post.activity_code} <br> #{post.updated_at}"      
+    end    
+    return comment_ids_activity        
   end
   
   

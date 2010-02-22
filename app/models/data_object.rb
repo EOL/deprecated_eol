@@ -1134,7 +1134,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     query="SELECT distinct  taxon_concepts.id taxon_concept_id , data_objects.id , 
     mime_types.label as mime, data_types.label as datatype, vetted.label vetted_label, visibilities.label visible,
     data_objects.object_title as title, data_objects.source_url, data_objects.description,
-    taxon_concepts.published, data_objects.object_url
+    taxon_concepts.published, data_objects.object_cache_url
     from
     data_objects
     Inner Join mime_types ON data_objects.mime_type_id = mime_types.id

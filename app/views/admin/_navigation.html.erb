@@ -20,6 +20,9 @@
     <li><%= link_to 'edit tag suggestions', {:controller => 'administrator/tag_suggestion', :action => 'index'}, {:class=>'toc_item active'} %> </li>
     <!--<li><%#= link_to 'view user tags', {:controller => 'administrator/tag', :action => 'index'},{:class=>'toc_item active'}  %> </li>-->
     <li><%= link_to 'view user comments', {:controller => 'administrator/comment', :action => 'index'}, {:class=>'toc_item active'} %> </li>
+	
+	<li><%= link_to 'view added text', {:controller => 'administrator/user_data_object', :action => 'index'}, {:class=>'toc_item active'} %> </li>
+	
   <% end %>
   
   <% restrict_to "(Administrator - Web Users) & !blacklist" do %>

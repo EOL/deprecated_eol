@@ -179,10 +179,12 @@ class Comment < ActiveRecord::Base
   end
 
 
- def self.get_comments(comment_ids,page) 
+ def self.get_comments(comment_ids,page)
+    if(comment_ids.length > 0) then
     query="Select comments.* From comments
     WHERE comments.id IN  (#{ comment_ids.join(', ') }) "
-    self.paginate_by_sql [query, comment_ids], :page => page, :per_page => 20   
+    self.paginate_by_sql [query, comment_ids], :page => page, :per_page => 20
+    end
   end 
  
     

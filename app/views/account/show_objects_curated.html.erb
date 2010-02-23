@@ -19,6 +19,9 @@
       <%= post.id%> <%= @data_object_ids.length %> <br>
     <% end -%>
     --->
+
+<% if @posts.nil? == false && @posts.size > 0 %>
+
         
     <%= will_paginate @posts %>
     <table class="results_table">
@@ -64,14 +67,14 @@
                 </td>                            
                 <td class="<%=column_class%>"><%= post.vetted_label %></td>
                 <td class="<%=column_class%>"><%= post.visible %></td>                            
-                <td class="<%=column_class%>">
-                    <%= post.description %>                                   
+                <td class="<%=column_class%>">                                                       
                     <% if(post.object_cache_url) %>                                   
                         <% url = post.object_cache_url.to_s    #2008/10/06/13/93618
                            url = "http://content8.eol.org/content/" + url[0,4] + "/" + url[4,2] + "/" + url[6,2] + "/" + url[8,2] + "/" + url[10,5] + "_small.jpg"
                         %>                                   
                         <img src="<%= url %>">
                      <% end %>
+					 <%= post.description %>
                 </td>                                        
             </tr>        
         <% end -%>
@@ -79,6 +82,7 @@
         <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
     </table>
 
-
+<% end %>
+    
     </body>
 </html>

@@ -1,0 +1,91 @@
+<%= render :partial => '/admin/content_top', :locals => {:name => 'User Comments'} %>
+
+All user-submitted texts on the website are shown below, sorted inversely by time created.  
+Click on a user to view the user's detailed profile, click on the species to view the page where the text exists (use your browser back button to return here). 
+ 
+
+<div id="comments">
+	
+    <% form_tag({:action=>'index'},:method=>'get') do -%>
+    Select:	
+	<select name="user_id"><option>all</option>
+	<% for user in @user_list %>        
+        <option value="<%= user.id%>"   <% if(@user_id.to_i == user.id) then %> selected <% end %> ><%= user.family_name%>, <%= user.given_name%></option>
+    <% end %>	
+	</select>
+    <%= submit_tag 'Search' %>
+	
+    <br /><br />
+	    
+    <% if @comments.nil? == false && @comments.size > 0 %>
+        
+        User-submitted text found: <%= @comment_count %><br />
+        
+        <%= will_paginate @comments %>
+            <table class="results_table" cellspacing="0">
+            <tr><th>User</th><th>Species</th><th>Description</th><th>Created</th><th>Updated</th><th>Published</th></tr>
+            <% for comment in @comments
+                column_class=cycle('odd','even')                
+
+                if (comment.taxon_concept_id) then
+                    concept = TaxonConcept.find(comment.taxon_concept_id)
+                    name = concept.quick_scientific_name(:italicized)
+                else
+                    name=""
+                end
+
+                obj = DataObject.find(comment.data_object_id)
+                    
+                    
+        
+
+                 %>
+				 
+				 
+				 
+				 
+                <tr valign="top">
+                    <td class="<%= column_class %>"><%=link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)%></td>
+					<td class="<%= column_class %>">
+					<%= link_to name,{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id} %></i>
+					</td>
+					<td class="<%= column_class %>"><%=h obj.description %>
+					
+					<!--
+					<%= link_to (obj.description,"/data_objects/#{comment.data_object_id}")%>
+					-->
+					
+					</td>
+					<td class="<%= column_class %>"><%=h format_date_time(obj.created_at,:format=>'short_no_tz')%></td>
+					<td class="<%= column_class %>"><%=h format_date_time(obj.updated_at,:format=>'short_no_tz')%></td>
+					<td class="<%= column_class %>"><%=h obj.published %></td>
+					
+					
+					
+					<% if(false) %>					
+                    <td class="<%= column_class %>"><%=h truncate(comment.body,100)%></td>
+                    <td class="<%= column_class %>">
+                        <%=truncate(comment.parent_name,50)%><br />
+                        (<%=link_to (comment.parent_type_name,comment.parent_url)%>)<br />
+                        <%=image_tag(comment.parent_image_url) if comment.image_comment? %>
+                    </td>                   
+                    <td class="<%= column_class %>"><%=h format_date_time(comment.created_at,:format=>'short_no_tz')%></td>
+                    <td class="<%= column_class %>">
+                    <%=link_to '[edit]',:action=>'edit',:id=>comment.id%><br />
+					<%=link_to '[delete]', {:action=>'destroy',:id=>comment.id}, :confirm => 'This cannot be undone; are you sure?', :method => :delete %></td>
+					<% end %>
+					
+                </tr>                                   
+            <% end %>
+            </table>
+            
+            <br />
+            <%= will_paginate @comments %>
+        
+    <% else %>
+            No comments are available matching your search criteria.<%end%>
+    <% end %>
+                
+</div>
+                        
+<%= render :partial => '/admin/content_bottom' %>

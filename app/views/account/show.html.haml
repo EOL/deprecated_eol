@@ -43,6 +43,20 @@
             Species Curated
           %td
             = link_to @user.total_species_curated,{:controller=>'/account', :action=>:show_species_curated, :id => @user.id}
+            
+        %tr{ :class => cycle('odd','even', :name => 'account') }
+          %td
+            User-submitted text
+          %td
+            = link_to @user_submitted_text_count,{:controller=>'administrator/user_data_object', :action=>:index, :user_id => @user.id}
+            
+            
+            
+            
+
+
+
+            
   #credentials
     %h3
       Credentials

@@ -41,6 +41,7 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :last_curated_dates
   has_many :actions_histories
+  has_many :users_data_objects
   
   attr_accessor :entered_password,:entered_password_confirmation,:curator_request
   attr_reader :full_name, :is_admin, :is_moderator
@@ -151,6 +152,13 @@ class User < ActiveRecord::Base
   end
   
   
+  def self.users_with_submitted_text
+    sql = "Select distinct users.id , users.given_name, users.family_name 
+    From users Inner Join users_data_objects ON users.id = users_data_objects.user_id 
+    Order By users.family_name, users.given_name"
+    rset = User.find_by_sql([sql])
+    return rset
+  end
   
   
 

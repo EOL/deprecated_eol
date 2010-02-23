@@ -226,6 +226,7 @@ class AccountController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    @user_submitted_text_count=UsersDataObject.count(:conditions=>['user_id = ?',params[:id]])
     redirect_back_or_default unless @user.curator_approved
   end
   

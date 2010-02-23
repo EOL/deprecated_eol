@@ -4,7 +4,11 @@ All comments entered by users on the website are shown below, sorted inversely b
 Click on a username to view that user's detailed profile, click on the data type to view the object commented on (use your browser back button to return here), click on "edit" to edit the comment or click on "delete" the permanently delete the comment.
 <div id="comments">
 	<% form_tag({:action=>'index'},:method=>'get') do -%>
-	Search for comments containing the text: <%= text_field_tag(:term_search_string,@term_search_string)%> <%= submit_tag 'Search' %>
+	   Search for comments containing the text: <%= text_field_tag(:term_search_string,@term_search_string)%> 
+
+	<%= submit_tag 'Search' %>
+	
+	
 	<br />
 
 	<br /><br />
@@ -22,7 +26,11 @@ Click on a username to view that user's detailed profile, click on the data type
 			    <tr>
 			    	<td class="<%= column_class %>"><%=link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)%></td>
   					<td class="<%= column_class %>"><%=h truncate(comment.body,100)%></td>
-  					<td class="<%= column_class %>"><%=truncate(comment.parent_name,50)%><br />(<%=link_to (comment.parent_type_name,comment.parent_url)%>)<br /><%=image_tag(comment.parent_image_url) if comment.image_comment? %></td>  					
+  					<td class="<%= column_class %>">
+  					    <%=truncate(comment.parent_name,50)%><br />
+						(<%=link_to (comment.parent_type_name,comment.parent_url)%>)<br />
+				        <%=image_tag(comment.parent_image_url) if comment.image_comment? %>
+					</td>  					
             <td class="<%= column_class %>"><%=h format_date_time(comment.created_at,:format=>'short_no_tz')%></td>
   					<td class="<%= column_class %>"><%=link_to '[edit]',:action=>'edit',:id=>comment.id%><br /><%=link_to '[delete]', {:action=>'destroy',:id=>comment.id}, :confirm => 'This cannot be undone; are you sure?', :method => :delete %></td>
 				</tr>									

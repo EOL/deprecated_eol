@@ -101,6 +101,10 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'monthly_stats_email',         :controller => 'administrator/content_partner_report', :action => 'monthly_stats_email' 
   map.connect 'administrator/reports/:action', :controller => 'administrator/reports'
   
+  
+  #map.connect 'administrator/user_data_object',    :controller => 'administrator/user_data_object', :action => 'index'
+
+  
   # map.connect 'administrator/reports/:report', :controller => 'administrator/reports', :action => 'catch_all',
   #                                              :requirements => { :report => /.*/ }
 

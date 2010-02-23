@@ -21,6 +21,9 @@
             <% end -%>
         <% end %>
 
+<% if @posts.nil? == false && @posts.size > 0 %>
+
+
         <%= will_paginate @posts %>
     <table class="results_table">
         <thead align="center">
@@ -63,7 +66,7 @@
         <tr><td colspan="5"><%= will_paginate @posts %></td></tr>
     </table>
 
-
+<% end %>
 
     </body>
 </html>

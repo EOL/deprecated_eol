@@ -1130,7 +1130,9 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   end
 
 
-  def self.data_object_details(data_object_ids,page)      
+  def self.data_object_details(data_object_ids,page)
+    if(data_object_ids.length > 0) then
+    
     query="SELECT distinct  taxon_concepts.id taxon_concept_id , data_objects.id , 
     mime_types.label as mime, data_types.label as datatype, vetted.label vetted_label, visibilities.label visible,
     data_objects.object_title as title, data_objects.source_url, data_objects.description,
@@ -1154,9 +1156,25 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     # (2983141, 2985085, 2996805)
     # #{data_object_ids.join(',')}
     
-    self.paginate_by_sql [query, data_object_ids], :page => page, :per_page => 50 , :order => 'id'    
+    self.paginate_by_sql [query, data_object_ids], :page => page, :per_page => 50 , :order => 'id'
     
-   end
+    end
+    
+  end
+
+  
+  def self.get_dataobjects(obj_ids,page) 
+    query="Select data_objects.* From data_objects
+    Inner Join vetted ON data_objects.vetted_id = vetted.id
+    WHERE data_objects.id IN (#{ obj_ids.join(', ') })
+    "
+    self.paginate_by_sql [query, obj_ids], :page => page, :per_page => 20 , :order => 'id'  
+  end
+    
+
+  
+  
+  
 
 
 

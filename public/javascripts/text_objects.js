@@ -89,6 +89,11 @@ EOL.TextObjects.submit_text = function(form, event) {
                    });
 
   EOL.TextObjects.disable_form(form);
+  // in case we want to reload the TOC Category after submission, but it caused other javascript errors
+  // var selected_index = $('data_objects_toc_category_toc_id').selectedIndex;
+  // var toc_id = $('data_objects_toc_category_toc_id')[selected_index].value;
+  // var taxon_concept_id = $j("input[name=taxon_concept_id]").val();
+  // eol_update_content_area(taxon_concept_id, toc_id, null);
 
   return false;
 };

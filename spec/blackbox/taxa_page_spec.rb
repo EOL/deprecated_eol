@@ -237,8 +237,7 @@ describe 'Taxa page (HTML)' do
       body = RackBox.request("/pages/#{@taxon_concept.id}").body
       body.should_not include("Nucleotide Sequences")
     end
-    
-  
+
   describe 'specified hierarchies' do
     
     before(:all) do
@@ -349,5 +348,21 @@ describe 'Taxa page (HTML)' do
     new_result.body.should_not include(info_item_title.label)        
   end
 
+  it 'should show images on the page' do 
+    tc = build_taxon_concept(:images => 
+      [{:vetted => Vetted.untrusted}, 
+       {:vetted => Vetted.unknown},
+       {}])
+    unvetted_count = tc.images.select {|i| i.vetted? == false}.size
+    body_vetted = request("/pages/#{tc.id}?vetted=true").body
+    body_vetted.should include "authoritative information"
+    body_all = request("/pages/#{tc.id}?vetted=false").body
+    body_all.should include "all information"
+    dom_all = Nokogiri.HTML(body_all)
+    dom_vetted = Nokogiri.HTML(body_vetted)
+    unvetted_count.should == 2 
+    (dom_all.xpath("//div[@id='thumbnails']//img").size - dom_vetted.xpath("//div[@id='thumbnails']//img").size).should == unvetted_count
+  end
+  
 end
 

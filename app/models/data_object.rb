@@ -900,7 +900,7 @@ class DataObject < SpeciesSchemaModel
             'data_supplier'     => nil,
             'agents'            => {} }
       if attributions[do_id]['agents'].empty?
-        @all_agent_roles ||= AgentRole.all.each
+        @all_agent_roles ||= AgentRole.all
         @all_agent_roles.each do |ar|
           attributions[do_id]['agents'][ar.label] ||= []
         end

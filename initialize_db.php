@@ -9,3 +9,12 @@ echo "rake truncate \n";                            shell_exec("rake truncate");
 echo "rake scenarios:load NAME=bootstrap \n";       shell_exec("rake scenarios:load NAME=bootstrap");       echo "Ended ----------- \n\n";
 
 ?>
+
+
+rake db:drop:all 
+rake eol:db:create:all 
+rake eol:db:create:all RAILS_ENV=test 
+rake db:migrate 
+rake db:migrate RAILS_ENV=test 
+rake truncate 
+rake scenarios:load NAME=bootstrap,foundation 

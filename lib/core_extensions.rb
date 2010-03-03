@@ -1,5 +1,14 @@
 # This library file declares extensions to the Core classes, as well as some of the "Core" Rails classes
 # (ActiveRecord and what-not).
+
+# This is a fix for EOLINFRASTRUCTURE-1606 ... NewRelic appears to be calling [] on a Nil somewhere, and this avoids the
+# problem.
+class NilClass
+  def [](a,b=nil)
+    return '[DATA MISSING]'
+  end
+end
+
 class String
 
   # Normalize a string for better matching, e.g. for searches

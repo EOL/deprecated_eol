@@ -24,7 +24,7 @@ class EOLWebService
   #finds local ip used by the host for remote connection
   def self.local_ip
     begin
-      return nil if RAILS_ENV == 'test'
+      return '0.0.0.0' if RAILS_ENV == 'test'
       orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
 
       UDPSocket.open do |s|

@@ -36,8 +36,8 @@ describe 'APIs' do
     it 'should generate the best image html' do
       @result = RackBox.request("/pages/#{@id}/best_images.html")
       @result.body.should have_tag('img')
-      @result.body.should include('_large.jpg')
-      #@result.body.should include('.eol.org/content')
+      #@result.body.should include('_large.jpg')
+      @result.body.should include('.eol.org/content')
       @result.body.should include('Generated on')
     end
   end

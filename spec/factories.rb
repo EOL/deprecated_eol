@@ -807,6 +807,7 @@ end
 Factory.define :taxon_concept do |tc|
   tc.vetted         { Vetted.trusted || Vetted.create(:label => 'Trusted') }
   tc.published      1
+  tc.vetted_id      0
   tc.supercedure_id 0
   tc.split_from     0
 end

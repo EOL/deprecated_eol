@@ -35,8 +35,8 @@ describe User do
     #url1 = /http[s]?:\/\/.+\/account\/reset_password\//
     #url2 = /http[s]?:\/\/.+:3000\/account\/reset_password\//
 
-    url1 = /http[s]?:\/\/\/account\/reset_password\//
-    url2 = /http[s]?:\/\/.*:3000\/account\/reset_password\//
+    url1 = /http[s]?:\/\/.+\/account\/reset_password\//
+    url2 = /http[s]?:\/\/.+:3000\/account\/reset_password\//
     
     
     user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com') 

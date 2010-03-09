@@ -6,7 +6,7 @@ class ApiController < ApplicationController
     
     taxon_concept = TaxonConcept.find(taxon_concept_id)
     unless taxon_concept.nil? || !taxon_concept.published?
-      @details_hash = taxon_concept.details_hash(:return_media_limit => params[:media_count].to_i, :text_subjects => params[:subject], :return_text_limit => params[:text_count].to_i)
+      @details_hash = taxon_concept.details_hash(:return_media_limit => params[:media_count].to_i, :subject => params[:subject], :return_text_limit => params[:text_count].to_i)
     end
     
     respond_to do |format|

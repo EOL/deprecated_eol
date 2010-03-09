@@ -1,5 +1,4 @@
 - is_curator = @taxon_concept.is_curatable_by?(current_user)
-- names_by_language = common_names_by_language(@content[:items], current_user.language_id)
 - if is_curator
   #common_names_error{ :style => "color:brown;text-align:center;padding-bottom:8px;display:none;" }
     Sorry! There was an error sending the curation request; please try again later.
@@ -7,24 +6,23 @@
     = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
 
 #common_names_wrapper.text_object
+  - names_by_language = common_names_by_language(@content[:items], current_user.language_id)
   - if names_by_language.empty?
     = render(:partial => 'taxa/content/content_common_names_insert') 
   - else
-    - names_by_language.each_with_index do |language_names, index|
-      - language = language_names[1][:language]
-      - locals = {:names => language_names[1][:names], :language_id => language[:id]} 
+    - names_by_language.each_with_index do |language_names_pair, index|
+      - language = language_names_pair[0]
+      - names    = language_names_pair[1]
       .title
         - if index == 0
           = "Language:"[]
-        == #{language[:label]}
-        - if !language[:name].empty? && language[:name] != language[:label]
-          == (#{language[:name]})
+        == #{language}
       - if is_curator
-        = render(:partial => 'taxa/content/content_language_common_names_curator', :locals => locals) 
+        = render(:partial => 'taxa/content/content_language_common_names_curator', :locals => {:names => names}) 
       - else
-        = render(:partial => 'taxa/content/content_language_common_names', :locals => locals) 
+        = render(:partial => 'taxa/content/content_language_common_names', :locals => {:names => names}) 
       - if index == 0 && is_curator
-        = render(:partial => 'taxa/content/content_common_names_insert', :locals => locals) 
+        = render(:partial => 'taxa/content/content_common_names_insert', :locals => {:names => names}) 
     %br
     .divider
     .content-attribution-area

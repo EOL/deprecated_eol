@@ -25,6 +25,12 @@ class DataType < SpeciesSchemaModel
     end
   end
   
+  def self.video
+    Rails.cache.fetch('data_type/video') do
+      DataType.find_by_label('Video')
+    end
+  end
+  
   def self.youtube
     Rails.cache.fetch('data_type/youtube') do
       DataType.find_by_label('YouTube')
@@ -40,6 +46,12 @@ class DataType < SpeciesSchemaModel
   def self.gbif_image
     Rails.cache.fetch('data_type/gbif_image') do
       DataType.find_by_label('GBIF Image')
+    end
+  end
+  
+  def self.iucn
+    Rails.cache.fetch('data_type/iucn') do
+      DataType.find_by_label('IUCN')
     end
   end
   

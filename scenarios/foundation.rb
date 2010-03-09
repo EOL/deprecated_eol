@@ -299,17 +299,17 @@ create_if_not_exists Role, :title => 'Administrator - Usage Reports'
 
 create_if_not_exists TocItem, :label => 'Overview', :view_order => 1
 description = create_if_not_exists TocItem, :label => 'Description', :view_order => 2
-ecology_and_distribution = create_if_not_exists TocItem, :label => 'Ecology and Distribution', :view_order => 3
-create_if_not_exists TocItem, :label => 'Common Names', :view_order => 10
-ref_and_info = create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 9
+create_if_not_exists TocItem, :label => 'Nucleotide Sequences', :view_order => 3, :parent_id => description.id
+ecology_and_distribution = create_if_not_exists TocItem, :label => 'Ecology and Distribution', :view_order => 4
+create_if_not_exists TocItem, :label => 'Common Names', :view_order => 50
+create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 51
+ref_and_info = create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 52
 
 # Note that in all these "children", the view_order resets.  ...That reflects the real DB.
-create_if_not_exists TocItem, :label => 'Nucleotide Sequences',          :view_order => 5, :parent_id => description.id
-create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 1, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 4, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Biomedical Terms',              :view_order => 8, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 12,:parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Literature References',         :view_order => 16,:parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Literature References',         :view_order => 54, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 55, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Biomedical Terms',              :view_order => 56, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 57, :parent_id => ref_and_info.id
 
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology', :label => 'TaxonBiology', :toc_item => TocItem.overview
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription', :label => 'GeneralDescription', :toc_item => description

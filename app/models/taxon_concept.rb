@@ -17,6 +17,7 @@ require 'eol/solr_search'
 
 class TaxonConcept < SpeciesSchemaModel
   extend EOL::Solr::Search
+  include ModelQueryHelper
 
   #TODO belongs_to :taxon_concept_content
   belongs_to :vetted
@@ -871,6 +872,93 @@ EOIUCNSQL
       end
     end
   end
+  
+  
+  
+  # for API
+  def details_hash(options = {})
+    options[:return_media_limit] ||= 3
+    options[:return_text_limit] ||= 1
+    if options[:subject]
+      options[:text_subjects] = [options[:subject]]
+    else
+      options[:text_subjects] = ['TaxonBiology', 'GeneralDescription', 'Description']
+    end
+    
+    image_ids = top_image_ids(options)
+    non_image_ids = top_non_image_ids(options)
+    
+    details_hash = {'data_objects' => DataObject.details_for_objects(image_ids + non_image_ids, :skip_metadata => true)}
+    details_hash
+  end
+  
+  def top_image_ids(options = {})
+    # a user with default options - to show unvetted images for example
+    user = User.create_new
+    top_images_sql = DataObject.build_top_images_query(self, :user => user)
+    object_hash = SpeciesSchemaModel.connection.execute(top_images_sql).all_hashes
+    object_hash = object_hash.uniq
+    
+    object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
+    
+    object_hash = object_hash[0...options[:return_media_limit]] if object_hash.length > options[:return_media_limit]
+    object_hash.collect {|e| e['id']}
+  end
+  
+  def top_non_image_ids(options = {})
+    object_hash = SpeciesSchemaModel.connection.execute("
+      SELECT do.*, v.view_order vetted_view_order, toc.view_order toc_view_order, ii.label info_item_label
+        FROM hierarchy_entries he
+        JOIN taxa t ON (he.id = t.hierarchy_entry_id)
+        JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
+        JOIN data_objects do ON (dot.data_object_id = do.id)
+        LEFT JOIN vetted v ON (do.vetted_id=v.id)
+        LEFT JOIN (
+           info_items ii
+           JOIN table_of_contents toc ON (ii.toc_id=toc.id)
+           JOIN data_objects_table_of_contents dotoc ON (toc.id=dotoc.toc_id)
+          ) ON (do.id=dotoc.data_object_id)
+        WHERE he.taxon_concept_id = #{self.id}
+        AND do.published = 1
+        AND do.visibility_id = #{Visibility.visible.id}
+        AND data_type_id NOT IN (#{DataType.image.id}, #{DataType.iucn.id}, #{DataType.gbif_image.id})
+    ").all_hashes.uniq
+    object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
+    
+    # set flash and youtube types to video
+    text_id = DataType.text.id.to_s
+    flash_id = DataType.flash.id.to_s
+    youtube_id = DataType.youtube.id.to_s
+    object_hash.each_with_index do |r, index|
+      if r['data_type_id'] == flash_id || r['data_type_id'] == youtube_id
+        r['data_type_id'] = DataType.video.id
+      end
+    end
+    
+    # remove text subjects not asked for
+    object_hash.delete_if {|obj| obj['data_type_id'] == text_id && !options[:text_subjects].include?(obj['info_item_label'])}
+    
+    # remove items over the limit
+    types_count = {}
+    truncated_object_hash = []
+    object_hash.each do |r|
+      types_count[r['data_type_id']] ||= 0
+      types_count[r['data_type_id']] += 1
+      
+      if r['data_type_id'] == text_id
+        truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_text_limit]
+      else
+        truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_media_limit]
+      end
+    end
+    
+    truncated_object_hash.collect {|e| e['id']}
+  end
+  
+  
+  
+  
+  
   
   def all_common_names
     Name.find_by_sql(['SELECT names.string, l.iso_639_1 language_label, l.label, l.name

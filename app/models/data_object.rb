@@ -1171,7 +1171,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     end
     
   end
-
   
   def self.get_dataobjects(obj_ids,page) 
     query="Select data_objects.* From data_objects
@@ -1180,10 +1179,91 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     "
     self.paginate_by_sql [query, obj_ids], :page => page, :per_page => 20 , :order => 'id'  
   end
+  
+  
+  
+  
+  
+  
+  
+  def self.details_for_object(data_object_guid)
+    data_object = DataObject.find_by_guid(data_object_guid, :conditions => "published=1 AND visibility_id=#{Visibility.visible.id}", :order => "id desc")
+    return [] if data_object.nil?
     
-
+    details = self.details_for_objects([data_object.id])
+    return [] if details.blank?
+    details[0]
+  end
   
+  def self.details_for_objects(data_object_ids, options = {})
+    return [] unless data_object_ids.is_a? Array
+    object_details_hashes = SpeciesSchemaModel.connection.execute("
+      SELECT do.*, dt.schema_value data_type, mt.label mime_type, lang.iso_639_1 language,
+              lic.source_url license, ii.schema_value subject, v.view_order vetted_view_order, toc.view_order toc_view_order
+        FROM data_objects do
+        LEFT JOIN data_types dt ON (do.data_type_id=dt.id)
+        LEFT JOIN mime_types mt ON (do.mime_type_id=mt.id)
+        LEFT JOIN languages lang ON (do.language_id=lang.id)
+        LEFT JOIN licenses lic ON (do.license_id=lic.id)
+        LEFT JOIN vetted v ON (do.vetted_id=v.id)
+        LEFT JOIN (
+           info_items ii
+           JOIN table_of_contents toc ON (ii.toc_id=toc.id)
+           JOIN data_objects_table_of_contents dotoc ON (toc.id=dotoc.toc_id)
+          ) ON (do.id=dotoc.data_object_id)
+        WHERE do.id IN (#{data_object_ids.join(',')})
+        AND do.published = 1
+        AND do.visibility_id = #{Visibility.visible.id}
+        GROUP BY do.id
+    ").all_hashes
+    
+    flash_id = DataType.flash.id
+    youtube_id = DataType.youtube.id
+    object_details_hashes.each do |r|
+      if r['data_type_id'].to_i == flash_id || r['data_type_id'].to_i == youtube_id
+        r['data_type'] = DataType.video.schema_value
+      end
+    end
+    
+    object_details_hashes = ModelQueryHelper.sort_object_hash_by_display_order(object_details_hashes)
+    
+    object_details_hashes = DataObject.add_refs_to_details(object_details_hashes) if options[:skip_metadata].blank?
+    object_details_hashes = DataObject.add_agents_to_details(object_details_hashes) if options[:skip_metadata].blank?
+    object_details_hashes
+  end
   
+  def self.add_refs_to_details(object_details_hash)
+    data_object_ids = object_details_hash.collect {|r| r['id']}
+    return object_details_hash if data_object_ids.blank?
+    
+    refs = SpeciesSchemaModel.connection.execute("
+        SELECT r.*, dor.data_object_id
+          FROM data_objects_refs dor
+          JOIN refs r ON (dor.ref_id=r.id)
+          WHERE dor.data_object_id IN (#{data_object_ids.join(',')})
+          AND r.published=1
+          AND r.visibility_id=#{Visibility.visible.id}").all_hashes
+    
+    grouped_refs = ModelQueryHelper.group_array_by_key(refs, 'data_object_id')
+    object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped_refs, 'refs')
+    return object_details_hash
+  end
+  
+  def self.add_agents_to_details(object_details_hash)
+    data_object_ids = object_details_hash.collect {|r| r['id']}
+    return object_details_hash if data_object_ids.blank?
+    
+    agents = SpeciesSchemaModel.connection.execute("
+        SELECT a.*, ar.label role, ado.data_object_id
+          FROM agents_data_objects ado
+          JOIN agents a ON (ado.agent_id=a.id)
+          JOIN agent_roles ar ON (ado.agent_role_id=ar.id)
+          WHERE ado.data_object_id IN (#{data_object_ids.join(',')})").all_hashes
+    
+    grouped = ModelQueryHelper.group_array_by_key(agents, 'data_object_id')
+    object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped, 'agents')
+    return object_details_hash
+  end
   
 
 

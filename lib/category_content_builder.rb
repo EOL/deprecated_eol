@@ -71,22 +71,11 @@ private
 
   end
 
-  # NOTE - this uses TaxonConceptNames, not Synonyms.  For now, that's because TCN is a denormlized version of Synonyms.
   def common_names(options)
-    lang_unknown_id = Language.unknown.id
-    names = Name.find_by_sql([%q{
-      SELECT names.id name_id, names.string name_string,
-             l.label language_label, l.name language_name, l.id language_id,
-             agsyn.agent_id agent_id, syn.id synonym_id, syn.hierarchy_id hierarchy_id, tcn.preferred preferred
-      FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
-        LEFT JOIN languages l ON (tcn.language_id = l.id)
-        LEFT JOIN synonyms syn ON (tcn.synonym_id = syn.id)
-        LEFT JOIN agents_synonyms agsyn ON (syn.id = agsyn.synonym_id)
-      WHERE tcn.taxon_concept_id = ? AND vern = 1
-      ORDER BY language_label, language_name, string
-    }, options[:taxon_concept_id]])
-    known_language_name_ids = names.map {|n| n.language_id.to_i == lang_unknown_id ? nil : n.name_id.to_i}.compact.uniq
-    names = names.select {|n| (n.language_id.to_i != lang_unknown_id) || (!known_language_name_ids.include?(n.name_id.to_i))} 
+    unknown = Language.unknown.label
+    names = EOL::CommonNameDisplay.find_by_taxon_concept_id(options[:taxon_concept_id])
+    known_names = names.map {|n| n.language_label == unknown ? nil : n.name_id.to_i}.compact.uniq
+    names = names.select {|n| (n.language_label != unknown) || (!known_names.include?(n.name_id.to_i))} 
     return {:items => names} 
   end
 

@@ -45,7 +45,8 @@ def bootstrap_toc
       'Characteristics',
       'General Description'
   ]
-  make_toc_children(TocItem.find_by_label('Description').id, description_labels)
+  make_toc_children(TocItem.find_by_label('Description').id, description_labels, current_order)
+  current_order += description_labels.length+1
   TocItem.gen(:label => 'Reproductive Behavior', :parent_id => 0, :view_order => current_order += 1)
   TocItem.gen(:label => 'Conservation', :parent_id => 0, :view_order => current_order += 1)
   TocItem.gen(:label => 'Evolution and Systematics', :parent_id => 0, :view_order => current_order += 1)
@@ -65,11 +66,10 @@ def bootstrap_toc
     'Ethnobotany',
     'Suppliers'
   ]
-  make_toc_children(relevance.id, relevance_labels)
+  make_toc_children(relevance.id, relevance_labels, current_order)
 end
 
-def make_toc_children(parent_id, labels)
-  current_order = 0
+def make_toc_children(parent_id, labels, current_order)
   labels.each do |label|
     current_order += 1
     TocItem.gen(:label => label, :parent_id => parent_id, :view_order => current_order)

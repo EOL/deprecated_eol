@@ -37,12 +37,12 @@ describe TocBuilder do
       
       toc = tb.toc_for(tc, :user => user)
       toc[0].label.should == "Overview"
-      toc[1].label.should == "References and More Information"
-      toc[2].label.should == "Biodiversity Heritage Library"
-      toc[3].label.should == "Specialist Projects"
-      toc[4].label.should == "Biomedical Terms"
-      toc[5].label.should == "Search the Web"
-      toc[6].label.should == "Literature References"
+      toc[1].label.should == "Biodiversity Heritage Library"
+      toc[2].label.should == "References and More Information"
+      toc[3].label.should == "Literature References"
+      toc[4].label.should == "Specialist Projects"
+      toc[5].label.should == "Biomedical Terms"
+      toc[6].label.should == "Search the Web"
     end
 
   end

@@ -2,7 +2,7 @@
   = hidden_field_tag "trusted_name_clicked_on", "false"
   = hidden_field_tag "trusted_synonym_clicked_on", "false"
   = hidden_field_tag "trusted_name_checked", "false"
-  = hidden_field_tag "language_id", language_id
+  = hidden_field_tag 'language_id', names[0].language_id
   = hidden_field_tag "category_id", params[:category_id]
   %table.results_table{ :cellspacing => "0", :summary => "Common Names", :style => "width:100%"}
     %tr
@@ -11,19 +11,19 @@
         = "Name"[]
       %th{ :style => "width:6em" }= "Trusted"[]
     - names.each do |name|
-      - is_agent = current_user.agent_id == name[:agent_id]
+      - is_agent = current_user.agent_id == name.agent_id
       - column_class = cycle("odd", "even")
       %tr
         %td{ :class => "#{column_class} preferred_name_selector", :style => "text-align:center;" }
-          = radio_button_tag 'preferred_name_id', name[:id], name[:preferred]
+          = radio_button_tag 'preferred_name_id', name.id, name.preferred
         %td{ :class => column_class }
-          = h name[:string]
+          = h name.string
         %td{ :class => "#{column_class} preferred_name_selector", :style => "text-align:center;" }
-          = check_box_tag 'trusted_name_id', name[:id], name[:trusted]
-          = hidden_field_tag "synonym_id_#{name[:id]}", name[:synonym_id]
-          = hidden_field_tag "duplicate_#{name[:id]}", name[:duplicate]
-          - if name[:agent_id] != 0 && a = Agent.find(name[:agent_id])
-            = hidden_field_tag "agent_#{name[:id]}", a.full_name
+          = check_box_tag 'trusted_name_id', name.id, name.trusted
+          = hidden_field_tag "synonym_id_#{name.id}", name.synonym_id
+          = hidden_field_tag "duplicate_#{name.id}", name.duplicate
+          - if name.agent_id != 0 && a = Agent.find(name.agent_id)
+            = hidden_field_tag "agent_#{name.id}", a.full_name
           - else
-            = hidden_field_tag "agent_#{name[:id]}", "Unknown"
+            = hidden_field_tag "agent_#{name.id}", "Unknown"
 %br            

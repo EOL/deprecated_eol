@@ -43,7 +43,7 @@ describe 'EOL XML APIs' do
       @taxon_concept.published = 0
       @taxon_concept.save!
       
-      response = request("/api/taxon_concept_details/#{@taxon_concept.id}")
+      response = request("/api/pages/#{@taxon_concept.id}")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('/').inner_text.should == "\n"
       response.body.should include('</response>')
@@ -53,7 +53,7 @@ describe 'EOL XML APIs' do
     end
     
     it 'should show one data object per category' do
-      response = request("/api/taxon_concept_details/#{@taxon_concept.id}")
+      response = request("/api/pages/#{@taxon_concept.id}")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
@@ -61,7 +61,7 @@ describe 'EOL XML APIs' do
     end
     
     it 'should be able to limit number of media returned' do
-      response = request("/api/taxon_concept_details/#{@taxon_concept.id}?media_count=2")
+      response = request("/api/pages/#{@taxon_concept.id}?images=2")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 2
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
@@ -69,7 +69,7 @@ describe 'EOL XML APIs' do
     end
     
     it 'should be able to limit number of text returned' do
-      response = request("/api/taxon_concept_details/#{@taxon_concept.id}?text_count=2")
+      response = request("/api/pages/#{@taxon_concept.id}?text=2")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
@@ -125,7 +125,7 @@ describe 'EOL XML APIs' do
       @object.published = 0
       @object.save!
       
-      response = request("/api/data_object_details/#{@object.id}")
+      response = request("/api/data_objects/#{@object.id}")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('/').inner_text.should == "\n"
       response.body.should include('</response>')
@@ -136,7 +136,7 @@ describe 'EOL XML APIs' do
       @info_item = InfoItem.find_or_create_by_schema_value('http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription');
       DataObjectsTableOfContent.create(:data_object_id => @object.id, :toc_id => @info_item.toc_id)
       
-      response = request("/api/data_object_details/#{@object.guid}")
+      response = request("/api/data_objects/#{@object.guid}")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('/').inner_html.should_not == ""
       xml_response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid
@@ -177,7 +177,7 @@ describe 'EOL XML APIs' do
       @object.object_cache_url = 200911302039366
       @object.save!
       
-      response = request("/api/data_object_details/#{@object.guid}")
+      response = request("/api/data_objects/#{@object.guid}")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('/').inner_html.should_not == ""
       xml_response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid

@@ -28,12 +28,14 @@ end
 
 def build_name(string, agent, language, options = {})
   options[:preferred] ||= '1'
-  name = Name.gen(:string => string)
+  name = Name.find_by_string(string)
+  name = Name.gen(:string => string) unless name
   add_language_to_name(name, language)
   add_agent_to_name(name, @agent)
   add_name_string_to_name(name)
   add_preferred_to_name(name, options[:preferred])
   add_synonym_to_name(name, Synonym.gen(:name => name))
+  name[:hierarchy_id] = Hierarchy.eol_contributors.id if options[:curator]
   return EOL::CommonNameDisplay.new(name)
 end
 
@@ -123,7 +125,7 @@ describe TaxaHelper do
 
     it "should sort names by language" do
       result = helper.common_names_by_language(@names, @language_a.id)
-      result.length.should == 3
+      result.length.should == @names.length
       result[0][0].should == @language_a.label
       result[0][1].length.should == 1
       result[0][1].first.name_string.should == @name_a_a_string
@@ -140,16 +142,16 @@ describe TaxaHelper do
       result[0][0].should == @language_c.label
     end
 
-    it "should put english second (when not preferred)" do
-      names = @names << build_name('Englishman', @agent, Language.english)
-      result = helper.common_names_by_language(names, @language_a.id)
-      result[1][0].should == Language.english.label
-    end
-
     it 'should put unknown language last' do
       names = [build_name('Englishman', @agent, Language.unknown)] + @names
       result = helper.common_names_by_language(names, @language_a.id)
       result.last[0].should == Language.unknown.label
+    end
+
+    it 'should remove names duplicated by curator entries' do
+      names = [build_name(@name_a_a_string, @agent, @language_a, :curator => true)] + @names
+      result = helper.common_names_by_language(names, @language_a.id)
+      result.length.should == @names.length
     end
 
   end

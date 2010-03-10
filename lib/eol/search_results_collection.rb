@@ -20,21 +20,21 @@ module EOL
       @match_field_name              = 'common_name'
       @shown_as_field_name           = 'common_shown_as'
 
-      if @type == :common
-        @find_match                    = true
-      elsif @type == :scientific
+      if @type == :scientific
         @find_match                    = true
         @best_match_field_name         = 'best_matched_scientific_name'
         @default_best_match_field_name = 'preferred_scientific_name'
         @match_field_name              = 'scientific_name'
         @shown_as_field_name           = 'scientific_shown_as'
+      else # common
+        @find_match                    = true
       end
 
       # We don't actually want to do this next step unless we *know* the results are based on TaxonConcept... but, for the
       # time being, we always are.  In the future, this will want to be abstracted out, so that we inherit all the common
       # behaviour and add this behaviour if it's a TC-based search:
       update_results_with_current_data
-
+      handle_apparent_duplicates
       adapt_results_for_view
     end
 
@@ -114,7 +114,9 @@ module EOL
         tc = TaxonConcept.find(id)
         return {'preferred_scientific_name' => (tc.scientific_name(@session_hierarchy) ||
                                                 result["preferred_scientific_name"] || ''),
-                'preferred_common_name'     => (tc.common_name(@session_hierarchy) || result["preferred_common_name"] || '') }
+                'preferred_common_name'     => (tc.common_name(@session_hierarchy) || result["preferred_common_name"] || ''),
+                # There are some "expensive" operations we only want to do on duplicates, so store the TC here:
+                'taxon_concept'             => tc }
       # Really, we don't want to save these exceptions, since what good is a search result if the TC is missing?
       # However, tests sometimes create situations where this is possible and not "wrong", (creating TCs is expensive!) so:
       rescue ActiveRecord::RecordNotFound
@@ -160,6 +162,31 @@ module EOL
     def repair_missing_match_fields(result)
       result[@match_field_name]      ||= ['']
       result[@best_match_field_name] ||= ''
+    end
+
+    def handle_apparent_duplicates
+      return nil unless @results
+      best_names = @results.map {|r| r[@best_match_field_name]}
+      @results.each do |result|
+        if best_names.include? result[@best_match_field_name]
+          result["duplicate"]     = true
+          tc = result["taxon_concept"]
+          if tc
+            result["recognized_by"] = @type == :scientific ? 'oops' : result["taxon_concept"].entry.hierarchy.label
+            ancestors = tc.ancestors
+            parent = ancestors[-2]
+            ancestor = ancestors[-3]
+            if parent and parent.class == TaxonConcept
+              result["parent"] = @type == :scientific ?  parent.scientific_name : parent.common_name
+              if ancestor and ancestor.class == TaxonConcept
+                result["ancestor"] = @type == :scientific ?  ancestor.scientific_name : ancestor.common_name
+              end
+            end
+          else
+            result["recognized_by"] = 'unknown'
+          end
+        end
+      end
     end
 
   end

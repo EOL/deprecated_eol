@@ -58,6 +58,10 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
+      
+      # shouldnt get details without asking for them
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 0
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 0
     end
     
     it 'should be able to limit number of media returned' do
@@ -74,6 +78,16 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
+    end
+    
+    it 'should be able to get more details on data objects' do
+      response = request("/api/pages/#{@taxon_concept.id}?image=1&text=0&details=1")
+      xml_response = Nokogiri.XML(response.body)
+      # should get 1 image, 1 video and their metadata
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 2
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 2
     end
     
     

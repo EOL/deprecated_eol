@@ -3,10 +3,14 @@ class ApiController < ApplicationController
     taxon_concept_id = params[:id] || 0
     params[:images] ||= 1
     params[:text] ||= 1
+    @complete_objects = params[:details]
+    
+    params[:images] = 30 if params[:images].to_i > 30
+    params[:text] = 30 if params[:text].to_i > 30
     
     taxon_concept = TaxonConcept.find(taxon_concept_id)
     unless taxon_concept.nil? || !taxon_concept.published?
-      @details_hash = taxon_concept.details_hash(:return_media_limit => params[:images].to_i, :subject => params[:subject], :return_text_limit => params[:text].to_i)
+      @details_hash = taxon_concept.details_hash(:return_media_limit => params[:images].to_i, :subject => params[:subject], :return_text_limit => params[:text].to_i, :details => params[:details])
     end
     
     respond_to do |format|

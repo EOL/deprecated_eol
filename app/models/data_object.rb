@@ -1197,6 +1197,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   
   def self.details_for_objects(data_object_ids, options = {})
     return [] unless data_object_ids.is_a? Array
+    return [] if data_object_ids.empty?
     object_details_hashes = SpeciesSchemaModel.connection.execute("
       SELECT do.*, dt.schema_value data_type, mt.label mime_type, lang.iso_639_1 language,
               lic.source_url license, ii.schema_value subject, v.view_order vetted_view_order, toc.view_order toc_view_order

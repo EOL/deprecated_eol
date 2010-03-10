@@ -888,11 +888,16 @@ EOIUCNSQL
     image_ids = top_image_ids(options)
     non_image_ids = top_non_image_ids(options)
     
-    details_hash = {'data_objects' => DataObject.details_for_objects(image_ids + non_image_ids, :skip_metadata => true)}
+    data_object_hash = DataObject.details_for_objects(image_ids + non_image_ids, :skip_metadata => !options[:details])
+    details_hash = {  'data_objects'      => data_object_hash,
+                      'id'                => self.id,
+                      'scientific_name'   => quick_scientific_name}
+    
     details_hash
   end
   
   def top_image_ids(options = {})
+    return [] if options[:return_media_limit] == 0
     # a user with default options - to show unvetted images for example
     user = User.create_new
     top_images_sql = DataObject.build_top_images_query(self, :user => user)
@@ -906,6 +911,7 @@ EOIUCNSQL
   end
   
   def top_non_image_ids(options = {})
+    return [] if options[:return_media_limit] == 0 && options[:return_text_limit] == 0
     object_hash = SpeciesSchemaModel.connection.execute("
       SELECT do.*, v.view_order vetted_view_order, toc.view_order toc_view_order, ii.label info_item_label
         FROM hierarchy_entries he

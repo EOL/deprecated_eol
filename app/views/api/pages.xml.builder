@@ -10,11 +10,13 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
   
   unless @details_hash.blank?
     xml.taxon do
+      xml.dc :identifier, @details_hash['id']
+      xml.dwc :ScientificName, @details_hash['scientific_name']
       for object in @details_hash["data_objects"]
-        xml.dataObject do
-          xml.dc :identifier, object["guid"]
-          xml.dataType object["data_type"]
-          xml.subject object["subject"] unless object["subject"].blank?
+        if @complete_objects
+          xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :object_hash => object } )
+        else
+          xml << render(:partial => 'data_object_minimal.xml.builder', :layout => false, :locals => { :object_hash => object } )
         end
       end
     end

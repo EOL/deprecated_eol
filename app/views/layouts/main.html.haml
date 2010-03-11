@@ -29,7 +29,7 @@
       %meta{ :content => "NO-CACHE", "http-equiv" => "PRAGMA" }
 
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
-    %link{ :href => "/opensearch.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
+    %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
     = auto_discovery_link_tag(:rss, {:controller=>'content',:action=>'news',:format=>'rss'}, {:title => "EOL News RSS"}) if controller.class == ContentController
     = stylesheet_link_merged 'base-cached'
     = eol_lang_main_stylesheet 'buttons', :media => "all"

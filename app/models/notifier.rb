@@ -14,7 +14,7 @@ class Notifier < ActionMailer::Base
     subject     "EOL Forgot Password"
     recipients  agent.email
     from        @@from
-    body        :agent => agent
+    body        :agent => agent, :password => new_password
   end
   
   def agent_is_ready_for_agreement(agent,recipient)

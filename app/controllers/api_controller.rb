@@ -27,4 +27,17 @@ class ApiController < ApplicationController
        format.xml { render :layout=>false }
     end
   end
+  
+  def search
+    @search_term = params[:id]
+    @page = params[:page].to_i || 1
+    @page = 1 if @page < 1
+    
+    @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => 30, :type => :all)
+    @last_page = @results.total_pages
+    
+    respond_to do |format|
+       format.xml { render :layout=>false }
+    end
+  end
 end

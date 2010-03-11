@@ -24,7 +24,7 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom",
   
   for result in @results
     xml.entry do
-      xml.title result['preferred_scientific_name'][0]
+      xml.title result['scientific_name'][0]
       xml.link :href => "http://www.eol.org/pages/#{result['taxon_concept_id'][0]}"
       xml.id "http://www.eol.org/pages/#{result['taxon_concept_id'][0]}"
       xml.updated

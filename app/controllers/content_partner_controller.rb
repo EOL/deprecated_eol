@@ -1,6 +1,6 @@
 class ContentPartnerController < ApplicationController
   
-  before_filter :agent_login_required, :except => [:login, :forgot_password, :register, :check_username, :forgot_password, :agreement, :content]
+  before_filter :agent_login_required, :except => [:login, :register, :check_username, :forgot_password, :agreement, :content]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   helper_method :current_agent, :agent_logged_in?
 

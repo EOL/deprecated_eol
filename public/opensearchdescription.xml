@@ -3,5 +3,12 @@
   <ShortName>EOL search</ShortName>
   <Description>Encyclopedia of Life search</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Url type="application/rss+xml" template="/api/search/{searchTerms}"/>
+  <OutputEncoding>UTF-8</OutputEncoding>
+  <AdultContent>false</AdultContent>
+  <Language>en-us</Language>  
+  <Contact>support@eol.org</Contact>
+  <Tags>Biology Taxonomy Biodiversity</Tags>
+  <SyndicationRight>open</SyndicationRight>  
+  <Query role="example" searchTerms="Giraffe"/> 
+  <Url type="application/rss+xml" template="http://www.eol.org/api/search/{searchTerms}"/>
 </OpenSearchDescription>

@@ -34,6 +34,20 @@ class ContentPartner < SpeciesSchemaModel
     content_partners[0]
   end
   
+  def self.find_harvested_by_full_name(full_name)
+    content_partners = ContentPartner.find_by_sql([%Q{
+        SELECT cp.*
+        FROM agents a
+        JOIN content_partners cp ON (a.id=cp.agent_id)
+        JOIN agents_resources ar ON (a.id=ar.agent_id)
+        JOIN resources r ON (ar.resource_id=r.id)
+        JOIN harvest_events he ON (r.id=he.resource_id)
+        WHERE a.full_name=? }, full_name])
+    
+    return nil if content_partners.nil?
+    content_partners[0]
+  end
+  
   def concepts_for_gallery(page, per_page)
     page = page - 1
     partner_resources = Resource.find_by_sql(%Q{
@@ -46,6 +60,7 @@ class ContentPartner < SpeciesSchemaModel
     
     return nil if partner_resources.nil?
     harvest_event_ids = partner_resources.collect{|r| r.latest_published_harvest_event.id || nil }
+    return nil if harvest_event_ids.empty?
     
     count_result = SpeciesSchemaModel.connection.execute(%Q{
         SELECT count(distinct t.hierarchy_entry_id) count

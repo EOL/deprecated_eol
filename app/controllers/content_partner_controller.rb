@@ -18,7 +18,7 @@ class ContentPartnerController < ApplicationController
   def content
     page = params[:page] || '1'
     per_page = 36
-    @content_partner = ContentPartner.find_by_full_name(params[:id])
+    @content_partner = ContentPartner.find_harvested_by_full_name(params[:id])
     taxon_concept_results = @content_partner.nil? ? nil : @content_partner.concepts_for_gallery(page.to_i, per_page)
     if taxon_concept_results.nil?
       @taxon_concepts = nil

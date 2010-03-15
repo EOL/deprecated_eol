@@ -64,7 +64,7 @@
       pe.stop();
       pe = null;
     }
-    $('play-button').src='/images/homepage/play.gif';			
+    $('play-button').src='#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/play.gif';			
     $('play-button').alt='play';			
     updates_started=false;
   }
@@ -75,7 +75,7 @@
       pe = null;
     }
     pe=new PeriodicalExecuter(get_new_explore_taxa,num_seconds_between_image_loads);
-    $('play-button').src='/images/homepage/pause.gif';
+    $('play-button').src='#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif';
     $('play-button').alt='pause';
     updates_started=true;
   }
@@ -110,7 +110,7 @@
               = "more species"[:more_species]
           %p.play
             %a{ :href => "#", :onclick => "JavaScript:toggle_explore_updates();return false;" }
-              %img#play-button{ :src => "/images/homepage/pause.gif", :height => "28", :alt => "pause", :width => "27" }
+              %img#play-button{ :src => "#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif", :height => "28", :alt => "pause", :width => "27" }
         - # nav_buttons
         #photos_area
           - if @explore_taxa.nil? == false

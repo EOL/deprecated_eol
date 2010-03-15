@@ -5,25 +5,40 @@ Click on a user to view the user's detailed profile, click on the species to vie
  
 
 <div id="comments">
-	
+    
+    <!--
+    <% for object_id in @object_ids %>    
+    <%= object_id %> |     
+    <% end %>
+    -->
+    
+    
     <% form_tag({:action=>'index'},:method=>'get') do -%>
-    Select:	
-	<select name="user_id"><option>all</option>
-	<% for user in @user_list %>        
+    Select:    
+    <select name="user_id"><option>all</option>
+    <% for user in @user_list %>        
         <option value="<%= user.id%>"   <% if(@user_id.to_i == user.id) then %> selected <% end %> ><%= user.family_name%>, <%= user.given_name%></option>
-    <% end %>	
-	</select>
+    <% end %>    
+    </select>
     <%= submit_tag 'Search' %>
-	
+    
     <br /><br />
-	    
+        
     <% if @comments.nil? == false && @comments.size > 0 %>
         
         User-submitted text found: <%= @comment_count %><br />
         
         <%= will_paginate @comments %>
             <table class="results_table" cellspacing="0">
-            <tr><th>User</th><th>Species</th><th>Description</th><th>Created</th><th>Updated</th><th>Published</th></tr>
+            <tr><th>User</th><th>Species</th><th>Description</th>
+            
+            
+            <th>TOC</th>
+            <th>Vetted<br>Visible<br>Published</th>
+            <th>Created<br>Updated</th>
+            
+            </tr>
+            
             <% for comment in @comments
                 column_class=cycle('odd','even')                
 
@@ -35,34 +50,41 @@ Click on a user to view the user's detailed profile, click on the species to vie
                 end
 
                 obj = DataObject.find(comment.data_object_id)
-                    
-                    
-        
-
                  %>
-				 
-				 
-				 
-				 
+                 
                 <tr valign="top">
                     <td class="<%= column_class %>"><%=link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)%></td>
-					<td class="<%= column_class %>">
-					<%= link_to name,{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id} %></i>
-					</td>
-					<td class="<%= column_class %>"><%=h obj.description %>
-					
-					<!--
-					<%= link_to (obj.description,"/data_objects/#{comment.data_object_id}")%>
-					-->
-					
-					</td>
-					<td class="<%= column_class %>"><%=h format_date_time(obj.created_at,:format=>'short_no_tz')%></td>
-					<td class="<%= column_class %>"><%=h format_date_time(obj.updated_at,:format=>'short_no_tz')%></td>
-					<td class="<%= column_class %>"><%=h obj.published %></td>
-					
-					
-					
-					<% if(false) %>					
+                    <td class="<%= column_class %>">
+                    <%= link_to name,{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id} %></i>
+                    </td>
+                    <td class="<%= column_class %>">
+                        <%= link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id,  :text_id => comment.data_object_id} %><br>
+                        <%=h obj.description %>
+                    
+                    <!--
+                    <%= link_to (obj.description,"/data_objects/#{comment.data_object_id}")%>
+                    -->
+                    
+                    </td>
+
+                      <td class="<%=column_class%>">                                   
+                           <%= @obj_toc_info.fetch("#{comment.data_object_id}",0) %>                                   
+                      </td>
+                      <td class="<%=column_class%>">                                   
+                           <%= @obj_toc_info.fetch("e#{comment.data_object_id}",0) %><br>
+						   <%=h obj.published %>                                   
+                      </td>
+
+                    
+                    <td class="<%= column_class %>">
+                        <%=h format_date_time(obj.created_at,:format=>'short_no_tz')%><br>
+                        <%=h format_date_time(obj.updated_at,:format=>'short_no_tz')%>
+                        
+                    </td>
+                    
+                    
+                    
+                    <% if(false) %>                    
                     <td class="<%= column_class %>"><%=h truncate(comment.body,100)%></td>
                     <td class="<%= column_class %>">
                         <%=truncate(comment.parent_name,50)%><br />
@@ -72,9 +94,9 @@ Click on a user to view the user's detailed profile, click on the species to vie
                     <td class="<%= column_class %>"><%=h format_date_time(comment.created_at,:format=>'short_no_tz')%></td>
                     <td class="<%= column_class %>">
                     <%=link_to '[edit]',:action=>'edit',:id=>comment.id%><br />
-					<%=link_to '[delete]', {:action=>'destroy',:id=>comment.id}, :confirm => 'This cannot be undone; are you sure?', :method => :delete %></td>
-					<% end %>
-					
+                    <%=link_to '[delete]', {:action=>'destroy',:id=>comment.id}, :confirm => 'This cannot be undone; are you sure?', :method => :delete %></td>
+                    <% end %>
+                    
                 </tr>                                   
             <% end %>
             </table>

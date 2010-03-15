@@ -11,9 +11,14 @@ class UsersDataObject < ActiveRecord::Base
   
   
 
-  def self.get_user_submitted_data_object_ids 
-    sql="Select data_object_id From users_data_objects "
-    rset = UsersDataObject.find_by_sql([sql])        
+  def self.get_user_submitted_data_object_ids(user_id)
+    if(user_id == 'all') then
+      sql="Select data_object_id From users_data_objects "
+      rset = UsersDataObject.find_by_sql([sql])
+    else
+      sql="Select data_object_id From users_data_objects where user_id = ? "
+      rset = UsersDataObject.find_by_sql([sql, user_id])
+    end            
     obj_ids = Array.new
     rset.each do |post|
       obj_ids << post.data_object_id      
@@ -22,6 +27,7 @@ class UsersDataObject < ActiveRecord::Base
   end
 
   def self.get_user_submitted_data_info
+    #not used at this time
     sql = "Select concat(users.given_name,' ', users.family_name) user_name, users_data_objects.taxon_concept_id, users_data_objects.data_object_id
     From users_data_objects Inner Join users ON users_data_objects.user_id = users.id "
     rset = UsersDataObject.find_by_sql([sql])        

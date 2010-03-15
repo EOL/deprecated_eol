@@ -1158,9 +1158,30 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     Inner Join taxa ON data_objects_taxa.taxon_id = taxa.id
     Left Join hierarchy_entries ON taxa.hierarchy_entry_id = hierarchy_entries.id
     Left Join taxon_concepts ON hierarchy_entries.taxon_concept_id = taxon_concepts.id
-    Where data_objects.id in (#{data_object_ids.join(',')})     
+    Where data_objects.id in (#{data_object_ids.join(',')})
+    AND taxon_concepts.published = 1     
     order by data_objects.id     
     "
+    query="
+    Select distinct taxon_concepts.id AS taxon_concept_id,
+    data_objects.id, vetted.label AS vetted_label, visibilities.label AS visible,
+    data_objects.object_title AS title, data_objects.source_url,
+    data_objects.description, taxon_concepts.published,
+    data_objects.object_cache_url, concat(toc2.label, ' - ', table_of_contents.label) as toc
+    From
+    data_objects
+    Inner Join vetted ON data_objects.vetted_id = vetted.id
+    Inner Join visibilities ON data_objects.visibility_id = visibilities.id
+    Inner Join data_objects_taxa ON data_objects.id = data_objects_taxa.data_object_id
+    Inner Join taxa ON data_objects_taxa.taxon_id = taxa.id
+    Left Join hierarchy_entries ON taxa.hierarchy_entry_id = hierarchy_entries.id
+    Left Join taxon_concepts ON hierarchy_entries.taxon_concept_id = taxon_concepts.id
+    Left Join data_objects_table_of_contents ON data_objects.id = data_objects_table_of_contents.data_object_id
+    left Join table_of_contents ON data_objects_table_of_contents.toc_id = table_of_contents.id
+    left Join table_of_contents toc2 ON table_of_contents.parent_id = toc2.id
+    Where data_objects.id in (#{data_object_ids.join(',')})
+    AND taxon_concepts.published = 1
+    order by data_objects.id "
     # AND taxon_concepts.published = 1
     # AND taxon_concepts.supercedure_id = 0    
     # (2983141, 2985085, 2996805)
@@ -1169,6 +1190,29 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     self.paginate_by_sql [query, data_object_ids], :page => page, :per_page => 50 , :order => 'id'
     
     end
+    
+  end
+  
+  
+  def self.get_toc_info(obj_ids)
+    sql = "
+    Select data_objects.id, vetted.label AS vetted_label, visibilities.label AS visible,        
+    concat(toc2.label, ' - ', table_of_contents.label) as toc
+    From data_objects
+    left Join vetted ON data_objects.vetted_id = vetted.id
+    left Join visibilities ON data_objects.visibility_id = visibilities.id
+    Left Join data_objects_table_of_contents ON data_objects.id = data_objects_table_of_contents.data_object_id
+    left Join table_of_contents ON data_objects_table_of_contents.toc_id = table_of_contents.id
+    left Join table_of_contents toc2 ON table_of_contents.parent_id = toc2.id
+    Where data_objects.id in (#{obj_ids.join(',')})
+    "
+    rset = DataObject.find_by_sql([sql])        
+    obj_toc_info = {} #same Hash.new
+    rset.each do |post|
+      obj_toc_info["#{post.id}"] = "#{post.toc}"
+      obj_toc_info["e#{post.id}"] = "#{post.vetted_label} <br>  #{post.visible}"
+    end    
+    return obj_toc_info      
     
   end
   

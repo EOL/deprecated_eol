@@ -1,4 +1,5 @@
 <html>
+    
     <head>
         <title>Data Objects Curated</title>
     </head>
@@ -26,9 +27,8 @@
     <%= will_paginate @posts %>
     <table class="results_table">
         <thead align="center">
-        <tr align="center">
-            <th>Object ID</th>                        
-            <th>Data Type</th>
+        <tr align="center">                                    
+            <th>TOC</th>
             <th>Activity</th>
             <th>Scientific Name</th>
             <th>Vetted</th>
@@ -49,18 +49,16 @@
                 name=""
             end
             %>
-            <tr>
-                <td class="<%=column_class%>">
-                     <%= post.id %>
-                      </td>
-                <td class="<%=column_class%>"><%= post.datatype %></td>
+            <tr valign="top">
+                <td class="<%=column_class%>"><%= post.toc %></td>
                       
                       <td class="<%=column_class%>">                                   
                            <%= @object_ids_activity.fetch("#{post.id}",0) %>                                   
                       </td>
                       
                 <td class="<%=column_class%>"><i>
-                    <%= link_to name,{:controller=>'/taxa', :action=>:show, :id => post.taxon_concept_id} %></i>
+                    <%= link_to name,{:controller=>'/taxa', :action=>:show, :id => post.taxon_concept_id} %>
+                    </i>
                     <% if(!post.published) then %>                                   
                        *
                     <% end %>
@@ -72,9 +70,12 @@
                         <% url = post.object_cache_url.to_s    #2008/10/06/13/93618
                            url = "http://content8.eol.org/content/" + url[0,4] + "/" + url[4,2] + "/" + url[6,2] + "/" + url[8,2] + "/" + url[10,5] + "_small.jpg"
                         %>                                   
-                        <img src="<%= url %>">
-                     <% end %>
-					 <%= post.description %>
+                        <!-- <img src="<%= url %>"> -->
+                        <%= link_to "<img src=" + url + ">",{:controller=>'/taxa', :action=>:show, :id => post.taxon_concept_id,  :image_id => post.id} %><br>
+                    <% else %>
+                        <%= link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => post.taxon_concept_id,  :text_id => post.id} %><br>
+                    <% end %>
+                    <%= post.description %>
                 </td>                                        
             </tr>        
         <% end -%>

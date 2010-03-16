@@ -28,7 +28,7 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom",
       xml.link :href => "http://www.eol.org/pages/#{result['taxon_concept_id'][0]}"
       xml.id "http://www.eol.org/pages/#{result['taxon_concept_id'][0]}"
       xml.updated
-      xml.content result['common_name'][0], :type => "text"
+      xml.content result['scientific_name'].join(', ')+"\n\n"+result['common_name'].join(', '), :type => "text" if result['common_name']
     end
   end
 end

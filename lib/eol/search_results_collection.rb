@@ -120,7 +120,9 @@ module EOL
       # Really, we don't want to save these exceptions, since what good is a search result if the TC is missing?
       # However, tests sometimes create situations where this is possible and not "wrong", (creating TCs is expensive!) so:
       rescue ActiveRecord::RecordNotFound
-        return {'preferred_common_name' => (result["preferred_common_name"] || '') }
+        return {'preferred_common_name' => (result["preferred_common_name"][0] || ''),
+                'preferred_scientific_name' => (result["preferred_scientific_name"][0] || ''),
+                'taxon_concept' => nil }
       end
     end
 
@@ -168,7 +170,7 @@ module EOL
       return nil unless @results
       best_names = @results.map {|r| r[@best_match_field_name]}
       @results.each do |result|
-        if best_names.include? result[@best_match_field_name]
+        if best_names.find_all {|r| r == result[@best_match_field_name]}.length > 1
           result["duplicate"]     = true
           tc = result["taxon_concept"]
           if tc
@@ -177,9 +179,11 @@ module EOL
             parent = ancestors[-2]
             ancestor = ancestors[-3]
             if parent and parent.class == TaxonConcept
-              result["parent"] = @type == :scientific ?  parent.scientific_name : parent.common_name
+              result["parent_scientific"] = parent.scientific_name
+              result["parent_common"]     = parent.common_name
               if ancestor and ancestor.class == TaxonConcept
-                result["ancestor"] = @type == :scientific ?  ancestor.scientific_name : ancestor.common_name
+                result["ancestor_scientific"] = ancestor.scientific_name
+                result["ancestor_common"]     = ancestor.common_name
               end
             end
           else

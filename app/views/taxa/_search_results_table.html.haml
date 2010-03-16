@@ -14,20 +14,30 @@
         - vetted_value = ''
         - vetted_value = '_unvetted'  if result['unknown']
         - vetted_value = '_untrusted' if result['untrusted']
-        - column_class = cycle('odd', 'even') + vetted_value
+        - column_class = 'search_result_cell ' + cycle('odd', 'even') + vetted_value
         %tr
           %td{ :class => column_class }
             - unless result['top_image'].nil?
               %a{ :href => url_for(:action => 'search_clicked', :id => result['id']) }
                 %img{ :title => strip_tags(result['best_matched_scientific_name']), :src => result['top_image'].smart_medium_thumb, :alt => strip_tags(result['best_matched_scientific_name']) }
           %td{ :class => column_class }
-            = link_to hh(result['best_matched_common_name']), {:action => 'search_clicked', :id => result['id']}, :method=>:post
-            %br
+            - if result['duplicate']
+              .ancestor= result['ancestor_common']
+              .parent= result['parent_common']
+            %div{:class => "result#{' duplicate' if result['duplicate']}"}
+              = link_to hh(result['best_matched_common_name']), {:action => 'search_clicked', :id => result['id']}, :method=>:post
             = result['common_shown_as']
+            - if result['duplicate']
+              %span.recognized_by= "Taxon recognized by #{result['recognized_by']}"
           %td{ :class => column_class }
-            = link_to hh(result['best_matched_scientific_name']), {:action => 'search_clicked', :id => result['id']}, :method=>:post
-            %br
+            - if result['duplicate']
+              .ancestor= result['ancestor_scientific']
+              .parent= result['parent_scientific']
+            %div{:class => "result#{' duplicate' if result['duplicate']}"}
+              = link_to hh(result['best_matched_scientific_name']), {:action => 'search_clicked', :id => result['id']}, :method=>:post
             = result['scientific_shown_as']
+            - if result['duplicate']
+              %span.recognized_by= "Taxon recognized by #{result['recognized_by']}"
       -# end results.each
     = will_paginate(results)
   - # /search_results

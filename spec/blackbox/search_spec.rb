@@ -157,8 +157,8 @@ describe 'Search' do
 
     it 'should detect untrusted and unknown Taxon Concepts' do
       body = @tiger_search
-      body.should match /td class=("|')(odd|even)_untrusted/
-      body.should match /td class=("|')(odd|even)_unvetted/
+      body.should match /td class=("|')(search_result_cell )?(odd|even)_untrusted/
+      body.should match /td class=("|')(search_result_cell )?(odd|even)_unvetted/
     end
     
     it 'should show only common names which include whole search query' do
@@ -174,8 +174,8 @@ describe 'Search' do
     
     it 'should have odd and even rows in search result table' do
       body = @tiger_search
-      body.should include "td class='odd"
-      body.should include "td class='even"
+      body.should include "td class='search_result_cell odd"
+      body.should include "td class='search_result_cell even"
     end 
 
     it 'should show "shown as" for scientific matches that hit a synonym.' do

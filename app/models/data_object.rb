@@ -1195,25 +1195,27 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   
   
   def self.get_toc_info(obj_ids)
-    sql = "
-    Select data_objects.id, vetted.label AS vetted_label, visibilities.label AS visible,        
-    concat(toc2.label, ' - ', table_of_contents.label) as toc
-    From data_objects
-    left Join vetted ON data_objects.vetted_id = vetted.id
-    left Join visibilities ON data_objects.visibility_id = visibilities.id
-    Left Join data_objects_table_of_contents ON data_objects.id = data_objects_table_of_contents.data_object_id
-    left Join table_of_contents ON data_objects_table_of_contents.toc_id = table_of_contents.id
-    left Join table_of_contents toc2 ON table_of_contents.parent_id = toc2.id
-    Where data_objects.id in (#{obj_ids.join(',')})
-    "
-    rset = DataObject.find_by_sql([sql])        
-    obj_toc_info = {} #same Hash.new
-    rset.each do |post|
-      obj_toc_info["#{post.id}"] = "#{post.toc}"
-      obj_toc_info["e#{post.id}"] = "#{post.vetted_label} <br>  #{post.visible}"
-    end    
-    return obj_toc_info      
     
+    obj_toc_info = {} #same Hash.new
+    if(obj_ids.length > 0) then
+      sql = "
+      Select data_objects.id, vetted.label AS vetted_label, visibilities.label AS visible,        
+      concat(toc2.label, ' - ', table_of_contents.label) as toc
+      From data_objects
+      left Join vetted ON data_objects.vetted_id = vetted.id
+      left Join visibilities ON data_objects.visibility_id = visibilities.id
+      Left Join data_objects_table_of_contents ON data_objects.id = data_objects_table_of_contents.data_object_id
+      left Join table_of_contents ON data_objects_table_of_contents.toc_id = table_of_contents.id
+      left Join table_of_contents toc2 ON table_of_contents.parent_id = toc2.id
+      Where data_objects.id in (#{obj_ids.join(',')})"
+      rset = DataObject.find_by_sql([sql])            
+      rset.each do |post|
+        obj_toc_info["#{post.id}"] = "#{post.toc}"
+        obj_toc_info["e#{post.id}"] = "#{post.vetted_label} <br>  #{post.visible}"
+      end    
+    end
+    
+    return obj_toc_info    
   end
   
   def self.get_dataobjects(obj_ids,page) 
@@ -1223,10 +1225,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     "
     self.paginate_by_sql [query, obj_ids], :page => page, :per_page => 20 , :order => 'id'  
   end
-  
-  
-  
-  
   
   
   

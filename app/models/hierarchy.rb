@@ -20,7 +20,9 @@ class Hierarchy < SpeciesSchemaModel
   alias entries hierarchy_entries
 
   def self.browsable_by_label
-    Hierarchy.browsable.sort_by {|h| h.label }
+    Rails.cache.fetch('hierarchies/browsable_by_label') do
+      Hierarchy.browsable.sort_by {|h| h.label }
+    end
   end
 
   def self.default

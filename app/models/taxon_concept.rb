@@ -102,10 +102,12 @@ class TaxonConcept < SpeciesSchemaModel
   # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
+    return @curators unless @curators.nil?
     users = User.find_by_sql(default_hierarchy_curators_clause)
     unless in_hierarchy(Hierarchy.default)
       users += find_ancestor_in_hierarchy(Hierarchy.default).taxon_concept.curators if maps_to_hierarchy(Hierarchy.default)
     end
+    @curators = users
     return users
   end
   def ssm_db

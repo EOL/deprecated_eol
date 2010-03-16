@@ -527,13 +527,14 @@ private
   end
 
   def expire_all_variants_of_taxa(tc_ids)
+    browsable_hierarchy_ids = Hierarchy.browsable_by_label.map {|h| h.id.to_s }
     tc_ids.each do |taxon_concept_id|
       unless taxon_concept_id.blank?
         Language.find_active.each do |language|
           %w{novice middle expert}.each do |expertise|
             %w{true false}.each do |vetted|
               %w{text flash}.each do |default_taxonomic_browser|
-                [nil.to_s, Hierarchy.browsable_by_label.map {|h| h.id.to_s }].flatten.each do |default_hierarchy_id|
+                [nil.to_s, browsable_hierarchy_ids].flatten.each do |default_hierarchy_id|
                   %w{true false}.each do |can_curate|
                     part_name = 'page_' + taxon_concept_id.to_s +
                                     '_' + language.iso_639_1 +

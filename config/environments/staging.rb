@@ -17,27 +17,23 @@
 
 # Full error reports are disabled and caching is turned on
 config.action_controller.consider_all_requests_local = false
-config.action_controller.perform_caching             = false
+config.action_controller.perform_caching             = true
 config.action_view.debug_rjs                         = false
-
-config.log_level = :debug # :error
-config.cache_store = :mem_cache_store
-
 
 # Disable delivery errors, bad email addresses will be ignored
 config.action_mailer.raise_delivery_errors = false
 
 # Code is not reloaded between requests
-config.cache_classes = false
+config.cache_classes = true
 
 # Set up the master database connection for writes using masochism plugin
 # NOTE: for this to work, you *must* also use config.cache_classes = true
 # (default for production)
-# config.after_initialize do 
-#   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
-#   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
-#   ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
-# end
+config.after_initialize do 
+  ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
+  ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
+  ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
+end
 
 # set to true to force users to use SSL for the login and signup pages 
 $USE_SSL_FOR_LOGIN = true  

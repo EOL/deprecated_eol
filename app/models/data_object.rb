@@ -191,6 +191,7 @@ class DataObject < SpeciesSchemaModel
     
     # this will give it the hash elements it needs for attributions
     d['attributions'] = Attributions.from_agents_hash(d, nil)
+    d['users'] = [user]
     d['refs'] = d.refs unless d.refs.empty?
     d
   end
@@ -233,6 +234,7 @@ class DataObject < SpeciesSchemaModel
     
     # this will give it the hash elements it needs for attributions
     d['attributions'] = Attributions.from_agents_hash(d, nil)
+    d['users'] = [user]
     d['refs'] = d.refs unless d.refs.empty?
     d
   end
@@ -285,6 +287,7 @@ class DataObject < SpeciesSchemaModel
     
     # this will give it the hash elements it needs for attributions
     dato['attributions'] = Attributions.from_agents_hash(dato, nil)
+    dato['users'] = [user]
     dato['refs'] = dato.refs unless dato.refs.empty?
     dato
   end

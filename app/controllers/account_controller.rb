@@ -118,8 +118,8 @@ class AccountController < ApplicationController
       user           = params[:user]
       username_string       = user[:username].strip == '' ? nil : user[:username].strip
       email_string          = user[:email].strip == '' ? nil : user[:email].strip
-      users_with_forgotten_pass = User.find_all_by_username(username_string) || User.find_all_by_email(email_string) 
-      if users_with_forgotten_pass
+      users_with_forgotten_pass = User.find_all_by_username(username_string) + User.find_all_by_email(email_string)
+      if users_with_forgotten_pass.size > 0
         users_with_forgotten_pass.each do |user_with_forgotten_pass|
           Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
         end

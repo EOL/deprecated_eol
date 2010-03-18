@@ -1,0 +1,58 @@
+<html>    
+    <head>
+        <title>Species Curated</title>
+    </head>
+    <body>
+        <table class="results_table">
+            <thead align="center">
+                <tr align="center">
+                    <th><p>Species Curated </p></th>
+                    <td>&nbsp;&nbsp;&nbsp;Curator: <%= h @user.given_name %> <%= h @user.family_name %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= link_to 'Back to profile',{:controller=>'/account', :action=>:show, :id => @user.id} %></td>                        
+                </tr>
+            </thead>
+        </table>    
+        <% if(false) %>
+            <br>
+            <% @taxon_concept_ids.each do |id|  -%>
+                <%= id %> --  <%= @taxon_concept_ids.length %> <br>
+            <% end -%>
+        <% end %>
+        <% if @species.nil? == false && @species.size > 0 %>
+            <%= will_paginate @species %>
+            <table class="results_table">
+                <thead align="center">
+                    <tr align="center">
+                        <th>Taxon ID</th>                        
+                        <th>Scientific Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% count = 0 %>        
+                    <% @species.each do |specie|  -%>
+                        <% 
+                        column_class=cycle('odd','even')
+                        count += 1
+                        if (specie.taxon_concept_id) then
+                            concept = TaxonConcept.find(specie.taxon_concept_id)
+                            name = concept.quick_scientific_name(:italicized)
+                        else
+                            name=""
+                        end
+                        %>
+                        <tr>
+                            <td class="<%=column_class%>"><%= specie.taxon_concept_id %></td>
+                            <td class="<%=column_class%>"><i>
+                            <%= link_to name,{:controller=>'/taxa', :action=>:show, :id => specie.taxon_concept_id} %></i>
+                            <% if(specie.published) then %>                                   
+                            <% else %>                                    
+                                *
+                            <% end %>
+                            </td>                
+                        </tr>        
+                    <% end -%>
+                </tbody>
+                <tr><td colspan="5"><%= will_paginate @species %></td></tr>
+            </table>
+        <% end %>
+    </body>
+</html>

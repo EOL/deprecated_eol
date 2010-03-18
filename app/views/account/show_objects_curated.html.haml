@@ -1,0 +1,73 @@
+%table.results_table
+  %thead{ :align => "center" }
+    %tr{ :align => "center" }
+      %th
+        %p
+          Objects Curated
+      %td
+        \&nbsp;&nbsp;&nbsp;Curator: 
+        = h @user.given_name
+        = h @user.family_name 
+        \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        = link_to 'Back to profile',{:controller=>'/account', :action=>:show, :id => @user.id}
+
+- if @data_objects.nil? == false && @data_objects.size > 0
+  = will_paginate @data_objects
+  %table.results_table
+    %thead{ :align => "center" }
+      %tr{ :align => "center" }
+        %th
+          TOC
+        %th
+          Activity
+        %th
+          Scientific Name
+        %th
+          Vetted
+        %th
+          Visible
+        %th
+          Description
+    %tbody
+    - count = 0
+    - @data_objects.each do |data_object|
+      - column_class=cycle('odd','even')
+      - count += 1
+      - if (data_object.taxon_concept_id) then
+        - concept = TaxonConcept.find(data_object.taxon_concept_id)
+        - name = concept.quick_scientific_name(:italicized)
+      - else
+        - name=""
+
+      %tr{ :valign => "top" }
+        %td{ :class => cycle('odd','even') }
+          = data_object.toc
+        %td{ :class => cycle('odd','even') }
+          = @object_ids_activity.fetch("#{data_object.id}",0)
+        %td{ :class => cycle('odd','even') }
+          %i
+            = link_to name,{:controller=>'/taxa', :action=>:show, :id => data_object.taxon_concept_id}
+          - if(!data_object.published) then 
+            = "*"
+           
+        %td{ :class => cycle('odd','even') }
+          = data_object.vetted_label
+        %td{ :class => cycle('odd','even') }
+          = data_object.visible
+        %td{ :class => cycle('odd','even') }
+          - if(data_object.object_cache_url)
+            - url = data_object.thumb_or_object('small')
+            - src = "<img src=" + url + ">"
+            = link_to src,{:controller=>'/taxa', :action=>:show, :id => data_object.taxon_concept_id,  :image_id => data_object.id} 
+            = link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => data_object.taxon_concept_id,  :image_id => data_object.id} 
+            %br
+          - else
+            = link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => data_object.taxon_concept_id,  :text_id => data_object.id}
+          
+          %br
+          = data_object.description
+
+  %tr
+    %td{ :colspan => "5" }
+      = will_paginate @data_objects
+

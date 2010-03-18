@@ -1,0 +1,63 @@
+<table class="results_table">
+    <thead align="center">
+        <tr align="center">
+            <th><p>Objects Curated </p></th>
+            <td>&nbsp;&nbsp;&nbsp;Curator: <%= h @user.given_name %> <%= h @user.family_name %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= link_to 'Back to profile',{:controller=>'/account', :action=>:show, :id => @user.id} %></td>                        
+        </tr>
+    </thead>
+</table>
+<% if @data_objects.nil? == false && @data_objects.size > 0 %>        
+    <%= will_paginate @data_objects %>
+    <table class="results_table">
+        <thead align="center">
+            <tr align="center">                                    
+                <th>TOC</th>
+                <th>Activity</th>
+                <th>Scientific Name</th>
+                <th>Vetted</th>
+                <th>Visible</th>
+                <th>Description</th>                        
+            </tr>
+        </thead>
+        <tbody>
+            <% count = 0 %>        
+            <% @data_objects.each do |data_object|  -%>
+                <% 
+                column_class=cycle('odd','even')
+                count += 1
+                if (data_object.taxon_concept_id) then
+                    concept = TaxonConcept.find(data_object.taxon_concept_id)
+                    name = concept.quick_scientific_name(:italicized)
+                else
+                    name=""
+                end
+                %>
+                <tr valign="top">
+                    <td class="<%=column_class%>"><%= data_object.toc %></td>
+                    <td class="<%=column_class%>"><%= @object_ids_activity.fetch("#{data_object.id}",0) %></td>                      
+                    <td class="<%=column_class%>"><i><%= link_to name,{:controller=>'/taxa', :action=>:show, :id => data_object.taxon_concept_id} %></i>
+                        <% if(!data_object.published) then %>*<% end %>
+                    </td>                            
+                    <td class="<%=column_class%>"><%= data_object.vetted_label %></td>
+                    <td class="<%=column_class%>"><%= data_object.visible %></td>                            
+                    <td class="<%=column_class%>">                                                       
+                        <% if(data_object.object_cache_url) %>                                   
+                            <% #url = data_object.object_cache_url.to_s    #2008/10/06/13/93618
+                            #url = "http://content.eol.org/" + "content/" + url[0,4] + "/" + url[4,2] + "/" + url[6,2] + "/" + url[8,2] + "/" + url[10,5] + "_small.jpg"
+                            #http://content8.eol.org/
+                            #$CONTENT_SERVERS[0]
+                            url = data_object.thumb_or_object('small');
+                            %>
+                            <%= link_to "<img src=" + url + ">",{:controller=>'/taxa', :action=>:show, :id => data_object.taxon_concept_id,  :image_id => data_object.id} %>
+                            <%= link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => data_object.taxon_concept_id,  :image_id => data_object.id} %><br>
+                        <% else %>
+                            <%= link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => data_object.taxon_concept_id,  :text_id => data_object.id} %><br>    
+                        <% end %>                                        
+                        <%= data_object.description %>
+                    </td>                                        
+                </tr>        
+            <% end -%>
+        </tbody>
+        <tr><td colspan="5"><%= will_paginate @data_objects %></td></tr>
+    </table>
+<% end %>

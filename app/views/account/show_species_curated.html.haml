@@ -1,0 +1,50 @@
+%table.results_table
+  %thead{ :align => "center" }
+    %tr{ :align => "center" }
+      %th
+        %p
+          Species Curated
+      %td
+        \&nbsp;&nbsp;&nbsp;Curator: 
+        = h @user.given_name 
+        = h @user.family_name  
+        \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        = link_to 'Back to profile',{:controller=>'/account', :action=>:show, :id => @user.id}
+         
+- if(false)
+  %br    
+  - @taxon_concept_ids.each do |id|
+    = id + " -- "
+    = @taxon_concept_ids.length 
+    %br
+    
+
+- if @species.nil? == false && @species.size > 0
+  = will_paginate @species 
+  %table.results_table
+    %thead{ :align => "center" }
+      %tr{ :align => "center" }
+        %th
+          Taxon ID
+        %th
+          Scientific Name
+    %tbody
+      - count = 0
+      - @species.each do |specie|
+        - column_class=cycle('odd','even')
+        - count += 1
+        - if (specie.taxon_concept_id) then
+          - concept = TaxonConcept.find(specie.taxon_concept_id)
+          - name = concept.quick_scientific_name(:italicized)
+        - else
+          - name=""    
+        %tr
+          %td{ :class => cycle('odd','even') }
+            = specie.taxon_concept_id 
+          %td{ :class => cycle('odd','even') }
+            %i
+              = link_to name,{:controller=>'/taxa', :action=>:show, :id => specie.taxon_concept_id} 
+
+      %tr
+        %td{ :colspan => "5" }
+          = will_paginate @species

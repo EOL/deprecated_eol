@@ -174,7 +174,7 @@ module EOL
           result["duplicate"]     = true
           tc = result["taxon_concept"]
           if tc
-            result["recognized_by"] = @type == :scientific ? 'oops' : result["taxon_concept"].entry.hierarchy.label
+            result["recognized_by"] = result["taxon_concept"].entry.hierarchy.label
             ancestors = tc.ancestors
             parent = ancestors[-2]
             ancestor = ancestors[-3]

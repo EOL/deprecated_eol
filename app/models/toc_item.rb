@@ -72,7 +72,7 @@ class TocItem < SpeciesSchemaModel
   end
   
   def self.selectable_toc
-    TocItem.find_by_sql("SELECT toc.* FROM table_of_contents toc JOIN info_items ii ON (toc.id=ii.toc_id) WHERE toc.label NOT IN ('Wikipedia', 'Barcode') ORDER BY toc.label").collect {|c| [c.label, c.id] }
+    TocItem.find_by_sql("SELECT toc.* FROM table_of_contents toc JOIN info_items ii ON (toc.id=ii.toc_id) WHERE toc.label NOT IN ('Wikipedia', 'Barcode') ORDER BY toc.label").uniq.collect {|c| [c.label, c.id] }
   end
 
   def wikipedia?

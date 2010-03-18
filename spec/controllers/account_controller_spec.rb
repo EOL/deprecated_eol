@@ -11,6 +11,19 @@ describe AccountController do
           # when
           post :forgot_password, "user" => {"email" => "johndoe@example.com", "username" => "johndoe"}
         end
+      
+        it "should send email to every account with requested email" do
+          user1 = User.gen(:username => 'johndoe', :email => 'jd@example.com')
+          user1.save!
+          user2 = User.gen(:username => 'janedoe', :email => 'jd@example.com')
+          user2.save!
+          #expect
+          Notifier.should_receive(:deliver_forgot_password_email).with(user1, 80)
+          Notifier.should_receive(:deliver_forgot_password_email).with(user2, 80)
+          #when
+          post :forgot_password, "user" => {"email" => "jd@example.com", "username" => ''}
+        end
+      
       end
 
       describe "POST /account/save_reset_password" do

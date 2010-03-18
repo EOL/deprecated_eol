@@ -6,7 +6,9 @@ require 'base64'
 class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:profile, :uservoice_login]
-  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show, :logout, :new_openid_user, :reset_password, :save_reset_password, :show_objects_curated, :show_species_curated, :show_comments_moderated]
+  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show,
+    :logout, :new_openid_user, :reset_password, :save_reset_password, :show_objects_curated, :show_species_curated,
+    :show_comments_moderated]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password] 
@@ -116,9 +118,11 @@ class AccountController < ApplicationController
       user           = params[:user]
       username_string       = user[:username].strip == '' ? nil : user[:username].strip
       email_string          = user[:email].strip == '' ? nil : user[:email].strip
-      user_with_forgotten_pass = User.find_by_username(username_string) || User.find_by_email(email_string) 
-      if user_with_forgotten_pass
-        Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
+      users_with_forgotten_pass = User.find_all_by_username(username_string) || User.find_all_by_email(email_string) 
+      if users_with_forgotten_pass
+        users_with_forgotten_pass.each do |user_with_forgotten_pass|
+          Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
+        end
         flash[:notice] = "Check your email to reset your password"[:reset_password_instructions_emailed] #TODO remove old add new translation
         redirect_to root_url(:protocol => "http")  # need protocol for flash to survive
       else
@@ -193,6 +197,7 @@ class AccountController < ApplicationController
   end
 
   # AJAX call to check if name is unique from signup page
+  # Note the around_filter MasterFilter causes this to READ from master.  Very important!
   def check_username
 
     username=params[:username] || ""

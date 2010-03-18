@@ -3,6 +3,8 @@ require "digest"
 # NOTE - there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
 # to the user model.  We *could* achieve a similar result with method_missing, but I worry that it would cause other
 # problems.
+#
+# Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
 class User < ActiveRecord::Base
 
   belongs_to :language
@@ -30,9 +32,7 @@ class User < ActiveRecord::Base
   validates_presence_of   :given_name
   validates_format_of :email, :with =>%r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i, :if => :not_openid?
   
-  validates_uniqueness_of :username, :allow_nil => true
-  # JRice removed this.  It was destroying staging, and would wreak havoc on over 700 users in production:
-  # validates_uniqueness_of :email, :allow_nil => true
+  validate :ensure_unique_username_against_master, :on => :create
   
   validates_confirmation_of :entered_password
 
@@ -299,7 +299,19 @@ class User < ActiveRecord::Base
 
   # returns true or false indicating if username is unique
   def self.unique_user?(username)
-    return User.find_by_username(username).nil?
+    User.with_master_if_enabled do
+      # mysql is case-insensitive:
+      users = User.find_by_sql(['select id from users where username = ?', username])
+      return users.blank?
+    end
+  end
+
+  def self.with_master_if_enabled
+    if User.connection.respond_to? :with_master
+      User.connection.with_master { yield }
+    else
+      yield
+    end
   end
 
   # returns true or false indicating if email is unique
@@ -491,6 +503,14 @@ class User < ActiveRecord::Base
       return "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{password_reset_token}"
     else
       raise RuntimeError("Cannot save reset password data to the database") #TODO write it correctly
+    end
+  end
+
+  def ensure_unique_username_against_master
+    # NOTE - this weird id.blank? line was introduced because the :on => :create clause on the validation was not working.
+    # Very frustrating.  So, essentially, we make sure this user is newly created before proceeding.
+    if id.blank? # We don't care if the username is unique if the user is already in the system...
+      errors.add('username', "#{username} is already taken") unless User.unique_user?(username)
     end
   end
 

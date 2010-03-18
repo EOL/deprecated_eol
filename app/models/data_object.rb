@@ -170,7 +170,7 @@ class DataObject < SpeciesSchemaModel
     d = DataObject.new(do_params)
     d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
 
-    if all_params[:references]
+    unless all_params[:references].blank?
       all_params[:references].each do |reference|
         d.refs << Ref.new({:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible}) if reference.strip != ''
       end
@@ -191,7 +191,7 @@ class DataObject < SpeciesSchemaModel
     
     # this will give it the hash elements it needs for attributions
     d['attributions'] = Attributions.from_agents_hash(d, nil)
-    d['refs'] = d.refs
+    d['refs'] = d.refs unless d.refs.empty?
     d
   end
 
@@ -225,7 +225,7 @@ class DataObject < SpeciesSchemaModel
     d = DataObject.new(do_params)
     d.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
 
-    if all_params[:references]
+    unless all_params[:references].blank?
       all_params[:references].each do |reference|
         d.refs << Ref.new({:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible}) if reference.strip != ''
       end
@@ -233,7 +233,7 @@ class DataObject < SpeciesSchemaModel
     
     # this will give it the hash elements it needs for attributions
     d['attributions'] = Attributions.from_agents_hash(d, nil)
-    d['refs'] = d.refs
+    d['refs'] = d.refs unless d.refs.empty?
     d
   end
 
@@ -267,7 +267,7 @@ class DataObject < SpeciesSchemaModel
     dato = DataObject.new(do_params)
     dato.toc_items << TocItem.find(all_params[:data_objects_toc_category][:toc_id])
 
-    if all_params[:references]
+    unless all_params[:references].blank?
       all_params[:references].each do |reference|
         dato.refs << Ref.new({:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible}) if reference.strip != ''
       end
@@ -285,7 +285,7 @@ class DataObject < SpeciesSchemaModel
     
     # this will give it the hash elements it needs for attributions
     dato['attributions'] = Attributions.from_agents_hash(dato, nil)
-    dato['refs'] = dato.refs
+    dato['refs'] = dato.refs unless dato.refs.empty?
     dato
   end
 

@@ -171,7 +171,7 @@ module EOL
       best_names = @results.map {|r| r[@best_match_field_name]}
       @results.each do |result|
         if best_names.find_all {|r| r == result[@best_match_field_name]}.length > 1
-          handle_duplicate unless ENV['RAILS_ENV'] == 'production' 
+          handle_duplicate(result) unless ENV['RAILS_ENV'] == 'production' 
         end
       end
     end

@@ -60,7 +60,7 @@ class Attributions
 
   # Puts a location Agent into the array, at the end
   def add_location(location)
-    if location # If it's nil, don't bother doing anything...
+    unless location.blank? # If it's nil, don't bother doing anything...
       @attributions << AgentsDataObject.new(:agent => Agent.just_project_name(location),
                                             :agent_role => AgentRole.new(:label => 'Location'),
                                             :view_order => 0)
@@ -69,7 +69,7 @@ class Attributions
 
   # Puts a Source URL Agent into the array, at the end
   def add_source_url(source_url)                                                  
-    unless source_url.empty? # If it's empty, don't bother doing anything...
+    unless source_url.blank? # If it's empty, don't bother doing anything...
       @attributions << AgentsDataObject.new(:agent => Agent.from_source_url(source_url),
                                             :agent_role => AgentRole.new(:label => 'Source URL'),
                                             :view_order => 0)
@@ -78,7 +78,7 @@ class Attributions
 
   # Puts a Citation Agent into the array, at the end
   def add_citation(citation)
-    if citation # If it's nil, don't bother doing anything...
+    unless citation.blank? # If it's nil, don't bother doing anything...
       @attributions << AgentsDataObject.new(:agent => Agent.just_project_name(citation),
                                             :agent_role => AgentRole.new(:label => 'Citation'),
                                             :view_order => 0)

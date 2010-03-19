@@ -1790,9 +1790,11 @@ input.warn, textarea.warn {
 #textarea {
   text-transform: uppercase;
   border-bottom: medium solid #CCC;
-  text-align: center; }
+  text-align: left; }
   #textarea .attribution-icon {
-    vertical-align: bottom; }
+    float: right; }
+  #textarea h5 {
+    padding-top: 6pt; }
   #textarea a {
     font-weight: normal;
     font-style: none;

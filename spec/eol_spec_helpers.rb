@@ -75,7 +75,8 @@ module EOL
           conn.tables.each   do |table|
             unless table == 'schema_migrations'
               puts "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
-              conn.execute "TRUNCATE TABLE`#{table}`"
+              count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
+              conn.execute "TRUNCATE TABLE`#{table}`" if count_rows.num_rows > 0
             end
           end
         end

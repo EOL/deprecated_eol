@@ -6,7 +6,7 @@ class DataObjectsController < ApplicationController
   before_filter :curator_only, :only => [:rate, :curate]
 
   def create
-    params[:references] = params[:references].split("\n")
+    params[:references] = params[:references].split("\n") unless params[:references].blank?
     data_object = DataObject.create_user_text(params, current_user)
     @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
     @curator = current_user.can_curate?(@taxon_concept)

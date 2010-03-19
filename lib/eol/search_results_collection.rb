@@ -171,25 +171,30 @@ module EOL
       best_names = @results.map {|r| r[@best_match_field_name]}
       @results.each do |result|
         if best_names.find_all {|r| r == result[@best_match_field_name]}.length > 1
-          result["duplicate"]     = true
-          tc = result["taxon_concept"]
-          if tc
-            result["recognized_by"] = @type == :scientific ? 'oops' : result["taxon_concept"].entry.hierarchy.label
-            ancestors = tc.ancestors
-            parent = ancestors[-2]
-            ancestor = ancestors[-3]
-            if parent and parent.class == TaxonConcept
-              result["parent_scientific"] = parent.scientific_name
-              result["parent_common"]     = parent.common_name
-              if ancestor and ancestor.class == TaxonConcept
-                result["ancestor_scientific"] = ancestor.scientific_name
-                result["ancestor_common"]     = ancestor.common_name
-              end
-            end
-          else
-            result["recognized_by"] = 'unknown'
+          handle_duplicate(result) unless ENV['RAILS_ENV'] == 'production' 
+        end
+      end
+    end
+
+    private
+    def handle_duplicate(result)
+      result["duplicate"] = true
+      tc = result["taxon_concept"]
+      if tc
+        result["recognized_by"] = result["taxon_concept"].entry.hierarchy.label
+        ancestors = tc.ancestors
+        parent = ancestors[-2]
+        ancestor = ancestors[-3]
+        if parent and parent.class == TaxonConcept
+          result["parent_scientific"] = parent.scientific_name
+          result["parent_common"]     = parent.common_name
+          if ancestor and ancestor.class == TaxonConcept
+            result["ancestor_scientific"] = ancestor.scientific_name
+            result["ancestor_common"]     = ancestor.common_name
           end
         end
+      else
+        result["recognized_by"] = 'unknown'
       end
     end
 

@@ -932,7 +932,8 @@ ul#tab_taxonomic_browser {
 #taxonomictext {
   font-size: 100%;
   font-weight: bold;
-  margin-left: 0px; }
+  margin-left: 0px;
+  white-space:nowrap;}
   #taxonomictext li ul {
     font-weight: normal;
     padding: 0;
@@ -1788,13 +1789,13 @@ input.warn, textarea.warn {
   font-style: italic; }
 
 #textarea {
-  text-transform: uppercase;
   border-bottom: medium solid #CCC;
   text-align: left; }
   #textarea .attribution-icon {
     float: right; }
   #textarea h5 {
-    padding-top: 6pt; }
+    text-transform: uppercase;
+    padding-top: 0px; }
   #textarea a {
     font-weight: normal;
     font-style: none;
@@ -2235,3 +2236,12 @@ h3.search_result_subtitle {
   padding-bottom: 1em; }
 .search_result_cell .recognized_by {
   font-size: smaller; }
+
+div#nagivation-choose-hierarchy {
+    padding-bottom: 1px;
+}
+div#nagivation-choose-hierarchy select {
+    font-size: 10px;
+    font-family: arial, helvetica, sans-serif;
+    width: 240px;
+}

@@ -39,7 +39,12 @@
   #sliding-close
     #textarea
       %a#classification-attribution-button.static-popup-link.attribution-icon{ :href => "#{@taxon_concept.id}/classification_attribution", :onclick => "return false;" }
-      %h5= "Classification"[]
+      #nagivation-choose-hierarchy
+        %h5= "Classification:"[]
+        - form_for :user, current_user, :url=>{:controller=>"settings"}, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
+          = f.select :default_hierarchy_id, @available_hierarchies, {:selected => @session_hierarchy.id},{:onchange=>'this.form.submit();', :class=>'choose-hierarchy-select'}
+          %input{ :type=>'hidden', :name=>'return_to', :value=>"/pages/#{@taxon_concept.id}"}
+          %input{ :type=>'hidden', :name=>'from_taxa_page', :value=>'1'}
     #browser-text
       = render(:partial => 'navigation/tree_view', :locals => {:current_user => current_user})
 :javascript

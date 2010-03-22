@@ -164,7 +164,7 @@ class TaxaController < ApplicationController
     store_location(params[:return_to]) if !params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
 
     # if the user is logged in, they should be at the profile page
-    if logged_in?
+    if logged_in? && params[:from_taxa_page].blank?
       redirect_to(profile_url)
       return
     end

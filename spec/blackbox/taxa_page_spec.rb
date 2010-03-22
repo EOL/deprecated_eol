@@ -241,10 +241,19 @@ describe 'Taxa page (HTML)' do
   describe 'specified hierarchies' do
     
     before(:all) do
-      truncate_all_tables
-      Scenario.load :bootstrap # I *know* we shouldn't load bootstrap for testing, so if (when?) this breaks, that
-                               # sceneraio's salient bits will need extracting.
-      @ncbi = Hierarchy.ncbi
+      #creating an NCBI hierarchy and some others
+      @ncbi = Hierarchy.gen(:agent => Agent.ncbi, :label => "NCBI Taxonomy", :browsable => 1)
+      @browsable_hierarchy = Hierarchy.gen(:label => "Browsable Hierarchy", :browsable => 1)
+      @non_browsable_hierarchy = Hierarchy.gen(:label => "NonBrowsable Hierarchy", :browsable => 0)
+      
+      # making entries for this concept in the new hierarchies
+      HierarchyEntry.gen(:hierarchy => @ncbi, :taxon_concept => @taxon_concept)
+      HierarchyEntry.gen(:hierarchy => @browsable_hierarchy, :taxon_concept => @taxon_concept)
+      HierarchyEntry.gen(:hierarchy => @non_browsable_hierarchy, :taxon_concept => @taxon_concept)
+      
+      # and another entry just in NCBI
+      HierarchyEntry.gen(:hierarchy => @ncbi)
+      
       @user_with_default_hierarchy = User.gen(:password => 'whatever', :default_hierarchy_id => Hierarchy.default.id)
       @user_with_ncbi_hierarchy    = User.gen(:password => 'whatever', :default_hierarchy_id => @ncbi.id)
       @user_with_nil_hierarchy     = User.gen(:password => 'whatever', :default_hierarchy_id => nil)
@@ -258,72 +267,101 @@ describe 'Taxa page (HTML)' do
       login_as @user_with_nil_hierarchy
       res = request("/pages/#{@ncbi_tc.id}")
       res.should include_text("Name not in #{Hierarchy.default.label.gsub("&", "&amp;")}")
+      res.should include_text("selected=\"selected\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector default
+      res.should include_text("<option value=\"#{@ncbi.id}\">#{@ncbi.label}</option>") # selector
     end
     
     it "should see 'not in hierarchy' message when the user has NCBI hierarchy and page is not in NCBI" do
       login_as @user_with_ncbi_hierarchy
-      request("/pages/#{@default_tc.id}").should include_text("Name not in #{@ncbi.label}")
+      res = request("/pages/#{@default_tc.id}")
+      res.should include_text("Name not in #{@ncbi.label}")
+      res.should include_text("selected=\"selected\">#{@ncbi.label}</option>") # selector default
+      res.should include_text("<option value=\"#{Hierarchy.default.id}\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector
+    end
+    
+    it "should not show a hierarchy in the drop down list when it doesnt treat the current concept" do
+      login_as @user_with_ncbi_hierarchy
+      res = request("/pages/#{@ncbi_tc.id}")
+      res.should include_text("selected=\"selected\">#{@ncbi.label}</option>") # selector default
+      res.should_not include_text("<option value=\"#{Hierarchy.default.id}\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>")
+    end
+    
+    it "should recognize the browsable hierarchy attribute" do
+      res = request("/pages/#{@taxon_concept.id}")
+      res.should include_text("selected=\"selected\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector default
+      res.should include_text("<option value=\"#{@ncbi.id}\">#{@ncbi.label}</option>")
+      res.should include_text("<option value=\"#{@browsable_hierarchy.id}\">#{@browsable_hierarchy.label}</option>")
+      res.should_not include_text("<option value=\"#{@non_browsable_hierarchy.id}\">#{@non_browsable_hierarchy.label}</option>")
     end
     
     it "should attribute the default hierarchy when the user doesn't specify one and the page is in both hierarchies" do
       login_as @user_with_nil_hierarchy
-      request("/pages/#{@common_tc.id}").should include_text("recognized by <a href=\"#{Hierarchy.default.agent.homepage.strip}")
+      res = request("/pages/#{@common_tc.id}")
+      res.should include_text("recognized by <a href=\"#{Hierarchy.default.agent.homepage.strip}")
+      res.should include_text("selected=\"selected\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector default
+      res.should include_text("<option value=\"#{@ncbi.id}\">#{@ncbi.label}</option>") # selector
     end
     
     it "should attribute the default hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_default_hierarchy
-      request("/pages/#{@common_tc.id}").should include_text("recognized by <a href=\"#{Hierarchy.default.agent.homepage.strip}")
+      res = request("/pages/#{@common_tc.id}")
+      res.should include_text("recognized by <a href=\"#{Hierarchy.default.agent.homepage.strip}")
+      res.should include_text("selected=\"selected\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector default
+      res.should include_text("<option value=\"#{@ncbi.id}\">#{@ncbi.label}</option>") # selector
     end
     
     it "should use the label from the NCBI hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_ncbi_hierarchy
-      request("/pages/#{@common_tc.id}").should include_text("recognized by <a href=\"#{@ncbi.agent.homepage.strip}")
+      res = request("/pages/#{@common_tc.id}")
+      res.should include_text("recognized by <a href=\"#{@ncbi.agent.homepage.strip}")
+      res.should include_text("selected=\"selected\">#{@ncbi.label}</option>") # selector default
+      res.should include_text("<option value=\"#{Hierarchy.default.id}\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector
     end
   end
   
-  # Red background/icon on untrusted videos
-  it "should show red background for untrusted video links"
-  it "should not show red background for trusted video links"
-  it "should show red box with 'Videos in red are not trusted.' if there are untrusted videos"
-  it "should not show red box with 'Videos in red are not trusted.' if there are no untrusted videos"
-  it "should show red background around player for untrusted videos"
-  it "should not show red background around player for trusted videos"
-  it "should show red information button if untrusted video plays"
-  it "should show green information button if trusted video plays"
-  it "should show red background for notes area if untrusted video plays"
-  it "should not show red background for notes area if trusted video plays"
-  
-  # LigerCat Medical Concepts Tag Cloud
-  it 'should link to LigerCat when the Medical Concepts content is displayed'
-    # TODO - this will simply: 1) ensure the TC has a biomedical_terms toc item, 2) load that page with the
-    # content_id for biomedical_terms, and 3) verify that the page includes the URL we expect.
-    
-  # permalinks for species comments
-  it 'should load comment with the id when comment_id is specified'
-  it 'should hide image when load comment'
-  it 'should have only comments tab active (blue dot)'
-  it 'should not show comment when another tab chosen'
-  
-  #image permalinks
-  it 'should load image as main image when image_id is specified'
-  it 'should switch current_user.vetted to false when image_id is specified and is a unknown or untrusted image'
-  it 'should paginate to the correct page when image_id is specified and does not exist on the first page of thumbnails'
-  it 'should return 404 page when permalink image_id is specified that doesn\'t exist in the database'
-  it 'should return 404 page when permalink image_id is specified that isn\'t associated with species page'
-  it 'should return 404 page when permalink image_id is specified for an image which is hidden and user which isn\'t a curator'
-  it 'should load hidden image via permalink when user is a curator of the page'
-  it 'should return 404 page when permalink image_id is specified for an image which has been removed'
-  it 'should load removed image via permalink when user is an admin'
-  
-  #text permalinks
-  it 'should switch selected TOC when text_id is specified and not on the default selected TOC'
-  it 'should current_user.vetted to false when permalink with text_id is specified for a text object which is unknown or untrusted'
-  it 'should return 404 page when loading permalink for text which doesn\'t exist in the database'
-  it 'should return 404 page when loading permalink for text which isn\'t associated with species page'
-  it 'should return 404 page when loading permalink for text which is hidden when the user isn\'t a curator'
-  it 'should load hidden text via permalink when user is a curator of the page'
-  it 'should return 404 page when loading permalink for text which has been removed and user isn\'t an admin'
-  it 'should load removed text via permalink when user is an admin'
+  # # Red background/icon on untrusted videos
+  # it "should show red background for untrusted video links"
+  # it "should not show red background for trusted video links"
+  # it "should show red box with 'Videos in red are not trusted.' if there are untrusted videos"
+  # it "should not show red box with 'Videos in red are not trusted.' if there are no untrusted videos"
+  # it "should show red background around player for untrusted videos"
+  # it "should not show red background around player for trusted videos"
+  # it "should show red information button if untrusted video plays"
+  # it "should show green information button if trusted video plays"
+  # it "should show red background for notes area if untrusted video plays"
+  # it "should not show red background for notes area if trusted video plays"
+  # 
+  # # LigerCat Medical Concepts Tag Cloud
+  # it 'should link to LigerCat when the Medical Concepts content is displayed'
+  #   # TODO - this will simply: 1) ensure the TC has a biomedical_terms toc item, 2) load that page with the
+  #   # content_id for biomedical_terms, and 3) verify that the page includes the URL we expect.
+  #   
+  # # permalinks for species comments
+  # it 'should load comment with the id when comment_id is specified'
+  # it 'should hide image when load comment'
+  # it 'should have only comments tab active (blue dot)'
+  # it 'should not show comment when another tab chosen'
+  # 
+  # #image permalinks
+  # it 'should load image as main image when image_id is specified'
+  # it 'should switch current_user.vetted to false when image_id is specified and is a unknown or untrusted image'
+  # it 'should paginate to the correct page when image_id is specified and does not exist on the first page of thumbnails'
+  # it 'should return 404 page when permalink image_id is specified that doesn\'t exist in the database'
+  # it 'should return 404 page when permalink image_id is specified that isn\'t associated with species page'
+  # it 'should return 404 page when permalink image_id is specified for an image which is hidden and user which isn\'t a curator'
+  # it 'should load hidden image via permalink when user is a curator of the page'
+  # it 'should return 404 page when permalink image_id is specified for an image which has been removed'
+  # it 'should load removed image via permalink when user is an admin'
+  # 
+  # #text permalinks
+  # it 'should switch selected TOC when text_id is specified and not on the default selected TOC'
+  # it 'should current_user.vetted to false when permalink with text_id is specified for a text object which is unknown or untrusted'
+  # it 'should return 404 page when loading permalink for text which doesn\'t exist in the database'
+  # it 'should return 404 page when loading permalink for text which isn\'t associated with species page'
+  # it 'should return 404 page when loading permalink for text which is hidden when the user isn\'t a curator'
+  # it 'should load hidden text via permalink when user is a curator of the page'
+  # it 'should return 404 page when loading permalink for text which has been removed and user isn\'t an admin'
+  # it 'should load removed text via permalink when user is an admin'
   
   it 'should include the TocItem with only unvetted content in it' do
     @result = RackBox.request("/pages/#{@id}")
@@ -347,7 +385,7 @@ describe 'Taxa page (HTML)' do
     new_result.body.should include(data_object.object_title)
     new_result.body.should_not include(info_item_title.label)        
   end
-
+  
   it 'should show images on the page' do 
     tc = build_taxon_concept(:images => 
       [{:vetted => Vetted.untrusted}, 

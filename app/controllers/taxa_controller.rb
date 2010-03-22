@@ -93,12 +93,18 @@ class TaxaController < ApplicationController
       return
     end
     append_content_instance_variables(params[:category_id].to_i) if params[:category_id]
-
+    
+    @available_hierarchies = Hierarchy.browsable_for_concept(@taxon_concept)
+    # add the user's hierarchy in case the current concept is it
+    # we'll need to default the list to the user's hierarchy no matter what
+    @available_hierarchies << @session_hierarchy
+    @available_hierarchies = @available_hierarchies.uniq.sort_by{|h| h.label}.collect {|h| [h.label, h.id]}
+    
     redirect_to(params.merge(:controller => 'taxa',
                              :action => 'show',
                              :id => @taxon_concept.id,
                              :status => :moved_permanently)) if
-      @taxon_concept.superceded_the_requested_id?
+    @taxon_concept.superceded_the_requested_id?
 
     respond_to do |format|
       format.html do
@@ -155,7 +161,7 @@ class TaxaController < ApplicationController
   # page that will allows a non-logged in user to change content settings
   def settings
 
-    store_location(params[:return_to]) if !params[:return_to].nil? && request.get? # store the page we came from so we can return there if it's passed in the URL
+    store_location(params[:return_to]) if !params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
 
     # if the user is logged in, they should be at the profile page
     if logged_in?
@@ -173,7 +179,7 @@ class TaxaController < ApplicationController
     end
     @user.attributes=params[:user]
     set_current_user(@user)
-    flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated]
+    flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated] if params[:from_taxa_page].blank?
     store_location(EOLWebService.uri_remove_param(return_to_url, 'vetted')) if valid_return_to_url
     redirect_back_or_default
   end  

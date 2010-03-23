@@ -31,6 +31,9 @@ h2 {
   font-size: 14px;
   color: #333; }
 
+.highlight {
+  background-color: rgb(255, 255, 191); }
+
 #container {
   width: 982px;
   margin: 0 auto;

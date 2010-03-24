@@ -1,0 +1,22 @@
+- unless object_hash.blank?
+  - if object_hash['data_type'] == 'http://purl.org/dc/dcmitype/StillImage'
+    %p{:align => "center"}
+      %img{:src => DataObject.image_cache_path(object_hash["object_cache_url"], :large), :width => '300px'}
+  - elsif object_hash['data_type'] == 'http://purl.org/dc/dcmitype/Text'
+    %hr
+    %p
+      = object_hash['description']
+    
+    - if object_hash["license"] =~ /licenses\/(.*)$/
+      %img{:src => "http://i.creativecommons.org/l/#{$1}80x15.png"}
+      %br
+    
+    - unless object_hash["agents"].nil?
+      - for agent in object_hash["agents"]
+        - if agent['homepage'].blank?
+          = agent["full_name"]
+        - else
+          %a{:href => agent['homepage']}= agent["full_name"]
+        == (#{agent["role"]})
+        %br
+    %br

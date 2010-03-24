@@ -1,0 +1,21 @@
+
+body {
+  font: 12px/18px Arial, Helvetica, sans-serif;
+  color: #333; }
+
+a {
+  text-decoration: underline;
+  color: #149ACC;
+  cursor: pointer; }
+  a:hover {
+    text-decoration: underline; }
+
+h2 {
+  padding: 2px 2px 2px 2px;
+  font-size: 18px;
+  color: #333; }
+
+p {
+    padding: 0px;
+    margin: 0px;
+}

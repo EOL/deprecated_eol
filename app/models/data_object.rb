@@ -1300,12 +1300,22 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     data_object_ids = object_details_hash.collect {|r| r['id']}
     return object_details_hash if data_object_ids.blank?
     
+    data_supplier_id = ResourceAgentRole.content_partner_upload_role.nil? ? 0 : ResourceAgentRole.content_partner_upload_role.id
     agents = SpeciesSchemaModel.connection.execute("
-        SELECT a.*, ar.label role, ado.data_object_id
+        (SELECT a.* , 'source' role, dohe.data_object_id, 0 view_order
+          FROM data_objects_harvest_events dohe 
+          JOIN harvest_events he                ON (dohe.harvest_event_id=he.id) 
+          JOIN agents_resources ar              ON (he.resource_id=ar.resource_id) 
+          JOIN agents a                         ON (ar.agent_id=a.id) 
+          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})
+          AND ar.resource_agent_role_id=#{data_supplier_id})
+        UNION
+        (SELECT a.*, ar.label role, ado.data_object_id, ado.view_order
           FROM agents_data_objects ado
           JOIN agents a ON (ado.agent_id=a.id)
           JOIN agent_roles ar ON (ado.agent_role_id=ar.id)
-          WHERE ado.data_object_id IN (#{data_object_ids.join(',')})").all_hashes
+          WHERE ado.data_object_id IN (#{data_object_ids.join(',')}))
+        ORDER BY view_order").all_hashes
     
     grouped = ModelQueryHelper.group_array_by_key(agents, 'data_object_id')
     object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped, 'agents')

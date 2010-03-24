@@ -1,0 +1,14 @@
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %title
+      EOL API:
+      = @details_hash['scientific_name'] || 'page not found'
+    = stylesheet_link_tag 'api'
+  %body
+    - unless @details_hash.blank?
+      %h2{:align => "center"}
+        %a{:href => "/pages/#{@details_hash['id']}", :target => "_blank"}
+          = @details_hash['scientific_name']
+      - for object in @details_hash["data_objects"]
+        - if @complete_objects
+          = render(:partial => 'data_object', :layout => false, :locals => { :object_hash => object } )

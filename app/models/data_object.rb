@@ -1322,6 +1322,12 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     return object_details_hash
   end
   
+  # using object.untrust_reasons.include? was firing off a query every time. This is faster
+  def untrust_reasons_include?(untrust_reason)
+    @untrust_reasons_cached ||= untrust_reasons
+    return true if @untrust_reasons_cached.index(untrust_reason)
+    return false
+  end
 
 
 

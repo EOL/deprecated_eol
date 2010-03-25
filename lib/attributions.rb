@@ -32,7 +32,6 @@ class Attributions
           agents_data_objects << AgentsDataObject.new(:agent => agent,
                                                       :agent_role_id => agent['agent_role_id'],
                                                       :agent_role => AgentRole.new(
-                                                          :id => agent['agent_role_id'],
                                                           :label => agent_role_label),
                                                       :view_order => agent['view_order'] )
         end

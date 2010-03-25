@@ -174,7 +174,8 @@ class User < ActiveRecord::Base
   def tag_keys
     tags.map(&:key).uniq
   end
-
+  
+  # object might be a data object or taxon concept
   def can_curate? object
     return false unless curator_approved
     return false unless curator_hierarchy_entry_id

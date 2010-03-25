@@ -162,7 +162,17 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Returns true if the specified user has access to this TaxonConcept.
   def is_curatable_by? user
-    curators.include?(user)
+    return false unless user.curator_approved
+    return false unless user.curator_hierarchy_entry_id
+    result = SpeciesSchemaModel.connection.select_values("
+      SELECT COUNT(*)
+      FROM hierarchy_entries he_root
+      JOIN hierarchy_entries he_child ON (he_child.lft BETWEEN he_root.lft AND he_root.rgt AND he_child.hierarchy_id=he_root.hierarchy_id)
+      WHERE he_root.id=#{user.curator_hierarchy_entry_id}
+      AND he_child.taxon_concept_id=#{id}");
+    
+    return true if result.length > 0
+    return false
   end
 
   # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)
@@ -338,7 +348,7 @@ class TaxonConcept < SpeciesSchemaModel
   end 
 
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
-  def entry(hierarchy = nil)
+  def entry(hierarchy = nil, strict_lookup = false)
     hierarchy ||= Hierarchy.default
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
@@ -356,6 +366,11 @@ class TaxonConcept < SpeciesSchemaModel
       else
         b.published <=> a.published # published descending
       end
+    end
+    
+    # we want ONLY the entry in this hierarchy
+    if strict_lookup
+      return @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } || nil
     end
     
     return @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
@@ -377,16 +392,19 @@ class TaxonConcept < SpeciesSchemaModel
   # These are methods that are specific to a hierarchy, so we have to handle them through entry:
   # This was handled using delegate, before, but seemed to be causing problems, so I'm making it explicit:
   def kingdom(hierarchy = nil)
-    return nil if entry(hierarchy).nil?
-    return entry(hierarchy).kingdom(hierarchy)
+    h_entry = entry(hierarchy)
+    return nil if h_entry.nil?
+    return h_entry.kingdom(hierarchy)
   end
   def children_hash(detail_level = :middle, language = Language.english, hierarchy = nil, secondary_hierarchy = nil)
-    return {} unless entry(hierarchy)
-    return entry(hierarchy).children_hash(detail_level, language, hierarchy, secondary_hierarchy)
+    h_entry = entry(hierarchy)
+    return {} unless h_entry
+    return h_entry.children_hash(detail_level, language, hierarchy, secondary_hierarchy)
   end
   def ancestors_hash(detail_level = :middle, language = Language.english, cross_reference_hierarchy = nil, secondary_hierarchy = nil)
-    return {} unless entry(cross_reference_hierarchy)
-    return entry(cross_reference_hierarchy).ancestors_hash(detail_level, language, cross_reference_hierarchy, secondary_hierarchy)
+    h_entry = entry(cross_reference_hierarchy)
+    return {} unless h_entry
+    return h_entry.ancestors_hash(detail_level, language, cross_reference_hierarchy, secondary_hierarchy)
   end  
   
   # general versions of the above methods for any hierarchy

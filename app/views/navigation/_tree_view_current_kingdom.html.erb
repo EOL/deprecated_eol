@@ -42,7 +42,11 @@
     </div>
   <%- end %><%# end unless no-children %>
 <%- else %><%# if we aren't in the default hierarchy... %>
-  <ul><li><b>Name not in <%= @session_hierarchy.label %></b></li></ul>
+  <%- if @concept_browsable_hierarchies.empty? %>
+    <ul><li><span class='message'>Name not in any curated hierarchies</span></li></ul>
+  <%- else %>
+    <ul><li><span class='message'>Name not in <%= @session_hierarchy.label %>. Select an alternate hierarchy from the list above</span></li></ul>
+  <%- end %>
 <%- end %><%# end only-if-default-hierarchy %>
 <%- list_levels.times do %>
   </li>

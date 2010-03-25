@@ -94,11 +94,12 @@ class TaxaController < ApplicationController
     end
     append_content_instance_variables(params[:category_id].to_i) if params[:category_id]
     
-    @available_hierarchies = Hierarchy.browsable_for_concept(@taxon_concept)
+    @concept_browsable_hierarchies = Hierarchy.browsable_for_concept(@taxon_concept)
+    @hierarchies_to_offer = @concept_browsable_hierarchies.dup
     # add the user's hierarchy in case the current concept is it
     # we'll need to default the list to the user's hierarchy no matter what
-    @available_hierarchies << @session_hierarchy
-    @available_hierarchies = @available_hierarchies.uniq.sort_by{|h| h.label}.collect {|h| [h.label, h.id]}
+    @hierarchies_to_offer << @session_hierarchy
+    @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.label}.collect {|h| [h.label, h.id]}
     
     redirect_to(params.merge(:controller => 'taxa',
                              :action => 'show',
@@ -241,7 +242,7 @@ class TaxaController < ApplicationController
       end      
     end
 
-    log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
+    #log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
 
   end
 
@@ -326,7 +327,7 @@ class TaxaController < ApplicationController
     if !params[:id].blank? && request.post?  
       taxon_concept = params[:taxon_concept_id].to_i
       # log each data object ID specified (separate multiple with commas)
-      params[:id].split(",").each { |id| log_data_objects_for_taxon_concept taxon_concept, DataObject.find_by_id(id.to_i) }
+      #params[:id].split(",").each { |id| log_data_objects_for_taxon_concept taxon_concept, DataObject.find_by_id(id.to_i) }
     end
     render :nothing => true
   end  
@@ -664,8 +665,6 @@ private
     @content     = @taxon_concept.content_by_category(@category_id,:current_user=>current_user) unless
       @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
     @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy, {:language => current_user.language, :size => :small})
-    
-    @data_object_ids_to_log = data_object_ids_to_log
   end
 
   # when a page is viewed (even a cached page), we want to know which data objects were viewed.  This method

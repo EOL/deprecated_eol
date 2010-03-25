@@ -21,19 +21,19 @@
           </div>
           <div class="reason" <%='style="display:none;"' if !@data_object.untrusted?%>>
             <div class="option">
-              <%= check_box_tag 'untrust_reasons[]', UntrustReason.misidentified.id.to_s, @data_object.untrust_reasons.include?(UntrustReason.misidentified), {:id => 'untrust_reason_misidentified'} %> Misidentified
+              <%= check_box_tag 'untrust_reasons[]', UntrustReason.misidentified.id.to_s, @data_object.untrust_reasons_include?(UntrustReason.misidentified), {:id => 'untrust_reason_misidentified'} %> Misidentified
             </div>
             <div class="option">
-              <%= check_box_tag 'untrust_reasons[]', UntrustReason.incorrect.id.to_s, @data_object.untrust_reasons.include?(UntrustReason.incorrect), {:id => 'untrust_reason_incorrect'} %> Incorrect/misleading information
+              <%= check_box_tag 'untrust_reasons[]', UntrustReason.incorrect.id.to_s, @data_object.untrust_reasons_include?(UntrustReason.incorrect), {:id => 'untrust_reason_incorrect'} %> Incorrect/misleading information
             </div>
             <div class="option">
-              <%= check_box_tag 'untrust_reasons[]', UntrustReason.poor.id.to_s, @data_object.untrust_reasons.include?(UntrustReason.poor), {:id => 'untrust_reason_poor'} %> Poor writing/image/sound quality
+              <%= check_box_tag 'untrust_reasons[]', UntrustReason.poor.id.to_s, @data_object.untrust_reasons_include?(UntrustReason.poor), {:id => 'untrust_reason_poor'} %> Poor writing/image/sound quality
             </div>
             <div class="option">
-              <%= check_box_tag 'untrust_reasons[]', UntrustReason.duplicate.id.to_s, @data_object.untrust_reasons.include?(UntrustReason.duplicate), {:id => 'untrust_reason_duplicate'} %> Redundant/duplicate
+              <%= check_box_tag 'untrust_reasons[]', UntrustReason.duplicate.id.to_s, @data_object.untrust_reasons_include?(UntrustReason.duplicate), {:id => 'untrust_reason_duplicate'} %> Redundant/duplicate
             </div>
             <div class="option">
-              <%= check_box_tag 'untrust_reasons[]', UntrustReason.other.id.to_s, @data_object.untrust_reasons.include?(UntrustReason.other), {:id => 'untrust_reason_other'} %> Other
+              <%= check_box_tag 'untrust_reasons[]', UntrustReason.other.id.to_s, @data_object.untrust_reasons_include?(UntrustReason.other), {:id => 'untrust_reason_other'} %> Other
             </div>
             <div class="comment">
               <div>

@@ -86,12 +86,12 @@ EOL.Ajax.activeAjaxCalls = 0;
 EOL.Effect = {};
 
 EOL.Effect.appear = function(element, options) {
-  options = options || { delay: 0.6, duration: 0.4 };
+  options = options || { delay: 0.1, duration: 0.3 };
   Effect.Appear( element, options );
 };
 
 EOL.Effect.disappear = function(element, options) {
-  options = options || { duration: 0.4 };
+  options = options || { duration: 0.3 };
   Effect.Fade( element, options );
 };
 

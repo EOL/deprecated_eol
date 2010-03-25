@@ -942,6 +942,10 @@ ul#tab_taxonomic_browser {
     padding: 0;
     margin-left: 5px;
     list-style: none; }
+    #taxonomictext .message {
+      font-weight: bold;
+      white-space:normal;}
+  
 
 #taxonomictext-upone {
   padding-left: 10px;

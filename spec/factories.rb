@@ -849,7 +849,7 @@ end
 Factory.define :toc_item do |ti|
   ti.parent_id   0
   ti.label       { Factory.next(:title) }
-  ti.view_order  1 # This competes with Overview... not sure if this is wise.
+  ti.view_order  { Factory.next(:int) + 1 } # The plus-one keeps this away from Overview, which should always be 1.
 end
 
 Factory.define :top_image do |ti|

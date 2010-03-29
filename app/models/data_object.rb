@@ -1245,8 +1245,9 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     return [] unless data_object_ids.is_a? Array
     return [] if data_object_ids.empty?
     object_details_hashes = SpeciesSchemaModel.connection.execute("
-      SELECT do.*, dt.schema_value data_type, mt.label mime_type, lang.iso_639_1 language,
-              lic.source_url license, ii.schema_value subject, v.view_order vetted_view_order, toc.view_order toc_view_order
+      SELECT do.*, dt.schema_value data_type, dt.label data_type_label, mt.label mime_type, lang.iso_639_1 language,
+              lic.source_url license, ii.schema_value subject, v.view_order vetted_view_order, toc.view_order toc_view_order,
+              t.scientific_name, he.taxon_concept_id
         FROM data_objects do
         LEFT JOIN data_types dt ON (do.data_type_id=dt.id)
         LEFT JOIN mime_types mt ON (do.mime_type_id=mt.id)
@@ -1258,6 +1259,11 @@ AND data_type_id IN (#{data_type_ids.join(',')})
            JOIN table_of_contents toc ON (ii.toc_id=toc.id)
            JOIN data_objects_table_of_contents dotoc ON (toc.id=dotoc.toc_id)
           ) ON (do.id=dotoc.data_object_id)
+        LEFT JOIN (
+           data_objects_taxa dot
+           JOIN taxa t ON (dot.taxon_id=t.id)
+           JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
+          ) ON (do.id=dot.data_object_id)
         WHERE do.id IN (#{data_object_ids.join(',')})
         AND do.published = 1
         AND do.visibility_id = #{Visibility.visible.id}

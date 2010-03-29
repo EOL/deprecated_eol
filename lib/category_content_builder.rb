@@ -51,7 +51,7 @@ private
     tc_id = options[:taxon_concept_id]
 
     items = SpeciesSchemaModel.connection.execute(%Q{
-      SELECT DISTINCT ti.id item_id, pt.title publication_title, pt.url publication_url,
+      SELECT ti.id item_id, pt.title publication_title, pt.url publication_url,
                       pt.details publication_details, ip.year item_year, ip.volume item_volume,
                       ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url
       FROM taxon_concept_names tcn
@@ -61,7 +61,7 @@ private
         JOIN publication_titles pt ON (ti.publication_title_id = pt.id)
       WHERE tcn.taxon_concept_id = #{tc_id}
       LIMIT 0,1000
-    }).all_hashes
+    }).all_hashes.uniq
 
     sorted_items = items.sort_by do|item|
       [item["publication_title"], item["item_year"], item["item_volume"], item["item_issue"], item["item_number"].to_i]
@@ -105,7 +105,7 @@ private
 
     return_mapping_objects = []
     mappings = SpeciesSchemaModel.connection.execute(%Q{
-      SELECT DISTINCT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name,
+      SELECT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name,
                       c.title collection_title, c.link collection_link, c.uri collection_uri 
         FROM taxon_concept_names tcn 
         JOIN mappings m ON (tcn.name_id = m.name_id) 

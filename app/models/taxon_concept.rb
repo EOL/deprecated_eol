@@ -165,14 +165,14 @@ class TaxonConcept < SpeciesSchemaModel
     return false unless user.curator_approved
     return false unless user.curator_hierarchy_entry_id
     result = SpeciesSchemaModel.connection.select_values("
-      SELECT COUNT(*)
+      SELECT COUNT(*) count
       FROM hierarchy_entries he_root
-      JOIN hierarchy_entries he_child ON (he_child.lft BETWEEN he_root.lft AND he_root.rgt AND he_child.hierarchy_id=he_root.hierarchy_id)
+      JOIN hierarchy_entries he_child ON (he_child.lft BETWEEN he_root.lft AND he_root.rgt AND he_child.hierarchy_id=he_root.hierarchy_id AND he_root.rgt != 0)
       WHERE he_root.id=#{user.curator_hierarchy_entry_id}
       AND he_child.taxon_concept_id=#{id}");
     
-    return true if result.length > 0
-    return false
+    return false if result.length == 0 || result[0].to_i == 0
+    return true
   end
 
   # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)

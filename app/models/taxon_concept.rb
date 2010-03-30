@@ -22,6 +22,7 @@ class TaxonConcept < SpeciesSchemaModel
   #TODO belongs_to :taxon_concept_content
   belongs_to :vetted
 
+  has_many :feed_data_objects
   has_many :hierarchy_entries
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
@@ -1033,6 +1034,17 @@ EOIUCNSQL
     language_id = taxon_concept_name.language.id
     syn_id = taxon_concept_name.synonym.id
     Synonym.find(syn_id).destroy
+  end
+  
+  # only unsed in tests -this would be really slow with real data
+  def data_objects
+    DataObject.find_by_sql("
+      SELECT do.*
+      FROM hierarchy_entries he
+      JOIN taxa t ON (he.id=t.hierarchy_entry_id)
+      JOIN data_objects_taxa dot ON (t.id=dot.taxon_id)
+      JOIN data_objects do ON (dot.data_object_id=do.id)
+      WHERE he.taxon_concept_id=#{self.id}")
   end
 
 #####################

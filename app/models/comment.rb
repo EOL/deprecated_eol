@@ -23,44 +23,41 @@ class Comment < ActiveRecord::Base
 
   attr_accessor :vetted_by
 
-  def self.feed_comments(taxon_concept_id = nil, max_results = 100)
+  def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 100)
+    return [] if taxon_concept_id.nil?
     min_date = 30.days.ago.strftime('%Y-%m-%d')
-    result = []
-    if taxon_concept_id.nil?
-      result = Set.new(Comment.find_by_sql("select * from #{Comment.full_table_name} WHERE created_at > '#{min_date}'")).to_a
-    else
-      query_string = %Q{
-        ( SELECT c.*
-          FROM #{HierarchyEntry.full_table_name} he_parent
-            JOIN #{HierarchyEntry.full_table_name} he_children
-              ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
-                  AND he_parent.hierarchy_id=he_children.hierarchy_id)
-            JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id)
-            JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id)
-            JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id)
-            JOIN #{DataObject.full_table_name} do1 ON (do.guid=do1.guid)
-            JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id)
-          WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
-          AND do1.published=1
-          AND c.parent_type='DataObject'
-          AND c.created_at > '#{min_date}'
-        ) UNION (
-          SELECT c.*
-          FROM #{HierarchyEntry.full_table_name} he_parent
-            JOIN #{HierarchyEntry.full_table_name} he_children
-              ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
-                  AND he_parent.hierarchy_id=he_children.hierarchy_id)
-            JOIN #{Comment.full_table_name} c
-              ON(c.parent_id=he_children.taxon_concept_id AND c.parent_type='TaxonConcept')
-          WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
-          AND c.created_at > '#{min_date}'
-        )
-      }
-      
-      result = Set.new(Comment.find_by_sql(query_string)).to_a
-    end
-    return result.sort_by(&:created_at).reverse[0..max_results]
+    comments_hash = SpeciesSchemaModel.connection.execute("
+      ( SELECT c.id, c.body description, he_children.taxon_concept_id, 'Comment' data_type_label, c.created_at, t.scientific_name
+        FROM hierarchy_entries he_parent
+          JOIN hierarchy_entries he_children
+            ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
+                AND he_parent.rgt!=0
+                AND he_parent.hierarchy_id=he_children.hierarchy_id)
+          JOIN taxa t ON (he_children.id=t.hierarchy_entry_id)
+          JOIN data_objects_taxa dot ON (t.id=dot.taxon_id)
+          JOIN data_objects do ON (dot.data_object_id=do.id)
+          JOIN data_objects do1 ON (do.guid=do1.guid)
+          JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id)
+        WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
+        AND do1.published=1
+        AND c.parent_type='DataObject'
+        AND c.created_at > '#{min_date}'
+      ) UNION (
+        SELECT c.id, c.body description, he_children.taxon_concept_id, 'Comment' data_type_label, c.created_at, n.string scientific_name
+        FROM hierarchy_entries he_parent
+          JOIN hierarchy_entries he_children
+            ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
+                AND he_parent.rgt!=0
+                AND he_parent.hierarchy_id=he_children.hierarchy_id)
+          JOIN names n ON (he_children.name_id=n.id)
+          JOIN #{Comment.full_table_name} c
+            ON(c.parent_id=he_children.taxon_concept_id AND c.parent_type='TaxonConcept')
+        WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
+        AND c.created_at > '#{min_date}'
+      )").all_hashes.uniq
     
+    return [] if comments_hash.blank?
+    return comments_hash
   end
 
   # Comments can be hidden.  This method checks to see if a non-curator can see it:

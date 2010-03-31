@@ -21,23 +21,16 @@
               %a{ :href => url_for(:action => 'search_clicked', :id => result['id']) }
                 %img{ :title => strip_tags(result['best_matched_scientific_name']), :src => result['top_image'].smart_medium_thumb, :alt => strip_tags(result['best_matched_scientific_name']) }
           %td{ :class => column_class }
-            - if result['duplicate']
-              .ancestor= result['ancestor_common']
-              .parent= result['parent_common']
-            %div{:class => "result#{' duplicate' if result['duplicate']}"}
+            %div{:class => "result"}
               = link_to hh(result['best_matched_common_name']), {:action => 'search_clicked', :id => result['id']}, :method=>:post
             = result['common_shown_as']
-            - if result['duplicate']
-              %span.recognized_by= "Taxon recognized by #{result['recognized_by']}"
           %td{ :class => column_class }
-            - if result['duplicate']
-              .ancestor= result['ancestor_scientific']
-              .parent= result['parent_scientific']
-            %div{:class => "result#{' duplicate' if result['duplicate']}"}
+            .ancestor= result['ancestor_scientific']
+            .parent= result['parent_scientific']
+            %div{:class => "result duplicate"}
               = link_to hh(result['best_matched_scientific_name']), {:action => 'search_clicked', :id => result['id']}, :method=>:post
             = result['scientific_shown_as']
-            - if result['duplicate']
-              %span.recognized_by= "Taxon recognized by #{result['recognized_by']}"
+            %span.recognized_by= "Taxon recognized by #{result['recognized_by']}"
       -# end results.each
     = will_paginate(results)
   - # /search_results

@@ -34,7 +34,7 @@ module EOL
       # time being, we always are.  In the future, this will want to be abstracted out, so that we inherit all the common
       # behaviour and add this behaviour if it's a TC-based search:
       update_results_with_current_data
-      handle_apparent_duplicates
+      add_mini_tree_and_attribution
       adapt_results_for_view
     end
 
@@ -115,7 +115,7 @@ module EOL
         return {'preferred_scientific_name' => (tc.scientific_name(@session_hierarchy) ||
                                                 result["preferred_scientific_name"] || ''),
                 'preferred_common_name'     => (tc.common_name(@session_hierarchy) || result["preferred_common_name"] || ''),
-                # There are some "expensive" operations we only want to do on duplicates, so store the TC here:
+                # There are some "expensive" operations done later, so store tc here:
                 'taxon_concept'             => tc }
       # Really, we don't want to save these exceptions, since what good is a search result if the TC is missing?
       # However, tests sometimes create situations where this is possible and not "wrong", (creating TCs is expensive!) so:
@@ -166,19 +166,15 @@ module EOL
       result[@best_match_field_name] ||= ''
     end
 
-    def handle_apparent_duplicates
+    def add_mini_tree_and_attribution
       return nil unless @results
-      best_names = @results.map {|r| r[@best_match_field_name]}
       @results.each do |result|
-        if best_names.find_all {|r| r == result[@best_match_field_name]}.length > 1
-          handle_duplicate(result) unless ENV['RAILS_ENV'] == 'production' 
-        end
+        add_tree_and_arttribution_fields(result) unless ENV['RAILS_ENV'] == 'production' 
       end
     end
 
     private
-    def handle_duplicate(result)
-      result["duplicate"] = true
+    def add_tree_and_arttribution_fields(result)
       tc = result["taxon_concept"]
       if tc
         result["recognized_by"] = result["taxon_concept"].entry.hierarchy.label
@@ -187,10 +183,8 @@ module EOL
         ancestor = ancestors[-3]
         if parent and parent.class == TaxonConcept
           result["parent_scientific"] = parent.scientific_name
-          result["parent_common"]     = parent.common_name
           if ancestor and ancestor.class == TaxonConcept
             result["ancestor_scientific"] = ancestor.scientific_name
-            result["ancestor_common"]     = ancestor.common_name
           end
         end
       else

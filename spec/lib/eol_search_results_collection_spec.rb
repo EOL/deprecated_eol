@@ -40,11 +40,6 @@ describe EOL::SearchResultsCollection do
     @tc_result["preferred_common_name"].should == @new_common_name
   end
 
-  it 'should mark duplicates' do
-    @tc_result["duplicate"].should be_true
-    @dup_tc_result["duplicate"].should be_true
-  end
-
   it 'should show whom duplicate entries are recognized by' do
     @tc_result["recognized_by"].should == @taxon_concept.entry.hierarchy.label
     @dup_tc_result["recognized_by"].should == @duplicate_taxon_concept.entry.hierarchy.label
@@ -54,8 +49,6 @@ describe EOL::SearchResultsCollection do
     ancestors = @tc_result['taxon_concept'].ancestors
     parent_concept   = ancestors[-2]
     ancestor_concept = ancestors[-3]
-    @tc_result["parent_common"].should   == parent_concept.common_name
-    @tc_result["ancestor_common"].should == ancestor_concept.common_name
     @tc_result["parent_scientific"].should   == parent_concept.scientific_name
     @tc_result["ancestor_scientific"].should == ancestor_concept.scientific_name
   end

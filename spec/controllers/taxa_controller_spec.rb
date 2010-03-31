@@ -34,13 +34,11 @@ describe TaxaController do
 
       it 'should show the parent taxon_concept of the duplicates' do
         hijack_search_for_tiger
-        response.should have_tag('div.parent', :text => @parent_concept.common_name)
         response.should have_tag('div.parent', :text => @parent_concept.scientific_name)
       end
 
       it 'should show the ancestor (grandparent) taxon_concept of the duplicates' do
         hijack_search_for_tiger
-        response.should have_tag('div.ancestor', :text => @ancestor_concept.common_name)
         response.should have_tag('div.ancestor', :text => @ancestor_concept.scientific_name)
       end
 

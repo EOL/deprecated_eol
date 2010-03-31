@@ -75,6 +75,17 @@ class User < ActiveRecord::Base
     CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( self.id, CuratorActivity.approve! ).length
   end 
 
+  # get the total objects curated for a particular curator activity type
+  def total_objects_curated_by_action(action)
+    # this needs to become a simple COUNT query
+    curator_activity_id=CuratorActivity.send action+'!'
+    if !curator_activity_id.nil?
+      CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( self.id, curator_activity_id ).length
+    else
+      return 0
+    end
+  end 
+  
   def total_objects_curated
     # CuratorDataObjectLog.count :conditions => ['user_id = ?', id] 
     # CuratorDataObjectLog.count :conditions => ['user_id = 35200'] 

@@ -3,6 +3,7 @@ class FeedsController < ApplicationController
   #/feeds/images/25 or texts or comments or all
   before_filter :set_session_hierarchy_variable
   caches_page :all, :images, :texts, :comments, :expires_in => 2.minutes
+  @@maximum_feed_entries = 50
   
   def all
     lookup_content(:type => :all)
@@ -35,8 +36,12 @@ class FeedsController < ApplicationController
     options[:title] += " for #{taxon_concept.quick_scientific_name(:normal, @session_hierarchy)}"
     
     feed_items = []
-    feed_items += DataObject.for_feeds(options[:type], taxon_concept.id) if options[:type] != :comments
-    feed_items += Comment.for_feeds(:comments, taxon_concept_id) if options[:type] == :comments
+    if options[:type] != :comments
+      feed_items += DataObject.for_feeds(options[:type], taxon_concept.id, @@maximum_feed_entries)
+    end
+    if options[:type] == :comments
+      feed_items += Comment.for_feeds(:comments, taxon_concept_id, @@maximum_feed_entries)
+    end
     
     self.create_feed(feed_items, :title => options[:title], :link => feed_link)
   end
@@ -47,7 +52,7 @@ class FeedsController < ApplicationController
     options[:title] ||= 'Latest Images, Text and Comments'
     
     feed_items.sort! {|x,y| y['created_at'] <=> x['created_at']}
-    feed_items = feed_items[0..100]
+    feed_items = feed_items[0..@@maximum_feed_entries]
     
     feed = Atom::Feed.new do |f|
       f.updated = Time.now
@@ -70,7 +75,7 @@ class FeedsController < ApplicationController
         link_type_id = :text_id
       end
       
-      e.title = "New #{hash['data_type_label'].downcase} for #{hash['scientific_name']}"
+      e.title = "#{hash['scientific_name']}"
       e.links << Atom::Link.new(:href => url_for(:controller => :taxa, :action => :show, :id => hash['taxon_concept_id'], link_type_id => hash['id']))
       e.updated = hash['created_at']
       

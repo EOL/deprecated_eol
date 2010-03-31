@@ -23,7 +23,7 @@ class Comment < ActiveRecord::Base
 
   attr_accessor :vetted_by
 
-  def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 100)
+  def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 50)
     return [] if taxon_concept_id.nil?
     min_date = 30.days.ago.strftime('%Y-%m-%d')
     comments_hash = SpeciesSchemaModel.connection.execute("
@@ -56,8 +56,12 @@ class Comment < ActiveRecord::Base
         AND c.created_at > '#{min_date}'
       )").all_hashes.uniq
     
+    comments_hash.sort! do |a, b|
+      b['created_at'] <=> a['created_at']
+    end
+    
     return [] if comments_hash.blank?
-    return comments_hash
+    return comments_hash[0..max_results]
   end
 
   # Comments can be hidden.  This method checks to see if a non-curator can see it:

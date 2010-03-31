@@ -95,11 +95,14 @@ class TaxaController < ApplicationController
     append_content_instance_variables(params[:category_id].to_i) if params[:category_id]
     
     @concept_browsable_hierarchies = Hierarchy.browsable_for_concept(@taxon_concept)
-    @hierarchies_to_offer = @concept_browsable_hierarchies.dup
+    @all_browsable_hierarchies = Hierarchy.browsable_by_label
+    
+    # there is where we can set it to ALL hierarchies, or only for this node
+    @hierarchies_to_offer = @all_browsable_hierarchies.dup
     # add the user's hierarchy in case the current concept is it
     # we'll need to default the list to the user's hierarchy no matter what
     @hierarchies_to_offer << @session_hierarchy
-    @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.label}.collect {|h| [h.label, h.id]}
+    @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.label}
     
     redirect_to(params.merge(:controller => 'taxa',
                              :action => 'show',

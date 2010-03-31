@@ -42,7 +42,12 @@
       #nagivation-choose-hierarchy
         %h5= "Classification:"[]
         - form_for :user, current_user, :url=>{:controller=>"settings"}, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
-          = f.select :default_hierarchy_id, @hierarchies_to_offer, {:selected => @session_hierarchy.id},{:onchange=>'this.form.submit();', :class=>'choose-hierarchy-select'}
+          %select#user_default_hierarchy_id{ :name => 'user[default_hierarchy_id]', :class => 'choose-hierarchy-select', :onchange => 'this.form.submit();' }
+            - for h in @hierarchies_to_offer
+              - selected = h.id == @session_hierarchy.id
+              - option_class = @concept_browsable_hierarchies.include?(h) ? 'in' : 'out'
+              %option{:value => h.id, :class => option_class, :selected => selected}
+                = h.label
           %input{ :type=>'hidden', :name=>'return_to', :value=>"/pages/#{@taxon_concept.id}"}
           %input{ :type=>'hidden', :name=>'from_taxa_page', :value=>'true'}
     #browser-text

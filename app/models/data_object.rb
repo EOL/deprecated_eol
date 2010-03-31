@@ -719,7 +719,7 @@ class DataObject < SpeciesSchemaModel
     end
     
     query_string = %Q{
-      SELECT dato.id, dato.visibility_id, dato.data_rating, dato.vetted_id, v.view_order vetted_view_order #{from_cp}
+      SELECT dato.id, dato.visibility_id, dato.data_rating, dato.vetted_id, dato.guid, v.view_order vetted_view_order #{from_cp}
         FROM #{from_table} ti
           JOIN data_objects dato      ON ti.data_object_id = dato.id
           JOIN vetted v               ON dato.vetted_id = v.id
@@ -751,16 +751,15 @@ class DataObject < SpeciesSchemaModel
     # # if there is no filter hierarchy and we're just returning published images - the default
     # if options[:filter_hierarchy].nil? && !show_unpublished && !options[:user].vetted
     #   result = Rails.cache.fetch("data_object/cached_images_for/#{taxon.id}") do
-    #     result = DataObject.find_by_sql(top_images_query)
+    #     data_objects_result = DataObject.find_by_sql(top_images_query)
     #   end
     # else
-      result = DataObject.find_by_sql(top_images_query)
+      data_objects_result = DataObject.find_by_sql(top_images_query).uniq
     # end
     
     # when we have all the images then get the uniquq list and sort them by
     # vetted order ASC (so trusted are first), rating DESC (so best are first), id DESC (so newest are first)
-    result = result.uniq
-    result.sort! do |a, b|
+    data_objects_result.sort! do |a, b|
       if a.vetted_view_order == b.vetted_view_order
         # TODO - this should probably also sort on visibility.
         if a.data_rating == b.data_rating
@@ -773,7 +772,15 @@ class DataObject < SpeciesSchemaModel
       end
     end
     
-    return result if result.empty?
+    # an extra loop to ensure that we have no duplicate GUIDs
+    result = []
+    used_guids = {}
+    data_objects_result.each do |r|
+      result << r if used_guids[r.guid].blank?
+      used_guids[r.guid] = true
+    end
+    
+    return [] if result.empty?
     
     # get the rest of the metadata for the selected page
     image_page        = (options[:image_page] ||= 1).to_i

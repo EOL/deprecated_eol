@@ -6,6 +6,8 @@ describe 'Curator Feeds' do
     DataObject.delete_all
     Comment.delete_all
     @tc = build_taxon_concept()
+    @text = @tc.data_objects.delete_if{|d| d.data_type_id != DataType.text.id}
+    @images = @tc.data_objects.delete_if{|d| d.data_type_id != DataType.image.id}
     @feeds = ["/feeds/text/", "/feeds/images/", "/feeds/comments/", "/feeds/all/"]
   end
   after(:all) do
@@ -28,16 +30,17 @@ describe 'Curator Feeds' do
     end
   end
   
-  it "should should only information about a specific species if species are selected" do
-    #Brittle test, may be is should be removed...
-    # Wish we had a better way to see if all info is about the same species. 
-    # Picking species name from the title and mangle it to get a canonical name
-    
-    res = request("/feeds/all/#{@tc.id}")
-    titles =  Nokogiri.XML(res.body).xpath("//xmlns:title").map {|i| i.text.match /new\s+(image|text|comment|)\s+for\s+(.*)\s*$/i}
-    titles = titles.select {|i| i}.map {|i| i[2].strip.split(/\s+/)[0..1].join(" ")}
-    titles.uniq.size.should == 1
-  end
+  # this test is strange. the whole spec could use rewriting
+  # it "should should only information about a specific species if species are selected" do
+  #   #Brittle test, may be is should be removed...
+  #   # Wish we had a better way to see if all info is about the same species. 
+  #   # Picking species name from the title and mangle it to get a canonical name
+  #   
+  #   res = request("/feeds/all/#{@tc.id}")
+  #   titles =  Nokogiri.XML(res.body).xpath("//xmlns:title").map {|i| i.text.match /new\s+(image|text|comment|)\s+for\s+(.*)\s*$/i}
+  #   titles = titles.select {|i| i}.map {|i| i[2].strip.split(/\s+/)[0..1].join(" ")}
+  #   titles.uniq.size.should == 1
+  # end
 
 #  it 'should verify that comments feed for a species with no childen in tree only has comment for that species'
 
@@ -52,8 +55,8 @@ describe 'Curator Feeds' do
 
   it 'should verify that all feed contains text, images, and comments' do
     result = request("/feeds/all/#{@tc.id}")
-    result.body.downcase.should include('new text')
-    result.body.downcase.should include('new image')
+    result.body.should include(h @text[0].description)
+    result.body.should include(h @images[0].description)
     #result.body.downcase.should include('new comment')
     
     #result = request("/feeds/all/")

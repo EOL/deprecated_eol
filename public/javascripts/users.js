@@ -6,7 +6,7 @@ $j(function() {
 
 // ajax call to determine if username is unique
 function check_username() {
-	new ajax.request('/account/check_username/', {
+	new Ajax.Request('/account/check_username/', {
 	 		parameters: { username: $('user_username').value }, 		
 			asynchronous:true,
 			evalscripts:true});		
@@ -14,7 +14,7 @@ function check_username() {
 
 // ajax call to determine if email is unique
 function check_email() {
-	new ajax.request('/account/check_email/', {
+	new Ajax.Request('/account/check_email/', {
 	 		parameters: { email: $('user_email').value }, 		
 			asynchronous:true,
 			evalscripts:true});		

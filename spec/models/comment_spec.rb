@@ -10,13 +10,11 @@ describe Comment do
     end
     
     it 'should find text data objects for feeds' do
-      [nil, @tc.id].each do |tc_id|
-        res = Comment.feed_comments(tc_id)
-        res.class.should == Array
-        res_type = res.map {|i| i.class}.uniq
-        res_type.size.should == 1
-        res_type[0].should == Comment
-      end
+      res = Comment.for_feeds(:comments, @tc.id)
+      res.class.should == Array
+      res_type = res.map {|i| i.class}.uniq
+      res_type.size.should == 1
+      res_type[0].should == Hash
     end
   
     

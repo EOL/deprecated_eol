@@ -1,5 +1,6 @@
 - curators = @taxon_concept.curator_has_citation
 #page-citation
+  %a{:name => 'citation'}
   - if (curators.size > 0)
     = curators.map{|c| link_to h("#{c.given_name} #{c.family_name}"), :controller => :account, :action => :show, :id => c.id, :popup => true}.join(', ') + "."
     - if curators.size == 1

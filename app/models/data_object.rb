@@ -17,6 +17,7 @@ class DataObject < SpeciesSchemaModel
   belongs_to :vetted
 
   has_many :top_images
+  has_many :feed_data_objects
   has_many :top_concept_images
   has_many :languages
   has_many :agents_data_objects, :include => [ :agent, :agent_role ]
@@ -46,97 +47,43 @@ class DataObject < SpeciesSchemaModel
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
   
-  #----- queries for rss feeds ------
-  def self.feed_images_and_texts(taxon_concept_id = nil, max_results = 100)
-    min_date = 10.days.ago.strftime('%Y-%m-%d')
-    result = []
-    if taxon_concept_id.nil?
-      result = Set.new(DataObject.find_by_sql(%Q{
-        SELECT * FROM #{DataObject.full_table_name}
-        WHERE data_type_id IN (#{DataType.image_type_ids[0]}, #{DataType.text_type_ids[0]})
-          AND published = 1
-          AND created_at > '#{min_date}'
-      })).to_a
-
-      #pp  result.sort_by(&:created_at).reverse[0..max_results]
-
+  # for RSS feeds
+  def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 100)
+    if type == :text
+      data_type_ids = [DataType.text_type_ids[0]]
+    elsif type == :images
+      data_type_ids = [DataType.image_type_ids[0]]
     else
-      result = Set.new(DataObject.find_by_sql(%Q{
-        SELECT do.*
-        FROM #{HierarchyEntry.full_table_name} he_parent
-          JOIN #{HierarchyEntry.full_table_name} he_children
-            ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
-                AND he_parent.hierarchy_id=he_children.hierarchy_id)
-          JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id)
-          JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id)
-          JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id)
-        WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
-          AND do.published=1
-          AND do.data_type_id IN (#{DataType.image_type_ids[0]},#{DataType.text_type_ids[0]})
-          AND do.created_at > '#{min_date}'
-      })).to_a
+      data_type_ids = [DataType.image_type_ids[0], DataType.text_type_ids[0]]
     end
-    return result.sort_by(&:created_at).reverse[0..max_results]
-  end
-
-  def self.feed_images(taxon_concept_id = nil, max_results = 100)
-    min_date = 10.days.ago.strftime('%Y-%m-%d')
-    result = []
+    
     if taxon_concept_id.nil?
-      result = Set.new(DataObject.find_by_sql(%Q{
-        SELECT * FROM #{DataObject.full_table_name}
-        WHERE data_type_id=#{DataType.image_type_ids[0]}
-        AND published=1
-        AND created_at > '#{min_date}'
-      })).to_a
+      lookup_ids = HierarchyEntry.find_all_by_hierarchy_id_and_parent_id(Hierarchy.default.id, 0).collect{|he| he.taxon_concept_id}
     else
-      result = Set.new(DataObject.find_by_sql(%Q{
-        SELECT do.*
-        FROM #{HierarchyEntry.full_table_name} he_parent
-          JOIN #{HierarchyEntry.full_table_name} he_children
-            ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
-                AND he_parent.hierarchy_id=he_children.hierarchy_id)
-          JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id)
-          JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id)
-          JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id)
-        WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
-          AND do.published=1
-          AND do.data_type_id=#{DataType.image_type_ids[0]}
-          AND do.created_at > '#{min_date}'
-      })).to_a
+      lookup_ids = [taxon_concept_id]
     end
-    return result.sort_by(&:created_at).reverse[0..max_results]
-  end
 
-  def self.feed_texts(taxon_concept_id = nil, max_results = 100)
-    min_date = 10.days.ago.strftime('%Y-%m-%d')
-    result = []
-    if taxon_concept_id.nil?
-      result = Set.new(DataObject.find_by_sql(%Q{
-        SELECT * FROM #{DataObject.full_table_name}
-        WHERE data_type_id=#{DataType.text_type_ids[0]}
-        AND published=1
-        AND created_at > '#{min_date}'
-      })).to_a
-    else
-      result = Set.new(DataObject.find_by_sql(%Q{
-        SELECT do.*
-        FROM #{HierarchyEntry.full_table_name} he_parent
-          JOIN #{HierarchyEntry.full_table_name} he_children
-            ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
-                AND he_parent.hierarchy_id=he_children.hierarchy_id)
-          JOIN #{Taxon.full_table_name} t ON (he_children.id=t.hierarchy_entry_id)
-          JOIN #{DataObjectsTaxon.full_table_name} dot ON (t.id=dot.taxon_id)
-          JOIN #{DataObject.full_table_name} do ON (dot.data_object_id=do.id)
-        WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
-          AND do.published=1
-          AND do.data_type_id=#{DataType.text_type_ids[0]}
-          AND do.created_at > '#{min_date}'
-      })).to_a
+    data_object_ids = SpeciesSchemaModel.connection.execute("
+      SELECT do.id, do.created_at
+      FROM feed_data_objects fdo
+      JOIN #{DataObject.full_table_name} do ON (fdo.data_object_id=do.id)
+      WHERE fdo.taxon_concept_id IN (#{lookup_ids.join(',')})
+      AND do.published=1
+      AND do.data_type_id IN (#{data_type_ids.join(',')})
+      AND do.created_at IS NOT NULL
+      AND do.created_at != '0000-00-00 00:00:00'").all_hashes.uniq
+    
+    return [] if data_object_ids.blank?
+    
+    data_object_ids.sort! do |a, b|
+      b['created_at'] <=> a['created_at']
     end
-    return result.sort_by(&:created_at).reverse[0..max_results]
+    
+    details = self.details_for_objects(data_object_ids[0...max_results].collect{|obj| obj['id']}, :skip_refs => true)
+    return [] if details.blank?
+    return details
   end
-
+  
   #----- user submitted text --------
   def self.update_user_text(all_params, user)
     dato = DataObject.find(all_params[:id])
@@ -772,7 +719,7 @@ class DataObject < SpeciesSchemaModel
     end
     
     query_string = %Q{
-      SELECT dato.id, dato.visibility_id, dato.data_rating, dato.vetted_id, v.view_order vetted_view_order #{from_cp}
+      SELECT dato.id, dato.visibility_id, dato.data_rating, dato.vetted_id, dato.guid, v.view_order vetted_view_order #{from_cp}
         FROM #{from_table} ti
           JOIN data_objects dato      ON ti.data_object_id = dato.id
           JOIN vetted v               ON dato.vetted_id = v.id
@@ -804,16 +751,15 @@ class DataObject < SpeciesSchemaModel
     # # if there is no filter hierarchy and we're just returning published images - the default
     # if options[:filter_hierarchy].nil? && !show_unpublished && !options[:user].vetted
     #   result = Rails.cache.fetch("data_object/cached_images_for/#{taxon.id}") do
-    #     result = DataObject.find_by_sql(top_images_query)
+    #     data_objects_result = DataObject.find_by_sql(top_images_query)
     #   end
     # else
-      result = DataObject.find_by_sql(top_images_query)
+      data_objects_result = DataObject.find_by_sql(top_images_query).uniq
     # end
     
     # when we have all the images then get the uniquq list and sort them by
     # vetted order ASC (so trusted are first), rating DESC (so best are first), id DESC (so newest are first)
-    result = result.uniq
-    result.sort! do |a, b|
+    data_objects_result.sort! do |a, b|
       if a.vetted_view_order == b.vetted_view_order
         # TODO - this should probably also sort on visibility.
         if a.data_rating == b.data_rating
@@ -826,7 +772,15 @@ class DataObject < SpeciesSchemaModel
       end
     end
     
-    return result if result.empty?
+    # an extra loop to ensure that we have no duplicate GUIDs
+    result = []
+    used_guids = {}
+    data_objects_result.each do |r|
+      result << r if used_guids[r.guid].blank?
+      used_guids[r.guid] = true
+    end
+    
+    return [] if result.empty?
     
     # get the rest of the metadata for the selected page
     image_page        = (options[:image_page] ||= 1).to_i
@@ -1246,7 +1200,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     return [] if data_object_ids.empty?
     object_details_hashes = SpeciesSchemaModel.connection.execute("
       SELECT do.*, dt.schema_value data_type, dt.label data_type_label, mt.label mime_type, lang.iso_639_1 language,
-              lic.source_url license, ii.schema_value subject, v.view_order vetted_view_order, toc.view_order toc_view_order,
+              lic.source_url license, lic.title license_label, ii.schema_value subject, v.view_order vetted_view_order, toc.view_order toc_view_order,
               t.scientific_name, he.taxon_concept_id
         FROM data_objects do
         LEFT JOIN data_types dt ON (do.data_type_id=dt.id)
@@ -1280,7 +1234,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     
     object_details_hashes = ModelQueryHelper.sort_object_hash_by_display_order(object_details_hashes)
     
-    object_details_hashes = DataObject.add_refs_to_details(object_details_hashes) if options[:skip_metadata].blank?
+    object_details_hashes = DataObject.add_refs_to_details(object_details_hashes) if options[:skip_metadata].blank? && options[:skip_refs].blank?
     object_details_hashes = DataObject.add_agents_to_details(object_details_hashes) if options[:skip_metadata].blank?
     object_details_hashes
   end
@@ -1308,7 +1262,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     
     data_supplier_id = ResourceAgentRole.content_partner_upload_role.nil? ? 0 : ResourceAgentRole.content_partner_upload_role.id
     agents = SpeciesSchemaModel.connection.execute("
-        (SELECT a.* , 'source' role, dohe.data_object_id, 0 view_order
+        (SELECT a.* , 'Provider' role, dohe.data_object_id, -1 view_order
           FROM data_objects_harvest_events dohe 
           JOIN harvest_events he                ON (dohe.harvest_event_id=he.id) 
           JOIN agents_resources ar              ON (he.resource_id=ar.resource_id) 
@@ -1322,6 +1276,10 @@ AND data_type_id IN (#{data_type_ids.join(',')})
           JOIN agent_roles ar ON (ado.agent_role_id=ar.id)
           WHERE ado.data_object_id IN (#{data_object_ids.join(',')}))
         ORDER BY view_order").all_hashes
+    
+    agents.sort do |a, b|
+      b['view_order'].to_i <=> a['view_order'].to_i
+    end
     
     grouped = ModelQueryHelper.group_array_by_key(agents, 'data_object_id')
     object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped, 'agents')

@@ -92,6 +92,7 @@ module EOL
       gen_random_hierarchy_image
       gen_bhl
       gen_biomedical_terms
+      add_feed_objects
     end
 
     # There isn't much involved with the actual TaxonConcept, in terms of the database and/or generation of the model
@@ -287,6 +288,14 @@ module EOL
       puts "** Enter: gen_biomedical_terms" if @debugging
       if @biomedical_terms
         Mapping.gen(:collection => Collection.ligercat, :name => @sname, :foreign_key => @id)
+      end
+    end
+    
+    def add_feed_objects
+      @tc.data_objects.each do |obj|
+        unless FeedDataObject.find_by_taxon_concept_id_and_data_object_id(@tc.id, obj.id)
+          FeedDataObject.gen(:taxon_concept => @tc, :data_object => obj, :data_type => obj.data_type)
+        end
       end
     end
 

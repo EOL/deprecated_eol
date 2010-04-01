@@ -640,35 +640,28 @@ describe DataObject do
     end
 
     it 'should find text data objects for feeds' do
-      [nil, @tc.id].each do |tc_id|
-        res = DataObject.feed_texts(tc_id)
-        res.class.should == Array
-        data_types = res.map {|i| i.data_type_id}.uniq
-        data_types.size.should == 1
-        DataType.find(data_types[0]).should == DataType.find_by_label("Text")
-      end
+      res = DataObject.for_feeds(:text, @tc.id)
+      res.class.should == Array
+      data_types = res.map {|i| i['data_type_id']}.uniq
+      data_types.size.should == 1
+      DataType.find(data_types[0]).should == DataType.find_by_label("Text")
     end
     
     it 'should find image data objects for feeds' do
-      [nil, @tc.id].each do |tc_id|
-        res = DataObject.feed_images(tc_id)
-        res.class.should == Array
-        data_types = res.map {|i| i.data_type_id}.uniq
-        data_types.size.should == 1
-        DataType.find(data_types[0]).should == DataType.find_by_label("Image")
-      end
+      res = DataObject.for_feeds(:images, @tc.id)
+      res.class.should == Array
+      data_types = res.map {|i| i['data_type_id']}.uniq
+      data_types.size.should == 1
+      DataType.find(data_types[0]).should == DataType.find_by_label("Image")
     end
 
     it 'should find image and text data objects for feeds' do
-      [nil, @tc.id].each do |tc_id|
-        res = DataObject.feed_images_and_texts(tc_id)
-        res.class.should == Array
-        data_types = res.map {|i| i.data_type_id}.uniq
-        data_types.size.should == 2
-        data_types = data_types.map {|i| DataType.find(i).label}.sort
-        data_types.should == ["Image", "Text"]
-      end
-      
+      res = DataObject.for_feeds(:all, @tc.id)
+      res.class.should == Array
+      data_types = res.map {|i| i['data_type_id']}.uniq
+      data_types.size.should == 2
+      data_types = data_types.map {|i| DataType.find(i).label}.sort
+      data_types.should == ["Image", "Text"]
     end
 
   end

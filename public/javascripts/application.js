@@ -95,7 +95,7 @@ Event.addBehavior(
     '#tab_media_center #maps a:click': function(e) {
       var map_div = $$('#media-maps div')[0];
       if (map_div && map_div.style.display == 'none') {
-
+          
           var taxon_concept_id = $('map-taxon-concept-id').value;
           var data_server_endpoint = $('map-data-server-endpoint').value;
           var gmap_key = $('map-gmap-key').value;
@@ -103,7 +103,7 @@ Event.addBehavior(
           var tile_server_2 = $('map-tile-server-2').value;
           var tile_server_3 = $('map-tile-server-3').value;
           var tile_server_4 = $('map-tile-server-4').value;
-
+          
           var so = new SWFObject("/EOLSpeciesMap.swf", "swf", "100%", "100%", "9"); 
           so.addParam("allowFullScreen", "true");
           so.addVariable("swf", "");
@@ -112,16 +112,15 @@ Event.addBehavior(
           so.addVariable("taxon_id", taxon_concept_id);
           so.addVariable("data_server_endpoint", data_server_endpoint);
           so.addVariable("gmap_key", gmap_key);
-
+          
           var tileServers = new Array();
           tileServers[0] = tile_server_1;
           tileServers[1] = tile_server_2;
           tileServers[2] = tile_server_3;
           tileServers[3] = tile_server_4;
           so.addVariable("tile_servers", tileServers);
-
-          so.write("media-maps");
-
+          so.write("map-image");
+          
           map_div.style.display = 'block';
       }
       e.stop();

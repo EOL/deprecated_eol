@@ -1,4 +1,6 @@
-#media-maps.wrapper-mc.clearfix{ :style => "display: none;" }
+#media-maps.wrapper-mc.clearfix{ :style => "display: none; height: 400px;" }
+  %p.gbif_disclaimer
+    = external_link_to "This map is based on occurrence records available through GBIF and may not represent the entire taxon distribution", "http://data.gbif.org/species/#{@taxon_concept.gbif_map_id}/"
   %input#map-taxon-concept-id{ :name => "map-taxon-concept-id", :type => "hidden", :value => @taxon_concept.gbif_map_id }
   %input#map-data-server-endpoint{ :name => "map-data-server-endpoint", :type => "hidden", :value => $MAP_DATA_SERVER_ENDPOINT }
   %input#map-gmap-key{ :name => "map-gmap-key", :type => "hidden", :value => $GOOGLE_MAP_API_KEY }
@@ -7,4 +9,5 @@
   %input#map-tile-server-3{ :name => "map-tile-server-3", :type => "hidden", :value => $MAP_TILE_SERVER_3 }
   %input#map-tile-server-4{ :name => "map-tile-server-4", :type => "hidden", :value => $MAP_TILE_SERVER_4 }
   #map-image{ :style => "display:none" }
+  
 / end media-maps

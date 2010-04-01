@@ -411,6 +411,14 @@ div#media-videos {
   background-color: #f4f4f4;
   position: relative;
   z-index: 1000; }
+  #media-maps .gbif_disclaimer {
+    text-align: center;
+    text-decoration: none; }
+    #media-maps .gbif_disclaimer a {
+      text-decoration: none;}
+  #map-image {
+    height: 96%;
+    width: 100%; }
 
 #left-mc {
   float: left;

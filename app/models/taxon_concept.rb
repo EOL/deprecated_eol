@@ -22,6 +22,7 @@ class TaxonConcept < SpeciesSchemaModel
   #TODO belongs_to :taxon_concept_content
   belongs_to :vetted
 
+  has_many :feed_data_objects
   has_many :hierarchy_entries
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
@@ -165,14 +166,14 @@ class TaxonConcept < SpeciesSchemaModel
     return false unless user.curator_approved
     return false unless user.curator_hierarchy_entry_id
     result = SpeciesSchemaModel.connection.select_values("
-      SELECT COUNT(*)
+      SELECT COUNT(*) count
       FROM hierarchy_entries he_root
-      JOIN hierarchy_entries he_child ON (he_child.lft BETWEEN he_root.lft AND he_root.rgt AND he_child.hierarchy_id=he_root.hierarchy_id)
+      JOIN hierarchy_entries he_child ON (he_child.lft BETWEEN he_root.lft AND he_root.rgt AND he_child.hierarchy_id=he_root.hierarchy_id AND he_root.rgt != 0)
       WHERE he_root.id=#{user.curator_hierarchy_entry_id}
       AND he_child.taxon_concept_id=#{id}");
     
-    return true if result.length > 0
-    return false
+    return false if result.length == 0 || result[0].to_i == 0
+    return true
   end
 
   # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)
@@ -1033,6 +1034,17 @@ EOIUCNSQL
     language_id = taxon_concept_name.language.id
     syn_id = taxon_concept_name.synonym.id
     Synonym.find(syn_id).destroy
+  end
+  
+  # only unsed in tests -this would be really slow with real data
+  def data_objects
+    DataObject.find_by_sql("
+      SELECT do.*
+      FROM hierarchy_entries he
+      JOIN taxa t ON (he.id=t.hierarchy_entry_id)
+      JOIN data_objects_taxa dot ON (t.id=dot.taxon_id)
+      JOIN data_objects do ON (dot.data_object_id=do.id)
+      WHERE he.taxon_concept_id=#{self.id}")
   end
 
 #####################

@@ -89,10 +89,13 @@ module EOL
       add_map
       add_toc
       add_iucn
-      gen_random_hierarchy_image
       gen_bhl
       gen_biomedical_terms
+      
+      #denormalized tables
+      gen_random_hierarchy_image
       add_feed_objects
+      add_data_objects_taxon_concepts
     end
 
     # There isn't much involved with the actual TaxonConcept, in terms of the database and/or generation of the model
@@ -249,18 +252,6 @@ module EOL
       # TODO Outlinks: create a Collection related to any agent, and then give it a mapping with a foreign_key that links to some external
       # site. (optionally, you could use collection.uri and replace the FOREIGN_KEY bit)
     end
-    
-    def gen_random_hierarchy_image
-      puts "** Enter: gen_random_hierarchy_image" if @debugging
-      return if @image_objs.blank? or @sname.blank?
-      # TODO - we really don't want to denormalize the names, so remove them (but check that this will work!)
-      options = {:data_object => @image_objs.last,
-                 :name => @sname.italicized,
-                 :hierarchy_entry => @tc.hierarchy_entries[0],
-                 :hierarchy => @tc.hierarchy_entries[0].hierarchy,
-                 :taxon_concept => @tc }
-      RandomHierarchyImage.gen(options)
-    end
 
     # TODO - This is one of the slower methods.
     def gen_bhl
@@ -291,10 +282,33 @@ module EOL
       end
     end
     
+    #
+    # Denormalized Tables
+    #
+    def gen_random_hierarchy_image
+      puts "** Enter: gen_random_hierarchy_image" if @debugging
+      return if @image_objs.blank? or @sname.blank?
+      # TODO - we really don't want to denormalize the names, so remove them (but check that this will work!)
+      options = {:data_object => @image_objs.last,
+                 :name => @sname.italicized,
+                 :hierarchy_entry => @tc.hierarchy_entries[0],
+                 :hierarchy => @tc.hierarchy_entries[0].hierarchy,
+                 :taxon_concept => @tc }
+      RandomHierarchyImage.gen(options)
+    end
+    
     def add_feed_objects
       @tc.data_objects.each do |obj|
         unless FeedDataObject.find_by_taxon_concept_id_and_data_object_id(@tc.id, obj.id)
           FeedDataObject.gen(:taxon_concept => @tc, :data_object => obj, :data_type => obj.data_type)
+        end
+      end
+    end
+    
+    def add_data_objects_taxon_concepts
+      @tc.data_objects.each do |obj|
+        unless DataObjectsTaxonConcept.find_by_taxon_concept_id_and_data_object_id(@tc.id, obj.id)
+          DataObjectsTaxonConcept.gen(:taxon_concept => @tc, :data_object => obj)
         end
       end
     end

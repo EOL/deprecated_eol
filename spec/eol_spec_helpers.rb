@@ -355,6 +355,8 @@ TaxonConcept.class_eval do
     DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item)
     dato.save!
     DataObjectsTaxon.gen(:data_object => dato, :taxon => taxa.first)
+    FeedDataObject.gen(:taxon_concept => self, :data_object => dato, :data_type => dato.data_type)
+    DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
   end
 
   # Add a synonym to this TC.

@@ -126,7 +126,7 @@ module TaxaHelper
     data_supplier_icon = data_supplier ? agent_icons_partial(data_supplier) : ''
     
     return "{author: '"         + escape_javascript(agent_partial(video.authors)) +
-           "', nameString: '"   + escape_javascript(video.scientific_name) +
+           "', nameString: '"   + escape_javascript(video.taxa_names_ids[0]['taxon_name']) +
            "', collection: '"   + escape_javascript(agent_partial(video.sources)) +
            "', location: '"     + escape_javascript(video.location || '') +
            "', info_url: '"     + escape_javascript(video.source_url || '') +

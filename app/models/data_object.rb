@@ -1030,22 +1030,20 @@ class DataObject < SpeciesSchemaModel
     data_type_ids = DataObject.get_type_ids(type)
     
     query_string = %Q{
-(SELECT DISTINCT dt.label media_type, dato.*, t.scientific_name, he.taxon_concept_id taxon_id,
+(SELECT dt.label media_type, dato.*, dotc.taxon_concept_id taxon_id,
        l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}, v.view_order as vetted_view_order
-  FROM hierarchy_entries he
-    JOIN taxa t                ON (he.id = t.hierarchy_entry_id)
-    JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
-    JOIN data_objects dato     ON (dot.data_object_id = dato.id)
+  FROM data_objects_taxon_concepts dotc
+    JOIN data_objects dato     ON (dotc.data_object_id = dato.id)
     JOIN vetted v              ON (dato.vetted_id=v.id)
     JOIN data_types dt         ON (dato.data_type_id = dt.id)
     #{join_agents} #{join_toc}
     LEFT OUTER JOIN licenses l       ON (dato.license_id = l.id)
-  WHERE he.taxon_concept_id = #{taxon.id}
+  WHERE dotc.taxon_concept_id = #{taxon.id}
     AND data_type_id IN (#{data_type_ids.join(',')})
     #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
     #{where_toc})
 UNION
-(SELECT dt.label media_type, dato.*, '' scientific_name, taxon_concept_id taxon_id, l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}, v.view_order vetted_view_order
+(SELECT dt.label media_type, dato.*, taxon_concept_id taxon_id, l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}, v.view_order vetted_view_order
 FROM data_objects dato
 JOIN vetted v              ON (dato.vetted_id=v.id)
 JOIN #{ UsersDataObject.full_table_name } udo ON (dato.id=udo.data_object_id)

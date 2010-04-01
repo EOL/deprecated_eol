@@ -510,6 +510,11 @@ Factory.define :data_objects_taxon do |dot|
   dot.identifier  '' # No idea what this is supposed to be, but it cannot be nil
 end
 
+Factory.define :data_objects_taxon_concept do |fdo|
+  fdo.association :taxon_concept
+  fdo.association :data_object
+end
+
 Factory.define :data_type do |dt|
   dt.schema_value ''
   dt.label        { Factory.next(:string) }

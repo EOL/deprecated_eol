@@ -2248,7 +2248,13 @@ div#nagivation-choose-hierarchy {
     padding-bottom: 1px;
 }
 div#nagivation-choose-hierarchy select {
-    font-size: 10px;
+    font-size: 11px;
     font-family: arial, helvetica, sans-serif;
-    width: 240px;
-}
+    width: 240px; }
+    div#nagivation-choose-hierarchy option.in {
+        font-weight: bold;
+    }
+    div#nagivation-choose-hierarchy option.out {
+        font-weight: lighter;
+        font-size: 9px;
+    }

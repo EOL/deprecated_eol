@@ -140,7 +140,7 @@ describe 'Taxa page (HTML)' do
       @result = RackBox.request("/pages/#{@id}")
       @result.body.should include(@ping_url)
     end
-
+    
     it 'should show the Overview text by default' do
       @result = RackBox.request("/pages/#{@id}")
       @result.body.should have_tag('div.cpc-header') do
@@ -148,13 +148,13 @@ describe 'Taxa page (HTML)' do
       end
       @result.body.should include(@overview_text)
     end
-
+    
     it 'should NOT show references for the overview text when there aren\'t any' do
       Ref.delete_all
       @result = RackBox.request("/pages/#{@id}")
       @result.body.should_not have_tag('div.references')
     end
-
+    
     it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
       full_ref = 'This is the reference text that should show up'
       # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
@@ -177,28 +177,28 @@ describe 'Taxa page (HTML)' do
       new_result.body.should_not include(bad_identifier)
       new_result.body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
     end
-
+    
     it 'should NOT show references for the overview text when reference is invisible' do
       full_ref = 'This is the reference text that should show up'
       @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
       new_result = RackBox.request("/pages/#{@id}")
       new_result.body.should_not have_tag('div.references')
     end
-
+    
     it 'should NOT show references for the overview text when reference is unpublished' do
       full_ref = 'This is the reference text that should show up'
       @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
       new_result = RackBox.request("/pages/#{@id}")
       new_result.body.should_not have_tag('div.references')
     end
-
+    
     it 'should allow html in user-submitted text' do
       @result = RackBox.request("/pages/#{@id}")
       @result.body.should match(@description_bold)
       @result.body.should match(@description_ital)
       @result.body.should match(@description_link)
     end
-
+    
     # I hate to do this, since it's SO SLOW, but:
     it 'should render an "empty" page in authoritative mode' do
       tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
@@ -207,34 +207,34 @@ describe 'Taxa page (HTML)' do
       this_result.body.should_not include('Internal Server Error')
       this_result.body.should have_tag('h1') # Whatever, let's just prove that it renders.
     end
-
+    
     it 'should show the Catalogue of Life link in Specialist Projects' do
       this_result = RackBox.request("/pages/#{@taxon_concept.id}?category_id=#{TocItem.specialist_projects.id}")
       this_result.body.should include(@col_collection.title)
     end
-
+    
     it 'should show the Catalogue of Life link in the header' do
       body = RackBox.request("/pages/#{@taxon_concept.id}").body
       body.should include("recognized by <a href=\"#{@col_mapping.url}\"")
     end
-
+    
     it 'should show a Nucleotide Sequences table of content item if concept in NCBI and has identifier' do
       # make an entry in NCBI for this concept and give it an identifier
       sci_name = Name.gen(:string => Factory.next(:scientific_name))
       entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
                   :identifier => 1234,
                   :hierarchy => Hierarchy.ncbi )
-
+  
       body = RackBox.request("/pages/#{@taxon_concept.id}").body
       body.should include("Nucleotide Sequences")
     end
-
+    
     it 'should show not a Nucleotide Sequences table of content item if concept in NCBI and does not have an identifier' do
       # make an entry in NCBI for this concept and dont give it an identifier
       sci_name = Name.gen(:string => Factory.next(:scientific_name))
       entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
                   :hierarchy => Hierarchy.ncbi )
-
+  
       body = RackBox.request("/pages/#{@taxon_concept.id}").body
       body.should_not include("Nucleotide Sequences")
     end
@@ -268,55 +268,55 @@ describe 'Taxa page (HTML)' do
       login_as @user_with_nil_hierarchy
       res = request("/pages/#{@ncbi_tc.id}")
       res.should include_text("Name not in #{Hierarchy.default.label.gsub("&", "&amp;")}")
-      res.should include_text("selected=\"selected\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector default
-      res.should include_text("<option value=\"#{@ncbi.id}\">#{@ncbi.label}</option>") # selector
+      res.body.should match /selected='selected' value='[0-9]+'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector default
+      res.body.should match /value='#{@ncbi.id}'>\s*#{@ncbi.label}\s*<\/option>/ # selector
     end
 
     it "should see 'not in hierarchy' message when the user has NCBI hierarchy and page is not in NCBI" do
       login_as @user_with_ncbi_hierarchy
       res = request("/pages/#{@default_tc.id}")
       res.should include_text("Name not in #{@ncbi.label}")
-      res.should include_text("selected=\"selected\">#{@ncbi.label}</option>") # selector default
-      res.should include_text("<option value=\"#{Hierarchy.default.id}\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector
+      res.body.should match /selected='selected' value='[0-9]+'>\s*#{@ncbi.label}\s*<\/option>/ # selector default
+      res.body.should match /value='#{Hierarchy.default.id}'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector
     end
 
     it "should not show a hierarchy in the drop down list when it doesnt treat the current concept" do
       login_as @user_with_ncbi_hierarchy
       res = request("/pages/#{@ncbi_tc.id}")
-      res.should include_text("selected=\"selected\">#{@ncbi.label}</option>") # selector default
-      res.should_not include_text("<option value=\"#{Hierarchy.default.id}\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>")
+      res.body.should match /selected='selected' value='[0-9]+'>\s*#{@ncbi.label}\s*<\/option>/ # selector default
+      res.body.should match /class='out' value='#{Hierarchy.default.id}'>\s*#{Hierarchy.default.label}\s*<\/option>/
     end
 
     it "should recognize the browsable hierarchy attribute" do
       res = request("/pages/#{@taxon_concept.id}")
-      res.should include_text("selected=\"selected\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector default
-      res.should include_text("<option value=\"#{@ncbi.id}\">#{@ncbi.label}</option>")
-      res.should include_text("<option value=\"#{@browsable_hierarchy.id}\">#{@browsable_hierarchy.label}</option>")
-      res.should_not include_text("<option value=\"#{@non_browsable_hierarchy.id}\">#{@non_browsable_hierarchy.label}</option>")
+      res.body.should match /selected='selected' value='[0-9]+'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector default
+      res.body.should match /value='#{@ncbi.id}'>\s*#{@ncbi.label}\s*<\/option>/
+      res.body.should match /value='#{@browsable_hierarchy.id}'>\s*#{@browsable_hierarchy.label}\s*<\/option>/
+      res.body.should_not match /value='#{@non_browsable_hierarchy.id}'>\s*#{@non_browsable_hierarchy.label}\s*<\/option>/
     end
 
     it "should attribute the default hierarchy when the user doesn't specify one and the page is in both hierarchies" do
       login_as @user_with_nil_hierarchy
       res = request("/pages/#{@common_tc.id}")
-      res.should include_text("recognized by <a href=\"#{Hierarchy.default.agent.homepage.strip}")
-      res.should include_text("selected=\"selected\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector default
-      res.should include_text("<option value=\"#{@ncbi.id}\">#{@ncbi.label}</option>") # selector
+      res.should include_text("recognized by <a href=\"#{Hierarchy.default.agent.homepage.strip}");
+      res.body.should match /selected='selected' value='[0-9]+'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector default
+      res.body.should match /value='#{@ncbi.id}'>\s*#{@ncbi.label}\s*<\/option>/ # selector
     end
 
     it "should attribute the default hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_default_hierarchy
       res = request("/pages/#{@common_tc.id}")
       res.should include_text("recognized by <a href=\"#{Hierarchy.default.agent.homepage.strip}")
-      res.should include_text("selected=\"selected\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector default
-      res.should include_text("<option value=\"#{@ncbi.id}\">#{@ncbi.label}</option>") # selector
+      res.body.should match /selected='selected' value='[0-9]+'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector default
+      res.body.should match /value='#{@ncbi.id}'>\s*#{@ncbi.label}\s*<\/option>/ # selector
     end
 
     it "should use the label from the NCBI hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_ncbi_hierarchy
       res = request("/pages/#{@common_tc.id}")
-      res.should include_text("recognized by <a href=\"#{@ncbi.agent.homepage.strip}")
-      res.should include_text("selected=\"selected\">#{@ncbi.label}</option>") # selector default
-      res.should include_text("<option value=\"#{Hierarchy.default.id}\">#{Hierarchy.default.label.gsub("&", "&amp;")}</option>") # selector
+      res.body.should match /recognized by <a href=\"#{@ncbi.agent.homepage.strip}/
+      res.body.should match /selected='selected' value='[0-9]+'>\s*#{@ncbi.label}\s*<\/option>/ # selector default
+      res.body.should match /value='#{Hierarchy.default.id}'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector
     end
   end
 
@@ -368,17 +368,17 @@ describe 'Taxa page (HTML)' do
     @result = RackBox.request("/pages/#{@id}")
     @result.body.should have_tag('a', :text => /#{@toc_item_with_no_trusted_items.label}/)
   end
-
+  
   it 'should show info item label for the overview text when there isn\'t an object_title' do
     info_item_title = InfoItem.find(:last)
     data_object = @taxon_concept.overview.first
     DataObjectsInfoItem.gen(:data_object => data_object, :info_item => InfoItem.find(:last))
-
+  
     data_object.object_title = ""
     data_object.save!
     new_result = RackBox.request("/pages/#{@id}")
     new_result.body.should include(info_item_title.label)
-
+  
     # show object_title if it exists
     data_object.object_title = "Some Title"
     data_object.save!
@@ -386,7 +386,7 @@ describe 'Taxa page (HTML)' do
     new_result.body.should include(data_object.object_title)
     new_result.body.should_not include(info_item_title.label)        
   end
-
+  
   it 'should show images on the page' do 
     tc = build_taxon_concept(:images => 
       [{:vetted => Vetted.untrusted}, 

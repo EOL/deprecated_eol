@@ -515,6 +515,13 @@ Factory.define :data_type do |dt|
   dt.label        { Factory.next(:string) }
 end
 
+Factory.define :feed_data_object do |fdo|
+  fdo.association :taxon_concept
+  fdo.association :data_object
+  fdo.association :data_type
+  fdo.created_at      { 2.hours.ago }
+end
+
 Factory.define :harvest_event do |he|
   he.association :resource
   he.began_at     { 5.hours.ago }

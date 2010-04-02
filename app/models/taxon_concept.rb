@@ -964,7 +964,9 @@ EOIUCNSQL
     end
     
     # remove text subjects not asked for
-    object_hash.delete_if {|obj| obj['data_type_id'] == text_id && !options[:text_subjects].include?(obj['info_item_label'])}
+    if !options[:text_subjects].include?('all')
+      object_hash.delete_if {|obj| obj['data_type_id'] == text_id && !options[:text_subjects].include?(obj['info_item_label'])}
+    end
     
     # remove items over the limit
     types_count = {}

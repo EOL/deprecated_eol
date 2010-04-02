@@ -392,8 +392,11 @@ class DataObject < SpeciesSchemaModel
   end
 
   def self.cache_path(cache_url, subdir = $CONTENT_SERVER_CONTENT_PATH)
-    (ContentServer.next + subdir +
-      cache_url.to_s.gsub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/, "/\\1/\\2/\\3/\\4/\\5"))
+    (ContentServer.next + subdir + self.cache_url_to_path(cache_url))
+  end
+  
+  def self.cache_url_to_path(cache_url)
+    cache_url.to_s.gsub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/, "/\\1/\\2/\\3/\\4/\\5")
   end
 
   def self.image_cache_path(cache_url, size = :large, subdir = $CONTENT_SERVER_CONTENT_PATH)

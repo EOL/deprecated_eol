@@ -2,7 +2,10 @@
   %head
     %title
       EOL API:
-      = details_hash['scientific_name'] || 'page not found'
+      - if details_hash.blank?
+        Page not found
+      - else
+        = details_hash['scientific_name'] || 'page not found'
     = stylesheet_link_tag 'api'
   %body
     - unless details_hash.blank?

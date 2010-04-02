@@ -507,12 +507,10 @@ class DataObject < SpeciesSchemaModel
       @taxon_concepts ||= [taxon_concept_for_users_text]
     else
       @taxon_concepts ||= TaxonConcept.find_by_sql(["
-        SELECT tc.* FROM data_objects do
-        JOIN data_objects_taxa dot ON (do.id=dot.data_object_id)
-        JOIN taxa t ON (dot.taxon_id=t.id)
-        JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
-        JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id)
-        WHERE do.id=? -- DataObject#taxon_concepts
+        SELECT tc.*
+        FROM data_objects_taxon_concepts dotc
+        JOIN taxon_concepts tc ON (dotc.taxon_concept_id=tc.id)
+        WHERE dotc.data_object_id=? -- DataObject#taxon_concepts
       ", self.id])
     end
   end
@@ -1171,7 +1169,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
       end    
     end
     
-    return obj_toc_info    
+    return obj_toc_info
   end
   
   def self.get_dataobjects(obj_ids,page) 
@@ -1184,13 +1182,23 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   
   
   
-  def self.details_for_object(data_object_guid)
+  def self.details_for_object(data_object_guid, options = {})
     data_object = DataObject.find_by_guid(data_object_guid, :conditions => "published=1 AND visibility_id=#{Visibility.visible.id}", :order => "id desc")
     return [] if data_object.nil?
     
     details = self.details_for_objects([data_object.id])
     return [] if details.blank?
-    details[0]
+    first_obj = details[0]
+    
+    # create the objects taxon and place the object inside
+    if options[:include_taxon]
+      obj = DataObject.find(first_obj['id'])
+      tc = obj.taxon_concepts[0]
+      return tc.details_hash(:data_object_hash => first_obj)
+    end
+    
+    # return the object alone
+    return first_obj 
   end
   
   def self.details_for_objects(data_object_ids, options = {})

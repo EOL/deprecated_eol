@@ -8,12 +8,12 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
   "xmlns:geo" => "http://www.w3.org/2003/01/geo/wgs84_pos#",
   "xsi:schemaLocation" => "http://www.eol.org/transfer/content/0.3 http://services.eol.org/schema/content_0_3.xsd" do                                                                                                               
   
-  unless @details_hash.blank?
+  unless details_hash.blank?
     xml.taxon do
-      xml.dc :identifier, @details_hash['id']
-      xml.dwc :ScientificName, @details_hash['scientific_name']
-      for object in @details_hash["data_objects"]
-        if @complete_objects
+      xml.dc :identifier, details_hash['id']
+      xml.dwc :ScientificName, details_hash['scientific_name']
+      for object in details_hash["data_objects"]
+        if data_object_details
           xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :object_hash => object } )
         else
           xml << render(:partial => 'data_object_minimal.xml.builder', :layout => false, :locals => { :object_hash => object } )

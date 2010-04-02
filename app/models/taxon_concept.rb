@@ -900,21 +900,24 @@ EOIUCNSQL
   def details_hash(options = {})
     options[:return_media_limit] ||= 3
     options[:return_text_limit] ||= 1
-    if options[:subject]
-      options[:text_subjects] = [options[:subject]]
+    if options[:subjects]
+      options[:text_subjects] = options[:subjects].split("|")
     else
       options[:text_subjects] = ['TaxonBiology', 'GeneralDescription', 'Description']
     end
     
-    image_ids = top_image_ids(options)
-    non_image_ids = top_non_image_ids(options)
+    if options[:data_object_hash]
+      # needs to be an array
+      data_object_hash = [ options[:data_object_hash] ]
+    else
+      image_ids = top_image_ids(options)
+      non_image_ids = top_non_image_ids(options)
+      data_object_hash = DataObject.details_for_objects(image_ids + non_image_ids, :skip_metadata => !options[:details])
+    end
     
-    data_object_hash = DataObject.details_for_objects(image_ids + non_image_ids, :skip_metadata => !options[:details])
     details_hash = {  'data_objects'      => data_object_hash,
                       'id'                => self.id,
                       'scientific_name'   => quick_scientific_name}
-    
-    details_hash
   end
   
   def top_image_ids(options = {})
@@ -934,18 +937,16 @@ EOIUCNSQL
   def top_non_image_ids(options = {})
     return [] if options[:return_media_limit] == 0 && options[:return_text_limit] == 0
     object_hash = SpeciesSchemaModel.connection.execute("
-      SELECT do.*, v.view_order vetted_view_order, toc.view_order toc_view_order, ii.label info_item_label
-        FROM hierarchy_entries he
-        JOIN taxa t ON (he.id = t.hierarchy_entry_id)
-        JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
-        JOIN data_objects do ON (dot.data_object_id = do.id)
+      SELECT do.id, do.data_type_id, do.data_rating, v.view_order vetted_view_order, toc.view_order toc_view_order, ii.label info_item_label
+        FROM data_objects_taxon_concepts dotc
+        JOIN data_objects do ON (dotc.data_object_id = do.id)
         LEFT JOIN vetted v ON (do.vetted_id=v.id)
         LEFT JOIN (
            info_items ii
            JOIN table_of_contents toc ON (ii.toc_id=toc.id)
            JOIN data_objects_table_of_contents dotoc ON (toc.id=dotoc.toc_id)
           ) ON (do.id=dotoc.data_object_id)
-        WHERE he.taxon_concept_id = #{self.id}
+        WHERE dotc.taxon_concept_id = #{self.id}
         AND do.published = 1
         AND do.visibility_id = #{Visibility.visible.id}
         AND data_type_id NOT IN (#{DataType.image.id}, #{DataType.iucn.id}, #{DataType.gbif_image.id})

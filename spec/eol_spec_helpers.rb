@@ -358,6 +358,17 @@ TaxonConcept.class_eval do
     FeedDataObject.gen(:taxon_concept => self, :data_object => dato, :data_type => dato.data_type)
     DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
   end
+  
+  # Add a specific toc item to this TC's toc:
+  def add_data_object(dato, options = {})
+    if dato.data_type_id == DataType.text.id
+      DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => dato.info_items[0].toc_item)
+      dato.save!
+    end
+    DataObjectsTaxon.gen(:data_object => dato, :taxon => taxa.first)
+    FeedDataObject.gen(:taxon_concept => self, :data_object => dato, :data_type => dato.data_type)
+    DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
+  end
 
   # Add a synonym to this TC.
   def add_scientific_name_synonym(name_string, options = {})

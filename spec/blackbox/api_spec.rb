@@ -67,6 +67,9 @@ describe 'EOL XML APIs' do
     @object.refs << Ref.gen(:full_reference => 'first reference')
     @object.refs << Ref.gen(:full_reference => 'second reference')
     @taxon_concept.add_data_object(@object)
+    
+    @text = @taxon_concept.data_objects.delete_if{|d| d.data_type_id != DataType.text.id}
+    @images = @taxon_concept.data_objects.delete_if{|d| d.data_type_id != DataType.image.id}
   end
   
   # after(:all) do
@@ -133,6 +136,12 @@ describe 'EOL XML APIs' do
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
   end
   
+  it 'should be able to return ALL subjects' do 
+    response = request("/api/pages/#{@taxon_concept.id}?text=5&subjects=all")
+    xml_response = Nokogiri.XML(response.body)
+    xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
+  end
+  
   it 'should be able to get more details on data objects' do
     response = request("/api/pages/#{@taxon_concept.id}?image=1&text=0&details=1")
     xml_response = Nokogiri.XML(response.body)
@@ -141,6 +150,15 @@ describe 'EOL XML APIs' do
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 2
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 2
+  end
+  
+  it 'should be able to render an HTML version of the page' do
+    response = request("/api/pages/#{@taxon_concept.id}?subjects=Distribution&text=2&format=html")
+    response.body.should include '<html'
+    response.body.should include '</html>'
+    response.body.should match /<title>\s*EOL API:\s*#{@taxon_concept.entry.name_object.string}/
+    response.body.should include @object.description
+    response.body.should include DataObject.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
   end
   
   
@@ -223,5 +241,13 @@ describe 'EOL XML APIs' do
     xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL').length.should == 2
     xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[1]').inner_text.should == @object.object_url
     xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[2]').inner_text.gsub(/\//, '').should include(@object.object_cache_url.to_s)
+  end
+  
+  it 'should be able to render an HTML version of the page' do
+    response = request("/api/data_objects/#{@object.guid}?format=html")
+    response.body.should include '<html'
+    response.body.should include '</html>'
+    response.body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts[0].entry.name_object.string}/
+    response.body.should include @object.description
   end
 end

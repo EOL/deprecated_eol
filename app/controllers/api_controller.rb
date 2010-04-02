@@ -3,21 +3,19 @@ class ApiController < ApplicationController
     taxon_concept_id = params[:id] || 0
     params[:images] ||= 1
     params[:text] ||= 1
-    @complete_objects = params[:details]
-    
     params[:images] = 30 if params[:images].to_i > 30
     params[:text] = 30 if params[:text].to_i > 30
     
     taxon_concept = TaxonConcept.find(taxon_concept_id)
     unless taxon_concept.nil? || !taxon_concept.published?
-      @details_hash = taxon_concept.details_hash(:return_media_limit => params[:images].to_i, :subject => params[:subject], :return_text_limit => params[:text].to_i, :details => params[:details])
+      details_hash = taxon_concept.details_hash(:return_media_limit => params[:images].to_i, :subjects => params[:subjects], :return_text_limit => params[:text].to_i, :details => params[:details])
     end
     
     if params[:format] == 'html'
       render :layout => false
     else
       respond_to do |format|
-         format.xml { render :layout=>false }
+         format.xml { render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => params[:details] } ) }
       end
     end
   end
@@ -25,12 +23,12 @@ class ApiController < ApplicationController
   def data_objects
     data_object_guid = params[:id] || 0
     
-    @details_hash = DataObject.details_for_object(data_object_guid)
+    details_hash = DataObject.details_for_object(data_object_guid, :include_taxon => true)
     if params[:format] == 'html'
       render :layout => false
     else
       respond_to do |format|
-        format.xml { render :layout=>false }
+        format.xml { render(:partial => 'pages', :layout => false, :locals => { :details_hash => details_hash, :data_object_details => true } ) }
       end
     end
   end

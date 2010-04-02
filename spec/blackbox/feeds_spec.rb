@@ -1,5 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+def h(str)
+  CGI.escapeHTML str
+end
+
 describe 'Curator Feeds' do
   before(:all) do
     Scenario.load('foundation')

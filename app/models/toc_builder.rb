@@ -70,27 +70,35 @@ private
   end
 
   def add_special_toc_entries_to_toc_based_on_tc_id(toc, taxon_concept, options)
-
+    
     # Add specialist projects if there are entries in the mappings table for this name:
     if Mapping.specialist_projects_for?(taxon_concept.id)
       toc << TocEntry.new(TocItem.specialist_projects)
     end
-
+    
     # Add BHL content if there are corresponding page_names
     if PageName.page_names_for?(taxon_concept.id)
       toc << TocEntry.new(TocItem.bhl)
     end
-
+    
+    if TaxonConcept.related_names_for?(taxon_concept.id)
+      toc << TocEntry.new(TocItem.related_names)
+    end
+    
+    if TaxonConcept.synonyms_for?(taxon_concept.id)
+      toc << TocEntry.new(TocItem.synonyms)
+    end
+    
     # Add common names content if there Common Names:
     if TaxonConcept.common_names_for?(taxon_concept.id) || (!options[:user].nil? && options[:user].can_curate?(taxon_concept))
       toc << TocEntry.new(TocItem.common_names)
     end
-
+    
     # Add Medical Concepts if there is a LigerCat tag cloud available:
     if !Collection.ligercat.nil? && Mapping.specialist_projects_for?(taxon_concept.id, :collection_id => Collection.ligercat.id)
       toc << TocEntry.new(TocItem.biomedical_terms)
     end
-
+    
     # Add Literature references entry if references exists
     if Ref.literature_references_for?(taxon_concept.id)
       toc << TocEntry.new(TocItem.literature_references)

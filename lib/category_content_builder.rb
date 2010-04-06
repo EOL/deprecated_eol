@@ -23,6 +23,10 @@ class CategoryContentBuilder
 
     if sub_name == "biodiversity_heritage_library"
       content.merge! biodiversity_heritage_library(options)
+    elsif sub_name == "related_names"
+      content.merge! related_names(options)
+    elsif sub_name == "synonyms"
+      content.merge! synonyms(options)
     elsif sub_name == "common_names"
       content.merge! common_names(options)
     elsif sub_name == "biomedical_terms"
@@ -70,7 +74,15 @@ private
     return {:items => sorted_items}
 
   end
-
+  
+  def related_names(options)
+    return {:items => TaxonConcept.related_names(options[:taxon_concept_id])}
+  end
+  
+  def synonyms(options)
+    return {:items => TaxonConcept.synonyms(options[:taxon_concept_id])}
+  end
+  
   def common_names(options)
     unknown = Language.unknown.label
     names = EOL::CommonNameDisplay.find_by_taxon_concept_id(options[:taxon_concept_id])

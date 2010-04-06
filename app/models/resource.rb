@@ -30,9 +30,9 @@ class Resource < SpeciesSchemaModel
 
   # trying to change it to memcache got error after reload a page
   def self.iucn
-    YAML.load(Rails.cache.fetch('resources/iucn') do
-      Agent.iucn.resources.to_yaml
-    end)
+    Rails.cache.fetch('resources/iucn') do
+      Agent.iucn.resources[0]
+    end
   end
 
   def status_label

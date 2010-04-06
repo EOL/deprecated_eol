@@ -1,0 +1,14 @@
+= content_partner_step_navigation :page_header => @page_header
+%strong
+  Transfer Schema Upload
+%br
+%p
+  Now that you have accepted and are ready to use the EOL Transfer Schema format, you can indicate
+  where we can find these XML files in order to process them.  You can return to this site at any time
+  to indicate new datasets or updates of existing datasets.  To begin, click Save and Continue.
+= eol_lang_error_messages_for :content_partner
+- form_for @content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'transfer_form' } do |f|
+  = content_partner_save_type_hidden_field
+%br
+.button
+  = content_partner_submit_buttons :id => 'transfer_form'

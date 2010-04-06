@@ -1,15 +1,5 @@
 module ContentPartnerHelper
   
-  def content_partner_top_navigation(options = {})
-    raise ArgumentError unless options[:page_header]
-    render :partial => 'content_partner/top_navigation', :locals => { :page_header => options[:page_header] }
-  end
-
-  def content_partner_side_navigation(options = {})
-    raise ArgumentError unless options[:page_header]
-    render :partial => 'content_partner/side_navigation', :locals => { :page_header => options[:page_header] }
-  end
-  
   def content_partner_step_navigation(options = {})
     raise ArgumentError unless options[:page_header]  
     render :partial => 'content_partner/step_navigation', :locals => { :page_header => options[:page_header] }

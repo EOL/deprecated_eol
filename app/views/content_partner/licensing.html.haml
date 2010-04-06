@@ -1,0 +1,49 @@
+= content_partner_step_navigation :page_header => @page_header
+%strong
+  Licensing Policy
+%p{ :style => "margin: 10px 0 10px 0;" }
+  To the greatest extent possible, the Encyclopedia of Life promotes an open‐source, open‐access
+  approach. Therefore, it requires that content providers (including the EOL’s core participants) serving
+  information through the EOL agree to the following provisions:
+%ol
+  %li{ :style => "margin-bottom: 10px;" }
+    Content providers warrant and represent that the content they provide under this Agreement either is in the public domain, that they hold the rights, or that they have obtained the necessary permissions from the rights-holders to use, reproduce and disseminate the content for use in the Encyclopedia.
+  %li{ :style => "margin-bottom: 10px;" }
+    All information currently in the public domain will remain in the public domain. Neither the
+    EOL nor the content providers will seek to assert any IPR over any public domain materials that
+    are made available through the EOL.
+  %li{ :style => "margin-bottom: 10px;" }
+    Content providers are required to adopt a
+    %a{ :href => "http://creativecommons.org/licenses/by/3.0/" }
+      Creative Commons
+    license for the information that
+    they serve through the EOL. Except for public‐domain content, the default and preferred
+    license is CC‐BY (Attribution), which allows users to copy, transmit and reuse the information,
+    and to remix or adapt the information, as long as attribution regarding the source of the
+    information is maintained.
+  %li{ :style => "margin-bottom: 10px;" }
+    Content providers who request some restrictions on re‐use of their information may select an
+    alternate Creative Commons license from the list below.  Details about each of these licenses is available on the
+    %a{ :href => "http://creativecommons.org/about/licenses", :target => "_blank" }
+      Creative Commons
+    website.
+    %ul.helplist
+      %li
+        CC‐BY‐SA - Attribution‐ShareAlike
+      %li
+        CC‐BY‐NC - Attribution‐NonCommercial
+      %li
+        CC‐BY‐NC‐SA - Attribution‐NonCommercial‐ShareAlike
+  %li{ :style => "margin-bottom: 10px;" }
+    The EOL will provide attribution information for all content that it serves. EOL will also indicate
+    the Creative Commons license attached to each object (text, structured data, graphics,
+    multimedia, etc.).
+= eol_lang_error_messages_for :content_partner, :header_message => nil, :message => nil
+- form_for @content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'license_form' } do |f|
+  = f.check_box :ipr_accept
+  = f.label :ipr_accept, "I have read and understand the EOL Licensing Policy.", :style => 'display: inline'
+  %br
+  = content_partner_save_type_hidden_field
+%br
+.button
+  = content_partner_submit_buttons :id => 'license_form'

@@ -2,7 +2,7 @@
 <legend><%= "Contact"[] %></legend>
 
 <div class = "form_item">
-<label <span>*</span> - required fields</label>
+<label><span>*</span> - required fields</label>
 </div>                         
 
 <div class = "form_item">

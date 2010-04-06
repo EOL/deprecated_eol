@@ -1,0 +1,37 @@
+This information will allow us to make contact with you.  It will not be visible on the EOL web site. You must have at least one contact.
+= link_to("Add New Contact", { :action => 'add_contact' })
+%br
+= eol_lang_error_messages_for :agent
+%table.results_table{ :width => "100%" }
+  %tr
+    %th
+      Contacts
+    %th
+      Role
+    %th{ :style => "width: 100px;" }
+      Options
+  %tbody
+    - for contact in @agent_contacts
+      - column_class=cycle('odd','even')
+      %tr
+        %td{ :class => column_class }
+          = h(contact.full_name)
+          %br
+          %a{ :href => "mailto:#{h(contact.email)}" }
+            = h(contact.email)
+          %br
+          = h(contact.telephone) + "<br />" unless contact.telephone.blank?
+          = h(contact.address) + "<br />" unless contact.address.blank?
+        %td{ :class => column_class }
+          = contact.agent_contact_role.label
+        %td{ :class => column_class }
+          = link_to("Change", { :action => 'edit_contact', :id => contact })
+          \|
+          = link_to("Delete", { :action => 'del_contact', :id => contact }, :confirm => "Are you sure you want to delete this contact?")
+  %tbody
+- form_for @agent, :url => { :action => action_name }, :html => { :method => :post, :id => 'contacts_form' } do |f|
+  %input#save_type{ :name => "save_type", :type => "hidden", :value => "stay" }
+  = content_partner_save_type_hidden_field
+%br
+.button
+  = content_partner_submit_buttons :id => 'contacts_form'

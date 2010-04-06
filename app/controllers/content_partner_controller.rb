@@ -4,12 +4,12 @@ class ContentPartnerController < ApplicationController
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   helper_method :current_agent, :agent_logged_in?
 
+  layout :main_if_no_partner
+
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login,:register,:profile]
   end
-  
-  layout 'main'
-  
+
   # Dashboard
   def index
     @page_header='Content Partner Dashboard'    
@@ -19,6 +19,7 @@ class ContentPartnerController < ApplicationController
     page = params[:page] || '1'
     per_page = 36
     @content_partner = ContentPartner.find_harvested_by_full_name(params[:id])
+    @content_partner ||= current_agent.content_partner unless current_agent.nil?
     taxon_concept_results = @content_partner.nil? ? nil : @content_partner.concepts_for_gallery(page.to_i, per_page)
     if taxon_concept_results.nil?
       @taxon_concepts = nil
@@ -136,7 +137,8 @@ class ContentPartnerController < ApplicationController
     end    
   end
   
-  # NOT BEING USED FOR NOW
+  # NOT BEING USED FOR NOW (but there is a field for this in the DB, so until we're ready to migrate that away, we're keeping
+  # it here.
   def specialist_overview
     @page_header='Specialist Project Overview'
     @agent = current_agent
@@ -167,9 +169,6 @@ class ContentPartnerController < ApplicationController
     
   end  
  
-  def preview
-  end
-
   # General methods for misc things
   # ------------------------------------------
 
@@ -179,10 +178,6 @@ class ContentPartnerController < ApplicationController
     redirect_to :controller=>'content', :action=>'contact_us', :return_to=>CGI.escape(params[:return_to]),:default_name=>current_agent.full_name,:default_email=>current_agent.email,:default_subject=>'Content Partner Support'
     return
     
-  end
-    
-  def help
-    @page_header="Help"
   end
     
   def agreement
@@ -325,7 +320,6 @@ class ContentPartnerController < ApplicationController
   def login
     
     redirect_to(:controller => '/content_partner', :action => 'index', :protocol => 'http://') and return if agent_logged_in?    
-    
     return unless request.post?
 
     # log out any logged in web user to avoid any funny conflicts
@@ -402,6 +396,10 @@ class ContentPartnerController < ApplicationController
     def handle_save_type(options = {})
       raise ArgumentError unless options[:stay] && options[:next]      
       redirect_to(save_type == 'save' ? options[:stay] : options[:next])
+    end
+
+    def main_if_no_partner
+      current_agent.nil? ? 'main' : 'content_partner'
     end
   
 end

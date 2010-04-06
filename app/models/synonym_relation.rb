@@ -7,6 +7,14 @@ class SynonymRelation < SpeciesSchemaModel
       self.find_by_label('Synonym')
     end
   end
+  
+  def self.common_name_ids
+    Rails.cache.fetch('synonym_relations/common_names') do
+       [SynonymRelation.find_or_create_by_label('common name').id,
+        SynonymRelation.find_or_create_by_label('genbank common name').id]
+    end
+  end
+  
 
 end
 # == Schema Info

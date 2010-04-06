@@ -121,13 +121,13 @@ describe TaxonConcept do
     tc.iucn_conservation_status.should == iucn_status
   end
   
-  it 'should have an IUCN conservation status even if it comes from another IUCN resource' do
+  it 'should NOT have an IUCN conservation status even if it comes from another IUCN resource' do
     tc = build_taxon_concept()
     iucn_status = Factory.next(:iucn)
     (hierarchy, resource) = build_secondary_iucn_hierarchy_and_resource
     build_iucn_entry(tc, iucn_status, :hierarchy => hierarchy,
                                                   :event => HarvestEvent.gen(:resource => resource))
-    tc.iucn_conservation_status.should == iucn_status
+    tc.iucn_conservation_status.should == 'NOT EVALUATED'
   end
   
   it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do

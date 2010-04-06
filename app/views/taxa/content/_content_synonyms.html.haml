@@ -1,0 +1,22 @@
+
+- for syn_hash in @content[:items]
+  %b
+    = syn_hash['hierarchy_label']
+  %br
+  Preferred Name: 
+  = syn_hash['preferred_name']
+  %table.results_table
+    %tr
+      %th
+        Name
+      %th
+        Relationship
+    - for synonym in syn_hash['synonyms']
+      - row_class = cycle('odd', 'even')
+      %tr
+        %td{:class => row_class}
+          = synonym['name'] 
+        %td{:class => row_class}
+          = synonym['relationship']
+  %br
+  %br

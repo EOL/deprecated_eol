@@ -1,0 +1,46 @@
+
+- unless @content[:items]['parents'].blank?
+  %b
+    Parents:
+  %br
+  %table.results_table
+    %tr
+      %th
+        Name
+      %th
+        Sources
+    - @content[:items]['parents'].each do |key, related_hash|
+      - row_class = cycle('odd', 'even')
+      %tr
+        %td{:class => row_class, :valign => 'top'}
+          %a{:href => "/pages/#{related_hash['taxon_concept_id']}?category_id=#{TocItem.related_names.id}"}
+            = related_hash['name_string']
+        %td{:class => row_class}
+          - for source in related_hash['sources']
+            = source['hierarchy_label']
+            - if source != related_hash['sources'].last
+              %hr.results
+  %br
+  %br
+- unless @content[:items]['children'].blank?
+  %b
+    Children:
+  %br
+  %table.results_table
+    %tr
+      %th
+        Name
+      %th
+        Sources
+    - @content[:items]['children'].each do |key, related_hash|
+      - row_class = cycle('odd', 'even')
+      %tr
+        %td{:class => row_class, :valign => 'top'}
+          %a{:href => "/pages/#{related_hash['taxon_concept_id']}?category_id=#{TocItem.related_names.id}"}
+            = related_hash['name_string']
+        %td{:class => row_class}
+          - for source in related_hash['sources']
+            = source['hierarchy_label']
+            - if source != related_hash['sources'].last
+              %hr.results
+            

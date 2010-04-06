@@ -19,8 +19,10 @@ describe 'build_taxon_concept (spec helper method)' do
     @taxon_concept_naked.current_user = User.gen(:vetted => true) # Otherwise things aren't empty
   end
 
-  it 'should be able to make a TC with no common names and an empty TOC' do
-    @taxon_concept_naked.table_of_contents.blank?.should be_true
+  it 'should be able to make a TC with no common names and an (mostly) empty TOC' do
+    @taxon_concept_naked.table_of_contents.size.should == 2
+    @taxon_concept_naked.table_of_contents[0].label.should == 'Names and Taxonomy'
+    @taxon_concept_naked.table_of_contents[1].label.should == 'Synonyms'
   end
 
   it 'should not have a common name by defaut' do

@@ -1,0 +1,66 @@
+:javascript
+  // ajax call to determine if username is unique
+  function check_username() {
+    new Ajax.Request('/content_partner/check_username/', { parameters: { username: $('agent_username').value }, asynchronous:true, evalScripts:true});
+  }
+
+  // instant feedback to user about password matching
+  function check_passwords() {
+    if ($('agent_password').value != $('agent_password_confirmation').value) {
+      $('password_warn').innerHTML="#{escape_javascript('Passwords must match'[])}.";
+    }
+    else {
+      $('password_warn').innerHTML='';
+    }
+  }
+#page-separator-general
+/ page title
+#page-title
+  %h1= "Registration"[]
+  %hr
+/ end of page title
+#page-content.clearfix
+  / center page content
+  #full-page-content
+    Welcome:  This is the registration page for people and projects who want their information to be shown on EOL species pages to
+    register with us.   If you just wish to register as an EOL user, please
+    == #{link_to 'go to the user registration page',register_url}.
+    This process is designed for partners with structured data (data in databases).  We will gather some information,  create a license agreement, and  confirm  that your data are configured so that they can be easily acquired by EOL.  You must be authorized to make a licensing agreement, and you must have made agreements with the individuals who have contributed information to you.
+    %br
+    %br
+    Note that the account you create below is for your project and may be shared amongst others in the project.
+    = eol_lang_error_messages_for :agent
+    - form_for @agent, :url => { :controller => '/content_partner', :action => 'register' }, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f|
+      %fieldset
+        %legend
+          = "Account Information"[]
+        .form_item
+          = f.label :username, "#{'Username'[]} (4-16 characters) <span title='required'>*</span>"
+          / agent_username ^[a-zA-Z0-9\-_]{4,16}$ false true //
+          = f.text_field :username, :maxlength => 16, :onblur => "check_username()"
+          %span#username_warn.error
+        .form_item
+          = f.label :password, "#{'Password'[]} (4-16 characters) <span title='required'>*</span>"[]
+          / agent_password ^[a-zA-Z0-9\-_]{4,16}$ false true //
+          = f.password_field :password, :maxlength => 16
+        .form_item
+          = f.label :password_confirmation, "Confirm Password"[]
+          / agent_password_confirmation ^[a-zA-Z0-9\-_]{4,16}$ false true //
+          = f.password_field :password_confirmation, :maxlength => 16, :onblur => "check_passwords()"
+          %span#password_warn.error
+        .form_item
+          = f.label :email, "#{'Email Address'[]} <span title='required'>*</span>"[]
+          / agent_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //
+          = f.text_field :email, :maxlength => 75, :size => 50
+        .form_item
+          = f.label :project_name, "Project Name <span title='required'>*</span>"
+          = f.text_field :project_name, :maxlength => 100, :size => 50
+        %label
+          %span{ :title => "required" }
+            *
+          \- required fields
+        .button
+          = submit_tag "Register Now"[] + ' &#187;'
+        %br
+        = link_to 'Cancel'[:cancel], :action=>'login'
+    %br

@@ -1,0 +1,10 @@
+<%= eol_lang_error_messages_for :agent_contact, :header_message => "Contact Errors"[] %>
+
+<% form_for @agent_contact, :url => { :action => 'edit_contact' }, :html => { :method => :post, :id => 'contact_form', :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f| %>
+    <%= render :partial => 'contact_form', :locals => { :f => f }%>        
+<% end -%>
+
+<br /><br />
+<div class="button">                        
+    <%= content_partner_submit_buttons :id => 'contact_form' %>
+</div>

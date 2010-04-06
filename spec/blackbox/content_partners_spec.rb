@@ -39,7 +39,7 @@ describe 'Content Partners' do
       he.taxa << image.taxa[0]
     end
     body = request("/content_partner/content/#{cp.agent.full_name}").body
-    body.should include("#{cp.agent.full_name} has contributed to a total of 1 pages")
+    body.should have_tag('div#content_partner_stats', :text => /#{cp.description}\s+has contributed to a total of\s+1\s+pages/)
     body.should include("pages/#{image.taxa[0].hierarchy_entry.taxon_concept.id}")
   end
 

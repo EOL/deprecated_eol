@@ -1,0 +1,10 @@
+<%= eol_lang_error_messages_for :content_partner %>
+
+<% form_for @content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'transfer_form' } do |f| %>
+    <%= content_partner_save_type_hidden_field %>
+<% end -%>
+
+<br /><br />
+<div class="button">
+    <%= content_partner_submit_buttons :id => 'transfer_form' %>
+</div>                    

@@ -779,12 +779,20 @@ ul#tab_media_center {
 div.attribution .credit {
   width: 100%;
   text-align: left; }
-  div.attribution .credit .footer {
+  div.credit .footer {
     width: 100%;
     border-bottom: 1px solid #E6E7E8;
     clear: both;
     overflow: hidden;
     height: 1px; }
+
+hr.results {
+  color: #E6E7E8;
+  background-color: #E6E7E8;
+  width: 200px;
+  height: 1px;
+  display: block;
+  border: 0px;}
 
 .credit-title {
   text-transform: uppercase;

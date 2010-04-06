@@ -208,7 +208,7 @@ module EOL
       end
 
       def iucn_harvest_event
-        find_or_build_harvest_event(Resource.iucn[0])
+        find_or_build_harvest_event(Resource.iucn)
       end
 
     end

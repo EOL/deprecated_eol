@@ -12,8 +12,8 @@ describe Agent do
   end
 
   describe "iucn" do
-    it 'returns an array of IUCN resources' do
-      Resource.iucn.sort_by {|r| r.id }.should == [@iucn_resource1, @iucn_resource2]
+    it 'returns the first IUCN resource' do
+      Resource.iucn.should == @iucn_resource1
     end
   end
 

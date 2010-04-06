@@ -21,9 +21,27 @@ class TocItem < SpeciesSchemaModel
     end
   end
   
+  def self.name_and_taxonomy
+    Rails.cache.fetch('toc_items/names_and_taxonomy') do
+      TocItem.find_or_create_by_label('Names and Taxonomy')
+    end
+  end
+  
+  def self.related_names
+    Rails.cache.fetch('toc_items/related_names') do
+      TocItem.find_by_label_and_parent_id('Related Names', self.name_and_taxonomy.id)
+    end
+  end
+  
+  def self.synonyms
+    Rails.cache.fetch('toc_items/synonyms') do
+      TocItem.find_by_label_and_parent_id('Synonyms', self.name_and_taxonomy.id)
+    end
+  end
+  
   def self.common_names
     Rails.cache.fetch('toc_items/common_names') do
-      TocItem.find_by_label('Common Names')
+      TocItem.find_by_label_and_parent_id('Common Names', self.name_and_taxonomy.id)
     end
   end
   

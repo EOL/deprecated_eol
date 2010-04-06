@@ -262,7 +262,7 @@ iucn_resource = create_if_not_exists Resource, :title => 'Initial IUCN Import'
 create_if_not_exists AgentsResource, :resource => iucn_resource, :agent => Agent.iucn
 
 # This is out of ourder, of course, because it depends on the IUCN resource.
-create_if_not_exists HarvestEvent, :resource_id => Resource.iucn[0].id
+create_if_not_exists HarvestEvent, :resource_id => iucn_resource.id
 
 create_if_not_exists ResourceAgentRole, :label => 'Administrative'
 create_if_not_exists ResourceAgentRole, :label => 'Data Administrator'
@@ -301,15 +301,18 @@ create_if_not_exists TocItem, :label => 'Overview', :view_order => 1
 description = create_if_not_exists TocItem, :label => 'Description', :view_order => 2
 create_if_not_exists TocItem, :label => 'Nucleotide Sequences', :view_order => 3, :parent_id => description.id
 ecology_and_distribution = create_if_not_exists TocItem, :label => 'Ecology and Distribution', :view_order => 4
-create_if_not_exists TocItem, :label => 'Common Names', :view_order => 50
-create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 51
-ref_and_info = create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 52
+names_and_taxonomy = create_if_not_exists TocItem, :label => 'Names and Taxonomy', :view_order => 50
+create_if_not_exists TocItem, :label => 'Related Names', :view_order => 51, :parent_id => names_and_taxonomy.id
+create_if_not_exists TocItem, :label => 'Synonyms', :view_order => 52, :parent_id => names_and_taxonomy.id
+create_if_not_exists TocItem, :label => 'Common Names', :view_order => 53, :parent_id => names_and_taxonomy.id
+create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 61
+ref_and_info = create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 62
 
 # Note that in all these "children", the view_order resets.  ...That reflects the real DB.
-create_if_not_exists TocItem, :label => 'Literature References',         :view_order => 54, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 55, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Biomedical Terms',              :view_order => 56, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 57, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Literature References',         :view_order => 64, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 65, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Biomedical Terms',              :view_order => 66, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 67, :parent_id => ref_and_info.id
 
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology', :label => 'TaxonBiology', :toc_item => TocItem.overview
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription', :label => 'GeneralDescription', :toc_item => description

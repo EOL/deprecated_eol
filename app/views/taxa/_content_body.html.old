@@ -1,5 +1,0 @@
-<% if @content %>
-  <div id="insert_text"></div>
-  <% pname = "taxa/content/content_#{@content[:content_type]}" %>
-  <%= render(:partial => pname) %>
-<% end %>

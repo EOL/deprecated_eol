@@ -652,22 +652,23 @@ class TaxonConcept < SpeciesSchemaModel
     # Notice that we use find_by, not find_all_by.  We require that only one match (or no match) is found.
     # TODO - hack on [].flatten to handle two cases, which we currently have between prod and dev.  Fix this in the
     # next iteration (any after 2.9):
-    my_iucn = DataObject.find_by_sql([<<EOIUCNSQL, id, [Resource.iucn].flatten.map(&:id)]).first
-
-    SELECT distinct do.*
-      FROM hierarchy_entries he
-        JOIN taxa t ON (he.id = t.hierarchy_entry_id)
-        JOIN harvest_events_taxa het ON (t.id = het.taxon_id)
-        JOIN harvest_events hevt ON (het.harvest_event_id = hevt.id)
-        JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
-        JOIN data_objects do ON (dot.data_object_id = do.id)
-      WHERE he.taxon_concept_id = ?
-        AND hevt.resource_id IN (?)
-        AND do.published = 1
-      ORDER BY do.id desc
-      LIMIT 1 # TaxonConcept.iucn
-
-EOIUCNSQL
+    iucn_objects = DataObject.find_by_sql("
+        SELECT do.*
+          FROM hierarchy_entries he
+            JOIN taxa t ON (he.id = t.hierarchy_entry_id)
+            JOIN harvest_events_taxa het ON (t.id = het.taxon_id)
+            JOIN harvest_events hevt ON (het.harvest_event_id = hevt.id)
+            JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
+            JOIN data_objects do ON (dot.data_object_id = do.id)
+          WHERE he.taxon_concept_id = #{self.id}
+            AND hevt.resource_id IN (#{Resource.iucn.id})
+            AND do.published = 1")
+    
+    iucn_objects.sort! do |a,b|
+      b.id <=> a.id
+    end
+    my_iucn = iucn_objects[0] || nil
+    
     temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/', :description => 'NOT EVALUATED') : my_iucn
     temp_iucn.instance_eval { def agent_url; return Agent.iucn.homepage; end }
     @iucn = temp_iucn
@@ -896,6 +897,106 @@ EOIUCNSQL
   
   
   
+  def self.synonyms(taxon_concept_id)
+    syn_hash = SpeciesSchemaModel.connection.execute("
+      SELECT n_he.string preferred_name, n_s.string synonym, sr.label relationship, h.label hierarchy_label
+      FROM hierarchy_entries he
+      JOIN synonyms s ON (he.id=s.hierarchy_entry_id)
+      JOIN hierarchies h ON (he.hierarchy_id=h.id)
+      JOIN names n_he ON (he.name_id=n_he.id)
+      JOIN names n_s ON (s.name_id=n_s.id)
+      LEFT JOIN synonym_relations sr ON (s.synonym_relation_id=sr.id)
+      WHERE he.taxon_concept_id=#{taxon_concept_id}
+      AND h.browsable=1
+      AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
+    ").all_hashes.uniq
+    
+    syn_hash.sort! do |a,b|
+      if a['hierarchy_label'] == b['hierarchy_label']
+        a['synonym'] <=> b['synonym']
+      else
+        a['hierarchy_label'] <=> b['hierarchy_label']
+      end
+    end
+    
+    # grouped = {}
+    # for syn in syn_hash
+    #   key = syn['synonym'].downcase
+    #   grouped[key] ||= {'name_string' => parent['synonym'], 'sources' => []}
+    #   grouped[key]['sources'] << parent
+    # end
+    # grouped.each do |key, hash|
+    #   hash['sources'].sort! {|a,b| a['hierarchy_label'] <=> b['hierarchy_label']}
+    # end
+    # grouped = grouped.sort {|a,b| a[0] <=> b[0]}
+    
+    # group synonyms by hierarchy
+    grouped = []
+    working_hash = {}
+    last_hierarchy = nil
+    for syn in syn_hash
+      if syn['hierarchy_label'] != last_hierarchy
+        grouped << working_hash unless working_hash.empty?
+        working_hash = {'hierarchy_label' => syn['hierarchy_label'],
+                        'preferred_name'  => syn['preferred_name'],
+                        'synonyms'        => []}
+      end
+      syn['relationship'] = 'synonym' if syn['relationship'].nil?
+      ar = {'name' => syn['synonym'], 'relationship' => syn['relationship']}
+      working_hash['synonyms'] << ar
+      last_hierarchy = syn['hierarchy_label']
+    end
+    grouped << working_hash unless working_hash.empty?
+    
+    return grouped
+  end
+  
+  def self.related_names(taxon_concept_id)
+    parents = SpeciesSchemaModel.connection.execute("
+      SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id, h.label hierarchy_label
+      FROM hierarchy_entries he_parent
+      JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
+      JOIN names n ON (he_parent.name_id=n.id)
+      JOIN hierarchies h ON (he_child.hierarchy_id=h.id)
+      WHERE he_child.taxon_concept_id=#{taxon_concept_id}
+      AND browsable=1
+    ").all_hashes.uniq
+    
+    children = SpeciesSchemaModel.connection.execute("
+      SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_child.taxon_concept_id, h.label hierarchy_label
+      FROM hierarchy_entries he_parent
+      JOIN hierarchy_entries he_child ON (he_parent.id=he_child.parent_id)
+      JOIN names n ON (he_child.name_id=n.id)
+      JOIN hierarchies h ON (he_parent.hierarchy_id=h.id)
+      WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
+      AND browsable=1
+    ").all_hashes.uniq
+    
+    grouped_parents = {}
+    for parent in parents
+      key = parent['name_string'].downcase+"|"+parent['taxon_concept_id']
+      grouped_parents[key] ||= {'taxon_concept_id' => parent['taxon_concept_id'], 'name_string' => parent['name_string'], 'sources' => []}
+      grouped_parents[key]['sources'] << parent
+    end
+    grouped_parents.each do |key, hash|
+      hash['sources'].sort! {|a,b| a['hierarchy_label'] <=> b['hierarchy_label']}
+    end
+    grouped_parents = grouped_parents.sort {|a,b| a[0] <=> b[0]}
+    
+    grouped_children = {}
+    for child in children
+      key = child['name_string'].downcase+"|"+child['taxon_concept_id']
+      grouped_children[key] ||= {'taxon_concept_id' => child['taxon_concept_id'], 'name_string' => child['name_string'], 'sources' => []}
+      grouped_children[key]['sources'] << child
+    end
+    grouped_children.each do |key, hash|
+      hash['sources'].sort! {|a,b| a['hierarchy_label'] <=> b['hierarchy_label']}
+    end
+    grouped_children = grouped_children.sort {|a,b| a[0] <=> b[0]}
+    
+    combined = {'parents' => grouped_parents, 'children' => grouped_children}
+  end
+  
   # for API
   def details_hash(options = {})
     options[:return_media_limit] ||= 3
@@ -1004,7 +1105,31 @@ EOIUCNSQL
                          FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
                          WHERE tcn.taxon_concept_id = ? AND vern = 0', id])
   end
-
+  
+  def self.related_names_for?(taxon_concept_id)
+    has_parents = TaxonConcept.count_by_sql("SELECT 1
+                                      FROM hierarchy_entries he
+                                      WHERE he.taxon_concept_id=#{taxon_concept_id}
+                                      AND parent_id!=0
+                                      LIMIT 1") > 0
+    return true if has_parents
+    
+    return TaxonConcept.count_by_sql("SELECT 1
+                                      FROM hierarchy_entries he
+                                      JOIN hierarchy_entries he_children ON (he.id=he_children.parent_id)
+                                      WHERE he.taxon_concept_id=#{taxon_concept_id}
+                                      LIMIT 1") > 0
+  end
+  
+  def self.synonyms_for?(taxon_concept_id)
+    return TaxonConcept.count_by_sql("SELECT 1
+                                      FROM hierarchy_entries he
+                                      JOIN synonyms s ON (he.id=s.hierarchy_entry_id)
+                                      WHERE he.taxon_concept_id=#{taxon_concept_id}
+                                      AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
+                                       LIMIT 1") > 0
+  end
+  
   def self.common_names_for?(taxon_concept_id)
     return TaxonConcept.count_by_sql(['SELECT 1 FROM taxon_concept_names tcn 
                                         WHERE taxon_concept_id = ? 

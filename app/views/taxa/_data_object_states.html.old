@@ -1,4 +1,0 @@
-<li class="unpublished_icon status_icon"<%=' style="display:none;"' unless !dato.published?%> title="Unpublished" ></li>
-<li class="published_icon status_icon"<%=' style="display:none;"' unless dato.published? && agent_logged_in? && !dato.data_supplier_agent.blank? && current_agent.id == dato.data_supplier_agent.id%> title="Published" ></li>
-<li class="inappropriate_icon status_icon"<%=' style="display:none;"' unless dato.inappropriate?%> title="Inappropriate" ></li>
-<li class="invisible_icon status_icon"<%=' style="display:none;"' unless dato.invisible?%> title="Hidden" ></li>

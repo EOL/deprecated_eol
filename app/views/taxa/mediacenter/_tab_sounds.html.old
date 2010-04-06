@@ -1,3 +1,0 @@
-<div id="media-sounds" class="wrapper-mc clearfix" style="display: none;">
-  <h3><%= "Sounds"[] %></h3>
-</div>

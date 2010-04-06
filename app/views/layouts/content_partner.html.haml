@@ -1,0 +1,72 @@
+- @page_header ||= 'Reports'
+- inside_layout 'main' do
+  #page-separator-general
+  #page-title
+    #cp-desc-personal{ :style => "float: right; width: 400px; margin-right: 20px; margin-top: 5px; text-align:right;" }
+      Welcome
+      = current_agent.full_name || current_agent.username
+      %br
+      = link_to "Logout",:controller=>'/content_partner',:action => 'logout'
+      \&nbsp; | &nbsp;
+      = link_to "Account Profile",:controller=>'/content_partner',:action => 'profile'
+      \&nbsp; | &nbsp;
+      = link_to "Contact Us",:action => 'contact_us', :return_to=>CGI.escape(request.request_uri)
+    %h1
+      = @page_header
+    %hr
+  #page-content.clearfix
+    #page-content-bgfauxinside
+      #full-page-content
+        #left-pane
+          - in_dashboard_section = @page_header.downcase.include?('dashboard')
+          - in_partner_section = @page_header.downcase=='partner information'
+          - in_contacts_section = (@page_header.downcase=='contact information' || @page_header.downcase=='add contact' || @page_header.downcase=='edit contact')
+          - in_agreements_section = @page_header.downcase.include?('partnering')
+          - in_resources_section = @page_header.downcase.include?('resource')
+          - in_reports_section = @page_header.downcase.include?('reports')
+          %ul#toc.content_partner
+            %li
+              = link_to 'DASHBOARD',{:controller=>'/content_partner',:action=>'index'},:class=>"#{in_dashboard_section ? 'active' : ''} toc_item"
+            %li
+              = link_to 'PARTNER INFORMATION',{:controller=>'/content_partner',:action=>'partner'},:class=>"#{in_partner_section ? 'active' : ''} toc_item"
+            %li
+              = link_to 'CONTACT INFORMATION',{:controller=>'/content_partner',:action=>'contacts'},:class=>"#{in_contacts_section ? 'active' : ''} toc_item"
+            %li
+              = link_to 'PARTNERING STEPS',{:controller=>'/content_partner',:action=>'licensing'},:class=>"#{in_agreements_section ? 'active' : ''} toc_item"
+            - if in_agreements_section
+              %li
+                = link_to 'Licensing Policy',{:controller=>'/content_partner',:action=>'licensing'}, :class=>"#{(@content_partner.step  == :licensing) ? 'active': ''} nested toc_item"
+              %li
+                = link_to 'Attribution Guidelines',{:controller=>'/content_partner',:action=>'attribution'}, :class=>"#{(@content_partner.step  == :attribution) ? 'active': ''} nested toc_item"
+              %li
+                = link_to 'Roles',{:controller=>'/content_partner',:action=>'roles'}, :class=>"#{(@content_partner.step  == :roles) ? 'active': ''} nested toc_item"
+              %li
+                = link_to 'Transfer Schema Overview',{:controller=>'/content_partner',:action=>'transfer_overview'}, :class=>"#{(@content_partner.step  == :transfer_overview) ? 'active': ''} nested toc_item"
+              %li
+                = link_to 'Transfer Schema Upload',{:controller=>'/content_partner',:action=>'transfer_upload'}, :class=>"#{(@content_partner.step  == :transfer_upload) ? 'active': ''} nested toc_item"
+            - if current_agent.ready_for_agreement?
+              %li
+                = link_to "YOUR AGREEMENT", {:controller=>'/content_partner',:action => "agreement"} ,  {:class=>'toc_item',:target=>"_new"}
+              %li
+                = link_to 'MANAGE RESOURCES', resources_url, :class=>"#{in_resources_section ? 'active' : ''} toc_item"
+            %li
+              %a{ :href => url_for(:controller=>'/content_partner',:action=>'reports'), :class => "#{in_reports_section ? 'active' : ''} toc_item" }
+                USAGE REPORTS
+              - if controller.is_a? ContentPartner::ReportsController
+                %li
+                  = link_to 'Monthly Page Statistics',{:controller=>'/content_partner/reports', :action=>'monthly_page_stats'}, :class=>"#{(@report_type  == :page_stats) ? 'active': ''} nested toc_item"
+                %li
+                  = link_to 'Data Object Harvested Statistics',{:controller=>'/content_partner/reports', :action=>'data_object_stats'}, :class=>"#{(@report_type  == :data_object_stats) ? 'active': ''} nested toc_item"
+                %li
+                  = link_to 'Curation and Comments',{:controller=>'/content_partner/reports', :action=>'whole_report'}, :class=>"#{(@report_type  == :whole_report) ? 'active': ''} nested toc_item"
+                %li
+                  = link_to 'Comments',{:controller=>'/content_partner/reports', :action=>'comments_report'}, :class=>"#{(@report_type  == :comments_report) ? 'active': ''} nested toc_item"
+                %li
+                  = link_to 'Curation Activity',{:controller=>'/content_partner/reports', :action=>'statuses_report'}, :class=>"#{(@report_type  == :statuses_report) ? 'active': ''} nested toc_item"
+                  <li><haml:silent>#= link_to report_class.report_name,{ :controller =&amp;gt; '/content_partner/reports', :action =&amp;gt; report_class.path}, :class=&amp;gt;'toc_item' </haml:silent></li>
+                  </ul>
+        #right-pane
+          #content_partner_edit_area
+            - # using content_partner_edit_area for its styles to be consistent
+            = yield
+          #message_area.message

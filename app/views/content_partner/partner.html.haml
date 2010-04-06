@@ -1,5 +1,3 @@
-= render :partial=> 'top',:locals=>{:page_header => @page_header}
-/ begin form
 This form provides information about the project or other source of information.  Some of the information will be visible on the web site.
 = eol_lang_error_messages_for :agent
 - form_for @agent, :url => { :action => action_name }, :html => { :method => :post, :multipart => true, :id => 'partner_form' } do |f|
@@ -66,5 +64,3 @@ This form provides information about the project or other source of information.
   %br
   .button
     = content_partner_submit_buttons :id => 'partner_form'
-/ end form
-= render :partial=> 'bottom'

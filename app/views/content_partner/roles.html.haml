@@ -1,0 +1,94 @@
+= content_partner_step_navigation :page_header => @page_header
+%strong
+  Roles & Conditions of Use
+%p{ :style => "margin: 10px 0 10px 0;" }
+  In providing its content to EOL,
+  = @agent.project_name
+  will:
+%ul
+  %li
+    Provide its content via a format and interchange method compatible with the EOL.
+  %li
+    Provide data objects as-is with no warranty or claim of fitness for purpose.
+  %li
+    Respond to the originators of comments or feedback communicated to
+    = @agent.project_name
+    via the EOL regarding its content.
+  %li
+    Work with the EOL to improve the quality of the provided data objects and reduce errors.
+  %li
+    Comply with the Creative Commons licenses of any EOL content from other Content Partners that it may choose to use for its own purposes and to provide full attribution in the specified manner of the license.
+  %li
+    Be able to display the EOL logo on its web site.
+  %li
+    Allow EOL to provide names from partner's content to the
+    %a{ :href => "http://globalnames.org", :target => "_blank" }
+      Global Names Index
+    website.  GNI collects names and provides links back to source projects, further increasing the visibility of
+    = @agent.project_name
+    \.
+%p{ :style => "margin: 10px 0 10px 0;" }
+  In handling the content provided by
+  = @agent.project_name
+  , EOL will:
+%ul
+  %li
+    Provide tools and methods to enable
+    = @agent.project_name
+    to provide its content to the EOL.
+  %li
+    Cache
+    = @agent.project_name
+    's data objects along with similar content from other sources on EOL's servers.
+  %li
+    Attribute all of
+    = @agent.project_name
+    's data objects according to its preferred Creative Commons licenses and in the manner specified by
+    = @agent.project_name
+    \.
+  %li
+    Present or pass along
+    = @agent.project_name
+    's data objects to others using web services (such as APIs) which will carry the same Creative Commons licenses and specified manner of attribution.
+  %li
+    Not encourage or answer requests to provide all or major components of
+    = @agent.project_name
+    's content to other data providers. Rather, such requests for re-usage will be forwarded to
+    = @agent.project_name
+    \.
+  %li
+    Not alter the data objects provided; however EOL will enable annotations or comments to be added.
+  %li
+    Notify
+    = @agent.project_name
+    of any comments or feedback received about its data objects.
+  %li
+    Work with
+    = @agent.project_name
+    to improve the quality of the provided data objects and reduce errors.
+  %li
+    Notify
+    = @agent.project_name
+    of statistics about the usage of its data objects.
+  %li
+    Enable
+    = @agent.project_name
+    to access content from the EOL and to use that content on
+    = @agent.project_name
+    's own server or site according to the terms of the Creative Commons licenses for that content.
+  %li
+    EOL will show
+    = @agent.project_name
+    's logo and project description on its list of Content Partners.
+  %li
+    EOL may elect at its sole discretion to present all, portions or none of any data objects provided by
+    = @agent.project_name
+    and reserves the right to redact or remove any illegal, offensive, or objectionable content.
+= eol_lang_error_messages_for :content_partner, :header_message => nil, :message => nil
+- form_for @content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'license_form' } do |f|
+  = f.check_box :roles_accept
+  = f.label :roles_accept, "I have read and agree to the Content Partner Roles Overview.", :style => 'display: inline'
+  = content_partner_save_type_hidden_field
+%br
+.button
+  = content_partner_submit_buttons :id => 'license_form'

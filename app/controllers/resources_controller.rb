@@ -5,7 +5,7 @@ class ResourcesController < ApplicationController
   #Opened for a malicious administrator who enters url by hand
   before_filter :agent_login_required, :resource_must_belong_to_agent, :agent_must_be_agreeable, :unless => :is_user_admin?
   
-  layout 'main'
+  layout 'content_partner'
 
   make_resourceful do
 

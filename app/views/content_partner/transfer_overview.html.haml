@@ -1,0 +1,35 @@
+= content_partner_step_navigation :page_header => @page_header
+%strong
+  Transfer Schema Overview
+%br
+%br
+= eol_lang_error_messages_for :content_partner
+%p
+  In order to provide your content to the Encyclopedia of Life in an automated fashion, we request that
+  content partners use the EOL approved Transfer Schema, which is an XML file format containing
+  all of the information and meta-data required to move and update your data into the Encyclopedia of Life.
+  If you are unable to generate XML in this transfer schema format, we may not be able to efficiently index and display your content.
+  We can assist you, so please
+  = link_to 'contact us',:action=>'contact_us',:return_to=>request.request_uri
+  \.
+  %span.highlight
+    If you are providing data to EOL via a
+    %a{ :href => "http://www.lifedesks.org/", :target => "_blank" }
+      LifeDesk
+    , this XML file will be created automatically when you generate your endpoint (Site Settings:EOL Partnership:Make Endpoint). LifeDesk users do not need to review the transfer schema documentation. Simply check the box below and proceed.
+%br
+%br
+%a{ :href => "http://services.eol.org/schema/EOL_Transfer_Schema_Documentation.pdf" }
+  Download the EOL Transfer Schema Documentation
+%img{ :title => "PDF", :src => "/images/bioGUID/page_white_acrobat.png", :border => "0", :alt => "PDF" }
+%br
+%a{ :href => "/files/pdfs/docs/EOL_Transfer_Schema_Glossary.pdf" }
+  Download the EOL Transfer Schema Glossary
+%img{ :title => "PDF", :src => "/images/bioGUID/page_white_acrobat.png", :border => "0", :alt => "PDF" }
+- form_for @content_partner, :url => { :action => action_name }, :html => { :method => :post, :id => 'transfer_form' } do |f|
+  = content_partner_save_type_hidden_field
+  = f.check_box :transfer_schema_accept
+  = f.label :transfer_schema_accept, "I have read and understand the EOL Transfer Schema Documentation.", :style => 'display: inline'
+%br
+.button
+  = content_partner_submit_buttons :id => 'transfer_form'

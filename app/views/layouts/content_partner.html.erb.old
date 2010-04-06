@@ -1,9 +1,8 @@
 <% inside_layout 'main' do %>
   <div id="page-separator-general"></div>
-
   <!-- page title -->
   <div id="page-title">
-    <%= content_partner_top_navigation :page_header => 'Reports' %> <%# <----TODO this needs to be dynamic %>
+    <%= content_partner_top_navigation :page_header => @page_header || 'Reports' %> <%# <----TODO this needs to be dynamic %>
   </div>
   <!-- /page title -->
   <div id="page-content" class="clearfix">
@@ -11,7 +10,7 @@
       <!-- center page content -->
       <div id="full-page-content">
         <div id="left-pane">
-          <%= content_partner_side_navigation :page_header => 'Reports' %> <%# <----TODO this needs to be dynamic %>
+					<%= content_partner_side_navigation :page_header => @page_header || 'Reports'  %>
         </div>
         <div id="right-pane">                        
           <div id="content_partner_edit_area"> <%# using content_partner_edit_area for its styles to be consistent %>

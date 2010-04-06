@@ -1,0 +1,41 @@
+- if @content_partner.nil?
+  #page-title
+    %h1
+      No content partner
+      %i
+        = @content_partner.description
+- else
+  #browse_content_partner_species
+    #page-title
+      %h1
+        Pages with content contributed by
+        = @content_partner.description
+    #content_partner_stats
+      = @content_partner.description
+      has contributed to a total of
+      = @taxon_concepts_count
+      pages.
+    - if !@taxon_concepts.nil?
+      = will_paginate @taxon_concepts
+      %table#content-partners-species
+        %tr
+          - @taxon_concepts.each_with_index do |tc, i|
+            - classname='image'
+            - if i % 6 == 5
+              - classname+='-last'
+              - last_cell = true
+            %td{ :class => classname }
+              %a{ :href => "/pages/#{tc['id']}" }
+                %img{ :src => tc['image_src'], :border => "0" }
+              %br
+              %div{ :id => "top_name_#{i}" }
+                %a{ :href => "/pages/#{tc['id']}" }
+                  = tc['name_string']
+              - if !tc['partner_source_url'].nil? && !tc['partner_source_url'].empty?
+                %small
+                  (
+                  = external_link_to('view source page', tc['partner_source_url'])
+                  )
+            - if last_cell
+              %tr
+      = will_paginate @taxon_concepts

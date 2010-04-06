@@ -1,5 +1,3 @@
-<%= render :partial=> '/content_partner/top',:locals=>{:page_header => 'Manage Resources'} %>
-
 <div id="resources">
   <p>This area is used to notify EOL of a resource (i.e. data set) that is available for processing and 
 	entry in the EOL database.  You can either upload
@@ -47,4 +45,3 @@
 
 <%= link_to 'Create a new resource description', new_resource_path %>
 </div>
-<%= render :partial=> '/content_partner/bottom' %>

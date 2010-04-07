@@ -1,0 +1,18 @@
+%li
+  %p
+    Text description
+    "
+    = truncate(act_history.udo_parent_text.description, 30)
+    "
+    was added to
+    "
+    = act_history.udo_parent_text.toc_items[0].label
+    "
+    on "
+    %a{ :href => "<haml:loud> url_for(:controller=&gt;'/taxa', :action=&gt;'show',\n            :id=&gt;act_history.taxon_concept_id) </haml:loud>", :target => "_blank" }
+      = act_history.taxon_concept_name
+    "
+    by
+    = curator_or_plain_username(act_history.user)
+    = act_date
+    ago

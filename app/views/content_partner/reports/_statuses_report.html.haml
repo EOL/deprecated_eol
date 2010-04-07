@@ -1,0 +1,20 @@
+%li
+  %p
+    = act_history.data_object_type_label
+    - if act_history.data_object_type_label == 'Text'
+      for "
+      = act_history.toc_label
+      "
+    on "
+    %a{ :href => "<haml:loud> url_for(:controller=&gt;'/taxa', :action=&gt;'show',\n          :id=&gt;act_history.taxon_concept_id) </haml:loud>", :target => "_blank" }
+      = act_history.taxon_concept_name
+    "
+    was changed to "
+    = current_act
+    " by
+    = curator_or_plain_username(act_history.user)
+    = act_date
+    ago
+    - if act_history.data_object_type_label == 'Image'
+      %br
+      = image_tag act_history.data_object.smart_thumb,  :alt => hh(act_history.taxon_concept_name)

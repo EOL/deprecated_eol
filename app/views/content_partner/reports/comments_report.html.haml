@@ -1,0 +1,13 @@
+#report_from_eol
+  %h2
+    = @sub_page_header
+  - if @act_histories.empty?
+    Nothing To Report
+  = will_paginate(@act_histories)
+  %ul
+    - for act_history in @act_histories
+      - if act_history.changeable_object_type_id == 2
+        - act_date = time_ago_in_words(act_history.created_at)
+        - current_act = act_history.action_with_object.action_code
+        = render :partial=> 'content_partner/reports/comments_report.html.erb', :locals=>{:act_history => act_history,  :act_date => act_date, :current_act => current_act}
+  = will_paginate(@act_histories)

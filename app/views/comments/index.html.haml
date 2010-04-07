@@ -1,0 +1,25 @@
+.text-comments-head
+  %h3
+    Comments on
+    = @title
+  %hr
+- if @type
+  %img#comment-image{ :src => @parent.smart_image }
+- else
+  %p
+    %b
+      TODO
+    \- display other parent types nicely.
+#comments-container
+  - if current_objects.empty?
+    %p
+      No comments have been left yet.
+    #comments
+      / ...So when they add a comment, it will go here.
+  - unless current_objects.empty?
+    = page_entries_info current_objects
+    - paginated_section current_objects do
+      #comments
+        = render :partial => 'list'
+  #new-comment
+    = render :partial => 'new', :locals => { :length => 10 }

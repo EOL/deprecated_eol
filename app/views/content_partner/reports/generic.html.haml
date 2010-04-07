@@ -1,0 +1,93 @@
+.generic_report
+  .settings
+    - if RAILS_ENV == 'development'
+      / add an option to mine this report (if DEVELOPMENT)
+      %fieldset{ :style => "margin-top:-9px;" }
+        %legend
+          Mine Report
+        - form_tag path_for_report + '/mine!' do
+          = submit_tag 'Mine this Report'
+    / date range selection
+    %fieldset{ :style => RAILS_ENV == 'development' ? 'clear: right;' : 'margin-top:-9px;' }
+      %legend
+        Date Range
+      = render :partial => 'reports/calendar_range'
+    / additional options
+    %fieldset{ :style => "clear: right;" }
+      %legend
+        Options
+      %p
+        - if controller.is_a? Administrator::ReportsController
+          Filter by content partner:
+          - form_tag path_for_report, :method => :get do
+            = select_tag 'agent', "<option value='all'>Show all information</option>" << options_from_collection_for_select( Agent.find(:all,:conditions=>'username <>""',:order=>'full_name'), 'id', 'shortened_full_name', params[:agent].to_i ), :onchange => 'submit();'
+        - if @others_to_show
+          - if @show_other
+            = link_to_report "Hide 'Other' Slice", :show_other => false
+            - else
+            = link_to_report "Show 'Other' Slice", :show_other => nil
+      %p
+        %span
+          Per page:
+        - [5,10,25,50,100].each do |num|
+          = link_to_report num, :per_page => num, :page => nil
+      %p
+        Formats:
+        = link_to 'XML', path_for_report( :page => 'all', :format => 'xml' )
+        = link_to 'CSV', path_for_report( :page => 'all', :format => 'csv' )
+  #usage_report_stats
+    - unless @totals.empty?
+      /
+        TODO update this so we get column names from the object's class
+        and we get the values from the instance
+        #unique_data will likely become a Hash instead of a single value ?
+        or we might keep that intact and add a new method (like unique_data_to_s)
+        that returns a Hash.
+        OR ... the class might return an array of column names and instances
+        might return an array of values for those columns?
+      %table.results_table{ :cellspacing => "0" }
+        %thead
+          %th
+            Hits
+          %th
+            Percentage
+          %th
+            = @log_daily_class.unique_data_name
+        - for total in @totals
+          - column_class=cycle('even','odd')
+          %tr
+            %td{ :class => column_class }
+              = total.total
+            %td{ :class => column_class }
+              = sprintf("%.2f %", total.percentage)
+            %td{ :class => column_class }
+              = total.unique_data_to_s
+              - if @log_daily_class.to_s=='DataObjectLogDaily'
+                %a{ :href => "#", :onclick => "EOL.Effect.toggle_with_effect('object_#{total.object_id}');return false;" }
+                  [object]
+                %div{ :id => "object_#{total.object_id}", :style => "border:1px solid black;display:none;" }
+                  - if !total.object_url.blank?
+                    %img{ :src => total.object_url }
+                    - else
+                    = total.object_description
+      %form#pagination_form
+        = will_paginate @totals
+    - else
+      %p
+        No data for selected period
+  / don't show flash if there aren't any totals to display ... it'll just slow down the load time for the page
+  - unless @totals.empty?
+    #flashcontent
+      %strong
+        You need to upgrade your Flash Player.
+        %a{ :href => "http://get.adobe.com/flashplayer/", :targe => "_new" }
+          Click here to upgrade.
+    / TODO refactor this to a partial OR try to get the ambling_chart method working, which is supposed to do this
+    %script{ :type => "text/javascript" }
+      :cdata
+        var so = new SWFObject("/amcharts/ampie.swf", "ampie", "700", "600", "8", "#FFFFFF");
+        so.addVariable("path", "/amcharts/");
+        so.addVariable("settings_file", escape("<haml:loud> path_for_report &amp;quot;\#{@report}_settings&amp;quot; </haml:loud>")); // you can set two or more different settings files here (separated by commas)
+        so.addVariable("data_file", escape("<haml:loud> path_for_report &amp;quot;\#{@report}_data&amp;quot; </haml:loud>"));
+        so.addVariable("preloader_color", "#999999");
+        so.write("flashcontent");

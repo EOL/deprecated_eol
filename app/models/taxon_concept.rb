@@ -1016,9 +1016,12 @@ class TaxonConcept < SpeciesSchemaModel
       data_object_hash = DataObject.details_for_objects(image_ids + non_image_ids, :skip_metadata => !options[:details])
     end
     
+    common = options[:common_names].blank? ? [] : preferred_common_names_hash
+    
     details_hash = {  'data_objects'      => data_object_hash,
                       'id'                => self.id,
-                      'scientific_name'   => quick_scientific_name}
+                      'scientific_name'   => quick_scientific_name,
+                      'common_names'      => common}
   end
   
   def top_image_ids(options = {})
@@ -1031,12 +1034,21 @@ class TaxonConcept < SpeciesSchemaModel
     
     object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
     
+    if !options[:vetted].blank?
+      object_hash.delete_if {|obj| obj['vetted_id'] != Vetted.trusted.id}
+    end
+    
     object_hash = object_hash[0...options[:return_media_limit]] if object_hash.length > options[:return_media_limit]
     object_hash.collect {|e| e['id']}
   end
   
   def top_non_image_ids(options = {})
     return [] if options[:return_media_limit] == 0 && options[:return_text_limit] == 0
+    vetted_clause = ""
+    if !options[:vetted].blank?
+      vetted_clause = "AND do.vetted_id=#{Vetted.trusted.id}"
+    end
+    
     object_hash = SpeciesSchemaModel.connection.execute("
       SELECT do.id, do.data_type_id, do.data_rating, v.view_order vetted_view_order, toc.view_order toc_view_order, ii.label info_item_label
         FROM data_objects_taxon_concepts dotc
@@ -1050,7 +1062,8 @@ class TaxonConcept < SpeciesSchemaModel
         WHERE dotc.taxon_concept_id = #{self.id}
         AND do.published = 1
         AND do.visibility_id = #{Visibility.visible.id}
-        AND data_type_id NOT IN (#{DataType.image.id}, #{DataType.iucn.id}, #{DataType.gbif_image.id})
+        AND data_type_id IN (#{DataType.sound.id}, #{DataType.text.id}, #{DataType.video.id}, #{DataType.iucn.id}, #{DataType.flash.id}, #{DataType.youtube.id})
+        #{vetted_clause}
     ").all_hashes.uniq
     object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
     
@@ -1058,10 +1071,15 @@ class TaxonConcept < SpeciesSchemaModel
     text_id = DataType.text.id.to_s
     flash_id = DataType.flash.id.to_s
     youtube_id = DataType.youtube.id.to_s
+    iucn_id = DataType.iucn.id
     object_hash.each_with_index do |r, index|
       if r['data_type_id'] == flash_id || r['data_type_id'] == youtube_id
         r['data_type_id'] = DataType.video.id
       end
+      if r['data_type_id'].to_i == iucn_id
+        r['data_type_id'] = text_id
+      end
+      
     end
     
     # remove text subjects not asked for
@@ -1085,6 +1103,19 @@ class TaxonConcept < SpeciesSchemaModel
     
     truncated_object_hash.collect {|e| e['id']}
   end
+  
+  def preferred_common_names_hash
+    names_array = []
+    common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(self.id)
+    for name in common_names
+      next if name.preferred != true
+      next if name.iso_639_1.blank?
+      name_hash = {'name_string' => name.name_string, 'iso_639_1' => name.iso_639_1}
+      names_array << name_hash unless names_array.include?(name_hash)
+    end
+    return names_array
+  end
+  
   
   
   

@@ -3,13 +3,15 @@ class ApiController < ApplicationController
     taxon_concept_id = params[:id] || 0
     params[:images] ||= 1
     params[:text] ||= 1
+    params[:vetted] ||= false
+    params[:common_names] ||= false
     params[:images] = 75 if params[:images].to_i > 75
     params[:text] = 75 if params[:text].to_i > 75
     params[:details] = 1 if params[:format] == 'html'
     
     taxon_concept = TaxonConcept.find(taxon_concept_id)
     unless taxon_concept.nil? || !taxon_concept.published?
-      details_hash = taxon_concept.details_hash(:return_media_limit => params[:images].to_i, :subjects => params[:subjects], :return_text_limit => params[:text].to_i, :details => params[:details])
+      details_hash = taxon_concept.details_hash(:return_media_limit => params[:images].to_i, :subjects => params[:subjects], :return_text_limit => params[:text].to_i, :details => params[:details], :vetted => params[:vetted], :common_names => params[:common_names])
     end
     if params[:format] == 'html'
       render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => true } )

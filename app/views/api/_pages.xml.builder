@@ -12,6 +12,11 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
     xml.taxon do
       xml.dc :identifier, details_hash['id']
       xml.dwc :ScientificName, details_hash['scientific_name']
+      
+      for common_name in details_hash["common_names"]
+        xml.commonName common_name['name_string'], 'xml:lang'.to_sym => common_name['iso_639_1']
+      end
+      
       for object in details_hash["data_objects"]
         if data_object_details
           xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :object_hash => object } )

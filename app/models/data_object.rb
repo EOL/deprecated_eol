@@ -1207,6 +1207,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   def self.details_for_objects(data_object_ids, options = {})
     return [] unless data_object_ids.is_a? Array
     return [] if data_object_ids.empty?
+    
     object_details_hashes = SpeciesSchemaModel.connection.execute("
       SELECT do.*, dt.schema_value data_type, dt.label data_type_label, mt.label mime_type, lang.iso_639_1 language,
               lic.source_url license, lic.title license_label, ii.schema_value subject, v.view_order vetted_view_order, toc.view_order toc_view_order,
@@ -1235,9 +1236,13 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     
     flash_id = DataType.flash.id
     youtube_id = DataType.youtube.id
+    iucn_id = DataType.iucn.id
     object_details_hashes.each do |r|
       if r['data_type_id'].to_i == flash_id || r['data_type_id'].to_i == youtube_id
         r['data_type'] = DataType.video.schema_value
+      end
+      if r['data_type_id'].to_i == iucn_id
+        r['data_type'] = DataType.text.schema_value
       end
     end
     

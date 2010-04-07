@@ -4,6 +4,7 @@ module EOL
 
     attr_accessor :name_id
     attr_accessor :name_string
+    attr_accessor :iso_639_1
     attr_accessor :language_label
     attr_accessor :language_name
     attr_accessor :language_id
@@ -19,7 +20,7 @@ module EOL
     def self.find_by_taxon_concept_id(tc_id)
       names = Name.find_by_sql([%q{
         SELECT names.id name_id, names.string name_string,
-               l.label language_label, l.name language_name, l.id language_id,
+               l.label language_label, l.name language_name, l.id language_id, l.iso_639_1,
                agsyn.agent_id agent_id, syn.id synonym_id, syn.hierarchy_id hierarchy_id, tcn.preferred preferred
         FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
           LEFT JOIN languages l ON (tcn.language_id = l.id)
@@ -35,6 +36,7 @@ module EOL
       @@curator_hierarchy ||= Hierarchy.eol_contributors
       @name_id        = name[:name_id].to_i
       @name_string    = name[:name_string]
+      @iso_639_1      = name[:iso_639_1]
       @language_label = name[:language_label]
       @language_name  = name[:language_name]
       @language_id    = name[:language_id].to_i

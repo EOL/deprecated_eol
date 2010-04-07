@@ -25,6 +25,12 @@ class DataType < SpeciesSchemaModel
     end
   end
   
+  def self.sound
+    Rails.cache.fetch('data_type/sound') do
+      DataType.find_by_label('Sound')
+    end
+  end
+  
   def self.video
     Rails.cache.fetch('data_type/video') do
       DataType.find_by_label('Video')

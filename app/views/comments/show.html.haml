@@ -1,0 +1,11 @@
+%p
+  %b
+    User:
+  = h @comment.user_id
+%p
+  %b
+    Text:
+  = h @comment.text
+= link_to 'Edit', edit_comment_path(@comment)
+|
+= link_to 'Back', comments_path

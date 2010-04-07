@@ -1,0 +1,7 @@
+#report_from_eol
+  %h2
+    Monthly Web Usage Statistics
+  %p
+    The following statistics represent web page statistics for EOL pages containing your data objects.
+    It may take a minute for the report to appear - please be patient.
+  = render :partial => '/shared/embed_external_page', :locals  => {:height => '600', :width  => '100%', :url    => "http://services.eol.org/eol_php_code/applications/google_stats/process.php?path=data/#{@report_date}&agent_id=#{@agent_id}"}

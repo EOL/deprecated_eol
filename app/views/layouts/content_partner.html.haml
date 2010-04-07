@@ -63,8 +63,6 @@
                   = link_to 'Comments',{:controller=>'/content_partner/reports', :action=>'comments_report'}, :class=>"#{(@report_type  == :comments_report) ? 'active': ''} nested toc_item"
                 %li
                   = link_to 'Curation Activity',{:controller=>'/content_partner/reports', :action=>'statuses_report'}, :class=>"#{(@report_type  == :statuses_report) ? 'active': ''} nested toc_item"
-                  <li><haml:silent>#= link_to report_class.report_name,{ :controller =&amp;gt; '/content_partner/reports', :action =&amp;gt; report_class.path}, :class=&amp;gt;'toc_item' </haml:silent></li>
-                  </ul>
         #right-pane
           #content_partner_edit_area
             - # using content_partner_edit_area for its styles to be consistent

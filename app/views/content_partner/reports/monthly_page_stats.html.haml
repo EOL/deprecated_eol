@@ -1,0 +1,123 @@
+#report_from_eol
+  %h2
+    Monthly Web Usage Statistics
+  %p
+    The following statistics represent web page statistics for EOL pages containing your data objects.
+#report_from_eol
+  %ol
+  %table.results_table
+    - form_for :hello, :url => { :action => :monthly_page_stats } do |form|
+      %thead
+        %tr
+          %td{ :align => "center", :colspan => "4" }
+            = select_tag :agent_id, options_from_collection_for_select(  @content_partners_with_published_data, :id, :full_name, @agent_id.to_i )
+        %tr{ :align => "center" }
+          %td
+            = select_tag "year_month", options_for_select(@year_month_list,@year_month)
+            = submit_tag("Submit")
+          %td
+            Taxa Pages with
+            %br
+            Provider Content
+          %td
+            EOL Site
+          %td
+            Provider
+            %br
+            Percentage
+    %tbody
+      - @recs.each do |list|
+        %tr
+          %td.odd
+            Count of Taxa Pages
+          %td.odd{ :align => "right" }
+            = list.taxa_pages
+          %td.odd{ :align => "right" }
+            = list.eol_taxa_pages
+          %td.odd{ :align => "right" }
+            = list.p_taxa_pages
+            \%
+        %tr
+          %td.even
+            Count of Taxa Pages that were viewed during the month
+          %td.even{ :align => "right" }
+            = list.taxa_pages_viewed
+          %td.even{ :align => "right" }
+            = list.eol_taxa_pages_viewed
+          %td.even{ :align => "right" }
+            = list.p_taxa_pages_viewed
+            \%
+        %tr
+          %td.odd
+            Total Unique Page Views for the Month
+          %td.odd{ :align => "right" }
+            = list.unique_page_views
+          %td.odd{ :align => "right" }
+            = format(list.unique_pageviews,2)
+          %td.odd{ :align => "right" }
+            = list.p_unique_page_views
+            \%
+        %tr
+          %td.even
+            Total Page Views for the Month
+          %td.even{ :align => "right" }
+            = list.page_views
+          %td.even{ :align => "right" }
+            = list.pageviews
+          %td.even{ :align => "right" }
+            = list.p_page_views
+            \%
+        %tr
+          %td.odd
+            Total Time on Pages for the Month (hours)
+          %td.odd{ :align => "right" }
+            = list.timeonpage
+          %td.odd{ :align => "right" }
+            = list.timeonpages
+          %td.odd{ :align => "right" }
+            = list.p_timeonpage
+            \%
+  %table.results_table
+    %tr
+      %td{ :colspan => "5" }
+        = will_paginate @posts
+    %thead{ :align => "center" }
+      %tr{ :align => "center" }
+        %th
+          ID
+        %th
+          Scientific Name
+        %th
+          Total
+          %br
+          Page Views
+        %th
+          Total Unique
+          %br
+          Page Views
+        %th
+          Total Time
+          %br
+          On Page Seconds
+    %tbody
+      - count = 0
+      - @posts.each do |post|
+        - column_class=cycle('odd','even')
+        - count += 1
+        - concept = TaxonConcept.find(post.taxon_concept_id)
+        - name = concept.quick_scientific_name(:italicized)
+        %tr
+          %td{ :class => column_class }
+            = post.taxon_concept_id
+          %td{ :class => column_class }
+            %i
+              = name
+          %td{ :class => column_class, :align => "right" }
+            = post.page_views
+          %td{ :class => column_class, :align => "right" }
+            = post.unique_page_views
+          %td{ :class => column_class, :align => "right" }
+            = post.timeonpage
+      %tr
+        %td{ :colspan => "5" }
+          = will_paginate @posts

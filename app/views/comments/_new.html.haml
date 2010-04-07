@@ -1,0 +1,16 @@
+- if !logged_in? && $ALLOW_USER_LOGINS
+  %p
+    %strong
+      You must be
+      = link_to('logged in', login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
+      to post comments.
+- elsif logged_in?
+  %h2
+    Add a New Comment
+  - form_remote_for([@parent, @comment], :html => {:style => 'margin-top:0;'}) do |f|
+    - comment_id = "comment_body_#{@parent.id}"
+    - submit_id = "submit_comment_#{@parent.id}"
+    = hidden_field_tag :body_div_name, body_div_name
+    = f.text_area :body, :rows => length, :cols => 50, :id => comment_id
+    = submit_tag('Post Comment', :id => submit_id, :onclick => "if($('#{comment_id}').value.search(/\\w/) == -1) {return(false);} else {$('#{submit_id}').value = 'Please Wait...';$('#{submit_id}_spinner').style.display = 'block';return true;}", :class => 'post_comment')
+    = image_tag('indicator_arrows_black.gif', :id => "#{submit_id}_spinner", :style=>'display:none;')

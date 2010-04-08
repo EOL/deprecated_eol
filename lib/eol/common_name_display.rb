@@ -27,9 +27,18 @@ module EOL
           LEFT JOIN synonyms syn ON (tcn.synonym_id = syn.id)
           LEFT JOIN agents_synonyms agsyn ON (syn.id = agsyn.synonym_id)
         WHERE tcn.taxon_concept_id = ? AND vern = 1
-        ORDER BY language_label, language_name, string
       }, tc_id])
-      names.map {|n| EOL::CommonNameDisplay.new(n)}
+      
+      common_names = names.map {|n| EOL::CommonNameDisplay.new(n)}
+      
+      #ORDER BY language_label, language_name, string
+      common_names.sort! do |a, b|
+        if a.language_label == b.language_label
+          a.name_string <=> a.name_string # Note this is reversed; higher ratings are better.
+        else
+          a.language_label <=> b.language_label
+        end
+      end
     end
 
     def initialize(name)

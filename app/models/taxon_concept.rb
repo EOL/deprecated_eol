@@ -1050,7 +1050,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     
     object_hash = SpeciesSchemaModel.connection.execute("
-      SELECT do.id, do.data_type_id, do.data_rating, v.view_order vetted_view_order, toc.view_order toc_view_order, ii.label info_item_label
+      SELECT do.id, do.guid, do.data_type_id, do.data_rating, v.view_order vetted_view_order, toc.view_order toc_view_order, ii.label info_item_label
         FROM data_objects_taxon_concepts dotc
         JOIN data_objects do ON (dotc.data_object_id = do.id)
         LEFT JOIN vetted v ON (do.vetted_id=v.id)
@@ -1065,6 +1065,8 @@ class TaxonConcept < SpeciesSchemaModel
         AND data_type_id IN (#{DataType.sound.id}, #{DataType.text.id}, #{DataType.video.id}, #{DataType.iucn.id}, #{DataType.flash.id}, #{DataType.youtube.id})
         #{vetted_clause}
     ").all_hashes.uniq
+    
+    object_hash.group_hashes_by!('guid')
     object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
     
     # set flash and youtube types to video
@@ -1106,12 +1108,15 @@ class TaxonConcept < SpeciesSchemaModel
   
   def preferred_common_names_hash
     names_array = []
+    language_codes_used = []
     common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(self.id)
     for name in common_names
       next if name.preferred != true
       next if name.iso_639_1.blank?
+      next if language_codes_used.include?(name.iso_639_1)
       name_hash = {'name_string' => name.name_string, 'iso_639_1' => name.iso_639_1}
       names_array << name_hash unless names_array.include?(name_hash)
+      language_codes_used << name.iso_639_1
     end
     return names_array
   end
@@ -1140,25 +1145,34 @@ class TaxonConcept < SpeciesSchemaModel
   def self.related_names_for?(taxon_concept_id)
     has_parents = TaxonConcept.count_by_sql("SELECT 1
                                       FROM hierarchy_entries he
+                                      JOIN hierarchies h ON (he.hierarchy_id=h.id)
                                       WHERE he.taxon_concept_id=#{taxon_concept_id}
+                                      AND he.published=1
                                       AND parent_id!=0
+                                      AND h.browsable=1
                                       LIMIT 1") > 0
     return true if has_parents
     
     return TaxonConcept.count_by_sql("SELECT 1
                                       FROM hierarchy_entries he
                                       JOIN hierarchy_entries he_children ON (he.id=he_children.parent_id)
+                                      JOIN hierarchies h ON (he_children.hierarchy_id=h.id)
                                       WHERE he.taxon_concept_id=#{taxon_concept_id}
+                                      AND h.browsable=1
+                                      AND he_children.published=1
                                       LIMIT 1") > 0
   end
   
   def self.synonyms_for?(taxon_concept_id)
     return TaxonConcept.count_by_sql("SELECT 1
                                       FROM hierarchy_entries he
+                                      JOIN hierarchies h ON (he.hierarchy_id=h.id)
                                       JOIN synonyms s ON (he.id=s.hierarchy_entry_id)
                                       WHERE he.taxon_concept_id=#{taxon_concept_id}
+                                      AND he.published=1
+                                      AND h.browsable=1
                                       AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
-                                       LIMIT 1") > 0
+                                      LIMIT 1") > 0
   end
   
   def self.common_names_for?(taxon_concept_id)

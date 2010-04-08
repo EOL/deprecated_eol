@@ -62,14 +62,14 @@ class RandomHierarchyImage < SpeciesSchemaModel
   end
   
   def self.reset_min_id()
-    if @@last_min_count.nil? || @@last_min_count.advance(:hours=>1) < Time.now
+    if @@last_min_count.nil? || @@last_min_count.advance(:minutes=>10) < Time.now
       @@last_min_count = Time.now()
       @@min_id = SpeciesSchemaModel.connection.select_value("select min(id) min from random_hierarchy_images").to_i
     end
   end
   
   def self.reset_count(hierarchy)
-    if @@last_cleared[hierarchy.id].blank? || @@last_cleared[hierarchy.id].advance(:hours=>1) < Time.now
+    if @@last_cleared[hierarchy.id].blank? || @@last_cleared[hierarchy.id].advance(:minutes=>10) < Time.now
       @@last_cleared[hierarchy.id] = Time.now()
       @@count[hierarchy.id] = SpeciesSchemaModel.connection.select_value("select count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=#{hierarchy.id}").to_i
     end

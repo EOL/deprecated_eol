@@ -60,3 +60,28 @@ describe String do
   end
 end
 
+
+describe Array do
+  it 'should group hashes by an attribute' do
+    arr = [{'id' => 2, 'value' => 'first'},
+           {'id' => 1, 'value' => 'first'}]
+    arr.group_hashes_by!('value')
+    arr.length.should == 1
+    arr[0]['id'].should == 2
+  end
+  
+  it 'should group objects by an attribute' do
+    obj = DataObject.gen
+    obj2 = obj.clone
+    obj2.id = 99999
+    arr = [obj2, obj]
+    
+    arr.group_objects_by!('guid')
+    arr.length.should == 1
+    arr[0].id.should == obj2.id
+  end
+end
+
+
+
+

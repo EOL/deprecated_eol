@@ -29,6 +29,7 @@ describe 'EOL XML APIs' do
        :toc             => [{:toc_item => @overview, :description => @overview_text}, 
                             {:toc_item => @distribution, :description => @distribution_text}, 
                             {:toc_item => @description, :description => @description_text}])
+    @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, Agent.last, :language => Language.english)
     
     
     @object = DataObject.create(
@@ -161,6 +162,14 @@ describe 'EOL XML APIs' do
     response.body.should include DataObject.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
   end
   
+  it 'should be able to toggle common names' do
+    response = request("/api/pages/#{@taxon_concept.id}")
+    response.body.should_not include '<commonName'
+    
+    response = request("/api/pages/#{@taxon_concept.id}?common_names=1")
+    response.body.should include '<commonName'
+  end
+  
   
   
   
@@ -249,5 +258,13 @@ describe 'EOL XML APIs' do
     response.body.should include '</html>'
     response.body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts[0].entry.name_object.string}/
     response.body.should include @object.description
+  end
+  
+  it 'should be able to toggle common names' do
+    response = request("/api/data_objects/#{@object.guid}")
+    response.body.should_not include '<commonName'
+    
+    response = request("/api/data_objects/#{@object.guid}?common_names=1")
+    response.body.should include '<commonName'
   end
 end

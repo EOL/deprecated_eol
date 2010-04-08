@@ -108,6 +108,39 @@ class Array
       all 
     end
   end
+  
+  # expects an array of Hashes
+  # [ {'id' => 1 , 'label' => first},
+  #   {'id' => 2 , 'label' => first}]
+  # will create a new array where $attribute is unique by taking the first instance and deleting the rest
+  # mimics some of what the MySQL GROUP BY does
+  def group_hashes_by!(attribute)
+    used_values = []
+    hashes_to_delete = []
+    self.each_with_index do |h, index|
+      hashes_to_delete << h if used_values.include?(h[attribute])
+      used_values << h[attribute]
+    end
+    for h in hashes_to_delete
+      self.delete(h)
+    end
+  end
+  
+  # expects an array of objects
+  # will create a new array where $attribute is unique by taking the first instance and deleting the rest
+  # mimics some of what the MySQL GROUP BY does
+  def group_objects_by!(attribute)
+    used_values = []
+    objects_to_delete = []
+    self.each_with_index do |obj, index|
+      value = obj.send(attribute.to_sym)
+      objects_to_delete << obj if used_values.include?(value)
+      used_values << value
+    end
+    for obj in objects_to_delete
+      self.delete(obj)
+    end
+  end
 
 end
 

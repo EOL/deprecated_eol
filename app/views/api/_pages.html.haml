@@ -10,7 +10,7 @@
   %body
     - unless details_hash.blank?
       %h2{:align => "center"}
-        %a{:href => "/pages/#{details_hash['id']}", :target => "_blank"}
+        %a{:href => "http://#{$SITE_DOMAIN_OR_IP}/pages/#{details_hash['id']}", :target => "_blank"}
           = details_hash['scientific_name']
       - for object in details_hash["data_objects"]
         - if data_object_details

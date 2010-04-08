@@ -822,7 +822,7 @@ class DataObject < SpeciesSchemaModel
            LEFT OUTER JOIN #{Comment.full_table_name} c           ON (c.parent_id=dato.id AND c.parent_type='DataObject' #{comments_clause})
            #{rating_from}
          WHERE dato.id IN (#{data_object_ids.join(',')})
-         GROUP BY dato.id })
+         GROUP BY dato.id})
     
     metadata = {}
     # add the DataObject metadata
@@ -857,9 +857,8 @@ class DataObject < SpeciesSchemaModel
           JOIN agents a                         ON (ar.agent_id=a.id) 
           WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})
           AND ar.resource_agent_role_id=#{data_supplier_id})
-        ORDER BY view_order
          })
-    
+    data_object_agents.sort! {|a,b| a['view_order'].to_i <=> b['view_order'].to_i}
     
     attributions = {}
     data_object_agents.each do |a|
@@ -1186,8 +1185,10 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   
   
   def self.details_for_object(data_object_guid, options = {})
-    data_object = DataObject.find_by_guid(data_object_guid, :conditions => "published=1 AND visibility_id=#{Visibility.visible.id}", :order => "id desc")
-    return [] if data_object.nil?
+    data_objects = DataObject.find_all_by_guid(data_object_guid, :conditions => "published=1 AND visibility_id=#{Visibility.visible.id}")
+    return [] if data_objects.blank?
+    data_objects.sort! {|a,b| b.id <=> a.id}
+    data_object = data_objects[0]
     
     details = self.details_for_objects([data_object.id])
     return [] if details.blank?
@@ -1197,7 +1198,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     if options[:include_taxon]
       obj = DataObject.find(first_obj['id'])
       tc = obj.taxon_concepts[0]
-      return tc.details_hash(:data_object_hash => first_obj)
+      return tc.details_hash(:data_object_hash => first_obj, :common_names => options[:common_names])
     end
     
     # return the object alone
@@ -1210,8 +1211,8 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     
     object_details_hashes = SpeciesSchemaModel.connection.execute("
       SELECT do.*, dt.schema_value data_type, dt.label data_type_label, mt.label mime_type, lang.iso_639_1 language,
-              lic.source_url license, lic.title license_label, ii.schema_value subject, v.view_order vetted_view_order, toc.view_order toc_view_order,
-              t.scientific_name, he.taxon_concept_id
+              lic.source_url license, lic.title license_label, ii.schema_value subject, v.view_order vetted_view_order,
+              toc.view_order toc_view_order,t.scientific_name, he.taxon_concept_id
         FROM data_objects do
         LEFT JOIN data_types dt ON (do.data_type_id=dt.id)
         LEFT JOIN mime_types mt ON (do.mime_type_id=mt.id)
@@ -1231,8 +1232,9 @@ AND data_type_id IN (#{data_type_ids.join(',')})
         WHERE do.id IN (#{data_object_ids.join(',')})
         AND do.published = 1
         AND do.visibility_id = #{Visibility.visible.id}
-        GROUP BY do.id
-    ").all_hashes
+    ").all_hashes.uniq
+    
+    object_details_hashes.group_hashes_by!('guid')
     
     flash_id = DataType.flash.id
     youtube_id = DataType.youtube.id
@@ -1289,11 +1291,9 @@ AND data_type_id IN (#{data_type_ids.join(',')})
           JOIN agents a ON (ado.agent_id=a.id)
           JOIN agent_roles ar ON (ado.agent_role_id=ar.id)
           WHERE ado.data_object_id IN (#{data_object_ids.join(',')}))
-        ORDER BY view_order").all_hashes
+        ").all_hashes
     
-    agents.sort do |a, b|
-      b['view_order'].to_i <=> a['view_order'].to_i
-    end
+    agents.sort! {|a,b| a['view_order'].to_i <=> b['view_order'].to_i}
     
     grouped = ModelQueryHelper.group_array_by_key(agents, 'data_object_id')
     object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped, 'agents')

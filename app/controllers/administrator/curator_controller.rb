@@ -1,6 +1,7 @@
 class Administrator::CuratorController < AdminController
 
   access_control :DEFAULT => 'Administrator - Web Users'
+  layout 'admin'
     
   def index
     @page_title = 'Curators'

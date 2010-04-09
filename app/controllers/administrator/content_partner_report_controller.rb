@@ -1,6 +1,7 @@
 class Administrator::ContentPartnerReportController < AdminController
   helper :resources
   helper_method :current_agent, :agent_logged_in?
+  layout 'admin'
   
   access_control :DEFAULT => 'Administrator - Content Partners'
   

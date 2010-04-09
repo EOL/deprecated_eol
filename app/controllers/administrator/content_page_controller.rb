@@ -1,5 +1,6 @@
 class Administrator::ContentPageController < AdminController
 
+  layout 'admin'
  access_control :DEFAULT => 'Administrator - Site CMS'
   
  def index

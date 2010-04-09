@@ -1,6 +1,7 @@
 class Administrator::ContentUploadController < AdminController
 
   access_control :DEFAULT => 'Administrator - Site CMS'
+  layout 'admin'
    
   def index
     @page_title = 'Uploaded Content'

@@ -1,5 +1,6 @@
 class Administrator::CommentController  < AdminController
 
+  layout 'admin'
   access_control :DEFAULT => 'Administrator - Comments and Tags'
  
   def index

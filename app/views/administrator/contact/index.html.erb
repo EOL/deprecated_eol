@@ -1,5 +1,3 @@
-<%= render :partial => '/admin/content_top', :locals => {:name => 'Contact Us Submissions'} %>
-
 This area shows all submissions entered via the contact us or media contact pages.  To view entries, select the topic below or <%=link_to('export all of the entries as a CSV file', :action=>'export')%><br />
 <% form_tag({:action=>'index'},:method=>'get') do -%>
   <select name="id" id="contact_subject_id">
@@ -48,5 +46,3 @@ This area shows all submissions entered via the contact us or media contact page
 			<% end %>
 		</div>
     <% end %>
-						
-<%= render :partial => '/admin/content_bottom' %>

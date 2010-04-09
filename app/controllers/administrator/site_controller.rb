@@ -3,18 +3,18 @@ class Administrator::SiteController  < AdminController
   access_control :DEFAULT => 'Administrator - Technical'
   
   def index
+    @page_title = 'General Site Administration'
     @allowed_ip=allowed_request
     @config = Rails::Configuration.new
   end
 
   def surveys
-
+    @page_title = 'Survey Respondents'
     @surveys=SurveyResponse.paginate(:order=>'created_at desc',:page => params[:page])
-    @all_surveys_count=SurveyResponse.count
-    @no_surveys_count=SurveyResponse.count(:conditions=>['user_response=?','no'])
-    @yes_surveys_count=SurveyResponse.count(:conditions=>['user_response=?','yes'])
-    @done_surveys_count=SurveyResponse.count(:conditions=>['user_response=?','done'])
-
+    @all_surveys_count  = SurveyResponse.count
+    @no_surveys_count   = SurveyResponse.count(:conditions=>['user_response=?','no'])
+    @yes_surveys_count  = SurveyResponse.count(:conditions=>['user_response=?','yes'])
+    @done_surveys_count = SurveyResponse.count(:conditions=>['user_response=?','done'])
   end
 
   # AJAX method to expire all non-species pages

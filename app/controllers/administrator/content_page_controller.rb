@@ -1,9 +1,10 @@
 class Administrator::ContentPageController < AdminController
 
-  access_control :DEFAULT => 'Administrator - Site CMS'
+ access_control :DEFAULT => 'Administrator - Site CMS'
   
-   def index
+ def index
    
+   @page_title = 'Edit Page Contents'
    # get the content sections
    @content_sections=ContentSection.find(:all, :order=>'name')
    

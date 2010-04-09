@@ -1,6 +1,6 @@
 class AdminController < ApplicationController
   
- layout 'main'
+ layout 'admin'
  
  before_filter :check_authentication
  before_filter :set_no_cache
@@ -8,7 +8,6 @@ class AdminController < ApplicationController
  access_control :DEFAULT => 'administrator'
     
  def index
-
  end
 
  def set_no_cache

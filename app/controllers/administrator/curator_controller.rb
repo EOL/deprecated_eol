@@ -3,6 +3,7 @@ class Administrator::CuratorController < AdminController
   access_control :DEFAULT => 'Administrator - Web Users'
     
   def index
+    @page_title = 'Curators'
     @user_search_string=params[:user_search_string] || ''
     search_string_parameter='%' + @user_search_string + '%' 
     @only_unapproved=EOLConvert.to_boolean(params[:only_unapproved])

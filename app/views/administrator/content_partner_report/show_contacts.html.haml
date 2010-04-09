@@ -1,5 +1,3 @@
-= render :partial => '/admin/content_top', :locals => {:name => 'Content Partner Contacts - ' + @agent.project_name} 
-
 = link_to '[go back]',:action=>'show', :id=>params[:id]
 %br/
 
@@ -28,5 +26,3 @@ partner to log in, please
       %td{:class => column_class}= h contact.homepage
       %td{:class => column_class}= h contact.telephone
       %td{:class => column_class}= h contact.address
-
-= render :partial => '/admin/content_bottom'

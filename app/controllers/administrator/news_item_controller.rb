@@ -1,6 +1,7 @@
 class Administrator::NewsItemController < AdminController
 
   access_control :DEFAULT => 'Administrator - News Items'
+  layout 'admin'
   
   def index
     @page_title = 'News Items'

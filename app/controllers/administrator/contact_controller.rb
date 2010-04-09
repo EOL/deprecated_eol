@@ -1,6 +1,7 @@
 require 'csv'
 class Administrator::ContactController < AdminController
 
+  layout 'admin'
   access_control :DEFAULT => 'Administrator - Contact Us Submissions'
 
   def index

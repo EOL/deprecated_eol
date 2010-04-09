@@ -5,6 +5,7 @@ class Administrator::ContentPartnerReportController < AdminController
   access_control :DEFAULT => 'Administrator - Content Partners'
   
   def index
+    @page_title = 'Content Partners'
     @partner_search_string=params[:partner_search_string] || ''
     @only_show_agents_with_unpublished_content=EOLConvert.to_boolean(params[:only_show_agents_with_unpublished_content])
     @agent_status=AgentStatus.find(:all,:order=>'label')
@@ -48,6 +49,7 @@ class Administrator::ContentPartnerReportController < AdminController
   end
   
   def show
+    @page_title = 'Content Partner Detail'
     @agent = Agent.find_by_id(params[:id])
     if @agent.blank?
       redirect_to :action=>'index' 
@@ -64,6 +66,7 @@ class Administrator::ContentPartnerReportController < AdminController
   end
   
   def show_contacts
+    @page_title = "Content Partner Contacts - #{@agent.project_name}"
     @agent=Agent.find(params[:id],:include=>:agent_contacts)
     @contacts=@agent.agent_contacts
   end
@@ -71,6 +74,7 @@ class Administrator::ContentPartnerReportController < AdminController
   def edit_profile
 
     @agent=Agent.find(params[:id],:include=>:content_partner)   
+    @page_title = "Edit Profile: #{@agent.display_name}"
     return unless request.post?
 
     if @agent.update_attributes(params[:agent])
@@ -98,6 +102,7 @@ class Administrator::ContentPartnerReportController < AdminController
   
   def edit_agreement
     
+    @page_title = 'Edit Content Partner Agreement'
     @agent=Agent.find(params[:id])
 
     # if we are posting, create the new agreement

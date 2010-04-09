@@ -1,0 +1,70 @@
+%ul#toc{ :style => "list-style:none;margin-left:-25px;padding-left:-25px;" }
+  %li
+    = link_to 'admin home', {:controller => '/admin', :action => 'index'}, {:class=>'toc_item active'}
+  - restrict_to "(Administrator - Site CMS) & !blacklist" do
+    %h3
+      Site CMS
+    %li
+      = link_to 'edit page contents',{:controller=>'administrator/content_page',:action=>'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'upload content',{:controller=>'administrator/content_upload', :action=>'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'edit search suggestions',{:controller=>'administrator/search_suggestion', :action=>'index'}, {:class=>'toc_item active'}
+  - restrict_to "(Administrator - News Items) & !blacklist" do
+    %h3
+      News Items
+    %li
+      = link_to 'edit news items',{:controller=>'administrator/news_item',:action=>'index'}, {:class=>'toc_item active'}
+  - restrict_to "(Administrator - Comments and Tags) & !blacklist" do
+    %h3
+      Comments and Tags
+    %li
+      = link_to 'edit tag suggestions', {:controller => 'administrator/tag_suggestion', :action => 'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'view user comments', {:controller => 'administrator/comment', :action => 'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'view added text', {:controller => 'administrator/user_data_object', :action => 'index'}, {:class=>'toc_item active'}
+  - restrict_to "(Administrator - Web Users) & !blacklist" do
+    %h3
+      Web Users
+    %li
+      = link_to 'edit web users',{:controller=>'administrator/user', :action=>'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'view curators',{:controller=>'administrator/curator', :action=>'index'}, {:class=>'toc_item active'}
+  - restrict_to "(Administrator - Contact Us Submissions) & !blacklist" do
+    %h3
+      Contact Us Functions
+    %li
+      = link_to 'edit contact us topics',{:controller=>'administrator/contact_subject', :action=>'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'view contact us submissions', {:controller => 'administrator/contact', :action => 'index'}, {:class=>'toc_item active'}
+  - restrict_to "(Administrator - Technical) & !blacklist" do
+    %h3
+      Technical Functions
+    %li
+      = link_to 'general site admin', {:controller => 'administrator/site', :action => 'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'view error log', {:controller => 'administrator/error_log', :action => 'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'add new user roles',{:controller=>'administrator/role', :action=>'index'}, {:class=>'toc_item active'}
+  - restrict_to "(Administrator - Content Partners) & !blacklist" do
+    %h3
+      Content Partners
+    %li
+      = link_to 'content partner details', {:controller => 'administrator/content_partner_report', :action => 'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'monthly notification', {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active', :confirm => "Send email notification to all content partners \n about the availability of the latest monthly web stats"}
+  - restrict_to "(Administrator - Usage Reports) & !blacklist" do
+    %h3
+      Statistics
+    %li
+      = link_to 'page statistics and tools', {:controller => 'administrator/stats', :action => 'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'search term reports',search_logs_url,{:class=>'toc_item active'}
+    %h3
+      Data Usage Reports
+    %li
+      = link_to('Google Analytics (Google account and access required)','https://www.google.com/analytics/settings/?et=reset&hl=en#scid=3298646',:target=>'_blank', :class=>'toc_item active' )
+    %li
+      = link_to 'All changes',{:controller=>'/administrator/reports', :action=>'admin_whole_report'}, {:class=>"toc_item active"}
+      / TODO: do bullets active dynamically, as for content-partner

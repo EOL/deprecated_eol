@@ -1,0 +1,10 @@
+- inside_layout 'main' do
+  #content
+    #page-separator-general
+    #page-title
+      %h1
+        = @page_title || 'EOL Administration Console'
+      %hr
+    #page-content.clearfix
+      #full-page-content
+        = yield

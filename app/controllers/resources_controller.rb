@@ -1,5 +1,6 @@
 require 'net/http'
 require 'uri'
+# TODO - This is a bad, bad controller.  Way too much is going on here.  Move these methods to models!
 class ResourcesController < ApplicationController
 
   #Opened for a malicious administrator who enters url by hand
@@ -16,6 +17,10 @@ class ResourcesController < ApplicationController
         redirect_url = current_user.is_admin? ? { :controller => 'administrator/content_partner_report', :action => 'show', :id => params[:content_partner_id]} : resources_url
         redirect_to redirect_url
       end
+    end
+
+    before :edit do
+      @page_title = 'Content Partner Reports'
     end
 
     after :create do

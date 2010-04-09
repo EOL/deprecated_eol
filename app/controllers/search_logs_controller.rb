@@ -1,11 +1,14 @@
 class SearchLogsController < AdminController
 
+  layout 'admin'
+
 # TODO (Low Priority) - Move this into the "administrator" folder for consistency, may need to update routes.rb file
 
   access_control :DEFAULT => 'Administrator - Usage Reports'
   
   def index
     
+    @page_title = 'Search Term Reports'
     @term_search_string=params[:term_search_string]
     @order_by=params[:order_by] || "frequency"
     @sort_order=params[:sort_order] || "DESC"
@@ -26,11 +29,10 @@ class SearchLogsController < AdminController
   end
   
   def show
-    
+    @page_title = 'Search Term Detail Report'
     @search_term=params[:id]
     @frequency=SearchLog.count(:conditions=>["search_term=?",@search_term])
     @clicked_taxa=SearchLog.find_by_sql(["select distinct(taxon_concept_id),count(taxon_concept_id) as frequency from search_logs where search_term=? GROUP BY taxon_concept_id ORDER BY frequency desc",@search_term])
-        
   end
         
 protected

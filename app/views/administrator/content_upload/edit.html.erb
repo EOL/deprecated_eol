@@ -1,5 +1,3 @@
-<%= render :partial => '/admin/content_top', :locals => {:name => 'Edit Upload'} %>
-			   		    	
 	<% form_for :content_upload,@content_upload,:url => {:action=>'update',:id=>params[:id]},:html=>{ :method => :post, :multipart => true,:id=>'page_form'} do |f|  %>
   <%= eol_lang_error_messages_for :content_upload %>
   <br />
@@ -44,5 +42,3 @@
 
 
 </table>
-
-<%= render :partial => '/admin/content_bottom' %>

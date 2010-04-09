@@ -1,5 +1,3 @@
-<%= render :partial => '/admin/content_top', :locals => {:name => 'Survey Respondents'} %>
-
 <%= link_to "[go back]",:back%>									    
 <div id="surveys">
 	<table class="results_table" cellspacing="0">
@@ -32,4 +30,3 @@
     <% elsif @surveys.nil? == false && @surveys.size == 0 %>
 		No survey responses are available.
 	<% end %>
-<%= render :partial => '/admin/content_bottom' %>

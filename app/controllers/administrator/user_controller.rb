@@ -3,6 +3,8 @@ class Administrator::UserController  < AdminController
   access_control :DEFAULT => 'Administrator - Web Users'
 
   def index
+
+    @page_title = 'Web Users'
     
     @user_search_string=params[:user_search_string] || ''
     search_string_parameter='%' + @user_search_string + '%' 
@@ -77,13 +79,13 @@ class Administrator::UserController  < AdminController
   end
   
   def edit
-
     store_location(referred_url) if request.get?    
     @user=User.find(params[:id])
-    
+    @page_title = "Edit #{@user.username}"
   end
   
   def new  
+    @page_title = 'New User'
     store_location(referred_url) if request.get?
     @user=User.create_new
   end

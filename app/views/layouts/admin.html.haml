@@ -1,0 +1,15 @@
+- inside_layout 'main' do
+  #content
+    #page-separator-general
+    #page-title
+      %h1
+        = @page_title || 'EOL Administration Console'
+      %hr
+    #page-content.clearfix
+      #page-content-bgfauxinside
+        #page-content.clearfix
+          #full-page-content
+            #left-pane
+              = render(:partial=>'/admin/navigation')
+            #right-pane
+              = yield

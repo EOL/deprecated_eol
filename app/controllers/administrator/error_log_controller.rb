@@ -1,6 +1,7 @@
 class Administrator::ErrorLogController < AdminController
   
   access_control :DEFAULT => 'Administrator - Technical'
+  layout 'admin'
   
   def index
     @page_title = 'Error Log'

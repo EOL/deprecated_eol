@@ -4,7 +4,7 @@ class Administrator::TagSuggestionController < AdminController
 
   access_control :DEFAULT => 'Administrator - Comments and Tags'
   
-  layout 'administrator'
+  layout 'admin'
 
   # GET /administrator/tag_suggestions
   def index

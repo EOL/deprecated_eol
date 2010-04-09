@@ -3,7 +3,7 @@ class Administrator::ReportsController < AdminController
 
   access_control :DEFAULT => 'Administrator - Usage Reports'
   
-  layout 'administrator'
+  layout 'admin'
 
   # as an administrator, you can filter everything by Agent
   # to see reports as a Content Partner would see them

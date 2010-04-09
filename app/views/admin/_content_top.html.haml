@@ -1,0 +1,18 @@
+- hide_nav ||= false
+#content
+  #page-separator-general
+  #page-title
+    %h1
+      = name
+    %hr
+  #page-content.clearfix
+    - unless hide_nav
+    #page-content-bgfauxinside
+      - end
+      #page-content.clearfix
+        #full-page-content
+          - unless hide_nav
+          #left-pane
+            = render(:partial=>'/admin/navigation')
+          #right-pane
+            - end

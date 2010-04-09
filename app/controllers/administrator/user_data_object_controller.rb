@@ -2,6 +2,8 @@ class Administrator::UserDataObjectController < AdminController
 
 
   def index
+
+    @page_title = 'User Comments'
  
     @user_id=params[:user_id] || 'all'
     @user_list=User.users_with_submitted_text

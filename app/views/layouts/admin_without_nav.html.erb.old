@@ -1,0 +1,16 @@
+<% inside_layout 'main' do %>
+  <% hide_nav ||= false %>
+  <div id="content">
+    <div id="page-separator-general"></div>
+      <div id="page-title">
+        <h1><%= name %></h1>
+        <hr />
+      </div>
+      <div id="page-content" class="clearfix">
+        <div id="full-page-content">
+          <% yield %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

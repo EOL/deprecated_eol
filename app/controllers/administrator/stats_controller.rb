@@ -1,4 +1,6 @@
 class Administrator::StatsController < AdminController
+
+  layout 'admin_without_nav'
   
   access_control :DEFAULT => 'Administrator - Usage Reports'
   

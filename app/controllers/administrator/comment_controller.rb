@@ -4,6 +4,7 @@ class Administrator::CommentController  < AdminController
  
   def index
  
+    @page_title = 'User Comments'
     @term_search_string=params[:term_search_string] || ''
     search_string_parameter='%' + @term_search_string + '%' 
     @comments=Comment.paginate(:conditions=>['body like ?',search_string_parameter],:order=>'created_at desc',:include=>:user,:page => params[:page])
@@ -13,6 +14,7 @@ class Administrator::CommentController  < AdminController
 
   def edit
 
+    @page_title = 'Edit Comment'
     store_location(referred_url) if request.get?    
     @comment = Comment.find(params[:id])
   

@@ -241,14 +241,14 @@ class AccountController < ApplicationController
     @data_object_ids = @user.data_object_ids_curated    
     @object_ids_activity = @user.data_object_ids_curated_with_activity(@user.id)    
     page = params[:page] || 1    
-    @posts = DataObject.data_object_details(@data_object_ids, page)
+    @data_objects = DataObject.data_object_details(@data_object_ids, page)
   end
   
   def show_species_curated    
     @user = User.find(params[:id])    
     @taxon_concept_ids = @user.taxon_concept_ids_curated
     page = params[:page] || 1
-    @posts = TaxonConcept.from_taxon_concepts(@taxon_concept_ids, page)
+    @species = TaxonConcept.from_taxon_concepts(@taxon_concept_ids, page)
   end
   
   def show_comments_moderated    
@@ -256,7 +256,7 @@ class AccountController < ApplicationController
     @comment_ids = @user.comment_ids_curated(@user.id)
     @comment_ids_activity = @user.comment_ids_moderated_with_activity(@user.id)
     page = params[:page] || 1
-    @posts = Comment.get_comments(@comment_ids, page)
+    @comments = Comment.get_comments(@comment_ids, page)
   end
   
 

@@ -11,7 +11,6 @@
   parameters:'id='+id+'&agent_status_id='+agent_status_id
   });}
 
-= render :partial => '/admin/content_top', :locals => {:name => 'Content Partner Detail'}
 %h2
   = @agent.project_name
 = link_to '[go back]',:action=>'index'
@@ -185,4 +184,3 @@ Content partner status:
           = link_to '[view harvests]', resource_harvest_events_url(resource, :content_partner_id => @agent.id)
 
 #message_area.message
-= render :partial => '/admin/content_bottom'

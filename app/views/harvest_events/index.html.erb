@@ -1,5 +1,4 @@
 <%- if current_user.is_admin? -%>
-  <%= render :partial => '/admin/content_top', :locals => {:name => 'Content Partner Reports'} %>
   <%- content_partner_id = params[:content_partner_id] -%>  
 <%- else -%>
   <%= render :partial => '/content_partner/top', :locals => {:page_header => 'Edit Resource'} %>

@@ -4,18 +4,21 @@ class Administrator::ContactSubjectController < AdminController
   
  def index
    
+   @page_title = 'Contact Us Topics'
    @contact_subjects=ContactSubject.find(:all,:order=>'title')
    
  end
  
  def edit
  
+   @page_title = 'Edit Contact Us Topic'
    @contact_subject=ContactSubject.find(params[:id])
    
  end
  
  def new
      
+   @page_title = 'New Contact Us Topic'
    @contact_subject=ContactSubject.new
      
  end

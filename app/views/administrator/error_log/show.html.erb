@@ -1,5 +1,3 @@
-<%= render :partial => '/admin/content_top', :locals => {:name => 'Error Log Detail'} %>
-									    
 	<div id="errors">
 		<a href="javascript:history.back();">[go back]</a>
 	    <br />
@@ -15,6 +13,3 @@
     <%= @error.backtrace.gsub(/\n/,"<br />") %>
 
 	</div>
-						
-<%= render :partial => '/admin/content_bottom' %>
-

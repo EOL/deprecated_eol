@@ -1,5 +1,3 @@
-<%= render :partial => '/admin/content_top', :locals => {:name => 'Page Statistics and Tools',:hide_nav=>true} %>
-
 <%=link_to '[admin home]',:controller=>'/admin',:action=>'index'%>
 
 <% form_tag({:action=>'index'}, :method=>'get') do -%>  
@@ -11,5 +9,3 @@
 <% unless @report_url.blank? %>  
   <%= render :partial => '/shared/embed_external_page',:locals=>{:height=>'1000',:width=>'900',:url=>@report_url} %>
 <% end %>
-	
-<%= render :partial => '/admin/content_bottom',:locals=>{:hide_nav=>true} %>

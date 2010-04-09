@@ -1,6 +1,7 @@
 class Administrator::RoleController < AdminController
 
   access_control :DEFAULT => 'Administrator - Technical'
+  layout 'admin'
 
   def index
     @page_title = 'Roles'

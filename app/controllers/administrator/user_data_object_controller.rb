@@ -1,5 +1,6 @@
 class Administrator::UserDataObjectController < AdminController  
 
+  layout 'admin'
 
   def index
 

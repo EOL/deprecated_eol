@@ -1,0 +1,46 @@
+%script{ :language => "JavaScript", :type => "text/javascript" }
+  function select_date(form_value) {
+  selected_date=form_value.options[form_value.selectedIndex].value;
+  window.location.href='/administrator/error_log/index?date='+created_at;
+  }
+#errors
+  - if @errors.nil? == false && @errors.size > 0
+    %form#page-form{ :method => "post", :action => "/administrator/error_log/index" }
+      The following
+      = @errors_count
+      errors are in the error log
+      = "for date #{@date}" unless @date.blank?
+      \.  Filter by day:
+      = select_tag(:date, '<option value="">--select--</option><option value="all">all dates</option>' + options_from_collection_for_select(@distinct_dates,:date, :date,@date),{:onChange=>"JavaScript:$('page-form').submit();"})
+      %br
+      = will_paginate @errors
+    %table.results_table{ :cellspacing => "0", :width => "100%" }
+      %tr
+        %th
+          ID
+        %th
+          Exception
+        %th
+          URL
+        %th
+          User agent
+        %th
+          Date
+      - for error in @errors
+        - column_class=cycle('odd','even')
+        %tr
+          %td{ :class => column_class }
+            = error.id
+          %td{ :class => column_class }
+            = link_to(h(error.exception_name),:action=>'show',:id=>error.id)
+          %td{ :class => column_class }
+            = h error.url
+          %td{ :class => column_class }
+            = h error.user_agent
+            </td
+          %td{ :class => column_class }
+            = format_date_time(error.created_at)
+    %br
+    = will_paginate @errors
+  - elsif @errors.nil? == false && @errors.size == 0
+    No errors are available.

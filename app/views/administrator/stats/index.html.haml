@@ -1,0 +1,10 @@
+= link_to '[admin home]',:controller=>'/admin',:action=>'index'
+- form_tag({:action=>'index'}, :method=>'get') do
+  Please note that some of these tools are in beta and may change over time or have bugs.
+  %br
+  Select a tool and click 'Go':
+  = select_tag(:report_url, options_for_select(@reports_list,@report_url))
+  = submit_tag 'Go'
+.divider
+- unless @report_url.blank?
+  = render :partial => '/shared/embed_external_page',:locals=>{:height=>'1000',:width=>'900',:url=>@report_url}

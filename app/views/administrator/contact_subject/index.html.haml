@@ -1,0 +1,29 @@
+%br
+= link_to "Add a new topic area", :action => 'new'
+%br
+#contact_us_topics
+  - unless @contact_subjects.nil?
+    The following topic areas are available from the Contact Us page.  You may add or edit topic areas and their corresponding email addresses.  All changes are made immediately.
+    %br
+    %br
+    %table.results_table{ :cellspacing => "0" }
+      %tr
+        %th
+          Topic Area
+        %th
+          Recipients
+        %th
+          Active
+        %th
+          Action
+      - for contact_subject in @contact_subjects
+        - column_class = cycle('odd', 'even')
+        %tr
+          %td{ :class => column_class }
+            = h contact_subject.title
+          %td{ :class => column_class }
+            = h contact_subject.recipients
+          %td{ :class => column_class }
+            = h contact_subject.active
+          %td{ :class => column_class }
+            = link_to "[edit]",:action=>'edit', :id=>contact_subject.id

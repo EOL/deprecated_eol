@@ -1,0 +1,37 @@
+#errors
+  %a{ :href => "javascript:history.back();" }
+    [go back]
+  %br
+  %br
+  %strong
+    ID:
+  = @error.id
+  %br
+  %strong
+    Date:
+  = format_date_time(@error.created_at)
+  %br
+  %strong
+    Exception:
+  = @error.exception_name
+  %br
+  %strong
+    URL:
+  = @error.url
+  %br
+  %strong
+    IP:
+  = @error.ip_address
+  %br
+  %strong
+    User agent:
+  = @error.user_agent
+  %br
+  %strong
+    User ID:
+  = @error.user_id
+  %br
+  %strong
+    Details:
+  %br
+  = @error.backtrace.gsub(/\n/,"<br />")

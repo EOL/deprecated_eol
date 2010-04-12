@@ -1,0 +1,2 @@
+- form_for :news_item,@news_item,:url => {:action=>'create'},:html=>{:id=>'page_form'} do |f|
+  = render :partial => 'form', :locals => {:f=>f}

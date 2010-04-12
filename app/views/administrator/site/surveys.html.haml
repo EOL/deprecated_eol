@@ -1,0 +1,64 @@
+= link_to "[go back]",:back
+#surveys
+  %table.results_table{ :cellspacing => "0" }
+    %tr
+      %th
+        Response
+      %th
+        Amount
+    %tr
+      %td.odd
+        Yes
+      %td.odd
+        = @yes_surveys_count
+    %tr
+      %td.even
+        No
+      %td.even
+        = @no_surveys_count
+    %tr
+      %td.odd
+        Done already
+      %td.odd
+        = @done_surveys_count
+    %tr
+      %td.even
+        Total
+      %td.even
+        = @all_surveys_count
+  %br
+  - if @surveys.nil? == false && @surveys.size > 0
+    The following users were presented with the survey pop-up window and responded to the request to take the survey as shown below:
+    %br
+    %br
+    %form#pagination_form
+      = will_paginate @surveys
+    %table.results_table{ :cellspacing => "0" }
+      %tr
+        %th
+          User Response
+        %th
+          User ID
+        %th
+          IP Address
+        %th
+          Taxon ID
+        %th
+          Date
+      - for survey in @surveys
+        - column_class=cycle('odd','even')
+        %tr
+          %td{ :class => column_class }
+            = h survey.user_response
+          %td{ :class => column_class }
+            = h survey.user_id
+          %td{ :class => column_class }
+            = h survey.ip_address
+          %td{ :class => column_class }
+            = h survey.taxon_id
+          %td{ :class => column_class }
+            = format_date_time(survey.created_at)
+    %form#pagination_form2
+      = will_paginate @surveys
+  - elsif @surveys.nil? == false && @surveys.size == 0
+    No survey responses are available.

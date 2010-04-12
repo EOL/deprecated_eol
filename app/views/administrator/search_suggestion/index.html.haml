@@ -1,0 +1,48 @@
+This area is used to generate search suggestions for users by specifying a term that users are searching on and a page that they should
+be directed to as a suggestion.  Suggested results always appear above other results.  You can have multiple suggestions for a given search term.
+#search_suggestions
+  - form_tag({:action=>'index'}, :method=>'get') do
+    Search for terms containing:
+    = text_field_tag(:term_search_string, @term_search_string)
+    = submit_tag 'Search'
+    %br
+    = link_to "Add a new search suggestion", :action=>'new'
+    %br
+    %br
+    - if @search_suggestions.nil? == false && @search_suggestions.size > 0
+      A total of
+      = @search_suggestions_count
+      terms were found matching your criteria.
+      %br
+      = will_paginate @search_suggestions
+      %table.results_table{ :cellspacing => "0" }
+        %tr
+          %th
+            Term
+          %th
+            Scientific Name
+          %th
+            Common Name
+          %th
+            Image
+          %th
+            Action
+        - for search_suggestion in @search_suggestions
+          - column_class=cycle('odd', 'even')
+          %tr
+            %td{ :class => column_class }
+              = link_to search_suggestion.term, :action=>'edit', :id=>search_suggestion.id
+            %td{ :class => column_class }
+              = search_suggestion.scientific_name
+            %td{ :class => column_class }
+              = search_suggestion.common_name
+            %td{ :class => column_class }
+              = image_tag(search_suggestion.image_url) unless search_suggestion.image_url.blank?
+            %td{ :class => column_class }
+              = link_to '[search]', taxon_url(:id=>search_suggestion.taxon_id), :target=>'_blank'
+              %br
+              = link_to '[delete]', {:action=>'destroy', :id=>search_suggestion.id}, :confirm => 'This cannot be undone; are you sure?', :method => :delete
+      %br
+      = will_paginate @search_suggestions
+    - else
+      No search suggestions are available matching your search criteria.

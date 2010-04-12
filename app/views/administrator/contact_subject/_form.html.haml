@@ -1,0 +1,25 @@
+= eol_lang_error_messages_for :contact_subject
+%br
+Edit the topic area and email addresses below and check the active box to show to users on the contact us page of the website.
+%strong
+  Topic area:
+(shown to the user)
+%br
+= f.text_field :title,{:size=>'70',:maxlength=>'250'}
+%br
+%br
+%strong
+  Email recipients:
+(separate multiple email addresses with commas)
+= f.text_field :recipients,{:size=>'70',:maxlength=>'150'}
+%br
+%br
+%strong
+  Active:
+= f.check_box :active
+\- visible to users if checked
+%br
+%br
+%input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='/administrator/contact_subject/index';" }
+|
+= f.submit

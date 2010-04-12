@@ -1,0 +1,93 @@
+= eol_lang_error_messages_for :search_suggestion
+%br
+Enter in a search term users are searching for and then the resulting taxon/page ID they should be directed to as a suggestion for that search.  The taxon/page ID is found in the URL of the page
+you wish to direct them to (e.g. www.eol.org/pages/5 has a taxon/page ID of 5).  The page name and the first image will be collected if available and stored with the result.
+You can edit those later if needed.
+%table
+  %tr
+    %td
+      %strong
+        Search Term:
+      %br
+      trigger search term entered by the user
+    %td
+      = f.text_field :term, {:size=>'50', :maxlength=>'250'}
+  - if action_name != 'new'
+    %tr
+      %td
+        %strong
+          Page Linked To:
+        %br
+        the suggested page to direct users to
+      %td
+        = link_to @search_suggestion.scientific_name, taxon_url(:id=>@search_suggestion.taxon_id), :target=>'_blank'
+    %tr
+      %td
+        %strong
+          Suggested Scientific Name:
+        %br
+        as shown to the user in the suggestion
+      %td
+        = f.text_field :scientific_name,{:size=>'50',:maxlength=>'250'}
+    %tr
+      %td
+        %strong
+          Suggested Common name:
+        %br
+        as shown to the user in the suggestion
+      %td
+        = f.text_field :common_name,{:size=>'50',:maxlength=>'250'}
+    %tr
+      %td
+        %strong
+          Suggested Image URL :
+        %br
+        shown to the user in the suggestion
+      %td
+        = f.text_field :image_url,{:size=>'50',:maxlength=>'250'}
+  %tr
+    %td
+      %strong
+        Suggested Result Page ID:
+    %td
+      = f.text_field :taxon_id, {:size=>'10',:maxlength=>'70'}
+      - if action_name != 'new'
+        = link_to_remote '[update names and image]',:url => {:action=>'update_names_and_image'}, :method => :post, :with => "'taxon_id=' + $('search_suggestion_taxon_id').value"
+  %tr
+    %td
+      %strong
+        Notes (not shown to user):
+    %td
+      = f.text_area :notes
+  %tr
+    %td
+      %strong
+        Content Notes (not shown to user):
+    %td
+      = f.text_field :content_notes,{:size=>'50',:maxlength=>'250'}
+  %tr
+    %td
+      %strong
+        Sort Order:
+    %td
+      = f.text_field :sort_order,{:size=>'3',:maxlength=>'3'}
+      (only if multiple suggestions for the same search term, sort is low-->high)
+  %tr
+    %td
+      %strong
+        Language:
+    %td
+      = f.select :language_label, Language.find_active.collect {|l| [l.name, l.iso_639_1]}
+      %br
+  %tr
+    %td
+      %strong
+        Active:
+    %td
+      = f.check_box :active
+      \- must be checked to show to user
+%br
+%br
+%input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='#{return_to_url}';" }
+|
+= f.submit

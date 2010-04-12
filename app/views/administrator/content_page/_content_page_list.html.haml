@@ -1,0 +1,6 @@
+%br
+- if @content_section.name != 'Home Page'
+  = link_to("Add a new page to this section",:action=>'create', :id=>@content_section_id)
+  or
+select an existing page to work with:
+= collection_select(:content_pages,:id,@content_pages,:id,:title_with_language,{:prompt=>'--select page to work with--'})

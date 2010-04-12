@@ -1,0 +1,20 @@
+#content
+  #page-separator-general
+  #page-title
+    %h1
+      = @content.title[@content.key]
+    %hr
+    %h2
+      PREVIEW ONLY -
+      %a{ :href => "#", :onclick => "window.close();return false;" }
+        CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW
+  %div{ :id => @content.left_content == '' ? '' : 'page-content-bgfauxinside' }
+    #page-content.clearfix
+      #full-page-content
+        - if @content.left_content != ''
+          #left-pane
+            = @content.left_content
+          #right-pane
+            = @content.main_content
+        - else
+          = @content.main_content

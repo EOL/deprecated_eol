@@ -1,0 +1,129 @@
+%table.results_table{ :cellspacing => "0" }
+  %tr
+    %th
+    %th
+  - if $COUNT_UNIQUE_VISITORS
+    %tr
+      %td.odd
+        Visitors
+      %td.odd
+        As of
+        = format_date_time(Time.now)
+        there were
+        = @visitors.count
+        unique visitors
+  %tr
+    %td.odd
+      Your IP Address
+    %td.odd
+      = request.remote_ip
+      (
+      = "internal IP address" if @allowed_ip
+      )
+  %tr
+    %td.even
+      Server IP Address
+    %td.even
+      = $IP_ADDRESS_OF_SERVER
+  %tr
+    %td.odd
+      Rails environment
+    %td.odd
+      = ENV["RAILS_ENV"]
+  %tr
+    %td.even
+      Rails databases
+    %td.even
+      Main:
+      = @config.database_configuration[ENV["RAILS_ENV"]]["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]]["host"]
+      %br
+      Data:
+      = @config.database_configuration[ENV["RAILS_ENV"]+'_data']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_data']["host"]
+      %br
+      Logging:
+      = @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["database"] + ' @ ' + @config.database_configuration[ENV["RAILS_ENV"]+'_logging']["host"]
+      %br
+      - unless @config.database_configuration['master_database'].nil?
+        * this does not necessarily mean the connections are being used, just that they are defined in the database.yml --- you must check the "config/environments/
+        = ENV["RAILS_ENV"]
+        \.rb" file to see if the master connections are setup
+        %br
+        Main Master:
+        = @config.database_configuration['master_database']["database"] + ' @ ' + @config.database_configuration['master_database']["host"]
+        %br
+      - unless @config.database_configuration['master_data_database'].nil?
+        Data Master:
+        = @config.database_configuration['master_data_database']["database"] + ' @ ' + @config.database_configuration['master_data_database']["host"]
+        %br
+  %tr
+    %td.odd
+      Error Logging Active
+    %td.odd
+      = $ERROR_LOGGING.to_s
+  %tr
+    %td.even
+      Web service base URL
+    %td.even
+      = $WEB_SERVICE_BASE_URL
+  %tr
+    %td.odd
+      Data Logging Active
+    %td.odd
+      = $ENABLE_DATA_LOGGING.to_s
+  %tr
+    %td.even
+      Email Error Notification Active
+    %td.even
+      = $EXCEPTION_NOTIFY.to_s
+  %tr
+    %td.odd
+      Content Servers
+    %td.odd
+      = $CONTENT_SERVERS.join(',')
+  %tr
+    %td.even
+      Allow user logins
+    %td.even
+      = $ALLOW_USER_LOGINS.to_s
+  - if ActionController::Base.perform_caching
+    %tr
+      %td.odd
+        Fragment caching enabled
+      %td.odd
+        %span#cache_clear_time
+          Home page cache last cleared on
+          = format_date_time($CACHE_CLEARED_LAST)
+        %br
+        = link_to_remote '[clear entire cache store]', :url=>{:controller=>'/administrator/site', :action=>'clear_all'}, :confirm=>'Are you sure you want to clear the entire cache store?', :update=>'cache_clear_time'
+        %br
+        = link_to_remote '[clear all non-species pages]', :url=>{:controller=>'/administrator/site', :action=>'expire_all'}, :update=>'cache_clear_time'
+        %br
+        %span#taxon_id_clear_time
+        Taxon ID:
+        = text_field_tag :taxon_id, '', {:size=>8}
+        = link_to_remote '[clear species page]', :url=>{:controller=>'/administrator/site', :action=>'expire'}, :update=>'taxon_id_clear_time', :with => "'taxon_id=' + $('taxon_id').value"
+        %br
+    %tr
+      %td.even
+        Fragment cache type
+      %td.even
+        = ActionController::Base.cache_store.class
+        %br
+        - if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
+          Servers:
+          = ActionController::Base.cache_store.addresses.join(',')
+          - elsif ActionController::Base.cache_store.class == ActiveSupport::Cache::FileStore
+          Path:
+          = ActionController::Base.cache_store.cache_path
+  - if $ENABLE_ANALYTICS
+    %tr
+      %td.even
+        Google analytics active
+      %td.even
+        = link_to 'Google analytic results', 'http://www.google.com/analytics/home', {:target=>'_blank'}
+  - if $SHOW_SURVEYS
+    %tr
+      %td.odd
+        Survey link active
+      %td.odd
+        = link_to "view survey respondents", :action=>'surveys'

@@ -1,0 +1,56 @@
+- form_for :content_upload,@content_upload,:url => {:action=>'update',:id=>params[:id]},:html=>{ :method => :post, :multipart => true,:id=>'page_form'} do |f|
+  = eol_lang_error_messages_for :content_upload
+  %br
+  %table
+    %tr
+      %td
+        %strong
+          File ID:
+      %td
+        = @content_upload.id
+    = render :partial => 'form', :locals => {:f=>f}
+    %tr
+      %td
+        %strong
+          Friendly URL:
+        %br
+        (for PDFs & docs)
+      %td
+        = link_to("http://#{request.domain}#{@content_upload.attachment_url}",@content_upload.attachment_url)
+    %tr
+      %td
+        %strong
+          Content Server Full URL:
+        %br
+        (for images to reference)
+      %td
+        = link_to(@content_upload.content_server_url,@content_upload.content_server_url)
+    %tr
+      %td
+        %strong
+          Content Type:
+      %td
+        = @content_upload.attachment_content_type
+    %tr
+      %td
+        %strong
+          File Size:
+      %td
+        = "#{(@content_upload.attachment_file_size / 1024.0).round} kb" unless @content_upload.attachment_file_size.blank?
+    %tr
+      %td
+        %strong
+          Uploaded By:
+      %td
+        = "#{@content_upload.user.full_name} (#{@content_upload.user.username})"
+    %tr
+      %td
+        %strong
+          Date uploaded:
+      %td
+        = @content_upload.created_at
+  %br
+  %br
+  %input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='#{url_for(:action=>'index')}';" }
+  |
+  = f.submit 'Update'

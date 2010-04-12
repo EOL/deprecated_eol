@@ -1,0 +1,26 @@
+The section is used to add new user roles.  New user roles are activated in the code, so that cannot be
+renamed or deleted from this interface.
+#roles
+  = link_to "Add a new role",:action=>'new'
+  %br
+  %br
+  - if !@roles.nil?
+    A total of
+    = @roles.size
+    roles were found.
+    %br
+    %table.results_table{ :cellspacing => "0" }
+      %tr
+        %th
+          Role
+        %th
+          Date Created
+      - for role in @roles
+        - column_class=cycle('odd','even')
+        %tr
+          %td{ :class => column_class }
+            = h role.title
+          %td{ :class => column_class }
+            = format_date_time(role.created_at)
+  - else
+    No roles are available.

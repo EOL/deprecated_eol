@@ -1,0 +1,79 @@
+= eol_lang_error_messages_for :news_item
+%script{ :type => "text/javascript" }
+  function check_body_remaining () {
+  textCounter($('news_item_body'),$('body_remaining_length'),1500);
+  preview_news_item();
+  }
+  function check_title_remaining () {
+  textCounter($('news_item_title'),$('title_remaining_length'),250);
+  preview_news_item();
+  }
+  function preview_news_item() {
+  $('previewed_news_item').innerHTML='<strong><haml:loud>Date.today</haml:loud></strong> - ' + $('news_item_title').value + ' - ' + $('news_item_body').value;
+  }
+  
+  document.observe("dom:loaded", function() {
+  check_title_remaining();
+  check_body_remaining();
+  });
+%br
+Edit the news item below.  HTML is allowed in both fields, and *either* title or the body is required.  For best results, just use the title and enter a short news item.  When creating hyperlinks to other sites, you can use
+= link_to 'TinyURL','http://www.tinyurl.com',:target=>'_blank'
+to create shorter URLs to conserve characters.
+%table
+  %tr
+    %td{ :valign => "top" }
+      %strong
+        Title:
+      %br
+      %span#title_remaining_length
+    %td
+      = f.text_field :title, :size=>70, :maxlength=>250,:onKeyDown=>"check_title_remaining();",:onKeyUp=>"check_title_remaining();"
+  %tr
+    %td{ :valign => "top" }
+      %strong
+        Body:
+      %br
+      %span#body_remaining_length
+    %td
+      = f.text_area :body,{:cols=>50,:onKeyDown=>"check_body_remaining();",:onKeyUp=>"check_body_remaining();"}
+  %tr
+    %td{ :valign => "top" }
+      %strong
+        Preview
+    %td
+      #previewed_news_item
+      %br
+      %i
+        Note: The preview is not exact -- just use to check HTML formatting
+  %tr
+    %td
+      %strong
+        News Item Date as shown to user (time only shown in RSS feed):
+    %td
+      = f.datetime_select :display_date
+  %tr
+    %td{ :valign => "top" }
+      %strong
+        News Item is visible on website after this time:
+    %td
+      = f.datetime_select :activated_on
+      %br
+      Note that all times are UTC (Greenwich Mean Time)
+      %br
+      = f.check_box :active
+      Publish item based on time set above (uncheck to always hide)
+  - if (controller.action_name != 'new' && controller.action_name != 'create') && @news_item.user.nil? == false
+    %tr
+      %td
+        %strong
+          Created by:
+      %td
+        = @news_item.user.username + " (" + @news_item.user.given_name + ")"
+  - else
+    = f.hidden_field :user_id, :value=>current_user.id
+%br
+%br
+%input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='#{return_to_url}';" }
+|
+= f.submit

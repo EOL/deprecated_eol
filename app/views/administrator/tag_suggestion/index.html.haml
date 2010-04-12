@@ -1,0 +1,43 @@
+#public-tags-admin
+  Use the form below to enter in tag suggestions.  Categories entered here will be shown to users in the tag "category" drop down menu,
+  and suggested values will be shown to users if they select the corresponding category and begin typing a few letters.
+  %fieldset#new-public-tag
+    %legend
+      Add New Tag Suggestion
+    (no spaces allowed in categories or values)
+    - form_tag :action => 'create' do
+      %label{ :for => "tag[key]" }
+        %span
+          Category:
+        = text_field_tag 'tag[key]'
+      %label{ :for => "tag[value]" }
+        %span
+          Value:
+        = text_field_tag 'tag[value]'
+      = submit_tag 'Create'
+  %div
+    %form#pagination_form
+      = will_paginate @tags
+    %table.results_table{ :cellspacing => "0" }
+      %tr
+        %th
+          Usage
+        %th
+          Category
+        %th
+          Tag
+        %th
+          Delete
+      - for tag in @tags
+        - column_class=cycle('odd','even')
+        %tr
+          %td{ :class => column_class }
+            = tag.usage_count
+          %td{ :class => column_class }
+            = tag.key
+          %td{ :class => column_class }
+            = tag.value
+          %td{ :class => column_class }
+            = render :partial => 'destroy_public_tag_form', :locals => { :tag => tag }
+    %form#pagination_form2
+      = will_paginate @tags

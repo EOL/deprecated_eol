@@ -1,0 +1,25 @@
+= link_to '[cancel]',:back
+%br
+To send this user an email, enter the text below and click 'Send'.
+%br
+- form_tag({:action=>'send_message'},:method=>'post') do
+  %table
+    %tr
+      %td
+        %strong
+          Name:
+      %td
+        = text_field_tag :name,@name
+    %tr
+      %td
+        %strong
+          Email:
+      %td
+        = text_field_tag :email,@email
+    %tr
+      %td
+        %strong
+          Message:
+      %td
+        = text_area_tag :message,@message,:cols=>'60',:rows=>'20'
+  = submit_tag 'Send'

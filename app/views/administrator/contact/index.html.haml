@@ -1,0 +1,110 @@
+This area shows all submissions entered via the contact us or media contact pages.  To view entries, select the topic below or
+= link_to('export all of the entries as a CSV file', :action=>'export')
+%br
+- form_tag({:action=>'index'},:method=>'get') do
+%select#contact_subject_id{ :name => "id" }
+  %option{ :value => "*" }
+    All  (
+    = @all_contacts_count
+    )
+  - for subject in @subjects
+    %option{ :value => subject.id, :selected => subject.id.to_s == @contact_subject_id }
+      = subject.title
+      (
+      = subject.contacts.count
+      )
+%br
+Search for messages containing:
+= text_field_tag(:comment_search_string,@comment_search_string)
+= submit_tag 'Go'
+.divider
+  #contacts
+    - if @contacts.nil? == false && @contacts.size > 0
+    = @contacts_count
+    total comments have been submitted in
+    = @subject
+    - if @comment_search_string != ''
+      containing
+      = @comment_search_string
+      \.
+      %br
+      %br
+      = will_paginate @contacts
+      %table.results_table{ :cellspacing => "0" }
+        %tr
+          %th
+            Name
+          %th
+            Email
+          %th
+            Comments
+          - if @contact_subject_id == '*'
+            %th
+              Topic
+          %th
+            Date
+          %th
+            Taxon Group
+        - for contact in @contacts
+          - column_class=cycle('odd','even')
+          %tr
+            %td{ :class => column_class }
+              = h contact.name
+            %td{ :class => column_class }
+              = link_to contact.email,:contoller=>'/administrator/user',:action=>'send_message',:email=>contact.email,:name=>contact.name
+            %td{ :class => column_class }
+              = h contact.comments
+            - if @contact_subject_id == '*'
+              %td{ :class => column_class }
+                = contact.contact_subject.title
+            %td{ :class => column_class }
+              = format_date_time(contact.created_at)
+            %td{ :class => column_class }
+              = h contact.taxon_group
+      %br
+      = will_paginate @contacts
+    - elsif @contacts.nil? == false && @contacts.size == 0
+      No comments are available for
+      = @subject
+      - if @comment_search_string != ''
+        containing
+        = @comment_search_string
+      \.
+    - else
+      / TODO - *seriously?!*
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br
+      %br

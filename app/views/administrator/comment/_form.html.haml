@@ -1,0 +1,38 @@
+= eol_lang_error_messages_for :comment
+%table
+  %tr
+    %td
+      %strong
+        Type:
+    %td
+      = @comment.parent_type_name
+  %tr
+    %td
+      %strong
+        Description:
+    %td
+      = link_to (truncate(@comment.parent_name),@comment.parent_url)
+  - if @comment.image_comment?
+    %tr
+      %td
+        %strong
+          Original object:
+      %td
+        = image_tag(@comment.parent_image_url)
+  %tr
+    %td{ :valign => "top" }
+      %strong
+        Body:
+    %td
+      = f.text_area :body,{:cols=>50}
+  %tr
+    %td
+      %strong
+        Created at:
+    %td
+      = @comment.created_at
+%br
+%br
+%input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='#{return_to_url}';" }
+|
+= f.submit

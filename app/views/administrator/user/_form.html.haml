@@ -1,0 +1,188 @@
+%br
+%table
+  %tr
+    %td
+      %strong
+        Username:
+    %td
+      = f.text_field :username,{:size=>'50',:maxlength=>'32'}
+  - if @user.openid?
+    %tr
+      %td
+        %strong
+          OpenID Identity URL:
+      %td
+        = f.hidden_field :identity_url
+        = @user.identity_url
+  - else
+    %tr
+      %td
+        %strong
+          Password:
+      %td
+        = f.password_field :entered_password,{:size=>'50',:maxlength=>'16'}
+    %tr
+      %td
+        %strong
+          Confirm Password:
+      %td
+        = f.password_field :entered_password_confirmation,{:size=>'50',:maxlength=>'16'}
+  %tr
+    %td
+      %strong
+        Email:
+    %td
+      = f.text_field :email,{:size=>'50',:maxlength=>'255'}
+  %tr
+    %td
+      %strong
+        Given Name:
+    %td
+      = f.text_field :given_name,{:size=>'50',:maxlength=>'255'}
+  %tr
+    %td
+      %strong
+        Family Name:
+    %td
+      = f.text_field :family_name,{:size=>'50',:maxlength=>'255'}
+  - if @user.curator_approved
+    %tr
+      %td
+        %strong
+          Profile:
+      %td
+        = external_link_to('curator profile', :controller => '/account', :action => :show, :id => @user.id, :show_link_icon => false)
+  %tr
+    %td
+      %strong
+        Language:
+    %td
+      = f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]}
+  %tr
+    %td
+      %strong
+        Content Setting:
+    %td
+      = f.radio_button :expertise, "novice"
+      = "Information intended for beginners"[]
+      %br
+      = f.radio_button :expertise, "middle"
+      = "Information for any audience"[]
+      %br
+      = f.radio_button :expertise, "expert"
+      = "Information intended for experts"[]
+      %br
+  %tr
+    %td
+      %strong
+        Only show authoritative content:
+    %td
+      = f.check_box :vetted
+      True
+  %tr
+    %td
+      %strong
+        Request Mailing List:
+    %td
+      = f.check_box :mailing_list
+      Yes
+  %tr
+    %td
+      %strong
+        Active:
+    %td
+      = f.check_box :active
+      True
+      (
+      = @user.failed_login_attempts
+      failed login attempts)- must be checked for user to log in
+  %tr
+    %td
+      %strong
+        Roles:
+    %td
+      #roles_toggle
+        %a{ :href => "#roles", :onclick => "JavaScript:Element.show('roles');Element.hide('roles_toggle');return false;" }
+          [show roles]
+      #roles{ :style => "display:none;" }
+        - Role.find(:all,:order=>'title').each do |role|
+          = check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role)
+          = role.title
+          %br
+  %tr
+    %td
+      %strong
+        Curator of:
+      %br
+    %td
+      = clade_selector 'user[curator_hierarchy_entry_id]', :value => @user.curator_hierarchy_entry_id
+  %tr
+    %td
+      %strong
+        Curator scope:
+    %td
+      = f.text_area :curator_scope, :rows => 3, :cols=>60
+  %tr
+    %td
+      %strong
+        = "Credentials"[:credentials]
+        \:
+    %td
+      = f.text_area :credentials, :rows => 9, :cols=>60
+  %tr
+    %td
+      %strong
+        Curator Approved:
+    %td
+      = f.check_box :curator_approved
+      True
+      - if !(@user.curator_verdict_by.blank? && @user.curator_verdict_at.blank?)
+        (Curator status changed by
+        = @user.curator_verdict_by.full_name
+        on
+        = format_date_time(@user.curator_verdict_at)
+        )
+  %tr
+    %td{ :colspan => "2" }
+  %tr
+    %td
+      %strong
+        Remove curatorship:
+    %td
+      = check_box_tag :curator_denied
+      If checked and user is saved, then credentials, scope, approval and selected clade are all removed and user no longer shows up as a curator.  You should add a note below to indicate the reason.  No information is sent to the user.
+  %tr
+    %td
+      %strong
+        Admin notes (not visible to user):
+    %td
+      = f.text_area :notes, :rows => 3, :cols=>60
+  - unless @user.id.nil?
+    %tr
+      %td
+        %strong
+          Created:
+        %br
+        %strong
+          Updated:
+      %td
+        = format_date_time(@user.created_at)
+        %br
+        = format_date_time(@user.updated_at)
+  %tr
+    %td
+      %strong
+        Send email:
+    %td
+      #email_toggle
+        %a{ :href => "#email", :onclick => "JavaScript:Element.show('email');Element.hide('email_toggle');return false;" }
+          [show email message area]
+      #email{ :style => "display:none;" }
+        Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:
+        %br
+        = text_area_tag :message,@message,:cols=>'60',:rows=>'20'
+%br
+%br
+%input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='#{return_to_url}';" }
+|
+= f.submit

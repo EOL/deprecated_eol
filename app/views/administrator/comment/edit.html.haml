@@ -1,0 +1,3 @@
+Edit the user's comment below.
+- form_for :comment,@comment,:url => {:action=>'update', :id=>params[:id]},:html=>{:id=>'page_form'} do |f|
+  = render :partial => 'form', :locals => {:f=>f}

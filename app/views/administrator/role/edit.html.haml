@@ -1,0 +1,2 @@
+- form_for :role,@role,:url => {:action=>'update', :id=>params[:id]},:html=>{:id=>'page_form'} do |f|
+  = render :partial => 'form', :locals => {:f=>f}

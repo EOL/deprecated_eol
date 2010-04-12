@@ -1,0 +1,63 @@
+= calendar_date_select_includes
+- CalendarDateSelect.format = :hyphen_ampm
+All web users registered in the system are shown below,  sorted inversely by time registered.  Note that the registration dates for users
+prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit that user.
+#users
+  - form_tag({:action=>'index'},:method=>'get') do
+    Search for users containing
+    = text_field_tag(:user_search_string,@user_search_string)
+    in their username, name or email address.
+    %br
+    who registered from
+    = calendar_date_select_tag "start_date", @start_date, :embedded => false, :year_range => 2009..2019
+    to
+    = calendar_date_select_tag "end_date", @end_date, :embedded => false, :year_range => 2009..2019
+    %br
+    = check_box_tag 'blank_dates','1',@blank_dates
+    Don't show unknown registered dates (V1 users, all prior to Jan 5, 2009)
+    %br
+    = submit_tag 'Search'
+    %br
+    = link_to "Add a new user",:action=>'new'
+    |
+    = link_to 'Export this list as CSV',{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:end_date=>@end_date,:user_search_string=>@user_search_string}
+    %br
+    - if @users.nil? == false && @users.size > 0
+      A total of
+      = @user_count
+      users were found matching your criteria.
+      %br
+      = will_paginate @users
+      %table.results_table{ :cellspacing => "0" }
+        %tr
+          %th
+            Username
+          %th
+            Email
+          %th
+            Name
+          %th
+            Created At
+          %th
+            OpenID?
+          %th
+            Curator?
+        - for user in @users
+          - column_class=cycle('odd','even')
+          %tr
+            %td{ :class => column_class }
+              = link_to(user.username,:action=>'edit',:id=>user.id)
+            %td{ :class => column_class }
+              = h user.email
+            %td{ :class => column_class }
+              = h user.full_name
+            %td{ :class => column_class }
+              = format_date_time(user.created_at)
+            %td{ :class => column_class }
+              = user.openid?
+            %td{ :class => column_class }
+              = user.is_curator?
+      %br
+      = will_paginate @users
+    - else
+      No users are available matching your search criteria.

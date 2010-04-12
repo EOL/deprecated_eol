@@ -1,0 +1,16 @@
+%tr
+  %td
+    %strong
+      Description:
+  %td
+    = f.text_field :description,{:size=>'40',:maxlength=>'100'}
+    %br
+    (not shown on the website or link URL, for informational purposes only)
+%tr
+  %td
+    %strong
+      Link Name:
+  %td
+    = f.text_field :link_name,{:size=>'40',:maxlength=>'70'}
+    %br
+    (used to generate a friendly link for users, cannot contain spaces or special characters)

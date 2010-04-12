@@ -1,0 +1,119 @@
+- form_for :page,@page,:url=>{:action=>'save_page_content',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
+  = eol_lang_error_messages_for :page
+  %table
+    %tr
+      %td{ :width => "120" }
+        %strong
+          Page ID:
+      %td
+        = @page.id
+    %tr
+      %td
+        %strong
+          Title:
+      %td
+        = f.text_field :title, {:size=>'50',:maxlength=>'100'}
+        %br
+        shown to user as the title of page
+    - if @page.content_section.name != 'Home Page'
+      %tr
+        %td
+          %strong
+            Page Name:
+        %td
+          = f.text_field :page_name, {:size=>'50',:maxlength=>'100'}
+          %br
+          used for URLS - should be unique (except for translated pages); if not, URLs to page must use page ID
+      %tr
+        %td
+          %strong
+            Redirect to external URL:
+        %td
+          = f.text_field :url, {:size=>'50',:maxlength=>'200'}
+          %br
+          ONLY USE if this item is a placeholder for a navigational menu item to a specific URL that is not this page...in that case, enter URL instead of entering content below; otherwise leave this field blank
+      %tr
+        %td
+          %strong
+            Open in new window from menu:
+        %td
+          = f.check_box :open_in_new_window
+          \- if checked, any links to this page will open in a new browser window
+      %tr
+        %td
+          %strong
+            Sort Order:
+        %td
+          = f.text_field :sort_order, {:size=>'2',:maxlength=>'2'}
+          \- relative sort order in navigational menus (sort is low-->high)
+      %tr
+        %td
+          %strong
+            Published:
+        %td
+          = f.check_box :active
+          \- must be checked in order to view
+      %tr
+        %td
+          %strong
+            Section:
+        %td
+          = f.collection_select :content_section_id,ContentSection.find(:all, :order=>'name'),:id,:name
+          \- only change to move page/item to a different section
+      %tr
+        %td
+          %strong
+            URL to this page:
+        %td
+          = link_to('/content/page/' + @page.id.to_s,{:controller=>'/content',:action=>'page',:id=>@page.id},:target=>'_blank')
+          - if @page.page_name != 'New Page'
+            OR
+            = link_to('/content/page/' + @page.page_url,{:controller=>'/content',:action=>'page',:id=>@page.page_url},:target=>'_blank')
+    %tr
+      %td
+        %strong
+          Page Title Language Key:
+      %td
+        = f.text_field :language_key, {:size=>'50',:maxlength=>'100'}
+        %br
+        only used if page title is also in the language translation files, otherwise leave blank
+    %tr
+      %td
+        %strong
+          Page Language:
+      %td
+        = f.select :language_abbr, Language.find_active.collect {|l| [l.name, l.iso_639_1]}
+    %tr
+      %td
+        %strong
+          Last Updated:
+      %td
+        = "#{format_date_time(@page.created_at)} by #{@page.user.full_name}"
+    - if @page.content_page_archives.size != 0
+      %tr
+        %td
+          %strong
+            Archived versions:
+        %td
+          = collection_select(:content_page_archive,:id,@page.content_page_archives,:id,:archived_by,{:prompt=>'--retrieve page created on--'})
+    - if @page.content_section.name != 'Home Page'
+      %tr
+        %td{ :colspan => "2" }
+          = link_to "Permanently delete this page", {:action=>'destroy',:id=>@page.id}, :confirm => "Are you sure?  This action cannot be undone.", :method => :delete
+  %br
+  %strong
+    Left content area:
+  (HTML FORMAT, only enter if you wish to have a left column on the page, otherwise leave blank)
+  %br
+  = f.text_area :left_content,{:cols=>'80',:rows=>'30'}
+  %br
+  %strong
+    Main content area:
+  (HTML FORMAT)
+  %br
+  = f.text_area :main_content,{:cols=>'80',:rows=>'65'}
+  %br
+  %br
+  %input#preview{ :name => "preview", :type => "button", :value => "Preview Changes" }
+  |
+  %input#publish{ :name => "publish", :type => "button", :value => "Publish Changes" }

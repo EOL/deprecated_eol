@@ -1,0 +1,52 @@
+This section is used to create news items.  News items are shown on the right part of the home page, as well as in an
+= link_to 'RSS feed',:controller=>'/content',:action=>'news',:format=>'rss'
+and
+the
+= link_to 'news archive page',:controller=>'/content',:action=>'news'
+page.  You must be comfortable with HTML if you wish to create hyperlinks or use formatting.
+Note that you can reference images with the HTML &lt;img&gt; tag, but they must exist at a URL, such as from the originating website or a site such as Flickr.  There is no
+facility to upload images for use directly in the news item.
+#news
+  - form_tag({:action=>'index'},:method=>'get') do
+    Search for items containing:
+    = text_field_tag(:term_search_string,@term_search_string)
+    = submit_tag 'Search'
+    %br
+    = link_to "Add a new news item",:action=>'new'
+    %br
+    %br
+    - if @news_items.nil? == false && @news_items.size > 0
+      A total of
+      = @news_items_count
+      items were found matching your criteria.
+      %br
+      = will_paginate @news_items
+      %table.results_table{ :cellspacing => "0" }
+        %tr
+          %th
+            Publish After (UTC)
+          %th
+            News Date
+          %th
+            News Item
+          %th
+            Action
+        - for news_item in @news_items
+          - column_class=cycle('odd','even')
+          %tr
+            %td{ :class => column_class }
+              = h format_date_time(news_item.activated_on,:format=>'short_no_tz')
+              %br
+              = h "(PUBLISHED)" if news_item.visible?
+            %td{ :class => column_class }
+              = h format_date(news_item.display_date)
+            %td{ :class => column_class }
+              = news_item.summary
+            %td{ :class => column_class }
+              = link_to '[edit]',:action=>'edit',:id=>news_item.id
+              %br
+              = link_to '[delete]', {:action=>'destroy',:id=>news_item.id}, :confirm => 'This cannot be undone; are you sure?', :method => :delete
+      %br
+      = will_paginate @news_items
+    - else
+      No news items are available matching your search criteria.

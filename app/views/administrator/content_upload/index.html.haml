@@ -1,0 +1,44 @@
+%p
+  You may upload static files for use in the CMS here (for example, PDFs, Word documents, images, etc.).  You should not
+  use this to upload content for species pages - it is for use only in non-species pages (such as employment ads, newsletters, MOUs, etc.).
+  For PDFs such as MOUs and newsletter files, you may link to the "friendly URL" if you wish (which will automatically redirect to the
+  "full content URL").  For images which are embedded in a page and referenced with an &lt;img&gt; tag, you must use the "full content URL".
+  The "full content URL" may show a different content server number each time you refresh the page (e.g. "content2.eol.org", "content3.eol.org", etc) - this is
+  normal and any can be used when you create your links as they are all equivalent.
+  Note that it may take a few minutes after upload for the URLs to work since your file needs to propagate to the content servers.
+%br
+= link_to('[add a new file]',:action=>'new')
+%br
+#content
+  %form
+    - if @content_uploads.nil? == false && @content_uploads.size > 0
+      = will_paginate @content_uploads
+      %table.results_table{ :cellspacing => "0" }
+        %tr
+          %th
+            Description
+          %th
+            Full Content URL
+          %th
+            Friendly URL
+          %th
+            Uploaded On
+          %th
+            By
+        - for content in @content_uploads
+          - column_class=cycle('odd','even')
+          %tr
+            %td{ :class => column_class }
+              = link_to(h(content.description),:action=>'edit',:id=>content.id)
+            %td{ :class => column_class }
+              = link_to(content.content_server_url,content.content_server_url)
+            %td{ :class => column_class }
+              = link_to(content.attachment_url,content.attachment_url)
+            %td{ :class => column_class }
+              = format_date(content.created_at) unless content.created_at.nil?
+            %td{ :class => column_class }
+              = link_to(content.user.username, :controller => 'administrator/user', :action=>'edit',:id=>content.user_id)
+      %br
+      = will_paginate @content_uploads
+    - else
+      No uploaded content is available.

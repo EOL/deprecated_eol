@@ -21,7 +21,7 @@ class ContentPartner::ReportsController < ContentPartnerController
   
   def get_year_month_list    
     arr=[]
-    start="2008_07"
+    start="2009_07"
     str=""
     var_date = Time.now
     while( start != str)

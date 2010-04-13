@@ -33,7 +33,6 @@ class ContentPartner::ReportsController < ContentPartnerController
   end
   
   def monthly_page_stats
-
     @year_month_list = get_year_month_list()
     
     if(params[:agent_id]) then

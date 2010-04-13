@@ -157,7 +157,10 @@ class User < ActiveRecord::Base
     rset = CuratorCommentLog.find_by_sql([sql, user_id])        
     comment_ids_activity = {} #same Hash.new
     rset.each do |post|
-      comment_ids_activity["#{post.comment_id}"] = "#{post.activity_code} <br> #{post.updated_at}"      
+      comment_ids_activity["#{post.comment_id}"] = "#{post.activity_code} <br> #{post.updated_at}"
+      
+      
+      
     end    
     return comment_ids_activity        
   end

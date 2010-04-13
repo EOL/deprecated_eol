@@ -13,7 +13,9 @@ class Administrator::StatsController < AdminController
                   ["EOL Names Lookup Tool","http://services.eol.org/names_lookup/"],
                   ["EOL Transfer Schema XML Validator","http://services.eol.org/validator/"],
                   ["UBio-FindIT for URL lists","http://services.eol.org/urls_lookup/"],
-                  ["General EOL Statistics by lists of names","http://services.eol.org/names_stat/"]]
+                  ["General EOL Statistics by lists of names","http://services.eol.org/names_stat/"],
+                  ["EOL Resource Monitoring - RSS Feeds","http://services.eol.org/RSS_resource_monitor/"]
+                  ]
 #                  ["Specific EOL Taxa ID Stats","http://services.eol.org/species_stat/index.php"],
     
     @report_url=params[:report_url] || @reports_list[1][1]

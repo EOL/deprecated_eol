@@ -55,6 +55,13 @@
     %li
       = link_to 'monthly notification', {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active', :confirm => "Send email notification to all content partners \n about the availability of the latest monthly web stats"}
   - restrict_to "(Administrator - Usage Reports) & !blacklist" do
+
+    %li
+      = link_to 'monthly published partners', {:controller => 'administrator/content_partner_report', :action => 'report_tools'}, {:class=>'toc_item active'}
+
+
+
+
     %h3
       Statistics
     %li

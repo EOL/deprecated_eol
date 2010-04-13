@@ -206,7 +206,7 @@ class Administrator::ContentPartnerReportController < AdminController
   
   def get_year_month_list    
     arr=[]
-    start="2009_07"
+    start="2008_01"
     str=""
     var_date = Time.now
     while( start != str)      

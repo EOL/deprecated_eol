@@ -46,7 +46,7 @@ module EOL
       @name_id        = name[:name_id].to_i
       @name_string    = name[:name_string]
       @iso_639_1      = name[:iso_639_1]
-      @language_label = name[:language_label]
+      @language_label = name[:language_label] || Language.unknown.label
       @language_name  = name[:language_name]
       @language_id    = name[:language_id].to_i
       @agent_id       = name[:agent_id].to_i

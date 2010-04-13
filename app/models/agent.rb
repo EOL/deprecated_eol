@@ -159,10 +159,32 @@ class Agent < SpeciesSchemaModel
     Inner Join agents_resources ON agents.id = agents_resources.agent_id
     Inner Join harvest_events ON agents_resources.resource_id = harvest_events.resource_id
     Where harvest_events.published_at is not null
-    Order By agents.full_name Asc
-    "    
+    Order By agents.full_name Asc"    
     self.find_by_sql [query]
   end
+  
+  def self.published_agent(year, month, page)      
+    query="
+    Select distinct agents.full_name, agents.id
+    From agents
+    Inner Join agents_resources ON agents.id = agents_resources.agent_id
+    Inner Join resources ON agents_resources.resource_id = resources.id
+    Inner Join harvest_events ON resources.id = harvest_events.resource_id
+    where harvest_events.published_at is not null
+    and year(harvest_events.published_at) = ?
+    and month(harvest_events.published_at) = ?
+    and agents.id not in 
+    ( Select distinct agents.id From agents
+      Inner Join agents_resources ON agents.id = agents_resources.agent_id
+      Inner Join harvest_events ON agents_resources.resource_id = harvest_events.resource_id
+      where
+      harvest_events.published_at < '#{year}-#{month}-01'
+      and harvest_events.published_at is not null
+    )
+    order by agents.full_name, harvest_events.id desc     
+    "      
+    self.paginate_by_sql [query, year, month], :page => page, :per_page => 50 , :order => 'full_name'    
+   end  
   
   def self.from_source_url(source_url)
     Agent.new :project_name => 'View original data object', :homepage => source_url

@@ -27,7 +27,7 @@ class ContentPartner::ReportsController < ContentPartnerController
     while( start != str)
       var_date = var_date - 1.month
       str = var_date.year.to_s + "_" + "%02d" % var_date.month.to_s
-      arr << str
+      arr << str      
     end    
     return arr
   end

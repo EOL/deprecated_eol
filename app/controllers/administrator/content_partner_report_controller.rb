@@ -203,5 +203,36 @@ class Administrator::ContentPartnerReportController < AdminController
     @rset = Agent.content_partners_contact_info(@month,@year)
     
   end
+  
+  def get_year_month_list    
+    arr=[]
+    start="2009_07"
+    str=""
+    var_date = Time.now
+    while( start != str)      
+      str = var_date.year.to_s + "_" + "%02d" % var_date.month.to_s
+      arr << str
+      var_date = var_date - 1.month
+    end    
+    return arr
+  end 
+  
+  def report_tools
+    @page_title = 'Published Content Partners'
+    @year_month_list = get_year_month_list()
+    if(params[:year_month]) then
+      params[:year], params[:month] = params[:year_month].split("_") if params[:year_month]    
+      @report_year  = params[:year].to_i
+      @report_month = params[:month].to_i
+      @year_month   = params[:year] + "_" + "%02d" % params[:month].to_i
+    else
+      last_month = Time.now - 1.month
+      @report_year = last_month.year.to_s
+      @report_month = last_month.month.to_s
+      @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
+    end        
+    page = params[:page] || 1
+    @published_agents = Agent.published_agent(@report_year, @report_month, page)    
+  end
 
 end

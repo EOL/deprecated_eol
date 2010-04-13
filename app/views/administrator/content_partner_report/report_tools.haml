@@ -1,0 +1,37 @@
+%h2
+  New content partners for the month
+%p
+  This is a list of first-time published content partners for the month.
+%ol
+  - form_for :hello, :url => { :action => :report_tools } do |form|
+    %table.results_table
+      %thead
+        %tr{ :align => "center" }
+          %td
+            = select_tag "year_month", options_for_select(@year_month_list,@year_month)
+            = submit_tag("Submit")
+
+  %table.results_table
+    %tr
+      %td{ :colspan => "5" }
+        = will_paginate @published_agents
+    %thead{ :align => "center" }
+      %tr{ :align => "center" }
+        %th
+          ID
+        %th
+          Content Partner
+    %tbody
+      - count = 0
+      - @published_agents.each do |agent|
+        - column_class=cycle('odd','even')
+        - count += 1
+        %tr
+          %td{ :class => column_class }
+            = agent.id
+          %td{ :class => column_class }
+            = link_to(agent.full_name, { :action => 'show', :id => agent.id })
+    %tr
+      %td{ :colspan => "5" }
+        = will_paginate @published_agents
+

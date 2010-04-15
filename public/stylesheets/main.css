@@ -411,14 +411,6 @@ div#media-videos {
   background-color: #f4f4f4;
   position: relative;
   z-index: 1000; }
-  #media-maps .gbif_disclaimer {
-    text-align: center;
-    text-decoration: none; }
-    #media-maps .gbif_disclaimer a {
-      text-decoration: none;}
-  #map-image {
-    height: 96%;
-    width: 100%; }
 
 #left-mc {
   float: left;
@@ -779,20 +771,12 @@ ul#tab_media_center {
 div.attribution .credit {
   width: 100%;
   text-align: left; }
-  div.credit .footer {
+  div.attribution .credit .footer {
     width: 100%;
     border-bottom: 1px solid #E6E7E8;
     clear: both;
     overflow: hidden;
     height: 1px; }
-
-hr.results {
-  color: #E6E7E8;
-  background-color: #E6E7E8;
-  width: 200px;
-  height: 1px;
-  display: block;
-  border: 0px;}
 
 .credit-title {
   text-transform: uppercase;
@@ -951,17 +935,12 @@ ul#tab_taxonomic_browser {
 #taxonomictext {
   font-size: 100%;
   font-weight: bold;
-  margin-left: 0px;
-  white-space:nowrap;}
+  margin-left: 0px; }
   #taxonomictext li ul {
     font-weight: normal;
     padding: 0;
     margin-left: 5px;
     list-style: none; }
-    #taxonomictext .message {
-      font-weight: bold;
-      white-space:normal;}
-  
 
 #taxonomictext-upone {
   padding-left: 10px;
@@ -1280,6 +1259,10 @@ ul#toc li.li-sub a {
 li.li-sub a.active {
   text-decoration: none;
   color: #666; }
+
+#whats_this {
+  float: right;
+  margin-top: 1.5em; }
 
 #content #page-content #center-page-content {
   position: relative;
@@ -1812,13 +1795,13 @@ input.warn, textarea.warn {
   font-style: italic; }
 
 #textarea {
+  text-transform: uppercase;
   border-bottom: medium solid #CCC;
   text-align: left; }
   #textarea .attribution-icon {
     float: right; }
   #textarea h5 {
-    text-transform: uppercase;
-    padding-top: 0px; }
+    padding-top: 6pt; }
   #textarea a {
     font-weight: normal;
     font-style: none;
@@ -2259,18 +2242,3 @@ h3.search_result_subtitle {
   padding-bottom: 1em; }
 .search_result_cell .recognized_by {
   font-size: smaller; }
-
-div#nagivation-choose-hierarchy {
-    padding-bottom: 1px;
-}
-div#nagivation-choose-hierarchy select {
-    font-size: 11px;
-    font-family: arial, helvetica, sans-serif;
-    width: 240px; }
-    div#nagivation-choose-hierarchy option.in {
-        font-weight: bold;
-    }
-    div#nagivation-choose-hierarchy option.out {
-        font-weight: lighter;
-        font-size: 9px;
-    }

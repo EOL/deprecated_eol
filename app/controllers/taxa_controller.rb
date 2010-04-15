@@ -210,7 +210,7 @@ class TaxaController < ApplicationController
 
     @category_id = @toc_item.category_id    
     @ajax_update = true
-    @content = @taxon_concept.content_by_category(@category_id,:current_user=>current_user)
+    load_content_var
     @new_text = render_to_string(:partial => 'content_body')
   end
 
@@ -229,7 +229,7 @@ class TaxaController < ApplicationController
     @taxon_concept.current_user  = current_user
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
 
-    @content     = @taxon_concept.content_by_category(@category_id, :current_user => current_user)
+    load_content_var
     @ajax_update=true
     append_content_instance_variables(@category_id)
     if @content.nil?
@@ -393,6 +393,12 @@ class TaxaController < ApplicationController
 ###############################################
 private
 
+  def load_content_var
+    @content = @taxon_concept.content_by_category(@category_id,:current_user=>current_user)
+    # TODO - this was a "quick fix"... but, clearly, we can generalize this in a nice way:
+    @whats_this = '/content/page/new_release_features_4_2010#Chapters' if @content[:category_name] =~ /related names/i
+  end
+
   # TODO: Get rid of the content level, it is depracated and no longer needed
   # set_user_settings()
   def update_user_content_level
@@ -455,6 +461,9 @@ private
   def first_content_item
     # find first valid content area to use
     taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
+  end
+
+  def handle_whats_this
   end
   
   def this_request_is_really_a_search
@@ -665,7 +674,7 @@ private
                                     
     @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
     
-    @content     = @taxon_concept.content_by_category(@category_id,:current_user=>current_user) unless
+    load_content_var unless
       @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
     @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy, {:language => current_user.language, :size => :small})
   end

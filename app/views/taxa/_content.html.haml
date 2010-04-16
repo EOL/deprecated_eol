@@ -16,7 +16,7 @@
           = link_to("<span style='width:22px;height:22px;display:block;margin-top: 10px'></span>", {}, :href => url, :target => "_blank", :title => "Edit wikipedia page")
   - unless @whats_this.nil?
     #whats_this
-      = link_to "What's This?", '/content/page/new_release_features_4_2010#Chapters'
+      = link_to "What's This?", @whats_this
   %h3= @content[:category_name] unless @content.nil?
 / end center page content header
 

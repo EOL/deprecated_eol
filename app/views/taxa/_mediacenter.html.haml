@@ -42,7 +42,7 @@
       #nagivation-choose-hierarchy
         %h5
           #classification_whats_this
-            = link_to "What's this?", '/content/page/new_release_features_4_2010#Browser'
+            = link_to "What's this?", '/content/page/new_features#browser'
           = "Classification:"[]
         - form_for :user, current_user, :url=>{:controller=>"settings"}, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
           %select#user_default_hierarchy_id{ :name => 'user[default_hierarchy_id]', :class => 'choose-hierarchy-select', :onchange => 'this.form.submit();' }

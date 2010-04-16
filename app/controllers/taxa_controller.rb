@@ -396,7 +396,8 @@ private
   def load_content_var
     @content = @taxon_concept.content_by_category(@category_id,:current_user=>current_user)
     # TODO - this was a "quick fix"... but, clearly, we can generalize this in a nice way:
-    @whats_this = '/content/page/new_release_features_4_2010#Chapters' if @content[:category_name] =~ /related names/i
+    @whats_this = '/content/page/new_release_features_4_2010#Chapters' if
+      @content[:category_name] =~ /(related names|common names|synonyms)/i
   end
 
   # TODO: Get rid of the content level, it is depracated and no longer needed

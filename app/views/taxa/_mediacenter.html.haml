@@ -40,7 +40,10 @@
     #textarea
       %a#classification-attribution-button.static-popup-link.attribution-icon{ :href => "#{@taxon_concept.id}/classification_attribution", :onclick => "return false;" }
       #nagivation-choose-hierarchy
-        %h5= "Classification:"[]
+        %h5
+          #classification_whats_this
+            = link_to "What's this?", '/content/page/new_release_features_4_2010#Browser'
+          = "Classification:"[]
         - form_for :user, current_user, :url=>{:controller=>"settings"}, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
           %select#user_default_hierarchy_id{ :name => 'user[default_hierarchy_id]', :class => 'choose-hierarchy-select', :onchange => 'this.form.submit();' }
             - for h in @hierarchies_to_offer

@@ -464,7 +464,7 @@ ul#tab_media_center {
 
 #left-mc .wrapper-mc {
   position: relative;
-  width: 702px;
+  width: 701px;
   height: 410px; }
   #left-mc .wrapper-mc #large-image {
     float: left;
@@ -909,7 +909,7 @@ ul#tab_taxonomic_browser {
 
 #taxonomic-text-container {
   width: 269px;
-  height: 390px;
+  height: 372px;
   border: 0px;
   margin-left: 10px auto;
   margin-top: 10px auto;
@@ -1259,6 +1259,11 @@ ul#toc li.li-sub a {
 li.li-sub a.active {
   text-decoration: none;
   color: #666; }
+
+#classification_whats_this {
+  text-transform: none;
+  float: right;
+  padding-right: 1em; }
 
 #whats_this {
   float: right;
@@ -1801,13 +1806,17 @@ input.warn, textarea.warn {
   #textarea .attribution-icon {
     float: right; }
   #textarea h5 {
-    padding-top: 6pt; }
+    padding-top: 4pt;
+    font-weight: bold; }
   #textarea a {
     font-weight: normal;
-    font-style: none;
-    text-decoration: none; }
+    font-style: none; }
     #textarea a. {
       color: #CCC; }
+
+select#user_default_hierarchy_id {
+  width: 21em;
+  margin-bottom: 6px; }
 
 #pages .pagination span {
   display: inline; }

@@ -27,10 +27,11 @@
           %td{ :class => column_class }
             .ancestor= result['ancestor_scientific']
             .parent= result['parent_scientific']
-            %div{:class => "result duplicate"}
+            %div{:class => (result['parent_scientific'].blank? and result['ancestor_scientific'].blank?) ? '' : "result duplicate"}
               = link_to hh(result['best_matched_scientific_name']), {:action => 'search_clicked', :id => result['id']}, :method=>:post
             = result['scientific_shown_as']
-            %span.recognized_by= "Taxon recognized by #{result['recognized_by']}"
+            - unless result['recognized_by'].blank?
+              %span.recognized_by= "Taxon recognized by #{result['recognized_by']}"
       -# end results.each
     = will_paginate(results)
   - # /search_results

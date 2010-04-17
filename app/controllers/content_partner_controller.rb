@@ -28,6 +28,7 @@ class ContentPartnerController < ApplicationController
       @taxon_concepts = taxon_concept_results.paginate(:page => page, :per_page => per_page)
       @taxon_concepts_count = taxon_concept_results.length
     end
+    render :action => 'content', :layout => 'main' # Needs main layout because it's very WIDE.
   end
   
   def partner

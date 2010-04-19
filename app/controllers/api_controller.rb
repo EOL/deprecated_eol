@@ -93,4 +93,10 @@ class ApiController < ApplicationController
        format.xml { render :layout=>false }
     end
   end
+  
+  def ping
+    respond_to do |format|
+      format.xml { render :layout=>false }
+    end
+  end
 end

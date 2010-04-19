@@ -1,11 +1,21 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'EOL XML APIs' do
+  before(:all) do
+    truncate_all_tables
+    Scenario.load('foundation')
+  end
+  
+  describe 'ping' do 
+    it 'should show success message' do
+      response = request("/api/ping")
+      xml_response = Nokogiri.XML(response.body)
+      xml_response.xpath('//response/message').inner_text.should == 'Success'
+    end
+  end
+  
   describe 'pages and data objects' do
     before(:all) do
-      truncate_all_tables
-      Scenario.load('foundation')
-    
       @overview        = TocItem.overview
       @overview_text   = 'This is a test Overview, in all its glory'
       @distribution      = TocItem.find_by_label('Ecology and Distribution')
@@ -273,9 +283,6 @@ describe 'EOL XML APIs' do
   
   describe 'hierarchy entries and synonyms' do
     before(:all) do
-      truncate_all_tables
-      Scenario.load('foundation')
-      
       @canonical_form = CanonicalForm.create(:string => 'Aus bus')
       @name = Name.create(:canonical_form => @canonical_form, :string => 'Aus bus Linnaeus 1776')
       @hierarchy = Hierarchy.gen(:label => 'Test Hierarchy')

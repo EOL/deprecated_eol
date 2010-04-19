@@ -11,6 +11,7 @@ class Synonym < SpeciesSchemaModel
   has_one  :taxon_concept_name
   has_many :agents_synonyms
   has_many :agents, :through => :agents_synonyms
+  has_many :agents_synonyms
 
   before_save :set_preferred
   after_update :update_taxon_concept_name
@@ -19,6 +20,18 @@ class Synonym < SpeciesSchemaModel
   
   def self.by_taxon(taxon_id)
     return Synonym.find_all_by_hierarchy_entry_id(taxon_id, :include => [:synonym_relation, :name])
+  end
+  
+  def agents_roles
+    agents_roles = []
+    
+    # its possible that the hierarchy is not associated with an agent
+    if h_agent = hierarchy.agent
+      h_agent.full_name = h_agent.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
+      role = AgentRole.find_or_create_by_label('Source')
+      agents_roles << AgentsSynonym.new(:synonym => self, :agent => h_agent, :agent_role => role, :view_order => 0)
+    end
+    agents_roles += agents_synonyms
   end
   
   private
@@ -61,6 +74,7 @@ class Synonym < SpeciesSchemaModel
       SpeciesSchemaModel.connection.execute("UPDATE taxon_concept_names set preferred = 1 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")
     end
   end
+  
 
 end
 

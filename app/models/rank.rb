@@ -33,6 +33,27 @@ class Rank < SpeciesSchemaModel
       )}).map(&:id)
     end
   end
+  
+  def self.tcs_codes
+    #TODO - we could add a code column to the table, but these codes are specific to the Taxon Concept Schema
+    Rails.cache.fetch('ranks/codes') do
+      { 'kingdom' => 'reg',
+        'phylum'  => 'phyl_div',
+        'class'   => 'cl',
+        'order'   => 'ord',
+        'family'  => 'fam',
+        'genus'   => 'gen',
+        'species' => 'sp',
+        'sp' => 'sp' }
+    end
+  end
+  
+  def tcs_code
+    if c = Rank.tcs_codes.fetch(label.downcase)
+      return c
+    end
+    return false
+  end
 
 end
 # == Schema Info

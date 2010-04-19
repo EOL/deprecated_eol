@@ -1099,25 +1099,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   def self.data_object_details(data_object_ids,page)
     if(data_object_ids.length > 0) then
     
-    query="SELECT distinct  taxon_concepts.id taxon_concept_id , data_objects.id , 
-    mime_types.label as mime, data_types.label as datatype, vetted.label vetted_label, visibilities.label visible,
-    data_objects.object_title as title, data_objects.source_url, data_objects.description,
-    taxon_concepts.published, data_objects.object_cache_url
-    from
-    data_objects
-    Inner Join mime_types ON data_objects.mime_type_id = mime_types.id
-    Inner Join vetted ON data_objects.vetted_id = vetted.id
-    Inner Join visibilities ON data_objects.visibility_id = visibilities.id
-    Inner Join data_types ON data_objects.data_type_id = data_types.id
-
-    Inner Join data_objects_taxa ON data_objects.id = data_objects_taxa.data_object_id
-    Inner Join taxa ON data_objects_taxa.taxon_id = taxa.id
-    Left Join hierarchy_entries ON taxa.hierarchy_entry_id = hierarchy_entries.id
-    Left Join taxon_concepts ON hierarchy_entries.taxon_concept_id = taxon_concepts.id
-    Where data_objects.id in (#{data_object_ids.join(',')})
-    AND taxon_concepts.published = 1     
-    order by data_objects.id     
-    "
     query="
     Select distinct taxon_concepts.id AS taxon_concept_id,
     data_objects.id, vetted.label AS vetted_label, visibilities.label AS visible,

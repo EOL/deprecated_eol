@@ -11,7 +11,14 @@ class ApiController < ApplicationController
     params[:text] = 75 if params[:text].to_i > 75
     params[:details] = 1 if params[:format] == 'html'
     
-    taxon_concept = TaxonConcept.find(taxon_concept_id)
+    begin
+      taxon_concept = TaxonConcept.find(taxon_concept_id)
+      raise if taxon_concept.nil? || !taxon_concept.published?
+    rescue
+      render(:partial => 'error.xml.builder', :locals => {:error => "Unknown identifier #{taxon_concept_id}"})
+      return
+    end
+    
     unless taxon_concept.nil? || !taxon_concept.published?
       details_hash = taxon_concept.details_hash(:return_media_limit => params[:images].to_i, :subjects => params[:subjects], :return_text_limit => params[:text].to_i, :details => params[:details], :vetted => params[:vetted], :common_names => params[:common_names])
     end
@@ -26,9 +33,15 @@ class ApiController < ApplicationController
   
   def data_objects
     data_object_guid = params[:id] || 0
-    params[:common_names] ||= false
+    params[:common_names] ||= false    
     
     details_hash = DataObject.details_for_object(data_object_guid, :include_taxon => true, :common_names => params[:common_names])
+    
+    if details_hash.blank?
+      render(:partial => 'error.xml.builder', :locals => {:error => "Unknown identifier #{data_object_guid}"})
+      return
+    end
+    
     if params[:format] == 'html'
       render(:partial => 'pages', :layout => false, :locals => { :details_hash => details_hash, :data_object_details => true } )
     else
@@ -46,6 +59,35 @@ class ApiController < ApplicationController
     @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => 30, :type => :all, :return_raw_response => true)
     @results = @results['response']['docs'].paginate(:page => params[:page], :per_page => 30)
     @last_page = @results.total_pages
+    
+    respond_to do |format|
+       format.xml { render :layout=>false }
+    end
+  end
+  
+  def hierarchy_entries
+    id = params[:id] || 0
+    begin
+      @hierarchy_entry = HierarchyEntry.find(id)
+      raise if @hierarchy_entry.nil? || !@hierarchy_entry.published?
+    rescue
+      render(:partial => 'error.xml.builder', :locals => {:error => "Unknown identifier #{id}"})
+      return
+    end
+    
+    respond_to do |format|
+       format.xml { render :layout=>false }
+    end
+  end
+  
+  def synonyms
+    id = params[:id] || 0
+    begin
+      @synonym = Synonym.find(id)
+    rescue
+      render(:partial => 'error.xml.builder', :locals => {:error => "Unknown identifier #{id}"})
+      return
+    end
     
     respond_to do |format|
        format.xml { render :layout=>false }

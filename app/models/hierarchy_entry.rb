@@ -14,13 +14,15 @@ class HierarchyEntry < SpeciesSchemaModel
   belongs_to :rank 
   belongs_to :taxon_concept
   belongs_to :vetted
-
+  
+  has_many :agents_hierarchy_entries
   has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
                                       WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'
   has_many :concepts
   has_many :top_images, :foreign_key => :hierarchy_entry_id
   has_many :taxa # Sometimes we go through names (which we can't Railsify)... but this relationship also exists directly
-
+  has_many :synonyms
+  
   has_one :hierarchies_content
 
   def name(detail_level = :middle, language = Language.english, context = nil)
@@ -354,6 +356,18 @@ class HierarchyEntry < SpeciesSchemaModel
       attribution.first.full_name = attribution.first.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
     end
     attribution += agents
+  end
+  
+  def agents_roles
+    agents_roles = []
+    
+    # its possible that the hierarchy is not associated with an agent
+    if h_agent = hierarchy.agent
+      h_agent.full_name = h_agent.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
+      role = AgentRole.find_or_create_by_label('Source')
+      agents_roles << AgentsHierarchyEntry.new(:hierarchy_entry => self, :agent => h_agent, :agent_role => role, :view_order => 0)
+    end
+    agents_roles += agents_hierarchy_entries
   end
 
   def has_gbif_identifier?

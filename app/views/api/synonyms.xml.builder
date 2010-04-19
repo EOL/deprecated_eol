@@ -31,7 +31,13 @@ xml.DataSet "xmlns" => "http://www.tdwg.org/schemas/tcs/1.01",
     
     xml.TaxonConcepts do
       xml.TaxonConcept(:id => "s#{@synonym.id}") do
-        xml.Name @synonym.name.string, :scientific => 'true', :ref => "n#{@synonym.name.id}"
+        # common_name
+        if SynonymRelation.common_name_ids.include?(@synonym.synonym_relation_id)
+          language = @synonym.language.nil? ? '' : @synonym.language.iso_639_1
+          xml.Name @synonym.name.string, :scientific => 'false', :language => language, :ref => "n#{@synonym.name.id}"
+        else #synonym
+          xml.Name @synonym.name.string, :scientific => 'true', :ref => "n#{@synonym.name.id}"
+        end
       end
     end
   end

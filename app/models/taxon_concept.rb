@@ -1035,7 +1035,7 @@ class TaxonConcept < SpeciesSchemaModel
     object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
     
     if !options[:vetted].blank?
-      object_hash.delete_if {|obj| obj['vetted_id'] != Vetted.trusted.id}
+      object_hash.delete_if {|obj| obj['vetted_id'].to_i != Vetted.trusted.id}
     end
     
     object_hash = object_hash[0...options[:return_media_limit]] if object_hash.length > options[:return_media_limit]

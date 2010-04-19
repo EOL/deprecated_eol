@@ -4,7 +4,13 @@ class ActionWithObject < ActiveRecord::Base
   
   validates_presence_of   :action_code
   validates_uniqueness_of :action_code
-
+  
+  def self.rate
+    Rails.cache.fetch('action_with_object/rate') do
+      ActionWithObject.find_by_action_code('rate')
+    end
+  end
+  
 end
 
 # == Schema Info

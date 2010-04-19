@@ -36,7 +36,7 @@ module EOL
         if a.language_label == b.language_label
           a.name_string <=> a.name_string # Note this is reversed; higher ratings are better.
         else
-          a.language_label <=> b.language_label
+          a.language_label.to_s <=> b.language_label.to_s
         end
       end
     end

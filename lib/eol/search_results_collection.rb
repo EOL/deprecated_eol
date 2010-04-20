@@ -169,7 +169,7 @@ module EOL
     def add_mini_tree_and_attribution
       return nil unless @results
       @results.each do |result|
-        add_tree_and_arttribution_fields(result) unless ENV['RAILS_ENV'] == 'production' 
+        add_tree_and_arttribution_fields(result)
       end
     end
 

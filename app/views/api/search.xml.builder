@@ -10,9 +10,9 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom",
     xml.name "Encyclopedia of Life"
   end
   xml.id "http://www.eol.org/search?q=#{@search_term}"
-  xml.os :totalResults, @results.total_entries
-  xml.os :startIndex, ((@results.current_page - 1) * @results.per_page) + 1
-  xml.os :itemsPerPage, @results.per_page
+  xml.os :totalResults, @last_page
+  xml.os :startIndex, ((@page) * @per_page) + 1
+  xml.os :itemsPerPage, @per_page
   xml.os :Query, :role => "request", :searchTerms => @search_term, :startPage => @page
   xml.link :rel => "alternate", :href => "/api/search/#{@search_term}", :type => "application/atom+xml"
   xml.link :rel => "first", :href => "/api/search/#{@search_term}?page=1", :type => "application/atom+xml" if @page <= @last_page
@@ -24,9 +24,9 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom",
   
   for result in @results
     xml.entry do
-      xml.title result['scientific_name'][0]
-      xml.link :href => "http://www.eol.org/pages/#{result['taxon_concept_id'][0]}"
-      xml.id "http://www.eol.org/pages/#{result['taxon_concept_id'][0]}"
+      xml.title result['best_matched_scientific_name']
+      xml.link :href => "http://www.eol.org/pages/#{result['id']}"
+      xml.id result['id']
       xml.updated
       xml.content result['scientific_name'].join(', ')+"\n\n"+result['common_name'].join(', '), :type => "text" if result['common_name']
     end

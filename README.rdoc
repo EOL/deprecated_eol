@@ -200,25 +200,6 @@ Vetted/Visibility values: each combination is represented.
 Finally, pages/6 (TaxonConcept ID 6) has one additional image which is in "preview" mode for the test_cp
 Content Partner, and should be visibile only to her.
 
-=== Browser acceptance testing with Selenium
-
-To setup Selenium IDE point your Firefox browser at:
-
-  https://addons.mozilla.org/en-US/firefox/addon/2079
-
-Once installed, it can be opened via the Tools menu of Firefox. All Selenium test suites and test cases are located
-under the spec/selenium directory. Before running the development test suite, the following should be run:
-
-  rake truncate && rake scenarios:load NAME=bootstrap && script/server
-
-Acceptance testing with the browser is accomplished with Selenium RC and the selenium-client Rubygem. To run the
-Selenium acceptance tests, open a console:
-
-  1. Tab 1: ./script/selenium-server
-  2. Tab 2: rake test:acceptance:web 
-
-The Selenium RC and Selenium-Client should be installed in the `vendor' directory.
-
 === Measuring Code Quality
 
 The EOL code base uses metric_fu-1.0.2 to evaluate the overall code quality.

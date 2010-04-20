@@ -22,8 +22,8 @@ begin
   task :noop do
   end
 
-  task :default => [:spec, "test:acceptance:web"]
-  task :stats => "spec:statsetup"
+  task :default => "spec"
+  task :stats   => "spec:statsetup"
 
   task :spec => ["solr:start"]
 

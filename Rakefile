@@ -31,7 +31,6 @@ namespace :spec do
     ::STATS_DIRECTORIES << %w(Model\ specs spec/models) if File.exist?('spec/models')
     ::STATS_DIRECTORIES << %w(View\ specs spec/views) if File.exist?('spec/views')
     ::STATS_DIRECTORIES << %w(Controller\ specs spec/controllers) if File.exist?('spec/controllers')
-    ::STATS_DIRECTORIES << %w(Selenium\ specs spec/selenium) if File.exist?('spec/selenium')
     ::STATS_DIRECTORIES << %w(Helper\ specs spec/helpers) if File.exist?('spec/helpers')
     ::STATS_DIRECTORIES << %w(Library\ specs spec/lib) if File.exist?('spec/lib')
     ::STATS_DIRECTORIES << %w(Cucumber\ features features) if File.exist?('features')

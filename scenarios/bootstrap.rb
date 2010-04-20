@@ -294,15 +294,6 @@ admin = User.gen :username => 'admin', :password => 'admin', :given_name => 'Adm
 admin.roles = Role.find(:all, :conditions => 'title LIKE "Administrator%"')
 admin.save
 
-#user for selenium tests
-test_user2 = User.gen(:username => 'test_user2', :password => 'password', :given_name => 'test', :family_name => 'user2')
-test_user2.save
-
-#moderator for selenium test
-moderator = User.gen :username => 'moderator', :password => 'moderator', :given_name => 'Moderator', :family_name => 'User'
-moderator.roles = Role.find(:all, :conditions => 'title LIKE "Moderator"')
-moderator.save
-
 exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-coded) exemplars.
                                :event => event,
                                :common_names => ['wumpus', 'wompus', 'wampus'],
@@ -420,9 +411,6 @@ bacteria.add_common_name_synonym("le grimme",agent_col, :language => french, :pr
 bacteria.add_common_name_synonym("ler petit bugge",agent_col, :language => french, :preferred => false)
 
 bacteria.add_scientific_name_synonym('microbia')
-
-# Another Selenium curator
-curator2 = build_curator(bacteria, :username => 'curator_two', :password => 'iliketocurate') 
 
 4.times do
   parent_id = Hierarchy.ncbi.hierarchy_entries.last.id

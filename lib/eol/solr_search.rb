@@ -19,14 +19,9 @@ module EOL
           querystring = prepare_querystring(clean_query, options)
         end
         res  = solr_search(querystring, options)
-        
-        # to get back the raw response object
-        return res if options[:return_raw_response]
-        
         data = EOL::SearchResultsCollection.new(res['response']['docs'],
-                                                options.merge(
-                                                  :total_results => res['response']['numFound'],
-                                                  :querystring   => query))
+                                                options.merge(:total_results => res['response']['numFound'],
+                                                              :querystring   => query))
         data.paginate(options)
       end
       

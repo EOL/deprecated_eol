@@ -145,8 +145,6 @@ class TaxaController < ApplicationController
     if @querystring.blank?
       @all_results = empty_paginated_set
     else
-      puts "*" * 80
-      puts "** Suggestions?"
       @suggested_results  = get_suggested_search_results(@querystring)
       # Are we passing params here for pagination?
       @scientific_results = TaxonConcept.search_with_pagination(@querystring, params.merge(:type => :scientific))
@@ -731,8 +729,6 @@ private
   end
 
   def get_suggested_search_results(querystring)
-    puts "+" * 80
-    puts "++ Search Suggestions"
     pluralized = querystring.pluralize
     singular   = querystring.singularize
     suggested_results_original = SearchSuggestion.find_all_by_term_and_active(singular, true, :order=>'sort_order') +

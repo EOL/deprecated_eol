@@ -3,18 +3,22 @@
     %h1
       No content partner
       %i
-        = @content_partner.description
+        = @short_name
 - else
   #browse_content_partner_species
     #page-title
       %h1
         Pages with content contributed by
-        = @content_partner.description
+        = @short_name
     #content_partner_stats
-      = @content_partner.description
-      has contributed to a total of
-      = @taxon_concepts_count
-      pages.
+      %p
+        = @short_name
+        has contributed to a total of
+        = @taxon_concepts_count
+        pages.
+      %br
+      %p
+        = @content_partner.description
     - if !@taxon_concepts.nil?
       = will_paginate @taxon_concepts
       %table#content-partners-species

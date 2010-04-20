@@ -55,10 +55,10 @@ class ApiController < ApplicationController
     @search_term = params[:id]
     @page = params[:page].to_i || 1
     @page = 1 if @page < 1
+    @per_page = 30
     
-    @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => 30, :type => :all, :return_raw_response => true)
-    @results = @results['response']['docs'].paginate(:page => params[:page], :per_page => 30)
-    @last_page = @results.total_pages
+    @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all)
+    @last_page = @results.total_entries
     
     respond_to do |format|
        format.xml { render :layout=>false }

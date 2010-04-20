@@ -498,7 +498,17 @@ div#media-videos
   background-color: #f4f4f4
   position: relative
   z-index: 1000
-
+  
+  & .gbif_disclaimer
+    text-align: center
+    text-decoration: none
+    
+    & a
+      text-decoration: none
+      
+#map-image
+  height: 96%
+  width: 100%
 
 #left-mc
   float: left
@@ -935,14 +945,22 @@ div.attribution .credit
   width: 100%
   text-align: left
 
-  .footer
-    width: 100%
-    border-bottom: 1px solid #E6E7E8
-    clear: both
-    overflow: hidden
-    height: 1px
+div.credit .footer
+  width: 100%
+  border-bottom: 1px solid #E6E7E8
+  clear: both
+  overflow: hidden
+  height: 1px
 
   img.agent-logo
+
+hr.results
+  color: #E6E7E8
+  background-color: #E6E7E8
+  width: 200px
+  height: 1px
+  display: block
+  border: 0px
 
 .credit-title
   text-transform: uppercase
@@ -1126,12 +1144,17 @@ ul#tab_taxonomic_browser
   font-size: 100%
   font-weight: bold
   margin-left: 0px
+  white-space: nowrap
 
   li ul
     font-weight: normal
     padding: 0
     margin-left: 5px
     list-style: none
+  
+  & .message
+    font-weight: bold
+    white-space: normal
 
 
 #taxonomictext-upone
@@ -2780,3 +2803,18 @@ h3.search_result_subtitle
     padding-bottom: 1em
   .recognized_by
     font-size: smaller
+
+div#nagivation-choose-hierarchy
+  padding-bottom: 1px
+
+div#nagivation-choose-hierarchy select
+  font-size: 11px
+  font-family: arial, helvetica, sans-serif
+  width: 240px
+    
+div#nagivation-choose-hierarchy option.in
+  font-weight: bold
+
+div#nagivation-choose-hierarchy option.out
+  font-weight: lighter
+  font-size: 9px

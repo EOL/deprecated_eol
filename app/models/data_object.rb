@@ -1095,42 +1095,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     return nil if obj.id.nil?
     return DataObject.find(obj.id)
   end
-
-
-  def self.data_object_details(data_object_ids,page)
-    if(data_object_ids.length > 0) then
-    
-    query="
-    Select distinct taxon_concepts.id AS taxon_concept_id,
-    data_objects.id, vetted.label AS vetted_label, visibilities.label AS visible,
-    data_objects.object_title AS title, data_objects.source_url,
-    data_objects.description, taxon_concepts.published,
-    data_objects.object_cache_url, concat(toc2.label, ' - ', table_of_contents.label) as toc
-    From
-    data_objects
-    Inner Join vetted ON data_objects.vetted_id = vetted.id
-    Inner Join visibilities ON data_objects.visibility_id = visibilities.id
-    Inner Join data_objects_taxa ON data_objects.id = data_objects_taxa.data_object_id
-    Inner Join taxa ON data_objects_taxa.taxon_id = taxa.id
-    Left Join hierarchy_entries ON taxa.hierarchy_entry_id = hierarchy_entries.id
-    Left Join taxon_concepts ON hierarchy_entries.taxon_concept_id = taxon_concepts.id
-    Left Join data_objects_table_of_contents ON data_objects.id = data_objects_table_of_contents.data_object_id
-    left Join table_of_contents ON data_objects_table_of_contents.toc_id = table_of_contents.id
-    left Join table_of_contents toc2 ON table_of_contents.parent_id = toc2.id
-    Where data_objects.id in (#{data_object_ids.join(',')})
-    AND taxon_concepts.published = 1
-    order by data_objects.id "
-    # AND taxon_concepts.published = 1
-    # AND taxon_concepts.supercedure_id = 0    
-    # (2983141, 2985085, 2996805)
-    # #{data_object_ids.join(',')}
-    
-    self.paginate_by_sql [query, data_object_ids], :page => page, :per_page => 50 , :order => 'id'
-    
-    end
-    
-  end
-  
   
   def self.get_toc_info(obj_ids)
     
@@ -1190,17 +1154,25 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   def self.details_for_objects(data_object_ids, options = {})
     return [] unless data_object_ids.is_a? Array
     return [] if data_object_ids.empty?
+    options[:visible] == true if options[:visible] != false
+    
+    visibility_clause = ""
+    if options[:visible] == true
+      visibility_clause = " AND do.published = 1 AND do.visibility_id = #{Visibility.visible.id}"
+    end
     
     object_details_hashes = SpeciesSchemaModel.connection.execute("
       SELECT do.*, dt.schema_value data_type, dt.label data_type_label, mt.label mime_type, lang.iso_639_1 language,
               lic.source_url license, lic.title license_label, ii.schema_value subject, v.view_order vetted_view_order,
-              toc.view_order toc_view_order,t.scientific_name, he.taxon_concept_id
+              v.label vetted_label, vis.label visibility_label,
+              toc.view_order toc_view_order, toc.label toc_label, t.scientific_name, he.taxon_concept_id
         FROM data_objects do
         LEFT JOIN data_types dt ON (do.data_type_id=dt.id)
         LEFT JOIN mime_types mt ON (do.mime_type_id=mt.id)
         LEFT JOIN languages lang ON (do.language_id=lang.id)
         LEFT JOIN licenses lic ON (do.license_id=lic.id)
         LEFT JOIN vetted v ON (do.vetted_id=v.id)
+        LEFT JOIN visibilities vis ON (do.visibility_id=vis.id)
         LEFT JOIN (
            info_items ii
            JOIN table_of_contents toc ON (ii.toc_id=toc.id)
@@ -1212,8 +1184,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
            JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
           ) ON (do.id=dot.data_object_id)
         WHERE do.id IN (#{data_object_ids.join(',')})
-        AND do.published = 1
-        AND do.visibility_id = #{Visibility.visible.id}
+        #{visibility_clause}
     ").all_hashes.uniq
     
     object_details_hashes.group_hashes_by!('guid')

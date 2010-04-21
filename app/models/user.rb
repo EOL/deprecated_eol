@@ -86,85 +86,54 @@ class User < ActiveRecord::Base
     end
   end 
   
+  def data_objects_curated
+    hashes = connection.execute("
+        SELECT ah.object_id data_object_id, awo.action_code, ah.updated_at action_time
+        FROM actions_histories ah
+        JOIN action_with_objects awo ON (ah.action_with_object_id=awo.id)
+        WHERE ah.user_id=#{self.id}
+        AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
+        AND awo.action_code!='rate'
+        GROUP BY data_object_id
+        ORDER BY action_time DESC").all_hashes.uniq
+  end
+  
   def total_objects_curated
-    # CuratorDataObjectLog.count :conditions => ['user_id = ?', id] 
-    # CuratorDataObjectLog.count :conditions => ['user_id = 35200'] 
-    #     => 316
-    # CuratorDataObjectLog.find_all_by_user_id(35200).map(&:data_object_id).uniq.size
-    #     => 302
-
-    CuratorDataObjectLog.find_all_by_user_id(id).map(&:data_object_id).uniq.size
+    self.data_objects_curated.length
+  end
+  
+  def comments_curated
+    connection.execute("
+          SELECT awo.action_code, ah.updated_at action_time, c.*
+          FROM actions_histories ah
+          JOIN action_with_objects awo ON (ah.action_with_object_id=awo.id)
+          JOIN comments c ON (ah.object_id=c.id)
+          WHERE ah.user_id=#{self.id}
+          AND ah.changeable_object_type_id=#{ChangeableObjectType.comment.id}
+          AND ah.action_with_object_id!=#{ActionWithObject.create.id}").all_hashes.uniq
   end 
   
   def total_comments_curated
-    CuratorCommentLog.count :conditions => ["user_id = ?", id] 
-  end 
-  
-  def comment_ids_curated(user_id)
-    #comment_ids = CuratorCommentLog.find(:all, :select => "comment_id", :conditions => [ "user_id = ?", self.id ] )
-    sql = "SELECT curator_comment_logs.comment_id from curator_comment_logs where curator_comment_logs.user_id = ? " #this gets the last activity done on the data object
-    rset = CuratorCommentLog.find_by_sql([sql, user_id])
-
-    ids = Array.new
-    rset.each do |post|
-        ids << post.comment_id
-    end
-    return ids
-  end 
+    self.comments_curated.length
+  end
   
 
-  def species_curated
-    # we need to get the IDs of the curated data objects and then get the species for those (cross-database, so we can't effectively join)
-    data_object_ids = CuratorDataObjectLog.find(:all, :select => "distinct data_object_id", :conditions => [ "user_id = ?", self.id ] ).map(&:data_object_id)
-    species = TaxonConcept.from_data_objects(*data_object_ids)
+  def taxon_concept_ids_curated
+    connection.select_values("
+          SELECT dotc.taxon_concept_id
+          FROM actions_histories ah
+          JOIN action_with_objects awo ON (ah.action_with_object_id=awo.id)
+          JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (ah.object_id=dotc.data_object_id)
+          WHERE ah.user_id=#{self.id}
+          AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
+          AND awo.action_code!='rate'
+          GROUP BY ah.object_id
+          ORDER BY ah.updated_at DESC").uniq
   end
   
   def total_species_curated
-    species_curated.length
+    taxon_concept_ids_curated.length
   end
-  
-  def data_object_ids_curated
-    data_object_ids = CuratorDataObjectLog.find(:all, :select => "distinct data_object_id", :conditions => [ "user_id = ?", self.id ] ).map(&:data_object_id)
-    #it will not affect order {, :order => "updated_at"}, no need to put order here
-  end
-  
-  def data_object_ids_curated_with_activity(user_id)
-    sql = "SELECT curator_data_object_logs.*, curator_activities.code as activity_code FROM curator_data_object_logs
-    JOIN curator_activities   ON curator_data_object_logs.curator_activity_id                    = curator_activities.id
-    WHERE curator_data_object_logs.user_id = ? and curator_data_object_logs.data_object_id is not null 
-    order by curator_data_object_logs.updated_at " #this gets the last activity done on the data object
-    rset = CuratorDataObjectLog.find_by_sql([sql, user_id])        
-    obj_ids_activity = {} #same Hash.new
-    rset.each do |post|
-      obj_ids_activity["#{post.data_object_id}"] = "#{post.activity_code} <br> #{post.updated_at}"      
-    end    
-    return obj_ids_activity        
-  end
-  
-  def taxon_concept_ids_curated
-    taxon_concept_ids = Array.new
-    species_curated.each do |post|
-        taxon_concept_ids << post.id
-    end
-    return taxon_concept_ids
-  end
-
-  def comment_ids_moderated_with_activity(user_id)
-    sql = "SELECT curator_comment_logs.*, curator_activities.code as activity_code FROM curator_comment_logs
-    JOIN curator_activities   ON curator_comment_logs.curator_activity_id                    = curator_activities.id
-    WHERE curator_comment_logs.user_id = ? and curator_comment_logs.comment_id is not null 
-    order by curator_comment_logs.updated_at " #this gets the last activity done on the data object
-    rset = CuratorCommentLog.find_by_sql([sql, user_id])        
-    comment_ids_activity = {} #same Hash.new
-    rset.each do |post|
-      comment_ids_activity["#{post.comment_id}"] = "#{post.activity_code} <br> #{post.updated_at}"
-      
-      
-      
-    end    
-    return comment_ids_activity        
-  end
-  
   
   def self.users_with_submitted_text
     sql = "Select distinct users.id , users.given_name, users.family_name 

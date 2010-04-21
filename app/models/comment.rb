@@ -178,16 +178,6 @@ class Comment < ActiveRecord::Base
     raise "Don't know how to handle a parent type of #{self.parent_type} (or t_c was nil)" if return_t_c.nil?
     return return_t_c
   end
-
-
- def self.get_comments(comment_ids,page)
-    if(comment_ids.length > 0) then
-    query="Select comments.* From comments
-    WHERE comments.id IN  (#{ comment_ids.join(', ') }) "
-    self.paginate_by_sql [query, comment_ids], :page => page, :per_page => 20
-    end
-  end 
- 
     
 protected
 

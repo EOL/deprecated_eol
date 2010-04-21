@@ -11,6 +11,12 @@ class ActionWithObject < ActiveRecord::Base
     end
   end
   
+  def self.create
+    Rails.cache.fetch('action_with_object/create') do
+      ActionWithObject.find_by_action_code('create')
+    end
+  end
+  
 end
 
 # == Schema Info

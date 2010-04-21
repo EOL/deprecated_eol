@@ -20,6 +20,7 @@ class ResourcesController < ApplicationController
     end
 
     before :edit do
+      @content_partner = ContentPartner.find(params[:content_partner_id]) if params[:content_partner_id]
       @page_title = 'Content Partner Reports'
     end
 

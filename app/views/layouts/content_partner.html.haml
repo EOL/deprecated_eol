@@ -1,10 +1,11 @@
 - @page_header ||= 'Reports'
+- agent = current_agent.nil? ? @content_partner.agent : current_agent
 - inside_layout 'main' do
   #page-separator-general
   #page-title
     #cp-desc-personal{ :style => "float: right; width: 400px; margin-right: 20px; margin-top: 5px; text-align:right;" }
       Welcome
-      = current_agent.full_name || current_agent.username
+      = agent.full_name || agent.username
       %br
       = link_to "Logout",:controller=>'/content_partner',:action => 'logout'
       \&nbsp; | &nbsp;
@@ -44,7 +45,7 @@
                 = link_to 'Transfer Schema Overview',{:controller=>'/content_partner',:action=>'transfer_overview'}, :class=>"#{(@content_partner.step  == :transfer_overview) ? 'active': ''} nested toc_item"
               %li
                 = link_to 'Transfer Schema Upload',{:controller=>'/content_partner',:action=>'transfer_upload'}, :class=>"#{(@content_partner.step  == :transfer_upload) ? 'active': ''} nested toc_item"
-            - if current_agent.ready_for_agreement?
+            - if agent.ready_for_agreement?
               %li
                 = link_to "YOUR AGREEMENT", {:controller=>'/content_partner',:action => "agreement"} ,  {:class=>'toc_item',:target=>"_new"}
               %li

@@ -8,8 +8,12 @@ end
 
 describe 'Curation' do
   Scenario.load :foundation
-
+  
   before(:each) do
+    Rails.cache.clear
+  end
+  
+  before(:all) do
     commit_transactions # Curators are not recognized if transactions are being used, thanks to a lovely
                         # cross-database join.  You can't rollback, because of the Scenario stuff.  [sigh]
     @common_names_toc_id = TocItem.common_names.id
@@ -159,6 +163,15 @@ describe 'Curation' do
     res.should redirect_to("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
     TaxonConceptName.count.should == tcn_count - 1
     Synonym.count.should == syn_count - 1
+  end
+  
+  it 'should be able to curate a concept not in default hierarchy' do
+    hierarchy = Hierarchy.gen
+    hierarchy_entry = HierarchyEntry.gen(:hierarchy => hierarchy, :taxon_concept => @taxon_concept)
+    hierarchy_entry_child = HierarchyEntry.gen(:hierarchy => hierarchy, :parent => hierarchy_entry)
+    make_all_nested_sets
+    
+    @first_curator.can_curate?(hierarchy_entry_child).should == true
   end
 
 end

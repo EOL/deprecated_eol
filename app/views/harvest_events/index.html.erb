@@ -1,7 +1,6 @@
 <%- if current_user.is_admin? -%>
   <%- content_partner_id = params[:content_partner_id] -%>  
 <%- else -%>
-  <%= render :partial => '/content_partner/top', :locals => {:page_header => 'Edit Resource'} %>
   <%- content_partner_id = 0 -%>
 <%- end -%>
 
@@ -78,8 +77,6 @@
 <%- end -%>
 <%- if current_user.is_admin? -%>
   <%= link_to "[go back]", :controller => "/administrator/content_partner_report", :action => "show", :id  => content_partner_id %>
-  <%= render :partial=> '/admin/content_bottom' %>
 <%- else -%>
   <%= link_to "[go back]", resources_url %>
-  <%= render :partial=> '/content_partner/bottom' %>
 <%- end -%>

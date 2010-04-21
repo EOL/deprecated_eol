@@ -1008,11 +1008,13 @@ class TaxonConcept < SpeciesSchemaModel
     end
     
     common = options[:common_names].blank? ? [] : preferred_common_names_hash
+    curated_hierarchy_entries = hierarchy_entries.delete_if{|he| he.hierarchy.browsable!=1 || he.published==0 || he.visibility_id!=Visibility.visible.id }
     
-    details_hash = {  'data_objects'      => data_object_hash,
-                      'id'                => self.id,
-                      'scientific_name'   => quick_scientific_name,
-                      'common_names'      => common}
+    details_hash = {  'data_objects'              => data_object_hash,
+                      'id'                        => self.id,
+                      'scientific_name'           => quick_scientific_name,
+                      'common_names'              => common,
+                      'curated_hierarchy_entries' => curated_hierarchy_entries}
   end
   
   def top_image_ids(options = {})

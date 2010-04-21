@@ -35,20 +35,20 @@ xml.DataSet "xmlns" => "http://www.tdwg.org/schemas/tcs/1.01",
         xml.TaxonRelationships do
           if parent = @hierarchy_entry.parent
             xml.TaxonRelationship(:type => 'is child taxon of') do
-              xml.ToTaxonConcept(:ref => "http://#{$SITE_DOMAIN_OR_IP}/api/hierarchy_entries/#{parent.id}", :linktype => 'external')
+              xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'hierarchy_entries', :id => parent.id, :only_path => false), :linktype => 'external')
             end
           end
           
           for child in @hierarchy_entry.children
             xml.TaxonRelationship(:type => 'is parent taxon of') do
-              xml.ToTaxonConcept(:ref => "http://#{$SITE_DOMAIN_OR_IP}/api/hierarchy_entries/#{child.id}", :linktype => 'external')
+              xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'hierarchy_entries', :id => child.id, :only_path => false), :linktype => 'external')
             end
           end
           
           for synonym in @hierarchy_entry.synonyms
             relation = SynonymRelation.common_name_ids.include?(synonym.synonym_relation_id) ? 'has vernacular' : 'has synonym'
             xml.TaxonRelationship(:type => relation) do
-              xml.ToTaxonConcept(:ref => "http://#{$SITE_DOMAIN_OR_IP}/api/synonyms/#{synonym.id}", :linktype => 'external')
+              xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'synonyms', :id => synonym.id, :only_path => false), :linktype => 'external')
             end
           end
         end

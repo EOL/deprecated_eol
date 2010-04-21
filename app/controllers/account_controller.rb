@@ -13,14 +13,16 @@ class AccountController < ApplicationController
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password] 
   end
-
+  
   if $SHOW_SURVEYS
     before_filter :check_for_survey
     after_filter :count_page_views
   end
   layout 'main'
-
-  def login    
+  
+  @@objects_per_page = 20
+  
+  def login
 
     # It's possible to create a redirection attack with a redirect to data: protocol... and possibly others, so:
     params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.
@@ -232,31 +234,28 @@ class AccountController < ApplicationController
   
   def show
     @user = User.find(params[:id])
-    @user_submitted_text_count=UsersDataObject.count(:conditions=>['user_id = ?',params[:id]])
+    @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?',params[:id]])
     redirect_back_or_default unless @user.curator_approved
   end
   
-  def show_objects_curated    
-    @user = User.find(params[:id])    
-    @data_object_ids = @user.data_object_ids_curated    
-    @object_ids_activity = @user.data_object_ids_curated_with_activity(@user.id)    
-    page = params[:page] || 1    
-    @data_objects = DataObject.data_object_details(@data_object_ids, page)
+  def show_objects_curated
+    page = (params[:page] || 1).to_i
+    @user = User.find(params[:id])
+    @data_objects_curated = @user.data_objects_curated
+    @data_objects = @data_objects_curated.paginate(:page => page, :per_page => @@objects_per_page)
   end
   
-  def show_species_curated    
-    @user = User.find(params[:id])    
-    @taxon_concept_ids = @user.taxon_concept_ids_curated
-    page = params[:page] || 1
-    @species = TaxonConcept.from_taxon_concepts(@taxon_concept_ids, page)
+  def show_species_curated
+    page = (params[:page] || 1).to_i
+    @user = User.find(params[:id])
+    @taxon_concept_ids = @user.taxon_concept_ids_curated.paginate(:page => page, :per_page => @@objects_per_page)
   end
   
-  def show_comments_moderated    
-    @user = User.find(params[:id])    
-    @comment_ids = @user.comment_ids_curated(@user.id)
-    @comment_ids_activity = @user.comment_ids_moderated_with_activity(@user.id)
-    page = params[:page] || 1
-    @comments = Comment.get_comments(@comment_ids, page)
+  def show_comments_moderated
+    page = (params[:page] || 1).to_i
+    @user = User.find(params[:id])
+    @all_comments = @user.comments_curated
+    @comments = @all_comments.paginate(:page => page, :per_page => @@objects_per_page)
   end
   
 

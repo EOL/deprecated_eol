@@ -356,6 +356,7 @@ class ApplicationController < ActionController::Base
   def clear_any_logged_in_session
     reset_session if logged_in?
   end
+  
 
   ###########
   # AUTHENTICATION/AUTHORIZATION METHODS

@@ -32,7 +32,7 @@ class TaxaController < ApplicationController
             on he.id = t.hierarchy_entry_id 
         where h.id=#{params[:harvest_event_id].to_i} 
         order by t.scientific_name" , :page => page)
-      render :html => 'content_partner'
+      render :html => 'content_partner', :layout => current_user.is_admin? ? 'admin' : 'content_partner'
     else
       redirect_to(:action=>:show, :id=>params[:id])
     end

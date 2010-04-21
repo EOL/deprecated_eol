@@ -19,6 +19,9 @@ module ApplicationHelper
 
   # TODO - Rails has built-in helpers for just this kind of stuff.
   def format_date_time(inTime,params={})
+    if !inTime.blank? && inTime.class == String
+      inTime = Time.parse(inTime)
+    end
     format_string = params[:format] || "long"
     format_string = case format_string
     when "short"

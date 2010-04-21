@@ -724,7 +724,6 @@ class TaxonConcept < SpeciesSchemaModel
     content
   end
 
-  # This used to be singleton, but now we're changing the views (based on permissions) a lot, so I removed it.
   def images(options = {})
 
     # TODO - dump this.  Forces a check to see if the current user is valid:

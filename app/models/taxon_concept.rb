@@ -118,7 +118,7 @@ class TaxonConcept < SpeciesSchemaModel
     "SELECT DISTINCT users.*
      FROM  #{ssm_db}.hierarchy_entries children
        JOIN  #{ssm_db}.hierarchy_entries ancestor
-         ON (children.lft BETWEEN ancestor.lft AND ancestor.rgt AND children.hierarchy_id=ancestor.hierarchy_id)
+         ON (children.lft BETWEEN ancestor.lft AND ancestor.rgt AND children.hierarchy_id=ancestor.hierarchy_id AND ancestor.rgt!=0)
        JOIN  #{ssm_db}.hierarchy_entries ancestor_concepts
          ON (ancestor.taxon_concept_id=ancestor_concepts.taxon_concept_id)
        JOIN users ON (ancestor_concepts.id=users.curator_hierarchy_entry_id)
@@ -165,15 +165,7 @@ class TaxonConcept < SpeciesSchemaModel
   def is_curatable_by? user
     return false unless user.curator_approved
     return false unless user.curator_hierarchy_entry_id
-    result = SpeciesSchemaModel.connection.select_values("
-      SELECT COUNT(*) count
-      FROM hierarchy_entries he_root
-      JOIN hierarchy_entries he_child ON (he_child.lft BETWEEN he_root.lft AND he_root.rgt AND he_child.hierarchy_id=he_root.hierarchy_id AND he_root.rgt != 0)
-      WHERE he_root.id=#{user.curator_hierarchy_entry_id}
-      AND he_child.taxon_concept_id=#{id}");
-    
-    return false if result.length == 0 || result[0].to_i == 0
-    return true
+    curators.include?(user)
   end
 
   # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)

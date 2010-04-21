@@ -57,8 +57,8 @@ class ApiController < ApplicationController
     @page = 1 if @page < 1
     @per_page = 30
     
-    @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all)
-    @last_page = @results.total_entries
+    @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all, :lookup_trees => false)
+    @last_page = (@results.total_entries/@per_page).ceil
     
     respond_to do |format|
        format.xml { render :layout=>false }

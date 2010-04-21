@@ -13,6 +13,7 @@ module EOL
       @total_results = options[:total_results] || results.length
       @type          = options[:type] # Used to flag special behavior that gets the 'best' common name match
       @querystring   = options[:querystring]
+      options[:lookup_trees] = true unless options[:lookup_trees] == false
 
       # The follwing are not yet options, but will be someday:
       @best_match_field_name         = 'best_matched_common_name'
@@ -34,7 +35,7 @@ module EOL
       # time being, we always are.  In the future, this will want to be abstracted out, so that we inherit all the common
       # behaviour and add this behaviour if it's a TC-based search:
       update_results_with_current_data
-      add_mini_tree_and_attribution
+      add_mini_tree_and_attribution if options[:lookup_trees]
       adapt_results_for_view
     end
 

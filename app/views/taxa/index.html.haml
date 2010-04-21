@@ -1,0 +1,13 @@
+%h2
+  List of taxa harvested on
+  = format_date(@harvest_event.began_at)
+- unless @taxa.blank?
+  %form#pagination_form
+    = will_paginate(@taxa)
+    - @taxa.each do |taxon|
+      - unless @harvest_event.published_at
+        = unpublished_icon
+        \&nbsp;
+      = link_to hh(taxon.scientific_name), {:controller=>"taxa", :action=>"show", :id=>taxon.taxon_concept_id}
+      %br
+    = will_paginate(@taxa)

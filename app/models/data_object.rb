@@ -907,6 +907,7 @@ class DataObject < SpeciesSchemaModel
           FROM data_objects_taxa dot
           JOIN taxa t ON (dot.taxon_id=t.id)
           JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
+          JOIN taxon_concepts tc ON (he.taxon_concept_id = tc.id AND tc.published = 1)
           WHERE dot.data_object_id IN (#{data_object_ids.join(',')})})
     
     grouped_taxa_names = ModelQueryHelper.group_array_by_key(data_object_taxa_names, 'data_object_id')

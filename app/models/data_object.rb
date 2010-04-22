@@ -903,12 +903,12 @@ class DataObject < SpeciesSchemaModel
     return results if data_object_ids.empty?
     
     data_object_taxa_names = Taxon.find_by_sql(%Q{
-        SELECT t.scientific_name as taxon_name, he.taxon_concept_id, dot.data_object_id
+        SELECT t.scientific_name as taxon_name, he.taxon_concept_id, dot.data_object_id, tc.published as published
           FROM data_objects_taxa dot
           JOIN taxa t ON (dot.taxon_id=t.id)
           JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
-          JOIN taxon_concepts tc ON (he.taxon_concept_id = tc.id AND tc.published = 1)
-          WHERE dot.data_object_id IN (#{data_object_ids.join(',')})})
+          JOIN taxon_concepts tc ON (he.taxon_concept_id = tc.id)
+          WHERE dot.data_object_id IN (#{data_object_ids.join(',')})}).sort {|a,b| a['published'] <=> b['published']}
     
     grouped_taxa_names = ModelQueryHelper.group_array_by_key(data_object_taxa_names, 'data_object_id')
     results = ModelQueryHelper.add_hash_to_object_array_as_key(results, grouped_taxa_names, 'taxa_names_ids')

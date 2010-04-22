@@ -34,11 +34,11 @@ module EOL
           literal_query = "scientific_name:\"#{query}\" OR common_name:\"#{query}\""
         else
           field = options[:type] == :common ? 'common_name' : 'scientific_name'
-          literal_query = "#{field}:\"#{query}\""
+          literal_query = "#{field}:\"#{query}\" #{field}_exact:\"#{query}\"^100"
         end
         query = query.gsub /\s+/, ' '
         query = query.split(' ').map {|w| "+#{w}"}.join(' ')
-        query = "(#{literal_query})" #OR #{field}:(#{query}))"
+        query = "(#{literal_query})"
       end
 
       # Returns the actual search results object.  Generally, you will want to use search_with_pagination instead.

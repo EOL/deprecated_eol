@@ -47,14 +47,36 @@
          <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
        </analyzer>
      </fieldType>
+
+     <!-- This is our *exact* text field, with limited tokenizers.
+          Thought about whitespace tokenizer, but I think that would defeat the purpose! "Felis familiaris" would match on
+          "felis", I think. Downside is, "felis familaris" won't match "felis     familiaris". -->
+     <fieldType name="textExact" class="solr.TextField" positionIncrementGap="4">
+       <analyzer type="index">
+         <tokenizer class="solr.KeywordTokenizerFactory"/>
+         <filter class="solr.LowerCaseFilterFactory"/>
+         <filter class="solr.TrimFilterFactory"/>
+       </analyzer>
+       <analyzer type="query">
+         <tokenizer class="solr.KeywordTokenizerFactory"/>
+         <filter class="solr.LowerCaseFilterFactory"/>
+         <filter class="solr.TrimFilterFactory"/>
+       </analyzer>
+     </fieldType>
   </types>
   
   <!-- begin data schema -->
   <fields>
     <field name="taxon_concept_id" type="integer" indexed="true" stored="true" required="true" /> 
     <field name="preferred_scientific_name" type="text" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="preferred_scientific_name_exact" type="text" indexed="true" stored="true" required="false" multiValued="true" />
+    <copyField source="preferred_scientific_name" dest="preferred_scientific_name_exact"/>
     <field name="scientific_name" type="text" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="scientific_name_exact" type="textExact" indexed="true" stored="true" required="false" multiValued="true" />
+    <copyField source="scientific_name" dest="scientific_name_exact"/>
     <field name="common_name" type="text" indexed="true" stored="true" required="false" multiValued="true" />
+    <field name="common_name_exact" type="textExact" indexed="true" stored="true" required="false" multiValued="true" />
+    <copyField source="common_name" dest="common_name_exact"/>
     <field name="rank_id" type="integer" indexed="true" stored="true" required="false" multiValued="true" />
     <field name="hierarchy_id" type="integer" indexed="true" stored="true" required="false" multiValued="true" />
     <field name="top_image_id" type="integer" indexed="true" stored="true" required="false" multiValued="false" />

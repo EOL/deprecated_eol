@@ -146,6 +146,12 @@ tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,
                          :event => event,
                          :vetted => 'untrusted')
 tc.add_common_name_synonym('Tiger lilly', agent_col, :language => Language.english)
+# We want this one to have a higher Solr search weight for 'tiger', so give it lots of permutations:
+tc.add_common_name_synonym('Tiger water lilly', agent_col, :language => Language.english)
+tc.add_common_name_synonym('lilly of the tiger', agent_col, :language => Language.english)
+tc.add_common_name_synonym('Tiger flower', agent_col, :language => Language.english)
+tc.add_common_name_synonym('Tiger-stripe lilly', agent_col, :language => Language.english)
+tc.add_common_name_synonym('Tiger-eye lilly', agent_col, :language => Language.english)
 
 # Eighth Taxon (now we're just getting greedy) should be the same as Seven, but with BHL:
 tc = build_taxon_concept(:parent_hierarchy_entry_id => fifth_entry_id,

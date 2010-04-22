@@ -398,6 +398,76 @@ class HierarchyEntry < SpeciesSchemaModel
     return Name.find(self[:name_id]) # Because we override the name() method.
   end
   
+  def common_name_details
+    result = SpeciesSchemaModel.connection.execute("
+        SELECT s.id synonym_id, n.string name_string, l.label language_label, l.iso_639_1
+        FROM synonyms s
+        JOIN names n ON (s.name_id=n.id)
+        LEFT JOIN languages l ON (s.language_id=l.id)
+        WHERE s.hierarchy_entry_id=#{self.id}
+        AND s.hierarchy_id=#{self.hierarchy_id}
+        AND s.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})").all_hashes
+    
+    for r in result
+      language_code = ''
+      unless r['language_label'].blank?
+        language_code = r['iso_639_1'].blank? ? r['language_label'] : r['iso_639_1']
+      end
+      r['language_code'] = language_code
+    end
+    
+    result.sort! do |a, b|
+      if a['language_code'] == b['language_code']
+        a['name_string'] <=> b['name_string']
+      else
+        a['language_code'].downcase <=> b['language_code'].downcase
+      end
+    end
+  end
+  
+  def synonym_details
+    result = SpeciesSchemaModel.connection.execute("
+        SELECT s.id synonym_id, n.string name_string, sr.label relation
+        FROM synonyms s
+        JOIN names n ON (s.name_id=n.id)
+        LEFT JOIN synonym_relations sr ON (s.synonym_relation_id=sr.id)
+        WHERE s.hierarchy_entry_id=#{self.id}
+        AND s.hierarchy_id=#{self.hierarchy_id}
+        AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").all_hashes
+    
+    for r in result
+      r['relation'] ||= ''
+    end
+    
+    result.sort!{|a,b| a['name_string'] <=> b['name_string'] }
+  end
+  
+  def ancestor_details
+    ancestor_ids = ancestors.collect{|a| a.id}
+    # for some reason self is in ancestors
+    ancestor_ids.delete_if{|id| id == self.id}
+    return [] if ancestor_ids.empty?
+    result = SpeciesSchemaModel.connection.execute("
+      SELECT he.id, he.lft, he.parent_id, n.string name_string, r.label rank_label
+      FROM hierarchy_entries he
+      JOIN names n ON (he.name_id=n.id)
+      LEFT JOIN ranks r ON (he.rank_id=r.id)
+      WHERE he.id IN (#{ancestor_ids.join(',')})").all_hashes
+    result.sort!{|a,b| a['lft'] <=> b['lft']}
+  end
+  
+  def children_details
+    result = SpeciesSchemaModel.connection.execute("
+      SELECT he.id, he.lft, he.parent_id, n.string name_string, r.label rank_label
+      FROM hierarchy_entries he
+      JOIN names n ON (he.name_id=n.id)
+      LEFT JOIN ranks r ON (he.rank_id=r.id)
+      WHERE he.parent_id = #{self.id}").all_hashes
+    result.sort!{|a,b| a['name_string'] <=> b['name_string']}
+  end
+  
+  
+  
 private
   def xml_for_group(group, name, current_user)
     xml = ''

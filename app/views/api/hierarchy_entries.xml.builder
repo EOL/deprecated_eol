@@ -45,12 +45,18 @@ xml.DataSet "xmlns" => "http://www.tdwg.org/schemas/tcs/1.01",
             end
           end
           
-          for synonym in @hierarchy_entry.synonyms
-            relation = SynonymRelation.common_name_ids.include?(synonym.synonym_relation_id) ? 'has vernacular' : 'has synonym'
-            xml.TaxonRelationship(:type => relation) do
-              xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'synonyms', :id => synonym.id, :only_path => false), :linktype => 'external')
+          for synonym in @synonyms
+            xml.TaxonRelationship(:type => 'has synonym') do
+              xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'synonyms', :id => synonym['synonym_id'], :only_path => false), :linktype => 'external')
             end
           end
+          
+          for common_name in @common_names
+            xml.TaxonRelationship(:type => 'has vernacular') do
+              xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'synonyms', :id => common_name['synonym_id'], :only_path => false), :linktype => 'external')
+            end
+          end
+          
         end
       end
     end

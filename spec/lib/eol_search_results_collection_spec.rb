@@ -1,6 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe EOL::SearchResultsCollection do
+
   before(:all) do
     Scenario.load :search_with_duplicates
     @tc_id                   = SearchScenarioResults.tc_id
@@ -14,27 +15,11 @@ describe EOL::SearchResultsCollection do
     @dup_tc_result     = @common_collection.find {|r| r["id"] == @duplicate_taxon_concept.id }
   end
 
-  it 'should paginate'
-
   it 'should add an "id" field to the results' do
     @common_collection.each do |result|
       result["id"].should == result["taxon_concept_id"][0].to_i
     end
   end
-
-  it 'should show "shown as" if the default match was not the best match'
-
-  it 'should load the data object for the best image'
-
-  it 'should mark unknown results'
-
-  it 'should mark untrusted results'
-
-  it 'should convert old-style tag results to new-style results'
-
-  it 'should gracefully handle cases where there is no TaxonConcept for a result'
-
-  it 'should use newer scientific names, if the TC has been updated.'
 
   it 'should use newer common names, if the TC has been updated.' do
     @tc_result["preferred_common_name"].should == @new_common_name

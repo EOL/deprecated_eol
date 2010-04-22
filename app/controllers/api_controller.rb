@@ -67,16 +67,23 @@ class ApiController < ApplicationController
   
   def hierarchy_entries
     id = params[:id] || 0
+    format = params[:format] || 'dwc'
     begin
       @hierarchy_entry = HierarchyEntry.find(id)
+      @ancestors = @hierarchy_entry.ancestor_details
+      @common_names = @hierarchy_entry.common_name_details
+      @synonyms = @hierarchy_entry.synonym_details
+      @children = @hierarchy_entry.children_details
       raise if @hierarchy_entry.nil? || !@hierarchy_entry.published?
     rescue
       render(:partial => 'error.xml.builder', :locals => {:error => "Unknown identifier #{id}"})
       return
     end
     
-    respond_to do |format|
-       format.xml { render :layout=>false }
+    if format == 'tcs'
+      render :action =>'hierarchy_entries.xml.builder', :layout=>false
+    else
+      render :action =>'hierarchy_entries_dwc.xml.builder', :layout=>false
     end
   end
   

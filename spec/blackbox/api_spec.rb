@@ -312,8 +312,21 @@ describe 'EOL XML APIs' do
       @hierarchy_entry.save!
     end
     
-    it 'should show all information for hierarchy entries' do
+    it 'should show all information for hierarchy entries in DWC format' do
       response = request("/api/hierarchy_entries/#{@hierarchy_entry.id}")
+      xml_response = Nokogiri.XML(response.body)
+      xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:taxonID").inner_text.should == @hierarchy_entry.id.to_s
+      xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:parentNameUsageID").inner_text.should == @hierarchy_entry.parent_id.to_s
+      xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:scientificName").inner_text.should == @name.string
+      xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:taxonRank").inner_text.downcase.should == @rank.label
+      xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:nameAccordingTo").inner_text.should == @hierarchy.label
+      xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:vernacularName").inner_text.should == @common_name.name.string
+      xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:vernacularName/@xml:lang").inner_text.should == @common_name.language.iso_639_1
+
+    end
+    
+    it 'should show all information for hierarchy entries in TCS format' do
+      response = request("/api/hierarchy_entries/#{@hierarchy_entry.id}?format=tcs")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@name.id}"
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:Simple').inner_text.should == @name.string
@@ -333,7 +346,7 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[2]/@type').inner_text.should == 'has vernacular'
     end
     
-    it 'should show all information for synonyms' do
+    it 'should show all information for synonyms in TCS format' do
       response = request("/api/synonyms/#{@synonym.id}")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@synonym.name.id}"
@@ -344,7 +357,7 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@scientific').inner_text.should == "true"
     end
     
-    it 'should show all information for common names' do
+    it 'should show all information for common names in TCS format' do
       response = request("/api/synonyms/#{@common_name.id}")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@common_name.name.id}"

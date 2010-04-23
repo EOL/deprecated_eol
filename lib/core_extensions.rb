@@ -20,6 +20,10 @@ class String
     return name.downcase.gsub(@@normalization_regex, '').gsub(@@tag_regex, '').gsub(@@spaces_regex, ' ')
     return name.downcase.gsub(@@normalization_regex, '').gsub(@@spaces_regex, ' ')
   end
+  
+  def strip_italics
+    self.gsub(/<\/?i>/i, "")
+  end
 
 
   # Note that I change strong to b, 'cause strong appears to be overridden in our CSS.  Hrmph.

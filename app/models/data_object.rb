@@ -755,12 +755,7 @@ class DataObject < SpeciesSchemaModel
     #     data_objects_result = DataObject.find_by_sql(top_images_query)
     #   end
     # else
-    if options[:return_count_only]
-      top_images_query = "SELECT COUNT(*) FROM (#{top_images_query}) AS subquery_table"
-      return DataObject.count_by_sql(top_images_query)
-    else
-      result = DataObject.find_by_sql(top_images_query)
-    end
+      data_objects_result = DataObject.find_by_sql(top_images_query).uniq
     # end
     
     # when we have all the images then get the uniquq list and sort them by
@@ -974,7 +969,6 @@ class DataObject < SpeciesSchemaModel
       end
     end
 
-    return results if options[:return_count_only]
     # In order to display a warning about pages that include unvetted material, we check now, while the
     # information is most readily available (data objects are the only things that can be unvetted, and only
     # if we have to check permissions), and then flag the taxon_concept model if anything is non-trusted.

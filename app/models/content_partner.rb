@@ -71,7 +71,7 @@ class ContentPartner < SpeciesSchemaModel
     total_taxa_count = count_result[0]['count'].to_i
     
     sorted_hierarchy_entries = SpeciesSchemaModel.connection.execute(%Q{
-        SELECT t.hierarchy_entry_id, rt.source_url
+        SELECT t.hierarchy_entry_id, rt.source_url, t.scientific_name
         FROM harvest_events_taxa het
         JOIN taxa t ON (het.taxon_id=t.id)
         LEFT JOIN resources_taxa rt ON (t.id=rt.taxon_id)
@@ -98,7 +98,7 @@ class ContentPartner < SpeciesSchemaModel
           WHERE he.id=#{entry['hierarchy_entry_id']} LIMIT 1").all_hashes
         
         all_concepts[i]['id'] = name_and_image[0]['taxon_concept_id']
-        all_concepts[i]['name_string'] = name_and_image[0]['string']
+        all_concepts[i]['name_string'] = entry['scientific_name']
         all_concepts[i]['partner_source_url'] = entry['source_url']
         if name_and_image[0] && !name_and_image[0]['object_cache_url'].nil?
           all_concepts[i]['image_src'] = DataObject.image_cache_path(name_and_image[0]['object_cache_url'], :medium)

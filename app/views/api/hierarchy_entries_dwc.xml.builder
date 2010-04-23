@@ -11,6 +11,7 @@ xml.dwr :DarwinRecordSet,
     xml.dwc :Taxon do
       xml.dwc :taxonID, ancestor['id']
       xml.dwc :parentNameUsageID, ancestor['parent_id']
+      xml.dwc :taxonConceptID, ancestor['taxon_concept_id']
       xml.dwc :scientificName, ancestor['name_string']
       xml.dwc :taxonRank, ancestor['rank_label'] unless ancestor['rank_label'].blank?
     end
@@ -19,6 +20,7 @@ xml.dwr :DarwinRecordSet,
   xml.dwc :Taxon do
     xml.dwc :taxonID, @hierarchy_entry.id
     xml.dwc :parentNameUsageID, @hierarchy_entry.parent_id
+    xml.dwc :taxonConceptID, ancestor['taxon_concept_id']
     xml.dwc :scientificName, @hierarchy_entry.name_object.string
     xml.dwc :taxonRank, @hierarchy_entry.rank.label.firstcap unless @hierarchy_entry.rank.nil?
     for common_name in @common_names

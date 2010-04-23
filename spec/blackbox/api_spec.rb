@@ -1,5 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+require 'solr_api'
+def recreate_indexes
+  solr = SolrAPI.new
+  solr.delete_all_documents
+  solr.build_indexes
+end
+
 describe 'EOL XML APIs' do
   before(:all) do
     truncate_all_tables
@@ -323,7 +330,7 @@ describe 'EOL XML APIs' do
       xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:nameAccordingTo").inner_text.should == @hierarchy.label
       xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:vernacularName").inner_text.should == @common_name.name.string
       xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:vernacularName/@xml:lang").inner_text.should == @common_name.language.iso_639_1
-
+  
     end
     
     it 'should show all information for hierarchy entries in TCS format' do
@@ -369,6 +376,29 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name').inner_text.should == "#{@common_name.name.string}"
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@scientific').inner_text.should == "false"
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@language').inner_text.should == @common_name.language.iso_639_1
+    end
+  end
+  
+  describe 'hierarchy entries and synonyms' do
+    before(:all) do
+      @canonical_form = CanonicalForm.create(:string => 'Aus bus')
+      @name = Name.create(:canonical_form => @canonical_form, :string => 'Aus bus Linnaeus 1776')
+      @hierarchy = Hierarchy.gen(:label => 'Test Hierarchy')
+      @rank = Rank.gen(:label => 'species')
+      @hierarchy_entry = HierarchyEntry.gen(:hierarchy => @hierarchy, :name => @name, :published => 1, :rank => @rank)
+      
+      name = Name.create(:string => 'Some critter')
+      relation = SynonymRelation.find_or_create_by_label('common name')
+      language = Language.gen(:label => 'english', :iso_639_1 => 'en')
+      @common_name = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation, :language => language)
+      
+      recreate_indexes
+    end
+    
+    it 'should find the taxon by canonical form' do
+      # response = request("/api/search/#{CGI::escape(@canonical_form.string)}")
+      # xml_response = Nokogiri.XML(response.body)
+      # xml_response.xpath('//xmlns:entry/xmlns:title').inner_text.should == @name.string
     end
   end
 end

@@ -26,7 +26,7 @@ xml.feed "xmlns" => "http://www.w3.org/2005/Atom",
   
   for result in @results
     xml.entry do
-      xml.title result['best_matched_scientific_name']
+      xml.title result['best_matched_scientific_name'].strip_italics
       xml.link :href => url_for(:controller => 'taxa', :action => 'show', :id => result['id'], :only_path => false)
       xml.id result['id']
       xml.updated

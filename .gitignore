@@ -1,5 +1,6 @@
 *.swp
 *.swo
+*~
 config/database.yml
 config/deploy.rb
 config/deploy

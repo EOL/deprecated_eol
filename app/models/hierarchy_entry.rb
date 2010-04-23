@@ -448,7 +448,7 @@ class HierarchyEntry < SpeciesSchemaModel
     ancestor_ids.delete_if{|id| id == self.id}
     return [] if ancestor_ids.empty?
     result = SpeciesSchemaModel.connection.execute("
-      SELECT he.id, he.lft, he.parent_id, n.string name_string, r.label rank_label
+      SELECT he.id, he.lft, he.parent_id, he.taxon_concept_id, n.string name_string, r.label rank_label
       FROM hierarchy_entries he
       JOIN names n ON (he.name_id=n.id)
       LEFT JOIN ranks r ON (he.rank_id=r.id)
@@ -458,7 +458,7 @@ class HierarchyEntry < SpeciesSchemaModel
   
   def children_details
     result = SpeciesSchemaModel.connection.execute("
-      SELECT he.id, he.lft, he.parent_id, n.string name_string, r.label rank_label
+      SELECT he.id, he.lft, he.parent_id, he.taxon_concept_id, n.string name_string, r.label rank_label
       FROM hierarchy_entries he
       JOIN names n ON (he.name_id=n.id)
       LEFT JOIN ranks r ON (he.rank_id=r.id)

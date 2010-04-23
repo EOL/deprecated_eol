@@ -105,52 +105,56 @@ class DataObjectsController < ApplicationController
     end
   end
 
+
   # example urls this handles ...
   #
   #   /pages/5/images/2.xml  # Second page of TaxonConcept 5's images.
   #   /pages/5/videos/2.xml
   #
+  # TODO: these requests seem to work on my machine, but not on the live site.
+  # eg, http://www.eol.org/pages/327984/images/1.xml just show a blank page
   def index
-    @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
+    begin
+      @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
+    rescue ActiveRecord::RecordNotFound
+      render :text => "Don't know how to render #{ params.inspect }"
+      return
+    end
     per_page = params[:per_page].to_i
     per_page = 10 if per_page < 1
     per_page = 50 if per_page > 50
     page     = params[:page].to_i
     page     = 1 if page < 1
-    if @taxon_concept
-      case request.path
-      when /images/
-        respond_to do |format|
-          format.xml do
-            xml = Rails.cache.fetch("taxon.#{params[:taxon_concept_id].to_i}/images/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
-              images = @taxon_concept.images
-              {
-                :images           => images.paginate(:per_page => per_page, :page => page),
-                'num-images'      => images.length,
-                'images-per-page' => per_page,
-                'page'            => page
-              }.to_xml(:root => 'results')
-            end
-            render :xml => xml
+    case request.path
+    when /images/
+      respond_to do |format|
+        format.xml do
+          xml = Rails.cache.fetch("taxon.#{params[:taxon_concept_id].to_i}/images/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
+            images = @taxon_concept.images
+            {
+              :images           => images.paginate(:per_page => per_page, :page => page),
+              'num-images'      => images.length,
+              'images-per-page' => per_page,
+              'page'            => page
+            }.to_xml(:root => 'results')
           end
+          render :xml => xml
         end
-      when /videos/
-        respond_to do |format|
-          format.xml do
-            xml = Rails.cache.fetch("taxon.#{@taxon_concept.id}/videos/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
-              videos = @taxon_concept.videos
-              {
-                :videos           => videos.paginate(:per_page => per_page, :page => page),
-                'num-videos'      => videos.length,
-                'videos-per-page' => per_page,
-                'page'            => page
-              }.to_xml(:root => 'results')
-            end
-            render :xml => xml
+      end
+    when /videos/
+      respond_to do |format|
+        format.xml do
+          xml = Rails.cache.fetch("taxon.#{@taxon_concept.id}/videos/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
+            videos = @taxon_concept.videos
+            {
+              :videos           => videos.paginate(:per_page => per_page, :page => page),
+              'num-videos'      => videos.length,
+              'videos-per-page' => per_page,
+              'page'            => page
+            }.to_xml(:root => 'results')
           end
+          render :xml => xml
         end
-      else
-        render :text => "Don't know how to render #{ params.inspect }"
       end
     end
   end

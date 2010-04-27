@@ -1,0 +1,13 @@
+%div{:id => 'hierarchy_browser'}
+  %ul{:id => 'hierarchy_browser_list'}
+    - unless @hierarchy_entry.nil?
+      - ancestors = @hierarchy_entry.ancestor_details
+      - entry_details = @hierarchy_entry.details
+      = render(:partial => 'navigation/node_with_ancestry', :locals => { :ancestors => ancestors, :hierarchy_entry => entry_details})
+    %br
+    %br
+    %b
+      Hierarchy Roots:
+    - for kingdom in @hierarchy.kingdom_details
+      %li.node.bold
+        = render(:partial => 'navigation/node_name', :locals => { :entry => kingdom})

@@ -119,8 +119,8 @@ class Search
 
       if @search_type == 'tag'
         tag_search(params,current_user)
-      else #default search type is text
-        text_search(current_user, current_agent)
+      # else #default search type is text
+      #   text_search(current_user, current_agent)
       end
 
       if @search_results || @suggested_searches.length > 0
@@ -349,19 +349,7 @@ class Search
     @maximum = results.length
     @search_results = {:common => [], :scientific => [], :errors => [], :tags => results_sort}    
   end
-
-  def text_search(current_user, current_agent)
-    suggested_search
-    @search_results = TaxonConcept.quick_search(@search_string,
-                                          :user=>current_user,
-                                          :agent=>current_agent,
-                                          :qualifier=>@qualifier,
-                                          :scope=>@scope,
-                                          :search_language=>@search_language)
-    @maximum = [@search_results[:scientific].size, @search_results[:common].size].max
-    @search_results[:tags]       = []
-  end
-
+  
   # look for user's search term in suggested searches:  
   def suggested_search
     @suggested_searches = SearchSuggestion.find_all_by_term_and_active(@search_string,true,:order=>'sort_order') if

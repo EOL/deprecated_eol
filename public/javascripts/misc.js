@@ -312,6 +312,21 @@ function displayNode(id, for_selection) {
     );
 }
 
+// call remote function to show the selected node in the text-based navigational tree view
+function update_browser(hierarchy_entry_id, expand) {
+    url = '/navigation/browse'
+    new Ajax.Updater(
+    'hierarchy_browser', url,
+      {
+        asynchronous:true, 
+        evalScripts:true, 
+        method:'post', 
+        onComplete:function(request){hideAjaxIndicator(); scroll(0,0);},
+        onLoading:function(request){showAjaxIndicator();},
+        parameters: {id: hierarchy_entry_id, expand: expand }
+      } );
+}
+
 function eol_change_to_flash_browser()
 {
     if ($('classification-attribution-button_popup') != null) {EOL.Effect.disappear('classification-attribution-button_popup');}           

@@ -120,7 +120,22 @@ class Hierarchy < SpeciesSchemaModel
     string.first.full_name = string.first.display_name = label # To change the name from just "Catalogue of Life"
     return string
   end
-
+  
+  def kingdom_details
+    result = SpeciesSchemaModel.connection.execute("
+      SELECT he.id, he.lft, he.rgt, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, r.label rank_label
+      FROM hierarchy_entries he
+      JOIN names n ON (he.name_id=n.id)
+      LEFT JOIN ranks r ON (he.rank_id=r.id)
+      WHERE he.hierarchy_id = #{self.id}
+      AND parent_id=0").all_hashes
+    result.each do |r|
+      r['name_string'].firstcap!
+      r['is_leaf'] = (r['rgt'].to_i == r['lft'].to_i + 1)
+    end
+    result.sort!{|a,b| a['name_string'] <=> b['name_string']}
+  end
+  
 end
 
 # == Schema Info

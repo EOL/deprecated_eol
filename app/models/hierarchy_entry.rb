@@ -442,27 +442,49 @@ class HierarchyEntry < SpeciesSchemaModel
     result.sort!{|a,b| a['name_string'] <=> b['name_string'] }
   end
   
+  def details
+    rank_label = self.rank.nil? ? '' : self.rank.label
+    { 'id'                => self.id,
+      'hierarchy_id'      => self.hierarchy_id,
+      'taxon_concept_id'  => self.taxon_concept_id,
+      'name_string'       => self.name_object.string.firstcap!,
+      'rank_label'        => rank_label,
+      'is_leaf'           => self.rgt == self.lft + 1 }
+  end
+  
   def ancestor_details
     ancestor_ids = ancestors.collect{|a| a.id}
     # for some reason self is in ancestors
     ancestor_ids.delete_if{|id| id == self.id}
     return [] if ancestor_ids.empty?
     result = SpeciesSchemaModel.connection.execute("
-      SELECT he.id, he.lft, he.parent_id, he.taxon_concept_id, n.string name_string, r.label rank_label
+      SELECT he.id, he.lft, he.rgt, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, r.label rank_label
       FROM hierarchy_entries he
       JOIN names n ON (he.name_id=n.id)
       LEFT JOIN ranks r ON (he.rank_id=r.id)
       WHERE he.id IN (#{ancestor_ids.join(',')})").all_hashes
-    result.sort!{|a,b| a['lft'] <=> b['lft']}
+    result.each do |r|
+      r['name_string'].firstcap!
+      r['is_leaf'] = (r['rgt'].to_i == r['lft'].to_i + 1)
+    end
+    result.sort!{|a,b| a['lft'].to_i <=> b['lft'].to_i}
   end
   
   def children_details
+    HierarchyEntry.children_details(self.id)
+  end
+  
+  def self.children_details(hierarchy_entry_id)
     result = SpeciesSchemaModel.connection.execute("
-      SELECT he.id, he.lft, he.parent_id, he.taxon_concept_id, n.string name_string, r.label rank_label
+      SELECT he.id, he.lft, he.rgt, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, r.label rank_label
       FROM hierarchy_entries he
       JOIN names n ON (he.name_id=n.id)
       LEFT JOIN ranks r ON (he.rank_id=r.id)
-      WHERE he.parent_id = #{self.id}").all_hashes
+      WHERE he.parent_id = #{hierarchy_entry_id}").all_hashes
+    result.each do |r|
+      r['name_string'].firstcap!
+      r['is_leaf'] = (r['rgt'].to_i == r['lft'].to_i + 1)
+    end
     result.sort!{|a,b| a['name_string'] <=> b['name_string']}
   end
   

@@ -15,6 +15,8 @@
 # each database in that environment.
 #
 # The convention for database names is "eol_<DATABASENAME>_<RAILS_ENV>"
+
+
 # common settings for all production databases
 common: &common
   adapter: mysql
@@ -32,6 +34,14 @@ tst_common: &test
   host: localhost
   username: root
   password: pass
+
+# common settings for all integration databases
+int_common: &integration
+  host: integration.example.com
+  username: integration_user
+  password: pass
+
+
 
 #######################
 development:
@@ -80,6 +90,7 @@ integration_logging:
   <<: *common
   <<: *integration
   database: eol_logging_production
+
 ############################
 staging:
   <<: *common
@@ -95,6 +106,7 @@ staging_logging:
   <<: *common
   <<: *integration
   database: eol_logging_production
+
 ############################
  #for production only
  #master database connection for rails database
@@ -103,13 +115,13 @@ master_database:
   <<: *integration
   database: eol_integration
 
- #master database connection for data database
+#master database connection for data database
 master_data_database:
   <<: *common
   <<: *integration
   database: eol_data_integration
 
- #master database connection for logging database
+#master database connection for logging database
 master_logging_database:
   <<: *common
   <<: *integration

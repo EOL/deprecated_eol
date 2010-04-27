@@ -47,6 +47,12 @@ class String
     self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.chars.capitalize + $4 }
   end
   
+  def firstcap!
+    @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
+    self.gsub!(@firstcap_regex) { $1.to_s + $2.to_s + $3.chars.capitalize + $4 }
+  end
+  
+  
   #  old list from gem:
   # [ 'a', 'b', 'blockquote', 'br', 'caption', 'cite', 'code', 'col', 'colgroup', 'dd', 'dl', 'dt', 'em', 'embed', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'u', 'ul' ],
   # more full list:

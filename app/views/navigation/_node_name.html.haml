@@ -1,0 +1,9 @@
+%a{:href => '', :onclick => "update_browser(#{entry['id']}, 0); return false;"}
+  = entry['name_string']
+
+- unless entry['is_leaf']
+  %a{:href => '', :onclick => "update_browser(#{entry['id']}, 1); return false;"}
+    +
+- unless entry['rank_label'].blank?
+  %span.rank
+    = entry['rank_label']

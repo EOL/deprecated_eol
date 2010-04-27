@@ -52,6 +52,16 @@ class NavigationController < ApplicationController
         
   end
   
+  def browse
+    @hierarchy_entry = HierarchyEntry.find_by_id(params[:id])
+    @expand = params[:expand] == "1"
+    if @hierarchy_entry.blank?
+      return
+    end
+    @hierarchy = @hierarchy_entry.hierarchy
+    render :layout => false, :partial => 'browse'
+  end
+  
   protected
   
   def load_taxon_for_tree_view

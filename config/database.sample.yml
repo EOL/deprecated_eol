@@ -1,162 +1,116 @@
-# There are two databases for each environment, plus one for the MySQL master 
+# There are two databases for each environment, plus one for the MySQL master
 # in production.
 #
 # 1. The Rails database
 # 2. The EOL species database. Writing is not allowed to this database
-# 3. The master_database connection is used in production mode. It is the 
+# 3. The master_database connection is used in production mode. It is the
 #    database master for writes for the standard Rails database
 #
 # For developers:
 # 1. Make sure to setup your +development+ and +test+ environments
-# 
-# Common settings for each environment assume that all four databases are on 
-# the same database server for each environment.  If this is not the case, 
-# you will need to manually edit the entries below the +common+ settings for 
+#
+# Common settings for each environment assume that all four databases are on
+# the same database server for each environment.  If this is not the case,
+# you will need to manually edit the entries below the +common+ settings for
 # each database in that environment.
 #
 # The convention for database names is "eol_<DATABASENAME>_<RAILS_ENV>"
 # common settings for all production databases
+common: &common
+  adapter: mysql
+  encoding: utf8
+  socket: /var/run/mysqld/mysqld.sock
+
+# common settings for any development databases
+devel_common: &development
+  host: localhost
+  username: root
+  password: xxxxx
+
+# common settings for all test databases
+tst_common: &test
+  host: localhost
+  username: root
+  password:  xxxxx
 
 #######################
 development:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: root
-  password:
+  <<: *common
+  <<: *development
   database: eol_development
-  
+
 development_data:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: root
-  password:
+  <<: *common
+  <<: *development
   database: eol_data_development
 
 development_logging:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: root
-  password:
+  <<: *common
+  <<: *development
   database: eol_logging_development
 
 ############################
 test:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: root
-  password:
+  <<: *common
+  <<: *test
   database: eol_test
 
 test_data:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: root
-  password:
+  <<: *common
+  <<: *test
   database: eol_data_test
 
 test_logging:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: root
-  password:
+  <<: *common
+  <<: *test
   database: eol_logging_test
 
 ############################
-demo:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: username
-  password: password
-  database: eol_demo
-  
-demo_data:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: username
-  password: password
-  database: eol_data_demo
-
-demo_logging:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: username
-  password: password
-  database: eol_logging_demo
-
-############################    
 integration:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: username
-  password: password
+  <<: *common
+  <<: *integration
   database: eol_integration
 
 integration_data:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: username
-  password: password
+  <<: *common
+  <<: *integration
   database: eol_data_integration
-  
+
 integration_logging:
-  adapter: mysql
-  encoding: utf8
-  host:     localhost
-  username: username
-  password: password
-  database: eol_logging_integration
-############################  
-production:
-  adapter: mysql
-  encoding: utf8
-  host:     mdata.example.org
-  username: username
-  password: password
-  database: eol_production
-
-production_data:
-  adapter: mysql
-  encoding: utf8
-  host:     mdata.example.org
-  username: username
-  password: password
-  database: eol_data_production
-
-production_logging:
-  adapter: mysql
-  encoding: utf8
-  host:     mdata.example.org
-  username: username
-  password: password
+  <<: *common
+  <<: *integration
   database: eol_logging_production
-  
-############################  
-# for production only
-# master database connection for rails database
-#master_database:
-#  <<: *common
-#  <<: *development_common
-#  database: eol_development
-#
-# master database connection for data database  
-#master_data_database:
-#  <<: *common
-#  <<: *development_common
-#  database: eol_data_development
-#
-# master database connection for logging database  
-#master_logging_database:
-#  <<: *common
-#  <<: *development_common
-#  database: eol_data_development
+############################
+staging:
+  <<: *common
+  <<: *integration
+  database: eol_staging
+
+staging_data:
+  <<: *common
+  <<: *integration
+  database: eol_data_staging
+
+staging_logging:
+  <<: *common
+  <<: *integration
+  database: eol_logging_production
+############################
+ #for production only
+ #master database connection for rails database
+master_database:
+  <<: *common
+  <<: *integration
+  database: eol_integration
+
+ #master database connection for data database
+master_data_database:
+  <<: *common
+  <<: *integration
+  database: eol_data_integration
+
+ #master database connection for logging database
+master_logging_database:
+  <<: *common
+  <<: *integration
+  database: eol_logging_production

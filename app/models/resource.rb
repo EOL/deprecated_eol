@@ -6,13 +6,13 @@ class Resource < SpeciesSchemaModel
   belongs_to :license
   belongs_to :language
   belongs_to :resource_status
+  belongs_to :hierarchy
 
   has_many :agents, :through => :agents_resources
   has_many :agents_resources
   has_many :resources_taxa
   has_many :harvest_events
 
-  has_one :hierarchies_resource
 
   has_and_belongs_to_many :taxa
 
@@ -80,14 +80,6 @@ class Resource < SpeciesSchemaModel
 
     true
   end
-
-  def hierarchy
-    if hr = hierarchies_resource
-      return hr.hierarchy
-    end
-    return nil
-  end
-
 end
 # == Schema Info
 # Schema version: 20080923175821

@@ -738,6 +738,7 @@ Factory.define :resource do |r|
                                         :logo_url => '/images/licenses/cc_by_small.png') }
   r.resource_status { ResourceStatus.find_by_label('Published') || Factory(:resource_status, :label => 'Published') }
   r.accesspoint_url 'http://www.google.com' # Won't work without a real, live URL.
+  r.association :hierarchy
 end
 
 Factory.define :resource_agent_role do |rar|

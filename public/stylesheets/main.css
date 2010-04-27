@@ -796,6 +796,13 @@ hr.results {
   display: block;
   border: 0px; }
 
+hr.thin {
+  color: #E6E7E8;
+  background-color: #E6E7E8;
+  height: 1px;
+  display: block;
+  border: 0px; }
+
 .credit-title {
   text-transform: uppercase;
   font-weight: 700;
@@ -845,7 +852,7 @@ td.credit-text {
 
 #video-player {
   float: left;
-  width: 460px;
+  width: 459px;
   padding: 11px 6px 14px 13px;
   background-color: #f4f4f4;
   height: 344px; }
@@ -2288,3 +2295,25 @@ div#nagivation-choose-hierarchy option.in {
 div#nagivation-choose-hierarchy option.out {
   font-weight: lighter;
   font-size: 9px; }
+
+#hierarchy_browser {
+  white-space: nowrap; }
+  #hierarchy_browser .rank {
+    font-size: 11px;
+    color: #aaaaaa; }
+  #hierarchy_browser a {
+    font-weight: normal;
+    font-family: arial, helvetica, sans-serif;
+    padding-bottom: 0;
+    color: #31a7d2;
+    text-decoration: none;
+    border-bottom: 1px solid #dbd5c5; }
+  #hierarchy_browser li.node {
+    font-weight: normal;
+    padding: 0;
+    margin-left: 5px;
+    list-style: none; }
+  #hierarchy_browser li.bold {
+    font-weight: bold; }
+    #hierarchy_browser li.bold a {
+      font-weight: bold; }

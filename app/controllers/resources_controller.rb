@@ -19,8 +19,11 @@ class ResourcesController < ApplicationController
       end
     end
 
+    # TODO - it is supremely LAME that we keep calling these things CPs when they are Agents.  It has bitten me twice in as
+    # many days.  We should fix this.
     before :edit do
-      @content_partner = ContentPartner.find(params[:content_partner_id]) if params[:content_partner_id]
+      @agent = Agent.find(params[:content_partner_id])
+      @content_partner = @agent.content_partner
       @page_title = 'Content Partner Reports'
     end
 

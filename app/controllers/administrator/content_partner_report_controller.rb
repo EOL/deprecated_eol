@@ -67,8 +67,8 @@ class Administrator::ContentPartnerReportController < AdminController
   end
   
   def show_contacts
-    @page_title = "Content Partner Contacts - #{@agent.project_name}"
     @agent=Agent.find(params[:id],:include=>:agent_contacts)
+    @page_title = "Content Partner Contacts - #{@agent.project_name}"
     @contacts=@agent.agent_contacts
   end
 

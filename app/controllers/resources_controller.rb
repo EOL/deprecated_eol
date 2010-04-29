@@ -24,7 +24,7 @@ class ResourcesController < ApplicationController
     before :edit do
       @agent = Agent.find(params[:content_partner_id])
       @content_partner = @agent.content_partner
-      @page_title = 'Content Partner Reports'
+      @page_header = 'Resources'
     end
 
     after :create do

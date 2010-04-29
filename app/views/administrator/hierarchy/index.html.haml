@@ -6,19 +6,30 @@ All Hierarchies
 %table.results_table{:width => "100%", :cellspacing => "0"}
   %tr
     %th
-      = link_to 'Agent',{:order_by=>'agent'}
+      = link_to 'Agent', {:order_by=>'agent'}
     %th
-      = link_to 'Hierarchy',{:order_by=>'label'}
+      = link_to 'Hierarchy', {:order_by=>'label'}
     %th
+      = link_to 'Browsable', {:order_by=>'browsable'}
+    %th
+      Edit
   - for hierarchy in @hierarchies
     - column_class=cycle('odd','even')
     %tr{:valign => "top"}
       %td{:width => "40%", :class => column_class}
         = hierarchy['agent_name']
+        - if hierarchy['content_partner_agent_id']
+          %small
+            = "("+ link_to('partner page', { :controller => 'administrator/content_partner_report', :action => 'show', :id => hierarchy['content_partner_agent_id'] }) +")"
       %td{:class => column_class}
-        = link_to(hierarchy.label, { :action => 'browse', :id => hierarchy.id })
-        %br
-        = hierarchy.description
+        - if hierarchy['agent_name'] == 'uBio'
+          This is a flat list of 10 million strings - not going to let you browse it
+        -else
+          = link_to(hierarchy.label, { :action => 'browse', :id => hierarchy.id })
+          %br
+          = hierarchy.description
+      %td{:class => column_class}
+        = (hierarchy.browsable==1) ? 'yes' : 'no'
       %td{:class => column_class}
         = link_to("edit", {:action => 'edit', :id => hierarchy.id })
 %br

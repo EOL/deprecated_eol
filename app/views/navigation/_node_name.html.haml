@@ -1,9 +1,10 @@
 %a{:href => '', :onclick => "update_browser(#{entry['id']}, 0); return false;"}
   = entry['name_string']
 
-- unless entry['is_leaf']
+- unless entry['descendants'] == 0 || entry['descendants'] > 5000
   %a{:href => '', :onclick => "update_browser(#{entry['id']}, 1); return false;"}
-    +
+    (+)
 - unless entry['rank_label'].blank?
   %span.rank
     = entry['rank_label']
+= link_to(external_link_icon, { :controller => '/taxa', :action => 'show', :id => entry['taxon_concept_id']}, :target => '_blank' )

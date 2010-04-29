@@ -128,10 +128,11 @@ class Hierarchy < SpeciesSchemaModel
       JOIN names n ON (he.name_id=n.id)
       LEFT JOIN ranks r ON (he.rank_id=r.id)
       WHERE he.hierarchy_id = #{self.id}
-      AND parent_id=0").all_hashes
+      AND parent_id=0
+      AND he.visibility_id!=#{Visibility.invisible.id}").all_hashes
     result.each do |r|
       r['name_string'].firstcap!
-      r['is_leaf'] = (r['rgt'].to_i == r['lft'].to_i + 1)
+      r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
     end
     result.sort!{|a,b| a['name_string'] <=> b['name_string']}
   end

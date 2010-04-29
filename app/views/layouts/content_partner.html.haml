@@ -1,4 +1,4 @@
-- @page_header ||= 'Reports'
+- @page_header ||= 'Manage Resources'
 - agent = current_agent.nil? ? @content_partner.agent : current_agent
 - inside_layout 'main' do
   #page-separator-general
@@ -55,7 +55,7 @@
                 USAGE REPORTS
               - if controller.is_a? ContentPartner::ReportsController
                 %li
-                  = link_to 'Monthly Page Statistics',{:controller=>'/content_partner/reports', :action=>'monthly_page_stats'}, :class=>"#{(@report_type  == :page_stats) ? 'active': ''} nested toc_item"
+                  = link_to 'Monthly Page Statistics',{:controller=>'/content_partner/reports', :action=>'monthly_page_stats'}, :class=>"#{(@report_type  == :monthly_page_stats) ? 'active': ''} nested toc_item"
                 %li
                   = link_to 'Data Object Harvested Statistics',{:controller=>'/content_partner/reports', :action=>'data_object_stats'}, :class=>"#{(@report_type  == :data_object_stats) ? 'active': ''} nested toc_item"
                 %li

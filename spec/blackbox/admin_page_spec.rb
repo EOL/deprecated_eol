@@ -1,9 +1,75 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe 'Content Partner Pages' do
-
-  it 'ALL of these tests have been disabled in the interest of time.  Implement them later.'
+describe 'Admin Pages' do
   
+  before(:all) do
+    truncate_all_tables
+    Scenario.load('foundation')
+    password = 'anypassword'
+    @user = User.gen( :username => 'ourtestadmin',
+                      :password => password,
+                      :active => 1,
+                      :hashed_password => Digest::MD5.hexdigest(password))
+    @user.roles = Role.find(:all, :conditions => 'title LIKE "Admin%"')
+    @user.save!
+  end
+  
+  it 'should load the admin homepage' do
+    login_as(@user).should redirect_to('/admin')
+    body = request('/admin').body
+    body.should include('Welcome to the EOL Administration Console')
+    body.should include('Site CMS')
+    body.should include('News Items')
+    body.should include('Comments and Tags')
+    body.should include('Web Users')
+    body.should include('Contact Us Functions')
+    body.should include('Technical Functions')
+    body.should include('Content Partners')
+    body.should include('Statistics')
+    body.should include('Data Usage Reports')
+  end
+  
+  describe ': hierarchies' do
+    before(:all) do
+      @agent = Agent.gen(:full_name => 'HierarchyAgent')
+      @hierarchy = Hierarchy.gen(:label => 'TreeofLife', :description => 'contains all life', :agent => @agent)
+      @hierarchy_entry = HierarchyEntry.gen(:hierarchy => @hierarchy)
+    end
+    
+    it 'should show the list of hierarchies' do
+      login_as(@user).should redirect_to('/admin')
+      body = request('/administrator/hierarchy').body
+      body.should include(@agent.full_name)
+      body.should include(@hierarchy.label)
+      body.should include(@hierarchy.description)
+    end
+    
+    it 'should be able to edit a hierarchy' do
+      login_as(@user).should redirect_to('/admin')
+      body = request("/administrator/hierarchy/edit/#{@hierarchy.id}").body
+      body.should include('<input id="hierarchy_label"')
+      body.should include(@hierarchy.label)
+      body.should include(@hierarchy.description)
+    end
+    
+    it 'should be able to view a hierarchy' do
+      login_as(@user).should redirect_to('/admin')
+      body = request("/administrator/hierarchy/browse/#{@hierarchy.id}").body
+      body.should include(@hierarchy_entry.name_object.string)
+    end
+  end
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  it 'the remaining tests have been disabled in the interest of time.  Implement them later.'
 #TEMP  Scenario.load :foundation
 #TEMP  
 #TEMP  describe '(Reports)' do

@@ -548,6 +548,8 @@ Factory.define :hierarchy do |hierarchy|
   hierarchy.hierarchy_group_id      0
   hierarchy.description             ''
   hierarchy.association             :agent
+  hierarchy.browsable               0
+  hierarchy.complete                1
 end
 
 Factory.define :hierarchies_content do |hc|
@@ -566,18 +568,19 @@ Factory.define :hierarchies_content do |hc|
 end
 
 Factory.define :hierarchy_entry do |he|
-  he.depth       2
-  he.ancestry    ''
-  he.lft         1
-  he.rank_id     184
-  he.parent_id   0
-  he.association :name
-  he.association :taxon_concept
-  he.rgt         2
-  he.identifier  ''
-  he.association :hierarchy
-  he.published   1
-  he.vetted      { Vetted.trusted || Vetted.create(:label => 'Trusted') }
+  he.depth          2
+  he.ancestry       ''
+  he.lft            1
+  he.rank_id        184
+  he.parent_id      0
+  he.association    :name
+  he.association    :taxon_concept
+  he.rgt            2
+  he.identifier     ''
+  he.association    :hierarchy
+  he.published      1
+  he.vetted         { Vetted.trusted || Vetted.create(:label => 'Trusted') }
+  he.visibility_id  { Visibility.visible || Visibility.create(:label => 'Visible') }
 end
 
 Factory.define :info_item do |ii|

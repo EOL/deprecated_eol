@@ -5,7 +5,6 @@
       - entry_details = @hierarchy_entry.details
       = render(:partial => 'navigation/node_with_ancestry', :locals => { :ancestors => ancestors, :hierarchy_entry => entry_details})
     %br
-    %br
     %b
       Hierarchy Roots:
     - for kingdom in @hierarchy.kingdom_details

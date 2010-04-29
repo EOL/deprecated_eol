@@ -1,5 +1,6 @@
-%h3
+%h2
   = @hierarchy.label
+= "("+ link_to("browse hierarchy", {:action => 'browse', :id => @hierarchy.id }) +")"
 
 - form_for @hierarchy, :url => { :action => 'edit' }, :html => { :method => :post } do |f|
   %table.results_table{:width => "100%", :cellspacing => "0"}
@@ -19,6 +20,18 @@
         = f.label :description, "Description"
       %td{:class => column_class}
         = f.text_area :description, :cols => 70, :rows => 3
+    %tr
+      %td{:class => column_class}
+        = f.label :browsable, "Browsable"
+      %td{:class => column_class}
+        = f.check_box :browsable
+        if this box is checked the hierarchy will be an option for users to browse EOL
+    %tr
+      %td{:class => column_class}
+        = f.label :complete, "Curated"
+      %td{:class => column_class}
+        = f.check_box :complete
+        NOTE: only change this attribute if you are certain - unchecking this could cause serious homonym problems
   %br
   = submit_tag "Update"
 %hr

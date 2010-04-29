@@ -106,3 +106,9 @@ by_username.each do |user_by_username|
     send_renamed_user_email(user.email, get_name(user), new_name)
   end
 end
+
+puts '-' * 80
+puts "Totals:\n"
+puts "Active Emails: #{@active_emails}"
+puts "Inactive Emails: #{@inactive_emails}"
+puts "Renamed Emails: #{@renamed_emails}"

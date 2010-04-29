@@ -1,4 +1,4 @@
-Dear <%= @name %>, 
+Dear <%= @name.strip! ; "#{@name[0..0].capitalize}#{@name[1..-1]}" %>, 
 
 Thank you for your interest and participation in the Encyclopedia of Life (www.eol.org). As EOL grows, our support team is
 working to ensure you have the best user experience possible. 
@@ -17,3 +17,4 @@ We hope you will continue to use EOL and all it has to offer.
 
 Thanks for your time, 
 
+The EOL Team

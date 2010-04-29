@@ -4,11 +4,13 @@ class ContentPartner::ReportsController < ContentPartnerController
   layout 'content_partner'
     
   def index
+    @page_header = 'Usage Reports'
     content_partner = ContentPartner.find_by_agent_id(current_agent.id)
     @no_resources = !content_partner.has_published_resources?
   end  
   
   def page_stats
+    @page_header = 'Usage Reports'
     content_partner = ContentPartner.find_by_agent_id(current_agent.id)
     @no_resources = content_partner.has_published_resources?
     @agent_id = current_agent.id
@@ -33,6 +35,7 @@ class ContentPartner::ReportsController < ContentPartnerController
   end
   
   def monthly_page_stats
+    @page_header = 'Usage Reports'
     @year_month_list = get_year_month_list()
     
     if(params[:agent_id]) then
@@ -73,6 +76,7 @@ class ContentPartner::ReportsController < ContentPartnerController
 
   
   def data_object_stats
+    @page_header = 'Usage Reports'
     content_partner = ContentPartner.find_by_agent_id(current_agent.id)
     @no_resources = !content_partner.has_published_resources?
     @agent_id = current_agent.id
@@ -83,6 +87,7 @@ class ContentPartner::ReportsController < ContentPartnerController
   end
   
   def admin_whole_report
+    @page_header = 'Usage Reports'
     @act_histories = ActionsHistory.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25", :order => 'created_at DESC')
     @sub_page_header  = 'Changing of objects status and comments'
     @report_type      = :admin_whole_report
@@ -92,6 +97,7 @@ class ContentPartner::ReportsController < ContentPartnerController
   
   #part below is for a content partner
   def whole_report
+    @page_header = 'Usage Reports'
     content_partner   = ContentPartner.find_by_agent_id(current_agent.id)
     act_histories     = (content_partner.comments_actions_history + content_partner.data_objects_actions_history).sort{|a,b| b.updated_at <=> a.updated_at}
     @act_histories    = act_histories.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
@@ -100,6 +106,7 @@ class ContentPartner::ReportsController < ContentPartnerController
   end
   
   def comments_report
+    @page_header = 'Usage Reports'
     content_partner   = ContentPartner.find_by_agent_id(current_agent.id)
     @act_histories    = content_partner.comments_actions_history.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
     @sub_page_header  = 'Changing of comments'
@@ -107,6 +114,7 @@ class ContentPartner::ReportsController < ContentPartnerController
   end
   
   def statuses_report
+    @page_header = 'Usage Reports'
     content_partner   = ContentPartner.find_by_agent_id(current_agent.id)
     @act_histories    = content_partner.data_objects_actions_history.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
     @sub_page_header  = 'Changing of objects status'

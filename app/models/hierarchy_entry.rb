@@ -449,7 +449,7 @@ class HierarchyEntry < SpeciesSchemaModel
       'taxon_concept_id'  => self.taxon_concept_id,
       'name_string'       => self.name_object.string.firstcap!,
       'rank_label'        => rank_label,
-      'is_leaf'           => self.rgt == self.lft + 1 }
+      'descendants'       => self.rgt - self.lft - 1 }
   end
   
   def ancestor_details
@@ -465,7 +465,7 @@ class HierarchyEntry < SpeciesSchemaModel
       WHERE he.id IN (#{ancestor_ids.join(',')})").all_hashes
     result.each do |r|
       r['name_string'].firstcap!
-      r['is_leaf'] = (r['rgt'].to_i == r['lft'].to_i + 1)
+      r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
     end
     result.sort!{|a,b| a['lft'].to_i <=> b['lft'].to_i}
   end
@@ -480,10 +480,11 @@ class HierarchyEntry < SpeciesSchemaModel
       FROM hierarchy_entries he
       JOIN names n ON (he.name_id=n.id)
       LEFT JOIN ranks r ON (he.rank_id=r.id)
-      WHERE he.parent_id = #{hierarchy_entry_id}").all_hashes
+      WHERE he.parent_id = #{hierarchy_entry_id}
+      AND he.visibility_id!=#{Visibility.invisible.id}").all_hashes
     result.each do |r|
       r['name_string'].firstcap!
-      r['is_leaf'] = (r['rgt'].to_i == r['lft'].to_i + 1)
+      r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
     end
     result.sort!{|a,b| a['name_string'] <=> b['name_string']}
   end

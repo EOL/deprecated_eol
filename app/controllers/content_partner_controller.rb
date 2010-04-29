@@ -170,6 +170,16 @@ class ContentPartnerController < ApplicationController
     end
     
   end  
+  
+  def hierarchy
+    @page_header = 'Manage Resources'
+    @agent = current_agent
+    @hierarchy = Hierarchy.find_by_id_and_agent_id(params[:id], @agent.id)
+    if @hierarchy.blank?
+      redirect_to :action=>'index'
+      return
+    end
+  end
  
   # General methods for misc things
   # ------------------------------------------

@@ -7,24 +7,24 @@
 def send_none_active_email(email, name)
   puts "   --> **** SENDING NONE ACTIVE EMAIL TO '#{email}'"
   @inactive_emails += 1
-  RepairConflictingUsers.deliver_none_active(email, name) unless @inactive_emails > 3
+  RepairConflictingUsers.deliver_none_active(email, name)
 end
 
 def send_some_active_email(email, name)
   puts "   --> **** SENDING SOME ACTIVE EMAIL TO '#{email}' using name '#{name}'"
   @active_emails += 1
-  RepairConflictingUsers.deliver_some_active(email, name) unless @active_emails > 3
+  RepairConflictingUsers.deliver_some_active(email, name)
 end
 
 def send_renamed_user_email(email, name, new_name)
   puts "   --> **** SENDING RENAMED USER EMAIL TO '#{email}'"
   @renamed_emails += 1
-  RepairConflictingUsers.deliver_renamed_user(email, name, new_name) unless @renamed_emails > 3
+  RepairConflictingUsers.deliver_renamed_user(email, name, new_name)
 end
 
 def delete_user(user)
   puts "   --> Deleting user '#{user.username}'"
-  # user.destroy
+  user.destroy
 end
 
 def get_name(user)
@@ -58,7 +58,8 @@ end
 
 def rename_user(user, new_name)
   puts "   --> Renaming user '#{user.username}' (#{user.id}) to '#{new_name}'"
-  # user.username = new_name ; user.save!
+  user.username = new_name
+  user.save!
 end
 
 handled_user_ids = []

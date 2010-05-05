@@ -17,7 +17,6 @@ describe AccountController do
           user1.save!
           #expect
           Notifier.should_receive(:deliver_forgot_password_email).with(user1, 80)
-          Notifier.should_receive(:deliver_forgot_password_email).with(user2, 80)
           #when
           post :forgot_password, "user" => {"email" => "jd@example.com", "username" => ''}
         end

@@ -80,33 +80,6 @@ class Resource < SpeciesSchemaModel
 
     true
   end
+
 end
-# == Schema Info
-# Schema version: 20080923175821
-#
-# Table name: resources
-#
-#  id                     :integer(4)      not null, primary key
-#  language_id            :integer(2)
-#  license_id             :integer(1)      not null
-#  resource_status_id     :integer(4)
-#  service_type_id        :integer(4)      not null, default(1)
-#  accesspoint_url        :string(255)
-#  bibliographic_citation :string(400)
-#  dataset_content_type   :string(255)
-#  dataset_file_name      :string(255)
-#  dataset_file_size      :integer(4)
-#  description            :string(255)
-#  logo_url               :string(255)
-#  metadata_url           :string(255)
-#  refresh_period_hours   :integer(2)
-#  resource_set_code      :string(255)
-#  rights_holder          :string(255)
-#  rights_statement       :string(400)
-#  service_version        :string(255)
-#  subject                :string(255)     not null
-#  title                  :string(255)     not null
-#  created_at             :timestamp       not null
-#  harvested_at           :datetime
-#  resource_created_at    :datetime
-#  resource_modified_at   :datetime
+

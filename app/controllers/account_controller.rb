@@ -7,8 +7,8 @@ class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:profile, :uservoice_login]
   before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show,
-    :logout, :new_openid_user, :reset_password, :save_reset_password, :show_objects_curated, :show_species_curated,
-    :show_comments_moderated]
+    :logout, :new_openid_user, :reset_password, :reset_specific_users_password, :save_reset_password,
+    :show_objects_curated, :show_species_curated, :show_comments_moderated]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password] 
@@ -117,21 +117,35 @@ class AccountController < ApplicationController
 
   def forgot_password
     if request.post?
-      user           = params[:user]
-      username_string       = user[:username].strip == '' ? nil : user[:username].strip
-      email_string          = user[:email].strip == '' ? nil : user[:email].strip
-      users_with_forgotten_pass = User.find_all_by_username(username_string) 
-      users_with_forgotten_pass =  User.find_all_by_email(email_string) if users_with_forgotten_pass == []
-      if users_with_forgotten_pass.size > 0
-        users_with_forgotten_pass.each do |user_with_forgotten_pass|
+      user   = params[:user]
+      @name  = user[:username].strip == '' ? nil : user[:username].strip
+      @email = user[:email].strip == '' ? nil : user[:email].strip
+      @users = User.find_all_by_username(@name) 
+      @users = User.find_all_by_email(@email) if @users.empty?
+      if @users.size == 1
+        @users.each do |user_with_forgotten_pass|
           Notifier.deliver_forgot_password_email(user_with_forgotten_pass, request.port)
         end
-        flash[:notice] = "Check your email to reset your password"[:reset_password_instructions_emailed] #TODO remove old add new translation
+        flash[:notice] = "Check your email to reset your password"[:reset_password_instructions_emailed]
         redirect_to root_url(:protocol => "http")  # need protocol for flash to survive
+      elsif @users.size > 1
+        render :action => 'multiple_users_with_forgotten_password'
+        return
       else
-        flash.now[:notice] = "No matching accounts found"[:cannot_find_user_or_email] #TODO remove old add new translation
+        flash.now[:notice] = "No matching accounts found"[:cannot_find_user_or_email]
       end
     end
+  end
+
+  def reset_specific_users_password
+    user = User.find(params[:id])
+    if user
+      Notifier.deliver_forgot_password_email(user, request.port)
+      @success = true
+    else
+      @success = false
+    end
+    render :partial => 'reset_specific_users_password_response'
   end
 
   def save_reset_password
@@ -156,7 +170,7 @@ class AccountController < ApplicationController
         render
       end
     else
-      go_to_forgot_password(user)
+      go_to_forgot_password(nil)
     end
   end
 

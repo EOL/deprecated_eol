@@ -120,7 +120,6 @@ class ResourcesController < ApplicationController
     render :update do |page|
       page.replace_html 'url_warn', message
     end
-    
   end
   
 private

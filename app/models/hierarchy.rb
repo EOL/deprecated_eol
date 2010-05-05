@@ -137,6 +137,10 @@ class Hierarchy < SpeciesSchemaModel
     result.sort!{|a,b| a['name_string'] <=> b['name_string']}
   end
   
+  def request_publish
+    # This will change the status.... TODO
+  end
+
 end
 
 # == Schema Info

@@ -1,25 +1,35 @@
 #!/opt/local/bin/ruby
 
+# This will ONLY send email if the EMAIL enviroment vairable is set (to any value... try '1' or something).
+#
+# So, to run it for real:
+#
+#   RAILS_ENV=production EMAIL=1 script/runner bin/repair_duplicate_users.rb > results_of_user_cleanup.txt
+#
+# Otherwise, run it in your environment like so:
+#
+#   RAILS_ENV=staging script/runner bin/repair_duplicate_users.rb > results_of_user_cleanup.txt
+
 @active_emails   = 0
 @inactive_emails = 0
 @renamed_emails  = 0
 
 def send_none_active_email(email, name)
   puts "   --> **** SENDING NONE ACTIVE EMAIL TO '#{email}'"
-  @inactive_emails += 1
-  RepairConflictingUsers.deliver_none_active(email, name)
+  @inactive_emails += 1 unless ENV['EMAIL'].nil?
+  RepairConflictingUsers.deliver_none_active(email, name) unless ENV['EMAIL'].nil?
 end
 
 def send_some_active_email(email, name)
   puts "   --> **** SENDING SOME ACTIVE EMAIL TO '#{email}' using name '#{name}'"
-  @active_emails += 1
-  RepairConflictingUsers.deliver_some_active(email, name)
+  @active_emails += 1 unless ENV['EMAIL'].nil?
+  RepairConflictingUsers.deliver_some_active(email, name) unless ENV['EMAIL'].nil?
 end
 
 def send_renamed_user_email(email, name, new_name)
   puts "   --> **** SENDING RENAMED USER EMAIL TO '#{email}'"
-  @renamed_emails += 1
-  RepairConflictingUsers.deliver_renamed_user(email, name, new_name)
+  @renamed_emails += 1 unless ENV['EMAIL'].nil?
+  RepairConflictingUsers.deliver_renamed_user(email, name, new_name) unless ENV['EMAIL'].nil?
 end
 
 def delete_user(user)

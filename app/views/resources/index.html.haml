@@ -37,7 +37,8 @@
               %small
                 = "("+ link_to('see taxa in this resource', { :controller => 'content_partner', :action => 'hierarchy', :id => h.id })+")"
           %td
-            = h resource.accesspoint_url.blank? ? resource.dataset_file_name : resource.accesspoint_url
+            - dataset_url = resource.accesspoint_url.blank? ? resource.dataset_file_name : resource.accesspoint_url
+            = link_to(dataset_url.sub(/^.*\//, ''), dataset_url, :alt => dataset_url)
           %td{ :align => "center" }
             = h frequency(resource.refresh_period_hours)
           %td
@@ -46,9 +47,10 @@
             %span{ :id => "status_#{resource.id}" }
               = h resource.status_label
           %td
-            = link_to 'Edit', edit_resource_path(resource)
-            \&nbsp;
-            = link_to_remote 'Force', :url => force_harvest_resource_path(resource), :method => :post, :update => "status_#{resource.id}", :confirm => 'Are you sure you want this resource harvested tonight?'
+            %span><= link_to 'Edit', edit_resource_path(resource)
+            \&nbsp;&nbsp;&nbsp;
+            %span><= link_to_remote 'Force', :url => force_harvest_resource_path(resource), :method => :post, :update => "status_#{resource.id}", :confirm => 'Are you sure you want this resource harvested tonight?'
+
           %td
             = link_to (image_tag('rss.png',:alt=>'rss',:title=>'rss'), "http://services.eol.org/RSS_resource_monitor/process.php?f=5&resources_id=#{resource.id}")
         - if !resource.description.blank?

@@ -1829,12 +1829,12 @@ input.warn, textarea.warn {
   font-style: italic; }
 
 #textarea {
-  text-transform: uppercase;
   border-bottom: medium solid #CCC;
   text-align: left; }
   #textarea .attribution-icon {
     float: right; }
   #textarea h5 {
+    text-transform: uppercase;
     padding-top: 4pt;
     font-weight: bold; }
   #textarea a {

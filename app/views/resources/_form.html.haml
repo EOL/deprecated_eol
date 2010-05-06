@@ -7,6 +7,15 @@
         evalScripts:true
         });		
     }
+  function check_dwc_url() {
+    new Ajax.Request('/resources/check_dwc_url', {
+        parameters: {url: $('resource_dwc_archive_url').value},
+        method:'get',
+        asynchronous:true,
+        evalScripts:true
+        });		
+    }
+
     
 - form_for(@resource, :method => method, :html => {  :multipart => true, :id => 'resource_form',:class => "warning-warn invalid-invalid styleLabelOnErr" } ) do |f| 
   = f.error_messages
@@ -45,7 +54,7 @@
     .form_item
       - if @resource.dataset_file_name.blank?    
         = f.label :accesspoint_url, 'Indicate below the full URL (include \'http://\') from which the resource can be downloaded:  <span title="required">*</span>'
-        = f.text_field :accesspoint_url, :maxlength=>200, :size=>75 , :onblur=>'check_url();'
+        = f.text_field :accesspoint_url, :maxlength=>200, :size=>60 , :onblur=>'check_url();'
         %span.error{:id => 'url_warn'}    
       - unless @resource.dataset_file_name.blank?
         %br/
@@ -59,6 +68,10 @@
         = f.label :dataset, 'Select a resource file to upload below (gzip, tar or XML only): <span title="required">*</span>'
         = f.file_field :dataset, :size => 60
         
+    .form_item
+      = f.label :dwc_archive_url, 'Indicate below the full URL for a Darwin Core Archive associated with this resource (tar/gzip only)'
+      = f.text_field :dwc_archive_url, :maxlength=>200, :size=>60 , :onblur=>'check_dwc_url();'
+      %span.error{:id => 'dwc_url_warn'}    
     .form_item  
       = f.label :subject, 'Taxonomic subject of data (e.g. birds, mammals, etc.): <span title="required">*</span>'
       <!-- resource_subject ^.{1,200}$ false true //-->

@@ -22,8 +22,10 @@ class ResourcesController < ApplicationController
     # TODO - it is supremely LAME that we keep calling these things CPs when they are Agents.  It has bitten me twice in as
     # many days.  We should fix this.
     before :edit do
-      @agent = Agent.find(params[:content_partner_id])
-      @content_partner = @agent.content_partner
+      if params[:content_partner_id]
+        @agent = Agent.find(params[:content_partner_id])
+        @content_partner = @agent.content_partner
+      end
       @page_header = 'Resources'
     end
 
@@ -115,12 +117,32 @@ class ResourcesController < ApplicationController
 
   #AJAX method to check for a valid URL
   def check_url    
-    message = 'The supplied URL could not be located.' 
-    message='The supplied URL was located successfully.' if EOLWebService.valid_url? params[:url]
+    if !params[:url].match(/(\.tar\.(gz|gzip)|.tgz|.xml)/)
+      message = 'Resource must be an xml or tar/gzip file'
+    elsif EOLWebService.url_accepted? params[:url]
+      message = 'Resource file not found'
+    else
+      message = 'No file exists at this URL'
+    end
     render :update do |page|
       page.replace_html 'url_warn', message
     end
+    
   end
+  
+  def check_dwc_url 
+    if !params[:url].match(/(\.tar\.(gz|gzip)|.tgz)/)
+      message = 'DwC archive must be tar/gzip'
+    elsif EOLWebService.url_accepted? params[:url]
+      message = 'DwC archive file found'
+    else
+      message = 'No file exists at this URL'
+    end
+    render :update do |page|
+      page.replace_html 'dwc_url_warn', message
+    end
+  end
+  
   
 private
   def current_objects

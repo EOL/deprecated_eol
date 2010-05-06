@@ -740,7 +740,7 @@ Factory.define :resource do |r|
                                         :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                         :logo_url => '/images/licenses/cc_by_small.png') }
   r.resource_status { ResourceStatus.find_by_label('Published') || Factory(:resource_status, :label => 'Published') }
-  r.accesspoint_url 'http://www.google.com' # Won't work without a real, live URL.
+  r.accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
   r.association :hierarchy
 end
 

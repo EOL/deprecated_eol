@@ -1,5 +1,5 @@
 %div{:id => 'hierarchy_browser'}
-  %ul{:id => 'hierarchy_browser_list'}
+  %ul.branch{:id => 'hierarchy_browser_list'}
     - unless @hierarchy_entry.nil?
       - ancestors = @hierarchy_entry.ancestor_details
       - entry_details = @hierarchy_entry.details
@@ -9,4 +9,4 @@
       Hierarchy Roots:
     - for kingdom in @hierarchy.kingdom_details
       %li.node.bold
-        = render(:partial => 'navigation/node_name', :locals => { :entry => kingdom})
+        = render(:partial => 'navigation/node_name', :locals => { :entry => kingdom, :node_class => 'bold'})

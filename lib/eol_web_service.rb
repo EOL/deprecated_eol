@@ -21,6 +21,18 @@ class EOLWebService
     valid_url
   end
   
+  def self.url_accepted?(url)
+    return true if RAILS_ENV == 'test' # JRice needed this 'cause he was working off the network!
+    begin
+      parsed_url=URI.parse(url)
+      header=Net::HTTP.new(parsed_url.host,parsed_url.port).head(parsed_url.path == '' ? '/' : parsed_url.path)    
+      return true if header.code == '200'
+    rescue
+      return false
+    end
+    return false
+  end
+  
   #finds local ip used by the host for remote connection
   def self.local_ip
     begin

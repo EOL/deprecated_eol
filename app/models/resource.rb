@@ -7,6 +7,7 @@ class Resource < SpeciesSchemaModel
   belongs_to :language
   belongs_to :resource_status
   belongs_to :hierarchy
+  belongs_to :dwc_hierarchy, :foreign_key => 'dwc_hierarchy_id', :class_name => "Hierarchy"
 
   has_many :agents, :through => :agents_resources
   has_many :agents_resources
@@ -58,9 +59,21 @@ class Resource < SpeciesSchemaModel
 
   def validate
     if accesspoint_url.blank? && dataset_file_name.blank?
-       errors.add_to_base("You must either provide a URL or upload a resource file")   
-    elsif dataset_file_name.blank? && !accesspoint_url.blank? && !EOLWebService.valid_url?(accesspoint_url)
-       errors.add_to_base("The resource data URL is not valid")
+       errors.add_to_base("You must either provide a URL or upload a resource file")
+    elsif dataset_file_name.blank? && !accesspoint_url.blank?  # gave a URL
+      if !accesspoint_url.match(/(\.tar\.(gz|gzip)|.tgz|.xml)/)  # URL is not .xml, .tar.gz, .tar.gzip, .tgz
+        errors.add_to_base("The resource file URL must be an xml or tar/gzip file")
+      elsif !EOLWebService.url_accepted?(accesspoint_url)  # URL doesn't return 200
+        errors.add_to_base("The resource file URL is not valid")
+      end
+    end
+    
+    unless dwc_archive_url.blank?
+      if !dwc_archive_url.match(/(\.tar\.(gz|gzip)|.tgz)/)  # dwca url not a .tar.gz, .tar.gzip, .tgz
+        errors.add_to_base("The Darwin Core Archive bust be a tar/gzip file")
+      elsif !EOLWebService.url_accepted?(dwc_archive_url)  # dwca url does't return 200
+        errors.add_to_base("The Darwin Core Archive URL is not valid")
+      end
     end
   end
 

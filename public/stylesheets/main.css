@@ -2304,16 +2304,12 @@ div#nagivation-choose-hierarchy option.out {
   #hierarchy_browser a {
     font-weight: normal;
     font-family: arial, helvetica, sans-serif;
-    padding-bottom: 0;
     color: #31a7d2;
-    text-decoration: none;
-    border-bottom: 1px solid #dbd5c5; }
+    text-decoration: none; }
+    #hierarchy_browser a.bold {
+      font-weight: bold;
+      border-bottom: 1px solid #dbd5c5; }
   #hierarchy_browser li.node {
     font-weight: normal;
-    padding: 0;
-    margin-left: 5px;
+    margin-left: 15px;
     list-style: none; }
-  #hierarchy_browser li.bold {
-    font-weight: bold; }
-    #hierarchy_browser li.bold a {
-      font-weight: bold; }

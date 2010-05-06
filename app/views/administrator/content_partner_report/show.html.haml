@@ -182,5 +182,11 @@ Content partner status:
           = link_to '[edit resource]', edit_resource_path(resource, :content_partner_id => @agent.id)
           %br/
           = link_to '[view harvests]', resource_harvest_events_url(resource, :content_partner_id => @agent.id)
+          - if resource.dwc_hierarchy
+            %br/
+            = link_to '[view hierarchy]', { :controller => 'hierarchy', :action => 'browse', :id => resource.dwc_hierarchy.id }
+          - elsif resource.hierarchy
+            %br/
+            = link_to '[view hierarchy]', { :controller => 'hierarchy', :action => 'browse', :id => resource.hierarchy.id }
 
 #message_area.message

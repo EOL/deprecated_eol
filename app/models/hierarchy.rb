@@ -137,11 +137,6 @@ class Hierarchy < SpeciesSchemaModel
     result.sort!{|a,b| a['name_string'] <=> b['name_string']}
   end
   
-  def request_publish
-    # TODO - what else do we want to do, here?
-    resource_status = ResourceStatus.publish_pending
-  end
-
 end
 
 # == Schema Info

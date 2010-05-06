@@ -138,7 +138,8 @@ class Hierarchy < SpeciesSchemaModel
   end
   
   def request_publish
-    # This will change the status.... TODO
+    # TODO - what else do we want to do, here?
+    resource_status = ResourceStatus.publish_pending
   end
 
 end

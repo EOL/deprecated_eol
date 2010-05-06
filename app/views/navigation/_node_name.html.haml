@@ -6,7 +6,7 @@
   %span.rank
     = entry['rank_label']
 = link_to(external_link_icon, { :controller => '/taxa', :action => 'show', :id => entry['taxon_concept_id']}, :target => '_blank' )
-- if entry['descendants'] > 0 || entry['descendants'] > 5000
+- if entry['descendants'] > 0 && entry['descendants'] > 5000
   = image_tag('arrow_down_gray.gif', :alt => 'cannot expand children')
 -elsif entry['descendants'] > 0
   %a{:href => '', :onclick => "update_browser(#{entry['id']}, 1); return false;"}

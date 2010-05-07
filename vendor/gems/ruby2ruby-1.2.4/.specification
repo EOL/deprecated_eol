@@ -1,0 +1,108 @@
+--- !ruby/object:Gem::Specification 
+name: ruby2ruby
+version: !ruby/object:Gem::Version 
+  version: 1.2.4
+platform: ruby
+authors: 
+- Ryan Davis
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-08-14 00:00:00 -06:00
+default_executable: r2r_show
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: sexp_processor
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: "3.0"
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: ruby_parser
+  type: :runtime
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: "2.0"
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: ParseTree
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ~>
+      - !ruby/object:Gem::Version 
+        version: "3.0"
+    version: 
+- !ruby/object:Gem::Dependency 
+  name: hoe
+  type: :development
+  version_requirement: 
+  version_requirements: !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        version: 2.3.3
+    version: 
+description: |-
+  ruby2ruby provides a means of generating pure ruby code easily from
+  RubyParser compatible Sexps. This makes making dynamic language
+  processors in ruby easier than ever!
+email: 
+- ryand-ruby@zenspider.com
+executables: 
+- r2r_show
+extensions: []
+
+extra_rdoc_files: 
+- History.txt
+- Manifest.txt
+- README.txt
+files: 
+- .autotest
+- History.txt
+- Manifest.txt
+- README.txt
+- Rakefile
+- bin/r2r_show
+- lib/ruby2ruby.rb
+- test/test_ruby2ruby.rb
+has_rdoc: true
+homepage: http://seattlerb.rubyforge.org/
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --main
+- README.txt
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      version: "0"
+  version: 
+requirements: []
+
+rubyforge_project: seattlerb
+rubygems_version: 1.3.4
+signing_key: 
+specification_version: 3
+summary: ruby2ruby provides a means of generating pure ruby code easily from RubyParser compatible Sexps
+test_files: 
+- test/test_ruby2ruby.rb

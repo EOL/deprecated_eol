@@ -29,7 +29,10 @@ All Hierarchies
           %br
           = hierarchy.description
       %td{:class => column_class}
-        = (hierarchy.browsable==1) ? 'yes' : 'no'
+        - browsable = 'no'
+        - browsable = 'yes' if hierarchy.browsable==1
+        - browsable = '<strong>pending</strong>' if hierarchy.request_publish==true
+        = browsable
       %td{:class => column_class}
         = link_to("edit", {:action => 'edit', :id => hierarchy.id })
 %br

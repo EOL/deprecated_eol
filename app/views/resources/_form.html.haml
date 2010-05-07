@@ -69,7 +69,7 @@
         = f.file_field :dataset, :size => 60
         
     .form_item
-      = f.label :dwc_archive_url, 'Indicate below the full URL for a Darwin Core Archive associated with this resource (tar/gzip only)'
+      = f.label :dwc_archive_url, 'Indicate below the full URL for a <a href="/content/darwin_core" target="_blank">Darwin Core Archive</a> associated with this resource (tar/gzip only)'
       = f.text_field :dwc_archive_url, :maxlength=>200, :size=>60 , :onblur=>'check_dwc_url();'
       %span.error{:id => 'dwc_url_warn'}    
     .form_item  

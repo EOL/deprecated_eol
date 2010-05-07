@@ -49,14 +49,8 @@ config.gem "rspec", :version => "1.1.12", :lib => false
 config.gem "rspec-rails", :version => "1.1.12", :lib => false
 config.gem "thoughtbot-factory_girl", :version => "1.1.5", :lib => false
 config.gem "remi-rackbox", :version => "1.1.2", :lib => false
-
-if ENV["METRICS"] == "true"
-  # The metric_fu and it's dependencies is not intended to be part of the application's
-  # default runtime and therefore should not be checked into the project's source base.
-  # 
-  # In order to run the metrics on EOL via various Rake tasks, set set METRICS=true
-  #
-  # i.e. RAILS_ENV=test METRICS=true rake -T eol:quality 
-  config.gem 'jscruggs-metric_fu', :version => '1.1.2', :lib => 'metric_fu', :source => 'http://gems.github.com'
-  require 'metric_fu' # Is this superfluous?  Not sure.  in a rush.  (TODO)
-end
+# Note we are using an old version of metric_fu; 1.2 has a dependency on activesupport that we're not using for Rails.
+# TODO - when we update our Rails version, update metric_fu
+config.gem "metric_fu", :version => '1.1.6', :lib => 'metric_fu'
+config.gem "ruby2ruby", :version => "1.2.4"
+config.gem "reek", :version => '1.2.8'

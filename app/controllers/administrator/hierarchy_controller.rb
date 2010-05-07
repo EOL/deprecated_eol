@@ -12,7 +12,7 @@ class Administrator::HierarchyController < AdminController
       when 'label'
         order_by = 'h.label, h.id'
       when 'browsable'
-        order_by = 'h.browsable DESC, a.full_name, h.id'
+        order_by = 'h.request_publish DESC, h.browsable DESC, a.full_name, h.id'
       else
         order_by = 'a.full_name, h.id'
     end
@@ -35,6 +35,9 @@ class Administrator::HierarchyController < AdminController
       return
     end
     if request.post?
+      if params[:hierarchy][:browsable] == "1"
+        params[:hierarchy][:request_publish] = false
+      end
       if @hierarchy.update_attributes(params[:hierarchy])
         # if there were changes to what was browsable we want those changes immediately visible
         Rails.cache.delete('hierarchies/browsable_by_label')

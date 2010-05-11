@@ -46,12 +46,4 @@ class Administrator::HierarchyController < AdminController
       end
     end
   end
-
-  def request_publish
-    @hierarchy = Hierarchy.find(params[:id])
-    hierarchy.request_publish = true
-    @status = @hierarchy.save
-    render :partial => 'request_publish'
-  end
-
 end

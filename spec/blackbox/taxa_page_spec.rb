@@ -114,6 +114,20 @@ describe 'Taxa page (HTML)' do
       end
     end
     
+    it 'should show the common name if one exists' do
+      @result.body.should have_tag('div#page-title') do
+        with_tag('h2', :text => @common_name)
+      end
+    end
+    
+    it 'should not show the common name if none exists' do
+      tc = build_taxon_concept
+      result = RackBox.request("/pages/#{tc.id}")
+      result.body.should have_tag('div#page-title') do
+        with_tag('h2', :text => '')
+      end
+    end
+    
     it 'should use supercedure to find taxon concept' do
       superceded = TaxonConcept.gen(:supercedure_id => @id)
       RackBox.request("/pages/#{superceded.id}").should redirect_to("/pages/#{@id}")

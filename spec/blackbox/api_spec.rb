@@ -294,7 +294,7 @@ describe 'EOL XML APIs' do
       @name = Name.create(:canonical_form => @canonical_form, :string => 'Aus bus Linnaeus 1776')
       @hierarchy = Hierarchy.gen(:label => 'Test Hierarchy')
       @rank = Rank.gen(:label => 'species')
-      @hierarchy_entry = HierarchyEntry.gen(:hierarchy => @hierarchy, :name => @name, :published => 1, :rank => @rank)
+      @hierarchy_entry = HierarchyEntry.gen(:identifier => '123abc', :hierarchy => @hierarchy, :name => @name, :published => 1, :rank => @rank)
       
       canonical_form = CanonicalForm.create(:string => 'Dus bus')
       name = Name.create(:canonical_form => @canonical_form, :string => 'Dus bus Linnaeus 1776')
@@ -322,6 +322,7 @@ describe 'EOL XML APIs' do
     it 'should show all information for hierarchy entries in DWC format' do
       response = request("/api/hierarchy_entries/#{@hierarchy_entry.id}")
       xml_response = Nokogiri.XML(response.body)
+      xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dc:identifier").inner_text.should == @hierarchy_entry.identifier
       xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:taxonID").inner_text.should == @hierarchy_entry.id.to_s
       xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:parentNameUsageID").inner_text.should == @hierarchy_entry.parent_id.to_s
       xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:taxonConceptID").inner_text.should == @hierarchy_entry.taxon_concept_id.to_s

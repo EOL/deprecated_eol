@@ -5,10 +5,12 @@ xml.dwr :DarwinRecordSet,
     "xmlns:dcterms"       => "http://purl.org/dc/terms/",
     "xmlns:dwc"           => "http://rs.tdwg.org/dwc/terms/",
     "xmlns:dwr"           => "http://rs.tdwg.org/dwc/dwcrecord/",
+    "xmlns:dc"            => "http://purl.org/dc/elements/1.1/",
     "xsi:schemaLocation"  => "http://rs.tdwg.org/dwc/dwcrecord/  http://rs.tdwg.org/dwc/xsd/tdwg_dwc_classes.xsd" do
   
   for ancestor in @ancestors
     xml.dwc :Taxon do
+      xml.dc :identifier, ancestor['identifier'] unless ancestor['identifier'].blank?
       xml.dwc :taxonID, ancestor['id']
       xml.dwc :parentNameUsageID, ancestor['parent_id']
       xml.dwc :taxonConceptID, ancestor['taxon_concept_id']
@@ -18,6 +20,7 @@ xml.dwr :DarwinRecordSet,
   end
   
   xml.dwc :Taxon do
+    xml.dc :identifier, @hierarchy_entry.identifier unless @hierarchy_entry.identifier.blank?
     xml.dwc :taxonID, @hierarchy_entry.id
     xml.dwc :parentNameUsageID, @hierarchy_entry.parent_id
     xml.dwc :taxonConceptID, @hierarchy_entry.taxon_concept_id

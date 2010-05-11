@@ -22,6 +22,7 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
         xml.additionalInformation do
           for entry in details_hash['curated_hierarchy_entries']
             xml.dwct :Taxon do
+              xml.dc :identifier, entry.identifier unless entry.identifier.blank?
               xml.dwct :taxonID, url_for(:controller => 'api', :action => 'hierarchy_entries', :id => entry.id, :only_path => false)
               xml.dwct :scientificName, entry.name_object.string
               xml.dwct :nameAccordingTo, entry.hierarchy.label

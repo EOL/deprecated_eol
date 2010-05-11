@@ -645,10 +645,10 @@ class TaxonConcept < SpeciesSchemaModel
     return @subtitle unless @subtitle.nil?
     hierarchy ||= Hierarchy.default
     subtitle = quick_common_name(nil, hierarchy)
-    subtitle = quick_scientific_name(:canonical, hierarchy) if subtitle.empty?
+    #subtitle = quick_scientific_name(:canonical, hierarchy) if subtitle.empty?  # no longer showing the canonical form
     subtitle = '' if subtitle.upcase == "[DATA MISSING]"
     subtitle = "<i>#{subtitle}</i>" unless subtitle.empty? or subtitle =~ /<i>/
-    @subtitle = subtitle.empty? ? name() : subtitle
+    @subtitle = subtitle
   end
 
   def smart_thumb

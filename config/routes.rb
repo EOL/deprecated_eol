@@ -104,7 +104,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'administrator/reports/:action', :controller => 'administrator/reports'
   
   map.request_publish_hierarchy 'content_partner/resources/request_publish/:id', :method => :post,
-      :controller => 'admin/hierarchy', :action => 'request_publish'
+      :controller => 'content_partner', :action => 'request_publish_hierarchy'
   
   #map.connect 'administrator/user_data_object',    :controller => 'administrator/user_data_object', :action => 'index'
 

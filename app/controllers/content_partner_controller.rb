@@ -180,6 +180,12 @@ class ContentPartnerController < ApplicationController
       return
     end
   end
+  
+  def request_publish_hierarchy
+    @hierarchy = Hierarchy.find(params[:id])
+    @hierarchy.request_publish = true
+    render :text => @hierarchy.save ? 'Publish Pending' : '<span style="color:brown;">Force FAILED</span>'
+  end
  
   # General methods for misc things
   # ------------------------------------------

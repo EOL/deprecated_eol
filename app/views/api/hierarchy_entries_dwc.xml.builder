@@ -44,6 +44,7 @@ xml.dwr :DarwinRecordSet,
   
   for child in @children
     xml.dwc :Taxon do
+      xml.dc :identifier, child['identifier'] unless child['identifier'].blank?
       xml.dwc :taxonID, child['id']
       xml.dwc :parentNameUsageID, child['parent_id']
       xml.dwc :taxonConceptID, child['taxon_concept_id']

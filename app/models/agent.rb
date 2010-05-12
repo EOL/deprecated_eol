@@ -371,6 +371,22 @@ class Agent < SpeciesSchemaModel
     end
   end
   
+  def show_gallery_on_partner_page?
+    unless self.content_partner.nil? 
+      self.content_partner.show_gallery_on_partner_page? 
+    else
+      false
+    end
+  end
+  
+  def show_stats_on_partner_page?
+    unless self.content_partner.nil? 
+      self.content_partner.show_stats_on_partner_page? 
+    else
+      false
+    end
+  end
+  
   def auto_publish?
     unless self.content_partner.nil? 
       self.content_partner.auto_publish? 

@@ -156,6 +156,33 @@ class Administrator::ContentPartnerReportController < AdminController
     end
   end
   
+  def show_gallery_on_partner_page
+    @agent = Agent.find(params[:id])
+    @agent.content_partner.toggle!(:show_gallery_on_partner_page)
+    
+    render :update do |page|
+      if @agent.show_gallery_on_partner_page?
+        page << "$('show_gallery_on_cp_page_img').src = '/images/checked.png'"
+      else
+        page << "$('show_gallery_on_cp_page_img').src = '/images/not-checked.png'"
+      end
+    end
+  end
+  
+  def show_stats_on_partner_page
+    @agent = Agent.find(params[:id])
+    @agent.content_partner.toggle!(:show_stats_on_partner_page)
+    
+    render :update do |page|
+      if @agent.show_stats_on_partner_page?
+        page << "$('show_stats_on_cp_page_img').src = '/images/checked.png'"
+      else
+        page << "$('show_stats_on_cp_page_img').src = '/images/not-checked.png'"
+      end
+    end
+  end
+  
+  
   def vet_partner
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:vetted)

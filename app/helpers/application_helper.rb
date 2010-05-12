@@ -299,7 +299,19 @@ module ApplicationHelper
     logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(collection.title)}\" title=\"#{sanitize(collection.title)}\" class=\"agent-logo\" />"
     return logo_str
   end
-
+  
+  def get_year_month_list
+    arr=[]
+    start="2009_07"
+    str=""
+    var_date = Time.now
+    while( start != str)
+      var_date = var_date - 1.month
+      str = var_date.year.to_s + "_" + "%02d" % var_date.month.to_s
+      arr << [var_date.strftime("%B %Y"), str]
+    end    
+    return arr
+  end
 
 
   #change this methods to haml methods after conversion 

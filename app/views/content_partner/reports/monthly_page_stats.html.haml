@@ -2,29 +2,34 @@
   %h2
     Monthly Web Usage Statistics
   %p
-    The following statistics represent web page statistics for EOL pages containing your data objects.
-#report_from_eol
-  %ol
-  %table.results_table
-    - form_for :hello, :url => { :action => :monthly_page_stats } do |form|
-      %thead
-        %tr
-          %td{ :align => "center", :colspan => "4" }
-            = select_tag :agent_id, options_from_collection_for_select(  @content_partners_with_published_data, :id, :full_name, @agent_id.to_i )
-        %tr{ :align => "center" }
-          %td
-            = select_tag "year_month", options_for_select(@year_month_list,@year_month)
-            = submit_tag("Submit")
-          %td
-            Taxa Pages with
-            %br
-            Provider Content
-          %td
-            EOL Site
-          %td
-            Provider
-            %br
-            Percentage
+    The following statistics represent usage of EOL pages containing data objects from the content partner
+    %strong
+      = @partner.full_name
+  %br
+  %h3
+    Summary Statistics
+  - form_for :hello, :url => { :action => :monthly_page_stats } do |form|
+    Viewing Partner:
+    = select_tag :agent_id, options_from_collection_for_select(  @content_partners_with_published_data, :id, :full_name, @agent_id.to_i )
+    = submit_tag("Change")
+    %br
+    Viewing statistics for the month of:
+    = select_tag "year_month", options_for_select(get_year_month_list , @year_month)
+    = submit_tag("Change")
+  %table.results_table{:style => 'width:90%' }
+    %thead
+      %tr{ :align => "center" }
+        %th
+        %th
+          Taxa Pages with
+          %br
+          Provider Content
+        %th
+          EOL Site
+        %th
+          Provider
+          %br
+          Percentage
     %tbody
       - @recs.each do |list|
         %tr
@@ -77,10 +82,12 @@
           %td.odd{ :align => "right" }
             = list.p_timeonpage
             \%
-  %table.results_table
-    %tr
-      %td{ :colspan => "5" }
-        = will_paginate @posts
+  %br
+  %br
+  %h3
+    Taxa Page Statistics
+  = will_paginate @posts
+  %table.results_table{:style => 'width:90%' }
     %thead{ :align => "center" }
       %tr{ :align => "center" }
         %th
@@ -118,6 +125,4 @@
             = post.unique_page_views
           %td{ :class => column_class, :align => "right" }
             = post.timeonpage
-      %tr
-        %td{ :colspan => "5" }
-          = will_paginate @posts
+  = will_paginate @posts

@@ -19,24 +19,10 @@ class ContentPartner::ReportsController < ContentPartnerController
     report_month = "%02d" % last_month.month.to_s
     @report_date = "#{report_year}_#{report_month}"
     @report_type = :page_stats
-  end  
-  
-  def get_year_month_list    
-    arr=[]
-    start="2009_07"
-    str=""
-    var_date = Time.now
-    while( start != str)
-      var_date = var_date - 1.month
-      str = var_date.year.to_s + "_" + "%02d" % var_date.month.to_s
-      arr << str      
-    end    
-    return arr
   end
   
   def monthly_page_stats
     @page_header = 'Usage Reports'
-    @year_month_list = get_year_month_list()
     
     if(params[:agent_id]) then
       @agent_id = params[:agent_id]

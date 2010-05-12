@@ -1,6 +1,6 @@
 class ContentPartnerController < ApplicationController
   
-  before_filter :agent_login_required, :except => [:login, :register, :check_username, :forgot_password, :agreement, :content]
+  before_filter :agent_login_required, :except => [:login, :register, :check_username, :forgot_password, :agreement, :content, :stats]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   helper_method :current_agent, :agent_logged_in?
 
@@ -31,6 +31,24 @@ class ContentPartnerController < ApplicationController
     end
     render :action => 'content', :layout => 'main' # Needs main layout because it's very WIDE.
   end
+  
+  def stats
+    @agent_id = params[:id]
+    @page = params[:page] || 1
+    @report_year, @report_month = params[:year_month].split("_") if params[:year_month]
+    
+    last_month = Time.now - 1.month
+    @report_year ||= last_month.year.to_s
+    @report_month ||= last_month.month.to_s
+    @year_month = @report_year + "_" + "%02d" % @report_month.to_i
+    
+    @partner = Agent.find(@agent_id)
+    @content_partners_with_published_data = Agent.content_partners_with_published_data
+    
+    @recs = GoogleAnalyticsPartnerSummary.summary(@agent_id, @report_year, @report_month)
+    @posts = GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, @page)
+  end
+  
   
   def partner
     @page_header='Partner Information'
@@ -417,7 +435,8 @@ class ContentPartnerController < ApplicationController
     end
 
     def main_if_no_partner
-      current_agent.nil? ? 'main' : 'content_partner'
+      layout = (current_agent.nil? || action_name == "stats") ? 'main' : 'content_partner'
+      
     end
   
 end

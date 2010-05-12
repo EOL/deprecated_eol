@@ -30,12 +30,26 @@
   = link_to("content partners",:controller=>'/content',:action=>'partners')
   page of website.
   %br/
-  = link_to_remote(content_partner_check_box_image(@agent.show_mou_on_partner_page?, :id => 'show_mou_on_cp_page_img'),  :url => { :action => 'show_mou_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_on_partner_page? ? 'hide' : 'show'} this partner's MOU on the content partner page?")
+  = link_to_remote(content_partner_check_box_image(@agent.show_mou_on_partner_page?, :id => 'show_mou_on_cp_page_img'),  :url => { :action => 'show_mou_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_mou_on_partner_page? ? 'hide' : 'show'} this partner's MOU on the content partner page?")
   Show
   = "#{@agent.project_name.pluralize}"
   MOU on
   = link_to("content partners",:controller=>'/content',:action=>'partners')
   page of website.  
+  %br/
+  = link_to_remote(content_partner_check_box_image(@agent.show_gallery_on_partner_page?, :id => 'show_gallery_on_cp_page_img'),  :url => { :action => 'show_gallery_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_gallery_on_partner_page? ? 'hide' : 'show'} a link to this partner's gallery on the content partner page?")
+  Show
+  = "#{@agent.project_name.pluralize}"
+  gallery on
+  = link_to("content partners",:controller=>'/content',:action=>'partners')
+  page of website.
+  %br/
+  = link_to_remote(content_partner_check_box_image(@agent.show_stats_on_partner_page?, :id => 'show_stats_on_cp_page_img'),  :url => { :action => 'show_stats_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_stats_on_partner_page? ? 'hide' : 'show'} a link to this partner's statistics on the content partner page?")
+  Show
+  = "#{@agent.project_name.pluralize}"
+  statistics on
+  = link_to("content partners",:controller=>'/content',:action=>'partners')
+  page of website.
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.vetted?, :id => 'vet_partner_img'),  :url => { :action => 'vet_partner', :id => @agent }, :confirm => "Are you sure you want to #{@agent.vetted? ? 'unvet' : 'vet'} this partner?  All of their uncurated data objects will become #{@agent.vetted? ? 'untrusted' : 'trusted'} immediately!")
   = "Vet #{@agent.project_name} and update the status of all their uncurated data objects."

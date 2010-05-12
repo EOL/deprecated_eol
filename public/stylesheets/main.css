@@ -2266,8 +2266,7 @@ div#browse_content_partner_species .pagination a:link {
   color: #149ACC !important; }
 div#content_partner_stats {
   font-size: 16px;
-  font-style: italic;
-  padding: 10px; }
+  font-style: italic; }
 
 h3.search_result_subtitle {
   margin-bottom: 1em !important; }

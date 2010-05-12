@@ -1,7 +1,6 @@
 %h2
   = @hierarchy.label
 = "("+ link_to("edit hierarchy", {:action => 'edit', :id => @hierarchy.id }) +")"
-%span{:id => "publish_#{@hierarchy.id}"}= link_to_remote('Publish', :url => request_publish_hierarchy_path(@hierarchy), :method => :post, :update => "publish_#{@hierarchy.id}")
 %br
 %br
 = render(:partial => 'navigation/browse')

@@ -194,7 +194,8 @@ create_if_not_exists Language, :label => 'Scientific Name', :iso_639_1 => ''   #
 create_if_not_exists Language, :label => 'Unknown', :iso_639_1 => ''
 
 create_if_not_exists License, :title => 'public domain',       :description => 'No rights reserved'
-create_if_not_exists License, :title => 'all rights reserved', :description => '&#169; All rights reserved'
+create_if_not_exists License, :title => 'all rights reserved', :description => '&#169; All rights reserved',
+             :show_to_content_partners => 0
 create_if_not_exists License, :title => 'cc-by-nc 3.0',        :description => 'Some rights reserved',
              :source_url => 'http://creativecommons.org/licenses/by-nc/3.0/',    :logo_url => '/images/licenses/cc_by_nc_small.png'
 create_if_not_exists License, :title => 'cc-by 3.0',           :description => 'Some rights reserved',
@@ -204,10 +205,13 @@ create_if_not_exists License, :title => 'cc-by-sa 3.0',        :description => '
 create_if_not_exists License, :title => 'cc-by-nc-sa 3.0',     :description => 'Some rights reserved',
              :source_url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/', :logo_url => '/images/licenses/cc_by_nc_sa_small.png'
 create_if_not_exists License, :title => 'gnu-fdl',             :description => 'Some rights reserved',
-             :source_url => 'http://www.gnu.org/licenses/fdl.html',              :logo_url => '/images/licenses/gnu_fdl_small.png'
+             :source_url => 'http://www.gnu.org/licenses/fdl.html',              :logo_url => '/images/licenses/gnu_fdl_small.png',
+             :show_to_content_partners => 0
 create_if_not_exists License, :title => 'gnu-gpl',             :description => 'Some rights reserved',
-             :source_url => 'http://www.gnu.org/licenses/gpl.html',              :logo_url => '/images/licenses/gnu_fdl_small.png'
-create_if_not_exists License, :title => 'no license',          :description => 'The material cannot be licensed'
+             :source_url => 'http://www.gnu.org/licenses/gpl.html',              :logo_url => '/images/licenses/gnu_fdl_small.png',
+             :show_to_content_partners => 0
+create_if_not_exists License, :title => 'no license',          :description => 'The material cannot be licensed'             ,
+             :show_to_content_partners => 0
 
 create_if_not_exists MimeType, :label => 'audio/mpeg'
 create_if_not_exists MimeType, :label => 'audio/x-ms-wma'

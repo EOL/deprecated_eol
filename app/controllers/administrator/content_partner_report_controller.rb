@@ -244,7 +244,7 @@ class Administrator::ContentPartnerReportController < AdminController
     return arr
   end 
   
-  def report_tools
+  def report_monthly_published_partners
     @page_title = 'Published Content Partners'
     @year_month_list = get_year_month_list()
     if(params[:year_month]) then
@@ -261,5 +261,11 @@ class Administrator::ContentPartnerReportController < AdminController
     page = params[:page] || 1
     @published_agents = Agent.published_agent(@report_year, @report_month, page)    
   end
+
+  def report_partner_data_curation
+
+  end
+
+
 
 end

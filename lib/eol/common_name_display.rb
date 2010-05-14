@@ -62,7 +62,9 @@ module EOL
     alias :string :name_string
 
     def in_curator_hierarchy?
-      (!@hierarchy_id == 0 && @hierarchy_id == @@curator_hierarchy.id) ? true : false
+      in_hierarchy = false
+      in_hierarchy = true if @hierarchy_id == @@curator_hierarchy.id
+      return in_hierarchy
     end
 
   end

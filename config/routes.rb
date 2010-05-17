@@ -24,7 +24,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'boom', :controller => 'content', :action => 'error' 
 
   map.open_id_complete 'authenticate', :controller => "account", :action => "authenticate", :requirements => { :method => :get }
-  map.save_reset_password 'account/save_reset_password', :controller => "account", :action => "save_reset_password"
   map.reset_specific_users_password 'account/reset_specific_users_password',
                                     :controller => 'account',
                                     :action => 'reset_specific_users_password'

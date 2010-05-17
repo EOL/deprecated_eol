@@ -7,7 +7,7 @@ class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:profile, :uservoice_login]
   before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show,
-    :logout, :new_openid_user, :reset_password, :reset_specific_users_password, :save_reset_password,
+    :logout, :new_openid_user, :reset_password, :reset_specific_users_password,
     :show_objects_curated, :show_species_curated, :show_comments_moderated]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
@@ -148,15 +148,6 @@ class AccountController < ApplicationController
     render :partial => 'reset_specific_users_password_response'
   end
 
-  def save_reset_password
-    password = params[:user][:entered_password]
-    password_confirmation = params[:user][:entered_password_confirmation]
-    user = User.find(params[:user][:id])
-    user.update_attributes(:active => true, :entered_password => password, :password => password, :entered_password_confirmation => password_confirmation)
-    flash[:notice] = "Your password is updated"[:user_password_updated_successfully]
-    redirect_to root_url(:protocol => "http")
-  end
-
   def reset_password
     password_reset_token = params[:id]
     user = User.find_by_password_reset_token(password_reset_token)
@@ -177,7 +168,7 @@ class AccountController < ApplicationController
   def profile
 
     # grab logged in user
-    @user = current_user
+    @user = User.find(current_user.id)
     old_user=@user.clone
     
     unless request.post? # first time on page, get current settings
@@ -188,7 +179,7 @@ class AccountController < ApplicationController
     end
 
     user_params=params[:user]
-    
+    unset_auto_managed_password 
     # change password if user entered it
     # TODO This is pretty ugly, but validation on passwords is really only valid on create OR on update if users actually enter a password
     unless user_params[:entered_password].blank? && user_params[:entered_password_confirmation].blank?
@@ -392,6 +383,14 @@ class AccountController < ApplicationController
   # In order for AccountController to work with OpenID, we need to force it to use https when authenticating.  
   def realm
     return $PRODUCTION_MODE ? "https://#{request.host_with_port}" : "#{request.protocol + request.host_with_port}"
+  end
+
+  #Change password parameters when they are set automatically by an autofil password management of a browser (known behavior of Firefox for example)  
+  def unset_auto_managed_password
+    password = params[:user][:entered_password].strip
+    if params[:user][:entered_password_confirmation].blank? && !password.blank? && User.hash_password(password) == User.find(current_user.id).hashed_password
+      params[:user][:entered_password] = ''
+    end
   end
 
 end

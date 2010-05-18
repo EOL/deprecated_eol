@@ -276,12 +276,18 @@ class Administrator::ContentPartnerReportController < AdminController
     end    
     
     @content_partners_with_published_data = Agent.content_partners_with_published_data  
-    @partner = Agent.find(@agent_id, :select => [:full_name])
-    
-    @latest_harvest_id = Agent.latest_harvest_event_id(@agent_id)        
-    arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(@latest_harvest_id);
 
-    arr = User.curated_data_object_ids(arr_dataobject_ids)
+    if(@agent_id == "All") then 
+      @partner_fullname = "All Curation"
+      arr_dataobject_ids = []
+    else                        
+      partner = Agent.find(@agent_id, :select => [:full_name])
+      @partner_fullname = partner.full_name
+      @latest_harvest_id = Agent.latest_harvest_event_id(@agent_id)        
+      arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(@latest_harvest_id);
+    end        
+
+    arr = User.curated_data_object_ids(arr_dataobject_ids,@agent_id)
       @arr_dataobject_ids = arr[0]
       @arr_user_ids = arr[1]
 
@@ -291,7 +297,7 @@ class Administrator::ContentPartnerReportController < AdminController
 
     @arr_obj_tc_id = DataObject.tc_ids_from_do_ids(@arr_dataobject_ids);
     page = params[:page] || 1
-    @partner_curated_objects = User.curated_data_objects(@arr_dataobject_ids,@agent_id, page)
+    @partner_curated_objects = User.curated_data_objects(@arr_dataobject_ids, page)
 
     @cur_page = (page.to_i - 1) * 30
 

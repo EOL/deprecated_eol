@@ -1,0 +1,94 @@
+#report_from_eol
+  %h2    
+    = @page_header 
+    / Content Partner Curated Data
+  %p
+    - if(@agent_id != "All")
+      The following statistics represent curated data objects from the content partner
+      %strong
+        = @partner_fullname
+
+  - form_for :hello, :url => { :action => :report_partner_curated_data } do |form|
+    Viewing Partner:
+    / working ok = select_tag :agent_id, options_from_collection_for_select(  @content_partners_with_published_data, :id, :full_name, @agent_id.to_i )
+    
+    %select{ :name => "agent_id" }
+      %option
+        All
+      - for cp in @content_partners_with_published_data
+        %option{ :value => cp.id, :selected => @agent_id.to_i == cp.id }
+          = cp.full_name
+
+    = submit_tag("Change")
+  
+  - if(@agent_id != "All")
+    %br
+      Agent ID:
+      = link_to(@agent_id, { :action => 'show', :id => @agent_id })
+
+  /%br working...
+  /  Latest harvest event ID:
+  /  = @latest_harvest_id
+
+  
+  - arr = [1]
+  - @arr_dataobject_ids = @arr_dataobject_ids - arr
+  %br
+    Curation activity:
+    = @arr_dataobject_ids.length
+
+  - unique_dataobject_ids = @arr_dataobject_ids.uniq
+  = "&nbsp;&nbsp;  |&nbsp;&nbsp;  Data objects:"
+  = unique_dataobject_ids.length
+  = "&nbsp;&nbsp;  |&nbsp;&nbsp;  Curators:"
+  = @arr_user_ids.uniq.length
+
+  %table.results_table
+    %tr
+      %td{ :colspan => "5" }
+        = will_paginate @partner_curated_objects
+    %thead{ :align => "center" }
+      %tr{ :align => "center" }
+        %th
+          
+        %th
+          Curator
+        %th
+          Activity
+        %th
+          Permalink
+        %th
+          Date Updated
+
+    %tbody
+      - count = @cur_page.to_i
+      - @partner_curated_objects.each do |rec|
+        - column_class=cycle('odd','even')
+        - count += 1
+        %tr
+          %td{ :class => column_class, :align => "right" }
+            = count
+            = "."
+          %td{ :class => column_class }
+            = rec.given_name + " " + rec.family_name
+          %td{ :class => column_class }
+            = rec.code
+
+          %td{ :class => column_class }
+            - if(@arr_obj_tc_id["datatype#{rec.data_object_id}"])
+              - if(@arr_obj_tc_id["datatype#{rec.data_object_id}"]=="text") then
+                = link_to rec.data_object_id,{:controller=>'/taxa', :action=>:show, :id => @arr_obj_tc_id["#{rec.data_object_id}"],  :text_id => rec.data_object_id}
+              - else
+                = link_to rec.data_object_id,{:controller=>'/taxa', :action=>:show, :id => @arr_obj_tc_id["#{rec.data_object_id}"],  :image_id => rec.data_object_id}
+              = " | " + @arr_obj_tc_id["datatype#{rec.data_object_id}"]
+            - else
+              = rec.data_object_id
+
+          %td{ :class => column_class }
+            = rec.updated_at
+
+    %tr
+      %td{ :colspan => "5" }
+        = will_paginate @partner_curated_objects
+
+

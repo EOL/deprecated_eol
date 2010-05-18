@@ -143,17 +143,19 @@ class User < ActiveRecord::Base
     return rset
   end
   
-  def self.curated_data_object_ids(arr_dataobject_ids)
+  def self.curated_data_object_ids(arr_dataobject_ids,agent_id)
     obj_ids = []
     user_ids = []
-    if(arr_dataobject_ids.length > 0) then
+    if(arr_dataobject_ids.length > 0 or agent_id == 'All') then
       sql = "Select actions_histories.object_id data_object_id, actions_histories.user_id
       From action_with_objects
       Inner Join actions_histories ON actions_histories.action_with_object_id = action_with_objects.id
       Inner Join changeable_object_types ON actions_histories.changeable_object_type_id = changeable_object_types.id
       Inner Join users ON actions_histories.user_id = users.id
-      where changeable_object_types.ch_object_type = 'data_object'    
-      and actions_histories.object_id IN (" + arr_dataobject_ids * "," + ")"
+      where changeable_object_types.ch_object_type = 'data_object' "
+      if(agent_id != 'All') then
+        sql += " and actions_histories.object_id IN (" + arr_dataobject_ids * "," + ")"
+      end
       rset = User.find_by_sql([sql])            
       rset.each do |post|
         obj_ids << post.data_object_id
@@ -164,7 +166,7 @@ class User < ActiveRecord::Base
     return arr
   end
 
-  def self.curated_data_objects(arr_dataobject_ids,agent_id,page)
+  def self.curated_data_objects(arr_dataobject_ids,page)
     #if(arr_dataobject_ids.length > 0) then
       query = "Select
       actions_histories.object_id data_object_id,

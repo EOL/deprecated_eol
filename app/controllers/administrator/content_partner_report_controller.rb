@@ -216,8 +216,7 @@ class Administrator::ContentPartnerReportController < AdminController
     end
   end
 
-  def monthly_stats_email
-    
+  def monthly_stats_email    
     last_month = Time.now - 1.month
     @year = last_month.year.to_s
     @month = last_month.month.to_s
@@ -227,8 +226,7 @@ class Administrator::ContentPartnerReportController < AdminController
     end
     
     #for testing the query result
-    @rset = Agent.content_partners_contact_info(@month,@year)
-    
+    @rset = Agent.content_partners_contact_info(@month,@year)    
   end
   
   def get_year_month_list    
@@ -262,7 +260,40 @@ class Administrator::ContentPartnerReportController < AdminController
     @published_agents = Agent.published_agent(@report_year, @report_month, page)    
   end
 
-  def report_partner_data_curation
+
+  def report_partner_curated_data
+    @page_header = 'Content Partner Curated Data'
+    
+    if(params[:agent_id]) then
+      @agent_id = params[:agent_id]
+      $agent_id = params[:agent_id]
+    end
+    if($agent_id) then
+      @agent_id = $agent_id
+    end
+    if(!@agent_id) then
+      @agent_id = 1  
+    end    
+    
+    @content_partners_with_published_data = Agent.content_partners_with_published_data  
+    @partner = Agent.find(@agent_id, :select => [:full_name])
+    
+    @latest_harvest_id = Agent.latest_harvest_event_id(@agent_id)        
+    arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(@latest_harvest_id);
+
+    arr = User.curated_data_object_ids(arr_dataobject_ids)
+      @arr_dataobject_ids = arr[0]
+      @arr_user_ids = arr[1]
+
+    if(@arr_dataobject_ids.length == 0) then 
+      @arr_dataobject_ids = [1] #no data objects
+    end
+
+    @arr_obj_tc_id = DataObject.tc_ids_from_do_ids(@arr_dataobject_ids);
+    page = params[:page] || 1
+    @partner_curated_objects = User.curated_data_objects(@arr_dataobject_ids,@agent_id, page)
+
+    @cur_page = (page.to_i - 1) * 30
 
   end
 

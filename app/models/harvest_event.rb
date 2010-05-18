@@ -13,6 +13,18 @@ class HarvestEvent < SpeciesSchemaModel
   end
   
   
+  def self.data_object_ids_from_harvest(harvest_event_id)
+    query = "Select data_objects_harvest_events.data_object_id
+    From harvest_events
+    Inner Join data_objects_harvest_events ON harvest_events.id = data_objects_harvest_events.harvest_event_id
+    Where harvest_events.id = #{harvest_event_id}"    
+    rset = self.find_by_sql [query]
+    arr=[]
+    for fld in rset
+	    arr << fld["data_object_id"]
+    end
+    return arr
+  end
   
   
   

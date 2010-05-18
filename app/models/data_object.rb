@@ -1096,8 +1096,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     return DataObject.find(obj.id)
   end
   
-  def self.get_toc_info(obj_ids)
-    
+  def self.get_toc_info(obj_ids)    
     obj_toc_info = {} #same Hash.new
     if(obj_ids.length > 0) then
       sql = "
@@ -1115,16 +1114,35 @@ AND data_type_id IN (#{data_type_ids.join(',')})
         obj_toc_info["#{post.id}"] = "#{post.toc}"
         obj_toc_info["e#{post.id}"] = "#{post.vetted_label} <br>  #{post.visible}"
       end    
-    end
-    
+    end    
     return obj_toc_info
   end
-  
+
+  def self.tc_ids_from_do_ids(obj_ids)
+    obj_tc_id = {} #same Hash.new
+    if(obj_ids.length > 0) then      
+      sql = "Select data_objects_taxon_concepts.taxon_concept_id tc_id , data_objects.data_type_id, data_objects.id do_id
+      From data_objects_taxon_concepts
+      Inner Join data_objects ON data_objects_taxon_concepts.data_object_id = data_objects.id
+      Inner Join taxon_concepts ON data_objects_taxon_concepts.taxon_concept_id = taxon_concepts.id
+      Where taxon_concepts.published and data_objects_taxon_concepts.data_object_id in (#{obj_ids.join(',')})"      
+      #in (2768951,2768952,3811025)
+      rset = DataObject.find_by_sql([sql])            
+      rset.each do |post|
+        obj_tc_id["#{post.do_id}"] = post.tc_id
+        if(post.data_type_id == 3)then obj_tc_id["datatype#{post.do_id}"] = "text"
+                                  else obj_tc_id["datatype#{post.do_id}"] = "image"
+        end
+      end    
+    end    
+    return obj_tc_id
+  end  
+
+
   def self.get_dataobjects(obj_ids,page) 
     query="Select data_objects.* From data_objects
     Inner Join vetted ON data_objects.vetted_id = vetted.id
-    WHERE data_objects.id IN (#{ obj_ids.join(', ') })
-    "
+    WHERE data_objects.id IN (#{ obj_ids.join(', ') })"
     self.paginate_by_sql [query, obj_ids], :page => page, :per_page => 20 , :order => 'id'  
   end
   

@@ -143,7 +143,47 @@ class User < ActiveRecord::Base
     return rset
   end
   
-  
+  def self.curated_data_object_ids(arr_dataobject_ids)
+    obj_ids = []
+    user_ids = []
+    if(arr_dataobject_ids.length > 0) then
+      sql = "Select actions_histories.object_id data_object_id, actions_histories.user_id
+      From action_with_objects
+      Inner Join actions_histories ON actions_histories.action_with_object_id = action_with_objects.id
+      Inner Join changeable_object_types ON actions_histories.changeable_object_type_id = changeable_object_types.id
+      Inner Join users ON actions_histories.user_id = users.id
+      where changeable_object_types.ch_object_type = 'data_object'    
+      and actions_histories.object_id IN (" + arr_dataobject_ids * "," + ")"
+      rset = User.find_by_sql([sql])            
+      rset.each do |post|
+        obj_ids << post.data_object_id
+        user_ids << post.user_id
+      end        
+    end
+    arr = [obj_ids,user_ids]
+    return arr
+  end
+
+  def self.curated_data_objects(arr_dataobject_ids,agent_id,page)
+    #if(arr_dataobject_ids.length > 0) then
+      query = "Select
+      actions_histories.object_id data_object_id,
+      changeable_object_types.ch_object_type,
+      action_with_objects.action_code code,
+      users.given_name, users.family_name,
+      actions_histories.updated_at, actions_histories.user_id
+      From action_with_objects
+      Inner Join actions_histories ON actions_histories.action_with_object_id = action_with_objects.id
+      Inner Join changeable_object_types ON actions_histories.changeable_object_type_id = changeable_object_types.id
+      Inner Join users ON actions_histories.user_id = users.id
+      where changeable_object_types.ch_object_type = 'data_object'    
+      and actions_histories.object_id IN (" + arr_dataobject_ids * "," + ") 
+      Order By actions_histories.id Desc"
+      #self.paginate_by_sql [query, arr_dataobject_ids, agent_id, page], :agent_id => agent_id, :page => page, :per_page => 5
+      self.paginate_by_sql [query], :per_page => 30, :page => page
+    #else
+    #end
+  end  
 
   def data_object_tags_for data_object
     data_object_tags.find_all_by_data_object_guid data_object.guid, :include => :data_object_tag

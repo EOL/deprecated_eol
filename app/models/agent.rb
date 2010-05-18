@@ -166,7 +166,20 @@ class Agent < SpeciesSchemaModel
     Order By agents.full_name Asc"    
     self.find_by_sql [query]
   end
-  
+
+  def self.latest_harvest_event_id(agent_id)
+    query = "Select Max(harvest_events.id) max_harvest_event_id
+    From harvest_events
+    Inner Join agents_resources ON agents_resources.resource_id = harvest_events.resource_id
+    Where agents_resources.agent_id = #{agent_id}
+    Group By agents_resources.agent_id "    
+    rset = self.find_by_sql [query]
+    for fld in rset
+	    return fld["max_harvest_event_id"]
+    end
+  end
+      
+
   def self.published_agent(year, month, page)      
     query="
     Select distinct agents.full_name, agents.id

@@ -1,4 +1,7 @@
 class ApiController < ApplicationController
+  
+  include ApiHelper
+  
   def pages
     taxon_concept_id = params[:id] || 0
     params[:images] ||= 1
@@ -19,14 +22,17 @@ class ApiController < ApplicationController
       return
     end
     
-    unless taxon_concept.nil? || !taxon_concept.published?
-      details_hash = taxon_concept.details_hash(:return_media_limit => params[:images].to_i, :subjects => params[:subjects], :return_text_limit => params[:text].to_i, :details => params[:details], :vetted => params[:vetted], :common_names => params[:common_names])
-    end
+    details_hash = taxon_concept.details_hash(:return_media_limit => params[:images].to_i, :subjects => params[:subjects], :return_text_limit => params[:text].to_i, :details => params[:details], :vetted => params[:vetted], :common_names => params[:common_names])
+    
     if params[:format] == 'html'
       render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => true } )
     else
       respond_to do |format|
-         format.xml { render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => params[:details] } ) }
+        format.xml { render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => params[:details] } ) }
+        format.json {
+          @return_hash = pages_json(details_hash, params[:details]!=nil)
+          render :json => @return_hash
+        }
       end
     end
   end
@@ -47,6 +53,10 @@ class ApiController < ApplicationController
     else
       respond_to do |format|
         format.xml { render(:partial => 'pages', :layout => false, :locals => { :details_hash => details_hash, :data_object_details => true } ) }
+        format.json {
+          @return_hash = pages_json(details_hash)
+          render :json => @return_hash
+        }
       end
     end
   end
@@ -56,12 +66,16 @@ class ApiController < ApplicationController
     @page = params[:page].to_i || 1
     @page = 1 if @page < 1
     @per_page = 30
-    
     @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all, :lookup_trees => false)
     @last_page = (@results.total_entries/@per_page.to_f).ceil
     
+    
     respond_to do |format|
-       format.xml { render :layout=>false }
+      format.xml { render :layout => false }
+      format.json {
+          @return_hash = search_result_hash({:search_term => @search_term, :page => @page, :per_page => @per_page, :results => @results, :format => params[:format]})
+          render :json => @return_hash
+        }
     end
   end
   
@@ -81,9 +95,15 @@ class ApiController < ApplicationController
     end
     
     if format == 'tcs'
-      render :action =>'hierarchy_entries.xml.builder', :layout=>false
+      render :action =>'hierarchy_entries.xml.builder', :layout => false
     else
-      render :action =>'hierarchy_entries_dwc.xml.builder', :layout=>false
+      respond_to do |format|
+        format.xml { render :action =>'hierarchy_entries_dwc.xml.builder', :layout => false }
+        format.json {
+          @return_hash = hierarchy_entries_json
+          render :json => @return_hash
+        }
+      end
     end
   end
   
@@ -97,13 +117,14 @@ class ApiController < ApplicationController
     end
     
     respond_to do |format|
-       format.xml { render :layout=>false }
+       format.xml { render :layout => false }
     end
   end
   
   def ping
     respond_to do |format|
-      format.xml { render :layout=>false }
+      format.xml { render :layout => false }
+      format.json { render :json => { 'response' => { 'message' => 'Success' } } }
     end
   end
 end

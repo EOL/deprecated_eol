@@ -42,7 +42,6 @@ module EOL
     end
 
     def initialize(name)
-      @@curator_hierarchy ||= Hierarchy.eol_contributors
       @name_id        = name[:name_id].to_i
       @name_string    = name[:name_string]
       @iso_639_1      = name[:iso_639_1]
@@ -63,7 +62,7 @@ module EOL
 
     def in_curator_hierarchy?
       in_hierarchy = false
-      in_hierarchy = true if @hierarchy_id == @@curator_hierarchy.id
+      in_hierarchy = true if !@hierarchy_id.blank? && @hierarchy_id == Hierarchy.eol_contributors.id
       return in_hierarchy
     end
 

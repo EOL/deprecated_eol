@@ -59,6 +59,8 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/pages/:taxon_concept_id/add_common_name', :controller => 'taxa', :action => 'add_common_name'
   map.connect '/pages/:taxon_concept_id/delete_common_name', :controller => 'taxa', :action => 'delete_common_name'
   
+  map.connect 'api/ping.:format', :controller => 'api', :action => 'ping'
+  
   map.set_language      'set_language',      :controller => 'application', :action => 'set_language'
   map.set_flash_enabled 'set_flash_enabled', :controller => 'application', :action => 'set_flash_enabled'
 

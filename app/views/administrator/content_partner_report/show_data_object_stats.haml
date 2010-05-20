@@ -1,0 +1,50 @@
+#report_from_eol
+  %h2    
+    = @page_header 
+
+  Content Partner:
+  %strong
+    = @partner_fullname    
+  &nbsp;&nbsp; | &nbsp;&nbsp;
+  Harvest ID:
+  %strong
+    = @harvest_id  
+
+  %br
+    Total Data Objects:
+    %strong
+      = number_with_delimiter(@total_data_objects.to_i, ",")
+    &nbsp;&nbsp; | &nbsp;&nbsp;    
+    Total Taxa:
+    %strong
+      = number_with_delimiter(@total_taxa.to_i, ",")
+
+
+  /%br
+  /  - visitors = @stats.keys.sort
+  /  - for remote in visitors      
+  /    = "| #{remote} "   
+
+  - @data_types.each do |data_type|
+    - if(@stats["#{data_type.label}"].to_i > 0)
+      - color = "aqua"
+    - else
+      - color = "white"
+    %table{ :border => 1, :bgcolor => color }
+      %tr
+        %td{ :colspan => 3, :align => "center" }
+          %strong
+            = data_type.label  
+            &nbsp;=&nbsp;
+            = number_with_delimiter(@stats["#{data_type.label}"].to_i, ",")
+      %tr
+        - @vetted_types.each do |vetted|
+          %td
+            = vetted.label  
+      %tr
+        - @vetted_types.each do |vetted|
+          %td{ :align => "right" }
+            - data_type_vetted = "#{data_type.label}_#{vetted.label}"
+            = number_with_delimiter(@stats["#{data_type_vetted}"].to_i, ",")
+
+

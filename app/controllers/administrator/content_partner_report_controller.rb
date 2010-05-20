@@ -284,7 +284,7 @@ class Administrator::ContentPartnerReportController < AdminController
       partner = Agent.find(@agent_id, :select => [:full_name])
       @partner_fullname = partner.full_name
       @latest_harvest_id = Agent.latest_harvest_event_id(@agent_id)        
-      arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(@latest_harvest_id);
+      arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(@latest_harvest_id)
     end        
 
     arr = User.curated_data_object_ids(arr_dataobject_ids,@agent_id)
@@ -300,9 +300,47 @@ class Administrator::ContentPartnerReportController < AdminController
     @partner_curated_objects = User.curated_data_objects(@arr_dataobject_ids, page)
 
     @cur_page = (page.to_i - 1) * 30
-
   end
 
+  def report_partner_objects_stats
+    @page_header = 'Content Partner Data Objects Stats'
+    
+    if(params[:agent_id]) then
+      @agent_id = params[:agent_id]
+      $agent_id = params[:agent_id]
+    end
+    if($agent_id) then
+      @agent_id = $agent_id
+    end
+    if(!@agent_id) then
+      @agent_id = 1  
+    end    
+    
+    @content_partners_with_published_data = Agent.content_partners_with_published_data  
+    
+    if(@agent_id == "All") then @agent_id=1
+    end
+    partner = Agent.find(@agent_id, :select => [:full_name])
+    @partner_fullname = partner.full_name
 
+    page = params[:page] || 1
+    @partner_harvest_events = Agent.resources_harvest_events(@agent_id, page)        
+
+    @cur_page = (page.to_i - 1) * 30
+  end
+
+  def show_data_object_stats
+    @harvest_id = params[:harvest_id]
+    @partner_fullname = params[:partner_fullname]
+
+    @page_header = 'Harvest Event Data Objects Stats'
+    arr = DataObject.generate_dataobject_stats(@harvest_id)
+      @stats = arr[0]
+      @data_types = arr[1]
+      @vetted_types = arr[2]
+      @total_data_objects = arr[3]
+      @total_taxa = arr[4]
+
+  end  
 
 end

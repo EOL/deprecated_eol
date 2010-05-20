@@ -1121,12 +1121,11 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   def self.tc_ids_from_do_ids(obj_ids)
     obj_tc_id = {} #same Hash.new
     if(obj_ids.length > 0) then      
-      sql = "Select data_objects_taxon_concepts.taxon_concept_id tc_id , data_objects.data_type_id, data_objects.id do_id
-      From data_objects_taxon_concepts
-      Inner Join data_objects ON data_objects_taxon_concepts.data_object_id = data_objects.id
-      Inner Join taxon_concepts ON data_objects_taxon_concepts.taxon_concept_id = taxon_concepts.id
-      Where taxon_concepts.published and data_objects_taxon_concepts.data_object_id in (#{obj_ids.join(',')})"      
-      #in (2768951,2768952,3811025)
+      sql = "Select dotc.taxon_concept_id tc_id , do.data_type_id, do.id do_id
+      From data_objects_taxon_concepts dotc
+      Join data_objects do ON dotc.data_object_id = do.id
+      Join taxon_concepts tc ON dotc.taxon_concept_id = tc.id
+      Where tc.published and dotc.data_object_id in (#{obj_ids.join(',')})"      
       rset = DataObject.find_by_sql([sql])            
       rset.each do |post|
         obj_tc_id["#{post.do_id}"] = post.tc_id
@@ -1140,9 +1139,9 @@ AND data_type_id IN (#{data_type_ids.join(',')})
 
 
   def self.get_dataobjects(obj_ids,page) 
-    query="Select data_objects.* From data_objects
-    Inner Join vetted ON data_objects.vetted_id = vetted.id
-    WHERE data_objects.id IN (#{ obj_ids.join(', ') })"
+    query="Select do.* From data_objects do
+    Join vetted v ON do.vetted_id = v.id
+    WHERE do.id IN (#{ obj_ids.join(', ') })"
     self.paginate_by_sql [query, obj_ids], :page => page, :per_page => 20 , :order => 'id'  
   end
   
@@ -1279,7 +1278,60 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   end
 
 
+  def self.generate_dataobject_stats(harvest_id)
+    query = "Select do.id do_id, dt.label, v.label vetted_label, do.data_type_id
+    From data_objects_harvest_events dohe
+    Join data_objects do ON dohe.data_object_id = do.id
+    Join data_types dt ON do.data_type_id = dt.id
+    Join vetted v ON do.vetted_id = v.id
+    Where dohe.harvest_event_id = #{harvest_id}"    
+    rset = self.find_by_sql [query]
+    stats = {}
+    for fld in rset
+      if stats["#{fld.label}"] == nil
+        stats["#{fld.label}"] = 1
+      else
+        stats["#{fld.label}"] += 1
+      end      
+      data_type_vetted = "#{fld.label}_#{fld.vetted_label}"
+      if stats["#{data_type_vetted}"] == nil
+        stats["#{data_type_vetted}"] = 1
+      else
+        stats["#{data_type_vetted}"] += 1
+      end
+    end
+    
+    query = "Select label from data_types order by id"    
+    data_types = self.find_by_sql [query]
+    
+    query = "Select label from vetted order by view_order"    
+    vetted_types = self.find_by_sql [query]
 
+    # to get total_data_objects count
+    total_data_objects=0  
+    for data_type in data_types
+      for vetted_type in vetted_types
+        data_type_vetted = "#{data_type.label}_#{vetted_type.label}"
+        total_data_objects += stats["#{data_type_vetted}"].to_i
+      end
+    end        
+    
+    # to get total_taxa count
+    query = "Select count(distinct he.taxon_concept_id) as taxa_count
+    From harvest_events_taxa het
+    Inner Join taxa t ON het.taxon_id = t.id
+    Join hierarchy_entries he ON t.name_id = he.name_id
+    Join taxon_concepts tc ON tc.id = he.taxon_concept_id
+    Where het.harvest_event_id = #{harvest_id}    
+    and tc.supercedure_id=0 and tc.vetted_id != #{Vetted.untrusted.id} and tc.published=1"    
+    rset = self.find_by_sql [query]
+    for fld in rset
+      total_taxa = fld["taxa_count"]
+    end
+
+    arr = [stats,data_types,vetted_types,total_data_objects,total_taxa]
+    return arr
+  end
 
 
 private

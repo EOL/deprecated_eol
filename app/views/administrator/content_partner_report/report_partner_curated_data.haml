@@ -4,9 +4,10 @@
     / Content Partner Curated Data
   %p
     - if(@agent_id != "All")
-      The following statistics represent curated data objects from the content partner
+      The list represents the curation activity on 
       %strong
-        = @partner_fullname
+        = link_to(@partner_fullname, { :action => 'show', :id => @agent_id })
+      's data objects.
 
   - form_for :hello, :url => { :action => :report_partner_curated_data } do |form|
     Viewing Partner:
@@ -21,11 +22,8 @@
 
     = submit_tag("Change")
   
-  - if(@agent_id != "All")
-    %br
-      Agent ID:
-      = link_to(@agent_id, { :action => 'show', :id => @agent_id })
 
+      
   /%br working...
   /  Latest harvest event ID:
   /  = @latest_harvest_id
@@ -35,13 +33,17 @@
   - @arr_dataobject_ids = @arr_dataobject_ids - arr
   %br
     Curation activity:
-    = @arr_dataobject_ids.length
+    %strong
+      = number_with_delimiter(@arr_dataobject_ids.length, ",")
 
   - unique_dataobject_ids = @arr_dataobject_ids.uniq
   = "&nbsp;&nbsp;  |&nbsp;&nbsp;  Data objects:"
-  = unique_dataobject_ids.length
+  %strong
+    = number_with_delimiter(unique_dataobject_ids.length, ",")
+
   = "&nbsp;&nbsp;  |&nbsp;&nbsp;  Curators:"
-  = @arr_user_ids.uniq.length
+  %strong
+    = number_with_delimiter(@arr_user_ids.uniq.length, ",")
 
   %table.results_table
     %tr

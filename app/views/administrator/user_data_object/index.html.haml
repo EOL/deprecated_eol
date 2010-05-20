@@ -5,7 +5,7 @@ Click on a user to view the user's detailed profile, click on the species to vie
     Select:
     %select{ :name => "user_id" }
       %option
-        all
+        All
       - for user in @user_list
         %option{ :value => user.id, :selected => @user_id.to_i == user.id }
           = user.family_name

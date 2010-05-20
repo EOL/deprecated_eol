@@ -151,17 +151,17 @@ class Agent < SpeciesSchemaModel
     SpeciesSchemaModel.connection.select_all("Select agents.full_name, agents.id AS agent_id, agents.username, 
     agent_contacts.email
     From agents 
-    Inner Join content_partners ON agents.id = content_partners.agent_id
-    Inner Join google_analytics_partner_summaries ON content_partners.agent_id = google_analytics_partner_summaries.agent_id
-    Inner Join agent_contacts ON agents.id = agent_contacts.agent_id
+    Join content_partners ON agents.id = content_partners.agent_id
+    Join google_analytics_partner_summaries ON content_partners.agent_id = google_analytics_partner_summaries.agent_id
+    Join agent_contacts ON agents.id = agent_contacts.agent_id
     where google_analytics_partner_summaries.`year` = #{year}
     and google_analytics_partner_summaries.`month` = #{month} and agent_contacts.email is not null ")
   end
     
   def self.content_partners_with_published_data
     query = "Select distinct agents.id, agents.full_name From agents
-    Inner Join agents_resources ON agents.id = agents_resources.agent_id
-    Inner Join harvest_events ON agents_resources.resource_id = harvest_events.resource_id
+    Join agents_resources ON agents.id = agents_resources.agent_id
+    Join harvest_events ON agents_resources.resource_id = harvest_events.resource_id
     Where harvest_events.published_at is not null
     Order By agents.full_name Asc"    
     self.find_by_sql [query]
@@ -170,7 +170,7 @@ class Agent < SpeciesSchemaModel
   def self.latest_harvest_event_id(agent_id)
     query = "Select Max(harvest_events.id) max_harvest_event_id
     From harvest_events
-    Inner Join agents_resources ON agents_resources.resource_id = harvest_events.resource_id
+    Join agents_resources ON agents_resources.resource_id = harvest_events.resource_id
     Where agents_resources.agent_id = #{agent_id}
     Group By agents_resources.agent_id "    
     rset = self.find_by_sql [query]
@@ -178,22 +178,31 @@ class Agent < SpeciesSchemaModel
 	    return fld["max_harvest_event_id"]
     end
   end
-      
+
+  def self.resources_harvest_events(agent_id,page)
+    query = "Select agents_resources.resource_id, harvest_events.id AS harvest_id, resources.title, harvest_events.began_at, harvest_events.completed_at, harvest_events.published_at
+    From harvest_events
+    Join agents_resources ON agents_resources.resource_id = harvest_events.resource_id
+    Join resources ON harvest_events.resource_id = resources.id
+    Where agents_resources.agent_id = ?
+    order by agents_resources.resource_id desc, harvest_events.id desc"    
+    self.paginate_by_sql [query, agent_id], :page => page, :per_page => 30
+  end
 
   def self.published_agent(year, month, page)      
     query="
     Select distinct agents.full_name, agents.id
     From agents
-    Inner Join agents_resources ON agents.id = agents_resources.agent_id
-    Inner Join resources ON agents_resources.resource_id = resources.id
-    Inner Join harvest_events ON resources.id = harvest_events.resource_id
+    Join agents_resources ON agents.id = agents_resources.agent_id
+    Join resources ON agents_resources.resource_id = resources.id
+    Join harvest_events ON resources.id = harvest_events.resource_id
     where harvest_events.published_at is not null
     and year(harvest_events.published_at) = ?
     and month(harvest_events.published_at) = ?
     and agents.id not in 
     ( Select distinct agents.id From agents
-      Inner Join agents_resources ON agents.id = agents_resources.agent_id
-      Inner Join harvest_events ON agents_resources.resource_id = harvest_events.resource_id
+      Join agents_resources ON agents.id = agents_resources.agent_id
+      Join harvest_events ON agents_resources.resource_id = harvest_events.resource_id
       where
       harvest_events.published_at < '#{year}-#{month}-01'
       and harvest_events.published_at is not null

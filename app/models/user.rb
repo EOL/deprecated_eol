@@ -137,7 +137,7 @@ class User < ActiveRecord::Base
   
   def self.users_with_submitted_text
     sql = "Select distinct users.id , users.given_name, users.family_name 
-    From users Inner Join users_data_objects ON users.id = users_data_objects.user_id 
+    From users Join users_data_objects ON users.id = users_data_objects.user_id 
     Order By users.family_name, users.given_name"
     rset = User.find_by_sql([sql])
     return rset
@@ -147,14 +147,14 @@ class User < ActiveRecord::Base
     obj_ids = []
     user_ids = []
     if(arr_dataobject_ids.length > 0 or agent_id == 'All') then
-      sql = "Select actions_histories.object_id data_object_id, actions_histories.user_id
-      From action_with_objects
-      Inner Join actions_histories ON actions_histories.action_with_object_id = action_with_objects.id
-      Inner Join changeable_object_types ON actions_histories.changeable_object_type_id = changeable_object_types.id
-      Inner Join users ON actions_histories.user_id = users.id
-      where changeable_object_types.ch_object_type = 'data_object' "
+      sql = "Select ah.object_id data_object_id, ah.user_id
+      From action_with_objects awo
+      Join actions_histories ah ON ah.action_with_object_id = awo.id
+      Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
+      Join users u ON ah.user_id = u.id
+      where cot.ch_object_type = 'data_object' "
       if(agent_id != 'All') then
-        sql += " and actions_histories.object_id IN (" + arr_dataobject_ids * "," + ")"
+        sql += " and ah.object_id IN (" + arr_dataobject_ids * "," + ")"
       end
       rset = User.find_by_sql([sql])            
       rset.each do |post|
@@ -168,20 +168,15 @@ class User < ActiveRecord::Base
 
   def self.curated_data_objects(arr_dataobject_ids,page)
     #if(arr_dataobject_ids.length > 0) then
-      query = "Select
-      actions_histories.object_id data_object_id,
-      changeable_object_types.ch_object_type,
-      action_with_objects.action_code code,
-      users.given_name, users.family_name,
-      actions_histories.updated_at, actions_histories.user_id
-      From action_with_objects
-      Inner Join actions_histories ON actions_histories.action_with_object_id = action_with_objects.id
-      Inner Join changeable_object_types ON actions_histories.changeable_object_type_id = changeable_object_types.id
-      Inner Join users ON actions_histories.user_id = users.id
-      where changeable_object_types.ch_object_type = 'data_object'    
-      and actions_histories.object_id IN (" + arr_dataobject_ids * "," + ") 
-      Order By actions_histories.id Desc"
-      #self.paginate_by_sql [query, arr_dataobject_ids, agent_id, page], :agent_id => agent_id, :page => page, :per_page => 5
+      query = "Select ah.object_id data_object_id, cot.ch_object_type,
+      awo.action_code code, u.given_name, u.family_name, ah.updated_at, ah.user_id
+      From action_with_objects awo
+      Join actions_histories ah ON ah.action_with_object_id = awo.id
+      Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
+      Join users u ON ah.user_id = u.id
+      where cot.ch_object_type = 'data_object'    
+      and ah.object_id IN (" + arr_dataobject_ids * "," + ") 
+      Order By ah.id Desc"
       self.paginate_by_sql [query], :per_page => 30, :page => page
     #else
     #end

@@ -58,6 +58,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/pages/:taxon_concept_id/update_common_names', :controller => 'taxa', :action => 'update_common_names'
   map.connect '/pages/:taxon_concept_id/add_common_name', :controller => 'taxa', :action => 'add_common_name'
   map.connect '/pages/:taxon_concept_id/delete_common_name', :controller => 'taxa', :action => 'delete_common_name'
+  map.connect '/pages/:taxon_concept_id/publish_wikipedia_article', :controller => 'taxa', :action => 'publish_wikipedia_article'
   
   map.connect 'api/ping.:format', :controller => 'api', :action => 'ping'
   

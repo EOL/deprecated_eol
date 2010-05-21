@@ -64,7 +64,7 @@ module ApplicationHelper
     unless data_object['attributions'].nil?
       data_object['attributions'].each do |attribution|
         #TODO: so.... copyright and datasource don't exist in the db. which foces me to do string compares, seems like a kudge 
-        if attribution.agent_role.to_s!='Author' && attribution.agent_role.to_s!='Source' && attribution.agent_role.to_s!='Copyright' && attribution.agent_role.to_s!='Supplier'
+        if attribution.agent_role.to_s!='Author' && attribution.agent_role.to_s!='Source' && attribution.agent_role.to_s!='Copyright' && attribution.agent_role.to_s!='Supplier' && attribution.agent_role.to_s!='Indexed'
           return true
         end
       end

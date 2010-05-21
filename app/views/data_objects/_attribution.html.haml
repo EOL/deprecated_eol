@@ -31,6 +31,25 @@
           / agent icon
           = agent_icons_partial(attribution.agent)
         .footer
+  - if data_object.in_wikipedia?
+    .credit.show
+      .credit-caption
+        EDIT
+      .credit-value
+        - edit_link = EOLWebService.uri_remove_param(data_object.source_url, 'oldid') + "&action=edit"
+        = external_link_to("latest version of this article in Wikipedia", edit_link)
+      .footer
+    - if data_object.visibility_id == Visibility.preview.id && @taxon_concept.show_curator_controls?
+      - form_tag "/pages/#{@taxon_concept.id}/publish_wikipedia_article", :method => :put, :id => 'wikipedia_publish_form', :class => 'wikipedia_publish_form' do
+        = hidden_field_tag "data_object_id", data_object.id
+        = hidden_field_tag "category_id", params[:category_id]
+        .credit.show
+          .credit-caption
+            PUBLISH
+          .credit-value
+            %a{:href=>'', :onclick =>"$('wikipedia_publish_form').submit(); return false;"}
+              trust this article and replace current version
+          .footer
   - if (data_object.text? || data_object.image?) && !data_object['taxa_names_ids'].nil?
     .credit.permalink
       .credit-caption

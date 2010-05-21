@@ -39,7 +39,7 @@ class ApiController < ApplicationController
   
   def data_objects
     data_object_guid = params[:id] || 0
-    params[:common_names] ||= false    
+    params[:common_names] ||= false
     
     details_hash = DataObject.details_for_object(data_object_guid, :include_taxon => true, :common_names => params[:common_names])
     

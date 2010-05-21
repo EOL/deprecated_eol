@@ -45,6 +45,26 @@ describe DataObject do
     end
     @already_built_tc = true
   end
+  
+  it 'should be able to replace wikipedia articles' do
+    TocItem.gen(:label => 'wikipedia')
+    published_do = DataObject.gen(:published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible)
+    published_do.toc_items << TocItem.wikipedia
+    preview_do = DataObject.gen(:guid => published_do.guid, :published => 1, :vetted => Vetted.unknown, :visibility => Visibility.preview)
+    preview_do.toc_items << TocItem.wikipedia
+    
+    published_do.published.should == true
+    preview_do.visibility.should == Visibility.preview
+    preview_do.vetted.should == Vetted.unknown
+    
+    preview_do.publish_wikipedia_article
+    published_do.reload
+    preview_do.reload
+    
+    published_do.published.should == false
+    preview_do.visibility.should == Visibility.visible
+    preview_do.vetted.should == Vetted.trusted
+  end
 
   describe 'curation' do
     before(:each) do

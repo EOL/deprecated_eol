@@ -591,6 +591,22 @@ class DataObject < SpeciesSchemaModel
   def preview?
     visibility_id == Visibility.preview.id
   end
+  
+  def in_wikipedia?
+    toc_items.include?(TocItem.wikipedia)
+  end
+  
+  def publish_wikipedia_article
+    return false unless in_wikipedia?
+    return false unless visibility_id == Visibility.preview.id
+    
+    SpeciesSchemaModel.connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
+    self.reload
+    self.visibility_id = Visibility.visible.id
+    self.vetted_id = Vetted.trusted.id
+    self.published = 1
+    self.save!
+  end
 
   def curator_activity_flag(user, taxon_concept_id = nil)
     taxon_concept_id ||= taxon_concepts[0].id
@@ -1413,6 +1429,11 @@ private
         vetted += [Vetted.unknown.id,Vetted.untrusted.id]
       end
     end
+    
+    if options[:toc_id] == TocItem.wikipedia
+      visibility << Visibility.preview.id
+    end
+    
     # TODO - The problem here is that we're Allowing CPs to see EVERYTHING, when they should only see THEIR
     # invisibles, untrusteded, and unknowns.
     if options[:agent] # Content partner ... note that some of this is handled via the join in join_agents_clause().

@@ -81,6 +81,12 @@ class TocItem < SpeciesSchemaModel
     end
   end
   
+  def self.wikipedia
+    Rails.cache.fetch('toc_items/wikipedia') do
+      TocItem.find_by_label('Wikipedia')
+    end
+  end
+  
   def is_child?
     !(self.parent_id.nil? or self.parent_id == 0) 
   end

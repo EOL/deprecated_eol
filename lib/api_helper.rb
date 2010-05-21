@@ -86,6 +86,12 @@ module ApiHelper
     return_hash['eolThumbnailURL']        = DataObject.image_cache_path(details_hash["object_cache_url"], :medium) unless details_hash["object_cache_url"].blank?
     return_hash['location']               = details_hash["location"] unless details_hash["location"].blank?
     
+    unless details_hash['latitude']=="0" && details_hash['longitude']=="0" && details_hash['altitude']=="0"
+      return_hash['latitude'] = details_hash['latitude'] unless details_hash['latitude']=="0"
+      return_hash['longitude'] = details_hash['longitude'] unless details_hash['longitude']=="0"
+      return_hash['altitude'] = details_hash['altitude'] unless details_hash['altitude']=="0"
+    end
+    
     return_hash['agents'] = []
     unless details_hash["agents"].blank?
       for agent in details_hash["agents"]
@@ -94,6 +100,13 @@ module ApiHelper
           'homepage'  => agent["homepage"],
           'role'      => agent["role"].downcase
         }
+      end
+    end
+    
+    return_hash['references'] = []
+    unless details_hash["refs"].nil?
+      for ref in details_hash["refs"] 
+        return_hash['references'] << ref["full_reference"]
       end
     end
     

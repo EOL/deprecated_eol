@@ -42,6 +42,7 @@ class Attributions
     attributions.add_supplier   agents_hash['data_supplier'] unless agents_hash.nil? || agents_hash['data_supplier'].nil?
     attributions.add_location   data_object.location if data_object.has_attribute?('location')
     attributions.add_source_url data_object.source_url if data_object.has_attribute?('source_url')
+    attributions.add_date       data_object.created_at if data_object.has_attribute?('created_at')
     attributions.add_citation   data_object.bibliographic_citation if data_object.has_attribute?('bibliographic_citation')
     return attributions
   end
@@ -56,7 +57,16 @@ class Attributions
                         AgentRole[:Author])
     end
   end
-
+  
+  # Puts a date into the array, at the end
+  def add_date(created_at)
+    unless created_at.blank? || created_at == '0000-00-00 00:00:00'
+      @attributions << AgentsDataObject.new(:agent => Agent.just_project_name(created_at.strftime("%B %d, %Y")),
+                                            :agent_role => AgentRole.new(:label => 'Indexed'),
+                                            :view_order => 0)
+    end
+  end
+  
   # Puts a location Agent into the array, at the end
   def add_location(location)
     unless location.blank? # If it's nil, don't bother doing anything...

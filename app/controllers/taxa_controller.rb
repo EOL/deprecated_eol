@@ -389,7 +389,18 @@ class TaxaController < ApplicationController
     tc.delete_common_name(tcn)
     redirect_to "/pages/#{tc.id}?category_id=#{category_id}"
   end
-
+  
+  def publish_wikipedia_article
+    tc = TaxonConcept.find(params[:taxon_concept_id].to_i)
+    data_object = DataObject.find(params[:data_object_id].to_i)
+    data_object.publish_wikipedia_article
+    
+    category_id = params[:category_id].to_i
+    redirect_url = "/pages/#{tc.id}"
+    redirect_url += "?category_id=#{category_id}" unless category_id.blank? || category_id == 0
+    redirect_to redirect_url
+  end
+  
 ###############################################
 private
 

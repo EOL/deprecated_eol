@@ -186,6 +186,15 @@ describe 'EOL XML APIs' do
       response = request("/api/pages/#{@taxon_concept.id}?common_names=1")
       response.body.should include '<commonName'
     end
+    
+    it 'should be able to render a JSON response' do
+      response = request("/api/pages/#{@taxon_concept.id}.json?subjects=all&common_names=1&details=1&text=1&images=1")
+      response_object = JSON.parse(response.body)
+      response_object.class.should == Hash
+      response_object['identifier'].should == @taxon_concept.id
+      response_object['scientificName'].should == @taxon_concept.entry.name_object.string
+      response_object['dataObjects'].length.should == 3
+    end
   
   
   
@@ -250,6 +259,35 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:dataObject/xmlns:reference[1]').inner_text.should == @object.refs[0].full_reference
       xml_response.xpath('//xmlns:dataObject/xmlns:reference[2]').inner_text.should == @object.refs[1].full_reference
     end
+    
+    it 'should be able to render a JSON response' do
+      response = request("/api/data_objects/#{@object.guid}.json")
+      response_object = JSON.parse(response.body)
+      response_object.class.should == Hash
+      response_object['dataObjects'][0]['identifier'].should == @object.guid
+      response_object['dataObjects'][0]['dataType'].should == @object.data_type.schema_value
+      response_object['dataObjects'][0]['mimeType'].should == @object.mime_type.label
+      response_object['dataObjects'][0]['title'].should == @object.object_title
+      response_object['dataObjects'][0]['language'].should == @object.language.iso_639_1
+      response_object['dataObjects'][0]['license'].should == @object.license.source_url
+      response_object['dataObjects'][0]['rights'].should == @object.rights_statement
+      response_object['dataObjects'][0]['rightsHolder'].should == @object.rights_holder
+      response_object['dataObjects'][0]['bibliographicCitation'].should == @object.bibliographic_citation
+      response_object['dataObjects'][0]['source'].should == @object.source_url
+      response_object['dataObjects'][0]['subject'].should == @object.info_items[0].schema_value
+      response_object['dataObjects'][0]['description'].should == @object.description
+      response_object['dataObjects'][0]['location'].should == @object.location
+      response_object['dataObjects'][0]['latitude'].should == @object.latitude.to_s
+      response_object['dataObjects'][0]['longitude'].should == @object.longitude.to_s
+      response_object['dataObjects'][0]['altitude'].should == @object.altitude.to_s
+    
+      # testing agents
+      response_object['dataObjects'][0]['agents'].length.should == 2
+          
+      #testing references
+      response_object['dataObjects'][0]['references'].length.should == 2
+    end
+    
   
     it "should show all information for image objects" do
       @object.data_type = DataType.image

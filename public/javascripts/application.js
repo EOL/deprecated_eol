@@ -138,7 +138,9 @@ Event.addBehavior(
         classes.include('source') ||
         classes.include('copyright') ||
         classes.include('datasupplier') ||
+        classes.include('indexed') ||
         classes.include('supplier') ||
+        classes.include('show') ||
         classes.include('sourceurl')
         ))
       $(this).hide();

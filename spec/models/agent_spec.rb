@@ -192,16 +192,14 @@ describe Agent do
 
     before(:all) do
       @contains_tc = TaxonConcept.gen # no need to do the build_taxon_concept thing
-      he = HierarchyEntry.gen(:taxon_concept => @contains_tc)
-      contains_taxon = Taxon.gen(:hierarchy_entry => he)
+      @contains_he = HierarchyEntry.gen(:taxon_concept => @contains_tc)
       @doesnt_contain_tc = TaxonConcept.gen # no need to do the build_taxon_concept thing
-      he = HierarchyEntry.gen(:taxon_concept => @doesnt_contain_tc)
-      Taxon.gen(:hierarchy_entry => he)
+      @doesnt_contain_he = HierarchyEntry.gen(:taxon_concept => @doesnt_contain_tc)
       @agent = Agent.gen
       resource = Resource.gen
       AgentsResource.gen(:agent => @agent, :resource => resource)
       event = HarvestEvent.gen(:resource => resource, :published_at => nil)
-      HarvestEventsTaxon.gen(:harvest_event => event, :taxon => contains_taxon)
+      HarvestEventsHierarchyEntry.gen(:harvest_event => event, :hierarchy_entry => @contains_he)
     end
 
     it 'should know if a taxon_concept was in its latest harvest event' do

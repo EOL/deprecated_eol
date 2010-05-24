@@ -5,8 +5,6 @@ class TaxonConceptName < SpeciesSchemaModel
   belongs_to :taxon_concept
   set_primary_keys :name_id, :taxon_concept_id, :source_hierarchy_entry_id
 
-  has_many :taxa, :through => :names
-
   named_scope :common_preferred, :conditions => { :vern => 1, :preferred => 1 }
   named_scope :scientific_preferred, :conditions => { :vern => 0, :preferred => 1 }
 

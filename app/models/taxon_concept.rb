@@ -4,7 +4,7 @@
 # We get different interpretations of taxa from our partners (ContentPartner), often differing slightly 
 # and referring to basically the same thing, so TaxonConcept was created as a means to reconcile the 
 # variant definitions of what are essentially the same Taxon. We currently store basic Taxon we receive
-# from data imports in the +taxa+ table and we also store taxonomic hierarchies (HierarchyEntry) in the 
+# from data imports in the +hierarchy_entries+ table and we also store taxonomic hierarchies (HierarchyEntry) in the 
 # +hierarchy_entries+ table. Currently TaxonConcept are groups of one or many HierarchyEntry. We will 
 # eventually create hierarchy_entries for each entry in the taxa table (Taxon).
 #
@@ -32,7 +32,6 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :names, :through => :taxon_concept_names
   has_many :ranks, :through => :hierarchy_entries
   # The following are not (yet) possible, because tcn has a three-part Primary key.
-  # has_many :taxa, :through => :names, :source => :taxon_concept_names
   # has_many :mappings, :through => :names, :source => :taxon_concept_names
   has_many :google_analytics_partner_taxa
   
@@ -179,7 +178,7 @@ class TaxonConcept < SpeciesSchemaModel
     quick_scientific_name(species_or_below? ? :italicized : :normal, hierarchy)
   end
 
-  # pull list of categories for given taxa id
+  # pull list of categories for given taxon_concept_id
   def table_of_contents(options = {})
     if @table_of_contents.nil?
       tb = TocBuilder.new
@@ -539,11 +538,10 @@ class TaxonConcept < SpeciesSchemaModel
     iucn_objects = DataObject.find_by_sql("
         SELECT do.*
           FROM hierarchy_entries he
-            JOIN taxa t ON (he.id = t.hierarchy_entry_id)
-            JOIN harvest_events_taxa het ON (t.id = het.taxon_id)
-            JOIN harvest_events hevt ON (het.harvest_event_id = hevt.id)
-            JOIN data_objects_taxa dot ON (t.id = dot.taxon_id)
-            JOIN data_objects do ON (dot.data_object_id = do.id)
+            JOIN harvest_events_hierarchy_entries hehe ON (he.id = hehe.hierarchy_entry_id)
+            JOIN harvest_events hevt ON (hehe.harvest_event_id = hevt.id)
+            JOIN data_objects_hierarchy_entries dohe ON (he.id = dohe.hierarchy_entry_id)
+            JOIN data_objects do ON (dohe.data_object_id = do.id)
           WHERE he.taxon_concept_id = #{self.id}
             AND hevt.resource_id IN (#{Resource.iucn.id})
             AND do.published = 1")
@@ -582,7 +580,7 @@ class TaxonConcept < SpeciesSchemaModel
     return entry(hierarchy).classification_attribution
   end
 
-  # Pull text content by given category for taxa id.
+  # Pull text content by given category
   # Builds the content for a given category, or TocItem.
   # This method delegates custom TOC renderings to the
   # CategoryContentBuilder class
@@ -682,14 +680,14 @@ class TaxonConcept < SpeciesSchemaModel
                                   then o.id 
                                   else o.to_i end }
     return [] if ids.nil? or ids.empty? # Fix for EOLINFRASTRUCTURE-808
-    sql = "SELECT taxon_concepts.* FROM taxon_concepts
-    JOIN hierarchy_entries   ON taxon_concepts.id                    = hierarchy_entries.taxon_concept_id
-    JOIN taxa                ON taxa.hierarchy_entry_id              = hierarchy_entries.id 
-    JOIN data_objects_taxa   ON data_objects_taxa.taxon_id           = taxa.id
-    JOIN data_objects        ON data_objects.id                      = data_objects_taxa.data_object_id
-    WHERE data_objects.id IN (#{ ids.join(', ') }) 
-      AND taxon_concepts.supercedure_id = 0
-      AND taxon_concepts.published      = 1"
+    sql = "SELECT tc.*
+    FROM taxon_concepts tc
+    JOIN hierarchy_entries he ON (tc.id = he.taxon_concept_id)
+    JOIN data_objects_hierarchy_entries dohe ON (dohe.hierarchy_entry_id = he.id)
+    JOIN data_objects do ON (do.id = dohe.data_object_id)
+    WHERE do.id IN (#{ ids.join(', ') }) 
+      AND tc.supercedure_id = 0
+      AND tc.published = 1"
     TaxonConcept.find_by_sql(sql).uniq
   end
 
@@ -704,22 +702,12 @@ class TaxonConcept < SpeciesSchemaModel
     
   end
 
-                          
+
 
 
   # This could use name... but I only need it for searches, and ID is all that matters, there.
   def <=>(other)
     return id <=> other.id
-  end
-
-  # Rather than going through TaxonConceptName, this takes advantage of the HierarchyEntry id in the +taxa+ table.
-  def taxa
-    Taxon.find_by_sql([%Q{
-      SELECT DISTINCT taxa.* 
-        FROM hierarchy_entries
-          JOIN taxa ON (taxa.hierarchy_entry_id = hierarchy_entries.id)
-      WHERE hierarchy_entries.taxon_concept_id = ?
-    }, self[:id]])
   end
 
   alias :ar_to_xml :to_xml
@@ -739,10 +727,6 @@ class TaxonConcept < SpeciesSchemaModel
             xml.item { xml.language_label cn.language_label ; xml.string cn.string }
           end
         end
-
-        xml.taxa {
-          taxa.map{|x| x.visible_references.to_xml(:builder => xml, :skip_instruct => true)}
-        }
 
         xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) 
           overview.map{|x| x.visible_references.to_xml(:builder => xml, :skip_instruct => true) }
@@ -1100,9 +1084,8 @@ class TaxonConcept < SpeciesSchemaModel
     DataObject.find_by_sql("
       SELECT do.*
       FROM hierarchy_entries he
-      JOIN taxa t ON (he.id=t.hierarchy_entry_id)
-      JOIN data_objects_taxa dot ON (t.id=dot.taxon_id)
-      JOIN data_objects do ON (dot.data_object_id=do.id)
+      JOIN data_objects_hierarchy_entries dohe ON (he.id=dohe.hierarchy_entry_id)
+      JOIN data_objects do ON (dohe.data_object_id=do.id)
       WHERE he.taxon_concept_id=#{self.id}")
   end
 

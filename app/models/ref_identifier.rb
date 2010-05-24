@@ -5,7 +5,7 @@ class RefIdentifier < SpeciesSchemaModel
   belongs_to :ref
   belongs_to :ref_identifier_type
 
-  has_and_belongs_to_many :taxa
+  has_and_belongs_to_many :hierarchy_entries
 
   # A method that takes the identifier attribute, cleans it up, and adds the protocol (if it's missing).
   # This only works for DOI and URL identifiers.  We return the identifier as-is if we don't know the type.

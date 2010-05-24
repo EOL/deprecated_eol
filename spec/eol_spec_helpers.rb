@@ -168,9 +168,8 @@ module EOL
         options[:depth]     ||= 3 # Arbitrary, really.
         options[:name]      ||= tc.taxon_concept_names.first.name
         iucn_he = build_hierarchy_entry(options[:depth], tc, options[:name], :hierarchy => options[:hierarchy]) 
-        iucn_taxon = Taxon.gen(:name => options[:name], :hierarchy_entry => iucn_he, :scientific_name => options[:name].string)
-        HarvestEventsTaxon.gen(:taxon => iucn_taxon, :harvest_event => options[:event])
-        build_data_object('IUCN', status, :taxon => iucn_taxon, :published => 1)
+        HarvestEventsHierarchyEntry.gen(:hierarchy_entry => iucn_he, :harvest_event => options[:event])
+        build_data_object('IUCN', status, :hierarchy_entry => iucn_he, :published => 1)
       end
 
       def find_or_build_hierarchy(label)
@@ -218,6 +217,7 @@ end
 def DataObject.build_reharvested_dato(dato)
   new_dato = self.gen(
   :guid                   => dato.guid,
+  :identifier             => dato.identifier,
   :data_type              => dato.data_type,
   :mime_type              => dato.mime_type,
   :object_title           => dato.object_title,
@@ -252,9 +252,9 @@ def DataObject.build_reharvested_dato(dato)
     DataObjectsTableOfContent.gen(:data_object_id => new_dato.id,
                                   :toc_id => old_dotoc.toc_id)
   end
-  #   2d) data_objects_taxa
-  dato.taxa.each do |taxon|
-    DataObjectsTaxon.gen(:data_object_id => new_dato.id, :taxon_id => taxon.id)
+  #   2d) data_objects_hierarchy_entries
+  dato.hierarchy_entries.each do |he|
+    DataObjectsHierarchyEntry.gen(:data_object_id => new_dato.id, :hierarchy_entry_id => he.id)
   end
   #   2e) if this is an image, remove the old image from top_images and insert the new image.
   if dato.image?
@@ -354,7 +354,7 @@ TaxonConcept.class_eval do
     end
     DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => toc_item)
     dato.save!
-    DataObjectsTaxon.gen(:data_object => dato, :taxon => taxa.first)
+    DataObjectsHierarchyEntry.gen(:data_object => dato, :hierarchy_entry => hierarchy_entries.first)
     FeedDataObject.gen(:taxon_concept => self, :data_object => dato, :data_type => dato.data_type)
     DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
   end
@@ -365,7 +365,7 @@ TaxonConcept.class_eval do
       DataObjectsTableOfContent.gen(:data_object => dato, :toc_item => dato.info_items[0].toc_item)
       dato.save!
     end
-    DataObjectsTaxon.gen(:data_object => dato, :taxon => taxa.first)
+    DataObjectsHierarchyEntry.gen(:data_object => dato, :hierarchy_entry => hierarchy_entries.first)
     FeedDataObject.gen(:taxon_concept => self, :data_object => dato, :data_type => dato.data_type)
     DataObjectsTaxonConcept.gen(:taxon_concept => self, :data_object => dato)
   end

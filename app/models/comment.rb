@@ -27,15 +27,15 @@ class Comment < ActiveRecord::Base
     return [] if taxon_concept_id.nil?
     min_date = 30.days.ago.strftime('%Y-%m-%d')
     comments_hash = SpeciesSchemaModel.connection.execute("
-      ( SELECT c.id, c.body description, he_children.taxon_concept_id, 'Comment' data_type_label, c.created_at, t.scientific_name
+      ( SELECT c.id, c.body description, he_children.taxon_concept_id, 'Comment' data_type_label, c.created_at, n.string scientific_name
         FROM hierarchy_entries he_parent
           JOIN hierarchy_entries he_children
             ON (he_children.lft BETWEEN he_parent.lft AND he_parent.rgt
                 AND he_parent.rgt!=0
                 AND he_parent.hierarchy_id=he_children.hierarchy_id)
-          JOIN taxa t ON (he_children.id=t.hierarchy_entry_id)
-          JOIN data_objects_taxa dot ON (t.id=dot.taxon_id)
-          JOIN data_objects do ON (dot.data_object_id=do.id)
+          JOIN names n ON (he_children.name_id=n.id)
+          JOIN data_objects_hierarchy_entries dohe ON (he_children.id=dohe.hierarchy_entry_id)
+          JOIN data_objects do ON (dohe.data_object_id=do.id)
           JOIN data_objects do1 ON (do.guid=do1.guid)
           JOIN #{Comment.full_table_name} c ON(c.parent_id=do.id)
         WHERE he_parent.taxon_concept_id=#{taxon_concept_id}

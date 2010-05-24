@@ -1321,15 +1321,6 @@ describe DataObject do
 #
 #  end
 #
-#  describe '#taxon_concepts' do
-#
-#    it 'should get all taxon_concepts that a data object is associated with' do
-#      data_objects(:many_taxa).taxon_concepts.collect {|tc| tc.id }.should ==
-#        [taxon_concepts(:Archaea).id, taxon_concepts(:Fungi).id, taxon_concepts(:Plantae).id]
-#    end
-#
-#  end
-#
 #  describe '#hierarchy_entries' do
 #
 #    it 'should get all hierarchy_entries that a data object is associated with' do

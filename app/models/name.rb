@@ -11,7 +11,6 @@ class Name < SpeciesSchemaModel
   belongs_to :canonical_form
 
   has_many :taxon_concept_names
-  has_many :taxa
   has_many :hierarchy_entries
   has_many :mappings
   

@@ -21,12 +21,11 @@ class DataObject < SpeciesSchemaModel
   has_many :top_concept_images
   has_many :languages
   has_many :agents_data_objects, :include => [ :agent, :agent_role ]
-  has_many :data_objects_taxa
+  has_many :data_objects_hierarchy_entries
   has_many :comments, :as => :parent, :attributes => true
   has_many :data_objects_harvest_events
   has_many :harvest_events, :through => :data_objects_harvest_events
   has_many :agents, :through => :agents_data_objects
-  has_many :resources, :through => :taxa
   has_many :data_object_tags, :class_name => DataObjectTags.to_s
   has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :data_objects_table_of_contents
@@ -36,7 +35,7 @@ class DataObject < SpeciesSchemaModel
   has_many :info_items, :through => :data_objects_info_items
   
 
-  has_and_belongs_to_many :taxa
+  has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :agents
@@ -93,6 +92,7 @@ class DataObject < SpeciesSchemaModel
     taxon_concept = TaxonConcept.find(all_params[:taxon_concept_id])
     do_params = {
       :guid => dato.guid,
+      :identifier => '',
       :data_type => DataType.find_by_label('Text'),
       :rights_statement => '',
       :rights_holder => '',
@@ -148,6 +148,7 @@ class DataObject < SpeciesSchemaModel
 
     do_params = {
       :guid => '',
+      :identifier => '',
       :data_type => DataType.text,
       :rights_statement => '',
       :rights_holder => '',
@@ -191,6 +192,7 @@ class DataObject < SpeciesSchemaModel
 
     do_params = {
       :guid => UUID.generate.gsub('-',''),
+      :identifier => '',
       :data_type => DataType.text,
       :rights_statement => '',
       :rights_holder => '',
@@ -486,8 +488,13 @@ class DataObject < SpeciesSchemaModel
 
   # Names of taxa associated with this image
   def taxa_names_taxon_concept_ids
-    taxa=Taxon.find_by_sql("select t.scientific_name as taxon_name, he.taxon_concept_id from data_objects_taxa dot join taxa t on (dot.taxon_id=t.id) join hierarchy_entries he on (t.hierarchy_entry_id=he.id) where data_object_id=#{self.id}")
-    taxa.map{|t| {:taxon_name => t.taxon_name, :taxon_concept_id => t.taxon_concept_id}}
+    results = SpeciesSchemaModel.connection.execute("SELECT n.string, he.taxon_concept_id
+        FROM data_objects_hierarchy_entries dohe
+        JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
+        JOIN names n ON (he.name_id=n.id)
+        WHERE dohe.data_object_id = #{self.id}").all_hashes
+    
+    results.map{|r| {:taxon_name => r['string'], :taxon_concept_id => r['taxon_concept_id']}}
   end
 
   # returns a hash in the format { 'tag_key' => ['value1','value2'] }
@@ -522,11 +529,10 @@ class DataObject < SpeciesSchemaModel
   # however, as Zea mays image will show up on Plantae
   def hierarchy_entries
     @hierarchy_entries ||= HierarchyEntry.find_by_sql(["
-      SELECT he.* FROM data_objects do
-      JOIN data_objects_taxa dot ON (do.id=dot.data_object_id)
-      JOIN taxa t ON (dot.taxon_id=t.id)
-      JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
-      WHERE do.id=? -- DataObject#hierarchy_entries
+      SELECT he.*
+      FROM data_objects_hierarchy_entries dohe
+      JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
+      WHERE dohe.data_object_id=? -- DataObject#hierarchy_entries
     ", self.id])
   end
   
@@ -828,12 +834,14 @@ class DataObject < SpeciesSchemaModel
     end
     
     data_objects_with_metadata = DataObject.find_by_sql(%Q{
-        SELECT 'Image' media_type, dato.*, v.view_order vetted_view_order, l.description license_text, l.logo_url license_logo, l.source_url license_url,
-               #{taxon_id} taxon_id, t.scientific_name, count(distinct c.id) as comments_count, #{rating_select}
+        SELECT 'Image' media_type, dato.*, v.view_order vetted_view_order, l.description license_text,
+              l.logo_url license_logo, l.source_url license_url,
+              #{taxon_id} taxon_id, n.string scientific_name, count(distinct c.id) as comments_count, #{rating_select}
          FROM #{DataObject.full_table_name} dato
-           STRAIGHT_JOIN #{Vetted.full_table_name} v              ON (dato.vetted_id=v.id)
-           STRAIGHT_JOIN #{DataObjectsTaxon.full_table_name} dot  ON (dato.id=dot.data_object_id)
-           STRAIGHT_JOIN #{Taxon.full_table_name} t               ON (dot.taxon_id=t.id)
+           JOIN #{Vetted.full_table_name} v                       ON (dato.vetted_id=v.id)
+           JOIN #{DataObjectsHierarchyEntry.full_table_name} dohe ON (dato.id=dohe.data_object_id)
+           JOIN #{HierarchyEntry.full_table_name} he              ON (dohe.hierarchy_entry_id=he.id)
+           JOIN #{Name.full_table_name} n                         ON (he.name_id=n.id)
            LEFT OUTER JOIN #{License.full_table_name} l           ON (dato.license_id=l.id)
            LEFT OUTER JOIN #{Comment.full_table_name} c           ON (c.parent_id=dato.id AND c.parent_type='DataObject' #{comments_clause})
            #{rating_from}
@@ -918,13 +926,13 @@ class DataObject < SpeciesSchemaModel
     data_object_ids = results.collect {|r| r.id}
     return results if data_object_ids.empty?
     
-    data_object_taxa_names = Taxon.find_by_sql(%Q{
-        SELECT t.scientific_name as taxon_name, he.taxon_concept_id, dot.data_object_id, tc.published as published
-          FROM data_objects_taxa dot
-          JOIN taxa t ON (dot.taxon_id=t.id)
-          JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
+    data_object_taxa_names = SpeciesSchemaModel.connection.execute(%Q{
+        SELECT n.string as taxon_name, he.taxon_concept_id, dohe.data_object_id, tc.published as published
+          FROM data_objects_hierarchy_entries dohe
+          JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
           JOIN taxon_concepts tc ON (he.taxon_concept_id = tc.id)
-          WHERE dot.data_object_id IN (#{data_object_ids.join(',')})}).sort {|a,b| a['published'] <=> b['published']}
+          JOIN names n ON (he.name_id=n.id)
+          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})}).all_hashes.sort {|a,b| a['published'] <=> b['published']}
     
     grouped_taxa_names = ModelQueryHelper.group_array_by_key(data_object_taxa_names, 'data_object_id')
     results = ModelQueryHelper.add_hash_to_object_array_as_key(results, grouped_taxa_names, 'taxa_names_ids')
@@ -1198,7 +1206,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
       SELECT do.*, dt.schema_value data_type, dt.label data_type_label, mt.label mime_type, lang.iso_639_1 language,
               lic.source_url license, lic.title license_label, ii.schema_value subject, v.view_order vetted_view_order,
               v.label vetted_label, vis.label visibility_label,
-              toc.view_order toc_view_order, toc.label toc_label, t.scientific_name, he.taxon_concept_id
+              toc.view_order toc_view_order, toc.label toc_label, n.string scientific_name, he.taxon_concept_id
         FROM data_objects do
         LEFT JOIN data_types dt ON (do.data_type_id=dt.id)
         LEFT JOIN mime_types mt ON (do.mime_type_id=mt.id)
@@ -1212,10 +1220,10 @@ AND data_type_id IN (#{data_type_ids.join(',')})
            JOIN data_objects_table_of_contents dotoc ON (toc.id=dotoc.toc_id)
           ) ON (do.id=dotoc.data_object_id)
         LEFT JOIN (
-           data_objects_taxa dot
-           JOIN taxa t ON (dot.taxon_id=t.id)
-           JOIN hierarchy_entries he ON (t.hierarchy_entry_id=he.id)
-          ) ON (do.id=dot.data_object_id)
+           data_objects_hierarchy_entries dohe
+           JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
+           JOIN names n ON (he.name_id=n.id)
+          ) ON (do.id=dohe.data_object_id)
         WHERE do.id IN (#{data_object_ids.join(',')})
         #{visibility_clause}
     ").all_hashes.uniq

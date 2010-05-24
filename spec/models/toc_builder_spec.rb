@@ -30,7 +30,7 @@ describe TocBuilder do
       Mapping.gen(:name => Name.last) # Cheating.  I know that the last name built was created for this TC
 
       # Literature References will be added if there is a reference to this TC:
-      RefsTaxon.gen(:taxon => tc.entry.taxa.first)
+      HierarchyEntriesRef.gen(:hierarchy_entry => tc.entry)
 
       # Just asserting an assumption about label ordering.
       tb = TocBuilder.new

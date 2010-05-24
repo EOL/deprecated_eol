@@ -19,7 +19,7 @@ describe Factory do
       LastCuratedDate, Language, License, Visibility, Vetted, DataType, Role, User,
       ItemPage, DataObjectTag, DataObjectTags, DataObject,
       CuratorCommentLog, CuratorDataObjectLog, Hierarchy, HierarchyEntry,
-      TaxonConcept, PageName, PublicationTitle, InfoItem, Taxon,
+      TaxonConcept, PageName, PublicationTitle, InfoItem,
       Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
       AgentDataType, AgentContactRole, ServiceType, ActionWithObject, ChangeableObjectType, 
       GoogleAnalyticsSummary, GoogleAnalyticsPartnerSummary, GoogleAnalyticsPageStat, GoogleAnalyticsPartnerTaxon].uniq

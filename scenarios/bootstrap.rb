@@ -288,7 +288,6 @@ ar     = AgentsResource.gen(:agent => agent2, :resource => r2, :resource_agent_r
 hier   = Hierarchy.gen :agent => agent2
 he     = build_hierarchy_entry 0, tc, name, :hierarchy => hier
 img    = build_data_object('Image', "This should only be seen by ContentPartner #{cp.description}",
-                           :taxon => tc.images.first.taxa[0],
                            :hierarchy_entry => he,
                            :object_cache_url => Factory.next(:image),
                            :vetted => Vetted.unknown,

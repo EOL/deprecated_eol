@@ -23,22 +23,22 @@ def nestify_everything_properly
   EOL::NestedSet.make_all_nested_sets
 end
 
-def create_taxa(namestring)
-  taxa = build_taxon_concept(:canonical_form => namestring, :depth => 1,
+def create_taxon(namestring)
+  taxon = build_taxon_concept(:canonical_form => namestring, :depth => 1,
                              :parent_hierarchy_entry_id => animal_kingdom.hierarchy_entries.first.id)
   nestify_everything_properly
-  return taxa
+  return taxon
 end
 
-create_taxa('Tiger Alpha')
-create_taxa('Tiger Beta')
-create_taxa('Tiger Gamma')
-create_taxa('Tiger Delta')
-create_taxa('Tiger Epislon')
-create_taxa('Tiger Zeta')
-create_taxa('Tiger Eta')
-create_taxa('Tiger Theta')
-create_taxa('Tiger Iota')
-create_taxa('Tiger Kappa')
-create_taxa('Tiger Lambda')
-create_taxa('Tiger Uppercut')
+create_taxon('Tiger Alpha')
+create_taxon('Tiger Beta')
+create_taxon('Tiger Gamma')
+create_taxon('Tiger Delta')
+create_taxon('Tiger Epislon')
+create_taxon('Tiger Zeta')
+create_taxon('Tiger Eta')
+create_taxon('Tiger Theta')
+create_taxon('Tiger Iota')
+create_taxon('Tiger Kappa')
+create_taxon('Tiger Lambda')
+create_taxon('Tiger Uppercut')

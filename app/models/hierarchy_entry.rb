@@ -20,7 +20,6 @@ class HierarchyEntry < SpeciesSchemaModel
                                       WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'
   has_many :concepts
   has_many :top_images, :foreign_key => :hierarchy_entry_id
-  has_many :taxa # Sometimes we go through names (which we can't Railsify)... but this relationship also exists directly
   has_many :synonyms
   
   has_one :hierarchies_content

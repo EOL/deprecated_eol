@@ -11,11 +11,7 @@ class Resource < SpeciesSchemaModel
 
   has_many :agents, :through => :agents_resources
   has_many :agents_resources
-  has_many :resources_taxa
   has_many :harvest_events
-
-
-  has_and_belongs_to_many :taxa
 
   has_attached_file :dataset,
     :path => $DATASET_UPLOAD_DIRECTORY,

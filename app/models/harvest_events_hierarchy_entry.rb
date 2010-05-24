@@ -1,6 +1,6 @@
-class HarvestEventsTaxon < SpeciesSchemaModel
+class HarvestEventsHierarchyEntry < SpeciesSchemaModel
   belongs_to :harvest_event
-  belongs_to :taxon
+  belongs_to :hierarchy_entry
   belongs_to :status
 end
 

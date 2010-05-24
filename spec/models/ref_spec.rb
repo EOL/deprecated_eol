@@ -29,9 +29,8 @@ describe Ref do
         end
         @he.each do |he|
           2.times do
-            tax = Factory(:taxon, :hierarchy_entry => he)
             d_o = Factory(:data_object)
-            dot = Factory(:data_objects_taxon, :taxon => tax, :data_object => d_o)
+            dohe = Factory(:data_objects_hierarchy_entry, :hierarchy_entry => he, :data_object => d_o)
             ref = Factory(:ref)
             dor = Factory(:data_objects_ref, :data_object => d_o, :ref => ref)
           end
@@ -46,9 +45,8 @@ describe Ref do
       it "should have literature references when the reference is visible and published" do
         tc = Factory(:taxon_concept)
         he = Factory(:hierarchy_entry, :taxon_concept => tc)
-        tax = Factory(:taxon, :hierarchy_entry => he)
         d_o = Factory(:data_object)
-        dot = Factory(:data_objects_taxon, :taxon => tax, :data_object => d_o)
+        dohe = Factory(:data_objects_hierarchy_entry, :hierarchy_entry => he, :data_object => d_o)
         ref = Ref.gen(:full_reference => "doesnt matter", :published => 1, :visibility => Visibility.visible)
         dor = Factory(:data_objects_ref, :data_object => d_o, :ref => ref)
         Ref.literature_references_for?(tc.id).should be_true
@@ -58,9 +56,8 @@ describe Ref do
       it "should not have literature references when the reference is unpublished" do
         tc = Factory(:taxon_concept)
         he = Factory(:hierarchy_entry, :taxon_concept => tc)
-        tax = Factory(:taxon, :hierarchy_entry => he)
         d_o = Factory(:data_object)
-        dot = Factory(:data_objects_taxon, :taxon => tax, :data_object => d_o)
+        dohe = Factory(:data_objects_hierarchy_entry, :hierarchy_entry => he, :data_object => d_o)
         ref = Ref.gen(:full_reference => "doesnt matter", :published => 0, :visibility => Visibility.visible)
         dor = Factory(:data_objects_ref, :data_object => d_o, :ref => ref)
         Ref.literature_references_for?(tc.id).should_not be_true
@@ -70,9 +67,8 @@ describe Ref do
       it "should not have literature references when the reference is invisible" do
         tc = Factory(:taxon_concept)
         he = Factory(:hierarchy_entry, :taxon_concept => tc)
-        tax = Factory(:taxon, :hierarchy_entry => he)
         d_o = Factory(:data_object)
-        dot = Factory(:data_objects_taxon, :taxon => tax, :data_object => d_o)
+        dohe = Factory(:data_objects_hierarchy_entry, :hierarchy_entry => he, :data_object => d_o)
         ref = Ref.gen(:full_reference => "doesnt matter", :published => 1, :visibility => Visibility.invisible)
         dor = Factory(:data_objects_ref, :data_object => d_o, :ref => ref)
         Ref.literature_references_for?(tc.id).should_not be_true
@@ -96,9 +92,8 @@ describe Ref do
         end
         @he.each do |he|
           2.times do
-            tax = Factory(:taxon, :hierarchy_entry => he)
             ref = Factory(:ref)
-            Factory(:refs_taxon, :ref => ref, :taxon => tax)
+            Factory(:hierarchy_entries_ref, :ref => ref, :hierarchy_entry => he)
           end
         end
         # @tc.hierarchy_entries.each do |he|

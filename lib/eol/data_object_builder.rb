@@ -56,7 +56,7 @@ module EOL
     end
 
     def build
-      build_taxon_relation
+      build_hierarchy_entry_relation
       build_type_specific_relations
       build_harvest_event_relation
       build_agent_relation
@@ -87,8 +87,8 @@ module EOL
       end
     end
 
-    def build_taxon_relation
-      DataObjectsTaxon.gen(:data_object => @dato, :taxon => @taxon)
+    def build_hierarchy_entry_relation
+      DataObjectsHierarchyEntry.gen(:data_object => @dato, :hierarchy_entry => @he)
     end
 
     def build_type_specific_relations
@@ -101,12 +101,12 @@ module EOL
 
     def build_top_image
       if @dato.published
-        @taxon.hierarchy_entry.ancestors.each do |he|
+        @he.ancestors.each do |he|
           TopImage.gen :data_object => @dato, :hierarchy_entry => he
           TopConceptImage.gen :data_object => @dato, :taxon_concept => he.taxon_concept
         end
       else
-        @taxon.hierarchy_entry.ancestors.each do |he|
+        @he.ancestors.each do |he|
           TopUnpublishedImage.gen :data_object => @dato, :hierarchy_entry => he
           TopUnpublishedConceptImage.gen :data_object => @dato, :taxon_concept => he.taxon_concept
         end
@@ -134,8 +134,6 @@ module EOL
       name             = options.delete(:name)            || Name.last
       @num_comments    = options.delete(:num_comments)    || 1
       scientific_name  = options.delete(:scientific_name) || @he.name(:expert) || Factory.next(:scientific_name)
-      @taxon           = options.delete(:taxon)
-      @taxon         ||= Taxon.gen(:name => name, :hierarchy_entry => @he, :scientific_name => scientific_name)
       if @type == 'Text'
         @toc_item      = options.delete(:toc_item)
         @toc_item    ||= TocItem.find(rand(3)+1)   # If foundation was loaded: Overview, Description, or Ecology.

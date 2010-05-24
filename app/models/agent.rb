@@ -450,13 +450,12 @@ class Agent < SpeciesSchemaModel
       if event # They do HAVE an unpublished event
         # TODO - look for the TC within this Event
         tc = TaxonConcept.find_by_sql([%q{
-          SELECT taxon_concepts.id
-          FROM taxon_concepts
-            JOIN hierarchy_entries ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id)
-            JOIN taxa ON (taxa.hierarchy_entry_id = hierarchy_entries.id)
-            JOIN harvest_events_taxa ON (harvest_events_taxa.taxon_id = taxa.id)
-          WHERE harvest_events_taxa.harvest_event_id = ?
-            AND taxon_concepts.id = ?
+          SELECT tc.id
+          FROM taxon_concepts tc
+            JOIN hierarchy_entries he ON (tc.id = he.taxon_concept_id)
+            JOIN harvest_events_hierarchy_entries hehe ON (he.id = hehe.hierarchy_entry_id)
+          WHERE hehe.harvest_event_id = ?
+            AND tc.id = ?
         }, event.id, taxon_concept_id])
         return true unless tc.blank?
       end

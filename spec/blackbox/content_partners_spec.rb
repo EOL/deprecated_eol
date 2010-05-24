@@ -36,11 +36,11 @@ describe 'Content Partners' do
     
     # the data_object builder doesn't properly associate the image's taxon with the resource, so that's done here
     cp.agent.resources[0].harvest_events.each do |he|
-      he.taxa << image.taxa[0]
+      he.hierarchy_entries << image.hierarchy_entries[0]
     end
     body = request("/content_partner/content/#{cp.agent.full_name}").body
     body.should have_tag('div#content_partner_stats', :text => /#{cp.agent.full_name}\s+has contributed to a total of\s+1\s+pages/)
-    body.should include("pages/#{image.taxa[0].hierarchy_entry.taxon_concept.id}")
+    body.should include("pages/#{image.hierarchy_entries[0].taxon_concept.id}")
   end
 
 

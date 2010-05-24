@@ -21,17 +21,14 @@ class TaxaController < ApplicationController
     if params[:harvest_event_id] && params[:harvest_event_id].to_i > 0
       page = params[:page] || 1
       @harvest_event = HarvestEvent.find(params[:harvest_event_id])
-      @taxa = Taxon.paginate_by_sql("
-        select t.*, he.taxon_concept_id
-        from harvest_events h 
-          join harvest_events_taxa ht 
-            on h.id = ht.harvest_event_id 
-          join taxa t 
-            on t.id = ht.taxon_id 
-          join hierarchy_entries he 
-            on he.id = t.hierarchy_entry_id 
-        where h.id=#{params[:harvest_event_id].to_i} 
-        order by t.scientific_name" , :page => page)
+      results = SpeciesSchemaModel.connection.execute("
+        SELECT n.string scientific_name, he.taxon_concept_id
+        FROM harvest_events_hierarchy_entries hehe
+        JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id=he.id)
+        JOIN names n ON (he.name_id=n.id)
+        WHERE hehe.harvest_event_id=#{params[:harvest_event_id].to_i}
+        ORDER BY n.string").all_hashes.uniq
+      @taxa_contributed = results.paginate(:page => page)
       render :html => 'content_partner', :layout => current_user.is_admin? ? 'admin' : 'content_partner'
     else
       redirect_to(:action=>:show, :id=>params[:id])

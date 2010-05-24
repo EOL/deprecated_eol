@@ -1,5 +1,5 @@
 class Status < SpeciesSchemaModel
-  has_many :harvest_events_taxa
+  has_many :harvest_events_hierarchy_entries
   has_many :data_objects_harvest_events
   
   def self.inserted

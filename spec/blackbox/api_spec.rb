@@ -52,6 +52,7 @@ describe 'EOL XML APIs' do
     
       @object = DataObject.create(
         :guid                   => '803e5930803396d4f00e9205b6b2bf21',
+        :identifier             => 'doid',
         :data_type              => DataType.text,
         :mime_type              => MimeType.find_or_create_by_label('text/html'),
         :object_title           => 'default title',

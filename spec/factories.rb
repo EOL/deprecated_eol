@@ -440,6 +440,7 @@ end
 
 Factory.define :data_object do |dato|
   dato.guid                   { Factory.next(:guid) }
+  dato.identifier             ''
   dato.data_type              { DataType.first || Factory(:data_type, :label => 'Image') }
   dato.mime_type              { MimeType.find_by_label('image/jpeg') || Factory(:mime_type, :label => 'image/jpeg') }
   dato.object_title           ''
@@ -504,10 +505,9 @@ Factory.define :data_objects_ref do |dor|
   dor.association :ref
 end
 
-Factory.define :data_objects_taxon do |dot|
-  dot.association :taxon
-  dot.association :data_object
-  dot.identifier  '' # No idea what this is supposed to be, but it cannot be nil
+Factory.define :data_objects_hierarchy_entry do |dohe|
+  dohe.association :hierarchy_entry
+  dohe.association :data_object
 end
 
 Factory.define :data_objects_taxon_concept do |fdo|
@@ -534,11 +534,11 @@ Factory.define :harvest_event do |he|
   he.published_at { 3.hours.ago }
 end
 
-Factory.define :harvest_events_taxon do |het|
-  het.association :harvest_event
-  het.association :taxon
-  het.guid        ''
-  het.association :status
+Factory.define :harvest_events_hierarchy_entry do |hehe|
+  hehe.association :harvest_event
+  hehe.association :hierarchy_entry
+  hehe.guid        ''
+  hehe.association :status
 end
 
 Factory.define :hierarchy do |hierarchy|
@@ -568,19 +568,23 @@ Factory.define :hierarchies_content do |hc|
 end
 
 Factory.define :hierarchy_entry do |he|
-  he.depth          2
+  he.guid           { Factory.next(:guid) }
+  he.identifier     ''
+  he.source_url     ''
+  he.association    :name
+  he.parent_id      0
+  he.association    :hierarchy
+  he.rank_id        184
   he.ancestry       ''
   he.lft            1
-  he.rank_id        184
-  he.parent_id      0
-  he.association    :name
-  he.association    :taxon_concept
   he.rgt            2
-  he.identifier     ''
-  he.association    :hierarchy
-  he.published      1
+  he.depth          2
+  he.association    :taxon_concept
   he.vetted         { Vetted.trusted || Vetted.create(:label => 'Trusted') }
+  he.published      1
   he.visibility_id  { Visibility.visible || Visibility.create(:label => 'Visible') }
+  he.created_at     Time.now
+  he.updated_at     Time.now
 end
 
 Factory.define :info_item do |ii|
@@ -716,9 +720,9 @@ Factory.define :ref do |r|
   r.published       1
 end
 
-Factory.define :refs_taxon do |rt|
-  rt.association :taxon
-  rt.association :ref
+Factory.define :hierarchy_entries_ref do |her|
+  her.association :hierarchy_entry
+  her.association :ref
 end
 
 Factory.define :ref_identifier do |ri|
@@ -750,15 +754,6 @@ end
 
 Factory.define :resource_status do |rs|
   rs.label { Factory.next(:string) }
-end
-
-Factory.define :resources_taxon do |rt|
-  rt.association       :taxon
-  rt.association       :resource
-  rt.identifier        ''
-  rt.source_url        ''
-  rt.taxon_created_at  { 5.hours.ago }
-  rt.taxon_modified_at { 1.hours.ago }
 end
 
 Factory.define :role do |r|
@@ -804,20 +799,6 @@ Factory.define :synonym do |s|
   s.preferred        1
   s.published        1
   s.vetted           { Vetted.trusted || Vetted.create(:label => 'Trusted') }
-end
-
-Factory.define :taxon do |t|
-  t.guid            ''
-  t.taxon_kingdom   ''
-  t.taxon_phylum    ''
-  t.taxon_class     ''
-  t.taxon_order     ''
-  t.taxon_family    ''
-  t.association     :name
-  t.scientific_name { Factory.next(:scientific_name) }
-  t.association     :hierarchy_entry
-  t.created_at      { 48.hours.ago }
-  t.updated_at      { 42.minutes.ago }
 end
 
 Factory.define :taxon_concept do |tc|

@@ -83,7 +83,6 @@ module EOL
       gen_other_names
       add_curator
       add_comments
-      gen_taxon
       add_images
       add_videos
       add_map
@@ -141,6 +140,8 @@ module EOL
 
     def gen_he
       @he    = build_entry_in_hierarchy(:parent_id => @parent_hierarchy_entry_id)
+      HarvestEventsHierarchyEntry.gen(:hierarchy_entry => @he, :harvest_event => @event)
+      # TODO - Create some references here ... just a string and an associated identifier (like a URL)
     end
 
     # TODO - add some alternate names, including at least one in another language.
@@ -183,18 +184,11 @@ module EOL
       end
     end
 
-    def gen_taxon
-      puts "** Enter: gen_taxon" if @debugging
-      @taxon = Taxon.gen(:name => @sname, :hierarchy_entry => @he, :scientific_name => @complete) # Okay that we don't set kingdom, phylum, etc
-      HarvestEventsTaxon.gen(:taxon => @taxon, :harvest_event => @event)
-      # TODO - Create some references here ... just a string and an associated identifier (like a URL)
-    end
-
     def add_images
       puts "** Enter: add_images" if @debugging
       @images.each do |img|
         description   = img.delete(:description) || Faker::Lorem.sentence
-        img[:taxon] ||= @taxon
+        img[:hierarchy_entry] ||= @he
         @image_objs << build_object_in_event('Image', description, img)
       end
     end
@@ -205,7 +199,7 @@ module EOL
       flash_options.each do |flash_opt|
         desc = flash_opt.delete(:description) || Faker::Lorem.sentence
         flash_opt[:object_cache_url] ||= Factory.next(:flash)
-        flash_opt[:taxon] ||= @taxon
+        flash_opt[:hierarchy_entry] ||= @he
         build_object_in_event('Flash', desc, flash_opt)
       end
 
@@ -213,7 +207,7 @@ module EOL
       youtube_options.each do |youtube_opt|
         desc = youtube_opt.delete(:description) || Faker::Lorem.sentence
         youtube_opt[:object_cache_url] ||= Factory.next(:youtube)
-        youtube_opt[:taxon] ||= @taxon
+        youtube_opt[:hierarchy_entry] ||= @he
         build_object_in_event('YouTube', desc, youtube_opt)
       end
     end
@@ -235,8 +229,7 @@ module EOL
         pp gbif_hierarchy if @debugging
         gbif_he = build_entry_in_hierarchy(:hierarchy => gbif_hierarchy, :map => true,
                                            :identifier => @gbif_map_id)
-        gbif_taxon = Taxon.gen(:name => @sname, :hierarchy_entry => @he, :scientific_name => @complete)
-        HarvestEventsTaxon.gen(:taxon => gbif_taxon, :harvest_event => gbif_harvest_event)
+        HarvestEventsHierarchyEntry.gen(:hierarchy_entry => gbif_he, :harvest_event => gbif_harvest_event)
       end
     end
 
@@ -245,7 +238,7 @@ module EOL
       @toc.each do |toc_item|
         toc_item[:toc_item]    ||= TocItem.all.rand
         toc_item[:description] ||= Faker::Lorem.paragraph
-        build_object_in_event('Text', toc_item[:description], :taxon => @taxon, :toc_item => toc_item[:toc_item])
+        build_object_in_event('Text', toc_item[:description], :hierarchy_entry => @he, :toc_item => toc_item[:toc_item])
       end
       # We're missing the info items.  Technically, the toc_item would be referenced by looking at the info items (creating any we're
       # missing).  TODO - we should build the info item first and let the toc_item resolve from that.
@@ -325,7 +318,7 @@ module EOL
     def build_object_in_event(type, description, options = {})
       puts "**** Enter: build_object_in_event" if @debugging
       options[:event] ||= @event
-      options[:taxon] ||= @taxon
+      options[:hierarchy_entry] ||= @he
       build_data_object(type, description, options)
     end
 

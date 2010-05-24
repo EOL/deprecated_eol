@@ -2,7 +2,7 @@ class HarvestEvent < SpeciesSchemaModel
   belongs_to :resource
   has_many :data_objects_harvest_events
   has_many :data_objects, :through => :data_objects_harvest_events
-  has_and_belongs_to_many :taxa
+  has_and_belongs_to_many :hierarchy_entries
   
   before_destroy :remove_related_data_objects
   
@@ -34,8 +34,8 @@ class HarvestEvent < SpeciesSchemaModel
     # get data objects
     data_objects=SpeciesSchemaModel.connection.select_values("SELECT do.id FROM data_objects do JOIN data_objects_harvest_events dohe ON dohe.data_object_id=do.id WHERE dohe.status_id != #{Status.unchanged.id} and dohe.harvest_event_id=#{self.id}").join(",")
      
-    #remove data_objects_taxa
-    SpeciesSchemaModel.connection.execute("DELETE FROM data_objects_taxa WHERE data_object_id IN (#{data_objects})")
+    #remove data_objects_hierarchy_entries
+    SpeciesSchemaModel.connection.execute("DELETE FROM data_objects_hierarchy_entries WHERE data_object_id IN (#{data_objects})")
     
     #remove data objects that have been inserted or updated
     SpeciesSchemaModel.connection.execute("DELETE FROM data_objects WHERE id in (#{data_objects})")
@@ -44,7 +44,7 @@ class HarvestEvent < SpeciesSchemaModel
     DataObjectsHarvestEvent.delete_all(['harvest_event_id=?',self.id])
 
     #remove harvest_events_taxa
-    HarvestEventsTaxon.delete_all(['harvest_event_id=?',self.id])
+    HarvestEventsHierarchyEntry.delete_all(['harvest_event_id=?',self.id])
   end
   
 end

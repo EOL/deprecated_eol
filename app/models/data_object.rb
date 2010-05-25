@@ -1341,13 +1341,13 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     end        
     
     # to get total_taxa count
-    query = "Select count(distinct he.taxon_concept_id) as taxa_count
-    From harvest_events_taxa het
-    Inner Join taxa t ON het.taxon_id = t.id
-    Join hierarchy_entries he ON t.name_id = he.name_id
-    Join taxon_concepts tc ON tc.id = he.taxon_concept_id
-    Where het.harvest_event_id = #{harvest_id}    
-    and tc.supercedure_id=0 and tc.vetted_id != #{Vetted.untrusted.id} and tc.published=1"    
+    query = "Select count(distinct he.taxon_concept_id) taxa_count
+    From harvest_events_hierarchy_entries hehe
+    Join hierarchy_entries he ON hehe.hierarchy_entry_id = he.id
+    Join taxon_concepts tc ON he.taxon_concept_id = tc.id
+    where hehe.harvest_event_id = #{harvest_id}
+    and tc.supercedure_id=0 and tc.vetted_id != #{Vetted.untrusted.id}
+    and tc.published=1"
     rset = self.find_by_sql [query]
     for fld in rset
       total_taxa = fld["taxa_count"]

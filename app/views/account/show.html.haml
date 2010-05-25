@@ -60,4 +60,4 @@
   #credentials
     %h3
       Credentials
-    = allow_some_html(@user.credentials)
+    = @user.credentials.blank? ? "None provided." : allow_some_html(@user.credentials.blank?)

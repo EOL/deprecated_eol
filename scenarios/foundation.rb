@@ -263,6 +263,8 @@ create_if_not_exists RefIdentifierType, :label => 'url'
 create_if_not_exists RefIdentifierType, :label => 'urn'
 
 iucn_resource = create_if_not_exists Resource, :title => 'Initial IUCN Import'
+iucn_agent = Agent.iucn
+raise "IUCN is nil" if iucn_agent.nil?
 create_if_not_exists AgentsResource, :resource => iucn_resource, :agent => Agent.iucn
 
 # This is out of ourder, of course, because it depends on the IUCN resource.

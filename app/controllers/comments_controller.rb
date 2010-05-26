@@ -12,19 +12,26 @@ class CommentsController < ApplicationController
     end
 
     after :create do
-      # current_object.visible_at = Time.now # moved to model, before_create - gets set automatically on create (but on on update / etc, so it can be changed / hidden)
       current_object.save
     end
 
     response_for :create do |format|
       format.html { redirect_to objects_path }
       format.js do
-        params[:page] = (parent_object.visible_comments(current_user).length.to_f / Comment.per_page.to_f).ceil
-        prepare_index
-        render :update do |page|
-          page.replace_html params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name], {:partial => 'index.js.erb',
-            :locals => {:body_div_name => params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name]},
-            :object => [parent_object, current_object] }
+        begin
+          params[:page] = (parent_object.visible_comments(current_user).length.to_f / Comment.per_page.to_f).ceil
+          prepare_index
+          render :update do |page|
+            page.replace_html params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name], {:partial => 'index.js',
+              :locals => {:body_div_name => params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name]},
+              :object => [parent_object, current_object] }
+          end
+        rescue => e  
+          render :update do |page|
+            page.replace_html params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name], {:partial => 'error.js.haml',
+              :locals => {:message => e.message},
+              :object => [parent_object, current_object] }
+          end
         end
       end
     end

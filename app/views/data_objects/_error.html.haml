@@ -1,0 +1,9 @@
+#errorExplanation
+  %h2
+    There was an error posting your text.
+  %p
+    Your text may have been saved, but there was a problem updating the page. Please reload the page and, if needed, try again.  Sorry for the inconvenience.
+  - if current_user.is_admin?
+    %p You are an admin, so I will show you the error:
+    %div{:style => 'font:12px/18px Courier,monospace;padding:2em;'}
+      = message

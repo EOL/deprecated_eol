@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
           params[:page] = (parent_object.visible_comments(current_user).length.to_f / Comment.per_page.to_f).ceil
           prepare_index
           render :update do |page|
-            page.replace_html params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name], {:partial => 'index.js',
+            page.replace_html params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name], {:partial => 'index.js.haml',
               :locals => {:body_div_name => params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name]},
               :object => [parent_object, current_object] }
           end

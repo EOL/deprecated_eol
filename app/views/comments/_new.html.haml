@@ -12,5 +12,9 @@
     - submit_id = "submit_comment_#{@parent.id}"
     = hidden_field_tag :body_div_name, body_div_name
     = f.text_area :body, :rows => length, :cols => 50, :id => comment_id
-    = submit_tag('Post Comment', :id => submit_id, :onclick => "if($('#{comment_id}').value.search(/\\w/) == -1) {return(false);} else {$('#{submit_id}').value = 'Please Wait...';$('#{submit_id}_spinner').style.display = 'block';return true;}", :class => 'post_comment')
+    = submit_tag('Post Comment', |
+      :id => submit_id, |
+      :onclick => "if($('#{comment_id}').value.search(/\\w/) == -1) {return(false);} else {$('#{submit_id}').value = 'Please Wait...';$('#{submit_id}_spinner').style.display = 'block';return true;}", |
+      :exception => 'alert("Yay");', |
+      :class => 'post_comment')  |
     = image_tag('indicator_arrows_black.gif', :id => "#{submit_id}_spinner", :style=>'display:none;')

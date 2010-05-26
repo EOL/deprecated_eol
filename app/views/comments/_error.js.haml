@@ -1,0 +1,10 @@
+#commentsContain
+  .controls
+    There was a problem posting your comment.  Despite this, it may have been saved; please check back in a few minutes.  We're sorry for the inconvenience.
+    - if current_user.is_admin?
+      %p{:style => 'padding-top:1em;'}
+        You are an admin.  So, I will show you that the error was:
+        %p
+        %br
+        %code{:style => 'style:block;padding:2em;'}
+          = message

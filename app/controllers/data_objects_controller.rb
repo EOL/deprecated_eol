@@ -1,33 +1,43 @@
 class DataObjectsController < ApplicationController
 
+  # No layout for Ajax calls.  Everthing else uses main:
   layout proc { |c| c.request.xhr? ? false : "main" }
 
   before_filter :set_data_object, :except => [:index, :new, :create, :preview]
   before_filter :curator_only, :only => [:rate, :curate]
 
   def create
-    params[:references] = params[:references].split("\n") unless params[:references].blank?
-    data_object = DataObject.create_user_text(params, current_user)
-    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-    @curator = current_user.can_curate?(@taxon_concept)
-    @taxon_concept.current_user = current_user
-    @category_id = data_object.toc_items[0].id
-    alter_current_user do |user|
-      user.vetted=false
+    begin
+      params[:references] = params[:references].split("\n") unless params[:references].blank?
+      data_object = DataObject.create_user_text(params, current_user)
+      @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+      @curator = current_user.can_curate?(@taxon_concept)
+      @taxon_concept.current_user = current_user
+      @category_id = data_object.toc_items[0].id
+      alter_current_user do |user|
+        user.vetted=false
+      end
+      @new_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
+    rescue => e
+      @new_text = render_to_string(:partial => 'error', :locals => {:message => e.message}) 
+#<div id="errorExplanation"><h2>There was an error posting your text.  Please reload the page and try again.  Sorry for the inconvenience.</h2></div>'
     end
-    @new_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
   end
 
   def preview
-    params[:references] = params[:references].split("\n")
-    data_object = DataObject.preview_user_text(params, current_user)
-    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-    @taxon_concept.current_user = current_user
-    @curator = false
-    @preview = true
-    @data_object_id = params[:id]
-    @hide = true
-    @preview_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
+    begin
+      params[:references] = params[:references].split("\n")
+      data_object = DataObject.preview_user_text(params, current_user)
+      @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+      @taxon_concept.current_user = current_user
+      @curator = false
+      @preview = true
+      @data_object_id = params[:id]
+      @hide = true
+      @preview_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
+    rescue => e
+      @new_text = 'There was an error previewing your text.  Please try again.  Sorry for the inconvenience.'
+    end
   end
 
   def get

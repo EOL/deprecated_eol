@@ -642,14 +642,12 @@ describe DataObject do
     it 'should close tags in references' do
       full_ref          = 'a <b>b</div></HTML><i'
       full_repaired_ref = 'a <b>b</b><i></i>'
-      full_repaired_ref2 = 'a <b>b</b>'  
       
       @dato.refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
       ref_before = @dato.visible_references[0].full_reference
-      ref_after  = @dato.visible_references[0].full_reference.sanitize_html
-      
-      #ref_after.should eql(full_repaired_ref)
-      ref_after.should eql(full_repaired_ref2)
+      ref_after  = @dato.visible_references[0].full_reference.sanitize_html      
+      ref_after.should eql(full_repaired_ref)
+
     end
   end
 

@@ -60,14 +60,130 @@ describe 'Admin Pages' do
   end
   
   
+  describe ': monthly published partners' do
+    before(:all) do
+      last_month = Time.now - 1.month      
+      @report_year = last_month.year.to_s
+      @report_month = last_month.month.to_s
+      @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
+      
+      @agent = Agent.gen(:full_name => 'FishBase')
+      @resource = Resource.gen(:title => "test resource")
+      @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
+      @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)      
+    end  
+    it "should show report_monthly_published_partners page" do      
+      login_as(@user).should redirect_to('/admin')      
+      body = request("/administrator/content_partner_report/report_monthly_published_partners").body
+      body.should include "New content partners for the month"
+    end
+    it "should get data from a form and display published partners" do          
+      login_as(@user).should redirect_to('/admin')      
+      res = request("/administrator/content_partner_report/report_monthly_published_partners", :method => :post, :params => {:year_month => @year_month})
+      res.body.should have_tag("form[action=/administrator/content_partner_report/report_monthly_published_partners]")
+      res.body.should include "New content partners for the month"
+      res.body.should include @agent.full_name
+    end
+  end
   
+  describe ': content partner curated data' do
+    before(:all) do
+      #@agent = Agent.find_by_sql ["select full_name,id from agents where id = 1"]
+      #@agent = SpeciesSchemaModel.connection.execute("select full_name,id from agents where id = 1")
+      
+      #@pass  = 'timey-wimey'
+      #@agent = Agent.gen(:hashed_password => Digest::MD5.hexdigest(@pass))
+      #@user = User.gen(:id => 173) 
+      #@actions_histories = ActionsHistory.gen(:user_id => @user.id)
+      #@harvest_events = HarvestEvent.gen(:id => 300)
+      #debugger
+      #@data_objects_harvest_events = DataObjectsHarvestEvent.gen(:harvest_event_id => @harvest_events.id)      
+      
+      @agent_id = 1
+    end  
+
+    it "should show report_partner_curated_data page" do      
+      login_as(@user).should redirect_to('/admin')      
+      body = request("/administrator/content_partner_report/report_partner_curated_data").body
+      body.should include "Curation activity:"
+    end
+    it "should get data from a form and display curation activity" do          
+      login_as(@user).should redirect_to('/admin')      
+      res = request("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent_id})
+      res.body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
+      res.body.should include "Curation activity:"
+    end
+  end      
   
-  
-  
-  
-  
-  
-  
+  describe ': content partner objects stats' do
+    before(:each) do
+      last_month = Time.now - 1.month      
+      @agent = Agent.gen(:full_name => 'FishBase')
+      #@agent = Agent.gen()
+      @resource = Resource.gen(:title => "test resource")
+      @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
+      @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
+    end  
+    it "should show report_partner_objects_stats page" do      
+      login_as(@user).should redirect_to('/admin')      
+      body = request("/administrator/content_partner_report/report_partner_objects_stats").body
+      body.should include "Viewing Partner:"
+    end
+    it "should get data from a form and display harvest events" do          
+      login_as(@user).should redirect_to('/admin')      
+      res = request("/administrator/content_partner_report/report_partner_objects_stats", :method => :post, :params => {:agent_id => @agent.id})
+      res.body.should have_tag("form[action=/administrator/content_partner_report/report_partner_objects_stats]")
+      res.body.should include "Viewing Partner:"
+      res.body.should include @agent.full_name
+      res.body.should include @resource.title
+    end
+    it "should link to data objects stats per harvest event" do          
+      login_as(@user).should redirect_to('/admin')      
+      res = request("/administrator/content_partner_report/show_data_object_stats", :method => :post, :params => {:harvest_id => @harvest_event.id, :partner_fullname => "#{@agent.full_name}"})
+      res.body.should include "Total Data Objects:"
+      res.body.should include @agent.full_name
+      res.body.should include "#{@harvest_event.id}\n"
+    end
+  end  
+
+  describe ': species profile model - objects count' do
+    before(:all) do
+      @info_item = InfoItem.gen() 
+      @agent = Agent.gen(:full_name => 'FishBase')
+      @resource = Resource.gen(:title => "test resource")
+      @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
+      last_month = Time.now - 1.month      
+      @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
+      @data_object = DataObject.gen(:published => 1, :vetted_id => 1)
+      @data_objects_info_item = DataObjectsInfoItem.gen(:data_object_id => @data_object.id, :info_item_id => @info_item.id)
+      @data_objects_harvest_event = DataObjectsHarvestEvent.gen(:data_object_id => @data_object.id, :harvest_event_id => @harvest_event.id)
+      #From data_objects_info_items      doii
+      #Join data_objects_harvest_events  dohe  ON doii.data_object_id = dohe.data_object_id
+      #Join data_objects                 do    ON do.id = doii.data_object_id
+      #Join harvest_events               he    ON dohe.harvest_event_id = he.id
+      #Join resources                    r     ON he.resource_id = r.id
+      #Join agents_resources             ar    ON r.id = ar.resource_id
+      #where doii.info_item_id = #{id} and do.published and do.vetted_id != #{Vetted.untrusted.id}"])            
+    end  
+    it "should show SPM_objects_count page" do      
+      login_as(@user).should redirect_to('/admin')      
+      body = request("/administrator/stats/SPM_objects_count").body
+      body.should include "Species Profile Model - Data Objects Count"
+      body.should include @info_item.schema_value
+    end
+  end  
+
+  describe ': species profile model - partner count' do
+    before(:all) do
+    end  
+    it "should show SPM_objects_count page" do      
+      login_as(@user).should redirect_to('/admin')      
+      body = request("/administrator/stats/SPM_partners_count").body
+      body.should include "Species Profile Model - Content Partners Count"
+    end
+  end  
+
+
   
   it 'the remaining tests have been disabled in the interest of time.  Implement them later.'
 #TEMP  Scenario.load :foundation

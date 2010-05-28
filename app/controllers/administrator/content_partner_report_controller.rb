@@ -266,12 +266,10 @@ class Administrator::ContentPartnerReportController < AdminController
     
     if(params[:agent_id]) then
       @agent_id = params[:agent_id]
-      $agent_id = params[:agent_id]
-    end
-    if($agent_id) then
-      @agent_id = $agent_id
-    end
-    if(!@agent_id) then
+      session[:form_agent_id] = params[:agent_id]
+    elsif(session[:form_agent_id]) then
+      @agent_id = session[:form_agent_id]
+    else
       @agent_id = 1  
     end    
     
@@ -307,14 +305,12 @@ class Administrator::ContentPartnerReportController < AdminController
     
     if(params[:agent_id]) then
       @agent_id = params[:agent_id]
-      $agent_id = params[:agent_id]
-    end
-    if($agent_id) then
-      @agent_id = $agent_id
-    end
-    if(!@agent_id) then
+      session[:form_agent_id] = params[:agent_id]
+    elsif(session[:form_agent_id]) then
+      @agent_id = session[:form_agent_id]
+    else
       @agent_id = 1  
-    end    
+    end
     
     @content_partners_with_published_data = Agent.content_partners_with_published_data  
     

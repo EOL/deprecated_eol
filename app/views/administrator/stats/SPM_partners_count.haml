@@ -1,0 +1,39 @@
+#report_from_eol
+  %h2    
+    = @page_header 
+
+  The count represents the total number of content partners with published data objects under the respective SPM subject category.
+  
+  %table.results_table
+    %tr
+      %td{ :colspan => "5" }
+        /= will_paginate @partner_curated_objects
+    %thead{ :align => "center" }
+      %tr{ :align => "center" }
+        %th
+          
+        %th
+          Species Profile Model
+        %th
+          No. of content partners
+
+    %tbody
+      - count = @cur_page.to_i
+      - @arr_SPM.each do |rec|
+        - column_class=cycle('odd','even')
+        - count += 1
+        %tr
+          %td{ :class => column_class, :align => "right" }
+            = count
+            = "."
+          %td{ :class => column_class }
+            = rec["schema_value"]
+          %td{ :class => column_class, :align => "right" }
+            = number_with_delimiter(@arr_count[rec["id"]], ",")
+
+
+    %tr
+      %td{ :colspan => "5" }
+        /= will_paginate @partner_curated_objects
+
+

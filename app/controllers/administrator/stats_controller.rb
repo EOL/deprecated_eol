@@ -1,11 +1,10 @@
 class Administrator::StatsController < AdminController
 
-  layout 'admin_without_nav'
-  
+  layout 'admin_without_nav'    
+
   access_control :DEFAULT => 'Administrator - Usage Reports'
   
-  def index
-    
+  def index    
     @reports_list=[["--select--",""],
                   ["Latest Species Page Counts","http://services.eol.org/species_stat/display.php"],
                   ["EOL Web Usage Statistics","http://services.eol.org/eol_php_code/applications/google_stats/index.php"],                  
@@ -21,5 +20,17 @@ class Administrator::StatsController < AdminController
     @report_url=params[:report_url] || @reports_list[1][1]
     
   end
-    
+  
+  def SPM_objects_count
+    @page_title = 'Species Profile Model - Data Objects Count'
+    @arr_SPM = InfoItem.get_schema_value
+    @arr_count = DataObject.get_SPM_count_on_dataobjects(@arr_SPM)
+  end
+
+  def SPM_partners_count
+    @page_title = 'Species Profile Model - Content Partners Count'
+    @arr_SPM = InfoItem.get_schema_value
+    @arr_count = DataObject.get_SPM_count_on_contentpartners(@arr_SPM)
+  end
+  
 end

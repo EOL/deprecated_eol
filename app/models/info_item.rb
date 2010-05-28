@@ -2,6 +2,14 @@ class InfoItem < SpeciesSchemaModel
   belongs_to :toc_item, :foreign_key => :toc_id 
   has_many   :data_objects_info_items
   has_many   :data_objects, :through => :data_objects_info_items
+
+
+  def self.get_schema_value    
+    arr_SPM = SpeciesSchemaModel.connection.execute("select schema_value, id from info_items order by id").all_hashes
+    return arr_SPM
+  end
+
+
 end
 
 # == Schema Info

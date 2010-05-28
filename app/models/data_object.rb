@@ -1169,7 +1169,41 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     self.paginate_by_sql [query, obj_ids], :page => page, :per_page => 20 , :order => 'id'  
   end
   
-  
+  def self.get_SPM_count_on_dataobjects(arr_SPM)        
+    arr_count = {} #same Hash.new
+    arr_SPM.each do |rec|
+      id = rec["id"]
+      rset = DataObject.find_by_sql(["Select Count(do.id) as total 
+      From data_objects do
+      Join data_objects_info_items doii ON do.id = doii.data_object_id
+      where doii.info_item_id = #{id} and do.published and do.vetted_id != #{Vetted.untrusted.id}"])            
+      rset.each do |rec|
+        arr_count["#{id}"] = rec.total
+      end      
+    end        
+    return arr_count
+  end
+
+  def self.get_SPM_count_on_contentpartners(arr_SPM)        
+    arr_count = {} #same Hash.new
+    arr_SPM.each do |rec|
+      id = rec["id"]
+      rset = DataObject.find_by_sql(["Select count(distinct ar.agent_id) total
+      From data_objects_info_items      doii
+      Join data_objects_harvest_events  dohe  ON doii.data_object_id = dohe.data_object_id
+      Join data_objects                 do    ON do.id = doii.data_object_id
+      Join harvest_events               he    ON dohe.harvest_event_id = he.id
+      Join resources                    r     ON he.resource_id = r.id
+      Join agents_resources             ar    ON r.id = ar.resource_id
+      where doii.info_item_id = #{id} and do.published and do.vetted_id != #{Vetted.untrusted.id}"])            
+      rset.each do |rec|
+        arr_count["#{id}"] = rec.total
+      end      
+    end        
+    return arr_count
+  end
+
+
   
   def self.details_for_object(data_object_guid, options = {})
     data_objects = DataObject.find_all_by_guid(data_object_guid, :conditions => "published=1 AND visibility_id=#{Visibility.visible.id}")
@@ -1341,13 +1375,22 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     end        
     
     # to get total_taxa count
-    query = "Select count(distinct he.taxon_concept_id) as taxa_count
-    From harvest_events_taxa het
-    Inner Join taxa t ON het.taxon_id = t.id
-    Join hierarchy_entries he ON t.name_id = he.name_id
-    Join taxon_concepts tc ON tc.id = he.taxon_concept_id
-    Where het.harvest_event_id = #{harvest_id}    
-    and tc.supercedure_id=0 and tc.vetted_id != #{Vetted.untrusted.id} and tc.published=1"    
+    #query = "Select count(distinct dotc.taxon_concept_id) taxa_count
+    #From data_objects_taxon_concepts dotc
+    #Join data_objects_harvest_events dohe ON dohe.data_object_id = dotc.data_object_id
+    #Join taxon_concepts tc ON dotc.taxon_concept_id = tc.id
+    #where dohe.harvest_event_id = #{harvest_id}
+    #and tc.supercedure_id=0 and tc.vetted_id != #{Vetted.untrusted.id}
+    #and tc.published=1"    
+
+    query = "Select count(distinct he.taxon_concept_id) taxa_count
+    From harvest_events_hierarchy_entries hehe
+    Join hierarchy_entries he ON hehe.hierarchy_entry_id = he.id
+    Join taxon_concepts tc ON he.taxon_concept_id = tc.id
+    where hehe.harvest_event_id = #{harvest_id}
+    and tc.supercedure_id=0 and tc.vetted_id != #{Vetted.untrusted.id}
+    and tc.published=1"
+
     rset = self.find_by_sql [query]
     for fld in rset
       total_taxa = fld["taxa_count"]

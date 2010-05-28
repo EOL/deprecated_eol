@@ -66,13 +66,18 @@
       = link_to 'content partner objects stats', {:controller => 'administrator/content_partner_report', :action => 'report_partner_objects_stats'}, {:class=>'toc_item active'}
 
 
-
     %h3
       Statistics
     %li
       = link_to 'page statistics and tools', {:controller => 'administrator/stats', :action => 'index'}, {:class=>'toc_item active'}
     %li
       = link_to 'search term reports',search_logs_url,{:class=>'toc_item active'}
+    %li
+      = link_to 'species profile model - objects count', {:controller => 'administrator/stats', :action => 'SPM_objects_count'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'species profile model - partner count', {:controller => 'administrator/stats', :action => 'SPM_partners_count'}, {:class=>'toc_item active'}
+
+
     %h3
       Data Usage Reports
     %li

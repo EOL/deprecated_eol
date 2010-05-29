@@ -65,10 +65,9 @@ describe 'Admin Pages' do
       last_month = Time.now - 1.month      
       @report_year = last_month.year.to_s
       @report_month = last_month.month.to_s
-      @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
-      
+      @year_month   = @report_year + "_" + "%02d" % @report_month.to_i      
       @agent = Agent.gen(:full_name => 'FishBase')
-      @resource = Resource.gen(:title => "test resource")
+      @resource = Resource.gen(:title => "FishBase Resource")
       @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
       @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)      
     end  
@@ -88,18 +87,35 @@ describe 'Admin Pages' do
   
   describe ': content partner curated data' do
     before(:all) do
-      #@agent = Agent.find_by_sql ["select full_name,id from agents where id = 1"]
-      #@agent = SpeciesSchemaModel.connection.execute("select full_name,id from agents where id = 1")
       
-      #@pass  = 'timey-wimey'
-      #@agent = Agent.gen(:hashed_password => Digest::MD5.hexdigest(@pass))
-      #@user = User.gen(:id => 173) 
-      #@actions_histories = ActionsHistory.gen(:user_id => @user.id)
-      #@harvest_events = HarvestEvent.gen(:id => 300)
-      #debugger
-      #@data_objects_harvest_events = DataObjectsHarvestEvent.gen(:harvest_event_id => @harvest_events.id)      
+      #ditox
+      #@info_item = InfoItem.gen() 
+      @agent = Agent.gen(:full_name => 'FishBase')
+      @resource = Resource.gen(:title => "test resource")
+      @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
+      last_month = Time.now - 1.month      
+      @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
+      @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
+      #@data_objects_info_item = DataObjectsInfoItem.gen(:data_object_id => @data_object.id, :info_item_id => @info_item.id)
+      @data_objects_harvest_event = DataObjectsHarvestEvent.gen(:data_object_id => @data_object.id, :harvest_event_id => @harvest_event.id)
       
-      @agent_id = 1
+      @taxon_concept = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
+      @data_objects_taxon_concept = DataObjectsTaxonConcept.gen(:data_object_id => @data_object.id, :taxon_concept_id => @taxon_concept.id)
+      #From data_objects_taxon_concepts dotc
+      #Join data_objects do ON dotc.data_object_id = do.id
+      #Join taxon_concepts tc ON dotc.taxon_concept_id = tc.id
+
+      #@action_with_object = ActionWithObject.gen(:id => 4, :action_code => 'trusted')
+      @action_with_object = ActionWithObject.gen()
+      @changeable_object_type = ChangeableObjectType.gen()#id = 1 = data_object
+      @action_history = ActionsHistory.gen(:object_id => @data_object.id, :action_with_object_id => @action_with_object.id, :changeable_object_type_id => @changeable_object_type.id)
+      #From action_with_objects awo
+      #Join actions_histories ah ON ah.action_with_object_id = awo.id
+      #Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
+      #Join users u ON ah.user_id = u.id
+      #where cot.ch_object_type = 'data_object'    
+     
+      #@agent_id = 1
     end  
 
     it "should show report_partner_curated_data page" do      
@@ -109,9 +125,10 @@ describe 'Admin Pages' do
     end
     it "should get data from a form and display curation activity" do          
       login_as(@user).should redirect_to('/admin')      
-      res = request("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent_id})
+      res = request("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})
       res.body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
       res.body.should include "Curation activity:"
+      res.body.should include @agent.full_name      
     end
   end      
   
@@ -119,8 +136,7 @@ describe 'Admin Pages' do
     before(:each) do
       last_month = Time.now - 1.month      
       @agent = Agent.gen(:full_name => 'FishBase')
-      #@agent = Agent.gen()
-      @resource = Resource.gen(:title => "test resource")
+      @resource = Resource.gen(:title => "FishBase Resource")
       @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
       @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
     end  
@@ -149,20 +165,11 @@ describe 'Admin Pages' do
   describe ': species profile model - objects count' do
     before(:all) do
       @info_item = InfoItem.gen() 
-      @agent = Agent.gen(:full_name => 'FishBase')
-      @resource = Resource.gen(:title => "test resource")
-      @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
-      last_month = Time.now - 1.month      
-      @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
-      @data_object = DataObject.gen(:published => 1, :vetted_id => 1)
+      @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
       @data_objects_info_item = DataObjectsInfoItem.gen(:data_object_id => @data_object.id, :info_item_id => @info_item.id)
-      @data_objects_harvest_event = DataObjectsHarvestEvent.gen(:data_object_id => @data_object.id, :harvest_event_id => @harvest_event.id)
-      #From data_objects_info_items      doii
-      #Join data_objects_harvest_events  dohe  ON doii.data_object_id = dohe.data_object_id
-      #Join data_objects                 do    ON do.id = doii.data_object_id
-      #Join harvest_events               he    ON dohe.harvest_event_id = he.id
-      #Join resources                    r     ON he.resource_id = r.id
-      #Join agents_resources             ar    ON r.id = ar.resource_id
+      #rset = DataObject.find_by_sql(["Select Count(do.id) as total 
+      #From data_objects do
+      #Join data_objects_info_items doii ON do.id = doii.data_object_id
       #where doii.info_item_id = #{id} and do.published and do.vetted_id != #{Vetted.untrusted.id}"])            
     end  
     it "should show SPM_objects_count page" do      
@@ -175,11 +182,30 @@ describe 'Admin Pages' do
 
   describe ': species profile model - partner count' do
     before(:all) do
+      @info_item = InfoItem.gen() 
+      @agent = Agent.gen(:full_name => 'FishBase')
+      @resource = Resource.gen(:title => "test resource")
+      @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
+      last_month = Time.now - 1.month      
+      @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
+      @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
+      @data_objects_info_item = DataObjectsInfoItem.gen(:data_object_id => @data_object.id, :info_item_id => @info_item.id)
+      @data_objects_harvest_event = DataObjectsHarvestEvent.gen(:data_object_id => @data_object.id, :harvest_event_id => @harvest_event.id)
+
+      #From data_objects_info_items      doii
+      #Join data_objects_harvest_events  dohe  ON doii.data_object_id = dohe.data_object_id
+      #Join data_objects                 do    ON do.id = doii.data_object_id
+      #Join harvest_events               he    ON dohe.harvest_event_id = he.id
+      #Join resources                    r     ON he.resource_id = r.id
+      #Join agents_resources             ar    ON r.id = ar.resource_id
+      #where doii.info_item_id = #{id} and do.published and do.vetted_id != #{Vetted.untrusted.id}"])            
+      
     end  
     it "should show SPM_objects_count page" do      
       login_as(@user).should redirect_to('/admin')      
       body = request("/administrator/stats/SPM_partners_count").body
       body.should include "Species Profile Model - Content Partners Count"
+      body.should include @info_item.schema_value
     end
   end  
 

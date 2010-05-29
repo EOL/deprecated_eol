@@ -168,11 +168,11 @@ class Agent < SpeciesSchemaModel
   end
 
   def self.latest_harvest_event_id(agent_id)
-    query = "Select Max(harvest_events.id) max_harvest_event_id
-    From harvest_events
-    Join agents_resources ON agents_resources.resource_id = harvest_events.resource_id
-    Where agents_resources.agent_id = #{agent_id}
-    Group By agents_resources.agent_id "    
+    query = "Select Max(he.id) max_harvest_event_id
+    From harvest_events he
+    Join agents_resources ar ON ar.resource_id = he.resource_id
+    Where ar.agent_id = #{agent_id}
+    Group By ar.agent_id "    
     rset = self.find_by_sql [query]
     for fld in rset
 	    return fld["max_harvest_event_id"]

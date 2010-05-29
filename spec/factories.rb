@@ -259,6 +259,21 @@ Factory.define :action_with_object do |awo|
   awo.action_code { Factory.next(:string) }
 end
 
+Factory.define :actions_history do |ah|
+  ah.association  :user
+  ah.association :action_with_object
+  ah.association :changeable_object_type
+  #ah.id 
+  #ah.user_id
+  #ah.object_id
+  #ah.changeable_object_type_id 1 #data_object
+  #ah.action_with_object_id 4 #trusted
+  ah.created_at                   { 5.days.ago }
+  ah.updated_at                   { 5.days.ago }
+end
+
+
+
 Factory.define :agent do |agent|
   agent.created_at      { 5.days.ago }
   agent.homepage        ''

@@ -1,8 +1,8 @@
 #errorExplanation
   %h2
-    There was an error posting your text.
+    = "There was an error posting your text."[]
   %p
-    Your text may have been saved, but there was a problem updating the page. Please reload the page and, if needed, try again.  Sorry for the inconvenience.
+    = "We're sorry but an error has occurred. Please make one more attempt to perform your task. If the error persists, please send an email to error@eol.org along with the error message below and any other information you'd like to share with us. We are working hard to provide you with the best service possible and we appreciate your support. -- The EOL Team"[:general_error_occurred]
   - if current_user.is_admin?
     %p You are an admin, so I will show you the error:
     %div{:style => 'font:12px/18px Courier,monospace;padding:2em;'}

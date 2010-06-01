@@ -1375,14 +1375,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     end        
     
     # to get total_taxa count
-    #query = "Select count(distinct dotc.taxon_concept_id) taxa_count
-    #From data_objects_taxon_concepts dotc
-    #Join data_objects_harvest_events dohe ON dohe.data_object_id = dotc.data_object_id
-    #Join taxon_concepts tc ON dotc.taxon_concept_id = tc.id
-    #where dohe.harvest_event_id = #{harvest_id}
-    #and tc.supercedure_id=0 and tc.vetted_id != #{Vetted.untrusted.id}
-    #and tc.published=1"    
-
     query = "Select count(distinct he.taxon_concept_id) taxa_count
     From harvest_events_hierarchy_entries hehe
     Join hierarchy_entries he ON hehe.hierarchy_entry_id = he.id

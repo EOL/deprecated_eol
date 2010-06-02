@@ -72,6 +72,10 @@ class TaxonConcept < SpeciesSchemaModel
   def common_name(hierarchy = nil)
     quick_common_name(hierarchy)
   end
+  
+  def self.common_names_for_concepts(taxon_concept_ids, hierarchy = nil)
+    quick_common_names(taxon_concept_ids, hierarchy)
+  end
 
   def common_names
     TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1)
@@ -177,7 +181,14 @@ class TaxonConcept < SpeciesSchemaModel
     hierarchy ||= Hierarchy.default
     quick_scientific_name(species_or_below? ? :italicized : :normal, hierarchy)
   end
-
+  
+  # same as above but a static method expecting an array of IDs
+  def self.scientific_names_for_concepts(taxon_concept_ids, hierarchy = nil)
+    return false if taxon_concept_ids.blank?
+    hierarchy ||= Hierarchy.default
+    self.quick_scientific_names(taxon_concept_ids, hierarchy)
+  end
+  
   # pull list of categories for given taxon_concept_id
   def table_of_contents(options = {})
     if @table_of_contents.nil?
@@ -272,6 +283,11 @@ class TaxonConcept < SpeciesSchemaModel
   def current_user
     @current_user ||= User.create_new
   end
+  
+  def self.current_user_static
+    @current_user ||= User.create_new
+  end
+  
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
   def current_user=(who)
@@ -369,6 +385,95 @@ class TaxonConcept < SpeciesSchemaModel
       @all_entries[0] ||
       nil
   end
+  
+  def self.entries_for_concepts(taxon_concept_ids, hierarchy = nil, strict_lookup = false)
+    hierarchy ||= Hierarchy.default
+    raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
+    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
+    raise "Must get an array of taxon_concept_ids" unless taxon_concept_ids.is_a? Array
+    
+    # get all hierarchy entries
+    all_entries = HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id IN (#{taxon_concept_ids.join(',')})")
+    # ..and order them by published DESC, vetted view_order ASC, id ASC - earliest entry first
+    all_entries.sort! do |a,b|
+      if a.taxon_concept_id == b.taxon_concept_id
+        if a.published == b.published
+          if a.vetted_view_order == b.vetted_view_order
+            a.id <=> b.id # ID ascending
+          else
+            a.vetted_view_order <=> b.vetted_view_order # vetted view_order ascending
+          end
+        else
+          b.published <=> a.published # published descending
+        end
+      else
+        a.taxon_concept_id <=> b.taxon_concept_id # taxon_concept_id ascending
+      end
+    end
+    
+    concept_entries = {}
+    all_entries.each do |he|
+      concept_entries[he.taxon_concept_id] ||= []
+      concept_entries[he.taxon_concept_id] << he
+    end
+    
+    final_concept_entries = {}
+    # we want ONLY the entry in this hierarchy
+    if strict_lookup
+      concept_entries.each do |taxon_concept_id, entries|
+        final_concept_entries[taxon_concept_id] = entries.detect{ |he| he.hierarchy_id == hierarchy.id } || nil
+      end
+      return final_concept_entries
+    end
+    
+    concept_entries.each do |taxon_concept_id, entries|
+      final_concept_entries[taxon_concept_id] = entries.detect{ |he| he.hierarchy_id == hierarchy.id } || entries[0] || nil
+    end
+    return final_concept_entries
+  end
+  
+  def self.ancestries_for_concepts(taxon_concept_ids, hierarchy = nil)
+    return false if taxon_concept_ids.blank?
+    concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
+    hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
+    
+    results = SpeciesSchemaModel.connection.execute("
+        SELECT he.id, he.taxon_concept_id, n.string name_string, n_parent1.string parent_name_string, n_parent2.string grandparent_name_string
+        FROM hierarchy_entries he
+        JOIN names n ON (he.name_id=n.id)
+        LEFT JOIN (
+          hierarchy_entries he_parent1 JOIN names n_parent1 ON (he_parent1.name_id=n_parent1.id)
+          LEFT JOIN (
+            hierarchy_entries he_parent2 JOIN names n_parent2 ON (he_parent2.name_id=n_parent2.id)
+          ) ON (he_parent1.parent_id=he_parent2.id)
+        ) ON (he.parent_id=he_parent1.id)
+        WHERE he.id IN (#{hierarchy_entry_ids.join(',')})").all_hashes
+    
+    ancestries = {}
+    results.each do |r|
+      ancestries[r['taxon_concept_id'].to_i] = r
+    end
+    return ancestries
+  end
+  
+  def self.hierarchies_for_concepts(taxon_concept_ids, hierarchy = nil)
+    return false if taxon_concept_ids.blank?
+    concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
+    hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
+    
+    results = Hierarchy.find_by_sql("
+        SELECT he.taxon_concept_id, h.*
+        FROM hierarchy_entries he
+        JOIN hierarchies h ON (he.hierarchy_id=h.id)
+        WHERE he.id IN (#{hierarchy_entry_ids.join(',')})")
+    
+    hierarchies = {}
+    results.each do |r|
+      hierarchies[r['taxon_concept_id'].to_i] = r
+    end
+    return hierarchies
+  end
+  
   
   def test
     return nil
@@ -486,6 +591,33 @@ class TaxonConcept < SpeciesSchemaModel
     return final_name
   end
   
+  def self.quick_common_names(taxon_concept_ids, language = nil, hierarchy = nil)
+    return false if taxon_concept_ids.blank?
+    language ||= self.current_user_static.language 
+    hierarchy ||= Hierarchy.default
+    common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id, tcn.taxon_concept_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id IN (#{taxon_concept_ids.join(',')}) AND language_id=#{language.id} AND preferred=1").all_hashes
+    
+    final_name = ''
+    # 
+    # # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names 
+    # common_name_results.each do |result|
+    #   if final_name == '' || result['source_hierarchy_id'].to_i == hierarchy.id
+    #     final_name = result['name'].firstcap
+    #   end
+    # end
+    # return final_name
+    
+    concept_names = {}
+    taxon_concept_ids.each{|id| concept_names[id] = nil }
+    common_name_results.each do |r|
+      if concept_names[r['taxon_concept_id'].to_i].blank? || r['source_hierarchy_id'].to_i == hierarchy.id
+        concept_names[r['taxon_concept_id'].to_i] = r['name'].firstcap
+      end
+    end
+    return concept_names
+  end
+  
+  
   def quick_scientific_name(type = :normal, hierarchy = nil)
     hierarchy_entry = entry(hierarchy)
     # if hierarchy_entry is nil then this concept has no entries, and shouldn't be published
@@ -505,6 +637,27 @@ class TaxonConcept < SpeciesSchemaModel
     final_name = scientific_name_results[0]['name'].firstcap
     return final_name
   end
+  
+  def self.quick_scientific_names(taxon_concept_ids, hierarchy = nil)
+    concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
+    return nil if concept_entries.blank?
+    
+    hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
+    scientific_name_results = SpeciesSchemaModel.connection.execute(
+      "SELECT n.string name_string, n.italicized, he.hierarchy_id source_hierarchy_id, he.taxon_concept_id, he.rank_id
+       FROM hierarchy_entries he LEFT JOIN names n ON (he.name_id = n.id)
+       WHERE he.id IN (#{hierarchy_entry_ids.join(',')})").all_hashes
+    
+    concept_names = {}
+    scientific_name_results.each do |r|
+      if concept_names[r['taxon_concept_id'].to_i].blank?
+        name_string = Rank.italicized_ids.include?(r['rank_id'].to_i) ? r['italicized'] : r['name_string']
+        concept_names[r['taxon_concept_id'].to_i] = name_string.firstcap
+      end
+    end
+    return concept_names
+  end
+  
 
   def superceded_the_requested_id?
     @superceded_the_requested_id

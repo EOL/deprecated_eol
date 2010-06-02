@@ -30,7 +30,7 @@ module EOL
       else # common
         @find_match                    = true
       end
-
+      
       # We don't actually want to do this next step unless we *know* the results are based on TaxonConcept... but, for the
       # time being, we always are.  In the future, this will want to be abstracted out, so that we inherit all the common
       # behaviour and add this behaviour if it's a TC-based search:
@@ -96,11 +96,14 @@ module EOL
     end
 
   private
-
+    
     def update_results_with_current_data
-      return nil unless @results
+      taxon_concept_ids = @results.collect{|r| r['taxon_concept_id'][0]}
+      @scientific_names = TaxonConcept.scientific_names_for_concepts(taxon_concept_ids, @session_hierarchy)
+      @common_names = TaxonConcept.common_names_for_concepts(taxon_concept_ids, @session_hierarchy)
+      
       @results.each do |result|
-        result.merge!(get_current_data_from_taxon_concept_id(result['taxon_concept_id'][0], result))
+        result.merge!(get_current_data(result['taxon_concept_id'][0], result))
         repair_missing_match_fields(result)
         if @find_match
           find_best_match(result)
@@ -109,13 +112,14 @@ module EOL
         end
       end
     end
-
-    def get_current_data_from_taxon_concept_id(id, result)
+    
+    def get_current_data(id, result)
       begin
         tc = TaxonConcept.find(id)
-        return {'preferred_scientific_name' => (tc.scientific_name(@session_hierarchy) ||
+        raise if tc.nil?
+        return {'preferred_scientific_name' => (@scientific_names[id] ||
                                                 result["preferred_scientific_name"] || ''),
-                'preferred_common_name'     => (tc.common_name(@session_hierarchy) || result["preferred_common_name"] || ''),
+                'preferred_common_name'     => (@common_names[id] || result["preferred_common_name"] || ''),
                 # There are some "expensive" operations done later, so store tc here:
                 'taxon_concept'             => tc }
       # Really, we don't want to save these exceptions, since what good is a search result if the TC is missing?
@@ -166,33 +170,25 @@ module EOL
       result[@match_field_name]      ||= ['']
       result[@best_match_field_name] ||= ''
     end
-
+    
     def add_mini_tree_and_attribution
       return nil unless @results
+      taxon_concept_ids = @results.collect{|r| r['taxon_concept_id'][0]}
+      ancestries = TaxonConcept.ancestries_for_concepts(taxon_concept_ids)
+      hierarchies = TaxonConcept.hierarchies_for_concepts(taxon_concept_ids)
       @results.each do |result|
-        add_tree_and_arttribution_fields(result)
-      end
-    end
-
-    private
-    def add_tree_and_arttribution_fields(result)
-      tc = result["taxon_concept"]
-      if tc
-        result["recognized_by"] = result["taxon_concept"].entry.hierarchy.label
-        ancestors = tc.ancestors
-        parent = ancestors[-2]
-        ancestor = ancestors[-3]
-        if parent and parent.class == TaxonConcept
-          result["parent_scientific"] = parent.scientific_name
-          if ancestor and ancestor.class == TaxonConcept
-            result["ancestor_scientific"] = ancestor.scientific_name
-          end
+        tc = result["taxon_concept"]
+        if !tc.blank? && ancestor_info = ancestries[tc.id]
+          result["parent_scientific"] = ancestor_info['parent_name_string']
+          result["ancestor_scientific"] = ancestor_info['grandparent_name_string']
         end
-      else
-        result["recognized_by"] = 'unknown'
+        if !tc.blank? && hierarchy = hierarchies[tc.id]
+          result["recognized_by"] = hierarchy.label
+        else
+          result["recognized_by"] = 'unknown'
+        end
       end
     end
-
   end
 end
 

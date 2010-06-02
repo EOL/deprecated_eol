@@ -8,7 +8,7 @@
   // instant feedback to user about password matching
   function check_passwords() {
   if ($('agent_password').value != $('agent_password_confirmation').value) {
-  $('password_warn').innerHTML='<haml:loud>escape_javascript(&quot;Passwords must match&quot;[])</haml:loud>.';
+  = "$('password_warn').innerHTML='" + escape_javascript("Passwords must match"[]) + ".';"
   }
   else {
   $('password_warn').innerHTML='';

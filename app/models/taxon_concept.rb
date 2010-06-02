@@ -451,6 +451,9 @@ class TaxonConcept < SpeciesSchemaModel
     
     ancestries = {}
     results.each do |r|
+      r['name_string'] = r['name_string'].firstcap
+      r['parent_name_string'] = r['parent_name_string'].firstcap
+      r['grandparent_name_string'] = r['grandparent_name_string'].firstcap
       ancestries[r['taxon_concept_id'].to_i] = r
     end
     return ancestries

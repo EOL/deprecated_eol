@@ -347,24 +347,22 @@ class ContentController < ApplicationController
     raise "static page without id" if @page_id.blank?
     
     unless read_fragment(:controller=>'content',:part=>@page_id + "_" + current_user.language_abbr)
-        # if the id is not numeric, assume it's a page name
-        if @page_id.to_i == 0 
-          page_name=@page_id.gsub(' ','_').gsub('_',' ')
-          @content=ContentPage.get_by_page_name_and_language_abbr(page_name,current_user.language_abbr)
-        else # assume the id passed is numeric and find it by ID
-          @content=ContentPage.get_by_id_and_language_abbr(@page_id,current_user.language_abbr)
-        end
-        
-        raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?
-        
-        # if this static page is simply a redirect, then go there
-        if !@content.url.blank?
-          headers["Status"] = "301 Moved Permanently"
-          redirect_to(@content.url)
-        end
-        
+      # if the id is not numeric, assume it's a page name
+      if @page_id.to_i == 0 
+        page_name=@page_id.gsub(' ','_').gsub('_',' ')
+        @content=ContentPage.get_by_page_name_and_language_abbr(page_name,current_user.language_abbr)
+      else # assume the id passed is numeric and find it by ID
+        @content=ContentPage.get_by_id_and_language_abbr(@page_id,current_user.language_abbr)
+      end
+      
+      raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?
+      
+      # if this static page is simply a redirect, then go there
+      if !@content.url.blank?
+        headers["Status"] = "301 Moved Permanently"
+        redirect_to(@content.url)
+      end
     end
-  
   end
   
   # convenience method to reference the uploaded content from the CMS (usually a PDF file or an image used in the static pages)
@@ -512,5 +510,18 @@ class ContentController < ApplicationController
      end
      
   end  
-    
+  
+  def wikipedia
+    @revision_url = params[:revision_url]
+    @error = false
+    if matches = @revision_url.match(/^http:\/\/en\.wikipedia\.org\/w\/index\.php\?title=(.*?)&oldid=([0-9]{9})$/i)
+      flash[:notice] = "Wikipedia article #{matches[1]} revision #{matches[2]} will be harvested tonight"
+      WikipediaQueue.create(:revision_id => matches[2])
+      redirect_to :action => 'page', :id => 'curator_central'
+    else
+      flash[:notice] = "Revision URL must match http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
+      @revision_url = nil
+      redirect_to :action => 'page', :id => 'curator_central'
+    end
+  end
 end

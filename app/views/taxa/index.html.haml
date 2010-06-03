@@ -1,6 +1,7 @@
 %h2
-  List of taxa harvested on
+  List of taxa harvested on 
   = format_date(@harvest_event.began_at)
+* With data object
 - unless @taxa_contributed.blank?
   %form#pagination_form
     = will_paginate(@taxa_contributed)
@@ -8,6 +9,10 @@
       - unless @harvest_event.published_at
         = unpublished_icon
         \&nbsp;
+      - @indicator=""      
+      - if(taxon['has_data_object'].to_i == 1)
+        - @indicator="*"      
       = link_to hh(taxon['scientific_name']), {:controller=>"taxa", :action=>"show", :id=>taxon['taxon_concept_id']}
+      = @indicator
       %br
     = will_paginate(@taxa_contributed)

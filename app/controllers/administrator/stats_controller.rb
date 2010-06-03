@@ -4,7 +4,7 @@ class Administrator::StatsController < AdminController
 
   access_control :DEFAULT => 'Administrator - Usage Reports'
   
-  def index    
+  def index        
     @reports_list=[["--select--",""],
                   ["Latest Species Page Counts","http://services.eol.org/species_stat/display.php"],
                   ["EOL Web Usage Statistics","http://services.eol.org/eol_php_code/applications/google_stats/index.php"],                  
@@ -31,6 +31,10 @@ class Administrator::StatsController < AdminController
     @page_title = 'Species Profile Model - Content Partners Count'
     @arr_SPM = InfoItem.get_schema_value
     @arr_count = DataObject.get_SPM_count_on_contentpartners(@arr_SPM)
+  end
+  def toc_breakdown
+    @page_title = 'Table of Contents Breakdown'
+    @arr_toc = InfoItem.get_toc_breakdown
   end
   
 end

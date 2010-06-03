@@ -209,6 +209,17 @@ describe 'Admin Pages' do
     end
   end  
 
+  describe ': table of contents breakdown' do
+    before(:all) do      
+    end  
+    #From table_of_contents toc Join table_of_contents AS toc2 ON toc.parent_id = toc2.id
+    #Join info_items ii ON ii.toc_id = toc.id Order By toc.view_order Asc").all_hashes
+    it "should show SPM_objects_count page" do      
+      login_as(@user).should redirect_to('/admin')      
+      body = request("/administrator/stats/toc_breakdown").body
+      body.should include "Table of Contents Breakdown"
+    end
+  end  
 
   
   it 'the remaining tests have been disabled in the interest of time.  Implement them later.'

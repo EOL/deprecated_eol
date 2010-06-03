@@ -9,6 +9,13 @@ class InfoItem < SpeciesSchemaModel
     return arr_SPM
   end
 
+  def self.get_toc_breakdown
+    arr_toc = SpeciesSchemaModel.connection.execute("Select toc2.label major_heading, toc.label sub_heading, ii.label spm
+    From table_of_contents toc Join table_of_contents AS toc2 ON toc.parent_id = toc2.id
+    Join info_items ii ON ii.toc_id = toc.id Order By toc.view_order Asc").all_hashes
+    return arr_toc
+  end
+
 
 end
 

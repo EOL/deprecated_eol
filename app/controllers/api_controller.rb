@@ -31,7 +31,7 @@ class ApiController < ApplicationController
         format.xml { render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => params[:details] } ) }
         format.json {
           @return_hash = pages_json(details_hash, params[:details]!=nil)
-          render :json => @return_hash
+          render :json => @return_hash, :callback => params[:callback] 
         }
       end
     end
@@ -55,7 +55,7 @@ class ApiController < ApplicationController
         format.xml { render(:partial => 'pages', :layout => false, :locals => { :details_hash => details_hash, :data_object_details => true } ) }
         format.json {
           @return_hash = pages_json(details_hash)
-          render :json => @return_hash
+          render :json => @return_hash, :callback => params[:callback] 
         }
       end
     end
@@ -74,7 +74,7 @@ class ApiController < ApplicationController
       format.xml { render :layout => false }
       format.json {
           @return_hash = search_result_hash({:search_term => @search_term, :page => @page, :per_page => @per_page, :results => @results, :format => params[:format]})
-          render :json => @return_hash
+          render :json => @return_hash, :callback => params[:callback] 
         }
     end
   end
@@ -101,7 +101,7 @@ class ApiController < ApplicationController
         format.xml { render :action =>'hierarchy_entries_dwc.xml.builder', :layout => false }
         format.json {
           @return_hash = hierarchy_entries_json
-          render :json => @return_hash
+          render :json => @return_hash, :callback => params[:callback] 
         }
       end
     end
@@ -124,7 +124,7 @@ class ApiController < ApplicationController
   def ping
     respond_to do |format|
       format.xml { render :layout => false }
-      format.json { render :json => { 'response' => { 'message' => 'Success' } } }
+      format.json { render :json => { 'response' => { 'message' => 'Success' } } , :callback => params[:callback] }
     end
   end
 end

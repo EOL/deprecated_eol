@@ -336,7 +336,6 @@ class Administrator::ContentPartnerReportController < AdminController
       @vetted_types = arr[2]
       @total_data_objects = arr[3]
       @total_taxa = arr[4]
-
   end  
 
 end

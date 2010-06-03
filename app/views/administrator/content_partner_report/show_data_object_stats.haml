@@ -32,19 +32,23 @@
       - color = "white"
     %table{ :border => 1, :bgcolor => color }
       %tr
-        %td{ :colspan => 3, :align => "center" }
+        %td{ :colspan => 4, :align => "center" }
           %strong
             = data_type.label  
-            &nbsp;=&nbsp;
-            = number_with_delimiter(@stats["#{data_type.label}"].to_i, ",")
       %tr
         - @vetted_types.each do |vetted|
           %td
             = vetted.label  
+        %td
+          %strong
+            Total          
       %tr
         - @vetted_types.each do |vetted|
           %td{ :align => "right" }
             - data_type_vetted = "#{data_type.label}_#{vetted.label}"
             = number_with_delimiter(@stats["#{data_type_vetted}"].to_i, ",")
+        %td{ :align => "right" }
+          %strong
+            = number_with_delimiter(@stats["#{data_type.label}"].to_i, ",")
 
 

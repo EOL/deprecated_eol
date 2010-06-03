@@ -28,7 +28,7 @@
       = number_with_delimiter(@arr_dataobject_ids.length, ",")
 
   - unique_dataobject_ids = @arr_dataobject_ids.uniq
-  = "&nbsp;&nbsp;  |&nbsp;&nbsp;  Data objects:"
+  = "&nbsp;&nbsp;  |&nbsp;&nbsp;  Curated data objects:"
   %strong
     = number_with_delimiter(unique_dataobject_ids.length, ",")
 
@@ -80,4 +80,3 @@
     %tr
       %td{ :colspan => "5" }
         = will_paginate @partner_curated_objects
-

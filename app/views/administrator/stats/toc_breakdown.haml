@@ -1,0 +1,42 @@
+#report_from_eol
+  %h2    
+    = @page_header 
+
+  This is the breakdown of chapters, sub-chapters and its corresponding Species Profile Model category.
+
+  %table.results_table
+    %tr
+      %td{ :colspan => "5" }
+        /= will_paginate @partner_harvest_events
+    %thead{ :align => "center" }
+      %tr{ :align => "center" }
+        %th
+          
+        %th
+          Major heading
+        %th
+          Sub heading
+        %th
+          SPM Category
+
+    %tbody
+      - count = @cur_page.to_i
+      - @arr_toc.each do |toc|
+        - column_class=cycle('odd','even')
+        - count += 1
+        %tr
+          %td{ :class => column_class, :align => "right" }
+            = count
+            = "."
+          %td{ :class => column_class }
+            = toc["major_heading"]
+          %td{ :class => column_class }
+            = toc["sub_heading"]
+          %td{ :class => column_class }
+            = toc["spm"]
+
+    %tr
+      %td{ :colspan => "5" }
+        /= will_paginate @partner_harvest_events
+
+

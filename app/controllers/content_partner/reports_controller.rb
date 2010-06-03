@@ -24,19 +24,32 @@ class ContentPartner::ReportsController < ContentPartnerController
   def monthly_page_stats
     @page_header = 'Usage Reports'
     
-    if(params[:agent_id]) then
-      @agent_id = params[:agent_id]
-      params[:year], params[:month] = params[:year_month].split("_") if params[:year_month]    
+    if(params[:year_month]) then
+      @year_month = params[:year_month]
+      session[:form_year_month] = params[:year_month]
+    elsif(session[:form_year_month]) then
+      @year_month = session[:form_year_month]
+    end
+    if(@year_month) then
+      params[:year], params[:month] = @year_month.split("_")    
       @report_year  = params[:year].to_i
       @report_month = params[:month].to_i
       @year_month   = params[:year] + "_" + "%02d" % params[:month].to_i
     else
-      @agent_id = current_agent.id  
       last_month = Time.now - 1.month
       @report_year = last_month.year.to_s
       @report_month = last_month.month.to_s
       @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
     end
+
+    if(params[:agent_id]) then
+      @agent_id = params[:agent_id]
+      session[:form_agent_id] = params[:agent_id]
+    elsif(session[:form_agent_id]) then
+      @agent_id = session[:form_agent_id]
+    else
+      @agent_id = current_agent.id
+    end    
     
     if(@year_month <= "2009_11") then
       temp = page_stats
@@ -55,10 +68,7 @@ class ContentPartner::ReportsController < ContentPartnerController
     
     #@posts = paginate_by_sql [GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)], :page => page, :per_page => 50 , :order => 'page_views', :agent_id => @agent_id
     #@posts = Post.paginate :page => params[:page]
-
-        
   end
-
   
   def data_object_stats
     @page_header = 'Usage Reports'

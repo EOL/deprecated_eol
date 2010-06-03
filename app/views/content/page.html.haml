@@ -1,0 +1,47 @@
+- cache(:controller=>'content', :part=>@page_id + "_" + current_user.language_abbr) do
+  = javascript_include_tag 'faqs' if @content.page_name.downcase=='faqs'
+
+  #page-separator-general
+  #page-title
+    %h1
+      = @content.title[@content.key]
+    %hr
+    
+  - if @content.left_content != ''
+    #page-content-bgfauxinside
+      #page-content.clearfix
+        #full-page-content
+          #left-pane
+            = @content.left_content
+          #right-pane
+            = @content.main_content
+  - else
+    #page-content.clearfix
+      #full-page-content
+        = @content.main_content
+        
+        -#Curator page only - curators can submit a Wikipedia article for ingestion
+        - if @page_id == 'curator_central' && current_user.curator_approved
+          %hr.thin
+          %a{:name => 'wikipedia'}
+          %br
+          %h2
+            Request Wikipedia article ingestion:
+          %br
+          EOL is now allowing curators to submit a revision of a Wikipedia page to be ingested into EOL as a vetted text object. To find the revision URL of a Wikipedia article first go to the article main page (e.g. 
+          %a{:href => "http://en.wikipedia.org/w/index.php?title=Giraffe" }
+            http://en.wikipedia.org/w/index.php?title=Giraffe
+          ) and expand in the left hand menu the "Toolbox" menu item. You should now see the "Permanent link" item. Either copy the URL of that link, or click the link and copy the URL in your browser's address bar. The revision URL will look something like
+          %a{:href => "http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069" }
+            http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069
+          \.
+          %br
+          %br
+          By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already.
+          %form{:action => '/content/wikipedia', :method => 'post'}
+            %strong
+              Enter revision url: 
+            %input{:type => 'text', :name => 'revision_url', :size => 60}
+            %input{:type => 'submit', :value => 'Submit'}
+          %i
+            (eg: http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)

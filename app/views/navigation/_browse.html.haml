@@ -1,6 +1,8 @@
 %div{:id => 'hierarchy_browser'}
   %ul.branch{:id => 'hierarchy_browser_list'}
     - unless @hierarchy_entry.nil?
+      %b
+        Browsing Branch:
       - ancestors = @hierarchy_entry.ancestor_details
       - entry_details = @hierarchy_entry.details
       = render(:partial => 'navigation/node_with_ancestry', :locals => { :ancestors => ancestors, :hierarchy_entry => entry_details})

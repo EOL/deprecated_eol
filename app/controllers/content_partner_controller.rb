@@ -202,7 +202,7 @@ class ContentPartnerController < ApplicationController
   def request_publish_hierarchy
     @hierarchy = Hierarchy.find(params[:id])
     @hierarchy.request_publish = true
-    render :text => @hierarchy.save ? 'Publish Pending' : '<span style="color:brown;">Force FAILED</span>'
+    render :text => @hierarchy.save ? 'This hierarchy has been proposed as an alternate browsing classification for EOL - Pending Admin approval' : '<span style="color:brown;">Request FAILED</span>'
   end
  
   # General methods for misc things

@@ -143,7 +143,12 @@
             .desc-personal
               %p
                 %strong
-                  = "Hello {user}"[:hello_user, current_user.given_name]
+                  - if current_user.is_curator?
+                    Hello 
+                    = link_to("{user}"[:hello_user, current_user.given_name], {:controller => '/account', :action => 'show', :id => current_user.id}, {:class => 'return_to'})
+                  - else
+                    = "Hello {user}"[:hello_user, current_user.given_name]
+
                 = @home_page.nil? ? "</p><p>" : " | "
                 = link_to("admin"[],{:controller=>'/admin',:action=>'index'}) + " | " if current_user.is_admin?
                 - if current_user.is_curator?

@@ -88,33 +88,21 @@ describe 'Admin Pages' do
   describe ': content partner curated data' do
     before(:all) do
       
-      #@info_item = InfoItem.gen() 
       @agent = Agent.gen(:full_name => 'FishBase')
       @resource = Resource.gen(:title => "test resource")
       @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
       last_month = Time.now - 1.month      
       @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
       @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
-      #@data_objects_info_item = DataObjectsInfoItem.gen(:data_object_id => @data_object.id, :info_item_id => @info_item.id)
       @data_objects_harvest_event = DataObjectsHarvestEvent.gen(:data_object_id => @data_object.id, :harvest_event_id => @harvest_event.id)
       
       @taxon_concept = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
       @data_objects_taxon_concept = DataObjectsTaxonConcept.gen(:data_object_id => @data_object.id, :taxon_concept_id => @taxon_concept.id)
-      #From data_objects_taxon_concepts dotc
-      #Join data_objects do ON dotc.data_object_id = do.id
-      #Join taxon_concepts tc ON dotc.taxon_concept_id = tc.id
 
-      #@action_with_object = ActionWithObject.gen(:id => 4, :action_code => 'trusted')
       @action_with_object = ActionWithObject.gen()
       @changeable_object_type = ChangeableObjectType.gen()#id = 1 = data_object
       @action_history = ActionsHistory.gen(:object_id => @data_object.id, :action_with_object_id => @action_with_object.id, :changeable_object_type_id => @changeable_object_type.id)
-      #From action_with_objects awo
-      #Join actions_histories ah ON ah.action_with_object_id = awo.id
-      #Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
-      #Join users u ON ah.user_id = u.id
-      #where cot.ch_object_type = 'data_object'    
      
-      #@agent_id = 1
     end  
 
     it "should show report_partner_curated_data page" do      

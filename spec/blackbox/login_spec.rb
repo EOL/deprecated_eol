@@ -64,18 +64,22 @@ describe 'Login' do
     request('/').should_not include_text("Hello #{ user.given_name }")
   end
   
-  it 'should not show the curator link' do
+  it 'should not show the curator link and name must not have hyperlink to profile page' do
     user = create_user 'charliebrown', 'testing'
     login_as(user)
     request('/').should_not include_text('curators')
+    request('/').should_not include_text("/account/show/")
   end
   
   describe "as a curator" do
-    it "should show the curator link" do
+    it "should show the curator link and name must have hyperlink to profile page" do
       curator = build_curator(HierarchyEntry.gen, :username => 'test_curator', :password => 'test_password')
       login_as(curator)
       request('/').should include_text("curators")
+      request('/').should include_text("/account/show/")
     end
   end
+
+
   
 end

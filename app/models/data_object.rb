@@ -1453,6 +1453,8 @@ private
   # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based
   # on their access.
   def self.visibility_clause(options)
+    # require 'ruby-debug'
+    # debugger
     preview_objects = ActiveRecord::Base.sanitize_sql(['OR (dato.visibility_id = ? AND dato.published IN (0,1))', Visibility.preview.id])
     published    = [1] # Boolean
     vetted       = [Vetted.trusted.id]

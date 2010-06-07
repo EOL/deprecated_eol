@@ -295,8 +295,8 @@ Factory.define :agent_contact do |ac|
   ac.association :agent_contact_role
   ac.given_name  { Factory.next(:string) }
   ac.family_name { Factory.next(:string) }
-  ac.full_name   {|a| "#{a.first_name} #{a.last_name}" }
-  ac.email       {|a| "#{a.first_name}.#{a.last_name}@example.com".downcase }
+  ac.full_name   {|a| "#{a.given_name} #{a.family_name}" }
+  ac.email       {|a| "#{a.given_name}.#{a.family_name}@example.com".downcase }
   ac.homepage    'http://whatever.org'
   ac.address     '1234 Doesntmatter St'
   ac.title       'Call me SIR'

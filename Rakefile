@@ -3,9 +3,6 @@
 
 require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 
-# VERY frustrating, but putting this in the test.rb file was NOT working:   [sigh]
-require(File.join(RAILS_ROOT, 'vendor', 'gems', 'metric_fu-1.1.6', 'lib', 'metric_fu')) if ENV['RAILS_ENV'] == 'test'
-
 require 'rake'
 require 'rake/testtask'
 require 'rake/rdoctask'

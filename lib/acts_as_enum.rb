@@ -59,3 +59,4 @@ module ActsAsEnum
 end
 
 ActiveRecord::Base.send(:include, ActsAsEnum)
+

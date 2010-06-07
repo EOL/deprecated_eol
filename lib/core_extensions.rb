@@ -44,12 +44,12 @@ class String
 
   def firstcap
     @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
-    self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.chars.capitalize + $4 }
+    self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.capitalize + $4 }
   end
   
   def firstcap!
     @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
-    self.gsub!(@firstcap_regex) { $1.to_s + $2.to_s + $3.chars.capitalize + $4 }
+    self.gsub!(@firstcap_regex) { $1.to_s + $2.to_s + $3.capitalize + $4 }
   end
   
   

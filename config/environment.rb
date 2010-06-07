@@ -9,6 +9,8 @@
 require File.join(File.dirname(__FILE__), 'boot')
 require 'eol_web_service'
 require 'eol'
+RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
+
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
@@ -42,23 +44,23 @@ Rails::Initializer.run do |config|
   config.load_paths += Dir["#{RAILS_ROOT}/app/models/**"].map { |dir| dir }
 
   # require gems - all gems that don't require native compilation should be unpacked in ./vendor/gems/
-  config.gem 'mislav-will_paginate', :version => '>= 2.3.2', :lib => 'will_paginate', :source => 'http://gems.github.com/'
+  config.gem 'will_paginate'
   config.gem 'composite_primary_keys'
-  config.gem 'fastercsv', :version => "1.2.3"
-  config.gem 'haml', :version => "2.0.3"
-  config.gem 'macaddr', :version => "1.0.0"
-  config.gem 'uuid', :version => "2.0.1"
-  config.gem "ruby-openid", :version => "2.0.4", :lib => "openid"
-  config.gem "ruby-yadis", :version => "0.3.4", :lib => "yadis"
+  config.gem 'fastercsv'
+  config.gem 'haml'
+  config.gem 'macaddr'
+  config.gem 'uuid'
+  config.gem "ruby-openid", :lib => "openid"
+  config.gem "ruby-yadis", :lib => "yadis"
   config.gem 'ezcrypto'
   config.gem 'ratom', :lib => 'atom'
   config.gem 'json'
   config.gem 'sanitize'
-  config.gem 'mwmitchell-rsolr', :lib => 'rsolr'
-  config.gem 'solr-ruby', :lib => 'solr'
-  config.gem 'optiflag'
+  # config.gem 'mwmitchell-rsolr', :lib => 'rsolr'
+  # config.gem 'solr-ruby', :lib => 'solr'
+  # config.gem 'optiflag'
   config.gem 'escape'
-  config.gem 'bmabey-email_spec', :lib => 'email_spec' 
+  config.gem 'email_spec'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

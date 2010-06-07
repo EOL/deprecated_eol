@@ -24,20 +24,3 @@ class AgentContact < SpeciesSchemaModel
       self.address ||= ""
     end    
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: agent_contacts
-#
-#  id                    :integer(4)      not null, primary key
-#  agent_contact_role_id :integer(1)      not null
-#  agent_id              :integer(4)      not null
-#  address               :text            not null
-#  email                 :string(75)      not null
-#  family_name           :string(255)     not null
-#  full_name             :string(255)     not null
-#  given_name            :string(255)     not null
-#  homepage              :string(255)     not null
-#  telephone             :string(30)      not null
-#  title                 :string(20)      not null
-

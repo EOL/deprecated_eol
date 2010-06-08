@@ -1,16 +1,35 @@
 # An enumerated list of the different kinds of roles an Agent fills.
 class AgentRole < SpeciesSchemaModel
 
-  acts_as_enum
-
   has_many :agents_data_objects
   has_many :agents_synonyms
+
+  def to_s
+    label
+  end
+
+  def self.attribution_order
+    labels = [ :Author, :Source, :Project, :Publisher ]
+    labels.map {|l| AgentRole.find_by_label(l.to_s) }
+  end
+  
+  # Find the Author
+  def self.author
+    Rails.cache.fetch('agent_roles/author') do
+      AgentRole.find_by_label('Author')
+    end
+  end
+  
+  # Find the Source
+  def self.source
+    Rails.cache.fetch('agent_roles/source') do
+      AgentRole.find_by_label('Source')
+    end
+  end
   
   # Find the "Source" AgentRole.
   def self.source_id
-    Rails.cache.fetch('agent_roles/source_id') do
-      AgentRole.find_by_label('Source').id
-    end
+    AgentRole.source.id
   end
   
   # Find the "contributor" AgentRole.
@@ -22,9 +41,7 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the "Author" AgentRole.
   def self.author_id
-    Rails.cache.fetch('agent_roles/author_id') do
-      AgentRole.find_by_label('Author').id
-    end
+    AgentRole.author.id
   end
   
   # Find the "Photographer" AgentRole.

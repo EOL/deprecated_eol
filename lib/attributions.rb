@@ -54,7 +54,7 @@ class Attributions
       insert_after_role(AgentsDataObject.new(:agent => supplier,
                                              :agent_role => AgentRole.new(:label => 'Supplier'),
                                              :view_order => 0 ),
-                        AgentRole[:Author])
+                        [AgentRole.author])
     end
   end
   
@@ -102,7 +102,7 @@ class Attributions
     unless rights_statement.blank? && license.nil?
       license ||= License.public_domain # We assume everything is open unless specified
       insert_after_role(AgentsDataObject.from_license(license, rights_statement),
-                        AgentRole[:Author, :Source])
+                        [AgentRole.author, AgentRole.source])
     end
   end
 
@@ -141,11 +141,14 @@ private
 
   # Take this AgentsDataObject and shove it after the last ADO we find matching the roles specified (or first, if none)
   # Yes, that sounds bizarre.  Why not at the end if there's nothing else matching?  ...Well, those are the specs.  Soooo....
-  def insert_after_role(insert_this, role)
-    role = [role] unless role.respond_to? :include?
+  def insert_after_role(insert_this, roles)
+    roles = Array(roles)
     insert_index = 0
-    @attributions.each_with_index do |attr, i|
-      insert_index = i + 1 if role.include? attr.agent_role
+    roles.each do |role|
+      @attributions.each_with_index do |attr, i|
+        insert_index = i + 1 if role.id == attr.agent_role_id
+      end
+      break if insert_index > 0 # We found the one we prefer...
     end
     @attributions.insert insert_index, insert_this
   end

@@ -468,4 +468,19 @@ module ApplicationHelper
     "<img src=\"/images/icons/published.png\" alt=\"#{description}\" title=\"#{description}\" #{style} />"
   end
   
+  def tree_entry_text he, selectable_clade_level
+    begin
+      name = he.taxon_concept.scientific_name
+    rescue ActiveRecord::RecordNotFound
+      name = 'unknown'
+    end
+    selection_link = %[<a href="#" class="value_#{he.id}" onclick="javascript:select_clade_of_clade_selector(#{he.id}); return false;">#{name}</a>]
+    if he.ancestors.size < selectable_clade_level
+      selection_link = name
+    end
+    expansion_link = %[<a href="#{ request.path }?clade_to_expand=#{ he.id }" onclick="JavaScript:expand_clade_of_clade_selector(#{he.id}); return false;">+</a>]
+    selection_link += " &nbsp; " + expansion_link if he.children.count > 0
+    selection_link
+  end
+  
 end

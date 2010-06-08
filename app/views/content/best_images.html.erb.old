@@ -9,7 +9,7 @@
       <h3><%= @date_generated %></h3>
       <% if !@text_to_write.empty? -%>
         <% for dato in @text_to_write -%>
-          <img border="0" src="<%= dato.thumb_or_object %>"/>
+          <img border="0" src="<%= DataObject.image_cache_path(dato['object_cache_url'], :large) %>"/>
           <br /><br />
         <% end -%>
       <% else -%>

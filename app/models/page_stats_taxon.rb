@@ -2,7 +2,7 @@
 class PageStatsTaxon < SpeciesSchemaModel
     
     def self.latest
-      stats=self.find(:all,:limit=>1,:order=>'timestamp desc')
+      stats=self.find(:all,:limit=>1,:order=>'date_created desc')
       return stats[0] unless stats.blank? 
     end
     

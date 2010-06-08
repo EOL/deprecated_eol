@@ -1,0 +1,16 @@
+#content
+  #page-separator-general
+  #page-title
+    = render :partial => 'data_objects/page_title'
+  #page-content.clearfix
+    #full-page-content
+      #comment-image
+        - case @data_object.data_type.label.downcase
+          - when 'image'
+            %img#main-image{ :src => @data_object.smart_image, :alt => @data_object.description }
+          - when 'text'
+            %p
+              = @data_object.description
+      #comments-container
+        - # TODO: fix the comment rendering in a data object page
+        - #= render_component(:action => 'index', :controller => 'comments', :layout => false, :params => {:data_object_id => @data_object.id}) %>

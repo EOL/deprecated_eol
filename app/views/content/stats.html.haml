@@ -1,0 +1,28 @@
+#content
+  #page-separator-general
+  #page-title
+    %h1
+      Statistics
+    %hr
+  #page-content.clearfix
+    #full-page-content
+      %p
+        The Encyclopedia of Life is an ongoing effort.  This page allows you to follow our progress with some overall statistics.
+      %br
+      - unless @stats.blank?
+        %table.results_table
+          %tr
+            %th
+              Statistic
+            %th
+              Count
+          %tr
+            %td.odd
+              Total number of pages
+            %td.odd
+              = number_with_delimiter(@stats.pages_incol+@stats.pages_not_incol)
+          %tr
+            %td.odd
+              Total number of filled in pages
+            %td.odd
+              = number_with_delimiter(@stats.taxa_count)

@@ -1,0 +1,54 @@
+#content
+  #page-separator-general
+  #page-title
+    %h1
+      = "Content Partners"[]
+    %hr
+  #page-content.clearfix
+    #full-page-content
+      #partners
+        - if @partners.nil? == false && @partners.size > 0
+          %p
+            Encyclopedia of Life content partners serve authenticated species information through the EOL portal. After developing a joint commitment, the content partners work closely with the EOL component groups to make their data visible within EOL. Current content partners can 
+            = link_to 'log in', :controller=>'content_partner', :action=>'login'
+            to manage their information, and new content partners can
+            = link_to 'register', :controller=>'content_partner', :action=>'register'
+            or
+            = link_to 'learn more', :controller=>'content', :action=>'page', :id=>'help_build_eol'
+            about becoming involved.
+          %br
+          %p
+            Note that all of these partners maintain their own Web sites where you will find additional information not available through EOL. We urge you to click through to their sites to examine the richness of information each of them contains.
+          %br
+          %table.results_table{ :width => "100%", :cellspacing => 0 }
+            %tr
+              %th
+                Partner
+              %th
+                Description
+            - for partner in @partners
+              - if partner.ready_for_agreement? 
+                - column_class = cycle('odd','even')
+                %tr
+                  %td{ :width => "25%", :class => column_class }
+                    %strong
+                      = external_link_to(partner.display_name,partner.homepage, {:show_link_icon => true})
+                    %br
+                    = agent_logo(partner,'large') if !partner.logo_cache_url.blank?
+                  %td{ :class => column_class }
+                    = partner.project_description
+                    - if partner.show_mou_on_partner_page?
+                      = link_to("See #{partner.display_name} agreement", {:controller=>'content_partner', :action=>'agreement', :id=>partner.id}, {:target=>'_blank'})
+                      \.
+                    - if partner.show_gallery_on_partner_page?
+                      %br
+                      = link_to("See #{partner.display_name} gallery", {:controller=>'content_partner', :action=>'content', :id=>partner.display_name})
+                      \.
+                    - if partner.show_stats_on_partner_page?
+                      %br
+                      = link_to("See #{partner.display_name} usage statistics", {:controller=>'content_partner', :action=>'stats', :id=>partner.id})
+                      \.
+          %br
+          = will_paginate @partners
+        - elsif @partners.nil? == false && @partners.size == 0
+          No content partners are available.

@@ -9,25 +9,17 @@ describe Attributions do
   # Please note that this gets run before each describe block... not just once!
   before(:all) do
 
-    @source = find_or_gen('Source')
+    # This order is hard-coded in AgentRole, and needs to be the same here (and in the next block):
     @author = find_or_gen('Author')
-    @unused = find_or_gen('Unused')
-    @last   = find_or_gen('Last')
-
-    # [sigh]  So, the values of acts_as_enum are getting cached somehow, and I can't clear them. So this
-    # dodges the problem by forcing the return values that will match our expectations:
-    AgentRole.stub!(:[]).with(:Source).and_return(@source)
-    AgentRole.stub!(:[]).with(:Author).and_return(@author)
-    # This one isn't working.  :\
-    AgentRole.stub!(:[]).with(:Author, :Source).and_return([@author, @source])
-
-    @fake_attribution_order = [@source, @author, @unused, @last]
+    @source = find_or_gen('Source')
+    @unused = find_or_gen('Project')
+    @last   = find_or_gen('Publisher')
 
     # This array MUST be in reverse order, because I am...
     @fake_ados    = [AgentsDataObject.gen(:agent_role => @last),
-                     AgentsDataObject.gen(:agent_role => @author, :view_order => 2),
-                     AgentsDataObject.gen(:agent_role => @author, :view_order => 1),
-                     AgentsDataObject.gen(:agent_role => @source)]
+                     AgentsDataObject.gen(:agent_role => @source, :view_order => 2),
+                     AgentsDataObject.gen(:agent_role => @source, :view_order => 1),
+                     AgentsDataObject.gen(:agent_role => @author)]
     @return_order = @fake_ados.reverse # ...cheating to make sure the result is the reverse of that.
 
     @data_type = DataType.gen
@@ -35,10 +27,6 @@ describe Attributions do
   end
 
   describe 'initialization' do
-
-    before(:each) do
-      DataType.stub!(:full_attribution_order).and_return(@fake_attribution_order)
-    end
 
     it 'should raise an error without a list of ADOs' do
       lambda { Attributions.new(nil) }.should raise_error /ado/i
@@ -49,7 +37,6 @@ describe Attributions do
     end
 
     it 'should use its data_types\'s full attribution order' do
-      DataType.should_receive(:full_attribution_order).and_return(@fake_attribution_order)
       Attributions.new(@fake_ados)
     end
 
@@ -63,7 +50,6 @@ describe Attributions do
   describe 'add_* methods' do
 
     before(:each) do
-      DataType.stub!(:full_attribution_order).and_return(@fake_attribution_order)
       @attributions = Attributions.new(@fake_ados)
     end
 
@@ -100,8 +86,6 @@ describe Attributions do
     end
 
     it 'should insert the license after the source, if no author exists' do
-      # ARGH.  I don't know why the stub! above doesn't work... but it doesn't.  Soooo:
-      AgentRole.should_receive(:[]).with(:Author, :Source).and_return([@author, @source])
       attributions = Attributions.new(@fake_ados.delete_if {|ado| ado.agent_role == @author})
       @license = License.gen(:description => 'bombs bursting in air')
       attributions.add_license(@license, '')

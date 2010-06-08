@@ -1,0 +1,56 @@
+#div{ :id => id, :style => "display: inline;" }
+  - input_type = (is_debug == true) ? 'text' : 'hidden'
+  - input_value = (value) ? value.id : ''
+  %input{ :type => input_type, :id => name, :name => name, :value => input_value }
+    - if toggle
+      %span#browser_show
+        %a{ :onclick => "javascript:Effect.SlideDown('#{id}-inner'); Element.hide('browser_show'); Element.show('browser_hide'); return false;", :href => "#" }
+          [
+          = show_text
+          ]
+      %span#browser_hide{ :style => "display:none" }
+        %a{ :onclick => "javascript:Effect.SlideUp('#{id}-inner');Element.hide('browser_hide');Element.show('browser_show');return false;", :href => "#" }
+          [
+          = hide_text
+          ]
+      - if show_clear
+        %span#browser_clear
+          %a{ :onclick => "javascript:clear_clade_of_clade_selector(); return false;", :href => "#" }
+            [clear]
+          
+  %script{ :type => "text/javascript" }
+    function expand_clade_of_clade_selector( clade_id ) {
+    = "$('value_' + clade_id).innerHTML+='#{image_tag('indicator_arrows_black.gif')}';"
+    = #TODO: i'll fix this shortly ... for right now, this just needs to work so i hit the page you're on with a new querystring - extremely inefficient - will be fixed ASAP
+    = "$j('##{id}-inner ul.tree').load('#{request.path}?clade_to_expand=' + clade_id + ' ##{id}-inner ul.tree');"
+    = on_expand if defined?on_expand
+    }
+    function select_clade_of_clade_selector( clade_id ) {
+    = "$('#{name}').value = clade_id;"
+    unselect_all_clades_of_clade_selector();
+    $('value_' + clade_id).addClassName('selected');
+    = on_select if defined? on_select
+    }
+    function clear_clade_of_clade_selector() {
+    = "$('#{name}').value = '';"
+    unselect_all_clades_of_clade_selector();
+    = on_clear if defined?on_clear
+    }
+    function unselect_all_clades_of_clade_selector() {
+    = "$$('div##{id} ul.tree li.selected').each(function(li){ li.removeClassName('selected'); } );"
+    = on_unselect_all if defined?on_unselect_all
+    }
+  
+  - div_display = ( visible == true || value ) ? 'block' : 'none'
+  %div{ :id =>"#{id}-inner", :style => "display: #{div_display};" }
+    %ul.tree
+      - for kingdom in hierarchy.kingdoms
+        %li{ :id => "value_#{kingdom.id}", :class => "value_#{kingdom.id} kingdom" }
+          = tree_entry_text(kingdom, selectable_clade_level)
+          - if value and kingdom == value.kingdom
+            - value.ancestors.shift
+            = value.ancestors.map {|he| "<ul><li id='value_#{he.id}' class='value_#{he.id}}'>" + tree_entry_text(he, selectable_clade_level) }
+            %ul
+              - for child in value.children
+                %li{ :id => "value_#{child.id}", :class => "value_#{child.id}" }
+                  = tree_entry_text(child, selectable_clade_level)

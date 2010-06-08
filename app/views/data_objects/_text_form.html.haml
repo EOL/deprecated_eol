@@ -1,0 +1,55 @@
+%input{ :type => "hidden", :name => "taxon_concept_id", :value => @taxon_concept.id }
+%table
+  %tr
+    %td{ :width => "25%" }
+    %td
+      %input#original_toc_id{ :type => "hidden", :value => @selected_toc[1] }
+      = select_tag('data_objects_toc_category[toc_id]', options_for_select(@selectable_toc,@selected_toc), {'id' => 'data_objects_toc_category_toc_id', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc')})
+  %tr
+    %td
+      = f.label 'Title (optional)'
+    %td
+      = f.text_field( :object_title )
+  %tr
+    %td
+      = f.label :text
+    %td
+      = f.text_area( :description, :size => "33x8" )
+  %tr
+    %td
+      = f.label :language_id
+    %td
+      = select_tag("data_object[language_id]", options_for_select(@languages,@selected_language))
+  %tr
+    %td
+      = f.label :license_id
+    %td
+      = select_tag("data_object[license_id]", options_for_select(@licenses,@selected_license))
+      %br
+      = link_to "Read the EOL Licensing Policy"[],"/content/page/eol_licensing_policy",{:target=>'_blank'}
+  %tr
+    %td
+      = f.label :references
+    %td
+      - refs = ''
+      - @data_object.visible_references.each do |ref|
+        - refs += ref.full_reference
+      = text_area_tag( 'references', refs, :size => "33x8" )
+  %tr
+    %td
+      %label
+        NOTE
+    %td
+      After submitting your text entry it will appear with a yellow background until a curator marks it as trusted.
+  %tr
+    %td{ :colspan => "2" }
+      - if @data_object.id
+        %input#cancel_edit_text{ :type => "button", :value => "Cancel", :'data-data_object_id' => @data_object.id }
+        &nbsp;
+      %input#preview_text{ :type => "button", :value => "Preview", :'data-preview_url' => url_for(:controller => 'data_objects', :action => 'preview') }
+      &nbsp;
+      %input{ :type => "submit", :value => "Confirm" }
+      &nbsp;
+      %span#edit_text_spinner{ :style => "display:none;" }
+        = image_tag('indicator_arrows_black.gif')
+        Please wait...

@@ -93,20 +93,6 @@ class ContentController < ApplicationController
   
   # ------ API -------
 
-  #http://localhost:3000/content/tc_api/ shows all taxon concepts and http://localhost:3000/content/tc_api/page/2 shows second page of list. Also in public/content/ tc_api.gz appears
-  def tc_api
-    all_taxon_concepts = TaxonConcept.find(:all, :conditions => ["published = 1 AND  (supercedure_id = ? OR supercedure_id = ?)", 0, NIL])
-
-    @all_taxon_concepts = all_taxon_concepts.paginate(:page => params[:page], :per_page => 25)
-    
-    text_tc   = all_taxon_concepts.map {|t| tc_api_tab(t) + "\n"}
-    file_path = "#{RAILS_ROOT}/public/content/tc_api.gz"
-    
-    write_gz_api(text_tc, file_path)
-    
-    api_render(@all_taxon_concepts)
-  end
-
   # put here an amount of random 5-star images we are needed
   def best_images
     @date_generated = "Generated on #{Time.now.strftime("%A, %B %d, %Y - %I:%M %p %Z")}"
@@ -135,7 +121,7 @@ class ContentController < ApplicationController
       @taxon_to_xml = taxon_to_xml(taxon_concept)
       @array_to_render = []
       for dato in @text_to_write
-         @array_to_render.push(dato_to_xml(dato))           
+        @array_to_render.push(dato_to_xml(dato))
       end   
       @text_to_write.blank? ? api_render(@taxon_to_xml) : api_render(@array_to_render)
     else
@@ -190,9 +176,9 @@ class ContentController < ApplicationController
     
     dato_params = Hash[]
     
-    dato_params["identifier"]    = dato.id
-    dato_params["dataType"]      = dato.data_type.schema_value
-    dato_params["mimeType"] = dato.mime_type.label if dato.mime_type
+    dato_params["identifier"] = dato.id
+    #dato_params["dataType"] = dato.data_type ? dato.data_type.schema_value : ''
+    #dato_params["mimeType"] = dato.mime_type.label if dato.mime_type
     dato_params["agents"] = []
     
     if dato.agents_data_objects
@@ -210,15 +196,15 @@ class ContentController < ApplicationController
     dato_params["created"] = dato.object_created_at
     dato_params["modified"] = dato.object_modified_at
     dato_params["language"] = dato.language.iso_639_1 if dato.language
-    dato_params["license"] = dato.license.source_url
-    dato_params["rights"] = dato.rights_statement
-    dato_params["rightsHolder"] = dato.rights_holder
-    dato_params["bibliographicCitation"] = dato.bibliographic_citation
-    dato_params["source"] = dato.source_url
-    dato_params["description"] = dato.description
-    dato_params["mediaURL"] = dato.thumb_or_object
-    dato_params["thumbnailURL"] = dato.thumb_or_object(:small)
-    dato_params["location"] = dato.location
+    dato_params["license"] = dato['license_url']
+    dato_params["rights"] = dato['rights_statement']
+    dato_params["rightsHolder"] = dato['rights_holder']
+    dato_params["bibliographicCitation"] = dato['bibliographic_citation']
+    dato_params["source"] = dato['source_url']
+    dato_params["description"] = dato['description']
+    dato_params["mediaURL"] = DataObject.image_cache_path(dato['object_cache_url'], :large)
+    dato_params["thumbnailURL"] = DataObject.image_cache_path(dato['object_cache_url'], :small)
+    dato_params["location"] = dato['location']
     
     return dato_params                                                              
   end
@@ -468,7 +454,7 @@ class ContentController < ApplicationController
   # show the user some taxon stats
   def stats
     redirect_to root_url unless current_user.is_admin?  # don't release this yet...it's not ready for public consumption
-    @stats=PageStatsTaxon.latest
+    @stats = PageStatsTaxon.latest
   end
   
   # link to uservoice

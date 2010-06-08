@@ -1,14 +1,16 @@
 class DataType < SpeciesSchemaModel
   
-  acts_as_enum
-  
   has_many :data_objects
   @@full_attribution_order = nil
   
+  def to_s
+    label
+  end
+
   def self.full_attribution_order
     return @@full_attribution_order if !@@full_attribution_order.nil?
     # this is the order in which agents will be attributed
-    attribution_order = AgentRole[ :Author, :Source, :Project, :Publisher ]
+    attribution_order = AgentRole.attribution_order
     remaining_roles = AgentRole.all - attribution_order
     @@full_attribution_order = attribution_order + remaining_roles
   end

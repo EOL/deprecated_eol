@@ -1,0 +1,70 @@
+- if current_user.is_admin?
+  - content_partner_id = params[:content_partner_id]
+- else
+  - content_partner_id = 0
+
+%h2
+  Harvests for
+  = @resource.title
+- unless @resource.resource_status == ResourceStatus.published
+  %br
+  %div
+    - if current_user.is_admin?
+      ***
+      %strong
+        NOTICE:
+      Please
+      %strong
+        = link_to "publish", edit_resource_path(@resource, :content_partner_id => content_partner_id)
+      this resource here ***
+    - else
+      This resource is not set as published by the administrator at this time.
+
+- unless @harvest_events.blank?
+  = will_paginate(@harvest_events)
+  %table.results_table
+    %thead
+      %tr
+        %th
+          Harvest ID
+        %th
+          Started
+        %th
+          Completed
+        %th
+          Published
+        %th
+          Taxa
+        %th
+          Action
+    %tbody
+      - count = 0
+      - for harvest_event in @harvest_events 
+        - column_class = cycle('odd','even')
+        - count += 1
+        %tr
+          %td{ :class => column_class }
+            = harvest_event.id.to_s
+          %td{ :class => column_class }
+            = format_date_time(harvest_event.began_at)
+          %td{ :class => column_class }
+            = format_date_time(harvest_event.completed_at)
+          %td{ :class => column_class }
+            = harvest_event.published_at ? format_date_time(harvest_event.published_at) : "not published yet"
+          %td{ :class => column_class }
+            = link_to 'preview', harvest_event_taxa_url(harvest_event)
+          %td{ :class => column_class }
+            - if harvest_event.published_at
+              - if count == 1
+                currently published
+              - else
+                previously published
+              =# link_to "rollback", resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => "Are you sure you want to revert to this harvest and delete all newer harvests?  This action is not reversible."
+            - else
+              unpublished
+            =# current_user.is_admin? ? link_to("publish", resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => "Are you sure you want to publish this harvest? This action is not reversible.") : "n/a"
+  = will_paginate(@harvest_events)
+- if current_user.is_admin?
+  = link_to "[go back]", :controller => "/administrator/content_partner_report", :action => "show", :id  => content_partner_id
+- else
+  = link_to "[go back]", resources_url

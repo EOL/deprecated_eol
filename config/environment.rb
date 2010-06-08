@@ -218,8 +218,6 @@ ExceptionNotifier.exception_recipients = [] # email addresses of people to get e
 ExceptionNotifier.sender_address = $EXCEPTION_EMAIL_ADDRESS
 ExceptionNotifier.email_prefix = "[EOL] "
 
-require 'acts_as_enum'
-
 # Add some stuff to Core/Rails base classes:
 require 'core_extensions'
 require 'open-uri'

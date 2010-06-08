@@ -5,14 +5,15 @@ class InfoItem < SpeciesSchemaModel
 
 
   def self.get_schema_value    
-    arr_SPM = SpeciesSchemaModel.connection.execute("select schema_value, id from info_items order by id").all_hashes
+    arr_SPM = SpeciesSchemaModel.connection.execute("SELECT schema_value, id FROM info_items ORDER BY id").all_hashes
     return arr_SPM
   end
 
   def self.get_toc_breakdown
-    arr_toc = SpeciesSchemaModel.connection.execute("Select toc2.label major_heading, toc.label sub_heading, ii.label spm
-    From table_of_contents toc Join table_of_contents AS toc2 ON toc.parent_id = toc2.id
-    Join info_items ii ON ii.toc_id = toc.id Order By toc.view_order Asc").all_hashes
+    arr_toc = SpeciesSchemaModel.connection.execute("SELECT toc2.label major_heading, toc.label sub_heading, ii.label spm
+    FROM table_of_contents toc 
+    LEFT JOIN table_of_contents toc2 ON toc.parent_id = toc2.id
+    JOIN info_items ii ON ii.toc_id = toc.id Order By toc.view_order Asc").all_hashes
     return arr_toc
   end
 

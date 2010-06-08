@@ -1,0 +1,83 @@
+#page-separator-general
+#page-title
+  %h1
+    Automated Translation of EOL
+  %hr
+#page-content.clearfix
+  #full-page-content
+    %script{ :type => "text/javascript" }
+      function translate() {
+      = "window.location.href='http://translate.google.com/translate?hl=en&ie=UTF-8&u=#{@translate_url}&sl=en&tl=' + $('language').value;"
+      }
+    %p
+      Try Google Translate for any of the following languages.  Note that these are automated translations performed by Google software, so their accuracy is not confirmed or checked by anyone.
+    %br
+    View the EOL in: 
+    %select#language{ :name => "tl" }
+      %option{ :value => "ar" }
+        Arabic
+      %option{ :value => "bg" }
+        Bulgarian
+      %option{ :value => "ca" }
+        Catalan
+      %option{ :value => "zh-CN" }
+        Chinese
+      %option{ :value => "hr" }
+        Croatian
+      %option{ :value => "cs" }
+        Czech
+      %option{ :value => "da" }
+        Danish
+      %option{ :value => "nl" }
+        Dutch
+      %option{ :value => "tl" }
+        Filipino
+      %option{ :value => "fi" }
+        Finnish
+      %option{ :value => "fr" }
+        French
+      %option{ :value => "de" }
+        German
+      %option{ :value => "el" }
+        Greek
+      %option{ :value => "iw" }
+        Hebrew
+      %option{ :value => "hi" }
+        Hindi
+      %option{ :value => "id" }
+        Indonesian
+      %option{ :value => "it" }
+        Italian
+      %option{ :value => "ja" }
+        Japanese
+      %option{ :value => "ko" }
+        Korean
+      %option{ :value => "lv" }
+        Latvian
+      %option{ :value => "lt" }
+        Lithuanian
+      %option{ :value => "no" }
+        Norwegian
+      %option{ :value => "pl" }
+        Polish
+      %option{ :value => "pt" }
+        Portuguese
+      %option{ :value => "ro" }
+        Romanian
+      %option{ :value => "ru" }
+        Russian
+      %option{ :value => "sr" }
+        Serbian
+      %option{ :value => "sk" }
+        Slovak
+      %option{ :value => "sl" }
+        Slovenian
+      %option{ :value => "es" }
+        Spanish
+      %option{ :value => "sv" }
+        Swedish
+      %option{ :value => "uk" }
+        Ukrainian
+      %option{ :value => "vi" }
+        Vietnamese    
+    %input.submit{ :type => "submit", :name => "submit", :onclick => "translate();", :value => "Go" }

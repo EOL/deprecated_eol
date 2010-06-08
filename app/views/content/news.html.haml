@@ -1,0 +1,46 @@
+= auto_discovery_link_tag :rss, {:format=>'rss'}, {:title => "EOL News RSS"}
+
+#content
+  #page-separator-general
+  #page-title
+    %h1
+      = "What's New?"[]
+    %hr
+  #page-content.clearfix
+    #full-page-content
+      - form_tag({:action=>'news',:id=>''},:method=>'post') do
+        Search for news items containing:
+        = text_field_tag(:term_search_string,@term_search_string)
+        = submit_tag 'Search'
+      %br
+      - if !@news_items.blank?
+        = will_paginate @news_items
+        %table.results_table{ :width => "100%", :cellspacing => "0" }
+          %tr
+            %th
+              Date
+            %th
+              News Item
+          - for news_item in @news_items
+            - if news_item.visible?
+              - column_class=cycle('odd','even')
+              %tr
+                %td{ :width => "15%", :class => column_class }
+                  = h format_date(news_item.display_date)
+                %td{ :class => column_class }
+                  = "<strong>" + news_item.title + "</strong><br /> " unless news_item.title.blank?
+                  = news_item.body
+        %br
+        = will_paginate @news_items
+      - elsif !@news_item.blank?
+        = link_to 'all news', :action=>'news', :id=>''
+        %br
+        %br
+        %strong
+          = h format_date(@news_item.display_date)
+        -
+        = @news_item.title + "<br /> " unless @news_item.title.blank?
+        = @news_item.body
+      - else
+        No news items are available matching your search criteria.
+      = link_to image_tag('rss.png'), {:action=>controller.action_name, :format=>'rss'}

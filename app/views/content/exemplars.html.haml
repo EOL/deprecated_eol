@@ -1,0 +1,26 @@
+- cache(:controller=>'content',:part=>'exemplars_' + current_user.language_abbr) do
+  #content
+    #page-separator-general
+    #page-title
+      %h1
+        = "Exemplar Pages"[]
+      %hr
+    #page-content.clearfix
+      #full-page-content
+        %p
+          The pages below show the kind of rich environment, with extensive information, to which all the species pages will eventually grow. The information on the exemplar pages has been authenticated (endorsed) by the scientists whose names are listed on these pages.
+        %br
+        %table.results_table{ :cellspacing => 0 }
+          %tr
+            %th
+              = "Image"[]
+            %th
+              ="Name"[]
+          - for exemplar in @exemplars
+            - column_class = cycle('odd','even')
+            %tr
+              %td{ :height => 105, :class => column_class }
+                = random_image_thumb_partial(exemplar)
+              %td{ :class => column_class }
+                = random_image_linked_name(exemplar)
+

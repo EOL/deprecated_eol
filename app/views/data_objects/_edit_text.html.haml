@@ -1,0 +1,5 @@
+#missing_text_error.error{ :style => "display:none;" }
+  A Description must be entered.
+
+- form_for(@data_object,:html => {'data-data_object_id' => @data_object.id}) do |f|
+  = render :partial => 'text_form', :locals => {:f => f}

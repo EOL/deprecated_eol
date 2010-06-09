@@ -176,7 +176,7 @@ end
 
 # I need this to sanitize SQL into strings:
 class << ActiveRecord::Base
-  public :sanitize_sql
+  public :sanitize_sql_array
 end
 
 module ActiveRecord

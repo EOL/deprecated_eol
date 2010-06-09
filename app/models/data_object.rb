@@ -1049,7 +1049,7 @@ class DataObject < SpeciesSchemaModel
     join_agents  = options[:agent].nil? ? '' : self.join_agents_clause(options[:agent])
     join_toc     = type == :text        ? 'JOIN data_objects_table_of_contents dotoc ON dotoc.data_object_id = dato.id ' +
                                                  'JOIN table_of_contents toc ON toc.id = dotoc.toc_id' : ''
-    where_toc    = options[:toc_id].nil? ? '' : ActiveRecord::Base.sanitize_sql(['AND toc.id = ?', options[:toc_id]])
+    where_toc    = options[:toc_id].nil? ? '' : ActiveRecord::Base.sanitize_sql_array(['AND toc.id = ?', options[:toc_id]])
     #sort         = 'published, vetted_id DESC, data_rating DESC' # unpublished first, then by data_rating.
     sort         = 'published, vetted_sort_order, data_rating DESC' # unpublished first, then by data_rating.    
     data_type_ids = DataObject.get_type_ids(type)
@@ -1473,7 +1473,7 @@ private
   def self.visibility_clause(options)
     # require 'ruby-debug'
     # debugger
-    preview_objects = ActiveRecord::Base.sanitize_sql(['OR (dato.visibility_id = ? AND dato.published IN (0,1))', Visibility.preview.id])
+    preview_objects = ActiveRecord::Base.sanitize_sql_array(['OR (dato.visibility_id = ? AND dato.published IN (0,1))', Visibility.preview.id])
     published    = [1] # Boolean
     vetted       = [Vetted.trusted.id]
     visibility   = [Visibility.visible.id]
@@ -1505,7 +1505,7 @@ private
       other_visibilities = preview_objects
     end
 
-    return ActiveRecord::Base.sanitize_sql([<<EOVISBILITYCLAUSE, vetted.uniq, published, visibility])
+    return ActiveRecord::Base.sanitize_sql_array([<<EOVISBILITYCLAUSE, vetted.uniq, published, visibility])
     AND dato.vetted_id IN (?)
     AND ((dato.published IN (?)
       AND dato.visibility_id IN (?)) #{other_visibilities})

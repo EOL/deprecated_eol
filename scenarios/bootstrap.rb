@@ -277,8 +277,8 @@ cp = ContentPartner.gen(:agent => a,
 
 # Now that we're done with CoL, we add another content partner who overlaps with them:
        # Give it a new name:
-name   = Name.gen(:canonical_form => tc.canonical_form_object, :string => n = Factory.next(:scientific_name),
-                  :italicized     => "<i>#{n}</i> #{Factory.next(:attribution)}")
+name   = Name.gen(:canonical_form => tc.canonical_form_object)#, :string => n = Factory.next(:scientific_name),
+                  # :italicized     => "<i>#{n}</i> #{Factory.next(:attribution)}")
 agent2 = Agent.gen :username => 'test_cp'
 cp     = ContentPartner.gen :vetted => true, :agent => agent2
 cont   = AgentContact.gen :agent => agent2, :agent_contact_role => AgentContactRole.primary

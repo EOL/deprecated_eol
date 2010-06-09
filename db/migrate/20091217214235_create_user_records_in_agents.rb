@@ -8,7 +8,7 @@ class CreateUserRecordsInAgents < EOL::DataMigration
       full_name = u.given_name || ""
       full_name += " " + u.family_name unless u.family_name.blank?
       
-      agent_id = SpeciesSchemaModel.connection.insert(ActiveRecord::Base.eol_escape_sql ["insert into agents (full_name, created_at, updated_at) values (?, now(), now())", full_name])
+      agent_id = SpeciesSchemaModel.connection.insert(ActiveRecord::Base.sanitize_sql_array ["insert into agents (full_name, created_at, updated_at) values (?, now(), now())", full_name])
       SpeciesSchemaModel.connection.execute("UPDATE #{User.full_table_name} SET agent_id=#{agent_id} WHERE id=#{u.id}")
     end
     

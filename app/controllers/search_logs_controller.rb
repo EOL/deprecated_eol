@@ -22,7 +22,7 @@ class SearchLogsController < AdminController
     
     sql << term_search_string unless term_search_string.blank?
     
-    @search_report = SearchLog.paginate_by_sql(ActiveRecord::Base.eol_escape_sql(sql),:page=>params[:page] || "1",:per_page => params[:per_page] || "30")
+    @search_report = SearchLog.paginate_by_sql(ActiveRecord::Base.sanitize_sql_array(sql),:page=>params[:page] || "1",:per_page => params[:per_page] || "30")
     
     @search_totals = SearchLog.find_by_sql('select count(search_term) as num_searches,count(distinct(search_term)) as distinct_searches from search_logs')
     

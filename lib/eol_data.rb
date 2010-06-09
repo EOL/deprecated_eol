@@ -1,5 +1,12 @@
 module EOL
   module DB
+    def self.all_connections
+      connections = [ActiveRecord::Base, SpeciesSchemaModel, LoggingModel]
+      connections << [SpeciesSchemaWriter, LoggingWriter] if RAILS_ENV == 'production'
+      connections.map {|c| c.connection}
+    end
+
+
     module Create
       def all
         ActiveRecord::Base.configurations.keys.find_all {|c| c =~ /#{RAILS_ENV}/ }.each do |config_name|

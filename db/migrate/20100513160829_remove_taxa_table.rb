@@ -1,7 +1,4 @@
-class RemoveTaxaTable < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class RemoveTaxaTable < EOL::DataMigration
   
   def self.up
     # delete orphaned Taxa

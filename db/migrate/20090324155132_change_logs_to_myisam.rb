@@ -1,8 +1,4 @@
-class ChangeLogsToMyisam < ActiveRecord::Migration
-
-  def self.database_model
-    return "LoggingModel"
-  end
+class ChangeLogsToMyisam < EOL::LoggingMigration
 
   def self.up
     LoggingModel.connection.tables.each do |table_name|

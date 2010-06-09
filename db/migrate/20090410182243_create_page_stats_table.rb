@@ -1,7 +1,4 @@
-class CreatePageStatsTable < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class CreatePageStatsTable < EOL::DataMigration
   
   def self.up
     create_table :page_stats do |t|

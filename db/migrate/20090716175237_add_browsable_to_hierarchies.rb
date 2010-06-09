@@ -1,7 +1,4 @@
-class AddBrowsableToHierarchies < ActiveRecord::Migration
-    def self.database_model
-      return "SpeciesSchemaModel"
-    end
+class AddBrowsableToHierarchies < EOL::DataMigration
 
     def self.up
       add_column :hierarchies, :browsable, :integer

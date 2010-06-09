@@ -1,7 +1,4 @@
-class AddIndexToDataObjectsCreatedAt < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddIndexToDataObjectsCreatedAt < EOL::DataMigration
   
   def self.up
     execute("create index created_at on data_objects (created_at)")

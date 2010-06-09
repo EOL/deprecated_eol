@@ -1,7 +1,4 @@
-class ChangeCollectionLogos < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ChangeCollectionLogos < EOL::DataMigration
 
   def self.up
     execute('alter table collections add `logo_cache_url` bigint(20) unsigned default NULL after `logo_url`')

@@ -1,7 +1,4 @@
-class AddLifedeskStatfieldsToPageStatsTaxa < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"    
-  end
+class AddLifedeskStatfieldsToPageStatsTaxa < EOL::DataMigration
 
   def self.up
     add_column  :page_stats_taxa, :lifedesk_taxa, :integer

@@ -1,0 +1,7 @@
+#public_and_private_data_object_tags
+  %span#ajax-indicator-popup{ :style => "display:none;", :class => "pop-up-ajax-indicator" }
+    = image_tag('indicator_arrows_black.gif')
+  - if @public_tags
+    = render :partial => "public",  :locals => { :data_object => @data_object, :tags => @public_tags,  :visible => true  }
+  - if logged_in? && $ALLOW_USER_LOGINS
+    = render :partial => "private",  :locals => { :data_object => @data_object, :tags => @private_tags,  :visible => true  }

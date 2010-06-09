@@ -1,7 +1,4 @@
-class NamesAddCleanNames < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class NamesAddCleanNames < EOL::DataMigration
   
   def self.up
     execute "alter table names add column clean_name varchar(300) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL COMMENT 'there is a one to one reltaionship between a name string and a clean name. The clean name takes the string and lowercases it (uncluding diacriticals), removes leading/trailing whitespace, removes some punctuation (periods and more), and pads remaining pun' after `string`"

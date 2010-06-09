@@ -1,7 +1,4 @@
-class DropNormalizedNamesTables < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class DropNormalizedNamesTables < EOL::DataMigration
   
   def self.up
     execute "drop table normalized_names"

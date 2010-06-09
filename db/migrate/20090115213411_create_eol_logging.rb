@@ -1,7 +1,4 @@
-class CreateEolLogging < ActiveRecord::Migration
-  def self.database_model
-    return "LoggingModel"
-  end
+class CreateEolLogging < EOL::LoggingMigration
 
   def self.up
     ActiveRecord::Migration.not_okay_in_production

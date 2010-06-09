@@ -1,7 +1,4 @@
-class RemoveAgentIdFromTaxonConceptNamesAndAddSynonymId < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class RemoveAgentIdFromTaxonConceptNamesAndAddSynonymId < EOL::DataMigration
 
   # The previous migration should have run in production without having created any "orphan" agents, so we are not using any
   # logic to find agents associated with TCNs and replace them with Synonyms.  This MIGHT cause a problem in your development

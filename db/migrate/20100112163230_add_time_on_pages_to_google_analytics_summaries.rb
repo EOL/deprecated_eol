@@ -1,7 +1,4 @@
-class AddTimeOnPagesToGoogleAnalyticsSummaries < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddTimeOnPagesToGoogleAnalyticsSummaries < EOL::DataMigration
 
   def self.up
     add_column :google_analytics_summaries, :time_on_pages, :integer

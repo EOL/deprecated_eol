@@ -1,7 +1,4 @@
-class ChangeStatsTables < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ChangeStatsTables < EOL::DataMigration
   
   def self.up
     remove_column :page_stats, :type

@@ -1,7 +1,4 @@
-class EditUniqueKeyOnSynonyms < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class EditUniqueKeyOnSynonyms < EOL::DataMigration
   
   def self.up
     execute 'DROP INDEX unique_names ON synonyms'

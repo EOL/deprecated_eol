@@ -1,7 +1,4 @@
-class CreateFeedDataObjects < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class CreateFeedDataObjects < EOL::DataMigration
   
   def self.up
     execute 'CREATE TABLE IF NOT EXISTS `feed_data_objects` (

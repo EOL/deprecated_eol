@@ -1,7 +1,4 @@
-class CreateWikipediaQueue < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class CreateWikipediaQueue < EOL::DataMigration
   
   def self.up
     execute('CREATE TABLE `wikipedia_queue` (

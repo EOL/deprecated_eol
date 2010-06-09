@@ -1,7 +1,4 @@
-class CreateTopSpeciesImagesTables < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class CreateTopSpeciesImagesTables < EOL::DataMigration
   
   def self.up
     execute("create table top_species_images like top_images")

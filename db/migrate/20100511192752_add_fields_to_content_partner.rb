@@ -1,7 +1,4 @@
-class AddFieldsToContentPartner < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddFieldsToContentPartner < EOL::DataMigration
   
   def self.up
     execute('alter table content_partners add show_gallery_on_partner_page tinyint(1) NOT NULL default 0 after show_mou_on_partner_page')

@@ -1,7 +1,4 @@
-class AddCompleteToHierarchies < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddCompleteToHierarchies < EOL::DataMigration
 
   def self.up
     execute("alter table hierarchies add `complete` tinyint unsigned NULL default 1 after `browsable`")

@@ -1,7 +1,4 @@
-class AddLinkedDescriptionToDataObjects < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddLinkedDescriptionToDataObjects < EOL::DataMigration
   
   def self.up
     execute('alter table data_objects add `description_linked` text NULL default NULL after `description`')

@@ -1,7 +1,4 @@
-class ChangesToSyncLocalWithMaster < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ChangesToSyncLocalWithMaster < EOL::DataMigration
   
   def self.up
     add_index :data_objects_taxa, :identifier, :name => 'identifier'

@@ -1,7 +1,4 @@
-class ChangeDataObjectSourceUrlFromAscii < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ChangeDataObjectSourceUrlFromAscii < EOL::DataMigration
   
   def self.up
     # need to make all these fields the default encoding to handle russian characters: utf8

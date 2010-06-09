@@ -48,21 +48,13 @@ Spec::Runner.configure do |config|
   # active connections (works for ALL of our databases)
   config.before(:each) do
 
-    Rails.cache.clear # This resets all of the in-memory models and other cached items, so we start anew!
-
-    UseDbPlugin.all_use_dbs.collect do |klass|
-      klass
-    end
-
     start_transactions
 
   end
   config.after(:each) do
-    UseDbPlugin.all_use_dbs.collect do |klass|
-      klass
-    end
 
     rollback_transactions
+  
   end
 
 end

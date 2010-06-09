@@ -1,7 +1,4 @@
-class ConvertDefaultRatings < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ConvertDefaultRatings < EOL::DataMigration
   
   def self.up
     execute('update data_objects set data_rating=2.5 where data_rating=0.0;')

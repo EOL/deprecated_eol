@@ -1,8 +1,4 @@
-class RemoveUnneededFieldsInPageStatsTaxa < ActiveRecord::Migration
-
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class RemoveUnneededFieldsInPageStatsTaxa < EOL::DataMigration
 
   def self.up
     remove_column :page_stats_taxa, :active    

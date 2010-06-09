@@ -1,7 +1,4 @@
-class AddIndexTaxonIdToResourcesTaxa < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddIndexTaxonIdToResourcesTaxa < EOL::DataMigration
   
   def self.up
     execute("create index taxon_id on resources_taxa(taxon_id)")

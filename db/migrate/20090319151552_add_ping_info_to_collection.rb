@@ -1,7 +1,4 @@
-class AddPingInfoToCollection < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddPingInfoToCollection < EOL::DataMigration
 
   def self.up
     add_column :collections, :ping_host_url, :string, :default => nil, :null => true,

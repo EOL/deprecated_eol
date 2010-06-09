@@ -1,7 +1,4 @@
-class AddUntrustReason < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddUntrustReason < EOL::DataMigration
 
   def self.up
     create_table :untrust_reasons do |t|

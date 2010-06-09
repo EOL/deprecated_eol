@@ -1,7 +1,4 @@
-class ChangeDataObjectDescription < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ChangeDataObjectDescription < EOL::DataMigration
   
   def self.up
     execute('alter table data_objects modify `description` mediumtext NOT NULL')

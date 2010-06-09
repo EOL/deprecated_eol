@@ -1,7 +1,4 @@
-class ChangeAgentNameToText < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ChangeAgentNameToText < EOL::DataMigration
   
   def self.up
     remove_index :agents, :name => 'full_name'

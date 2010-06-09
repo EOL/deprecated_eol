@@ -1,7 +1,4 @@
-class AddIndexToDataObjectsHarvestEvents < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddIndexToDataObjectsHarvestEvents < EOL::DataMigration
   def self.up
     add_index :data_objects_harvest_events, :data_object_id
   end

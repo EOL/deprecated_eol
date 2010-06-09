@@ -1,7 +1,4 @@
-class CreateDataObjectsTaxonConcepts < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class CreateDataObjectsTaxonConcepts < EOL::DataMigration
   
   def self.up
     execute 'CREATE TABLE IF NOT EXISTS `data_objects_taxon_concepts` (

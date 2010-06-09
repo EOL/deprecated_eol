@@ -1,7 +1,4 @@
-class AddViewOrderToVetted < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddViewOrderToVetted < EOL::DataMigration
   
   def self.up
     execute "alter table vetted add view_order tinyint not null"

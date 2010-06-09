@@ -1,7 +1,4 @@
-class ReplaceHierarchiesResources < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ReplaceHierarchiesResources < EOL::DataMigration
   
   def self.up
     execute('alter table resources add hierarchy_id int unsigned after `notes`')

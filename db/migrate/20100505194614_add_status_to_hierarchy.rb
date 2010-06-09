@@ -1,7 +1,4 @@
-class AddStatusToHierarchy < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddStatusToHierarchy < EOL::DataMigration
   
   def self.up
     add_column :hierarchies, :resource_status_id, :integer, :null => true

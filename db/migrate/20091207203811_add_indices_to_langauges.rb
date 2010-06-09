@@ -1,7 +1,4 @@
-class AddIndicesToLangauges < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddIndicesToLangauges < EOL::DataMigration
   
   def self.up
     execute("create index iso_639_1 on languages(iso_639_1)")

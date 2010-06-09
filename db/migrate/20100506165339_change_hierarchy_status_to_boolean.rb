@@ -1,7 +1,4 @@
-class ChangeHierarchyStatusToBoolean < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ChangeHierarchyStatusToBoolean < EOL::DataMigration
   
   # I'm not really going to worry about preserving state because I added this migration one day after the last one, and the
   # last one was never really run in production...

@@ -4,11 +4,8 @@
 class LoggingModel < ActiveRecord::Base
  
   self.abstract_class = true
+  establish_connection configurations[RAILS_ENV + '_logging']
   
-  # The connections for the logging database are defined in the "config/database.yml" file, and 
-  # are all suffixed with "_logging" (development_logging, test_logging, etc)    
-  use_db :suffix =>  '_logging'
-
   def self.create(opts = {})
 
     ##return unless $ENABLE_DATA_LOGGING  # TODO: can we uncomment this line to double snure that we don't log anything if not configured to do it!

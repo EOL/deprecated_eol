@@ -1,5 +1,5 @@
 #
-# top level EOL class
+# top level EOL module
 #
 # we might want to use this for global configuration options or ... anything
 #

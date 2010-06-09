@@ -1,9 +1,5 @@
-class AddUserSubmittedTxtToPageStatsDataobjects < ActiveRecord::Migration
+class AddUserSubmittedTxtToPageStatsDataobjects < EOL::DataMigration
 
-  def self.database_model
-    return "SpeciesSchemaModel"    
-  end
-  
   def self.up
     add_column  :page_stats_dataobjects, :user_submitted_text, :integer
   end

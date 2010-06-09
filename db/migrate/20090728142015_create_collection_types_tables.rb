@@ -1,7 +1,4 @@
-class CreateCollectionTypesTables < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class CreateCollectionTypesTables < EOL::DataMigration
 
   def self.up
     execute('CREATE TABLE `collection_types` (

@@ -1,7 +1,4 @@
-class CreateUserRecordsInAgents < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class CreateUserRecordsInAgents < EOL::DataMigration
 
   def self.up
     SpeciesSchemaModel.connection.begin_db_transaction

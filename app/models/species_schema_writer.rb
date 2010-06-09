@@ -2,7 +2,6 @@
 class SpeciesSchemaWriter < ActiveRecord::Base
   
   self.abstract_class = true
-  
   establish_connection :master_data_database
   
 end

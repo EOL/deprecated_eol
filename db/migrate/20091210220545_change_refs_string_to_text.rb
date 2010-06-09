@@ -1,7 +1,4 @@
-class ChangeRefsStringToText < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ChangeRefsStringToText < EOL::DataMigration
   
   def self.up
     remove_index :refs, :name => 'full_reference'

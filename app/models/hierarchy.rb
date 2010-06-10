@@ -123,16 +123,18 @@ class Hierarchy < SpeciesSchemaModel
   
   def kingdom_details
     result = SpeciesSchemaModel.connection.execute("
-      SELECT he.id, he.identifier, he.lft, he.rgt, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, r.label rank_label
+      SELECT he.id, he.identifier, he.lft, he.rgt, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, r.label rank_label, hc.content_level
       FROM hierarchy_entries he
       JOIN names n ON (he.name_id=n.id)
       LEFT JOIN ranks r ON (he.rank_id=r.id)
+      LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
       WHERE he.hierarchy_id = #{self.id}
       AND parent_id=0
       AND he.visibility_id!=#{Visibility.invisible.id}").all_hashes
     result.each do |r|
       r['name_string'].firstcap!
       r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
+      r['has_content'] = r['content_level'].to_i > 1
     end
     result.sort!{|a,b| a['name_string'] <=> b['name_string']}
   end

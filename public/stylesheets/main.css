@@ -993,17 +993,23 @@ ul#tab_taxonomic_browser {
     text-decoration: none;
     border-bottom: 0px;
     font-size: larger; }
-#taxonomictext li.lastone {
+#taxonomictext li {
   font-family: arial, helvetica, sans-serif;
-  font-weight: 700;
-  color: #000;
   text-decoration: none;
   border: 0; }
-#taxonomictext li.kingdom {
-  font-family: arial, helvetica, sans-serif;
-  font-weight: 700;
-  text-decoration: none;
-  border: 0; }
+  #taxonomictext li.bold {
+    font-weight: 700; }
+    #taxonomictext li.bold a {
+      font-weight: 700; }
+  #taxonomictext li.normal {
+    font-weight: normal; }
+    #taxonomictext li.normal a {
+      font-weight: normal; }
+  #taxonomictext li a.expand {
+    font-weight: normal;
+    text-decoration: none; }
+  #taxonomictext li a.light {
+    color: #959595; }
 
 li.current_kingdom {
   font-family: arial, helvetica, sans-serif;

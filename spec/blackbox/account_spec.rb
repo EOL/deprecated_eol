@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Account user profile page (HTML)' do
 
-  Scenario.load :foundation
+  EolScenario.load :foundation
 
   before(:all) do
     @credentials = 'This has a <a href="linky">link</a> <b>this is bold<br />as is this</b> and <script type="text/javascript">alert("hi");</script>'

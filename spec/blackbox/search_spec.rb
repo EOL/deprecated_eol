@@ -50,7 +50,7 @@ describe 'Search' do
 
   before :all do
     truncate_all_tables
-    Scenario.load :foundation
+    EolScenario.load :foundation
   end
 
   after :all do

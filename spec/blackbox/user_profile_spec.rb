@@ -8,7 +8,7 @@ describe 'User Profile' do
 
 
   before(:all) do
-    Scenario.load :foundation
+    EolScenario.load :foundation
     @username = 'userprofilespec'
     @password = 'beforeall'
     @user     = create_user(@username, @password)

@@ -13,8 +13,8 @@ module ApplicationHelper
   # truncate a string to the maxlength passed and then add "..." if truncated
   def truncate(text, length = 30, truncate_string = "...")
     return if text.nil?
-    l = length - truncate_string.chars.length
-    text.chars.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
+    l = length - truncate_string.length
+    text.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
   end  
 
   # TODO - Rails has built-in helpers for just this kind of stuff.

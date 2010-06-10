@@ -151,7 +151,7 @@ describe Agent do
    describe '#agents_data' do
 
      before(:all) do
-       Scenario.load :foundation
+       EolScenario.load :foundation
      end
 
      # # Find the data_objects "belongs" to an Agent.

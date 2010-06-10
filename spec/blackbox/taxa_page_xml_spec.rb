@@ -18,7 +18,7 @@ describe 'Taxa page XML' do
     truncate_all_tables # Please don't nest this in an "if find 910093" block; there is something else that
                         # causes this to fail, and I've wasted enough time figuring out this fixed it to dig
                         # into which table(s) need clearing.
-    Scenario.load :foundation # Here instead of earlier because of the truncating logic just above.
+    EolScenario.load :foundation # Here instead of earlier because of the truncating logic just above.
     HierarchiesContent.delete_all
     exemplar_he      = HierarchyEntry.gen(:hierarchy => Hierarchy.default)
     @exemplar        = build_taxon_concept(:id => 910093, :parent_hierarchy_entry_id => exemplar_he.id) # That ID is one of the (hard-coded) exemplars.

@@ -4,14 +4,14 @@ describe 'Content Partner Pages' do
   
   it 'ALL of these tests have been disabled in the interest of time.  Implement later.'
 
-#TEMP  Scenario.load :foundation
+#TEMP  EolScenario.load :foundation
 #TEMP  
 #TEMP  describe '(Reports)' do
 #TEMP    
 #TEMP    #TODO: do all this tests after fixing EOLINFRASTRUCTURE-1061   
 #TEMP      
 #TEMP    # before(:all) do
-#TEMP      # Scenario.load :foundation      
+#TEMP      # EolScenario.load :foundation      
 #TEMP      
 #TEMP      # password = 'fumbletricket'
 #TEMP      # @content_partner  = Agent.gen(:hashed_password => 

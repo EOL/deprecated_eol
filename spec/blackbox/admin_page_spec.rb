@@ -4,7 +4,7 @@ describe 'Admin Pages' do
   
   before(:all) do
     truncate_all_tables
-    Scenario.load('foundation')
+    EolScenario.load('foundation')
     password = 'anypassword'
     @user = User.gen( :username => 'ourtestadmin',
                       :password => password,
@@ -200,7 +200,7 @@ describe 'Admin Pages' do
 
   
   it 'the remaining tests have been disabled in the interest of time.  Implement them later.'
-#TEMP  Scenario.load :foundation
+#TEMP  EolScenario.load :foundation
 #TEMP  
 #TEMP  describe '(Reports)' do
 #TEMP    
@@ -252,7 +252,7 @@ describe 'Admin Pages' do
 #TEMP
 #TEMPdescribe 'Administrator Web Users Pages' do
 #TEMP  
-#TEMP  Scenario.load :foundation
+#TEMP  EolScenario.load :foundation
 #TEMP  
 #TEMP  describe 'user/edit' do
 #TEMP   it 'should have "Cc: affiliate@eol.org" in a head of an email from /administrator/user/edit/# page'

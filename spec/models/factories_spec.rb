@@ -4,7 +4,7 @@ describe Factory do
 
   before :all do
     reset_auto_increment_on_tables_with_tinyint_primary_keys
-    Scenario.load :foundation
+    EolScenario.load :foundation
   end
 
   ########## helpers #########
@@ -15,14 +15,18 @@ describe Factory do
   # that the factories are implemented well
   #
   def self.model_classes
-    [ MimeType, AgentRole, DataType, Agent, ContentPartner, CuratorActivity,
-      LastCuratedDate, Language, License, Visibility, Vetted, DataType, Role, User,
-      ItemPage, DataObjectTag, DataObjectTags, DataObject,
-      CuratorCommentLog, CuratorDataObjectLog, Hierarchy, HierarchyEntry,
-      TaxonConcept, PageName, PublicationTitle, InfoItem,
-      Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
-      AgentDataType, AgentContactRole, ServiceType, ActionWithObject, ChangeableObjectType, 
-      GoogleAnalyticsSummary, GoogleAnalyticsPartnerSummary, GoogleAnalyticsPageStat, GoogleAnalyticsPartnerTaxon].uniq
+#    [ MimeType, AgentRole, DataType, Agent, ContentPartner, CuratorActivity,
+#      LastCuratedDate, Language, License, Visibility, Vetted, DataType, Role, User,
+#      ItemPage, DataObjectTag, DataObjectTags, DataObject,
+#      CuratorCommentLog, CuratorDataObjectLog, Hierarchy, HierarchyEntry,
+#      TaxonConcept, PageName, PublicationTitle, InfoItem,
+#      Contact, ContactSubject, ResourceStatus, RefIdentifierType, Audience,
+#      AgentDataType, AgentContactRole, ServiceType, ActionWithObject, ChangeableObjectType, 
+#      GoogleAnalyticsSummary, GoogleAnalyticsPartnerSummary, GoogleAnalyticsPageStat, GoogleAnalyticsPartnerTaxon].uniq
+    [
+      #ServiceType #, ActionWithObject, ChangeableObjectType
+      ChangeableObjectType
+    ]
   end
 
   # gets the names of the factories for classes ( default: model_classes )

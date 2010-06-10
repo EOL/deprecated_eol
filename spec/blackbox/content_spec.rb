@@ -4,7 +4,7 @@ require 'nokogiri'
 describe 'APIs' do
   describe 'Best Images' do
     before(:all) do
-        #Scenario.load :foundation
+        #EolScenario.load :foundation
 
       @image_1 = Factory.next(:image)
       @image_2 = Factory.next(:image)

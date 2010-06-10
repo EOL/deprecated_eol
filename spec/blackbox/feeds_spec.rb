@@ -6,7 +6,7 @@ end
 
 describe 'Curator Feeds' do
   before(:all) do
-    Scenario.load('foundation')
+    EolScenario.load('foundation')
     DataObject.delete_all
     Comment.delete_all
     @tc = build_taxon_concept()

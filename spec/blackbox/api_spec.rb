@@ -10,7 +10,7 @@ end
 describe 'EOL XML APIs' do
   before(:all) do
     truncate_all_tables
-    Scenario.load('foundation')
+    EolScenario.load('foundation')
   end
   
   describe 'ping' do 

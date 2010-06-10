@@ -1173,8 +1173,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     arr_SPM.each do |profile|
       id = profile["id"]
       rset = DataObject.find_by_sql(["SELECT Count(do.id) total 
-      FROM data_objects do
-      JOIN data_objects_info_items doii ON do.id = doii.data_object_id
+      FROM data_objects do    JOIN     data_objects_info_items doii ON do.id = doii.data_object_id
       WHERE doii.info_item_id = #{id} AND do.published AND do.vetted_id != #{Vetted.untrusted.id}"])            
       rset.each do |rec|
         arr_count["#{id}"] = rec.total

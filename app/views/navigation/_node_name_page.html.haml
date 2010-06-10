@@ -1,10 +1,8 @@
 - link_class = entry['has_content'] ? '' : 'light'
-/ %a{:href => '', :class => link_class, :onclick => "update_browser(#{entry['id']}, 0); return false;"}
-
 = link_to(entry['name_string'], {:controller => "taxa", :action => "show", :id => entry['taxon_concept_id'] }, :class => link_class, :onclick=>"showAjaxIndicator();")
-/ - unless entry['rank_label'].blank?
-/   %span.rank
-/     = entry['rank_label']
+-#- unless entry['rank_label'].blank?
+-#    %span.rank
+-#    = entry['rank_label']
 - unless @in_hierarchy && entry['id'] == @hierarchy_entry.id
   %a.expand{ :href => "JavaScript:displayNode(#{entry['id']})" }
     +

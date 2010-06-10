@@ -19,7 +19,7 @@ describe TaxonConcept do
   # "better" fit here, even if it isn't perfect.
 
   before :all do
-    Scenario.load :foundation
+    EolScenario.load :foundation
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
     @toc_item_2      = TocItem.gen(:view_order => 2)

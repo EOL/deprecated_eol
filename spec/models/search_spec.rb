@@ -3,7 +3,7 @@ include EOL::Spec::Helpers
 
 describe Search do
   
-  Scenario.load :foundation
+  EolScenario.load :foundation
   
   before(:each) do
     @language = Factory(:language, :label => 'English')

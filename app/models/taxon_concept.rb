@@ -694,13 +694,12 @@ class TaxonConcept < SpeciesSchemaModel
     iucn_objects = DataObject.find_by_sql("
         SELECT do.*
           FROM hierarchy_entries he
-            JOIN harvest_events_hierarchy_entries hehe ON (he.id = hehe.hierarchy_entry_id)
-            JOIN harvest_events hevt ON (hehe.harvest_event_id = hevt.id)
             JOIN data_objects_hierarchy_entries dohe ON (he.id = dohe.hierarchy_entry_id)
             JOIN data_objects do ON (dohe.data_object_id = do.id)
-          WHERE he.taxon_concept_id = #{self.id}
-            AND hevt.resource_id IN (#{Resource.iucn.id})
-            AND do.published = 1")
+        WHERE he.taxon_concept_id = #{self.id}
+          AND he.hierarchy_id = #{Resource.iucn.hierarchy_id}
+          AND he.published = 1
+          AND do.published = 1")
     
     iucn_objects.sort! do |a,b|
       b.id <=> a.id

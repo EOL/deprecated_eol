@@ -18,13 +18,13 @@ require File.expand_path(File.dirname(__FILE__) + "/factories")
 require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
 require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
 
-require 'scenarios'
-Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
+require 'eol_scenarios'
+EolScenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
 
 require 'rackbox'
 
 Spec::Runner.configure do |config|
-  include Scenario::Spec
+  include EolScenario::Spec
   include EOL::Data # this gives us access to methods that clean up our data (ie: lft/rgt values)
   include EOL::DB   # this gives us access to methods that handle transactions
   include EOL::Spec::Helpers
@@ -48,12 +48,12 @@ Spec::Runner.configure do |config|
   # active connections (works for ALL of our databases)
   config.before(:each) do
 
-    start_transactions
+#    start_transactions
 
   end
   config.after(:each) do
 
-    rollback_transactions
+#    rollback_transactions
   
   end
 

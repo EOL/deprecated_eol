@@ -443,12 +443,16 @@ class HierarchyEntry < SpeciesSchemaModel
   
   def details
     rank_label = self.rank.nil? ? '' : self.rank.label
+    name_string = Rank.italicized_ids.include?(rank_id.to_i) ? self.name_object.italicized.firstcap! : self.name_object.string.firstcap!
+    content_level = hierarchies_content ? hierarchies_content.content_level : 0
+    
     { 'id'                => self.id,
       'hierarchy_id'      => self.hierarchy_id,
       'taxon_concept_id'  => self.taxon_concept_id,
-      'name_string'       => self.name_object.string.firstcap!,
+      'name_string'       => name_string,
       'rank_label'        => rank_label,
-      'descendants'       => self.rgt - self.lft - 1 }
+      'descendants'       => self.rgt - self.lft - 1,
+      'has_content'       => content_level > 1 }
   end
   
   def ancestor_details
@@ -457,14 +461,16 @@ class HierarchyEntry < SpeciesSchemaModel
     ancestor_ids.delete_if{|id| id == self.id}
     return [] if ancestor_ids.empty?
     result = SpeciesSchemaModel.connection.execute("
-      SELECT he.id, he.identifier, he.lft, he.rgt, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, r.label rank_label
+      SELECT he.id, he.identifier, he.lft, he.rgt, he.rank_id, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, n.italicized italicized_name, r.label rank_label, hc.content_level
       FROM hierarchy_entries he
       JOIN names n ON (he.name_id=n.id)
       LEFT JOIN ranks r ON (he.rank_id=r.id)
+      LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
       WHERE he.id IN (#{ancestor_ids.join(',')})").all_hashes
     result.each do |r|
-      r['name_string'].firstcap!
+      r['name_string'] = Rank.italicized_ids.include?(r['rank_id'].to_i) ? r['italicized_name'].firstcap! : r['name_string'].firstcap!
       r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
+      r['has_content'] = r['content_level'].to_i > 1
     end
     result.sort!{|a,b| a['lft'].to_i <=> b['lft'].to_i}
   end
@@ -475,15 +481,17 @@ class HierarchyEntry < SpeciesSchemaModel
   
   def self.children_details(hierarchy_entry_id)
     result = SpeciesSchemaModel.connection.execute("
-      SELECT he.id, he.identifier, he.lft, he.rgt, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, r.label rank_label
+    SELECT he.id, he.identifier, he.lft, he.rgt, he.rank_id, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, n.italicized italicized_name, r.label rank_label, hc.content_level
       FROM hierarchy_entries he
       JOIN names n ON (he.name_id=n.id)
       LEFT JOIN ranks r ON (he.rank_id=r.id)
+      LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
       WHERE he.parent_id = #{hierarchy_entry_id}
       AND he.visibility_id!=#{Visibility.invisible.id}").all_hashes
     result.each do |r|
-      r['name_string'].firstcap!
+      r['name_string'] = Rank.italicized_ids.include?(r['rank_id'].to_i) ? r['italicized_name'].firstcap! : r['name_string'].firstcap!
       r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
+      r['has_content'] = r['content_level'].to_i > 1
     end
     result.sort!{|a,b| a['name_string'] <=> b['name_string']}
   end

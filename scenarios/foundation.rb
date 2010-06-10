@@ -262,7 +262,8 @@ create_if_not_exists RefIdentifierType, :label => 'sici'
 create_if_not_exists RefIdentifierType, :label => 'url'
 create_if_not_exists RefIdentifierType, :label => 'urn'
 
-iucn_resource = create_if_not_exists Resource, :title => 'Initial IUCN Import'
+iucn_hierarchy = create_if_not_exists Hierarchy, :label => 'IUCN'
+iucn_resource = create_if_not_exists Resource, :title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy
 iucn_agent = Agent.iucn
 raise "IUCN is nil" if iucn_agent.nil?
 create_if_not_exists AgentsResource, :resource => iucn_resource, :agent => Agent.iucn

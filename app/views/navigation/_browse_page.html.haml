@@ -1,0 +1,29 @@
+- if @hierarchy_entry.blank?
+  - @hierarchy_entry = @taxon_concept.find_ancestor_in_hierarchy(@session_hierarchy)
+  - @in_hierarchy = @taxon_concept.in_hierarchy(@session_hierarchy)
+- else
+  - @in_hierarchy = true
+- @hierarchy = @hierarchy_entry.blank? ? @session_hierarchy : @hierarchy_entry.hierarchy
+- entry_kingdom = @hierarchy_entry.blank? ? nil : @hierarchy_entry.kingdom
+
+#taxonomic-text-container
+  %ul#taxonomictext
+    - kingdoms = @hierarchy.kingdom_details
+    - for kingdom in kingdoms
+      - if entry_kingdom && entry_kingdom.id == kingdom['id'].to_i
+        - ancestors = @hierarchy_entry.ancestor_details
+        - entry_details = @hierarchy_entry.details
+        - unless kingdom == kingdoms.first
+          %br
+        = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => entry_details, :node_class => 'bold' })
+        - unless kingdom == kingdoms.last
+          %br
+      - else
+        %li.bold
+          = render(:partial => 'navigation/node_name_page', :locals => { :entry => kingdom })
+    - if entry_kingdom.blank?
+      %br
+      %span.message
+        Name not in
+        = @session_hierarchy.label
+        \. Select an alternate hierarchy from the list above

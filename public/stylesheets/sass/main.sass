@@ -1191,19 +1191,28 @@ ul#tab_taxonomic_browser
       font-size: larger
 
   li
-    &.lastone
-      font-family: arial, helvetica, sans-serif
+    font-family: arial, helvetica, sans-serif
+    text-decoration: none
+    border: 0
+    
+    &.bold
       font-weight: 700
-      color: #000
+      
+      & a
+        font-weight: 700
+    
+    &.normal
+      font-weight: normal
+      
+      & a
+        font-weight: normal
+    
+    & a.expand
+      font-weight: normal
       text-decoration: none
-      border: 0
-
-    &.kingdom
-      font-family: arial, helvetica, sans-serif
-      font-weight: 700
-      text-decoration: none
-      border: 0
-
+    
+    & a.light
+      color: #959595
 
 li.current_kingdom
   font-family: arial, helvetica, sans-serif

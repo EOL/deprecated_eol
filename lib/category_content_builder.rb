@@ -59,7 +59,7 @@ private
                       pt.details publication_details, ip.year item_year, ip.volume item_volume,
                       ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url
       FROM taxon_concept_names tcn
-        JOIN page_names pn ON (tcn.name_id = pn.name_id)
+        STRAIGHT_JOIN page_names pn ON (tcn.name_id = pn.name_id)
         JOIN item_pages ip ON (pn.item_page_id = ip.id)
         JOIN title_items ti ON (ip.title_item_id = ti.id)
         JOIN publication_titles pt ON (ti.publication_title_id = pt.id)

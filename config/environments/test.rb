@@ -44,7 +44,7 @@ $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
 config.gem 'faker'
 config.gem "remi-rspec-custom-matchers", :lib => false
 config.gem "remi-indifferent-variable-hash", :lib => false
-config.gem "openrain-scenarios", :lib => "scenarios"
+config.gem "eol_scenarios", :lib => "eol_scenarios"
 config.gem "rspec", :lib => false
 config.gem "rspec-rails", :lib => false
 config.gem "factory_girl", :lib => false

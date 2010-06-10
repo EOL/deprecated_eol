@@ -31,8 +31,8 @@ Rails::Initializer.run do |config|
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
   config.action_controller.session = {
-    :key => '_eol_development_session',
-    :secret      => '9c973cddf1823632f3e42c5e25a18ecf'
+    :key    => '_eol_development_session',
+    :secret => '9c973cddf1823632f3e42c5e25a18ecf'
   }
 
   # #Load vendor'ed gems

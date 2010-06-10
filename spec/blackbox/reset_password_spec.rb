@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'account/reset_password' do
 
   before(:all) do
-    Scenario.load :foundation
+    EolScenario.load :foundation
     @user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com', :password_reset_token => '123', :password_reset_token_expires_at => 1.hour.from_now)
     @user.save!
     @user_expired = User.gen(:username => 'janedoe', :email => 'janedoe@example.com', :password_reset_token => '456', :password_reset_token_expires_at => 1.hour.ago)

@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe "google analytics stats page" do
 
   before(:all) do
-    Scenario.load :foundation
+    EolScenario.load :foundation
     @tc = build_taxon_concept
     @pass  = 'timey-wimey'
     @agent = Agent.gen(:hashed_password => Digest::MD5.hexdigest(@pass))

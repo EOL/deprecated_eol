@@ -19,7 +19,7 @@ end
 describe 'Home page' do
 
   before :all do
-    Scenario.load :foundation
+    EolScenario.load :foundation
     @homepage_with_foundation = RackBox.request('/') # cache the response the homepage gives before changes
   end
   after :all do

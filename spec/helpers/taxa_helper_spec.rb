@@ -61,7 +61,7 @@ end
 describe TaxaHelper do
 
   before(:all) do
-    Scenario.load :foundation
+    EolScenario.load :foundation
   end
   
 #  def render_partial

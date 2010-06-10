@@ -6,9 +6,9 @@
 #   about this scenario) by running:
 #     $ rake scenarios:show NAME=bootstrap
 #
-# ---
-# dependencies: [ :foundation ]
-# arbitrary_variable: arbitrary value
+#---
+#dependencies: [ :foundation ]
+#arbitrary_variable: arbitrary value
 
 require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'

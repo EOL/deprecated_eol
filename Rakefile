@@ -14,12 +14,12 @@ end
 
 require 'tasks/rails'
 
-require 'scenarios/tasks'
-Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
-Scenario.before do
+require 'eol_scenarios/tasks'
+EolScenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
+EolScenario.before do
   require File.join(RAILS_ROOT, 'spec', 'factories')
 end
-# Scenario.verbose = true
+# EolScenario.verbose = true
 
 # We have some pretty customized stat directories, so:
 require 'spec/rake/spectask'

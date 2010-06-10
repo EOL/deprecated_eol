@@ -6,6 +6,12 @@ require 'spec/rails'
 load 'composite_primary_keys/fixtures.rb' 
 require 'csv'
 
+# just enough infrastructure to get 'assert_select' to work
+require 'action_controller'
+require 'action_controller/assertions/selector_assertions'
+include ActionController::Assertions::SelectorAssertions
+
+
 require "email_spec/helpers"
 require "email_spec/matchers"
 Spec::Runner.configure do |config|

@@ -8,7 +8,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 # of scenarios that we test.  But it's important to explicitly test 
 # our scenarios and catch if one of them starts raising exceptions.
 #
-describe Scenarios do
+describe EolScenarios do
 
   before(:all) do
     truncate_all_tables # It is assumed you truncate the tables before you run these (well, before you expect them

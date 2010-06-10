@@ -21,6 +21,7 @@
 common: &common
   adapter: mysql
   encoding: utf8
+  reconnect: true
   socket: /var/run/mysqld/mysqld.sock
 
 # common settings for any development databases

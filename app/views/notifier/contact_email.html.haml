@@ -1,0 +1,10 @@
+EOL Contact Us Form
+="--------------------------"
+="Name: " + @contact.name
+="Email: " + @contact.email
+="Subject: " + @contact.contact_subject.title
+- if(@contact.taxon_group)
+  ="Taxon Group: " + @contact.taxon_group
+="Comments: "
+=""
+= @contact.comments

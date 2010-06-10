@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'Login' do
 
   before :all do
-    Scenario.load :foundation
+    EolScenario.load :foundation
   end
   after :all do
     truncate_all_tables

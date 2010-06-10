@@ -58,13 +58,13 @@ describe 'RSpec Transactions' do
    
   it "scenarios should respect transactions too" do
     Visibility.count.should == 0
-    Scenario.load :foundation # load foundation
+    EolScenario.load :foundation # load foundation
     Visibility.count.should > 0
   end
 
   it "scenarios should *still* respect transactions too" do
     Visibility.count.should == 0
-    Scenario.load :foundation # load foundation
+    EolScenario.load :foundation # load foundation
     Visibility.count.should > 0
   end
 

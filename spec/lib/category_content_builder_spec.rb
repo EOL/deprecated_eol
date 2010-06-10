@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe CategoryContentBuilder do
   it 'should filter out names in unknown language if they also exist as names with known language' do 
-    Scenario.load :foundation
+    EolScenario.load :foundation
     ccb = CategoryContentBuilder.new
     agent = Agent.gen
     tc = build_taxon_concept

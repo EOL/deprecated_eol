@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'Home page' do
 
   before :all do
-    Scenario.load :foundation
+    EolScenario.load :foundation
     @old_cache_val = ActionController::Base.perform_caching
     ActionController::Base.perform_caching = true
     ActionController::Base.cache_store = :memory_store

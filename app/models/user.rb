@@ -67,11 +67,11 @@ class User < ActiveRecord::Base
   
   def objects_vetted
     # this needs to allow for eager loading
-    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( self.id, CuratorActivity.approve! ).map(&:object)
+    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve! ).map(&:object)
   end 
   def total_objects_vetted
     # this needs to become a simple COUNT query
-    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( self.id, CuratorActivity.approve! ).length
+    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve! ).length
   end 
 
   # get the total objects curated for a particular curator activity type
@@ -79,7 +79,7 @@ class User < ActiveRecord::Base
     # this needs to become a simple COUNT query
     curator_activity_id=CuratorActivity.send action+'!'
     if !curator_activity_id.nil?
-      CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( self.id, curator_activity_id ).length
+      CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, curator_activity_id ).length
     else
       return 0
     end
@@ -90,7 +90,7 @@ class User < ActiveRecord::Base
         SELECT ah.object_id data_object_id, awo.action_code, ah.updated_at action_time
         FROM actions_histories ah
         JOIN action_with_objects awo ON (ah.action_with_object_id=awo.id)
-        WHERE ah.user_id=#{self.id}
+        WHERE ah.user_id=#{id}
         AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
         AND awo.action_code!='rate'
         GROUP BY data_object_id
@@ -98,7 +98,7 @@ class User < ActiveRecord::Base
   end
   
   def total_objects_curated
-    self.data_objects_curated.length
+    data_objects_curated.length
   end
   
   def comments_curated
@@ -107,13 +107,13 @@ class User < ActiveRecord::Base
           FROM actions_histories ah
           JOIN action_with_objects awo ON (ah.action_with_object_id=awo.id)
           JOIN comments c ON (ah.object_id=c.id)
-          WHERE ah.user_id=#{self.id}
+          WHERE ah.user_id=#{id}
           AND ah.changeable_object_type_id=#{ChangeableObjectType.comment.id}
           AND ah.action_with_object_id!=#{ActionWithObject.create.id}").all_hashes.uniq
   end 
   
   def total_comments_curated
-    self.comments_curated.length
+    comments_curated.length
   end
   
 
@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
           FROM actions_histories ah
           JOIN action_with_objects awo ON (ah.action_with_object_id=awo.id)
           JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (ah.object_id=dotc.data_object_id)
-          WHERE ah.user_id=#{self.id}
+          WHERE ah.user_id=#{id}
           AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
           AND awo.action_code!='rate'
           GROUP BY ah.object_id
@@ -216,36 +216,36 @@ class User < ActiveRecord::Base
 
   def set_curator approved,updated_by
 
-    if (approved == true && self.curator_approved == false) # send the approval message if the user wasn't a curator and is now approved
+    if (approved == true && curator_approved == false) # send the approval message if the user wasn't a curator and is now approved
       Notifier.deliver_curator_approved(self)
-    elsif (approved == false && self.curator_approved == true) # only send the unapproval message if the user *was* a curator and is now rejected
+    elsif (approved == false && curator_approved == true) # only send the unapproval message if the user *was* a curator and is now rejected
       Notifier.deliver_curator_unapproved(self)       
     end
     
-    self.curator_approved = approved
-    self.curator_verdict_at = Time.now
-    self.curator_verdict_by = updated_by
-    self.save
+    curator_approved = approved
+    curator_verdict_at = Time.now
+    curator_verdict_by = updated_by
+    save
     
     if approved
-      self.roles << Role.curator unless has_curator_role?
+      roles << Role.curator unless has_curator_role?
     else
-      self.roles.delete(Role.curator)
+      roles.delete(Role.curator)
     end
     
   end
   
   def clear_curatorship updated_by,update_notes=""
-    self.curator_approved=false
-    self.credentials=""
-    self.curator_scope=""
-    self.curator_hierarchy_entry_id=""
-    self.curator_verdict_at = Time.now
-    self.curator_verdict_by = updated_by 
-    self.roles.delete(Role.curator)
-    self.notes="" if self.notes.nil?
-    (self.notes+=' ; (' + updated_by.username + ' on ' + Date.today.to_s + '): ' + update_notes) unless update_notes.blank?
-    self.save
+    curator_approved=false
+    credentials=""
+    curator_scope=""
+    curator_hierarchy_entry_id=""
+    curator_verdict_at = Time.now
+    curator_verdict_by = updated_by 
+    roles.delete(Role.curator)
+    notes="" if notes.nil?
+    (notes+=' ; (' + updated_by.username + ' on ' + Date.today.to_s + '): ' + update_notes) unless update_notes.blank?
+    save
   end
   
   # TODO - PRI MED - the vet/unvet methods inefficiently heck whether or not this user can_curate? the OBJECT.  that might involve lots of queries.
@@ -305,11 +305,11 @@ class User < ActiveRecord::Base
   end
 
   def reset_login_attempts
-    self.update_attributes(:failed_login_attempts=>0) # reset the user's failed login attempts
+    update_attributes(:failed_login_attempts=>0) # reset the user's failed login attempts
   end
   
   def invalid_login_attempt
-   self.update_attributes(:failed_login_attempts=>self.failed_login_attempts+1)
+   update_attributes(:failed_login_attempts=>failed_login_attempts+1)
   end
   
   # I wanted to centralize this call, so we can quickly change from one kind of hashing to another.
@@ -342,16 +342,16 @@ class User < ActiveRecord::Base
   # set the defaults on this user object
   # TODO - move the defaults to the database (LOW PRIO)
   def set_defaults
-    self.expertise = $DEFAULT_EXPERTISE.to_s
-    self.language = Language.english
-    self.mailing_list = false
-    self.content_level = $DEFAULT_CONTENT_LEVEL
-    self.vetted = $DEFAULT_VETTED
-    self.default_taxonomic_browser=$DEFAULT_TAXONOMIC_BROWSER
-    self.credentials = ''
-    self.curator_scope = ''    
-    self.active=true
-    self.flash_enabled=true
+    expertise = $DEFAULT_EXPERTISE.to_s
+    language = Language.english
+    mailing_list = false
+    content_level = $DEFAULT_CONTENT_LEVEL
+    vetted = $DEFAULT_VETTED
+    default_taxonomic_browser=$DEFAULT_TAXONOMIC_BROWSER
+    credentials = ''
+    curator_scope = ''    
+    active=true
+    flash_enabled=true
   end
 
   def password
@@ -364,13 +364,13 @@ class User < ActiveRecord::Base
   # and the #hashed_password
   #
   def password= value
-    self.entered_password = value
-    self.hashed_password = User.hash_password(value)
+    entered_password = value
+    hashed_password = User.hash_password(value)
   end
   
   # set the language from the abbreviation
   def language_abbr=(value)
-    self.language=Language.find_by_iso_639_1(value.downcase)  
+    language=Language.find_by_iso_639_1(value.downcase)  
   end
   
   # grab the language abbreviation
@@ -387,36 +387,36 @@ class User < ActiveRecord::Base
   end
       
   def is_moderator?
-    @is_moderator ||= self.roles.include?(Role.moderator)
+    @is_moderator ||= roles.include?(Role.moderator)
   end
 
   def has_curator_role?
-    self.roles.include?(Role.curator)
+    roles.include?(Role.curator)
   end
 
   def is_admin?
-    @is_admin ||= self.roles.include?(Role.administrator)
+    @is_admin ||= roles.include?(Role.administrator)
   end
   
   def is_content_partner?
-    @is_content_partner ||= self.roles.include?(Role.administrator)
+    @is_content_partner ||= roles.include?(Role.administrator)
   end
 
   def curator_attempted?
-    !self.curator_hierarchy_entry.nil?
+    !curator_hierarchy_entry.nil?
   end
   
   def is_curator?
-    return (has_curator_role? && !self.curator_hierarchy_entry.blank?)
+    return (has_curator_role? && !curator_hierarchy_entry.blank?)
   end
   
   def selected_default_hierarchy
-    hierarchy=Hierarchy.find_by_id(self.default_hierarchy_id)
+    hierarchy=Hierarchy.find_by_id(default_hierarchy_id)
     hierarchy.blank? ? '' : hierarchy.label
   end
   
   def last_curator_activity
-    lcd = LastCuratedDate.find_by_user_id(self.id, :order => 'last_curated DESC', :limit => 1)
+    lcd = LastCuratedDate.find_by_user_id(id, :order => 'last_curated DESC', :limit => 1)
     return nil if lcd.nil?
     return lcd.last_curated
   end
@@ -429,7 +429,7 @@ class User < ActiveRecord::Base
     credentials = '' if credentials.nil?
     if curator_hierarchy_entry.blank?  # remove the curator approval and role if they have no hierarchy entry set
       curator_approved=false
-      roles.delete(Role.curator) unless self.roles.blank?
+      roles.delete(Role.curator) unless roles.blank?
     else # be sure they have the curator role set if they have a curator hierarchy entry set
       roles.reload
       roles << Role.curator unless has_curator_role?
@@ -444,7 +444,7 @@ class User < ActiveRecord::Base
   end
 
   def tags_are_public_for_data_object?(data_object)
-    return self.can_curate?(data_object)
+    return can_curate?(data_object)
   end
 
   # Returns an array of data objects submitted by this user.  NOT USED ANYWHERE.  This is a convenience method for
@@ -486,14 +486,14 @@ class User < ActiveRecord::Base
   end
 
   def remember_me_until(time)
-    self.remember_token_expires_at = time
-    self.remember_token            = User.hash_password("#{email}--#{remember_token_expires_at}")
+    remember_token_expires_at = time
+    remember_token            = User.hash_password("#{email}--#{remember_token_expires_at}")
     save(false)
   end
 
   def forget_me
-    self.remember_token_expires_at = nil
-    self.remember_token            = nil
+    remember_token_expires_at = nil
+    remember_token            = nil
     save(false)
   end
 
@@ -512,13 +512,13 @@ class User < ActiveRecord::Base
   # YOU SHOULD ADD NEW USER ATTRIBUTES TO THIS METHOD WHEN YOU TWEAK THE USER TABLE.
   def stale?
     # if you add to this, use 'and'; KEEP ALL OLD METHOD CHECKS.
-    return true unless self.attributes.keys.include?("filter_content_by_hierarchy")
+    return true unless attributes.keys.include?("filter_content_by_hierarchy")
   end
 
   def password_reset_url(original_port)
     port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
     password_reset_token = Digest::SHA1.hexdigest(rand(10**30).to_s)
-    success = self.update_attributes(:password_reset_token => password_reset_token, :password_reset_token_expires_at => 24.hours.from_now)
+    success = update_attributes(:password_reset_token => password_reset_token, :password_reset_token_expires_at => 24.hours.from_now)
     http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
     if success
       return "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{password_reset_token}"

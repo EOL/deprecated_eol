@@ -78,7 +78,7 @@ class DataObject < SpeciesSchemaModel
       b['created_at'] <=> a['created_at']
     end
     
-    details = self.details_for_objects(data_object_ids[0...max_results].collect{|obj| obj['id']}, :skip_refs => true)
+    details = details_for_objects(data_object_ids[0...max_results].collect{|obj| obj['id']}, :skip_refs => true)
     return [] if details.blank?
     return details
   end
@@ -246,13 +246,13 @@ class DataObject < SpeciesSchemaModel
   end
 
   def user
-    @udo ||= UsersDataObject.find_by_data_object_id(self.id)
+    @udo ||= UsersDataObject.find_by_data_object_id(id)
     @udo_user ||= @udo.nil? ? nil : User.find(@udo.user_id)
   end
   
   def taxon_concept_for_users_text
-    unless self.user.nil?
-      udo = UsersDataObject.find_by_data_object_id(self.id)
+    unless user.nil?
+      udo = UsersDataObject.find_by_data_object_id(id)
       TaxonConcept.find(udo.taxon_concept_id)
     end
   end
@@ -269,32 +269,32 @@ class DataObject < SpeciesSchemaModel
   end
 
   def rate(user,stars)
-    rating = UsersDataObjectsRating.find_by_data_object_guid_and_user_id(self.guid, user.id)
+    rating = UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, user.id)
     if rating.nil?
-      rating = UsersDataObjectsRating.new({:data_object_guid => self.guid, :user_id => user.id, :rating => stars})
+      rating = UsersDataObjectsRating.new({:data_object_guid => guid, :user_id => user.id, :rating => stars})
     else
       rating.rating = stars
     end
     rating.save!
 
     total = 0
-    ratings = UsersDataObjectsRating.find_all_by_data_object_guid(self.guid)
+    ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
     ratings.each do |rating|
       total += rating.rating
     end
 
     divisor = ratings.length
     if divisor == 0
-      self.data_rating = total
+      data_rating = total
     else
-      self.data_rating = total / ratings.length
+      data_rating = total / ratings.length
     end
 
-    self.save!
+    save!
   end
 
   def rating_for_user(user)
-    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(self.guid, user.id)
+    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, user.id)
   end
 
   # Add a comment to this data object
@@ -317,7 +317,7 @@ class DataObject < SpeciesSchemaModel
                           JOIN agents_resources ar ON (he.resource_id=ar.resource_id) 
                           JOIN agents a ON (ar.agent_id=a.id) 
                         WHERE dohe.data_object_id=? 
-                        AND ar.resource_agent_role_id=?", self.id,
+                        AND ar.resource_agent_role_id=?", id,
                         ResourceAgentRole.data_supplier.id]).first
   end
 
@@ -329,11 +329,11 @@ class DataObject < SpeciesSchemaModel
 
     @attributions = Attributions.new(agents_data_objects)
 
-    @attributions.add_supplier   self.data_supplier_agent 
-    @attributions.add_license    self.license, rights_statement
-    @attributions.add_location   self.location
-    @attributions.add_source_url self.source_url
-    @attributions.add_citation   self.bibliographic_citation
+    @attributions.add_supplier   data_supplier_agent 
+    @attributions.add_license    license, rights_statement
+    @attributions.add_location   location
+    @attributions.add_source_url source_url
+    @attributions.add_citation   bibliographic_citation
 
     return @attributions
 
@@ -365,7 +365,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def find_all_for_reharvested_dato
-    DataObject.find_all_by_guid(self.guid)
+    DataObject.find_all_by_guid(guid)
   end
   
   def all_comments
@@ -394,7 +394,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def self.cache_path(cache_url, subdir = $CONTENT_SERVER_CONTENT_PATH)
-    (ContentServer.next + subdir + self.cache_url_to_path(cache_url))
+    (ContentServer.next + subdir + cache_url_to_path(cache_url))
   end
   
   def self.cache_url_to_path(cache_url)
@@ -402,7 +402,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def self.image_cache_path(cache_url, size = :large, subdir = $CONTENT_SERVER_CONTENT_PATH)
-    self.cache_path(cache_url, subdir) + "_#{size}.#{$SPECIES_IMAGE_FORMAT}"
+    cache_path(cache_url, subdir) + "_#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end
 
   def has_thumbnail_cache?
@@ -461,7 +461,7 @@ class DataObject < SpeciesSchemaModel
           tag.is_public = true
           tag.save!
         end
-        join   = DataObjectTags.new :data_object => self, :data_object_guid => self.guid, :data_object_tag => tag, :user => user
+        join   = DataObjectTags.new :data_object => self, :data_object_guid => guid, :data_object_tag => tag, :user => user
         begin
           join.save!
         rescue # TODO LOWPRIO - specific rescue types with nice, customer-facing explanations.
@@ -492,7 +492,7 @@ class DataObject < SpeciesSchemaModel
         FROM data_objects_hierarchy_entries dohe
         JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
         JOIN names n ON (he.name_id=n.id)
-        WHERE dohe.data_object_id = #{self.id}").all_hashes
+        WHERE dohe.data_object_id = #{id}").all_hashes
     
     results.map{|r| {:taxon_name => r['string'], :taxon_concept_id => r['taxon_concept_id']}}
   end
@@ -521,7 +521,7 @@ class DataObject < SpeciesSchemaModel
         FROM data_objects_taxon_concepts dotc
         JOIN taxon_concepts tc ON (dotc.taxon_concept_id=tc.id)
         WHERE dotc.data_object_id=? -- DataObject#taxon_concepts
-      ", self.id])
+      ", id])
     end
   end
 
@@ -533,7 +533,7 @@ class DataObject < SpeciesSchemaModel
       FROM data_objects_hierarchy_entries dohe
       JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
       WHERE dohe.data_object_id=? -- DataObject#hierarchy_entries
-    ", self.id])
+    ", id])
   end
   
   def curate!(vetted_id, visibility_id, user, untrust_reason_ids = [], comment = nil)
@@ -565,7 +565,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def curated?
-    self.curated
+    curated
   end
 
   def visible?
@@ -607,11 +607,11 @@ class DataObject < SpeciesSchemaModel
     return false unless visibility_id == Visibility.preview.id
     
     SpeciesSchemaModel.connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
-    self.reload
-    self.visibility_id = Visibility.visible.id
-    self.vetted_id = Vetted.trusted.id
-    self.published = 1
-    self.save!
+    reload
+    visibility_id = Visibility.visible.id
+    vetted_id = Vetted.trusted.id
+    published = 1
+    save!
   end
 
   def curator_activity_flag(user, taxon_concept_id = nil)
@@ -702,7 +702,7 @@ class DataObject < SpeciesSchemaModel
       # TODO - THIS HAS BEEN COPY/PASTED - ***JUST*** FOR TESTING - NEEDS REFACTORING & TO BE DRY'd UP
       options[:clade] = [ options[:clade] ] unless options[:clade].is_a?Array
       data_object_ids = data_object_tags.map(&:data_object_id).uniq
-      clades = HierarchyEntry.find :all, :conditions => options[:clade].map {|id| "id = #{self.id}" }.join(' OR ')
+      clades = HierarchyEntry.find :all, :conditions => options[:clade].map {|id| "id = #{id}" }.join(' OR ')
       return [] if clades.empty?
       sql = %[
         SELECT DISTINCT top_images.data_object_id
@@ -1414,45 +1414,45 @@ AND data_type_id IN (#{data_type_ids.join(',')})
 private
 
   def show(user)
-    self.vetted_by = user
+    vetted_by = user
     update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
     new_actions_histories(user, self, 'data_object', 'show')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show!
   end
 
   def hide(user)
-    self.vetted_by = user
+    vetted_by = user
     update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
     new_actions_histories(user, self, 'data_object', 'hide')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide!
   end
 
   def trust(user)
-    self.vetted_by = user
+    vetted_by = user
     update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => self.id)
+    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
     new_actions_histories(user, self, 'data_object', 'trusted')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve!
   end
 
   def untrust(user, untrust_reason_ids, comment)
-    self.vetted_by = user
+    vetted_by = user
     update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => self.id)
+    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
     if untrust_reason_ids
       untrust_reason_ids.each do |untrust_reason_id|
-        self.untrust_reasons << UntrustReason.find(untrust_reason_id)
+        untrust_reasons << UntrustReason.find(untrust_reason_id)
       end
     end
     if comment && !comment.blank?
-      self.comment(user, comment)
+      comment(user, comment)
     end
     new_actions_histories(user, self, 'data_object', 'untrusted')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove!
   end
 
   def inappropriate(user)
-    self.vetted_by = user
+    vetted_by = user
     update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
     new_actions_histories(user, self, 'data_object', 'inappropriate')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate!
@@ -1471,8 +1471,6 @@ private
   # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based
   # on their access.
   def self.visibility_clause(options)
-    # require 'ruby-debug'
-    # debugger
     preview_objects = ActiveRecord::Base.sanitize_sql_array(['OR (dato.visibility_id = ? AND dato.published IN (0,1))', Visibility.preview.id])
     published    = [1] # Boolean
     vetted       = [Vetted.trusted.id]

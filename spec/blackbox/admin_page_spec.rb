@@ -212,7 +212,6 @@ describe 'Admin Pages' do
 #TEMP     #        user.roles = Role.find(:all, :conditions => 'title LIKE "Admin%"')
 #TEMP     #        login_as(:username => user.username, :password => pass)
 #TEMP     #        body  = request('/administrator/reports').body
-#TEMP     #        debugger
 #TEMP     #      
 #TEMP     #        body.should have_tag('div')
 #TEMP     #  end

@@ -24,11 +24,13 @@ class Administrator::StatsController < AdminController
   def SPM_objects_count
     @page_title = 'Species Profile Model - Data Objects Count'
     @arr_SPM = InfoItem.get_schema_value    
-    @arr_count = DataObject.get_SPM_count_on_dataobjects(@arr_SPM)    
+    
+    @arr = PageStatsTaxon.latest
 
+    #@arr_count = DataObject.get_SPM_count_on_dataobjects(@arr_SPM)    
     #add numbers from User Submitted Text - UsersDataObjects table
-    @arr_user_object_ids = UsersDataObject.get_all_object_ids  
-    @arr_count = DataObject.add_user_dataobjects_on_SPM_count(@arr_count, @arr_user_object_ids)
+    #@arr_user_object_ids = UsersDataObject.get_all_object_ids  
+    #@arr_count = DataObject.add_user_dataobjects_on_SPM_count(@arr_count, @arr_user_object_ids)
   end
 
   def SPM_partners_count

@@ -13,9 +13,7 @@
         "
         = current_act
         "
-      on       
-      /%a{ :href => "<haml:loud> url_for(:controller=&gt;'/taxa', :action=&gt;'show',\n      :id=&gt;act_history.taxon_concept_id) </haml:loud>", :target => "_blank" }
-      /  = act_history.taxon_concept_name
+      on
       "
       = link_to act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank"
       "

@@ -7,7 +7,7 @@
 
 #media-videos.wrapper-mc.clearfix{ :style => "display: none;" }
   #video-player
-    - if @taxon_concept.videos.blank? == true && @videos.blank? == false && params[:vet_flag] != "false"
+    - if @default_videos.blank? == true && @videos.blank? == false && params[:vet_flag] != "false"
       No authoritative videos available.
       = link_to 'View unvetted videos for this group.', {:action=>"show", :vet_flag=>"false"}
     - else

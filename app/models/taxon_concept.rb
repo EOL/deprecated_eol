@@ -349,8 +349,13 @@ class TaxonConcept < SpeciesSchemaModel
     return videos.length > $MAX_IMAGES_PER_PAGE.to_i # This is expensive.  I hope you called #videos first!
   end
 
-  def videos
-    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => current_user)
+  def videos(options = {})
+    usr = current_user
+    if options[:unvetted]
+      usr = current_user.clone
+      usr.vetted = false
+    end
+    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => usr)
     @length_of_videos = videos.length # cached, so we don't have to query this again.
     return videos
   end 

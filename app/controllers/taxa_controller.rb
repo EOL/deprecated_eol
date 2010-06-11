@@ -434,23 +434,22 @@ private
       'none'
     end
   end
-  
-  def show_unvetted_videos #collect all videos (unvetted as well)
-    vetted_mode = @taxon_concept.current_user.vetted
-    @taxon_concept.current_user.vetted = false
-    videos = @taxon_concept.videos unless @taxon_concept.videos.blank?
-    @taxon_concept.current_user.vetted = vetted_mode
-    return videos
-  end
-  
+
   def videos_to_show
+    @default_videos = @taxon_concept.videos
     @videos = show_unvetted_videos # instant variable used in _mediacenter
     
     if params[:vet_flag] == "false"
       @video_collection = @videos            
     else 
-      @video_collection = @taxon_concept.videos unless @taxon_concept.videos.blank?
+      @video_collection = @default_videos unless @default_videos.blank?
     end
+  end
+  
+  # collect all videos (unvetted as well)
+  def show_unvetted_videos
+    videos = @taxon_concept.videos(:unvetted => true) unless @default_videos.blank?
+    return videos
   end
   
   def taxon_concept

@@ -22,7 +22,6 @@ class User < ActiveRecord::Base
   
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.nil? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.nil? }
-  before_save {|obj| obj.credentials = '' if obj.credentials.nil?}   # TODO Move this into the check_curator_status before_save method
 
   validates_presence_of   :username, :if => :not_openid?
 
@@ -427,12 +426,13 @@ class User < ActiveRecord::Base
   end
   
   def check_curator_status
+    credentials = '' if credentials.nil?
     if curator_hierarchy_entry.blank?  # remove the curator approval and role if they have no hierarchy entry set
-      self.curator_approved=false
-      self.roles.delete(Role.curator) unless self.roles.blank?
+      curator_approved=false
+      roles.delete(Role.curator) unless self.roles.blank?
     else # be sure they have the curator role set if they have a curator hierarchy entry set
-      self.roles.reload
-      self.roles << Role.curator unless has_curator_role?
+      roles.reload
+      roles << Role.curator unless has_curator_role?
     end
   end
 

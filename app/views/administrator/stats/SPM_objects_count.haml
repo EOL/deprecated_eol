@@ -20,19 +20,8 @@
           No. of data objects
 
     %tbody
-      - count = @cur_page.to_i
-      - @arr_SPM.each do |rec|
-        - column_class=cycle('odd','even')
-        - count += 1
-        %tr
-          %td{ :class => column_class, :align => "right" }
-            = count
-            = "."
-          %td{ :class => column_class }
-            = rec["schema_value"]
-          %td{ :class => column_class, :align => "right" }
-            = number_with_delimiter(@arr_count[rec["id"]], ",")
-
+    
+    = @arr["data_objects_count_per_category"]
 
     %tr
       %td{ :colspan => "5" }

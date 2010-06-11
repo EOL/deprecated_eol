@@ -13,10 +13,11 @@
         "
         = current_act
         "
-      on
+      on       
+      /%a{ :href => "<haml:loud> url_for(:controller=&gt;'/taxa', :action=&gt;'show',\n      :id=&gt;act_history.taxon_concept_id) </haml:loud>", :target => "_blank" }
+      /  = act_history.taxon_concept_name
       "
-      %a{ :href => "<haml:loud> url_for(:controller=&gt;'/taxa', :action=&gt;'show',\n      :id=&gt;act_history.taxon_concept_id) </haml:loud>", :target => "_blank" }
-        = act_history.taxon_concept_name
+      = link_to act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank"
       "
       by
       = curator_or_plain_username(act_history.user)

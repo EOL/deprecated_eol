@@ -149,44 +149,42 @@ describe 'Admin Pages' do
     end
   end  
 
-  describe ': species profile model - objects count' do
-    before(:all) do
-      @info_item = InfoItem.gen() 
-      @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
-      @data_objects_info_item = DataObjectsInfoItem.gen(:data_object_id => @data_object.id, :info_item_id => @info_item.id)
+  #describe ': species profile model - objects count' do
+  #  before(:all) do
+  #    @info_item = InfoItem.gen() 
+  #    @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
+  #    @data_objects_info_item = DataObjectsInfoItem.gen(:data_object_id => @data_object.id, :info_item_id => @info_item.id)
+  #    @users_data_object = UsersDataObject.gen(:data_object_id => @data_object.id)
+  #    @toc_item = TocItem.gen()  
+  #    @data_objects_table_of_content = DataObjectsTableOfContent.gen(:data_object_id => @data_object.id, :toc_id => @toc_item.id)
+  #  end  
+  #  it "should show SPM_objects_count page" do      
+  #    login_as(@user).should redirect_to('/admin')      
+  #    body = request("/administrator/stats/SPM_objects_count").body
+  #    body.should include "Species Profile Model - Data Objects Count"
+  #    body.should include @info_item.schema_value
+  #  end
+  #end  
 
-      @users_data_object = UsersDataObject.gen(:data_object_id => @data_object.id)
-
-      @toc_item = TocItem.gen()  
-      @data_objects_table_of_content = DataObjectsTableOfContent.gen(:data_object_id => @data_object.id, :toc_id => @toc_item.id)
-    end  
-    it "should show SPM_objects_count page" do      
-      login_as(@user).should redirect_to('/admin')      
-      body = request("/administrator/stats/SPM_objects_count").body
-      body.should include "Species Profile Model - Data Objects Count"
-      body.should include @info_item.schema_value
-    end
-  end  
-
-  describe ': species profile model - partner count' do
-    before(:all) do
-      @info_item = InfoItem.gen() 
-      @agent = Agent.gen(:full_name => 'FishBase')
-      @resource = Resource.gen(:title => "test resource")
-      @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
-      last_month = Time.now - 1.month      
-      @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
-      @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
-      @data_objects_info_item = DataObjectsInfoItem.gen(:data_object_id => @data_object.id, :info_item_id => @info_item.id)
-      @data_objects_harvest_event = DataObjectsHarvestEvent.gen(:data_object_id => @data_object.id, :harvest_event_id => @harvest_event.id)
-    end  
-    it "should show SPM_objects_count page" do      
-      login_as(@user).should redirect_to('/admin')      
-      body = request("/administrator/stats/SPM_partners_count").body
-      body.should include "Species Profile Model - Content Partners Count"
-      body.should include @info_item.schema_value
-    end
-  end  
+  #describe ': species profile model - partner count' do
+  #  before(:all) do
+  #    @info_item = InfoItem.gen() 
+  #    @agent = Agent.gen(:full_name => 'FishBase')
+  #    @resource = Resource.gen(:title => "test resource")
+  #    @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
+  #    last_month = Time.now - 1.month      
+  #    @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
+  #    @data_object = DataObject.gen(:published => 1, :vetted_id => Vetted.trusted.id)
+  #    @data_objects_info_item = DataObjectsInfoItem.gen(:data_object_id => @data_object.id, :info_item_id => @info_item.id)
+  #    @data_objects_harvest_event = DataObjectsHarvestEvent.gen(:data_object_id => @data_object.id, :harvest_event_id => @harvest_event.id)
+  #  end  
+  #  it "should show SPM_objects_count page" do      
+  #    login_as(@user).should redirect_to('/admin')      
+  #    body = request("/administrator/stats/SPM_partners_count").body
+  #    body.should include "Species Profile Model - Content Partners Count"
+  #    body.should include @info_item.schema_value
+  #  end
+  #end  
 
   describe ': table of contents breakdown' do
     before(:all) do      

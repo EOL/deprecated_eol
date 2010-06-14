@@ -23,9 +23,10 @@ class Administrator::StatsController < AdminController
   
   def SPM_objects_count
     @page_title = 'Species Profile Model - Data Objects Count'
-    @arr_SPM = InfoItem.get_schema_value    
-    
-    @arr = PageStatsTaxon.latest
+    @arr_SPM = InfoItem.get_schema_value        
+    @rec = PageStatsTaxon.latest
+    @json_data_objects_count_per_subject = @rec["data_objects_count_per_category"]
+    @arr_count = JSON.parse(@json_data_objects_count_per_subject)
 
     #@arr_count = DataObject.get_SPM_count_on_dataobjects(@arr_SPM)    
     #add numbers from User Submitted Text - UsersDataObjects table
@@ -35,8 +36,15 @@ class Administrator::StatsController < AdminController
 
   def SPM_partners_count
     @page_title = 'Species Profile Model - Content Partners Count'
-    @arr_SPM = InfoItem.get_schema_value
-    @arr_count = DataObject.get_SPM_count_on_contentpartners(@arr_SPM)
+    @arr_SPM = InfoItem.get_schema_value    
+    @rec = PageStatsTaxon.latest
+    @json_data_objects_count_per_subject = @rec["content_partners_count_per_category"]
+    @arr_count = JSON.parse(@json_data_objects_count_per_subject)
+
+
+    #@arr_count = DataObject.get_SPM_count_on_contentpartners(@arr_SPM)
+
+
   end
   def toc_breakdown
     @page_title = 'Table of Contents Breakdown'

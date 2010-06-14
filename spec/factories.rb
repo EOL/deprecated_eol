@@ -916,6 +916,7 @@ Factory.define :user do |u|
   end
   u.active                    true
   u.password                  'test password'
+  u.entered_password          'test password'
   u.curator_hierarchy_entry   nil
   u.curator_approved          false
   u.curator_verdict_by_id     0

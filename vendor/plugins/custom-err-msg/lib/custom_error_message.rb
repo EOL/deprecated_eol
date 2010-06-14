@@ -18,7 +18,7 @@ module ActiveRecord
           elsif msg =~ /^\^/
             full_messages << msg[1..-1]
           else
-            full_messages << @base.class.human_attribute_name(attr) + " " + msg
+            full_messages << @base.class.human_attribute_name(attr) + " " + msg.to_s
           end
         end
       end

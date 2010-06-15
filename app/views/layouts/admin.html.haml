@@ -1,4 +1,4 @@
-- inside_layout 'main' do
+- content_for :content do
   #content
     #page-separator-general
     #page-title
@@ -13,3 +13,4 @@
               = render(:partial=>'/admin/navigation')
             #right-pane
               = yield
+= render :file => 'layouts/main'

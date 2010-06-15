@@ -3,24 +3,25 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe User do
 
   before do
-    @user = User.gen :username => 'KungFuPanda', :password => 'dragonwarrior'
+    @password = 'dragonmaster'
+    @user = User.gen :username => 'KungFuPanda', :password => @password
     @user.should_not be_a_new_record
   end
 
   it 'should authenticate existing user with correct password, returning true and user back' do
-    success,user=User.authenticate( @user.username, @user.password )
+    success,user=User.authenticate( @user.username, @password)
     success.should be_true
     user.id.should == @user.id
   end
 
   it 'should authenticate existing user with correct email address and password, returning true and user back' do
-    success,user=User.authenticate( @user.email, @user.password )
+    success,user=User.authenticate( @user.email, @password )
     success.should be_true
     user.id.should == @user.id  
   end
       
   it 'should return false as first return value for non-existing user' do
-    success,message=User.authenticate('idontexistATALL', @user.password)
+    success,message=User.authenticate('idontexistATALL', @password)
     success.should be_false
     message.should == 'Invalid login or password'    
   end

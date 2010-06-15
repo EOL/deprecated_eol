@@ -362,14 +362,14 @@ class User < ActiveRecord::Base
   # this sets both the #entered_password (for temporary retrieval)
   # and the #hashed_password
   #
-  def password= value
-    entered_password = value
-    hashed_password = User.hash_password(value)
+  def password=(value)
+    self.entered_password = value
+    self.hashed_password = User.hash_password(value)
   end
   
   # set the language from the abbreviation
   def language_abbr=(value)
-    language=Language.find_by_iso_639_1(value.downcase)  
+    self.language = Language.find_by_iso_639_1(value.downcase)  
   end
   
   # grab the language abbreviation

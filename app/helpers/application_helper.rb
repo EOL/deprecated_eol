@@ -81,38 +81,18 @@ module ApplicationHelper
     return "/taxon_concepts/#{taxon_concept.id}/comments/"
   end
        
-   # format numbers with commas for digit separators
-   def format_number_with_commas(st)
-     st.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
-   end
+  # format numbers with commas for digit separators
+  def format_number_with_commas(st)
+    st.to_s.gsub(/(\d)(?=(\d\d\d)+(?!\d))/, "\\1,")
+  end
    
-   # COMMENTED_OUT by Preston because this does not appear to be getting used.
-   #
-   # determine if user's browser is IE
-#   def isMSIE?
-#     request.env['HTTP_USER_AGENT'].downcase.index('msie')!=nil
-#   end
-  
-   # render something inside of a particular layout
-   #
-   # useful for sub-layouts or nested layouts for particular sections of the site.
-   def inside_layout(layout, &block)
-     @template.instance_variable_set("@content_for_layout", capture(&block))
-
-     layout = layout.include?("/") ? layout : "layouts/#{layout}" if layout
-     buffer = eval("_erbout", block.binding)
-     buffer.concat(@template.render_file(layout, true))
-   end  
-       
   # take an input string, split it up by spaces and return a comma delimited list of the words
   def meta_keywords(input_string,strip_html=true)
-
     keyword_list=''
     input_string=strip_tags(input_string) if strip_html
     input_string.split(' ').each {|word| keyword_list+=word + ","}
     keyword_list.chop! if keyword_list.length>0
     return keyword_list
-  
   end
    
   # Link to a single stylesheet by first looking for a language version (stylesheet-<language>.css) or defaulting

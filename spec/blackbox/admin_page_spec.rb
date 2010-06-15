@@ -5,11 +5,7 @@ describe 'Admin Pages' do
   before(:all) do
     truncate_all_tables
     EolScenario.load('foundation')
-    password = 'anypassword'
-    @user = User.gen( :username => 'ourtestadmin',
-                      :password => password,
-                      :active => 1,
-                      :hashed_password => Digest::MD5.hexdigest(password))
+    @user = User.gen(:username => 'ourtestadmin')
     @user.roles = Role.find(:all, :conditions => 'title LIKE "Admin%"')
     @user.save!
   end

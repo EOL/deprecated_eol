@@ -108,7 +108,7 @@ describe 'Search' do
     end
 
     it 'should redirect to search page if a string is passed to a species page' do
-      request("/pages/#{@panda_name}").should redirect_to("/search/#{@panda_name}")
+      request("/pages/#{@panda_name}").should redirect_to("/search?id=#{@panda_name}")
     end
 
     it 'should show a list of possible results (linking to /taxa/search_clicked) if more than 1 match is found  (also for pages/searchterm)' do

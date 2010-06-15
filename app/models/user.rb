@@ -266,6 +266,20 @@ class User < ActiveRecord::Base
   def self.create_new options = {}
     #please note the agent_id is assigned in account controller, not in the model
     new_user = User.new
+
+    # NOTE = *if* you run into problems where set_defaults isn't working in some context, you can use this approach instead.
+    # We've tested it; it works... but we like it less than the separate method.
+    #new_user.attributes = {:default_taxonomic_browser => $DEFAULT_TAXONOMIC_BROWSER,
+    #:expertise     => $DEFAULT_EXPERTISE.to_s,
+    #:language      => Language.english,
+    #:mailing_list  => false,
+    #:content_level => $DEFAULT_CONTENT_LEVEL,
+    #:vetted        => $DEFAULT_VETTED,
+    #:credentials   => '',
+    #:curator_scope => '',
+    #:active        => true,
+    #:flash_enabled => true}.merge(options)
+
     new_user.set_defaults
     new_user.attributes = options
     new_user
@@ -339,21 +353,6 @@ class User < ActiveRecord::Base
     return User.find_by_email(email).nil?
   end
   
-  # set the defaults on this user object
-  # TODO - move the defaults to the database (LOW PRIO)
-  def set_defaults
-    expertise = $DEFAULT_EXPERTISE.to_s
-    language = Language.english
-    mailing_list = false
-    content_level = $DEFAULT_CONTENT_LEVEL
-    vetted = $DEFAULT_VETTED
-    default_taxonomic_browser=$DEFAULT_TAXONOMIC_BROWSER
-    credentials = ''
-    curator_scope = ''    
-    active=true
-    flash_enabled=true
-  end
-
   def password
     entered_password
   end
@@ -535,8 +534,29 @@ class User < ActiveRecord::Base
     end
   end
 
+  # for giggles:
+  def my_lang
+    language
+  end
+
+  # set the defaults on this user object
+  # TODO - move the defaults to the database (LOW PRIO)
+  def set_defaults
+    self.default_taxonomic_browser = $DEFAULT_TAXONOMIC_BROWSER
+    self.expertise     = $DEFAULT_EXPERTISE.to_s
+    self.language      = Language.english
+    self.mailing_list  = false
+    self.content_level = $DEFAULT_CONTENT_LEVEL
+    self.vetted        = $DEFAULT_VETTED
+    self.credentials   = ''
+    self.curator_scope = ''
+    self.active        = true
+    self.flash_enabled = true
+  end
+
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 protected   
+
   def password_required?
     not_openid? && (hashed_password.blank? || hashed_password.nil?)      
   end

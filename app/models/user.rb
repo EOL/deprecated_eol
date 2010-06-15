@@ -354,7 +354,7 @@ class User < ActiveRecord::Base
   end
   
   def password
-    entered_password
+    self.entered_password
   end
 
   # set the password

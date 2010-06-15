@@ -40,7 +40,7 @@ Spec::Runner.configure do |config|
   config.include EOL::Spec::Matchers
   # Once upon a time, we needed this to run blackbox tests.  Now, if this line is in, Contoller (non-rackbox) tests fail.
   # When we removed this line, everything was happy.  When we remove rackbox entirely, *we* will be happy, too.
-  # config.use_blackbox = true
+  config.use_blackbox = true
 
   # blackbox specs often use scenarios ... which often make us max out the 
   # primary keys of some of our tables ... reset the auto_incr for these 
@@ -88,3 +88,18 @@ def read_test_file(filename)
   end
 end
 
+module Spec
+  module Rails
+    module Example
+      class FunctionalExampleGroup < ActionController::TestCase
+        # All we need to do is keep a couple of methods from using 'request' and instead their local variable @request:
+        def params
+          @request.parameters
+        end
+        def session
+          @request.session
+        end
+      end
+    end
+  end
+end

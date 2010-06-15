@@ -492,7 +492,7 @@ private
   end
   
   def do_the_search
-    redirect_to :controller => 'taxa', :action => 'search', :id => params[:id]
+    redirect_to search_path(:id => params[:id])
   end
   
   def show_taxa_html

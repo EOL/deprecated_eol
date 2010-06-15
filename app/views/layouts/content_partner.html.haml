@@ -1,6 +1,6 @@
 - @page_header ||= 'Manage Resources'
 - agent = current_agent.nil? ? @content_partner.agent : current_agent
-- inside_layout 'main' do
+- content_for :content do
   #page-separator-general
   #page-title
     #cp-desc-personal{ :style => "float: right; width: 400px; margin-right: 20px; margin-top: 5px; text-align:right;" }
@@ -69,3 +69,4 @@
             - # using content_partner_edit_area for its styles to be consistent
             = yield
           #message_area.message
+= render :file => 'layouts/main'

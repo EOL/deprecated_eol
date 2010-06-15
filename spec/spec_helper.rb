@@ -1,7 +1,7 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
-require 'spec'
+require 'spec/autorun'
 require 'spec/rails'
 load 'composite_primary_keys/fixtures.rb' 
 require 'csv'
@@ -38,7 +38,9 @@ Spec::Runner.configure do |config|
   truncate_all_tables_once # truncate all tables (once) before running specs
 
   config.include EOL::Spec::Matchers
-  config.use_blackbox = true
+  # Once upon a time, we needed this to run blackbox tests.  Now, if this line is in, Contoller (non-rackbox) tests fail.
+  # When we removed this line, everything was happy.  When we remove rackbox entirely, *we* will be happy, too.
+  # config.use_blackbox = true
 
   # blackbox specs often use scenarios ... which often make us max out the 
   # primary keys of some of our tables ... reset the auto_incr for these 

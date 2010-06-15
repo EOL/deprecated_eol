@@ -601,7 +601,7 @@ class TaxonConcept < SpeciesSchemaModel
   
   def self.quick_common_names(taxon_concept_ids, language = nil, hierarchy = nil)
     return false if taxon_concept_ids.blank?
-    language ||= self.current_user_static.language 
+    language  ||= TaxonConcept.current_user_static.language 
     hierarchy ||= Hierarchy.default
     common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id, tcn.taxon_concept_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id IN (#{taxon_concept_ids.join(',')}) AND language_id=#{language.id} AND preferred=1").all_hashes
     

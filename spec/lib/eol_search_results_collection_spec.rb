@@ -4,11 +4,11 @@ describe EOL::SearchResultsCollection do
 
   before(:all) do
     EolScenario.load :search_with_duplicates
-    @tc_id                   = SearchEolScenarioResults.tc_id
-    @new_common_name         = SearchEolScenarioResults.new_common_name
-    @taxon_concept           = SearchEolScenarioResults.taxon_concept
-    @duplicate_taxon_concept = SearchEolScenarioResults.duplicate_taxon_concept
-    @query_results           = SearchEolScenarioResults.query_results
+    @tc_id                   = SearchScenarioResults.tc_id
+    @new_common_name         = SearchScenarioResults.new_common_name
+    @taxon_concept           = SearchScenarioResults.taxon_concept
+    @duplicate_taxon_concept = SearchScenarioResults.duplicate_taxon_concept
+    @query_results           = SearchScenarioResults.query_results
 
     @common_collection = EOL::SearchResultsCollection.new(@query_results, :querystring => 'tiger', :type => :common)
     @tc_result         = @common_collection.find {|r| r["id"] == @tc_id }    

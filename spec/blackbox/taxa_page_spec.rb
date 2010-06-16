@@ -108,161 +108,158 @@ describe 'Taxa page (HTML)' do
   end
 
   # This is kind of a baseline, did-the-page-actually-load test:
-    it 'should include the italicized name in the header' do
-      @result.body.should have_tag('div#page-title') do
-        with_tag('h1', :text => @scientific_name)
-      end
+  it 'should include the italicized name in the header' do
+    @result.body.should have_tag('div#page-title') do
+      with_tag('h1', :text => @scientific_name)
     end
+  end
 
-    it 'should show the common name if one exists' do
-      @result.body.should have_tag('div#page-title') do
-        with_tag('h2', :text => @common_name)
-      end
+  it 'should show the common name if one exists' do
+    @result.body.should have_tag('div#page-title') do
+      with_tag('h2', :text => @common_name)
     end
+  end
 
-    it 'should not show the common name if none exists' do
-      tc = build_taxon_concept
-      result = RackBox.request("/pages/#{tc.id}")
-      result.body.should have_tag('div#page-title') do
-        with_tag('h2', :text => '')
-      end
+  it 'should not show the common name if none exists' do
+    tc = build_taxon_concept
+    result = RackBox.request("/pages/#{tc.id}")
+    result.body.should have_tag('div#page-title') do
+      with_tag('h2', :text => '')
     end
+  end
 
-    it 'should use supercedure to find taxon concept' do
-      superceded = TaxonConcept.gen(:supercedure_id => @id)
-      RackBox.request("/pages/#{superceded.id}").should redirect_to("/pages/#{@id}")
+  it 'should use supercedure to find taxon concept' do
+    superceded = TaxonConcept.gen(:supercedure_id => @id)
+    RackBox.request("/pages/#{superceded.id}").should redirect_to("/pages/#{@id}")
+  end
+
+  it 'should tell the user the page is missing if the page is... uhhh... missing' do
+    missing_id = TaxonConcept.last.id + 1
+    while(TaxonConcept.exists?(missing_id)) do
+      missing_id += 1
     end
-
-    it 'should tell the user the page is missing if the page is... uhhh... missing' do
-      missing_id = TaxonConcept.last.id + 1
-      while(TaxonConcept.exists?(missing_id)) do
-        missing_id += 1
-      end
-      RackBox.request("/pages/#{missing_id}").body.should have_tag("div#page-title") do
-        with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
-      end
+    RackBox.request("/pages/#{missing_id}").body.should have_tag("div#page-title") do
+      with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
     end
+  end
 
-    it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
-      unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
-      RackBox.request("/pages/#{unpublished.id}").body.should have_tag("div#page-title") do
-        with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
-      end
+  it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
+    unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
+    RackBox.request("/pages/#{unpublished.id}").body.should have_tag("div#page-title") do
+      with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
     end
+  end
 
-    it 'should be able to ping the collection host' do
-      @result = RackBox.request("/pages/#{@id}")
-      @result.body.should include(@ping_url)
+  it 'should be able to ping the collection host' do
+    @result = RackBox.request("/pages/#{@id}")
+    @result.body.should include(@ping_url)
+  end
+
+  it 'should show the Overview text by default' do
+    @result = RackBox.request("/pages/#{@id}")
+    @result.body.should have_tag('div.cpc-header') do
+      with_tag('h3', :text => 'Overview')
     end
+    @result.body.should include(@overview_text)
+  end
 
-    it 'should show the Overview text by default' do
-      @result = RackBox.request("/pages/#{@id}")
-      @result.body.should have_tag('div.cpc-header') do
-        with_tag('h3', :text => 'Overview')
-      end
-      @result.body.should include(@overview_text)
-    end
+  it 'should NOT show references for the overview text when there aren\'t any' do
+    Ref.delete_all
+    @result = RackBox.request("/pages/#{@id}")
+    @result.body.should_not have_tag('div.references')
+  end
 
-    it 'should NOT show references for the overview text when there aren\'t any' do
-      Ref.delete_all
-      @result = RackBox.request("/pages/#{@id}")
-      @result.body.should_not have_tag('div.references')
-    end
+  it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
+    full_ref = 'This is the reference text that should show up'
+    # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
+    # extracted to do this:
+    url_identifier = 'some/url.html'
+    doi_identifier = '10.12355/foo/bar.baz.230'
+    bad_identifier = 'you should not see this identifier'
+    @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
+    # I heard you like RSpec, so we put a lot of tests in your test so you could spec while you're
+    # speccing.There are actually a lot of 'tests' in this test.  For one, we're testing that URLs will have http://
+    # added to them if they are blank.  We're also testing the regex that pulls DOIs out of potentially
+    # messy DOI identifiers:
+    ref.add_identifier('url', url_identifier)
+    ref.add_identifier('doi', "doi: #{doi_identifier}")
+    ref.add_identifier('bad', bad_identifier)
+    new_result = RackBox.request("/pages/#{@id}")
+    new_result.body.should have_tag('div.references')
+    new_result.body.should include(full_ref)
+    new_result.body.should have_tag("a[href=http://#{url_identifier}]")
+    new_result.body.should_not include(bad_identifier)
+    new_result.body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
+  end
 
-    it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
-      full_ref = 'This is the reference text that should show up'
-      # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
-      # extracted to do this:
-      url_identifier = 'some/url.html'
-      doi_identifier = '10.12355/foo/bar.baz.230'
-      bad_identifier = 'you should not see this identifier'
-      @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
-      # I heard you like RSpec, so we put a lot of tests in your test so you could spec while you're
-      # speccing.There are actually a lot of 'tests' in this test.  For one, we're testing that URLs will have http://
-      # added to them if they are blank.  We're also testing the regex that pulls DOIs out of potentially
-      # messy DOI identifiers:
-      ref.add_identifier('url', url_identifier)
-      ref.add_identifier('doi', "doi: #{doi_identifier}")
-      ref.add_identifier('bad', bad_identifier)
-      new_result = RackBox.request("/pages/#{@id}")
-      new_result.body.should have_tag('div.references')
-      new_result.body.should include(full_ref)
-      new_result.body.should have_tag("a[href=http://#{url_identifier}]")
-      new_result.body.should_not include(bad_identifier)
-      new_result.body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
-    end
+  it 'should NOT show references for the overview text when reference is invisible' do
+    full_ref = 'This is the reference text that should show up'
+    @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
+    new_result = RackBox.request("/pages/#{@id}")
+    new_result.body.should_not have_tag('div.references')
+  end
 
-    it 'should NOT show references for the overview text when reference is invisible' do
-      full_ref = 'This is the reference text that should show up'
-      @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
-      new_result = RackBox.request("/pages/#{@id}")
-      new_result.body.should_not have_tag('div.references')
-    end
+  it 'should NOT show references for the overview text when reference is unpublished' do
+    full_ref = 'This is the reference text that should show up'
+    @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
+    new_result = RackBox.request("/pages/#{@id}")
+    new_result.body.should_not have_tag('div.references')
+  end
 
-    it 'should NOT show references for the overview text when reference is unpublished' do
-      full_ref = 'This is the reference text that should show up'
-      @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
-      new_result = RackBox.request("/pages/#{@id}")
-      new_result.body.should_not have_tag('div.references')
-    end
+  it 'should allow html in user-submitted text' do
+    @result = RackBox.request("/pages/#{@id}")
+    @result.body.should match(@description_bold)
+    @result.body.should match(@description_ital)
+    @result.body.should match(@description_link)
+  end
 
-    it 'should allow html in user-submitted text' do
-      @result = RackBox.request("/pages/#{@id}")
-      @result.body.should match(@description_bold)
-      @result.body.should match(@description_ital)
-      @result.body.should match(@description_link)
-    end
+  # I hate to do this, since it's SO SLOW, but:
+  it 'should render an "empty" page in authoritative mode' do
+    tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
+                             :comments => [], :bhl => [])
+    this_result = RackBox.request("/pages/#{tc.id}?vetted=true")
+    this_result.body.should_not include('Internal Server Error')
+    this_result.body.should have_tag('h1') # Whatever, let's just prove that it renders.
+  end
 
-    # I hate to do this, since it's SO SLOW, but:
-    it 'should render an "empty" page in authoritative mode' do
-      tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
-                               :comments => [], :bhl => [])
-      this_result = RackBox.request("/pages/#{tc.id}?vetted=true")
-      this_result.body.should_not include('Internal Server Error')
-      this_result.body.should have_tag('h1') # Whatever, let's just prove that it renders.
-    end
+  it 'should show the Catalogue of Life link in Specialist Projects' do
+    this_result = RackBox.request("/pages/#{@taxon_concept.id}?category_id=#{TocItem.specialist_projects.id}")
+    this_result.body.should include(@col_collection.title)
+  end
 
-    it 'should show the Catalogue of Life link in Specialist Projects' do
-      this_result = RackBox.request("/pages/#{@taxon_concept.id}?category_id=#{TocItem.specialist_projects.id}")
-      this_result.body.should include(@col_collection.title)
-    end
+  it 'should show the Catalogue of Life link in the header' do
+    body = RackBox.request("/pages/#{@taxon_concept.id}").body
+    body.should include("recognized by <a href=\"#{@col_mapping.url}\"")
+  end
 
-    it 'should show the Catalogue of Life link in the header' do
-      body = RackBox.request("/pages/#{@taxon_concept.id}").body
-      body.should include("recognized by <a href=\"#{@col_mapping.url}\"")
-    end
+  it 'should show a Nucleotide Sequences table of content item if concept in NCBI and has identifier' do
+    # make an entry in NCBI for this concept and give it an identifier
+    sci_name = Name.gen(:string => Factory.next(:scientific_name))
+    entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
+                :identifier => 1234,
+                :hierarchy => Hierarchy.ncbi )
 
-    it 'should show a Nucleotide Sequences table of content item if concept in NCBI and has identifier' do
-      # make an entry in NCBI for this concept and give it an identifier
-      sci_name = Name.gen(:string => Factory.next(:scientific_name))
-      entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
-                  :identifier => 1234,
-                  :hierarchy => Hierarchy.ncbi )
+    body = RackBox.request("/pages/#{@taxon_concept.id}").body
+    body.should include("Nucleotide Sequences")
+  end
 
-      body = RackBox.request("/pages/#{@taxon_concept.id}").body
-      body.should include("Nucleotide Sequences")
-    end
+  it 'should show not a Nucleotide Sequences table of content item if concept in NCBI and does not have an identifier' do
+    # make an entry in NCBI for this concept and dont give it an identifier
+    sci_name = Name.gen(:string => Factory.next(:scientific_name))
+    entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
+                :hierarchy => Hierarchy.ncbi )
 
-    it 'should show not a Nucleotide Sequences table of content item if concept in NCBI and does not have an identifier' do
-      # make an entry in NCBI for this concept and dont give it an identifier
-      sci_name = Name.gen(:string => Factory.next(:scientific_name))
-      entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
-                  :hierarchy => Hierarchy.ncbi )
-
-      body = RackBox.request("/pages/#{@taxon_concept.id}").body
-      body.should_not include("Nucleotide Sequences")
-    end
+    body = RackBox.request("/pages/#{@taxon_concept.id}").body
+    body.should_not include("Nucleotide Sequences")
+  end
 
   describe 'specified hierarchies' do
 
     before(:all) do
       #creating an NCBI hierarchy and some others
-      @ncbi = Hierarchy.find_by_label('NCBI Taxonomy') ||
-        Hierarchy.gen(:agent => Agent.ncbi, :label => "NCBI Taxonomy", :browsable => 1)
-      @browsable_hierarchy = Hierarchy.find_by_label('Browsable Hierarchy') ||
-        Hierarchy.gen(:label => "Browsable Hierarchy", :browsable => 1)
-      @non_browsable_hierarchy = Hierarchy.find_by_label('NonBrowsable Hierarchy') ||
-        Hierarchy.gen(:label => "NonBrowsable Hierarchy", :browsable => 0)
+      @ncbi = Hierarchy.ncbi
+      @browsable_hierarchy = Hierarchy.gen(:label => "Browsable Hierarchy", :browsable => 1)
+      @non_browsable_hierarchy = Hierarchy.gen(:label => "NonBrowsable Hierarchy", :browsable => 0)
 
       # making entries for this concept in the new hierarchies
       HierarchyEntry.gen(:hierarchy => @ncbi, :taxon_concept => @taxon_concept)

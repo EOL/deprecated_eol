@@ -28,8 +28,9 @@ module TaxaHelper
     agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
     agents = [agents[0]] if params[:only_first]
     agent_list = agents.collect do |agent|
+      link_to_url = params[:url] || agent.homepage
       params[:linked] ? external_link_to(allow_some_html(agent.full_name),
-                                         agent.homepage,
+                                         link_to_url,
                                          {:show_link_icon => params[:show_link_icon]}) :
                         allow_some_html(agent.full_name)
     end
@@ -49,7 +50,7 @@ module TaxaHelper
     params[:taxon] ||= false
     
     is_default_col = false
-    if(params[:taxon] != false && !params[:taxon].col_entry.nil?)
+    if(params[:taxon] != false && @session_hierarchy == Hierarchy.default && !params[:taxon].col_entry.nil?)
       is_default_col = true
     end
     
@@ -59,21 +60,23 @@ module TaxaHelper
     output_html = []
     
     agents.each do |agent|
+      url = ''
+      url = agent.homepage.strip unless agent.homepage.blank?
+      # if the agent is has an outlink for this taxon...
+      if params[:taxon]
+        hierarchy_entries = HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchies h JOIN hierarchy_entries he ON (h.id=he.hierarchy_id) WHERE h.agent_id=#{agent.id} AND he.taxon_concept_id=#{params[:taxon].id} AND he.published=1 ORDER BY id DESC LIMIT 1")
+        if !hierarchy_entries.empty? && outlink = hierarchy_entries[0].outlink
+          url = outlink[:outlink_url]
+        end
+      end
+      
       logo_size = (agent == Agent.catalogue_of_life ? "large" : "small") # CoL gets their logo big     
       if agent.logo_cache_url.blank? 
-        output_html << agent_partial(agent,params) if params[:show_text_if_no_icon] 
+        params[:url] = url
+        output_html << agent_partial(agent, params) if params[:show_text_if_no_icon] 
       else
-        url = agent.homepage.strip || ''
-        
-        # if the agent is Catalogue of Life then look for a mapping and link the logo to their site
-        if agent == Agent.catalogue_of_life && params[:taxon]
-          if collection = Collection.find_by_agent_id(agent.id, :limit => 1, :order => 'id desc')
-            mappings = collection.find_mappings_by_taxon_concept(params[:taxon])
-            url = mappings[0].url if !mappings.empty?
-          end
-        end
-        
         if params[:only_show_col_icon] && !is_default_col # if we are only asked to show the logo if it's COL and the current agent is *not* COL, then show text
+          params[:url] = url
           output_html << agent_partial(agent,params)
         else
           if params[:linked] and not url.blank?
@@ -180,7 +183,7 @@ module TaxaHelper
     num_mappings = projects.size
     num_columns = num_mappings < max_columns ? num_mappings : max_columns
     res = []
-    until projects.empty? do
+    until projects.blank? do
       res << projects.shift(num_columns)
     end
     (num_columns - res[-1].size).times do
@@ -189,12 +192,12 @@ module TaxaHelper
     [res, num_columns]
   end
 
-  def specialist_project_collection_link(collection)
+  def hierarchy_outlink_collection_types(hierarchy)
     links = []
-    collection.collection_types.each do |collection_type|
+    hierarchy.collection_types.each do |collection_type|
       links << collection_type.materialized_path_labels
     end
-    links.empty? ? collection.title : links.join(', ')
+    links.empty? ? hierarchy.label : links.join(', ')
   end
 
   def common_names_by_language(names, preferred_language_id)

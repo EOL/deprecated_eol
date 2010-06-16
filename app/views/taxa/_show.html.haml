@@ -73,8 +73,6 @@
       = image_tag 'indicator_arrows_black.gif', :alt=>'Working...'
     #right-page-content
       = render :partial => 'internal_nav'
-      - @taxon_concept.ping_host_urls.each do |host_url|
-        %img{ :src => host_url, :alt => "this image is giving credit to the content provider and should not render.", :style => "display:none;" }
   / end page-content
 / end page-content-bgfaux
 = render :partial => 'curator_citation'

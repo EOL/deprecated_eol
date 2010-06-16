@@ -271,7 +271,7 @@ module EOL
     def gen_biomedical_terms
       puts "** Enter: gen_biomedical_terms" if @debugging
       if @biomedical_terms
-        Mapping.gen(:collection => Collection.ligercat, :name => @sname, :foreign_key => @id)
+        HierarchyEntry.gen(:hierarchy => Resource.ligercat.hierarchy, :name => @sname, :identifier => @id, :taxon_concept => @tc)
       end
     end
     

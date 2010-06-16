@@ -27,7 +27,7 @@ describe TocBuilder do
       user.vetted = false
       
       # In order to get specialist projects, we need a mapping realted to one of the tc's names.
-      Mapping.gen(:name => Name.last) # Cheating.  I know that the last name built was created for this TC
+      HierarchyEntry.gen(:hierarchy => Hierarchy.last, :taxon_concept => TaxonConcept.last, :source_url => 'something') # Cheating.  I know that the last name built was created for this TC
 
       # Literature References will be added if there is a reference to this TC:
       HierarchyEntriesRef.gen(:hierarchy_entry => tc.entry)

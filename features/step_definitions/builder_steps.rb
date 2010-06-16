@@ -19,6 +19,4 @@ end
 Given /Taxon Concept (.*) has an image with key "(.*)" harvested from (.*) with a ping_host_url of "(.*)"/ do
   |tc_id, key, name, url|
   @name       = @taxon_concept.taxon_concept_names.first.name # This is what links collection to TC
-  @collection = Collection.gen(:ping_host_url => url)
-  @mapping    = Mapping.gen(:collection => @collection, :name => @name, :foreign_key => key)
 end

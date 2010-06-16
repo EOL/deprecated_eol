@@ -33,7 +33,7 @@ module EOL
     #   +id+::
     #     Forces the ID of the TaxonConcept to be what you specify, useful for exemplars.
     #   +vetted+::
-    #   Modifies taxon concept vetted status. Can be 'trusted', 'untrusted', 'unknown', default is 'trusted'
+    #     Modifies taxon concept vetted status. Can be 'trusted', 'untrusted', 'unknown', default is 'trusted'
     #   +images+::
     #     Array of hashes.  Each hash may have the following keys: +:description+, +:hierarchy_entry+,
     #     +:object_cache_url+, +:taxon+, +:vetted+, +:visibility+ ...These are the args used to call #build_data_object
@@ -103,19 +103,26 @@ module EOL
     # That said, sometimes, we want a particular ID, so this method includes a little hacking to get that done.
     def gen_taxon_concept
       puts "** Enter: gen_taxon_concept" if @debugging
+      vetted = Vetted.send(@vetted.to_sym)
+      if vetted.nil?
+        puts "** WARNING: You attempted to create a TaxonConcept with a vetted of ':#{@vetted}', and that failed."
+        vetted = Vetted.trusted
+        raise "You haven't loaded the foundation scenario, and tried to build a TaxonConcept with no vetted id." if
+          vetted.nil?
+      end
       # TODO - in the future, we may want to be able to muck with the vetted *and* the published fields...
       # HACK!  We need to force the IDs of one of the TaxonConcepts, so that the exmplar array isn't empty.  I
       # hate to do it this way, but, alas, this is how it currently works:
       if @id
         @tc = TaxonConcept.find(@id) rescue nil
         if @tc.nil?
-          @tc = TaxonConcept.gen(:vetted => Vetted.send(@vetted.to_sym))
+          @tc = TaxonConcept.gen(:vetted => vetted)
           TaxonConcept.connection.execute("UPDATE taxon_concepts SET id = #{@id} WHERE id = #{@tc.id}")
           @tc = TaxonConcept.find(@id)
         end
         @tc = @tc.first if @tc.class == Array  # TODO - why in the WORLD is this an array?  ...but it is...
       else
-        @tc = TaxonConcept.gen(:vetted => Vetted.send(@vetted.to_sym))
+        @tc = TaxonConcept.gen(:vetted => vetted)
         @id = @tc.id
       end
     end

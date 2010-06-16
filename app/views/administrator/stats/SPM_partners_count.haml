@@ -31,7 +31,7 @@
           %td{ :class => column_class }
             = rec["schema_value"]
           %td{ :class => column_class, :align => "right" }
-            = number_with_delimiter(@arr_count[rec["id"]], ",")
+            = number_with_delimiter(@arr_count[rec["id"]], :delimiter => ",")
 
 
     %tr

@@ -25,16 +25,16 @@
   %br
     Curation activity:
     %strong
-      = number_with_delimiter(@arr_dataobject_ids.length, ",")
+      = number_with_delimiter(@arr_dataobject_ids.length, :delimiter => ",")
 
   - unique_dataobject_ids = @arr_dataobject_ids.uniq
   = "&nbsp;&nbsp;  |&nbsp;&nbsp;  Curated data objects:"
   %strong
-    = number_with_delimiter(unique_dataobject_ids.length, ",")
+    = number_with_delimiter(unique_dataobject_ids.length, :delimiter => ",")
 
   = "&nbsp;&nbsp;  |&nbsp;&nbsp;  Curators:"
   %strong
-    = number_with_delimiter(@arr_user_ids.uniq.length, ",")
+    = number_with_delimiter(@arr_user_ids.uniq.length, :delimiter => ",")
 
   %table.results_table
     %tr

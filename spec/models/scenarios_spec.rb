@@ -13,13 +13,18 @@ describe EolScenarios do
   before(:all) do
     truncate_all_tables # It is assumed you truncate the tables before you run these (well, before you expect them
                         # to work!)
-  end
-
-  # test the scenarios we want to make sure work
-  %w( foundation bootstrap ).each do |scenario|
-    it "#{scenario} scenario should load without errors" do
+    # test the scenarios we want to make sure work
+    %w( foundation bootstrap ).each do |scenario|
       EolScenario.load scenario
     end
+  end
+
+  it "should have data from foundation loaded" do
+    Language.count.should > 1
+  end
+
+  it "should have data from bootstrap loaded" do 
+    User.count.should > 20
   end
 
   # make sure we are properly catching scenario exceptions!

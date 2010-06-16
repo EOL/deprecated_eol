@@ -57,7 +57,7 @@ class String
   # [ 'a', 'b', 'blockquote', 'br', 'caption', 'cite', 'code', 'col', 'colgroup', 'dd', 'dl', 'dt', 'em', 'embed', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'li', 'ol', 'p', 'pre', 'q', 'small', 'strike', 'strong', 'sub', 'sup', 'table', 'tbody', 'td', 'tfoot', 'th', 'thead', 'tr', 'u', 'ul' ],
   # more full list:
   def appropriate_html_tags
-    ['address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var']
+    ['address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var', 'legend', 'fieldset']
   end
       
   def sanitize_html
@@ -75,7 +75,7 @@ class String
         'colgroup'   => ['span', 'width'],
         'div'        => ['id', 'class', 'style'],
         'embed'      => ['id', 'type', 'src', 'flashvars'],
-        'img'        => ['align', 'alt', 'src', 'title'],
+        'img'        => ['align', 'alt', 'src', 'title', 'rel'],
         'li'         => ['class', 'id'],
         'ol'         => ['class', 'id', 'start', 'type'],
         'q'          => ['cite'],
@@ -89,7 +89,9 @@ class String
         'tr'         => ['style'],
         'th'         => ['abbr', 'axis', 'class', 'colspan', 'rowspan', 'scope', 'style',
                          'width'],
-        'ul'         => ['type']
+        'ul'         => ['type'],
+        'fieldset'   => ['class', 'rel'],
+        'legend'     => ['class']
       },
       
       :protocols => {

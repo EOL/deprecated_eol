@@ -192,7 +192,7 @@ create_if_not_exists Language, :label => 'French',          :iso_639_1 => 'fr' #
 create_if_not_exists Language, :label => 'Scientific Name', :iso_639_1 => ''   # Should be ID 501.  ...But only for PHP's sake.
 create_if_not_exists Language, :label => 'Unknown', :iso_639_1 => ''
 
-create_if_not_exists License, :title => 'public domain',       :description => 'No rights reserved'
+create_if_not_exists License, :title => 'public domain',       :description => 'No rights reserved', :source_url => 'http://creativecommons.org/licenses/publicdomain/'
 create_if_not_exists License, :title => 'all rights reserved', :description => '&#169; All rights reserved',
              :show_to_content_partners => 0
 create_if_not_exists License, :title => 'cc-by-nc 3.0',        :description => 'Some rights reserved',
@@ -323,6 +323,10 @@ create_if_not_exists TocItem, :label => 'Search the Web',                :view_o
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology', :label => 'TaxonBiology', :toc_item => TocItem.overview
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription', :label => 'GeneralDescription', :toc_item => description
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution', :label => 'Distribution', :toc_item => ecology_and_distribution
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat', :label => 'Habitat', :toc_item => ecology_and_distribution
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology', :label => 'Morphology', :toc_item => description
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Conservation', :label => 'Conservation', :toc_item => description
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses', :label => 'Uses', :toc_item => description
 
 create_if_not_exists ServiceType, :label => 'EOL Transfer Schema'
 

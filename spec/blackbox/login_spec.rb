@@ -9,12 +9,6 @@ describe 'Login' do
     truncate_all_tables
   end
 
-  # helpers
-
-  def create_user username, password
-    User.gen :username => username, :password => password
-  end
-
   # specs
 
   it 'login page should render OK' do
@@ -25,47 +19,51 @@ describe 'Login' do
   end
 
   it 'should redirect us back to login if we logged in incorrectly' do
-    resp = login_as :username => 'snoopy', :password => 'secret'
+    resp = login_as :username => 'snoopy', :password => 'wrongtotallywrong'
     resp.should be_redirect
     resp.should redirect_to('/login')
   end
 
   it 'should tell us if we logged in incorrectly' do
     # first, we fail a login attempt
-    login_as( :username => 'snoopy', :password => 'secret',:remember_me=>'1' ).should be_redirect
-
+    login_as( :username => 'snoopy', :password => 'wrongtotallywrong').should be_redirect
     # ^ it'll redirect us back to login ... when we get there, we should have a flash message
     request('/login').body.should include('Invalid login')
   end
 
   it 'should redirect to index after a successful login' do
-    user = create_user 'charliebrown', 'testing'
+    user = User.gen :username => 'charliebrown'
     login_as(user).should redirect_to('/')
   end
   
   it 'should set a remember token for us if we asked to be remembered' do
-    user = create_user 'charliebrown', 'testing'
-    login_as(:username => 'charliebrown', :password => 'testing',:remember_me=>'1' ).should(User.find_by_username('charliebrown').remember_token.empty? == false && redirect_to('/'))
+    user = User.gen :username => 'charliebrown'
+    login_as(user, :remember_me => '1').should redirect_to('/')
+    User.find_by_username('charliebrown').remember_token.should_not be_blank
   end
 
   it 'should say hello to the user after logging in' do
-    user = create_user 'charliebrown', 'testing'
+    user = User.gen :username => 'charliebrown'
     request('/').should_not include_text("Hello #{ user.given_name }")
     login_as(user).should redirect_to('/')
     request('/').should include_text("Hello #{ user.given_name }")
   end
   
   it 'logout should work' do
-    user = create_user 'charliebrown', 'testing'
+    user = User.gen :username => 'charliebrown'
 
     login_as(user).should redirect_to('/')
-    request('/').should include_text("Hello #{ user.given_name }")
-    request('/logout')
-    request('/').should_not include_text("Hello #{ user.given_name }")
+    request('/').body.should have_tag('div.desc-personal') do
+      with_tag('p', :text => /Hello #{ user.given_name }/)
+    end
+    request('/logout').should be_redirect
+    request('/').body.should have_tag('div.desc-personal') do
+      without_tag('p', :text => /Hello #{ user.given_name }/)
+    end
   end
   
   it 'should not show the curator link and name must not have hyperlink to profile page' do
-    user = create_user 'charliebrown', 'testing'
+    user = User.gen :username => 'charliebrown'
     login_as(user)
     request('/').should_not include_text('curators')
     request('/').should_not include_text("/account/show/")
@@ -73,7 +71,7 @@ describe 'Login' do
   
   describe "as a curator" do
     it "should show the curator link and name must have hyperlink to profile page" do
-      curator = build_curator(HierarchyEntry.gen, :username => 'test_curator', :password => 'test_password')
+      curator = build_curator(HierarchyEntry.gen, :username => 'test_curator')
       login_as(curator)
       request('/').should include_text("curators")
       request('/').should include_text("/account/show/")

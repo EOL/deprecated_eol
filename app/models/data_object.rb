@@ -285,9 +285,9 @@ class DataObject < SpeciesSchemaModel
 
     divisor = ratings.length
     if divisor == 0
-      data_rating = total
+      self.data_rating = total
     else
-      data_rating = total / ratings.length
+      self.data_rating = total / ratings.length
     end
 
     save!
@@ -608,9 +608,9 @@ class DataObject < SpeciesSchemaModel
     
     SpeciesSchemaModel.connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
-    visibility_id = Visibility.visible.id
-    vetted_id = Vetted.trusted.id
-    published = 1
+    self.visibility_id = Visibility.visible.id
+    self.vetted_id = Vetted.trusted.id
+    self.published = 1
     save!
   end
 

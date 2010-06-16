@@ -56,7 +56,7 @@ module EOL
       [ User, CuratorActivity, Name ].each do |model|
         conn = model.connection
         conn.commit_db_transaction
-        Thread.current['open_transactions'] = 0
+        conn.begin_db_transaction if conn.open_transactions > 0
       end
     end
 

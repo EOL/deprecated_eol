@@ -90,19 +90,18 @@ create_if_not_exists AgentContact, :agent => Agent.catalogue_of_life, :agent_con
 create_if_not_exists Agent, :full_name => 'National Center for Biotechnology Information', :acronym => 'NCBI', :logo_cache_url => '921800', :homepage => 'http://www.ncbi.nlm.nih.gov/'
 
 
-boa_agent =
-  create_if_not_exists Agent, :full_name => 'Biology of Aging'
-liger_cat =
-  create_if_not_exists Collection, :title          => 'LigerCat',
+boa_agent = create_if_not_exists Agent, :full_name => 'Biology of Aging', :logo_cache_url => '318700'
+liger_cat_hierarchy = create_if_not_exists Hierarchy, :label          => 'LigerCat',
                                    :description    => 'LigerCat Biomedical Terms Tag Cloud',
-                                   :uri            => 'http://ligercat.ubio.org/eol/FOREIGNKEY.cloud',
-                                   :link           => 'http://ligercat.ubio.org',
-                                   :logo_cache_url => '318700',
+                                   :outlink_uri    => 'http://ligercat.ubio.org/eol/%%ID%%.cloud',
+                                   :url            => 'http://ligercat.ubio.org',
                                    :agent_id => boa_agent.id # Using id to make c_i_n_e work.
+liget_cat_resource = create_if_not_exists Resource, :title => 'LigerCat resource'
+AgentsResource.gen(:resource => liget_cat_resource, :agent => boa_agent)
 links = CollectionType.gen(:label => "Links")
 lit   = CollectionType.gen(:label => "Literature")
-CollectionTypesCollection.gen(:collection => liger_cat, :collection_type => links)
-CollectionTypesCollection.gen(:collection => liger_cat, :collection_type => lit)
+CollectionTypesHierarchy.gen(:hierarchy => liger_cat_hierarchy, :collection_type => links)
+CollectionTypesHierarchy.gen(:hierarchy => liger_cat_hierarchy, :collection_type => lit)
 
 create_if_not_exists AgentDataType, :label => 'Audio'
 create_if_not_exists AgentDataType, :label => 'Image'

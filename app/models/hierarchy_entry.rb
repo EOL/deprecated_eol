@@ -496,6 +496,25 @@ class HierarchyEntry < SpeciesSchemaModel
     result.sort!{|a,b| a['name_string'] <=> b['name_string']}
   end
   
+  def outlink
+    return nil if published != 1 && visibility_id != Visibility.visible.id
+    this_hierarchy = hierarchy
+    if !source_url.blank?
+      return {:hierarchy_entry => self, :hierarchy => this_hierarchy, :outlink_url => source_url }
+    elsif !this_hierarchy.outlink_uri.blank?
+      # if the hierarchy outlink_uri expects an ID
+      if matches = this_hierarchy.outlink_uri.match(/%%ID%%/)
+        # .. and the ID exists
+        unless identifier.blank?
+          return {:hierarchy_entry => self, :hierarchy => this_hierarchy, :outlink_url => this_hierarchy.outlink_uri.gsub(/%%ID%%/, identifier) }
+        end
+      else
+        # there was no %%ID%% pattern in the outlink_uri, but its not blank so its a generic URL for all entries
+        return {:hierarchy_entry => self, :hierarchy => this_hierarchy, :outlink_url => this_hierarchy.outlink_uri }
+      end
+    end
+  end
+  
   
   
 private

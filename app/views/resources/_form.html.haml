@@ -100,9 +100,6 @@
             = f.radio_button :refresh_period_hours, 91 * 24
             Quarterly
     .form_item 
-      =# f.label :ping_host_url, 'If you want EOL to "ping" your site when a resource you contributed is displayed, enter the URL to "ping", here.  If you want the url to include the ID of the particular taxon being shown, use the string "%ID" (without the quotes), which will be replaced with the appropraite ID.'
-      =# f.text_field :ping_host_url, :maxlength=>200, :size=>50 
-    .form_item 
       = f.label :license, 'Default License: <span title="required">*</span>'
       %table
         %tr

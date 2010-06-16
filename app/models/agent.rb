@@ -133,6 +133,12 @@ class Agent < SpeciesSchemaModel
       col_attr.to_yaml
     end)
   end
+  
+  def self.boa
+    YAML.load(Rails.cache.fetch('agents/boa') do
+      Agent.find_by_full_name('Biology of Aging').to_yaml
+    end)
+  end
 
   def self.from_license(license, rights_statement = nil)
     Agent.new :project_name => (rights_statement.blank? ?

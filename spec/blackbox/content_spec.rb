@@ -2,9 +2,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 require 'nokogiri'
 
 describe 'APIs' do
+
+  EolScenario.load :foundation
+
   describe 'Best Images' do
     before(:all) do
-        #EolScenario.load :foundation
 
       @image_1 = Factory.next(:image)
       @image_2 = Factory.next(:image)

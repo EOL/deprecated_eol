@@ -13,11 +13,11 @@
   %br
     Total Data Objects:
     %strong
-      = number_with_delimiter(@total_data_objects.to_i, ",")
+      = number_with_delimiter(@total_data_objects.to_i, :delimiter => ",")
     &nbsp;&nbsp; | &nbsp;&nbsp;    
     Total Taxa:
     %strong
-      = number_with_delimiter(@total_taxa.to_i, ",")
+      = number_with_delimiter(@total_taxa.to_i, :delimiter => ",")
 
 
   /%br
@@ -46,9 +46,9 @@
         - @vetted_types.each do |vetted|
           %td{ :align => "right" }
             - data_type_vetted = "#{data_type.label}_#{vetted.label}"
-            = number_with_delimiter(@stats["#{data_type_vetted}"].to_i, ",")
+            = number_with_delimiter(@stats["#{data_type_vetted}"].to_i, :delimiter => ",")
         %td{ :align => "right" }
           %strong
-            = number_with_delimiter(@stats["#{data_type.label}"].to_i, ",")
+            = number_with_delimiter(@stats["#{data_type.label}"].to_i, :delimiter => ",")
 
 

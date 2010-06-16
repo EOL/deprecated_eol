@@ -32,9 +32,11 @@ module EOL
             'remember_me' => options[:remember_me] || '' })
       end
 
-      def login_as(options = {})
-        if options.is_a? User # let us pass a newly created user (with an entered_password)
-          options = { :username => options.username, :password => options.entered_password }
+      def login_as(user, options = {})
+        if user.is_a? User # let us pass a newly created user (with an entered_password)
+          options = { :username => user.username, :password => user.entered_password }.merge(options)
+        elsif user.is_a? Hash
+          options = options.merge(user)
         end
         request('/account/authenticate', :params => { 
             'user[username]' => options[:username], 

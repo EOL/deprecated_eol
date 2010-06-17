@@ -35,8 +35,6 @@ Spec::Runner.configure do |config|
   include EOL::DB   # this gives us access to methods that handle transactions
   include EOL::Spec::Helpers
   
-  truncate_all_tables_once # truncate all tables (once) before running specs
-
   config.include EOL::Spec::Matchers
   # Once upon a time, we needed this to run blackbox tests.  Now, if this line is in, Contoller (non-rackbox) tests fail.
   # When we removed this line, everything was happy.  When we remove rackbox entirely, *we* will be happy, too.
@@ -55,13 +53,14 @@ Spec::Runner.configure do |config|
   # examples run within their own transactions for ALL 
   # active connections (works for ALL of our databases)
   config.before(:each) do
-     SpeciesSchemaModel.connection.execute("START TRANSACTION #SpeciesSchemaModel")
-     SpeciesSchemaModel.connection.increment_open_transactions
+    Rails.cache.clear
+    SpeciesSchemaModel.connection.execute("START TRANSACTION #SpeciesSchemaModel")
+    SpeciesSchemaModel.connection.increment_open_transactions
 
   end
   config.after(:each) do
-     SpeciesSchemaModel.connection.decrement_open_transactions
-     SpeciesSchemaModel.connection.execute("ROLLBACK #SpeciesSchemaModel")
+    SpeciesSchemaModel.connection.decrement_open_transactions
+    SpeciesSchemaModel.connection.execute("ROLLBACK #SpeciesSchemaModel")
   end
 
 end

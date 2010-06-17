@@ -13,10 +13,7 @@ describe EolScenarios do
   before(:all) do
     truncate_all_tables # It is assumed you truncate the tables before you run these (well, before you expect them
                         # to work!)
-    # test the scenarios we want to make sure work
-    %w( foundation bootstrap ).each do |scenario|
-      EolScenario.load scenario
-    end
+    EolScenario.load :bootstrap
   end
 
   it "should have data from foundation loaded" do

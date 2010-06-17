@@ -9,8 +9,6 @@ describe 'Login' do
     truncate_all_tables
   end
 
-  # specs
-
   it 'login page should render OK' do
     request('/login').body.should have_tag('form[action="/account/authenticate"]') do
       with_tag('input#user_username')

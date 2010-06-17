@@ -256,9 +256,10 @@ describe 'Taxa page (HTML)' do
   describe 'specified hierarchies' do
 
     before(:all) do
+      Rails.cache.clear # Browsable hierarchies are cached.
       #creating an NCBI hierarchy and some others
       @ncbi = Hierarchy.ncbi
-      @browsable_hierarchy = Hierarchy.gen(:label => "Browsable Hierarchy", :browsable => 1)
+      @browsable_hierarchy     = Hierarchy.gen(:label => "Browsable Hierarchy", :browsable => 1)
       @non_browsable_hierarchy = Hierarchy.gen(:label => "NonBrowsable Hierarchy", :browsable => 0)
 
       # making entries for this concept in the new hierarchies
@@ -305,7 +306,6 @@ describe 'Taxa page (HTML)' do
       body = request("/pages/#{@taxon_concept.id}").body
       body.should have_tag('select.choose-hierarchy-select') do
         with_tag('option[selected=selected]', :text => /#{Hierarchy.default.label}/)
-        # This was failing (5/16/10) because NCBI is being created twice (or more), so the ID it's getting is wrong:
         with_tag("option[value=#{@ncbi.id}]", :text => /#{@ncbi.label}/)
         with_tag("option[value=#{@browsable_hierarchy.id}]", :text => /#{@browsable_hierarchy.label}/)
         without_tag("option[value=#{@non_browsable_hierarchy.id}]")

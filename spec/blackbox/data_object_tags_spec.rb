@@ -3,10 +3,9 @@ require 'nokogiri'
 
 # describe 'Taxa page (HTML)' do
 
-  EolScenario.load :foundation
-
 describe 'data object tags' do
   before(:all) do
+    EolScenario.load :foundation
     taxon_concept = build_taxon_concept(:images => [{}])
     @image_dato   = taxon_concept.images.last
     @user1 = create_user 'charliebrown'

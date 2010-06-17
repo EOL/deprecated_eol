@@ -2,9 +2,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Account user profile page (HTML)' do
 
-  EolScenario.load :foundation
-
   before(:all) do
+    EolScenario.load :foundation
     @credentials = 'This has a <a href="linky">link</a> <b>this is bold<br />as is this</b> and <script type="text/javascript">alert("hi");</script>'
     @user        = build_curator(HierarchyEntry.gen, :credentials => @credentials)
     @result      = RackBox.request("/account/show/#{@user.id}") # cache the response the taxon page gives before changes

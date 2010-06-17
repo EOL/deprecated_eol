@@ -7,13 +7,9 @@ def create_curator_for_taxon_concept(tc)
 end
 
 describe 'Curation' do
-  EolScenario.load :foundation
-  
-  before(:each) do
-    Rails.cache.clear
-  end
   
   before(:all) do
+    EolScenario.load :foundation
     commit_transactions # Curators are not recognized if transactions are being used, thanks to a lovely
                         # cross-database join.  You can't rollback, because of the EolScenario stuff.  [sigh]
     @common_names_toc_id = TocItem.common_names.id

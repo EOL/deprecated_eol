@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Factory do
 
   before :all do
+    truncate_all_tables
     reset_auto_increment_on_tables_with_tinyint_primary_keys
     EolScenario.load :foundation
   end

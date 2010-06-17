@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Agent do
 
   before(:all) do
+    truncate_all_tables
     @iucn_agent     = Agent.iucn
     @iucn_agent   ||= Agent.gen(:full_name => 'IUCN')
     @iucn_resource1 = Resource.gen()

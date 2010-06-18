@@ -932,7 +932,7 @@ class DataObject < SpeciesSchemaModel
           JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
           JOIN taxon_concepts tc ON (he.taxon_concept_id = tc.id)
           JOIN names n ON (he.name_id=n.id)
-          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})}).all_hashes.sort {|a,b| a['published'] <=> b['published']}
+          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})}).all_hashes.sort {|a,b| b['published'] <=> a['published']}
     
     grouped_taxa_names = ModelQueryHelper.group_array_by_key(data_object_taxa_names, 'data_object_id')
     results = ModelQueryHelper.add_hash_to_object_array_as_key(results, grouped_taxa_names, 'taxa_names_ids')

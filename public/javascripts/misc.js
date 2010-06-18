@@ -135,15 +135,24 @@ function eol_update_credit(params){
     field_notes_area = '';
 
     if (params.taxaIDs.length > 0 ) {
-      var current_page_name_or_id = window.location.toString().sub(/.*\//,'').sub(/\?.*/,'');
-      var taxa_thats_not_the_current_page = 0;    
+      var current_page_name_or_id = parseInt(window.location.toString().sub(/.*\//,'').sub(/\?.*/,''));
+      var other_taxon_concept_index = null;
       // loop thru and find a taxa that's NOT the current page's taxa
-      while (params.taxaIDs[taxa_thats_not_the_current_page] != null && current_page_name_or_id == params.taxaIDs[taxa_thats_not_the_current_page].toString() ) {
-        taxa_thats_not_the_current_page++;
+      // if the image IS linked to the current taxa then don't show an alternative
+      for(var i=0; i<params.taxaIDs.length; i++)
+      {
+          if(parseInt(params.taxaIDs[i]) == current_page_name_or_id) {
+              other_taxon_concept_index = null;
+              break;
+          }else if(other_taxon_concept_index == null) {
+              other_taxon_concept_index = i;
+          }
       }
+      
+      
       // if it exists, show it ...
-      if ( params.taxaIDs[taxa_thats_not_the_current_page] != null ) {
-        field_notes_area += 'Image of <a href="/pages/' + params.taxaIDs[taxa_thats_not_the_current_page] + '">' + params.taxaNames[taxa_thats_not_the_current_page] + '</a><br />';
+      if ( other_taxon_concept_index != null ) {
+        field_notes_area += 'Image of <a href="/pages/' + params.taxaIDs[other_taxon_concept_index] + '">' + params.taxaNames[other_taxon_concept_index] + '</a><br />';
       }
     }
     license_info='COPYRIGHT: ';

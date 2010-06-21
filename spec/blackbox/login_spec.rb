@@ -33,11 +33,11 @@ describe 'Login' do
     user = User.gen :username => 'charliebrown'
     login_as(user).should redirect_to('/')
   end
-  
+ 
   it 'should set a remember token for us if we asked to be remembered' do
     user = User.gen :username => 'charliebrown'
     login_as(user, :remember_me => '1').should redirect_to('/')
-    User.find_by_username('charliebrown').remember_token.should_not be_blank
+    user.reload.remember_token.should_not be_blank
   end
 
   it 'should say hello to the user after logging in' do
@@ -55,9 +55,7 @@ describe 'Login' do
       with_tag('p', :text => /Hello #{ user.given_name }/)
     end
     request('/logout').should be_redirect
-    request('/').body.should have_tag('div.desc-personal') do
-      without_tag('p', :text => /Hello #{ user.given_name }/)
-    end
+    request('/').body.should_not have_tag('p', :text => /Hello #{ user.given_name }/)
   end
   
   it 'should not show the curator link and name must not have hyperlink to profile page' do
@@ -75,7 +73,5 @@ describe 'Login' do
       request('/').should include_text("/account/show/")
     end
   end
-
-
   
 end

@@ -13,15 +13,15 @@ class AccountController < ApplicationController
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password] 
   end
-  
+
   if $SHOW_SURVEYS
     before_filter :check_for_survey
     after_filter :count_page_views
   end
   layout 'main'
-  
+
   @@objects_per_page = 20
-  
+
   def login
 
     # It's possible to create a redirection attack with a redirect to data: protocol... and possibly others, so:
@@ -42,9 +42,9 @@ class AccountController < ApplicationController
     # reset the agent session in case there are any content partners logged in to avoid any funny things
     session[:agent_id] = nil
 
-    user_params=params[:user]
-    remember_me=EOLConvert.to_boolean(params[:remember_me])
-        
+    user_params = params[:user]
+    remember_me = EOLConvert.to_boolean(params[:remember_me])
+
     if using_open_id?
       open_id_authentication(params[:openid_url],remember_me)
     else
@@ -170,7 +170,7 @@ class AccountController < ApplicationController
     # grab logged in user
     @user = User.find(current_user.id)
     old_user=@user.clone
-    
+
     unless request.post? # first time on page, get current settings
       # set expertise to a string so it will be picked up in web page controls
       @user.expertise=current_user.expertise.to_s
@@ -189,7 +189,7 @@ class AccountController < ApplicationController
       end
       @user.password=user_params[:entered_password]
     end
-    
+
     # The UI would not allow this, but a hacker might try to grant curator permissions to themselves in this manner.
     user_params.delete(:curator_approved) unless is_user_admin? 
 
@@ -236,37 +236,37 @@ class AccountController < ApplicationController
     end
 
   end
-  
+
   def show
     @user = User.find(params[:id])
     @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?',params[:id]])
     redirect_back_or_default unless @user.curator_approved
   end
-  
+
   def show_objects_curated
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])
     @data_objects_curated = @user.data_objects_curated
     @data_objects = @data_objects_curated.paginate(:page => page, :per_page => @@objects_per_page)
   end
-  
+
   def show_species_curated
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])
     @taxon_concept_ids = @user.taxon_concept_ids_curated.paginate(:page => page, :per_page => @@objects_per_page)
   end
-  
+
   def show_comments_moderated
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])
     @all_comments = @user.comments_curated
     @comments = @all_comments.paginate(:page => page, :per_page => @@objects_per_page)
   end
-  
+
 
   # this is the uservoice single sign on redirect
   def uservoice_login
-    
+
     user=Hash.new
     user[:guid]="eol_#{current_user.id}"
     user[:expires]=Time.now + 5.hours
@@ -275,15 +275,15 @@ class AccountController < ApplicationController
     user[:locale]=current_user.language.iso_639_1
     current_user.is_admin? ? user[:admin]='accept' : user[:admin]='deny'
     json_token=user.to_json
-              
+
     key = EzCrypto::Key.with_password $USERVOICE_ACCOUNT_KEY, $USERVOICE_API_KEY
     encrypted = key.encrypt(json_token)
     token = CGI.escape(Base64.encode64(encrypted)).gsub(/\n/, '')
-        
+
     redirect_to "#{$USERVOICE_URL}?sso=#{token}"
-    
+
   end
-  
+
   private
 
   def delete_password_reset_token(user)
@@ -367,7 +367,7 @@ class AccountController < ApplicationController
     # Remove the pseudo-column before creating the real record.
     params[:user].delete :curator
   end
-  
+
   # this method is called if a user changes their mailing list or email address settings
   # TODO: do something more intelligent here to notify mailing service that a user changed their settings (like call a web service, or log in DB to create a report)
   def user_changed_mailing_list_settings(old_user,new_user)
@@ -379,7 +379,7 @@ class AccountController < ApplicationController
     end    
     Notifier.deliver_user_changed_mailer_setting(old_user,new_user,recipient)
   end
-  
+
   # In order for AccountController to work with OpenID, we need to force it to use https when authenticating.  
   def realm
     return $PRODUCTION_MODE ? "https://#{request.host_with_port}" : "#{request.protocol + request.host_with_port}"

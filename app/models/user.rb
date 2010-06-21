@@ -486,7 +486,7 @@ class User < ActiveRecord::Base
 
   def remember_me_until(time)
     remember_token_expires_at = time
-    remember_token            = User.hash_password("#{email}--#{remember_token_expires_at}")
+    self.remember_token       = User.hash_password("#{email}--#{remember_token_expires_at}")
     save(false)
   end
 

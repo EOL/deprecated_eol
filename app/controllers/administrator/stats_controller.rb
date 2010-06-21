@@ -24,10 +24,12 @@ class Administrator::StatsController < AdminController
   def SPM_objects_count
     @page_title = 'Species Profile Model - Data Objects Count'
     @arr_SPM = InfoItem.get_schema_value        
-    @rec = PageStatsTaxon.latest
-    @json_data_objects_count_per_subject = @rec["data_objects_count_per_category"]
-    @arr_count = JSON.parse(@json_data_objects_count_per_subject)
-
+    @rec = PageStatsTaxon.latest    
+    if(@rec["data_objects_count_per_category"] != "[DATA MISSING]" and @rec["data_objects_count_per_category"] != nil) then
+      @arr_count = JSON.parse(@rec["data_objects_count_per_category"])      
+    else
+      @arr_count = nil
+    end
     #@arr_count = DataObject.get_SPM_count_on_dataobjects(@arr_SPM)    
     #add numbers from User Submitted Text - UsersDataObjects table
     #@arr_user_object_ids = UsersDataObject.get_all_object_ids  
@@ -38,14 +40,14 @@ class Administrator::StatsController < AdminController
     @page_title = 'Species Profile Model - Content Partners Count'
     @arr_SPM = InfoItem.get_schema_value    
     @rec = PageStatsTaxon.latest
-    @json_data_objects_count_per_subject = @rec["content_partners_count_per_category"]
-    @arr_count = JSON.parse(@json_data_objects_count_per_subject)
-
-
+    if(@rec["content_partners_count_per_category"] != "[DATA MISSING]" and @rec["content_partners_count_per_category"] != nil) then
+      @arr_count = JSON.parse(@rec["content_partners_count_per_category"])
+    else
+      @arr_count = nil
+    end
     #@arr_count = DataObject.get_SPM_count_on_contentpartners(@arr_SPM)
-
-
   end
+
   def toc_breakdown
     @page_title = 'Table of Contents Breakdown'
     @arr_toc = InfoItem.get_toc_breakdown

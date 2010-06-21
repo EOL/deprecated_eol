@@ -23,9 +23,9 @@
   - arr = [1]
   - @arr_dataobject_ids = @arr_dataobject_ids - arr
   %br
-    Curation activity:
-    %strong
-      = number_with_delimiter(@arr_dataobject_ids.length, ",")
+  Curation activity:
+  %strong
+    = number_with_delimiter(@arr_dataobject_ids.length, ",")
 
   - unique_dataobject_ids = @arr_dataobject_ids.uniq
   = "&nbsp;&nbsp;  |&nbsp;&nbsp;  Curated data objects:"

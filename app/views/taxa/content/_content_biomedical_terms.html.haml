@@ -15,8 +15,8 @@
   %p
     %br
   - # There should only be one mapping for LigerCat, but if there are several, this will show all:
-  - for mapping in @content[:items]
-    = render :partial => '/shared/embed_external_page', :locals  => {:height => '400', :width  => '100%', :url    => "#{mapping.url}.cloud"}
+  - if outlink = @content[:item].outlink
+    = render :partial => '/shared/embed_external_page', :locals  => {:height => '400', :width => '100%', :url => "#{outlink[:outlink_url]}.cloud"}
   %p
     %br
   .divider

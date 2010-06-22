@@ -90,19 +90,18 @@ create_if_not_exists AgentContact, :agent => Agent.catalogue_of_life, :agent_con
 create_if_not_exists Agent, :full_name => 'National Center for Biotechnology Information', :acronym => 'NCBI', :logo_cache_url => '921800', :homepage => 'http://www.ncbi.nlm.nih.gov/'
 
 
-boa_agent =
-  create_if_not_exists Agent, :full_name => 'Biology of Aging'
-liger_cat =
-  create_if_not_exists Collection, :title          => 'LigerCat',
+boa_agent = create_if_not_exists Agent, :full_name => 'Biology of Aging', :logo_cache_url => '318700'
+liger_cat_hierarchy = create_if_not_exists Hierarchy, :label          => 'LigerCat',
                                    :description    => 'LigerCat Biomedical Terms Tag Cloud',
-                                   :uri            => 'http://ligercat.ubio.org/eol/FOREIGNKEY.cloud',
-                                   :link           => 'http://ligercat.ubio.org',
-                                   :logo_cache_url => '318700',
+                                   :outlink_uri    => 'http://ligercat.ubio.org/eol/%%ID%%.cloud',
+                                   :url            => 'http://ligercat.ubio.org',
                                    :agent_id => boa_agent.id # Using id to make c_i_n_e work.
+liget_cat_resource = create_if_not_exists Resource, :title => 'LigerCat resource'
+AgentsResource.gen(:resource => liget_cat_resource, :agent => boa_agent)
 links = CollectionType.gen(:label => "Links")
 lit   = CollectionType.gen(:label => "Literature")
-CollectionTypesCollection.gen(:collection => liger_cat, :collection_type => links)
-CollectionTypesCollection.gen(:collection => liger_cat, :collection_type => lit)
+CollectionTypesHierarchy.gen(:hierarchy => liger_cat_hierarchy, :collection_type => links)
+CollectionTypesHierarchy.gen(:hierarchy => liger_cat_hierarchy, :collection_type => lit)
 
 create_if_not_exists AgentDataType, :label => 'Audio'
 create_if_not_exists AgentDataType, :label => 'Image'
@@ -193,7 +192,7 @@ create_if_not_exists Language, :label => 'French',          :iso_639_1 => 'fr' #
 create_if_not_exists Language, :label => 'Scientific Name', :iso_639_1 => ''   # Should be ID 501.  ...But only for PHP's sake.
 create_if_not_exists Language, :label => 'Unknown', :iso_639_1 => ''
 
-create_if_not_exists License, :title => 'public domain',       :description => 'No rights reserved'
+create_if_not_exists License, :title => 'public domain',       :description => 'No rights reserved', :source_url => 'http://creativecommons.org/licenses/publicdomain/'
 create_if_not_exists License, :title => 'all rights reserved', :description => '&#169; All rights reserved',
              :show_to_content_partners => 0
 create_if_not_exists License, :title => 'cc-by-nc 3.0',        :description => 'Some rights reserved',
@@ -262,7 +261,8 @@ create_if_not_exists RefIdentifierType, :label => 'sici'
 create_if_not_exists RefIdentifierType, :label => 'url'
 create_if_not_exists RefIdentifierType, :label => 'urn'
 
-iucn_resource = create_if_not_exists Resource, :title => 'Initial IUCN Import'
+iucn_hierarchy = create_if_not_exists Hierarchy, :label => 'IUCN'
+iucn_resource = create_if_not_exists Resource, :title => 'Initial IUCN Import', :hierarchy => iucn_hierarchy
 iucn_agent = Agent.iucn
 raise "IUCN is nil" if iucn_agent.nil?
 create_if_not_exists AgentsResource, :resource => iucn_resource, :agent => Agent.iucn
@@ -323,6 +323,10 @@ create_if_not_exists TocItem, :label => 'Search the Web',                :view_o
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology', :label => 'TaxonBiology', :toc_item => TocItem.overview
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription', :label => 'GeneralDescription', :toc_item => description
 create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution', :label => 'Distribution', :toc_item => ecology_and_distribution
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat', :label => 'Habitat', :toc_item => ecology_and_distribution
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology', :label => 'Morphology', :toc_item => description
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Conservation', :label => 'Conservation', :toc_item => description
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses', :label => 'Uses', :toc_item => description
 
 create_if_not_exists ServiceType, :label => 'EOL Transfer Schema'
 

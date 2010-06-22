@@ -1,6 +1,6 @@
-- projects = @content[:projects]
-- unless projects.empty?
-  - projects_rows, num_columns = reformat_specialist_projects(projects) 
+- outlinks = @content[:outlinks]
+- unless outlinks.blank?
+  - projects_rows, num_columns = reformat_specialist_projects(outlinks) 
   %table.results_table{:cellspacing => "0"}
     %tr
       - num_columns.times do
@@ -9,13 +9,13 @@
     - projects_rows.each do |row|
       %tr
         - column_class = cycle('odd', 'even')
-        - row.each do |mapping|
+        - row.each do |outlink|
           %td{:class => column_class, :valign => "top", :style => "width:#{100/num_columns}%"}
-            - if mapping
-              - link_text = specialist_project_collection_link(mapping.collection)
-              = external_link_to(collection_logo(mapping.collection, "small"), mapping.collection.link, :show_link_icon => false)
-              = mapping.collection.title unless link_text == mapping.collection.title
+            - if outlink
+              - link_text = hierarchy_outlink_collection_types(outlink[:hierarchy])
+              = external_link_to(agent_logo(outlink[:hierarchy].agent, "small"), outlink[:hierarchy].url, :show_link_icon => false)
+              = outlink[:hierarchy].label unless link_text == outlink[:hierarchy].label
               %br
-              = external_link_to(link_text, mapping.url, :show_link_icon => true)
+              = external_link_to(link_text, outlink[:outlink_url], :show_link_icon => true)
             - else
               &nbsp;

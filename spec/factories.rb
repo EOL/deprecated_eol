@@ -348,17 +348,6 @@ Factory.define :canonical_form do |cform|
   cform.string { Factory.next(:species) }
 end
 
-Factory.define :collection do |col|
-  col.association     :agent
-  col.title           'New Collection'
-  col.description     'Testing New Colleciton'
-  col.uri             'http://testing.new.collecti.on'
-  col.link            'http://clicky.link.com'
-  col.logo_cache_url  '5404'
-  col.ping_host_url   nil
-  col.vetted          1
-end
-
 Factory.define :collection_type do |ct|
   ct.parent_id  0
   ct.lft        0
@@ -366,9 +355,9 @@ Factory.define :collection_type do |ct|
   ct.label      { Factory.next(:string) }
 end
 
-Factory.define :collection_types_collection do |ctc|
-  ctc.association :collection_type
-  ctc.association :collection
+Factory.define :collection_types_hierarchy do |cth|
+  cth.association :collection_type
+  cth.association :hierarchy
 end
 
 # NOTE - the Comment model has some validations on it (create/update/etc) that will fail if you don't have a loaded
@@ -656,12 +645,6 @@ Factory.define :log_daily do |x|
   x.total 0
   x.user_agent 'Cool/Browser'
   x.association :data_type
-end
-
-Factory.define :mapping do |m|
-  m.association :collection
-  m.association :name
-  m.foreign_key 7357 # Arbitrary, off-site number
 end
 
 Factory.define :mime_type do |x|

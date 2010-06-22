@@ -1,0 +1,22 @@
+#public_data_object_tags_container
+  - div_style = visible ? '' : 'display: none;'
+  #public_data_object_tags.data_object_tagging{ :style => div_style }
+    #data_object_tags
+      %h1
+        = image_tag 'icons/tag.gif'
+        Public Image Tags
+      - unless tags.empty?
+        - for key in tag_keys(tags)
+          .clear_both
+            .data_object_tag_key_values.values
+              - for value in tag_values_for_key(key, tags)
+                = render :partial => 'tag_key_value', :locals => { :key => key, :value => value, :can_delete => false }
+      - else
+        %h2
+          This image has no public tags.
+      - if !logged_in? && $ALLOW_USER_LOGINS
+        %br
+        %h2
+          You must be
+          = link_to('logged in', login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => "login_link"})
+          to add your own tags.

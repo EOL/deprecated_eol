@@ -10,7 +10,7 @@ class NavigationController < ApplicationController
     
     
     load_taxon_for_tree_view
-    render :layout => false, :partial => 'tree_view', :locals => { :current_user => current_user }
+    render :layout => false, :partial => 'browse_page', :locals => { :current_user => current_user }
   end
   
   def show_tree_view_for_selection
@@ -65,8 +65,9 @@ class NavigationController < ApplicationController
   protected
   
   def load_taxon_for_tree_view
-    @taxon_concept = TaxonConcept.find(params[:id].to_i, :include => [:names])
-    @taxon_concept.current_user = current_user
+    @hierarchy_entry = HierarchyEntry.find(params[:id].to_i)
+    #@taxon_concept = TaxonConcept.find(params[:id].to_i, :include => [:names])
+    #@taxon_concept.current_user = current_user
   end
   
 end

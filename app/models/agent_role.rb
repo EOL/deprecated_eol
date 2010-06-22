@@ -1,5 +1,6 @@
 # An enumerated list of the different kinds of roles an Agent fills.
 class AgentRole < SpeciesSchemaModel
+
   has_many :agents_data_objects
   has_many :agents_synonyms
 

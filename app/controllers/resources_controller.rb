@@ -13,8 +13,9 @@ class ResourcesController < ApplicationController
     actions :all , :except => :show
 
     response_for :create, :update do |format|
-      format.html do 
-        redirect_url = current_user.is_admin? ? { :controller => 'administrator/content_partner_report', :action => 'show', :id => params[:content_partner_id]} : resources_url
+      format.html do
+        @content_partner = ContentPartner.find(params[:content_partner_id])
+        redirect_url = current_user.is_admin? ? { :controller => 'administrator/content_partner_report', :action => 'show', :id => @content_partner.agent.id} : resources_url
         redirect_to redirect_url
       end
     end

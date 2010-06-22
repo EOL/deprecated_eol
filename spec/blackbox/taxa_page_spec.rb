@@ -79,12 +79,12 @@ describe 'Taxa page (HTML)' do
     @ping_url      = 'TEST_with_%ID%'
     @ping_id       = '424242'
     @name          = @taxon_concept.taxon_concept_names.first.name
-    @collection    = Collection.gen(:ping_host_url => @ping_url)
-    @mapping       = Mapping.gen(:collection => @collection, :name => @name, :foreign_key => @ping_id)
+    @collection    = Hierarchy.gen(:ping_host_url => @ping_url)
+    @mapping       = HierarchyEntry.gen(:hierarchy => @collection, :name => @name, :identifier => @ping_id, :taxon_concept => @taxon_concept)
     @ping_url.sub!(/%ID%/, @ping_id) # So we can test that it was replaced by the code.
 
-    @col_collection = Collection.gen(:agent => Agent.catalogue_of_life, :title => "Catalogue of Life Collection", :uri => "http://www.catalogueoflife.org/browse_taxa.php?selected_taxon=FOREIGNKEY")
-    @col_mapping    = Mapping.gen(:collection => @col_collection, :name => @taxon_concept.taxon_concept_names.first.name)
+    @col_collection = Hierarchy.gen(:agent => Agent.catalogue_of_life, :label => "Catalogue of Life Collection", :outlink_uri => "http://www.catalogueoflife.org/browse_taxa.php?selected_taxon=%%ID%%")
+    @col_mapping    = HierarchyEntry.gen(:hierarchy => @col_collection, :name => @taxon_concept.taxon_concept_names.first.name, :taxon_concept => @taxon_concept, :source_url => "http://example.com")
 
     description       = 'user wants <b>bold</b> and <i>italics</i> and <a href="link">links</a>'
     @description_bold = /user wants <(b|strong)>bold<\/(b|strong)>/
@@ -112,6 +112,59 @@ describe 'Taxa page (HTML)' do
     @result.body.should have_tag('div#page-title') do
       with_tag('h1', :text => @scientific_name)
     end
+  end
+    
+  it 'should show the common name if one exists' do
+    @result.body.should have_tag('div#page-title') do
+      with_tag('h2', :text => @common_name)
+    end
+  end
+  
+  it 'should not show the common name if none exists' do
+    tc = build_taxon_concept
+    result = RackBox.request("/pages/#{tc.id}")
+    result.body.should have_tag('div#page-title') do
+      with_tag('h2', :text => '')
+    end
+  end
+  
+  it 'should use supercedure to find taxon concept' do
+    superceded = TaxonConcept.gen(:supercedure_id => @id)
+    RackBox.request("/pages/#{superceded.id}").should redirect_to("/pages/#{@id}")
+  end
+  
+  it 'should tell the user the page is missing if the page is... uhhh... missing' do
+    missing_id = TaxonConcept.last.id + 1
+    while(TaxonConcept.exists?(missing_id)) do
+      missing_id += 1
+    end
+    RackBox.request("/pages/#{missing_id}").body.should have_tag("div#page-title") do
+      with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
+    end
+  end
+  
+  it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
+    unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
+    RackBox.request("/pages/#{unpublished.id}").body.should have_tag("div#page-title") do
+      with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
+    end
+  end
+  
+  # it 'should be able to ping the collection host' do
+  # end
+  
+  it 'should show the Overview text by default' do
+    @result = RackBox.request("/pages/#{@id}")
+    @result.body.should have_tag('div.cpc-header') do
+      with_tag('h3', :text => 'Overview')
+    end
+    @result.body.should include(@overview_text)
+  end
+  
+  it 'should NOT show references for the overview text when there aren\'t any' do
+    Ref.delete_all
+    @result = RackBox.request("/pages/#{@id}")
+    @result.body.should_not have_tag('div.references')
   end
 
   it 'should show the common name if one exists' do
@@ -142,17 +195,22 @@ describe 'Taxa page (HTML)' do
       with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
     end
   end
+    
+  it 'should show the Catalogue of Life link in Specialist Projects' do
+    this_result = RackBox.request("/pages/#{@taxon_concept.id}?category_id=#{TocItem.specialist_projects.id}")
+    this_result.body.should include(@col_collection.label)
+  end
+  
+  it 'should show the Catalogue of Life link in the header' do
+    body = RackBox.request("/pages/#{@taxon_concept.id}").body
+    body.should include("recognized by <a href=\"#{@col_mapping.source_url}\"")
+  end
 
   it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
     unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
     RackBox.request("/pages/#{unpublished.id}").body.should have_tag("div#page-title") do
       with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
     end
-  end
-
-  it 'should be able to ping the collection host' do
-    @result = RackBox.request("/pages/#{@id}")
-    @result.body.should include(@ping_url)
   end
 
   it 'should show the Overview text by default' do
@@ -224,12 +282,12 @@ describe 'Taxa page (HTML)' do
 
   it 'should show the Catalogue of Life link in Specialist Projects' do
     this_result = RackBox.request("/pages/#{@taxon_concept.id}?category_id=#{TocItem.specialist_projects.id}")
-    this_result.body.should include(@col_collection.title)
+    this_result.body.should include(@col_collection.label)
   end
 
   it 'should show the Catalogue of Life link in the header' do
     body = RackBox.request("/pages/#{@taxon_concept.id}").body
-    body.should include("recognized by <a href=\"#{@col_mapping.url}\"")
+    body.should include("recognized by <a href=\"#{@col_mapping.source_url}\"")
   end
 
   it 'should show a Nucleotide Sequences table of content item if concept in NCBI and has identifier' do
@@ -278,30 +336,30 @@ describe 'Taxa page (HTML)' do
       @ncbi_tc    = find_unique_tc(:not_in => Hierarchy.default, :in => @ncbi)
       @common_tc  = find_common_tc(:in => Hierarchy.default, :also_in => @ncbi)
     end
-
+    
     it "should see 'not in hierarchy' message when the user doesn't specify a default hierarchy and page is not in default hierarchy" do
       login_as @user_with_nil_hierarchy
       res = request("/pages/#{@ncbi_tc.id}")
-      res.should include_text("Name not in #{Hierarchy.default.label.gsub("&", "&amp;")}")
+      res.should match /Name not in\s*#{Hierarchy.default.label}/
       res.body.should match /selected='selected' value='[0-9]+'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector default
       res.body.should match /value='#{@ncbi.id}'>\s*#{@ncbi.label}\s*<\/option>/ # selector
     end
-
+    
     it "should see 'not in hierarchy' message when the user has NCBI hierarchy and page is not in NCBI" do
       login_as @user_with_ncbi_hierarchy
       res = request("/pages/#{@default_tc.id}")
-      res.should include_text("Name not in #{@ncbi.label}")
+      res.should match /Name not in\s*#{@ncbi.label}/
       res.body.should match /selected='selected' value='[0-9]+'>\s*#{@ncbi.label}\s*<\/option>/ # selector default
       res.body.should match /value='#{Hierarchy.default.id}'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector
     end
-
+    
     it "should not show a hierarchy in the drop down list when it doesnt treat the current concept" do
       login_as @user_with_ncbi_hierarchy
       res = request("/pages/#{@ncbi_tc.id}")
       res.body.should match /selected='selected' value='[0-9]+'>\s*#{@ncbi.label}\s*<\/option>/ # selector default
       res.body.should match /class='out' value='#{Hierarchy.default.id}'>\s*#{Hierarchy.default.label}\s*<\/option>/
     end
-
+    
     it "should recognize the browsable hierarchy attribute" do
       body = request("/pages/#{@taxon_concept.id}").body
       body.should have_tag('select.choose-hierarchy-select') do
@@ -312,29 +370,29 @@ describe 'Taxa page (HTML)' do
         without_tag('option', :text => /#{@non_browsable_hierarchy.label}/)
       end
     end
-
+    
     it "should attribute the default hierarchy when the user doesn't specify one and the page is in both hierarchies" do
       login_as @user_with_nil_hierarchy
       body = request("/pages/#{@common_tc.id}").body
       body.should have_tag('span.classification-attribution-name', :text => /Species recognized by/ ) do
-        with_tag("a[href^=#{Hierarchy.default.agent.homepage.strip}]")
+        with_tag("a[href^=#{@col_mapping.outlink[:outlink_url]}]")
       end
       body.should have_tag('select.choose-hierarchy-select') do
         with_tag('option[selected=selected]', :text => /#{Hierarchy.default.label}/)
       end
     end
-
+    
     it "should attribute the default hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_default_hierarchy
       body = request("/pages/#{@common_tc.id}").body
       body.should have_tag('span.classification-attribution-name', :text => /Species recognized by/ ) do
-        with_tag("a[href^=#{Hierarchy.default.agent.homepage.strip}]")
+        with_tag("a[href^=#{@col_mapping.outlink[:outlink_url]}]")
       end
       body.should have_tag('select.choose-hierarchy-select') do
         with_tag('option[selected=selected]', :text => /#{Hierarchy.default.label}/)
       end
     end
-
+    
     it "should use the label from the NCBI hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_ncbi_hierarchy
       body = request("/pages/#{@common_tc.id}").body

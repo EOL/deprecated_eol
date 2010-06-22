@@ -4,7 +4,7 @@
   - if @hierarchy.request_publish
     This hierarchy has been proposed as an alternate browsing classification for EOL - Pending Admin approval
   - else
-    = link_to_remote('Click to propose this hierarchy become an alternate browsing classification for EOL', :url => request_publish_hierarchy_path(@hierarchy), :method => :post, :update => "publish_#{@hierarchy.id}", :confirm => 'Are you sure you want an admin to publish this hierarchy?')
+    = link_to_remote('Click to propose this hierarchy as an alternate browsing classification for EOL', :url => request_publish_hierarchy_path(@hierarchy), :method => :post, :update => "publish_#{@hierarchy.id}", :confirm => 'Are you sure you want an admin to publish this hierarchy?')
 %hr.thin
 %br
 = render(:partial => 'navigation/browse')

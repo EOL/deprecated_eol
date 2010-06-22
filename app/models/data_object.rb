@@ -932,7 +932,7 @@ class DataObject < SpeciesSchemaModel
           JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
           JOIN taxon_concepts tc ON (he.taxon_concept_id = tc.id)
           JOIN names n ON (he.name_id=n.id)
-          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})}).all_hashes.sort {|a,b| a['published'] <=> b['published']}
+          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})}).all_hashes.sort {|a,b| b['published'] <=> a['published']}
     
     grouped_taxa_names = ModelQueryHelper.group_array_by_key(data_object_taxa_names, 'data_object_id')
     results = ModelQueryHelper.add_hash_to_object_array_as_key(results, grouped_taxa_names, 'taxa_names_ids')
@@ -1168,60 +1168,61 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     self.paginate_by_sql [query, obj_ids], :page => page, :per_page => 20 , :order => 'id'  
   end
   
-  def self.get_SPM_count_on_dataobjects(arr_SPM)        
-    arr_count = {} #same Hash.new
-    arr_SPM.each do |profile|
-      id = profile["id"]
-      rset = DataObject.find_by_sql(["SELECT Count(do.id) total 
-      FROM data_objects do
-      JOIN data_objects_info_items doii ON do.id = doii.data_object_id
-      WHERE doii.info_item_id = #{id} AND do.published AND do.vetted_id != #{Vetted.untrusted.id}"])            
-      rset.each do |rec|
-        arr_count["#{id}"] = rec.total
-      end      
-    end        
-    return arr_count
-  end
+  #this method is slow and was replaced by one in the PHP SiteStatistics class.
+  #def self.get_SPM_count_on_dataobjects(arr_SPM)        
+  #  arr_count = {} #same Hash.new
+  #  arr_SPM.each do |profile|
+  #    id = profile["id"]
+  #    rset = DataObject.find_by_sql(["SELECT Count(do.id) total 
+  #    FROM data_objects do    JOIN     data_objects_info_items doii ON do.id = doii.data_object_id
+  #    WHERE doii.info_item_id = #{id} AND do.published AND do.vetted_id != #{Vetted.untrusted.id}"])            
+  #    rset.each do |rec|
+  #      arr_count["#{id}"] = rec.total
+  #    end      
+  #  end        
+  #  return arr_count
+  #end
 
-  def self.add_user_dataobjects_on_SPM_count(arr_count, arr_user_object_ids)
-    if(arr_user_object_ids.length > 0) then      
-      rset = DataObject.find_by_sql(["SELECT ii.id, Count(ii.id) total
-      FROM data_objects_table_of_contents dotc      
-      JOIN info_items ii ON dotc.toc_id = ii.toc_id
-      JOIN data_objects do ON dotc.data_object_id = do.id
-      WHERE dotc.data_object_id IN (#{arr_user_object_ids.join(',')}) 
-      AND do.vetted_id != #{Vetted.untrusted.id}
-      AND do.published
-      Group By ii.id "])            
-      rset.each do |rec|
-        if(arr_count["#{rec.id}"] != nil) then
-          arr_count["#{rec.id}"] = arr_count["#{rec.id}"].to_i + rec.total.to_i
-        else
-          arr_count["#{rec.id}"] = rec.total.to_i
-        end
-      end      
-    end
-    return arr_count
-  end
+  #def self.add_user_dataobjects_on_SPM_count(arr_count, arr_user_object_ids)
+  #  if(arr_user_object_ids.length > 0) then      
+  #    rset = DataObject.find_by_sql(["SELECT ii.id, Count(ii.id) total
+  #    FROM data_objects_table_of_contents dotc      
+  #    JOIN info_items ii ON dotc.toc_id = ii.toc_id
+  #    JOIN data_objects do ON dotc.data_object_id = do.id
+  #    WHERE dotc.data_object_id IN (#{arr_user_object_ids.join(',')}) 
+  #    AND do.vetted_id != #{Vetted.untrusted.id}
+  #    AND do.published
+  #    Group By ii.id "])            
+  #    rset.each do |rec|
+  #      if(arr_count["#{rec.id}"] != nil) then
+  #        arr_count["#{rec.id}"] = arr_count["#{rec.id}"].to_i + rec.total.to_i
+  #      else
+  #        arr_count["#{rec.id}"] = rec.total.to_i
+  #      end
+  #    end      
+  #  end
+  #  return arr_count
+  #end
 
-  def self.get_SPM_count_on_contentpartners(arr_SPM)        
-    arr_count = {} #same Hash.new
-    arr_SPM.each do |rec|
-      id = rec["id"]
-      rset = DataObject.find_by_sql(["SELECT COUNT(distinct ar.agent_id) total
-      FROM data_objects_info_items      doii
-      JOIN data_objects_harvest_events  dohe  ON doii.data_object_id = dohe.data_object_id
-      JOIN data_objects                 do    ON do.id = doii.data_object_id
-      JOIN harvest_events               he    ON dohe.harvest_event_id = he.id
-      JOIN resources                    r     ON he.resource_id = r.id
-      JOIN agents_resources             ar    ON r.id = ar.resource_id
-      WHERE doii.info_item_id = #{id} AND do.published AND do.vetted_id != #{Vetted.untrusted.id}"])            
-      rset.each do |rec|
-        arr_count["#{id}"] = rec.total
-      end      
-    end        
-    return arr_count
-  end
+  #this query is very slow and was replaced by one in the PHP SiteStatistics class.
+  #def self.get_SPM_count_on_contentpartners(arr_SPM)        
+  #  arr_count = {} #same Hash.new
+  #  arr_SPM.each do |rec|
+  #    id = rec["id"]
+  #    rset = DataObject.find_by_sql(["SELECT COUNT(distinct ar.agent_id) total
+  #    FROM data_objects_info_items      doii
+  #    JOIN data_objects_harvest_events  dohe  ON doii.data_object_id = dohe.data_object_id
+  #    JOIN data_objects                 do    ON do.id = doii.data_object_id
+  #    JOIN harvest_events               he    ON dohe.harvest_event_id = he.id
+  #    JOIN resources                    r     ON he.resource_id = r.id
+  #    JOIN agents_resources             ar    ON r.id = ar.resource_id
+  #    WHERE doii.info_item_id = #{id} AND do.published AND do.vetted_id != #{Vetted.untrusted.id}"])            
+  #    rset.each do |rec|
+  #      arr_count["#{id}"] = rec.total
+  #    end      
+  #  end        
+  #  return arr_count
+  #end
   
   def self.details_for_object(data_object_guid, options = {})
     data_objects = DataObject.find_all_by_guid(data_object_guid, :conditions => "published=1 AND visibility_id=#{Visibility.visible.id}")

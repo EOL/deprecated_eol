@@ -5,8 +5,8 @@ class PageName < SpeciesSchemaModel
   
   def self.page_names_for?(taxon_concept_id)
     return PageName.count_by_sql(['SELECT 1 FROM taxon_concept_names tcn 
-                                     JOIN page_names pn 
-                                    USING (name_id) 
+                                     STRAIGHT_JOIN page_names pn 
+                                    ON (tcn.name_id=pn.name_id) 
                                     WHERE tcn.taxon_concept_id = ? 
                                     LIMIT 1', taxon_concept_id]) > 0
   end

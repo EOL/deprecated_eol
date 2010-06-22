@@ -56,8 +56,7 @@ Click on a user to view the user's detailed profile, click on the species to vie
               = link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id,  :text_id => comment.data_object_id}
               %br
               = h obj.description
-              /
-                <haml:loud> link_to (obj.description,&amp;quot;/data_objects/\#{comment.data_object_id}&amp;quot;)</haml:loud>
+              -# link_to (obj.description, '/data_objects/#{comment.data_object_id}')
             %td{ :class => column_class }
               = @obj_toc_info.fetch("#{comment.data_object_id}",0)
             %td{ :class => column_class }
@@ -68,7 +67,7 @@ Click on a user to view the user's detailed profile, click on the species to vie
               = h format_date_time(obj.created_at,:format=>'short_no_tz')
               %br
               = h format_date_time(obj.updated_at,:format=>'short_no_tz')
-            / TODO - Do we need this?
+            -# TODO - Do we need this?
             - if(false)
               %td{ :class => column_class }
                 = h truncate(comment.body,100)

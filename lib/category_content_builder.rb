@@ -59,7 +59,7 @@ private
                       pt.details publication_details, ip.year item_year, ip.volume item_volume,
                       ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url
       FROM taxon_concept_names tcn
-        JOIN page_names pn ON (tcn.name_id = pn.name_id)
+        STRAIGHT_JOIN page_names pn ON (tcn.name_id = pn.name_id)
         JOIN item_pages ip ON (pn.item_page_id = ip.id)
         JOIN title_items ti ON (ip.title_item_id = ti.id)
         JOIN publication_titles pt ON (ti.publication_title_id = pt.id)
@@ -92,8 +92,7 @@ private
   end
 
   def biomedical_terms(options)
-    return {:items => Mapping.for_taxon_concept_id(options[:taxon_concept_id],
-                                                   :collection_id => Collection.ligercat.id)}
+    return {:item => HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, options[:taxon_concept_id])}
   end
 
   # This is all hard-coded in the view.
@@ -102,37 +101,11 @@ private
   end
 
   def specialist_projects(options)
-    # I did not include these outlinks as data object in the traditional sense. For now, you'll need to go through the
-    # collections and mappings tables to figure out which links pertain to the taxon (mappings has the name_id field). I
-    # had some thoughts about including these in the taxa/data_object route, but I don't have plans to make this change
-    # any time soon.
-    # 
-    # I had the table hierarchies_content which was supposed to let us know roughly what we had for each
-    # hierarchies_entry (text, images, maps...). But, maybe it makes sense to cache the table of contents / taxon
-    # relationships as well as media. Another de-normalized table. It may seem sloppy, but I'm sure we'll have to use
-    # de-normalized tables a lot in this project.
-
     tc_id = options[:taxon_concept_id]
-    vetted = options[:vetted]
-
-    return_mapping_objects = []
-    mappings = SpeciesSchemaModel.connection.execute(%Q{
-      SELECT m.id mapping_id, m.foreign_key foreign_key, a.full_name agent_name,
-                      c.title collection_title, c.link collection_link, c.uri collection_uri 
-        FROM taxon_concept_names tcn 
-        JOIN mappings m ON (tcn.name_id = m.name_id) 
-        JOIN collections c ON (m.collection_id = c.id) 
-        JOIN agents a ON (c.agent_id = a.id) 
-        WHERE tcn.taxon_concept_id = #{options[:taxon_concept_id]} AND (c.vetted=1 OR c.vetted=#{vetted}) 
-        GROUP BY c.id
-    }).all_hashes
-    mappings.sort_by { |mapping| mapping["agent_name"] }.each do |m|
-      mapping_object = Mapping.find(m["mapping_id"].to_i)
-      return_mapping_objects << mapping_object
-    end
-
-    return {:projects => return_mapping_objects}
-    
+    tc = TaxonConcept.find(tc_id)
+    outlinks = tc.outlinks
+    sorted_outlinks = outlinks.sort_by { |ol| ol[:hierarchy_entry].hierarchy.label }
+    return {:outlinks => sorted_outlinks}
   end
   
   def literature_references(options)

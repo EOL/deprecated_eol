@@ -31,6 +31,13 @@ class Resource < SpeciesSchemaModel
       Agent.iucn.resources[0]
     end
   end
+  
+  def self.ligercat
+    Rails.cache.fetch('resources/ligercat') do
+      Agent.boa.resources[0]
+    end
+  end
+  
 
   def status_label
     (resource_status.nil?) ? "Created" : resource_status.label

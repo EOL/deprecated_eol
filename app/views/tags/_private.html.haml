@@ -1,0 +1,48 @@
+#private_data_object_tags_container
+  %input{ :type => "hidden", :name => "tagging_data_object", :value => @data_object.id }
+  - div_style = visible ? '' : 'display: none;'
+  #private_data_object_tags.data_object_tagging{ :style => div_style }
+    #my_data_object_tags
+      %h1
+        = image_tag 'icons/ProfileTag.gif'
+        My Tags
+      .clear_both
+      - if logged_in?
+        - unless tags.empty?
+          - for key in tag_keys(tags)
+            .data_object_tag_key_values.values
+              - for value in tag_values_for_key(key, tags)
+                = render :partial => 'tag_key_value', :locals => { :key => key, :value => value, :can_delete => true }
+        - else
+          %h2
+            You have not tagged this image yet.
+      - elsif $ALLOW_USER_LOGINS
+        %h2
+          You must be
+          = link_to 'logged in', login_path(:params => { :return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path })
+          to add your own tags.
+          
+    - if logged_in?
+      #add_data_object_tags{ :style => "" }
+        %h1
+          = image_tag 'icons/plusIcon.gif'
+          Add Image Tags
+        %h2
+          Separate tags with spaces; category is optional
+        #add_data_object_tags_fields.clear_both
+          - form_tag data_object_tags_path(data_object.id) do
+            .label
+              %span
+                Category
+            .values
+              %div
+                = text_field_tag 'tag[key]', nil, :class => 'autocomplete', 'autocomplete_url' => autocomplete_for_tag_key_data_object_tags_path(@data_object.id)
+            %br
+            .label
+              %span
+                Add Tag
+            .values
+              %div
+                = text_field_tag 'tag[value]', nil, :class => 'autocomplete', 'autocomplete_url' => autocomplete_for_tag_value_data_object_tag_path(@data_object.id,'TAG_KEY_GOES_HERE')
+                %br
+                = submit_tag 'Add this tag',:class=>'tag-submit',:onclick=>'showPopupAjaxIndicator();'

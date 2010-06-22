@@ -1,0 +1,13 @@
+The following EOL user just changed their notification mailing list or email setting:
+=""
+="ID: " + @new_user.id.to_s
+="Username: " + @new_user.username
+="Name: " + @new_user.full_name
+="Date Changed: " + Time.now.to_s
+="Date Registered: " + @new_user.created_at.to_s
+=""
+="Initial email address: " + @old_user.email
+="New email address: " + @new_user.email
+=""
+="Initial mail setting: " + @old_user.mailing_list.to_s
+="New mail setting: " + @new_user.mailing_list.to_s

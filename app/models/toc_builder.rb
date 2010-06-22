@@ -72,7 +72,7 @@ private
   def add_special_toc_entries_to_toc_based_on_tc_id(toc, taxon_concept, options)
     
     # Add specialist projects if there are entries in the mappings table for this name:
-    if Mapping.specialist_projects_for?(taxon_concept.id)
+    if taxon_concept.has_outlinks?
       toc << TocEntry.new(TocItem.specialist_projects)
     end
     
@@ -95,7 +95,7 @@ private
     end
     
     # Add Medical Concepts if there is a LigerCat tag cloud available:
-    if !Collection.ligercat.nil? && Mapping.specialist_projects_for?(taxon_concept.id, :collection_id => Collection.ligercat.id)
+    if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, taxon_concept.id)
       toc << TocEntry.new(TocItem.biomedical_terms)
     end
     

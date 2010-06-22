@@ -13,7 +13,7 @@ class Ref < SpeciesSchemaModel
       " SELECT refs.* FROM hierarchy_entries he 
                   JOIN data_objects_hierarchy_entries dohe ON (he.id=dohe.hierarchy_entry_id)
                   JOIN data_objects do ON (dohe.data_object_id=do.id)
-                  JOIN data_objects_refs dor ON (dohe.data_object_id=dor.data_object_id)
+                  JOIN data_objects_refs dor ON (do.id=dor.data_object_id)
                   JOIN refs ON (dor.ref_id=refs.id)
                   WHERE he.taxon_concept_id=?
                   AND do.published=1
@@ -39,7 +39,7 @@ class Ref < SpeciesSchemaModel
       "SELECT 1 FROM hierarchy_entries he 
                 JOIN data_objects_hierarchy_entries dohe ON (he.id=dohe.hierarchy_entry_id)
                 JOIN data_objects do ON (dohe.data_object_id=do.id)
-                JOIN data_objects_refs dor ON (dohe.data_object_id=dor.data_object_id) 
+                JOIN data_objects_refs dor ON (do.id=dor.data_object_id) 
                 JOIN refs ON (dor.ref_id=refs.id)
                 WHERE he.taxon_concept_id=?
                 AND do.published=1

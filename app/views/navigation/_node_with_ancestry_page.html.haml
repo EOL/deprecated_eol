@@ -1,0 +1,29 @@
+- if ancestors.blank?
+  - node_class = node_class || 'normal'
+  %li{ :class => node_class }
+    = render(:partial => 'navigation/node_name_page', :locals => { :entry => hierarchy_entry })
+    - children = HierarchyEntry.children_details(hierarchy_entry['id'])
+    - if !@in_hierarchy
+      %ul
+        %li
+          %span.message
+            Name not in
+            = @session_hierarchy.label
+            \. Select an alternate hierarchy from the list above
+    - else
+      - unless children.blank?
+        %ul.branch
+          - for child in children
+            - if @expand && !child['is_leaf']
+              = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :hierarchy_entry => child, :expanded => true })
+            - else
+              %li.normal
+                = render(:partial => 'navigation/node_name_page', :locals => { :entry => child })
+- else
+  - ancestor = ancestors.shift
+  - node_class = node_class || 'normal'
+  %li{ :class => node_class }
+    = render(:partial => 'navigation/node_name_page', :locals => { :entry => ancestor})
+    %ul.branch
+      = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+      

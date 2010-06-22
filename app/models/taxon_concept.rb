@@ -304,23 +304,45 @@ class TaxonConcept < SpeciesSchemaModel
   def species_or_below?
     hierarchy_entries.detect {|he| he.species_or_below? }
   end
-
-  # Because nested has_many_through won't work with CPKs:
-  def mappings
-    Rails.cache.fetch("taxon_concepts/#{self.id}/mappings") do
-      Mapping.for_taxon_concept_id(self.id).sort_by {|m| m.id }
-    end
+  
+  def has_outlinks?
+    return true unless outlinks.empty?
   end
-
-  # I chose not to make this singleton since it should really only ever get called once:
-  def ping_host_urls
-    host_urls = []
-    mappings.each do |mapping|
-      host_urls << mapping.ping_host_url unless mapping.collection.nil? or mapping.ping_host? == false 
+  
+  def outlinks
+    all_outlinks = []
+    used_hierarchies = []
+    entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id, :include => :hierarchy)
+    entries_for_this_concept.each do |he|
+      next if used_hierarchies.include?(he.hierarchy)
+      next if he.published != 1 && he.visibility_id != Visibility.visible.id
+      if !he.source_url.blank?
+        all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.source_url }
+        used_hierarchies << he.hierarchy
+      elsif !he.hierarchy.outlink_uri.blank?
+        # if the hierarchy outlink_uri expects an ID
+        if matches = he.hierarchy.outlink_uri.match(/%%ID%%/)
+          # .. and the ID exists
+          unless he.identifier.blank?
+            all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.hierarchy.outlink_uri.gsub(/%%ID%%/, he.identifier) }
+            used_hierarchies << he.hierarchy
+          end
+        else
+          # there was no %%ID%% pattern in the outlink_uri, but its not blank so its a generic URL for all entries
+          all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.hierarchy.outlink_uri }
+          used_hierarchies << he.hierarchy
+        end
+      end
     end
-    return host_urls
+    
+    # if the link is Wikipedia this will remove the revision ID
+    all_outlinks.each do |ol|
+      ol[:outlink_url].gsub!(/&oldid=[0-9]+$/, '')
+    end
+    
+    return all_outlinks
   end
-
+  
   def gbif_map_id
     hierarchy_entries.each do |entry|
       return entry.identifier if entry.has_gbif_identifier?
@@ -699,13 +721,12 @@ class TaxonConcept < SpeciesSchemaModel
     iucn_objects = DataObject.find_by_sql("
         SELECT do.*
           FROM hierarchy_entries he
-            JOIN harvest_events_hierarchy_entries hehe ON (he.id = hehe.hierarchy_entry_id)
-            JOIN harvest_events hevt ON (hehe.harvest_event_id = hevt.id)
             JOIN data_objects_hierarchy_entries dohe ON (he.id = dohe.hierarchy_entry_id)
             JOIN data_objects do ON (dohe.data_object_id = do.id)
-          WHERE he.taxon_concept_id = #{self.id}
-            AND hevt.resource_id IN (#{Resource.iucn.id})
-            AND do.published = 1")
+        WHERE he.taxon_concept_id = #{self.id}
+          AND he.hierarchy_id = #{Resource.iucn.hierarchy_id}
+          AND he.published = 1
+          AND do.published = 1")
     
     iucn_objects.sort! do |a,b|
       b.id <=> a.id

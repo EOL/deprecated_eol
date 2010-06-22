@@ -37,6 +37,8 @@
           Taxa
         %th
           Action
+        %th
+          Hierarchy
     %tbody
       - count = 0
       - for harvest_event in @harvest_events 
@@ -63,6 +65,9 @@
             - else
               unpublished
             =# current_user.is_admin? ? link_to("publish", resource_harvest_event_url(@resource, harvest_event), :method => :put, :confirm => "Are you sure you want to publish this harvest? This action is not reversible.") : "n/a"
+          %td{ :class => column_class }
+            - if count == 1 && h = harvest_event.resource.hierarchy
+              = link_to('view this hierarchy', { :controller => 'content_partner', :action => 'hierarchy', :id => h.id })
   = will_paginate(@harvest_events)
 - if current_user.is_admin?
   = link_to "[go back]", :controller => "/administrator/content_partner_report", :action => "show", :id  => content_partner_id

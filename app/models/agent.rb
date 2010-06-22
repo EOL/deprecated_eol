@@ -133,6 +133,12 @@ class Agent < SpeciesSchemaModel
       col_attr.to_yaml
     end)
   end
+  
+  def self.boa
+    YAML.load(Rails.cache.fetch('agents/boa') do
+      Agent.find_by_full_name('Biology of Aging').to_yaml
+    end)
+  end
 
   def self.from_license(license, rights_statement = nil)
     Agent.new :project_name => (rights_statement.blank? ?
@@ -148,22 +154,25 @@ class Agent < SpeciesSchemaModel
 
 
   def self.content_partners_contact_info(month,year)    
-    SpeciesSchemaModel.connection.select_all("Select agents.full_name, agents.id AS agent_id, agents.username, 
-    agent_contacts.email
-    From agents 
-    Join content_partners ON agents.id = content_partners.agent_id
-    Join google_analytics_partner_summaries ON content_partners.agent_id = google_analytics_partner_summaries.agent_id
-    Join agent_contacts ON agents.id = agent_contacts.agent_id
-    where google_analytics_partner_summaries.`year` = #{year}
-    and google_analytics_partner_summaries.`month` = #{month} and agent_contacts.email is not null ")
+    #ac.email
+    #'eli@eol.org' email
+    SpeciesSchemaModel.connection.select_all("SELECT a.full_name, a.id agent_id, a.username, 
+    ac.email
+    From agents a
+    JOIN content_partners cp                      ON a.id = cp.agent_id
+    JOIN google_analytics_partner_summaries gaps  ON cp.agent_id = gaps.agent_id
+    JOIN agent_contacts ac                        ON a.id = ac.agent_id
+    WHERE gaps.`year` = #{year}
+    AND gaps.`month` = #{month} AND ac.email IS NOT NULL")
   end
     
   def self.content_partners_with_published_data
-    query = "Select distinct agents.id, agents.full_name From agents
-    Join agents_resources ON agents.id = agents_resources.agent_id
-    Join harvest_events ON agents_resources.resource_id = harvest_events.resource_id
-    Where harvest_events.published_at is not null
-    Order By agents.full_name Asc"    
+    query = "SELECT distinct a.id, a.full_name 
+    FROM agents a
+    JOIN agents_resources ar  ON a.id = ar.agent_id
+    JOIN harvest_events he    ON ar.resource_id = he.resource_id
+    WHERE he.published_at IS NOT NULL
+    ORDER BY a.full_name ASC"    
     self.find_by_sql [query]
   end
 

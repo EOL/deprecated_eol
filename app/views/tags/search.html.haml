@@ -1,0 +1,59 @@
+%style{ :type => "text/css", :media => "screen" }
+  :plain
+    #tag-search-results {
+      margin: 15px;
+    }
+    #tag-search-results form {
+      margin-bottom: 15px;
+    }
+    #tag-search-results h1 {
+      font-size: 1.2em;
+      padding-bottom: 10px;
+    }
+    #tag-search-results>ul {
+      padding-left: 10px;
+    }
+    #tag-search-results>ul>li {
+      height: 60px;
+      padding: 5px;
+    }
+    .thumbnail {
+      background-color:#F4F4F4;
+      display:block;
+      float: left;
+      height:48px;
+      margin:2px 0 0 2px;
+      padding:2px 2px 2px 0;
+      width:68px;
+    }
+    
+#tag-search-results
+  - form_tag search_tags_path, :method => 'get' do
+    = text_field_tag :q, params[:q]
+    = submit_tag 'Search by Tag'
+    = clade_selector :text => 'filter by clade', :value => params['selected-clade-id']
+  %ul
+    - unless @data_objects.nil? or @data_objects.empty?
+      %h1
+        Search results for
+        = params[:q]
+      - for data_object in @data_objects
+        %li
+          %img.thumbnail{ :src => data_object.thumbnail_cache_url, :alt => "Image #{data_object.id}" }
+          .data_object_tagging{ :style => "float: left; width: 200px; height: 60px;" }
+            - for key in tag_keys(data_object.tags)
+              .clear_both
+                .data_object_tag_key.label
+                  %span
+                    = key
+                .data_object_tag_key_values.values
+                  - for value in tag_values_for_key(key, data_object.tags)
+                    = render :partial => 'tag_key_value', :locals => { :key => key, :value => value, :can_delete => false, :data_object => data_object }
+          %div{ :style => "float: left; width: 650px; height: 60px; overflow: auto;" }
+            - for taxon_concept in data_object.taxon_concepts
+              = link_to taxon_concept.name[0,40], taxon_path(taxon_concept)
+    - else
+      - if params[:q]
+        %p
+          No objects found tagged with
+          = params[:q]

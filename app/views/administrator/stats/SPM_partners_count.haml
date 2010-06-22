@@ -4,7 +4,7 @@
 
   The count represents the total number of content partners with published data objects under the respective SPM subject category.
   %br
-    *Please take note that Wikipedia, Education and Barcode are EOL internal subjects and not part of the SPM.
+  *Please take note that Wikipedia, Education and Barcode are EOL internal subjects and not part of the SPM.
   
   %table.results_table
     %tr
@@ -32,7 +32,6 @@
             = rec["schema_value"]
           %td{ :class => column_class, :align => "right" }
             = number_with_delimiter(@arr_count[rec["id"]], :delimiter => ",")
-
 
     %tr
       %td{ :colspan => "5" }

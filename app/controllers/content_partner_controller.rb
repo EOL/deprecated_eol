@@ -1,5 +1,4 @@
 class ContentPartnerController < ApplicationController
-  
   before_filter :agent_login_required, :except => [:login, :register, :check_username, :forgot_password, :agreement, :content, :stats]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   helper_method :current_agent, :agent_logged_in?
@@ -247,12 +246,13 @@ class ContentPartnerController < ApplicationController
       @agreement=ContentPartnerAgreement.create_new(:agent_id=>@agent.id) if @agreement.nil?
     end
     
-    @primary_contact=@agent.primary_contact  
+    @primary_contact = @agent.primary_contact  
     
     if !@agreement.mou_url.blank?  # if there is a URL, render the url 
       redirect_to @agreement.mou_url
     else #otherwise render the template
-      render :layout => false, :inline=>@agreement.template
+      render :layout => false, :inline => @agreement.template
+      #render :layout => false, :inline => Haml::Engine.new(@agreement.template).render(Object.new, :agent => @agent, :primary_contact => @primary_contact, :created_on_date => format_date_time(@agreement.created_at))
     end
     
   end

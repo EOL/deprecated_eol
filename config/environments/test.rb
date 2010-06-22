@@ -48,7 +48,7 @@ config.gem "eol_scenarios", :lib => "eol_scenarios"
 config.gem "rspec", :lib => false
 config.gem "rspec-rails", :lib => false
 config.gem "factory_girl", :lib => false
-config.gem "remi-rackbox", :lib => false
+config.gem "eol_rackbox", :lib => false
 # Note we are using an old version of metric_fu; 1.2 has a dependency on activesupport that we're not using for Rails.
 # TODO - when we update our Rails version, update metric_fu
 config.gem "metric_fu", :lib => 'metric_fu'

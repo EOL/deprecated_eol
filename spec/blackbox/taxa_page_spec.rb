@@ -220,8 +220,8 @@ describe 'Taxa page (HTML)' do
       this_result.body.should have_tag('h1') # Whatever, let's just prove that it renders.
     end
     
-    it 'should show the Catalogue of Life link in Specialist Projects' do
-      this_result = RackBox.request("/pages/#{@taxon_concept.id}?category_id=#{TocItem.specialist_projects.id}")
+    it 'should show the Catalogue of Life link in Content Partners' do
+      this_result = RackBox.request("/pages/#{@taxon_concept.id}?category_id=#{TocItem.content_partners.id}")
       this_result.body.should include(@col_collection.label)
     end
     

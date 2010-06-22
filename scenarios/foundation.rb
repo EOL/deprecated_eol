@@ -316,7 +316,7 @@ ref_and_info = create_if_not_exists TocItem, :label => 'References and More Info
 
 # Note that in all these "children", the view_order resets.  ...That reflects the real DB.
 create_if_not_exists TocItem, :label => 'Literature References',         :view_order => 64, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Specialist Projects',           :view_order => 65, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Content Partners',           :view_order => 65, :parent_id => ref_and_info.id
 create_if_not_exists TocItem, :label => 'Biomedical Terms',              :view_order => 66, :parent_id => ref_and_info.id
 create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 67, :parent_id => ref_and_info.id
 

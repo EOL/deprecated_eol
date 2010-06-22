@@ -1,5 +1,5 @@
 # Responsible for building the non-default category content from the TOC, specifically for the following TOC items: Search
-# the web, BHL, Common names, and Specialist projects
+# the web, BHL, Common names, and Content Partners
 class CategoryContentBuilder
   
   # toc_item points to a TocItem object. 
@@ -14,7 +14,7 @@ class CategoryContentBuilder
     # common_names
     # biomedical_terms
     # search_the_web
-    # specialist_projects
+    # content_partners
 
     content = {
       :category_name => toc_item.label,
@@ -33,8 +33,8 @@ class CategoryContentBuilder
       content.merge! biomedical_terms(options)
     elsif sub_name == "search_the_web"
       content.merge! search_the_web(options)
-    elsif sub_name == "specialist_projects"
-      content.merge! specialist_projects(options)
+    elsif sub_name == "content_partners"
+      content.merge! content_partners(options)
     elsif sub_name == "literature_references"
       content.merge! literature_references(options)
     elsif sub_name == "nucleotide_sequences"
@@ -100,7 +100,7 @@ private
     return {}
   end
 
-  def specialist_projects(options)
+  def content_partners(options)
     tc_id = options[:taxon_concept_id]
     tc = TaxonConcept.find(tc_id)
     outlinks = tc.outlinks

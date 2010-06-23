@@ -1160,13 +1160,25 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     return obj_tc_id
   end  
 
-
   def self.get_dataobjects(obj_ids,page) 
     query="SELECT do.* FROM data_objects do
     JOIN vetted v ON do.vetted_id = v.id
     WHERE do.id IN (#{ obj_ids.join(', ') })"
     self.paginate_by_sql [query, obj_ids], :page => page, :per_page => 20 , :order => 'id'  
   end
+
+  def self.get_object_cache_url(obj_ids)     
+    query="SELECT do.id, do.object_cache_url FROM data_objects do WHERE do.id IN (#{ obj_ids.join(', ') })"
+    obj_detail = {} #same Hash.new   
+    if(obj_ids.length > 0) then       
+      rset = DataObject.find_by_sql([query])            
+      rset.each do |post|
+        obj_detail["#{post.id}"] = post.object_cache_url
+      end
+    end  
+    return obj_detail
+  end
+
   
   #this method is slow and was replaced by one in the PHP SiteStatistics class.
   #def self.get_SPM_count_on_dataobjects(arr_SPM)        

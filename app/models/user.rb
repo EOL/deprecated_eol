@@ -143,7 +143,7 @@ class User < ActiveRecord::Base
     return rset
   end
   
-  def self.curated_data_object_ids(arr_dataobject_ids,agent_id)
+  def self.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
     obj_ids = []
     user_ids = []
     if(arr_dataobject_ids.length > 0 or agent_id == 'All') then
@@ -156,6 +156,8 @@ class User < ActiveRecord::Base
       if(agent_id != 'All') then
         sql += " and ah.object_id IN (" + arr_dataobject_ids * "," + ")"
       end
+      if(year.to_i > 0) then sql += " and year(ah.updated_at) = #{year} and month(ah.updated_at) = #{month} " 
+      end
       rset = User.find_by_sql([sql])            
       rset.each do |post|
         obj_ids << post.data_object_id
@@ -166,21 +168,38 @@ class User < ActiveRecord::Base
     return arr
   end
 
-  def self.curated_data_objects(arr_dataobject_ids,page)
-    #if(arr_dataobject_ids.length > 0) then
-      query = "Select ah.object_id data_object_id, cot.ch_object_type,
-      awo.action_code code, u.given_name, u.family_name, ah.updated_at, ah.user_id
-      From action_with_objects awo
-      Join actions_histories ah ON ah.action_with_object_id = awo.id
-      Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
-      Join users u ON ah.user_id = u.id
-      where cot.ch_object_type = 'data_object'    
-      and ah.object_id IN (" + arr_dataobject_ids * "," + ") 
-      Order By ah.id Desc"
-      self.paginate_by_sql [query], :per_page => 30, :page => page
-    #else
-    #end
+  def self.curated_data_objects(arr_dataobject_ids, year, month, page, report_type)
+    sql = "Select ah.object_id data_object_id, cot.ch_object_type,
+    awo.action_code code, u.given_name, u.family_name, ah.updated_at, ah.user_id
+    From action_with_objects awo
+    Join actions_histories ah ON ah.action_with_object_id = awo.id
+    Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
+    Join users u ON ah.user_id = u.id
+    where cot.ch_object_type = 'data_object'    
+    and ah.object_id IN (" + arr_dataobject_ids * "," + ")" 
+    if(year.to_i > 0) then sql += " and year(ah.updated_at) = #{year} and month(ah.updated_at) = #{month} " 
+    end
+    sql += " Order By ah.id Desc"
+    if(report_type == "feed") then self.find_by_sql [sql]
+    else                           self.paginate_by_sql [sql], :per_page => 30, :page => page
+    end
   end  
+
+  #def self.curated_data_objects_per_month(arr_dataobject_ids)
+  #  sql = "Select ah.object_id data_object_id, cot.ch_object_type,
+  #  awo.action_code code, u.given_name, u.family_name, ah.updated_at, ah.user_id
+  #  From action_with_objects awo
+  #  Join actions_histories ah ON ah.action_with_object_id = awo.id
+  #  Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
+  #  Join users u ON ah.user_id = u.id
+  #  where cot.ch_object_type = 'data_object'    
+  #  and ah.object_id IN (" + arr_dataobject_ids * "," + ") 
+  #  Order By ah.id Desc"
+  #  self.find_by_sql [sql]
+  #end  
+
+
+
 
   def data_object_tags_for data_object
     data_object_tags.find_all_by_data_object_guid data_object.guid, :include => :data_object_tag

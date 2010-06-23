@@ -8,6 +8,14 @@
         = link_to(@partner_fullname, { :action => 'show', :id => @agent_id })
       's data objects.
 
+    This report is also available via feeds
+    - if(@year_month == "All")
+      /= link_to " See feeds",{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id}
+      = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :agent_id => @agent_id}
+    - else
+      /= link_to " See feeds",{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id ,:year => @report_year, :month => @report_month}
+      = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :agent_id => @agent_id,:year => @report_year, :month => @report_month }
+
   - form_for :hello, :url => { :action => :report_partner_curated_data } do |form|
     Viewing Partner:
     / working ok = select_tag :agent_id, options_from_collection_for_select(  @content_partners_with_published_data, :id, :full_name, @agent_id.to_i )
@@ -19,13 +27,25 @@
         %option{ :value => cp.id, :selected => @agent_id.to_i == cp.id }
           = cp.full_name
     = submit_tag("Change")      
-  
+    %br
+    For the month of:    
+    /= select_tag "year_month", options_for_select(@year_month_list,@year_month)
+
+    %select{ :name => "year_month" }
+      %option
+        All
+      - for ym in @year_month_list
+        %option{ :value => ym, :selected => @year_month == ym }
+          = ym
+    = submit_tag("Change")
+
   - arr = [1]
   - @arr_dataobject_ids = @arr_dataobject_ids - arr
   %br
   Curation activity:
   %strong
     = number_with_delimiter(@arr_dataobject_ids.length, ",")
+   
 
   - unique_dataobject_ids = @arr_dataobject_ids.uniq
   = "&nbsp;&nbsp;  |&nbsp;&nbsp;  Curated data objects:"
@@ -76,7 +96,7 @@
             - else
               = rec.data_object_id
           %td{ :class => column_class }
-            = rec.updated_at
+            = rec.updated_at.strftime("%d-%b-%Y at %I:%M%p")
     %tr
       %td{ :colspan => "5" }
         = will_paginate @partner_curated_objects

@@ -1265,6 +1265,11 @@ class TaxonConcept < SpeciesSchemaModel
       JOIN data_objects do ON (dohe.data_object_id=do.id)
       WHERE he.taxon_concept_id=#{self.id}")
   end
+  
+  def has_feed?
+    feed_object = FeedDataObject.find_by_taxon_concept_id(self.id, :limit => 1)
+    return !feed_object.blank?
+  end
 
 #####################
 private

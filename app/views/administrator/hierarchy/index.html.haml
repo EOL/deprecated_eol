@@ -25,7 +25,7 @@ All Hierarchies
         - if hierarchy['agent_name'] == 'uBio'
           This is a flat list of 10 million strings - not going to let you browse it
         -else
-          = link_to(hierarchy.label, { :action => 'browse', :id => hierarchy.id })
+          = link_to(hierarchy.form_label, { :action => 'browse', :id => hierarchy.id })
           %br
           = hierarchy.description
       %td{:class => column_class}

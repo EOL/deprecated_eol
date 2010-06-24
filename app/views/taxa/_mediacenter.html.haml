@@ -50,7 +50,7 @@
               - selected = h.id == @session_hierarchy.id
               - option_class = @concept_browsable_hierarchies.include?(h) ? 'in' : 'out'
               %option{:value => h.id, :class => option_class, :selected => selected}
-                = h.label
+                = h.form_label
           %input{ :type=>'hidden', :name=>'return_to', :value=>"/pages/#{@taxon_concept.id}"}
           %input{ :type=>'hidden', :name=>'from_taxa_page', :value=>'true'}
     #browser-text

@@ -98,12 +98,16 @@ module ActiveReload
       
       class << base
         def connection_proxy=(proxy)
-          @@connection_proxy = proxy
+          @connection_proxy = proxy
         end
         
         # hijack the original method
         def connection
-          @@connection_proxy
+          @connection_proxy
+        end
+
+        def inherited(subclass)
+          subclass.instance_variable_set("@connection_proxy", @connection_proxy)
         end
       end
     end

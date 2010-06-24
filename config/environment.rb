@@ -234,5 +234,3 @@ end
 
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')
-
-Rails.cache.clear

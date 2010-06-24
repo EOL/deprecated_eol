@@ -250,6 +250,19 @@ describe 'Taxa page (HTML)' do
       body = RackBox.request("/pages/#{@taxon_concept.id}").body
       body.should_not include("Nucleotide Sequences")
     end
+    
+    it 'should show the hierarchy descriptive label in the drop down if there is one' do
+      col = Hierarchy.default
+      @result.body.should match /value='#{col.id}'>\s*#{col.label}\s*<\/option>/ # selector default
+      
+      col.descriptive_label = 'A DIFFERENT LABEL FOR TESTING'
+      col.save!
+      result = RackBox.request("/pages/#{@id}")
+      result.body.should match /value='#{col.id}'>\s*#{col.descriptive_label}\s*<\/option>/ # selector default
+      
+      col.descriptive_label = nil
+      col.save!
+    end
 
   describe 'specified hierarchies' do
 

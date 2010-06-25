@@ -74,9 +74,8 @@ module ActiveReload
 
     delegate :insert, :update, :delete, :delete_all, :create_table, :rename_table, :drop_table, :add_column, :remove_column,
       :change_column, :change_column_default, :rename_column, :add_index, :remove_index, :initialize_schema_information,
-      :dump_schema_information, :columns, :to => :master #added delete_all, removed execute by EOL team
-    
-    #added by EOL team
+      :dump_schema_information, :columns, :to => :master
+
     def execute(sql)
       (sql.lstrip.split(" ")[0].downcase == "select" rescue nil) ?  @slave.execute(sql) : @master.execute(sql)
     end
@@ -98,17 +97,14 @@ module ActiveReload
       
       class << base
         def connection_proxy=(proxy)
-          # JRice and Dima changed this from a class var to an instance var, so inheritance wouldn't trample old values:
           @connection_proxy = proxy
         end
         
         # hijack the original method
         def connection
-          # JRice and Dima changed this from a class var to an instance var, so inheritance wouldn't trample old values:
           @connection_proxy
         end
 
-        # JRice added this method to ensure that subclasses still have the instance var:
         def inherited(subclass)
           subclass.instance_variable_set("@connection_proxy", @connection_proxy)
         end

@@ -1,7 +1,4 @@
-class AddAnotherLabelToHierarchies < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddAnotherLabelToHierarchies < EOL::DataMigration
   
   def self.up
     execute('alter table hierarchies add `descriptive_label` varchar(255) NULL after `label`')

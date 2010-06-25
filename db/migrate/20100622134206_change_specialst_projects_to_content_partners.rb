@@ -1,7 +1,4 @@
-class ChangeSpecialstProjectsToContentPartners < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class ChangeSpecialstProjectsToContentPartners < EOL::DataMigration
   
   def self.up
     outlinks = TocItem.find_by_label('Specialist Projects')

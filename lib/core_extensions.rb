@@ -205,7 +205,7 @@ module ActiveRecord
       
       # returns the name of the database for this ActiveRecord::Base
       def database_name
-        database_config[:database]
+        @database_name ||= self.connection.execute('select database()').fetch_row[0]
       end
 
     end

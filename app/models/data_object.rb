@@ -1496,7 +1496,7 @@ private
       end
       if options[:user].is_admin?
         vetted += [Vetted.untrusted.id, Vetted.unknown.id]
-        visibility = Visibility.all_ids
+        visibility = Visibility.all_ids.dup
         other_visibilities = preview_objects
       end
       if options[:user].vetted == false

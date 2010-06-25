@@ -104,8 +104,13 @@ class EOLWebService
   def self.uri_remove_param(uri, params = nil)
     return uri unless params
     params = [params] if params.class == String
-    uri_parsed = URI.parse(uri)
-    return uri unless uri_parsed.query
+    uri_parsed = nil # scope
+    begin
+      uri_parsed = URI.parse(uri)
+    rescue URI::InvalidURIError
+      return uri
+    end
+    return uri unless uri_parsed.respond_to?(:query) and uri_parsed.query
     escaped = uri_parsed.query.grep(/&amp;/).size > 0
     new_params = uri_parsed.query.gsub(/&amp;/, '&').split('&').reject { |q| params.include?(q.split('=').first) }
     uri = uri.split('?').first

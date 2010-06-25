@@ -22,7 +22,7 @@ class DataObject < SpeciesSchemaModel
   has_many :languages
   has_many :agents_data_objects, :include => [ :agent, :agent_role ]
   has_many :data_objects_hierarchy_entries
-  has_many :comments, :as => :parent, :attributes => true
+  has_many :comments, :as => :parent
   has_many :data_objects_harvest_events
   has_many :harvest_events, :through => :data_objects_harvest_events
   has_many :agents, :through => :agents_data_objects

@@ -108,7 +108,7 @@ describe 'Taxa page (HTML)' do
   end
 
   # This is kind of a baseline, did-the-page-actually-load test:
-  it 'should include the italicized name in the header' do
+  # it 'should include the italicized name in the header' do
     @result.body.should have_tag('div#page-title') do
       with_tag('h1', :text => @scientific_name)
     end

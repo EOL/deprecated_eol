@@ -2,7 +2,6 @@ require 'net/http'
 require 'uri'
 require 'socket'
 
-
 # Be careful not to use this class in tests!
 # It makes real network connections!
 # Will *not* work offline.

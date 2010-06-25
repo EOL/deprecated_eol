@@ -22,7 +22,7 @@ class Hierarchy < SpeciesSchemaModel
   
   def self.browsable_by_label
     Rails.cache.fetch('hierarchies/browsable_by_label') do
-      Hierarchy.browsable.sort_by {|h| h.label }
+      Hierarchy.browsable.sort_by {|h| h.form_label }
     end
   end
 
@@ -53,6 +53,11 @@ class Hierarchy < SpeciesSchemaModel
   
   def self.browsable_for_concept(taxon_concept)
     Hierarchy.find_by_sql("SELECT h.* FROM hierarchies h JOIN hierarchy_entries he ON (h.id=he.hierarchy_id) WHERE h.browsable=1 AND he.taxon_concept_id=#{taxon_concept.id}")
+  end
+  
+  def form_label
+    return descriptive_label unless descriptive_label.blank?
+    return label
   end
   
   def kingdoms(current_user = User.new(:expertise => $DEFAULT_EXPERTISE, :language => Language.english))

@@ -98,14 +98,17 @@ module ActiveReload
       
       class << base
         def connection_proxy=(proxy)
+          # JRice and Dima changed this from a class var to an instance var, so inheritance wouldn't trample old values:
           @connection_proxy = proxy
         end
         
         # hijack the original method
         def connection
+          # JRice and Dima changed this from a class var to an instance var, so inheritance wouldn't trample old values:
           @connection_proxy
         end
 
+        # JRice added this method to ensure that subclasses still have the instance var:
         def inherited(subclass)
           subclass.instance_variable_set("@connection_proxy", @connection_proxy)
         end

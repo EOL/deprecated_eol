@@ -63,8 +63,8 @@
           %td{ :class => column_class }
             = rec.completed_at
           %td{ :class => column_class }
+            /= rec.published_at.strftime("%d-%b-%Y at %I:%M%p")
             = rec.published_at
-
     %tr
       %td{ :colspan => "5" }
         = will_paginate @partner_harvest_events

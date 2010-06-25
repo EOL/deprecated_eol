@@ -177,11 +177,11 @@ class Agent < SpeciesSchemaModel
   end
 
   def self.latest_harvest_event_id(agent_id)
-    query = "Select Max(he.id) max_harvest_event_id
-    From harvest_events he
-    Join agents_resources ar ON ar.resource_id = he.resource_id
-    Where ar.agent_id = #{agent_id}
-    Group By ar.agent_id "    
+    query = "SELECT Max(he.id) max_harvest_event_id
+    FROM harvest_events he
+    JOIN agents_resources ar ON ar.resource_id = he.resource_id
+    WHERE ar.agent_id = #{agent_id}
+    GROUP BY ar.agent_id "    
     rset = self.find_by_sql [query]
     for fld in rset
 	    return fld["max_harvest_event_id"]
@@ -189,12 +189,12 @@ class Agent < SpeciesSchemaModel
   end
 
   def self.resources_harvest_events(agent_id,page)
-    query = "Select agents_resources.resource_id, harvest_events.id AS harvest_id, resources.title, harvest_events.began_at, harvest_events.completed_at, harvest_events.published_at
-    From harvest_events
-    Join agents_resources ON agents_resources.resource_id = harvest_events.resource_id
-    Join resources ON harvest_events.resource_id = resources.id
-    Where agents_resources.agent_id = ?
-    order by agents_resources.resource_id desc, harvest_events.id desc"    
+    query = "SELECT ar.resource_id, he.id AS harvest_id, r.title, he.began_at, he.completed_at, he.published_at
+    FROM harvest_events he
+    JOIN agents_resources ar ON ar.resource_id = he.resource_id
+    JOIN resources r ON he.resource_id = r.id
+    WHERE ar.agent_id = ?
+    ORDER BY ar.resource_id desc, he.id desc"    
     self.paginate_by_sql [query, agent_id], :page => page, :per_page => 30
   end
 

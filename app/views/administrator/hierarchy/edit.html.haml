@@ -15,6 +15,17 @@
         = f.label :label, "Label"
       %td{:class => column_class}
         = f.text_field :label, :maxlength => 200, :size=>50
+        %br
+        %i
+          This is the label that will be used for attribution
+    %tr
+      %td{:class => column_class}
+        = f.label :descriptive_label, "Descriptive Label"
+      %td{:class => column_class}
+        = f.text_field :descriptive_label, :maxlength => 200, :size=>50
+        %br
+        %i
+          This is the label that will appear in the hierarchy selector drop down list
     %tr
       %td{:class => column_class}
         = f.label :description, "Description"
@@ -30,7 +41,7 @@
       %td{:class => column_class}
         = f.label :complete, "Curated"
       %td{:class => column_class}
-        = f.check_box :complete
+        = f.check_box :complete, :disabled => 'disabled'
         NOTE: only change this attribute if you are certain - unchecking this could cause serious homonym problems
     %tr
       %td{:class => column_class}

@@ -112,7 +112,7 @@ class TaxaController < ApplicationController
     # add the user's hierarchy in case the current concept is it
     # we'll need to default the list to the user's hierarchy no matter what
     @hierarchies_to_offer << @session_hierarchy
-    @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.label}
+    @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.form_label}
     
     redirect_to(params.merge(:controller => 'taxa',
                              :action => 'show',

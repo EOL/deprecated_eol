@@ -15,9 +15,9 @@ class TocItem < SpeciesSchemaModel
     end
   end
   
-  def self.specialist_projects
-    Rails.cache.fetch('toc_items/specialist_projects') do
-      TocItem.find_by_label('Specialist Projects')
+  def self.content_partners
+    Rails.cache.fetch('toc_items/content_partners') do
+      TocItem.find_by_label('Content Partners')
     end
   end
   

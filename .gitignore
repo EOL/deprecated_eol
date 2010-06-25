@@ -24,3 +24,5 @@ solr/solr/data/index/*
 public/feeds
 solr/work/*
 lang/tmp.yml
+config/environments/labs1.rb
+config/environments/integration_local.rb

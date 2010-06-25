@@ -28,7 +28,7 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :top_unpublished_concept_images
   has_many :last_curated_dates
   has_many :taxon_concept_names
-  has_many :comments, :as => :parent, :attributes => true
+  has_many :comments, :as => :parent
   has_many :names, :through => :taxon_concept_names
   has_many :ranks, :through => :hierarchy_entries
   # The following are not (yet) possible, because tcn has a three-part Primary key.

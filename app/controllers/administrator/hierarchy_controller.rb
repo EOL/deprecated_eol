@@ -10,7 +10,7 @@ class Administrator::HierarchyController < AdminController
     order = params[:order_by] || 'agent'
     case order
       when 'label'
-        order_by = 'h.label, h.id'
+        order_by = 'CONCAT_WS(" ", h.descriptive_label, h.label), h.id'
       when 'browsable'
         order_by = 'h.request_publish DESC, h.browsable DESC, a.full_name, h.id'
       else

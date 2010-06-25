@@ -73,7 +73,7 @@ private
     
     # Add specialist projects if there are entries in the mappings table for this name:
     if taxon_concept.has_outlinks?
-      toc << TocEntry.new(TocItem.specialist_projects)
+      toc << TocEntry.new(TocItem.content_partners)
     end
     
     # Add BHL content if there are corresponding page_names

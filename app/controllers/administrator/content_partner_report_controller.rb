@@ -229,7 +229,7 @@ class Administrator::ContentPartnerReportController < AdminController
     @rset = Agent.content_partners_contact_info(@month,@year)    
   end
   
-  def get_year_month_list    
+  def get_year_month_list()    
     arr=[]
     start="2008_01"
     str=""
@@ -263,7 +263,26 @@ class Administrator::ContentPartnerReportController < AdminController
 
   def report_partner_curated_data
     @page_header = 'Content Partner Curated Data'
-    
+    @year_month_list = get_year_month_list()
+
+    if(params[:year_month]) then
+      @year_month = params[:year_month]
+      session[:form_year_month] = params[:year_month]
+    elsif(session[:form_year_month]) then
+      @year_month = session[:form_year_month]
+    end
+    if(@year_month) then
+      params[:year], params[:month] = @year_month.split("_")    
+      @report_year  = params[:year].to_i
+      @report_month = params[:month].to_i
+      @year_month   = params[:year] + "_" + "%02d" % params[:month].to_i
+    else
+      last_month = Time.now
+      @report_year = last_month.year.to_s
+      @report_month = last_month.month.to_s
+      @year_month   = @report_year + "_" + "%02d" % @report_month.to_i
+    end
+
     if(params[:agent_id]) then
       @agent_id = params[:agent_id]
       session[:form_agent_id] = params[:agent_id]
@@ -285,7 +304,7 @@ class Administrator::ContentPartnerReportController < AdminController
       arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(@latest_harvest_id)
     end        
 
-    arr = User.curated_data_object_ids(arr_dataobject_ids,@agent_id)
+    arr = User.curated_data_object_ids(arr_dataobject_ids, @report_year, @report_month, @agent_id)
       @arr_dataobject_ids = arr[0]
       @arr_user_ids = arr[1]
 
@@ -295,7 +314,7 @@ class Administrator::ContentPartnerReportController < AdminController
 
     @arr_obj_tc_id = DataObject.tc_ids_from_do_ids(@arr_dataobject_ids);
     page = params[:page] || 1
-    @partner_curated_objects = User.curated_data_objects(@arr_dataobject_ids, page)
+    @partner_curated_objects = User.curated_data_objects(@arr_dataobject_ids, @report_year, @report_month, page, "report")
 
     @cur_page = (page.to_i - 1) * 30
   end

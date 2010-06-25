@@ -83,6 +83,10 @@ describe 'Admin Pages' do
   
   describe ': content partner curated data' do
     before(:all) do
+      last_month = Time.now - 1.month      
+      @report_year = last_month.year.to_s
+      @report_month = last_month.month.to_s
+      @year_month   = @report_year + "_" + "%02d" % @report_month.to_i      
       
       @agent = Agent.gen(:full_name => 'FishBase')
       @resource = Resource.gen(:title => "test resource")
@@ -106,9 +110,16 @@ describe 'Admin Pages' do
       body = request("/administrator/content_partner_report/report_partner_curated_data").body
       body.should include "Curation activity:"
     end
-    it "should get data from a form and display curation activity" do          
+    it "should get data from a form and display all curation activity" do          
       login_as(@user).should redirect_to('/admin')      
       res = request("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})
+      res.body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
+      res.body.should include "Curation activity:"
+      res.body.should include @agent.full_name      
+    end
+    it "should get data from a form and display a month's curation activity" do          
+      login_as(@user).should redirect_to('/admin')      
+      res = request("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id, :year_month => @year_month})
       res.body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
       res.body.should include "Curation activity:"
       res.body.should include @agent.full_name      

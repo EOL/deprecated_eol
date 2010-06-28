@@ -269,7 +269,7 @@ describe 'Taxa page (HTML)' do
 
     before(:all) do
       #creating an NCBI hierarchy and some others
-      Hierarchy.delete_all("label = 'NCBI Taxonomy'")
+      Hierarchy.delete_all("label = 'NCBI Taxonomy'") # Not sure why, but we end up with lots of these.
       @ncbi = Hierarchy.gen(:agent => Agent.ncbi, :label => "NCBI Taxonomy", :browsable => 1)
       @browsable_hierarchy = Hierarchy.gen(:label => "Browsable Hierarchy", :browsable => 1)
       @non_browsable_hierarchy = Hierarchy.gen(:label => "NonBrowsable Hierarchy", :browsable => 0)
@@ -282,10 +282,10 @@ describe 'Taxa page (HTML)' do
       # and another entry just in NCBI
       HierarchyEntry.gen(:hierarchy => @ncbi)
 
-      @user_with_default_hierarchy = User.gen(:password => 'whatever', :default_hierarchy_id => Hierarchy.default.id)
-      @user_with_ncbi_hierarchy    = User.gen(:password => 'whatever', :default_hierarchy_id => @ncbi.id)
-      @user_with_nil_hierarchy     = User.gen(:password => 'whatever', :default_hierarchy_id => nil)
-      @user_with_missing_hierarchy = User.gen(:password => 'whatever', :default_hierarchy_id => 100056) # Seems safe not to assert this
+      @user_with_default_hierarchy = User.gen(:default_hierarchy_id => Hierarchy.default.id)
+      @user_with_ncbi_hierarchy    = User.gen(:default_hierarchy_id => @ncbi.id)
+      @user_with_nil_hierarchy     = User.gen(:default_hierarchy_id => nil)
+      @user_with_missing_hierarchy = User.gen(:default_hierarchy_id => 100056) # Seems safe not to assert this
       @default_tc = find_unique_tc(:in => Hierarchy.default, :not_in => @ncbi)
       @ncbi_tc    = find_unique_tc(:not_in => Hierarchy.default, :in => @ncbi)
       @common_tc  = find_common_tc(:in => Hierarchy.default, :also_in => @ncbi)

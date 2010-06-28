@@ -8,7 +8,7 @@ describe 'Feeds' do
 
   describe 'Curator Feeds' do
     before(:all) do
-      Scenario.load('foundation')
+      EolScenario.load('foundation')
       DataObject.delete_all
       Comment.delete_all
       @tc = build_taxon_concept()
@@ -77,7 +77,7 @@ describe 'Feeds' do
   describe ': content partner curated data' do
     before(:all) do   
       truncate_all_tables
-      Scenario.load('foundation')
+      EolScenario.load('foundation')
       
       @agent = Agent.gen(:full_name => 'FishBase')
       @resource = Resource.gen(:title => "test resource")

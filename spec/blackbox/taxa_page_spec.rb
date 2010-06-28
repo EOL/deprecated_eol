@@ -18,6 +18,7 @@ describe 'Taxa page (HTML)' do
   before(:all) do
 
     #RandomTaxon.delete_all # this should make us green again
+    truncate_all_tables
     EolScenario.load :foundation
     HierarchiesContent.delete_all
 
@@ -268,6 +269,7 @@ describe 'Taxa page (HTML)' do
 
     before(:all) do
       #creating an NCBI hierarchy and some others
+      Hierarchy.delete_all("label = 'NCBI Taxonomy'")
       @ncbi = Hierarchy.gen(:agent => Agent.ncbi, :label => "NCBI Taxonomy", :browsable => 1)
       @browsable_hierarchy = Hierarchy.gen(:label => "Browsable Hierarchy", :browsable => 1)
       @non_browsable_hierarchy = Hierarchy.gen(:label => "NonBrowsable Hierarchy", :browsable => 0)
@@ -287,61 +289,64 @@ describe 'Taxa page (HTML)' do
       @default_tc = find_unique_tc(:in => Hierarchy.default, :not_in => @ncbi)
       @ncbi_tc    = find_unique_tc(:not_in => Hierarchy.default, :in => @ncbi)
       @common_tc  = find_common_tc(:in => Hierarchy.default, :also_in => @ncbi)
-    end
-    
+  end
+
     it "should see 'not in hierarchy' message when the user doesn't specify a default hierarchy and page is not in default hierarchy" do
       login_as @user_with_nil_hierarchy
-      res = request("/pages/#{@ncbi_tc.id}")
+      res = request("/pages/#{@ncbi_tc.id}").body
       res.should match /Name not in\s*#{Hierarchy.default.label}/
-      res.body.should match /selected='selected' value='[0-9]+'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector default
-      res.body.should match /value='#{@ncbi.id}'>\s*#{@ncbi.label}\s*<\/option>/ # selector
     end
-    
-    it "should see 'not in hierarchy' message when the user has NCBI hierarchy and page is not in NCBI" do
+
+    it "should set the class of the hierarchy select drop-down based on whether a hierarchy is in or out of that hierarchy" do
       login_as @user_with_ncbi_hierarchy
-      res = request("/pages/#{@default_tc.id}")
-      res.should match /Name not in\s*#{@ncbi.label}/
-      res.body.should match /selected='selected' value='[0-9]+'>\s*#{@ncbi.label}\s*<\/option>/ # selector default
-      res.body.should match /value='#{Hierarchy.default.id}'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector
+      res = request("/pages/#{@ncbi_tc.id}").body
+      res.should have_tag('select.choose-hierarchy-select') do
+        with_tag('option.in', :text => /#{@ncbi.label}/)
+        with_tag('option.out', :text => /#{Hierarchy.default.label}/)
+      end
     end
-    
-    it "should not show a hierarchy in the drop down list when it doesnt treat the current concept" do
-      login_as @user_with_ncbi_hierarchy
-      res = request("/pages/#{@ncbi_tc.id}")
-      res.body.should match /selected='selected' value='[0-9]+'>\s*#{@ncbi.label}\s*<\/option>/ # selector default
-      res.body.should match /class='out' value='#{Hierarchy.default.id}'>\s*#{Hierarchy.default.label}\s*<\/option>/
-    end
-    
+
     it "should recognize the browsable hierarchy attribute" do
-      res = request("/pages/#{@taxon_concept.id}")
-      res.body.should match /selected='selected' value='[0-9]+'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector default
-      res.body.should match /value='#{@ncbi.id}'>\s*#{@ncbi.label}\s*<\/option>/
-      res.body.should match /value='#{@browsable_hierarchy.id}'>\s*#{@browsable_hierarchy.label}\s*<\/option>/
-      res.body.should_not match /value='#{@non_browsable_hierarchy.id}'>\s*#{@non_browsable_hierarchy.label}\s*<\/option>/
+      res = request("/pages/#{@taxon_concept.id}").body
+      res.should have_tag('select.choose-hierarchy-select') do
+        with_tag('option[selected=selected]', :text => /#{Hierarchy.default.label}/)
+        with_tag('option', :text => /#{@ncbi.label}/)
+        with_tag('option', :text => /#{@browsable_hierarchy.label}/)
+        without_tag('option', :text => /#{@non_browsable_hierarchy.label}/)
+      end
     end
-    
+
     it "should attribute the default hierarchy when the user doesn't specify one and the page is in both hierarchies" do
       login_as @user_with_nil_hierarchy
-      res = request("/pages/#{@common_tc.id}")
-      res.should include_text("recognized by <a href=\"#{@col_mapping.outlink[:outlink_url]}");
-      res.body.should match /selected='selected' value='[0-9]+'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector default
-      res.body.should match /value='#{@ncbi.id}'>\s*#{@ncbi.label}\s*<\/option>/ # selector
+      res = request("/pages/#{@common_tc.id}").body
+      res.should have_tag('span.classification-attribution-name', :text => /Species recognized by/) do
+        with_tag("a[href^=#{@col_mapping.outlink[:outlink_url]}]")
+      end
+      res.should have_tag('select.choose-hierarchy-select') do
+        with_tag('option[selected=selected]', :text => /#{Hierarchy.default.label}/)
+      end
     end
-    
+
     it "should attribute the default hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_default_hierarchy
-      res = request("/pages/#{@common_tc.id}")
-      res.should include_text("recognized by <a href=\"#{@col_mapping.outlink[:outlink_url]}")
-      res.body.should match /selected='selected' value='[0-9]+'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector default
-      res.body.should match /value='#{@ncbi.id}'>\s*#{@ncbi.label}\s*<\/option>/ # selector
+      res = request("/pages/#{@common_tc.id}").body
+      res.should have_tag('span.classification-attribution-name', :text => /Species recognized by/) do
+        with_tag("a[href^=#{@col_mapping.outlink[:outlink_url]}]")
+      end
+      res.should have_tag('select.choose-hierarchy-select') do
+        with_tag('option[selected=selected]', :text => /#{Hierarchy.default.label}/)
+      end
     end
-    
+
     it "should use the label from the NCBI hierarchy when the user has it as the default and page is in both hierarchies" do
       login_as @user_with_ncbi_hierarchy
-      res = request("/pages/#{@common_tc.id}")
-      res.body.should match /recognized by <a href=\"#{@ncbi.agent.homepage.strip}/
-      res.body.should match /selected='selected' value='[0-9]+'>\s*#{@ncbi.label}\s*<\/option>/ # selector default
-      res.body.should match /value='#{Hierarchy.default.id}'>\s*#{Hierarchy.default.label}\s*<\/option>/ # selector
+      res = request("/pages/#{@common_tc.id}").body
+      res.should have_tag('span.classification-attribution-name', :text => /Species recognized by/) do
+        with_tag("a[href^=#{@ncbi.agent.homepage.strip}]")
+      end
+      res.should have_tag('select.choose-hierarchy-select') do
+        with_tag('option[selected=selected]', :text => /#{@ncbi.label}/)
+      end
     end
   end
 

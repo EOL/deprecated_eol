@@ -45,6 +45,7 @@ module ApplicationHelper
   # similar to h, but does not escape html code which is helpful for showing italisized names
   # TODO - stop using this.  Trust, instead, the built-in method (in views) called #sanitize
   def hh(input)
+    return nil if input.nil?
     result = input.dup.strip
 
     result.gsub!(/["]|&(?![\w]+;)/) do | match |

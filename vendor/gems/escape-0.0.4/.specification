@@ -1,0 +1,69 @@
+--- !ruby/object:Gem::Specification 
+name: escape
+version: !ruby/object:Gem::Version 
+  prerelease: false
+  segments: 
+  - 0
+  - 0
+  - 4
+  version: 0.0.4
+platform: ruby
+authors: 
+- Tanaka Akira
+autorequire: 
+bindir: bin
+cert_chain: 
+date: 2007-06-29 00:00:00 -07:00
+default_executable: 
+dependencies: []
+
+description: ...
+email: 
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- Readme
+files: 
+- lib/escape.rb
+- doc_include/template/qualitysmith.rb
+- Readme
+has_rdoc: true
+homepage: http://www.a-k-r.org/escape/
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --title
+- escape
+- --main
+- Readme
+- --line-numbers
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">"
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      - 0
+      - 0
+      version: 0.0.0
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: escape
+rubygems_version: 1.3.6
+signing_key: 
+specification_version: 1
+summary: ...
+test_files: []
+

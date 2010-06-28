@@ -107,6 +107,7 @@ module ActiveReload
 
         def inherited(subclass)
           subclass.instance_variable_set("@connection_proxy", @connection_proxy)
+          super
         end
       end
     end

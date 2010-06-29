@@ -122,7 +122,10 @@
       = f.text_area :description
 
     /admin needs to know which content partner to return to
-    = hidden_field_tag(:content_partner_id, @content_partner.id) if current_user.is_admin?
+    - if current_user.is_admin?
+      = hidden_field_tag(:content_partner_id, @content_partner.id)
+    - elsif !current_agent.blank? && cp = current_agent.content_partner
+      = hidden_field_tag(:content_partner_id, cp.id)
     
     #form_validation_error/
   %br/

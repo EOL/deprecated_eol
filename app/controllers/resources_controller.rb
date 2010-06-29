@@ -118,10 +118,10 @@ class ResourcesController < ApplicationController
 
   #AJAX method to check for a valid URL
   def check_url    
-    if !params[:url].match(/(\.tar\.(gz|gzip)|.tgz|.xml)/)
-      message = 'Resource must be an xml or tar/gzip file'
+    if !params[:url].match(/\.xml(\.gz|\.gzip)?$/)
+      message = 'File must be .xml or .xml.gz(ip)'
     elsif EOLWebService.url_accepted? params[:url]
-      message = 'Resource file not found'
+      message = 'File was located successfully'
     else
       message = 'No file exists at this URL'
     end
@@ -133,7 +133,7 @@ class ResourcesController < ApplicationController
   
   def check_dwc_url 
     if !params[:url].match(/(\.tar\.(gz|gzip)|.tgz)/)
-      message = 'DwC archive must be tar/gzip'
+      message = 'DwC archive must be TARed and GZIPed'
     elsif EOLWebService.url_accepted? params[:url]
       message = 'DwC archive file found'
     else

@@ -6,15 +6,11 @@ class ActionWithObject < ActiveRecord::Base
   validates_uniqueness_of :action_code
   
   def self.rate
-    Rails.cache.fetch('action_with_object/rate') do
-      ActionWithObject.find_by_action_code('rate')
-    end
+    cached_find(:action_code, 'rate')
   end
   
   def self.create
-    Rails.cache.fetch('action_with_object/create') do
-      ActionWithObject.find_by_action_code('create')
-    end
+    cached_find(:action_code, 'create')
   end
   
 end

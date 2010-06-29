@@ -20,8 +20,8 @@ class User < ActiveRecord::Base
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many   :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
   
-  validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.nil? }
-  validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.nil? }
+  validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
+  validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
 
   validates_presence_of   :username, :if => :not_openid?
 

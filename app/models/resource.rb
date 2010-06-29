@@ -27,13 +27,13 @@ class Resource < SpeciesSchemaModel
 
   # trying to change it to memcache got error after reload a page
   def self.iucn
-    Rails.cache.fetch('resources/iucn') do
+    cached('iucn') do
       Agent.iucn.resources[0]
     end
   end
   
   def self.ligercat
-    Rails.cache.fetch('resources/ligercat') do
+    cached('ligercat') do
       Agent.boa.resources[0]
     end
   end

@@ -4,21 +4,17 @@ class Vetted < SpeciesSchemaModel
   set_table_name "vetted"
   
   def self.untrusted
-    Rails.cache.fetch('vetted/untrusted') do
-      Vetted.find_by_label('Untrusted')
-    end
+    cached_find(:label, 'Untrusted')
   end
   
   def self.trusted
-    Rails.cache.fetch('vetted/trusted') do
-      Vetted.find_by_label('Trusted')
-    end
+    cached_find(:label, 'Trusted')
   end
   
   def self.unknown
-    Rails.cache.fetch('vetted/unknown') do
+    cached('unknown') do
       unknown = Vetted.find_by_label('Unknown')
-      # The ID *must* be 0 (PHP hard-coded; it also kinda makes sense, though I might have allowed nulls).
+      # The ID *must* be 0 (PHP hard-coded; it also kinda makes sense, though we might have allowed nulls instead).
       # If it's not, we fix it now:
       if unknown.id != 0
         Vetted.connection.execute("UPDATE vetted SET id = 0 WHERE id = #{unknown.id}")

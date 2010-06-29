@@ -236,7 +236,7 @@ class TaxonConcept < SpeciesSchemaModel
   #
   # EXEMPLARS THAT WE NO LONGER TRUST: 482935, 
   def self.exemplars(options = {})
-    Rails.cache.fetch('taxon_concepts/exemplars') do
+    cached('exemplars') do
       TaxonConcept.lookup_exemplars(options)
     end
   end

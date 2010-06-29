@@ -185,6 +185,27 @@ module ActiveRecord
   class Base
     class << self
 
+      # options is there so that we can pass in the :serialize => true option in the cases where we were using Yaml...
+      # I am going to try NOT doing anything with that option right now, to see if it works.  If not, however, I want to at
+      # least have it passed in when we needed it, so the code can change later if needed.
+      def cached_find(field, value, options = {})
+        cached("#{field}/#{value}", options) do
+          send("find_by_#{field}", value)
+        end
+      end
+
+      def cached(key, options = {}, &block)
+        Rails.cache.fetch(cached_name_for(key)) do
+          yield
+        end
+      end
+
+      def cached_name_for(key)
+        @bad_chars ||= /[^A-Za-z0-9\/]/ # Remember, inline regexes can leak memory.  Storing as variables avoids this.
+        @dup_underscores ||= /__+/
+        "#{RAILS_ENV}/#{self.table_name}/#{key}".gsub(@bad_chars, '_').gsub(@dup_underscores, '_')[0..249]
+      end
+
       # returns the full table name of this ActiveRecord::Base, 
       # including the database name.
       #

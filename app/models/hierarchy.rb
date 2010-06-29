@@ -21,34 +21,28 @@ class Hierarchy < SpeciesSchemaModel
   alias entries hierarchy_entries
   
   def self.browsable_by_label
-    Rails.cache.fetch('hierarchies/browsable_by_label') do
+    cached('browsable_by_label') do
       Hierarchy.browsable.sort_by {|h| h.form_label }
     end
   end
 
   def self.default
-    YAML.load(Rails.cache.fetch('hierarchies/default') do
-      Hierarchy.find_by_label($DEFAULT_HIERARCHY_NAME).to_yaml
-    end)
+    cached_find(:label, $DEFAULT_HIERARCHY_NAME, :serialize => true)
   end
 
   # This is the first hierarchy we used, and we need it to serve "old" URLs (ie: /taxa/16222828 => Roenbergensis)
   def self.original
-    YAML.load(Rails.cache.fetch('hierarchies/original') do
-      Hierarchy.find_by_label("Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007").to_yaml
-    end)
+    cached_find(:label, "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", :serialize => true)
   end
 
   def self.eol_contributors
-    YAML.load(Rails.cache.fetch('hierarchies/eol_contributors') do
-      Hierarchy.find_by_label("Encyclopedia of Life Contributors").to_yaml
-    end)
+    cached_find(:label, "Encyclopedia of Life Contributors", :serialize => true)
   end
 
   def self.ncbi
-    YAML.load(Rails.cache.fetch('hierarchies/ncbi') do
-      Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc").to_yaml
-    end)
+    cached('ncbi', :serialize => true) do
+      Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc")
+    end
   end
   
   def self.browsable_for_concept(taxon_concept)

@@ -902,7 +902,7 @@ Factory.define :user do |u|
   u.entered_password          'test password'
   u.curator_hierarchy_entry   nil
   u.curator_approved          false
-  u.curator_verdict_by_id     0
+  u.curator_verdict_by_id     nil
   u.curator_verdict_at        nil
   u.curator_scope             ''
   u.password_reset_token      nil

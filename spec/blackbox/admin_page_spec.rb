@@ -11,6 +11,7 @@ describe 'Admin Pages' do
   end
   
   it 'should load the admin homepage' do
+    debugger if @user.roles.empty?
     login_as(@user).should redirect_to('/admin')
     body = request('/admin').body
     body.should include('Welcome to the EOL Administration Console')
@@ -51,7 +52,7 @@ describe 'Admin Pages' do
     it 'should be able to view a hierarchy' do
       login_as(@user).should redirect_to('/admin')
       body = request("/administrator/hierarchy/browse/#{@hierarchy.id}").body
-      body.should include(@hierarchy_entry.name_object.string)
+      body.should include(@hierarchy.label)
     end
   end
   

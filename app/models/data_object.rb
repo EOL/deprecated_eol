@@ -770,15 +770,7 @@ class DataObject < SpeciesSchemaModel
       top_images_query = "(#{top_images_query}) UNION (#{top_unpublished_images_query})"
     end
     
-    # commenting this out as it could be effecting curator rating
-    # # if there is no filter hierarchy and we're just returning published images - the default
-    # if options[:filter_hierarchy].nil? && !show_unpublished && !options[:user].vetted
-    #   result = Rails.cache.fetch("data_object/cached_images_for/#{taxon.id}") do
-    #     data_objects_result = DataObject.find_by_sql(top_images_query)
-    #   end
-    # else
-      data_objects_result = DataObject.find_by_sql(top_images_query).uniq
-    # end
+    data_objects_result = DataObject.find_by_sql(top_images_query).uniq
     
     # when we have all the images then get the uniquq list and sort them by
     # vetted order ASC (so trusted are first), rating DESC (so best are first), id DESC (so newest are first)

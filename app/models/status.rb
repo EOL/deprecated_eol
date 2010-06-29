@@ -3,21 +3,15 @@ class Status < SpeciesSchemaModel
   has_many :data_objects_harvest_events
   
   def self.inserted
-    YAML.load(Rails.cache.fetch('statuses/inserted') do
-      Status.find_by_label('inserted').to_yaml
-    end)
+    cached_find(:label, 'inserted', :serialize => true)
   end
 
   def self.updated
-    YAML.load(Rails.cache.fetch('statuses/updated') do
-      Status.find_by_label('updated').to_yaml
-    end)
+    cached_find(:label, 'updated', :serialize => true)
   end
 
   def self.unchanged
-    YAML.load(Rails.cache.fetch('statuses/unchanged') do
-      Status.find_by_label('unchanged').to_yaml
-    end)
+    cached_find(:label, 'unchanged', :serialize => true)
   end
 
 end

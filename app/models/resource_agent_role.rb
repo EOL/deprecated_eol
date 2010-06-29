@@ -2,9 +2,9 @@ class ResourceAgentRole < SpeciesSchemaModel
   belongs_to :agent_resource
 
   def self.content_partner_upload_role
-    YAML.load(Rails.cache.fetch('resource_agent_roles/content_partner_upload') do
-      ResourceAgentRole.find_or_create_by_label('Data Supplier').to_yaml
-    end)
+    cached('content_partner_upload', :serialize => true) do
+      ResourceAgentRole.find_or_create_by_label('Data Supplier')
+    end
   end
   
   class << self

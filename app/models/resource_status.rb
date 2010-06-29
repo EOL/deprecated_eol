@@ -2,81 +2,55 @@ class ResourceStatus < SpeciesSchemaModel
   has_many :resources
 
   def self.being_processed
-    Rails.cache.fetch('resource_statuses/being_processed') do
-      self.find_by_label('Being Processed')
-    end
+    cached_find(:label, 'Being Processed')
   end
   
   def self.force_harvest
-    Rails.cache.fetch('resource_statuses/force_harvest') do
-      self.find_by_label('Force Harvest')
-    end
+    cached_find(:label, 'Force Harvest')
   end
   
   def self.moved_to_content_server
-    Rails.cache.fetch('resource_statuses/moved_to_content_server') do
-      self.find_by_label('Moved to Content Server')
-    end
+    cached_find(:label, 'Moved to Content Server')
   end
   
   def self.processed
-    Rails.cache.fetch('resource_statuses/processed') do
-      self.find_by_label('Processed')
-    end
+    cached_find(:label, 'Processed')
   end
   
   def self.processing_failed
-    Rails.cache.fetch('resource_statuses/processing_failed') do
-      self.find_by_label('Processing Failed')
-    end
+    cached_find(:label, 'Processing Failed')
   end
 
   def self.published
-    Rails.cache.fetch('resource_statuses/published') do
-      self.find_by_label('Published')
-    end
+    cached_find(:label, 'Published')
   end
   
   def self.publish_pending
-    Rails.cache.fetch('resource_statuses/publish_pending') do
-      self.find_by_label('Publish Pending')
-    end
+    cached_find(:label, 'Publish Pending')
   end
   
   def self.uploading
-    Rails.cache.fetch('resource_statuses/uploading') do
-      self.find_by_label('Uploading')
-    end
+    cached_find(:label, 'Uploading')
   end
   
   def self.uploaded
-    Rails.cache.fetch('resource_statuses/uploaded') do
-      self.find_by_label('Uploaded')
-    end
+    cached_find(:label, 'Uploaded')
   end
   
   def self.upload_failed
-    Rails.cache.fetch('resource_statuses/upload_failed') do
-      self.find_by_label('Upload Failed')
-    end
+    cached_find(:label, 'Upload Failed')
   end
   
   def self.validated
-    Rails.cache.fetch('resource_statuses/validated') do
-      self.find_by_label('Validated')
-    end
+    cached_find(:label, 'Validated')
   end
   
   def self.validation_failed
-    Rails.cache.fetch('resource_statuses/validation_failed') do
-      self.find_by_label('Validation Failed')
-    end
+    cached_find(:label, 'Validation Failed')
   end
   
   def self.unpublish_pending
-    Rails.cache.fetch('resource_statuses/unpublish_pending') do
-      self.find_by_label('Unpublish Pending')
-    end
+    cached_find(:label, 'Unpublish Pending')
   end
   
 end

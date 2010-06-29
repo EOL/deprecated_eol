@@ -15,16 +15,12 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the Author
   def self.author
-    Rails.cache.fetch('agent_roles/author') do
-      AgentRole.find_by_label('Author')
-    end
+    cached_find(:label, 'Author')
   end
   
   # Find the Source
   def self.source
-    Rails.cache.fetch('agent_roles/source') do
-      AgentRole.find_by_label('Source')
-    end
+    cached_find(:label, 'Source')
   end
   
   # Find the "Source" AgentRole.
@@ -34,21 +30,17 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the "contributor" AgentRole.
   def self.contributor_id
-    Rails.cache.fetch('agent_roles/contributor_id') do
-      AgentRole.find_by_label('Contributor').id
-    end
+    cached_find(:label, 'Contributor').id
   end
   
   # Find the "Author" AgentRole.
   def self.author_id
-    AgentRole.author.id
+    cached_find(:label, 'Author').id
   end
   
   # Find the "Photographer" AgentRole.
   def self.photographer_id
-    Rails.cache.fetch('agent_roles/photographer_id') do
-      AgentRole.find_by_label('Photographer').id
-    end
+    cached_find(:label, 'Photographer').id
   end
     
 end

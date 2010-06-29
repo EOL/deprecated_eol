@@ -1,31 +1,21 @@
 class UntrustReason < SpeciesSchemaModel
   def self.misidentified
-    Rails.cache.fetch('untrust_reasons/misidentified') do
-      UntrustReason.find_by_label('Misidentified')
-    end
+    cached_find(:label, 'Misidentified')
   end
 
   def self.incorrect
-    Rails.cache.fetch('untrust_reasons/incorrect') do
-      UntrustReason.find_by_label('Incorrect')
-    end
+    cached_find(:label, 'Incorrect')
   end
 
   def self.poor
-    Rails.cache.fetch('untrust_reasons/poor') do
-      UntrustReason.find_by_label('Poor')
-    end
+    cached_find(:label, 'Poor')
   end
 
   def self.duplicate
-    Rails.cache.fetch('untrust_reasons/duplicate') do
-      UntrustReason.find_by_label('Duplicate')
-    end
+    cached_find(:label, 'Duplicate')
   end
 
   def self.other
-    Rails.cache.fetch('untrust_reasons/other') do
-      UntrustReason.find_by_label('Other')
-    end
+    cached_find(:label, 'Other')
   end
 end

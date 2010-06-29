@@ -8,13 +8,13 @@
         = link_to(@partner_fullname, { :action => 'show', :id => @agent_id })
       's data objects.
 
-    This report is also available via feeds
-    - if(@year_month == "All")
-      /= link_to " See feeds",{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id}
-      = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :agent_id => @agent_id}
-    - else
-      /= link_to " See feeds",{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id ,:year => @report_year, :month => @report_month}
-      = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :agent_id => @agent_id,:year => @report_year, :month => @report_month }
+      This report is also available via feeds
+      - if(@year_month == "All")
+        /= link_to " See feeds",{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id}
+        = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :agent_id => @agent_id}
+      - else
+        /= link_to " See feeds",{:controller=>'/feeds', :action=>:partner_curation, :agent_id => @agent_id ,:year => @report_year, :month => @report_month}
+        = link_to image_tag('rss.png'), {:controller => '/feeds', :action => :partner_curation, :agent_id => @agent_id,:year => @report_year, :month => @report_month }
 
   - form_for :hello, :url => { :action => :report_partner_curated_data } do |form|
     Viewing Partner:

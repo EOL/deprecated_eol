@@ -18,7 +18,15 @@ class Visibility < SpeciesSchemaModel
   end
   
   def self.invisible
-    cached_find(:label, 'Invisible')
+    cached(:label, 'Invisible') do
+      invisible = Visibility.find_by_label('Invisible')
+      # The ID *must* be 0 (PHP hard-coded; it also makes /sense/).  If it's not, we fix it now:
+      if invisible.id != 0
+        Visibility.connection.execute("UPDATE visibilities SET id = 0 WHERE id = #{invisible.id}")
+        invisible = Visibility.find_by_label('Invisible')
+      end
+      invisible
+    end
   end
 
 end

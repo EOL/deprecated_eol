@@ -178,7 +178,7 @@ class TaxaController < ApplicationController
     store_location(params[:return_to]) if !params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
 
     # grab logged in user
-    @user = User.find(current_user.id) # Can't modify cached version, so we load it anew
+    @user = current_user
 
     # if the user is logged in, they should be at the profile page
     if logged_in?

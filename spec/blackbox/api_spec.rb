@@ -100,93 +100,93 @@ describe 'EOL XML APIs' do
   
     # Pages
   
-#T    it 'should return only published concepts' do
-#T      @taxon_concept.published = 0
-#T      @taxon_concept.save!
-#T    
-#T      response = request("/api/pages/#{@taxon_concept.id}")
-#T      response.body.should include('<error>')
-#T      response.body.should include('</response>')
-#T    
-#T      @taxon_concept.published = 1
-#T      @taxon_concept.save!
-#T    end
-#T  
-#T    it 'should show one data object per category' do
-#T      response = request("/api/pages/#{@taxon_concept.id}")
-#T      xml_response = Nokogiri.XML(response.body)
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
-#T    
-#T      # shouldnt get details without asking for them
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 0
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 0
-#T    end
-#T  
-#T    it 'should be able to limit number of media returned' do
-#T      response = request("/api/pages/#{@taxon_concept.id}?images=2")
-#T      xml_response = Nokogiri.XML(response.body)
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 2
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 2
-#T    end
-#T  
-#T    it 'should be able to limit number of text returned' do
-#T      response = request("/api/pages/#{@taxon_concept.id}?text=2")
-#T      xml_response = Nokogiri.XML(response.body)
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
-#T    end
-#T  
-#T    it 'should be able to take a | delimited list of subjects' do
-#T      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology&details=1")
-#T      xml_response = Nokogiri.XML(response.body)
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
-#T    
-#T      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=Distribution&details=1")
-#T      xml_response = Nokogiri.XML(response.body)
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
-#T    
-#T      # %7C == |
-#T      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology%7CDistribution&details=1")
-#T      xml_response = Nokogiri.XML(response.body)
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
-#T    end
-#T  
-#T    it 'should be able to return ALL subjects' do 
-#T      response = request("/api/pages/#{@taxon_concept.id}?text=5&subjects=all")
-#T      xml_response = Nokogiri.XML(response.body)
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
-#T    end
-#T  
-#T    it 'should be able to get more details on data objects' do
-#T      response = request("/api/pages/#{@taxon_concept.id}?image=1&text=0&details=1")
-#T      xml_response = Nokogiri.XML(response.body)
-#T      # should get 1 image, 1 video and their metadata
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 2
-#T      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 2
-#T    end
-#T  
-#T    it 'should be able to render an HTML version of the page' do
-#T      response = request("/api/pages/#{@taxon_concept.id}?subjects=Distribution&text=2&format=html")
-#T      response.body.should include '<html'
-#T      response.body.should include '</html>'
-#T      response.body.should match /<title>\s*EOL API:\s*#{@taxon_concept.entry.name_object.string}/
-#T      response.body.should include @object.description
-#T      response.body.should include DataObject.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
-#T    end
-#T  
-#T    it 'should be able to toggle common names' do
-#T      response = request("/api/pages/#{@taxon_concept.id}")
-#T      response.body.should_not include '<commonName'
-#T    
-#T      response = request("/api/pages/#{@taxon_concept.id}?common_names=1")
-#T      response.body.should include '<commonName'
-#T    end
+    it 'should return only published concepts' do
+      @taxon_concept.published = 0
+      @taxon_concept.save!
+    
+      response = request("/api/pages/#{@taxon_concept.id}")
+      response.body.should include('<error>')
+      response.body.should include('</response>')
+    
+      @taxon_concept.published = 1
+      @taxon_concept.save!
+    end
+  
+    it 'should show one data object per category' do
+      response = request("/api/pages/#{@taxon_concept.id}")
+      xml_response = Nokogiri.XML(response.body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
+    
+      # shouldnt get details without asking for them
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 0
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 0
+    end
+  
+    it 'should be able to limit number of media returned' do
+      response = request("/api/pages/#{@taxon_concept.id}?images=2")
+      xml_response = Nokogiri.XML(response.body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 2
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 2
+    end
+  
+    it 'should be able to limit number of text returned' do
+      response = request("/api/pages/#{@taxon_concept.id}?text=2")
+      xml_response = Nokogiri.XML(response.body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
+    end
+  
+    it 'should be able to take a | delimited list of subjects' do
+      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology&details=1")
+      xml_response = Nokogiri.XML(response.body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
+    
+      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=Distribution&details=1")
+      xml_response = Nokogiri.XML(response.body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
+    
+      # %7C == |
+      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology%7CDistribution&details=1")
+      xml_response = Nokogiri.XML(response.body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
+    end
+  
+    it 'should be able to return ALL subjects' do 
+      response = request("/api/pages/#{@taxon_concept.id}?text=5&subjects=all")
+      xml_response = Nokogiri.XML(response.body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
+    end
+  
+    it 'should be able to get more details on data objects' do
+      response = request("/api/pages/#{@taxon_concept.id}?image=1&text=0&details=1")
+      xml_response = Nokogiri.XML(response.body)
+      # should get 1 image, 1 video and their metadata
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 2
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 2
+    end
+  
+    it 'should be able to render an HTML version of the page' do
+      response = request("/api/pages/#{@taxon_concept.id}?subjects=Distribution&text=2&format=html")
+      response.body.should include '<html'
+      response.body.should include '</html>'
+      response.body.should match /<title>\s*EOL API:\s*#{@taxon_concept.entry.name_object.string}/
+      response.body.should include @object.description
+      response.body.should include DataObject.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
+    end
+  
+    it 'should be able to toggle common names' do
+      response = request("/api/pages/#{@taxon_concept.id}")
+      response.body.should_not include '<commonName'
+    
+      response = request("/api/pages/#{@taxon_concept.id}?common_names=1")
+      response.body.should include '<commonName'
+    end
     
     it 'should be able to render a JSON response' do
       response = request("/api/pages/#{@taxon_concept.id}.json?subjects=all&common_names=1&details=1&text=1&images=1")

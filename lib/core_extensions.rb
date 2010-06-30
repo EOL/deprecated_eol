@@ -1,6 +1,38 @@
 # This library file declares extensions to the Core classes, as well as some of the "Core" Rails classes
 # (ActiveRecord and what-not).
 
+# There is a problem with Rails.cache returning frozen objects.  The following two patches should fix it:
+#
+# https://rails.lighthouseapp.com/projects/8994/tickets/2860
+# https://rails.lighthouseapp.com/projects/8994/tickets/2859
+#
+# Discussion about the problem:
+# https://rails.lighthouseapp.com/projects/8994/tickets/2655-railscache-freezes-all-objects-passed-to-it
+
+module ActiveRecord
+  class Base
+    def dup
+      obj = super
+      obj.instance_variable_set('@attributes', instance_variable_get('@attributes').dup)
+      obj
+    end
+  end
+end
+
+module ActiveSupport
+  module Cache
+    class MemoryStore < Store
+      def write(name, value, options = nil)
+        super
+        # ORIGINAL: @data[name] = value.freeze
+        # NEW:
+        @data[name] = (value.duplicable? ? value.dup : value).freeze
+      end
+    end
+  end
+end
+
+
 # This is a fix for EOLINFRASTRUCTURE-1606 ... NewRelic appears to be calling [] on a Nil somewhere, and this avoids the
 # problem.
 class NilClass

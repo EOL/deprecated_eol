@@ -190,7 +190,6 @@ describe 'EOL XML APIs' do
     
     it 'should be able to render a JSON response' do
       response = request("/api/pages/#{@taxon_concept.id}.json?subjects=all&common_names=1&details=1&text=1&images=1")
-      debugger
       response_object = JSON.parse(response.body)
       response_object.class.should == Hash
       response_object['identifier'].should == @taxon_concept.id

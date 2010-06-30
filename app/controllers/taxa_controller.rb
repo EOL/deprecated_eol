@@ -25,8 +25,8 @@ class TaxaController < ApplicationController
       # replaced because it doesn't separate taxa with objects from taxa without
       #results = SpeciesSchemaModel.connection.execute("SELECT n.string scientific_name, he.taxon_concept_id 
       #  FROM harvest_events_hierarchy_entries hehe 
-      #  JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id=he.id)
-      #  JOIN names n ON (he.name_id=n.id)
+      #  JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id = he.id)
+      #  JOIN names n ON (he.name_id = n.id)
       #  WHERE hehe.harvest_event_id=#{params[:harvest_event_id].to_i}
       #  ORDER BY n.string").all_hashes.uniq
 
@@ -177,26 +177,26 @@ class TaxaController < ApplicationController
 
     store_location(params[:return_to]) if !params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
 
+    # grab logged in user
+    @user = current_user.dup
+
     # if the user is logged in, they should be at the profile page
     if logged_in?
       if params[:from_taxa_page].blank?
         redirect_to(profile_url)
         return
       else
-        current_user.update_attributes(params[:user])
+        @user.update_attributes(params[:user])
         params[:from_taxa_page]
       end
     end
 
-    # grab logged in user
-    @user = current_user
-
     unless request.post? # first time on page, get current settings
       # set expertise to a string so it will be picked up in web page controls
-      @user.expertise=current_user.expertise.to_s
+      @user.expertise = current_user.expertise.to_s
       return
     end
-    @user.attributes=params[:user]
+    @user.attributes = params[:user]
     set_current_user(@user)
     flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated] if params[:from_taxa_page].blank?
     store_location(EOLWebService.uri_remove_param(return_to_url, 'vetted')) if valid_return_to_url
@@ -240,7 +240,7 @@ class TaxaController < ApplicationController
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
 
     load_content_var
-    @ajax_update=true
+    @ajax_update = true
     append_content_instance_variables(@category_id)
     if @content.nil?
       render :text => '[content missing]'
@@ -296,8 +296,8 @@ class TaxaController < ApplicationController
      return
    end
 
-    @video_url=params[:video_url]
-    video_type=params[:video_type].downcase
+    @video_url = params[:video_url]
+    video_type = params[:video_type].downcase
 
     render :update do |page|
       page.replace_html 'video-player', :partial => 'video_' + video_type
@@ -309,8 +309,8 @@ class TaxaController < ApplicationController
   def show_popup
 
      if !params[:name].blank? && request.xhr?
-       template=params[:name]
-       @taxon_name=params[:taxon_name] || "this taxon"
+       template = params[:name]
+       @taxon_name = params[:taxon_name] || "this taxon"
        render :layout=>false, :template=>'popups/' + template
      else
        render :nothing=>true
@@ -321,7 +321,7 @@ class TaxaController < ApplicationController
   # AJAX: used to record the response that the user sends to the survey
   def survey_response
 
-    user_response=params[:user_response]
+    user_response = params[:user_response]
 
     SurveyResponse.create(
       :taxon_id=>params[:taxon_concept_id],
@@ -503,9 +503,9 @@ private
 
     if show_taxa_html_can_be_cached? &&
        fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
-      @cached=true
+      @cached = true
     else
-      @cached=false
+      @cached = false
       failure = set_taxa_page_instance_vars
       return false if failure
     end # end get full page since we couldn't read from cache
@@ -550,7 +550,7 @@ private
       
       selected_image_index = find_selected_image_index(@images,image_id)
       if selected_image_index.nil?
-        current_user.vetted=false
+        current_user.vetted = false
         current_user.save if logged_in?
         
         @taxon_concept.current_user = current_user

@@ -2,7 +2,7 @@
   - node_class = node_class || 'normal'
   %li{ :class => node_class }
     = render(:partial => 'navigation/node_name_page', :locals => { :entry => hierarchy_entry })
-    - children = HierarchyEntry.children_details(hierarchy_entry['id'])
+    - children = HierarchyEntry.children_details(hierarchy_entry['id'], :include_common_names => @include_common_names, :common_name_language => @common_name_language)
     - if !@in_hierarchy
       %ul
         %li

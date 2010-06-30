@@ -127,7 +127,7 @@ class Hierarchy < SpeciesSchemaModel
     return string
   end
   
-  def kingdom_details
+  def kingdom_details(params = {})
     result = SpeciesSchemaModel.connection.execute("
       SELECT he.id, he.identifier, he.lft, he.rgt, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, r.label rank_label, hc.content_level
       FROM hierarchy_entries he
@@ -137,10 +137,16 @@ class Hierarchy < SpeciesSchemaModel
       WHERE he.hierarchy_id = #{self.id}
       AND parent_id=0
       AND he.visibility_id!=#{Visibility.invisible.id}").all_hashes
+    
+    if params[:include_common_names]
+      params[:common_name_language] ||= Language.english
+      common_names = TaxonConcept.quick_common_names(result.collect{|r| r['taxon_concept_id']}, params[:common_name_language], self)
+    end
     result.each do |r|
       r['name_string'].firstcap!
       r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
       r['has_content'] = r['content_level'].to_i > 1
+      r['name_string'] = common_names[r['taxon_concept_id'].to_i] unless common_names.blank? || common_names[r['taxon_concept_id'].to_i].blank?
     end
     result.sort!{|a,b| a['name_string'] <=> b['name_string']}
   end

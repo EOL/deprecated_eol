@@ -426,6 +426,10 @@ private
   def update_user_content_level
     current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
   end
+  
+  def add_page_view_log_entry
+    PageViewLog.create(:user => current_user, :agent => current_agent, :taxon_concept => @taxon_concept)
+  end
 
   def get_new_text_tocitem_id(category_id)
     if category_id && TocItem.find(category_id).allow_user_text?
@@ -499,6 +503,7 @@ private
   def show_taxa_html
     
     update_user_content_level
+    add_page_view_log_entry
     
     @taxon_concept.current_user = current_user
 

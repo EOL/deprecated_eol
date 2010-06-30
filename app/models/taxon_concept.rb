@@ -622,18 +622,8 @@ class TaxonConcept < SpeciesSchemaModel
     hierarchy ||= Hierarchy.default
     common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id, tcn.taxon_concept_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id IN (#{taxon_concept_ids.join(',')}) AND language_id=#{language.id} AND preferred=1").all_hashes
     
-    final_name = ''
-    # 
-    # # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names 
-    # common_name_results.each do |result|
-    #   if final_name == '' || result['source_hierarchy_id'].to_i == hierarchy.id
-    #     final_name = result['name'].firstcap
-    #   end
-    # end
-    # return final_name
-    
     concept_names = {}
-    taxon_concept_ids.each{|id| concept_names[id] = nil }
+    taxon_concept_ids.each{|id| concept_names[id.to_i] = nil }
     common_name_results.each do |r|
       if concept_names[r['taxon_concept_id'].to_i].blank? || r['source_hierarchy_id'].to_i == hierarchy.id
         concept_names[r['taxon_concept_id'].to_i] = r['name'].firstcap

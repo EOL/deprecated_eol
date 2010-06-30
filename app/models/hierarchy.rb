@@ -46,7 +46,7 @@ class Hierarchy < SpeciesSchemaModel
   end
   
   def self.browsable_for_concept(taxon_concept)
-    Hierarchy.find_by_sql("SELECT h.* FROM hierarchies h JOIN hierarchy_entries he ON (h.id=he.hierarchy_id) WHERE h.browsable=1 AND he.taxon_concept_id=#{taxon_concept.id}")
+    Hierarchy.find_by_sql("SELECT h.* FROM hierarchies h JOIN hierarchy_entries he ON (h.id = he.hierarchy_id) WHERE h.browsable = 1 AND he.taxon_concept_id=#{taxon_concept.id}")
   end
   
   def form_label
@@ -73,13 +73,13 @@ class Hierarchy < SpeciesSchemaModel
              hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image,
              r.label rank_string, he_source.hierarchy_id source_hierarchy_id
         FROM hierarchy_entries he
-          JOIN names n1 ON (he.name_id=n1.id)
-          LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
-          LEFT JOIN (taxon_concept_names tcn JOIN names n2 ON (tcn.name_id=n2.id)
-            LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id=he_source.id))
-            ON (he.taxon_concept_id=tcn.taxon_concept_id AND tcn.preferred=1 AND tcn.language_id=#{language.id})
-          LEFT JOIN ranks r ON (he.rank_id=r.id)
-        WHERE he.parent_id=0 AND he.hierarchy_id=#{id}
+          JOIN names n1 ON (he.name_id = n1.id)
+          LEFT JOIN hierarchies_content hc ON (he.id = hc.hierarchy_entry_id)
+          LEFT JOIN (taxon_concept_names tcn JOIN names n2 ON (tcn.name_id = n2.id)
+            LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id = he_source.id))
+            ON (he.taxon_concept_id = tcn.taxon_concept_id AND tcn.preferred = 1 AND tcn.language_id = #{language.id})
+          LEFT JOIN ranks r ON (he.rank_id = r.id)
+        WHERE he.parent_id = 0 AND he.hierarchy_id=#{id}
     ").all_hashes
     
     deduped_kingdoms = []
@@ -125,12 +125,12 @@ class Hierarchy < SpeciesSchemaModel
     result = SpeciesSchemaModel.connection.execute("
       SELECT he.id, he.identifier, he.lft, he.rgt, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, r.label rank_label, hc.content_level
       FROM hierarchy_entries he
-      JOIN names n ON (he.name_id=n.id)
-      LEFT JOIN ranks r ON (he.rank_id=r.id)
-      LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
+        JOIN names n ON (he.name_id = n.id)
+        LEFT JOIN ranks r ON (he.rank_id = r.id)
+        LEFT JOIN hierarchies_content hc ON (he.id = hc.hierarchy_entry_id)
       WHERE he.hierarchy_id = #{self.id}
-      AND parent_id=0
-      AND he.visibility_id!=#{Visibility.invisible.id}").all_hashes
+        AND parent_id = 0
+        AND he.visibility_id != #{Visibility.invisible.id}").all_hashes
     result.each do |r|
       r['name_string'].firstcap!
       r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1

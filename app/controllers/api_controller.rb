@@ -7,6 +7,7 @@ class ApiController < ApplicationController
     params[:images] ||= 1
     params[:text] ||= 1
     params[:vetted] ||= false
+    params[:version] ||= "0.1"
     params[:vetted] = false if params[:vetted] == '0'
     params[:common_names] ||= false
     params[:common_names] = false if params[:common_names] == '0'
@@ -26,6 +27,8 @@ class ApiController < ApplicationController
     
     if params[:format] == 'html'
       render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => true } )
+    elsif params[:version] == "1.0"
+      render(:partial => 'pages_1_0.xml.builder', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => params[:details] } )
     else
       respond_to do |format|
         format.xml { render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => params[:details] } ) }

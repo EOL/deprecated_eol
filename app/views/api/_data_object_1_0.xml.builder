@@ -1,17 +1,22 @@
 unless object_hash.blank?
   xml.dataObject do
-    xml.dc :identifier, object_hash["guid"]
+    xml.dataObjectID object_hash["guid"]
+    if taxon_concept_id.blank?
+      xml.dwc :taxonID, object_hash["taxon_concept_id"] unless object_hash["taxon_concept_id"].blank?
+    else
+      xml.dwc :taxonID, taxon_concept_id
+    end
     xml.dataType object_hash["data_type"]
     
     unless minimal
       xml.mimeType object_hash["mime_type"]
-    
+      
       unless object_hash["agents"].nil?
         for agent in object_hash["agents"]
           xml.agent agent["full_name"], :homepage => agent["homepage"], :role => agent["role"].downcase
         end
       end
-    
+      
       xml.dcterms :created, object_hash["object_created_at"] unless object_hash["object_created_at"].blank?
       xml.dcterms :modified, object_hash["updated_at"] unless object_hash["updated_at"].blank?
       xml.dc :title, object_hash["object_title"] unless object_hash["object_title"].blank?
@@ -32,7 +37,7 @@ unless object_hash.blank?
       xml.mediaURL DataObject.image_cache_path(object_hash["object_cache_url"], :large) unless object_hash["object_cache_url"].blank?
       xml.thumbnailURL object_hash["thumbnail_url"] unless object_hash["thumbnail_url"].blank?
       xml.location object_hash["location"] unless object_hash["location"].blank?
-    
+      
       unless object_hash['latitude']=="0" && object_hash['longitude']=="0" && object_hash['altitude']=="0"
         xml.geo :Point do
           xml.geo :lat, object_hash['latitude'] unless object_hash['latitude']=="0"
@@ -40,7 +45,7 @@ unless object_hash.blank?
           xml.geo :alt, object_hash['altitude'] unless object_hash['altitude']=="0"
         end
       end
-    
+      
       unless object_hash["refs"].nil?
         for ref in object_hash["refs"] 
           xml.reference ref["full_reference"]

@@ -33,9 +33,9 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
       
       for object in details_hash["data_objects"]
         if data_object_details
-          xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :object_hash => object } )
+          xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :object_hash => object, :minimal => false } )
         else
-          xml << render(:partial => 'data_object_minimal.xml.builder', :layout => false, :locals => { :object_hash => object } )
+          xml << render(:partial => 'data_object.xml.builder', :layout => false, :locals => { :object_hash => object, :minimal => true } )
         end
       end
     end

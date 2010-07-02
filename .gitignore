@@ -26,3 +26,4 @@ solr/work/*
 lang/tmp.yml
 config/environments/labs1.rb
 config/environments/integration_local.rb
+public/uploads/datasets/*

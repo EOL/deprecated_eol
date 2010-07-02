@@ -9,7 +9,7 @@ unless object_hash.blank?
     xml.dataType object_hash["data_type"]
     
     unless minimal
-      xml.mimeType object_hash["mime_type"]
+      xml.mimeType object_hash["mime_type"] unless object_hash["mime_type"].blank?
       
       unless object_hash["agents"].nil?
         for agent in object_hash["agents"]

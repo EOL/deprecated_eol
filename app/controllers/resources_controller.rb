@@ -29,10 +29,22 @@ class ResourcesController < ApplicationController
       end
       @page_header = 'Resources'
     end
+    
+    before :update do
+      @original_resource = Resource.find(current_object.id)
+      
+      unless current_object.accesspoint_url.blank?
+        current_object.dataset = nil
+        current_object.dataset_file_name = nil
+        current_object.dataset_content_type = nil
+        current_object.dataset_file_size = nil
+      end
+    end
+    
 
     after :create do
       
-      resource_role=ResourceAgentRole.content_partner_upload_role
+      resource_role = ResourceAgentRole.content_partner_upload_role
       # associate this uploaded resource with the current agent and the role of "data provider"
       # EOLINFRASTRUCTURE-1223: sometimes SPG is getting a duplicate entry, which is... weird.  I'm trying to
       # avoid the second one being created.
@@ -43,37 +55,22 @@ class ResourcesController < ApplicationController
                               :agent_id => current_agent.id,
                               :resource_agent_role_id => resource_role.id)
       end
-
-      current_object.resource_status=ResourceStatus.uploaded if current_object.accesspoint_url.blank?
       
       # call to file uploading web service 
-      file_path=(current_object.accesspoint_url.blank? ? 'http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s + $DATASET_UPLOAD_PATH + current_object.id.to_s + "."+ current_object.dataset_file_name.split(".")[-1] : current_object.accesspoint_url)  
-      parameters='function=upload_resource&resource_id=' + current_object.id.to_s + '&file_path=' + file_path
-      begin
-        response = EOLWebService.call(:parameters=>parameters)
-      rescue 
-        ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service has an error") if $ERROR_LOGGING
-        current_object.resource_status=ResourceStatus.upload_failed
-      end
-      if response.nil? || response.blank?
-        ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service timed out") if $ERROR_LOGGING
-        current_object.resource_status=ResourceStatus.upload_failed
-      else
-        response = Hash.from_xml(response)
-        if response["response"].key? "status"
-          status = response["response"]["status"]
-          current_object.resource_status=ResourceStatus.send(status.downcase.gsub(" ","_"))
-          if response["response"].key? "error"
-            error = response["response"]["error"]
-            ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed",:backtrace=>parameters) if $ERROR_LOGGING
-            current_object.notes = error if status.strip == 'Validation failed'
-          end          
-        end
-      end
+      status = current_object.upload_resource_to_content_master('http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s)
+      current_object.resource_status = status
+      
       current_object.save
     end
     
     after :update do
+      unless current_object.accesspoint_url.blank?
+        current_object.dataset = nil
+        current_object.dataset_file_name = nil
+        current_object.dataset_content_type = nil
+        current_object.dataset_file_size = nil
+        current_object.save
+      end
       
       if current_user && current_user.is_admin?
         if params[:publish] == '1' and current_object.resource_status == ResourceStatus.processed
@@ -95,6 +92,12 @@ class ResourcesController < ApplicationController
         else
           current_object.set_vetted_status(0) if current_object.vetted != 0
         end
+      end
+      
+      # only send the resource to the content server if it has been changed
+      if @original_resource && (@original_resource.accesspoint_url != current_object.accesspoint_url || @original_resource.dataset_file_size != current_object.dataset_file_size)
+        status = current_object.upload_resource_to_content_master('http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s)
+        current_object.resource_status = status
       end
       
       current_object.save

@@ -52,19 +52,22 @@
       <!-- resource_title ^.{1,200}$ false true //-->
       = f.text_field :title, :maxlength=>200, :size=>50 
     .form_item
-      - if @resource.dataset_file_name.blank?    
-        = f.label :accesspoint_url, 'Indicate below the full URL (include \'http://\') from which the resource can be downloaded:  <span title="required">*</span>'
-        = f.text_field :accesspoint_url, :maxlength=>200, :size=>60 , :onblur=>'check_url();'
-        %span.error{:id => 'url_warn'}    
+      = f.label :accesspoint_url, 'Indicate below the full URL (include \'http://\') from which the resource can be downloaded:  <span title="required">*</span>'
+      = f.text_field :accesspoint_url, :maxlength=>200, :size=>60 , :onblur=>'check_url();'
+      %br
+      OR
+      %br
+      %span.error{:id => 'url_warn'}
       - unless @resource.dataset_file_name.blank?
-        %br/
-        = 'A previous file was uploaded for this resource, called ' + @resource.dataset_file_name
         = f.label :dataset, 'Select a new file to upload below (gzip, tar or XML only): <span title="required">*</span>'
-        = f.file_field :dataset, :size => 60        
-     
-      = '<br /> OR <br />' if controller.action_name=='create' || controller.action_name=='new'
-
-      - if (@resource.accesspoint_url.blank? && @resource.dataset_file_name.blank?)
+        = f.file_field :dataset, :size => 60
+        %br
+        %span.error
+          a file was previously uploaded for this resource:
+          %strong
+            = @resource.dataset_file_name
+      
+      - if (@resource.dataset_file_name.blank?)
         = f.label :dataset, 'Select a resource file to upload below (gzip, tar or XML only): <span title="required">*</span>'
         = f.file_field :dataset, :size => 60
         

@@ -96,6 +96,37 @@ class Resource < SpeciesSchemaModel
 
     true
   end
+  
+  def upload_resource_to_content_master(application_server_url)
+    resource_status = ResourceStatus.uploaded if accesspoint_url.blank?
+    
+    file_path = (accesspoint_url.blank? ? application_server_url + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1] : accesspoint_url)  
+    parameters = 'function=upload_resource&resource_id=' + id.to_s + '&file_path=' + file_path
+    begin
+      response = EOLWebService.call(:parameters => parameters)
+    rescue 
+      ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service has an error") if $ERROR_LOGGING
+      resource_status = ResourceStatus.upload_failed
+    end
+    if response.nil? || response.blank?
+      ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service timed out") if $ERROR_LOGGING
+      resource_status = ResourceStatus.upload_failed
+    else
+      response = Hash.from_xml(response)
+      if response["response"].key? "status"
+        status = response["response"]["status"]
+        pp response
+        resource_status = ResourceStatus.send(status.downcase.gsub(" ","_"))
+        if response["response"].key? "error"
+          error = response["response"]["error"]
+          ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
+          notes = error if status.strip == 'Validation failed'
+        end
+      end
+    end
+    self.save!
+    return resource_status
+  end
 
 end
 

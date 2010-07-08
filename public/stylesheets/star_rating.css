@@ -1,5 +1,5 @@
 .star-rating {
-  background: url(/images/star_rating/starbar.gif)  left -1000px repeat-x;
+  background: url(/images/star_rating/starbar.gif) left -1000px repeat-x;
   position: relative;
   width: 55px;
   heiifht: 11px;
@@ -9,9 +9,9 @@
   padding: 0;
   background-position: left top; }
   .star-rating a:hover, .star-rating a:active, .star-rating a:focus {
-    background: url(/images/star_rating/starbar.gif)  left -1000px repeat-x; }
+    background: url(/images/star_rating/starbar.gif) left -1000px repeat-x; }
   .star-rating .current-rating {
-    background: url(/images/star_rating/starbar.gif)  left -1000px repeat-x; }
+    background: url(/images/star_rating/starbar.gif) left -1000px repeat-x; }
   .star-rating li {
     display: inline; }
   .star-rating a, .star-rating .current-rating {

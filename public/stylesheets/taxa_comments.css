@@ -7,7 +7,7 @@
   #taxaCommentsWrap #commentsContain {
     overflow-y: scroll;
     border: 1px solid #6a8d00;
-    background-color: #F4F4F4;
+    background-color: #f4f4f4;
     padding: 13px 12px;
     height: 354px; }
   #taxaCommentsWrap .controls {
@@ -15,18 +15,18 @@
     width: 96%; }
   #taxaCommentsWrap h2 {
     font: normal 14px/15px verdana, arial;
-    color: #333;
+    color: #333333;
     padding: 1px 0 0 5px;
     margin: 0;
     width: 90%; }
     #taxaCommentsWrap h2 b {
       font-weight: normal;
-      color: #666; }
+      color: #666666; }
   #taxaCommentsWrap small {
     float: left;
     display: block;
     font: normal 10px/11px "trebuchet ms", verdana, arial;
-    color: #333;
+    color: #333333;
     padding: 6px 0 0 27px;
     margin: 0 0 15px 0;
     width: 250px; }
@@ -38,7 +38,7 @@
       list-style-type: none;
       float: right;
       font: normal 10px/11px "trebuchet ms", arial, sans-serif;
-      color: #fff;
+      color: white;
       border-right: 1px solid #6a8d00;
       border-left: 1px solid #b1d02c;
       background: #769a14;
@@ -48,14 +48,14 @@
         padding: 1px 3px;
         margin: 0;
         font: normal 10px/11px "trebuchet ms", arial, sans-serif;
-        color: #fff;
+        color: white;
         text-decoration: none; }
 
 ul.pages li a:link, ul.pages li a:visited {
   padding: 1px 3px;
   margin: 0;
   font: normal 10px/11px "trebuchet ms", arial, sans-serif;
-  color: #fff;
+  color: white;
   text-decoration: none; }
 
 #taxaCommentsWrap ul.pages li a:hover, ul.pages li a:active {
@@ -100,7 +100,7 @@ ul.pages li a:link, ul.pages li a:visited {
       #taxaCommentsWrap .comments li h6 strong {
         display: block;
         font: normal 14px/15px verdana, arial, sans-serif;
-        color: #555;
+        color: #555555;
         padding: 0 0 4px 0;
         margin: 0; }
 
@@ -121,14 +121,14 @@ ul.pages li a:link, ul.pages li a:visited {
 #commentsContain .comments li p {
   text-align: left;
   font: normal 11px/15px verdana, arial, sans-serif;
-  color: #555;
+  color: #555555;
   padding: 0;
   margin: 0 0 1em 0; }
 
 #taxaCommentsWrap h3 {
   float: left;
   font: normal 14px/15px verdana, arial;
-  color: #333;
+  color: #333333;
   padding: 12px 0 0 26px;
   margin: 12px 0 0 0; }
 
@@ -156,21 +156,21 @@ ul.pages li a:link, ul.pages li a:visited {
     width: 393px;
     padding: 10px;
     border: 1px solid #c5c5c3;
-    color: #555;
+    color: #555555;
     font: normal 13px/16px "trebuchet ms", arial, sans-serif;
-    letter-spacing: .1px; }
+    letter-spacing: 0.1px; }
   #new-comment .post_comment {
     display: block;
     border: 1px solid #6a8d00;
     background: #8bad1c;
     padding: 1px;
-    color: #fff;
+    color: white;
     font: normal 11px/12px "trebuchet ms", arial, sans-serif;
     text-transform: uppercase;
     margin: 8px 0; }
 
 .invisible-comment {
-  color: #888 !important; }
+  color: #888888 !important; }
 
 #large-image-comment-button-popup-link_popup {
   width: 460px;
@@ -182,7 +182,7 @@ ul.pages li a:link, ul.pages li a:visited {
   max-height: 397;
   overflow: auto;
   border: 1px solid #6a8d00;
-  background-color: #F4F4F4;
+  background-color: #f4f4f4;
   padding: 13px 12px; }
   #large-image-comment-button-popup-link_popup .comments {
     clear: both;
@@ -208,7 +208,7 @@ ul.pages li a:link, ul.pages li a:visited {
   clear: left;
   float: left;
   font: normal 20px/21px verdana, arial;
-  color: #333;
+  color: #333333;
   padding: 0;
   margin: 0 0 20px 0;
   width: 200px; }
@@ -217,7 +217,7 @@ ul.pages li a:link, ul.pages li a:visited {
   float: left;
   display: block;
   font: normal 10px/11px "trebuchet ms", verdana, arial;
-  color: #333;
+  color: #333333;
   padding: 0;
   margin: 0;
   width: 220px; }
@@ -230,7 +230,7 @@ ul.pages li a:link, ul.pages li a:visited {
   list-style-type: none;
   float: right;
   font: normal 10px/11px "trebuchet ms", arial, sans-serif;
-  color: #fff;
+  color: white;
   border-right: 1px solid #6a8d00;
   border-left: 1px solid #b1d02c;
   background: #769a14;
@@ -241,26 +241,26 @@ ul.pages li a:link, ul.pages li a:visited {
   padding: 1px 3px;
   margin: 0;
   font: normal 10px/11px "trebuchet ms", arial, sans-serif;
-  color: #fff;
+  color: white;
   text-decoration: none; }
 .text-comment-div ul.pages li a:link, .text-comment-div ul.pages li a:visited {
   padding: 1px 3px;
   margin: 0;
   font: normal 10px/11px "trebuchet ms", arial, sans-serif;
-  color: #fff;
+  color: white;
   text-decoration: none; }
 
 #large-image-comment-button-popup-link_popup ul.pages li a {
   padding: 1px 3px;
   margin: 0;
   font: normal 10px/11px "trebuchet ms", arial, sans-serif;
-  color: #fff;
+  color: white;
   text-decoration: none; }
   #large-image-comment-button-popup-link_popup ul.pages li a:link, #large-image-comment-button-popup-link_popup ul.pages li a:visited {
     padding: 1px 3px;
     margin: 0;
     font: normal 10px/11px "trebuchet ms", arial, sans-serif;
-    color: #fff;
+    color: white;
     text-decoration: none; }
 
 .text-comment-div ul.pages li a:hover, .text-comment-div ul.pages li a:active {
@@ -319,13 +319,13 @@ ul.pages li a:link, ul.pages li a:visited {
 .text-comment-div .comments li h6 strong, #large-image-comment-button-popup-link_popup .comments li h6 strong {
   display: inline;
   font: normal 14px/15px verdana, arial, sans-serif;
-  color: #555;
+  color: #555555;
   padding: 0 0 4px 0;
   margin: 0; }
 
 #commentsContain .pagination {
   float: right;
-  background: #8EA62C;
+  background: #8ea62c;
   text-align: right !important;
   font-size: 10px !important;
   margin: 8px 0 8px;
@@ -333,11 +333,11 @@ ul.pages li a:link, ul.pages li a:visited {
   color: white !important;
   line-height: 19px;
   text-transform: uppercase;
-  border: 1px solid #768B1C; }
+  border: 1px solid #768b1c; }
   #commentsContain .pagination .current, #commentsContain .pagination .prev_page, #commentsContain .pagination .next_page, #commentsContain .pagination a {
     padding: 1px 2px 3px 2px; }
   #commentsContain .pagination .current {
-    background: #768B1C; }
+    background: #768b1c; }
   #commentsContain .pagination a:visited, #commentsContain .pagination a:hover, #commentsContain .pagination a:link {
     color: white !important;
     text-decoration: none; }

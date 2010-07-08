@@ -45,7 +45,7 @@ Rails::Initializer.run do |config|
   config.gem 'mislav-will_paginate', :version => '>= 2.3.2', :lib => 'will_paginate', :source => 'http://gems.github.com/'
   config.gem 'composite_primary_keys'
   config.gem 'fastercsv', :version => "1.2.3"
-  config.gem 'haml', :version => "2.0.3"
+  config.gem 'haml', :version => "3.0.13"
   config.gem 'macaddr', :version => "1.0.0"
   config.gem 'uuid', :version => "2.0.1"
   config.gem "ruby-openid", :version => "2.0.4", :lib => "openid"

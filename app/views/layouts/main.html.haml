@@ -110,9 +110,6 @@
                 = "Feedback"[]
               %ul.uppercase
                 = render :partial=>'layouts/top_menu', :locals=>{:menu_items=>ContentSection.find_pages_by_section('Feedback')}
-                - if $SHOW_SURVEYS
-                  %li
-                    = link_to "Survey"[], $SURVEY_URL, :target=>'blank', :title=>"Survey"[]
             %li
               %a#press_room.dropdown{ :title => "Press Room"[] }
                 = "Press Room"[]
@@ -244,14 +241,6 @@
             new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50});
             new EOL.Effect.disappear('flash-error', {delay: 2, queue: 'end'});
             new EOL.Effect.disappear('progress-open', { delay: 2, duration: 0.5, from: 0.50, to: 0.0});
-    - if @display_survey
-      #progress-bar
-        #flash-survey.pop-up-panel{ :style => "display:none;" }
-          = render :partial => 'popups/survey'
-          :javascript
-            document.observe("dom:loaded", function() {
-              setTimeout("Element.show('flash-survey');new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50})", 5000);
-            });
     - if $ENABLE_ANALYTICS || true
       :javascript
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

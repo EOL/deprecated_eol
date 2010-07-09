@@ -42,14 +42,6 @@ $ERROR_LOGGING=true
 # set to true to enable recaptcha on registration and contact us form
 $ENABLE_RECAPTCHA=false
 
-# EVALUATIONS/SURVEYS CONFIGURATION
-# Set SHOW_SURVEYS to true to show surveys; logic on when to show 
-# surveys is set in the "show_survey?" method in the application 
-# controller
-$SHOW_SURVEYS=false 
-$SURVEY_URL="http://vovici.com/wsb.dll/s/6ea8g3124f"
-
-
 # ANALYTICS CONFIGURATION
 # Set ENABLE_ANALYTICS to true to enable google analytics.  The
 # GOOGLE_ANALYTICS_ID must be set to the google analytics ID

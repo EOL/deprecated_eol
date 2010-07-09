@@ -34,7 +34,6 @@ config.log_level = :debug # :error
 $EXCEPTION_NOTIFY=false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
 $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
 $ENABLE_ANALYTICS=false
-$SHOW_SURVEYS=false
 
 $IP_ADDRESS_OF_SERVER='127.0.0.1'
 

@@ -1541,31 +1541,10 @@ input.warn, textarea.warn
   visibility: visible
   font-size: 14px
 
-.pop-up-panel
-  background: #d4ecb8
-  border: 2px solid #38bd17
-  padding: 7px 10px
-  margin-bottom: 1em
-  margin: 0px 20px 10px 20px
-  color: black
-  position: absolute
-  left: 50%
-  width: 250px
-  top: -35px
-  margin-left: -125px
-  visibility: visible
-  text-align: left
-  font-size: 14px
-
 .photo_slider
   position: relative
   width: 946px
   margin: 0 auto 5px auto
-  background: white
-
-#photos_area_slider
-  overflow: hidden
-  width: 934px
   background: white
 
 #top-photos-table
@@ -1577,31 +1556,22 @@ input.warn, textarea.warn
     padding: 0px
     margin: 0px
   td
+    width: 147px
     &.image
       padding: 4px
-      width: 147px
       height: 147px
       vertical-align: top
       text-align: center
       border-right: 1px solid #e6e7e8
+      &.last
+        border-right: 0px
     &.name
       padding-left: 4px
-      width: 147px
       height: 40px
       vertical-align: top
       border-right: 1px solid #e6e7e8
-    &.image-last
-      padding: 4px
-      width: 147px
-      height: 147px
-      vertical-align: top
-      text-align: center
-      border-right: 0px
-    &.name-last
-      padding-left: 4px
-      width: 147px
-      height: 40px
-      vertical-align: top
+      &.last
+        border-right: 0px
 
 #photo-area-wrapper
   width: 983px

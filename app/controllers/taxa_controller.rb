@@ -4,11 +4,6 @@ class TaxaController < ApplicationController
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
   before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution]
 
-  if $SHOW_SURVEYS
-    before_filter :check_for_survey, :only=>[:show,:search,:settings]
-    after_filter :count_page_views, :only=>[:show,:search,:settings]
-  end
-
   def index
     #this is cheating because of mixing taxon and taxon concept use of the controller
 
@@ -315,23 +310,6 @@ class TaxaController < ApplicationController
      else
        render :nothing=>true
      end
-
-  end
-
-  # AJAX: used to record the response that the user sends to the survey
-  def survey_response
-
-    user_response=params[:user_response]
-
-    SurveyResponse.create(
-      :taxon_id=>params[:taxon_concept_id],
-      :ip_address=>request.remote_ip,
-      :user_agent=>request.user_agent,
-      :user_id=>current_user.id,
-      :user_response=>user_response
-      )     
-
-    render :nothing => true
 
   end
 

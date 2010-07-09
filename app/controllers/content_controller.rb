@@ -6,7 +6,6 @@ class ContentController < ApplicationController
 
   layout 'main'
 
-  before_filter :check_for_survey if $SHOW_SURVEYS
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
   before_filter :set_session_hierarchy_variable, :only => [:index, :explore_taxa, :replace_single_explore_taxa]
 

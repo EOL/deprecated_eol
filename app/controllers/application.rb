@@ -173,7 +173,6 @@ class ApplicationController < ActionController::Base
 
        create_new_user
        clear_old_sessions if $USE_SQL_SESSION_MANAGEMENT
-       session[:page_views]=0 if $SHOW_SURVEYS  # if we are showing surveys, we need to record how many page views this user has done
 
        # expire home page fragment caches after specified internal to keep it fresh
        if $CACHE_CLEARED_LAST.advance(:hours=>$CACHE_CLEAR_IN_HOURS) < Time.now
@@ -463,22 +462,6 @@ class ApplicationController < ActionController::Base
        (javascript || '').gsub('\\','\0\0').gsub('</','<\/').gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/) { |m| "\\#{m}" }
     end
 
-    # we are going to keep track of how many taxa pages the user has seen so we can determine if we are going to show the survey link or not
-    # this defines our logic for if we show a survey or not on this page view
-    def show_survey?
-
-      # show survey on third taxa page view if not logged in and if not already asked before according to the cookie value
-      if session[:page_views] == 3 && current_user.id.nil? && cookies[:survey_taken].nil?
-        # if we are counting visitors, show survey every tenth visitor, if not, show it 10% of the time at random
-        if  rand(0)<0.1
-          return true
-        else
-          return false
-        end
-      end
-
-    end
-
     def set_session_hierarchy_variable
       hierarchy_id = current_user.default_hierarchy_valid? ? current_user.default_hierarchy_id : Hierarchy.default.id
       secondary_hierarchy_id = current_user.secondary_hierarchy_id rescue nil
@@ -583,17 +566,6 @@ private
   def set_current_language
     current_user.language = Language.english if current_user.language.nil? or current_user.language_abbr == ""
     Gibberish.use_language(current_user.language_abbr) { yield }
-  end
-
-  # we are going to keep track of how many pages the user has seen so we can determine if we are going to show the survey link or not
-  def count_page_views
-    session[:page_views]=0 if session[:page_views].nil?
-    session[:page_views]+=1
-  end
-
-  def check_for_survey
-    # check if it's time to show the survey
-    @display_survey = show_survey? if $SHOW_SURVEYS
   end
 
   def log_data_objects_for_taxon_concept taxon_concept, *objects

@@ -50,13 +50,6 @@ $ERROR_LOGGING=true
 # set to true to enable recaptcha on registration and contact us form
 $ENABLE_RECAPTCHA=false
 
-# EVALUATIONS/SURVEYS CONFIGURATION
-# Set SHOW_SURVEYS to true to show surveys; logic on when to show 
-# surveys is set in the "show_survey?" method in the application 
-# controller
-$SHOW_SURVEYS=false 
-$SURVEY_URL="http://vovici.com/wsb.dll/s/6ea8g3124f"
-
 # The following tells Rails to check the database connection every 2 minutes
 # and if it isn't connected reconnect instead of throwing an exception
 ActiveRecord::Base.verification_timeout = 120

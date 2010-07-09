@@ -14,10 +14,6 @@ class AccountController < ApplicationController
     before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password] 
   end
   
-  if $SHOW_SURVEYS
-    before_filter :check_for_survey
-    after_filter :count_page_views
-  end
   layout 'main'
   
   @@objects_per_page = 20

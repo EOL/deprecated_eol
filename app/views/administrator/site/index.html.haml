@@ -121,9 +121,3 @@
         Google analytics active
       %td.even
         = link_to 'Google analytic results', 'http://www.google.com/analytics/home', {:target=>'_blank'}
-  - if $SHOW_SURVEYS
-    %tr
-      %td.odd
-        Survey link active
-      %td.odd
-        = link_to "view survey respondents", :action=>'surveys'

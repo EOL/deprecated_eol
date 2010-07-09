@@ -1,3 +1,11 @@
+$link_blue: #149acc
+$vet_untrusted: #ff9999
+$vet_untrusted_darker: #ee7777
+$vet_untrusted_border: red
+$vet_unknown: #ffff99
+$vet_unknown_lighter: #ffffcc
+$vet_unknown_border: #ffcc00
+
 .clearfix
   display: inline-table
   min-height: 1%
@@ -21,7 +29,7 @@ body
 
 a
   text-decoration: underline
-  color: #149acc
+  color: $link_blue
   cursor: pointer
   &:hover
     text-decoration: underline
@@ -174,8 +182,6 @@ ul#global-navigation
 #header #quick-search
   float: left
   padding: 25px 10px 5px
-  //width: 234px
-  //height: 76px
   z-index: 0
   position: relative
   font: 9px / 15px Verdana, Arial, Helvetica, sans-serif
@@ -243,37 +249,26 @@ ul#global-navigation
   background-image: url(/images/bg_page_title-white.gif)
   background-repeat: repeat-x
 
+@mixin seperator-template($color)
+  border-top: 10px solid $color
+  background-color: $color
+
 #page-separator-animalia
-  border-top: 10px solid #c01c3e
-  background-color: #c01c3e
-
+  @include seperator-template(#c01c3e)
 #page-separator-archaea
-  border-top: 10px solid #b9d22c
-  background-color: #b9d22c
-
+  @include seperator-template(#b9d22c)
 #page-separator-bacteria
-  border-top: 10px solid #5fc4e7
-  background-color: #5fc4e7
-
+  @include seperator-template(#5fc4e7)
 #page-separator-chromista
-  border-top: 10px solid #ffa626
-  background-color: #ffa626
-
+  @include seperator-template(#ffa626)
 #page-separator-fungi
-  border-top: 10px solid #666666
-  background-color: #666666
-
+  @include seperator-template(#666666)
 #page-separator-plantae
-  border-top: 10px solid #4d8139
-  background-color: #4d8139
-
+  @include seperator-template(#4d8139)
 #page-separator-protozoa
-  border-top: 10px solid #0585a0
-  background-color: #0585a0
-
+  @include seperator-template(#0585a0)
 #page-separator-viruses
-  border-top: 10px solid #fd619e
-  background-color: #fd619e
+  @include seperator-template(#fd619e)
 
 .page-mode
   float: right
@@ -345,50 +340,21 @@ ul#global-navigation
   text-transform: uppercase
   font-weight: 700
   font-size: 10px
+  color: #333333
   .iucn-status
     float: left
     padding-left: 20px
     width: 471px
     text-align: left
-    color: #333333
-  .iucn-status-value
-    font-weight: 400
+  .iucn-status-value a
+    font-weight: normal
     color: #ff6633
-    a
-      font-weight: 400
-      color: #ff6633
-      text-decoration: none
+    text-decoration: none
   .page-status
     float: right
     padding-right: 20px
     width: 471px
     text-align: right
-    color: #666666
-    text-decoration: none
-
-#page-cite
-  font-size: 12px
-  color: #333333
-  width: 190px
-  text-align: left
-  border: 1px solid #333333
-  padding: 20px
-  background: #e6e7e8
-  position: absolute
-  left: -90px
-  top: 0px
-  z-index: 110
-
-#page-curator
-  margin: 0px
-  h2
-    border-bottom: 1px solid #e6e7e8
-    font-size: 15px
-    padding: 20px 0 4px 20px
-    text-transform: uppercase
-    width: 220px
-  .curator_name
-    padding: 0 0 0 30px
 
 #page-citation
   border-top: 3px solid #cccccc
@@ -572,39 +538,35 @@ ul#tab_media_center
   a
     text-decoration: none
     color: #666666
-  span
-    a
+    &:hover
       text-decoration: none
-      color: #666666
-      &:hover
-        text-decoration: none
-        color: #333333
-      &.active
-        color: #139acc
-    &#back
-      float: left
-      padding-left: 15px
-      width: 50px
-      text-align: left
-      background: url(/images/arrow_left.gif) 7px 5px no-repeat
-    &#noback
-      float: left
-      padding-left: 15px
-      width: 50px
-      text-align: left
-    &#pages
-      float: left
-      width: 70px
-      text-align: center
-      letter-spacing: 1px
-      font-size: 9px
-      display: inline
-    &#next
-      float: left
-      padding-right: 15px
-      width: 55px
-      text-align: right
-      background: url(/images/arrow_right.gif) 60px 5px no-repeat
+      color: #333333
+    &.active
+      color: #139acc
+  & #back
+    float: left
+    padding-left: 15px
+    width: 50px
+    text-align: left
+    background: url(/images/arrow_left.gif) 7px 5px no-repeat
+  & #noback
+    float: left
+    padding-left: 15px
+    width: 50px
+    text-align: left
+  & #pages
+    float: left
+    width: 70px
+    text-align: center
+    letter-spacing: 1px
+    font-size: 9px
+    display: inline
+  & #next
+    float: left
+    padding-right: 15px
+    width: 55px
+    text-align: right
+    background: url(/images/arrow_right.gif) 60px 5px no-repeat
 
 .mc-info .mc-notes
   position: relative
@@ -615,118 +577,83 @@ ul#tab_media_center
   height: 110px
   background-color: #f4f4f4
 
+@mixin text-warning-box($border, $background)
+  margin-bottom: 1em
+  border: 1px solid $border
+  border-left: 10px solid $border
+  padding: 7px
+  background-color: $background
+  margin-bottom: 1em
 #unknown-text-warning-box
-  margin-bottom: 1em
-  border: 1px solid #ffcc00
-  border-left: 10px solid #ffcc00
-  padding: 7px
-  background-color: #ffff99
-  margin-bottom: 1em
-
+  @include text-warning-box($vet_unknown_border, $vet_unknown)
 #untrusted-text-warning-box
-  margin-bottom: 1em
-  border: 1px solid red
-  border-left: 10px solid red
-  padding: 7px
-  background-color: #ff9999
-  margin-bottom: 1em
+  @include text-warning-box($vet_untrusted_border, $vet_untrusted)
 
+@mixin media-warning-box($border, $background)
+  padding: 2px
+  border: 1px solid $border
+  border-left: 6px solid $border
+  text-align: left
+  background-color: $background
+  margin: 2px 0 2px 6px
+  width: 190px
+  top: 38px
+  left: 486px
 #unknown-thumbnail-warning-box
-  padding: 2px
-  border: 1px solid #ffcc00
-  border-left: 6px solid #ffcc00
-  text-align: left
-  background-color: #ffff99
-  margin: 2px 0 2px 6px
-  width: 190px
-  top: 38px
-  left: 486px
-
+  @include media-warning-box($vet_unknown_border, $vet_unknown)
 #untrusted-thumbnail-warning-box
-  padding: 2px
-  border: 1px solid red
-  border-left: 6px solid red
-  text-align: left
-  background-color: #ff9999
-  margin: 2px 0 2px 6px
-  width: 190px
-  top: 38px
-  left: 486px
-
-#untrusted-video-warning-box
-  padding: 2px
-  border: 1px solid red
-  border-left: 6px solid red
-  padding-left: 5px
-  text-align: left
-  background-color: #ff9999
-  margin: 2px 0 2px 6px
-  width: 190px
-  top: 38px
-  left: 486px
-
+  @include media-warning-box($vet_untrusted_border, $vet_untrusted)
 #unknown-video-warning-box
-  padding: 2px
-  border: 1px solid #ffcc00
-  border-left: 6px solid #ffcc00
-  text-align: left
-  background-color: #ffff99
-  margin: 2px 0 2px 6px
-  width: 190px
-  top: 38px
-  left: 486px
-  margin-left: 6px
+  @include media-warning-box($vet_unknown_border, $vet_unknown)
+#untrusted-video-warning-box
+  @include media-warning-box($vet_untrusted_border, $vet_untrusted)
 
+@mixin background-text($border, $background)
+  border-top: 1px solid $border
+  border-bottom: medium none
+  padding-top: 10px
+  padding-bottom: 10px
+  background-color: $background !important
+  margin-bottom: 2em
 .untrusted-background-text
-  border-top: 1px solid red
-  border-bottom: medium none
-  padding-top: 10px
-  padding-bottom: 10px
-  background-color: #ff9999 !important
-  margin-bottom: 2em
-
+  @include background-text($vet_untrusted_border, $vet_untrusted)
 .unknown-background-text
-  border-top: 1px solid rgb(255, 204, 0)
-  border-bottom: medium none
-  padding-top: 10px
-  padding-bottom: 10px
-  background-color: #ffff99 !important
-  margin-bottom: 2em
+  @include background-text($vet_unknown_border, $vet_unknown)
 
 .unvetted-title-names
   border-top: 1px solid rgb(255, 204, 0)
   border-bottom: medium none
-  background-color: #ffff99 !important
-  border-left: 6px solid #ffcc00
+  background-color: $vet_unknown !important
+  border-left: 6px solid $vet_unknown_border
   padding: 2px 2px 2px 2px
 
 .untrusted-background-image
-  border: 1px solid red
-  background-color: #ff9999 !important
+  border: 1px solid $vet_untrusted_border
+  background-color: $vet_untrusted !important
 
 .trusted-background-image
   border: 1px solid white
 
 .unknown-background-image
-  border: 1px solid #ffcc00
-  background-color: #ffff99 !important
+  border: 1px solid $vet_unknown_border
+  background-color: $vet_unknown !important
 
 .unvetted-background-color, .unknown-background-color
-  background-color: #ffff99 !important
+  background-color: $vet_unknown !important
 
 .untrusted-background-color
-  background-color: #ff9999 !important
+  background-color: $vet_untrusted !important
 
 #unvetted-page-warning-box
   border-style: solid
-  border: 1px solid #ffcc00
-  border-left: 10px solid #ffcc00
+  border: 1px solid $vet_unknown_border
+  border-left: 10px solid $vet_unknown_border
   padding: 7px
   position: absolute
   top: 10px
   left: 690px
   width: 250px
-  background-color: #ffff99
+  background-color: $vet_unknown
 
 .message-box
   font-weight: bold
@@ -894,17 +821,6 @@ td.credit-text
   border-bottom: 1px solid #e6e7e9
   width: 269px
 
-#browser-flash
-  background-color: #c7e2ff
-  width: 270px
-  height: 390px
-  margin-left: 0px auto
-  margin-top: 10px auto
-  margin-right: 0px auto
-  margin-bottom: 0px
-  border: 0px
-  padding: 0px
-
 #classification-attribution
   z-index: 105
   float: left
@@ -975,8 +891,6 @@ ul#tab_taxonomic_browser
     color: #ff6666
 
 #taxonomictext
-  font-size: 100%
-  font-weight: bold
   margin-left: 0px
   white-space: nowrap
   li ul
@@ -987,18 +901,7 @@ ul#tab_taxonomic_browser
   & .message
     font-weight: bold
     white-space: normal
-
-#taxonomictext-upone
-  padding-left: 10px
-  background-image: url(/images/jump_up.gif)
-  background-repeat: no-repeat
-  background-position: 0 0.5em
-  list-style: none
-
-#taxonomictext
   a
-    font-weight: normal
-    font-family: arial, helvetica, sans-serif
     padding-bottom: 0
     color: #31a7d2
     text-decoration: none
@@ -1007,22 +910,11 @@ ul#tab_taxonomic_browser
       text-decoration: none
       border-bottom: 0px
       font-size: larger
-  li
-    font-family: arial, helvetica, sans-serif
-    text-decoration: none
-    border: 0
     &.bold
       font-weight: 700
-      & a
-        font-weight: 700
-    &.normal
-      font-weight: normal
-      & a
-        font-weight: normal
-    & a.expand
-      font-weight: normal
+    &.expand
       text-decoration: none
-    & a.light
+    &.light
       color: #959595
 
 li.current_kingdom
@@ -1221,12 +1113,6 @@ li.current_kingdom
   font: 10px Arial, Helvetica, sans-serif
   color: grey
 
-.collection_icon
-  max-width: 50px
-  max-height: 50px
-  width: expression(this.width > 50 ? "50px" : true)
-  height: expression(this.height > 50 ? "50px" : true)
-
 #content #page-content #left-page-content
   float: left
   width: 240px
@@ -1277,13 +1163,6 @@ ul
         background: url(/images/toc.gif) 20px 1px no-repeat
       &.nested
         margin-left: 10px
-
-.edit_wikipedia_button
-  background: url(/images/icons/wikipedia.png) no-repeat 0px 10px
-  width: 20px
-  height: 40px
-  float: right
-  padding-right: 7px
 
 .add_text_button
   background: url(/images/icons/dual-states/add-text.png) 0px 0px no-repeat
@@ -1491,22 +1370,26 @@ a.footnote
     &.alt
       color: #666666
 
+@mixin td-cell($background)
+  border-right: 1px solid #e6e7e9
+  border-bottom: 1px solid #e6e7e9
+  border-left: 1px solid #e6e7e9
+  background: $background
+  padding: 6px 6px 6px 12px
+  color: #666666
+
 .results_table
   border-left: 2px solid #e6e7e9
   padding: 0
   margin: 0
   th
     font: bold 11px Arial, Helvetica, sans-serif
-    color: #246f8a
-    border-right: 1px solid #e6e7e9
-    border-bottom: 1px solid #e6e7e9
     border-top: 1px solid #e6e7e9
-    border-left: 1px solid #e6e7e9
+    @include td-cell(#9cdef6)
+    color: #246f8a
     letter-spacing: 2px
     text-transform: uppercase
     text-align: left
-    padding: 6px 6px 6px 12px
-    background: #9cdef6
     &.nobg
       border-top: 0
       border-left: 0
@@ -1514,47 +1397,17 @@ a.footnote
       background: none
   td
     &.odd
-      border-right: 1px solid #e6e7e9
-      border-bottom: 1px solid #e6e7e9
-      border-left: 1px solid #e6e7e9
-      background: white
-      padding: 6px 6px 6px 12px
-      color: #666666
+      @include td-cell(white)
     &.even
-      border-right: 1px solid #e6e7e9
-      border-bottom: 1px solid #e6e7e9
-      border-left: 1px solid #e6e7e9
-      background: #f5fafa
-      padding: 6px 6px 6px 12px
-      color: #666666
+      @include td-cell(#f5fafa)
     &.odd_unvetted
-      border-right: 1px solid #e6e7e9
-      border-bottom: 1px solid #e6e7e9
-      border-left: 1px solid #e6e7e9
-      background: #ffffcc
-      padding: 6px 6px 6px 12px
-      color: #666666
+      @include td-cell($vet_unknown_lighter)
     &.even_unvetted
-      border-right: 1px solid #e6e7e9
-      border-bottom: 1px solid #e6e7e9
-      border-left: 1px solid #e6e7e9
-      background: #ffffaa
-      padding: 6px 6px 6px 12px
-      color: #666666
+      @include td-cell($vet_unknown)
     &.odd_untrusted
-      border-right: 1px solid #e6e7e9
-      border-bottom: 1px solid #e6e7e9
-      border-left: 1px solid #e6e7e9
-      background: #ff9999
-      padding: 6px 6px 6px 12px
-      color: #666666
+      @include td-cell($vet_untrusted)
     &.even_untrusted
-      border-right: 1px solid #e6e7e9
-      border-bottom: 1px solid #e6e7e9
-      border-left: 1px solid #e6e7e9
-      background: #ee7777
-      padding: 6px 6px 6px 12px
-      color: #666666
+      @include td-cell($vet_untrusted_darker)
 
 #footer
   width: 962px
@@ -1856,7 +1709,7 @@ input.warn, textarea.warn
     font: normal 16px arial, sans-serif
     padding: 0px
     text-decoration: none
-    color: #149acc
+    color: $link_blue
   .more a
     float: left
     display: block
@@ -1864,7 +1717,7 @@ input.warn, textarea.warn
     padding-top: 4px
     padding-right: 30px
     text-decoration: none
-    color: #149acc
+    color: $link_blue
   p
     float: left
     margin-left: 4px
@@ -2326,7 +2179,7 @@ table#content-partners-species
 
 div
   &#browse_content_partner_species .pagination a:link
-    color: #149acc !important
+    color: $link_blue !important
   &#content_partner_stats
     font-size: 16px
     font-style: italic

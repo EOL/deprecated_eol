@@ -70,31 +70,24 @@ a.close-button
   &:hover
     background-image: url(/images/close_button_active.gif)
 
+@mixin image-button($left)
+  position: absolute
+  top: 0px
+  left: $left
+
 div
   &#right-image-buttons div.spinner
-    position: absolute
-    top: 0px
-    left: 0px
+    @include image-button(0px)
   &#large-image-trust-button
-    position: absolute
-    top: 0px
-    left: 30px
+    @include image-button(30px)
   &#large-image-untrust-button
-    position: absolute
-    top: 0px
-    left: 60px
+    @include image-button(60px)
   &#large-image-curator-button
-    position: absolute
-    top: 0px
-    left: 90px
+    @include image-button(90px)
   &#large-image-comment-button
-    position: absolute
-    top: 0px
-    left: 120px
+    @include image-button(120px)
   &#large-image-tagging-button
-    position: absolute
-    top: 0px
-    left: 150px
+    @include image-button(150px)
     background: transparent url(/images/icons/icons.gif) no-repeat -47px 0px
     &:hover
       background: transparent url(/images/icons/icons.gif) no-repeat -47px -32px

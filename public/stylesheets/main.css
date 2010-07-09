@@ -337,51 +337,22 @@ ul#global-navigation {
   border-top: 1px solid #e5e5e5;
   text-transform: uppercase;
   font-weight: 700;
-  font-size: 10px; }
+  font-size: 10px;
+  color: #333333; }
   #post-info .iucn-status {
     float: left;
     padding-left: 20px;
     width: 471px;
-    text-align: left;
-    color: #333333; }
-  #post-info .iucn-status-value {
-    font-weight: 400;
-    color: #ff6633; }
-    #post-info .iucn-status-value a {
-      font-weight: 400;
-      color: #ff6633;
-      text-decoration: none; }
+    text-align: left; }
+  #post-info .iucn-status-value a {
+    font-weight: normal;
+    color: #ff6633;
+    text-decoration: none; }
   #post-info .page-status {
     float: right;
     padding-right: 20px;
     width: 471px;
-    text-align: right;
-    color: #666666;
-    text-decoration: none; }
-
-#page-cite {
-  font-size: 12px;
-  color: #333333;
-  width: 190px;
-  text-align: left;
-  border: 1px solid #333333;
-  padding: 20px;
-  background: #e6e7e8;
-  position: absolute;
-  left: -90px;
-  top: 0px;
-  z-index: 110; }
-
-#page-curator {
-  margin: 0px; }
-  #page-curator h2 {
-    border-bottom: 1px solid #e6e7e8;
-    font-size: 15px;
-    padding: 20px 0 4px 20px;
-    text-transform: uppercase;
-    width: 220px; }
-  #page-curator .curator_name {
-    padding: 0 0 0 30px; }
+    text-align: right; }
 
 #page-citation {
   border-top: 3px solid #cccccc;
@@ -563,33 +534,30 @@ ul#tab_media_center {
   .mc-navigation a {
     text-decoration: none;
     color: #666666; }
-  .mc-navigation span a {
-    text-decoration: none;
-    color: #666666; }
-    .mc-navigation span a:hover {
+    .mc-navigation a:hover {
       text-decoration: none;
       color: #333333; }
-    .mc-navigation span a.active {
+    .mc-navigation a.active {
       color: #139acc; }
-  .mc-navigation span#back {
+  .mc-navigation #back {
     float: left;
     padding-left: 15px;
     width: 50px;
     text-align: left;
     background: url(/images/arrow_left.gif) 7px 5px no-repeat; }
-  .mc-navigation span#noback {
+  .mc-navigation #noback {
     float: left;
     padding-left: 15px;
     width: 50px;
     text-align: left; }
-  .mc-navigation span#pages {
+  .mc-navigation #pages {
     float: left;
     width: 70px;
     text-align: center;
     letter-spacing: 1px;
     font-size: 9px;
     display: inline; }
-  .mc-navigation span#next {
+  .mc-navigation #next {
     float: left;
     padding-right: 15px;
     width: 55px;
@@ -643,18 +611,6 @@ ul#tab_media_center {
   top: 38px;
   left: 486px; }
 
-#untrusted-video-warning-box {
-  padding: 2px;
-  border: 1px solid red;
-  border-left: 6px solid red;
-  padding-left: 5px;
-  text-align: left;
-  background-color: #ff9999;
-  margin: 2px 0 2px 6px;
-  width: 190px;
-  top: 38px;
-  left: 486px; }
-
 #unknown-video-warning-box {
   padding: 2px;
   border: 1px solid #ffcc00;
@@ -664,8 +620,18 @@ ul#tab_media_center {
   margin: 2px 0 2px 6px;
   width: 190px;
   top: 38px;
-  left: 486px;
-  margin-left: 6px; }
+  left: 486px; }
+
+#untrusted-video-warning-box {
+  padding: 2px;
+  border: 1px solid red;
+  border-left: 6px solid red;
+  text-align: left;
+  background-color: #ff9999;
+  margin: 2px 0 2px 6px;
+  width: 190px;
+  top: 38px;
+  left: 486px; }
 
 .untrusted-background-text {
   border-top: 1px solid red;
@@ -882,17 +848,6 @@ td.credit-text {
   border-bottom: 1px solid #e6e7e9;
   width: 269px; }
 
-#browser-flash {
-  background-color: #c7e2ff;
-  width: 270px;
-  height: 390px;
-  margin-left: 0px auto;
-  margin-top: 10px auto;
-  margin-right: 0px auto;
-  margin-bottom: 0px;
-  border: 0px;
-  padding: 0px; }
-
 #classification-attribution {
   z-index: 105;
   float: left;
@@ -962,8 +917,6 @@ ul#tab_taxonomic_browser {
   color: #ff6666; }
 
 #taxonomictext {
-  font-size: 100%;
-  font-weight: bold;
   margin-left: 0px;
   white-space: nowrap; }
   #taxonomictext li ul {
@@ -974,42 +927,21 @@ ul#tab_taxonomic_browser {
   #taxonomictext .message {
     font-weight: bold;
     white-space: normal; }
-
-#taxonomictext-upone {
-  padding-left: 10px;
-  background-image: url(/images/jump_up.gif);
-  background-repeat: no-repeat;
-  background-position: 0 0.5em;
-  list-style: none; }
-
-#taxonomictext a {
-  font-weight: normal;
-  font-family: arial, helvetica, sans-serif;
-  padding-bottom: 0;
-  color: #31a7d2;
-  text-decoration: none;
-  border-bottom: 1px solid #dbd5c5; }
-  #taxonomictext a.expand {
+  #taxonomictext a {
+    padding-bottom: 0;
+    color: #31a7d2;
     text-decoration: none;
-    border-bottom: 0px;
-    font-size: larger; }
-#taxonomictext li {
-  font-family: arial, helvetica, sans-serif;
-  text-decoration: none;
-  border: 0; }
-  #taxonomictext li.bold {
-    font-weight: 700; }
-    #taxonomictext li.bold a {
+    border-bottom: 1px solid #dbd5c5; }
+    #taxonomictext a.expand {
+      text-decoration: none;
+      border-bottom: 0px;
+      font-size: larger; }
+    #taxonomictext a.bold {
       font-weight: 700; }
-  #taxonomictext li.normal {
-    font-weight: normal; }
-    #taxonomictext li.normal a {
-      font-weight: normal; }
-  #taxonomictext li a.expand {
-    font-weight: normal;
-    text-decoration: none; }
-  #taxonomictext li a.light {
-    color: #959595; }
+    #taxonomictext a.expand {
+      text-decoration: none; }
+    #taxonomictext a.light {
+      color: #959595; }
 
 li.current_kingdom {
   font-family: arial, helvetica, sans-serif;
@@ -1197,12 +1129,6 @@ li.current_kingdom {
   font: 10px Arial, Helvetica, sans-serif;
   color: grey; }
 
-.collection_icon {
-  max-width: 50px;
-  max-height: 50px;
-  width: expression(this.width > 50 ? "50px" : true);
-  height: expression(this.height > 50 ? "50px" : true); }
-
 #content #page-content #left-page-content {
   float: left;
   width: 240px; }
@@ -1250,13 +1176,6 @@ ul#toc li {
     background: url(/images/toc.gif) 20px 1px no-repeat; }
   ul#toc li a.nested {
     margin-left: 10px; }
-
-.edit_wikipedia_button {
-  background: url(/images/icons/wikipedia.png) no-repeat 0px 10px;
-  width: 20px;
-  height: 40px;
-  float: right;
-  padding-right: 7px; }
 
 .add_text_button {
   background: url(/images/icons/dual-states/add-text.png) 0px 0px no-repeat;
@@ -1464,16 +1383,17 @@ a.footnote {
   margin: 0; }
   .results_table th {
     font: bold 11px Arial, Helvetica, sans-serif;
-    color: #246f8a;
+    border-top: 1px solid #e6e7e9;
     border-right: 1px solid #e6e7e9;
     border-bottom: 1px solid #e6e7e9;
-    border-top: 1px solid #e6e7e9;
     border-left: 1px solid #e6e7e9;
+    background: #9cdef6;
+    padding: 6px 6px 6px 12px;
+    color: #666666;
+    color: #246f8a;
     letter-spacing: 2px;
     text-transform: uppercase;
-    text-align: left;
-    padding: 6px 6px 6px 12px;
-    background: #9cdef6; }
+    text-align: left; }
     .results_table th.nobg {
       border-top: 0;
       border-left: 0;
@@ -1504,7 +1424,7 @@ a.footnote {
     border-right: 1px solid #e6e7e9;
     border-bottom: 1px solid #e6e7e9;
     border-left: 1px solid #e6e7e9;
-    background: #ffffaa;
+    background: #ffff99;
     padding: 6px 6px 6px 12px;
     color: #666666; }
   .results_table td.odd_untrusted {

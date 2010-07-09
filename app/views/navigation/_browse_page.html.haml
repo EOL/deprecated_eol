@@ -21,8 +21,8 @@
         - unless kingdom == kingdoms.last
           %br
       - else
-        %li.bold
-          = render(:partial => 'navigation/node_name_page', :locals => { :entry => kingdom })
+        %li
+          = render(:partial => 'navigation/node_name_page', :locals => { :entry => kingdom, :node_class => 'bold' })
     - if entry_kingdom.blank?
       %br
       %span.message

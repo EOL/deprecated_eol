@@ -336,35 +336,6 @@ function update_browser(hierarchy_entry_id, expand) {
       } );
 }
 
-function eol_change_to_flash_browser()
-{
-    if ($('classification-attribution-button_popup') != null) {EOL.Effect.disappear('classification-attribution-button_popup');}           
-    EOL.Effect.disappear('browser-text');
-    EOL.Effect.appear('browser-flash');                
-    update_default_taxonomic_browser('flash');    
-}
-
-function eol_change_to_text_browser()
-{
-    if ($('classification-attribution-button_popup') != null) {EOL.Effect.disappear('classification-attribution-button_popup');}           
-    EOL.Effect.disappear('browser-flash');
-    EOL.Effect.appear('browser-text');
-    update_default_taxonomic_browser('text');
-}
-
-function update_default_taxonomic_browser(default_browser)
-{
-        new Ajax.Request(
-        '/navigation/set_default_taxonomic_browser',
-          {
-            asynchronous:true, 
-            evalScripts:true, 
-            method:'get',     
-            parameters:'browser='+default_browser
-          }
-    );
-}
-
 function toggle_children() {
     Element.toggle('taxonomic-children');
     if ($('toggle_children_link').innerHTML=='-') {

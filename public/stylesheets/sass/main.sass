@@ -398,11 +398,6 @@ div#media-videos
   height: 96%
   width: 100%
 
-#left-mc
-  float: left
-  width: 701px
-  height: 420px
-
 ul#tab_media_center
   padding: 10px 0 0 15px
   width: 687px
@@ -449,6 +444,9 @@ ul#tab_media_center
       background-position: left -60px
 
 #left-mc
+  float: left
+  width: 701px
+  height: 420px
   .wrapper-mc
     position: relative
     width: 701px
@@ -568,15 +566,6 @@ ul#tab_media_center
     text-align: right
     background: url(/images/arrow_right.gif) 60px 5px no-repeat
 
-.mc-info .mc-notes
-  position: relative
-  overflow: auto
-  margin: 0px 0 0 9px
-  padding: 0 4px
-  width: 200px
-  height: 110px
-  background-color: #f4f4f4
-
 @mixin text-warning-box($border, $background)
   margin-bottom: 1em
   border: 1px solid $border
@@ -660,9 +649,19 @@ ul#tab_media_center
   line-height: 1.2em
   font-size: 12px
 
-.mc-notes
-  span em
-    font-style: italic
+@mixin media-caption-box
+  position: relative
+  overflow: auto
+  margin: 0px 0 0 9px
+  padding: 0 4px
+  width: 200px
+  height: 110px
+  background-color: #f4f4f4
+
+.mc-info .mc-notes
+  @include media-caption-box
+
+@mixin media-caption
   h4
     text-transform: uppercase
     font-size: 14px
@@ -682,42 +681,19 @@ ul#tab_media_center
     line-height: 24px
     color: #333333
     border-bottom: 1px solid #cccccc
+    
+.mc-notes
+  span em
+    font-style: italic
+  @include media-caption
   a.image-attribution-larger
     font-size: 12px
     line-height: 14px
     padding-top: 2px
 
-#notes-attribution-area
-  font-size: 10px
-  line-height: 13px
-
 .mc-video-notes
-  position: relative
-  overflow: auto
-  margin: 7px 0 0 9px
-  padding: 0 10px
-  width: 186px
-  height: 178px
-  background-color: #f4f4f4
-  h4
-    text-transform: uppercase
-    font-size: 14px
-    line-height: 28px
-    color: #999999
-    border-bottom: 3px solid #cccccc
-  span
-    position: absolute
-    color: black
-    line-height: 100%
-    margin: 5px
-    text-align: left
-    font-size: 10px
-    text-transform: none
-  p
-    font-size: 10px
-    line-height: 24px
-    color: #333333
-    border-bottom: 1px solid #cccccc
+  @include media-caption-box
+  @include media-caption
 
 div.attribution .credit
   width: 100%
@@ -1639,23 +1615,6 @@ input.warn, textarea.warn
   clear: both
   margin-top: 1px
 
-#top-species-table
-  width: 300px
-  padding: 0
-  margin: 0
-  font-size: 13px
-  img
-    padding: 1px
-    border: solid 4px #e6e7e9
-  td
-    padding: 5px 6px 5px 3px
-    color: #666666
-    text-align: left
-    &.image
-      padding: 5px 6px 5px 3px
-      color: #666666
-      text-align: right
-
 #featured-species-table
   padding: 0px
   margin: 0px
@@ -1913,16 +1872,6 @@ li
   line-height: normal
   max-height: 400px
   float: left
-
-#media-taxa-comments-body
-  background-color: #eef7d5
-  border: 4px solid #99cc00
-  height: 353px
-  margin-left: 0
-  margin-top: 0
-  overflow: auto
-  padding: 0 2em
-  width: 641px
 
 div
   &#user_show

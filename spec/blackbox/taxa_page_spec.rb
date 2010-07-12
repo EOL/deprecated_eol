@@ -236,43 +236,6 @@ describe 'Taxa page (HTML)' do
     entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
                 :identifier => 1234,
                 :hierarchy => Hierarchy.ncbi )
-    
-    it 'should generate a page view log entry' do
-      count_page_views = PageViewLog.all.length
-      RackBox.request("/pages/#{@id}")
-      new_count_page_views = PageViewLog.all.length
-      new_count_page_views.should == count_page_views + 1
-      
-      last_page_view_log = PageViewLog.last
-      last_page_view_log.taxon_concept_id.should == @id
-      last_page_view_log.agent_id.should be_nil
-      last_page_view_log.user_id.should be_nil
-    end
-    
-    it 'should generate a page view log entry with the right user' do
-      test_user = User.gen(:password => 'whatever', :default_hierarchy_id => Hierarchy.default.id)
-      login_as test_user
-      request("/pages/#{@id}")
-      
-      last_page_view_log = PageViewLog.last
-      last_page_view_log.taxon_concept_id.should == @id
-      last_page_view_log.agent_id.should be_nil
-      last_page_view_log.user_id.should == test_user.id
-    end
-    
-    it 'should generate a page view log entry with the right agent' do
-      agent = Agent.gen(:hashed_password => Digest::MD5.hexdigest('anything'))
-      cp    = ContentPartner.gen(:agent => agent)
-      login_content_partner(:username => agent.username, :password => 'anything')
-      request("/pages/#{@id}")
-      
-      last_page_view_log = PageViewLog.last
-      last_page_view_log.taxon_concept_id.should == @id
-      last_page_view_log.agent_id.should == agent.id
-      last_page_view_log.user_id.should be_nil
-    end
-    
-
     body = RackBox.request("/pages/#{@taxon_concept.id}").body
     body.should include("Nucleotide Sequences")
   end
@@ -298,6 +261,41 @@ describe 'Taxa page (HTML)' do
     
     col.descriptive_label = nil
     col.save!
+  end
+  
+  it 'should generate a page view log entry' do
+    count_page_views = PageViewLog.all.length
+    RackBox.request("/pages/#{@id}")
+    new_count_page_views = PageViewLog.all.length
+    new_count_page_views.should == count_page_views + 1
+    
+    last_page_view_log = PageViewLog.last
+    last_page_view_log.taxon_concept_id.should == @id
+    last_page_view_log.agent_id.should be_nil
+    last_page_view_log.user_id.should be_nil
+  end
+  
+  it 'should generate a page view log entry with the right user' do
+    test_user = User.gen(:password => 'whatever', :default_hierarchy_id => Hierarchy.default.id)
+    login_as test_user
+    request("/pages/#{@id}")
+    
+    last_page_view_log = PageViewLog.last
+    last_page_view_log.taxon_concept_id.should == @id
+    last_page_view_log.agent_id.should be_nil
+    last_page_view_log.user_id.should == test_user.id
+  end
+  
+  it 'should generate a page view log entry with the right agent' do
+    agent = Agent.gen(:hashed_password => Digest::MD5.hexdigest('anything'))
+    cp    = ContentPartner.gen(:agent => agent)
+    login_content_partner(:username => agent.username, :password => 'anything')
+    request("/pages/#{@id}")
+    
+    last_page_view_log = PageViewLog.last
+    last_page_view_log.taxon_concept_id.should == @id
+    last_page_view_log.agent_id.should == agent.id
+    last_page_view_log.user_id.should be_nil
   end
 
   describe 'specified hierarchies' do

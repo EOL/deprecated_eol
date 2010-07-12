@@ -179,24 +179,16 @@ class User < ActiveRecord::Base
     and ah.object_id IN (" + arr_dataobject_ids * "," + ")" 
     if(year.to_i > 0) then sql += " and year(ah.updated_at) = #{year} and month(ah.updated_at) = #{month} " 
     end
+    #if(report_type > "rss feed") then 
+      sql += " and awo.action_code in ('trusted','untrusted','inappropriate', 'delete') " 
+    #end
+
     sql += " Order By ah.id Desc"
-    if(report_type == "feed") then self.find_by_sql [sql]
+    if(report_type == "rss feed") then self.find_by_sql [sql]
     else                           self.paginate_by_sql [sql], :per_page => 30, :page => page
     end
   end  
 
-  #def self.curated_data_objects_per_month(arr_dataobject_ids)
-  #  sql = "Select ah.object_id data_object_id, cot.ch_object_type,
-  #  awo.action_code code, u.given_name, u.family_name, ah.updated_at, ah.user_id
-  #  From action_with_objects awo
-  #  Join actions_histories ah ON ah.action_with_object_id = awo.id
-  #  Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
-  #  Join users u ON ah.user_id = u.id
-  #  where cot.ch_object_type = 'data_object'    
-  #  and ah.object_id IN (" + arr_dataobject_ids * "," + ") 
-  #  Order By ah.id Desc"
-  #  self.find_by_sql [sql]
-  #end  
 
 
 

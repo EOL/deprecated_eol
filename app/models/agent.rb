@@ -140,10 +140,16 @@ class Agent < SpeciesSchemaModel
     end)
   end
 
-  def self.from_license(license, rights_statement = nil)
-    Agent.new :project_name => (rights_statement.blank? ?
+  def self.from_license(license, rights_statement = nil, rights_holder = nil)
+    #Agent.new :project_name => (rights_statement.blank? ?
+
+    rights_holder_part = "&#169 #{rights_holder}.<br>" unless rights_holder.nil?
+    rights_statement_part = "Attribution: #{rights_statement.strip}.<br>" unless rights_statement.blank?  
+
+
+    Agent.new :project_name => (rights_statement.blank? && rights_holder.blank? ?
                                 license.description :
-                                "#{rights_statement.strip}. #{license.description}"), 
+                                "#{rights_holder_part} #{rights_statement_part} #{license.description}"), 
               :homepage => license.source_url, :logo_url => license.logo_url, :logo_cache_url => 0, 
               :logo_file_name => license.logo_url # <-- check for the presence of logo_file name
   end

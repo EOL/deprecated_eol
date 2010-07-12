@@ -71,7 +71,16 @@
           ", average_rating: #{image.data_rating}" + |
           ", user_rating: #{image['user_rating'] ? image['user_rating'] : 0}" |
       - unless image.license_text.nil?
-        - image_attribution_hash += ",license_text: '" + escape_javascript(image.license_text || "") + |
+        
+        - if image.rights_holder.empty?
+          - rights_holder_part = ""  
+        - else
+          - rights_holder_part = "&#169 #{image.rights_holder}.<br>"
+
+
+
+
+        - image_attribution_hash += ",license_text: '" + rights_holder_part + escape_javascript(image.license_text || "") + |
           "',license_logo: '" + escape_javascript(image.license_logo) + |
           "',license_link: '" + escape_javascript(image.license_url || "") + "'" |
       - else

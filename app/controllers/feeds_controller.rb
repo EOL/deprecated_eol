@@ -117,7 +117,7 @@ class FeedsController < ApplicationController
     do_detail = DataObject.get_object_cache_url(arr_dataobject_ids)
 
     #arr = User.curated_data_object_ids(arr_dataobject_ids,agent_id)
-    arr = User.curated_data_object_ids(arr_dataobject_ids, year, month, @agent_id)
+    arr = User.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
       arr_dataobject_ids = arr[0]
       arr_user_ids = arr[1]
 
@@ -126,13 +126,13 @@ class FeedsController < ApplicationController
     end
 
     arr_obj_tc_id = DataObject.tc_ids_from_do_ids(arr_dataobject_ids);
-    partner_curated_objects = User.curated_data_objects(arr_dataobject_ids, year, month, 0, "feed")
+    partner_curated_objects = User.curated_data_objects(arr_dataobject_ids, year, month, 0, "rss feed")
 
     feed_items = {}
 
     ctr=0
     partner_curated_objects.each do |rec|
-      ctr=ctr+1
+      
       if(arr_obj_tc_id["datatype#{rec.data_object_id}"])
         if(arr_obj_tc_id["datatype#{rec.data_object_id}"]=="text") then
           do_type = "Text"
@@ -141,27 +141,34 @@ class FeedsController < ApplicationController
         end
       end
 
-      concept = TaxonConcept.find(arr_obj_tc_id["#{rec.data_object_id}"])
-      tc_name = concept.quick_scientific_name()
+      if(!arr_obj_tc_id["#{rec.data_object_id}"].nil?) then
+        ctr=ctr+1
 
-      t = rec.updated_at
-      updated_at =  t.strftime("%d-%b-%Y")  
-      updated_at += t.strftime(" at %I:%M%p")          
+        concept = TaxonConcept.find(arr_obj_tc_id["#{rec.data_object_id}"])
+        tc_name = concept.quick_scientific_name()
+      
 
-      temp = [ "curator"   => rec.given_name + " " + rec.family_name,  
-               "activity"  => rec.code || nil, 
-               "do_type"   => do_type || nil,
-               "tc_id"     => arr_obj_tc_id["#{rec.data_object_id}"] || nil,
-               "do_id"     => rec.data_object_id || nil,
-               "tc_name"   => ctr.to_s + ". " + tc_name || nil,
-               "updated_at"       => updated_at || nil,
-               "object_cache_url" =>  do_detail["#{rec.data_object_id}"] || nil
-             ]
-      if(ctr == 1)
-        feed_items = temp
-      else
-        feed_items += temp
-      end
+        t = rec.updated_at
+        updated_at =  t.strftime("%d-%b-%Y")  
+        updated_at += t.strftime(" at %I:%M%p")          
+
+        temp = [ "curator"   => rec.given_name + " " + rec.family_name,  
+                 "activity"  => rec.code || nil, 
+                 "do_type"   => do_type || nil,
+                 "tc_id"     => arr_obj_tc_id["#{rec.data_object_id}"] || nil,
+                 "do_id"     => rec.data_object_id || nil,
+                 "tc_name"   => ctr.to_s + ". " + tc_name || nil,
+                 "updated_at"       => updated_at || nil,
+                 "object_cache_url" =>  do_detail["#{rec.data_object_id}"] || nil,
+                 "source_url" =>  do_detail["#{rec.data_object_id}_source"] || nil 
+               ]
+        if(ctr == 1)
+          feed_items = temp
+        else
+          feed_items += temp
+        end
+
+      end            
     end        
 
     feed = Atom::Feed.new do |f|
@@ -189,11 +196,16 @@ class FeedsController < ApplicationController
       content = hash['do_type'] + " was changed to '" + hash['activity'] + "' by " + hash['curator'] + " last " + hash['updated_at'] + " " + "<br/><br/>"
 
       if hash['do_type'] == 'Image'
-        content = "<img src='#{DataObject.image_cache_path(hash['object_cache_url'],'small')}'/></a><br/>" + content
+        content = "<img src='#{DataObject.image_cache_path(hash['object_cache_url'],'small')}'/><br/>" + content
       end
 
+      temp = hash['source_url']
+      result = temp.split(/oldid=\s?/)
+      revision_id = result[1] 
+      if(revision_id) then
+        content += "Revision ID: <a target='wikipedia' href='#{hash['source_url']}'/>#{revision_id}</a>"
+      end          
 
-      #content += "" + "<br/><br/>"      
       e.content = Atom::Content::Html.new(content)
     end
   end

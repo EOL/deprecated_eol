@@ -330,7 +330,10 @@ class DataObject < SpeciesSchemaModel
     @attributions = Attributions.new(agents_data_objects)
 
     @attributions.add_supplier   self.data_supplier_agent 
-    @attributions.add_license    self.license, rights_statement
+
+    #@attributions.add_rights_holder    self.rights_holder
+
+    @attributions.add_license    self.license, rights_statement, rights_holder
     @attributions.add_location   self.location
     @attributions.add_source_url self.source_url
     @attributions.add_citation   self.bibliographic_citation
@@ -1171,12 +1174,13 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   end
   
   def self.get_object_cache_url(obj_ids)     
-    query="SELECT do.id, do.object_cache_url FROM data_objects do WHERE do.id IN (#{ obj_ids.join(', ') })"
+    query="SELECT do.id, do.object_cache_url, do.source_url FROM data_objects do WHERE do.id IN (#{ obj_ids.join(', ') })"
     obj_detail = {} #same Hash.new   
     if(obj_ids.length > 0) then       
       rset = DataObject.find_by_sql([query])            
       rset.each do |post|
         obj_detail["#{post.id}"] = post.object_cache_url
+        obj_detail["#{post.id}_source"] = post.source_url
       end
     end  
     return obj_detail

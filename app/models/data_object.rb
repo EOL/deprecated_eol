@@ -333,7 +333,7 @@ class DataObject < SpeciesSchemaModel
 
     #@attributions.add_rights_holder    self.rights_holder
 
-    @attributions.add_license    self.license, rights_statement, rights_holder
+    @attributions.add_license    self.license, rights_statement, rights_holder, data_type_id
     @attributions.add_location   self.location
     @attributions.add_source_url self.source_url
     @attributions.add_citation   self.bibliographic_citation

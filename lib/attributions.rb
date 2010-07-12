@@ -39,9 +39,9 @@ class Attributions
     end
     attributions = Attributions.new(agents_data_objects)
     
-    #attributions.add_rights_holder   data_object.rights_holder if data_object.has_attribute?('rights_holder')
+    attributions.add_rights_statement   data_object.rights_statement if data_object.has_attribute?('rights_statement')
 
-    attributions.add_license    data_object.license, data_object.rights_statement, data_object.rights_holder if data_object.has_attribute?('license') || data_object.has_attribute?('rights_statement') || data_object.has_attribute?('rights_holder')
+    attributions.add_license    data_object.license, data_object.rights_statement, data_object.rights_holder, data_object.data_type_id if data_object.has_attribute?('license') || data_object.has_attribute?('rights_statement') || data_object.has_attribute?('rights_holder')
     attributions.add_supplier   agents_hash['data_supplier'] unless agents_hash.nil? || agents_hash['data_supplier'].nil?
     attributions.add_location   data_object.location if data_object.has_attribute?('location')
 
@@ -101,11 +101,11 @@ class Attributions
     end
   end
 
-  # Puts a rights holder into the array, at the end
-  def add_rights_holder(rights_holder)
-    unless rights_holder.blank? # If it's nil, don't bother doing anything...
-      @attributions << AgentsDataObject.new(:agent => Agent.just_project_name(rights_holder),
-                                            :agent_role => AgentRole.new(:label => 'Rights holder'),
+  # Puts a rights statement into the array
+  def add_rights_statement(rights_statement)
+    unless rights_statement.blank? # If it's nil, don't bother doing anything...
+      @attributions << AgentsDataObject.new(:agent => Agent.just_project_name(rights_statement),
+                                            :agent_role => AgentRole.new(:label => 'Attribution'),
                                             :view_order => 0)
     end
   end
@@ -115,11 +115,11 @@ class Attributions
   # now, we need to go in and put the rights statement ... this is very hacky but the 
   # rights statement is supposed to show up after the Source, but it's not actually an attribution
   # so ... we have to stick it into the list somehow for it to show up  :/
-  def add_license(license, rights_statement, rights_holder)
+  def add_license(license, rights_statement, rights_holder, data_type_id)
     # Nothing to do if there's no license AND no rights_statement
     unless rights_statement.blank? && license.nil?
       license ||= License.public_domain # We assume everything is open unless specified
-      insert_after_role(AgentsDataObject.from_license(license, rights_statement, rights_holder),
+      insert_after_role(AgentsDataObject.from_license(license, rights_statement, rights_holder, data_type_id),
                         [AgentRole.author, AgentRole.source])
     end
   end

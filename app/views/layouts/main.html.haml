@@ -32,7 +32,7 @@
 
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
     %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
-    = auto_discovery_link_tag(:rss, {:controller=>'content',:action=>'news',:format=>'rss'}, {:title => "EOL News RSS"}) if controller.class == ContentController
+    = auto_discovery_link_tag(:rss, {:controller=>'/content',:action=>'news',:format=>'rss'}, {:title => "EOL News RSS"}) if controller.class == ContentController
     = stylesheet_link_merged 'base-cached'
     = eol_lang_main_stylesheet 'buttons', :media => "all"
     = stylesheet_link_tag 'star_rating'
@@ -104,7 +104,7 @@
                   %li
                     = link_to("#{language.name} <em>(#{language.display_code})</em>", set_language_url(:language => language.iso_639_1), :class => 'return_to', :title => language.name)
                 %li
-                  = link_to 'Google Translate', {:controller => 'content', :action => 'translate'}, {:class => 'return_to', :title => 'Google Translate'}
+                  = link_to 'Google Translate', {:controller => '/content', :action => 'translate'}, {:class => 'return_to', :title => 'Google Translate'}
             %li
               %a#feedback.dropdown{ :title => "Feedback"[] }
                 = "Feedback"[]
@@ -158,9 +158,9 @@
                 = link_to("logout"[:logout], logout_url, {:class => 'return_to'})
           - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
             %p
-              = link_to("login"[:login], {:controller=>'account', :action=>'login'}, {:class => 'return_to'})
+              = link_to("login"[:login], {:controller=>'/account', :action=>'login'}, {:class => 'return_to'})
               |
-              = link_to("create an account"[:create_account], {:controller => 'account', :action => 'signup'}, {:class => 'return_to'})
+              = link_to("create an account"[:create_account], {:controller => '/account', :action => 'signup'}, {:class => 'return_to'})
           - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
             %p
               = "We apologize, but the user registration system is not currently available.  Please try again later."[:user_system_down]

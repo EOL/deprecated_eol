@@ -2,6 +2,11 @@ class ApiController < ApplicationController
   
   include ApiHelper
   
+  layout 'main' , :only => [:index, :ping, :search, :pages, :data_objects, :hierarchy_entries]
+  
+  def index
+  end
+  
   def pages
     taxon_concept_id = params[:id] || 0
     params[:images] ||= 1

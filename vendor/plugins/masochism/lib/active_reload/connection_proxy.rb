@@ -54,7 +54,11 @@ module ActiveReload
     
     #added by EOL team
     def execute(sql)
-      (sql.lstrip.split(" ")[0].downcase == "select" rescue nil) ?  @slave.execute(sql) : @master.execute(sql)
+      if @current != @master && (sql.lstrip.split(" ")[0].downcase == "select" rescue nil)
+        @slave.execute(sql)
+      else
+        @master.execute(sql)
+      end
     end
     
   end

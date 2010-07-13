@@ -72,7 +72,7 @@ class AccountController < ApplicationController
     @user.password = @user.entered_password
     @user.remote_ip = request.remote_ip
     if verify_recaptcha &&  @user.save
-      @user.update_attribute :agent_id, Agent.create_agent_from_user(:full_name => @user.full_name).id
+      @user.update_attribute :agent_id, Agent.create_agent_from_user(@user.full_name).id
       @user.entered_password = ''
       @user.entered_password_confirmation = ''
       Notifier.deliver_registration_confirmation(@user)

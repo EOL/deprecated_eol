@@ -209,5 +209,15 @@ module ActiveRecord
       end
 
     end
+    
+    def self.with_master(&block)
+      if self.connection.respond_to? 'with_master'
+        self.connection.set_to_master!
+        yield
+        self.connection.set_to_slave!
+      else
+        yield
+      end
+    end
   end
 end

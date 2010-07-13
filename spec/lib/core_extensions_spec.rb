@@ -82,6 +82,9 @@ describe Array do
   end
 end
 
+describe 'ActiveRecord::Base' do
+end
+
 
 
 

@@ -1,0 +1,195 @@
+- url = url_for(:controller => '/api', :action => 'hierarchy_entries', :id => '25941661', :only_path => false)
+#content
+  #page-separator-general
+  #page-title
+    %h1
+      EOL API: Pages
+    %hr
+  #page-content.clearfix
+    #full-page-content
+      %h3
+        Request
+      %p.indent
+        %a{ :href => url }
+          = url
+      %h3
+        Parameters
+      %p.indent
+        %i
+          none
+      %h3
+        Description
+      %p.indent
+        The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. As a result any EOL page may relate to several nodes from various hierarchies. This API gives access to a single hierarchy and its internal relationships. Refer to the documentation on the pages API for information on accessing other hierarchies which correspond to a particular EOL page. The taxonConceptID field contains the EOL page identifier which can be used in the pages API.
+      %h3
+        XML Response
+      .formatted_code<
+        :escaped
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <dwr:DarwinRecordSet
+            xmlns:dcterms="http://purl.org/dc/terms/"
+            xmlns:dwc="http://rs.tdwg.org/dwc/terms/"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xmlns:dwr="http://rs.tdwg.org/dwc/dwcrecord/"
+            xsi:schemaLocation="http://rs.tdwg.org/dwc/dwcrecord/  http://rs.tdwg.org/dwc/xsd/tdwg_dwc_classes.xsd">
+              <dwc:Taxon>
+                  <dwc:taxonID>24974884</dwc:taxonID>
+                  <dwc:parentNameUsageID>0</dwc:parentNameUsageID>
+                  <dwc:taxonConceptID>1</dwc:taxonConceptID>
+                  <dwc:scientificName>Animalia</dwc:scientificName>
+                  <dwc:taxonRank>kingdom</dwc:taxonRank>
+              </dwc:Taxon>
+              <dwc:Taxon>
+                  <dwc:taxonID>25877571</dwc:taxonID>
+                  <dwc:parentNameUsageID>24974884</dwc:parentNameUsageID>
+                  <dwc:taxonConceptID>694</dwc:taxonConceptID>
+                  <dwc:scientificName>Chordata</dwc:scientificName>
+                  <dwc:taxonRank>phylum</dwc:taxonRank>
+              </dwc:Taxon>
+              <dwc:Taxon>
+                  <dwc:taxonID>25932109</dwc:taxonID>
+                  <dwc:parentNameUsageID>25877571</dwc:parentNameUsageID>
+                  <dwc:taxonConceptID>1905</dwc:taxonConceptID>
+                  <dwc:scientificName>Actinopterygii</dwc:scientificName>
+                  <dwc:taxonRank>class</dwc:taxonRank>
+              </dwc:Taxon>
+              <dwc:Taxon>
+                  <dwc:taxonID>25939100</dwc:taxonID>
+                  <dwc:parentNameUsageID>25932109</dwc:parentNameUsageID>
+                  <dwc:taxonConceptID>5184</dwc:taxonConceptID>
+                  <dwc:scientificName>Perciformes</dwc:scientificName>
+                  <dwc:taxonRank>order</dwc:taxonRank>
+              </dwc:Taxon>
+              <dwc:Taxon>
+                  <dwc:taxonID>25941659</dwc:taxonID>
+                  <dwc:parentNameUsageID>25939100</dwc:parentNameUsageID>
+                  <dwc:taxonConceptID>5258</dwc:taxonConceptID>
+                  <dwc:scientificName>Pomatomidae</dwc:scientificName>
+                  <dwc:taxonRank>family</dwc:taxonRank>
+              </dwc:Taxon>
+              <dwc:Taxon>
+                  <dwc:taxonID>25941660</dwc:taxonID>
+                  <dwc:parentNameUsageID>25941659</dwc:parentNameUsageID>
+                  <dwc:taxonConceptID>24805</dwc:taxonConceptID>
+                  <dwc:scientificName>Pomatomus</dwc:scientificName>
+                  <dwc:taxonRank>genus</dwc:taxonRank>
+              </dwc:Taxon>
+              <dwc:Taxon>
+                  <dwc:taxonID>25941661</dwc:taxonID>
+                  <dwc:parentNameUsageID>25941660</dwc:parentNameUsageID>
+                  <dwc:taxonConceptID>24805</dwc:taxonConceptID>
+                  <dwc:scientificName>Pomatomus saltatrix (Linnaeus, 1766)</dwc:scientificName>
+                  <dwc:taxonRank>Species</dwc:taxonRank>
+                  <dwc:vernacularName xml:lang="af">Elf</dwc:vernacularName>
+                  <dwc:vernacularName xml:lang="en">Bluefish</dwc:vernacularName>
+                  <dwc:nameAccordingTo>Species 2000 &amp; ITIS Catalogue of Life: Annual Checklist 2009</dwc:nameAccordingTo>
+                  <dwc:nameAccordingTo>R Froese &amp; D Pauly (eds)</dwc:nameAccordingTo>
+                  <dwc:nameAccordingTo>FishBase</dwc:nameAccordingTo>
+              </dwc:Taxon>
+              <dwc:Taxon>
+                  <dwc:parentNameUsageID>25941661</dwc:parentNameUsageID>
+                  <dwc:scientificName>Cheilodipterus heptacanthus Lacepède, 1801</dwc:scientificName>
+                  <dwc:taxonomicStatus>synonym</dwc:taxonomicStatus>
+              </dwc:Taxon>
+              <dwc:Taxon>
+                  <dwc:parentNameUsageID>25941661</dwc:parentNameUsageID>
+                  <dwc:scientificName>Cheilodipterus saltatrix (Linnaeus, 1766)</dwc:scientificName>
+                  <dwc:taxonomicStatus>synonym</dwc:taxonomicStatus>
+              </dwc:Taxon>
+          </dwr:DarwinRecordSet>
+      %h3
+        JSON Response
+      .formatted_code<
+        :escaped
+          {
+              "ancestors":
+              [
+                  {
+                      "taxonRank":"kingdom",
+                      "taxonConceptID":"1",
+                      "sourceIdentifier":"1",
+                      "taxonID":"24974884",
+                      "scientificName":"Animalia",
+                      "parentNameUsageID":"0"
+                  },
+                  {
+                      "taxonRank":"phylum",
+                      "taxonConceptID":"694",
+                      "sourceIdentifier":"589",
+                      "taxonID":"25877571",
+                      "scientificName":"Chordata",
+                      "parentNameUsageID":"24974884"
+                  },
+                  {
+                      "taxonRank":"class",
+                      "taxonConceptID":"1905",
+                      "sourceIdentifier":"1635",
+                      "taxonID":"25932109",
+                      "scientificName":"Actinopterygii",
+                      "parentNameUsageID":"25877571"
+                  },
+                  {
+                      "taxonRank":"order",
+                      "taxonConceptID":"5184",
+                      "sourceIdentifier":"4358",
+                      "taxonID":"25939100",
+                      "scientificName":"Perciformes",
+                      "parentNameUsageID":"25932109"
+                  },
+                  {
+                      "taxonRank":"family",
+                      "taxonConceptID":"5258",
+                      "sourceIdentifier":"4396",
+                      "taxonID":"25941659",
+                      "scientificName":"Pomatomidae",
+                      "parentNameUsageID":"25939100"
+                  },
+                  {
+                      "taxonRank":"genus",
+                      "taxonConceptID":"24805",
+                      "sourceIdentifier":"37654",
+                      "taxonID":"25941660",
+                      "scientificName":"Pomatomus",
+                      "parentNameUsageID":"25941659"
+                  }
+              ],
+              "taxonRank":"Species",
+              "taxonConceptID":205264,
+              "synonyms":
+              [
+                  {
+                      "taxonomicStatus":"synonym",
+                      "scientificName":"Cheilodipterus heptacanthus Lacep\u00e8de, 1801",
+                      "parentNameUsageID":25941661
+                  },
+                  {
+                      "taxonomicStatus":"synonym",
+                      "scientificName":"Cheilodipterus saltatrix (Linnaeus, 1766)",
+                      "parentNameUsageID":25941661
+                  }
+              ],
+              "sourceIdentifier":"382563",
+              "taxonID":25941661,
+              "children":
+              [
+              ],
+              "nameAccordingTo":
+              [
+                  "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009",
+                  "R Froese & D Pauly (eds)",
+                  "FishBase"
+              ],
+              "scientificName":"Pomatomus saltatrix (Linnaeus, 1766)",
+              "parentNameUsageID":25941660,
+              "vernacularNames":
+              [
+                  {
+                      "vernacularName":"Elf",
+                      "language":"af"
+                  },
+                  {
+                      "vernacularName":"Bluefish",
+                      "language":"en"
+                  }
+              ]
+          }

@@ -20,9 +20,11 @@ describe 'build_taxon_concept (spec helper method)' do
   end
 
   it 'should be able to make a TC with no common names and an (mostly) empty TOC' do
-    @taxon_concept_naked.table_of_contents.size.should == 2
+    @taxon_concept_naked.table_of_contents.size.should == 4
     @taxon_concept_naked.table_of_contents[0].label.should == 'Names and Taxonomy'
     @taxon_concept_naked.table_of_contents[1].label.should == 'Synonyms'
+    @taxon_concept_naked.table_of_contents[2].label.should == 'Page Statistics'
+    @taxon_concept_naked.table_of_contents[3].label.should == 'Content Summary'
   end
 
   it 'should not have a common name by defaut' do

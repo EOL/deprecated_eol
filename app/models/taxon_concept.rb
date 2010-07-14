@@ -1032,6 +1032,19 @@ class TaxonConcept < SpeciesSchemaModel
     combined = {'parents' => grouped_parents, 'children' => grouped_children}
   end
   
+  def self.entry_stats(taxon_concept_id)
+    SpeciesSchemaModel.connection.execute("SELECT he.id, h.label hierarchy_label, hes.*
+      FROM hierarchy_entries he
+      JOIN hierarchies h ON (he.hierarchy_id=h.id)
+      JOIN hierarchy_entry_stats hes ON (he.id=hes.hierarchy_entry_id)
+      WHERE he.taxon_concept_id=#{taxon_concept_id}
+      AND h.browsable=1
+      AND he.published=1
+      AND he.visibility_id=#{Visibility.visible.id}
+      GROUP BY h.id
+      ORDER BY h.label").all_hashes
+  end
+  
   # for API
   def details_hash(options = {})
     options[:return_media_limit] ||= 3

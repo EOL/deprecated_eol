@@ -7,7 +7,7 @@ describe 'Account user profile page (HTML)' do
   before(:all) do
     @credentials = 'This has a <a href="linky">link</a> <b>this is bold<br />as is this</b> and <script type="text/javascript">alert("hi");</script>'
     @user        = build_curator(HierarchyEntry.gen, :credentials => @credentials)
-    @result      = RackBox.request("/a/show/#{@user.id}") # cache the response the taxon page gives before changes
+    @result      = RackBox.request("/account/show/#{@user.id}") # cache the response the taxon page gives before changes
   end
 
   it 'should allow links in credentials' do

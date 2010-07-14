@@ -14,6 +14,7 @@ class HierarchyEntry < SpeciesSchemaModel
   belongs_to :rank 
   belongs_to :taxon_concept
   belongs_to :vetted
+  belongs_to :visibility
   
   has_many :agents_hierarchy_entries
   has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
@@ -23,6 +24,7 @@ class HierarchyEntry < SpeciesSchemaModel
   has_many :synonyms
   
   has_one :hierarchies_content
+  has_one :hierarchy_entry_stat
 
   def name(detail_level = :middle, language = Language.english, context = nil)
     return raw_name(detail_level, language, context).firstcap

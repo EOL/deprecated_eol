@@ -1,0 +1,36 @@
+
+- for stats in @content[:items]
+  %strong
+    = stats['hierarchy_label']
+  %br
+  %table.results_table
+    %tr
+      %th
+      %th
+    %tr
+      %td.even
+        Trusted text in this branch
+      %td.even
+        = stats['all_text_trusted']
+    %tr
+      %td.odd
+        Unreviewed text in this branch
+      %td.odd
+        = stats['all_text_untrusted']
+    %tr
+      %td.even
+        Trusted images in this branch
+      %td.even
+        = stats['all_image_trusted']
+    %tr
+      %td.odd
+        Unreviewed images in this branch
+      %td.odd
+        = stats['all_image_untrusted']
+    %tr
+      %td.even
+        Descendants
+      %td.even
+        = stats['total_children']
+  %br
+  %br

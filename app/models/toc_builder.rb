@@ -94,6 +94,12 @@ private
       toc << TocEntry.new(TocItem.common_names)
     end
     
+    # Add stats if there are any
+    unless TaxonConcept.entry_stats(taxon_concept.id).blank?
+      toc << TocEntry.new(TocItem.content_summary)
+    end
+    
+    
     # Add Medical Concepts if there is a LigerCat tag cloud available:
     if !Resource.ligercat.nil? && HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, taxon_concept.id)
       toc << TocEntry.new(TocItem.biomedical_terms)

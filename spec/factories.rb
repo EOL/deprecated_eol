@@ -586,10 +586,28 @@ Factory.define :hierarchy_entry do |he|
   he.association    :taxon_concept
   he.vetted         { Vetted.trusted || Vetted.create(:label => 'Trusted') }
   he.published      1
-  he.visibility_id  { Visibility.visible || Visibility.create(:label => 'Visible') }
+  he.visibility  { Visibility.visible || Visibility.create(:label => 'Visible') }
   he.created_at     Time.now
   he.updated_at     Time.now
 end
+
+Factory.define :hierarchy_entry_stat do |hes|
+  hes.association         :hierarchy_entry
+  hes.text_trusted        { rand(1000) }
+  hes.text_untrusted      { rand(1000) }
+  hes.image_trusted       { rand(1000) }
+  hes.image_untrusted     { rand(1000) }
+  hes.bhl                 { rand(1000) }
+  hes.all_text_trusted    { rand(1000) }
+  hes.all_text_untrusted  { rand(1000) }
+  hes.have_text           { rand(1000) }
+  hes.all_image_trusted   { rand(1000) }
+  hes.all_image_untrusted { rand(1000) }
+  hes.have_images         { rand(1000) }
+  hes.all_bhl             { rand(1000) }
+  hes.total_children      { rand(1000) }
+end
+
 
 Factory.define :info_item do |ii|
   ii.schema_value 'http://rs.tdwg.org/ontology/voc/ThisWontWork.JustForTesting'

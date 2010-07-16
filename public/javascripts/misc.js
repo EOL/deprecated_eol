@@ -65,9 +65,25 @@ function eol_show_pop_up(div_name, partial_name, taxon_name) {
 
 // Updates the main image and calls eol_update_credit()
 function eol_update_image(large_image_url, params) {
+  
+  /* --- original code ---
   $('main-image').src = large_image_url;
   $('main-image').alt=params.nameString;
   $('main-image').title=params.nameString;
+  */
+  var string = params.source_url;//source_url is from [views/taxa/_image_collection]
+  if(string.search(/photosynth.net/) == -1)
+  { //regular static image
+    $('main-image-bg').innerHTML = "<img id='main-image'>";      
+    $('main-image').src = large_image_url;
+    $('main-image').alt=params.nameString;
+    $('main-image').title=params.nameString;    
+  }
+  else
+  { //photosynth image
+    synth = "<iframe frameborder='0' src='" + string.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'>";
+    $('main-image-bg').innerHTML = synth;  
+  }
     
   // update the hrefs for the comment, curation, etc popups
   if($$('div#large-image-trust-button a')[0]) {

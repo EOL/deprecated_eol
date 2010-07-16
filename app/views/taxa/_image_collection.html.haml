@@ -56,6 +56,9 @@
           ", nameString: '" + escape_javascript(hh(image['scientific_name'])) + |
           "',location: '" + escape_javascript(image.location) + |
           "',info_url: '" + escape_javascript(image.object_url || '') + |
+
+          ",source_url: '" + escape_javascript(image.source_url) + "'" + |         
+
           "',taxaIDs: ['" + taxa_info.map{|x| x['taxon_concept_id'].to_s}.join("','") + "']" + |
           ",taxaNames: ['" + taxa_info.map{|x| x['taxon_name'].to_s}.map{|y|escape_javascript(y)}.join("','") + "']" + |
           ",field_notes: '" + escape_javascript(image.description) + |
@@ -76,9 +79,6 @@
           - rights_holder_part = ""  
         - else
           - rights_holder_part = "&#169 #{image.rights_holder}.<br>"
-
-
-
 
         - image_attribution_hash += ",license_text: '" + rights_holder_part + escape_javascript(image.license_text || "") + |
           "',license_logo: '" + escape_javascript(image.license_logo) + |

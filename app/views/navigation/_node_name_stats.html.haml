@@ -1,0 +1,23 @@
+- node_class ||= ''
+%a.name{:href => '', :class => node_class, :onclick => "update_browser_stats(#{entry['id']}, 0); return false;"}
+  = entry['name_string']
+
+-#- unless entry['rank_label'].blank?
+-#  %span.rank
+-#    = entry['rank_label']
+= link_to(external_link_icon, { :controller => '/taxa', :action => 'show', :id => entry['taxon_concept_id']}, :target => '_blank' )
+- if entry['descendants'] > 0 && entry['descendants'] > 5000
+  = image_tag('arrow_down_gray.gif', :alt => 'cannot expand children')
+-elsif entry['descendants'] > 0
+  %a{:href => '', :onclick => "update_browser_stats(#{entry['id']}, 1); return false;"}
+    = image_tag('arrow_down.gif', :alt => 'expand all children')
+- unless entry['stats'].blank?
+  %small
+    = entry['stats'].pecent_with_images
+    \%
+    = image_tag('image.png', :alt => 'expand all children')
+    &nbsp;&nbsp;
+    = entry['stats'].pecent_with_text
+    \%
+    = image_tag('text.png', :alt => 'expand all children')
+    

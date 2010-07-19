@@ -346,11 +346,27 @@ function update_browser(hierarchy_entry_id, expand) {
         asynchronous:true, 
         evalScripts:true, 
         method:'post', 
-        onComplete:function(request){hideAjaxIndicator(); scroll(0,0);},
+        onComplete:function(request){hideAjaxIndicator(); scroll(0,100);},
         onLoading:function(request){showAjaxIndicator();},
         parameters: {id: hierarchy_entry_id, expand: expand }
       } );
 }
+
+// call remote function to show the selected node in the text-based navigational tree view
+function update_browser_stats(hierarchy_entry_id, expand) {
+    url = '/navigation/browse_stats'
+    new Ajax.Updater(
+    'hierarchy_browser', url,
+      {
+        asynchronous:true, 
+        evalScripts:true, 
+        method:'post', 
+        onComplete:function(request){hideAjaxIndicator(); scroll(0,100);},
+        onLoading:function(request){showAjaxIndicator();},
+        parameters: {id: hierarchy_entry_id, expand: expand }
+      } );
+}
+
 
 function toggle_children() {
     Element.toggle('taxonomic-children');

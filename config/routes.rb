@@ -127,6 +127,7 @@ ActionController::Routing::Routes.draw do |map|
   map.podcast 'podcast', :controller=>'content', :action=>'page', :id=>'podcast'
 
   map.connect 'api', :controller => 'api/docs', :action => 'index' 
+  map.connect 'api/docs/:action', :controller => 'api/docs'
   
   
   

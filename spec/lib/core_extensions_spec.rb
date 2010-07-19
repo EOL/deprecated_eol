@@ -85,6 +85,20 @@ end
 describe 'ActiveRecord::Base' do
 end
 
+describe Float do
+  it 'should round float values' do
+    138.249.round_to(2).should == 138.25
+  end
+  it 'should round float values' do
+    138.249.round_to(-1).should == 140.00
+  end
+  it 'should floor float values' do
+    138.249.floor_to(2).should == 138.240
+  end
+  it 'should ceil float values' do
+    138.249.ceil_to(2).should == 138.250
+  end
+end
 
 
 

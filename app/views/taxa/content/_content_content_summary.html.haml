@@ -8,29 +8,29 @@
       %th
       %th
     %tr
-      %td.even
-        Trusted text in this branch
-      %td.even
-        = stats['all_text_trusted']
-    %tr
       %td.odd
-        Unreviewed text in this branch
+        \# of taxa at this entry
       %td.odd
-        = stats['all_text_untrusted']
+        = stats['total_children']
     %tr
       %td.even
-        Trusted images in this branch
+        \# of trusted images at this entry
       %td.even
         = stats['all_image_trusted']
     %tr
       %td.odd
-        Unreviewed images in this branch
+        \# of unreviewed images at this entry
       %td.odd
         = stats['all_image_untrusted']
     %tr
       %td.even
-        Descendants
+        \# of trusted text objects at this entry
       %td.even
-        = stats['total_children']
+        = stats['all_text_trusted']
+    %tr
+      %td.odd
+        \# of unreviewed text objects at this entry
+      %td.odd
+        = stats['all_text_untrusted']
   %br
   %br

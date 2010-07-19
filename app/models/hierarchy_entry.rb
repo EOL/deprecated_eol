@@ -453,13 +453,19 @@ class HierarchyEntry < SpeciesSchemaModel
     end
     content_level = hierarchies_content ? hierarchies_content.content_level : 0
     
-    { 'id'                => self.id,
+    the_details = { 'id'  => self.id,
       'hierarchy_id'      => self.hierarchy_id,
       'taxon_concept_id'  => self.taxon_concept_id,
       'name_string'       => name_string,
       'rank_label'        => rank_label,
       'descendants'       => self.rgt - self.lft - 1,
       'has_content'       => content_level > 1 }
+    
+    if params[:include_stats]
+      the_details['stats'] = HierarchyEntryStat.find_by_hierarchy_entry_id(self.id)
+    end
+    
+    return the_details
   end
   
   def ancestor_details(params = {})
@@ -479,11 +485,19 @@ class HierarchyEntry < SpeciesSchemaModel
       params[:common_name_language] ||= Language.english
       common_names = TaxonConcept.quick_common_names(result.collect{|r| r['taxon_concept_id']}, params[:common_name_language], hierarchy)
     end
+    if params[:include_stats]
+      found_stats = HierarchyEntryStat.find_all_by_hierarchy_entry_id(result.collect{|r| r['id']})
+      all_stats = {}
+      found_stats.each do |s|
+        all_stats[s['hierarchy_entry_id'].to_i] = s
+      end
+    end
     result.each do |r|
       r['name_string'] = Rank.italicized_ids.include?(r['rank_id'].to_i) ? r['italicized_name'].firstcap! : r['name_string'].firstcap!
       r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
       r['has_content'] = r['content_level'].to_i > 1
       r['name_string'] = common_names[r['taxon_concept_id'].to_i] unless common_names.blank? || common_names[r['taxon_concept_id'].to_i].blank?
+      r['stats'] = all_stats[r['id'].to_i] unless all_stats[r['id'].to_i].blank?
     end
     result.sort!{|a,b| a['lft'].to_i <=> b['lft'].to_i}
   end
@@ -506,11 +520,19 @@ class HierarchyEntry < SpeciesSchemaModel
       params[:common_name_language] ||= Language.english
       common_names = TaxonConcept.quick_common_names(result.collect{|r| r['taxon_concept_id']}, params[:common_name_language])
     end
+    if params[:include_stats]
+      found_stats = HierarchyEntryStat.find_all_by_hierarchy_entry_id(result.collect{|r| r['id']})
+      all_stats = {}
+      found_stats.each do |s|
+        all_stats[s['hierarchy_entry_id'].to_i] = s
+      end
+    end
     result.each do |r|
       r['name_string'] = Rank.italicized_ids.include?(r['rank_id'].to_i) ? r['italicized_name'].firstcap! : r['name_string'].firstcap!
       r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
       r['has_content'] = r['content_level'].to_i > 1
       r['name_string'] = common_names[r['taxon_concept_id'].to_i] unless common_names.blank? || common_names[r['taxon_concept_id'].to_i].blank?
+      r['stats'] = all_stats[r['id'].to_i] unless all_stats[r['id'].to_i].blank?
     end
     result.sort!{|a,b| a['name_string'] <=> b['name_string']}
   end

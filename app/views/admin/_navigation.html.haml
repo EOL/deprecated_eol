@@ -70,7 +70,8 @@
       Statistics
     %li
       = link_to 'page statistics and tools', {:controller => 'administrator/stats', :action => 'index'}, {:class=>'toc_item active'}
-    
+    %li
+      = link_to 'taxonomic summary of content', {:controller => 'administrator/stats', :action => 'content_taxonomic'}, {:class => 'toc_item active'}
     -# Disabled search reports on 6.18.10 until we can fix it
     -# %li
     -#   = link_to 'search term reports',search_logs_url,{:class=>'toc_item active'}

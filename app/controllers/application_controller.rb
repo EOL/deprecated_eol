@@ -48,19 +48,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def render_500(exception=nil)
+  def render_500(exception = nil)
     if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s)
        ErrorLog.create(
-         :url=>request.url,
-         :ip_address=>request.remote_ip,
-         :user_agent=>request.user_agent,
-         :user_id=>current_user.id,
-         :exception_name=>exception.to_s,
-         :backtrace=>"Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
+         :url => request.url,
+         :ip_address => request.remote_ip,
+         :user_agent => request.user_agent,
+         :user_id => current_user.id,
+         :exception_name => exception.to_s,
+         :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
          )
      end
     respond_to do |type|
-     type.html { render :layout=>'main',:template => "content/error"}
+     type.html { render :layout => 'main',:template => "content/error"}
      type.all  { render :nothing => true }
     end
   end
@@ -72,8 +72,8 @@ class ApplicationController < ActionController::Base
   end
 
   # store a given URL (defaults to current) in case we need to redirect back later
-  def store_location(url=url_for(:controller=>controller_name, :action=>action_name))
-      session[:return_to]=url
+  def store_location(url = url_for(:controller => controller_name, :action => action_name))
+      session[:return_to] = url
   end
 
   # retrieve the stored URL that we want to go back to
@@ -85,21 +85,25 @@ class ApplicationController < ActionController::Base
   def set_user_settings
     expertise = params[:expertise] if ['novice','middle','expert'].include?(params[:expertise])
     alter_current_user do |user|
-      user.expertise=expertise unless expertise.nil?
+      user.expertise = expertise unless expertise.nil?
     end
     vetted = params[:vetted]
     alter_current_user do |user|
-      user.vetted=EOLConvert.to_boolean(vetted) unless vetted.blank?
+      user.vetted = EOLConvert.to_boolean(vetted) unless vetted.blank?
     end
   end
   
   def valid_return_to_url
-    return_to_url != nil && return_to_url != login_url && return_to_url != register_url && return_to_url != logout_url && !url_for(:controller=>'content_partner',:action=>'login',:only_path=>true).include?(return_to_url)
+    return_to_url != nil &&
+      return_to_url != login_url &&
+      return_to_url != register_url &&
+      return_to_url != logout_url &&
+      !url_for(:controller => 'content_partner', :action => 'login', :only_path => true).include?(return_to_url)
   end
 
-  def current_url(remove_querystring=true)
+  def current_url(remove_querystring = true)
     if remove_querystring
-      current_url=URI.parse(request.url).path
+      current_url = URI.parse(request.url).path
     else
       request.url
     end
@@ -110,7 +114,7 @@ class ApplicationController < ActionController::Base
   end
 
   # Redirect to the URL stored by the most recent store_location call or to the passed default.
-  def redirect_back_or_default(default=root_url(:protocol => "http"))
+  def redirect_back_or_default(default = root_url(:protocol => "http"))
     # be sure we aren't returning the login, register or logout page
     if valid_return_to_url
       url = CGI.unescape(return_to_url) 
@@ -136,7 +140,7 @@ class ApplicationController < ActionController::Base
   end
 
   def collected_errors(model_object)
-    error_list=''
+    error_list = ''
     model_object.errors.each{|attr,msg| error_list += "#{attr} #{msg}," }
     return error_list.chomp(',')
   end
@@ -144,9 +148,9 @@ class ApplicationController < ActionController::Base
   # called to log and redirect a user to an external link
   def external_link
 
-    url=params[:url]
+    url = params[:url]
     if url.nil?
-      render :nothing=>true
+      render :nothing => true
       return
     end
 
@@ -166,9 +170,9 @@ class ApplicationController < ActionController::Base
        session[:page_views]=0 if $SHOW_SURVEYS  # if we are showing surveys, we need to record how many page views this user has done
 
        # expire home page fragment caches after specified internal to keep it fresh
-       if $CACHE_CLEARED_LAST.advance(:hours=>$CACHE_CLEAR_IN_HOURS) < Time.now
+       if $CACHE_CLEARED_LAST.advance(:hours => $CACHE_CLEAR_IN_HOURS) < Time.now
          expire_cache('home')
-         $CACHE_CLEARED_LAST=Time.now()
+         $CACHE_CLEARED_LAST = Time.now()
        end
 
     end
@@ -207,35 +211,35 @@ class ApplicationController < ActionController::Base
   def expire_caches
     expire_menu_caches
     expire_pages(ContentPage.find_all_by_active(true))
-    $CACHE_CLEARED_LAST=Time.now()
+    $CACHE_CLEARED_LAST = Time.now()
   end
 
   # expire a list of taxa_ids specifed as an array
-  # (add :expire_ancestors=>false if you don't want to expire that taxon_concept's ancestors as well)
+  # (add :expire_ancestors => false if you don't want to expire that taxon_concept's ancestors as well)
   # TODO -- optimize, this will result in a lot of queries if you expire a lot of taxa
-  def expire_taxa(taxa_ids, params={})
+  def expire_taxa(taxa_ids, params = {})
 
     return false if taxa_ids == nil? || taxa_ids.class != Array
 
-    expire_ancestors=params[:expire_ancestors]
-    expire_ancestors=true if params[:expire_ancestors].blank?
+    expire_ancestors = params[:expire_ancestors]
+    expire_ancestors = true if params[:expire_ancestors].blank?
 
-    taxa_ids_to_expire=[]
+    taxa_ids_to_expire = []
 
     if expire_ancestors # also expire ancestors
       # go over taxa_ids and find ancestors, and add them to the list
       taxa_ids.each do |taxon_concept_id|
-        taxon_concept=TaxonConcept.find_by_id(taxon_concept_id)
+        taxon_concept = TaxonConcept.find_by_id(taxon_concept_id)
         taxa_ids_to_expire += taxon_concept.ancestry.collect {|an| an.taxon_concept_id} unless taxon_concept.nil?
       end
       taxa_ids_to_expire.uniq! # eliminate duplicates
     else # don't expire ancestors, so just go through the supplied list and expire those
-      taxa_ids_to_expire=taxa_ids
+      taxa_ids_to_expire = taxa_ids
     end
 
     # now expire the list of taxa, ignoring ancestors (since they are now included in our global list)
     taxa_ids_to_expire.each do |taxon_concept_id|
-      expire_taxon_concept(taxon_concept_id, :expire_ancestors=>false)
+      expire_taxon_concept(taxon_concept_id, :expire_ancestors => false)
     end
 
     return true
@@ -260,23 +264,23 @@ class ApplicationController < ActionController::Base
   end
 
   # expire the fragment cache for a specific taxon_concept ID
-  # (add :expire_ancestors=>false if you don't want to expire that s's ancestors as well)
+  # (add :expire_ancestors => false if you don't want to expire that s's ancestors as well)
   # TODO -- come up with a better way to expire taxa or name the cached parts -- this expiration process is very expensive due to all the iterations for each taxa id
-  def expire_taxon_concept(taxon_concept_id,params={})
+  def expire_taxon_concept(taxon_concept_id,params = {})
 
    #expire the given taxon_concept_id
    return false if taxon_concept_id == nil || taxon_concept_id.to_i == 0
 
-   taxon_concept=TaxonConcept.find_by_id(taxon_concept_id)
+   taxon_concept = TaxonConcept.find_by_id(taxon_concept_id)
    return false if taxon_concept.nil?
 
-   expire_ancestors=params[:expire_ancestors]
-   expire_ancestors=true if params[:expire_ancestors].nil?
+   expire_ancestors = params[:expire_ancestors]
+   expire_ancestors = true if params[:expire_ancestors].nil?
 
    if expire_ancestors
-     taxa_ids=taxon_concept.ancestry.collect {|an| an.taxon_concept_id}
+     taxa_ids = taxon_concept.ancestry.collect {|an| an.taxon_concept_id}
    else
-     taxa_ids=[taxon_concept_id]
+     taxa_ids = [taxon_concept_id]
    end
 
    expire_all_variants_of_taxa(taxa_ids)
@@ -298,12 +302,12 @@ class ApplicationController < ActionController::Base
   # default new user when we don't have a logged in user
   def create_new_user
     session[:user_id] = nil
-    User.create_new(:remote_ip=>request.remote_ip)
+    User.create_new(:remote_ip => request.remote_ip)
   end
 
   def reset_session
     create_new_user
-    current_agent=nil
+    current_agent = nil
   end
 
   # return currently logged in user
@@ -411,13 +415,13 @@ class ApplicationController < ActionController::Base
 
   # call this method if someone is not supposed to get a controller or action when user accounts are disabled
   def accounts_not_available
-    flash[:warning]="We apologize, but the user registration system is not currently available.  Please try again later."[:user_system_down]
+    flash[:warning] = "We apologize, but the user registration system is not currently available.  Please try again later."[:user_system_down]
     redirect_to root_url
   end
 
   # A user is not authorized for the particular controller based on the rights for the roles they are in
   def access_denied
-    flash.now[:warning]="You are not authorized to perform this action."[]
+    flash.now[:warning] = "You are not authorized to perform this action."[]
     request.env["HTTP_REFERER"] ? (redirect_to :back) : (redirect_to root_url)
   end
 
@@ -430,22 +434,22 @@ class ApplicationController < ActionController::Base
         user.language = Language.find_by_iso_639_1(language)
       end
     end
-    return_to=(params[:return_to].blank? ? root_url : params[:return_to])
+    return_to = (params[:return_to].blank? ? root_url : params[:return_to])
     redirect_to return_to
   end
 
   # ajax call to set the session variable for the user to indicate if flash is enabled or not
   def set_flash_enabled
-    flash_enabled=params[:flash_enabled]
+    flash_enabled = params[:flash_enabled]
     alter_current_user do |user|
       if EOLConvert.to_boolean(flash_enabled)
         user.flash_enabled = true
       else
         user.flash_enabled = false
-        user.default_taxonomic_browser="text"
+        user.default_taxonomic_browser = "text"
       end
     end
-    render :nothing=>true
+    render :nothing => true
   end
 
     # pulled over from Rails core helper file so it can be used in controllers as well
@@ -487,7 +491,7 @@ private
 
   # Having a *temporary* logged in user, as opposed to reading the user from the cache, lets us change some values
   # (such as language or vetting) within the scope of a request *without* storing it the database.  So, for example,
-  # when a URL includes "&vetted=true" (or some-such), we can serve that request with *temporary* user values that
+  # when a URL includes "&vetted = true" (or some-such), we can serve that request with *temporary* user values that
   # don't change the user's DB values.
   def temporary_logged_in_user
     @logged_in_user
@@ -557,7 +561,7 @@ private
           end
           if page.class == ContentPage && page.page_url == 'home'
             Hierarchy.all.each do |h|
-              expire_fragment(:controller => '/content', :part=>"home_#{language.iso_639_1}_#{h.id.to_s}") # this is because the home page fragment is dependent on the user's selected hierarchy entry ID, unlike the other content pages
+              expire_fragment(:controller => '/content', :part => "home_#{language.iso_639_1}_#{h.id.to_s}") # this is because the home page fragment is dependent on the user's selected hierarchy entry ID, unlike the other content pages
             end
           end
         end
@@ -577,7 +581,7 @@ private
 
   # we are going to keep track of how many pages the user has seen so we can determine if we are going to show the survey link or not
   def count_page_views
-    session[:page_views]=0 if session[:page_views].nil?
+    session[:page_views] = 0 if session[:page_views].nil?
     session[:page_views]+=1
   end
 

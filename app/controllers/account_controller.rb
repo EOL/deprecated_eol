@@ -107,7 +107,8 @@ class AccountController < ApplicationController
   end
 
   def logout
-    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.
+    # Whitelisting redirection to our own site, relative paths:
+    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/
     cookies.delete :user_auth_token       
     reset_session 
     store_location(params[:return_to])

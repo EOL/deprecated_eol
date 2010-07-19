@@ -237,3 +237,12 @@ end
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')
 
+# http://www.modrails.com/documentation/Users%20guide%20Nginx.html#_example_1_memcached_connection_sharing_harmful
+if defined?(PhusionPassenger)
+  PhusionPassenger.on_event(:starting_worker_process) do |forked|
+    if forked   # We're in smart spawning mode.
+      reestablish_connection_to_memcached
+    end
+  end
+end
+

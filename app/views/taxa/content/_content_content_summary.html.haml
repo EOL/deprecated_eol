@@ -9,27 +9,27 @@
       %th
     %tr
       %td.odd
-        \# of taxa at this entry
+        \# of descendants of entry
       %td.odd
         = stats['total_children']
     %tr
       %td.even
-        \# of trusted images at this entry
+        \# of trusted images at or below this entry
       %td.even
         = stats['all_image_trusted']
     %tr
       %td.odd
-        \# of unreviewed images at this entry
+        \# of unreviewed images at or below this entry
       %td.odd
         = stats['all_image_untrusted']
     %tr
       %td.even
-        \# of trusted text objects at this entry
+        \# of trusted text objects at or below this entry
       %td.even
         = stats['all_text_trusted']
     %tr
       %td.odd
-        \# of unreviewed text objects at this entry
+        \# of unreviewed text objects at or below this entry
       %td.odd
         = stats['all_text_untrusted']
   %br

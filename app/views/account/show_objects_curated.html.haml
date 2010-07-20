@@ -34,7 +34,6 @@
       - row_class = cycle('odd','even')
       - count += 1
       - details = DataObject.details_for_objects([data_object['data_object_id'].to_i], :visible => false)[0]
-      - pp details
       %tr{ :valign => "top" }
         %td{ :class => row_class }
           = details['toc_label']

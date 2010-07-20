@@ -32,7 +32,6 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
     end
     
     for object in details_hash["data_objects"]
-      pp object
       if data_object_details
         xml << render(:partial => 'data_object_1_0.xml.builder', :layout => false, :locals => { :object_hash => object, :taxon_concept_id => details_hash['id'], :minimal => false } )
       else

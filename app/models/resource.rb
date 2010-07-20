@@ -115,7 +115,6 @@ class Resource < SpeciesSchemaModel
       response = Hash.from_xml(response)
       if response["response"].key? "status"
         status = response["response"]["status"]
-        pp response
         resource_status = ResourceStatus.send(status.downcase.gsub(" ","_"))
         if response["response"].key? "error"
           error = response["response"]["error"]

@@ -162,6 +162,7 @@ class ApiController < ApplicationController
   end
   
   def check_version
+    return if params[:controller] == 'api/docs'
     if ['pages','data_objects','hierarchy_entries','search','synonyms'].include? action_name
       unless ['0.4','1.0'].include? params[:version]
         render(:partial => 'error.xml.builder', :locals => {:error => "Unknown version #{params[:version]}"})

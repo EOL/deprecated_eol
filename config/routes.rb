@@ -126,6 +126,8 @@ ActionController::Routing::Routes.draw do |map|
   
   # by default /api goes to the docs
   map.connect 'api', :controller => 'api/docs', :action => 'index'
+  # not sure why this didn't work in some places - but this is for documentation
+  map.connect 'api/docs/:action', :controller => 'api/docs'
   # ping is a bit of an exception - it doesn't get versioned and takes no ID
   map.connect 'api/ping', :controller => 'api', :action => 'ping'
   map.connect 'api/ping.:format', :controller => 'api', :action => 'ping'
@@ -135,8 +137,6 @@ ActionController::Routing::Routes.draw do |map|
   # looks for version, ID and format
   map.connect 'api/:action/:version/:id', :controller => 'api', :version => /[0-1]\.[0-9]/
   map.connect 'api/:action/:version/:id.:format', :controller => 'api', :version => /[0-1]\.[0-9]/
-  # not sure why this didn't work in some places - but this is for documentation
-  map.connect 'api/docs/:action', :controller => 'api/docs'
   
   
   

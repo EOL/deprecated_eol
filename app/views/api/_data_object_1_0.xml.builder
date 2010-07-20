@@ -2,9 +2,9 @@ unless object_hash.blank?
   xml.dataObject do
     xml.dataObjectID object_hash["guid"]
     if taxon_concept_id.blank?
-      xml.dwc :taxonID, object_hash["taxon_concept_id"] unless object_hash["taxon_concept_id"].blank?
+      xml.taxonConceptID object_hash["taxon_concept_id"] unless object_hash["taxon_concept_id"].blank?
     else
-      xml.dwc :taxonID, taxon_concept_id
+      xml.taxonConceptID taxon_concept_id
     end
     xml.dataType object_hash["data_type"]
     

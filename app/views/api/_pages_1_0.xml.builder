@@ -9,8 +9,8 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
   "xsi:schemaLocation" => "http://www.eol.org/transfer/content/1.0 http://services.eol.org/schema/content_1_0.xsd" do                                                                                                               
   
   unless details_hash.blank?
-    xml.taxon do
-      xml.dwc :taxonID, details_hash['id']
+    xml.taxonConcept do
+      xml.taxonConceptID details_hash['id']
       xml.dwc :scientificName, details_hash['scientific_name']
       
       for common_name in details_hash["common_names"]
@@ -22,7 +22,7 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
           for entry in details_hash['curated_hierarchy_entries']
             xml.taxon do
               xml.dc :identifier, entry.identifier unless entry.identifier.blank?
-              xml.dwc :taxonID, url_for(:controller => 'api', :action => 'hierarchy_entries', :id => entry.id, :only_path => false)
+              xml.dwc :taxonID, entry.id
               xml.dwc :scientificName, entry.name_object.string
               xml.dwc :nameAccordingTo, entry.hierarchy.label
             end

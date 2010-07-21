@@ -107,26 +107,24 @@ class TaxonConcept < SpeciesSchemaModel
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
     return @curators unless @curators.nil?
-    users = User.find_by_sql(default_hierarchy_curators_clause)
+    users = User.find_by_sql("SELECT * FROM users WHERE curator_hierarchy_entry_id IN (#{all_ancestor_entries.join(',')}) AND curator_approved=1")
     unless in_hierarchy(Hierarchy.default)
       users += find_ancestor_in_hierarchy(Hierarchy.default).taxon_concept.curators if maps_to_hierarchy(Hierarchy.default)
     end
     @curators = users
     return users
   end
-  def ssm_db
-    SpeciesSchemaModel.connection.current_database
-  end
-  def default_hierarchy_curators_clause
-    "SELECT DISTINCT users.*
-     FROM  #{ssm_db}.hierarchy_entries children
-       JOIN  #{ssm_db}.hierarchy_entries ancestor
-         ON (children.lft BETWEEN ancestor.lft AND ancestor.rgt AND children.hierarchy_id=ancestor.hierarchy_id AND ancestor.rgt!=0)
-       JOIN  #{ssm_db}.hierarchy_entries ancestor_concepts
-         ON (ancestor.taxon_concept_id=ancestor_concepts.taxon_concept_id)
-       JOIN users ON (ancestor_concepts.id=users.curator_hierarchy_entry_id)
-     WHERE curator_approved IS TRUE
-       AND children.taxon_concept_id = #{self.id}"
+  
+  def all_ancestor_entries
+    all_ancestor_entry_ids = []
+    child_ids = SpeciesSchemaModel.connection.select_values("SELECT id FROM #{HierarchyEntry.full_table_name} WHERE taxon_concept_id=#{self.id}").uniq
+    all_ancestor_entry_ids += child_ids
+    while parent_ids = SpeciesSchemaModel.connection.select_values("SELECT parent_id FROM #{HierarchyEntry.full_table_name} WHERE id IN (#{child_ids.join(',')}) AND parent_id!=0").uniq
+      break if parent_ids.blank?
+      all_ancestor_entry_ids += parent_ids
+      child_ids = parent_ids.dup
+    end
+    return all_ancestor_entry_ids
   end
 
   # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
@@ -134,19 +132,12 @@ class TaxonConcept < SpeciesSchemaModel
   # not all of it's children.  (For example.)
   def acting_curators
     # Cross-database join using a thousandfold more efficient algorithm than doing things separately:
-    ssm_db = SpeciesSchemaModel.connection.current_database
     User.find_by_sql("
       SELECT DISTINCT users.*
       FROM users
-        JOIN last_curated_dates lcd ON (users.id = lcd.user_id AND lcd.last_curated >= '#{2.years.ago.to_s(:db)}')
-        JOIN #{ssm_db}.hierarchy_entries ancestor ON (users.curator_hierarchy_entry_id = ancestor.id)
-        JOIN #{ssm_db}.hierarchy_entries children ON (ancestor.id = children.id
-                                                      OR (ancestor.hierarchy_id = children.hierarchy_id
-                                                          AND ancestor.lft < children.lft
-                                                          AND ancestor.rgt > children.rgt))
+      JOIN last_curated_dates lcd ON (users.id = lcd.user_id AND lcd.last_curated >= '#{2.years.ago.to_s(:db)}')
       WHERE curator_approved IS TRUE
-        AND lcd.taxon_concept_id = #{self.id}
-        AND children.taxon_concept_id = #{self.id}  -- TaxonConcept#approved_curators
+      AND lcd.taxon_concept_id = #{self.id} -- TaxonConcept#approved_curators
     ")
   end
   alias :active_curators :acting_curators

@@ -419,26 +419,38 @@ describe 'EOL XML APIs' do
     end
   end
   
-  describe 'hierarchy entries and synonyms' do
+  describe 'search' do
     before(:all) do
-      @canonical_form = CanonicalForm.create(:string => 'Aus bus')
-      @name = Name.create(:canonical_form => @canonical_form, :string => 'Aus bus Linnaeus 1776')
-      @hierarchy = Hierarchy.gen(:label => 'Test Hierarchy')
-      @rank = Rank.gen(:label => 'species')
-      @hierarchy_entry = HierarchyEntry.gen(:hierarchy => @hierarchy, :name => @name, :published => 1, :rank => @rank)
-      
-      name = Name.create(:string => 'Some critter')
-      relation = SynonymRelation.find_or_create_by_label('common name')
-      language = Language.gen(:label => 'english', :iso_639_1 => 'en')
-      @common_name = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation, :language => language)
-      
+      @dog_name      = 'Dog'
+      @domestic_name = "Domestic #{@dog_name}"
+      @dog_sci_name  = 'Canis lupus familiaris'
+      @wolf_name     = 'Wolf'
+      @wolf_sci_name = 'Canis lupus'
+      @dog  = build_taxon_concept(:scientific_name => @dog_sci_name, :common_names => [@domestic_name])
+      @wolf = build_taxon_concept(:scientific_name => @wolf_sci_name, :common_names => [@wolf_name])
+      SearchSuggestion.gen(:taxon_id => @dog.id, :term => @dog_name, :scientific_name => @dog.scientific_name,
+                           :common_name => @dog.common_name)
+      SearchSuggestion.gen(:taxon_id => @wolf.id, :term => @dog_name, :scientific_name => @wolf.scientific_name,
+                           :common_name => @wolf.common_name)
       recreate_indexes
     end
     
-    it 'should find the taxon by canonical form' do
-      # response = request("/api/search/#{CGI::escape(@canonical_form.string)}")
-      # xml_response = Nokogiri.XML(response.body)
-      # xml_response.xpath('//xmlns:entry/xmlns:title').inner_text.should == @name.string
+    it 'should do a contains search by default' do
+      response = request("/api/search/Canis%20lupus.json")
+      response_object = JSON.parse(response.body)
+      response_object['results'].length.should == 2
     end
+    
+    it 'should do an exact search' do
+      response = request("/api/search/Canis%20lupus.json?exact=1")
+      response_object = JSON.parse(response.body)
+      response_object['results'].length.should == 1
+      response_object['results'][0]['title'].should == @wolf_sci_name
+      
+      response = request("/api/search/Canis.json?exact=1")
+      response_object = JSON.parse(response.body)
+      response_object['results'].length.should == 0
+    end
+    
   end
 end

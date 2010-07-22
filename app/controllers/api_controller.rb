@@ -83,11 +83,12 @@ class ApiController < ApplicationController
   def search
     @search_term = params[:id]
     params[:format] ||= 'xml'
+    params[:exact] = params[:exact] == "1" ? true : false
     @page = params[:page].to_i || 1
     @page = 1 if @page < 1
     @per_page = 30
     
-    @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all, :lookup_trees => false)
+    @results = TaxonConcept.search_with_pagination(@search_term, :page => @page, :per_page => @per_page, :type => :all, :lookup_trees => false, :exact => params[:exact])
     @last_page = (@results.total_entries/@per_page.to_f).ceil
     
     ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'search', :version => params[:version], :format => params[:format], :request_id => @search_term)

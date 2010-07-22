@@ -1033,7 +1033,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def self.entry_stats(taxon_concept_id)
-    SpeciesSchemaModel.connection.execute("SELECT he.id, h.label hierarchy_label, hes.*
+    SpeciesSchemaModel.connection.execute("SELECT he.id, h.label hierarchy_label, hes.*, h.id hierarchy_id
       FROM hierarchy_entries he
       JOIN hierarchies h ON (he.hierarchy_id=h.id)
       JOIN hierarchy_entry_stats hes ON (he.id=hes.hierarchy_entry_id)

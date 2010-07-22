@@ -1,4 +1,10 @@
-
+The following values represent the sum of content of different types for this taxon and all of its taxonomic descendants. Trusted content has been approved by an EOL curator or comes from a trusted provider. Unreviewed content has not yet been assessed by an EOL curator. Every taxonomic hierarchy is unique, so each browsable hierarchy is listed for comparison.
+%br
+%br
+-# sorting the results to put the stats for preferred hierarchy first
+- selected_hierarchy_stat_array = @content[:items].select{|st| st['hierarchy_id'].to_i == @session_hierarchy.id}
+- @content[:items] -= selected_hierarchy_stat_array
+- selected_hierarchy_stat_array.each{|st| @content[:items].unshift(st)}
 - for stats in @content[:items]
   %strong
     = stats['hierarchy_label']
@@ -9,28 +15,27 @@
       %th
     %tr
       %td.odd
-        \# of descendants of entry
+        \# of descendants
       %td.odd
         = stats['total_children']
     %tr
       %td.even
-        \# of trusted images at or below this entry
+        \# of trusted images
       %td.even
         = stats['all_image_trusted']
     %tr
       %td.odd
-        \# of unreviewed images at or below this entry
+        \# of unreviewed images
       %td.odd
         = stats['all_image_untrusted']
     %tr
       %td.even
-        \# of trusted text objects at or below this entry
+        \# of trusted text objects
       %td.even
         = stats['all_text_trusted']
     %tr
       %td.odd
-        \# of unreviewed text objects at or below this entry
+        \# of unreviewed text objects
       %td.odd
         = stats['all_text_untrusted']
-  %br
   %br

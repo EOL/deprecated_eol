@@ -2,7 +2,7 @@ class TaxaController < ApplicationController
 
   layout 'main'
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
-  before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution]
+  before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution, :content]
 
   def index
     #this is cheating because of mixing taxon and taxon concept use of the controller

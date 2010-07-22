@@ -66,8 +66,15 @@ function eol_show_pop_up(div_name, partial_name, taxon_name) {
 // Displays the Photosynth interface in the image pane.
 function load_photosynth_interface(source_url)
 {
+    //synth = "<iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'>";
+    //synth = "<iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><table id='main-image-table'><tr><td><img id='main-image'></td></tr></table>";
+    
     synth = "<iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'>";
-    $('main-image-bg').innerHTML = synth;  
+    
+    $('main-image-table').innerHTML = synth;  
+
+    
+    
 }
 
 // Updates the main image and calls eol_update_credit()
@@ -93,14 +100,14 @@ function eol_update_image(large_image_url, params) {
     synth = "<iframe frameborder='0' src='" + string.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'>";
     $('main-image-bg').innerHTML = synth;  
   }
-  */
-
-  //This will display a photosynth icon if a thumbnail photosynth image is clicked.
-  $('main-image-bg').innerHTML = "<img id='main-image'>";         
+  */  
+  
+  $('main-image-bg').innerHTML = "<table id='main-image-table'><tr><td><img id='main-image'></td></tr></table>";                
   $('main-image').src = large_image_url;    
   $('main-image').alt=params.nameString;
   $('main-image').title=params.nameString;    
 
+  //This will display a photosynth icon if a thumbnail photosynth image is clicked.
   var string = params.source_url;//source_url is from [views/taxa/_image_collection]
   if(string.search(/photosynth.net/) == -1)
   { //regular static image    
@@ -110,6 +117,8 @@ function eol_update_image(large_image_url, params) {
   { //photosynth image
     $('photosynth-message').innerHTML = "<a href=javascript:load_photosynth_interface('" + escape(params.source_url) + "')><img src='http://mslabs-999.vo.llnwd.net/e1/inc/images/master/logo.png' height='27' alt='Photosynth' title='Image is part of a Photosynth'></a>";    
   }
+  
+  
     
   // update the hrefs for the comment, curation, etc popups
   if($$('div#large-image-trust-button a')[0]) {

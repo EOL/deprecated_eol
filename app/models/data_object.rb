@@ -190,6 +190,8 @@ class DataObject < SpeciesSchemaModel
   def self.create_user_text(all_params,user)
     taxon_concept = TaxonConcept.find(all_params[:taxon_concept_id])
 
+    UUID.state_file(0664) # Makes the file writable, which we seem to need to do with Passenger...
+
     do_params = {
       :guid => UUID.generate.gsub('-',''),
       :identifier => '',

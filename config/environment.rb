@@ -241,7 +241,7 @@ require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) 
 if defined?(PhusionPassenger)
   PhusionPassenger.on_event(:starting_worker_process) do |forked|
     if forked   # We're in smart spawning mode.
-      reestablish_connection_to_memcached
+      #reestablish_connection_to_memcached
     end
   end
 end

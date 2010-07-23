@@ -232,5 +232,17 @@ if ENV['BLEAK']
   require 'bleak_house'
 end
 
+# Taken right from http://tinyurl.com/3xzen6z
+if defined?(PhusionPassenger)
+  PhusionPassenger.on_event(:starting_worker_process) do |forked|
+    if forked # We're in smart spawning mode.
+      reestablish_connection_to_memcached
+    else
+      # We're in conservative spawning mode. We don't need to do anything.
+    end
+  end
+end
+
+
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')

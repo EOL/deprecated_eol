@@ -105,7 +105,7 @@ class Attributions
   def add_rights_statement(rights_statement)
     unless rights_statement.blank? # If it's nil, don't bother doing anything...
       @attributions << AgentsDataObject.new(:agent => Agent.just_project_name(rights_statement),
-                                            :agent_role => AgentRole.new(:label => 'Attribution'),
+                                            :agent_role => AgentRole.new(:label => 'Rights'),
                                             :view_order => 0)
     end
   end

@@ -150,7 +150,7 @@ class Agent < SpeciesSchemaModel
     if(data_type_id == 3)
       rights_statement_part = ""
     else
-      rights_statement_part = "Attribution: #{rights_statement.strip}.<br>" unless rights_statement.blank?
+      rights_statement_part = "Rights: #{rights_statement.strip}.<br>" unless rights_statement.blank?
     end
     
     

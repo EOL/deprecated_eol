@@ -535,7 +535,7 @@ describe DataObject do
       rights = 'life, liberty, and the persuit of happiness'
       @dato.should_receive(:rights_statement).and_return(rights)
       #@dato.attributions.map {|ado| ado.agent.project_name }.should include(rights << '.<br> ' << @dato.license.description)
-      text = "&#169 .<br> Attribution: "
+      text = "&#169 .<br> Rights: "
       @dato.attributions.map {|ado| ado.agent.project_name }.should include(text << rights << '.<br> ' << @dato.license.description)
       
 

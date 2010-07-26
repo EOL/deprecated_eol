@@ -255,42 +255,41 @@ class ApplicationController < ActionController::Base
     expired_ids = Set.new
     DataObject.find(data_object_id).taxon_concepts.each do |tc|
       expire_taxon_concept(tc.id, :expire_ancestors => false) if expired_ids.add?(tc.id)
-      begin
-        tc.ancestors.each do |tca|
-          expire_taxon_concept(tca.id, :expire_ancestors => false) if expired_ids.add?(tca.id)
-        end
-      rescue Exception => e
-        if e.to_s != "Taxon concept must have at least one hierarchy entry"
-          raise e
+      Thread.new do
+        begin
+          tc.ancestors.each do |tca|
+            expire_taxon_concept(tca.id, :expire_ancestors => false) if expired_ids.add?(tca.id)
+          end
+        rescue Exception => e
+          if e.to_s != "Taxon concept must have at least one hierarchy entry"
+            raise e
+          end
         end
       end
     end
-
   end
 
   # expire the fragment cache for a specific taxon_concept ID
   # (add :expire_ancestors=>false if you don't want to expire that s's ancestors as well)
   # TODO -- come up with a better way to expire taxa or name the cached parts -- this expiration process is very expensive due to all the iterations for each taxa id
   def expire_taxon_concept(taxon_concept_id,params={})
-
-   #expire the given taxon_concept_id
-   return false if taxon_concept_id == nil || taxon_concept_id.to_i == 0
-
-   taxon_concept=TaxonConcept.find_by_id(taxon_concept_id)
-   return false if taxon_concept.nil?
-
-   expire_ancestors=params[:expire_ancestors]
-   expire_ancestors=true if params[:expire_ancestors].nil?
-
-   if expire_ancestors
-     taxa_ids=taxon_concept.ancestry.collect {|an| an.taxon_concept_id}
-   else
-     taxa_ids=[taxon_concept_id]
-   end
-
-   expire_all_variants_of_taxa(taxa_ids)
+    #expire the given taxon_concept_id
+    return false if taxon_concept_id == nil || taxon_concept_id.to_i == 0
+    
+    taxon_concept=TaxonConcept.find_by_id(taxon_concept_id)
+    return false if taxon_concept.nil?
+    
+    expire_ancestors=params[:expire_ancestors]
+    expire_ancestors=true if params[:expire_ancestors].nil?
+    
+    if expire_ancestors
+      taxa_ids=taxon_concept.ancestry.collect {|an| an.taxon_concept_id}
+    else
+      taxa_ids=[taxon_concept_id]
+    end
+    
+    expire_all_variants_of_taxa(taxa_ids)
     return true
-
   end
 
   # check if the requesting IP address is allowed (used to resrict methods to specific IPs, such as MBL/EOL IPs)

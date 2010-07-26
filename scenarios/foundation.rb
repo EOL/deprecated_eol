@@ -138,9 +138,9 @@ create_if_not_exists DataType, :label => 'Sound',     :schema_value => 'http://p
 create_if_not_exists DataType, :label => 'Text',      :schema_value => 'http://purl.org/dc/dcmitype/Text'
 create_if_not_exists DataType, :label => 'Video',     :schema_value => 'http://purl.org/dc/dcmitype/MovingImage'
 create_if_not_exists DataType, :label => 'GBIF Image'
-create_if_not_exists DataType, :label => 'IUCN'
-create_if_not_exists DataType, :label => 'Flash'
-create_if_not_exists DataType, :label => 'YouTube'
+create_if_not_exists DataType, :label => 'IUCN',      :schema_value => 'IUCN'
+create_if_not_exists DataType, :label => 'Flash',     :schema_value => 'Flash'
+create_if_not_exists DataType, :label => 'YouTube',   :schema_value => 'YouTube'
 
 create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1
 default_hierarchy = create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009", :browsable => 1

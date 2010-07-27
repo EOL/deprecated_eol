@@ -76,6 +76,10 @@ module ActiveReload
       :change_column, :change_column_default, :rename_column, :add_index, :remove_index, :initialize_schema_information,
       :dump_schema_information, :columns, :to => :master
 
+    def execute(sql)
+      (sql.lstrip.split(" ")[0].downcase == "select" rescue nil) ?  @slave.execute(sql) : @master.execute(sql)
+    end
+    
     def transaction(start_db_transaction = true, &block)
       with_master(start_db_transaction) do
         master.transaction(start_db_transaction, &block)
@@ -96,10 +100,6 @@ module ActiveReload
           @connection_proxy = proxy
         end
 
-        def execute(sql)
-          (sql.lstrip.split(" ")[0].downcase == "select" rescue nil) ?  @slave.execute(sql) : @master.execute(sql)
-        end
-        
         # hijack the original method
         def connection
           @connection_proxy

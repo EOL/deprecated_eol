@@ -14,7 +14,7 @@ EOL.Tagging = {
 
   // the currently selected category (key)
   selected_category: function() {
-    var category = $('tag[key]').value;
+    var category = $('tag_key').value;
     if (category == '') category = 'none';
     return category;
   },
@@ -61,7 +61,7 @@ EOL.Tagging.Behaviors = {
     var value = $j('#private_data_object_tags input[name="tag[value]"]')[0].value;
     var post_url = $j(this)[0].action;
     var path = post_url + '/private'
-    $j.post( post_url, { 'tag[key]': key, 'tag[value]': value }, function(){ EOL.Tagging.reload() } );
+    $j.post( post_url, { 'tag_key': key, 'tag_value': value }, function(){ EOL.Tagging.reload() } );
     e.stop();
   },
 

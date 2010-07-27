@@ -90,8 +90,7 @@ ActionController::Routing::Routes.draw do |map|
   map.search  'search',         :controller => 'taxa', :action => 'search'
   map.connect 'search/:id',     :controller => 'taxa', :action => 'search'
   map.connect 'search.:format', :controller => 'taxa', :action => 'search'
-  
-  
+  map.found   'found/:id',      :controller => 'taxa', :action => 'found'
   
   map.connect 'content_partner/reports', :controller => 'content_partner/reports', :action => 'index' 
   map.connect 'content_partner/reports/login', :controller => 'content_partner', :action => 'login'

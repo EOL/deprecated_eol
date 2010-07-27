@@ -75,10 +75,10 @@ class TaxaController < ApplicationController
     end
   end
 
-  def search_clicked
+  def found
     # update the search log if we are coming from the search page, to indicate the user got here from a search
-    update_logged_search :id=>params[:search_id], :taxon_concept_id=>params[:id] if params.key? :search_id 
-    redirect_to taxon_url, :id=>params[:id]
+    update_logged_search :id => params[:search_id], :taxon_concept_id => params[:id] if params.key? :search_id 
+    redirect_to taxon_url(:id => params[:id])
   end
 
   # a permanent redirect to the new taxon_concept page

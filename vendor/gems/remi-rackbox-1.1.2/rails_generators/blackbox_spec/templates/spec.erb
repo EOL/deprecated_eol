@@ -1,0 +1,9 @@
+require File.dirname(__FILE__) + '/../spec_helper'
+
+describe '<%= name_of_spec_to_create %>' do
+
+  it 'should do something' do
+    request('/').body.should include('Hello World!')
+  end
+
+end

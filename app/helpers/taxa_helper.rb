@@ -20,7 +20,7 @@ module TaxaHelper
   end
     
   def agent_partial(original_agents, params={})
-    return '' if original_agents.nil? or original_agents.blank?
+    return '' if original_agents.nil? or original_agents.blank? or original_agents.class == String
     params[:linked] = true if params[:linked].nil?
     params[:only_first] ||= false
     params[:show_link_icon] = true if params[:show_link_icon].nil?
@@ -40,7 +40,7 @@ module TaxaHelper
   end
 
   def agent_icons_partial(original_agents,params={})
-    return '' if original_agents.nil? or original_agents.blank?
+    return '' if original_agents.nil? or original_agents.blank? or original_agents.class == String
     params[:linked] = true if params[:linked].nil?
     params[:show_text_if_no_icon] ||= false
     params[:only_show_col_icon] ||= false

@@ -1,0 +1,118 @@
+--- !ruby/object:Gem::Specification 
+name: openrain-scenarios
+version: !ruby/object:Gem::Version 
+  prerelease: false
+  segments: 
+  - 0
+  - 3
+  - 2
+  version: 0.3.2
+platform: ruby
+authors: 
+- remi
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-03-05 00:00:00 -08:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: remi-indifferent-variable-hash
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        segments: 
+        - 0
+        version: "0"
+  type: :runtime
+  version_requirements: *id001
+- !ruby/object:Gem::Dependency 
+  name: remi-simplecli
+  prerelease: false
+  requirement: &id002 !ruby/object:Gem::Requirement 
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        segments: 
+        - 0
+        version: "0"
+  type: :runtime
+  version_requirements: *id002
+description: Create, Organize, and Run arbitrary snippets of Ruby code
+email: remi.taylor@openrain.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- NOTICE
+- Rakefile
+- VERSION.yml
+- README.rdoc
+- LICENSE
+- lib/scenarios
+- lib/scenarios/spec.rb
+- lib/scenarios/bin.rb
+- lib/scenarios/scenario.rb
+- lib/scenarios/tasks.rb
+- lib/scenarios/scenarios.rb
+- lib/scenarios.rb
+- spec/scenarios_spec.rb
+- spec/scenario_spec.rb
+- spec/spec_helper.rb
+- spec/scenario_spec_spec.rb
+- examples/yaml_frontmatter
+- examples/yaml_frontmatter/yaml_in_header.rb
+- examples/testing_dependencies
+- examples/testing_dependencies/load_stuff.rb
+- examples/testing_dependencies/load_more_stuff.rb
+- examples/scenarios
+- examples/scenarios/first.rb
+- examples/additional_scenarios
+- examples/additional_scenarios/load_me_too.rb
+- examples/additional_scenarios/load_me.rb
+- examples/more_scenarios
+- examples/more_scenarios/foo.rb
+- rails_generators/scenario
+- rails_generators/scenario/USAGE
+- rails_generators/scenario/scenario_generator.rb
+- rails_generators/scenario/templates
+- rails_generators/scenario/templates/scenario.erb
+has_rdoc: true
+homepage: http://github.com/openrain/scenarios
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --inline-source
+- --charset=UTF-8
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.6
+signing_key: 
+specification_version: 2
+summary: Create, Organize, and Run arbitrary snippets of Ruby code
+test_files: []
+

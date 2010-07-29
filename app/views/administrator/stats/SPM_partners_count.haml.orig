@@ -1,0 +1,46 @@
+#report_from_eol
+  %h2    
+    = @page_header 
+
+  The count represents the total number of content partners with published data objects under the respective SPM subject category.
+  %br
+  *Please take note that Wikipedia, Education and Barcode are EOL internal subjects and not part of the SPM.
+  
+  %table.results_table
+    %tr
+      %td{ :colspan => "5" }
+        /= will_paginate @partner_curated_objects
+    %thead{ :align => "center" }
+      %tr{ :align => "center" }
+        %th
+          
+        %th
+          Species Profile Model
+        %th
+          No. of content partners
+
+    %tbody
+      - count = @cur_page.to_i
+      - @arr_SPM.each do |rec|
+        - column_class=cycle('odd','even')
+        - count += 1
+        %tr
+          %td{ :class => column_class, :align => "right" }
+            = count
+            = "."
+          %td{ :class => column_class }
+            = rec["schema_value"]
+          %td{ :class => column_class, :align => "right" }
+<<<<<<< HEAD
+            = number_with_delimiter(@arr_count[rec["id"]].to_i, ",")
+
+=======
+            = number_with_delimiter(@arr_count[rec["id"]], :delimiter => ",")
+>>>>>>> Removing some warnings by fixing some deprecations and getting rid of our tinyint table id checking
+
+
+    %tr
+      %td{ :colspan => "5" }
+        /= will_paginate @partner_curated_objects
+
+

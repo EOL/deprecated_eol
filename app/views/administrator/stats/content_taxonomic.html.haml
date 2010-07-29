@@ -1,0 +1,14 @@
+- unless @hierarchy
+  Select a hierarchy around which to organize content summaries:
+  %table.results_table
+    %th
+      Browsable Hierarchies
+    - @browsable_hierarchies.each do |h|
+      - row_class = cycle("odd", "even")
+      %tr
+        %td{ :class => row_class}
+          = link_to h.label, :hierarchy_id => h.id
+- else
+  %h3
+    = @hierarchy.label
+  = render(:partial => 'navigation/browse_stats')

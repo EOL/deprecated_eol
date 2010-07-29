@@ -1,0 +1,61 @@
+%div#hierarchy_browser
+  %ul#hierarchy_browser_list.branch
+    - unless @hierarchy_entry.nil?
+      %table
+        %tr
+          %td{ :width => '50%', :valign => 'top' }
+            %b
+              Browsing Branch:
+            - ancestors = @hierarchy_entry.ancestor_details(:include_stats => true)
+            - entry_details = @hierarchy_entry.details(:include_stats => true)
+            = render(:partial => 'navigation/node_with_ancestry_stats', :locals => { :ancestors => ancestors, :hierarchy_entry => entry_details})
+          %td{ :width => '50%', :valign => 'top' }
+            %table.results_table
+              %tr
+                %th
+                  Stat
+                %th
+                  Value
+              %tr
+                %td.odd
+                  \# of taxa at this entry
+                %td.odd
+                  = entry_details['stats'].total_children
+              %tr
+                %td.even
+                  \# of trusted images at this entry
+                %td.even
+                  = entry_details['stats'].all_image_trusted
+              %tr
+                %td.odd
+                  \# of unreviewed images at this entry
+                %td.odd
+                  = entry_details['stats'].all_image_untrusted
+              %tr
+                %td.even
+                  \% of children with images
+                %td.even
+                  = entry_details['stats'].pecent_with_images
+                  \%
+              %tr
+                %td.odd
+                  \# of trusted text objects at this entry
+                %td.odd
+                  = entry_details['stats'].all_text_trusted
+              %tr
+                %td.even
+                  \# of unreviewed text objects at this entry
+                %td.even
+                  = entry_details['stats'].all_text_untrusted
+              %tr
+                %td.odd
+                  \% of children with text
+                %td.odd
+                  = entry_details['stats'].pecent_with_text
+                  \%
+    %br
+    %b
+      Hierarchy Roots:
+    - for kingdom in @hierarchy.kingdom_details(:include_stats => true)
+      %li.node.bold
+        = render(:partial => 'navigation/node_name_stats', :locals => { :entry => kingdom, :node_class => 'bold'})

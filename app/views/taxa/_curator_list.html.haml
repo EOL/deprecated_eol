@@ -1,9 +1,0 @@
-- curators = @taxon_concept.approved_curators
-- if curators.size > 0
-  #page-curator
-    %h2
-      ="Page Curated by"[]
-    %br
-    - curators.each do |c|
-      .curator_name
-        = link_to h("#{c.given_name} #{c.family_name}"), :controller => :account, :action => :show, :id => c.id

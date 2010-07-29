@@ -119,6 +119,7 @@ module EOL
                                 :name          => name)
         HierarchiesContent.gen(:hierarchy_entry => he, :text => 1, :image => 1, :content_level => 4,
                                :map => options[:map] ? 1 : 0, :youtube => 1, :flash => 1)
+        HierarchyEntryStat.gen(:hierarchy_entry => he)
         # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as roles
         return he
       end

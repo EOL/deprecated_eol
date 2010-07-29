@@ -252,22 +252,21 @@ describe 'Taxa page (HTML)' do
       body.should_not include("Nucleotide Sequences")
     end
     
-    it 'should show the hierarchy descriptive label in the drop down if there is one' do
-      col = Hierarchy.find(Hierarchy.default.id)
-      @result.body.should match /value='#{col.id}'>\s*#{col.label}\s*<\/option>/ # selector default
-      
-      col.descriptive_label = 'A DIFFERENT LABEL FOR TESTING'
-      col.save!
-      Rails.cache.clear # deafult was stored.
-      result = RackBox.request("/pages/#{@id}")
-      result.body.should match /value='#{col.id}'>\s*#{col.descriptive_label}\s*<\/option>/ # selector default
-      
-      col.descriptive_label = nil
-      col.save!
-    end
+  it 'should show the hierarchy descriptive label in the drop down if there is one' do
+    col = Hierarchy.default
+    @result.body.should match /value='#{col.id}'>\s*#{col.label}\s*<\/option>/ # selector default
+    
+    col.descriptive_label = 'A DIFFERENT LABEL FOR TESTING'
+    col.save!
+    result = RackBox.request("/pages/#{@id}")
+    result.body.should match /value='#{col.id}'>\s*#{col.descriptive_label}\s*<\/option>/ # selector default
+    
+    col.descriptive_label = nil
+    col.save!
+  end
 
   describe 'specified hierarchies' do
-
+  
     before(:all) do
       #creating an NCBI hierarchy and some others
       Hierarchy.delete_all("label = 'NCBI Taxonomy'") # Not sure why, but we end up with lots of these.
@@ -279,10 +278,9 @@ describe 'Taxa page (HTML)' do
       HierarchyEntry.gen(:hierarchy => @ncbi, :taxon_concept => @taxon_concept)
       HierarchyEntry.gen(:hierarchy => @browsable_hierarchy, :taxon_concept => @taxon_concept)
       HierarchyEntry.gen(:hierarchy => @non_browsable_hierarchy, :taxon_concept => @taxon_concept)
-
+  
       # and another entry just in NCBI
       HierarchyEntry.gen(:hierarchy => @ncbi)
-
       @user_with_default_hierarchy = User.gen(:default_hierarchy_id => Hierarchy.default.id)
       @user_with_ncbi_hierarchy    = User.gen(:default_hierarchy_id => @ncbi.id)
       @user_with_nil_hierarchy     = User.gen(:default_hierarchy_id => nil)

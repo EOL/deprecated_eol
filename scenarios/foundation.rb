@@ -138,9 +138,9 @@ create_if_not_exists DataType, :label => 'Sound',     :schema_value => 'http://p
 create_if_not_exists DataType, :label => 'Text',      :schema_value => 'http://purl.org/dc/dcmitype/Text'
 create_if_not_exists DataType, :label => 'Video',     :schema_value => 'http://purl.org/dc/dcmitype/MovingImage'
 create_if_not_exists DataType, :label => 'GBIF Image'
-create_if_not_exists DataType, :label => 'IUCN'
-create_if_not_exists DataType, :label => 'Flash'
-create_if_not_exists DataType, :label => 'YouTube'
+create_if_not_exists DataType, :label => 'IUCN',      :schema_value => 'IUCN'
+create_if_not_exists DataType, :label => 'Flash',     :schema_value => 'Flash'
+create_if_not_exists DataType, :label => 'YouTube',   :schema_value => 'YouTube'
 
 create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1
 default_hierarchy = create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009", :browsable => 1
@@ -307,10 +307,15 @@ create_if_not_exists TocItem, :label => 'Overview', :view_order => 1
 description = create_if_not_exists TocItem, :label => 'Description', :view_order => 2
 create_if_not_exists TocItem, :label => 'Nucleotide Sequences', :view_order => 3, :parent_id => description.id
 ecology_and_distribution = create_if_not_exists TocItem, :label => 'Ecology and Distribution', :view_order => 4
+#--
 names_and_taxonomy = create_if_not_exists TocItem, :label => 'Names and Taxonomy', :view_order => 50
 create_if_not_exists TocItem, :label => 'Related Names', :view_order => 51, :parent_id => names_and_taxonomy.id
 create_if_not_exists TocItem, :label => 'Synonyms', :view_order => 52, :parent_id => names_and_taxonomy.id
 create_if_not_exists TocItem, :label => 'Common Names', :view_order => 53, :parent_id => names_and_taxonomy.id
+#--
+page_stats = create_if_not_exists TocItem, :label => 'Page Statistics', :view_order => 57
+create_if_not_exists TocItem, :label => 'Content Summary', :view_order => 58, :parent_id => page_stats.id
+#--
 create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_order => 61
 ref_and_info = create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 62
 

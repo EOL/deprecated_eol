@@ -1,0 +1,41 @@
+- url = url_for(:controller => '/api', :action => 'ping', :only_path => false)
+#content
+  #page-separator-general
+  #page-title
+    %h1
+      EOL API: Ping
+    %hr
+  #page-content.clearfix
+    #full-page-content
+      %h3
+        Request
+      %p.indent
+        %a{ :href => url }
+          = url
+      %h3
+        Parameters
+      %p.indent
+        %i
+          none
+      %h3
+        Description
+      %p.indent
+        This method will either fail (in which case the EOL error page will most likely be returned) or return a message of Success. There are no other possible messages
+      %h3
+        XML Response
+      .formatted_code<
+        :escaped
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <response>
+            <message>Success</message>
+          </response>
+      %h3
+        JSON Response
+      .formatted_code<
+        :escaped
+          {
+              "response":
+              {
+                  "message":"Success"
+              }
+          }

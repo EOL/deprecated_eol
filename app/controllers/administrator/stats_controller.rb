@@ -1,6 +1,7 @@
 class Administrator::StatsController < AdminController
 
-  layout 'admin_without_nav'    
+  layout :choose_layout
+  
 
   access_control :DEFAULT => 'Administrator - Usage Reports'
   
@@ -53,4 +54,17 @@ class Administrator::StatsController < AdminController
     @arr_toc = InfoItem.get_toc_breakdown
   end
   
+  def content_taxonomic
+    if params[:hierarchy_id]
+      @hierarchy = Hierarchy.find(params[:hierarchy_id])
+    else
+      @browsable_hierarchies = Hierarchy.browsable_by_label
+    end
+  end
+  
+  
+  private
+  def choose_layout
+    action_name == 'content_taxonomic' ? 'admin' : 'admin_without_nav'
+  end
 end

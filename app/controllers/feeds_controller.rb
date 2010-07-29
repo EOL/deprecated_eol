@@ -117,7 +117,7 @@ class FeedsController < ApplicationController
     do_detail = DataObject.get_object_cache_url(arr_dataobject_ids)
 
     #arr = User.curated_data_object_ids(arr_dataobject_ids,agent_id)
-    arr = User.curated_data_object_ids(arr_dataobject_ids, year, month, @agent_id)
+    arr = User.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
       arr_dataobject_ids = arr[0]
       arr_user_ids = arr[1]
 
@@ -126,7 +126,7 @@ class FeedsController < ApplicationController
     end
 
     arr_obj_tc_id = DataObject.tc_ids_from_do_ids(arr_dataobject_ids);
-    partner_curated_objects = User.curated_data_objects(arr_dataobject_ids, year, month, 0, "feed")
+    partner_curated_objects = User.curated_data_objects(arr_dataobject_ids, year, month, 0, "rss feed")
 
     feed_items = {}
 
@@ -192,8 +192,6 @@ class FeedsController < ApplicationController
         content = "<img src='#{DataObject.image_cache_path(hash['object_cache_url'],'small')}'/></a><br/>" + content
       end
 
-
-      #content += "" + "<br/><br/>"      
       e.content = Atom::Content::Html.new(content)
     end
   end

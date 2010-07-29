@@ -13,11 +13,6 @@ class AccountController < ApplicationController
   if $USE_SSL_FOR_LOGIN 
     before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password] 
   end
-
-  if $SHOW_SURVEYS
-    before_filter :check_for_survey
-    after_filter :count_page_views
-  end
   layout 'main'
 
   @@objects_per_page = 20
@@ -76,7 +71,7 @@ class AccountController < ApplicationController
     @user.password = @user.entered_password
     @user.remote_ip = request.remote_ip
     if verify_recaptcha &&  @user.save
-      @user.update_attribute :agent_id, Agent.create_agent_from_user(:full_name => @user.full_name).id
+      @user.update_attribute :agent_id, Agent.create_agent_from_user(@user.full_name).id
       @user.entered_password = ''
       @user.entered_password_confirmation = ''
       Notifier.deliver_registration_confirmation(@user)

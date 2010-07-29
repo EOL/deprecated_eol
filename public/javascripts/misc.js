@@ -63,11 +63,57 @@ function eol_show_pop_up(div_name, partial_name, taxon_name) {
     
 }
 
+// Displays the Photosynth interface in the image pane.
+function load_photosynth_interface(source_url)
+{
+    //synth = "<iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'>";
+    //synth = "<iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><table id='main-image-table'><tr><td><img id='main-image'></td></tr></table>";
+    synth = "<table id='main-image-table'><tr><td><iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'></td></tr></table>";
+    $('main-image-bg').innerHTML = synth;  
+}
+
 // Updates the main image and calls eol_update_credit()
 function eol_update_image(large_image_url, params) {
+  
+  /* --- original code ---
   $('main-image').src = large_image_url;
   $('main-image').alt=params.nameString;
   $('main-image').title=params.nameString;
+  */
+
+  /* Working if u want to see the Photosynth interface right away after clicking on a thumbnail
+  var string = params.source_url;//source_url is from [views/taxa/_image_collection]
+  if(string.search(/photosynth.net/) == -1)
+  { //regular static image
+    $('main-image-bg').innerHTML = "<img id='main-image'>";      
+    $('main-image').src = large_image_url;
+    $('main-image').alt=params.nameString;
+    $('main-image').title=params.nameString;    
+  }
+  else
+  { //photosynth image
+    synth = "<iframe frameborder='0' src='" + string.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'>";
+    $('main-image-bg').innerHTML = synth;  
+  }
+  */  
+  
+  $('main-image-bg').innerHTML = "<table id='main-image-table'><tr><td><img id='main-image'></td></tr></table>";                
+  $('main-image').src = large_image_url;    
+  $('main-image').alt=params.nameString;
+  $('main-image').title=params.nameString;    
+
+  //This will display a photosynth icon if a thumbnail photosynth image is clicked.
+  var string = params.source_url;//source_url is from [views/taxa/_image_collection]
+  if(string.search(/photosynth.net/) == -1)
+  { //regular static image    
+    $('photosynth-message').innerHTML = "";          
+  }
+  else
+  { //photosynth image
+    $('photosynth-message').innerHTML = "<a href=javascript:load_photosynth_interface('" + escape(params.source_url) + "')><img src='http://mslabs-999.vo.llnwd.net/e1/inc/images/master/logo.png' height='27' alt='Photosynth' title='Image is part of a Photosynth'></a>";    
+  }
+  
+  
     
   // update the hrefs for the comment, curation, etc popups
   if($$('div#large-image-trust-button a')[0]) {
@@ -330,40 +376,27 @@ function update_browser(hierarchy_entry_id, expand) {
         asynchronous:true, 
         evalScripts:true, 
         method:'post', 
-        onComplete:function(request){hideAjaxIndicator(); scroll(0,0);},
+        onComplete:function(request){hideAjaxIndicator(); scroll(0,100);},
         onLoading:function(request){showAjaxIndicator();},
         parameters: {id: hierarchy_entry_id, expand: expand }
       } );
 }
 
-function eol_change_to_flash_browser()
-{
-    if ($('classification-attribution-button_popup') != null) {EOL.Effect.disappear('classification-attribution-button_popup');}           
-    EOL.Effect.disappear('browser-text');
-    EOL.Effect.appear('browser-flash');                
-    update_default_taxonomic_browser('flash');    
+// call remote function to show the selected node in the text-based navigational tree view
+function update_browser_stats(hierarchy_entry_id, expand) {
+    url = '/navigation/browse_stats'
+    new Ajax.Updater(
+    'hierarchy_browser', url,
+      {
+        asynchronous:true, 
+        evalScripts:true, 
+        method:'post', 
+        onComplete:function(request){hideAjaxIndicator(); scroll(0,100);},
+        onLoading:function(request){showAjaxIndicator();},
+        parameters: {id: hierarchy_entry_id, expand: expand }
+      } );
 }
 
-function eol_change_to_text_browser()
-{
-    if ($('classification-attribution-button_popup') != null) {EOL.Effect.disappear('classification-attribution-button_popup');}           
-    EOL.Effect.disappear('browser-flash');
-    EOL.Effect.appear('browser-text');
-    update_default_taxonomic_browser('text');
-}
-
-function update_default_taxonomic_browser(default_browser)
-{
-        new Ajax.Request(
-        '/navigation/set_default_taxonomic_browser',
-          {
-            asynchronous:true, 
-            evalScripts:true, 
-            method:'get',     
-            parameters:'browser='+default_browser
-          }
-    );
-}
 
 function toggle_children() {
     Element.toggle('taxonomic-children');

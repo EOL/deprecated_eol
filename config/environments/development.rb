@@ -32,7 +32,6 @@ config.log_level = :debug # :error
 $EXCEPTION_NOTIFY=true # set to false to not be notified of exceptions via email
 $ERROR_LOGGING=true # set to true to record uncaught application errors in sql database file 
 
-$SHOW_SURVEYS=false # set to true to show surveys; logic on when to show surveys is set in the "show_survey?" method in the application controller
 $ENABLE_ANALYTICS=false 
 $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
 

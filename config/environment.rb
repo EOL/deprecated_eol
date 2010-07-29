@@ -11,8 +11,6 @@ require 'eol_web_service'
 require 'eol'
 RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
-#test ... just delete this line if you find it, I was testing revision control
-
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
@@ -52,8 +50,6 @@ Rails::Initializer.run do |config|
   config.gem 'haml'
   config.gem 'macaddr'
   config.gem 'uuid'
-  config.gem "ruby-openid", :lib => "openid"
-  config.gem "ruby-yadis", :lib => "yadis"
   config.gem 'ezcrypto'
   config.gem 'ratom', :lib => 'atom'
   config.gem 'json'

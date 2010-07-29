@@ -27,7 +27,7 @@ require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
 require 'eol_scenarios'
 EolScenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
 
-require 'eol_rackbox'
+require 'rackbox'
 
 Spec::Runner.configure do |config|
   include EolScenario::Spec

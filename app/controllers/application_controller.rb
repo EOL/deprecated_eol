@@ -163,7 +163,6 @@ class ApplicationController < ActionController::Base
 
        create_new_user
        clear_old_sessions if $USE_SQL_SESSION_MANAGEMENT
-       session[:page_views]=0 if $SHOW_SURVEYS  # if we are showing surveys, we need to record how many page views this user has done
 
        # expire home page fragment caches after specified internal to keep it fresh
        if $CACHE_CLEARED_LAST.advance(:hours=>$CACHE_CLEAR_IN_HOURS) < Time.now
@@ -246,42 +245,41 @@ class ApplicationController < ActionController::Base
     expired_ids = Set.new
     DataObject.find(data_object_id).taxon_concepts.each do |tc|
       expire_taxon_concept(tc.id, :expire_ancestors => false) if expired_ids.add?(tc.id)
-      begin
-        tc.ancestors.each do |tca|
-          expire_taxon_concept(tca.id, :expire_ancestors => false) if expired_ids.add?(tca.id)
-        end
-      rescue Exception => e
-        if e.to_s != "Taxon concept must have at least one hierarchy entry"
-          raise e
+      Thread.new do
+        begin
+          tc.ancestors.each do |tca|
+            expire_taxon_concept(tca.id, :expire_ancestors => false) if expired_ids.add?(tca.id)
+          end
+        rescue Exception => e
+          if e.to_s != "Taxon concept must have at least one hierarchy entry"
+            raise e
+          end
         end
       end
     end
-
   end
 
   # expire the fragment cache for a specific taxon_concept ID
   # (add :expire_ancestors=>false if you don't want to expire that s's ancestors as well)
   # TODO -- come up with a better way to expire taxa or name the cached parts -- this expiration process is very expensive due to all the iterations for each taxa id
   def expire_taxon_concept(taxon_concept_id,params={})
-
-   #expire the given taxon_concept_id
-   return false if taxon_concept_id == nil || taxon_concept_id.to_i == 0
-
-   taxon_concept=TaxonConcept.find_by_id(taxon_concept_id)
-   return false if taxon_concept.nil?
-
-   expire_ancestors=params[:expire_ancestors]
-   expire_ancestors=true if params[:expire_ancestors].nil?
-
-   if expire_ancestors
-     taxa_ids=taxon_concept.ancestry.collect {|an| an.taxon_concept_id}
-   else
-     taxa_ids=[taxon_concept_id]
-   end
-
-   expire_all_variants_of_taxa(taxa_ids)
+    #expire the given taxon_concept_id
+    return false if taxon_concept_id == nil || taxon_concept_id.to_i == 0
+    
+    taxon_concept=TaxonConcept.find_by_id(taxon_concept_id)
+    return false if taxon_concept.nil?
+    
+    expire_ancestors=params[:expire_ancestors]
+    expire_ancestors=true if params[:expire_ancestors].nil?
+    
+    if expire_ancestors
+      taxa_ids=taxon_concept.ancestry.collect {|an| an.taxon_concept_id}
+    else
+      taxa_ids=[taxon_concept_id]
+    end
+    
+    expire_all_variants_of_taxa(taxa_ids)
     return true
-
   end
 
   # check if the requesting IP address is allowed (used to resrict methods to specific IPs, such as MBL/EOL IPs)
@@ -453,22 +451,6 @@ class ApplicationController < ActionController::Base
        (javascript || '').gsub('\\','\0\0').gsub('</','<\/').gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/) { |m| "\\#{m}" }
     end
 
-    # we are going to keep track of how many taxa pages the user has seen so we can determine if we are going to show the survey link or not
-    # this defines our logic for if we show a survey or not on this page view
-    def show_survey?
-
-      # show survey on third taxa page view if not logged in and if not already asked before according to the cookie value
-      if session[:page_views] == 3 && current_user.id.nil? && cookies[:survey_taken].nil?
-        # if we are counting visitors, show survey every tenth visitor, if not, show it 10% of the time at random
-        if  rand(0)<0.1
-          return true
-        else
-          return false
-        end
-      end
-
-    end
-
     def set_session_hierarchy_variable
       hierarchy_id = current_user.default_hierarchy_valid? ? current_user.default_hierarchy_id : Hierarchy.default.id
       secondary_hierarchy_id = current_user.secondary_hierarchy_id rescue nil
@@ -573,17 +555,6 @@ private
   def set_current_language
     current_user.language = Language.english if current_user.language.nil? or current_user.language_abbr == ""
     Gibberish.use_language(current_user.language_abbr) { yield }
-  end
-
-  # we are going to keep track of how many pages the user has seen so we can determine if we are going to show the survey link or not
-  def count_page_views
-    session[:page_views]=0 if session[:page_views].nil?
-    session[:page_views]+=1
-  end
-
-  def check_for_survey
-    # check if it's time to show the survey
-    @display_survey = show_survey? if $SHOW_SURVEYS
   end
 
   def log_data_objects_for_taxon_concept taxon_concept, *objects

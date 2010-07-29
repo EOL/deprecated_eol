@@ -64,8 +64,8 @@ class Resource < SpeciesSchemaModel
     if accesspoint_url.blank? && dataset_file_name.blank?
        errors.add_to_base("You must either provide a URL or upload a resource file")
     elsif dataset_file_name.blank? && !accesspoint_url.blank?  # gave a URL
-      if !accesspoint_url.match(/(\.tar\.(gz|gzip)|.tgz|.xml)/)  # URL is not .xml, .tar.gz, .tar.gzip, .tgz
-        errors.add_to_base("The resource file URL must be an xml or tar/gzip file")
+      if !accesspoint_url.match(/\.xml(\.gz|\.gzip)?/)  # URL is not .xml, .xml.gz, .xml.gzip
+        errors.add_to_base("The resource file URL must be .xml or .xml.gz(ip)")
       elsif !EOLWebService.url_accepted?(accesspoint_url)  # URL doesn't return 200
         errors.add_to_base("The resource file URL is not valid")
       end
@@ -73,7 +73,7 @@ class Resource < SpeciesSchemaModel
     
     unless dwc_archive_url.blank?
       if !dwc_archive_url.match(/(\.tar\.(gz|gzip)|.tgz)/)  # dwca url not a .tar.gz, .tar.gzip, .tgz
-        errors.add_to_base("The Darwin Core Archive bust be a tar/gzip file")
+        errors.add_to_base("The Darwin Core Archive must be a tar/gzip file")
       elsif !EOLWebService.url_accepted?(dwc_archive_url)  # dwca url does't return 200
         errors.add_to_base("The Darwin Core Archive URL is not valid")
       end
@@ -95,6 +95,36 @@ class Resource < SpeciesSchemaModel
     self.vetted=vetted
 
     true
+  end
+  
+  def upload_resource_to_content_master(application_server_url)
+    resource_status = ResourceStatus.uploaded if accesspoint_url.blank?
+    
+    file_path = (accesspoint_url.blank? ? application_server_url + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1] : accesspoint_url)  
+    parameters = 'function=upload_resource&resource_id=' + id.to_s + '&file_path=' + file_path
+    begin
+      response = EOLWebService.call(:parameters => parameters)
+    rescue 
+      ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service has an error") if $ERROR_LOGGING
+      resource_status = ResourceStatus.upload_failed
+    end
+    if response.nil? || response.blank?
+      ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content provider dataset service timed out") if $ERROR_LOGGING
+      resource_status = ResourceStatus.upload_failed
+    else
+      response = Hash.from_xml(response)
+      if response["response"].key? "status"
+        status = response["response"]["status"]
+        resource_status = ResourceStatus.send(status.downcase.gsub(" ","_"))
+        if response["response"].key? "error"
+          error = response["response"]["error"]
+          ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
+          notes = error if status.strip == 'Validation failed'
+        end
+      end
+    end
+    self.save!
+    return resource_status
   end
 
 end

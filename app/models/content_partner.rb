@@ -248,8 +248,14 @@ class ContentPartner < SpeciesSchemaModel
     # vet or unvet entire content partner (0 = unknown, 1 = vet)
     def set_vetted_status(vetted) 
       set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
-      SpeciesSchemaModel.connection.execute("update data_objects d, data_objects_harvest_events dh, harvest_events h, agents_resources ar set d.vetted_id = #{set_to_state} where d.curated = 0 and  d.id = dh.data_object_id and dh.harvest_event_id = h.id and h.resource_id =  ar.resource_id and ar.agent_id=#{self.agent.id}")
-      self.vetted=vetted
+      SpeciesSchemaModel.connection.execute("
+        UPDATE agents_resources ar
+        JOIN harvest_events he ON (ar.resource_id=he.resource_id)
+        JOIN data_objects_harvest_events dohe ON (he.id=dohe.harvest_event_id)
+        JOIN data_objects do ON (dohe.data_object_id=do.id)
+        SET do.vetted_id = #{set_to_state}
+        WHERE ar.agent_id=#{self.agent.id} AND do.curated = 0")
+      self.vetted = vetted
     end
 
     # Set these fields to blank because insistence on having NOT NULL columns on things that aren't populated

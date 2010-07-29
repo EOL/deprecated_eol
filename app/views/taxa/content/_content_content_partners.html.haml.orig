@@ -1,0 +1,32 @@
+<<<<<<< HEAD
+Below is a list of partners, including content partners, with information on this taxon. Where possible the links will take you to the corresponding content on the given partner's website. The unique identifier for this taxon used by each partner is embedded in these links
+-#, and these identifiers are also accessible through the
+-#= link_to "EOL API", "http://wiki.eol.org/display/dev/API+Methods"
+=======
+Below is a list of partners, including content partners, with information on this taxon. Where possible the links will take you to the corresponding content on the given partner's website. The unique identifier for this taxon used by each partner is embedded in these links, and these identifiers are also accessible through the
+= link_to "EOL API", "http://wiki.eol.org/display/dev/API+Methods"
+>>>>>>> Merge branch 'master' into r23
+%br
+%br
+
+- outlinks = @content[:outlinks]
+- unless outlinks.blank?
+  - projects_rows, num_columns = reformat_specialist_projects(outlinks) 
+  %table.results_table{:cellspacing => "0"}
+    %tr
+      - num_columns.times do
+        %th
+          = ''
+    - projects_rows.each do |row|
+      %tr
+        - column_class = cycle('odd', 'even')
+        - row.each do |outlink|
+          %td{:class => column_class, :valign => "top", :style => "width:#{100/num_columns}%"}
+            - if outlink
+              - link_text = hierarchy_outlink_collection_types(outlink[:hierarchy])
+              = external_link_to(agent_logo(outlink[:hierarchy].agent, "small"), outlink[:hierarchy].url, :show_link_icon => false)
+              = outlink[:hierarchy].label unless link_text == outlink[:hierarchy].label
+              %br
+              = external_link_to(link_text, outlink[:outlink_url], :show_link_icon => true)
+            - else
+              &nbsp;

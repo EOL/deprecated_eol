@@ -6,7 +6,6 @@ class ContentController < ApplicationController
 
   layout 'main'
 
-  before_filter :check_for_survey if $SHOW_SURVEYS
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
   before_filter :set_session_hierarchy_variable, :only => [:index, :explore_taxa, :replace_single_explore_taxa]
 
@@ -500,14 +499,16 @@ class ContentController < ApplicationController
   def wikipedia
     @revision_url = params[:revision_url]
     @error = false
-    if matches = @revision_url.match(/^http:\/\/en\.wikipedia\.org\/w\/index\.php\?title=(.*?)&oldid=([0-9]{9})$/i)
-      flash[:notice] = "Wikipedia article #{matches[1]} revision #{matches[2]} will be harvested tonight"
-      WikipediaQueue.create(:revision_id => matches[2])
-      redirect_to :action => 'page', :id => 'curator_central'
-    else
-      flash[:notice] = "Revision URL must match http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
-      @revision_url = nil
-      redirect_to :action => 'page', :id => 'curator_central'
+    if current_user.curator_approved
+      if matches = @revision_url.match(/^http:\/\/en\.wikipedia\.org\/w\/index\.php\?title=(.*?)&oldid=([0-9]{9})$/i)
+        flash[:notice] = "Wikipedia article #{matches[1]} revision #{matches[2]} will be harvested tonight"
+        WikipediaQueue.create(:revision_id => matches[2], :user_id => current_user.id)
+        redirect_to :action => 'page', :id => 'curator_central'
+      else
+        flash[:notice] = "Revision URL must match http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*"
+        @revision_url = nil
+        redirect_to :action => 'page', :id => 'curator_central'
+      end
     end
   end
 end

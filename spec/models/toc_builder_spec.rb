@@ -39,12 +39,14 @@ describe TocBuilder do
       toc[0].label.should == "Overview"
       toc[1].label.should == "Names and Taxonomy"
       toc[2].label.should == "Synonyms"
-      toc[3].label.should == "Biodiversity Heritage Library"
-      toc[4].label.should == "References and More Information"
-      toc[5].label.should == "Literature References"
-      toc[6].label.should == "Content Partners"
-      toc[7].label.should == "Biomedical Terms"
-      toc[8].label.should == "Search the Web"
+      toc[3].label.should == "Page Statistics"
+      toc[4].label.should == "Content Summary"
+      toc[5].label.should == "Biodiversity Heritage Library"
+      toc[6].label.should == "References and More Information"
+      toc[7].label.should == "Literature References"
+      toc[8].label.should == "Content Partners"
+      toc[9].label.should == "Biomedical Terms"
+      toc[10].label.should == "Search the Web"
     end
 
   end

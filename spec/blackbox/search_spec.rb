@@ -199,7 +199,7 @@ describe 'Search' do
       new_image_dato.tag("key-new", "value-new", user)
       
       res = request('/search?q=value-old&search_type=tag')
-      res.body.should include(CGI.escapeHTML taxon_concept.scientific_name)
+      res.body.should include(taxon_concept.scientific_name)
     end
 
     # REMOVE AFTER PAGINATION IMPLEMENTING TODO

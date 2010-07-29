@@ -1,3 +1,5 @@
+- @include_common_names = (current_user.expertise == "middle")
+- @common_name_language = current_user.language
 - if @hierarchy_entry.blank?
   - @hierarchy_entry = @taxon_concept.find_ancestor_in_hierarchy(@session_hierarchy)
   - @in_hierarchy = @taxon_concept.in_hierarchy(@session_hierarchy)
@@ -8,19 +10,19 @@
 
 #taxonomic-text-container
   %ul#taxonomictext
-    - kingdoms = @hierarchy.kingdom_details
+    - kingdoms = @hierarchy.kingdom_details(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
     - for kingdom in kingdoms
       - if entry_kingdom && entry_kingdom.id == kingdom['id'].to_i
-        - ancestors = @hierarchy_entry.ancestor_details
-        - entry_details = @hierarchy_entry.details
+        - ancestors = @hierarchy_entry.ancestor_details(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
+        - entry_details = @hierarchy_entry.details(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
         - unless kingdom == kingdoms.first
           %br
         = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => entry_details, :node_class => 'bold' })
         - unless kingdom == kingdoms.last
           %br
       - else
-        %li.bold
-          = render(:partial => 'navigation/node_name_page', :locals => { :entry => kingdom })
+        %li
+          = render(:partial => 'navigation/node_name_page', :locals => { :entry => kingdom, :node_class => 'bold' })
     - if entry_kingdom.blank?
       %br
       %span.message

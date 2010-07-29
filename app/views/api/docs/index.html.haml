@@ -1,0 +1,62 @@
+#content
+  #page-separator-general
+  #page-title
+    %h1
+      EOL API
+    %hr
+  #page-content.clearfix
+    #full-page-content
+      %h3
+        Methods
+      %table.results_table
+        %tr
+          %th
+            Method
+          %th
+            Description
+        %tr
+          %td.odd
+            = link_to 'ping', :controller => 'api/docs', :action=>'ping'
+          %td.odd
+            returns either a positive response (indicating APIs are functional), or returns a negative response or nothing at all (indicating APIs are not functional at that time).
+        %tr
+          %td.even
+            = link_to 'search', :controller => 'api/docs', :action=>'search'
+          %td.even
+            given a value for a specific element (e.g. scientific name=Homo sapiens), returns a paginated list of the EOL pages containing the search term
+        %tr
+          %td.odd
+            = link_to 'pages', :controller => 'api/docs', :action=>'pages'
+          %td.odd
+            takes an EOL page identifier and returns the scientific  name for that page, and optionally returns information about common  names, media (text, images and videos), and references to the  hierarchies which recognize the taxon described on the
+        %tr
+          %td.even
+            = link_to 'data_objects', :controller => 'api/docs', :action=>'data_objects'
+          %td.even
+            returns all metadata about a particular data object (text, image or video) indexed by EOL
+        %tr
+          %td.odd
+            = link_to 'hierarchy_entries', :controller => 'api/docs', :action=>'hierarchy_entries'
+          %td.odd
+            gives access to a single hierarchy indexed by EOL and its internal relationships
+      %br
+      %h3
+        Response Formats
+      %p.indent
+        All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:
+        .formatted_code<
+          :escaped
+            http://www.eol.org/api/search/Robin
+            http://www.eol.org/api/search/Robin.xml
+      %p.indent
+        Every method can also return a JSON response by adding a .json extension
+        .formatted_code<
+          :escaped
+            http://www.eol.org/api/search/Robin.json
+      %p.indent
+        \... and JSONP by adding a callback parameter
+        .formatted_code<
+          :escaped
+            http://www.eol.org/api/search/Robin.json?callback=some_neat_function
+      %p.indent
+        Each method's documentation page has an example of both the XML and JSON formatted responses.

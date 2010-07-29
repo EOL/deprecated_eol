@@ -29,6 +29,8 @@ class CategoryContentBuilder
       content.merge! synonyms(options)
     elsif sub_name == "common_names"
       content.merge! common_names(options)
+    elsif sub_name == "content_summary"
+      content.merge! content_summary(options)
     elsif sub_name == "biomedical_terms"
       content.merge! biomedical_terms(options)
     elsif sub_name == "search_the_web"
@@ -90,6 +92,12 @@ private
     names = names.select {|n| (n.language_label != unknown) || (!known_names.include?(n.name_id.to_i))} 
     return {:items => names} 
   end
+  
+  def content_summary(options)
+    hash = TaxonConcept.entry_stats(options[:taxon_concept_id])
+    return {:items => hash}
+  end
+  
 
   def biomedical_terms(options)
     return {:item => HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, options[:taxon_concept_id])}

@@ -31,10 +31,18 @@ module EOL
       # way.  Later.
       def prepare_querystring(query, options)
         if options[:type] == :all
-          literal_query = "scientific_name:\"#{query}\" OR common_name:\"#{query}\""
+          if options[:exact]
+            literal_query = "scientific_name_exact:\"#{query}\" OR common_name_exact:\"#{query}\""
+          else
+            literal_query = "(scientific_name:\"#{query}\" scientific_name_exact:\"#{query}\"^100) OR (common_name:\"#{query}\" common_name_exact:\"#{query}\"^100)"
+          end
         else
           field = options[:type] == :common ? 'common_name' : 'scientific_name'
-          literal_query = "#{field}:\"#{query}\" #{field}_exact:\"#{query}\"^100"
+          if options[:exact]
+            literal_query = "#{field}_exact:\"#{query}\""
+          else
+            literal_query = "#{field}:\"#{query}\" #{field}_exact:\"#{query}\"^100"
+          end
         end
         query = query.gsub /\s+/, ' '
         query = query.split(' ').map {|w| "+#{w}"}.join(' ')

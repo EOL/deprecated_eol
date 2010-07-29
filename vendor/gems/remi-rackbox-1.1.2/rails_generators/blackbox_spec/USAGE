@@ -1,0 +1,5 @@
+Description:
+    Creates a new blackbox spec (using RackBox)
+    
+Examples:
+    `./script/generate blackbox_spec`

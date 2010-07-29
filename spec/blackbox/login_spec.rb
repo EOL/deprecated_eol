@@ -73,7 +73,5 @@ describe 'Login' do
       request('/').should include_text("/account/show/")
     end
   end
-
-
   
 end

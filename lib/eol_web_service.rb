@@ -26,7 +26,7 @@ class EOLWebService
     begin
       parsed_url=URI.parse(url)
       header=Net::HTTP.new(parsed_url.host,parsed_url.port).head(parsed_url.path == '' ? '/' : parsed_url.path)    
-      return true if header.code == '200'
+      return true if header.code.to_i == 200
     rescue
       return false
     end

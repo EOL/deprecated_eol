@@ -34,7 +34,6 @@ config.log_level = :debug # :error
 $EXCEPTION_NOTIFY=false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
 $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
 $ENABLE_ANALYTICS=false
-$SHOW_SURVEYS=false
 
 $IP_ADDRESS_OF_SERVER='127.0.0.1'
 
@@ -48,9 +47,4 @@ config.gem "eol_scenarios", :lib => "eol_scenarios"
 config.gem "rspec", :lib => false
 config.gem "rspec-rails", :lib => false
 config.gem "factory_girl", :lib => false
-config.gem "eol_rackbox", :lib => false
-# Note we are using an old version of metric_fu; 1.2 has a dependency on activesupport that we're not using for Rails.
-# TODO - when we update our Rails version, update metric_fu
-config.gem "metric_fu", :lib => 'metric_fu'
-config.gem "ruby2ruby"
-config.gem "reek"
+config.gem "remi-rackbox", :lib => false

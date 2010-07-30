@@ -87,7 +87,7 @@ module ActiveReload
     end
 
     def method_missing(method, *args, &block)
-      @current.send(method, *args, &block)
+      current.send(method, *args, &block)
     end
     
     

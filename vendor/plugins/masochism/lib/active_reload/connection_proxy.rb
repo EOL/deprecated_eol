@@ -90,15 +90,6 @@ module ActiveReload
       current.send(method, *args, &block)
     end
     
-    
-    #added by EOL team
-    def execute(sql)
-      if @current != @master && (sql.lstrip.split(" ")[0].downcase == "select" rescue nil)
-        @slave.execute(sql)
-      else
-        @master.execute(sql)
-      end
-    end
   end
 
   module ActiveRecordConnectionMethods

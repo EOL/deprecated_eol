@@ -29,7 +29,11 @@ module ActiveReload
     end
     
     def current
-      send @current
+      if @current == :master
+        master
+      else
+        slave
+      end
     end
     
     def self.setup!
@@ -76,10 +80,6 @@ module ActiveReload
       :change_column, :change_column_default, :rename_column, :add_index, :remove_index, :initialize_schema_information,
       :dump_schema_information, :columns, :to => :master
 
-    def execute(sql)
-      (sql.lstrip.split(" ")[0].downcase == "select" rescue nil) ?  @slave.execute(sql) : @master.execute(sql)
-    end
-    
     def transaction(start_db_transaction = true, &block)
       with_master(start_db_transaction) do
         master.transaction(start_db_transaction, &block)
@@ -90,6 +90,14 @@ module ActiveReload
       current.send(method, *args, &block)
     end
     
+    #added by EOL team
+    def execute(sql)
+      if @current != @master && (sql.lstrip.split(" ")[0].downcase == "select" rescue nil)
+        slave.execute(sql)
+      else
+        master.execute(sql)
+      end
+    end
   end
 
   module ActiveRecordConnectionMethods

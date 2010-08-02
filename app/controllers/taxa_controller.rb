@@ -293,6 +293,7 @@ class TaxaController < ApplicationController
 
     @video_url=params[:video_url]
     video_type=params[:video_type].downcase
+    @mime_type_id=params[:video_mime_type_id]
 
     render :update do |page|
       page.replace_html 'video-player', :partial => 'video_' + video_type

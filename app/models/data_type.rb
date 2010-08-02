@@ -70,7 +70,7 @@ class DataType < SpeciesSchemaModel
   end
   
   def self.video_type_ids
-    ids = [DataType.youtube.id, DataType.flash.id]
+    ids = [DataType.youtube.id, DataType.flash.id, DataType.video.id]
   end
 
   def self.map_type_ids

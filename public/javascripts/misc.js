@@ -284,7 +284,7 @@ function eol_update_video(params) {
     $('video_attributions').href = "/data_objects/" + params.data_object_id + "/attribution"; 
 
     new Ajax.Request('/taxa/show_video/', {
-             parameters: { video_type: params.video_type, video_url: params.video_url },
+             parameters: { video_type: params.video_type, video_url: params.video_url, video_mime_type_id: params.mime_type_id, data_object_id: params.data_object_id },
             onComplete:function(request){hideAjaxIndicator();},
             onLoading:function(request){showAjaxIndicator();},
             asynchronous:true,

@@ -224,7 +224,7 @@ require 'open-uri'
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin
-  require 'environment_eol_org'
+  require 'config/environment_eol_org'
 rescue LoadError
 end
 

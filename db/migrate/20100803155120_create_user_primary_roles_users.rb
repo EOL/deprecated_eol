@@ -1,6 +1,6 @@
-class CreateUsersUserPrimaryRoles < ActiveRecord::Migration
+class CreateUserPrimaryRolesUsers < ActiveRecord::Migration
   def self.up
-    create_table :users_user_primary_roles do |t|
+    create_table :user_primary_roles_users do |t|
       t.reference :users
       t.reference :user_primary_roles
     end

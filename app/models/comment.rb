@@ -15,6 +15,7 @@ class Comment < ActiveRecord::Base
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
   named_scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
 
+  before_save :log_vetting
   before_create :set_visible_at, :set_from_curator
   
   after_create  :curator_activity_flag, :new_actions_histories_create_comment
@@ -23,6 +24,18 @@ class Comment < ActiveRecord::Base
 
   attr_accessor :vetted_by
 
+  def log_vetting
+    if self.visible_at_changed? and self.vetted_by
+      was = self.visible_at_was
+      is  = self.visible_at
+      if is == nil # unvetted
+        CuratorCommentLog.create :comment => self, :user => self.vetted_by, :curator_activity => CuratorActivity.disapprove!
+      elsif was == nil # vetted
+        CuratorCommentLog.create :comment => self, :user => self.vetted_by, :curator_activity => CuratorActivity.approve!
+      end
+    end
+  end
+  
   def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 50)
     return [] if taxon_concept_id.nil?
     min_date = 30.days.ago.strftime('%Y-%m-%d')

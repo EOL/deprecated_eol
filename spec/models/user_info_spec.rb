@@ -3,7 +3,7 @@ require 'spec_helper'
 describe UserInfo do
   before(:each) do
     @valid_attributes = {
-      :user => ,
+      :user => User.gen,
       :areas_of_interest => "value for areas_of_interest",
       :heard_of_eol => "value for heard_of_eol",
       :interested_in_contributing => false,

@@ -1,0 +1,25 @@
+%ul#toc{ :style => "list-style:none;margin-left:-25px;padding-left:-25px;" }
+  %li
+    = link_to 'Curator Central home', {:controller => '/curators', :action => 'index'}, {:class=>'toc_item active'}
+  %li
+    = link_to 'Profile', {:action => 'profile'}, {:class=>'toc_item active'}
+  %h3
+    Documentation
+  %li
+    = link_to 'FAQ',{:controller=>'/content/page',:action=>'curator_central'}, {:class=>'toc_item active'}
+  %li
+    = link_to 'Wikimedia/Wikipedia tools',{:controller=>'/content/page', :action=>'curate_wiki'}, {:class=>'toc_item active'}
+  %h3
+    Current Work List
+  %li
+    = link_to 'Text',{:action=>'curate_text'}, {:class=>'toc_item active'}
+  %li
+    = link_to 'Images',{:action=>'curate_images'}, {:class=>'toc_item active'}
+  %li
+    = link_to 'Videos',{:action=>'curate_video'}, {:class=>'toc_item active'}
+  %h3
+    Action History
+  %li
+    = link_to 'Taxa curated',{:controller=>'/content/page',:action=>'curator_central'}, {:class=>'toc_item active'}
+  %li
+    = link_to 'Data curated',{:controller=>'/content/page', :action=>'curate_wiki'}, {:class=>'toc_item active'}

@@ -1,0 +1,31 @@
+%table.results_table
+  %tr
+    %th
+      Taxon Name
+    %th
+      Image
+    %th
+      Source
+    %th
+      Action
+  - @images_to_curate.each_with_index do |image, index|
+    - row_class = cycle('odd', 'even')
+    %tr
+      %td{:class => row_class}
+        = image.taxon_concepts[0].scientific_name
+        - c_name = image.taxon_concepts[0].common_name
+        - if !c_name.blank?
+          %br
+          = c_name
+      %td{:class => row_class}
+        %img{:src => image.thumb_or_object(:medium)}
+      %td{:class => row_class}
+        View in EOL
+        %br
+        View in Source Website
+      %td{:class => row_class}
+        %input{:type => 'radio', :name => "trust_#{index}"}
+          Trust
+        %br
+        %input{:type => 'radio', :name => "trust_#{index}"}
+          Untrust

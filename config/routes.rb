@@ -138,7 +138,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'api/:action/:version/:id', :controller => 'api', :version => /[0-1]\.[0-9]/
   map.connect 'api/:action/:version/:id.:format', :controller => 'api', :version => /[0-1]\.[0-9]/
   
-  
+  map.connect 'curators', :controller => 'curators'
   
   ##### ALL ROUTES BELOW SHOULD PROBABLY ALWAYS BE AT THE BOTTOM SO THEY ARE RUN LAST ####
   # this represents a URL with just a random namestring -- send to search page (e.g. www.eol.org/animalia)

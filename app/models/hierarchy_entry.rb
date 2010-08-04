@@ -514,6 +514,7 @@ class HierarchyEntry < SpeciesSchemaModel
       LEFT JOIN ranks r ON (he.rank_id=r.id)
       LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
       WHERE he.parent_id = #{hierarchy_entry_id}
+      AND he.published = 1
       AND he.visibility_id!=#{Visibility.invisible.id}").all_hashes
       
     if params[:include_common_names]

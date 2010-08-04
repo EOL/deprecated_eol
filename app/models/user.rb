@@ -545,6 +545,19 @@ class User < ActiveRecord::Base
       errors.add('username', "#{username} is already taken") unless User.unique_user?(username)
     end
   end
+  
+  def images_to_curate
+    DataObject.find_by_sql("SELECT DISTINCT do.*
+        FROM #{User.full_table_name} u
+        JOIN #{HierarchyEntry.full_table_name} he ON (u.curator_hierarchy_entry_id=he.id)
+        JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he.lft and he.rgt)
+        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (he_children.taxon_concept_id=dotc.taxon_concept_id)
+        JOIN #{DataObject.full_table_name} do ON (dotc.data_object_id=do.id)
+        WHERE do.published=1
+        AND do.vetted_id = #{Vetted.unknown.id}
+        AND do.data_type_id = #{DataType.image.id}
+        LIMIT 0,30");
+  end
 
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 protected   

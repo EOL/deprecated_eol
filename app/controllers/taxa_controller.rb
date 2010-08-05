@@ -291,9 +291,18 @@ class TaxaController < ApplicationController
      return
    end
 
-    @video_url=params[:video_url]
     video_type=params[:video_type].downcase
-    @mime_type_id=params[:video_mime_type_id]
+    @mime_type_id=params[:video_mime_type_id]  
+    @object_cache_url=params[:video_object_cache_url]
+
+    if(@object_cache_url != "")
+      # local video access
+      @filename_extension = MimeType.extension(@mime_type_id)
+      @video_url = DataObject.cache_path(@object_cache_url) + @filename_extension
+    else
+      # remote video access  
+      @video_url=params[:video_url]        
+    end
 
     render :update do |page|
       page.replace_html 'video-player', :partial => 'video_' + video_type

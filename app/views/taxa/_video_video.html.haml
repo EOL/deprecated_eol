@@ -15,6 +15,13 @@
     %PARAM{ :name => "ShowDisplay", :VALUE => "true" }
     %EMBED{ :TYPE => "application/x-mplayer2" , :SRC => "#{video_url}", :NAME => "MediaPlayer", :WIDTH => "425", :HEIGHT => "355", :ShowControls => "1", :ShowStatusBar=>"1", :ShowDisplay => "1", :autostart => "1" }
 
--# to follow...
 -# video/quicktime
--# video/x-flv
+- if mime_type_id == MimeType.mov.id.to_s
+  %OBJECT{ :classid=>"clsid:02BF25D5-8C17-4B23-BC80-D3488ABDDC6B", :codebase=>"http://www.apple.com/qtactivex/qtplugin.cab", :height=>"355", :width=>"425" }
+    %PARAM{ :name=>"src", :value=>"#{video_url}" }
+    %PARAM{ :name=>"autoplay", :value=>"true" }
+    %PARAM{ :name=>"type", :value=>"video/quicktime", :height=>"355", :width=>"425" }
+    %EMBED{ :src=>"#{video_url}", :height=>"355", :width=>"425", :autoplay=>"true", :type=>"video/quicktime", :pluginspage=>"http://www.apple.com/quicktime/download/" }
+
+
+-# video/x-flv >>> goes to partial _video_youtube.html.haml

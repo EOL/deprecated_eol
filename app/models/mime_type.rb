@@ -11,6 +11,12 @@ class MimeType < SpeciesSchemaModel
   def self.mpeg
     MimeType.find_by_label('video/mpeg')
   end
+  def self.mov
+    MimeType.find_by_label('video/quicktime')
+  end
+  def self.flv
+    MimeType.find_by_label('video/x-flv')
+  end
 
   def self.get_label(mime_type_id)    
     rset = MimeType.find_by_sql(["Select mime_types.label From mime_types Where mime_types.id = #{mime_type_id}"])            
@@ -27,7 +33,11 @@ class MimeType < SpeciesSchemaModel
     elsif label == 'video/x-ms-wmv'
         return ".wmv"
     elsif label == 'video/mpeg'    
-        return ".mpg"
+        return ".mpg"        
+    elsif label == 'video/quicktime'    
+        return ".mov"
+    elsif label == 'video/x-flv'    
+        return ".flv"
     end    
   end  
 
@@ -40,4 +50,3 @@ end
 #
 #  id    :integer(2)      not null, primary key
 #  label :string(255)     not null
-

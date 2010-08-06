@@ -2,12 +2,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe ActionsHistory do
 
-  Scenario.load :foundation
+  EolScenario.load :foundation
     
   describe '#new_actions_histories' do
 
-    before(:each) do
-      commit_transactions
+    before(:all) do
       @taxon_concept = build_taxon_concept
       @dato_image    = @taxon_concept.images.last
       @dato_text     = DataObject.gen(:data_type_id =>

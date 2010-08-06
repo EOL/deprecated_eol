@@ -21,38 +21,37 @@ class Hierarchy < SpeciesSchemaModel
   alias entries hierarchy_entries
   
   def self.browsable_by_label
-    Rails.cache.fetch('hierarchies/browsable_by_label') do
+    cached('browsable_by_label') do
       Hierarchy.browsable.sort_by {|h| h.form_label }
     end
   end
 
   def self.default
-    YAML.load(Rails.cache.fetch('hierarchies/default') do
-      Hierarchy.find_by_label($DEFAULT_HIERARCHY_NAME).to_yaml
-    end)
+    cached_find(:label, $DEFAULT_HIERARCHY_NAME, :serialize => true)
   end
 
   # This is the first hierarchy we used, and we need it to serve "old" URLs (ie: /taxa/16222828 => Roenbergensis)
   def self.original
-    YAML.load(Rails.cache.fetch('hierarchies/original') do
-      Hierarchy.find_by_label("Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007").to_yaml
-    end)
+    cached_find(:label, "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", :serialize => true)
   end
 
   def self.eol_contributors
-    YAML.load(Rails.cache.fetch('hierarchies/eol_contributors') do
-      Hierarchy.find_by_label("Encyclopedia of Life Contributors").to_yaml
-    end)
+    cached_find(:label, "Encyclopedia of Life Contributors", :serialize => true)
   end
 
   def self.ncbi
-    YAML.load(Rails.cache.fetch('hierarchies/ncbi') do
-      Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc").to_yaml
-    end)
+    cached('ncbi', :serialize => true) do
+      Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc")
+    end
   end
   
   def self.browsable_for_concept(taxon_concept)
-    Hierarchy.find_by_sql("SELECT h.* FROM hierarchies h JOIN hierarchy_entries he ON (h.id=he.hierarchy_id) WHERE h.browsable=1 AND he.taxon_concept_id=#{taxon_concept.id}")
+    Hierarchy.find_by_sql("SELECT h.* FROM hierarchies h JOIN hierarchy_entries he ON (h.id = he.hierarchy_id) WHERE h.browsable = 1 AND he.taxon_concept_id=#{taxon_concept.id}")
+  end
+  
+  def form_label
+    return descriptive_label unless descriptive_label.blank?
+    return label
   end
   
   def form_label
@@ -79,13 +78,13 @@ class Hierarchy < SpeciesSchemaModel
              hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image,
              r.label rank_string, he_source.hierarchy_id source_hierarchy_id
         FROM hierarchy_entries he
-          JOIN names n1 ON (he.name_id=n1.id)
-          LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
-          LEFT JOIN (taxon_concept_names tcn JOIN names n2 ON (tcn.name_id=n2.id)
-            LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id=he_source.id))
-            ON (he.taxon_concept_id=tcn.taxon_concept_id AND tcn.preferred=1 AND tcn.language_id=#{language.id})
-          LEFT JOIN ranks r ON (he.rank_id=r.id)
-        WHERE he.parent_id=0 AND he.hierarchy_id=#{id}
+          JOIN names n1 ON (he.name_id = n1.id)
+          LEFT JOIN hierarchies_content hc ON (he.id = hc.hierarchy_entry_id)
+          LEFT JOIN (taxon_concept_names tcn JOIN names n2 ON (tcn.name_id = n2.id)
+            LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id = he_source.id))
+            ON (he.taxon_concept_id = tcn.taxon_concept_id AND tcn.preferred = 1 AND tcn.language_id = #{language.id})
+          LEFT JOIN ranks r ON (he.rank_id = r.id)
+        WHERE he.parent_id = 0 AND he.hierarchy_id=#{id}
     ").all_hashes
     
     deduped_kingdoms = []
@@ -137,7 +136,7 @@ class Hierarchy < SpeciesSchemaModel
       WHERE he.hierarchy_id = #{self.id}
       AND parent_id=0
       AND he.visibility_id!=#{Visibility.invisible.id}").all_hashes
-    
+
     if params[:include_common_names]
       params[:common_name_language] ||= Language.english
       common_names = TaxonConcept.quick_common_names(result.collect{|r| r['taxon_concept_id']}, params[:common_name_language], self)

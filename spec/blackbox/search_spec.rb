@@ -50,7 +50,7 @@ describe 'Search' do
 
   before :all do
     truncate_all_tables
-    Scenario.load :foundation
+    EolScenario.load :foundation
   end
 
   after :all do
@@ -108,16 +108,16 @@ describe 'Search' do
     end
 
     it 'should redirect to search page if a string is passed to a species page' do
-      request("/pages/#{@panda_name}").should redirect_to("/search/#{@panda_name}")
+      request("/pages/#{@panda_name}").should redirect_to("/search?id=#{@panda_name}")
     end
 
-    it 'should show a list of possible results (linking to /taxa/search_clicked) if more than 1 match is found  (also for pages/searchterm)' do
+    it 'should show a list of possible results (linking to /found) if more than 1 match is found  (also for pages/searchterm)' do
 
       body = @tiger_search
       body.should have_tag('td', :text => @tiger_name)
       body.should have_tag('td', :text => @tiger_lilly_name)
-      body.should have_tag('a[href*=?]', %r{/taxa/search_clicked/#{ @tiger_lilly.id }})
-      body.should have_tag('a[href*=?]', %r{/taxa/search_clicked/#{ @tiger.id }})
+      body.should have_tag('a[href*=?]', %r{/found/#{ @tiger_lilly.id }})
+      body.should have_tag('a[href*=?]', %r{/found/#{ @tiger.id }})
 
     end
 

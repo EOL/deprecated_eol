@@ -28,15 +28,19 @@ module Rails
     end
     
     def valid?
-      File.directory?(directory) && (has_lib_directory? || has_init_file?)
+      File.directory?(directory) && (has_app_directory? || has_lib_directory? || has_init_file?)
     end
   
     # Returns a list of paths this plugin wishes to make available in <tt>$LOAD_PATH</tt>.
     def load_paths
       report_nonexistant_or_empty_plugin! unless valid?
-      has_lib_directory? ? [lib_path] : []
+      
+      returning [] do |load_paths|
+        load_paths << lib_path  if has_lib_directory?
+        load_paths << app_paths if has_app_directory?
+      end.flatten
     end
-
+    
     # Evaluates a plugin's init.rb file.
     def load(initializer)
       return if loaded?
@@ -56,7 +60,47 @@ module Rails
     def about
       @about ||= load_about_information
     end
+
+    # Engines are plugins with an app/ directory.
+    def engine?
+      has_app_directory?
+    end
     
+    # Returns true if the engine ships with a routing file
+    def routed?
+      File.exist?(routing_file)
+    end
+
+    # Returns true if there is any localization file in locale_path
+    def localized?
+      locale_files.any?
+    end
+
+    def view_path
+      File.join(directory, 'app', 'views')
+    end
+
+    def controller_path
+      File.join(directory, 'app', 'controllers')
+    end
+
+    def metal_path
+      File.join(directory, 'app', 'metal')
+    end
+
+    def routing_file
+      File.join(directory, 'config', 'routes.rb')
+    end
+
+    def locale_path
+      File.join(directory, 'config', 'locales')
+    end
+
+    def locale_files
+      Dir[ File.join(locale_path, '*.{rb,yml}') ]
+    end
+    
+
     private
       def load_about_information
         about_yml_path = File.join(@directory, "about.yml")
@@ -68,14 +112,32 @@ module Rails
 
       def report_nonexistant_or_empty_plugin!
         raise LoadError, "Can not find the plugin named: #{name}"
-      end      
-    
+      end
+
+      
+      def app_paths
+        [ File.join(directory, 'app', 'models'), File.join(directory, 'app', 'helpers'), controller_path, metal_path ]
+      end
+      
       def lib_path
         File.join(directory, 'lib')
       end
 
-      def init_path
+      def classic_init_path
         File.join(directory, 'init.rb')
+      end
+
+      def gem_init_path
+        File.join(directory, 'rails', 'init.rb')
+      end
+
+      def init_path
+        File.file?(gem_init_path) ? gem_init_path : classic_init_path
+      end
+
+
+      def has_app_directory?
+        File.directory?(File.join(directory, 'app'))
       end
 
       def has_lib_directory?
@@ -85,6 +147,7 @@ module Rails
       def has_init_file?
         File.file?(init_path)
       end
+
 
       def evaluate_init_rb(initializer)
         if has_init_file?
@@ -104,7 +167,7 @@ module Rails
   class GemPlugin < Plugin
     # Initialize this plugin from a Gem::Specification.
     def initialize(spec, gem)
-      directory = (gem.frozen? && gem.unpacked_paths.first) || File.join(spec.full_gem_path)
+      directory = spec.full_gem_path
       super(directory)
       @name = spec.name
     end

@@ -1,7 +1,4 @@
-class AlterHierarchyEntries < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AlterHierarchyEntries < EOL::DataMigration
   
   def self.up
 

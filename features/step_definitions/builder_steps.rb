@@ -5,12 +5,12 @@ require(File.join(RAILS_ROOT, 'spec', 'custom_matchers'))
 
 include EOL::Spec::Helpers
 
-require 'scenarios' 
-Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
+require 'eol_scenarios' 
+EolScenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
 
 truncate_all_tables_once
 
-EOL::Scenario.load :foundation
+EolScenario.load :foundation
 
 Given /^a Taxon Concept (.*)$/ do |tc_id|
   @taxon_concept = build_taxon_concept(:id => tc_id, :common_name => 'vulcan')

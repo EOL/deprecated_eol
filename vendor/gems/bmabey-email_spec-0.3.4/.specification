@@ -1,6 +1,10 @@
 --- !ruby/object:Gem::Specification 
 name: bmabey-email_spec
 version: !ruby/object:Gem::Version 
+  segments: 
+  - 0
+  - 3
+  - 4
   version: 0.3.4
 platform: ruby
 authors: 
@@ -11,7 +15,7 @@ autorequire:
 bindir: bin
 cert_chain: []
 
-date: 2009-09-26 00:00:00 -04:00
+date: 2009-09-25 21:00:00 -07:00
 default_executable: 
 dependencies: []
 
@@ -157,18 +161,22 @@ required_ruby_version: !ruby/object:Gem::Requirement
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
+      segments: 
+      - 0
       version: "0"
   version: 
 required_rubygems_version: !ruby/object:Gem::Requirement 
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
+      segments: 
+      - 0
       version: "0"
   version: 
 requirements: []
 
 rubyforge_project: email-spec
-rubygems_version: 1.3.4
+rubygems_version: 1.3.6
 signing_key: 
 specification_version: 3
 summary: Easily test email in rspec and cucumber

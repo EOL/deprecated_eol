@@ -1,0 +1,68 @@
+--- !ruby/object:Gem::Specification 
+name: remi-indifferent-variable-hash
+version: !ruby/object:Gem::Version 
+  prerelease: false
+  segments: 
+  - 0
+  - 1
+  - 0
+  version: 0.1.0
+platform: ruby
+authors: 
+- remi
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-03-03 00:00:00 -08:00
+default_executable: 
+dependencies: []
+
+description: easily add hash-like features to any class / instance
+email: remi@remitaylor.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: []
+
+files: 
+- Rakefile
+- VERSION.yml
+- README.markdown
+- lib/indifferent-variable-hash.rb
+- spec/indifferent_variable_hash_spec.rb
+- spec/spec_helper.rb
+has_rdoc: true
+homepage: http://github.com/remi/indifferent-variable-hash
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --inline-source
+- --charset=UTF-8
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.6
+signing_key: 
+specification_version: 2
+summary: easily add hash-like features to any class / instance
+test_files: []
+

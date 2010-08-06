@@ -5,16 +5,12 @@ class AgentStatus < SpeciesSchemaModel
     
   # Find the "Active" AgentStatus.
   def self.active
-    YAML.load(Rails.cache.fetch('agent_statuses/active') do
-      AgentStatus.find_by_label('Active').to_yaml
-    end)
+    cached_find(:label, 'Active', :serialize => true)
   end 
 
   # Find the "Inactive" AgentStatus.
   def self.inactive
-    YAML.load(Rails.cache.fetch('agent_statuses/inactive') do
-      AgentStatus.find_by_label('Inactive').to_yaml
-    end)
+    cached_find(:label, 'Inactive', :serialize => true)
   end 
   
 end

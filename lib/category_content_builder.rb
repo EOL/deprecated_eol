@@ -48,7 +48,7 @@ class CategoryContentBuilder
     content
   end
 
-# =============== The following are methods specific to content_by_category
+# The following are methods specific to content_by_category
 private
 
   # TODO - change this (and the view) so that it's not reliant on hashes.  Paginate it.

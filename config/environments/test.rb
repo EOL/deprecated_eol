@@ -5,7 +5,7 @@
 # 3) config/environments/[RAILS_ENV]_eol_org.rb
 # 4) config/environment_eol_org.rb
 #---------------------------------------------------------------------------------
-
+require 'ruby-debug'
 # The test environment is used exclusively to run your application's
 # test suite.  Otherwise, you never need to work with it.  Remember that
 # your test database is "scratch space" for the test suite and is wiped
@@ -40,16 +40,11 @@ $IP_ADDRESS_OF_SERVER='127.0.0.1'
 $SOLR_SERVER = 'http://localhost:8983/solr'
 $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
 
-config.gem 'faker', :version => "0.3.1"
-config.gem "rspec-custom-matchers", :version => "0.1.0", :lib => false
-config.gem "remi-indifferent-variable-hash", :version => "0.1.0", :lib => false
-config.gem "openrain-scenarios", :version => "0.3.2", :lib => "scenarios"
-config.gem "rspec", :version => "1.1.12", :lib => false
-config.gem "rspec-rails", :version => "1.1.12", :lib => false
-config.gem "thoughtbot-factory_girl", :version => "1.1.5", :lib => false
-config.gem "remi-rackbox", :version => "1.1.2", :lib => false
-# Note we are using an old version of metric_fu; 1.2 has a dependency on activesupport that we're not using for Rails.
-# TODO - when we update our Rails version, update metric_fu
-config.gem "metric_fu", :version => '1.1.6', :lib => 'metric_fu'
-config.gem "ruby2ruby", :version => "1.2.4"
-config.gem "reek", :version => '1.2.8'
+config.gem 'faker'
+config.gem "remi-rspec-custom-matchers", :lib => false
+config.gem "remi-indifferent-variable-hash", :lib => false
+config.gem "eol_scenarios", :lib => "eol_scenarios"
+config.gem "rspec", :lib => false
+config.gem "rspec-rails", :lib => false
+config.gem "factory_girl", :lib => false
+config.gem "remi-rackbox", :lib => false

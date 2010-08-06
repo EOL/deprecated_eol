@@ -4,14 +4,14 @@ describe 'Content Partner Pages' do
   
   it 'ALL of these tests have been disabled in the interest of time.  Implement later.'
 
-#TEMP  Scenario.load :foundation
+#TEMP  EolScenario.load :foundation
 #TEMP  
 #TEMP  describe '(Reports)' do
 #TEMP    
 #TEMP    #TODO: do all this tests after fixing EOLINFRASTRUCTURE-1061   
 #TEMP      
 #TEMP    # before(:all) do
-#TEMP      # Scenario.load :foundation      
+#TEMP      # EolScenario.load :foundation      
 #TEMP      
 #TEMP      # password = 'fumbletricket'
 #TEMP      # @content_partner  = Agent.gen(:hashed_password => 
@@ -25,7 +25,6 @@ describe 'Content Partner Pages' do
 #TEMP      # @taxon_concept.images.first.comment(@user, @short_comment_from_user)
 #TEMP      # login_content_partner(:username => @content_partner.username,
 #TEMP      #                       :password => password)
-#TEMP      #                       debugger
 #TEMP      # @request          = request('/content_partner/reports')
 #TEMP    # end
 #TEMP    
@@ -85,7 +84,6 @@ describe 'Content Partner Pages' do
 #TEMP    #   cp    = ContentPartner.gen(:agent => agent)
 #TEMP    #   login_content_partner(:username => agent.username, :password => pass)
 #TEMP    #   body  = request('/content_partner/reports').body
-#TEMP    #   # debugger
 #TEMP    # 
 #TEMP    #   body.should have_tag('div#left-pane')
 #TEMP    # end
@@ -96,7 +94,6 @@ describe 'Content Partner Pages' do
 #TEMP    #   user.roles = Role.find(:all, :conditions => 'title LIKE "Admin%"')
 #TEMP    #   login_as(:username => user.username, :password => pass)
 #TEMP    #   body  = request('/administrator/reports').body
-#TEMP    #   debugger
 #TEMP    # 
 #TEMP    #   body.should have_tag('div')
 #TEMP    # end

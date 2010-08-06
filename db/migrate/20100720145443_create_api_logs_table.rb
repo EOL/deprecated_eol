@@ -1,8 +1,4 @@
-class CreateApiLogsTable < ActiveRecord::Migration
-  def self.database_model
-    return "LoggingModel"
-  end
-
+class CreateApiLogsTable < EOL::LoggingMigration
   def self.up
     execute("CREATE TABLE `api_logs` (
       `id` int(11) NOT NULL auto_increment,

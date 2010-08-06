@@ -9,6 +9,8 @@
 require File.join(File.dirname(__FILE__), 'boot')
 require 'eol_web_service'
 require 'eol'
+RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
+
 
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
@@ -29,8 +31,8 @@ Rails::Initializer.run do |config|
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
   config.action_controller.session = {
-    :session_key => '_eol_development_session',
-    :secret      => '9c973cddf1823632f3e42c5e25a18ecf'
+    :key    => '_eol_development_session',
+    :secret => '9c973cddf1823632f3e42c5e25a18ecf'
   }
 
   # #Load vendor'ed gems
@@ -42,23 +44,21 @@ Rails::Initializer.run do |config|
   config.load_paths += Dir["#{RAILS_ROOT}/app/models/**"].map { |dir| dir }
 
   # require gems - all gems that don't require native compilation should be unpacked in ./vendor/gems/
-  config.gem 'mislav-will_paginate', :version => '>= 2.3.2', :lib => 'will_paginate', :source => 'http://gems.github.com/'
+  config.gem 'will_paginate'
   config.gem 'composite_primary_keys'
-  config.gem 'fastercsv', :version => "1.2.3"
-  config.gem 'haml', :version => "3.0.13"
-  config.gem 'macaddr', :version => "1.0.0"
-  config.gem 'uuid', :version => "2.0.1"
-  config.gem "ruby-openid", :version => "2.0.4", :lib => "openid"
-  config.gem "ruby-yadis", :version => "0.3.4", :lib => "yadis"
+  config.gem 'fastercsv'
+  config.gem 'haml'
+  config.gem 'macaddr'
+  config.gem 'uuid'
   config.gem 'ezcrypto'
   config.gem 'ratom', :lib => 'atom'
   config.gem 'json'
   config.gem 'sanitize'
-  config.gem 'mwmitchell-rsolr', :lib => 'rsolr'
-  config.gem 'solr-ruby', :lib => 'solr'
-  config.gem 'optiflag'
+  # config.gem 'mwmitchell-rsolr', :lib => 'rsolr'
+  # config.gem 'solr-ruby', :lib => 'solr'
+  # config.gem 'optiflag'
   config.gem 'escape'
-  config.gem 'bmabey-email_spec', :lib => 'email_spec' 
+  config.gem 'email_spec'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -67,7 +67,6 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-  config.active_record.observers = :comment_observer
 
   # Make Active Record use UTC-base instead of local time
   config.time_zone = 'UTC'
@@ -224,13 +223,25 @@ require 'open-uri'
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin
-  require 'environment_eol_org'
+  require 'config/environment_eol_org'
 rescue LoadError
 end
 
 if ENV['BLEAK']
   require 'bleak_house'
 end
+
+# Taken right from http://tinyurl.com/3xzen6z
+if defined?(PhusionPassenger)
+  PhusionPassenger.on_event(:starting_worker_process) do |forked|
+    if forked # We're in smart spawning mode.
+      reestablish_connection_to_memcached
+    else
+      # We're in conservative spawning mode. We don't need to do anything.
+    end
+  end
+end
+
 
 # load the system configuration
 require File.dirname(__FILE__) + '/system' if File.file?(File.dirname(__FILE__) + '/system.rb')

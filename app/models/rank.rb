@@ -6,10 +6,10 @@ class Rank < SpeciesSchemaModel
   end
 
   def self.italicized_ids_sub
-    Rails.cache.fetch('ranks/italicized') do 
+    cached('italicized') do 
       @@ids = Rank.find_by_sql(%q{SELECT * FROM ranks WHERE label IN (
                '?var',          'binomial',      'biovar',
-               'Espéce',        'especie',       'f',
+               'Espéce',        'especie',       '',
                'f.',            'f.sp.',         'form',
                'forma',         'infra-form',    'infra-species',
                'infra-variety', 'infraspecies',  'infravariety',
@@ -36,7 +36,7 @@ class Rank < SpeciesSchemaModel
   
   def self.tcs_codes
     #TODO - we could add a code column to the table, but these codes are specific to the Taxon Concept Schema
-    Rails.cache.fetch('ranks/codes') do
+    cached('codes') do
       { 'kingdom'     => 'reg',
         'phylum'      => 'phyl_div',
         'class'       => 'cl',

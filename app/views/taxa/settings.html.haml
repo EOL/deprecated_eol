@@ -12,6 +12,6 @@
         = render(:partial=>'set_content_settings',:locals=>{:f=>f})				
         .button
           %input{ :type => "button", :name => "Cancel"[], :onclick => "document.location.href='#{back_or_home(return_to_url)}';", :value => "Cancel"[]}
-            &nbsp;&nbsp;
-            = submit_tag 'Update Preferences'[]
+          &nbsp;&nbsp;
+          = submit_tag 'Update Preferences'[]
     %br

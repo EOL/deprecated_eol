@@ -4,17 +4,14 @@ describe 'Admin Pages' do
   
   before(:all) do
     truncate_all_tables
-    Scenario.load('foundation')
-    password = 'anypassword'
-    @user = User.gen( :username => 'ourtestadmin',
-                      :password => password,
-                      :active => 1,
-                      :hashed_password => Digest::MD5.hexdigest(password))
+    EolScenario.load('foundation')
+    @user = User.gen(:username => 'ourtestadmin')
     @user.roles = Role.find(:all, :conditions => 'title LIKE "Admin%"')
     @user.save!
   end
   
   it 'should load the admin homepage' do
+    debugger if @user.roles.empty?
     login_as(@user).should redirect_to('/admin')
     body = request('/admin').body
     body.should include('Welcome to the EOL Administration Console')
@@ -55,7 +52,7 @@ describe 'Admin Pages' do
     it 'should be able to view a hierarchy' do
       login_as(@user).should redirect_to('/admin')
       body = request("/administrator/hierarchy/browse/#{@hierarchy.id}").body
-      body.should include(@hierarchy_entry.name_object.string)
+      body.should include(@hierarchy.label)
     end
   end
   
@@ -114,7 +111,7 @@ describe 'Admin Pages' do
       body = request("/administrator/content_partner_report/report_partner_curated_data").body
       body.should include "Curation activity:"
     end
-    it "should get data from a form and display all curation activity" do          
+    it "should get data from a form and display curation activity" do
       login_as(@user).should redirect_to('/admin')      
       res = request("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})
       res.body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
@@ -209,7 +206,7 @@ describe 'Admin Pages' do
 
   
   it 'the remaining tests have been disabled in the interest of time.  Implement them later.'
-#TEMP  Scenario.load :foundation
+#TEMP  EolScenario.load :foundation
 #TEMP  
 #TEMP  describe '(Reports)' do
 #TEMP    
@@ -221,7 +218,6 @@ describe 'Admin Pages' do
 #TEMP     #        user.roles = Role.find(:all, :conditions => 'title LIKE "Admin%"')
 #TEMP     #        login_as(:username => user.username, :password => pass)
 #TEMP     #        body  = request('/administrator/reports').body
-#TEMP     #        debugger
 #TEMP     #      
 #TEMP     #        body.should have_tag('div')
 #TEMP     #  end
@@ -261,7 +257,7 @@ describe 'Admin Pages' do
 #TEMP
 #TEMPdescribe 'Administrator Web Users Pages' do
 #TEMP  
-#TEMP  Scenario.load :foundation
+#TEMP  EolScenario.load :foundation
 #TEMP  
 #TEMP  describe 'user/edit' do
 #TEMP   it 'should have "Cc: affiliate@eol.org" in a head of an email from /administrator/user/edit/# page'

@@ -105,16 +105,11 @@
         %br
     %tr
       %td.even
-        Fragment cache type
+        Cache Store
       %td.even
         = ActionController::Base.cache_store.class
         %br
-        - if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
-          Servers:
-          = ActionController::Base.cache_store.addresses.join(',')
-          - elsif ActionController::Base.cache_store.class == ActiveSupport::Cache::FileStore
-          Path:
-          = ActionController::Base.cache_store.cache_path
+        = ActionController::Base.cache_store.stats.inspect
   - if $ENABLE_ANALYTICS
     %tr
       %td.even

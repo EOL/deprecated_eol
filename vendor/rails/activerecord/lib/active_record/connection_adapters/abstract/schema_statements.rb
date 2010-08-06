@@ -8,11 +8,6 @@ module ActiveRecord
         {}
       end
 
-      # This is the maximum length a table alias can be
-      def table_alias_length
-        255
-      end
-
       # Truncates a table alias according to the limits of the current adapter.
       def table_alias_for(table_name)
         table_name[0..table_alias_length-1].gsub(/\./, '_')
@@ -31,19 +26,25 @@ module ActiveRecord
       # See the concrete implementation for details on the expected parameter values.
       def columns(table_name, name = nil) end
 
-      # Creates a new table
+      # Creates a new table with the name +table_name+. +table_name+ may either
+      # be a String or a Symbol.
+      #
       # There are two ways to work with +create_table+.  You can use the block
       # form or the regular form, like this:
       #
       # === Block form
-      #  # create_table() yields a TableDefinition instance
+      #  # create_table() passes a TableDefinition object to the block.
+      #  # This form will not only create the table, but also columns for the
+      #  # table.
       #  create_table(:suppliers) do |t|
       #    t.column :name, :string, :limit => 60
       #    # Other fields here
       #  end
       #
       # === Regular form
+      #  # Creates a table called 'suppliers' with no columns.
       #  create_table(:suppliers)
+      #  # Add a column to 'suppliers'.
       #  add_column(:suppliers, :name, :string, {:limit => 60})
       #
       # The +options+ hash can include the following keys:
@@ -93,9 +94,9 @@ module ActiveRecord
       # See also TableDefinition#column for details on how to create columns.
       def create_table(table_name, options = {})
         table_definition = TableDefinition.new(self)
-        table_definition.primary_key(options[:primary_key] || Base.get_primary_key(table_name)) unless options[:id] == false
+        table_definition.primary_key(options[:primary_key] || Base.get_primary_key(table_name.to_s.singularize)) unless options[:id] == false
 
-        yield table_definition
+        yield table_definition if block_given?
 
         if options[:force] && table_exists?(table_name)
           drop_table(table_name, options)
@@ -240,18 +241,32 @@ module ActiveRecord
       # name.
       #
       # ===== Examples
+      #
       # ====== Creating a simple index
       #  add_index(:suppliers, :name)
       # generates
       #  CREATE INDEX suppliers_name_index ON suppliers(name)
+      #
       # ====== Creating a unique index
       #  add_index(:accounts, [:branch_id, :party_id], :unique => true)
       # generates
       #  CREATE UNIQUE INDEX accounts_branch_id_party_id_index ON accounts(branch_id, party_id)
+      #
       # ====== Creating a named index
       #  add_index(:accounts, [:branch_id, :party_id], :unique => true, :name => 'by_branch_party')
       # generates
       #  CREATE UNIQUE INDEX by_branch_party ON accounts(branch_id, party_id)
+      #
+      # ====== Creating an index with specific key length
+      #  add_index(:accounts, :name, :name => 'by_name', :length => 10)
+      # generates
+      #  CREATE INDEX by_name ON accounts(name(10))
+      #
+      #  add_index(:accounts, [:name, :surname], :name => 'by_name_surname', :length => {:name => 10, :surname => 15})
+      # generates
+      #  CREATE INDEX by_name_surname ON accounts(name(10), surname(15))
+      #
+      # Note: SQLite doesn't support index length
       def add_index(table_name, column_name, options = {})
         column_names = Array(column_name)
         index_name   = index_name(table_name, :column => column_names)
@@ -262,7 +277,17 @@ module ActiveRecord
         else
           index_type = options
         end
-        quoted_column_names = column_names.map { |e| quote_column_name(e) }.join(", ")
+
+        if index_name.length > index_name_length
+          @logger.warn("Index name '#{index_name}' on table '#{table_name}' is too long; the limit is #{index_name_length} characters. Skipping.")
+          return
+        end
+        if index_exists?(table_name, index_name, false)
+          @logger.warn("Index name '#{index_name}' on table '#{table_name}' already exists. Skipping.")
+          return
+        end
+        quoted_column_names = quoted_columns_for_index(column_names, options).join(", ")
+
         execute "CREATE #{index_type} INDEX #{quote_column_name(index_name)} ON #{quote_table_name(table_name)} (#{quoted_column_names})"
       end
 
@@ -277,7 +302,28 @@ module ActiveRecord
       # Remove the index named by_branch_party in the accounts table.
       #   remove_index :accounts, :name => :by_branch_party
       def remove_index(table_name, options = {})
-        execute "DROP INDEX #{quote_column_name(index_name(table_name, options))} ON #{table_name}"
+        index_name = index_name(table_name, options)
+        unless index_exists?(table_name, index_name, true)
+          @logger.warn("Index name '#{index_name}' on table '#{table_name}' does not exist. Skipping.")
+          return
+        end
+        remove_index!(table_name, index_name)
+      end
+
+      def remove_index!(table_name, index_name) #:nodoc:
+        execute "DROP INDEX #{quote_column_name(index_name)} ON #{table_name}"
+      end
+
+      # Rename an index.
+      #
+      # Rename the index_people_on_last_name index to index_users_on_last_name
+      #   rename_index :people, 'index_people_on_last_name', 'index_users_on_last_name'
+      def rename_index(table_name, old_name, new_name)
+        # this is a naive implementation; some DBs may support this more efficiently (Postgres, for instance)
+        old_index_def = indexes(table_name).detect { |i| i.name == old_name }
+        return unless old_index_def
+        remove_index(table_name, :name => old_name)
+        add_index(table_name, old_index_def.columns, :name => new_name, :unique => old_index_def.unique)
       end
 
       def index_name(table_name, options) #:nodoc:
@@ -292,6 +338,15 @@ module ActiveRecord
         else
           index_name(table_name, :column => options)
         end
+      end
+
+      # Verify the existence of an index.
+      #
+      # The default argument is returned if the underlying implementation does not define the indexes method,
+      # as there's no way to determine the correct answer in that case.
+      def index_exists?(table_name, index_name, default)
+        return default unless respond_to?(:indexes)
+        indexes(table_name).detect { |i| i.name == index_name }
       end
 
       # Returns a string of <tt>CREATE TABLE</tt> SQL statement(s) for recreating the
@@ -315,7 +370,7 @@ module ActiveRecord
             schema_migrations_table.column :version, :string, :null => false
           end
           add_index sm_table, :version, :unique => true,
-            :name => 'unique_schema_migrations'
+            :name => "#{Base.table_name_prefix}unique_schema_migrations#{Base.table_name_suffix}"
 
           # Backwards-compatibility: if we find schema_info, assume we've
           # migrated up to that point:
@@ -330,12 +385,12 @@ module ActiveRecord
         end
       end
 
-      def assume_migrated_upto_version(version)
+      def assume_migrated_upto_version(version, migrations_path = ActiveRecord::Migrator.migrations_path)
         version = version.to_i
         sm_table = quote_table_name(ActiveRecord::Migrator.schema_migrations_table_name)
 
         migrated = select_values("SELECT version FROM #{sm_table}").map(&:to_i)
-        versions = Dir['db/migrate/[0-9]*_*.rb'].map do |filename|
+        versions = Dir["#{migrations_path}/[0-9]*_*.rb"].map do |filename|
           filename.split('/').last.split('_').first.to_i
         end
 
@@ -356,7 +411,7 @@ module ActiveRecord
 
       def type_to_sql(type, limit = nil, precision = nil, scale = nil) #:nodoc:
         if native = native_database_types[type]
-          column_type_sql = native.is_a?(Hash) ? native[:name] : native
+          column_type_sql = (native.is_a?(Hash) ? native[:name] : native).dup
 
           if type == :decimal # ignore limit, use precision and scale
             scale ||= native[:scale]
@@ -371,7 +426,7 @@ module ActiveRecord
               raise ArgumentError, "Error adding decimal column: precision cannot be empty if scale if specified"
             end
 
-          elsif limit ||= native.is_a?(Hash) && native[:limit]
+          elsif (type != :primary_key) && (limit ||= native.is_a?(Hash) && native[:limit])
             column_type_sql << "(#{limit})"
           end
 
@@ -420,6 +475,11 @@ module ActiveRecord
       end
 
       protected
+        # Overridden by the mysql adapter for supporting index lengths
+        def quoted_columns_for_index(column_names, options = {})
+          column_names.map {|name| quote_column_name(name) }
+        end
+
         def options_include_default?(options)
           options.include?(:default) && !(options[:null] == false && options[:default].nil?)
         end

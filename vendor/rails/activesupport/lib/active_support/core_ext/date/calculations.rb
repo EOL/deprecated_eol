@@ -1,7 +1,7 @@
 module ActiveSupport #:nodoc:
   module CoreExtensions #:nodoc:
     module Date #:nodoc:
-      # Enables the use of time calculations within Time itself
+      # Enables the use of time calculations within Date itself
       module Calculations
         def self.included(base) #:nodoc:
           base.extend ClassMethods
@@ -20,18 +20,33 @@ module ActiveSupport #:nodoc:
           def yesterday
             ::Date.today.yesterday
           end
-          
+
           # Returns a new Date representing the date 1 day after today (i.e. tomorrow's date).
           def tomorrow
             ::Date.today.tomorrow
           end
-          
+
           # Returns Time.zone.today when config.time_zone is set, otherwise just returns Date.today.
           def current
             ::Time.zone_default ? ::Time.zone.today : ::Date.today
           end
         end
-        
+
+        # Tells whether the Date object's date lies in the past
+        def past?
+          self < ::Date.current
+        end
+
+        # Tells whether the Date object's date is today
+        def today?
+          self.to_date == ::Date.current # we need the to_date because of DateTime
+        end
+
+        # Tells whether the Date object's date lies in the future
+        def future?
+          self > ::Date.current
+        end
+
         # Converts Date to a Time (or DateTime if necessary) with the time portion set to the beginning of the day (0:00)
         # and then subtracts the specified number of seconds
         def ago(seconds)
@@ -57,7 +72,7 @@ module ActiveSupport #:nodoc:
         def end_of_day
           to_time.end_of_day
         end
-        
+
         def plus_with_duration(other) #:nodoc:
           if ActiveSupport::Duration === other
             other.since(self)
@@ -65,7 +80,7 @@ module ActiveSupport #:nodoc:
             plus_without_duration(other)
           end
         end
-        
+
         def minus_with_duration(other) #:nodoc:
           if ActiveSupport::Duration === other
             plus_with_duration(-other)
@@ -73,10 +88,11 @@ module ActiveSupport #:nodoc:
             minus_without_duration(other)
           end
         end
-        
-        # Provides precise Date calculations for years, months, and days.  The +options+ parameter takes a hash with 
+
+        # Provides precise Date calculations for years, months, and days.  The +options+ parameter takes a hash with
         # any of these keys: <tt>:years</tt>, <tt>:months</tt>, <tt>:weeks</tt>, <tt>:days</tt>.
         def advance(options)
+          options = options.dup
           d = self
           d = d >> options.delete(:years) * 12 if options[:years]
           d = d >> options.delete(:months)     if options[:months]
@@ -98,7 +114,7 @@ module ActiveSupport #:nodoc:
             options[:day]   || self.day
           )
         end
-        
+
         # Returns a new Date/DateTime representing the time a number of specified months ago
         def months_ago(months)
           advance(:months => -months)
@@ -119,20 +135,30 @@ module ActiveSupport #:nodoc:
           advance(:years => years)
         end
 
-        # Short-hand for years_ago(1)
-        def last_year
-          years_ago(1)
+        def last_year # :nodoc:
+          ActiveSupport::Deprecation.warn("Date#last_year is deprecated and has been removed in Rails 3, please use Date#prev_year instead", caller)
+          prev_year
         end
+
+        # Short-hand for years_ago(1)
+        def prev_year
+          years_ago(1)
+        end unless method_defined?(:prev_year)
 
         # Short-hand for years_since(1)
         def next_year
           years_since(1)
         end
 
-        # Short-hand for months_ago(1)
-        def last_month
-          months_ago(1)
+        def last_month # :nodoc:
+          ActiveSupport::Deprecation.warn("Date#last_month is deprecated and has been removed in Rails 3, please use Date#prev_month instead", caller)
+          prev_month
         end
+
+        # Short-hand for months_ago(1)
+        def prev_month
+          months_ago(1)
+        end unless method_defined?(:prev_month)
 
         # Short-hand for months_since(1)
         def next_month
@@ -161,7 +187,7 @@ module ActiveSupport #:nodoc:
           days_into_week = { :monday => 0, :tuesday => 1, :wednesday => 2, :thursday => 3, :friday => 4, :saturday => 5, :sunday => 6}
           result = (self + 7).beginning_of_week + days_into_week[day]
           self.acts_like?(:time) ? result.change(:hour => 0) : result
-        end          
+        end
 
         # Returns a new ; DateTime objects will have time set to 0:00DateTime representing the start of the month (1st of the month; DateTime objects will have time set to 0:00)
         def beginning_of_month

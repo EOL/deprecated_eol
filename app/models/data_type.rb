@@ -16,54 +16,36 @@ class DataType < SpeciesSchemaModel
   end
   
   def self.text
-    Rails.cache.fetch('data_type/text') do
-      DataType.find_by_label('Text')
-    end
+    cached_find(:label, 'Text')
   end
   
   def self.image
-    Rails.cache.fetch('data_type/image') do
-      DataType.find_by_label('Image')
-    end
+    cached_find(:label, 'Image')
   end
   
   def self.sound
-    Rails.cache.fetch('data_type/sound') do
-      DataType.find_by_label('Sound')
-    end
+    cached_find(:label, 'Sound')
   end
   
   def self.video
-    Rails.cache.fetch('data_type/video') do
-      DataType.find_by_label('Video')
-    end
+    cached_find(:label, 'Video')
   end
   
   def self.youtube
-    Rails.cache.fetch('data_type/youtube') do
-      DataType.find_by_label('YouTube')
-    end
+    cached_find(:label, 'YouTube')
   end
   
   def self.flash
-    Rails.cache.fetch('data_type/flash') do
-      DataType.find_by_label('Flash')
-    end
+    cached_find(:label, 'Flash')
   end
   
   def self.gbif_image
-    Rails.cache.fetch('data_type/gbif_image') do
-      DataType.find_by_label('GBIF Image')
-    end
+    cached_find(:label, 'GBIF Image')
   end
   
   def self.iucn
-    Rails.cache.fetch('data_type/iucn') do
-      DataType.find_by_label('IUCN')
-    end
+    cached_find(:label, 'IUCN')
   end
-  
-  
   
   def self.image_type_ids
     ids = [DataType.image.id]
@@ -83,8 +65,8 @@ class DataType < SpeciesSchemaModel
 
 private
   def self.get_type_ids(which)
-    Rails.cache.fetch("data_types/ids/#{which.join('+').gsub(' ','_')}") do
-      return which.collect { |type| DataType.find_all_by_label(type) }.flatten.collect {|type| type.id }
+    cached("data_types/ids/#{which.join('+').gsub(' ','_')}") do
+      which.collect { |type| DataType.find_all_by_label(type) }.flatten.collect {|type| type.id }
     end
   end
 

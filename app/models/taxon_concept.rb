@@ -28,7 +28,7 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :top_unpublished_concept_images
   has_many :last_curated_dates
   has_many :taxon_concept_names
-  has_many :comments, :as => :parent, :attributes => true
+  has_many :comments, :as => :parent
   has_many :names, :through => :taxon_concept_names
   has_many :ranks, :through => :hierarchy_entries
   # The following are not (yet) possible, because tcn has a three-part Primary key.
@@ -227,7 +227,7 @@ class TaxonConcept < SpeciesSchemaModel
   #
   # EXEMPLARS THAT WE NO LONGER TRUST: 482935, 
   def self.exemplars(options = {})
-    Rails.cache.fetch('taxon_concepts/exemplars') do
+    cached('exemplars') do
       TaxonConcept.lookup_exemplars(options)
     end
   end
@@ -362,8 +362,13 @@ class TaxonConcept < SpeciesSchemaModel
     return videos.length > $MAX_IMAGES_PER_PAGE.to_i # This is expensive.  I hope you called #videos first!
   end
 
-  def videos
-    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => current_user)
+  def videos(options = {})
+    usr = current_user
+    if options[:unvetted]
+      usr = current_user.clone
+      usr.vetted = false
+    end
+    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => usr)
     @length_of_videos = videos.length # cached, so we don't have to query this again.
     return videos
   end 
@@ -617,7 +622,7 @@ class TaxonConcept < SpeciesSchemaModel
   
   def self.quick_common_names(taxon_concept_ids, language = nil, hierarchy = nil)
     return false if taxon_concept_ids.blank?
-    language ||= self.current_user_static.language 
+    language  ||= TaxonConcept.current_user_static.language 
     hierarchy ||= Hierarchy.default
     common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id, tcn.taxon_concept_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id IN (#{taxon_concept_ids.join(',')}) AND language_id=#{language.id} AND preferred=1").all_hashes
     
@@ -1032,7 +1037,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def self.entry_stats(taxon_concept_id)
-    SpeciesSchemaModel.connection.execute("SELECT he.id, h.label hierarchy_label, hes.*
+    SpeciesSchemaModel.connection.execute("SELECT he.id, h.label hierarchy_label, hes.*, h.id hierarchy_id
       FROM hierarchy_entries he
       JOIN hierarchies h ON (he.hierarchy_id=h.id)
       JOIN hierarchy_entry_stats hes ON (he.id=hes.hierarchy_entry_id)

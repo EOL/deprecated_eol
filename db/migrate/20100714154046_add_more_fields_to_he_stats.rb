@@ -1,8 +1,4 @@
-class AddMoreFieldsToHeStats < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
-  
+class AddMoreFieldsToHeStats < EOL::DataMigration
   def self.up
     execute('alter table hierarchy_entry_stats add `have_text` mediumint unsigned NOT NULL after `all_text_untrusted`')
     execute('alter table hierarchy_entry_stats add `have_images` mediumint unsigned NOT NULL after `all_image_untrusted`')

@@ -1,7 +1,4 @@
-class CreateEolData < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class CreateEolData < EOL::DataMigration
   
   def self.up
     ActiveRecord::Migration.not_okay_in_production

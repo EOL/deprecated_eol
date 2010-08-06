@@ -14,7 +14,7 @@ EOL.Tagging = {
 
   // the currently selected category (key)
   selected_category: function() {
-    var category = $('tag[key]').value;
+    var category = $('tag_key').value;
     if (category == '') category = 'none';
     return category;
   },

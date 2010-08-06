@@ -6,27 +6,19 @@ class ChangeableObjectType < ActiveRecord::Base
   validates_uniqueness_of :ch_object_type
   
   def self.data_object
-    Rails.cache.fetch('changeable_object_type/data_object') do
-      ChangeableObjectType.find_by_ch_object_type('data_object')
-    end
+    cached_find(:ch_object_type, 'data_object')
   end
   
   def self.comment
-    Rails.cache.fetch('changeable_object_type/comment') do
-      ChangeableObjectType.find_by_ch_object_type('comment')
-    end
+    cached_find(:ch_object_type, 'comment')
   end
   
   def self.tag
-    Rails.cache.fetch('changeable_object_type/tag') do
-      ChangeableObjectType.find_by_ch_object_type('tag')
-    end
+    cached_find(:ch_object_type, 'tag')
   end
   
   def self.users_submitted_text
-    Rails.cache.fetch('changeable_object_type/users_submitted_text') do
-      ChangeableObjectType.find_by_ch_object_type('users_submitted_text')
-    end
+    cached_find(:ch_object_type, 'users_submitted_text')
   end
   
 end

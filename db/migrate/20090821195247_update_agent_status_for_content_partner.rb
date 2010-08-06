@@ -1,7 +1,4 @@
-class UpdateAgentStatusForContentPartner < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class UpdateAgentStatusForContentPartner < EOL::DataMigration
 
   def self.up
     active_id=(AgentStatus.active.blank? ? '1' : AgentStatus.active.id) # ok, maybe the active state isn't in the database yet, so let's assume it will be 1

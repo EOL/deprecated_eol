@@ -1,7 +1,4 @@
-class AddIdentifierToDataObjects < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddIdentifierToDataObjects < EOL::DataMigration
   
   def self.up
     #Query OK, 6022736 rows affected (33 min 2.74 sec)

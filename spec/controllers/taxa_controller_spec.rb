@@ -10,7 +10,7 @@ describe TaxaController do
   describe 'search' do
 
     before(:all) do
-      Scenario.load :search_with_duplicates
+      EolScenario.load :search_with_duplicates
       @tc_id                   = SearchScenarioResults.tc_id
       @new_common_name         = SearchScenarioResults.new_common_name
       @ancestor_concept        = SearchScenarioResults.ancestor_concept

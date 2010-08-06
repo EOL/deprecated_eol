@@ -60,3 +60,4 @@ end
 #
 #  id    :integer(1)      not null, primary key
 #  label :string(100)     not null
+

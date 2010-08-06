@@ -147,21 +147,18 @@ class HierarchyEntry < SpeciesSchemaModel
   end
 
   def ancestors(cross_reference_hierarchy = nil)
-    #Rails.cache.fetch("hierarchy_entries/#{id}/ancestors") do
-      ancestors = [self]
-      if cross_reference_hierarchy
-        ancestors.unshift(find_ancestor_in_hierarchy(cross_reference_hierarchy)) unless self.hierarchy_id == cross_reference_hierarchy.id
-        if ancestors.first.nil?
-          ancestors = [self]
-          return ancestors # .to_yaml
-        end
+    ancestors = [self]
+    if cross_reference_hierarchy
+      ancestors.unshift(find_ancestor_in_hierarchy(cross_reference_hierarchy)) unless self.hierarchy_id == cross_reference_hierarchy.id
+      if ancestors.first.nil?
+        ancestors = [self]
+        return ancestors # .to_yaml
       end
-      until ancestors.first.parent_id == 0 || ancestors.first.parent.nil? do
-        ancestors.unshift(ancestors.first.parent)
-      end
-      return ancestors # .to_yaml
-    #end
-    #YAML.load(yaml)
+    end
+    until ancestors.first.parent_id == 0 || ancestors.first.parent.nil? do
+      ancestors.unshift(ancestors.first.parent)
+    end
+    return ancestors
   end
 
   def ancestors_hash(detail_level = :middle, language = Language.english, cross_reference_hierarchy = nil, secondary_hierarchy = nil)

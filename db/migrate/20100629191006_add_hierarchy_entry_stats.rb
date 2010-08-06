@@ -1,8 +1,4 @@
-class AddHierarchyEntryStats < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
-  
+class AddHierarchyEntryStats < EOL::DataMigration
   def self.up
     execute('CREATE TABLE `hierarchy_entry_stats` (
       `hierarchy_entry_id` int unsigned NOT NULL,

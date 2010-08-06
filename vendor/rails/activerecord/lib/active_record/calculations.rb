@@ -14,7 +14,7 @@ module ActiveRecord
       #
       # The third approach, count using options, accepts an option hash as the only parameter. The options are:
       #
-      # * <tt>:conditions</tt>: An SQL fragment like "administrator = 1" or [ "user_name = ?", username ]. See conditions in the intro.
+      # * <tt>:conditions</tt>: An SQL fragment like "administrator = 1" or [ "user_name = ?", username ]. See conditions in the intro to ActiveRecord::Base.
       # * <tt>:joins</tt>: Either an SQL fragment for additional joins like "LEFT JOIN comments ON comments.post_id = id" (rarely needed)
       #   or named associations in the same form used for the <tt>:include</tt> option, which will perform an INNER JOIN on the associated table(s).
       #   If the value is a string, then the records will be returned read-only since they will have attributes that do not correspond to the table's columns.
@@ -48,30 +48,38 @@ module ActiveRecord
         calculate(:count, *construct_count_options_from_args(*args))
       end
 
-      # Calculates the average value on a given column.  The value is returned as a float.  See +calculate+ for examples with options.
+      # Calculates the average value on a given column. The value is returned as
+      # a float, or +nil+ if there's no row. See +calculate+ for examples with
+      # options.
       #
-      #   Person.average('age')
+      #   Person.average('age') # => 35.8
       def average(column_name, options = {})
         calculate(:avg, column_name, options)
       end
 
-      # Calculates the minimum value on a given column.  The value is returned with the same data type of the column.  See +calculate+ for examples with options.
+      # Calculates the minimum value on a given column.  The value is returned
+      # with the same data type of the column, or +nil+ if there's no row. See
+      # +calculate+ for examples with options.
       #
-      #   Person.minimum('age')
+      #   Person.minimum('age') # => 7
       def minimum(column_name, options = {})
         calculate(:min, column_name, options)
       end
 
-      # Calculates the maximum value on a given column.  The value is returned with the same data type of the column.  See +calculate+ for examples with options.
+      # Calculates the maximum value on a given column. The value is returned
+      # with the same data type of the column, or +nil+ if there's no row. See
+      # +calculate+ for examples with options.
       #
-      #   Person.maximum('age')
+      #   Person.maximum('age') # => 93
       def maximum(column_name, options = {})
         calculate(:max, column_name, options)
       end
 
-      # Calculates the sum of values on a given column.  The value is returned with the same data type of the column.  See +calculate+ for examples with options.
+      # Calculates the sum of values on a given column. The value is returned
+      # with the same data type of the column, 0 if there's no row. See
+      # +calculate+ for examples with options.
       #
-      #   Person.sum('age')
+      #   Person.sum('age') # => 4562
       def sum(column_name, options = {})
         calculate(:sum, column_name, options)
       end
@@ -98,7 +106,7 @@ module ActiveRecord
       #       end
       #
       # Options:
-      # * <tt>:conditions</tt> - An SQL fragment like "administrator = 1" or [ "user_name = ?", username ]. See conditions in the intro.
+      # * <tt>:conditions</tt> - An SQL fragment like "administrator = 1" or [ "user_name = ?", username ]. See conditions in the intro to ActiveRecord::Base.
       # * <tt>:include</tt>: Eager loading, see Associations for details.  Since calculations don't load anything, the purpose of this is to access fields on joined tables in your conditions, order, or group clauses.
       # * <tt>:joins</tt> - An SQL fragment for additional joins like "LEFT JOIN comments ON comments.post_id = id". (Rarely needed).
       #   The records will be returned read-only since they will have attributes that do not correspond to the table's columns.
@@ -182,13 +190,15 @@ module ActiveRecord
           sql << ", #{options[:group_field]} AS #{options[:group_alias]}" if options[:group]
           if options[:from]
             sql << " FROM #{options[:from]} "
+          elsif scope && scope[:from] && !use_workaround
+            sql << " FROM #{scope[:from]} "
           else
             sql << " FROM (SELECT #{distinct}#{column_name}" if use_workaround
             sql << " FROM #{connection.quote_table_name(table_name)} "
           end
 
           joins = ""
-          add_joins!(joins, options, scope)
+          add_joins!(joins, options[:joins], scope)
 
           if merged_includes.any?
             join_dependency = ActiveRecord::Associations::ClassMethods::JoinDependency.new(self, merged_includes, joins)
@@ -206,18 +216,20 @@ module ActiveRecord
           end
 
           if options[:group] && options[:having]
+            having = sanitize_sql_for_conditions(options[:having])
+
             # FrontBase requires identifiers in the HAVING clause and chokes on function calls
             if connection.adapter_name == 'FrontBase'
-              options[:having].downcase!
-              options[:having].gsub!(/#{operation}\s*\(\s*#{column_name}\s*\)/, aggregate_alias)
+              having.downcase!
+              having.gsub!(/#{operation}\s*\(\s*#{column_name}\s*\)/, aggregate_alias)
             end
 
-            sql << " HAVING #{options[:having]} "
+            sql << " HAVING #{having} "
           end
 
           sql << " ORDER BY #{options[:order]} "       if options[:order]
           add_limit!(sql, options, scope)
-          sql << ') AS #{aggregate_alias}_subquery' if use_workaround
+          sql << ") #{aggregate_alias}_subquery" if use_workaround
           sql
         end
 
@@ -266,7 +278,14 @@ module ActiveRecord
         #   column_alias_for("count(*)")                 # => "count_all"
         #   column_alias_for("count", "id")              # => "count_id"
         def column_alias_for(*keys)
-          connection.table_alias_for(keys.join(' ').downcase.gsub(/\*/, 'all').gsub(/\W+/, ' ').strip.gsub(/ +/, '_'))
+          table_name = keys.join(' ')
+          table_name.downcase!
+          table_name.gsub!(/\*/, 'all')
+          table_name.gsub!(/\W+/, ' ')
+          table_name.strip!
+          table_name.gsub!(/ +/, '_')
+
+          connection.table_alias_for(table_name)
         end
 
         def column_for(field)
@@ -275,13 +294,20 @@ module ActiveRecord
         end
 
         def type_cast_calculated_value(value, column, operation = nil)
-          operation = operation.to_s.downcase
-          case operation
+          if value.is_a?(String) || value.nil?
+            case operation.to_s.downcase
             when 'count' then value.to_i
-            when 'sum'   then value =~ /\./ ? value.to_f : value.to_i
-            when 'avg'   then value && value.to_f
-            else column ? column.type_cast(value) : value
+            when 'sum'   then type_cast_using_column(value || '0', column)
+            when 'avg' then value.try(:to_d)
+            else type_cast_using_column(value, column)
+            end
+          else
+            value
           end
+        end
+
+        def type_cast_using_column(value, column)
+          column ? column.type_cast(value) : value
         end
     end
   end

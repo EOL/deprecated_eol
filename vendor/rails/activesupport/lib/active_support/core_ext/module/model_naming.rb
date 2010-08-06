@@ -1,21 +1,24 @@
 module ActiveSupport
   class ModelName < String
-    attr_reader :singular, :plural, :partial_path
+    attr_reader :singular, :plural, :element, :collection, :partial_path
+    alias_method :cache_key, :collection
 
     def initialize(name)
       super
-      @singular = underscore.tr('/', '_').freeze
-      @plural = @singular.pluralize.freeze
-      @partial_path = "#{tableize}/#{demodulize.underscore}".freeze
+      @singular = ActiveSupport::Inflector.underscore(self).tr('/', '_').freeze
+      @plural = ActiveSupport::Inflector.pluralize(@singular).freeze
+      @element = ActiveSupport::Inflector.underscore(ActiveSupport::Inflector.demodulize(self)).freeze
+      @collection = ActiveSupport::Inflector.tableize(self).freeze
+      @partial_path = "#{@collection}/#{@element}".freeze
     end
   end
 
-  module CoreExt
+  module CoreExtensions
     module Module
-      module ModelNaming
-        def model_name
-          @model_name ||= ModelName.new(name)
-        end
+      # Returns an ActiveSupport::ModelName object for module. It can be
+      # used to retrieve all kinds of naming-related information.
+      def model_name
+        @model_name ||= ::ActiveSupport::ModelName.new(name)
       end
     end
   end

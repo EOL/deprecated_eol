@@ -8,23 +8,25 @@ require File.dirname(__FILE__) + '/../spec_helper'
 # of scenarios that we test.  But it's important to explicitly test 
 # our scenarios and catch if one of them starts raising exceptions.
 #
-describe Scenarios do
+describe EolScenarios do
 
   before(:all) do
     truncate_all_tables # It is assumed you truncate the tables before you run these (well, before you expect them
                         # to work!)
+    EolScenario.load :bootstrap
   end
 
-  # test the scenarios we want to make sure work
-  %w( foundation bootstrap ).each do |scenario|
-    it "#{scenario} scenario should load without errors" do
-      Scenario.load scenario
-    end
+  it "should have data from foundation loaded" do
+    Language.count.should > 1
+  end
+
+  it "should have data from bootstrap loaded" do 
+    User.count.should > 20
   end
 
   # make sure we are properly catching scenario exceptions!
   it "raises_exception scenario should raise an exception" do
-    lambda { Scenario.load :raises_exception, :whiny => false }.should raise_error
+    lambda { EolScenario.load :raises_exception, :whiny => false }.should raise_error
   end
 
 end

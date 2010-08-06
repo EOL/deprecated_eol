@@ -1,10 +1,16 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
-require 'spec'
+require 'spec/autorun'
 require 'spec/rails'
 load 'composite_primary_keys/fixtures.rb' 
 require 'csv'
+
+# just enough infrastructure to get 'assert_select' to work
+require 'action_controller'
+require 'action_controller/assertions/selector_assertions'
+include ActionController::Assertions::SelectorAssertions
+
 
 require "email_spec/helpers"
 require "email_spec/matchers"
@@ -18,20 +24,20 @@ require File.expand_path(File.dirname(__FILE__) + "/factories")
 require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")
 require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
 
-require 'scenarios'
-Scenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
+require 'eol_scenarios'
+EolScenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
 
 require 'rackbox'
 
 Spec::Runner.configure do |config|
-  include Scenario::Spec
+  include EolScenario::Spec
   include EOL::Data # this gives us access to methods that clean up our data (ie: lft/rgt values)
   include EOL::DB   # this gives us access to methods that handle transactions
   include EOL::Spec::Helpers
   
-  truncate_all_tables_once # truncate all tables (once) before running specs
-
   config.include EOL::Spec::Matchers
+  # Once upon a time, we needed this to run blackbox tests.  Now, if this line is in, Contoller (non-rackbox) tests fail.
+  # When we removed this line, everything was happy.  When we remove rackbox entirely, *we* will be happy, too.
   config.use_blackbox = true
 
   # blackbox specs often use scenarios ... which often make us max out the 
@@ -47,22 +53,14 @@ Spec::Runner.configure do |config|
   # examples run within their own transactions for ALL 
   # active connections (works for ALL of our databases)
   config.before(:each) do
-
-    Rails.cache.clear # This resets all of the in-memory models and other cached items, so we start anew!
-
-    UseDbPlugin.all_use_dbs.collect do |klass|
-      klass
-    end
-
-    start_transactions
+    Rails.cache.clear
+    SpeciesSchemaModel.connection.execute("START TRANSACTION #SpeciesSchemaModel")
+    SpeciesSchemaModel.connection.increment_open_transactions
 
   end
   config.after(:each) do
-    UseDbPlugin.all_use_dbs.collect do |klass|
-      klass
-    end
-
-    rollback_transactions
+    SpeciesSchemaModel.connection.decrement_open_transactions
+    SpeciesSchemaModel.connection.execute("ROLLBACK #SpeciesSchemaModel")
   end
 
 end
@@ -88,3 +86,18 @@ def read_test_file(filename)
   end
 end
 
+module Spec
+  module Rails
+    module Example
+      class FunctionalExampleGroup < ActionController::TestCase
+        # All we need to do is keep a couple of methods from using 'request' and instead their local variable @request:
+        def params
+          @request.parameters
+        end
+        def session
+          @request.session
+        end
+      end
+    end
+  end
+end

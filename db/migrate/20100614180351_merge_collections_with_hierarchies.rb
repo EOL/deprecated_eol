@@ -1,8 +1,4 @@
-class MergeCollectionsWithHierarchies < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
-  
+class MergeCollectionsWithHierarchies < EOL::DataMigration
   def self.up
     execute('alter table hierarchies add `outlink_uri` varchar(255) NULL after `url`')
     execute('alter table hierarchies add `ping_host_url` varchar(255) NULL after `outlink_uri`')

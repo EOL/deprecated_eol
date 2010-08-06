@@ -1,8 +1,4 @@
-class CreateCuratedHierarchyEntryRelationships < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
-  
+class CreateCuratedHierarchyEntryRelationships < EOL::DataMigration
   def self.up
     execute("CREATE TABLE `curated_hierarchy_entry_relationships` (
       `hierarchy_entry_id_1` int unsigned NOT NULL,

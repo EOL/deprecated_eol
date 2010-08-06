@@ -1,3 +1,4 @@
+- node_class ||= nil
 - if ancestors.blank?
   %li
     = render(:partial => 'navigation/node_name_page', :locals => { :entry => hierarchy_entry, :node_class => node_class })
@@ -17,11 +18,10 @@
               = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :hierarchy_entry => child, :expanded => true })
             - else
               %li
-                = render(:partial => 'navigation/node_name_page', :locals => { :entry => child })
+                = render(:partial => 'navigation/node_name_page', :locals => { :entry => child, :node_class => node_class })
 - else
   - ancestor = ancestors.shift
   %li
     = render(:partial => 'navigation/node_name_page', :locals => { :entry => ancestor, :node_class => node_class})
     %ul.branch
       = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
-      

@@ -5,11 +5,11 @@ require 'nokogiri'
 
 describe 'data object tags' do
   before(:all) do
-    Scenario.load :foundation
+    EolScenario.load :foundation
     taxon_concept = build_taxon_concept(:images => [{}])
     @image_dato   = taxon_concept.images.last
-    @user1 = create_user 'charliebrown', 'testing'
-    @user2 = create_user 'charliebrown2', 'testing2'
+    @user1 = create_user 'charliebrown'
+    @user2 = create_user 'charliebrown2'
     @image_dato.tag("key-private-old", "value-private-old", @user1)
     @image_dato.tag("key-public-old", "value-public-old", @user2)
     #during reharvesting this object will be recreated with the same guid and different id
@@ -23,8 +23,8 @@ describe 'data object tags' do
     truncate_all_tables
   end
 
-  def create_user username, password
-    User.gen :username => username, :password => password
+  def create_user username
+    User.gen :username => username
   end
 
   it 'should show up public and private tags for old and new version of dato after re-harvesting' do

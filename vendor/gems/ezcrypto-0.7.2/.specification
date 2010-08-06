@@ -1,0 +1,120 @@
+--- !ruby/object:Gem::Specification 
+name: ezcrypto
+version: !ruby/object:Gem::Version 
+  prerelease: false
+  segments: 
+  - 0
+  - 7
+  - 2
+  version: 0.7.2
+platform: ruby
+authors: 
+- Pelle Braendgaard
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2009-03-10 00:00:00 -07:00
+default_executable: 
+dependencies: []
+
+description: Makes it easier and safer to write crypto code.
+email: pelle@stakeventures.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- CHANGELOG
+- README.rdoc
+- README_ACTIVE_CRYPTO
+- README_DIGITAL_SIGNATURES
+files: 
+- rakefile
+- README.rdoc
+- README_ACTIVE_CRYPTO
+- README_DIGITAL_SIGNATURES
+- MIT-LICENSE
+- CHANGELOG
+- init.rb
+- lib/active_crypto.rb
+- lib/ezcrypto.rb
+- lib/ezsig.rb
+- lib/trusted.pem
+- test/active_crypto_test.rb
+- test/agree2.com.cert
+- test/association_key_holder_test.rb
+- test/database.yml
+- test/debug.log
+- test/digest_test.rb
+- test/dsakey.pem
+- test/dsapubkey.pem
+- test/dsig_test.rb
+- test/encrypt_test.rb
+- test/ezcrypto_test.rb
+- test/key_holder_test.rb
+- test/protectedsigner.pem
+- test/sf-class2-root.crt
+- test/sf_intermediate.crt
+- test/store
+- test/test_helper.rb
+- test/testchild.pem
+- test/testchild.req
+- test/testpub.pem
+- test/testsigner.cert
+- test/testsigner.pem
+- test/valicert_class2_root.crt
+has_rdoc: true
+homepage: http://ezcrypto.rubyforge.org
+licenses: []
+
+post_install_message: 
+rdoc_options: []
+
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      segments: 
+      - 0
+      version: "0"
+requirements: 
+- none
+rubyforge_project: ezcrypto
+rubygems_version: 1.3.6
+signing_key: 
+specification_version: 2
+summary: Simplified encryption library.
+test_files: 
+- test/active_crypto_test.rb
+- test/agree2.com.cert
+- test/association_key_holder_test.rb
+- test/database.yml
+- test/debug.log
+- test/digest_test.rb
+- test/dsakey.pem
+- test/dsapubkey.pem
+- test/dsig_test.rb
+- test/encrypt_test.rb
+- test/ezcrypto_test.rb
+- test/key_holder_test.rb
+- test/protectedsigner.pem
+- test/sf-class2-root.crt
+- test/sf_intermediate.crt
+- test/store
+- test/test_helper.rb
+- test/testchild.pem
+- test/testchild.req
+- test/testpub.pem
+- test/testsigner.cert
+- test/testsigner.pem
+- test/valicert_class2_root.crt

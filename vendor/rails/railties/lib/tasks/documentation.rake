@@ -52,9 +52,16 @@ namespace :doc do
     rm_rf 'doc/plugins' rescue nil
   end
 
+  desc "Generate Rails guides"
+  task :guides do
+    require File.join(RAILTIES_PATH, "guides/rails_guides")
+    RailsGuides::Generator.new(File.join(RAILS_ROOT, "doc/guides")).generate
+  end
+
   namespace :plugins do
     # Define doc tasks for each plugin
     plugins.each do |plugin|
+      desc "Generate documentation for the #{plugin} plugin"
       task(plugin => :environment) do
         plugin_base   = "vendor/plugins/#{plugin}"
         options       = []
@@ -62,6 +69,7 @@ namespace :doc do
         options << "-o doc/plugins/#{plugin}"
         options << "--title '#{plugin.titlecase} Plugin Documentation'"
         options << '--line-numbers' << '--inline-source'
+        options << '--charset' << 'utf-8'
         options << '-T html'
 
         files.include("#{plugin_base}/lib/**/*.rb")

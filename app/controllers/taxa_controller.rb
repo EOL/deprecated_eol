@@ -2,7 +2,7 @@ class TaxaController < ApplicationController
 
   layout 'main'
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
-  before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution]
+  before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution, :content]
 
   def index
     #this is cheating because of mixing taxon and taxon concept use of the controller
@@ -20,8 +20,8 @@ class TaxaController < ApplicationController
       # replaced because it doesn't separate taxa with objects from taxa without
       #results = SpeciesSchemaModel.connection.execute("SELECT n.string scientific_name, he.taxon_concept_id 
       #  FROM harvest_events_hierarchy_entries hehe 
-      #  JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id=he.id)
-      #  JOIN names n ON (he.name_id=n.id)
+      #  JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id = he.id)
+      #  JOIN names n ON (he.name_id = n.id)
       #  WHERE hehe.harvest_event_id=#{params[:harvest_event_id].to_i}
       #  ORDER BY n.string").all_hashes.uniq
 
@@ -70,10 +70,10 @@ class TaxaController < ApplicationController
     end
   end
 
-  def search_clicked
+  def found
     # update the search log if we are coming from the search page, to indicate the user got here from a search
-    update_logged_search :id=>params[:search_id], :taxon_concept_id=>params[:id] if params.key? :search_id 
-    redirect_to taxon_url, :id=>params[:id]
+    update_logged_search :id => params[:search_id], :taxon_concept_id => params[:id] if params.key? :search_id 
+    redirect_to taxon_url(:id => params[:id])
   end
 
   # a permanent redirect to the new taxon_concept page
@@ -172,26 +172,26 @@ class TaxaController < ApplicationController
 
     store_location(params[:return_to]) if !params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
 
+    # grab logged in user
+    @user = current_user
+
     # if the user is logged in, they should be at the profile page
     if logged_in?
       if params[:from_taxa_page].blank?
         redirect_to(profile_url)
         return
       else
-        current_user.update_attributes(params[:user])
+        @user.update_attributes(params[:user])
         params[:from_taxa_page]
       end
     end
 
-    # grab logged in user
-    @user = current_user
-
     unless request.post? # first time on page, get current settings
       # set expertise to a string so it will be picked up in web page controls
-      @user.expertise=current_user.expertise.to_s
+      @user.expertise = current_user.expertise.to_s
       return
     end
-    @user.attributes=params[:user]
+    @user.attributes = params[:user]
     set_current_user(@user)
     flash[:notice] = "Your preferences have been updated."[:your_preferences_have_been_updated] if params[:from_taxa_page].blank?
     store_location(EOLWebService.uri_remove_param(return_to_url, 'vetted')) if valid_return_to_url
@@ -235,7 +235,7 @@ class TaxaController < ApplicationController
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
 
     load_content_var
-    @ajax_update=true
+    @ajax_update = true
     append_content_instance_variables(@category_id)
     if @content.nil?
       render :text => '[content missing]'
@@ -314,8 +314,8 @@ class TaxaController < ApplicationController
   def show_popup
 
      if !params[:name].blank? && request.xhr?
-       template=params[:name]
-       @taxon_name=params[:taxon_name] || "this taxon"
+       template = params[:name]
+       @taxon_name = params[:taxon_name] || "this taxon"
        render :layout=>false, :template=>'popups/' + template
      else
        render :nothing=>true
@@ -426,23 +426,22 @@ private
       'none'
     end
   end
-  
-  def show_unvetted_videos #collect all videos (unvetted as well)
-    vetted_mode = @taxon_concept.current_user.vetted
-    @taxon_concept.current_user.vetted = false
-    videos = @taxon_concept.videos unless @taxon_concept.videos.blank?
-    @taxon_concept.current_user.vetted = vetted_mode
-    return videos
-  end
-  
+
   def videos_to_show
+    @default_videos = @taxon_concept.videos
     @videos = show_unvetted_videos # instant variable used in _mediacenter
     
     if params[:vet_flag] == "false"
       @video_collection = @videos            
     else 
-      @video_collection = @taxon_concept.videos unless @taxon_concept.videos.blank?
+      @video_collection = @default_videos unless @default_videos.blank?
     end
+  end
+  
+  # collect all videos (unvetted as well)
+  def show_unvetted_videos
+    videos = @taxon_concept.videos(:unvetted => true) unless @default_videos.blank?
+    return videos
   end
   
   def taxon_concept
@@ -485,7 +484,7 @@ private
   end
   
   def do_the_search
-    redirect_to :controller => 'taxa', :action => 'search', :id => params[:id]
+    redirect_to search_path(:id => params[:id])
   end
   
   def show_taxa_html
@@ -497,9 +496,9 @@ private
 
     if show_taxa_html_can_be_cached? &&
        fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
-      @cached=true
+      @cached = true
     else
-      @cached=false
+      @cached = false
       failure = set_taxa_page_instance_vars
       return false if failure
     end # end get full page since we couldn't read from cache
@@ -544,7 +543,7 @@ private
       
       selected_image_index = find_selected_image_index(@images,image_id)
       if selected_image_index.nil?
-        current_user.vetted=false
+        current_user.vetted = false
         current_user.save if logged_in?
         
         @taxon_concept.current_user = current_user

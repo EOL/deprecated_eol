@@ -295,8 +295,8 @@ Factory.define :agent_contact do |ac|
   ac.association :agent_contact_role
   ac.given_name  { Factory.next(:string) }
   ac.family_name { Factory.next(:string) }
-  ac.full_name   {|a| "#{a.first_name} #{a.last_name}" }
-  ac.email       {|a| "#{a.first_name}.#{a.last_name}@example.com".downcase }
+  ac.full_name   {|a| "#{a.given_name} #{a.family_name}" }
+  ac.email       {|a| "#{a.given_name}.#{a.family_name}@example.com".downcase }
   ac.homepage    'http://whatever.org'
   ac.address     '1234 Doesntmatter St'
   ac.title       'Call me SIR'
@@ -389,11 +389,12 @@ Factory.define :content_page do |cp|
   cp.association :content_section
   cp.language_abbr 'en'
   cp.title         'Test Content Page'
-  cp.page_name     {|cp| cp.title }
-  cp.left_content  {|cp| "<h3>This is Left Content in a #{cp.title}</h3>" }
-  cp.main_content  {|cp| "<h1>Main Content for #{cp.title} ROCKS!</h1>" }
+  cp.page_name     {|c| c.title }
+  cp.left_content  {|c| "<h3>This is Left Content in a #{c.title}</h3>" }
+  cp.main_content  {|c| "<h1>Main Content for #{c.title} ROCKS!</h1>" }
   cp.sort_order    1
   cp.url           '' # This would imply that the content was external.
+  cp.last_update_user_id 1 # This *should* be the admin, and we don't *really* care otherwise.
 end
 
 Factory.define :content_partner do |cp|
@@ -917,9 +918,10 @@ Factory.define :user do |u|
   end
   u.active                    true
   u.password                  'test password'
+  u.entered_password          'test password'
   u.curator_hierarchy_entry   nil
   u.curator_approved          false
-  u.curator_verdict_by_id     0
+  u.curator_verdict_by_id     nil
   u.curator_verdict_at        nil
   u.curator_scope             ''
   u.password_reset_token      nil

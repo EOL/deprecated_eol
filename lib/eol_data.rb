@@ -1,5 +1,12 @@
 module EOL
   module DB
+    def self.all_connections
+      connections = [ActiveRecord::Base, SpeciesSchemaModel, LoggingModel]
+      connections << [SpeciesSchemaWriter, LoggingWriter] if RAILS_ENV == 'production'
+      connections.map {|c| c.connection}
+    end
+
+
     module Create
       def all
         ActiveRecord::Base.configurations.keys.find_all {|c| c =~ /#{RAILS_ENV}/ }.each do |config_name|
@@ -49,7 +56,7 @@ module EOL
       [ User, CuratorActivity, Name ].each do |model|
         conn = model.connection
         conn.commit_db_transaction
-        Thread.current['open_transactions'] = 0
+        conn.begin_db_transaction if conn.open_transactions > 0
       end
     end
 

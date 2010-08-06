@@ -1,8 +1,4 @@
-class ChangeWikipediaQueueTable < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
-  
+class ChangeWikipediaQueueTable < EOL::DataMigration
   def self.up
     execute('alter table wikipedia_queue add `user_id` int unsigned NOT NULL')
     execute('alter table wikipedia_queue add `created_at` timestamp NOT NULL default CURRENT_TIMESTAMP')

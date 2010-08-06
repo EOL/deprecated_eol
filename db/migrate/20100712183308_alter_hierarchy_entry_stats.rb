@@ -1,8 +1,4 @@
-class AlterHierarchyEntryStats < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
-  
+class AlterHierarchyEntryStats < EOL::DataMigration
   def self.up
     execute('alter table hierarchy_entry_stats add `total_children` int unsigned NOT NULL')
   end

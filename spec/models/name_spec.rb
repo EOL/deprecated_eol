@@ -13,7 +13,7 @@ describe Name do
     Name.create( :string => 'Tiger' ).should_not be_valid # because there's already a Tiger
   end
   
-  describe "#callbacks" do
+  it "#callbacks" do
     name = Name.create(:string => "Some test string")
     name.class.should == Name
     name.canonical_form.string.should == "Some test string"

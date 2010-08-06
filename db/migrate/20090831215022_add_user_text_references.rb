@@ -1,7 +1,5 @@
-class AddUserTextReferences < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddUserTextReferences < EOL::DataMigration
+  
   def self.up
     add_column :refs, :user_submitted, :boolean, :default => false, :null => false
   end
@@ -9,4 +7,5 @@ class AddUserTextReferences < ActiveRecord::Migration
   def self.down
     remove_column :refs, :user_submitted
   end
+
 end

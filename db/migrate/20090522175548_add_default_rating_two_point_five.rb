@@ -1,7 +1,4 @@
-class AddDefaultRatingTwoPointFive < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddDefaultRatingTwoPointFive < EOL::DataMigration
 
   def self.up
     change_column :data_objects, :data_rating, :float, :default => 2.5

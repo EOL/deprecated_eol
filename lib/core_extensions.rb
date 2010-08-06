@@ -1,6 +1,38 @@
 # This library file declares extensions to the Core classes, as well as some of the "Core" Rails classes
 # (ActiveRecord and what-not).
 
+# There is a problem with Rails.cache returning frozen objects.  The following two patches should fix it:
+#
+# https://rails.lighthouseapp.com/projects/8994/tickets/2860
+# https://rails.lighthouseapp.com/projects/8994/tickets/2859
+#
+# Discussion about the problem:
+# https://rails.lighthouseapp.com/projects/8994/tickets/2655-railscache-freezes-all-objects-passed-to-it
+
+module ActiveRecord
+  class Base
+    def dup
+      obj = super
+      obj.instance_variable_set('@attributes', instance_variable_get('@attributes').dup)
+      obj
+    end
+  end
+end
+
+module ActiveSupport
+  module Cache
+    class MemoryStore < Store
+      def write(name, value, options = nil)
+        super
+        # ORIGINAL: @data[name] = value.freeze
+        # NEW:
+        @data[name] = (value.duplicable? ? value.dup : value).freeze
+      end
+    end
+  end
+end
+
+
 # This is a fix for EOLINFRASTRUCTURE-1606 ... NewRelic appears to be calling [] on a Nil somewhere, and this avoids the
 # problem.
 class NilClass
@@ -44,12 +76,12 @@ class String
 
   def firstcap
     @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
-    self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.chars.capitalize + $4 }
+    self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.capitalize + $4 }
   end
   
   def firstcap!
     @firstcap_regex = /^(<[^>]*>)?(['"])?([^ ]+)( |$)/
-    self.gsub!(@firstcap_regex) { $1.to_s + $2.to_s + $3.chars.capitalize + $4 }
+    self.gsub!(@firstcap_regex) { $1.to_s + $2.to_s + $3.capitalize + $4 }
   end
   
   
@@ -178,12 +210,33 @@ end
 
 # I need this to sanitize SQL into strings:
 class << ActiveRecord::Base
-  public :sanitize_sql
+  public :sanitize_sql_array
 end
 
 module ActiveRecord
   class Base
     class << self
+
+      # options is there so that we can pass in the :serialize => true option in the cases where we were using Yaml...
+      # I am going to try NOT doing anything with that option right now, to see if it works.  If not, however, I want to at
+      # least have it passed in when we needed it, so the code can change later if needed.
+      def cached_find(field, value, options = {})
+        cached("#{field}/#{value}", options) do
+          send("find_by_#{field}", value)
+        end
+      end
+
+      def cached(key, options = {}, &block)
+        Rails.cache.fetch(cached_name_for(key)) do
+          yield
+        end
+      end
+
+      def cached_name_for(key)
+        @bad_chars ||= /[^A-Za-z0-9\/]/ # Remember, inline regexes can leak memory.  Storing as variables avoids this.
+        @dup_underscores ||= /__+/
+        "#{RAILS_ENV}/#{self.table_name}/#{key}".gsub(@bad_chars, '_').gsub(@dup_underscores, '_')[0..249]
+      end
 
       # returns the full table name of this ActiveRecord::Base, 
       # including the database name.
@@ -205,7 +258,7 @@ module ActiveRecord
       
       # returns the name of the database for this ActiveRecord::Base
       def database_name
-        database_config[:database]
+        @database_name ||= self.connection.execute('select database()').fetch_row[0]
       end
 
     end

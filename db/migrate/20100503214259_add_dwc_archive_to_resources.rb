@@ -1,7 +1,4 @@
-class AddDwcArchiveToResources < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class AddDwcArchiveToResources < EOL::DataMigration
   
   def self.up
     execute('alter table resources add dwc_archive_url varchar(255) default NULL after `metadata_url`')

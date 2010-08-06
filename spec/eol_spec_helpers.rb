@@ -32,9 +32,11 @@ module EOL
             'remember_me' => options[:remember_me] || '' })
       end
 
-      def login_as(options = {})
-        if options.is_a? User # let us pass a newly created user (with an entered_password)
-          options = { :username => options.username, :password => options.entered_password }
+      def login_as(user, options = {})
+        if user.is_a? User # let us pass a newly created user (with an entered_password)
+          options = { :username => user.username, :password => user.entered_password }.merge(options)
+        elsif user.is_a? Hash
+          options = options.merge(user)
         end
         request('/account/authenticate', :params => { 
             'user[username]' => options[:username], 
@@ -43,10 +45,9 @@ module EOL
       end
 
       # returns a connection for each of our databases, eg: 1 for Data, 1 for Logging ...
+      # TODO - this is not a nice abstract way of getting the list of connections we have.  We should generalize.
       def all_connections
-        # use_db lazy-loads its db list, so the classes in logging/ are ignored unless you reference one:
-        CuratorActivity.first
-        UseDbPlugin.all_use_dbs.map {|db| db.connection }
+        EOL::DB.all_connections
       end
 
       # call truncate_all_tables but make sure it only 

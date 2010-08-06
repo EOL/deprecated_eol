@@ -91,8 +91,7 @@ class Agent < SpeciesSchemaModel
   # To make users be able to change species pages (add a common name for example)
   # we have create an agent bypassing all the usual safety checks
   def self.create_agent_from_user(thename)
-    thename = SpeciesSchemaModel.eol_escape_sql(["?",thename])
-    agent_id = SpeciesSchemaModel.connection.insert("insert into agents (full_name) values (#{thename})")
+    agent_id = SpeciesSchemaModel.connection.insert(ActiveRecord::Base.sanitize_sql_array(["insert into agents (full_name) values (?)", thename]))
     Agent.with_master do
       return Agent.find(agent_id)
     end
@@ -101,15 +100,11 @@ class Agent < SpeciesSchemaModel
   
   # Singleton class variable, so we only ever look it up once per thread:  
   def self.iucn
-    Rails.cache.fetch('agents/iucn') do
-      Agent.find_by_full_name('IUCN')
-    end
+    cached_find(:full_name, 'IUCN', :serialize => true)
   end
   
   def self.catalogue_of_life
-    YAML.load(Rails.cache.fetch('agents/catalogue_of_life') do
-      Agent.find_by_full_name('Catalogue of Life').to_yaml
-    end)
+    cached_find(:full_name, 'Catalogue of Life', :serialize => true)
   end
 
   def self.col
@@ -117,24 +112,23 @@ class Agent < SpeciesSchemaModel
   end
 
   def self.gbif
-    YAML.load(Rails.cache.fetch('agents/gbif') do
-      Agent.find_by_full_name('Global Biodiversity Information Facility (GBIF)').to_yaml
-    end)
+    cached_find(:full_name, 'Global Biodiversity Information Facility (GBIF)', :serialize => true)
   end
   
   def self.ncbi
-    YAML.load(Rails.cache.fetch('agents/ncbi') do
-      Agent.find_by_full_name('National Center for Biotechnology Information').to_yaml
-    end)
+    cached_find(:full_name, 'National Center for Biotechnology Information', :serialize => true)
   end
   
   # get the CoL agent for use in classification attribution
   def self.catalogue_of_life_for_attribution
-    YAML.load(Rails.cache.fetch('agents/catalogue_of_life_for_attribution') do
+    cached('agents/catalogue_of_life_for_attribution', :serialize => true) do
       col_attr = Agent.catalogue_of_life
       col_attr.full_name = col_attr.display_name = Hierarchy.default.label # To change the name from just "Catalogue of Life"
-      col_attr.to_yaml
-    end)
+    end
+  end
+  
+  def self.boa
+    cached_find(:full_name, 'Biology of Aging', :serialize => true)
   end
   
   def self.boa

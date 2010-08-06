@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe EOL::SearchResultsCollection do
 
   before(:all) do
-    Scenario.load :search_with_duplicates
+    EolScenario.load :search_with_duplicates
     @tc_id                   = SearchScenarioResults.tc_id
     @new_common_name         = SearchScenarioResults.new_common_name
     @taxon_concept           = SearchScenarioResults.taxon_concept

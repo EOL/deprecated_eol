@@ -15,6 +15,28 @@ class ActiveSchemaTest < ActiveRecord::TestCase
     end
   end
 
+  def test_add_index
+    # add_index calls index_exists? which can't work since execute is stubbed
+    ActiveRecord::ConnectionAdapters::MysqlAdapter.send(:define_method, :index_exists?) do |*|
+      false
+    end
+    expected = "CREATE  INDEX `index_people_on_last_name` ON `people` (`last_name`)"
+    assert_equal expected, add_index(:people, :last_name, :length => nil)
+
+    expected = "CREATE  INDEX `index_people_on_last_name` ON `people` (`last_name`(10))"
+    assert_equal expected, add_index(:people, :last_name, :length => 10)
+
+    expected = "CREATE  INDEX `index_people_on_last_name_and_first_name` ON `people` (`last_name`(15), `first_name`(15))"
+    assert_equal expected, add_index(:people, [:last_name, :first_name], :length => 15)
+
+    expected = "CREATE  INDEX `index_people_on_last_name_and_first_name` ON `people` (`last_name`(15), `first_name`)"
+    assert_equal expected, add_index(:people, [:last_name, :first_name], :length => {:last_name => 15})
+
+    expected = "CREATE  INDEX `index_people_on_last_name_and_first_name` ON `people` (`last_name`(15), `first_name`(10))"
+    assert_equal expected, add_index(:people, [:last_name, :first_name], :length => {:last_name => 15, :first_name => 10})
+    ActiveRecord::ConnectionAdapters::MysqlAdapter.send(:remove_method, :index_exists?)
+  end
+
   def test_drop_table
     assert_equal "DROP TABLE `people`", drop_table(:people)
   end
@@ -24,6 +46,11 @@ class ActiveSchemaTest < ActiveRecord::TestCase
       assert_equal "CREATE DATABASE `matt` DEFAULT CHARACTER SET `utf8`", create_database(:matt)
       assert_equal "CREATE DATABASE `aimonetti` DEFAULT CHARACTER SET `latin1`", create_database(:aimonetti, {:charset => 'latin1'})
       assert_equal "CREATE DATABASE `matt_aimonetti` DEFAULT CHARACTER SET `big5` COLLATE `big5_chinese_ci`", create_database(:matt_aimonetti, {:charset => :big5, :collation => :big5_chinese_ci})
+    end
+
+    def test_recreate_mysql_database_with_encoding
+      create_database(:luca, {:charset => 'latin1'})
+      assert_equal "CREATE DATABASE `luca` DEFAULT CHARACTER SET `latin1`", recreate_database(:luca, {:charset => 'latin1'})
     end
   end
 

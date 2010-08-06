@@ -1,8 +1,4 @@
-class AddIndexToDataObjectsInfoItems < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
-
+class AddIndexToDataObjectsInfoItems < EOL::DataMigration
   def self.up
     execute("create index info_item_id on data_objects_info_items(info_item_id)")
   end

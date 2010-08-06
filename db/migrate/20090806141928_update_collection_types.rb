@@ -1,7 +1,4 @@
-class UpdateCollectionTypes < ActiveRecord::Migration
-  def self.database_model
-    return "SpeciesSchemaModel"
-  end
+class UpdateCollectionTypes < EOL::DataMigration
   
   def self.up
     execute("INSERT INTO collection_types (parent_id, label) VALUES (0, 'Taxonomy'), (0, 'Molecular bar codes'), (0, 'Description'), (0, 'Images'), (0, 'Distribution'), (0, 'Conservation status'), (0, 'Name information'), (0, 'Molecular data'), (0, 'Nomenclature'), (0, 'Sounds'), (0, 'Links'), (0, 'Literature')")

@@ -84,11 +84,11 @@ class ControllerInstanceTests < Test::Unit::TestCase
   def test_action_methods
     @empty_controllers.each do |c|
       hide_mocha_methods_from_controller(c)
-      assert_equal Set.new, c.send!(:action_methods), "#{c.controller_path} should be empty!"
+      assert_equal Set.new, c.__send__(:action_methods), "#{c.controller_path} should be empty!"
     end
     @non_empty_controllers.each do |c|
       hide_mocha_methods_from_controller(c)
-      assert_equal Set.new(%w(public_action)), c.send!(:action_methods), "#{c.controller_path} should not be empty!"
+      assert_equal Set.new(%w(public_action)), c.__send__(:action_methods), "#{c.controller_path} should not be empty!"
     end
   end
 
@@ -100,12 +100,12 @@ class ControllerInstanceTests < Test::Unit::TestCase
         :expects, :mocha, :mocha_inspect, :reset_mocha, :stubba_object,
         :stubba_method, :stubs, :verify, :__metaclass__, :__is_a__, :to_matcher,
       ]
-      controller.class.send!(:hide_action, *mocha_methods)
+      controller.class.__send__(:hide_action, *mocha_methods)
     end
 end
 
 
-class PerformActionTest < Test::Unit::TestCase
+class PerformActionTest < ActionController::TestCase
   class MockLogger
     attr_reader :logged
 
@@ -129,6 +129,8 @@ class PerformActionTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
 
     @request.host = "www.nextangle.com"
+
+    rescue_action_in_public!
   end
   
   def test_get_on_priv_should_show_selector
@@ -140,7 +142,7 @@ class PerformActionTest < Test::Unit::TestCase
   
   def test_method_missing_is_not_an_action_name
     use_controller MethodMissingController
-    assert ! @controller.send!(:action_methods).include?('method_missing')
+    assert ! @controller.__send__(:action_methods).include?('method_missing')
     
     get :method_missing
     assert_response :success
@@ -164,14 +166,12 @@ class PerformActionTest < Test::Unit::TestCase
   end
 end
 
-class DefaultUrlOptionsTest < Test::Unit::TestCase
+class DefaultUrlOptionsTest < ActionController::TestCase
+  tests DefaultUrlOptionsController
+
   def setup
-    @controller = DefaultUrlOptionsController.new
-
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-
     @request.host = 'www.example.com'
+    rescue_action_in_public!
   end
 
   def test_default_url_options_are_used_if_set
@@ -189,14 +189,12 @@ class DefaultUrlOptionsTest < Test::Unit::TestCase
   end
 end
 
-class EmptyUrlOptionsTest < Test::Unit::TestCase
+class EmptyUrlOptionsTest < ActionController::TestCase
+  tests NonEmptyController
+
   def setup
-    @controller = NonEmptyController.new
-
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-
     @request.host = 'www.example.com'
+    rescue_action_in_public!
   end
 
   def test_ensure_url_for_works_as_expected_when_called_with_no_options_if_default_url_options_is_not_set

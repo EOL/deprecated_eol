@@ -2,10 +2,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Ref do
   
-  before(:each) do
-    Scenario.load :foundation
+  before(:all) do
+    EolScenario.load :foundation
   end
-  
+
   describe "Literature reviews" do
     
     before(:all) do
@@ -36,7 +36,7 @@ describe Ref do
           end
         end
       end
-      
+
       it "should have literature reviews" do
         Ref.literature_references_for?(@tc.id).should be_true
         Ref.find_refs_for(@tc.id).size.should == 8

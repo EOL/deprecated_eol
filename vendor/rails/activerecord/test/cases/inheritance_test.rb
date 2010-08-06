@@ -59,16 +59,16 @@ class InheritanceTest < ActiveRecord::TestCase
 
   def test_a_bad_type_column
     #SQLServer need to turn Identity Insert On before manually inserting into the Identity column
-    if current_adapter?(:SQLServerAdapter, :SybaseAdapter)
+    if current_adapter?(:SybaseAdapter)
       Company.connection.execute "SET IDENTITY_INSERT companies ON"
     end
     Company.connection.insert "INSERT INTO companies (id, #{QUOTED_TYPE}, name) VALUES(100, 'bad_class!', 'Not happening')"
 
     #We then need to turn it back Off before continuing.
-    if current_adapter?(:SQLServerAdapter, :SybaseAdapter)
+    if current_adapter?(:SybaseAdapter)
       Company.connection.execute "SET IDENTITY_INSERT companies OFF"
     end
-    assert_raises(ActiveRecord::SubclassNotFound) { Company.find(100) }
+    assert_raise(ActiveRecord::SubclassNotFound) { Company.find(100) }
   end
 
   def test_inheritance_find
@@ -124,7 +124,7 @@ class InheritanceTest < ActiveRecord::TestCase
   end
 
   def test_finding_incorrect_type_data
-    assert_raises(ActiveRecord::RecordNotFound) { Firm.find(2) }
+    assert_raise(ActiveRecord::RecordNotFound) { Firm.find(2) }
     assert_nothing_raised   { Firm.find(1) }
   end
 
@@ -193,7 +193,7 @@ class InheritanceTest < ActiveRecord::TestCase
 
   def test_eager_load_belongs_to_primary_key_quoting
     con = Account.connection
-    assert_sql(/\(#{con.quote_table_name('companies')}.#{con.quote_column_name('id')} IN \(1\)\)/) do
+    assert_sql(/\(#{con.quote_table_name('companies')}.#{con.quote_column_name('id')} = 1\)/) do
       Account.find(1, :include => :firm)
     end
   end

@@ -1,8 +1,4 @@
-class AddPageLogTable < ActiveRecord::Migration
-  def self.database_model
-    return "LoggingModel"
-  end
-
+class AddPageLogTable < EOL::LoggingMigration
   def self.up
     execute("CREATE TABLE `page_view_logs` (
       `id` int(11) NOT NULL auto_increment,

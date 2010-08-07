@@ -29,3 +29,9 @@ lang/tmp.yml
 config/environments/labs1.rb
 config/environments/integration_local.rb
 public/uploads/datasets/*
+vendor/oldgem/json-1.1.6/ext/json/ext/generator/Makefile
+vendor/oldgem/json-1.1.6/ext/json/ext/parser/Makefile
+vendor/gems/libxml-ruby-1.1.3/ext/libxml/Makefile
+vendor/gems/nokogiri-1.4.2/ext/nokogiri/Makefile
+vendor/gems/json-1.4.3/ext/json/ext/generator/Makefile
+vendor/gems/json-1.4.3/ext/json/ext/parser/Makefile

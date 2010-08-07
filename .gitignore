@@ -2,6 +2,7 @@
 *.swo
 *~
 *.bundle
+*.o
 config/database.yml
 config/deploy.rb
 config/deploy
@@ -28,11 +29,3 @@ lang/tmp.yml
 config/environments/labs1.rb
 config/environments/integration_local.rb
 public/uploads/datasets/*
-vendor/gems/json-1.1.6/bin/generator.bundle
-vendor/gems/json-1.1.6/bin/parser.bundle
-vendor/gems/json-1.1.6/ext/json/ext/generator/Makefile
-vendor/gems/json-1.1.6/ext/json/ext/generator/generator.bundle
-vendor/gems/json-1.1.6/ext/json/ext/generator/mkmf.log
-vendor/gems/json-1.1.6/ext/json/ext/parser/Makefile
-vendor/gems/json-1.1.6/ext/json/ext/parser/mkmf.log
-vendor/gems/json-1.1.6/ext/json/ext/parser/parser.bundle

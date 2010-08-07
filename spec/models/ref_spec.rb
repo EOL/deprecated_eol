@@ -17,7 +17,7 @@ describe Ref do
     end
     
     after(:all) do
-      Rails.cache.clear
+      CACHE.clear
     end
     
     describe "when a Data object taxon exists" do

@@ -132,7 +132,7 @@ class Agent < SpeciesSchemaModel
   end
   
   def self.boa
-    YAML.load(Rails.cache.fetch('agents/boa') do
+    YAML.load(CACHE.fetch('agents/boa') do
       Agent.find_by_full_name('Biology of Aging').to_yaml
     end)
   end

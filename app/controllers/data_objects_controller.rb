@@ -139,7 +139,7 @@ class DataObjectsController < ApplicationController
     when /images/
       respond_to do |format|
         format.xml do
-          xml = Rails.cache.fetch("taxon.#{params[:taxon_concept_id].to_i}/images/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
+          xml = CACHE.fetch("taxon.#{params[:taxon_concept_id].to_i}/images/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
             images = @taxon_concept.images
             {
               :images           => images.paginate(:per_page => per_page, :page => page),
@@ -154,7 +154,7 @@ class DataObjectsController < ApplicationController
     when /videos/
       respond_to do |format|
         format.xml do
-          xml = Rails.cache.fetch("taxon.#{@taxon_concept.id}/videos/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
+          xml = CACHE.fetch("taxon.#{@taxon_concept.id}/videos/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
             videos = @taxon_concept.videos
             {
               :videos           => videos.paginate(:per_page => per_page, :page => page),

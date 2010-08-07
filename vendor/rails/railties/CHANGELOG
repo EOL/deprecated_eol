@@ -187,7 +187,7 @@
 
 * Add config.active_support for future configuration options.  Also, add more new Rails 3 config settings to new_rails_defaults.rb [Rick Olson]
 
-* Add Rails.logger, Rails.root, Rails.env and Rails.cache shortcuts for RAILS_* constants [Pratik Naik]
+* Add Rails.logger, Rails.root, Rails.env and CACHE shortcuts for RAILS_* constants [Pratik Naik]
 
 * Allow files in plugins to be reloaded like the rest of the application.  [Rick Olson]
 

@@ -507,7 +507,7 @@ private
   end
 
   def show_taxa_xml
-    xml = Rails.cache.fetch("taxon.#{@taxon_concept.id}/xml", :expires_in => 4.hours) do
+    xml = CACHE.fetch("taxon.#{@taxon_concept.id}/xml", :expires_in => 4.hours) do
       @taxon_concept.to_xml(:full => true)
     end
     render :xml => xml
@@ -764,7 +764,7 @@ private
       xml = Hash.new.to_xml(:root => 'results')
     else
       key = "search/xml/#{@querystring.gsub(/[^-_A-Za-z0-9]/, '_')}"
-      xml = Rails.cache.fetch(key, :expires_in => 8.hours) do
+      xml = CACHE.fetch(key, :expires_in => 8.hours) do
         xml_hash = {
           'suggested-results'  => @suggested_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },
           'scientific-results' => @scientific_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },

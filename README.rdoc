@@ -118,7 +118,7 @@ If you want to add a new gem to the project, please:
 This project doesn't run without memcached.  The reason for this is that no other caching mechanism seems to properly
 persist Ruby objects.  If you *really* need to run some other caching system, modify your
 config/environments/development.rb to use what you prefer, but beware of "Stack level too deep" errors, which will
-occur if object serialization failed. You may need to find all of the "Rails.cache" calls in the code and use YAML to
+occur if object serialization failed. You may need to find all of the "CACHE" calls in the code and use YAML to
 serialize and restore the objects being stored.
 
 To install memcached on OSX with MacPorts already on the system is quite easy:
@@ -129,7 +129,7 @@ To install memcached on OSX with MacPorts already on the system is quite easy:
      suggests, as the path may be different.
 
 That's it!  Memcached is now running and will work for development.  Be mindful of this--it may require periodic
-restarting or flushing (from a Rails console, you can just type "Rails.cache.clear").
+restarting or flushing (from a Rails console, you can just type "CACHE.clear").
 
 If you don't have MacPorts (or don't trust it), you will need to find another way to install and launch memcached,
 and that is beyond the scope of this document (but plenty of tutorials exist online).

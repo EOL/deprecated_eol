@@ -81,7 +81,7 @@ end
 
 bootstrap_toc
 
-Rails.cache.clear # We appear to be altering some of the cached classes here.  JRice 6/26/09
+CACHE.clear # We appear to be altering some of the cached classes here.  JRice 6/26/09
 
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 agent_col = Agent.catalogue_of_life

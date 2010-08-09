@@ -1,6 +1,7 @@
 --- !ruby/object:Gem::Specification 
 name: optiflag
 version: !ruby/object:Gem::Version 
+  hash: 5
   prerelease: false
   segments: 
   - 0
@@ -12,7 +13,7 @@ authors:
 autorequire: 
 bindir: bin
 cert_chain: 
-date: 2009-10-18 00:00:00 -07:00
+date: 2009-10-18 00:00:00 -06:00
 default_executable: 
 dependencies: []
 
@@ -73,25 +74,29 @@ rdoc_options: []
 require_paths: 
 - .
 required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
   requirements: 
   - - ">"
     - !ruby/object:Gem::Version 
+      hash: 31
       segments: 
       - 0
       - 0
       - 0
       version: 0.0.0
 required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
   requirements: 
   - - ">="
     - !ruby/object:Gem::Version 
+      hash: 3
       segments: 
       - 0
       version: "0"
 requirements: []
 
 rubyforge_project: optiflag
-rubygems_version: 1.3.6
+rubygems_version: 1.3.7
 signing_key: 
 specification_version: 1
 summary: OptiFlag is an embeddable DSL library for declaring and using command-line options/flags in any Ruby program.

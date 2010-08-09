@@ -1,0 +1,10 @@
+have_header: checking for re.h... -------------------- yes
+
+"/usr/bin/gcc-4.2 -E -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   -O3 -Wall  conftest.c -o conftest.i"
+checked program was:
+/* begin */
+1: #include <re.h>
+/* end */
+
+--------------------
+

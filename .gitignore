@@ -1,6 +1,7 @@
 *.swp
 *.swo
 *~
+*.bundle
 config/database.yml
 config/deploy.rb
 config/deploy

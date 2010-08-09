@@ -39,8 +39,6 @@ prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit th
           %th
             Created At
           %th
-            OpenID?
-          %th
             Curator?
         - for user in @users
           - column_class=cycle('odd','even')
@@ -53,8 +51,6 @@ prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit th
               = h user.full_name
             %td{ :class => column_class }
               = format_date_time(user.created_at)
-            %td{ :class => column_class }
-              = user.openid?
             %td{ :class => column_class }
               = user.is_curator?
       %br

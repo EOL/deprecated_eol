@@ -27,13 +27,13 @@ class User < ActiveRecord::Base
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
 
-  validates_presence_of   :username, :if => :not_openid?
+  validates_presence_of   :username
 
-  validates_length_of     :username, :within => 4..32, :if => :not_openid?
-  validates_length_of     :entered_password, :within => 4..16, :if => :not_openid?, :on => :create
+  validates_length_of     :username, :within => 4..32
+  validates_length_of     :entered_password, :within => 4..16, :on => :create
   
   validates_presence_of   :given_name
-  validates_format_of :email, :with =>%r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i, :if => :not_openid?
+  validates_format_of :email, :with =>%r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
   
   validate :ensure_unique_username_against_master, :on => :create
   
@@ -392,14 +392,6 @@ class User < ActiveRecord::Base
     return language.nil? ? Language.english.iso_639_1 : language.iso_639_1
   end
 
-  def not_openid?      
-    identity_url.blank? || identity_url.nil?
-  end
-
-  def openid?      
-    !not_openid?
-  end
-      
   def is_moderator?
     @is_moderator ||= roles.include?(Role.moderator)
   end
@@ -603,7 +595,7 @@ class User < ActiveRecord::Base
 protected   
 
   def password_required?
-    not_openid? && (hashed_password.blank? || hashed_password.nil?)      
+    (hashed_password.blank? || hashed_password.nil?)      
   end
 
 end

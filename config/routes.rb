@@ -23,7 +23,6 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect 'boom', :controller => 'content', :action => 'error' 
 
-  map.open_id_complete 'authenticate', :controller => "account", :action => "authenticate", :requirements => { :method => :get }
   map.reset_specific_users_password 'account/reset_specific_users_password',
                                     :controller => 'account',
                                     :action => 'reset_specific_users_password'
@@ -31,7 +30,6 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
   map.with_options(:controller => 'account') do |account|
     account.login        'login',        :action => 'login'
-    account.login_openid 'login/openid', :action => 'login',   :openid => "true"
     account.logout       'logout',       :action => 'logout'
     account.register     'register',     :action => 'signup'
     account.profile      'profile',      :action => 'profile'

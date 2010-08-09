@@ -22,24 +22,15 @@
                 = f.text_field :username, {:maxlength=>32, :onblur=>'JavaScript:check_username();'}
                 %span#username_warn.error
                 -# do not show open ide users for now
-                - if @user.openid? and false
-                  %label
-                    Open ID URL:
-                  = current_user.identity_url
+                %p{ :style => "padding-bottom:8pt;" }
                   %br
-                  = f.hidden_field :entered_password
-                  = f.hidden_field :entered_password_confirmation
-                - else
-                  %p{ :style => "padding-bottom:8pt;" }
-                    %br
-                    = "Only enter new password if you wish to change."[:only_enter_new_password_if_needed]
-                  %label{ :for => "entered_password" }== #{"New Password"[]} (4 - 16 characters)
-                  = f.password_field :entered_password, { :maxlength => 16 }
-                  %label{ :for => "password_confirmation" }= "Confirm New Password"[]
-                  = f.password_field :entered_password_confirmation, {:maxlength=>16, :onblur=>'JavaScript:check_passwords();'}
-                  %span#password_warn.error
-                  %br
-                -# end if @user.open_id?
+                  = "Only enter new password if you wish to change."[:only_enter_new_password_if_needed]
+                %label{ :for => "entered_password" }== #{"New Password"[]} (4 - 16 characters)
+                = f.password_field :entered_password, { :maxlength => 16 }
+                %label{ :for => "password_confirmation" }= "Confirm New Password"[]
+                = f.password_field :entered_password_confirmation, {:maxlength=>16, :onblur=>'JavaScript:check_passwords();'}
+                %span#password_warn.error
+                %br
                 %p
                   %br
                 %label{ :title => "Please enter your email address"[], :for => "user_email" }

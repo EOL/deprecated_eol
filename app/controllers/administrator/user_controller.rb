@@ -39,11 +39,11 @@ class Administrator::UserController  < AdminController
         :order=>'created_at desc')
       report = StringIO.new
       CSV::Writer.generate(report, ',') do |title|
-          title << ['Id', 'Username', 'Name', 'Email','Registered Date','Mailings?','OpenID?']
+          title << ['Id', 'Username', 'Name', 'Email','Registered Date','Mailings?']
           @users.each do |u|
             created_at=''
             created_at=u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
-            title << [u.id,u.username,u.full_name,u.email,created_at,u.mailing_list,u.openid?]       
+            title << [u.id,u.username,u.full_name,u.email,created_at,u.mailing_list]       
           end
        end
        report.rewind

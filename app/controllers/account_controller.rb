@@ -7,7 +7,7 @@ class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:profile, :uservoice_login]
   before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show,
-    :logout, :new_openid_user, :reset_password, :reset_specific_users_password,
+    :logout, :reset_password, :reset_specific_users_password,
     :show_objects_curated, :show_species_curated, :show_comments_moderated]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
@@ -42,12 +42,6 @@ class AccountController < ApplicationController
     remember_me = EOLConvert.to_boolean(params[:remember_me])
 
     password_authentication(user_params[:username],user_params[:password],remember_me)
-
-    # if using_open_id?
-    #   open_id_authentication(params[:openid_url],remember_me)
-    # else
-    #   password_authentication(user_params[:username],user_params[:password],remember_me)
-    # end
 
   end
 
@@ -289,37 +283,7 @@ class AccountController < ApplicationController
     end
   end
 
-  def open_id_authentication(identity_url,remember_me)
-    open_id_return_to = "#{realm}/account/authenticate?remember_me=#{remember_me}"
-    authenticate_with_open_id(identity_url,
-                              :return_to => open_id_return_to,
-                              :optional => [ :fullname, :nickname, :email ]) do |result, identity_url, registration|
-      if result.successful? # open ID verification succeeded
-        user = User.find_by_identity_url_and_active(identity_url,true) # see if user has logged into EOL before
-        new_openid_user=false
-        if user.nil? # if not, create them a row in our database
-          new_openid_user   = true
-          user              = User.create_new()
-          temp_username     = "#{identity_url[0..31]}"
-          user.identity_url = identity_url
-          user.username     = temp_username
-          user.email        = registration['email'] || ''
-          user.given_name   = temp_username 
-          user.remote_ip    = request.remote_ip
-          user.save!
-          new_username      = "openid_user_#{user.id.to_s}"
-          new_given_name    = (registration['nickname'].blank? ? new_username : registration['nickname']) 
-          user.update_attributes(:username=>new_username,:given_name=>new_given_name)
-          new_openid_user=true
-        end
-        successful_login(user, remember_me, new_openid_user)
-      else
-        failed_login result.message
-      end
-    end
-  end
-
-  def successful_login(user, remember_me, new_openid_user = false)
+  def successful_login(user, remember_me)
     set_current_user(user)
     notice_message="Logged in successfully."[:logged_in]   
     if remember_me && !user.is_admin?
@@ -329,7 +293,6 @@ class AccountController < ApplicationController
       notice_message+=" NOTE: for security reasons, administrators cannot use the remember me feature."[:admin_remind_me_message]
     end    
     flash[:notice] = notice_message
-    # could catch the fact that they are a new openid user here and redirect somewhere else if you wanted
     if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty?) # if we're an admin we STILL would love a return, thank you very much!
       redirect_to :controller => 'admin', :action => 'index', :protocol => "http://"
     else
@@ -364,7 +327,6 @@ class AccountController < ApplicationController
     Notifier.deliver_user_changed_mailer_setting(old_user,new_user,recipient)
   end
 
-  # In order for AccountController to work with OpenID, we need to force it to use https when authenticating.  
   def realm
     return $PRODUCTION_MODE ? "https://#{request.host_with_port}" : "#{request.protocol + request.host_with_port}"
   end

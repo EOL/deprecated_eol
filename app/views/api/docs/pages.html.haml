@@ -8,6 +8,19 @@
     %hr
   #page-content.clearfix
     #full-page-content
+      %center
+        Jump To:
+        = link_to 'API Docs Home', :controller => 'api/docs'
+        |
+        = link_to 'Ping', :controller => 'api/docs', :action=>'ping'
+        |
+        = link_to 'Pages', :controller => 'api/docs', :action=>'pages'
+        |
+        = link_to 'Search', :controller => 'api/docs', :action=>'search'
+        |
+        = link_to 'DataObjects', :controller => 'api/docs', :action=>'data_objects'
+        |
+        = link_to 'HierarchyEntries', :controller => 'api/docs', :action=>'hierarchy_entries'
       %h3
         Request
       %p.indent
@@ -33,67 +46,78 @@
           %td.odd
             1
           %td.odd
-            also limits the numer of results of other media such as video
+            limits the number of returned image objects
         %tr
           %td.even.strong
-            text
+            videos
           %td.even
             0-75
           %td.even
             1
           %td.even
+            limits the number of returned video objects
         %tr
           %td.odd.strong
-            subjects
+            text
           %td.odd
+            0-75
+          %td.odd
+            1
+          %td.odd
+            limits the number of returned text objects
+        %tr
+          %td.even.strong
+            subjects
+          %td.even
             %i
               see notes
-          %td.odd
+          %td.even
             TaxonBiology|GeneralDescription|Description
-          %td.odd
+          %td.even
             a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject 
         %tr
-          %td.even.strong
+          %td.odd.strong
             details
-          %td.even
+          %td.odd
             0 or 1
-          %td.even
+          %td.odd
             0
-          %td.even
+          %td.odd
             expand all metadata for data objects
         %tr
-          %td.odd.strong
-            subjects
-          %td.odd
-            0 or 1
-          %td.odd
-            0
-          %td.odd
-        %tr
           %td.even.strong
-            subjects
+            common_names
           %td.even
             0 or 1
           %td.even
             0
           %td.even
+            return common names for the page's taxon
+        %tr
+          %td.odd.strong
+            vetted
+          %td.odd
+            0 or 1
+          %td.odd
+            0
+          %td.odd
             if vetted is 1 only 'trusted' content will be returned. The default is to return all content 
         %tr
-          %td.odd.strong
-            format 
-          %td.odd
-            html, xml, json
-          %td.odd
-            html
-          %td.odd
-        %tr
           %td.even.strong
+            format 
+          %td.even
+            html, xml, json
+          %td.even
+            html
+          %td.even
+        %tr
+          %td.odd.strong
             version 
-          %td.even
+          %td.odd
             0.4, 1.0
-          %td.even
+          %td.odd
             0.4
-          %td.even
+          %td.odd
             version 1.0 uses fields from the latest version of the
             = link_to 'Darwin Core', 'http://rs.tdwg.org/dwc/terms/index.htm'
             schema

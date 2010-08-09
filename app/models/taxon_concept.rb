@@ -1051,7 +1051,8 @@ class TaxonConcept < SpeciesSchemaModel
   
   # for API
   def details_hash(options = {})
-    options[:return_media_limit] ||= 3
+    options[:return_images_limit] ||= 3
+    options[:return_videos_limit] ||= 1
     options[:return_text_limit] ||= 1
     if options[:subjects]
       options[:text_subjects] = options[:subjects].split("|")
@@ -1079,7 +1080,7 @@ class TaxonConcept < SpeciesSchemaModel
   end
   
   def top_image_ids(options = {})
-    return [] if options[:return_media_limit] == 0
+    return [] if options[:return_images_limit] == 0
     # a user with default options - to show unvetted images for example
     user = User.create_new
     top_images_sql = DataObject.build_top_images_query(self, :user => user)
@@ -1092,12 +1093,12 @@ class TaxonConcept < SpeciesSchemaModel
       object_hash.delete_if {|obj| obj['vetted_id'].to_i != Vetted.trusted.id}
     end
     
-    object_hash = object_hash[0...options[:return_media_limit]] if object_hash.length > options[:return_media_limit]
+    object_hash = object_hash[0...options[:return_images_limit]] if object_hash.length > options[:return_images_limit]
     object_hash.collect {|e| e['id']}
   end
   
   def top_non_image_ids(options = {})
-    return [] if options[:return_media_limit] == 0 && options[:return_text_limit] == 0
+    return [] if options[:return_images_limit] == 0 && options[:return_videos_limit] == 0 && options[:return_text_limit] == 0
     vetted_clause = ""
     if !options[:vetted].blank?
       vetted_clause = "AND do.vetted_id=#{Vetted.trusted.id}"
@@ -1125,12 +1126,14 @@ class TaxonConcept < SpeciesSchemaModel
     
     # set flash and youtube types to video
     text_id = DataType.text.id.to_s
+    image_id = DataType.image.id.to_s
+    video_id = DataType.video.id.to_s
     flash_id = DataType.flash.id.to_s
     youtube_id = DataType.youtube.id.to_s
     iucn_id = DataType.iucn.id
     object_hash.each_with_index do |r, index|
       if r['data_type_id'] == flash_id || r['data_type_id'] == youtube_id
-        r['data_type_id'] = DataType.video.id
+        r['data_type_id'] = video_id
       end
       if r['data_type_id'].to_i == iucn_id
         r['data_type_id'] = text_id
@@ -1138,6 +1141,10 @@ class TaxonConcept < SpeciesSchemaModel
       
     end
     
+    # create an alias Uses for Use
+    if options[:text_subjects].include?('Use')
+      options[:text_subjects] << 'Uses'
+    end
     # remove text subjects not asked for
     if !options[:text_subjects].include?('all')
       object_hash.delete_if {|obj| obj['data_type_id'] == text_id && !options[:text_subjects].include?(obj['info_item_label'])}
@@ -1152,8 +1159,10 @@ class TaxonConcept < SpeciesSchemaModel
       
       if r['data_type_id'] == text_id
         truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_text_limit]
-      else
-        truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_media_limit]
+      elsif r['data_type_id'] == image_id
+        truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_images_limit]
+      elsif r['data_type_id'] == video_id
+        truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_videos_limit]
       end
     end
     

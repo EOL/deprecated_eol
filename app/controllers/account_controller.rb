@@ -41,11 +41,13 @@ class AccountController < ApplicationController
     user_params = params[:user]
     remember_me = EOLConvert.to_boolean(params[:remember_me])
 
-    if using_open_id?
-      open_id_authentication(params[:openid_url],remember_me)
-    else
-      password_authentication(user_params[:username],user_params[:password],remember_me)
-    end
+    password_authentication(user_params[:username],user_params[:password],remember_me)
+
+    # if using_open_id?
+    #   open_id_authentication(params[:openid_url],remember_me)
+    # else
+    #   password_authentication(user_params[:username],user_params[:password],remember_me)
+    # end
 
   end
 
@@ -262,24 +264,10 @@ class AccountController < ApplicationController
 
   # this is the uservoice single sign on redirect
   def uservoice_login
-
-    user=Hash.new
-    user[:guid]="eol_#{current_user.id}"
-    user[:expires]=Time.now + 5.hours
-    user[:email]=current_user.email
-    user[:display_name]=current_user.full_name
-    user[:locale]=current_user.language.iso_639_1
-    current_user.is_admin? ? user[:admin]='accept' : user[:admin]='deny'
-    json_token=user.to_json
-
-    key = EzCrypto::Key.with_password $USERVOICE_ACCOUNT_KEY, $USERVOICE_API_KEY
-    encrypted = key.encrypt(json_token)
-    token = CGI.escape(Base64.encode64(encrypted)).gsub(/\n/, '')
-
+    token = current_user.uservoice_token
     redirect_to "#{$USERVOICE_URL}?sso=#{token}"
-
-  end
-
+    
+  end  
   private
 
   def delete_password_reset_token(user)

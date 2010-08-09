@@ -1,4 +1,8 @@
 require "digest"
+require 'uri'
+require 'ezcrypto'
+require 'cgi'
+require 'base64'
 
 # NOTE - there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
 # to the user model.  We *could* achieve a similar result with method_missing, but I worry that it would cause other
@@ -557,6 +561,23 @@ class User < ActiveRecord::Base
         AND do.data_type_id = #{DataType.image.id}
         LIMIT 0,30");
   end
+  
+  def uservoice_token
+    return nil if $USERVOICE_ACCOUNT_KEY.blank?
+    user_hash = Hash.new
+    user_hash[:guid] = "eol_#{self.id}"
+    user_hash[:expires] = Time.now + 5.hours
+    user_hash[:email] = self.email
+    user_hash[:display_name] = self.full_name
+    user_hash[:locale] = self.language.iso_639_1
+    self.is_admin? ? user_hash[:admin]='accept' : user_hash[:admin]='deny'
+    json_token=user_hash.to_json
+    
+    key = EzCrypto::Key.with_password $USERVOICE_ACCOUNT_KEY, $USERVOICE_API_KEY
+    encrypted = key.encrypt(json_token)
+    token = CGI.escape(Base64.encode64(encrypted)).gsub(/\n/, '')
+  end
+  
 
   # for giggles:
   def my_lang

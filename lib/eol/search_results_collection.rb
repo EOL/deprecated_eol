@@ -134,14 +134,16 @@ module EOL
     def find_best_match(search_result)
       return if search_result[@match_field_name].length <= 1 and search_result[@match_field_name].first.blank? # Nothing to do
       matches = create_sorted_list_of_intersection_distances(search_result[@match_field_name])
+      best_name = search_result[@default_best_match_field_name]
+      best_name = search_result[@default_best_match_field_name][0] if best_name.class == Array
       # if we have only 0s, return the preferred name (NOTE - this should no longer happen!):
       if matches.first[:intersection] == 0
-        search_result[@best_match_field_name] = search_result[@default_best_match_field_name]
+        search_result[@best_match_field_name] = best_name
       else
         # if the best matches *include* the preferred name, use that:
         best_matches = best_matched_names(matches)
-        if best_matches.include?(search_result[@default_best_match_field_name].normalize)
-          search_result[@best_match_field_name] = search_result[@default_best_match_field_name]
+        if best_matches.include?(best_name.normalize)
+          search_result[@best_match_field_name] = best_name
         else # Otherwise, just use the best match:
           search_result[@best_match_field_name] = matches.first[:name]
         end

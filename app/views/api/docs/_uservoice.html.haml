@@ -1,3 +1,7 @@
+- sso = ''
+- if current_user && logged_in?
+  - sso = "params: { sso : '#{current_user.uservoice_token}' },"
+  
 %script{ :type => "text/javascript" }
   var uservoiceOptions = {
   /* required */
@@ -6,6 +10,7 @@
   forum: '15429',
   showTab: true,  
   /* optional */
+  = sso
   alignment: 'left',
   background_color:'#f00', 
   text_color: 'white',

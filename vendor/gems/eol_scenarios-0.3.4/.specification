@@ -1,0 +1,119 @@
+--- !ruby/object:Gem::Specification 
+name: eol_scenarios
+version: !ruby/object:Gem::Version 
+  hash: 27
+  prerelease: false
+  segments: 
+  - 0
+  - 3
+  - 4
+  version: 0.3.4
+platform: ruby
+authors: 
+- Jeremy Rice
+autorequire: 
+bindir: bin
+cert_chain: []
+
+date: 2010-06-10 00:00:00 -06:00
+default_executable: 
+dependencies: 
+- !ruby/object:Gem::Dependency 
+  name: rspec
+  prerelease: false
+  requirement: &id001 !ruby/object:Gem::Requirement 
+    none: false
+    requirements: 
+    - - ">="
+      - !ruby/object:Gem::Version 
+        hash: 13
+        segments: 
+        - 1
+        - 2
+        - 9
+        version: 1.2.9
+  type: :development
+  version_requirements: *id001
+description: "Based on openrain-scenarios, q.v.  Depends on hard-to-find gems at the moment: remi-indifferent-variable-hash and remi-simplecli"
+email: jrice.blue@gmail.com
+executables: []
+
+extensions: []
+
+extra_rdoc_files: 
+- LICENSE
+- README.rdoc
+files: 
+- .document
+- .gitignore
+- LICENSE
+- README.rdoc
+- Rakefile
+- VERSION
+- eol_scenarios.gemspec
+- examples/additional_scenarios/load_me.rb
+- examples/additional_scenarios/load_me_too.rb
+- examples/more_scenarios/foo.rb
+- examples/scenarios/first.rb
+- examples/testing_dependencies/load_more_stuff.rb
+- examples/testing_dependencies/load_stuff.rb
+- examples/yaml_frontmatter/yaml_in_header.rb
+- lib/eol_scenarios.rb
+- lib/eol_scenarios/eol_scenario.rb
+- lib/eol_scenarios/eol_scenarios.rb
+- lib/eol_scenarios/spec.rb
+- lib/eol_scenarios/tasks.rb
+- rails_generators/scenario/USAGE
+- rails_generators/scenario/scenario_generator.rb
+- rails_generators/scenario/templates/scenario.erb
+- spec/scenario_spec.rb
+- spec/scenario_spec_spec.rb
+- spec/scenarios_spec.rb
+- spec/spec.opts
+- spec/spec_helper.rb
+has_rdoc: true
+homepage: http://github.com/JRice/eol_scenarios
+licenses: []
+
+post_install_message: 
+rdoc_options: 
+- --charset=UTF-8
+require_paths: 
+- lib
+required_ruby_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+required_rubygems_version: !ruby/object:Gem::Requirement 
+  none: false
+  requirements: 
+  - - ">="
+    - !ruby/object:Gem::Version 
+      hash: 3
+      segments: 
+      - 0
+      version: "0"
+requirements: []
+
+rubyforge_project: 
+rubygems_version: 1.3.7
+signing_key: 
+specification_version: 3
+summary: Execute arbitrary blocks of ruby code for loading testing scenarios
+test_files: 
+- spec/scenario_spec.rb
+- spec/scenario_spec_spec.rb
+- spec/scenarios_spec.rb
+- spec/spec_helper.rb
+- examples/additional_scenarios/load_me.rb
+- examples/additional_scenarios/load_me_too.rb
+- examples/more_scenarios/foo.rb
+- examples/scenarios/first.rb
+- examples/testing_dependencies/load_more_stuff.rb
+- examples/testing_dependencies/load_stuff.rb
+- examples/yaml_frontmatter/yaml_in_header.rb

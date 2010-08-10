@@ -35,6 +35,8 @@
         Description
       %p.indent
         The Encyclopedia of Life does not have a singular taxonomic hierarchy upon which it creates its pages. Rather EOL indexes many hierarchies and compares them against each other. As a result any EOL page may relate to several nodes from various hierarchies. This API gives access to a single hierarchy and its internal relationships. Refer to the documentation on the pages API for information on accessing other hierarchies which correspond to a particular EOL page. The taxonConceptID field contains the EOL page identifier which can be used in the pages API.
+      %p.indent
+        The JSON response for this method returns more information than the XML response. The JSON response includes several statistics about this node and its taxonomic descendants. For example there is a returned field "total_descendants" which list the number of nodes which are descendants of the given node according to this hierarchy; "total_trusted_text" includes the total number of unique text data objects linked to this taxon or any of its descendants.
       %h3
         XML Response
       .formatted_code<
@@ -116,6 +118,7 @@
       .formatted_code<
         :escaped
           {
+              "total_unreviewed_text":1,
               "ancestors":
               [
                   {
@@ -167,22 +170,28 @@
                       "parentNameUsageID":"25941659"
                   }
               ],
+              "total_descendants_with_images":1,
               "taxonRank":"Species",
               "taxonConceptID":205264,
               "synonyms":
               [
                   {
                       "taxonomicStatus":"synonym",
-                      "scientificName":"Cheilodipterus heptacanthus Lacep\u00e8de, 1801",
+                      "scientificName":"Cheilodipterus heptacanthus Lacep\u00e8de,
+                       1801",
                       "parentNameUsageID":25941661
                   },
                   {
                       "taxonomicStatus":"synonym",
-                      "scientificName":"Cheilodipterus saltatrix (Linnaeus, 1766)",
+                      "scientificName":"Cheilodipterus saltatrix (Linnaeus,
+                       1766)",
                       "parentNameUsageID":25941661
                   }
               ],
+              "total_descendants_with_text":1,
+              "total_trusted_images":3,
               "sourceIdentifier":"382563",
+              "total_unreviewed_images":4,
               "taxonID":25941661,
               "children":
               [
@@ -193,17 +202,32 @@
                   "R Froese & D Pauly (eds)",
                   "FishBase"
               ],
-              "scientificName":"Pomatomus saltatrix (Linnaeus, 1766)",
+              "total_trusted_text":28,
+              "total_descendants":0,
+              "scientificName":"Pomatomus saltatrix (Linnaeus,
+               1766)",
               "parentNameUsageID":25941660,
               "vernacularNames":
               [
                   {
-                      "vernacularName":"Elf",
-                      "language":"af"
+                      "vernacularName":"\u0393\u03bf\u03c5\u03c6\u03ac\u03c1\u03b9",
+                      "language":"el"
                   },
                   {
                       "vernacularName":"Bluefish",
                       "language":"en"
+                  },
+                  {
+                      "vernacularName":"Choppers",
+                      "language":"en"
+                  },
+                  {
+                      "vernacularName":"Elf",
+                      "language":"en"
+                  },
+                  {
+                      "vernacularName":"Tassergal",
+                      "language":"fr"
                   }
               ]
           }

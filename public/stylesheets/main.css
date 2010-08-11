@@ -1014,6 +1014,20 @@ li.current_kingdom {
 .preference-header {
   padding-bottom: 1.5em !important; }
 
+#user_info {
+  margin-left: 100px; }
+  #user_info tr td {
+    vertical-align: top;
+    padding: 10px 30px 0 0; }
+    #user_info tr td label {
+      display: inline !important; }
+  #user_info tr td.wide input {
+    width: 300px; }
+  #user_info tr td.wide textarea {
+    width: 300px; }
+  #user_info tr td.label {
+    width: 250px; }
+
 #content #page-content label {
   display: block;
   font-weight: bold; }

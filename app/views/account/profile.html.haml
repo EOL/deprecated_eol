@@ -14,7 +14,7 @@
     %p
       - form_for :user, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
         %fieldset
-          %table
+          %table#user_info
             %tr
               %td{ :valign => "top", :style => "padding-right:30px;" }
                 %h3.preference-header= "Account Information"[]

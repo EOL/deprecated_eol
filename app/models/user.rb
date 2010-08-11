@@ -23,6 +23,9 @@ class User < ActiveRecord::Base
   belongs_to :curator_hierarchy_entry, :class_name => "HierarchyEntry", :foreign_key => :curator_hierarchy_entry_id
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   has_many   :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
+  has_one    :user_info
+
+  accepts_nested_attributes_for :user_info
   
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }

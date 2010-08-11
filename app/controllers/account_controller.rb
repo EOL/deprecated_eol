@@ -5,13 +5,13 @@ require 'base64'
 
 class AccountController < ApplicationController
 
-  before_filter :check_authentication, :only => [:profile, :uservoice_login]
-  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :profile, :show,
-    :logout, :reset_password, :reset_specific_users_password,
+  before_filter :check_authentication, :only => [:info, :profile, :uservoice_login]
+  before_filter :go_to_home_page_if_logged_in, :except => [:uservoice_login, :check_username, :check_email, :info, :profile,
+    :show, :logout, :reset_password, :reset_specific_users_password,
     :show_objects_curated, :show_species_curated, :show_comments_moderated]
   before_filter :accounts_not_available unless $ALLOW_USER_LOGINS  
   if $USE_SSL_FOR_LOGIN 
-    before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :profile, :reset_password] 
+    before_filter :redirect_to_ssl, :only=>[:login, :authenticate, :signup, :info, :profile, :reset_password] 
   end
   
   layout 'main'
@@ -154,6 +154,26 @@ class AccountController < ApplicationController
       end
     else
       go_to_forgot_password(nil)
+    end
+  end
+
+  def info
+    @user = User.find(current_user.id)
+    unless request.post? # first time on page, get current settings
+      store_location(params[:return_to]) unless params[:return_to].nil?
+      return
+    end
+    it_worked = false
+    if @user.user_info
+      it_worked = @user.user_info.update_attributes(params[:user][:user_info])
+    else
+      it_worked = @user.user_info = UserInfo.create(params[:user][:user_info])
+    end 
+    if it_worked
+      flash[:notice] = "Your information has been updated. Thank you for contributing to EOL."[]
+      redirect_back_or_default
+    else
+      render(:action => :info)
     end
   end
 

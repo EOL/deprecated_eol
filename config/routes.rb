@@ -27,12 +27,13 @@ ActionController::Routing::Routes.draw do |map|
                                     :controller => 'account',
                                     :action => 'reset_specific_users_password'
 
-  # The priority is based upon order of creation: first created -> highest priority.
+  # I don't like this.  Why don't we just use retful routes here?
   map.with_options(:controller => 'account') do |account|
-    account.login        'login',        :action => 'login'
-    account.logout       'logout',       :action => 'logout'
-    account.register     'register',     :action => 'signup'
-    account.profile      'profile',      :action => 'profile'
+    account.login    'login',     :action => 'login'
+    account.logout   'logout',    :action => 'logout'
+    account.register 'register',  :action => 'signup'
+    account.profile  'profile',   :action => 'profile'
+    account.profile  'user_info', :action => 'info'
   end
 
   # TODO - we would like to make this all restfull.  Is that even possible, with images/videos vs data_objects?

@@ -1,10 +1,15 @@
 have_library: checking for socket() in -lsocket... -------------------- no
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64   -lruby-static -lsocket  -lpthread -ldl -lobjc  "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64      -lruby -lsocket  -lpthread -ldl  "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘socket’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘socket’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/Am/Am-nfB7-Gv0lH9eYHKfQ2++++TI/-Tmp-//ccLvyyYb.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -12,9 +17,12 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))socket; return 0; }
 /* end */
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64   -lruby-static -lsocket  -lpthread -ldl -lobjc  "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64      -lruby -lsocket  -lpthread -ldl  "
 ld: library not found for -lsocket
 collect2: ld returned 1 exit status
+ld: library not found for -lsocket
+collect2: ld returned 1 exit status
+lipo: can't open input file: /var/folders/Am/Am-nfB7-Gv0lH9eYHKfQ2++++TI/-Tmp-//cchGaGoi.out (No such file or directory)
 checked program was:
 /* begin */
 1: /*top*/
@@ -22,30 +30,20 @@ checked program was:
 3: int t() { socket(); return 0; }
 /* end */
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64   -lruby-static -lsocket  -lpthread -ldl -lobjc  "
-ld: library not found for -lsocket
-collect2: ld returned 1 exit status
-checked program was:
-/* begin */
-1: int socket();
-2: /*top*/
-3: /*
-4:  * http://trac.macports.org/ticket/3604
-5:  * gcc 4.0 on 10.4 has a problem
-6:  */
-7: int main() { return 0; }
-8: int t() { socket(); return 0; }
-/* end */
-
 --------------------
 
 have_library: checking for gethostbyname() in -lnsl... -------------------- no
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64   -lruby-static -lnsl  -lpthread -ldl -lobjc  "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64      -lruby -lnsl  -lpthread -ldl  "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘gethostbyname’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘gethostbyname’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/Am/Am-nfB7-Gv0lH9eYHKfQ2++++TI/-Tmp-//ccbB6wFV.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -53,9 +51,12 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))gethostbyname; return 0; }
 /* end */
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64   -lruby-static -lnsl  -lpthread -ldl -lobjc  "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64      -lruby -lnsl  -lpthread -ldl  "
 ld: library not found for -lnsl
 collect2: ld returned 1 exit status
+ld: library not found for -lnsl
+collect2: ld returned 1 exit status
+lipo: can't open input file: /var/folders/Am/Am-nfB7-Gv0lH9eYHKfQ2++++TI/-Tmp-//ccRBOOVk.out (No such file or directory)
 checked program was:
 /* begin */
 1: /*top*/
@@ -63,30 +64,20 @@ checked program was:
 3: int t() { gethostbyname(); return 0; }
 /* end */
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64   -lruby-static -lnsl  -lpthread -ldl -lobjc  "
-ld: library not found for -lnsl
-collect2: ld returned 1 exit status
-checked program was:
-/* begin */
-1: int gethostbyname();
-2: /*top*/
-3: /*
-4:  * http://trac.macports.org/ticket/3604
-5:  * gcc 4.0 on 10.4 has a problem
-6:  */
-7: int main() { return 0; }
-8: int t() { gethostbyname(); return 0; }
-/* end */
-
 --------------------
 
-have_library: checking for atan() in -lm... -------------------- yes
+have_library: checking for atan() in -lm... -------------------- no
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64   -lruby-static -lm  -lpthread -ldl -lobjc  "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64      -lruby -lm  -lpthread -ldl  "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘atan’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘atan’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/Am/Am-nfB7-Gv0lH9eYHKfQ2++++TI/-Tmp-//ccZNFMq8.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -94,10 +85,14 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))atan; return 0; }
 /* end */
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64   -lruby-static -lm  -lpthread -ldl -lobjc  "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64      -lruby -lm  -lpthread -ldl  "
 conftest.c: In function ‘t’:
 conftest.c:3: warning: incompatible implicit declaration of built-in function ‘atan’
 conftest.c:3: error: too few arguments to function ‘atan’
+conftest.c: In function ‘t’:
+conftest.c:3: warning: incompatible implicit declaration of built-in function ‘atan’
+conftest.c:3: error: too few arguments to function ‘atan’
+lipo: can't figure out the architecture type of: /var/folders/Am/Am-nfB7-Gv0lH9eYHKfQ2++++TI/-Tmp-//cca5CudF.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -105,29 +100,49 @@ checked program was:
 3: int t() { atan(); return 0; }
 /* end */
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64   -lruby-static -lm  -lpthread -ldl -lobjc  "
-conftest.c:1: warning: conflicting types for built-in function ‘atan’
+--------------------
+
+have_library: checking for atan() in -lm... -------------------- yes
+
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   -fno-builtin conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64      -lruby -lm  -lpthread -ldl  "
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘atan’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘atan’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/Am/Am-nfB7-Gv0lH9eYHKfQ2++++TI/-Tmp-//ccHN9l7o.out
 checked program was:
 /* begin */
-1: int atan();
-2: /*top*/
-3: /*
-4:  * http://trac.macports.org/ticket/3604
-5:  * gcc 4.0 on 10.4 has a problem
-6:  */
-7: int main() { return 0; }
-8: int t() { atan(); return 0; }
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { void ((*volatile p)()); p = (void ((*)()))atan; return 0; }
+/* end */
+
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   -fno-builtin conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64      -lruby -lm  -lpthread -ldl  "
+checked program was:
+/* begin */
+1: /*top*/
+2: int main() { return 0; }
+3: int t() { atan(); return 0; }
 /* end */
 
 --------------------
 
 have_library: checking for inflate() in -lz... -------------------- yes
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64  -lm  -lruby-static -lz -lm  -lpthread -ldl -lobjc  "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64     -lm  -lruby -lz -lm  -lpthread -ldl  "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘inflate’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘inflate’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/Am/Am-nfB7-Gv0lH9eYHKfQ2++++TI/-Tmp-//ccaJngpA.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -135,7 +150,7 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))inflate; return 0; }
 /* end */
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64  -lm  -lruby-static -lz -lm  -lpthread -ldl -lobjc  "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64     -lm  -lruby -lz -lm  -lpthread -ldl  "
 checked program was:
 /* begin */
 1: /*top*/
@@ -145,13 +160,18 @@ checked program was:
 
 --------------------
 
-have_library: checking for iconv_open() in -liconv... -------------------- no
+have_library: checking for iconv_open() in -liconv... -------------------- yes
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64  -lz -lm  -lruby-static -liconv -lz -lm  -lpthread -ldl -lobjc  "
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64     -lz -lm  -lruby -liconv -lz -lm  -lpthread -ldl  "
 conftest.c: In function ‘t’:
 conftest.c:3: error: ‘iconv_open’ undeclared (first use in this function)
 conftest.c:3: error: (Each undeclared identifier is reported only once
 conftest.c:3: error: for each function it appears in.)
+conftest.c: In function ‘t’:
+conftest.c:3: error: ‘iconv_open’ undeclared (first use in this function)
+conftest.c:3: error: (Each undeclared identifier is reported only once
+conftest.c:3: error: for each function it appears in.)
+lipo: can't figure out the architecture type of: /var/folders/Am/Am-nfB7-Gv0lH9eYHKfQ2++++TI/-Tmp-//ccfUaJso.out
 checked program was:
 /* begin */
 1: /*top*/
@@ -159,12 +179,7 @@ checked program was:
 3: int t() { void ((*volatile p)()); p = (void ((*)()))iconv_open; return 0; }
 /* end */
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64  -lz -lm  -lruby-static -liconv -lz -lm  -lpthread -ldl -lobjc  "
-Undefined symbols:
-  "_iconv_open", referenced from:
-      _t in ccAngHL1.o
-ld: symbol(s) not found
-collect2: ld returned 1 exit status
+"gcc -o conftest -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE   -arch i386 -arch x86_64 -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   conftest.c  -L. -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib -L. -arch i386 -arch x86_64     -lz -lm  -lruby -liconv -lz -lm  -lpthread -ldl  "
 checked program was:
 /* begin */
 1: /*top*/
@@ -172,53 +187,11 @@ checked program was:
 3: int t() { iconv_open(); return 0; }
 /* end */
 
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64  -lz -lm  -lruby-static -liconv -lz -lm  -lpthread -ldl -lobjc  "
-Undefined symbols:
-  "_iconv_open", referenced from:
-      _t in ccqMh4Qy.o
-ld: symbol(s) not found
-collect2: ld returned 1 exit status
-checked program was:
-/* begin */
-1: int iconv_open();
-2: /*top*/
-3: /*
-4:  * http://trac.macports.org/ticket/3604
-5:  * gcc 4.0 on 10.4 has a problem
-6:  */
-7: int main() { return 0; }
-8: int t() { iconv_open(); return 0; }
-/* end */
-
---------------------
-
-have_library: checking for libiconv_open() in -liconv... -------------------- yes
-
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64  -lz -lm  -lruby-static -liconv -lz -lm  -lpthread -ldl -lobjc  "
-conftest.c: In function ‘t’:
-conftest.c:3: error: ‘libiconv_open’ undeclared (first use in this function)
-conftest.c:3: error: (Each undeclared identifier is reported only once
-conftest.c:3: error: for each function it appears in.)
-checked program was:
-/* begin */
-1: /*top*/
-2: int main() { return 0; }
-3: int t() { void ((*volatile p)()); p = (void ((*)()))libiconv_open; return 0; }
-/* end */
-
-"/usr/bin/gcc-4.2 -o conftest -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   conftest.c  -L. -L/opt/local/lib -L/opt/local/lib -L. -L/opt/local/lib  -arch x86_64  -lz -lm  -lruby-static -liconv -lz -lm  -lpthread -ldl -lobjc  "
-checked program was:
-/* begin */
-1: /*top*/
-2: int main() { return 0; }
-3: int t() { libiconv_open(); return 0; }
-/* end */
-
 --------------------
 
 have_header: checking for libxml/xmlversion.h... -------------------- yes
 
-"/usr/bin/gcc-4.2 -E -I. -I/opt/local/lib/ruby/1.8/i686-darwin10 -I. -I/opt/local/include -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE  -I/opt/local/include -O2 -arch x86_64  -fno-common -pipe -fno-common   -I/opt/local/include/libxml2  conftest.c -o conftest.i"
+"gcc -E -I. -I/System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/lib/ruby/1.8/universal-darwin10.0 -I.  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE     -g -Os -pipe -fno-common -DENABLE_DTRACE  -fno-common  -pipe -fno-common   -I/opt/local/include/libxml2  conftest.c -o conftest.i"
 checked program was:
 /* begin */
 1: #include <libxml/xmlversion.h>

@@ -14,7 +14,7 @@
     %p
       - form_for :user, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
         %fieldset
-          %table#user_info
+          %table#user_profile
             %tr
               %td{ :valign => "top", :style => "padding-right:30px;" }
                 %h3.preference-header= "Account Information"[]
@@ -60,6 +60,11 @@
                 %br
                 %br
               %td{ :valign => "top" }
+                %h3.preference-header= "Personal Information"[]
+                %p{:style => "margin-bottom:2em;"}
+                  = "Please help EOL understand the needs of its users.  Fill out this short form, describing"[]
+                  = link_to('your information'[], url_for(:controller => :account, :action => :info), {:title => 'Your Information'[], :class => 'return_to'})
+                  = "personal information; It takes less than one minute."[]
                 = render(:partial => 'taxa/set_content_settings', :locals => {:f => f})
           - if $ALLOW_CURATOR_SELF_REG
             %h3.preference-header= "Curators"[]

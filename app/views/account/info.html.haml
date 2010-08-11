@@ -6,72 +6,71 @@
   #full-page-content
     = eol_lang_error_messages_for :user if request.post?
     %p
-      - form_for :user, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |user_form|
-        - user_form.fields_for :user_info do |f|
-          %fieldset
-            %table#user_info
-              %tr
-                %td.label
-                  = f.label "Age"[] + ":"
-                %td
-                  = f.select(:age_range, options_for_select([["< 18", "< 18"], [">= 18", ">= 18"]]))
-                %td
-                  %span#age_range_warn.error
-              %tr
-                %td.label
-                  = f.label "Primary Role"[] + ":"
-                %td
-                  = f.select(:user_primary_role_id, options_from_collection_for_select(UserPrimaryRole.all, :id, :name))
-                %td
-                  %span#user_primary_role_warn.error
-              %tr
-                %td.label
-                  = f.label "Describe your areas of interest, separated by commas"[] + ":"
-                %td.wide
-                  = f.text_area(:areas_of_interest, :rows => 3)
-                %td
-                  %span#areas_of_interest_warn.error
-              %tr
-                %td.label
-                  = f.label "Where did you hear about EOL?"[]
-                %td.wide
-                  = f.text_field(:heard_of_eol)
-                %td
-                  %span#heard_of_eol_warn.error
-              %tr
-                %td.label
-                  = f.label "Are you interested in learning how to contribute to EOL?"[]
-                %td
-                  = f.check_box(:interested_in_contributing) 
-                  = f.label(:interested_in_contributing, "Yes")
-                %td
-                  %span#interested_in_contributing_warn.error
-              %tr
-                %td.label
-                  = f.label "Are you interested in learning how to become a curator?"[]
-                %td
-                  = f.check_box(:interested_in_curating) 
-                  = f.label(:interested_in_curating, "Yes")
-                %td
-                  %span#interested_in_curating_warn.error
-              %tr
-                %td.label
-                  = f.label "Are you interested in becoming a member of the EOL Advisory Forum?"[]
-                %td
-                  = f.check_box(:interested_in_advisory_forum) 
-                  = f.label(:interested_in_advisory_forum, "Yes")
-                %td
-                  %span#interested_in_advisory_forum_warn.error
-              %tr
-                %td.label
-                  = f.label "Would you like your basic information included in the EOL member directory?"[]
-                %td
-                  = f.check_box(:show_information)
-                  = f.label(:show_information, "Yes")
-                %td
-                  %span#show_information_warn.error
-              %tr
-                %td.label
-                  = "&nbsp;"
-                %td
-                  = f.submit("Save", :style => 'width:100px')
+      - form_for @user_info, :url => url_for(:controller => :account, :action => :info), :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
+        %fieldset
+          %table#user_info
+            %tr
+              %td.label
+                = f.label "Age"[] + ":"
+              %td
+                = f.select(:age_range, options_for_select([["< 18", "< 18"], [">= 18", ">= 18"]]))
+              %td
+                %span#age_range_warn.error
+            %tr
+              %td.label
+                = f.label "Primary Role"[] + ":"
+              %td
+                = f.select(:user_primary_role_id, options_from_collection_for_select(UserPrimaryRole.all, :id, :name))
+              %td
+                %span#user_primary_role_warn.error
+            %tr
+              %td.label
+                = f.label "Describe your areas of interest, separated by commas"[] + ":"
+              %td.wide
+                = f.text_area(:areas_of_interest, :rows => 3)
+              %td
+                %span#areas_of_interest_warn.error
+            %tr
+              %td.label
+                = f.label "Where did you hear about EOL?"[]
+              %td.wide
+                = f.text_field(:heard_of_eol)
+              %td
+                %span#heard_of_eol_warn.error
+            %tr
+              %td.label
+                = f.label "Are you interested in learning how to contribute to EOL?"[]
+              %td
+                = f.check_box(:interested_in_contributing) 
+                = f.label(:interested_in_contributing, "Yes")
+              %td
+                %span#interested_in_contributing_warn.error
+            %tr
+              %td.label
+                = f.label "Are you interested in learning how to become a curator?"[]
+              %td
+                = f.check_box(:interested_in_curating) 
+                = f.label(:interested_in_curating, "Yes")
+              %td
+                %span#interested_in_curating_warn.error
+            %tr
+              %td.label
+                = f.label "Are you interested in becoming a member of the EOL Advisory Forum?"[]
+              %td
+                = f.check_box(:interested_in_advisory_forum) 
+                = f.label(:interested_in_advisory_forum, "Yes")
+              %td
+                %span#interested_in_advisory_forum_warn.error
+            %tr
+              %td.label
+                = f.label "Would you like your basic information included in the EOL member directory?"[]
+              %td
+                = f.check_box(:show_information)
+                = f.label(:show_information, "Yes")
+              %td
+                %span#show_information_warn.error
+            %tr
+              %td.label
+                = "&nbsp;"
+              %td
+                = f.submit("Save", :style => 'width:100px')

@@ -159,21 +159,21 @@ class AccountController < ApplicationController
 
   def info
     @user = User.find(current_user.id)
+    @user_info = @user.user_info
+    @user_info ||= UserInfo.new
     unless request.post? # first time on page, get current settings
       store_location(params[:return_to]) unless params[:return_to].nil?
       return
     end
     it_worked = false
     if @user.user_info
-      it_worked = @user.user_info.update_attributes(params[:user][:user_info])
+      it_worked = @user.user_info.update_attributes(params[:user_info])
     else
-      it_worked = @user.user_info = UserInfo.create(params[:user][:user_info])
+      it_worked = @user.user_info = UserInfo.create(params[:user_info])
     end 
     if it_worked
       flash[:notice] = "Your information has been updated. Thank you for contributing to EOL."[]
       redirect_back_or_default
-    else
-      render(:action => :info)
     end
   end
 

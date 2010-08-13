@@ -143,8 +143,7 @@
               %p
                 %strong
                   - if current_user.is_curator?
-                    Hello 
-                    = link_to("{user}"[:hello_user, current_user.given_name], {:controller => '/account', :action => 'show', :id => current_user.id}, {:class => 'return_to'})
+                    = link_to("Hello {user}"[:hello_user, current_user.given_name], {:controller => '/account', :action => 'show', :id => current_user.id}, {:class => 'return_to'})
                   - else
                     = "Hello {user}"[:hello_user, current_user.given_name]
 
@@ -204,12 +203,12 @@
         = yield(:content) or yield
       /\/content
       #footer
-        %script{ :language => "javascript", :type => "text/javascript" }
-          var addthis_config = {"data_track_clickback":true};
-        %a.addthis_button{ :href => "http://www.addthis.com/bookmark.php?v=250&amp;username=eoladdthis" }
-          %img{ :src => "http://s7.addthis.com/static/btn/v2/lg-bookmark-en.gif", :width => "125", :height => "16", :alt => "Bookmark and Share", :style => "border:0" }
-        %script{ :src => "http://s7.addthis.com/js/250/addthis_widget.js#username=eoladdthis", :type => "text/javascript" }
-        &nbsp; | &nbsp;
+        -# %script{ :language => "javascript", :type => "text/javascript" }
+        -#   var addthis_config = {"data_track_clickback":true};
+        -# %a.addthis_button{ :href => "http://www.addthis.com/bookmark.php?v=250&amp;username=eoladdthis" }
+        -#   %img{ :src => "http://s7.addthis.com/static/btn/v2/lg-bookmark-en.gif", :width => "125", :height => "16", :alt => "Bookmark and Share", :style => "border:0" }
+        -# %script{ :src => "http://s7.addthis.com/js/250/addthis_widget.js#username=eoladdthis", :type => "text/javascript" }
+        -# &nbsp; | &nbsp;
         = render :partial=>'layouts/footer_menu', :locals=>{:menu_items=>ContentSection.find_pages_by_section('Footer')}
         = ENV['APP_VERSION'] unless ENV['APP_VERSION'].blank?
     / container

@@ -113,7 +113,14 @@ class Resource < SpeciesSchemaModel
       resource_status = ResourceStatus.upload_failed
     else
       response = Hash.from_xml(response)
-      if response["response"].key? "status"
+      # response is an error
+      if response["response"].key? "error"
+        error = response["response"]["error"]
+        ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>"content partner dataset service failed", :backtrace=>parameters) if $ERROR_LOGGING
+        notes = error
+        resource_status = ResourceStatus.upload_failed
+      # else set status to response
+      elsif response["response"].key? "status"
         status = response["response"]["status"]
         resource_status = ResourceStatus.send(status.downcase.gsub(" ","_"))
         if response["response"].key? "error"

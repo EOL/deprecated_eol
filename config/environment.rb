@@ -192,9 +192,9 @@ Rails::Initializer.run do |config|
   end
   
   begin
-    require 'environments/local.rb'
+    require 'config/environments/local.rb'
   rescue LoadError
-  #  puts 'Could not load environments local.rb file'
+    #puts 'Could not load environments local.rb file'
   end
   
 end

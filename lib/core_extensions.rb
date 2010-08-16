@@ -127,8 +127,7 @@ class String
       },
       
       :protocols => {
-        'a'          => {'href' => ['ftp', 'http', 'https', 'mailto',
-                                    :relative]},
+        'a'          => {'href' => ['ftp', 'http', 'https', 'mailto', 'javascript', :relative]},
         'blockquote' => {'cite' => ['http', 'https', :relative]},
         'embed'      => {'src' => ['http', 'https', :relative]},
         'img'        => {'src'  => ['http', 'https', :relative]},

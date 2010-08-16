@@ -41,12 +41,13 @@ describe 'EOL XML APIs' do
       @taxon_concept   = build_taxon_concept(
          :flash           => [{:description => @video_1_text}, {:description => @video_2_text}],
          :youtube         => [{:description => @video_3_text}],
-         # We want more than 10 images, to test pagination, but details don't matter:
          :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
                               {:object_cache_url => @image_3}],
          :toc             => [{:toc_item => @overview, :description => @overview_text}, 
                               {:toc_item => @distribution, :description => @distribution_text}, 
-                              {:toc_item => @description, :description => @description_text}])
+                              {:toc_item => @description, :description => @description_text},
+                              {:toc_item => @description, :description => 'test uknown', :vetted => Vetted.unknown},
+                              {:toc_item => @description, :description => 'test untrusted', :vetted => Vetted.untrusted}])
       @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, Agent.last, :language => Language.english)
     
     
@@ -87,7 +88,7 @@ describe 'EOL XML APIs' do
       @object.refs << Ref.gen(:full_reference => 'first reference')
       @object.refs << Ref.gen(:full_reference => 'second reference')
       @taxon_concept.add_data_object(@object)
-    
+      
       @text = @taxon_concept.data_objects.delete_if{|d| d.data_type_id != DataType.text.id}
       @images = @taxon_concept.data_objects.delete_if{|d| d.data_type_id != DataType.image.id}
     end
@@ -99,7 +100,7 @@ describe 'EOL XML APIs' do
   
   
     # Pages
-  
+      
     it 'should return only published concepts' do
       @taxon_concept.published = 0
       @taxon_concept.save!
@@ -111,7 +112,7 @@ describe 'EOL XML APIs' do
       @taxon_concept.published = 1
       @taxon_concept.save!
     end
-  
+      
     it 'should show one data object per category' do
       response = request("/api/pages/#{@taxon_concept.id}")
       xml_response = Nokogiri.XML(response.body)
@@ -123,7 +124,7 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 0
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 0
     end
-  
+      
     it 'should be able to limit number of media returned' do
       response = request("/api/pages/#{@taxon_concept.id}?images=2")
       xml_response = Nokogiri.XML(response.body)
@@ -137,7 +138,7 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 2
     end
-  
+      
     it 'should be able to limit number of text returned' do
       response = request("/api/pages/#{@taxon_concept.id}?text=2")
       xml_response = Nokogiri.XML(response.body)
@@ -145,7 +146,7 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
     end
-  
+      
     it 'should be able to take a | delimited list of subjects' do
       response = request("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology&details=1")
       xml_response = Nokogiri.XML(response.body)
@@ -160,13 +161,13 @@ describe 'EOL XML APIs' do
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
     end
-  
+      
     it 'should be able to return ALL subjects' do 
-      response = request("/api/pages/#{@taxon_concept.id}?text=5&subjects=all")
+      response = request("/api/pages/#{@taxon_concept.id}?text=5&subjects=all&vetted=1")
       xml_response = Nokogiri.XML(response.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
     end
-  
+      
     it 'should be able to get more details on data objects' do
       response = request("/api/pages/#{@taxon_concept.id}?image=1&text=0&details=1")
       xml_response = Nokogiri.XML(response.body)
@@ -176,6 +177,32 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 2
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 2
     end
+    
+    it 'should not filter vetted objects by default' do
+      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1")
+      xml_response = Nokogiri.XML(response.body)
+      last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
+      data_object = DataObject.find_by_guid(last_guid)
+      data_object.vetted_id.should == Vetted.untrusted.id
+    end
+    
+    it 'should filter out all be vetted objects' do
+      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=1")
+      xml_response = Nokogiri.XML(response.body)
+      last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
+      data_object = DataObject.find_by_guid(last_guid)
+      data_object.vetted_id.should == Vetted.trusted.id
+    end
+    
+    it 'should filter out untrusted objects' do
+      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=2")
+      xml_response = Nokogiri.XML(response.body)
+      last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
+      data_object = DataObject.find_by_guid(last_guid)
+      data_object.vetted_id.should == Vetted.unknown.id
+    end
+    
+    
   
     it 'should be able to render an HTML version of the page' do
       response = request("/api/pages/#{@taxon_concept.id}?subjects=Distribution&text=2&format=html")
@@ -185,7 +212,7 @@ describe 'EOL XML APIs' do
       response.body.should include @object.description
       response.body.should include DataObject.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
     end
-  
+      
     it 'should be able to toggle common names' do
       response = request("/api/pages/#{@taxon_concept.id}")
       response.body.should_not include '<commonName'
@@ -202,12 +229,12 @@ describe 'EOL XML APIs' do
       response_object['scientificName'].should == @taxon_concept.entry.name_object.string
       response_object['dataObjects'].length.should == 3
     end
-  
-  
-  
-  
+      
+      
+      
+      
     # DataObjects
-  
+      
     it "shouldn't show invisible or unpublished objects" do
       @object.published = 0
       @object.save!
@@ -219,7 +246,7 @@ describe 'EOL XML APIs' do
       @object.published = 1
       @object.save!
     end
-  
+      
     it "should show a taxon element for the data object request" do
       response = request("/api/data_objects/#{@object.guid}")
       xml_response = Nokogiri.XML(response.body)
@@ -227,7 +254,7 @@ describe 'EOL XML APIs' do
     
       xml_response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.taxon_concepts[0].id.to_s
     end
-  
+      
     it "should show all information for text objects" do
       # this should be defined in the foundation and linked to its TOC
       @info_item = InfoItem.find_or_create_by_schema_value('http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription');
@@ -295,7 +322,7 @@ describe 'EOL XML APIs' do
       response_object['dataObjects'][0]['references'].length.should == 2
     end
     
-  
+      
     it "should show all information for image objects" do
       @object.data_type = DataType.image
       @object.mime_type = MimeType.find_or_create_by_label('image/jpeg')
@@ -315,7 +342,7 @@ describe 'EOL XML APIs' do
       xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[1]').inner_text.should == @object.object_url
       xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[2]').inner_text.gsub(/\//, '').should include(@object.object_cache_url.to_s)
     end
-  
+      
     it 'should be able to render an HTML version of the page' do
       response = request("/api/data_objects/#{@object.guid}?format=html")
       response.body.should include '<html'
@@ -323,7 +350,7 @@ describe 'EOL XML APIs' do
       response.body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts[0].entry.name_object.string}/
       response.body.should include @object.description
     end
-  
+      
     it 'should be able to toggle common names' do
       response = request("/api/data_objects/#{@object.guid}")
       response.body.should_not include '<commonName'

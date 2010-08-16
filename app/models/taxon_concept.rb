@@ -1089,8 +1089,10 @@ class TaxonConcept < SpeciesSchemaModel
     
     object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
     
-    if !options[:vetted].blank?
+    if options[:vetted].to_i == 1
       object_hash.delete_if {|obj| obj['vetted_id'].to_i != Vetted.trusted.id}
+    elsif options[:vetted].to_i == 2
+      object_hash.delete_if {|obj| obj['vetted_id'].to_i == Vetted.untrusted.id}
     end
     
     object_hash = object_hash[0...options[:return_images_limit]] if object_hash.length > options[:return_images_limit]
@@ -1100,8 +1102,10 @@ class TaxonConcept < SpeciesSchemaModel
   def top_non_image_ids(options = {})
     return [] if options[:return_images_limit] == 0 && options[:return_videos_limit] == 0 && options[:return_text_limit] == 0
     vetted_clause = ""
-    if !options[:vetted].blank?
+    if options[:vetted].to_i == 1
       vetted_clause = "AND do.vetted_id=#{Vetted.trusted.id}"
+    elsif options[:vetted].to_i == 2
+      vetted_clause = "AND (do.vetted_id=#{Vetted.trusted.id} || do.vetted_id=#{Vetted.unknown.id})"
     end
     
     object_hash = SpeciesSchemaModel.connection.execute("

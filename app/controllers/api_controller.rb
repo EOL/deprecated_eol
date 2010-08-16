@@ -11,9 +11,8 @@ class ApiController < ApplicationController
     params[:images] ||= 1
     params[:videos] ||= 1
     params[:text] ||= 1
-    params[:vetted] ||= false
+    params[:vetted] ||= 0
     params[:version] ||= "0.1"
-    params[:vetted] = false if params[:vetted] == '0'
     params[:common_names] ||= false
     params[:common_names] = false if params[:common_names] == '0'
     params[:images] = 75 if params[:images].to_i > 75

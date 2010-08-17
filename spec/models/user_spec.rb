@@ -120,9 +120,19 @@ describe User do
   it 'should not allow you to add a user that already exists' do
     User.create_new( :username => @user.username ).save.should be_false
   end
+  
+  it 'should allow curator rights to be revoked' do
+    curator_user = User.gen(:curator_hierarchy_entry_id => 1)
+    curator_user.roles << Role.curator
+    curator_user.save!
+    curator_user.is_curator?.should be_true
+    curator_user.clear_curatorship(User.gen, 'just because')
+    curator_user.reload
+    curator_user.is_curator?.should be_false
+  end
 
   describe 'convenience methods (NOT used in production code)' do
-
+  
     # Okay, I could load foundation here and build a taxon concept... but that's heavy for what are really very
     # simple tests, so I'm doing a little more work here to save significant amounts of time running these tests:
     before(:each) do
@@ -135,15 +145,15 @@ describe User do
       @dato_ids = @datos.map{|d| d.id}.sort
       @datos.each {|dato| UsersDataObject.create(:user_id => @user.id, :data_object_id => dato.id) }
     end
-
+  
     it 'should return all of the data objects for the user' do
       @user.all_submitted_datos.map {|d| d.id }.should == @dato_ids
     end
-
+  
     it 'should return all data objects descriptions' do
       @user.all_submitted_dato_descriptions.sort.should == @descriptions
     end
-
+  
     it 'should be able to mark all data objects invisible and unvetted' do
       Vetted.gen(:label => 'Untrusted') unless Vetted.find_by_label('Untrusted')
       Visibility.gen(:label => 'Invisible') unless Visibility.find_by_label('Invisible')
@@ -154,7 +164,7 @@ describe User do
         new_dato.visibility.should == Visibility.invisible
       end
     end
-
+  
   end
 
 end

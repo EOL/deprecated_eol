@@ -175,7 +175,7 @@ class Administrator::UserController  < AdminController
       if !user.blank?
         reset_session
         set_current_user(user)
-        flash[:message]="You have been logged in as #{@user.username}"
+        flash[:notice]="You have been logged in as #{user.username}"
         redirect_to root_url
       end
       return

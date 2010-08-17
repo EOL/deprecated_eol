@@ -106,12 +106,16 @@ class ApiController < ApplicationController
   def hierarchy_entries
     id = params[:id] || 0
     format = params[:format] || 'dwc'
+    params[:common_names] ||= true
+    params[:common_names] = false if params[:common_names] == '0'
+    params[:synonyms] ||= true
+    params[:synonyms] = false if params[:synonyms] == '0'
     
     begin
       @hierarchy_entry = HierarchyEntry.find(id)
       @ancestors = @hierarchy_entry.ancestor_details
-      @common_names = @hierarchy_entry.common_name_details
-      @synonyms = @hierarchy_entry.synonym_details
+      @common_names = params[:common_names] ? @hierarchy_entry.common_name_details : []
+      @synonyms = params[:synonyms] ? @hierarchy_entry.synonym_details : []
       @children = @hierarchy_entry.children_details
       raise if @hierarchy_entry.nil? || !@hierarchy_entry.published?
     rescue

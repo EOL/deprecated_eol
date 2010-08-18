@@ -38,7 +38,7 @@ config.after_initialize do
 end
 
 # set to true to force users to use SSL for the login and signup pages 
-$USE_SSL_FOR_LOGIN = true  
+$USE_SSL_FOR_LOGIN = false
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin

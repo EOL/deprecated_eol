@@ -36,7 +36,7 @@ config.after_initialize do
 end
 
 # set to true to force users to use SSL for the login and signup pages 
-$USE_SSL_FOR_LOGIN = true  
+$USE_SSL_FOR_LOGIN = false
 
 # The following tells Rails to check the database connection every 2 minutes 
 # and if it isn't connected reconnect instead of throwing an exception

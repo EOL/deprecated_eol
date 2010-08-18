@@ -1,7 +1,7 @@
 # This library file declares extensions to the Core classes, as well as some of the "Core" Rails classes
 # (ActiveRecord and what-not).
 
-# There is a problem with Rails.cache returning frozen objects.  The following two patches should fix it:
+# There is a problem with CACHE returning frozen objects.  The following two patches should fix it:
 #
 # https://rails.lighthouseapp.com/projects/8994/tickets/2860
 # https://rails.lighthouseapp.com/projects/8994/tickets/2859
@@ -226,7 +226,7 @@ module ActiveRecord
       end
 
       def cached(key, options = {}, &block)
-        Rails.cache.fetch(cached_name_for(key)) do
+        CACHE.fetch(cached_name_for(key)) do
           yield
         end
       end

@@ -53,7 +53,7 @@ Spec::Runner.configure do |config|
   # examples run within their own transactions for ALL 
   # active connections (works for ALL of our databases)
   config.before(:each) do
-    Rails.cache.clear
+    CACHE.clear
     SpeciesSchemaModel.connection.execute("START TRANSACTION #SpeciesSchemaModel")
     SpeciesSchemaModel.connection.increment_open_transactions
 

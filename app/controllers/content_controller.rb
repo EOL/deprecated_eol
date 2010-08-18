@@ -224,7 +224,7 @@ class ContentController < ApplicationController
         current_user.log_activity(:viewed_exemplars)
       end
       format.xml do
-        xml = Rails.cache.fetch('examplars/xml') do
+        xml = CACHE.fetch('examplars/xml') do
           TaxonConcept.exemplars.to_xml(:root => 'taxon-pages') # I don't know why the :root in TC doesn't work
         end
         render :xml => xml

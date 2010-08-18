@@ -213,7 +213,7 @@ describe 'Taxa page XML' do
     before(:all) do
       @old_cache_val = ActionController::Base.perform_caching
       ActionController::Base.perform_caching = true
-      Rails.cache.clear
+      CACHE.clear
     end
     after(:all) do
       ActionController::Base.perform_caching = @old_cache_val

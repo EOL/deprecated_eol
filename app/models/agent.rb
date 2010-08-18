@@ -91,8 +91,9 @@ class Agent < SpeciesSchemaModel
   # To make users be able to change species pages (add a common name for example)
   # we have create an agent bypassing all the usual safety checks
   def self.create_agent_from_user(thename)
-    agent_id = SpeciesSchemaModel.connection.insert(ActiveRecord::Base.sanitize_sql_array(["insert into agents (full_name) values (?)", thename]))
     Agent.with_master do
+      agent_id = Agent.connection.insert(
+        ActiveRecord::Base.sanitize_sql_array(["INSERT INTO agents (full_name) VALUES (?)", thename]))
       return Agent.find(agent_id)
     end
     return nil
@@ -132,7 +133,7 @@ class Agent < SpeciesSchemaModel
   end
   
   def self.boa
-    YAML.load(Rails.cache.fetch('agents/boa') do
+    YAML.load(CACHE.fetch('agents/boa') do
       Agent.find_by_full_name('Biology of Aging').to_yaml
     end)
   end

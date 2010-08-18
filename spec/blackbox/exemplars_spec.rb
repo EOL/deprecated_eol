@@ -7,7 +7,7 @@ describe 'Home page' do
     @old_cache_val = ActionController::Base.perform_caching
     ActionController::Base.perform_caching = true
     ActionController::Base.cache_store = :memory_store
-    Rails.cache.clear
+    CACHE.clear
     @taxon_concept = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
     @page = RackBox.request('/content/exemplars') # cache the response the homepage gives before changes
   end

@@ -27,7 +27,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :controller => 'account',
                                     :action => 'reset_specific_users_password'
 
-  # I don't like this.  Why don't we just use retful routes here?
+  # I don't like this.  Why don't we just use restful routes here?
   map.with_options(:controller => 'account') do |account|
     account.login    'login',     :action => 'login'
     account.logout   'logout',    :action => 'logout'

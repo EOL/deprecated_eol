@@ -249,7 +249,7 @@ describe TaxonConcept do
     TopConceptImage.delete_all(:taxon_concept_id => @taxon_concept.id,
                         :data_object_id => @taxon_concept.images.last.id)
     
-    Rails.cache.delete("data_object/cached_images_for/#{@taxon_concept.id}")  # deleting the concept image cache
+    CACHE.delete("data_object/cached_images_for/#{@taxon_concept.id}")  # deleting the concept image cache
     @taxon_concept.current_user = @taxon_concept.current_user #hack to expire cached images
     @taxon_concept.images.length.should == how_many - 1 # Ensuring that we removed it...
   

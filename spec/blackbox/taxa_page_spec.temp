@@ -314,7 +314,7 @@ describe 'Taxa page (HTML)' do
   describe 'specified hierarchies' do
 
     before(:all) do
-      Rails.cache.clear # Browsable hierarchies are cached.
+      CACHE.clear # Browsable hierarchies are cached.
       #creating an NCBI hierarchy and some others
       @ncbi = Hierarchy.ncbi
       @browsable_hierarchy     = Hierarchy.gen(:label => "Browsable Hierarchy", :browsable => 1)

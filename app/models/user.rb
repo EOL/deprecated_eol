@@ -140,7 +140,14 @@ class User < ActiveRecord::Base
   def total_species_curated
     taxon_concept_ids_curated.length
   end
-  
+  def self.active_on_master?(username)
+    User.with_master_if_enabled do
+      user = User.find_by_username_and_active(username, true)
+      user ||= User.find_by_email_and_active(username, true)
+      return user.nil? ? false : true  # Just cleaning up the nil, is all.  False is less likely to annoy.
+    end
+  end
+
   def self.users_with_submitted_text
     sql = "Select distinct users.id , users.given_name, users.family_name 
     From users Join users_data_objects ON users.id = users_data_objects.user_id 
@@ -316,8 +323,15 @@ class User < ActiveRecord::Base
     end
     
     # no match with username, next try email address, which is not necessarily unique in database
-    users=User.find_all_by_email_and_active(username,true)
-    return false,"Invalid login or password"[] if users.blank? # no email match either, returning nothing
+    users = User.find_all_by_email_and_active(username,true)
+
+    if users.blank?
+      if User.active_on_master?(username)
+        return false, "Your account is registered, but has not had time to propagate to all of out servers.  Please try again in five minutes"[:user_registered_but_not_propagated]
+      else
+        return false, "Invalid login or password"[]
+      end
+    end
 
     users.each do |u| # check all users with matching email addresses to see if one of them matches the password
       if u.hashed_password==User.hash_password(password) 
@@ -341,7 +355,7 @@ class User < ActiveRecord::Base
   end
   
   def invalid_login_attempt
-   update_attributes(:failed_login_attempts=>failed_login_attempts+1)
+    update_attributes(:failed_login_attempts=>failed_login_attempts+1)
   end
   
   # I wanted to centralize this call, so we can quickly change from one kind of hashing to another.

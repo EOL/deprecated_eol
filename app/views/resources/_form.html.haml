@@ -30,16 +30,16 @@
     
     - if (current_user.is_admin?)  
       - if ([ResourceStatus.processed, ResourceStatus.published].include? @resource.resource_status)
+        = hidden_field_tag :publish, '0'
         = check_box_tag :publish, '1', (@resource.resource_status == ResourceStatus.published)
         %label{:for => :publish, :style => "padding-left:1em;display:inline"} Publish this resource
-        = hidden_field_tag :publish, '0'
         %br/
+      = hidden_field_tag :auto_publish, '0'
       = check_box_tag :auto_publish, '1', @resource.auto_publish
       %label{:for => :auto_publish, :style => "padding-left:1em;display:inline"} Auto-publish this resource (future harvest do not require preview)
-      = hidden_field_tag :auto_publish, '0'
       %br/
-      = check_box_tag :vetted, '1', @resource.vetted      
       = hidden_field_tag :vetted, '0'
+      = check_box_tag :vetted, '1', @resource.vetted      
       - if @resource.vetted
         %label{:for => :vetted, :style => "padding-left:1em;display:inline"} Uncheck to unvet this entire resource (all uncurated data objects will be untrusted)
       - else

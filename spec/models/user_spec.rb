@@ -1,5 +1,12 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
+# I just want to avoid using #gen (which would require foundation scenario):
+def bogus_hierarchy_entry
+  HierarchyEntry.create(:guid => 'foo', :ancestry => '1', :depth => 1, :lft => 1, :rank_id => 1, :vetted_id => 1,
+                        :parent_id => 1, :name_id => 1, :identifier => 'foo', :rgt => 2, :taxon_concept_id => 1,
+                        :visibility_id => 1, :source_url => 'foo', :hierarchy_id => 1)
+end
+
 describe User do
 
   before do
@@ -14,7 +21,9 @@ describe User do
       $LOG_USER_ACTIVITY = true
       count = ActivityLog.count
       @user.log_activity(:clicked_link)
-      ActivityLog.count.should == count + 1
+      wait_for_insert_delayed do
+        ActivityLog.count.should == count + 1
+      end
       ActivityLog.last.user_id.should == @user.id
     ensure
       $LOG_USER_ACTIVITY = old_log_val
@@ -140,9 +149,11 @@ describe User do
   it 'should not allow you to add a user that already exists' do
     User.create_new( :username => @user.username ).save.should be_false
   end
-  
+
   it 'should allow curator rights to be revoked' do
-    curator_user = User.gen(:curator_hierarchy_entry_id => 1)
+    Role.gen(:title => 'Curator') rescue nil
+    he = bogus_hierarchy_entry
+    curator_user = User.gen(:curator_hierarchy_entry => he)
     curator_user.roles << Role.curator
     curator_user.save!
     curator_user.is_curator?.should be_true
@@ -152,7 +163,7 @@ describe User do
   end
 
   describe 'convenience methods (NOT used in production code)' do
-  
+
     # Okay, I could load foundation here and build a taxon concept... but that's heavy for what are really very
     # simple tests, so I'm doing a little more work here to save significant amounts of time running these tests:
     before(:each) do

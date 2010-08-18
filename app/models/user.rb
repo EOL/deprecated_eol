@@ -60,7 +60,7 @@ class User < ActiveRecord::Base
        errors.add_to_base "You must indicate your credentials and area of expertise to request curator privileges."
     end
  
-    if !credentials.blank? && (curator_scope.blank? && curator_hierarchy_entry_id.blank?)
+    if !credentials.blank? && (curator_scope.blank? && curator_hierarchy_entry.blank?)
        errors.add_to_base "You must either select a clade or indicate your scope to request curator privileges."
     end
     
@@ -222,7 +222,7 @@ class User < ActiveRecord::Base
   # object might be a data object or taxon concept
   def can_curate? object
     return false unless curator_approved
-    return false unless curator_hierarchy_entry_id
+    return false unless curator_hierarchy_entry
     return false unless object
     raise "Don't know how to curate object of type #{ object.class }" unless object.respond_to?:is_curatable_by?
     object.is_curatable_by? self
@@ -264,7 +264,7 @@ class User < ActiveRecord::Base
     self.curator_approved=false
     self.credentials=""
     self.curator_scope=""
-    self.curator_hierarchy_entry_id=nil
+    self.curator_hierarchy_entry = nil
     self.curator_verdict_at = Time.now
     self.curator_verdict_by = updated_by 
     self.roles.delete(Role.curator)

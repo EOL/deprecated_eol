@@ -68,6 +68,18 @@ end
 # quiet down any migrations that run during tests
 ActiveRecord::Migration.verbose = false
 
+def wait_for_insert_delayed(&block)
+  countdown = 10
+  begin
+    yield
+    return
+  rescue Spec::Expectations::ExpectationNotMetError => e
+    countdown -= 1
+    sleep(0.2)
+    retry if countdown > 0
+    raise e
+  end 
+end
 
 def read_test_file(filename)
   csv_obj = CSV.open(File.expand_path(File.dirname("__FILE__") + "../../spec/csv_files/" + filename), "r", "\t")

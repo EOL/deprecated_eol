@@ -5,15 +5,15 @@ class Role < ActiveRecord::Base
   validates_presence_of :title
 
   def self.curator
-    @cur ||= Role.find_by_title('Curator')
+    cached_find(:title, 'Curator')
   end
 
   def self.moderator
-    @mod ||= Role.find_by_title('Moderator')
+    cached_find(:title, 'Moderator')
   end
 
   def self.administrator
-    @admin ||= Role.find_by_title('Administrator')
+    cached_find(:title, 'Administrator')
   end
 
 end

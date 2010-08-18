@@ -16,7 +16,7 @@
             %a#maps-link{ :href => "#media-maps", :title => "Maps"[] }
               = "Maps"[]
               %span
-        - if @taxon_concept.has_video
+        - if @taxon_concept.has_video && !@video_collection.blank?
           %li#videos
             %a{ :href => "#media-videos", :title => "Videos"[] }
               = "Videos"[]

@@ -180,7 +180,7 @@ class ApplicationController < ActionController::Base
 
   # just clear all fragment caches quickly
   def clear_all_caches
-    CACHE.clear
+    $CACHE.clear
     
     #remove cached feeds
     FileUtils.rm_rf(Dir.glob("#{RAILS_ROOT}/public/feeds/*")) # TODO: wish there was a better way to do this
@@ -464,7 +464,7 @@ private
   def cached_user
     User # KNOWN BUG (in Rails): if you end up with "undefined class/module" errors in a fetch() call, you must call
          # that class beforehand.
-    CACHE.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) }
+    $CACHE.fetch("users/#{session[:user_id]}") { User.find(session[:user_id]) }
   end
 
   # Having a *temporary* logged in user, as opposed to reading the user from the cache, lets us change some values
@@ -488,7 +488,7 @@ private
     session[:user]    = nil # This was the "new user", before we updated the code -- this is here to ensure we flush all old sessions and can probably safely be removed now.
     session[:user_id] = user.id
     set_unlogged_in_user(nil)
-    CACHE.delete("users/#{session[:user_id]}")
+    $CACHE.delete("users/#{session[:user_id]}")
   end
 
   def unlogged_in_user

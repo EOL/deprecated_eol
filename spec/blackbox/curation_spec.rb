@@ -59,7 +59,7 @@ describe 'Curation' do
             '_method' => 'put',
             'curator_activity_id' => CuratorActivity.disapprove!.id})
 
-    CACHE.clear
+    $CACHE.clear
     ActionController::Base.perform_caching = old_cache_val
   end
 

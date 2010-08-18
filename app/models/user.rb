@@ -327,7 +327,7 @@ class User < ActiveRecord::Base
 
     if users.blank?
       if User.active_on_master?(username)
-        return false, "Your account is registered, but has not had time to propagate to all of out servers.  Please try again in five minutes"[:user_registered_but_not_propagated]
+        return false, "Your account is registered but not ready for you to access. Please try again in five minutes."[:account_registered_but_not_ready_try_later]
       else
         return false, "Invalid login or password"[]
       end

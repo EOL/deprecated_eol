@@ -9,6 +9,7 @@ class TagsController < ApplicationController
 
   # GET /data_objects/1/tags
   def index
+    current_user.log_activity(:showing_tags_on_data_object_id, :value => @data_object.id)
     public # redirect_to :action => 'public' # ... call public, without actually redirecting ... redirect makes ajax mad
   end
   
@@ -54,6 +55,7 @@ class TagsController < ApplicationController
       begin
         @data_object.tag key, values, current_user
         flash[:notice] = 'New tag was successfully created'
+        current_user.log_activity(:created_tag_on_data_object_id, :value => @data_object.id)
       rescue FailedToCreateTag => e
         flash[:notice] = e.message
       end
@@ -87,12 +89,12 @@ class TagsController < ApplicationController
       @tags = DataObjectTags.find_all_by_data_object_id_and_data_object_tag_id(@data_object.id, @tag.id)
 
       if @tags
-        # render :text => "DataObject is tagged with #{ params[:id] }"
         @my_tag = @tags.find {|t| current_user &&  t.user_id == current_user.id }
         if @my_tag
           @my_tag.destroy
           flash[:notice] = "Successfully removed tag #{ params[:id] }"
           redirect_to request.referer ? :back : data_object_tags_path(@data_object.id)
+          current_user.log_activity(:deleted_tag_on_data_object_id, :value => @data_object.id)
         else
           render :text => "DataObject is tagged with #{ params[:id] } but not by you, so you cannot delete this tag."
         end

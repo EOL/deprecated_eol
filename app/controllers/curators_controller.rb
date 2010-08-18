@@ -9,12 +9,14 @@ class CuratorsController < ApplicationController
   
   def profile
     @user = User.find(current_user.id)
+    @user.log_activity(:viewed_curator_profile)
     @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?',params[:id]])
     redirect_back_or_default unless @user.curator_approved
   end
   
   
   def curate_images
+    current_user.log_activity(:viewed_images_to_curator)
     @images_to_curate = current_user.images_to_curate
   end
   

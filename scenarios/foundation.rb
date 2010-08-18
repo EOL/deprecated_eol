@@ -36,7 +36,7 @@ def create_if_not_exists(klass, attributes)
   return found
 end
 
-CACHE.clear # because we are resetting everything!  Sometimes, say, iucn is set.
+$CACHE.clear # because we are resetting everything!  Sometimes, say, iucn is set.
 
 # I AM NOT INDENTING THIS BLOCK (it seemed overkill)
 if User.find_by_username('foundation_already_loaded').nil?

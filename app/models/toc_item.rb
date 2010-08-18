@@ -40,13 +40,13 @@ class TocItem < SpeciesSchemaModel
   end
   
   def self.page_statistics
-    CACHE.fetch('toc_items/page_statistics') do
+    $CACHE.fetch('toc_items/page_statistics') do
       TocItem.find_or_create_by_label('Page Statistics')
     end
   end
   
   def self.content_summary
-    CACHE.fetch('toc_items/content_summary') do
+    $CACHE.fetch('toc_items/content_summary') do
       TocItem.find_or_create_by_label('Content Summary')
     end
   end

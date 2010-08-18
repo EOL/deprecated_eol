@@ -18,6 +18,7 @@ class DataObjectsController < ApplicationController
         user.vetted=false
       end
       @new_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
+      current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
     rescue => e
       @new_text = render_to_string(:partial => 'error', :locals => {:message => e.message}) 
 #<div id="errorExplanation"><h2>There was an error posting your text.  Please reload the page and try again.  Sorry for the inconvenience.</h2></div>'
@@ -35,6 +36,7 @@ class DataObjectsController < ApplicationController
       @data_object_id = params[:id]
       @hide = true
       @preview_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
+      current_user.log_activity(:previewed_data_object, :taxon_concept_id => @taxon_concept.id)
     rescue => e
       @new_text = 'There was an error previewing your text.  Please try again.  Sorry for the inconvenience.'
     end
@@ -62,6 +64,7 @@ class DataObjectsController < ApplicationController
       user.vetted=false
     end
     @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
+    current_user.log_activity(:updated_data_object_id, :value => @data_object.id, :taxon_concept_id => @taxon_concept.id)
   end
 
   def edit
@@ -69,6 +72,7 @@ class DataObjectsController < ApplicationController
     @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
     @selected_language = [@data_object.language.label,@data_object.language.id]
     @selected_license = [@data_object.license.title,@data_object.license.id]
+    current_user.log_activity(:editing_data_object, :taxon_concept_id => @taxon_concept.id)
     render :partial => 'edit_text'
   end
 
@@ -89,6 +93,7 @@ class DataObjectsController < ApplicationController
         @data_object = DataObject.new
         render :partial => 'new_text'
       end
+      current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
     else
       if $ALLOW_USER_LOGINS
         render :partial => 'login_for_text'
@@ -108,6 +113,7 @@ class DataObjectsController < ApplicationController
     @data_object.rate(current_user,params[:stars].to_i)
 
     expire_data_object(@data_object.id)
+    current_user.log_activity(:rated_data_object_id, :value => @data_object.id)
 
     respond_to do |format|
       format.html {redirect_to request.referer ? :back : '/'} #todo, complete later
@@ -139,7 +145,7 @@ class DataObjectsController < ApplicationController
     when /images/
       respond_to do |format|
         format.xml do
-          xml = CACHE.fetch("taxon.#{params[:taxon_concept_id].to_i}/images/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
+          xml = $CACHE.fetch("taxon.#{params[:taxon_concept_id].to_i}/images/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
             images = @taxon_concept.images
             {
               :images           => images.paginate(:per_page => per_page, :page => page),
@@ -151,10 +157,11 @@ class DataObjectsController < ApplicationController
           render :xml => xml
         end
       end
+      current_user.log_activity(:viewing_page_of_images, :value => page, :taxon_concept_id => @taxon_concept.id)
     when /videos/
       respond_to do |format|
         format.xml do
-          xml = CACHE.fetch("taxon.#{@taxon_concept.id}/videos/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
+          xml = $CACHE.fetch("taxon.#{@taxon_concept.id}/videos/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
             videos = @taxon_concept.videos
             {
               :videos           => videos.paginate(:per_page => per_page, :page => page),
@@ -166,6 +173,7 @@ class DataObjectsController < ApplicationController
           render :xml => xml
         end
       end
+      current_user.log_activity(:viewing_page_of_videos, :value => page, :taxon_concept_id => @taxon_concept.id)
     end
   end
 
@@ -182,6 +190,7 @@ class DataObjectsController < ApplicationController
     current_object['attributions'] = current_object.attributions
     current_object['taxa_names_ids'] = [{'taxon_concept_id' => current_object.hierarchy_entries[0].taxon_concept_id}]
     current_object['media_type'] = current_object.data_type.label
+    current_user.log_activity(:showed_attributions_for_data_object_id, :value => current_object.id)
     render :partial => 'attribution', :locals => { :data_object => current_object }, :layout => @layout
   end
 
@@ -202,6 +211,7 @@ class DataObjectsController < ApplicationController
     @data_object.curate! params[:vetted_id], params[:visibility_id], current_user, params[:untrust_reasons], params[:comment]
 
     expire_data_object(@data_object.id)
+    current_user.log_activity(:curated_data_object_id, :value => @data_object.id)
     
     respond_to do |format|
       format.html {redirect_to request.referer ? :back : '/'}

@@ -62,6 +62,7 @@ class TaxaController < ApplicationController
     @parent_search_log_id = params[:search_log_id] || 0 # Keeps track of searches done immediately after other searches
     log_search(request)
     if @search_type == 'google'
+      current_user.log_activity(:google_search_on, :value => params[:q])
       render :action => 'google_search'
     elsif @search_type == 'tag'
       search_tag
@@ -73,6 +74,7 @@ class TaxaController < ApplicationController
   def found
     # update the search log if we are coming from the search page, to indicate the user got here from a search
     update_logged_search :id => params[:search_id], :taxon_concept_id => params[:id] if params.key? :search_id 
+    current_user.log_activity(:clicked_on_search_result, :taxon_concept_id => params[:id])
     redirect_to taxon_url(:id => params[:id])
   end
 
@@ -114,6 +116,7 @@ class TaxaController < ApplicationController
                              :id => @taxon_concept.id,
                              :status => :moved_permanently)) if
     @taxon_concept.superceded_the_requested_id?
+    current_user.log_activity(:viewed_taxon_concept, :taxon_concept_id => @taxon_concept.id)
 
     respond_to do |format|
       format.html do
@@ -128,6 +131,7 @@ class TaxaController < ApplicationController
 
   def classification_attribution
     @taxon_concept = taxon_concept
+    current_user.log_activity(:viewed_classification_attribution_on_taxon_concept, :taxon_concept_id => @taxon_concept.id)
     render :partial => 'classification_attribution', :locals => {:taxon_concept => taxon_concept}
   end
 
@@ -144,6 +148,7 @@ class TaxaController < ApplicationController
     end
     @suggested_results = empty_paginated_set
     @all_results = results
+    current_user.log_activity(:tag_search_on, :value => params[:q])
   end
 
   def search_text
@@ -156,6 +161,7 @@ class TaxaController < ApplicationController
       @common_results     = TaxonConcept.search_with_pagination(@querystring, params.merge(:type => :common))
       
       @all_results = (@suggested_results + @scientific_results + @common_results)
+      current_user.log_activity(:text_search_on, :value => params[:q])
     end
     respond_to do |format|
       format.html do 
@@ -216,6 +222,7 @@ class TaxaController < ApplicationController
     @category_id = @toc_item.category_id    
     @ajax_update = true
     load_content_var
+    current_user.log_activity(:viewed_toc_id, :value => toc_id, :taxon_concept_id => @taxon_concept.id)
     @new_text = render_to_string(:partial => 'content_body')
   end
 
@@ -250,6 +257,7 @@ class TaxaController < ApplicationController
       end      
     end
 
+    current_user.log_activity(:viewed_content_for_category_id, :value => @category_id, :taxon_concept_id => @taxon_concept.id)
     #log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
 
   end
@@ -276,6 +284,7 @@ class TaxaController < ApplicationController
       render :nothing=>true
     else
       @selected_image = @images[0]
+      current_user.log_activity(:viewed_page_of_images, :value => @image_page, :taxon_concept_id => @taxon_concept.id)
       render :update do |page|
         page.replace_html 'image-collection', :partial => 'image_collection' 
       end
@@ -303,6 +312,8 @@ class TaxaController < ApplicationController
       # remote video access  
       @video_url=params[:video_url]        
     end
+
+    current_user.log_activity(:viewed_video, :value => @object_cache_url)
 
     render :update do |page|
       page.replace_html 'video-player', :partial => 'video_' + video_type
@@ -359,6 +370,7 @@ class TaxaController < ApplicationController
           expire_taxa(tc.id)
         end
       end
+      current_user.log_activity(:updated_common_names, :taxon_concept_id => tc.id)
     end
     redirect_to "/pages/#{tc.id}?category_id=#{params[:category_id]}"
   end
@@ -371,6 +383,7 @@ class TaxaController < ApplicationController
       if tc.is_curatable_by?(current_user)
         name, synonym, taxon_concept_name =
           tc.add_common_name_synonym(params[:name][:name_string], agent, :language => language)
+        current_user.log_activity(:added_common_name, :value => params[:name][:name_string], :taxon_concept_id => tc.id)
       else
         flash[:error] = "User #{current_user.full_name} does not have enough privileges to add a common name to the taxon"
       end
@@ -385,6 +398,7 @@ class TaxaController < ApplicationController
     category_id = params[:category_id].to_i
     tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, tc.id)
     tc.delete_common_name(tcn)
+    current_user.log_activity(:deleted_common_name, :taxon_concept_id => tc.id)
     redirect_to "/pages/#{tc.id}?category_id=#{category_id}"
   end
   
@@ -396,6 +410,7 @@ class TaxaController < ApplicationController
     category_id = params[:category_id].to_i
     redirect_url = "/pages/#{tc.id}"
     redirect_url += "?category_id=#{category_id}" unless category_id.blank? || category_id == 0
+    current_user.log_activity(:published_wikipedia_article, :taxon_concept_id => tc.id)
     redirect_to redirect_url
   end
   
@@ -507,7 +522,7 @@ private
   end
 
   def show_taxa_xml
-    xml = CACHE.fetch("taxon.#{@taxon_concept.id}/xml", :expires_in => 4.hours) do
+    xml = $CACHE.fetch("taxon.#{@taxon_concept.id}/xml", :expires_in => 4.hours) do
       @taxon_concept.to_xml(:full => true)
     end
     render :xml => xml
@@ -764,7 +779,7 @@ private
       xml = Hash.new.to_xml(:root => 'results')
     else
       key = "search/xml/#{@querystring.gsub(/[^-_A-Za-z0-9]/, '_')}"
-      xml = CACHE.fetch(key, :expires_in => 8.hours) do
+      xml = $CACHE.fetch(key, :expires_in => 8.hours) do
         xml_hash = {
           'suggested-results'  => @suggested_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },
           'scientific-results' => @scientific_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },

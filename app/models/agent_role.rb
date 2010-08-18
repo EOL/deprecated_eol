@@ -15,14 +15,14 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the Author
   def self.author
-    CACHE.fetch('agent_roles/author') do
+    $CACHE.fetch('agent_roles/author') do
       AgentRole.find_by_label('Author')
     end
   end
   
   # Find the Source
   def self.source
-    CACHE.fetch('agent_roles/source') do
+    $CACHE.fetch('agent_roles/source') do
       AgentRole.find_by_label('Source')
     end
   end
@@ -34,7 +34,7 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the "contributor" AgentRole.
   def self.contributor_id
-    CACHE.fetch('agent_roles/contributor_id') do
+    $CACHE.fetch('agent_roles/contributor_id') do
       AgentRole.find_by_label('Contributor').id
     end
   end
@@ -46,7 +46,7 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the "Photographer" AgentRole.
   def self.photographer_id
-    CACHE.fetch('agent_roles/photographer_id') do
+    $CACHE.fetch('agent_roles/photographer_id') do
       AgentRole.find_by_label('Photographer').id
     end
   end

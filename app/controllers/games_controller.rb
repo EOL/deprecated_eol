@@ -4,6 +4,7 @@ class GamesController < ApplicationController
   
   def identify_the_image
      
+    current_user.log_activity(:playing_identify_the_image)
      @num_images=5
      
      # original ordering of random taxa

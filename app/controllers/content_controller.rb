@@ -224,7 +224,7 @@ class ContentController < ApplicationController
         current_user.log_activity(:viewed_exemplars)
       end
       format.xml do
-        xml = CACHE.fetch('examplars/xml') do
+        xml = $CACHE.fetch('examplars/xml') do
           TaxonConcept.exemplars.to_xml(:root => 'taxon-pages') # I don't know why the :root in TC doesn't work
         end
         render :xml => xml
@@ -392,6 +392,12 @@ class ContentController < ApplicationController
   
   def donate
     
+    if request.post?
+      current_user.log_activity(:made_donation)
+    else
+      current_user.log_activity(:viewed_donation)
+    end
+
     return if request.post? == false
     
     donation=params[:donation]
@@ -505,6 +511,7 @@ class ContentController < ApplicationController
   
   def wikipedia
     @revision_url = params[:revision_url]
+    current_user.log_activity(:left_for_wikipedia_url, :value => @revision_url)
     @error = false
     if current_user.curator_approved
       if matches = @revision_url.match(/^http:\/\/en\.wikipedia\.org\/w\/index\.php\?title=(.*?)&oldid=([0-9]{9})$/i)

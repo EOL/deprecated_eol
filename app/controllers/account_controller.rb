@@ -81,25 +81,24 @@ class AccountController < ApplicationController
   end
 
   def confirmation_sent
-
   end
 
   # users come here from the activation email they receive
   def confirm
-
-      params[:id] ||= ''
-      params[:validation_code] ||= ''
-      @user=User.find_by_username_and_validation_code(params[:id],params[:validation_code])
-
-      if !@user.blank?
-        @user.update_attributes(:active=>true) # activate their account
-        Notifier.deliver_welcome_registration(@user) # send them a welcome message
-      end
-
+    params[:id] ||= ''
+    params[:validation_code] ||= ''
+    User.with_master_if_enabled do
+      @user = User.find_by_username_and_validation_code(params[:id],params[:validation_code])
+    end
+    if !@user.blank?
+      @user.update_attributes(:active => true) # activate their account
+      Notifier.deliver_welcome_registration(@user) # send them a welcome message
+    end
   end
 
   def logout
-    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.
+    # Whitelisting redirection to our own site, relative paths.
+    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/
     cookies.delete :user_auth_token       
     reset_session 
     store_location(params[:return_to])
@@ -163,6 +162,7 @@ class AccountController < ApplicationController
     @user_info ||= UserInfo.new
     unless request.post? # first time on page, get current settings
       store_location(params[:return_to]) unless params[:return_to].nil?
+      current_user.log_activity(:updating_info)
       return
     end
     it_worked = false
@@ -172,6 +172,7 @@ class AccountController < ApplicationController
       it_worked = @user.user_info = UserInfo.create(params[:user_info])
     end 
     if it_worked
+      current_user.log_activity(:updated_info)
       flash[:notice] = "Your information has been updated. Thank you for contributing to EOL."[]
       redirect_back_or_default
     end
@@ -187,6 +188,7 @@ class AccountController < ApplicationController
       # set expertise to a string so it will be picked up in web page controls
       @user.expertise=current_user.expertise.to_s
       store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
+      current_user.log_activity(:profile)
       return
     end
 
@@ -207,6 +209,8 @@ class AccountController < ApplicationController
 
     set_curator_clade(params)
 
+    current_user.log_activity(:updated_profile)
+
     if @user.update_attributes(user_params)
       user_changed_mailing_list_settings(old_user,@user) if (old_user.mailing_list != @user.mailing_list) || (old_user.email != @user.email)
       set_current_user(@user)
@@ -217,7 +221,6 @@ class AccountController < ApplicationController
   end
 
   # AJAX call to check if name is unique from signup page
-  # Note the around_filter MasterFilter causes this to READ from master.  Very important!
   def check_username
 
     username=params[:username] || ""
@@ -251,6 +254,7 @@ class AccountController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    current_user.log_activity(:show_user_id, :value => params[:id])
     @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?',params[:id]])
     redirect_back_or_default unless @user.curator_approved
   end
@@ -258,6 +262,7 @@ class AccountController < ApplicationController
   def show_objects_curated
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])
+    current_user.log_activity(:show_objects_curated_by_user_id, :value => params[:id])
     @data_objects_curated = @user.data_objects_curated
     @data_objects = @data_objects_curated.paginate(:page => page, :per_page => @@objects_per_page)
   end
@@ -265,12 +270,14 @@ class AccountController < ApplicationController
   def show_species_curated
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])
+    current_user.log_activity(:show_species_curated_by_user_id, :value => params[:id])
     @taxon_concept_ids = @user.taxon_concept_ids_curated.paginate(:page => page, :per_page => @@objects_per_page)
   end
 
   def show_comments_moderated
     page = (params[:page] || 1).to_i
     @user = User.find(params[:id])
+    current_user.log_activity(:show_species_comments_moderated_by_user_id, :value => params[:id])
     @all_comments = @user.comments_curated
     @comments = @all_comments.paginate(:page => page, :per_page => @@objects_per_page)
   end
@@ -279,8 +286,8 @@ class AccountController < ApplicationController
   # this is the uservoice single sign on redirect
   def uservoice_login
     token = current_user.uservoice_token
+    current_user.log_activity(:uservoice_login)
     redirect_to "#{$USERVOICE_URL}?sso=#{token}"
-    
   end  
   private
 

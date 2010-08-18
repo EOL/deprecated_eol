@@ -8,6 +8,26 @@ describe User do
     @user.should_not be_a_new_record
   end
 
+  it 'should have a log method that creates an ActivityLog entry (when enabled)' do
+    old_log_val = $LOG_USER_ACTIVITY
+    begin
+      $LOG_USER_ACTIVITY = true
+      count = ActivityLog.count
+      @user.log_activity(:clicked_link)
+      ActivityLog.count.should == count + 1
+      ActivityLog.last.user_id.should == @user.id
+    ensure
+      $LOG_USER_ACTIVITY = old_log_val
+    end
+  end
+
+  it 'should NOT log activity on a "fake" (unsaved, temporary, non-logged-in) user' do
+    user = User.create_new
+    count = ActivityLog.count
+    user.log_activity(:clicked_link)
+    ActivityLog.count.should == count
+  end
+
   it 'should authenticate existing user with correct password, returning true and user back' do
     success,user=User.authenticate( @user.username, @password)
     success.should be_true

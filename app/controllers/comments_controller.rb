@@ -7,12 +7,18 @@ class CommentsController < ApplicationController
     actions :all, :except => :edit
     belongs_to :data_object, :taxon_concept
 
+    before :index do
+      raise "Comments are only meaningful when associated with an object" unless parent?
+      prepare_index
+    end
+
     before :create do
       current_object.user_id = current_user.id
     end
 
     after :create do
       current_object.save
+      current_user.log_activity(:posted_comment_id, :value => current_object.id)
     end
 
     response_for :create do |format|
@@ -37,11 +43,6 @@ class CommentsController < ApplicationController
       end
     end
 
-    before :index do
-      raise "Comments are only meaningful when associated with an object" unless parent?
-      prepare_index
-    end
-
     response_for :index do |format|
       format.html { } # usual affair
       format.js { render :partial => 'index',
@@ -61,24 +62,29 @@ class CommentsController < ApplicationController
       @title_label    = 'above image'
       @title = '' # @parent.description.blank? ? 'Above Image' : @parent.description
       @current_params = "data_object_id=#{params[:data_object_id]}"
+      current_user.log_activity(:viewed_comments_on_image_id, :value => params[:data_object_id])
     elsif @type == :text
       @title          = '' # "#{@parent.authors.collect {|a| a.full_name}.join(',<br />')}"
       @title_label    = 'above text'
       #@title_label   += ' by' unless @title.empty?
       @current_params = "data_object_id=#{params[:data_object_id]}"
+      current_user.log_activity(:viewed_comments_on_text_id, :value => params[:data_object_id])
     elsif @type == :taxon
       @title          = @parent.title
       @slim_container = false
+      current_user.log_activity(:viewed_comments_on_taxon_concept_id, :taxon_concept_id => @parent.id)
     end
   end
 
-#show/hide comment
+  #show/hide comment
   def remove
+    current_user.log_activity(:removed_comment_id, :value => current_object.id)
     current_user.unvet current_object 
     render :partial => 'remove'
   end
 
   def make_visible
+    current_user.log_activity(:make_visible_comment_id, :value => current_object.id)
     current_user.vet current_object 
     render :partial => 'make_visible'
   end

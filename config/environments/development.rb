@@ -29,6 +29,8 @@ config.action_mailer.raise_delivery_errors = false
 
 config.log_level = :debug # :error
 
+$LOG_USER_ACTIVITY = true
+
 $EXCEPTION_NOTIFY=true # set to false to not be notified of exceptions via email
 $ERROR_LOGGING=true # set to true to record uncaught application errors in sql database file 
 

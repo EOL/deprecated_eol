@@ -12,6 +12,7 @@ class ContentController < ApplicationController
   def index
 
     @home_page=true
+    current_user.log_activity(:viewed_home_page)
 
     unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.content_page_cache_str)
       @content=ContentPage.get_by_page_name_and_language_abbr('Home',current_user.language_abbr)
@@ -34,28 +35,32 @@ class ContentController < ApplicationController
   end
   
   def news
-    id=params[:id]
-    @term_search_string=params[:term_search_string] || ''
-    search_string_parameter='%' + @term_search_string + '%' 
+    id = params[:id]
+    @term_search_string = params[:term_search_string] || ''
+    search_string_parameter = '%' + @term_search_string + '%'
     if id.blank?
-      @news_items=NewsItem.paginate(:conditions=>['active=1 and body like ?',search_string_parameter],:order=>'display_date desc',:page => params[:page])
+      @news_items = NewsItem.paginate(:conditions=>['active = 1 and body like ?', search_string_parameter],
+                                      :order=>'display_date desc',
+                                      :page => params[:page])
+      current_user.log_activity(:viewed_news_index)
     else
-      @news_item=NewsItem.find(id)
+      @news_item = NewsItem.find(id)
+      current_user.log_activity(:viewed_news_item_id, :value => @news_item.id)
     end
     respond_to do |format|
        format.html
-       format.rss { render :layout=>false }
-     end    
+       format.rss { render :layout => false }
+     end
   end
   
   def translate
     if params[:return_to].blank?
-      @translate_url=root_url
+      @translate_url = root_url
     else
-      if params[:return_to][0..3]!='http'
-        @translate_url="http://#{request.host}#{params[:return_to]}"
+      if params[:return_to][0..3] != 'http'
+        @translate_url = "http://#{request.host}#{params[:return_to]}"
       else
-        @translate_url=params[:return_to]
+        @translate_url = params[:return_to]
       end
     end
   end
@@ -216,6 +221,7 @@ class ContentController < ApplicationController
         unless read_fragment(:controller=>'content',:part=>'exemplars')
           @exemplars = TaxonConcept.exemplars # This is stored by memcached, so should go quite fast.
         end
+        current_user.log_activity(:viewed_exemplars)
       end
       format.xml do
         xml = Rails.cache.fetch('examplars/xml') do
@@ -228,10 +234,9 @@ class ContentController < ApplicationController
   
   #AJAX call to show more explore taxa on the home page
   def explore_taxa
-    @explore_taxa=RandomHierarchyImage.random_set(6, @session_hierarchy, {:language => current_user.language, :size => :medium})
-
-    render :layout=>false,:partial => 'explore_taxa'
-    
+    @explore_taxa = RandomHierarchyImage.random_set(6, @session_hierarchy,
+                                                    {:language => current_user.language, :size => :medium})
+    render :layout => false, :partial => 'explore_taxa'
   end
   
   #AJAX call to replace a single explore taxa for the home page
@@ -241,7 +246,7 @@ class ContentController < ApplicationController
     params[:taxa_number] ||= '1'
      
     current_taxa = params[:current_taxa].split(',')
-    explore_taxa       = RandomHierarchyImage.random(@session_hierarchy, {:language => current_user.language, :size => :medium})
+    explore_taxa = RandomHierarchyImage.random(@session_hierarchy, {:language => current_user.language, :size => :medium})
     
     # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a
     # bit haywire since there are very few random taxa created by scenarios.
@@ -293,6 +298,7 @@ class ContentController < ApplicationController
     if verify_recaptcha && @contact.save  
       Notifier.deliver_contact_us_auto_response(@contact)
       flash[:notice]="Thank you for your feedback."[:thanks_for_feedback]
+      current_user.log_activity(:sent_contact_us_id, :value => @contact.id)
       redirect_back_or_default
     else
       @verification_did_not_match="The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
@@ -317,6 +323,7 @@ class ContentController < ApplicationController
     if verify_recaptcha && @contact.save
       Notifier.deliver_media_contact_auto_response(@contact)
       flash[:notice]="Your message was sent."[:your_message_was_sent]
+      current_user.log_activity(:sent_media_contact_us_id, :value => @contact.id)
       redirect_back_or_default 
     else
       @verification_did_not_match="The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
@@ -327,9 +334,9 @@ class ContentController < ApplicationController
   # the template for a static page with content from the database
   def page
     # get the id parameter, which can be either a page ID # or a page name
-    @page_id=params[:id]
-
+    @page_id = params[:id]
     raise "static page without id" if @page_id.blank?
+    current_user.log_activity(:viewed_content_page_id, :value => @page_id)
     
     unless read_fragment(:controller=>'content',:part=>@page_id + "_" + current_user.language_abbr)
       # if the id is not numeric, assume it's a page name

@@ -594,6 +594,10 @@ class User < ActiveRecord::Base
     self.flash_enabled = true
   end
 
+  def log_activity(what, options = {})
+    ActivityLog.log(what, options.merge(:user => self)) if self.id && self.id != 0
+  end
+
 # -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 protected   
 

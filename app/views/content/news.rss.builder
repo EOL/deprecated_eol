@@ -17,7 +17,6 @@ xml.rss :version => "2.0" do
             xml.guid url_for(:only_path=>false,:controller=>'content',:action=>'news',:id=>news_item.id)
             xml.description news_item.body
             xml.pubDate news_item.display_date.to_s(:rfc822)
-            xml.guid news_item.id
           end
         end
       end

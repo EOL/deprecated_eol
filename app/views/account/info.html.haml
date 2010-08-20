@@ -63,6 +63,14 @@
                 %span#interested_in_advisory_forum_warn.error
             %tr
               %td.label
+                = f.label "Are you interested in getting updates when EOL announces new or updated services and APIs?"[]
+              %td
+                = f.check_box(:interested_in_development) 
+                = f.label(:interested_in_development, "Yes")
+              %td
+                %span#interested_in_development.error
+            %tr
+              %td.label
                 = f.label "Would you like your basic information included in the EOL member directory?"[]
               %td
                 = f.check_box(:show_information)

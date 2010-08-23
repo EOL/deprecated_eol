@@ -92,7 +92,7 @@ module TaxaHelper
     
     if output_html.size > 1 && params[:last_separator] != params[:separator]
       # stich the last two elements together with the "last separator" column before joining if there is more than 1 element and the last separator is different
-      output_html[output_html.size-2] += params[:last_separator] + output_html.pop
+      output_html[output_html.size-2] = output_html[output_html.size-2] + params[:last_separator] + output_html.pop
 		end
 
     return output_html.compact.join(params[:separator]) 

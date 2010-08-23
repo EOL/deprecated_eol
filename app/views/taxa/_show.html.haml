@@ -17,7 +17,7 @@
         == #{@taxon_concept.entry.rank_label.capitalize} recognized by |
           #{agent_icons_partial(@taxon_concept.classification_attribution(@session_hierarchy).reverse, |
             :show_text_if_no_icon=>true, :only_show_col_icon=>true, :separator=>',&nbsp;', |
-            :last_separator=>'&nbsp;in&nbsp;', :taxon => @taxon_concept)} |
+            :last_separator=>' in ', :taxon => @taxon_concept)} |
       %br
   #post-info.clearfix
     %span.iucn-status

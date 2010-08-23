@@ -1,0 +1,19 @@
+#content
+  #page-separator-general
+  #page-title
+    %h1
+      EOL Glossary
+    %hr
+  #page-content.clearfix
+    #full-page-content
+      #glossary
+        - alphabet = ('A'..'Z').to_a
+        - alphabet.each do |letter|
+          %p.separator
+            = letter
+          - all_terms = GlossaryTerm.all(:conditions => "term like '#{letter}%'", :order => 'term')
+          - all_terms.each do |glossary_term|
+            %label
+              = glossary_term.term.firstcap
+            %p.definition
+              = glossary_term.definition

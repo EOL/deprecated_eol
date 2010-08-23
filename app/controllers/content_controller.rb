@@ -525,4 +525,8 @@ class ContentController < ApplicationController
       end
     end
   end
+  
+  def glossary
+    @page_title = "EOL Glossary"
+  end
 end

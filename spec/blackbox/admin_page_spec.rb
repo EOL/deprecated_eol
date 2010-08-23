@@ -56,6 +56,21 @@ describe 'Admin Pages' do
     end
   end
   
+  describe ': glossary' do    
+    it 'should load an empty glossary page' do
+      login_as(@user).should redirect_to('/admin')
+      body = request('/administrator/glossary').body
+      body.should include("glossary is empty")
+    end
+    
+    it 'should show glossary terms' do
+      glossary_term = GlossaryTerm.gen(:term => 'Some new term', :definition => 'and its definition')
+      login_as(@user).should redirect_to('/admin')
+      body = request("/administrator/glossary").body
+      body.should include(glossary_term.term)
+      body.should include(glossary_term.definition)
+    end
+  end
   
   describe ': monthly published partners' do
     before(:all) do

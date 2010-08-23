@@ -1,0 +1,2 @@
+class GlossaryTerm < SpeciesSchemaModel
+end

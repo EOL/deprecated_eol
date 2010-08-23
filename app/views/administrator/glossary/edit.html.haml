@@ -1,0 +1,13 @@
+%h1
+  Edit Glossary Term
+%br
+- form_for :glossary_term, @glossary_term, :url => {:action => 'update', :id => params[:id]} do |f|
+  = f.label :label, "Term"
+  = f.text_field :term, :size=>20
+  %br
+  %br
+  = f.label :label, "Definition"
+  = f.text_area :definition, :rows => 3, :cols => 50
+  %br
+  %br
+  = f.submit "Submit Term"

@@ -1,0 +1,65 @@
+%h1
+  Glossary Terms
+%br
+%a{:href => '#add_a_term'}
+  Add a new term
+- form_tag({:action=>'index'},:method=>'post') do
+  %strong
+    Search
+  for terms or definitions containing: 
+  = text_field_tag(:search_string, @search_string)
+  = submit_tag 'Search'
+  
+  
+  
+= will_paginate @glossary_terms
+%table.results_table{:width => "100%", :cellspacing => "0"}
+  %tr
+    %th
+      - column_order = (@order=='term') ? 'term desc' : 'term'
+      = link_to 'Term', {:order_by => column_order}
+    %th
+      Definition
+    %th
+      - column_order = (@order=='updated_at') ? 'updated_at desc' : 'updated_at'
+      = link_to 'Last Updated', {:order_by => column_order}
+    %th
+      Action
+  - for glossary_term in @glossary_terms
+    - column_class=cycle('odd','even')
+    %tr{:valign => "top"}
+      %td{:width => "40%", :class => column_class}
+        = glossary_term.term
+      %td{:class => column_class}
+        = glossary_term.definition
+      %td{:class => column_class, :width => '70px'}
+        = h format_date_time(glossary_term.updated_at,:format=>'short_no_time')
+      %td{:class => column_class, :width => '70px'}
+        = link_to 'edit', :action => 'edit', :id => glossary_term.id
+        |
+        = link_to 'delete', {:action => 'destroy',:id => glossary_term.id}, :confirm => 'Are you sure you want to permanently remove this term?', :method => :delete
+  - if @glossary_terms.empty?
+    %tr
+      %td{:colspan => 5, :align => 'center', :class => 'odd'}
+        %br
+        %i
+          - if @search_string.blank?
+            (glossary is empty)
+          - else
+            = "no results for \"#{@search_string}\""
+        %br
+          &nbsp;
+= will_paginate @glossary_terms
+%br
+%hr.thin
+%a{:name => 'add_a_term'}
+%h1
+  Add a New Term
+- form_for :glossary_term, :url => {:action=>'create'} do |f|
+  = f.label :label, "Term"
+  = f.text_field :term, :size=>20
+  %br
+  = f.label :label, "Definition"
+  = f.text_area :definition, :rows => 3, :cols => 50
+  %br
+  = f.submit "Submit Term"

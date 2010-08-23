@@ -24,6 +24,8 @@ module ApplicationHelper
     end
     format_string = params[:format] || "long"
     format_string = case format_string
+    when "short_no_time"
+      "%m/%d/%Y"
     when "short"
       "%m/%d/%Y - %I:%M %p %Z"
     when "short_no_tz"

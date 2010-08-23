@@ -532,6 +532,13 @@ Factory.define :feed_data_object do |fdo|
   fdo.created_at      { 2.hours.ago }
 end
 
+Factory.define :glossary_term do |gt|
+  gt.term       { Faker::Lorem.words[rand(4) + 1].titleize }
+  gt.definition { Faker::Lorem.paragraph }
+  gt.created_at { 2.hours.ago }
+  gt.updated_at nil
+end
+
 Factory.define :harvest_event do |he|
   he.association :resource
   he.began_at     { 5.hours.ago }

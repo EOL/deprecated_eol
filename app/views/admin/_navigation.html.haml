@@ -10,6 +10,8 @@
       = link_to 'upload content',{:controller=>'administrator/content_upload', :action=>'index'}, {:class=>'toc_item active'}
     %li
       = link_to 'edit search suggestions',{:controller=>'administrator/search_suggestion', :action=>'index'}, {:class=>'toc_item active'}
+    %li
+      = link_to 'edit EOL glossary',{:controller=>'administrator/glossary', :action=>'index'}, {:class=>'toc_item active'}
   - restrict_to "(Administrator - News Items) & !blacklist" do
     %h3
       News Items

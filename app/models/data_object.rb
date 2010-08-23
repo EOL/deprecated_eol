@@ -33,7 +33,6 @@ class DataObject < SpeciesSchemaModel
   has_many :untrust_reasons, :through => :data_objects_untrust_reasons
   has_many :data_objects_info_items
   has_many :info_items, :through => :data_objects_info_items
-  
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
@@ -395,6 +394,13 @@ class DataObject < SpeciesSchemaModel
 
   def text?
     return DataType.text_type_ids.include?(data_type_id)
+  end
+
+  # We want to link to an appropriate page... for example, on Animalia, we want to link to Raccoons for images of raccoons,\
+  # not Animalia.
+  def taxon_page_id_for_permalink
+    # Note A and B are reversed in the sort; 1 is published and we want it first.
+    self['taxa_names_ids'].sort {|a,b| b['published'] <=> a['published']}[0]['taxon_concept_id']
   end
 
   def self.cache_path(cache_url, subdir = $CONTENT_SERVER_CONTENT_PATH)

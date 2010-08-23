@@ -66,5 +66,6 @@
         \:
         %br
         %form
-          %input{ :size => data_object.text? ? '45' : '35', :type => "text", :value => "http://#{$SITE_DOMAIN_OR_IP}/pages/#{data_object['taxa_names_ids'][0]['taxon_concept_id']}?#{data_object['media_type'].downcase}_id=#{data_object.id}", :onclick => "this.select();" }
+          -# Note that we don't just use @taxon_concept.id for this link because higher-level taxa pages (ie: Animals) should point to a more appropriate page for the image (ie: Raccoons).
+          %input{ :size => data_object.text? ? '45' : '35', :type => "text", :value => "http://#{$SITE_DOMAIN_OR_IP}/pages/#{data_object.taxon_page_id_for_permalink}?#{data_object['media_type'].downcase}_id=#{data_object.id}", :onclick => "this.select();" }
       .footer

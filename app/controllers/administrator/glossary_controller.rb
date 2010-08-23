@@ -19,8 +19,16 @@ class Administrator::GlossaryController < AdminController
   end
   
   def create
-    GlossaryTerm.create(params[:glossary_term])
-    redirect_to :action => 'index'
+    if params[:glossary_term][:term].blank?
+      flash[:error] = 'Term cannot be left blank'
+      redirect_to :action => 'index'
+    elsif GlossaryTerm.find_by_term(params[:glossary_term][:term])
+      flash[:error] = "`#{params[:glossary_term][:term]}` is already defined"
+      redirect_to :action => 'index'
+    else
+      GlossaryTerm.create(params[:glossary_term])
+      redirect_to :action => 'index'
+    end
   end
   
   def edit

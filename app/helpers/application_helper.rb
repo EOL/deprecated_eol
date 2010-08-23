@@ -466,4 +466,13 @@ module ApplicationHelper
     selection_link
   end
   
+  @@TOOLTIP_GLOBAL_COUNT = 0
+  def define_term(term)
+    if glossary_term = GlossaryTerm.find_by_term(term)
+      @@TOOLTIP_GLOBAL_COUNT += 1
+      render :partial => '/popups/glossary_tooltip', :locals => {:term => term, :definition => glossary_term.definition, :element_id => "tooltip_#{@@TOOLTIP_GLOBAL_COUNT}"}
+    else
+      return term
+    end
+  end
 end

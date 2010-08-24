@@ -26,11 +26,6 @@
         .credit-caption
           = attribution.agent_role
         .credit-value
-          / agent partial
-          -#= agent_partial(attribution.agent)
-          / agent icon
-          -#= agent_icons_partial(attribution.agent)
-
           - if attribution.agent_role.to_s == "Copyright"
             - sub = /.*<a(.*)<\/a>.*/.match(attribution.agent.to_s)
             - if sub  
@@ -38,19 +33,14 @@
               - inside_href = extracted.gsub(/<\/?[^>]*>/, "")#removes HTML tags
               - extracted = "© " + extracted + ".<br>"
               = extracted
-              -#= attribution.agent.class                                                
-              -#= attribution.agent.homepage
-              -#= attribution.agent.project_name
               - remain = attribution.agent.project_name
               - remain = Sanitize.clean(remain, :elements => ['']) #except br use ['br']
               - remain["© #{inside_href}."]="" #remove from string the agent with hyperlink
               - attribution.agent.project_name = remain            
-
+          / agent partial
           = agent_partial(attribution.agent)
+          / agent icon
           = agent_icons_partial(attribution.agent)
-
-
-
         .footer
   - if data_object.in_wikipedia?
     .credit.show

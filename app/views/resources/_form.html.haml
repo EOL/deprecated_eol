@@ -130,7 +130,7 @@
     - elsif !current_agent.blank? && cp = current_agent.content_partner
       = hidden_field_tag(:content_partner_id, cp.id)
     
-    #form_validation_error/
-  %br/
+    #form_validation_error
+      %br/
   = f.submit button_label
 

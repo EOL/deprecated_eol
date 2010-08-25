@@ -3,7 +3,7 @@ class Administrator::GlossaryController < AdminController
   helper_method :current_agent, :agent_logged_in?
   layout 'admin'
   
-  access_control :DEFAULT => 'Administrator - Content Partners'
+  access_control :DEFAULT => 'Administrator - Site CMS'
   
   def index
     @page = params[:page] || '1'

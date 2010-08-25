@@ -1,0 +1,56 @@
+%div#edit_toc
+  %table.toc_editor{:cellspacing => '2px', :cellpadding => '2px', :border => '1px #cccccc'}
+    %tr
+      %th
+        TOC Entry
+      %th
+        Info Items
+    - input_counter = 0
+    - last_toc_chapter = TocItem.last_major_chapter
+    - @whole_tree = TocItem.whole_tree
+    - @whole_tree.each_with_index do |toc, index|
+      - cell1_class = toc.is_major? ? 'major' : 'sub'
+      - cell2_class = toc.is_major? ? 'major_ii' : 'sub'
+      %tr
+        %td{:class => cell1_class, :valign => 'top'}
+          - if toc.is_sub?
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          - if toc == @whole_tree.first || (toc.is_sub? && @whole_tree[index-1] && @whole_tree[index-1].is_major?)
+            = image_tag('arrow_blank.gif')
+          - else
+            %a{:href => '', :onclick => "toc_move_up(#{toc.id}); return false;"}><
+              = image_tag('arrow_up.gif', :alt => 'move up', :title => 'move up')
+          - if toc.id == last_toc_chapter.id || (toc.is_sub? && @whole_tree[index+1] && @whole_tree[index+1].is_major?)
+            = image_tag('arrow_blank.gif')
+          - else
+            %a{:href => '', :onclick => "toc_move_down(#{toc.id}); return false;"}><
+              = image_tag('arrow_down.gif', :alt => 'move down', :title => 'move down')
+          %span{:id => "toc_label_#{toc.id}"}><
+            = "&nbsp;" + toc.label + "&nbsp;"
+            %a{:href => '', :onclick => "toc_edit_label(#{toc.id}, '#{toc.label}'); return false;"}
+              = image_tag('pencil.png', :alt => 'edit', :title => 'edit', :style => 'float: right; margin: 0px;')
+        %td{:class => cell2_class, :valign => 'top'}
+          - unless toc.info_items.empty?
+            - toc.info_items.each do |ii|
+              - if ii.schema_value.match(/SPMInfoItems/)
+                = ii.schema_value.gsub(/^.*(SPMInfoItems#)/, '\\1')
+              %br
+      - if @whole_tree[index+1].blank? || @whole_tree[index+1].is_major?
+        - input_counter += 1
+        - add_to_id = toc.is_major? ? toc.id : toc.parent_id
+        %tr
+          %td.sub{:valign => 'top', :colspan => 2}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %input{:id => "input_#{input_counter}", :type => 'text', :size => '40'}
+            %input{:type => 'submit', :value => 'Add Sub-chapter', :onclick => "toc_add_sub_chapter(#{add_to_id}, 'input_#{input_counter}'); return false;"}
+      - if toc == @whole_tree.last
+        %tr
+          %td.major_ii{:valign => 'top', :colspan => 2}
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            %input{:id => "input_chapter", :type => 'text', :size => '40'}
+            %input{:type => 'submit', :value => 'Add Major Chapter', :onclick => "toc_add_chapter('input_chapter'); return false;"}
+        
+        
+        
+        
+        

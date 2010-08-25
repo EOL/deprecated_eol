@@ -397,6 +397,63 @@ function update_browser_stats(hierarchy_entry_id, expand) {
       } );
 }
 
+// for re-rendering TOC
+function refresh_toc() {
+    jquery_post(null, '/administrator/table_of_contents/show_tree', $j('#edit_toc'))
+}
+function toc_move_up(toc_id) {
+    jquery_post("id="+toc_id, '/administrator/table_of_contents/move_up', $j('#edit_toc'))
+}
+function toc_move_down(toc_id) {
+    jquery_post("id="+toc_id, '/administrator/table_of_contents/move_down', $j('#edit_toc'))
+}
+function toc_add_sub_chapter(parent_id, input_id) {
+    input_value = $j("#"+input_id).val();
+    if(input_value == '') {
+        alert('You must enter a sub-chapter label');
+        return false;
+    }else {
+        jquery_post("label="+input_value+"&parent_id="+parent_id, '/administrator/table_of_contents/create', $j('#edit_toc'))
+    }
+}
+function toc_add_chapter(input_id) {
+    input_value = $j("#"+input_id).val();
+    if(input_value == '') {
+        alert('You must enter a chapter label');
+        return false;
+    }else {
+        jquery_post("label="+input_value+"&parent_id=0", '/administrator/table_of_contents/create', $j('#edit_toc'))
+    }
+}
+function toc_edit_label(toc_id, toc_label) {
+    new_html = '<input id="toc_edit_label_'+toc_id+'" type="text" size="40" value="'+ toc_label +'">';
+    new_html+= '<a href="" onclick="submit_new_label('+toc_id+', \'toc_edit_label_'+toc_id+'\'); return false;"><img title="edit" style="float: right;" src="/images/checked.png" alt="edit"></a>';
+    $j("#toc_label_"+toc_id).html(new_html);
+}
+function submit_new_label(toc_id, input_id) {
+    input_value = $j("#"+input_id).val();
+    if(input_value == '') {
+        alert('You must enter a new label');
+        return false;
+    }else {
+        jquery_post("id="+toc_id+"&label="+input_value, '/administrator/table_of_contents/update', $j('#edit_toc'))
+    }
+}
+
+function jquery_post(data, url, target)
+{
+    $j.ajax({
+      type: "POST",
+      url: url,
+      data: data,
+      beforeSend: function(request) {showAjaxIndicator();},
+      success: function(data) {
+        target.html(data);
+      },
+      complete: function(request) {hideAjaxIndicator();},
+    });
+}
+
 
 function toggle_children() {
     Element.toggle('taxonomic-children');
@@ -405,7 +462,7 @@ function toggle_children() {
     }
     else
     {
-        $('toggle_children_link').innerHTML='-'        
+        $('toggle_children_link').innerHTML='-'
     }
 }
 

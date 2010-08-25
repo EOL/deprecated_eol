@@ -13,6 +13,9 @@
     %li
       = link_to 'edit EOL glossary',{:controller=>'administrator/glossary', :action=>'index'}, {:class=>'toc_item active'}
   - restrict_to "(Administrator - News Items) & !blacklist" do
+    %li
+      = link_to 'edit table of contents',{:controller=>'administrator/table_of_contents', :action=>'index'}, {:class=>'toc_item active'}
+  - restrict_to "(Administrator - News Items) & !blacklist" do
     %h3
       News Items
     %li

@@ -2230,3 +2230,28 @@ a.tooltip {
   margin-left: 10px;
   text-indent: 10px;
   margin-bottom: 10px; }
+
+.toc_editor {
+  padding: 0;
+  margin: 0; }
+  .toc_editor th {
+    font: bold 11px Arial, Helvetica, sans-serif;
+    background: #9cdef6;
+    padding: 6px 6px 6px 12px;
+    color: #666666;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center; }
+  .toc_editor td.major {
+    background: #f0f0f0;
+    padding: 6px 6px 6px 12px;
+    color: #666666;
+    font-weight: bold; }
+  .toc_editor td.major_ii {
+    background: #f0f0f0;
+    padding: 6px 6px 6px 12px;
+    color: #666666; }
+  .toc_editor td.sub {
+    background: white;
+    padding: 6px 6px 6px 12px;
+    color: #666666; }

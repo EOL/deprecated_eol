@@ -2201,3 +2201,27 @@ a.tooltip
     margin-left: 10px
     text-indent: 10px
     margin-bottom: 10px
+
+@mixin toc_editor_cell($background)
+  background: $background
+  padding: 6px 6px 6px 12px
+  color: #666666
+
+.toc_editor
+  padding: 0
+  margin: 0
+  th
+    font: bold 11px Arial, Helvetica, sans-serif
+    @include toc_editor_cell(#9cdef6)
+    letter-spacing: 2px
+    text-transform: uppercase
+    text-align: center
+  td
+    &.major
+      @include toc_editor_cell(#f0f0f0)
+      font-weight: bold
+    &.major_ii
+      @include toc_editor_cell(#f0f0f0)
+    &.sub
+      @include toc_editor_cell(white)
+      

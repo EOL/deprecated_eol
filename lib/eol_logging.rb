@@ -111,48 +111,4 @@ module Logging
     
   end
   
-  module Mock
-    
-    # TODO randomize all fields (currently ignoring agent_id, user_id, ...)
-    #
-    #
-    def create_mock_logs(count)
-      if count.to_i < 2
-        raise 'THOUSANDS must be at least 2.'
-      end
-      
-      puts "Generating #{count} thousand log entries."
-      agents = [
-        'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-GB; rv:1.8.1.6) Gecko/20070725 Firefox/2.0.0.6', 
-        'Opera/9.20 (Windows NT 6.0; U; en)',
-        'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1)',
-        'Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; .NET CLR 1.1.4322)'
-        ]
-      agent_ids = [ 2, 25 ] # these are the ids of Agent objects that have actual logins, so we can test with them
-    
-      count.times do
-        ::DataObjectLog.transaction do
-          (1..1000).each do |n|
-            addr = "4.#{n % 10}.2.1"
-            agent = agents[n % agents.size]
-            attribute_hash[:ip_address_raw] = ::IpAddress.ip2int addr
-            attribute_hash[:user_agent] = agent
-            attribute_hash[:agent_id] = agent_ids[n % agent_ids.size]
-            attribute_hash[:created_at] = (n * 15).minutes.ago
-            # TODO Make this database agnostic.
-            obj = ::DataObject.find(:first, :include => [:data_type], :conditions => [''], :order => 'RAND()', :limit => 1)
-            attribute_hash[:data_object] = obj
-            attribute_hash[:data_type] = obj.data_type
-            if 0 == n % 4
-              attribute_hash[:user_id] = User.find_by_sql('SELECT id FROM users ORDER BY RAND() LIMIT 1')
-            end
-            ::DataObjectLog.create(attribute_hash)
-          end
-        end
-      end
-    
-    end
-
-  end
-
 end

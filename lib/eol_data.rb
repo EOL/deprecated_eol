@@ -6,6 +6,14 @@ module EOL
       connections.map {|c| c.connection}
     end
 
+    def self.reset_auto_increment_on_tables_with_tinyint_primary_keys
+      %w( agent_contact_roles agent_data_types agent_roles agent_statuses 
+                audiences harvest_events resource_agent_roles ).
+      map {|table| "ALTER TABLE `#{ table }` AUTO_INCREMENT=1; " }.each do |sql|
+        SpeciesSchemaModel.connection.execute sql
+      end
+    end
+
 
     module Create
       def all
@@ -43,30 +51,25 @@ module EOL
     end
 
     def start_transactions
-      [ User, CuratorActivity, Name ].each do |model|
-        conn = model.connection
+      EOL::DB.all_connections.each do |conn|
         Thread.current['open_transactions'] ||= 0
         Thread.current['open_transactions'] += 1
         conn.begin_db_transaction
-        # puts "BEGIN transaction"
       end
     end
 
     def commit_transactions
-      [ User, CuratorActivity, Name ].each do |model|
-        conn = model.connection
+      EOL::DB.all_connections.each do |conn|
         conn.commit_db_transaction
         conn.begin_db_transaction if conn.open_transactions > 0
       end
     end
 
     def rollback_transactions
-      [ User, CuratorActivity, Name ].each do |model|
-        conn = model.connection
+      EOL::DB.all_connections.each do |conn|
         conn.rollback_db_transaction
         Thread.current['open_transactions'] = 0
-        # puts "ROLLBACK"
-        # TODO after rolling back, this might be a good place to reset the auto_increment on tables
+        EOL::DB.reset_auto_increment_on_tables_with_tinyint_primary_keys
       end
     end
 

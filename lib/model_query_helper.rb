@@ -34,39 +34,6 @@ module ModelQueryHelper
     return details_hash
   end
   
-  
-  
-  def self.sort_objects_by_display_order(objects)
-    objects.sort do |a, b|
-      if a.vetted_view_order == b.vetted_view_order
-        # TODO - this should probably also sort on visibility.
-        if a.data_rating == b.data_rating
-          b.id <=> a.id # essentially, orders images by date.
-        else
-          b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
-        end
-      else
-        a.vetted_view_order <=> b.vetted_view_order
-      end
-    end
-  end
-  
-  # # same as the obove method expecting a hash instead of an object
-  # def self.sort_object_hash_by_display_order(hash)
-  #   hash.sort do |a, b|
-  #     if a['vetted_view_order'] == b['vetted_view_order']
-  #       if a['data_rating'] == b['data_rating']
-  #         b['id'] <=> a['id']
-  #       else
-  #         b['data_rating'] <=> a['data_rating']
-  #       end
-  #     else
-  #       a['vetted_view_order'] <=> b['vetted_view_order']
-  #     end
-  #   end
-  # end
-  
-  
   # custom sorting for a generic data object
   def self.sort_object_hash_by_display_order(hash)
     hash.sort do |a, b|

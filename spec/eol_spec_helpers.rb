@@ -62,11 +62,7 @@ module EOL
       end
 
       def reset_auto_increment_on_tables_with_tinyint_primary_keys
-        %w( agent_contact_roles agent_data_types agent_roles agent_statuses 
-                  audiences harvest_events resource_agent_roles ).
-        map {|table| "ALTER TABLE `#{ table }` AUTO_INCREMENT=1; " }.each do |sql|
-          SpeciesSchemaModel.connection.execute sql
-        end
+        EOL::DB.reset_auto_increment_on_tables_with_tinyint_primary_keys
       end
 
       # truncates all tables in all databases

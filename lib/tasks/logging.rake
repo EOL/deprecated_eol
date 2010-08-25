@@ -4,7 +4,6 @@
 require 'eol_logging'
 
 include Logging::Mine
-include Logging::Mock
       
 namespace :logging do
 
@@ -20,17 +19,6 @@ namespace :logging do
       clear_dimensions
     end
 
-    desc 'Generates realistic-looking-yet-fake log entries for random DataObjects.'
-    task :mock => :environment do
-      if ENV['THOUSANDS'].nil?
-        puts 'You must provide THOUSANDS=<num> as an argument to run this task. <num> should be at least 2.'
-        exit 1
-      else
-        t = ENV['THOUSANDS']
-        create_mock_logs(t)
-      end
-    end
-    
   end
   
   namespace :fact do

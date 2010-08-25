@@ -6,7 +6,6 @@ class TocEntry
   attr_reader :category_id
   attr_reader :has_content
   attr_reader :has_unpublished_content
-  attr_reader :has_published_content
   attr_reader :has_inappropriate_content
   attr_reader :has_invisible_content
   attr_reader :label
@@ -25,10 +24,6 @@ class TocEntry
     if toc_item.respond_to? :published
       @has_unpublished_content = true if toc_item.published.to_i == 0
     end
-    @has_published_content = true if false # TODO ... to properly set this, we have to know about the logged-in
-                                           # agent, which seems WAY beyond the scope of this class. The view that
-                                           # uses this variable needs to know whether the agent exists, NOT this
-                                           # class.
     if toc_item.respond_to? :visibility_id 
       @has_invisible_content     = true if toc_item.visibility_id.to_i == Visibility.invisible.id
       @has_inappropriate_content = true if toc_item.visibility_id.to_i == Visibility.inappropriate.id

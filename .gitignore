@@ -50,3 +50,4 @@ vendor/gems/nokogiri-1.4.2/ext/nokogiri/conftest.dSYM
 vendor/gems/nokogiri-1.4.2/ext/nokogiri/mkmf.log
 vendor/oldgem/json-1.1.6/ext/json/ext/generator/Makefile
 vendor/oldgem/json-1.1.6/ext/json/ext/parser/Makefile
+tags

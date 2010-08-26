@@ -14,14 +14,14 @@ class Administrator::TableOfContentsController < AdminController
   
   def move_up
     if toc = TocItem.find(params[:id])
-      toc.move_up
+      toc.move_up(params[:top] == "true")
     end
     render :layout => false, :partial => 'show_tree'
   end
   
   def move_down
     if toc = TocItem.find(params[:id])
-      toc.move_down
+      toc.move_down(params[:bottom] == "true")
     end
     render :layout => false, :partial => 'show_tree'
   end

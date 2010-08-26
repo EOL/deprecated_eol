@@ -111,60 +111,111 @@ class TocItem < SpeciesSchemaModel
   end
   
   # I suppose we just need a move_up method and move_down could fire off a move_up to its next chapter
-  # but having two methods will save a few queries
-  def move_down
+  # but having two methods will save a few queries. Also need to figure about about moving all the way down
+  def move_down(all_the_way = false)
     if is_major?
-      if chapter_after = next_major_chapter
-        to_subtract = chapter_length
-        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+#{chapter_after.chapter_length} WHERE id=#{id} OR parent_id=#{id}")
-        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order-#{to_subtract} WHERE id=#{chapter_after.id} OR parent_id=#{chapter_after.id}")
+      if all_the_way
+        move_to_last
+      elsif chapter_after = next_of_type
+        TocItem.swap_enries(self, chapter_after)
       end
     else  # sub chapter
-      new_view_order = view_order + 1
-      if next_toc = TocItem.find_by_view_order(new_view_order)
+      if all_the_way
+        move_to_last
+      elsif next_toc = next_of_type
         if next_toc.is_sub?
-          next_toc.view_order = view_order
-          next_toc.save
-          self.view_order = new_view_order
-          self.save
+          TocItem.swap_enries(self, next_toc)
         end
       end
     end
   end
   
-  def move_up
+  def move_up(all_the_way = false)
     if is_major?
-      if chapter_before = previous_major_chapter
-        to_add = chapter_length
-        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order-#{chapter_before.chapter_length} WHERE id=#{id} OR parent_id=#{id}")
-        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+#{to_add} WHERE id=#{chapter_before.id} OR parent_id=#{chapter_before.id}")
+      if all_the_way
+        move_to_first
+      elsif chapter_before = previous_of_type
+        TocItem.swap_enries(chapter_before, self)
       end
     else  # sub chapter
-      new_view_order = view_order - 1
-      if previous_toc = TocItem.find_by_view_order(new_view_order)
+      if all_the_way
+        move_to_first
+      elsif previous_toc = previous_of_type
         if previous_toc.is_sub?
-          previous_toc.view_order = view_order
-          previous_toc.save
-          self.view_order = new_view_order
-          self.save
+          TocItem.swap_enries(previous_toc, self)
         end
       end
     end
   end
   
-  def previous_major_chapter
-    result = TocItem.find_by_sql("SELECT * FROM table_of_contents WHERE view_order<#{view_order} AND parent_id=0 ORDER BY view_order DESC")
+  def self.swap_enries(toc1, toc2)
+    return unless toc1.class==TocItem && toc2.class==TocItem
+    return if toc1.is_major? != toc2.is_major?
+    
+    if toc1.is_sub?
+      swap_view_order = toc1.view_order
+      toc1.view_order = toc2.view_order
+      toc2.view_order = swap_view_order
+      toc1.save
+      toc2.save
+    else
+      # make sure toc1 is higher in the list
+      if toc1.view_order > toc2.view_order
+        toc1, toc2 = toc2, toc1 
+      end
+      to_subtract = toc1.chapter_length
+      TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+#{toc2.chapter_length} WHERE id=#{toc1.id} OR parent_id=#{toc1.id}")
+      TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order-#{to_subtract} WHERE id=#{toc2.id} OR parent_id=#{toc2.id}")
+    end
+  end
+  
+  def move_to_first
+    first_toc = first_of_type
+    if first_toc.id != id
+      if is_major?
+        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+#{chapter_length} WHERE id!=#{id} AND parent_id!=#{id} AND view_order<=#{view_order}")
+        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order-#{view_order-first_toc.view_order} WHERE id=#{id} OR parent_id=#{id}")
+      else
+        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+1 WHERE id!=#{id} AND parent_id=#{parent_id} AND view_order<#{view_order}")
+        self.view_order = first_toc.view_order
+        self.save
+      end
+    end
+  end
+  def move_to_last
+    last_toc = last_of_type
+    if last_toc.id != id
+      if is_major?
+        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order-#{chapter_length} WHERE id!=#{id} AND parent_id!=#{id} AND view_order>=#{view_order}")
+        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order+#{last_toc.view_order-view_order} WHERE id=#{id} OR parent_id=#{id}")
+      else
+        TocItem.connection.execute("UPDATE table_of_contents SET view_order=view_order-1 WHERE id!=#{id} AND parent_id=#{parent_id} AND view_order>#{view_order}")
+        self.view_order = last_toc.view_order
+        self.save
+      end
+    end
+  end
+  
+  def previous_of_type
+    result = TocItem.find_by_sql("SELECT * FROM table_of_contents WHERE view_order<#{view_order} AND parent_id=#{parent_id} ORDER BY view_order DESC")
     return nil if result.blank?
     result[0]
   end
-  def next_major_chapter
-    result = TocItem.find_by_sql("SELECT * FROM table_of_contents WHERE view_order>#{view_order} AND parent_id=0 ORDER BY view_order ASC")
+  def next_of_type
+    result = TocItem.find_by_sql("SELECT * FROM table_of_contents WHERE view_order>#{view_order} AND parent_id=#{parent_id} ORDER BY view_order ASC")
     return nil if result.blank?
     result[0]
   end
+  def last_of_type
+    TocItem.find_all_by_parent_id(parent_id, :order => 'view_order desc')[0]
+  end
+  def first_of_type
+    TocItem.find_all_by_parent_id(parent_id, :order => 'view_order asc')[0]
+  end
+  
   def chapter_length
     return nil if parent_id != 0
-    if next_chapter = next_major_chapter
+    if next_chapter = next_of_type
       return next_chapter.view_order - view_order
     end
     return TocItem.count_by_sql("SELECT COUNT(*) FROM table_of_contents WHERE id=#{id} OR parent_id=#{id}")
@@ -179,6 +230,7 @@ class TocItem < SpeciesSchemaModel
   def self.last_major_chapter
     TocItem.find_all_by_parent_id(0, :order => 'view_order desc')[0]
   end
+  
 end
 
 # == Schema Info

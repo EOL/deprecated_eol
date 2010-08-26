@@ -16,15 +16,19 @@
           - if toc.is_sub?
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           - if toc == @whole_tree.first || (toc.is_sub? && @whole_tree[index-1] && @whole_tree[index-1].is_major?)
-            = image_tag('arrow_blank.gif')
+            = image_tag('arrow_blank.gif') + image_tag('arrow_blank.gif')
           - else
-            %a{:href => '', :onclick => "toc_move_up(#{toc.id}); return false;"}><
+            %a{:href => '', :onclick => "toc_move_up(#{toc.id}, true); return false;"}><
+              = image_tag('arrow_way_up.gif', :alt => 'move to top', :title => 'move to top')
+            %a{:href => '', :onclick => "toc_move_up(#{toc.id}, false); return false;"}><
               = image_tag('arrow_up.gif', :alt => 'move up', :title => 'move up')
           - if toc.id == last_toc_chapter.id || (toc.is_sub? && @whole_tree[index+1] && @whole_tree[index+1].is_major?)
-            = image_tag('arrow_blank.gif')
+            = image_tag('arrow_blank.gif') + image_tag('arrow_blank.gif')
           - else
-            %a{:href => '', :onclick => "toc_move_down(#{toc.id}); return false;"}><
+            %a{:href => '', :onclick => "toc_move_down(#{toc.id}, false); return false;"}><
               = image_tag('arrow_down.gif', :alt => 'move down', :title => 'move down')
+            %a{:href => '', :onclick => "toc_move_down(#{toc.id}, true); return false;"}><
+              = image_tag('arrow_way_down.gif', :alt => 'move to bottom', :title => 'move to bottom')
           %span{:id => "toc_label_#{toc.id}"}><
             = "&nbsp;" + toc.label + "&nbsp;"
             %a{:href => '', :onclick => "toc_edit_label(#{toc.id}, '#{toc.label}'); return false;"}

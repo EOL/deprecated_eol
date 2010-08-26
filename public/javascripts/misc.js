@@ -401,11 +401,11 @@ function update_browser_stats(hierarchy_entry_id, expand) {
 function refresh_toc() {
     jquery_post(null, '/administrator/table_of_contents/show_tree', $j('#edit_toc'))
 }
-function toc_move_up(toc_id) {
-    jquery_post("id="+toc_id, '/administrator/table_of_contents/move_up', $j('#edit_toc'))
+function toc_move_up(toc_id, top) {
+    jquery_post("id="+toc_id+"&top="+top, '/administrator/table_of_contents/move_up', $j('#edit_toc'))
 }
-function toc_move_down(toc_id) {
-    jquery_post("id="+toc_id, '/administrator/table_of_contents/move_down', $j('#edit_toc'))
+function toc_move_down(toc_id, bottom) {
+    jquery_post("id="+toc_id+"&bottom="+bottom, '/administrator/table_of_contents/move_down', $j('#edit_toc'))
 }
 function toc_add_sub_chapter(parent_id, input_id) {
     input_value = $j("#"+input_id).val();

@@ -10,7 +10,7 @@
       %td
         = f.file_field :attachment, :size=>50
         %br
-        (must be less than 5 MB in size, file will be stored as uploaded, i.e. no resizing of images will be performed)
+        (must be less than 10 MB in size, file will be stored as uploaded, i.e. no resizing of images will be performed)
   %br
   %br
   %input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='#{url_for(:action=>'index')}';" }

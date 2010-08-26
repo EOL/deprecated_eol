@@ -51,15 +51,15 @@ class CategoryContentBuilder
 # The following are methods specific to content_by_category
 private
 
-  # TODO - change this (and the view) so that it's not reliant on hashes.  Paginate it.
+  # TODO - Pagination
   def biodiversity_heritage_library(options)
 
     tc_id = options[:taxon_concept_id]
 
     items = SpeciesSchemaModel.connection.execute(%Q{
       SELECT ti.id item_id, pt.title publication_title, pt.url publication_url,
-                      pt.details publication_details, ip.year item_year, ip.volume item_volume,
-                      ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url
+             pt.details publication_details, ip.year item_year, ip.volume item_volume,
+             ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url
       FROM taxon_concept_names tcn
         STRAIGHT_JOIN page_names pn ON (tcn.name_id = pn.name_id)
         JOIN item_pages ip ON (pn.item_page_id = ip.id)
@@ -69,11 +69,11 @@ private
       LIMIT 0,1000
     }).all_hashes.uniq
 
-    sorted_items = items.sort_by do|item|
+    sorted_items = items.sort_by do |item|
       [item["publication_title"], item["item_year"], item["item_volume"], item["item_issue"], item["item_number"].to_i]
     end
 
-    return {:items => sorted_items}
+    return {:items => sorted_items.map {|i| BhlItem.new(i) }}
 
   end
   

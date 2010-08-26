@@ -6,7 +6,7 @@
   	<%= render :partial => 'form', :locals => {:f=>f} %>
   	<tr>
   		<td><strong>File:</strong></td>
-  		<td><%= f.file_field :attachment, :size=>50 %><br />(must be less than 5 MB in size, file will be stored as uploaded, i.e. no resizing of images will be performed)
+  		<td><%= f.file_field :attachment, :size=>50 %><br />(must be less than 10 MB in size, file will be stored as uploaded, i.e. no resizing of images will be performed)
   		</td>
   	</tr>
 

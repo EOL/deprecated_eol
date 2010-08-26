@@ -150,8 +150,6 @@ module EOL
       end
     end
 
-    # TODO - I'm not sure these matching methods belong in this class, but I can't think of a better place to put them right
-    # now.
     def create_sorted_list_of_intersection_distances(original_matches)
       matches = original_matches.clone
       querystrings = @querystring.normalize.split(' ').to_set

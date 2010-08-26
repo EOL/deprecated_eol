@@ -1,6 +1,0 @@
-<%= render :partial => '/admin/content_top', :locals => {:name => 'EOL Administration Console'} %>
-
-  <h1>Welcome</h1>
-  <p>Welcome to the EOL Administration Console.  Please select a function from the left-hand navigation.</p>
-    
-<%= render :partial => '/admin/content_bottom' %>

@@ -1,4 +1,0 @@
-<a class="close-button" href="#" onclick="JavaScript:EOL.Effect.disappear('contribute-info');return false;"></a>
-To submit text content for <%=@taxon_name%>, please be sure you are logged into EOL and then click the <span class="add_text_button" style="width:20px;height:25px;"></span>
- icon near the table of contents on the left side of the page.  
-You can also submit <a href="#media-center">comments</a> about this species directly on the EOL site using the "Comments" tab near the images.

@@ -1,5 +1,0 @@
-<a class="close-button" href="#" onclick="JavaScript:EOL.Effect.disappear('slider-help');return false;"></a>
-We have made two changes to the species page.  The first change was to set the default mode from 'showing authoritative information'
-to 'showing all information'.  You will still see yellow backgrounds behind content that has not been curated.  The second change
-was to remove the slider that allowed you to change the setting from all to authoritative.  You can still change that setting by
-visiting <%=link_to 'your preferences',settings_url%> and your choice is always shown on the top right part of the species page.

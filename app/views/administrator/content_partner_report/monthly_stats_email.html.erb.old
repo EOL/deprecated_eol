@@ -1,9 +1,0 @@
-Year = <%= @year %> <br>
-Month = <%= @month %> <br>
-
-Auto email notifications were sent to:<br><br>
-
-<% for fld in @rset %>     
-	<%= fld["full_name"]%>    
-	{<%= fld["email"] 	%>} <br>    
-<% end %>

@@ -1,6 +1,0 @@
-Dear <%=@name%>,
-
-<%=@message %>
-
-- The Encyclopedia of Life Team
-

@@ -1,3 +1,0 @@
-Thank you for your donation
-------------------------------------------
-Your donation of <%= number_to_currency(@donation.amount) %> to EOL has been received. 

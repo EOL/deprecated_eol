@@ -2247,11 +2247,17 @@ a.tooltip {
     padding: 6px 6px 6px 12px;
     color: #666666;
     font-weight: bold; }
+    .toc_editor td.major.reserved {
+      background: #ee7777; }
   .toc_editor td.major_ii {
     background: #f0f0f0;
     padding: 6px 6px 6px 12px;
     color: #666666; }
+    .toc_editor td.major_ii.reserved {
+      background: #ee7777; }
   .toc_editor td.sub {
     background: white;
     padding: 6px 6px 6px 12px;
     color: #666666; }
+    .toc_editor td.sub.reserved {
+      background: #ff9999; }

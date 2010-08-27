@@ -8,7 +8,32 @@ class TocItem < SpeciesSchemaModel
   has_many :info_items, :foreign_key => :toc_id
   
   has_and_belongs_to_many :data_objects, :join_table => 'data_objects_table_of_contents', :foreign_key => 'toc_id'
-
+  
+  @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Search the Web', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
+  
+  connection.select_rows('select toc.id, count(*) from table_of_contents toc join data_objects_table_of_contents dotoc on (toc.id=dotoc.toc_id) group by toc.id')
+  
+  
+  def self.toc_object_counts
+    cached('toc_object_counts') do
+      TocItem.count_objects
+    end
+  end
+  
+  def self.count_objects
+    counts = []
+    count_hash = TocItem.connection.select_rows("select toc.id, count(*) from table_of_contents toc join data_objects_table_of_contents dotoc on (toc.id=dotoc.toc_id) join data_objects do on (dotoc.data_object_id=do.id) where do.published=1 and do.visibility_id=#{Visibility.visible.id} group by toc.id")
+    count_hash.each do |id, count|
+      counts[id.to_i] = count.to_i
+    end
+    return counts
+  end
+  
+  def object_count
+    counts = TocItem.toc_object_counts
+    return counts[id] || 0
+  end
+  
   def self.bhl
     cached_find(:label, 'Biodiversity Heritage Library')
   end
@@ -201,14 +226,17 @@ class TocItem < SpeciesSchemaModel
     return nil if result.blank?
     result[0]
   end
+  
   def next_of_type
     result = TocItem.find_by_sql("SELECT * FROM table_of_contents WHERE view_order>#{view_order} AND parent_id=#{parent_id} ORDER BY view_order ASC")
     return nil if result.blank?
     result[0]
   end
+  
   def last_of_type
     TocItem.find_all_by_parent_id(parent_id, :order => 'view_order desc')[0]
   end
+  
   def first_of_type
     TocItem.find_all_by_parent_id(parent_id, :order => 'view_order asc')[0]
   end
@@ -220,15 +248,21 @@ class TocItem < SpeciesSchemaModel
     end
     return TocItem.count_by_sql("SELECT COUNT(*) FROM table_of_contents WHERE id=#{id} OR parent_id=#{id}")
   end
+  
   def is_major?
     return parent_id == 0
   end
+  
   def is_sub?
     return parent_id != 0
   end
   
   def self.last_major_chapter
     TocItem.find_all_by_parent_id(0, :order => 'view_order desc')[0]
+  end
+  
+  def is_reserved?
+    return @@reserved_toc_labels.include? label
   end
   
 end

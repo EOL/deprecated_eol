@@ -1,6 +1,3 @@
-# TODO: should this be moved?  somehow, both the Administrator and DataPartner versions of
-# the ReportsController views get access to these ...
-
 module ContentPartner::ReportsHelper
 
   # helper method for easily constructing paths to reports (with query strings)

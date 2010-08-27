@@ -6,7 +6,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]
   map.force_harvest_resource 'content_partner/resources/force_harvest/:id', :method => :post,
       :controller => 'resources', :action => 'force_harvest'
-  map.resources :search_logs
 
   map.resources :comments, :member => { :make_visible => :put, :remove => :put }
 	map.resources :random_images
@@ -17,7 +16,6 @@ ActionController::Routing::Routes.draw do |map|
                                    :member => { :autocomplete_for_tag_value => :get }
   end
   map.resources :tags, :collection => { :search => :get }
-  map.resources :public_tags, :controller => 'administrator/tag_suggestion'
 
   map.settings     'settings',     :controller => 'taxa',:action=>'settings'
 
@@ -112,6 +110,9 @@ ActionController::Routing::Routes.draw do |map|
   #                                              :requirements => { :report => /.*/ }
 
   map.connect 'administrator/curator', :controller => 'administrator/curator', :action => 'index' 
+
+  map.resources :public_tags, :controller => 'administrator/tag_suggestion'
+  map.resources :search_logs, :controller => 'administrator/search_logs'
 
   map.connect '/taxon_concepts/:taxon_concept_id/comments/', :controller => 'comments', :action => 'index',
                                                              :conditions => {:method => :get}

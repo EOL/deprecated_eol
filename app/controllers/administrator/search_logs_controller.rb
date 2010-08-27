@@ -1,4 +1,4 @@
-class SearchLogsController < AdminController
+class Administrator::SearchLogsController < AdminController
 
   layout 'admin'
 

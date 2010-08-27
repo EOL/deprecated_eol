@@ -355,7 +355,7 @@ class ApplicationController < ActionController::Base
   end
   
   def logged_in_from_session?
-    not session[:user_id].nil?
+    !!session[:user_id]
   end
   
   def logged_in_from_cookie?

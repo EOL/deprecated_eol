@@ -3,6 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 
 require 'spec/autorun'
 require 'spec/rails'
+require 'capybara/rails'
+require 'capybara/dsl'
+
+
 load 'composite_primary_keys/fixtures.rb' 
 require 'csv'
 
@@ -14,9 +18,10 @@ include ActionController::Assertions::SelectorAssertions
 
 require "email_spec/helpers"
 require "email_spec/matchers"
+
+# Capybara.default_driver = :selenium
+
 Spec::Runner.configure do |config|
-  config.include(EmailSpec::Helpers)
-  config.include(EmailSpec::Matchers)
 end
 
 
@@ -36,6 +41,9 @@ Spec::Runner.configure do |config|
   include EOL::Spec::Helpers
   
   config.include EOL::Spec::Matchers
+  config.include(EmailSpec::Helpers)
+  config.include(EmailSpec::Matchers)
+  config.include(Capybara, :type => :integration)
   # Once upon a time, we needed this to run blackbox tests.  Now, if this line is in, Contoller (non-rackbox) tests fail.
   # When we removed this line, everything was happy.  When we remove rackbox entirely, *we* will be happy, too.
   config.use_blackbox = true

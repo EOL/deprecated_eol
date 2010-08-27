@@ -44,6 +44,20 @@ module EOL
             'remember_me' => options[:remember_me] || '' })
       end
 
+      def login_capybara(user, options = {})
+        if user.is_a? User # let us pass a newly created user (with an entered_password)
+          options = { :username => user.username, :password => user.entered_password }.merge(options)
+        elsif user.is_a? Hash
+          options = options.merge(user)
+        end
+        visit('/login?return_to=/')
+        fill_in "user_username", :with => options[:username]
+        fill_in "user_password", :with => options[:password]
+        check "remember_me" if options[:remember_me]
+        click_button "Login Now »"
+        page
+      end
+
       # returns a connection for each of our databases, eg: 1 for Data, 1 for Logging ...
       # TODO - this is not a nice abstract way of getting the list of connections we have.  We should generalize.
       def all_connections

@@ -11,7 +11,6 @@ describe 'Admin Pages' do
   end
   
   it 'should load the admin homepage' do
-    debugger if @user.roles.empty?
     login_as(@user).should redirect_to('/admin')
     body = request('/admin').body
     body.should include('Welcome to the EOL Administration Console')

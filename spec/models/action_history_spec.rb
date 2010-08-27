@@ -39,7 +39,7 @@ describe ActionsHistory do
       current_count = @num_ah
       [Vetted.trusted.id, Vetted.untrusted.id].each do |vetted_method|
         [Visibility.invisible.id, Visibility.visible.id, Visibility.inappropriate.id].each do |visibility_method|
-          @dato_image.curate! vetted_method, visibility_method, @user
+          @dato_image.curate vetted_method, visibility_method, @user
           ActionsHistory.count.should == (current_count += 2)
         end
       end

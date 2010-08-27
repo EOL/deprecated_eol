@@ -29,9 +29,9 @@ class Comment < ActiveRecord::Base
       was = self.visible_at_was
       is  = self.visible_at
       if is == nil # unvetted
-        CuratorCommentLog.create :comment => self, :user => self.vetted_by, :curator_activity => CuratorActivity.disapprove!
+        CuratorCommentLog.create :comment => self, :user => self.vetted_by, :curator_activity => CuratorActivity.disapprove
       elsif was == nil # vetted
-        CuratorCommentLog.create :comment => self, :user => self.vetted_by, :curator_activity => CuratorActivity.approve!
+        CuratorCommentLog.create :comment => self, :user => self.vetted_by, :curator_activity => CuratorActivity.approve
       end
     end
   end
@@ -148,16 +148,14 @@ class Comment < ActiveRecord::Base
     parent.is_curatable_by?(by)
   end
 
-  # TODO - this method should not have a bang.  (See Matz' rant)
-  def show! by
+  def show(by)
     self.vetted_by = by if by
     self.update_attribute :visible_at, Time.now unless visible_at
 
     new_actions_histories(by, self, 'comment', 'show')
   end
 
-  # TODO - this method should not have a bang.  (See Matz' rant)
-  def hide! by
+  def hide(by)
     self.vetted_by = by if by
     self.update_attribute :visible_at, nil
 
@@ -166,8 +164,8 @@ class Comment < ActiveRecord::Base
 
   # aliases to satisfy curation
   alias vetted? visible?
-  alias vet!    show!
-  alias unvet!  hide!
+  alias vet    show
+  alias unvet  hide
 
   # Pagination uses this method to check for a default pagination size:
   def self.per_page

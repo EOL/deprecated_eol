@@ -13,12 +13,12 @@ def add_comments_and_tags_to_reharvested_data_objects(tc)
   text_dato = tc.overview.first # TODO - this doesn't seem to ACTAULLY be the overview.  Fix it?
   text_dato.comment(user, 'this is a comment applied to the old overview')
   invis_comment = text_dato.comment(user, 'this is an invisible comment applied to the old overview')
-  invis_comment.hide! user
+  invis_comment.hide user
   
   image_dato = tc.images.first
   image_dato.comment(user, 'this is a comment applied to the old image')
   invis_image = image_dato.comment(user, 'this is an invisible comment applied to the old image')
-  invis_image.hide! user
+  invis_image.hide user
   
   #   1b) add tags
   image_dato.tag('color', 'yellow', user)
@@ -59,16 +59,16 @@ def add_comments_and_tags_to_reharvested_data_objects(tc)
   # 4) create comments on new version
   new_text_dato.comment(user, 'brand new comment on the re-harvested overview')
   invis_comment = new_text_dato.comment(user, 'and an invisible comment on the re-harvested overview')
-  invis_comment.hide! user
+  invis_comment.hide user
 
   new_image_dato.comment(user, 'lovely comment added after re-harvesting to the image')
   invis_image = new_image_dato.comment(user, 'even wittier invisible comments on image after the harvest was redone.')
-  invis_image.hide! user
+  invis_image.hide user
 end
 
 def create_curator(tc)
   curator_for_tc = User.gen(:username => 'curator_for_tc', :password => 'password')
-  curator_for_tc.approve_to_curate! tc.entry
+  curator_for_tc.approve_to_curate tc.entry
   curator_for_tc.save!
   return curator_for_tc
 end

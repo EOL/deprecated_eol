@@ -1,10 +1,5 @@
-# Represents an entry in the Tree of Life (see Hierarchy)
-#
-# #hierarchy is the 'version' of the Tree of Life (every year a new list of all species comes out)
-# #rank is ... ?
-# #name is ... ?
-#
-# TODO - ADD COMMENTS
+# Represents an entry in the Tree of Life (see Hierarchy).  This is one of the major models of the EOL codebase, and most
+# data links to these instances.
 class HierarchyEntry < SpeciesSchemaModel
 
   acts_as_tree :order => 'lft'
@@ -47,7 +42,6 @@ class HierarchyEntry < SpeciesSchemaModel
       if context == :classification and not Rank.italicized_ids.include? self[:rank_id]
         return name_object.string
       else
-        # TODO - there are cases here where we need to pay attention to language.
         italics = name_object.italicized
         return italics.blank? ?
             "<i>#{name_object.string.firstcap}</i>" :

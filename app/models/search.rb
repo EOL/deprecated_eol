@@ -299,7 +299,7 @@ class Search
   end
 
   def tag_search(params,current_user=nil)
-    @suggested_searches = [] #TODO: implement suggested search terms for tags
+    @suggested_searches = [] # There are no suggestions for tags.  Could be one day, though... but this is to generalize.
     if @search_string
       split_tags = @search_string.split(/[,\s]/).map(&:strip).select {|t| !t.blank?}  
       tags = split_tags.inject([]) do |all,this|
@@ -402,7 +402,7 @@ class Search
     @logged_search_id = logged_search.nil? ? '' : logged_search.id
   end
   
-  # TODO - I think this is unnecessary. Meaning, we cn just let all the instance vars be 0.
+  # Shortcut to avoid setting a whole bunch of instance variables when they don't matter anyway.
   def log_empty_search(request, current_user)
     Search.log({:search_term=>@search_string,
                 :search_type=>@search_type,

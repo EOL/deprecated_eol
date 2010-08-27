@@ -1,4 +1,5 @@
-# TODO - ADD COMMENTS
+# Alternative names for a hierarchy entry, as provided by a specific agent.  There can be many such synonyms related to a
+# hierarchy entry, but only one of them should be marked as "preferred".
 class Synonym < SpeciesSchemaModel
 
   belongs_to :hierarchy

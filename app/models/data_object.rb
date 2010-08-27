@@ -546,7 +546,7 @@ class DataObject < SpeciesSchemaModel
     ", id])
   end
   
-  def curate!(vetted_id, visibility_id, user, untrust_reason_ids = [], comment = nil)
+  def curate(vetted_id, visibility_id, user, untrust_reason_ids = [], comment = nil)
     if vetted_id
       vetted_id = vetted_id.to_i
       if vetted_id == Vetted.untrusted.id
@@ -635,7 +635,7 @@ class DataObject < SpeciesSchemaModel
   end
   
   def visible_references(options = {})
-    @all_refs ||= refs.delete_if {|r| r.published!=1 || r.visibility_id!=Visibility.visible.id}
+    @all_refs ||= refs.delete_if {|r| r.published != 1 || r.visibility_id != Visibility.visible.id}
   end
 
   def to_s
@@ -1447,14 +1447,14 @@ private
     vetted_by = user
     update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
     new_actions_histories(user, self, 'data_object', 'show')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show!
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show
   end
 
   def hide(user)
     vetted_by = user
     update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
     new_actions_histories(user, self, 'data_object', 'hide')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide!
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
   end
 
   def trust(user)
@@ -1462,7 +1462,7 @@ private
     update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
     new_actions_histories(user, self, 'data_object', 'trusted')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve!
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
   end
 
   def untrust(user, untrust_reason_ids, comment)
@@ -1478,14 +1478,14 @@ private
       comment(user, comment)
     end
     new_actions_histories(user, self, 'data_object', 'untrusted')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove!
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove
   end
 
   def inappropriate(user)
     vetted_by = user
     update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
     new_actions_histories(user, self, 'data_object', 'inappropriate')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate!
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
   end
   
   def self.join_agents_clause(agent)

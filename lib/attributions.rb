@@ -3,8 +3,8 @@ class Attributions
 
   include Enumerable
 
-  # Push in an AgentsDataObject array (usually from a DataObject) as well as the DataType (so we know what order to put things in).
-  # TODO - as of now, there is no difference in order based on DataType, so this could be cleaned up.
+  # Push in an AgentsDataObject array (usually from a DataObject) as well as the DataType (so we know what order to put
+  # things in).
   def initialize(agents_data_objects)
 
     raise "nil ADOs passed in to Attributions array" if agents_data_objects.nil?

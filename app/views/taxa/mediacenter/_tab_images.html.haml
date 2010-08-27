@@ -54,7 +54,7 @@
                 #large-image-trust-button.trust_button.thumbs-up-image{:title => "Trust this image", :style => thumb_up_style}
                   = link_to '<span style="display:block;width:24px;height:25px;"></span>',         |
                     {:controller => :data_objects, :action => :curate, :id => @selected_image.id,  |
-                     '_method' => :put, :curator_activity_id => CuratorActivity.approve!.id.to_s}, | 
+                     '_method' => :put, :curator_activity_id => CuratorActivity.approve.id.to_s}, | 
                     {'data-data_object_id' => @selected_image.id, :title => 'Trust this image',      |
                      'data-data_object_type' => DataType.image_type_ids[0]}                        |
                 - thumb_down_style = @selected_image.curated? ? "display: none" : "" 
@@ -62,7 +62,7 @@
                   = link_to('<span style="display:block;width:24px;height:25px;"></span>',  |
                      {:controller => :data_objects, :action => :curate,                     |
                      :id => @selected_image.id, '_method' => :put,                          |
-                     :curator_activity_id => CuratorActivity.disapprove!.id.to_s},          |
+                     :curator_activity_id => CuratorActivity.disapprove.id.to_s},          |
                      {'data-data_object_id' => @selected_image.id,                          |
                      :title => 'Do not trust this image',                                     | 
                      'data-data_object_type' => DataType.image_type_ids[0]})                |

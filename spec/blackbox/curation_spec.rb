@@ -57,7 +57,7 @@ describe 'Curation' do
 
     request("/data_objects/#{@taxon_concept.images[0].id}/curate", :params => {
             '_method' => 'put',
-            'curator_activity_id' => CuratorActivity.disapprove!.id})
+            'curator_activity_id' => CuratorActivity.disapprove.id})
 
     $CACHE.clear
     ActionController::Base.perform_caching = old_cache_val

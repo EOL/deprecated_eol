@@ -208,7 +208,7 @@ class DataObjectsController < ApplicationController
 
   # PUT /data_objects/1/curate
   def curate
-    @data_object.curate! params[:vetted_id], params[:visibility_id], current_user, params[:untrust_reasons], params[:comment]
+    @data_object.curate params[:vetted_id], params[:visibility_id], current_user, params[:untrust_reasons], params[:comment]
 
     expire_data_object(@data_object.id)
     current_user.log_activity(:curated_data_object_id, :value => @data_object.id)

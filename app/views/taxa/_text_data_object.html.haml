@@ -52,7 +52,7 @@
               = link_to '<span class="span_block"></span>', | 
                 {:controller => :data_objects, :action => :curate, |
                   :id => content_item.id, '_method' => :put, |
-                  :curator_activity_id => CuratorActivity.approve!.id.to_s}, |
+                  :curator_activity_id => CuratorActivity.approve.id.to_s}, |
                 {'data-data_object_id' => content_item.id, |
                 'data-data_object_type' => DataType.text_type_ids[0], |
                 :alt => 'Trust this text'} |
@@ -60,7 +60,7 @@
               = link_to '<span class="span_block"></span>', |
                 {:controller => :data_objects, :action => :curate, |
                 :id => content_item.id, '_method' => :put, |
-                :curator_activity_id => CuratorActivity.disapprove!.id.to_s}, |
+                :curator_activity_id => CuratorActivity.disapprove.id.to_s}, |
                 {'data-data_object_id' => content_item.id, |
                 :alt => 'Do not trust this text', |
                 'data-data_object_type' => DataType.text_type_ids[0]} |

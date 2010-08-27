@@ -8,8 +8,6 @@ class LoggingModel < ActiveRecord::Base
   
   def self.create(opts = {})
 
-    ##return unless $ENABLE_DATA_LOGGING  # TODO: can we uncomment this line to double snure that we don't log anything if not configured to do it!
-
     instance = self.new(opts)
     instance.created_at = Time.now if instance.respond_to? :created_at
     instance.updated_at = Time.now if instance.respond_to? :updated_at
@@ -17,7 +15,7 @@ class LoggingModel < ActiveRecord::Base
       instance.id = self.connection.next_sequence_value(self.sequence_name)
     end
 
-    # HAAAAAACK:  TODO - is there a better way to get to this?
+    # Important that we have quoted attributes and column names:
     instance.instance_eval { def attribs ; attributes_with_quotes ; end ; def cols ; quoted_column_names ; end }
     quoted_attributes = instance.attribs
 

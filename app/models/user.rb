@@ -74,11 +74,11 @@ class User < ActiveRecord::Base
   
   def objects_vetted
     # this needs to allow for eager loading
-    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve! ).map(&:object)
+    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve ).map(&:object)
   end 
   def total_objects_vetted
     # this needs to become a simple COUNT query
-    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve! ).length
+    CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve ).length
   end 
 
   # get the total objects curated for a particular curator activity type
@@ -233,7 +233,7 @@ class User < ActiveRecord::Base
     can_curate? TaxonConcept.find(taxon_concept_id)
   end
   
-  def approve_to_curate! clade
+  def approve_to_curate clade
     clade = clade.id if clade.is_a?HierarchyEntry
     update_attribute :curator_hierarchy_entry_id, clade
     update_attribute :curator_approved, true
@@ -279,12 +279,12 @@ class User < ActiveRecord::Base
 
   # vet an object user can curate
   def vet object
-    object.vet!(self) if object and object.respond_to? :vet! and can_curate? object
+    object.vet(self) if object and object.respond_to? :vet and can_curate? object
   end
 
   # unvet an object user can curate
   def unvet object
-    object.unvet!(self) if object and object.respond_to? :unvet! and can_curate? object
+    object.unvet(self) if object and object.respond_to? :unvet and can_curate? object
   end
 
   # create a new user using default attributes and then update with supplied parameters

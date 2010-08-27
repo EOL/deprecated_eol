@@ -60,12 +60,3 @@ class Rank < SpeciesSchemaModel
   end
 
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: ranks
-#
-#  id            :integer(2)      not null, primary key
-#  rank_group_id :integer(2)      not null
-#  label         :string(50)      not null
-

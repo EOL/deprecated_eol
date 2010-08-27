@@ -74,35 +74,35 @@ describe DataObject do
     end
 
     it 'should set to untrusted' do
-      @data_object.curate!(Vetted.untrusted.id, nil, @user)
+      @data_object.curate(Vetted.untrusted.id, nil, @user)
       @data_object.untrusted?.should eql(true)
     end
 
     it 'should set to trusted' do
-      @data_object.curate!(Vetted.trusted.id, nil, @user)
+      @data_object.curate(Vetted.trusted.id, nil, @user)
       @data_object.trusted?.should eql(true)
     end
 
     it 'should set to untrusted and hidden' do
-      @data_object.curate!(Vetted.untrusted.id, Visibility.invisible.id, @user)
+      @data_object.curate(Vetted.untrusted.id, Visibility.invisible.id, @user)
       @data_object.untrusted?.should eql(true)
       @data_object.invisible?.should eql(true)
     end
 
     it 'should set untrust reasons' do
-      @data_object.curate!(Vetted.untrusted.id, Visibility.visible.id, @user, [UntrustReason.misidentified.id, UntrustReason.poor.id, UntrustReason.other.id])
+      @data_object.curate(Vetted.untrusted.id, Visibility.visible.id, @user, [UntrustReason.misidentified.id, UntrustReason.poor.id, UntrustReason.other.id])
       @data_object.untrust_reasons.length.should eql(3)
-      @data_object.curate!(Vetted.untrusted.id, Visibility.visible.id, @user, [UntrustReason.misidentified.id, UntrustReason.poor.id])
+      @data_object.curate(Vetted.untrusted.id, Visibility.visible.id, @user, [UntrustReason.misidentified.id, UntrustReason.poor.id])
       @data_object = DataObject.find(@data_object.id)
       @data_object.untrust_reasons.length.should eql(2)
-      @data_object.curate!(Vetted.trusted.id, Visibility.visible.id, @user)
+      @data_object.curate(Vetted.trusted.id, Visibility.visible.id, @user)
       @data_object = DataObject.find(@data_object.id)
       @data_object.untrust_reasons.length.should eql(0)
     end
 
     it 'should add comment when untrusting' do
       comment_count = @data_object.comments.length
-      @data_object.curate!(Vetted.untrusted.id, Visibility.visible.id, @user, [], 'new comment')
+      @data_object.curate(Vetted.untrusted.id, Visibility.visible.id, @user, [], 'new comment')
       @data_object.comments.length.should eql(comment_count+1)
     end
   end
@@ -431,7 +431,7 @@ describe DataObject do
       current_count = @num_lcd
       [Vetted.trusted.id, Vetted.untrusted.id].each do |vetted_method|
         [Visibility.invisible.id, Visibility.visible.id, Visibility.inappropriate.id].each do |visibility_method|
-          @data_object.curate! vetted_method, visibility_method, @user
+          @data_object.curate vetted_method, visibility_method, @user
           LastCuratedDate.count.should == (current_count += 1)
         end
       end
@@ -663,7 +663,7 @@ describe DataObject do
 #      @dato.should_not be_vetted
 #      @dato.is_vetted?.should be_false
 #      
-#      @dato.vet!
+#      @dato.vet
 #      @dato.vetted.should == Vetted.trusted
 #      @dato.should be_vetted
 #      @dato.is_vetted?.should be_true
@@ -681,7 +681,7 @@ describe DataObject do
 #      @dato.should_not be_vetted
 #      @dato.is_vetted?.should be_false
 #
-#      @dato.unvet!
+#      @dato.unvet
 #      @dato.vetted.should == Vetted.untrusted
 #      @dato.should_not be_vetted
 #      @dato.is_vetted?.should be_false
@@ -691,25 +691,25 @@ describe DataObject do
 #      @dato = DataObject.create_valid! :vetted_id => Vetted.unknown.id
 #      @dato.curated.should be_false
 #      
-#      @dato.vet!
+#      @dato.vet
 #      @dato.curated.should be_true
 #      
 #      @dato = DataObject.create_valid! :vetted_id => Vetted.unknown.id
 #      @dato.curated.should be_false
 #      
-#      @dato.unvet!
-#      @dato.curated.should be_true
-#
-#      @dato = DataObject.create_valid! :vetted_id => Vetted.unknown.id
-#      @dato.curated.should be_false
-#      
-#      @dato.hide!
+#      @dato.unvet
 #      @dato.curated.should be_true
 #
 #      @dato = DataObject.create_valid! :vetted_id => Vetted.unknown.id
 #      @dato.curated.should be_false
 #      
-#      @dato.show!
+#      @dato.hide
+#      @dato.curated.should be_true
+#
+#      @dato = DataObject.create_valid! :vetted_id => Vetted.unknown.id
+#      @dato.curated.should be_false
+#      
+#      @dato.show
 #      @dato.curated.should be_true
 #    end
 #    

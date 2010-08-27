@@ -37,10 +37,8 @@ class DataObjectTags < ActiveRecord::Base
     end
   end
 
-  # TODO: DELETE (NOT USED)
   named_scope :private_tags, :conditions => 'user_id IS NOT NULL', :include => :data_object_tag  
   named_scope :private_tags_for, lambda {|user|{ :conditions => ['user_id = ?', user.id], :include => :data_object_tag }}
-  # END TODO
   
   named_scope :tags_with_usage_count, :select => "data_object_guid, data_object_tag_id, count(user_id) as usage_count", 
                                       :group => 'data_object_tag_id'

@@ -98,7 +98,7 @@ describe 'Taxa page (HTML)' do
     @taxon_concept.add_toc_item(@toc_item_with_no_trusted_items, :vetted => false)
 
     @curator       = build_curator(@taxon_concept)
-    Comment.find_by_body(@comment_bad).hide! User.last
+    Comment.find_by_body(@comment_bad).hide User.last
     # doesn't work, why?
     @result        = RackBox.request("/pages/#{@id}") # cache the response the taxon page gives before changes
 

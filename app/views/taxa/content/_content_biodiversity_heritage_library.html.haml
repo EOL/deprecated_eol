@@ -47,7 +47,7 @@
             Pages
         - column_class = cycle('odd','even')
         %tr
-          %td{:class => column_class}= content_item.name + external_link_to(' Page ' + content_item.item_number, content_item.item_url)
+          %td{:class => column_class}= "#{content_item.name} #{external_link_to(' Page ' + content_item.item_number, content_item.item_url)}"
   .divider
   .divider
   .content-attribution-area

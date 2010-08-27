@@ -432,31 +432,17 @@ class ApplicationController < ActionController::Base
     redirect_to return_to
   end
 
-  # ajax call to set the session variable for the user to indicate if flash is enabled or not
-  def set_flash_enabled
-    flash_enabled=params[:flash_enabled]
-    alter_current_user do |user|
-      if EOLConvert.to_boolean(flash_enabled)
-        user.flash_enabled = true
-      else
-        user.flash_enabled = false
-        user.default_taxonomic_browser="text"
-      end
-    end
-    render :nothing=>true
+  # pulled over from Rails core helper file so it can be used in controllers as well
+  def escape_javascript(javascript)
+     (javascript || '').gsub('\\','\0\0').gsub('</','<\/').gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/) { |m| "\\#{m}" }
   end
 
-    # pulled over from Rails core helper file so it can be used in controllers as well
-    def escape_javascript(javascript)
-       (javascript || '').gsub('\\','\0\0').gsub('</','<\/').gsub(/\r\n|\n|\r/, "\\n").gsub(/["']/) { |m| "\\#{m}" }
-    end
-
-    def set_session_hierarchy_variable
-      hierarchy_id = current_user.default_hierarchy_valid? ? current_user.default_hierarchy_id : Hierarchy.default.id
-      secondary_hierarchy_id = current_user.secondary_hierarchy_id rescue nil
-      @session_hierarchy = Hierarchy.find(hierarchy_id)
-      @session_secondary_hierarchy = secondary_hierarchy_id.nil? ? nil : Hierarchy.find(secondary_hierarchy_id)
-    end
+  def set_session_hierarchy_variable
+    hierarchy_id = current_user.default_hierarchy_valid? ? current_user.default_hierarchy_id : Hierarchy.default.id
+    secondary_hierarchy_id = current_user.secondary_hierarchy_id rescue nil
+    @session_hierarchy = Hierarchy.find(hierarchy_id)
+    @session_secondary_hierarchy = secondary_hierarchy_id.nil? ? nil : Hierarchy.find(secondary_hierarchy_id)
+  end
 
 private
 

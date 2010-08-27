@@ -12,7 +12,7 @@ describe ApplicationController do
   
   it 'should use Gibberish' do
     Gibberish.should_receive(:use_language)
-    get set_flash_enabled_path
+    get contact_us_url
   end
 
   it 'should have hh' do

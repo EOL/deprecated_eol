@@ -5,19 +5,6 @@
   var taxa_number_to_replace = 1;
   var num_seconds_between_image_loads = 10;
   
-  function eol_update_flash_enabled(flash_enabled) {
-    // if flash is not enabled send this message to the server so it can be stored in the session (we default to enabled, so we only need to send this message if flash not enabled)
-    if (FlashDetect.installed == false) {
-      new Ajax.Request('<%=set_flash_enabled_url%>', {
-        parameters: {
-          flash_enabled: FlashDetect.installed
-        },
-        asynchronous: true,
-        evalScripts: true
-      })
-    }
-  }
-  
   function explore_more_taxa() {
     if (pe) {
       pe.stop();
@@ -92,7 +79,6 @@
   }
 
   document.observe("dom:loaded", function() {
-    eol_update_flash_enabled();
     setTimeout("start_explore_updates()",num_seconds_between_image_loads*1000);
   });
 - if @cached_fragment

@@ -58,9 +58,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect '/pages/:taxon_concept_id/publish_wikipedia_article', :controller => 'taxa', :action => 'publish_wikipedia_article'
   
   map.set_language      'set_language',      :controller => 'application', :action => 'set_language'
-  map.set_flash_enabled 'set_flash_enabled', :controller => 'application', :action => 'set_flash_enabled'
-
-  map.flash_xml 'flashxml/:id.:format', :controller => 'navigation', :action => 'flash_tree_view'
 
   map.contact_us    'contact_us',    :controller => 'content', :action => 'contact_us'
   map.media_contact 'media_contact', :controller => 'content', :action => 'media_contact'

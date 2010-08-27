@@ -6,14 +6,11 @@ class ActionsHistory < ActiveRecord::Base
   
   validates_presence_of :user_id, :changeable_object_type_id, :action_with_object_id, :created_at 
     
-  #TODO: These "magic numbers" in the case statement correspond to rows in the 'changeable_object_types' model, can they be refactored in such a way that they aren't harcoded in multiple methods?  
   def taxon_concept_name
     case changeable_object_type_id  
-      when 1: 
-      #data_object
+      when ChangeableObjectType.data_object.id: 
         taxon_concept_name = data_object.taxa_names_taxon_concept_ids[0][:taxon_name]
-      when 2: 
-      #comment
+      when ChangeableObjectType.comment.id: 
         if comment_object.parent_type == 'TaxonConcept'
           taxon_concept_name = comment_parent.scientific_name
         elsif comment_object.parent_type == 'DataObject'
@@ -23,11 +20,9 @@ class ActionsHistory < ActiveRecord::Base
             taxon_concept_name = comment_parent.taxon_concept_for_users_text.name
           end
         end
-      when 3:    
-          #"tag"
-          #not counts at present
-      when 4:
-      #"users_submitted_text"
+      when ChangeableObjectType.tag.id:    
+        # We don't count these right now, but we don't want to raise an exception.
+      when ChangeableObjectType.users_submitted_text.id:
         taxon_concept_name = udo_taxon_concept.name
       else 
         raise "Don't know how to get taxon name from a changeable object type of id #{changeable_object_type_id}"
@@ -37,10 +32,10 @@ class ActionsHistory < ActiveRecord::Base
       
   def taxon_concept_id
     case changeable_object_type_id  
-      when 1: 
+      when ChangeableObjectType.data_object.id: 
       #data_object
         taxon_concept_id = data_object.taxa_names_taxon_concept_ids[0][:taxon_concept_id]
-      when 2: 
+      when ChangeableObjectType.comment.id: 
       #comment
         if comment_object.parent_type == 'TaxonConcept'
           taxon_concept_id = comment_parent.id
@@ -104,15 +99,3 @@ class ActionsHistory < ActiveRecord::Base
   end
     
 end
-
-# == Schema Info
-# Schema version: 20090609183650_create_actions_histories
-#
-# Table name: actions_histories
-#
-# id                        :integer(11)  not null, primary key
-# user_id                   :integer(11)  
-# changeable_object_type_id :integer(11)  
-# action_with_object_id     :integer(11)  
-# created_at                :timestamp                   
-# updated_at                :timestamp

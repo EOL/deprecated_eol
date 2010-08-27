@@ -16,9 +16,6 @@
 # Agents can also register important individuals associated with the project through AgentContact (q.v.)
 class Agent < SpeciesSchemaModel
 
-  #TODO (Low Priority): Remove logo_url column on the agents table, which is not needed anymore
-  # Associations  
-  
   belongs_to :agent_status
 
   has_one :content_partner
@@ -236,14 +233,14 @@ class Agent < SpeciesSchemaModel
   end
   
   # override the logo_url column in the database to contruct the path on the content server
-  def logo_url(size='large')
-    prefix=self.attributes['logo_cache_url']
+  def logo_url(size = 'large')
+    prefix = self.attributes['logo_cache_url']
     if prefix.blank?
        #self.logo.url # this is the "paperclip" plugin attached image, but it might only be on one of the application servers
-       result="/images/blank.gif"
+       result = "/images/blank.gif"
     else    
        logo_size = (size == "large") ? "_large.png" : "_small.png"
-       result="#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
+       result = "#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
     end
   end
 
@@ -263,7 +260,7 @@ class Agent < SpeciesSchemaModel
     self.content_partner.project_description unless self.content_partner.nil? 
   end
   
-  def project_description=(description)
+  def project_description= (description)
     self.content_partner.project_description=description
     self.content_partner.save
   end
@@ -272,7 +269,7 @@ class Agent < SpeciesSchemaModel
     self.content_partner.description_of_data unless self.content_partner.nil? 
   end
   
-  def description_of_data=(description_of_data)
+  def description_of_data= (description_of_data)
     self.content_partner.description_of_data=description_of_data
     self.content_partner.save
   end
@@ -489,7 +486,6 @@ class Agent < SpeciesSchemaModel
     resources.each do |resource|
       event = resource.latest_unpublished_harvest_event
       if event # They do HAVE an unpublished event
-        # TODO - look for the TC within this Event
         tc = TaxonConcept.find_by_sql([%q{
           SELECT tc.id
           FROM taxon_concepts tc
@@ -531,26 +527,4 @@ class Agent < SpeciesSchemaModel
     end
      
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: agents
-#
-#  id                        :integer(4)      not null, primary key
-#  agent_status_id           :integer(1)      not null
-#  acronym                   :string(20)      not null
-#  display_name              :string(255)     not null
-#  email                     :string(75)      not null
-#  full_name                 :string(255)     not null
-#  hashed_password           :string(100)     not null
-#  homepage                  :string(255)     not null
-#  logo_content_type         :string(255)
-#  logo_file_name            :string(255)
-#  logo_file_size            :integer(4)      default(0)
-#  logo_url                  :string(255)
-#  remember_token            :string(255)
-#  username                  :string(100)     not null
-#  created_at                :timestamp       not null
-#  remember_token_expires_at :timestamp
-#  updated_at                :timestamp       not null
 

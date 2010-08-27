@@ -2,8 +2,6 @@ class Administrator::SearchLogsController < AdminController
 
   layout 'admin'
 
-# TODO (Low Priority) - Move this into the "administrator" folder for consistency, may need to update routes.rb file
-
   access_control :DEFAULT => 'Administrator - Usage Reports'
   
   def index

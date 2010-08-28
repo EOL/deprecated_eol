@@ -5,6 +5,7 @@ describe 'Admin Pages' do
   before(:all) do
     truncate_all_tables
     EolScenario.load('foundation')
+    Capybara.reset_sessions!
     @user = User.gen(:username => 'ourtestadmin')
     @user.roles = Role.find(:all, :conditions => 'title LIKE "Admin%"')
     @user.save!
@@ -18,7 +19,6 @@ describe 'Admin Pages' do
     login_capybara(@user)
     current_path.should == '/'
     visit('/admin')
-    body = page.body
     body.should include('Welcome to the EOL Administration Console')
     body.should include('Site CMS')
     body.should include('News Items')
@@ -42,7 +42,6 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'
       visit('/administrator/hierarchy')
-      body = page.body
       body.should include(@agent.full_name)
       body.should include(@hierarchy.label)
       body.should include(@hierarchy.description)
@@ -52,7 +51,6 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'
       visit("/administrator/hierarchy/edit/#{@hierarchy.id}")
-      body = page.body
       body.should include('<input id="hierarchy_label"')
       body.should include(@hierarchy.label)
       body.should include(@hierarchy.description)
@@ -62,7 +60,6 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'
       visit("/administrator/hierarchy/browse/#{@hierarchy.id}")
-      body = page.body
       body.should include(@hierarchy.label)
     end
   end
@@ -72,7 +69,7 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'
       visit('/administrator/glossary')
-      page.body.should include("glossary is empty")
+      body.should include("glossary is empty")
     end
     
     it 'should show glossary terms' do
@@ -80,7 +77,6 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'
       visit("/administrator/glossary")
-      body = page.body
       body.should include(glossary_term.term)
       body.should include(glossary_term.definition)
     end
@@ -101,7 +97,6 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_monthly_published_partners")
-      body = page.body
       body.should include "New content partners for the month"
     end
 
@@ -109,7 +104,6 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_monthly_published_partners", :method => :post, :params => {:year_month => @year_month})
-      body = page.body
       body.should have_tag("form[action=/administrator/content_partner_report/report_monthly_published_partners]")
       body.should include "New content partners for the month"
       body.should include @agent.full_name
@@ -144,14 +138,13 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_curated_data")
-      page.body.should include "Curation activity:"
+      body.should include "Curation activity:"
     end
 
     it "should get data from a form and display curation activity" do
       login_capybara(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})
-      body = page.body
       body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
       body.should include "Curation activity:"
       body.should include @agent.full_name      
@@ -161,7 +154,6 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id, :year_month => @year_month})
-      body = page.body
       body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
       body.should include "Curation activity:"
       body.should include @agent.full_name      
@@ -181,7 +173,7 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_objects_stats")
-      page.body.should include "Viewing Partner:"
+      body.should include "Viewing Partner:"
     end
 
     it "should get data from a form and display harvest events" do          
@@ -190,7 +182,6 @@ describe 'Admin Pages' do
       visit("/administrator/content_partner_report/report_partner_objects_stats")
       select @agent.full_name, :from => "agent_id"
       click_button "Change"
-      body = page.body
       body.should have_tag("form[action=/administrator/content_partner_report/report_partner_objects_stats]")
       body.should include "Viewing Partner:"
       body.should include @agent.full_name
@@ -201,7 +192,6 @@ describe 'Admin Pages' do
       login_capybara(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/show_data_object_stats?harvest_id=#{@harvest_event.id}&partner_fullname=#{URI.escape(@agent.full_name)}")
-      body = page.body
       body.should include "Total Data Objects:"
       body.should include @agent.full_name
       body.should include "#{@harvest_event.id}\n"
@@ -250,7 +240,7 @@ describe 'Admin Pages' do
     it "should show table of contents breakdown page" do      
       login_capybara(@user)
       visit("/administrator/stats/toc_breakdown")
-      page.body.should include "Table of Contents Breakdown"
+      body.should include "Table of Contents Breakdown"
     end
   end  
 

@@ -4,6 +4,7 @@ describe 'Content Partners' do
 
   before :all do
     EolScenario.load :foundation
+    Capybara.reset_sessions!
   end
 
   describe 'Login' do
@@ -21,7 +22,6 @@ describe 'Content Partners' do
   
     it 'home page of EOL should have desc-personal tag with "Hello [full_name]" and a logout link when logged in' do
       visit('/')
-      body = page.body
       body.should have_tag('div#personal-space') do
         without_tag('a[href*=?]', /\/login/)
         with_tag('div.desc-personal', :text => /Hello,?\s+#{@agent.full_name}/) do
@@ -32,7 +32,6 @@ describe 'Content Partners' do
 
     it 'content partner home page should have cp-desc-personal tag with "Welcome [full_name]" and a logout link when logged in' do
       visit('/content_partner')
-      body = page.body
       body.should have_tag('div#cp-desc-personal', :text => /Welcome ?\s+#{@agent.full_name}/) do
         with_tag('a[href*=?]', /logout/)
       end
@@ -50,7 +49,6 @@ describe 'Content Partners' do
       he.hierarchy_entries << image.hierarchy_entries[0]
     end
     visit("/content_partner/content/#{cp.agent.full_name}")
-    body = page.body
     body.should have_tag('div#content_partner_stats', :text => /#{cp.agent.full_name}\s+has contributed to a total of\s+1\s+pages/)
     body.should include("pages/#{image.hierarchy_entries[0].taxon_concept.id}")
   end

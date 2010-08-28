@@ -21,8 +21,7 @@ end
 def assert_results(options)
   search_string = options[:search_string] || 'tiger'
   per_page = options[:per_page] || 10
-  body =
-    request("/search?q=#{search_string}&per_page=#{per_page}#{options[:page] ? "&page=#{options[:page]}" : ''}").body
+  visit("/search?q=#{search_string}&per_page=#{per_page}#{options[:page] ? "&page=#{options[:page]}" : ''}")
   body.should have_tag('table[class=results_table]') do |table|
     header_index = 1
     result_index = header_index + options[:num_results_on_this_page]
@@ -32,9 +31,9 @@ def assert_results(options)
 end
 
 def assert_tag_results(options)
-  res = request("/search?search_type=tag&q=value#{options[:page] ? "&page=#{options[:page]}" : ''}").body
-  res.should have_tag('div[class=serp_pagination]')
-  res.should have_tag('table[class=results_table]') do |table|
+  visit("/search?search_type=tag&q=value#{options[:page] ? "&page=#{options[:page]}" : ''}")
+  body.should have_tag('div[class=serp_pagination]')
+  body.should have_tag('table[class=results_table]') do |table|
     header_index = 1
     result_index = header_index + 1
     table.should have_tag("tr:nth-child(#{header_index})")
@@ -51,6 +50,7 @@ describe 'Search' do
   before :all do
     truncate_all_tables
     EolScenario.load :foundation
+    Capybara.reset_sessions!
   end
 
   after :all do
@@ -59,7 +59,8 @@ describe 'Search' do
 
   it 'should return a helpful message if no results' do
     TaxonConcept.should_receive(:search_with_pagination).at_least(2).times.and_return([])
-    request("/search?q=bozo").body.should have_tag('h3', :text => 'No search results were found')
+    visit("/search?q=bozo")
+    body.should have_tag('h3', :text => 'No search results were found')
   end
 
   describe '(text)' do
@@ -99,16 +100,20 @@ describe 'Search' do
       SearchSuggestion.gen(:taxon_id => @wolf.id, :term => @dog_name, :scientific_name => @wolf.scientific_name,
                            :common_name => @wolf.common_name)
       recreate_indexes
-      @tiger_search = request("/search?q=#{@tiger_name}").body
+      visit("/search?q=#{@tiger_name}")
+      @tiger_search = body 
     end
 
     it 'should redirect to species page if only 1 possible match is found (also for pages/searchterm)' do
-      request("/search?q=#{@panda_name}").should redirect_to("/pages/#{ @panda.id }")
-      request("/search/#{@panda_name}").should redirect_to("/pages/#{ @panda.id }")    
+      visit("/search?q=#{@panda_name}")
+      current_path.should == "/pages/#{@panda.id}"
+      visit("/search/#{@panda_name}")
+      current_path.should == "/pages/#{@panda.id}"    
     end
 
     it 'should redirect to search page if a string is passed to a species page' do
-      request("/pages/#{@panda_name}").should redirect_to("/search?id=#{@panda_name}")
+      visit("/pages/#{@panda_name}")
+      current_path.should == "/pages/#{@panda.id}"
     end
 
     it 'should show a list of possible results (linking to /found) if more than 1 match is found  (also for pages/searchterm)' do
@@ -116,8 +121,8 @@ describe 'Search' do
       body = @tiger_search
       body.should have_tag('td', :text => @tiger_name)
       body.should have_tag('td', :text => @tiger_lilly_name)
-      body.should have_tag('a[href*=?]', %r{/found/#{ @tiger_lilly.id }})
-      body.should have_tag('a[href*=?]', %r{/found/#{ @tiger.id }})
+      body.should have_tag('a[href*=?]', %r{/found/#{@tiger_lilly.id}})
+      body.should have_tag('a[href*=?]', %r{/found/#{@tiger.id}})
 
     end
 
@@ -134,8 +139,8 @@ describe 'Search' do
     end
 
     it 'should return one suggested search' do
-      res = request("/search?q=#{URI.escape @plantain_name.gsub(/ /, '+')}&search_type=text")
-      res.body.should have_tag('table[summary=Suggested Search Results]') do |table|
+      visit("/search?q=#{URI.escape @plantain_name.gsub(/ /, '+')}&search_type=text")
+      body.should have_tag('table[summary=Suggested Search Results]') do |table|
         table.should have_tag("td", :text => @plantain_common)
       end
     end
@@ -143,16 +148,16 @@ describe 'Search' do
     # When we first created suggested results, it worked fine for one, but failed for two, so we feel we need to test
     # two entires AND one entry...
     it 'should return two suggested searches' do
-      res = request("/search?q=#{@dog_name}&search_type=text")
-      res.body.should have_tag('table[summary=Suggested Search Results]') do |table|
+      visit("/search?q=#{@dog_name}&search_type=text")
+      body.should have_tag('table[summary=Suggested Search Results]') do |table|
         table.should have_tag("td", :text => @domestic_name)
         table.should have_tag("td", :text => @wolf_name)
       end
     end
 
     it 'should treat empty string search gracefully when javascript is switched off' do
-      res = request('/search?q=')
-      res.body.should_not include "500 Internal Server Error"
+      visit('/search?q=')
+      body.should_not include "500 Internal Server Error"
     end
 
     it 'should detect untrusted and unknown Taxon Concepts' do
@@ -162,14 +167,16 @@ describe 'Search' do
     end
     
     it 'should show only common names which include whole search query' do
-      res = request("/search?q=#{URI.escape @tiger_lilly_name}")
-      res.headers['Location'].should match /\/pages\/\d+/
-      res.status.should == 302
+      visit("/search?q=#{URI.escape @tiger_lilly_name}")
+      # should find only common names which have 'tiger lilly' in the name
+      # we have only one such record in the test, so it redirects directly 
+      # to the species page
+      current_path.should == "/pages/#{@tiger_lilly.id}"
     end
 
     it 'should return preferred common name as "shown" name' do
-      res = request("/search?q=panther")
-      res.body.should include "shown as 'Tiger lilly'"
+      visit("/search?q=panther")
+      body.should include "shown as 'Tiger lilly'"
     end
     
     it 'should have odd and even rows in search result table' do
@@ -179,9 +186,9 @@ describe 'Search' do
     end 
 
     it 'should show "shown as" for scientific matches that hit a synonym.' do
-      res = request("/search?q=#{@plantain_synonym.split[0]}")
-      res.body.should include @plantain_synonym
-      res.body.should include "shown as '#{@plantain_name}'"
+      visit("/search?q=#{@plantain_synonym.split[0]}")
+      body.should include @plantain_synonym
+      body.should include "shown as '#{@plantain_name}'"
     end
 
   end
@@ -198,8 +205,8 @@ describe 'Search' do
       new_image_dato = DataObject.build_reharvested_dato(image_dato)
       new_image_dato.tag("key-new", "value-new", user)
       
-      res = request('/search?q=value-old&search_type=tag')
-      res.body.should include(taxon_concept.scientific_name)
+      visit('/search?q=value-old&search_type=tag')
+      body.should include(taxon_concept.scientific_name)
     end
 
     # REMOVE AFTER PAGINATION IMPLEMENTING TODO
@@ -215,9 +222,9 @@ describe 'Search' do
         all_tc << taxon_concept.scientific_name
       end
           
-      res = request('/search?search_type=tag&q=value')
+      visit('/search?search_type=tag&q=value')
       for tc_name in all_tc
-        res.body.should include(tc_name.gsub("&","&amp;"))
+        body.should include(tc_name.gsub("&","&amp;"))
       end
     end
 
@@ -233,10 +240,10 @@ describe 'Search' do
         all_tc << taxon_concept.scientific_name
       end
           
-      res = request('/search?search_type=tag&q=value')
-      res.body.should match /(odd|even)[^_]/
-      res.body.should match /(odd|even)_untrusted/
-      res.body.should match /(odd|even)_unvetted/    
+      visit('/search?search_type=tag&q=value')
+      body.should match /(odd|even)[^_]/
+      body.should match /(odd|even)_untrusted/
+      body.should match /(odd|even)_unvetted/    
     end
       
     # WHEN WE HAVE PAGINATION FOR TAGS (TODO):

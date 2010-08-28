@@ -20,22 +20,26 @@ describe 'Home page' do
 
   before :all do
     EolScenario.load :foundation
-    @homepage_with_foundation = RackBox.request('/') # cache the response the homepage gives before changes
+    Capybara.reset_sessions!
+    visit('/') # cache the response the homepage gives before changes
+    @homepage_with_foundation = source #source in contrast with body returns html BEFORE any javascript
+    
   end
+
   after :all do
     truncate_all_tables
   end
 
   it 'should say EOL somewhere' do
-    @homepage_with_foundation.body.should include('EOL')
+    @homepage_with_foundation.should include('EOL')
   end
 
   it "should have Edward O. Wilson's quote" do
-    @homepage_with_foundation.body.should include('Imagine an electronic page for each species of organism on Earth')
+    @homepage_with_foundation.should include('Imagine an electronic page for each species of organism on Earth')
   end
 
   it 'should include the search box, for names and tags (defaulting to names)' do
-    @homepage_with_foundation.body.should have_tag('form') do
+    @homepage_with_foundation.should have_tag('form') do
       with_tag('.search_box') do
         with_tag('input#q')
       end
@@ -47,18 +51,21 @@ describe 'Home page' do
   end
 
   it 'should include a "personal-space" div with login link and a create-account link, when not logged in' do
-    @homepage_with_foundation.body.should have_tag('div#personal-space') do
+    @homepage_with_foundation.should have_tag('div#personal-space') do
       with_tag('a[href*=?]', /\/login/)
       with_tag('a[href*=?]', /\/register/)
     end
   end
 
   it 'should show logout instead of login when logged in' do
-    @homepage_with_foundation.body.should     have_tag('a[href*=?]', /login/)
-    @homepage_with_foundation.body.should_not have_tag('a[href*=?]', /logout/)
-    login_as User.gen
-    request('/').body.should_not have_tag('a[href*=?]', /login/)
-    request('/').body.should     have_tag('a[href*=?]', /logout/)
+    @homepage_with_foundation.should     have_tag('a[href*=?]', /login/)
+    @homepage_with_foundation.should_not have_tag('a[href*=?]', /logout/)
+    login_capybara User.gen
+    visit('/')
+    body.should_not have_tag('a[href*=?]', /login/)
+    visit('/')
+    body.should     have_tag('a[href*=?]', /logout/)
+    visit('/logout')
   end
 
 
@@ -68,7 +75,7 @@ describe 'Home page' do
     Language.gen(:name => 'Supernal', :iso_639_1 => 'sp', :activated_on => 24.hours.ago )
     active = Language.find_active
     active.map(&:name).should include('Supernal')
-    body = RackBox.request('/').body
+    visit('/')
     # <a title=\"Language: en\" class=\"dropdown\">Language: en</a>
     body.should have_tag('a[title=?]', "Language: #{en.iso_639_1}")
     # <a href=\"http://example.org/set_language?language=sp&amp;return_to=%252F\" title=\"Supernal\">Supernal<em>(SP)</em></a>
@@ -95,7 +102,7 @@ describe 'Home page' do
 
   it 'should show six random taxa with the div IDs that the Flash needs' do
     6.times { RandomHierarchyImage.gen(:hierarchy => Hierarchy.default) }
-    body = RackBox.request('/').body
+    visit('/')
     
     body.should have_tag('table#top-photos-table') do
       (1..6).to_a.each do |n|
@@ -107,29 +114,30 @@ describe 'Home page' do
   end
 
   it 'should show left page content' do
-    @homepage_with_foundation.body.should include(ContentPage.find_by_title('Home').left_content)
+    @homepage_with_foundation.should include(ContentPage.find_by_title('Home').left_content)
   end
 
   it 'should show main page content' do
-    @homepage_with_foundation.body.should include(ContentPage.find_by_title('Home').main_content)
+    @homepage_with_foundation.should include(ContentPage.find_by_title('Home').main_content)
   end
 
   it 'should show "What\'s New" (plus news items), when news exists' do
     NewsItem.gen(:title => 'Mars Attacks!')
-    body = RackBox.request('/').body
+    visit('/')
     body.should include('What\'s New?')
     body.should include('Mars Attacks!')
   end
 
   it 'should not show news, when no news exists' do
     NewsItem.delete_all
-    body = RackBox.request('/').body
+    visit('/')
     body.should_not include('What\'s New?')
   end
 
   it 'should have an RSS link (if there is news)' do
     NewsItem.gen(:title => 'Mars Attacks!')
-    RackBox.request('/').body.should have_tag('a[href=?]', '/content/news?format=rss')
+    visit('/')
+    body.should have_tag('a[href=?]', '/content/news?format=rss')
   end
 
 end

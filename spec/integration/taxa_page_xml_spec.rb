@@ -19,6 +19,7 @@ describe 'Taxa page XML' do
                         # causes this to fail, and I've wasted enough time figuring out this fixed it to dig
                         # into which table(s) need clearing.
     EolScenario.load :foundation # Here instead of earlier because of the truncating logic just above.
+    Capybara.reset_sessions!
     HierarchiesContent.delete_all
     exemplar_he      = HierarchyEntry.gen(:hierarchy => Hierarchy.default)
     @exemplar        = build_taxon_concept(:id => 910093, :parent_hierarchy_entry_id => exemplar_he.id) # That ID is one of the (hard-coded) exemplars.
@@ -260,8 +261,8 @@ describe 'Taxa page XML' do
     before(:all) do
       EOL::NestedSet.make_all_nested_sets
       stub_solr
-      @raw_xml    = RackBox.request("/search.xml?q=#{@search_term}").body
-      @search_xml = Nokogiri::XML(@raw_xml)
+      visit("/search.xml?q=#{@search_term}")
+      @search_xml = Nokogiri::XML(body)
     end
 
     it 'should be valid XML' do
@@ -288,15 +289,14 @@ describe 'Taxa page XML' do
     end
 
     it 'should be valid XML with empty result set for no parameter or non-result searches' do
-
-      @raw_xml    = RackBox.request("/search.xml").body
-      @search_xml = Nokogiri::XML(@raw_xml)
+      visit("/search.xml")
+      @search_xml = Nokogiri::XML(body)
       @search_xml.xpath('//results').should_not be_empty
       @search_xml.xpath('//scientific-results').should be_empty
       @search_xml.xpath('//common-results').should be_empty
 
-      @raw_xml    = RackBox.request("/search.xml?q=bogusness").body
-      @search_xml = Nokogiri::XML(@raw_xml)
+      visit("/search.xml?q=bogusness")
+      @search_xml = Nokogiri::XML(body)
       @search_xml.xpath('//results').should_not be_empty
 
     end
@@ -307,8 +307,8 @@ describe 'Taxa page XML' do
 
     before(:all) do
       EOL::NestedSet.make_all_nested_sets
-      @raw_xml    = RackBox.request("/exemplars.xml").body
-      @exemplar_xml = Nokogiri::XML(@raw_xml)
+      visit("/exemplars.xml")
+      @exemplar_xml = Nokogiri::XML(body)
     end
 
     it 'should be valid XML' do

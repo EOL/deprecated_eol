@@ -4,7 +4,9 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe "google analytics stats page" do
 
   before(:all) do
+    truncate_all_tables
     EolScenario.load :foundation
+    Capybara.reset_sessions!
     @tc = build_taxon_concept
     @pass  = 'timey-wimey'
     @agent = Agent.gen(:hashed_password => Digest::MD5.hexdigest(@pass))
@@ -21,26 +23,30 @@ describe "google analytics stats page" do
   after(:all) do
     truncate_all_tables
   end
+
+  after(:each) do
+    visit("/content_partner/logout")
+  end
   
   it "should show content partner page" do
-    login_content_partner(:username => @agent.username, :password => @pass)
-    body  = request('/content_partner').body
+    login_content_partner_capybara(:username => @agent.username, :password => @pass)
+    visit('/content_partner')
     body.should include "Hello"
   end
   
   it "should render monthly_page_stats page" do
-    login_content_partner(:username => @agent.username, :password => @pass)
-    res = request("/content_partner/reports/monthly_page_stats")
-    res.body.should have_tag("form[action=/content_partner/reports/monthly_page_stats]")
-    res.body.should include @summary.pageviews.to_s
-    res.body.should include @partner_summary.page_views.to_s
-    res.body.should include @page_stats.unique_page_views.to_s
+    login_content_partner_capybara(:username => @agent.username, :password => @pass)
+    visit("/content_partner/reports/monthly_page_stats")
+    body.should have_tag("form[action=/content_partner/reports/monthly_page_stats]")
+    body.should include @summary.pageviews.to_s
+    body.should include @partner_summary.page_views.to_s
+    body.should include @page_stats.unique_page_views.to_s
   end
   
   it "should get data from a form and display it" do
 
     
-    login_content_partner(:username => @agent.username, :password => @pass)
+    login_content_partner_capybara(:username => @agent.username, :password => @pass)
     
     year = 2.month.ago.year
     month = 2.month.ago.month
@@ -50,11 +56,11 @@ describe "google analytics stats page" do
     page_stats = GoogleAnalyticsPageStat.gen(:year => year, :month => month, :taxon_concept => @tc )    
     partner_taxa = GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => @tc, :agent => @agent )
     
-    res = request('/content_partner/reports/monthly_page_stats', :method => :post, :params => {:year_month => "#{year}_#{month}", :agent_id => @agent.id})
-    res.body.should have_tag("form[action=/content_partner/reports/monthly_page_stats]")
-    res.body.should include summary.pageviews.to_s
-    res.body.should include partner_summary.page_views.to_s
-    res.body.should include page_stats.unique_page_views.to_s
+    visit('/content_partner/reports/monthly_page_stats', :method => :post, :params => {:year_month => "#{year}_#{month}", :agent_id => @agent.id})
+    body.should have_tag("form[action=/content_partner/reports/monthly_page_stats]")
+    body.should include summary.pageviews.to_s
+    body.should include partner_summary.page_views.to_s
+    body.should include page_stats.unique_page_views.to_s
   end
   
 end

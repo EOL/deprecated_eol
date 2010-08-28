@@ -129,12 +129,6 @@ class Agent < SpeciesSchemaModel
     cached_find(:full_name, 'Biology of Aging', :serialize => true)
   end
   
-  def self.boa
-    YAML.load($CACHE.fetch('agents/boa') do
-      Agent.find_by_full_name('Biology of Aging').to_yaml
-    end)
-  end
-
   def self.from_license(license, rights_statement = nil, rights_holder = nil, data_type_id = nil)
     #Agent.new :project_name => (rights_statement.blank? ?
 
@@ -144,9 +138,6 @@ class Agent < SpeciesSchemaModel
     else
       rights_statement_part = "Rights: #{rights_statement.strip}.<br>" unless rights_statement.blank?
     end
-    
-    
-
 
     Agent.new :project_name => (rights_statement.blank? && rights_holder.blank? ?
                                 license.description :

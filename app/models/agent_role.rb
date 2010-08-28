@@ -15,16 +15,12 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the Author
   def self.author
-    $CACHE.fetch('agent_roles/author') do
-      AgentRole.find_by_label('Author')
-    end
+    cached_find(:label, 'Author')
   end
   
   # Find the Source
   def self.source
-    $CACHE.fetch('agent_roles/source') do
-      AgentRole.find_by_label('Source')
-    end
+    cached_find(:label, 'Source')
   end
   
   # Find the "Source" AgentRole.
@@ -34,9 +30,7 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the "contributor" AgentRole.
   def self.contributor_id
-    $CACHE.fetch('agent_roles/contributor_id') do
-      AgentRole.find_by_label('Contributor').id
-    end
+    cached_find(:label, 'Contributor').id
   end
   
   # Find the "Author" AgentRole.
@@ -46,18 +40,7 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the "Photographer" AgentRole.
   def self.photographer_id
-    $CACHE.fetch('agent_roles/photographer_id') do
-      AgentRole.find_by_label('Photographer').id
-    end
+    cached_find(:label, 'Photographer').id
   end
     
 end
-
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: agent_roles
-#
-#  id    :integer(1)      not null, primary key
-#  label :string(100)     not null
-

@@ -1,4 +1,5 @@
 class TocItem < SpeciesSchemaModel
+
   
   set_table_name 'table_of_contents'
   acts_as_tree :order => 'view_order'

@@ -32,6 +32,15 @@ module EOL
             'remember_me' => options[:remember_me] || '' })
       end
 
+      def login_content_partner_capybara(options = {})
+        visit('/content_partner/login')
+        fill_in "agent_username", :with => options[:username]
+        fill_in "agent_password", :with => options[:password]
+        check("remember_me") if options[:remember_me] && options[:remember_me].to_i != 0
+        click_button "Login Now »"
+        page
+      end
+
       def login_as(user, options = {})
         if user.is_a? User # let us pass a newly created user (with an entered_password)
           options = { :username => user.username, :password => user.entered_password }.merge(options)
@@ -53,7 +62,7 @@ module EOL
         visit('/login?return_to=/')
         fill_in "user_username", :with => options[:username]
         fill_in "user_password", :with => options[:password]
-        check "remember_me" if options[:remember_me]
+        check("remember_me") if options[:remember_me] && options[:remember_me].to_i != 0
         click_button "Login Now »"
         page
       end

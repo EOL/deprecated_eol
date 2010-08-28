@@ -6,21 +6,23 @@ describe 'Account user profile page (HTML)' do
     EolScenario.load :foundation
     @credentials = 'This has a <a href="linky">link</a> <b>this is bold<br />as is this</b> and <script type="text/javascript">alert("hi");</script>'
     @user        = build_curator(HierarchyEntry.gen, :credentials => @credentials)
-    @result      = RackBox.request("/account/show/#{@user.id}") # cache the response the taxon page gives before changes
+    visit("/account/show/#{@user.id}") # cache the response the taxon page gives before changes
+    @page = page
   end
 
   it 'should allow links in credentials' do
-    @result.body.should have_tag('a[href="linky"]')
+    @page.body.should have_tag('a[href="linky"]')
   end
   
   it 'should NOT allow javascript in credentials' do
-    @result.body.should_not have_tag('script', :text => 'alert("hi");')
+    @page.body.should_not have_tag('script', :text => 'alert("hi");')
   end
 
   it 'should have a working BR tag in credentials' do
-    @result.body.should have_tag('div#credentials') do
+    @page.body.should have_tag('div#credentials') do
       with_tag('br')
     end
   end
 
 end
+

@@ -15,8 +15,8 @@ describe 'EOL XML APIs' do
   
   describe 'ping' do 
     it 'should show success message' do
-      response = request("/api/ping")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/ping")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//response/message').inner_text.should == 'Success'
     end
   end
@@ -105,17 +105,18 @@ describe 'EOL XML APIs' do
       @taxon_concept.published = 0
       @taxon_concept.save!
     
-      response = request("/api/pages/#{@taxon_concept.id}")
-      response.body.should include('<error>')
-      response.body.should include('</response>')
+      visit("/api/pages/#{@taxon_concept.id}")
+      body = page.body
+      body.should include('<error>')
+      body.should include('</response>')
     
       @taxon_concept.published = 1
       @taxon_concept.save!
     end
       
     it 'should show one data object per category' do
-      response = request("/api/pages/#{@taxon_concept.id}")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
@@ -126,51 +127,51 @@ describe 'EOL XML APIs' do
     end
       
     it 'should be able to limit number of media returned' do
-      response = request("/api/pages/#{@taxon_concept.id}?images=2")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?images=2")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 2
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
       
-      response = request("/api/pages/#{@taxon_concept.id}?videos=2")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?videos=2")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 2
     end
       
     it 'should be able to limit number of text returned' do
-      response = request("/api/pages/#{@taxon_concept.id}?text=2")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?text=2")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
     end
       
     it 'should be able to take a | delimited list of subjects' do
-      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology&details=1")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology&details=1")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
     
-      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=Distribution&details=1")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=Distribution&details=1")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
     
       # %7C == |
-      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology%7CDistribution&details=1")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology%7CDistribution&details=1")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
     end
       
     it 'should be able to return ALL subjects' do 
-      response = request("/api/pages/#{@taxon_concept.id}?text=5&subjects=all&vetted=1")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?text=5&subjects=all&vetted=1")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
     end
       
     it 'should be able to get more details on data objects' do
-      response = request("/api/pages/#{@taxon_concept.id}?image=1&text=0&details=1")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?image=1&text=0&details=1")
+      xml_response = Nokogiri.XML(page.body)
       # should get 1 image, 1 video and their metadata
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
@@ -179,24 +180,24 @@ describe 'EOL XML APIs' do
     end
     
     it 'should not filter vetted objects by default' do
-      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1")
+      xml_response = Nokogiri.XML(page.body)
       last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
       data_object = DataObject.find_by_guid(last_guid)
       data_object.vetted_id.should == Vetted.untrusted.id
     end
     
     it 'should filter out all be vetted objects' do
-      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=1")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=1")
+      xml_response = Nokogiri.XML(page.body)
       last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
       data_object = DataObject.find_by_guid(last_guid)
       data_object.vetted_id.should == Vetted.trusted.id
     end
     
     it 'should filter out untrusted objects' do
-      response = request("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=2")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=2")
+      xml_response = Nokogiri.XML(page.body)
       last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
       data_object = DataObject.find_by_guid(last_guid)
       data_object.vetted_id.should == Vetted.unknown.id
@@ -205,25 +206,26 @@ describe 'EOL XML APIs' do
     
   
     it 'should be able to render an HTML version of the page' do
-      response = request("/api/pages/#{@taxon_concept.id}?subjects=Distribution&text=2&format=html")
-      response.body.should include '<html'
-      response.body.should include '</html>'
-      response.body.should match /<title>\s*EOL API:\s*#{@taxon_concept.entry.name_object.string}/
-      response.body.should include @object.description
-      response.body.should include DataObject.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
+      visit("/api/pages/#{@taxon_concept.id}?subjects=Distribution&text=2&format=html")
+      body = page.body
+      body.should include '<html'
+      body.should include '</html>'
+      body.should match /<title>\s*EOL API:\s*#{@taxon_concept.entry.name_object.string}/
+      body.should include @object.description
+      body.should include DataObject.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
     end
       
     it 'should be able to toggle common names' do
-      response = request("/api/pages/#{@taxon_concept.id}")
-      response.body.should_not include '<commonName'
+      visit("/api/pages/#{@taxon_concept.id}")
+      page.body.should_not include '<commonName'
     
-      response = request("/api/pages/#{@taxon_concept.id}?common_names=1")
-      response.body.should include '<commonName'
+      visit("/api/pages/#{@taxon_concept.id}?common_names=1")
+      page.body.should include '<commonName'
     end
     
     it 'should be able to render a JSON response' do
-      response = request("/api/pages/#{@taxon_concept.id}.json?subjects=all&common_names=1&details=1&text=1&images=1")
-      response_object = JSON.parse(response.body)
+      visit("/api/pages/#{@taxon_concept.id}.json?subjects=all&common_names=1&details=1&text=1&images=1")
+      response_object = JSON.parse(page.body)
       response_object.class.should == Hash
       response_object['identifier'].should == @taxon_concept.id
       response_object['scientificName'].should == @taxon_concept.entry.name_object.string
@@ -239,17 +241,18 @@ describe 'EOL XML APIs' do
       @object.published = 0
       @object.save!
       
-      response = request("/api/data_objects/#{@object.guid}")
-      response.body.should include('<error>')
-      response.body.should include('</response>')
+      visit("/api/data_objects/#{@object.guid}")
+      body = page.body
+      body.should include('<error>')
+      body.should include('</response>')
       
       @object.published = 1
       @object.save!
     end
       
     it "should show a taxon element for the data object request" do
-      response = request("/api/data_objects/#{@object.guid}")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/data_objects/#{@object.guid}")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('/').inner_html.should_not == ""
     
       xml_response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.taxon_concepts[0].id.to_s
@@ -260,8 +263,8 @@ describe 'EOL XML APIs' do
       @info_item = InfoItem.find_or_create_by_schema_value('http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription');
       DataObjectsTableOfContent.create(:data_object_id => @object.id, :toc_id => @info_item.toc_id)
     
-      response = request("/api/data_objects/#{@object.guid}")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/data_objects/#{@object.guid}")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('/').inner_html.should_not == ""
       xml_response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid
       xml_response.xpath('//xmlns:dataObject/xmlns:dataType').inner_text.should == @object.data_type.schema_value
@@ -295,8 +298,8 @@ describe 'EOL XML APIs' do
     end
     
     it 'should be able to render a JSON response' do
-      response = request("/api/data_objects/#{@object.guid}.json")
-      response_object = JSON.parse(response.body)
+      visit("/api/data_objects/#{@object.guid}.json")
+      response_object = JSON.parse(page.body)
       response_object.class.should == Hash
       response_object['dataObjects'][0]['identifier'].should == @object.guid
       response_object['dataObjects'][0]['dataType'].should == @object.data_type.schema_value
@@ -330,8 +333,8 @@ describe 'EOL XML APIs' do
       @object.object_cache_url = 200911302039366
       @object.save!
     
-      response = request("/api/data_objects/#{@object.guid}")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/data_objects/#{@object.guid}")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('/').inner_html.should_not == ""
       xml_response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid
       xml_response.xpath('//xmlns:dataObject/xmlns:dataType').inner_text.should == @object.data_type.schema_value
@@ -344,19 +347,20 @@ describe 'EOL XML APIs' do
     end
       
     it 'should be able to render an HTML version of the page' do
-      response = request("/api/data_objects/#{@object.guid}?format=html")
-      response.body.should include '<html'
-      response.body.should include '</html>'
-      response.body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts[0].entry.name_object.string}/
-      response.body.should include @object.description
+      visit("/api/data_objects/#{@object.guid}?format=html")
+      body = page.body
+      body.should include '<html'
+      body.should include '</html>'
+      body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts[0].entry.name_object.string}/
+      body.should include @object.description
     end
       
     it 'should be able to toggle common names' do
-      response = request("/api/data_objects/#{@object.guid}")
-      response.body.should_not include '<commonName'
+      visit("/api/data_objects/#{@object.guid}")
+      page.body.should_not include '<commonName'
     
-      response = request("/api/data_objects/#{@object.guid}?common_names=1")
-      response.body.should include '<commonName'
+      visit("/api/data_objects/#{@object.guid}?common_names=1")
+      page.body.should include '<commonName'
     end
   end
   
@@ -383,17 +387,18 @@ describe 'EOL XML APIs' do
       @hierarchy_entry.published = 0
       @hierarchy_entry.save!
       
-      response = request("/api/hierarchy_entries/#{@hierarchy_entry.id}")
-      response.body.should include('<error>')
-      response.body.should include('</response>')
+      visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")
+      body = page.body
+      body.should include('<error>')
+      body.should include('</response>')
       
       @hierarchy_entry.published = 1
       @hierarchy_entry.save!
     end
     
     it 'should show all information for hierarchy entries in DWC format' do
-      response = request("/api/hierarchy_entries/#{@hierarchy_entry.id}")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dc:identifier").inner_text.should == @hierarchy_entry.identifier
       xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:taxonID").inner_text.should == @hierarchy_entry.id.to_s
       xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:parentNameUsageID").inner_text.should == @hierarchy_entry.parent_id.to_s
@@ -408,23 +413,23 @@ describe 'EOL XML APIs' do
     end
     
     it 'should be able to filter out common names' do
-      response = request("/api/hierarchy_entries/#{@hierarchy_entry.id}?common_names=0")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?common_names=0")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath("//dwc:vernacularName").length.should == 0
       xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='synonym']").length.should == 1
     end
     
     it 'should be able to filter out synonyms' do
-      response = request("/api/hierarchy_entries/#{@hierarchy_entry.id}?synonyms=0")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?synonyms=0")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath("//dwc:vernacularName").length.should == 1
       xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='synonym']").length.should == 0
     end
     
     
     it 'should show all information for hierarchy entries in TCS format' do
-      response = request("/api/hierarchy_entries/#{@hierarchy_entry.id}?format=tcs")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?format=tcs")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@name.id}"
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:Simple').inner_text.should == @name.string
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:CanonicalName/xmlns:Simple').inner_text.should == @canonical_form.string
@@ -444,8 +449,8 @@ describe 'EOL XML APIs' do
     end
     
     it 'should show all information for synonyms in TCS format' do
-      response = request("/api/synonyms/#{@synonym.id}")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/synonyms/#{@synonym.id}")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@synonym.name.id}"
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:Simple').inner_text.should == @synonym.name.string
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:CanonicalName/xmlns:Simple').inner_text.should == @synonym.name.canonical_form.string
@@ -455,8 +460,8 @@ describe 'EOL XML APIs' do
     end
     
     it 'should show all information for common names in TCS format' do
-      response = request("/api/synonyms/#{@common_name.id}")
-      xml_response = Nokogiri.XML(response.body)
+      visit("/api/synonyms/#{@common_name.id}")
+      xml_response = Nokogiri.XML(page.body)
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/@id').inner_text.should == "n#{@common_name.name.id}"
       xml_response.xpath('//xmlns:TaxonNames/xmlns:TaxonName/xmlns:Simple').inner_text.should == @common_name.name.string
       # canonical form not included for common names
@@ -485,21 +490,22 @@ describe 'EOL XML APIs' do
     end
     
     it 'should do a contains search by default' do
-      response = request("/api/search/Canis%20lupus.json")
-      response_object = JSON.parse(response.body)
+      visit("/api/search/Canis%20lupus.json")
+      response_object = JSON.parse(page.body)
       response_object['results'].length.should == 2
     end
     
     it 'should do an exact search' do
-      response = request("/api/search/Canis%20lupus.json?exact=1")
-      response_object = JSON.parse(response.body)
+      visit("/api/search/Canis%20lupus.json?exact=1")
+      response_object = JSON.parse(page.body)
       response_object['results'].length.should == 1
       response_object['results'][0]['title'].should == @wolf_sci_name
       
-      response = request("/api/search/Canis.json?exact=1")
-      response_object = JSON.parse(response.body)
+      visit("/api/search/Canis.json?exact=1")
+      response_object = JSON.parse(page.body)
       response_object['results'].length.should == 0
     end
     
   end
 end
+

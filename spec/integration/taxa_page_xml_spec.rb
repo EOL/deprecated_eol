@@ -290,14 +290,14 @@ describe 'Taxa page XML' do
 
     it 'should be valid XML with empty result set for no parameter or non-result searches' do
       visit("/search.xml")
-      @search_xml = Nokogiri::XML(body)
-      @search_xml.xpath('//results').should_not be_empty
-      @search_xml.xpath('//scientific-results').should be_empty
-      @search_xml.xpath('//common-results').should be_empty
+      search_xml = Nokogiri::XML(body)
+      search_xml.xpath('//results').should_not be_empty
+      search_xml.xpath('//scientific-results').should be_empty
+      search_xml.xpath('//common-results').should be_empty
 
       visit("/search.xml?q=bogusness")
-      @search_xml = Nokogiri::XML(body)
-      @search_xml.xpath('//results').should_not be_empty
+      search_xml = Nokogiri::XML(body)
+      search_xml.xpath('//results').should_not be_empty
 
     end
 

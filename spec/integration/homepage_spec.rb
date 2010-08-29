@@ -101,6 +101,7 @@ describe 'Home page' do
   end
 
   it 'should show six random taxa with the div IDs that the Flash needs' do
+    Capybara.reset_sessions!
     6.times { RandomHierarchyImage.gen(:hierarchy => Hierarchy.default) }
     visit('/')
     

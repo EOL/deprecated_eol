@@ -161,18 +161,16 @@ describe 'Taxa page (HTML)' do
     
     it 'should show the Overview text by default' do
       visit("/pages/#{@id}")
-      @result = page
-      @result.body.should have_tag('div.cpc-header') do
+      body.should have_tag('div.cpc-header') do
         with_tag('h3', :text => 'Overview')
       end
-      @result.body.should include(@overview_text)
+      body.should include(@overview_text)
     end
     
     it 'should NOT show references for the overview text when there aren\'t any' do
       Ref.delete_all
       visit("/pages/#{@id}")
-      @result = page 
-      @result.body.should_not have_tag('div.references')
+      body.should_not have_tag('div.references')
     end
     
     it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
@@ -214,10 +212,9 @@ describe 'Taxa page (HTML)' do
     
     it 'should allow html in user-submitted text' do
       visit("/pages/#{@id}")
-      @result = page 
-      @result.body.should match(@description_bold)
-      @result.body.should match(@description_ital)
-      @result.body.should match(@description_link)
+      body.should match(@description_bold)
+      body.should match(@description_ital)
+      body.should match(@description_link)
     end
     
     # I hate to do this, since it's SO SLOW, but:

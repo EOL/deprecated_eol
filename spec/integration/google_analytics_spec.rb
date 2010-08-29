@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 
-describe "google analytics stats page" do
+describe "Google Analytics Stats Page" do
 
   before(:all) do
     truncate_all_tables

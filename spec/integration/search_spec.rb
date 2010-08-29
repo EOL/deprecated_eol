@@ -51,6 +51,8 @@ describe 'Search' do
     truncate_all_tables
     EolScenario.load :foundation
     Capybara.reset_sessions!
+    visit('/logout')
+    visit('/content_partner/logout')
   end
 
   after :all do

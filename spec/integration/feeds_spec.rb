@@ -9,6 +9,7 @@ describe 'Feeds' do
   describe 'Curator Feeds' do
     before(:all) do
       EolScenario.load('foundation')
+      Capybara.reset_sessions!
       DataObject.delete_all
       Comment.delete_all
       @tc = build_taxon_concept()
@@ -16,22 +17,23 @@ describe 'Feeds' do
       @images = @tc.data_objects.delete_if{|d| d.data_type_id != DataType.image.id}
       @feeds = ["/feeds/text/", "/feeds/images/", "/feeds/comments/", "/feeds/all/"]
     end
+
     after(:all) do
       truncate_all_tables
     end
     
     it "should render: 'text', 'images', 'comments', 'all' feeds" do
       @feeds.each do |feed_url|
-        res = request("#{feed_url}#{@tc.id}")
-        res.success?.should be_true
-        res.body.should have_tag("feed")
+        visit("#{feed_url}#{@tc.id}")
+        page.status_code.should == 200
+        body.should have_tag("feed")
       end
     end
     
     it "should show information in a time descentind order" do
       @feeds.each do |feed_url|
-        res = request(feed_url)
-        dates = Nokogiri.XML(res.body).xpath("//xmlns:updated").map {|i| Time.parse(i.text)}
+        visit(feed_url)
+        dates = Nokogiri.XML(body).xpath("//xmlns:updated").map {|i| Time.parse(i.text)}
         dates.should == dates.sort.reverse
       end
     end
@@ -60,15 +62,15 @@ describe 'Feeds' do
     #  it 'should verify that comments feed has comments for old and new version of re-harvested data'
 
     it 'should verify that all feed contains text, images, and comments' do
-      result = request("/feeds/all/#{@tc.id}")
-      result.body.should include(h @text[0].description)
-      result.body.should include(h @images[0].description)
-      #result.body.downcase.should include('new comment')
+      visit("/feeds/all/#{@tc.id}")
+      body.should include(h @text[0].description)
+      body.should include(h @images[0].description)
+      #body.downcase.should include('new comment')
       
-      #result = request("/feeds/all/")
-      #result.body.downcase.should include('new image')  don't get any images in first 100 results 
-      #result.body.downcase.should include('new text')
-      #result.body.downcase.should include('new comment')
+      #visit("/feeds/all/")
+      #body.downcase.should include('new image')  don't get any images in first 100 results 
+      #body.downcase.should include('new text')
+      #body.downcase.should include('new comment')
     end
 
   end
@@ -96,16 +98,17 @@ describe 'Feeds' do
     end  
 
     it "should show feed with all curation activity for a content partner" do          
-      res = request("/feeds/partner_curation", :method => :post, :params => {:agent_id => @agent.id})
-      res.body.should include "#{@agent.full_name} curation activity"
+      visit("/feeds/partner_curation?agent_id=#{@agent.id}")
+      body.should include "#{@agent.full_name} curation activity"
     end
+
     it "should show feed for a month's curation activity for a content partner" do          
       last_month = Time.now - 1.month      
       @report_year = last_month.year.to_s
       @report_month = last_month.month.to_s
       @year_month   = @report_year + "_" + "%02d" % @report_month.to_i      
-      res = request("/feeds/partner_curation", :method => :post, :params => {:agent_id => @agent.id, :year_month => @year_month})
-      res.body.should include "#{@agent.full_name} curation activity"
+      visit("/feeds/partner_curation?agent_id=#{@agent.id}&year_month=#{URI.escape @year_month}")
+      body.should include "#{@agent.full_name} curation activity"
     end
   end      
 

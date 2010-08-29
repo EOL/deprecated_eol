@@ -3,9 +3,10 @@ require 'nokogiri'
 
 # describe 'Taxa page (HTML)' do
 
-describe 'data object tags' do
+describe 'Data Object Tags' do
   before(:all) do
     EolScenario.load :foundation
+    Capybara.reset_sessions!
     taxon_concept = build_taxon_concept(:images => [{}])
     @image_dato   = taxon_concept.images.last
     @user1 = create_user 'charliebrown'
@@ -23,26 +24,32 @@ describe 'data object tags' do
     truncate_all_tables
   end
 
+  after :each do
+    visit('/logout')
+  end
+
   def create_user username
     User.gen :username => username
   end
 
   it 'should show up public and private tags for old and new version of dato after re-harvesting' do
-    login_as(@user1)
-    request('/').should_not include_text('login')
-    res = request("/data_objects/#{@new_image_dato.id}/tags")
-    res.body.should have_tag('a', :text => /key-private-old:value-private-old/, :count => 2)
-    res.body.should have_tag('a', :text => /key-public-old:value-public-old/, :count => 1)
-    res.body.should have_tag('a', :text => /key-private-new:value-private-new/, :count => 2)
-    res.body.should have_tag('a', :text => /key-public-new:value-public-new/, :count => 1)
+    login_capybara(@user1)
+    visit('/')
+    body.should_not include_text('login')
+    visit("/data_objects/#{@new_image_dato.id}/tags")
+    body.should have_tag('a', :text => /key-private-old:value-private-old/, :count => 2)
+    body.should have_tag('a', :text => /key-public-old:value-public-old/, :count => 1)
+    body.should have_tag('a', :text => /key-private-new:value-private-new/, :count => 2)
+    body.should have_tag('a', :text => /key-public-new:value-public-new/, :count => 1)
   end
  
   it 'should not show private tags without login' do
-    request('/').should include_text('login')
-    res = request("/data_objects/#{@new_image_dato.id}/tags")
-    res.body.should have_tag('a', :text => /key-private-old:value-private-old/, :count => 1)
-    res.body.should have_tag('a', :text => /key-public-old:value-public-old/, :count => 1)
-    res.body.should have_tag('a', :text => /key-private-new:value-private-new/, :count => 1)
-    res.body.should have_tag('a', :text => /key-public-new:value-public-new/, :count => 1)    
+    visit('/')
+    body.should include_text('login')
+    visit("/data_objects/#{@new_image_dato.id}/tags")
+    body.should have_tag('a', :text => /key-private-old:value-private-old/, :count => 1)
+    body.should have_tag('a', :text => /key-public-old:value-public-old/, :count => 1)
+    body.should have_tag('a', :text => /key-private-new:value-private-new/, :count => 1)
+    body.should have_tag('a', :text => /key-public-new:value-public-new/, :count => 1)    
   end
 end

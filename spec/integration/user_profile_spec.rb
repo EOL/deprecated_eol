@@ -8,14 +8,18 @@ describe 'User Profile' do
 
 
   before(:all) do
+    truncate_all_tables
     EolScenario.load :foundation
+    Capybara.reset_sessions!
     @username = 'userprofilespec'
     @password = 'beforeall'
     @user     = create_user(@username, @password)
     
-    @settings_body = RackBox.request('/settings').body
-    login_as @user
-    @profile_body = RackBox.request('/settings').body # Aaaaactually, this will probably fail 'cause it needs https
+    visit('/settings')
+    @settings_body = body
+    login_capybara @user
+    visit('/settings') # Aaaaactually, this will probably fail 'cause it needs https
+    @profile_body = body
   end
 
   it 'should allow change of filter content hierarchy' do

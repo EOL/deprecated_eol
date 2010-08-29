@@ -3,21 +3,25 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'Home page' do
 
   before :all do
+    truncate_all_tables
     EolScenario.load :foundation
+    Capybara.reset_sessions!
     @old_cache_val = ActionController::Base.perform_caching
     ActionController::Base.perform_caching = true
     ActionController::Base.cache_store = :memory_store
     $CACHE.clear
     @taxon_concept = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
-    @page = RackBox.request('/content/exemplars') # cache the response the homepage gives before changes
+    visit('/content/exemplars') # cache the response the homepage gives before changes
+    @body = body
   end
+
   after :all do
     truncate_all_tables
     ActionController::Base.perform_caching = @old_cache_val
   end
 
   it 'should include the exemplar taxon concept' do
-    @page.body.should include(@taxon_concept.scientific_name)
+    @body.should include(@taxon_concept.scientific_name)
   end
 
 end

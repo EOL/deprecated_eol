@@ -130,15 +130,12 @@ class Agent < SpeciesSchemaModel
   end
   
   def self.from_license(license, rights_statement = nil, rights_holder = nil, data_type_id = nil)
-    #Agent.new :project_name => (rights_statement.blank? ?
-
-    rights_holder_part = "&#169 #{rights_holder}.<br>" unless rights_holder.nil?
+    rights_holder_part = "&#169 #{rights_holder}.<br>" unless rights_holder.nil? || rights_holder.blank?
     if(data_type_id == 3)
       rights_statement_part = ""
     else
       rights_statement_part = "Rights: #{rights_statement.strip}.<br>" unless rights_statement.blank?
     end
-
     Agent.new :project_name => (rights_statement.blank? && rights_holder.blank? ?
                                 license.description :
                                 "#{rights_holder_part} #{rights_statement_part} #{license.description}"), 
@@ -149,7 +146,6 @@ class Agent < SpeciesSchemaModel
   def self.just_project_name(location)
     Agent.new :project_name => location
   end
-
 
   def self.content_partners_contact_info(month,year)    
     #ac.email

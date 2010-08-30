@@ -368,14 +368,8 @@ describe DataObject do
     it 'should add an attribution based on rights statement (and license description)' do
       rights = 'life, liberty, and the persuit of happiness'
       @dato.should_receive(:rights_statement).and_return(rights)
-      #@dato.attributions.map {|ado| ado.agent.project_name }.should include(rights << '.<br> ' << @dato.license.description)
-      text = "&#169 .<br> Rights: "
+      text = " Rights: "
       @dato.attributions.map {|ado| ado.agent.project_name }.should include(text << rights << '.<br> ' << @dato.license.description)
-      
-
-
-
-
     end
 
     it 'should add an attribution based on location' do

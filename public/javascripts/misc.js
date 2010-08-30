@@ -163,9 +163,6 @@ function eol_update_image(large_image_url, params) {
 
   eol_update_credit(params);
 
-  // make a logging call to let the server know that we've viewed this image
-  eol_log_data_objects_for_taxon_concept( params.taxonID, params.data_object_id );
-    
   return false;
 }
 
@@ -338,9 +335,6 @@ function eol_update_video(params) {
              
     $('video-notes').innerHTML = video_notes_area;
 
-    // make a logging call to let the server know that we've viewed this video
-    eol_log_data_objects_for_taxon_concept( params.taxon_concept_id, params.data_object_id );
-		    
     return false;
 }
 
@@ -482,15 +476,6 @@ function hideAjaxIndicator(on_content_area) {
         Element.hide('center-page-content-loading');
     }    
     Element.hide('ajax-indicator');        
-}
-
-function eol_log_data_objects_for_taxon_concept( taxon_concept_id, data_object_ids ) {
-  // make a logging call to let the server know we have seen an object
-  new Ajax.Request('/taxa/view_object/', {
-		method: 'post',
-    parameters: { id: data_object_ids, taxon_concept_id: taxon_concept_id },
-    asynchronous: true 
-  });	
 }
 
 function taxon_comments_permalink(comment_id) {

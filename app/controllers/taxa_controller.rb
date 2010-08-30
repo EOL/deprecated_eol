@@ -39,7 +39,7 @@ class TaxaController < ApplicationController
       @taxa_contributed = results.paginate(:page => page)
       render :html => 'content_partner', :layout => current_user.is_admin? ? 'admin' : 'content_partner'
     else
-      redirect_to(:action=>:show, :id=>params[:id])
+      redirect_to(:action=>:show, :id => params[:id])
     end
   end
 
@@ -230,7 +230,7 @@ class TaxaController < ApplicationController
   def content
 
     if !request.xhr?
-      render :nothing=>true
+      render :nothing => true
       return
     end
 
@@ -268,7 +268,7 @@ class TaxaController < ApplicationController
   def image_collection
 
     if !request.xhr?
-      render :nothing=>true
+      render :nothing => true
       return
     end  
 
@@ -281,7 +281,7 @@ class TaxaController < ApplicationController
     @images     = @taxon_concept.images(:image_page => @image_page)[start..last]
 
     if @images.nil?
-      render :nothing=>true
+      render :nothing => true
     else
       @selected_image = @images[0]
       current_user.log_activity(:viewed_page_of_images, :value => @image_page, :taxon_concept_id => @taxon_concept.id)
@@ -296,13 +296,13 @@ class TaxaController < ApplicationController
   def show_video
 
    if !request.xhr?
-     render :nothing=>true
+     render :nothing => true
      return
    end
 
-    video_type=params[:video_type].downcase
-    @mime_type_id=params[:video_mime_type_id]  
-    @object_cache_url=params[:video_object_cache_url]
+    video_type = params[:video_type].downcase
+    @mime_type_id = params[:video_mime_type_id]  
+    @object_cache_url = params[:video_object_cache_url]
 
     if(@object_cache_url != "")
       # local video access
@@ -310,7 +310,7 @@ class TaxaController < ApplicationController
       @video_url = DataObject.cache_path(@object_cache_url) + @filename_extension
     else
       # remote video access  
-      @video_url=params[:video_url]        
+      @video_url = params[:video_url]        
     end
 
     current_user.log_activity(:viewed_video, :value => @object_cache_url)
@@ -323,26 +323,14 @@ class TaxaController < ApplicationController
 
   # AJAX: used to show a pop-up in a floating div, all views are in the "popups" subfolder
   def show_popup
-
-     if !params[:name].blank? && request.xhr?
-       template = params[:name]
-       @taxon_name = params[:taxon_name] || "this taxon"
-       render :layout=>false, :template=>'popups/' + template
-     else
-       render :nothing=>true
-     end
-
-  end
-
-  # AJAX: used to log when an object is viewed
-  def view_object
-    if !params[:id].blank? && request.post?  
-      taxon_concept = params[:taxon_concept_id].to_i
-      # log each data object ID specified (separate multiple with commas)
-      #params[:id].split(",").each { |id| log_data_objects_for_taxon_concept taxon_concept, DataObject.find_by_id(id.to_i) }
+    if !params[:name].blank? && request.xhr?
+      template = params[:name]
+      @taxon_name = params[:taxon_name] || "this taxon"
+      render :layout => false, :template => 'popups/' + template
+    else
+      render :nothing => true
     end
-    render :nothing => true
-  end  
+  end
 
   # Ajax method to change the preferred name on a Taxon Concept:
   def update_common_names
@@ -418,7 +406,7 @@ class TaxaController < ApplicationController
 private
 
   def load_content_var
-    @content = @taxon_concept.content_by_category(@category_id,:current_user=>current_user)
+    @content = @taxon_concept.content_by_category(@category_id,:current_user => current_user)
     # TODO - this was a "quick fix"... but, clearly, we can generalize this in a nice way:
     @whats_this = '/content/page/new_features#chapters' if
       @content[:category_name] =~ /(related names|common names|synonyms)/i
@@ -479,7 +467,7 @@ private
   def show_category_id
     if params[:category_id] && !params[:category_id].blank?
       params[:category_id]
-    elsif !(first_content_item = @taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }).nil?
+    elsif !(first_content_item = @taxon_concept.table_of_contents(:vetted_only => current_user.vetted, :agent_logged_in => agent_logged_in?).detect {|item| item.has_content? }).nil?
       first_content_item.category_id
     else
       nil
@@ -488,7 +476,7 @@ private
 
   def first_content_item
     # find first valid content area to use
-    taxon_concept.table_of_contents(:vetted_only=>current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
+    taxon_concept.table_of_contents(:vetted_only => current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
   end
 
   def handle_whats_this
@@ -509,16 +497,13 @@ private
 
     @taxon_concept.current_user = current_user
 
-    if show_taxa_html_can_be_cached? &&
+    unless show_taxa_html_can_be_cached? &&
        fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
-      @cached = true
-    else
-      @cached = false
       failure = set_taxa_page_instance_vars
       return false if failure
     end # end get full page since we couldn't read from cache
 
-    render :template=>'/taxa/show_cached' if allow_page_to_be_cached? and not params[:category_id] # if caching is allowed, see if fragment exists using this template
+    render :template => '/taxa/show_cached' if allow_page_to_be_cached? and not params[:category_id] # if caching is allowed, see if fragment exists using this template
   end
 
   def show_taxa_xml
@@ -759,8 +744,8 @@ private
   def get_suggested_search_results(querystring)
     pluralized = querystring.pluralize
     singular   = querystring.singularize
-    suggested_results_original = SearchSuggestion.find_all_by_term_and_active(singular, true, :order=>'sort_order') +
-                                 SearchSuggestion.find_all_by_term_and_active(pluralized, true, :order=>'sort_order')
+    suggested_results_original = SearchSuggestion.find_all_by_term_and_active(singular, true, :order => 'sort_order') +
+                                 SearchSuggestion.find_all_by_term_and_active(pluralized, true, :order => 'sort_order')
     return [] if suggested_results_original.blank?
     suggested_results_query = suggested_results_original.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
     suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"

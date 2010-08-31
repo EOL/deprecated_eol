@@ -115,10 +115,7 @@ module TaxaHelper
     end
   end
 
-  def video_hash(video,taxon_concept_id='')
-    # TODO: (something of a big change, since it means altering the JS)
-    #       Note that this won't handle the agent_partial stuff; handle separately:
-    # return video.to_json(:methods => :video_url)
+  def video_hash(video, taxon_concept_id='')
     if taxon_concept_id.blank? # grab the first taxon concept ID from the video object if we didn't just pass it in
       taxon_concepts=video.taxa_names_taxon_concept_ids
       taxon_concept_id = taxon_concepts[0][:taxon_concept_id] unless taxon_concepts.blank?
@@ -150,35 +147,6 @@ module TaxaHelper
            "', object_cache_url:'"+ escape_javascript(video.object_cache_url.to_s) +
            "', taxon_concept_id:'#{taxon_concept_id}'}"
 
-  end
-  
-  def paginate_results(search)
-    pages = search.total_pages
-    current_page = search.current_page
-    html  = Builder::XmlMarkup.new
-    html.div(:class => 'serp_pagination') do
-
-      html << deactivatable_link('&lt;&lt;&nbsp;Prev',
-                                 :href => search_by_page_href(current_page - 1),
-                                 :deactivated => current_page == 1)
-      
-      lower_bound = current_page - 10
-      lower_bound = 1 if lower_bound < 1
-      upper_bound = current_page + 10
-      upper_bound = pages if upper_bound > pages
-
-      (lower_bound..upper_bound).each do |page|
-        html.span(:class => 'pg_link') {
-          html << deactivatable_link(page.to_s,
-                                     :href => search_by_page_href(page),
-                                     :deactivated => current_page == page)
-        }
-      end
-      
-      html << deactivatable_link('Next&nbsp;&gt;&gt;',
-                                 :href => search_by_page_href(current_page + 1),
-                                 :deactivated => current_page == pages)
-    end
   end
   
   def reformat_specialist_projects(projects)
@@ -239,21 +207,6 @@ private
     "/search/?#{lparams.to_query}"
   end
   
-  def deactivatable_link(text, options)
-    deactivated = options.delete(:deactivated)
-    raise "Cannot create deactivatable link without href option" unless options.has_key? :href
-    raise "Cannot create deactivatable link without deactivated option" if deactivated.nil?
-    html = Builder::XmlMarkup.new
-    if deactivated
-      html << text
-    else
-      html.a(options) { html << text } # Block style, so that the text is handled 'raw', rather than interpolated
-    end
-    html << '&nbsp;'
-    return html.to_s # TODO - without the to_s, this injects some weird markup (<respond_to?:to_str>true</..etc>)
-                     # With this to_s, that problem is solved, but this STILL injects <to_s/>  ... WTF?
-  end
-
   def show_next_image_page_button
     if params[:image_page].blank?
       show_next_image_page_button = @taxon_concept.more_images 

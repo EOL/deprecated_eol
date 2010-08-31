@@ -462,7 +462,8 @@ class DataObject < SpeciesSchemaModel
   end
 
   # add a DataObjectTag to a DataObject
-  def tag(key, values, user = nil)
+  def tag(key, values, user)
+    raise "You must be logged in to add tags."[] unless user
     values = [values.to_s] unless values.is_a?Array
     if key and values
       values.each do |value|
@@ -474,27 +475,18 @@ class DataObject < SpeciesSchemaModel
         join   = DataObjectTags.new :data_object => self, :data_object_guid => guid, :data_object_tag => tag, :user => user
         begin
           join.save!
-        rescue # TODO LOWPRIO - specific rescue types with nice, customer-facing explanations.
+        rescue
           raise FailedToCreateTag.new("Failed to add #{key}:#{value} tag")
         end
       end
       tags.reset
-      user.tags.reset if user # TODO - can we tag anonymously?  If not, clean this up to reflect that.
+      user.tags.reset
     end
   end
 
   def public_tags
     DataObjectTags.public_tags_for_data_object self
   end
-
-  # TODO: DELETE (NOT USED)
-  def private_tags user
-    DataObjectTags.private_tags.find_all_by_data_object_guid_and_user_id id, user.id
-  end
-  
-  # TODO: DELETE (NOT USED)
-  alias user_tags private_tags
-  alias users_tags private_tags
 
   # Names of taxa associated with this image
   def taxa_names_taxon_concept_ids

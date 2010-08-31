@@ -84,7 +84,7 @@ class User < ActiveRecord::Base
   # get the total objects curated for a particular curator activity type
   def total_objects_curated_by_action(action)
     # this needs to become a simple COUNT query
-    curator_activity_id=CuratorActivity.send action+'!'
+    curator_activity_id = CuratorActivity.send action+'!'
     if !curator_activity_id.nil?
       CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, curator_activity_id ).length
     else
@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
     hashes = connection.execute("
         SELECT ah.object_id data_object_id, awo.action_code, ah.updated_at action_time
         FROM actions_histories ah
-        JOIN action_with_objects awo ON (ah.action_with_object_id=awo.id)
+        JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
         WHERE ah.user_id=#{id}
         AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
         AND awo.action_code!='rate'
@@ -112,8 +112,8 @@ class User < ActiveRecord::Base
     connection.execute("
           SELECT awo.action_code, ah.updated_at action_time, c.*
           FROM actions_histories ah
-          JOIN action_with_objects awo ON (ah.action_with_object_id=awo.id)
-          JOIN comments c ON (ah.object_id=c.id)
+          JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
+          JOIN comments c ON (ah.object_id = c.id)
           WHERE ah.user_id=#{id}
           AND ah.changeable_object_type_id=#{ChangeableObjectType.comment.id}
           AND ah.action_with_object_id!=#{ActionWithObject.create.id}").all_hashes.uniq
@@ -128,8 +128,8 @@ class User < ActiveRecord::Base
     connection.select_values("
           SELECT dotc.taxon_concept_id
           FROM actions_histories ah
-          JOIN action_with_objects awo ON (ah.action_with_object_id=awo.id)
-          JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (ah.object_id=dotc.data_object_id)
+          JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
+          JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (ah.object_id = dotc.data_object_id)
           WHERE ah.user_id=#{id}
           AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
           AND awo.action_code!='rate'
@@ -261,7 +261,7 @@ class User < ActiveRecord::Base
   end
   
   def clear_curatorship updated_by,update_notes=""
-    self.curator_approved=false
+    self.curator_approved = false
     self.credentials=""
     self.curator_scope=""
     self.curator_hierarchy_entry = nil
@@ -334,7 +334,7 @@ class User < ActiveRecord::Base
     end
 
     users.each do |u| # check all users with matching email addresses to see if one of them matches the password
-      if u.hashed_password==User.hash_password(password) 
+      if u.hashed_password == User.hash_password(password) 
         u.reset_login_attempts # found a match with email and password
         return true,u
       else
@@ -351,11 +351,13 @@ class User < ActiveRecord::Base
   end
 
   def reset_login_attempts
-    update_attributes(:failed_login_attempts=>0) # reset the user's failed login attempts
+    update_attributes(:failed_login_attempts => 0) # reset the user's failed login attempts
   end
   
   def invalid_login_attempt
-    update_attributes(:failed_login_attempts=>failed_login_attempts+1)
+    update_attributes(:failed_login_attempts => failed_login_attempts+1)
+    logger.error "Possible dictionary attack on user #{self.id} - #{self.failed_login_attempts} failed login attempts" if
+      self.failed_login_attempts > 10 # Smells like a dictionary attack!
   end
   
   # I wanted to centralize this call, so we can quickly change from one kind of hashing to another.
@@ -434,7 +436,7 @@ class User < ActiveRecord::Base
   end
   
   def selected_default_hierarchy
-    hierarchy=Hierarchy.find_by_id(default_hierarchy_id)
+    hierarchy = Hierarchy.find_by_id(default_hierarchy_id)
     hierarchy.blank? ? '' : hierarchy.label
   end
   
@@ -451,7 +453,7 @@ class User < ActiveRecord::Base
   def check_curator_status
     credentials = '' if credentials.nil?
     if curator_hierarchy_entry.blank?  # remove the curator approval and role if they have no hierarchy entry set
-      curator_approved=false
+      curator_approved = false
       roles.delete(Role.curator) unless roles.blank?
     else # be sure they have the curator role set if they have a curator hierarchy entry set
       roles.reload
@@ -561,11 +563,11 @@ class User < ActiveRecord::Base
   def images_to_curate
     DataObject.find_by_sql("SELECT DISTINCT do.*
         FROM #{User.full_table_name} u
-        JOIN #{HierarchyEntry.full_table_name} he ON (u.curator_hierarchy_entry_id=he.id)
+        JOIN #{HierarchyEntry.full_table_name} he ON (u.curator_hierarchy_entry_id = he.id)
         JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he.lft and he.rgt)
-        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (he_children.taxon_concept_id=dotc.taxon_concept_id)
-        JOIN #{DataObject.full_table_name} do ON (dotc.data_object_id=do.id)
-        WHERE do.published=1
+        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (he_children.taxon_concept_id = dotc.taxon_concept_id)
+        JOIN #{DataObject.full_table_name} do ON (dotc.data_object_id = do.id)
+        WHERE do.published = 1
         AND do.vetted_id = #{Vetted.unknown.id}
         AND do.data_type_id = #{DataType.image.id}
         LIMIT 0,30");
@@ -580,7 +582,7 @@ class User < ActiveRecord::Base
     user_hash[:display_name] = self.full_name
     user_hash[:locale] = self.language.iso_639_1
     self.is_admin? ? user_hash[:admin]='accept' : user_hash[:admin]='deny'
-    json_token=user_hash.to_json
+    json_token = user_hash.to_json
     
     key = EzCrypto::Key.with_password $USERVOICE_ACCOUNT_KEY, $USERVOICE_API_KEY
     encrypted = key.encrypt(json_token)

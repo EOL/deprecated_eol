@@ -47,7 +47,7 @@ class AccountController < ApplicationController
 
   def signup
     unless request.post?
-      current_user.id=nil 
+      current_user.id = nil 
       store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
       return
     end
@@ -186,22 +186,20 @@ class AccountController < ApplicationController
 
     unless request.post? # first time on page, get current settings
       # set expertise to a string so it will be picked up in web page controls
-      @user.expertise=current_user.expertise.to_s
+      @user.expertise = current_user.expertise.to_s
       store_location(params[:return_to]) unless params[:return_to].nil? # store the page we came from so we can return there if it's passed in the URL
       current_user.log_activity(:profile)
       return
     end
 
-    user_params=params[:user]
+    user_params = params[:user]
     unset_auto_managed_password 
-    # change password if user entered it
-    # TODO This is pretty ugly, but validation on passwords is really only valid on create OR on update if users actually enter a password
-    unless user_params[:entered_password].blank? && user_params[:entered_password_confirmation].blank?
-       if user_params[:entered_password].length < 4 || user_params[:entered_password].length > 16
-          @user.errors.add_to_base("Password length must be between 4 and 16 characters."[:password_must_be_4to16_characters])
-          return
+    if password_looks_like_it_changed?
+      unless password_length_okay?
+        @user.errors.add_to_base("Password length must be between 4 and 16 characters."[:password_must_be_4to16_characters])
+        return
       end
-      @user.password=user_params[:entered_password]
+      @user.password = user_params[:entered_password]
     end
 
     # The UI would not allow this, but a hacker might try to grant curator permissions to themselves in this manner.
@@ -223,11 +221,11 @@ class AccountController < ApplicationController
   # AJAX call to check if name is unique from signup page
   def check_username
 
-    username=params[:username] || ""
+    username = params[:username] || ""
     if User.unique_user?(username) || (logged_in? && current_user.username == username)
-      message=""
+      message = ""
     else
-      message="{name} is already taken"[:username_taken,username]
+      message = "{name} is already taken"[:username_taken,username]
     end
 
     render :update do |page|
@@ -239,11 +237,11 @@ class AccountController < ApplicationController
   # AJAX call to check if email is unique from signup page
   def check_email
 
-    email=params[:email] || ""
+    email = params[:email] || ""
     if User.unique_email?(email) || (logged_in? && current_user.email == email)
-      message=""
+      message = ""
     else
-      message="{email} is already taken"[:username_taken,email]
+      message = "{email} is already taken"[:username_taken,email]
     end
 
     render :update do |page|
@@ -289,7 +287,16 @@ class AccountController < ApplicationController
     current_user.log_activity(:uservoice_login)
     redirect_to "#{$USERVOICE_URL}?sso=#{token}"
   end  
-  private
+
+private
+
+  def password_looks_like_it_changed?
+    return !(params[:user][:entered_password].blank? && params[:user][:entered_password_confirmation].blank?)
+  end
+
+  def password_length_okay?
+    return !(params[:user][:entered_password].length < 4 || params[:user][:entered_password].length > 16)
+  end
 
   def delete_password_reset_token(user)
     user.update_attributes(:password_reset_token => nil, :password_reset_token_expires_at => nil) if user
@@ -312,12 +319,12 @@ class AccountController < ApplicationController
 
   def successful_login(user, remember_me)
     set_current_user(user)
-    notice_message="Logged in successfully."[:logged_in]   
+    notice_message = "Logged in successfully."[:logged_in]   
     if remember_me && !user.is_admin?
       user.remember_me
       cookies[:user_auth_token] = { :value => user.remember_token , :expires => user.remember_token_expires_at }
     elsif remember_me && user.is_admin?
-      notice_message+=" NOTE: for security reasons, administrators cannot use the remember me feature."[:admin_remind_me_message]
+      notice_message += " NOTE: for security reasons, administrators cannot use the remember me feature."[:admin_remind_me_message]
     end    
     flash[:notice] = notice_message
     if user.is_admin? && ( session[:return_to].nil? || session[:return_to].empty?) # if we're an admin we STILL would love a return, thank you very much!
@@ -328,7 +335,6 @@ class AccountController < ApplicationController
   end
 
   def failed_login(message)
-    # TODO - send an email to an admin if user.failed_logins > 10 # Smells like a dictionary attack!
     flash[:warning] = message
     redirect_to :action => 'login'
   end  
@@ -343,13 +349,12 @@ class AccountController < ApplicationController
   end
 
   # this method is called if a user changes their mailing list or email address settings
-  # TODO: do something more intelligent here to notify mailing service that a user changed their settings (like call a web service, or log in DB to create a report)
   def user_changed_mailing_list_settings(old_user,new_user)
-    media_inquiry_subject=ContactSubject.find_by_id($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
+    media_inquiry_subject = ContactSubject.find_by_id($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
     if media_inquiry_subject.nil? 
-      recipient="test@eol.org"
+      recipient = "test@eol.org"
     else
-      recipient=media_inquiry_subject.recipients
+      recipient = media_inquiry_subject.recipients
     end    
     Notifier.deliver_user_changed_mailer_setting(old_user,new_user,recipient)
   end

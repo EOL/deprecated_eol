@@ -38,6 +38,10 @@ describe 'Curation' do
   after(:all) do
     truncate_all_tables
   end
+  
+  before(:each) do
+    SpeciesSchemaModel.connection.execute('set AUTOCOMMIT=1')
+  end
 
   after(:each) do
     visit('/logout')
@@ -149,35 +153,45 @@ describe 'Curation' do
     body.should_not have_tag("form.update_common_names")
   end
   
-  # it 'should add a new name' do
-  #   tcn_count = TaxonConceptName.count
-  #   syn_count = Synonym.count
-  #   login_capybara(@first_curator)
-  #   language = Language.with_iso_639_1.last
+  it 'should add a new name' do
+    Capybara.current_driver = :selenium
+    tcn_count = TaxonConceptName.count
+    syn_count = Synonym.count
+    login_capybara(@first_curator)
+    language = Language.with_iso_639_1.last
 
-  #   visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.common_names.id}")
-  #   body.should have_tag("form#add_common_name")
-  #   fill_in "name_name_string", :with => 'Capybara'
-  #   select('English', :from => 'name_language')
-  #   click_button "Add"
-  #   current_url.split('?')[-1].should == "category_id=#{TocItem.common_names.id}"
-  #   visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.common_names.id}")
-  #   body.should include('Capybara')
-  #   TaxonConceptName.count.should == tcn_count + 1
-  #   Synonym.count.should == syn_count + 1
-  #   Synonym.last.language.should == language
-  # end
+    visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.common_names.id}")
+    body.should have_tag("form#add_common_name")
+    fill_in "name_name_string", :with => 'Capybara'
+    select('French', :from => 'name_language')
+    page.evaluate_script('window.confirm = function() { return true; }') #monkey patching out confirm box 
+    click_button "Add"
+    current_url.split('?')[-1].should == "category_id=#{TocItem.common_names.id}"
+    body.should include('Capybara')
+    commit_transactions # getting all transactions in sync
+    TaxonConceptName.count.should == tcn_count + 1
+    Synonym.count.should == syn_count + 1
+    Synonym.last.language.should == language
+    Capybara.current_driver = Capybara.default_driver
+  end
 
   # it "should be able to delete a common name using post" do
+  #   Capybara.current_driver = :selenium
   #   synonym = @taxon_concept.add_common_name_synonym("New name", @first_curator.agent, :language => Language.english)
   #   tcn_count = TaxonConceptName.count
   #   syn_count = Synonym.count
+  #   commit_transactions
+  #   login_capybara(@first_curator)
+  #   visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.common_names.id}")
+  #   require 'ruby-debug'; debugger
+  #   find(:xpath, ".//form[1]/table/tbody/tr[2]//input[@type='checkbox']").uncheck
   #   visit("/pages/#{@taxon_concept.id}/delete_common_name", :method => :post, :params => {:synonym_id => synonym.id, :category_id => @common_names_toc_id, :taxon_concept_id => @taxon_concept.id})
   #   current_path.should == "/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}"
   #   TaxonConceptName.count.should == tcn_count - 1
   #   Synonym.count.should == syn_count - 1
+  #   Capybara.current_driver = Capybara.default_driver
   # end
-  
+  # 
   it 'should be able to curate a concept not in default hierarchy' do
     hierarchy = Hierarchy.gen
     hierarchy_entry = HierarchyEntry.gen(:hierarchy => hierarchy, :taxon_concept => @taxon_concept)

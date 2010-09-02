@@ -61,14 +61,21 @@ class AccountController < ApplicationController
     @user.roles = []
 
     # give them a validation code and make their account not active by default
-    @user.validation_code = User.hash_password(@user.username)
+    @user.validation_code = Digest::MD5.hexdigest "#{@user.username}#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"
+    while(User.find_by_validation_code(@user.validation_code))
+      @user.validation_code.succ!
+    end
     @user.active = false
 
     # set the password and the remote_IP address
     @user.password = @user.entered_password
     @user.remote_ip = request.remote_ip
     if verify_recaptcha &&  @user.save
-      @user.update_attribute :agent_id, Agent.create_agent_from_user(@user.full_name).id
+      begin
+        @user.update_attribute :agent_id, Agent.create_agent_from_user(@user.full_name).id
+      rescue ActiveRecord::StatementInvalid
+        # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
+      end
       @user.entered_password = ''
       @user.entered_password_confirmation = ''
       Notifier.deliver_registration_confirmation(@user)

@@ -41,6 +41,7 @@ config.log_level = :debug
 config.cache_store = :mem_cache_store
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActionController::Base.logger = Logger.new(STDOUT)
+ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
 
 
 

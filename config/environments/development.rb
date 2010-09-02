@@ -30,6 +30,7 @@ config.action_mailer.raise_delivery_errors = false
 config.log_level = :debug # :error
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActionController::Base.logger = Logger.new(STDOUT)
+ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
 
 $LOG_USER_ACTIVITY = true
 

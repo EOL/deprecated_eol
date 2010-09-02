@@ -28,9 +28,11 @@ config.action_controller.perform_caching             = false # Of course, you wa
 config.action_mailer.raise_delivery_errors = false
 
 config.log_level = :debug # :error
-ActiveRecord::Base.logger = Logger.new(STDOUT)
-ActionController::Base.logger = Logger.new(STDOUT)
-ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
+if ENV['RAILS_ENV'] == 'development'
+  ActiveRecord::Base.logger = Logger.new(STDOUT)
+  ActionController::Base.logger = Logger.new(STDOUT)
+  ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
+end
 
 $LOG_USER_ACTIVITY = true
 

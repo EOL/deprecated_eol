@@ -39,6 +39,9 @@ config.action_mailer.raise_delivery_errors = false
 # logging level
 config.log_level = :debug
 config.cache_store = :mem_cache_store
+ActiveRecord::Base.logger = Logger.new(STDOUT)
+ActionController::Base.logger = Logger.new(STDOUT)
+
 
 
 # set to false turn off notification of exceptions via email 

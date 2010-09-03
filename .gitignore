@@ -30,14 +30,10 @@ solr/solr/eol-solr.pid
 solr/work/*
 tmp
 vendor/eol_org
-vendor/gems/json-1.1.6/bin/generator.bundle
-vendor/gems/json-1.1.6/bin/parser.bundle
 vendor/gems/json-1.1.6/ext/json/ext/generator/Makefile
-vendor/gems/json-1.1.6/ext/json/ext/generator/generator.bundle
 vendor/gems/json-1.1.6/ext/json/ext/generator/mkmf.log
 vendor/gems/json-1.1.6/ext/json/ext/parser/Makefile
 vendor/gems/json-1.1.6/ext/json/ext/parser/mkmf.log
-vendor/gems/json-1.1.6/ext/json/ext/parser/parser.bundle
 vendor/gems/json-1.4.3/ext/json/ext/generator/Makefile
 vendor/gems/json-1.4.3/ext/json/ext/generator/mkmf.log
 vendor/gems/json-1.4.3/ext/json/ext/parser/Makefile
@@ -79,6 +75,4 @@ vendor/gems/solr-ruby-0.0.8/.specification
 vendor/gems/thoughtbot-factory_girl-1.1.5/.specification
 vendor/gems/uuid-2.3.1/.specification
 vendor/gems/will_paginate-2.3.14/.specification
-vendor/oldgem/json-1.1.6/ext/json/ext/generator/Makefile
-vendor/oldgem/json-1.1.6/ext/json/ext/parser/Makefile
 tags

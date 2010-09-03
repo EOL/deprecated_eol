@@ -9,7 +9,7 @@ def content_section_tester(section_name)
   ContentPage.gen(:content_section => sec, :title => new_title)
   pages = ContentSection.find_pages_by_section(section_name)
   pages.map(&:title).should include(new_title)
-  body = RackBox.request('/').body
+  visit('/')
   # <a title="Feedback" id="feedback" class="dropdown">Feedback</a>
   body.should have_tag("a##{section_name.downcase.gsub(' ', '_')}", :text => /#{section_name}/)
   # <a href=\"/content/page/contact_us\" target=\"_self\" title=\"Contact Us\">Contact Us</a>

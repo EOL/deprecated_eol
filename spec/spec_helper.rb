@@ -32,8 +32,6 @@ require File.expand_path(File.dirname(__FILE__) + "/custom_matchers")
 require 'eol_scenarios'
 EolScenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
 
-require 'eol_rackbox'
-
 Spec::Runner.configure do |config|
   include EolScenario::Spec
   include EOL::Data # this gives us access to methods that clean up our data (ie: lft/rgt values)
@@ -44,16 +42,6 @@ Spec::Runner.configure do |config|
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
   config.include(Capybara, :type => :integration)
-  # Once upon a time, we needed this to run blackbox tests.  Now, if this line is in, Contoller (non-rackbox) tests fail.
-  # When we removed this line, everything was happy.  When we remove rackbox entirely, *we* will be happy, too.
-  config.use_blackbox = true
-
-  # blackbox specs often use scenarios ... which often make us max out the 
-  # primary keys of some of our tables ... reset the auto_incr for these 
-  # tables before/after blackbox specs, to try to catch most of these problems
-  config.after(:each, :type => :blackbox) do
-    reset_auto_increment_on_tables_with_tinyint_primary_keys
-  end
 
   # taken from use_db/lib/override_test_case.rb
   #
@@ -64,8 +52,8 @@ Spec::Runner.configure do |config|
     $CACHE.clear
     SpeciesSchemaModel.connection.execute("START TRANSACTION #SpeciesSchemaModel")
     SpeciesSchemaModel.connection.increment_open_transactions
-
   end
+
   config.after(:each) do
     SpeciesSchemaModel.connection.decrement_open_transactions
     SpeciesSchemaModel.connection.execute("ROLLBACK #SpeciesSchemaModel")

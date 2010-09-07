@@ -26,6 +26,7 @@ describe 'Curation' do
   
   it 'should only run this with selenium tests' do
     puts "I am here"
+    false.should be_true
   end
 
 end

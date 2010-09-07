@@ -47,5 +47,4 @@ config.gem "eol_scenarios", :lib => "eol_scenarios"
 config.gem "rspec", :lib => false
 config.gem "rspec-rails", :lib => false
 config.gem "factory_girl", :lib => false
-config.gem "eol_rackbox", :lib => false
 config.gem "capybara", :lib => false

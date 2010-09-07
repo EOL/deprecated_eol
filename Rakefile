@@ -27,7 +27,7 @@ namespace :spec do
   # Setup specs for stats
   task :statsetup do
     require 'code_statistics'
-    ::STATS_DIRECTORIES << %w(Blackbox\ specs spec/blackbox) if File.exist?('spec/blackbox')
+    ::STATS_DIRECTORIES << %w(Integration\ specs spec/integration) if File.exist?('spec/integration')
     ::STATS_DIRECTORIES << %w(Model\ specs spec/models) if File.exist?('spec/models')
     ::STATS_DIRECTORIES << %w(View\ specs spec/views) if File.exist?('spec/views')
     ::STATS_DIRECTORIES << %w(Controller\ specs spec/controllers) if File.exist?('spec/controllers')
@@ -36,7 +36,7 @@ namespace :spec do
     ::STATS_DIRECTORIES << %w(Cucumber\ features features) if File.exist?('features')
     ::CodeStatistics::TEST_TYPES << "Model specs" if File.exist?('spec/models')
     ::CodeStatistics::TEST_TYPES << "View specs" if File.exist?('spec/views')
-    ::CodeStatistics::TEST_TYPES << "Blackbox specs" if File.exist?('spec/blackbox')
+    ::CodeStatistics::TEST_TYPES << "Integration specs" if File.exist?('spec/integration')
     ::CodeStatistics::TEST_TYPES << "Selenium specs" if File.exist?('spec/selenium')
     ::CodeStatistics::TEST_TYPES << "Controller specs" if File.exist?('spec/controllers')
     ::CodeStatistics::TEST_TYPES << "Helper specs" if File.exist?('spec/helpers')

@@ -323,7 +323,7 @@ Here are our rake stats as of May 7th:
 
 We really need to start improving our tests.  To that end, I would like to start using: 
 
-  rails stats (we need to tweak this to add blackbox tests)
+  rails stats
   reek
   flay
   flog

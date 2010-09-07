@@ -11,7 +11,7 @@ task :truncate => :environment do
   end
 end
 
-desc 'Print specdocs, MATCH=dog_spec,blackbox'
+desc 'Print specdocs'
 task :specdoc do
   if ENV['MATCH']
     all_specs = Dir[ File.join(RAILS_ROOT, 'spec', '**', '*_spec.rb') ]
@@ -34,7 +34,7 @@ task :specdoc do
   exec cmd
 end
 
-desc 'Print HTML specdocs, MATCH=dog_spec,blackbox'
+desc 'Print HTML specdocs'
 task :spechtml do
   # extract this match bit out into a method - DRY up!
   if ENV['MATCH']

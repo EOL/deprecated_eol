@@ -1,8 +1,11 @@
 class Administrator::ErrorLogController < AdminController
   
-  access_control :DEFAULT => 'Administrator - Technical'
-  layout 'admin'
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
   
+  access_control :DEFAULT => 'Administrator - Technical'
+
   def index
     @page_title = 'Error Log'
     @date=params[:date]
@@ -18,4 +21,11 @@ class Administrator::ErrorLogController < AdminController
     @error=ErrorLog.find(params[:id])
   end
  
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
+
 end

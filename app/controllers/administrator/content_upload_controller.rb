@@ -1,8 +1,11 @@
 class Administrator::ContentUploadController < AdminController
 
-  access_control :DEFAULT => 'Administrator - Site CMS'
-  layout 'admin'
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
    
+  access_control :DEFAULT => 'Administrator - Site CMS'
+
   def index
     @page_title = 'Uploaded Content'
     @content_uploads=ContentUpload.paginate(:order=>'created_at desc',:page => params[:page])
@@ -58,6 +61,11 @@ private
         ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>error,:backtrace=>parameters) if $ERROR_LOGGING
       end
     end
+  end
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
   end
 
 end

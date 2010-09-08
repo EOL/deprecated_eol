@@ -1,6 +1,10 @@
 class Administrator::SearchLogsController < AdminController
 
-  layout 'admin'
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
+  helper :resources
 
   access_control :DEFAULT => 'Administrator - Usage Reports'
   
@@ -33,11 +37,27 @@ class Administrator::SearchLogsController < AdminController
     @clicked_taxa=SearchLog.find_by_sql(["select distinct(taxon_concept_id),count(taxon_concept_id) as frequency from search_logs where search_term=? GROUP BY taxon_concept_id ORDER BY frequency desc",@search_term])
   end
         
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
+
 protected
+
   def find_average(a_dict)
     data = a_dict.to_a
     count = data.inject(0) {|res, rec| res += rec[1].to_i}
     sum = data.inject(0) {|res, rec| res += rec[0].to_i * rec[1].to_i}
     sum/count rescue 0
   end
+
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
+
 end

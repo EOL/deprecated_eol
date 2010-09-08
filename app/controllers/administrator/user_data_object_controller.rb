@@ -1,6 +1,8 @@
 class Administrator::UserDataObjectController < AdminController  
 
-  layout 'admin'
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
 
   def index
 
@@ -22,5 +24,11 @@ class Administrator::UserDataObjectController < AdminController
     
   end
   
-  
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
+
 end

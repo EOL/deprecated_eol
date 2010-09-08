@@ -1,7 +1,12 @@
 class Administrator::SiteController  < AdminController
   
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
+  helper :resources
+
   access_control :DEFAULT => 'Administrator - Technical'
-  layout 'admin'
   
   def index
     @page_title = 'General Site Administration'
@@ -62,4 +67,11 @@ class Administrator::SiteController  < AdminController
     
   end
     
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
+
 end

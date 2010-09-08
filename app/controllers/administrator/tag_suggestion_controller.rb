@@ -2,10 +2,12 @@
 # show up as suggested (static public tags)
 class Administrator::TagSuggestionController < AdminController
 
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
   access_control :DEFAULT => 'Administrator - Comments and Tags'
   
-  layout 'admin'
-
   # GET /administrator/tag_suggestions
   def index
     @admin_header="Tag Suggestions"
@@ -30,6 +32,13 @@ class Administrator::TagSuggestionController < AdminController
       end
     end
     redirect_to :action => :index
+  end
+
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
   end
 
 end

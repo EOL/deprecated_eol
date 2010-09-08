@@ -1,7 +1,12 @@
 class Administrator::ContentPartnerReportController < AdminController
+
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
   helper :resources
+
   helper_method :current_agent, :agent_logged_in?
-  layout 'admin'
   
   access_control :DEFAULT => 'Administrator - Content Partners'
   
@@ -356,5 +361,12 @@ class Administrator::ContentPartnerReportController < AdminController
       @total_data_objects = arr[3]
       @total_taxa = arr[4]
   end  
+
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
 
 end

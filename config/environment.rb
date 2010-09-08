@@ -187,6 +187,10 @@ Rails::Initializer.run do |config|
   $IP_ADDRESS_OF_SERVER = EOLWebService.local_ip
   $SITE_DOMAIN_OR_IP = $IP_ADDRESS_OF_SERVER #domain name for url links communicated outside, for example for emails
     
+  # Default Values for some language-dependent titles:
+  $ADMIN_CONSOLE_TITLE = 'EOL Administration Console'
+  $CURATOR_CENTRAL_TITLE = 'Curator Central'
+
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store
   end

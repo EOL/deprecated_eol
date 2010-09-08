@@ -1,7 +1,6 @@
 class Administrator::StatsController < AdminController
 
   layout :choose_layout
-  
 
   access_control :DEFAULT => 'Administrator - Usage Reports'
   
@@ -62,9 +61,12 @@ class Administrator::StatsController < AdminController
     end
   end
   
-  
-  private
+private
+
   def choose_layout
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
     action_name == 'content_taxonomic' ? 'admin' : 'admin_without_nav'
   end
+
 end

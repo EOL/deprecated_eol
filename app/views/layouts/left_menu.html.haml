@@ -3,14 +3,14 @@
     #page-separator-general
     #page-title
       %h1
-        = @page_title || 'EOL Administration Console'
+        = @page_title || 'Select an Item from the Menu'[]
       %hr
     #page-content.clearfix
       #page-content-bgfauxinside
         #page-content.clearfix
           #full-page-content
             #left-pane
-              = render(:partial=>'/admin/navigation')
+              = render(:partial => @navigation_partial)
             #right-pane
               = yield
 = render :file => 'layouts/main'

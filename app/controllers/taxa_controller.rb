@@ -37,6 +37,8 @@ class TaxaController < ApplicationController
 
 
       @taxa_contributed = results.paginate(:page => page)
+      @page_title = $ADMIN_CONSOLE_TITLE if current_agent.is_admin?
+      @navigation_partial = '/admin/navigation'
       render :html => 'content_partner', :layout => current_user.is_admin? ? 'admin' : 'content_partner'
     else
       redirect_to(:action=>:show, :id => params[:id])

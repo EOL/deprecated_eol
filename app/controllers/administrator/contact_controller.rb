@@ -1,7 +1,10 @@
 require 'csv'
 class Administrator::ContactController < AdminController
 
-  layout 'admin'
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
   access_control :DEFAULT => 'Administrator - Contact Us Submissions'
 
   def index
@@ -55,5 +58,12 @@ class Administrator::ContactController < AdminController
     send_data(report.read,:type=>'text/csv; charset=iso-8859-1; header=present',:filename => 'EOL_contact_us_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')
 
  end
+
+private
+  
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
 
 end

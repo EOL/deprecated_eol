@@ -1,7 +1,12 @@
 class Administrator::NewsItemController < AdminController
 
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
+  helper :resources
+
   access_control :DEFAULT => 'Administrator - News Items'
-  layout 'admin'
   
   def index
     @page_title = 'News Items'
@@ -52,6 +57,13 @@ class Administrator::NewsItemController < AdminController
     @news_item.destroy
     expire_cache('Home')
     redirect_to referred_url
+  end
+
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
   end
 
 end

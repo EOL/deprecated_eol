@@ -1,7 +1,12 @@
 class Administrator::GlossaryController < AdminController
+
+  layout 'left_menu'
+
   helper :resources
+
   helper_method :current_agent, :agent_logged_in?
-  layout 'admin'
+
+  before_filter :set_layout_variables
   
   access_control :DEFAULT => 'Administrator - Site CMS'
   
@@ -52,4 +57,12 @@ class Administrator::GlossaryController < AdminController
     term.destroy
     redirect_to referred_url
   end
+
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
+
 end

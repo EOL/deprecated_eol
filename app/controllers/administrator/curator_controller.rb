@@ -1,7 +1,10 @@
 class Administrator::CuratorController < AdminController
 
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
   access_control :DEFAULT => 'Administrator - Web Users'
-  layout 'admin'
     
   def index
     @page_title = 'Curators'
@@ -55,4 +58,11 @@ class Administrator::CuratorController < AdminController
 
   end
   
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
+
 end

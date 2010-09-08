@@ -1,7 +1,10 @@
 class Administrator::ContentPageController < AdminController
 
- layout 'admin'
- access_control :DEFAULT => 'Administrator - Site CMS'
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
+  access_control :DEFAULT => 'Administrator - Site CMS'
   
  def index
    
@@ -139,19 +142,25 @@ class Administrator::ContentPageController < AdminController
     
  end
  
- private 
- def create_new_page(content_section_id)
-   new_page=ContentPage.new
-   new_page.page_name='New Page'
-   new_page.title='New Page'
-   new_page.active=false
-   new_page.url=''
-   new_page.main_content='Content goes here'
-   new_page.left_content=''
-   new_page.content_section_id=content_section_id
-   new_page.sort_order=99
-   new_page.save
-   return new_page
- end
- 
+private 
+
+  def create_new_page(content_section_id)
+    new_page = ContentPage.new
+    new_page.page_name = 'New Page'
+    new_page.title = 'New Page'
+    new_page.active = false
+    new_page.url = ''
+    new_page.main_content = 'Content goes here'
+    new_page.left_content = ''
+    new_page.content_section_id = content_section_id
+    new_page.sort_order = 99
+    new_page.save
+    return new_page
+  end
+  
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
+
 end

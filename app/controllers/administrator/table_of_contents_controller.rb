@@ -1,4 +1,5 @@
 class Administrator::TableOfContentsController < AdminController
+
   helper_method :current_agent, :agent_logged_in?
   layout :admin_unless_ajax
   
@@ -47,8 +48,11 @@ class Administrator::TableOfContentsController < AdminController
     render :layout => false, :partial => 'show_tree'
   end
   
-  
+private
+
   def admin_unless_ajax
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
     layout = (["show_tree"].include? action_name) ? nil : 'admin'
   end
   

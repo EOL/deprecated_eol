@@ -1,6 +1,9 @@
 class Administrator::CommentController  < AdminController
 
-  layout 'admin'
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
   access_control :DEFAULT => 'Administrator - Comments and Tags'
  
   def index
@@ -45,5 +48,12 @@ class Administrator::CommentController  < AdminController
     redirect_to referred_url 
   
   end
+
+private
   
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
+
 end

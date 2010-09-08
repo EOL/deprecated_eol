@@ -1,7 +1,12 @@
 class Administrator::SearchSuggestionController < AdminController
 
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
+  helper :resources
+
   access_control :DEFAULT => 'Administrator - Site CMS'
-  layout 'admin'
   
   def index
     @page_title = 'Search Suggestions'
@@ -62,9 +67,9 @@ class Administrator::SearchSuggestionController < AdminController
       page << "$('search_suggestion_image_url').value = '#{image_url}';"
     end
   end
-  
-  private 
-  
+
+private 
+
   def get_names_and_image(taxon_concept_id)
     scientific_name=''
     common_name=''
@@ -79,6 +84,11 @@ class Administrator::SearchSuggestionController < AdminController
       end
     end
     return scientific_name,common_name,image_url
+  end
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
   end
 
 end

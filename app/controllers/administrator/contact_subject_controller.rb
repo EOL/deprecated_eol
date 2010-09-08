@@ -1,6 +1,9 @@
 class Administrator::ContactSubjectController < AdminController
 
-  layout 'admin'
+  layout 'left_menu'
+
+  before_filter :set_layout_variables
+
   access_control :DEFAULT => 'Administrator - Site CMS'
   
  def index
@@ -47,5 +50,12 @@ class Administrator::ContactSubjectController < AdminController
   end
   
  end
+
+private
+  
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
+  end
 
 end

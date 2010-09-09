@@ -92,7 +92,7 @@
 
         / RATING
         .image-rating
-          = render :partial => 'star_rating', :locals => {:data_object => @selected_image}
+          = render :partial => 'star_rating', :locals => {:data_object => @selected_image, :show_controls => @taxon_concept.show_curator_controls?}
       / end large-image-buttons
     - # end of unless images.blank?
   / end large-image

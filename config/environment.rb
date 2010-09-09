@@ -186,7 +186,11 @@ Rails::Initializer.run do |config|
   #Server's IP address
   $IP_ADDRESS_OF_SERVER = EOLWebService.local_ip
   $SITE_DOMAIN_OR_IP = $IP_ADDRESS_OF_SERVER #domain name for url links communicated outside, for example for emails
-    
+
+  # Default values for some language-dependent strings used by models:
+  $CURATOR_ROLE_NAME = 'Curator'
+  $ADMIN_ROLE_NAME   = 'Administrator'
+
   # Default Values for some language-dependent titles:
   $ADMIN_CONSOLE_TITLE = 'EOL Administration Console'
   $CURATOR_CENTRAL_TITLE = 'Curator Central'

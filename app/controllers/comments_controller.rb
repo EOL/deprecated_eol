@@ -90,27 +90,23 @@ class CommentsController < ApplicationController
   end
   
 private
+
   def current_comments
-    current_comments = []
+    comments = []
     if parent_name == 'data_object'
-      current_comments = parent_object.all_comments
-    else #"taxon_concept"
-      current_comments = current_model.find(:all)
+      comments = parent_object.all_comments
+    else # "taxon_concept"
+      comments = current_model.find(:all)
     end
-    return current_comments
+    comments
   end
   
   def current_comments_visible
-    current_comments_visible = []
-    current_comments.each do |comment|
-      comment.visible? ? current_comments_visible << comment : nil
-    end 
-    return current_comments_visible
+    current_comments.select {|c| c.visible? }
   end
   
   def current_objects
     @current_objects ||= current_user.is_moderator? ? current_comments : current_comments_visible
-
     if params[:page_to_comment_id]
       @current_objects.paginate(:page => params[:page], :per_page => Comment.per_page, 
                                 :conditions => ['id = ?', "#{params[:page_to_comment_id]}"])

@@ -20,7 +20,7 @@ You can edit those later if needed.
         %br
         the suggested page to direct users to
       %td
-        = link_to @search_suggestion.scientific_name, taxon_url(:id=>@search_suggestion.taxon_id), :target=>'_blank'
+        = link_to @search_suggestion.scientific_name, taxon_concept_url(:id=>@search_suggestion.taxon_id), :target=>'_blank'
     %tr
       %td
         %strong

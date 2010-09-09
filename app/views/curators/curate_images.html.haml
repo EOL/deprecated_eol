@@ -1,3 +1,6 @@
+= stylesheet_link_tag 'curator_tools'
+-# TODO - Add a selector to Narrow the list by Content Provider
+= will_paginate(@images_to_curate)
 %table.results_table
   %tr
     %th
@@ -5,10 +8,10 @@
     %th
       Image
     %th
-      Source
+      Caption
     %th
       Action
-  - @images_to_curate.each_with_index do |image, index|
+  - @images_to_curate.each do |image|
     - row_class = cycle('odd', 'even')
     %tr
       %td{:class => row_class}
@@ -18,14 +21,21 @@
           %br
           = c_name
       %td{:class => row_class}
-        %img{:src => image.thumb_or_object(:medium)}
+        = link_to(image_tag(image.thumb_or_object(:medium)), image.taxon_concepts.first)
+        -# TODO - some way to see the original-sized image
+        -# TODO - show attribution - at least provider and agents, probably not license, rights, etc...
       %td{:class => row_class}
-        View in EOL
-        %br
-        View in Source Website
+        = image.description
+        -# TODO = show location information (if available)
       %td{:class => row_class}
-        %input{:type => 'radio', :name => "trust_#{index}"}
+        .image_rating
+          = render :partial => '/taxa/star_rating', :locals => {:data_object => image, :show_controls => true, :break_after_overall => true}
+        %input{:type => 'radio', :name => "trust_#{image.id}"}
           Trust
         %br
-        %input{:type => 'radio', :name => "trust_#{index}"}
+        %input{:type => 'radio', :name => "trust_#{image.id}"}
           Untrust
+          -# TODO - this must prompt for a reason/comment, yadda yadda
+        %br
+          Comment ( TODO )
+= will_paginate(@images_to_curate)

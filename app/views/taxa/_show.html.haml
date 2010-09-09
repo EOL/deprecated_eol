@@ -29,7 +29,7 @@
         &nbsp;
     %span.page-status
       Showing:
-      = current_user.expertise.to_s == 'expert' ? link_to('scientific names', taxon_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'})
+      = current_user.expertise.to_s == 'expert' ? link_to('scientific names', taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'})
     %hr
 / end page title
 = render(:partial => 'mediacenter', :locals => {:current_user => current_user})

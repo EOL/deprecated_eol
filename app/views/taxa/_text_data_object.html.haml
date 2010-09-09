@@ -41,7 +41,7 @@
         = render :partial=>'/taxa/data_object_states', :locals => {:dato => content_item}
     / RATING
     .text-rating
-      = render :partial => '/taxa/star_rating', :locals => {:data_object => content_item}
+      = render :partial => '/taxa/star_rating', :locals => {:data_object => content_item, :show_controls => @taxon_concept.show_curator_controls?}
     #right_text_buttons_group
       - if @taxon_concept.show_curator_controls?
         - if !content_item.curated?

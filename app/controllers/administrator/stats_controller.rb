@@ -63,8 +63,9 @@ class Administrator::StatsController < AdminController
   
 private
 
+  # Note this runs AFTER the action... so we may already have a @page_title by the time we get here.
   def choose_layout
-    @page_title = $ADMIN_CONSOLE_TITLE
+    @page_title ||= $ADMIN_CONSOLE_TITLE
     @navigation_partial = '/admin/navigation'
     action_name == 'content_taxonomic' ? 'admin' : 'admin_without_nav'
   end

@@ -37,7 +37,7 @@ ActionController::Routing::Routes.draw do |map|
   # TODO - we would like to make this all restfull.  Is that even possible, with images/videos vs data_objects?
   map.resources :taxon
   map.taxon 'taxa/:id',  :controller => 'taxa', :action => 'taxa', :requirements => { :id => /\d+/ }
-  map.taxon 'pages/:id', :controller => 'taxa', :action => 'show'
+  map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'
 
   map.connect 'pages/:id',
               :controller => 'taxa', :action => 'show' 

@@ -6,7 +6,7 @@ class AdminController < ApplicationController
  before_filter :set_no_cache
  before_filter :set_layout_variables
 
- access_control :DEFAULT => 'administrator'
+ access_control :DEFAULT => $ADMIN_ROLE_NAME
     
  def index
  end

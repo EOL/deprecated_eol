@@ -560,17 +560,19 @@ class User < ActiveRecord::Base
     end
   end
   
-  def images_to_curate
-    DataObject.find_by_sql("SELECT DISTINCT do.*
-        FROM #{User.full_table_name} u
-        JOIN #{HierarchyEntry.full_table_name} he ON (u.curator_hierarchy_entry_id = he.id)
-        JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he.lft and he.rgt)
-        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (he_children.taxon_concept_id = dotc.taxon_concept_id)
-        JOIN #{DataObject.full_table_name} do ON (dotc.data_object_id = do.id)
-        WHERE do.published = 1
-        AND do.vetted_id = #{Vetted.unknown.id}
-        AND do.data_type_id = #{DataType.image.id}
-        LIMIT 0,30");
+  # TODO - This should take an (optional) argument to narrow results down to a single content provider
+  def images_to_curate(options = {})
+    clade_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
+    DataObject.find_by_sql(["SELECT DISTINCT do.*
+        FROM #{HierarchyEntry.full_table_name} he
+          JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he.lft and he.rgt)
+          JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (he_children.taxon_concept_id = dotc.taxon_concept_id)
+          JOIN #{DataObject.full_table_name} do ON (dotc.data_object_id = do.id)
+        WHERE he.id = ?
+          AND do.published = 1
+          AND do.vetted_id = #{Vetted.unknown.id}
+          AND do.data_type_id = #{DataType.image.id}
+        LIMIT 0,30", clade_id]); # TODO - I don't know if we should limit this.
   end
   
   def uservoice_token

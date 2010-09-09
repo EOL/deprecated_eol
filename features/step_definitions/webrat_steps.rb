@@ -8,7 +8,7 @@ When /^I go to (\S+)$/ do |page_name|
 end
 
 When /^I go to the page for Taxon Concept (.*)$/ do |tc_id|
-  visit taxon_url tc_id
+  visit taxon_concept_url tc_id
 end
 
 When /^I press "(.*)"$/ do |button|

@@ -19,7 +19,7 @@ This page shows information about a specific search term and which results users
         - scientific_name="ERROR: Taxon #{taxon_concept[:taxon_concept_id]} not found"
       %tr
         %td{ :class => column_class, :style => "width: 12em" }
-          = taxon_concept.taxon_concept_id ? link_to(scientific_name, taxon_url(:id=>taxon_concept[:taxon_concept_id]), {:target=>'blank'}) : "None"
+          = taxon_concept.taxon_concept_id ? link_to(scientific_name, taxon_concept_url(:id=>taxon_concept[:taxon_concept_id]), {:target=>'blank'}) : "None"
         %td{ :class => column_class }
           = taxon_concept[:frequency]
         %td{ :class => column_class }

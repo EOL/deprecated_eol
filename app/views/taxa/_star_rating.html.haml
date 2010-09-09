@@ -1,5 +1,5 @@
 - rate_percentage = data_object.data_rating * 20
-- if @taxon_concept.show_curator_controls?
+- if show_controls
 
   Overall:
   %span.inline-rating
@@ -7,7 +7,8 @@
       %li.current-rating{ :style => "width:#{rate_percentage}%;" }
         Overall:
         = data_object.data_rating.to_s
-
+  - if defined?(break_after_overall) and break_after_overall
+    %br/
   Your Rating:
   %span.inline-rating
     %ul.star-rating.small-star.user-rating

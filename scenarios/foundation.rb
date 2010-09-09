@@ -291,9 +291,9 @@ create_if_not_exists ResourceStatus, :label => 'Publish Pending'
 create_if_not_exists ResourceStatus, :label => 'Unpublish Pending'
 create_if_not_exists ResourceStatus, :label => 'Force Harvest'
 
-create_if_not_exists Role, :title => 'Curator'
+create_if_not_exists Role, :title => $CURATOR_ROLE_NAME
 create_if_not_exists Role, :title => 'Moderator'
-create_if_not_exists Role, :title => 'Administrator'
+create_if_not_exists Role, :title => $ADMIN_ROLE_NAME
 create_if_not_exists Role, :title => 'Administrator - News Items'
 create_if_not_exists Role, :title => 'Administrator - Comments and Tags'
 create_if_not_exists Role, :title => 'Administrator - Web Users'

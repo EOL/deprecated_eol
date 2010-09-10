@@ -5,7 +5,7 @@ describe Factory do
   before :all do
     truncate_all_tables
     reset_auto_increment_on_tables_with_tinyint_primary_keys
-    EolScenario.load :foundation
+    load_foundation_cache
   end
 
   ########## helpers #########

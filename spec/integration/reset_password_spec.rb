@@ -4,7 +4,7 @@ describe 'account/reset_password' do
 
   before(:all) do
     truncate_all_tables
-    EolScenario.load :foundation
+    load_foundation_cache
     Capybara.reset_sessions!
     @user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com', :password_reset_token => '123', :password_reset_token_expires_at => 1.hour.from_now)
     @user.save!

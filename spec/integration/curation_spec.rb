@@ -10,7 +10,7 @@ describe 'Curation' do
   
   before(:all) do
     truncate_all_tables
-    EolScenario.load :foundation
+    load_foundation_cache
     Capybara.reset_sessions!
     commit_transactions # Curators are not recognized if transactions are being used, thanks to a lovely
                         # cross-database join.  You can't rollback, because of the EolScenario stuff.  [sigh]

@@ -4,7 +4,7 @@ require 'nokogiri'
 describe 'APIs' do
   describe 'Best Images' do
     before(:all) do
-      EolScenario.load(:foundation)
+      load_foundation_cache
       Capybara.reset_sessions!
       @image_1 = Factory.next(:image)
       @image_2 = Factory.next(:image)

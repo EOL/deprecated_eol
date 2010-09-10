@@ -19,7 +19,7 @@ describe 'Taxa page (HTML)' do
 
     #RandomTaxon.delete_all # this should make us green again
     truncate_all_tables
-    EolScenario.load :foundation
+    load_foundation_cache
     Capybara.reset_sessions!
     HierarchiesContent.delete_all
 

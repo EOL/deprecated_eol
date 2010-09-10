@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Ref do
   
   before(:all) do
-    EolScenario.load :foundation
+    load_foundation_cache
   end
 
   describe "Literature reviews" do

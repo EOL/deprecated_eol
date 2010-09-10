@@ -19,7 +19,7 @@ end
 describe 'Home page' do
 
   before :all do
-    EolScenario.load :foundation
+    load_foundation_cache
     Capybara.reset_sessions!
     visit('/') # cache the response the homepage gives before changes
     @homepage_with_foundation = source #source in contrast with body returns html BEFORE any javascript

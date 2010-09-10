@@ -10,7 +10,7 @@ EolScenario.load_paths = [ File.join(RAILS_ROOT, 'scenarios') ]
 
 truncate_all_tables_once
 
-EolScenario.load :foundation
+load_foundation_cache
 
 Given /^a Taxon Concept (.*)$/ do |tc_id|
   @taxon_concept = build_taxon_concept(:id => tc_id, :common_name => 'vulcan')

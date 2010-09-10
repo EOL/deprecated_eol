@@ -4,7 +4,7 @@ describe 'Home page' do
 
   before :all do
     truncate_all_tables
-    EolScenario.load :foundation
+    load_foundation_cache
     Capybara.reset_sessions!
     @old_cache_val = ActionController::Base.perform_caching
     ActionController::Base.perform_caching = true

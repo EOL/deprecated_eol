@@ -61,7 +61,7 @@ end
 describe TaxaHelper do
 
   before(:all) do
-    EolScenario.load :foundation
+    load_foundation_cache
   end
 
   describe "#common_names_by_language" do

@@ -8,7 +8,7 @@ describe Attributions do
 
   # Please note that this gets run before each describe block... not just once!
   before(:all) do
-    EolScenario.load :foundation
+    load_foundation_cache
     # This order is hard-coded in AgentRole, and needs to be the same here (and in the next block):
     @author = find_or_gen('Author')
     @source = find_or_gen('Source')

@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'build_taxon_concept (spec helper method)' do
 
   before(:all) do
-    EolScenario.load :foundation
+    load_foundation_cache
     @event           = HarvestEvent.gen
     @scientific_name = 'Something cool'
     @hierarchy       = Hierarchy.gen

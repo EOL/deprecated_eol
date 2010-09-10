@@ -5,7 +5,7 @@ describe "Google Analytics Stats Page" do
 
   before(:all) do
     truncate_all_tables
-    EolScenario.load :foundation
+    load_foundation_cache
     Capybara.reset_sessions!
     @tc = build_taxon_concept
     @pass  = 'timey-wimey'

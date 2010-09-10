@@ -5,7 +5,7 @@ describe Comment do
     
     before(:all) do
       truncate_all_tables
-      EolScenario.load('foundation')
+      load_foundation_cache
       @tc = build_taxon_concept()
     end
     

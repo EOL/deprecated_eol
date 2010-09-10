@@ -8,7 +8,7 @@ describe 'Feeds' do
 
   describe 'Curator Feeds' do
     before(:all) do
-      EolScenario.load('foundation')
+      load_foundation_cache
       Capybara.reset_sessions!
       DataObject.delete_all
       Comment.delete_all
@@ -79,7 +79,7 @@ describe 'Feeds' do
   describe ': content partner curated data' do
     before(:all) do   
       truncate_all_tables
-      EolScenario.load('foundation')
+      load_foundation_cache
       
       @agent = Agent.gen(:full_name => 'FishBase')
       @resource = Resource.gen(:title => "test resource")

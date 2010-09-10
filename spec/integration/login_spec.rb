@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe 'Login' do
   before :all do
-    EolScenario.load :foundation
+    load_foundation_cache
     Capybara.reset_sessions!
   end
   

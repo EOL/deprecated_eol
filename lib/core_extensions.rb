@@ -272,7 +272,16 @@ module ActiveRecord
       end
     end
   end
+  
+  module ConnectionAdapters
+    class MysqlAdapter
+      def config
+        return @config
+      end
+    end
+  end
 end
+
 
 class Float
   def round_to(x)

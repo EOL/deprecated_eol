@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'Account user profile page (HTML)' do
 
   before(:all) do
-    EolScenario.load :foundation
+    load_foundation_cache
     Capybara.reset_sessions!
     @credentials = 'This has a <a href="linky">link</a> <b>this is bold<br />as is this</b> and <script type="text/javascript">alert("hi");</script>'
     @user        = build_curator(HierarchyEntry.gen, :credentials => @credentials)

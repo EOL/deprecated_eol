@@ -5,7 +5,7 @@ require 'nokogiri'
 
 describe 'Data Object Tags' do
   before(:all) do
-    EolScenario.load :foundation
+    load_foundation_cache
     Capybara.reset_sessions!
     taxon_concept = build_taxon_concept(:images => [{}])
     @image_dato   = taxon_concept.images.last

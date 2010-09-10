@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 describe Administrator::ContentPartnerReportController do
   before(:all) do
-    EolScenario.load :foundation
+    load_foundation_cache
   end
 
   it "should send monthly report email" do

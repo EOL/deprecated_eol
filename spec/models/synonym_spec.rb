@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Synonym do
   before(:all) do
-    EolScenario.load :foundation
+    load_foundation_cache
     @tc = build_taxon_concept
     @agent = Agent.last
     @lang = Language.english

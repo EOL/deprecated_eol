@@ -38,7 +38,7 @@ describe DataObject do
 
   before(:all) do
     truncate_all_tables
-    EolScenario.load(:foundation) # Just so we have DataType IDs and the like.
+    load_foundation_cache # Just so we have DataType IDs and the like.
     unless @already_built_tc
       build_taxon_concept
     end
@@ -489,7 +489,7 @@ describe DataObject do
   describe 'feeds functions' do
     before(:all) do
       truncate_all_tables
-      EolScenario.load('foundation')
+      load_foundation_cache
       DataObject.delete_all
       @tc = build_taxon_concept()
     end

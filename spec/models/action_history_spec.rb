@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe ActionsHistory do
 
-  EolScenario.load :foundation
+  load_foundation_cache
     
   describe '#new_actions_histories' do
 

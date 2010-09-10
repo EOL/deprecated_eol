@@ -28,7 +28,16 @@ class Ref < SpeciesSchemaModel
                   AND he.published=1
                   AND refs.published=1
                   AND refs.visibility_id=?
-                    ", taxon_concept_id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id])
+        UNION
+        SELECT refs.* FROM #{UsersDataObject.full_table_name} udo
+                  JOIN data_objects do ON (udo.data_object_id=do.id)
+                  JOIN data_objects_refs dor ON (do.id=dor.data_object_id) 
+                  JOIN refs ON (dor.ref_id=refs.id)
+                  WHERE udo.taxon_concept_id=?
+                  AND do.published=1
+                  AND do.visibility_id=?
+                  AND refs.published=1
+                  AND refs.visibility_id=?", taxon_concept_id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
   end
 
   # Determines whether or not the TaxonConcept has Literature References
@@ -55,7 +64,18 @@ class Ref < SpeciesSchemaModel
                 AND he.published=1
                 AND refs.published=1
                 AND refs.visibility_id=?
-                LIMIT 1", taxon_concept_id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id])
+                LIMIT 1
+      UNION
+      SELECT 1 FROM #{UsersDataObject.full_table_name} udo
+                JOIN data_objects do ON (udo.data_object_id=do.id)
+                JOIN data_objects_refs dor ON (do.id=dor.data_object_id) 
+                JOIN refs ON (dor.ref_id=refs.id)
+                WHERE udo.taxon_concept_id=?
+                AND do.published=1
+                AND do.visibility_id=?
+                AND refs.published=1
+                AND refs.visibility_id=?
+                LIMIT 1", taxon_concept_id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, Visibility.visible.id])
     ref_count > 0
   end
 

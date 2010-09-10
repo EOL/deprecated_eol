@@ -4,7 +4,6 @@ require 'nokogiri'
 module EOL
   module Spec
     module Helpers
-
       # get or set a variable that's stored on the spec (the describe block)
       # so it's cached between examples
       #
@@ -232,17 +231,33 @@ module EOL
       end
       
       def load_foundation_cache(truncate = false)
-        #truncate_all_tables if truncate
-        we_have_all_files = true
-        all_connections.each do |conn|
-          mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{conn.config[:database]}_dump.sql")
-          unless FileTest.exists?(mysqldump_path)
-            we_have_all_files = false
-            break
+        #truncate_all_tables if truncate        
+        if $FOUNDATION_ALREADY_LOADED.blank?
+          EolScenario.load :foundation
+          
+          all_connections.each do |conn|
+            tables_to_export = []
+            conn.tables.each do |table|
+              next if table == 'schema_migrations'
+              count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
+              tables_to_export << table if count_rows.num_rows > 0
+            end
+            
+            mysql_config = conn.config
+            mysql_params = conn.command_line_parameters
+            mysqldump_cmd = "mysqldump #{mysql_params} --compact --no-create-info #{conn.config[:database]} #{tables_to_export.join(' ')}"
+            #puts mysqldump_cmd
+            result = `#{mysqldump_cmd}`
+            # the next two lines will vastly speed up the import
+            result = "SET AUTOCOMMIT = 0;\nSET FOREIGN_KEY_CHECKS=0;\nUSE `#{conn.config[:database]}`;\n" + result
+            result += "SET FOREIGN_KEY_CHECKS = 1;\nCOMMIT;\nSET AUTOCOMMIT = 1;\n"
+            result.gsub!(/INSERT/, 'INSERT IGNORE')
+            # write the dump to /tmp
+            mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{conn.config[:database]}_dump.sql")
+            File.open(mysqldump_path, 'w') {|f| f.write(result) }
+            $FOUNDATION_ALREADY_LOADED = true
           end
-        end
-        
-        if we_have_all_files
+        else
           $CACHE.clear
           if User.find_by_username('foundation_already_loaded')
             puts "** WARNING: You attempted to load the foundation scenario twice, here.  Please fix it."
@@ -250,46 +265,19 @@ module EOL
           end
           
           all_connections.each do |conn|
-            mysql_config = conn.config
-            mysql_params = "--host=#{mysql_config[:host]} --user=#{mysql_config[:username]} --password=#{mysql_config[:password]}"
-            mysql_params += " --port=#{mysql_config[:port]}" unless mysql_config[:port].blank?
-            mysql_params += " --default-character-set=#{mysql_config[:encoding]}" unless mysql_config[:encoding].blank?
-            mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{mysql_config[:database]}_dump.sql")
-            mysqlimport_cmd = "mysql #{mysql_params} < #{mysqldump_path}"
-            
-            #puts mysqlimport_cmd
-            result = `#{mysqlimport_cmd}`
-          end
-        else
-          EolScenario.load :foundation
-          
-          all_connections.each do |conn|
-            tables_to_export = []
-            conn.tables.each do |table|
-              unless table == 'schema_migrations'
-                count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
-                tables_to_export << table if count_rows.num_rows > 0
+            mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{conn.config[:database]}_dump.sql")
+            IO.readlines(mysqldump_path).to_s.split(/;\s*[\r\n]+/).each do |cmd|
+              if cmd =~ /\w/m # Only run commands with text in them.  :)  A few were "\n\n".
+                conn.execute cmd.strip
               end
             end
-            
-            mysql_config = conn.config
-            mysql_params = "--host=#{mysql_config[:host]} --user=#{mysql_config[:username]} --password=#{mysql_config[:password]}"
-            mysql_params += " --port=#{mysql_config[:port]}" unless mysql_config[:port].blank?
-            mysql_params += " --default-character-set=#{mysql_config[:encoding]}" unless mysql_config[:encoding].blank?
-            mysqldump_cmd = "mysqldump #{mysql_params} --compact --no-create-info #{mysql_config[:database]} #{tables_to_export.join(' ')}"
-            #puts mysqldump_cmd
-            result = `#{mysqldump_cmd}`
-            # the next two lines will vastly speed up the import
-            result = "SET AUTOCOMMIT = 0;\nSET FOREIGN_KEY_CHECKS=0;\nUSE `#{mysql_config[:database]}`;\n" + result
-            result += "SET FOREIGN_KEY_CHECKS = 1;\nCOMMIT;\nSET AUTOCOMMIT = 1;\n"
-            # write the dump to /tmp
-            mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{mysql_config[:database]}_dump.sql")
-            File.open(mysqldump_path, 'w') {|f| f.write(result) }
-            
+            # mysql_params = conn.command_line_parameters
+            # mysqlimport_cmd = "mysql #{mysql_params} < #{mysqldump_path}"
+            # #puts mysqlimport_cmd
+            # result = `#{mysqlimport_cmd}`
           end
         end
       end
-
     end
   end
 end

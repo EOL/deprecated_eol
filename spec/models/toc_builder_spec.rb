@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe TocBuilder do
   
   before(:each) do
-    EolScenario.load :foundation  # loading the old way as there was a failure otherwise
+    truncate_all_tables
+    load_foundation_cache
   end
   
   describe '#toc_for' do

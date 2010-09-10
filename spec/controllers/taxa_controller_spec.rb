@@ -10,6 +10,7 @@ describe TaxaController do
   describe 'search' do
 
     before(:all) do
+      truncate_all_tables
       EolScenario.load :search_with_duplicates
       @tc_id                   = SearchScenarioResults.tc_id
       @new_common_name         = SearchScenarioResults.new_common_name

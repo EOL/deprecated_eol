@@ -280,9 +280,9 @@ module ActiveRecord
       end
       
       def command_line_parameters
-        mysql_params = "--host=#{@config[:host]} --user=#{@config[:username]} --password=#{@config[:password]}"
-        mysql_params += " --port=#{@config[:port]}" unless @config[:port].blank?
-        mysql_params += " --default-character-set=#{@config[:encoding]}" unless @config[:encoding].blank?
+        mysql_params = "--host='#{@config[:host]}' --user='#{@config[:username]}' --password='#{@config[:password]}'"
+        mysql_params += " --port='#{@config[:port]}'" unless @config[:port].blank?
+        mysql_params += " --default-character-set='#{@config[:encoding]}'" unless @config[:encoding].blank?
       end
     end
   end

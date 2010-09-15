@@ -206,6 +206,7 @@ describe 'Search' do
       # it should still find all tags because it uses guid, not id for finding relevant information
       new_image_dato = DataObject.build_reharvested_dato(image_dato)
       new_image_dato.tag("key-new", "value-new", user)
+      DataObjectsTaxonConcept.gen(:taxon_concept => taxon_concept, :data_object => new_image_dato)
       
       visit('/search?q=value-old&search_type=tag')
       body.should include(taxon_concept.scientific_name)

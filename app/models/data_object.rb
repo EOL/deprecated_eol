@@ -698,27 +698,14 @@ class DataObject < SpeciesSchemaModel
     return [] if tags.empty?
     data_object_tags = DataObjectTags.search_by_tags_or tags, options[:user_id]
     return [] if data_object_tags.empty?
-
-    if options[:clade]
-
-      # TODO - THIS HAS BEEN COPY/PASTED - ***JUST*** FOR TESTING - NEEDS REFACTORING & TO BE DRY'd UP
-      options[:clade] = [ options[:clade] ] unless options[:clade].is_a?Array
-      data_object_ids = data_object_tags.map(&:data_object_id).uniq
-      clades = HierarchyEntry.find :all, :conditions => options[:clade].map {|id| "id = #{id}" }.join(' OR ')
-      return [] if clades.empty?
-      sql = %[
-        SELECT DISTINCT top_images.data_object_id
-        FROM top_images 
-        JOIN hierarchy_entries ON top_images.hierarchy_entry_id = hierarchy_entries.id
-        WHERE ]
-      sql += clades.map {|clade| "(hierarchy_entries.lft >= #{clade.lft} AND hierarchy_entries.lft <= #{clade.rgt})" }.join(' OR ')
-      sql += %[ AND data_object_id IN (#{data_object_ids.join(',')})]
-      tagged_images_in_clade = TopImage.find_by_sql sql
-      return tagged_images_in_clade.map {|img| DataObject.find(img.data_object_id) }.uniq
-
-    else
-      return data_object_tags.map(&:object).uniq
+    
+    return_objects = []
+    data_object_tags.each do |dot|
+      if obj = DataObject.find_by_guid_and_published_and_visibility_id(dot.data_object_guid, 1, Visibility.visible.id, :order => 'id desc')
+        return_objects << obj
+      end
     end
+    return return_objects
   end
   
   def self.build_top_images_query(taxon, options = {})
@@ -1115,6 +1102,11 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     return nil if obj.id.nil?
     return DataObject.find(obj.id)
   end
+  def latest_published_version
+    obj = DataObject.find_by_sql("SELECT * FROM data_objects WHERE guid='#{guid}' AND published=1 ORDER BY id desc LIMIT 1")
+    return obj
+  end
+  
   
   def self.get_toc_info(obj_ids)    
     obj_toc_info = {} #same Hash.new

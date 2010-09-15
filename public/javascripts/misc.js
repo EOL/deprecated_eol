@@ -339,7 +339,7 @@ function eol_update_video(params) {
 }
 
 function displayNode(id) {
-	displayNode(id, false)
+	displayNode(id, false);
 }
 
 // call remote function to show the selected node in the text-based navigational tree view
@@ -393,13 +393,13 @@ function update_browser_stats(hierarchy_entry_id, expand) {
 
 // for re-rendering TOC
 function refresh_toc() {
-    jquery_post(null, '/administrator/table_of_contents/show_tree', $j('#edit_toc'))
+    jquery_post(null, '/administrator/table_of_contents/show_tree', $j('#edit_toc'));
 }
 function toc_move_up(toc_id, top) {
-    jquery_post("id="+toc_id+"&top="+top, '/administrator/table_of_contents/move_up', $j('#edit_toc'))
+    jquery_post("id="+toc_id+"&top="+top, '/administrator/table_of_contents/move_up', $j('#edit_toc'));
 }
 function toc_move_down(toc_id, bottom) {
-    jquery_post("id="+toc_id+"&bottom="+bottom, '/administrator/table_of_contents/move_down', $j('#edit_toc'))
+    jquery_post("id="+toc_id+"&bottom="+bottom, '/administrator/table_of_contents/move_down', $j('#edit_toc'));
 }
 function toc_add_sub_chapter(parent_id, input_id) {
     input_value = $j("#"+input_id).val();
@@ -407,7 +407,7 @@ function toc_add_sub_chapter(parent_id, input_id) {
         alert('You must enter a sub-chapter label');
         return false;
     }else {
-        jquery_post("label="+input_value+"&parent_id="+parent_id, '/administrator/table_of_contents/create', $j('#edit_toc'))
+        jquery_post("label="+input_value+"&parent_id="+parent_id, '/administrator/table_of_contents/create', $j('#edit_toc'));
     }
 }
 function toc_add_chapter(input_id) {
@@ -416,7 +416,7 @@ function toc_add_chapter(input_id) {
         alert('You must enter a chapter label');
         return false;
     }else {
-        jquery_post("label="+input_value+"&parent_id=0", '/administrator/table_of_contents/create', $j('#edit_toc'))
+        jquery_post("label="+input_value+"&parent_id=0", '/administrator/table_of_contents/create', $j('#edit_toc'));
     }
 }
 function toc_edit_label(toc_id, toc_label) {
@@ -430,7 +430,7 @@ function submit_new_label(toc_id, input_id) {
         alert('You must enter a new label');
         return false;
     }else {
-        jquery_post("id="+toc_id+"&label="+input_value, '/administrator/table_of_contents/update', $j('#edit_toc'))
+        jquery_post("id="+toc_id+"&label="+input_value, '/administrator/table_of_contents/update', $j('#edit_toc'));
     }
 }
 
@@ -444,7 +444,7 @@ function jquery_post(data, url, target)
       success: function(data) {
         target.html(data);
       },
-      complete: function(request) {hideAjaxIndicator();},
+      complete: function(request) {hideAjaxIndicator();}
     });
 }
 
@@ -452,11 +452,11 @@ function jquery_post(data, url, target)
 function toggle_children() {
     Element.toggle('taxonomic-children');
     if ($('toggle_children_link').innerHTML=='-') {
-        $('toggle_children_link').innerHTML='+'
+        $('toggle_children_link').innerHTML='+';
     }
     else
     {
-        $('toggle_children_link').innerHTML='-'
+        $('toggle_children_link').innerHTML='-';
     }
 }
 
@@ -492,7 +492,7 @@ function taxon_comments_permalink(comment_id) {
     $(element).childNodes[0].observe('click', function()
     {
       $('media-taxa-comments').hide();
-    })
+    });
   }
   id_arrays.forEach(hide_taxa_comment);
 }

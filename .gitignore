@@ -28,7 +28,12 @@ solr/logs/*.*
 solr/solr/data/index/*
 solr/solr/eol-solr.pid
 solr/work/*
-tmp
+tmp/cache/*
+tmp/pids/*
+tmp/sass-cache/*
+tmp/sessions/*
+tmp/sockets/*
+tmp/*.sql
 vendor/eol_org
 vendor/gems/json-1.1.6/ext/json/ext/generator/Makefile
 vendor/gems/json-1.1.6/ext/json/ext/generator/mkmf.log

@@ -245,7 +245,7 @@ module EOL
             
             mysql_config = conn.config
             mysql_params = conn.command_line_parameters
-            mysqldump_cmd = "mysqldump #{mysql_params} --compact --no-create-info #{conn.config[:database]} #{tables_to_export.join(' ')}"
+            mysqldump_cmd = $MYSQLDUMP_COMPLETE_PATH + " #{mysql_params} --compact --no-create-info #{conn.config[:database]} #{tables_to_export.join(' ')}"
             #puts mysqldump_cmd
             result = `#{mysqldump_cmd}`
             # the next two lines will vastly speed up the import

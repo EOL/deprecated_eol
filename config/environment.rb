@@ -194,6 +194,8 @@ Rails::Initializer.run do |config|
   # Default Values for some language-dependent titles:
   $ADMIN_CONSOLE_TITLE = 'EOL Administration Console'
   $CURATOR_CENTRAL_TITLE = 'Curator Central'
+  
+  $MYSQLDUMP_COMPLETE_PATH = 'mysqldump'
 
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store

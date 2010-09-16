@@ -531,7 +531,7 @@ private
     images.each_with_index do |image,i|
       # We're "normalizing" the ids, here, since we've already run this method on the input id:
       lpvo = image.id
-      if obj = DataObject.latest_published_version_of(image_id)
+      if obj = DataObject.latest_published_version_of(lpvo)
         lpvo = obj.id
       end
       if lpvo == image_id

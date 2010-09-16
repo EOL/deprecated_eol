@@ -1,6 +1,6 @@
 = Encyclopedia of Life
 
-= www.eol.org
+= http://www.eol.org
 
 == INTRODUCTION
 

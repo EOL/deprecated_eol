@@ -373,10 +373,11 @@ class HierarchyEntry < SpeciesSchemaModel
   # Walk up the list of ancestors until you find a node that we can map to the specified hierarchy.
   def find_ancestor_in_hierarchy(hierarchy)
     he = self
-    until he.taxon_concept.in_hierarchy(hierarchy)
+    until he.nil? || he.taxon_concept.nil? || he.taxon_concept.in_hierarchy(hierarchy)
       return nil if he.parent_id == 0
       he = he.parent
     end
+    return nil if he.nil? || he.taxon_concept.nil?
     he.taxon_concept.entry(hierarchy)
   end
   

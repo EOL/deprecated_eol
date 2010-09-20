@@ -454,6 +454,7 @@ class TaxonConcept < SpeciesSchemaModel
     return false if taxon_concept_ids.blank?
     concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
     hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
+    return false if hierarchy_entry_ids.blank?
     
     results = SpeciesSchemaModel.connection.execute("
         SELECT he.id, he.taxon_concept_id, n.string name_string, n_parent1.string parent_name_string, n_parent2.string grandparent_name_string
@@ -694,7 +695,7 @@ class TaxonConcept < SpeciesSchemaModel
     return concept if concept.supercedure_id == 0
     attempts = 0
     while concept.supercedure_id != 0 and attempts <= 6
-      concept = TaxonConcept.find_without_supercedure(concept.supercedure_id, *args[1..-1])
+      concept = TaxonConcept.find_without_supercedure(concept.supercedure_id)
       attempts += 1
     end
     concept.superceded_the_requested_id # Sets a flag that we can check later.

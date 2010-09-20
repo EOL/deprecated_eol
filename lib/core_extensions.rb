@@ -283,6 +283,7 @@ module ActiveRecord
         mysql_params = "--host='#{@config[:host]}' --user='#{@config[:username]}' --password='#{@config[:password]}'"
         mysql_params += " --port='#{@config[:port]}'" unless @config[:port].blank?
         mysql_params += " --default-character-set='#{@config[:encoding]}'" unless @config[:encoding].blank?
+        return mysql_params
       end
     end
   end

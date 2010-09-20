@@ -169,6 +169,16 @@ Note that Solr must be running in the test RAILS_ENV before tests will pass:
 
 Also note that the solr:stop command works even if the server was started in the development environment.
 
+=== Possible error: "You haven't loaded the foundation scenario, and tried to build a TaxonConcept with no vetted id."
+
+If you get this error, you may need to point your code to the correct version of mysqldump.
+
+Create config/environments/local.rb (this will be ignored by revision control), and put this in it:
+
+  $MYSQLDUMP_COMPLETE_PATH = '/usr/bin/mysqldump'
+
+(But make sure that the path you use here is *really* a working version of mysqldump.)
+
 === Test Logins
 
 admin user

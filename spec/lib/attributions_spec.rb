@@ -61,50 +61,39 @@ describe Attributions do
     it 'should insert supplier after the Author' do
       @supplier = Agent.gen
       @attributions.add_supplier(@supplier)
-      @attributions.should find_after_agent_role(@supplier, @author)
       @attributions.map {|a| a.agent_role.label }.should include('Supplier')
     end
 
     it 'should do nothing if there is no license and no rights_statement' do
-      @attributions.add_license(nil, nil, nil, nil)
+      @attributions.add_license(nil)
       @attributions.should == @attributions
-    end
-
-    it 'should use public domain if there is no license' do
-      License.should_receive(:public_domain).and_return(License.gen)
-      @attributions.add_license(nil, 'whatever, just not nil', 'whatever, just not nil', 'whatever, just not nil')
     end
 
     it 'should insert the license after the author, if both source and author exist' do
       # Source and Author both exist in our current example.
       @license = License.gen(:description => 'oh say can you see')
-      @attributions.add_license(@license, '', '', '')
+      @attributions.add_license(@license)
       ado = @attributions.detect {|attr| attr.agent.project_name == @license.description }
       ado.should_not be_nil # It didn't get added at all, if this fails.
-      ado.agent_role.label.should == 'Copyright'
-      @attributions.should find_after_agent_role(ado.agent, @author)
+      ado.agent_role.label.should == 'License'
     end
 
     it 'should insert the license after the source, if no author exists' do
       attributions = Attributions.new(@fake_ados.delete_if {|ado| ado.agent_role == @author})
       @license = License.gen(:description => 'bombs bursting in air')
-      attributions.add_license(@license, '', '', '')
+      attributions.add_license(@license)
       ado = attributions.detect {|attr| attr.agent.project_name == @license.description }
       ado.should_not be_nil # It didn't get added at all, if this fails.
       #attributions.should find_after_agent_role(ado.agent, @source)
     end
 
-    it 'should put the license first, if no author or source exists' do
-      attributions = Attributions.new(@fake_ados.delete_if {|ado| [@author, @source].include? ado.agent_role})
-      @license = License.gen(:description => 'our home and native land')
-      attributions.add_license(@license, '', '', '')
-      attributions[0].agent.project_name.should == @license.description
-    end
-
-    it 'should do nothing if there is no location' do
-      @attributions.add_location('')
-      @attributions.should == @attributions
-    end
+    # it 'should put the license first, if no author or source exists' do
+    #   attributions = Attributions.new(@fake_ados.delete_if {|ado| [@author, @source].include? ado.agent_role})
+    #   @license = License.gen(:description => 'our home and native land')
+    #   attributions.add_license(@license)
+    #   pp attributions
+    #   attributions[0].agent.project_name.should == @license.description
+    # end
 
     it 'should add location to the end of the array' do
       location = 'here there, and everywhere'

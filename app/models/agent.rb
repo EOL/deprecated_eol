@@ -129,17 +129,9 @@ class Agent < SpeciesSchemaModel
     cached_find(:full_name, 'Biology of Aging', :serialize => true)
   end
   
-  def self.from_license(license, rights_statement = nil, rights_holder = nil, data_type_id = nil)
-    rights_holder_part = "&#169 #{rights_holder}.<br>" unless rights_holder.nil? || rights_holder.blank?
-    if(data_type_id == 3)
-      rights_statement_part = ""
-    else
-      rights_statement_part = "Rights: #{rights_statement.strip}.<br>" unless rights_statement.blank?
-    end
-    Agent.new :project_name => (rights_statement.blank? && rights_holder.blank? ?
-                                license.description :
-                                "#{rights_holder_part} #{rights_statement_part} #{license.description}"), 
-              :homepage => license.source_url, :logo_url => license.logo_url, :logo_cache_url => 0, 
+  def self.from_license(license)
+    Agent.new :project_name => license.description,
+              :homepage => license.source_url, :logo_url => license.logo_url, :logo_cache_url => 0,
               :logo_file_name => license.logo_url # <-- check for the presence of logo_file name
   end
 

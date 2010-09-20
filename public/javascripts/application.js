@@ -136,7 +136,8 @@ Event.addBehavior(
     if (!(
         classes.include('author') ||
         classes.include('source') ||
-        classes.include('copyright') ||
+        classes.include('rights') ||
+        classes.include('license') ||
         classes.include('datasupplier') ||
         classes.include('indexed') ||
         classes.include('supplier') ||

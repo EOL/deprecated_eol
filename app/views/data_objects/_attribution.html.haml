@@ -25,18 +25,7 @@
       %div{ :class => "credit #{css_class(attribution.agent_role)}" }
         .credit-caption
           = attribution.agent_role
-        .credit-value
-          - if attribution.agent_role.to_s == "Copyright"
-            - sub = /.*<a(.*)<\/a>.*/.match(attribution.agent.to_s)
-            - if sub  
-              - extracted = "<a " + sub[1] + "</a>"              
-              - inside_href = extracted.gsub(/<\/?[^>]*>/, "")#removes HTML tags
-              - extracted = "© " + extracted + ".<br>"
-              = extracted
-              - remain = attribution.agent.project_name
-              - remain = Sanitize.clean(remain, :elements => ['']) #except br use ['br']
-              - remain["© #{inside_href}."]="" #remove from string the agent with hyperlink
-              - attribution.agent.project_name = remain            
+        .credit-value         
           / agent partial
           = agent_partial(attribution.agent)
           / agent icon

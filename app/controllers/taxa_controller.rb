@@ -101,6 +101,9 @@ class TaxaController < ApplicationController
       render(:layout => 'main', :template => "content/missing", :status => 404)
       return
     end
+    if params[:category_id]
+      params[:category_id] = nil if !TocItem.find_by_id(params[:category_id].to_i)
+    end
     append_content_instance_variables(params[:category_id].to_i) if params[:category_id]
 
     @concept_browsable_hierarchies = Hierarchy.browsable_for_concept(@taxon_concept)
@@ -425,11 +428,10 @@ private
   end
 
   def get_new_text_tocitem_id(category_id)
-    if category_id && TocItem.find(category_id).allow_user_text?
-      category_id
-    else
-      'none'
+    if category_id && toc = TocItem.find_by_id(category_id)
+      return category_id if toc.allow_user_text?
     end
+    return 'none'
   end
 
   def videos_to_show

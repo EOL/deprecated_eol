@@ -7,8 +7,8 @@ class TaxaController < ApplicationController
   def index
     #this is cheating because of mixing taxon and taxon concept use of the controller
 
-    # you need to be a content partner and logged in to get here
-    if current_agent.nil?
+    # you need to be a content partner OR ADMIN and logged in to get here
+    if current_agent.nil? && !current_user.is_admin?
       redirect_to(root_url)
       return
     end
@@ -37,9 +37,9 @@ class TaxaController < ApplicationController
 
 
       @taxa_contributed = results.paginate(:page => page)
-      @page_title = $ADMIN_CONSOLE_TITLE if current_agent.is_admin?
+      @page_title = $ADMIN_CONSOLE_TITLE if current_user.is_admin?
       @navigation_partial = '/admin/navigation'
-      render :html => 'content_partner', :layout => current_user.is_admin? ? 'admin' : 'content_partner'
+      render :html => 'content_partner', :layout => current_user.is_admin? ? 'left_menu' : 'content_partner'
     else
       redirect_to(:action=>:show, :id => params[:id])
     end

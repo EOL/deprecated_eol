@@ -7,8 +7,8 @@ class TaxaController < ApplicationController
   def index
     #this is cheating because of mixing taxon and taxon concept use of the controller
 
-    # you need to be a content partner and logged in to get here
-    if current_agent.nil?
+    # you need to be a content partner OR ADMIN and logged in to get here
+    if current_agent.nil? && !current_user.is_admin?
       redirect_to(root_url)
       return
     end
@@ -37,9 +37,9 @@ class TaxaController < ApplicationController
 
 
       @taxa_contributed = results.paginate(:page => page)
-      @page_title = $ADMIN_CONSOLE_TITLE if current_agent.is_admin?
+      @page_title = $ADMIN_CONSOLE_TITLE if current_user.is_admin?
       @navigation_partial = '/admin/navigation'
-      render :html => 'content_partner', :layout => current_user.is_admin? ? 'admin' : 'content_partner'
+      render :html => 'content_partner', :layout => current_user.is_admin? ? 'left_menu' : 'content_partner'
     else
       redirect_to(:action=>:show, :id => params[:id])
     end
@@ -100,6 +100,9 @@ class TaxaController < ApplicationController
       @taxon_concept = nil
       render(:layout => 'main', :template => "content/missing", :status => 404)
       return
+    end
+    if params[:category_id]
+      params[:category_id] = nil if !TocItem.find_by_id(params[:category_id].to_i)
     end
     append_content_instance_variables(params[:category_id].to_i) if params[:category_id]
 
@@ -425,11 +428,10 @@ private
   end
 
   def get_new_text_tocitem_id(category_id)
-    if category_id && TocItem.find(category_id).allow_user_text?
-      category_id
-    else
-      'none'
+    if category_id && toc = TocItem.find_by_id(category_id)
+      return category_id if toc.allow_user_text?
     end
+    return 'none'
   end
 
   def videos_to_show
@@ -529,7 +531,12 @@ private
 
   def find_selected_image_index(images,image_id)
     images.each_with_index do |image,i|
-      if image.id == image_id
+      # We're "normalizing" the ids, here, since we've already run this method on the input id:
+      lpvo = image.id
+      if obj = DataObject.latest_published_version_of(lpvo)
+        lpvo = obj.id
+      end
+      if lpvo == image_id
         return i
       end
     end

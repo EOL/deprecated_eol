@@ -332,10 +332,12 @@ class DataObject < SpeciesSchemaModel
 
     @attributions = Attributions.new(agents_data_objects)
 
-    @attributions.add_supplier   self.data_supplier_agent 
-    @attributions.add_license    self.license, rights_statement, rights_holder, data_type_id
+    @attributions.add_supplier   self.data_supplier_agent
+    @attributions.add_rights     self.rights_statement, self.rights_holder
+    @attributions.add_license    self.license
     @attributions.add_location   self.location
     @attributions.add_source_url self.source_url
+    @attributions.add_date       self.created_at
     @attributions.add_citation   self.bibliographic_citation
 
     return @attributions

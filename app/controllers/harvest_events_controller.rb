@@ -2,6 +2,7 @@ class HarvestEventsController < ApplicationController
 
   before_filter :find_resource
   before_filter :agent_login_required, :resource_must_belong_to_agent, :agent_must_be_agreeable, :unless => :is_user_admin?
+  before_filter :set_layout_variables
   layout :choose_layout
 
   def index
@@ -24,7 +25,14 @@ protected
   end
 
   def choose_layout
-    current_user.is_admin? ? 'admin' : 'content_partner'
+    current_user.is_admin? ? 'left_menu' : 'content_partner'
+  end
+  
+private
+
+  def set_layout_variables
+    @page_title = $ADMIN_CONSOLE_TITLE
+    @navigation_partial = '/admin/navigation'
   end
 
 end

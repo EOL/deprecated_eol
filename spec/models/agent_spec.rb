@@ -112,9 +112,8 @@ describe Agent do
       @rights_statement = "This is the rights statement with too much white space    "
     end
 
-    it 'should create a fake agent from a license and rights_statement' do
-      fake_agent                       = Agent.from_license @license, @rights_statement
-      fake_agent.project_name.should   match(/#{@rights_statement.strip}/)
+    it 'should create a fake agent from a license' do
+      fake_agent                       = Agent.from_license @license
       fake_agent.project_name.should   match(/#{@license.description.gsub(/\?/, '\\?')}/)
       fake_agent.homepage.should       == @license.source_url
       fake_agent.logo_file_name.should == @license.logo_url

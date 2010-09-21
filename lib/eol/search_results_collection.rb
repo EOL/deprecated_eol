@@ -54,12 +54,16 @@ module EOL
     def adapt_results_for_view
       results.map! do |result|
         result['id'] = result['taxon_concept_id'][0].to_i
-        if (result[@best_match_field_name].blank? or
-            result[@default_best_match_field_name].blank? or
-            result[@default_best_match_field_name].downcase == result[@best_match_field_name].downcase)
+        best_match_name = result[@best_match_field_name]
+        best_match_name = best_match_name[0] if best_match_name.class == Array
+        default_best_match_name = result[@default_best_match_field_name]
+        default_best_match_name = default_best_match_name[0] if default_best_match_name.class == Array
+        if (best_match_name.blank? or
+            default_best_match_name.blank? or
+            default_best_match_name.downcase == best_match_name.downcase)
           result[@shown_as_field_name] = '' 
         else 
-          result[@shown_as_field_name] = "shown as '#{result[@default_best_match_field_name]}'"
+          result[@shown_as_field_name] = "shown as '#{default_best_match_name}'"
         end
         result['top_image'] = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil rescue nil
         result['unknown']   = true if result['vetted_id'] and result['vetted_id'][0].to_i == Vetted.unknown.id

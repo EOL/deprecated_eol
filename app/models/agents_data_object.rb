@@ -8,9 +8,9 @@ class AgentsDataObject < SpeciesSchemaModel
 
   # Allows us to create a "fake" entry (which never hits the database) for licenses... a way to add copyright
   # to attributions.
-  def self.from_license license, rights_statement, rights_holder, data_type_id
-    AgentsDataObject.new :agent => Agent.from_license(license, rights_statement, rights_holder, data_type_id),
-                         :agent_role => AgentRole.new(:label => 'Copyright'), :view_order => 0
+  def self.from_license license
+    AgentsDataObject.new :agent => Agent.from_license(license),
+                         :agent_role => AgentRole.new(:label => 'License'), :view_order => 0
   end
 
 end

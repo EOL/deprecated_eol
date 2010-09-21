@@ -143,7 +143,7 @@ create_if_not_exists DataType, :label => 'Flash',     :schema_value => 'Flash'
 create_if_not_exists DataType, :label => 'YouTube',   :schema_value => 'YouTube'
 
 create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => $DEFAULT_HIERARCHY_NAME, :browsable => 1
-default_hierarchy = create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009", :browsable => 1
+default_hierarchy = create_if_not_exists Hierarchy, :agent => Agent.catalogue_of_life, :label => "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010", :browsable => 1
 create_if_not_exists Hierarchy, :label => "Encyclopedia of Life Contributors"
 first_ncbi = Hierarchy.gen(:agent => Agent.ncbi, :label => "NCBI Taxonomy", :browsable => 1)
 first_ncbi.hierarchy_group_id = 101

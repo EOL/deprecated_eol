@@ -53,7 +53,7 @@ private
   def admin_unless_ajax
     @page_title = $ADMIN_CONSOLE_TITLE
     @navigation_partial = '/admin/navigation'
-    layout = (["show_tree"].include? action_name) ? nil : 'admin'
+    layout = (["show_tree"].include? action_name) ? nil : 'left_menu'
   end
   
 end

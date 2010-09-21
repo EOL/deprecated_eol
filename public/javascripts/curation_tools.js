@@ -1,3 +1,14 @@
+$j(function() {
+  $j(".overlay_link a[rel]").overlay({
+    onBeforeLoad: function() {
+      var wrap = this.getOverlay().find(".content-wrap");
+      wrap.text('');
+      wrap.append('<h2>Loading, please wait...</h2>');
+      wrap.load(this.getTrigger().attr("href"));
+    }
+  });
+});
+
 $j('ul.small-star li a').click(function() {
   $j.post($j(this).attr('href'));
   EOL.Rating.update_user_image_rating($j(this).attr('data-data_object_id'), $j(this).text());

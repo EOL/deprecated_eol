@@ -1,7 +1,7 @@
 .curation-section
   .credit-caption
     = "Rating"[]
-  .image-rating.credit-value
+  .image-rating.action-value
     -# TODO - This has a problem... it's not specific to the data object in question, so Ajax is not intelligent about updating the right values when it's changed.  It ALSO doesn't seem to work in this context: the images are not clickable... and I can't figure out why.  Help!
     = render :partial => '/taxa/star_rating', :locals => {:data_object => data_object, :show_controls => true}
 .clearbreak
@@ -9,7 +9,7 @@
 .curation-section
   .credit-caption
     = "Vetted"[]
-  .credit-value
+  .action-value
     %span{:id => "trust-label-#{data_object.id}"}
       = data_object.vetted.label
     %br/
@@ -22,7 +22,7 @@
 .curation-section
   .credit-caption
     = "Visibility"[]
-  .credit-value
+  .action-value
     %span{:id => "visibility-label-#{data_object.id}"}
       = data_object.visibility.label
     %br/
@@ -34,10 +34,10 @@
 .curation-section
   .credit-caption
     = "Comment"[]
-  .credit-value
+  .action-value
     This comment will be publicly visible.
     %form{:action => :comment, :id => "comment_#{data_object.id}", :class => "comment", :onsubmit => 'return false;'}
       %input{:type => "hidden", :value => data_object.id, :name => "data_object_id", :id => "data_object_id"}
-      = text_area_tag 'comment', nil, :rows => comment_height, :cols => comment_width
+      = text_area_tag 'comment', nil, :rows => comment_height, :class => 'comment-box'
       #save-comment
         = submit_tag "Save"

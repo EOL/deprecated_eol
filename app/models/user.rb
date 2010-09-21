@@ -572,7 +572,7 @@ class User < ActiveRecord::Base
           AND do.published = 1
           AND do.vetted_id = #{Vetted.unknown.id}
           AND do.data_type_id = #{DataType.image.id}
-        LIMIT 0,30", clade_id]); # TODO - I don't know if we should limit this.
+        LIMIT 0,300", clade_id]);
   end
 
   def uservoice_token

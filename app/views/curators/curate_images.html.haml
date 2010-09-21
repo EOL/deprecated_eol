@@ -1,15 +1,3 @@
-:javascript
-  $j(function() {
-  $j("td.overlay_link a[rel]").overlay({
-  mask: 'black',
-  onBeforeLoad: function() {
-  var wrap = this.getOverlay().find(".content-wrap");
-  wrap.text('');
-  wrap.append('<h2>Loading, please wait...</h2>');
-  wrap.load(this.getTrigger().attr("href"));
-  }
-  });
-  });
 -# TODO - Add a selector to Narrow the list by Content Provider
 = will_paginate(@images_to_curate)
 %table.results_table
@@ -22,30 +10,28 @@
     - row_class = cycle('odd', 'even')
     %tr
       %td{:class => "overlay_link #{row_class}"}
-        = link_to(image.taxon_concepts[0].scientific_name, {:action => 'curate_image', :data_object_id => image.id}, {:rel => '#overlay'})
+        %h5
+          = link_to(image.taxon_concepts[0].scientific_name, {:action => 'curate_image', :data_object_id => image.id}, {:rel => '#overlay'})
         - c_name = image.taxon_concepts[0].common_name
         - if !c_name.blank?
-          %br
-          = c_name
-        %br
+          %h6
+            = c_name
         = link_to(image_tag(image.thumb_or_object(:medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image.id}, {:rel => '#overlay'})
-        %br
-        %em
+        %h6
           = "Description:"[]
         - if image.description.empty?
           = "[description is blank]"[]
         - else
-          = truncate(image.description, 32)
+          = truncate(image.description, 48)
         - unless image.data_supplier_agent.full_name.empty?
-          %br
-          %em 
+          %h6
             = "Supplier:"[]
           = image.data_supplier_agent.full_name
         - unless image.location.empty?
           %br
           %em 
             = "Location:"[]
-          = truncate(image.location, 32)
+          = truncate(image.location, 48)
       %td{:class => row_class}
         = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24}
 = will_paginate(@images_to_curate)

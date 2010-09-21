@@ -5,12 +5,33 @@
   padding-bottom: 1em; }
 
 .results_table {
-  width: 100%; }
+  width: 100%;
+  border: 0; }
+  .results_table th {
+    font-size: 10pt;
+    padding: 10px;
+    text-align: center;
+    color: #383848;
+    border: 1px solid #8ccee6; }
+  .results_table td.odd {
+    background-color: #f5fafa; }
+  .results_table td.even {
+    background-color: #ecf3f4; }
   .results_table td {
     vertical-align: top;
     padding: 8px !important; }
     .results_table td p {
       padding-top: 1em; }
+    .results_table td h5 {
+      font-weight: bold; }
+    .results_table td h6 {
+      font-weight: bold;
+      color: #484858; }
+    .results_table td .curation-thumb {
+      border: 1px solid #a0a0a0;
+      margin-top: 5pt;
+      margin-bottom: 10pt;
+      display: block; }
 
 ul#toc li a {
   width: 200px;
@@ -32,7 +53,7 @@ ul#toc li a {
   color: #efefef;
   height: 565px;
   z-index: 1000;
-  width: 80em;
+  width: 46em;
   padding: 5px; }
 
 div.content-wrap {
@@ -59,7 +80,7 @@ div.content-wrap {
   width: 35px; }
 
 #big-img {
-  border: 2px solid black; }
+  border: 2px solid #909090; }
 
 .attribution {
   margin-top: 12px;
@@ -81,6 +102,16 @@ div.content-wrap {
   float: none;
   width: 28em !important; }
   .credit-value span {
+    font-weight: bold; }
+
+.action-value {
+  padding-left: 8em;
+  font-size: 9pt !important;
+  margin: 2pt 0;
+  float: none;
+  width: 28em !important;
+  text-align: left; }
+  .action-value span {
     font-weight: bold; }
 
 .results_table .credit-value {
@@ -110,10 +141,6 @@ div.content-wrap {
 .image-rating {
   padding-top: 0 !important; }
 
-.curation-thumb {
-  border: 1px solid black;
-  margin-top: 5pt; }
-
 p.submitted {
   padding: 4px !important;
   border: 1px solid #fdd017;
@@ -121,3 +148,9 @@ p.submitted {
 
 .clearbreak {
   height: 1px; }
+
+.comment-box {
+  width: 330px;
+  min-width: 190px;
+  max-width: 330px;
+  height: 50px; }

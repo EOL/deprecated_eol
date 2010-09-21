@@ -26,7 +26,7 @@ class CuratorsController < ApplicationController
     # TODO - This needs to add an optioanl argument to narrow by content partner.
     @images_to_curate = current_user.images_to_curate(
       :hierarchy_entry_id => params[:hierarchy_entry_id]
-    ).paginate(:page => params[:page], :per_page => 5)
+    ).paginate(:page => params[:page], :per_page => 30)
   end
 
   def curate_image

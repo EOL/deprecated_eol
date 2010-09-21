@@ -3,12 +3,13 @@
   $j("td.overlay_link a[rel]").overlay({
   mask: 'black',
   onBeforeLoad: function() {
-  var wrap = this.getOverlay().find(".contentWrap");
+  var wrap = this.getOverlay().find(".content-wrap");
+  wrap.text('');
+  wrap.append('<h2>Loading, please wait...</h2>');
   wrap.load(this.getTrigger().attr("href"));
   }
   });
   });
-= stylesheet_link_tag 'curator_tools'
 -# TODO - Add a selector to Narrow the list by Content Provider
 = will_paginate(@images_to_curate)
 %table.results_table
@@ -47,5 +48,5 @@
         %br
           Comment ( TODO )
 = will_paginate(@images_to_curate)
-#overlay.overlay
-  .contentWrap
+#overlay.overlay{:style => 'display:none'}
+  .content-wrap

@@ -155,12 +155,14 @@ div.insert_text table td {
   text-align: right; }
 
 form.curation .buttons {
+  padding-top: 15px;
   text-align: center; }
-form.curation .vetted .label, form.curation .visibility .label {
+form.curation .curation-section .label {
+  text-transform: uppercase;
   float: left; }
 form.curation .options {
   padding-top: 5px;
-  padding-left: 65px; }
+  padding-left: 56pt; }
 
 #large-image-curator-button-popup-link_popup {
   background-color: #f4f4f4; }
@@ -170,11 +172,8 @@ form.curation .label {
   font-size: 12px;
   font-weight: 700;
   line-height: 25px; }
-form.curation .vetted {
+form.curation .curation-section {
   padding-top: 15px; }
-form.curation .visibility {
-  padding-top: 15px;
-  padding-bottom: 15px; }
 form.curation div.option {
   padding-left: 8px; }
 form.curation .options .untrusted .reason {

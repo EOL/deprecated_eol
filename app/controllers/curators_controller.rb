@@ -41,6 +41,7 @@ class CuratorsController < ApplicationController
   def trust
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.trust(current_user)
+    @div_id = params[:div_id]
     respond_to do |fmt|
       fmt.js
     end
@@ -49,9 +50,51 @@ class CuratorsController < ApplicationController
   def untrust
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.untrust(current_user)
+    @div_id = params[:div_id]
     respond_to do |fmt|
       fmt.js
     end
+  end
+
+  def update_reasons
+    puts "++ Got here"
+    pp params
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object.untrust(current_user, params['untrust_reasons'])
+    render :nothing => true
+  end
+
+  def show
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object.show(current_user)
+    @div_id = params[:div_id]
+    respond_to do |fmt|
+      fmt.js
+    end
+  end
+
+  def hide
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object.hide(current_user)
+    @div_id = params[:div_id]
+    respond_to do |fmt|
+      fmt.js
+    end
+  end
+
+  def remove
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object.inappropriate(current_user)
+    @div_id = params[:div_id]
+    respond_to do |fmt|
+      fmt.js
+    end
+  end
+
+  def comment
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object.comment(current_user, params['comment'])
+    render :nothing => true
   end
 
 private
@@ -61,6 +104,7 @@ private
   end      
 
   def set_layout_variables
+    @additional_stylesheet = 'curator_tools'
     @page_title = $CURATOR_CENTRAL_TITLE
     @navigation_partial = '/curators/navigation'
   end

@@ -1,5 +1,6 @@
 - div_style = data_object.untrusted? ? '' :  'display:none;'
 .reason{ :style => div_style }
+  = "Please select a reason, and optionally leave a comment below to explain your decision:"[:select_reason_and_optionally_leave_comment]
   .option
     = check_box_tag 'untrust_reasons[]', UntrustReason.misidentified.id.to_s, data_object.untrust_reasons_include?(UntrustReason.misidentified), {:id => 'untrust_reason_misidentified'}
     Misidentified

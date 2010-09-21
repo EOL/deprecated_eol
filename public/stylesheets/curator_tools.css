@@ -25,27 +25,29 @@ ul#toc li a {
 #overlay {
   background-color: #a3d117;
   color: #efefef;
-  height: 545px;
+  height: 565px;
   z-index: 1000;
-  width: 910px; }
+  width: 78em;
+  padding: 5px; }
 
-div.contentWrap {
+div.content-wrap {
   overflow-y: auto;
   background-color: #f4f4f4;
   color: black;
-  height: 525px;
+  height: 545px;
   padding: 10px; }
-
-.overlay {
-  display: none;
-  width: 640px;
-  padding: 5px;
-  font-size: 11px; }
+  div.content-wrap h3 {
+    font-size: 14pt !important;
+    line-height: 24pt;
+    padding: 0 !important;
+    margin: 0 !important; }
+  div.content-wrap p {
+    margin-bottom: 8pt; }
 
 .overlay .close {
   background-image: url(/images/close_dialog_lg.png);
   position: absolute;
-  right: 11px;
+  right: 10px;
   top: 10px;
   cursor: pointer;
   height: 35px;
@@ -56,30 +58,29 @@ div.contentWrap {
 
 .attribution {
   margin-top: 12px;
-  width: 460px; }
+  width: 38em; }
 
 .image-rating {
   float: right; }
 
 .credit-caption {
-  font-size: 10pt;
-  line-height: 16pt;
-  width: 92px;
-  padding-right: 10px; }
+  font-size: 9pt !important;
+  margin: 2pt 0;
+  width: 7em !important;
+  padding-right: 2pt; }
 
 .credit-value {
-  font-size: 10pt;
-  line-height: 16pt;
+  font-size: 9pt !important;
+  margin: 2pt 0;
   float: none;
-  width: 325px;
-  padding-left: 105px; }
+  width: 28em !important; }
 
 .curation {
   float: right;
-  width: 420px; }
+  width: 36em; }
 
 .data_object_view {
-  width: 470px;
+  width: 39em;
   float: left; }
 
 #visibility-label {
@@ -87,3 +88,13 @@ div.contentWrap {
 
 #trust-label {
   font-weight: bold; }
+
+#save-comment {
+  text-align: center;
+  padding: 11px 20px; }
+
+.results_table {
+  font-size: 10pt; }
+
+.reason {
+  width: 18em; }

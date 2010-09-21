@@ -15,5 +15,8 @@ $j('form.comment').submit(function() {
 });
 
 $j('.untrust_reasons input').click(function() {
-  $j.post($j(this).attr('action'), $j(this).serialize());
+    alert('start');
+  form = $j(this).parent().parent().parent();
+  $j.post(form.attr('action'), form.serialize());
+    alert('stop');
 });

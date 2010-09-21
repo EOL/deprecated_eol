@@ -1,2 +1,2 @@
 page.replace_html @div_id, @data_object.vetted.label
-page.select('.reason').each { |e| e.show }
+page["reason_#{@data_object.id}"].show

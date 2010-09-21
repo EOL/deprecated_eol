@@ -559,7 +559,7 @@ class User < ActiveRecord::Base
       errors.add('username', "#{username} is already taken") unless User.unique_user?(username)
     end
   end
-  
+
   # TODO - This should take an (optional) argument to narrow results down to a single content provider
   def images_to_curate(options = {})
     clade_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
@@ -574,7 +574,7 @@ class User < ActiveRecord::Base
           AND do.data_type_id = #{DataType.image.id}
         LIMIT 0,30", clade_id]); # TODO - I don't know if we should limit this.
   end
-  
+
   def uservoice_token
     return nil if $USERVOICE_ACCOUNT_KEY.blank?
     user_hash = Hash.new
@@ -590,7 +590,6 @@ class User < ActiveRecord::Base
     encrypted = key.encrypt(json_token)
     token = CGI.escape(Base64.encode64(encrypted)).gsub(/\n/, '')
   end
-  
 
   # for giggles:
   def my_lang

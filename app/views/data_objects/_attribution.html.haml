@@ -15,7 +15,7 @@
   - unless data_object['users'].nil?
     .credit.supplier
       .credit-caption
-        Supplier
+        = "Supplier"[]
       .credit-value
         = data_object['users'][0].given_name
         = data_object['users'][0].family_name
@@ -57,7 +57,7 @@
         .credit-value
           = link_to "nominate another wikipedia article for ingestion", :controller => 'content', :action => 'page', :id => 'curator_central', :anchor => 'wikipedia'
         .footer
-  - if (data_object.text? || data_object.image?) && !data_object['taxa_names_ids'].nil?
+  - if (data_object.text? || data_object.image?) && !data_object['taxa_names_ids'].nil? && ! (defined?(skip_permalink) && skip_permalink)
     .credit.permalink
       .credit-caption
         = "Permalink"[]

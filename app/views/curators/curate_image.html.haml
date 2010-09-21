@@ -1,0 +1,47 @@
+%h3
+  = link_to(@data_object.taxon_concepts[0].scientific_name, @data_object.taxon_concepts.first)
+.data_object_view
+  = image_tag(@data_object.smart_image, :id => 'big-img')
+  = render :partial => 'data_objects/attribution', :locals => {:data_object => @data_object, :skip_permalink => true}, :layout => @layout
+  .description
+    .credit-caption
+      = "Description"[]
+    .credit-value
+      = @data_object.description
+.curation
+  .rating
+    .credit-caption
+      = "Rating"[]
+    .credit-value
+      = render :partial => '/taxa/star_rating', :locals => {:data_object => @data_object, :show_controls => true}
+  .vetted
+    .credit-caption
+      = "Vetted"[]
+    .credit-value
+      %span#trust-label
+        = @data_object.vetted.label
+      %br/
+      = link_to_remote("Set to Trusted"[], :url => {:action => :trust, :data_object_id => @data_object.id}, :html_options => {:id => 'trust'})
+      %br/
+      = link_to_remote("Set to Untrusted"[], :url => {:action => :untrust, :data_object_id => @data_object.id}, :html_options => {:id => 'untrust'})
+      (Please comment explaining why.)
+      = render :partial => 'data_objects/untrust_reasons', :locals => { :data_object => @data_object }
+  .visibility
+    .credit-caption
+      = "Visibility"[]
+    .credit-value
+      %span#visibility-label
+        = @data_object.visibility.label
+      %br/
+      = link_to_remote("Show to all users"[], :url => {:action => :show, :data_object_id => @data_object.id})
+      %br/
+      = link_to_remote("Hide for all except curators"[], :url => {:action => :trust, :data_object_id => @data_object.id})
+      %br/
+      = link_to_remote("Permanently Remove"[], :url => {:action => :trust, :data_object_id => @data_object.id})
+  .comments
+    .credit-caption
+      = "Comment"[]
+    .credit-value
+      This comment will be publicly visible.
+      = text_area_tag 'comment', nil, :rows => 7, :cols => 32
+= javascript_include_tag 'curator_central.js'

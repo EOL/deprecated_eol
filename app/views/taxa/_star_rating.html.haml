@@ -7,8 +7,6 @@
       %li.current-rating{ :style => "width:#{rate_percentage}%;" }
         Overall:
         = data_object.data_rating.to_s
-  - if defined?(break_after_overall) and break_after_overall
-    %br/
   Your Rating:
   %span.inline-rating
     %ul.star-rating.small-star.user-rating

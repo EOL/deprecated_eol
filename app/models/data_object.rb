@@ -1427,8 +1427,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   end
 
 
-private
-
   def show(user)
     vetted_by = user
     update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
@@ -1451,7 +1449,7 @@ private
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
   end
 
-  def untrust(user, untrust_reason_ids, comment)
+  def untrust(user, untrust_reason_ids = [], comment = nil)
     vetted_by = user
     update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
@@ -1474,6 +1472,8 @@ private
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
   end
   
+private
+
   def self.join_agents_clause(agent)
     data_supplier_id = ResourceAgentRole.content_partner_upload_role.id
     

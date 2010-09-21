@@ -21,3 +21,69 @@ ul#toc li a {
     text-decoration: none;
     color: #666666;
     background: url(/images/toc_hover.gif) 20px 1px no-repeat; }
+
+#overlay {
+  background-color: #a3d117;
+  color: #efefef;
+  height: 545px;
+  z-index: 1000;
+  width: 910px; }
+
+div.contentWrap {
+  overflow-y: auto;
+  background-color: #f4f4f4;
+  color: black;
+  height: 525px;
+  padding: 10px; }
+
+.overlay {
+  display: none;
+  width: 640px;
+  padding: 5px;
+  font-size: 11px; }
+
+.overlay .close {
+  background-image: url(/images/close_dialog_lg.png);
+  position: absolute;
+  right: 11px;
+  top: 10px;
+  cursor: pointer;
+  height: 35px;
+  width: 35px; }
+
+#big-img {
+  border: 2px solid black; }
+
+.attribution {
+  margin-top: 12px;
+  width: 460px; }
+
+.image-rating {
+  float: right; }
+
+.credit-caption {
+  font-size: 10pt;
+  line-height: 16pt;
+  width: 92px;
+  padding-right: 10px; }
+
+.credit-value {
+  font-size: 10pt;
+  line-height: 16pt;
+  float: none;
+  width: 325px;
+  padding-left: 105px; }
+
+.curation {
+  float: right;
+  width: 420px; }
+
+.data_object_view {
+  width: 470px;
+  float: left; }
+
+#visibility-label {
+  font-weight: bold; }
+
+#trust-label {
+  font-weight: bold; }

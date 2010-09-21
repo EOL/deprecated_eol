@@ -1,3 +1,13 @@
+:javascript
+  $j(function() {
+  $j("td.overlay_link a[rel]").overlay({
+  mask: 'black',
+  onBeforeLoad: function() {
+  var wrap = this.getOverlay().find(".contentWrap");
+  wrap.load(this.getTrigger().attr("href"));
+  }
+  });
+  });
 = stylesheet_link_tag 'curator_tools'
 -# TODO - Add a selector to Narrow the list by Content Provider
 = will_paginate(@images_to_curate)
@@ -14,8 +24,8 @@
   - @images_to_curate.each do |image|
     - row_class = cycle('odd', 'even')
     %tr
-      %td{:class => row_class}
-        = image.taxon_concepts[0].scientific_name
+      %td{:class => "overlay_link #{row_class}"}
+        = link_to(image.taxon_concepts[0].scientific_name, {:action => 'curate_image', :data_object_id => image.id}, {:rel => '#overlay'})
         - c_name = image.taxon_concepts[0].common_name
         - if !c_name.blank?
           %br
@@ -28,8 +38,6 @@
         = image.description
         -# TODO = show location information (if available)
       %td{:class => row_class}
-        .image_rating
-          = render :partial => '/taxa/star_rating', :locals => {:data_object => image, :show_controls => true, :break_after_overall => true}
         %input{:type => 'radio', :name => "trust_#{image.id}"}
           Trust
         %br
@@ -39,3 +47,5 @@
         %br
           Comment ( TODO )
 = will_paginate(@images_to_curate)
+#overlay.overlay
+  .contentWrap

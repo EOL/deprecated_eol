@@ -1,0 +1,49 @@
+- if data_object.text? and title
+  .text_curation_close
+    %a.close-button
+%div
+  - if title
+    %h1
+      Object Curation
+  %form.curation{ :action => curate_data_object_path(data_object), :'data-data_object_id' => data_object.id,  :'data-data_object_type' => data_object.data_type_id }
+    .processing{ :style => "display:none;" }
+      = image_tag('indicator_arrows_black.gif')
+      Please wait
+    
+    .vetted
+      .label
+        VETTED:
+      .options
+        .option.trusted
+          = radio_button_tag 'vetted_id', Vetted.trusted.id.to_s, data_object.trusted?
+          Trusted
+        .option.untrusted
+          %div
+            = radio_button_tag 'vetted_id', Vetted.untrusted.id.to_s, data_object.untrusted?
+            Untrusted
+            = render :partial => 'untrust_reasons', :locals => { :data_object => data_object }
+            .comment
+              %div
+                Add a comment to explain your decision (optional)
+                %br
+                This comment will be publicly visible.
+              %div
+                = text_area_tag 'comment', nil, :rows => 7, :cols => 29
+                
+    .visibility
+      .label
+        VISIBILITY:
+      .options
+        .option
+          = radio_button_tag 'visibility_id', Visibility.visible.id.to_s, data_object.visible?
+          Show to all users
+        .option
+          = radio_button_tag 'visibility_id', Visibility.invisible.id.to_s, data_object.invisible?
+          Hide for all except curators
+        .option
+          = radio_button_tag 'visibility_id', Visibility.inappropriate.id.to_s, data_object.inappropriate?
+          Permanently Remove
+          
+    .buttons
+      = submit_tag "Save"
+      %input.cancel-button{ :type => "button", :value => "Cancel" }

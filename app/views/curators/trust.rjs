@@ -1,0 +1,2 @@
+page.replace_html 'trust-label', @data_object.vetted.label
+page.select('.reason').each { |e| e.hide }

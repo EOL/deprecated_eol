@@ -11,14 +11,14 @@ class CuratorsController < ApplicationController
 
   def index
   end
-  
+
   def profile
     @user = User.find(current_user.id)
     @user.log_activity(:viewed_curator_profile)
     @user_submitted_text_count = UsersDataObject.count(:conditions=>['user_id = ?', params[:id]])
     redirect_back_or_default unless @user.curator_approved
   end
-  
+
   # TODO - we need to link to this.  :)  There should be a hierarchy_entry_id provided, when we do.  We want each TC page to
   # have a link (for curators), using "an appropriate clade" for the hierarchy_entry_id.
   def curate_images
@@ -27,6 +27,31 @@ class CuratorsController < ApplicationController
     @images_to_curate = current_user.images_to_curate(
       :hierarchy_entry_id => params[:hierarchy_entry_id]
     ).paginate(:page => params[:page], :per_page => 5)
+  end
+
+  def curate_image
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object['attributions'] = @data_object.attributions
+    @data_object['taxa_names_ids'] = [{'taxon_concept_id' => @data_object.hierarchy_entries[0].taxon_concept_id}]
+    @data_object['media_type'] = @data_object.data_type.label
+    current_user.log_activity(:showed_attributions_for_data_object_id, :value => @data_object.id)
+    render :layout => false
+  end
+
+  def trust
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object.trust(current_user)
+    respond_to do |fmt|
+      fmt.js
+    end
+  end
+
+  def untrust
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object.untrust(current_user)
+    respond_to do |fmt|
+      fmt.js
+    end
   end
 
 private

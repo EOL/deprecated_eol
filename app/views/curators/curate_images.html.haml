@@ -15,13 +15,9 @@
 %table.results_table
   %tr
     %th
-      Taxon Name
-    %th
-      Image
-    %th
-      Caption
-    %th
-      Action
+      Taxon
+    %th{:width => 368}
+      Actions
   - @images_to_curate.each do |image|
     - row_class = cycle('odd', 'even')
     %tr
@@ -31,22 +27,29 @@
         - if !c_name.blank?
           %br
           = c_name
-      %td{:class => row_class}
-        = link_to(image_tag(image.thumb_or_object(:medium)), image.taxon_concepts.first)
-        -# TODO - some way to see the original-sized image
-        -# TODO - show attribution - at least provider and agents, probably not license, rights, etc...
-      %td{:class => row_class}
-        = image.description
-        -# TODO = show location information (if available)
-      %td{:class => row_class}
-        %input{:type => 'radio', :name => "trust_#{image.id}"}
-          Trust
         %br
-        %input{:type => 'radio', :name => "trust_#{image.id}"}
-          Untrust
-          -# TODO - this must prompt for a reason/comment, yadda yadda
+        = link_to(image_tag(image.thumb_or_object(:medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image.id}, {:rel => '#overlay'})
         %br
-          Comment ( TODO )
+        %em
+          = "Description:"[]
+        - if image.description.empty?
+          = "[description is blank]"[]
+        - else
+          = truncate(image.description, 32)
+        - unless image.data_supplier_agent.full_name.empty?
+          %br
+          %em 
+            = "Supplier:"[]
+          = image.data_supplier_agent.full_name
+        - unless image.location.empty?
+          %br
+          %em 
+            = "Location:"[]
+          = truncate(image.location, 32)
+      %td{:class => row_class}
+        = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24}
 = will_paginate(@images_to_curate)
 #overlay.overlay{:style => 'display:none'}
   .content-wrap
+= javascript_include_tag 'rating.js' # basically, I'm only using this to update after calling the ajax, below...
+= javascript_include_tag 'curation_tools.js'

@@ -41,6 +41,9 @@
     = javascript_include_tag 'http://cdn.jquerytools.org/1.2.4/jquery.tools.min.js'
     :javascript
       var $j = jQuery.noConflict();
+      jQuery.ajaxSetup({ 
+        'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript"); } 
+      });
 
     = javascript_include_merged 'prototype-cached'
     = javascript_include_merged 'base-cached'

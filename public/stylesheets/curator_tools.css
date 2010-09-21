@@ -6,6 +6,11 @@
 
 .results_table {
   width: 100%; }
+  .results_table td {
+    vertical-align: top;
+    padding: 8px !important; }
+    .results_table td p {
+      padding-top: 1em; }
 
 ul#toc li a {
   width: 200px;
@@ -27,15 +32,15 @@ ul#toc li a {
   color: #efefef;
   height: 565px;
   z-index: 1000;
-  width: 78em;
+  width: 80em;
   padding: 5px; }
 
 div.content-wrap {
   overflow-y: auto;
   background-color: #f4f4f4;
   color: black;
-  height: 545px;
-  padding: 10px; }
+  height: 529px;
+  padding: 18px; }
   div.content-wrap h3 {
     font-size: 14pt !important;
     line-height: 24pt;
@@ -65,15 +70,21 @@ div.content-wrap {
 
 .credit-caption {
   font-size: 9pt !important;
-  margin: 2pt 0;
+  margin-bottom: 4pt;
   width: 7em !important;
   padding-right: 2pt; }
 
 .credit-value {
+  padding-left: 8em;
   font-size: 9pt !important;
   margin: 2pt 0;
   float: none;
   width: 28em !important; }
+  .credit-value span {
+    font-weight: bold; }
+
+.results_table .credit-value {
+  width: 22em !important; }
 
 .curation {
   float: right;
@@ -82,9 +93,6 @@ div.content-wrap {
 .data_object_view {
   width: 39em;
   float: left; }
-
-#visibility-label {
-  font-weight: bold; }
 
 #trust-label {
   font-weight: bold; }
@@ -98,3 +106,18 @@ div.content-wrap {
 
 .reason {
   width: 18em; }
+
+.image-rating {
+  padding-top: 0 !important; }
+
+.curation-thumb {
+  border: 1px solid black;
+  margin-top: 5pt; }
+
+p.submitted {
+  padding: 4px !important;
+  border: 1px solid #fdd017;
+  background-color: yellow; }
+
+.clearbreak {
+  height: 1px; }

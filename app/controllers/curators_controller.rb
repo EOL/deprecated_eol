@@ -94,7 +94,9 @@ class CuratorsController < ApplicationController
   def comment
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.comment(current_user, params['comment'])
-    render :nothing => true
+    respond_to do |fmt|
+      fmt.js { render :nothing => true }
+    end
   end
 
 private

@@ -110,7 +110,7 @@ Rails::Initializer.run do |config|
   $DEFAULT_TAXONOMIC_BROWSER = "text" # can be either text or flash
 
   # Note that you can override this in the environment-specific file, too, if you want to.
-  $DEFAULT_HIERARCHY_NAME = "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009"
+  $DEFAULT_HIERARCHY_NAME = "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010"
   
   # SITE CONTENT CONFIGURATION
   $DEFAULT_VETTED = false # default to showing all content (changed October 6, 2009 by Peter Mangiafico at request of Gary Borisy)

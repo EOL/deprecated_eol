@@ -85,7 +85,7 @@ $CACHE.clear # We appear to be altering some of the cached classes here.  JRice 
 
 # TODO - I am neglecting to set up agent content partners, curators, contacts, provided data types, or agreements.  For now.
 agent_col = Agent.catalogue_of_life
-resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published, :hierarchy => Hierarchy.find_by_label('Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009'))
+resource = Resource.gen(:title => 'Bootstrapper', :resource_status => ResourceStatus.published, :hierarchy => Hierarchy.find_by_label('Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010'))
 event    = HarvestEvent.gen(:resource => resource)
 AgentsResource.gen(:agent => agent_col, :resource => resource,
                    :resource_agent_role => ResourceAgentRole.content_partner_upload_role)

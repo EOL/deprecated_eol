@@ -5,6 +5,7 @@ class UsersDataObject < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :data_object
+  belongs_to :taxon_concept
   
   #has_one :user
   #has_one :data_object

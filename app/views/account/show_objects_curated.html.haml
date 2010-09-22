@@ -43,7 +43,10 @@
         %td{ :class => row_class }
           %i
             - if details['taxon_concept_id'].blank?
-              Page not accessible
+              - if udo = UsersDataObject.find_by_data_object_id(data_object['data_object_id'].to_i)
+                = link_to udo.taxon_concept.name(:expert),{:controller=>'/taxa', :action=>:show, :id => udo.taxon_concept_id}
+              - else
+                Page not accessible
             -else 
               = link_to details['scientific_name'],{:controller=>'/taxa', :action=>:show, :id => details['taxon_concept_id']}
           - if(!details['published']) then 

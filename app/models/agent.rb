@@ -348,13 +348,13 @@ class Agent < SpeciesSchemaModel
   def remember_me_until(time)
     self.remember_token_expires_at = time
     self.remember_token            = User.hash_password("#{email}--#{remember_token_expires_at}")
-    save(false)
+    self.save(false)
   end
 
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
-    save(false)
+    self.save(false)
   end
 
   def password_required?

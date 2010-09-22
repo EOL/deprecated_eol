@@ -293,7 +293,7 @@ class DataObject < SpeciesSchemaModel
       self.data_rating = total / ratings.length
     end
 
-    save!
+    self.save!
   end
 
   def rating_for_user(user)
@@ -615,7 +615,7 @@ class DataObject < SpeciesSchemaModel
     self.visibility_id = Visibility.visible.id
     self.vetted_id = Vetted.trusted.id
     self.published = 1
-    save!
+    self.save!
   end
 
   def curator_activity_flag(user, taxon_concept_id = nil)

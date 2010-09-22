@@ -244,13 +244,17 @@ class User < ActiveRecord::Base
     if (approved == true && curator_approved == false) # send the approval message if the user wasn't a curator and is now approved
       Notifier.deliver_curator_approved(self)
     elsif (approved == false && curator_approved == true) # only send the unapproval message if the user *was* a curator and is now rejected
-      Notifier.deliver_curator_unapproved(self)       
+      Notifier.deliver_curator_unapproved(self)
     end
     
-    curator_approved = approved
-    curator_verdict_at = Time.now
-    curator_verdict_by = updated_by
-    save
+    # note that this will happen EVERY time the user's record is updated by an admin. So the name curator_verdict_at is 
+    # now misleading because it will get updated even when nothing about the user is changed (the edit form is loaded and
+    # immediately saved). 
+    # TODO We might consider renaming the field curator_verdict_at because it gets updated even without a verdict
+    self.curator_approved = approved
+    self.curator_verdict_at = Time.now
+    self.curator_verdict_by = updated_by
+    self.save!
     
     if approved
       roles << Role.curator unless has_curator_role?
@@ -511,15 +515,15 @@ class User < ActiveRecord::Base
   end
 
   def remember_me_until(time)
-    remember_token_expires_at = time
+    self.remember_token_expires_at = time
     self.remember_token       = User.hash_password("#{email}--#{remember_token_expires_at}")
-    save(false)
+    self.save(false)
   end
 
   def forget_me
-    remember_token_expires_at = nil
-    remember_token            = nil
-    save(false)
+    self.remember_token_expires_at = nil
+    self.remember_token            = nil
+    self.save(false)
   end
 
   def content_page_cache_str

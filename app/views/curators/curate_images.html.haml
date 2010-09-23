@@ -22,7 +22,7 @@
         - if image.description.empty?
           = "[description is blank]"[]
         - else
-          = truncate(image.description, 48)
+          = truncate(strip_tags(image.description), 48)
         - unless image.data_supplier_agent.full_name.empty?
           %h6
             = "Supplier:"[]

@@ -1,86 +1,6 @@
-= javascript_include_tag 'flash_detect_min','prototype-extensions'
 :javascript
-  var pe;
-  var updates_started=true;
-  var taxa_number_to_replace = 1;
-  var num_seconds_between_image_loads = 10;
-  
-  function explore_more_taxa() {
-    if (pe) {
-      pe.stop();
-      pe=null;
-    }
-    new Ajax.Updater('photos_area','/content/explore_taxa',
-      {
-        onComplete:function(request){taxa_number_to_replace = 1;setTimeout("start_explore_updates()",num_seconds_between_image_loads*1000);new EOL.Effect.appear('photos_area',{duration: 0.2,from:0.05,to:1.0});},
-        onLoading:function(request){new EOL.Effect.disappear('photos_area',{duration: 0.2,from:1.0,to:0.05});},
-        asynchronous:true, 
-        evalScripts:true	
-      }
-    )	
-  }
-  
-  function replace_single_taxa(taxa_number) {
-    r = new RegExp("[0-9]+$");
-    var current_taxa = [];
-    ["top_name_1","top_name_2","top_name_3","top_name_4","top_name_5","top_name_6"].each(function(el) {
-      current_taxa.push(r.exec($(el).descendants()[0].href));
-    });
-    new Ajax.Request('/content/replace_single_explore_taxa',
-      {
-        parameters: {taxa_number: taxa_number, current_taxa: current_taxa.join(',')},
-        onFailure:function(request){new EOL.Effect.appear('top_image_tag_'+taxa_number,{duration: 0.5,from:0.00,to:1.0});},
-        onSuccess:function(request){new EOL.Effect.appear('top_image_tag_'+taxa_number,{delay: 0.5,duration: 0.5,from:0.00,to:1.0});},
-        onLoading:function(request){new Element.hide('top_image_tag_'+taxa_number);},					
-        asynchronous:true, 
-        evalScripts:true	
-      }
-    
-    )			
-    taxa_number_to_replace += 1;
-    
-  }
-  
-  function get_new_explore_taxa() {
-    if (taxa_number_to_replace > 6) {taxa_number_to_replace=1;}
-    replace_single_taxa(taxa_number_to_replace);
-  }
-  
-  function pause_explore_updates() {
-    if (pe) {
-      pe.stop();
-      pe = null;
-    }
-    $('play-button').src='#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/play.gif';			
-    $('play-button').alt='play';			
-    updates_started=false;
-  }
-  
-  function start_explore_updates() {
-    if (pe) {
-      pe.stop();
-      pe = null;
-    }
-    pe=new PeriodicalExecuter(get_new_explore_taxa,num_seconds_between_image_loads);
-    $('play-button').src='#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif';
-    $('play-button').alt='pause';
-    updates_started=true;
-  }
-  
-  function toggle_explore_updates() {
-    if (updates_started) {
-      pause_explore_updates();
-    }
-    else
-    {
-      start_explore_updates();
-    }
-    
-  }
-
-  document.observe("dom:loaded", function() {
-    setTimeout("start_explore_updates()",num_seconds_between_image_loads*1000);
-  });
+  var png_host = '#{StaticEolAssetHost.asset_host_proc.call("png")}/images/homepage/play.gif';
+= javascript_include_tag 'flash_detect_min', 'index'
 - if @cached_fragment
   = @cached_fragment
 - else
@@ -97,17 +17,12 @@
           %p.play
             %a{ :href => "#", :onclick => "JavaScript:toggle_explore_updates();return false;" }
               %img#play-button{ :src => "#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif", :height => "28", :alt => "pause", :width => "27" }
-        - # nav_buttons
         #photos_area
           - if @explore_taxa.nil? == false
             = render(:partial=>'explore_taxa')
-        - # photos_area
-      - # photo_slider
-    - # photo-area-wrapper
     #home-content-wrap
       #sidebar-a
         = @content.left_content
-      - # sidebar-a
       #sidebar-b
         - unless @news_items.empty?
           %h1= "What's New?"[]
@@ -127,17 +42,12 @@
                       = news_item.title
                     %div{ :id => "news_#{news_item.id}", :style => "display:none;" }
                       = news_item.body
-              - # news_item visible
-            - # news_items.each
             %li= link_to "more news...",:action=>'news'
             %li
               To subscribe via RSS, click
               = link_to image_tag('rss.png'), {:action=>'news',:format=>'rss'}
               , or add this URL to your RSS reader: http://
               = request.host + url_for(:action=>'news',:format=>'rss')
-          - # .helplist
-        - # unless news_items empty
-      - # sidebar-b
       #home-center-content
         - if @featured_taxon
           %h1= "Featured"[]
@@ -148,10 +58,4 @@
             %tr
               %td
                 = random_image_linked_name(@featured_taxon)
-          - # featured-species-table
-        - # unless featured_taxa nil
         = @content.main_content
-      - # home-center-content
-    - # home-content-wrap
-  - # cache
-- # if @cached_fragment

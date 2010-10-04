@@ -104,7 +104,7 @@
         
         - if update_attribution_on_load
           :javascript
-            document.observe("dom:loaded", function() {
+            $(document).ready(function() {
               #{attribution_js_function}
             });
         - else

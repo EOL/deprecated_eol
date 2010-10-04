@@ -79,7 +79,7 @@
                   :title => "Comment on image"                                                 |
               - if @selected_image_comment
                 :javascript
-                  document.observe("dom:loaded", function() {
+                  $(document).ready(function() {
                     EOL.popup_links["large-image-comment-button-popup-link"].scroll_to = "comment_#{@selected_image_comment.id}";
                     EOL.popup_links["large-image-comment-button-popup-link"].click();
                     Effect.ScrollTo("large-image-comment-button");

@@ -20,7 +20,7 @@
 // hash of initialized popups, keyed on the popup.id.  useful for things like ... closing all other popups, when one is opened
 EOL.popups = {};
 
-EOL.Popup = Class.create({
+EOL.Popup = $.klass({
   initialize: function(href, element_to_insert_after, scroll_to){
     default_options = {is_static: false, additional_classes: ''};
     options = Object.extend(default_options, arguments[2]);
@@ -51,7 +51,7 @@ EOL.Popup = Class.create({
     
     //   a.close-button
     this.close_button = new Element('a', { 'class': 'close-button' });
-    Event.observe(this.close_button, 'click', function(e){ EOL.log(this);this.toggle(); }.bind(this));
+    $(this.close_button).click(function(e){ EOL.log(this);this.toggle(); })
     this.element.insert(this.close_button);
     //   div #name_content.popup-content
     if(this.is_static) {
@@ -99,7 +99,7 @@ EOL.Popup = Class.create({
         {
           asynchronous: true,
           method: 'get',
-          onComplete: function() {EOL.PopupHelpers.after_load(scroll_to)}.bind(scroll_to)
+          onComplete: function() {EOL.PopupHelpers.after_load(scroll_to)}
         }
       );
     }
@@ -143,25 +143,24 @@ function hidePopupAjaxIndicator() {
 // a good way to see them all is to: $H(EOL.popup_links).keys()
 EOL.popup_links = {};
 
-EOL.PopupLink = Class.create({
+EOL.PopupLink = $.klass({
   initialize: function(element){
     this.link = $(element);
-    this.href = this.link.href;
+    this.href = this.link.attr('href');
     this.options = arguments[1];
-    Event.observe(this.link, 'click', this.click.bind(this));
+    $(this.link).click(function() {
+      this.href = this.link.attr('href'); // reset, just incase the href has been changed
+      if (this.popup == null || this.popup.element == null) {
+        this.popup = new Popup(this.href, this.link, this.scroll_to, this.options);
+      } else if (this.href != this.popup.href) {
+        this.popup.href = this.href;
+        this.popup.reload();
+      }
+      this.popup.toggle();
+      return(false);
+    });
     EOL.popup_links[ element.id ] = this;
   },
-  click: function(e) {
-    if (e) e.stop();
-    this.href = this.link.href; // reset, just incase the href has been changed
-    if (this.popup == null || this.popup.element == null) {
-      this.popup = new Popup(this.href, this.link, this.scroll_to, this.options);
-    } else if (this.href != this.popup.href) {
-      this.popup.href = this.href;
-      this.popup.reload();
-    }
-    this.popup.toggle();
-  }
 });
 var PopupLink = EOL.PopupLink; // alias
 

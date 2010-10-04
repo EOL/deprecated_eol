@@ -73,7 +73,7 @@ Test.Unit = {};
 // security exception workaround
 Test.Unit.inspect = Object.inspect;
 
-Test.Unit.Logger = Class.create();
+Test.Unit.Logger = $.klass();
 Test.Unit.Logger.prototype = {
   initialize: function(log) {
     this.log = $(log);
@@ -135,7 +135,7 @@ Test.Unit.Logger.prototype = {
   }
 }
 
-Test.Unit.Runner = Class.create();
+Test.Unit.Runner = $.klass();
 Test.Unit.Runner.prototype = {
   initialize: function(testcases) {
     this.options = Object.extend({
@@ -248,7 +248,7 @@ Test.Unit.Runner.prototype = {
   }
 }
 
-Test.Unit.Assertions = Class.create();
+Test.Unit.Assertions = $.klass();
 Test.Unit.Assertions.prototype = {
   initialize: function() {
     this.assertions = 0;
@@ -463,7 +463,7 @@ Test.Unit.Assertions.prototype = {
   }
 }
 
-Test.Unit.Testcase = Class.create();
+Test.Unit.Testcase = $.klass();
 Object.extend(Object.extend(Test.Unit.Testcase.prototype, Test.Unit.Assertions.prototype), {
   initialize: function(name, test, setup, teardown) {
     Test.Unit.Assertions.prototype.initialize.bind(this)();

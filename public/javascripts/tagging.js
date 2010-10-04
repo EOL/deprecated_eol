@@ -58,18 +58,18 @@ EOL.Tagging.Behaviors = {
   // Create Tag
   '#private_data_object_tags div#add_data_object_tags div#add_data_object_tags_fields>form:submit': function(e) {
     var key   = EOL.Tagging.selected_category();
-    var value = $j('#private_data_object_tags input[name="tag[value]"]')[0].value;
-    var post_url = $j(this)[0].action;
+    var value = $('#private_data_object_tags input[name="tag[value]"]')[0].value;
+    var post_url = $(this)[0].action;
     var path = post_url + '/private'
-    $j.post( post_url, { 'tag[key]': key, 'tag[value]': value }, function(){ EOL.Tagging.reload() } );
+    $.post( post_url, { 'tag[key]': key, 'tag[value]': value }, function(){ EOL.Tagging.reload() } );
     e.stop();
   },
 
   // Delete Tag
   '#private_data_object_tags span.data_object_tag_key_value>form:submit': function(e) {
-    var post_url = $j(this)[0].action;
+    var post_url = $(this)[0].action;
     var path = post_url.gsub(/tags\/.*/,'tags/private');
-    $j.post( post_url, { '_method': 'delete' }, function() { EOL.Tagging.reload() } );
+    $.post( post_url, { '_method': 'delete' }, function() { EOL.Tagging.reload() } );
     e.stop();
   },
 
@@ -89,8 +89,8 @@ EOL.Tagging.Behaviors = {
   //
   'input.autocomplete': function() {
     var input = $(this);
-    var path  = $j(input).attr('autocomplete_url');
-    $j(input).autocomplete( path, {
+    var path  = $(input).attr('autocomplete_url');
+    $(input).autocomplete( path, {
       matchContains: 1,
       selectFirst: 1,
       removeInitialValue: 0

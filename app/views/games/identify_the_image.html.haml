@@ -53,7 +53,7 @@
     $('game_results').innerHTML=final_results;
     }
     
-    document.observe("dom:loaded", function() {
+    $(document).ready(function() {
     setup_drag_drop();
     });
   

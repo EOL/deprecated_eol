@@ -19,6 +19,6 @@
 
 - if @selected_text
   :javascript
-    document.observe("dom:loaded", function() {
+    $(document).ready(function() {
       Effect.ScrollTo("text_wrapper_=#{@selected_text.id}");
     });

@@ -40,14 +40,13 @@
     -# "The tools will be loaded with maximum performance no matter where your user is located on the globe. Without the jQuery library, the file size is only 4.00 Kb when gzipping is enabled on the server-side. Please note that this global content delivery network is completely free. You can use it freely in any website including production environments. This network has been kindly offered for all jQuery Tools users by Max CDN. Respect to them!"
     = javascript_include_tag 'http://cdn.jquerytools.org/1.2.4/jquery.tools.min.js'
     :javascript
-      var $j = jQuery.noConflict();
       jQuery.ajaxSetup({ 
         'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript"); } 
       });
 
-    = javascript_include_merged 'prototype-cached'
+    = javascript_include_tag 'lowpro.jquery' # This needs to be loaded first...
     = javascript_include_merged 'base-cached'
-    = javascript_include_merged 'jquery.qtip-1.0.0-rc3.min.js'
+    = javascript_include_merged 'jquery-extras-cached'
 
     - # TODO - LOW PRI - Move this into a content_for :head block
     = javascript_include_tag 'swfobject'

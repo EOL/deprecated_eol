@@ -115,18 +115,6 @@ EOL.addReturnTo = function(link) {
   link.href += "return_to=" + location.href.replace(/^http:\/\/[^\/]*/, '') // Removes protocol + host
 }
 
-/* 
- * Prototype Additions / Overrides
- *
- * Any of the Prototype default methods we want to override or any new methods we want to add
- *
- */ 
-Element.addMethods({
-  appear:    EOL.Effect.appear,
-  disappear: EOL.Effect.disappear,
-  toggle_with_effect: EOL.Effect.toggle_with_effect
-});
-
 EOL.load_taxon_comments_tab = function(extra_params) {
   new Ajax.Updater('taxaCommentsWrap', '/comments/',
                    {asynchronous:true, evalScripts:true, method:'get',

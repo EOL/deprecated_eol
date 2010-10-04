@@ -34,11 +34,9 @@ $(document).ready(function() {
     return false;
   });
 
-  // OLD: new EOL.PopupLink(this,{insert_after:'insert_text', additional_classes:'insert_text'});
-
   // Open the add-text user interface
   // TODO - This should scroll to a useful position after adding the box.
-  $('div.edit_text a, li.add_text>a:click, div.add_text_button a').click(function(e) {
+  $('div.edit_text a, li.add_text>a, div.add_text_button a').click(function(e) {
     EOL.TextObjects.toggle_dialog(e,EOL.popup_links['new_text_toc_text'],this);
   });
   // Submit new text:
@@ -72,7 +70,7 @@ $(document).ready(function() {
   });
   // Give the user another reference field
   $('div#add_user_text_references input#add_more_user_text_reference').click(function(e) {
-    $('#add_user_text_references_input').append('<textarea rows="3" name="references[]" id="references[]" cols="33"/>'})
+    $('#add_user_text_references_input').append('<textarea rows="3" name="references[]" id="references[]" cols="33"/>');
   });
 });
 
@@ -100,26 +98,26 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     });
     EOL.TextObjects.disable_form();
     return false;
-  };
+  },
 
   disable_form: function() {
     form = $('div.popup.insert_text');
     form.find('input[type=submit], input[type=button]').attr('disabled', 'disabled');
     $('#edit_text_spinner').fadeIn();
-  };
+  },
 
   enable_form: function() {
     form = $('div.popup.insert_text');
     form.find('input[type=submit], input[type=button]').attr('disabled', '');
     $('#edit_text_spinner').fadeOut();
-  };
+  },
 
   insert_new_text: function(text) {
     EOL.popups["insert_text_popup"].hide();
     Element.insert("insert_text", { after: text });
     EOL.reload_behaviors();
     setTimeout(EOL.popups["insert_text_popup"].destroy(), 1000);
-  };
+  },
 
   preview_text: function(text, data_object_id) {
     if(data_object_id == null) {
@@ -144,20 +142,20 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     }
 
     Effect.Appear('text_wrapper_');
-  };
+  },
 
   remove_preview: function() {
     if($('#text_wrapper_')) {
       jQuery('div#text_wrapper_').fadeOut(1000, function() {$('#text_wrapper_').remove();});
     };
-  };
+  },
 
   update_text: function(text, data_object_id, old_data_object_id) {
     Element.insert("text_wrapper_"+old_data_object_id+"_popup", { before: text });
     Effect.Appear("text_wrapper_"+data_object_id);
     jQuery("div#text_wrapper_"+old_data_object_id+"_popup").fadeOut(1000, function() {EOL.popups[this.id].destroy();});
     EOL.reload_behaviors();
-  };
+               },
 
   update_add_links: function(url) {
     url = url.unescapeHTML();
@@ -166,7 +164,7 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     if($('#new_text_content_button')) {
       $('#new_text_content_button').href = url;
     }
-  };
+  },
 
   change_toc: function(toc_label, add_new_url, new_text, toc_item_id) {
     // update header
@@ -202,13 +200,11 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     if($('ul#toc a.toc_item[title='+toc_label+']').length > 0) {
       $('ul#toc a.toc_item[title='+toc_label+']').addClass('active toc_item');
     }
-  };
+  },
+
+  // OLD: new EOL.PopupLink(this,{insert_after:'insert_text', additional_classes:'insert_text'});
 
   toggle_dialog: function(e,popup,el) {
-    if(e) {
-      e.stop();
-    }
-
     // hide old warnings
     $('.multi_new_text_error').each(function(el) {el.hide();});
 
@@ -255,7 +251,8 @@ if(!EOL.TextObjects) EOL.TextObjects = {
         popup.popup.toggle();
       }
     }
-  };
+    return false;
+  },
 
   cancel_edit: function(data_object_id) {
     // remove preview text
@@ -272,6 +269,6 @@ if(!EOL.TextObjects) EOL.TextObjects = {
       });
       EOL.TextObjects.disable_form();
     }
-  };
+  }
 
 };

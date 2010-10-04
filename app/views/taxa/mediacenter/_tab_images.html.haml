@@ -9,7 +9,6 @@
             - unless @images.blank?
               %img#main-image{ :title => sanitize(strip_tags(@taxon_concept.title)),           |
                 :src => (@selected_image.smart_image unless (@images.nil? or @images.blank?)), |
-                :onclick => "toggle_image_attribution(); return false;",                       |
                 :alt => sanitize(strip_tags(@taxon_concept.title)) }                           |
 
             / Working if you want to load the Photosynth interface by default
@@ -20,7 +19,6 @@
             /    - unless @images.blank?
             /      %img#main-image{ :title => sanitize(strip_tags(@taxon_concept.title)),           |
             /        :src => (@selected_image.smart_image unless (@images.nil? or @images.blank?)), |
-            /        :onclick => "toggle_image_attribution(); return false;",                       |
             /        :alt => sanitize(strip_tags(@taxon_concept.title)) }                           |
             /  - else
             /    - result = string.gsub(/view.aspx/, 'embed.aspx')            

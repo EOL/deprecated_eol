@@ -54,12 +54,9 @@ Rails::Initializer.run do |config|
   config.gem 'ratom', :lib => 'atom'
   config.gem 'json'
   config.gem 'sanitize'
-  # config.gem 'mwmitchell-rsolr', :lib => 'rsolr'
-  # config.gem 'solr-ruby', :lib => 'solr'
-  # config.gem 'optiflag'
   config.gem 'escape'
   config.gem 'email_spec'
-  config.gem 'rack'
+  config.gem 'jrails'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

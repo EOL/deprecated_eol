@@ -521,7 +521,11 @@ class HierarchyEntry < SpeciesSchemaModel
       end
     end
     result.each do |r|
-      r['name_string'] = Rank.italicized_ids.include?(r['rank_id'].to_i) ? r['italicized_name'].firstcap! : r['name_string'].firstcap!
+      if Rank.italicized_ids.include?(r['rank_id'].to_i) && !r['italicized_name'].blank?
+        r['name_string'] = r['italicized_name'].firstcap!
+      else 
+        r['name_string'] =  r['name_string'].firstcap!
+      end
       r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
       r['has_content'] = r['content_level'].to_i > 1
       r['name_string'] = common_names[r['taxon_concept_id'].to_i] unless common_names.blank? || common_names[r['taxon_concept_id'].to_i].blank?

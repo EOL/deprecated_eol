@@ -1,0 +1,34 @@
+#media-maps.wrapper-mc.clearfix{ :style => "display: none; height: 400px;" }
+  %p.gbif_disclaimer
+    = external_link_to "This map is based on occurrence records available through GBIF and may not represent the entire taxon distribution", "http://data.gbif.org/species/#{@taxon_concept.gbif_map_id}/"
+  %input#map-taxon-concept-id{ :name => "map-taxon-concept-id", :type => "hidden", :value => @taxon_concept.gbif_map_id }
+  %input#map-data-server-endpoint{ :name => "map-data-server-endpoint", :type => "hidden", :value => $MAP_DATA_SERVER_ENDPOINT }
+  %input#map-gmap-key{ :name => "map-gmap-key", :type => "hidden", :value => $GOOGLE_MAP_API_KEY }
+  %input#map-tile-server-1{ :name => "map-tile-server-1", :type => "hidden", :value => $MAP_TILE_SERVER_1 }
+  %input#map-tile-server-2{ :name => "map-tile-server-2", :type => "hidden", :value => $MAP_TILE_SERVER_2 }
+  %input#map-tile-server-3{ :name => "map-tile-server-3", :type => "hidden", :value => $MAP_TILE_SERVER_3 }
+  %input#map-tile-server-4{ :name => "map-tile-server-4", :type => "hidden", :value => $MAP_TILE_SERVER_4 }
+  #map-image{ :style => "display:none" }
+:javascript
+  var map_div = $('#media-maps div')[0];
+  var taxon_concept_id = $('map-taxon-concept-id').value;
+  var data_server_endpoint = $('map-data-server-endpoint').value;
+  var gmap_key = $('map-gmap-key').value;
+  var tile_server_1 = $('map-tile-server-1').value;
+  var tile_server_2 = $('map-tile-server-2').value;
+  var tile_server_3 = $('map-tile-server-3').value;
+  var tile_server_4 = $('map-tile-server-4').value;
+  var so = new SWFObject("/EOLSpeciesMap.swf", "swf", "100%", "100%", "9"); 
+  so.addParam("allowFullScreen", "true");
+  so.addVariable("swf", "");
+  so.addVariable("taxon_id", taxon_concept_id);
+  so.addVariable("data_server_endpoint", data_server_endpoint);
+  so.addVariable("gmap_key", gmap_key);
+  var tileServers = new Array();
+  tileServers[0] = tile_server_1;
+  tileServers[1] = tile_server_2;
+  tileServers[2] = tile_server_3;
+  tileServers[3] = tile_server_4;
+  so.addVariable("tile_servers", tileServers);
+  so.write("map-image");
+  map_div.style.display = 'block';

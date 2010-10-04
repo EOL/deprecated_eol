@@ -1,6 +1,4 @@
-/* This handles all of the functionality of the mini-clade browser, which is used in several places.
- *
- */
+// This handles all of the functionality of the mini-clade browser, which is used in several places.
 if (!EOL) EOL = {};
 // Set up some stupid defaults, just in case.  (All of these should be supplied before now, though.)
 if (!EOL.clade_selector_input_name) EOL.clade_selector_input_name = 'selected-clade-id';

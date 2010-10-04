@@ -97,3 +97,12 @@ $('#ajax-indicator').ajaxComplete(function() {
 $('#center-page-content-loading').ajaxComplete(function() {
   $(this).fadeOut();
 });
+
+// Displays the Photosynth interface in the image pane.
+function load_photosynth_interface(source_url)
+{
+  // TODO - put this in the view, and just show/hide it.  We don't want HTML here.
+  synth = "<table id='main-image-table'><tr><td><iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'></td></tr></table>";
+  $('#main-image-bg').html = synth;  
+}
+

@@ -3,7 +3,7 @@ function pulsate_error(el) {
 }
 
 $(document).ready(function() {
-  // Allow the user to show extra attribution information for text
+  // Allow the user to show extra attribution information for text:
   $('.expand-text-attribution').click(function(e) {
     // TODO - I don't think we need the each() here... I think it will work withgout it, but cannot test now
     $('div.' + $(this).attr('id').substring(4) +' div.credit').each(function(){ $(this).fadeIn(); });

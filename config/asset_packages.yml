@@ -1,6 +1,5 @@
 --- 
 javascripts: 
-
 - base-cached:
   - jquery.tools.min
   - eol

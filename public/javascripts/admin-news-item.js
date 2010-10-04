@@ -1,3 +1,4 @@
+
 function textCounter(field,cntfield,maxlimit) {
 	if (field.val().length > maxlimit) // if too long...trim it!
 		field.val(field.val().substring(0, maxlimit));

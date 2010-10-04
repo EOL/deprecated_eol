@@ -1,9 +1,3 @@
-// WAIT ).merge(EOL.Tagging.Behaviors).merge(EOL.Search.Behaviors).merge(EOL.Curation.Behaviors).merge(EOL.MediaCenter.Behaviors).merge(EOL.TextObjects.Behaviors).merge(EOL.Rating.Behaviors).merge(EOL.Comments.Behaviors).merge(EOL.Admin.Behaviors).toObject());
-
-// Let's register some Ajax callbacks (for the spinner on the page, but could be extended)
-$().ajaxStart( EOL.Ajax.start );
-$().ajaxStop( EOL.Ajax.finish );
-
 // Behaviours to attach globally:
 $(document).ready(function() {
   // Make our links show up
@@ -24,4 +18,16 @@ $(document).ready(function() {
   });
 });
 
-var RecaptchaOptions = { theme : 'clean'};
+if (!EOL) var EOL = {};
+// Notice that this does NOT interrupt the event.  If you add this to a click(), it should follow the link.
+EOL.addReturnTo = function(link) {
+  if ($(link).attr('href') == null) { // Not a link, silly!
+    return;
+  } else if ($(link).attr('href').match(/\?/) == null) { // There are no params in it yet
+    $(link).attr('href', $(link).attr('href') + '?');
+  } else { // There are already params in this link
+    $(link).attr('href', $(link).attr('href') + '&');
+  }
+  $(link).attr('href', $(link).attr('href') + "return_to=" + $(link).attr('href').replace(/^http:\/\/[^\/]*/, '')); // Removes protocol + host
+}
+

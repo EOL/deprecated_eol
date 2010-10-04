@@ -1,7 +1,7 @@
 = eol_lang_error_messages_for :news_item
 :javascript
   var todays_date = '#{Date.today}';
-= javascript_include_tag 'adiministrator-news-item.js'
+= javascript_include_tag 'admin-news-item.js'
 %br
 Edit the news item below.  HTML is allowed in both fields, and *either* title or the body is required.  For best results, just use the title and enter a short news item.  When creating hyperlinks to other sites, you can use
 = link_to 'TinyURL','http://www.tinyurl.com',:target=>'_blank'
@@ -14,7 +14,7 @@ to create shorter URLs to conserve characters.
       %br
       %span#title_remaining_length
     %td
-      = f.text_field :title, :size=>70, :maxlength=>250,:onKeyDown=>"check_title_remaining();",:onKeyUp=>"check_title_remaining();"
+      = f.text_field :title, :size=>50, :maxlength=>250,:onKeyDown=>"check_title_remaining();",:onKeyUp=>"check_title_remaining();"
   %tr
     %td{ :valign => "top" }
       %strong
@@ -28,7 +28,7 @@ to create shorter URLs to conserve characters.
       %strong
         Preview
     %td
-      #previewed_news_item
+      #previewed_news_item{:style=>'width:500px'}
       %br
       %i
         Note: The preview is not exact -- just use to check HTML formatting

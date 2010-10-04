@@ -1,8 +1,8 @@
 function textCounter(field,cntfield,maxlimit) {
-	if (field.value.length > maxlimit) // if too long...trim it!
-		field.value = field.value.substring(0, maxlimit);
+	if (field.val().length > maxlimit) // if too long...trim it!
+		field.val(field.val().substring(0, maxlimit));
 	else // otherwise, update 'characters left' counter
-		cntfield.html(maxlimit - field.value.length + ' remaining');
+		cntfield.html(maxlimit - field.val().length + ' remaining');
 }
 
 function check_body_remaining () {
@@ -15,7 +15,7 @@ function check_title_remaining () {
 }
 
 function preview_news_item() {
- $('#previewed_news_item').html('<strong>'+todays_date+'</strong> - ' + $('#news_item_title').value + ' - ' + $('#news_item_body').value);
+ $('#previewed_news_item').html('<strong>'+todays_date+'</strong> - ' + $('#news_item_title').val() + ' - ' + $('#news_item_body').val());
 } 
 
 $(document).ready(function() {

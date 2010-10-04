@@ -1,15 +1,12 @@
-%script{:type => "text/javascript", :charset => "utf-8"}
-  function update_partner_status(id,form_value) {
-  agent_status_id=form_value.options[form_value.selectedIndex].value;
-  new Ajax.Request(
-  '/administrator/content_partner_report/set_agent_status',
-  {asynchronous:true, 
-  evalScripts:true, 
-  method:'post', 
-  onComplete:function(request){hideAjaxIndicator();},
-  onLoading:function(request){showAjaxIndicator();},
-  parameters:'id='+id+'&agent_status_id='+agent_status_id
-  });}
+:javascript
+  function update_partner_status(id, form_value) {
+    agent_status_id=form_value.options[form_value.selectedIndex].value;
+    $.ajax({
+      url: '/administrator/content_partner_report/set_agent_status',
+      type: 'POST', 
+      data: {id:id, agent_status_id:agent_status_id}
+    });
+  }
 
 %h2
   = @agent.project_name

@@ -13,4 +13,4 @@
   - # the above URL doesn't work *YET* %>
   - unless can_delete == false
     - form_tag "#{data_object_tags_path(data_object.id)}/#{escaped_tag}", :method => 'delete' do
-      = submit_tag '', :class => 'destroy-x',:onclick=>'showPopupAjaxIndicator();'
+      = submit_tag '', :class => 'destroy-x'

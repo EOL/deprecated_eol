@@ -2,28 +2,28 @@
 javascripts: 
 
 - base-cached:
-  - lowpro.jquery
+  - jquery.tools.min
   - eol
   - search
   - comments
-  - admin
   - misc
   - builder
   - bioGUIDv3
   - application 
 
 - taxa-page-cached:
-  - tagging
   - curation
   - rating
   - text_objects
   - media_center
   - popup
+  - navigation
 
 - jquery-extras-cached:
   - jquery-autocomplete
   - jquery.scrollTo-min
   - jquery.qtip-1.0.0-rc3.min
+  - tagging
 
 stylesheets: 
 - base-cached: 

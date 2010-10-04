@@ -13,18 +13,10 @@ EOL.Curation.post_curate_text = function(data_object_id, visibility_id, vetted_i
 };
 
 EOL.Curation.post_curate_image = function(data_object_id, visibility_id, vetted_id) {
-  try {
-    $('large-image-trust-button').disappear();
-    $('large-image-untrust-button').disappear();
-  } catch (err) {
-    //no quick curate buttons
-  }
-
   EOL.MediaCenter.image_hash[data_object_id].vetted_id = vetted_id;
   EOL.MediaCenter.image_hash[data_object_id].visibility_id = visibility_id;
   EOL.MediaCenter.image_hash[data_object_id].curated = true;
-  
-  eol_update_credit(EOL.MediaCenter.image_hash[data_object_id]);
+  // TODO - this may need some updating of what they changed, now.
   EOL.Curation.update_thumbnail_background(vetted_id, data_object_id);
   EOL.MediaCenter.update_thumbnail_icons($$('div#thumbnails a#thumbnail_'+data_object_id+' ul')[0]);
 };

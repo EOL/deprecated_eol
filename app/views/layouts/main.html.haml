@@ -35,8 +35,6 @@
     = eol_lang_main_stylesheet 'buttons', :media => "all"
     = stylesheet_link_tag 'star_rating'
     = stylesheet_link_tag 'wikipedia'
-    -# "The tools will be loaded with maximum performance no matter where your user is located on the globe. Without the jQuery library, the file size is only 4.00 Kb when gzipping is enabled on the server-side. Please note that this global content delivery network is completely free. You can use it freely in any website including production environments. This network has been kindly offered for all jQuery Tools users by Max CDN. Respect to them!"
-    = javascript_include_tag 'http://cdn.jquerytools.org/1.2.4/jquery.tools.min.js'
     = javascript_include_merged 'base-cached'
     :javascript
       jQuery.ajaxSetup({ 
@@ -184,31 +182,30 @@
       #footer
         = render :partial => 'layouts/footer_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Footer')}
         = ENV['APP_VERSION'] unless ENV['APP_VERSION'].blank?
-    #progress-open{ :style => "display: none;" }
+        - if flash[:warning] || flash[:error]
+          = link_to('Show the last flash message'[], '#', :id => 'show-flash', :rel => '#flash-error')
+        - elsif flash[:notice]
+          = link_to('Show the last flash message'[], '#', :id => 'show-flash', :rel => '#flash-good')
     - if flash[:notice]
-      #progress-bar
-        #flash-good{ :style => "display: block" }
-          = flash[:notice]
-          :javascript
-            $('progress-open').fadeIn(500);
-            $('flash-good').delay(2000).fadeOut(500);
-            $('progress-open').delay(2000).fadeOut(500);
-    - elsif flash[:warning]
-      #progress-bar
-        #flash-warning{ :style => "display: block" }
-          = flash[:warning]
-          :javascript
-            $('progress-open').fadeIn(500);
-            $('flash-warning').delay(2000).fadeOut(500);
-            $('progress-open').delay(2000).fadeOut(500);
-    - elsif flash[:error]
-      #progress-bar
-        #flash-error{ :style => "display: block" }
-          = flash[:error]
-          :javascript
-            $('progress-open').fadeIn(500);
-            $('flash-error').delay(2000).fadeOut(500);
-            $('progress-open').delay(2000).fadeOut(500);
+      #flash-good{ :style => "display: block" }
+        = flash[:notice]
+    - elsif flash[:warning] || flash[:error]
+      #flash-error{ :style => "display: block" }
+        = flash[:warning] + flash[:error]
+    - if flash[:notice] || flash[:warning] || flash[:error]
+      :javascript
+        var trigger = $("a#show-flash").overlay({
+          top: 165,
+          mask: {
+            color: '#000000',
+            loadSpeed: 500,
+            opacity: 0.5
+          },
+          closeOnClick: true
+        });
+        overlay = trigger.overlay();
+        overlay.load();
+        window.setTimeout(function() {overlay.close();}, 1000)
     - if $ENABLE_ANALYTICS || true
       :javascript
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

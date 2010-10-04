@@ -1,5 +1,5 @@
+= javascript_include_tag 'text-content.js' # TODO - move this to a merged file (probably)
 %a{ :name => "center_content" }
-/ center page content header
 .cpc-header
   - unless @content.nil?
     - toc_item = TocItem.find_by_label(@content[:category_name])
@@ -12,9 +12,7 @@
     #whats_this
       = link_to "What's This?", @whats_this
   %h3= @content[:category_name] unless @content.nil?
-/ end center page content header
 
-/ center page content main content
 .cpc-content= render(:partial => 'content_body')
 
 - if @selected_text

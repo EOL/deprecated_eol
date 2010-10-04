@@ -1,3 +1,4 @@
+// Behaviours
 $(document).ready(function() {
   // Follow image-specific links in the URL:
   if (window.checked_for_image_hash_tag == null) {
@@ -9,17 +10,17 @@ $(document).ready(function() {
       eol_update_image( image_hash.smart_image, image_hash );
     }
   }
-  // Allow the user to show extra attribution information for text - TODO - this could be far more elegant.
-  $('div.content-article div.attribution .expand-text-attribution').click(function(e) {
-    $('div.content-article div.'+$(this).attr('id').substring(4) +' div.credit').each(function(e){ e.fadeIn(); });
+  // Allow the user to show extra attribution information for text
+  $('.expand-text-attribution').click(function(e) {
+    $('div.' + $(this).attr('id').substring(4) +' div.credit').each(function(){ $(this).fadeIn(); });
     $(this).fadeOut();
     return false;
   });
-  // toggle image attribution on click
+  // clicking the large image shows its attribution
   $('img#main-image').click(function() {
     $('#large-image-attribution-button-popup-link').click(); // "click" the PopupLink
   });
-  //clicking map will show attributions
+  // clicking map will show its attributions
   $('img#map').click(function (e) {
     $('map_attributions').click();
   });
@@ -28,42 +29,30 @@ $(document).ready(function() {
     data_object_id = $(this).attr('data-data_object_id');
     textCommentsDiv = "text-comments-wrapper-" + data_object_id;
     textCommentsWrapper = "#" + textCommentsDiv;
-    if (true) { // TODO!  This needs to check whether it's open now or not.
-      $.ajax({
-        url: $(this).attr('href'),
-        data: { body_div_name: textCommentsDiv },
-        success: function(result) {$(textCommentsWrapper).html(result);},
-        error: function(result) {$(textCommentsWrapper).html("<p>Sorry, there was an error.</p>");},
-        complete: function() { $(textCommentsWrapper).slideDown(); }
-      });
-    } else {
-      $('#'+textComments).slideUp();
-    }
+    $.ajax({
+      url: $(this).attr('href'),
+      data: { body_div_name: textCommentsDiv },
+      success: function(result) {$(textCommentsWrapper).html(result);},
+      error: function() {$(textCommentsWrapper).html("<p>Sorry, there was an error.</p>");},
+      complete: function() { $(textCommentsWrapper).slideDown(); }
+    });
     return false;
   });
   $('div.text_buttons div.curate_button a').click(function(e) {
     data_object_id = $(this).attr('data-data_object_id');
     textCuration = "text-curation-" + data_object_id;
-    textCurationWrapper = "text-curation-wrapper-" + data_object_id;
-    if ($(textCurationWrapper).style.display == 'none') {
-      new Ajax.Updater(textCuration, this.href,
-                       {asynchronous:true, evalScripts:true, method:'get',
-                        parameters: { body_div_name: textCuration },
-                        onLoading: Effect.BlindDown(textCurationWrapper),
-                        onComplete: EOL.reload_behaviors
-                        });
-    } else {
-      Effect.DropOut(textCurationWrapper);
-    }
+    textCurationWrapper = "#text-curation-wrapper-" + data_object_id;
+    $.ajax({
+      url: $(this).attr('href'),
+      data: { body_div_name: textCuration },
+      success: function(result) { $('#'+textCuration).html(result) },
+      error: function() {$(textCurationWrapper).html("<p>Sorry, there was an error.</p>");},
+      complete: function() { $(textCurationWrapper).slideDown() }
+    });
     return false;
   });
-  // Fade in the taxa comments! (TAB)
-  $('#taxa-comments a').click(function(e) {
-    if (!$('taxaCommentsWrap').childNodes[2]) {
-      var loaded = true;// TODO - I think this is unused and should be deleted, but I am a chicken and won't do it myself (JRice)
-      EOL.load_taxon_comments_tab();
-    }
-  });
+  // YOU WERE HERE ... trying to fix the tabs.
+  $("ul#tab_media_center").tabs("div.tab-panes > div", {effect: 'ajax'});
   // clicking on a thumbnail in the mediacenter
   $('div#image-collection div#thumbnails a').click(function(e) {
     var image_id   = $(this).attr('id').match(/\d*$/)[0]; // eg. id="thumbnail_123"
@@ -72,33 +61,34 @@ $(document).ready(function() {
     return(false);
   });
   //clicking on maps link in mediacenter
-  $('#tab_media_center #maps a').click(function(e) {
-    var map_div = $$('#media-maps div')[0];
-    if (map_div && map_div.style.display == 'none') {
-        var taxon_concept_id = $('map-taxon-concept-id').value;
-        var data_server_endpoint = $('map-data-server-endpoint').value;
-        var gmap_key = $('map-gmap-key').value;
-        var tile_server_1 = $('map-tile-server-1').value;
-        var tile_server_2 = $('map-tile-server-2').value;
-        var tile_server_3 = $('map-tile-server-3').value;
-        var tile_server_4 = $('map-tile-server-4').value;
-        var so = new SWFObject("/EOLSpeciesMap.swf", "swf", "100%", "100%", "9"); 
-        so.addParam("allowFullScreen", "true");
-        so.addVariable("swf", "");
-        //var taxon_concept_id = $('map-taxon-concept-id').value;
-        //var taxon_concept_id = 13839800;
-        so.addVariable("taxon_id", taxon_concept_id);
-        so.addVariable("data_server_endpoint", data_server_endpoint);
-        so.addVariable("gmap_key", gmap_key);
-        var tileServers = new Array();
-        tileServers[0] = tile_server_1;
-        tileServers[1] = tile_server_2;
-        tileServers[2] = tile_server_3;
-        tileServers[3] = tile_server_4;
-        so.addVariable("tile_servers", tileServers);
-        so.write("map-image");
-        map_div.style.display = 'block';
-    }
+  $('#tab_media_center #maps a').click(function() {
+  });
+  $('#toc a.toc_item').click(function() {
+    // TODO - do we need to dismiss the #insert_text_popup div when this happens?
+    $.ajax({
+      url: $(this).attr('href'),
+      success: function(request) {updateReferences(); $('#toc a.toc_item').removeClass('active'); $(this).delay(100).addClass('active');},
+      error: function(request) {$('#center-page-content').html('<p>Sorry, there was an error.</p>');}
+    });
+    return false;
+  });
+  // Contribution help popups:
+  $('ul#contribute a.show_popup').click(function() {
+    $.ajax({
+      url: $(this).attr('href'),
+      complete: function(request) {$('#contribute-info').slideDown();},
+      success: function(result) {$('#contribute-info').html(result);},
+      error: function() {$('#contribute-info').html('<p>Sorry, there was an error.</p>');}
+    });
     return false;
   });
 });
+
+// Displays the Photosynth interface in the image pane.
+function load_photosynth_interface(source_url)
+{
+  // TODO - put this in the view, and just show/hide it.  We don't want HTML here.
+  synth = "<table id='main-image-table'><tr><td><iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'></td></tr></table>";
+  $('#main-image-bg').html = synth;  
+}
+

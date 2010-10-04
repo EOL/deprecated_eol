@@ -1119,7 +1119,8 @@ li.current_kingdom {
 #content #page-content .cpc-content em {
   font-style: italic; }
 #content #page-content .cpc-content img {
-  max-width: 450px; }
+  max-width: 440px;
+  margin: 1px; }
 #content #page-content #center-page-content p {
   padding: 8px 0; }
 
@@ -1322,32 +1323,6 @@ a.footnote {
   #content #page-content #right-page-content #internal-nav {
     padding: 0;
     border-bottom: solid #e6e7e8 1px; }
-  #content #page-content #right-page-content #contribute {
-    padding: 16px 0 15px 0;
-    background: #f6f6f7 url(/images/bg_contributetoeol.gif) left top no-repeat; }
-    #content #page-content #right-page-content #contribute h4 {
-      width: 224px;
-      padding-left: 21px;
-      text-transform: uppercase;
-      font-size: 15px;
-      color: #333333; }
-    #content #page-content #right-page-content #contribute ol {
-      list-style-type: decimal;
-      list-style-position: inside;
-      padding: 9px 0 11px 0; }
-      #content #page-content #right-page-content #contribute ol li {
-        padding-left: 21px;
-        line-height: 21px;
-        font-size: 14px;
-        font-weight: 500;
-        color: #cccccc;
-        border-bottom: 1px solid #e6e7e8; }
-        #content #page-content #right-page-content #contribute ol li.last {
-          border-bottom: none; }
-        #content #page-content #right-page-content #contribute ol li a {
-          text-decoration: none;
-          font-size: 10px;
-          color: #999999; }
 
 * html #content #page-content #right-page-content #contribute ol li a {
   padding-left: 8px; }
@@ -2265,3 +2240,12 @@ a.tooltip {
     color: #666666; }
     .toc_editor td.sub.reserved {
       background: #ff9999; }
+
+.please_wait {
+  background-color: #f6f6f6;
+  text-align: center;
+  height: 296px;
+  font-size: 14pt;
+  color: black;
+  padding: 45px;
+  border: 2px solid #e0e0e0; }

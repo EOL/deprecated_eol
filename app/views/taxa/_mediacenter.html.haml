@@ -8,7 +8,8 @@
         = "Media Center Navigation"[]
       %ul#tab_media_center
         %li#image
-          %a{ :href => "#media-images", :title => "Image"[] }
+          -# TODO - add pagination options to the URL if they were specified
+          %a{ :href => "/taxa/images/#{@taxon_concept.id}", :title => "Image"[] }
             = "Image"[]
             %span
         - if @taxon_concept.has_map
@@ -16,26 +17,19 @@
             %a#maps-link{ :href => "#media-maps", :title => "Maps"[] }
               = "Maps"[]
               %span
-        - if @taxon_concept.has_video && !@video_collection.blank?
+        - if @taxon_concept.has_video
           %li#videos
-            %a{ :href => "#media-videos", :title => "Videos"[] }
+            %a{ :href => "/taxa/videos/#{@taxon_concept.id}", :title => "Videos"[] }
               = "Videos"[]
               %span
         %li#taxa-comments
           %a{ :href => "#media-taxa-comments", :title => "Comments"[] }
             = "Comments"[]
             %span
-      %hr
-      = render :partial=>'taxa/mediacenter/tab_images'
-      %hr
-      = render :partial=>'taxa/mediacenter/tab_sounds'
-      %hr
-      = render :partial=>'taxa/mediacenter/tab_maps'
-      %hr
-      = render :partial=>'taxa/mediacenter/tab_videos'
-      %hr
-      = render :partial=>'taxa/mediacenter/tab_comments', :locals=> {:we_have_a_taxon_comment => we_have_a_taxon_comment}
-      %hr
+      .tab-panes
+        %div{:style => 'display:block'}
+          %p.please_wait
+            Please wait, loading content...
   #sliding-close
     #textarea
       %a#classification-attribution-button.static-popup-link.attribution-icon{ :href => "#{@taxon_concept.id}/classification_attribution", :onclick => "return false;" }

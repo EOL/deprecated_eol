@@ -1,7 +1,7 @@
 #internal-nav
   %h4.margin-header.right-margin-header
     = "Contribute"[]
-  #contribute-info.popup{:style => "display:none;"}
+  #contribute-info.popup{:style => "display:none;width:227px;margin-bottom:1em;"}
   - act_curators_size = @taxon_concept.acting_curators.size
   - if act_curators_size > 0
     .number-of-curators
@@ -13,16 +13,15 @@
     .number-of-curators
       Last curated:
       = LastCuratedDate.find(:last, :conditions => ["taxon_concept_id = ?", @taxon_concept]).last_curated.strftime("%d %b %Y")
-  -# if act_curators_size
-  %ul.bulletlist
+  %ul#contribute.bulletlist
     %li
       = link_to("Latest Changes", :controller => :feeds, :action => :all, :id => @taxon_concept.id)
       = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @taxon_concept.id)
     %li
-      %a{ :href => "#", :onclick => "JavaScript:eol_show_pop_up('contribute-info','contribute_photos-help','#{@taxon_concept.name(:canonical)}');return false;" }
+      %a{ :href => "/taxa/show_popup?name=contribute_photos&taxon_name=#{@taxon_concept.name(:canonical)}", :class => 'show_popup' }
         = "Submit an image"[]
     %li
-      %a{ :href => "#", :onclick => "JavaScript:eol_show_pop_up('contribute-info','contribute_text-help','#{@taxon_concept.name(:canonical)}');return false;" }
+      %a{ :href => "/taxa/show_popup?name=contribute_text&taxon_name=#{@taxon_concept.name(:canonical)}", :class => 'show_popup' }
         = "Submit text"[]
     %li
       %a{ :href => "/content/page/help_build_eol" }

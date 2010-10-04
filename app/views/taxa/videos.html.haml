@@ -5,9 +5,9 @@
     - showing_untrusted_video = true if video.untrusted?
     - showing_unknown_video = true if video.unknown?
 
-#media-videos.wrapper-mc.clearfix{ :style => "display: none;" }
+#media-videos.wrapper-mc.clearfix
   #video-player
-    - if @default_videos.blank? == true && @videos.blank? == false && params[:vet_flag] != "false"
+    - if @default_videos.blank? && @taxon_concept.has_video && params[:vet_flag] != "false"
       No authoritative videos available.
       = link_to 'View unvetted videos for this group.', {:action=>"show", :vet_flag=>"false"}
     - else

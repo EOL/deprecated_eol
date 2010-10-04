@@ -99,12 +99,6 @@ EOL.Curation.Behaviors = {
     e.stop();
   },
   
-  'input#curator_request': function(e) {
-    $(this).observe("click", function() {
-      EOL.Effect.toggle_with_effect("curator_request_options");  
-    });
-  },
-
   'div.vetted div.untrusted div input[type="radio"]:click': function(e) {
     this.up(2).down('div.reason').appear();
   },

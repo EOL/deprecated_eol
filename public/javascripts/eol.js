@@ -41,11 +41,6 @@ EOL.defer_click = function(e) {
   return(false);
 };
 
-// reload all UJS behaviors
-EOL.reload_behaviors = function() {
-  Event.addBehavior.reload();
-};
-
 // get the current app path # there may be a prototype built-in function for easily doing this, i just gsub out everything before the /path
 EOL.current_path = function() {
   return window.location.toString().gsub(/https?:\/\//,'').gsub(/^([^/])/,'');

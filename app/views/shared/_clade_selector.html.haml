@@ -1,46 +1,29 @@
-#div{ :id => id, :style => "display: inline;" }
+-# TODO - Clearly, this is ridiculous.  But I don't understand what's going on yet.
+:javascript
+  var indicator_arrows_html = '#{image_tag('indicator_arrows_black.gif')}';
+  var some_id = '#{id}';
+  var some_name = '#{name}';
+  var request_path = '#{request.path}';
+= javascript_include_tag 'navigation.js' # TODO - this should probably be done merged.
+%div{ :id => id, :style => "display: inline;" }
   - input_type = (is_debug == true) ? 'text' : 'hidden'
   - input_value = (value) ? value.id : ''
   %input{ :type => input_type, :id => name, :name => name, :value => input_value }
     - if toggle
       %span#browser_show
-        %a{ :onclick => "javascript:Effect.SlideDown('#{id}-inner'); Element.hide('browser_show'); Element.show('browser_hide'); return false;", :href => "#" }
+        %a{:href => "##{id}-inner" }
           [
           = show_text
           ]
       %span#browser_hide{ :style => "display:none" }
-        %a{ :onclick => "javascript:Effect.SlideUp('#{id}-inner');Element.hide('browser_hide');Element.show('browser_show');return false;", :href => "#" }
+        %a{:href => "##{id}-inner" }
           [
           = hide_text
           ]
       - if show_clear
         %span#browser_clear
-          %a{ :onclick => "javascript:clear_clade_of_clade_selector(); return false;", :href => "#" }
+          %a{ :href => "#" }
             [clear]
-          
-  %script{ :type => "text/javascript" }
-    function expand_clade_of_clade_selector( clade_id ) {
-    = "$('value_' + clade_id).innerHTML+='#{image_tag('indicator_arrows_black.gif')}';"
-    = #TODO: i'll fix this shortly ... for right now, this just needs to work so i hit the page you're on with a new querystring - extremely inefficient - will be fixed ASAP
-    = "$('##{id}-inner ul.tree').load('#{request.path}?clade_to_expand=' + clade_id + ' ##{id}-inner ul.tree');"
-    = on_expand if defined?on_expand
-    }
-    function select_clade_of_clade_selector( clade_id ) {
-    = "$('#{name}').value = clade_id;"
-    unselect_all_clades_of_clade_selector();
-    $('value_' + clade_id).addClassName('selected');
-    = on_select if defined? on_select
-    }
-    function clear_clade_of_clade_selector() {
-    = "$('#{name}').value = '';"
-    unselect_all_clades_of_clade_selector();
-    = on_clear if defined?on_clear
-    }
-    function unselect_all_clades_of_clade_selector() {
-    = "$$('div##{id} ul.tree li.selected').each(function(li){ li.removeClassName('selected'); } );"
-    = on_unselect_all if defined?on_unselect_all
-    }
-  
   - div_display = ( visible == true || value ) ? 'block' : 'none'
   %div{ :id =>"#{id}-inner", :style => "display: #{div_display};" }
     %ul.tree

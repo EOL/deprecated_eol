@@ -363,10 +363,6 @@ module ApplicationHelper
   #   name:             the name of the input field to use (default: whatever you pass as field-name, or 'selected-clade-id')
   #   debug:            true/false - shows the hidden input field as a text field, if true
   #   show_clear:       true/false - whether or not to show the '[clear]' option to clear the selection
-  #   on_select:        javascript to call everytime a clade is selected (clade_id is available as 'clade_id')
-  #   on_clear:         javascript to call when the clear 'button' is clicked
-  #   on_expand:        javascript to call when a '+' expand link is clicked
-  #   on_unselect_all:  javascript to call whenever all clades are unselected (happens on_select and on_clear)
   #
   def clade_selector field_name = 'selected-clade-id', options = {}
     if field_name.is_a?Hash

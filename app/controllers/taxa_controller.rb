@@ -86,7 +86,7 @@ class TaxaController < ApplicationController
   end
 
   # Main taxon_concept view
-  def show    
+  def show
 
     if this_request_is_really_a_search
       do_the_search
@@ -118,8 +118,7 @@ class TaxaController < ApplicationController
     redirect_to(params.merge(:controller => 'taxa',
                              :action => 'show',
                              :id => @taxon_concept.id,
-                             :status => :moved_permanently)) if
-    @taxon_concept.superceded_the_requested_id?
+                             :status => :moved_permanently)) if @taxon_concept.superceded_the_requested_id?
     current_user.log_activity(:viewed_taxon_concept, :taxon_concept_id => @taxon_concept.id)
 
     respond_to do |format|
@@ -265,6 +264,39 @@ class TaxaController < ApplicationController
     #log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
 
   end
+
+  def images
+    @taxon_concept = taxon_concept
+    @taxon_concept.current_user = current_user
+    @taxon_concept.current_agent = current_agent
+    @images = @taxon_concept.images
+    begin
+      set_image_permalink_data
+    rescue
+      render_404
+      return true
+    end
+    render :layout => false
+  end
+
+  def maps
+    @taxon_concept = taxon_concept # I don't think we care about user/agent in this case.  A map is a map.
+    render :layout => false
+  end
+
+  def videos
+    @taxon_concept = taxon_concept
+    @taxon_concept.current_user = current_user
+    @taxon_concept.current_agent = current_agent
+    @video_collection = videos_to_show
+    render :layout => false
+  end
+
+  # YOU WERE HERE
+  # TODO:
+
+    # = render :partial=>'taxa/mediacenter/tab_comments', :locals=> {:we_have_a_taxon_comment => we_have_a_taxon_comment}
+
 
   # TODO - this param should really be taxon_concept_id, not taxon_id... but I feel like it will require changes to
   # Javascript, and I am not confident enough to change them right now.
@@ -435,7 +467,7 @@ private
 
   def videos_to_show
     @default_videos = @taxon_concept.videos
-    @videos = show_unvetted_videos # instant variable used in _mediacenter
+    @videos = show_unvetted_videos
 
     if params[:vet_flag] == "false"
       @video_collection = @videos            
@@ -596,100 +628,17 @@ private
     end
   end
 
-  def set_image_comment_permalink_data
-    if params[:image_id].nil? && params[:image_comment_id]
-      comment_id = params[:image_comment_id].to_i
-
-      comment = Comment.find_by_id(comment_id)
-
-      if comment && comment.parent_type == 'DataObject'
-        data_object = DataObject.find(comment.parent_id)
-        if data_object.taxon_concepts.include?(@taxon_concept) && data_object.image?
-          params[:image_id] = data_object.id
-
-          set_image_permalink_data
-
-          @selected_image_comment = comment
-
-          set_comment_permalink_pagination(data_object.id, comment)
-        else
-          raise "No image with id #{data_object.id} for taxon concept with id #{@taxon_concept.id} or not of type image"
-        end
-      else
-        raise "Comment not for a data object"
-      end
-    end
-  end
-
-
-  def set_text_comment_permalink_data
-    if params[:text_id].nil? && params[:text_comment_id]
-      comment_id = params[:text_comment_id].to_i
-
-      comment = Comment.find(comment_id)
-
-      if comment.parent_type == 'DataObject'
-        data_object = DataObject.find(comment.parent_id)
-        if data_object.taxon_concepts.include?(@taxon_concept) && data_object.text?
-          params[:text_id] = data_object.id
-
-          set_text_permalink_data
-
-          @selected_text_comment = comment
-
-          set_comment_permalink_pagination(data_object.id, comment)
-        else
-          raise "No text with id #{data_object.id} for taxon concept with id #{@taxon_concept.id} or not of type text"
-        end
-      else
-        raise "Comment not for a data object"
-      end
-    end
-  end
-
-  def set_comment_permalink_pagination(data_object_id, comment)
-
-    all_comments = Comment.find_all_by_parent_id_and_parent_type(data_object_id, 'DataObject')
-
-    comment_index = nil
-    all_comments.each_with_index do |c, i|
-      if c == comment
-        comment_index = i
-        break
-      end
-    end
-
-    @comment_page = ((comment_index).to_f / 10).floor + 1
-  end
-
-  def set_comment_permalink_data
-    if params[:comment_id]
-      @comment = Comment.find(params[:comment_id].to_i)
-      if @comment.parent_id != @taxon_concept.id || @comment.parent_type != 'TaxonConcept'
-        raise 'Comment not for this species'
-      end
-    end
-  end
-
   # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
   # wrong.  We really need some classes or helpers to take care of these details.
   def set_taxa_page_instance_vars
-    @taxon_concept.current_agent = current_agent unless current_agent.nil?
-
-    @images = @taxon_concept.images
+    @taxon_concept.current_agent = current_agent
 
     begin
-      set_comment_permalink_data
-      set_image_permalink_data
       set_text_permalink_data
-      set_image_comment_permalink_data
-      set_text_comment_permalink_data
     rescue
       render_404
       return true
     end
-
-    @video_collection = videos_to_show
 
     @category_id = show_category_id # need to be an instant var as we use it in several views and they use
                                     # variables with that name from different methods in different cases

@@ -1,21 +1,7 @@
 = eol_lang_error_messages_for :news_item
-%script{ :type => "text/javascript" }
-  function check_body_remaining () {
-  textCounter($('news_item_body'),$('body_remaining_length'),1500);
-  preview_news_item();
-  }
-  function check_title_remaining () {
-  textCounter($('news_item_title'),$('title_remaining_length'),250);
-  preview_news_item();
-  }
-  function preview_news_item() {
-  = "$('previewed_news_item').innerHTML='<strong>#{Date.today}</strong> - ' + $('news_item_title').value + ' - ' + $('news_item_body').value;"
-  }
-  
-  $(document).ready(function() {
-  check_title_remaining();
-  check_body_remaining();
-  });
+:javascript
+  var todays_date = '#{Date.today}';
+= javascript_include_tag 'adiministrator-news-item.js'
 %br
 Edit the news item below.  HTML is allowed in both fields, and *either* title or the body is required.  For best results, just use the title and enter a short news item.  When creating hyperlinks to other sites, you can use
 = link_to 'TinyURL','http://www.tinyurl.com',:target=>'_blank'

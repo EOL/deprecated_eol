@@ -53,8 +53,7 @@
               
               - if item.has_content?
                 - a_class = item.is_child? ? 'toc_item' : 'toc_item bold'
-                %a{ :href => url_for(:action=>'show'), :id => "category_id_#{item.category_id}", :class => "#{a_class} taxon_concept_#{@taxon_concept.id} #{[@category_id].include?(item.category_id) ? "active" : nil}".strip, :title => item.label, :onclick => "eol_update_content_area(#{@taxon_concept.id},#{item.category_id}, #{item.allow_user_text?});this.className = 'active toc_item';return false;" }
-                  = item.label
+                = link_to(item.label, "/taxa/content/#{@taxon_concept.id}?category_id=#{item.category_id}", :id => "category_id_#{item.category_id}", :class => "#{a_class} taxon_concept_#{@taxon_concept.id} #{[@category_id].include?(item.category_id) ? "active" : nil}".strip)
               - else
                 %span.no_toc_link
                   = item.label

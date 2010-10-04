@@ -3,23 +3,19 @@
     // Hides text-object attribution
     // By default, we only show authors, sources, copyrights, datasuppliers, and sourceurls
     $('div.content-article div.attribution div.credit').each(function() {
-      var classes = $(this).attr('class').split(/\s+/);
       if (!(
-          classes.include('author') ||
-          classes.include('source') ||
-          classes.include('rightsholder') ||
-          classes.include('license') ||
-          classes.include('datasupplier') ||
-          classes.include('indexed') ||
-          classes.include('supplier') ||
-          classes.include('show') ||
-          classes.include('sourceurl')
+          $(this).hasClass('author') ||
+          $(this).hasClass('source') ||
+          $(this).hasClass('rightsholder') ||
+          $(this).hasClass('license') ||
+          $(this).hasClass('datasupplier') ||
+          $(this).hasClass('indexed') ||
+          $(this).hasClass('supplier') ||
+          $(this).hasClass('show') ||
+          $(this).hasClass('sourceurl')
           ))
         $(this).hide();
     });
-    for(key in clicks) {
-      $(key).each($(this).click(initializations[key].call(this)));
-    }
   });
 
 - subtitle = content_item.subtitle_to_show

@@ -7,9 +7,6 @@ $().ajaxStop( EOL.Ajax.finish );
 // Behaviours to attach globally:
 $(document).ready(function() {
   // Make our links show up
-  $('a.popup-link, a.slide-in-link').each(function() { $(this).show(); });
-  $('a.static-popup-link').each(function() { new EOL.PopupLink(this, {is_static:true}); });
-  $('a.popup-link').each(function() { new EOL.PopupLink(this); });
   $('a.external_link').click(function(e) {
     show_popup = false;
     if (EOL.USE_EXTERNAL_LINK_POPUPS) {

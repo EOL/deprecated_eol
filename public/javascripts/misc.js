@@ -18,32 +18,33 @@ function textCounter(field,cntfield,maxlimit) {
 
 // update the content area
 function eol_update_content_area(taxon_concept_id, category_id, allow_user_text) {
-    if($('#insert_text_popup')) {
-      EOL.popup_links['new_text_toc_text'].popup.toggle();
-    }
-    $.ajax(
-      url: '/taxa/content/',
-      data: { id: taxon_concept_id, category_id: category_id },         
-      complete:function(request){hideAjaxIndicator(true);updateReferences();},
-      success:function(request){hideAjaxIndicator(true);updateReferences();},
-      error: function(request){hideAjaxIndicator(true);},
-      beforeSend:function(request){showAjaxIndicator(true);},
-    );
-    $('#toc .active').addClass('toc_item');
+  if($('#insert_text_popup')) {
+    EOL.popup_links['new_text_toc_text'].popup.toggle();
+  }
+  // Note the updateReferences calls here come from bioGUIDv3.
+  $.ajax({
+    url: '/taxa/content/',
+    data: { id: taxon_concept_id, category_id: category_id },         
+    complete: function(request) {hideAjaxIndicator(true); updateReferences();},
+    success: function(request) {hideAjaxIndicator(true); updateReferences();},
+    error: function(request) {hideAjaxIndicator(true);},
+    beforeSend: function(request) {showAjaxIndicator(true);}
+  });
+  $('#toc .active').addClass('toc_item');
 }
 
 // show the pop-up in the div 
 function eol_show_pop_up(div_name, partial_name, taxon_name) {
   if (partial_name==null) partial_name=div_name;
   if (taxon_name==null) taxon_name='';
-  $.ajax(
+  $.ajax({
     url: '/taxa/show_popup',
     type: 'POST', 
-    complete:function(request){hideAjaxIndicator();EOL.Effect.toggle_with_effect(div_name);},
-    beforeSend:function(request){showAjaxIndicator();},
-    success:function(result){$('#'+div_name).html(result);},
-    data:{name: partial_name, taxon_name: taxon_name}
-  );
+    complete: function(request) {hideAjaxIndicator();EOL.Effect.toggle_with_effect(div_name);},
+    beforeSend: function(request) {showAjaxIndicator();},
+    success: function(result) {$('#'+div_name).html(result);},
+    data: {name: partial_name, taxon_name: taxon_name}
+  });
 }
 
 // Displays the Photosynth interface in the image pane.
@@ -242,12 +243,12 @@ function eol_update_video(params) {
     }
     $('#video_attributions').attr('href', "/data_objects/" + params.data_object_id + "/attribution");
 
-    $.ajax(
+    $.ajax({
       url: '/taxa/show_video/',
       data: { video_type: params.video_type, video_url: params.video_url, video_mime_type_id: params.mime_type_id, data_object_id: params.data_object_id, video_object_cache_url: params.object_cache_url },
       complete:function(request){hideAjaxIndicator();},
       beforeSend:function(request){showAjaxIndicator();},
-    );
+    });
 
     $('#video-notes').removeClass('untrusted-background-text');         
     $('#video-player').removeClass('untrusted-background-color');         
@@ -310,26 +311,26 @@ function displayNode(id, for_selection) {
 	if(for_selection) {
 		url = '/navigation/show_tree_view_for_selection'
 	}
-  $.ajax(
+  $.ajax({
       type: 'POST', 
       complete: function(){hideAjaxIndicator();},
       beforeSend: function(){showAjaxIndicator();},
       success: function(response){$('#browser-text').html(response);},
       data: {id: id}
-  );
+  });
 }
 
 // call remote function to show the selected node in the text-based navigational tree view
 function update_browser(hierarchy_entry_id, expand) {
   url = '/navigation/browse'
-  $.ajax(
+  $.ajax({
     url: url,
     type: 'POST', 
     complete: function(){hideAjaxIndicator(); scroll(0,100);},
     beforeSend: function(){showAjaxIndicator();},
     success: function(response){$('#hierarchy_browser').html(response);},
     data: {id: hierarchy_entry_id, expand: expand }
-  );
+  });
 }
 
 // call remote function to show the selected node in the text-based navigational tree view

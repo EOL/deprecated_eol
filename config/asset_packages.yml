@@ -2,24 +2,23 @@
 javascripts: 
 
 - base-cached:
-  - flashobjects
+  - lowpro.jquery
   - eol
-  - tagging
   - search
-  - curation
   - comments
   - admin
+  - misc
+  - builder
+  - bioGUIDv3
+  - application 
+
+- taxa-page-cached:
+  - tagging
+  - curation
   - rating
   - text_objects
   - media_center
   - popup
-  - misc
-  - validator
-  - faqs
-  - builder
-  - flash_detect_min
-  - jsonbioGUIDv3
-  - application 
 
 - jquery-extras-cached:
   - jquery-autocomplete

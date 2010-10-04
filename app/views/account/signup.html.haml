@@ -15,6 +15,7 @@
       %br
       Please note that you will be required to click a link in a confirmation email sent to the email address you enter below - so you must provide a valid, working email address.
       = eol_lang_error_messages_for :user
+      = javascript_include_tag 'validator'
       - form_for :user, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f|
         %fieldset
           %span#verification_warn.error

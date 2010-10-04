@@ -1,0 +1,11 @@
+- content_for :head do
+  = javascript_include_merged 'taxa-page-cached'
+  :javascript
+    EOL.USE_EXTERNAL_LINK_POPUPS  = #{$USE_EXTERNAL_LINK_POPUPS};
+    EOL.Curation.UNKNOWN_ID       = #{Vetted.unknown.id};
+    EOL.Curation.TRUSTED_ID       = #{Vetted.trusted.id};
+    EOL.Curation.UNTRUSTED_ID     = #{Vetted.untrusted.id};
+    EOL.Curation.VISIBLE_ID       = #{Visibility.visible.id};
+    EOL.Curation.INVISIBLE_ID     = #{Visibility.invisible.id};
+    EOL.Curation.INAPPROPRIATE_ID = #{Visibility.inappropriate.id};
+= render :file => 'layouts/main'

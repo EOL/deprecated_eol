@@ -1,3 +1,5 @@
+/* Wow.  Just.... Wow.  This could be re-written in, like, five lines.  But I don't have a good example here to make sure it
+ * works, so I'm keeping it.  Argh! */
 var plus = "url(/images/faqPlus.gif)";
 var minus = "url(/images/faqMinus.gif)";
 var padding = "14px";

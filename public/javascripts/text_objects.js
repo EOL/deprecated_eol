@@ -93,7 +93,7 @@ EOL.TextObjects.submit_text = function(form, event) {
   // //in case we want to reload the TOC Category after submission, but it caused other javascript errors
   var selected_index = $('data_objects_toc_category_toc_id').selectedIndex;
   var toc_id = $('data_objects_toc_category_toc_id')[selected_index].value;
-  var taxon_concept_id = $j("input[name=taxon_concept_id]").val();
+  var taxon_concept_id = $("input[name=taxon_concept_id]").val();
   // window.location.href = '/pages/'+taxon_concept_id+'?category_id='+toc_id;
   return false;
 };

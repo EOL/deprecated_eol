@@ -12,7 +12,7 @@
   = "$('previewed_news_item').innerHTML='<strong>#{Date.today}</strong> - ' + $('news_item_title').value + ' - ' + $('news_item_body').value;"
   }
   
-  document.observe("dom:loaded", function() {
+  $(document).ready(function() {
   check_title_remaining();
   check_body_remaining();
   });

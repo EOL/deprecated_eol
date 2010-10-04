@@ -1,7 +1,7 @@
 %a.tooltip{:id => element_id, :href => "#", :onclick => "return false;"}
   = term + image_tag('/images/magnifier.png')
 %script{ :type => "text/javascript" }
-  = "$j('##{element_id}').qtip({"
+  = "$('##{element_id}').qtip({"
   = "content: '#{definition.gsub("'","\'")}',"
   position: {
   corner: {

@@ -1,7 +1,7 @@
 //I use jquery according to our new policy to use it for every new js
-$j(function() {
-  $j("#user_entered_password").attr("value","");
-  $j("#user_entered_password_confirmation").attr("value","");
+$(function() {
+  $("#user_entered_password").attr("value","");
+  $("#user_entered_password_confirmation").attr("value","");
 });
 
 // ajax call to determine if username is unique

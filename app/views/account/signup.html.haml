@@ -1,6 +1,6 @@
 = javascript_include_tag 'users'
 :javascript
-  document.observe("dom:loaded", function() {
+  $(document).ready(function() {
   $('user_username').focus();
   if(#{params[:user] && params[:user][:curator_request] ? 'true' :'false'}) reset_curator_panel();
   });

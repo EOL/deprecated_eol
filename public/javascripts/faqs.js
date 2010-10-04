@@ -103,6 +103,6 @@ function expandDLTree(className){
 	}
 }
 
-document.observe("dom:loaded", function() {
+$(document).ready(function() {
   initDLTree("faqBlock");
 });

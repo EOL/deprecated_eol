@@ -9,7 +9,7 @@
 
 if(typeof(Control) == 'undefined')
 	var Control = {};
-Control.Tabs = Class.create();
+Control.Tabs = $.klass();
 Object.extend(Control.Tabs,{
 	instances: [],
 	findByTabId: function(id){
@@ -87,8 +87,6 @@ Object.extend(Control.Tabs.prototype,{
 		link.key = link.getAttribute('href').replace(window.location.href.split('#')[0],'').split('/').last().replace(/#/,'');
 		this.containers[link.key] = $(link.key);
 		link[this.options.hover ? 'onmouseover' : 'onclick'] = function(link){
-			if(window.event)
-				Event.stop(window.event);
 			this.setActiveTab(link);
 			return false;
 		}.bind(this,link);

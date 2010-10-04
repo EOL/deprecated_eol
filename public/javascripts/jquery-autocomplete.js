@@ -1,7 +1,5 @@
 // some changes have been made to this, making it specific to Tagging  :/
-//
-// need to work on this!  maybe use a Prototype-based version, as well, to 
-// get rid of jQuery as a dependency?
+// ...Those specific changes are marked with CUSTOMIZATION FOR TAGGING
 
 /*
  * jQuery autocomplete plugin

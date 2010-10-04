@@ -17,6 +17,7 @@
     }
 
     
+= javascript_include_tag 'validator'
 - form_for(@resource, :method => method, :html => {  :multipart => true, :id => 'resource_form',:class => "warning-warn invalid-invalid styleLabelOnErr" } ) do |f| 
   = f.error_messages
 
@@ -49,7 +50,7 @@
                   
     .form_item
       = f.label :title, 'Title: <span title="required">*</span>'
-      <!-- resource_title ^.{1,200}$ false true //-->
+      / resource_title ^.{1,200}$ false true //
       = f.text_field :title, :maxlength=>200, :size=>50 
     .form_item
       = f.label :accesspoint_url, 'Indicate below the full URL (include \'http://\') from which the resource can be downloaded:  <span title="required">*</span>'

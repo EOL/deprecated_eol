@@ -14,13 +14,10 @@
     }
   }
 #page-separator-general
-/ page title
 #page-title
   %h1= "Registration"[]
   %hr
-/ end of page title
 #page-content.clearfix
-  / center page content
   #full-page-content
     Welcome:  This is the registration page for people and projects who want their information to be shown on EOL species pages to
     register with us.   If you just wish to register as an EOL user, please
@@ -30,6 +27,7 @@
     %br
     Note that the account you create below is for your project and may be shared amongst others in the project.
     = eol_lang_error_messages_for :agent
+    = javascript_include_tag 'validator'
     - form_for @agent, :url => { :controller => '/content_partner', :action => 'register' }, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f|
       %fieldset
         %legend

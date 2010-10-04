@@ -9,28 +9,40 @@ $(document).ready(function() {
       eol_update_image( image_hash.smart_image, image_hash );
     }
   }
+  // Allow the user to show extra attribution information for text - TODO - this could be far more elegant.
+  $('div.content-article div.attribution .expand-text-attribution').click(function(e) {
+    $('div.content-article div.'+$(this).attr('id').substring(4) +' div.credit').each(function(e){ e.fadeIn(); });
+    $(this).fadeOut();
+    return false;
+  });
   // toggle image attribution on click
   $('img#main-image').click(function() {
-    EOL.popup_links['large-image-attribution-button-popup-link'].click(); // "click" the PopupLink
+    $('#large-image-attribution-button-popup-link').click(); // "click" the PopupLink
+  });
+  //clicking map will show attributions
+  $('img#map').click(function (e) {
+    $('map_attributions').click();
   });
   // slide in text comments (TEXT OBJECT - slides down, doesn't POPUP)
   $('div.text_buttons div.comment_button a').click(function(e) {
-    data_object_id = this.readAttribute('data-data_object_id');
-    textComments = "text-comments-" + data_object_id;
-    textCommentsWrapper = "text-comments-wrapper-" + data_object_id;
-    if ($(textCommentsWrapper).style.display == 'none') {
-      new Ajax.Updater(textComments, this.href,
-                       {asynchronous:true, evalScripts:true, method:'get',
-                        parameters: { body_div_name: textComments },
-                        onLoading: Effect.BlindDown(textCommentsWrapper)
-                        });
+    data_object_id = $(this).attr('data-data_object_id');
+    textCommentsDiv = "text-comments-wrapper-" + data_object_id;
+    textCommentsWrapper = "#" + textCommentsDiv;
+    if (true) { // TODO!  This needs to check whether it's open now or not.
+      $.ajax({
+        url: $(this).attr('href'),
+        data: { body_div_name: textCommentsDiv },
+        success: function(result) {$(textCommentsWrapper).html(result);},
+        error: function(result) {$(textCommentsWrapper).html("<p>Sorry, there was an error.</p>");},
+        complete: function() { $(textCommentsWrapper).slideDown(); }
+      });
     } else {
-      Effect.DropOut(textCommentsWrapper);
+      $('#'+textComments).slideUp();
     }
-    e.stop();
+    return false;
   });
   $('div.text_buttons div.curate_button a').click(function(e) {
-    data_object_id = this.readAttribute('data-data_object_id');
+    data_object_id = $(this).attr('data-data_object_id');
     textCuration = "text-curation-" + data_object_id;
     textCurationWrapper = "text-curation-wrapper-" + data_object_id;
     if ($(textCurationWrapper).style.display == 'none') {
@@ -43,7 +55,7 @@ $(document).ready(function() {
     } else {
       Effect.DropOut(textCurationWrapper);
     }
-    e.stop();
+    return false;
   });
   // Fade in the taxa comments! (TAB)
   $('#taxa-comments a').click(function(e) {
@@ -54,17 +66,13 @@ $(document).ready(function() {
   });
   // clicking on a thumbnail in the mediacenter
   $('div#image-collection div#thumbnails a').click(function(e) {
-    var image_id   = $(this).id.match(/\d*$/)[0]; // eg. id="thumbnail_123"
+    var image_id   = $(this).attr('id').match(/\d*$/)[0]; // eg. id="thumbnail_123"
     var image_hash = EOL.MediaCenter.image_hash[image_id];
     eol_update_image( image_hash.smart_image, image_hash );
-
-    for(var i in EOL.popups) {
-      EOL.popups[i].destroy();
-    }
-    e.stop();
+    return(false);
   });
   //clicking on maps link in mediacenter
-  '#tab_media_center #maps a').click(function(e) {
+  $('#tab_media_center #maps a').click(function(e) {
     var map_div = $$('#media-maps div')[0];
     if (map_div && map_div.style.display == 'none') {
         var taxon_concept_id = $('map-taxon-concept-id').value;
@@ -91,15 +99,6 @@ $(document).ready(function() {
         so.write("map-image");
         map_div.style.display = 'block';
     }
-    e.stop();
-  });
-  $('div.content-article div.attribution .expand-text-attribution').click(function(e) {
-    $$('div.content-article div.'+this.id.substring(4) +' div.credit').each(function(e){ e.appear(); });
-    $(this.id).fade();
-    e.stop();
-  });
-  //clicking map will show attributions
-  $('img#map').click(function (e) {
-    EOL.popup_links['map_attributions'].click();
+    return false;
   });
 });

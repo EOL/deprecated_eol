@@ -261,11 +261,12 @@ class ContentController < ApplicationController
     
     unless explore_taxa.nil? or taxa_number.nil? or taxa_number.empty?
       render :update do |page|
-        page['top_image_tag_'+taxa_number].alt          = sanitize(explore_taxa['scientific_name'])
-        page['top_image_tag_'+taxa_number].title        = sanitize(explore_taxa['scientific_name'])
-        page['top_image_tag_'+taxa_number].src          = explore_taxa['image_cache_path']
-        page['top_image_tag_'+taxa_number+'_href'].href = "/pages/" + explore_taxa['taxon_concept_id'].to_s
-        page.replace_html 'top_name_'+taxa_number, random_image_linked_name(explore_taxa)
+        name_div_contents = (random_image_linked_name(explore_taxa)).gsub(/'/, "&apos;")
+        page << "$('#top_name_#{taxa_number}').html('#{name_div_contents}');"
+        page << "$('#top_image_tag_#{taxa_number}').attr('src', '#{explore_taxa['image_cache_path']}');"
+        page << "$('#top_image_tag_#{taxa_number}_href').attr('src', '/pages/#{explore_taxa['taxon_concept_id']}');"
+        page << "$('#top_image_tag_#{taxa_number}').attr('alt', '#{sanitize(explore_taxa['scientific_name'])}');"
+        page << "$('#top_image_tag_#{taxa_number}').attr('title', '#{sanitize(explore_taxa['scientific_name'])}');"
       end
     else
       render :nothing => true

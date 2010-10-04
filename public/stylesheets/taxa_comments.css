@@ -9,7 +9,8 @@
     border: 1px solid #6a8d00;
     background-color: #f4f4f4;
     padding: 13px 12px;
-    height: 354px; }
+    height: 354px;
+    width: 666px; }
   #taxaCommentsWrap .controls {
     overflow: hidden;
     width: 96%; }
@@ -57,52 +58,6 @@ ul.pages li a:link, ul.pages li a:visited {
   font: normal 10px/11px "trebuchet ms", arial, sans-serif;
   color: white;
   text-decoration: none; }
-
-#taxaCommentsWrap ul.pages li a:hover, ul.pages li a:active {
-  background: #6a8d00; }
-
-#taxaCommentsWrap ul.pages.bttm {
-  padding: 10px 0; }
-#taxaCommentsWrap ul.pages li.pagesNext {
-  background: url(/images/controlsBkg.gif) no-repeat 100% 0 transparent;
-  border-right: none; }
-#taxaCommentsWrap ul.pages li.pagesPrev {
-  background: url(/images/controlsBkg.gif) no-repeat 0 0 transparent;
-  border-left: none;
-  text-align: right; }
-#taxaCommentsWrap .comments {
-  clear: both;
-  float: left;
-  display: block;
-  padding: 0;
-  margin: 0; }
-  #taxaCommentsWrap .comments li {
-    background: url(/images/bubbleBttm.gif) no-repeat 0 100%;
-    display: block;
-    float: left;
-    list-style-type: none;
-    padding: 0;
-    margin: 0 0 12px 0; }
-    #taxaCommentsWrap .comments li div {
-      background: url(/images/bubbleTop.gif) no-repeat 0 0;
-      display: block;
-      float: left;
-      width: 420px;
-      padding: 15px 40px 14px 20px; }
-    #taxaCommentsWrap .comments li h6 {
-      display: block;
-      width: 150px;
-      float: right;
-      font: normal 11px/15px "trebuchet ms", arial, sans-serif;
-      color: #6a8d00;
-      padding: 3px 0 0 3px;
-      margin: 0; }
-      #taxaCommentsWrap .comments li h6 strong {
-        display: block;
-        font: normal 14px/15px verdana, arial, sans-serif;
-        color: #555555;
-        padding: 0 0 4px 0;
-        margin: 0; }
 
 .text-slidebox-border ul.pages li a:hover, .text-slidebox-border ul.pages li a:active {
   background: #6a8d00; }
@@ -235,7 +190,7 @@ ul.pages li a:link, ul.pages li a:visited {
       display: block;
       padding: 15px 40px 14px 20px; }
 
-.text-slidebox-border h2, #commentsContain h2 {
+.text-slidebox-border h2 {
   clear: left;
   float: left;
   font: normal 20px/21px verdana, arial;
@@ -244,7 +199,7 @@ ul.pages li a:link, ul.pages li a:visited {
   margin: 0 0 20px 0;
   width: 200px; }
 
-.text-slidebox-border small, #commentsContain small {
+.text-slidebox-border small {
   float: left;
   display: block;
   font: normal 10px/11px "trebuchet ms", verdana, arial;
@@ -253,11 +208,11 @@ ul.pages li a:link, ul.pages li a:visited {
   margin: 0;
   width: 220px; }
 
-.text-slidebox-border ul.pages, #commentsContain ul.pages {
+.text-slidebox-border ul.pages {
   float: right;
   margin: 0; }
 
-.text-slidebox-border ul.pages li, #commentsContain ul.pages li {
+.text-slidebox-border ul.pages li {
   list-style-type: none;
   float: right;
   font: normal 10px/11px "trebuchet ms", arial, sans-serif;
@@ -327,3 +282,52 @@ ul.pages li a:link, ul.pages li a:visited {
   #commentsContain .pagination a:visited, #commentsContain .pagination a:hover, #commentsContain .pagination a:link {
     color: white !important;
     text-decoration: none; }
+
+#taxaCommentsWrap ul.pages li a:hover, ul.pages li a:active {
+  background: #6a8d00; }
+
+#taxaCommentsWrap ul.pages.bttm {
+  padding: 10px 0; }
+#taxaCommentsWrap ul.pages li.pagesNext {
+  background: url(/images/controlsBkg.gif) no-repeat 100% 0 transparent;
+  border-right: none; }
+#taxaCommentsWrap ul.pages li.pagesPrev {
+  background: url(/images/controlsBkg.gif) no-repeat 0 0 transparent;
+  border-left: none;
+  text-align: right; }
+#taxaCommentsWrap .comments {
+  clear: both;
+  float: left;
+  display: block;
+  padding: 0;
+  margin: 0;
+  width: 663px; }
+  #taxaCommentsWrap .comments li {
+    background: url(/images/bubbleBttm.gif) no-repeat 0 100%;
+    display: block;
+    float: left;
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 12px 0;
+    width: 620px; }
+    #taxaCommentsWrap .comments li div {
+      background: url(/images/bubbleTop.gif) no-repeat 0 0;
+      display: block;
+      float: left;
+      width: 420px;
+      padding: 15px 40px 14px 20px; }
+    #taxaCommentsWrap .comments li h6 {
+      display: block;
+      width: 150px;
+      float: right;
+      font: normal 11px/15px "trebuchet ms", arial, sans-serif;
+      color: #6a8d00;
+      padding: 3px 0 0 3px;
+      margin: 0;
+      background: none; }
+      #taxaCommentsWrap .comments li h6 strong {
+        display: block;
+        font: normal 14px/15px verdana, arial, sans-serif;
+        color: #555555;
+        padding: 0 0 4px 0;
+        margin: 0; }

@@ -1,9 +1,8 @@
--# TODO - Clearly, this is ridiculous.  But I don't understand what's going on yet.
 :javascript
-  var indicator_arrows_html = '#{image_tag('indicator_arrows_black.gif')}';
-  var some_id = '#{id}';
-  var some_name = '#{name}';
-  var request_path = '#{request.path}';
+  if (!EOL) EOL = {};
+  EOL.indicator_arrows_html = '#{image_tag('indicator_arrows_black.gif')}';
+  EOL.clade_selector_id = '#{id}';
+  EOL.clade_selector_input_name = '#{name}';
 = javascript_include_tag 'navigation.js' # TODO - this should probably be done merged.
 %div{ :id => id, :style => "display: inline;" }
   - input_type = (is_debug == true) ? 'text' : 'hidden'
@@ -29,11 +28,11 @@
     %ul.tree
       - for kingdom in hierarchy.kingdoms
         %li{ :id => "value_#{kingdom.id}", :class => "value_#{kingdom.id} kingdom" }
-          = tree_entry_text(kingdom, selectable_clade_level)
+          = tree_entry_text(kingdom, selectable_clade_level, id)
           - if value and kingdom == value.kingdom
             - value.ancestors.shift
-            = value.ancestors.map {|he| "<ul><li id='value_#{he.id}' class='value_#{he.id}}'>" + tree_entry_text(he, selectable_clade_level) }
+            = value.ancestors.map {|he| "<ul><li id='value_#{he.id}' class='value_#{he.id}'>" + tree_entry_text(he, selectable_clade_level, id) }
             %ul
               - for child in value.children
                 %li{ :id => "value_#{child.id}", :class => "value_#{child.id}" }
-                  = tree_entry_text(child, selectable_clade_level)
+                  = tree_entry_text(child, selectable_clade_level, id)

@@ -23,6 +23,7 @@
           &nbsp;&nbsp;
           = link_to("Forgot password?"[], :action => 'forgot_password')
           %br
+          %br
           %label{ :for => "remember_me" }= "Remember Me"[]
           = check_box_tag 'remember_me'
           = "check to stay logged in automatically for up to two weeks (do NOT use on public computers)"[:remember_me_message]
@@ -34,4 +35,3 @@
                 = submit_tag 'Login Now'[:login_now] + ' &#187;'
               %td{ :valign => "middle" }
                 = link_to("If you don't have an account, click here to register"[:click_here_to_register],:action=>'signup')
-      -# end form

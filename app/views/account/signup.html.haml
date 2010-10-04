@@ -1,8 +1,9 @@
 = javascript_include_tag 'users'
+= javascript_include_tag 'validator'
 :javascript
   $(document).ready(function() {
-  $('user_username').focus();
-  if(#{params[:user] && params[:user][:curator_request] ? 'true' :'false'}) reset_curator_panel();
+    $('user_username').focus();
+    if(#{params[:user] && params[:user][:curator_request] ? 'true' :'false'}) reset_curator_panel();
   });
 #registration
   #page-separator-general
@@ -10,12 +11,10 @@
     %h1= "Registration"[]
     %hr
   #page-content.clearfix
-    / center page content
     #full-page-content
       %br
       Please note that you will be required to click a link in a confirmation email sent to the email address you enter below - so you must provide a valid, working email address.
       = eol_lang_error_messages_for :user
-      = javascript_include_tag 'validator'
       - form_for :user, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr" } do |f|
         %fieldset
           %span#verification_warn.error
@@ -78,15 +77,14 @@
               %span
                 = "To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted."[:curator_signup_message]
               = render(:partial=>'curator_form',:locals=>{ :f => f })
-          -# end if $ALLOW_CURATOR_SELF_REG
           - if $ENABLE_RECAPTCHA
+            :javascript
+              var RecaptchaOptions = { theme : 'clean'};
             %br
             %label{ :title => "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha], :for => "recaptcha" }
               = "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha]
             = recaptcha_tags
-          -# end if $ENABLE_RECAPTCHA
           %br
           .button
             = submit_tag "Register Now"[] + ' &#187;'
-      -# end form_for :user
       %br

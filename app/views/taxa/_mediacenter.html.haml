@@ -8,8 +8,9 @@
         = "Media Center Navigation"[]
       %ul#tab_media_center
         %li#image
-          -# TODO - add pagination options to the URL if they were specified
-          %a{ :href => "/taxa/images/#{@taxon_concept.id}", :title => "Image"[] }
+          - images_url = "/taxa/images/#{@taxon_concept.id}"
+          - images_url += "?image_id=#{@image_id}" if @image_id
+          %a{ :href => images_url, :title => "Image"[] }
             = "Image"[]
             %span
         - if @taxon_concept.has_map
@@ -23,7 +24,7 @@
               = "Videos"[]
               %span
         %li#taxa-comments
-          %a{ :href => "#media-taxa-comments", :title => "Comments"[] }
+          %a{ :href => "/comments/?body_div_name=create&taxon_concept_id=#{@taxon_concept.id}", :title => "Comments"[] }
             = "Comments"[]
             %span
       .tab-panes
@@ -32,7 +33,10 @@
             Please wait, loading content...
   #sliding-close
     #textarea
-      %a#classification-attribution-button.static-popup-link.attribution-icon{ :href => "#{@taxon_concept.id}/classification_attribution", :onclick => "return false;" }
+      %a#classification-attribution-button.popup-link.attribution-icon{ :rel => '#class-attr-overlay', :href => "#{@taxon_concept.id}/classification_attribution" }
+      #class-attr-overlay.overlay{:style=>"width:350px"}
+        .contentWrap              
+          Please wait, loading...
       #nagivation-choose-hierarchy
         %h5
           #classification_whats_this

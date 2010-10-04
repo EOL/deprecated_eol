@@ -6,8 +6,8 @@ EOL.Search.show_top_spinner = function() {
 }
 
 EOL.validate_search_parameters = function(form,advanced_search) {
-  if (form.q.value.trim() == "") {
-    error_message='';
+  if ($('#q').attr('value').trim() == "") {
+    error_message = 'Please enter a search term!';
     $('#search_message').html(error_message);
     if (advanced_search == true) {
       $('#advanced_search_message').html(error_message);

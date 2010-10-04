@@ -269,13 +269,17 @@ class TaxaController < ApplicationController
     @taxon_concept = taxon_concept
     @taxon_concept.current_user = current_user
     @taxon_concept.current_agent = current_agent
-    @images = @taxon_concept.images
+    @image_page = (params[:image_page] ||= 1).to_i
+    start       = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
+    last        = start + $MAX_IMAGES_PER_PAGE - 1
+    @images     = @taxon_concept.images(:image_page => @image_page)[start..last]
     begin
       set_image_permalink_data
     rescue
       render_404
       return true
     end
+    current_user.log_activity(:viewed_page_of_images, :value => @image_page, :taxon_concept_id => @taxon_concept.id)
     render :layout => false
   end
 
@@ -290,42 +294,6 @@ class TaxaController < ApplicationController
     @taxon_concept.current_agent = current_agent
     @video_collection = videos_to_show
     render :layout => false
-  end
-
-  # YOU WERE HERE
-  # TODO:
-
-    # = render :partial=>'taxa/mediacenter/tab_comments', :locals=> {:we_have_a_taxon_comment => we_have_a_taxon_comment}
-
-
-  # TODO - this param should really be taxon_concept_id, not taxon_id... but I feel like it will require changes to
-  # Javascript, and I am not confident enough to change them right now.
-  # AJAX: Render the requested image collection by taxon_id and page
-  def image_collection
-
-    if !request.xhr?
-      render :nothing => true
-      return
-    end  
-
-    @image_page = (params[:image_page] ||= 1).to_i
-    @taxon_concept = TaxonConcept.find(params[:taxon_id])
-    @taxon_concept.current_user = current_user
-    @taxon_concept.current_agent = current_agent
-    start       = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
-    last        = start + $MAX_IMAGES_PER_PAGE - 1
-    @images     = @taxon_concept.images(:image_page => @image_page)[start..last]
-
-    if @images.nil?
-      render :nothing => true
-    else
-      @selected_image = @images[0]
-      current_user.log_activity(:viewed_page_of_images, :value => @image_page, :taxon_concept_id => @taxon_concept.id)
-      render :update do |page|
-        page.replace_html 'image-collection', :partial => 'image_collection' 
-      end
-    end
-
   end
 
   # AJAX: show the requested video
@@ -531,6 +499,7 @@ private
     add_page_view_log_entry
 
     @taxon_concept.current_user = current_user
+    @image_id = params[:image_id]
 
     unless show_taxa_html_can_be_cached? &&
        fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
@@ -574,6 +543,7 @@ private
     return nil
   end
 
+  # Image ID could have been superceded (by, say, a newer version of the same image), so we need to normalize it.
   def set_image_permalink_data
     if(params[:image_id])
       image_id = params[:image_id].to_i
@@ -599,9 +569,9 @@ private
       last        = start + $MAX_IMAGES_PER_PAGE - 1
       @images     = @taxon_concept.images(:image_page=>@image_page)[start..last]
       adjusted_selected_image_index = selected_image_index % $MAX_IMAGES_PER_PAGE
-      @selected_image = @images[adjusted_selected_image_index]
+      @selected_image_id = @images[adjusted_selected_image_index].id
     else
-      @selected_image = @images[0]
+      @selected_image_id = @images[0].id
     end
   end
 
@@ -655,10 +625,10 @@ private
   def data_object_ids_to_log
     ids = Array.new
     unless @images.blank?
-      if !@selected_image.nil?
-        log_data_objects_for_taxon_concept @taxon_concept, @selected_image
+      if !@selected_imag_id.nil?
+        log_data_objects_for_taxon_concept @taxon_concept, @selected_image_id
       else
-        log_data_objects_for_taxon_concept @taxon_concept, @images.first
+        log_data_objects_for_taxon_concept @taxon_concept, @images.first.id
       end
       ids << @images.first.id
     end

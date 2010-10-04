@@ -1,3 +1,4 @@
+= javascript_include_tag 'popup' # The attribution popup is the only one here, but... we still need it to work!
 - showing_untrusted_video = false
 - showing_unknown_video = false 
 - unless @video_collection.nil?
@@ -47,15 +48,16 @@
             %div{:class => video_color}
               %li
                 = link_to_function(video_title, "eol_update_video(#{video_hash(video, @taxon_concept.id)})", :title=>video_title)
-      / end video-collection
       .mc-video-notes
         %span#video-notes
         %hr
-    -# end unless @video_collection.blank? 
-  / end video-list
   - unless @video_collection.blank?
     .attribution_link{ :title => "More information", :style => "display: none" }    
-      = link_to('', attribution_data_object_path(@video_collection[0]),             |
-        :id => 'video_attributions', :class => 'popup-link attribution-icon',       |
-        :alt => 'More information')                                                 |
-/ end media-videos
+      = link_to('<span style="display:block;width:24px;height:25px;"></span>', |
+        attribution_data_object_path(@video_collection[0]),                    |
+        :id => 'video_attributions', :class => 'popup-link attribution-icon',  |
+        :rel => "#video-attr-overlay",                                         |
+        :alt => 'More information')                                            |
+    #video-attr-overlay.overlay{:style=>"width:400px"}
+      .contentWrap
+        Please wait, loading...

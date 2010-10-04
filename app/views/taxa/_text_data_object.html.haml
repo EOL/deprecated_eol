@@ -33,7 +33,6 @@
     - unless subtitle.blank? || (subtitle == category && hide_subtitle)
       %h1
         = hh(subtitle)
-    / ATTRIBUTION GOES HERE
     .content-attribution-area
       .attribution-header.text-area-header
         = "Source and Additional Information"[]
@@ -41,7 +40,6 @@
     %br
     %div{:class => (content_item.vetted_id != Vetted.trusted.id ? "unvetted-background-text" : nil)}
       = content_item.description.sanitize_html
-    -# -- REFERENCES --
     - unless content_item['refs'].nil?
       .references
         .text-area-header.references-header
@@ -59,7 +57,6 @@
     #left_text_buttons_group
       %ul{"data-data_object_id" => content_item.id}
         = render :partial=>'/taxa/data_object_states', :locals => {:dato => content_item}
-    / RATING
     .text-rating
       = render :partial => '/taxa/star_rating', :locals => {:data_object => content_item, :show_controls => @taxon_concept.show_curator_controls?}
     #right_text_buttons_group

@@ -46,10 +46,13 @@
       - if @data_object.id
         %input#cancel_edit_text{ :type => "button", :value => "Cancel", :'data-data_object_id' => @data_object.id }
         &nbsp;
-      %input#preview_text{ :type => "button", :value => "Preview", :'data-preview_url' => url_for(:controller => 'data_objects', :action => 'preview') }
+      %input#preview_text{ :type => "button", :value => "Preview"[], :'data-preview_url' => url_for(:controller => 'data_objects', :action => 'preview') }
       &nbsp;
-      %input{ :type => "submit", :value => "Confirm" }
+      %input{ :type => "submit", :value => "Confirm"[] }
+      &nbsp;
+      %span#missing_text_error.error{ :style => "display:none;" }
+        = "Your content is empty--nothing to submit!"[]
       &nbsp;
       %span#edit_text_spinner{ :style => "display:none;" }
         = image_tag('indicator_arrows_black.gif')
-        Please wait...
+        = "Please wait..."[]

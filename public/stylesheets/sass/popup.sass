@@ -1,18 +1,24 @@
-.popup
+.overlay
+  display: none
   background-color: #e6e7e8
   border: 2px solid #6a8d00 !important
   position: absolute
   z-index: 1000
   padding: 10px
+  overflow: auto
+  max-height: 450px
 
-#large-image-attribution-button-popup-link_popup
-  width: 390px
-  left: 0px
-  top: 30px
+.overlay .close
+  position: absolute
+  right: 5px
+  top: 5px
+  cursor: pointer
+  height: 12px
+  width: 12px
+  background-image: url("/images/close_button.gif")
 
-#classification-attribution-button_popup
-  left: 5px
-  top: 36px
+div.contentWrap
+  margin-top: 10px
 
 .popup-min-width
   width: 245px
@@ -162,9 +168,6 @@ form.curation
   .options
     padding-top: 5px
     padding-left: 56pt
-
-#large-image-curator-button-popup-link_popup
-  background-color: #f4f4f4
 
 form.curation
   .label

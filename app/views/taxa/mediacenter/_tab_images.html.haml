@@ -35,8 +35,12 @@
             %li#large-image-attribution-button.attribution-icon{:title => "More information"}
               = link_to '<span style="display:block;width:24px;height:25px;"></span>',  |
                 attribution_data_object_path(@selected_image),                          |
+                :rel => "#attribution-overlay",                                         |
                 :id => "large-image-attribution-button-popup-link",                     |
-                :class => 'popup-link', :title => "More information"                      |
+                :class => 'popup-link', :title => "More information"                    |
+            #attribution-overlay.overlay{:style=>"width:400px"}
+              .contentWrap
+                Please wait, loading...
             = render :partial=>'data_object_states', :locals => {:dato => @selected_image}
             %li#photosynth-message  
         / end left-image-buttons
@@ -65,17 +69,27 @@
                      :title => 'Do not trust this image',                                     | 
                      'data-data_object_type' => DataType.image_type_ids[0]})                |
               #large-image-curator-button.curate-button-image{ :title => "Curate image" }
-                = popup_link 'curator', curation_data_object_path(@selected_image), :title => 'Curate image'
-            
+                = popup_link 'curator', curation_data_object_path(@selected_image), :title => 'Curate image', :rel => '#curation-overlay'
+                #curation-overlay.overlay{:style=>"width:464px"}
+                  .contentWrap
+                    Please wait, loading...
             #large-image-tagging-button{:title => "Tag image"}
-              = popup_link 'tagging', data_object_tags_path(@selected_image), :title => 'Tag image'
+              = popup_link 'tagging', data_object_tags_path(@selected_image), :title => 'Tag image', :rel => '#tagging-overlay'
+              #tagging-overlay.overlay{:style=>"width:500px"}
+                .contentWrap              
+                  Please wait, loading...
             #large-image-comment-button.comment-button-image{:title => "Comment on image"}
               = popup_link 'comment', data_object_comments_path(                             |
                   @selected_image, (@selected_image_comment.nil? ? {} : {                    |
                     :comment_id => @selected_image_comment.id, :page => @comment_page        |
                     })),                                                                     |
-                  :title => "Comment on image"                                                 |
+                  :title => "Comment on image",                                              |
+                  :rel => "#comment-overlay"                                                 |
+              #comment-overlay.overlay{:style=>"width:460px"}
+                .contentWrap              
+                  Please wait, loading...
               - if @selected_image_comment
+                -# TODO - fix this.
                 :javascript
                   $(document).ready(function() {
                     EOL.popup_links["large-image-comment-button-popup-link"].scroll_to = "comment_#{@selected_image_comment.id}";

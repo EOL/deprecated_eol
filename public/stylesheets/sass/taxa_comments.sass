@@ -104,6 +104,50 @@ ul.pages li a
   padding: 0 0 4px 0
   margin: 0
 
+.text-slidebox-border ul.pages li a
+  &:hover, &:active
+    background: #6a8d00
+
+.text-slidebox-border ul.pages.bttm, #commentsContain ul.pages.bttm
+  padding: 10px 0
+
+.text-slidebox-border ul.pages li.pagesNext, #commentsContain ul.pages li.pagesNext
+  background: url(/images/controlsBkg.gif) no-repeat 100% 0 transparent
+  border-right: none
+
+.text-slidebox-border ul.pages li.pagesPrev, #commentsContain ul.pages li.pagesPrev
+  background: url(/images/controlsBkg.gif) no-repeat 0 0 transparent
+  border-left: none
+  text-align: right
+
+.text-slidebox-border .comments
+  clear: both
+  float: left
+  display: block
+  padding: 0 !important
+  margin: 0
+  width: 410px
+  li
+    background: url(/images/bubbleTop_thin.gif) no-repeat 0 0 !important
+    padding: 5px 0 !important
+    div
+      background: url(/images/bubbleBttm_thin.gif) no-repeat 0 100% !important
+    h6
+      text-align: left
+      background: url(/images/bubTip.gif) no-repeat 15px 0
+      display: block
+      font: normal 11px / 15px "trebuchet ms", arial, sans-serif
+      color: #6a8d00
+      padding: 6px 0 0 32px
+      margin: 0
+
+.text-slidebox-border .comments li h6 strong, #commentsContain .comments li h6 strong
+  display: inline
+  font: normal 14px / 15px verdana, arial, sans-serif
+  color: #555555
+  padding: 0 0 4px 0
+  margin: 0
+
 #commentsContain .comments li h6 a
   font: normal 11px / 15px "trebuchet ms", arial, sans-serif
   color: #6a8d00

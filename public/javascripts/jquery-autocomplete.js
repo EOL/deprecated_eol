@@ -1,7 +1,7 @@
 // some changes have been made to this, making it specific to Tagging  :/
 // ...Those specific changes are marked with CUSTOMIZATION FOR TAGGING
 
-/**
+/*
  * jquery.autocomplete.js
  * Version 3.1
  * Copyright (c) Dylan Verheul <dylan.verheul@gmail.com>

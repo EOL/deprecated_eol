@@ -191,7 +191,7 @@
         = flash[:notice]
     - elsif flash[:warning] || flash[:error]
       #flash-error{ :style => "display: block" }
-        = flash[:warning] + flash[:error]
+        = (flash[:warning] || '') + (flash[:error] || '')
     - if flash[:notice] || flash[:warning] || flash[:error]
       :javascript
         var trigger = $("a#show-flash").overlay({

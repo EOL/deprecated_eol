@@ -1,17 +1,9 @@
 --- 
 javascripts: 
-- prototype-cached:
-  - prototype
-  - effects
-  - dragdrop
-  - controls
-  - scriptaculous
-  - lowpro
 
 - base-cached:
   - flashobjects
   - eol
-  - tabs
   - tagging
   - search
   - curation
@@ -24,17 +16,15 @@ javascripts:
   - misc
   - validator
   - faqs
-  - unittest
   - builder
   - flash_detect_min
   - jsonbioGUIDv3
   - application 
 
-- jquery-cached:
-  - jquery
-  - jquery-selectboxes
+- jquery-extras-cached:
   - jquery-autocomplete
   - jquery.scrollTo-min
+  - jquery.qtip-1.0.0-rc3.min
 
 stylesheets: 
 - base-cached: 

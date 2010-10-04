@@ -22,7 +22,7 @@
     function expand_clade_of_clade_selector( clade_id ) {
     = "$('value_' + clade_id).innerHTML+='#{image_tag('indicator_arrows_black.gif')}';"
     = #TODO: i'll fix this shortly ... for right now, this just needs to work so i hit the page you're on with a new querystring - extremely inefficient - will be fixed ASAP
-    = "$j('##{id}-inner ul.tree').load('#{request.path}?clade_to_expand=' + clade_id + ' ##{id}-inner ul.tree');"
+    = "$('##{id}-inner ul.tree').load('#{request.path}?clade_to_expand=' + clade_id + ' ##{id}-inner ul.tree');"
     = on_expand if defined?on_expand
     }
     function select_clade_of_clade_selector( clade_id ) {

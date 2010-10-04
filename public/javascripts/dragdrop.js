@@ -67,7 +67,7 @@ var Droppables = {
       ((!drop._containers) ||
         this.isContained(element, drop)) &&
       ((!drop.accept) ||
-        (Element.classNames(element).detect(
+        (Element.classNames.detect(
           function(v) { return drop.accept.include(v) } ) )) &&
       Position.within(drop.element, point[0], point[1]) );
   },
@@ -222,7 +222,7 @@ var Draggables = {
 
 /*--------------------------------------------------------------------------*/
 
-var Draggable = Class.create({
+var Draggable = $.klass({
   initialize: function(element) {
     var defaults = {
       handle: false,
@@ -315,7 +315,7 @@ var Draggable = Class.create({
       this.offset = [0,1].map( function(i) { return (pointer[i] - pos[i]) });
 
       Draggables.activate(this);
-      Event.stop(event);
+      return(false);
     }
   },
 
@@ -390,7 +390,7 @@ var Draggable = Class.create({
     // fix AppleWebKit rendering
     if(Prototype.Browser.WebKit) window.scrollBy(0,0);
 
-    Event.stop(event);
+    return(false);
   },
 
   finishDrag: function(event, success) {
@@ -443,14 +443,14 @@ var Draggable = Class.create({
   keyPress: function(event) {
     if(event.keyCode!=Event.KEY_ESC) return;
     this.finishDrag(event, false);
-    Event.stop(event);
+    return(false);
   },
 
   endDrag: function(event) {
     if(!this.dragging) return;
     this.stopScrolling();
     this.finishDrag(event, true);
-    Event.stop(event);
+    return(false);
   },
 
   draw: function(point) {
@@ -571,7 +571,7 @@ Draggable._dragging = { };
 
 /*--------------------------------------------------------------------------*/
 
-var SortableObserver = Class.create({
+var SortableObserver = $.klass({
   initialize: function(element, observer) {
     this.element   = $(element);
     this.observer  = observer;
@@ -957,7 +957,7 @@ Element.findChildren = function(element, only, recursive, tagName) {
   var elements = [];
   $A(element.childNodes).each( function(e) {
     if(e.tagName && e.tagName.toUpperCase()==tagName &&
-      (!only || (Element.classNames(e).detect(function(v) { return only.include(v) }))))
+      (!only || (Element.classNames.detect(function(v) { return only.include(v) }))))
         elements.push(e);
     if(recursive) {
       var grandchildren = Element.findChildren(e, only, recursive, tagName);

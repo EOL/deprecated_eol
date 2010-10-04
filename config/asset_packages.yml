@@ -14,7 +14,7 @@ javascripts:
 - taxa-page-cached:
   - curation
   - rating
-  - text_objects
+  - text-content
   - media_center
   - popup
   - navigation

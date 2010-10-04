@@ -1,7 +1,6 @@
 !!!
 %html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
-    / Google verify code
     %meta{ :name => "verify-v1", :content => "mJIytYT6a+K1y+bCmD1wr1ge+4Q63O0YfTHCYWwkzaY=" }
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
     %meta{ :content => "en-us", "http-equiv" => "Content-Language" }
@@ -61,7 +60,6 @@
       EOL.Curation.INVISIBLE_ID     = #{Visibility.invisible.id};
       EOL.Curation.INAPPROPRIATE_ID = #{Visibility.inappropriate.id};
     
-    - #= javascript_include_tag 'http://s9.addthis.com/js/widget.php?v=10'
     /[if lt IE 7]
       %style{:type => "text/css", :media => "screen"}
         body { behavior: url(/javascripts/csshover.htc); }
@@ -79,17 +77,13 @@
         %a{ :href => "#center-page-content", :title => "Skip to content"[] }
           = "Skip to content"[]
     %hr
-    /Page Container
     #container
-      /header
       #header
-        /logo
         %h1
           %a{ :href => root_url, :title => "Encyclopedia of Life"[:encyclopedia_of_life] }
             %span
         %hr
         - cache(:controller=>'/content', :part=>'top_nav_' + current_user.language_abbr) do
-          /global navigation
           %p.hide
             = "Global Navigation"[]
           %ul#global-navigation
@@ -130,11 +124,9 @@
               %ul.uppercase
                 = render :partial=>'layouts/top_menu', :locals=>{:menu_items=>ContentSection.find_pages_by_section('About EOL')}
           %hr
-          / end global navigation
           
         #ajax-indicator.ajax-indicator{ :style => "display:none;" }
           = image_tag('indicator_arrows_black.gif', :alt => 'loading', :title => 'loading')
-        /personal space
         %p.hide
           = "Personal Space"[]
         #personal-space
@@ -177,7 +169,6 @@
                 |
                 = link_to("logout"[:logout], {:controller=>'/content_partner',:action => 'logout'},  {:class => 'return_to'})
           %hr
-        / end personal space
         #quick-search
           = render :partial => "/layouts/search_field"
         
@@ -201,23 +192,13 @@
               %a{ :href => url_for(settings_url), :title => "click to change settings" }
                 = "Filtered information"[]
               %br
-      / end header
       - # a div to wrap *just* the rendered template, so it's easy to update the whole template via Ajax calls, if needed
       #content
         = yield(:content) or yield
-      /\/content
       #footer
-        -# %script{ :language => "javascript", :type => "text/javascript" }
-        -#   var addthis_config = {"data_track_clickback":true};
-        -# %a.addthis_button{ :href => "http://www.addthis.com/bookmark.php?v=250&amp;username=eoladdthis" }
-        -#   %img{ :src => "http://s7.addthis.com/static/btn/v2/lg-bookmark-en.gif", :width => "125", :height => "16", :alt => "Bookmark and Share", :style => "border:0" }
-        -# %script{ :src => "http://s7.addthis.com/js/250/addthis_widget.js#username=eoladdthis", :type => "text/javascript" }
-        -# &nbsp; | &nbsp;
         = render :partial=>'layouts/footer_menu', :locals=>{:menu_items=>ContentSection.find_pages_by_section('Footer')}
         = ENV['APP_VERSION'] unless ENV['APP_VERSION'].blank?
-    / container
     #progress-open{ :style => "display: none;" }
-    / flash Notices
     - if flash[:notice]
       #progress-bar
         #flash-good{ :style => "display: block" }

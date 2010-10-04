@@ -1,5 +1,5 @@
 :javascript
-  var png_host = '#{StaticEolAssetHost.asset_host_proc.call("png")}/images/homepage/play.gif';
+  var png_host = '#{StaticEolAssetHost.asset_host_proc.call("png")}'
 = javascript_include_tag 'flash_detect_min', 'index'
 - if @cached_fragment
   = @cached_fragment

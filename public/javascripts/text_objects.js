@@ -68,7 +68,7 @@ EOL.TextObjects.Behaviors = {
 EOL.TextObjects.submit_text = function(form, event) {
   data_object_id = form.readAttribute('data-data_object_id');
   //error handling, just make sure there a description
-  if((data_object_id && $$('form#edit_data_object_'+data_object_id+' textarea')[0].value.strip() == '') || ($$('form#new_data_object textarea').length > 0 && $$('form#new_data_object textarea')[0].value.strip() == '')) {
+  if((data_object_id && $$('form#edit_data_object_'+data_object_id+' textarea').val().strip() == '') || ($$('form#new_data_object textarea').length > 0 && $$('form#new_data_object textarea').val().strip() == '')) {
     $('missing_text_error').show();
     Effect.Pulsate('missing_text_error');
     return false;
@@ -92,7 +92,7 @@ EOL.TextObjects.submit_text = function(form, event) {
   
   // //in case we want to reload the TOC Category after submission, but it caused other javascript errors
   var selected_index = $('data_objects_toc_category_toc_id').selectedIndex;
-  var toc_id = $('data_objects_toc_category_toc_id')[selected_index].value;
+  var toc_id = $($('data_objects_toc_category_toc_id')[selected_index]).val();
   var taxon_concept_id = $("input[name=taxon_concept_id]").val();
   // window.location.href = '/pages/'+taxon_concept_id+'?category_id='+toc_id;
   return false;
@@ -189,7 +189,7 @@ EOL.TextObjects.change_toc = function(toc_label, add_new_url, new_text, toc_item
 
   //update selected TOC
   $A(document.getElementsByClassName('active', $('toc'))).each(function(e) { e.className = 'toc_item'; });
-  $('current_content').value = toc_item_id;
+  $('current_content').val(toc_item_id);
 
   Event.addBehavior.reload();
 
@@ -256,7 +256,7 @@ EOL.TextObjects.cancel_edit = function(data_object_id) {
   EOL.TextObjects.remove_preview();
 
   //if the old text still exists on the page, just remove the edit div
-  if($('text_wrapper_'+data_object_id) || $('original_toc_id').value != $('data_objects_toc_category_toc_id')[$('data_objects_toc_category_toc_id').selectedIndex].value) {
+  if($('text_wrapper_'+data_object_id) || $('original_toc_id').val() != $('data_objects_toc_category_toc_id')[$('data_objects_toc_category_toc_id').selectedIndex].val()) {
     jQuery("div#text_wrapper_"+data_object_id+"_popup").fadeOut(1000, function() {EOL.popups[this.id].destroy();});
   } else {
     form = $('edit_data_object_'+data_object_id);

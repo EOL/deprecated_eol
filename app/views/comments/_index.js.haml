@@ -1,35 +1,37 @@
--# TODO - More elegant solution than rendering html in a .js.haml file...
-#commentsContain
-  - if body_div_name =~ /^text/
-    = link_to_function('', "$('##{body_div_name}').slideUp()", :class=>'close-button')
-  .controls
-    - if @slim_container
-      - info = page_entries_info current_objects
-      = info == 'No entries found' ? 'Comments' : "#{info},"
-      on
-      = @title_label
-      = will_paginate(current_objects, :renderer => 'RemoteLinkRenderer', :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id, :update => body_div_name, :body_div_name => body_div_name }) unless current_objects[0].nil?
-      - if @title != ''
-        %div
-          %h2
-            = @title
-    - else
-      %h2
-        Comments
-        %b
-          On
-          = @title_label
-          = @title
-      = will_paginate(current_objects, :renderer => 'RemoteLinkRenderer', :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id, :update => body_div_name, :body_div_name => body_div_name } ) unless current_objects[0].nil?
-      %small
+-# TODO - Find a more elegant solution than rendering html in a .js.haml file...
+- outer_div_options = body_div_name == 'create' ? {:id => 'taxaCommentsWrap'} : {}
+%div{outer_div_options}
+  #commentsContain
+    - if body_div_name =~ /^text/
+      = link_to_function('', "$('##{body_div_name}').slideUp()", :class=>'close-button')
+    .controls
+      - if @slim_container
         - info = page_entries_info current_objects
-        = info == 'No entries found' ? '' : info
-  - if current_objects.empty?
-    %p#no-comments
-      No comments have been left yet.
-  - else
-    %ul.comments
-      = render :partial => 'list'
-    = will_paginate(current_objects, :renderer => 'RemoteLinkRenderer', :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id, :update => body_div_name, :body_div_name => body_div_name } ) unless current_objects[0].nil?
-  #new-comment
-    = render :partial => 'new', :locals => { :length => 4, :body_div_name => body_div_name }
+        = info == 'No entries found' ? 'Comments' : "#{info},"
+        on
+        = @title_label
+        = will_paginate(current_objects, :renderer => 'RemoteLinkRenderer', :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id, :update => body_div_name, :body_div_name => body_div_name }) unless current_objects[0].nil?
+        - if @title != ''
+          %div
+            %h2
+              = @title
+      - else
+        %h2
+          Comments
+          %b
+            On
+            = @title_label
+            = @title
+        = will_paginate(current_objects, :renderer => 'RemoteLinkRenderer', :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id, :update => body_div_name, :body_div_name => body_div_name } ) unless current_objects[0].nil?
+        %small
+          - info = page_entries_info current_objects
+          = info == 'No entries found' ? '' : info
+    - if current_objects.empty?
+      %p#no-comments
+        No comments have been left yet.
+    - else
+      %ul.comments
+        = render :partial => 'list'
+      = will_paginate(current_objects, :renderer => 'RemoteLinkRenderer', :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id, :update => body_div_name, :body_div_name => body_div_name } ) unless current_objects[0].nil?
+    #new-comment
+      = render :partial => 'new', :locals => { :length => 4, :body_div_name => body_div_name }

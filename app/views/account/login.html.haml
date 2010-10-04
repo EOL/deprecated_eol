@@ -22,6 +22,7 @@
           &nbsp;&nbsp;
           = link_to("Forgot password?"[], :action => 'forgot_password')
           %br
+          %br
           %label{ :for => "remember_me" }= "Remember Me"[]
           = check_box_tag 'remember_me'
           = "check to stay logged in automatically for up to two weeks (do NOT use on public computers)"[:remember_me_message]
@@ -39,4 +40,3 @@
                 If you are a Content Partner please 
                 = link_to("login here"[], :action=>"login", :controller=>"content_partner")
                 = "."
-      -# end form

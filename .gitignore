@@ -4,6 +4,8 @@
 *.swp
 *eol_org.rb
 *~
+mkmf.log
+extconf.h
 .DS_Store
 config/database.yml
 config/deploy

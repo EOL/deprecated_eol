@@ -3,9 +3,9 @@ $(document).ready(function() {
   $('.mc-navigation a').click(function() {
     $.ajax({
       url: $(this).attr('href'),
-      beforeSend: function(response) {$('#media-images').fadeOut(500);},
+      beforeSend: function() {$('#media-images').fadeOut(500);},
       success: function(response) {$('#media-images').html(response);},
-      error: function(response) {$('#media-images').html('<p>Sorry, there was an error.</p>');},
+      error: function() {$('#media-images').html('<p>Sorry, there was an error.</p>');},
       complete: function() {$('#media-images').fadeIn(350);}
     });
     return false;

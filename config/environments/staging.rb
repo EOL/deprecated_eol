@@ -38,10 +38,6 @@ end
 # set to true to force users to use SSL for the login and signup pages 
 $USE_SSL_FOR_LOGIN = false
 
-# The following tells Rails to check the database connection every 2 minutes 
-# and if it isn't connected reconnect instead of throwing an exception
-ActiveRecord::Base.verification_timeout = 120
-
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin
   require File.join(File.dirname(__FILE__), 'staging_eol_org')

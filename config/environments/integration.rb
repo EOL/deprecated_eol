@@ -54,10 +54,6 @@ $ERROR_LOGGING=true
 # set to true to enable recaptcha on registration and contact us form
 $ENABLE_RECAPTCHA=false
 
-# The following tells Rails to check the database connection every 2 minutes
-# and if it isn't connected reconnect instead of throwing an exception
-ActiveRecord::Base.verification_timeout = 120
-
 # ANALYTICS CONFIGURATION
 # Set ENABLE_ANALYTICS to true to enable google analytics.  The
 # GOOGLE_ANALYTICS_ID must be set to the google analytics ID
@@ -66,11 +62,6 @@ $ENABLE_ANALYTICS=false
 $GOOGLE_ANALYTICS_ID="UA-3298646-1" 
 
 $SOLR_SERVER = 'http://10.19.19.43:8080/solr/taxon_concepts'
-
-
-# The following tells Rails to check the database connection every 2 minutes
-# and if it isn't connected reconnect instead of throwing an exception
-ActiveRecord::Base.verification_timeout = 120
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin

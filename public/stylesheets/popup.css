@@ -20,12 +20,6 @@
 div.contentWrap {
   margin-top: 10px; }
 
-.popup-min-width {
-  width: 245px;
-  height: 0px;
-  line-height: 0px;
-  overflow: hidden; }
-
 .popup.vetted {
   border-color: #99cc00;
   border-left: 20px solid #99cc00; }

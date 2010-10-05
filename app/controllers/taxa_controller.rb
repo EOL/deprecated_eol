@@ -285,7 +285,7 @@ class TaxaController < ApplicationController
 
   def maps
     @taxon_concept = taxon_concept # I don't think we care about user/agent in this case.  A map is a map.
-    render :layout => false
+    render :partial => "maps"
   end
 
   def videos

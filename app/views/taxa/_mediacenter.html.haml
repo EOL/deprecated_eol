@@ -15,7 +15,7 @@
             %span
         - if @taxon_concept.has_map
           %li#maps
-            %a#maps-link{ :href => "#media-maps", :title => "Maps"[] }
+            %a#maps-link{ :href => "/taxa/maps/#{@taxon_concept.id}", :title => "Maps"[] }
               = "Maps"[]
               %span
         - if @taxon_concept.has_video

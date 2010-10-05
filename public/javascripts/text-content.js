@@ -52,99 +52,38 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     return $('form#new_data_object, form.edit_data_object');
   },
 
+  // This will either show an existing dialog, create a new one, or show an error if it's already open:
   open_new_text_dialog: function(popup_id) {
     if($('#insert_text_popup:visible').length > 0) {
       // show warning because add/edit popup is already being displayed
       pulsate_error($('.multi_new_text_error'));
     } else {
-      $.ajax({
-        url: $('#new_text_toc_text').attr('href'),
-        success: function(response) {$('#insert_text_popup .popup-content').html(response);},
-        error: function() {$('#insert_text_popup .popup-content').html("<p>Sorry, there was an error.</p>");},
-        complete: function() {
-          $('#insert_text_popup').slideDown(400, function() {
-            $(window).scrollTop($('#insert_text_popup').offset()['top'] - 40);
-          });
-        }
-      });
-      if($('#new_text_toc_text').attr('href').indexOf('toc_id=none') != -1) {
-        // if currently selected toc doesn't allow user submitted text
-        $.ajax({url:$('#new_text_toc_text').attr('data-change_toc_url'), type:'post'});
+      if (EOL.TextObjects.form().length > 0) {
+        EOL.TextObjects.show_new_text_dialog();
+      } else {
+        EOL.TextObjects.create_new_text_dialog();
       }
     }
   },
 
-  disable_form: function() {
-    EOL.TextObjects.form.find('input[type=submit], input[type=button]').attr('disabled', 'disabled');
-    $('#edit_text_spinner').fadeIn();
-  },
-
-  enable_form: function() {
-    EOL.TextObjects.form.find('input[type=submit], input[type=button]').attr('disabled', '');
-    $('#edit_text_spinner').fadeOut();
-  },
-
-  insert_new_text: function(text) {
-    $("#insert_text_popup").slideUp().remove();
-    $(".cpc-content").append(text);
-    EOL.reload_behaviors(); // TODO
-  },
-
-  update_text: function(text, data_object_id, old_data_object_id) {
-    $("#text_wrapper_"+old_data_object_id+"_popup").before(text);
-    $("text_wrapper_"+data_object_id).fadeIn();
-    $("div#text_wrapper_"+old_data_object_id+"_popup").fadeOut(1000, function() {
-      $("div#text_wrapper_"+old_data_object_id+"_popup").remove();
+  // When you have a populated new-text dialog, show it:
+  show_new_text_dialog: function() {
+    $('#insert_text_popup').slideDown(400, function() {
+      $(window).scrollTop($('#insert_text_popup').offset()['top'] - 40);
     });
-    // TODO - reload behaviors?
   },
 
-  update_add_links: function(url) {
-    url = url.unescapeHTML(); // TODO - works?
-    $('#new_text_toc_text').attr('href', url);
-    $('#new_text_toc_button').attr('href', url);
-    $('#new_text_content_button').attr('href', url);
-  },
-
-  change_toc: function(toc_label, add_new_url, new_text, toc_item_id) {
-    // update header
-    $('div#center-page-content div.cpc-header h3').html(toc_label);
-    // update the links/buttons for adding new text
-    EOL.TextObjects.update_add_links(add_new_url);
-    // remove all text objects from page
-    $('div#center-page-content div.cpc-content div.text_object').fadeOut('slow', function() {$(this).remove();});
-    // remove yellow warning box
-    $('div#center-page-content div.cpc-content div#unknown-text-warning-box_wrapper').fadeOut('slow', function() {
-      $(this).remove();
+  // Loads the new text dialog via ajax, changes the TOC if needed (for example, if on "Common Names", which doesn't allow
+  // text, we want to load an appropriate TOC item).
+  create_new_text_dialog: function() {
+    $.ajax({
+      url: $('#new_text_toc_text').attr('href'),
+      success: function(response) { $('#insert_text_popup .popup-content').html(response); },
+      error: function() {$('#insert_text_popup .popup-content').html("<p>Sorry, there was an error.</p>");},
+      complete: function() { EOL.TextObjects.show_new_text_dialog(); }
     });
-    // remove red warning box
-    $('div#center-page-content div.cpc-content div#untrusted-text-warning-box_wrapper').fadeOut('slow', function() {
-      $(this).remove();
-    });
-    // add text from newly selected toc
-    $('div#center-page-content div.cpc-content').append(new_text);
-    // TODO - This seems like it would be a handy function to have available (if it's not already):
-    // update selected TOC
-    $('#toc.active').removeClass('active');
-    $('#current_content').val(toc_item_id);
-    $('ul#toc a.toc_item[title='+toc_label+']').addClass('active');
-    // TODO - reload behaviors?
-  },
-
-  cancel_edit: function(data_object_id) {
-    EOL.TextObjects.remove_preview();
-    // if the old text still exists on the page, just remove the edit div
-    // TODO - does this work?  Can it be said more elegantly?
-    if($('#text_wrapper_'+data_object_id).length > 0 || $('#original_toc_id').val() != $('#data_objects_toc_category_toc_id').val()) {
-      $('#insert_text_popup').slideUp();
-      $("div#text_wrapper_"+data_object_id+"_popup").fadeOut(1000).delay(1100).destroy();
-    } else {
-      $.ajax({
-        url: $('#edit_data_object_'+data_object_id).attr('action').replace('/data_objects/','/data_objects/get/'),
-        type: 'POST',
-        data: EOL.TextObjects.form.serialize()
-      });
-      EOL.TextObjects.disable_form();
+    if($('#new_text_toc_text').attr('href').indexOf('toc_id=none') != -1) {
+      $.ajax({url:$('#new_text_toc_text').attr('data-change_toc_url'), type:'post'});
     }
   }
 

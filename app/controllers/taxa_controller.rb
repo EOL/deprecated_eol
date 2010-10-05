@@ -280,7 +280,7 @@ class TaxaController < ApplicationController
       return true
     end
     current_user.log_activity(:viewed_page_of_images, :value => @image_page, :taxon_concept_id => @taxon_concept.id)
-    render :layout => false
+    render :partial => "images"
   end
 
   def maps
@@ -602,8 +602,10 @@ private
   # wrong.  We really need some classes or helpers to take care of these details.
   def set_taxa_page_instance_vars
     @taxon_concept.current_agent = current_agent
-
+    @images = @taxon_concept.images
+    
     begin
+      set_image_permalink_data
       set_text_permalink_data
     rescue
       render_404

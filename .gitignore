@@ -46,3 +46,4 @@ vendor/gems/nokogiri-1.4.2/ext/nokogiri/Makefile
 vendor/gems/nokogiri-1.4.2/ext/nokogiri/conftest.dSYM
 vendor/gems/*/.specification
 tags
+testinggg

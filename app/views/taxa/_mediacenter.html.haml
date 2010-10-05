@@ -29,8 +29,7 @@
             %span
       .tab-panes
         %div{:style => 'display:block'}
-          %p.please_wait
-            Please wait, loading content...
+          = render :partial => 'images'
   #sliding-close
     #textarea
       %a#classification-attribution-button.popup-link.attribution-icon{ :rel => '#class-attr-overlay', :href => "#{@taxon_concept.id}/classification_attribution" }

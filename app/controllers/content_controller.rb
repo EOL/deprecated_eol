@@ -261,7 +261,7 @@ class ContentController < ApplicationController
     
     unless explore_taxa.nil? or taxa_number.nil? or taxa_number.empty?
       render :update do |page|
-        name_div_contents = (random_image_linked_name(explore_taxa)).gsub(/'/, "&apos;")
+        name_div_contents = (random_image_linked_name(explore_taxa)).gsub(/'/, '&apos;')
         page << "$('#top_name_#{taxa_number}').html('#{name_div_contents}');"
         page << "$('#top_image_tag_#{taxa_number}').attr('src', '#{explore_taxa['image_cache_path']}');"
         page << "$('#top_image_tag_#{taxa_number}_href').attr('src', '/pages/#{explore_taxa['taxon_concept_id']}');"

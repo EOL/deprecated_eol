@@ -5,7 +5,7 @@ $(document).ready(function() {
     $('map_attributions').click();
   });
   // Mediacenter Tabs are... uhhh... tabs:
-  $("ul#tab_media_center").tabs("div.tab-panes > div", {effect: 'ajax'});
+  $("ul#tab_media_center").tabs("div.tab-panes > div", {effect: 'ajax', initialIndex: null});
   // Change TOC item:
   $('#toc a.toc_item').click(function() {
     // TODO - do we need to dismiss the #insert_text_popup div when this happens?

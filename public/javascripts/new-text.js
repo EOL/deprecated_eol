@@ -1,19 +1,12 @@
 $(document).ready(function() {
   // Submit new text:
-  $('form#insert_new_text, form.edit_data_object').submit(function(e) {
+  EOL.TextObjects.form.submit(function(e) {
     EOL.TextObjects.submit_text();
     return false;
   });
   // Preview:
   $('input#preview_text').click(function() {
-    form = $('div.popup.insert_text');  // TODO - wrong selector.
-    EOL.TextObjects.remove_preview();
-    $.ajax({
-      url: $(this).attr('data-preview_url'),
-      type: 'POST',
-      data: form.serialize().replace("_method=put&","id="+form.attr('data-data_object_id')+"&") // TODO -this is hacky
-    });
-    EOL.TextObjects.disable_form();
+    EOL.TextObjects.preview_text()
     return false;
   });
   // Cancel adding text:
@@ -38,25 +31,51 @@ if(!EOL) var EOL = {};
 if(!EOL.TextObjects) EOL.TextObjects = {
 
   submit_text: function() {
-    form = $('form#insert_new_text');
-    data_object_id = form.attr('data-data_object_id');
+    // TODO - this is only set for editing text objects: data_object_id = EOL.TextObjects.form.attr('data-data_object_id');
     // error handling, just make sure there's a description
-    textarea_val = form.find('textarea').val().strip();
-    if((data_object_id && textarea_val == '') ||
-       (textarea_val.length > 0 && textarea_val == '')) {
+    textarea_val = $.trim($('textarea#data_object_description').val());
+    if(textarea_val == '') {
       $('#missing_text_error').fadeIn().delay(2000).fadeOut();
       return false;
     }
+    // TODO - this is for editing text object.  Make sure it does what it means to (which I don't know yet):
     if(data_object_id) {
       $('#text_wrapper_'+data_object_id).fadeOut(500, function() {$('#text_wrapper_'+data_object_id).remove();});
     }
     EOL.TextObjects.remove_preview();
     $.ajax({
-      url: form.action,
+      url: EOL.TextObjects.form.action,
       type: 'POST',
-      data: $(form).serialize()
+      beforeSend: function() { },
+      data: EOL.TextObjects.form.serialize()
     });
     EOL.TextObjects.disable_form();
+  },
+
+  preview_text: function() {
+    EOL.TextObjects.remove_preview();
+    $.ajax({
+      url: $(this).attr('data-preview_url'),
+      type: 'POST',
+      data: EOL.TextObjects.form.serialize().replace("_method=put&","id="+EOL.TextObjects.form.attr('data-data_object_id')+"&") // TODO -this is hacky
+    });
+    EOL.TextObjects.disable_form();
+    if(data_object_id == null) {
+      $("#insert_text").append(text);
+      EOL.TextObjects.enable_form();
+    } else {
+      $('#text_wrapper_'+data_object_id+'_popup').before(text);
+      // remove existing text object, so it won't confuse the user
+      $('div#text_wrapper_'+data_object_id).fadeOut(1000, function() {$('#text_wrapper_'+data_object_id).remove();});
+      EOL.TextObjects.enable_form();
+    }
+    $('#text_wrapper_').fadeIn();
+  },
+
+  remove_preview: function() {
+    if($('#text_wrapper_')) {
+      $('div#text_wrapper_').fadeOut(1000, function() {$('#text_wrapper_').remove();});
+    };
   }
 
 };

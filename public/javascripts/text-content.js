@@ -39,7 +39,6 @@ $(document).ready(function() {
   });
 
   // Open the add-text user interface
-  // TODO - This should scroll to a useful position after adding the box.
   $('div.edit_text a, li.add_text>a, div.add_text_button a').click(function() {
     EOL.TextObjects.open_new_text_dialog();
     return false;
@@ -48,6 +47,10 @@ $(document).ready(function() {
 
 if(!EOL) var EOL = {};
 if(!EOL.TextObjects) EOL.TextObjects = {
+
+  form: function() {
+    return $('form#new_data_object, form.edit_data_object');
+  },
 
   open_new_text_dialog: function(popup_id) {
     if($('#insert_text_popup:visible').length > 0) {
@@ -58,7 +61,11 @@ if(!EOL.TextObjects) EOL.TextObjects = {
         url: $('#new_text_toc_text').attr('href'),
         success: function(response) {$('#insert_text_popup .popup-content').html(response);},
         error: function() {$('#insert_text_popup .popup-content').html("<p>Sorry, there was an error.</p>");},
-        complete: function() { $('#insert_text_popup').slideDown(); }
+        complete: function() {
+          $('#insert_text_popup').slideDown(400, function() {
+            $(window).scrollTop($('#insert_text_popup').offset()['top'] - 40);
+          });
+        }
       });
       if($('#new_text_toc_text').attr('href').indexOf('toc_id=none') != -1) {
         // if currently selected toc doesn't allow user submitted text
@@ -68,14 +75,12 @@ if(!EOL.TextObjects) EOL.TextObjects = {
   },
 
   disable_form: function() {
-    form = $('div.popup.insert_text'); // TODO -wrong
-    form.find('input[type=submit], input[type=button]').attr('disabled', 'disabled');
+    EOL.TextObjects.form.find('input[type=submit], input[type=button]').attr('disabled', 'disabled');
     $('#edit_text_spinner').fadeIn();
   },
 
   enable_form: function() {
-    form = $('div.popup.insert_text'); // TODO -wrong
-    form.find('input[type=submit], input[type=button]').attr('disabled', '');
+    EOL.TextObjects.form.find('input[type=submit], input[type=button]').attr('disabled', '');
     $('#edit_text_spinner').fadeOut();
   },
 
@@ -83,25 +88,6 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     $("#insert_text_popup").slideUp().remove();
     $(".cpc-content").append(text);
     EOL.reload_behaviors(); // TODO
-  },
-
-  preview_text: function(text, data_object_id) {
-    if(data_object_id == null) {
-      $("#insert_text").append(text);
-      EOL.TextObjects.enable_form();
-    } else {
-      $('#text_wrapper_'+data_object_id+'_popup').before(text);
-      // remove existing text object, so it won't confuse the user
-      $('div#text_wrapper_'+data_object_id).fadeOut(1000, function() {$('#text_wrapper_'+data_object_id).remove();});
-      EOL.TextObjects.enable_form();
-    }
-    $('#text_wrapper_').fadeIn();
-  },
-
-  remove_preview: function() {
-    if($('#text_wrapper_')) {
-      $('div#text_wrapper_').fadeOut(1000, function() {$('#text_wrapper_').remove();});
-    };
   },
 
   update_text: function(text, data_object_id, old_data_object_id) {
@@ -156,7 +142,7 @@ if(!EOL.TextObjects) EOL.TextObjects = {
       $.ajax({
         url: $('#edit_data_object_'+data_object_id).attr('action').replace('/data_objects/','/data_objects/get/'),
         type: 'POST',
-        data: $(form).serialize()
+        data: EOL.TextObjects.form.serialize()
       });
       EOL.TextObjects.disable_form();
     }

@@ -62,7 +62,7 @@ if(!EOL.TextObjects) EOL.TextObjects = {
       pulsate_error($('.multi_new_text_error'));
     } else {
       // If we already have a form and this is NOT an edit:
-      if (EOL.TextObjects.form().length > 0 && link_href.index_of('edit') == 0) {
+      if (EOL.TextObjects.form().length > 0 && link_href.indexOf('edit') == 0) {
         EOL.TextObjects.show_new_text_dialog();
       // Otherwise, we need to (re-)create the form:
       } else {

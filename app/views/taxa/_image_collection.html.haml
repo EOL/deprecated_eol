@@ -31,7 +31,7 @@
       = "Page navigation"[]
     -# TODO - YOU WERE HERE move the behaviors here to the js, and have them load the results into the div!
     - if (@image_page ||= 1) > 1
-      %a{ :href => url_for(:action => 'images', :taxon_id => @taxon_concept.id, :image_page => @image_page - 1), :title => "Back"[] }
+      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page - 1), :title => "Back"[] }
         %span#back
           = "Back"[]
     - else
@@ -43,7 +43,7 @@
         = "Page"[]
         = @image_page
     - if show_next_image_page_button
-      %a{ :href => url_for(:action => 'images', :taxon_id => @taxon_concept.id, :image_page => @image_page + 1), :title => "Next"[] }
+      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page + 1), :title => "Next"[] }
         %span#next
           = "Next"[]
     %hr
@@ -72,8 +72,8 @@
           - other_taxon_concept_index = nil
           -# loop thru and find a taxa that's NOT the current page's taxa
           -# if the image IS linked to the current taxa then don't show an alternative
-          - taxa_ids.each_with_index do |taxon_id, i|
-            - if taxon_id == @taxon_concept.id.to_s
+          - taxa_ids.each_with_index do |taxon_concept_id, i|
+            - if taxon_concept_id == @taxon_concept.id.to_s
               - other_taxon_concept_index = nil
               - break
             - elsif other_taxon_concept_index.nil?

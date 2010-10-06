@@ -12,8 +12,17 @@ $(document).ready(function() {
   $('img#map').click(function (e) {
     $('map_attributions').click();
   });
-  // Mediacenter Tabs are... uhhh... tabs:
-  $("ul#tab_media_center").tabs("div.tab-panes > div", {effect: 'ajax', initialIndex: null});
+  
+  // when clicking on any tab in the media center - replace the pane DIV with the response
+  $('#tab_media_center a').click(function() {
+      $.ajax({
+        url: $(this).attr('href'),
+        success: function(response) {$('div.tab-panes').html(response);},
+        error: function(request) {$('div.tab-panes').html('<p>Sorry, there was an error.</p>');}
+      });
+      return false;
+  });
+  
   // Change TOC item:
   $('#toc a.toc_item').click(function() {
     id = $(this).attr('id').replace(/\D+/, '');

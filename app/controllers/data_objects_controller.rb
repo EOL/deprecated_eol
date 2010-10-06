@@ -17,11 +17,11 @@ class DataObjectsController < ApplicationController
       alter_current_user do |user|
         user.vetted=false
       end
-      @new_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
       current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
+      render(:partial => '/taxa/text_data_object',
+             :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
     rescue => e
       @new_text = render_to_string(:partial => 'error', :locals => {:message => e.message}) 
-#<div id="errorExplanation"><h2>There was an error posting your text.  Please reload the page and try again.  Sorry for the inconvenience.</h2></div>'
     end
   end
 
@@ -35,8 +35,8 @@ class DataObjectsController < ApplicationController
       @preview = true
       @data_object_id = params[:id]
       @hide = true
-      @preview_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
       current_user.log_activity(:previewed_data_object, :taxon_concept_id => @taxon_concept.id)
+      render :partial => '/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label}
     rescue => e
       @new_text = 'There was an error previewing your text.  Please try again.  Sorry for the inconvenience.'
     end

@@ -66,11 +66,12 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     }
   },
 
-  // When you have a populated new-text dialog, show it:
+  // When you have a populated new-text dialog, show it and make it work:
   show_new_text_dialog: function() {
     $('#insert_text_popup').slideDown(400, function() {
       $(window).scrollTop($('#insert_text_popup').offset()['top'] - 40);
     });
+    EOL.TextObjects.enable_form();
   },
 
   // Loads the new text dialog via ajax, changes the TOC if needed (for example, if on "Common Names", which doesn't allow

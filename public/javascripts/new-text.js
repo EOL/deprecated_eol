@@ -9,23 +9,32 @@ $.extend(EOL.TextObjects, {
     });
     // Preview:
     $('input#preview_text').click(function() {
-      EOL.TextObjects.preview_text(this)
+      EOL.TextObjects.preview_text(this);
       return false;
     });
     // Close the add-text window:
     $('#insert_text_popup a.close-button').click(function() {
       $('#insert_text_popup').slideUp();
+      EOL.TextObjects.remove_preview();
     });
     // Cancel adding text:
     $('input#cancel_edit_text').click(function() {
       EOL.TextObjects.cancel_edit($(this).attr('data-data_object_id')); // TODO - why do we need an id?
     });
-    // Update the text area when the user changes the category:
+    // Update the text area when the user changes the TOC Item category:
     $('select#data_objects_toc_category_toc_id').change(function() {
       $.ajax({
         url: $(this).attr('data-change_toc_url'),
-        type: 'POST', // TODO - why?
-        data: $('div.popup.insert_text').serialize() // TODO -wrong
+        success: function(response) {
+          // remove all text objects from page.  It would be better to do this on success, but timing is an issue.
+          $('.text_object').slideUp().delay(500).remove();
+          // remove warning boxes
+          $('div.cpc-content div#unknown-text-warning-box_wrapper').fadeOut().delay(500).remove();
+          $('div.cpc-content div#untrusted-text-warning-box_wrapper').fadeOut().delay(500).remove();
+          // Put in the new content:
+          $('#insert_text_popup').before(response);
+        },
+        data: EOL.TextObjects.form().serialize()
       });
     });
     // Give the user another reference field
@@ -45,52 +54,58 @@ $.extend(EOL.TextObjects, {
     }
   },
 
+  data_object_id: function() {
+    return EOL.TextObjects.form().attr('data-data_object_id');
+  },
+
   submit_text: function() {
     if (EOL.TextObjects.show_missing_text_error_if_empty()) return false;
-    // TODO - this is only set for editing text objects: data_object_id = EOL.TextObjects.form().attr('data-data_object_id');
-    if(data_object_id) {
-      // TODO - this is for editing text object.  Make sure it does what it means to (which I don't know yet):
-      $('#text_wrapper_'+data_object_id).fadeOut(500).delay(600).remove();
+    var id = EOL.TextObjects.data_object_id();
+    if(id) {
+      $('#text_wrapper_'+id).fadeOut().delay(500).remove();
     }
     EOL.TextObjects.remove_preview();
     $.ajax({
-      url: EOL.TextObjects.form().action,
+      url: EOL.TextObjects.form().attr('action'),
       type: 'POST',
       beforeSend: function() { EOL.TextObjects.disable_form(); },
+      success: function(response) {
+        $('#insert_text_popup').before(response);
+        EOL.TextObjects.form().find('*').not(':button, :submit, :reset, :hidden').val('').removeAttr('checked').removeAttr('selected');
+      },
+      complete: function() { $('#insert_text_popup').slideUp(); }, // TODO - This needs to reset the form and possibly change ids on it.
+      error: function() { alert("Sorry, there was an error submitting your text.");},
       data: EOL.TextObjects.form().serialize()
     });
   },
 
-  preview_text: function(link) {
+  preview_text: function(button) {
     if (EOL.TextObjects.show_missing_text_error_if_empty()) return false;
     EOL.TextObjects.remove_preview();
     // TODO - the data is hacky ... why isn't it this way in the data-preview_url?
     $.ajax({
-      url: $(link).attr('data-preview_url'),
+      url: $(button).attr('data-preview_url'),
       type: 'POST',
       beforeSend: function() { EOL.TextObjects.disable_form(); },
-      data: EOL.TextObjects.form().serialize().replace("_method=put&","id="+EOL.TextObjects.form().attr('data-data_object_id')+"&")
+      success: function(response) {
+        $('#insert_text_popup').before(response);
+        $('a#edit_text_').remove(); // We don't want them editing the preview text!
+        $('#text_wrapper_').slideDown();
+      },
+      complete: function() { EOL.TextObjects.enable_form(); },
+      error: function() { alert("Sorry, there was an error previewing your text.");},
+      data: EOL.TextObjects.form().serialize().replace("_method=put&","id="+EOL.TextObjects.data_object_id()+"&")
     });
-    // TODO - if(data_object_id == null)
-    if(false) {
-      $("#insert_text").append(text);
-      EOL.TextObjects.enable_form();
-    } else {
-      $('#text_wrapper_'+data_object_id+'_popup').before(text);
-      // remove existing text object, so it won't confuse the user
-      $('div#text_wrapper_'+data_object_id).fadeOut(1000, function() {$('#text_wrapper_'+data_object_id).remove();});
-      EOL.TextObjects.enable_form();
-    }
-    $('#text_wrapper_').fadeIn();
   },
 
   remove_preview: function() {
     if($('#text_wrapper_')) {
-      $('div#text_wrapper_').fadeOut(1000, function() {$('#text_wrapper_').remove();});
+      $('div#text_wrapper_').slideUp().delay(500).remove();
     };
   },
 
   cancel_edit: function(data_object_id) {
+    data_object_id = EOL.TextObjects.data_object_id();
     EOL.TextObjects.remove_preview();
     // if the old text still exists on the page, just remove the edit div
     // TODO - does this work?  Can it be said more elegantly?
@@ -117,52 +132,22 @@ $.extend(EOL.TextObjects, {
     $('#edit_text_spinner').fadeOut();
   },
 
-  insert_new_text: function(text) {
-    $("#insert_text_popup").slideUp().remove();
-    $(".cpc-content").append(text);
-    EOL.reload_behaviors(); // TODO
-  },
-
+  // This is only called from RJS:
   update_text: function(text, data_object_id, old_data_object_id) {
     $("#text_wrapper_"+old_data_object_id+"_popup").before(text);
     $("text_wrapper_"+data_object_id).fadeIn();
     $("div#text_wrapper_"+old_data_object_id+"_popup").fadeOut(1000, function() {
       $("div#text_wrapper_"+old_data_object_id+"_popup").remove();
     });
-    // TODO - reload behaviors?
+    // TODO - reload behaviors... the edit link needs to be activated.
   },
 
+  // This is only called server-side, but in two different places, so I'm keeping it here:
   update_add_links: function(url) {
-    url = url.unescapeHTML(); // TODO - works?
     $('#new_text_toc_text').attr('href', url);
     $('#new_text_toc_button').attr('href', url);
     $('#new_text_content_button').attr('href', url);
   },
-
-  change_toc: function(toc_label, add_new_url, new_text, toc_item_id) {
-    // update header
-    $('div#center-page-content div.cpc-header h3').html(toc_label);
-    // update the links/buttons for adding new text
-    EOL.TextObjects.update_add_links(add_new_url);
-    // remove all text objects from page
-    $('div#center-page-content div.cpc-content div.text_object').fadeOut('slow', function() {$(this).remove();});
-    // remove yellow warning box
-    $('div#center-page-content div.cpc-content div#unknown-text-warning-box_wrapper').fadeOut('slow', function() {
-      $(this).remove();
-    });
-    // remove red warning box
-    $('div#center-page-content div.cpc-content div#untrusted-text-warning-box_wrapper').fadeOut('slow', function() {
-      $(this).remove();
-    });
-    // add text from newly selected toc
-    $('div#center-page-content div.cpc-content').append(new_text);
-    // TODO - This seems like it would be a handy function to have available (if it's not already):
-    // update selected TOC
-    $('#toc.active').removeClass('active');
-    $('#current_content').val(toc_item_id);
-    $('ul#toc a.toc_item[title='+toc_label+']').addClass('active');
-    // TODO - reload behaviors?
-  }
 
 });
 

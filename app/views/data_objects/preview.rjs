@@ -1,1 +1,0 @@
-page.call 'EOL.TextObjects.preview_text', @preview_text, @data_object_id

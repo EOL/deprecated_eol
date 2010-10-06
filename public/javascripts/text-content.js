@@ -39,10 +39,13 @@ $(document).ready(function() {
   });
 
   // Open the add-text user interface
-  $('div.edit_text a, li.add_text>a, div.add_text_button a').click(function() {
-    EOL.TextObjects.open_new_text_dialog();
+  $('li.add_text>a, div.add_text_button a').click(function() {
+    EOL.TextObjects.open_new_text_dialog($(this).attr('href'));
     return false;
   });
+
+  // Open edit-text user interface:
+  EOL.TextObjects.init_edit_links();
 });
 
 if(!EOL) var EOL = {};
@@ -53,17 +56,26 @@ if(!EOL.TextObjects) EOL.TextObjects = {
   },
 
   // This will either show an existing dialog, create a new one, or show an error if it's already open:
-  open_new_text_dialog: function(popup_id) {
+  open_new_text_dialog: function(link_href) {
     if($('#insert_text_popup:visible').length > 0) {
       // show warning because add/edit popup is already being displayed
       pulsate_error($('.multi_new_text_error'));
     } else {
-      if (EOL.TextObjects.form().length > 0) {
+      // If we already have a form and this is NOT an edit:
+      if (EOL.TextObjects.form().length > 0 && link_href.index_of('edit') == 0) {
         EOL.TextObjects.show_new_text_dialog();
+      // Otherwise, we need to (re-)create the form:
       } else {
-        EOL.TextObjects.create_new_text_dialog();
+        EOL.TextObjects.create_new_text_dialog(link_href);
       }
     }
+  },
+
+  init_edit_links: function() {
+    $('div.edit_text a').click(function() {
+      EOL.TextObjects.open_new_text_dialog($(this).attr('href'));
+      return false;
+    });
   },
 
   // When you have a populated new-text dialog, show it and make it work:
@@ -76,9 +88,9 @@ if(!EOL.TextObjects) EOL.TextObjects = {
 
   // Loads the new text dialog via ajax, changes the TOC if needed (for example, if on "Common Names", which doesn't allow
   // text, we want to load an appropriate TOC item).
-  create_new_text_dialog: function() {
+  create_new_text_dialog: function(link_href) {
     $.ajax({
-      url: $('#new_text_toc_text').attr('href'),
+      url: link_href,
       success: function(response) { $('#insert_text_popup .popup-content').html(response); },
       error: function() {$('#insert_text_popup .popup-content').html("<p>Sorry, there was an error.</p>");},
       complete: function() { EOL.TextObjects.show_new_text_dialog(); }

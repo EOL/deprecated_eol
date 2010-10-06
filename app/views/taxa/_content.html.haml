@@ -1,4 +1,4 @@
-= javascript_include_tag 'text-content.js' # TODO - move this to a merged file (probably)
+= javascript_include_tag 'text-content.js', 'jquery.scrollTo-min.js' # TODO - move this to a merged file (probably)
 %a{ :name => "center_content" }
 .cpc-header
   - unless @content.nil?
@@ -18,5 +18,5 @@
 - if @selected_text
   :javascript
     $(document).ready(function() {
-      Effect.ScrollTo("text_wrapper_=#{@selected_text.id}");
+      $(window).scrollTo("#text_wrapper_#{@selected_text.id}");
     });

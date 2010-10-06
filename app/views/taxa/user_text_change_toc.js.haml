@@ -1,0 +1,18 @@
+= render :partial => 'taxa/content/content_text'
+:javascript
+  // update header
+  $('div#center-page-content div.cpc-header h3').html("#{@toc_item.label}");
+  // update the links/buttons for adding new text
+  var new_url = "#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @toc_item.id})}";
+  EOL.TextObjects.update_add_links(new_url);
+  // TODO - This seems like it would be a handy function to have available (if it's not already):
+  // update selected TOC
+  $('#toc a.active').removeClass('active');
+  $('#current_content').val('#{@category_id}');
+  $('#toc a#category_id_#{@category_id}').addClass('active');
+  // Edit buttons need to be activated:   TODO - this may need to be extracted and reused.
+  $('div.edit_text a').click(function() {
+    EOL.TextObjects.open_new_text_dialog();
+    return false;
+  });
+  updateReferences();

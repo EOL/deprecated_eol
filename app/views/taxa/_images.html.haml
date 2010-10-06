@@ -1,4 +1,6 @@
 :javascript
+  $('#tab_media_center a').removeClass('active');
+  $('#tab_media_center a[title=Image]').addClass('active');
   var selected_image_id = #{@selected_image_id}
 -# TODO - this should be done with merging.
 = javascript_include_tag 'image-collection' # Note this really MUST be loaded BEFORE popup, so tabs are rendered before popup positions are calculated.

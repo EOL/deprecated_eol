@@ -111,9 +111,9 @@
         - sources = agent_partial(image['agents']['Source'], :linked => false)
         - sources_linked = agent_partial(image['agents']['Source'])
         - sources_icons_linked = agent_icons_partial(image['agents']['Source'])
-        - if !sources.blank? && !info_url.blank?
+        - if !sources.blank? && !image.object_url.blank?
           = 'SOURCE:'[]
-          = link_to(sources + external_link_icon, info_url)
+          = link_to(sources + external_link_icon, image.object_url)
           %br/
         - elsif !sources_linked.blank?
           = 'SOURCE:'[]

@@ -1,17 +1,16 @@
 :javascript
   $('#tab_media_center a').removeClass('active');
   $('#tab_media_center a[title=Image]').addClass('active');
-  var selected_image_id = #{@selected_image_id}
+  var selected_image_id = #{@selected_image_id};
 -# TODO - this should be done with merging.
 = javascript_include_tag 'image-collection' # Note this really MUST be loaded BEFORE popup, so tabs are rendered before popup positions are calculated.
 = javascript_include_tag 'popup' # There are several popup items in the images view.
 #media-images.wrapper-mc.clearfix{:style => 'display:block'}
   - if @images.blank? # I know this repeats a lot of style; sorry.
     -# But we need at least one of these, when there are no images to show...
-    .large-image
-      .main-image-bg{:class => main_img_bg_class}
-        -# TODO - there is absolutely NO reason this should be a table.  Way too much markup, here.
-        %table#main-image-table
+    #large-image
+      #image_placeholder.main-image-bg{:style => 'display: block;'}
+        %table.main-image-table
           %tr
             %td
         %hr/
@@ -23,7 +22,8 @@
         - main_img_bg_class = 'main-image-bg'
         - main_img_bg_class += ' unknown-background-image' if image.unknown?
         - main_img_bg_class += ' untrusted-background-image' if image.untrusted?
-        %div{:id => "image-#{image.id}", :class => main_img_bg_class}
+        - div_style = (image.id == @selected_image_id) ? 'display: block;' : ''
+        %div{:id => "image-#{image.id}", :class => main_img_bg_class, :style => div_style}
           -# TODO - there is absolutely NO reason this should be a table.  Way too much markup (and CSS), here.
           %table.main-image-table
             %tr

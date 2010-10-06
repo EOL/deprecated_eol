@@ -3,17 +3,17 @@ $(document).ready(function() {
   $('.mc-navigation a').click(function() {
     $.ajax({
       url: $(this).attr('href'),
-      beforeSend: function() {$('#media-images').fadeOut(500);},
+      beforeSend: function() {$('#media-images').fadeTo(300, 0.3);},
       success: function(response) {$('#media-images').html(response);},
       error: function() {$('#media-images').html('<p>Sorry, there was an error.</p>');},
-      complete: function() {$('#media-images').fadeIn(350);}
+      complete: function() {$('#media-images').delay(100).fadeTo(100, 1);}
     });
     return false;
   });
   $("#image-collection img[title]").tooltip();
   $("#thumbnails").tabs("#notes-container > div.mc-notes");
   $("#thumbnails a").click(function() {
-    var id = $(this).attr('href')
+    var id = $(this).attr('href');
     $("#large-image .main-image-bg").hide();
     $("#large-image #image-"+id).show();
     $("#image-ratings .image-rating").hide();

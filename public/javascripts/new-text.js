@@ -1,4 +1,5 @@
-// Note that this relies on EOL.TextObjects already existing for a reason; many methods this needs are there.
+// Note that this relies on EOL.TextObjects already existing for a reason; many methods this needs are there.  It should be
+// described in text-content.js
 $.extend(EOL.TextObjects, {
 
   init_new_text_behaviors: function() {
@@ -19,22 +20,13 @@ $.extend(EOL.TextObjects, {
     });
     // Cancel adding text:
     $('input#cancel_edit_text').click(function() {
-      EOL.TextObjects.cancel_edit($(this).attr('data-data_object_id')); // TODO - why do we need an id?
+      EOL.TextObjects.cancel_edit();
     });
     // Update the text area when the user changes the TOC Item category:
     $('select#data_objects_toc_category_toc_id').change(function() {
       $.ajax({
         url: $(this).attr('data-change_toc_url'),
-        success: function(response) {
-          // remove all text objects from page.  It would be better to do this on success, but timing is an issue.
-          $('.text_object').slideUp().delay(500).remove();
-          // remove warning boxes
-          $('div.cpc-content div#unknown-text-warning-box_wrapper').fadeOut().delay(500).remove();
-          $('div.cpc-content div#untrusted-text-warning-box_wrapper').fadeOut().delay(500).remove();
-          // Put in the new content:
-          $('#insert_text_popup').before(response);
-          EOL.TextObjects.init_edit_links();
-        },
+        success: function(response) { EOL.TextObjects.show_response_text_and_cleanup(response); },
         data: EOL.TextObjects.form().serialize()
       });
     });
@@ -42,6 +34,17 @@ $.extend(EOL.TextObjects, {
     $('div#add_user_text_references input#add_more_user_text_reference').click(function(e) {
       $('#add_user_text_references_input').append('<textarea rows="3" name="references[]" id="references[]" cols="33"/>');
     });
+  },
+
+  show_response_text_and_cleanup: function (response) {
+    // remove all text objects from page.  It would be better to do this on success, but timing is an issue.
+    $('.text_object').slideUp().delay(500).remove();
+    // remove warning boxes
+    $('div.cpc-content div#unknown-text-warning-box_wrapper').slideUp().delay(500).remove();
+    $('div.cpc-content div#untrusted-text-warning-box_wrapper').slideUp().delay(500).remove();
+    // Put in the new content:
+    $('#insert_text_popup').before(response);
+    EOL.TextObjects.init_edit_links();
   },
 
   show_missing_text_error_if_empty: function() {
@@ -63,7 +66,7 @@ $.extend(EOL.TextObjects, {
     if (EOL.TextObjects.show_missing_text_error_if_empty()) return false;
     var id = EOL.TextObjects.data_object_id();
     if(id) {
-      $('#text_wrapper_'+id).fadeOut().delay(500).remove();
+      $('#text_wrapper_'+id).slideUp().delay(500).remove();
     }
     EOL.TextObjects.remove_preview();
     $.ajax({
@@ -107,18 +110,18 @@ $.extend(EOL.TextObjects, {
     };
   },
 
-  cancel_edit: function(data_object_id) {
+  cancel_edit: function() {
     data_object_id = EOL.TextObjects.data_object_id();
     EOL.TextObjects.remove_preview();
     // if the old text still exists on the page, just remove the edit div
     // TODO - does this work?  Can it be said more elegantly?
     if($('#text_wrapper_'+data_object_id).length > 0 || $('#original_toc_id').val() != $('#data_objects_toc_category_toc_id').val()) {
       $('#insert_text_popup').slideUp();
-      $("div#text_wrapper_"+data_object_id+"_popup").fadeOut(1000).delay(1100).destroy();
+      $("div#text_wrapper_"+data_object_id+"_popup").slideUp(1000).delay(1100).remove();
     } else {
       $.ajax({
         url: $('#edit_data_object_'+data_object_id).attr('action').replace('/data_objects/','/data_objects/get/'),
-        type: 'POST',
+        success: function(response) { EOL.TextObjects.show_response_text_and_cleanup(response); },
         data: EOL.TextObjects.form.serialize()
       });
       EOL.TextObjects.disable_form();
@@ -133,16 +136,6 @@ $.extend(EOL.TextObjects, {
   enable_form: function() {
     EOL.TextObjects.form().find('input[type=submit], input[type=button]').attr('disabled', '');
     $('#edit_text_spinner').fadeOut();
-  },
-
-  // This is only called from RJS:
-  update_text: function(text, data_object_id, old_data_object_id) {
-    $("#text_wrapper_"+old_data_object_id+"_popup").before(text);
-    $("text_wrapper_"+data_object_id).fadeIn();
-    $("div#text_wrapper_"+old_data_object_id+"_popup").fadeOut(1000, function() {
-      $("div#text_wrapper_"+old_data_object_id+"_popup").remove();
-    });
-    // TODO - reload behaviors... the edit link needs to be activated.
   },
 
   // This is only called server-side, but in two different places, so I'm keeping it here:

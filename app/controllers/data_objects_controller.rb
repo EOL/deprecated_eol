@@ -48,7 +48,8 @@ class DataObjectsController < ApplicationController
     @curator = current_user.can_curate?(@taxon_concept)
     @hide = true
     @category_id = @data_object.toc_items[0].id
-    @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
+    @text = render_to_string(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
+    render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
   end
 
   def update
@@ -63,8 +64,8 @@ class DataObjectsController < ApplicationController
     alter_current_user do |user|
       user.vetted=false
     end
-    @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
     current_user.log_activity(:updated_data_object_id, :value => @data_object.id, :taxon_concept_id => @taxon_concept.id)
+    render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
   end
 
   def edit

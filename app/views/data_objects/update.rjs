@@ -1,1 +1,0 @@
-page.call 'EOL.TextObjects.update_text', @text, @data_object.id, @old_data_object_id

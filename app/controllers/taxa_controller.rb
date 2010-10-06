@@ -226,7 +226,6 @@ class TaxaController < ApplicationController
     @ajax_update = true
     load_content_var
     current_user.log_activity(:viewed_toc_id, :value => toc_id, :taxon_concept_id => @taxon_concept.id)
-    @new_text = render_to_string(:partial => 'content_body')
   end
 
   # AJAX: Render the requested content page

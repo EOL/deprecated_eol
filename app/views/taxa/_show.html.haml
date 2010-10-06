@@ -32,12 +32,9 @@
       Showing:
       = current_user.expertise.to_s == 'expert' ? link_to('scientific names', taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=middle',{:title=>'click to show common names'}) : link_to('common names', taxon_concept_url(:id=>@taxon_concept.id) + '?expertise=expert',{:title=>'click to show scientific names'})
     %hr
-/ end page title
 = render(:partial => 'mediacenter', :locals => {:current_user => current_user})
-/ page content
 #page-content-bgfaux
   #page-content.clearfix
-    / left page content
     #left-page-content
       %input#current_taxon_concept_id{ :name => "current_taxon_concept_id", :type => "hidden", :value => @taxon_concept.id }
       %input#current_content{ :name => "current_content", :type => "hidden", :value => @category_id }
@@ -58,19 +55,18 @@
                 %span.no_toc_link
                   = item.label
         %li.add_text
+          - change_toc_url = url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id)
+          - add_text_url = url_for(:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id)
           .add_text_button
-            = link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_button', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id), :title => "Add New Content")
-          = link_to("Add New Content", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_toc_text', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc', :taxon_concept_id => @taxon_concept.id) )
+            = link_to("<span style='width:20px;height:20px;display:block;'></span>", add_text_url, :id => 'new_text_toc_button', 'data-change_toc_url' => change_toc_url, :title => "Add New Content")
+          = link_to("Add New Content", add_text_url, :id => 'new_text_toc_text', 'data-change_toc_url' => change_toc_url )
         %li.multi_new_text_error{ :style => "display:none;" }
           = "Only one text object can be edited at a time."[]
       %hr
-    / end left page content
     #center-page-content
       = render :partial => 'content'
     #center-page-content-loading{ :style => "display:none;" }
       = image_tag 'indicator_arrows_black.gif', :alt=>'Working...'
     #right-page-content
       = render :partial => 'internal_nav'
-  / end page-content
-/ end page-content-bgfaux
 = render :partial => 'curator_citation'

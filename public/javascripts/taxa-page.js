@@ -1,3 +1,11 @@
+if (!EOL) EOL = {};
+if (!EOL.change_toc) EOL.change_toc = function(new_id) {
+  $('#toc a.toc_item').removeClass('active');
+  $('#toc a#category_id_'+new_id).addClass('active');
+  $('#new_text_toc_text').attr('href', $('#new_text_toc_text').attr('href').replace(/toc_id=\d+/, 'toc_id='+new_id));
+  $('select#data_objects_toc_category_toc_id').val(new_id);
+};
+
 $(document).ready(function() {
   // TODO - move to its own js (for maps view)
   // clicking map will show its attributions
@@ -8,10 +16,10 @@ $(document).ready(function() {
   $("ul#tab_media_center").tabs("div.tab-panes > div", {effect: 'ajax', initialIndex: null});
   // Change TOC item:
   $('#toc a.toc_item').click(function() {
-    // TODO - do we need to dismiss the #insert_text_popup div when this happens?
+    id = $(this).attr('id').replace(/\D+/, '');
     $.ajax({
       url: $(this).attr('href'),
-      success: function(request) {updateReferences(); $('#toc a.toc_item').removeClass('active'); $(this).delay(100).addClass('active');},
+      success: function(request) {updateReferences(); EOL.change_toc(id); },
       error: function(request) {$('#center-page-content').html('<p>Sorry, there was an error.</p>');}
     });
     return false;

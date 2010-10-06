@@ -1,3 +1,6 @@
+= javascript_include_tag 'new-text'
+%span#missing_text_error.error{ :style => "display:none;" }
+  = "A Description must be entered."[]
 %input{ :type => "hidden", :name => "taxon_concept_id", :value => @taxon_concept.id }
 %table
   %tr
@@ -7,7 +10,7 @@
       = select_tag('data_objects_toc_category[toc_id]', options_for_select(@selectable_toc,@selected_toc), {'id' => 'data_objects_toc_category_toc_id', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc')})
   %tr
     %td
-      = f.label 'Title (optional)'
+      = f.label 'Title (optional)'[]
     %td
       = f.text_field( :object_title )
   %tr

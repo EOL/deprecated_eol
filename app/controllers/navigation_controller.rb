@@ -46,7 +46,7 @@ class NavigationController < ApplicationController
       return
     end
     @hierarchy = @hierarchy_entry.hierarchy
-    render :layout => false, :partial => 'browse_stats'
+    render :partial => 'browse_stats', :layout => false
   end
   
   

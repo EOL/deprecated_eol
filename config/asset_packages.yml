@@ -20,7 +20,6 @@ javascripts:
 
 - jquery-extras-cached:
   - jquery-autocomplete
-  - jquery.scrollTo-min
   - jquery.qtip-1.0.0-rc3.min
   - tagging
 

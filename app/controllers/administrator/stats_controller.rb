@@ -67,7 +67,7 @@ private
   def choose_layout
     @page_title ||= $ADMIN_CONSOLE_TITLE
     @navigation_partial = '/admin/navigation'
-    action_name == 'content_taxonomic' ? 'left_menu' : 'admin_without_nav'
+    'left_menu'
   end
 
 end

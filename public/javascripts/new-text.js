@@ -2,6 +2,8 @@
 // described in text-content.js
 $.extend(EOL.TextObjects, {
 
+  // Handle all the behaviours related to adding/editing text.  This may be called several times, so it's extracted to a
+  // method:
   init_new_text_behaviors: function() {
     // Submit new text:
     EOL.TextObjects.form().submit(function(e) {
@@ -17,10 +19,12 @@ $.extend(EOL.TextObjects, {
     $('#insert_text_popup a.close-button').click(function() {
       $('#insert_text_popup').slideUp();
       EOL.TextObjects.remove_preview();
+      return false;
     });
     // Cancel adding text:
     $('input#cancel_edit_text').click(function() {
       EOL.TextObjects.cancel_edit();
+      return false;
     });
     // Update the text area when the user changes the TOC Item category:
     $('select#data_objects_toc_category_toc_id').change(function() {
@@ -33,9 +37,11 @@ $.extend(EOL.TextObjects, {
     // Give the user another reference field
     $('div#add_user_text_references input#add_more_user_text_reference').click(function(e) {
       $('#add_user_text_references_input').append('<textarea rows="3" name="references[]" id="references[]" cols="33"/>');
+      return false;
     });
   },
 
+  // After an Ajax call, we need to show the response and clean up our mess:
   show_response_text_and_cleanup: function (response) {
     // remove all text objects from page.  It would be better to do this on success, but timing is an issue.
     $('.text_object').slideUp().delay(500).remove();
@@ -47,6 +53,7 @@ $.extend(EOL.TextObjects, {
     EOL.TextObjects.init_edit_links();
   },
 
+  // Warn the user that they forgot to add text:
   show_missing_text_error_if_empty: function() {
     // error handling, just make sure there's a description
     textarea_val = $.trim($('textarea#data_object_description').val());
@@ -58,16 +65,17 @@ $.extend(EOL.TextObjects, {
     }
   },
 
+  // In several cases, we need to know which data object we're currently editing/adding:
   data_object_id: function() {
     return EOL.TextObjects.form().attr('data-data_object_id');
   },
 
+  // For when the user wants to submit added/edited text.
   submit_text: function() {
     if (EOL.TextObjects.show_missing_text_error_if_empty()) return false;
     var id = EOL.TextObjects.data_object_id();
-    if(id) {
-      $('#text_wrapper_'+id).slideUp().delay(500).remove();
-    }
+    // If we already have a version of the text, remove it, since we will be re-loading it:
+    $('#text_wrapper_'+id).slideUp().delay(500).remove();
     EOL.TextObjects.remove_preview();
     $.ajax({
       url: EOL.TextObjects.form().attr('action'),
@@ -85,6 +93,7 @@ $.extend(EOL.TextObjects, {
     });
   },
 
+  // The text was not submitted, but we want to see what it will look like when it is:
   preview_text: function(button) {
     if (EOL.TextObjects.show_missing_text_error_if_empty()) return false;
     EOL.TextObjects.remove_preview();
@@ -103,13 +112,16 @@ $.extend(EOL.TextObjects, {
       data: EOL.TextObjects.form().serialize().replace("_method=put&","id="+EOL.TextObjects.data_object_id()+"&")
     });
   },
-
+  
+  // In several places, we need to make sure the preview text is removed:
   remove_preview: function() {
     if($('#text_wrapper_')) {
       $('div#text_wrapper_').slideUp().delay(500).remove();
     };
   },
 
+  // This is a little awkward, but after someone was editing their text, we want to make sure it's as-is (as opposed to how
+  // it may have been replaced by the preview), so we re-load the text as it actually appears:
   cancel_edit: function() {
     data_object_id = EOL.TextObjects.data_object_id();
     EOL.TextObjects.remove_preview();
@@ -128,26 +140,20 @@ $.extend(EOL.TextObjects, {
     }
   },
 
+  // Temporarily prevent the user from sumbitting/previewing the text:
   disable_form: function() {
     EOL.TextObjects.form().find('input[type=submit], input[type=button]').attr('disabled', 'disabled');
     $('#edit_text_spinner').fadeIn();
   },
 
+  // It's okay to work with the form again:
   enable_form: function() {
     EOL.TextObjects.form().find('input[type=submit], input[type=button]').attr('disabled', '');
     $('#edit_text_spinner').fadeOut();
-  },
-
-  // This is only called server-side, but in two different places, so I'm keeping it here:
-  update_add_links: function(url) {
-    $('#new_text_toc_text').attr('href', url);
-    $('#new_text_toc_button').attr('href', url);
-    $('#new_text_content_button').attr('href', url);
-  },
+  }
 
 });
 
 $(document).ready(function() {
   EOL.TextObjects.init_new_text_behaviors();
 });
-

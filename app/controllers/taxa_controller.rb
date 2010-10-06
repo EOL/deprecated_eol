@@ -16,14 +16,7 @@ class TaxaController < ApplicationController
       page = params[:page] || 1
       @harvest_event = HarvestEvent.find(params[:harvest_event_id])
 
-      # replaced because it doesn't separate taxa with objects from taxa without
-      #results = SpeciesSchemaModel.connection.execute("SELECT n.string scientific_name, he.taxon_concept_id 
-      #  FROM harvest_events_hierarchy_entries hehe 
-      #  JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id = he.id)
-      #  JOIN names n ON (he.name_id = n.id)
-      #  WHERE hehe.harvest_event_id=#{params[:harvest_event_id].to_i}
-      #  ORDER BY n.string").all_hashes.uniq
-
+      # Wow.  Really?  REALLY?  We want this in the CONTROLLER?  [sigh]
       results = SpeciesSchemaModel.connection.execute("SELECT n.string scientific_name, he.taxon_concept_id, 
         (dohe.data_object_id IS NOT null) has_data_object
         FROM harvest_events_hierarchy_entries hehe
@@ -250,18 +243,14 @@ class TaxaController < ApplicationController
       render :text => '[content missing]'
     else
       @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
+      current_user.log_activity(:viewed_content_for_category_id, :value => @category_id, :taxon_concept_id => @taxon_concept.id)
       render :update do |page|
         page.replace_html 'center-page-content', :partial => 'content'
-        page << "$('current_content').value = '#{@category_id}';"
-        page << "Event.addBehavior.reload();"
+        page << "$('#current_content').value = '#{@category_id}';"
         page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id})}');"
         page['center-page-content'].set_style :height => 'auto'
       end      
     end
-
-    current_user.log_activity(:viewed_content_for_category_id, :value => @category_id, :taxon_concept_id => @taxon_concept.id)
-    #log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
-
   end
 
   def images

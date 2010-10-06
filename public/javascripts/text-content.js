@@ -10,7 +10,7 @@ $(document).ready(function() {
     $(this).fadeOut();
     return false;
   });
-  // slide in text comments (TEXT OBJECT - slides down, doesn't POPUP)
+  // slide in text comments
   $('div.text_buttons div.comment_button a').click(function(e) {
     data_object_id = $(this).attr('data-data_object_id');
     textCommentsDiv = "text-comments-wrapper-" + data_object_id;
@@ -24,6 +24,7 @@ $(document).ready(function() {
     });
     return false;
   });
+  // Curate text:
   $('div.text_buttons div.curate_button a').click(function(e) {
     data_object_id = $(this).attr('data-data_object_id');
     textCuration = "text-curation-" + data_object_id;
@@ -37,13 +38,11 @@ $(document).ready(function() {
     });
     return false;
   });
-
   // Open the add-text user interface
   $('li.add_text>a, div.add_text_button a').click(function() {
     EOL.TextObjects.open_new_text_dialog($(this).attr('href'));
     return false;
   });
-
   // Open edit-text user interface:
   EOL.TextObjects.init_edit_links();
 });
@@ -62,7 +61,7 @@ if(!EOL.TextObjects) EOL.TextObjects = {
       pulsate_error($('.multi_new_text_error'));
     } else {
       // If we already have a form and this is NOT an edit:
-      if (EOL.TextObjects.form().length > 0 && link_href.indexOf('edit') == 0) {
+      if (EOL.TextObjects.form().length > 0 && link_href.indexOf('edit') == -1) {
         EOL.TextObjects.show_new_text_dialog();
       // Otherwise, we need to (re-)create the form:
       } else {
@@ -71,6 +70,7 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     }
   },
 
+  // Allow users to edit their own text.  This needs to be init'd several times, so it's extracted to a method.
   init_edit_links: function() {
     $('div.edit_text a').click(function() {
       EOL.TextObjects.open_new_text_dialog($(this).attr('href'));
@@ -95,9 +95,15 @@ if(!EOL.TextObjects) EOL.TextObjects = {
       error: function() {$('#insert_text_popup .popup-content').html("<p>Sorry, there was an error.</p>");},
       complete: function() { EOL.TextObjects.show_new_text_dialog(); }
     });
+    // TODO - this is probably better moved to the server-side JS, when needed.
     if($('#new_text_toc_text').attr('href').indexOf('toc_id=none') != -1) {
       $.ajax({url:$('#new_text_toc_text').attr('data-change_toc_url'), type:'post'});
     }
+  },
+
+  // This is only called server-side, but in two different places, so I'm keeping it here:
+  update_add_links: function(url) {
+    $('li.add_text>a, div.add_text_button a').attr('href', url);
   }
 
 };

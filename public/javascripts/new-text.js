@@ -33,6 +33,7 @@ $.extend(EOL.TextObjects, {
           $('div.cpc-content div#untrusted-text-warning-box_wrapper').fadeOut().delay(500).remove();
           // Put in the new content:
           $('#insert_text_popup').before(response);
+          EOL.TextObjects.init_edit_links();
         },
         data: EOL.TextObjects.form().serialize()
       });
@@ -71,9 +72,11 @@ $.extend(EOL.TextObjects, {
       beforeSend: function() { EOL.TextObjects.disable_form(); },
       success: function(response) {
         $('#insert_text_popup').before(response);
-        EOL.TextObjects.form().find('*').not(':button, :submit, :reset, :hidden').val('').removeAttr('checked').removeAttr('selected');
+        // reset form:  (this may be worth turning in to a global method):
+        EOL.TextObjects.form().find('input, textarea').not(':hidden, :button, :submit').val('').removeAttr('checked').removeAttr('selected');
+        EOL.TextObjects.init_edit_links();
       },
-      complete: function() { $('#insert_text_popup').slideUp(); }, // TODO - This needs to reset the form and possibly change ids on it.
+      complete: function() { $('#insert_text_popup').slideUp(); },
       error: function() { alert("Sorry, there was an error submitting your text.");},
       data: EOL.TextObjects.form().serialize()
     });

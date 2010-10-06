@@ -23,15 +23,15 @@ if (!EOL.expand_clade_behavior) EOL.expand_clade_behavior = function() {
 
 // Alias to display a node when it's not for a selection:
 function displayNode(id) {
-	displayNode(id, false);
+  displayNode(id, false);
 }
 
 // call remote function to show the selected node in the text-based navigational tree view
 function displayNode(id, for_selection) {
-	url = '/navigation/show_tree_view'
-	if(for_selection) {
-		url = '/navigation/show_tree_view_for_selection'
-	}
+  url = '/navigation/show_tree_view'
+  if(for_selection) {
+    url = '/navigation/show_tree_view_for_selection'
+  }
   $.ajax({
     url: url,
     type: 'POST',
@@ -59,7 +59,7 @@ function update_browser_stats(hierarchy_entry_id, expand) {
     complete: function(request){scroll(0,100);},
     success: function(response){$('#hierarchy_browser').html(response);},
     error: function(){ $('#browser-text').html("<p>Sorry, there was an error.</p>"); },
-    parameters: {id: hierarchy_entry_id, expand: expand }
+    data: {id: hierarchy_entry_id, expand: expand }
   });
 }
 

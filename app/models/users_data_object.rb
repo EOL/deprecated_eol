@@ -11,11 +11,11 @@ class UsersDataObject < ActiveRecord::Base
   #has_one :data_object
   
   def self.get_user_submitted_data_object_ids(user_id)
-    if(user_id == 'all') then
-      sql="Select data_object_id From users_data_objects "
+    if(user_id.downcase == 'all') then
+      sql="Select data_object_id From users_data_objects udo JOIN #{DataObject.full_table_name} do on (udo.data_object_id=do.id)"
       rset = UsersDataObject.find_by_sql([sql])
     else
-      sql="Select data_object_id From users_data_objects where user_id = ? "
+      sql="Select data_object_id From users_data_objects udo JOIN #{DataObject.full_table_name} do on (udo.data_object_id=do.id) where user_id = ? "
       rset = UsersDataObject.find_by_sql([sql, user_id])
     end            
     obj_ids = Array.new

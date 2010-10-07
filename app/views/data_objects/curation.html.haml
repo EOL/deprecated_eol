@@ -2,9 +2,8 @@
   .text_curation_close
     %a.close-button
 %div
-  - if title
-    %h1
-      Object Curation
+  %h1
+    Object Curation
   %form.curation{ :action => curate_data_object_path(@data_object), :'data-data_object_id' => @data_object.id,  :'data-data_object_type' => @data_object.data_type_id }
     .processing{ :style => "display:none;" }
       = image_tag('indicator_arrows_black.gif')

@@ -41,9 +41,9 @@
         = render :partial=>'/taxa/data_object_states', :locals => {:dato => content_item}
     / RATING
     .text-rating
-      = render :partial => '/taxa/star_rating', :locals => {:data_object => content_item, :show_controls => @taxon_concept.show_curator_controls?}
+      = render :partial => '/taxa/star_rating', :locals => {:data_object => content_item, :show_controls => (@taxon_concept.show_curator_controls? && !@preview)}
     #right_text_buttons_group
-      - if @taxon_concept.show_curator_controls?
+      - if @taxon_concept.show_curator_controls? && !@preview
         - if !content_item.curated?
           .spinner
             = image_tag('indicator_arrows_black.gif', :style => 'display:none;')

@@ -32,7 +32,6 @@ javascripts:
 
 - jquery-cached:
   - jquery
-  - jquery-selectboxes
   - jquery-autocomplete
   - jquery.scrollTo-min
 

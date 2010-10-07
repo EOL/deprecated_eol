@@ -1,10 +1,9 @@
 - rate_percentage = data_object.data_rating * 20
 - if show_controls
-
   Overall:
   %span.inline-rating
     %ul.star-rating.small-star.average-rating
-      %li.current-rating{:id => "current-rating-#{data_object.id}", :style => "width:#{rate_percentage}%;" }
+      %li.current-rating{:id => "average-rating-#{data_object.id}", :style => "width:#{rate_percentage}%;" }
         Overall:
         = data_object.data_rating.to_s
   Your Rating:

@@ -60,7 +60,6 @@ Rails::Initializer.run do |config|
   config.gem 'escape'
   config.gem 'email_spec'
   config.gem 'rack'
-  config.gem 'nokogiri', :version => '1.4.3.1'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

@@ -48,3 +48,4 @@ config.gem "rspec", :lib => false
 config.gem "rspec-rails", :lib => false
 config.gem "factory_girl", :lib => false
 config.gem "capybara", :lib => false
+config.gem 'nokogiri', :version => '1.4.3.1'

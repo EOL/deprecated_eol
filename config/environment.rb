@@ -44,22 +44,23 @@ Rails::Initializer.run do |config|
   config.load_paths += Dir["#{RAILS_ROOT}/app/models/**"].map { |dir| dir }
 
   # require gems - all gems that don't require native compilation should be unpacked in ./vendor/gems/
-  config.gem 'will_paginate'
+  config.gem 'will_paginate', :version => '2.3.15'
   config.gem 'composite_primary_keys'
   config.gem 'fastercsv'
   config.gem 'haml'
   config.gem 'macaddr'
   config.gem 'uuid'
   config.gem 'ezcrypto'
-  config.gem 'ratom', :lib => 'atom'
+  config.gem 'ratom', :lib => 'atom', :version => '0.6.3'
   config.gem 'json'
-  config.gem 'sanitize'
+  config.gem 'sanitize', :version => '1.2.1'
   # config.gem 'mwmitchell-rsolr', :lib => 'rsolr'
   # config.gem 'solr-ruby', :lib => 'solr'
   # config.gem 'optiflag'
   config.gem 'escape'
   config.gem 'email_spec'
   config.gem 'rack'
+  config.gem 'nokogiri', :version => '1.4.3.1'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,

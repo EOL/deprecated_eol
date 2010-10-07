@@ -57,7 +57,7 @@
       - mc_class = 'mc-notes '
       - mc_class += ' unknown-background-text' if image.unknown?
       - mc_class += ' untrusted-background-text' if image.untrusted?
-      #mc-notes{:class => mc_class}
+      %div{:id => "mc-notes-#{image.id}", :class => mc_class}
         - if image.untrusted?
           %strong
             = "Note:"[]

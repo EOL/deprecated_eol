@@ -11,9 +11,10 @@ $(document).ready(function() {
     return false;
   });
   $("#image-collection img[title]").tooltip();
-  $("#thumbnails").tabs("#notes-container > div.mc-notes");
   $("#thumbnails a").click(function() {
     var id = $(this).attr('href');
+    $("#notes-container div.mc-notes").hide();
+    $("#notes-container #mc-notes-"+id).show();
     $("#large-image .main-image-bg").hide();
     $("#large-image #image-"+id).show();
     $("#image-ratings .image-rating").hide();
@@ -26,6 +27,7 @@ $(document).ready(function() {
       }
     });
     $('.overlay').fadeOut(200);
+    return false;
   });
   // click() the selected image, or just the first.
   if(!selected_image_id) {

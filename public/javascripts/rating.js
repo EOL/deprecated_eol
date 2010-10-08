@@ -11,8 +11,7 @@ EOL.Rating.update_user_rating = function(data_object_id, rating) {
 
 $(document).ready(function() {
   $('ul.small-star li a').click(function(e) {
-    alert("EOL.Rating.update_user_rating("+$(this).attr('data-data_object_id')+", "+$(this).html()+");");
-    EOL.Rating.update_user_rating($(this).attr('data-data_object_id'), $(this).text);
+    EOL.Rating.update_user_rating($(this).attr('data-data_object_id'), $(this).html());
     $.ajax({url: $(this).attr('href'), type: 'PUT'});
     return false;
   });

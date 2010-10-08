@@ -1,10 +1,10 @@
-
 - for syn_hash in @content[:items]
-  %b
-    = syn_hash['hierarchy_label']
-  %br
-  Preferred Name: 
-  = syn_hash['preferred_name']
+  %p
+    %b
+      = syn_hash['hierarchy_label']
+    %br
+    Preferred Name: 
+    = syn_hash['preferred_name']
   %table.results_table
     %tr
       %th

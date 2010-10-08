@@ -91,14 +91,17 @@ if(!EOL.TextObjects) EOL.TextObjects = {
   create_new_text_dialog: function(link_href) {
     $.ajax({
       url: link_href,
-      success: function(response) { $('#insert_text_popup .popup-content').html(response); },
+      success: function(response) {
+        // If this is not a toc item we're allowed to add text to, we need to do some cleanup:
+        if($('#new_text_toc_text').attr('href').indexOf('toc_id=none') != -1) {
+          $('.cpc-content').children().not('#insert_text_popup').slideUp(400).delay(100).remove();
+          $.ajax({url:$('#new_text_toc_text').attr('data-change_toc_url'), type:'post'});
+        }
+        $('#insert_text_popup .popup-content').html(response);
+      },
       error: function() {$('#insert_text_popup .popup-content').html("<p>Sorry, there was an error.</p>");},
       complete: function() { EOL.TextObjects.show_new_text_dialog(); }
     });
-    // TODO - this is probably better moved to the server-side JS, when needed.
-    if($('#new_text_toc_text').attr('href').indexOf('toc_id=none') != -1) {
-      $.ajax({url:$('#new_text_toc_text').attr('data-change_toc_url'), type:'post'});
-    }
   },
 
   // This is only called server-side, but in two different places, so I'm keeping it here:

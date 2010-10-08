@@ -12,7 +12,6 @@ javascripts:
   - application 
 
 - taxa-page-cached:
-  - curation
   - rating
   - media_center
   - popup

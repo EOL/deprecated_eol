@@ -241,15 +241,10 @@ class TaxaController < ApplicationController
     append_content_instance_variables(@category_id)
     if @content.nil?
       render :text => '[content missing]'
+      return true
     else
       @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
       current_user.log_activity(:viewed_content_for_category_id, :value => @category_id, :taxon_concept_id => @taxon_concept.id)
-      render :update do |page|
-        page.replace_html 'center-page-content', :partial => 'content'
-        page << "$('#current_content').value = '#{@category_id}';"
-        page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id})}');"
-        page['center-page-content'].set_style :height => 'auto'
-      end      
     end
   end
 

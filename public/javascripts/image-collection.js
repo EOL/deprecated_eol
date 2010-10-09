@@ -1,3 +1,9 @@
+if (!EOL) EOL = {};
+if (!EOL.replace_dato_id) EOL.replace_dato_id = function(link, id) {
+  new_href = $(link).attr('href').replace(/\/\d+/, '/'+id); // Leading slash avoids replacing params (like star ratings).
+  $(link).attr('href', new_href);
+};
+
 $(document).ready(function() {
   // Image pagination:
   $('.mc-navigation a').click(function() {
@@ -26,13 +32,9 @@ $(document).ready(function() {
     $("#image-ratings").show();
     $("#image-ratings .image-rating").hide();
     $("#image-ratings #rating-"+id).show();
-    // Change the HREFs of all the image's links, IF they have an href to replace it in.  :)
-    $('#large-image-buttons a').each(function() {
-      if(!$(this).attr('href') == undefined) {
-        new_href = $(this).attr('href').replace(/\/\d+/, '/'+id);
-        $(this).attr('href', new_href);
-      }
-    });
+    EOL.replace_dato_id('#large-image-attribution-button-popup-link', id);
+    EOL.replace_dato_id('#rating-'+id+' a', id);
+    EOL.replace_dato_id('#right-image-buttons a.popup-link', id);
     $('.overlay').fadeOut(200);
     return false;
   });

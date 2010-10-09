@@ -6,25 +6,21 @@
   - showing_unknown_image = true if image.unknown?
 
 #image-collection
-  .mc-img.clearfix
-    %p.hide= "Choose images"[]
-    
-    #thumbnails
-      - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
-        - name_string = sanitize(strip_tags(@taxon_concept.title))
-        - large_img_url = image.smart_image
-        - average_rating = image.data_rating
-        - user_rating = image['user_rating'] ? image['user_rating'] : 0
-
-        %a{ :href => "#{image.id}", :class => vetted_id_class(image) }
-          %span
-            - vetting_title = nil
-            - vetting_title = "Images in yellow are not reviewed."[] if image.unknown?
-            - vetting_title = "Images in red are not trusted."[] if image.untrusted?
-            = image_tag image.smart_thumb, :alt => hh(image['scientific_name']), :title => vetting_title
-          %ul{:"data-data_object_id" => image.id}
-            = render(:partial=>'data_object_states', :locals => {:dato => image})
-    %hr
+  #thumbnails.clearfix
+    - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
+      - name_string = sanitize(strip_tags(@taxon_concept.title))
+      - large_img_url = image.smart_image
+      - average_rating = image.data_rating
+      - user_rating = image['user_rating'] ? image['user_rating'] : 0
+      %a{ :href => "#{image.id}", :class => vetted_id_class(image) }
+        %span
+          - vetting_title = nil
+          - vetting_title = "Images in yellow are not reviewed."[] if image.unknown?
+          - vetting_title = "Images in red are not trusted."[] if image.untrusted?
+          = image_tag image.smart_thumb, :alt => hh(image['scientific_name']), :title => vetting_title
+        %ul{:"data-data_object_id" => image.id}
+          = render(:partial=>'data_object_states', :locals => {:dato => image})
+  %hr
 
   %div{ :class => "mc-navigation#{!show_next_image_page_button && @taxon_concept.length_of_images < $MAX_IMAGES_PER_PAGE  ? ' no-pagination' : ''}" }
     %p.hide

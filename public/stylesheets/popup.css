@@ -34,7 +34,6 @@ div.contentWrap {
   .overlay h1 {
     font: normal 20px/21px verdana, arial;
     border-bottom: 2px solid #d6d6d6;
-    border-top: 2px solid #d6d6d6;
     margin-bottom: 5px;
     padding-top: 3px;
     padding-bottom: 5px; }
@@ -101,27 +100,6 @@ div#large-image-tagging-button {
     background: transparent url(/images/icons/icons.gif) no-repeat 1px -32px;
     display: inline-block; }
 
-li#large-image-attribution-button.untrusted {
-  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;
-  display: block; }
-
-a#video_attributions.untrusted {
-  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;
-  display: block; }
-a#video_attributions.unknown {
-  background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px 0px;
-  display: block; }
-
-li#large-image-attribution-button.untrusted:hover {
-  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px -32px;
-  display: block; }
-li#large-image-attribution-button.unknown {
-  background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px 0px;
-  display: block; }
-  li#large-image-attribution-button.unknown:hover {
-    background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px -32px;
-    display: block; }
-
 .text-comments-head p {
   font-size: 6pt;
   padding-top: 2px; }
@@ -165,5 +143,5 @@ form.curation .curation-section {
   padding-top: 15px; }
 form.curation div.option {
   padding-left: 8px; }
-form.curation .options .untrusted .reason {
+form.curation .options .untrust .reason {
   padding-left: 20px; }

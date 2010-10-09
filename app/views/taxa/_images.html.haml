@@ -20,8 +20,8 @@
     #large-image
       - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
         - main_img_bg_class = 'main-image-bg'
-        - main_img_bg_class += ' unknown-background-image' if image.unknown?
-        - main_img_bg_class += ' untrusted-background-image' if image.untrusted?
+        - main_img_bg_class += ' unknown' if image.unknown?
+        - main_img_bg_class += ' untrusted' if image.untrusted?
         - div_style = (image.id == @selected_image_id) ? 'display: block;' : ''
         %div{:id => "image-#{image.id}", :class => main_img_bg_class, :style => div_style}
           -# TODO - there is absolutely NO reason this should be a table.  Way too much markup (and CSS), here.

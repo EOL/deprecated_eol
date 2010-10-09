@@ -16,14 +16,13 @@
       .label
         = "Vetted"[]
       .options
-        .option.trusted
+        .option.trust
           = radio_button_tag 'vetted_id', Vetted.trusted.id.to_s, @data_object.trusted?
           Trusted
-        .option.untrusted
-          %div
-            = radio_button_tag 'vetted_id', Vetted.untrusted.id.to_s, @data_object.untrusted?
-            Untrusted
-            = render :partial => 'untrust_reasons', :locals => { :data_object => @data_object }
+        .option.untrust
+          = radio_button_tag 'vetted_id', Vetted.untrusted.id.to_s, @data_object.untrusted?
+          Untrusted
+          = render :partial => 'untrust_reasons', :locals => { :data_object => @data_object }
     .curation-section
       .label
         = "Comment"[]

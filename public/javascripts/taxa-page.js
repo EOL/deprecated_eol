@@ -4,6 +4,10 @@ if (!EOL.change_toc) EOL.change_toc = function(new_id) {
   $('#toc a#category_id_'+new_id).addClass('active');
   $('#new_text_toc_text').attr('href', $('#new_text_toc_text').attr('href').replace(/toc_id=\d+/, 'toc_id='+new_id));
   $('select#data_objects_toc_category_toc_id').val(new_id);
+  $('#center-page-content').css({height:'auto'});
+  try {
+    EOL.rating.init_links('');
+  } catch(err) {}
 };
 
 $(document).ready(function() {
@@ -28,7 +32,11 @@ $(document).ready(function() {
     id = $(this).attr('id').replace(/\D+/, '');
     $.ajax({
       url: $(this).attr('href'),
-      success: function(request) {updateReferences(); EOL.change_toc(id); },
+      success: function(response) {
+        $('#center-page-content').html(response);
+        updateReferences();
+        EOL.change_toc(id);
+      },
       error: function(request) {$('#center-page-content').html('<p>Sorry, there was an error.</p>');}
     });
     return false;

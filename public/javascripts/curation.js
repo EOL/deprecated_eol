@@ -1,44 +1,38 @@
 if(!EOL) var EOL = {};
 if(!EOL.Curation) EOL.Curation = {};
 
+// Update the image(s) now that it's been curated:
+EOL.Curation.post_curate_image = function(dato_id, visibility_id, vetted_id) {
+  thumbnail = $('#thumbnails a[href='+dato_id+']')
+  image = $('#image-'+dato_id+' table')
+  thumbnail.removeClass('trusted unknown untrusted');
+  image.removeClass('trusted unknown untrusted');
+  if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
+    thumbnail.addClass('untrusted');
+    image.addClass('untrusted');
+  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) {
+    thumbnail.addClass('unknown');
+    image.addClass('unknown');
+  } else {
+    thumbnail.addClass('trusted');
+    image.addClass('trusted');
+  }
+};
+// Update text objects after curation:
 EOL.Curation.post_curate_text = function(data_object_id, visibility_id, vetted_id) {
   $('div#text_buttons_'+data_object_id+' div.trust_button').remove();
   $('div#text_buttons_'+data_object_id+' div.untrust_button').remove();
   EOL.Curation.update_text_background(data_object_id, vetted_id);
   EOL.Curation.update_text_icons(data_object_id, visibility_id);
 };
-
-EOL.Curation.post_curate_image = function(data_object_id, visibility_id, vetted_id) {
-  EOL.MediaCenter.image_hash[data_object_id].vetted_id = vetted_id;
-  EOL.MediaCenter.image_hash[data_object_id].visibility_id = visibility_id;
-  EOL.MediaCenter.image_hash[data_object_id].curated = true;
-  // TODO - this may need some updating of what they changed, now.
-  EOL.Curation.update_thumbnail_background(vetted_id, data_object_id);
-  EOL.MediaCenter.update_thumbnail_icons($('div#thumbnails a#thumbnail_'+data_object_id+' ul'));
-};
-
-EOL.Curation.update_thumbnail_background = function(vetted_id, data_object_id) {
-  $('#thumbnail_'+data_object_id).removeClass('trusted-background-image');
-  $('#thumbnail_'+data_object_id).removeClass('unknown-background-image');
-  $('#thumbnail_'+data_object_id).removeClass('untrusted-background-image');
-  if(vetted_id == EOL.Curation.TRUSTED_ID) {
-    //no background
-  } else if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
-    $('#thumbnail_'+data_object_id).addClass('untrusted-background-image');
-  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) {
-    $('#thumbnail_'+data_object_id).addClass('unknown-background-image');
-  }
-};
-
+// Yellow/Red bg for text objects:
 EOL.Curation.update_text_background = function(data_object_id, vetted_id) {
-  $('#text_'+data_object_id).removeClass('untrusted-background-image');
-  $('#text_'+data_object_id).removeClass('unknown-background-image');
-  $('#text_'+data_object_id).removeClass('trusted-background-image');
+  $('#text_'+data_object_id).removeClass('untrusted unknown trusted');
   if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
-    $('#text_'+data_object_id).addClass('untrusted-background-image');
+    $('#text_'+data_object_id).addClass('untrusted');
   }
 }
-
+// Invisible icons on text:
 EOL.Curation.update_text_icons = function(data_object_id, visibility_id) {
   $('div#text_buttons_'+data_object_id+' ul li.invisible_icon').hide();
   $('div#text_buttons_'+data_object_id+' ul li.inappropriate_icon').hide();
@@ -70,12 +64,12 @@ $(document).ready(function() {
     return false;
   });
   // Show untrust reasons when it's ... uhhh.... untrusted. 
-  $('div.vetted div.untrusted div input[type="radio"]').click(function() {
-    $(this).parent().parent().find('div.reason').slideDown();
+  $('div.vetted .untrust input[type="radio"]').click(function() {
+    $(this).parent().find('div.reason').slideDown();
   });
   // Hide untrust reasons when it's trusted:
-  $('div.vetted div.trusted input[type="radio"]').click(function() {
-    $(this).parent().parent().find('div.reason').slideUp();
+  $('div.vetted .trust input[type="radio"]').click(function() {
+    $(this).parent().find('div.reason').slideUp();
   });
   // Cancel button just clicks the closest close-link:
   $('form.curation .cancel-button').click(function() {
@@ -83,6 +77,6 @@ $(document).ready(function() {
   });
   // Text curation isn't an overlay, so we need to manually make the close link work:
   $('div.text_curation_close a.close-button').click(function() {
-    $(this).parent().parent().parent().fadeOut();
+    $(this).parent().parent().parent().slideUp();
   });
 });

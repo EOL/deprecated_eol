@@ -493,7 +493,7 @@ ul#tab_media_center
         margin: 7px 0 7px 7px
         width: 207px
   #image-collection
-  .wrapper-mc .mc-img
+  .wrapper-mc #thumbnails
     height: 175px
     text-align: center
     a
@@ -513,7 +513,7 @@ ul#tab_media_center
         position: relative
         top: -53px
         left: -20px
-    div#thumbnails a span
+    a span
       display: block
       margin-left: 4px
       width: 60px
@@ -616,14 +616,14 @@ ul#tab_media_center
   border-left: 6px solid $vet_unknown_border
   padding: 2px 2px 2px 2px
 
-.untrusted-background-image
+.untrusted
   border: 1px solid $vet_untrusted_border
   background-color: $vet_untrusted !important
 
-.trusted-background-image
+.trusted
   border: 1px solid white
 
-.unknown-background-image
+.unknown
   border: 1px solid $vet_unknown_border
   background-color: $vet_unknown !important
 
@@ -1908,6 +1908,7 @@ div
       padding-right: 2px
       ul
         text-align: left
+        list-style: none !important
     #right_text_buttons_group
       float: right
       position: relative

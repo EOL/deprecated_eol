@@ -12,9 +12,9 @@ module TaxaHelper
 
   def vetted_id_class(data_object)
     return case data_object.vetted_id
-      when Vetted.unknown.id   then 'unknown-background-image'
-      when Vetted.untrusted.id then 'untrusted-background-image'
-      when Vetted.trusted.id   then 'trusted-background-image'
+      when Vetted.unknown.id   then 'unknown'
+      when Vetted.untrusted.id then 'untrusted'
+      when Vetted.trusted.id   then 'trusted'
       else nil
     end
   end

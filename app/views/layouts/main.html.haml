@@ -41,9 +41,6 @@
         'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript"); } 
       });
 
-    - # TODO - LOW PRI - Move this into a content_for :head block
-    = javascript_include_tag 'swfobject'
-    = javascript_include_tag 'wiki_ogg_player'
     /[if lt IE 7]
       %style{:type => "text/css", :media => "screen"}
         body { behavior: url(/javascripts/csshover.htc); }

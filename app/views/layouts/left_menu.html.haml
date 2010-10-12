@@ -1,5 +1,7 @@
-- content_for :content do
+- content_for :head do
   = stylesheet_link_tag @additional_stylesheet if @additional_stylesheet
+  = javascript_include_tag @additional_javascript if @additional_javascript
+- content_for :content do
   #content
     #page-separator-general
     #page-title

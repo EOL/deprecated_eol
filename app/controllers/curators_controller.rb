@@ -108,6 +108,7 @@ private
 
   def set_layout_variables
     @additional_stylesheet = 'curator_tools'
+    @additional_javascript = 'curation'
     @page_title = $CURATOR_CENTRAL_TITLE
     @navigation_partial = '/curators/navigation'
   end

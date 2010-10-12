@@ -1,48 +1,42 @@
 if (!EOL) var EOL = {};
 if (!EOL.CommonNameCuration) EOL.CommonNameCuration = {};
 
-Event.addBehavior({
-  'td.preferred_name_selector input[type="radio"]:click': function(e) {
-    var form = e.element().form;
+$(document).ready(function() {
+  // Just clicking on a preferred name submits the form (and reloads the page):
+  $('td.preferred_name_selector input[type="radio"]').click(function() {
+    var form = $(this).closest('form');
     form.submit();
-  }
-});
-
-Event.addBehavior({
-  'td.preferred_name_selector input[type="checkbox"]:click': function(e) {
-    var form = e.element().form;
-    name_id = e.element().value
-    duplicate = form.elements["duplicate_" + name_id].value;
-    agent = form.elements["agent_" + name_id].value;
-    is_checked_now = e.element().checked;
+  });
+  // Checkbox may ask the user to confirm; if they don't, it re-checks the box:
+  $('td.preferred_name_selector input[type="checkbox"]').click(function() {
+    var form = $(this).closest('form');
+    name_id = $(this).val()
+    duplicate = !(form.find("#duplicate_" + name_id).val() == 'false'); // Sorry, I am not *positive* what the true val w/b
+    agent = form.find("#agent_" + name_id).val();
+    is_checked_now = $(this).attr('checked');
     do_submit = true;
-    if(is_checked_now == false && !duplicate)
-    {
+    if(!is_checked_now && !duplicate) {
       do_submit = confirm("Are you sure you want to delete this common name added by "+agent+"?");
     }
-    if(do_submit)
-    {
-      form.elements["trusted_name_clicked_on"].value = name_id;
-      form.elements["trusted_synonym_clicked_on"].value = form.elements["synonym_id_" + name_id].value;
-      form.elements["trusted_name_checked"].value = e.element().checked;
+    if(do_submit) {
+      form.find("#trusted_name_clicked_on").val(name_id);
+      form.find("#trusted_synonym_clicked_on").val(form.find("#synonym_id_"+name_id).val());
+      form.find("#trusted_name_checked").val(is_checked_now);
       form.submit();
-    }else
-    {
-      e.element().checked = true
+    } else {
+      $(this).attr('checked', true);
     }
-  }
+  });
+  // Confirm adding a common name:
+  $("#add_common_name_button").click(function() {
+    var name = $.trim($("#name_name_string").val());
+    var language = $("#name_language").val();
+    if (name != '') {
+      // TODO - i18n
+      i_agree = confirm("Create a new common name?\n\nYou can always delete it later");
+      if (i_agree) {
+        $(this).closest('form').submit();
+      }
+    } else alert("Add a new common name first");
+  });
 });
-
-if ($("add_common_name_button")) $("add_common_name_button").observe('click', confirmAddCommonName);
-
-function confirmAddCommonName(e) {
-  var name = $("name_name_string").value.strip();
-  var language = $("name_language").value;
-  if (name != '') {
-    i_agree = confirm("Create a new common name?\n\nYou can always delete it later");
-    if (i_agree) {
-      var form = e.element().form;
-      form.submit();
-    }
-  } else alert("Add a new common name first");
-}

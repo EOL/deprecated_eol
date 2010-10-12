@@ -89,10 +89,11 @@
               #comment-overlay.overlay{:style=>"width:460px"}
                 .contentWrap              
                   Please wait, loading...
-        #image-ratings
-          - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
-            .image-rating{:id => "rating-#{image.id}"}
-              = render :partial => 'star_rating', :locals => {:data_object => image, :show_controls => @taxon_concept.show_curator_controls?}
+        - if @taxon_concept.show_curator_controls?
+          #image-ratings
+            - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
+              .image-rating{:id => "rating-#{image.id}"}
+                = render :partial => 'star_rating', :locals => {:data_object => image}
     #image-thumbnails.mc-info
       .mc-header
         %h3

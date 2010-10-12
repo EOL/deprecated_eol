@@ -2,8 +2,7 @@
 = javascript_include_tag 'validator'
 :javascript
   $(document).ready(function() {
-    $('user_username').focus();
-    if(#{params[:user] && params[:user][:curator_request] ? 'true' :'false'}) reset_curator_panel();
+    $('#user_username').focus();
   });
 #registration
   #page-separator-general
@@ -43,7 +42,8 @@
             %span.warn== (#{"Required"[]})
           / user_entered_password_confirmation .+ false true //
           = f.password_field :entered_password_confirmation, { :maxlength => 16, :onblur => 'JavaScript:check_passwords();' }
-          %span#password_warn.error
+          %span#password_warn.error{ :style => 'display:none;' }
+            = "Passwords must match."[]
           %label{ :title => "Please enter your email address"[], :for => "user_email" }
             = "Email Address"[]
             %span{ :title => "required" }

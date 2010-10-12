@@ -1,12 +1,9 @@
 :javascript
-  $(document).ready(function() {
-  $('user_username').focus();
-  });
+  $(document).ready(function() { $('#user_username').focus(); });
 #page-separator-general
 #page-title
   %h1= "Login"[:login]
 #page-content.clearfix
-  / center page content
   #full-page-content
     %div{ :style => "float: left; width: 550px;" }
       - form_for :user, :url => {:action => 'authenticate'} do |form|

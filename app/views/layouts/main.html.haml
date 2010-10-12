@@ -36,11 +36,6 @@
     = stylesheet_link_tag 'star_rating'
     = stylesheet_link_tag 'wikipedia'
     = javascript_include_merged 'base-cached'
-    :javascript
-      jQuery.ajaxSetup({ 
-        'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript"); } 
-      });
-
     /[if lt IE 7]
       %style{:type => "text/css", :media => "screen"}
         body { behavior: url(/javascripts/csshover.htc); }
@@ -180,15 +175,19 @@
         = render :partial => 'layouts/footer_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Footer')}
         = ENV['APP_VERSION'] unless ENV['APP_VERSION'].blank?
         - if flash[:warning] || flash[:error]
-          = link_to('Show the last flash message'[], '#', :id => 'show-flash', :rel => '#flash-error')
+          = link_to('Show the last flash message'[], '#', :id => 'show-flash', :rel => '#flash-bad')
         - elsif flash[:notice]
           = link_to('Show the last flash message'[], '#', :id => 'show-flash', :rel => '#flash-good')
     - if flash[:notice]
       #flash-good{ :style => "display: block" }
         = flash[:notice]
+        %br
+        = "(esc key hides this message)"[]
     - elsif flash[:warning] || flash[:error]
-      #flash-error{ :style => "display: block" }
+      #flash-bad{ :style => "display: block" }
         = (flash[:warning] || '') + (flash[:error] || '')
+        %br
+        = "(esc key hides this message)"[]
     - if flash[:notice] || flash[:warning] || flash[:error]
       :javascript
         var trigger = $("a#show-flash").overlay({
@@ -202,7 +201,7 @@
         });
         overlay = trigger.overlay();
         overlay.load();
-        window.setTimeout(function() {overlay.close();}, 1000)
+        window.setTimeout(function() {overlay.close();}, 2000)
     - if $ENABLE_ANALYTICS || true
       :javascript
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

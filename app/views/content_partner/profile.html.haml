@@ -1,22 +1,5 @@
-%script{ :type => "text/javascript" }
-  //<![CDATA[
-  // ajax call to determine if username is unique
-  function check_username() {
-  new Ajax.Request('/content_partner/check_username/', { parameters: { username: $('agent_username').value }, asynchronous:true, evalScripts:true});
-  }
-  
-  // instant feedback to user about password matching
-  function check_passwords() {
-  if ($('agent_password').value != $('agent_password_confirmation').value) {
-  = "$('password_warn').innerHTML='" + escape_javascript("Passwords must match"[]) + ".';"
-  }
-  else {
-  $('password_warn').innerHTML='';
-  }
-  }
-  //]]>
 = eol_lang_error_messages_for :agent
-= javascript_include_tag 'validator'
+= javascript_include_tag 'validator', 'cp-passwords'
 - form_for @agent, :url => { :action => 'profile' }, :html => { :class => "warning-warn invalid-invalid styleLabelOnErr", :method => 'post' } do |f|
   %fieldset
     %legend
@@ -31,6 +14,8 @@
     = f.label :password, "#{'Password'[]} (4-16 characters)"[]
     = f.password_field :password, :maxlength => 16, :onblur => "check_passwords()"
     %span#password_warn.error
+    %span#password_match.error{ :style => 'display:none;' }
+      = "Passwords must match"[]
     = f.label :password_confirmation, "Confirm Password"[]
     = f.password_field :password_confirmation, :maxlength => 16, :onblur => "check_passwords()"
     %br

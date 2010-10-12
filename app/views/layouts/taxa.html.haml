@@ -1,7 +1,5 @@
 - content_for :head do
   = javascript_include_merged 'taxa-page-cached'
-  = javascript_include_tag 'swfobject'
-  = javascript_include_tag 'wiki_ogg_player'
   :javascript
-    EOL.USE_EXTERNAL_LINK_POPUPS  = #{$USE_EXTERNAL_LINK_POPUPS};
+    EOL.USE_EXTERNAL_LINK_POPUPS = #{$USE_EXTERNAL_LINK_POPUPS};
 = render :file => 'layouts/main'

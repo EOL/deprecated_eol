@@ -1,6 +1,6 @@
 :javascript
   function update_partner_status(id, form_value) {
-    agent_status_id=form_value.options[form_value.selectedIndex].value;
+    agent_status_id = form_value.options[form_value.selectedIndex].value;
     $.ajax({
       url: '/administrator/content_partner_report/set_agent_status',
       type: 'POST', 
@@ -10,11 +10,11 @@
 
 %h2
   = @agent.project_name
-= link_to '[go back]',:action=>'index'
+= link_to '[go back]',:action => 'index'
 |
-= link_to '[edit/view their profile]',:action=>'edit_profile', :id=>@agent.id
+= link_to '[edit/view their profile]',:action => 'edit_profile', :id => @agent.id
 |
-= link_to "[login to the content partner registry as #{@agent.display_name}]",{:action=>'login_as_agent', :id=>@agent.id}, :confirm => "Are you sure you want to log into the content partner registry as #{@agent.display_name}?  If you do this, you will be logged out of the website as an administrator."
+= link_to "[login to the content partner registry as #{@agent.display_name}]",{:action => 'login_as_agent', :id => @agent.id}, :confirm => "Are you sure you want to log into the content partner registry as #{@agent.display_name}?  If you do this, you will be logged out of the website as an administrator."
 %br/
 
 - if @agent.ready_for_agreement?  
@@ -24,28 +24,28 @@
   Show
   = @agent.project_name
   on
-  = link_to("content partners",:controller=>'/content',:action=>'partners')
+  = link_to("content partners",:controller => '/content',:action => 'partners')
   page of website.
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.show_mou_on_partner_page?, :id => 'show_mou_on_cp_page_img'),  :url => { :action => 'show_mou_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_mou_on_partner_page? ? 'hide' : 'show'} this partner's MOU on the content partner page?")
   Show
   = "#{@agent.project_name.pluralize}"
   MOU on
-  = link_to("content partners",:controller=>'/content',:action=>'partners')
+  = link_to("content partners",:controller => '/content',:action => 'partners')
   page of website.  
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.show_gallery_on_partner_page?, :id => 'show_gallery_on_cp_page_img'),  :url => { :action => 'show_gallery_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_gallery_on_partner_page? ? 'hide' : 'show'} a link to this partner's gallery on the content partner page?")
   Show
   = "#{@agent.project_name.pluralize}"
   gallery on
-  = link_to("content partners",:controller=>'/content',:action=>'partners')
+  = link_to("content partners",:controller => '/content',:action => 'partners')
   page of website.
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.show_stats_on_partner_page?, :id => 'show_stats_on_cp_page_img'),  :url => { :action => 'show_stats_on_partner_page', :id => @agent }, :confirm => "Are you sure you want to #{@agent.show_stats_on_partner_page? ? 'hide' : 'show'} a link to this partner's statistics on the content partner page?")
   Show
   = "#{@agent.project_name.pluralize}"
   statistics on
-  = link_to("content partners",:controller=>'/content',:action=>'partners')
+  = link_to("content partners",:controller => '/content',:action => 'partners')
   page of website.
   %br/
   = link_to_remote(content_partner_check_box_image(@agent.vetted?, :id => 'vet_partner_img'),  :url => { :action => 'vet_partner', :id => @agent }, :confirm => "Are you sure you want to #{@agent.vetted? ? 'unvet' : 'vet'} this partner?  All of their uncurated data objects will become #{@agent.vetted? ? 'untrusted' : 'trusted'} immediately!")
@@ -58,8 +58,8 @@
   = @agent.project_name
   is not ready for their agreement.
 %br/
-Content partner status: 
-= collection_select(:agent,:agent_status_id,@agent_status,:id,:label,{},{:onChange=>'JavaScript:update_partner_status(' + @agent.id.to_s + ',this);'})
+= "Content partner status:"[]
+= collection_select(:agent, :agent_status_id, @agent_status, :id, :label, {}, {:onChange => 'JavaScript:update_partner_status(' + @agent.id.to_s + ', this);'})
 %br/
 
 - if !@agent.content_partner.last_action.blank?
@@ -94,7 +94,7 @@ Content partner status:
       = content_partner_date(@agent.content_partner.contacts_complete_step)
     %td.even
       - if @agent.agent_contacts.any?
-        = link_to "show #{@agent.agent_contacts.count.to_s} contacts",:action=>'show_contacts',:id=>@agent.id.to_s
+        = link_to "show #{@agent.agent_contacts.count.to_s} contacts", :action => 'show_contacts', :id => @agent.id.to_s
       - else
         None
   %tr
@@ -147,9 +147,9 @@ Content partner status:
       %td.odd
         Agreement
         %br/
-        = link_to('[view agreement]',{:controller=>'/content_partner',:action=>'agreement',:id=>@agent.id},{:target=>'blank'})
+        = link_to('[view agreement]', {:controller => '/content_partner', :action => 'agreement', :id => @agent.id}, {:target => 'blank'})
         |
-        = link_to('[edit agreement]',:action=>'edit_agreement',:id=>@agent.id)        
+        = link_to('[edit agreement]', :action => 'edit_agreement', :id => @agent.id)        
       %td.odd
         N/A
       %td.odd
@@ -177,7 +177,7 @@ Content partner status:
       %th
         Actions
     - for resource in @agent.resources
-      - column_class=cycle('odd','even')
+      - column_class = cycle('odd', 'even')
       %tr
         %td{:class => column_class}
           = h resource.title

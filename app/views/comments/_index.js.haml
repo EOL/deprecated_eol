@@ -1,7 +1,3 @@
-:javascript
-  $('#tab_media_center a').removeClass('active');
-  $('#tab_media_center a[title=Comments]').addClass('active');
--# TODO - Find a more elegant solution than rendering html in a .js.haml file...
 - outer_div_options = body_div_name == 'create' ? {:id => 'taxaCommentsWrap'} : {}
 %div{outer_div_options}
   #commentsContain

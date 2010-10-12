@@ -1,4 +1,4 @@
-= javascript_include_tag 'popup' # The attribution popup is the only one here, but... we still need it to work!
+= javascript_include_tag 'videos', 'popup' # The attribution popup is the only one here, but... we still need it to work!
 - showing_untrusted_video = false
 - showing_unknown_video = false 
 - unless @video_collection.nil?
@@ -42,9 +42,9 @@
             - video_title = truncate(video.scientific_name,150) if video_title == ''
             - video_color = nil
             - if video.untrusted?
-              - video_color = "untrusted-background-color"
+              - video_color = "untrusted-video"
             - elsif video.unknown?
-              - video_color = "unknown-background-color"
+              - video_color = "unknown-video"
             %div{:class => video_color}
               %li
                 = link_to_function(video_title, "eol_update_video(#{video_hash(video, @taxon_concept.id)})", :title=>video_title)

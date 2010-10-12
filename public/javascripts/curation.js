@@ -3,16 +3,23 @@ if(!EOL.Curation) EOL.Curation = {};
 
 // Update the image(s) now that it's been curated:
 EOL.Curation.post_curate_image = function(dato_id, visibility_id, vetted_id) {
+  EOL.Curation.update_icons(dato_id, visibility_id);
+  EOL.handle_main_img_icon(dato_id);
   thumbnail = $('#thumbnails a[href='+dato_id+']')
-  image = $('#image-'+dato_id+' table')
-  thumbnail.removeClass('trusted unknown untrusted');
-  image.removeClass('trusted unknown untrusted');
+  image = $('#image-'+dato_id);
+  notes = $('#mc-notes-'+dato_id);
+  classes = 'trusted unknown untrusted unknown-text untrusted-text';
+  thumbnail.removeClass(classes);
+  image.removeClass(classes);
+  notes.removeClass(classes);
   if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
     thumbnail.addClass('untrusted');
     image.addClass('untrusted');
+    notes.addClass('untrusted-text');
   } else if (vetted_id == EOL.Curation.UNKNOWN_ID) {
     thumbnail.addClass('unknown');
     image.addClass('unknown');
+    notes.addClass('unknown-text');
   } else {
     thumbnail.addClass('trusted');
     image.addClass('trusted');
@@ -23,7 +30,7 @@ EOL.Curation.post_curate_text = function(data_object_id, visibility_id, vetted_i
   $('div#text_buttons_'+data_object_id+' div.trust_button').remove();
   $('div#text_buttons_'+data_object_id+' div.untrust_button').remove();
   EOL.Curation.update_text_background(data_object_id, vetted_id);
-  EOL.Curation.update_text_icons(data_object_id, visibility_id);
+  EOL.Curation.update_icons(data_object_id, visibility_id);
 };
 // Yellow/Red bg for text objects:
 EOL.Curation.update_text_background = function(data_object_id, vetted_id) {
@@ -33,14 +40,15 @@ EOL.Curation.update_text_background = function(data_object_id, vetted_id) {
   }
 }
 // Invisible icons on text:
-EOL.Curation.update_text_icons = function(data_object_id, visibility_id) {
-  $('div#text_buttons_'+data_object_id+' ul li.invisible_icon').hide();
-  $('div#text_buttons_'+data_object_id+' ul li.inappropriate_icon').hide();
+EOL.Curation.update_icons = function(data_object_id, visibility_id) {
+  $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').hide();
+  $('ul[data-data_object_id='+data_object_id+'] li.inappropriate_icon').hide();
 
+  // NOTE: show() doesn't work for image thumbnails, because the diplay ends up with the wrong value.
   if(visibility_id == EOL.Curation.INVISIBLE_ID) {
-    $('div#text_buttons_'+data_object_id+' ul li.invisible_icon').show();
+    $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').css({display: 'inline-block'});
   } else if(visibility_id == EOL.Curation.INAPPROPRIATE_ID) {
-    $('div#text_buttons_'+data_object_id+' ul li.inappropriate_icon').show();
+    $('ul[data-data_object_id='+data_object_id+'] li.inappropriate_icon').css({display: 'inline-block'});
   }
 };
 
@@ -69,7 +77,7 @@ $(document).ready(function() {
   });
   // Hide untrust reasons when it's trusted:
   $('div.vetted .trust input[type="radio"]').click(function() {
-    $(this).parent().find('div.reason').slideUp();
+    $(this).parent().parent().find('div.reason').slideUp();
   });
   // Cancel button just clicks the closest close-link:
   $('form.curation .cancel-button').click(function() {

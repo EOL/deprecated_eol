@@ -57,8 +57,9 @@
     #left_text_buttons_group
       %ul{"data-data_object_id" => content_item.id}
         = render :partial=>'/taxa/data_object_states', :locals => {:dato => content_item}
-    .text-rating
-      = render :partial => '/taxa/star_rating', :locals => {:data_object => content_item, :show_controls => @taxon_concept.show_curator_controls?}
+    - if @taxon_concept.show_curator_controls?
+      .text-rating
+        = render :partial => '/taxa/star_rating', :locals => {:data_object => content_item}
     #right_text_buttons_group
       - if @taxon_concept.show_curator_controls?
         - if !content_item.curated?

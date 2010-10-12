@@ -34,6 +34,9 @@ a
   &:hover
     text-decoration: underline
 
+a.delayed_click
+  opacity: 0.25
+
 h2
   padding: 2px 2px 2px 2px
   font-size: 14px
@@ -604,9 +607,9 @@ ul#tab_media_center
   padding-bottom: 10px
   background-color: $background !important
   margin-bottom: 2em
-.untrusted-background-text
+.untrusted-text
   @include background-text($vet_untrusted_border, $vet_untrusted)
-.unknown-background-text
+.unknown-text
   @include background-text($vet_unknown_border, $vet_unknown)
 
 .unvetted-title-names
@@ -627,10 +630,10 @@ ul#tab_media_center
   border: 1px solid $vet_unknown_border
   background-color: $vet_unknown !important
 
-.unvetted-background-color, .unknown-background-color
+.unvetted-video, .unknown-video
   background-color: $vet_unknown !important
 
-.untrusted-background-color
+.untrusted-video
   background-color: $vet_untrusted !important
 
 #unvetted-page-warning-box
@@ -778,7 +781,7 @@ td.credit-text
 
 #video-player
   float: left
-  width: 459px
+  width: 450px
   padding: 11px 6px 14px 13px
   background-color: #f4f4f4
   height: 344px

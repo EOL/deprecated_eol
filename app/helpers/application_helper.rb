@@ -10,6 +10,11 @@ module ApplicationHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::SanitizeHelper
 
+  # A little onclick magic to make Ajaxy-links work before the page is fully loaded:
+  def ajax_delay_click
+    %Q{javascript:$(this).addClass('delayed_click');$('#ajax-indicator').fadeIn();return false;}
+  end
+
   # truncate a string to the maxlength passed and then add "..." if truncated
   def truncate(text, length = 30, truncate_string = "...")
     return if text.nil?

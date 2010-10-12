@@ -1,9 +1,9 @@
+= javascript_include_tag 'navigation.js' # TODO - this should probably be done merged.
+-# That loads some stupid defaults, we need to change them to more interesting values:
 :javascript
-  if (!EOL) EOL = {};
   EOL.indicator_arrows_html = '#{image_tag('indicator_arrows_black.gif')}';
   EOL.clade_selector_id = '#{id}';
   EOL.clade_selector_input_name = '#{name}';
-= javascript_include_tag 'navigation.js' # TODO - this should probably be done merged.
 %div{ :id => id, :style => "display: inline;" }
   - input_type = (is_debug == true) ? 'text' : 'hidden'
   - input_value = (value) ? value.id : ''

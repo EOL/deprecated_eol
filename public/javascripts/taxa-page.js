@@ -10,6 +10,9 @@ if (!EOL.change_toc) EOL.change_toc = function(new_id) {
   try {
     EOL.Rating.init_links('#center-page-content');
   } catch(err) {}
+  try {
+    EOL.TextObjects.init_edit_links();
+  } catch(err) {}
 };
 
 $(document).ready(function() {

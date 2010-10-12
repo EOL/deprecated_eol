@@ -1,10 +1,8 @@
-:javascript
-  $('#tab_media_center a').removeClass('active');
-  $('#tab_media_center a[title=Maps]').addClass('active');
 #media-maps.wrapper-mc.clearfix{ :style => "display: block; height: 399px;" }
   %p.gbif_disclaimer
     = external_link_to "This map is based on occurrence records available through GBIF and may not represent the entire taxon distribution", "http://data.gbif.org/species/#{@taxon_concept.gbif_map_id}/"
   #map-image{ :style => "display:block" }
+-# TODO - swfobject is loaded on EVERY page load.  It shouldn't be.  Load it here and anywhere else it's req'd.
 :javascript
   var so = new SWFObject("/EOLSpeciesMap.swf", "swf", "100%", "100%", "9");
   so.addParam("allowFullScreen", "true");

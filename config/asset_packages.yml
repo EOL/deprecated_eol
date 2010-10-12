@@ -15,6 +15,8 @@ javascripts:
   - media_center
   - popup
   - navigation
+  - swfobject
+  - wiki_ogg_player
 
 - jquery-extras-cached:
   - jquery-autocomplete

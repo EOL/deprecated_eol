@@ -20,3 +20,7 @@ EOL.log = function( msg ) {
 EOL.close_open_overlays = function() {
   $('.overlay a.close').click();
 }
+// Ensure that Rails sees JS requests as ... uhhh... js requests:
+jQuery.ajaxSetup({
+  'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript"); }
+});

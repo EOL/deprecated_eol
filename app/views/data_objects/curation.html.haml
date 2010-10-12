@@ -1,4 +1,11 @@
 = javascript_include_tag 'curation'
+:javascript
+  EOL.Curation.UNKNOWN_ID       = #{Vetted.unknown.id};
+  EOL.Curation.TRUSTED_ID       = #{Vetted.trusted.id};
+  EOL.Curation.UNTRUSTED_ID     = #{Vetted.untrusted.id};
+  EOL.Curation.VISIBLE_ID       = #{Visibility.visible.id};
+  EOL.Curation.INVISIBLE_ID     = #{Visibility.invisible.id};
+  EOL.Curation.INAPPROPRIATE_ID = #{Visibility.inappropriate.id};
 - title ||= true        # Allows a cleaner interface when we need it (ie: Curator Central)
 - if @data_object.text?
   .text_curation_close

@@ -10,21 +10,21 @@
         %li#image
           - images_url = "/taxa/images/#{@taxon_concept.id}"
           - images_url += "?image_id=#{@image_id}" if @image_id
-          %a{ :href => images_url, :title => "Image"[] }
+          %a{ :href => images_url, :title => "Image"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
             = "Image"[]
             %span
         - if @taxon_concept.has_map
           %li#maps
-            %a#maps-link{ :href => "/taxa/maps/#{@taxon_concept.id}", :title => "Maps"[] }
+            %a#maps-link{ :href => "/taxa/maps/#{@taxon_concept.id}", :title => "Maps"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
               = "Maps"[]
               %span
         - if @taxon_concept.has_video
           %li#videos
-            %a{ :href => "/taxa/videos/#{@taxon_concept.id}", :title => "Videos"[] }
+            %a{ :href => "/taxa/videos/#{@taxon_concept.id}", :title => "Videos"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
               = "Videos"[]
               %span
         %li#taxa-comments
-          %a{ :href => "/comments/?body_div_name=create&taxon_concept_id=#{@taxon_concept.id}", :title => "Comments"[] }
+          %a{ :href => "/comments/?body_div_name=create&taxon_concept_id=#{@taxon_concept.id}", :title => "Comments"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
             = "Comments"[]
             %span
       .tab-panes
@@ -32,7 +32,7 @@
           = render :partial => 'images'
   #sliding-close
     #textarea
-      %a#classification-attribution-button.popup-link.attribution-icon{ :rel => '#class-attr-overlay', :href => "#{@taxon_concept.id}/classification_attribution" }
+      %a#classification-attribution-button.popup-link.attribution-icon{ :rel => '#class-attr-overlay', :href => "#{@taxon_concept.id}/classification_attribution", :class => 'ajax_delay_click', :onclick => ajax_delay_click }
       #class-attr-overlay.overlay{:style=>"width:350px"}
         .contentWrap              
           Please wait, loading...

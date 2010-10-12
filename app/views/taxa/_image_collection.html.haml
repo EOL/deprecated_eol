@@ -25,9 +25,8 @@
   %div{ :class => "mc-navigation#{!show_next_image_page_button && @taxon_concept.length_of_images < $MAX_IMAGES_PER_PAGE  ? ' no-pagination' : ''}" }
     %p.hide
       = "Page navigation"[]
-    -# TODO - YOU WERE HERE move the behaviors here to the js, and have them load the results into the div!
     - if (@image_page ||= 1) > 1
-      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page - 1), :title => "Back"[] }
+      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page - 1), :title => "Back"[], :onclick => ajax_delay_click }
         %span#back
           = "Back"[]
     - else
@@ -39,7 +38,7 @@
         = "Page"[]
         = @image_page
     - if show_next_image_page_button
-      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page + 1), :title => "Next"[] }
+      %a{ :href => url_for(:action => 'images', :taxon_concept_id => @taxon_concept.id, :image_page => @image_page + 1), :title => "Next"[], :onclick => ajax_delay_click, :class => 'ajax_delay_click' }
         %span#next
           = "Next"[]
     %hr
@@ -51,8 +50,8 @@
       - data_supplier = image['data_supplier']
       - data_supplier_icon = data_supplier ? agent_icons_partial(data_supplier) : ''
       - mc_class = 'mc-notes '
-      - mc_class += ' unknown-background-text' if image.unknown?
-      - mc_class += ' untrusted-background-text' if image.untrusted?
+      - mc_class += ' unknown-text' if image.unknown?
+      - mc_class += ' untrusted-text' if image.untrusted?
       %div{:id => "mc-notes-#{image.id}", :class => mc_class}
         - if image.untrusted?
           %strong

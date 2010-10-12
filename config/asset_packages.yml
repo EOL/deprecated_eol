@@ -6,7 +6,6 @@ javascripts:
   - eol
   - search
   - comments
-  - misc
   - builder
   - bioGUIDv3
   - application 

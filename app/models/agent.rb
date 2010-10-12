@@ -222,6 +222,18 @@ class Agent < SpeciesSchemaModel
        result = "#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
     end
   end
+  
+  def self.logo_url_from_cache_url(logo_cache_url, size = 'large')
+    prefix = logo_cache_url
+    if prefix.blank?
+       #self.logo.url # this is the "paperclip" plugin attached image, but it might only be on one of the application servers
+       result = "/images/blank.gif"
+    else    
+       logo_size = (size == "large") ? "_large.png" : "_small.png"
+       result = "#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
+    end
+  end
+  
 
   def node_xml
     xml = "\t\t<agent>\n";

@@ -23,9 +23,10 @@ class CuratorsController < ApplicationController
   # have a link (for curators), using "an appropriate clade" for the hierarchy_entry_id.
   def curate_images
     current_user.log_activity(:viewed_images_to_curate)
-    # TODO - This needs to add an optioanl argument to narrow by content partner.
+    # TODO - This needs to add an optional argument to narrow by content partner.
     @images_to_curate = current_user.images_to_curate(
-      :hierarchy_entry_id => params[:hierarchy_entry_id]
+      :hierarchy_entry_id => params[:hierarchy_entry_id],
+      :page => params[:page], :per_page => 30
     ).paginate(:page => params[:page], :per_page => 30)
   end
 

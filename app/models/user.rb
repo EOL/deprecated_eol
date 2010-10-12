@@ -563,20 +563,33 @@ class User < ActiveRecord::Base
       errors.add('username', "#{username} is already taken") unless User.unique_user?(username)
     end
   end
+  
+  def rating_for_object_guid(guid)
+    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id)
+  end
 
   # TODO - This should take an (optional) argument to narrow results down to a single content provider
   def images_to_curate(options = {})
-    clade_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
-    DataObject.find_by_sql(["SELECT DISTINCT do.*
+    page = options[:page].blank? ? 1 : options[:page].to_i
+    per_page = options[:per_page].blank? ? 30 : options[:per_page].to_i
+    hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
+    
+    result = DataObject.find_by_sql(["SELECT do.id
         FROM #{HierarchyEntry.full_table_name} he
-          JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he.lft and he.rgt)
+          JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he.lft AND he.rgt AND he_children.hierarchy_id=he.hierarchy_id)
           JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (he_children.taxon_concept_id = dotc.taxon_concept_id)
           JOIN #{DataObject.full_table_name} do ON (dotc.data_object_id = do.id)
         WHERE he.id = ?
           AND do.published = 1
           AND do.vetted_id = #{Vetted.unknown.id}
           AND do.data_type_id = #{DataType.image.id}
-        LIMIT 0,300", clade_id]);
+        LIMIT 0,300", hierarchy_entry_id.to_i]);
+    
+    start = per_page * (page - 1)
+    last = start + per_page - 1
+    data_object_ids_to_lookup = result[start..last].collect{|d| d.id}
+    result[start..last] = DataObject.details_for_objects(data_object_ids_to_lookup, :skip_refs => true, :add_common_names => true)
+    return result
   end
 
   def uservoice_token

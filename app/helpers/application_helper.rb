@@ -272,6 +272,17 @@ module ApplicationHelper
     return logo_str
   end
   
+  def agent_logo_hash(agent, size = "large", params={})
+    src = (agent['logo_cache_url'] != 0) ? Agent.logo_url_from_cache_url(agent['logo_cache_url'], size) : agent['logo_file_name']
+    return src if src.empty?
+    logo_str = "<img "
+    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
+    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
+    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(agent['full_name'])}\" title=\"#{sanitize(agent['full_name'])}\" class=\"agent-logo\" />"
+    return logo_str
+  end
+  
+  
   def collection_logo(collection, size = "large", params={})
     src = ''
     src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url!=0

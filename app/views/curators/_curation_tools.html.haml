@@ -3,41 +3,41 @@
     = "Rating"[]
   .image-rating.action-value
     -# TODO - This has a problem... it's not specific to the data object in question, so Ajax is not intelligent about updating the right values when it's changed.  It ALSO doesn't seem to work in this context: the images are not clickable... and I can't figure out why.  Help!
-    = render :partial => '/taxa/star_rating', :locals => {:data_object => data_object, :show_controls => true}
+    = render :partial => '/data_objects/star_rating_hash', :locals => {:data_object => data_object, :show_controls => true}
 .clearbreak
   %br
 .curation-section
   .credit-caption
     = "Vetted"[]
   .action-value
-    %span{:id => "trust-label-#{data_object.id}"}
-      = data_object.vetted.label
+    %span{:id => "trust-label-#{data_object['id']}"}
+      = data_object['vetted_label']
     %br/
-    = link_to_remote("Set to Trusted"[], :url => {:action => :trust, :data_object_id => data_object.id, :div_id => "trust-label-#{data_object.id}"}, :html_options => {:id => 'trust'})
+    = link_to_remote("Set to Trusted"[], :url => {:action => :trust, :data_object_id => data_object['id'], :div_id => "trust-label-#{data_object['id']}"}, :html_options => {:id => 'trust'})
     %br/
-    = link_to_remote("Set to Untrusted"[], :url => {:action => :untrust, :data_object_id => data_object.id, :div_id => "trust-label-#{data_object.id}"}, :html_options => {:id => 'untrust'})
-    %form.untrust_reasons{:action => '/curators/update_reasons', :id => "untrust_reasons_#{data_object.id}"}
-      = hidden_field_tag 'data_object_id', data_object.id
-      = render :partial => 'data_objects/untrust_reasons', :locals => { :data_object => data_object }
+    = link_to_remote("Set to Untrusted"[], :url => {:action => :untrust, :data_object_id => data_object['id'], :div_id => "trust-label-#{data_object['id']}"}, :html_options => {:id => 'untrust'})
+    %form.untrust_reasons{:action => '/curators/update_reasons', :id => "untrust_reasons_#{data_object['id']}"}
+      = hidden_field_tag 'data_object_id', data_object['id']
+      / = render :partial => 'data_objects/untrust_reasons', :locals => { :data_object => data_object }
 .curation-section
   .credit-caption
     = "Visibility"[]
   .action-value
-    %span{:id => "visibility-label-#{data_object.id}"}
-      = data_object.visibility.label
+    %span{:id => "visibility-label-#{data_object['id']}"}
+      = data_object['visibility_label']
     %br/
-    = link_to_remote("Show to all users"[], :url => {:action => :show, :data_object_id => data_object.id, :div_id => "visibility-label-#{data_object.id}"})
+    = link_to_remote("Show to all users"[], :url => {:action => :show, :data_object_id => data_object['id'], :div_id => "visibility-label-#{data_object['id']}"})
     %br/
-    = link_to_remote("Hide for all except curators"[], :url => {:action => :hide, :data_object_id => data_object.id, :div_id => "visibility-label-#{data_object.id}"})
+    = link_to_remote("Hide for all except curators"[], :url => {:action => :hide, :data_object_id => data_object['id'], :div_id => "visibility-label-#{data_object['id']}"})
     %br/
-    = link_to_remote("Permanently Remove"[], :url => {:action => :remove, :data_object_id => data_object.id, :div_id => "visibility-label-#{data_object.id}"})
+    = link_to_remote("Permanently Remove"[], :url => {:action => :remove, :data_object_id => data_object['id'], :div_id => "visibility-label-#{data_object['id']}"})
 .curation-section
   .credit-caption
     = "Comment"[]
   .action-value
     This comment will be publicly visible.
-    %form{:action => :comment, :id => "comment_#{data_object.id}", :class => "comment", :onsubmit => 'return false;'}
-      %input{:type => "hidden", :value => data_object.id, :name => "data_object_id", :id => "data_object_id"}
+    %form{:action => :comment, :id => "comment_#{data_object['id']}", :class => "comment", :onsubmit => 'return false;'}
+      %input{:type => "hidden", :value => data_object['id'], :name => "data_object_id", :id => "data_object_id"}
       = text_area_tag 'comment', nil, :rows => comment_height, :class => 'comment-box'
       #save-comment
         = submit_tag "Save"

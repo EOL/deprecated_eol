@@ -38,6 +38,35 @@ module TaxaHelper
     agent_list += ', et al.' if params[:only_first] and original_agents.length > 1
     return agent_list
   end
+  
+  def agent_partial_hash(original_agents, params={})
+    return '' if original_agents.nil? or original_agents.blank? or original_agents.class == String
+    params[:linked] = true if params[:linked].nil?
+    params[:only_first] ||= false
+    params[:show_link_icon] = true if params[:show_link_icon].nil?
+    show_icon = params[:show_icon] || false
+    agents = original_agents.clone # so we can be destructive.
+    agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
+    agents = [agents[0]] if params[:only_first]
+    agent_list = agents.collect do |agent|
+      link_to_url = params[:url] || agent['homepage']
+      name_link = params[:linked] ? external_link_to(allow_some_html(agent['full_name']),
+                                         link_to_url,
+                                         {:show_link_icon => params[:show_link_icon]}) :
+                        allow_some_html(agent['full_name'])
+      icon_link = ""
+      if params[:show_icon]
+        icon_link = params[:linked] ? external_link_to(agent_logo_hash(agent, 'small'),
+                                         link_to_url,
+                                         {:show_link_icon => params[:show_link_icon]}) :
+                        agent_logo_hash(agent, 'small')
+      end
+      (name_link + " " + icon_link).strip
+    end
+    agent_list = agent_list.join(', ')
+    agent_list += ', et al.' if params[:only_first] and original_agents.length > 1
+    return agent_list
+  end
 
   def agent_icons_partial(original_agents,params={})
     return '' if original_agents.nil? or original_agents.blank? or original_agents.class == String

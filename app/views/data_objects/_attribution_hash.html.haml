@@ -1,0 +1,25 @@
+%div{ :class => "attribution #{data_object['id']}" }
+  - unless data_object['agents'].nil?
+    - data_object['agents'].each do |agent|
+      %div{ :class => "credit #{css_class(agent['role'])}" }
+        .credit-caption
+          = agent['role']
+        .credit-value
+          / = agent['full_name']
+          / / agent partial
+          = agent_partial_hash(agent, :show_icon => true)
+          / / agent icon
+          / = agent_icons_partial(attribution.agent)
+        .footer
+  - if (data_object['data_type_id'].to_i == DataType.text.id || data_object['data_type_id'].to_i == DataType.image.id)
+    .credit.permalink
+      .credit-caption
+        = "Permalink"[]
+      .credit-value
+        = "Copy and paste in email or document"[]
+        \:
+        %br
+        %form
+          -# Note that we don't just use @taxon_concept.id for this link because higher-level taxa pages (ie: Animals) should point to a more appropriate page for the image (ie: Raccoons).
+          %input{ :size => (data_object['data_type_id'] == DataType.text.id) ? '45' : '35', :type => "text", :value => "http://#{$SITE_DOMAIN_OR_IP}/pages/#{data_object['taxon_concept_id']}?#{data_object['data_type_label'].downcase}_id=#{DataObject.latest_published_version_of(data_object['id']).id}", :onclick => "this.select();" }
+      .footer

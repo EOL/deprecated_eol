@@ -1314,6 +1314,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     
     object_details_hashes = DataObject.add_refs_to_details(object_details_hashes) if options[:skip_metadata].blank? && options[:skip_refs].blank?
     object_details_hashes = DataObject.add_agents_to_details(object_details_hashes) if options[:skip_metadata].blank?
+    object_details_hashes = DataObject.add_common_names_to_details(object_details_hashes) unless options[:add_common_names].blank?
     object_details_hashes
   end
   
@@ -1359,6 +1360,26 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     
     grouped = ModelQueryHelper.group_array_by_key(agents, 'data_object_id')
     object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped, 'agents')
+    return object_details_hash
+  end
+  
+  def self.add_common_names_to_details(object_details_hash)
+    data_object_ids = object_details_hash.collect {|r| r['id']}
+    return object_details_hash if data_object_ids.blank?
+    language ||= Language.english
+    
+    common_names = SpeciesSchemaModel.connection.execute("
+        SELECT n.string name, dohe.data_object_id
+          FROM data_objects_hierarchy_entries dohe
+          JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
+          JOIN taxon_concept_names tcn ON (he.taxon_concept_id=tcn.taxon_concept_id)
+          JOIN names n ON (tcn.name_id = n.id)
+          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})
+          AND language_id=#{language.id}
+          AND preferred=1 GROUP BY dohe.data_object_id").all_hashes
+    
+    grouped_names = ModelQueryHelper.group_array_by_key(common_names, 'data_object_id')
+    object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped_names, 'common_names')
     return object_details_hash
   end
   

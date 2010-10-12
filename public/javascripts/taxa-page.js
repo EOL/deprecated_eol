@@ -26,11 +26,7 @@ $(document).ready(function() {
       success: function(response) {
         $('div.tab-panes').html(response);
         $('#tab_media_center a').removeClass('active');
-        EOL.log(this);
         link.addClass('active');
-        EOL.log("This: "+link.attr('id'));
-        EOL.log("Parent: "+link.parent().attr('id'));
-        EOL.log("Grampa: "+link.parent().parent().attr('id'));
       },
       error: function() {$('div.tab-panes').html('<p>Sorry, there was an error.</p>');}
     });

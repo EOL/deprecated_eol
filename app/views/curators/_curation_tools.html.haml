@@ -36,7 +36,7 @@
     = "Comment"[]
   .action-value
     This comment will be publicly visible.
-    %form{:action => :comment, :id => "comment_#{data_object['id']}", :class => "comment", :onsubmit => 'return false;'}
+    %form{:action => :comment, :id => "comment_#{data_object['id']}", :class => "comment", :onsubmit => 'javascript:return false;'}
       %input{:type => "hidden", :value => data_object['id'], :name => "data_object_id", :id => "data_object_id"}
       = text_area_tag 'comment', nil, :rows => comment_height, :class => 'comment-box'
       #save-comment

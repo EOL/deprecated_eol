@@ -14,7 +14,7 @@
               %td{ :valign => "top", :style => "padding-right:30px;" }
                 %h3.preference-header= "Account Information"[]
                 %label Username:  (4 - 32 characters)
-                = f.text_field :username, {:maxlength=>32, :onblur=>'JavaScript:check_username();'}
+                = f.text_field :username, {:maxlength=>32, :onblur=>'javascript:check_username();'}
                 %span#username_warn.error
                 -# do not show open ide users for now
                 %p{ :style => "padding-bottom:8pt;" }
@@ -23,7 +23,7 @@
                 %label{ :for => "entered_password" }== #{"New Password"[]} (4 - 16 characters)
                 = f.password_field :entered_password, { :maxlength => 16 }
                 %label{ :for => "password_confirmation" }= "Confirm New Password"[]
-                = f.password_field :entered_password_confirmation, {:maxlength=>16, :onblur=>'JavaScript:check_passwords();'}
+                = f.password_field :entered_password_confirmation, {:maxlength=>16, :onblur=>'javascript:check_passwords();'}
                 %span#password_warn.error
                 %br
                 %p
@@ -33,7 +33,7 @@
                   %span{ :title => "required" }
                     *
                   %span.warn== (#{"Required"[]})
-                = f.text_field :email, { :maxlength => 100, :size => 30, :onblur => 'JavaScript:check_email();'}
+                = f.text_field :email, { :maxlength => 100, :size => 30, :onblur => 'javascript:check_email();'}
                 %span#email_warn.error
                 %p
                   %br

@@ -42,7 +42,7 @@
       = f.text_field :title, :maxlength=>200, :size=>50 
     .form_item
       = f.label :accesspoint_url, 'Indicate below the full URL (include \'http://\') from which the resource can be downloaded:  <span title="required">*</span>'
-      = f.text_field :accesspoint_url, :maxlength=>200, :size=>60 , :onblur=>'check_url();'
+      = f.text_field :accesspoint_url, :maxlength=>200, :size=>60 , :onblur=>'javascript:check_url();'
       %br
       OR
       %br
@@ -62,7 +62,7 @@
         
     .form_item
       = f.label :dwc_archive_url, 'Indicate below the full URL for a <a href="/content/darwin_core" target="_blank">Darwin Core Archive</a> associated with this resource (tar/gzip only)'
-      = f.text_field :dwc_archive_url, :maxlength=>200, :size=>60 , :onblur=>'check_dwc_url();'
+      = f.text_field :dwc_archive_url, :maxlength=>200, :size=>60 , :onblur=>'javascript:check_dwc_url();'
       %span.error{:id => 'dwc_url_warn'}    
     .form_item  
       = f.label :subject, 'Taxonomic subject of data (e.g. birds, mammals, etc.): <span title="required">*</span>'

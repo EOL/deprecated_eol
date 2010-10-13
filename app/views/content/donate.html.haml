@@ -16,7 +16,7 @@
         %br
         = "Note that this page and the next confirmation page do not collect any personal information or credit card numbers and are thus not encrypted.  After confirming the amount you wish to donate, you will be directed to a secure page to enter in your payment information.  Charges will not be applied until you submit the page containing your personal information."[:donation_security_message]
         %br
-        - form_for :donation, @donation,:html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
+        - form_for :donation, @donation,:html => {:class => "warning-warn invalid-invalid styleLabelOnErr"} do |f|
           = f.radio_button :preset_amount, "35"
           US $35
           %br
@@ -31,7 +31,7 @@
           %br
           = f.radio_button :preset_amount, "other"
           Other: US$
-          = f.text_field :amount, {:size=>6, :maxlength=>6, :onfocus=>"$('donation_preset_amount_other').checked=true;"}
+          = f.text_field :amount, {:size => 6, :maxlength => 6, :onfocus => "$('#donation_preset_amount_other').attr('checked', 'checked');"}
           %span#donation_amount_warn.error
           %br
           %br
@@ -53,7 +53,7 @@
           = submit_tag "Proceed to Checkout Page"[]
         %br
         %br
-        = "If this information is not correct, please {go_back} to make changes"[:correct_donation_message, link_to("go back"[],:action=>'donate')]
+        = "If this information is not correct, please {go_back} to make changes"[:correct_donation_message, link_to("go back"[],:action => 'donate')]
         \.
         = "Thank you for your generous support"[]
         !

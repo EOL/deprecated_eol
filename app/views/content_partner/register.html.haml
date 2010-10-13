@@ -25,7 +25,7 @@
         .form_item
           = f.label :username, "#{'Username'[]} (4-16 characters) <span title='required'>*</span>"
           / agent_username ^[a-zA-Z0-9\-_]{4,16}$ false true //
-          = f.text_field :username, :maxlength => 16, :onblur => "check_username()"
+          = f.text_field :username, :maxlength => 16, :onblur => "javascript:check_username()"
           %span#username_warn.error
         .form_item
           = f.label :password, "#{'Password'[]} (4-16 characters) <span title='required'>*</span>"[]
@@ -34,7 +34,7 @@
         .form_item
           = f.label :password_confirmation, "Confirm Password"[]
           / agent_password_confirmation ^[a-zA-Z0-9\-_]{4,16}$ false true //
-          = f.password_field :password_confirmation, :maxlength => 16, :onblur => "check_passwords()"
+          = f.password_field :password_confirmation, :maxlength => 16, :onblur => "javascript:check_passwords()"
           %span#password_warn.error
           %span#password_match.error{:style => 'display:none;'}
             = "Passwords must match."[]

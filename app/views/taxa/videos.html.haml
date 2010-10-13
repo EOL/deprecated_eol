@@ -47,7 +47,7 @@
               - video_color = "unknown-video"
             %div{:class => video_color}
               %li
-                = link_to_function(video_title, "eol_update_video(#{video_hash(video, @taxon_concept.id)})", :title=>video_title)
+                = link_to_function(video_title, "EOL.update_video(#{video_hash(video, @taxon_concept.id)})", :title=>video_title)
       .mc-video-notes
         %span#video-notes
         %hr

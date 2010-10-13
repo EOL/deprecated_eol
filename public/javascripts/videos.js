@@ -1,5 +1,6 @@
-// Updates the main image and calls eol_update_credit()
-function eol_update_video(params) {
+if (!EOL) EOL = {};
+// Updates the main video area... does this by building HTML. TODO - convert this to views and show/hide them.
+EOL.update_video = function(params) {
     $('div#media-videos div.attribution_link').show();
     EOL.close_open_overlays();
     $('#video_attributions').attr('href', "/data_objects/" + params.data_object_id + "/attribution");

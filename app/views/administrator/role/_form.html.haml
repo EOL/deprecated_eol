@@ -8,6 +8,6 @@
       = f.text_field :title,{:size=>'50',:maxlength=>'250'}
 %br
 %br
-%input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='/administrator/role/index';" }
+= cancel_button_goes_back('/administrator/role/index')
 |
 = f.submit

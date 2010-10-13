@@ -16,7 +16,7 @@ EOL.Curation.post_curate_image = function(dato_id, visibility_id, vetted_id) {
     thumbnail.addClass('untrusted');
     image.addClass('untrusted');
     notes.addClass('untrusted-text');
-  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) {
+  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Never really happens, since we can't "unknow" something...
     thumbnail.addClass('unknown');
     image.addClass('unknown');
     notes.addClass('unknown-text');
@@ -29,16 +29,14 @@ EOL.Curation.post_curate_image = function(dato_id, visibility_id, vetted_id) {
 EOL.Curation.post_curate_text = function(data_object_id, visibility_id, vetted_id) {
   $('div#text_buttons_'+data_object_id+' div.trust_button').remove();
   $('div#text_buttons_'+data_object_id+' div.untrust_button').remove();
-  EOL.Curation.update_text_background(data_object_id, vetted_id);
-  EOL.Curation.update_icons(data_object_id, visibility_id);
-};
-// Yellow/Red bg for text objects:
-EOL.Curation.update_text_background = function(data_object_id, vetted_id) {
   $('#text_'+data_object_id).removeClass('untrusted unknown trusted');
   if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
     $('#text_'+data_object_id).addClass('untrusted');
+  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Never really happens, since we can't "unknow" something...
+    $('#text_'+data_object_id).addClass('unknown');
   }
-}
+  EOL.Curation.update_icons(data_object_id, visibility_id);
+};
 // Invisible icons on text:
 EOL.Curation.update_icons = function(data_object_id, visibility_id) {
   $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').hide();

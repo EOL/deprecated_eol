@@ -39,6 +39,7 @@ class CuratorsController < ApplicationController
     render :layout => false
   end
 
+  # TODO - I am PRETTY sure this method is never called.
   def trust
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.trust(current_user)
@@ -48,6 +49,7 @@ class CuratorsController < ApplicationController
     end
   end
 
+  # TODO - I am PRETTY sure this method is never called.
   def untrust
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.untrust(current_user)
@@ -58,8 +60,6 @@ class CuratorsController < ApplicationController
   end
 
   def update_reasons
-    puts "++ Got here"
-    pp params
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.untrust(current_user, params['untrust_reasons'])
     render :nothing => true

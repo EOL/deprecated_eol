@@ -5,9 +5,9 @@
   %hr
 #page-content.clearfix
   #full-page-content
-    %script{ :type => "text/javascript" }
+    :javascript
       function translate() {
-      = "window.location.href='http://translate.google.com/translate?hl=en&ie=UTF-8&u=#{@translate_url}&sl=en&tl=' + $('language').value;"
+        window.location = 'http://translate.google.com/translate?hl=en&ie=UTF-8&u=#{@translate_url}&sl=en&tl=' + $('#language').val();
       }
     %p
       Try Google Translate for any of the following languages.  Note that these are automated translations performed by Google software, so their accuracy is not confirmed or checked by anyone.
@@ -80,4 +80,4 @@
         Ukrainian
       %option{ :value => "vi" }
         Vietnamese    
-    %input.submit{ :type => "submit", :name => "submit", :onclick => "translate();", :value => "Go" }
+    %input.submit{ :type => "submit", :name => "submit", :onclick => "javascript:translate();", :value => "Go" }

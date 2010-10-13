@@ -12,10 +12,10 @@
           = "Explore"[]
         .nav_buttons
           %span.more
-            %a{ :href => "#", :onclick => "JavaScript:explore_more_taxa();return false;" }
+            %a{ :href => "#", :onclick => "javascript:explore_more_taxa();return false;" }
               = "more species"[:more_species]
           %p.play
-            %a{ :href => "#", :onclick => "JavaScript:toggle_explore_updates();return false;" }
+            %a{ :href => "#", :onclick => "javascript:toggle_explore_updates();return false;" }
               %img#play-button{ :src => "#{StaticEolAssetHost.asset_host_proc.call('png')}/images/homepage/pause.gif", :height => "28", :alt => "pause", :width => "27" }
         #photos_area
           - if @explore_taxa.nil? == false
@@ -38,7 +38,7 @@
                   - if news_item.body.blank?
                     = news_item.title
                   - else
-                    %a{ :href => "#", :onclick => "JavaScript:EOL.Effect.toggle_with_effect('news_#{news_item.id}');return false;" }
+                    %a{ :href => "#", :onclick => "javascript:$('#news_#{news_item.id}').slideDown();return false;" }
                       = news_item.title
                     %div{ :id => "news_#{news_item.id}", :style => "display:none;" }
                       = news_item.body

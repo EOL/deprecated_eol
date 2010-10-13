@@ -10,7 +10,8 @@ module ApplicationHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::SanitizeHelper
 
-  # A little onclick magic to make Ajaxy-links work before the page is fully loaded:
+  # A little onclick magic to make Ajaxy-links work before the page is fully loaded.  JS in the application js file will
+  # handle all the rest after the page is fully loaded (because of the class added to the link):
   def ajax_delay_click
     %Q{javascript:$(this).addClass('delayed_click');$('#ajax-indicator').fadeIn();return false;}
   end
@@ -243,40 +244,23 @@ module ApplicationHelper
     end
     return return_html
   end
-  
-  # def agent_logo(agent, size = "large", params={})
-  #   src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
-  #   return src if src.empty?
-  #   project_name = hh(sanitize(agent.project_name))
-  #   capture_haml do
-  #     haml_tag :img, {:width => params[:width], :height => params[:height], 
-  #                     :src => src,  :border => 0, :alt => project_name, 
-  #                     :title => project_name, :class => "agent_logo"}
-  #   end
-  # end
-  
-  # def collection_logo(collection, size = "large", params={})
-  #   src = ''
-  #   src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url!=0
-  #   return src if src.empty?
-  #   collection_title = hh(sanitize(collection.title))
-  #   capture_haml do
-  #     haml_tag :img, {:width => params[:width], :height => params[:height],
-  #                     :src => src, :border => 0, :alt => collection_title, 
-  #                     :title => collection_title, :class => "agent-logo"}
-  #   end
-  # end
 
+  # NOTE - these next two methods replace older versions.  The old ones used "raw" html, these use haml.  If you find this is
+  # causing errors, go back in time to October 12th and grab the methods.
+  
   def agent_logo(agent, size = "large", params={})
     src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
     return src if src.empty?
-    logo_str = "<img "
-    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
-    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
-    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(agent.project_name)}\" title=\"#{sanitize(agent.project_name)}\" class=\"agent-logo\" />"
-    return logo_str
+    project_name = hh(sanitize(agent.project_name))
+    capture_haml do
+      haml_tag :img, {:width => params[:width], :height => params[:height], 
+                      :src => src,  :border => 0, :alt => project_name, 
+                      :title => project_name, :class => "agent_logo"}
+    end
   end
   
+  # TODO - this duplicates the above method in order to accomodate a "hash" version of agent.  We should generalize.  Also
+  # note this doesn't use Haml.  :|
   def agent_logo_hash(agent, size = "large", params={})
     src = (agent['logo_cache_url'] != 0) ? Agent.logo_url_from_cache_url(agent['logo_cache_url'], size) : agent['logo_file_name']
     return src if src.empty?
@@ -290,15 +274,17 @@ module ApplicationHelper
   
   def collection_logo(collection, size = "large", params={})
     src = ''
-    src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url!=0
+    src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url != 0
     return src if src.empty?
-    logo_str = "<img "
-    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
-    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
-    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(collection.title)}\" title=\"#{sanitize(collection.title)}\" class=\"agent-logo\" />"
-    return logo_str
+    collection_title = hh(sanitize(collection.title))
+    # TODO - make sure this works well with params[:width] nil and height nil...
+    capture_haml do
+      haml_tag :img, {:width => params[:width], :height => params[:height],
+                      :src => src, :border => 0, :alt => collection_title, 
+                      :title => collection_title, :class => "agent-logo"}
+    end
   end
-  
+
   def get_year_month_list
     arr=[]
     start="2009_07"
@@ -312,9 +298,7 @@ module ApplicationHelper
     return arr
   end
 
-
-  #change this methods to haml methods after conversion 
-
+  # TODO - change these methods to haml methods after conversion 
   def external_link_to(*args, &block)
     #return text if link is blank
     return args[0] if args[1]==nil || args[1].blank?
@@ -491,6 +475,9 @@ module ApplicationHelper
   def cancel_button_goes_back(url)
     c = "Cancel"[]
     url = back_or_home(url)
-    %Q{<input id="cancel" name="#{c}" type="button" value="#{c}" onclick="javascript:window.location='#{url}';" /> }
+    capture_haml do
+      haml_tag :input, {:id => "cancel", :type => 'button', :name => c, :value => c,
+                        :onclick => "javascript:window.location='#{url}';"}
+    end
   end
 end

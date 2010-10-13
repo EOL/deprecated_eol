@@ -1,5 +1,5 @@
 - node_class ||= ''
-%a.name{:href => '', :class => node_class, :onclick => "update_browser(#{entry['id']}, 0); return false;"}
+%a.name{:href => '', :class => node_class, :onclick => "javascript:update_browser(#{entry['id']}, 0); return false;"}
   = entry['name_string']
 
 - unless entry['rank_label'].blank?
@@ -9,5 +9,5 @@
 - if entry['descendants'] > 0 && entry['descendants'] > 5000
   = image_tag('arrow_down_gray.gif', :alt => 'cannot expand children')
 -elsif entry['descendants'] > 0
-  %a{:href => '', :onclick => "update_browser(#{entry['id']}, 1); return false;"}
+  %a{:href => '', :onclick => "javascript:update_browser(#{entry['id']}, 1); return false;"}
     = image_tag('arrow_down.gif', :alt => 'expand all children')

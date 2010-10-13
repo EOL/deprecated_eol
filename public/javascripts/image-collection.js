@@ -1,8 +1,8 @@
 if (!EOL) EOL = {};
 if (!EOL.replace_dato_id) EOL.replace_dato_id = function(link, id) {
-  if($(link).length > 0) {
-    new_href = $(link).attr('href').replace(/\/\d+/, '/'+id); // Leading slash avoids replacing params (like star ratings).
-    $(link).attr('href', new_href);
+  $(link).each(function() {
+    new_href = $(this).attr('href').replace(/\/\d+/, '/'+id); // Leading slash avoids replacing params (like star ratings).
+    $(this).attr('href', new_href);
   }
 };
 

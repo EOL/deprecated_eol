@@ -49,6 +49,7 @@
                       %iframe{:frameborder => 0, :src => "#{result}&delayLoad=true&slideShowPlaying=false", :width => 425, :height=> 355}
       %hr
       / TODO simplify the IDs of the button links ... they need to have unique IDs but thats all
+      / TODO - this won't work when a selected image is not the first.  Stop using @images.first.
       #large-image-buttons
         #left-image-buttons
           %ul#large-image-button-group

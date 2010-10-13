@@ -19,7 +19,6 @@ javascripts:
 
 - jquery-extras-cached:
   - jquery-autocomplete
-  - jquery.qtip-1.0.0-rc3.min
   - tagging
 
 stylesheets: 

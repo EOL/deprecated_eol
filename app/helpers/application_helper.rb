@@ -476,4 +476,10 @@ module ApplicationHelper
       return term
     end
   end
+
+  def cancel_button_goes_back(url)
+    c = "Cancel"[]
+    url = back_or_home(url)
+    %Q{<input id="cancel" name="#{c}" type="button" value="#{c}" onclick="javascript:window.location='#{url}';" /> }
+  end
 end

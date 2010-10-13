@@ -17,9 +17,8 @@ Edit the topic area and email addresses below and check the active box to show t
 %strong
   Active:
 = f.check_box :active
-\- visible to users if checked
 %br
 %br
-%input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='/administrator/contact_subject/index';" }
+= cancel_button_goes_back('/administrator/contact_subject/index')
 |
 = f.submit

@@ -175,19 +175,19 @@
         = render :partial => 'layouts/footer_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Footer')}
         = ENV['APP_VERSION'] unless ENV['APP_VERSION'].blank?
         - if flash[:warning] || flash[:error]
-          = link_to('Show the last flash message'[], '#', :id => 'show-flash', :rel => '#flash-bad')
+          = link_to('Show warning message'[], '#', :id => 'show-flash', :rel => '#flash-bad')
         - elsif flash[:notice]
-          = link_to('Show the last flash message'[], '#', :id => 'show-flash', :rel => '#flash-good')
+          = link_to('Show status message'[], '#', :id => 'show-flash', :rel => '#flash-good')
     - if flash[:notice]
       #flash-good{ :style => "display: block" }
         = flash[:notice]
-        %br
-        = "(esc key hides this message)"[]
+        .note
+          = "(esc key hides this message)"[]
     - elsif flash[:warning] || flash[:error]
       #flash-bad{ :style => "display: block" }
         = (flash[:warning] || '') + (flash[:error] || '')
-        %br
-        = "(esc key hides this message)"[]
+        .note
+          = "(esc key hides this message)"[]
     - if flash[:notice] || flash[:warning] || flash[:error]
       :javascript
         var trigger = $("a#show-flash").overlay({

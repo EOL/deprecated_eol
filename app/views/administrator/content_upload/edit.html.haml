@@ -51,6 +51,6 @@
         = @content_upload.created_at
   %br
   %br
-  %input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='#{url_for(:action=>'index')}';" }
+  = cancel_button_goes_back(url_for(:action=>'index'))
   |
   = f.submit 'Update'

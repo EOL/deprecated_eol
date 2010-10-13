@@ -24,7 +24,14 @@ a {
   color: #149acc;
   cursor: pointer; }
   a:hover {
-    text-decoration: underline; }
+    color: #1088c0; }
+
+.linky {
+  text-decoration: underline;
+  color: #149acc;
+  cursor: pointer; }
+  .linky:hover {
+    color: #1088c0; }
 
 a.delayed_click {
   opacity: 0.25; }
@@ -1559,6 +1566,10 @@ input.warn, textarea.warn {
   background: #ff6966;
   border: 2px solid #ff4a47;
   color: white; }
+
+#flash-good .note, #flash-bad .note {
+  font-size: 10px;
+  margin-top: 10px; }
 
 .photo_slider {
   position: relative;

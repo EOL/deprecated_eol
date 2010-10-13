@@ -60,6 +60,6 @@ to create shorter URLs to conserve characters.
     = f.hidden_field :user_id, :value=>current_user.id
 %br
 %br
-%input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='#{return_to_url}';" }
+= cancel_button_goes_back(return_to_url)
 |
 = f.submit

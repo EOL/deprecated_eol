@@ -68,9 +68,8 @@
             - if !@user.is_curator?
               %label{ :title => "Do you want to be a curator"[], :for => "user_curator_signup" }
                 = "Do you want to be a curator?"[]
-              = f.check_box :curator_request, {:id => "curator_request", :onclick => 'EOL.Effect.appear("curator_request_options");'}
+              = f.check_box :curator_request, {:id => "curator_request", :onclick => '$("#curator_request_options").fadeIn();'}
               = "Yes"[:yes_answer]
-            - # end of not-user-is-curator
             #curator_request_options{ :style => ('display:none' unless @user.is_curator?) }
               %br
               %label{ :for => "curator" }
@@ -82,19 +81,11 @@
                   = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @user.curator_hierarchy_entry.taxon_concept_id)
               - else
                 %span= "To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted."[:curator_signup_message]
-              - # end user-really-is-curator
               = render(:partial=>'curator_form',:locals=>{:f=>f})
               - if @user.curator_approved
                 %br
                 = link_to 'View your curator profile', :controller => :account, :action => :show, :id => @user.id
-              - # end curator-approved
-            - # end curator_request_options
-          - # end $ALLOW_CURATOR_SELF_REG
           .button
-            %input{ :name => "Cancel"[], :type => "button", :value => "Cancel"[], :onclick => "document.location.href='#{back_or_home(return_to_url)}';" }
+            = cancel_button_goes_back(return_to_url)
             &nbsp;&nbsp;
             = submit_tag 'Update Account'[]
-          - # end class-button
-      - # end form_for :user
-  - # end full-page-content
-- # end page-content

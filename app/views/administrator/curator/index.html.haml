@@ -50,9 +50,9 @@ Click a username to view the user's detailed profile.  You may change the clade 
                 = link_to('curator profile', :controller => '/account', :action => :show, :id => user.id)
                 )
           %td{ :class => column_class }
-            %a{ :href => "#", :onclick => "Element.toggle('credentials_#{user.id}');return false;" }
+            #toggle-credentials.linky
               = truncate(h(user.credentials))
-            %div{ :id => "credentials_#{user.id}", :style => "display:none;" }
+            %div{ :id => "credentials-#{user.id}", :style => "display:none;" }
               = allow_some_html(user.credentials)
           %td{ :class => column_class }
             = h user.full_name
@@ -77,3 +77,8 @@ Click a username to view the user's detailed profile.  You may change the clade 
       = will_paginate @users
   - else
     No users are available matching your search criteria.
+:javascript
+  $('#toggle-credentials').toggle(
+    function() { $('#credentials-#{user.id}').slideDown(); },
+    function() { $('#credentials-#{user.id}').slideUp(); }
+  );

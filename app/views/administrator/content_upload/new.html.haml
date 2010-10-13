@@ -13,6 +13,6 @@
         (must be less than 10 MB in size, file will be stored as uploaded, i.e. no resizing of images will be performed)
   %br
   %br
-  %input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='#{url_for(:action=>'index')}';" }
+  = cancel_button_goes_back(url_for(:action=>'index'))
   |
   = f.submit 'Upload'

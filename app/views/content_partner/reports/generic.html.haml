@@ -20,7 +20,7 @@
         - if controller.is_a? Administrator::ReportsController
           Filter by content partner:
           - form_tag path_for_report, :method => :get do
-            = select_tag 'agent', "<option value='all'>Show all information</option>" << options_from_collection_for_select( Agent.find(:all,:conditions=>'username <>""',:order=>'full_name'), 'id', 'shortened_full_name', params[:agent].to_i ), :onchange => 'submit();'
+            = select_tag 'agent', "<option value='all'>Show all information</option>" << options_from_collection_for_select( Agent.find(:all,:conditions=>'username <>""',:order=>'full_name'), 'id', 'shortened_full_name', params[:agent].to_i ), :onchange => "javascript:$(this).closest('form').submit();"
         - if @others_to_show
           - if @show_other
             = link_to_report "Hide 'Other' Slice", :show_other => false

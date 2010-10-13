@@ -6,18 +6,18 @@
       = "Account Information"[]
     = f.label :username, "#{'Username'[]} (4-16 characters)<span title='required'>*</span>"
     / agent_username ^[a-zA-Z0-9\-_]{4,16}$ false true //
-    = f.text_field :username, :maxlength => 16, :onblur => "check_username()"
+    = f.text_field :username, :maxlength => 16, :onblur => "javascript:check_username()"
     %span#username_warn.error
     = f.label :email, "#{'Email Address'[]} <span title='required'>*</span>"[]
     / agent_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //
     = f.text_field :email, :maxlength => 60, :size => 30
     = f.label :password, "#{'Password'[]} (4-16 characters)"[]
-    = f.password_field :password, :maxlength => 16, :onblur => "check_passwords()"
+    = f.password_field :password, :maxlength => 16, :onblur => "javascript:check_passwords()"
     %span#password_warn.error
     %span#password_match.error{ :style => 'display:none;' }
       = "Passwords must match"[]
     = f.label :password_confirmation, "Confirm Password"[]
-    = f.password_field :password_confirmation, :maxlength => 16, :onblur => "check_passwords()"
+    = f.password_field :password_confirmation, :maxlength => 16, :onblur => "javascript:check_passwords()"
     %br
     .button
       = submit_tag "Update Profile"[] + ' &#187;'

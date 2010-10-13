@@ -42,7 +42,7 @@
             = link_to "What's this?", '/content/page/new_features#browser'
           = "Classification:"[]
         - form_for :user, current_user, :url=>{:controller=>"settings"}, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
-          %select#user_default_hierarchy_id{ :name => 'user[default_hierarchy_id]', :class => 'choose-hierarchy-select', :onchange => 'this.form.submit();' }
+          %select#user_default_hierarchy_id{ :name => 'user[default_hierarchy_id]', :class => 'choose-hierarchy-select', :onchange => "javascript:$(this).closest('form').submit();" }
             - for h in @hierarchies_to_offer
               - selected = h.id == @session_hierarchy.id
               - option_class = @concept_browsable_hierarchies.include?(h) ? 'in' : 'out'

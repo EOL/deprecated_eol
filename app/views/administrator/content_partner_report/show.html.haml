@@ -1,10 +1,10 @@
 :javascript
-  function update_partner_status(id, form_value) {
-    agent_status_id = form_value.options[form_value.selectedIndex].value;
+  function update_partner_status(id) {
+    agent_status_id = 
     $.ajax({
       url: '/administrator/content_partner_report/set_agent_status',
       type: 'POST', 
-      data: {id:id, agent_status_id:agent_status_id}
+      data: {id:id, agent_status_id:$('#agent_agent_status_id').val()}
     });
   }
 
@@ -59,7 +59,7 @@
   is not ready for their agreement.
 %br/
 = "Content partner status:"[]
-= collection_select(:agent, :agent_status_id, @agent_status, :id, :label, {}, {:onChange => 'JavaScript:update_partner_status(' + @agent.id.to_s + ', this);'})
+= collection_select(:agent, :agent_status_id, @agent_status, :id, :label, {}, {:onchange => 'javascript:update_partner_status(' + @agent.id.to_s + ');'})
 %br/
 
 - if !@agent.content_partner.last_action.blank?

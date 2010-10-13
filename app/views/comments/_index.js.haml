@@ -2,7 +2,7 @@
 %div{outer_div_options}
   #commentsContain
     - if body_div_name =~ /^text/
-      = link_to_function('', "$('##{body_div_name}').slideUp()", :class=>'close-button')
+      = link_to_function('', "$('##{body_div_name}').slideUp()", :class => 'close-button')
     .controls
       - if @slim_container
         - info = page_entries_info current_objects

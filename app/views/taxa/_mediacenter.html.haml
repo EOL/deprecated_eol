@@ -24,7 +24,7 @@
               = "Videos"[]
               %span
         %li#taxa-comments
-          %a{ :href => "/comments/?body_div_name=create&taxon_concept_id=#{@taxon_concept.id}", :title => "Comments"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
+          %a{ :href => "/comments/?tab=1&taxon_concept_id=#{@taxon_concept.id}", :title => "Comments"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
             = "Comments"[]
             %span
       .tab-panes

@@ -139,66 +139,36 @@ class Administrator::ContentPartnerReportController < AdminController
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:show_on_partner_page)
 
-    render :update do |page|
-      if @agent.show_on_partner_page?
-        page << "$('show_on_cp_page_img').src = '/images/checked.png'"
-      else
-        page << "$('show_on_cp_page_img').src = '/images/not-checked.png'"
-      end
-    end
+    render_check_or_uncheck('show_on_cp_page_img', @agent.show_on_partner_page?)
   end
 
   def show_mou_on_partner_page
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:show_mou_on_partner_page)
 
-    render :update do |page|
-      if @agent.show_mou_on_partner_page?
-        page << "$('show_mou_on_cp_page_img').src = '/images/checked.png'"
-      else
-        page << "$('show_mou_on_cp_page_img').src = '/images/not-checked.png'"
-      end
-    end
+    render_check_or_uncheck('show_mou_on_cp_page_img', @agent.show_mou_on_partner_page?)
   end
   
   def show_gallery_on_partner_page
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:show_gallery_on_partner_page)
     
-    render :update do |page|
-      if @agent.show_gallery_on_partner_page?
-        page << "$('show_gallery_on_cp_page_img').src = '/images/checked.png'"
-      else
-        page << "$('show_gallery_on_cp_page_img').src = '/images/not-checked.png'"
-      end
-    end
+    render_check_or_uncheck('show_gallery_on_cp_page_img', @agent.show_gallery_on_partner_page?)
   end
   
   def show_stats_on_partner_page
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:show_stats_on_partner_page)
     
-    render :update do |page|
-      if @agent.show_stats_on_partner_page?
-        page << "$('show_stats_on_cp_page_img').src = '/images/checked.png'"
-      else
-        page << "$('show_stats_on_cp_page_img').src = '/images/not-checked.png'"
-      end
-    end
+    render_check_or_uncheck('show_stats_on_cp_page_img', @agent.show_stats_on_partner_page?)
   end
   
   
   def vet_partner
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:vetted)
-    @agent.content_partner.set_vetted_status(@agent.content_partner.vetted)
-    render :update do |page|
-      if @agent.vetted?
-        page << "$('vet_partner_img').src = '/images/checked.png'"
-      else
-        page << "$('vet_partner_img').src = '/images/not-checked.png'"
-      end
-    end
+    @agent.content_partner.set_vetted_status(@agent.vetted?)
+    render_check_or_uncheck('vet_partner_img', @agent.vetted?)
   end
 
   def set_agent_status
@@ -212,13 +182,7 @@ class Administrator::ContentPartnerReportController < AdminController
     @agent = Agent.find(params[:id])
     @agent.content_partner.toggle!(:auto_publish)
 
-    render :update do |page|
-      if @agent.auto_publish?
-        page << "$('auto_publish_img').src = '/images/checked.png'"
-      else
-        page << "$('auto_publish_img').src = '/images/not-checked.png'"
-      end
-    end
+    render_check_or_uncheck('auto_publish_img', @agent.auto_publish?)
   end
 
   def monthly_stats_email    
@@ -367,6 +331,16 @@ private
   def set_layout_variables
     @page_title = $ADMIN_CONSOLE_TITLE
     @navigation_partial = '/admin/navigation'
+  end
+
+  def render_check_or_uncheck(div, test)
+    render :update do |page|
+      if test
+        page << "$('##{div}').attr('src', '/images/checked.png')"
+      else
+        page << "$('##{div}').attr('src', '/images/not-checked.png')"
+      end
+    end
   end
 
 end

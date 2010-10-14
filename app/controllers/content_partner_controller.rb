@@ -347,7 +347,7 @@ class ContentPartnerController < ApplicationController
     message="" if params[:username].empty?
       
     render :update do |page|      
-      page['username_warn'].replace_html(message)
+      page.replace_html 'username_warn', message
     end
     
   end

@@ -22,31 +22,38 @@ class CommentsController < ApplicationController
     end
 
     response_for :create do |format|
-      format.html { redirect_to objects_path }
       format.js do
+        replace_div = params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name]
         begin
           params[:page] = (parent_object.visible_comments(current_user).length.to_f / Comment.per_page.to_f).ceil
           params[:page] = 1 if params[:page] <= 0
           prepare_index
           render :update do |page|
-            page.replace_html params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name], {:partial => 'index.js.haml',
-              :locals => {:body_div_name => params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name]},
-              :object => [parent_object, current_object] }
+            page.replace_html replace_div,
+              # Weird, but text comments has a different way of loading its contents.  TODO - normalize this.
+              {:partial => replace_div.start_with?('text') ? 'index.js' : 'index_contents.js',
+               :locals => {:body_div_name => replace_div},
+               :object => [parent_object, current_object] }
           end
         rescue => e  
           render :update do |page|
-            page.replace_html params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name], {:partial => 'error.js.haml',
-              :locals => {:message => e.message},
-              :object => [parent_object, current_object] }
+            page.replace_html replace_div,
+              {:partial => 'error.js.haml',
+               :locals => {:message => e.message},
+               :object => [parent_object, current_object] }
           end
         end
       end
     end
 
     response_for :index do |format|
-      format.html { } # usual affair
-      format.js { render :partial => 'index',
-                         :locals => {:body_div_name => params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name]} }
+      format.js {
+        render :partial => (params[:page].blank? || params[:body_div_name].start_with?('text')) ? 'index.js' : 'index_contents.js',
+               :locals => {
+                 :add_wrapper => !params[:tab].blank?,
+                 :body_div_name => params[:body_div_name].blank? ? 'commentsContain' : params[:body_div_name]
+               }
+      }
     end
 
   end

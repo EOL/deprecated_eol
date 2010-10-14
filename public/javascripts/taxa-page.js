@@ -23,6 +23,7 @@ $(document).ready(function() {
   });
   // when clicking on any tab in the media center - replace the pane DIV with the response
   $('#tab_media_center a').click(function() {
+    $('.overlay a.close').click();
     link = $(this);
     $.ajax({
       url: link.attr('href'),

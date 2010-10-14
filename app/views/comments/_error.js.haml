@@ -1,10 +1,9 @@
-#commentsContain
-  .controls
-    = "We're sorry but an error has occurred. Please make one more attempt to perform your task. If the error persists, please send an email to error@eol.org along with the error message below and any other information you'd like to share with us. We are working hard to provide you with the best service possible and we appreciate your support. -- The EOL Team"[:general_error_occurred]
-    - if current_user.is_admin?
-      %p{:style => 'padding-top:1em;'}
-        You are an admin.  So, I will show you that the error was:
-        %p
-        %br
-        %code{:style => 'style:block;padding:2em;'}
-          = message
+.controls
+  = "We're sorry but an error has occurred. Please make one more attempt to perform your task. If the error persists, please send an email to error@eol.org along with the error message below and any other information you'd like to share with us. We are working hard to provide you with the best service possible and we appreciate your support. -- The EOL Team"[:general_error_occurred]
+  - if current_user.is_admin?
+    %p{:style => 'padding-top:1em;'}
+      You are an admin.  So, I will show you that the error was:
+      %p
+      %br
+      %code{:style => 'style:block;padding:2em;'}
+        = message

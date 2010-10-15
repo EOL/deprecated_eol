@@ -4,7 +4,7 @@ module ContentPartnerAuthenticationModule
   # ------------------------------------
 
   def agent_logged_in?
-    current_agent.class==Agent
+    current_agent.class == Agent
   end
 
   # Accesses the current agent from the session
@@ -67,7 +67,7 @@ module ContentPartnerAuthenticationModule
 
   def upload_logo(agent)
     parameters='function=partner_image&file_path=http://' + $IP_ADDRESS_OF_SERVER + ":" + request.port.to_s + $LOGO_UPLOAD_PATH + agent.id.to_s + "."  + agent.logo_file_name.split(".")[-1]
-    response=EOLWebService.call(:parameters=>parameters)
+    response = EOLWebService.call(:parameters=>parameters)
     if response.blank?
       ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content partner logo upload service failed") if $ERROR_LOGGING
     else

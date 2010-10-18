@@ -574,7 +574,7 @@ class User < ActiveRecord::Base
     per_page = options[:per_page].blank? ? 30 : options[:per_page].to_i
     hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
     
-    result = DataObject.find_by_sql(["SELECT do.id
+    result = DataObject.find_by_sql(["SELECT DISTINCT do.id
         FROM #{HierarchyEntry.full_table_name} he
           JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he.lft AND he.rgt AND he_children.hierarchy_id=he.hierarchy_id)
           JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (he_children.taxon_concept_id = dotc.taxon_concept_id)
@@ -586,8 +586,9 @@ class User < ActiveRecord::Base
         LIMIT 0,300", hierarchy_entry_id.to_i]);
     
     start = per_page * (page - 1)
-    last = start + per_page
+    last = start + per_page - 1
     data_object_ids_to_lookup = result[start..last].collect{|d| d.id}
+    pp data_object_ids_to_lookup
     result[start..last] = DataObject.details_for_objects(data_object_ids_to_lookup, :skip_refs => true, :add_common_names => true)
     return result
   end

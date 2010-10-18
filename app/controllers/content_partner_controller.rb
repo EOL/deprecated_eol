@@ -17,8 +17,7 @@ class ContentPartnerController < ApplicationController
   def content
     page = params[:page] || '1'
     per_page = 36
-    @short_name = params[:id]
-    @content_partner = ContentPartner.find_harvested_by_full_name(@short_name)
+    @content_partner = ContentPartner.find(params[:id].to_i)
     @content_partner ||= current_agent.content_partner unless current_agent.nil?
     taxon_concept_results = @content_partner.nil? ? nil : @content_partner.concepts_for_gallery(page.to_i, per_page)
     if taxon_concept_results.nil?
@@ -418,6 +417,10 @@ class ContentPartnerController < ApplicationController
       flash[:notice] = "Profile updated"[]
       redirect_to(:action => 'index',:protocol=>'http://')
     end
+  end
+  
+  def email_comments_and_actions
+    
   end
         
   protected

@@ -18,7 +18,7 @@
         = link_to(image_tag(DataObject.image_cache_path(image["object_cache_url"], :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
         %h6
           = "Description:"[]
-        - if image['description'].empty?
+        - if image['description'].blank?
           = "[description is blank]"[]
         - else
           = truncate(strip_tags(image['description']), 48)

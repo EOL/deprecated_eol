@@ -1,0 +1,6 @@
+- type = 'image'
+- type = 'text' if @data_object.text?
+:javascript
+  $(document).ready(function() {
+    EOL.Curation.post_curate_#{type}(#{@data_object.id}, #{@data_object.visibility_id}, #{@data_object.vetted_id});
+  });

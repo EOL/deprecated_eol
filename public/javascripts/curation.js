@@ -2,7 +2,8 @@ if(!EOL) var EOL = {};
 if(!EOL.Curation) EOL.Curation = {};
 
 // Update the image(s) now that it's been curated:
-EOL.Curation.post_curate_image = function(dato_id, visibility_id, vetted_id) {
+EOL.Curation.post_curate_image = function(args) {
+  var dato_id = args[0]; var visibility_id = args[1]; var vetted_id = args[2];
   EOL.Curation.update_icons(dato_id, visibility_id);
   EOL.handle_main_img_icon(dato_id);
   thumbnail = $('#thumbnails a[href='+dato_id+']')
@@ -26,7 +27,9 @@ EOL.Curation.post_curate_image = function(dato_id, visibility_id, vetted_id) {
   }
 };
 // Update text objects after curation:
-EOL.Curation.post_curate_text = function(data_object_id, visibility_id, vetted_id) {
+EOL.Curation.post_curate_text = function(args) {
+  var data_object_id = args[0]; var visibility_id = args[1]; var vetted_id = args[2];
+  EOL.log("Curate text: "+data_object_id+", "+visibility_id+", "+vetted_id);
   $('div#text_buttons_'+data_object_id+' div.trust_button').remove();
   $('div#text_buttons_'+data_object_id+' div.untrust_button').remove();
   $('#text_'+data_object_id).removeClass('untrusted unknown trusted');
@@ -57,6 +60,7 @@ $(document).ready(function() {
     $.ajax({
       url: form.attr('action'),
       type: 'PUT',
+      dataType: 'json',
       beforeSend: function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript"); // Sorry, not sure why this xhr wasn't auto-js, but it wasn't.
         form.find(':submit').attr('disabled', 'disabled');
@@ -64,6 +68,19 @@ $(document).ready(function() {
       complete: function() {
         form.find(':submit').attr('disabled', '');
         form.find('div.processing').fadeOut();
+      },
+      success: function(response) {
+        EOL.log("here");
+        EOL.log('type: '+response.type);
+        EOL.log('args: '+response.args);
+        if (response.type == "text") {
+          EOL.log("texty");
+          EOL.Curation.post_curate_text(response.args);
+          EOL.log("EOL.Curation.post_curate_text("+response.args+");");
+        } else {
+          EOL.log("imaged");
+          EOL.Curation.post_curate_image(response.args);
+        }
       },
       data: $(form).serialize()
     });

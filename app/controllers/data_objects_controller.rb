@@ -213,7 +213,11 @@ class DataObjectsController < ApplicationController
     
     respond_to do |format|
       format.html {redirect_to request.referer ? :back : '/'}
-      format.js {render :action => 'curate.rjs'}
+      format.js {
+        type = 'image'
+        type = 'text' if @data_object.text?
+        render :text => {:type => type, :args => [@data_object.id, @data_object.visibility_id, @data_object.vetted_id]}.to_json
+      }
     end
   end
 

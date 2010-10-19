@@ -53,8 +53,7 @@ EOL.Tagging = {
   
   reload_tagging: function (tag_type) {
     // Create Tag
-    // TODO - seriously?!?  We need to be THIS specific?!
-    $('#private_data_object_tags div#add_data_object_tags div#add_data_object_tags_fields>form').submit(function(e) {
+    $('div#add_data_object_tags_fields>form').submit(function(e) {
       var key   = EOL.Tagging.selected_category();
       var value = $('#private_data_object_tags input[name="tag[value]"]').val();
       var post_url = $(this).attr('action');
@@ -66,7 +65,7 @@ EOL.Tagging = {
     // Delete Tag
     $('#private_data_object_tags span.data_object_tag_key_value>form').submit(function(e) {
       var post_url = $(this).attr('action');
-      var path = post_url.gsub(/tags\/.*/,'tags/private');
+      var path = post_url.replace(/tags\/.*/,'tags/private');
       $.post( post_url, { '_method': 'delete' }, function() { EOL.Tagging.reload() } );
       return false;
     });

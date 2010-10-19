@@ -9,10 +9,14 @@ if (!EOL.change_toc) EOL.change_toc = function(new_id) {
   $('#center-page-content').css({height:'auto'});
   try {
     EOL.Rating.init_links('#center-page-content');
-  } catch(err) {}
+  } catch(err) {
+    EOL.log('EOL.Rating was not loaded.');
+  }
   try {
     EOL.TextObjects.init_edit_links();
-  } catch(err) {}
+  } catch(err) {
+    EOL.log('EOL.TextObjects was not loaded.');
+  }
 };
 
 $(document).ready(function() {

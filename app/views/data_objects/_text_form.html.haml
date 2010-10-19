@@ -59,3 +59,9 @@
       %span#edit_text_spinner{ :style => "display:none;" }
         = image_tag('indicator_arrows_black.gif')
         = "Please wait..."[]
+- if @toc_id_empty
+  -# This forces an update of the TOC (but only if we need to do it):
+  :javascript
+    $(document).ready(function() {
+      $('#data_objects_toc_category_toc_id').change();
+    });

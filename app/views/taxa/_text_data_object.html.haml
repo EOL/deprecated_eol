@@ -19,9 +19,11 @@
   });
 
 - subtitle = content_item.subtitle_to_show
-%div{:id => "text_wrapper_#{content_item.id}", :class => (@preview ? nil : "text_object"), :style => (@hide ? "display:none" : nil)}
+- tw_class = @preview ? '' : "text_object"
+- tw_class += @hide ? ' hidden-text' : ''
+- tw_class = nil if tw_class.blank? # blank would render class=""; nil won't render class at all.
+%div{:id => "text_wrapper_#{content_item.id}", :class => tw_class, :style => (@hide ? "display:none" : nil)}
   %div{:class => "content-article #{vetted_id_class(content_item)}", :id => "text_#{content_item.id}"}
-    
     - if !content_item['users'].nil? && content_item['users'][0].id == current_user.id
       .multi_new_text_error{:style => "display:none;"}
         Only one text object can be edited at a time.
@@ -84,11 +86,16 @@
       -# TODO - we re-use this indicator a lot.  Put it in a CSS class.
       %p
         = image_tag 'indicator_arrows_black.gif'
-        Retrieving comments, please wait...
+        = "Please wait..."[]
   
   .text-slidebox-border{:id => "text-curation-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container{:id => "text-curation-#{content_item.id}"}
       %p
         = image_tag 'indicator_arrows_black.gif'
-        Loading curation controls, please wait...
+        = "Please wait..."[]
   .divider
+- if @hide
+  :javascript
+    $(document).ready(function() {
+      $('.hidden-text').slideDown();
+    });

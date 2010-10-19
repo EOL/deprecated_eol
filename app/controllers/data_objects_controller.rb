@@ -82,18 +82,15 @@ class DataObjectsController < ApplicationController
       @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
       @selected_license = [License.by_nc.title,License.by_nc.id]        
       @selected_language = [current_user.language.label,current_user.language.id]
-      if(params[:toc_id]!='none')
-        set_text_data_object_options
-        @data_object = DataObject.new
-        render :partial => 'new_text'
-      else
+      @toc_id_empty = params[:toc_id] == 'none'
+      if (@toc_id_empty)
         @taxon_concept.current_user = current_user
         toc_item = @taxon_concept.tocitem_for_new_text
         params[:toc_id] = toc_item.id
-        set_text_data_object_options
-        @data_object = DataObject.new
-        render :partial => 'new_text'
       end
+      set_text_data_object_options
+      @data_object = DataObject.new
+      render :partial => 'new_text'
       current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
     else
       if $ALLOW_USER_LOGINS

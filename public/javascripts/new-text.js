@@ -11,22 +11,26 @@ $.extend(EOL.TextObjects, {
       return false;
     });
     // Preview:
+    $('input#preview_text').unbind('click');
     $('input#preview_text').click(function() {
       EOL.TextObjects.preview_text(this);
       return false;
     });
     // Close the add-text window:
+    $('#insert_text_popup a.close-button').unbind('click');
     $('#insert_text_popup a.close-button').click(function() {
       $('#insert_text_popup').slideUp();
       EOL.TextObjects.remove_preview();
       return false;
     });
     // Cancel adding text:
+    $('input#cancel_edit_text').unbind('click');
     $('input#cancel_edit_text').click(function() {
       EOL.TextObjects.cancel_edit();
       return false;
     });
     // Update the text area when the user changes the TOC Item category:
+    $('select#data_objects_toc_category_toc_id').unbind('change');
     $('select#data_objects_toc_category_toc_id').change(function() {
       $.ajax({
         url: $(this).attr('data-change_toc_url'),
@@ -35,6 +39,7 @@ $.extend(EOL.TextObjects, {
       });
     });
     // Give the user another reference field
+    $('div#add_user_text_references input#add_more_user_text_reference').unbind('click');
     $('div#add_user_text_references input#add_more_user_text_reference').click(function(e) {
       $('#add_user_text_references_input').append('<textarea rows="3" name="references[]" id="references[]" cols="33"/>');
       return false;
@@ -115,9 +120,7 @@ $.extend(EOL.TextObjects, {
   
   // In several places, we need to make sure the preview text is removed:
   remove_preview: function() {
-    if($('#text_wrapper_')) {
-      $('div#text_wrapper_').slideUp().delay(500).remove();
-    };
+    $('div#text_wrapper_').slideUp(function() {$(this).remove();});
   },
 
   // This is a little awkward, but after someone was editing their text, we want to make sure it's as-is (as opposed to how

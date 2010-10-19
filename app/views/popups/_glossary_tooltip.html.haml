@@ -1,28 +1,2 @@
--# TODO - this would be a lot more minimal with jQuery Tools' version of ToolTip, which we already have loaded.
-= javascript_include_tag 'jquery.qtip-1.0.0-rc3.min'
-%a.tooltip{:id => element_id, :href => "#", :onclick => "javascript:return false;"}
+%a.gloss-tooltip{:id => element_id, :href => "#", :onclick => "javascript:return false;", :title => definition}
   = term + image_tag('/images/magnifier.png')
-:javascript
-  $('##{element_id}').qtip({
-    content: '#{definition.gsub("'","\'")}',
-    position: {
-      corner: {
-        target: 'bottomMiddle',
-        tooltip: 'topMiddle'
-      }
-    },
-    style: { 
-      padding: 5,
-      background: '#EDFFD5',
-      color: 'black',
-      textAlign: 'center',
-      border: {
-        width: 4,
-        radius: 3,
-        color: '#A2D959'
-      },
-      tip: 'topMiddle',
-    },
-    show: 'mouseover',
-    hide: 'mouseout'
-  });

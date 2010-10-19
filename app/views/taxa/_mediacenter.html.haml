@@ -10,7 +10,7 @@
         %li#image
           - images_url = "/taxa/images/#{@taxon_concept.id}"
           - images_url += "?image_id=#{@image_id}" if @image_id
-          %a{ :href => images_url, :title => "Image"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
+          %a{ :href => images_url, :title => "Image"[], :class => 'active ajax_delay_click', :onclick => ajax_delay_click }
             = "Image"[]
             %span
         - if @taxon_concept.has_map

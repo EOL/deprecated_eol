@@ -68,10 +68,9 @@
             - if !@user.is_curator?
               %label{ :title => "Do you want to be a curator"[], :for => "user_curator_signup" }
                 = "Do you want to be a curator?"[]
-              = f.check_box :curator_request, {:id => "curator_request", :onclick => '$("#curator_request_options").fadeIn();'}
+              = f.check_box :curator_request, {:id => "curator_request"}
               = "Yes"[:yes_answer]
             #curator_request_options{ :style => ('display:none' unless @user.is_curator?) }
-              %br
               %label{ :for => "curator" }
                 = "Curator Information"[]
               - if @user.is_curator? # show them the clade they have selected
@@ -81,11 +80,9 @@
                   = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @user.curator_hierarchy_entry.taxon_concept_id)
               - else
                 %span= "To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted."[:curator_signup_message]
-              = render(:partial=>'curator_form',:locals=>{:f=>f})
+              = render(:partial => 'curator_form', :locals => {:f => f})
               - if @user.curator_approved
                 %br
                 = link_to 'View your curator profile', :controller => :account, :action => :show, :id => @user.id
           .button
-            = cancel_button_goes_back(return_to_url)
-            &nbsp;&nbsp;
             = submit_tag 'Update Account'[]

@@ -2,8 +2,11 @@ function pulsate_error(el) {
   $(el).fadeIn('fast').fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast').delay(4000).fadeOut(2000);
 }
 
+// NOTE - These get reloaded often, so I am unbinding them before re-binding them. (Otherwise they fire twice.)
 $(document).ready(function() {
+  $('a.gloss-tooltip').tooltip();
   // Allow the user to show extra attribution information for text
+  $('.expand-text-attribution').unbind('click');
   $('.expand-text-attribution').click(function(e) {
     // TODO - I don't think we need the each() here... I think it will work withgout it, but cannot test now
     $('div.' + $(this).attr('id').substring(4) +' div.credit').each(function(){ $(this).fadeIn(); });
@@ -11,6 +14,7 @@ $(document).ready(function() {
     return false;
   });
   // slide in text comments
+  $('div.text_buttons div.comment_button a').unbind('click');
   $('div.text_buttons div.comment_button a').click(function(e) {
     data_object_id = $(this).attr('data-data_object_id');
     textCommentsDiv = "text-comments-wrapper-" + data_object_id;
@@ -25,6 +29,7 @@ $(document).ready(function() {
     return false;
   });
   // Curate text:
+  $('div.text_buttons div.curate_button a').unbind('click');
   $('div.text_buttons div.curate_button a').click(function(e) {
     data_object_id = $(this).attr('data-data_object_id');
     textCuration = "text-curation-" + data_object_id;
@@ -39,6 +44,7 @@ $(document).ready(function() {
     return false;
   });
   // Open the add-text user interface
+  $('li.add_text>a, div.add_text_button a').unbind('click');
   $('li.add_text>a, div.add_text_button a').click(function() {
     EOL.TextObjects.open_new_text_dialog($(this).attr('href'));
     return false;
@@ -72,6 +78,7 @@ if(!EOL.TextObjects) EOL.TextObjects = {
 
   // Allow users to edit their own text.  This needs to be init'd several times, so it's extracted to a method.
   init_edit_links: function() {
+    $('div.edit_text a').unbind('click');
     $('div.edit_text a').click(function() {
       EOL.TextObjects.open_new_text_dialog($(this).attr('href'));
       return false;
@@ -86,8 +93,7 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     EOL.TextObjects.enable_form();
   },
 
-  // Loads the new text dialog via ajax, changes the TOC if needed (for example, if on "Common Names", which doesn't allow
-  // text, we want to load an appropriate TOC item).
+  // Loads the new text dialog via ajax, cleans up content if needed (for example, if on "Common Names")
   create_new_text_dialog: function(link_href) {
     $.ajax({
       url: link_href,

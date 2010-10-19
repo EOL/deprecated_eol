@@ -588,7 +588,6 @@ class User < ActiveRecord::Base
     start = per_page * (page - 1)
     last = start + per_page - 1
     data_object_ids_to_lookup = result[start..last].collect{|d| d.id}
-    pp data_object_ids_to_lookup
     result[start..last] = DataObject.details_for_objects(data_object_ids_to_lookup, :skip_refs => true, :add_common_names => true)
     return result
   end

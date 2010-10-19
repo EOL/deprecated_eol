@@ -27,4 +27,8 @@
   .form_item
     = f.label :agent_contact_role_id, "Role"
     = f.collection_select :agent_contact_role_id, @agent_contact_roles, :id, :label
+  .form_item
+    = f.label :email_reports_frequency_hours, "How often would you like to receive emails of comments and curator actions?"
+    - select_options = [['Never', 0] , ['Daily', 1*24], ['Weekly', 7*24], ['Monthly', 30*24]]
+    = f.select :email_reports_frequency_hours, select_options
   = content_partner_save_type_hidden_field

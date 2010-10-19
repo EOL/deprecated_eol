@@ -11,7 +11,11 @@ class AgentContact < SpeciesSchemaModel
      :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i, :message => 'is not a valid e-mail address'
   before_save :blank_not_null_fields  
   before_save :save_full_name
-
+  
+  def full_name
+    self.save_full_name
+  end
+  
   protected
 
     def save_full_name

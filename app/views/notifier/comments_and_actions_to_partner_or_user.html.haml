@@ -1,0 +1,96 @@
+- if @agent_or_user.class == AgentContact
+  = "Dear #{@agent_or_user.full_name} on behalf of #{@agent_or_user.agent.full_name},"
+- else
+  = "Dear #{@agent_or_user.full_name},"
+= ""
+
+
+-# Curator actions
+- unless @activity[:actions].blank?
+  ======================================
+  - if @activity[:actions].length > 1
+    Curator actions have affected data objects you submitted:
+  - else
+    A curator action has affected a data object you submitted:
+  ======================================
+  - for action in @activity[:actions]
+    - pp action
+    - action_object = action.data_object
+    - data_object = action_object.latest_published_version  # so we get superceded concepts
+    - taxon_concept = TaxonConcept.find(data_object.linked_taxon_concept.id)  # so we get superceded concepts
+    - date = format_date_time(action.created_at,:format=>'short_no_tz')
+    - url = nil
+    - if [DataType.image.id, DataType.text.id].include?(data_object.data_type_id)
+      - link_attribute = (data_object.data_type_id==DataType.image.id) ? 'image_id'.to_sym : 'text_id'.to_sym
+      - url = url_for(:controller => 'taxa', :action => 'show', :id => taxon_concept.id, link_attribute => data_object.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP)
+    = "  #{date}"
+    = "    #{taxon_concept.name(:natural_form)}"
+    - if url
+      = "    #{url}"
+    = "    #{action.action_with_object.action_code}"
+    = "  -----"
+    = ""
+  = ""
+  = ""
+
+-# Comments on their objects
+- unless @activity[:object_comments].blank?
+  ======================================
+  - if @activity[:object_comments].length > 1
+    Comments were left on data objects you submitted:
+  - else
+    A comment was left on a data object you submitted:
+  ======================================
+  - for comment in @activity[:object_comments]
+    - data_object = comment.parent.latest_published_version  # so we get superceded concepts
+    - taxon_concept = TaxonConcept.find(data_object.linked_taxon_concept.id)  # so we get superceded concepts
+    - date = format_date_time(comment.created_at,:format=>'short_no_tz')
+    - url = nil
+    - if [DataType.image.id, DataType.text.id].include?(data_object.data_type_id)
+      - link_attribute = (data_object.data_type_id==DataType.image.id) ? 'image_id'.to_sym : 'text_id'.to_sym
+      - url = url_for(:controller => 'taxa', :action => 'show', :id => taxon_concept.id, link_attribute => data_object.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP)
+    = "  #{date}"
+    = "    #{taxon_concept.name(:natural_form)}"
+    - if url
+      = "    #{url}"
+    = "    #{comment.body.strip}"
+    = "  -----"
+    = ""
+  = ""
+  = ""
+
+-# Comments on pages their objects are on
+- unless @activity[:page_comments].blank?
+  ======================================
+  - if @activity[:page_comments].length > 1
+    Comments were left on the taxon page comments tab (may not apply specifically to your content):
+  - else
+    A comment was left on a taxon page comments tab (may not apply specifically to your content):
+  ======================================
+  - for comment in @activity[:page_comments]
+    - taxon_concept = TaxonConcept.find(comment.parent_id)  # so we get superceded concepts
+    - date = format_date_time(comment.created_at,:format=>'short_no_tz')
+    - url = url_for(:controller => 'taxa', :action => 'show', :id => taxon_concept.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP)
+    = "  #{date}"
+    = "    #{taxon_concept.name(:natural_form)}"
+    = "    #{url}"
+    = "    #{comment.body.strip}"
+    = "  --------"
+    = ""
+  = ""
+  = ""
+
+- if @agent_or_user.class == AgentContact
+  For more detailed information, visit your activity tab in the Content Partner Registry: 
+  = url_for(:controller => 'content_partner', :action => 'reports', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
+  = ""
+  To turn off or change how often you get these messages, go to your profile:
+  = url_for(:controller => 'content_partner', :action => 'contacts', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
+- else
+  To turn off or change how often you get these messages, go to your profile:
+  = url_for(:controller => 'content_partner', :action => 'contacts', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
+
+= ""
+Thank you.
+= ""
+= "Encyclopedia of Life"

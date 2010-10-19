@@ -13,6 +13,17 @@ class ActionWithObject < ActiveRecord::Base
     cached_find(:action_code, 'create')
   end
   
+  def self.trusted
+    cached_find(:action_code, 'trusted')
+  end
+  
+  def self.untrusted
+    cached_find(:action_code, 'untrusted')
+  end
+  
+  def self.inappropriate
+    cached_find(:action_code, 'inappropriate')
+  end
 end
 
 # == Schema Info

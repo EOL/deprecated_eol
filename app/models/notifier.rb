@@ -1,4 +1,5 @@
 class Notifier < ActionMailer::Base
+  helper :application
  
   @@test_recipient = "junk@example.com" # testing only if needed
 
@@ -50,42 +51,42 @@ class Notifier < ActionMailer::Base
     subject     "Thanks for registering with the Encyclopedia of Life"
     recipients  user.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :user => user 
+    body        :user => user
   end
 
   def registration_confirmation(user)
     subject     "Please confirm your registration with the Encyclopedia of Life"
     recipients  user.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :user => user 
+    body        :user => user
   end
   
   def contact_us_auto_response(contact)
     subject     "Thanks for contacting the Encyclopedia of Life"
     recipients  contact.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :contact => contact 
+    body        :contact => contact
   end
   
   def media_contact_auto_response(contact)
     subject     "Thanks for contacting the Encyclopedia of Life"
     recipients  contact.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :contact => contact     
+    body        :contact => contact
   end
   
   def curator_approved(user)
     subject     "Your request to be a curator for the Encyclopedia of Life has been approved"
     recipients  user.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :user => user       
+    body        :user => user
   end
 
   def curator_unapproved(user)
     subject     "Your curator privileges for the Encyclopedia of Life have been removed"
     recipients  user.email
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :user => user       
+    body        :user => user
   end
   
   def user_message(name,email,message)
@@ -93,7 +94,7 @@ class Notifier < ActionMailer::Base
     recipients  email
     cc          "affiliate@eol.org"
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :name => name, :message => message           
+    body        :name => name, :message => message
   end
   
   def user_changed_mailer_setting(old_user,new_user,recipient)
@@ -112,15 +113,23 @@ class Notifier < ActionMailer::Base
     subject     "EOL Contact Us: #{contact_subject.title}"
     recipients  contact_recipients
     from        $WEBSITE_EMAIL_FROM_ADDRESS
-    body        :contact => contact    
-    
+    body        :contact => contact
   end 
-
+  
   def monthly_stats(contact_recipient,month,year)
-    subject "EOL Monthly Statistics Notification"
+    subject     "EOL Monthly Statistics Notification"
     recipients  contact_recipient["email"]
     from        $STATISTICS_EMAIL_FROM_ADDRESS
     body        :contact => contact_recipient , :month => month , :year => year , :SITE_DOMAIN_OR_IP => $SITE_DOMAIN_OR_IP
+  end
+  
+  def comments_and_actions_to_partner_or_user(agent_or_user, activity)
+    unless agent_or_user.email.blank?
+      subject     "Update on your content submitted to EOL"
+      recipients  'pleary@mbl.edu'
+      from        $WEBSITE_EMAIL_FROM_ADDRESS
+      body        :agent_or_user => agent_or_user, :activity => activity
+    end
   end
   
 end

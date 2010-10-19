@@ -25,6 +25,12 @@ class Hierarchy < SpeciesSchemaModel
       Hierarchy.browsable.sort_by {|h| h.form_label }
     end
   end
+  
+  def self.taxonomy_providers
+    cached('taxonomy_providers') do
+      ['CU*STAR Classification', 'NCBI Taxonomy', 'Index Fungorum', $DEFAULT_HIERARCHY_NAME].collect{|label| Hierarchy.find_by_label(label, :order => "hierarchy_group_version desc")}
+    end
+  end
 
   def self.default
     cached_find(:label, $DEFAULT_HIERARCHY_NAME, :serialize => true)

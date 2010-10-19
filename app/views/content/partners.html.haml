@@ -42,7 +42,7 @@
                       \.
                     - if partner.show_gallery_on_partner_page?
                       %br
-                      = link_to("See #{partner.display_name} gallery", {:controller=>'content_partner', :action=>'content', :id=>partner.display_name})
+                      = link_to("See #{partner.display_name} gallery", {:controller=>'content_partner', :action=>'content', :id=>partner.content_partner.id})
                       \.
                     - if partner.show_stats_on_partner_page?
                       %br

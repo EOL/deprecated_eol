@@ -524,8 +524,24 @@ class DataObject < SpeciesSchemaModel
         SELECT tc.*
         FROM data_objects_taxon_concepts dotc
         JOIN taxon_concepts tc ON (dotc.taxon_concept_id=tc.id)
-        WHERE dotc.data_object_id=? -- DataObject#taxon_concepts
+        WHERE dotc.data_object_id=?
+        ORDER BY tc.id -- DataObject#taxon_concepts
       ", id])
+    end
+  end
+  
+  def linked_taxon_concept
+    if created_by_user?
+      @taxon_concepts ||= taxon_concept_for_users_text
+    else
+      @taxon_concepts ||= TaxonConcept.find_by_sql(["
+        SELECT tc.*
+        FROM data_objects_hierarchy_entries dohe
+        JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
+        JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id)
+        WHERE dohe.data_object_id=?
+        ORDER BY tc.id -- DataObject#taxon_concepts
+      ", id])[0]
     end
   end
 
@@ -1100,17 +1116,20 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   end
   
   def self.latest_published_version_of(data_object_id)
-    obj = DataObject.find_by_sql("SELECT MAX(do.id) id FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1")[0]
-    return nil if obj.id.nil?
-    return DataObject.find(obj.id)
+    # this method is in two parts so we don't have to return ALL data for ALL objects with this guid. MySQL just
+    # returns one ID, then we lookup the DataObject based on the ID. Sames a lot of data transfer and time
+    obj = DataObject.find_by_sql("SELECT do.* FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
+    return nil if obj.blank?
+    return obj[0]
   end
   def latest_published_version
     obj = DataObject.find_by_sql("SELECT * FROM data_objects WHERE guid='#{guid}' AND published=1 ORDER BY id desc LIMIT 1")
-    return obj
+    return nil if obj.blank?
+    return obj[0]
   end
   
   
-  def self.get_toc_info(obj_ids)    
+  def self.get_toc_info(obj_ids)
     obj_toc_info = {} #same Hash.new
     if(obj_ids.length > 0) then
       sql = "

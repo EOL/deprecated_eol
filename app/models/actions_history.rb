@@ -58,7 +58,7 @@ class ActionsHistory < ActiveRecord::Base
   #-------- data_object ---------
          
   def data_object 
-    DataObject.find(object_id)
+    DataObject.find(self['object_id'])
   end
     
   def data_object_type
@@ -72,7 +72,7 @@ class ActionsHistory < ActiveRecord::Base
   #-------- comment ---------
   
   def comment_object
-    Comment.find(self.object_id)
+    Comment.find(self['object_id'])
   end        
   
   def comment_parent
@@ -87,7 +87,7 @@ class ActionsHistory < ActiveRecord::Base
   #-------- users_data_object ---------
 
   def users_data_object
-    UsersDataObject.find(object_id)
+    UsersDataObject.find(self['object_id'])
   end
   
   def udo_parent_text
@@ -97,5 +97,4 @@ class ActionsHistory < ActiveRecord::Base
   def udo_taxon_concept
     TaxonConcept.find(users_data_object.taxon_concept_id)
   end
-    
 end

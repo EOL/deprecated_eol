@@ -57,6 +57,12 @@
                   = "Do you want to receive EOL notifications?"[]
                 = f.check_box :mailing_list
                 = "Yes"[:yes_answer]
+                %p
+                  %br
+                %label{ :title => "How often would you like to receive feedback on text you submitted?"[], :for => "user_email_reports_frequency_hours" }
+                  = "How often would you like to receive feedback on text you submitted?"[]
+                - select_options = [['Never', 0] , ['Daily', 1*24], ['Weekly', 7*24], ['Monthly', 30*24]]
+                = f.select :email_reports_frequency_hours, select_options
                 %br
                 %br
               %td{ :valign => "top" }

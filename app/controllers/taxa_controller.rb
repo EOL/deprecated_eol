@@ -238,10 +238,11 @@ class TaxaController < ApplicationController
     @taxon_concept = taxon_concept
     @taxon_concept.current_user = current_user
     @taxon_concept.current_agent = current_agent
-    @image_page = (params[:image_page] ||= 1).to_i
-    start       = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
-    last        = start + $MAX_IMAGES_PER_PAGE - 1
-    @images     = @taxon_concept.images(:image_page => @image_page)[start..last]
+    @image_page  = (params[:image_page] ||= 1).to_i
+    start        = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
+    last         = start + $MAX_IMAGES_PER_PAGE - 1
+    @images      = @taxon_concept.images(:image_page => @image_page)[start..last]
+    @image_count = @taxon_concept.image_count
     begin
       set_image_permalink_data
     rescue
@@ -526,7 +527,6 @@ private
         current_user.save if logged_in?
 
         @taxon_concept.current_user = current_user
-        @images = @taxon_concept.images()
         selected_image_index = find_selected_image_index(@images,image_id)
       end
       if selected_image_index.nil?
@@ -534,9 +534,9 @@ private
       end
 
       params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
-      start       = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
-      last        = start + $MAX_IMAGES_PER_PAGE - 1
-      @images     = @taxon_concept.images(:image_page=>@image_page)[start..last]
+      start        = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
+      last         = start + $MAX_IMAGES_PER_PAGE - 1
+      @images      = @taxon_concept.images(:image_page=>@image_page)[start..last]
       adjusted_selected_image_index = selected_image_index % $MAX_IMAGES_PER_PAGE
       @selected_image_id = @images[adjusted_selected_image_index].id
     else
@@ -572,6 +572,7 @@ private
   def set_taxa_page_instance_vars
     @taxon_concept.current_agent = current_agent
     @images = @taxon_concept.images
+    @image_count = @taxon_concept.image_count
     
     begin
       set_image_permalink_data

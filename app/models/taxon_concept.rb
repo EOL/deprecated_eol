@@ -797,8 +797,11 @@ class TaxonConcept < SpeciesSchemaModel
     images ||= DataObject.for_taxon(self, :image, :user => self.current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page)
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
     
-    #puts "this is the end of TaxonConcept.images"
     return images
+  end
+
+  def image_count
+    return @length_of_images || images.length # Note, no options... we want to count ALL images that this user can see.
   end
 
   # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)

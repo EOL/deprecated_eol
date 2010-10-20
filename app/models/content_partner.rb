@@ -168,7 +168,9 @@ class ContentPartner < SpeciesSchemaModel
       JOIN #{ActionsHistory.full_table_name} ah ON (c.id=ah.object_id)
       WHERE dohe.harvest_event_id IN (#{latest_published_harvest_event_ids.join(',')})
       AND ah.changeable_object_type_id=#{ChangeableObjectType.find_by_ch_object_type('comment').id}
+      AND c.parent_type != 'TaxonConcept'      
     }).uniq
+    
     
     comments_history.sort! do |a,b|
       b.created_at <=> a.created_at

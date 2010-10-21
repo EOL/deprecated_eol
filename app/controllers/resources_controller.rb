@@ -10,7 +10,7 @@ class ResourcesController < ApplicationController
 
   make_resourceful do
 
-    actions :all , :except => :show
+    actions :all, :except => :show
 
     response_for :create, :update do |format|
       format.html do
@@ -18,6 +18,10 @@ class ResourcesController < ApplicationController
         redirect_url = current_user.is_admin? ? { :controller => 'administrator/content_partner_report', :action => 'show', :id => @content_partner.agent.id} : resources_url
         redirect_to redirect_url
       end
+    end
+
+    before :new do
+      @content_partner = params[:content_partner_id] ? Agent.find(params[:content_partner_id]) : current_agent
     end
 
     # TODO - it is supremely LAME that we keep calling these things CPs when they are Agents.  It has bitten me twice in as

@@ -38,7 +38,7 @@ class DataObjectsController < ApplicationController
       current_user.log_activity(:previewed_data_object, :taxon_concept_id => @taxon_concept.id)
       render :partial => '/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label}
     rescue => e
-      @new_text = 'There was an error previewing your text.  Please try again.  Sorry for the inconvenience.'
+      @message = e.message
     end
   end
 

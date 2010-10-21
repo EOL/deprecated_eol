@@ -20,9 +20,9 @@ describe 'Data Object Page' do
     end
 
     it "should show metainformation about data_object" do
-      @image.object_title.should_not be_blank
       visit("/data_objects/#{@image.id}")
-      page.should have_content(@image.object_title)
+      page.should have_content("Permalink")
+      find(:css, ".credit-value input").value.should == "http://#{$SITE_DOMAIN_OR_IP}/data_objects/#{@image.id}"
     end
   end
 end

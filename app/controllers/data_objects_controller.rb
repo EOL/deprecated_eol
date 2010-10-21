@@ -3,7 +3,7 @@ class DataObjectsController < ApplicationController
   # No layout for Ajax calls.  Everthing else uses main:
   layout proc { |c| c.request.xhr? ? false : "main" }
 
-  before_filter :set_data_object, :except => [:index, :new, :create, :preview, :show]
+  before_filter :set_data_object, :except => [:index, :new, :create, :preview]
   before_filter :curator_only, :only => [:rate, :curate]
 
   def create
@@ -176,16 +176,13 @@ class DataObjectsController < ApplicationController
   end
 
   def show
-    @data_object = DataObject.find(params[:id])
+    get_attribution
   end
 
   # GET /data_objects/1/attribution
   def attribution
-    current_object['attributions'] = current_object.attributions
-    current_object['taxa_names_ids'] = [{'taxon_concept_id' => current_object.hierarchy_entries[0].taxon_concept_id}]
-    current_object['media_type'] = current_object.data_type.label
-    current_user.log_activity(:showed_attributions_for_data_object_id, :value => current_object.id)
-    render :partial => 'attribution', :locals => { :data_object => current_object }, :layout => @layout
+    get_attribution
+    render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
   end
 
   # GET /data_objects/1/curation
@@ -220,7 +217,14 @@ class DataObjectsController < ApplicationController
 protected
 
   def set_data_object
-    @data_object ||= current_object
+    @data_object ||= DataObject.find(params[:id])
+  end
+
+  def get_attribution
+    @data_object['attributions'] = @data_object.attributions
+    @data_object['taxa_names_ids'] = [{'taxon_concept_id' => @data_object.hierarchy_entries[0].taxon_concept_id}]
+    @data_object['media_type'] = @data_object.data_type.label
+    current_user.log_activity(:showed_attributions_for_data_object_id, :value => @data_object.id)
   end
 
   def set_text_data_object_options

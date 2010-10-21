@@ -1,9 +1,11 @@
 :javascript
   function auto_check_filter_box_if_needed() {
-    if ($('#user_default_hierarchy_id').val() == '') {
-      $('#user_filter_content_by_hierarchy').val(false);
-    } else {
-      $('#user_filter_content_by_hierarchy').val(true);
+    checkbox = $('#user_filter_content_by_hierarchy');
+    if ($('#user_default_hierarchy_id').val() == '' && checkbox.val() == "true") {
+      checkbox.click(); // Setting the val on checkboxes "works", but the user can't see it.  This does both.
+    }
+    if ($('#user_default_hierarchy_id').val() != '' && checkbox.val() == "false") {
+      checkbox.click();
     }
   }
 %h3.preference-header

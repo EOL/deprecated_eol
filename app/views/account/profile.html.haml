@@ -11,7 +11,8 @@
         %fieldset
           %table#user_profile
             %tr
-              %td{ :valign => "top", :style => "padding-right:30px;" }
+              -# The style here is a one-shot, make the right-column-look-right fix (seemed silly to put in CSS):
+              %td{ :valign => "top", :style => "padding-right:30px;width:350px;" }
                 %h3.preference-header= "Account Information"[]
                 %label Username:  (4 - 32 characters)
                 = f.text_field :username, {:maxlength=>32, :onblur=>'javascript:check_username();'}

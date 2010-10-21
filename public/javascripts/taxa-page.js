@@ -13,9 +13,9 @@ if (!EOL.change_toc) EOL.change_toc = function(new_id) {
     EOL.log('EOL.Rating was not loaded.');
   }
   try {
-    EOL.TextObjects.init_edit_links();
+    EOL.Text.init_edit_links();
   } catch(err) {
-    EOL.log('EOL.TextObjects was not loaded.');
+    EOL.log('EOL.Text was not loaded.');
   }
 };
 
@@ -45,6 +45,8 @@ $(document).ready(function() {
     id = $(this).attr('id').replace(/\D+/, '');
     $.ajax({
       url: $(this).attr('href'),
+      beforeSend: function() { $('#center-page-content').fadeTo(800, 0.3); $('#center-page-content-loading').fadeIn(); },
+      complete: function() { $('#center-page-content').fadeTo(300, 1.0); $('#center-page-content-loading').fadeOut(); },
       success: function(response) {
         $('#center-page-content').html(response);
         EOL.change_toc(id);
@@ -90,15 +92,9 @@ function load_photosynth_interface(source_url) {
 }
 
 // Show some spinners when we're doing stuff:
-$('#ajax-indicator').ajaxStart(function() {
+$('#ajax-indicator, #center-page-content-loading').ajaxStart(function() {
   $(this).fadeIn();
 });
-$('#center-page-content-loading').ajaxStart(function() {
-  $(this).fadeIn();
-});
-$('#ajax-indicator').ajaxComplete(function() {
-  $(this).fadeOut();
-});
-$('#center-page-content-loading').ajaxComplete(function() {
+$('#ajax-indicator, #center-page-content-loading').ajaxComplete(function() {
   $(this).fadeOut();
 });

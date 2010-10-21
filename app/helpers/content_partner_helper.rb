@@ -8,9 +8,9 @@ module ContentPartnerHelper
   def content_partner_submit_buttons(options = {})    
     raise ArgumentError unless options[:id]
     returning "" do |string|
-      string << content_tag(:button, 'Back to Dashboard', :onclick => "window.location.href='#{url_for({ :action => 'index' })}'")
-      string << content_tag(:button, 'Save', :onclick => "$('save_type').value='save';$('#{options[:id]}').submit();")
-      string << content_tag(:button, 'Save &amp; Continue &#187;', :onclick => "$('save_type').value='next';$('#{options[:id]}').submit();")
+      string << content_tag(:button, 'Back to Dashboard', :onclick => "javascript:window.location.href='#{url_for({ :action => 'index' })}'")
+      string << content_tag(:button, 'Save', :onclick => "javascript:$('#save_type').value='save';$('##{options[:id]}').submit();")
+      string << content_tag(:button, 'Save &amp; Continue &#187;', :onclick => "javascript:$('#save_type').value='next';$('##{options[:id]}').submit();")
     end
   end
   

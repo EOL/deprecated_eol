@@ -46,15 +46,16 @@ $(document).ready(function() {
   // Open the add-text user interface
   $('li.add_text>a, div.add_text_button a').unbind('click');
   $('li.add_text>a, div.add_text_button a').click(function() {
-    EOL.TextObjects.open_new_text_dialog($(this).attr('href'));
+    EOL.Text.open_new_text_dialog($(this).attr('href'));
     return false;
   });
   // Open edit-text user interface:
-  EOL.TextObjects.init_edit_links();
+  EOL.Text.init_edit_links();
 });
 
-if(!EOL) var EOL = {};
-if(!EOL.TextObjects) EOL.TextObjects = {
+if (!EOL) EOL = {};
+if (!EOL.Text) EOL.Text = {};
+$.extend(EOL.Text, {
 
   form: function() {
     return $('form#new_data_object, form.edit_data_object');
@@ -67,11 +68,11 @@ if(!EOL.TextObjects) EOL.TextObjects = {
       pulsate_error($('.multi_new_text_error'));
     } else {
       // If we already have a form and this is NOT an edit:
-      if (EOL.TextObjects.form().length > 0 && link_href.indexOf('edit') == -1) {
-        EOL.TextObjects.show_new_text_dialog();
+      if (EOL.Text.form().length > 0 && link_href.indexOf('edit') == -1) {
+        EOL.Text.show_new_text_dialog();
       // Otherwise, we need to (re-)create the form:
       } else {
-        EOL.TextObjects.create_new_text_dialog(link_href);
+        EOL.Text.create_new_text_dialog(link_href);
       }
     }
   },
@@ -80,7 +81,7 @@ if(!EOL.TextObjects) EOL.TextObjects = {
   init_edit_links: function() {
     $('div.edit_text a').unbind('click');
     $('div.edit_text a').click(function() {
-      EOL.TextObjects.open_new_text_dialog($(this).attr('href'));
+      EOL.Text.open_new_text_dialog($(this).attr('href'));
       return false;
     });
   },
@@ -90,7 +91,7 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     $('#insert_text_popup').slideDown(400, function() {
       $(window).scrollTop($('#insert_text_popup').offset()['top'] - 40);
     });
-    EOL.TextObjects.enable_form();
+    EOL.Text.enable_form();
   },
 
   // Loads the new text dialog via ajax, cleans up content if needed (for example, if on "Common Names")
@@ -106,7 +107,7 @@ if(!EOL.TextObjects) EOL.TextObjects = {
         $('#insert_text_popup .popup-content').html(response);
       },
       error: function() {$('#insert_text_popup .popup-content').html("<p>Sorry, there was an error.</p>");},
-      complete: function() { EOL.TextObjects.show_new_text_dialog(); }
+      complete: function() { EOL.Text.show_new_text_dialog(); }
     });
   },
 
@@ -115,4 +116,4 @@ if(!EOL.TextObjects) EOL.TextObjects = {
     $('li.add_text>a, div.add_text_button a').attr('href', url);
   }
 
-};
+});

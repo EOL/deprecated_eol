@@ -5,6 +5,6 @@
   // update the links/buttons for adding new text
   var new_url = "#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @category_id})}";
   $(document).ready(function() {
-    EOL.TextObjects.update_add_links(new_url);
+    EOL.Text.update_add_links(new_url);
     EOL.change_toc(#{@category_id});
   });

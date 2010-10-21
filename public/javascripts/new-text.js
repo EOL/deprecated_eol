@@ -1,32 +1,36 @@
-// Note that this relies on EOL.TextObjects already existing for a reason; many methods this needs are there.  It should be
-// described in text-content.js
-$.extend(EOL.TextObjects, {
+// Note that this relies on many methods from EOL.Text, which should be described in text-content.js
+if (!EOL) EOL = {};
+if (!EOL.Text) EOL.Text = {};
+if (!EOL.Text.already_loaded) $.extend(EOL.Text, {
+
+  already_loaded: true,
 
   // Handle all the behaviours related to adding/editing text.  This may be called several times, so it's extracted to a
   // method:
   init_new_text_behaviors: function() {
     // Submit new text:
-    EOL.TextObjects.form().submit(function(e) {
-      EOL.TextObjects.submit_text();
+    EOL.Text.form().unbind('submit');
+    EOL.Text.form().submit(function(e) {
+      EOL.Text.submit_text();
       return false;
     });
     // Preview:
     $('input#preview_text').unbind('click');
     $('input#preview_text').click(function() {
-      EOL.TextObjects.preview_text(this);
+      EOL.Text.preview_text(this);
       return false;
     });
     // Close the add-text window:
     $('#insert_text_popup a.close-button').unbind('click');
     $('#insert_text_popup a.close-button').click(function() {
       $('#insert_text_popup').slideUp();
-      EOL.TextObjects.remove_preview();
+      EOL.Text.remove_preview();
       return false;
     });
     // Cancel adding text:
     $('input#cancel_edit_text').unbind('click');
     $('input#cancel_edit_text').click(function() {
-      EOL.TextObjects.cancel_edit();
+      EOL.Text.cancel_edit();
       return false;
     });
     // Update the text area when the user changes the TOC Item category:
@@ -34,8 +38,8 @@ $.extend(EOL.TextObjects, {
     $('select#data_objects_toc_category_toc_id').change(function() {
       $.ajax({
         url: $(this).attr('data-change_toc_url'),
-        success: function(response) { EOL.TextObjects.show_response_text_and_cleanup(response); },
-        data: EOL.TextObjects.form().serialize()
+        success: function(response) { EOL.Text.show_response_text_and_cleanup(response); },
+        data: EOL.Text.form().serialize()
       });
     });
     // Give the user another reference field
@@ -55,7 +59,7 @@ $.extend(EOL.TextObjects, {
     $('div.cpc-content div#untrusted-text-warning-box_wrapper').slideUp().delay(500).remove();
     // Put in the new content:
     $('#insert_text_popup').before(response);
-    EOL.TextObjects.init_edit_links();
+    EOL.Text.init_edit_links();
   },
 
   // Warn the user that they forgot to add text:
@@ -72,49 +76,49 @@ $.extend(EOL.TextObjects, {
 
   // In several cases, we need to know which data object we're currently editing/adding:
   data_object_id: function() {
-    return EOL.TextObjects.form().attr('data-data_object_id');
+    return EOL.Text.form().attr('data-data_object_id');
   },
 
   // For when the user wants to submit added/edited text.
   submit_text: function() {
-    if (EOL.TextObjects.show_missing_text_error_if_empty()) return false;
-    var id = EOL.TextObjects.data_object_id();
+    if (EOL.Text.show_missing_text_error_if_empty()) return false;
+    var id = EOL.Text.data_object_id();
     // If we already have a version of the text, remove it, since we will be re-loading it:
     $('#text_wrapper_'+id).slideUp().delay(500).remove();
-    EOL.TextObjects.remove_preview();
+    EOL.Text.remove_preview();
     $.ajax({
-      url: EOL.TextObjects.form().attr('action'),
+      url: EOL.Text.form().attr('action'),
       type: 'POST',
-      beforeSend: function() { EOL.TextObjects.disable_form(); },
+      beforeSend: function() { EOL.Text.disable_form(); },
       success: function(response) {
         $('#insert_text_popup').before(response);
         // reset form:  (this may be worth turning in to a global method):
-        EOL.TextObjects.form().find('input, textarea').not(':hidden, :button, :submit').val('').removeAttr('checked').removeAttr('selected');
-        EOL.TextObjects.init_edit_links();
+        EOL.Text.form().find('input, textarea').not(':hidden, :button, :submit').val('').removeAttr('checked').removeAttr('selected');
+        EOL.Text.init_edit_links();
       },
       complete: function() { $('#insert_text_popup').slideUp(); },
       error: function() { alert("Sorry, there was an error submitting your text.");},
-      data: EOL.TextObjects.form().serialize()
+      data: EOL.Text.form().serialize()
     });
   },
 
   // The text was not submitted, but we want to see what it will look like when it is:
   preview_text: function(button) {
-    if (EOL.TextObjects.show_missing_text_error_if_empty()) return false;
-    EOL.TextObjects.remove_preview();
+    if (EOL.Text.show_missing_text_error_if_empty()) return false;
+    EOL.Text.remove_preview();
     // TODO - the data is hacky ... why isn't it this way in the data-preview_url?
     $.ajax({
       url: $(button).attr('data-preview_url'),
       type: 'POST',
-      beforeSend: function() { EOL.TextObjects.disable_form(); },
+      beforeSend: function() { EOL.Text.disable_form(); },
       success: function(response) {
         $('#insert_text_popup').before(response);
         $('a#edit_text_').remove(); // We don't want them editing the preview text!
         $('#text_wrapper_').slideDown();
       },
-      complete: function() { EOL.TextObjects.enable_form(); },
+      complete: function() { EOL.Text.enable_form(); },
       error: function() { alert("Sorry, there was an error previewing your text.");},
-      data: EOL.TextObjects.form().serialize().replace("_method=put&","id="+EOL.TextObjects.data_object_id()+"&")
+      data: EOL.Text.form().serialize().replace("_method=put&","id="+EOL.Text.data_object_id()+"&")
     });
   },
   
@@ -126,8 +130,8 @@ $.extend(EOL.TextObjects, {
   // This is a little awkward, but after someone was editing their text, we want to make sure it's as-is (as opposed to how
   // it may have been replaced by the preview), so we re-load the text as it actually appears:
   cancel_edit: function() {
-    data_object_id = EOL.TextObjects.data_object_id();
-    EOL.TextObjects.remove_preview();
+    data_object_id = EOL.Text.data_object_id();
+    EOL.Text.remove_preview();
     // if the old text still exists on the page, just remove the edit div
     // TODO - does this work?  Can it be said more elegantly?
     if($('#text_wrapper_'+data_object_id).length > 0 || $('#original_toc_id').val() != $('#data_objects_toc_category_toc_id').val()) {
@@ -136,27 +140,27 @@ $.extend(EOL.TextObjects, {
     } else {
       $.ajax({
         url: $('#edit_data_object_'+data_object_id).attr('action').replace('/data_objects/','/data_objects/get/'),
-        success: function(response) { EOL.TextObjects.show_response_text_and_cleanup(response); },
-        data: EOL.TextObjects.form.serialize()
+        success: function(response) { EOL.Text.show_response_text_and_cleanup(response); },
+        data: EOL.Text.form.serialize()
       });
-      EOL.TextObjects.disable_form();
+      EOL.Text.disable_form();
     }
   },
 
   // Temporarily prevent the user from sumbitting/previewing the text:
   disable_form: function() {
-    EOL.TextObjects.form().find('input[type=submit], input[type=button]').attr('disabled', 'disabled');
+    EOL.Text.form().find('input[type=submit], input[type=button]').attr('disabled', 'disabled');
     $('#edit_text_spinner').fadeIn();
   },
 
   // It's okay to work with the form again:
   enable_form: function() {
-    EOL.TextObjects.form().find('input[type=submit], input[type=button]').attr('disabled', '');
+    EOL.Text.form().find('input[type=submit], input[type=button]').attr('disabled', '');
     $('#edit_text_spinner').fadeOut();
   }
 
 });
 
 $(document).ready(function() {
-  EOL.TextObjects.init_new_text_behaviors();
+  EOL.Text.init_new_text_behaviors();
 });

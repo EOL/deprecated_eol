@@ -46,6 +46,7 @@ EOL.Tagging = {
   reload_url: function( url, tag_type ) {
     $.ajax({
       url: url,
+      beforeSend: function() {$('#ajax-indicator-popup').fadeIn();},
       success: function(response) {$(EOL.Tagging.wrapper_div()).html(response);},
       complete: function() {EOL.Tagging.reload_tagging();}
     });
@@ -54,6 +55,7 @@ EOL.Tagging = {
   reload_tagging: function (tag_type) {
     // Create Tag
     $('div#add_data_object_tags_fields>form').submit(function(e) {
+      $('#ajax-indicator-popup').fadeIn();
       var key   = EOL.Tagging.selected_category();
       var value = $('#private_data_object_tags input[name="tag[value]"]').val();
       var post_url = $(this).attr('action');
@@ -104,6 +106,8 @@ EOL.Tagging = {
       EOL.Tagging.reload_url(this.href);
       return false;
     });
+
+    $('#ajax-indicator-popup').fadeOut();
   }
 
 };

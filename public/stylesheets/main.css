@@ -1480,6 +1480,24 @@ a.footnote {
       margin-left: 30px;
       padding: 0px; }
 
+div.error {
+  padding: 10px;
+  border: 2px solid #c20404;
+  background-color: #f7e9e9; }
+  div.error h2 {
+    color: #c20404;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 0; }
+  div.error p {
+    color: black; }
+  div.error ul {
+    list-style: disc;
+    color: #c20404; }
+    div.error ul li {
+      margin-left: 30px;
+      padding: 0px; }
+
 ul.errors {
   list-style: none;
   padding: 0 0 5px 15px; }

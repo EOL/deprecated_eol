@@ -4,9 +4,11 @@
 *.swp
 *eol_org.rb
 *~
+eol-solr.pid
 mkmf.log
 extconf.h
 .DS_Store
+.rvmrc
 config/database.yml
 config/deploy
 config/deploy.rb
@@ -28,7 +30,6 @@ public/stylesheets/*-cached_packaged.css
 public/uploads/datasets/*
 solr/logs/*.*
 solr/solr/data/index/*
-solr/solr/eol-solr.pid
 solr/work/*
 tmp/cache/*
 tmp/pids/*

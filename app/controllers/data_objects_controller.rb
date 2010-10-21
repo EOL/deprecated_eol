@@ -3,7 +3,7 @@ class DataObjectsController < ApplicationController
   # No layout for Ajax calls.  Everthing else uses main:
   layout proc { |c| c.request.xhr? ? false : "main" }
 
-  before_filter :set_data_object, :except => [:index, :new, :create, :preview]
+  before_filter :set_data_object, :except => [:index, :new, :create, :preview, :show]
   before_filter :curator_only, :only => [:rate, :curate]
 
   def create

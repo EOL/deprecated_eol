@@ -8,7 +8,6 @@ eol-solr.pid
 mkmf.log
 extconf.h
 .DS_Store
-.rvmrc
 config/database.yml
 config/deploy
 config/deploy.rb

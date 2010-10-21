@@ -12,7 +12,6 @@ describe 'Data Object Page' do
     before(:all) do
       @tc = build_taxon_concept(:images => [:object_cache_url => Factory.next(:image)], :toc => []) # Somewhat empty, to speed things up.
       @image = @tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
-      
       # Build data_object without comments
       @dato_no_comments = build_data_object('Image', 'No comments',
       :num_comments => 0,

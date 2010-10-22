@@ -19,7 +19,6 @@
   - source = "(Source: #{@data_object.sources.first.full_name})"
 - elsif @data_object.sources.length > 1
   - source = "(Sources: #{@data_object.sources.collect {|src| src.full_name}.join(', ')})"
-- end 
 
 %h2
   = title

@@ -22,7 +22,7 @@ $(document).ready(function() {
           left: x
         }, 1); // The '1' here means "super-fast", essentially.  I'm only doing this because offset() isn't working!
         wrapper.load(this.getTrigger().attr('href'));
-      },
+      }
     });
   });
 });

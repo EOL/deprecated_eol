@@ -1,19 +1,29 @@
--# %pre= debug @data_object
-= render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
--# /
--#   #content
--#     #page-separator-general
--#     #page-title
--#       = render :partial => 'data_objects/page_title'
--#     #page-content.clearfix
--#       #full-page-content
--#         #comment-image
--#           - case @data_object.data_type.label.downcase
--#             - when 'image'
--#               %img#main-image{ :src => @data_object.smart_image, :alt => @data_object.description }
--#             - when 'text'
--#               %p
--#                 = @data_object.description
--#         #comments-container
--#           - # TODO: fix the comment rendering in a data object page
--#           - #= render_component(:action => 'index', :controller => 'comments', :layout => false, :params => {:data_object_id => @data_object.id}) %>
+#page_title
+  %h2 Page title
+
+#page-content.clearfix
+  #full-page-content
+    = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
+    #taxaCommentsWrap{ :style => "margin-top:2em" }
+      #commentsContain
+        .controls
+          - if @slim_container
+            - info = "Total %s comments" % @comments.size
+            = info == 'No entries found' ? 'Comments' : "#{info},"
+            on
+            = @title_label
+            - if @title != ''
+              %div
+                %h2
+                  = @title
+          - else
+            %h2
+              Comments
+            %small
+              = info == 'No entries found' ? '' : info
+        - if @comments.empty?
+          %p#no-comments
+            No comments have been left yet.
+        - else
+          %ul.comments
+            = render :partial => 'comments/list', :locals => { :current_objects => @comments }

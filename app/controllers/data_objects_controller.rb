@@ -177,6 +177,7 @@ class DataObjectsController < ApplicationController
 
   def show
     get_attribution
+    @comments = @data_object.all_comments
   end
 
   # GET /data_objects/1/attribution

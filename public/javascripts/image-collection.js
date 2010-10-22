@@ -1,10 +1,12 @@
-if (!EOL) EOL = {};
-if (!EOL.replace_dato_id) EOL.replace_dato_id = function(link, id) {
-  $(link).each(function() {
-    new_href = $(this).attr('href').replace(/\/\d+/, '/'+id); // Leading slash avoids replacing params (like star ratings).
-    $(this).attr('href', new_href);
-  });
-};
+if (!EOL) { EOL = {}; }
+if (!EOL.replace_dato_id) {
+  EOL.replace_dato_id = function(link, id) {
+    $(link).each(function() {
+      new_href = $(this).attr('href').replace(/\/\d+/, '/'+id); // Leading slash avoids replacing params (like star ratings).
+      $(this).attr('href', new_href);
+    });
+  };
+}
 
 if (!EOL.handle_main_img_icon) EOL.handle_main_img_icon = function(id) {
   $('#large-image-button-group li.status_icon').hide();
@@ -13,7 +15,7 @@ if (!EOL.handle_main_img_icon) EOL.handle_main_img_icon = function(id) {
     var classes = $(this).attr('class').split(' ');
     /// ...we look at the class name(s) of that visible icon...
     for (i in classes) {
-      if (classes[i] == 'status_icon') continue; // ...(and skip this class)...
+      if (classes[i] == 'status_icon') { continue; } // ...(and skip this class)...
       // ...and finally show the icon under the main image with the same class name (they are created with the same partial):
       // Note: weird, but true--show() doesn't work... it forces a display that breaks the icon down a line.  This works:
       $('#large-image-button-group li.'+classes[i]).css({display:'inline-block'});

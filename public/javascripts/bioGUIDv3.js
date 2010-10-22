@@ -86,7 +86,7 @@ bioGUID.getDetails.prototype.load = function()
 	var _url = this.apiURL;
 	loader.getJSON(_ref,_ref.displayResult,_url);
 	var spinnerTimeout = setTimeout(function(){
-	if (document.getElementById(_ref.outputId).getElementsByTagName("img")[0].src == bioGUIDicon[1]){
+	if (document.getElementById(_ref.outputId).getElementsByTagName("img")[0].src == bioGUIDicon[1]) {
 			document.getElementById(_ref.outputId).innerHTML = "<img src='" + bioGUIDicon[5] + "' style='border:0px;height:16px;width:16px' alt='Timeout - please try again later' title='Timeout - please try again later'>";
 		}
 		else{}

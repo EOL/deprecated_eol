@@ -18,7 +18,7 @@ $(document).ready(function() {
   });
 });
 
-if (!EOL) var EOL = {};
+if (!EOL) { var EOL = {}; }
 // Notice that this does NOT interrupt the event.  If you add this to a click(), it should follow the link.
 EOL.addReturnTo = function(link) {
   if ($(link).attr('href') == null) { // Not a link, silly!

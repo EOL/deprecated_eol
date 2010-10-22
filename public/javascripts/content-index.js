@@ -3,9 +3,7 @@ var taxa_number_to_replace = 1;
 var interval_between_loads = 10000;
 
 function explore_more_taxa() {
-  if (updating) {
-    updating = false;
-  }
+  if (updating) { updating = false; }
   $.ajax({
     url: '/content/explore_taxa',
     beforeSend: function() {$('#photos_area').fadeTo(200, 0.03);},
@@ -66,9 +64,7 @@ function start_explore_updates() {
 function toggle_explore_updates() {
   if (updating) {
     pause_explore_updates();
-  }
-  else
-  {
+  } else {
     start_explore_updates();
   }
 }

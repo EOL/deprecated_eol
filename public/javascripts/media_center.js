@@ -1,5 +1,5 @@
-if(!EOL) var EOL = {};
-if(!EOL.MediaCenter) EOL.MediaCenter = {};
+if(!EOL) { var EOL = {}; }
+if(!EOL.MediaCenter) { EOL.MediaCenter = {}; }
 
 EOL.MediaCenter.image_hash = {};
 
@@ -23,7 +23,4 @@ EOL.MediaCenter.update_thumbnail_icons = function(element) {
   } else if (image.visibility_id == EOL.Curation.INAPPROPRIATE_ID) {
     $$('a#thumbnail_'+data_object_id+' .inappropriate_icon')[0].show();
   }
-};
-
-EOL.MediaCenter.Behaviors = {
 };

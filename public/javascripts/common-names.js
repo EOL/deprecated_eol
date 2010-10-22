@@ -1,5 +1,5 @@
-if (!EOL) var EOL = {};
-if (!EOL.CommonNameCuration) EOL.CommonNameCuration = {};
+if(!EOL) { var EOL = {}; }
+if (!EOL.CommonNameCuration) { EOL.CommonNameCuration = {}; }
 
 $(document).ready(function() {
   // Just clicking on a preferred name submits the form (and reloads the page):
@@ -15,10 +15,10 @@ $(document).ready(function() {
     agent = form.find("#agent_" + name_id).val();
     is_checked_now = $(this).attr('checked');
     do_submit = true;
-    if(!is_checked_now && !duplicate) {
+    if (!is_checked_now && !duplicate) {
       do_submit = confirm("Are you sure you want to delete this common name added by "+agent+"?");
     }
-    if(do_submit) {
+    if (do_submit) {
       form.find("#trusted_name_clicked_on").val(name_id);
       form.find("#trusted_synonym_clicked_on").val(form.find("#synonym_id_"+name_id).val());
       form.find("#trusted_name_checked").val(is_checked_now);

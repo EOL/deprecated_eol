@@ -1,23 +1,25 @@
-if (!EOL) EOL = {};
-if (!EOL.change_toc) EOL.change_toc = function(new_id) {
-  updateReferences();
-  $('#current_content').val(new_id);
-  $('#toc a.toc_item').removeClass('active');
-  $('#toc a#category_id_'+new_id).addClass('active');
-  $('#new_text_toc_text').attr('href', $('#new_text_toc_text').attr('href').replace(/toc_id=\d+/, 'toc_id='+new_id));
-  $('select#data_objects_toc_category_toc_id').val(new_id);
-  $('#center-page-content').css({height:'auto'});
-  try {
-    EOL.Rating.init_links('#center-page-content');
-  } catch(err) {
-    EOL.log('EOL.Rating was not loaded.');
-  }
-  try {
-    EOL.Text.init_edit_links();
-  } catch(err) {
-    EOL.log('EOL.Text was not loaded.');
-  }
-};
+if (!EOL) { EOL = {}; }
+if (!EOL.change_toc) {
+  EOL.change_toc = function(new_id) {
+    updateReferences();
+    $('#current_content').val(new_id);
+    $('#toc a.toc_item').removeClass('active');
+    $('#toc a#category_id_'+new_id).addClass('active');
+    $('#new_text_toc_text').attr('href', $('#new_text_toc_text').attr('href').replace(/toc_id=\d+/, 'toc_id='+new_id));
+    $('select#data_objects_toc_category_toc_id').val(new_id);
+    $('#center-page-content').css({height:'auto'});
+    try {
+      EOL.Rating.init_links('#center-page-content');
+    } catch(err) {
+      EOL.log('EOL.Rating was not loaded.');
+    }
+    try {
+      EOL.Text.init_edit_links();
+    } catch(err) {
+      EOL.log('EOL.Text was not loaded.');
+    }
+  };
+}
 
 $(document).ready(function() {
   // TODO - move to its own js (for maps view)
@@ -83,7 +85,7 @@ function load_photosynth_interface(source_url) {
   $('#main-image-bg').html = synth;
   // This will display a photosynth icon if a thumbnail photosynth image is clicked.
   var string = params.source_url; //source_url is from [views/taxa/_image_collection]
-  if(string.search(/photosynth.net/) == -1) { //regular static image    
+  if (string.search(/photosynth.net/) == -1) { //regular static image    
       $('#photosynth-message').html = "";          
   } else { //photosynth image
     // TODO - put this in the view, and just show/hide it.  We don't want HTML here.

@@ -3,7 +3,7 @@
  *
  * This defines the EOL namespace which can be used for various common functions that get used throughout the application.
  */
-if (!EOL) var EOL = {};
+if (!EOL) { var EOL = {}; }
 
 // log something to the console (if a console is available, else do nothing)
 EOL.log_enabled = true;

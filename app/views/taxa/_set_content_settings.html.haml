@@ -1,10 +1,10 @@
 :javascript
   function auto_check_filter_box_if_needed() {
     checkbox = $('#user_filter_content_by_hierarchy');
-    if ($('#user_default_hierarchy_id').val() == '' && checkbox.val() == "true") {
+    if ($('#user_default_hierarchy_id').val() == '' && checkbox.attr('checked')) {
       checkbox.click(); // Setting the val on checkboxes "works", but the user can't see it.  This does both.
     }
-    if ($('#user_default_hierarchy_id').val() != '' && checkbox.val() == "false") {
+    if ($('#user_default_hierarchy_id').val() != '' && !checkbox.attr('checked')) {
       checkbox.click();
     }
   }

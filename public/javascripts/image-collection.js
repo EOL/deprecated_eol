@@ -47,7 +47,7 @@ $(document).ready(function() {
   // Clicking on a thumbnail does... a lot:
   $("#thumbnails a").click(function() {
     EOL.close_open_overlays();
-    var id = $(this).attr('href');
+    var id = $(this).attr('href').replace(/^.*\/(\d+)/, '$1');
     EOL.log("Showing image "+id);
     $("#notes-container div.mc-notes").hide();
     $("#notes-container #mc-notes-"+id).show();

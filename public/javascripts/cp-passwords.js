@@ -6,8 +6,7 @@
   function check_passwords() {
     if ($('#agent_password').val() != $('#agent_password_confirmation').val()) {
       $('#password_match').fadeIn();
-    }
-    else {
+    } else {
       $('#password_match').fadeOut();
     }
   }

@@ -1,6 +1,8 @@
-function pulsate_error(el) {
+if (!EOL) { EOL = {}; }
+// TODO - move this to eol.js and possibly use it elsewhere (user.js, for example).
+EOL.pulsate_error = function(el) {
   $(el).fadeIn('fast').fadeOut('fast').fadeIn('fast').fadeOut('fast').fadeIn('fast').delay(4000).fadeOut(2000);
-}
+};
 
 // NOTE - These get reloaded often, so I am unbinding them before re-binding them. (Otherwise they fire twice.)
 $(document).ready(function() {
@@ -62,7 +64,7 @@ $.extend(EOL.Text, {
   open_new_text_dialog: function(link_href) {
     if($('#insert_text_popup:visible').length > 0) {
       // show warning because add/edit popup is already being displayed
-      pulsate_error($('.multi_new_text_error'));
+      EOL.pulsate_error($('.multi_new_text_error'));
     } else {
       // If we already have a form and this is NOT an edit:
       if (EOL.Text.form().length > 0 && link_href.indexOf('edit') == -1) {
@@ -86,9 +88,9 @@ $.extend(EOL.Text, {
   // When you have a populated new-text dialog, show it and make it work:
   show_new_text_dialog: function() {
     $('#insert_text_popup').slideDown(400, function() {
-      $(window).scrollTop($('#insert_text_popup').offset()['top'] - 40);
+      $(window).scrollTop($('#insert_text_popup').offset().top - 40);
     });
-    EOL.Text.enable_form();
+    try { EOL.Text.enable_form(); } catch(e) { } // This isn't always loaded at this point (and runs elsewhere when it isn't)...
   },
 
   // Loads the new text dialog via ajax, cleans up content if needed (for example, if on "Common Names")
@@ -114,3 +116,55 @@ $.extend(EOL.Text, {
   }
 
 });
+
+// NOTE - These get reloaded often, so I am unbinding them before re-binding them. (Otherwise they fire twice.)
+$(document).ready(function() {
+  $('a.gloss-tooltip').tooltip();
+  // Allow the user to show extra attribution information for text
+  $('.expand-text-attribution').unbind('click');
+  $('.expand-text-attribution').click(function(e) {
+    // TODO - I don't think we need the each() here... I think it will work withgout it, but cannot test now
+    $('div.' + $(this).attr('id').substring(4) +' div.credit').each(function(){ $(this).fadeIn(); });
+    $(this).fadeOut();
+    return false;
+  });
+  // slide in text comments
+  $('div.text_buttons div.comment_button a').unbind('click');
+  $('div.text_buttons div.comment_button a').click(function(e) {
+    data_object_id = $(this).attr('data-data_object_id');
+    textCommentsDiv = "text-comments-wrapper-" + data_object_id;
+    textCommentsWrapper = "#" + textCommentsDiv;
+    $.ajax({
+      url: $(this).attr('href'),
+      data: { body_div_name: textCommentsDiv },
+      success: function(result) {$(textCommentsWrapper).html(result);},
+      error: function() {$(textCommentsWrapper).html("<p>Sorry, there was an error.</p>");},
+      complete: function() { $(textCommentsWrapper).slideDown(); }
+    });
+    return false;
+  });
+  // Curate text:
+  $('div.text_buttons div.curate_button a').unbind('click');
+  $('div.text_buttons div.curate_button a').click(function(e) {
+    data_object_id = $(this).attr('data-data_object_id');
+    textCuration = "text-curation-" + data_object_id;
+    textCurationWrapper = "#text-curation-wrapper-" + data_object_id;
+    $.ajax({
+      url: $(this).attr('href'),
+      data: { body_div_name: textCuration },
+      success: function(result) { $('#'+textCuration).html(result); },
+      error: function() {$(textCurationWrapper).html("<p>Sorry, there was an error.</p>");},
+      complete: function() { $(textCurationWrapper).slideDown(); }
+    });
+    return false;
+  });
+  // Open the add-text user interface
+  $('li.add_text>a, div.add_text_button a').unbind('click');
+  $('li.add_text>a, div.add_text_button a').click(function() {
+    EOL.Text.open_new_text_dialog($(this).attr('href'));
+    return false;
+  });
+  // Open edit-text user interface:
+  EOL.Text.init_edit_links();
+});
+

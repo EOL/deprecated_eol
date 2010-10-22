@@ -1,5 +1,5 @@
-if(!EOL) var EOL = {}
-if(!EOL.Search) EOL.Search = {}
+if(!EOL) { var EOL = {}; }
+if(!EOL.Search) { EOL.Search = {}; }
 
 EOL.Search.show_top_spinner = function() {
   $('#top_search_spinner').show();

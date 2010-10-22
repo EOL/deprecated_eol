@@ -1,34 +1,36 @@
 // This handles all of the functionality of the mini-clade browser, which is used in several places.
 if (!EOL) EOL = {};
 // Set up some stupid defaults, just in case.  (All of these should be supplied before now, though.)
-if (!EOL.clade_selector_input_name) EOL.clade_selector_input_name = 'selected-clade-id';
-if (!EOL.clade_selector_id) EOL.clade_selector_id = 'selected-clade-id';
-if (!EOL.clade_selector_id) EOL.clade_selector_id = '<img src="/images/indicator_arrows_black.gif"/>';
-if (!EOL.clade_behavior_needs_load) EOL.clade_behavior_needs_load = 'yes'; // Avoid boolean, makes defined test easier
-if (!EOL.expand_clade_behavior) EOL.expand_clade_behavior = function() {
-  // Because things are sloppy, loading here sometimes happens twice.  This helps avoid that.  TODO - remove this when the
-  // loading is cleaned up!  (I really hate this code as-is!)
-  if(EOL.clade_behavior_needs_load == 'yes') {
-    EOL.clade_behavior_needs_load = 'nope';
-    if (!EOL.expanding_clade_spinner) EOL.expanding_clade_spinner = $('#orig-clade-spinner').html();
-    $('a.expand-clade').click(function() {
-      $(this).append(EOL.expanding_clade_spinner);
-      $('value_' + $(this).attr('clade_id')).html(EOL.indicator_arrows_html);
-      // TODO - This is EXTREMELY inefficient in that it re-loads the current page with a given node expanded and then grabs
-      // the entire tree from the resulting HTML and puts in place of the existing one.  This is really ugly.  Needs to be
-      // fixed ASAP. Note that this special functionality of load() is ONLY available with load() (not with, say, $.ajax()).
-      var tree_path = '#'+EOL.clade_selector_id+'-inner ul.tree'
-      EOL.clade_behavior_needs_load = 'yes';
-      $(tree_path).load($(this).attr('href') + ' ' + tree_path, // special syntax to grab *part* of a response.
-        '', // data.  We don't want to send any.  Careful not to use an object {} here, the request w/ become a POST.
-        function() { // this is called when the response is complete.
-          EOL.expand_clade_behavior();
-          $('.clade-spinner').remove();
-        }
-      );
-      return false;
-    });
-  }
+if (!EOL.clade_selector_input_name) { EOL.clade_selector_input_name = 'selected-clade-id'; }
+if (!EOL.clade_selector_id) { EOL.clade_selector_id = 'selected-clade-id'; }
+if (!EOL.clade_selector_id) { EOL.clade_selector_id = '<img src="/images/indicator_arrows_black.gif"/>'; }
+if (!EOL.clade_behavior_needs_load) { EOL.clade_behavior_needs_load = 'yes'; } // Avoid boolean, makes defined test easier
+if (!EOL.expand_clade_behavior) {
+  EOL.expand_clade_behavior = function() {
+    // Because things are sloppy, loading here sometimes happens twice.  This helps avoid that.  TODO - remove this when the
+    // loading is cleaned up!  (I really hate this code as-is!)
+    if(EOL.clade_behavior_needs_load == 'yes') {
+      EOL.clade_behavior_needs_load = 'nope';
+      if (!EOL.expanding_clade_spinner) { EOL.expanding_clade_spinner = $('#orig-clade-spinner').html(); }
+      $('a.expand-clade').click(function() {
+        $(this).append(EOL.expanding_clade_spinner);
+        $('value_' + $(this).attr('clade_id')).html(EOL.indicator_arrows_html);
+        // TODO - This is EXTREMELY inefficient in that it re-loads the current page with a given node expanded and then grabs
+        // the entire tree from the resulting HTML and puts in place of the existing one.  This is really ugly.  Needs to be
+        // fixed ASAP. Note that this special functionality of load() is ONLY available with load() (not with, say, $.ajax()).
+        var tree_path = '#'+EOL.clade_selector_id+'-inner ul.tree'
+        EOL.clade_behavior_needs_load = 'yes';
+        $(tree_path).load($(this).attr('href') + ' ' + tree_path, // special syntax to grab *part* of a response.
+          '', // data.  We don't want to send any.  Careful not to use an object {} here, the request w/ become a POST.
+          function() { // this is called when the response is complete.
+            EOL.expand_clade_behavior();
+            $('.clade-spinner').remove();
+          }
+        );
+        return false;
+      });
+    }
+  };
 }
 
 // Alias to display a node when it's not for a selection:

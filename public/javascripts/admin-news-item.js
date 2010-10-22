@@ -1,9 +1,10 @@
 
 function textCounter(field,cntfield,maxlimit) {
-	if (field.val().length > maxlimit) // if too long...trim it!
+	if (field.val().length > maxlimit) { // if too long...trim it!
 		field.val(field.val().substring(0, maxlimit));
-	else // otherwise, update 'characters left' counter
+  } else { // otherwise, update 'characters left' counter
 		cntfield.html(maxlimit - field.val().length + ' remaining');
+  }
 }
 
 function check_body_remaining () {

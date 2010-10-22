@@ -1,5 +1,5 @@
-if(!EOL) var EOL = {};
-if(!EOL.Curation) EOL.Curation = {};
+if(!EOL) { var EOL = {}; }
+if(!EOL.Curation) { EOL.Curation = {}; }
 
 // Update the image(s) now that it's been curated:
 EOL.Curation.post_curate_image = function(args) {

@@ -1,4 +1,4 @@
-if (!EOL) EOL = {};
+if (!EOL) { EOL = {}; }
 // Updates the main video area... does this by building HTML. TODO - convert this to views and show/hide them.
 EOL.update_video = function(params) {
     $('div#media-videos div.attribution_link').show();
@@ -31,7 +31,7 @@ EOL.update_video = function(params) {
 
     // TODO - i18n (really, all of this should be moved to a view and shown/hidden).
     license_info = 'COPYRIGHT: ';
-    if (params.license_text != '') license_info += params.license_text;
+    if (params.license_text != '') { license_info += params.license_text; }
     if (params.license_logo != '') {
       license_info += '&nbsp;&nbsp;<a href="'+params.license_link+
         '" class="external_link"><img src="' + params.license_logo + '" border="0"></a>';
@@ -39,7 +39,7 @@ EOL.update_video = function(params) {
 
     video_notes_area = '';
     video_notes_area += params.title +'<br /><br />';
-    if (license_info != '') video_notes_area += license_info + '<br />';
+    if (license_info != '') { video_notes_area += license_info + '<br />'; }
 
     data_supplier      = params.video_data_supplier;
     data_supplier_name = params.video_supplier_name;
@@ -57,8 +57,8 @@ EOL.update_video = function(params) {
     }
 
     // TODO - i18n
-    if (params.author != '') video_notes_area += 'AUTHOR: ' + params.author + '<br />';
-    if (params.collection != '') video_notes_area += 'SOURCE: ' + params.collection + '<br />';
+    if (params.author != '') { video_notes_area += 'AUTHOR: ' + params.author + '<br />'; }
+    if (params.collection != '') { video_notes_area += 'SOURCE: ' + params.collection + '<br />'; }
     video_notes_area += params.field_notes ? '<br />' + params.field_notes : '';
 
     notes.html(video_notes_area);

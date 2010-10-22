@@ -15,17 +15,18 @@ EOL.Tagging = {
   // the currently selected category (key)
   selected_category: function() {
     var category = $('#tag_key').val();
-    if (category == '') category = 'none';
+    if (category == '') { category = 'none'; }
     return category;
   },
 
   // returns whether or not a valid category (key) is currently selected
   category_selected: function() {
     var cat = EOL.Tagging.selected_category();
-    if (cat.length != 1)
+    if (cat.length != 1) {
       return true;
-    else
+    } else {
       return false;
+    }
   },
 
   // The div that the tagging UI on the current page is wrapped in (depending on whether it's in a popup)

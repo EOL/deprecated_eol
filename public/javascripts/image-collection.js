@@ -8,20 +8,22 @@ if (!EOL.replace_dato_id) {
   };
 }
 
-if (!EOL.handle_main_img_icon) EOL.handle_main_img_icon = function(id) {
-  $('#large-image-button-group li.status_icon').hide();
-  // This is a little confusing, sorry.  Basically, we look at the thumbnail.  For every icon that is VISIBLE there...
-  $('ul[data-data_object_id='+id+'] li:visible').each(function() {
-    var classes = $(this).attr('class').split(' ');
-    /// ...we look at the class name(s) of that visible icon...
-    for (i in classes) {
-      if (classes[i] == 'status_icon') { continue; } // ...(and skip this class)...
-      // ...and finally show the icon under the main image with the same class name (they are created with the same partial):
-      // Note: weird, but true--show() doesn't work... it forces a display that breaks the icon down a line.  This works:
-      $('#large-image-button-group li.'+classes[i]).css({display:'inline-block'});
-    }
-  });
-};
+if (!EOL.handle_main_img_icon) {
+  EOL.handle_main_img_icon = function(id) {
+    $('#large-image-button-group li.status_icon').hide();
+    // This is a little confusing, sorry.  Basically, we look at the thumbnail.  For every icon that is VISIBLE there...
+    $('ul[data-data_object_id='+id+'] li:visible').each(function() {
+      var classes = $(this).attr('class').split(' ');
+      /// ...we look at the class name(s) of that visible icon...
+      for (var i in classes) {
+        if (classes[i] == 'status_icon') { continue; } // ...(and skip this class)...
+        // ...and finally show the icon under the main image with the same class name (they are created with the same partial):
+        // Note: weird, but true--show() doesn't work... it forces a display that breaks the icon down a line.  This works:
+        $('#large-image-button-group li.'+classes[i]).css({display:'inline-block'});
+      }
+    });
+  };
+}
 
 $(document).ready(function() {
   // Image pagination:

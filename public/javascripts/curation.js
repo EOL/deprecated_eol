@@ -18,23 +18,23 @@ EOL.Curation.post_curate_image = function(args) {
   EOL.Curation.update_icons(dato_id, visibility_id);
   EOL.handle_main_img_icon(dato_id);
   thumbnail = $('#thumbnails a[href='+dato_id+']');
-  image = $('#image-'+dato_id);
+  image_wrap = $('#image-'+dato_id);
   notes = $('#mc-notes-'+dato_id);
   classes = 'trusted unknown untrusted unknown-text untrusted-text';
   thumbnail.removeClass(classes);
-  image.removeClass(classes);
+  image_wrap.removeClass(classes);
   notes.removeClass(classes);
   if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
     thumbnail.addClass('untrusted');
-    image.addClass('untrusted');
+    image_wrap.addClass('untrusted');
     notes.addClass('untrusted-text');
   } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Cant "unknow" something, but could load an image that already is?
     thumbnail.addClass('unknown');
-    image.addClass('unknown');
+    image_wrap.addClass('unknown');
     notes.addClass('unknown-text');
   } else {
     thumbnail.addClass('trusted');
-    image.addClass('trusted');
+    image_wrap.addClass('trusted');
   }
 };
 // Update text objects after curation:

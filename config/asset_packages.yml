@@ -4,8 +4,6 @@ javascripts:
   - jquery.tools.min
   - eol
   - search
-  - comments
-  - builder
   - bioGUIDv3
   - application 
 

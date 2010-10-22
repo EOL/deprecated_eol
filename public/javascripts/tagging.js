@@ -55,6 +55,7 @@ EOL.Tagging = {
   
   reload_tagging: function (tag_type) {
     // Create Tag
+    $('div#add_data_object_tags_fields>form').unbind('submit');
     $('div#add_data_object_tags_fields>form').submit(function(e) {
       $('#ajax-indicator-popup').fadeIn();
       var key   = EOL.Tagging.selected_category();
@@ -66,6 +67,7 @@ EOL.Tagging = {
     });
 
     // Delete Tag
+    $('#private_data_object_tags span.data_object_tag_key_value>form').unbind('submit');
     $('#private_data_object_tags span.data_object_tag_key_value>form').submit(function(e) {
       var post_url = $(this).attr('action');
       var path = post_url.replace(/tags\/.*/,'tags/private');
@@ -97,12 +99,14 @@ EOL.Tagging = {
     });
 
     // Ajaxify switching between Public / Private Tags
+    $('#public_and_private_data_object_tags div.headers h3 a').unbind('click');
     $('#public_and_private_data_object_tags div.headers h3 a').click(function(e) {
       EOL.Tagging.reload_url(this.href, e.element().id);
       return false;
     });
 
     // Ajaxifies switching from Public -> Private Tags, given a specific link
+    $('#public_and_private_data_object_tags #public_data_object_tags a.tagging-link').unbind('click');
     $('#public_and_private_data_object_tags #public_data_object_tags a.tagging-link').click(function(e) {
       EOL.Tagging.reload_url(this.href);
       return false;

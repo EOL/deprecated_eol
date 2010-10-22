@@ -96,6 +96,7 @@ if (!EOL.Text.already_loaded) {
           // reset form:  (this may be worth turning in to a global method):
           EOL.Text.form().find('input, textarea').not(':hidden, :button, :submit').val('').removeAttr('checked').removeAttr('selected');
           EOL.Text.init_edit_links();
+          EOL.Text.init_text_content_behaviors();
         },
         complete: function() { $('#insert_text_popup').slideUp(); },
         error: function() { alert("Sorry, there was an error submitting your text.");},

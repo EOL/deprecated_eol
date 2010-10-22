@@ -47,7 +47,10 @@
         - column_class=cycle('odd', 'even')
         %tr
           %td{ :class => column_class }
-            = link_to row[:search_term], search_log_url(row[:search_term])
+            = h row[:search_term]
+            -#
+              -# TODO - This doesn't work, I can't see how it ever worked... we have IDs, not terms, for :show.  Re-write.
+              = link_to row[:search_term], search_log_url(row[:search_term])
           %td{ :class => column_class }
             = row[:search_type]
           %td{ :class => column_class }

@@ -113,58 +113,62 @@ $.extend(EOL.Text, {
   // This is only called server-side, but in two different places, so I'm keeping it here:
   update_add_links: function(url) {
     $('li.add_text>a, div.add_text_button a').attr('href', url);
+  },
+
+  init_text_content_behaviors: function() {
+    // NOTE - These get reloaded often, so I am unbinding them before re-binding them. (Otherwise they fire twice.)
+    $('a.gloss-tooltip').tooltip();
+    // Allow the user to show extra attribution information for text
+    $('.expand-text-attribution').unbind('click');
+    $('.expand-text-attribution').click(function(e) {
+      // TODO - I don't think we need the each() here... I think it will work withgout it, but cannot test now
+      $('div.' + $(this).attr('id').substring(4) +' div.credit').each(function(){ $(this).fadeIn(); });
+      $(this).fadeOut();
+      return false;
+    });
+    // slide in text comments
+    $('div.text_buttons div.comment_button a').unbind('click');
+    $('div.text_buttons div.comment_button a').click(function(e) {
+      data_object_id = $(this).attr('data-data_object_id');
+      textCommentsDiv = "text-comments-wrapper-" + data_object_id;
+      textCommentsWrapper = "#" + textCommentsDiv;
+      $.ajax({
+        url: $(this).attr('href'),
+        data: { body_div_name: textCommentsDiv },
+        success: function(result) {$(textCommentsWrapper).html(result);},
+        error: function() {$(textCommentsWrapper).html("<p>Sorry, there was an error.</p>");},
+        complete: function() { $(textCommentsWrapper).slideDown(); }
+      });
+      return false;
+    });
+    // Curate text:
+    $('div.text_buttons div.curate_button a').unbind('click');
+    $('div.text_buttons div.curate_button a').click(function(e) {
+      data_object_id = $(this).attr('data-data_object_id');
+      textCuration = "text-curation-" + data_object_id;
+      textCurationWrapper = "#text-curation-wrapper-" + data_object_id;
+      $.ajax({
+        url: $(this).attr('href'),
+        data: { body_div_name: textCuration },
+        success: function(result) { $('#'+textCuration).html(result); },
+        error: function() {$(textCurationWrapper).html("<p>Sorry, there was an error.</p>");},
+        complete: function() { $(textCurationWrapper).slideDown(); }
+      });
+      return false;
+    });
+    // Open the add-text user interface
+    $('li.add_text>a, div.add_text_button a').unbind('click');
+    $('li.add_text>a, div.add_text_button a').click(function() {
+      EOL.Text.open_new_text_dialog($(this).attr('href'));
+      return false;
+    });
+    // Open edit-text user interface:
+    EOL.Text.init_edit_links();
   }
 
 });
 
-// NOTE - These get reloaded often, so I am unbinding them before re-binding them. (Otherwise they fire twice.)
 $(document).ready(function() {
-  $('a.gloss-tooltip').tooltip();
-  // Allow the user to show extra attribution information for text
-  $('.expand-text-attribution').unbind('click');
-  $('.expand-text-attribution').click(function(e) {
-    // TODO - I don't think we need the each() here... I think it will work withgout it, but cannot test now
-    $('div.' + $(this).attr('id').substring(4) +' div.credit').each(function(){ $(this).fadeIn(); });
-    $(this).fadeOut();
-    return false;
-  });
-  // slide in text comments
-  $('div.text_buttons div.comment_button a').unbind('click');
-  $('div.text_buttons div.comment_button a').click(function(e) {
-    data_object_id = $(this).attr('data-data_object_id');
-    textCommentsDiv = "text-comments-wrapper-" + data_object_id;
-    textCommentsWrapper = "#" + textCommentsDiv;
-    $.ajax({
-      url: $(this).attr('href'),
-      data: { body_div_name: textCommentsDiv },
-      success: function(result) {$(textCommentsWrapper).html(result);},
-      error: function() {$(textCommentsWrapper).html("<p>Sorry, there was an error.</p>");},
-      complete: function() { $(textCommentsWrapper).slideDown(); }
-    });
-    return false;
-  });
-  // Curate text:
-  $('div.text_buttons div.curate_button a').unbind('click');
-  $('div.text_buttons div.curate_button a').click(function(e) {
-    data_object_id = $(this).attr('data-data_object_id');
-    textCuration = "text-curation-" + data_object_id;
-    textCurationWrapper = "#text-curation-wrapper-" + data_object_id;
-    $.ajax({
-      url: $(this).attr('href'),
-      data: { body_div_name: textCuration },
-      success: function(result) { $('#'+textCuration).html(result); },
-      error: function() {$(textCurationWrapper).html("<p>Sorry, there was an error.</p>");},
-      complete: function() { $(textCurationWrapper).slideDown(); }
-    });
-    return false;
-  });
-  // Open the add-text user interface
-  $('li.add_text>a, div.add_text_button a').unbind('click');
-  $('li.add_text>a, div.add_text_button a').click(function() {
-    EOL.Text.open_new_text_dialog($(this).attr('href'));
-    return false;
-  });
-  // Open edit-text user interface:
-  EOL.Text.init_edit_links();
+  EOL.Text.init_text_content_behaviors();
 });
 

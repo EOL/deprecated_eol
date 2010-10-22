@@ -23,20 +23,20 @@
           - if toc == @whole_tree.first || (toc.is_sub? && @whole_tree[index-1] && @whole_tree[index-1].is_major?)
             = image_tag('arrow_blank.gif') + image_tag('arrow_blank.gif')
           - else
-            %a{:href => '', :onclick => "toc_move_up(#{toc.id}, true); return false;"}><
+            %a{:href => '', :onclick => "javascript:toc_move_up(#{toc.id}, true); return false;"}><
               = image_tag('arrow_way_up.gif', :alt => 'move to top', :title => 'move to top')
-            %a{:href => '', :onclick => "toc_move_up(#{toc.id}, false); return false;"}><
+            %a{:href => '', :onclick => "javascript:toc_move_up(#{toc.id}, false); return false;"}><
               = image_tag('arrow_up.gif', :alt => 'move up', :title => 'move up')
           - if toc.id == last_toc_chapter.id || (toc.is_sub? && @whole_tree[index+1] && @whole_tree[index+1].is_major?)
             = image_tag('arrow_blank.gif') + image_tag('arrow_blank.gif')
           - else
-            %a{:href => '', :onclick => "toc_move_down(#{toc.id}, false); return false;"}><
+            %a{:href => '', :onclick => "javascript:toc_move_down(#{toc.id}, false); return false;"}><
               = image_tag('arrow_down.gif', :alt => 'move down', :title => 'move down')
-            %a{:href => '', :onclick => "toc_move_down(#{toc.id}, true); return false;"}><
+            %a{:href => '', :onclick => "javascript:toc_move_down(#{toc.id}, true); return false;"}><
               = image_tag('arrow_way_down.gif', :alt => 'move to bottom', :title => 'move to bottom')
           %span{:id => "toc_label_#{toc.id}"}><
             = "&nbsp;" + toc.label + "&nbsp;"
-            %a{:href => '', :onclick => "toc_edit_label(#{toc.id}, '#{toc.label}'); return false;"}
+            %a{:href => '', :onclick => "javascript:toc_edit_label(#{toc.id}, "#{toc.label}"); return false;"}
               = image_tag('pencil.png', :alt => 'edit', :title => 'edit', :style => 'float: right; margin: 0px;')
         %td{:class => cell2_class, :valign => 'top'}
           - unless toc.info_items.empty?
@@ -53,11 +53,11 @@
           %td.sub{:valign => 'top', :colspan => 3}
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             %input{:id => "input_#{input_counter}", :type => 'text', :size => '40'}
-            %a{:href => '', :onclick => "toc_add_sub_chapter(#{add_to_id}, 'input_#{input_counter}'); return false;"}
+            %a{:href => '', :onclick => "javascript:toc_add_sub_chapter(#{add_to_id}, 'input_#{input_counter}'); return false;"}
               Add sub-chapter
       - if toc == @whole_tree.last
         %tr
           %td.major_ii{:valign => 'top', :colspan => 3}
             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             %input{:id => "input_chapter", :type => 'text', :size => '40'}
-            %input{:type => 'submit', :value => 'Add Major Chapter', :onclick => "toc_add_chapter('input_chapter'); return false;"}
+            %input{:type => 'submit', :value => 'Add Major Chapter', :onclick => "javascript:toc_add_chapter('input_chapter'); return false;"}

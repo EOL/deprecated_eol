@@ -48,6 +48,7 @@ $(document).ready(function() {
   $("#thumbnails a").click(function() {
     EOL.close_open_overlays();
     var id = $(this).attr('href');
+    EOL.log("Showing image "+id);
     $("#notes-container div.mc-notes").hide();
     $("#notes-container #mc-notes-"+id).show();
     $("#large-image .main-image-bg").hide();

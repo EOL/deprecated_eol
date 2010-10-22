@@ -75,21 +75,16 @@ EOL.Tagging = {
       return false;
     });
 
-    // tagging auto-complete field
-    //
-    // the creator made the .autocomplete() function using jquery - we might want to port this to prototype
-    // ( i looked for a prototype-based plugin, but this seemed to be the best fit for our needs )
-    //
-    // options:
-    //
-    //  mustMatch:1,          //allow only values from the list
-    //  matchContains:1,      //also match inside of strings when caching
-    //  selectFirst:1,        //select the first item on tab/enter
-    //  removeInitialValue:0  //when first applying $.autocomplete
-    //
-    //  note: we've customized jquery.autocomplete specifically for this form!
     $('#add_data_object_tags_fields input[autocomplete_url]').each(function() {
       var url = $(this).attr('autocomplete_url');
+      // tagging auto-complete field
+      //
+      // options:
+      //   matchContains:1,      //also match inside of strings when caching
+      //   selectFirst:1,        //select the first item on tab/enter
+      //   removeInitialValue:0  //when first applying $.autocomplete
+      //
+      //  note: we've customized jquery.autocomplete specifically for this form!
       $(this).autocomplete({
         url: url,
         matchContains: 1,

@@ -177,7 +177,11 @@ class DataObjectsController < ApplicationController
 
   def show
     get_attribution
+    @type = @data_object.data_type.label
     @comments = @data_object.all_comments
+    @revisions = @data_object.revisions.sort_by(&:created_at)
+    @taxon_concepts = @data_object.taxon_concepts
+    @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
   end
 
   # GET /data_objects/1/attribution

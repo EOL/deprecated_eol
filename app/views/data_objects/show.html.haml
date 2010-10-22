@@ -1,29 +1,39 @@
-#page_title
-  %h2 Page title
-
+#page-title
+  %h1== #{@type} object
+  %h2 in #{@scientific_names.keys.sort.join(", ")}
 #page-content.clearfix
   #full-page-content
+    %h3 Attribution
     = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
-    #taxaCommentsWrap{ :style => "margin-top:2em" }
-      #commentsContain
-        .controls
-          - if @slim_container
-            - info = "Total %s comments" % @comments.size
-            = info == 'No entries found' ? 'Comments' : "#{info},"
-            on
-            = @title_label
-            - if @title != ''
-              %div
-                %h2
-                  = @title
+    - if @revisions.size > 1
+      %h3 Revisions
+      %ul
+      - @revisions.each do |revision|
+        %li= link_to(revision.created_at, data_object_path(revision.id))
+    %h3 Pages
+    %ul
+    - @taxon_concepts.each do |tc|
+      %li= link_to(tc.scientific_name, taxon_concept_path(tc.id)) 
+    - unless @comments.blank?
+      %h3 Comments
+      #taxaCommentsWrap{ :style => "margin-top:2em" }
+        #commentsContain
+          .controls
+            - if @slim_container
+              - info = "Total %s comments" % @comments.size
+              = info == 'No entries found' ? 'Comments' : "#{info},"
+              on
+              = @title_label
+              - if @title != ''
+                %div
+                  %h2
+                    = @title
+            - else
+              %small
+                = info == 'No entries found' ? '' : info
+          - if @comments.empty?
+            %p#no-comments
+              No comments have been left yet.
           - else
-            %h2
-              Comments
-            %small
-              = info == 'No entries found' ? '' : info
-        - if @comments.empty?
-          %p#no-comments
-            No comments have been left yet.
-        - else
-          %ul.comments
-            = render :partial => 'comments/list', :locals => { :current_objects => @comments }
+            %ul.comments
+              = render :partial => 'comments/list', :locals => { :current_objects => @comments }

@@ -369,13 +369,13 @@ class DataObject < SpeciesSchemaModel
     return authors
   end
 
-  def find_all_for_reharvested_dato
+  def revisions
     DataObject.find_all_by_guid(guid)
   end
   
   def all_comments
     all_comments = []
-    find_all_for_reharvested_dato.each do |parent|
+    revisions.each do |parent|
       all_comments += Comment.find_all_by_parent_id(parent.id)
     end
     return all_comments

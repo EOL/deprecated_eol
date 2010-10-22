@@ -8,7 +8,7 @@ EOL.update_video = function(params) {
     $.ajax({
       url: '/taxa/show_video/',
       // TODO - sloppy.  With a few controller-side tweaks, we could use params directly.
-      data: { video_type: params.video_type, video_url: params.video_url, video_mime_type_id: params.mime_type_id, data_object_id: params.data_object_id, video_object_cache_url: params.object_cache_url },
+      data: { video_type: params.video_type, video_url: params.video_url, video_mime_type_id: params.mime_type_id, data_object_id: params.data_object_id, video_object_cache_url: params.object_cache_url }
     });
 
     notes = $('#video-notes');

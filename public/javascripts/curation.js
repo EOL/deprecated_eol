@@ -1,6 +1,17 @@
-if(!EOL) { var EOL = {}; }
+if(!EOL) { EOL = {}; }
 if(!EOL.Curation) { EOL.Curation = {}; }
 
+// Invisible icons on text:
+EOL.Curation.update_icons = function(data_object_id, visibility_id) {
+  $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').hide();
+  $('ul[data-data_object_id='+data_object_id+'] li.inappropriate_icon').hide();
+  // NOTE: show() doesn't work for image thumbnails, because the diplay ends up with the wrong value.
+  if(visibility_id == EOL.Curation.INVISIBLE_ID) {
+    $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').css({display: 'inline-block'});
+  } else if(visibility_id == EOL.Curation.INAPPROPRIATE_ID) {
+    $('ul[data-data_object_id='+data_object_id+'] li.inappropriate_icon').css({display: 'inline-block'});
+  }
+};
 // Update the image(s) now that it's been curated:
 EOL.Curation.post_curate_image = function(args) {
   var dato_id = args[0]; var visibility_id = args[1]; var vetted_id = args[2];
@@ -17,7 +28,7 @@ EOL.Curation.post_curate_image = function(args) {
     thumbnail.addClass('untrusted');
     image.addClass('untrusted');
     notes.addClass('untrusted-text');
-  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Never really happens, since we can't "unknow" something...
+  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Cant "unknow" something, but could load an image that already is?
     thumbnail.addClass('unknown');
     image.addClass('unknown');
     notes.addClass('unknown-text');
@@ -35,22 +46,10 @@ EOL.Curation.post_curate_text = function(args) {
   $('#text_'+data_object_id).removeClass('untrusted unknown trusted');
   if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
     $('#text_'+data_object_id).addClass('untrusted');
-  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Never really happens, since we can't "unknow" something...
+  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Cant "unknow" something, but could load a text that already is?
     $('#text_'+data_object_id).addClass('unknown');
   }
   EOL.Curation.update_icons(data_object_id, visibility_id);
-};
-// Invisible icons on text:
-EOL.Curation.update_icons = function(data_object_id, visibility_id) {
-  $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').hide();
-  $('ul[data-data_object_id='+data_object_id+'] li.inappropriate_icon').hide();
-
-  // NOTE: show() doesn't work for image thumbnails, because the diplay ends up with the wrong value.
-  if(visibility_id == EOL.Curation.INVISIBLE_ID) {
-    $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').css({display: 'inline-block'});
-  } else if(visibility_id == EOL.Curation.INAPPROPRIATE_ID) {
-    $('ul[data-data_object_id='+data_object_id+'] li.inappropriate_icon').css({display: 'inline-block'});
-  }
 };
 
 $(document).ready(function() {

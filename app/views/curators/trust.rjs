@@ -1,2 +1,4 @@
 page.replace_html @div_id, @data_object.vetted.label
-page.select('.reason').each { |e| e.hide }
+# page.select('.reason').each { |e| e.hide }
+page << "$j('##{@div_id}').parents('td').removeClass('unreviewed untrusted');"
+page << "$j('##{@div_id}').parents('td').siblings('td').removeClass('unreviewed untrusted');"

@@ -56,10 +56,17 @@ class CuratorsController < ApplicationController
       fmt.js
     end
   end
-
+  
+  def unreviewed
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object.unreviewed(current_user)
+    @div_id = params[:div_id]
+    respond_to do |fmt|
+      fmt.js
+    end
+  end
+  
   def update_reasons
-    puts "++ Got here"
-    pp params
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.untrust(current_user, params['untrust_reasons'])
     render :nothing => true
@@ -97,6 +104,15 @@ class CuratorsController < ApplicationController
     @data_object.comment(current_user, params['comment'])
     respond_to do |fmt|
       fmt.js { render :nothing => true }
+    end
+  end
+  
+  def ignore
+    @data_object = DataObject.find(params[:data_object_id])
+    current_user.ignore_object_for_curation(@data_object)
+    @div_id = params[:div_id]
+    respond_to do |fmt|
+      fmt.js
     end
   end
 

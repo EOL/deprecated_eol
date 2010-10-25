@@ -579,10 +579,12 @@ class User < ActiveRecord::Base
           JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he.lft AND he.rgt AND he_children.hierarchy_id=he.hierarchy_id)
           JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (he_children.taxon_concept_id = dotc.taxon_concept_id)
           JOIN #{DataObject.full_table_name} do ON (dotc.data_object_id = do.id)
+          LEFT JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
         WHERE he.id = ?
           AND do.published = 1
           AND do.vetted_id = #{Vetted.unknown.id}
           AND do.data_type_id = #{DataType.image.id}
+          AND uido.id IS NULL
         LIMIT 0,300", hierarchy_entry_id.to_i]);
     
     start = per_page * (page - 1)
@@ -590,6 +592,10 @@ class User < ActiveRecord::Base
     data_object_ids_to_lookup = result[start..last].collect{|d| d.id}
     result[start..last] = DataObject.details_for_objects(data_object_ids_to_lookup, :skip_refs => true, :add_common_names => true)
     return result
+  end
+  
+  def ignore_object_for_curation(data_object)
+    UserIgnoredDataObject.create(:user => self, :data_object => data_object)
   end
 
   def uservoice_token

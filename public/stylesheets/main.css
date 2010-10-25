@@ -1119,7 +1119,8 @@ li.current_kingdom {
 #content #page-content .cpc-content em {
   font-style: italic; }
 #content #page-content .cpc-content img {
-  max-width: 450px; }
+  max-width: 440px;
+  margin: 1px; }
 #content #page-content #center-page-content p {
   padding: 8px 0; }
 

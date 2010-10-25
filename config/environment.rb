@@ -51,7 +51,6 @@ Rails::Initializer.run do |config|
   config.gem 'macaddr'
   config.gem 'uuid'
   config.gem 'ezcrypto'
-  config.gem 'ratom', :lib => 'atom'
   config.gem 'json'
   config.gem 'sanitize'
   # config.gem 'mwmitchell-rsolr', :lib => 'rsolr'

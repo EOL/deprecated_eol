@@ -9,29 +9,32 @@
   - @images_to_curate.each do |image|
     - row_class = cycle('odd', 'even')
     %tr
-      %td{:class => "overlay_link #{row_class}"}
+      %td{:class => "overlay_link #{row_class} unreviewed"}
         %h5
           = link_to(image['scientific_name'], {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
         - if !image['common_names'].blank?
           %h6
             = image['common_names'][0]['name']
         = link_to(image_tag(DataObject.image_cache_path(image["object_cache_url"], :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
-        %h6
-          = "Description:"[]
-        - if image['description'].blank?
-          = "[description is blank]"[]
-        - else
-          = truncate(strip_tags(image['description']), 48)
         - unless image['agents'].empty?
-          %h6
+          %em
             = "Supplier:"[]
           = image['agents'][0]['full_name']
+          - unless image['agents'][1..-1].blank?
+            - for agent in image['agents'][1..-1]
+              %br
+              %em
+                = "#{agent['role']}:"
+              = agent['full_name']
+        - unless image['description'].blank?
+          %h6
+            = "Description:"[]
+          = truncate(strip_tags(image['description']), 48)
         - unless image['location'].empty?
-          %br
-          %em 
+          %h6 
             = "Location:"[]
           = truncate(image['location'], 48)
-      %td{:class => row_class}
+      %td{:class => "#{row_class} unreviewed"}
         = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24}
 = will_paginate(@images_to_curate)
 #overlay.overlay{:style => 'display:none'}

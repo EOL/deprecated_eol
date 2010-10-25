@@ -1,5 +1,5 @@
 label = @data_object.vetted.label
 label = "Unreviewed" if label == 'Unknown'
 page.replace_html @div_id, label
-page << "$j('##{@div_id}').parents('td').removeClass('untrusted').addClass('unreviewed');"
-page << "$j('##{@div_id}').parents('td').siblings('td').removeClass('untrusted').addClass('unreviewed');"
+page << "$('##{@div_id}').parents('td').removeClass('untrusted').addClass('unreviewed');"
+page << "$('##{@div_id}').parents('td').siblings('td').removeClass('untrusted').addClass('unreviewed');"

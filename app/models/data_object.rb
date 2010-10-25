@@ -62,7 +62,7 @@ class DataObject < SpeciesSchemaModel
     end
 
     data_object_ids = SpeciesSchemaModel.connection.execute("
-      SELECT do.id, do.created_at
+      SELECT do.id, do.guid, do.created_at
       FROM feed_data_objects fdo
       JOIN #{DataObject.full_table_name} do ON (fdo.data_object_id=do.id)
       WHERE fdo.taxon_concept_id IN (#{lookup_ids.join(',')})
@@ -1504,7 +1504,15 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     new_actions_histories(user, self, 'data_object', 'untrusted')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove
   end
-
+  
+  def unreviewed(user)
+    vetted_by = user
+    update_attributes({:vetted_id => Vetted.unknown.id, :curated => true})
+    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
+    new_actions_histories(user, self, 'data_object', 'unreviewed')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
+  end
+  
   def inappropriate(user)
     vetted_by = user
     update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})

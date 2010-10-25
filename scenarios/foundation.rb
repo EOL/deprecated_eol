@@ -64,6 +64,7 @@ create_if_not_exists CuratorActivity, :code => 'hide'
 create_if_not_exists CuratorActivity, :code => 'inappropriate'
 create_if_not_exists CuratorActivity, :code => 'approve'
 create_if_not_exists CuratorActivity, :code => 'disapprove'
+create_if_not_exists CuratorActivity, :code => 'unreviewed'
 
 # what one can do with a data_object
 create_if_not_exists ActionWithObject, :action_code => 'create'
@@ -74,6 +75,7 @@ create_if_not_exists ActionWithObject, :action_code => 'untrusted'
 create_if_not_exists ActionWithObject, :action_code => 'show'
 create_if_not_exists ActionWithObject, :action_code => 'hide'
 create_if_not_exists ActionWithObject, :action_code => 'inappropriate'
+create_if_not_exists ActionWithObject, :action_code => 'unreviewed'
 
 # create_if_not_exists We don't technically *need* all three of these, but it's nice to have for the menu.  There are more, but we don't currently use
 # them.  create_if_not_exists Once we do, they should get added here.

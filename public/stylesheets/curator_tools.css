@@ -15,8 +15,16 @@
     border: 1px solid #8ccee6; }
   .results_table td.odd {
     background-color: #f5fafa; }
+    .results_table td.odd.untrusted {
+      background-color: #ff9999; }
+    .results_table td.odd.unreviewed {
+      background-color: #ffffcc; }
   .results_table td.even {
     background-color: #ecf3f4; }
+    .results_table td.even.untrusted {
+      background-color: #ee7777; }
+    .results_table td.even.unreviewed {
+      background-color: #ffff99; }
   .results_table td {
     vertical-align: top;
     padding: 8px !important; }

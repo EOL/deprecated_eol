@@ -17,11 +17,11 @@ class DataObjectsController < ApplicationController
       alter_current_user do |user|
         user.vetted=false
       end
-      @new_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
       current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
+      render(:partial => '/taxa/text_data_object',
+             :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
     rescue => e
       @new_text = render_to_string(:partial => 'error', :locals => {:message => e.message}) 
-#<div id="errorExplanation"><h2>There was an error posting your text.  Please reload the page and try again.  Sorry for the inconvenience.</h2></div>'
     end
   end
 
@@ -35,10 +35,10 @@ class DataObjectsController < ApplicationController
       @preview = true
       @data_object_id = params[:id]
       @hide = true
-      @preview_text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
       current_user.log_activity(:previewed_data_object, :taxon_concept_id => @taxon_concept.id)
+      render :partial => '/taxa/text_data_object', :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label}
     rescue => e
-      @new_text = 'There was an error previewing your text.  Please try again.  Sorry for the inconvenience.'
+      @message = e.message
     end
   end
 
@@ -48,7 +48,8 @@ class DataObjectsController < ApplicationController
     @curator = current_user.can_curate?(@taxon_concept)
     @hide = true
     @category_id = @data_object.toc_items[0].id
-    @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
+    @text = render_to_string(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
+    render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
   end
 
   def update
@@ -63,8 +64,8 @@ class DataObjectsController < ApplicationController
     alter_current_user do |user|
       user.vetted=false
     end
-    @text = render_to_string(:partial=>'/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
     current_user.log_activity(:updated_data_object_id, :value => @data_object.id, :taxon_concept_id => @taxon_concept.id)
+    render(:partial => '/taxa/text_data_object', :locals => {:content_item => @data_object, :comments_style => '', :category => @data_object.toc_items[0].label})
   end
 
   def edit
@@ -81,18 +82,15 @@ class DataObjectsController < ApplicationController
       @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
       @selected_license = [License.by_nc.title,License.by_nc.id]        
       @selected_language = [current_user.language.label,current_user.language.id]
-      if(params[:toc_id]!='none')
-        set_text_data_object_options
-        @data_object = DataObject.new
-        render :partial => 'new_text'
-      else
+      @toc_id_empty = params[:toc_id] == 'none'
+      if (@toc_id_empty)
         @taxon_concept.current_user = current_user
         toc_item = @taxon_concept.tocitem_for_new_text
         params[:toc_id] = toc_item.id
-        set_text_data_object_options
-        @data_object = DataObject.new
-        render :partial => 'new_text'
       end
+      set_text_data_object_options
+      @data_object = DataObject.new
+      render :partial => 'new_text'
       current_user.log_activity(:creating_new_data_object, :taxon_concept_id => @taxon_concept.id)
     else
       if $ALLOW_USER_LOGINS
@@ -215,7 +213,11 @@ class DataObjectsController < ApplicationController
     
     respond_to do |format|
       format.html {redirect_to request.referer ? :back : '/'}
-      format.js {render :action => 'curate.rjs'}
+      format.js {
+        type = 'image'
+        type = 'text' if @data_object.text?
+        render :text => {:type => type, :args => [@data_object.id, @data_object.visibility_id, @data_object.vetted_id]}.to_json
+      }
     end
   end
 

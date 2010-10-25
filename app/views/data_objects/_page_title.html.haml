@@ -12,14 +12,13 @@
   - title = @data_object.object_title.empty? ? '[No title]' : @data_object.object_title
 - license_attribution_html = ''
 - if !@data_object.license.blank?
-  - license_attribution_html += external_link_to(image_tag(@data_object.license.small_logo_url, {:alt=>(@data_object.license.title || '')}),@data_object.license.source_url)
+  - license_attribution_html += link_to(image_tag(@data_object.license.small_logo_url, {:alt=>(@data_object.license.title || '')}),@data_object.license.source_url, {:target => '_blank' })
   - license_attribution_html += " #{@data_object.license.description}" unless @data_object.license.description.blank? 
 - source = ''
 - if @data_object.sources.length == 1
   - source = "(Source: #{@data_object.sources.first.full_name})"
 - elsif @data_object.sources.length > 1
   - source = "(Sources: #{@data_object.sources.collect {|src| src.full_name}.join(', ')})"
-- end 
 
 %h2
   = title

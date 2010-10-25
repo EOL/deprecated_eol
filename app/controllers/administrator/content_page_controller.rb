@@ -49,11 +49,10 @@ class Administrator::ContentPageController < AdminController
    
  end
  
+ # pull the updated content from the querystring to build the preview version of the page 
  def preview
-   
-  # pull the updated content from the querystring to build the preview version of the page 
-  @content=ContentPage.new(params[:page])
-   
+   @content=ContentPage.new(params[:page])
+   render :layout => 'admin_without_nav'
  end
  
  def create
@@ -99,7 +98,6 @@ class Administrator::ContentPageController < AdminController
     render :update do |page|
         page.replace_html 'content_page_list', :partial => 'content_page_list'
         page.replace_html 'content_page', :partial => 'form'
-        page << 'EOL.reload_behaviors();'
     end   
     
  end
@@ -111,34 +109,7 @@ class Administrator::ContentPageController < AdminController
     
     render :update do |page|
         page.replace_html 'content_page', :partial => 'form'
-        page << 'EOL.reload_behaviors();'
     end  
-    
- end
- 
- 
- def get_archived_page
-   
-     # get the original page
-     @page=ContentPage.find(params[:content_page_id])
-   
-     # get the selected achived page
-     @content_page_archive=ContentPageArchive.find(params[:content_page_archive_id])
-     
-     # update the original page with the archived values
-     @page.left_content=@content_page_archive.left_content
-     @page.main_content=@content_page_archive.main_content
-     @page.sort_order=@content_page_archive.sort_order
-     @page.page_name=@content_page_archive.page_name
-     @page.language_key=@content_page_archive.language_key
-     @page.url=@content_page_archive.url
-     @page.content_section_id=@content_page_archive.content_section_id
-     @page.title=@content_page_archive.title
-     @page.open_in_new_window=@content_page_archive.open_in_new_window
-     
-     render :update do |page|
-        page.replace_html 'content_page', :partial => 'form'
-     end  
     
  end
  

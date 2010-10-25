@@ -14,7 +14,21 @@
     = f.text_area :body, :rows => length, :cols => 50, :id => comment_id
     = submit_tag('Post Comment', |
       :id => submit_id, |
-      :onclick => "if($('#{comment_id}').value.search(/\\w/) == -1) {return(false);} else {$('#{submit_id}').value = 'Please Wait...';$('#{submit_id}_spinner').style.display = 'block';return true;}", |
       :exception => 'alert("Yay");', |
       :class => 'post_comment')  |
     = image_tag('indicator_arrows_black.gif', :id => "#{submit_id}_spinner", :style=>'display:none;')
+    -# This additionally submits the form because Safari seems to cancel the event anyway!  (Worked fine in FF.)
+    :javascript
+      $('##{submit_id}').click(function() {
+        if ($.trim($('##{comment_id}').val()) == "") return false;
+        $(this).val('#{"Please wait..."[]}');
+        $(this).attr('disabled', 'disabled');
+        $('##{submit_id}_spinner').fadeIn();
+        var form = $(this).closest('form');
+        $.ajax({
+          url: form.attr('action'),
+          type: 'POST',
+          data: form.serialize()
+        });
+        return false;
+      });

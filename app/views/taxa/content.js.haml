@@ -1,0 +1,3 @@
+= render :partial => 'content'
+:javascript
+  EOL.Text.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id})}');

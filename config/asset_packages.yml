@@ -1,40 +1,23 @@
 --- 
 javascripts: 
-- prototype-cached:
-  - prototype
-  - effects
-  - dragdrop
-  - controls
-  - scriptaculous
-  - lowpro
-
 - base-cached:
-  - flashobjects
+  - jquery.tools.min
   - eol
-  - tabs
-  - tagging
   - search
-  - curation
-  - comments
-  - admin
-  - rating
-  - text_objects
-  - media_center
-  - popup
-  - misc
-  - validator
-  - faqs
-  - unittest
-  - builder
-  - flash_detect_min
-  - jsonbioGUIDv3
+  - bioGUIDv3
   - application 
 
-- jquery-cached:
-  - jquery
-  - jquery-selectboxes
+- taxa-page-cached:
+  - rating
+  - media_center
+  - popup
+  - navigation
+  - swfobject
+  - wiki_ogg_player
+
+- jquery-extras-cached:
   - jquery-autocomplete
-  - jquery.scrollTo-min
+  - tagging
 
 stylesheets: 
 - base-cached: 

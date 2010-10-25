@@ -38,7 +38,7 @@ if(typeof Effect == 'undefined')
   throw("controls.js requires including script.aculo.us' effects.js library");
 
 var Autocompleter = { };
-Autocompleter.Base = Class.create({
+Autocompleter.Base = $.klass({
   baseInitialize: function(element, update, options) {
     element          = $(element);
     this.element     = element;
@@ -130,25 +130,22 @@ Autocompleter.Base = Class.create({
        case Event.KEY_TAB:
        case Event.KEY_RETURN:
          this.selectEntry();
-         Event.stop(event);
+         return(false);
        case Event.KEY_ESC:
          this.hide();
          this.active = false;
-         Event.stop(event);
-         return;
+         return(false);
        case Event.KEY_LEFT:
        case Event.KEY_RIGHT:
          return;
        case Event.KEY_UP:
          this.markPrevious();
          this.render();
-         Event.stop(event);
-         return;
+         return(false);
        case Event.KEY_DOWN:
          this.markNext();
          this.render();
-         Event.stop(event);
-         return;
+         return(false);
       }
      else
        if(event.keyCode==Event.KEY_TAB || event.keyCode==Event.KEY_RETURN ||
@@ -175,7 +172,7 @@ Autocompleter.Base = Class.create({
         this.index = element.autocompleteIndex;
         this.render();
     }
-    Event.stop(event);
+    return(false);
   },
 
   onClick: function(event) {
@@ -340,7 +337,7 @@ Autocompleter.Base.prototype.getTokenBounds.getFirstDifferencePos = function(new
   return boundary;
 };
 
-Ajax.Autocompleter = Class.create(Autocompleter.Base, {
+Ajax.Autocompleter = $.klass(Autocompleter.Base, {
   initialize: function(element, update, url, options) {
     this.baseInitialize(element, update, options);
     this.options.asynchronous  = true;
@@ -404,7 +401,7 @@ Ajax.Autocompleter = Class.create(Autocompleter.Base, {
 // In that case, the other options above will not apply unless
 // you support them.
 
-Autocompleter.Local = Class.create(Autocompleter.Base, {
+Autocompleter.Local = $.klass(Autocompleter.Base, {
   initialize: function(element, update, array, options) {
     this.baseInitialize(element, update, options);
     this.options.array = array;
@@ -476,7 +473,7 @@ Field.scrollFreeActivate = function(field) {
   }, 1);
 };
 
-Ajax.InPlaceEditor = Class.create({
+Ajax.InPlaceEditor = $.klass({
   initialize: function(element, url, options) {
     this.url = url;
     this.element = element = $(element);
@@ -595,7 +592,7 @@ Ajax.InPlaceEditor = Class.create({
     this.element.parentNode.insertBefore(this._form, this.element);
     if (!this.options.loadTextURL)
       this.postProcessEditField();
-    if (e) Event.stop(e);
+    return(false);
   },
   enterHover: function(e) {
     if (this.options.hoverClassName)
@@ -615,7 +612,7 @@ Ajax.InPlaceEditor = Class.create({
   },
   handleFormCancellation: function(e) {
     this.wrapUp();
-    if (e) Event.stop(e);
+    return(false);
   },
   handleFormSubmission: function(e) {
     var form = this._form;
@@ -642,7 +639,7 @@ Ajax.InPlaceEditor = Class.create({
       });
       new Ajax.Request(this.url, options);
     }
-    if (e) Event.stop(e);
+    return(false);
   },
   leaveEditMode: function() {
     this.element.removeClassName(this.options.savingClassName);
@@ -751,7 +748,7 @@ Object.extend(Ajax.InPlaceEditor.prototype, {
   dispose: Ajax.InPlaceEditor.prototype.destroy
 });
 
-Ajax.InPlaceCollectionEditor = Class.create(Ajax.InPlaceEditor, {
+Ajax.InPlaceCollectionEditor = $.klass(Ajax.InPlaceEditor, {
   initialize: function($super, element, url, options) {
     this._extraDefaultOptions = Ajax.InPlaceCollectionEditor.DefaultOptions;
     $super(element, url, options);
@@ -941,7 +938,7 @@ Ajax.InPlaceCollectionEditor.DefaultOptions = {
 // but waits for delay after last key input
 // Ideal for live-search fields
 
-Form.Element.DelayedObserver = Class.create({
+Form.Element.DelayedObserver = $.klass({
   initialize: function(element, delay, callback) {
     this.delay     = delay || 0.5;
     this.element   = $(element);

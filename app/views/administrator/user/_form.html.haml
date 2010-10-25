@@ -1,3 +1,4 @@
+= javascript_include_tag 'navigation.js'
 %br
 %table
   %tr
@@ -93,7 +94,7 @@
         Roles:
     %td
       #roles_toggle
-        %a{ :href => "#roles", :onclick => "JavaScript:Element.show('roles');Element.hide('roles_toggle');return false;" }
+        %a{ :href => "#roles", :onclick => "javascript:$('#roles').show();$('#roles_toggle').hide();return false;" }
           [show roles]
       #roles{ :style => "display:none;" }
         - Role.find(:all,:order=>'title').each do |role|
@@ -166,7 +167,7 @@
         Send email:
     %td
       #email_toggle
-        %a{ :href => "#email", :onclick => "JavaScript:Element.show('email');Element.hide('email_toggle');return false;" }
+        %a{ :href => "#email", :onclick => "javascript:$('#email').show();$('#email_toggle').hide();return false;" }
           [show email message area]
       #email{ :style => "display:none;" }
         Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:
@@ -174,6 +175,6 @@
         = text_area_tag :message,@message,:cols=>'60',:rows=>'20'
 %br
 %br
-%input#cancel{ :name => "Cancel", :type => "button", :value => "Cancel", :onclick => "document.location.href='#{return_to_url}';" }
+= cancel_button_goes_back(return_to_url)
 |
 = f.submit

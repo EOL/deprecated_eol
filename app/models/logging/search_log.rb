@@ -22,7 +22,7 @@ class SearchLog < LoggingModel
   end
   
   def self.create_log(opts)
-    logger.warn('Bogus invokation of SearchLog creation function!') and return if opts.nil?  
+    logger.warn('Bogus invocation of SearchLog creation function!') and return if opts.nil?  
     l = SearchLog.create opts
     return l
   end
@@ -43,6 +43,39 @@ class SearchLog < LoggingModel
           where taxon_concept_id = ? 
           group by response_time", taxon_concept_id]
     SearchLog.find_by_sql(sql)
+  end
+
+  def self.paginated_report(options = {})
+    order = options[:order] || 'frequency'
+    order += " DESC" if options[:reverse]
+    page  = options[:page] || 1
+    per_page = options[:per_page] || 30
+    sql = %q{
+      SELECT
+        DISTINCT(search_term),
+        COUNT(search_term) AS frequency,
+        search_type
+    }
+    sql += %q{,
+        AVG(total_number_of_results) AS results_avg,
+        AVG(number_of_common_name_results) AS common_name_avg,
+        AVG(number_of_scientific_name_results) AS scientific_name_avg,
+        AVG(number_of_suggested_results) AS suggested_results_avg,
+        AVG(number_of_stub_page_results) AS stub_page_avg
+    } if options[:averages]
+    sql += " FROM search_logs"
+    sql += " WHERE search_term LIKE ?" unless options[:search_string].blank?
+    sql += " GROUP BY search_term ORDER BY #{order}"
+    
+    sql = [sql]
+    sql << "%#{options[:search_string]}%" unless options[:search_string].blank?
+    SearchLog.paginate_by_sql(ActiveRecord::Base.sanitize_sql_array(sql), :page => page, :per_page => per_page)
+  end
+
+  def self.totals
+    SearchLog.find_by_sql(
+      'SELECT COUNT(search_term) AS num_searches, COUNT(DISTINCT(search_term)) AS distinct_searches FROM search_logs'
+    )[0]
   end
 
 end

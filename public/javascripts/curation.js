@@ -1,127 +1,104 @@
-if(!EOL) var EOL = {};
-if(!EOL.Curation) EOL.Curation = {};
+if(!EOL) { EOL = {}; }
+if(!EOL.Curation) { EOL.Curation = {}; }
 
-EOL.Curation.post_curate_text = function(data_object_id, visibility_id, vetted_id) {
-  try {
-    $$('div#text_buttons_'+data_object_id+' div.trust_button')[0].disappear();
-    $$('div#text_buttons_'+data_object_id+' div.untrust_button')[0].disappear();
-  } catch(err) {
-    //no quick curate buttons
-  }
-  EOL.Curation.update_text_background(data_object_id, vetted_id);
-  EOL.Curation.update_text_icons(data_object_id, visibility_id);
-};
-
-EOL.Curation.post_curate_image = function(data_object_id, visibility_id, vetted_id) {
-  try {
-    $('large-image-trust-button').disappear();
-    $('large-image-untrust-button').disappear();
-  } catch (err) {
-    //no quick curate buttons
-  }
-
-  EOL.MediaCenter.image_hash[data_object_id].vetted_id = vetted_id;
-  EOL.MediaCenter.image_hash[data_object_id].visibility_id = visibility_id;
-  EOL.MediaCenter.image_hash[data_object_id].curated = true;
-  
-  eol_update_credit(EOL.MediaCenter.image_hash[data_object_id]);
-  EOL.Curation.update_thumbnail_background(vetted_id, data_object_id);
-  EOL.MediaCenter.update_thumbnail_icons($$('div#thumbnails a#thumbnail_'+data_object_id+' ul')[0]);
-};
-
-EOL.Curation.quick_curate = function(element) {
-  element.ancestors()[1].down('div.spinner img').appear();
-  new Ajax.Request(element.href,
-                    {
-                      asynchronous:true,
-                      evalScripts:true,
-                      onComplete:function(){
-                        element.ancestors()[1].down('div.spinner img').disappear();
-                      }.bind(element)
-                    }
-                  );
-};
-
-EOL.Curation.update_thumbnail_background = function(vetted_id, data_object_id) {
-  $('thumbnail_'+data_object_id).removeClassName('trusted-background-image');
-  $('thumbnail_'+data_object_id).removeClassName('unknown-background-image');
-  $('thumbnail_'+data_object_id).removeClassName('untrusted-background-image');
-  if(vetted_id == EOL.Curation.TRUSTED_ID) {
-    //no background
-  } else if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
-    $('thumbnail_'+data_object_id).addClassName('untrusted-background-image');
-  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) {
-    $('thumbnail_'+data_object_id).addClassName('unknown-background-image');
-  }
-};
-
-EOL.Curation.update_text_background = function(data_object_id, vetted_id) {
-  $('text_'+data_object_id).removeClassName('untrusted-background-image');
-  $('text_'+data_object_id).removeClassName('unknown-background-image');
-  $('text_'+data_object_id).removeClassName('trusted-background-image');
-  if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
-    $('text_'+data_object_id).addClassName('untrusted-background-image');
-  }
-}
-
-EOL.Curation.update_text_icons = function(data_object_id, visibility_id) {
-  $$('div#text_buttons_'+data_object_id+' ul li.invisible_icon')[0].hide();
-  $$('div#text_buttons_'+data_object_id+' ul li.inappropriate_icon')[0].hide();
-
+// Invisible icons on text:
+EOL.Curation.update_icons = function(data_object_id, visibility_id) {
+  $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').hide();
+  $('ul[data-data_object_id='+data_object_id+'] li.inappropriate_icon').hide();
+  // NOTE: show() doesn't work for image thumbnails, because the diplay ends up with the wrong value.
   if(visibility_id == EOL.Curation.INVISIBLE_ID) {
-    $$('div#text_buttons_'+data_object_id+' ul li.invisible_icon')[0].show();
+    $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').css({display: 'inline-block'});
   } else if(visibility_id == EOL.Curation.INAPPROPRIATE_ID) {
-    $$('div#text_buttons_'+data_object_id+' ul li.inappropriate_icon')[0].show();
+    $('ul[data-data_object_id='+data_object_id+'] li.inappropriate_icon').css({display: 'inline-block'});
   }
 };
+// Update the image(s) now that it's been curated:
+EOL.Curation.post_curate_image = function(args) {
+  var dato_id = args[0]; var visibility_id = args[1]; var vetted_id = args[2];
+  EOL.Curation.update_icons(dato_id, visibility_id);
+  EOL.handle_main_img_icon(dato_id);
+  thumbnail = $('#thumbnails a[href='+dato_id+']');
+  image_wrap = $('#image-'+dato_id);
+  notes = $('#mc-notes-'+dato_id);
+  classes = 'trusted unknown untrusted unknown-text untrusted-text';
+  thumbnail.removeClass(classes);
+  image_wrap.removeClass(classes);
+  notes.removeClass(classes);
+  if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
+    thumbnail.addClass('untrusted');
+    image_wrap.addClass('untrusted');
+    notes.addClass('untrusted-text');
+  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Cant "unknow" something, but could load an image that already is?
+    thumbnail.addClass('unknown');
+    image_wrap.addClass('unknown');
+    notes.addClass('unknown-text');
+  } else {
+    thumbnail.addClass('trusted');
+    image_wrap.addClass('trusted');
+  }
+};
+// Update text objects after curation:
+EOL.Curation.post_curate_text = function(args) {
+  var data_object_id = args[0]; var visibility_id = args[1]; var vetted_id = args[2];
+  EOL.log("Curate text: "+data_object_id+", "+visibility_id+", "+vetted_id);
+  $('div#text_buttons_'+data_object_id+' div.trust_button').remove();
+  $('div#text_buttons_'+data_object_id+' div.untrust_button').remove();
+  $('#text_'+data_object_id).removeClass('untrusted unknown trusted');
+  if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
+    $('#text_'+data_object_id).addClass('untrusted');
+  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Cant "unknow" something, but could load a text that already is?
+    $('#text_'+data_object_id).addClass('unknown');
+  }
+  EOL.Curation.update_icons(data_object_id, visibility_id);
+};
 
-EOL.Curation.Behaviors = {
-  'form.curation input[type="submit"]:click': function(e) {
-    e.stop();
-    var form = $(this.form);
-    form.down('div.processing').appear();
-    new Ajax.Request(form.action,
-                     {
-                       asynchronous:true,
-                       evalScripts:true,
-                       method:'put',
-                       onComplete:function() {
-                         form.enable();
-                         form.down('div.processing').fade();
-                       }.bind(form),
-                       parameters:Form.serialize(form)
-                     });
-    form.disable();
-  },
-  
-  'div.trust_button a:click, div.untrust_button a:click': function(e) {
-    EOL.Curation.quick_curate(this);
-    e.stop();
-  },
-  
-  'input#curator_request': function(e) {
-    $(this).observe("click", function() {
-      EOL.Effect.toggle_with_effect("curator_request_options");  
+$(document).ready(function() {
+  $('form.curation input[type="submit"]').click(function() {
+    var form = $(this).closest('form');
+    form.find('div.processing').show();
+    $.ajax({
+      url: form.attr('action'),
+      type: 'PUT',
+      dataType: 'json',
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader("Accept", "text/javascript"); // Sorry, not sure why this xhr wasn't auto-js, but it wasn't.
+        form.find(':submit').attr('disabled', 'disabled');
+      },
+      complete: function() {
+        form.find(':submit').attr('disabled', '');
+        form.find('div.processing').fadeOut();
+      },
+      success: function(response) {
+        EOL.log("here");
+        EOL.log('type: '+response.type);
+        EOL.log('args: '+response.args);
+        if (response.type == "text") {
+          EOL.log("texty");
+          EOL.Curation.post_curate_text(response.args);
+          EOL.log("EOL.Curation.post_curate_text("+response.args+");");
+        } else {
+          EOL.log("imaged");
+          EOL.Curation.post_curate_image(response.args);
+        }
+      },
+      data: $(form).serialize()
     });
-  },
-
-  'div.vetted div.untrusted div input[type="radio"]:click': function(e) {
-    this.up(2).down('div.reason').appear();
-  },
-
-  'div.vetted div.trusted input[type="radio"]:click': function(e) {
-    this.up(2).down('div.reason').fade();
-  },
-
-  'div#large-image-curator-button-popup-link_popup_content input.cancel-button:click': function(e) {
-    $('large-image-curator-button-popup-link_popup').disappear();
-  },
-
-  'div.text_curation_close a.close-button:click': function(e) {
-    this.up(2).fade();
-  },
-
-  'div.text-slidebox-container form.curation input.cancel-button:click':function(e) {
-    this.up(4).fade();
-  }
-};
+    return false;
+  });
+  // Show untrust reasons when it's ... uhhh.... untrusted. 
+  $('div.vetted .untrust input[type="radio"]').click(function() {
+    $(this).parent().find('div.reason').slideDown();
+  });
+  // Hide untrust reasons when it's trusted:
+  $('div.vetted .trust input[type="radio"]').click(function() {
+    $(this).parent().parent().find('div.reason').slideUp();
+  });
+  // Cancel button just clicks the closest close-link:
+  $('form.curation .cancel-button').click(function() {
+    $(this).closest('div.overlay, div.text-slidebox-container').find('a.close, a.close-button').click();
+  });
+  // Text curation isn't an overlay, so we need to manually make the close link work:
+  $('div.text_curation_close a.close-button').click(function() {
+    $(this).parent().parent().parent().slideUp();
+  });
+});

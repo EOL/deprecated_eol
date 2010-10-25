@@ -1,3 +1,5 @@
+%span#missing_text_error.error{ :style => "display:none;" }
+  = "A Description must be entered."[]
 %input{ :type => "hidden", :name => "taxon_concept_id", :value => @taxon_concept.id }
 %table
   %tr
@@ -7,7 +9,7 @@
       = select_tag('data_objects_toc_category[toc_id]', options_for_select(@selectable_toc,@selected_toc), {'id' => 'data_objects_toc_category_toc_id', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc')})
   %tr
     %td
-      = f.label 'Title (optional)'
+      = f.label 'Title (optional)'[]
     %td
       = f.text_field( :object_title )
   %tr
@@ -46,10 +48,19 @@
       - if @data_object.id
         %input#cancel_edit_text{ :type => "button", :value => "Cancel", :'data-data_object_id' => @data_object.id }
         &nbsp;
-      %input#preview_text{ :type => "button", :value => "Preview", :'data-preview_url' => url_for(:controller => 'data_objects', :action => 'preview') }
+      %input#preview_text{ :type => "button", :value => "Preview"[], :'data-preview_url' => url_for(:controller => 'data_objects', :action => 'preview') }
       &nbsp;
-      %input{ :type => "submit", :value => "Confirm" }
+      %input{ :type => "submit", :value => "Confirm"[] }
+      &nbsp;
+      %span#missing_text_error.error{ :style => "display:none;" }
+        = "Your content is empty--nothing to submit!"[]
       &nbsp;
       %span#edit_text_spinner{ :style => "display:none;" }
         = image_tag('indicator_arrows_black.gif')
-        Please wait...
+        = "Please wait..."[]
+- if @toc_id_empty
+  -# This forces an update of the TOC (but only if we need to do it):
+  :javascript
+    $(document).ready(function() {
+      $('#data_objects_toc_category_toc_id').change();
+    });

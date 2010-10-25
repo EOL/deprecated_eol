@@ -21,10 +21,8 @@ class AccountController < ApplicationController
   def login
 
     # It's possible to create a redirection attack with a redirect to data: protocol... and possibly others, so:
-    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.
-
-    # TEMPORARY
-    params[:return_to] = nil if params[:return_to] == 'boom'
+    # Whitelisting redirection to our own site, relative paths.
+    params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/
 
     # Makes no sense to bounce them back to the login page in the rare case they clicked "login" twice:
     params[:return_to] = nil if params[:return_to] =~ /login/

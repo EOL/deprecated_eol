@@ -1,22 +1,11 @@
 :javascript
   function check_url() {
-    new Ajax.Request('/resources/check_url', {
-        parameters: {url: $('resource_accesspoint_url').value},
-        method:'get',
-        asynchronous:true,
-        evalScripts:true
-        });		
-    }
+    $.ajax({ url:'/resources/check_url', data: {url: $('#resource_accesspoint_url').val()}});		
+  }
   function check_dwc_url() {
-    new Ajax.Request('/resources/check_dwc_url', {
-        parameters: {url: $('resource_dwc_archive_url').value},
-        method:'get',
-        asynchronous:true,
-        evalScripts:true
-        });		
-    }
-
-    
+    $.ajax({ url:'/resources/check_dwc_url', data: {url: $('#resource_dwc_archive_url').val()}});		
+  }
+= javascript_include_tag 'validator'
 - form_for(@resource, :method => method, :html => {  :multipart => true, :id => 'resource_form',:class => "warning-warn invalid-invalid styleLabelOnErr" } ) do |f| 
   = f.error_messages
 
@@ -49,11 +38,11 @@
                   
     .form_item
       = f.label :title, 'Title: <span title="required">*</span>'
-      <!-- resource_title ^.{1,200}$ false true //-->
+      / resource_title ^.{1,200}$ false true //
       = f.text_field :title, :maxlength=>200, :size=>50 
     .form_item
       = f.label :accesspoint_url, 'Indicate below the full URL (include \'http://\') from which the resource can be downloaded:  <span title="required">*</span>'
-      = f.text_field :accesspoint_url, :maxlength=>200, :size=>60 , :onblur=>'check_url();'
+      = f.text_field :accesspoint_url, :maxlength=>200, :size=>60 , :onblur=>'javascript:check_url();'
       %br
       OR
       %br
@@ -73,11 +62,11 @@
         
     .form_item
       = f.label :dwc_archive_url, 'Indicate below the full URL for a <a href="/content/darwin_core" target="_blank">Darwin Core Archive</a> associated with this resource (tar/gzip only)'
-      = f.text_field :dwc_archive_url, :maxlength=>200, :size=>60 , :onblur=>'check_dwc_url();'
+      = f.text_field :dwc_archive_url, :maxlength=>200, :size=>60 , :onblur=>'javascript:check_dwc_url();'
       %span.error{:id => 'dwc_url_warn'}    
     .form_item  
       = f.label :subject, 'Taxonomic subject of data (e.g. birds, mammals, etc.): <span title="required">*</span>'
-      <!-- resource_subject ^.{1,200}$ false true //-->
+      / resource_subject ^.{1,200}$ false true //
       = f.text_field :subject, :maxlength=>200, :size=>50 
     .form_item
       = f.label :resource_created_at, 'Date This Resource Was Created:  <span title="required">*</span>'
@@ -124,7 +113,7 @@
       = f.label :description, 'Description:'
       = f.text_area :description
 
-    /admin needs to know which content partner to return to
+    -# admin needs to know which content partner to return to
     - if current_user.is_admin?
       = hidden_field_tag(:content_partner_id, @content_partner.id)
     - elsif !current_agent.blank? && cp = current_agent.content_partner

@@ -1,46 +1,23 @@
-if(!EOL) var EOL = {};
-if(!EOL.Rating) EOL.Rating = {};
+if(!EOL) { var EOL = {}; }
+if(!EOL.Rating) { EOL.Rating = {}; }
 
-EOL.Rating.update_average_image_rating = function(data_object_id, rating) {
-  var items = $$('div.image-rating ul.average-rating li');
-  if (items.length > 0)
-    items[0].setStyle('width: ' + rating * 20 + '%');
-  if(EOL.MediaCenter.image_hash[data_object_id])
-    EOL.MediaCenter.image_hash[data_object_id].average_rating = rating;
+// These do get called from rjs and curation.js, so need to be methods, despite being simple:
+EOL.Rating.update_average_rating = function(data_object_id, rating) {
+  $('#average-rating-'+data_object_id).css('width', rating * 20+'%');
 };
-
-EOL.Rating.update_average_text_rating = function(data_object_id, rating) {
-  $$('div#text_buttons_'+data_object_id+' div.text-rating ul.average-rating li')[0].setStyle('width: '+rating * 20+'%');
+EOL.Rating.update_user_rating = function(data_object_id, rating) {
+  $('#user-rating-'+data_object_id).css('width', rating * 20+'%');
 };
-
-EOL.Rating.update_user_image_rating = function(data_object_id, rating) {
-  var items = $$('div.image-rating ul.user-rating li');
-  if (items.length > 0)
-    items[0].setStyle('width: ' + rating * 20 + '%');
-  if(EOL.MediaCenter.image_hash[data_object_id])
-    EOL.MediaCenter.image_hash[data_object_id].user_rating = rating;
-};
-
-EOL.Rating.update_user_text_rating = function(data_object_id, rating) {
-  $$('div#text_buttons_'+data_object_id+' div.text-rating ul.user-rating li')[0].setStyle('width: '+rating * 20+'%');
-};
-
-EOL.Rating.Behaviors = {
-  'ul.small-star li a:click': function(e) {
-
-    if(this.readAttribute('data-data_type') == 'image') {
-      EOL.Rating.update_user_image_rating(this.readAttribute('data-data_object_id'), this.text);
-    } else {
-      EOL.Rating.update_user_text_rating(this.readAttribute('data-data_object_id'), this.text);
-    }
-
-    new Ajax.Request(this.href,
-                     {
-                       asynchronous:true,
-                       evalScripts:true,
-                       method:'put'
-                     });
-
+// Set up the links to be clickable. A 'scope' of an empty string ('') will do everything on the page...
+EOL.Rating.init_links = function(scope) {
+  if (scope.length > 0) { scope = scope + ' '; }
+  $(scope+'ul.small-star li a').click(function(e) {
+    EOL.Rating.update_user_rating($(this).attr('data-data_object_id'), $(this).html());
+    $.ajax({url: $(this).attr('href'), type: 'PUT'});
     return false;
-  }
+  });
 };
+
+$(document).ready(function() {
+  EOL.Rating.init_links('');
+});

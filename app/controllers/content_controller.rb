@@ -4,18 +4,14 @@ class ContentController < ApplicationController
     
   caches_page :tc_api
 
-  layout 'main'
-
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
   before_filter :set_session_hierarchy_variable, :only => [:index, :explore_taxa, :replace_single_explore_taxa]
 
   def index
-
-    @home_page=true
+    @home_page = true
     current_user.log_activity(:viewed_home_page)
-
     unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.content_page_cache_str)
-      @content=ContentPage.get_by_page_name_and_language_abbr('Home',current_user.language_abbr)
+      @content = ContentPage.get_by_page_name_and_language_abbr('Home', current_user.language_abbr)
       raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy, {:language => current_user.language, :size => :medium})
       featured_taxa = TaxonConcept.exemplars # comment this out to make featured taxa go away on home page!     
@@ -24,7 +20,6 @@ class ContentController < ApplicationController
       # get top news items less then a predetermined number of weeks old
       @news_items = NewsItem.find_all_by_active(true,:limit=>$NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY,:order=>'display_date desc',:conditions=>'display_date >= "' + $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS.weeks.ago.to_s(:db) + '"')
     end
-      
   end
   
   # just shows the top set of species --- can be included on other websites
@@ -78,7 +73,7 @@ class ContentController < ApplicationController
       rows.each do |row|
         @items << {
           :title => row['object_title'],
-          :link => taxon_concept_url(:id=>row['taxon_concept_id']),
+          :link => taxon_concept_url(:id => row['taxon_concept_id']),
           :guid => row['guid'],
           :thumbnail => DataObject.image_cache_path(row['object_cache_url'], :medium),
           :image => DataObject.image_cache_path(row['object_cache_url'], :orig),
@@ -90,7 +85,7 @@ class ContentController < ApplicationController
     end
     
     respond_to do |format|
-      format.rss { render :layout=>false }
+      format.rss { render :layout => false }
     end
     
   end
@@ -137,7 +132,7 @@ class ContentController < ApplicationController
     unless array_to_render.blank?
       respond_to do |format|
          format.html
-         format.xml { render :layout=>false }
+         format.xml { render :layout => false }
       end
     else
      render_404
@@ -263,14 +258,15 @@ class ContentController < ApplicationController
     
     unless explore_taxa.nil? or taxa_number.nil? or taxa_number.empty?
       render :update do |page|
-        page['top_image_tag_'+taxa_number].alt          = sanitize(explore_taxa['scientific_name'])
-        page['top_image_tag_'+taxa_number].title        = sanitize(explore_taxa['scientific_name'])
-        page['top_image_tag_'+taxa_number].src          = explore_taxa['image_cache_path']
-        page['top_image_tag_'+taxa_number+'_href'].href = "/pages/" + explore_taxa['taxon_concept_id'].to_s
-        page.replace_html 'top_name_'+taxa_number, random_image_linked_name(explore_taxa)
+        name_div_contents = (random_image_linked_name(explore_taxa)).gsub(/'/, '&apos;')
+        page << "$('#top_name_#{taxa_number}').html('#{name_div_contents}');"
+        page << "$('#top_image_tag_#{taxa_number}').attr('src', '#{explore_taxa['image_cache_path']}');"
+        page << "$('#top_image_tag_#{taxa_number}_href').attr('src', '/pages/#{explore_taxa['taxon_concept_id']}');"
+        page << "$('#top_image_tag_#{taxa_number}').attr('alt', '#{sanitize(explore_taxa['scientific_name'])}');"
+        page << "$('#top_image_tag_#{taxa_number}').attr('title', '#{sanitize(explore_taxa['scientific_name'])}');"
       end
     else
-      render :nothing=>true
+      render :nothing => true
     end
     
   end
@@ -283,17 +279,17 @@ class ContentController < ApplicationController
     store_location(params[:return_to]) if !params[:return_to].nil? && request.get? # store the page we came from so we can return there if it's passed in the URL
     
     if request.post? == false
-      return_to=params[:return_to] || ''
+      return_to = params[:return_to] || ''
       # grab default subject to select in list if it's passed in the querystring
-      @contact.contact_subject=ContactSubject.find_by_title(params[:default_subject]) if params[:default_subject].nil? == false   
-      @contact.name=params[:default_name] if params[:default_name].nil? == false
-      @contact.email=params[:default_email] if params[:default_email].nil? == false
+      @contact.contact_subject = ContactSubject.find_by_title(params[:default_subject]) if params[:default_subject].nil? == false   
+      @contact.name = params[:default_name] if params[:default_name].nil? == false
+      @contact.email = params[:default_email] if params[:default_email].nil? == false
       return
     end 
     
-    @contact.ip_address=request.remote_ip
-    @contact.user_id=current_user.id
-    @contact.referred_page=return_to_url
+    @contact.ip_address = request.remote_ip
+    @contact.user_id = current_user.id
+    @contact.referred_page = return_to_url
     
     if verify_recaptcha && @contact.save  
       Notifier.deliver_contact_us_auto_response(@contact)
@@ -309,16 +305,16 @@ class ContentController < ApplicationController
   def media_contact
     
     @contact = Contact.new(params[:contact])
-    @contact.contact_subject=ContactSubject.find($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
+    @contact.contact_subject = ContactSubject.find($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
     
     if request.post? == false
       store_location
       return
     end
 
-    @contact.ip_address=request.remote_ip
-    @contact.user_id=current_user.id
-    @contact.referred_page=return_to_url
+    @contact.ip_address = request.remote_ip
+    @contact.user_id = current_user.id
+    @contact.referred_page = return_to_url
     
     if verify_recaptcha && @contact.save
       Notifier.deliver_media_contact_auto_response(@contact)
@@ -342,9 +338,9 @@ class ContentController < ApplicationController
       # if the id is not numeric, assume it's a page name
       if @page_id.to_i == 0 
         page_name=@page_id.gsub(' ','_').gsub('_',' ')
-        @content=ContentPage.get_by_page_name_and_language_abbr(page_name,current_user.language_abbr)
+        @content = ContentPage.get_by_page_name_and_language_abbr(page_name, current_user.language_abbr)
       else # assume the id passed is numeric and find it by ID
-        @content=ContentPage.get_by_id_and_language_abbr(@page_id,current_user.language_abbr)
+        @content = ContentPage.get_by_id_and_language_abbr(@page_id, current_user.language_abbr)
       end
       
       raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?
@@ -360,15 +356,15 @@ class ContentController < ApplicationController
   # convenience method to reference the uploaded content from the CMS (usually a PDF file or an image used in the static pages)
   def file
     
-    content_upload_id=params[:id]
+    content_upload_id = params[:id]
 
     raise "content upload without id" if content_upload_id.blank?
     
     # if the id is not numeric, assume it's a link name
     if content_upload_id.to_i == 0 
-      content_upload=ContentUpload.find_by_link_name(content_upload_id)
+      content_upload = ContentUpload.find_by_link_name(content_upload_id)
     else # assume the id passed is numeric and find it by ID
-      content_upload=ContentUpload.find_by_id(content_upload_id)
+      content_upload = ContentUpload.find_by_id(content_upload_id)
     end
         
     raise "content upload not found" if content_upload.blank?
@@ -386,7 +382,7 @@ class ContentController < ApplicationController
   def partners
   
     # content partners will have a username
-    @partners=Agent.paginate(:conditions=>'username<>"" AND content_partners.show_on_partner_page = 1',:order=>'agents.full_name asc',:include=>:content_partner,:page => params[:page] || 1)
+    @partners = Agent.paginate(:conditions=>'username<>"" AND content_partners.show_on_partner_page = 1',:order=>'agents.full_name asc',:include=>:content_partner,:page => params[:page] || 1)
     
   end
   
@@ -400,10 +396,10 @@ class ContentController < ApplicationController
 
     return if request.post? == false
     
-    donation=params[:donation]
+    donation = params[:donation]
 
-    @other_amount=donation[:amount].gsub(",","").to_f 
-    @preset_amount=donation[:preset_amount]
+    @other_amount = donation[:amount].gsub(",","").to_f 
+    @preset_amount = donation[:preset_amount]
    
     if @preset_amount.nil?
       flash.now[:error]="Please select a donation amount."[:donation_error]
@@ -420,7 +416,7 @@ class ContentController < ApplicationController
     @currency = "usd"
     
     parameters='function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=' + @transaction_type + '&currency=' + @currency
-    @form_elements=EOLWebService.call(:parameters=>parameters)
+    @form_elements = EOLWebService.call(:parameters => parameters)
  
   end
 
@@ -429,9 +425,9 @@ class ContentController < ApplicationController
     
     if allowed_request
       if clear_all_caches
-        render :text=>"All caches expired.",:layout=>false
+        render :text=>"All caches expired.",:layout => false
       else
-        render :text=>'Clearing all caches not supported for this cache store.', :layout=>false
+        render :text=>'Clearing all caches not supported for this cache store.', :layout => false
       end  
     else
       redirect_to root_url
@@ -444,7 +440,7 @@ class ContentController < ApplicationController
     
     if allowed_request
       expire_caches  
-      render :text=>"Non-species page caches expired.",:layout=>false
+      render :text=>"Non-species page caches expired.",:layout => false
     else
       redirect_to root_url
     end
@@ -456,7 +452,7 @@ class ContentController < ApplicationController
     
     if allowed_request
       expire_cache(params[:id])
-      render :text=>"Non-species page '" + params[:id] + "' cache expired.",:layout=>false
+      render :text=>"Non-species page '" + params[:id] + "' cache expired.",:layout => false
     else
       redirect_to root_url
     end
@@ -485,9 +481,9 @@ class ContentController < ApplicationController
     
     if allowed_request && !params[:id].nil?
       if expire_taxon_concept(params[:id])
-         render :text=>'Taxon ID ' + params[:id] + ' and its ancestors expired.',:layout=>false
+         render :text=>'Taxon ID ' + params[:id] + ' and its ancestors expired.',:layout => false
       else
-         render :text=>'Invalid taxon ID supplied',:layout=>false
+         render :text=>'Invalid taxon ID supplied',:layout => false
       end
     else
       redirect_to root_url
@@ -498,11 +494,11 @@ class ContentController < ApplicationController
   # convenience page to expire a specific list of species page based on a comma delimited list of taxa IDs passed in as a post or get with parameter taxa_ids (call with http://www.eol.org/expire_taxa)
   def expire_multiple
     
-    taxa_ids=params[:taxa_ids]
+    taxa_ids = params[:taxa_ids]
 
     if allowed_request && !params[:taxa_ids].nil?
       expire_taxa(taxa_ids.split(','))
-      render :text=>'Taxa IDs ' + taxa_ids + ' and their ancestors expired.',:layout=>false
+      render :text=>'Taxa IDs ' + taxa_ids + ' and their ancestors expired.',:layout => false
      else
        redirect_to root_url
      end

@@ -1,3 +1,4 @@
+= javascript_include_tag 'admin-curator' # TODO - handle JS more elegantly.
 Click a username to view the user's detailed profile.  You may change the clade level curator permissions on the user profile pages.  If credentials are truncated, click to expand and show full credentials.
 = link_to '[export all curators as CSV]',:action=>'export'
 #users
@@ -49,9 +50,9 @@ Click a username to view the user's detailed profile.  You may change the clade 
                 = link_to('curator profile', :controller => '/account', :action => :show, :id => user.id)
                 )
           %td{ :class => column_class }
-            %a{ :href => "#", :onclick => "Element.toggle('credentials_#{user.id}');return false;" }
+            .toggle-credentials.linky
               = truncate(h(user.credentials))
-            %div{ :id => "credentials_#{user.id}", :style => "display:none;" }
+            %div{ :style => "display:none;" }
               = allow_some_html(user.credentials)
           %td{ :class => column_class }
             = h user.full_name
@@ -60,10 +61,9 @@ Click a username to view the user's detailed profile.  You may change the clade 
           - form_id = "user_curator_#{user.id}"
           %td{ :class => column_class }
             - if !user.curator_hierarchy_entry.blank?
-              - form_tag({:action => 'index'}, :id => form_id, :method => 'get') do
+              - form_tag('/administrator/user/toggle_curator', :id => form_id, :method => 'get') do
                 %input{ :name => "id", :type => "hidden", :value => user.id }
                 = check_box_tag('curator_approved', user.curator_approved, user.curator_approved)
-                = observe_form(form_id, :url => {:controller => 'administrator/user', :action => :toggle_curator}, :frequency => 0.10)
             - else
               N/A
           %td{ :class => column_class }
@@ -77,3 +77,8 @@ Click a username to view the user's detailed profile.  You may change the clade 
       = will_paginate @users
   - else
     No users are available matching your search criteria.
+:javascript
+  $('.toggle-credentials').toggle(
+    function() { $(this).next().slideDown(); },
+    function() { $(this).next().slideUp(); }
+  );

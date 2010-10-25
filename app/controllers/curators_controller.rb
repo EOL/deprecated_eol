@@ -39,6 +39,7 @@ class CuratorsController < ApplicationController
     render :layout => false
   end
 
+  # TODO - I am PRETTY sure this method is never called.
   def trust
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.trust(current_user)
@@ -48,6 +49,7 @@ class CuratorsController < ApplicationController
     end
   end
 
+  # TODO - I am PRETTY sure this method is never called.
   def untrust
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.untrust(current_user)
@@ -124,6 +126,7 @@ private
 
   def set_layout_variables
     @additional_stylesheet = 'curator_tools'
+    @additional_javascript = 'curation'
     @page_title = $CURATOR_CENTRAL_TITLE
     @navigation_partial = '/curators/navigation'
   end

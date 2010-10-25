@@ -1,24 +1,24 @@
-.popup {
+.overlay {
+  display: none;
   background-color: #e6e7e8;
   border: 2px solid #6a8d00 !important;
   position: absolute;
   z-index: 1000;
-  padding: 10px; }
+  padding: 10px;
+  overflow: auto;
+  max-height: 540px; }
 
-#large-image-attribution-button-popup-link_popup {
-  width: 390px;
-  left: 0px;
-  top: 30px; }
+.overlay .close {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  cursor: pointer;
+  height: 12px;
+  width: 12px;
+  background-image: url("/images/close_button.gif"); }
 
-#classification-attribution-button_popup {
-  left: 5px;
-  top: 36px; }
-
-.popup-min-width {
-  width: 245px;
-  height: 0px;
-  line-height: 0px;
-  overflow: hidden; }
+div.contentWrap {
+  margin-top: 10px; }
 
 .popup.vetted {
   border-color: #99cc00;
@@ -27,14 +27,13 @@
   border-color: #d8c142;
   border-left: 20px solid #ffff99; }
 
-.popup-content {
+.overlay {
   margin-top: 13px; }
-  .popup-content h3 {
+  .overlay h3 {
     color: #557700; }
-  .popup-content h1 {
+  .overlay h1 {
     font: normal 20px/21px verdana, arial;
     border-bottom: 2px solid #d6d6d6;
-    border-top: 2px solid #d6d6d6;
     margin-bottom: 5px;
     padding-top: 3px;
     padding-bottom: 5px; }
@@ -72,14 +71,6 @@ div#right-image-buttons div.spinner {
   position: absolute;
   top: 0px;
   left: 0px; }
-div#large-image-trust-button {
-  position: absolute;
-  top: 0px;
-  left: 30px; }
-div#large-image-untrust-button {
-  position: absolute;
-  top: 0px;
-  left: 60px; }
 div#large-image-curator-button {
   position: absolute;
   top: 0px;
@@ -109,27 +100,6 @@ div#large-image-tagging-button {
     background: transparent url(/images/icons/icons.gif) no-repeat 1px -32px;
     display: inline-block; }
 
-li#large-image-attribution-button.untrusted {
-  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;
-  display: block; }
-
-a#video_attributions.untrusted {
-  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px 0px;
-  display: block; }
-a#video_attributions.unknown {
-  background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px 0px;
-  display: block; }
-
-li#large-image-attribution-button.untrusted:hover {
-  background: transparent url(/images/icons/icons_untrusted.gif) no-repeat 1px -32px;
-  display: block; }
-li#large-image-attribution-button.unknown {
-  background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px 0px;
-  display: block; }
-  li#large-image-attribution-button.unknown:hover {
-    background: transparent url(/images/icons/icons_unknown.gif) no-repeat 1px -32px;
-    display: block; }
-
 .text-comments-head p {
   font-size: 6pt;
   padding-top: 2px; }
@@ -140,7 +110,7 @@ li#large-image-attribution-button.unknown {
 
 .insert_text {
   position: relative !important;
-  width: 423px !important;
+  width: 431px !important;
   margin-bottom: 40px; }
 
 div.insert_text table td {
@@ -164,9 +134,6 @@ form.curation .options {
   padding-top: 5px;
   padding-left: 56pt; }
 
-#large-image-curator-button-popup-link_popup {
-  background-color: #f4f4f4; }
-
 form.curation .label {
   color: #999999;
   font-size: 12px;
@@ -176,5 +143,5 @@ form.curation .curation-section {
   padding-top: 15px; }
 form.curation div.option {
   padding-left: 8px; }
-form.curation .options .untrusted .reason {
+form.curation .options .untrust .reason {
   padding-left: 20px; }

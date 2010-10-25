@@ -8,44 +8,41 @@
         = "Media Center Navigation"[]
       %ul#tab_media_center
         %li#image
-          %a{ :href => "#media-images", :title => "Image"[] }
+          - images_url = "/taxa/images/#{@taxon_concept.id}"
+          - images_url += "?image_id=#{@image_id}" if @image_id
+          %a{ :href => images_url, :title => "Image"[], :class => 'active ajax_delay_click', :onclick => ajax_delay_click }
             = "Image"[]
             %span
         - if @taxon_concept.has_map
           %li#maps
-            %a#maps-link{ :href => "#media-maps", :title => "Maps"[] }
+            %a#maps-link{ :href => "/taxa/maps/#{@taxon_concept.id}", :title => "Maps"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
               = "Maps"[]
               %span
-        - if @taxon_concept.has_video && !@video_collection.blank?
+        - if @taxon_concept.has_video
           %li#videos
-            %a{ :href => "#media-videos", :title => "Videos"[] }
+            %a{ :href => "/taxa/videos/#{@taxon_concept.id}", :title => "Videos"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
               = "Videos"[]
               %span
         %li#taxa-comments
-          %a{ :href => "#media-taxa-comments", :title => "Comments"[] }
+          %a{ :href => "/comments/?tab=1&taxon_concept_id=#{@taxon_concept.id}", :title => "Comments"[], :class => 'ajax_delay_click', :onclick => ajax_delay_click }
             = "Comments"[]
             %span
-      %hr
-      = render :partial=>'taxa/mediacenter/tab_images'
-      %hr
-      = render :partial=>'taxa/mediacenter/tab_sounds'
-      %hr
-      = render :partial=>'taxa/mediacenter/tab_maps'
-      %hr
-      = render :partial=>'taxa/mediacenter/tab_videos'
-      %hr
-      = render :partial=>'taxa/mediacenter/tab_comments', :locals=> {:we_have_a_taxon_comment => we_have_a_taxon_comment}
-      %hr
+      .tab-panes
+        %div{:style => 'display:block'}
+          = render :partial => 'images'
   #sliding-close
     #textarea
-      %a#classification-attribution-button.static-popup-link.attribution-icon{ :href => "#{@taxon_concept.id}/classification_attribution", :onclick => "return false;" }
+      %a#classification-attribution-button.popup-link.attribution-icon{ :rel => '#class-attr-overlay', :href => "#{@taxon_concept.id}/classification_attribution", :class => 'ajax_delay_click', :onclick => ajax_delay_click }
+      #class-attr-overlay.overlay{:style=>"width:350px"}
+        .contentWrap              
+          Please wait, loading...
       #nagivation-choose-hierarchy
         %h5
           #classification_whats_this
             = link_to "What's this?", '/content/page/new_features#browser'
           = "Classification:"[]
         - form_for :user, current_user, :url=>{:controller=>"settings"}, :html=>{:class=>"warning-warn invalid-invalid styleLabelOnErr"} do |f|
-          %select#user_default_hierarchy_id{ :name => 'user[default_hierarchy_id]', :class => 'choose-hierarchy-select', :onchange => 'this.form.submit();' }
+          %select#user_default_hierarchy_id{ :name => 'user[default_hierarchy_id]', :class => 'choose-hierarchy-select', :onchange => "javascript:$(this).closest('form').submit();" }
             - for h in @hierarchies_to_offer
               - selected = h.id == @session_hierarchy.id
               - option_class = @concept_browsable_hierarchies.include?(h) ? 'in' : 'out'
@@ -55,5 +52,3 @@
           %input{ :type=>'hidden', :name=>'from_taxa_page', :value=>'true'}
     #browser-text
       = render(:partial => 'navigation/browse_page', :locals => {:current_user => current_user})
-:javascript
-  var tabs=new Control.Tabs('tab_media_center');

@@ -1,13 +1,9 @@
 :javascript
-  document.observe("dom:loaded", function() {
-  $('user_username').focus();
-  });
+  $(document).ready(function() { $('#user_username').focus(); });
 #page-separator-general
 #page-title
   %h1= "Login"[:login]
-  %hr
 #page-content.clearfix
-  / center page content
   #full-page-content
     %div{ :style => "float: left; width: 550px;" }
       - form_for :user, :url => {:action => 'authenticate'} do |form|
@@ -23,6 +19,7 @@
           &nbsp;&nbsp;
           = link_to("Forgot password?"[], :action => 'forgot_password')
           %br
+          %br
           %label{ :for => "remember_me" }= "Remember Me"[]
           = check_box_tag 'remember_me'
           = "check to stay logged in automatically for up to two weeks (do NOT use on public computers)"[:remember_me_message]
@@ -34,4 +31,9 @@
                 = submit_tag 'Login Now'[:login_now] + ' &#187;'
               %td{ :valign => "middle" }
                 = link_to("If you don't have an account, click here to register"[:click_here_to_register],:action=>'signup')
-      -# end form
+            %tr
+              %td{:colspan=>2}
+                %br
+                If you are a Content Partner please 
+                = link_to("login here"[], :action=>"login", :controller=>"content_partner")
+                = "."

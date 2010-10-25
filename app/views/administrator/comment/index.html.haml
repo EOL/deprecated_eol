@@ -34,7 +34,7 @@ Click on a username to view that user's detailed profile, click on the data type
             %td{ :class => column_class }
               = h truncate(comment.body,100)
             %td{ :class => column_class }
-              = truncate(comment.parent_name,50)
+              = truncate(comment.parent_name.gsub!(/(<[^>]*>)|\n|\t/s) {" "},50)
               %br
               (
               = link_to (comment.parent_type_name,comment.parent_url)

@@ -1,5 +1,5 @@
+= javascript_include_tag 'text-content.js' # TODO - move this to a merged file (probably)
 %a{ :name => "center_content" }
-/ center page content header
 .cpc-header
   - unless @content.nil?
     - toc_item = TocItem.find_by_label(@content[:category_name])
@@ -7,18 +7,16 @@
       .multi_new_text_error{ :style => "display:none;" }
         Only one text object can be edited at a time.
       .add_text_button
-        = link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id}, :id => 'new_text_content_button', :title => "Add new content" )
+        = link_to("<span style='width:20px;height:20px;display:block;'></span>", {:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id}, :id => 'new_text_content_button', :title => "Add new content" )
   - unless @whats_this.nil?
     #whats_this
       = link_to "What's This?", @whats_this
   %h3= @content[:category_name] unless @content.nil?
-/ end center page content header
 
-/ center page content main content
 .cpc-content= render(:partial => 'content_body')
 
 - if @selected_text
   :javascript
-    document.observe("dom:loaded", function() {
-      Effect.ScrollTo("text_wrapper_=#{@selected_text.id}");
+    $(document).ready(function() {
+      $(window).scrollTop($("#text_wrapper_#{@selected_text.id}").offset()['top'] - 40);
     });

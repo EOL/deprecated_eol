@@ -1,22 +1,18 @@
-%script{ :type => "text/javascript" }
+:javascript
   function select_contact_subject(form_value) {
-  contact_subject_id=form_value.options[form_value.selectedIndex].value;
-  = "if (', #{$CONTRIBUTE_INQUIRY_CONTACT_SUBJECT_IDS},'.indexOf(',' + contact_subject_id + ',') == -1) {"
-  Element.hide('taxon_group');
-  }
-  else
-  {
-  Element.show('taxon_group');
-  }
+    contact_subject_id = $(form_value).val();
+    if (', #{$CONTRIBUTE_INQUIRY_CONTACT_SUBJECT_IDS},'.indexOf(',' + contact_subject_id + ',') == -1) {
+      $('#taxon_group').hide();
+    } else {
+      $('#taxon_group').show();
+    }
   }
 
 #page-separator-general
- 
 #page-title
   %h1
     = "Contact Us"[]
   %hr
-      
 #page-content.clearfix
   #full-page-content
     For comments about the project in general, please
@@ -53,7 +49,7 @@
           *
         %span.warn
           = "(" + "Required"[] + ")"
-      = f.collection_select :contact_subject_id, @subjects, :id, :title, { :prompt => true }, {:onchange=>'JavaScript:select_contact_subject(this);'}
+      = f.collection_select :contact_subject_id, @subjects, :id, :title, { :prompt => true }, {:onchange=>'javascript:select_contact_subject(this);'}
       %span#subject_warn.error
       %span.taxon_group{ :style => "display:none;" }
         %label{ :for => "contact_taxon_group", :title => "Taxon group of interest"[] }

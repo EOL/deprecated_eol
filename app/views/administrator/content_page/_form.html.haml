@@ -1,3 +1,4 @@
+= javascript_include_tag 'admin-content-page' # TODO - handle these JS loads more elegantly.
 - form_for :page,@page,:url=>{:action=>'save_page_content',:id=>@page.id},:html=>{:id=>'page_form', 'data-page_id' => @page.id} do |f|
   = eol_lang_error_messages_for :page
   %table
@@ -88,7 +89,7 @@
         %strong
           Last Updated:
       %td
-        = "#{format_date_time(@page.created_at)} by #{@page.user.full_name}"
+        = "#{format_date_time(@page.created_at)} by #{@page.user ? @page.user.full_name : 'nobody'}"
     - if @page.content_page_archives.size != 0
       %tr
         %td
@@ -105,13 +106,13 @@
     Left content area:
   (HTML FORMAT, only enter if you wish to have a left column on the page, otherwise leave blank)
   %br
-  = f.text_area :left_content,{:cols=>'80',:rows=>'30'}
+  = f.text_area :left_content,{:cols=>'75',:rows=>'30'}
   %br
   %strong
     Main content area:
   (HTML FORMAT)
   %br
-  = f.text_area :main_content,{:cols=>'80',:rows=>'65'}
+  = f.text_area :main_content,{:cols=>'75',:rows=>'65'}
   %br
   %br
   %input#preview{ :name => "preview", :type => "button", :value => "Preview Changes" }

@@ -1,5 +1,5 @@
-%a{ :href => "#", :onclick => "Element.toggle('instructions');return false;" }
-  Instructions
+#show-instructions{:class => 'linky'}
+  = "Instructions"[]
 #instructions{ :style => "display:none;" }
   %ol
     %li
@@ -28,3 +28,5 @@
 .divider
   #content_page
     = render(:partial=>'form')
+:javascript
+  $('#show-instructions').toggle(function() {$('#instructions').slideDown();}, function() {$('#instructions').slideUp();});

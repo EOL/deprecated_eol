@@ -1,12 +1,10 @@
 class TaxaController < ApplicationController
 
-  layout 'main'
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
   before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution, :content]
 
+  # this is cheating because of mixing taxon and taxon concept use of the controller
   def index
-    #this is cheating because of mixing taxon and taxon concept use of the controller
-
     # you need to be a content partner OR ADMIN and logged in to get here
     if current_agent.nil? && !current_user.is_admin?
       redirect_to(root_url)
@@ -16,27 +14,7 @@ class TaxaController < ApplicationController
     if params[:harvest_event_id] && params[:harvest_event_id].to_i > 0
       page = params[:page] || 1
       @harvest_event = HarvestEvent.find(params[:harvest_event_id])
-
-      # replaced because it doesn't separate taxa with objects from taxa without
-      #results = SpeciesSchemaModel.connection.execute("SELECT n.string scientific_name, he.taxon_concept_id 
-      #  FROM harvest_events_hierarchy_entries hehe 
-      #  JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id = he.id)
-      #  JOIN names n ON (he.name_id = n.id)
-      #  WHERE hehe.harvest_event_id=#{params[:harvest_event_id].to_i}
-      #  ORDER BY n.string").all_hashes.uniq
-
-      results = SpeciesSchemaModel.connection.execute("SELECT n.string scientific_name, he.taxon_concept_id, 
-        (dohe.data_object_id IS NOT null) has_data_object
-        FROM harvest_events_hierarchy_entries hehe
-        JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id = he.id)
-        JOIN names n ON (he.name_id = n.id)
-        LEFT JOIN data_objects_hierarchy_entries dohe ON (hehe.hierarchy_entry_id = dohe.hierarchy_entry_id)
-        WHERE hehe.harvest_event_id=#{params[:harvest_event_id].to_i}
-        GROUP BY he.taxon_concept_id
-        ORDER BY (dohe.data_object_id IS NULL), n.string").all_hashes.uniq
-
-
-      @taxa_contributed = results.paginate(:page => page)
+      @taxa_contributed = @harvest_event.taxa_contributed.all_hashes.uniq.paginate(:page => page)
       @page_title = $ADMIN_CONSOLE_TITLE if current_user.is_admin?
       @navigation_partial = '/admin/navigation'
       render :html => 'content_partner', :layout => current_user.is_admin? ? 'left_menu' : 'content_partner'
@@ -87,7 +65,7 @@ class TaxaController < ApplicationController
   end
 
   # Main taxon_concept view
-  def show    
+  def show
 
     if this_request_is_really_a_search
       do_the_search
@@ -119,8 +97,7 @@ class TaxaController < ApplicationController
     redirect_to(params.merge(:controller => 'taxa',
                              :action => 'show',
                              :id => @taxon_concept.id,
-                             :status => :moved_permanently)) if
-    @taxon_concept.superceded_the_requested_id?
+                             :status => :moved_permanently)) if @taxon_concept.superceded_the_requested_id?
     current_user.log_activity(:viewed_taxon_concept, :taxon_concept_id => @taxon_concept.id)
 
     respond_to do |format|
@@ -228,7 +205,6 @@ class TaxaController < ApplicationController
     @ajax_update = true
     load_content_var
     current_user.log_activity(:viewed_toc_id, :value => toc_id, :taxon_concept_id => @taxon_concept.id)
-    @new_text = render_to_string(:partial => 'content_body')
   end
 
   # AJAX: Render the requested content page
@@ -251,50 +227,43 @@ class TaxaController < ApplicationController
     append_content_instance_variables(@category_id)
     if @content.nil?
       render :text => '[content missing]'
+      return true
     else
       @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
-      render :update do |page|
-        page.replace_html 'center-page-content', :partial => 'content'
-        page << "$('current_content').value = '#{@category_id}';"
-        page << "Event.addBehavior.reload();"
-        page << "EOL.TextObjects.update_add_links('#{url_for({:controller => :data_objects, :action => :new, :type => :text, :taxon_concept_id => @taxon_concept.id, :toc_id => @new_text_tocitem_id})}');"
-        page['center-page-content'].set_style :height => 'auto'
-      end      
+      current_user.log_activity(:viewed_content_for_category_id, :value => @category_id, :taxon_concept_id => @taxon_concept.id)
     end
-
-    current_user.log_activity(:viewed_content_for_category_id, :value => @category_id, :taxon_concept_id => @taxon_concept.id)
-    #log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects] unless @content.nil?
-
   end
 
-  # TODO - this param should really be taxon_concept_id, not taxon_id... but I feel like it will require changes to
-  # Javascript, and I am not confident enough to change them right now.
-  # AJAX: Render the requested image collection by taxon_id and page
-  def image_collection
-
-    if !request.xhr?
-      render :nothing => true
-      return
-    end  
-
-    @image_page = (params[:image_page] ||= 1).to_i
-    @taxon_concept = TaxonConcept.find(params[:taxon_id])
+  def images
+    @taxon_concept = taxon_concept
     @taxon_concept.current_user = current_user
     @taxon_concept.current_agent = current_agent
-    start       = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
-    last        = start + $MAX_IMAGES_PER_PAGE - 1
-    @images     = @taxon_concept.images(:image_page => @image_page)[start..last]
-
-    if @images.nil?
-      render :nothing => true
-    else
-      @selected_image = @images[0]
-      current_user.log_activity(:viewed_page_of_images, :value => @image_page, :taxon_concept_id => @taxon_concept.id)
-      render :update do |page|
-        page.replace_html 'image-collection', :partial => 'image_collection' 
-      end
+    @image_page  = (params[:image_page] ||= 1).to_i
+    start        = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
+    last         = start + $MAX_IMAGES_PER_PAGE - 1
+    @images      = @taxon_concept.images(:image_page => @image_page)[start..last]
+    @image_count = @taxon_concept.image_count
+    begin
+      set_image_permalink_data
+    rescue
+      render_404
+      return true
     end
+    current_user.log_activity(:viewed_page_of_images, :value => @image_page, :taxon_concept_id => @taxon_concept.id)
+    render :partial => "images"
+  end
 
+  def maps
+    @taxon_concept = taxon_concept # I don't think we care about user/agent in this case.  A map is a map.
+    render :partial => "maps"
+  end
+
+  def videos
+    @taxon_concept = taxon_concept
+    @taxon_concept.current_user = current_user
+    @taxon_concept.current_agent = current_agent
+    @video_collection = videos_to_show
+    render :layout => false
   end
 
   # AJAX: show the requested video
@@ -436,7 +405,7 @@ private
 
   def videos_to_show
     @default_videos = @taxon_concept.videos
-    @videos = show_unvetted_videos # instant variable used in _mediacenter
+    @videos = show_unvetted_videos
 
     if params[:vet_flag] == "false"
       @video_collection = @videos            
@@ -500,6 +469,7 @@ private
     add_page_view_log_entry
 
     @taxon_concept.current_user = current_user
+    @image_id = params[:image_id]
 
     unless show_taxa_html_can_be_cached? &&
        fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
@@ -543,6 +513,7 @@ private
     return nil
   end
 
+  # Image ID could have been superceded (by, say, a newer version of the same image), so we need to normalize it.
   def set_image_permalink_data
     if(params[:image_id])
       image_id = params[:image_id].to_i
@@ -556,7 +527,6 @@ private
         current_user.save if logged_in?
 
         @taxon_concept.current_user = current_user
-        @images = @taxon_concept.images()
         selected_image_index = find_selected_image_index(@images,image_id)
       end
       if selected_image_index.nil?
@@ -564,13 +534,13 @@ private
       end
 
       params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
-      start       = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
-      last        = start + $MAX_IMAGES_PER_PAGE - 1
-      @images     = @taxon_concept.images(:image_page=>@image_page)[start..last]
+      start        = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
+      last         = start + $MAX_IMAGES_PER_PAGE - 1
+      @images      = @taxon_concept.images(:image_page=>@image_page)[start..last]
       adjusted_selected_image_index = selected_image_index % $MAX_IMAGES_PER_PAGE
-      @selected_image = @images[adjusted_selected_image_index]
+      @selected_image_id = @images[adjusted_selected_image_index].id
     else
-      @selected_image = @images[0]
+      @selected_image_id = @images[0].id
     end
   end
 
@@ -597,100 +567,20 @@ private
     end
   end
 
-  def set_image_comment_permalink_data
-    if params[:image_id].nil? && params[:image_comment_id]
-      comment_id = params[:image_comment_id].to_i
-
-      comment = Comment.find_by_id(comment_id)
-
-      if comment && comment.parent_type == 'DataObject'
-        data_object = DataObject.find(comment.parent_id)
-        if data_object.taxon_concepts.include?(@taxon_concept) && data_object.image?
-          params[:image_id] = data_object.id
-
-          set_image_permalink_data
-
-          @selected_image_comment = comment
-
-          set_comment_permalink_pagination(data_object.id, comment)
-        else
-          raise "No image with id #{data_object.id} for taxon concept with id #{@taxon_concept.id} or not of type image"
-        end
-      else
-        raise "Comment not for a data object"
-      end
-    end
-  end
-
-
-  def set_text_comment_permalink_data
-    if params[:text_id].nil? && params[:text_comment_id]
-      comment_id = params[:text_comment_id].to_i
-
-      comment = Comment.find(comment_id)
-
-      if comment.parent_type == 'DataObject'
-        data_object = DataObject.find(comment.parent_id)
-        if data_object.taxon_concepts.include?(@taxon_concept) && data_object.text?
-          params[:text_id] = data_object.id
-
-          set_text_permalink_data
-
-          @selected_text_comment = comment
-
-          set_comment_permalink_pagination(data_object.id, comment)
-        else
-          raise "No text with id #{data_object.id} for taxon concept with id #{@taxon_concept.id} or not of type text"
-        end
-      else
-        raise "Comment not for a data object"
-      end
-    end
-  end
-
-  def set_comment_permalink_pagination(data_object_id, comment)
-
-    all_comments = Comment.find_all_by_parent_id_and_parent_type(data_object_id, 'DataObject')
-
-    comment_index = nil
-    all_comments.each_with_index do |c, i|
-      if c == comment
-        comment_index = i
-        break
-      end
-    end
-
-    @comment_page = ((comment_index).to_f / 10).floor + 1
-  end
-
-  def set_comment_permalink_data
-    if params[:comment_id]
-      @comment = Comment.find(params[:comment_id].to_i)
-      if @comment.parent_id != @taxon_concept.id || @comment.parent_type != 'TaxonConcept'
-        raise 'Comment not for this species'
-      end
-    end
-  end
-
   # TODO - this smells like bad architecture.  The name of the method alone implies that we're doing something
   # wrong.  We really need some classes or helpers to take care of these details.
   def set_taxa_page_instance_vars
-    @taxon_concept.current_agent = current_agent unless current_agent.nil?
-
+    @taxon_concept.current_agent = current_agent
     @images = @taxon_concept.images
-
+    @image_count = @taxon_concept.image_count
+    
     begin
-      set_comment_permalink_data
       set_image_permalink_data
       set_text_permalink_data
-      set_image_comment_permalink_data
-      set_text_comment_permalink_data
     rescue
       render_404
       return true
     end
-
-    @video_collection = videos_to_show
 
     @category_id = show_category_id # need to be an instant var as we use it in several views and they use
                                     # variables with that name from different methods in different cases
@@ -707,10 +597,10 @@ private
   def data_object_ids_to_log
     ids = Array.new
     unless @images.blank?
-      if !@selected_image.nil?
-        log_data_objects_for_taxon_concept @taxon_concept, @selected_image
+      if !@selected_imag_id.nil?
+        log_data_objects_for_taxon_concept @taxon_concept, @selected_image_id
       else
-        log_data_objects_for_taxon_concept @taxon_concept, @images.first
+        log_data_objects_for_taxon_concept @taxon_concept, @images.first.id
       end
       ids << @images.first.id
     end

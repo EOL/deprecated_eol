@@ -3,7 +3,7 @@
     = "Rating"[]
   .image-rating.action-value
     -# TODO - This has a problem... it's not specific to the data object in question, so Ajax is not intelligent about updating the right values when it's changed.  It ALSO doesn't seem to work in this context: the images are not clickable... and I can't figure out why.  Help!
-    = render :partial => '/data_objects/star_rating_hash', :locals => {:data_object => data_object, :show_controls => true}
+    = render :partial => '/taxa/star_rating', :locals => {:data_object => data_object}
 .clearbreak
   %br
 .curation-section
@@ -46,7 +46,7 @@
     = "Comment"[]
   .action-value
     This comment will be publicly visible.
-    %form{:action => :comment, :id => "comment_#{data_object['id']}", :class => "comment", :onsubmit => 'return false;'}
+    %form{:action => :comment, :id => "comment_#{data_object['id']}", :class => "comment", :onsubmit => 'javascript:return false;'}
       %input{:type => "hidden", :value => data_object['id'], :name => "data_object_id", :id => "data_object_id"}
       = text_area_tag 'comment', nil, :rows => comment_height, :class => 'comment-box'
       #save-comment

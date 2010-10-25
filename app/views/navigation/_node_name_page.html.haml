@@ -1,6 +1,6 @@
 - node_class ||= nil
 - link_class = entry['has_content'] ? '' : 'light'
-= link_to(entry['name_string'], {:controller => "taxa", :action => "show", :id => entry['taxon_concept_id'] }, :class => [link_class, node_class].compact.join(' '), :onclick=>"showAjaxIndicator();")
+= link_to(entry['name_string'], {:controller => "taxa", :action => "show", :id => entry['taxon_concept_id'] }, :class => [link_class, node_class].compact.join(' '))
 -#- unless entry['rank_label'].blank?
 -#    %span.rank
 -#    = entry['rank_label']

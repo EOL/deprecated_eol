@@ -1,7 +1,6 @@
 !!!
 %html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
-    / Google verify code
     %meta{ :name => "verify-v1", :content => "mJIytYT6a+K1y+bCmD1wr1ge+4Q63O0YfTHCYWwkzaY=" }
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
     %meta{ :content => "en-us", "http-equiv" => "Content-Language" }
@@ -32,37 +31,11 @@
 
     %link{ :href => "/favicon.ico", :rel => "shortcut icon", :type => "image/x-icon" }
     %link{ :href => "/opensearchdescription.xml", :title => "Encyclopedia of Life", :rel => "search", :type => "application/opensearchdescription+xml" }
-    = auto_discovery_link_tag(:rss, {:controller=>'/content',:action=>'news',:format=>'rss'}, {:title => "EOL News RSS"}) if controller.class == ContentController
     = stylesheet_link_merged 'base-cached'
     = eol_lang_main_stylesheet 'buttons', :media => "all"
     = stylesheet_link_tag 'star_rating'
     = stylesheet_link_tag 'wikipedia'
-    -# "The tools will be loaded with maximum performance no matter where your user is located on the globe. Without the jQuery library, the file size is only 4.00 Kb when gzipping is enabled on the server-side. Please note that this global content delivery network is completely free. You can use it freely in any website including production environments. This network has been kindly offered for all jQuery Tools users by Max CDN. Respect to them!"
-    = javascript_include_tag 'http://cdn.jquerytools.org/1.2.4/jquery.tools.min.js'
-    :javascript
-      var $j = jQuery.noConflict();
-      jQuery.ajaxSetup({ 
-        'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript"); } 
-      });
-
-    = javascript_include_merged 'prototype-cached'
     = javascript_include_merged 'base-cached'
-    = javascript_include_merged 'jquery.qtip-1.0.0-rc3.min.js'
-
-    - # TODO - LOW PRI - Move this into a content_for :head block
-    = javascript_include_tag 'swfobject'
-    = javascript_include_tag 'wiki_ogg_player'
-    :javascript
-      EOL.USE_EXTERNAL_LINK_POPUPS  = #{$USE_EXTERNAL_LINK_POPUPS};
-      EOL.Curation.UNKNOWN_ID       = #{Vetted.unknown.id};
-      EOL.Curation.TRUSTED_ID       = #{Vetted.trusted.id};
-      EOL.Curation.UNTRUSTED_ID     = #{Vetted.untrusted.id};
-    
-      EOL.Curation.VISIBLE_ID       = #{Visibility.visible.id};
-      EOL.Curation.INVISIBLE_ID     = #{Visibility.invisible.id};
-      EOL.Curation.INAPPROPRIATE_ID = #{Visibility.inappropriate.id};
-    
-    - #= javascript_include_tag 'http://s9.addthis.com/js/widget.php?v=10'
     /[if lt IE 7]
       %style{:type => "text/css", :media => "screen"}
         body { behavior: url(/javascripts/csshover.htc); }
@@ -80,17 +53,13 @@
         %a{ :href => "#center-page-content", :title => "Skip to content"[] }
           = "Skip to content"[]
     %hr
-    /Page Container
     #container
-      /header
       #header
-        /logo
         %h1
           %a{ :href => root_url, :title => "Encyclopedia of Life"[:encyclopedia_of_life] }
             %span
         %hr
-        - cache(:controller=>'/content', :part=>'top_nav_' + current_user.language_abbr) do
-          /global navigation
+        - cache(:controller => '/content', :part => 'top_nav_' + current_user.language_abbr) do
           %p.hide
             = "Global Navigation"[]
           %ul#global-navigation
@@ -114,28 +83,26 @@
               %a#feedback.dropdown{ :title => "Feedback"[] }
                 = "Feedback"[]
               %ul.uppercase
-                = render :partial=>'layouts/top_menu', :locals=>{:menu_items=>ContentSection.find_pages_by_section('Feedback')}
+                = render :partial => 'layouts/top_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Feedback')}
             %li
               %a#press_room.dropdown{ :title => "Press Room"[] }
                 = "Press Room"[]
               %ul.uppercase
-                = render :partial=>'layouts/top_menu', :locals=>{:menu_items=>ContentSection.find_pages_by_section('Press Room')}
+                = render :partial => 'layouts/top_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Press Room')}
             %li
               %a#using_the_site.dropdown{ :title => "Using The Site"[] }
                 = "Using The Site"[]
               %ul.uppercase
-                = render :partial=>'layouts/top_menu', :locals=>{:menu_items=>ContentSection.find_pages_by_section('Using the Site')}
+                = render :partial => 'layouts/top_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Using the Site')}
             %li.last
               %a#about_eol.last.dropdown{ :title => "About EOL"[] }
                 = "About EOL"[]
               %ul.uppercase
-                = render :partial=>'layouts/top_menu', :locals=>{:menu_items=>ContentSection.find_pages_by_section('About EOL')}
+                = render :partial => 'layouts/top_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('About EOL')}
           %hr
-          / end global navigation
           
         #ajax-indicator.ajax-indicator{ :style => "display:none;" }
           = image_tag('indicator_arrows_black.gif', :alt => 'loading', :title => 'loading')
-        /personal space
         %p.hide
           = "Personal Space"[]
         #personal-space
@@ -153,7 +120,7 @@
                     = "Hello {user}"[:hello_user, current_user.given_name]
 
                 = @home_page.nil? ? "</p><p>" : " | "
-                = link_to("admin"[],{:controller=>'/admin',:action=>'index'}) + " | " if current_user.is_admin?
+                = link_to("admin"[],{:controller => '/admin',:action => 'index'}) + " | " if current_user.is_admin?
                 - if current_user.is_curator?
                   = link_to("curators", {:controller => '/content', :action => 'page', :id => 'curator_central'})
                   |
@@ -162,7 +129,7 @@
                 = link_to("logout"[:logout], logout_url, {:class => 'return_to'})
           - elsif $ALLOW_USER_LOGINS && !agent_logged_in?
             %p
-              = link_to("login"[:login], {:controller=>'/account', :action=>'login'}, {:class => 'return_to'})
+              = link_to("login"[:login], {:controller => '/account', :action => 'login'}, {:class => 'return_to'})
               |
               = link_to("create an account"[:create_account], {:controller => '/account', :action => 'signup'}, {:class => 'return_to'})
           - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
@@ -174,11 +141,10 @@
                 %strong
                   = "Hello {user}"[:hello_user, current_agent.full_name]
                 = @home_page.nil? ? "</p><p>" : " | "
-                = link_to("dashboard"[],:controller=>'/content_partner',:action => 'index')
+                = link_to("dashboard"[],:controller => '/content_partner',:action => 'index')
                 |
-                = link_to("logout"[:logout], {:controller=>'/content_partner',:action => 'logout'},  {:class => 'return_to'})
+                = link_to("logout"[:logout], {:controller => '/content_partner',:action => 'logout'},  {:class => 'return_to'})
           %hr
-        / end personal space
         #quick-search
           = render :partial => "/layouts/search_field"
         
@@ -202,53 +168,43 @@
               %a{ :href => url_for(settings_url), :title => "click to change settings" }
                 = "Filtered information"[]
               %br
-      / end header
       - # a div to wrap *just* the rendered template, so it's easy to update the whole template via Ajax calls, if needed
       #content
         = yield(:content) or yield
-      /\/content
       #footer
-        -# %script{ :language => "javascript", :type => "text/javascript" }
-        -#   var addthis_config = {"data_track_clickback":true};
-        -# %a.addthis_button{ :href => "http://www.addthis.com/bookmark.php?v=250&amp;username=eoladdthis" }
-        -#   %img{ :src => "http://s7.addthis.com/static/btn/v2/lg-bookmark-en.gif", :width => "125", :height => "16", :alt => "Bookmark and Share", :style => "border:0" }
-        -# %script{ :src => "http://s7.addthis.com/js/250/addthis_widget.js#username=eoladdthis", :type => "text/javascript" }
-        -# &nbsp; | &nbsp;
-        = render :partial=>'layouts/footer_menu', :locals=>{:menu_items=>ContentSection.find_pages_by_section('Footer')}
+        = render :partial => 'layouts/footer_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Footer')}
         = ENV['APP_VERSION'] unless ENV['APP_VERSION'].blank?
-    / container
-    #progress-open{ :style => "display: none;" }
-    / flash Notices
+        - if flash[:warning] || flash[:error]
+          = link_to('Show warning message'[], '#', :id => 'show-flash', :rel => '#flash-bad')
+        - elsif flash[:notice]
+          = link_to('Show status message'[], '#', :id => 'show-flash', :rel => '#flash-good')
     - if flash[:notice]
-      #progress-bar
-        #flash-good{ :style => "display: block" }
-          = flash[:notice]
-          :javascript
-            new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50});
-            new EOL.Effect.disappear('flash-good', {delay: 2, queue: 'end'});
-            new EOL.Effect.disappear('progress-open', { delay: 2, duration: 0.5, from: 0.50, to: 0.0});
-    - elsif flash[:warning]
-      #progress-bar
-        #flash-warning{ :style => "display: block" }
-          = flash[:warning]
-          :javascript
-            new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50});
-            new EOL.Effect.disappear('flash-warning', {delay: 2, queue: 'end'});
-            new EOL.Effect.disappear('progress-open', { delay: 2, duration: 0.5, from: 0.50, to: 0.0});
-    - elsif flash[:error]
-      #progress-bar
-        #flash-error{ :style => "display: block" }
-          = flash[:error]
-          :javascript
-            new EOL.Effect.appear('progress-open', {duration: 0.5, from: 0.0, to: 0.50});
-            new EOL.Effect.disappear('flash-error', {delay: 2, queue: 'end'});
-            new EOL.Effect.disappear('progress-open', { delay: 2, duration: 0.5, from: 0.50, to: 0.0});
+      #flash-good{ :style => "display: block" }
+        = flash[:notice]
+        .note
+          = "(esc key hides this message)"[]
+    - elsif flash[:warning] || flash[:error]
+      #flash-bad{ :style => "display: block" }
+        = (flash[:warning] || '') + (flash[:error] || '')
+        .note
+          = "(esc key hides this message)"[]
+    - if flash[:notice] || flash[:warning] || flash[:error]
+      :javascript
+        var trigger = $("a#show-flash").overlay({
+          top: 165,
+          mask: {
+            color: '#000000',
+            loadSpeed: 500,
+            opacity: 0.5
+          },
+          closeOnClick: true
+        });
+        overlay = trigger.overlay();
+        overlay.load();
+        window.setTimeout(function() {overlay.close();}, 2000)
     - if $ENABLE_ANALYTICS || true
       :javascript
         var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
         document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
       :javascript
-        try {
-        var pageTracker = _gat._getTracker("#{$GOOGLE_ANALYTICS_ID}");
-        pageTracker._trackPageview();
-        } catch(err) {}
+        try { var pageTracker = _gat._getTracker("#{$GOOGLE_ANALYTICS_ID}"); pageTracker._trackPageview(); } catch(err) {}

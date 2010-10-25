@@ -10,6 +10,12 @@ module ApplicationHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::SanitizeHelper
 
+  # A little onclick magic to make Ajaxy-links work before the page is fully loaded.  JS in the application js file will
+  # handle all the rest after the page is fully loaded (because of the class added to the link):
+  def ajax_delay_click
+    %Q{javascript:$(this).addClass('delayed_click');$('#ajax-indicator').fadeIn();return false;}
+  end
+
   # truncate a string to the maxlength passed and then add "..." if truncated
   def truncate(text, length = 30, truncate_string = "...")
     return if text.nil?
@@ -238,40 +244,23 @@ module ApplicationHelper
     end
     return return_html
   end
-  
-  # def agent_logo(agent, size = "large", params={})
-  #   src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
-  #   return src if src.empty?
-  #   project_name = hh(sanitize(agent.project_name))
-  #   capture_haml do
-  #     haml_tag :img, {:width => params[:width], :height => params[:height], 
-  #                     :src => src,  :border => 0, :alt => project_name, 
-  #                     :title => project_name, :class => "agent_logo"}
-  #   end
-  # end
-  
-  # def collection_logo(collection, size = "large", params={})
-  #   src = ''
-  #   src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url!=0
-  #   return src if src.empty?
-  #   collection_title = hh(sanitize(collection.title))
-  #   capture_haml do
-  #     haml_tag :img, {:width => params[:width], :height => params[:height],
-  #                     :src => src, :border => 0, :alt => collection_title, 
-  #                     :title => collection_title, :class => "agent-logo"}
-  #   end
-  # end
 
+  # NOTE - these next two methods replace older versions.  The old ones used "raw" html, these use haml.  If you find this is
+  # causing errors, go back in time to October 12th and grab the methods.
+  
   def agent_logo(agent, size = "large", params={})
     src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
     return src if src.empty?
-    logo_str = "<img "
-    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
-    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
-    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(agent.project_name)}\" title=\"#{sanitize(agent.project_name)}\" class=\"agent-logo\" />"
-    return logo_str
+    project_name = hh(sanitize(agent.project_name))
+    capture_haml do
+      haml_tag :img, {:width => params[:width], :height => params[:height], 
+                      :src => src,  :border => 0, :alt => project_name, 
+                      :title => project_name, :class => "agent_logo"}
+    end
   end
   
+  # TODO - this duplicates the above method in order to accomodate a "hash" version of agent.  We should generalize.  Also
+  # note this doesn't use Haml.  :|
   def agent_logo_hash(agent, size = "large", params={})
     src = (agent['logo_cache_url'] != 0) ? Agent.logo_url_from_cache_url(agent['logo_cache_url'], size) : agent['logo_file_name']
     return src if src.empty?
@@ -285,15 +274,17 @@ module ApplicationHelper
   
   def collection_logo(collection, size = "large", params={})
     src = ''
-    src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url!=0
+    src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url != 0
     return src if src.empty?
-    logo_str = "<img "
-    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
-    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
-    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(collection.title)}\" title=\"#{sanitize(collection.title)}\" class=\"agent-logo\" />"
-    return logo_str
+    collection_title = hh(sanitize(collection.title))
+    # TODO - make sure this works well with params[:width] nil and height nil...
+    capture_haml do
+      haml_tag :img, {:width => params[:width], :height => params[:height],
+                      :src => src, :border => 0, :alt => collection_title, 
+                      :title => collection_title, :class => "agent-logo"}
+    end
   end
-  
+
   def get_year_month_list
     arr=[]
     start="2009_07"
@@ -307,9 +298,7 @@ module ApplicationHelper
     return arr
   end
 
-
-  #change this methods to haml methods after conversion 
-
+  # TODO - change these methods to haml methods after conversion 
   def external_link_to(*args, &block)
     #return text if link is blank
     return args[0] if args[1]==nil || args[1].blank?
@@ -360,10 +349,10 @@ module ApplicationHelper
   # render a version of the classification that allows you to choose a particular clade
   #
   # Usage:
-  #   <%=  clade_selector  %>
-  #   <%=  clade_selector 'name-of-input-field-that-will-be-created' %>
-  #   <%=  clade_selector 'name-of-input-field-that-will-be-created', :some_options => 'go here' %>
-  #   <%=  clade_selector :some_options => 'go here' %>
+  #   clade_selector
+  #   clade_selector 'name-of-input-field-that-will-be-created'
+  #   clade_selector 'name-of-input-field-that-will-be-created', :some_options => 'go here'
+  #   clade_selector :some_options => 'go here'
   #
   # Options:
   #   value:            a HierarchyEntry or HierarchyEntry ID (currently selected)
@@ -374,15 +363,11 @@ module ApplicationHelper
   #   name:             the name of the input field to use (default: whatever you pass as field-name, or 'selected-clade-id')
   #   debug:            true/false - shows the hidden input field as a text field, if true
   #   show_clear:       true/false - whether or not to show the '[clear]' option to clear the selection
-  #   on_select:        javascript to call everytime a clade is selected (clade_id is available as 'clade_id')
-  #   on_clear:         javascript to call when the clear 'button' is clicked
-  #   on_expand:        javascript to call when a '+' expand link is clicked
-  #   on_unselect_all:  javascript to call whenever all clades are unselected (happens on_select and on_clear)
   #
   def clade_selector field_name = 'selected-clade-id', options = {}
     if field_name.is_a?Hash
       options = field_name 
-      field_name = 'selected-clade-id'
+      field_name = 'selected-clade-id' # If you change this default id, please also change it in navigation.js; sorry!
     end
     options = { 
       :value => nil,
@@ -462,7 +447,7 @@ module ApplicationHelper
     "<img src=\"/images/icons/published.png\" alt=\"#{description}\" title=\"#{description}\" #{style} />"
   end
   
-  def tree_entry_text he, selectable_clade_level
+  def tree_entry_text(he, selectable_clade_level, div_id)
     begin
       name = he.taxon_concept.scientific_name
     rescue ActiveRecord::RecordNotFound
@@ -472,7 +457,7 @@ module ApplicationHelper
     if he.ancestors.size < selectable_clade_level
       selection_link = name
     end
-    expansion_link = %[<a href="#{ request.path }?clade_to_expand=#{ he.id }" onclick="JavaScript:expand_clade_of_clade_selector(#{he.id}); return false;">+</a>]
+    expansion_link = %[<a href="#{ request.path }?clade_to_expand=#{he.id}" class="expand-clade">+</a>]
     selection_link += " &nbsp; " + expansion_link if he.children.count > 0
     selection_link
   end
@@ -484,6 +469,15 @@ module ApplicationHelper
       render :partial => '/popups/glossary_tooltip', :locals => {:term => term, :definition => glossary_term.definition, :element_id => "tooltip_#{@@TOOLTIP_GLOBAL_COUNT}"}
     else
       return term
+    end
+  end
+
+  def cancel_button_goes_back(url)
+    c = "Cancel"[]
+    url = back_or_home(url)
+    capture_haml do
+      haml_tag :input, {:id => "cancel", :type => 'button', :name => c, :value => c,
+                        :onclick => "javascript:window.location='#{url}';"}
     end
   end
 end

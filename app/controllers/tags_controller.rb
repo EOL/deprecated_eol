@@ -3,7 +3,7 @@
 #
 class TagsController < ApplicationController
   
-  layout proc { |c| c.request.xhr? ? false : "main" }
+  layout proc { |c| c.request.xhr? ? "tags" : "main" }
 
   before_filter :set_data_object
 

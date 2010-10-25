@@ -31,7 +31,7 @@ the process is complete, you will be able to provide your data to the EOL.
       = link_to("Step 5: Transfer Schema Upload", url_for(:action => 'transfer_upload'))
   - unless current_agent.ready_for_agreement?
     %br
-    = content_tag(:button, 'Continue &#187;', :onclick => "document.location='/content_partner/partner';")
+    = content_tag(:button, 'Continue &#187;', :onclick => "javascript:window.location='/content_partner/partner';")
   - else
     #special-announcement
       - if current_agent.agreement_expired?

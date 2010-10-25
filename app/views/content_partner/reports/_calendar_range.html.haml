@@ -1,20 +1,24 @@
-= calendar_date_select_includes
-- CalendarDateSelect.format = :hyphen_ampm
-%script{ :language => "JavaScript", :type => "text/javascript" }
-  function eol_set_report_dates(start_date,end_date) {
-  $('start_date').value=start_date;
-  $('end_date').value=end_date;
-  }
 /
   we use a get so the values will be query strings (bookmarkable) and we nil out
   state_date and end_date in path_for_report so we don't end up with duplicate query strings
 - form_tag path_for_report( :start_date => nil, :end_date => nil ), :method => :get do
-  %label{ :for => "start_date" }
-    From
-    = calendar_date_select_tag "start_date", @start_date, :embedded => false, :year_range => 2009..2015
-  %label{ :for => "end_date" }
-    To&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-    = calendar_date_select_tag "end_date", @end_date, :embedded => false, :year_range => 2009..2015
+  %table{:width => '100%'}
+    %tr{:valign => 'top'}
+      %td
+        %label{ :for => "start_date" }
+          From
+      %td
+        %input{:type => 'date', :value => @start_date}
+        -# TODO - I am cheating to get this to work.  This shouldn't be needed.
+        = hidden_field_tag :start_date, @start_date
+    %tr{:valign => 'top'}
+      %td
+        %label{ :for => "end_date" }
+          To
+      %td
+        %input{:type => 'date', :value => @end_date}
+        -# TODO - I am cheating to get this to work.  This shouldn't be needed.
+        = hidden_field_tag :end_date, @end_date
   %br
   [
   %a{ :href => "JavaScript:eol_set_report_dates('#{Date.today}','#{Date.today}');" }
@@ -31,3 +35,18 @@
   ]
   %br
   = submit_tag 'Update'
+-# Those input types of 'date' only work on HTML5-capable browsers, so we use jQuery Tools to fill in the gaps.  
+:javascript
+  $(":date").dateinput({format: 'yyyy/mm/dd', max: +1});
+  $(":date:first").data("dateinput").change(function() {
+    $(":date:last").data("dateinput").setMin(this.getValue(), true);
+    $("#start_date").val(this.getValue('yyyy-mm-dd')); // Cheating. TODO - stop it.
+  });
+  $(":date:last").data("dateinput").change(function() {
+    $(":date:first").data("dateinput").setMax(this.getValue(), true);
+    $("#end_date").val(this.getValue('yyyy-mm-dd')); // Cheating. TODO - stop it.
+  });
+  function eol_set_report_dates(start, end) {
+    $(":date:first").data("dateinput").setVal(start);
+    $(":date:last").data("dateinput").setVal(end);
+  }

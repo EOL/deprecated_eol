@@ -1,8 +1,3 @@
-%script{ :language => "JavaScript", :type => "text/javascript" }
-  function select_date(form_value) {
-  selected_date=form_value.options[form_value.selectedIndex].value;
-  window.location.href='/administrator/error_log/index?date='+created_at;
-  }
 #errors
   - if @errors.nil? == false && @errors.size > 0
     %form#page-form{ :method => "post", :action => "/administrator/error_log/index" }
@@ -11,7 +6,7 @@
       errors are in the error log
       = "for date #{@date}" unless @date.blank?
       \.  Filter by day:
-      = select_tag(:date, '<option value="">--select--</option><option value="all">all dates</option>' + options_from_collection_for_select(@distinct_dates,:date, :date,@date),{:onChange=>"JavaScript:$('page-form').submit();"})
+      = select_tag(:date, '<option value="">--select--</option><option value="all">all dates</option>' + options_from_collection_for_select(@distinct_dates,:date, :date,@date),{:onchange=>"javascript:$('#page-form').submit();"})
       %br
       = will_paginate @errors
     %table.results_table{ :cellspacing => "0", :width => "100%" }

@@ -1,8 +1,8 @@
 = javascript_include_tag 'users'
+= javascript_include_tag 'validator'
 :javascript
-  document.observe("dom:loaded", function() {
-  $('user_username').focus();
-  if(#{params[:user] && params[:user][:curator_request] ? 'true' :'false'}) reset_curator_panel();
+  $(document).ready(function() {
+    $('#user_username').focus();
   });
 #registration
   #page-separator-general
@@ -10,7 +10,6 @@
     %h1= "Registration"[]
     %hr
   #page-content.clearfix
-    / center page content
     #full-page-content
       %br
       Please note that you will be required to click a link in a confirmation email sent to the email address you enter below - so you must provide a valid, working email address.
@@ -26,7 +25,7 @@
               *
             %span.warn== (#{"Required"[]})
           / user_username ^[a-zA-Z0-9\-_]{4,32}$ false true //
-          = f.text_field :username, {:maxlength=>32, :onblur=>'JavaScript:check_username();'}
+          = f.text_field :username, {:maxlength=>32, :onblur=>'javascript:check_username();'}
           %span#username_warn.error
           %label{ :title => "Please enter a password"[], :for => "user_entered_password" }
             = "Password"[]
@@ -42,15 +41,16 @@
               *
             %span.warn== (#{"Required"[]})
           / user_entered_password_confirmation .+ false true //
-          = f.password_field :entered_password_confirmation, { :maxlength => 16, :onblur => 'JavaScript:check_passwords();' }
-          %span#password_warn.error
+          = f.password_field :entered_password_confirmation, { :maxlength => 16, :onblur => 'javascript:check_passwords();' }
+          %span#password_warn.error{ :style => 'display:none;' }
+            = "Passwords must match."[]
           %label{ :title => "Please enter your email address"[], :for => "user_email" }
             = "Email Address"[]
             %span{ :title => "required" }
               *
             %span.warn== (#{"Required"[]})
           / user_email ^[_a-zA-Z0-9-]+(\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,6})$ false true //
-          = f.text_field :email, { :maxlength => 100, :size => 30, :onblur => 'JavaScript:check_email();' }
+          = f.text_field :email, { :maxlength => 100, :size => 30, :onblur => 'javascript:check_email();' }
           %span#email_warn.error
           %label{ :title => "Please enter your given name"[:please_enter_given_name], :for => "user_given_name" }
             = "Given name"[]
@@ -77,15 +77,14 @@
               %span
                 = "To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted."[:curator_signup_message]
               = render(:partial=>'curator_form',:locals=>{ :f => f })
-          -# end if $ALLOW_CURATOR_SELF_REG
           - if $ENABLE_RECAPTCHA
+            :javascript
+              var RecaptchaOptions = { theme : 'clean'};
             %br
             %label{ :title => "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha], :for => "recaptcha" }
               = "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha]
             = recaptcha_tags
-          -# end if $ENABLE_RECAPTCHA
           %br
           .button
             = submit_tag "Register Now"[] + ' &#187;'
-      -# end form_for :user
       %br

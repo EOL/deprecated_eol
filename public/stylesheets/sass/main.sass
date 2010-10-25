@@ -1,4 +1,5 @@
 $link_blue: #149acc
+$link_hover_blue: #1088c0
 $vet_untrusted: #ff9999
 $vet_untrusted_darker: #ee7777
 $vet_untrusted_border: red
@@ -27,12 +28,23 @@ body
   font: 12px / 18px Arial, Helvetica, sans-serif
   color: #333333
 
-a
+@mixin linky
   text-decoration: underline
   color: $link_blue
   cursor: pointer
+
+a
+  @include linky
   &:hover
-    text-decoration: underline
+    color: $link_hover_blue
+
+.linky
+  @include linky
+  &:hover
+    color: $link_hover_blue
+
+a.delayed_click
+  opacity: 0.25
 
 h2
   padding: 2px 2px 2px 2px
@@ -454,17 +466,17 @@ ul#tab_media_center
     #large-image
       float: left
       width: 460px
-      padding: 11px 5px 14px 10px
+      padding: 5px 5px 14px 5px
     .mc-info
       float: right
-      width: 223px
+      width: 226px
       .noimages
         margin: 20px
       .mc-header
         position: relative
         margin: 4px 0 0 7px
         padding: 3px 0 3px 0
-        width: 207px
+        width: 210px
         border-top: 2px solid #cccccc
         border-bottom: 1px solid #cccccc
         h3
@@ -493,7 +505,7 @@ ul#tab_media_center
         margin: 7px 0 7px 7px
         width: 207px
   #image-collection
-  .wrapper-mc .mc-img
+  .wrapper-mc #thumbnails
     height: 175px
     text-align: center
     a
@@ -513,7 +525,7 @@ ul#tab_media_center
         position: relative
         top: -53px
         left: -20px
-    div#thumbnails a span
+    a span
       display: block
       margin-left: 4px
       width: 60px
@@ -604,9 +616,9 @@ ul#tab_media_center
   padding-bottom: 10px
   background-color: $background !important
   margin-bottom: 2em
-.untrusted-background-text
+.untrusted-text
   @include background-text($vet_untrusted_border, $vet_untrusted)
-.unknown-background-text
+.unknown-text
   @include background-text($vet_unknown_border, $vet_unknown)
 
 .unvetted-title-names
@@ -616,21 +628,21 @@ ul#tab_media_center
   border-left: 6px solid $vet_unknown_border
   padding: 2px 2px 2px 2px
 
-.untrusted-background-image
+.untrusted
   border: 1px solid $vet_untrusted_border
   background-color: $vet_untrusted !important
 
-.trusted-background-image
+.trusted
   border: 1px solid white
 
-.unknown-background-image
+.unknown
   border: 1px solid $vet_unknown_border
   background-color: $vet_unknown !important
 
-.unvetted-background-color, .unknown-background-color
+.unvetted-video, .unknown-video
   background-color: $vet_unknown !important
 
-.untrusted-background-color
+.untrusted-video
   background-color: $vet_untrusted !important
 
 #unvetted-page-warning-box
@@ -652,13 +664,18 @@ ul#tab_media_center
 @mixin media-caption-box
   position: relative
   overflow: auto
-  margin: 0px 0 0 9px
+  margin: 0px 0 0 5px
   padding: 0 4px
-  width: 200px
-  height: 110px
+  width: 202px
+  min-height: 110px
+  height: 140px
+  max-height: 140px
   background-color: #f4f4f4
+  font-size: 8pt
+  line-height: 12pt
 
 .mc-info .mc-notes
+  display: none
   @include media-caption-box
 
 @mixin media-caption
@@ -683,8 +700,10 @@ ul#tab_media_center
     border-bottom: 1px solid #cccccc
     
 .mc-notes
-  span em
+  em
     font-style: italic
+  strong
+    font-weight: bold
   @include media-caption
   a.image-attribution-larger
     font-size: 12px
@@ -771,7 +790,7 @@ td.credit-text
 
 #video-player
   float: left
-  width: 459px
+  width: 450px
   padding: 11px 6px 14px 13px
   background-color: #f4f4f4
   height: 344px
@@ -842,7 +861,7 @@ ul#tab_taxonomic_browser
 
 #taxonomic-text-container
   width: 269px
-  height: 372px
+  height: 373px
   border: 0px
   margin-left: 10px auto
   margin-top: 10px auto
@@ -902,12 +921,13 @@ li.current_kingdom
 #taxonomictext li.kingdom
   color: #bbbbbb
 
-#main-image
+.main-image
   border: 0px solid #dddddd
   vertical-align: middle
   position: relative
 
-#main-image-bg
+.main-image-bg
+  display: none
   background-color: #f4f4f4
   width: 460px
   height: 358px
@@ -918,7 +938,7 @@ li.current_kingdom
   background-position: center
   background-repeat: no-repeat
 
-#main-image-table
+.main-image-table
   cellspacing: 0px
   cellpadding: 0px
   border: 0px
@@ -1174,6 +1194,7 @@ ul#toc li.add_text
   height: 24px
   padding-left: 22px
   padding-top: 2px
+  border-bottom: 0
   width: 220px
 
 span.no_toc_link
@@ -1295,32 +1316,6 @@ a.footnote
   #internal-nav
     padding: 0
     border-bottom: solid #e6e7e8 1px
-  #contribute
-    padding: 16px 0 15px 0
-    background: #f6f6f7 url(/images/bg_contributetoeol.gif) left top no-repeat
-    h4
-      width: 224px
-      padding-left: 21px
-      text-transform: uppercase
-      font-size: 15px
-      color: #333333
-    ol
-      list-style-type: decimal
-      list-style-position: inside
-      padding: 9px 0 11px 0
-      li
-        padding-left: 21px
-        line-height: 21px
-        font-size: 14px
-        font-weight: 500
-        color: #cccccc
-        border-bottom: 1px solid #e6e7e8
-        &.last
-          border-bottom: none
-        a
-          text-decoration: none
-          font-size: 10px
-          color: #999999
 
 * html #content #page-content #right-page-content #contribute ol li a
   padding-left: 8px
@@ -1415,7 +1410,7 @@ a.footnote
   font-size: 11px
   line-height: 13px
 
-#errorExplanation
+@mixin errors
   padding: 10px
   border: 2px solid #c20404
   background-color: #f7e9e9
@@ -1432,6 +1427,12 @@ a.footnote
     li
       margin-left: 30px
       padding: 0px
+
+#errorExplanation
+  @include errors
+
+div.error
+  @include errors
 
 ul.errors
   list-style: none
@@ -1486,35 +1487,10 @@ input.warn, textarea.warn
   border-color: #aaaaaa
   background-image: none
 
-#progress-open
-  position: absolute
-  top: 0
-  left: 0
-  z-index: 10000
-  width: 100%
-  height: 100%
-  background: black
-  opacity: 0.5
-
-#progress-bar
-  z-index: 10001
-  text-align: center
-  position: absolute
-  top: 35%
-  left: 0px
-  width: 100%
-  height: 1px
-  overflow: visible
-  visibility: visible
-  display: block
-
-#flash-good
-  background: #d4ecb8
-  border: 2px solid #38bd17
+@mixin flashy
   padding: 7px 10px
   margin-bottom: 1em
   margin: 0px 20px 10px 20px
-  color: #38bd17
   position: absolute
   left: 50%
   width: 250px
@@ -1522,21 +1498,26 @@ input.warn, textarea.warn
   margin-left: -125px
   visibility: visible
   font-size: 14px
+  z-index: 9100
+  display: none
+  text-align: center
 
-#flash-warning, #flash-error
-  padding: 7px 10px
-  margin-bottom: 1em
-  margin: 0px 20px 10px 20px
+#flash-good
+  @include flashy
+  background: #d4ecb8
+  border: 2px solid #38bd17
+  color: #38bd17
+
+#flash-bad
+  @include flashy
   background: #ff6966
   border: 2px solid #ff4a47
   color: white
-  position: absolute
-  left: 50%
-  width: 250px
-  top: -35px
-  margin-left: -125px
-  visibility: visible
-  font-size: 14px
+
+#flash-good, #flash-bad
+  .note
+    font-size: 10px
+    margin-top: 10px
 
 .photo_slider
   position: relative
@@ -1824,8 +1805,8 @@ form div#browser-text li
   z-index: 1000
   #large-image #large-image-buttons
     min-height: 15px
-    margin-top: 0px
-    padding: 0px
+    margin-top: 4px
+    padding: 0
     #left-image-buttons
       float: left
       padding-left: 6px
@@ -1867,7 +1848,7 @@ li
       display: inline-block
       width: 100%
       height: 100%
-  &.large-image-button-group
+  &#large-image-button-group
     li>a div
       width: 25px
       height: 24px
@@ -1951,6 +1932,7 @@ div
       padding-right: 2px
       ul
         text-align: left
+        list-style: none !important
     #right_text_buttons_group
       float: right
       position: relative
@@ -2063,6 +2045,9 @@ div.text_curation_close
   background: transparent url(/images/icons/dual-states/thumbs_down.png) no-repeat 0px 0px
   &:hover
     background: transparent url(/images/icons/dual-states/thumbs_down.png) no-repeat 0px -32px
+
+#image-ratings
+  display: none
 
 .image-rating
   float: left
@@ -2182,8 +2167,10 @@ div#nagivation-choose-hierarchy option.out
 .strong
   font-weight: bold
 
-a.tooltip
+a.gloss-tooltip
   text-decoration: none
+
+// TODO - the rest of this MIGHT not be needed any more... I wasn't sure.  Sorry.
 
 #glossary
   p.separator
@@ -2236,4 +2223,25 @@ a.tooltip
       &.reserved
         background: $vet_untrusted
       
-      
+.please_wait
+  background-color: #f6f6f6
+  text-align: center
+  height: 296px
+  font-size: 14pt
+  color: black
+  padding: 45px
+  border: 2px solid #e0e0e0
+
+@mixin box_shadow
+  -moz-box-shadow: 2px 2px 11px #666
+  -webkit-box-shadow: 2px 2px 11px #666
+
+.tooltip
+  display: none
+  font-size: 12px
+  color: #333333
+  z-index: 1000
+  background-color: #f0f0a0
+  border: 1px solid #c0c090
+  padding: 3px 6px
+  @include box_shadow

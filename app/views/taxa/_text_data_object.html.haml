@@ -1,7 +1,29 @@
+:javascript
+  $(document).ready(function() {
+    // Hides text-object attribution
+    // By default, we only show authors, sources, copyrights, datasuppliers, and sourceurls
+    $('div.content-article div.attribution div.credit').each(function() {
+      if (!(
+          $(this).hasClass('author') ||
+          $(this).hasClass('source') ||
+          $(this).hasClass('rightsholder') ||
+          $(this).hasClass('license') ||
+          $(this).hasClass('datasupplier') ||
+          $(this).hasClass('indexed') ||
+          $(this).hasClass('supplier') ||
+          $(this).hasClass('show') ||
+          $(this).hasClass('sourceurl')
+          ))
+        $(this).hide();
+    });
+  });
+
 - subtitle = content_item.subtitle_to_show
-%div{:id => "text_wrapper_#{content_item.id}", :class => (@preview ? nil : "text_object"), :style => (@hide ? "display:none" : nil)}
+- tw_class = @preview ? '' : "text_object"
+- tw_class += @hide ? ' hidden-text' : ''
+- tw_class = nil if tw_class.blank? # blank would render class=""; nil won't render class at all.
+%div{:id => "text_wrapper_#{content_item.id}", :class => tw_class, :style => (@hide ? "display:none" : nil)}
   %div{:class => "content-article #{vetted_id_class(content_item)}", :id => "text_#{content_item.id}"}
-    
     - if !content_item['users'].nil? && content_item['users'][0].id == current_user.id
       .multi_new_text_error{:style => "display:none;"}
         Only one text object can be edited at a time.
@@ -13,7 +35,6 @@
     - unless subtitle.blank? || (subtitle == category && hide_subtitle)
       %h1
         = hh(subtitle)
-    / ATTRIBUTION GOES HERE
     .content-attribution-area
       .attribution-header.text-area-header
         = "Source and Additional Information"[]
@@ -21,7 +42,6 @@
     %br
     %div{:class => (content_item.vetted_id != Vetted.trusted.id ? "unvetted-background-text" : nil)}
       = content_item.description.sanitize_html
-    -# -- REFERENCES --
     - unless content_item['refs'].nil?
       .references
         .text-area-header.references-header
@@ -39,31 +59,14 @@
     #left_text_buttons_group
       %ul{"data-data_object_id" => content_item.id}
         = render :partial=>'/taxa/data_object_states', :locals => {:dato => content_item}
-    / RATING
-    .text-rating
-      = render :partial => '/taxa/star_rating', :locals => {:data_object => content_item, :show_controls => @taxon_concept.show_curator_controls?}
+    - if @taxon_concept.show_curator_controls?
+      .text-rating
+        = render :partial => '/taxa/star_rating', :locals => {:data_object => content_item}
     #right_text_buttons_group
       - if @taxon_concept.show_curator_controls?
         - if !content_item.curated?
           .spinner
             = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
-          #hide_these_controls_too_for_now{:style => "display:none"}
-            #right_text_button.trust_button.thumbs-up-image{:title => "Trust this text"}
-              = link_to '<span class="span_block"></span>', | 
-                {:controller => :data_objects, :action => :curate, |
-                  :id => content_item.id, '_method' => :put, |
-                  :curator_activity_id => CuratorActivity.approve.id.to_s}, |
-                {'data-data_object_id' => content_item.id, |
-                'data-data_object_type' => DataType.text_type_ids[0], |
-                :alt => 'Trust this text'} |
-            #right_text_button.untrust_button.thumbs-down-image{ :title => "Do not trust this text" }
-              = link_to '<span class="span_block"></span>', |
-                {:controller => :data_objects, :action => :curate, |
-                :id => content_item.id, '_method' => :put, |
-                :curator_activity_id => CuratorActivity.disapprove.id.to_s}, |
-                {'data-data_object_id' => content_item.id, |
-                :alt => 'Do not trust this text', |
-                'data-data_object_type' => DataType.text_type_ids[0]} |
         #right_text_button.curate_button.curate-button-image{ :title => "Curate this text" }
           = link_to '<span class="span_block"></span>', |
             curation_data_object_path(content_item), |
@@ -72,26 +75,27 @@
             :alt => 'Curate this text'} |
       - if !@preview
         #right_text_button.comment_button.comment-button-image{ :title => "Comment on this text" }
-          - if(@selected_text_comment)
-            :javascript
-              text_comments_permalink(#{content_item.id}, #{@selected_text_comment.id}, #{@comment_page});
-          - else
-            = link_to '<span class="span_block"></span>', |
-              data_object_comments_path(content_item), |
-              {'data-data_object_id' => content_item.id, |
-              :style => comments_style, :alt => "Comment on this text", |
-              :class => 'slide-in-link'} |
+          = link_to '<span class="span_block"></span>', |
+            data_object_comments_path(content_item), |
+            {'data-data_object_id' => content_item.id, |
+            :style => comments_style, :alt => "Comment on this text", |
+            :class => 'slide-in-link'} |
 
   .text-slidebox-border{:id => "text-comments-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container.text-comment-div{:id => "text-comments-#{content_item.id}"}
       -# TODO - we re-use this indicator a lot.  Put it in a CSS class.
       %p
         = image_tag 'indicator_arrows_black.gif'
-        Retrieving comments, please wait...
+        = "Please wait..."[]
   
   .text-slidebox-border{:id => "text-curation-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container{:id => "text-curation-#{content_item.id}"}
       %p
         = image_tag 'indicator_arrows_black.gif'
-        Loading curation controls, please wait...
+        = "Please wait..."[]
   .divider
+- if @hide
+  :javascript
+    $(document).ready(function() {
+      $('.hidden-text').slideDown();
+    });

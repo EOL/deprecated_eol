@@ -1,3 +1,12 @@
+= javascript_include_tag 'curation'
+:javascript
+  EOL.Curation.UNKNOWN_ID       = #{Vetted.unknown.id};
+  EOL.Curation.TRUSTED_ID       = #{Vetted.trusted.id};
+  EOL.Curation.UNTRUSTED_ID     = #{Vetted.untrusted.id};
+  EOL.Curation.VISIBLE_ID       = #{Visibility.visible.id};
+  EOL.Curation.INVISIBLE_ID     = #{Visibility.invisible.id};
+  EOL.Curation.INAPPROPRIATE_ID = #{Visibility.inappropriate.id};
+- title ||= true        # Allows a cleaner interface when we need it (ie: Curator Central)
 - if @data_object.text?
   .text_curation_close
     %a.close-button
@@ -14,14 +23,13 @@
       .label
         = "Vetted"[]
       .options
-        .option.trusted
+        .option.trust
           = radio_button_tag 'vetted_id', Vetted.trusted.id.to_s, @data_object.trusted?
           Trusted
-        .option.untrusted
-          %div
-            = radio_button_tag 'vetted_id', Vetted.untrusted.id.to_s, @data_object.untrusted?
-            Untrusted
-            = render :partial => 'untrust_reasons', :locals => { :data_object => @data_object }
+        .option.untrust
+          = radio_button_tag 'vetted_id', Vetted.untrusted.id.to_s, @data_object.untrusted?
+          Untrusted
+          = render :partial => 'untrust_reasons', :locals => { :data_object => @data_object }
     .curation-section
       .label
         = "Comment"[]

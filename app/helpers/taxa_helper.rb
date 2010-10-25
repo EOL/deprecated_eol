@@ -12,9 +12,9 @@ module TaxaHelper
 
   def vetted_id_class(data_object)
     return case data_object.vetted_id
-      when Vetted.unknown.id   then 'unknown-background-image'
-      when Vetted.untrusted.id then 'untrusted-background-image'
-      when Vetted.trusted.id   then 'trusted-background-image'
+      when Vetted.unknown.id   then 'unknown'
+      when Vetted.untrusted.id then 'untrusted'
+      when Vetted.trusted.id   then 'trusted'
       else nil
     end
   end
@@ -144,6 +144,7 @@ module TaxaHelper
     end
   end
 
+  # TODO - this would be useless if we put all these things into a view and show/hide the div.  Which we should:
   def video_hash(video, taxon_concept_id='')
     if taxon_concept_id.blank? # grab the first taxon concept ID from the video object if we didn't just pass it in
       taxon_concepts=video.taxa_names_taxon_concept_ids
@@ -153,27 +154,32 @@ module TaxaHelper
     data_supplier_name = data_supplier ? data_supplier.full_name : ''
     data_supplier_url = data_supplier ? data_supplier.homepage : ''
     data_supplier_icon = data_supplier ? agent_icons_partial(data_supplier) : ''
+
+    trust = ''
+    trust = 'unknown' if video.unknown?
+    trust = 'untrusted' if video.untrusted?
     
-    return "{author: '"         + escape_javascript(agent_partial(video.authors)) +
-           "', nameString: '"   + escape_javascript(video.taxa_names_ids[0]['taxon_name']) +
-           "', collection: '"   + escape_javascript(agent_partial(video.sources)) +
-           "', location: '"     + escape_javascript(video.location || '') +
-           "', info_url: '"     + escape_javascript(video.source_url || '') +
-           "', field_notes: '"  + escape_javascript(video.description || '') +
-           "', license_text: '" + escape_javascript(video.license_text || '') +
-           "', license_logo: '" + escape_javascript(video.license_logo || '') +
-           "', license_link: '" + escape_javascript(video.license_url || '') +
-           "', title:'"         + escape_javascript(video.object_title) +
-           "', video_type:'"    + escape_javascript(video.media_type) +
-           "', video_trusted:'" + escape_javascript(video.vetted_id.to_s) +
+    return "{author: '"               + escape_javascript(agent_partial(video.authors)) +
+           "', nameString: '"         + escape_javascript(video.taxa_names_ids[0]['taxon_name']) +
+           "', collection: '"         + escape_javascript(agent_partial(video.sources)) +
+           "', location: '"           + escape_javascript(video.location || '') +
+           "', info_url: '"           + escape_javascript(video.source_url || '') +
+           "', field_notes: '"        + escape_javascript(video.description || '') +
+           "', license_text: '"       + escape_javascript(video.license_text || '') +
+           "', license_logo: '"       + escape_javascript(video.license_logo || '') +
+           "', license_link: '"       + escape_javascript(video.license_url || '') +
+           "', title:'"               + escape_javascript(video.object_title) +
+           "', video_type:'"          + escape_javascript(video.media_type) +
+           "', video_trusted:'"       + escape_javascript(video.vetted_id.to_s) +
+           "', trust:'"               + escape_javascript(trust) +
            "', video_data_supplier:'" + escape_javascript(data_supplier.to_s) +
            "', video_supplier_name:'" + escape_javascript(data_supplier_name.to_s) +
            "', video_supplier_url:'"  + escape_javascript(data_supplier_url.to_s) +
            "', video_supplier_icon:'" + escape_javascript(data_supplier_icon.to_s) +
-           "', video_url:'"     + escape_javascript("#{video.video_url}" || video.object_url || '') +
-           "', data_object_id:'"+ escape_javascript(video.id.to_s) +
-           "', mime_type_id:'"+ escape_javascript(video.mime_type_id.to_s) +
-           "', object_cache_url:'"+ escape_javascript(video.object_cache_url.to_s) +
+           "', video_url:'"           + escape_javascript("#{video.video_url}" || video.object_url || '') +
+           "', data_object_id:'"      + escape_javascript(video.id.to_s) +
+           "', mime_type_id:'"        + escape_javascript(video.mime_type_id.to_s) +
+           "', object_cache_url:'"    + escape_javascript(video.object_cache_url.to_s) +
            "', taxon_concept_id:'#{taxon_concept_id}'}"
 
   end

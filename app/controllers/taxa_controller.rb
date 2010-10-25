@@ -540,7 +540,7 @@ private
       adjusted_selected_image_index = selected_image_index % $MAX_IMAGES_PER_PAGE
       @selected_image_id = @images[adjusted_selected_image_index].id
     else
-      @selected_image_id = @images[0].id
+      @selected_image_id = @images[0].id unless @images.blank?
     end
   end
 

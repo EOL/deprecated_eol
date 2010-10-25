@@ -4,7 +4,6 @@ javascripts:
   - jquery.tools.min
   - eol
   - search
-  - bioGUIDv3
   - application 
 
 - taxa-page-cached:

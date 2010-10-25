@@ -3,7 +3,7 @@
     = "Rating"[]
   .image-rating.action-value
     -# TODO - This has a problem... it's not specific to the data object in question, so Ajax is not intelligent about updating the right values when it's changed.  It ALSO doesn't seem to work in this context: the images are not clickable... and I can't figure out why.  Help!
-    = render :partial => '/taxa/star_rating', :locals => {:data_object => data_object}
+    = render :partial => '/data_objects/star_rating_hash', :locals => {:data_object => data_object, :show_controls => true}
 .clearbreak
   %br
 .curation-section

@@ -68,8 +68,8 @@ div.content-wrap {
   overflow-y: auto;
   background-color: #f4f4f4;
   color: black;
-  height: 529px;
-  padding: 18px; }
+  height: 547px;
+  padding: 9px; }
   div.content-wrap h3 {
     font-size: 14pt !important;
     line-height: 24pt;
@@ -78,7 +78,7 @@ div.content-wrap {
   div.content-wrap p {
     margin-bottom: 8pt; }
 
-.overlay .close {
+.overlay_worklist .close {
   background-image: url(/images/close_dialog_lg.png);
   position: absolute;
   right: 10px;

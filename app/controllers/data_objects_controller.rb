@@ -178,7 +178,8 @@ class DataObjectsController < ApplicationController
   def show
     get_attribution
     @type = @data_object.data_type.label
-    @comments = @data_object.all_comments
+    @comments = @data_object.all_comments.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
+    @slim_container = true
     @revisions = @data_object.revisions.sort_by(&:created_at)
     @taxon_concepts = @data_object.taxon_concepts
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }

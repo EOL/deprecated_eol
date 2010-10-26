@@ -3,6 +3,8 @@
   %h2 in #{@scientific_names.keys.sort.join(", ")}
 #page-content.clearfix
   #full-page-content
+    #data_object_wrapper
+      = render :partial => "data_objects/data_object_#{@type.downcase}", :locals => { :data_object => @data_object, :scientific_names => @scientific_names.keys.sort.join(", ") }
     %h3 Attribution
     = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
     - if @revisions.size > 1

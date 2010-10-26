@@ -1360,7 +1360,11 @@ AND data_type_id IN (#{data_type_ids.join(',')})
       end
     end
     
-    object_details_hashes = ModelQueryHelper.sort_object_hash_by_display_order(object_details_hashes)
+    if options[:sort] == 'id desc'
+      object_details_hashes.sort!{ |a,b| b['id'].to_i <=> a['id'].to_i }
+    else
+      object_details_hashes = ModelQueryHelper.sort_object_hash_by_display_order(object_details_hashes)
+    end
     
     object_details_hashes = DataObject.add_refs_to_details(object_details_hashes) if options[:skip_metadata].blank? && options[:skip_refs].blank?
     object_details_hashes = DataObject.add_agents_to_details(object_details_hashes) if options[:skip_metadata].blank?

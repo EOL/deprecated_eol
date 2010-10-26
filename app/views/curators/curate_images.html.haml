@@ -16,6 +16,11 @@
           %h6
             = image['common_names'][0]['name'].firstcap
         = link_to(image_tag(DataObject.image_cache_path(image["object_cache_url"], :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
+        - unless image['created_at'].blank?
+          %em
+            = "Indexed on:"[]
+          = DateTime.parse(image['created_at']).strftime("%B %d, %Y")
+          %br
         - unless image['agents'].empty?
           %em
             = "Supplier:"[]
@@ -38,7 +43,7 @@
       %td{:class => "#{row_class} unreviewed"}
         = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24}
 = will_paginate(@images_to_curate)
-#overlay.overlay{:style => 'display:none'}
+#overlay.overlay_worklist{:style => 'display:none'}
   .content-wrap
 = javascript_include_tag 'rating.js' # basically, I'm only using this to update after calling the ajax, below...
 = javascript_include_tag 'curation_tools.js'

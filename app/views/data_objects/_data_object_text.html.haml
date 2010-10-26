@@ -1,1 +1,66 @@
-hi I am a text
+- title = data_object.data_objects_table_of_contents[0].toc_item.label
+- subtitle = data_object.subtitle_to_show
+
+%div{ :id => "text_wrapper_#{data_object.id}" }
+  #text_object_title
+    %h2= title
+    - if subtitle
+      %h3= subtitle
+    #text_object_body
+      = data_object.description.sanitize_html
+  - unless data_object.refs.blank?
+    %h4 References
+    %ul
+      - data_object.refs.each do |ref|
+        %li
+          = ref.full_reference.sanitize_html
+          - ref.ref_identifiers.each do |identifier|
+            -# we do not show identifier unless we know how to handle them:
+            - next unless identifier.display?
+            &emsp;
+            = external_link_to(identifier.identifier, identifier.link_to_identifier)
+
+-# - tw_class = nil
+-# %div{:id => "text_wrapper_#{data_object.id}", :class => tw_class, :style => (@hide ? "display:none" : nil)}
+-#   %div{:class => "content-article #{vetted_id_class(data_object)}", :id => "text_#{data_object.id}"}
+-#     - if !data_object['users'].nil? && data_object['users'][0].id == current_user.id
+-#       .multi_new_text_error{:style => "display:none;"}
+-#         Only one text object can be edited at a time.
+-#       .edit_text
+-#         = link_to("Edit", {:controller => :data_objects, :action => :edit, :type => :text, :id => data_object.id, :taxon_concept_id => @taxon_concept.id, :toc_id => @category_id}, :id => "edit_text_#{data_object.id}")
+-#       - if subtitle.blank? || (subtitle == category && hide_subtitle)
+-#         %h1 &nbsp;
+-#     
+-#     - unless subtitle.blank? || (subtitle == category && hide_subtitle)
+-#       %h1
+-#         = hh(subtitle)
+-#     %br
+-#     %div{:class => (data_object.vetted_id != Vetted.trusted.id ? "unvetted-background-text" : nil)}
+-#       = data_object.description.sanitize_html
+-#     - unless data_object['refs'].nil?
+-#       .references
+-#         .text-area-header.references-header
+-#           References
+-#         %ul
+-#           - data_object['refs'].each do |ref|
+-#             %li
+-#               = ref.full_reference.sanitize_html
+-#               - ref.ref_identifiers.each do |identifier|
+-#                 -# we do not show identifier unless we know how to handle them:
+-#                 - next unless identifier.display?
+-#                 &emsp;
+-#                 = external_link_to(identifier.identifier, identifier.link_to_identifier)
+-# 
+-#   .text-slidebox-border{:id => "text-comments-wrapper-#{data_object.id}", :style => "display:none;"}
+-#     .text-slidebox-container.text-comment-div{:id => "text-comments-#{data_object.id}"}
+-#       -# TODO - we re-use this indicator a lot.  Put it in a CSS class.
+-#       %p
+-#         = image_tag 'indicator_arrows_black.gif'
+-#         = "Please wait..."[]
+-#   
+-#   .text-slidebox-border{:id => "text-curation-wrapper-#{data_object.id}", :style => "display:none;"}
+-#     .text-slidebox-container{:id => "text-curation-#{data_object.id}"}
+-#       %p
+-#         = image_tag 'indicator_arrows_black.gif'
+-#         = "Please wait..."[]
+-#   .divider

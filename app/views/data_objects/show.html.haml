@@ -1,41 +1,51 @@
 #page-title
-  %h1== #{@type} object
-  %h2 in #{@scientific_names.keys.sort.join(", ")}
+  %h1== #{@type} permalink 
+  %h2
+    - if @taxon_concepts.blank?
+      ( stands alone )
+    - else
+      == ( belongs to the following page#{@taxon_concepts.size == 1 ? '' : 's'}: 
+      - @taxon_concepts.each_with_index do |tc, i|
+        - comma = (i+1 == @taxon_concepts.size) ? '' : ', '
+        = link_to(tc.scientific_name, taxon_concept_path(tc.id)) + comma
+      )
+      
 #page-content.clearfix
   #full-page-content
     #data_object_wrapper
-      = render :partial => "data_objects/data_object_#{@type.downcase}", :locals => { :data_object => @data_object, :scientific_names => @scientific_names.keys.sort.join(", ") }
-    %h3 Attribution
-    = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
-    - if @revisions.size > 1
-      %h3 Revisions
-      %ul
-      - @revisions.each do |revision|
-        %li= link_to(revision.created_at, data_object_path(revision.id))
-    %h3 Pages
-    %ul
-    - @taxon_concepts.each do |tc|
-      %li= link_to(tc.scientific_name, taxon_concept_path(tc.id)) 
-    - unless @comments.blank?
-      %h3 Comments
-      #taxaCommentsWrap{ :style => "margin-top:2em" }
-        #commentsContain
-          .controls
-            - if @slim_container
-              - info = "Total %s comments" % @comments.size
-              = info == 'No entries found' ? 'Comments' : "#{info},"
-              on
-              = @title_label
-              - if @title != ''
-                %div
-                  %h2
-                    = @title
+      .divider
+      #data_object
+        = render :partial => "data_objects/data_object_#{@type.downcase}", :locals => { :data_object => @data_object, :taxon_concepts => @taxon_concepts }
+      .divider 
+      %h3 Attribution
+      = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
+      - if @revisions.size > 1
+        .divider 
+        %h3 Revisions
+        %ul
+          - @revisions.reverse.each do |revision|
+            - revision_class = revision.created_at == @data_object.created_at ? 'current_revision' : nil
+            %li{ :class => revision_class }= link_to(revision.created_at, data_object_path(revision.id))
+      - unless @comments.blank?
+        %h3 Comments
+        #taxaCommentsWrap{ :style => "margin-top:2em" }
+          #commentsContain
+            .controls
+              - if @slim_container
+                - info = "Total %s comments" % @comments.size
+                = info == 'No entries found' ? 'Comments' : "#{info},"
+                on
+                = @title_label
+                - if @title != ''
+                  %div
+                    %h2
+                      = @title
+              - else
+                %small
+                  = info == 'No entries found' ? '' : info
+            - if @comments.empty?
+              %p#no-comments
+                No comments have been left yet.
             - else
-              %small
-                = info == 'No entries found' ? '' : info
-          - if @comments.empty?
-            %p#no-comments
-              No comments have been left yet.
-          - else
-            %ul.comments
-              = render :partial => 'comments/list', :locals => { :current_objects => @comments }
+              %ul.comments
+                = render :partial => 'comments/list', :locals => { :current_objects => @comments }

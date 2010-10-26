@@ -9,13 +9,8 @@ $(function() {
   });
 });
 
-$('ul.small-star li a').click(function() {
-  $.post($(this).attr('href'));
-  EOL.Rating.update_user_rating($(this).attr('data-data_object_id'), $(this).text());
-});
-
 $('form.comment').submit(function() {
-  form_element = this
+  form_element = this;
   $.post($(this).attr('action'), $(this).serialize(), function() {
     // TODO - move this to rjs... once we can use jQuery.  :\
     $(form_element).children().not(':submit, :hidden').val(''); // reset the form

@@ -14,7 +14,7 @@
           = link_to(image['scientific_name'], {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
         - if !image['common_names'].blank?
           %h6
-            = image['common_names'][0]['name']
+            = image['common_names'][0]['name'].firstcap
         = link_to(image_tag(DataObject.image_cache_path(image["object_cache_url"], :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
         - unless image['agents'].empty?
           %em
@@ -26,10 +26,11 @@
               %em
                 = "#{agent['role']}:"
               = agent['full_name']
+          %hr.thin
         - unless image['description'].blank?
           %h6
             = "Description:"[]
-          = truncate(strip_tags(image['description']), 48)
+          = strip_tags(image['description'])
         - unless image['location'].empty?
           %h6 
             = "Location:"[]

@@ -8,6 +8,7 @@ EOL.Rating.update_average_rating = function(data_object_id, rating) {
 EOL.Rating.update_user_rating = function(data_object_id, rating) {
   $('#user-rating-'+data_object_id).css('width', rating * 20+'%');
 };
+
 // Set up the links to be clickable. A 'scope' of an empty string ('') will do everything on the page...
 EOL.Rating.init_links = function(scope) {
   if (scope.length > 0) { scope = scope + ' '; }

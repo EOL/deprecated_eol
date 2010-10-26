@@ -1,9 +1,9 @@
-- rate_percentage = data_object['data_rating'].to_f * 20
+- rate_percentage = data_object['data_rating'].to_f * 20.0
 - if show_controls
   Overall:
   %span.inline-rating
     %ul.star-rating.small-star.average-rating
-      %li.current-rating{ :style => "width:#{rate_percentage}%;" }
+      %li.current-rating{ :id => "average-rating-#{data_object['id']}", :style => "width:#{rate_percentage}%;" }
         Overall:
         = data_object['data_rating'].to_s
   Your Rating:
@@ -11,7 +11,7 @@
     %ul.star-rating.small-star.user-rating
       - user_rating = current_user.rating_for_object_guid(data_object['guid'])
       - is_image = data_object['data_type_id'].to_i == DataType.image.id
-      %li.current-rating{ :style => "width:#{(user_rating) ? user_rating.rating * 20 : 0}%;" }
+      %li.current-rating{ :id => "user-rating-#{data_object['id']}", :style => "width:#{(user_rating) ? user_rating.rating * 20.0 : 0}%;" }
         Your Rating:
         = (user_rating) ? user_rating.rating : 0
       %li

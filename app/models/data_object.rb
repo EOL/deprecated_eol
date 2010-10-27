@@ -398,6 +398,10 @@ class DataObject < SpeciesSchemaModel
     return DataType.text_type_ids.include?(data_type_id)
   end
 
+  def video?
+    return DataType.video_type_ids.include?(data_type_id)
+  end
+
   # TODO: delete this when it is not used. 
   # We want to link to an appropriate page... for example, on Animalia, we want to link to Raccoons for images of raccoons,\
   # not Animalia.

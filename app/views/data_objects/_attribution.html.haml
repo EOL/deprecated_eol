@@ -57,7 +57,7 @@
         .credit-value
           = link_to "nominate another wikipedia article for ingestion", :controller => 'content', :action => 'page', :id => 'curator_central', :anchor => 'wikipedia'
         .footer
-  - if (data_object.text? || data_object.image?) && !data_object['taxa_names_ids'].nil? && ! (defined?(skip_permalink) && skip_permalink)
+  - if (data_object.text? || data_object.image? || data_object.video?) && !data_object['taxa_names_ids'].nil? && ! (defined?(skip_permalink) && skip_permalink)
     .credit.permalink
       .credit-caption
         = "Permalink"[]

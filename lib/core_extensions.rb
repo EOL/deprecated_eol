@@ -139,6 +139,14 @@ class String
     
   end
 
+  def truncate(length)
+    if self.length >= length
+      self[0..length-1] + "..."
+    else
+      self
+    end
+  end
+
 end
 
 class Array

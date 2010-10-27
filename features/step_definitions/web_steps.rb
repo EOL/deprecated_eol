@@ -195,6 +195,12 @@ Then /^the "([^"]*)" checkbox(?: within "([^"]*)")? should not be checked$/ do |
     end
   end
 end
+
+Then /^I should see an image within "([^"]*)"$/ do |selector|
+  with_scope(selector) do
+    page.has_css?('img').should be_true
+  end
+end
  
 Then /^(?:|I )should be on (.+)$/ do |page_name|
   current_path = URI.parse(current_url).path

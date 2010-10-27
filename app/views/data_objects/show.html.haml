@@ -15,36 +15,42 @@
 #page-content.clearfix
   #full-page-content
     #data_object_wrapper
-      .divider
-      %h3 Curation status
-      - status = @data_object.vetted.label.downcase
-      - bg_class = []
-      %p
-        - if status == 'unknown'
-          Have not been reviewed.
-          - bg_class << 'unknown-text'
-        - else
-          == This object is #{status}.
-          - bg_class << 'untrusted-text' if status == 'untrusted'
-      .divider
-      - bg_class = bg_class.join(' ')
-      - bg_class = nil if bg_class.blank?
-      #data_object{ :class => bg_class }
-        = render :partial => "data_objects/data_object_#{type.downcase}", :locals => { :data_object => @data_object, :taxon_concepts => @taxon_concepts }
-      .divider 
-      %h3 Attribution
-      = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
-      %br
-      - if @revisions.size > 1
-        .divider 
-        %h3 Revisions
-        %ul
-          - @revisions.reverse.each do |revision|
-            - revision_class = revision.created_at == @data_object.created_at ? 'current_revision' : nil
-            %li{ :class => revision_class }= link_to(revision.created_at, data_object_path(revision.id))
-      - unless @comments.blank?
+      #data_object_status
         .divider
-        %h3 Comments
-        #taxaCommentsWrap
-          #commentsContain
-            = render :partial => 'shared/comments', :locals => { :comments => @comments, :opts => { :params => {:anchor => "commentsContain"} }}
+        %h3 Curation status
+        - status = @data_object.vetted.label.downcase
+        - bg_class = []
+        %p
+          - if status == 'unknown'
+            Have not been reviewed.
+            - bg_class << 'unknown-text'
+          - else
+            == This object is #{status}.
+            - bg_class << 'untrusted-text' if status == 'untrusted'
+      #data_object_content
+        .divider
+        %h3 Content
+        - bg_class = bg_class.join(' ')
+        - bg_class = nil if bg_class.blank?
+        #data_object{ :class => bg_class }
+          = render :partial => "data_objects/data_object_#{type.downcase}", :locals => { :data_object => @data_object, :taxon_concepts => @taxon_concepts }
+      #data_object_attribution
+        .divider 
+        %h3 Attribution
+        = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
+        %br
+      - if @revisions.size > 1
+        #data_object_revisions
+          .divider 
+          %h3 Revisions
+          %ul
+            - @revisions.reverse.each do |revision|
+              - revision_class = revision.created_at == @data_object.created_at ? 'current_revision' : nil
+              %li{ :class => revision_class }= link_to(revision.created_at, data_object_path(revision.id))
+      - unless @comments.blank?
+        #data_object_comments
+          .divider
+          %h3 Comments
+          #taxaCommentsWrap
+            #commentsContain
+              = render :partial => 'shared/comments', :locals => { :comments => @comments, :opts => { :params => {:anchor => "commentsContain"} }}

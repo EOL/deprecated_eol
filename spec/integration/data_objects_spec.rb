@@ -19,7 +19,11 @@ describe 'Data Object Page' do
       :object_cache_url => Factory.next(:image),
       :vetted => Vetted.trusted,
       :visibility => Visibility.visible)
-      @dato_id_comments_no_pagination = 11
+      @dato_comments_no_pagination = build_data_object('Image', 'Some comments',
+      :num_comments => 4,
+      :object_cache_url => Factory.next(:image),
+      :vetted => Vetted.trusted,
+      :visibility => Visibility.visible)
       @dato_comments_with_pagination = build_data_object('Image', 'Lots of comments',
       :num_comments => 15,
       :object_cache_url => Factory.next(:image),
@@ -45,7 +49,7 @@ describe 'Data Object Page' do
     end
     
     it "should not show pagination if there are less than 10 comments" do
-      visit("/data_objects/#{@dato_id_comments_no_pagination}")
+      visit("/data_objects/#{@dato_comments_no_pagination.id}")
       page.status_code.should == 200
       page.should have_xpath("//div[@id='commentsContain']")
       page.should have_no_xpath("//div[@id='commentsContain']/div[@id='pagination']")

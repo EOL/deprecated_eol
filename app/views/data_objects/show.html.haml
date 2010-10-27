@@ -1,5 +1,7 @@
 #page-title
-  %h1== #{@type} permalink 
+  - type = @type
+  - type = 'Video' if ['youtube', 'flash', 'video'].include? @type.downcase
+  %h1== #{type} permalink. 
   %h2
     - if @taxon_concepts.blank?
       ( stands alone )
@@ -13,20 +15,36 @@
 #page-content.clearfix
   #full-page-content
     #data_object_wrapper
-      = render :partial => "data_objects/data_object_#{@type.downcase}", :locals => { :data_object => @data_object, :scientific_names => @scientific_names.keys.sort.join(", ") }
-    %h3 Attribution
-    = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
-    - if @revisions.size > 1
-      %h3 Revisions
-      %ul
-        - @revisions.each do |revision|
-          %li= link_to(revision.created_at, data_object_path(revision.id))
-    %h3 Pages
-    %ul
-      - @taxon_concepts.each do |tc|
-        %li= link_to(tc.scientific_name, taxon_concept_path(tc.id)) 
-    - unless @comments.blank?
-      %h3 Comments
-      #taxaCommentsWrap
-        #commentsContain
-          = render :partial => 'shared/comments', :locals => { :comments => @comments, :opts => { :params => {:anchor => "commentsContain"} }}
+      .divider
+      %h3 Curation status
+      - status = @data_object.vetted.label.downcase
+      - bg_class = []
+      %p
+        - if status == 'unknown'
+          Have not been reviewed.
+          - bg_class << 'unknown-text'
+        - else
+          == This object is #{status}.
+          - bg_class << 'untrusted-text' if status == 'untrusted'
+      .divider
+      - bg_class = bg_class.join(' ')
+      - bg_class = nil if bg_class.blank?
+      #data_object{ :class => bg_class }
+        = render :partial => "data_objects/data_object_#{type.downcase}", :locals => { :data_object => @data_object, :taxon_concepts => @taxon_concepts }
+      .divider 
+      %h3 Attribution
+      = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
+      %br
+      - if @revisions.size > 1
+        .divider 
+        %h3 Revisions
+        %ul
+          - @revisions.reverse.each do |revision|
+            - revision_class = revision.created_at == @data_object.created_at ? 'current_revision' : nil
+            %li{ :class => revision_class }= link_to(revision.created_at, data_object_path(revision.id))
+      - unless @comments.blank?
+        .divider
+        %h3 Comments
+        #taxaCommentsWrap
+          #commentsContain
+            = render :partial => 'shared/comments', :locals => { :comments => @comments, :opts => { :params => {:anchor => "commentsContain"} }}

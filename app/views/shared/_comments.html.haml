@@ -1,0 +1,29 @@
+.controls
+  - if @slim_container
+    - info = page_entries_info comments
+    = info == 'No entries found' ? 'Comments' : "#{info}"
+    - if @title_label
+      , on
+      = @title_label
+    - if @title != ''
+      %div
+        %h2
+          = @title
+  - else
+    %h2
+      Comments
+      %b
+        On
+        = @title_label
+        = @title
+    %small
+      - info = page_entries_info comments
+      = info == 'No entries found' ? '' : info
+- if comments.empty?
+  %p#no-comments
+    No comments have been left yet.
+- else
+  - paginated_section(comments, opts ) do
+    %ul.comments
+      - comments.each do |comment|
+        = render :partial => 'comments/comment', :locals => {:comment => comment}

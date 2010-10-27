@@ -22,90 +22,90 @@ common: &common
   adapter: mysql
   encoding: utf8
   reconnect: true
-  socket: /var/run/mysqld/mysqld.sock
+  # socket: /var/run/mysqld/mysqld.sock
 
 # common settings for any development databases
-devel_common: &development
+devel_common: &dev
   host: localhost
   username: root
-  password: pass
+  password: 
 
 # common settings for all test databases
-tst_common: &test
+tst_common: &tst
   host: localhost
   username: root
-  password: pass
+  password: 
 
 # common settings for all integration databases
-int_common: &integration
-  host: integration.example.com
-  username: integration_user
-  password: pass
+int_common: &remote
+  host: remote.example.com
+  username: user
+  password: password
 
 
 
 #######################
 development:
   <<: *common
-  <<: *development
+  <<: *dev
   database: eol_development
 
 development_data:
   <<: *common
-  <<: *development
+  <<: *dev
   database: eol_data_development
 
 development_logging:
   <<: *common
-  <<: *development
+  <<: *dev
   database: eol_logging_development
 
 ############################
-test:
+test: &test
   <<: *common
-  <<: *test
+  <<: *tst
   database: eol_test
 
 test_data:
   <<: *common
-  <<: *test
+  <<: *tst
   database: eol_data_test
 
 test_logging:
   <<: *common
-  <<: *test
+  <<: *tst
   database: eol_logging_test
 
 ############################
 integration:
   <<: *common
-  <<: *integration
+  <<: *remote
   database: eol_integration
 
 integration_data:
   <<: *common
-  <<: *integration
+  <<: *remote
   database: eol_data_integration
 
 integration_logging:
   <<: *common
-  <<: *integration
+  <<: *remote
   database: eol_logging_production
 
 ############################
 staging:
   <<: *common
-  <<: *integration
+  <<: *remote
   database: eol_staging
 
 staging_data:
   <<: *common
-  <<: *integration
+  <<: *remote
   database: eol_data_staging
 
 staging_logging:
   <<: *common
-  <<: *integration
+  <<: *remote
   database: eol_logging_production
 
 ############################
@@ -113,17 +113,33 @@ staging_logging:
  #master database connection for rails database
 master_database:
   <<: *common
-  <<: *integration
+  <<: *remote
   database: eol_integration
 
 #master database connection for data database
 master_data_database:
   <<: *common
-  <<: *integration
+  <<: *remote
   database: eol_data_integration
 
 #master database connection for logging database
 master_logging_database:
   <<: *common
-  <<: *integration
+  <<: *remote
   database: eol_logging_production
+
+#######################
+cucumber:
+  <<: *common
+  <<: *remote
+  database: eol_integration
+
+cucumber_data:
+  <<: *common
+  <<: *remote
+  database: eol_data_integration
+
+cucumber_logging:
+  <<: *common
+  <<: *dev
+  database: eol_logging_development

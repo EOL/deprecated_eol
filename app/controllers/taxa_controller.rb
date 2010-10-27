@@ -290,7 +290,7 @@ class TaxaController < ApplicationController
     current_user.log_activity(:viewed_video, :value => @object_cache_url)
 
     render :update do |page|
-      page.replace_html 'video-player', :partial => 'video_' + video_type
+      page.replace_html 'video-player', :partial => 'shared/video_' + video_type
     end
 
   end

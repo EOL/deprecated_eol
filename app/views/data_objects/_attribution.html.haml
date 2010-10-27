@@ -57,7 +57,7 @@
         .credit-value
           = link_to "nominate another wikipedia article for ingestion", :controller => 'content', :action => 'page', :id => 'curator_central', :anchor => 'wikipedia'
         .footer
-  - if (data_object.text? || data_object.image?) && !data_object['taxa_names_ids'].nil? && ! (defined?(skip_permalink) && skip_permalink)
+  - if (data_object.text? || data_object.image? || data_object.video?) && !data_object['taxa_names_ids'].nil? && ! (defined?(skip_permalink) && skip_permalink)
     .credit.permalink
       .credit-caption
         = "Permalink"[]
@@ -67,5 +67,5 @@
         %br
         %form
           -# Note that we don't just use @taxon_concept.id for this link because higher-level taxa pages (ie: Animals) should point to a more appropriate page for the image (ie: Raccoons).
-          %input{ :size => data_object.text? ? '45' : '35', :type => "text", :value => "http://#{$SITE_DOMAIN_OR_IP}/pages/#{data_object.taxon_page_id_for_permalink}?#{data_object['media_type'].downcase}_id=#{DataObject.latest_published_version_of(data_object.id).id}", :onclick => "javascript:$(this).select();" }
+          %input{ :size => data_object.text? ? '45' : '35', :type => "text", :value => "http://#{$SITE_DOMAIN_OR_IP}/data_objects/#{data_object.id}", :onclick => "this.select();" }
       .footer

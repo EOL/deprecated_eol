@@ -25,14 +25,14 @@ class HarvestEvent < SpeciesSchemaModel
     return arr
   end
 
-  def taxa_contributed
+  def taxa_contributed(he_id)
     SpeciesSchemaModel.connection.execute(
       "SELECT n.string scientific_name, he.taxon_concept_id, (dohe.data_object_id IS NOT null) has_data_object
          FROM harvest_events_hierarchy_entries hehe
            JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id = he.id)
            JOIN names n ON (he.name_id = n.id)
            LEFT JOIN data_objects_hierarchy_entries dohe ON (hehe.hierarchy_entry_id = dohe.hierarchy_entry_id)
-         WHERE hehe.harvest_event_id=#{params[:harvest_event_id].to_i}
+         WHERE hehe.harvest_event_id=#{taxa_id.to_i}
          GROUP BY he.taxon_concept_id
          ORDER BY (dohe.data_object_id IS NULL), n.string")
   end

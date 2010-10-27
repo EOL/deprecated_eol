@@ -187,6 +187,21 @@ class Administrator::UserController  < AdminController
       
   end  
   
+  def view_user_activity
+    @page_title = 'User Activity' 
+    #@user_id=params[:user_id] || 'All'
+    @user_id=params[:user_id] || 35200
+    @user_list=User.users_with_activity_log    
+    @object_ids = ActivityLog.get_activity_ids(@user_id)    
+    if(@user_id == 'All') then    
+      @comments=ActivityLog.paginate(:order=>'id desc',:include=>:user,:page => params[:page])
+      @comment_count=ActivityLog.count()
+    else
+      @comments=ActivityLog.paginate(:conditions=>['user_id = ?',@user_id], :order=>'id desc',:include=>:user,:page => params[:page])
+      @comment_count=ActivityLog.count(:conditions=>['user_id = ?',@user_id])      
+    end
+  end
+
 private
 
   def set_layout_variables

@@ -1,0 +1,58 @@
+User-activity on the website are shown below, sorted inversely by time created. You can also select a user to list his activities.
+Click on the species to view the page (use your browser back button to return here).
+#comments
+  - form_tag({:action=>'view_user_activity'},:method=>'get') do
+    Select:
+    %select{ :name => "user_id" }
+      %option
+        All
+      - for user in @user_list
+        %option{ :value => user.id, :selected => @user_id.to_i == user.id }
+          = user.family_name
+          ,
+          = user.given_name
+    = submit_tag 'Search'
+    %br
+    %br
+    - if @comments.nil? == false && @comments.size > 0
+      Activities found:
+      = @comment_count
+      %br
+      = will_paginate @comments
+      %table.results_table{ :cellspacing => "0" }
+        %tr
+          %th
+            User
+          %th
+            Species
+          %th
+            Activity
+          %th
+            Date
+        - for activity in @comments
+          - column_class=cycle('odd','even')
+          - if (activity.taxon_concept_id) then
+            - concept = TaxonConcept.find(activity.taxon_concept_id)
+            - name = concept.quick_scientific_name(:italicized)
+          - else
+            - name=""
+
+          - obj = Activity.find(activity.activity_id)
+          - user = User.find(activity.user_id) rescue nil
+          
+          %tr{ :valign => "top" }            
+            %td{ :class => column_class }
+              - if(user)
+                = user.given_name + " " + user.family_name
+            %td{ :class => column_class }
+              = link_to name,{:controller=>'/taxa', :action=>:show, :id => activity.taxon_concept_id}
+            %td{ :class => column_class }
+              = h obj.name
+            %td{ :class => column_class }
+              = h format_date_time(activity.created_at,:format=>'short_no_tz')
+
+
+      %br
+      = will_paginate @comments
+    - else
+      No comments are available matching your search criteria.

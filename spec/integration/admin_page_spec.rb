@@ -237,13 +237,33 @@ describe 'Admin Pages' do
 #   #end  
 
   describe ': table of contents breakdown' do
-
     it "should show table of contents breakdown page" do      
       login_capybara(@user)
       visit("/administrator/stats/toc_breakdown")
       body.should include "Table of Contents Breakdown"
     end
   end  
+
+  describe ': user activity view' do
+    before(:each) do
+      @user_with_activity = User.gen(:given_name => "John", :family_name => "Doe")
+      @activity_log = ActivityLog.gen(:user_id => @user_with_activity.id)
+    end
+
+    it "should get data from a form and display user activity" do          
+      login_capybara(@user)
+      current_path.should == '/'      
+      
+      visit("/administrator/user/view_user_activity")
+      select @user_with_activity.family_name, :from => "user_id"
+      click_button "Search"
+      body.should have_tag("form[action=/administrator/user/view_user_activity]")
+      body.should include "User Activity"
+      body.should include @user_with_activity.family_name
+      body.should include "John Doe"
+    end
+  end  
+
 
   
 #   it 'the remaining tests have been disabled in the interest of time.  Implement them later.'

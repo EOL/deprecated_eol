@@ -86,6 +86,10 @@ Rails::Initializer.run do |config|
   $PRODUCTION_MODE = true if ENV['RAILS_ENV'] and
     ['production', 'staging', 'siproduction', 'failover', 'preview'].include?(ENV['RAILS_ENV'].downcase)
     
+  # How many images we want to show, at maximum, for a given page.  This number should be lower than the maximum number of
+  # images created in the cached_images tables.  (EOL presently sets cached_image limits at 500.)
+  $IMAGE_LIMIT = 200
+
   # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
   $CONTENT_SERVERS = ['http://content1.eol.org/', 'http://content2.eol.org/', 'http://content3.eol.org/', 'http://content4.eol.org/', 'http://content5.eol.org/', 
                       'http://content6.eol.org/', 'http://content7.eol.org/', 'http://content8.eol.org/', 'http://content9.eol.org/', 'http://content10.eol.org/']

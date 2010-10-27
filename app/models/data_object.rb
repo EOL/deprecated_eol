@@ -789,8 +789,8 @@ class DataObject < SpeciesSchemaModel
           #{join_agents}
           #{join_hierarchy}
         WHERE #{where_clause}
-          AND ti.view_order < 170
-          #{DataObject.visibility_clause(options.merge(:taxon => taxon))} # DataObject.cached_images_for_taxon
+          AND ti.view_order <= #{$IMAGE_LIMIT.to_i}
+          #{DataObject.visibility_clause(options.merge(:taxon => taxon))} # DataObject.build_top_images_query
       }
   end
   

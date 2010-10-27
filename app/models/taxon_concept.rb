@@ -34,7 +34,7 @@ class TaxonConcept < SpeciesSchemaModel
   # The following are not (yet) possible, because tcn has a three-part Primary key.
   # has_many :mappings, :through => :names, :source => :taxon_concept_names
   has_many :google_analytics_partner_taxa
-  
+
 
   has_one :taxon_concept_content
 
@@ -72,7 +72,7 @@ class TaxonConcept < SpeciesSchemaModel
   def common_name(hierarchy = nil)
     quick_common_name(hierarchy)
   end
-  
+
   def self.common_names_for_concepts(taxon_concept_ids, hierarchy = nil)
     quick_common_names(taxon_concept_ids, hierarchy)
   end
@@ -114,7 +114,7 @@ class TaxonConcept < SpeciesSchemaModel
     @curators = users
     return users
   end
-  
+
   def all_ancestor_entries
     all_ancestor_entry_ids = []
     child_ids = SpeciesSchemaModel.connection.select_values("SELECT id FROM #{HierarchyEntry.full_table_name} WHERE taxon_concept_id=#{self.id}").uniq
@@ -172,14 +172,14 @@ class TaxonConcept < SpeciesSchemaModel
     hierarchy ||= Hierarchy.default
     quick_scientific_name(species_or_below? ? :italicized : :normal, hierarchy)
   end
-  
+
   # same as above but a static method expecting an array of IDs
   def self.scientific_names_for_concepts(taxon_concept_ids, hierarchy = nil)
     return false if taxon_concept_ids.blank?
     hierarchy ||= Hierarchy.default
     self.quick_scientific_names(taxon_concept_ids, hierarchy)
   end
-  
+
   # pull list of categories for given taxon_concept_id
   def table_of_contents(options = {})
     if @table_of_contents.nil?
@@ -231,7 +231,7 @@ class TaxonConcept < SpeciesSchemaModel
       TaxonConcept.lookup_exemplars(options)
     end
   end
-  
+
   def self.lookup_exemplars(options = {})
     options[:language] ||= Language.english
     options[:size] ||= :medium
@@ -248,7 +248,7 @@ class TaxonConcept < SpeciesSchemaModel
         ) ON (rhi.taxon_concept_id=tcn.taxon_concept_id)
       WHERE rhi.taxon_concept_id IN (#{exemplar_taxon_concept_ids.join(',')})
       AND rhi.hierarchy_id=#{Hierarchy.default.id}")
-    
+
     used_concepts = {}
     exemplar_taxa = []
     exemplar_hashes.each do |ex|
@@ -269,16 +269,16 @@ class TaxonConcept < SpeciesSchemaModel
     col_he = hierarchy_entries.detect {|he| he.hierarchy_id == Hierarchy.default.id }
     return col_he.nil? ? alternate_classification_name(detail_level, language, context).firstcap : col_he.name(detail_level, language, context).firstcap
   end
-  
+
   # Call this instead of @current_user, so that you will be given the appropriate (and DRY) defaults.
   def current_user
     @current_user ||= User.create_new
   end
-  
+
   def self.current_user_static
     @current_user ||= User.create_new
   end
-  
+
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
   def current_user=(who)
@@ -295,11 +295,11 @@ class TaxonConcept < SpeciesSchemaModel
   def species_or_below?
     hierarchy_entries.detect {|he| he.species_or_below? }
   end
-  
+
   def has_outlinks?
     return true unless outlinks.empty?
   end
-  
+
   def outlinks
     all_outlinks = []
     used_hierarchies = []
@@ -325,15 +325,15 @@ class TaxonConcept < SpeciesSchemaModel
         end
       end
     end
-    
+
     # if the link is Wikipedia this will remove the revision ID
     all_outlinks.each do |ol|
       ol[:outlink_url].gsub!(/&oldid=[0-9]+$/, '')
     end
-    
+
     return all_outlinks
   end
-  
+
   def gbif_map_id
     hierarchy_entries.each do |entry|
       return entry.identifier if entry.has_gbif_identifier?
@@ -378,7 +378,7 @@ class TaxonConcept < SpeciesSchemaModel
     hierarchy ||= Hierarchy.default
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
-    
+
     # get all hierarchy entries
     @all_entries ||= HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id=#{id}")
     # ..and order them by published DESC, vetted view_order ASC, id ASC - earliest entry first
@@ -393,23 +393,23 @@ class TaxonConcept < SpeciesSchemaModel
         b.published <=> a.published # published descending
       end
     end
-    
+
     # we want ONLY the entry in this hierarchy
     if strict_lookup
       return @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } || nil
     end
-    
+
     return @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } ||
       @all_entries[0] ||
       nil
   end
-  
+
   def self.entries_for_concepts(taxon_concept_ids, hierarchy = nil, strict_lookup = false)
     hierarchy ||= Hierarchy.default
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
     raise "Must get an array of taxon_concept_ids" unless taxon_concept_ids.is_a? Array
-    
+
     # get all hierarchy entries
     all_entries = HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id IN (#{taxon_concept_ids.join(',')})")
     # ..and order them by published DESC, vetted view_order ASC, id ASC - earliest entry first
@@ -428,13 +428,13 @@ class TaxonConcept < SpeciesSchemaModel
         a.taxon_concept_id <=> b.taxon_concept_id # taxon_concept_id ascending
       end
     end
-    
+
     concept_entries = {}
     all_entries.each do |he|
       concept_entries[he.taxon_concept_id] ||= []
       concept_entries[he.taxon_concept_id] << he
     end
-    
+
     final_concept_entries = {}
     # we want ONLY the entry in this hierarchy
     if strict_lookup
@@ -443,19 +443,19 @@ class TaxonConcept < SpeciesSchemaModel
       end
       return final_concept_entries
     end
-    
+
     concept_entries.each do |taxon_concept_id, entries|
       final_concept_entries[taxon_concept_id] = entries.detect{ |he| he.hierarchy_id == hierarchy.id } || entries[0] || nil
     end
     return final_concept_entries
   end
-  
+
   def self.ancestries_for_concepts(taxon_concept_ids, hierarchy = nil)
     return false if taxon_concept_ids.blank?
     concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
     hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
     return false if hierarchy_entry_ids.blank?
-    
+
     results = SpeciesSchemaModel.connection.execute("
         SELECT he.id, he.taxon_concept_id, n.string name_string, n_parent1.string parent_name_string, n_parent2.string grandparent_name_string
         FROM hierarchy_entries he
@@ -467,7 +467,7 @@ class TaxonConcept < SpeciesSchemaModel
           ) ON (he_parent1.parent_id=he_parent2.id)
         ) ON (he.parent_id=he_parent1.id)
         WHERE he.id IN (#{hierarchy_entry_ids.join(',')})").all_hashes
-    
+
     ancestries = {}
     results.each do |r|
       r['name_string'] = r['name_string'].firstcap if r['name_string']
@@ -477,30 +477,30 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return ancestries
   end
-  
+
   def self.hierarchies_for_concepts(taxon_concept_ids, hierarchy = nil)
     return false if taxon_concept_ids.blank?
     concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
     hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
-    
+
     results = Hierarchy.find_by_sql("
         SELECT he.taxon_concept_id, h.*
         FROM hierarchy_entries he
         JOIN hierarchies h ON (he.hierarchy_id=h.id)
         WHERE he.id IN (#{hierarchy_entry_ids.join(',')})")
-    
+
     hierarchies = {}
     results.each do |r|
       hierarchies[r['taxon_concept_id'].to_i] = r
     end
     return hierarchies
   end
-  
-  
+
+
   def test
     return nil
   end
-  
+
   def entry_in_hierarchy(hierarchy)
     raise "Hierarchy does not exist" if hierarchy.nil?
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
@@ -525,7 +525,7 @@ class TaxonConcept < SpeciesSchemaModel
     return {} unless h_entry
     return h_entry.ancestors_hash(detail_level, language, cross_reference_hierarchy, secondary_hierarchy)
   end  
-  
+
   # general versions of the above methods for any hierarchy
   def find_ancestor_in_hierarchy(hierarchy)
     hierarchy_entries.each do |entry|
@@ -534,22 +534,22 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return nil
   end
-  
+
   def maps_to_hierarchy(hierarchy)
     return !find_ancestor_in_hierarchy(hierarchy).nil?
   end
-  
+
   # TODO - this method should have a ? at the end of its name
   def in_hierarchy(search_hierarchy = nil)
     return false unless search_hierarchy
     entries = hierarchy_entries.detect {|he| he.hierarchy_id == search_hierarchy.id }
     return entries.nil? ? false : true
   end
-  
+
   def self.find_entry_in_hierarchy(taxon_concept_id, hierarchy_id)
     return HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchy_entries he WHERE taxon_concept_id=#{taxon_concept_id} AND hierarchy_id=#{hierarchy_id} LIMIT 1").first
   end
-  
+
   # We do have some content that is specific to COL, so we need a method that will ALWAYS reference it:
   def col_entry
     return @col_entry unless @col_entry.nil?
@@ -576,7 +576,7 @@ class TaxonConcept < SpeciesSchemaModel
     available_media if @has_media.nil?
     @has_media[:map]
   end
-  
+
   def available_media
     images = video = map = false
     # TODO - JRice believes these rescues are bad.  They are--I assume--in here because sometimes there is no
@@ -587,7 +587,7 @@ class TaxonConcept < SpeciesSchemaModel
       video = true if entry.hierarchies_content.flash != 0 || entry.hierarchies_content.youtube != 0 rescue video
       map = true if entry.hierarchies_content.map != 0 rescue map
     end
-    
+
     map = false if map and gbif_map_id == empty_map_id # The "if map" avoids unecessary db hits; keep it.
 
     if !video then    
@@ -609,9 +609,9 @@ class TaxonConcept < SpeciesSchemaModel
     language ||= current_user.language
     hierarchy ||= Hierarchy.default
     common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id=#{id} AND language_id=#{language.id} AND preferred=1").all_hashes
-    
+
     final_name = ''
-    
+
     # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names 
     common_name_results.each do |result|
       if final_name == '' || result['source_hierarchy_id'].to_i == hierarchy.id
@@ -620,13 +620,13 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return final_name
   end
-  
+
   def self.quick_common_names(taxon_concept_ids, language = nil, hierarchy = nil)
     return false if taxon_concept_ids.blank?
     language  ||= TaxonConcept.current_user_static.language 
     hierarchy ||= Hierarchy.default
     common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id, tcn.taxon_concept_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id IN (#{taxon_concept_ids.join(',')}) AND language_id=#{language.id} AND preferred=1").all_hashes
-    
+
     concept_names = {}
     taxon_concept_ids.each{|id| concept_names[id.to_i] = nil }
     common_name_results.each do |r|
@@ -636,38 +636,38 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return concept_names
   end
-  
-  
+
+
   def quick_scientific_name(type = :normal, hierarchy = nil)
     hierarchy_entry = entry(hierarchy)
     # if hierarchy_entry is nil then this concept has no entries, and shouldn't be published
     return nil if hierarchy_entry.nil?
-    
+
     search_type = case type
       when :italicized  then {:name_field => 'n.italicized', :also_join => ''}
       when :canonical   then {:name_field => 'cf.string',    :also_join => 'JOIN canonical_forms cf ON (n.canonical_form_id = cf.id)'}
       else                   {:name_field => 'n.string',     :also_join => ''}
     end
-    
+
     scientific_name_results = SpeciesSchemaModel.connection.execute(
       "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
        FROM hierarchy_entries he JOIN names n ON (he.name_id = n.id) #{search_type[:also_join]}
        WHERE he.id=#{hierarchy_entry.id}").all_hashes
-    
+
     final_name = scientific_name_results[0]['name'].firstcap
     return final_name
   end
-  
+
   def self.quick_scientific_names(taxon_concept_ids, hierarchy = nil)
     concept_entries = self.entries_for_concepts(taxon_concept_ids, hierarchy)
     return nil if concept_entries.blank?
-    
+
     hierarchy_entry_ids = concept_entries.values.collect{|he| he.id || nil}.compact
     scientific_name_results = SpeciesSchemaModel.connection.execute(
       "SELECT n.string name_string, n.italicized, he.hierarchy_id source_hierarchy_id, he.taxon_concept_id, he.rank_id
        FROM hierarchy_entries he LEFT JOIN names n ON (he.name_id = n.id)
        WHERE he.id IN (#{hierarchy_entry_ids.join(',')})").all_hashes
-    
+
     concept_names = {}
     scientific_name_results.each do |r|
       if concept_names[r['taxon_concept_id'].to_i].blank?
@@ -677,7 +677,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return concept_names
   end
-  
+
 
   def superceded_the_requested_id?
     @superceded_the_requested_id
@@ -702,7 +702,7 @@ class TaxonConcept < SpeciesSchemaModel
     return concept
   end
   class << self; alias_method_chain :find, :supercedure ; end
-  
+
   def iucn
     return @iucn if !@iucn.nil?
     # Notice that we use find_by, not find_all_by.  We require that only one match (or no match) is found.
@@ -717,12 +717,12 @@ class TaxonConcept < SpeciesSchemaModel
           AND he.hierarchy_id = #{Resource.iucn.hierarchy_id}
           AND he.published = 1
           AND do.published = 1")
-    
+
     iucn_objects.sort! do |a,b|
       b.id <=> a.id
     end
     my_iucn = iucn_objects[0] || nil
-    
+
     temp_iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/', :description => 'NOT EVALUATED') : my_iucn
     temp_iucn.instance_eval { def agent_url; return Agent.iucn.homepage; end }
     @iucn = temp_iucn
@@ -792,23 +792,24 @@ class TaxonConcept < SpeciesSchemaModel
       filter_hierarchy = nil
     end
     perform_filter =  !filter_hierarchy.nil?
-    
+
     image_page = (options[:image_page] ||= 1).to_i
     images ||= DataObject.for_taxon(self, :image, :user => self.current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page)
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
-    
+
     return images
   end
 
   def image_count
-    return @length_of_images || images.length # Note, no options... we want to count ALL images that this user can see.
+    count = @length_of_images || images.length # Note, no options... we want to count ALL images that this user can see.
+    count = "#{$IMAGE_LIMIT}+" if count >= $IMAGE_LIMIT
+    return count
   end
 
   # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title(hierarchy = nil)
     return @title unless @title.nil?
     hierarchy ||= Hierarchy.default
-    
     title = quick_scientific_name(:italicized, hierarchy)
     title = title.empty? ? name(:scientific) : title
     @title = title.firstcap
@@ -842,11 +843,11 @@ class TaxonConcept < SpeciesSchemaModel
     user.comments.reload # be friendly - update the user's comments automatically
     comment
   end
-  
+
   def content_level
     taxon_concept_content.content_level
   end
-  
+
   # Gets an Array of TaxonConcept given DataObjects or their IDs
   #
   # this goes data_objects => data_objects_taxa => taxa => hierarchy_entries => taxon_concepts
@@ -874,7 +875,7 @@ class TaxonConcept < SpeciesSchemaModel
     WHERE taxon_concepts.id IN (#{ taxon_concept_ids.join(', ') })"
     self.paginate_by_sql [query, taxon_concept_ids], :page => page, :per_page => 20 , :order => 'id'
     end
-    
+
   end
 
 
@@ -937,9 +938,9 @@ class TaxonConcept < SpeciesSchemaModel
       end
     end
   end
-  
-  
-  
+
+
+
   def self.synonyms(taxon_concept_id)
     syn_hash = SpeciesSchemaModel.connection.execute("
       SELECT n_he.string preferred_name, n_s.string synonym, sr.label relationship, h.label hierarchy_label
@@ -953,7 +954,7 @@ class TaxonConcept < SpeciesSchemaModel
       AND h.browsable=1
       AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
     ").all_hashes.uniq
-    
+
     syn_hash.sort! do |a,b|
       if a['hierarchy_label'] == b['hierarchy_label']
         a['synonym'] <=> b['synonym']
@@ -961,7 +962,7 @@ class TaxonConcept < SpeciesSchemaModel
         a['hierarchy_label'] <=> b['hierarchy_label']
       end
     end
-    
+
     # grouped = {}
     # for syn in syn_hash
     #   key = syn['synonym'].downcase
@@ -972,7 +973,7 @@ class TaxonConcept < SpeciesSchemaModel
     #   hash['sources'].sort! {|a,b| a['hierarchy_label'] <=> b['hierarchy_label']}
     # end
     # grouped = grouped.sort {|a,b| a[0] <=> b[0]}
-    
+
     # group synonyms by hierarchy
     grouped = []
     working_hash = {}
@@ -990,10 +991,10 @@ class TaxonConcept < SpeciesSchemaModel
       last_hierarchy = syn['hierarchy_label']
     end
     grouped << working_hash unless working_hash.empty?
-    
+
     return grouped
   end
-  
+
   def self.related_names(taxon_concept_id)
     parents = SpeciesSchemaModel.connection.execute("
       SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_parent.taxon_concept_id, h.label hierarchy_label
@@ -1004,7 +1005,7 @@ class TaxonConcept < SpeciesSchemaModel
       WHERE he_child.taxon_concept_id=#{taxon_concept_id}
       AND browsable=1
     ").all_hashes.uniq
-    
+
     children = SpeciesSchemaModel.connection.execute("
       SELECT n.id name_id, n.string name_string, n.canonical_form_id, he_child.taxon_concept_id, h.label hierarchy_label
       FROM hierarchy_entries he_parent
@@ -1014,7 +1015,7 @@ class TaxonConcept < SpeciesSchemaModel
       WHERE he_parent.taxon_concept_id=#{taxon_concept_id}
       AND browsable=1
     ").all_hashes.uniq
-    
+
     grouped_parents = {}
     for parent in parents
       key = parent['name_string'].downcase+"|"+parent['taxon_concept_id']
@@ -1025,7 +1026,7 @@ class TaxonConcept < SpeciesSchemaModel
       hash['sources'].sort! {|a,b| a['hierarchy_label'] <=> b['hierarchy_label']}
     end
     grouped_parents = grouped_parents.sort {|a,b| a[0] <=> b[0]}
-    
+
     grouped_children = {}
     for child in children
       key = child['name_string'].downcase+"|"+child['taxon_concept_id']
@@ -1036,10 +1037,10 @@ class TaxonConcept < SpeciesSchemaModel
       hash['sources'].sort! {|a,b| a['hierarchy_label'] <=> b['hierarchy_label']}
     end
     grouped_children = grouped_children.sort {|a,b| a[0] <=> b[0]}
-    
+
     combined = {'parents' => grouped_parents, 'children' => grouped_children}
   end
-  
+
   def self.entry_stats(taxon_concept_id)
     SpeciesSchemaModel.connection.execute("SELECT he.id, h.label hierarchy_label, hes.*, h.id hierarchy_id
       FROM hierarchy_entries he
@@ -1052,7 +1053,7 @@ class TaxonConcept < SpeciesSchemaModel
       GROUP BY h.id
       ORDER BY h.label").all_hashes
   end
-  
+
   # for API
   def details_hash(options = {})
     options[:return_images_limit] ||= 3
@@ -1063,7 +1064,7 @@ class TaxonConcept < SpeciesSchemaModel
     else
       options[:text_subjects] = ['TaxonBiology', 'GeneralDescription', 'Description']
     end
-    
+
     if options[:data_object_hash]
       # needs to be an array
       data_object_hash = [ options[:data_object_hash] ]
@@ -1072,17 +1073,17 @@ class TaxonConcept < SpeciesSchemaModel
       non_image_ids = top_non_image_ids(options)
       data_object_hash = DataObject.details_for_objects(image_ids + non_image_ids, :skip_metadata => !options[:details])
     end
-    
+
     common = options[:common_names].blank? ? [] : preferred_common_names_hash
     curated_hierarchy_entries = hierarchy_entries.delete_if{|he| he.hierarchy.browsable!=1 || he.published==0 || he.visibility_id!=Visibility.visible.id }
-    
+
     details_hash = {  'data_objects'              => data_object_hash,
                       'id'                        => self.id,
                       'scientific_name'           => quick_scientific_name,
                       'common_names'              => common,
                       'curated_hierarchy_entries' => curated_hierarchy_entries}
   end
-  
+
   def top_image_ids(options = {})
     return [] if options[:return_images_limit] == 0
     # a user with default options - to show unvetted images for example
@@ -1090,19 +1091,19 @@ class TaxonConcept < SpeciesSchemaModel
     top_images_sql = DataObject.build_top_images_query(self, :user => user)
     object_hash = SpeciesSchemaModel.connection.execute(top_images_sql).all_hashes
     object_hash = object_hash.uniq
-    
+
     object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
-    
+
     if options[:vetted].to_i == 1
       object_hash.delete_if {|obj| obj['vetted_id'].to_i != Vetted.trusted.id}
     elsif options[:vetted].to_i == 2
       object_hash.delete_if {|obj| obj['vetted_id'].to_i == Vetted.untrusted.id}
     end
-    
+
     object_hash = object_hash[0...options[:return_images_limit]] if object_hash.length > options[:return_images_limit]
     object_hash.collect {|e| e['id']}
   end
-  
+
   def top_non_image_ids(options = {})
     return [] if options[:return_images_limit] == 0 && options[:return_videos_limit] == 0 && options[:return_text_limit] == 0
     vetted_clause = ""
@@ -1111,7 +1112,7 @@ class TaxonConcept < SpeciesSchemaModel
     elsif options[:vetted].to_i == 2
       vetted_clause = "AND (do.vetted_id=#{Vetted.trusted.id} || do.vetted_id=#{Vetted.unknown.id})"
     end
-    
+
     object_hash = SpeciesSchemaModel.connection.execute("
       SELECT do.id, do.guid, do.data_type_id, do.data_rating, v.view_order vetted_view_order, toc.view_order toc_view_order, ii.label info_item_label
         FROM data_objects_taxon_concepts dotc
@@ -1128,10 +1129,10 @@ class TaxonConcept < SpeciesSchemaModel
         AND data_type_id IN (#{DataType.sound.id}, #{DataType.text.id}, #{DataType.video.id}, #{DataType.iucn.id}, #{DataType.flash.id}, #{DataType.youtube.id})
         #{vetted_clause}
     ").all_hashes.uniq
-    
+
     object_hash.group_hashes_by!('guid')
     object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
-    
+
     # set flash and youtube types to video
     text_id = DataType.text.id.to_s
     image_id = DataType.image.id.to_s
@@ -1146,9 +1147,9 @@ class TaxonConcept < SpeciesSchemaModel
       if r['data_type_id'].to_i == iucn_id
         r['data_type_id'] = text_id
       end
-      
+
     end
-    
+
     # create an alias Uses for Use
     if options[:text_subjects].include?('Use')
       options[:text_subjects] << 'Uses'
@@ -1157,14 +1158,14 @@ class TaxonConcept < SpeciesSchemaModel
     if !options[:text_subjects].include?('all')
       object_hash.delete_if {|obj| obj['data_type_id'] == text_id && !options[:text_subjects].include?(obj['info_item_label'])}
     end
-    
+
     # remove items over the limit
     types_count = {}
     truncated_object_hash = []
     object_hash.each do |r|
       types_count[r['data_type_id']] ||= 0
       types_count[r['data_type_id']] += 1
-      
+
       if r['data_type_id'] == text_id
         truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_text_limit]
       elsif r['data_type_id'] == image_id
@@ -1173,10 +1174,10 @@ class TaxonConcept < SpeciesSchemaModel
         truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_videos_limit]
       end
     end
-    
+
     truncated_object_hash.collect {|e| e['id']}
   end
-  
+
   def preferred_common_names_hash
     names_array = []
     language_codes_used = []
@@ -1191,13 +1192,13 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return names_array
   end
-  
-  
-  
-  
-  
-  
-  
+
+
+
+
+
+
+
   def all_common_names
     Name.find_by_sql(['SELECT names.string, l.iso_639_1 language_label, l.label, l.name
                          FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
@@ -1212,7 +1213,7 @@ class TaxonConcept < SpeciesSchemaModel
                          FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
                          WHERE tcn.taxon_concept_id = ? AND vern = 0', id])
   end
-  
+
   def self.related_names_for?(taxon_concept_id)
     has_parents = TaxonConcept.count_by_sql("SELECT 1
                                       FROM hierarchy_entries he
@@ -1223,7 +1224,7 @@ class TaxonConcept < SpeciesSchemaModel
                                       AND h.browsable=1
                                       LIMIT 1") > 0
     return true if has_parents
-    
+
     return TaxonConcept.count_by_sql("SELECT 1
                                       FROM hierarchy_entries he
                                       JOIN hierarchy_entries he_children ON (he.id=he_children.parent_id)
@@ -1233,7 +1234,7 @@ class TaxonConcept < SpeciesSchemaModel
                                       AND he_children.published=1
                                       LIMIT 1") > 0
   end
-  
+
   def self.synonyms_for?(taxon_concept_id)
     return TaxonConcept.count_by_sql("SELECT 1
                                       FROM hierarchy_entries he
@@ -1245,14 +1246,14 @@ class TaxonConcept < SpeciesSchemaModel
                                       AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
                                       LIMIT 1") > 0
   end
-  
+
   def self.common_names_for?(taxon_concept_id)
     return TaxonConcept.count_by_sql(['SELECT 1 FROM taxon_concept_names tcn 
                                         WHERE taxon_concept_id = ? 
                                           AND vern = 1 
                                         LIMIT 1',taxon_concept_id]) > 0
   end
-  
+
   # Adds a single common name to this TC.
   # Options:
   #   +agent_id+::
@@ -1279,7 +1280,7 @@ class TaxonConcept < SpeciesSchemaModel
     syn_id = taxon_concept_name.synonym.id
     Synonym.find(syn_id).destroy
   end
-  
+
   # only unsed in tests -this would be really slow with real data
   def data_objects
     DataObject.find_by_sql("
@@ -1289,7 +1290,7 @@ class TaxonConcept < SpeciesSchemaModel
       JOIN data_objects do ON (dohe.data_object_id=do.id)
       WHERE he.taxon_concept_id=#{self.id}")
   end
-  
+
   def has_feed?
     feed_object = FeedDataObject.find_by_taxon_concept_id(self.id, :limit => 1)
     return !feed_object.blank?
@@ -1297,7 +1298,7 @@ class TaxonConcept < SpeciesSchemaModel
 
 #####################
 private
-  
+
   def generate_synonym(name_obj, agent, options = {})
     language  = options[:language] || Language.unknown
     synonym_relation = options[:relation] || SynonymRelation.synonym
@@ -1323,7 +1324,7 @@ private
     end
     synonym
   end
- 
+
   def alternate_classification_name(detail_level = :middle, language = Language.english, context = nil)
     #return col_he.nil? ? alternate_classification_name(detail_level, language, context) : col_he.name(detail_level, language, context)
     self.entry.name(detail_level, language, context).firstcap rescue '?-?'
@@ -1344,10 +1345,10 @@ private
     # "stick".  Thus, I override the array:
     override_data_objects = []
     result[:data_objects].each do |data_object|
-      
+
       # override the object's description with the linked one if available
       data_object.description = data_object.description_linked if !data_object.description_linked.nil?
-      
+
       if entry && data_object.sources.detect { |src| src.full_name == 'FishBase' }
         # TODO - We need a better way to choose which Agent to look at.  : \
         # TODO - We need a better way to choose which Collection to look at.  : \

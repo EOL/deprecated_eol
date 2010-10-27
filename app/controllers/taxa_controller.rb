@@ -14,7 +14,7 @@ class TaxaController < ApplicationController
     if params[:harvest_event_id] && params[:harvest_event_id].to_i > 0
       page = params[:page] || 1
       @harvest_event = HarvestEvent.find(params[:harvest_event_id])
-      @taxa_contributed = @harvest_event.taxa_contributed.all_hashes.uniq.paginate(:page => page)
+      @taxa_contributed = @harvest_event.taxa_contributed(params[:harvest_event_id]).all_hashes.uniq.paginate(:page => page)
       @page_title = $ADMIN_CONSOLE_TITLE if current_user.is_admin?
       @navigation_partial = '/admin/navigation'
       render :html => 'content_partner', :layout => current_user.is_admin? ? 'left_menu' : 'content_partner'

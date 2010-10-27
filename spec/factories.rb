@@ -994,7 +994,20 @@ Factory.define :google_analytics_partner_taxon do |g|
   g.month { Factory.next :month }  
 end
 
+Factory.define :activity do |a|
+  a.name { Factory.next(:string) }
+end
 
+Factory.define :link do |l|
+  l.url ''
+end
 
-
+Factory.define :activity_log do |al|
+  al.association :taxon_concept
+  al.association :activity
+  al.association :link
+  al.association :user
+  al.value { Factory.next(:string) }
+  al.created_at { 12.hours.ago }
+end
 

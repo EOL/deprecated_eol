@@ -155,6 +155,18 @@ class User < ActiveRecord::Base
     rset = User.find_by_sql([sql])
     return rset
   end
+
+  def self.users_with_activity_log
+    sql = "Select distinct u.id , u.given_name, u.family_name 
+    From users u 
+    Join #{ActivityLog.full_table_name} al ON u.id = al.user_id 
+    Order By u.family_name, u.given_name"
+    rset = User.find_by_sql([sql])
+    return rset
+    #eol_logging_development.activity_logs al
+  end
+
+
   
   def self.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
     obj_ids = []

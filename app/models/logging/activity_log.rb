@@ -16,4 +16,21 @@ class ActivityLog < LoggingModel
                                 :taxon_concept_id => options[:taxon_concept_id])
     end
   end
+
+  def self.get_activity_ids(user_id)
+    if(user_id == 'all') then
+      sql="Select activity_id id From activity_logs "
+      rset = ActivityLog.find_by_sql([sql])
+    else
+      sql="Select activity_id id From activity_logs where user_id = ? "
+      rset = ActivityLog.find_by_sql([sql, user_id])
+    end            
+    obj_ids = Array.new
+    rset.each do |rec|
+      obj_ids << rec.id      
+    end    
+    return obj_ids      
+  end
+
+
 end

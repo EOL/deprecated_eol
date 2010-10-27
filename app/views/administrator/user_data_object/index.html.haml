@@ -46,45 +46,29 @@ Click on a user to view the user's detailed profile, click on the species to vie
             - name = concept.quick_scientific_name(:italicized)
           - else
             - name=""
-          - obj = DataObject.find(comment.data_object_id)
-          %tr{ :valign => "top" }
-            %td{ :class => column_class }
-              = link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)
-            %td{ :class => column_class }
-              = link_to name,{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id}
-            %td{ :class => column_class }
-              = link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id,  :text_id => comment.data_object_id}
-              %br
-              = h obj.description
-              -# link_to (obj.description, '/data_objects/#{comment.data_object_id}')
-            %td{ :class => column_class }
-              = @obj_toc_info.fetch("#{comment.data_object_id}",0)
-            %td{ :class => column_class }
-              = @obj_toc_info.fetch("e#{comment.data_object_id}",0)
-              %br
-              = h obj.published
-            %td{ :class => column_class }
-              = h format_date_time(obj.created_at,:format=>'short_no_tz')
-              %br
-              = h format_date_time(obj.updated_at,:format=>'short_no_tz')
-            -# TODO - Do we need this?
-            - if(false)
+
+          - obj = DataObject.find(comment.data_object_id) rescue nil
+          - if(obj)
+            %tr{ :valign => "top" }
               %td{ :class => column_class }
-                = h truncate(comment.body,100)
+                = link_to (comment.user.full_name,:controller=>'/administrator/user',:action=>'edit',:id=>comment.user_id)
               %td{ :class => column_class }
-                = truncate(comment.parent_name,50)
+                = link_to name,{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id}
+              %td{ :class => column_class }
+                = link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id,  :text_id => comment.data_object_id}
                 %br
-                (
-                = link_to (comment.parent_type_name,comment.parent_url)
-                )
-                %br
-                = image_tag(comment.parent_image_url) if comment.image_comment?
+                = h obj.description
               %td{ :class => column_class }
-                = h format_date_time(comment.created_at,:format=>'short_no_tz')
+                = @obj_toc_info.fetch("#{comment.data_object_id}",0)
               %td{ :class => column_class }
-                = link_to '[edit]',:action=>'edit',:id=>comment.id
+                = @obj_toc_info.fetch("e#{comment.data_object_id}",0)
                 %br
-                = link_to '[delete]', {:action=>'destroy',:id=>comment.id}, :confirm => 'This cannot be undone; are you sure?', :method => :delete
+                = h obj.published
+              %td{ :class => column_class }
+                = h format_date_time(obj.created_at,:format=>'short_no_tz')
+                %br
+                = h format_date_time(obj.updated_at,:format=>'short_no_tz')
+
       %br
       = will_paginate @comments
     - else

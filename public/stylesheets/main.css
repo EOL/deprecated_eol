@@ -2212,6 +2212,9 @@ div#nagivation-choose-hierarchy option.out {
   #data_object_wrapper .current_revision a {
     color: green;
     font-weight: bold; }
+  #data_object_wrapper #data_object_content_text {
+    border-left: 3px dashed #cccccc;
+    padding-left: 1em; }
 
 #hierarchy_browser {
   white-space: nowrap; }

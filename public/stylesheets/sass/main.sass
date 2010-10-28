@@ -6,6 +6,7 @@ $vet_untrusted_border: red
 $vet_unknown: #ffff99
 $vet_unknown_lighter: #ffffcc
 $vet_unknown_border: #ffcc00
+$light_grey: #ccc
 
 .clearfix
   display: inline-table
@@ -74,7 +75,7 @@ h2
   font-size: 125%
 
 .divider
-  border-top: 3px solid #cccccc
+  border-top: 3px solid $light_grey
   margin-top: 5px
   margin-bottom: 7px
 
@@ -2164,6 +2165,10 @@ div#nagivation-choose-hierarchy option.out
   .current_revision a
     color: green
     font-weight: bold
+
+  #data_object_content_text
+    border-left: 3px dashed $light_grey
+    padding-left: 1em
 
 #hierarchy_browser
   white-space: nowrap

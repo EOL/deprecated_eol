@@ -3,29 +3,33 @@
   - type = 'Video' if ['youtube', 'flash', 'video'].include? @type.downcase
   %h1== #{type} permalink. 
   %h2
+    / this probably should not happen anymore
     - if @taxon_concepts.blank?
       ( stands alone )
     - else
-      == ( belongs to the following page#{@taxon_concepts.size == 1 ? '' : 's'}: 
+      - start_text = @revisions[0].id == @data_object.id ? 'belongs to ' : 'was connected to '
+      == ( #{start_text} the following page#{@taxon_concepts.size == 1 ? '' : 's'}: 
       - @taxon_concepts.each_with_index do |tc, i|
         - comma = (i+1 == @taxon_concepts.size) ? '' : ', '
-        = link_to(tc.scientific_name, taxon_concept_path(tc.id)) + comma
+        - link_title = tc.scientific_name
+        - link_title += ": <b>#{tc.common_name}</b>" unless tc.common_name.blank?
+        = link_to(link_title, taxon_concept_path(tc.id)) + comma
       )
       
 #page-content.clearfix
   #full-page-content
     #data_object_wrapper
       #data_object_status
-        .divider
         %h3 Curation status
         - status = @data_object.vetted.label.downcase
         - bg_class = []
         %p
+          == This #{type.downcase} object is
           - if status == 'unknown'
-            Have not been reviewed.
+            %b is not reviewed
             - bg_class << 'unknown-text'
           - else
-            == This object is #{status}.
+            %b= status
             - bg_class << 'untrusted-text' if status == 'untrusted'
       #data_object_content
         .divider
@@ -39,12 +43,17 @@
         %h3 Attribution
         = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
         %br
+      #data_object_hierarchy
+        .divider
+        %h3== Hierarch#{@hierarchy_paths.size == 1 ? 'y' : 'ies'} according to the supplier 
+        - @hierarchy_paths.each do |hierarchy|
+          = hierarchy[:path].map { |p| link_to(p[:name], taxon_concept_path(p[:taxon_concept_id])) }.join(' > ')
       - if @revisions.size > 1
         #data_object_revisions
           .divider 
           %h3 Revisions
           %ul
-            - @revisions.reverse.each do |revision|
+            - @revisions.each do |revision|
               - revision_class = revision.created_at == @data_object.created_at ? 'current_revision' : nil
               %li{ :class => revision_class }= link_to(revision.created_at, data_object_path(revision.id))
       - unless @comments.blank?

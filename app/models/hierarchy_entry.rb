@@ -21,6 +21,13 @@ class HierarchyEntry < SpeciesSchemaModel
   has_one :hierarchies_content
   has_one :hierarchy_entry_stat
 
+  def get_ancestry(ancestry_array = [])
+    ancestry_array.unshift self
+    return ancestry_array unless parent_id.to_i > 0
+    parent_hierarchy_entry = HierarchyEntry.find(parent_id, :select => 'id, parent_id, name_id, published, taxon_concept_id')
+    parent_hierarchy_entry.get_ancestry(ancestry_array)
+  end
+
   def name(detail_level = :middle, language = Language.english, context = nil)
     return raw_name(detail_level, language, context).firstcap
   end

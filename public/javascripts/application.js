@@ -1,17 +1,15 @@
 // Behaviours to attach globally:
 $(document).ready(function() {
-  // Make our links show up
-  $('a.external_link').click(function(e) {
-    show_popup = false;
+  $('a.external_link').click(function() {
+    var agree = true;
     if (EOL.USE_EXTERNAL_LINK_POPUPS) {
-      var agree = confirm("The link you have clicked will take you to an external website.  Are you sure you wish to proceed?");
-    } else {
-      var agree = true;
+      agree = confirm("The link you have clicked will take you to an external website.  Are you sure you wish to proceed?");
     }
     if (agree) {
-      window.open('/external_link?url=' + escape(this.href));
+      $(this).attr('target', '_blank');
+    } else {
+      return false;
     }
-    return false ;
   });
   $('a.return_to').click(function() {
     EOL.addReturnTo(this);

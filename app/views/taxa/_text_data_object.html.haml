@@ -71,7 +71,7 @@
           = link_to '<span class="span_block"></span>', |
             curation_data_object_path(content_item), |
             {'data-data_object_id' => content_item.id, |
-            :style => comments_style, :class => 'slide-in-link', |
+            :style => comments_style, :class => 'popup-link', |
             :alt => 'Curate this text'} |
       - if !@preview
         #right_text_button.comment_button.comment-button-image{ :title => "Comment on this text" }
@@ -79,7 +79,7 @@
             data_object_comments_path(content_item), |
             {'data-data_object_id' => content_item.id, |
             :style => comments_style, :alt => "Comment on this text", |
-            :class => 'slide-in-link'} |
+            :class => 'popup-link'} |
 
   .text-slidebox-border{:id => "text-comments-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container.text-comment-div{:id => "text-comments-#{content_item.id}"}

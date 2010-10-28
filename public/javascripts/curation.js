@@ -16,7 +16,7 @@ EOL.Curation.update_icons = function(data_object_id, visibility_id) {
 EOL.Curation.post_curate_image = function(args) {
   var dato_id = args[0]; var visibility_id = args[1]; var vetted_id = args[2];
   EOL.Curation.update_icons(dato_id, visibility_id);
-  EOL.handle_main_img_icon(dato_id);
+  EOL.toggle_main_img_icons(dato_id);
   thumbnail = $('#thumbnails a[href='+dato_id+']');
   image_wrap = $('#image-'+dato_id);
   notes = $('#mc-notes-'+dato_id);

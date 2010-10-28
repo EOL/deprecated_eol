@@ -6,7 +6,7 @@
     %hr
     %h2
       PREVIEW ONLY -
-      %a{ :href => "#", :onclick => "window.close();return false;" }
+      %a{ :href => "#", :onclick => "javascript:window.close();return false;" }
         CLOSE THIS WINDOW TO RETURN TO EDIT WINDOW
   %div{ :id => @content.left_content == '' ? '' : 'page-content-bgfauxinside' }
     #page-content.clearfix

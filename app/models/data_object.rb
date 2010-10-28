@@ -521,17 +521,25 @@ class DataObject < SpeciesSchemaModel
 
   # Return all of the TCs associated with this Dato.  Not necessarily all the pages it shows up on,
   # however, as Zea mays image will show up on Plantae
-  def taxon_concepts
+  # with_unpublished attribute returns all taxon_concepts for the object.
+  def taxon_concepts(with_unpublished = false)
     if created_by_user?
       @taxon_concepts ||= [taxon_concept_for_users_text]
     else
-      @taxon_concepts ||= TaxonConcept.find_by_sql(["
+      query = with_unpublished ? "
+        SELECT distinct tc.* 
+        FROM hierarchy_entries he 
+        JOIN taxon_concepts tc on he.taxon_concept_id = tc.id 
+        JOIN data_objects_hierarchy_entries dh on dh.hierarchy_entry_id = he.id 
+        WHERE dh.data_object_id = ?
+        ORDER BY tc.id -- DataObject#taxon_concepts(true)
+        " : "
         SELECT tc.*
         FROM data_objects_taxon_concepts dotc
         JOIN taxon_concepts tc ON (dotc.taxon_concept_id=tc.id)
         WHERE dotc.data_object_id=?
-        ORDER BY tc.id -- DataObject#taxon_concepts
-      ", id])
+        ORDER BY tc.id -- DataObject#taxon_concepts"
+      @taxon_concepts ||= TaxonConcept.find_by_sql([query, id])
     end
   end
   
@@ -559,6 +567,19 @@ class DataObject < SpeciesSchemaModel
       JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
       WHERE dohe.data_object_id=? -- DataObject#hierarchy_entries
     ", id])
+  end
+
+  def harvested_ancestries
+    hierarchy_entries = HierarchyEntry.find_by_sql(["
+      SELECT he.id, he.parent_id, he.name_id, he.published 
+      FROM data_objects_hierarchy_entries dh 
+      JOIN hierarchy_entries he on he.id = dh.hierarchy_entry_id 
+      WHERE data_object_id = ?" , id])
+    ancestries = []
+    hierarchy_entries.each do |he|
+      ancestries << he.get_ancestry
+    end
+    ancestries
   end
   
   def curate(vetted_id, visibility_id, user, untrust_reason_ids = [], comment = nil)

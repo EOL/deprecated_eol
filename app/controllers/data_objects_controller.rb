@@ -180,8 +180,10 @@ class DataObjectsController < ApplicationController
     @type = @data_object.data_type.label
     @comments = @data_object.all_comments.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
-    @revisions = @data_object.revisions.sort_by(&:created_at)
-    @taxon_concepts = @data_object.taxon_concepts
+    @revisions = @data_object.revisions.sort_by(&:created_at).reverse
+    hieararchy_path = data_object.ancestry_by_contributor
+    @hieararchy_path = hiearchy_path.size > 1 ? hiearchy_path.join(' > ') : nil
+    @taxon_concepts = @data_object.taxon_concepts(true)
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
   end
 

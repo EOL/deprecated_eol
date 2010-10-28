@@ -20,16 +20,16 @@
   #full-page-content
     #data_object_wrapper
       #data_object_status
-        .divider
         %h3 Curation status
         - status = @data_object.vetted.label.downcase
         - bg_class = []
         %p
+          == This #{type.downcase} object is
           - if status == 'unknown'
-            == This #{type.downcase} is not reviewed.
+            %b is not reviewed
             - bg_class << 'unknown-text'
           - else
-            == This #{type.downcase} is #{status}.
+            %b= status
             - bg_class << 'untrusted-text' if status == 'untrusted'
       #data_object_content
         .divider
@@ -43,11 +43,11 @@
         %h3 Attribution
         = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
         %br
-      - unless @hierarchy.blank?
-        #data_object_hierarchy
-          .divider
-          %h3 Hierarchy according to the contributor
-          %p= @hierarchy
+      #data_object_hierarchy
+        .divider
+        %h3== Hierarch#{@hierarchy_paths.size == 1 ? 'y' : 'ies'} according to the supplier 
+        - @hierarchy_paths.each do |hierarchy|
+          = hierarchy[:path].map { |p| link_to(p[:name], taxon_concept_path(p[:taxon_concept_id])) }.join(' > ')
       - if @revisions.size > 1
         #data_object_revisions
           .divider 

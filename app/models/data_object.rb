@@ -571,7 +571,7 @@ class DataObject < SpeciesSchemaModel
 
   def harvested_ancestries
     hierarchy_entries = HierarchyEntry.find_by_sql(["
-      SELECT he.id, he.parent_id, he.name_id, he.published 
+      SELECT he.id, he.parent_id, he.name_id, he.published, he.taxon_concept_id 
       FROM data_objects_hierarchy_entries dh 
       JOIN hierarchy_entries he on he.id = dh.hierarchy_entry_id 
       WHERE data_object_id = ?" , id])

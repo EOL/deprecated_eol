@@ -1,7 +1,7 @@
 - if body_div_name =~ /^text/
   = link_to_function('', "$('##{body_div_name}').slideUp();", :class => 'close-button')
-
-= render :partial => 'shared/comments', :locals => { :comments => current_objects, :opts => { :renderer => 'RemoteLinkRenderer', :remote => {(current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id, :update => body_div_name, :body_div_name => body_div_name } }}
+- remote_hash = current_objects.blank? ? {} : { (current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id }
+= render :partial => 'shared/comments', :locals => { :comments => current_objects, :opts => { :renderer => 'RemoteLinkRenderer', :remote => {:update => body_div_name, :body_div_name => body_div_name }.merge!(remote_hash) } }
 
 #new-comment
   = render :partial => 'new', :locals => { :length => 4, :body_div_name => body_div_name }

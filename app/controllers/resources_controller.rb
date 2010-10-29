@@ -47,7 +47,8 @@ class ResourcesController < ApplicationController
     
 
     after :create do
-      
+      current_object.accesspoint_url.strip! if current_object.accesspoint_url
+      current_object.dwc_archive_url.strip! if current_object.dwc_archive_url
       resource_role = ResourceAgentRole.content_partner_upload_role
       # associate this uploaded resource with the current agent and the role of "data provider"
       # EOLINFRASTRUCTURE-1223: sometimes SPG is getting a duplicate entry, which is... weird.  I'm trying to
@@ -68,6 +69,8 @@ class ResourcesController < ApplicationController
     end
     
     after :update do
+      current_object.accesspoint_url.strip! if current_object.accesspoint_url
+      current_object.dwc_archive_url.strip! if current_object.dwc_archive_url
       unless current_object.accesspoint_url.blank?
         current_object.dataset = nil
         current_object.dataset_file_name = nil
@@ -124,7 +127,8 @@ class ResourcesController < ApplicationController
   end
 
   #AJAX method to check for a valid URL
-  def check_url    
+  def check_url
+    params[:url].strip!
     if !params[:url].match(/\.xml(\.gz|\.gzip)?$/)
       message = 'File must be .xml or .xml.gz(ip)'
     elsif EOLWebService.url_accepted? params[:url]
@@ -139,6 +143,7 @@ class ResourcesController < ApplicationController
   end
   
   def check_dwc_url 
+    params[:url].strip!
     if !params[:url].match(/(\.tar\.(gz|gzip)|.tgz)/)
       message = 'DwC archive must be TARed and GZIPed'
     elsif EOLWebService.url_accepted? params[:url]

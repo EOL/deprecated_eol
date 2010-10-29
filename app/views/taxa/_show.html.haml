@@ -49,8 +49,9 @@
             %li{ :class => item_class }
               
               - if item.has_content?
-                - a_class = item.is_child? ? 'toc_item' : 'toc_item bold'
-                = link_to(item.label, "/taxa/content/#{@taxon_concept.id}?category_id=#{item.category_id}", :id => "category_id_#{item.category_id}", :class => "#{a_class} taxon_concept_#{@taxon_concept.id} #{[@category_id].include?(item.category_id) ? "active" : nil}".strip)
+                - a_class = 'toc_item ajax_delay_click'
+                - a_class += ' bold' if item.is_child? 
+                = link_to(item.label, "/taxa/content/#{@taxon_concept.id}?category_id=#{item.category_id}", :id => "category_id_#{item.category_id}", :class => "#{a_class} taxon_concept_#{@taxon_concept.id} #{[@category_id].include?(item.category_id) ? "active" : nil}".strip, :onclick => ajax_delay_click)
               - else
                 %span.no_toc_link
                   = item.label

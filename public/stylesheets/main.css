@@ -1248,7 +1248,8 @@ ul#toc li.li-sub a {
   padding-left: 50px;
   line-height: 21px;
   color: #959595;
-  text-decoration: none; }
+  text-decoration: none;
+  font-weight: normal !important; }
   ul#toc li.li-sub a:hover {
     text-decoration: none;
     color: #666666; }

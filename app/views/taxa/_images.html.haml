@@ -31,10 +31,9 @@
                   :src => (image.smart_image unless (@images.nil? or @images.blank?)), |
                   :alt => title }                           |
 
-                /
+                -#
                   I am not sure this is still working after we cahnged to jQuery:  (Says JRice)
 
-                
                   If you want to load the Photosynth interface by default
                   - if(!image.nil?)
                     - string = image.source_url
@@ -48,8 +47,8 @@
                       - result = string.gsub(/view.aspx/, 'embed.aspx')            
                       %iframe{:frameborder => 0, :src => "#{result}&delayLoad=true&slideShowPlaying=false", :width => 425, :height=> 355}
       %hr
-      / TODO simplify the IDs of the button links ... they need to have unique IDs but thats all
-      / TODO - this won't work when a selected image is not the first.  Stop using @images.first.
+      -# TODO simplify the IDs of the button links ... they need to have unique IDs but thats all
+      -# TODO - this won't work when a selected image is not the first.  Stop using @images.first.
       #large-image-buttons
         #left-image-buttons
           %ul#large-image-button-group

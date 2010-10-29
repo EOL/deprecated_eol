@@ -9,9 +9,10 @@ function explore_more_taxa() {
     beforeSend: function() {$('#photos_area').fadeTo(200, 0.03);},
     success: function(response){$('#photos_area').html(response);},
     complete: function(){
-        taxa_number_to_replace = 1;
-        setTimeout("start_explore_updates()",interval_between_loads);
-        $('#photos_area').delay(300).fadeTo(750, 1);
+      taxa_number_to_replace = 1;
+      setTimeout("start_explore_updates()",interval_between_loads);
+      // Removing the filter after fading in; IE7 does not anti-alias fonts that are filtered.
+      $('#photos_area').delay(300).fadeTo(750, 1, function() {$('#photos_area').css({filter:''});});
     }
   });
 }

@@ -1,10 +1,19 @@
 if (!EOL) { EOL = {}; }
-if (!EOL.replace_dato_id || !EOL.toggle_main_img_icons || !EOL.init_image_collection_behaviors) {
+if (!EOL.replace_dato_id || !EOL.click_selected_image || !EOL.toggle_main_img_icons || !EOL.init_image_collection_behaviors) {
   EOL.replace_dato_id = function(id) {
     $('#right-image-buttons a.popup-link, #rating-'+id+' a, #large-image-attribution-button-popup-link').each(function() {
       new_href = $(this).attr('href').replace(/data_objects\/\d+/, 'data_objects/'+id);
       $(this).attr('href', new_href);
     });
+  };
+
+  EOL.click_selected_image = function() {
+    // If there is no slected image, just click the first one:
+    if(!selected_image_id) {
+      $("#thumbnails a:nth-child(1)").click();
+    } else {
+      $("#thumbnails a#thumb-"+selected_image_id).click();
+    }
   };
 
   EOL.toggle_main_img_icons = function(id) {
@@ -32,9 +41,11 @@ if (!EOL.replace_dato_id || !EOL.toggle_main_img_icons || !EOL.init_image_collec
         success: function(response) {$('#media-images').html(response);},
         error: function() {$('#media-images').html('<p>Sorry, there was an error.</p>');},
         complete: function() {
-          $('#media-images').delay(25).fadeTo(100, 1);
+          // Removing the filter after fading in; IE7 does not anti-alias fonts that are filtered.
+          $('#media-images').delay(25).fadeTo(100, 1, function() {$('#media-images').css({filter:''});});
           try { EOL.Rating.init_links('#image-ratings'); } catch(e) {} // This isn't availble (or needed) for non-curators
           EOL.init_popup_overlays(); // This *needs* to be available.
+          EOL.click_selected_image();
         }
       });
       return false;
@@ -57,12 +68,7 @@ if (!EOL.replace_dato_id || !EOL.toggle_main_img_icons || !EOL.init_image_collec
       EOL.init_popup_overlays();
       return false;
     });
-    // Now that everything is set up, click() the selected image (or just the first) to show all of it's information.
-    if(!selected_image_id) {
-      $("#thumbnails a:nth-child(1)").click();
-    } else {
-      $("#thumbnails a[href="+selected_image_id+"]").click();
-    }
+    EOL.click_selected_image();
   };
 }
 

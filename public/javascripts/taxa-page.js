@@ -48,7 +48,11 @@ $(document).ready(function() {
     $.ajax({
       url: $(this).attr('href'),
       beforeSend: function() { $('#center-page-content').fadeTo(800, 0.3); $('#center-page-content-loading').fadeIn(); },
-      complete: function() { $('#center-page-content').fadeTo(300, 1.0); $('#center-page-content-loading').fadeOut(); },
+      complete: function() {
+        // I'm removing the filter after the fade.  In IE7, fonts are NOT aliased when filtered!
+        $('#center-page-content').fadeTo(300, 1.0, function() {$('#center-page-content').css({filter: ''});});
+        $('#center-page-content-loading').fadeOut();
+      },
       success: function(response) {
         $('#center-page-content').html(response);
         EOL.change_toc(id);

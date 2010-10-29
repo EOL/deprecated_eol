@@ -64,6 +64,7 @@ class Resource < SpeciesSchemaModel
     if accesspoint_url.blank? && dataset_file_name.blank?
        errors.add_to_base("You must either provide a URL or upload a resource file")
     elsif dataset_file_name.blank? && !accesspoint_url.blank?  # gave a URL
+      accesspoint_url.strip!
       if !accesspoint_url.match(/\.xml(\.gz|\.gzip)?/)  # URL is not .xml, .xml.gz, .xml.gzip
         errors.add_to_base("The resource file URL must be .xml or .xml.gz(ip)")
       elsif !EOLWebService.url_accepted?(accesspoint_url)  # URL doesn't return 200
@@ -72,6 +73,7 @@ class Resource < SpeciesSchemaModel
     end
     
     unless dwc_archive_url.blank?
+      dwc_archive_url.strip!
       if !dwc_archive_url.match(/(\.tar\.(gz|gzip)|.tgz)/)  # dwca url not a .tar.gz, .tar.gzip, .tgz
         errors.add_to_base("The Darwin Core Archive must be a tar/gzip file")
       elsif !EOLWebService.url_accepted?(dwc_archive_url)  # dwca url does't return 200

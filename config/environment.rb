@@ -181,6 +181,7 @@ Rails::Initializer.run do |config|
 
 
   $SOLR_SERVER = 'http://localhost:8983/solr'
+  $SOLR_SERVER_DATA_OBJECTS = 'http://localhost:8983/solr'
   $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
 
   #Server's IP address

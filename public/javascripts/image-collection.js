@@ -55,6 +55,7 @@ if (!EOL.replace_dato_id || !EOL.toggle_main_img_icons || !EOL.init_image_collec
       EOL.replace_dato_id(id);
       EOL.toggle_main_img_icons(id);
       EOL.init_popup_overlays();
+      EOL.toggle_photosynth_icon(id);
       return false;
     });
     // Now that everything is set up, click() the selected image (or just the first) to show all of it's information.
@@ -62,6 +63,22 @@ if (!EOL.replace_dato_id || !EOL.toggle_main_img_icons || !EOL.init_image_collec
       $("#thumbnails a:nth-child(1)").click();
     } else {
       $("#thumbnails a[href="+selected_image_id+"]").click();
+    }
+  };
+  
+  EOL.toggle_photosynth_icon = function(id) {
+    var source_url = $("#mc-notes-"+id+" a.source_url").attr('href');
+    if(source_url.search(/photosynth.net/) == -1)
+    { //regular static image    
+      $("#photosynth-message").html("");
+      $("#photosynth-message").unbind('click');
+    }
+    else
+    { //photosynth image
+      $("#photosynth-message").html("<img src='http://mslabs-999.vo.llnwd.net/e1/inc/images/master/logo.png' height='27' alt='Photosynth' title='Image is part of a Photosynth'/>");
+      $("#photosynth-message").click(function() {
+        $("#large-image #image-"+id+" td").html("<iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe>");
+      });
     }
   };
 }

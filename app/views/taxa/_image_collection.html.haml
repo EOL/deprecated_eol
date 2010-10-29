@@ -117,5 +117,11 @@
         - unless sources_icons_linked.blank?
           = sources_icons_linked
           %br/
+        
+        - unless image['source_url'].blank?
+          = 'ORIGINAL:'[]
+          = external_link_to('View image source', image['source_url'], :class => 'source_url')
+          %br/
+        
         %br/
         = image.description

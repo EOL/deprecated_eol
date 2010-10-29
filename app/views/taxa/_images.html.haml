@@ -1,5 +1,5 @@
 :javascript
-  var selected_image_id = #{@selected_image_id};
+  var selected_image_id = #{@selected_image_id || 'null'};
 -# TODO - this should be done with merging.
 = javascript_include_tag 'image-collection' # Note this really MUST be loaded BEFORE popup, so tabs are rendered before popup positions are calculated.
 = javascript_include_tag 'popup' # There are several popup items in the images view.

@@ -81,22 +81,6 @@ $(document).ready(function() {
   EOL.log("EOL Log enabled.");
 });
 
-// Displays the Photosynth interface in the image pane.
-function load_photosynth_interface(source_url) {
-  // TODO - put this in the view, and just show/hide it.  We CANNOT HAVE html here, it blows up the images.  Also, note I
-  // changed the id on the table to a class (of the same name).  Same with main-image-bg!
-  synth = "<table id='main-image-table'><tr><td><iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'></td></tr></table>";
-  $('#main-image-bg').html = synth;
-  // This will display a photosynth icon if a thumbnail photosynth image is clicked.
-  var string = params.source_url; //source_url is from [views/taxa/_image_collection]
-  if (string.search(/photosynth.net/) == -1) { //regular static image    
-      $('#photosynth-message').html = "";          
-  } else { //photosynth image
-    // TODO - put this in the view, and just show/hide it.  We don't want HTML here.
-    $('#photosynth-message').html = "<a href=javascript:load_photosynth_interface('" + escape(params.source_url) + "')><img src='http://mslabs-999.vo.llnwd.net/e1/inc/images/master/logo.png' height='27' alt='Photosynth' title='Image is part of a Photosynth'></a>";    
-  }
-}
-
 // Show some spinners when we're doing stuff:
 $('#ajax-indicator, #center-page-content-loading').ajaxStart(function() {
   $(this).fadeIn();
@@ -104,15 +88,6 @@ $('#ajax-indicator, #center-page-content-loading').ajaxStart(function() {
 $('#ajax-indicator, #center-page-content-loading').ajaxComplete(function() {
   $(this).fadeOut();
 });
-
-// Displays the Photosynth interface in the image pane.
-function load_photosynth_interface(source_url) {
-  // TODO - put this in the view, and just show/hide it.  We don't want HTML here.  ...A bit tricky, because we're using
-  // jQuery Tools tabs, here, so if we put in an "extra" div for this, will it behave correctly?  Not sure.  Also, note I
-  // changed the id on the table to a class (of the same name).  Same with main-image-bg!
-  synth = "<table id='main-image-table'><tr><td><iframe frameborder='0' src='" + source_url.replace("view.aspx", "embed.aspx") + "&delayLoad=true&slideShowPlaying=false' width='425' height='355'></iframe><img id='main-image'></td></tr></table>";
-  $('#main-image-bg').html = synth;  
-}
 
 // Show some spinners when we're doing stuff:
 $('#ajax-indicator').ajaxStart(function() {

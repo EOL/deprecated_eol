@@ -13,7 +13,8 @@
         - comma = (i+1 == @taxon_concepts.size) ? '' : ', '
         - link_title = tc.scientific_name
         - link_title += ": <b>#{tc.common_name}</b>" unless tc.common_name.blank?
-        = link_to(link_title, taxon_concept_path(tc.id)) + comma
+        - opts = { :"#{@type.downcase}_id" => @data_object.id }
+        = link_to(link_title, taxon_concept_path(tc.id, opts)) + comma
       )
       
 #page-content.clearfix

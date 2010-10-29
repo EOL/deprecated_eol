@@ -45,7 +45,7 @@ if (!EOL.replace_dato_id || !EOL.click_selected_image || !EOL.toggle_main_img_ic
           $('#media-images').delay(25).fadeTo(100, 1, function() {$('#media-images').css({filter:''});});
           try { EOL.Rating.init_links('#image-ratings'); } catch(e) {} // This isn't availble (or needed) for non-curators
           EOL.init_popup_overlays(); // This *needs* to be available.
-          EOL.click_selected_image();
+          EOL.click_selected_image(); // TODO - is this duplicated?
         }
       });
       return false;

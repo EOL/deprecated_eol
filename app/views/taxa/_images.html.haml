@@ -58,9 +58,9 @@
                 :rel => "#attribution-overlay",                                        |
                 :id => "large-image-attribution-button-popup-link",                    |
                 :class => 'popup-link', :title => "More information"                   |
-            #attribution-overlay.overlay{:style=>"width:400px"}
-              .contentWrap
-                = "Please wait, loading..."[]
+              #attribution-overlay.overlay{:style=>"width:400px"}
+                .contentWrap
+                  = "Please wait, loading..."[]
             = render :partial => 'data_object_states', :locals => {:dato => @images.first}
             %li#photosynth-message  
         #right-image-buttons

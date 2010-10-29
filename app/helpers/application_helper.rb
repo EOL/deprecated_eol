@@ -307,6 +307,7 @@ module ApplicationHelper
     html_options[:class] ||= ''
     html_options[:class] += ' external_link'
     html_options[:class] += ' external_link_popup' if $USE_EXTERNAL_LINK_POPUPS
+    html_options[:target] = '_blank' # YOU WERE HERE ... make sure this works.
 
     if html_options[:show_link_icon].nil? || html_options.delete(:show_link_icon) == true
       args[0] += " #{external_link_icon}"

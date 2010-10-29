@@ -26,9 +26,7 @@ if (!EOL.addReturnTo || !EOL.use_external_link_popups) {
 }
 
 $(document).ready(function() {
-  EOL.use_external_link_popups();
-  $('a.return_to').click(function() {
-    EOL.addReturnTo(this);
-  });
+  if (EOL.USE_EXTERNAL_LINK_POPUPS) { EOL.use_external_link_popups(); }
+  $('a.return_to').click(function() { EOL.addReturnTo(this); });
 });
 

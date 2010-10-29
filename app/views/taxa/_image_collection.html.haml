@@ -12,7 +12,7 @@
       - large_img_url = image.smart_image
       - average_rating = image.data_rating
       - user_rating = image['user_rating'] ? image['user_rating'] : 0
-      %a{ :href => "#{image.id}", :class => vetted_id_class(image) }
+      %a{ :id => "thumb-#{image.id}", :href => "#{image.id}", :class => vetted_id_class(image) }
         %span
           - vetting_title = nil
           - vetting_title = "Images in yellow are not reviewed."[] if image.unknown?
@@ -49,7 +49,7 @@
       - taxa_names = image['taxa_names_ids'].map{|x| x['taxon_name'].to_s }
       - data_supplier = image['data_supplier']
       - data_supplier_icon = data_supplier ? agent_icons_partial(data_supplier) : ''
-      - mc_class = 'mc-notes '
+      - mc_class = 'mc-notes'
       - mc_class += ' unknown-text' if image.unknown?
       - mc_class += ' untrusted-text' if image.untrusted?
       %div{:id => "mc-notes-#{image.id}", :class => mc_class}
@@ -124,4 +124,4 @@
           %br/
         
         %br/
-        = image.description
+        = image.description.sanitize_html

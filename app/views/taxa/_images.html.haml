@@ -31,8 +31,8 @@
                   :src => (image.smart_image unless (@images.nil? or @images.blank?)), |
                   :alt => title }                           |
       %hr
-      / TODO simplify the IDs of the button links ... they need to have unique IDs but thats all
-      / TODO - this won't work when a selected image is not the first.  Stop using @images.first.
+      -# TODO simplify the IDs of the button links ... they need to have unique IDs but thats all
+      -# TODO - this won't work when a selected image is not the first.  Stop using @images.first.
       #large-image-buttons
         #left-image-buttons
           %ul#large-image-button-group
@@ -42,9 +42,9 @@
                 :rel => "#attribution-overlay",                                        |
                 :id => "large-image-attribution-button-popup-link",                    |
                 :class => 'popup-link', :title => "More information"                   |
-            #attribution-overlay.overlay{:style=>"width:400px"}
-              .contentWrap
-                = "Please wait, loading..."[]
+              #attribution-overlay.overlay{:style=>"width:400px"}
+                .contentWrap
+                  = "Please wait, loading..."[]
             = render :partial => 'data_object_states', :locals => {:dato => @images.first}
             %li#photosynth-message  
         #right-image-buttons

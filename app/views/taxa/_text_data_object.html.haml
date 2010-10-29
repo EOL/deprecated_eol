@@ -63,7 +63,7 @@
       .text-rating
         = render :partial => '/taxa/star_rating', :locals => {:data_object => content_item}
     #right_text_buttons_group
-      - if @taxon_concept.show_curator_controls?
+      - if @taxon_concept.show_curator_controls? && !@preview
         - if !content_item.curated?
           .spinner
             = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
@@ -83,7 +83,7 @@
 
   .text-slidebox-border{:id => "text-comments-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container.text-comment-div{:id => "text-comments-#{content_item.id}"}
-      -# TODO - we re-use this indicator a lot.  Put it in a CSS class.
+      -# TODO - we re-use this indicator a lot.  Put it in a div that we can push around the page as needed.
       %p
         = image_tag 'indicator_arrows_black.gif'
         = "Please wait..."[]

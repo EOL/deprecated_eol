@@ -1005,7 +1005,7 @@ li.current_kingdom {
 #content #common_names_wrapper .title {
   color: #666666;
   text-transform: uppercase;
-  font-weight: 600; }
+  font-weight: 700; }
 #content #common_names_wrapper p {
   margin-left: 1.5em;
   color: #666666; }
@@ -1130,7 +1130,7 @@ li.current_kingdom {
     width: 982px;
     border-top: 1px solid #e6e7e8; }
   #content #page-content #full-page-content strong {
-    font-weight: bold; }
+    font-weight: 700; }
 
 #home-content-wrap strong {
   font-weight: bold; }
@@ -1150,7 +1150,7 @@ li.current_kingdom {
   padding: 8px 0; }
 
 #content #page-content #center-page-content strong {
-  font-weight: bold; }
+  font-weight: 700; }
 
 #center-page-content-loading {
   position: absolute;
@@ -1312,7 +1312,7 @@ li.li-sub a.active {
   padding-bottom: 0px; }
 
 .text-area-header {
-  font-weight: 600;
+  font-weight: 700;
   color: #999999;
   text-transform: uppercase; }
 
@@ -1762,7 +1762,7 @@ select#user_default_hierarchy_id {
   #attribution-example h3 {
     border-bottom: 1px solid #cccccc !important;
     color: #999999 !important;
-    font-weight: 600 !important;
+    font-weight: 700 !important;
     text-transform: uppercase !important; }
   #attribution-example h2 {
     border-bottom: 2px solid #cccccc !important;

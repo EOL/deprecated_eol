@@ -7,7 +7,7 @@ Feature: Describe Data Object page
     When I go to /data_objects/5887524
     Then I should see "Image permalink" within "#page-title"
     And I should see "trusted" within "#data_object_status"
-    And I should see an image within "#data_object_content"
+    And I should see the data object image
     And I should see "Attribution" within "#data_object_attribution"
     And I should see "Comments" within "#data_object_comments"
 

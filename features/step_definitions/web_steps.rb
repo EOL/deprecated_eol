@@ -31,9 +31,15 @@ When /^(?:|I )press "([^"]*)"(?: within "([^"]*)")?$/ do |button, selector|
 end
 
 When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
+  selector_type, selector = get_selector(selector)
   with_scope(selector) do
     click_link(link)
   end
+end
+
+When /^I follow (.*)$/ do |selector|
+  selector_type, selector = get_selector(selector)
+  find(selector).click
 end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
@@ -126,6 +132,15 @@ Then /^(?:|I )should see \/([^\/]*)\/(?: within "([^"]*)")?$/ do |regexp, select
     else
       assert page.has_xpath?('//*', :text => regexp)
     end
+  end
+end
+
+Then /^I should see (?:the |a |an |)([^"].+)$/ do |selector|
+  selector_type, selector = get_selector(selector)
+  if selector_type == :css
+    page.has_css?(selector).should be_true
+  else
+    page.has_xpath?(selector).should be_true
   end
 end
 

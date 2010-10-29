@@ -419,7 +419,8 @@ class DataObject < SpeciesSchemaModel
   end
 
   def self.image_cache_path(cache_url, size = :large, subdir = $CONTENT_SERVER_CONTENT_PATH)
-    cache_path(cache_url, subdir) + "_#{size}.#{$SPECIES_IMAGE_FORMAT}"
+    size = size ? "_" + size.to_s : ''
+    cache_path(cache_url, subdir) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
   end
 
   def has_thumbnail_cache?
@@ -450,6 +451,10 @@ class DataObject < SpeciesSchemaModel
   def smart_image
     thumb_or_object
   end  
+
+  def original_image
+    thumb_or_object(nil) 
+  end
 
   def video_url
     if data_type.label == 'Flash'

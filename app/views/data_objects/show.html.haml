@@ -24,19 +24,20 @@
         %h3 Curation status
         - status = @data_object.vetted.label.downcase
         - bg_class = []
-        %p
+        - if status == 'unknown'
+          - bg_class << 'unknown-text'
+          - status_text = 'not reviewed'
+        - else
+          - bg_class << 'untrusted-text' if status == 'untrusted'
+          - status_text = status
+        - bg_class = bg_class.join(' ')
+        - bg_class = nil if bg_class.blank?
+        %p{ :class => bg_class }
           == This #{type.downcase} object is
-          - if status == 'unknown'
-            %b is not reviewed
-            - bg_class << 'unknown-text'
-          - else
-            %b= status
-            - bg_class << 'untrusted-text' if status == 'untrusted'
+          %b= status_text
       #data_object_content
         .divider
         %h3 Content
-        - bg_class = bg_class.join(' ')
-        - bg_class = nil if bg_class.blank?
         #data_object{ :class => bg_class }
           = render :partial => "data_objects/data_object_#{type.downcase}", :locals => { :data_object => @data_object, :taxon_concepts => @taxon_concepts }
       #data_object_attribution

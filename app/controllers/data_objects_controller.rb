@@ -184,6 +184,7 @@ class DataObjectsController < ApplicationController
     @hierarchy_paths = get_harvested_paths
     @taxon_concepts = @data_object.taxon_concepts(true)
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
+    @image_source = get_image_source if @type == 'Image'
   end
 
   # GET /data_objects/1/attribution
@@ -249,5 +250,18 @@ protected
     @selected_toc = [toc.label, toc.id]
     @languages = Language.find_by_sql("SELECT * FROM languages WHERE iso_639_1!='' ORDER BY label").collect {|c| [c.label, c.id] }
     @licenses = License.valid_for_user_content
+  end
+
+  def get_image_source
+    case params[:image_size]
+    when 'small'
+      @data_object.smart_thumb
+    when 'medium'
+      @data_object.smart_medium_thumb
+    when 'original'
+      @data_object.original_image
+    else 
+      @data_object.smart_image
+    end
   end
 end

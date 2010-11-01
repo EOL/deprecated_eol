@@ -2224,7 +2224,7 @@ div#nagivation-choose-hierarchy option.out {
       font-weight: bold;
       text-decoration: none; }
     #data_object_wrapper #data_object img {
-      max-width: 920px;
+      max-width: 100%;
       padding: 0px 5px 0px 5px; }
   #data_object_wrapper .current_revision a {
     color: green;

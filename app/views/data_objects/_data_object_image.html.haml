@@ -1,6 +1,6 @@
-%img{ :src => @image_source, :alt => taxon_concepts.map { |tc| tc.scientific_name }.compact.uniq.sort.join(', ') }
+%img{ :src => @image_source, :alt => @taxon_concepts.map { |tc| tc.scientific_name }.compact.uniq.sort.join(', ') }
 %br
 %ul#image_size_links
   - ['small', 'medium', 'large', 'original'].each do |size|
     - link_class = (!params[:image_size] && size == 'large') || (params[:image_size] && size == params[:image_size]) ? 'current_link' : nil
-    %li{ :class => link_class }= link_to size, data_object_path(data_object.id, :params => {:image_size => size})
+    %li{ :class => link_class }= link_to size, data_object_path(@data_object.id, :params => {:image_size => size})

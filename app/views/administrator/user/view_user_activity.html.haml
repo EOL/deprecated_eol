@@ -9,7 +9,7 @@ Then click 'Search' to proceed. (use your browser back button to return here)
         All
       - for user in @user_list
         %option{ :value => user.id, :selected => @user_id.to_i == user.id }
-          = user.family_name + ", " + user.given_name
+          = h(user.family_name) + ", " + h(user.given_name)
     = submit_tag 'Search'
     %br
     %br
@@ -54,3 +54,4 @@ Then click 'Search' to proceed. (use your browser back button to return here)
       = will_paginate @activities
     - else
       No record found matching your criteria.
+

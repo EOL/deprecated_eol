@@ -1369,6 +1369,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     object_details_hashes = DataObject.add_refs_to_details(object_details_hashes) if options[:skip_metadata].blank? && options[:skip_refs].blank?
     object_details_hashes = DataObject.add_agents_to_details(object_details_hashes) if options[:skip_metadata].blank?
     object_details_hashes = DataObject.add_common_names_to_details(object_details_hashes) unless options[:add_common_names].blank?
+    object_details_hashes = DataObject.add_comments_to_details(object_details_hashes) unless options[:add_comments].blank?
     object_details_hashes
   end
   
@@ -1386,6 +1387,23 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     
     grouped_refs = ModelQueryHelper.group_array_by_key(refs, 'data_object_id')
     object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped_refs, 'refs')
+    return object_details_hash
+  end
+  
+  def self.add_comments_to_details(object_details_hash)
+    data_object_ids = object_details_hash.collect {|r| r['id']}
+    return object_details_hash if data_object_ids.blank?
+    
+    comments = SpeciesSchemaModel.connection.execute("
+        SELECT c.*, do_guid.id data_object_id
+          FROM #{Comment.full_table_name} c
+          JOIN data_objects do ON (c.parent_id=do.id)
+          JOIN data_objects do_guid ON (do.guid=do_guid.guid)
+          WHERE c.parent_id IN (#{data_object_ids.join(',')})
+          AND c.parent_type='DataObject'").all_hashes
+    
+    grouped_comments = ModelQueryHelper.group_array_by_key(comments, 'data_object_id')
+    object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped_comments, 'comments')
     return object_details_hash
   end
   

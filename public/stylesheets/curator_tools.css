@@ -122,6 +122,9 @@ div.content-wrap {
   .action-value span {
     font-weight: bold; }
 
+.results_table .comment_button {
+  float: right !important; }
+
 .results_table .credit-value {
   width: 22em !important; }
 

@@ -68,20 +68,37 @@ class ContentController < ApplicationController
     if !taxon_concept.nil?
       @title = "for "+ taxon_concept.quick_scientific_name(:normal)
     
-      rows = SpeciesSchemaModel.connection.execute("SELECT tci.taxon_concept_id, do.object_cache_url, do.object_title, do.guid, do.data_rating FROM top_concept_images tci JOIN data_objects do ON (tci.data_object_id=do.id) WHERE tci.taxon_concept_id=#{taxon_concept.id} AND tci.view_order<400").all_hashes.uniq
-      
-      rows.each do |row|
+      do_ids = SpeciesSchemaModel.connection.select_values("
+        SELECT tci.data_object_id 
+        FROM top_concept_images tci 
+        WHERE tci.taxon_concept_id=#{taxon_concept.id} AND tci.view_order<400
+        ").uniq
+
+      data_objects = DataObject.details_for_objects(do_ids, :visible => true, :skip_metadata => true, :add_common_names => true)
+      data_objects.each do |data_object|
+        taxon_concept = data_object['taxon_concept_id']
+        title = data_object['scientific_name']
+        unless data_object['common_names'].blank?
+          common_name = nil
+          data_object['common_names'].each do |cn|
+            if cn.is_a?(Hash) && !cn['name'].blank?
+              common_name = cn['name']
+              break
+            end
+          end
+          title += ": #{common_name}" if common_name
+        end
         @items << {
-          :title => row['object_title'],
-          :link => taxon_concept_url(:id => row['taxon_concept_id']),
-          :guid => row['guid'],
-          :thumbnail => DataObject.image_cache_path(row['object_cache_url'], :medium),
-          :image => DataObject.image_cache_path(row['object_cache_url'], :orig),
-          :data_rating => row['data_rating']
+          :title => title,
+          :link => taxon_concept_url(:id => data_object['taxon_concept_id'], :params => {:image_id => data_object['id']}), #:vetted => 'false'}),
+          :permalink => data_object_url(data_object['id']),
+          :guid => data_object['guid'],
+          :thumbnail => DataObject.image_cache_path(data_object['object_cache_url'], :medium),
+          :image => DataObject.image_cache_path(data_object['object_cache_url'], :orig),
         }
       end
-      
-      @items.sort! { |a, b| b[:data_rating].to_f <=> a[:data_rating].to_f }
+      # @items = @items.sort_by {|i| [i[:title], 5 - i[:data_rating].to_f]} 
+      @items
     end
     
     respond_to do |format|

@@ -168,9 +168,9 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
-  def scientific_name(hierarchy = nil)
+  def scientific_name(hierarchy = nil, italicize = true)
     hierarchy ||= Hierarchy.default
-    quick_scientific_name(species_or_below? ? :italicized : :normal, hierarchy)
+    quick_scientific_name(italicize && species_or_below? ? :italicized : :normal, hierarchy)
   end
 
   # same as above but a static method expecting an array of IDs

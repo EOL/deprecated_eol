@@ -9,6 +9,7 @@ xml.rss :version => "2.0", "xmlns:media".to_sym => "http://search.yahoo.com/mrss
       xml.item do
         xml.title item[:title] || 'N/A'
         xml.link item[:link]
+        xml.permalink item[:permalink]
         xml.guid item[:guid], :isPermaLink => false
         xml.media :thumbnail, :url => item[:thumbnail]
         xml.media :content, :url => item[:image]

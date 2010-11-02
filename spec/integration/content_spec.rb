@@ -42,4 +42,19 @@ describe 'APIs' do
       body.should include('Generated on')
     end
   end
+
+end
+
+describe "Donation" do
+  it "should render entry donation page" do
+    visit("/content/donate")
+    page.status_code.should == 200
+    body.should include "Donate"
+  end
+
+  it "should render complete donation page" do
+    visit("/content/donate_complete")
+    page.status_code.should == 200
+    body.should include("Thank you")
+  end
 end

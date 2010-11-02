@@ -51,3 +51,24 @@
       = text_area_tag 'comment', nil, :rows => comment_height, :class => 'comment-box'
       #save-comment
         = submit_tag "Save"
+.text_buttons
+  #right_text_button.comment_button{ :title => "Comment on this #{data_object['data_type_label']}" }
+    - if data_object['comments'].blank?
+      - comment_image = image_tag('comment_button_gray.png')
+    - else
+      - if data_object['comments'].select{|c| c['user_id'].to_i == current_user.id}.blank?
+        - comment_image = image_tag('comment_button.png')
+      - else
+        - comment_image = image_tag('comment_button_green.png')
+    = link_to comment_image, |
+      "/data_objects/#{data_object['id']}/comments", |
+      {'data-data_object_id' => data_object['id'], |
+      :alt => "Comment on this #{data_object['data_type_label']}", |
+      :class => 'popup-link'} |
+.text-slidebox-border{:id => "text-comments-wrapper-#{data_object['id']}", :style => "display:none;"}
+  .text-slidebox-container.text-comment-div{:id => "text-comments-#{data_object['id']}"}
+    -# TODO - we re-use this indicator a lot.  Put it in a CSS class.
+    %p
+      = image_tag 'indicator_arrows_black.gif'
+      = "Please wait..."[]
+

@@ -36,7 +36,7 @@
               = image_tag('arrow_way_down.gif', :alt => 'move to bottom', :title => 'move to bottom')
           %span{:id => "toc_label_#{toc.id}"}><
             = "&nbsp;" + toc.label + "&nbsp;"
-            %a{:href => '', :onclick => "javascript:toc_edit_label(#{toc.id}, "#{toc.label}"); return false;"}
+            %a{:href => '', :onclick => %Q[javascript:toc_edit_label(#{toc.id}, "#{toc.label}"); return false;]}
               = image_tag('pencil.png', :alt => 'edit', :title => 'edit', :style => 'float: right; margin: 0px;')
         %td{:class => cell2_class, :valign => 'top'}
           - unless toc.info_items.empty?

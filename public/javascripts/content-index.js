@@ -18,13 +18,13 @@ function explore_more_taxa() {
 }
 
 function fade_out_taxa(num) {
-  $('#top_image_tag_'+num).fadeOut(600);
-  $('#top_name_'+num).fadeOut(600);
+  $('#top_image_tag_'+num).parents('td').fadeTo(600, 0.03);
+  $('#top_name_'+num).parents('td').fadeTo(600, 0.03);
 }
 
 function fade_in_taxa(num) {
-  $('#top_image_tag_'+num).delay(250).fadeIn(600);
-  $('#top_name_'+num).fadeIn(600);
+  $('#top_image_tag_'+num).parents('td').fadeTo(600, 1);
+  $('#top_name_'+num).parents('td').fadeTo(600, 1);
 }
 
 function replace_single_taxa(taxa_number) {

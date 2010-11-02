@@ -260,10 +260,11 @@ class ContentController < ApplicationController
       render :update do |page|
         name_div_contents = (random_image_linked_name(explore_taxa)).gsub(/'/, '&apos;')
         page << "$('#top_name_#{taxa_number}').html('#{name_div_contents}');"
-        page << "$('#top_image_tag_#{taxa_number}').attr('src', '#{explore_taxa['image_cache_path']}');"
-        page << "$('#top_image_tag_#{taxa_number}_href').attr('src', '/pages/#{explore_taxa['taxon_concept_id']}');"
-        page << "$('#top_image_tag_#{taxa_number}').attr('alt', '#{sanitize(explore_taxa['scientific_name'])}');"
-        page << "$('#top_image_tag_#{taxa_number}').attr('title', '#{sanitize(explore_taxa['scientific_name'])}');"
+        
+        # we're now replacing the entire img tag which should prevent images from getting
+        # stretched out in Safari and possibly other browsers
+        image_div_contents = random_image_thumb_partial(explore_taxa, 'top_image_tag_'+taxa_number).gsub(/'/, '&apos;')
+        page << "$('#top_image_tag_#{taxa_number}').parents('td').html('#{image_div_contents}');"
       end
     else
       render :nothing => true

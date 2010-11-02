@@ -60,9 +60,9 @@ module EOL
         default_best_match_name = default_best_match_name[0] if default_best_match_name.class == Array
         if (best_match_name.blank? or
             default_best_match_name.blank? or
-            default_best_match_name.downcase == best_match_name.downcase)
+            default_best_match_name.downcase.remove_diacritics.strip_italics == best_match_name.downcase.remove_diacritics.strip_italics)
           result[@shown_as_field_name] = '' 
-        else 
+        else
           result[@shown_as_field_name] = "shown as '#{default_best_match_name}'"
         end
         result['top_image'] = result['top_image_id'] ? DataObject.find(result['top_image_id']) : nil rescue nil

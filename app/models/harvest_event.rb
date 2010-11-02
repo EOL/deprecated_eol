@@ -32,7 +32,7 @@ class HarvestEvent < SpeciesSchemaModel
            JOIN hierarchy_entries he ON (hehe.hierarchy_entry_id = he.id)
            JOIN names n ON (he.name_id = n.id)
            LEFT JOIN data_objects_hierarchy_entries dohe ON (hehe.hierarchy_entry_id = dohe.hierarchy_entry_id)
-         WHERE hehe.harvest_event_id=#{taxa_id.to_i}
+         WHERE hehe.harvest_event_id=#{he_id.to_i}
          GROUP BY he.taxon_concept_id
          ORDER BY (dohe.data_object_id IS NULL), n.string")
   end

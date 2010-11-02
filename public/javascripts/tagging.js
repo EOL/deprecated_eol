@@ -41,6 +41,7 @@ EOL.Tagging = {
     }
     var path = '/data_objects/' + data_object_id + '/tags/private';
     EOL.Tagging.reload_url(path);
+    $('#ajax-indicator-popup').fadeOut();
   },
 
   // reloaded the tagging UI given a specific URL
@@ -69,9 +70,10 @@ EOL.Tagging = {
     // Delete Tag
     $('#private_data_object_tags span.data_object_tag_key_value>form').unbind('submit');
     $('#private_data_object_tags span.data_object_tag_key_value>form').submit(function(e) {
+      $('#ajax-indicator-popup').fadeIn();
       var post_url = $(this).attr('action');
       var path = post_url.replace(/tags\/.*/,'tags/private');
-      $.post( post_url, { '_method': 'delete' }, function() { EOL.Tagging.reload() } );
+      $.post( post_url, { '_method': 'delete' }, function() { EOL.Tagging.reload(); } );
       return false;
     });
 

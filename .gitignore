@@ -28,8 +28,7 @@ public/search.xml
 public/stylesheets/*-cached_packaged.css
 public/uploads/datasets/*
 solr/logs/*.*
-solr/solr/data/index/*
-solr/work/*
+solr/solr/data/taxon_concepts/index/*
 tmp/cache/*
 tmp/pids/*
 tmp/sass-cache/*

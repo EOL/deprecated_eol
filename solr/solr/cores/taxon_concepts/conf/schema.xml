@@ -67,7 +67,7 @@
   
   <!-- begin data schema -->
   <fields>
-    <field name="taxon_concept_id" type="integer" indexed="true" stored="true" required="true" /> 
+    <field name="taxon_concept_id" type="integer" indexed="true" stored="true" required="true" />
     <field name="preferred_scientific_name" type="text" indexed="true" stored="true" required="false" multiValued="true" />
     <field name="preferred_scientific_name_exact" type="text" indexed="true" stored="true" required="false" multiValued="true" />
     <copyField source="preferred_scientific_name" dest="preferred_scientific_name_exact"/>

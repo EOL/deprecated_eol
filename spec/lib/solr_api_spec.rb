@@ -21,7 +21,8 @@ describe SolrAPI do
 
   it 'should connect to solr server from environment' do
     @solr.server_url.host.should == 'localhost'
-    @solr.server_url.path.should == '/solr'
+    config_solr_path = $SOLR_SERVER.sub(/^.*?\/solr/, '/solr')
+    @solr.server_url.path.should == config_solr_path
   end
 
   it 'should be able to run search on the server' do

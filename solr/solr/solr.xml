@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<solr persistent="true">
+    <cores adminPath="/admin/cores">
+        <core name="taxon_concepts" instanceDir="./cores/taxon_concepts/" dataDir="./data/taxon_concepts"/>
+    </cores>
+</solr>

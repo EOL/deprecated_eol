@@ -3,6 +3,7 @@ require 'uri'
 require 'ezcrypto'
 require 'cgi'
 require 'base64'
+require 'lib/eol/solr_search.rb'
 
 # NOTE - there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
 # to the user model.  We *could* achieve a similar result with method_missing, but I worry that it would cause other
@@ -585,21 +586,18 @@ class User < ActiveRecord::Base
     page = options[:page].blank? ? 1 : options[:page].to_i
     per_page = options[:per_page].blank? ? 30 : options[:per_page].to_i
     hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
+    hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
     
-    result = DataObject.find_by_sql(["SELECT do.id
-        FROM #{HierarchyEntry.full_table_name} he
-          JOIN #{HierarchyEntry.full_table_name} he_children ON (he_children.lft BETWEEN he.lft AND he.rgt AND he_children.hierarchy_id=he.hierarchy_id)
-          JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (he_children.taxon_concept_id = dotc.taxon_concept_id)
-          JOIN #{DataObject.full_table_name} do ON (dotc.data_object_id = do.id)
+    data_object_ids = EOL::Solr::SolrSearchDataObjects.images_for_concept("ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id} AND vetted_id:#{Vetted.unknown.id}", :fields => 'data_object_id', :rows => 500, :sort => 'created_at desc')
+    
+    result = DataObject.find_by_sql("SELECT do.id
+        FROM #{DataObject.full_table_name} do
           LEFT JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
-        WHERE he.id = ?
-          AND do.published = 1
-          AND do.vetted_id = #{Vetted.unknown.id}
-          AND do.data_type_id = #{DataType.image.id}
+        WHERE do.id IN (#{data_object_ids.join(',')})
           AND uido.id IS NULL
         GROUP BY do.guid
-        ORDER BY do.id DESC
-        LIMIT 0,300", hierarchy_entry_id.to_i]);
+        ORDER BY do.created_at DESC
+        LIMIT 0,300");
     
     start = per_page * (page - 1)
     last = start + per_page - 1

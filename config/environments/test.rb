@@ -38,6 +38,7 @@ $ENABLE_ANALYTICS=false
 $IP_ADDRESS_OF_SERVER='127.0.0.1'
 
 $SOLR_SERVER = 'http://localhost:8983/solr/taxon_concepts'
+$SOLR_SERVER_DATA_OBJECTS = 'http://localhost:8983/solr/data_objects'
 $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
 
 config.gem 'faker'

@@ -1,3 +1,15 @@
-- names.each do |name|
-  %p= name.preferred ? "<strong>#{name.string}</strong>" : name.string
-%br
+%table.results_table{ :cellspacing => "0", :summary => "Common Names", :style => "width:100%"}
+  %tr
+    %th{ :scope => "col" }
+      = "Name"[]
+    %th= "Sources"[]
+  - names.each do |name|
+    - column_class = cycle("odd", "even")
+    %tr
+      %td{ :class => column_class }
+        = name.preferred ? "<strong>#{name.string}</strong>" : name.string
+      %td{ :class => column_class, :style => "text-align:center;" }
+        - if name.sources.blank?
+          = "Multiple sources."[]
+        - else
+          = agent_partial(name.sources)

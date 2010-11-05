@@ -8,7 +8,7 @@
 
 #common_names_wrapper.text_object
   - names_by_language = common_names_by_language(@content[:items], current_user.language_id)
-  - if names_by_language.empty?
+  - if names_by_language.empty? && is_curator
     = render(:partial => 'taxa/content/content_common_names_insert') 
   - else
     - names_by_language.each_with_index do |language_names_pair, index|
@@ -24,10 +24,3 @@
         = render(:partial => 'taxa/content/content_language_common_names', :locals => {:names => names}) 
       - if index == 0 && is_curator
         = render(:partial => 'taxa/content/content_common_names_insert', :locals => {:names => names}) 
-    %br
-    .divider
-    .content-attribution-area
-      .attribution-header.text-area-header
-        = "Source and Additional Information"[]
-      %span.source
-        Names come from multiple sources.

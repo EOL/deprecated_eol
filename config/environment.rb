@@ -198,6 +198,8 @@ Rails::Initializer.run do |config|
   
   $MYSQLDUMP_COMPLETE_PATH = 'mysqldump'
 
+  $AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE = 9448
+
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store
   end

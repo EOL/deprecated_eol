@@ -752,30 +752,15 @@ class TaxonConcept < SpeciesSchemaModel
     return entry(hierarchy).classification_attribution
   end
 
-  # Pull text content by given category
-  # Builds the content for a given category, or TocItem.
-  # This method delegates custom TOC renderings to the
-  # CategoryContentBuilder class
+  # This may throw an ActiveRecord::RecordNotFound exception if the TocItem's category_id doesn't exist.
   def content_by_category(category_id, options = {})
-
-    # Make toc_item point to a TocItem object
-    if category_id.is_a?(TocItem)
-      toc_item = category_id
-    else
-      toc_item = TocItem.find(category_id) rescue nil
-    end
-    return nil if toc_item.nil?
-
-    # The Category content builder currently only builds
-    # customized content. Text data objects is still 
-    # handled by TaxonConcept#get_default_content
-
+    toc_item = TocItem.find(category_id) # Note: this "just works" even if category_id *is* a TocItem.
     ccb = CategoryContentBuilder.new
-    options[:vetted] = current_user.vetted
-    options[:taxon_concept_id] = id
-    content = ccb.content_for(toc_item, options)
-    content = get_default_content(toc_item) if content.nil?
-    content
+    if ccb.can_handle?(toc_item)
+      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept_id => id)
+    else
+      get_default_content(toc_item)
+    end
   end
 
   def images(options = {})
@@ -791,13 +776,14 @@ class TaxonConcept < SpeciesSchemaModel
     else
       filter_hierarchy = nil
     end
-    perform_filter =  !filter_hierarchy.nil?
+    perform_filter = !filter_hierarchy.nil?
 
     image_page = (options[:image_page] ||= 1).to_i
     images ||= DataObject.for_taxon(self, :image, :user => self.current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page)
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
 
     return images
+
   end
 
   def image_count

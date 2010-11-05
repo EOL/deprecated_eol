@@ -1,7 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
 
   # Web Application
-
   map.resources :harvest_events, :has_many => [:taxa]
   map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]
   map.force_harvest_resource 'content_partner/resources/force_harvest/:id', :method => :post,
@@ -25,7 +24,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :controller => 'account',
                                     :action => 'reset_specific_users_password'
 
-  # I don't like this.  Why don't we just use restful routes here?
+  # TODO - I don't like this.  Why don't we just use restful routes here?
   map.with_options(:controller => 'account') do |account|
     account.login     'login',     :action => 'login'
     account.logout    'logout',    :action => 'logout'

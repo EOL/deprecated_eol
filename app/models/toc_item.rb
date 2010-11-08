@@ -14,7 +14,6 @@ class TocItem < SpeciesSchemaModel
   
   connection.select_rows('select toc.id, count(*) from table_of_contents toc join data_objects_table_of_contents dotoc on (toc.id=dotoc.toc_id) group by toc.id')
   
-  
   def self.toc_object_counts
     cached('toc_object_counts') do
       TocItem.count_objects
@@ -28,11 +27,6 @@ class TocItem < SpeciesSchemaModel
       counts[id.to_i] = count.to_i
     end
     return counts
-  end
-  
-  def object_count
-    counts = TocItem.toc_object_counts
-    return counts[id] || 0
   end
   
   def self.bhl
@@ -91,7 +85,15 @@ class TocItem < SpeciesSchemaModel
     cached_find(:label, 'Wikipedia')
   end
   
+  def object_count
+    counts = TocItem.toc_object_counts
+    return counts[id] || 0
+  end
   
+  def label_as_method_name
+    label.gsub(/\W/, '_').downcase
+  end
+
   
   def is_child?
     !(self.parent_id.nil? or self.parent_id == 0) 

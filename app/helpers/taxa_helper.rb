@@ -28,7 +28,11 @@ module TaxaHelper
     agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
     agents = [agents[0]] if params[:only_first]
     agent_list = agents.collect do |agent|
-      link_to_url = params[:url] || agent.homepage
+      link_to_url = if agent.user
+        url_for :controller => :account, :action => :show, :id => agent.user.id, :popup => true
+      else
+        params[:url] || agent.homepage
+      end
       params[:linked] ? external_link_to(allow_some_html(agent.full_name),
                                          link_to_url,
                                          {:show_link_icon => params[:show_link_icon]}) :
@@ -261,8 +265,8 @@ private
           if name_a.id == name_b.id
             name_a.duplicate = true
             name_b.duplicate = true
-            name_a.duplicate_with_curator = true if name_b.in_curator_hierarchy?
-            name_b.duplicate_with_curator = true if name_a.in_curator_hierarchy?
+            name_a.duplicate_with_curator = true if name_b.trusted_by_agent?
+            name_b.duplicate_with_curator = true if name_a.trusted_by_agent?
           end
         end
       end

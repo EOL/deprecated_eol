@@ -146,6 +146,17 @@ describe 'Curation' do
     visit('/logout')
   end
 
+  it 'should show common name sources for curators' do
+    common_names_toc_id = TocItem.common_names.id
+    login_capybara(@first_curator)
+    visit("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}")
+    body.should have_tag("div#common_names_wrapper") do
+      # Curator link, because we added the common name with agents_synonyms:
+      with_tag("a.external_link", :text => /#{@taxon_concept.acting_curators.first.full_name}/)
+    end
+    visit('/logout')
+  end
+
   it 'should not show editing common name environment if curator is not logged in' do
     visit("/logout")
     visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.common_names.id}")

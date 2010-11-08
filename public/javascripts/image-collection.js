@@ -74,7 +74,7 @@ if (!EOL.replace_dato_id || !EOL.click_selected_image || !EOL.toggle_main_img_ic
   
   EOL.toggle_photosynth_icon = function(id) {
     var source_url = $("#mc-notes-"+id+" a.source_url").attr('href');
-    if(source_url.search(/photosynth.net/) == -1)
+    if(source_url == undefined || source_url.search(/photosynth.net/) == -1)
     { //regular static image    
       $("#photosynth-message").html("");
       $("#photosynth-message").unbind('click');

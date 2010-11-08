@@ -23,19 +23,19 @@ class TaxaController < ApplicationController
     end
   end
 
+  # a quick way to test exception notifications, just raise the error!
   def boom
-    # a quick way to test exception notifications, just raise the error!
     raise "boom" 
   end
 
   def search
     # remove colon from query, because it reserved for fields separation
     @colon_warning_flag = 0
-    if params[:q]    =~ /:/
-      @querystring   = params[:q].gsub(':', '')
+    if params[:q]  =~ /:/
+      @querystring = params[:q].gsub(':', '')
       @colon_warning_flag = 1
     else 
-      @querystring   = params[:q] || params[:id]
+      @querystring = params[:q] || params[:id]
     end
     @search_type = params[:search_type] || 'text'
     @page_title  = "EOL Search: #{@querystring}"
@@ -81,8 +81,8 @@ class TaxaController < ApplicationController
     end
     if params[:category_id]
       params[:category_id] = nil if !TocItem.find_by_id(params[:category_id].to_i)
+      @languages = build_language_list if is_common_names?(params[:category_id].to_i)
     end
-    append_content_instance_variables(params[:category_id].to_i) if params[:category_id]
 
     @concept_browsable_hierarchies = Hierarchy.browsable_for_concept(@taxon_concept)
     @all_browsable_hierarchies = Hierarchy.browsable_by_label
@@ -202,8 +202,7 @@ class TaxaController < ApplicationController
     end
 
     @category_id = @toc_item.category_id    
-    @ajax_update = true
-    load_content_var
+    get_content_variables(:ajax_update => true)
     current_user.log_activity(:viewed_toc_id, :value => toc_id, :taxon_concept_id => @taxon_concept.id)
   end
 
@@ -222,9 +221,7 @@ class TaxaController < ApplicationController
     @taxon_concept.current_user  = current_user
     @curator = @taxon_concept.current_user.can_curate?(@taxon_concept)
 
-    load_content_var
-    @ajax_update = true
-    append_content_instance_variables(@category_id)
+    get_content_variables(:ajax_update => true)
     if @content.nil?
       render :text => '[content missing]'
       return true
@@ -379,11 +376,11 @@ class TaxaController < ApplicationController
 ###############################################
 private
 
-  def load_content_var
-    @content = @taxon_concept.content_by_category(@category_id,:current_user => current_user)
-    # TODO - this was a "quick fix"... but, clearly, we can generalize this in a nice way:
-    @whats_this = '/content/page/new_features#chapters' if
-      @content[:category_name] =~ /(related names|common names|synonyms)/i
+  def get_content_variables(options = {})
+    @content = @taxon_concept.content_by_category(@category_id, :current_user => current_user)
+    @whats_this = WhatsThis.get_url_for_name(@content[:category_name])
+    @ajax_update = options[:ajax_update]
+    @languages = build_language_list if is_common_names?(@category_id)
   end
 
   # TODO: Get rid of the content level, it is depracated and no longer needed
@@ -587,7 +584,7 @@ private
 
     @new_text_tocitem_id = get_new_text_tocitem_id(@category_id)
 
-    load_content_var unless
+    get_content_variables unless
       @category_id.nil? || @taxon_concept.table_of_contents(:vetted_only=>@taxon_concept.current_user.vetted).blank?
     @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy, {:language => current_user.language, :size => :small})
   end
@@ -702,15 +699,18 @@ private
       set.length
   end
 
-  def append_content_instance_variables(category_id)
-    if TocItem.common_names.id == category_id
-      @languages = Language.with_iso_639_1.map  do |lang|
-        {
-          :label    => lang.label, 
-          :id       => lang.id, 
-          :selected => lang.id == (current_user && current_user.language_id) ? "selected" : nil
-        }
-      end
+  def is_common_names?(category_id)
+    TocItem.common_names.id == category_id
+  end
+
+  def build_language_list
+    @languages = Language.with_iso_639_1.map  do |lang|
+      {
+        :label    => lang.label, 
+        :id       => lang.id, 
+        :selected => lang.id == (current_user && current_user.language_id) ? "selected" : nil
+      }
     end
   end
+
 end

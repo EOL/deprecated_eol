@@ -1,55 +1,19 @@
-# Responsible for building the non-default category content from the TOC, specifically for the following TOC items: Search
-# the web, BHL, Common names, and Content Partners
+# Responsible for building the non-default category content from the TOC (things like BHL and common names).
 class CategoryContentBuilder
-  
-  # toc_item points to a TocItem object. 
-  # options is a hash of content specific options
-  # Mandatory keys include :vetted and :taxon_concept_id
+
   def content_for(toc_item, options)
-    sub_name = toc_item.label.gsub(/\W/, '_').downcase
-
-    # A list of current sub_names:
-    #
-    # biodiversity_heritage_library
-    # common_names
-    # biomedical_terms
-    # search_the_web
-    # content_partners
-
+    sub_name = toc_item.label_as_method_name # TODO - i18n (this won't work without labels like the methods below)
     content = {
       :category_name => toc_item.label,
       :content_type  => sub_name
     }
-
-    if sub_name == "biodiversity_heritage_library"
-      content.merge! biodiversity_heritage_library(options)
-    elsif sub_name == "related_names"
-      content.merge! related_names(options)
-    elsif sub_name == "synonyms"
-      content.merge! synonyms(options)
-    elsif sub_name == "common_names"
-      content.merge! common_names(options)
-    elsif sub_name == "content_summary"
-      content.merge! content_summary(options)
-    elsif sub_name == "biomedical_terms"
-      content.merge! biomedical_terms(options)
-    elsif sub_name == "search_the_web"
-      content.merge! search_the_web(options)
-    elsif sub_name == "content_partners"
-      content.merge! content_partners(options)
-    elsif sub_name == "literature_references"
-      content.merge! literature_references(options)
-    elsif sub_name == "nucleotide_sequences"
-      content.merge! nucleotide_sequences(options)
-    else
-      return nil # We don't handle this toc_item.
-    end
-
+    content.merge! self.send(sub_name, options)
     content
   end
 
-# The following are methods specific to content_by_category
-private
+  def can_handle?(toc_item)
+    self.respond_to? toc_item.label_as_method_name
+  end
 
   # TODO - Pagination
   def biodiversity_heritage_library(options)
@@ -76,28 +40,27 @@ private
     return {:items => sorted_items.map {|i| BhlItem.new(i) }}
 
   end
-  
+
   def related_names(options)
     return {:items => TaxonConcept.related_names(options[:taxon_concept_id])}
   end
-  
+
   def synonyms(options)
     return {:items => TaxonConcept.synonyms(options[:taxon_concept_id])}
   end
-  
+
   def common_names(options)
-    unknown = Language.unknown.label
+    unknown = Language.unknown.label # Just don't want to look it up every time.
     names = EOL::CommonNameDisplay.find_by_taxon_concept_id(options[:taxon_concept_id])
-    known_names = names.map {|n| n.language_label == unknown ? nil : n.name_id.to_i}.compact.uniq
-    names = names.select {|n| (n.language_label != unknown) || (!known_names.include?(n.name_id.to_i))} 
+    names = names.select {|n| n.language_label != unknown} 
     return {:items => names} 
   end
-  
+
   def content_summary(options)
     hash = TaxonConcept.entry_stats(options[:taxon_concept_id])
     return {:items => hash}
   end
-  
+
 
   def biomedical_terms(options)
     return {:item => HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, options[:taxon_concept_id])}
@@ -115,17 +78,17 @@ private
     sorted_outlinks = outlinks.sort_by { |ol| ol[:hierarchy_entry].hierarchy.label }
     return {:outlinks => sorted_outlinks}
   end
-  
+
   def literature_references(options)
     tc_id = options[:taxon_concept_id]
     return {:items => Ref.find_refs_for(tc_id)}
   end
-  
+
   def nucleotide_sequences(options)
     tc_id = options[:taxon_concept_id]
     entry = TaxonConcept.find_entry_in_hierarchy(tc_id, Hierarchy.ncbi.id)
     return {:hierarchy_entry => entry}
   end
-  
+
 
 end

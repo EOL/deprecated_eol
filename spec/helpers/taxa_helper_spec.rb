@@ -44,7 +44,7 @@ def expected_hash_from_name(name)
    :synonym_id => name.synonym_id,
    :preferred  => name.preferred == '1',
    :id         => name.id,
-   :agent_id   => name.agent_id}
+   :sources    => name.sources}
 end
 
 # Mimicing what comes out of the helper.  Ick!

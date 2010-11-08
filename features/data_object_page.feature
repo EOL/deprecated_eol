@@ -21,3 +21,8 @@ Feature: Describe Data Object page
   Scenario: Opening YouTube data object page
     When I go to /data_objects/475483
     Then I should see "Video permalink" within "#page-title"
+
+  Scenario: Opening Wikipedia data object page
+    When I go to /data_objects/6744733
+    Then I should see "Text permalink" within "#page-title"
+    And I should see "Wikipedia" within "#text_object_title"

@@ -8,7 +8,6 @@ module EOL
     attr_accessor :language_label
     attr_accessor :language_name
     attr_accessor :language_id
-    # TODO - change references to agent_id to curator_agent_id (or something like that)
     attr_accessor :sources
     attr_accessor :synonym_id
     attr_accessor :source_he_id
@@ -42,20 +41,14 @@ module EOL
       @synonym_id     = name[:synonym_id].to_i
       @source_he_id   = name[:source_he_id].to_i
       @preferred      = name[:preferred].class == String ? name[:preferred].to_i > 0 : name[:preferred]
-      @trusted        = in_curator_hierarchy?
       @sources        = get_sources
+      @trusted        = trusted_by_agent?
       @duplicate      = false
       @duplicate_with_curator = false
     end
 
     alias :id :name_id
     alias :string :name_string
-
-    def in_curator_hierarchy?
-      in_hierarchy = false
-      in_hierarchy = true if !@hierarchy_id.blank? && @hierarchy_id == Hierarchy.eol_contributors.id
-      return in_hierarchy
-    end
 
     def get_sources
       sources = Agent.find_by_sql([%q{
@@ -79,6 +72,19 @@ module EOL
         sources << Agent.find($AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE) rescue nil
       end
       sources
+    end
+
+    def agent_id_has_access(id)
+      @sources.map {|a| a.id }.include? id
+    end
+
+    def trusted_by_agent?
+      not @sources.map {|a| a.user }.compact.blank?
+    end
+
+    def agent_names
+      names = @sources.map {|a| a.user ? a.user.full_name : nil }.compact.join(', ')
+      names = "Unknown"
     end
 
     # Sort by language label first, then by name, then by source.

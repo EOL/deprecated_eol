@@ -265,8 +265,8 @@ private
           if name_a.id == name_b.id
             name_a.duplicate = true
             name_b.duplicate = true
-            name_a.duplicate_with_curator = true if name_b.in_curator_hierarchy?
-            name_b.duplicate_with_curator = true if name_a.in_curator_hierarchy?
+            name_a.duplicate_with_curator = true if name_b.trusted_by_agent?
+            name_b.duplicate_with_curator = true if name_a.trusted_by_agent?
           end
         end
       end

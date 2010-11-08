@@ -180,4 +180,20 @@ module ApiHelper
     end
     return return_hash
   end
+  
+  def eol_providers_json
+    return_hash = { 'results' => [] }
+    for h in @hierarchies
+      return_hash['results'] << {'id' => h.id, 'label' => h.label}
+    end
+    return return_hash
+  end
+  
+  def search_by_providers_json
+    return_hash = { 'results' => [] }
+    for r in @results
+      return_hash['results'] << {'taxon_concept_id' => r.taxon_concept_id}
+    end
+    return return_hash
+  end
 end

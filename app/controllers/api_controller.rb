@@ -2,8 +2,8 @@ class ApiController < ApplicationController
   
   include ApiHelper
   
-  before_filter :check_version
-  layout 'main' , :only => [:index, :ping, :search, :pages, :data_objects, :hierarchy_entries]
+  before_filter :check_version 
+  layout 'main' , :only => [:index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :eol_providers]
   
   def pages
     taxon_concept_id = params[:id] || 0
@@ -153,6 +153,38 @@ class ApiController < ApplicationController
     
     respond_to do |format|
        format.xml { render :layout => false }
+    end
+  end
+  
+  def eol_providers
+    params[:format] ||= 'xml'
+    
+    @hierarchies = Hierarchy.all
+    
+    respond_to do |format|
+      format.xml { render :layout => false }
+      format.json {
+        @return_hash = eol_providers_json
+        render :json => @return_hash, :callback => params[:callback] 
+      }
+    end
+  end
+  
+  def search_by_provider
+    params[:format] ||= 'xml'
+    begin
+      raise if params[:hierarchy_id].blank? || params[:id].blank?
+    rescue
+      render(:partial => 'error.xml.builder', :locals => {:error => "You must provide both the hierarchy id and the identifier"})
+      return
+    end
+    @results = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id], :conditions => "published = 1 and visibility_id = #{Visibility.visible.id}")
+    respond_to do |format|
+      format.xml { render :layout => false }
+      format.json {
+        @return_hash = search_by_providers_json
+        render :json => @return_hash, :callback => params[:callback] 
+      }
     end
   end
   

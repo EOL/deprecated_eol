@@ -24,8 +24,15 @@ if (!EOL.change_toc) {
 $(document).ready(function() {
   // TODO - move to its own js (for maps view)
   // clicking map will show its attributions
-  $('img#map').click(function (e) {
+  $('img#map').click(function () {
     $('map_attributions').click();
+  });
+  // "view/edit" common names link for curators should open that toc item and jump down there:
+  $('#curate-common-names').click(function() {
+    if (EOL.common_names_toc_id) {
+      $(window).scrollTop($('#center-page-content').offset().top - 30);
+      $('a#category_id_'+EOL.common_names_toc_id).click();
+    }
   });
   // when clicking on any tab in the media center - replace the pane DIV with the response
   $('#tab_media_center a').click(function() {

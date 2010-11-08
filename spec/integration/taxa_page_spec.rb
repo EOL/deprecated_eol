@@ -116,13 +116,22 @@ describe 'Taxa page (HTML)' do
         with_tag('h1', :text => @scientific_name)
       end
     end
-    
+
     it 'should show the common name if one exists' do
       @result.body.should have_tag('div#page-title') do
         with_tag('h2', :text => @common_name)
       end
     end
-    
+
+    it 'should NOT show a view/edit link after the common name when non-curator' do
+      @result.body.should have_tag('div#page-title') do
+        with_tag('h2') do
+          without_tag("span#curate-common-names")
+          without_tag("span", :text => /view\/edit/)
+        end
+      end
+    end
+
     it 'should not show the common name if none exists' do
       tc = build_taxon_concept
       visit("/pages/#{tc.id}")
@@ -130,13 +139,13 @@ describe 'Taxa page (HTML)' do
         with_tag('h2', :text => '')
       end
     end
-    
+
     it 'should use supercedure to find taxon concept' do
       superceded = TaxonConcept.gen(:supercedure_id => @id)
       visit("/pages/#{superceded.id}")
       current_path.should == "/pages/#{@id}"
     end
-    
+
     it 'should tell the user the page is missing if the page is... uhhh... missing' do
       missing_id = TaxonConcept.last.id + 1
       while(TaxonConcept.exists?(missing_id)) do
@@ -147,7 +156,7 @@ describe 'Taxa page (HTML)' do
         with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
       end
     end
-    
+
     it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
       unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
       visit("/pages/#{unpublished.id}")
@@ -155,10 +164,10 @@ describe 'Taxa page (HTML)' do
         with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
       end
     end
-    
+
     # it 'should be able to ping the collection host' do
     # end
-    
+
     it 'should show the Overview text by default' do
       visit("/pages/#{@id}")
       body.should have_tag('div.cpc-header') do
@@ -166,13 +175,13 @@ describe 'Taxa page (HTML)' do
       end
       body.should include(@overview_text)
     end
-    
+
     it 'should NOT show references for the overview text when there aren\'t any' do
       Ref.delete_all
       visit("/pages/#{@id}")
       body.should_not have_tag('div.references')
     end
-    
+
     it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
       full_ref = 'This is the reference text that should show up'
       # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
@@ -195,28 +204,28 @@ describe 'Taxa page (HTML)' do
       body.should_not include(bad_identifier)
       body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
     end
-    
+
     it 'should NOT show references for the overview text when reference is invisible' do
       full_ref = 'This is the reference text that should show up'
       @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
       visit("/pages/#{@id}")
       body.should_not have_tag('div.references')
     end
-    
+
     it 'should NOT show references for the overview text when reference is unpublished' do
       full_ref = 'This is the reference text that should show up'
       @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
       visit("/pages/#{@id}")
       body.should_not have_tag('div.references')
     end
-    
+
     it 'should allow html in user-submitted text' do
       visit("/pages/#{@id}")
       body.should match(@description_bold)
       body.should match(@description_ital)
       body.should match(@description_link)
     end
-    
+
     # I hate to do this, since it's SO SLOW, but:
     it 'should render an "empty" page in authoritative mode' do
       tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
@@ -225,53 +234,53 @@ describe 'Taxa page (HTML)' do
       body.should_not include('Internal Server Error')
       body.should have_tag('h1') # Whatever, let's just prove that it renders.
     end
-    
+
     it 'should show the Catalogue of Life link in Content Partners' do
       visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.content_partners.id}")
       body.should include(@col_collection.label)
     end
-    
+
     it 'should show the Catalogue of Life link in the header' do
       visit("/pages/#{@taxon_concept.id}")
       body.should include("recognized by <a href=\"#{@col_mapping.source_url}\"")
     end
-    
+
     it 'should show a Nucleotide Sequences table of content item if concept in NCBI and has identifier' do
       # make an entry in NCBI for this concept and give it an identifier
       sci_name = Name.gen(:string => Factory.next(:scientific_name))
       entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
                   :identifier => 1234,
                   :hierarchy => Hierarchy.ncbi )
-  
+
       visit("/pages/#{@taxon_concept.id}")
       body.should include("Nucleotide Sequences")
     end
-    
+
     it 'should show not a Nucleotide Sequences table of content item if concept in NCBI and does not have an identifier' do
       # make an entry in NCBI for this concept and dont give it an identifier
       sci_name = Name.gen(:string => Factory.next(:scientific_name))
       entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
                   :hierarchy => Hierarchy.ncbi )
-  
+
       visit("/pages/#{@taxon_concept.id}")
       body.should_not include("Nucleotide Sequences")
     end
-    
+
   it 'should show the hierarchy descriptive label in the drop down if there is one' do
     col = Hierarchy.default
     @result.body.should match /value='#{col.id}'>\s*#{col.label}\s*<\/option>/ # selector default
-    
+
     col.descriptive_label = 'A DIFFERENT LABEL FOR TESTING'
     col.save!
     visit("/pages/#{@id}")
     body.should match /value='#{col.id}'>\s*#{col.descriptive_label}\s*<\/option>/ # selector default
-    
+
     col.descriptive_label = nil
     col.save!
   end
 
   describe 'specified hierarchies' do
-  
+
     before(:all) do
       #creating an NCBI hierarchy and some others
       Hierarchy.delete_all("label = 'NCBI Taxonomy'") # Not sure why, but we end up with lots of these.
@@ -283,7 +292,7 @@ describe 'Taxa page (HTML)' do
       HierarchyEntry.gen(:hierarchy => @ncbi, :taxon_concept => @taxon_concept)
       HierarchyEntry.gen(:hierarchy => @browsable_hierarchy, :taxon_concept => @taxon_concept)
       HierarchyEntry.gen(:hierarchy => @non_browsable_hierarchy, :taxon_concept => @taxon_concept)
-  
+
       # and another entry just in NCBI
       HierarchyEntry.gen(:hierarchy => @ncbi)
       @user_with_default_hierarchy = User.gen(:default_hierarchy_id => Hierarchy.default.id)
@@ -294,7 +303,7 @@ describe 'Taxa page (HTML)' do
       @ncbi_tc    = find_unique_tc(:not_in => Hierarchy.default, :in => @ncbi)
       @common_tc  = find_common_tc(:in => Hierarchy.default, :also_in => @ncbi)
     end
-   
+
     after(:each) do
       visit("/logout")
     end
@@ -407,17 +416,17 @@ describe 'Taxa page (HTML)' do
     visit("/pages/#{@id}")
     body.should have_tag('a', :text => /#{@toc_item_with_no_trusted_items.label}/)
   end
-  
+
   it 'should show info item label for the overview text when there isn\'t an object_title' do
     info_item_title = InfoItem.find(:last)
     data_object = @taxon_concept.overview.first
     DataObjectsInfoItem.gen(:data_object => data_object, :info_item => InfoItem.find(:last))
-  
+
     data_object.object_title = ""
     data_object.save!
     visit("/pages/#{@id}")
     body.should include(info_item_title.label)
-  
+
     # show object_title if it exists
     data_object.object_title = "Some Title"
     data_object.save!
@@ -425,7 +434,7 @@ describe 'Taxa page (HTML)' do
     body.should include(data_object.object_title)
     body.should_not include(info_item_title.label)        
   end
-  
+
   it 'should show images on the page' do 
     tc = build_taxon_concept(:images => 
       [{:vetted => Vetted.untrusted}, 

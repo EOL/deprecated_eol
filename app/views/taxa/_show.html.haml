@@ -12,6 +12,9 @@
       = hh(@taxon_concept.title(@session_hierarchy))
     %h2
       = hh(@taxon_concept.subtitle(@session_hierarchy))
+      - if current_user.can_curate?(@taxon_concept)
+        %span#curate-common-names
+          = link_to("view/edit"[], "#center_content", :class => 'ajax_delay_click', :onclick => ajax_delay_click)
     %hr
     - if !@taxon_concept.classification_attribution(@session_hierarchy).empty?
       %span.classification-attribution-name

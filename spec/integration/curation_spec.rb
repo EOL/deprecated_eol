@@ -137,6 +137,17 @@ describe 'Curation' do
 
   # I wanted to use a describe() block here, but it was causing build_taxon_concept to fail for some odd reason...
 
+  it 'should display a "view/edit" link next to the common name in the header' do
+    login_capybara(@first_curator)
+    visit("/pages/#{@taxon_concept.id}")
+    body.should have_tag("div#page-title") do
+      with_tag("h2") do
+        with_tag("span#curate-common-names", :text => /view\/edit/)
+      end
+    end
+    visit('/logout')
+  end
+
   it 'should show a curator the ability to add a new common name' do
     common_names_toc_id = TocItem.common_names.id
     login_capybara(@first_curator)

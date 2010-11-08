@@ -41,6 +41,10 @@ h2 {
   font-size: 14px;
   color: #333333; }
 
+#curate-common-names {
+  font-size: 9px;
+  margin-left: 1.2em; }
+
 .highlight {
   background-color: #ffffbf; }
 

@@ -3,7 +3,6 @@
   - type = 'Video' if ['youtube', 'flash', 'video'].include? @type.downcase
   %h1== #{type} permalink. 
   %h2
-    / this probably should not happen anymore
     - if @taxon_concepts.blank?
       ( stands alone )
     - else
@@ -45,11 +44,12 @@
         %h3 Attribution
         = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
         %br
-      #data_object_hierarchy
-        .divider
-        %h3== Hierarch#{@hierarchy_paths.size == 1 ? 'y' : 'ies'} according to the supplier 
-        - @hierarchy_paths.each do |hierarchy|
-          = hierarchy[:path].map { |p| link_to(p[:name], taxon_concept_path(p[:taxon_concept_id])) }.join(' > ')
+      - if @hierarchy_paths.size > 0
+        #data_object_hierarchy
+          .divider
+          %h3== Hierarch#{@hierarchy_paths.size == 1 ? 'y' : 'ies'} according to the supplier 
+          - @hierarchy_paths.each do |hierarchy|
+            = hierarchy[:path].map { |p| link_to(p[:name], taxon_concept_path(p[:taxon_concept_id])) }.join(' > ')
       - if @revisions.size > 1
         #data_object_revisions
           .divider 

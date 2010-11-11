@@ -5,11 +5,11 @@ Feature: Describe home page
   
   Scenario: Visiting the home page
     When I go to the home page
-    Then I should see "Encyclopedia of Life" within "title"
-    And I should see "login" within "#personal-space"
-    And I should see "create an account" within "#personal-space"
-    And I should see "EOL Announcements" within "#sidebar-a h1"
-    And I should see "What's New?" within "#sidebar-b h1"
+    Then I should see "Encyclopedia of Life" within title
+    And I should see "login" within personal space
+    And I should see "create an account" within personal space
+    And I should see "EOL Announcements" within sidebar a header
+    And I should see "What's New?" within sidebar b header
 
   Scenario: Redirect from admin page
     When I go to the admin page

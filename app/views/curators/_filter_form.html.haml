@@ -1,0 +1,3 @@
+- form_tag do
+  = select_tag :content_partner_id, options_for_select([['--none--', nil]] + ContentPartner.find_by_sql("SELECT cp.id, a.full_name FROM content_partners cp JOIN agents a ON cp.agent_id = a.id").collect{|cp| [cp['full_name'], cp.id]}.sort{|a,b| a[0].downcase<=>b[0].downcase}, params[:content_partner_id].to_i)
+  = submit_tag 'Submit'

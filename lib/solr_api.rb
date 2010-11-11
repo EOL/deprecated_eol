@@ -76,6 +76,34 @@ class SolrAPI
     end
     create(data)
   end
+  
+  def build_data_object_index(data_objects = nil)
+    data_objects ||= DataObject.all
+    data = []
+    data_objects.each do |data_object|
+      this_object_hash = {}
+      this_object_hash[:data_object_id] = data_object.id
+      this_object_hash[:guid] = data_object.guid
+      this_object_hash[:data_type_id] = data_object.data_type_id
+      this_object_hash[:vetted_id] = data_object.vetted_id
+      this_object_hash[:visibility_id] = data_object.visibility_id
+      this_object_hash[:published] = data_object.published ? 1 : 0
+      this_object_hash[:data_rating] = data_object.data_rating
+      this_object_hash[:description] = data_object.description
+      this_object_hash[:created_at] = format_utc_time(data_object.created_at)
+      if concept = data_object.linked_taxon_concept
+        this_object_hash[:taxon_concept_id] = concept.id
+        this_object_hash[:ancestor_id] = concept.ancestors.map {|a| a.id}
+      end
+      if harvest_events = data_object.harvest_events
+        unless harvest_events.blank?
+          this_object_hash[:resource_id] = harvest_events.last.resource_id
+        end
+      end
+      data << this_object_hash
+    end
+    create(data)
+  end
 
   private
 
@@ -89,6 +117,11 @@ class SolrAPI
   def get(query)
     response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.get(@server_url.path + "/select/?q=*:*&version=2.2&start=0&rows=10&indent=on&wt=json") }
     response
+  end
+  
+  def format_utc_time(datetime)
+    inTime = Time.parse(datetime.to_s)
+    inTime.strftime("%Y-%m-%dT%H:%M:%SZ")
   end
 
 end

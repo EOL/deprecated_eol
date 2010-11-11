@@ -34,6 +34,8 @@ module ApplicationHelper
       "%m/%d/%Y"
     when "short"
       "%m/%d/%Y - %I:%M %p %Z"
+    when "utc_solr"
+      "%Y/%m/%dT%H:%M:%SZ"
     when "short_no_tz"
       "%m/%d/%Y - %I:%M %p"
     when "long"

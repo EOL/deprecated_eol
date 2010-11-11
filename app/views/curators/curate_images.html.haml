@@ -1,5 +1,6 @@
 -# TODO - Add a selector to Narrow the list by Content Provider
 = javascript_include_tag 'text-content.js'
+= render :partial => 'filter_form'
 = will_paginate(@images_to_curate)
 %table.results_table
   %tr
@@ -8,9 +9,8 @@
     %th{:width => 368}
       Actions
   - @images_to_curate.each do |image|
-    - row_class = cycle('odd', 'even')
-    %tr
-      %td{:class => "overlay_link #{row_class} unreviewed"}
+    %tr{:class => image['vetted_label'].downcase}
+      %td{:class => "overlay_link"}
         %h5
           = link_to(image['scientific_name'], {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
         - if !image['common_names'].blank?
@@ -41,7 +41,7 @@
           %h6 
             = "Location:"[]
           = truncate(image['location'], 48)
-      %td{:class => "#{row_class} unreviewed"}
+      %td
         = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24}
 = will_paginate(@images_to_curate)
 #overlay.overlay_worklist{:style => 'display:none'}

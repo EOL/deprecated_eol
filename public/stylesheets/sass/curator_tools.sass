@@ -1,9 +1,8 @@
-$td_odd: #f5fafa
-$td_even: #ecf3f4
 $untrusted_lighter: #ff9999
 $untrusted: #ee7777
-$unreviewed_lighter: #ffffcc
-$unreviewed: #ffff99
+$unknown_lighter: #ffffcc
+$unknown: #ffff99
+$trusted: #f5fafa 
 
 .pagination
   text-align: center
@@ -15,26 +14,23 @@ $unreviewed: #ffff99
   width: 100%
   border: 0
 
+  tr
+    &.untrusted
+      background-color: $untrusted_lighter
+    &.unknown
+      background-color: $unknown_lighter
+    &.trusted
+      background-color: $trusted
+      
+    &.untrusted, &.unknown, &.trusted
+      border: 2px solid #333333 !important
+
   th
     font-size: 10pt
     padding: 10px
     text-align: center
     color: #383848
     border: 1px solid #8CCEE6
-
-  td.odd
-    background-color: $td_odd
-    &.untrusted
-      background-color: $untrusted_lighter
-    &.unreviewed
-      background-color: $unreviewed_lighter
-
-  td.even
-    background-color: $td_even
-    &.untrusted
-      background-color: $untrusted
-    &.unreviewed
-      background-color: $unreviewed
 
   td
     vertical-align: top

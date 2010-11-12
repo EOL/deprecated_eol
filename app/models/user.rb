@@ -581,19 +581,23 @@ class User < ActiveRecord::Base
     UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id)
   end
 
-  # TODO - This should take an (optional) argument to narrow results down to a single content provider
   def images_to_curate(options = {})
     page = options[:page].blank? ? 1 : options[:page].to_i
     per_page = options[:per_page].blank? ? 30 : options[:per_page].to_i
     hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
     hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
-    vetted_id = options[:vetted_id] || Vetted.unknown.id
+    vetted_id = options[:vetted_id].nil? ? Vetted.unknown.id : options[:vetted_id]
     
-    solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id} AND vetted_id:#{vetted_id}"
-    unless options[:content_partner_id].nil?
+    solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id}"
+    if vetted_id != 'all'
+      solr_query << " AND vetted_id:#{vetted_id}"
+    end
+    unless options[:content_partner_id].blank?
       content_partner = ContentPartner.find(options[:content_partner_id].to_i)
       resource_clause = content_partner.agent.resources.collect{|r| r.id}.join(" OR resource_id:")
-      unless resource_clause.blank?
+      if resource_clause.blank?
+        solr_query << " AND resource_id:0"
+      else
         solr_query << " AND (resource_id:#{resource_clause})"
       end
     end
@@ -602,12 +606,13 @@ class User < ActiveRecord::Base
     
     return [] if data_object_ids.empty?
     
+    vetted_clause = vetted_id != 'all' ? " AND do.vetted_id = #{vetted_id}" : ""
     result = DataObject.find_by_sql("SELECT do.id
         FROM #{DataObject.full_table_name} do
           LEFT JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
         WHERE do.id IN (#{data_object_ids.join(',')})
           AND uido.id IS NULL
-          AND do.vetted_id = #{vetted_id}
+          #{vetted_clause}
         GROUP BY do.guid
         ORDER BY do.created_at DESC
         LIMIT 0,300");

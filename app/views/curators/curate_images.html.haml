@@ -1,7 +1,7 @@
 -# TODO - Add a selector to Narrow the list by Content Provider
 = javascript_include_tag 'text-content.js'
 = render :partial => 'filter_form'
-= will_paginate(@images_to_curate)
+= will_paginate(@images_to_curate, :params => params)
 %table.results_table
   %tr
     %th
@@ -43,7 +43,7 @@
           = truncate(image['location'], 48)
       %td
         = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24}
-= will_paginate(@images_to_curate)
+= will_paginate(@images_to_curate, :params => params)
 #overlay.overlay_worklist{:style => 'display:none'}
   .content-wrap
 = javascript_include_tag 'rating.js' # basically, I'm only using this to update after calling the ajax, below...

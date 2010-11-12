@@ -6,6 +6,8 @@
 
 .results_table {
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 20px;
   border: 0; }
   .results_table tr.untrusted {
     background-color: #ff9999; }
@@ -13,25 +15,23 @@
     background-color: #ffffcc; }
   .results_table tr.trusted {
     background-color: #f5fafa; }
-  .results_table tr.untrusted, .results_table tr.unknown, .results_table tr.trusted {
-    border: 2px solid #333333 !important; }
-  .results_table th {
+  .results_table tr th {
     font-size: 10pt;
     padding: 10px;
     text-align: center;
     color: #383848;
     border: 1px solid #8ccee6; }
-  .results_table td {
+  .results_table tr td {
     vertical-align: top;
     padding: 8px !important; }
-    .results_table td p {
+    .results_table tr td p {
       padding-top: 1em; }
-    .results_table td h5 {
+    .results_table tr td h5 {
       font-weight: bold; }
-    .results_table td h6 {
+    .results_table tr td h6 {
       font-weight: bold;
       color: #484858; }
-    .results_table td .curation-thumb {
+    .results_table tr td .curation-thumb {
       border: 1px solid #a0a0a0;
       margin-top: 5pt;
       margin-bottom: 10pt;

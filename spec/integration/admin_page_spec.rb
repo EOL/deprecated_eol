@@ -104,7 +104,10 @@ describe 'Admin Pages' do
     it "should get data from a form and display published partners" do          
       login_capybara(@user)
       current_path.should == '/'      
-      visit("/administrator/content_partner_report/report_monthly_published_partners", :method => :post, :params => {:year_month => @year_month})
+      #visit("/administrator/content_partner_report/report_monthly_published_partners", :method => :post, :params => {:year_month => @year_month})
+      visit("/administrator/content_partner_report/report_monthly_published_partners")
+      select "", :year_month => @year_month
+
       body.should have_tag("form[action=/administrator/content_partner_report/report_monthly_published_partners]")
       body.should include "New content partners for the month"
       body.should include @agent.full_name
@@ -145,7 +148,10 @@ describe 'Admin Pages' do
     it "should get data from a form and display curation activity" do
       login_capybara(@user)
       current_path.should == '/'      
-      visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})
+      #visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})
+      visit("/administrator/content_partner_report/report_partner_curated_data")
+      select "", :agent_id => @agent.id
+
       body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
       body.should include "Curation activity:"
       body.should include @agent.full_name      
@@ -154,7 +160,10 @@ describe 'Admin Pages' do
     it "should get data from a form and display a month's curation activity" do          
       login_capybara(@user)
       current_path.should == '/'      
-      visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id, :year_month => @year_month})
+      #visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id, :year_month => @year_month})
+      visit("/administrator/content_partner_report/report_partner_curated_data")      
+      select "", :agent_id => @agent.id, :year_month => @year_month
+
       body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
       body.should include "Curation activity:"
       body.should include @agent.full_name      

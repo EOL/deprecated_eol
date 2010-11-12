@@ -260,7 +260,7 @@ Factory.define :action_with_object do |awo|
 end
 
 Factory.define :actions_history do |ah|
-  ah.association  :user
+  ah.association :user
   ah.association :action_with_object
   ah.association :changeable_object_type
   #ah.id 

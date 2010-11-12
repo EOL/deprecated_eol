@@ -149,16 +149,14 @@ class ContentPartner < SpeciesSchemaModel
     end
   end
   
-  def comments_actions_history
-    
+  def comments_actions_history    
     latest_published_harvest_event_ids = []
     agent.resources.each do |r|
       if he = r.latest_published_harvest_event
         latest_published_harvest_event_ids << he.id
       end
     end
-    return [] if latest_published_harvest_event_ids.empty?
-    
+    return [] if latest_published_harvest_event_ids.empty?    
     comments_history = ActionsHistory.find_by_sql(%Q{
       SELECT ah.*, do.data_type_id, dt.label data_object_type_label, c.body comment_body, 'comment' history_type
       FROM #{DataObjectsHarvestEvent.full_table_name} dohe
@@ -169,9 +167,30 @@ class ContentPartner < SpeciesSchemaModel
       WHERE dohe.harvest_event_id IN (#{latest_published_harvest_event_ids.join(',')})
       AND ah.changeable_object_type_id=#{ChangeableObjectType.find_by_ch_object_type('comment').id}
       AND c.parent_type != 'TaxonConcept'      
-    }).uniq
-    
-    
+    }).uniq        
+    comments_history.sort! do |a,b|
+      b.created_at <=> a.created_at
+    end
+  end
+
+  def taxa_comments_actions_history
+    latest_published_harvest_event_ids = []
+    agent.resources.each do |r|
+      if he = r.latest_published_harvest_event
+        latest_published_harvest_event_ids << he.id
+      end
+    end
+    return [] if latest_published_harvest_event_ids.empty?    
+    comments_history = ActionsHistory.find_by_sql(%Q{
+      SELECT ah.*, c.body comment_body, 'comment' history_type
+      From #{HarvestEventsHierarchyEntry.full_table_name} hehe
+      Join #{HierarchyEntry.full_table_name} he ON hehe.hierarchy_entry_id = he.id
+      Join #{Comment.full_table_name} c ON he.taxon_concept_id = c.parent_id
+      Join #{ActionsHistory.full_table_name} ah ON c.id = ah.object_id
+      WHERE hehe.harvest_event_id IN (#{latest_published_harvest_event_ids.join(',')})
+      AND ah.changeable_object_type_id=#{ChangeableObjectType.find_by_ch_object_type('comment').id}
+      AND c.parent_type = 'TaxonConcept'      
+    }).uniq        
     comments_history.sort! do |a,b|
       b.created_at <=> a.created_at
     end

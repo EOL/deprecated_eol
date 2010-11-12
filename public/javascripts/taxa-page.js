@@ -1,7 +1,7 @@
 if (!EOL) { EOL = {}; }
 if (!EOL.change_toc) {
   EOL.change_toc = function(new_id) {
-    updateReferences();
+    $(".biblio-entry").refParser({});
     $('#current_content').val(new_id);
     $('#toc a.toc_item').removeClass('active');
     $('#toc a#category_id_'+new_id).addClass('active');

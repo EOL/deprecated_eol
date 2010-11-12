@@ -68,13 +68,13 @@ Then click 'Search' to proceed. (use your browser back button to return here)
 
               - if(value_as_data_object.include? activity.activity_id)                
                 - if(!activity.value.nil?)
-                  = link_to ('data object',:controller => '/data_objects', :action => activity.value)
+                  = link_to('data object',:controller => '/data_objects', :action => activity.value)
 
               - if(value_as_object_cache_url.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - data_object = DataObject.find(:first, :conditions => "object_cache_url = '#{activity.value}'")
                   - temp_do_id = data_object.id
-                  = link_to ('data object',:controller => '/data_objects', :action => temp_do_id)  
+                  = link_to('data object',:controller => '/data_objects', :action => temp_do_id)  
 
               - if(value_as_toc_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
@@ -98,27 +98,27 @@ Then click 'Search' to proceed. (use your browser back button to return here)
 
               - if(value_as_news_items_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
-                  = link_to ('news item',:controller => '/content/news', :action => activity.value)  
+                  = link_to('news item',:controller => '/content/news', :action => activity.value)  
 
               - if(value_as_species_curated_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to ('curated species of ' + user.given_name + " " + user.family_name,:controller => '/account/show_species_curated', :action => activity.value)  
+                  = link_to('curated species of ' + user.given_name + " " + user.family_name,:controller => '/account/show_species_curated', :action => activity.value)  
 
               - if(value_as_objects_curated_by_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to ('curated objects of ' + user.given_name + " " + user.family_name,:controller => '/account/show_objects_curated', :action => activity.value)  
+                  = link_to('curated objects of ' + user.given_name + " " + user.family_name,:controller => '/account/show_objects_curated', :action => activity.value)  
 
               - if(value_as_species_comments_moderated_by_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to ('curated objects of ' + user.given_name + " " + user.family_name,:controller => '/account/show_comments_moderated', :action => activity.value)  
+                  = link_to('curated objects of ' + user.given_name + " " + user.family_name,:controller => '/account/show_comments_moderated', :action => activity.value)  
 
               - if(value_as_user_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - user = User.find(activity.value)
-                  = link_to ('curator profile of ' + user.given_name + " " + user.family_name,:controller => '/account/show', :action => activity.value)  
+                  = link_to('curator profile of ' + user.given_name + " " + user.family_name,:controller => '/account/show', :action => activity.value)  
 
             %td{ :class => column_class }
               = h format_date_time(activity.created_at,:format=>'short_no_tz')

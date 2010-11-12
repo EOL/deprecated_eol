@@ -7,7 +7,7 @@ javascripts:
   - application 
 
 - taxa-page-cached:
-  - jsonbioGUIDv3
+  - jquery.refparser
   - rating
   - media_center
   - popup

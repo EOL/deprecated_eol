@@ -102,6 +102,14 @@ class ContentPartner::ReportsController < ContentPartnerController
     @sub_page_header  = 'Changing of comments'
     @report_type      = :comments_report
   end
+
+  def taxa_comments_report
+    @page_header = 'Usage Reports'
+    content_partner   = ContentPartner.find_by_agent_id(current_agent.id)
+    @act_histories    = content_partner.taxa_comments_actions_history.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
+    @sub_page_header  = 'Comments on Taxa'
+    @report_type      = :taxa_comments_report
+  end
   
   def statuses_report
     @page_header = 'Usage Reports'

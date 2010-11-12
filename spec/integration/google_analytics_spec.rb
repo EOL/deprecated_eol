@@ -1,6 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-
 describe "Google Analytics Stats Page" do
 
   before(:all) do
@@ -43,11 +42,8 @@ describe "Google Analytics Stats Page" do
     body.should include @page_stats.unique_page_views.to_s
   end
   
-  it "should get data from a form and display it" do
-
-    
-    login_content_partner_capybara(:username => @agent.username, :password => @pass)
-    
+  it "should get data from a form and display it" do    
+    login_content_partner_capybara(:username => @agent.username, :password => @pass)    
     year = 2.month.ago.year
     month = 2.month.ago.month
     
@@ -56,7 +52,10 @@ describe "Google Analytics Stats Page" do
     page_stats = GoogleAnalyticsPageStat.gen(:year => year, :month => month, :taxon_concept => @tc )    
     partner_taxa = GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => @tc, :agent => @agent )
     
-    visit('/content_partner/reports/monthly_page_stats', :method => :post, :params => {:year_month => "#{year}_#{month}", :agent_id => @agent.id})
+    #visit('/content_partner/reports/monthly_page_stats', :method => :post, :params => {:year_month => "#{year}_#{month}", :agent_id => @agent.id})
+    visit('/content_partner/reports/monthly_page_stats')
+    select "", :agent_id => @agent.id, :year_month => "#{year}_#{month}"
+
     body.should have_tag("form[action=/content_partner/reports/monthly_page_stats]")
     body.should include summary.pageviews.to_s
     body.should include partner_summary.page_views.to_s

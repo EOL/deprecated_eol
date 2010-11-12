@@ -1,0 +1,17 @@
+%li
+  %p
+    Comment: "
+    = truncate(act_history.comment_body, 300)
+    "
+    %br
+    %i
+      - if current_act == 'create'
+        added to the
+        = act_history.comment_object.parent_type_name
+        on
+        = link_to act_history.taxon_concept_name, {:controller => '/taxa', :action => 'show', :id => act_history.taxon_concept_id}, :target => "_blank"
+        by
+        = curator_or_plain_username(act_history.user)
+        = act_date
+        ago
+  %br

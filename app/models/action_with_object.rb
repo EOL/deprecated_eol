@@ -9,7 +9,7 @@ class ActionWithObject < ActiveRecord::Base
     cached_find(:action_code, 'rate')
   end
   
-  def self.create
+  def self.created
     cached_find(:action_code, 'create')
   end
   
@@ -21,18 +21,12 @@ class ActionWithObject < ActiveRecord::Base
     cached_find(:action_code, 'untrusted')
   end
   
+  def self.unreviewed
+    cached_find(:action_code, 'unreviewed')
+  end
+  
   def self.inappropriate
     cached_find(:action_code, 'inappropriate')
   end
 end
-
-# == Schema Info
-# Schema version: 20090602162422_create_action_with_objects
-#
-# Table name: action_with_objects
-#
-# id          int(11)       not null, primary key
-# action_code varchar(255)  utf8_general_ci
-# created_at  datetime
-# updated_at  datetime
 

@@ -49,7 +49,7 @@ describe 'EOL APIs' do
                               {:toc_item => @description, :description => @description_text},
                               {:toc_item => @description, :description => 'test uknown', :vetted => Vetted.unknown},
                               {:toc_item => @description, :description => 'test untrusted', :vetted => Vetted.untrusted}])
-      @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, Agent.last, :language => Language.english)
+      @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
     
     
       @object = DataObject.create(

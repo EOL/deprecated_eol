@@ -162,6 +162,17 @@ describe User do
     curator_user.is_curator?.should be_false
   end
 
+  it 'should create a new ActionsHistory pointing to the right object, user, type and action' do      
+    action = ActionWithObject.create(:action_code => 'hi')
+    obj    = ChangeableObjectType.create(:ch_object_type => 'name')
+    name   = Name.gen
+    @user.track_curator_activity(name, obj.ch_object_type, action.action_code)
+    ActionsHistory.last.user_id.should                   == @user.id
+    ActionsHistory.last.object_id.should                 == name.id
+    ActionsHistory.last.changeable_object_type_id.should == obj.id
+    ActionsHistory.last.action_with_object_id.should     == action.id
+  end
+
   describe 'convenience methods (NOT used in production code)' do
 
     # Okay, I could load foundation here and build a taxon concept... but that's heavy for what are really very

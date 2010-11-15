@@ -310,8 +310,9 @@ class TaxaController < ApplicationController
       if !params[:preferred_name_id].nil?
         name = Name.find(params[:preferred_name_id])
         language = Language.find(params[:language_id])
-        syn = tc.add_common_name_synonym(name.string, current_user.agent, :language => language, :preferred => true)
-        syn.preferred = 1
+        syn = tc.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language, :preferred => true,
+                                         :vetted => Vetted.trusted)
+        syn.preferred = 1 # TODO = why is this here?  Isn't that specified in the method above?
         syn.save!
         expire_taxa(tc.id)
       end
@@ -320,7 +321,8 @@ class TaxaController < ApplicationController
         if params[:trusted_name_checked] == "true"
           name = Name.find(params[:trusted_name_clicked_on])
           language = Language.find(params[:language_id])
-          syn = tc.add_common_name_synonym(name.string, current_user.agent, :language => language, :preferred => false)
+          syn = tc.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language,
+                                           :vetted => Vetted.trusted, :preferred => false)
           syn.save!
           expire_taxa(tc.id)
         elsif params[:trusted_synonym_clicked_on] != "false"
@@ -341,7 +343,8 @@ class TaxaController < ApplicationController
       language = Language.find(params[:name][:language])
       if tc.is_curatable_by?(current_user)
         name, synonym, taxon_concept_name =
-          tc.add_common_name_synonym(params[:name][:name_string], agent, :language => language)
+          tc.add_common_name_synonym(params[:name][:name_string], :agent => agent, :language => language,
+                                     :vetted => Vetted.trusted)
         current_user.log_activity(:added_common_name, :value => params[:name][:name_string], :taxon_concept_id => tc.id)
       else
         flash[:error] = "User #{current_user.full_name} does not have enough privileges to add a common name to the taxon"
@@ -361,6 +364,19 @@ class TaxaController < ApplicationController
     redirect_to "/pages/#{tc.id}?category_id=#{category_id}"
   end
 
+  def vet_common_name
+    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id].to_i)
+    language_id = params[:language_id].to_i
+    name_id = params[:name_id].to_i
+    vetted = Vetted.find(params[:vetted_id])
+    @taxon_concept.current_user = current_user
+    @taxon_concept.vet_common_name(:language_id => language_id, :name_id => name_id, :vetted => vetted)
+    current_user.log_activity(:vetted_common_name, :taxon_concept_id => @taxon_concept.id, :value => name_id)
+    render :partial => 'taxa/content/content_language_common_names_curator_vetting',
+           :locals => {:language_id => language_id, :name_id => name_id, :unique_id => params[:unique_id],
+             :vetted_id => vetted.id}
+  end
+
   def publish_wikipedia_article
     tc = TaxonConcept.find(params[:taxon_concept_id].to_i)
     data_object = DataObject.find(params[:data_object_id].to_i)
@@ -373,7 +389,6 @@ class TaxaController < ApplicationController
     redirect_to redirect_url
   end
 
-###############################################
 private
 
   def get_content_variables(options = {})

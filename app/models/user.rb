@@ -117,7 +117,7 @@ class User < ActiveRecord::Base
           JOIN comments c ON (ah.object_id = c.id)
           WHERE ah.user_id=#{id}
           AND ah.changeable_object_type_id=#{ChangeableObjectType.comment.id}
-          AND ah.action_with_object_id!=#{ActionWithObject.create.id}").all_hashes.uniq
+          AND ah.action_with_object_id!=#{ActionWithObject.created.id}").all_hashes.uniq
   end 
   
   def total_comments_curated
@@ -646,11 +646,25 @@ class User < ActiveRecord::Base
     self.flash_enabled = true
   end
 
+  # This is *very* generalized and tracks nearly everything:
   def log_activity(what, options = {})
     ActivityLog.log(what, options.merge(:user => self)) if self.id && self.id != 0
   end
 
-# -=-=-=-=-=-=- PROTECTED -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
+  # This is at the object level (and is specific to curators)
+  def track_curator_activity(object, changeable_object_type, action)
+    action_with_object_id     = ActionWithObject.find_by_action_code(action).id
+    changeable_object_type_id = ChangeableObjectType.find_by_ch_object_type(changeable_object_type).id
+    ActionsHistory.create(
+      :user_id                   => self.id, 
+      :object_id                 => object.id,
+      :changeable_object_type_id => changeable_object_type_id,
+      :action_with_object_id     => action_with_object_id,
+      :created_at                => Time.now,
+      :updated_at                => Time.now
+    )
+  end
+
 protected   
 
   def password_required?

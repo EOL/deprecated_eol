@@ -7,8 +7,6 @@
 # Note that we presently have no way to edit comments, and won't add this feature until it becomes important.
 class Comment < ActiveRecord::Base
 
-  include UserActions
-
   belongs_to :user
   belongs_to :parent, :polymorphic => true
 
@@ -18,7 +16,7 @@ class Comment < ActiveRecord::Base
   before_save :log_vetting
   before_create :set_visible_at, :set_from_curator
 
-  after_create  :curator_activity_flag, :new_actions_histories_create_comment
+  after_create  :curator_activity_flag, :track_create
 
   validates_presence_of :body, :user
 
@@ -151,15 +149,13 @@ class Comment < ActiveRecord::Base
   def show(by)
     self.vetted_by = by if by
     self.update_attribute :visible_at, Time.now unless visible_at
-
-    new_actions_histories(by, self, 'comment', 'show')
+    by.track_curator_activity(self, 'comment', 'show')
   end
 
   def hide(by)
     self.vetted_by = by if by
     self.update_attribute :visible_at, nil
-
-    new_actions_histories(by, self, 'comment', 'hide')    
+    by.track_curator_activity(self, 'comment', 'hide')
   end
 
   # aliases to satisfy curation
@@ -192,8 +188,8 @@ class Comment < ActiveRecord::Base
 
 protected
 
-  def new_actions_histories_create_comment
-    new_actions_histories(self.user, self, 'comment', 'create')
+  def track_create
+    self.user.track_curator_activity(self, 'comment', 'create')
   end
 
   # Run when a comment is created, to ensure it is visible by default:

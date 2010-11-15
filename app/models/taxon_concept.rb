@@ -81,28 +81,6 @@ class TaxonConcept < SpeciesSchemaModel
     TaxonConceptName.find_all_by_taxon_concept_id_and_vern(self.id, 1)
   end
 
-  # Given a Languge (object) and name_id, this sets all other names within that language to non-preferred, and the
-  # provided name_id to preferred for this TaxonConcept and Language.
-  def set_preferred_name(language, name_id)
-    old_preferred_names = []
-    new_preferred_name = nil 
-    taxon_concept_names.each do |tcn|
-      old_preferred_names << tcn if tcn.language_id == language.id and tcn.preferred == 1
-      new_preferred_name = tcn if tcn.language_id == language.id and tcn.name_id == name_id
-    end
-    if new_preferred_name
-      unless old_preferred_names.empty?
-        old_preferred_names.each do |old_preferred_name|
-          old_preferred_name.set_preferred(0)
-        end
-      end
-      new_preferred_name.set_preferred(1)
-    else
-      raise "Couldn't find a TaxonConceptName with a name_id of #{name_id}"
-    end
-    return true
-  end
-
   # Curators are those users who have special permission to "vet" data objects associated with a TC, and thus get
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
@@ -131,7 +109,7 @@ class TaxonConcept < SpeciesSchemaModel
   # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
   # not all of it's children.  (For example.)
   def acting_curators
-    # Cross-database join using a thousandfold more efficient algorithm than doing things separately:
+    # Single-database query using a thousandfold more efficient algorithm than doing things via cross-database join:
     User.find_by_sql("
       SELECT DISTINCT users.*
       FROM users
@@ -1240,25 +1218,15 @@ class TaxonConcept < SpeciesSchemaModel
                                         LIMIT 1',taxon_concept_id]) > 0
   end
 
-  # Adds a single common name to this TC.
-  # Options:
-  #   +agent_id+::
-  #     The id of the agent (which should be linked to a curator's user account) adding the name
-  #   +language+::
-  #     Language object to use for this name.  Default is Language.english
-  #   +preferred+::
-  #     Boolean to flag which name is preferred for this TC.  Default is true, but be careful that you only set one.
-  # Returns:
-  #   A three-element array, including:
-  #     The Name object
-  #     The Synonym object
-  #     The TaxonConceptName object.
-  def add_common_name_synonym(name_string, agent, options = {})
-    language  = options[:language] || Language.unknown
+  def add_common_name_synonym(name_string, options = {})
+    agent     = options[:agent]
     preferred = !!options[:preferred]
-    relation  = SynonymRelation.find_by_label("common name")
+    language  = options[:language] || Language.unknown
+    vetted    = options[:vetted] || Vetted.unknown
+    relation  = SynonymRelation.find_by_label("common name") # TODO - i18n
     name_obj  = Name.create_common_name(name_string)
-    generate_synonym(name_obj, agent, :preferred => preferred, :language => language, :relation => relation)
+    Synonym.generate_from_name(name_obj, :agent => agent, :preferred => preferred, :language => language,
+                               :entry => entry, :relation => relation, :vetted => vetted)
   end
 
   def delete_common_name(taxon_concept_name)
@@ -1267,7 +1235,7 @@ class TaxonConcept < SpeciesSchemaModel
     Synonym.find(syn_id).destroy
   end
 
-  # only unsed in tests -this would be really slow with real data
+  # only unsed in tests--this would be really slow with real data
   def data_objects
     DataObject.find_by_sql("
       SELECT do.*
@@ -1282,37 +1250,37 @@ class TaxonConcept < SpeciesSchemaModel
     return !feed_object.blank?
   end
 
-#####################
+  # This needs to work on both TCNs and Synonyms.  Which, of course, smells like bad design, so.... TODO - review.
+  def vet_common_name(options = {})
+    vet_taxon_concept_names(options)
+    vet_synonyms(options)
+  end
+
 private
 
-  def generate_synonym(name_obj, agent, options = {})
-    language  = options[:language] || Language.unknown
-    synonym_relation = options[:relation] || SynonymRelation.synonym
-    hierarchy = Hierarchy.eol_contributors 
-    preferred = options[:preferred]
-    synonym = Synonym.find_by_hierarchy_id_and_hierarchy_entry_id_and_language_id_and_name_id_and_synonym_relation_id(
-              hierarchy.id, 
-              entry.id, 
-              language.id, 
-              name_obj.id,
-              synonym_relation.id)
-    unless synonym
-      synonym = Synonym.create(:name_id             => name_obj.id, 
-                               :hierarchy_id        => hierarchy.id,
-                               :hierarchy_entry_id  => entry.id, 
-                               :language_id         => language.id,
-                               :synonym_relation_id => synonym_relation.id,
-                               :preferred           => preferred)
-      AgentsSynonym.create(:agent_id         => agent.id,
-                           :agent_role_id    => AgentRole.contributor_id,
-                           :synonym_id       => synonym.id,
-                           :view_order       => 1)
+  def vet_taxon_concept_names(options = {})
+    raise "Missing :language_id" unless options[:language_id]
+    raise "Missing :name_id" unless options[:name_id]
+    raise "Missing :vetted" unless options[:vetted]
+
+    taxon_concept_names_by_lang_id_and_name_id(options[:language_id], options[:name_id]).each do |tcn|
+      tcn.vet(options[:vetted], current_user)
     end
-    synonym
+  end
+
+  def taxon_concept_names_by_lang_id_and_name_id(id_for_lang, id_for_name)
+    TaxonConceptName.scoped(
+      :conditions => ['taxon_concept_id = ? AND language_id = ? AND name_id = ?', id, id_for_lang, id_for_name]
+    )
+  end
+
+  def vet_synonyms(options = {})
+    hierarchy_entries.each do |he|
+      he.vet_synonyms(options)
+    end
   end
 
   def alternate_classification_name(detail_level = :middle, language = Language.english, context = nil)
-    #return col_he.nil? ? alternate_classification_name(detail_level, language, context) : col_he.name(detail_level, language, context)
     self.entry.name(detail_level, language, context).firstcap rescue '?-?'
   end
 

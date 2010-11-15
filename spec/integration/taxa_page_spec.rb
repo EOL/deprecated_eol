@@ -31,6 +31,7 @@ describe 'Taxa page (HTML)' do
     end
     @parent          = build_taxon_concept(:images => [], :toc => []) # Somewhat empty, to speed things up.
     @overview        = TocItem.overview
+    @cnames_toc      = TocItem.common_names.id
     @overview_text   = 'This is a test Overview, in all its glory'
     # TODO - add a reference to the text object
     @toc_item_2      = TocItem.gen(:view_order => 2)
@@ -38,6 +39,8 @@ describe 'Taxa page (HTML)' do
     @canonical_form  = Factory.next(:species)
     @attribution     = Faker::Eol.attribution
     @common_name     = Faker::Eol.common_name.firstcap
+    @unreviewed_name = Faker::Eol.common_name.firstcap
+    @untrusted_name  = Faker::Eol.common_name.firstcap
     @scientific_name = "#{@canonical_form} #{@attribution}"
     @italicized      = "<i>#{@canonical_form}</i> #{@attribution}"
     @iucn_status     = Factory.next(:iucn)
@@ -72,7 +75,12 @@ describe 'Taxa page (HTML)' do
                             {:toc_item => @toc_item_2}, {:toc_item => @toc_item_3}])
 
     # TODO - I am slowly trying to move all of those options over to methods, to make things clearer:
-    @taxon_concept.add_common_name_synonym(@common_name, Agent.last, :language => Language.english)
+    @taxon_concept.add_common_name_synonym(@common_name, :agent => Agent.last, :language => Language.english,
+                                           :vetted => Vetted.trusted, :preferred => true)
+    @taxon_concept.add_common_name_synonym(@unreviewed_name, :agent => Agent.last, :language => Language.english,
+                                           :vetted => Vetted.unknown, :preferred => false)
+    @taxon_concept.add_common_name_synonym(@untrusted_name, :agent => Agent.last, :language => Language.english,
+                                           :vetted => Vetted.untrusted, :preferred => false)
     @child1        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @child2        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @id            = @taxon_concept.id
@@ -233,6 +241,15 @@ describe 'Taxa page (HTML)' do
       visit("/pages/#{tc.id}?vetted=true")
       body.should_not include('Internal Server Error')
       body.should have_tag('h1') # Whatever, let's just prove that it renders.
+    end
+
+    it 'should show common names with their trust levels in the Common Names toc item' do
+      visit("/pages/#{@taxon_concept.id}?category_id=#{@cnames_toc}")
+      body.should have_tag("div#common_names_wrapper") do
+        with_tag('td.trusted', :text => @common_name)
+        with_tag('td.unreviewed', :text => @unreviewed_name)
+        with_tag('td.untrusted', :text => @untrusted_name)
+      end
     end
 
     it 'should show the Catalogue of Life link in Content Partners' do

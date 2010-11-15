@@ -1,9 +1,9 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 def create_curator_for_taxon_concept(tc)
- curator = build_curator(tc)
- tc.images.last.curator_activity_flag curator, tc.id
- return curator
+  curator = build_curator(tc)
+  tc.images.last.curator_activity_flag curator, tc.id
+  return curator
 end
 
 describe 'Curation' do
@@ -16,23 +16,34 @@ describe 'Curation' do
                         # cross-database join.  You can't rollback, because of the EolScenario stuff.  [sigh]
     @common_names_toc_id = TocItem.common_names.id
     # TODO - you REALLY don't want to be doing this before EACH, but...
-    @taxon_concept = build_taxon_concept()
-    @common_name   = 'boring name'
-    @taxon_concept.add_common_name_synonym @common_name, Agent.find(@taxon_concept.acting_curators.first.agent_id), :language => Language.english
+    @taxon_concept   = build_taxon_concept()
+    @common_name     = 'boring name'
+    @unreviewed_name = Faker::Eol.common_name.firstcap
+    @untrusted_name  = Faker::Eol.common_name.firstcap
+    @agents_cname    = Faker::Eol.common_name.firstcap
+    agent = Agent.find(@taxon_concept.acting_curators.first.agent_id)
+    @cn_curator = create_curator_for_taxon_concept(@taxon_concept)
+    @common_syn = @taxon_concept.add_common_name_synonym(@common_name, :agent => agent, :language => Language.english,
+                                           :vetted => Vetted.unknown, :preferred => false)
+    @unreviewed_syn = @taxon_concept.add_common_name_synonym(@unreviewed_name, :agent => agent, :language => Language.english,
+                                           :vetted => Vetted.unknown, :preferred => false)
+    @untrusted_syn = @taxon_concept.add_common_name_synonym(@untrusted_name, :agent => agent, :language => Language.english,
+                                           :vetted => Vetted.untrusted, :preferred => false)
+    @agents_syn = @taxon_concept.add_common_name_synonym(@agents_cname, :agent => @cn_curator, :language => Language.english,
+                                           :vetted => Vetted.trusted, :preferred => false)
+    @first_curator = create_curator_for_taxon_concept(@taxon_concept)
     @first_curator = create_curator_for_taxon_concept(@taxon_concept)
     @default_num_curators = @taxon_concept.acting_curators.length
     visit("/pages/#{@taxon_concept.id}")
     @default_page  = source
     visit("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
     @non_curator_cname_page = source
-    @cn_curator    = create_curator_for_taxon_concept(@taxon_concept)
-    @new_name      = 'habrish lammer'
-    @taxon_concept.add_common_name_synonym @new_name, Agent.find(@cn_curator.agent_id), :preferred => false, :language => Language.english
+    @new_name   = 'habrish lammer'
+    @taxon_concept.add_common_name_synonym @new_name, :agent => Agent.find(@cn_curator.agent_id), :preferred => false, :language => Language.english
     login_capybara(@cn_curator)
     visit("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
-    @cname_page    = source
+    @cname_page = source
     visit('/logout')
-    @common_names_toc_id = TocItem.common_names.id
   end
 
   after(:all) do
@@ -149,23 +160,62 @@ describe 'Curation' do
   end
 
   it 'should show a curator the ability to add a new common name' do
-    common_names_toc_id = TocItem.common_names.id
     login_capybara(@first_curator)
-    visit("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}")
+    visit("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
     body.should have_tag("form#add_common_name")
     body.should have_tag("form.update_common_names")
     visit('/logout')
   end
 
   it 'should show common name sources for curators' do
-    common_names_toc_id = TocItem.common_names.id
-    login_capybara(@first_curator)
-    visit("/pages/#{@taxon_concept.id}?category_id=#{common_names_toc_id}")
-    body.should have_tag("div#common_names_wrapper") do
+    @cname_page.should have_tag("div#common_names_wrapper") do
       # Curator link, because we added the common name with agents_synonyms:
       with_tag("a.external_link", :text => /#{@taxon_concept.acting_curators.first.full_name}/)
     end
     visit('/logout')
+  end
+
+  # Note that this is essentially the same test as in taxa_page_spec... but we're a curator, now... and it uses a separate
+  # view, so it needs to be tested.
+  it 'should show all common names trust levels' do
+    @cname_page.should have_tag("div#common_names_wrapper") do
+      with_tag('tr.trusted') do
+        with_tag('td', :text => @common_name)
+      end
+      with_tag('tr.unknown') do
+        with_tag('td', :text => @unreviewed_name)
+      end
+      with_tag('tr.untrusted') do
+        with_tag('td', :text => @untrusted_name)
+      end
+    end
+  end
+
+  it 'should show untrusted and trusted links for unreviewed common names' do
+    @cname_page.should have_tag("div#common_names_wrapper") do
+      with_tag("a[href=/synonyms/#{@unreviewed_syn.id}/untrust]")
+      with_tag("a[href=/synonyms/#{@unreviewed_syn.id}/trust]")
+    end
+  end
+
+  it 'should show unreviewed and untrust link for trusted common names either NOT added by this curator or added by a CP' do
+    @cname_page.should have_tag("div#common_names_wrapper") do
+      with_tag("a[href=/synonyms/#{@trusted_syn.id}/unreview]")
+      with_tag("a[href=/synonyms/#{@trusted_syn.id}/untrust]")
+    end
+  end
+
+  it 'should show unreviewed and trust link for untrusted common names either NOT added by this curator or added by a CP' do
+    @cname_page.should have_tag("div#common_names_wrapper") do
+      with_tag("a[href=/synonyms/#{@untrusted_syn.id}/trust]")
+      with_tag("a[href=/synonyms/#{@untrusted_syn.id}/untrust]")
+    end
+  end
+
+  it 'should show delete link for common names added by this curator' do
+    @cname_page.should have_tag("div#common_names_wrapper") do
+      with_tag("a[href=/synonyms/#{@agents_syn.id}/delete]")
+    end
   end
 
   it 'should not show editing common name environment if curator is not logged in' do

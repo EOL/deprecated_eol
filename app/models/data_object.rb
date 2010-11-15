@@ -6,7 +6,6 @@ require 'erb'
 # of our primary models, and an awful lot of work occurs here.
 class DataObject < SpeciesSchemaModel
   
-  include UserActions
   include ModelQueryHelper
 
   belongs_to :data_type
@@ -133,7 +132,7 @@ class DataObject < SpeciesSchemaModel
     
     udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
     udo.save!
-    d.new_actions_histories(user, udo, 'users_submitted_text', 'update')
+    user.track_curator_activity(udo, 'users_submitted_text', 'update')
     
     # this will give it the hash elements it needs for attributions
     d['attributions'] = Attributions.from_agents_hash(d, nil)
@@ -235,7 +234,7 @@ class DataObject < SpeciesSchemaModel
     udo = UsersDataObject.new(:user_id => user.id, :data_object_id => dato.id,
                               :taxon_concept_id => taxon_concept.id)
     udo.save!
-    dato.new_actions_histories(user, udo, 'users_submitted_text', 'create')
+    user.track_curator_activity(udo, 'users_submitted_text', 'create')
     
     # this will give it the hash elements it needs for attributions
     dato['attributions'] = Attributions.from_agents_hash(dato, nil)
@@ -1523,14 +1522,14 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   def show(user)
     vetted_by = user
     update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
-    new_actions_histories(user, self, 'data_object', 'show')
+    user.track_curator_activity(self, 'data_object', 'show')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show
   end
 
   def hide(user)
     vetted_by = user
     update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
-    new_actions_histories(user, self, 'data_object', 'hide')
+    user.track_curator_activity(self, 'data_object', 'hide')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
   end
 
@@ -1538,7 +1537,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     vetted_by = user
     update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    new_actions_histories(user, self, 'data_object', 'trusted')
+    user.track_curator_activity(self, 'data_object', 'trusted')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
   end
 
@@ -1554,7 +1553,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     if comment && !comment.blank?
       comment(user, comment)
     end
-    new_actions_histories(user, self, 'data_object', 'untrusted')
+    user.track_curator_activity(self, 'data_object', 'untrusted')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove
   end
   
@@ -1562,14 +1561,14 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     vetted_by = user
     update_attributes({:vetted_id => Vetted.unknown.id, :curated => true})
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    new_actions_histories(user, self, 'data_object', 'unreviewed')
+    user.track_curator_activity(self, 'data_object', 'unreviewed')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
   end
   
   def inappropriate(user)
     vetted_by = user
     update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
-    new_actions_histories(user, self, 'data_object', 'inappropriate')
+    user.track_curator_activity(self, 'data_object', 'inappropriate')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
   end
   

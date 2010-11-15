@@ -210,13 +210,14 @@ module TaxaHelper
     links.empty? ? hierarchy.label : links.join(', ')
   end
 
+  # TODO - move this to CommonNameDisplay
   def common_names_by_language(names, preferred_language_id)
     names_by_language = {}
     # Get some languages we'll need
     eng     = Language.english
     pref    = Language.find(preferred_language_id)
     unknown = Language.unknown
-    # Build a hash with language label as key and an array of CommonNameDispaly objects as values
+    # Build a hash with language label as key and an array of CommonNameDisplay objects as values
     names.each do |name|
       language = {:id => name.language_id, :label => name.language_label, :name => name.language_name}
       k = name.language_label
@@ -257,6 +258,7 @@ private
     end
   end
 
+  # TODO - move this to CommonNameDisplay
   def remove_duplicate_names(names)
     names.each do |lang, names_in_language|
       names_in_language.each_with_index do |name_a, index_a|

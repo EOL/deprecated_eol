@@ -10,16 +10,77 @@ class HierarchyEntry < SpeciesSchemaModel
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility
-  
+
   has_many :agents_hierarchy_entries
   has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
                                       WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'
   has_many :concepts
   has_many :top_images, :foreign_key => :hierarchy_entry_id
   has_many :synonyms
-  
+
   has_one :hierarchies_content
   has_one :hierarchy_entry_stat
+
+  # this is meant to be filtered by a taxon concept so it will find all hierarchy entries AND their ancestors/parents for a given TaxonConcept
+  def self.with_parents taxon_concept_or_hierarchy_entry = nil
+    if taxon_concept_or_hierarchy_entry.is_a?TaxonConcept
+      HierarchyEntry.find_all_by_taxon_concept_id(taxon_concept_or_hierarchy_entry.id).inject([]) do |all, he|
+        all << he
+        all += he.ancestors
+        all
+      end
+    elsif taxon_concept_or_hierarchy_entry.is_a?HierarchyEntry
+      [taxon_concept_or_hierarchy_entry] + taxon_concept_or_hierarchy_entry.ancestors
+    else
+      raise "Don't know how to return with_parents for #{ taxon_concept_or_hierarchy_entry.inspect }"
+    end
+  end
+
+  def self.node_xml(entry_node)
+    node  = "\t\t<node>\n";
+    node += "\t\t\t<taxonID>#{entry_node[:hierarchy_entry_id]}</taxonID>\n";
+    node += "\t\t\t<nameString>#{CGI::escapeHTML entry_node[:name]}</nameString>\n";
+    node += "\t\t\t<rankName>#{CGI::escapeHTML entry_node[:rank_string]}</rankName>\n";
+    node += "\t\t\t<valid>#{entry_node[:valid]}</valid>\n";
+    node += "\t\t\t<enable>#{entry_node[:enable]}</enable>\n";
+    node += "\t\t</node>\n";
+  end
+
+  def self.children_details(hierarchy_entry_id, params = {})
+    result = SpeciesSchemaModel.connection.execute("
+    SELECT he.id, he.identifier, he.lft, he.rgt, he.rank_id, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, n.italicized italicized_name, r.label rank_label, hc.content_level
+      FROM hierarchy_entries he
+      JOIN names n ON (he.name_id = n.id)
+      LEFT JOIN ranks r ON (he.rank_id = r.id)
+      LEFT JOIN hierarchies_content hc ON (he.id = hc.hierarchy_entry_id)
+      WHERE he.parent_id = #{hierarchy_entry_id}
+      AND he.published = 1
+      AND he.visibility_id != #{Visibility.invisible.id}").all_hashes
+
+    if params[:include_common_names]
+      params[:common_name_language] ||= Language.english
+      common_names = TaxonConcept.quick_common_names(result.collect{|r| r['taxon_concept_id']}, params[:common_name_language])
+    end
+    if params[:include_stats]
+      found_stats = HierarchyEntryStat.find_all_by_hierarchy_entry_id(result.collect{|r| r['id']})
+      all_stats = {}
+      found_stats.each do |s|
+        all_stats[s['hierarchy_entry_id'].to_i] = s
+      end
+    end
+    result.each do |r|
+      if Rank.italicized_ids.include?(r['rank_id'].to_i) && !r['italicized_name'].blank?
+        r['name_string'] = r['italicized_name'].firstcap!
+      else 
+        r['name_string'] =  r['name_string'].firstcap!
+      end
+      r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
+      r['has_content'] = r['content_level'].to_i > 1
+      r['name_string'] = common_names[r['taxon_concept_id'].to_i] unless common_names.blank? || common_names[r['taxon_concept_id'].to_i].blank?
+      r['stats'] = all_stats[r['id'].to_i] unless all_stats[r['id'].to_i].blank?
+    end
+    result.sort!{|a,b| a['name_string'] <=> b['name_string']}
+  end
 
   def get_ancestry(ancestry_array = [])
     ancestry_array.unshift self
@@ -104,31 +165,14 @@ class HierarchyEntry < SpeciesSchemaModel
     return taxon_concept.is_curatable_by?(user)
   end
 
-  # this is meant to be filtered by a taxon concept so it will find all hierarchy entries AND their ancestors/parents for a given TaxonConcept
-  def self.with_parents taxon_concept_or_hierarchy_entry = nil
-    if taxon_concept_or_hierarchy_entry.is_a?TaxonConcept
-      HierarchyEntry.find_all_by_taxon_concept_id(taxon_concept_or_hierarchy_entry.id).inject([]) do |all, he|
-        all << he
-        all += he.ancestors
-        all
-      end
-    elsif taxon_concept_or_hierarchy_entry.is_a?HierarchyEntry
-      [taxon_concept_or_hierarchy_entry] + taxon_concept_or_hierarchy_entry.ancestors
-    else
-      raise "Don't know how to return with_parents for #{ taxon_concept_or_hierarchy_entry.inspect }"
-    end
-  end
-
   def species_or_below?
     return Rank.italicized_ids.include?(rank_id)
   end
 
-  # Singleton.  top_images, from which this is based, rarely changes.
-  def images()
+  def images
     @images ||= DataObject.images_for_hierarchy_entry(id)
   end
 
-  # Singleton.  Videos also rarely change.
   def videos
     @videos ||= DataObject.videos_for_hierarchy_entry(id)
   end
@@ -153,7 +197,7 @@ class HierarchyEntry < SpeciesSchemaModel
       ancestors.unshift(find_ancestor_in_hierarchy(cross_reference_hierarchy)) unless self.hierarchy_id == cross_reference_hierarchy.id
       if ancestors.first.nil?
         ancestors = [self]
-        return ancestors # .to_yaml
+        return ancestors
       end
     end
     until ancestors.first.parent_id == 0 || ancestors.first.parent.nil? do
@@ -164,11 +208,11 @@ class HierarchyEntry < SpeciesSchemaModel
 
   def ancestors_hash(detail_level = :middle, language = Language.english, cross_reference_hierarchy = nil, secondary_hierarchy = nil)
     language ||= Language.english # Not sure why; this didn't work as a default to the argument.
-    
+
     if cross_reference_hierarchy && secondary_hierarchy && taxon_concept.in_hierarchy(secondary_hierarchy) && find_ancestor_in_hierarchy(cross_reference_hierarchy)
-      return marged_ancestors_hash(detail_level, language, cross_reference_hierarchy, secondary_hierarchy)
+      return merged_ancestors_hash(detail_level, language, cross_reference_hierarchy, secondary_hierarchy)
     end
-    
+
     if !cross_reference_hierarchy.nil? && self.hierarchy_id != cross_reference_hierarchy.id
       entry_in_common = find_ancestor_in_hierarchy(cross_reference_hierarchy)
       return {} if entry_in_common.nil?
@@ -176,25 +220,7 @@ class HierarchyEntry < SpeciesSchemaModel
     end
 
     ancestors_ids = ancestors(cross_reference_hierarchy).map {|a| a.id}
-    nodes = SpeciesSchemaModel.connection.execute(%Q{
-      SELECT he.id, he.taxon_concept_id, n1.string scientific_name, n1.italicized scientific_name_italicized, n2.string common_name,
-             n2.italicized common_name_italicized, he.taxon_concept_id id, he.id hierarchy_entry_id, he.hierarchy_id, he.lft lft, he.rgt rgt,
-             he.rank_id, hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image, r.label rank_string,
-             he_source.hierarchy_id source_hierarchy_id
-        FROM hierarchy_entries he
-          JOIN names n1 ON (he.name_id=n1.id)
-          LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
-          LEFT JOIN (taxon_concept_names tcn
-          JOIN names n2 ON (tcn.name_id=n2.id)
-          LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id=he_source.id))
-            ON (he.taxon_concept_id=tcn.taxon_concept_id
-              AND tcn.preferred=1
-              AND tcn.language_id=#{language.id})
-          LEFT JOIN ranks r ON (he.rank_id=r.id)
-        WHERE he.id in (#{ancestors_ids.join(",")})
-        ORDER BY he.lft ASC                           -- HierarchyEntry.ancestors_hash
-    }).all_hashes
-    
+    nodes = ancestors_hash_by_language_id_and_he_id(language.id, :ordered => true)
     deduped_nodes = []
     depth = 0
     nodes.each do |node|
@@ -205,52 +231,38 @@ class HierarchyEntry < SpeciesSchemaModel
         depth += 1
       end
     end
-    
+
     deduped_nodes.map do |node| 
       node_to_hash(node, detail_level)
     end
   end
-  
-  def marged_ancestors_hash(detail_level = :middle, language = Language.english, cross_reference_hierarchy = nil, secondary_hierarchy = nil)
-    language ||= Language.english # Not sure why; this didn't work as a default to the argument.
-    node = SpeciesSchemaModel.connection.execute(%Q{
-      SELECT he.id, he.taxon_concept_id, n1.string scientific_name, n1.italicized scientific_name_italicized, n2.string common_name,
-             n2.italicized common_name_italicized, he.taxon_concept_id id, he.id hierarchy_entry_id, he.hierarchy_id, he.lft lft, he.rgt rgt,
-             he.rank_id, hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image, r.label rank_string,
-             he_source.hierarchy_id source_hierarchy_id, he.parent_id
-        FROM hierarchy_entries he
-          JOIN names n1 ON (he.name_id=n1.id)
-          LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
-          LEFT JOIN (taxon_concept_names tcn
-          JOIN names n2 ON (tcn.name_id=n2.id)
-          LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id=he_source.id))
-            ON (he.taxon_concept_id=tcn.taxon_concept_id
-              AND tcn.preferred=1
-              AND tcn.language_id=#{language.id})
-          LEFT JOIN ranks r ON (he.rank_id=r.id)
-        WHERE he.id = #{id}
-    }).all_hashes[0]
-    
+
+  def merged_ancestors_hash(detail_level, language, cross_reference_hierarchy, secondary_hierarchy)
+    language ||= Language.english
+    node = ancestors_hash_by_language_id_and_he_id(language.id)[0]
     ancestors = []
     ancestors << node_to_hash(node, detail_level)
     if node['parent_id'].to_i != 0
       parent_hierarchy_entry = HierarchyEntry.find(node['parent_id'].to_i)
-      if entry_in_hierarchy = parent_hierarchy_entry.taxon_concept.entry_in_hierarchy(cross_reference_hierarchy)
-        ancestors = entry_in_hierarchy.ancestors_hash(detail_level, language, cross_reference_hierarchy) | ancestors
+      more_ancs = if entry_in_hierarchy = parent_hierarchy_entry.taxon_concept.entry_in_hierarchy(cross_reference_hierarchy)
+        entry_in_hierarchy.ancestors_hash(detail_level, language, cross_reference_hierarchy)
       else
-        ancestors = parent_hierarchy_entry.marged_ancestors_hash(detail_level, language, cross_reference_hierarchy, secondary_hierarchy) | ancestors
+        parent_hierarchy_entry.merged_ancestors_hash(detail_level, language, cross_reference_hierarchy, secondary_hierarchy)
       end
+      # The | operator performs set unity on arrays (essentially like adding and then uniq'ing):
+      ancestors = more_ancs | ancestors
     end
-    
+
     return ancestors
   end
 
   def children_hash(detail_level = :middle, language = Language.english, primary_hierarchy = nil, secondary_hierarchy = nil)
     language ||= Language.english # Not sure why; this didn't work as a default to the argument.
-    
+
     if secondary_hierarchy
+      #TODO - seriously?!?
       children = SpeciesSchemaModel.connection.execute("SELECT n1.string scientific_name, n1.italicized scientific_name_italicized, n2.string common_name, n2.italicized common_name_italicized, he_children.taxon_concept_id id, he_children.id hierarchy_entry_id, he_children.hierarchy_id, he_children.parent_id, he_children.lft lft, he_children.rgt rgt, he_children.rank_id, hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image, r.label rank_string FROM hierarchy_entries he_parents JOIN hierarchy_entries some_children ON (he_parents.id=some_children.parent_id) JOIN hierarchy_entries he_children ON (some_children.taxon_concept_id=he_children.taxon_concept_id) JOIN names n1 ON (he_children.name_id=n1.id) LEFT JOIN hierarchies_content hc ON (he_children.id=hc.hierarchy_entry_id) LEFT JOIN (taxon_concept_names tcn JOIN names n2 ON (tcn.name_id=n2.id)) ON (he_children.taxon_concept_id=tcn.taxon_concept_id AND tcn.preferred=1 AND tcn.language_id=#{language.id}) LEFT JOIN ranks r ON (he_children.rank_id=r.id) WHERE he_parents.taxon_concept_id=#{taxon_concept_id} AND he_children.hierarchy_id IN (#{hierarchy_id}, #{secondary_hierarchy.id}) ORDER BY id").all_hashes
-      
+
       deduped_children = []
       used_concepts_indices = []
       index = 0;
@@ -273,11 +285,12 @@ class HierarchyEntry < SpeciesSchemaModel
         end
       end
       children = deduped_children
-      
+
     else
+      # TODO - again?!?
       children = SpeciesSchemaModel.connection.execute("SELECT n1.string scientific_name, n1.italicized scientific_name_italicized, n2.string common_name, n2.italicized common_name_italicized, he.taxon_concept_id id, he.id hierarchy_entry_id, he.hierarchy_id, he.lft lft, he.rgt rgt, he.rank_id, hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image, r.label rank_string FROM hierarchy_entries he JOIN names n1 ON (he.name_id=n1.id) LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id) LEFT JOIN (taxon_concept_names tcn JOIN names n2 ON (tcn.name_id=n2.id)) ON (he.taxon_concept_id=tcn.taxon_concept_id AND tcn.preferred=1 AND tcn.language_id=#{language.id}) LEFT JOIN ranks r ON (he.rank_id=r.id) WHERE he.parent_id=#{id} GROUP BY he.taxon_concept_id").all_hashes
     end
-    
+
     children.map do |node|
       node_to_hash(node, detail_level)
     end
@@ -297,16 +310,6 @@ class HierarchyEntry < SpeciesSchemaModel
 
   def smart_image
     return images.blank? ? nil : images.first.smart_image
-  end
-
-  def self.node_xml(entry_node)
-    node  = "\t\t<node>\n";
-    node += "\t\t\t<taxonID>#{entry_node[:hierarchy_entry_id]}</taxonID>\n";
-    node += "\t\t\t<nameString>#{CGI::escapeHTML entry_node[:name]}</nameString>\n";
-    node += "\t\t\t<rankName>#{CGI::escapeHTML entry_node[:rank_string]}</rankName>\n";
-    node += "\t\t\t<valid>#{entry_node[:valid]}</valid>\n";
-    node += "\t\t\t<enable>#{entry_node[:enable]}</enable>\n";
-    node += "\t\t</node>\n";
   end
 
   def classification(options = {})
@@ -348,7 +351,7 @@ class HierarchyEntry < SpeciesSchemaModel
 
   def classification_attribution(params={})
     attribution = []
-    
+
     # its possible that the hierarchy is not associated with an agent
     if hierarchy.agent
       attribution = [hierarchy.agent]
@@ -356,10 +359,10 @@ class HierarchyEntry < SpeciesSchemaModel
     end
     attribution += agents
   end
-  
+
   def agents_roles
     agents_roles = []
-    
+
     # its possible that the hierarchy is not associated with an agent
     if h_agent = hierarchy.agent
       h_agent.full_name = h_agent.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
@@ -387,27 +390,28 @@ class HierarchyEntry < SpeciesSchemaModel
     return nil if he.nil? || he.taxon_concept.nil?
     he.taxon_concept.entry(hierarchy)
   end
-  
+
   def details_hash(language = Language.english)
     language ||= Language.english # Not sure why; this didn't work as a default to the argument.
+    # TODO - why?!
     return SpeciesSchemaModel.connection.execute("SELECT n1.string scientific_name, n1.italicized scientific_name_italicized, n2.string common_name, n2.italicized common_name_italicized, he.taxon_concept_id id, he.id hierarchy_entry_id, he.hierarchy_id, he.lft lft, he.rgt rgt, he.rank_id, hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image, r.label rank_string FROM hierarchy_entries he JOIN names n1 ON (he.name_id=n1.id) LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id) LEFT JOIN (taxon_concept_names tcn JOIN names n2 ON (tcn.name_id=n2.id)) ON (he.taxon_concept_id=tcn.taxon_concept_id AND tcn.preferred=1 AND tcn.language_id=#{language.id}) LEFT JOIN ranks r ON (he.rank_id=r.id) WHERE he.id=#{id}").all_hashes[0]
   end
-  
+
   # Because we hijack the built-in name method...
   def name_object
     return Name.find(self[:name_id]) # Because we override the name() method.
   end
-  
+
   def common_name_details
     result = SpeciesSchemaModel.connection.execute("
         SELECT s.id synonym_id, n.string name_string, l.label language_label, l.iso_639_1
         FROM synonyms s
-        JOIN names n ON (s.name_id=n.id)
-        LEFT JOIN languages l ON (s.language_id=l.id)
-        WHERE s.hierarchy_entry_id=#{self.id}
-        AND s.hierarchy_id=#{self.hierarchy_id}
+        JOIN names n ON (s.name_id = n.id)
+        LEFT JOIN languages l ON (s.language_id = l.id)
+        WHERE s.hierarchy_entry_id = #{self.id}
+        AND s.hierarchy_id = #{self.hierarchy_id}
         AND s.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})").all_hashes
-    
+
     for r in result
       language_code = ''
       unless r['language_label'].blank?
@@ -415,7 +419,7 @@ class HierarchyEntry < SpeciesSchemaModel
       end
       r['language_code'] = language_code
     end
-    
+
     result.sort! do |a, b|
       if a['language_code'] == b['language_code']
         a['name_string'] <=> b['name_string']
@@ -424,24 +428,35 @@ class HierarchyEntry < SpeciesSchemaModel
       end
     end
   end
-  
+
+  def vet_synonyms(options = {})
+    raise "Missing :name_id"     unless options[:name_id]
+    raise "Missing :language_id" unless options[:language_id]
+    raise "Missing :vetted"      unless options[:vetted]
+    Synonym.update_all(
+      "vetted_id = #{options[:vetted].id}",
+      "language_id = #{options[:language_id]} AND name_id = #{options[:name_id]} AND hierarchy_entry_id = #{id}"
+    )
+  end
+
+  # TODO - this is an awful name.  Which details?  What is it used for?  Why can't we just use synonyms (the objects)?
   def synonym_details
     result = SpeciesSchemaModel.connection.execute("
         SELECT s.id synonym_id, n.string name_string, sr.label relation
         FROM synonyms s
-        JOIN names n ON (s.name_id=n.id)
-        LEFT JOIN synonym_relations sr ON (s.synonym_relation_id=sr.id)
-        WHERE s.hierarchy_entry_id=#{self.id}
-        AND s.hierarchy_id=#{self.hierarchy_id}
+        JOIN names n ON (s.name_id = n.id)
+        LEFT JOIN synonym_relations sr ON (s.synonym_relation_id = sr.id)
+        WHERE s.hierarchy_entry_id = #{self.id}
+        AND s.hierarchy_id = #{self.hierarchy_id}
         AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").all_hashes
-    
+
     for r in result
       r['relation'] ||= ''
     end
-    
+
     result.sort!{|a,b| a['name_string'] <=> b['name_string'] }
   end
-  
+
   def details(params = {})
     rank_label = self.rank.nil? ? '' : self.rank.label
     name_string = Rank.italicized_ids.include?(rank_id.to_i) ? self.name_object.italicized.firstcap! : self.name_object.string.firstcap!
@@ -451,7 +466,7 @@ class HierarchyEntry < SpeciesSchemaModel
       name_string = common_names[taxon_concept_id] unless common_names.blank? || common_names[taxon_concept_id].blank?
     end
     content_level = hierarchies_content ? hierarchies_content.content_level : 0
-    
+
     the_details = { 'id'  => self.id,
       'hierarchy_id'      => self.hierarchy_id,
       'taxon_concept_id'  => self.taxon_concept_id,
@@ -459,14 +474,14 @@ class HierarchyEntry < SpeciesSchemaModel
       'rank_label'        => rank_label,
       'descendants'       => self.rgt - self.lft - 1,
       'has_content'       => content_level > 1 }
-    
+
     if params[:include_stats]
       the_details['stats'] = HierarchyEntryStat.find_by_hierarchy_entry_id(self.id)
     end
-    
+
     return the_details
   end
-  
+
   def ancestor_details(params = {})
     ancestor_ids = ancestors.collect{|a| a.id}
     # for some reason self is in ancestors
@@ -475,11 +490,11 @@ class HierarchyEntry < SpeciesSchemaModel
     result = SpeciesSchemaModel.connection.execute("
       SELECT he.id, he.identifier, he.lft, he.rgt, he.rank_id, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, n.italicized italicized_name, r.label rank_label, hc.content_level
       FROM hierarchy_entries he
-      JOIN names n ON (he.name_id=n.id)
-      LEFT JOIN ranks r ON (he.rank_id=r.id)
-      LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
+      JOIN names n ON (he.name_id = n.id)
+      LEFT JOIN ranks r ON (he.rank_id = r.id)
+      LEFT JOIN hierarchies_content hc ON (he.id = hc.hierarchy_entry_id)
       WHERE he.id IN (#{ancestor_ids.join(',')})").all_hashes
-    
+
     if params[:include_common_names]
       params[:common_name_language] ||= Language.english
       common_names = TaxonConcept.quick_common_names(result.collect{|r| r['taxon_concept_id']}, params[:common_name_language], hierarchy)
@@ -500,47 +515,11 @@ class HierarchyEntry < SpeciesSchemaModel
     end
     result.sort!{|a,b| a['lft'].to_i <=> b['lft'].to_i}
   end
-  
+
   def children_details(params = {})
     HierarchyEntry.children_details(self.id, params)
   end
-  
-  def self.children_details(hierarchy_entry_id, params = {})
-    result = SpeciesSchemaModel.connection.execute("
-    SELECT he.id, he.identifier, he.lft, he.rgt, he.rank_id, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, n.italicized italicized_name, r.label rank_label, hc.content_level
-      FROM hierarchy_entries he
-      JOIN names n ON (he.name_id=n.id)
-      LEFT JOIN ranks r ON (he.rank_id=r.id)
-      LEFT JOIN hierarchies_content hc ON (he.id=hc.hierarchy_entry_id)
-      WHERE he.parent_id = #{hierarchy_entry_id}
-      AND he.published = 1
-      AND he.visibility_id!=#{Visibility.invisible.id}").all_hashes
-      
-    if params[:include_common_names]
-      params[:common_name_language] ||= Language.english
-      common_names = TaxonConcept.quick_common_names(result.collect{|r| r['taxon_concept_id']}, params[:common_name_language])
-    end
-    if params[:include_stats]
-      found_stats = HierarchyEntryStat.find_all_by_hierarchy_entry_id(result.collect{|r| r['id']})
-      all_stats = {}
-      found_stats.each do |s|
-        all_stats[s['hierarchy_entry_id'].to_i] = s
-      end
-    end
-    result.each do |r|
-      if Rank.italicized_ids.include?(r['rank_id'].to_i) && !r['italicized_name'].blank?
-        r['name_string'] = r['italicized_name'].firstcap!
-      else 
-        r['name_string'] =  r['name_string'].firstcap!
-      end
-      r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1
-      r['has_content'] = r['content_level'].to_i > 1
-      r['name_string'] = common_names[r['taxon_concept_id'].to_i] unless common_names.blank? || common_names[r['taxon_concept_id'].to_i].blank?
-      r['stats'] = all_stats[r['id'].to_i] unless all_stats[r['id'].to_i].blank?
-    end
-    result.sort!{|a,b| a['name_string'] <=> b['name_string']}
-  end
-  
+
   def outlink
     return nil if published != 1 && visibility_id != Visibility.visible.id
     this_hierarchy = hierarchy
@@ -559,10 +538,32 @@ class HierarchyEntry < SpeciesSchemaModel
       end
     end
   end
-  
-  
-  
+
 private
+
+  def ancestors_hash_by_language_id(language_id, options = {})
+    SpeciesSchemaModel.connection.execute(%Q{
+      SELECT he.id, he.taxon_concept_id, he.taxon_concept_id id, he.id hierarchy_entry_id, he.hierarchy_id,
+             he.lft lft, he.rgt rgt, he.rank_id, he.parent_id, 
+             n1.string scientific_name, n1.italicized scientific_name_italicized,
+             n2.string common_name, n2.italicized common_name_italicized,
+             hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image,
+             r.label rank_string,
+             he_source.hierarchy_id source_hierarchy_id
+        FROM hierarchy_entries he
+          JOIN names n1 ON (he.name_id = n1.id)
+          LEFT JOIN hierarchies_content hc ON (he.id = hc.hierarchy_entry_id)
+          LEFT JOIN (taxon_concept_names tcn
+                     JOIN names n2 ON (tcn.name_id = n2.id)
+                     LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id = he_source.id))
+            ON (he.taxon_concept_id = tcn.taxon_concept_id
+                AND tcn.preferred = 1
+                AND tcn.language_id = #{language.id})
+          LEFT JOIN ranks r ON (he.rank_id = r.id)
+        WHERE he.id = #{id}
+    } + options[:ordered] ? 'ORDER BY he.lft ASC' : '').all_hashes
+  end
+
   def xml_for_group(group, name, current_user)
     xml = ''
     unless group.empty?
@@ -591,22 +592,5 @@ private
       :enable => species_or_below ? (node['text'].to_i == 1 || node['image'].to_i == 1) : (node['text'].to_i == 1 || node['image'].to_i == 1 || node['child_image'].to_i == 1)
     }
   end
-end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: hierarchy_entries
-#
-#  id               :integer(4)      not null, primary key
-#  hierarchy_id     :integer(2)      not null
-#  name_id          :integer(4)      not null
-#  parent_id        :integer(4)      not null
-#  rank_id          :integer(2)      not null
-#  remote_id        :string(255)     not null
-#  taxon_concept_id :integer(4)      not null
-#  ancestry         :string(500)     not null
-#  depth            :integer(1)      not null
-#  identifier       :string(20)      not null
-#  lft              :integer(4)      not null
-#  rgt              :integer(4)      not null
 
+end

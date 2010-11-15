@@ -19,22 +19,6 @@ describe ActionsHistory do
       truncate_all_tables
     end
     
-    #? loop over all actions with all objects (not only image/text, e.g. sounds too)? 
-    #? test if non curator?
-    
-    
-    it 'should create a new ActionsHistory pointing to the right object, user, type and action' do      
-      action_c       = ActionWithObject.find_by_action_code('untrusted')
-      ch_object_type = ChangeableObjectType.find_by_ch_object_type('data_object')
-      @dato_image.new_actions_histories(@user, @dato_image, ch_object_type.ch_object_type, action_c.action_code)     
-      
-      ActionsHistory.count.should                          == @num_ah + 1
-      ActionsHistory.last.user_id.should                   == @user.id
-      ActionsHistory.last.object_id.should                 == @dato_image.id
-      ActionsHistory.last.changeable_object_type_id.should == ch_object_type.id
-      ActionsHistory.last.action_with_object_id.should     == action_c.id
-    end
-
     it 'should set an actions history when a curator curates this data object' do
       current_count = @num_ah
       [Vetted.trusted.id, Vetted.untrusted.id].each do |vetted_method|

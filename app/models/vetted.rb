@@ -2,7 +2,7 @@ class Vetted < SpeciesSchemaModel
   
   has_many :data_objects
   set_table_name "vetted"
-  
+
   def self.untrusted
     cached_find(:label, 'Untrusted')
   end
@@ -37,6 +37,11 @@ class Vetted < SpeciesSchemaModel
     return weights.has_key?(id) ? weights[id] : 4
   end
 
+  def to_action
+    return 'unreviewed' if label.downcase == 'unknown'
+    return label.downcase
+  end
+  
 private
 
   def vetted_weight

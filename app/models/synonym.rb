@@ -1,31 +1,61 @@
 # Alternative names for a hierarchy entry, as provided by a specific agent.  There can be many such synonyms related to a
 # hierarchy entry, but only one of them should be marked as "preferred".
 class Synonym < SpeciesSchemaModel
-
   belongs_to :hierarchy
   belongs_to :hierarchy_entry
   belongs_to :language
   belongs_to :name
   belongs_to :synonym_relation
   belongs_to :vetted
-  
+
   has_one  :taxon_concept_name
   has_many :agents_synonyms
   has_many :agents, :through => :agents_synonyms
   has_many :agents_synonyms
 
   before_save :set_preferred
-  after_update :update_taxon_concept_name
+  after_update :update_taxon_concept_name, :update_vetted_on_synonyms_for_same_tc
   after_create :create_taxon_concept_name
   before_destroy :set_preferred_true_for_last_synonym
-  
+
   def self.by_taxon(taxon_id)
     return Synonym.find_all_by_hierarchy_entry_id(taxon_id, :include => [:synonym_relation, :name])
   end
-  
+
+  def self.generate_from_name(name_obj, options = {})
+    language  = options[:language] || Language.unknown
+    relation  = options[:relation] || SynonymRelation.synonym
+    agent     = options[:agent]
+    hierarchy = Hierarchy.eol_contributors 
+    preferred = options[:preferred] || 0
+    vetted    = options[:vetted] || Vetted.unknown
+    entry     = options[:entry]
+    raise("Cannot generate a Synonym without an :entry") unless entry
+    synonym = Synonym.find_by_hierarchy_id_and_hierarchy_entry_id_and_language_id_and_name_id_and_synonym_relation_id(
+              hierarchy.id, 
+              entry.id, 
+              language.id, 
+              name_obj.id,
+              relation.id)
+    unless synonym
+      synonym = Synonym.create(:name_id             => name_obj.id, 
+                               :hierarchy_id        => hierarchy.id,
+                               :hierarchy_entry_id  => entry.id, 
+                               :language_id         => language.id,
+                               :synonym_relation_id => relation.id,
+                               :vetted              => vetted,
+                               :preferred           => preferred)
+      AgentsSynonym.create(:agent_id         => agent.id,
+                           :agent_role_id    => AgentRole.contributor_id,
+                           :synonym_id       => synonym.id,
+                           :view_order       => 1)
+    end
+    synonym
+  end
+
   def agents_roles
     agents_roles = []
-    
+
     # its possible that the hierarchy is not associated with an agent
     if h_agent = hierarchy.agent
       h_agent.full_name = h_agent.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
@@ -34,24 +64,42 @@ class Synonym < SpeciesSchemaModel
     end
     agents_roles += agents_synonyms
   end
-  
-  private
-  
+
+  def vet(vet_obj, by_whom)
+    update_attributes!(:vetted => vet_obj)
+    by_whom.track_curator_activity(self, 'synonym', vet_obj.to_action)
+  end
+
+private
+
   def set_preferred
     tc_id = hierarchy_entry.taxon_concept_id
     count = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(tc_id, language_id).length
     if count == 0  # this is the first name in this language for the concept
       self.preferred = 1 
     elsif self.preferred?  # only reset other names to preferred=0 when this name is to be preferred
-      SpeciesSchemaModel.connection.execute("UPDATE synonyms SET preferred = 0 where hierarchy_entry_id = #{hierarchy_entry_id} and  language_id = #{language_id}")
-      SpeciesSchemaModel.connection.execute("UPDATE taxon_concept_names set preferred = 0 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")
+      Synonym.connection.execute("UPDATE synonyms SET preferred = 0 where hierarchy_entry_id = #{hierarchy_entry_id} and  language_id = #{language_id}")
+      TaxonConceptName.connection.execute("UPDATE taxon_concept_names set preferred = 0 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")
     end
     self.preferred = 0 if language_id == Language.unknown.id
   end
-  
+
+  def update_vetted_on_synonyms_for_same_tc
+    tc_id = hierarchy_entry.taxon_concept_id
+    Synonym.connection.execute(%Q{
+      UPDATE synonyms s
+        JOIN hierarchy_entries he ON (s.hierarchy_entry_id = he.id)
+      SET s.vetted_id = #{vetted_id}
+      WHERE he.taxon_concept_id = #{tc_id}
+    })
+  end
+
   def update_taxon_concept_name
-    if self.preferred?
-      SpeciesSchemaModel.connection.execute("UPDATE taxon_concept_names set preferred = 1 where synonym_id=#{id}")
+    if self.preferred_changed? && self.preferred?
+      TaxonConceptName.connection.execute("UPDATE taxon_concept_names set preferred = 1 where synonym_id = #{id}")
+    end
+    if self.vetted_id_changed?
+      TaxonConceptName.connection.execute("UPDATE taxon_concept_names set vetted_id = #{vetted_id} where synonym_id = #{id}")
     end
   end
 
@@ -63,32 +111,19 @@ class Synonym < SpeciesSchemaModel
                             :preferred => self.preferred,
                             :source_hierarchy_entry_id => hierarchy_entry_id,
                             :taxon_concept_id => hierarchy_entry.taxon_concept_id,
+                            :vetted_id => vetted_id,
                             :vern => vern)
   end
-  
+
   def set_preferred_true_for_last_synonym
     tc_id = hierarchy_entry.taxon_concept_id
     TaxonConceptName.delete_all(:synonym_id => self.id)
     AgentsSynonym.delete_all(:synonym_id => self.id)
     count = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(tc_id, language_id).length
     if count == 1 and language_id != Language.unknown.id  # this is the first name in this language for the concept and lang is known
-      SpeciesSchemaModel.connection.execute("UPDATE taxon_concept_names set preferred = 1 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")
+      TaxonConceptName.connection.execute("UPDATE taxon_concept_names set preferred = 1 where taxon_concept_id = #{tc_id} and  language_id = #{language_id}")
     end
   end
-  
+
 
 end
-
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: synonyms
-#
-#  id                  :integer(4)      not null, primary key
-#  hierarchy_entry_id  :integer(4)      not null
-#  hierarchy_id        :integer(2)      not null
-#  language_id         :integer(2)      not null
-#  name_id             :integer(4)      not null
-#  synonym_relation_id :integer(1)      not null
-#  preferred           :integer(1)      not null
-

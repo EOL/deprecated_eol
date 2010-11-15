@@ -9,12 +9,17 @@
       %th{ :style => "width:7em" }= "Preferred"[]
       %th{ :scope => "col" }= "Name"[]
       %th{ :scope => "col" }= "Sources"[]
-      %th{ :style => "width:6em" }= "Trusted"[]
+      %th{ :style => "width:6em" }= "Curation"[]
     - names.each do |name|
       - column_class = cycle("odd", "even")
+      - column_class += ' trusted' if name.trusted?
+      - column_class += ' untrusted' if name.untrusted?
+      - column_class += ' unreviewed' if name.unreviewed?
       %tr
         %td{ :class => "#{column_class} preferred_name_selector", :style => "text-align:center;" }
           = radio_button_tag 'preferred_name_id', name.id, name.preferred
+          = hidden_field_tag "synonym_id_#{name.id}", name.synonym_id
+          = hidden_field_tag "agent_#{name.id}", name.agent_names
         %td{ :class => column_class }
           = h name.string
         %td{ :class => column_class }
@@ -22,8 +27,8 @@
             = "Multiple sources."[]
           - else
             = agent_partial(name.sources)
-        %td{ :class => "#{column_class} preferred_name_selector", :style => "text-align:center;" }
-          = check_box_tag 'trusted_name_id', name.id, name.trusted
-          = hidden_field_tag "synonym_id_#{name.id}", name.synonym_id
-          = hidden_field_tag "duplicate_#{name.id}", name.duplicate
-          = hidden_field_tag "agent_#{name.id}", name.agent_names
+        %td{ :class => "#{column_class} vet_common_name", :style => "text-align:center;" }
+          - if name.added_by_user?(current_user)
+            = link_to "DELETE", url_for(:controller => 'taxa', :action => 'delete_common_name', :category_id => @category_id, :taxon_concept_id => @taxon_concept.id, :synonym_id => name.synonym_id)
+          - else
+            = render :partial => 'taxa/content/content_language_common_names_curator_vetting', :locals => {:language_id => name.language_id, :name_id => name.name_id, :vetted_id => name.vetted_id, :unique_id => name.unique_id}

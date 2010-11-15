@@ -1,6 +1,7 @@
 = javascript_include_tag 'common-names'
 - is_curator = @taxon_concept.is_curatable_by?(current_user)
 - if is_curator
+  = render :partial => 'data_objects/curation_js'
   #common_names_error{ :style => "color:brown;text-align:center;padding-bottom:8px;display:none;" }
     Sorry! There was an error sending the curation request; please try again later.
   #common_names_spinner{ :style => "text-align:right;float:right;" }

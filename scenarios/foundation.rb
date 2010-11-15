@@ -245,8 +245,10 @@ create_if_not_exists MimeType, :label => 'video/x-ms-wmv'
   create_if_not_exists Rank, :label => rank
 end
 
-create_if_not_exists ChangeableObjectType, :ch_object_type => 'data_object'
 create_if_not_exists ChangeableObjectType, :ch_object_type => 'comment'
+create_if_not_exists ChangeableObjectType, :ch_object_type => 'data_object'
+create_if_not_exists ChangeableObjectType, :ch_object_type => 'synonym'
+create_if_not_exists ChangeableObjectType, :ch_object_type => 'taxon_concept_name'
 create_if_not_exists ChangeableObjectType, :ch_object_type => 'tag'
 create_if_not_exists ChangeableObjectType, :ch_object_type => 'users_submitted_text'
 

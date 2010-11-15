@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
   end
   map.resources :tags, :collection => { :search => :get }
 
-  map.settings     'settings',     :controller => 'taxa',:action=>'settings'
+  map.settings 'settings', :controller => 'taxa', :action=>'settings'
 
   map.connect 'boom', :controller => 'content', :action => 'error' 
 
@@ -51,12 +51,9 @@ ActionController::Routing::Routes.draw do |map|
               :controller => 'data_objects', :action => 'index',
               :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
   map.connect 'pages/:id/best_images.:format', :controller => 'content', :action => 'best_images'
-  map.connect '/pages/:taxon_concept_id/update_common_names', :controller => 'taxa', :action => 'update_common_names'
-  map.connect '/pages/:taxon_concept_id/add_common_name', :controller => 'taxa', :action => 'add_common_name'
-  map.connect '/pages/:taxon_concept_id/delete_common_name', :controller => 'taxa', :action => 'delete_common_name'
-  map.connect '/pages/:taxon_concept_id/publish_wikipedia_article', :controller => 'taxa', :action => 'publish_wikipedia_article'
+  map.connect '/pages/:taxon_concept_id/:action', :controller => 'taxa'
   
-  map.set_language      'set_language',      :controller => 'application', :action => 'set_language'
+  map.set_language 'set_language', :controller => 'application', :action => 'set_language'
 
   map.contact_us    'contact_us',    :controller => 'content', :action => 'contact_us'
   map.media_contact 'media_contact', :controller => 'content', :action => 'media_contact'

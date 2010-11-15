@@ -8,6 +8,14 @@ $vet_unknown_lighter: #ffffcc
 $vet_unknown_border: #ffcc00
 $light_grey: #ccc
 
+@mixin td-cell($background)
+  border-right: 1px solid #e6e7e9
+  border-bottom: 1px solid #e6e7e9
+  border-left: 1px solid #e6e7e9
+  background: $background !important
+  padding: 6px 6px 6px 12px
+  color: #666666
+
 .clearfix
   display: inline-table
   min-height: 1%
@@ -969,6 +977,23 @@ li.current_kingdom
     p
       margin-left: 1.5em
       color: #666666
+    td
+      &.odd
+        @include td-cell(white)
+      &.even
+        @include td-cell(#f5fafa)
+      &.odd.unreviewed
+        @include td-cell($vet_unknown_lighter)
+      &.even.unreviewed
+        @include td-cell($vet_unknown)
+      &.odd.untrusted
+        @include td-cell($vet_untrusted)
+        a
+          color: #146A8C
+      &.even.untrusted
+        @include td-cell($vet_untrusted_darker)
+        a
+          color: #146A8C
   #page-content
     width: 982px
     border-top: 5px solid #e6e7e8
@@ -1367,14 +1392,6 @@ a.footnote
     color: #666666
     &.alt
       color: #666666
-
-@mixin td-cell($background)
-  border-right: 1px solid #e6e7e9
-  border-bottom: 1px solid #e6e7e9
-  border-left: 1px solid #e6e7e9
-  background: $background
-  padding: 6px 6px 6px 12px
-  color: #666666
 
 .results_table
   border-left: 2px solid #e6e7e9

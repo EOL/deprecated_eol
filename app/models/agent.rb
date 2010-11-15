@@ -21,7 +21,7 @@ class Agent < SpeciesSchemaModel
   has_one :content_partner
   has_one :content_partner_agreement
   has_one :user
-  
+
   has_many :agent_provided_data_types, :dependent => :destroy
   has_many :agent_data_types, :through => :agent_provided_data_types
   has_many :collections
@@ -33,8 +33,8 @@ class Agent < SpeciesSchemaModel
   has_many :synonyms, :through => :agents_synonyms
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
-  
-  
+
+
   has_and_belongs_to_many :data_objects
 
   has_attached_file :logo,
@@ -46,13 +46,13 @@ class Agent < SpeciesSchemaModel
     :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
     :message => "image is not a valid image type", :if => :partner_step?
   validates_attachment_size :logo, :in => 0..0.5.megabyte
-    
+
   validates_presence_of :project_name
    # Authentication/registration validations
     validates_presence_of     :username
     validates_length_of       :username, :within => 4..16
     validates_uniqueness_of   :username
- 
+
     with_options :if => :password_required? do |v|
       v.validates_presence_of     :password, :password_confirmation
       v.validates_length_of       :password, :within => 4..16
@@ -63,7 +63,7 @@ class Agent < SpeciesSchemaModel
   with_options :if => :partner_step do |v|
     v.validates_presence_of :project_description
   end
-        
+
   # Attributes      
   attr_accessor :partner_step  # true or false indicating if we are on the partner step in the content partner registry so we can do a validation
   attr_accessor :password # virtual password field
@@ -72,7 +72,7 @@ class Agent < SpeciesSchemaModel
   # Callbacks
   before_save :encrypt_password
   before_save :blank_not_null_fields
-  
+
   # Alias some partner fields so we can use validation helpers
   alias_attribute :project_description, :description
 
@@ -95,12 +95,12 @@ class Agent < SpeciesSchemaModel
     end
     return nil
   end
-  
+
   # Singleton class variable, so we only ever look it up once per thread:  
   def self.iucn
     cached_find(:full_name, 'IUCN', :serialize => true)
   end
-  
+
   def self.catalogue_of_life
     cached_find(:full_name, 'Catalogue of Life', :serialize => true)
   end
@@ -112,11 +112,11 @@ class Agent < SpeciesSchemaModel
   def self.gbif
     cached_find(:full_name, 'Global Biodiversity Information Facility (GBIF)', :serialize => true)
   end
-  
+
   def self.ncbi
     cached_find(:full_name, 'National Center for Biotechnology Information', :serialize => true)
   end
-  
+
   # get the CoL agent for use in classification attribution
   def self.catalogue_of_life_for_attribution
     cached('agents/catalogue_of_life_for_attribution', :serialize => true) do
@@ -124,11 +124,11 @@ class Agent < SpeciesSchemaModel
       col_attr.full_name = col_attr.display_name = Hierarchy.default.label # To change the name from just "Catalogue of Life"
     end
   end
-  
+
   def self.boa
     cached_find(:full_name, 'Biology of Aging', :serialize => true)
   end
-  
+
   def self.from_license(license)
     Agent.new :project_name => license.description,
               :homepage => license.source_url, :logo_url => license.logo_url, :logo_cache_url => 0,
@@ -151,7 +151,7 @@ class Agent < SpeciesSchemaModel
     WHERE gaps.`year` = #{year}
     AND gaps.`month` = #{month} AND ac.email IS NOT NULL")
   end
-    
+
   def self.content_partners_with_published_data
     query = "SELECT distinct a.id, a.full_name 
     FROM agents a
@@ -206,11 +206,11 @@ class Agent < SpeciesSchemaModel
     "      
     self.paginate_by_sql [query, year, month], :page => page, :per_page => 50 , :order => 'full_name'    
    end  
-  
+
   def self.from_source_url(source_url)
     Agent.new :project_name => 'View original data object', :homepage => source_url
   end
-  
+
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large')
     prefix = self.attributes['logo_cache_url']
@@ -222,7 +222,7 @@ class Agent < SpeciesSchemaModel
        result = "#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
     end
   end
-  
+
   def self.logo_url_from_cache_url(logo_cache_url, size = 'large')
     prefix = logo_cache_url
     if prefix.blank?
@@ -233,7 +233,7 @@ class Agent < SpeciesSchemaModel
        result = "#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
     end
   end
-  
+
 
   def node_xml
     xml = "\t\t<agent>\n";
@@ -250,7 +250,7 @@ class Agent < SpeciesSchemaModel
   def project_description
     self.content_partner.project_description unless self.content_partner.nil? 
   end
-  
+
   def project_description= (description)
     self.content_partner.project_description=description
     self.content_partner.save
@@ -259,7 +259,7 @@ class Agent < SpeciesSchemaModel
   def description_of_data
     self.content_partner.description_of_data unless self.content_partner.nil? 
   end
-  
+
   def description_of_data= (description_of_data)
     self.content_partner.description_of_data=description_of_data
     self.content_partner.save
@@ -272,11 +272,11 @@ class Agent < SpeciesSchemaModel
     end
     return !result
   end
-  
+
   def notes
     self.content_partner.notes unless self.content_partner.nil? 
   end
-  
+
   def notes=(notes)
     self.content_partner.notes=notes
     self.content_partner.save
@@ -285,16 +285,16 @@ class Agent < SpeciesSchemaModel
   def admin_notes
     self.content_partner.admin_notes unless self.content_partner.nil? 
   end
-  
+
   def admin_notes=(admin_notes)
     self.content_partner.admin_notes=admin_notes
     self.content_partner.save
   end
-    
+
   def primary_contact
     self.agent_contacts.detect {|c| c.agent_contact_role_id == AgentContactRole.primary.id } || self.agent_contacts.first
   end  
-  
+
   # returns the actual display_name if there is a value in that column, otherwise returns the project name
   def display_name
     if self.attributes['display_name'].nil? || self.attributes['display_name']==''
@@ -303,20 +303,20 @@ class Agent < SpeciesSchemaModel
       return self.attributes['display_name']
     end
   end  
-  
+
   def shortened_full_name
     return self.full_name.strip[0..50]
   end
-  
+
   # returns current agreement
   def agreement
     ContentPartnerAgreement.find_by_agent_id_and_is_current(self.id,true)
   end
-  
+
   def agreement_accepted?
     !self.agreement.nil? && !self.agreement.signed_by.blank? 
   end
-    
+
   # returns true or false to indicate if current agreement has expired
   def agreement_expired?
 
@@ -327,11 +327,11 @@ class Agent < SpeciesSchemaModel
     if !old_agreement.nil? # if we've got an old agreement, we must have a new one --- check to see if it's been signed, if not - we have an expired agreement
       agreement_expired=true if self.agreement.signed_by.blank?
     end  
-    
+
     agreement_expired
-    
+
   end
-  
+
   # --------------------------------------------------
 
   # Authenticates a user by their username and unencrypted password.  Returns the user or nil.
@@ -372,14 +372,14 @@ class Agent < SpeciesSchemaModel
   def password_required?
     hashed_password.blank? || !password.blank?
   end
-  
+
   def reset_password!
     pass = random_pronouncable_password
     self.password, self.password_confirmation = pass, pass
     save
     pass
   end  
-  
+
   def vetted?
     unless self.content_partner.nil? 
       self.content_partner.vetted? 
@@ -403,7 +403,7 @@ class Agent < SpeciesSchemaModel
       false
     end
   end
-  
+
   def show_gallery_on_partner_page?
     unless self.content_partner.nil? 
       self.content_partner.show_gallery_on_partner_page? 
@@ -411,7 +411,7 @@ class Agent < SpeciesSchemaModel
       false
     end
   end
-  
+
   def show_stats_on_partner_page?
     unless self.content_partner.nil? 
       self.content_partner.show_stats_on_partner_page? 
@@ -419,7 +419,7 @@ class Agent < SpeciesSchemaModel
       false
     end
   end
-  
+
   def auto_publish?
     unless self.content_partner.nil? 
       self.content_partner.auto_publish? 
@@ -435,7 +435,7 @@ class Agent < SpeciesSchemaModel
       false
     end
   end
-  
+
   def ready_for_agreement?
     unless self.content_partner.nil?     
       self.agent_contacts.any? && self.content_partner.partner_complete_step? && terms_agreed_to?
@@ -469,7 +469,7 @@ class Agent < SpeciesSchemaModel
     end
     return datos
   end
-  
+
   # Returns true if the Agent's latest harvest contains this taxon_concept or taxon_concept id (the raw ID is
   # preferred)
   def latest_unpublished_harvest_contains?(taxon_concept_id)
@@ -488,34 +488,38 @@ class Agent < SpeciesSchemaModel
         return true unless tc.blank?
       end
     end
-    
+
     # we looked at ALL resources and found none applicable
     return false
   end
-  
-  protected
 
-    def encrypt_password
-      return if password.blank?
-      self.hashed_password = User.hash_password(password)
-    end
-      
-    def random_pronouncable_password(size = 4)
-      v = %w(a e i o u y)
-      c = ('a'..'z').to_a - v - ['q'] + %w(qu ch cr fr nd ng nk nt ph pr rd sh sl sp st th tr)
-      (1..size).map{[c.rand, v.rand]}.flatten.map{|x| [x,x.upcase].rand}.join('')
-    end
-    
-    # Set these fields to blank because insistence on having NOT NULL columns on things that aren't populated
-    # until certain steps.
-    def blank_not_null_fields
-      self.homepage       ||= ''
-      self[:display_name] ||= ''
-      self.full_name      ||= ''
-      self[:logo_url]     ||= ''
-      self.acronym        ||= ''
-      self.homepage = 'http://' + self.homepage if self.homepage != '' && (self.homepage[0..6] != 'http://' && self.homepage[0..7] != 'https://')      
-    end
-     
+  def track_curator_activity(*args)
+    user.track_curator_activity(args)
+  end
+
+protected
+
+  def encrypt_password
+    return if password.blank?
+    self.hashed_password = User.hash_password(password)
+  end
+
+  def random_pronouncable_password(size = 4)
+    v = %w(a e i o u y)
+    c = ('a'..'z').to_a - v - ['q'] + %w(qu ch cr fr nd ng nk nt ph pr rd sh sl sp st th tr)
+    (1..size).map{[c.rand, v.rand]}.flatten.map{|x| [x,x.upcase].rand}.join('')
+  end
+
+  # Set these fields to blank because insistence on having NOT NULL columns on things that aren't populated
+  # until certain steps.
+  def blank_not_null_fields
+    self.homepage       ||= ''
+    self[:display_name] ||= ''
+    self.full_name      ||= ''
+    self[:logo_url]     ||= ''
+    self.acronym        ||= ''
+    self.homepage = 'http://' + self.homepage if self.homepage != '' && (self.homepage[0..6] != 'http://' && self.homepage[0..7] != 'https://')      
+  end
+
 end
 

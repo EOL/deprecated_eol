@@ -3,10 +3,6 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe Name do
 
   it { should belong_to(:canonical_form) }
-  # when I added the callbacks these started to fail - PL 2.2.2010
-  #it { should validate_presence_of(:string) }
-  #it { should validate_presence_of(:italicized) }
-  #it { should validate_presence_of(:canonical_form) }
 
   it "should require a valid #string" do
     Name.create( :string => 'Tiger' ).class.should == Name
@@ -37,7 +33,6 @@ describe Name do
   end
 
   describe "#prepare_clean_name" do
-
     it "should prepare a clean name" do
       read_test_file("clean_name.csv") do |row|
         Name.prepare_clean_name(row["original_string"]).should == row["clean_string"]

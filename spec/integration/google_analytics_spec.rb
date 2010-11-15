@@ -52,9 +52,9 @@ describe "Google Analytics Stats Page" do
     page_stats = GoogleAnalyticsPageStat.gen(:year => year, :month => month, :taxon_concept => @tc )    
     partner_taxa = GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => @tc, :agent => @agent )
     
-    #visit('/content_partner/reports/monthly_page_stats', :method => :post, :params => {:year_month => "#{year}_#{month}", :agent_id => @agent.id})
+    visit('/content_partner/reports/monthly_page_stats', :method => :post, :params => {:year_month => "#{year}_#{month}", :agent_id => @agent.id})
     visit('/content_partner/reports/monthly_page_stats')
-    select "", :agent_id => @agent.id, :year_month => "#{year}_#{month}"
+    #select "", :agent_id => @agent.id, :year_month => "#{year}_#{month}"
 
     body.should have_tag("form[action=/content_partner/reports/monthly_page_stats]")
     body.should include summary.pageviews.to_s

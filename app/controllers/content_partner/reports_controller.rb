@@ -58,16 +58,11 @@ class ContentPartner::ReportsController < ContentPartnerController
       render :action => "page_stats"      
     end
     
-    @content_partners_with_published_data = Agent.content_partners_with_published_data
-  
+    @content_partners_with_published_data = Agent.content_partners_with_published_data  
     @partner = Agent.find(@agent_id, :select => [:full_name])
-    @recs = GoogleAnalyticsPartnerSummary.summary(@agent_id, @report_year, @report_month)        
-    
+    @recs = GoogleAnalyticsPartnerSummary.summary(@agent_id, @report_year, @report_month)            
     page = params[:page] || 1
-    @posts = GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)
-    
-    #@posts = paginate_by_sql [GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)], :page => page, :per_page => 50 , :order => 'page_views', :agent_id => @agent_id
-    #@posts = Post.paginate :page => params[:page]
+    @posts = GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)    
   end
   
   def data_object_stats
@@ -106,6 +101,14 @@ class ContentPartner::ReportsController < ContentPartnerController
     @act_histories    = content_partner.comments_actions_history.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
     @sub_page_header  = 'Changing of comments'
     @report_type      = :comments_report
+  end
+
+  def taxa_comments_report
+    @page_header = 'Usage Reports'
+    content_partner   = ContentPartner.find_by_agent_id(current_agent.id)
+    @act_histories    = content_partner.taxa_comments_actions_history.paginate(:page => params[:page] || 1, :per_page => params[:per_page] || "25")
+    @sub_page_header  = 'Comments on Taxa'
+    @report_type      = :taxa_comments_report
   end
   
   def statuses_report

@@ -1,9 +1,8 @@
-$td_odd: #f5fafa
-$td_even: #ecf3f4
 $untrusted_lighter: #ff9999
 $untrusted: #ee7777
-$unreviewed_lighter: #ffffcc
-$unreviewed: #ffff99
+$unknown_lighter: #ffffcc
+$unknown: #ffff99
+$trusted: #f5fafa 
 
 .pagination
   text-align: center
@@ -13,48 +12,44 @@ $unreviewed: #ffff99
 
 .results_table
   width: 100%
+  border-collapse: separate
+  border-spacing: 0 20px
   border: 0
 
-  th
-    font-size: 10pt
-    padding: 10px
-    text-align: center
-    color: #383848
-    border: 1px solid #8CCEE6
-
-  td.odd
-    background-color: $td_odd
+  tr
     &.untrusted
       background-color: $untrusted_lighter
-    &.unreviewed
-      background-color: $unreviewed_lighter
+    &.unknown
+      background-color: $unknown_lighter
+    &.trusted
+      background-color: $trusted
 
-  td.even
-    background-color: $td_even
-    &.untrusted
-      background-color: $untrusted
-    &.unreviewed
-      background-color: $unreviewed
+    th
+      font-size: 10pt
+      padding: 10px
+      text-align: center
+      color: #383848
+      border: 1px solid #8CCEE6
 
-  td
-    vertical-align: top
-    padding: 8px !important
+    td
+      vertical-align: top
+      padding: 8px !important
 
-    p
-      padding-top: 1em
+      p
+        padding-top: 1em
 
-    h5
-      font-weight: bold
+      h5
+        font-weight: bold
 
-    h6
-      font-weight: bold
-      color: #484858
+      h6
+        font-weight: bold
+        color: #484858
 
-    .curation-thumb
-      border: 1px solid #a0a0a0
-      margin-top: 5pt
-      margin-bottom: 10pt
-      display: block
+      .curation-thumb
+        border: 1px solid #a0a0a0
+        margin-top: 5pt
+        margin-bottom: 10pt
+        display: block
 
 ul#toc
   li

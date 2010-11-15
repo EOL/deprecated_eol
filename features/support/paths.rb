@@ -1,4 +1,4 @@
-module NavigationHelpers
+module LocationHelpers
   # Maps a name to a path. Used by the
   #
   #   When /^I go to (.+)$/ do |page_name|
@@ -13,6 +13,9 @@ module NavigationHelpers
 
     when /Honey bee page/
       '/pages/1045608?category_id=41'
+
+    when /dato page without taxon concept id/
+      '/data_objects/2604048'
       # Add more mappings here.
       # Here is an example that pulls values out of the Regexp:
       #
@@ -34,6 +37,26 @@ module NavigationHelpers
 
   def get_selector(selector)
     case selector
+    when 'page title'
+      [:css, "#page-title"]
+    when 'data object attribution'
+      [:css, "#data_object_attribution"]
+    when 'data object comments'
+      [:css, "#data_object_comments"]
+    when 'data object content'
+      [:css, "#data_object_content"]
+    when 'data object status'
+      [:css, "#data_object_status"]
+    when 'text data object title'
+      [:css, "#text_object_title"]
+    when 'personal space'
+      [:css, "#personal-space"]
+    when 'sidebar a header'
+      [:css, "#sidebar-a h1"]
+    when 'sidebar b header'
+      [:css, "#sidebar-b h1"]
+    when 'title'
+      [:css, "title"] # head title
     when /([a-z]+) tab/
       tab_name = $1
       tab_name = "taxa-" + tab_name if tab_name == 'comments'
@@ -42,21 +65,20 @@ module NavigationHelpers
       button_type = $1
       object = $2
       if button_type == 'comment' && object == 'main image'
-        return [:css, '#large-image-comment-button a'] 
+        [:css, '#large-image-comment-button a'] 
       elsif button_type == 'comment' && object == 'text objects'
-        return [:xpath, '//*[@class="text_object"]//*[starts-with(@class, "comment_button")]/a']
+        [:xpath, '//*[@class="text_object"]//*[starts-with(@class, "comment_button")]/a']
       end
-    when /([a-z]+) section/
-      section_type = $1
-      if section_type == "comments"
-        return [:css, '#commentsContain']
-      end
+    when 'comments section'
+      [:css, '#commentsContain']
     when 'data object image'
-      return [:css, '#data_object_content #data_object img']
+      [:css, '#data_object_content #data_object img']
+    when 'permalink for the data object'
+      [:css, '#data_object_attribution .permalink']
     else
       [:css, selector]
     end
   end
 end
 
-World(NavigationHelpers)
+World(LocationHelpers)

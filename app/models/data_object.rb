@@ -549,9 +549,9 @@ class DataObject < SpeciesSchemaModel
   
   def linked_taxon_concept
     if created_by_user?
-      @taxon_concepts ||= taxon_concept_for_users_text
+      @taxon_concept ||= taxon_concept_for_users_text
     else
-      @taxon_concepts ||= TaxonConcept.find_by_sql(["
+      @taxon_concept ||= TaxonConcept.find_by_sql(["
         SELECT tc.*
         FROM data_objects_hierarchy_entries dohe
         JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)

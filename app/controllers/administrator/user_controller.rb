@@ -174,17 +174,14 @@ class Administrator::UserController  < AdminController
   end
   
   def login_as_user
-
       user=User.find_by_id(params[:id])   
-
       if !user.blank?
         reset_session
         set_current_user(user)
         flash[:notice] = "You have been logged in as #{user.username}"
         redirect_to root_url
       end
-      return
-      
+      return      
   end  
   
   def view_user_activity
@@ -192,7 +189,6 @@ class Administrator::UserController  < AdminController
     #@user_id=params[:user_id] || 'All'
     @user_id=params[:user_id] || ''
     @user_list=User.users_with_activity_log    
-    @object_ids = ActivityLog.get_activity_ids(@user_id)    
     if(@user_id == 'All') then    
       @activities=ActivityLog.paginate(:order=>'id desc',:include=>:user,:page => params[:page])
       @activity_count=ActivityLog.count()

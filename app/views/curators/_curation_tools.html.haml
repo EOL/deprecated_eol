@@ -18,7 +18,7 @@
     = "Vetted"[]
   .action-value
     %span{:id => "trust-label-#{data_object['id']}"}
-      - data_object['vetted_label'] = 'Unreviewed' if data_object['vetted_label'] = 'Unknown'
+      - data_object['vetted_label'] = 'Unreviewed' if data_object['vetted_label'] == 'Unknown'
       = data_object['vetted_label']
     %br/
     = link_to_remote("Set to Unreviewed"[], :url => {:action => :unreviewed, :data_object_id => data_object['id'], :div_id => "trust-label-#{data_object['id']}"}, :html_options => {:id => 'unreviewed'})

@@ -27,6 +27,8 @@ Then click 'Search' to proceed. (use your browser back button to return here)
           %th
             Activity
           %th
+            Detail          
+          %th
             Date
         - for activity in @activities
           - column_class=cycle('odd','even')
@@ -48,10 +50,79 @@ Then click 'Search' to proceed. (use your browser back button to return here)
             %td{ :class => column_class }
               = h obj.name
             %td{ :class => column_class }
-              = h format_date_time(activity.created_at,:format=>'short_no_tz')
+              - display_as_text = [9,15,22,36,26]
+              - value_as_data_object = [3,4,7,11,13,14,23,24,34,35,42,1,12,2,29]
+              - value_as_object_cache_url = [31]
+              - value_as_toc_id = [6,33]
+              - value_as_hierarchy_entry_id = [5]
+              - value_as_viewed_page_of_images = [16]
+              - value_as_news_items_id = [38]
+              - value_as_species_curated_user_id = [32]
+              - value_as_objects_curated_by_user_id = [39]
+              - value_as_species_comments_moderated_by_user_id = [40]
+              - value_as_user_id = [30]  
 
+              - if(display_as_text.include? activity.activity_id)
+                - if(!activity.value.nil?)
+                  = "'" + activity.value + "'"                
+
+              - if(value_as_data_object.include? activity.activity_id)                
+                - if(!activity.value.nil?)
+                  = link_to('data object',:controller => '/data_objects', :action => activity.value)
+
+              - if(value_as_object_cache_url.include? activity.activity_id)
+                - if(!activity.value.nil?)
+                  - data_object = DataObject.find(:first, :conditions => "object_cache_url = '#{activity.value}'")
+                  - temp_do_id = data_object.id
+                  = link_to('data object',:controller => '/data_objects', :action => temp_do_id)  
+
+              - if(value_as_toc_id.include? activity.activity_id)
+                - if(!activity.value.nil?)
+                  - toc = TocItem.find(activity.value)
+                  = "TOC: " + toc.label
+                  - if(toc.parent_id > 0)
+                    - toc2 = TocItem.find(toc.parent_id) rescue nil
+                    = " -- " + toc2.label
+
+              - if(value_as_hierarchy_entry_id.include? activity.activity_id)
+                - if(!activity.value.nil?)
+                  - he = HierarchyEntry.find(activity.value)
+                  - taxon_concept_id = he.taxon_concept_id
+                  - concept = TaxonConcept.find(taxon_concept_id)
+                  - taxon_name = concept.quick_scientific_name(:italicized)
+                  = link_to taxon_name,{:controller=>'/taxa', :action=>:show, :id => taxon_concept_id}
+
+              - if(value_as_viewed_page_of_images.include? activity.activity_id)
+                - if(!activity.value.nil?)
+                  = "thumbnail page: " + activity.value
+
+              - if(value_as_news_items_id.include? activity.activity_id)
+                - if(!activity.value.nil?)
+                  = link_to('news item',:controller => '/content/news', :action => activity.value)  
+
+              - if(value_as_species_curated_user_id.include? activity.activity_id)
+                - if(!activity.value.nil?)
+                  - user = User.find(activity.value)
+                  = link_to('curated species of ' + user.given_name + " " + user.family_name,:controller => '/account/show_species_curated', :action => activity.value)  
+
+              - if(value_as_objects_curated_by_user_id.include? activity.activity_id)
+                - if(!activity.value.nil?)
+                  - user = User.find(activity.value)
+                  = link_to('curated objects of ' + user.given_name + " " + user.family_name,:controller => '/account/show_objects_curated', :action => activity.value)  
+
+              - if(value_as_species_comments_moderated_by_user_id.include? activity.activity_id)
+                - if(!activity.value.nil?)
+                  - user = User.find(activity.value)
+                  = link_to('curated objects of ' + user.given_name + " " + user.family_name,:controller => '/account/show_comments_moderated', :action => activity.value)  
+
+              - if(value_as_user_id.include? activity.activity_id)
+                - if(!activity.value.nil?)
+                  - user = User.find(activity.value)
+                  = link_to('curator profile of ' + user.given_name + " " + user.family_name,:controller => '/account/show', :action => activity.value)  
+
+            %td{ :class => column_class }
+              = h format_date_time(activity.created_at,:format=>'short_no_tz')
       %br
       = will_paginate @activities
     - else
       No record found matching your criteria.
-

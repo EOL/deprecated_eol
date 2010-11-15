@@ -61,9 +61,12 @@
                 %li
                   = link_to 'Curation and Comments',{:controller=>'/content_partner/reports', :action=>'whole_report'}, :class=>"#{(@report_type  == :whole_report) ? 'active': ''} nested toc_item"
                 %li
-                  = link_to 'Comments',{:controller=>'/content_partner/reports', :action=>'comments_report'}, :class=>"#{(@report_type  == :comments_report) ? 'active': ''} nested toc_item"
-                %li
                   = link_to 'Curation Activity',{:controller=>'/content_partner/reports', :action=>'statuses_report'}, :class=>"#{(@report_type  == :statuses_report) ? 'active': ''} nested toc_item"
+                %li
+                  = link_to 'Comments on Data Objects',{:controller=>'/content_partner/reports', :action=>'comments_report'}, :class=>"#{(@report_type  == :comments_report) ? 'active': ''} nested toc_item"
+                %li
+                  = link_to 'Comments on Taxa',{:controller=>'/content_partner/reports', :action=>'taxa_comments_report'}, :class=>"#{(@report_type  == :taxa_comments_report) ? 'active': ''} nested toc_item"
+
         #right-pane
           #content_partner_edit_area
             - # using content_partner_edit_area for its styles to be consistent

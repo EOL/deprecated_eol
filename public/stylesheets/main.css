@@ -1263,6 +1263,8 @@ ul#toc li {
       font-weight: 700; }
   ul#toc li a.nested {
     margin-left: 10px; }
+  ul#toc li.li-major a {
+    font-weight: bold; }
 
 .add_text_button {
   background: url(/images/icons/dual-states/add-text.png) 0px 0px no-repeat;

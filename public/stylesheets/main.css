@@ -814,8 +814,8 @@ hr.thin {
   text-align: left;
   font-size: 10px;
   float: left;
-  width: 300px;
-  padding-left: 5px; }
+  width: 280px;
+  margin-left: 5px; }
   .credit-value a {
     width: auto !important; }
 
@@ -1047,8 +1047,7 @@ li.current_kingdom {
   border-left: 1px solid #e6e7e9;
   background: #ff9999 !important;
   padding: 6px 6px 6px 12px;
-  color: #666666;
-  color: #774444; }
+  color: #666666; }
   #content #common_names_wrapper td.odd.untrusted a {
     color: #146a8c; }
 #content #common_names_wrapper td.even.untrusted {

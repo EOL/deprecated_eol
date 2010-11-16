@@ -1,185 +1,108 @@
-#taxaCommentsWrap
-  border: 1px solid #6a8d00
-  background: #8bad1c
-  padding: 2px
-  width: 692px
-  height: 382px
-  #commentsContain
-    overflow-y: scroll
-    border: 1px solid #6a8d00
-    background-color: #f4f4f4
-    padding: 13px 12px
-    height: 354px
-    width: 666px
-  .controls
-    overflow: hidden
-    width: 96%
-  h2
-    font: normal 14px / 15px verdana, arial
-    color: #333333
-    padding: 1px 0 0 5px
-    margin: 0
-    width: 90%
-    b
-      font-weight: normal
-      color: #666666
-  small
-    float: left
-    display: block
-    font: normal 10px / 11px "trebuchet ms", verdana, arial
-    color: #333333
-    padding: 6px 0 0 27px
-    margin: 0 0 15px 0
-    width: 250px
-  ul.pages
-    width: 300px
-    float: right
-    margin: 0
-    li
-      list-style-type: none
-      float: right
+ul.pages
+  li
+    a
+      padding: 1px 3px
+      margin: 0
       font: normal 10px / 11px "trebuchet ms", arial, sans-serif
       color: white
-      border-right: 1px solid #6a8d00
-      border-left: 1px solid #b1d02c
-      background: #769a14
-      text-transform: uppercase
-      padding: 3px 5px 3px 5px
-      a
-        padding: 1px 3px
-        margin: 0
-        font: normal 10px / 11px "trebuchet ms", arial, sans-serif
-        color: white
-        text-decoration: none
+      text-decoration: none
 
-ul.pages li a
-  &:link, &:visited
-    padding: 1px 3px
-    margin: 0
+.text-slidebox-border ul.pages, #taxaCommentsWrap ul.pages
+  float: right
+  margin: 0
+  li
+    list-style-type: none
+    float: right
     font: normal 10px / 11px "trebuchet ms", arial, sans-serif
     color: white
-    text-decoration: none
+    border-right: 1px solid #6a8d00
+    border-left: 1px solid #b1d02c
+    background: #769a14
+    text-transform: uppercase
+    padding: 3px 5px 3px 5px
 
-.text-slidebox-border ul.pages li a
-  &:hover, &:active
-    background: #6a8d00
+#taxaCommentsWrap ul.pages
+  width: 300px
 
-.text-slidebox-border ul.pages.bttm, #commentsContain ul.pages.bttm
-  padding: 10px 0
-
-.text-slidebox-border ul.pages li.pagesNext, #commentsContain ul.pages li.pagesNext
-  background: url(/images/controlsBkg.gif) no-repeat 100% 0 transparent
-  border-right: none
-
-.text-slidebox-border ul.pages li.pagesPrev, #commentsContain ul.pages li.pagesPrev
-  background: url(/images/controlsBkg.gif) no-repeat 0 0 transparent
-  border-left: none
-  text-align: right
-
-.text-slidebox-border .comments
-  clear: both
-  float: left
-  display: block
-  padding: 0 !important
-  margin: 0
-  width: 410px
+#commentsContain ul.pages, .text-slidebox-border ul.pages, #taxaCommentsWrap ul.pages
+  &.bttm
+    padding: 10px 0
   li
-    background: url(/images/bubbleTop_thin.gif) no-repeat 0 0 !important
-    padding: 5px 0 !important
+    &.pagesNext
+      background: url(/images/controlsBkg.gif) no-repeat 100% 0 transparent
+      border-right: none
+    &.pagesPrev
+      background: url(/images/controlsBkg.gif) no-repeat 0 0 transparent
+      border-left: none
+      text-align: right
+    a
+      &:hover, &:active
+        background: #6a8d00
+
+#commentsContain
+  margin: 12px
+  .controls
+    h2
+      font: normal 14px / 15px verdana, arial
+      .item
+        color: #666666
+    .count
+      font: normal 10px / 11px verdana, arial, sans-serif
+  .pagination
+    float: right
+    background: #8ea62c
+    text-align: right !important
+    font-size: 10px !important
+    margin: 8px 0 8px
+    padding: 0 4px 0 6px
+    color: white !important
+    line-height: 19px
+    text-transform: uppercase
+    border: 1px solid #768b1c
+    .current, .prev_page, .next_page, a
+      padding: 1px 2px 3px 2px
+    .current
+      background: #768b1c
+    a
+      &:visited, &:hover, &:link
+        color: white !important
+        text-decoration: none
+  div#no-comments
+    text-align: center
+    clear: both
+
+.overlay .contentWrap #commentsContain
+  margin: 0
+
+.comments
+  clear: both
+  margin: 12px 0
+  li
+    background: url(/images/bubbleTop_thin.gif) no-repeat 0 0
+    margin-top: 12px
+    padding-top: 5px !important
+    list-style-type: none
     div
-      background: url(/images/bubbleBttm_thin.gif) no-repeat 0 100% !important
+      background: url(/images/bubbleBttm_thin.gif) no-repeat 0 100%
+      padding-bottom: 20px
+      p
+        margin: 0 50px 0 20px
+        font: normal 11px / 15px verdana, arial, sans-serif
+        color: #555555
     h6
-      text-align: left
       background: url(/images/bubTip.gif) no-repeat 15px 0
-      display: block
       font: normal 11px / 15px "trebuchet ms", arial, sans-serif
       color: #6a8d00
-      padding: 6px 0 0 32px
-      margin: 0
-
-.text-slidebox-border .comments li h6 strong, #commentsContain .comments li h6 strong
-  display: inline
-  font: normal 14px / 15px verdana, arial, sans-serif
-  color: #555555
-  padding: 0 0 4px 0
-  margin: 0
-
-.text-slidebox-border ul.pages li a
-  &:hover, &:active
-    background: #6a8d00
-
-.text-slidebox-border ul.pages.bttm, #commentsContain ul.pages.bttm
-  padding: 10px 0
-
-.text-slidebox-border ul.pages li.pagesNext, #commentsContain ul.pages li.pagesNext
-  background: url(/images/controlsBkg.gif) no-repeat 100% 0 transparent
-  border-right: none
-
-.text-slidebox-border ul.pages li.pagesPrev, #commentsContain ul.pages li.pagesPrev
-  background: url(/images/controlsBkg.gif) no-repeat 0 0 transparent
-  border-left: none
-  text-align: right
-
-.text-slidebox-border .comments
-  clear: both
-  float: left
-  display: block
-  padding: 0 !important
-  margin: 0
-  width: 410px
-  li
-    background: url(/images/bubbleTop_thin.gif) no-repeat 0 0 !important
-    padding: 5px 0 !important
-    div
-      background: url(/images/bubbleBttm_thin.gif) no-repeat 0 100% !important
-    h6
-      text-align: left
-      background: url(/images/bubTip.gif) no-repeat 15px 0
-      display: block
-      font: normal 11px / 15px "trebuchet ms", arial, sans-serif
-      color: #6a8d00
-      padding: 6px 0 0 32px
-      margin: 0
-
-.text-slidebox-border .comments li h6 strong, #commentsContain .comments li h6 strong
-  display: inline
-  font: normal 14px / 15px verdana, arial, sans-serif
-  color: #555555
-  padding: 0 0 4px 0
-  margin: 0
-
-#commentsContain .comments li h6 a
-  font: normal 11px / 15px "trebuchet ms", arial, sans-serif
-  color: #6a8d00
-  text-decoration: none
-
-.comments li h6 a
-  &:link, &:visited
-    font: normal 11px / 15px "trebuchet ms", arial, sans-serif
-    color: #6a8d00
-    text-decoration: none
-
-#commentsContain .comments li h6 a:hover, .comments li h6 a:active
-  color: #6a8d00
-  text-decoration: underline
-
-#commentsContain .comments li p
-  text-align: left
-  font: normal 11px / 15px verdana, arial, sans-serif
-  color: #555555
-  padding: 0
-  margin: 0 0 1em 0
-
-#taxaCommentsWrap h3
-  float: left
-  font: normal 14px / 15px verdana, arial
-  color: #333333
-  padding: 12px 0 0 26px
-  margin: 12px 0 0 0
-
-#commentsContain #no-comments
-  text-align: center
-  clear: both
+      padding-top: 20px
+      margin: 0 20px
+      strong
+        font: normal 14px / 15px verdana, arial, sans-serif
+        color: #333333
+      a
+        color: #6a8d00
+        text-decoration: none
+        &:hover, &:active
+          text-decoration: underline
 
 #new-comment
   clear: both
@@ -217,26 +140,64 @@ ul.pages li a
 .invisible-comment
   color: #888888 !important
 
-#commentsContain
-  .comments
-    clear: both
+#taxaCommentsWrap
+  border: 4px solid #6A8D00
+  background-color: #f4f4f4
+  height: 382px
+  h3
     float: left
-    display: block
-    padding: 0
-    margin: 0
-    width: 450px
-    li
-      width: auto !important
-      background: url(/images/bubbleTop2.gif) no-repeat 0 0
-      display: block !important
-      list-style-type: none
-      padding: 5px 0 5px 0
-      margin: 0 0 12px 0
-      height: auto !important
-      div
-        background: url(/images/bubbleBttm2.gif) no-repeat 0 100%
+    font: normal 14px / 15px verdana, arial
+    color: #333333
+    padding: 12px 0 0 26px
+    margin: 12px 0 0 0
+  #commentsContain
+    overflow-y: auto
+    .controls
+      .count
         display: block
-        padding: 15px 40px 14px 20px
+        margin-top: 5px
+  ul.pages
+    width: 300px
+    float: right
+    margin: 0
+    li
+      list-style-type: none
+      float: right
+      font: normal 10px / 11px "trebuchet ms", arial, sans-serif
+      color: white
+      border-right: 1px solid #6a8d00
+      border-left: 1px solid #b1d02c
+      background: #769a14
+      text-transform: uppercase
+      padding: 3px 5px 3px 5px
+      a
+        padding: 1px 3px
+        margin: 0
+        font: normal 10px / 11px "trebuchet ms", arial, sans-serif
+        color: white
+        text-decoration: none
+  ul.comments
+    li
+      background: transparent url(/images/bubbleBttm.gif) no-repeat 0 100%
+      clear: both
+      overflow: hidden
+      padding-top: 0 !important
+      div
+        background: transparent url(/images/bubbleTop.gif) no-repeat 0 0
+        float: left
+        width: 490px
+        p
+          margin-top: 15px
+      h6
+        background: none
+        margin: 0
+        padding: 0
+        strong
+          display: block
+
+.text-slidebox-border
+  background-color: #E6E7E8
+
 
 .text-slidebox-border h2
   clear: left
@@ -255,134 +216,3 @@ ul.pages li a
   padding: 0
   margin: 0
   width: 220px
-
-.text-slidebox-border ul.pages
-  float: right
-  margin: 0
-
-.text-slidebox-border ul.pages li
-  list-style-type: none
-  float: right
-  font: normal 10px / 11px "trebuchet ms", arial, sans-serif
-  color: white
-  border-right: 1px solid #6a8d00
-  border-left: 1px solid #b1d02c
-  background: #769a14
-  text-transform: uppercase
-  padding: 3px 5px 3px 5px
-
-.text-slidebox-border
-  #commentsContain
-    background-color: #e6e7e8
-    padding: 10px
-  #commentsContain ul.pages li a
-    padding: 1px 3px
-    margin: 0
-    font: normal 10px / 11px "trebuchet ms", arial, sans-serif
-    color: white
-    text-decoration: none
-  ul.pages li a
-    &:link, &:visited
-      padding: 1px 3px
-      margin: 0
-      font: normal 10px / 11px "trebuchet ms", arial, sans-serif
-      color: white
-      text-decoration: none
-
-#commentsContain ul.pages li a
-  padding: 1px 3px
-  margin: 0
-  font: normal 10px / 11px "trebuchet ms", arial, sans-serif
-  color: white
-  text-decoration: none
-  &:link, &:visited
-    padding: 1px 3px
-    margin: 0
-    font: normal 10px / 11px "trebuchet ms", arial, sans-serif
-    color: white
-    text-decoration: none
-
-#commentsContain ul.pages li a
-  &:hover, &:active
-    background: #6a8d00
-
-#commentsContain .comments li h6
-  text-align: left
-  background: url(/images/bubTip.gif) no-repeat 15px 0
-  display: block
-  font: normal 11px / 15px "trebuchet ms", arial, sans-serif
-  color: #6a8d00
-  padding: 6px 0 0 32px
-  margin: 0
-
-#commentsContain .pagination
-  float: right
-  background: #8ea62c
-  text-align: right !important
-  font-size: 10px !important
-  margin: 8px 0 8px
-  padding: 0 4px 0 6px
-  color: white !important
-  line-height: 19px
-  text-transform: uppercase
-  border: 1px solid #768b1c
-  .current, .prev_page, .next_page, a
-    padding: 1px 2px 3px 2px
-  .current
-    background: #768b1c
-  a
-    &:visited, &:hover, &:link
-      color: white !important
-      text-decoration: none
-
-#taxaCommentsWrap ul.pages li a:hover, ul.pages li a:active
-  background: #6a8d00
-
-#taxaCommentsWrap
-  ul.pages
-    &.bttm
-      padding: 10px 0
-    li
-      &.pagesNext
-        background: url(/images/controlsBkg.gif) no-repeat 100% 0 transparent
-        border-right: none
-      &.pagesPrev
-        background: url(/images/controlsBkg.gif) no-repeat 0 0 transparent
-        border-left: none
-        text-align: right
-  .comments
-    clear: both
-    float: left
-    display: block
-    padding: 0
-    margin: 0
-    width: 663px
-    li
-      background: url(/images/bubbleBttm.gif) no-repeat 0 100%
-      display: block
-      float: left
-      list-style-type: none
-      padding: 0
-      margin: 0 0 12px 0
-      width: 620px
-      div
-        background: url(/images/bubbleTop.gif) no-repeat 0 0
-        display: block
-        float: left
-        width: 420px
-        padding: 15px 40px 14px 20px
-      h6
-        display: block
-        width: 150px
-        float: right
-        font: normal 11px / 15px "trebuchet ms", arial, sans-serif
-        color: #6a8d00
-        padding: 3px 0 0 3px
-        margin: 0
-        background: none 
-        strong
-          display: block
-          font: normal 14px / 15px verdana, arial, sans-serif
-          color: #555555
-          padding: 0 0 4px 0
-          margin: 0

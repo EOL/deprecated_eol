@@ -4,21 +4,19 @@
   border: 2px solid #6a8d00 !important;
   position: absolute;
   z-index: 1000;
-  padding: 10px;
   overflow: auto;
   max-height: 540px; }
+  .overlay .contentWrap {
+    margin: 10px;
+    overflow: hidden; }
 
 .overlay .close {
-  position: absolute;
-  right: 5px;
-  top: 5px;
+  float: right;
+  margin: 5px;
   cursor: pointer;
   height: 12px;
   width: 12px;
   background-image: url("/images/close_button.gif"); }
-
-div.contentWrap {
-  margin-top: 10px; }
 
 .popup.vetted {
   border-color: #99cc00;
@@ -103,10 +101,6 @@ div#large-image-tagging-button {
 .text-comments-head p {
   font-size: 6pt;
   padding-top: 2px; }
-
-#commentsContain .controls {
-  text-align: left;
-  padding-bottom: 10px; }
 
 .insert_text {
   position: relative !important;

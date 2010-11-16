@@ -21,8 +21,8 @@ javascripts:
 
 stylesheets: 
 - base-cached: 
+  - reset-min
   - main
   - popup
   - taxa_comments
-  - reset-min
   - tags

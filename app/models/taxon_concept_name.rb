@@ -10,7 +10,7 @@ class TaxonConceptName < SpeciesSchemaModel
 
   def vet(vet_obj, by_whom)
     update_attributes!(:vetted => vet_obj)
-    synonym.update_attributes!(:vetted => vet_obj)
+    synonym.update_attributes!(:vetted => vet_obj) if synonym # There *are* TCNs in prod w/o synonyms (from CoL, I think)
     by_whom.track_curator_activity(self, 'taxon_concept_name', vet_obj.to_action)
   end
 

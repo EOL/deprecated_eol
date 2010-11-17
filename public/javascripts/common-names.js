@@ -19,33 +19,22 @@ if (!EOL.init_common_name_behaviors) {
       row = $(this).closest('tr');
       cell = $(this).closest('td');
       vetted_id = parseInt(url.match(/vetted_id=(\d+)/)[1]); // This WILL throw an error if it can't match.
-      EOL.log("Vetted: "+vetted_id);
       $.ajax({
         url: url,
         beforeSend: function() { row.fadeTo(300, 0.3); },
         // TODO - we don't really need to use the response here... not sure what I thought would change, but it won't.
         // remove.
         success: function(response) {
-          EOL.log("Starting");
           cell.html(response);
           row.children().removeClass('untrusted unknown unreviewed trusted');
-          EOL.log("Removed classes");
-          EOL.log("Vetted: "+vetted_id);
-          EOL.log("Untrusted: "+EOL.Curation.UNTRUSTED_ID);
-          EOL.log("Unknown: "+EOL.Curation.UNKNOWN_ID);
           if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
-            EOL.log("untrusted");
             row.children().addClass('untrusted');
           } else if (vetted_id == EOL.Curation.UNKNOWN_ID) {
-            EOL.log("unreviewed");
             row.children().addClass('unreviewed');
           } else {
-            EOL.log("trusted");
             row.children().addClass('trusted');
           }
-            EOL.log("init");
           EOL.init_common_name_behaviors();
-            EOL.log("done");
         },
         error: function() { cell.html('<p>Sorry, there was an error.</p>'); },
         complete: function() { EOL.log("Returned");row.delay(25).fadeTo(100, 1, function() {row.css({filter:''});}); }

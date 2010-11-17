@@ -37,7 +37,7 @@ if (!EOL.init_common_name_behaviors) {
           EOL.init_common_name_behaviors();
         },
         error: function() { cell.html('<p>Sorry, there was an error.</p>'); },
-        complete: function() { EOL.log("Returned");row.delay(25).fadeTo(100, 1, function() {row.css({filter:''});}); }
+        complete: function() { row.delay(25).fadeTo(100, 1, function() {row.css({filter:''});}); }
       });
     });
     // Confirm adding a common name:

@@ -7,22 +7,18 @@ class DataObjectsController < ApplicationController
   before_filter :curator_only, :only => [:rate, :curate]
 
   def create
-    begin
-      params[:references] = params[:references].split("\n") unless params[:references].blank?
-      data_object = DataObject.create_user_text(params, current_user)
-      @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
-      @curator = current_user.can_curate?(@taxon_concept)
-      @taxon_concept.current_user = current_user
-      @category_id = data_object.toc_items[0].id
-      alter_current_user do |user|
-        user.vetted=false
-      end
-      current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
-      render(:partial => '/taxa/text_data_object',
-             :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
-    rescue => e
-      @new_text = render_to_string(:partial => 'error', :locals => {:message => e.message}) 
+    params[:references] = params[:references].split("\n") unless params[:references].blank?
+    data_object = DataObject.create_user_text(params, current_user)
+    @taxon_concept = TaxonConcept.find(params[:taxon_concept_id])
+    @curator = current_user.can_curate?(@taxon_concept)
+    @taxon_concept.current_user = current_user
+    @category_id = data_object.toc_items[0].id
+    alter_current_user do |user|
+      user.vetted=false
     end
+    current_user.log_activity(:created_data_object_id, :value => data_object.id, :taxon_concept_id => @taxon_concept.id)
+    render(:partial => '/taxa/text_data_object',
+           :locals => {:content_item => data_object, :comments_style => '', :category => data_object.toc_items[0].label})
   end
 
   def preview

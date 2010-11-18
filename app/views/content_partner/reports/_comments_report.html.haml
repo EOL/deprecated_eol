@@ -1,7 +1,8 @@
+-# app/views/content_partner/reports/_comments_report.html.haml and app/views/content_partner/reports/_taxa_comments_report.html.haml are almost exactly the same thing... probably needs refacrtoring at a higher level.
 %li
   %p
     Comment: "
-    = truncate(act_history.comment_body, 300)
+    = truncate(allow_some_html(h(act_history.comment.body)), 300)
     "
     %br
     %i

@@ -9,9 +9,21 @@ class TaxonConceptName < SpeciesSchemaModel
   belongs_to :vetted
 
   def vet(vet_obj, by_whom)
-    update_attributes!(:vetted => vet_obj)
+    raw_update_attribute(:vetted_id, vet_obj.id)
     synonym.update_attributes!(:vetted => vet_obj) if synonym # There *are* TCNs in prod w/o synonyms (from CoL, I think)
     by_whom.track_curator_activity(self, 'taxon_concept_name', vet_obj.to_action)
+  end
+
+  # Our composite primary keys gem is too stupid to handle this change correctly, so we're bypassing it here:
+  def raw_update_attribute(key, val)
+    raise "Invalid key" unless self.respond_to? key
+    TaxonConceptName.connection.execute(ActiveRecord::Base.sanitize_sql_array([%Q{
+      UPDATE `#{self.class.table_name}`
+      SET `#{key}` = ?
+      WHERE name_id = ?
+        AND taxon_concept_id = ?
+        AND source_hierarchy_entry_id = ?
+    }, val, self[:name_id], self[:taxon_concept_id], self[:source_hierarchy_entry_id]]))
   end
 
 end

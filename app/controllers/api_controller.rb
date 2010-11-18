@@ -3,7 +3,7 @@ class ApiController < ApplicationController
   include ApiHelper
   
   before_filter :check_version 
-  layout 'main' , :only => [:index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :eol_providers]
+  layout 'main' , :only => [:index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :provider_hierarchies, :search_by_provider]
   
   def pages
     taxon_concept_id = params[:id] || 0
@@ -156,10 +156,10 @@ class ApiController < ApplicationController
     end
   end
   
-  def eol_providers
+  def provider_hierarchies
     params[:format] ||= 'xml'
     
-    @hierarchies = Hierarchy.all
+    @hierarchies = Hierarchy.browsable
     
     respond_to do |format|
       format.xml { render :layout => false }
@@ -201,7 +201,7 @@ class ApiController < ApplicationController
   
   def check_version
     return if params[:controller] == 'api/docs'
-    if ['pages','data_objects','hierarchy_entries','search','synonyms'].include? action_name
+    if ['ping','pages','data_objects','hierarchy_entries','search','synonyms','provider_hierarchies','search_by_provider'].include? action_name
       unless ['0.4','1.0'].include? params[:version]
         render(:partial => 'error.xml.builder', :locals => {:error => "Unknown version #{params[:version]}"})
         return

@@ -505,19 +505,19 @@ describe 'EOL APIs' do
   
   describe 'provider search' do
     before(:all) do
-      @test_hierarchy = Hierarchy.gen(:label => 'Some test hierarchy')
+      @test_hierarchy = Hierarchy.gen(:label => 'Some test hierarchy', :browsable => 1)
       @test_hierarchy_entry_published = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Animalia', :published => 1, :visibility_id => Visibility.visible.id)
       @test_hierarchy_entry_unpublished = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Plantae', :published => 0, :visibility_id => Visibility.visible.id)
     end
     
     it 'should return a list of all providers' do
-      visit("/api/eol_providers")
+      visit("/api/provider_hierarchies")
       xml_response = Nokogiri.XML(body)
-      our_result = xml_response.xpath("//result[@id='#{@test_hierarchy.id}']")
+      our_result = xml_response.xpath("//provider_hierarchy[@id='#{@test_hierarchy.id}']")
       our_result.length.should == 1
       our_result.inner_text.should == @test_hierarchy.label
       
-      visit("/api/eol_providers.json")
+      visit("/api/provider_hierarchies.json")
       response_object = JSON.parse(body)
       response_object['results'].length.should > 0
       response_object['results'].collect{ |r| r['id'].to_i == @test_hierarchy.id && r['label'] == @test_hierarchy.label }.length == 1
@@ -526,19 +526,19 @@ describe 'EOL APIs' do
     it 'should return the EOL page ID for a provider identifer' do
       visit("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
       xml_response = Nokogiri.XML(body)
-      our_result = xml_response.xpath("//result")
+      our_result = xml_response.xpath("//eol_page_id")
       our_result.length.should == 1
       our_result.inner_text.to_i.should == @test_hierarchy_entry_published.taxon_concept_id
       visit("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
       response_object = JSON.parse(body)
       response_object['results'].length.should > 0
-      response_object['results'].collect{ |r| r['taxon_concept_id'].to_i == @test_hierarchy_entry_published.taxon_concept_id}.length == 1      
+      response_object['results'].collect{ |r| r['eol_page_id'].to_i == @test_hierarchy_entry_published.taxon_concept_id}.length == 1      
     end
     
     it 'should not return the EOL page ID for a provider identifer' do
       visit("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}")
       xml_response = Nokogiri.XML(body)
-      our_result = xml_response.xpath("//result")
+      our_result = xml_response.xpath("//eol_page_id")
       our_result.length.should == 0
       visit("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}")
       response_object = JSON.parse(body)

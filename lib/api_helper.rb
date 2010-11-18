@@ -192,7 +192,7 @@ module ApiHelper
   def search_by_providers_json
     return_hash = { 'results' => [] }
     for r in @results
-      return_hash['results'] << {'taxon_concept_id' => r.taxon_concept_id}
+      return_hash['results'] << {'eol_page_id' => r.taxon_concept_id}
     end
     return return_hash
   end

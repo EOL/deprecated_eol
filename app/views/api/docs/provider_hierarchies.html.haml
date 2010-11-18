@@ -1,0 +1,81 @@
+= render(:partial=>'uservoice')
+- url = url_for(:controller => '/api', :action => 'provider_hierarchies', :version => '1.0', :only_path => false)
+#content
+  #page-separator-general
+  #page-title
+    %h1
+      EOL API: Provider Hierarchies
+    %hr
+  #page-content.clearfix
+    #full-page-content
+      = render(:partial=>'jump_to_nav')
+      %h3
+        Request
+      %p.indent
+        %a{ :href => url }
+          = url
+      %h3
+        Parameters
+      %p.indent
+        %i
+          none
+      %h3
+        Description
+      %p.indent
+        This method will return references to all hierarchies supplied by EOL Content Partners. The response will include the label of the hierarchy and the EOL unique ID representing the hierarchy
+      %h3
+        XML Response
+      .formatted_code<
+        :escaped
+          <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+          <results>
+            <provider_hierarchy id="107">Integrated Taxonomic Information System (ITIS)</provider_hierarchy>
+            <provider_hierarchy id="121">AntWeb (Ant Species)</provider_hierarchy>
+            <provider_hierarchy id="123">WORMS Species Information (Marine Species)</provider_hierarchy>
+            <provider_hierarchy id="143">FishBase (Fish Species)</provider_hierarchy>
+            <provider_hierarchy id="144">IUCN Red List (Species Assessed for Global Conservation)</provider_hierarchy>
+            <provider_hierarchy id="147">Species 2000 &amp; ITIS Catalogue of Life: Annual Checklist 2009</provider_hierarchy>
+            <provider_hierarchy id="441">NCBI Taxonomy</provider_hierarchy>
+            <provider_hierarchy id="529">Species 2000 &amp; ITIS Catalogue of Life: Annual Checklist 2010</provider_hierarchy>
+          </results>
+      %h3
+        JSON Response
+      .formatted_code<
+        :escaped
+          {
+              "results":
+              [
+                  {
+                      "label":"Integrated Taxonomic Information System (ITIS)",
+                      "id":107
+                  },
+                  {
+                      "label":"AntWeb (Ant Species)",
+                      "id":121
+                  },
+                  {
+                      "label":"WORMS Species Information (Marine Species)",
+                      "id":123
+                  },
+                  {
+                      "label":"FishBase (Fish Species)",
+                      "id":143
+                  },
+                  {
+                      "label":"IUCN Red List (Species Assessed for Global Conservation)",
+                      "id":144
+                  },
+                  {
+                      "label":"Species 2000 & ITIS Catalogue of Life: Annual Checklist 2009",
+                      "id":147
+                  },
+                  {
+                      "label":"NCBI Taxonomy",
+                      "id":441
+                  },
+                  {
+                      "label":"Species 2000 & ITIS Catalogue of Life: Annual Checklist 2010",
+                      "id":529
+                  }
+              ]
+          }

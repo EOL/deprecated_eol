@@ -12,7 +12,7 @@
     - else
       - a.full_reference <=> b.full_reference
   - column_class = cycle('odd','even')
-  - column_class << ' biblio-entry'
+  -# column_class << ' biblio-entry'      # TODO uncomment this when the reference parsing perl API is working on EOL servers
   -# Safari was being "nice" and widening the table to allow really long words... which ended up being links.  This
   -# "fix" changes the style to force the issue:
   %table.results_table{ :cellspacing => "0", :summary => "Literature References", :style => "table-layout:fixed; word-wrap:break-word; width:450px;" }

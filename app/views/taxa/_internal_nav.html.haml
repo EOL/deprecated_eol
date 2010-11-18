@@ -14,9 +14,9 @@
       Last curated:
       = LastCuratedDate.find(:last, :conditions => ["taxon_concept_id = ?", @taxon_concept]).last_curated.strftime("%d %b %Y")
   %ul#contribute.bulletlist
-    - if @taxon_concept.show_curator_controls?
-      %li.strong
-        = link_to("Curate content in this clade", :controller => :curators, :action => :curate_images, :hierarchy_entry_id => @taxon_concept.entry.id)
+    -# - if @taxon_concept.show_curator_controls?
+    -#   %li.strong
+    =#     = link_to("Curate content in this clade", :controller => :curators, :action => :curate_images, :hierarchy_entry_id => @taxon_concept.entry.id)
     %li
       %a{ :href => "/taxa/show_popup?name=contribute_photos&taxon_name=#{@taxon_concept.name(:canonical)}", :class => 'show_popup' }
         = "Submit an image"[]

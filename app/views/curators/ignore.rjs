@@ -1,1 +1,0 @@
-page.replace_html @div_id, "set to ignored"

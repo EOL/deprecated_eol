@@ -39,3 +39,4 @@
           = truncate(image['location'], 48)
       %td
         = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24, :ignored => true}
+= javascript_include_tag 'curation_tools.js'

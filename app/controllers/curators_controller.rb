@@ -115,15 +115,6 @@ class CuratorsController < ApplicationController
     end
   end
 
-  def ignore
-    @data_object = DataObject.find(params[:data_object_id])
-    current_user.ignore_object_for_curation(@data_object)
-    @div_id = params[:div_id]
-    respond_to do |fmt|
-      fmt.js
-    end
-  end
-
 private
 
   def set_no_cache

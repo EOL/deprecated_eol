@@ -1006,7 +1006,8 @@ li.current_kingdom {
 #content #common_names_wrapper .title {
   color: #666666;
   text-transform: uppercase;
-  font-weight: 700; }
+  font-weight: 700;
+  margin-top: 1.5em; }
 #content #common_names_wrapper p {
   margin-left: 1.5em;
   color: #666666; }

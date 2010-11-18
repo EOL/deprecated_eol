@@ -1,10 +1,10 @@
 # Handles non-admin curator functions, such as those performed by curators on individual species pages.
 class CuratorsController < ApplicationController
-  
+
   layout 'left_menu'
 
   access_control :DEFAULT => $CURATOR_ROLE_NAME
-    
+
   before_filter :check_authentication
   before_filter :set_no_cache
   before_filter :set_layout_variables
@@ -40,6 +40,11 @@ class CuratorsController < ApplicationController
     render :layout => false
   end
 
+  def ignored_images
+    dato_ids = current_user.ignored_data_objects(DataType.image.id.to_i).collect{|d| d.id}
+    @ignored_images = DataObject.details_for_objects(dato_ids, :skip_refs => true, :add_common_names => true, :add_comments => true, :sort => 'id desc')
+  end
+
   # TODO - I am PRETTY sure this method is never called.
   def trust
     @data_object = DataObject.find(params[:data_object_id])
@@ -59,7 +64,7 @@ class CuratorsController < ApplicationController
       fmt.js
     end
   end
-  
+
   def unreviewed
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.unreviewed(current_user)
@@ -68,7 +73,7 @@ class CuratorsController < ApplicationController
       fmt.js
     end
   end
-  
+
   def update_reasons
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.untrust(current_user, params['untrust_reasons'])
@@ -109,7 +114,7 @@ class CuratorsController < ApplicationController
       fmt.js { render :nothing => true }
     end
   end
-  
+
   def ignore
     @data_object = DataObject.find(params[:data_object_id])
     current_user.ignore_object_for_curation(@data_object)
@@ -120,10 +125,10 @@ class CuratorsController < ApplicationController
   end
 
 private
-  
+
   def set_no_cache
     @no_cache=true
-  end      
+  end
 
   def set_layout_variables
     @additional_stylesheet = 'curator_tools'

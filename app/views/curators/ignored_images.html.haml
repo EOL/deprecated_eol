@@ -1,0 +1,41 @@
+%table.results_table
+  %tr
+    %th
+      Ignored image
+    %th{:width => 368}
+      Actions
+  - @ignored_images.each do |image|
+    %tr{:class => image['vetted_label'].downcase}
+      %td{:class => "overlay_link"}
+        %h5
+          = link_to(image['scientific_name'], {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
+        - if !image['common_names'].blank?
+          %h6
+            = image['common_names'][0]['name'].firstcap
+        = link_to(image_tag(DataObject.image_cache_path(image["object_cache_url"], :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
+        - unless image['created_at'].blank?
+          %em
+            = "Indexed on:"[]
+          = DateTime.parse(image['created_at']).strftime("%B %d, %Y")
+          %br
+        - unless image['agents'].empty?
+          %em
+            = "Supplier:"[]
+          = image['agents'][0]['full_name']
+          - unless image['agents'][1..-1].blank?
+            - for agent in image['agents'][1..-1]
+              %br
+              %em
+                = "#{agent['role']}:"
+              = agent['full_name']
+          %hr.thin
+        - unless image['description'].blank?
+          %h6
+            = "Description:"[]
+          = strip_tags(image['description'])
+        - unless image['location'].empty?
+          %h6
+            = "Location:"[]
+          = truncate(image['location'], 48)
+      %td
+        = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24, :ignored => true}

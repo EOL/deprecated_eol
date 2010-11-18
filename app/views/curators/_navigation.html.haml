@@ -12,7 +12,8 @@
   %h3
     Current Work List
   %li
-    = link_to 'Images', {:action => 'curate_images'}, {:class => active_if_action_is('curate_images') }
+    = link_to 'Images', {:action => 'curate_images', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('curate_images') }
+    = link_to 'Ignored images', {:action => 'ignored_images', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('ignored_images') }
   /
     THESE ARE ALL TODO
     %li
@@ -25,7 +26,7 @@
       = link_to 'Sounds', {:action => 'curate_TODO'}, {:class => active_if_action_is('curate_TODO') }
     %li
       = link_to 'Names', {:action => 'curate_TODO'}, {:class => active_if_action_is('curate_TODO') }
-  / 
+  /
     -# These are also commented out, since I wasn't aware of their intention (and they seem wrong): TODO
     %h3
       Action History

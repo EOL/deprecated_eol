@@ -62,24 +62,19 @@ class ContentPartner < SpeciesSchemaModel
     harvest_event_ids = partner_resources.collect{|r| r.latest_published_harvest_event.id || nil }
     return nil if harvest_event_ids.empty?
     
-    count_result = SpeciesSchemaModel.connection.execute(%Q{
-        SELECT count(distinct hierarchy_entry_id) count
-        FROM data_objects_harvest_events dohevt
-        JOIN data_objects_hierarchy_entries dohe ON (dohevt.data_object_id=dohe.data_object_id)
-        JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
-        WHERE dohevt.harvest_event_id IN (#{harvest_event_ids.join(',')})}).all_hashes
-    total_taxa_count = count_result[0]['count'].to_i
+    all_hierarchy_entry_ids = SpeciesSchemaModel.connection.select_values(%Q{
+        SELECT hierarchy_entry_id
+        FROM harvest_events_hierarchy_entries hehe
+        WHERE hehe.harvest_event_id IN (#{harvest_event_ids.join(',')})}).uniq.reverse
+    total_taxa_count = all_hierarchy_entry_ids.length
     
+    start_index = page*per_page
+    end_index = start_index + per_page
     sorted_hierarchy_entries = SpeciesSchemaModel.connection.execute("
         SELECT he.id hierarchy_entry_id, he.source_url, n.string scientific_name
-        FROM data_objects_harvest_events dohevt
-        JOIN data_objects_hierarchy_entries dohe ON (dohevt.data_object_id=dohe.data_object_id)
-        JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
+        FROM hierarchy_entries he
         JOIN names n on (he.name_id=n.id)
-        WHERE dohevt.harvest_event_id IN (#{harvest_event_ids.join(',')})
-        GROUP BY he.id
-        ORDER BY dohevt.data_object_id DESC
-        LIMIT #{page*per_page}, #{per_page}").all_hashes
+        WHERE he.id IN (#{all_hierarchy_entry_ids[start_index...end_index].join(',')})").all_hashes
     
     start_index = page * per_page
     end_index = start_index + per_page

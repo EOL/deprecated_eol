@@ -34,14 +34,16 @@
           = submit_tag 'Search'
     -# Those input types of 'date' only work on HTML5-capable browsers, so we use jQuery Tools to fill in the gaps.  
     :javascript
-      $(":date").dateinput({format: 'yyyy/mm/dd', max: +1});
-      $(":date:first").data("dateinput").change(function() {
-        $(":date:last").data("dateinput").setMin(this.getValue(), true);
-        $("#start_date").val(this.getValue('yyyy-mm-dd')); // Cheating. TODO - stop it.
-      });
-      $(":date:last").data("dateinput").change(function() {
-        $(":date:first").data("dateinput").setMax(this.getValue(), true);
-        $("#end_date").val(this.getValue('yyyy-mm-dd')); // Cheating. TODO - stop it.
+      $(document).ready(function() {
+        $(":date").dateinput({format: 'yyyy/mm/dd', max: +1});
+        $(":date:first").data("dateinput").change(function() {
+          $(":date:last").data("dateinput").setMin(this.getValue(), true);
+          $("#start_date").val(this.getValue('yyyy-mm-dd')); // Cheating. TODO - stop it.
+        });
+        $(":date:last").data("dateinput").change(function() {
+          $(":date:first").data("dateinput").setMax(this.getValue(), true);
+          $("#end_date").val(this.getValue('yyyy-mm-dd')); // Cheating. TODO - stop it.
+        });
       });
     %br
     %br

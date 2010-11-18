@@ -40,7 +40,6 @@ EOL.Curation.post_curate_image = function(args) {
 // Update text objects after curation:
 EOL.Curation.post_curate_text = function(args) {
   var data_object_id = args[0]; var visibility_id = args[1]; var vetted_id = args[2];
-  EOL.log("Curate text: "+data_object_id+", "+visibility_id+", "+vetted_id);
   $('div#text_buttons_'+data_object_id+' div.trust_button').remove();
   $('div#text_buttons_'+data_object_id+' div.untrust_button').remove();
   $('#text_'+data_object_id).removeClass('untrusted unknown trusted');
@@ -56,28 +55,27 @@ $(document).ready(function() {
   $('form.curation input[type="submit"]').click(function() {
     var form = $(this).closest('form');
     form.find('div.processing').show();
+    submit = form.find(':submit');
+    textarea = form.find('textarea');
     $.ajax({
       url: form.attr('action'),
       type: 'PUT',
       dataType: 'json',
       beforeSend: function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript"); // Sorry, not sure why this xhr wasn't auto-js, but it wasn't.
-        form.find(':submit').attr('disabled', 'disabled');
+        submit.attr('disabled', 'disabled');
+        textarea.attr('disabled', 'disabled');
       },
       complete: function() {
-        form.find(':submit').attr('disabled', '');
+        submit.attr('disabled', '');
+        textarea.attr('disabled', '');
         form.find('div.processing').fadeOut();
       },
       success: function(response) {
-        EOL.log("here");
-        EOL.log('type: '+response.type);
-        EOL.log('args: '+response.args);
+        textarea.val('');
         if (response.type == "text") {
-          EOL.log("texty");
           EOL.Curation.post_curate_text(response.args);
-          EOL.log("EOL.Curation.post_curate_text("+response.args+");");
         } else {
-          EOL.log("imaged");
           EOL.Curation.post_curate_image(response.args);
         }
       },

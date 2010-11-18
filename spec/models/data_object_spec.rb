@@ -229,7 +229,11 @@ describe DataObject do
       DataObjectTags.last.data_object_guid.should == @dato.guid
     end
     
-    it 'should verify uniqness of data_object_guid/data_object_tag_id/user_id combination during create'
+    it 'should verify uniqness of data_object_guid/data_object_tag_id/user_id combination during create' do
+      dot = DataObjectTags.last
+      lambda { DataObject.gen(:data_object_guid => dot.data_object_guid, :data_object_tag_id => dot.data_object_tag_id, 
+                     :user_id => dot.user_id) }.should raise_error
+    end
     
     it 'should show up public and private tags for old and new version of dato after re-harvesting' do
       curator       = build_curator(@taxon_concept)  

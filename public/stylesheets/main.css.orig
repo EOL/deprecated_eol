@@ -1033,6 +1033,18 @@ li.current_kingdom {
   border-left: 1px solid #e6e7e9;
   background: #ff9999 !important;
   padding: 6px 6px 6px 12px;
+<<<<<<< HEAD
+=======
+  color: #666666; }
+  #content #common_names_wrapper td.odd.untrusted a {
+    color: #146a8c; }
+#content #common_names_wrapper td.even.untrusted {
+  border-right: 1px solid #e6e7e9;
+  border-bottom: 1px solid #e6e7e9;
+  border-left: 1px solid #e6e7e9;
+  background: #ee7777 !important;
+  padding: 6px 6px 6px 12px;
+>>>>>>> 70ff3a497c37ffa62ae079e766a62f13264be331
   color: #666666; }
   #content #common_names_wrapper td.untrusted a {
     color: #146a8c; }

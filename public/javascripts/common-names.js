@@ -9,6 +9,9 @@ if (!EOL.init_common_name_behaviors) {
       var form = $(this).closest('form');
       form.submit();
     });
+    // Colored cells need to explain themselves...
+    $('td[title]').unbind('tooltip');
+    $('td[title]').tooltip({delay:1});
     // Checkbox may ask the user to confirm; if they don't, it re-checks the box:
     $('td.vet_common_name select').unbind('change');
     $('td.vet_common_name select').change(function() {  // TODO - this isn't working?  Is change the wrong method?

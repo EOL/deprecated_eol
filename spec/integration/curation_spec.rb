@@ -178,43 +178,26 @@ describe 'Curation' do
   # Note that this is essentially the same test as in taxa_page_spec... but we're a curator, now... and it uses a separate
   # view, so it needs to be tested.
   it 'should show all common names trust levels' do
+    first_trusted_name =
+      @taxon_concept.common_names.select {|n| n.vetted_id == Vetted.trusted.id}.map {|n| n.name.string}.sort[0]
     @cname_page.should have_tag("div#common_names_wrapper") do
-      with_tag('tr.trusted') do
-        with_tag('td', :text => @common_name)
-      end
-      with_tag('tr.unknown') do
-        with_tag('td', :text => @unreviewed_name)
-      end
-      with_tag('tr.untrusted') do
-        with_tag('td', :text => @untrusted_name)
-      end
+      with_tag('td.trusted:nth-child(2)', :text => first_trusted_name)
+      with_tag('td.unreviewed:nth-child(2)', :text => @unreviewed_name)
+      with_tag('td.untrusted:nth-child(2)', :text => @untrusted_name)
     end
   end
 
-  it 'should show untrusted and trusted links for unreviewed common names' do
+  it 'should show vetting drop-down for common names either NOT added by this curator or added by a CP' do
     @cname_page.should have_tag("div#common_names_wrapper") do
-      with_tag("a[href=/synonyms/#{@unreviewed_syn.id}/untrust]")
-      with_tag("a[href=/synonyms/#{@unreviewed_syn.id}/trust]")
-    end
-  end
-
-  it 'should show unreviewed and untrust link for trusted common names either NOT added by this curator or added by a CP' do
-    @cname_page.should have_tag("div#common_names_wrapper") do
-      with_tag("a[href=/synonyms/#{@trusted_syn.id}/unreview]")
-      with_tag("a[href=/synonyms/#{@trusted_syn.id}/untrust]")
-    end
-  end
-
-  it 'should show unreviewed and trust link for untrusted common names either NOT added by this curator or added by a CP' do
-    @cname_page.should have_tag("div#common_names_wrapper") do
-      with_tag("a[href=/synonyms/#{@untrusted_syn.id}/trust]")
-      with_tag("a[href=/synonyms/#{@untrusted_syn.id}/untrust]")
+      with_tag("option", :text => 'Trusted')
+      with_tag("option", :text => 'Unreviewed')
+      with_tag("option", :text => 'Untrusted')
     end
   end
 
   it 'should show delete link for common names added by this curator' do
     @cname_page.should have_tag("div#common_names_wrapper") do
-      with_tag("a[href=/synonyms/#{@agents_syn.id}/delete]")
+      with_tag("a[href^=/pages/#{@taxon_concept.id}/delete_common_name]", :text => /del/i)
     end
   end
 

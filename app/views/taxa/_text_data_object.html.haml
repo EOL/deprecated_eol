@@ -48,7 +48,7 @@
           References
         %ul
           - content_item['refs'].each do |ref|
-            %li.biblio-entry
+            %li.biblio-entry{ :ref_id => ref.id }
               = ref.full_reference.sanitize_html
               - ref.ref_identifiers.each do |identifier|
                 -# we do not show identifier unless we know how to handle them:

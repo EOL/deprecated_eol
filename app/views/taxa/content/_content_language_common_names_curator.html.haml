@@ -11,7 +11,7 @@
       %th{ :scope => "col" }= "Sources"[]
       %th{ :style => "width:6em" }= "Curation"[]
     - names.each do |name|
-      - column_class = cycle("odd", "even")
+      - column_class = "odd"
       - column_class += ' trusted' if name.trusted?
       - column_class += ' untrusted' if name.untrusted?
       - column_class += ' unreviewed' if name.unreviewed?
@@ -29,6 +29,6 @@
             = agent_partial(name.sources)
         %td{ :class => "#{column_class} vet_common_name", :style => "text-align:center;" }
           - if name.added_by_user?(current_user)
-            = link_to "DELETE", url_for(:controller => 'taxa', :action => 'delete_common_name', :category_id => @category_id, :taxon_concept_id => @taxon_concept.id, :synonym_id => name.synonym_id)
+            = link_to("DELETE"[], url_for(:controller => 'taxa', :action => 'delete_common_name', :category_id => @category_id, :taxon_concept_id => @taxon_concept.id, :synonym_id => name.synonym_id), :onclick => "javascript:if(!confirm('#{"Are you sure?"[]}')) { return false; }")
           - else
             = render :partial => 'taxa/content/content_language_common_names_curator_vetting', :locals => {:language_id => name.language_id, :name_id => name.name_id, :vetted_id => name.vetted_id, :unique_id => name.unique_id}

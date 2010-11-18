@@ -3,14 +3,18 @@
     %th{ :scope => "col" }= "Name"[]
     %th= "Sources"[]
   - names.each do |name|
-    - column_class = cycle("odd", "even")
+    - column_class = "odd"
     - column_class += ' trusted' if name.trusted?
     - column_class += ' untrusted' if name.untrusted?
     - column_class += ' unreviewed' if name.unreviewed?
+    -# TODO - I don't think tds can have titles, officially, so this needs changing:
+    - vetting_title = nil
+    - vetting_title = "Names in yellow are not reviewed."[] if name.unreviewed?
+    - vetting_title = "Names in red are not trusted."[] if name.untrusted?
     %tr
-      %td{ :class => column_class }
+      %td{ :class => column_class, :title => vetting_title }
         = name.preferred ? "<strong>#{name.string}</strong>" : name.string
-      %td{ :class => column_class, :style => "text-align:center;" }
+      %td{ :class => column_class, :style => "text-align:center;", :title => vetting_title }
         - if name.sources.blank?
           = "Multiple sources."[]
         - else

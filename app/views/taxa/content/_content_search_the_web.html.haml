@@ -60,11 +60,3 @@
           - if show_both
             %td.even
               = external_link_to("Vivisimo", "http://vivisimo.com/vivisimo/cgi-bin/query-meta?query=" + blind_outlink_parameter_scientific, :show_link_icon => true)
-        %tr
-          %td.even{:height => "60", :width => "100"}
-            SpeciesIndex.org
-          %td.even
-            = external_link_to("SpeciesIndex", "http://speciesindex.org/index.jsp?search=" + blind_outlink_parameter, :show_link_icon => true)
-          - if show_both
-            %td.even
-              = external_link_to("SpeciesIndex", "http://speciesindex.org/index.jsp?search=" + blind_outlink_parameter_scientific, :show_link_icon => true)

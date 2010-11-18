@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
 
   before_save :check_curator_status
-  
+
   #  TODO - this should be okay, but the account controller doesn't seem to like using this, because it forces this param in some cases:
 #  attr_protected :curator_hierarchy_entry_id # Can't change this with update_attributes()
 
@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   has_one    :user_info
 
   accepts_nested_attributes_for :user_info
-  
+
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
   validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
 
@@ -35,12 +35,12 @@ class User < ActiveRecord::Base
 
   validates_length_of     :username, :within => 4..32
   validates_length_of     :entered_password, :within => 4..16, :on => :create
-  
+
   validates_presence_of   :given_name
   validates_format_of :email, :with =>%r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
-  
+
   validate :ensure_unique_username_against_master, :on => :create
-  
+
   validates_confirmation_of :entered_password
 
   has_many :data_object_tags, :class_name => DataObjectTags.to_s
@@ -49,38 +49,39 @@ class User < ActiveRecord::Base
   has_many :last_curated_dates
   has_many :actions_histories
   has_many :users_data_objects
-  
+  has_many :user_ignored_data_objects
+
   attr_accessor :entered_password,:entered_password_confirmation,:curator_request
   attr_reader :full_name, :is_admin, :is_moderator
-  
+
   def validate
-    
+
      errors.add_to_base "Secondary hierarchy must be different than default" if !secondary_hierarchy_id.nil? && secondary_hierarchy_id == default_hierarchy_id
-     
+
      if EOLConvert.to_boolean(curator_request) && credentials.blank?
        errors.add_to_base "You must indicate your credentials and area of expertise to request curator privileges."
     end
- 
+
     if !credentials.blank? && (curator_scope.blank? && curator_hierarchy_entry.blank?)
        errors.add_to_base "You must either select a clade or indicate your scope to request curator privileges."
     end
-    
+
   end
-  
+
   def full_name
     return_value = given_name || ""
     return_value += " " + family_name unless family_name.blank?
     return_value
   end
-  
+
   def objects_vetted
     # this needs to allow for eager loading
     CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve ).map(&:object)
-  end 
+  end
   def total_objects_vetted
     # this needs to become a simple COUNT query
     CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve ).length
-  end 
+  end
 
   # get the total objects curated for a particular curator activity type
   def total_objects_curated_by_action(action)
@@ -91,8 +92,8 @@ class User < ActiveRecord::Base
     else
       return 0
     end
-  end 
-  
+  end
+
   def data_objects_curated
     hashes = connection.execute("
         SELECT ah.object_id data_object_id, awo.action_code, ah.updated_at action_time
@@ -104,11 +105,11 @@ class User < ActiveRecord::Base
         GROUP BY data_object_id
         ORDER BY action_time DESC").all_hashes.uniq
   end
-  
+
   def total_objects_curated
     data_objects_curated.length
   end
-  
+
   def comments_curated
     connection.execute("
           SELECT awo.action_code, ah.updated_at action_time, c.*
@@ -118,12 +119,12 @@ class User < ActiveRecord::Base
           WHERE ah.user_id=#{id}
           AND ah.changeable_object_type_id=#{ChangeableObjectType.comment.id}
           AND ah.action_with_object_id!=#{ActionWithObject.created.id}").all_hashes.uniq
-  end 
-  
+  end
+
   def total_comments_curated
     comments_curated.length
   end
-  
+
 
   def taxon_concept_ids_curated
     connection.select_values("
@@ -137,7 +138,7 @@ class User < ActiveRecord::Base
           GROUP BY ah.object_id
           ORDER BY ah.updated_at DESC").uniq
   end
-  
+
   def total_species_curated
     taxon_concept_ids_curated.length
   end
@@ -150,17 +151,17 @@ class User < ActiveRecord::Base
   end
 
   def self.users_with_submitted_text
-    sql = "Select distinct users.id , users.given_name, users.family_name 
-    From users Join users_data_objects ON users.id = users_data_objects.user_id 
+    sql = "Select distinct users.id , users.given_name, users.family_name
+    From users Join users_data_objects ON users.id = users_data_objects.user_id
     Order By users.family_name, users.given_name"
     rset = User.find_by_sql([sql])
     return rset
   end
 
   def self.users_with_activity_log
-    sql = "Select distinct u.id , u.given_name, u.family_name 
-    From users u 
-    Join #{ActivityLog.full_table_name} al ON u.id = al.user_id 
+    sql = "Select distinct u.id , u.given_name, u.family_name
+    From users u
+    Join #{ActivityLog.full_table_name} al ON u.id = al.user_id
     Order By u.family_name, u.given_name"
     rset = User.find_by_sql([sql])
     return rset
@@ -168,7 +169,7 @@ class User < ActiveRecord::Base
   end
 
 
-  
+
   def self.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
     obj_ids = []
     user_ids = []
@@ -182,13 +183,13 @@ class User < ActiveRecord::Base
       if(agent_id != 'All') then
         sql += " and ah.object_id IN (" + arr_dataobject_ids * "," + ")"
       end
-      if(year.to_i > 0) then sql += " and year(ah.updated_at) = #{year} and month(ah.updated_at) = #{month} " 
+      if(year.to_i > 0) then sql += " and year(ah.updated_at) = #{year} and month(ah.updated_at) = #{month} "
       end
-      rset = User.find_by_sql([sql])            
+      rset = User.find_by_sql([sql])
       rset.each do |post|
         obj_ids << post.data_object_id
         user_ids << post.user_id
-      end        
+      end
     end
     arr = [obj_ids,user_ids]
     return arr
@@ -202,9 +203,9 @@ class User < ActiveRecord::Base
     Join actions_histories ah ON ah.action_with_object_id = awo.id
     Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
     Join users u ON ah.user_id = u.id
-    where cot.ch_object_type = 'data_object'    
-    and ah.object_id IN (" + arr_dataobject_ids * "," + ")" 
-    if(year.to_i > 0) then sql += " and year(ah.updated_at) = #{year} and month(ah.updated_at) = #{month} " 
+    where cot.ch_object_type = 'data_object'
+    and ah.object_id IN (" + arr_dataobject_ids * "," + ")"
+    if(year.to_i > 0) then sql += " and year(ah.updated_at) = #{year} and month(ah.updated_at) = #{month} "
     end
     sql += " and awo.action_code in ('trusted','untrusted','inappropriate', 'delete') "
     sql += " Order By ah.id Desc"
@@ -213,7 +214,7 @@ class User < ActiveRecord::Base
     else
       self.paginate_by_sql [sql], :per_page => 30, :page => page
     end
-  end  
+  end
 
 
 
@@ -231,7 +232,7 @@ class User < ActiveRecord::Base
   def tag_keys
     tags.map(&:key).uniq
   end
-  
+
   # object might be a data object or taxon concept
   def can_curate? object
     return false unless curator_approved
@@ -245,7 +246,7 @@ class User < ActiveRecord::Base
   def can_curate_taxon_concept_id? taxon_concept_id
     can_curate? TaxonConcept.find(taxon_concept_id)
   end
-  
+
   def approve_to_curate clade
     clade = clade.id if clade.is_a?HierarchyEntry
     update_attribute :curator_hierarchy_entry_id, clade
@@ -259,39 +260,39 @@ class User < ActiveRecord::Base
     elsif (approved == false && curator_approved == true) # only send the unapproval message if the user *was* a curator and is now rejected
       Notifier.deliver_curator_unapproved(self)
     end
-    
-    # note that this will happen EVERY time the user's record is updated by an admin. So the name curator_verdict_at is 
+
+    # note that this will happen EVERY time the user's record is updated by an admin. So the name curator_verdict_at is
     # now misleading because it will get updated even when nothing about the user is changed (the edit form is loaded and
-    # immediately saved). 
+    # immediately saved).
     # TODO We might consider renaming the field curator_verdict_at because it gets updated even without a verdict
     self.curator_approved = approved
     self.curator_verdict_at = Time.now
     self.curator_verdict_by = updated_by
     self.save!
-    
+
     if approved
       roles << Role.curator unless has_curator_role?
     else
       roles.delete(Role.curator)
     end
-    
+
   end
-  
+
   def clear_curatorship updated_by,update_notes=""
     self.curator_approved = false
     self.credentials=""
     self.curator_scope=""
     self.curator_hierarchy_entry = nil
     self.curator_verdict_at = Time.now
-    self.curator_verdict_by = updated_by 
+    self.curator_verdict_by = updated_by
     self.roles.delete(Role.curator)
     self.notes="" if self.notes.nil?
     (self.notes+=' ; (' + updated_by.username + ' on ' + Date.today.to_s + '): ' + update_notes) unless update_notes.blank?
     self.save!
   end
-  
+
   # TODO - PRI MED - the vet/unvet methods inefficiently heck whether or not this user can_curate? the OBJECT.  that might involve lots of queries.
-  #                  we likely need to be over to override this as we, in the app, already know whether or not a user can curate an item, 
+  #                  we likely need to be over to override this as we, in the app, already know whether or not a user can curate an item,
   #                  so there's no reason to take this performance hit to 'double-check'
 
   # vet an object user can curate
@@ -326,19 +327,19 @@ class User < ActiveRecord::Base
     new_user.attributes = options
     new_user
   end
-  
+
   def self.authenticate(username,password)
 
     # try username first
     user = User.find_by_username_and_active(username,true)
-    if !user.blank? && user.hashed_password==User.hash_password(password) 
+    if !user.blank? && user.hashed_password==User.hash_password(password)
       user.reset_login_attempts # found a matching username and password matched!
       return true,user
     elsif !user.blank?  # found a matching username, but password didn't match!
       user.invalid_login_attempt
       return false,"Invalid login or password"[]
     end
-    
+
     # no match with username, next try email address, which is not necessarily unique in database
     users = User.find_all_by_email_and_active(username,true)
 
@@ -351,32 +352,32 @@ class User < ActiveRecord::Base
     end
 
     users.each do |u| # check all users with matching email addresses to see if one of them matches the password
-      if u.hashed_password == User.hash_password(password) 
+      if u.hashed_password == User.hash_password(password)
         u.reset_login_attempts # found a match with email and password
         return true,u
       else
         u.invalid_login_attempt # log the bad attempt for this user!
       end
     end
-    
-    if users.size > 1 
+
+    if users.size > 1
       return false,"The email address is not unique - you must enter a username"[] # more than 1 email address with no matching passwords
     else
       return false,"Invalid login or password"[]  # no matches yet again :(
     end
-    
+
   end
 
   def reset_login_attempts
     update_attributes(:failed_login_attempts => 0) # reset the user's failed login attempts
   end
-  
+
   def invalid_login_attempt
     update_attributes(:failed_login_attempts => failed_login_attempts+1)
     logger.error "Possible dictionary attack on user #{self.id} - #{self.failed_login_attempts} failed login attempts" if
       self.failed_login_attempts > 10 # Smells like a dictionary attack!
   end
-  
+
   # I wanted to centralize this call, so we can quickly change from one kind of hashing to another.
   def self.hash_password(raw)
     Digest::MD5.hexdigest(raw)
@@ -403,7 +404,7 @@ class User < ActiveRecord::Base
   def self.unique_email?(email)
     return User.find_by_email(email).nil?
   end
-  
+
   def password
     self.entered_password
   end
@@ -417,12 +418,12 @@ class User < ActiveRecord::Base
     self.entered_password = value
     self.hashed_password = User.hash_password(value)
   end
-  
+
   # set the language from the abbreviation
   def language_abbr=(value)
-    self.language = Language.find_by_iso_639_1(value.downcase)  
+    self.language = Language.find_by_iso_639_1(value.downcase)
   end
-  
+
   # grab the language abbreviation
   def language_abbr
     return language.nil? ? Language.english.iso_639_1 : language.iso_639_1
@@ -439,7 +440,7 @@ class User < ActiveRecord::Base
   def is_admin?
     @is_admin ||= roles.include?(Role.administrator)
   end
-  
+
   def is_content_partner?
     @is_content_partner ||= roles.include?(Role.administrator)
   end
@@ -447,16 +448,16 @@ class User < ActiveRecord::Base
   def curator_attempted?
     !curator_hierarchy_entry.nil?
   end
-  
+
   def is_curator?
     return (has_curator_role? && !curator_hierarchy_entry.blank?)
   end
-  
+
   def selected_default_hierarchy
     hierarchy = Hierarchy.find_by_id(default_hierarchy_id)
     hierarchy.blank? ? '' : hierarchy.label
   end
-  
+
   def last_curator_activity
     lcd = LastCuratedDate.find_by_user_id(id, :order => 'last_curated DESC', :limit => 1)
     return nil if lcd.nil?
@@ -466,7 +467,7 @@ class User < ActiveRecord::Base
   def show_unvetted?
     return !vetted
   end
-  
+
   def check_curator_status
     credentials = '' if credentials.nil?
     if curator_hierarchy_entry.blank?  # remove the curator approval and role if they have no hierarchy entry set
@@ -513,7 +514,7 @@ class User < ActiveRecord::Base
       dato.save!
     end
   end
-  
+
   def default_hierarchy_valid?
     return(self[:default_hierarchy_id] and Hierarchy.exists?(self[:default_hierarchy_id]))
   end
@@ -576,7 +577,7 @@ class User < ActiveRecord::Base
       errors.add('username', "#{username} is already taken") unless User.unique_user?(username)
     end
   end
-  
+
   def rating_for_object_guid(guid)
     UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id)
   end
@@ -587,7 +588,7 @@ class User < ActiveRecord::Base
     hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
     hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
     vetted_id = options[:vetted_id].nil? ? Vetted.unknown.id : options[:vetted_id]
-    
+
     solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id}"
     if vetted_id != 'all'
       solr_query << " AND vetted_id:#{vetted_id}"
@@ -601,11 +602,11 @@ class User < ActiveRecord::Base
         solr_query << " AND (resource_id:#{resource_clause})"
       end
     end
-    
+
     data_object_ids = EOL::Solr::SolrSearchDataObjects.images_for_concept(solr_query, :fields => 'data_object_id', :rows => 500, :sort => 'created_at desc')
-    
+
     return [] if data_object_ids.empty?
-    
+
     vetted_clause = vetted_id != 'all' ? " AND do.vetted_id = #{vetted_id}" : ""
     result = DataObject.find_by_sql("SELECT do.id
         FROM #{DataObject.full_table_name} do
@@ -616,16 +617,25 @@ class User < ActiveRecord::Base
         GROUP BY do.guid
         ORDER BY do.created_at DESC
         LIMIT 0,300");
-    
+
     start = per_page * (page - 1)
     last = start + per_page - 1
     data_object_ids_to_lookup = result[start..last].collect{|d| d.id}
     result[start..last] = DataObject.details_for_objects(data_object_ids_to_lookup, :skip_refs => true, :add_common_names => true, :add_comments => true, :sort => 'id desc')
     return result
   end
-  
+
   def ignore_object_for_curation(data_object)
     UserIgnoredDataObject.create(:user => self, :data_object => data_object)
+  end
+
+  def ignored_data_objects(data_type_id = nil)
+    data_type_clause = data_type_id.nil? ? '' : " AND do.data_type_id = #{data_type_id}"
+    result = DataObject.find_by_sql("SELECT do.*
+        FROM #{DataObject.full_table_name} do
+          JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
+        WHERE uido.user_id = #{self.id}#{data_type_clause}");
+    return result
   end
 
   def uservoice_token
@@ -638,7 +648,7 @@ class User < ActiveRecord::Base
     user_hash[:locale] = self.language.iso_639_1
     self.is_admin? ? user_hash[:admin]='accept' : user_hash[:admin]='deny'
     json_token = user_hash.to_json
-    
+
     key = EzCrypto::Key.with_password $USERVOICE_ACCOUNT_KEY, $USERVOICE_API_KEY
     encrypted = key.encrypt(json_token)
     token = CGI.escape(Base64.encode64(encrypted)).gsub(/\n/, '')
@@ -674,7 +684,7 @@ class User < ActiveRecord::Base
     action_with_object_id     = ActionWithObject.find_by_action_code(action).id
     changeable_object_type_id = ChangeableObjectType.find_by_ch_object_type(changeable_object_type).id
     ActionsHistory.create(
-      :user_id                   => self.id, 
+      :user_id                   => self.id,
       :object_id                 => object.id,
       :changeable_object_type_id => changeable_object_type_id,
       :action_with_object_id     => action_with_object_id,
@@ -683,10 +693,10 @@ class User < ActiveRecord::Base
     )
   end
 
-protected   
+protected
 
   def password_required?
-    (hashed_password.blank? || hashed_password.nil?)      
+    (hashed_password.blank? || hashed_password.nil?)
   end
 
 end

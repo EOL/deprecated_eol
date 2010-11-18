@@ -48,7 +48,12 @@
           References
         %ul
           - content_item['refs'].each do |ref|
+<<<<<<< HEAD
+            -# add a .biblio-entry class to the li when the reference parsing stuff is working
+            %li
+=======
             %li.biblio-entry{ :ref_id => ref.id }
+>>>>>>> d4380a71b90dacfbf5fe65acfa9c1cea45c89ff4
               = ref.full_reference.sanitize_html
               - ref.ref_identifiers.each do |identifier|
                 -# we do not show identifier unless we know how to handle them:

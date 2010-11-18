@@ -388,6 +388,15 @@ class TaxaController < ApplicationController
     current_user.log_activity(:published_wikipedia_article, :taxon_concept_id => tc.id)
     redirect_to redirect_url
   end
+  
+  def lookup_reference
+    ref = Ref.find(params[:ref_id].to_i)
+    pid = "pleary@mbl.edu"
+    callback = params[:callback]
+    
+    url = "http://refparser.shorthouse.net/cgi-bin/refparser?pid=#{pid}&output=json&q=#{URI.escape(ref.full_reference)}&callback=#{callback}"
+    render :text => Net::HTTP.get(URI.parse(url))
+  end
 
 private
 

@@ -8,9 +8,12 @@
   %br
 .curation-section
   .credit-caption
-    = "Ignore"[]
+    = "Restore"[]
   .action-value{:id => "ignore-#{data_object['id']}"}
-    = link_to_remote("Add this object to your curator ignore list"[], :url => {:action => :ignore, :data_object_id => data_object['id'], :div_id => "ignore-#{data_object['id']}"})
+    - if defined?(ignored) and ignored
+      = "Remove this object from your curator ignore list"
+    - else
+      = link_to_remote("Add this object to your curator ignore list"[], :url => {:action => :ignore, :data_object_id => data_object['id'], :div_id => "ignore-#{data_object['id']}"})
 .clearbreak
   %br
 .curation-section

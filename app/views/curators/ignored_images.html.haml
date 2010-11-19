@@ -5,12 +5,12 @@
     %th{:width => 368}
       Actions
   - @ignored_images.each do |image|
-    %tr{ :id => "undo-restore-#{image['id']}", :class => 'hide ' + image['vetted_label'].downcase }
+    %tr{ :id => "undo-move-#{image['id']}", :class => 'hide ' + image['vetted_label'].downcase }
       %td{ :colspan => 2 }
         You moved the image to 
         = link_to("your active list", {:controller => :curators, :action => :curate_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
         = "&nbsp;" * 5
-        %a{ :class => "undo-move-image" } Undo
+        %a{ :class => "undo-restore-image" } Undo
     %tr{ :id => "curation-item-#{image['id']}" }
       %td{:class => "overlay_link " + image['vetted_label'].downcase}
         %h5

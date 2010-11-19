@@ -13,6 +13,7 @@
     Current Work List
   %li
     = link_to 'Images', {:action => 'curate_images', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('curate_images') }
+  %li
     = link_to 'Ignored images', {:action => 'ignored_images', :hierarchy_entry_id => params[:hierarchy_entry_id]}, {:class => active_if_action_is('ignored_images') }
   /
     THESE ARE ALL TODO

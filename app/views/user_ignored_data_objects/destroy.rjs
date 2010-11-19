@@ -1,2 +1,0 @@
-page.replace_html @div_id, "set to restored, it will move to curation list after reload"
-

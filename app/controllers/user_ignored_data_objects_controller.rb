@@ -7,15 +7,12 @@ class UserIgnoredDataObjectsController < ApplicationController
   def create
     @data_object = DataObject.find(params[:data_object_id])
     UserIgnoredDataObject.create(:user => current_user, :data_object => @data_object)
+    render :text => "OK"
   end
 
   def destroy
     @data_object = DataObject.find(params[:data_object_id])
     UserIgnoredDataObject.find_by_user_id_and_data_object_id(current_user.id, @data_object.id).destroy
-    @div_id = params[:div_id]
-    respond_to do |format|
-      format.js
-    end
-    
+    render :text => "OK"
   end
 end

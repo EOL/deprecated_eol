@@ -402,14 +402,6 @@ class DataObject < SpeciesSchemaModel
     return DataType.video_type_ids.include?(data_type_id)
   end
 
-  # TODO: delete this when it is not used.
-  # We want to link to an appropriate page... for example, on Animalia, we want to link to Raccoons for images of raccoons,\
-  # not Animalia.
-  def taxon_page_id_for_permalink
-    # Note A and B are reversed in the sort; 1 is published and we want it first.
-    self['taxa_names_ids'].sort {|a,b| b['published'] <=> a['published']}[0]['taxon_concept_id']
-  end
-
   def self.cache_path(cache_url, subdir = $CONTENT_SERVER_CONTENT_PATH)
     (ContentServer.next + subdir + cache_url_to_path(cache_url))
   end
@@ -473,27 +465,25 @@ class DataObject < SpeciesSchemaModel
     end
   end
 
-  # add a DataObjectTag to a DataObject
+  # This allows multiple values, eg: 'red, blue' or 'red blue'
   def tag(key, values, user)
     raise "You must be logged in to add tags."[] unless user
-    values = [values.to_s] unless values.is_a?Array
-    if key and values
-      values.each do |value|
-        tag    = DataObjectTag.find_or_create_by_key_and_value key.to_s, value.to_s
-        if user.tags_are_public_for_data_object?(self)
-          tag.is_public = true
-          tag.save!
-        end
-        join   = DataObjectTags.new :data_object => self, :data_object_guid => guid, :data_object_tag => tag, :user => user
-        begin
-          join.save!
-        rescue
-          raise FailedToCreateTag.new("Failed to add #{key}:#{value} tag")
-        end
+    key = 'none' if key.blank?
+    return unless values
+    values = DataObjectTag.clean_values(values)
+    values.each do |value|
+      tag = DataObjectTag.find_or_create_by_key_and_value key.to_s, value.to_s
+      if user.tags_are_public_for_data_object?(self)
+        tag.update_attributes!(:is_public => true)
       end
-      tags.reset
-      user.tags.reset
+      begin
+        DataObjectTags.create :data_object => self, :data_object_guid => guid, :data_object_tag => tag, :user => user
+      rescue
+        raise FailedToCreateTag.new("Failed to add #{key}:#{value} tag")
+      end
     end
+    tags.reset
+    user.tags.reset
   end
 
   def public_tags

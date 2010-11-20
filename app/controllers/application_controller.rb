@@ -25,7 +25,8 @@ class ApplicationController < ActionController::Base
 
   helper :all
 
-  helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?, :allow_page_to_be_cached?
+  helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
+    :allow_page_to_be_cached?
   around_filter :set_current_language
 
   def view_helper_methods
@@ -196,84 +197,68 @@ class ApplicationController < ActionController::Base
     expire_pages(['top_nav', 'footer', 'exemplars'])
   end
 
-  # expire the non-species page fragment caches
-  def expire_caches
+  def expire_non_species_caches
     expire_menu_caches
     expire_pages(ContentPage.find_all_by_active(true))
     $CACHE_CLEARED_LAST = Time.now()
   end
 
-  # expire a list of taxa_ids specifed as an array
-  # (add :expire_ancestors => false if you don't want to expire that taxon_concept's ancestors as well)
-  # TODO -- optimize, this will result in a lot of queries if you expire a lot of taxa
-  def expire_taxa(taxa_ids, params = {})
-
-    return false if taxa_ids == nil? || taxa_ids.class != Array
-
-    expire_ancestors = params[:expire_ancestors]
-    expire_ancestors = true if params[:expire_ancestors].blank?
-
-    taxa_ids_to_expire = []
-
-    if expire_ancestors # also expire ancestors
-      # go over taxa_ids and find ancestors, and add them to the list
-      taxa_ids.each do |taxon_concept_id|
-        taxon_concept = TaxonConcept.find_by_id(taxon_concept_id)
-        taxa_ids_to_expire += taxon_concept.ancestry.collect {|an| an.taxon_concept_id} unless taxon_concept.nil?
-      end
-      taxa_ids_to_expire.uniq! # eliminate duplicates
-    else # don't expire ancestors, so just go through the supplied list and expire those
-      taxa_ids_to_expire = taxa_ids
+  # expire a list of taxa_ids specifed as an array, usually including its ancestors (optionally not)
+  # NOTE - this is VERY slow because each taxon is expired individually.  But this is a limitation of memcached.  Unless we
+  # want to keep an index of all of the memcached keys related to a given taxon, which itself would be confusing, this is not
+  # really possible.  
+  def expire_taxa(taxa_ids)
+    return if taxa_ids.nil?
+    raise "Must be called with an array" unless taxa_ids.class == Array
+    taxa_ids_to_expire = find_ancestor_ids(taxa_ids)
+    if taxa_ids_to_expire.length > $MAX_TAXA_TO_EXPIRE_BEFORE_EXPIRING_ALL
+      Rails.cache.clear
+    else
+      expire_taxa_ids_with_error_handling(taxa_ids_to_expire)
     end
-
-    # now expire the list of taxa, ignoring ancestors (since they are now included in our global list)
-    taxa_ids_to_expire.each do |taxon_concept_id|
-      expire_taxon_concept(taxon_concept_id, :expire_ancestors => false)
-    end
-
-    return true
-
   end
 
   def expire_data_object(data_object_id)
-    expired_ids = Set.new
-    DataObject.find(data_object_id).taxon_concepts.each do |tc|
-      expire_taxon_concept(tc.id, :expire_ancestors => false) if expired_ids.add?(tc.id)
-      Thread.new do
-        begin
-          tc.ancestors.each do |tca|
-            expire_taxon_concept(tca.id, :expire_ancestors => false) if expired_ids.add?(tca.id)
-          end
-        rescue Exception => e
-          if e.to_s != "Taxon concept must have at least one hierarchy entry"
-            raise e
-          end
+    Thread.new do
+      begin
+        expire_taxa(DataObject.find(data_object_id).taxon_concepts)
+      rescue Exception => e
+        if e.to_s != "Taxon concept must have at least one hierarchy entry"
+          raise e
         end
       end
     end
   end
 
-  # expire the fragment cache for a specific taxon_concept ID
-  # (add :expire_ancestors => false if you don't want to expire that s's ancestors as well)
-  # TODO -- come up with a better way to expire taxa or name the cached parts -- this expiration process is very expensive due to all the iterations for each taxa id
+  # NOTE: If you want to expire it's ancestors, too, use #expire_taxa.
+  # TODO: Rather than having to iterate through all of these alternative key names and expire them whether or not they
+  # actually exist, we should have a list (in memcached) of all of the keys associated for a particular page.  Then, we can
+  # read that list (ie: "taxa/memcached_keys") and iterate over the array of keys that *actually exist* and remove them.
   def expire_taxon_concept(taxon_concept_id, params = {})
-    #expire the given taxon_concept_id
-    return false if taxon_concept_id == nil || taxon_concept_id.to_i == 0
-    
-    taxon_concept = TaxonConcept.find_by_id(taxon_concept_id)
-    return false if taxon_concept.nil?
-    
-    expire_ancestors = params[:expire_ancestors]
-    expire_ancestors = true if params[:expire_ancestors].nil?
-    
-    if expire_ancestors
-      taxa_ids = taxon_concept.ancestry.collect {|an| an.taxon_concept_id}
-    else
-      taxa_ids = [taxon_concept_id]
+    raise 'Expiring nothing' if taxon_concept_id.blank?
+    raise "Not a number: #{taxon_concept_id}" if taxon_concept_id.to_i == 0
+    raise "Taxon Concept #{taxon_concept_id} does not exist" unless TaxonConcept.exists?(taxon_concept_id)
+    browsable_hierarchy_ids = Hierarchy.browsable_by_label.map {|h| h.id.to_s }
+    Language.find_active.each do |language|
+      %w{middle expert}.each do |expertise| # NOTE - this used to include novice, but we don't use it anymore.
+        %w{true false}.each do |vetted|
+          %w{text}.each do |default_taxonomic_browser| # NOTE - this used to include flash, but we don't use it anymore.
+            [nil.to_s, browsable_hierarchy_ids].flatten.each do |default_hierarchy_id|
+              %w{true false}.each do |can_curate|
+                part_name = 'page_' + taxon_concept_id.to_s +
+                                '_' + language.iso_639_1 +
+                                '_' + expertise +
+                                '_' + vetted +
+                                '_' + default_taxonomic_browser +
+                                '_' + default_hierarchy_id +
+                                '_' + can_curate
+                expire_fragment(:controller => '/taxa', :part => part_name)
+              end
+            end
+          end
+        end
+      end
     end
-    
-    expire_all_variants_of_taxa(taxa_ids)
-    return true
   end
 
   # check if the requesting IP address is allowed (used to resrict methods to specific IPs, such as MBL/EOL IPs)
@@ -440,6 +425,26 @@ class ApplicationController < ActionController::Base
 
 private
 
+  def find_ancestor_ids(taxa_ids)
+    taxa_ids = taxa_ids.map do |taxon_concept_id|
+      taxon_concept = TaxonConcept.find_by_id(taxon_concept_id)
+      taxon_concept.nil? ? taxon_concept.ancestry.collect {|an| an.taxon_concept_id} : nil
+    end
+    taxa_ids.uniq!.compact!
+  end
+
+  def expire_taxa_ids_with_error_handling(taxa_ids_to_expire)
+    messages = []
+    taxa_ids_to_expire.each do |id|
+      begin
+        expire_taxon_concept(id)
+      rescue => e
+        messages << "Unable to expire TaxonConcept #{id}: #{e.message}"
+      end
+    end
+    raise messages.join('; ') unless messages.empty?
+  end
+
   def remove_cached_feeds
     FileUtils.rm_rf(Dir.glob("#{RAILS_ROOT}/public/feeds/*"))
   end
@@ -473,8 +478,7 @@ private
   # NOTE: if you want to change a user's settings, you need to use alter_current_user
   def set_logged_in_user(user)
     set_temporary_logged_in_user(user)
-    #TODO: Remove old session flushing code
-    session[:user]    = nil # This was the "new user", before we updated the code -- this is here to ensure we flush all old sessions and can probably safely be removed now.
+    session[:user]    = nil # An un-logged-in user needed to use this.  Remove it, now.
     session[:user_id] = user.id
     set_unlogged_in_user(nil)
     $CACHE.delete("users/#{session[:user_id]}")
@@ -486,37 +490,6 @@ private
 
   def set_unlogged_in_user(user)
     session[:user] = user
-  end
-
-  # TODO - Rather than having to iterate through all of these alternative key names and expire them whether or not they
-  # actually exist, we should have a list (in memcached) of all of the keys associated for a particular page.  Then, we can
-  # read that list (ie: "taxa/memcached_keys") and iterate over the array of keys that *actually exist* and remove them.
-  def expire_all_variants_of_taxa(tc_ids)
-    browsable_hierarchy_ids = Hierarchy.browsable_by_label.map {|h| h.id.to_s }
-    tc_ids.each do |taxon_concept_id|
-      unless taxon_concept_id.blank?
-        Language.find_active.each do |language|
-          %w{novice middle expert}.each do |expertise|
-            %w{true false}.each do |vetted|
-              %w{text flash}.each do |default_taxonomic_browser|
-                [nil.to_s, browsable_hierarchy_ids].flatten.each do |default_hierarchy_id|
-                  %w{true false}.each do |can_curate|
-                    part_name = 'page_' + taxon_concept_id.to_s +
-                                    '_' + language.iso_639_1 +
-                                    '_' + expertise +
-                                    '_' + vetted +
-                                    '_' + default_taxonomic_browser +
-                                    '_' + default_hierarchy_id +
-                                    '_' + can_curate
-                    expire_fragment(:controller => '/taxa', :part => part_name)
-                  end
-                end
-              end
-            end
-          end
-        end
-      end
-    end
   end
 
   def expire_pages(pages)

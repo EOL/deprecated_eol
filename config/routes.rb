@@ -68,7 +68,7 @@ ActionController::Routing::Routes.draw do |map|
   map.expire_all   'expire_all',        :controller => 'content', :action => 'expire_all'
   map.expire       'expire/:id',        :controller => 'content', :action => 'expire_single',
                                         :requirements => { :id => /\w+/ }
-  map.expire_taxon 'expire_taxon/:id',  :controller => 'content', :action => 'expire',
+  map.expire_taxon 'expire_taxon/:id',  :controller => 'content', :action => 'expire_taxon',
                                         :requirements => { :id => /\d+/ }
   map.expire_taxa  'expire_taxa',       :controller => 'content', :action => 'expire_multiple'
   map.exemplars    'exemplars.:format', :controller => 'content', :action => 'exemplars'

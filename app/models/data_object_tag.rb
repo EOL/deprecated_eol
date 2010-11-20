@@ -18,6 +18,22 @@ class DataObjectTag < ActiveRecord::Base
   before_save :normalizes_case_and_spaces
   
   named_scope :ordered, :order => '`key` ASC, `value` ASC'
+
+  def self.clean_values(values)
+    return unless values
+    if values.is_a? Array 
+      if values.include?(',')
+        values = values.split(',')
+      elsif values.include?(' ')
+        values = value.split(' ')
+      end
+    else
+      values = [values]
+    end
+    # strip out any spaces / newlines in values (model handles punctuation, etc, if found)
+    values.map! {|v| v.gsub("\n",'').gsub(' ','') }
+  end
+
   # this is **NOT** an alias of #is_public?
   #
   # this is smarter than is_public? and will check the database to see how many times this 

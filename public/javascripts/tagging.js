@@ -39,7 +39,7 @@ EOL.Tagging = {
     if (data_object_id == null) {
       data_object_id = EOL.Tagging.data_object_id();
     }
-    var path = '/data_objects/' + data_object_id + '/tags/private';
+    var path = '/data_objects/' + data_object_id + '/tags';
     EOL.Tagging.reload_url(path);
     $('#ajax-indicator-popup').fadeOut();
   },
@@ -62,7 +62,6 @@ EOL.Tagging = {
       var key   = EOL.Tagging.selected_category();
       var value = $('#private_data_object_tags input[name="tag[value]"]').val();
       var post_url = $(this).attr('action');
-      var path = post_url + '/private'
       $.post( post_url, { 'tag[key]': key, 'tag[value]': value }, function(){ EOL.Tagging.reload() } );
       return false;
     });
@@ -72,7 +71,6 @@ EOL.Tagging = {
     $('#private_data_object_tags span.data_object_tag_key_value>form').submit(function(e) {
       $('#ajax-indicator-popup').fadeIn();
       var post_url = $(this).attr('action');
-      var path = post_url.replace(/tags\/.*/,'tags/private');
       $.post( post_url, { '_method': 'delete' }, function() { EOL.Tagging.reload(); } );
       return false;
     });

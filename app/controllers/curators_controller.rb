@@ -45,7 +45,6 @@ class CuratorsController < ApplicationController
     @ignored_images = DataObject.details_for_objects(dato_ids, :skip_refs => true, :add_common_names => true, :add_comments => true, :sort => 'id desc')
   end
 
-  # TODO - I am PRETTY sure this method is never called.
   def trust
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.trust(current_user)
@@ -55,7 +54,6 @@ class CuratorsController < ApplicationController
     end
   end
 
-  # TODO - I am PRETTY sure this method is never called.
   def untrust
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.untrust(current_user)

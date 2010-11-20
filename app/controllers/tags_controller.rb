@@ -1,6 +1,3 @@
-# TODO - PRI LOW - none of the actions actually do any finding here, the views all use 
-#                  data_object directly (because it has some nice tag-related helper methods)
-#
 class TagsController < ApplicationController
   
   layout proc { |c| c.request.xhr? ? "tags" : "main" }
@@ -10,21 +7,6 @@ class TagsController < ApplicationController
   # GET /data_objects/1/tags
   def index
     current_user.log_activity(:showing_tags_on_data_object_id, :value => @data_object.id)
-    public # redirect_to :action => 'public' # ... call public, without actually redirecting ... redirect makes ajax mad
-  end
-  
-  #TODO : Clean this up a bit, I've combined views so that there is only ever a need for one tagging window and it will show both private and public
-  #   tags, but the views and methods still act like there are two views
-  
-  # GET /data_objects/1/tags/public
-  def public
-    @public_tags = @data_object.public_tags 
-    @private_tags = current_user.tags_for @data_object if logged_in?    
-    render :template => 'tags/public_or_private'
-  end
-
-  # GET /data_objects/1/tags/private
-  def private
     @public_tags = @data_object.public_tags     
     @private_tags = current_user.tags_for @data_object if logged_in?
     render :template => 'tags/public_or_private'
@@ -32,28 +14,13 @@ class TagsController < ApplicationController
 
   # POST /data_objects/1/tags
   #
-  # gross parsing and whatnot here - method needs clean-up
+  # TODO - gross parsing and whatnot here - method needs clean-up
   #
   def create
     if logged_in? and params.include?:tag and params[:tag].include?:value
 
-      # allow multiple values, eg: 'red, blue' or 'red blue' (TODO - pri low - move this logic into a model)
-      value = params[:tag][:value]
-      key = params[:tag][:key] 
-      key = (key.blank? ? 'none' : key)
-      if value.include?','
-        values = value.split ','
-      elsif value.include?' '
-        values = value.split ' '
-      else
-        values = [value]
-      end
-
-      # strip out any spaces / newlines in values (model handles punctuation, etc, if found)
-      values.map! {|v| v.gsub("\n",'').gsub(' ','') }
-
       begin
-        @data_object.tag key, values, current_user
+        @data_object.tag params[:tag][:key], params[:tag][:value], current_user
         flash[:notice] = 'New tag was successfully created'
         current_user.log_activity(:created_tag_on_data_object_id, :value => @data_object.id)
       rescue FailedToCreateTag => e
@@ -171,27 +138,12 @@ class TagsController < ApplicationController
     #render :text => DataObjectTag.suggest_value( params[:q], params[:id] ).join("\n")
   end
 
-  # GET /tags/cloud
-  # GET /data_objects/1/tags/cloud
-  #
-  # TODO - i disabled this action - it's no longer enabled in the routes.  needs a nice view.  remove this entirely if we won't use this
-  #
-  def cloud
-    if @data_object
-      @tags_with_count = DataObjectTags.tags_with_usage_count.find_all_by_data_object_id @data_object.id
-    else
-      @tags_with_count = DataObjectTags.tags_with_usage_count
-    end
-    # sort by the tag name and inject into an array like: [ [7,<tag>], [5,<tag>], ... ]
-    @tags_with_count = @tags_with_count.sort_by {|t| t.tag.to_s }.inject([]){|all,this| all << [this.usage_count.to_i, this.tag]; all }
-  end
-
   # REDIRECT TO COMBINED SEARCH PAGE
   def search
-    redirect_to :controller=>'taxa', :action=>'search', :q=>params[:q], :search_type=>'tag'
+    redirect_to :controller => 'taxa', :action => 'search', :q => params[:q], :search_type => 'tag'
   end
 
-  protected
+private
 
   def set_data_object
     @data_object = DataObject.find params[:data_object_id].to_i if params[:data_object_id]

@@ -199,6 +199,8 @@ Rails::Initializer.run do |config|
 
   $AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE = 9448
 
+  $MAX_TAXA_TO_EXPIRE_BEFORE_EXPIRING_ALL = 1024
+
   if $USE_SQL_SESSION_MANAGEMENT
     config.action_controller.session_store = :active_record_store
   end

@@ -314,7 +314,7 @@ class TaxaController < ApplicationController
                                          :vetted => Vetted.trusted)
         syn.preferred = 1 # TODO = why is this here?  Isn't that specified in the method above?
         syn.save!
-        expire_taxa(tc.id)
+        expire_taxa([tc.id])
       end
 
       if params[:trusted_name_clicked_on] != "false"
@@ -324,11 +324,11 @@ class TaxaController < ApplicationController
           syn = tc.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language,
                                            :vetted => Vetted.trusted, :preferred => false)
           syn.save!
-          expire_taxa(tc.id)
+          expire_taxa([tc.id])
         elsif params[:trusted_synonym_clicked_on] != "false"
           tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(params[:trusted_synonym_clicked_on], tc.id)
           tc.delete_common_name(tcn)
-          expire_taxa(tc.id)
+          expire_taxa([tc.id])
         end
       end
       current_user.log_activity(:updated_common_names, :taxon_concept_id => tc.id)
@@ -349,7 +349,7 @@ class TaxaController < ApplicationController
       else
         flash[:error] = "User #{current_user.full_name} does not have enough privileges to add a common name to the taxon"
       end
-      expire_taxa(tc.id)
+      expire_taxa([tc.id])
     end
     redirect_to "/pages/#{tc.id}?category_id=#{params[:name][:category_id]}"
   end

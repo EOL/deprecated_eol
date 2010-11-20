@@ -1,7 +1,7 @@
 class ContentController < ApplicationController
 
   include ActionView::Helpers::SanitizeHelper
-    
+
   caches_page :tc_api
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
@@ -21,14 +21,14 @@ class ContentController < ApplicationController
       @news_items = NewsItem.find_all_by_active(true,:limit=>$NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY,:order=>'display_date desc',:conditions=>'display_date >= "' + $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS.weeks.ago.to_s(:db) + '"')
     end
   end
-  
+
   # just shows the top set of species --- can be included on other websites
   def species_bar
      @explore_taxa  = RandomHierarchyImage.random_set(6, nil, {:language => current_user.language, :size => :medium})
      @new_window = true
      render(:partial=>'explore_taxa')
   end
-  
+
   def news
     id = params[:id]
     @term_search_string = params[:term_search_string] || ''
@@ -47,7 +47,7 @@ class ContentController < ApplicationController
        format.rss { render :layout => false }
      end
   end
-  
+
   def translate
     if params[:return_to].blank?
       @translate_url = root_url
@@ -59,15 +59,15 @@ class ContentController < ApplicationController
       end
     end
   end
-  
+
   def mediarss
     taxon_concept_id = params[:id] || 0
     taxon_concept = TaxonConcept.find(taxon_concept_id) rescue nil
     @items = []
-    
+
     if !taxon_concept.nil?
       @title = "for "+ taxon_concept.quick_scientific_name(:normal)
-    
+
       do_ids = SpeciesSchemaModel.connection.select_values("
         SELECT tci.data_object_id 
         FROM top_concept_images tci 
@@ -100,19 +100,19 @@ class ContentController < ApplicationController
       # @items = @items.sort_by {|i| [i[:title], 5 - i[:data_rating].to_f]} 
       @items
     end
-    
+
     respond_to do |format|
       format.rss { render :layout => false }
     end
-    
+
   end
-  
+
   # ------ API -------
 
   # put here an amount of random 5-star images we are needed
   def best_images
     @date_generated = "Generated on #{Time.now.strftime("%A, %B %d, %Y - %I:%M %p %Z")}"
-    
+
     taxon_concept_id = params[:id] || 0
     limit = params[:limit].to_i || 1
     limit = 1 if !limit.is_a? Integer
@@ -133,7 +133,7 @@ class ContentController < ApplicationController
       # uncomment if we need write .gz file on a disk
       # file_path = "#{RAILS_ROOT}/public/content/best_images.gz"
       # write_gz_api(text_to_write, file_path)
-            
+
       @taxon_to_xml = taxon_to_xml(taxon_concept)
       @array_to_render = []
       for dato in @text_to_write
@@ -155,14 +155,14 @@ class ContentController < ApplicationController
      render_404
     end
   end
-  
+
   def tc_api_tab(taxon_concept)
         taxon_concept.id.to_s + "\t" + 
         taxon_concept.scientific_name.gsub(/\t/, ' ') + "\t" + 
         taxon_concept.common_name.gsub(/\t/, ' ')
   end
   helper_method(:tc_api_tab)
-    
+
   def write_gz_api(text_to_write, file_path)
     date_generated = "Generated on #{Time.now.strftime("%A, %B %d, %Y - %I:%M %p %Z")}"
     Zlib::GzipWriter.open(file_path) do |gzip|
@@ -189,14 +189,14 @@ class ContentController < ApplicationController
   #TODO: add all tags from EOL Schema to use for all future APIs (e.g. see best_images.xml.builder)
   # http://services.eol.org/schema/documentation_0_2.pdf
   def dato_to_xml(dato)
-    
+
     dato_params = Hash[]
-    
+
     dato_params["identifier"] = dato.id
     #dato_params["dataType"] = dato.data_type ? dato.data_type.schema_value : ''
     #dato_params["mimeType"] = dato.mime_type.label if dato.mime_type
     dato_params["agents"] = []
-    
+
     if dato.agents_data_objects
       dato.agents_data_objects.each do |ado|
         agent = Hash[]
@@ -221,12 +221,12 @@ class ContentController < ApplicationController
     dato_params["mediaURL"] = DataObject.image_cache_path(dato['object_cache_url'], :large)
     dato_params["thumbnailURL"] = DataObject.image_cache_path(dato['object_cache_url'], :small)
     dato_params["location"] = dato['location']
-    
+
     return dato_params                                                              
   end
 
   # ------ /API -------
-  
+
   def exemplars
     respond_to do |format|
       format.html do
@@ -243,23 +243,23 @@ class ContentController < ApplicationController
       end
     end
   end
-  
+
   #AJAX call to show more explore taxa on the home page
   def explore_taxa
     @explore_taxa = RandomHierarchyImage.random_set(6, @session_hierarchy,
                                                     {:language => current_user.language, :size => :medium})
     render :layout => false, :partial => 'explore_taxa'
   end
-  
+
   #AJAX call to replace a single explore taxa for the home page
   def replace_single_explore_taxa
- 
+
     params[:current_taxa] ||= ''
     params[:taxa_number] ||= '1'
-     
+
     current_taxa = params[:current_taxa].split(',')
     explore_taxa = RandomHierarchyImage.random(@session_hierarchy, {:language => current_user.language, :size => :medium})
-    
+
     # Ensure that we don't end up with duplicates, but not in development/test mode, where it makes things go a
     # bit haywire since there are very few random taxa created by scenarios.
     num_tries = 0
@@ -272,12 +272,12 @@ class ContentController < ApplicationController
     end
 
     taxa_number = params[:taxa_number]
-    
+
     unless explore_taxa.nil? or taxa_number.nil? or taxa_number.empty?
       render :update do |page|
         name_div_contents = (random_image_linked_name(explore_taxa)).gsub(/'/, '&apos;')
         page << "$('#top_name_#{taxa_number}').html('#{name_div_contents}');"
-        
+
         # we're now replacing the entire img tag which should prevent images from getting
         # stretched out in Safari and possibly other browsers
         image_div_contents = random_image_thumb_partial(explore_taxa, 'top_image_tag_'+taxa_number).gsub(/'/, '&apos;')
@@ -286,16 +286,16 @@ class ContentController < ApplicationController
     else
       render :nothing => true
     end
-    
+
   end
-  
+
   def contact_us
- 
+
     @subjects = ContactSubject.find(:all, :conditions=>'active=1',:order => 'title')
 
     @contact = Contact.new(params[:contact])
     store_location(params[:return_to]) if !params[:return_to].nil? && request.get? # store the page we came from so we can return there if it's passed in the URL
-    
+
     if request.post? == false
       return_to = params[:return_to] || ''
       # grab default subject to select in list if it's passed in the querystring
@@ -304,11 +304,11 @@ class ContentController < ApplicationController
       @contact.email = params[:default_email] if params[:default_email].nil? == false
       return
     end 
-    
+
     @contact.ip_address = request.remote_ip
     @contact.user_id = current_user.id
     @contact.referred_page = return_to_url
-    
+
     if verify_recaptcha && @contact.save  
       Notifier.deliver_contact_us_auto_response(@contact)
       flash[:notice]="Thank you for your feedback."[:thanks_for_feedback]
@@ -317,14 +317,14 @@ class ContentController < ApplicationController
     else
       @verification_did_not_match="The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
     end
-    
+
   end
-  
+
   def media_contact
-    
+
     @contact = Contact.new(params[:contact])
     @contact.contact_subject = ContactSubject.find($MEDIA_INQUIRY_CONTACT_SUBJECT_ID)
-    
+
     if request.post? == false
       store_location
       return
@@ -333,7 +333,7 @@ class ContentController < ApplicationController
     @contact.ip_address = request.remote_ip
     @contact.user_id = current_user.id
     @contact.referred_page = return_to_url
-    
+
     if verify_recaptcha && @contact.save
       Notifier.deliver_media_contact_auto_response(@contact)
       flash[:notice]="Your message was sent."[:your_message_was_sent]
@@ -342,16 +342,16 @@ class ContentController < ApplicationController
     else
       @verification_did_not_match="The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
     end
-    
+
   end
-  
+
   # the template for a static page with content from the database
   def page
     # get the id parameter, which can be either a page ID # or a page name
     @page_id = params[:id]
     raise "static page without id" if @page_id.blank?
     current_user.log_activity(:viewed_content_page_id, :value => @page_id)
-    
+
     unless read_fragment(:controller=>'content',:part=>@page_id + "_" + current_user.language_abbr)
       # if the id is not numeric, assume it's a page name
       if @page_id.to_i == 0 
@@ -360,9 +360,9 @@ class ContentController < ApplicationController
       else # assume the id passed is numeric and find it by ID
         @content = ContentPage.get_by_id_and_language_abbr(@page_id, current_user.language_abbr)
       end
-      
+
       raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?
-      
+
       # if this static page is simply a redirect, then go there
       if !@content.url.blank?
         headers["Status"] = "301 Moved Permanently"
@@ -370,42 +370,42 @@ class ContentController < ApplicationController
       end
     end
   end
-  
+
   # convenience method to reference the uploaded content from the CMS (usually a PDF file or an image used in the static pages)
   def file
-    
+
     content_upload_id = params[:id]
 
     raise "content upload without id" if content_upload_id.blank?
-    
+
     # if the id is not numeric, assume it's a link name
     if content_upload_id.to_i == 0 
       content_upload = ContentUpload.find_by_link_name(content_upload_id)
     else # assume the id passed is numeric and find it by ID
       content_upload = ContentUpload.find_by_id(content_upload_id)
     end
-        
+
     raise "content upload not found" if content_upload.blank?
-    
+
     # send them to the file on the content server
     redirect_to(content_upload.content_server_url)
-    
+
   end
-  
+
   # error page
   def error
   end
-  
+
   # get the list of content partners
   def partners
-  
+
     # content partners will have a username
     @partners = Agent.paginate(:conditions=>'username<>"" AND content_partners.show_on_partner_page = 1',:order=>'agents.full_name asc',:include=>:content_partner,:page => params[:page] || 1)
-    
+
   end
-  
+
   def donate
-    
+
     if request.post?
       current_user.log_activity(:made_donation)
     else
@@ -413,34 +413,33 @@ class ContentController < ApplicationController
     end
 
     return if request.post? == false
-    
+
     donation = params[:donation]
 
     @other_amount = donation[:amount].gsub(",","").to_f 
     @preset_amount = donation[:preset_amount]
-   
+
     if @preset_amount.nil?
       flash.now[:error]="Please select a donation amount."[:donation_error]
       return
     end
-    
+
     if (@preset_amount == "other" && @other_amount == 0)
       flash.now[:error]="Please enter an amount using only numbers."[:donation_error2]
       return
     end
-  
+
     @donation_amount = @preset_amount.to_f > 0 ? @preset_amount.to_f : @other_amount
     @transaction_type = "sale"
     @currency = "usd"
-    
+
     parameters='function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=' + @transaction_type + '&currency=' + @currency
     @form_elements = EOLWebService.call(:parameters => parameters)
- 
+
   end
 
   # conveninece page to expire everything immediately (call with http://www.eol.org/clear_caches)
   def clear_caches
-    
     if allowed_request
       if clear_all_caches
         render :text=>"All caches expired.",:layout => false
@@ -450,79 +449,69 @@ class ContentController < ApplicationController
     else
       redirect_to root_url
     end
-    
   end
-     
+
   # conveninece page to expire all caches (except species pages) immediately (call with http://www.eol.org/expire_all)
   def expire_all
-    
     if allowed_request
-      expire_caches  
-      render :text=>"Non-species page caches expired.",:layout => false
+      expire_non_species_caches  
+      render :text => "Non-species page caches expired.", :layout => false
     else
       redirect_to root_url
     end
-    
   end
 
   # conveninece page to expire a single CMS page immediately (call with http://www.eol.org/expire/PAGE_NAME)
   def expire_single
-    
     if allowed_request
       expire_cache(params[:id])
-      render :text=>"Non-species page '" + params[:id] + "' cache expired.",:layout => false
+      render :text => "Non-species page '#{params[:id]}' cache expired.", :layout => false
     else
       redirect_to root_url
     end
-    
   end
-  
+
   # show the user some taxon stats
   def stats
     redirect_to root_url unless current_user.is_admin?  # don't release this yet...it's not ready for public consumption
     @stats = PageStatsTaxon.latest
   end
-  
+
   # link to uservoice
   def feedback
-    
     if logged_in?
       redirect_to :controller=>'account',:action=>'uservoice_login'
     else
       redirect_to $USERVOICE_URL
     end
-      
   end
-  
-  # convenience page to expire a specific species page based on a taxon ID (call with http://www.eol.org/expire/TAXON_ID)
-  def expire
-    
+
+  # TODO - is this even *used*?  I can't find it anywhere and it doesn't seem to work as expected when you call it's url.
+  def expire_taxon
     if allowed_request && !params[:id].nil?
-      if expire_taxon_concept(params[:id])
-         render :text=>'Taxon ID ' + params[:id] + ' and its ancestors expired.',:layout => false
-      else
-         render :text=>'Invalid taxon ID supplied',:layout => false
+      begin
+        expire_taxa([params[:id]])
+        render :text => "Taxon ID #{params[:id]} and its ancestors expired.", :layout => false
+      rescue => e
+        render :text => "Could not expire Taxon Concept: #{e.message}", :layout => false
       end
     else
       redirect_to root_url
     end
-
   end
 
-  # convenience page to expire a specific list of species page based on a comma delimited list of taxa IDs passed in as a post or get with parameter taxa_ids (call with http://www.eol.org/expire_taxa)
+  # convenience page to expire a specific list of species page based on a comma delimited list of taxa IDs passed in as a
+  # post or get with parameter taxa_ids (call with http://www.eol.org/expire_taxa)
   def expire_multiple
-    
     taxa_ids = params[:taxa_ids]
-
     if allowed_request && !params[:taxa_ids].nil?
       expire_taxa(taxa_ids.split(','))
-      render :text=>'Taxa IDs ' + taxa_ids + ' and their ancestors expired.',:layout => false
-     else
-       redirect_to root_url
-     end
-     
+      render :text => "Taxa IDs #{taxa_ids} and their ancestors expired.", :layout => false
+    else
+      redirect_to root_url
+    end
   end  
-  
+
   def wikipedia
     @revision_url = params[:revision_url]
     current_user.log_activity(:left_for_wikipedia_url, :value => @revision_url)
@@ -539,8 +528,9 @@ class ContentController < ApplicationController
       end
     end
   end
-  
+
   def glossary
     @page_title = "EOL Glossary"
   end
+
 end

@@ -6,14 +6,17 @@
     = render :partial => '/data_objects/star_rating_hash', :locals => {:data_object => data_object, :show_controls => true}
 .clearbreak
   %br
-.curation-section
+- is_ignored = defined?(ignored) && ignored
+- is_ignored_class = is_ignored ? "is_ignored_true" : "is_ignored_false"
+.curation-section{ :class => is_ignored_class }
   .credit-caption
-    = "Restore"[]
-  .action-value{:id => "ignore-#{data_object['id']}"}
-    - if defined?(ignored) and ignored
-      = "Remove this object from your curator ignore list"
+    = is_ignored ? "Ignored"[] : "Active"[] 
+  .action-value{ :id => "ignore-#{data_object['id']}" }
+    - if is_ignored
+      = link_to("Move to active list"[], "#ignore-#{data_object['id']}")
     - else
-      = link_to_remote("Add this object to your curator ignore list"[], :url => {:action => :ignore, :data_object_id => data_object['id'], :div_id => "ignore-#{data_object['id']}"})
+      = link_to("Move to ignored list"[], "#ignore-#{data_object['id']}")
+    %span.info_msg
 .clearbreak
   %br
 .curation-section

@@ -625,10 +625,6 @@ class User < ActiveRecord::Base
     return result
   end
 
-  def ignore_object_for_curation(data_object)
-    UserIgnoredDataObject.create(:user => self, :data_object => data_object)
-  end
-
   def ignored_data_objects(data_type_id = nil)
     data_type_clause = data_type_id.nil? ? '' : " AND do.data_type_id = #{data_type_id}"
     result = DataObject.find_by_sql("SELECT do.*

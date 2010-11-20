@@ -37,7 +37,10 @@ class Synonym < SpeciesSchemaModel
               language.id, 
               name_obj.id,
               relation.id)
-    unless synonym
+    if synonym and options[:preferred] # They MUST have specified this in order to run this block:
+      synonym.preferred = preferred
+      synonym.save!
+    else
       synonym = Synonym.create(:name_id             => name_obj.id, 
                                :hierarchy_id        => hierarchy.id,
                                :hierarchy_entry_id  => entry.id, 
@@ -50,7 +53,6 @@ class Synonym < SpeciesSchemaModel
                            :synonym_id       => synonym.id,
                            :view_order       => 1)
     end
-    synonym
   end
 
   def agents_roles

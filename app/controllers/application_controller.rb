@@ -211,6 +211,7 @@ class ApplicationController < ActionController::Base
     return if taxa_ids.nil?
     raise "Must be called with an array" unless taxa_ids.class == Array
     taxa_ids_to_expire = find_ancestor_ids(taxa_ids)
+    return if taxa_ids_to_expire.nil? # Yes, again.  Sorry.
     if taxa_ids_to_expire.length > $MAX_TAXA_TO_EXPIRE_BEFORE_EXPIRING_ALL
       Rails.cache.clear
     else
@@ -428,9 +429,9 @@ private
   def find_ancestor_ids(taxa_ids)
     taxa_ids = taxa_ids.map do |taxon_concept_id|
       taxon_concept = TaxonConcept.find_by_id(taxon_concept_id)
-      taxon_concept.nil? ? taxon_concept.ancestry.collect {|an| an.taxon_concept_id} : nil
+      taxon_concept.nil? ? nil : taxon_concept.ancestry.collect {|an| an.taxon_concept_id}
     end
-    taxa_ids.uniq!.compact!
+    taxa_ids.flatten.compact.uniq
   end
 
   def expire_taxa_ids_with_error_handling(taxa_ids_to_expire)

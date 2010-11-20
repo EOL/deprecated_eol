@@ -310,10 +310,8 @@ class TaxaController < ApplicationController
       if !params[:preferred_name_id].nil?
         name = Name.find(params[:preferred_name_id])
         language = Language.find(params[:language_id])
-        syn = tc.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language, :preferred => true,
-                                         :vetted => Vetted.trusted)
-        syn.preferred = 1 # TODO = why is this here?  Isn't that specified in the method above?
-        syn.save!
+        tc.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language, :preferred => 1,
+                                   :vetted => Vetted.trusted)
         expire_taxa([tc.id])
       end
 
@@ -321,9 +319,8 @@ class TaxaController < ApplicationController
         if params[:trusted_name_checked] == "true"
           name = Name.find(params[:trusted_name_clicked_on])
           language = Language.find(params[:language_id])
-          syn = tc.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language,
-                                           :vetted => Vetted.trusted, :preferred => false)
-          syn.save!
+          tc.add_common_name_synonym(name.string, :agent => current_user.agent, :language => language,
+                                     :vetted => Vetted.trusted, :preferred => 0)
           expire_taxa([tc.id])
         elsif params[:trusted_synonym_clicked_on] != "false"
           tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(params[:trusted_synonym_clicked_on], tc.id)
@@ -407,7 +404,7 @@ private
     @languages = build_language_list if is_common_names?(@category_id)
   end
 
-  # TODO: Get rid of the content level, it is depracated and no longer needed
+  # TODO: Get rid of the content level, it is depracated and no longer needed (note: it *is* used in some cases... errr...)
   # set_user_settings()
   def update_user_content_level
     current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])

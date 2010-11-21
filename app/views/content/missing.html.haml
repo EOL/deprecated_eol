@@ -8,6 +8,11 @@
     #full-page-content
       = "Sorry, but a problem has occurred - you have requested a page with an ID that does not exist, or was removed."[:you_requested_a_page_that_does_not_exist]
       = "If you followed a link here, please tell the author of the page with that link that this URL is not valid."[:if_you_followed_a_link_here_tell_the_author]
+      - if @message and current_user.is_admin?
+        %p{:style => 'padding:1em 0;'}
+          = "You are an admin.  So, I will show you that the error was:"[]
+        %code{:style => 'style:block;padding:2em;'}
+          = @message
       %br
       %br
       = link_to 'Return to the home page', root_url

@@ -53,6 +53,7 @@ class Synonym < SpeciesSchemaModel
                            :synonym_id       => synonym.id,
                            :view_order       => 1)
     end
+    synonym
   end
 
   def agents_roles

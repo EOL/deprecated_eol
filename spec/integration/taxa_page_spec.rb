@@ -160,9 +160,8 @@ describe 'Taxa page (HTML)' do
         missing_id += 1
       end
       visit("/pages/#{missing_id}")
-      body.should have_tag("div#page-title") do
-        with_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
-      end
+      debugger
+      body.should have_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
     end
 
     it 'should tell the user the page is missing if the TaxonConcept is unpublished' do

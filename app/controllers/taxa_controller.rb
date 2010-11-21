@@ -72,13 +72,8 @@ class TaxaController < ApplicationController
       return
     end
 
-    @taxon_concept = taxon_concept
+    @taxon_concept = find_taxon_concept || return
 
-    unless accessible_page?(@taxon_concept)
-      @taxon_concept = nil
-      render(:layout => 'main', :template => "content/missing", :status => 404)
-      return
-    end
     if params[:category_id]
       params[:category_id] = nil if !TocItem.find_by_id(params[:category_id].to_i)
       @languages = build_language_list if is_common_names?(params[:category_id].to_i)
@@ -112,9 +107,9 @@ class TaxaController < ApplicationController
   end
 
   def classification_attribution
-    @taxon_concept = taxon_concept
+    @taxon_concept = find_taxon_concept || return
     current_user.log_activity(:viewed_classification_attribution_on_taxon_concept, :taxon_concept_id => @taxon_concept.id)
-    render :partial => 'classification_attribution', :locals => {:taxon_concept => taxon_concept}
+    render :partial => 'classification_attribution', :locals => {:taxon_concept => @taxon_concept}
   end
 
   def search_tag
@@ -232,7 +227,7 @@ class TaxaController < ApplicationController
   end
 
   def images
-    @taxon_concept = taxon_concept
+    @taxon_concept = find_taxon_concept || return
     @taxon_concept.current_user = current_user
     @taxon_concept.current_agent = current_agent
     @image_page  = (params[:image_page] ||= 1).to_i
@@ -251,12 +246,12 @@ class TaxaController < ApplicationController
   end
 
   def maps
-    @taxon_concept = taxon_concept # I don't think we care about user/agent in this case.  A map is a map.
+    @taxon_concept = find_taxon_concept || return # I don't think we care about user/agent in this case.  A map is a map.
     render :partial => "maps"
   end
 
   def videos
-    @taxon_concept = taxon_concept
+    @taxon_concept = find_taxon_concept || return
     @taxon_concept.current_user = current_user
     @taxon_concept.current_agent = current_agent
     @video_collection = videos_to_show
@@ -305,7 +300,7 @@ class TaxaController < ApplicationController
 
   # Ajax method to change the preferred name on a Taxon Concept:
   def update_common_names
-    tc = taxon_concept
+    tc = find_taxon_concept || return
     if tc.is_curatable_by?(current_user)
       if !params[:preferred_name_id].nil?
         name = Name.find(params[:preferred_name_id])
@@ -404,8 +399,6 @@ private
     @languages = build_language_list if is_common_names?(@category_id)
   end
 
-  # TODO: Get rid of the content level, it is depracated and no longer needed (note: it *is* used in some cases... errr...)
-  # set_user_settings()
   def update_user_content_level
     current_user.content_level = params[:content_level] if ['1','2','3','4'].include?(params[:content_level])
   end
@@ -438,20 +431,26 @@ private
     return videos
   end
 
-  def taxon_concept
+  # If you want this to redirect to search, call (do_the_search && return if this_request_is_really_a_search) before this.
+  def find_taxon_concept
     tc_id = params[:id].to_i
     tc_id = params[:taxon_concept_id].to_i if tc_id == 0
-    if tc_id == 0
-      # TODO: sensible redirect / message here
-      raise "taxa id not supplied"
-    else
-      begin
-        taxon_concept = TaxonConcept.find(tc_id)
-      rescue
-        return nil
-      end
+    tc = nil
+    redirect_to_missing_page_on_error do
+      tc = TaxonConcept.find(tc_id)
+      raise "TaxonConcept not found" if tc.nil?
+      raise "Page not accessible" unless accessible_page?(tc)
     end
-    return taxon_concept
+    tc
+  end
+
+  def redirect_to_missing_page_on_error(&block)
+    begin
+      yield
+    rescue => e
+      @message = e.message
+      render(:layout => 'main', :template => "content/missing", :status => 404)
+    end
   end
 
   # wich TOC item choose to show
@@ -467,7 +466,7 @@ private
 
   def first_content_item
     # find first valid content area to use
-    taxon_concept.table_of_contents(:vetted_only => current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
+    @taxon_concept.table_of_contents(:vetted_only => current_user.vetted, :agent_logged_in => agent_logged_in?).detect { |item| item.has_content? }
   end
 
   def handle_whats_this

@@ -15,7 +15,7 @@ describe Synonym do
   end
 
   describe "preferred=" do
-    it "when preffered name is set for a synoym all other synonyms of this language should get set preferred to false" do
+    it "when preffered name is set for a synonym all other synonyms of this language should get set preferred to false" do
       syn1 = @tc.add_common_name_synonym("First name", :agent => @curator.agent, :language => @lang)
       TaxonConceptName.find_by_synonym_id(syn1.id).preferred?.should be_true
       syn2 = @tc.add_common_name_synonym("Second name", :agent => @curator.agent, :language => @lang)

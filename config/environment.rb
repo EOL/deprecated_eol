@@ -126,6 +126,7 @@ Rails::Initializer.run do |config|
   			   # 4 == only pages that have a picture and a piece of text tied directly to them
   $VALID_CONTENT_LEVEL = 1 # level that pages must be greater than or equal to for links to be created in the flash classification browser
   $ALLOW_USER_TO_CHANGE_CONTENT_LEVEL = false # if set to true, user can change their content level
+  $ALLOW_SECOND_HIERARCHY = false # if true, the user can pick a second filter hierarchy (confusing but powerful)
   #################
   
   $ALLOW_USER_LOGINS = true # if set to false, user login and registration area is not linked or shown on page
@@ -212,6 +213,12 @@ Rails::Initializer.run do |config|
   end
   
 end
+
+ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
+  :long => "%A, %B %d, %Y - %I:%M %p %Z",
+  :short_no_time => "%m/%d/%Y",
+  :short_no_tz => "%m/%d/%Y - %I:%M %p"
+)
 
 if $USE_SQL_SESSION_MANAGEMENT
   CGI::Session::ActiveRecordStore::Session.connection = ActiveRecord::Base.establish_connection("master_database")

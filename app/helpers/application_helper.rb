@@ -10,40 +10,29 @@ module ApplicationHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::SanitizeHelper
 
-  # A little onclick magic to make Ajaxy-links work before the page is fully loaded.  JS in the application js file will
-  # handle all the rest after the page is fully loaded (because of the class added to the link):
+  # A little onclick magic to make Ajaxy-links work before the page is fully loaded.  JS in the application.js file will
+  # handle all the rest after the page is fully loaded (because of the class added to the link).
+  # Use it like this:
+  #   link_to("text"[], "#", :class => 'ajax_delay_click', :onclick => ajax_delay_click)
   def ajax_delay_click
     %Q{javascript:$(this).addClass('delayed_click');$('#ajax-indicator').fadeIn();return false;}
   end
 
   # truncate a string to the maxlength passed and then add "..." if truncated
+  # I don't know why we've overridden Rails' built-in function of the same name.  This likely doesn't handle unicode, and I
+  # don't understand the syntax of the last line.  ...I wish someone had left better notes.  TODO
   def truncate(text, length = 30, truncate_string = "...")
     return if text.nil?
     l = length - truncate_string.length
     text.length > length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text
   end  
 
-  # TODO - Rails has built-in helpers for just this kind of stuff.
   def format_date_time(inTime,params={})
-    if !inTime.blank? && inTime.class == String
+    return '[blank]' if inTime.blank?
+    if inTime.is_a? String
       inTime = Time.parse(inTime)
     end
-    format_string = params[:format] || "long"
-    format_string = case format_string
-    when "short_no_time"
-      "%m/%d/%Y"
-    when "short"
-      "%m/%d/%Y - %I:%M %p %Z"
-    when "utc_solr"
-      "%Y/%m/%dT%H:%M:%SZ"
-    when "short_no_tz"
-      "%m/%d/%Y - %I:%M %p"
-    when "long"
-      "%A, %B %d, %Y - %I:%M %p %Z"
-    else
-      nil
-    end
-    inTime.strftime(format_string) unless inTime==nil
+    inTime.to_s(params[:format] || :long).to_sym
   end
 
   # Return a formatted date

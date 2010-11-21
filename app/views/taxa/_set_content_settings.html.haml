@@ -32,7 +32,7 @@
 = f.select :default_hierarchy_id, [['-- always use default --', nil]] + Hierarchy.find_all_by_browsable(1).sort_by{|h| h.form_label}.collect {|h| [h.form_label, h.id]},{},{:onchange => 'javascript:auto_check_filter_box_if_needed();'}
 %br
 %br
-/
+- if $ALLOW_SECOND_HIERARCHY
   %label{ :for => "user_secondary_hierarchy_id", :title => "Which secondary browse classification would you prefer?"[:secondary_hierarchy_preference]}
     = "Which secondary browse classification would you prefer?"[:classification_preference]
   = f.select :secondary_hierarchy_id, [['-- none --', nil]] + Hierarchy.browsable_by_label.collect {|h| [h.label, h.id]}
@@ -58,11 +58,12 @@
     = content_level.name
     %br
   %br
-%label{ :title => "Do you want to see?"[:content_level] }
-  = "Do you want to see?"[:content_level]
-%label{ :for => "user_vetted_true" }
-  = f.radio_button :vetted, "true"
-  = "Only information that comes from authoritative sources"[:view_only_vetted_content]
-%label{ :for => "user_vetted_false" }
-  = f.radio_button :vetted, "false"
-  = "All information"[]
+- else
+  %label{ :title => "Do you want to see?"[:content_level] }
+    = "Do you want to see?"[:content_level]
+  %label{ :for => "user_vetted_true" }
+    = f.radio_button :vetted, "true"
+    = "Only information that comes from authoritative sources"[:view_only_vetted_content]
+  %label{ :for => "user_vetted_false" }
+    = f.radio_button :vetted, "false"
+    = "All information"[]

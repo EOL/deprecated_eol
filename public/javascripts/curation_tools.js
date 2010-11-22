@@ -1,3 +1,25 @@
+function undo_move(opts) {
+  opts.node.unbind();
+  var data_object_id = opts.node.parent().parent().attr('id').substring(10);
+  var data = "data_object_id=" + data_object_id
+  $.ajax({type: opts.method, url: '/user_ignored_data_objects/' + opts.action, data: data, success: function(){
+    $('#undo-move-' + data_object_id).addClass('hide');
+    $('#curation-item-' + data_object_id).removeClass('hide');
+    opts.node.click(function() { undo_move(opts)});
+  } });
+}
+
+function toggle_ignore(opts) {
+  opts.node.unbind();
+  var data_object_id = opts.node.parent().attr('id').substring(7);
+  var data = "data_object_id=" + data_object_id
+  $.ajax({type: opts.method, url: '/user_ignored_data_objects/' + opts.action, data: data, success: function(){
+    $('#undo-move-' + data_object_id).removeClass('hide');
+    $('#curation-item-' + data_object_id).addClass('hide');
+    opts.node.click(function() { toggle_ignore(opts)});
+  } });
+}
+
 $(function() {
   $(".overlay_link a[rel]").overlay({
     onBeforeLoad: function() {
@@ -27,36 +49,11 @@ $('.untrust_reasons input').click(function() {
     alert('stop');
 });
 
+$('a.undo-restore-image').click(function() { undo_move({ node: $(this), method: "POST", action: "create" })});
 
-$('.is_ignored_false').find('.action-value').find('a').click(function() {
-  
-  var parent_div = $('.is_ignored_false');
-  var link = $(this);
-  var div_id = link.parent().attr('id');
-  var data_object_id = div_id.substring(7);
-  var data = "div_id=" + div_id + "&data_object_id=" + data_object_id
-  $.ajax({type: "POST", url: '/user_ignored_data_objects/create', data: data, success: function(){
-     parent_div.removeClass('is_ignored_false');
-     parent_div.addClass('is_ignored_true');
-     link.text("Move to active");
-     link.parent().find('.info_msg').text(' (will be hidden on reload)');
-     link.parent().parent().find('.credit-caption').text('Ignored');
-  } });
-});
+$('a.undo-ignore-image').click(function() { undo_move({ node: $(this), method: "DELETE", action: "destroy" })});
 
-$('.is_ignored_true').find('.action-value').find('a').click(function() {
-  
-  var parent_div = $('.is_ignored_true');
-  var link = $(this);
-  var div_id = link.parent().attr('id');
-  var data_object_id = div_id.substring(7);
-  var data = "data_object_id=" + data_object_id
-  $.ajax({type: "DELETE", url: '/user_ignored_data_objects/destroy', data: data, success: function(){
-     parent_div.removeClass('is_ignored_true');
-     parent_div.addClass('is_ignored_false');
-     link.text("Move to ignored list");
-     link.parent().find('.info_msg').text(' (will be hidden on reload)');
-     link.parent().parent().find('.credit-caption').text('Active');
-  } });
-});
+$('.is_ignored_false').find('.action-value').find('a').click(function() { toggle_ignore({ node: $(this), method: 'POST', action: 'create' })});
+
+$('.is_ignored_true').find('.action-value').find('a').click(function() { toggle_ignore({ node: $(this), method: 'DELETE', action: 'destroy' })});
 

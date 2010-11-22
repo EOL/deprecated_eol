@@ -22,6 +22,7 @@ class CuratorsController < ApplicationController
   # TODO - we need to link to this.  :)  There should be a hierarchy_entry_id provided, when we do.  We want each TC page to
   # have a link (for curators), using "an appropriate clade" for the hierarchy_entry_id.
   def curate_images
+    @page_title += ": Curate Images"
     current_user.log_activity(:viewed_images_to_curate)
     all_images = current_user.images_to_curate(
       :content_partner_id => params[:content_partner_id],
@@ -41,6 +42,7 @@ class CuratorsController < ApplicationController
   end
 
   def ignored_images
+    @page_title += ": Ignored Images"
     dato_ids = current_user.ignored_data_objects(DataType.image.id.to_i).collect{|d| d.id}
     @ignored_images = DataObject.details_for_objects(dato_ids, :skip_refs => true, :add_common_names => true, :add_comments => true, :sort => 'id desc')
   end

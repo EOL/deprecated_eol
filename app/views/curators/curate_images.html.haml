@@ -6,11 +6,18 @@
   %tr
     %th
       Taxon
-    %th{:width => 368}
+    %th{ :width => 368 }
       Actions
   - @images_to_curate.each do |image|
-    %tr{:class => image['vetted_label'].downcase}
-      %td{:class => "overlay_link"}
+    %tr{ :id => "undo-move-#{image['id']}", :class => 'hide ' + image['vetted_label'].downcase }
+      %td{ :colspan => 2 }
+        You moved the image to 
+        = link_to("your ignored list", {:controller => :curators, :action => :ignored_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
+        = "&nbsp;" * 5
+        %a{ :class => "undo-ignore-image" } Undo
+    %tr{ :id => "curation-item-#{image['id']}" }
+      %td{ :class => "overlay_link " + image['vetted_label'].downcase}
+        .curation-item
         %h5
           = link_to(image['scientific_name'], {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
         - if !image['common_names'].blank?
@@ -41,7 +48,7 @@
           %h6 
             = "Location:"[]
           = truncate(image['location'], 48)
-      %td
+      %td{ :class => image['vetted_label'].downcase}
         = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24}
 = will_paginate(@images_to_curate, :params => params)
 #overlay.overlay_worklist{:style => 'display:none'}

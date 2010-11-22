@@ -1,5 +1,5 @@
 - @taxon_concept.hierarchy_entries.each do |he|
-  .entry_details{:id => he.id, :taxon_concept_id => he.taxon_concept_id}
+  .entry_details{:hierarchy_entry_id => he.id, :taxon_concept_id => he.taxon_concept_id}
     %h3
       = he.hierarchy.label
     .metadata
@@ -29,29 +29,48 @@
   %br
 :javascript
   $(function() {
-    $( ".entry_details" )
+    $(".entry_details")
+      .hover(
+        function() {
+          $(this).addClass('entry_hover');
+        }, 
+        function() {
+          $(this).removeClass('entry_hover');
+        }
+      )
       .draggable({
         opacity: 0.50,
         revert: true,
         start: function(event, ui) {
-          $("#dragging_div").attr('drag_div_id', $(this).attr('id'));
+          $("#dragging_div").attr('hierarchy_entry_id', $(this).attr('hierarchy_entry_id'));
           $(this).css('z-index', 9);
         },
         stop: function(event, ui) {
-          $("#dragging_div").removeAttr('drag_div_id');
           $(this).css('z-index', 10);
         }
       })
-      .droppable({
-        revert: "valid",
-        drop: function( event, ui ) {
-          dragged_div = $('#' + $("#dragging_div").attr('drag_div_id'));
-          
-          if(dragged_div.attr('taxon_concept_id') == $(this).attr('taxon_concept_id')) {
-            alert('Cannot drop - same concept');
-          }else {
-            alert('Dropping '+ dragged_div.attr('id') + ' to ' + $(this).attr('id'));
-          }
+      .mouseup(function(event, ui) {
+        dragged_div = $('.entry_details[hierarchy_entry_id$=' + $("#dragging_div").attr('hierarchy_entry_id') + ']');
+        if(dragged_div == undefined) {
+          return;
         }
-    });
+        dragged_div.css('z-index', 10);
+        $("#dragging_div").removeAttr('hierarchy_entry_id');
+        
+        
+        dropped_div = $(".entry_hover");
+        if(dropped_div == undefined || $("#dragging_div").attr('hierarchy_entry_id') == undefined) {
+          return;
+        }
+        if(dropped_div.attr('hierarchy_entry_id') == dragged_div.attr('hierarchy_entry_id')) {
+          return;
+        }
+        
+        if(dragged_div.attr('taxon_concept_id') == dropped_div.attr('taxon_concept_id')) {
+          alert('Cannot drop - same concept');
+        }else {
+          alert('Dropping '+ dragged_div.attr('hierarchy_entry_id') + ' to ' + $(dropped_div).attr('hierarchy_entry_id'));
+        }
+      
+      });
   });

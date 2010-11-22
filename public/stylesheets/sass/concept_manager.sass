@@ -1,3 +1,6 @@
+$div_border: #222222
+$highlight_div_color: #99dd99
+
 body
   margin: 0px
 #left_panel
@@ -6,15 +9,27 @@ body
   float: right
 
 #control_panel
-  border: 1px solid #222222
-  padding: 10px
+  border: 1px solid $div_border
   margin: 1px auto
   width: 95%
   align: center
   background-color: #fafafa
+  height: 50px
+.control_subpanel
+  border-right: 1px solid $div_border
+  margin: 0px auto
+  text-align: center
+  vertical-align: middle
+  width: 200px
+  height: 100%
+  line-height: 50px
+  float: left
+  &:hover
+    background-color: $highlight_div_color
+
 
 .lookup_panel
-  border: 1px solid #222222
+  border: 1px solid $div_border
   padding: 10px
   margin: 1px
   width: 47%
@@ -22,21 +37,21 @@ body
 
 .entries
   height: 500px
-  overflow: auto
 
 .entry_details
   border: 1px solid black
   padding: 3px
   background-color: #dedede
+  z-index: 10
   h3
     padding: 3px
     margin: 3px
     font-size: 16px
-  &:hover
-    border: 2px solid green
-    padding: 2px
-    background-color: #99dd99
-  z-index: 10
+
+.entry_hover
+  border: 2px solid green
+  padding: 2px
+  background-color: $highlight_div_color
 
 .metadata
   font-size: 12px

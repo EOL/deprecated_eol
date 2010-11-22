@@ -1,8 +1,10 @@
 .container
   #control_panel
-    merge concepts
-    .split_concept
+    #split_concepts.control_subpanel
       split into new concept
+    .control_subpanel
+      merge concepts
+  %br
   #left_panel.lookup_panel
     TaxonConceptID:
     %input#tc1{:type => 'text', :size => 30}

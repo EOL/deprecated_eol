@@ -22,7 +22,7 @@
         - unless image['created_at'].blank?
           %em
             = "Indexed on:"[]
-          = DateTime.parse(image['created_at']).strftime("%B %d, %Y")
+          = DateTime.parse(image['created_at']).strftime("%B %d, %Y") rescue "N/A"
           %br
         - unless image['agents'].empty?
           %em

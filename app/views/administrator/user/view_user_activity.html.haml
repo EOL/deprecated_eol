@@ -78,12 +78,16 @@ Then click 'Search' to proceed. (use your browser back button to return here)
 
               - if(value_as_toc_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
-                  - toc = TocItem.find(activity.value)
-                  = "TOC: " + toc.label
-                  - if(toc.parent_id > 0)
-                    - toc2 = TocItem.find(toc.parent_id) rescue nil
-                    = " -- " + toc2.label
-
+                  - toc = TocItem.find(activity.value) rescue nil
+                  - if(!toc.nil?)
+                    = "TOC: " + toc.label
+                    - if(toc.parent_id > 0)
+                      - toc2 = TocItem.find(toc.parent_id) rescue nil
+                      - if(!toc2.nil?)
+                        = " -- " + toc2.label
+                  - else
+                    = "TOC: no longer available"
+                    
               - if(value_as_hierarchy_entry_id.include? activity.activity_id)
                 - if(!activity.value.nil?)
                   - he = HierarchyEntry.find(activity.value)

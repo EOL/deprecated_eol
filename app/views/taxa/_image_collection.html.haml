@@ -97,26 +97,41 @@
             = data_supplier_icon
           %br/
 
-        - authors_linked = agent_partial(image['agents']['Author'] + image['agents']['Photographer'])
-        - unless authors_linked.blank?
-          = 'AUTHOR:'[]
-          = authors_linked
-          %br/
-        -# TODO - slightly obnoxious that we're essentially calling the same method twice, here:
-        - sources = agent_partial(image['agents']['Source'], :linked => false)
-        - sources_linked = agent_partial(image['agents']['Source'])
-        - sources_icons_linked = agent_icons_partial(image['agents']['Source'])
-        - if !sources.blank? && !image.object_url.blank?
-          = 'SOURCE:'[]
-          = link_to(sources + external_link_icon, image.object_url)
-          %br/
-        - elsif !sources_linked.blank?
-          = 'SOURCE:'[]
-          = sources_linked
-          %br/
-        - unless sources_icons_linked.blank?
-          = sources_icons_linked
-          %br/
+        -# This is hardcoded way of displaying 3 agent roles: author+photographer and source.
+        / 
+          - authors_linked = agent_partial(image['agents']['Author'] + image['agents']['Photographer'])
+          - unless authors_linked.blank?
+            = 'AUTHOR:'[]
+            = authors_linked
+            %br/
+          -# TODO - slightly obnoxious that we're essentially calling the same method twice, here:
+          - sources = agent_partial(image['agents']['Source'], :linked => false)
+          - sources_linked = agent_partial(image['agents']['Source'])
+          - sources_icons_linked = agent_icons_partial(image['agents']['Source'])
+          - if !sources.blank? && !image.object_url.blank?
+            = 'SOURCE:'[]
+            = link_to(sources + external_link_icon, image.object_url)
+            %br/
+          - elsif !sources_linked.blank?
+            = 'SOURCE:'[]
+            = sources_linked
+            %br/
+          - unless sources_icons_linked.blank?
+            = sources_icons_linked
+            %br/
+        
+        -# This is the dynamic way of displaying all agent roles.
+        / 
+        - for role in image['agents']
+          - if(image['agents'][role[0]].to_s.strip != '')
+            - agents_linked = agent_partial(image['agents'][role[0]])
+            - agents_icons_linked = agent_icons_partial(image['agents'][role[0]])
+            = role[0].upcase + ": "
+            = agents_linked
+            - if !agents_icons_linked.blank?
+              = agents_icons_linked
+            %br/          
+
         
         - unless image['source_url'].blank?
           = 'ORIGINAL:'[]

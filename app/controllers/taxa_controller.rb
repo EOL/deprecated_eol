@@ -383,10 +383,10 @@ class TaxaController < ApplicationController
   
   def lookup_reference
     ref = Ref.find(params[:ref_id].to_i)
-    pid = "pleary@mbl.edu"
+    pid = $CROSSREF_USER_PID
     callback = params[:callback]
     
-    url = "http://refparser.shorthouse.net/cgi-bin/refparser?pid=#{pid}&output=json&q=#{URI.escape(ref.full_reference)}&callback=#{callback}"
+    url = $REF_PARSER_ENDPOINT + "?pid=#{pid}&output=json&q=#{URI.escape(ref.full_reference)}&callback=#{callback}"
     render :text => Net::HTTP.get(URI.parse(url))
   end
 

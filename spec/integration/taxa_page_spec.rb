@@ -160,7 +160,6 @@ describe 'Taxa page (HTML)' do
         missing_id += 1
       end
       visit("/pages/#{missing_id}")
-      debugger
       body.should have_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
     end
 

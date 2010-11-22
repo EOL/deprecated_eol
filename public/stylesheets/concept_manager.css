@@ -9,11 +9,23 @@ body {
 
 #control_panel {
   border: 1px solid #222222;
-  padding: 10px;
   margin: 1px auto;
   width: 95%;
   align: center;
-  background-color: #fafafa; }
+  background-color: #fafafa;
+  height: 50px; }
+
+.control_subpanel {
+  border-right: 1px solid #222222;
+  margin: 0px auto;
+  text-align: center;
+  vertical-align: middle;
+  width: 200px;
+  height: 100%;
+  line-height: 50px;
+  float: left; }
+  .control_subpanel:hover {
+    background-color: #99dd99; }
 
 .lookup_panel {
   border: 1px solid #222222;
@@ -23,8 +35,7 @@ body {
   background-color: #fafafa; }
 
 .entries {
-  height: 500px;
-  overflow: auto; }
+  height: 500px; }
 
 .entry_details {
   border: 1px solid black;
@@ -35,10 +46,11 @@ body {
     padding: 3px;
     margin: 3px;
     font-size: 16px; }
-  .entry_details:hover {
-    border: 2px solid green;
-    padding: 2px;
-    background-color: #99dd99; }
+
+.entry_hover {
+  border: 2px solid green;
+  padding: 2px;
+  background-color: #99dd99; }
 
 .metadata {
   font-size: 12px;

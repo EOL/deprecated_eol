@@ -3,5 +3,5 @@
 - remote_hash = current_objects.blank? ? {} : { (current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id }
 = render :partial => 'shared/comments', :locals => { :comments => current_objects, :opts => { :renderer => 'RemoteLinkRenderer', :remote => {:update => body_div_name, :body_div_name => body_div_name }.merge!(remote_hash) } }
 
-#new-comment
+.new_comment
   = render :partial => 'new', :locals => { :length => 4, :body_div_name => body_div_name }

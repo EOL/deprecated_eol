@@ -30,6 +30,15 @@ module ActiveSupport
       end
     end
   end
+  
+  class TimeWithZone
+    def mysql_timestamp
+      return strftime("%Y-%m-%d %H:%M:%S")
+    end
+    def solr_timestamp
+      return strftime("%Y-%m-%dT%H:%M:%SZ")
+    end
+  end
 end
 
 

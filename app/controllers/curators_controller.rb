@@ -112,9 +112,9 @@ class CuratorsController < ApplicationController
     @data_object.comment(current_user, params['comment'])
     respond_to do |format|
       format.js do 
-        comments = @data_object.comments
-        current_user_comments = comments.select { |c| c.user.id == current_user.id }
-        render :json => "{ comments: #{comments.size}, current_user_comments: #{current_user_comments.size}, data_object_id: #{params[:data_object_id]} }"
+        comments = @data_object.comments.select { |c| c.visible? }
+        current_user_comments = comments.select { |c| c.user.id == current_user.id && c.visible? }
+        render :json => { :last_comment => params['comment'].sanitize_html, :comments => comments.size, :current_user_comments => current_user_comments.size, :data_object_id => params[:data_object_id] }
       end
       format.html { redirect_to(:controller => :curators, :action => :curate_images, :anchor => "curation-item-#{params[:data_object_id]}", :hierarchy_entry_id => params['hierarchy_entry_id']) }
     end

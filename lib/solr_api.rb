@@ -90,7 +90,7 @@ class SolrAPI
       this_object_hash[:published] = data_object.published ? 1 : 0
       this_object_hash[:data_rating] = data_object.data_rating
       this_object_hash[:description] = data_object.description
-      this_object_hash[:created_at] = format_utc_time(data_object.created_at)
+      this_object_hash[:created_at] = data_object.created_at.solr_timestamp
       if concept = data_object.linked_taxon_concept
         this_object_hash[:taxon_concept_id] = concept.id
         this_object_hash[:ancestor_id] = concept.ancestors.map {|a| a.id}
@@ -118,10 +118,4 @@ class SolrAPI
     response = Net::HTTP.start(@server_url.host, @server_url.port) {|http| http.get(@server_url.path + "/select/?q=*:*&version=2.2&start=0&rows=10&indent=on&wt=json") }
     response
   end
-  
-  def format_utc_time(datetime)
-    inTime = Time.parse(datetime.to_s)
-    inTime.strftime("%Y-%m-%dT%H:%M:%SZ")
-  end
-
 end

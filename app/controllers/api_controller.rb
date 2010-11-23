@@ -156,10 +156,36 @@ class ApiController < ApplicationController
     end
   end
   
+  def hierarchies
+    id = params[:id] || 0
+    params[:format] ||= 'xml'
+    
+    begin
+      @hierarchy = Hierarchy.find(id)
+      @hierarchy_roots = @hierarchy.kingdom_details
+      raise if @hierarchy.nil? || !@hierarchy.browsable?
+    rescue
+      render(:partial => 'error.xml.builder', :locals => {:error => "Unknown hierarchy #{id}"})
+      return
+    end
+    
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'hierarchies', :version => params[:version], :format => params[:format], :request_id => id)
+    
+    respond_to do |format|
+      format.xml { render :layout => false }
+      format.json {
+        @return_hash = hierarchies_json
+        render :json => @return_hash, :callback => params[:callback] 
+      }
+    end
+  end
+  
   def provider_hierarchies
     params[:format] ||= 'xml'
     
     @hierarchies = Hierarchy.browsable
+    
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'provider_hierarchies', :version => params[:version], :format => params[:format])
     
     respond_to do |format|
       format.xml { render :layout => false }
@@ -179,6 +205,9 @@ class ApiController < ApplicationController
       return
     end
     @results = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id], :conditions => "published = 1 and visibility_id = #{Visibility.visible.id}")
+    
+    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'search_by_provider', :version => params[:version], :format => params[:format], :request_id => params[:id])
+    
     respond_to do |format|
       format.xml { render :layout => false }
       format.json {

@@ -182,17 +182,38 @@ module ApiHelper
   end
   
   def eol_providers_json
-    return_hash = { 'results' => [] }
+    return_hash = []
     for h in @hierarchies
-      return_hash['results'] << {'id' => h.id, 'label' => h.label}
+      return_hash << {'id' => h.id, 'label' => h.label}
     end
     return return_hash
   end
   
   def search_by_providers_json
-    return_hash = { 'results' => [] }
+    return_hash = []
     for r in @results
-      return_hash['results'] << {'eol_page_id' => r.taxon_concept_id}
+      return_hash << {'eol_page_id' => r.taxon_concept_id}
+    end
+    return return_hash
+  end
+  
+  def hierarchies_json
+    return_hash = {}
+    return_hash['title'] = @hierarchy.label
+    return_hash['contributor'] = @hierarchy.agent.full_name
+    return_hash['dateSubmitted'] = @hierarchy.indexed_on.mysql_timestamp
+    return_hash['source'] = @hierarchy.url
+    
+    return_hash['roots'] = []
+    for root in @hierarchy_roots
+      root_hash = {}
+      root_hash['sourceIdentifier'] = root['identifier'] unless root['identifier'].blank?
+      root_hash['taxonID'] = root['id']
+      root_hash['parentNameUsageID'] = root['parent_id']
+      root_hash['taxonConceptID'] = root['taxon_concept_id']
+      root_hash['scientificName'] = root['name_string']
+      root_hash['taxonRank'] = root['rank_label'] unless root['rank_label'].blank?
+      return_hash['roots'] << root_hash
     end
     return return_hash
   end

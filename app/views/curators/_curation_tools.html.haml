@@ -59,12 +59,13 @@
       #save-comment
         = submit_tag "Save"
 .text_buttons
-  - if data_object['comments'].blank?
+  - comments = data_object['comments'].select { |c| c['visible_at'] && DateTime.parse(c['visible_at']) <= DateTime.now }
+  - if comments.blank?
     - comment_image = image_tag('comment_button_gray.png')
     - comment_tooltip = "No comments yet. "
   - else
-    - curator_comments = data_object['comments'].select{|c| c['user_id'].to_i == current_user.id}
-    - tooltip = "#{data_object['comments'].size} comment#{data_object['comments'].size == 1 ? '' : 's'}. "
+    - curator_comments = data_object['comments'].select{ |c| c['user_id'].to_i == current_user.id && c['visible_at'] && DateTime.parse(c['visible_at']) <= DateTime.now }
+    - tooltip = "#{comments.size} comment#{comments.size == 1 ? '' : 's'}. "
     - if curator_comments.blank? 
       - comment_image = image_tag('comment_button.png')
       - comment_tooltip = tooltip

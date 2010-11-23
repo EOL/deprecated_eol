@@ -20,6 +20,13 @@ function toggle_ignore(opts) {
   } });
 }
 
+function change_comment_icon_tooltip(data) {
+  var pluralize_comments = data.comments == "1" ? '. ' : 's. ';
+  var pluralize_current_user_comments = data.current_user_comments == "1" ? ' is' : ' are';
+  $('#comment_button_link_' + data.data_object_id).parent().attr('title', data.comments + ' comment' + pluralize_comments + data.current_user_comments + pluralize_current_user_comments + ' yours. Add a comment');
+  $('#comment_button_link_' + data.data_object_id).find('img').attr('src', '/images/comment_button_green.png');
+};
+
 $(function() {
   $(".overlay_link a[rel]").overlay({
     onBeforeLoad: function() {
@@ -39,10 +46,7 @@ $('form.comment').submit(function() {
     $(form_element).children().not(':submit, :hidden').val(''); // reset the form
     $(form_element).after('<p id="remove-me" class="submitted">You added new comment:<br/>' + data.last_comment + '</p>');
     $(form_element).parent().children('#remove-me').fadeOut(15000);
-    var pluralize_comments = data.comments == "1" ? '. ' : 's. ';
-    var pluralize_current_user_comments = data.current_user_comments == "1" ? ' is' : ' are';
-    $('#comment_button_link_' + data.data_object_id).parent().attr('title', data.comments + ' comment' + pluralize_comments + data.current_user_comments + pluralize_current_user_comments + ' yours. Add a comment');
-    $('#comment_button_link_' + data.data_object_id).find('img').attr('src', '/images/comment_button_green.png');
+    change_comment_icon_tooltip(data)
   },'JSON');
   return false;
 });

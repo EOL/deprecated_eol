@@ -2,6 +2,11 @@
   = link_to_function('', "$('##{body_div_name}').slideUp();", :class => 'close-button')
 - remote_hash = current_objects.blank? ? {} : { (current_objects[0].parent_type.tableize.singularize + "_id").to_sym => parent_object.id }
 = render :partial => 'shared/comments', :locals => { :comments => current_objects, :opts => { :renderer => 'RemoteLinkRenderer', :remote => {:update => body_div_name, :body_div_name => body_div_name }.merge!(remote_hash) } }
-
 .new_comment
   = render :partial => 'new', :locals => { :length => 4, :body_div_name => body_div_name }
+- unless current_objects.blank?
+  :javascript
+    var data = {  "comments": "#{ current_objects.select { |c| c.visible? }.size }", 
+      "current_user_comments": "#{ current_objects.select { |c| c.user == current_user && c.visible? }.size }",
+      "data_object_id": "#{current_objects[0].parent_id}"};
+    try { change_comment_icon_tooltip(data); } catch(err) {};

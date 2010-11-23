@@ -45,4 +45,6 @@
           = truncate(image['location'], 48)
       %td{:class => image['vetted_label'].downcase}
         = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24, :ignored => true}
+#overlay.overlay_worklist{:style => 'display:none'}
+  .content-wrap
 = javascript_include_tag 'curation_tools.js'

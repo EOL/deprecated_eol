@@ -52,25 +52,33 @@
     = "Comment"[]
   .action-value
     This comment will be publicly visible.
-    %form{:action => :comment, :id => "comment_#{data_object['id']}", :class => "comment", :onsubmit => 'javascript:return false;'}
-      %input{:type => "hidden", :value => data_object['id'], :name => "data_object_id", :id => "data_object_id"}
-      = text_area_tag 'comment', nil, :rows => comment_height, :class => 'comment-box'
+    %form{:action => :comment, :id => "comment_#{data_object['id']}", :class => "comment"}
+      %input{:type => "hidden", :value => data_object['id'], :name => "data_object_id"}
+      %input{:type => "hidden", :value => params['hierarchy_entry_id'], :name => "hierarchy_entry_id"}
+      %textarea{ :name => 'comment', :rows => comment_height, :class => 'comment-box' }
       #save-comment
         = submit_tag "Save"
 .text_buttons
-  #right_text_button.comment_button{ :title => "Comment on this #{data_object['data_type_label']}" }
-    - if data_object['comments'].blank?
-      - comment_image = image_tag('comment_button_gray.png')
+  - comments = data_object['comments'].select { |c| c['visible_at'] && DateTime.parse(c['visible_at']) <= DateTime.now }
+  - if comments.blank?
+    - comment_image = image_tag('comment_button_gray.png')
+    - comment_tooltip = "No comments yet. "
+  - else
+    - curator_comments = data_object['comments'].select{ |c| c['user_id'].to_i == current_user.id && c['visible_at'] && DateTime.parse(c['visible_at']) <= DateTime.now }
+    - tooltip = "#{comments.size} comment#{comments.size == 1 ? '' : 's'}. "
+    - if curator_comments.blank? 
+      - comment_image = image_tag('comment_button.png')
+      - comment_tooltip = tooltip
     - else
-      - if data_object['comments'].select{|c| c['user_id'].to_i == current_user.id}.blank?
-        - comment_image = image_tag('comment_button.png')
-      - else
-        - comment_image = image_tag('comment_button_green.png')
+      - comment_image = image_tag('comment_button_green.png')
+      - comment_tooltip =  tooltip +  "#{curator_comments.size} #{curator_comments.size == 1 ? 'is' : 'are'} yours. "
+  #right_text_button.comment_button{ :title => comment_tooltip + "Add a comment." }
     = link_to comment_image, |
       "/data_objects/#{data_object['id']}/comments", |
       {'data-data_object_id' => data_object['id'], |
       :alt => "Comment on this #{data_object['data_type_label']}", |
-      :class => 'popup-link'} |
+      :class => 'popup-link', |
+      :id => "comment_button_link_#{data_object['id']}" } |
 .text-slidebox-border{:id => "text-comments-wrapper-#{data_object['id']}", :style => "display:none;"}
   .text-slidebox-container.text-comment-div{:id => "text-comments-#{data_object['id']}"}
     -# TODO - we re-use this indicator a lot.  Put it in a CSS class.

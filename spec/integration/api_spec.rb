@@ -365,7 +365,7 @@ describe 'EOL APIs' do
     before(:all) do
       @canonical_form = CanonicalForm.create(:string => 'Aus bus')
       @name = Name.create(:canonical_form => @canonical_form, :string => 'Aus bus Linnaeus 1776')
-      @hierarchy = Hierarchy.gen(:label => 'Test Hierarchy')
+      @hierarchy = Hierarchy.gen(:label => 'Test Hierarchy', :browsable => 1)
       @rank = Rank.gen(:label => 'species')
       @hierarchy_entry = HierarchyEntry.gen(:identifier => '123abc', :hierarchy => @hierarchy, :name => @name, :published => 1, :rank => @rank)
       
@@ -503,24 +503,26 @@ describe 'EOL APIs' do
     end
   end
   
-  describe 'provider search' do
+  describe 'provider search and hierarchy roots' do
     before(:all) do
       @test_hierarchy = Hierarchy.gen(:label => 'Some test hierarchy', :browsable => 1)
-      @test_hierarchy_entry_published = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Animalia', :published => 1, :visibility_id => Visibility.visible.id)
-      @test_hierarchy_entry_unpublished = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Plantae', :published => 0, :visibility_id => Visibility.visible.id)
+      @second_test_hierarchy = Hierarchy.gen(:label => 'Another test hierarchy', :browsable => 1)
+      @test_hierarchy_entry_published = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Animalia', :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id)
+      @test_hierarchy_entry_unpublished = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Plantae', :parent_id => 0, :published => 0, :visibility_id => Visibility.invisible.id)
+      @second_test_hierarchy_entry = HierarchyEntry.gen(:hierarchy => @second_test_hierarchy, :identifier => 54321, :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id)
     end
     
     it 'should return a list of all providers' do
       visit("/api/provider_hierarchies")
       xml_response = Nokogiri.XML(body)
-      our_result = xml_response.xpath("//provider_hierarchy[@id='#{@test_hierarchy.id}']")
+      our_result = xml_response.xpath("//hierarchy[@id='#{@test_hierarchy.id}']")
       our_result.length.should == 1
       our_result.inner_text.should == @test_hierarchy.label
       
       visit("/api/provider_hierarchies.json")
       response_object = JSON.parse(body)
-      response_object['results'].length.should > 0
-      response_object['results'].collect{ |r| r['id'].to_i == @test_hierarchy.id && r['label'] == @test_hierarchy.label }.length == 1
+      response_object.length.should > 0
+      response_object.collect{ |r| r['id'].to_i == @test_hierarchy.id && r['label'] == @test_hierarchy.label }.length == 2
     end
     
     it 'should return the EOL page ID for a provider identifer' do
@@ -531,8 +533,8 @@ describe 'EOL APIs' do
       our_result.inner_text.to_i.should == @test_hierarchy_entry_published.taxon_concept_id
       visit("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
       response_object = JSON.parse(body)
-      response_object['results'].length.should > 0
-      response_object['results'].collect{ |r| r['eol_page_id'].to_i == @test_hierarchy_entry_published.taxon_concept_id}.length == 1      
+      response_object.length.should > 0
+      response_object.collect{ |r| r['eol_page_id'].to_i == @test_hierarchy_entry_published.taxon_concept_id}.length == 1
     end
     
     it 'should not return the EOL page ID for a provider identifer' do
@@ -542,7 +544,35 @@ describe 'EOL APIs' do
       our_result.length.should == 0
       visit("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}")
       response_object = JSON.parse(body)
-      response_object['results'].length.should == 0     
+      response_object.length.should == 0     
+    end
+    
+    it 'should list the hierarchy roots' do
+      visit("/api/hierarchies/#{@test_hierarchy.id}")
+      xml_response = Nokogiri.XML(body)
+      our_result = xml_response.xpath("//dc:title").inner_text.should == @test_hierarchy.label
+      our_result = xml_response.xpath("//dc:contributor").inner_text.should == @test_hierarchy.agent.full_name
+      our_result = xml_response.xpath("//dc:dateSubmitted").inner_text.should == @test_hierarchy.indexed_on.mysql_timestamp
+      our_result = xml_response.xpath("//dc:source").inner_text.should == @test_hierarchy.url
+      our_result = xml_response.xpath("//dwc:Taxon").length.should == 1
+      our_result = xml_response.xpath("//dwc:Taxon/dwc:taxonID").inner_text.should == @test_hierarchy_entry_published.id.to_s
+      our_result = xml_response.xpath("//dwc:Taxon/dwc:parentNameUsageID").inner_text.should == 0.to_s
+      our_result = xml_response.xpath("//dwc:Taxon/dwc:taxonConceptID").inner_text.should == @test_hierarchy_entry_published.taxon_concept_id.to_s
+      our_result = xml_response.xpath("//dwc:Taxon/dwc:scientificName").inner_text.should == @test_hierarchy_entry_published.name_object.string
+      our_result = xml_response.xpath("//dwc:Taxon/dwc:taxonRank").inner_text.should == @test_hierarchy_entry_published.rank.label
+      
+      visit("/api/hierarchies/#{@test_hierarchy.id}.json")
+      response_object = JSON.parse(body)
+      response_object['title'].should == @test_hierarchy.label
+      response_object['contributor'].should == @test_hierarchy.agent.full_name
+      response_object['dateSubmitted'].should == @test_hierarchy.indexed_on.mysql_timestamp
+      response_object['source'].should == @test_hierarchy.url
+      response_object['roots'].length.should == 1
+      response_object['roots'][0]['taxonID'].should == @test_hierarchy_entry_published.id.to_s
+      response_object['roots'][0]['parentNameUsageID'].should == 0.to_s
+      response_object['roots'][0]['taxonConceptID'].should == @test_hierarchy_entry_published.taxon_concept_id.to_s
+      response_object['roots'][0]['scientificName'].should == @test_hierarchy_entry_published.name_object.string
+      response_object['roots'][0]['taxonRank'].should == @test_hierarchy_entry_published.rank.label
     end
   end
 end

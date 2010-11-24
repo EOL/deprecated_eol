@@ -564,6 +564,7 @@ Factory.define :hierarchy do |hierarchy|
   hierarchy.hierarchy_group_version 0
   hierarchy.hierarchy_group_id      0
   hierarchy.description             ''
+  hierarchy.indexed_on              { 5.hours.ago }
   hierarchy.association             :agent
   hierarchy.browsable               0
   hierarchy.complete                1
@@ -589,6 +590,7 @@ Factory.define :hierarchy_entry do |he|
   he.identifier     ''
   he.source_url     ''
   he.association    :name
+  he.association    :rank
   he.parent_id      0
   he.association    :hierarchy
   he.rank_id        184

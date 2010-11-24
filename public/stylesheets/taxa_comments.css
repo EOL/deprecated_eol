@@ -97,30 +97,30 @@ ul.pages li a {
         .comments li h6 a:hover, .comments li h6 a:active {
           text-decoration: underline; }
 
-#new-comment {
+.new_comment {
   clear: both;
   border-top: 2px solid #c5c5c3;
   padding: 10px 0 15px 0;
   margin-top: 10px; }
-  #new-comment h3 {
+  .new_comment h3 {
     padding: 0 0 10px 0; }
-  #new-comment p {
+  .new_comment p {
     padding: 12px 0 0 0; }
-  #new-comment h2 {
+  .new_comment h2 {
     width: 300px !important;
     background: url(/images/icons/greenComment.gif) no-repeat 0 0;
     padding: 1px 0 10px 26px !important;
     margin: 0;
     height: 24px;
     float: none; }
-  #new-comment textarea {
+  .new_comment textarea {
     width: 393px;
     padding: 10px;
     border: 1px solid #c5c5c3;
     color: #555555;
     font: normal 13px/16px "trebuchet ms", arial, sans-serif;
     letter-spacing: 0.1px; }
-  #new-comment .post_comment {
+  .new_comment .post_comment {
     display: block;
     border: 1px solid #6a8d00;
     background: #8bad1c;

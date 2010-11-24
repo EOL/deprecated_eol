@@ -370,6 +370,11 @@ Factory.define :comment do |x|
   x.from_curator false
 end
 
+Factory.define :community do |c|
+  c.name        { Faker::Lorem.words.join(' ').titleize }
+  c.description { Faker::Lorem.paragraph }
+end
+
 Factory.define :contact do |c|
   c.name        { Factory.next(:string) }
   c.email       { Factory.next(:email) }
@@ -378,7 +383,7 @@ Factory.define :contact do |c|
 end
 
 Factory.define :contact_subject do |cs|
-  cs.title { Factory.next(:string) }
+  cs.title      { Factory.next(:string) }
   cs.recipients { Factory.next(:string) }
   cs.active     true
   cs.created_at { 48.hours.ago }

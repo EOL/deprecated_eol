@@ -1,5 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.resources :communities
+  map.join_community 'communities/:community_id/join', :controller => 'communities', :action => 'join', :method => 'put'
+  map.leave_community 'communities/:community_id/leave', :controller => 'communities', :action => 'leave', :method => 'put'
+
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]
   map.resources :resources, :as => 'content_partner/resources', :has_many => [:harvest_events]
@@ -24,7 +28,9 @@ ActionController::Routing::Routes.draw do |map|
                                     :controller => 'account',
                                     :action => 'reset_specific_users_password'
 
+  map.resources :users
   # TODO - I don't like this.  Why don't we just use restful routes here?
+  # WIP - I have created a users conrtroller.  These should move there.
   map.with_options(:controller => 'account') do |account|
     account.login     'login',     :action => 'login'
     account.logout    'logout',    :action => 'logout'

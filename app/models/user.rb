@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   belongs_to :language
   belongs_to :agent
   has_and_belongs_to_many :roles
+  has_many :members
 
   before_save :check_curator_status
 
@@ -689,7 +690,23 @@ class User < ActiveRecord::Base
     )
   end
 
-protected
+  def join_community(community)
+    members << Member.create!(:user_id => id, :community_id => community.id)
+  end
+
+  def leave_community(community)
+    member = Member.find_by_user_id_and_community_id(id, community.id)
+    raise "Couldn't find a member for this user"[:could_not_find_user] unless member
+    member.destroy
+    self.reload
+  end
+
+  def member_of?(community)
+    members.map {|m| m.community_id}.include?(community.id)
+  end
+
+
+private
 
   def password_required?
     (hashed_password.blank? || hashed_password.nil?)

@@ -18,6 +18,10 @@ module ApplicationHelper
     %Q{javascript:$(this).addClass('delayed_click');$('#ajax-indicator').fadeIn();return false;}
   end
 
+  def ajax_spinner
+    image_tag("indicator_arrows_black.gif", :alt => "Please wait..."[:please_wait], :class => 'hidden spinner')
+  end
+
   # truncate a string to the maxlength passed and then add "..." if truncated
   # I don't know why we've overridden Rails' built-in function of the same name.  This likely doesn't handle unicode, and I
   # don't understand the syntax of the last line.  ...I wish someone had left better notes.  TODO

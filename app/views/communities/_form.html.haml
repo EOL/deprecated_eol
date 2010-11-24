@@ -1,0 +1,11 @@
+- form_for(@community) do |f|
+  = f.error_messages :header_message => "There was an error saving this community."[:error_saving_community], |
+    :message => "The following problems need to be fixed:"[:these_problems_need_to_be_fixed] |
+  %p
+    = f.label :name, "Choose a name for your community:"[:community_form_name_label]
+    = f.text_field :name
+  %p
+    = f.label :description, "Provide a short description of this community's purpose:"[:community_form_description_label]
+    = f.text_area :description
+  %p
+    = submit_tag(submit_label)

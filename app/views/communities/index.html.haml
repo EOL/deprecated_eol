@@ -1,0 +1,7 @@
+- if @communities.blank?
+  %p= "There are no EOL communities yet."[:communities_empty]
+- else
+  %ul
+    - @communities.each do |community|
+      %li= link_to(h(community.name), community)
+%p{:id => 'create_community'}= link_to("Create a community on EOL"[], new_community_path)

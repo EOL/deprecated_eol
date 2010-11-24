@@ -209,4 +209,32 @@ describe User do
   
   end
 
+  describe 'community membership' do
+
+    it 'should be able to join a community' do
+      community = Community.gen
+      community.members.should be_blank
+      @user.join_community(community)
+      @user.members.map {|m| m.community_id}.should include(community.id)
+    end
+
+    it 'should be able to answer member_of?' do
+      community = Community.gen
+      community.members.should be_blank
+      another_user = User.gen
+      community.add_member(@user)
+      @user.member_of?(community).should be_true
+      another_user.member_of?(community).should_not be_true
+    end
+
+    it 'should be able to leave a community' do
+      community = Community.gen
+      community.add_member(@user)
+      @user.member_of?(community).should be_true
+      @user.leave_community(community)
+      @user.member_of?(community).should_not be_true
+    end
+
+  end
+
 end

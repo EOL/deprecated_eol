@@ -25,7 +25,7 @@
               *
             %span.warn== (#{"Required"[]})
           / user_username ^[a-zA-Z0-9\-_]{4,32}$ false true //
-          = f.text_field :username, {:maxlength=>32, :onblur=>'javascript:check_username();'}
+          = f.text_field :username, {:maxlength => 32, :onblur => 'javascript:check_username();'}
           %span#username_warn.error
           %label{ :title => "Please enter a password"[], :for => "user_entered_password" }
             = "Password"[]

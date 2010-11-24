@@ -1,0 +1,67 @@
+#page-separator-general
+#user_show.clearfix
+  = link_to '[go back]', :back
+  - if @user == current_user
+    = link_to '[edit]', profile_path
+  #about
+    %h1
+      = h @user.given_name
+      &nbsp;
+      = h @user.family_name
+    - if @user.is_curator?
+      %p
+        Curator of
+        = link_to(@user.curator_hierarchy_entry.name, :controller => :taxa, :action => :show, :id => @user.curator_hierarchy_entry.taxon_concept_id)
+        = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @user.curator_hierarchy_entry.taxon_concept_id)
+      %p
+        = @user.curator_scope
+    %p
+      "
+      = h @user.username
+      " joined
+      = format_date(@user.created_at)
+  - if @user.is_curator?
+    #activity
+      %h3
+        Activity
+      %p
+      %table
+        %thead
+        %tbody
+          %tr{ :class => cycle('odd','even', :name => 'account') }
+            %td
+              Objects Curated
+            %td                        
+              = link_to @user.total_objects_curated,{:controller=>'/account', :action=>:show_objects_curated, :id => @user.id}
+              
+          %tr{ :class => cycle('odd','even', :name => 'account') }
+            %td
+              Comments Moderated
+            %td
+              = link_to @user.total_comments_curated,{:controller=>'/account', :action=>:show_comments_moderated, :id => @user.id}
+              
+          %tr{ :class => cycle('odd','even', :name => 'account') }
+            %td
+              Species Curated
+            %td
+              = link_to @user.total_species_curated,{:controller=>'/account', :action=>:show_species_curated, :id => @user.id}
+              
+          %tr{ :class => cycle('odd','even', :name => 'account') }
+            %td
+              User-submitted text
+            %td
+              = link_to @user_submitted_text_count,{:controller=>'administrator/user_data_object', :action=>:index, :user_id => @user.id}
+    #credentials
+      %h3
+        Credentials
+      = @user.credentials.blank? ? "None provided." : allow_some_html(@user.credentials)
+  #communities
+    %h3
+      = "EOL Communities"[]
+    - if @user.members.blank?
+      %p= "This user has not yet joined any EOL communities."[:user_has_no_communities]
+    - else
+      %ul{:id => 'user_communities'}
+      - @user.members.each do |member|
+        - community = member.community
+        %li= link_to(h(community.name), community)

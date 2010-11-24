@@ -17,7 +17,7 @@ describe 'User Profile' do
     
     visit('/settings')
     @settings_body = body
-    login_capybara @user
+    login_as @user
     visit('/settings') # Aaaaactually, this will probably fail 'cause it needs https
     @profile_body = body
   end

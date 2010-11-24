@@ -40,7 +40,7 @@ describe 'Curation' do
     @non_curator_cname_page = source
     @new_name   = 'habrish lammer'
     @taxon_concept.add_common_name_synonym @new_name, :agent => Agent.find(@cn_curator.agent_id), :preferred => false, :language => Language.english
-    login_capybara(@cn_curator)
+    login_as(@cn_curator)
     visit("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
     @cname_page = source
     visit('/logout')
@@ -64,14 +64,14 @@ describe 'Curation' do
 
   it 'should show curation button when logged in as curator' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
-    login_capybara(curator)
+    login_as(curator)
     visit("/pages/#{@taxon_concept.id}")
     body.should have_tag('div#large-image-curator-button')
   end
 
   it 'should expire taxon_concept from cache' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
-    login_capybara(curator)
+    login_as(curator)
 
     old_cache_val = ActionController::Base.perform_caching
     ActionController::Base.perform_caching = true
@@ -149,7 +149,7 @@ describe 'Curation' do
   # I wanted to use a describe() block here, but it was causing build_taxon_concept to fail for some odd reason...
 
   it 'should display a "view/edit" link next to the common name in the header' do
-    login_capybara(@first_curator)
+    login_as(@first_curator)
     visit("/pages/#{@taxon_concept.id}")
     body.should have_tag("div#page-title") do
       with_tag("h2") do
@@ -160,7 +160,7 @@ describe 'Curation' do
   end
 
   it 'should show a curator the ability to add a new common name' do
-    login_capybara(@first_curator)
+    login_as(@first_curator)
     visit("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
     body.should have_tag("form#add_common_name")
     body.should have_tag("form.update_common_names")

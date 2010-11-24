@@ -1,8 +1,8 @@
 Feature: Describe home page
-  As a visitor without login
+  As an anonymous visitor
   I should be able to look at the homepage
   So I can start using EOL
-  
+
   Scenario: Visiting the home page
     When I go to the home page
     Then I should see "Encyclopedia of Life" within title

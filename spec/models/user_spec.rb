@@ -15,6 +15,16 @@ describe User do
     @user.should_not be_a_new_record
   end
 
+  describe "::generate_key" do
+
+    it "should generate a random hexadecimal key" do
+      key = User.generate_key
+      key.should match /[a-f0-9]{40}/
+      User.generate_key.should_not == key
+    end
+
+  end
+
   it 'should have a log method that creates an ActivityLog entry (when enabled)' do
     old_log_val = $LOG_USER_ACTIVITY
     begin

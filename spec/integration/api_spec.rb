@@ -7,11 +7,21 @@ def recreate_indexes
   solr.build_indexes
 end
 
+def check_api_key(url, user)
+  visit(url)
+  log = ApiLog.last
+  log.request_uri.should == url
+  log.key.should_not be_nil
+  log.key.should == user.api_key
+  log.user_id.should == user.id
+end
+
 describe 'EOL APIs' do
   before(:all) do
     truncate_all_tables
     load_foundation_cache
     Capybara.reset_sessions!
+    @user = User.gen(:api_key => User.generate_key)
   end
   
   describe 'ping' do 
@@ -20,6 +30,11 @@ describe 'EOL APIs' do
       xml_response = Nokogiri.XML(body)
       xml_response.xpath('//response/message').inner_text.should == 'Success'
     end
+
+    it 'should take api key and save it to the log' do
+      check_api_key("/api/ping?key=#{@user.api_key}", @user)
+    end
+
   end
   
   describe 'pages and data objects' do
@@ -231,7 +246,9 @@ describe 'EOL APIs' do
       response_object['dataObjects'].length.should == 3
     end
       
-      
+    it 'should take api key and save it to the log' do
+      check_api_key("/api/pages/#{@taxon_concept.id}.json?key=#{@user.api_key}", @user)
+    end
       
       
     # DataObjects
@@ -359,6 +376,10 @@ describe 'EOL APIs' do
       visit("/api/data_objects/#{@object.guid}?common_names=1")
       body.should include '<commonName'
     end
+
+    it 'should take api key and save it to the log' do
+      check_api_key("/api/data_objects/#{@object.guid}?key=#{@user.api_key}", @user)
+    end
   end
   
   describe 'hierarchy entries and synonyms' do
@@ -443,6 +464,10 @@ describe 'EOL APIs' do
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[2]/xmlns:ToTaxonConcept/@ref').inner_text.should include(@common_name.id.to_s)
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[2]/@type').inner_text.should == 'has vernacular'
     end
+
+    it 'should take api key and save it to the log' do
+      check_api_key("/api/hierarchy_entries/#{@hierarchy_entry.id}?format=tcs&key=#{@user.api_key}", @user)
+    end
     
     it 'should show all information for synonyms in TCS format' do
       visit("/api/synonyms/#{@synonym.id}")
@@ -467,6 +492,11 @@ describe 'EOL APIs' do
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@scientific').inner_text.should == "false"
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@language').inner_text.should == @common_name.language.iso_639_1
     end
+
+    it 'should take api key and save it to the log' do
+      check_api_key("/api/synonyms/#{@common_name.id}?key=#{@user.api_key}", @user)
+    end
+
   end
   
   describe 'search' do
@@ -500,6 +530,10 @@ describe 'EOL APIs' do
       visit("/api/search/Canis.json?exact=1")
       response_object = JSON.parse(body)
       response_object['results'].length.should == 0
+    end
+
+    it 'should take api key and save it to the log' do
+      check_api_key("/api/search/Canis.json?exact=1&key=#{@user.api_key}", @user)
     end
   end
   
@@ -547,6 +581,10 @@ describe 'EOL APIs' do
       response_object.length.should == 0     
     end
     
+    it 'should take api key and save it to the log' do
+      check_api_key("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}&key=#{@user.api_key}", @user)
+    end
+
     it 'should list the hierarchy roots' do
       visit("/api/hierarchies/#{@test_hierarchy.id}")
       xml_response = Nokogiri.XML(body)
@@ -573,6 +611,10 @@ describe 'EOL APIs' do
       response_object['roots'][0]['taxonConceptID'].should == @test_hierarchy_entry_published.taxon_concept_id.to_s
       response_object['roots'][0]['scientificName'].should == @test_hierarchy_entry_published.name_object.string
       response_object['roots'][0]['taxonRank'].should == @test_hierarchy_entry_published.rank.label
+    end
+
+    it 'should take api key and save it to the log' do
+      check_api_key("/api/hierarchies/#{@test_hierarchy.id}?key=#{@user.api_key}", @user)
     end
   end
 end

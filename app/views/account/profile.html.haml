@@ -69,7 +69,7 @@
                     = "Please help EOL understand the needs of its users.  Fill out this short form, describing"[]
                     = link_to('your information'[], url_for(:controller => :account, :action => :info), {:title => 'Your Information'[], :class => 'return_to'})
                     = "personal information; It takes less than one minute."[]
-                = render(:partial => 'taxa/set_content_settings', :locals => {:f => f})
+                = render(:partial => 'taxa/set_content_settings', :locals => { :f => f })
           - if $ALLOW_CURATOR_SELF_REG
             %h3.preference-header= "Curators"[]
             - if !@user.is_curator?
@@ -93,3 +93,4 @@
                 = link_to 'View your curator profile', :controller => :account, :action => :show, :id => @user.id
           .button
             = submit_tag 'Update Account'[]
+      = render(:partial => 'set_api_settings')

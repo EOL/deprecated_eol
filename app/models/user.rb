@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
   attr_accessor :entered_password,:entered_password_confirmation,:curator_request
   attr_reader :full_name, :is_admin, :is_moderator
 
+  def self.generate_key
+    Digest::SHA1.hexdigest(rand(10**30).to_s + Time.now.to_f.to_s)
+  end
+
   def validate
 
      errors.add_to_base "Secondary hierarchy must be different than default" if !secondary_hierarchy_id.nil? && secondary_hierarchy_id == default_hierarchy_id
@@ -561,7 +565,7 @@ class User < ActiveRecord::Base
 
   def password_reset_url(original_port)
     port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
-    password_reset_token = Digest::SHA1.hexdigest(rand(10**30).to_s)
+    password_reset_token = User.generate_key
     success = update_attributes(:password_reset_token => password_reset_token, :password_reset_token_expires_at => 24.hours.from_now)
     http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
     if success

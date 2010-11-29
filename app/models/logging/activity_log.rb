@@ -32,5 +32,20 @@ class ActivityLog < LoggingModel
     return obj_ids      
   end
 
+  def self.user_activity(user_id, activity_id, page)      
+    query="Select * From activity_logs al Where 1=1 "
+    if(user_id != 'All') then  
+      query << " AND al.user_id = ? "       
+    end
+    if(activity_id != 'All') then        
+      query << " AND al.activity_id = ? "   
+    end
+    query << " order by al.id desc "          
+    if    (user_id == 'All' and activity_id == 'All') then self.paginate_by_sql [query], :page => page, :per_page => 30 
+    elsif (user_id != 'All' and activity_id != 'All') then self.paginate_by_sql [query, user_id, activity_id], :page => page, :per_page => 30 
+    elsif (user_id != 'All' and activity_id == 'All') then self.paginate_by_sql [query, user_id], :page => page, :per_page => 30
+    elsif (user_id == 'All' and activity_id != 'All') then self.paginate_by_sql [query, activity_id], :page => page, :per_page => 30
+    end     
+  end
 
 end

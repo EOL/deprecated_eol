@@ -2,21 +2,30 @@ User-activity report.  Select a specific user to see his activities sorted inver
 Then click 'Search' to proceed. (use your browser back button to return here)
 #comments
   - form_tag({:action=>'view_user_activity'},:method=>'get') do
-    Select:
-    %select{ :name => "user_id" }
-      %option        
-      %option
-        All
-      - for user in @user_list
-        %option{ :value => user.id, :selected => @user_id.to_i == user.id }
-          = h(user.family_name) + ", " + h(user.given_name)
-    = submit_tag 'Search'
-    %br
-    %br
+    %table
+      %tr
+        %td
+          User:
+        %td
+          %select{ :name => "user_id" }
+            %option
+            %option{ :value => 'All', :selected => @user_id.to_s == 'All' }
+              All
+            - for user in @user_list
+              %option{ :value => user.id, :selected => @user_id.to_i == user.id }
+                = h(user.family_name) + ", " + h(user.given_name)
+      %tr
+        %td
+          Activity:
+        %td
+          %select{ :name => "activity_id" }
+            %option
+              All
+            - for activity in @activity_list
+              %option{ :value => activity.id, :selected => @activity_id.to_i == activity.id }
+                = h(activity.name) 
+          = submit_tag 'Search'
     - if @activities.nil? == false && @activities.size > 0
-      Activities found:
-      = @activity_count
-      %br
       = will_paginate @activities
       %table.results_table{ :cellspacing => "0" }
         %tr
@@ -30,7 +39,8 @@ Then click 'Search' to proceed. (use your browser back button to return here)
             Detail          
           %th
             Date
-        - for activity in @activities
+        -#- for activity in @activities
+        - @activities.each do |activity|
           - column_class=cycle('odd','even')
           - if (activity.taxon_concept_id) then
             - concept = TaxonConcept.find(activity.taxon_concept_id)

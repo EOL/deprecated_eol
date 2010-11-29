@@ -24,6 +24,7 @@ class CuratorsController < ApplicationController
   def curate_images
     @page_title += ": Curate Images"
     session['curate_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
+    session['curate_images_hierarchy_entry_id'] = nil if session['curate_images_hierarchy_entry_id'].blank?
     current_user.log_activity(:viewed_images_to_curate)
     all_images = current_user.images_to_curate(
       :content_partner_id => params[:content_partner_id],

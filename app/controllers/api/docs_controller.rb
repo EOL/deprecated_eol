@@ -1,6 +1,7 @@
 class Api::DocsController < ApiController
   layout 'main'
-  
+  def index
+  end
   def ping
   end
   def search

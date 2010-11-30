@@ -324,13 +324,13 @@ describe 'Taxa page (HTML)' do
     end
 
     it "should see 'not in hierarchy' message when the user doesn't specify a default hierarchy and page is not in default hierarchy" do
-      login_capybara @user_with_nil_hierarchy
+      login_as @user_with_nil_hierarchy
       visit("/pages/#{@ncbi_tc.id}")
       body.should match /Name not in\s*#{Hierarchy.default.label}/
     end
 
     it "should set the class of the hierarchy select drop-down based on whether a hierarchy is in or out of that hierarchy" do
-      login_capybara @user_with_ncbi_hierarchy
+      login_as @user_with_ncbi_hierarchy
       visit("/pages/#{@ncbi_tc.id}")
       body.should have_tag('select.choose-hierarchy-select') do
         with_tag('option.in', :text => /#{@ncbi.label}/)
@@ -349,7 +349,7 @@ describe 'Taxa page (HTML)' do
     end
 
     it "should attribute the default hierarchy when the user doesn't specify one and the page is in both hierarchies" do
-      login_capybara @user_with_nil_hierarchy
+      login_as @user_with_nil_hierarchy
       visit("/pages/#{@common_tc.id}")
       body.should have_tag('span.classification-attribution-name', :text => /Species recognized by/) do
         with_tag("a[href^=#{@col_mapping.outlink[:outlink_url]}]")
@@ -360,7 +360,7 @@ describe 'Taxa page (HTML)' do
     end
 
     it "should attribute the default hierarchy when the user has it as the default and page is in both hierarchies" do
-      login_capybara @user_with_default_hierarchy
+      login_as @user_with_default_hierarchy
       visit("/pages/#{@common_tc.id}")
       body.should have_tag('span.classification-attribution-name', :text => /Species recognized by/) do
         with_tag("a[href^=#{@col_mapping.outlink[:outlink_url]}]")
@@ -371,7 +371,7 @@ describe 'Taxa page (HTML)' do
     end
 
     it "should use the label from the NCBI hierarchy when the user has it as the default and page is in both hierarchies" do
-      login_capybara @user_with_ncbi_hierarchy
+      login_as @user_with_ncbi_hierarchy
       visit("/pages/#{@common_tc.id}")
       body.should have_tag('span.classification-attribution-name', :text => /Species recognized by/) do
         with_tag("a[href^=#{@ncbi.agent.homepage.strip}]")

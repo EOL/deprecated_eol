@@ -60,7 +60,7 @@ describe 'Home page' do
   it 'should show logout instead of login when logged in' do
     @homepage_with_foundation.should     have_tag('a[href*=?]', /login/)
     @homepage_with_foundation.should_not have_tag('a[href*=?]', /logout/)
-    login_capybara User.gen
+    login_as User.gen
     visit('/')
     body.should_not have_tag('a[href*=?]', /login/)
     visit('/')

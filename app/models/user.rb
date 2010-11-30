@@ -591,14 +591,12 @@ class User < parent_klass
     vetted_id = options[:vetted_id].nil? ? Vetted.unknown.id : options[:vetted_id]
 
     solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id}"
-    if vetted_id != 'all'
-      solr_query << " AND vetted_id:#{vetted_id}"
-    end
+
     unless options[:content_partner_id].blank?
       content_partner = ContentPartner.find(options[:content_partner_id].to_i)
       resource_clause = content_partner.agent.resources.collect{|r| r.id}.join(" OR resource_id:")
       if resource_clause.blank?
-        solr_query << " AND resource_id:0"
+        solr_query << " AND resource_id:0"  # This will return nothing, when the content partner has no resources
       else
         solr_query << " AND (resource_id:#{resource_clause})"
       end

@@ -2,19 +2,21 @@
   = "A Description must be entered."[]
 %input{ :type => "hidden", :name => "taxon_concept_id", :value => @taxon_concept.id }
 %table
+  %col.labels
+  %col.fields
   %tr
-    %td{ :width => "25%" }
+    %td
     %td
       %input#original_toc_id{ :type => "hidden", :value => @selected_toc[1] }
       = select_tag('data_objects_toc_category[toc_id]', options_for_select(@selectable_toc,@selected_toc), {'id' => 'data_objects_toc_category_toc_id', 'data-change_toc_url' => url_for(:controller => 'taxa', :action => 'user_text_change_toc')})
   %tr
     %td
-      = f.label 'Title (optional)'[]
+      = f.label :object_title, "Title (optional)"
     %td
       = f.text_field( :object_title )
   %tr
     %td
-      = f.label :text
+      = f.label :description, "Text"
     %td
       = f.text_area( :description, :size => "33x8" )
   %tr
@@ -31,7 +33,8 @@
       = link_to "Read the EOL Licensing Policy"[],"/content/page/eol_licensing_policy",{:target=>'_blank'}
   %tr
     %td
-      = f.label :references
+      - # TODO: Check why we're not using f.label :references and f.text_area :references
+      %label{ :for => 'references'} References
     %td
       - refs = ''
       - @data_object.visible_references.each do |ref|
@@ -39,8 +42,7 @@
       = text_area_tag('references', @data_object.visible_references.map {|r| r.full_reference}.join("\n\n"), :size => "33x8" )
   %tr
     %td
-      %label
-        NOTE
+      %label NOTE
     %td
       After submitting your text entry it will appear with a yellow background until a curator marks it as trusted.
   %tr

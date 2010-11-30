@@ -49,6 +49,7 @@ describe 'Curator Worklist' do
 
   after(:each) do
     visit('/logout')
+    Capybara.reset_sessions!
   end
 
   after(:all) do

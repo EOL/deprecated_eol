@@ -30,6 +30,13 @@ When /^(?:|I )press "([^"]*)"(?: within "([^"]*)")?$/ do |button, selector|
   end
 end
 
+When /^(?:|I )press (?:the |a |an )?"([^"]*)"(?: button)?(?: within (?:the |a |an )?([^"]*))?$/ do |button, selector|
+  selector_type, selector = get_selector(selector)
+  with_scope(selector) do
+    click_button(button)
+  end
+end
+
 When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   selector_type, selector = get_selector(selector)
   with_scope(selector) do
@@ -44,6 +51,13 @@ When /^I follow (?:the |a |an )([^"]+?)(?: within (?:the |a |an )?([^"]*))?$/ do
   with_scope(container) do
     selector_type, selector = get_selector(selector)
     find(selector).click
+  end
+end
+
+When /^(?:|I )fill in "([^"]*)" with "([^"]*)"(?: within (?:the |a |an )([^"]*))?$/ do |field, value, selector|
+  selector_type, selector = get_selector(selector)
+  with_scope(selector) do
+    fill_in(field, :with => value)
   end
 end
 
@@ -119,7 +133,7 @@ Then /^(?:|I )should see JSON:$/ do |expected_json|
   expected.should == actual
 end
 
-Then /^(?:|I )should see "([^"]*)"(?: within (.*))?$/ do |text, selector|
+Then /^(?:|I )should see "([^"]*)"(?: within (?:the |a |an )?([^"]*))?$/ do |text, selector|
   selector_type, selector = get_selector(selector)
   with_scope(selector) do
     page.should have_content(text)
@@ -152,6 +166,8 @@ Then /^I should see (?:the |a |an |)([^"]+?)(?: within (?:the |a |an )?([^"]*))?
     selector_type, selector = get_selector(selector)
     if selector_type == :css
       page.has_css?(selector).should be_true
+    elsif selector_type == :content
+      page.should have_content(selector)
     else
       page.has_xpath?(selector).should be_true
     end

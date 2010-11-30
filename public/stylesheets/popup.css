@@ -50,6 +50,8 @@
   line-height: 6pt; }
 .popup span.date {
   color: #557700; }
+.popup form#new_data_object col.labels {
+  width: 25%; }
 
 .pop-up-ajax-indicator {
   float: right;

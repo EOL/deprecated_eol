@@ -4,7 +4,7 @@
 - member_function = i_am_in_this_community ? 'member allowed' : 'member not_allowed'
 - non_member_function = i_am_in_this_community ? 'non_member not_allowed' : 'non_member allowed'
 - if @community.members.blank?
-  %p{:id => 'community_empty'}= "No members."[]
+  %p{:id => 'community_empty'}= "There are currently no members in this community."[:no_members_in_community_message]
 - else
   %h3= "Community members:"[]
   %p{:id => 'left_message', :class => 'notice hidden'}= "You have left this community"[]
@@ -22,10 +22,9 @@
         = link_to(current_user.username, current_user)
         = "(you)"[]
 - if not logged_in?
-  %p
-    = "You must be"[]
-    = link_to("logged in"[], login_path)
-    = "to join communities."[]
+  = "You must be"[]
+  = link_to("logged in"[], login_path)
+  = "to join communities."[]
 - else
   %ul{:id => 'community_actions'}
     %li{:id => 'join_community', :class => non_member_function}

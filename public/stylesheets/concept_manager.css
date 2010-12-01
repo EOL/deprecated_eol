@@ -20,12 +20,13 @@ body {
   margin: 0px auto;
   text-align: center;
   vertical-align: middle;
-  width: 200px;
-  height: 100%;
-  line-height: 50px;
-  float: left; }
-  .control_subpanel:hover {
-    background-color: #99dd99; }
+  width: 197px;
+  height: 42px;
+  padding: 4px 3px 4px 4px;
+  line-height: 46px;
+  float: left;
+  z-index: 10;
+  position: relative; }
 
 .lookup_panel {
   border: 1px solid #222222;

@@ -159,7 +159,27 @@ class String
   def remove_diacritics
     self.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
   end
-
+  
+  def is_numeric?
+    begin
+      Float(self)
+    rescue
+      false # not numeric
+    else
+      true # numeric
+    end
+  end
+  
+  def is_int?
+    begin
+      Integer(self)
+    rescue
+      false # not numeric
+    else
+      true # numeric
+    end
+  end
+  
 end
 
 class Array

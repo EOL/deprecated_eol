@@ -538,6 +538,28 @@ class HierarchyEntry < SpeciesSchemaModel
       end
     end
   end
+  
+  def split_from_concept
+    result = connection.execute("SELECT he2.id, he2.taxon_concept_id FROM hierarchy_entries he JOIN hierarchy_entries he2 USING (taxon_concept_id) WHERE he.id=#{self.id}").all_hashes
+    unless result.empty?
+      entries_in_concept = result.length
+      # if there is only one member in the entry's concept there is no need to split it
+      if entries_in_concept > 1
+        # create a new empty concept
+        new_taxon_concept = TaxonConcept.create(:published => self.published, :vetted_id => self.vetted_id, :supercedure_id => 0, :split_from => 0)
+        
+        # set the concept of this entry to the new concept
+        self.taxon_concept_id = new_taxon_concept.id
+        self.save!
+        
+        # update references to this entry to use new concept id
+        connection.execute("UPDATE IGNORE taxon_concept_names SET taxon_concept_id=#{new_taxon_concept.id} WHERE source_hierarchy_entry_id=#{self.id}");
+        connection.execute("UPDATE IGNORE hierarchy_entries he JOIN random_hierarchy_images rhi ON (he.id=rhi.hierarchy_entry_id) SET rhi.taxon_concept_id=he.taxon_concept_id WHERE he.taxon_concept_id=#{self.id}")
+        return new_taxon_concept
+      end
+    end
+    return false
+  end
 
 private
 

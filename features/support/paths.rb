@@ -39,8 +39,11 @@ module LocationHelpers
   end
 
   def get_selector(selector)
+
     case selector
 
+    when "member's name"
+      [:content, "Cuke"]
     when 'title'
       [:css, "title"] # head title
     when 'page title'
@@ -81,6 +84,8 @@ module LocationHelpers
       [:css, "#text_object_title"]
     when 'text object header'
       [:css, ".cpc-header"]
+    when 'text object content'
+      [:css, ".cpc-content"]
     when 'add text button'
       [:css, "#new_text_content_button"]
     when 'add new content button'
@@ -90,7 +95,23 @@ module LocationHelpers
     when 'add text panel'
       [:css, "#insert_text_popup"]
     when 'add text form'
-      [:css, "new_data_object"]
+      [:css, "#new_data_object"]
+    when 'add text category field'
+      [:css, "#data_objects_toc_category_toc_id"]
+    when 'add text title field'
+      [:css, "#data_object_object_title"]
+    when 'add text description field'
+      [:css, "#data_object_description"]
+    when 'add text language field'
+      [:css, "#data_object_language_id"]
+    when 'add text license field'
+      [:css, "#data_object_license_id"]
+    when 'add text references field'
+      [:css, "#references"]
+    when 'missing text error message'
+      [:css, "#missing_text_error"]
+    when 'edit text link'
+      [:css, ".text_object .edit_text"]
     when 'close button'
       [:css, ".close-button"]
     else

@@ -185,17 +185,13 @@ class Administrator::UserController  < AdminController
   end  
   
   def view_user_activity
-    @page_title = 'User Activity' 
-    #@user_id=params[:user_id] || 'All'
+    @page_title = 'User Activity'     
     @user_id=params[:user_id] || ''
     @user_list=User.users_with_activity_log    
-    if(@user_id == 'All') then    
-      @activities=ActivityLog.paginate(:order=>'id desc',:include=>:user,:page => params[:page])
-      @activity_count=ActivityLog.count()
-    else
-      @activities=ActivityLog.paginate(:conditions=>['user_id = ?',@user_id], :order=>'id desc',:include=>:user,:page => params[:page])
-      @activity_count=ActivityLog.count(:conditions=>['user_id = ?',@user_id])      
-    end
+    @activity_id=params[:activity_id] || 'All'
+    @activity_list=Activity.find(:all,:order=>'name')        
+    page = params[:page] || 1
+    @activities = ActivityLog.user_activity(@user_id, @activity_id, page)
   end
 
 private

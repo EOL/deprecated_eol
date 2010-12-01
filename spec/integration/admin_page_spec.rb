@@ -218,21 +218,18 @@ describe 'Admin Pages' do
 
   describe ': user activity view' do
     before(:each) do
+      @activity = Activity.gen(:name => "sample activity")
       @user_with_activity = User.gen(:given_name => "John", :family_name => "Doe")
-      @activity_log = ActivityLog.gen(:user_id => @user_with_activity.id)
+      @activity_log = ActivityLog.gen(:user_id => @user_with_activity.id, :activity_id => @activity.id)
     end
-
     it "should get data from a form and display user activity" do          
       login_as(@user)
-      current_path.should == '/'      
-      
-      visit("/administrator/user/view_user_activity")
-      select @user_with_activity.family_name, :from => "user_id"
-      click_button "Search"
+      current_path.should == '/'            
+      visit("/administrator/user/view_user_activity", :method => :post, :params => {:user_id => @user_with_activity.id})
       body.should have_tag("form[action=/administrator/user/view_user_activity]")
       body.should include "User Activity"
       body.should include @user_with_activity.family_name
-      body.should include "John Doe"
+      body.should include @activity.name
     end
   end  
   

@@ -1,7 +1,10 @@
 - if @communities.blank?
   %p= "There are no EOL communities yet."[:communities_empty]
 - else
-  %ul
-    - @communities.each do |community|
-      %li= link_to(h(community.name), community)
-%p{:id => 'create_community'}= link_to("Create a community on EOL"[], new_community_path)
+  %h3= "Active EOL Communities:"[:communities_index_header]
+  - paginated_section(@communities) do
+    %ul#communities_index
+      - @communities.each do |community|
+        %li= link_to(h(community.name), community)
+%ul{:id => 'community_actions'}
+  %li{:id => 'create_community'}= link_to("Create a community on EOL"[], new_community_path)

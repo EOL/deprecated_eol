@@ -55,8 +55,8 @@
                 = "Yes"[:yes_answer]
                 %p
                   %br
-                %label{ :title => "How often would you like to receive feedback on text you submitted?"[], :for => "user_email_reports_frequency_hours" }
-                  = "How often would you like to receive feedback on text you submitted?"[]
+                %label{ :title => "If there are comments or curator actions on your contributions, how often would you like to receive email alerts?"[], :for => "user_email_reports_frequency_hours" }
+                  = "If there are comments or curator actions on your contributions, how often would you like to receive email alerts?"[]
                 - select_options = [['Never', 0] , ['Daily', 1*24], ['Weekly', 7*24], ['Monthly', 30*24]]
                 = f.select :email_reports_frequency_hours, select_options
                 %br

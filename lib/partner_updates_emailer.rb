@@ -11,6 +11,8 @@ module PartnerUpdatesEmailer
     
     all_frequencies = agent_contact_frequencies | user_frequencies
     
+    # will loop through the frequencies. So first we'll get all daily content and send emails to partners
+    # that want them daily - then weekly, etc.
     for frequency_hours in all_frequencies
       all_activity = self.all_activity_since_hour(frequency_hours)
       self.send_emails_to_partners(all_activity[:partner_activity], agent_contacts_ready, frequency_hours)

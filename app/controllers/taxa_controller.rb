@@ -383,10 +383,16 @@ class TaxaController < ApplicationController
   
   def lookup_reference
     ref = Ref.find(params[:ref_id].to_i)
-    pid = $CROSSREF_USER_PID
     callback = params[:callback]
     
-    url = $REF_PARSER_ENDPOINT + "?pid=#{pid}&output=json&q=#{URI.escape(ref.full_reference)}&callback=#{callback}"
+    pid_param = SiteConfigurationOption.find_by_parameter('reference_parser_pid')
+    endpoint_param = SiteConfigurationOption.find_by_parameter('reference_parser_endpoint')
+    raise 'Invalid configuration' unless pid_param && pid_param.value && endpoint_param && endpoint_param.value
+    
+    pid = pid_param.value
+    endpoint = endpoint_param.value
+    
+    url = endpoint + "?pid=#{pid}&output=json&q=#{URI.escape(ref.full_reference)}&callback=#{callback}"
     render :text => Net::HTTP.get(URI.parse(url))
   end
 

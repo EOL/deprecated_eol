@@ -5,6 +5,7 @@ class EmailActionsController < ApplicationController
     activity = PartnerUpdatesEmailer.all_activity_since_hour(1500)
     pp activity
     
+    # Hard coded in the sample to be Brian Fisher for AntWeb
     @agent_or_user = AgentContact.find(6)
     @activity = activity[:partner_activity][6]
     
@@ -14,7 +15,12 @@ class EmailActionsController < ApplicationController
   end
   
   def send_emails
-    PartnerUpdatesEmailer.send_email_updates
-    render :text => "Emails sent"
+    parameter = SiteConfigurationOption.find_by_parameter('email_actions_to_curators')
+    if parameter && parameter.value == 'true'
+      PartnerUpdatesEmailer.send_email_updates
+      render :text => "Emails sent"
+    else
+      render :text => "Not configured to send emails"
+    end
   end
 end

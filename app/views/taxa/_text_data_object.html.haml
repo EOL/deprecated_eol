@@ -47,8 +47,14 @@
         .text-area-header.references-header
           References
         %ul
+          -# Checking to see if we should link references
+          - ref_class = ''
+          - parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled') 
+          - if parameter && parameter.value == 'true'
+            - ref_class = 'biblio-entry'
+          
           - content_item['refs'].each do |ref|
-            %li.biblio-entry{ :ref_id => ref.id }
+            %li{ :class => ref_class, :ref_id => ref.id }
               = ref.full_reference.sanitize_html
               - ref.ref_identifiers.each do |identifier|
                 -# we do not show identifier unless we know how to handle them:

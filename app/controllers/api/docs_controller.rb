@@ -13,6 +13,8 @@ class Api::DocsController < ApiController
   end
   def provider_hierarchies
   end
+  def hierarchies
+  end
   def search_by_provider
   end
 end

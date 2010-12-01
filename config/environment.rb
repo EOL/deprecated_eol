@@ -183,9 +183,6 @@ Rails::Initializer.run do |config|
   $SOLR_SERVER = 'http://localhost:8983/solr/taxon_concepts'
   $SOLR_SERVER_DATA_OBJECTS = 'http://localhost:8983/solr/data_objects'
   $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
-  
-  $REF_PARSER_ENDPOINT = "http://refparser.shorthouse.net/cgi-bin/refparser"
-  $CROSSREF_USER_PID = "pleary@mbl.edu"
 
   #Server's IP address
   $IP_ADDRESS_OF_SERVER = EOLWebService.local_ip

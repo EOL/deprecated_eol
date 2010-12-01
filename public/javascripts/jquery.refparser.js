@@ -7,8 +7,8 @@
  * November 14, 2010
  *
  * Copyright (c) 2010 David P. Shorthouse
- * Licensed under the GPL licenses.
- * http://www.gnu.org/licenses/gpl.txt
+ * Licensed under the MIT license.
+ * http://creativecommons.org/licenses/MIT/
  **/
 
 (function($){
@@ -42,7 +42,7 @@
       target    : '_blank',
       
       //set a timeout in milliseconds (should be at least 4000)
-      timeout     : 8000
+      timeout     : 10000
     };
     
     var options = $.extend({}, defaults, custom_options);

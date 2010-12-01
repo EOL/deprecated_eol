@@ -1,28 +1,28 @@
 .container
   #control_panel
+    #merge_concepts.control_subpanel
+      merge concepts
     #split_concepts.control_subpanel
       split into new concept
-    .control_subpanel
-      merge concepts
   %br
   #left_panel.lookup_panel
     TaxonConceptID:
     %input#tc1{:type => 'text', :size => 30}
-    %input{:type => 'submit', :value => 'Lookup TC', :onclick => "lookup_concept('#tc1');"}
+    %input{:type => 'button', :value => 'Lookup TC'}
     %br
     HierarachyEntryID:
     %input#he1{:type => 'text', :size => 30}
-    %input{:type => 'submit', :value => 'Lookup HE', :onclick => "lookup_entry('#he1');"}
+    %input{:type => 'button', :value => 'Lookup HE'}
     %hr
     .entries
   #right_panel.lookup_panel
     TaxonConceptID:
     %input#tc2{:type => 'text', :size => 30}
-    %input{:type => 'submit', :value => 'Lookup TC', :onclick => "lookup_concept('#tc2');"}
+    %input{:type => 'button', :value => 'Lookup TC'}
     %br
     HierarachyEntryID:
     %input#he2{:type => 'text', :size => 30}
-    %input{:type => 'submit', :value => 'Lookup HE', :onclick => "lookup_entry('#he2');"}
+    %input{:type => 'button', :value => 'Lookup HE'}
     %hr
     .entries
 #dragging_div

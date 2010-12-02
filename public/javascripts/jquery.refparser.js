@@ -41,8 +41,9 @@
       // set the target for the final click event (if there is one)
       target    : '_blank',
       
-      //set a timeout in milliseconds (should be at least 4000)
-      timeout     : 10000
+      // set a timeout in milliseconds (should be at least 4000)
+      // 20 seconds
+      timeout     : 20000
     };
     
     var options = $.extend({}, defaults, custom_options);

@@ -258,18 +258,19 @@ class Administrator::ContentPartnerReportController < AdminController
     elsif(session[:form_agent_id]) then
       @agent_id = session[:form_agent_id]
     else
-      @agent_id = 1  
-    end    
+      @agent_id = 1
+    end
     
     @content_partners_with_published_data = Agent.content_partners_with_published_data  
 
     if(@agent_id == "All") then 
       @partner_fullname = "All Curation"
       arr_dataobject_ids = []
-    else                        
-      partner = Agent.find(@agent_id, :select => [:full_name])
-      @partner_fullname = partner.full_name
-      @latest_harvest_id = Agent.latest_harvest_event_id(@agent_id)        
+    else
+      agent = Agent.find(@agent_id)
+      @partner_fullname = agent.full_name
+      @latest_harvest_event = agent.latest_harvest_event
+      @latest_harvest_id = @latest_harvest_event.id
       arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(@latest_harvest_id)
     end        
 

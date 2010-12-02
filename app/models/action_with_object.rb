@@ -28,5 +28,9 @@ class ActionWithObject < ActiveRecord::Base
   def self.inappropriate
     cached_find(:action_code, 'inappropriate')
   end
+  
+  def self.delete
+    cached_find(:action_code, 'delete')
+  end
 end
 

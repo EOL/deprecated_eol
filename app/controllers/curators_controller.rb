@@ -45,8 +45,12 @@ class CuratorsController < ApplicationController
 
   def ignored_images
     @page_title += ": Ignored Images"
-    dato_ids = current_user.ignored_data_objects(DataType.image.id.to_i).collect{|d| d.id}
-    @ignored_images = DataObject.details_for_objects(dato_ids, :skip_refs => true, :add_common_names => true, :add_comments => true, :sort => 'id desc')
+    session['ignored_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
+    session['ignored_images_hierarchy_entry_id'] = nil if session['ignored_images_hierarchy_entry_id'].blank?
+    all_images = current_user.ignored_data_objects(
+      :hierarchy_entry_id => session['ignored_images_hierarchy_entry_id'], 
+      :data_type_id => DataType.image.id)
+    @ignored_images = all_images
   end
 
   def trust

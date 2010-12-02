@@ -59,7 +59,7 @@ describe 'Curator Worklist' do
     @solr = SolrAPI.new($SOLR_SERVER_DATA_OBJECTS)
     @solr.delete_all_documents
     @solr.build_data_object_index
-
+    make_all_nested_sets
   end
 
   before(:each) do
@@ -86,7 +86,7 @@ describe 'Curator Worklist' do
     body.should_not include(@first_child_trusted_image.id.to_s)
     body.should_not include(@lower_child_trusted_image.id.to_s)
   end
-
+  
   it 'should be able to filter images by hierarchy entry id' do
     visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}")
     body.should include('Curator Central')
@@ -97,7 +97,7 @@ describe 'Curator Worklist' do
     body.should_not include(@first_child_trusted_image.id.to_s)
     body.should_not include(@lower_child_trusted_image.id.to_s)
   end
-
+  
   it 'should be able to filter images by content partner' do
     visit("/curators/curate_images?content_partner_id=#{@content_partner.id}")
     body.should include(@lower_child_unreviewed_image.id.to_s)
@@ -107,7 +107,7 @@ describe 'Curator Worklist' do
     body.should_not include(@first_child_trusted_image.id.to_s)
     body.should_not include(@lower_child_trusted_image.id.to_s)
   end
-
+  
   it 'should be able to filter images by vetted status' do
     visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
     body.should include(@first_child_unreviewed_image.id.to_s)
@@ -141,7 +141,7 @@ describe 'Curator Worklist' do
     body.should_not include(@first_child_trusted_image.id.to_s)
     body.should_not include(@lower_child_trusted_image.id.to_s)
   end
-
+  
   it 'should be able to filter images by hierarchy entry id and vetted status' do
     visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}&vetted_id=#{Vetted.unknown.id}")
     body.should_not include(@first_child_unreviewed_image.id.to_s)
@@ -217,23 +217,36 @@ describe 'Curator Worklist' do
   it 'should be able to show ignored images regardless of vetted status' do
     visit("/curators/ignored_images")
     body.should include('Curator Central: Ignored Images')
-    body.should include(@first_child_unreviewed_ignored_image.id.to_s)
-    body.should include(@first_child_untrusted_ignored_image.id.to_s)
-    body.should include(@first_child_trusted_ignored_image.id.to_s)
-    body.should include(@lower_child_unreviewed_ignored_image.id.to_s)
-    body.should include(@lower_child_untrusted_ignored_image.id.to_s)
-    body.should include(@lower_child_trusted_ignored_image.id.to_s)
+    body.should include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
+    body.should include(@first_child_untrusted_ignored_image.data_object_id.to_s)
+    body.should include(@first_child_trusted_ignored_image.data_object_id.to_s)
+    body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
+    body.should include(@lower_child_untrusted_ignored_image.data_object_id.to_s)
+    body.should include(@lower_child_trusted_ignored_image.data_object_id.to_s)
   end
   
   it 'should be able to maintain the curator\'s session' do
     visit("/curators/curate_images")
     body.should include(@first_child_unreviewed_image.id.to_s)
     body.should include(@lower_child_unreviewed_image.id.to_s)
+    visit("/curators/ignored_images")
+    body.should include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
+    body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
     visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}")
     body.should_not include(@first_child_unreviewed_image.id.to_s)
     body.should include(@lower_child_unreviewed_image.id.to_s)
+    visit("/curators/ignored_images?hierarchy_entry_id=#{@lower_child_entry.id}")
+    body.should_not include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
+    body.should_not include(@first_child_untrusted_ignored_image.data_object_id.to_s)
+    body.should_not include(@first_child_trusted_ignored_image.data_object_id.to_s)
+    body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
+    body.should include(@lower_child_untrusted_ignored_image.data_object_id.to_s)
+    body.should include(@lower_child_trusted_ignored_image.data_object_id.to_s)
     visit("/curators/curate_images")
     body.should_not include(@first_child_unreviewed_image.id.to_s)
     body.should include(@lower_child_unreviewed_image.id.to_s)
+    visit("/curators/ignored_images")
+    body.should_not include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
+    body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
   end
 end

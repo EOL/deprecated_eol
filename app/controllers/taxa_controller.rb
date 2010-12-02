@@ -385,12 +385,28 @@ class TaxaController < ApplicationController
     ref = Ref.find(params[:ref_id].to_i)
     callback = params[:callback]
     
-    pid_param = SiteConfigurationOption.find_by_parameter('reference_parser_pid')
-    endpoint_param = SiteConfigurationOption.find_by_parameter('reference_parser_endpoint')
-    raise 'Invalid configuration' unless pid_param && pid_param.value && endpoint_param && endpoint_param.value
+    if defined? $REFERENCE_PARSING_ENABLED
+      raise 'Reference parsing disabled' if !$REFERENCE_PARSING_ENABLED
+    else
+      parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled') 
+      raise 'Reference parsing disabled' unless parameter && parameter.value == 'true'
+    end
     
-    pid = pid_param.value
-    endpoint = endpoint_param.value
+    if defined? $REFERENCE_PARSER_ENDPOINT
+      endpoint = $REFERENCE_PARSER_ENDPOINT
+    else
+      endpoint_param = SiteConfigurationOption.find_by_parameter('reference_parser_endpoint')
+      endpoint = endpoint_param.value
+    end
+    
+    if defined? $REFERENCE_PARSER_PID
+      pid = $REFERENCE_PARSER_PID
+    else
+      pid_param = SiteConfigurationOption.find_by_parameter('reference_parser_pid')
+      pid = pid_param.value
+    end
+    
+    raise 'Invalid configuration' unless pid && endpoint
     
     url = endpoint + "?pid=#{pid}&output=json&q=#{URI.escape(ref.full_reference)}&callback=#{callback}"
     render :text => Net::HTTP.get(URI.parse(url))

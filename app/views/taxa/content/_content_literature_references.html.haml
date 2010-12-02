@@ -14,9 +14,12 @@
   - column_class = cycle('odd','even')
   
   -# Checking to see if we should link references
-  - parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled') 
-  - if parameter && parameter.value == 'true'
-    - column_class << ' biblio-entry'
+  - if defined? $REFERENCE_PARSING_ENABLED
+    - column_class << ' biblio-entry' if $REFERENCE_PARSING_ENABLED
+  - else
+    - parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled') 
+    - if parameter && parameter.value == 'true'
+      - column_class << ' biblio-entry'
   
   -# Safari was being "nice" and widening the table to allow really long words... which ended up being links.  This
   -# "fix" changes the style to force the issue:

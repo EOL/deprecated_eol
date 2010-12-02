@@ -183,6 +183,13 @@ Rails::Initializer.run do |config|
   $SOLR_SERVER = 'http://localhost:8983/solr/taxon_concepts'
   $SOLR_SERVER_DATA_OBJECTS = 'http://localhost:8983/solr/data_objects'
   $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
+  
+  ### These next few values are declared in the eol:site_configurations table. They are also declared here
+  ### beacuse when we switch to SI we will not be able to edit the database and need to be able to tweak the
+  ### environment file to possibly override the values in the DB
+  # $REFERENCE_PARSING_ENABLED = false
+  # $REFERENCE_PARSER_ENDPOINT = **the URL of the reference parsing script**
+  # $REFERENCE_PARSER_PID = **the email address of the crossref user account**
 
   #Server's IP address
   $IP_ADDRESS_OF_SERVER = EOLWebService.local_ip

@@ -111,55 +111,40 @@ class FeedsController < ApplicationController
     year = params[:year] || nil
     month = params[:month] || nil
     
-    partner = Agent.find(agent_id, :select => [:full_name])
-    partner_fullname = partner.full_name
+    agent = Agent.find(agent_id)
+    latest_harvest_event = agent.latest_harvest_event
     
-    latest_harvest_id = Agent.latest_harvest_event_id(agent_id)        
-    arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(latest_harvest_id)
-    
-    do_detail = DataObject.get_object_cache_url(arr_dataobject_ids)
-    
-    arr = User.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
-    arr_dataobject_ids = arr[0]
-    arr_user_ids = arr[1]
-    
-    if(arr_dataobject_ids.length == 0) then 
-      arr_dataobject_ids = [1] #no data objects
-    end
-    
-    arr_obj_tc_id = DataObject.tc_ids_from_do_ids(arr_dataobject_ids);
-    partner_curated_objects = User.curated_data_objects(arr_dataobject_ids, year, month, 0, "rss feed")
+    partner_curated_objects = latest_harvest_event.curated_data_objects(:year => year, :month => month)
     
     feed_items = []
-    partner_curated_objects.each do |rec|
-      if(arr_obj_tc_id["datatype#{rec.data_object_id}"])
-        if(arr_obj_tc_id["datatype#{rec.data_object_id}"]=="text") then
-          do_type = "Text"
-        else
-          do_type = "Image"
-        end
+    partner_curated_objects.each do |row|
+      updated_time = Time.parse(row['updated_at'])
+      updated_at = updated_time.strftime("%d-%b-%Y") + " at " + updated_time.strftime("%I:%M%p")
+      
+      action_comment = nil
+      if ['inappropriate', 'untrusted'].include?(row['action_code'])
+        lower_time = (updated_time - 10.seconds).mysql_timestamp
+        upper_time = (updated_time + 10.seconds).mysql_timestamp
+        result = Comment.find_by_sql("SELECT c.* FROM comments c WHERE created_at BETWEEN '#{lower_time}' AND '#{upper_time}' AND parent_type='DataObject' AND user_id=#{row['curator_user_id']} LIMIT 1")
+        action_comment = result[0] unless result.empty?
       end
       
-      unless arr_obj_tc_id["#{rec.data_object_id}"].blank?
-        concept = TaxonConcept.find(arr_obj_tc_id["#{rec.data_object_id}"])
-        tc_name = concept.quick_scientific_name
-        updated_at = rec.updated_at.strftime("%d-%b-%Y") + " at " + rec.updated_at.strftime("%I:%M%p")
-        
-        feed_items << { "curator"   => rec.given_name + " " + rec.family_name,  
-                 "activity"  => rec.code || nil, 
-                 "do_type"   => do_type || nil,
-                 "tc_id"     => arr_obj_tc_id["#{rec.data_object_id}"] || nil,
-                 "do_id"     => rec.data_object_id || nil,
-                 "tc_name"   => tc_name || nil,
-                 "updated_at"       => updated_at,
-                 "object_cache_url" =>  do_detail["#{rec.data_object_id}"] || nil,
-                 "source_url" =>  do_detail["#{rec.data_object_id}_source"] || nil }
-      end
+      feed_items << {  "curator"          => (row['given_name'] + " " + row['family_name']).strip,
+                       "curator_user_id"  => row['curator_user_id'],
+                       "action_comment"   => action_comment,
+                       "activity"         => row['action_code'],
+                       "do_type"          => row['data_type_label'],
+                       "tc_id"            => row['taxon_concept_id'],
+                       "do_id"            => row['data_object_id'],
+                       "tc_name"          => row['scientific_name'],
+                       "updated_at"       => updated_at,
+                       "object_cache_url" => row['object_cache_url'] || nil,
+                       "source_url"       => row['source_url'] || nil }
     end
     
     @feed_url = url_for(:controller => 'feeds', :action => 'partner_curation', :agent_id => agent_id, :month => month, :year => year)
     @feed_link = "http://www.eol.org"
-    @feed_title = partner_fullname + " curation activity"
+    @feed_title = agent.full_name + " curation activity"
     
     @feed_entries = []
     feed_items.each do |hash|
@@ -174,7 +159,6 @@ class FeedsController < ApplicationController
   def partner_feed_entry(hash)
     entry = { :id => '', :title => '', :link => '', :content => '', :updated => '' }
     
-    pp hash
     entry[:title] = hash['tc_name']
     entry[:updated] = hash['updated_at']
     
@@ -184,9 +168,13 @@ class FeedsController < ApplicationController
       entry[:link] = url_for(:controller => :taxa, :action => :show, :id => hash['tc_id'], :image_id => hash['do_id'])
     end
     entry[:id] = entry[:link]
-
-    content = hash['do_type'] + " was changed to '" + hash['activity'] + "' by " + hash['curator'] + " last " + hash['updated_at'] + " " + "<br/><br/>"
-
+    
+    curator_link = url_for(:controller => 'account', :action => 'show', :id => hash['curator_user_id'], :only_path => false)
+    content = hash['do_type'] + " was changed to '" + hash['activity'] + "' by <a href='#{curator_link}'>" + hash['curator'] + "</a> last " + hash['updated_at'] + " <br/>"
+    if hash['action_comment']
+      content += "Comment: " + hash['action_comment'].body + "<br/>"
+    end
+    
     if hash['do_type'] == 'Image'
       content = "<img src='#{DataObject.image_cache_path(hash['object_cache_url'],'small')}'/><br/>" + content
     end

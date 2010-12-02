@@ -13,12 +13,12 @@
 -else
   %form#form_api_key{ :method => "post", :action => user_path(current_user.id) }
     %input{ :name => "_method", :type => "hidden", :value=> "put" }
-      %input{ :name => "generate_api_key", :type => "hidden", :value=> "true" }
-      - button_value = "Generate a key"
-      %p 
-        If you use API and want EOL to be aware about you
-        request your API key make sure to
-        = link_to('add it to your API calls', api_docs_link)
+    %input{ :name => "generate_api_key", :type => "hidden", :value=> "true" }
+    - button_value = "Generate a key"
+    %p 
+      If you use API and want EOL to be aware about you
+      request your API key make sure to
+      = link_to('add it to your API calls', api_docs_link)
     %br
     %br
     %input{ :type => "submit", :name => "submit", :value => button_value }

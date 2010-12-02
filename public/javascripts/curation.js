@@ -56,7 +56,7 @@ $(document).ready(function() {
     var form = $(this).closest('form');
     form.find('div.processing').show();
     submit = form.find(':submit');
-    textarea = form.find('textarea');
+    the_comment = form.find('textarea');
     $.ajax({
       url: form.attr('action'),
       type: 'PUT',
@@ -64,15 +64,15 @@ $(document).ready(function() {
       beforeSend: function(xhr) {
         xhr.setRequestHeader("Accept", "text/javascript"); // Sorry, not sure why this xhr wasn't auto-js, but it wasn't.
         submit.attr('disabled', 'disabled');
-        textarea.attr('disabled', 'disabled');
+        the_comment.attr('disabled', 'disabled');
       },
       complete: function() {
         submit.attr('disabled', '');
-        textarea.attr('disabled', '');
+        the_comment.attr('disabled', '');
         form.find('div.processing').fadeOut();
       },
       success: function(response) {
-        textarea.val('');
+        the_comment.val('');
         if (response.type == "text") {
           EOL.Curation.post_curate_text(response.args);
         } else {

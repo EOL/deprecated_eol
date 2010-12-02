@@ -49,9 +49,12 @@
         %ul
           -# Checking to see if we should link references
           - ref_class = ''
-          - parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled') 
-          - if parameter && parameter.value == 'true'
-            - ref_class = 'biblio-entry'
+          - if defined? $REFERENCE_PARSING_ENABLED
+            - ref_class = 'biblio-entry' if $REFERENCE_PARSING_ENABLED
+          - else
+            - parameter = SiteConfigurationOption.find_by_parameter('reference_parsing_enabled') 
+            - if parameter && parameter.value == 'true'
+              - ref_class = 'biblio-entry'
           
           - content_item['refs'].each do |ref|
             %li{ :class => ref_class, :ref_id => ref.id }

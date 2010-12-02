@@ -1,5 +1,7 @@
 = javascript_include_tag 'curation'
 :javascript
+  if (!EOL) { var EOL = {}; }
+  if (!EOL.Curation) { var EOL.Curation = {}; }
   EOL.Curation.UNKNOWN_ID       = #{Vetted.unknown.id};
   EOL.Curation.TRUSTED_ID       = #{Vetted.trusted.id};
   EOL.Curation.UNTRUSTED_ID     = #{Vetted.untrusted.id};

@@ -1255,6 +1255,35 @@ class TaxonConcept < SpeciesSchemaModel
     vet_taxon_concept_names(options)
     vet_synonyms(options)
   end
+  
+  def self.supercede_by_ids(id1, id2)
+    return false if id1 == id2
+    return false if id1.class != Fixnum || id1.blank? || id1 == 0
+    return false if id2.class != Fixnum || id2.blank? || id2 == 0
+    
+    
+    # always ensure ID1 is the smaller of the two
+    id1, id2 = id2, id1 if id2 < id1
+    
+    begin
+      tc1 = TaxonConcept.find(id1)
+      tc2 = TaxonConcept.find(id2)
+    rescue
+      return false
+    end
+    
+    # at this point ID2 is the one going away
+    # ID2 is being superceded by ID1
+    TaxonConcept.connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET he.taxon_concept_id=#{id1}, tc.supercedure_id=#{id1} WHERE taxon_concept_id=#{id2}");
+    
+    # all references to ID2 are getting changed to ID1
+    TaxonConcept.connection.execute("UPDATE IGNORE taxon_concept_names SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
+    TaxonConcept.connection.execute("UPDATE IGNORE top_concept_images he SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
+    TaxonConcept.connection.execute("UPDATE IGNORE data_objects_taxon_concepts dotc SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
+    TaxonConcept.connection.execute("UPDATE IGNORE top_unpublished_concept_images he SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
+    TaxonConcept.connection.execute("UPDATE IGNORE hierarchy_entries he JOIN random_hierarchy_images rhi ON (he.id=rhi.hierarchy_entry_id) SET rhi.taxon_concept_id=he.taxon_concept_id WHERE he.taxon_concept_id=#{id2}");
+    return true
+  end
 
 private
 

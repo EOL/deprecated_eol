@@ -56,7 +56,7 @@ describe 'Curator Worklist' do
   end
 
   it 'should show a list of unreviewed images in the curators clade' do
-    login_capybara(@curator)
+    login_as(@curator)
     visit('/curators/curate_images')
     body.should include('Curator Central')
     body.should include(@first_child_unreviewed_image.id.to_s)
@@ -66,7 +66,7 @@ describe 'Curator Worklist' do
   end
 
   it 'should be able to filter unreviewed images by hierarchy entry id' do
-    login_capybara(@curator)
+    login_as(@curator)
     visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}")
     body.should include('Curator Central')
     body.should include(@lower_child_unreviewed_image.id.to_s)
@@ -76,7 +76,7 @@ describe 'Curator Worklist' do
   end
 
   it 'should be able to filter unreviewed images in the curators clade by content partner' do
-    login_capybara(@curator)
+    login_as(@curator)
     visit("/curators/curate_images?content_partner_id=#{@content_partner.id}")
     body.should include(@lower_child_unreviewed_image.id.to_s)
     body.should_not include(@first_child_unreviewed_image.id.to_s)
@@ -85,7 +85,7 @@ describe 'Curator Worklist' do
   end
 
   it 'should be able to filter images by vetted status' do
-    login_capybara(@curator)
+    login_as(@curator)
     visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
     body.should include(@lower_child_trusted_image.id.to_s)
     body.should include(@first_child_trusted_image.id.to_s)
@@ -94,7 +94,7 @@ describe 'Curator Worklist' do
   end
 
   it 'should be able to filter images by content partner and vetted status' do
-    login_capybara(@curator)
+    login_as(@curator)
     visit("/curators/curate_images?content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.trusted.id}")
     body.should include(@lower_child_trusted_image.id.to_s)
     body.should_not include(@first_child_unreviewed_image.id.to_s)

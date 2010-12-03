@@ -33,7 +33,7 @@ describe 'Data Object Tags' do
   end
 
   it 'should show up public and private tags for old and new version of dato after re-harvesting' do
-    login_capybara(@user1)
+    login_as(@user1)
     visit('/')
     body.should_not include_text('login')
     visit("/data_objects/#{@new_image_dato.id}/tags")

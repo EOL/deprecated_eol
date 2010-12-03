@@ -162,16 +162,14 @@ class Agent < SpeciesSchemaModel
     self.find_by_sql [query]
   end
 
-  def self.latest_harvest_event_id(agent_id)
-    query = "SELECT Max(he.id) max_harvest_event_id
+  def latest_harvest_event
+    result = HarvestEvent.find_by_sql("SELECT he.*
     FROM harvest_events he
     JOIN agents_resources ar ON ar.resource_id = he.resource_id
-    WHERE ar.agent_id = #{agent_id}
-    GROUP BY ar.agent_id "    
-    rset = self.find_by_sql [query]
-    for fld in rset
-	    return fld["max_harvest_event_id"]
-    end
+    WHERE ar.agent_id = #{self.id}
+    ORDER BY he.id DESC LIMIT 1")
+    return nil if result.empty?
+    return result[0]
   end
 
   def self.resources_harvest_events(agent_id,page)

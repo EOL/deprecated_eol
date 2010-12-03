@@ -24,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
                                     :controller => 'account',
                                     :action => 'reset_specific_users_password'
 
+  map.resources :users
   # TODO - I don't like this.  Why don't we just use restful routes here?
   map.with_options(:controller => 'account') do |account|
     account.login     'login',     :action => 'login'

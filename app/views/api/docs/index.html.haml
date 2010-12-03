@@ -68,6 +68,8 @@
         .formatted_code<
           :escaped
             http://www.eol.org/api/search/Robin
+        .formatted_code<
+          :escaped
             http://www.eol.org/api/search/Robin.xml
       %p.indent
         Every method can also return a JSON response by adding a .json extension
@@ -79,5 +81,9 @@
         .formatted_code<
           :escaped
             http://www.eol.org/api/search/Robin.json?callback=some_neat_function
+      %p#api_key_section.indent
+        You can identify yourself to EOL by adding your API key to your requests (login and generate your key in your preference page):
+        .formatted_code<
+          http://www.eol.org/api/search/Robin?key=1111111111111111111111111111111111
       %p.indent
         Each method's documentation page has an example of both the XML and JSON formatted responses.

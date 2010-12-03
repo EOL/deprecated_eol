@@ -8,21 +8,21 @@
   - input_type = (is_debug == true) ? 'text' : 'hidden'
   - input_value = (value) ? value.id : ''
   %input{ :type => input_type, :id => name, :name => name, :value => input_value }
-    - if toggle
-      %span#browser_show
-        %a{:href => "##{id}-inner" }
-          [
-          = show_text
-          ]
-      %span#browser_hide{ :style => "display:none" }
-        %a{:href => "##{id}-inner" }
-          [
-          = hide_text
-          ]
-      - if show_clear
-        %span#browser_clear
-          %a{ :href => "#" }
-            [clear]
+  - if toggle
+    %span#browser_show
+      %a{:href => "##{id}-inner" }
+        [
+        = show_text
+        ]
+    %span#browser_hide{ :style => "display:none" }
+      %a{:href => "##{id}-inner" }
+        [
+        = hide_text
+        ]
+    - if show_clear
+      %span#browser_clear
+        %a{ :href => "#" }
+          [clear]
   - div_display = ( visible == true || value ) ? 'block' : 'none'
   %div{ :id =>"#{id}-inner", :style => "display: #{div_display};" }
     %ul.tree

@@ -23,26 +23,26 @@ describe 'Login' do
   end
   
   it 'should redirect us back to login if we logged in incorrectly' do
-    login_capybara :username => 'snoopy', :password => 'wrongtotallywrong'
+    login_as :username => 'snoopy', :password => 'wrongtotallywrong'
     #submitting a wrong password shold redirect to the login page
     current_path.should == '/login'
   end
 
   it 'should tell us if we logged in incorrectly' do
     # first, we fail a login attempt
-    login_capybara( :username => 'snoopy', :password => 'wrongtotallywrong')
+    login_as( :username => 'snoopy', :password => 'wrongtotallywrong')
     body.should include('Invalid login')
   end
 
   it 'should redirect to index after a successful login' do
     user = User.gen :username => 'johndoe'
-    login_capybara(user)
+    login_as(user)
     current_path.should == root_path
   end
  
   it 'should set a remember token for us if we asked to be remembered' do
     user = User.gen :username => 'charliebrown'
-    login_capybara(user, :remember_me => '1')
+    login_as(user, :remember_me => '1')
     current_path.should == root_path
     user.reload.remember_token.should_not be_blank
   end
@@ -51,7 +51,7 @@ describe 'Login' do
     user = User.gen :username => 'charliebrown'
     visit('/')
     body.should_not include_text("Hello #{ user.given_name }")
-    login_capybara(user)
+    login_as(user)
     visit('/')
     body.should include_text("Hello #{ user.given_name }")
   end
@@ -59,7 +59,7 @@ describe 'Login' do
   it 'should be able to logout user' do 
     user = User.gen :username => 'johndoe'
     greetings = "Hello #{user.given_name}" 
-    login_capybara(user) 
+    login_as(user) 
     visit('/')
     body.should have_tag('div.desc-personal') do
       with_tag('p', :text => /#{greetings}/)
@@ -71,7 +71,7 @@ describe 'Login' do
   
   it 'should not show the curator link and name must not have hyperlink to profile page' do
     user = User.gen :username => 'charliebrown'
-    login_capybara(user)
+    login_as(user)
     visit('/')
     body.should_not include_text('curators')
     body.should_not include_text("/account/show/")
@@ -81,7 +81,7 @@ describe 'Login' do
 
     it "should show the curator link and name must have hyperlink to profile page" do
       curator = build_curator(HierarchyEntry.gen, :username => 'test_curator')
-      login_capybara(curator)
+      login_as(curator)
       body.should include_text("curators")
       body.should include_text("/account/show/")
     end

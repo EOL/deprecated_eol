@@ -33,13 +33,27 @@ module ActiveSupport
   
   class TimeWithZone
     def mysql_timestamp
+      # 2010-12-31 03:50:09
       return strftime("%Y-%m-%d %H:%M:%S")
     end
     def solr_timestamp
+      # 2010-12-31T03:50:09Z
       return strftime("%Y-%m-%dT%H:%M:%SZ")
     end
   end
 end
+
+class Time
+  def mysql_timestamp
+    # 2010-12-31 03:50:09
+    return strftime("%Y-%m-%d %H:%M:%S")
+  end
+  def solr_timestamp
+    # 2010-12-31T03:50:09Z
+    return strftime("%Y-%m-%dT%H:%M:%SZ")
+  end
+end
+
 
 
 # This is a fix for EOLINFRASTRUCTURE-1606 ... NewRelic appears to be calling [] on a Nil somewhere, and this avoids the
@@ -159,7 +173,27 @@ class String
   def remove_diacritics
     self.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
   end
-
+  
+  def is_numeric?
+    begin
+      Float(self)
+    rescue
+      false # not numeric
+    else
+      true # numeric
+    end
+  end
+  
+  def is_int?
+    begin
+      Integer(self)
+    rescue
+      false # not numeric
+    else
+      true # numeric
+    end
+  end
+  
 end
 
 class Array

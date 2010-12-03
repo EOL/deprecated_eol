@@ -46,18 +46,6 @@ module EOL
         elsif user.is_a? Hash
           options = options.merge(user)
         end
-        request('/account/authenticate', :params => { 
-            'user[username]' => options[:username], 
-            'user[password]' => options[:password],
-            'remember_me' => options[:remember_me] || '' })
-      end
-
-      def login_capybara(user, options = {})
-        if user.is_a? User # let us pass a newly created user (with an entered_password)
-          options = { :username => user.username, :password => user.entered_password }.merge(options)
-        elsif user.is_a? Hash
-          options = options.merge(user)
-        end
         visit('/login?return_to=/')
         fill_in "user_username", :with => options[:username]
         fill_in "user_password", :with => options[:password]

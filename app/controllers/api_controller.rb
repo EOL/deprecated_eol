@@ -30,7 +30,7 @@ class ApiController < ApplicationController
     
     ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'pages', :version => params[:version], :format => params[:format], :request_id => taxon_concept_id, :key => @key, :user_id => @user_id)
     
-    details_hash = taxon_concept.details_hash(:return_images_limit => params[:images].to_i, :return_videos_limit => params[:videos].to_i, :subjects => params[:subjects], :return_text_limit => params[:text].to_i, :details => params[:details], :vetted => params[:vetted], :common_names => params[:common_names])
+    details_hash = taxon_concept.details_hash(:return_images_limit => params[:images].to_i, :return_videos_limit => params[:videos].to_i, :subjects => params[:subjects], :licenses => params[:licenses], :return_text_limit => params[:text].to_i, :details => params[:details], :vetted => params[:vetted], :common_names => params[:common_names])
     
     if params[:format] == 'html'
       render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => true } )

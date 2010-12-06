@@ -1,6 +1,44 @@
 class Rank < SpeciesSchemaModel
   has_many :hierarchy_entries
-
+  has_many :group_members, :class_name => 'Rank', :primary_key => 'rank_group_id', :foreign_key => 'rank_group_id', :conditions => 'rank_group_id!=0'
+  
+  def self.kingdom
+    cached_find(:label, 'kingdom')
+  end
+  
+  def self.phylum
+    cached_find(:label, 'phylum')
+  end
+  
+  def self.class
+    cached_find(:label, 'class')
+  end
+  
+  def self.order
+    cached_find(:label, 'order')
+  end
+  
+  def self.family
+    cached_find(:label, 'family')
+  end
+  
+  def self.genus
+    cached_find(:label, 'genus')
+  end
+  
+  def self.species
+    cached_find(:label, 'species')
+  end
+  
+  def self.subspecies
+    cached_find(:label, 'subspecies')
+  end
+  
+  
+  
+  
+  
+  
   def self.italicized_ids
     self.italicized_ids_sub
   end

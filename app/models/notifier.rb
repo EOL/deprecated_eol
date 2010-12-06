@@ -125,7 +125,7 @@ class Notifier < ActionMailer::Base
   
   def comments_and_actions_to_partner_or_user(agent_or_user, activity)
     unless agent_or_user.email.blank?
-      subject     "Update on your content submitted to EOL"
+      subject     "Summary of recent comments & curator actions for your Encyclopedia of Life content"
       recipients  'pleary@mbl.edu'
       from        $WEBSITE_EMAIL_FROM_ADDRESS
       body        :agent_or_user => agent_or_user, :activity => activity

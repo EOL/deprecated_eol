@@ -26,6 +26,30 @@ xml.dwr :DarwinRecordSet,
     xml.dwc :taxonConceptID, @hierarchy_entry.taxon_concept_id
     xml.dwc :scientificName, @hierarchy_entry.name_object.string
     xml.dwc :taxonRank, @hierarchy_entry.rank.label.firstcap unless @hierarchy_entry.rank.nil?
+    
+    canonical_form_words = @hierarchy_entry.name_object.canonical_form.string.split(/ /)
+    count_canonical_words = canonical_form_words.length
+    if Rank.kingdom.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
+      xml.dwc :kingdom, canonical_form_words[0]
+    elsif Rank.phylum.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
+      xml.dwc :phylum, canonical_form_words[0]
+    elsif Rank.class.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
+      xml.dwc :class, canonical_form_words[0]
+    elsif Rank.order.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
+      xml.dwc :order, canonical_form_words[0]
+    elsif Rank.family.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
+      xml.dwc :family, canonical_form_words[0]
+    elsif Rank.genus.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
+      xml.dwc :genus, canonical_form_words[0]
+    elsif Rank.species.group_members.include?(@hierarchy_entry.rank) && count_canonical_words == 2
+      xml.dwc :genus, canonical_form_words[0]
+      xml.dwc :specificEpithet, canonical_form_words[1]
+    elsif Rank.subspecies.group_members.include?(@hierarchy_entry.rank) && count_canonical_words == 3
+      xml.dwc :genus, canonical_form_words[0]
+      xml.dwc :specificEpithet, canonical_form_words[1]
+      xml.dwc :infraspecificEpithet, canonical_form_words[2]
+    end
+    
     for common_name in @common_names
       xml.dwc :vernacularName, common_name['name_string'], 'xml:lang'.to_sym => common_name['language_code']
     end

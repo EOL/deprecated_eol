@@ -134,11 +134,10 @@ class Notifier < ActionMailer::Base
         recipient_email = parameter.value
       end
       
-      subject     "Update on your content submitted to EOL"
-      recipients  recipient_email
-      from        $WEBSITE_EMAIL_FROM_ADDRESS
-      body        :agent_or_user => agent_or_user, :activity => activity
-    end
+      subject "Summary of recent comments & curator actions for your Encyclopedia of Life content"
+      recipients recipient_email
+      from $WEBSITE_EMAIL_FROM_ADDRESS
+      body :agent_or_user => agent_or_user, :activity => activity    end
   end
   
 end

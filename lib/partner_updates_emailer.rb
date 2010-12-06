@@ -23,6 +23,8 @@ module PartnerUpdatesEmailer
       agents_for_this_partner = agent_contacts.select{|ac| !ac.agent.content_partner.nil? && ac.email_reports_frequency_hours == frequency_hours && ac.agent.content_partner.id == partner_id}
       for agent in agents_for_this_partner
         Notifier.deliver_comments_and_actions_to_partner_or_user(agent, activity)
+        agent.last_report_email = Time.now
+        agent.save!
       end
     end
   end
@@ -32,6 +34,8 @@ module PartnerUpdatesEmailer
       user_to_update = users.select{|u| u.email_reports_frequency_hours == frequency_hours && u.id == user_id}
       for user in user_to_update
         Notifier.deliver_comments_and_actions_to_partner_or_user(user, activity)
+        user.last_report_email = Time.now
+        user.save!
       end
     end
   end
@@ -85,7 +89,9 @@ module PartnerUpdatesEmailer
     unless all_action_ids.empty?
       # Curator Actions on objects submitted by Content Partners
       result = ActionsHistory.find_by_sql("
-        SELECT ah.*, cp.id content_partner_id FROM #{ActionsHistory.full_table_name} ah
+        SELECT ah.*, u.username curator_username, cp.id content_partner_id
+        FROM #{ActionsHistory.full_table_name} ah
+        JOIN #{User.full_table_name} u ON (ah.user_id=u.id)
         LEFT JOIN (
           #{DataObject.full_table_name} do
           JOIN #{DataObjectsHierarchyEntry.full_table_name} dohe ON (do.id=dohe.data_object_id)
@@ -106,7 +112,8 @@ module PartnerUpdatesEmailer
       
       # Curator Actions on text submitted by Users
       result = ActionsHistory.find_by_sql("
-        SELECT ah.*, u.id user_id FROM #{ActionsHistory.full_table_name} ah
+        SELECT ah.*, u.username curator_username, u.id user_id FROM #{ActionsHistory.full_table_name} ah
+        JOIN #{User.full_table_name} uc ON (ah.user_id=uc.id)
         LEFT JOIN (
           #{DataObject.full_table_name} do
           JOIN #{UsersDataObject.full_table_name} udo ON (do.id=udo.data_object_id)
@@ -135,7 +142,8 @@ module PartnerUpdatesEmailer
     unless all_comment_ids.empty?
       # Comments left on objects submitted by Content Partners
       result = Comment.find_by_sql("
-        SELECT c.*, cp.id content_partner_id FROM #{Comment.full_table_name} c
+        SELECT c.*, u.username commenter_username, cp.id content_partner_id FROM #{Comment.full_table_name} c
+        JOIN #{User.full_table_name} u ON (c.user_id=u.id)
         LEFT JOIN (
           #{DataObjectsHierarchyEntry.full_table_name} dohe
           JOIN #{HierarchyEntry.full_table_name} he ON (dohe.hierarchy_entry_id = he.id)
@@ -155,7 +163,8 @@ module PartnerUpdatesEmailer
       
       # Comments left on pages with objects submitted by Content Partners
       result = Comment.find_by_sql("
-        SELECT c.*, cp.id content_partner_id FROM #{Comment.full_table_name} c
+        SELECT c.*, u.username commenter_username, cp.id content_partner_id FROM #{Comment.full_table_name} c
+        JOIN #{User.full_table_name} u ON (c.user_id=u.id)
         LEFT JOIN (
           #{HierarchyEntry.full_table_name} he
           JOIN #{Resource.full_table_name} r ON (he.hierarchy_id = r.hierarchy_id)
@@ -176,7 +185,8 @@ module PartnerUpdatesEmailer
       
       # Comments left on text submitted by Users
       result = Comment.find_by_sql("
-        SELECT c.*, u.id user_id FROM #{Comment.full_table_name} c
+        SELECT c.*, uc.username commenter_username, u.id user_id FROM #{Comment.full_table_name} c
+        JOIN #{User.full_table_name} uc ON (c.user_id=uc.id)
         LEFT JOIN (
           #{UsersDataObject.full_table_name} udo
           JOIN #{User.full_table_name} u ON (udo.user_id = u.id)
@@ -193,7 +203,8 @@ module PartnerUpdatesEmailer
       
       # Comments left on pages with text submitted by Users
       result = Comment.find_by_sql("
-        SELECT c.*, u.id user_id FROM #{Comment.full_table_name} c
+        SELECT c.*, uc.username commenter_username, u.id user_id FROM #{Comment.full_table_name} c
+        JOIN #{User.full_table_name} uc ON (c.user_id=uc.id)
         LEFT JOIN (
           #{UsersDataObject.full_table_name} udo
           JOIN #{User.full_table_name} u ON (udo.user_id = u.id)

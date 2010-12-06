@@ -125,8 +125,17 @@ class Notifier < ActionMailer::Base
   
   def comments_and_actions_to_partner_or_user(agent_or_user, activity)
     unless agent_or_user.email.blank?
+      # by default send all emails to the curator
+      recipient_email = agent_or_user.email
+      
+      # Check to see if we have it configured to send all reports to a single email address
+      parameter = SiteConfigurationOption.find_by_parameter('email_actions_to_curators_address')
+      if parameter && parameter.value
+        recipient_email = parameter.value
+      end
+      
       subject     "Summary of recent comments & curator actions for your Encyclopedia of Life content"
-      recipients  'pleary@mbl.edu'
+      recipients  recipient_email
       from        $WEBSITE_EMAIL_FROM_ADDRESS
       body        :agent_or_user => agent_or_user, :activity => activity
     end

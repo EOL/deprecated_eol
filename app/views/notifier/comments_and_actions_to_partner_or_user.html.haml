@@ -1,12 +1,36 @@
+- type_to_send_permalinks_for = [DataType.image.id, DataType.text.id] + DataType.video_type_ids
+
 - if @agent_or_user.class == AgentContact
   = "Dear #{@agent_or_user.full_name} on behalf of #{@agent_or_user.agent.full_name},"
 - else
   = "Dear #{@agent_or_user.full_name},"
 = ""
 
+- if @agent_or_user.class == AgentContact  # the contact for a content partner
+  You are receiving this message because you are listed as a contact for an Encyclopedia of Life content partner.
+  For more detailed information, log in to your account in the EOL Content Partner Registry:
+  = url_for(:controller => 'content_partner', :action => 'login', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
+  = ""
+  Then go to USAGE REPORTS:
+  = url_for(:controller => 'content_partner', :action => 'reports', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
+  = ""
+  To turn off or change how often you receive these updates, log in to your account in the EOL Content Partner Registry and edit your profile (CONTACT INFORMATION:Change):
+  = url_for(:controller => 'content_partner', :action => 'edit_contact', :id => @agent_or_user.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP);
+  = ""
+  If you have trouble accessing your account please contact us for help:
+  = url_for(:controller => 'contact_us', :default_subject => 'Content Partner Support', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
+- else  # a site user that has submitted content
+  To turn off or change how often you receive these updates, log in to EOL and go to your profile:
+  = url_for(:controller => 'profile', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
+  = ""
+  If you have trouble accessing your account please contact us for help:
+  = url_for(:controller => 'contact_us', :default_subject => 'Technical problems (difficulties with the website, search tool or user accounts)', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
+= ""
+= ""
+
 
 -# Curator actions
-- unless @activity[:actions].blank?
+- unless @activity.blank? || @activity[:actions].blank?
   ======================================
   - if @activity[:actions].length > 1
     Curator actions have affected data objects you submitted:
@@ -18,21 +42,19 @@
     - taxon_concept = TaxonConcept.find(data_object.linked_taxon_concept.id)  # so we get superceded concepts
     - date = format_date_time(action.created_at,:format=>'short_no_tz')
     - url = nil
-    - if [DataType.image.id, DataType.text.id].include?(data_object.data_type_id)
-      - link_attribute = (data_object.data_type_id==DataType.image.id) ? 'image_id'.to_sym : 'text_id'.to_sym
-      - url = url_for(:controller => 'data_objects', :id => data_object.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP)
+    - if type_to_send_permalinks_for.include?(data_object.data_type_id)
+      - url = url_for(:controller => 'data_objects', :action => data_object.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP)
     = "  #{date}"
     = "    #{taxon_concept.name(:natural_form)}"
     - if url
       = "    #{url}"
-    = "    #{action.action_with_object.action_code}"
+    = "    #{action.action_with_object.action_code} by #{action['curator_username']}"
     = "  -----"
     = ""
   = ""
-  = ""
 
 -# Comments on their objects
-- unless @activity[:object_comments].blank?
+- unless @activity.blank? || @activity[:object_comments].blank?
   ======================================
   - if @activity[:object_comments].length > 1
     Comments were left on data objects you submitted:
@@ -44,21 +66,19 @@
     - taxon_concept = TaxonConcept.find(data_object.linked_taxon_concept.id)  # so we get superceded concepts
     - date = format_date_time(comment.created_at,:format=>'short_no_tz')
     - url = nil
-    - if [DataType.image.id, DataType.text.id].include?(data_object.data_type_id)
-      - link_attribute = (data_object.data_type_id==DataType.image.id) ? 'image_id'.to_sym : 'text_id'.to_sym
-      - url = url_for(:controller => 'data_objects', :id => data_object.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP)
+    - if type_to_send_permalinks_for.include?(data_object.data_type_id)
+      - url = url_for(:controller => 'data_objects', :action => data_object.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP)
     = "  #{date}"
     = "    #{taxon_concept.name(:natural_form)}"
     - if url
       = "    #{url}"
-    = "    #{comment.body.strip}"
+    = "    From user #{comment['commenter_username']}: #{comment.body.strip}"
     = "  -----"
     = ""
   = ""
-  = ""
 
 -# Comments on pages their objects are on
-- unless @activity[:page_comments].blank?
+- unless @activity.blank? || @activity[:page_comments].blank?
   ======================================
   - if @activity[:page_comments].length > 1
     Comments were left on the taxon page comments tab (may not apply specifically to your content):
@@ -72,21 +92,10 @@
     = "  #{date}"
     = "    #{taxon_concept.name(:natural_form)}"
     = "    #{url}"
-    = "    #{comment.body.strip}"
+    = "    From user #{comment['commenter_username']}: #{comment.body.strip}"
     = "  --------"
     = ""
   = ""
-  = ""
-
-- if @agent_or_user.class == AgentContact
-  For more detailed information, visit your activity tab in the Content Partner Registry: 
-  = url_for(:controller => 'content_partner', :action => 'reports', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
-  = ""
-  To turn off or change how often you get these messages, go to your profile:
-  = url_for(:controller => 'content_partner', :action => 'contacts', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
-- else
-  To turn off or change how often you get these messages, go to your profile:
-  = url_for(:controller => 'content_partner', :action => 'contacts', :only_path => false, :host => $SITE_DOMAIN_OR_IP);
 
 = ""
 Thank you.

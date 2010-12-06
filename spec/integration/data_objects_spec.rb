@@ -41,6 +41,13 @@ describe 'Data Object Page' do
       find(:css, ".credit-value input").value.should == "http://#{$SITE_DOMAIN_OR_IP}/data_objects/#{@image.id}"
     end
     
+    it "should show image description for image objects" do
+      visit("/data_objects/#{@image.id}")
+      body.should include('<h3>Description</h3>')
+      body.should include("<div class='description #{@image.id}'>")
+      body.should include @image.description
+    end
+    
     it "should not show comments section if there are no comments" do
       visit("/data_objects/#{@dato_no_comments.id}")
       page.status_code.should == 200

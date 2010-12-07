@@ -10,3 +10,4 @@
       "current_user_comments": "#{ current_objects.select { |c| c.user == current_user && c.visible? }.size }",
       "data_object_id": "#{current_objects[0].parent_id}"};
     try { change_comment_icon_tooltip(data); } catch(err) {};
+    $('#comment_button_link_#{current_objects[0].parent_id} .span_block').html(data.comments);

@@ -2,6 +2,11 @@ module ActiveReload
   class MasterDatabase < ActiveRecord::Base
     self.abstract_class = true
     establish_connection configurations[Rails.env]['master_database'] || configurations['master_database'] || Rails.env
+    # Added by EOL:
+    # Without this, you'll get a "undefined method `connection' for nil:NilClass"
+    def self.connection
+      ActiveRecord::Base.connection_handler.retrieve_connection(self)
+    end
   end
 
   class SlaveDatabase < ActiveRecord::Base
@@ -92,12 +97,25 @@ module ActiveReload
     
     #added by EOL team
     def execute(sql)
-      
-      if @current != :master && (sql.lstrip.split(" ")[0].downcase == "select" rescue nil)
+      if @current != :master && needs_master?(sql)
         slave.execute(sql)
       else
         master.execute(sql)
       end
+    end
+
+    def needs_master?(sql)
+      begin
+        normalized = sql.lstrip.downcase
+        if normalized[0..5] == 'select'
+          return false
+        else
+          return true
+        end
+      rescue
+        return false # It's likely this query won't even run... let's send it to a slave.
+      end
+      false # Really shouldn't get here, but best to have a default.
     end
   end
 

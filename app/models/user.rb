@@ -10,7 +10,9 @@ require 'lib/eol/solr_search.rb'
 # problems.
 #
 # Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
-class User < ActiveRecord::Base
+# NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
+# which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
+class User < ActiveReload::MasterDatabase
 
   belongs_to :language
   belongs_to :agent
@@ -18,8 +20,9 @@ class User < ActiveRecord::Base
 
   before_save :check_curator_status
 
-  #  TODO - this should be okay, but the account controller doesn't seem to like using this, because it forces this param in some cases:
-#  attr_protected :curator_hierarchy_entry_id # Can't change this with update_attributes()
+  # TODO - this should be okay, but the account controller doesn't seem to like using this, because it forces this param
+  # in some cases:
+  # attr_protected :curator_hierarchy_entry_id # Can't change this with update_attributes()
 
   belongs_to :curator_hierarchy_entry, :class_name => "HierarchyEntry", :foreign_key => :curator_hierarchy_entry_id
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id

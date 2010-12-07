@@ -24,7 +24,7 @@ function change_comment_icon_tooltip(data) {
   var pluralize_comments = data.comments == "1" ? '. ' : 's. ';
   var pluralize_current_user_comments = data.current_user_comments == "1" ? ' is' : ' are';
   $('#comment_button_link_' + data.data_object_id).parent().attr('title', data.comments + ' comment' + pluralize_comments + data.current_user_comments + pluralize_current_user_comments + ' yours. Add a comment');
-  $('#comment_button_link_' + data.data_object_id).find('img').attr('src', '/images/comment_button_green.png');
+  $('#comment-icon-text-' + data.data_object_id).html(data.comments);
 };
 
 $(function() {

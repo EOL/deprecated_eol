@@ -89,16 +89,11 @@
             {'data-data_object_id' => content_item.id, |
             :style => comments_style, :alt => "Comment on this text", |
             :class => 'popup-link'} |
-
+          .comment-button-text
+            = render :partial => '/comments/comments_count', :locals => {:data_object_comments => content_item.comments}
   .text-slidebox-border{:id => "text-comments-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container.text-comment-div{:id => "text-comments-#{content_item.id}"}
       -# TODO - we re-use this indicator a lot.  Put it in a div that we can push around the page as needed.
-      %p
-        = image_tag 'indicator_arrows_black.gif'
-        = "Please wait..."[]
-  
-  .text-slidebox-border{:id => "text-curation-wrapper-#{content_item.id}", :style => "display:none;"}
-    .text-slidebox-container{:id => "text-curation-#{content_item.id}"}
       %p
         = image_tag 'indicator_arrows_black.gif'
         = "Please wait..."[]

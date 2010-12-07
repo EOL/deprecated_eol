@@ -665,7 +665,7 @@ ul#tab_media_center {
   background-color: #ff9999 !important; }
 
 .trusted {
-  border: 1px solid white; }
+  border: 1px solid gray; }
 
 .unknown {
   border: 1px solid #ffcc00;
@@ -2039,7 +2039,8 @@ div.text_buttons {
 span.span_block {
   display: block;
   width: 24px;
-  height: 25px; }
+  height: 25px;
+  text-align: center; }
 
 ul.tree {
   margin: 10px; }
@@ -2116,9 +2117,18 @@ div.text_curation_close {
   height: 13px; }
 
 .comment-button-image {
+  position: relative;
+  float: right !important;
   background: transparent url(/images/icons/icons.gif) no-repeat -72px 0px; }
   .comment-button-image:hover {
     background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px; }
+
+.comment-button-image .comment-button-text {
+  position: absolute;
+  height: auto;
+  width: auto;
+  left: 7px;
+  top: 2px; }
 
 .curate-button-image {
   background: transparent url(/images/icons/icons.gif) no-repeat -23px 0px; }

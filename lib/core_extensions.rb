@@ -9,6 +9,12 @@
 # Discussion about the problem:
 # https://rails.lighthouseapp.com/projects/8994/tickets/2655-railscache-freezes-all-objects-passed-to-it
 
+module ActiveReload
+  class MasterDatabase < ActiveRecord::Base
+    # This makes the MasterDatabase work as expected in the test and dev environments.
+  end
+end
+
 module ActiveRecord
   class Base
     def dup

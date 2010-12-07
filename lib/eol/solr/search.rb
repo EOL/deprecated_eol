@@ -1,6 +1,6 @@
 module EOL
   module Solr
-    
+
     def self.query_lucene(solr_endpoint, query, options = {})
       query_url = solr_endpoint + '/select/?wt=json&q='
       query_url << URI.encode(%Q[{!lucene}#{query}])
@@ -8,12 +8,11 @@ module EOL
       query_url << "&start=#{options[:start]}" unless options[:start].blank?
       query_url << "&rows=#{options[:rows]}" unless options[:rows].blank?
       query_url << "&fl=" << URI.encode(%Q[#{options[:fields]}]) unless options[:fields].blank?
-      
+
       res = open(query_url).read
       JSON.load res
     end
-    
-    
+
     module Search
       # Returns an array of result hashes, using will_paginate.  Don't use paginate_all_by_solr directly, as that will either fail
       # or cause duplicate queries.
@@ -38,9 +37,9 @@ module EOL
                                                               :querystring   => query))
         data.paginate(options)
       end
-      
+
       private
-      
+
       # TODO - clearly, I don't like the hard-coded field.  We want to pass in the search_field as an option... but in a nice
       # way.  Later.
       def prepare_querystring(query, options)
@@ -80,15 +79,6 @@ module EOL
         JSON.load res
       end
     end
-    
-    module SolrSearchDataObjects
-      def self.images_for_concept(query, options = {})
-        options[:fields] = 'data_object_id'
-        result = EOL::Solr.query_lucene($SOLR_SERVER_DATA_OBJECTS, query, options);
-        data_object_ids = []
-        result['response']['docs'].each{|h| data_object_ids << h['data_object_id'][0]}
-        return data_object_ids
-      end
-    end
+
   end
 end

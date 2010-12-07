@@ -246,6 +246,12 @@ ExceptionNotifier.exception_recipients = [] # email addresses of people to get e
 ExceptionNotifier.sender_address = $EXCEPTION_EMAIL_ADDRESS
 ExceptionNotifier.email_prefix = "[EOL] "
 
+# Required by the User model and the Account Controller, at least:
+require 'uri'
+require 'ezcrypto'
+require 'cgi'
+require 'base64'
+
 # Add some stuff to Core/Rails base classes:
 require 'core_extensions'
 require 'open-uri'

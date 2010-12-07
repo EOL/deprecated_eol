@@ -72,7 +72,7 @@
                 = render(:partial => 'taxa/set_content_settings', :locals => { :f => f })
           - if $ALLOW_CURATOR_SELF_REG
             %h3.preference-header= "Curators"[]
-            - if !@user.is_curator?
+            - unless @user.is_curator?
               %label{ :title => "Do you want to be a curator"[], :for => "user_curator_signup" }
                 = "Do you want to be a curator?"[]
               = f.check_box :curator_request, {:id => "curator_request"}

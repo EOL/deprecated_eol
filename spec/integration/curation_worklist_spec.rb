@@ -64,7 +64,7 @@ describe 'Curator Worklist' do
 
   before(:each) do
     SpeciesSchemaModel.connection.execute('set AUTOCOMMIT=1')
-    login_capybara(@curator)
+    login_as(@curator)
   end
 
   after(:each) do

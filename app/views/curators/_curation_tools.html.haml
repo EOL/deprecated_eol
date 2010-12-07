@@ -69,15 +69,7 @@
       - comment_tooltip = tooltip
     - else
       - comment_tooltip =  tooltip +  "#{curator_comments.size} #{curator_comments.size == 1 ? 'is' : 'are'} yours. "
-  #right_text_button.comment_button.comment-button-image{ :title => comment_tooltip + "Add a comment." }
-    = link_to '<span class="span_block"></span>', |
-      "/data_objects/#{data_object['id']}/comments", |
-      {'data-data_object_id' => data_object['id'], |
-      :alt => "Comment on this #{data_object['data_type_label']}", |
-      :class => 'popup-link', |
-      :id => "comment_button_link_#{data_object['id']}" } |
-    .comment-button-text{:id => "comment-icon-text-#{data_object['id']}"}
-      = render :partial => '/comments/comments_count', :locals => {:data_object_comments => data_object['comments']}
+  = render :partial => '/comments/comment_icon', :locals => { :data_object_id => data_object['id'], :title => comment_tooltip + "Add a comment.", :comments_count => comments.size, :alt => "Comment on this #{data_object['data_type_label']}", :comment_class => 'popup-link', :rel => '' }
 .text-slidebox-border{:id => "text-comments-wrapper-#{data_object['id']}", :style => "display:none;"}
   .text-slidebox-container.text-comment-div{:id => "text-comments-#{data_object['id']}"}
     -# TODO - we re-use this indicator a lot.  Put it in a CSS class.

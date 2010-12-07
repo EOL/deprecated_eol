@@ -665,7 +665,7 @@ ul#tab_media_center {
   background-color: #ff9999 !important; }
 
 .trusted {
-  border: 1px solid gray; }
+  border: 1px solid white; }
 
 .unknown {
   border: 1px solid #ffcc00;
@@ -2040,7 +2040,9 @@ span.span_block {
   display: block;
   width: 24px;
   height: 25px;
-  text-align: center; }
+  text-align: center;
+  font-size: 11px;
+  padding-top: 1px; }
 
 ul.tree {
   margin: 10px; }
@@ -2127,8 +2129,8 @@ div.text_curation_close {
   position: absolute;
   height: auto;
   width: auto;
-  left: 7px;
-  top: 2px; }
+  left: 8px;
+  top: 1px; }
 
 .curate-button-image {
   background: transparent url(/images/icons/icons.gif) no-repeat -23px 0px; }

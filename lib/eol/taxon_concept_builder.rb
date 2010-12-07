@@ -246,7 +246,8 @@ module EOL
         toc_item[:toc_item]    ||= TocItem.all.rand
         toc_item[:description] ||= Faker::Lorem.paragraph
         toc_item[:vetted] ||= Vetted.trusted
-        build_object_in_event('Text', toc_item[:description], :hierarchy_entry => @he, :toc_item => toc_item[:toc_item], :vetted => toc_item[:vetted])
+        toc_item[:license] ||= License.cc
+        build_object_in_event('Text', toc_item[:description], :hierarchy_entry => @he, :toc_item => toc_item[:toc_item], :vetted => toc_item[:vetted], :license => toc_item[:license])
       end
       # We're missing the info items.  Technically, the toc_item would be referenced by looking at the info items (creating any we're
       # missing).  TODO - we should build the info item first and let the toc_item resolve from that.

@@ -30,11 +30,10 @@ describe 'EOL APIs' do
       xml_response = Nokogiri.XML(body)
       xml_response.xpath('//response/message').inner_text.should == 'Success'
     end
-
+    
     it 'should take api key and save it to the log' do
       check_api_key("/api/ping?key=#{@user.api_key}", @user)
     end
-
   end
   
   describe 'pages and data objects' do
@@ -59,11 +58,11 @@ describe 'EOL APIs' do
          :youtube         => [{:description => @video_3_text}],
          :images          => [{:object_cache_url => @image_1}, {:object_cache_url => @image_2},
                               {:object_cache_url => @image_3}],
-         :toc             => [{:toc_item => @overview, :description => @overview_text}, 
-                              {:toc_item => @distribution, :description => @distribution_text}, 
-                              {:toc_item => @description, :description => @description_text},
-                              {:toc_item => @description, :description => 'test uknown', :vetted => Vetted.unknown},
-                              {:toc_item => @description, :description => 'test untrusted', :vetted => Vetted.untrusted}])
+         :toc             => [{:toc_item => @overview, :description => @overview_text, :license => License.by_nc}, 
+                              {:toc_item => @distribution, :description => @distribution_text, :license => License.cc}, 
+                              {:toc_item => @description, :description => @description_text, :license => License.public_domain},
+                              {:toc_item => @description, :description => 'test uknown', :vetted => Vetted.unknown, :license => License.by_nc},
+                              {:toc_item => @description, :description => 'test untrusted', :vetted => Vetted.untrusted, :license => License.cc}])
       @taxon_concept.add_common_name_synonym(Faker::Eol.common_name.firstcap, :agent => Agent.last, :language => Language.english)
     
     
@@ -74,7 +73,7 @@ describe 'EOL APIs' do
         :mime_type              => MimeType.find_or_create_by_label('text/html'),
         :object_title           => 'default title',
         :language               => Language.find_or_create_by_iso_639_1('en'),
-        :license                => License.find_or_create_by_source_url('http://creativecommons.org/licenses/by-nc/3.0/'),
+        :license                => License.by_nc,
         :rights_statement       => 'default rights © statement',
         :rights_holder          => 'default rights holder',
         :bibliographic_citation => 'default citation',
@@ -183,6 +182,28 @@ describe 'EOL APIs' do
       xml_response = Nokogiri.XML(body)
       xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
     end
+    
+    it 'should be able to take a | delimited list of licenses' do
+      visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&licenses=cc-by-nc&details=1")
+      xml_response = Nokogiri.XML(body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
+      
+      visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&licenses=pd&details=1")
+      xml_response = Nokogiri.XML(body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
+      
+      # %7C == |
+      visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&licenses=cc-by-nc%7Cpd&details=1")
+      xml_response = Nokogiri.XML(body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
+    end
+      
+    it 'should be able to return ALL licenses' do 
+      visit("/api/pages/#{@taxon_concept.id}?text=5&licenses=all&subjects=all&vetted=1")
+      xml_response = Nokogiri.XML(body)
+      xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
+    end
+    
       
     it 'should be able to get more details on data objects' do
       visit("/api/pages/#{@taxon_concept.id}?image=1&text=0&details=1")
@@ -219,7 +240,7 @@ describe 'EOL APIs' do
     end
     
     
-  
+      
     it 'should be able to render an HTML version of the page' do
       visit("/api/pages/#{@taxon_concept.id}?subjects=Distribution&text=2&format=html")
       body.should include '<html'
@@ -376,7 +397,7 @@ describe 'EOL APIs' do
       visit("/api/data_objects/#{@object.guid}?common_names=1")
       body.should include '<commonName'
     end
-
+    
     it 'should take api key and save it to the log' do
       check_api_key("/api/data_objects/#{@object.guid}?key=#{@user.api_key}", @user)
     end
@@ -464,7 +485,7 @@ describe 'EOL APIs' do
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[2]/xmlns:ToTaxonConcept/@ref').inner_text.should include(@common_name.id.to_s)
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[2]/@type').inner_text.should == 'has vernacular'
     end
-
+  
     it 'should take api key and save it to the log' do
       check_api_key("/api/hierarchy_entries/#{@hierarchy_entry.id}?format=tcs&key=#{@user.api_key}", @user)
     end
@@ -492,11 +513,11 @@ describe 'EOL APIs' do
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@scientific').inner_text.should == "false"
       xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@language').inner_text.should == @common_name.language.iso_639_1
     end
-
+  
     it 'should take api key and save it to the log' do
       check_api_key("/api/synonyms/#{@common_name.id}?key=#{@user.api_key}", @user)
     end
-
+  
   end
   
   describe 'search' do
@@ -531,7 +552,7 @@ describe 'EOL APIs' do
       response_object = JSON.parse(body)
       response_object['results'].length.should == 0
     end
-
+  
     it 'should take api key and save it to the log' do
       check_api_key("/api/search/Canis.json?exact=1&key=#{@user.api_key}", @user)
     end
@@ -584,7 +605,7 @@ describe 'EOL APIs' do
     it 'should take api key and save it to the log' do
       check_api_key("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}&key=#{@user.api_key}", @user)
     end
-
+  
     it 'should list the hierarchy roots' do
       visit("/api/hierarchies/#{@test_hierarchy.id}")
       xml_response = Nokogiri.XML(body)
@@ -612,7 +633,7 @@ describe 'EOL APIs' do
       response_object['roots'][0]['scientificName'].should == @test_hierarchy_entry_published.name_object.string
       response_object['roots'][0]['taxonRank'].should == @test_hierarchy_entry_published.rank.label
     end
-
+  
     it 'should take api key and save it to the log' do
       check_api_key("/api/hierarchies/#{@test_hierarchy.id}?key=#{@user.api_key}", @user)
     end

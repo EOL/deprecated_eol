@@ -119,7 +119,18 @@ div.content-wrap {
     font-weight: bold; }
 
 .results_table .comment_button {
-  float: right !important; }
+  float: right !important;
+  position: relative;
+  background: transparent url(/images/icons/icons.gif) no-repeat -72px 0px; }
+  .results_table .comment_button:hover {
+    background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px; }
+
+.results_table .comment_button .comment_text {
+  position: absolute;
+  height: auto;
+  width: auto;
+  left: 7px;
+  top: 2px; }
 
 .results_table .credit-value {
   width: 22em !important; }

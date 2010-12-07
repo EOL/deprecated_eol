@@ -76,7 +76,7 @@ describe "Communities" do
     describe '(with member logged in)' do
 
       before(:each) do
-        login_capybara @user1
+        login_as @user1
       end
 
       after(:each) do
@@ -115,7 +115,7 @@ describe "Communities" do
     it 'should not allow non-members'
 
     it 'should allow editing of name and description' do
-      login_capybara @user1
+      login_as @user1
       visit edit_community_path(@community)
       page.body.should have_tag("input#community_name")
       page.body.should have_tag("textarea#community_description")
@@ -124,7 +124,7 @@ describe "Communities" do
   end
 
   it 'should allow non-members to join communities, then redirect to show' do
-    login_capybara @user1
+    login_as @user1
     @user1.member_of?(@community2).should_not be_true
     visit(join_community_path(:community_id => @community2.id))
     @user1.reload
@@ -138,7 +138,7 @@ describe "Communities" do
   end
 
   it 'should allow members to leave communities, then redirect to show' do
-    login_capybara @user1
+    login_as @user1
     @user1.member_of?(@community).should be_true
     visit(leave_community_path(:community_id => @community.id))
     @user1.reload

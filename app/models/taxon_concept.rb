@@ -13,8 +13,6 @@
 #
 # See the comments at the top of the Taxon for more information on this.
 # I include there a basic biological definition of what a Taxon is.
-require 'eol/solr_search'
-
 class TaxonConcept < SpeciesSchemaModel
   extend EOL::Solr::Search
   include ModelQueryHelper

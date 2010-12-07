@@ -1,8 +1,3 @@
-require 'uri'
-require 'ezcrypto'
-require 'cgi'
-require 'base64'
-
 class AccountController < ApplicationController
 
   before_filter :check_authentication, :only => [:info, :profile, :uservoice_login]

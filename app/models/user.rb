@@ -1,10 +1,3 @@
-require "digest"
-require 'uri'
-require 'ezcrypto'
-require 'cgi'
-require 'base64'
-require 'lib/eol/solr_search.rb'
-
 # NOTE - there is a method called #stale? (toward the bottom) which needs to be kept up-to-date with any changes made
 # to the user model.  We *could* achieve a similar result with method_missing, but I worry that it would cause other
 # problems.
@@ -12,7 +5,8 @@ require 'lib/eol/solr_search.rb'
 # Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
 # NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
-class User < ActiveReload::MasterDatabase
+parent_klass = ActiveReload::MasterDatabase rescue ActiveRecord::Base
+class User < parent_klass
 
   belongs_to :language
   belongs_to :agent

@@ -51,6 +51,8 @@ $CONTENT_SERVERS = ['http://content.eol.org/'] if !$CONTENT_SERVERS
 
 $AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE = Agent.first.id rescue nil # Because it doesn't much matter, here in development.
 
+$USER_PARENT_CLASS = ActiveRecord::Base
+
 #set up the master database connection for writes using masochism plugin
 #NOTE: for this to work, you *must* also use config.cache_classes = true (default for production)
 # config.after_initialize do 

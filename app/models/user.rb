@@ -5,7 +5,7 @@
 # Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
 # NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
-parent_klass = ActiveReload::MasterDatabase rescue ActiveRecord::Base
+parent_klass = $USER_PARENT_CLASS ? $USER_PARENT_CLASS : ActiveReload::MasterDatabase rescue ActiveRecord::Base
 class User < parent_klass
 
   belongs_to :language

@@ -65,47 +65,56 @@
             a pipe | delimited list of SPM Info Item subject names or 'all' to get text in any subject 
         %tr
           %td.odd.strong
+            licenses
+          %td.odd
+            cc-by, cc-by-nc, cc-by-sa, cc-by-nc-sa, pd [public domain], na [not applicable], all
+          %td.odd
+            all
+          %td.odd
+            a pipe | delimited list of licenses or 'all' to get objects under any license
+        %tr
+          %td.even.strong
             details
-          %td.odd
+          %td.even
             0 or 1
-          %td.odd
+          %td.even
             0
-          %td.odd
+          %td.even
             expand all metadata for data objects
         %tr
-          %td.even.strong
+          %td.odd.strong
             common_names
-          %td.even
+          %td.odd
             0 or 1
-          %td.even
+          %td.odd
             0
-          %td.even
+          %td.odd
             return common names for the page's taxon
         %tr
-          %td.odd.strong
+          %td.even.strong
             vetted
-          %td.odd
+          %td.even
             0 or 1
-          %td.odd
+          %td.even
             0
-          %td.odd
+          %td.even
             if vetted is 1 only 'trusted' content will be returned. The default is to return all content 
         %tr
-          %td.even.strong
-            format 
-          %td.even
-            html, xml, json
-          %td.even
-            html
-          %td.even
-        %tr
           %td.odd.strong
+            format 
+          %td.odd
+            html, xml, json
+          %td.odd
+            html
+          %td.odd
+        %tr
+          %td.even.strong
             version 
-          %td.odd
+          %td.even
             0.4, 1.0
-          %td.odd
+          %td.even
             0.4
-          %td.odd
+          %td.even
             version 1.0 uses fields from the latest version of the
             = link_to 'Darwin Core', 'http://rs.tdwg.org/dwc/terms/index.htm'
             schema

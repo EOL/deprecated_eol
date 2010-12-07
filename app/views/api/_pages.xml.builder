@@ -26,6 +26,30 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
               xml.dwct :taxonID, url_for(:controller => 'api', :action => 'hierarchy_entries', :id => entry.id, :only_path => false)
               xml.dwct :scientificName, entry.name_object.string
               xml.dwct :nameAccordingTo, entry.hierarchy.label
+              xml.dwct :taxonRank, entry.rank.label.firstcap unless entry.rank.nil?
+              
+              canonical_form_words = entry.name_object.canonical_form.string.split(/ /)
+              count_canonical_words = canonical_form_words.length
+              if Rank.kingdom.group_members.include?(entry.rank) &&  count_canonical_words == 1
+                xml.dwct :kingdom, canonical_form_words[0]
+              elsif Rank.phylum.group_members.include?(entry.rank) &&  count_canonical_words == 1
+                xml.dwct :phylum, canonical_form_words[0]
+              elsif Rank.class.group_members.include?(entry.rank) &&  count_canonical_words == 1
+                xml.dwct :class, canonical_form_words[0]
+              elsif Rank.order.group_members.include?(entry.rank) &&  count_canonical_words == 1
+                xml.dwct :order, canonical_form_words[0]
+              elsif Rank.family.group_members.include?(entry.rank) &&  count_canonical_words == 1
+                xml.dwct :family, canonical_form_words[0]
+              elsif Rank.genus.group_members.include?(entry.rank) &&  count_canonical_words == 1
+                xml.dwct :genus, canonical_form_words[0]
+              elsif Rank.species.group_members.include?(entry.rank) && count_canonical_words == 2
+                xml.dwct :genus, canonical_form_words[0]
+                xml.dwct :specificEpithet, canonical_form_words[1]
+              elsif Rank.subspecies.group_members.include?(entry.rank) && count_canonical_words == 3
+                xml.dwct :genus, canonical_form_words[0]
+                xml.dwct :specificEpithet, canonical_form_words[1]
+                xml.dwct :infraspecificEpithet, canonical_form_words[2]
+              end
             end
           end
         end

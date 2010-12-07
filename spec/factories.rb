@@ -455,10 +455,7 @@ Factory.define :data_object do |dato|
   dato.mime_type              { MimeType.find_by_label('image/jpeg') || Factory(:mime_type, :label => 'image/jpeg') }
   dato.object_title           ''
   dato.language               { Language.english || Factory(:language, :label => 'English') }
-  dato.license                { License.find_by_title('cc-by 3.0') ||
-                                Factory(:license, :title => 'cc-by 3.0', :description => 'Some rights reserved',
-                                                  :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-                                                  :logo_url => '/images/licenses/cc_by_small.png') }
+  dato.association            :license
   dato.rights_statement       ''
   dato.rights_holder          ''
   dato.bibliographic_citation ''
@@ -665,11 +662,11 @@ Factory.define :last_curated_date do |l|
 end
 
 Factory.define :license do |l|
-  l.title                    'Test License Type'
-  l.description              'Rights?  What Rights?'
-  l.source_url               ''
+  l.title                    'cc-by 3.0'
+  l.description              'Some rights reserved'
+  l.source_url               'http://creativecommons.org/licenses/by/3.0/'
   l.version                  0
-  l.logo_url                 ''
+  l.logo_url                 '/images/licenses/cc_by_small.png'
   l.show_to_content_partners true
 end
 

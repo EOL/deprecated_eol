@@ -22,6 +22,15 @@ class License < SpeciesSchemaModel
   def self.by_nc
     License.find_by_title('cc-by-nc 3.0')
   end
+  
+  def self.by_nc_sa
+    License.find_by_title('cc-by-nc-sa 3.0')
+  end
+  
+  def self.by_sa
+    License.find_by_title('cc-by-sa 3.0')
+  end
+  
 
 end
 # == Schema Info

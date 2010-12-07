@@ -1026,6 +1026,21 @@ class TaxonConcept < SpeciesSchemaModel
     else
       options[:text_subjects] = ['TaxonBiology', 'GeneralDescription', 'Description']
     end
+    if options[:licenses]
+      options[:licenses] = options[:licenses].split("|").map do |l|
+        if l == 'pd'
+          'public domain'
+        elsif l == 'na'
+          'not applicable'
+        else
+          l
+        end
+      end
+    else
+      # making this an array to keep it consistent
+      options[:licenses] = ['all']
+    end
+    
 
     if options[:data_object_hash]
       # needs to be an array
@@ -1061,7 +1076,21 @@ class TaxonConcept < SpeciesSchemaModel
     elsif options[:vetted].to_i == 2
       object_hash.delete_if {|obj| obj['vetted_id'].to_i == Vetted.untrusted.id}
     end
-
+    
+    # remove licenses not asked for
+    if !options[:licenses].include?('all')
+      object_hash.each_with_index do |obj, index|
+        valid_license = false
+        options[:licenses].each do |l|
+          if !obj['license_title'].nil? && obj['license_title'].match(/^#{l}( |$)/i)
+            valid_license = true
+          end
+        end
+        object_hash[index] = nil unless valid_license == true
+      end
+      object_hash.compact!
+    end
+    
     object_hash = object_hash[0...options[:return_images_limit]] if object_hash.length > options[:return_images_limit]
     object_hash.collect {|e| e['id']}
   end
@@ -1074,12 +1103,14 @@ class TaxonConcept < SpeciesSchemaModel
     elsif options[:vetted].to_i == 2
       vetted_clause = "AND (do.vetted_id=#{Vetted.trusted.id} || do.vetted_id=#{Vetted.unknown.id})"
     end
-
+    
     object_hash = SpeciesSchemaModel.connection.execute("
-      SELECT do.id, do.guid, do.data_type_id, do.data_rating, v.view_order vetted_view_order, toc.view_order toc_view_order, ii.label info_item_label
+      SELECT do.id, do.guid, do.data_type_id, do.data_rating, v.view_order vetted_view_order, toc.view_order toc_view_order, 
+      ii.label info_item_label, l.title license_title
         FROM data_objects_taxon_concepts dotc
         JOIN data_objects do ON (dotc.data_object_id = do.id)
         LEFT JOIN vetted v ON (do.vetted_id=v.id)
+        LEFT JOIN licenses l ON (do.license_id=l.id)
         LEFT JOIN (
            info_items ii
            JOIN table_of_contents toc ON (ii.toc_id=toc.id)
@@ -1091,10 +1122,10 @@ class TaxonConcept < SpeciesSchemaModel
         AND data_type_id IN (#{DataType.sound.id}, #{DataType.text.id}, #{DataType.video.id}, #{DataType.iucn.id}, #{DataType.flash.id}, #{DataType.youtube.id})
         #{vetted_clause}
     ").all_hashes.uniq
-
+    
     object_hash.group_hashes_by!('guid')
     object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
-
+    
     # set flash and youtube types to video
     text_id = DataType.text.id.to_s
     image_id = DataType.image.id.to_s
@@ -1109,9 +1140,8 @@ class TaxonConcept < SpeciesSchemaModel
       if r['data_type_id'].to_i == iucn_id
         r['data_type_id'] = text_id
       end
-
     end
-
+    
     # create an alias Uses for Use
     if options[:text_subjects].include?('Use')
       options[:text_subjects] << 'Uses'
@@ -1120,14 +1150,28 @@ class TaxonConcept < SpeciesSchemaModel
     if !options[:text_subjects].include?('all')
       object_hash.delete_if {|obj| obj['data_type_id'] == text_id && !options[:text_subjects].include?(obj['info_item_label'])}
     end
-
+    
+    # remove licenses not asked for
+    if !options[:licenses].include?('all')
+      object_hash.each_with_index do |obj, index|
+        valid_license = false
+        options[:licenses].each do |l|
+          if !obj['license_title'].nil? && obj['license_title'].match(/^#{l}( |$)/i)
+            valid_license = true
+          end
+        end
+        object_hash[index] = nil unless valid_license == true
+      end
+      object_hash.compact!
+    end
+    
     # remove items over the limit
     types_count = {}
     truncated_object_hash = []
     object_hash.each do |r|
       types_count[r['data_type_id']] ||= 0
       types_count[r['data_type_id']] += 1
-
+      
       if r['data_type_id'] == text_id
         truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_text_limit]
       elsif r['data_type_id'] == image_id

@@ -180,6 +180,10 @@ class String
     self.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
   end
   
+  def word_count
+    split(/ /).length
+  end
+  
   def is_numeric?
     begin
       Float(self)

@@ -1,13 +1,13 @@
 = stylesheet_link_tag 'calendar'
 = "All web users registered in the system are shown below,  sorted inversely by time registered.  Note that the registration dates for users prior to EOL V2 (Jan 5, 2009) are not available.  Click on a username to edit that user."[:user_index_intro]
 #users
-  - form_tag({:action=>'index'},:method=>'get') do
+  - form_tag({:action=>'index'}, :method=>'get') do
     %table{:width => "100%"}
       %tr{:valign => 'top'}
         %td{:width => "30%"}
           = "Search for users containing this in their username, name or email address."[]
         %td
-          = text_field_tag(:user_search_string,@user_search_string)
+          = text_field_tag(:user_search_string, @user_search_string)
       %tr{:valign => 'top'}
         %td
           = "who registered from"[]
@@ -48,9 +48,9 @@
     %br
     %br
     %p
-      = link_to "Add a new user",:action=>'new'
+      = link_to "Add a new user", :action=>'new'
       |
-      = link_to 'Export this list as CSV',{:action=>'index',:export=>'true',:start_date=>@start_date,:blank_dates=>@blank_dates,:end_date=>@end_date,:user_search_string=>@user_search_string}
+      = link_to 'Export this list as CSV', {:action=>'index', :export=>'true', :start_date=>@start_date, :blank_dates=>@blank_dates, :end_date=>@end_date, :user_search_string=>@user_search_string}
     %br
     - if @users.nil? == false && @users.size > 0
       A total of
@@ -71,18 +71,19 @@
           %th
             Curator?
         - for user in @users
-          - column_class=cycle('odd','even')
+          - unapproved_curator = !user.curator_hierarchy_entry.blank? && !user.curator_approved
+          - column_class = cycle('odd', 'even')
           %tr
             %td{ :class => column_class }
-              = link_to(user.username,:action=>'edit',:id=>user.id)
+              = link_to(user.username, :action=>'edit', :id=>user.id)
             %td{ :class => column_class }
               = h user.email
             %td{ :class => column_class }
               = h user.full_name
             %td{ :class => column_class }
               = format_date_time(user.created_at)
-            %td{ :class => column_class }
-              = user.is_curator?
+            %td{ :class => unapproved_curator ? 'untrusted' : column_class }
+              = unapproved_curator ? "UNAPPROVED"[] : user.is_curator?
       %br
       = will_paginate @users
     - else

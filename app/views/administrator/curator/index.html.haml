@@ -39,7 +39,8 @@ Click a username to view the user's detailed profile.  You may change the clade 
         %th
           By
       - for user in @users
-        - column_class=cycle('odd','even')
+        - column_class = cycle('odd','even')
+        - unapproved_curator = !user.curator_hierarchy_entry.blank? && !user.curator_approved
         %tr{ :id => "row_#{user.id}" }
           %td{ :class => column_class }
             = link_to(user.username, :controller => 'administrator/user', :action=>'edit',:id=>user.id)
@@ -56,10 +57,10 @@ Click a username to view the user's detailed profile.  You may change the clade 
               = allow_some_html(user.credentials)
           %td{ :class => column_class }
             = h user.full_name
-          %td{ :class => column_class }
+          %td{ :class => unapproved_curator ? 'untrusted' : column_class }
             = user.curator_hierarchy_entry.name unless user.curator_hierarchy_entry.blank?
           - form_id = "user_curator_#{user.id}"
-          %td{ :class => column_class }
+          %td{ :class => unapproved_curator ? 'untrusted' : column_class }
             - if !user.curator_hierarchy_entry.blank?
               - form_tag('/administrator/user/toggle_curator', :id => form_id, :method => 'get') do
                 %input{ :name => "id", :type => "hidden", :value => user.id }

@@ -10,7 +10,10 @@
 %label{ :title => "Curation Scope"[] }
   = "Curation Scope"[]
 
-Please note if the scope of your expertise is smaller than the clade you signed up for. For example: "Rodents of Borneo," or "Tri-trophic interactions," or "Conservation issues in fish." This will not limit your ability to curate, but will inform the EOL community.
+= %Q{Please note if the scope of your expertise is smaller than the clade you signed up for. For example: "Rodents of Borneo," or "Tri-trophic interactions," or "Conservation issues in fish." This will not limit your ability to curate, but will inform the EOL community.}[:please_note_expertise_smaller_than_scope]
+
+= "If you would like to have your group assignment changed at any time, please"[:to_change_clade_preamble]
+= link_to("contact us"[], "/contact_us?default_subject=Curator%20Support") + '.'[]
 
 = f.text_area :curator_scope, { :rows => 3, :cols => 80 }
 

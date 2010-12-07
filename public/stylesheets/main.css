@@ -1062,6 +1062,9 @@ li.current_kingdom {
   margin-top: 1.5em;
   margin-bottom: 10px; }
 
+#curator_request_options label {
+  margin-top: 8pt; }
+
 #user_info {
   margin-left: 100px; }
   #user_info tr td {

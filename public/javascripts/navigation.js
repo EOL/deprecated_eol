@@ -113,7 +113,7 @@ $(document).ready(function() {
 });
 
 function select_clade_of_clade_selector( clade_id ) {
-  $(EOL.clade_selector_input_name).val(clade_id);
+  $("#" + EOL.clade_selector_input_name.replace(/\]/, '').replace(/\[/, '_')).val(clade_id);
   unselect_all_clades_of_clade_selector();
   $('li.value_' + clade_id).addClass('selected');
 }

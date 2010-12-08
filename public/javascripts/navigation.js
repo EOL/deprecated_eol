@@ -112,7 +112,7 @@ $(document).ready(function() {
   EOL.expand_clade_behavior();
 });
 
-function clade_selector_input_field {
+function clade_selector_input_field() {
   $("#" + EOL.clade_selector_input_name.replace(/\]/, '').replace(/\[/, '_'));
 }
 

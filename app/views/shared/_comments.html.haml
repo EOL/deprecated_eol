@@ -2,11 +2,13 @@
   - if @slim_container
     %span.count
       - info = page_entries_info comments
-      = info == 'No entries found' ? 'Comments' : "#{info}"
-      - if @title_label
-        , on
-        %span.item
-          = @title_label
+      - info = info == 'No entries found' ? '' : "#{info}"
+      - if info != ''
+        = info
+        - if @title_label
+          on
+          %span.item
+            = @title_label
     - if @title != ''
       %div
         %h2

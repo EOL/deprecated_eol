@@ -1,5 +1,5 @@
 %h3
-  = link_to(@data_object.taxon_concepts[0].scientific_name, @data_object.taxon_concepts.first)
+  = link_to(@data_object.taxon_concepts[0].scientific_name, @data_object.taxon_concepts.first, :popup => true)
 %p
   %em
     = @data_object.taxon_concepts[0].common_name

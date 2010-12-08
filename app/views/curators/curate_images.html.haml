@@ -1,11 +1,10 @@
 -# TODO - Add a selector to Narrow the list by Content Provider
-= javascript_include_tag 'text-content.js'
 = render :partial => 'filter_form'
 = will_paginate(@images_to_curate, :params => params)
 %table.results_table
   %tr
     %th
-      Taxon
+      Image
     %th{ :width => 368 }
       Actions
   - @images_to_curate.each do |image|
@@ -16,7 +15,7 @@
         = "&nbsp;" * 5
         %a{ :class => "undo-ignore-image" } Undo
     %tr{ :id => "curation-item-#{image['id']}" }
-      %td{ :class => "overlay_link " + image['vetted_label'].downcase}
+      %td{ :class => "overlay_link " + image['vetted_label'].downcase }
         .curation-item
         %h5
           = link_to(image['scientific_name'], {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
@@ -48,10 +47,11 @@
           %h6 
             = "Location:"[]
           = truncate(image['location'], 48)
-      %td{ :class => image['vetted_label'].downcase}
+      %td{ :class => image['vetted_label'].downcase }
         = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24}
 = will_paginate(@images_to_curate, :params => params)
 #overlay.overlay_worklist{:style => 'display:none'}
   .content-wrap
 = javascript_include_tag 'rating.js' # basically, I'm only using this to update after calling the ajax, below...
 = javascript_include_tag 'curation_tools.js'
+= javascript_include_tag 'text-content.js'

@@ -23,11 +23,13 @@ class CuratorsController < ApplicationController
   # have a link (for curators), using "an appropriate clade" for the hierarchy_entry_id.
   def curate_images
     @page_title += ": Curate Images"
+    session['curate_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
+    session['curate_images_hierarchy_entry_id'] = nil if session['curate_images_hierarchy_entry_id'].blank?
     current_user.log_activity(:viewed_images_to_curate)
     all_images = current_user.images_to_curate(
       :content_partner_id => params[:content_partner_id],
       :vetted_id => params[:vetted_id],
-      :hierarchy_entry_id => params[:hierarchy_entry_id],
+      :hierarchy_entry_id => session['curate_images_hierarchy_entry_id'],
       :page => params[:page], :per_page => 30)
     @images_to_curate = all_images.paginate(:page => params[:page], :per_page => 30)
   end
@@ -43,8 +45,12 @@ class CuratorsController < ApplicationController
 
   def ignored_images
     @page_title += ": Ignored Images"
-    dato_ids = current_user.ignored_data_objects(DataType.image.id.to_i).collect{|d| d.id}
-    @ignored_images = DataObject.details_for_objects(dato_ids, :skip_refs => true, :add_common_names => true, :add_comments => true, :sort => 'id desc')
+    session['ignored_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
+    session['ignored_images_hierarchy_entry_id'] = nil if session['ignored_images_hierarchy_entry_id'].blank?
+    all_images = current_user.ignored_data_objects(
+      :hierarchy_entry_id => session['ignored_images_hierarchy_entry_id'], 
+      :data_type_id => DataType.image.id)
+    @ignored_images = all_images
   end
 
   def trust
@@ -110,8 +116,13 @@ class CuratorsController < ApplicationController
   def comment
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.comment(current_user, params['comment'])
-    respond_to do |fmt|
-      fmt.js { render :nothing => true }
+    respond_to do |format|
+      format.js do 
+        comments = @data_object.comments.select { |c| c.visible? }
+        current_user_comments = comments.select { |c| c.user.id == current_user.id && c.visible? }
+        render :json => { :last_comment => params['comment'].sanitize_html, :comments => comments.size, :current_user_comments => current_user_comments.size, :data_object_id => params[:data_object_id] }
+      end
+      format.html { redirect_to(:controller => :curators, :action => :curate_images, :anchor => "curation-item-#{params[:data_object_id]}", :hierarchy_entry_id => params['hierarchy_entry_id']) }
     end
   end
 

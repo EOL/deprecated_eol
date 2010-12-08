@@ -2046,7 +2046,10 @@ div.text_buttons {
 span.span_block {
   display: block;
   width: 24px;
-  height: 25px; }
+  height: 25px;
+  text-align: center;
+  font-size: 11px;
+  padding-top: 1px; }
 
 ul.tree {
   margin: 10px; }
@@ -2123,9 +2126,18 @@ div.text_curation_close {
   height: 13px; }
 
 .comment-button-image {
+  position: relative;
+  float: right !important;
   background: transparent url(/images/icons/icons.gif) no-repeat -72px 0px; }
   .comment-button-image:hover {
     background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px; }
+
+.comment-button-image .comment-button-text {
+  position: absolute;
+  height: auto;
+  width: auto;
+  left: 8px;
+  top: 1px; }
 
 .curate-button-image {
   background: transparent url(/images/icons/icons.gif) no-repeat -23px 0px; }

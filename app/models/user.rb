@@ -591,14 +591,12 @@ class User < parent_klass
     vetted_id = options[:vetted_id].nil? ? Vetted.unknown.id : options[:vetted_id]
 
     solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id}"
-    if vetted_id != 'all'
-      solr_query << " AND vetted_id:#{vetted_id}"
-    end
+
     unless options[:content_partner_id].blank?
       content_partner = ContentPartner.find(options[:content_partner_id].to_i)
       resource_clause = content_partner.agent.resources.collect{|r| r.id}.join(" OR resource_id:")
       if resource_clause.blank?
-        solr_query << " AND resource_id:0"
+        solr_query << " AND resource_id:0"  # This will return nothing, when the content partner has no resources
       else
         solr_query << " AND (resource_id:#{resource_clause})"
       end
@@ -626,12 +624,27 @@ class User < parent_klass
     return result
   end
 
-  def ignored_data_objects(data_type_id = nil)
-    data_type_clause = data_type_id.nil? ? '' : " AND do.data_type_id = #{data_type_id}"
-    result = DataObject.find_by_sql("SELECT do.*
+  def ignored_data_objects(options = {})
+    hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
+    hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
+    data_type_clause = options[:data_type_id].nil? ? '' : " AND do.data_type_id = #{options[:data_type_id]}"
+    
+    data_object_ids = DataObjectsHierarchyEntry.find_by_sql("SELECT dohe.data_object_id 
         FROM #{DataObject.full_table_name} do
           JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
-        WHERE uido.user_id = #{self.id}#{data_type_clause}");
+          JOIN #{DataObjectsHierarchyEntry.full_table_name} dohe ON (uido.data_object_id=dohe.data_object_id)
+          JOIN #{HierarchyEntry.full_table_name} he on (dohe.hierarchy_entry_id = he.id)
+          JOIN #{HierarchyEntry.full_table_name} he1 on (he.taxon_concept_id = he1.taxon_concept_id)
+        WHERE uido.user_id = #{self.id} 
+          AND he1.lft between #{hierarchy_entry.lft} and #{hierarchy_entry.rgt} 
+          #{data_type_clause}
+          AND he1.hierarchy_id = #{hierarchy_entry.hierarchy_id}
+          GROUP BY do.guid
+          ORDER BY do.created_at DESC");
+    return [] if data_object_ids.empty?
+    
+    data_object_ids_to_lookup = data_object_ids.collect{|d| d.data_object_id}
+    result = DataObject.details_for_objects(data_object_ids_to_lookup, :skip_refs => true, :add_common_names => true, :add_comments => true, :sort => 'id desc')
     return result
   end
 

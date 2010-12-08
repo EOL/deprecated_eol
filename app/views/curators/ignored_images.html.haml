@@ -2,7 +2,7 @@
   %tr
     %th
       Ignored image
-    %th{:width => 368}
+    %th{ :width => 368 }
       Actions
   - @ignored_images.each do |image|
     %tr{ :id => "undo-move-#{image['id']}", :class => 'hide ' + image['vetted_label'].downcase }
@@ -12,7 +12,7 @@
         = "&nbsp;" * 5
         %a{ :class => "undo-restore-image" } Undo
     %tr{ :id => "curation-item-#{image['id']}" }
-      %td{:class => "overlay_link " + image['vetted_label'].downcase}
+      %td{ :class => "overlay_link " + image['vetted_label'].downcase }
         %h5
           = link_to(image['scientific_name'], {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
         - if !image['common_names'].blank?
@@ -43,6 +43,9 @@
           %h6
             = "Location:"[]
           = truncate(image['location'], 48)
-      %td{:class => image['vetted_label'].downcase}
+      %td{ :class => image['vetted_label'].downcase }
         = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24, :ignored => true}
+#overlay.overlay_worklist{:style => 'display:none'}
+  .content-wrap
 = javascript_include_tag 'curation_tools.js'
+= javascript_include_tag 'text-content.js'

@@ -83,22 +83,10 @@
             :style => comments_style, :class => 'popup-link', |
             :alt => 'Curate this text'} |
       - if !@preview
-        #right_text_button.comment_button.comment-button-image{ :title => "Comment on this text" }
-          = link_to '<span class="span_block"></span>', |
-            data_object_comments_path(content_item), |
-            {'data-data_object_id' => content_item.id, |
-            :style => comments_style, :alt => "Comment on this text", |
-            :class => 'popup-link'} |
-
+        = render :partial => '/comments/comment_icon', :locals => { :data_object_id => content_item.id, :title => "Comment on this text", :comments_count => content_item.comments.size, :alt => "Comment on this text", :comment_class => 'popup-link', :rel => '' }
   .text-slidebox-border{:id => "text-comments-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container.text-comment-div{:id => "text-comments-#{content_item.id}"}
       -# TODO - we re-use this indicator a lot.  Put it in a div that we can push around the page as needed.
-      %p
-        = image_tag 'indicator_arrows_black.gif'
-        = "Please wait..."[]
-  
-  .text-slidebox-border{:id => "text-curation-wrapper-#{content_item.id}", :style => "display:none;"}
-    .text-slidebox-container{:id => "text-curation-#{content_item.id}"}
       %p
         = image_tag 'indicator_arrows_black.gif'
         = "Please wait..."[]

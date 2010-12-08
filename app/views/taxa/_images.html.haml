@@ -64,10 +64,9 @@
               #tagging-overlay.overlay{:style=>"width:530px"}
                 .contentWrap
                   = "Please wait, loading..."[]
-            #large-image-comment-button.comment-button-image{:title => "Comment on image"}
-              = popup_link 'comment', data_object_comments_path(@images.first, {}), |
-                  :title => "Comment on image"[],                                   |
-                  :rel => "#comment-overlay"                                        |
+            #large-image-comment-button
+              - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
+                = render :partial => '/comments/comment_icon', :locals => { :data_object_id => image.id, :title => "Comment on this image", :comments_count => image.comments.length, :alt => "Comment on this image", :comment_class => 'popup-link', :rel => "#comment-overlay" }
               #comment-overlay.overlay{:style=>"width:460px"}
                 .contentWrap
                   = "Please wait, loading..."[]

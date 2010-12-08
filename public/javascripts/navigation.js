@@ -112,18 +112,20 @@ $(document).ready(function() {
   EOL.expand_clade_behavior();
 });
 
-function clade_selector_input_field() {
-  $("#" + EOL.clade_selector_input_name.replace(/\]/, '').replace(/\[/, '_'));
+if (!EOL.clade_selector_input_field) {
+  EOL.clade_selector_input_field = function() {
+    return $("#" + EOL.clade_selector_input_name.replace(/\]/, '').replace(/\[/, '_'));
+  };
 }
 
 function select_clade_of_clade_selector( clade_id ) {
-  clade_selector_input_field().val(clade_id);
+  EOL.clade_selector_input_field().val(clade_id);
   unselect_all_clades_of_clade_selector();
   $('li.value_' + clade_id).addClass('selected');
 }
 
 function clear_clade_of_clade_selector() {
-  clade_selector_input_field().val('');
+  EOL.clade_selector_input_field().val('');
   unselect_all_clades_of_clade_selector();
 }
 

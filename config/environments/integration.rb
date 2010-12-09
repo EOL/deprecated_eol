@@ -43,7 +43,7 @@ ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActionController::Base.logger = Logger.new(STDOUT)
 ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
 
-
+$USER_PARENT_CLASS = ActiveRecord::Base
 
 # set to false turn off notification of exceptions via email 
 $EXCEPTION_NOTIFY=false

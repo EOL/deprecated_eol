@@ -291,9 +291,28 @@ module ActiveRecord
       end
 
       def cached(key, options = {}, &block)
-        $CACHE.fetch(cached_name_for(key)) do
+        name = cached_name_for(key)
+        wrote_cache_key(name)
+        $CACHE.fetch(name) do
           yield
         end
+      end
+
+      # Store a list of all of the keys we create for this model (using these cache methods)... speeds up clearing.
+      def wrote_cache_key(key)
+        name = cached_name_for('cached_names')
+        keys = $CACHE.read(name) || []
+        return keys if keys.include? key
+        keys = keys + [key] # Can't use << or += here because Cache has frozen the array.
+        $CACHE.write(name, keys)
+      end
+
+      def clear_all_caches
+        keys = $CACHE.read(cached_name_for('cached_names')) || []
+        keys.each do |key|
+          $CACHE.delete(key)
+        end
+        $CACHE.write(TODO, keys)
       end
 
       def cached_name_for(key)

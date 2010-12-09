@@ -16,8 +16,11 @@ class ContentSection < ActiveRecord::Base
   def self.find_pages_by_section(section_name)
     content_section = ContentSection.find_by_name section_name
     return [] unless content_section
-    return ContentPage.find_all_by_content_section_id_and_language_abbr_and_active(
-      content_section.id, 'en', true, :order => 'sort_order' )
+    return cached(section_name) do
+      ContentPage.find_all_by_content_section_id_and_language_abbr_and_active(
+        content_section.id, 'en', true, :order => 'sort_order'
+      )
+    end
   end
   
 end

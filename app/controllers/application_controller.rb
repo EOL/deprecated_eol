@@ -192,11 +192,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # expire the header and footer caches
-  def expire_menu_caches
-    expire_pages(['top_nav', 'footer', 'exemplars'])
-  end
-
   def expire_non_species_caches
     expire_menu_caches
     expire_pages(ContentPage.find_all_by_active(true))
@@ -500,6 +495,7 @@ private
           if page.class == ContentPage
             expire_fragment(:controller => '/content', :part => "#{page.id.to_s }_#{language.iso_639_1}")
             expire_fragment(:controller => '/content', :part => "#{page.page_url}_#{language.iso_639_1}")
+            page.clear_all_caches
           else
             expire_fragment(:controller => '/content', :part => "#{page}_#{language.iso_639_1}")
           end

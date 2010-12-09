@@ -41,7 +41,7 @@ $SOLR_SERVER = 'http://localhost:8983/solr/taxon_concepts'
 $SOLR_SERVER_DATA_OBJECTS = 'http://localhost:8983/solr/data_objects'
 $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
 
-$USER_PARENT_CLASS = ActiveRecord::Base
+$CRITICAL_MODEL_PARENT_CLASS = ActiveRecord::Base
 
 config.gem 'faker'
 config.gem "remi-rspec-custom-matchers", :lib => false

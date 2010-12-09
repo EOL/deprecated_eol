@@ -83,22 +83,22 @@
               %a#feedback.dropdown{ :title => "Feedback"[] }
                 = "Feedback"[]
               %ul.uppercase
-                = render :partial => 'layouts/top_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Feedback')}
+                = render :partial => 'layouts/top_menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('Feedback')}
             %li
               %a#press_room.dropdown{ :title => "Press Room"[] }
                 = "Press Room"[]
               %ul.uppercase
-                = render :partial => 'layouts/top_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Press Room')}
+                = render :partial => 'layouts/top_menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('Press Room')}
             %li
               %a#using_the_site.dropdown{ :title => "Using The Site"[] }
                 = "Using The Site"[]
               %ul.uppercase
-                = render :partial => 'layouts/top_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('Using the Site')}
+                = render :partial => 'layouts/top_menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('Using the Site')}
             %li.last
               %a#about_eol.last.dropdown{ :title => "About EOL"[] }
                 = "About EOL"[]
               %ul.uppercase
-                = render :partial => 'layouts/top_menu', :locals => {:menu_items => ContentSection.find_pages_by_section('About EOL')}
+                = render :partial => 'layouts/top_menu_item', :locals => {:menu_items => ContentSection.find_pages_by_section('About EOL')}
           %hr
           
         #ajax-indicator.ajax-indicator{ :style => "display:none;" }

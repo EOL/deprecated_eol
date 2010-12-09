@@ -14,11 +14,3 @@ class AgentStatus < SpeciesSchemaModel
   end 
   
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: agent_statuses
-#
-#  id    :integer(1)      not null, primary key
-#  label :string(100)     not null
-

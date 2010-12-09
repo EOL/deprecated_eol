@@ -45,7 +45,8 @@ $('form.comment').submit(function() {
     $(form_element).children().not(':submit, :hidden').val(''); // reset the form
     $(form_element).after('<p id="remove-me" class="submitted">You added new comment:<br/>' + data.last_comment + '</p>');
     $(form_element).parent().children('#remove-me').fadeOut(15000);
-    change_comment_icon_tooltip(data)
+    change_comment_icon_tooltip(data);
+    $('#comment_button_link_' + data.data_object_id + ' .span_block').html(data.comments);
   },'JSON');
   return false;
 });

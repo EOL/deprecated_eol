@@ -427,16 +427,6 @@ Factory.define :curator_activity do |ca|
   ca.code { Factory.next(:string) }
 end
 
-Factory.define :curator_activity_log_daily do |cald|
-  cald.association :user
-end
-
-Factory.define :curator_comment_log do |ccl|
-  ccl.association :comment
-  ccl.association :user
-  ccl.association :curator_activity
-end
-
 Factory.define :curator_data_object_log do |cdol|
   cdol.association :data_object
   cdol.association :user
@@ -663,13 +653,6 @@ Factory.define :license do |l|
   l.version                  0
   l.logo_url                 '/images/licenses/cc_by_small.png'
   l.show_to_content_partners true
-end
-
-Factory.define :log_daily do |x|
-  x.day Date.today
-  x.total 0
-  x.user_agent 'Cool/Browser'
-  x.association :data_type
 end
 
 Factory.define :mime_type do |x|
@@ -997,14 +980,9 @@ Factory.define :activity do |a|
   a.name { Factory.next(:string) }
 end
 
-Factory.define :link do |l|
-  l.url ''
-end
-
 Factory.define :activity_log do |al|
   al.association :taxon_concept
   al.association :activity
-  al.association :link
   al.association :user
   al.value { Factory.next(:string) }
   al.created_at { 12.hours.ago }

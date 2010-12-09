@@ -2132,12 +2132,8 @@ div.text_curation_close {
   .comment-button-image:hover {
     background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px; }
 
-.comment-button-image .comment-button-text {
-  position: absolute;
-  height: auto;
-  width: auto;
-  left: 8px;
-  top: 1px; }
+.comment-button-image a {
+  text-decoration: none; }
 
 .curate-button-image {
   background: transparent url(/images/icons/icons.gif) no-repeat -23px 0px; }

@@ -14,7 +14,7 @@
     %tr{ :id => "curation-item-#{image['id']}" }
       %td{ :class => "overlay_link " + image['vetted_label'].downcase }
         %h5
-          = link_to(image['scientific_name'], {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
+          = link_to(image['scientific_name'], "/pages/" + image['taxon_concept_id'], :popup => true)
         - if !image['common_names'].blank?
           %h6
             = image['common_names'][0]['name'].firstcap

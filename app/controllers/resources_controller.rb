@@ -6,7 +6,7 @@ class ResourcesController < ApplicationController
   before_filter :agent_login_required, :resource_must_belong_to_agent, :agent_must_be_agreeable, :unless => :is_user_admin?
 
   layout 'content_partner'
-
+  
   make_resourceful do
 
     actions :all, :except => :show
@@ -34,8 +34,10 @@ class ResourcesController < ApplicationController
     end
 
     before :update do
-      @original_resource = Resource.find(current_object.id)
-
+      Resource.with_master do
+        @original_resource = Resource.find(current_object.id)
+      end
+      
       unless current_object.accesspoint_url.blank?
         current_object.dataset = nil
         current_object.dataset_file_name = nil
@@ -156,8 +158,24 @@ class ResourcesController < ApplicationController
 
 private
 
+  def current_object
+    # we always want to read the latest resources from the master database
+    # to avoid replication lag problems
+    if params[:id]
+      @current_object ||= Resource.with_master do
+        Resource.find(params[:id])
+      end
+    end
+    return @current_object
+  end
+
   def current_objects
-    @current_objects ||= current_agent.resources
+    # we always want to read the latest resources from the master database
+    # to avoid replication lag problems
+    @current_objects ||= Agent.with_master do
+      current_agent.resources.clone
+    end
+    return @current_objects
   end
 
 end

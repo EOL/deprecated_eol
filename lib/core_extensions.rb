@@ -330,8 +330,9 @@ module ActiveRecord
     def self.with_master(&block)
       if self.connection.respond_to? 'with_master'
         self.connection.set_to_master!
-        yield
+        something = yield
         self.connection.set_to_slave!
+        something
       else
         yield
       end

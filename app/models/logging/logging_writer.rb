@@ -3,6 +3,6 @@ class LoggingWriter < ActiveRecord::Base
  
   self.abstract_class = true
   
-  establish_connection :master_logging_database unless RAILS_ENV =~ /(test|development)/
+  establish_connection :master_logging_database
 
 end

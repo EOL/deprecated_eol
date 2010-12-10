@@ -145,10 +145,10 @@ class User < parent_klass
     taxon_concept_ids_curated.length
   end
   def self.active_on_master?(username)
-    User.with_master_if_enabled do
+    User.with_master do
       user = User.find_by_username_and_active(username, true)
       user ||= User.find_by_email_and_active(username, true)
-      return user.nil? ? false : true  # Just cleaning up the nil, is all.  False is less likely to annoy.
+      user.nil? ? false : true  # Just cleaning up the nil, is all.  False is less likely to annoy.
     end
   end
 
@@ -165,9 +165,10 @@ class User < parent_klass
     From users u
     Join #{ActivityLog.full_table_name} al ON u.id = al.user_id
     Order By u.family_name, u.given_name"
-    rset = User.find_by_sql([sql])
-    return rset
-    #eol_logging_development.activity_logs al
+    
+    User.with_master do
+      User.find_by_sql([sql])
+    end
   end
 
 
@@ -387,10 +388,10 @@ class User < parent_klass
 
   # returns true or false indicating if username is unique
   def self.unique_user?(username)
-    User.with_master_if_enabled do
+    User.with_master do
       # mysql is case-insensitive:
       users = User.find_by_sql(['select id from users where username = ?', username])
-      return users.blank?
+      users.blank?
     end
   end
 

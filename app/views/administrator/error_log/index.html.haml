@@ -1,14 +1,20 @@
 #errors
+  %form#page-form{ :method => "post", :action => "/administrator/error_log/index" }
+    Filter by day:
+    - default_select = (@date == 'all') ? 'all' : @date.strftime("%d-%b-%Y")
+    = select_tag :date, options_for_select([['--select--', nil], ['--all--', 'all']] + @distinct_dates, default_select), {:onchange=>"javascript:$('#page-form').submit();"}
+  %br
+  - if @date == 'all'
+    Showing
+    %strong
+      ALL errors
+  - elsif !@date.blank?
+    Showing errors the error log for:
+    %strong
+      = @date.strftime("%A, %B %d")
+  %br
   - if @errors.nil? == false && @errors.size > 0
-    %form#page-form{ :method => "post", :action => "/administrator/error_log/index" }
-      The following
-      = @errors_count
-      errors are in the error log
-      = "for date #{@date}" unless @date.blank?
-      \.  Filter by day:
-      = select_tag(:date, '<option value="">--select--</option><option value="all">all dates</option>' + options_from_collection_for_select(@distinct_dates,:date, :date,@date),{:onchange=>"javascript:$('#page-form').submit();"})
-      %br
-      = will_paginate @errors
+    = will_paginate @errors, :params => {:date => @date}
     %table.results_table{ :cellspacing => "0", :width => "100%" }
       %tr
         %th
@@ -32,10 +38,11 @@
             = h error.url
           %td{ :class => column_class }
             = h error.user_agent
-            </td
           %td{ :class => column_class }
             = format_date_time(error.created_at)
     %br
-    = will_paginate @errors
+    = will_paginate @errors, :params => {:date => @date}
   - elsif @errors.nil? == false && @errors.size == 0
-    No errors are available.
+    %br
+    %i
+      No errors are available.

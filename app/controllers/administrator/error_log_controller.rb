@@ -8,17 +8,30 @@ class Administrator::ErrorLogController < AdminController
 
   def index
     @page_title = 'Error Log'
-    @date=params[:date]
-    @date ||= Date.today.to_s(:db)
-    conditions="date(created_at)='#{@date}'" if @date != 'all'
-    @errors=ErrorLog.paginate(:order=>'created_at desc',:page => params[:page],:conditions=>conditions)
-    @errors_count=ErrorLog.count(:conditions=>conditions)
-    @distinct_dates=ErrorLog.find(:all,:select=>'distinct(DATE_FORMAT(date(created_at),"%Y-%m-%d")) AS date',:limit=>20,:order=>'created_at DESC')
+    if params[:date]
+      if params[:date] == 'all'
+        @date = 'all'
+      else
+        @date = Time.parse(params[:date])
+      end
+    else
+      @date = Time.now
+    end
+    conditions = "created_at BETWEEN '#{@date.strftime("%Y-%m-%d")}' AND '#{(@date+1.day).strftime("%Y-%m-%d")}'" if @date != 'all'
+    @errors = ErrorLog.paginate(:order => 'id desc', :page => params[:page], :conditions => conditions)
+    
+    @distinct_dates = []
+    last_date = Time.now
+    for i in 1..30
+      date = last_date.strftime("%d-%b-%Y")
+      @distinct_dates << [date, date]
+      last_date = last_date - 1.day
+    end
   end
  
   def show
     @page_title = 'Error Log Detail'
-    @error=ErrorLog.find(params[:id])
+    @error = ErrorLog.find(params[:id])
   end
  
 private

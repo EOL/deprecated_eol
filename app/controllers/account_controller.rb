@@ -87,7 +87,7 @@ class AccountController < ApplicationController
   def confirm
     params[:id] ||= ''
     params[:validation_code] ||= ''
-    User.with_master_if_enabled do
+    User.with_master do
       @user = User.find_by_username_and_validation_code(params[:id],params[:validation_code])
     end
     if !@user.blank?

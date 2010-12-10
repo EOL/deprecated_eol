@@ -4,7 +4,13 @@
 class LoggingModel < ActiveRecord::Base
  
   self.abstract_class = true
-  establish_connection configurations[RAILS_ENV + '_logging']
+  
+  if $LOGGING_READ_FROM_MASTER
+    # if configured to do so, ALWAYS read and write from master DB for logging classes
+    establish_connection :master_logging_database
+  else
+    establish_connection configurations[RAILS_ENV + '_logging']
+  end
   
   def self.create(opts = {})
 

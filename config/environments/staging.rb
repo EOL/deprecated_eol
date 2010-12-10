@@ -24,6 +24,7 @@ config.action_view.debug_rjs                         = false
 config.action_mailer.raise_delivery_errors = false
 
 # Code is not reloaded between requests
+# NOTE: is using Master DB connection, you *must* use config.cache_classes = true
 config.cache_classes = true
 
 # Set up the master database connection for writes using masochism plugin
@@ -34,6 +35,7 @@ config.after_initialize do
   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
   ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
 end
+$LOGGING_READ_FROM_MASTER = true
 
 # set to true to force users to use SSL for the login and signup pages 
 $USE_SSL_FOR_LOGIN = false

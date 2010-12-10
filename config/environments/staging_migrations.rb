@@ -34,6 +34,7 @@ config.after_initialize do
   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
   ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
 end
+$LOGGING_READ_FROM_MASTER = true
 
 # set to true to force users to use SSL for the login and signup pages 
 $USE_SSL_FOR_LOGIN = false

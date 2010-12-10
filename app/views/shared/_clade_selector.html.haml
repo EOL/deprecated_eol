@@ -7,7 +7,8 @@
 %div{ :id => id, :style => "display: inline;" }
   - input_type = (is_debug == true) ? 'text' : 'hidden'
   - input_value = (value) ? value.id : ''
-  %input{ :type => input_type, :id => name, :name => name, :value => input_value }
+  -# Important to normalize the id.  Brackets are not allowed; Rails should handle this format anyway:
+  %input{ :type => input_type, :id => name.gsub(/\[/, '_').gsub(/\]/, ''), :name => name, :value => input_value }
   - if toggle
     %span#browser_show
       %a{:href => "##{id}-inner" }

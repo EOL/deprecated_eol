@@ -1,0 +1,18 @@
+%h1 Listing privileges
+%table
+  %tr
+    %th Name
+    %th Sym
+    %th Level
+    %th Type
+  - @privileges.each do |privilege|
+  %tr
+    %td= h privilege.name
+    %td= h privilege.sym
+    %td= h privilege.level
+    %td= h privilege.type
+    %td= link_to 'Show', privilege
+    %td= link_to 'Edit', edit_privilege_path(privilege)
+    %td= link_to 'Destroy', privilege, :confirm => 'Are you sure?', :method => :delete
+%br/
+= link_to 'New privilege', new_privilege_path

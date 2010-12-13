@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :privileges
+
 
   map.resources :communities
   map.join_community 'communities/:community_id/join', :controller => 'communities', :action => 'join', :method => 'put'

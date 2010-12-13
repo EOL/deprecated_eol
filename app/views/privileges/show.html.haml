@@ -1,0 +1,15 @@
+%p
+  %b Name:
+  = h @privilege.name
+%p
+  %b Sym:
+  = h @privilege.sym
+%p
+  %b Level:
+  = h @privilege.level
+%p
+  %b Type:
+  = h @privilege.type
+= link_to 'Edit', edit_privilege_path(@privilege)
+|
+\#{link_to 'Back', privileges_path}

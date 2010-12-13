@@ -1,0 +1,22 @@
+%h1 New privilege
+- form_for(@privilege) do |f|
+  = f.error_messages
+  %p
+    = f.label :name
+    %br/
+    = f.text_field :name
+  %p
+    = f.label :sym
+    %br/
+    = f.text_field :sym
+  %p
+    = f.label :level
+    %br/
+    = f.text_field :level
+  %p
+    = f.label :type
+    %br/
+    = f.text_field :type
+  %p
+    = f.submit 'Create'
+= link_to 'Back', privileges_path

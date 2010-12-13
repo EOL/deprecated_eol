@@ -730,6 +730,9 @@ class User < parent_klass
     members.map {|m| m.community_id}.include?(community.id)
   end
 
+  def member_of(community)
+    members.select {|m| m.community_id == community.id}.first
+  end
 
 private
 

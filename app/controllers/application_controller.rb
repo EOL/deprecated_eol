@@ -1,4 +1,5 @@
 require 'uri'
+ContentPage # TODO - this is a temporary fix.  Change this later. We shouldn't need this.
 
 class ApplicationController < ActionController::Base
 

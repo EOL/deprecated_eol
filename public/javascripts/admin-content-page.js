@@ -14,6 +14,20 @@ $(document).ready(function() {
     $.ajax({url:'/administrator/content_page/get_page_content/'+ page_id});
     return false;
   });
+  // reload form when archived version of page changes
+  $('select#content_page_archive_id').change(function() {
+    page_id = $('#content_pages_id').val();
+    archieve_id = this.options[this.selectedIndex].value;
+	$.ajax({
+      url: '/administrator/content_page/get_archive_page_content/',
+      type: 'POST',
+      data: {page_id:page_id, archieve_id:archieve_id},
+	  success: function(){
+	    $('#content_page_archive_id').val(archieve_id);
+	  }
+    });
+    return false;
+  });
   // preview the page:
   $('#page_form input#preview').click(function() {
 		$('#page_form').attr('target', "_blank");

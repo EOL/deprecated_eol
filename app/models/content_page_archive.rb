@@ -15,6 +15,7 @@ class ContentPageArchive < ActiveRecord::Base
                 :left_content => page.left_content,
                 :main_content => page.main_content,
                 :original_creation_date => page.created_at,
+                :created_at => page.updated_at,
                 :language_abbr => page.language_abbr,
                 :url => page.url,
                 :open_in_new_window => page.open_in_new_window)

@@ -1,0 +1,8 @@
+= will_paginate @members
+%ul
+  - @members.each do |member|
+    %li
+      = link_to member.user.username, member.user
+      = "is a member of"[]
+      = link_to member.community.name, member.community
+      = link_to "Edit membership"[], member

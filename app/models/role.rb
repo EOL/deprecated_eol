@@ -42,7 +42,7 @@ class Role < ActiveRecord::Base
     default_roles.keys.each do |key|
       unless self.exists?(['title = ? and community_id = ?', key, community.id])
         new_roles << self.create(:community_id => community.id, :title => key)
-        new_roles.last.privileges = Privilege.find(:all, :conditions => ["type = 'community' and level <= ?", default_roles[key]])
+        new_roles.last.privileges = Privilege.find(:all, :conditions => ["special != 1 and level <= ?", default_roles[key]])
         new_roles.last.save!
       end
     end

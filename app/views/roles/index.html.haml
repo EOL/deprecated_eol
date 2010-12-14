@@ -1,0 +1,7 @@
+= will_paginate @roles
+%ul
+  - @roles.each do |role|
+    %li
+      = link_to role.title, role
+      = "in community"[]
+      = link_to role.community.name, role.community

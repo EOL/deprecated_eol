@@ -1,9 +1,5 @@
 require 'uri'
-<<<<<<< HEAD
-ContentPage # TODO - this is a temporary fix.  Change this later. We shouldn't need this.
-=======
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
->>>>>>> 14fde90... Fix for ContentPage clear-cache problem
 
 class ApplicationController < ActionController::Base
 
@@ -222,7 +218,7 @@ class ApplicationController < ActionController::Base
   def expire_data_object(data_object_id)
     Thread.new do
       begin
-        expire_taxa(DataObject.find(data_object_id).taxon_concepts)
+        expire_taxa(DataObject.find(data_object_id).taxon_concepts(:published => :strict))
       rescue Exception => e
         if e.to_s != "Taxon concept must have at least one hierarchy entry"
           raise e
@@ -499,8 +495,14 @@ private
         pages.each do |page|
           if page.class == ContentPage
             expire_fragment(:controller => '/content', :part => "#{page.id.to_s }_#{language.iso_639_1}")
+<<<<<<< HEAD
+            expire_fragment(:controller => '/content',
+                            :part => "#{page.page_url.underscore_non_word_chars.downcase}_#{language.iso_639_1}")
+            page.clear_all_caches rescue nil # TODO - still having some problem with ContentPage, not sure why.
+=======
             expire_fragment(:controller => '/content', :part => "#{page.page_url}_#{language.iso_639_1}")
-            page.clear_all_caches
+            page.clear_all_caches rescue nil # TODO - this shouldn't need a rescue... I think it's missing ActiveRecord::Base..
+>>>>>>> WIP - Privileges and Roles... migrations are now (I think) working, though they may need some tweaking.
           else
             expire_fragment(:controller => '/content', :part => "#{page}_#{language.iso_639_1}")
           end

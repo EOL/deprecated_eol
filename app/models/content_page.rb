@@ -1,8 +1,11 @@
 # The top nav bar of the site is geared to handle ContentSection (q.v.) sections, each of which has one or more ContentPage
 # objects associated with it.  These pages are static content *or* links to external resources, and can be edited by
 # administrators.
-parent_klass = $CRITICAL_MODEL_PARENT_CLASS ? $CRITICAL_MODEL_PARENT_CLASS : ActiveReload::MasterDatabase rescue ActiveRecord::Base
-class ContentPage < parent_klass
+#parent_klass = 
+#puts "++ here"
+#puts "parent class = #{parent_klass}"
+#class ContentPage < parent_klass
+class ContentPage < ActiveReload::MasterDatabase.abstract_class? ? ActiveReload::MasterDatabase : ActiveRecord::Base
   
   belongs_to :content_section
   has_many :content_page_archives, :order => 'created_at DESC', :limit => 15

@@ -18,25 +18,18 @@ class CreateStartingCommunityPrivileges < ActiveRecord::Migration
     'Invite Users' => 5
   }
 
-  @@curator_privs = {
+  @@special_privs = {
+    'Admin' => 20,
     'Vet' => 10,
     'Trusted Author' => 10,
     'Show/Hide Comments' => 10,
     'Rate' => 1
   }
 
-  @@admin_privs = {
-    'Admin' => 20,
-    'Show/Hide Comments' => 10
-  }
-
   def self.up
 
-    @@admin_privs.keys.each do |key|
-      Privilege.create(:name => key,
-                       :sym => key.gsub(/[^A-Za-z0-9]/, '_').downcase,
-                       :level => @@admin_privs[key],
-                       :type => 'admin')
+    @@special_privs.keys.each do |key|
+      Privilege.create(:name => key, :sym => key.gsub(/[^A-Za-z0-9]/, '_').downcase, :level => @@special_privs[key], :special => true)
     end
 
     @@community_privs.keys.each do |key|
@@ -46,19 +39,11 @@ class CreateStartingCommunityPrivileges < ActiveRecord::Migration
                        :type => 'community')
     end
 
-    @@curator_privs.keys.each do |key|
-      Privilege.create(:name => key,
-                       :sym => key.gsub(/[^A-Za-z0-9]/, '_').downcase,
-                       :level => @@curator_privs[key],
-                       :type => 'curator')
-    end
-
   end
 
   def self.down
-    @@admin_privs.keys.each { |k| Privilege.find_by_name(key).destroy! }    
-    @@curator_privs.keys.each { |k| Privilege.find_by_name(key).destroy! }    
-    @@community_privs.keys.each { |k| Privilege.find_by_name(key).destroy! }    
+    @@special_privs.keys.each { |k| Privilege.delete_all(:name => k) }    
+    @@community_privs.keys.each { |k| Privilege.delete_all(:name => k) }    
   end
 
 end

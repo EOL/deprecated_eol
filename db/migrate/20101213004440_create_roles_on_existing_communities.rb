@@ -1,21 +1,15 @@
 class CreateRolesOnExistingCommunities < ActiveRecord::Migration
   def self.up
+    special = Community.special
+    special ||= Community.create(:name => 'EOL Curators and Admins', :description => 'This is a special community for the curtors and admins of EOL.', :show_special_privileges => 0)
     Community.all.each do |community|
       community.add_default_roles
     end
-    community = Community.admins
-    admin_roles = {'Admin' => 20, 'Moderator' => 10}
-    admin_roles.keys.each do |key|
-      role = Role.find(:first, :conditions => ['title = ? and community_id = ?', key, community.id])
-      role ||= Role.create(:community_id => community.id, :title => key)
-      role.privileges = Privilege.find(:all, :conditions => ["level <= ? and type = 'admin'", admin_roles[key]])
-    end
-    community = Community.curators
-    curator_roles = {'Curator' => 10, 'Associate' => 1}
-    curator_roles.keys.each do |key|
-      role = Role.find(:first, :conditions => ['title = ? and community_id = ?', key, community.id])
-      role ||= Role.create(:community_id => community.id, :title => key)
-      role.privileges = Privilege.find(:all, :conditions => ["level <= ? and type = 'curator'", curator_roles[key]])
+    special_roles = {'Admin' => 20, 'Curator' => 10, 'Associate' => 1}
+    special_roles.keys.each do |key|
+      role = Role.find(:first, :conditions => ['title = ? and community_id = ?', key, special.id])
+      role ||= Role.create(:community_id => special.id, :title => key)
+      role.privileges = Privilege.find(:all, :conditions => ["level <= ? and special = ?", special_roles[key], true])
     end
   end
 

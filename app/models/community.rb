@@ -10,12 +10,12 @@ class Community < ActiveRecord::Base
   validates_length_of :name, :maximum => 127, :message => "must be less than 128 characters long."[]
   validates_uniqueness_of :name, :message => "has already been taken."[]
 
-  def self.admins
-    cached_find(:name, 'EOL Admins')
+  def self.special
+    cached_find(:name, 'EOL Curators and Admins')
   end
 
-  def self.curators
-    cached_find(:name, 'EOL Curators')
+  def special?
+    show_special_privileges > 0
   end
 
   def add_default_roles

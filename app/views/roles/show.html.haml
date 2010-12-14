@@ -1,0 +1,9 @@
+%h3
+  = @role.title
+  = "in community"[]
+  = link_to @role.community.name, @role.community
+.privilieges
+  %h5= "Privileges"[]
+  %ul
+    - @privileges.each do |privilege|
+      = privilege.name

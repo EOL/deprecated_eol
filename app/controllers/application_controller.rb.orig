@@ -1,5 +1,9 @@
 require 'uri'
+<<<<<<< HEAD
+ContentPage # TODO - this is a temporary fix.  Change this later. We shouldn't need this.
+=======
 ContentPage # TODO - figure out why this fails to autoload.  Look at http://kballcodes.com/2009/09/05/rails-memcached-a-better-solution-to-the-undefined-classmodule-problem/
+>>>>>>> 14fde90... Fix for ContentPage clear-cache problem
 
 class ApplicationController < ActionController::Base
 

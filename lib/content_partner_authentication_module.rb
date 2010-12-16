@@ -58,15 +58,17 @@ module ContentPartnerAuthenticationModule
     end
   end
 
-  def resource_must_belong_to_agent
+  def resource_must_belong_to_agent(specific_resource = nil)
     belongs_to_agent = false
-    @curr_obj = current_object
-    Agent.with_master do
-      if params[:id] && @curr_obj.agents.include?(current_agent)
-        belongs_to_agent = true
+    @curr_obj = current_object.nil? ? specific_resource : current_object
+    if @curr_obj
+      Agent.with_master do
+        if params[:id] && @curr_obj.agents.include?(current_agent)
+          belongs_to_agent = true
+        end
       end
     end
-    if params[:id] && !belongs_to_agent
+    if !belongs_to_agent
       flash[:notice]='The resource you selected is invalid.'
       redirect_to :controller=>'resources',:action=>'index'
     end

@@ -61,7 +61,7 @@
             - src = "<img src=" + url + ">"
             - unless details['taxon_concept_id'].blank?
               = link_to src,{:controller=>'/taxa', :action=>:show, :id => details['taxon_concept_id'],  :image_id => data_object['data_object_id']} 
-              = link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => details['taxon_concept_id'],  :image_id => data_object['data_object_id']} 
+              = link_to "Permalink", { :controller=>'/data_objects', :action=>:show, :id => data_object['data_object_id'] } 
             %br
           - elsif !details['taxon_concept_id'].blank?
             = link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => details['taxon_concept_id'],  :text_id => data_object['data_object_id']}

@@ -662,6 +662,14 @@ class TaxonConcept < SpeciesSchemaModel
   def superceded_the_requested_id
     @superceded_the_requested_id = true
   end
+  # # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit): 
+  # def self.find_with_supercedure(taxon_concept_id, level = 0)
+  #   level += 1
+  #   raise "Supercedure stack is 7 levels deep" if level == 7
+  #   tc = TaxonConcept.find(taxon_concept_id)
+  #   return tc if (tc.supercedure_id == 0 || tc == nil)
+  #   self.find_with_supercedure(tc.supercedure_id, level)
+  # end
 
   # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit): 
   def self.find_with_supercedure(*args)

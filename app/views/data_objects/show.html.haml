@@ -6,15 +6,21 @@
     - if @taxon_concepts.blank?
       ( stands alone )
     - else
-      - start_text = @revisions[0].id == @data_object.id ? 'belongs to ' : 'was connected to '
-      == ( #{start_text} the following page#{@taxon_concepts.size == 1 ? '' : 's'}: 
-      - @taxon_concepts.each_with_index do |tc, i|
-        - comma = (i+1 == @taxon_concepts.size) ? '' : ', '
-        - link_title = tc.scientific_name
-        - link_title += ": <b>#{tc.common_name}</b>" unless tc.common_name.blank?
-        - opts = { :"#{@type.downcase}_id" => @data_object.id }
-        = link_to(link_title, taxon_concept_path(tc.id, opts)) + comma
-      )
+      - if @taxon_concepts[0].published?
+        - start_text = @revisions[0].id == @data_object.id ? 'belongs to ' : 'was connected to '
+        == ( #{start_text} the following page#{@taxon_concepts.size == 1 ? '' : 's'}: 
+        - @taxon_concepts.each_with_index do |tc, i|
+          - comma = (i+1 == @taxon_concepts.size) ? '' : ', '
+          - tc_label = tc.scientific_name
+          - tc_label += ": <b>#{tc.common_name}</b>" unless tc.common_name.blank?
+          - opts = { :"#{@type.downcase}_id" => @data_object.id }
+          = link_to(tc_label, taxon_concept_path(tc.id, opts)) + comma
+        )
+      - else
+        - @taxon_concepts.each do |tc|
+          - names = @taxon_concepts.map { |item| tc.scientific_name + (tc.common_name.blank? ? '' : ": <b>#{tc.common_name}</b>") }.uniq
+          == ( was associated with deprecated page#{names.size == 1 ? '' : 's'} for #{names.join(", ")} )
+      
       
 #page-content.clearfix
   #full-page-content

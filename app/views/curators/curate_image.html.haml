@@ -1,8 +1,12 @@
 %h3
-  = link_to(@data_object.taxon_concepts[0].scientific_name, @data_object.taxon_concepts.first, :popup => true)
+  - taxon_concept = @data_object.taxon_concepts(:published => :preferred)[0]
+  - if taxon_concept.published?
+    = link_to(taxon_concept.scientific_name, taxon_concept, :popup => true)
+  - else
+    == associated with a deprecated page for #{taxon_concept.scientific_name}
 %p
   %em
-    = @data_object.taxon_concepts[0].common_name
+    = taxon_concept.common_name
 .data_object_view
   = image_tag(@data_object.smart_image, :id => 'big-img')
   = render :partial => 'data_objects/attribution', :locals => {:data_object => @data_object, :skip_permalink => true}, :layout => @layout

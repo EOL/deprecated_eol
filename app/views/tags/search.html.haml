@@ -51,7 +51,7 @@
                   - for value in tag_values_for_key(key, data_object.tags)
                     = render :partial => 'tag_key_value', :locals => { :key => key, :value => value, :can_delete => false, :data_object => data_object }
           %div{ :style => "float: left; width: 650px; height: 60px; overflow: auto;" }
-            - for taxon_concept in data_object.taxon_concepts
+            - for taxon_concept in data_object.taxon_concepts(:published => :strict)
               = link_to taxon_concept.name[0,40], taxon_path(taxon_concept)
     - else
       - if params[:q]

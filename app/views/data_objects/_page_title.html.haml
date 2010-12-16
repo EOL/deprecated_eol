@@ -1,6 +1,10 @@
-- if @data_object.taxon_concepts.size > 0
+- taxon_concept = @data_object.taxon_concept(:published => :preferred)[0]
+- if taxon_concept
   %h1
-    = link_to (@data_object.taxon_concepts[0].scientific_name, taxon_concept_url(:id=>@data_object.taxon_concepts[0].id)) if @data_object.taxon_concepts[0].published?
+    - if taxon_concept.published?
+      = link_to (taxon_concept.scientific_name, taxon_concept_url(:id => taxon_concept.id))
+    - else
+      == associated with deprecated page for #{taxon_concept.scientific_name}
 
 - if @data_object.image?
   - title = @data_object.object_title

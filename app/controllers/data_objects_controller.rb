@@ -178,7 +178,7 @@ class DataObjectsController < ApplicationController
     @slim_container = true
     @revisions = @data_object.revisions.sort_by(&:created_at).reverse
     @hierarchy_paths = get_harvested_paths
-    @taxon_concepts = @data_object.taxon_concepts(true)
+    @taxon_concepts = @data_object.taxon_concepts(:published => :preferred)
     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name => tc.common_name, :taxon_concept_id => tc.id }; res }
     @image_source = get_image_source if @type == 'Image'
   end

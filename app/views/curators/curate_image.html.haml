@@ -2,7 +2,7 @@
 = dato_taxon_concept_link(:h3, taxon_concept, :dato_type => "image", :"dato_id" => @data_object.id, :popup => true)
 %p
   %em
-    = @data_object.taxon_concepts[0].common_name
+    = taxon_concept.common_name
 .data_object_view
   = image_tag(@data_object.smart_image, :id => 'big-img')
   = render :partial => 'data_objects/attribution', :locals => {:data_object => @data_object, :skip_permalink => true}, :layout => @layout

@@ -523,22 +523,25 @@ class DataObject < SpeciesSchemaModel
   def taxon_concepts(opts = {})
     return @taxon_concepts if @taxon_concepts
     if created_by_user?
-      @taxon_concepts ||= [taxon_concept_for_users_text]
+      @taxon_concepts = [taxon_concept_for_users_text]
     else
-      query = with_unpublished ? "
+      query = "
         SELECT distinct tc.*
         FROM hierarchy_entries he
         JOIN taxon_concepts tc on he.taxon_concept_id = tc.id
         JOIN data_objects_hierarchy_entries dh on dh.hierarchy_entry_id = he.id
         WHERE dh.data_object_id = ?
-        ORDER BY tc.id -- DataObject#taxon_concepts(true)
-        " : "
-        SELECT tc.*
-        FROM data_objects_taxon_concepts dotc
-        JOIN taxon_concepts tc ON (dotc.taxon_concept_id=tc.id)
-        WHERE dotc.data_object_id=?
-        ORDER BY tc.id -- DataObject#taxon_concepts"
-      @taxon_concepts ||= TaxonConcept.find_by_sql([query, id])
+        ORDER BY tc.id -- DataObject#taxon_concepts(true)"
+      @taxon_concepts = TaxonConcept.find_by_sql([query, id])
+    end
+    tc, tc_with_supercedure = @taxon_concepts.partition {|item| item.supercedure_id == 0}
+    # find is aliased to recursive method to find taxon_concept without supercedure_id
+    tc += tc_with_supercedure.map {|item| TaxonConcept.find(item.id)}.compact
+    if opts[:published]
+      published, unpublished = tc.partition {|item| item.published?}
+      @taxon_concepts = (!published.empty? || opts[:published] == :strict) ? published : unpublished
+    else
+      @taxon_concepts = tc
     end
   end
 
@@ -1306,7 +1309,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     # create the objects taxon and place the object inside
     if options[:include_taxon]
       obj = DataObject.find(first_obj['id'])
-      tc = obj.taxon_concepts[0]
+      tc = obj.taxon_concepts(:published => :preferred)[0]
       return tc.details_hash(:data_object_hash => first_obj, :common_names => options[:common_names])
     end
 

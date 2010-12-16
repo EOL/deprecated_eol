@@ -291,7 +291,7 @@ describe 'EOL APIs' do
       xml_response = Nokogiri.XML(body)
       xml_response.xpath('/').inner_html.should_not == ""
     
-      xml_response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.taxon_concepts[0].id.to_s
+      xml_response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.taxon_concepts(:published => :strict)[0].id.to_s
     end
       
     it "should show all information for text objects" do
@@ -386,7 +386,7 @@ describe 'EOL APIs' do
       visit("/api/data_objects/#{@object.guid}?format=html")
       body.should include '<html'
       body.should include '</html>'
-      body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts[0].entry.name_object.string}/
+      body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts(:published => :strict)[0].entry.name_object.string}/
       body.should include @object.description
     end
       

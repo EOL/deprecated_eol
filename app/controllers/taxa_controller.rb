@@ -236,7 +236,7 @@ class TaxaController < ApplicationController
     @images      = @taxon_concept.images(:image_page => @image_page)[start..last]
     @image_count = @taxon_concept.image_count
     begin
-      set_image_permalink_data
+      set_image_data
     rescue
       render_404
       return true
@@ -511,7 +511,7 @@ private
     @image_id = params[:image_id]
 
     unless show_taxa_html_can_be_cached? &&
-       fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
+        fragment_exist?(:controller => 'taxa', :part => taxa_page_html_fragment_name)
       failure = set_taxa_page_instance_vars
       return false if failure
     end # end get full page since we couldn't read from cache
@@ -553,12 +553,14 @@ private
   end
 
   # Image ID could have been superceded (by, say, a newer version of the same image), so we need to normalize it.
-  def set_image_permalink_data
+  def set_image_data
     if(params[:image_id])
-      image_id = params[:image_id].to_i
-      if obj = DataObject.latest_published_version_of(image_id)
-        image_id = obj.id
+      latest_published_image = DataObject.latest_published_version_of(params[:image_id].to_i)
+      unless latest_published_image
+        flash[:warning] = "Image not found"
+        return
       end
+      image_id = latest_published_image.id
 
       selected_image_index = find_selected_image_index(@images,image_id)
       if selected_image_index.nil?
@@ -568,10 +570,10 @@ private
         @taxon_concept.current_user = current_user
         selected_image_index = find_selected_image_index(@images,image_id)
       end
-      if selected_image_index.nil?
-        raise "Image not found"
+      unless selected_image_index
+        flash[:warning] = "Image removed by curator"
+        return
       end
-
       params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
       start        = $MAX_IMAGES_PER_PAGE * (@image_page - 1)
       last         = start + $MAX_IMAGES_PER_PAGE - 1
@@ -583,7 +585,7 @@ private
     end
   end
 
-  def set_text_permalink_data
+  def set_text_data
     if(params[:text_id])
       text_id = params[:text_id].to_i
 
@@ -600,8 +602,6 @@ private
           current_user.vetted = false
           current_user.save if logged_in?
         end
-      else
-        raise 'Text not found'
       end
     end
   end
@@ -613,13 +613,13 @@ private
     @images = @taxon_concept.images
     @image_count = @taxon_concept.image_count
     
-    begin
-      set_image_permalink_data
-      set_text_permalink_data
-    rescue
-      render_404
-      return true
-    end
+    # begin
+      set_image_data
+      set_text_data
+    # rescue
+    #   render_404
+    #   return true
+    # end
 
     @category_id = show_category_id # need to be an instant var as we use it in several views and they use
                                     # variables with that name from different methods in different cases

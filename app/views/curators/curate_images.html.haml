@@ -17,8 +17,16 @@
     %tr{ :id => "curation-item-#{image['id']}" }
       %td{ :class => "overlay_link " + image['vetted_label'].downcase }
         .curation-item
+          - dato = DataObject.new(:guid => image['guid'])
+          - dato.id = image['id']
+          - latest_published_dato = dato.latest_published_version
+          - dato = latest_published_dato if  latest_published_dato
+          - taxon_concept = dato.taxon_concepts(:published => :preferred).first
         %h5
-          = link_to(image['scientific_name'], "/pages/" + image['taxon_concept_id'], :popup => true)
+          - if taxon_concept.published?
+            = link_to(taxon_concept.scientific_name, taxon_concept,  :popup => true)
+          - else
+            == associated with deprecated page for #{taxon_concept.scientific_name}
         - if !image['common_names'].blank?
           %h6
             = image['common_names'][0]['name'].firstcap

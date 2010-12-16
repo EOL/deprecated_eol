@@ -82,6 +82,20 @@ class Administrator::ContentPageController < AdminController
     end  
  end
  
+ def get_archive_page_content
+    # get the specific archived page for the page ID  & archieve ID using the querystring parameters
+    @page = ContentPage.find(params[:page_id], :include => :content_page_archives)
+    @archived_page = ContentPageArchive.find_by_id_and_content_page_id(params[:archieve_id],params[:page_id])
+    @page.title = @archived_page.title
+    @page.page_name = @archived_page.page_name
+    @page.left_content = @archived_page.left_content
+    @page.main_content = @archived_page.main_content
+    @page.created_at = @archived_page.created_at
+    render :update do |page|
+      page.replace_html 'content_page', :partial => 'form'
+    end  
+ end
+ 
 private 
 
   # expire the header and footer caches

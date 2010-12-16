@@ -5,7 +5,7 @@ parent_klass = $CRITICAL_MODEL_PARENT_CLASS ? $CRITICAL_MODEL_PARENT_CLASS : Act
 class ContentPage < parent_klass
   
   belongs_to :content_section
-  has_many :content_page_archives, :order => 'original_creation_date ASC', :limit => 15
+  has_many :content_page_archives, :order => 'created_at DESC', :limit => 15
   belongs_to :user, :foreign_key => 'last_update_user_id'
   
   validates_presence_of :main_content, :if => :url_and_left_content_is_blank?

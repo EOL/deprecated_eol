@@ -1,7 +1,8 @@
 class HarvestEventsController < ApplicationController
 
   before_filter :find_resource
-  before_filter :agent_login_required, :this_resource_must_belong_to_agent, :agent_must_be_agreeable, :unless => :is_user_admin?
+  before_filter :this_resource_must_belong_to_agent, :except => :index
+  before_filter :agent_login_required, :agent_must_be_agreeable, :unless => :is_user_admin?
   before_filter :set_layout_variables
   layout :choose_layout
 

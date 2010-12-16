@@ -90,6 +90,12 @@
       %p
         = image_tag 'indicator_arrows_black.gif'
         = "Please wait..."[]
+  .text-slidebox-border{:id => "text-curation-wrapper-#{content_item.id}", :style => "display:none;"}
+    .text-slidebox-container{:id => "text-curation-#{content_item.id}"}
+      %p
+        = image_tag 'indicator_arrows_black.gif'
+        = "Please wait..."[]
+
   .divider
 - if @hide
   :javascript

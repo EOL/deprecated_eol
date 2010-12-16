@@ -17,8 +17,7 @@ class TagsController < ApplicationController
   # TODO - gross parsing and whatnot here - method needs clean-up
   #
   def create
-    if logged_in? and params.include?:tag and params[:tag].include?:value
-
+    if logged_in? and params.include? :tag and params[:tag].include? :value
       begin
         @data_object.tag params[:tag][:key], params[:tag][:value], current_user
         flash[:notice] = 'New tag was successfully created'

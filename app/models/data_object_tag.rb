@@ -20,15 +20,13 @@ class DataObjectTag < ActiveRecord::Base
   named_scope :ordered, :order => '`key` ASC, `value` ASC'
 
   def self.clean_values(values)
-    return unless values
-    if values.is_a? Array 
+    return [] if values.blank?
+    unless values.is_a? Array 
       if values.include?(',')
         values = values.split(',')
       elsif values.include?(' ')
         values = value.split(' ')
       end
-    else
-      values = [values]
     end
     # strip out any spaces / newlines in values (model handles punctuation, etc, if found)
     values.map! {|v| v.gsub("\n",'').gsub(' ','') }

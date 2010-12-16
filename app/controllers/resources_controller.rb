@@ -3,7 +3,7 @@ require 'uri'
 class ResourcesController < ApplicationController
 
   # Opened for a malicious administrator who enters url by hand
-  before_filter :resource_must_belong_to_agent, :except => :index
+  before_filter :resource_must_belong_to_agent, :except => [:index, :create, :new]
   before_filter :agent_login_required, :agent_must_be_agreeable, :unless => :is_user_admin?
 
   layout 'content_partner'

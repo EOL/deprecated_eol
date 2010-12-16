@@ -1,7 +1,7 @@
 class HarvestEventsController < ApplicationController
 
   before_filter :find_resource
-  before_filter :agent_login_required, :resource_must_belong_to_agent, :agent_must_be_agreeable, :unless => :is_user_admin?
+  before_filter :agent_login_required, :this_resource_must_belong_to_agent, :agent_must_be_agreeable, :unless => :is_user_admin?
   before_filter :set_layout_variables
   layout :choose_layout
 
@@ -27,7 +27,11 @@ protected
   def choose_layout
     current_user.is_admin? ? 'left_menu' : 'content_partner'
   end
-  
+
+  def this_resource_must_belong_to_agent
+    resource_must_belong_to_agent(find_resource)
+  end
+
 private
 
   def set_layout_variables

@@ -2042,6 +2042,7 @@ span.span_block {
   height: 25px;
   text-align: center;
   font-size: 11px;
+  color: black;
   padding-top: 1px; }
 
 ul.tree {
@@ -2120,7 +2121,7 @@ div.text_curation_close {
 
 .comment-button-image {
   position: relative;
-  float: right !important;
+  float: left;
   background: transparent url(/images/icons/icons.gif) no-repeat -72px 0px; }
   .comment-button-image:hover {
     background: transparent url(/images/icons/icons.gif) no-repeat -72px -32px; }

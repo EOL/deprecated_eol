@@ -22,7 +22,8 @@ class ContentPageArchive < ActiveRecord::Base
   end
 
   def archived_by
-    "#{self.created_at} by #{self.user.full_name}"
+    user = self.user ? self.user.full_name : 'Unknown'[]
+    "#{self.created_at} by #{user}"
   end
 
 end

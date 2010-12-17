@@ -3,7 +3,7 @@ class ApiController < ApplicationController
   include ApiHelper
   
   before_filter :check_version, :handle_key
-  layout 'main' , :only => [:index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :provider_hierarchies, :search_by_provider]
+  layout 'main' , :only => [:index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :hierarchies, :provider_hierarchies, :search_by_provider]
   
   def pages
     taxon_concept_id = params[:id] || 0

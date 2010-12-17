@@ -26,6 +26,8 @@ class DataObjectTag < ActiveRecord::Base
         values = values.split(',')
       elsif values.include?(' ')
         values = value.split(' ')
+      else
+        values = [values]
       end
     end
     # strip out any spaces / newlines in values (model handles punctuation, etc, if found)

@@ -22,11 +22,7 @@
           - latest_published_dato = dato.latest_published_version
           - dato = latest_published_dato if  latest_published_dato
           - taxon_concept = dato.taxon_concepts(:published => :preferred).first
-        %h5
-          - if taxon_concept.published?
-            = link_to(taxon_concept.scientific_name, taxon_concept,  :popup => true)
-          - else
-            == associated with deprecated page for #{taxon_concept.scientific_name}
+        = dato_taxon_concept_link(:h5, taxon_concept, :popup => true)
         - if !image['common_names'].blank?
           %h6
             = image['common_names'][0]['name'].firstcap

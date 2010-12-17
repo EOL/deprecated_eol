@@ -89,7 +89,7 @@
         %strong
           Last Updated:
       %td
-        = "#{format_date_time(@page.created_at)} by #{@page.user ? @page.user.full_name : 'nobody'}"
+        = "#{format_date_time(@page.created_at)} by #{@page.user ? @page.user.full_name : 'Unknown'[]}"
     - if @page.content_page_archives.size != 0
       %tr
         %td

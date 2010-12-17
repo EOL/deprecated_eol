@@ -74,6 +74,7 @@ class String
 
   # Normalize a string for better matching, e.g. for searches
   def normalize
+    # Remember, inline regexes can leak memory.  Storing as variables avoids this.
     @@normalization_regex ||= /[;:,\.\(\)\[\]\!\?\*_\\\/\"\']/
     @@spaces_regex        ||= /\s+/
     @@tag_regex           ||= /<[^>]*>/
@@ -84,6 +85,13 @@ class String
   
   def strip_italics
     self.gsub(/<\/?i>/i, "")
+  end
+
+  def underscore_non_word_chars
+    @@non_word_chars_regex ||= /[^A-Za-z0-9\/]/
+    @@dup_underscores_regex ||= /__+/
+    string = self.clone
+    string.gsub(@@non_word_chars_regex, '_').gsub(@@dup_underscores_regex, '_')
   end
 
 
@@ -316,9 +324,7 @@ module ActiveRecord
       end
 
       def cached_name_for(key)
-        @bad_chars ||= /[^A-Za-z0-9\/]/ # Remember, inline regexes can leak memory.  Storing as variables avoids this.
-        @dup_underscores ||= /__+/
-        "#{RAILS_ENV}/#{self.table_name}/#{key}".gsub(@bad_chars, '_').gsub(@dup_underscores, '_')[0..249]
+        "#{RAILS_ENV}/#{self.table_name}/#{key.underscore_non_word_chars}"[0..249]
       end
 
       # returns the full table name of this ActiveRecord::Base, 

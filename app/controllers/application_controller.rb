@@ -495,7 +495,8 @@ private
         pages.each do |page|
           if page.class == ContentPage
             expire_fragment(:controller => '/content', :part => "#{page.id.to_s }_#{language.iso_639_1}")
-            expire_fragment(:controller => '/content', :part => "#{page.page_url}_#{language.iso_639_1}")
+            expire_fragment(:controller => '/content',
+                            :part => "#{page.page_url.underscore_non_word_chars.downcase}_#{language.iso_639_1}")
             page.clear_all_caches rescue nil # TODO - still having some problem with ContentPage, not sure why.
           else
             expire_fragment(:controller => '/content', :part => "#{page}_#{language.iso_639_1}")

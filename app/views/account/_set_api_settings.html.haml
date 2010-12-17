@@ -16,9 +16,10 @@
     %input{ :name => "generate_api_key", :type => "hidden", :value=> "true" }
     - button_value = "Generate a key"
     %p 
-      If you use API and want EOL to be aware about you
-      request your API key make sure to
-      = link_to('add it to your API calls', api_docs_link)
+      If you are interested in using the EOL API you can generate an API key to
+      identify your application.
+      = link_to('Click here to read more', api_docs_link)
+      about adding a key to your API calls
     %br
     %br
     %input{ :type => "submit", :name => "submit", :value => button_value }

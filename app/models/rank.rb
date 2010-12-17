@@ -10,7 +10,7 @@ class Rank < SpeciesSchemaModel
     cached_find(:label, 'phylum')
   end
   
-  def self.class
+  def self.class_rank
     cached_find(:label, 'class')
   end
   

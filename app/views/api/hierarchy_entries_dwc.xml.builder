@@ -33,7 +33,7 @@ xml.dwr :DarwinRecordSet,
       xml.dwc :kingdom, canonical_form_words[0]
     elsif Rank.phylum.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
       xml.dwc :phylum, canonical_form_words[0]
-    elsif Rank.class.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
+    elsif Rank.class_rank.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
       xml.dwc :class, canonical_form_words[0]
     elsif Rank.order.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
       xml.dwc :order, canonical_form_words[0]

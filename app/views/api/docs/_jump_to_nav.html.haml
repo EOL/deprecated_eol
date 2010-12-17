@@ -1,5 +1,7 @@
 %center
   Jump To:
+  = link_to 'Overview', :controller => '/content', :action => 'page', :id => 'api_overview'
+  |
   = link_to 'API Docs Home', :controller => 'api/docs'
   |
   = link_to 'Ping', :controller => 'api/docs', :action=>'ping'
@@ -17,3 +19,5 @@
   = link_to 'ProviderHierarchies', :controller => 'api/docs', :action=>'provider_hierarchies'
   |
   = link_to 'SearchByProvider', :controller => 'api/docs', :action=>'search_by_provider'
+  |
+  = link_to 'Terms of Use', :controller => '/content', :action => 'page', :id => 'api_terms'

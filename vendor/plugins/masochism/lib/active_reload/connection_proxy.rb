@@ -97,10 +97,10 @@ module ActiveReload
     
     #added by EOL team
     def execute(sql)
-      if @current != :master && needs_master?(sql)
-        slave.execute(sql)
-      else
+      if @current == :master || needs_master?(sql)
         master.execute(sql)
+      else
+        slave.execute(sql)
       end
     end
 

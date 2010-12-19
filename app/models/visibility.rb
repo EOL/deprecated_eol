@@ -18,7 +18,7 @@ class Visibility < SpeciesSchemaModel
   end
   
   def self.invisible
-    cached(:label, 'Invisible') do
+    cached('Invisible') do
       invisible = Visibility.find_by_label('Invisible')
       # The ID *must* be 0 (PHP hard-coded; it also makes /sense/).  If it's not, we fix it now:
       if invisible.id != 0

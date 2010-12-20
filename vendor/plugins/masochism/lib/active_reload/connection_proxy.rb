@@ -107,7 +107,7 @@ module ActiveReload
     def needs_master?(sql)
       begin
         normalized = sql.lstrip.downcase
-        if normalized[0..5] == 'select'
+        if normalized[0..5] == 'select' || normalized[0..6] == '(select'
           return false
         else
           return true

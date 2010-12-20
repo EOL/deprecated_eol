@@ -230,8 +230,9 @@ module ActiveRecord
               @@row_even = true
               message_color, dump_color = "4;35;1", "0"
             end
-
-            log_entry = "  \e[#{message_color}m#{message}\e[0m   "
+            
+            database_name = @config[:host] + "::" + @config[:database]
+            log_entry = "  \e[#{message_color}m#{message} #{database_name}\e[0m   "
             log_entry << "\e[#{dump_color}m%#{String === dump ? 's' : 'p'}\e[0m" % dump if dump
             log_entry
           else

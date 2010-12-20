@@ -691,17 +691,27 @@ class User < parent_klass
   end
 
   # This is at the object level (and is specific to curators)
-  def track_curator_activity(object, changeable_object_type, action)
+  def track_curator_activity(object, changeable_object_type, action, options = {})
+    comment_id = options[:comment] ? options[:comment].id : nil
+    untrust_reasons = options[:untrust_reasons] || nil
+    taxon_concept_id = options[:taxon_concept_id] || nil
     action_with_object_id     = ActionWithObject.find_by_action_code(action).id
     changeable_object_type_id = ChangeableObjectType.find_by_ch_object_type(changeable_object_type).id
-    ActionsHistory.create(
+    actions_history = ActionsHistory.create(
       :user_id                   => self.id,
       :object_id                 => object.id,
       :changeable_object_type_id => changeable_object_type_id,
       :action_with_object_id     => action_with_object_id,
+      :comment_id                => comment_id,
+      :taxon_concept_id          => taxon_concept_id,
       :created_at                => Time.now,
       :updated_at                => Time.now
     )
+    if untrust_reasons
+      untrust_reasons.each do |ur|
+        actions_history.untrust_reasons << ur
+      end
+    end
   end
 
 protected

@@ -78,7 +78,7 @@
             = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
         #right_text_button.curate_button.curate-button-image{ :title => "Curate this text" }
           = link_to '<span class="span_block"></span>', |
-            curation_data_object_path(content_item), |
+            curation_data_object_path(content_item, :taxon_concept_id => @taxon_concept.id), |
             {'data-data_object_id' => content_item.id, |
             :style => comments_style, :class => 'popup-link', |
             :alt => 'Curate this text'} |

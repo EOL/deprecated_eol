@@ -12,7 +12,6 @@ class Name < SpeciesSchemaModel
 
   has_many :taxon_concept_names
   has_many :hierarchy_entries
-  has_many :mappings
   
   validates_presence_of   :string
   # this is being commented out because we are enforcing the uniqueness of clean_name not string

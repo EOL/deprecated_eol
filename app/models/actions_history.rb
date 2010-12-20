@@ -5,6 +5,11 @@ class ActionsHistory < ActiveRecord::Base
   belongs_to :user
   belongs_to :changeable_object_types
   belongs_to :action_with_object
+  belongs_to :comment
+  belongs_to :taxon_concept
+  
+  has_many :actions_histories_untrust_reasons
+  has_many :untrust_reasons, :through => :actions_histories_untrust_reasons
   
   validates_presence_of :user_id, :changeable_object_type_id, :action_with_object_id, :created_at 
     

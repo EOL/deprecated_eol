@@ -144,7 +144,7 @@ private
     resources = Resource.find_by_sql('SELECT r.id FROM resources r JOIN harvest_events he ON (he.resource_id=r.id) WHERE he.published_at IS NOT NULL').uniq!
     agents_resources = AgentsResource.find_all_by_resource_id(resources, :select => 'agent_id').collect{|a| a.agent_id}
     agents = Agent.find_all_by_id(agents_resources, :select => 'id').collect{|a| a.id}.join(', ')
-    all_published_resources = ContentPartner.find_by_sql("SELECT cp.id, a.full_name FROM content_partners cp JOIN agents a ON cp.agent_id = a.id WHERE a.id IN (#{agents})").collect{|cp| [cp['full_name'], cp.id]}.sort{|a,b| a[0].downcase<=>b[0].downcase}
+    all_published_resources = agents.empty? ? [] : ContentPartner.find_by_sql("SELECT cp.id, a.full_name FROM content_partners cp JOIN agents a ON cp.agent_id = a.id WHERE a.id IN (#{agents})").collect{|cp| [cp['full_name'], cp.id]}.sort{|a,b| a[0].downcase<=>b[0].downcase}
     @published_resources = all_published_resources
   end
   

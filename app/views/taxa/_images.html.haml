@@ -55,7 +55,7 @@
               .spinner
                 = image_tag('indicator_arrows_black.gif', :style => 'display:none;')
               #large-image-curator-button.curate-button-image{ :title => "Curate image" }
-                = popup_link 'curator', curation_data_object_path(@images.first), :title => 'Curate image', :rel => '#curation-overlay'
+                = popup_link 'curator', curation_data_object_path(@images.first, :taxon_concept_id => @taxon_concept.id), :title => 'Curate image', :rel => '#curation-overlay'
                 #curation-overlay.overlay{:style=>"width:364px"}
                   .contentWrap
                     = "Please wait, loading..."[]

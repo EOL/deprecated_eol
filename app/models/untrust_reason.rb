@@ -1,4 +1,7 @@
 class UntrustReason < SpeciesSchemaModel
+  
+  has_many :actions_histories_untrust_reasons
+  
   def self.misidentified
     cached_find(:label, 'Misidentified')
   end

@@ -584,13 +584,13 @@ class DataObject < SpeciesSchemaModel
     ancestries
   end
 
-  def curate(vetted_id, visibility_id, user, untrust_reason_ids = [], comment = nil)
+  def curate(vetted_id, visibility_id, user, untrust_reason_ids = [], comment = nil, taxon_concept_id = nil)
     if vetted_id
       vetted_id = vetted_id.to_i
       if vetted_id == Vetted.untrusted.id
-        untrust(user, untrust_reason_ids, comment)
+        untrust(user, untrust_reason_ids, comment, taxon_concept_id)
       elsif vetted_id == Vetted.trusted.id
-        trust(user)
+        trust(user, comment, taxon_concept_id)
       else
         raise "Cannot set data object vetted id to #{vetted_id}"
       end
@@ -610,6 +610,68 @@ class DataObject < SpeciesSchemaModel
     end
 
     curator_activity_flag(user)
+  end
+  
+  def show(user)
+    vetted_by = user
+    update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
+    user.track_curator_activity(self, 'data_object', 'show')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show
+  end
+
+  def hide(user)
+    vetted_by = user
+    update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
+    user.track_curator_activity(self, 'data_object', 'hide')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
+  end
+
+  def trust(user, comment = nil, taxon_concept_id = nil)
+    vetted_by = user
+    update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
+    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
+    added_comment = nil
+    if comment && !comment.blank?
+      added_comment = comment(user, comment)
+    end
+    user.track_curator_activity(self, 'data_object', 'trusted', :comment => added_comment, :taxon_concept_id => taxon_concept_id)
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
+  end
+
+  def untrust(user, untrust_reason_ids = [], comment = nil, taxon_concept_id = nil)
+    vetted_by = user
+    update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
+    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
+    
+    these_untrust_reasons = []
+    if untrust_reason_ids
+      untrust_reason_ids.each do |untrust_reason_id|
+        ur = UntrustReason.find(untrust_reason_id)
+        these_untrust_reasons << ur
+        untrust_reasons << ur
+      end
+    end
+    added_comment = nil
+    if comment && !comment.blank?
+      added_comment = comment(user, comment)
+    end 
+    user.track_curator_activity(self, 'data_object', 'untrusted', :comment => added_comment, :untrust_reasons => these_untrust_reasons, :taxon_concept_id => taxon_concept_id)
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove
+  end
+
+  def unreviewed(user)
+    vetted_by = user
+    update_attributes({:vetted_id => Vetted.unknown.id, :curated => true})
+    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
+    user.track_curator_activity(self, 'data_object', 'unreviewed')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
+  end
+
+  def inappropriate(user)
+    vetted_by = user
+    update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
+    user.track_curator_activity(self, 'data_object', 'inappropriate')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
   end
 
   def curated?
@@ -1514,60 +1576,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
 
     arr = [stats,data_types,vetted_types,total_data_objects,total_taxa]
     return arr
-  end
-
-
-  def show(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'show')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show
-  end
-
-  def hide(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'hide')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
-  end
-
-  def trust(user)
-    vetted_by = user
-    update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    user.track_curator_activity(self, 'data_object', 'trusted')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
-  end
-
-  def untrust(user, untrust_reason_ids = [], comment = nil)
-    vetted_by = user
-    update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    if untrust_reason_ids
-      untrust_reason_ids.each do |untrust_reason_id|
-        untrust_reasons << UntrustReason.find(untrust_reason_id)
-      end
-    end
-    if comment && !comment.blank?
-      comment(user, comment)
-    end
-    user.track_curator_activity(self, 'data_object', 'untrusted')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove
-  end
-
-  def unreviewed(user)
-    vetted_by = user
-    update_attributes({:vetted_id => Vetted.unknown.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    user.track_curator_activity(self, 'data_object', 'unreviewed')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
-  end
-
-  def inappropriate(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'inappropriate')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
   end
 
 private

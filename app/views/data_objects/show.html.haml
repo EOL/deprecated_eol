@@ -19,7 +19,7 @@
       - else
         - @taxon_concepts.each do |tc|
           - names = @taxon_concepts.map { |item| tc.scientific_name + (tc.common_name.blank? ? '' : ": <b>#{tc.common_name}</b>") }.uniq
-          == associated with deprecated page#{names.size == 1 ? '' : 's'} for #{names.join(", ")} )
+          == associated with the deprecated page#{names.size == 1 ? '' : 's'}: '#{names.join("', '")}')
       
 #page-content.clearfix
   #full-page-content

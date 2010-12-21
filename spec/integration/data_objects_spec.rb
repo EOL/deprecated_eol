@@ -28,6 +28,11 @@ describe 'Data Object Page' do
       :object_cache_url => Factory.next(:image),
       :vetted => Vetted.trusted,
       :visibility => Visibility.visible)
+      @dato_untrusted = build_data_object('Image', 'removed', 
+      :num_comments => 0,
+      :object_cache_url => Factory.next(:image),
+      :vetted => Vetted.untrusted,
+      :visibility => Visibility.invisible)
     end
 
     it "should render" do
@@ -65,6 +70,33 @@ describe 'Data Object Page' do
       visit("/data_objects/#{@dato_comments_with_pagination.id}")
       page.status_code.should == 200
       page.should have_xpath("//div[@id='commentsContain']/div[@class='pagination']")
+    end
+
+    it "should have a taxon_concept link for untrusted image, but following the link should show a warning" do
+      visit("/data_objects/#{@dato_untrusted.id}")
+      page.status_code.should == 200
+      page_link = "/pages/#{@tc.id}?image_id=#{@dato_untrusted.id}"
+      page.body.should include(page_link)
+      visit(page_link)
+      page.status_code.should == 200
+      page.body.should include('Image is no longer available')
+    end
+
+    it "should not show a link for data_object if its taxon page is not in database anymore" do
+      tc = build_taxon_concept(:images => [:object_cache_url => Factory.next(:image)], :toc => [], :published => false)
+      image = tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
+      tc.published = false
+      tc.save!
+      dato_no_tc = build_data_object('Image', 'unlinked',
+      :num_comments => 0,
+      :object_cache_url => Factory.next(:image),
+      :vetted => Vetted.trusted,
+      :visibility => Visibility.visible)
+      dato_no_tc.taxon_concepts[0].published?.should be_false
+      visit("/data_objects/#{dato_no_tc.id}")
+      page_link = "/pages/#{tc.id}?image_id="
+      page.body.should_not include(page_link)
+      page.body.should include("associated with the deprecated page")
     end
     
   end

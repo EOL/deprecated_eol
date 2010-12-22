@@ -2,17 +2,18 @@
 .reason{ :style => div_style, :id => "reason_#{data_object.id}" }
   = "Please select a reason, and optionally leave a comment below to explain your decision:"[:select_reason_and_optionally_leave_comment]
   .option
-    = check_box_tag 'untrust_reasons[]', UntrustReason.misidentified.id.to_s, data_object.untrust_reasons_include?(UntrustReason.misidentified), {:id => 'untrust_reason_misidentified'}
-    Misidentified
+    = check_box_tag 'untrust_reasons[]', UntrustReason.misidentified.id.to_s, data_object.untrust_reasons_include?(UntrustReason.misidentified), {:id => 'untrust_reason_misidentified', :class => 'untrust_reason'}
+    %label{ :for => 'untrust_reason_misidentified'} Misidentified
   .option
-    = check_box_tag 'untrust_reasons[]', UntrustReason.incorrect.id.to_s, data_object.untrust_reasons_include?(UntrustReason.incorrect), {:id => 'untrust_reason_incorrect'}
-    Incorrect/misleading information
+    = check_box_tag 'untrust_reasons[]', UntrustReason.incorrect.id.to_s, data_object.untrust_reasons_include?(UntrustReason.incorrect), {:id => 'untrust_reason_incorrect', :class => 'untrust_reason'}
+    %label{ :for => 'untrust_reason_incorrect'} Incorrect/misleading information
   .option
-    = check_box_tag 'untrust_reasons[]', UntrustReason.poor.id.to_s, data_object.untrust_reasons_include?(UntrustReason.poor), {:id => 'untrust_reason_poor'}
-    Poor writing/image/sound quality
+    = check_box_tag 'untrust_reasons[]', UntrustReason.poor.id.to_s, data_object.untrust_reasons_include?(UntrustReason.poor), {:id => 'untrust_reason_poor', :class => 'untrust_reason'}
+    %label{ :for => 'untrust_reason_poor'} Poor writing/image/sound quality
   .option
-    = check_box_tag 'untrust_reasons[]', UntrustReason.duplicate.id.to_s, data_object.untrust_reasons_include?(UntrustReason.duplicate), {:id => 'untrust_reason_duplicate'}
-    Redundant/duplicate
+    = check_box_tag 'untrust_reasons[]', UntrustReason.duplicate.id.to_s, data_object.untrust_reasons_include?(UntrustReason.duplicate), {:id => 'untrust_reason_duplicate', :class => 'untrust_reason'}
+    %label{ :for => 'untrust_reason_duplicate'} Redundant/duplicate
   .option
-    = check_box_tag 'untrust_reasons[]', UntrustReason.other.id.to_s, data_object.untrust_reasons_include?(UntrustReason.other), {:id => 'untrust_reason_other'}
-    Other
+    = check_box_tag 'untrust_reasons[]', UntrustReason.other.id.to_s, data_object.untrust_reasons_include?(UntrustReason.other), {:id => 'untrust_reason_other', :class => 'untrust_reason'}
+    %label{ :for => 'untrust_reason_other'} Other
+  %input{ :type => "hidden", :id => "untrust_reasons_comment", :name => "untrust_reasons_comment" }

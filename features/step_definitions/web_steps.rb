@@ -37,6 +37,11 @@ When /^(?:|I )press (?:the |a |an )?"([^"]*)"(?: button)?(?: within (?:the |a |a
   end
 end
 
+When /^(?:|I )press (?:the |a |an )([^"]+?)(?: within (?:the |a |an )?([^"]*))?$/ do |selector, container|
+  # require 'ruby-debug'; debugger if selector.match /untrusted/
+  When %{I follow the #{selector} within the #{container}}
+end
+
 When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
   selector_type, selector = get_selector(selector)
   with_scope(selector) do

@@ -335,7 +335,11 @@ module ApplicationHelper
   end
 
   def allow_some_html(text)
-    return text.allow_some_html
+    text = text.allow_some_html
+    unless text.match(/<(br|p)\s*[\/]?\s*>/)
+      text.gsub!("\n", "<br/>")
+    end
+    text
   end
   
   # render a version of the classification that allows you to choose a particular clade

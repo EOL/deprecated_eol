@@ -19,10 +19,10 @@
       .options
         .option.trust
           = radio_button_tag 'vetted_id', Vetted.trusted.id.to_s, @data_object.trusted?
-          Trusted
+          %label{:for => 'vetted_id_' + Vetted.trusted.id.to_s} Trusted
         .option.untrust
           = radio_button_tag 'vetted_id', Vetted.untrusted.id.to_s, @data_object.untrusted?
-          Untrusted
+          %label{:for => 'vetted_id_' + Vetted.untrusted.id.to_s} Untrusted
           = render :partial => 'untrust_reasons', :locals => { :data_object => @data_object }
     .curation-section
       .label
@@ -31,7 +31,7 @@
         %div
           This comment will be publicly visible.
         %div
-          = text_area_tag 'comment', nil, :rows => 7, :cols => 29
+          = text_area_tag 'comment', nil, :rows => 7, :cols => 29, :id => "curator_comment"
                 
     .visibility.curation-section
       .label

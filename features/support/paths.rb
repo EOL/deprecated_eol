@@ -80,6 +80,10 @@ module LocationHelpers
       [:css, "#data_object_content"]
     when 'data object image'
       [:css, '#data_object_content #data_object img']
+    when 'data object curation menu'
+      [:css, '#curation-overlay']
+    when 'image curation icon'
+      [:css, '#large-image-curator-button #large-image-curator-button-popup-link']
     when 'text data object title'
       [:css, "#text_object_title"]
     when 'text object header'
@@ -108,12 +112,18 @@ module LocationHelpers
       [:css, "#data_object_license_id"]
     when 'add text references field'
       [:css, "#references"]
+    when 'main image icons area'
+      [:css, "#large-image-buttons"]
     when 'missing text error message'
       [:css, "#missing_text_error"]
     when 'edit text link'
       [:css, ".text_object .edit_text"]
     when 'close button'
       [:css, ".close-button"]
+    when 'untrusted reasons'
+      [:css, ".untrust_reason"]
+    when 'untrusted radio button'
+      [:css, "#vetted_id_" + Vetted.untrusted.id.to_s]
     else
       [:css, selector]
     end

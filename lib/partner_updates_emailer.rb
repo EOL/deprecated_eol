@@ -4,7 +4,7 @@ module PartnerUpdatesEmailer
   
   def self.send_email_updates
     agent_contacts_ready = AgentContact.find(:all, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours HOUR) <= NOW()", :include => [{:agent => :content_partner}])
-    users_ready = User.find(:all, :joins => :users_data_objects, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours HOUR) <= NOW()", :group => 'users.id')
+    users_ready = User.find(:all, :joins => :users_data_objects, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours HOUR) <= NOW()", :group => 'users.id', :readonly => false)
     
     agent_contact_frequencies = agent_contacts_ready.collect{|p| p.email_reports_frequency_hours}
     user_frequencies = users_ready.collect{|p| p.email_reports_frequency_hours}

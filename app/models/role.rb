@@ -1,13 +1,4 @@
-# Roles serve two purposes.
-#
-# Firstly, they are titles.  They are associated with a community and *show* some kind of expected level of access for a user
-# within that community.  However, ROLES GRANT NO POWER WITHIN THEMSELVES.
-#
-# Secondly, they store a list of privileges (which actually grant power, q.v.).  You can #assign_privileges_to a user at any
-# given time to ensure that the user has all of the privileges associated with a role.  However, if the list of allowed
-# privileges associated with that role changes at a later date, the powers of the users who had that role DO NOT NECESSARILY
-# CHANGE.  (This will be an option, but is not a reqirement).  So you *can* have users with privileges outside of the scope
-# of a role, at any given time.
+# Roles grant privileges (unless specifically revoked from a member).
 #
 # Note that there are no "universal" Roles. Every role is attached to a community.  And, in fact, there are a few "default"
 # roles that are assigned to a community when it's created... but they can be changed later.  So there may be what appear
@@ -16,22 +7,25 @@
 class Role < ActiveRecord::Base
   
   belongs_to :community
-  has_and_belongs_to_many :users
+
   has_and_belongs_to_many :privileges
+  has_and_belongs_to_many :members
 
   validates_presence_of :title
 
   def self.curator
-    logger.error "Called deprecated Role#curator.  This will be removed eventually.  Stop it."
-    cached_find(:title, $CURATOR_ROLE_NAME)
+    cached('curator') do
+      Role.find_by_community_id_and_title(Community.special.id, $CURATOR_ROLE_NAME)
+    end
   end
   def self.moderator
     logger.error "Called deprecated Role#moderator.  This will be removed eventually.  Stop it."
     cached_find(:title, 'Moderator')
   end
   def self.administrator
-    logger.error "Called deprecated Role#administrator.  This will be removed eventually.  Stop it."
-    cached_find(:title, $ADMIN_ROLE_NAME)
+    cached('administrator') do
+      Role.find_by_community_id_and_title(Community.special.id, $ADMIN_ROLE_NAME)
+    end
   end
 
   # TODO - with master?
@@ -50,10 +44,8 @@ class Role < ActiveRecord::Base
     new_roles
   end
 
-  def assign_privileges_to(user)
-    member = user.member_of(community)
-    raise "User is not a member of the community for this role." unless member
-    member.assign_privileges privileges
+  def can?(priv)
+    privileges.include? priv
   end
 
 end

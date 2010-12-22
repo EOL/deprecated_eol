@@ -11,7 +11,9 @@ def create_if_not_exists(klass, attributes)
       # Specified ids could be stored as Fixnum, not just int:
       if attributes[key].class == String or attributes[key].class == Integer or attributes[key].class == Fixnum or
          attributes[key].class == TrueClass or attributes[key].class == FalseClass
-        searchable_attributes[key] = attributes[key]
+         if klass.columns.map {|c| c.name.to_sym}.include? key
+           searchable_attributes[key] = attributes[key]
+         end
       elsif attributes[key].class != Array
         key_id = "#{key}_id"
         key_id = 'toc_id' if key_id == 'toc_item_id'
@@ -24,7 +26,7 @@ def create_if_not_exists(klass, attributes)
         searchable_attributes.keys.blank?
     rescue NoMethodError
       raise "It seems there is a bad column on #{klass}. One of its expected attributes seems to be missing: " +
-            "#{searchable_attributes.to_s}"
+            "#{searchable_attributes.keys.inspect}"
     end
     found = klass.send(:gen, attributes) if found.nil?
   rescue ActiveRecord::RecordInvalid => e
@@ -38,8 +40,13 @@ end
 
 $CACHE.clear # because we are resetting everything!  Sometimes, say, iucn is set.
 
+if User.find_by_username('foundation_already_loaded')
+  puts "** WARNING: You attempted to load the foundation scenario twice, here.  Please fix it."
+else
 # I AM NOT INDENTING THIS BLOCK (it seemed overkill)
-if User.find_by_username('foundation_already_loaded').nil?
+
+create_if_not_exists Community, :name => $SPECIAL_COMMUNITY_NAME, #WAIT :show_special_privileges => 1,
+  :description => 'This is a special community for the curtors and admins of EOL.'
 
 # This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
 create_if_not_exists ContentPage, :title => 'Home',
@@ -295,17 +302,21 @@ create_if_not_exists ResourceStatus, :label => 'Publish Pending'
 create_if_not_exists ResourceStatus, :label => 'Unpublish Pending'
 create_if_not_exists ResourceStatus, :label => 'Force Harvest'
 
-create_if_not_exists Role, :title => $CURATOR_ROLE_NAME
-create_if_not_exists Role, :title => 'Moderator'
-create_if_not_exists Role, :title => $ADMIN_ROLE_NAME
-create_if_not_exists Role, :title => 'Administrator - News Items'
-create_if_not_exists Role, :title => 'Administrator - Comments and Tags'
-create_if_not_exists Role, :title => 'Administrator - Web Users'
-create_if_not_exists Role, :title => 'Administrator - Contact Us Submissions'
-create_if_not_exists Role, :title => 'Administrator - Content Partners'
-create_if_not_exists Role, :title => 'Administrator - Technical'
-create_if_not_exists Role, :title => 'Administrator - Site CMS'
-create_if_not_exists Role, :title => 'Administrator - Usage Reports'
+# TEMP:
+ create_if_not_exists Role, :title => $CURATOR_ROLE_NAME
+ create_if_not_exists Role, :title => 'Moderator'
+ create_if_not_exists Role, :title => $ADMIN_ROLE_NAME
+ create_if_not_exists Role, :title => 'Administrator - News Items'
+ create_if_not_exists Role, :title => 'Administrator - Comments and Tags'
+ create_if_not_exists Role, :title => 'Administrator - Web Users'
+ create_if_not_exists Role, :title => 'Administrator - Contact Us Submissions'
+ create_if_not_exists Role, :title => 'Administrator - Content Partners'
+ create_if_not_exists Role, :title => 'Administrator - Technical'
+ create_if_not_exists Role, :title => 'Administrator - Site CMS'
+ create_if_not_exists Role, :title => 'Administrator - Usage Reports'
+
+
+#WAIT: KnownPrivileges.create_all
 
 create_if_not_exists TocItem, :label => 'Overview', :view_order => 1
 description = create_if_not_exists TocItem, :label => 'Description', :view_order => 2
@@ -324,18 +335,25 @@ create_if_not_exists TocItem, :label => 'Biodiversity Heritage Library', :view_o
 ref_and_info = create_if_not_exists TocItem, :label => 'References and More Information', :view_order => 62
 
 # Note that in all these "children", the view_order resets.  ...That reflects the real DB.
-create_if_not_exists TocItem, :label => 'Literature References',         :view_order => 64, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Content Partners',           :view_order => 65, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Biomedical Terms',              :view_order => 66, :parent_id => ref_and_info.id
-create_if_not_exists TocItem, :label => 'Search the Web',                :view_order => 67, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Literature References', :view_order => 64, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Content Partners',      :view_order => 65, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Biomedical Terms',      :view_order => 66, :parent_id => ref_and_info.id
+create_if_not_exists TocItem, :label => 'Search the Web',        :view_order => 67, :parent_id => ref_and_info.id
 
-create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology', :label => 'TaxonBiology', :toc_item => TocItem.overview
-create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription', :label => 'GeneralDescription', :toc_item => description
-create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution', :label => 'Distribution', :toc_item => ecology_and_distribution
-create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat', :label => 'Habitat', :toc_item => ecology_and_distribution
-create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology', :label => 'Morphology', :toc_item => description
-create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Conservation', :label => 'Conservation', :toc_item => description
-create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses', :label => 'Uses', :toc_item => description
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology',
+  :label => 'TaxonBiology', :toc_item => TocItem.overview
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription',
+  :label => 'GeneralDescription', :toc_item => description
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution',
+  :label => 'Distribution', :toc_item => ecology_and_distribution
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat',
+  :label => 'Habitat', :toc_item => ecology_and_distribution
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology',
+  :label => 'Morphology', :toc_item => description
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Conservation',
+  :label => 'Conservation', :toc_item => description
+create_if_not_exists InfoItem, :schema_value => 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',
+  :label => 'Uses', :toc_item => description
 
 create_if_not_exists ServiceType, :label => 'EOL Transfer Schema'
 
@@ -403,8 +421,7 @@ create_if_not_exists SynonymRelation, :label => "homotypic synonym"
 create_if_not_exists SynonymRelation, :label => "unavailable name"
 create_if_not_exists SynonymRelation, :label => "valid name"
 
-
-create_if_not_exists Visibility, :label => 'Invisible'      # This really wants an ID of 0, but only for PHP stuff.
+create_if_not_exists Visibility, :label => 'Invisible' # This  wants an ID of 0, but will fix itself (see class)
 create_if_not_exists Visibility, :label => 'Visible'
 create_if_not_exists Visibility, :label => 'Preview'
 create_if_not_exists Visibility, :label => 'Inappropriate'
@@ -420,6 +437,4 @@ RandomHierarchyImage.delete_all
 # This prevents us from loading things twice, which it seems we were doing a lot!
 User.gen :username => 'foundation_already_loaded'
 
-else # THIS WAS NOT INDENTED.  It was an 'if' over almost the whole file, and didn't make sense to.
-  puts "** WARNING: You attempted to load the foundation scenario twice, here.  Please fix it."
 end # THIS WAS NOT INDENTED.  It was an 'if' over almost the whole file, and didn't make sense to.

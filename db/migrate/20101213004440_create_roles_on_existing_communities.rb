@@ -1,7 +1,7 @@
 class CreateRolesOnExistingCommunities < ActiveRecord::Migration
   def self.up
     special = Community.special
-    special ||= Community.create(:name => 'EOL Curators and Admins', :description => 'This is a special community for the curtors and admins of EOL.', :show_special_privileges => 0)
+    special ||= Community.create(:name => $SPECIAL_COMMUNITY_NAME, :description => 'This is a special community for the curtors and admins of EOL.', :show_special_privileges => 0)
     Community.all.each do |community|
       community.add_default_roles
     end

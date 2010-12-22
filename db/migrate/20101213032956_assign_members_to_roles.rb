@@ -1,3 +1,8 @@
+class RolesUser < ActiveRecord::Base # We don't want this model ANYWHERE else, it's only for this migration.
+  belongs_to :role
+  belongs_to :user
+end
+
 class AssignMembersToRoles < ActiveRecord::Migration
 
   @@completed_user_ids = []
@@ -7,17 +12,23 @@ class AssignMembersToRoles < ActiveRecord::Migration
     roles = Role.find(scope, :conditions => "title LIKE '#{old_title}' AND community_id IS NULL")
     roles = [roles] unless roles.is_a? Array
     roles.each do |role|
-      role.users.each do |user|
+      users = RolesUser.find_all_by_role_id(role.id).map {|ru| ru.user }
+      users.each do |user|
         next if @@completed_user_ids.include? user.id
+        member = nil
         begin
-          user.join_community(Community.special) 
+          member = user.join_community(Community.special) 
         rescue ActiveRecord::RecordInvalid => e
           puts "** Warning: user #{user.username}(#{user.id}) is already in '#{Community.special.name}' Community."
         end
-        new_role = Role.find(:first, :conditions => ["title = '#{new_title}' AND community_id = ?", Community.special.id])
-        raise "Could not find a '#{new_title}' role in community #{Community.special.id}." unless new_role
-        new_role.assign_privileges_to(user) 
-        @@completed_user_ids << user.id
+        if member
+          new_role = Role.find(:first, :conditions => ["title = '#{new_title}' AND community_id = ?", Community.special.id])
+          raise "Could not find a '#{new_title}' role in community #{Community.special.id}." unless new_role
+          member.grant_role(new_role)
+          @@completed_user_ids << user.id
+        else
+          puts "** WARNING: couldn't create a member for #{user.username}(#{user.id}) in community #{Community.special.name}."
+        end
       end
     end
   end
@@ -29,9 +40,12 @@ class AssignMembersToRoles < ActiveRecord::Migration
     self.join_special_community(:first, 'Moderator', 'Moderator')
     self.join_special_community(:all, 'admin%', 'Admin')
     Role.destroy_all('community_id IS NULL') # We don't want these any more.
+    drop_table :roles_users
   end
 
   def self.down
-    puts "WARNING: Nothing to do.  The #up method only assigned privileges and I don't want to remove them."
+    puts "** WARNING: This added a user id to the roles table, but didn't populate it.  Good luck."
+    add_column :roles, :user_id, :integer
   end
+
 end

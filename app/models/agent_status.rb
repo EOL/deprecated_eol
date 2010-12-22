@@ -3,12 +3,10 @@ class AgentStatus < SpeciesSchemaModel
   
   has_many :content_partners
     
-  # Find the "Active" AgentStatus.
   def self.active
     cached_find(:label, 'Active', :serialize => true)
   end 
 
-  # Find the "Inactive" AgentStatus.
   def self.inactive
     cached_find(:label, 'Inactive', :serialize => true)
   end 

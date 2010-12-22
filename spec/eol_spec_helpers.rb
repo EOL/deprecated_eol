@@ -79,13 +79,15 @@ module EOL
       def truncate_all_tables options = { }
         options[:verbose] ||= false
         all_connections.each do |conn|
+          count = 0
           conn.tables.each   do |table|
             unless table == 'schema_migrations'
-              puts "[#{conn.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
+              count += 1
               count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
               conn.execute "TRUNCATE TABLE`#{table}`" if count_rows.num_rows > 0
             end
           end
+          puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
         end
       end
       

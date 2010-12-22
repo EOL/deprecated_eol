@@ -10,8 +10,9 @@ class User < parent_klass
 
   belongs_to :language
   belongs_to :agent
-  has_and_belongs_to_many :roles
   has_many :members
+
+  #V1: has_and_belongs_to_many :roles
 
   before_save :check_curator_status
 
@@ -274,7 +275,7 @@ class User < parent_klass
     self.save!
 
     if approved
-      roles << Role.curator unless has_curator_role?
+      roles << Role.curator unless has_special_role?(Role.curator)
     else
       roles.delete(Role.curator)
     end
@@ -436,16 +437,19 @@ class User < parent_klass
     @is_moderator ||= roles.include?(Role.moderator)
   end
 
-  def has_curator_role?
-    roles.include?(Role.curator)
+  def has_special_role?(role)
+    member = member_of(Community.special)
+    return false unless member
+    member.roles.include?(role)
   end
 
   def is_admin?
-    @is_admin ||= roles.include?(Role.administrator)
+    has_special_role?(Role.administrator)
   end
 
+  # TODO - whaaa?  Seriously?  All CPs are admins?  ...We should change this.
   def is_content_partner?
-    @is_content_partner ||= roles.include?(Role.administrator)
+    has_special_role?(Role.administrator)
   end
 
   def curator_attempted?
@@ -453,7 +457,7 @@ class User < parent_klass
   end
 
   def is_curator?
-    return (has_curator_role? && !curator_hierarchy_entry.blank?)
+    return (has_special_role?(Role.curator) && !curator_hierarchy_entry.blank?)
   end
 
   def selected_default_hierarchy
@@ -473,13 +477,25 @@ class User < parent_klass
 
   def check_curator_status
     credentials = '' if credentials.nil?
-    if curator_hierarchy_entry.blank?  # remove the curator approval and role if they have no hierarchy entry set
-      curator_approved = false
-      roles.delete(Role.curator) unless roles.blank?
-    else # be sure they have the curator role set if they have a curator hierarchy entry set
-      roles.reload
-      roles << Role.curator unless has_curator_role?
+    if curator_hierarchy_entry.blank?
+      revoke_curatorship
+    else
+      grant_curatorship(curator_hierarchy_entry)
     end
+  end
+
+  def revoke_curatorship
+    curator_hierarchy_entry = nil
+    curator_approved = false
+    if member = member_of(Community.special)
+      member.remove_role(Role.curator)
+    end
+  end
+
+  def grant_curatorship(he)
+    curator_hierarchy_entry = he
+    join_community(Community.special)
+    member_of(Community.special).add_role(Role.curator)
   end
 
   alias :ar_to_xml :to_xml
@@ -716,7 +732,12 @@ class User < parent_klass
   end
 
   def join_community(community)
-    members << Member.create!(:user_id => id, :community_id => community.id)
+    member = Member.find_by_community_id_and_user_id(community.id, id)
+    unless member
+      member = Member.create!(:user_id => id, :community_id => community.id)
+      members << member
+    end
+    member
   end
 
   def leave_community(community)

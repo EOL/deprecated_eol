@@ -11,7 +11,7 @@ class Community < ActiveRecord::Base
   validates_uniqueness_of :name, :message => "has already been taken."[]
 
   def self.special
-    cached_find(:name, 'EOL Curators and Admins')
+    cached_find(:name, $SPECIAL_COMMUNITY_NAME)
   end
 
   def special?

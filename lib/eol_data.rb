@@ -30,7 +30,7 @@ module EOL
               ActiveRecord::Base.connection.create_database(config['database'], :charset => (config['charset'] || @charset), :collation => (config['collation'] || @collation))
               ActiveRecord::Base.establish_connection(config)
             rescue
-              $stderr.puts "Couldn't create database for #{config.inspect}, charset: #{config['charset'] || @charset}, collation: #{config['collation'] || @collation} (if you set the charset manually, make sure you have a matching collation)"
+              $stderr.puts "Couldn't create database.  Try manually running: create database #{config['database']} character set = #{config['charset'] || @charset} collate = #{config['collation'] || @collation}"
             end
           else
             $stderr.puts "#{config['database']} already exists"

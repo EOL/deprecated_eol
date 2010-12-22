@@ -2,7 +2,7 @@
 - @common_name_language = current_user.language
 - if @hierarchy_entry.blank?
   - @hierarchy_entry = @taxon_concept.find_ancestor_in_hierarchy(@session_hierarchy)
-  - @in_hierarchy = @taxon_concept.in_hierarchy(@session_hierarchy)
+  - @in_hierarchy = @taxon_concept.in_hierarchy?(@session_hierarchy)
 - else
   - @in_hierarchy = true
 - @hierarchy = @hierarchy_entry.blank? ? @session_hierarchy : @hierarchy_entry.hierarchy

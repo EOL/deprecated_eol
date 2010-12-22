@@ -1,7 +1,7 @@
 class TaxaController < ApplicationController
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
-  before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution, :content]
+  before_filter :set_session_hierarchy_variable, :only => [:show, :classification_attribution, :content, :curators]
 
   # this is cheating because of mixing taxon and taxon concept use of the controller
   def index
@@ -410,6 +410,27 @@ class TaxaController < ApplicationController
     
     url = endpoint + "?pid=#{pid}&output=json&q=#{URI.escape(ref.full_reference)}&callback=#{callback}"
     render :text => Net::HTTP.get(URI.parse(url))
+  end
+  
+  def curators
+    # if this is named taxon_concept then the RSS feeds will be added to the page
+    # in Firefox those feeds are evaluated when the pages loads, so this should save some queries
+    @concept = find_taxon_concept || return
+    @page_title = "Curators of #{@concept.title(@session_hierarchy)}"
+    @curators = @concept.curators
+    @curators.sort! do |a, b|
+      if a.family_name.strip.blank? && b.family_name.strip.blank? # last names blank, sort by first
+        a.given_name.strip <=> b.given_name.strip
+      elsif a.family_name.strip.blank?                            # A.last blank, sort A.first to B.last
+        a.given_name.strip <=> b.family_name.strip
+      elsif b.family_name.strip.blank?                            # B last name blank, sort B.first to A.last
+        a.family_name.strip <=> b.given_name.strip
+      elsif a.family_name.strip == b.family_name.strip            # sort last
+        a.given_name.strip <=> b.given_name.strip
+      else                                                        # then sort first
+        a.family_name.strip <=> b.family_name.strip
+      end
+    end
   end
 
 private

@@ -1,0 +1,38 @@
+#page-separator-general
+#page-title
+  %h1= "Curator List"[]
+#page-content.clearfix
+  #full-page-content
+    - if @curators.empty?
+      %h3
+        There are no curators of
+        = link_to(@concept.title(@session_hierarchy), :controller => :taxa, :action => :show, :id => @concept.id)
+    - else
+      %h3
+        The following are curators of
+        = link_to(@concept.title(@session_hierarchy), :controller => :taxa, :action => :show, :id => @concept.id)
+      %br
+      
+      
+      %table.results_table
+        %tr
+          %th{:width => '200px'}
+            = "Curator Name"[]
+          %th
+            = "Curator Clade"[]
+          
+          - @curators.each do |u|
+            - row_class = cycle('odd', 'even')
+            %tr
+              %td{:class => row_class}
+                %a{:href => url_for(:controller => :account, :action => :show, :id => u.id)}
+                  - if u.family_name.strip.blank?
+                    = "#{u.given_name.strip}"
+                  - else
+                    = "#{u.family_name.strip}, #{u.given_name.strip}"
+              %td{:class => row_class}
+                %a{:href => url_for(:controller => :account, :action => :show, :id => u.curator_hierarchy_entry.taxon_concept_id)}<
+                  = u.curator_hierarchy_entry.name_object.string
+                - unless u.curator_scope.strip.blank?
+                  %br
+                  = u.curator_scope

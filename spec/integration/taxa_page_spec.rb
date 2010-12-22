@@ -3,13 +3,13 @@ require 'nokogiri'
 
 def find_unique_tc(options)
   options[:in].hierarchy_entries.each do |entry|
-    return entry.taxon_concept unless entry.taxon_concept.in_hierarchy(options[:not_in])
+    return entry.taxon_concept unless entry.taxon_concept.in_hierarchy?(options[:not_in])
   end
 end
 
 def find_common_tc(options)
   options[:in].hierarchy_entries.each do |entry|
-    return entry.taxon_concept if entry.taxon_concept.in_hierarchy(options[:also_in])
+    return entry.taxon_concept if entry.taxon_concept.in_hierarchy?(options[:also_in])
   end
 end
 

@@ -50,6 +50,11 @@ ActionController::Routing::Routes.draw do |map|
               :controller => 'taxa', :action => 'show' 
   map.classification_attribution 'pages/:id/classification_attribution',
               :controller => 'taxa', :action => 'classification_attribution' 
+  map.page_curators 'pages/:id/curators',
+              :controller => 'taxa', :action => 'curators'
+  map.connect 'pages/:taxon_concept_id/images/:page.:format',
+              :controller => 'data_objects', :action => 'index',
+              :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }
   map.connect 'pages/:taxon_concept_id/images/:page.:format',
               :controller => 'data_objects', :action => 'index',
               :requirements => { :taxon_concept_id => /\d+/, :page => /\d+/ }

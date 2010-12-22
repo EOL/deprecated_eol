@@ -32,7 +32,6 @@ describe 'Curation' do
     @agents_syn = @taxon_concept.add_common_name_synonym(@agents_cname, :agent => @cn_curator, :language => Language.english,
                                            :vetted => Vetted.trusted, :preferred => false)
     @first_curator = create_curator_for_taxon_concept(@taxon_concept)
-    @first_curator = create_curator_for_taxon_concept(@taxon_concept)
     @default_num_curators = @taxon_concept.acting_curators.length
     visit("/pages/#{@taxon_concept.id}")
     @default_page  = source
@@ -83,13 +82,42 @@ describe 'Curation' do
     $CACHE.clear
     ActionController::Base.perform_caching = old_cache_val
   end
-
+  
+  # --- taxa page curators list ---
+  
+  it 'should show the curator list link' do
+    @default_page.should have_tag('div.total_number_of_curators')
+  end
+  
+  it 'should show the curator list link when there has been no activity' do
+    LastCuratedDate.delete_all
+    visit("/pages/#{@taxon_concept.id}")
+    body.should have_tag('div.total_number_of_curators')
+  end
+  
+  it 'should show the curator list' do
+    visit("/pages/#{@taxon_concept.id}/curators")
+    body.should include("The following are curators of")
+    body.should include(@cn_curator.family_name)
+    body.should include(@cn_curator.given_name)
+    body.should include(@first_curator.family_name)
+    body.should include(@first_curator.given_name)
+  end
+  
+  it 'should show an empty curators list on a page with no curators' do
+    new_tc = build_taxon_concept
+    new_tc.curators.each{|c| c.delete }
+    visit("/pages/#{new_tc.id}/curators")
+    body.should include("There are no curators of")
+  end
+  
+  
   # --- page citation ---
   
   it 'should confirm that the page doesn\'t have the citation if there is no active curator for the taxon_concept' do
     LastCuratedDate.delete_all
     visit("/pages/#{@taxon_concept.id}")
-    body.should_not have_tag('div.number-of-curators')
+    body.should_not have_tag('div.number_of_active_curators')
   end
 
   it 'should still have a page citation block when there are no curators' do
@@ -97,14 +125,14 @@ describe 'Curation' do
     visit("/pages/#{@taxon_concept.id}")
     body.should have_tag('div#page-citation')
   end
-
+  
   it 'should say the page has citation (both lines)' do
-    @default_page.should have_tag('div.number-of-curators')
+    @default_page.should have_tag('div.number_of_active_curators')
     @default_page.should have_tag('div#page-citation')
   end
 
   it 'should show the proper number of curators' do
-    @default_page.should have_tag('div.number-of-curators', /#{@default_num_curators}/)
+    @default_page.should have_tag('div.number_of_active_curators', /#{@default_num_curators}/)
   end
 
   it 'should change the number of curators if another curator curates an image' do
@@ -112,7 +140,7 @@ describe 'Curation' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
     @taxon_concept.acting_curators.length.should == num_curators + 1
     visit("/pages/#{@taxon_concept.id}")
-    body.should have_tag('div.number-of-curators', /#{num_curators+1}/)
+    body.should have_tag('div.number_of_active_curators', /#{num_curators+1}/)
   end
 
   it 'should change the number of curators if another curator curates a text object' do
@@ -120,11 +148,11 @@ describe 'Curation' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
     @taxon_concept.acting_curators.length.should == num_curators + 1
     visit("/pages/#{@taxon_concept.id}")
-    body.should have_tag("div.number-of-curators", /#{num_curators+1}/)
+    body.should have_tag("div.number_of_active_curators", /#{num_curators+1}/)
   end
               
   it 'should have a link from N curators to the citation' do
-    @default_page.should have_tag("div.number-of-curators") do
+    @default_page.should have_tag("div.number_of_active_curators") do
       with_tag('a[href*=?]', /#citation/)
     end
   end

@@ -189,6 +189,7 @@
         .note
           = "(esc key hides this message)"[]
     - if flash[:notice] || flash[:warning] || flash[:error]
+      - flash[:notice] = flash[:warning] = flash[:error] = nil
       :javascript
         var trigger = $("a#show-flash").overlay({
           top: 165,

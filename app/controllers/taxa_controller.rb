@@ -235,12 +235,7 @@ class TaxaController < ApplicationController
     last         = start + $MAX_IMAGES_PER_PAGE - 1
     @images      = @taxon_concept.images(:image_page => @image_page)[start..last]
     @image_count = @taxon_concept.image_count
-    begin
-      set_image_data
-    rescue
-      render_404
-      return true
-    end
+    set_image_data
     current_user.log_activity(:viewed_page_of_images, :value => @image_page, :taxon_concept_id => @taxon_concept.id)
     render :partial => "images"
   end
@@ -592,7 +587,7 @@ private
         selected_image_index = find_selected_image_index(@images,image_id)
       end
       unless selected_image_index
-        flash[:warning] = "Image removed by curator"
+        flash[:warning] = "Image is no longer available"
         return
       end
       params[:image_page] = @image_page = ((selected_image_index+1) / $MAX_IMAGES_PER_PAGE.to_f).ceil
@@ -623,6 +618,8 @@ private
           current_user.vetted = false
           current_user.save if logged_in?
         end
+      else
+        flash[:warning] = "Text is no longer available"
       end
     end
   end
@@ -634,13 +631,8 @@ private
     @images = @taxon_concept.images
     @image_count = @taxon_concept.image_count
     
-    # begin
-      set_image_data
-      set_text_data
-    # rescue
-    #   render_404
-    #   return true
-    # end
+    set_image_data
+    set_text_data
 
     @category_id = show_category_id # need to be an instant var as we use it in several views and they use
                                     # variables with that name from different methods in different cases

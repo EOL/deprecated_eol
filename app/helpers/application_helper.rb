@@ -485,7 +485,7 @@ module ApplicationHelper
         if taxon_concept.published?
           haml_concat link_to(taxon_concept.scientific_name, taxon_concept, :popup => !!opts[:popup])
         else
-          haml_concat "associated with a deprecated_page for #{taxon_concept.scientific_name}"
+          haml_concat "associated with a deprecated_page: '#{taxon_concept.scientific_name}'"
         end
       end
     end

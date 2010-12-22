@@ -122,15 +122,16 @@
         
         -# This is the dynamic way of displaying all agent roles.
         / 
-        - for role in image['agents']
-          - if(image['agents'][role[0]].to_s.strip != '')
-            - agents_linked = agent_partial(image['agents'][role[0]])
-            - agents_icons_linked = agent_icons_partial(image['agents'][role[0]])
-            = role[0].upcase + ": "
-            = agents_linked
-            - if !agents_icons_linked.blank?
-              = agents_icons_linked
-            %br/          
+        - unless image['agents'].blank?
+          - for role in image['agents']
+            - if(image['agents'][role[0]].to_s.strip != '')
+              - agents_linked = agent_partial(image['agents'][role[0]])
+              - agents_icons_linked = agent_icons_partial(image['agents'][role[0]])
+              = role[0].upcase + ": "
+              = agents_linked
+              - if !agents_icons_linked.blank?
+                = agents_icons_linked
+              %br/          
 
         
         - unless image['source_url'].blank?

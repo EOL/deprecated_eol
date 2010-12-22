@@ -81,41 +81,39 @@ class TaxonConcept < SpeciesSchemaModel
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
     return @curators unless @curators.nil?
-    users = User.find_by_sql("SELECT * FROM users WHERE curator_hierarchy_entry_id IN (#{all_ancestor_entries.join(',')}) AND curator_approved=1")
-    unless in_hierarchy(Hierarchy.default)
-      users += find_ancestor_in_hierarchy(Hierarchy.default).taxon_concept.curators if maps_to_hierarchy(Hierarchy.default)
+    users = User.find_all_by_curator_hierarchy_entry_id_and_curator_approved(all_ancestor_entry_ids, true, :include => {:curator_hierarchy_entry => :name_object})
+    unless in_hierarchy?(Hierarchy.default)
+      if entry_in_default = find_ancestor_in_hierarchy(Hierarchy.default)
+        users += entry_in_default.taxon_concept.curators
+      end
     end
     @curators = users
     return users
   end
-
-  def all_ancestor_entries
+  
+  def all_ancestor_entry_ids
     all_ancestor_entry_ids = []
-    child_ids = SpeciesSchemaModel.connection.select_values("SELECT id FROM #{HierarchyEntry.full_table_name} WHERE taxon_concept_id=#{self.id}").uniq
-    all_ancestor_entry_ids += child_ids
-    while parent_ids = SpeciesSchemaModel.connection.select_values("SELECT parent_id FROM #{HierarchyEntry.full_table_name} WHERE id IN (#{child_ids.join(',')}) AND parent_id!=0").uniq
-      break if parent_ids.blank?
-      all_ancestor_entry_ids += parent_ids
-      child_ids = parent_ids.dup
+    entries = HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => 'id, parent_id')
+    all_ancestor_entry_ids += entries.collect{|he| he.id }
+    
+    while parents = HierarchyEntry.find_all_by_id(entries.collect{|he| he.parent_id}.uniq, :select => 'id, parent_id', :conditions => "id != 0")
+      break if parents.empty?
+      all_ancestor_entry_ids += parents.collect{|he| he.id }
+      entries = parents.dup
+      break if entries.collect{|he| he.parent_id} == [0]
     end
     return all_ancestor_entry_ids
   end
+  
 
   # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
   # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
   # not all of it's children.  (For example.)
   def acting_curators
     # Single-database query using a thousandfold more efficient algorithm than doing things via cross-database join:
-    User.find_by_sql("
-      SELECT DISTINCT users.*
-      FROM users
-      JOIN last_curated_dates lcd ON (users.id = lcd.user_id AND lcd.last_curated >= '#{2.years.ago.to_s(:db)}')
-      WHERE curator_approved IS TRUE
-      AND lcd.taxon_concept_id = #{self.id} -- TaxonConcept#approved_curators
-    ")
+    User.all(:joins => :last_curated_dates, :conditions => "last_curated_dates.last_curated >= '#{2.years.ago.to_s(:db)}' AND last_curated_dates.taxon_concept_id = #{self.id}").uniq
   end
-  alias :active_curators :acting_curators
-
+  
   # if curator is no longer able to curate the page, citation should still show up, so we grab all users wich had have curator activity in 2 last years on this page
   def curator_has_citation
     last_curated_dates = LastCuratedDate.find(:all, :conditions => ["taxon_concept_id = ? AND last_curated > ?", self.id, 2.years.ago.to_s(:db)])
@@ -509,12 +507,12 @@ class TaxonConcept < SpeciesSchemaModel
     return nil
   end
 
-  def maps_to_hierarchy(hierarchy)
+  def maps_to_hierarchy?(hierarchy)
     return !find_ancestor_in_hierarchy(hierarchy).nil?
   end
 
   # TODO - this method should have a ? at the end of its name
-  def in_hierarchy(search_hierarchy = nil)
+  def in_hierarchy?(search_hierarchy = nil)
     return false unless search_hierarchy
     entries = hierarchy_entries.detect {|he| he.hierarchy_id == search_hierarchy.id }
     return entries.nil? ? false : true

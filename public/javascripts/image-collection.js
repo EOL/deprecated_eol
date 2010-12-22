@@ -65,7 +65,8 @@ if (!EOL.replace_dato_id || !EOL.click_selected_image || !EOL.toggle_main_img_ic
       $("#notes-container div.mc-notes, #large-image .main-image-bg, #image-ratings .image-rating").hide();
       $("#notes-container #mc-notes-"+id+", #large-image #image-"+id+", #image-ratings, #image-ratings #rating-"+id).show();
       $("#large-image-comment-button .comment_button").hide();
-      $("#large-image-comment-button #comment_button_id_"+id).show()
+      $("#large-image-comment-button #comment_button_id_"+id).show();
+	  $("#large-image-comment-button").removeClass("hide");
       EOL.replace_dato_id(id);
       EOL.toggle_main_img_icons(id);
       EOL.init_popup_overlays();

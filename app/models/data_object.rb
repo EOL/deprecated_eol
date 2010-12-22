@@ -584,11 +584,11 @@ class DataObject < SpeciesSchemaModel
     ancestries
   end
 
-  def curate(vetted_id, visibility_id, user, untrust_reason_ids = [], comment = nil, taxon_concept_id = nil)
+  def curate(vetted_id, visibility_id, user, untrust_reason_ids = [], comment = nil, taxon_concept_id = nil, untrust_reasons_comment = nil)
     if vetted_id
       vetted_id = vetted_id.to_i
       if vetted_id == Vetted.untrusted.id
-        untrust(user, untrust_reason_ids, comment, taxon_concept_id)
+        untrust(user, untrust_reason_ids, comment, taxon_concept_id, untrust_reasons_comment)
       elsif vetted_id == Vetted.trusted.id
         trust(user, comment, taxon_concept_id)
       else
@@ -638,7 +638,7 @@ class DataObject < SpeciesSchemaModel
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
   end
 
-  def untrust(user, untrust_reason_ids = [], comment = nil, taxon_concept_id = nil)
+  def untrust(user, untrust_reason_ids = [], comment = nil, taxon_concept_id = nil, untrust_reasons_comment = nil)
     vetted_by = user
     update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
@@ -651,8 +651,11 @@ class DataObject < SpeciesSchemaModel
         untrust_reasons << ur
       end
     end
+    unless untrust_reasons_comment.blank?
+      comment(user, untrust_reasons_comment)
+    end
     added_comment = nil
-    if comment && !comment.blank?
+    unless comment.blank?
       added_comment = comment(user, comment)
     end 
     user.track_curator_activity(self, 'data_object', 'untrusted', :comment => added_comment, :untrust_reasons => these_untrust_reasons, :taxon_concept_id => taxon_concept_id)

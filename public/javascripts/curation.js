@@ -57,6 +57,11 @@ $(document).ready(function() {
     form.find('div.processing').show();
     submit = form.find(':submit');
     the_comment = form.find('textarea');
+    var reasons = $('.untrust_reason:checked').siblings().map(function(){return this.innerHTML}).get().join(",\n");
+    if (reasons) {
+      reasons = "Reasons to Untrust:\n\n" + reasons 
+      form.find('#untrust_reasons_comment').attr('value', reasons);
+    }
     $.ajax({
       url: form.attr('action'),
       type: 'PUT',

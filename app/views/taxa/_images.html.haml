@@ -27,8 +27,9 @@
             %tr
               %td
                 - title = sanitize(strip_tags(image['scientific_name']))
+                - # there was a bug WEB-1893 which may have been caused by missing images, hence the unless below
                 %img.main-image{ :title => title,           |
-                  :src => (image.smart_image unless (@images.nil? or @images.blank?)), |
+                  :src => (image.smart_image unless (@images.nil? || @images.blank? || image.blank? || image.object_cache_url.blank?)), |
                   :alt => title }                           |
       %hr
       -# TODO simplify the IDs of the button links ... they need to have unique IDs but thats all

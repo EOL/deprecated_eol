@@ -39,7 +39,11 @@ end
 
 When /^(?:|I )press (?:the |a |an )([^"]+?)(?: within (?:the |a |an )?([^"]*))?$/ do |selector, container|
   # require 'ruby-debug'; debugger if selector.match /untrusted/
-  When %{I follow the #{selector} within the #{container}}
+  if container
+    When %{I follow the #{selector} within the #{container}}
+  else
+    When %{I follow the #{selector}}
+  end
 end
 
 When /^(?:|I )follow "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|

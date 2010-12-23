@@ -28,8 +28,11 @@ class Role < ActiveRecord::Base
     end
   end
 
+  def add_privilege(priv)
+    privileges << priv
+  end
+
   # TODO - with master?
-  # TODO - test
   def self.add_defaults_to_community(community)
     default_roles = {'Owner' => 20, 'Member Services Manager' => 10, 'Content Manager' => 1}
     new_roles = []

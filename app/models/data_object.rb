@@ -730,11 +730,11 @@ class DataObject < SpeciesSchemaModel
   def curator_activity_flag(user, taxon_concept_id = nil)
     taxon_concept_id ||= taxon_concepts[0].id
     return if taxon_concept_id == 0
-     if user and user.can_curate_taxon_concept_id? taxon_concept_id
-         LastCuratedDate.create(:user_id => user.id,
-           :taxon_concept_id => taxon_concept_id,
-           :last_curated => Time.now)
-     end
+    if user and user.can_curate_taxon_concept_id? taxon_concept_id
+      LastCuratedDate.create(:user_id => user.id,
+        :taxon_concept_id => taxon_concept_id,
+        :last_curated => Time.now)
+    end
   end
 
   def visible_references(options = {})

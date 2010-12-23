@@ -3,6 +3,7 @@ class Community < ActiveRecord::Base
   has_many :members
   has_many :roles
 
+  # These are for will_paginate:
   cattr_reader :per_page
   @@per_page = 30
 

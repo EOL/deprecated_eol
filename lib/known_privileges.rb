@@ -69,6 +69,6 @@ class KnownPrivileges
 
 end
 
-# In Egpyt, there w/b a script:
+# In Egpyt, there w/b a script to be run AFTER migrations/scenarios:
 # Privilege.administrator.title = "Some Arabic String"
 # (etc)

@@ -373,6 +373,7 @@ end
 Factory.define :community do |c|
   c.name        { Faker::Lorem.words.join(' ').titleize }
   c.description { Faker::Lorem.paragraph }
+  c.show_special_privileges false
 end
 
 Factory.define :contact do |c|
@@ -660,8 +661,13 @@ Factory.define :license do |l|
   l.show_to_content_partners true
 end
 
-Factory.define :mime_type do |x|
-  x.label { Factory.next(:string) }
+Factory.define :member do |m|
+  m.association :user
+  m.association :community 
+end
+
+Factory.define :mime_type do |mt|
+  mt.label { Factory.next(:string) }
 end
 
 Factory.define :name do |name|
@@ -693,6 +699,13 @@ end
 Factory.define :page_name do |pn|
   pn.association :name
   pn.association :item_page
+end
+
+Factory.define :privilege do |p|
+  p.name { Factory.next(:last_name) }
+  p.sym {|priv| KnownPrivileges.string_to_symbol(priv.name) }
+  p.level 10
+  p.special false
 end
 
 Factory.define :publication_title do |pt|

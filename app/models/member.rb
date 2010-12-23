@@ -30,10 +30,10 @@ class Member < ActiveRecord::Base
   end
 
   def revoke_privilege(priv)
-    if existing_priv = MemberPrivilege.find(['member_id = ? AND privilege_id = ? AND revoked = ?', self.id, priv.id, false])
+    if existing_priv = MemberPrivilege.find_by_member_id_and_privilege_id_and_revoked(self.id, priv.id, false)
       existing_priv.revoked = true
       existing_priv.save!
-    elsif ! had_privilege_revoked(priv)
+    elsif ! had_privilege_revoked?(priv)
       self.member_privileges << MemberPrivilege.create(:member_id => self.id, :privilege_id => priv.id, :revoked => true)
     end
   end
@@ -58,9 +58,9 @@ class Member < ActiveRecord::Base
     privs = self.roles.map {|r| r.privileges}.flatten
     self.member_privileges.each do |mp|
       if mp.revoked?
-        privs << mp.privilege unless mp.revoked?
-      else
         privs.delete mp.privilege
+      else
+        privs << mp.privilege
       end
     end
     privs.uniq.sort_by {|p| p.name }

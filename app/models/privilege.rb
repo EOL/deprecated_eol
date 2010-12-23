@@ -12,7 +12,7 @@ class Privilege < ActiveRecord::Base
     list = if community.special?
       self.all
     else
-      self.find(:all, :conditions => ["special = ?", true])
+      self.find(:all, :conditions => ["special = ?", false])
     end
     list.sort_by {|p| p.name }
   end

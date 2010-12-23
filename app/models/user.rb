@@ -6,6 +6,7 @@
 # NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
 class User < $PARENT_CLASS_MUST_USE_MASTER
+
   belongs_to :curator_hierarchy_entry, :class_name => "HierarchyEntry", :foreign_key => :curator_hierarchy_entry_id
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   belongs_to :language
@@ -27,6 +28,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   accepts_nested_attributes_for :user_info
 
+  @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
+
   validate :ensure_unique_username_against_master, :on => :create
 
   validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
@@ -37,8 +40,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   validates_length_of :username, :within => 4..32
   validates_length_of :entered_password, :within => 4..16, :on => :create
 
-  validates_format_of :email,
-    :with => %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
+  validates_format_of :email, :with => @email_format_re
 
   validates_confirmation_of :entered_password
 
@@ -48,7 +50,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def self.create_new options = {}
     # NOTE - the agent_id is assigned in account controller, not in the model
     new_user = User.new
-    new_user.set_defaults
+    new_user.send(:set_defaults) # It's a private method.  This is cheating, but we really DO want it private.
     new_user.attributes = options
     new_user
   end
@@ -106,6 +108,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
+  # TODO - test
   def self.users_with_submitted_text
     sql = "SELECT DISTINCT users.id , users.given_name, users.family_name
       FROM users Join users_data_objects ON users.id = users_data_objects.user_id
@@ -114,6 +117,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return rset
   end
 
+  # TODO - test
   def self.users_with_activity_log
     sql = "SELECT distinct u.id , u.given_name, u.family_name
       FROM users u
@@ -125,6 +129,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
+  # TODO - test
   def self.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
     obj_ids = []
     user_ids = []
@@ -150,6 +155,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return arr
   end
 
+  # TODO - test
   def self.curated_data_objects(arr_dataobject_ids, year, month, page, report_type)
     page = 1 if page == 0
     sql = "SELECT ah.object_id data_object_id, cot.ch_object_type,
@@ -171,7 +177,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  # I wanted to centralize this call, so we can quickly change from one kind of hashing to another.
   def self.hash_password(raw)
     Digest::MD5.hexdigest(raw)
   end
@@ -179,23 +184,15 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   # returns true or false indicating if username is unique
   def self.unique_user?(username)
     User.with_master do
-      # mysql is case-insensitive:
-      users = User.find_by_sql(['SELECT id FROM users WHERE username = ?', username])
-      users.blank?
-    end
-  end
-
-  def self.with_master_if_enabled
-    if User.connection.respond_to? :with_master
-      User.connection.with_master { yield }
-    else
-      yield
+      User.count(:conditions => ['username = ?', username]) == 0
     end
   end
 
   # returns true or false indicating if email is unique
   def self.unique_email?(email)
-    return User.find_by_email(email).nil?
+    User.with_master do
+      User.count(:conditions => ['email = ?', email]) == 0
+    end
   end
 
   def password
@@ -204,11 +201,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def validate
     errors.add_to_base "Secondary hierarchy must be different than default" if !secondary_hierarchy_id.nil? && secondary_hierarchy_id == default_hierarchy_id
-    if EOLConvert.to_boolean(curator_request) && credentials.blank?
-      errors.add_to_base "You must indicate your credentials and area of expertise to request curator privileges."
-    end
-    if !credentials.blank? && (curator_scope.blank? && curator_hierarchy_entry.blank?)
-      errors.add_to_base "You must either select a clade or indicate your scope to request curator privileges."
+    if EOLConvert.to_boolean(curator_request)
+      if(credentials.blank?)
+        errors.add_to_base "You must indicate your credentials and area of expertise to request curator privileges."
+      end
+      if(curator_scope.blank? && curator_hierarchy_entry.blank?)
+        errors.add_to_base "You must either select a clade or indicate your scope to request curator privileges."
+      end
     end
   end
 
@@ -218,58 +217,66 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     return_value
   end
 
+  # TODO - test.  And move this (and many of the following methods) to their own module.
   def objects_vetted
-    # this needs to allow for eager loading
+    # TODO - use eager loading to avoid the #map
     CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve ).map(&:object)
   end
 
+  # TODO - test
   def total_objects_vetted
-    # this needs to become a simple COUNT query
+    # TODO - this needs to become a simple COUNT query
     CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve ).length
   end
 
+  # TODO - test
   # get the total objects curated for a particular curator activity type
   def total_objects_curated_by_action(action)
-    # this needs to become a simple COUNT query
     curator_activity_id = CuratorActivity.send action+'!'
     if !curator_activity_id.nil?
+      # TODO - change this to a #count.
       CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, curator_activity_id ).length
     else
       return 0
     end
   end
 
+  # TODO - test
   def data_objects_curated
     hashes = connection.execute("
-        SELECT ah.object_id data_object_id, awo.action_code, ah.updated_at action_time
-        FROM actions_histories ah
+      SELECT ah.object_id data_object_id, awo.action_code, ah.updated_at action_time
+      FROM actions_histories ah
         JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
-        WHERE ah.user_id=#{id}
+      WHERE ah.user_id=#{id}
         AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
         AND awo.action_code!='rate'
-        GROUP BY data_object_id
-        ORDER BY action_time DESC").all_hashes.uniq
+      GROUP BY data_object_id
+      ORDER BY action_time DESC").all_hashes.uniq
   end
 
+  # TODO - test
   def total_objects_curated
     data_objects_curated.length
   end
 
+  # TODO - test
   def comments_curated
     connection.execute("
-          SELECT awo.action_code, ah.updated_at action_time, c.*
-          FROM actions_histories ah
-          JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
-          JOIN comments c ON (ah.object_id = c.id)
-          WHERE ah.user_id=#{id}
-          AND ah.changeable_object_type_id=#{ChangeableObjectType.comment.id}
-          AND ah.action_with_object_id!=#{ActionWithObject.created.id}").all_hashes.uniq
+      SELECT awo.action_code, ah.updated_at action_time, c.*
+      FROM actions_histories ah
+        JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
+        JOIN comments c ON (ah.object_id = c.id)
+      WHERE ah.user_id=#{id}
+        AND ah.changeable_object_type_id=#{ChangeableObjectType.comment.id}
+        AND ah.action_with_object_id!=#{ActionWithObject.created.id}").all_hashes.uniq
   end
 
+  # TODO - test
   def total_comments_curated
     comments_curated.length
   end
 
+  # TODO - test
   def taxon_concept_ids_curated
     connection.select_values("
       SELECT dotc.taxon_concept_id
@@ -283,14 +290,16 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       ORDER BY ah.updated_at DESC").uniq
   end
 
+  # TODO - test
   def total_species_curated
     taxon_concept_ids_curated.length
   end
 
+  # TODO - test all of these taggy things.  And move this to a module, I think.
   def data_object_tags_for data_object
     data_object_tags.find_all_by_data_object_guid data_object.guid, :include => :data_object_tag
   end
-  def tags_for data_object
+  def tags_for(data_object)
     data_object_tags_for(data_object).map(&:tag).uniq
   end
   def tagged_objects
@@ -310,6 +319,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
   alias is_curator_for? can_curate?
 
+  # TODO - TEST (or remove... this seems silly.)
   def can_curate_taxon_concept_id? taxon_concept_id
     can_curate? TaxonConcept.find(taxon_concept_id)
   end
@@ -652,21 +662,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     token = CGI.escape(Base64.encode64(encrypted)).gsub(/\n/, '')
   end
 
-  # set the defaults on this user object
-  # TODO - move the defaults to the database (LOW PRIO)
-  def set_defaults
-    self.default_taxonomic_browser = $DEFAULT_TAXONOMIC_BROWSER
-    self.expertise     = $DEFAULT_EXPERTISE.to_s
-    self.language      = Language.english
-    self.mailing_list  = false
-    self.content_level = $DEFAULT_CONTENT_LEVEL
-    self.vetted        = $DEFAULT_VETTED
-    self.credentials   = ''
-    self.curator_scope = ''
-    self.active        = true
-    self.flash_enabled = true
-  end
-
   # This is *very* generalized and tracks nearly everything:
   def log_activity(what, options = {})
     ActivityLog.log(what, options.merge(:user => self)) if self.id && self.id != 0
@@ -723,6 +718,21 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
 private
+
+  # set the defaults on this user object
+  # TODO - move the defaults to the database (LOW PRIO)
+  def set_defaults
+    self.default_taxonomic_browser = $DEFAULT_TAXONOMIC_BROWSER
+    self.expertise     = $DEFAULT_EXPERTISE.to_s
+    self.language      = Language.english
+    self.mailing_list  = false
+    self.content_level = $DEFAULT_CONTENT_LEVEL
+    self.vetted        = $DEFAULT_VETTED
+    self.credentials   = ''
+    self.curator_scope = ''
+    self.active        = true
+    self.flash_enabled = true
+  end
 
   def reload_if_stale
     return false if new_record? or changed?

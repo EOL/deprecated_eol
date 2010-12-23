@@ -6,6 +6,7 @@
 # 4) config/environment_eol_org.rb
 #---------------------------------------------------------------------------------
 require 'ruby-debug'
+
 # The test environment is used exclusively to run your application's
 # test suite.  Otherwise, you never need to work with it.  Remember that
 # your test database is "scratch space" for the test suite and is wiped

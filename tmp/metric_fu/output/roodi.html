@@ -1,0 +1,2417 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang='en' xml:lang='en' xmlns='http://www.w3.org/1999/xhtml'>
+  <head>
+    <meta content='text/html; charset=utf-8' http-equiv='Content-Type' />
+    <meta content='en' http-equiv='Content-Language' />
+    <title>metrics</title>
+    <style>
+    /*
+Copyright (c) 2008, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.net/yui/license.txt
+version: 2.5.2
+*/
+html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;font-variant:normal;}sup {vertical-align:text-top;}sub {vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
+
+    /* --------------------------------------------------------------
+
+   buttons.css
+   * Gives you some great CSS-only buttons.
+
+   Created by Kevin Hale [particletree.com]
+   * particletree.com/features/rediscovering-the-button-element
+
+   See Readme.txt in this folder for instructions.
+
+-------------------------------------------------------------- */
+
+button {
+  display:block;
+  float:left;
+  margin:0 0.583em 0.667em 0;
+  padding:5px 10px 5px 7px;   /* Links */
+
+  border:1px solid #dedede;
+  border-top:1px solid #eee;
+  border-left:1px solid #eee;
+
+  background-color:#f5f5f5;
+  font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+  font-size:100%;
+  line-height:130%;
+  text-decoration:none;
+  font-weight:bold;
+  color:#565656;
+  cursor:pointer;
+}
+button {
+  width:auto;
+  overflow:visible;
+  padding:4px 10px 3px 7px;   /* IE6 */
+}
+button[type] {
+  padding:4px 10px 4px 7px;   /* Firefox */
+  line-height:17px;           /* Safari */
+}
+*:first-child+html button[type] {
+  padding:4px 10px 3px 7px;   /* IE7 */
+}
+button img {
+  margin:0 3px -3px 0 !important;
+  padding:0;
+  border:none;
+  width:16px;
+  height:16px;
+  float:none;
+}
+
+
+/* Button colors
+-------------------------------------------------------------- */
+
+/* Standard */
+button:hover {
+  background-color:#dff4ff;
+  border:1px solid #c2e1ef;
+  color:#336699;
+}
+
+/* Positive */
+body .positive {
+  color:#529214;
+}
+button.positive:hover {
+  background-color:#E6EFC2;
+  border:1px solid #C6D880;
+  color:#529214;
+}
+
+/* Negative */
+body .negative {
+  color:#d12f19;
+}
+button.negative:hover {
+  background:#fbe3e4;
+  border:1px solid #fbc2c4;
+  color:#d12f19;
+}
+
+    html {
+  background-color: #e0e0e0; }
+
+body {
+  font-size: 100%;
+  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+  color: #333333; }
+
+a {
+  color: #ed1556;
+  text-decoration: none; }
+  a:hover {
+    color: #ffffff;
+    background-color: #ed1556; }
+
+#header, #content, #footer {
+  margin: 0 auto;
+  background: #eeeeee;
+  padding: 0 2em;
+  z-index: 0;
+  position: relative;
+  font-size: 1em; }
+
+#header {
+  background: #ffffff; }
+  #header h1 {
+    font-weight: bold;
+    font-size: 1.5em; }
+  #header address.watermark {
+    position: absolute;
+    font-weight: bold;
+    right: 3em;
+    top: 0;
+    font-size: .75em;
+    color: #cccccc; }
+    #header address.watermark a {
+      color: #cccccc;
+      font-weight: bold;
+      font-size: 2em; }
+      #header address.watermark a:hover {
+        background: transparent;
+        color: #aaaaaa; }
+
+#content {
+  padding-top: 1em;
+  padding-bottom: 2em; }
+  #content strong {
+    font-weight: bold; }
+  #content em {
+    font-style: italic; }
+  #content h1, #content h2, #content h3, #content h4, #content h5, #content h6 {
+    color: #4e4e4e; }
+  #content h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin-bottom: .75em;
+    padding: .25em 0;
+    line-height: 1.2;
+    border-bottom: 1px solid #c0c0c0; }
+  #content h2 {
+    font-weight: bold;
+    font-size: 1.5em;
+    margin: 1em 0 .2em; }
+  #content h3 {
+    font-weight: bold;
+    font-size: 1.25em;
+    margin: .25em 0; }
+  #content h4, #content h5, #content h6 {
+    font-weight: bold;
+    margin-top: .5em; }
+  #content code, #content pre, #content textarea, #content input {
+    font-family: Monaco, Deja Vu Sans Mono, Inconsolata, Consolas, monospace; }
+  #content form p {
+    margin-top: 1em;
+    position: relative; }
+    #content form p.checkbox label {
+      margin-top: 0 !important; }
+  #content form input.text, #content form textarea {
+    width: 30em;
+    padding: .2em .4em;
+    color: #4e4e4e; }
+  #content form input.text {
+    height: 1.4em; }
+  #content form label {
+    float: left;
+    display: block;
+    margin-top: .5em;
+    width: 8em;
+    margin-right: .75em; }
+  #content form .with_errors label {
+    background: red;
+    color: white;
+    position: relative;
+    top: -.7em; }
+  #content form .with_errors.required label {
+    position: static;
+    margin-right: .25em;
+    padding: 0 .2em; }
+  #content form .with_errors input, #content form .with_errors textarea {
+    border: 2px solid #f22;
+    background: #fee;
+    color: #222222; }
+  #content form .required label {
+    float: none;
+    display: block;
+    width: auto;
+    position: relative;
+    font-weight: bold;
+    margin-top: 1em;
+    text-indent: -.65em; }
+    #content form .required label:before {
+      content: "* ";
+      color: #ed1556; }
+  #content form .required input.text {
+    width: 25.6em;
+    font-size: 24px;
+    font-weight: bold; }
+  #content form .normal {
+    margin-top: 2em; }
+  #content form h2.notifier label {
+    float: none;
+    width: auto;
+    margin-right: 0; }
+    #content form h2.notifier label .warning {
+      font-size: .5em;
+      font-weight: normal;
+      color: #999999; }
+  #content form fieldset {
+    padding-bottom: 1em;
+    margin-left: 1.35em;
+    border-bottom: 1px solid #c0c0c0;
+    margin-bottom: 1em; }
+    #content form fieldset h3 {
+      margin-top: 1em;
+      margin-bottom: 0; }
+    #content form fieldset p.normal {
+      margin-top: 1em; }
+    #content form fieldset p label {
+      width: 6.7em; }
+  #content form p.submit {
+    margin-top: 2em; }
+    #content form p.submit:after {
+      display: block;
+      clear: both;
+      float: none;
+      content: ".";
+      text-indent: -9999em;
+      text-align: left; }
+    #content form p.submit.destroy button,     #content form p.submit.manual-build button {
+      float: none;
+      display: inline; }
+    #content form p.submit.manual-build button {
+      margin-right: 0; }
+  #content #build form, #content #last_build form {
+    font-size: .75em; }
+    #content #build form p.submit,     #content #last_build form p.submit {
+      margin: 0;
+      padding: 0;
+      position: absolute;
+      right: .5em;
+      top: 1.25em; }
+  #content .blank_slate p,   #content .error p {
+    position: relative;
+    top: .3em; }
+  #content .blank_slate h1,   #content .error h1 {
+    border-width: 0;
+    margin: 0;
+    padding: 0; }
+    #content .blank_slate h1 button,     #content .error h1 button {
+      float: none;
+      border: 0 none;
+      background: transparent;
+      display: inline;
+      color: #ed1556;
+      padding: 0.25em 0;
+      margin: 0; }
+      #content .blank_slate h1 button:hover,       #content .error h1 button:hover {
+        background: #ed1556;
+        color: #ffffff; }
+  #content .error dt {
+    margin-top: 1.4em;
+    margin-bottom: .3em;
+    font-size: 1.75em;
+    font-family: Georgia, Times New Roman, serif; }
+  #content .error dd {
+    line-height: 1.4; }
+  #content .error .backtrace {
+    margin: 1em 0;
+    overflow: scroll;
+    height: 30em;
+    border: 1px solid #c0c0c0;
+    line-height: 1.6; }
+  #content #projects {
+    margin: 1em 0 2em;
+    border-top: 1px solid #c0c0c0; }
+    #content #projects li {
+      position: relative;
+      border-bottom: 1px solid #c0c0c0; }
+      #content #projects li.odd {
+        background: #e6e6e6; }
+      #content #projects li.building {
+        background: transparent url(/spinner.gif) no-repeat scroll right; }
+      #content #projects li a {
+        font-size: 2em;
+        padding: .25em;
+        line-height: 1.2;
+        font-weight: bold;
+        display: block; }
+        #content #projects li a.success {
+          color: #337022; }
+        #content #projects li a.failed {
+          color: #ff1100; }
+      #content #projects li .meta {
+        position: absolute;
+        right: .6em;
+        top: 1.5em;
+        font-size: 0.8em;
+        color: #999999;
+        text-align: right; }
+      #content #projects li.building .meta {
+        right: 1.6em; }
+      #content #projects li.success .meta {
+        color: #337022; }
+      #content #projects li.failed .meta {
+        color: #ff1100; }
+  #content #previous_builds li a {
+    display: block;
+    padding: .25em;
+    margin-bottom: .25em;
+    border-width: 1px;
+    border-style: solid; }
+    #content #previous_builds li a strong {
+      font-size: 1.3em; }
+    #content #previous_builds li a .attribution {
+      font-size: .9em; }
+  #content #projects li.success a,   #content #previous_builds li.success a {
+    background-color: #bbf8aa;
+    border-color: #99d688;
+    color: #337022; }
+    #content #projects li.success a .attribution,     #content #previous_builds li.success a .attribution {
+      color: #77b466; }
+    #content #projects li.success a:hover,     #content #previous_builds li.success a:hover {
+      background-color: #ddffcc; }
+  #content #projects li.failed a,   #content #previous_builds li.failed a {
+    background-color: #ffbbaa;
+    border-color: #dd9988;
+    color: #ff1100; }
+    #content #projects li.failed a .attribution,     #content #previous_builds li.failed a .attribution {
+      color: #bb7766; }
+    #content #projects li.failed a:hover,     #content #previous_builds li.failed a:hover {
+      background-color: #ffddcc; }
+  #content #build, #content #last_build {
+    position: relative; }
+    #content #build h1, #content #build blockquote,     #content #last_build h1, #content #last_build blockquote {
+      border-width: 0 1px;
+      border-style: solid; }
+    #content #build h1,     #content #last_build h1 {
+      border-top-width: 1px; }
+    #content #build blockquote,     #content #last_build blockquote {
+      bottom-bottom-width: 1px;
+      line-height: 1.4; }
+    #content #build.success h1, #content #build.success blockquote,     #content #last_build.success h1, #content #last_build.success blockquote {
+      background-color: #bbf8aa;
+      border-color: #99d688 #ccffbb #ccffbb #99d688; }
+    #content #build.success h1,     #content #last_build.success h1 {
+      color: #337022; }
+    #content #build.success .meta,     #content #last_build.success .meta {
+      color: #77b466; }
+    #content #build.failed h1, #content #build.failed blockquote,     #content #last_build.failed h1, #content #last_build.failed blockquote {
+      background-color: #ffbbaa;
+      border-color: #dd9988 #ffccbb #ffccbb #dd9988; }
+    #content #build.failed h1,     #content #last_build.failed h1 {
+      color: #ff1100; }
+    #content #build.failed .meta,     #content #last_build.failed .meta {
+      color: #bb7766; }
+    #content #build h1,     #content #last_build h1 {
+      margin-top: .5em;
+      margin-bottom: 0;
+      padding: .25em;
+      color: #337022; }
+    #content #build blockquote,     #content #last_build blockquote {
+      padding: .75em;
+      margin-bottom: 2em; }
+      #content #build blockquote .meta,       #content #last_build blockquote .meta {
+        margin-top: 1em;
+        display: block;
+        font-size: .9em; }
+    #content #build pre.output,     #content #last_build pre.output {
+      background: #111;
+      color: #fff;
+      padding: .5em;
+      overflow: auto;
+      max-height: 50em;
+      font-size: .825em; }
+      #content #build pre.output .color30,       #content #last_build pre.output .color30 {
+        color: #333; }
+      #content #build pre.output .color31,       #content #last_build pre.output .color31 {
+        color: #e33; }
+      #content #build pre.output .color32,       #content #last_build pre.output .color32 {
+        color: #3e3; }
+      #content #build pre.output .color33,       #content #last_build pre.output .color33 {
+        color: #ee3; }
+      #content #build pre.output .color34,       #content #last_build pre.output .color34 {
+        color: #33e; }
+      #content #build pre.output .color35,       #content #last_build pre.output .color35 {
+        color: #e3e; }
+      #content #build pre.output .color36,       #content #last_build pre.output .color36 {
+        color: #3ee; }
+      #content #build pre.output .color37,       #content #last_build pre.output .color37 {
+        color: #fff; }
+  #content #push_path {
+    display: block;
+    margin-top: 1em;
+    margin-left: 2em; }
+
+a.success {
+  color: #bbf8aa; }
+  a.success:hover {
+    background-color: #bbf8aa;
+    color: white; }
+a.failed {
+  color: #ffbbaa; }
+  a.failed:hover {
+    background-color: #ffbbaa;
+    color: white; }
+
+#footer {
+  padding: 1.5em 2.5em;
+  border-top: 1px solid #ccc;
+  font-size: .8em;
+  color: #666;
+  text-align: right; }
+  #footer strong {
+    font-weight: bold; }
+
+    table {
+  margin-top: 20px;
+  border-collapse: collapse;
+  border: 1px solid #666;
+  background: #fff;
+  margin-bottom: 20px;
+}
+
+table tr.light {
+   background: #fff;
+}
+
+table tr.dark {
+  background: #f9f9f9;
+}
+
+table tr:hover {
+  background: #FFFFC0;
+}
+
+table td, table th {
+  padding: 4px;
+  font-size: 11px;
+}
+table th {
+  text-align: center;
+  color: #337022;
+  background: #DDFFCC;
+  font-weight: bold;
+  border: #99D688 1px solid;
+}
+
+table td {
+  border: #d0d0d0 1px solid;
+}
+
+table td.score {
+  text-align: right;
+}
+
+.warning {
+  background: yellow;
+}
+.rcov_code td {
+  border-bottom: 1px solid #ddd ;
+  padding: 0;
+  margin: 0;
+}
+.rcov_code tr {
+  border: 0px;
+  padding:0px;
+  margin: 0px;
+}
+.rcov_code pre {
+  border: 0px;
+  padding: 0px;
+  margin: 0px;
+}
+.rcov_run {}
+.rcov_not_run {
+  background-color: #d88;
+}
+.rcov_run a, .rcov_not_run a {
+  text-decoration: none;
+}
+.rcov_run a {
+  color: #333;
+}
+.rcov_not_run a {
+  color: #000;
+}
+.rcov_overflow {
+  overflow: auto;
+  font-size: 50%;
+}
+
+.bluff-tooltip {
+	background: #fff;
+	border: 1px solid #d1edf5;
+	padding: 8px 8px 6px;
+}
+.bluff-tooltip .color {
+	display: block;
+	height: 4px;
+	width: 30px;
+	margin: 0 0 4px;
+	overflow: hidden;
+}
+.bluff-tooltip .data {
+	font-weight: bold;
+}
+
+    </style>
+    <link REL="SHORTCUT ICON" HREF="/favicon.ico">
+    <script language="javascript" src="js-class.js" type="text/javascript"></script>
+    <script language="javascript" src="bluff-min.js" type="text/javascript"></script>
+    <script language="javascript" src="excanvas.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div id='header'>
+      <h1><a href="/">metrics</a> | <a href="index.html">eol</a></h1>
+      <address class='watermark'>
+        built with
+        <a href='http://metric-fu.rubyforge.org/'>metric-fu</a>
+      </address>
+    </div>
+    <div id='content'>
+      <h3>Roodi Results</h3>
+
+<p><a href="http://roodi.rubyforge.org/">Roodi</a> parses your Ruby code and warns you about design issues you have based on the checks that is has configured.</p>
+
+
+
+<canvas id="graph"></canvas>
+<script language="javascript" src="roodi.js?1293141836" type="text/javascript"></script>
+
+
+<table>
+  <tr>
+    <th>File Path</th>
+    <th>Warning</th>
+  </tr>
+  
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/remote_link_renderer.rb'>app/helpers/remote_link_renderer.rb:13</a></td>
+      <td>Method name "url_for" cyclomatic complexity is 13.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:22</a></td>
+      <td>Method name "agent_partial" cyclomatic complexity is 13.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:46</a></td>
+      <td>Method name "agent_partial_hash" cyclomatic complexity is 15.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:75</a></td>
+      <td>Method name "agent_icons_partial" cyclomatic complexity is 22.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:152</a></td>
+      <td>Method name "video_hash" cyclomatic complexity is 16.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:130</a></td>
+      <td>Method name "eol_lang_error_messages_for" cyclomatic complexity is 12.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:203</a></td>
+      <td>Method name "medium_thumb_partial" cyclomatic complexity is 15.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:367</a></td>
+      <td>Method name "clade_selector" cyclomatic complexity is 12.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/user.rb'>app/models/user.rb:584</a></td>
+      <td>Method name "images_to_curate" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/actions_history.rb'>app/models/actions_history.rb:16</a></td>
+      <td>Method name "taxon_concept_name" cyclomatic complexity is 10.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/search.rb'>app/models/search.rb:111</a></td>
+      <td>Method name "search" cyclomatic complexity is 25.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/search.rb'>app/models/search.rb:301</a></td>
+      <td>Method name "tag_search" cyclomatic complexity is 20.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_partner.rb'>app/models/content_partner.rb:52</a></td>
+      <td>Method name "concepts_for_gallery" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/toc_builder.rb'>app/models/toc_builder.rb:72</a></td>
+      <td>Method name "add_special_toc_entries_to_toc_based_on_tc_id" cyclomatic complexity is 16.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/harvest_event.rb'>app/models/harvest_event.rb:49</a></td>
+      <td>Method name "curated_data_objects" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:1182</a></td>
+      <td>Method name "to_xml" cyclomatic complexity is 11.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:101</a></td>
+      <td>Method name "raw_name" cyclomatic complexity is 13.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:210</a></td>
+      <td>Method name "ancestors_hash" cyclomatic complexity is 12.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:597</a></td>
+      <td>Method name "node_to_hash" cyclomatic complexity is 12.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/resource.rb'>app/models/resource.rb:63</a></td>
+      <td>Method name "validate" cyclomatic complexity is 10.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/resource.rb'>app/models/resource.rb:102</a></td>
+      <td>Method name "upload_resource_to_content_master" cyclomatic complexity is 14.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:349</a></td>
+      <td>Method name "entry" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:552</a></td>
+      <td>Method name "available_media" cyclomatic complexity is 13.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:1024</a></td>
+      <td>Method name "details_hash" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:1068</a></td>
+      <td>Method name "top_image_ids" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:1102</a></td>
+      <td>Method name "top_non_image_ids" cyclomatic complexity is 22.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy.rb'>app/models/hierarchy.rb:112</a></td>
+      <td>Method name "node_to_hash" cyclomatic complexity is 12.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/comments_controller.rb'>app/controllers/comments_controller.rb:61</a></td>
+      <td>Method name "prepare_index" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/content_partner_report_controller.rb'>app/controllers/administrator/content_partner_report_controller.rb:233</a></td>
+      <td>Method name "report_partner_curated_data" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/account_controller.rb'>app/controllers/account_controller.rb:179</a></td>
+      <td>Method name "profile" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:379</a></td>
+      <td>Method name "lookup_reference" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:604</a></td>
+      <td>Method name "set_text_data" cyclomatic complexity is 13.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_partner_controller.rb'>app/controllers/content_partner_controller.rb:218</a></td>
+      <td>Method name "agreement" cyclomatic complexity is 11.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:113</a></td>
+      <td>Method name "best_images" cyclomatic complexity is 14.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:293</a></td>
+      <td>Method name "contact_us" cyclomatic complexity is 11.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/data_objects_controller.rb'>app/controllers/data_objects_controller.rb:126</a></td>
+      <td>Method name "index" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/api_controller.rb'>app/controllers/api_controller.rb:8</a></td>
+      <td>Method name "pages" cyclomatic complexity is 12.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/api_controller.rb'>app/controllers/api_controller.rb:106</a></td>
+      <td>Method name "hierarchy_entries" cyclomatic complexity is 11.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol_data.rb'>lib/eol_data.rb:19</a></td>
+      <td>Method name "all" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/bhl_item.rb'>lib/bhl_item.rb:6</a></td>
+      <td>Method name "initialize" cyclomatic complexity is 11.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:3</a></td>
+      <td>Method name "search_result_hash" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:66</a></td>
+      <td>Method name "data_objects_json" cyclomatic complexity is 27.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:117</a></td>
+      <td>Method name "hierarchy_entries_json" cyclomatic complexity is 12.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/search_results_collection.rb'>lib/eol/search_results_collection.rb:54</a></td>
+      <td>Method name "adapt_results_for_view" cyclomatic complexity is 12.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/search_results_collection.rb'>lib/eol/search_results_collection.rb:120</a></td>
+      <td>Method name "get_current_data" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/taxon_concept_builder.rb'>lib/eol/taxon_concept_builder.rb:334</a></td>
+      <td>Method name "set_default_options" cyclomatic complexity is 13.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/data_object_builder.rb'>lib/eol/data_object_builder.rb:128</a></td>
+      <td>Method name "pull_class_options_from" cyclomatic complexity is 9.  It should be 8 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:102</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:467</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/synonym.rb'>app/models/synonym.rb:63</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/name.rb'>app/models/name.rb:94</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_partner.rb'>app/models/content_partner.rb:127</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_partner.rb'>app/models/content_partner.rb:151</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_partner.rb'>app/models/content_partner.rb:175</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/toc_builder.rb'>app/models/toc_builder.rb:114</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/toc_item.rb'>app/models/toc_item.rb:149</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/toc_item.rb'>app/models/toc_item.rb:157</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/toc_item.rb'>app/models/toc_item.rb:167</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/toc_item.rb'>app/models/toc_item.rb:175</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/toc_item.rb'>app/models/toc_item.rb:249</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:815</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:953</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:1005</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:248</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:280</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:368</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:526</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:86</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:99</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:287</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/member.rb'>app/models/member.rb:33</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/rank.rb'>app/models/rank.rb:94</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/logging/activity.rb'>app/models/logging/activity.rb:6</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/table_of_contents_controller.rb'>app/controllers/administrator/table_of_contents_controller.rb:17</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/table_of_contents_controller.rb'>app/controllers/administrator/table_of_contents_controller.rb:24</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/table_of_contents_controller.rb'>app/controllers/administrator/table_of_contents_controller.rb:36</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/table_of_contents_controller.rb'>app/controllers/administrator/table_of_contents_controller.rb:43</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:193</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:450</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:561</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:520</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/model_query_helper.rb'>lib/model_query_helper.rb:18</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/model_query_helper.rb'>lib/model_query_helper.rb:28</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/solr_api.rb'>lib/solr_api.rb:94</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/solr_api.rb'>lib/solr_api.rb:98</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/search_results_collection.rb'>lib/eol/search_results_collection.rb:186</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/search_results_collection.rb'>lib/eol/search_results_collection.rb:190</a></td>
+      <td>Found = in conditional.  It should probably be an ==</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:587</a></td>
+      <td>Method name "curate" has 7 parameters.  It should have 5 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:469</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:469</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/vetted.rb'>app/models/vetted.rb:51</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/notifier.rb'>app/models/notifier.rb:38</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_type.rb'>app/models/data_type.rb:11</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_type.rb'>app/models/data_type.rb:11</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_server.rb'>app/models/content_server.rb:6</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_server.rb'>app/models/content_server.rb:6</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_server.rb'>app/models/content_server.rb:7</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/language.rb'>app/models/language.rb:22</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/random_hierarchy_image.rb'>app/models/random_hierarchy_image.rb:26</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/random_hierarchy_image.rb'>app/models/random_hierarchy_image.rb:27</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/random_hierarchy_image.rb'>app/models/random_hierarchy_image.rb:29</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/random_hierarchy_image.rb'>app/models/random_hierarchy_image.rb:65</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/random_hierarchy_image.rb'>app/models/random_hierarchy_image.rb:65</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/random_hierarchy_image.rb'>app/models/random_hierarchy_image.rb:72</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/random_hierarchy_image.rb'>app/models/random_hierarchy_image.rb:72</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/random_hierarchy_image.rb'>app/models/random_hierarchy_image.rb:73</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/random_hierarchy_image.rb'>app/models/random_hierarchy_image.rb:74</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/toc_item.rb'>app/models/toc_item.rb:268</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/account_controller.rb'>app/controllers/account_controller.rb:262</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/account_controller.rb'>app/controllers/account_controller.rb:269</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/account_controller.rb'>app/controllers/account_controller.rb:277</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/feeds_controller.rb'>app/controllers/feeds_controller.rb:40</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/feeds_controller.rb'>app/controllers/feeds_controller.rb:43</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/feeds_controller.rb'>app/controllers/feeds_controller.rb:57</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:79</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:80</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:81</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:82</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:82</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:82</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:83</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:83</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:92</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:93</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:94</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:94</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/solr/search.rb'>lib/eol/solr/search.rb:18</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/known_privileges.rb'>lib/known_privileges.rb:57</a></td>
+      <td>Don't use class variables. You might want to try a different design.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/data_objects_controller.rb'>app/controllers/data_objects_controller.rb:138</a></td>
+      <td>Case statement is missing an else clause.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:6</a></td>
+      <td>Module "ApplicationHelper" has 496 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/taxon_concept_builder.rb'>lib/eol/taxon_concept_builder.rb:15</a></td>
+      <td>Module "EOL" has 385 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:55</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:95</a></td>
+      <td>Block cyclomatic complexity is 12.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:263</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:69</a></td>
+      <td>Block cyclomatic complexity is 6.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/search.rb'>app/models/search.rb:333</a></td>
+      <td>Block cyclomatic complexity is 8.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:1188</a></td>
+      <td>Block cyclomatic complexity is 6.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:72</a></td>
+      <td>Block cyclomatic complexity is 6.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:227</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:270</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:505</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:279</a></td>
+      <td>Block cyclomatic complexity is 8.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:557</a></td>
+      <td>Block cyclomatic complexity is 9.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:1175</a></td>
+      <td>Block cyclomatic complexity is 7.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/comments_controller.rb'>app/controllers/comments_controller.rb:6</a></td>
+      <td>Block cyclomatic complexity is 9.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/application_controller.rb'>app/controllers/application_controller.rb:501</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/resources_controller.rb'>app/controllers/resources_controller.rb:11</a></td>
+      <td>Block cyclomatic complexity is 26.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:416</a></td>
+      <td>Block cyclomatic complexity is 6.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/feeds_controller.rb'>app/controllers/feeds_controller.rb:120</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:78</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol_data.rb'>lib/eol_data.rb:20</a></td>
+      <td>Block cyclomatic complexity is 9.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/model_query_helper.rb'>lib/model_query_helper.rb:39</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/solr_api.rb'>lib/solr_api.rb:83</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/search_results_collection.rb'>lib/eol/search_results_collection.rb:55</a></td>
+      <td>Block cyclomatic complexity is 12.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/search_results_collection.rb'>lib/eol/search_results_collection.rb:183</a></td>
+      <td>Block cyclomatic complexity is 5.  It should be 4 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/stats_controller.rb'>app/controllers/administrator/stats_controller.rb:24</a></td>
+      <td>Method name "SPM_objects_count" should match pattern /^[_a-z<>=\[|+-\/\*`]+[_a-z0-9_<>=~@\[\]]*[=!\?]?$/</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/stats_controller.rb'>app/controllers/administrator/stats_controller.rb:39</a></td>
+      <td>Method name "SPM_partners_count" should match pattern /^[_a-z<>=\[|+-\/\*`]+[_a-z0-9_<>=~@\[\]]*[=!\?]?$/</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/user.rb'>app/models/user.rb:8</a></td>
+      <td>Class "User" has 737 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/search.rb'>app/models/search.rb:13</a></td>
+      <td>Class "Search" has 405 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:7</a></td>
+      <td>Class "DataObject" has 1653 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/agent.rb'>app/models/agent.rb:17</a></td>
+      <td>Class "Agent" has 504 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:3</a></td>
+      <td>Class "HierarchyEntry" has 610 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:16</a></td>
+      <td>Class "TaxonConcept" has 1382 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/application_controller.rb'>app/controllers/application_controller.rb:4</a></td>
+      <td>Class "ApplicationController" has 538 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/content_partner_report_controller.rb'>app/controllers/administrator/content_partner_report_controller.rb:1</a></td>
+      <td>Class "s(:colon2, s(:const, :Administrator), :ContentPartnerReportController)" has 345 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/account_controller.rb'>app/controllers/account_controller.rb:1</a></td>
+      <td>Class "AccountController" has 369 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:1</a></td>
+      <td>Class "TaxaController" has 769 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_partner_controller.rb'>app/controllers/content_partner_controller.rb:1</a></td>
+      <td>Class "ContentPartnerController" has 442 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:1</a></td>
+      <td>Class "ContentController" has 534 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/taxon_concept_builder.rb'>lib/eol/taxon_concept_builder.rb:3</a></td>
+      <td>Class "TaxonConceptBuilder" has 395 lines.  It should have 300 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:559</a></td>
+      <td>Rescue block should not be empty.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:560</a></td>
+      <td>Rescue block should not be empty.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:561</a></td>
+      <td>Rescue block should not be empty.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:1360</a></td>
+      <td>Rescue block should not be empty.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/user_controller.rb'>app/controllers/administrator/user_controller.rb:26</a></td>
+      <td>Rescue block should not be empty.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/search_logs_controller.rb'>app/controllers/administrator/search_logs_controller.rb:43</a></td>
+      <td>Rescue block should not be empty.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/account_controller.rb'>app/controllers/account_controller.rb:68</a></td>
+      <td>Rescue block should not be empty.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol_web_service.rb'>lib/eol_web_service.rb:48</a></td>
+      <td>Rescue block should not be empty.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/remote_link_renderer.rb'>app/helpers/remote_link_renderer.rb:13</a></td>
+      <td>Method "url_for" has 37 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:22</a></td>
+      <td>Method "agent_partial" has 21 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:46</a></td>
+      <td>Method "agent_partial_hash" has 26 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:75</a></td>
+      <td>Method "agent_icons_partial" has 57 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:152</a></td>
+      <td>Method "video_hash" has 36 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/taxa_helper.rb'>app/helpers/taxa_helper.rb:214</a></td>
+      <td>Method "common_names_by_language" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:130</a></td>
+      <td>Method "eol_lang_error_messages_for" has 61 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:203</a></td>
+      <td>Method "medium_thumb_partial" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/helpers/application_helper.rb'>app/helpers/application_helper.rb:367</a></td>
+      <td>Method "clade_selector" has 27 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/user.rb'>app/models/user.rb:584</a></td>
+      <td>Method "images_to_curate" has 38 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/user.rb'>app/models/user.rb:625</a></td>
+      <td>Method "ignored_data_objects" has 21 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/actions_history.rb'>app/models/actions_history.rb:16</a></td>
+      <td>Method "taxon_concept_name" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/search.rb'>app/models/search.rb:111</a></td>
+      <td>Method "search" has 74 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/search.rb'>app/models/search.rb:188</a></td>
+      <td>Method "search_results_by_ids" has 110 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/search.rb'>app/models/search.rb:301</a></td>
+      <td>Method "tag_search" has 49 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_partner.rb'>app/models/content_partner.rb:52</a></td>
+      <td>Method "concepts_for_gallery" has 57 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_partner.rb'>app/models/content_partner.rb:123</a></td>
+      <td>Method "data_objects_actions_history" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_partner.rb'>app/models/content_partner.rb:148</a></td>
+      <td>Method "comments_actions_history" has 21 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/toc_builder.rb'>app/models/toc_builder.rb:72</a></td>
+      <td>Method "add_special_toc_entries_to_toc_based_on_tc_id" has 53 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/harvest_event.rb'>app/models/harvest_event.rb:49</a></td>
+      <td>Method "curated_data_objects" has 39 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:274</a></td>
+      <td>Method "rate" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:523</a></td>
+      <td>Method "taxon_concepts" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:587</a></td>
+      <td>Method "curate" has 25 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:641</a></td>
+      <td>Method "untrust" has 21 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:1182</a></td>
+      <td>Method "to_xml" has 26 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:101</a></td>
+      <td>Method "raw_name" has 31 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:210</a></td>
+      <td>Method "ancestors_hash" has 28 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:260</a></td>
+      <td>Method "children_hash" has 37 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:316</a></td>
+      <td>Method "classification" has 34 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:401</a></td>
+      <td>Method "common_name_details" has 24 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:456</a></td>
+      <td>Method "details" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:481</a></td>
+      <td>Method "ancestor_details" has 31 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/resource.rb'>app/models/resource.rb:102</a></td>
+      <td>Method "upload_resource_to_content_master" has 34 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:275</a></td>
+      <td>Method "outlinks" has 31 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:349</a></td>
+      <td>Method "entry" has 27 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:552</a></td>
+      <td>Method "available_media" has 21 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:686</a></td>
+      <td>Method "iucn" has 23 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:857</a></td>
+      <td>Method "to_xml" has 48 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:1024</a></td>
+      <td>Method "details_hash" has 41 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:1068</a></td>
+      <td>Method "top_image_ids" has 31 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:1102</a></td>
+      <td>Method "top_non_image_ids" has 86 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:1366</a></td>
+      <td>Method "get_default_content" has 29 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy.rb'>app/models/hierarchy.rb:77</a></td>
+      <td>Method "kingdoms_hash" has 32 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy.rb'>app/models/hierarchy.rb:135</a></td>
+      <td>Method "kingdom_details" has 29 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/comments_controller.rb'>app/controllers/comments_controller.rb:61</a></td>
+      <td>Method "prepare_index" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/application_controller.rb'>app/controllers/application_controller.rb:249</a></td>
+      <td>Method "expire_taxon_concept" has 24 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/user_controller.rb'>app/controllers/administrator/user_controller.rb:10</a></td>
+      <td>Method "index" has 74 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/user_controller.rb'>app/controllers/administrator/user_controller.rb:119</a></td>
+      <td>Method "update" has 28 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/content_partner_report_controller.rb'>app/controllers/administrator/content_partner_report_controller.rb:26</a></td>
+      <td>Method "export" has 28 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/content_partner_report_controller.rb'>app/controllers/administrator/content_partner_report_controller.rb:109</a></td>
+      <td>Method "edit_agreement" has 26 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/content_partner_report_controller.rb'>app/controllers/administrator/content_partner_report_controller.rb:233</a></td>
+      <td>Method "report_partner_curated_data" has 56 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/content_partner_report_controller.rb'>app/controllers/administrator/content_partner_report_controller.rb:292</a></td>
+      <td>Method "report_partner_objects_stats" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/curator_controller.rb'>app/controllers/administrator/curator_controller.rb:9</a></td>
+      <td>Method "index" has 33 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/account_controller.rb'>app/controllers/account_controller.rb:41</a></td>
+      <td>Method "signup" has 36 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/account_controller.rb'>app/controllers/account_controller.rb:179</a></td>
+      <td>Method "profile" has 36 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:68</a></td>
+      <td>Method "show" has 39 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:156</a></td>
+      <td>Method "settings" has 25 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:258</a></td>
+      <td>Method "show_video" has 24 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:297</a></td>
+      <td>Method "update_common_names" has 26 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:379</a></td>
+      <td>Method "lookup_reference" has 28 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/taxa_controller.rb'>app/controllers/taxa_controller.rb:572</a></td>
+      <td>Method "set_image_data" has 29 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/feeds_controller.rb'>app/controllers/feeds_controller.rb:24</a></td>
+      <td>Method "lookup_content" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/feeds_controller.rb'>app/controllers/feeds_controller.rb:69</a></td>
+      <td>Method "feed_entry" has 30 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/feeds_controller.rb'>app/controllers/feeds_controller.rb:109</a></td>
+      <td>Method "partner_curation" has 47 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/feeds_controller.rb'>app/controllers/feeds_controller.rb:159</a></td>
+      <td>Method "partner_feed_entry" has 33 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/tags_controller.rb'>app/controllers/tags_controller.rb:48</a></td>
+      <td>Method "destroy" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/tags_controller.rb'>app/controllers/tags_controller.rb:116</a></td>
+      <td>Method "autocomplete_for_tag_value" has 21 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_partner_controller.rb'>app/controllers/content_partner_controller.rb:218</a></td>
+      <td>Method "agreement" has 38 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:63</a></td>
+      <td>Method "mediarss" has 44 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:113</a></td>
+      <td>Method "best_images" has 32 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:191</a></td>
+      <td>Method "dato_to_xml" has 34 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:256</a></td>
+      <td>Method "replace_single_explore_taxa" has 33 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:293</a></td>
+      <td>Method "contact_us" has 27 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:324</a></td>
+      <td>Method "media_contact" has 21 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:349</a></td>
+      <td>Method "page" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:408</a></td>
+      <td>Method "donate" has 30 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/data_objects_controller.rb'>app/controllers/data_objects_controller.rb:76</a></td>
+      <td>Method "new" has 21 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/data_objects_controller.rb'>app/controllers/data_objects_controller.rb:126</a></td>
+      <td>Method "index" has 45 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_partner/reports_controller.rb'>app/controllers/content_partner/reports_controller.rb:24</a></td>
+      <td>Method "monthly_page_stats" has 41 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/api_controller.rb'>app/controllers/api_controller.rb:8</a></td>
+      <td>Method "pages" has 46 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/api_controller.rb'>app/controllers/api_controller.rb:57</a></td>
+      <td>Method "data_objects" has 24 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/api_controller.rb'>app/controllers/api_controller.rb:106</a></td>
+      <td>Method "hierarchy_entries" has 32 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/api_controller.rb'>app/controllers/api_controller.rb:159</a></td>
+      <td>Method "hierarchies" has 21 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol_logging.rb'>lib/eol_logging.rb:40</a></td>
+      <td>Method "geocode_all" has 69 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:132</a></td>
+      <td>Method "sanitize_html" has 44 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/solr_api.rb'>lib/solr_api.rb:80</a></td>
+      <td>Method "build_data_object_index" has 25 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:3</a></td>
+      <td>Method "search_result_hash" has 27 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:34</a></td>
+      <td>Method "pages_json" has 28 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:66</a></td>
+      <td>Method "data_objects_json" has 47 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:117</a></td>
+      <td>Method "hierarchy_entries_json" has 64 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/search_results_collection.rb'>lib/eol/search_results_collection.rb:11</a></td>
+      <td>Method "initialize" has 28 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/common_name_display.rb'>lib/eol/common_name_display.rb:98</a></td>
+      <td>Method "get_sources" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/taxon_concept_builder.rb'>lib/eol/taxon_concept_builder.rb:76</a></td>
+      <td>Method "build" has 21 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/taxon_concept_builder.rb'>lib/eol/taxon_concept_builder.rb:104</a></td>
+      <td>Method "gen_taxon_concept" has 23 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/taxon_concept_builder.rb'>lib/eol/taxon_concept_builder.rb:334</a></td>
+      <td>Method "set_default_options" has 26 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/eol/taxon_concept_builder.rb'>lib/eol/taxon_concept_builder.rb:373</a></td>
+      <td>Method "testing_images" has 23 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/category_content_builder.rb'>lib/category_content_builder.rb:19</a></td>
+      <td>Method "biodiversity_heritage_library" has 22 lines.  It should have 20 or less.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/content_partner.rb'>app/models/content_partner.rb:84</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/harvest_event.rb'>app/models/harvest_event.rb:22</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:1537</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:1559</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:1560</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/data_object.rb'>app/models/data_object.rb:1576</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:411</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/hierarchy_entry.rb'>app/models/hierarchy_entry.rb:449</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:947</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:986</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:997</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/models/taxon_concept.rb'>app/models/taxon_concept.rb:1195</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/administrator/error_log_controller.rb'>app/controllers/administrator/error_log_controller.rb:25</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/feeds_controller.rb'>app/controllers/feeds_controller.rb:94</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/app/controllers/content_controller.rb'>app/controllers/content_controller.rb:139</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:240</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/core_extensions.rb'>lib/core_extensions.rb:256</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/partner_updates_emailer.rb'>lib/partner_updates_emailer.rb:14</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/partner_updates_emailer.rb'>lib/partner_updates_emailer.rb:24</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/partner_updates_emailer.rb'>lib/partner_updates_emailer.rb:35</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:8</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:40</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:48</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:59</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:97</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:108</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:137</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:142</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:150</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:159</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:171</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:186</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='dark'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:194</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+    <tr class='light'>
+      <td><a href='file:///home/jrice/workspace/eol/lib/api_helper.rb'>lib/api_helper.rb:208</a></td>
+      <td>Don't use 'for' loops. Use Enumerable.each instead.</td>
+    </tr>
+    
+  
+</table>
+<p>Generated on Thu Dec 23 14:03:56 -0800 2010</p>
+
+    </div>
+  </body>
+</html>

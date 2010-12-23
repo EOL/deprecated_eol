@@ -213,29 +213,19 @@ Content Partner, and should be visibile only to her.
 
 === Measuring Code Quality
 
-The EOL code base uses metric_fu-1.0.2 to evaluate the overall code quality.
+The EOL code base uses metric_fu to evaluate the overall code quality.
 
-==== Details
+==== Metric_fu is Not Included
 
-In order to run the various metrics gems, an environment variable METRICS is required. This variable is observed if
-and only if the Rails environment RAILS_ENV=test.
+To use Metric Fu, you must install the gem YOURSELF.  It is the team's opinion
+that metric-fu, and it's various dependencies, are system level tools (like
+ruby-debug) and should not be checked into the code base.
 
-It is the team's opinion that metric-fu, and it's various dependencies, are system level tools (like ruby-debug) and
-should not be checked into the code base. A user or a CI server will require the installation of the
-jscruggs-metric_fu gem which properly install various dependencies such as flay, flog, reek, and roodi.
+==== Use
 
-==== Conclusion
+  rake metrics:all # Runs metrics on EOL
 
-The following Rake tasks are available when METRICS=true and RAILS_ENV=test:
-
-  rake eol:quality:all # Runs metrics on EOL
-  rake eol:quality:flay # Analyze for code duplication
-  rake eol:quality:flog # Analyze for code complexity
-  rake eol:quality:roodi # Check for design issues in: app/*/.rb, lib/*/.rb
-
-An example of how to run them:
-
-  RAILS_ENV=test METRICS=true rake eol:quality:all
+  The results end up in HTML. Start with tmp/metric_fu/output/index.html
 
 == MULTI-DATABASE AND MASTER/SLAVE DATABASES SETUP
 

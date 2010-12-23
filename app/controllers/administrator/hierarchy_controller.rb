@@ -8,7 +8,7 @@ class Administrator::HierarchyController < AdminController
 
   helper_method :current_agent, :agent_logged_in?
   
-  access_control Privilege.content_partners
+  access_control :content_partners
   
   def index
     page = params[:page] || '1'

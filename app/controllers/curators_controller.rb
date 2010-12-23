@@ -3,7 +3,7 @@ class CuratorsController < ApplicationController
 
   layout 'left_menu'
 
-  access_control Privilege.vet
+  access_control :vet
 
   before_filter :check_authentication
   before_filter :set_no_cache

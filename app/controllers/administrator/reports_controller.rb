@@ -5,7 +5,7 @@ class Administrator::ReportsController < AdminController
 
   before_filter :set_layout_variables
 
-  access_control Privilege.usage_reports
+  access_control :usage_reports
   
   # as an administrator, you can filter everything by Agent
   # to see reports as a Content Partner would see them

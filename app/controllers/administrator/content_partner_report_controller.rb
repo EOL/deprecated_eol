@@ -8,7 +8,7 @@ class Administrator::ContentPartnerReportController < AdminController
 
   helper_method :current_agent, :agent_logged_in?
   
-  access_control Privilege.content_partners
+  access_control :content_partners
   
   def index
     @page_title = 'Content Partners'

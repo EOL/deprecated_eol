@@ -9,8 +9,12 @@ end
 
 describe User do
 
-  before do
+  before(:all) do
     @password = 'dragonmaster'
+    # We don't need foundation (which is expensive), but we do need curation permissions:
+    KnownPrivileges.create_all
+    Community.create_special
+    User.delete_all
     @user = User.gen :username => 'KungFuPanda', :password => @password
     @user.should_not be_a_new_record
   end
@@ -72,16 +76,9 @@ describe User do
   end
 
   it 'should return url for the reset password email' do 
-    #url1 = /http[s]?:\/\/.+\/account\/reset_password\//
-    #url2 = /http[s]?:\/\/.+:3000\/account\/reset_password\//
-
-    url1 = /http[s]?:\/\/.+\/account\/reset_password\//
-    url2 = /http[s]?:\/\/.+:3000\/account\/reset_password\//
-    
-    
     user = User.gen(:username => 'johndoe', :email => 'johndoe@example.com') 
-    user.password_reset_url(80).should match url1
-    user.password_reset_url(3000).should match url2
+    user.password_reset_url(80).should match /http[s]?:\/\/.+\/account\/reset_password\//
+    user.password_reset_url(3000).should match /http[s]?:\/\/.+:3000\/account\/reset_password\//
     user = User.find(user.id)
     user.password_reset_token.size.should == 40
     user.password_reset_token.should match /[\da-f]/
@@ -230,7 +227,7 @@ describe User do
 
     it 'should be able to answer member_of?' do
       community = Community.gen
-      community.members.should be_blank
+      @user.member_of?(community).should_not be_true
       another_user = User.gen
       community.add_member(@user)
       @user.member_of?(community).should be_true

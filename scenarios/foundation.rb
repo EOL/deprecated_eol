@@ -421,6 +421,3 @@ RandomHierarchyImage.delete_all
 User.gen :username => 'foundation_already_loaded'
 
 end # THIS WAS NOT INDENTED.  It was an 'if' over almost the whole file, and didn't make sense to.
-
-puts "%% Foundation scenario loaded successfully."
-

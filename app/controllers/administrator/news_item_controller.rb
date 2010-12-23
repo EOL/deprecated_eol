@@ -6,7 +6,7 @@ class Administrator::NewsItemController < AdminController
 
   helper :resources
 
-  access_control Privilege.news_items
+  access_control :news_items
   
   def index
     @page_title = 'News Items'

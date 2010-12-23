@@ -50,9 +50,6 @@ class AccountController < ApplicationController
     # create a new user with the defaults and then update with the user entered values on the signup form
     @user = User.create_new(params[:user])
 
-    # no initial roles for a new web user
-    @user.roles = []
-
     # give them a validation code and make their account not active by default
     @user.validation_code = Digest::MD5.hexdigest "#{@user.username}#{Time.now.hour}:#{Time.now.min}:#{Time.now.sec}"
     while(User.find_by_validation_code(@user.validation_code))

@@ -2,7 +2,7 @@ class Administrator::StatsController < AdminController
 
   layout :choose_layout
 
-  access_control Privilege.usage_reports
+  access_control :usage_reports
   
   def index        
     @reports_list=[["--select--",""],

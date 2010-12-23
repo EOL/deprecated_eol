@@ -6,7 +6,7 @@ class Administrator::RoleController < AdminController
 
   helper :resources
 
-  access_control Privilege.technical
+  access_control :technical
 
   def index
     @page_title = 'Roles'

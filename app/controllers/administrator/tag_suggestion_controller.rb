@@ -6,7 +6,7 @@ class Administrator::TagSuggestionController < AdminController
 
   before_filter :set_layout_variables
 
-  access_control Privilege.comments_and_tags
+  access_control :comments_and_tags
   
   # GET /administrator/tag_suggestions
   def index

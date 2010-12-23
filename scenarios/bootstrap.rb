@@ -10,8 +10,6 @@
 #dependencies: [ :foundation ]
 #arbitrary_variable: arbitrary value
 
-puts "%% Bootstrap scenario loading..."
-
 require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'
 # This gives us the ability to recalculate some DB values:
@@ -472,5 +470,3 @@ end
   GoogleAnalyticsPageStat.gen(:year => year, :month => month, :taxon_concept => tc30 )    
   GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => tc30, :agent => Agent.catalogue_of_life )
 end
-
-puts "%% Bootstrap scenario loaded successfully."

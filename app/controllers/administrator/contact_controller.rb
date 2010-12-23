@@ -5,7 +5,7 @@ class Administrator::ContactController < AdminController
 
   before_filter :set_layout_variables
 
-  access_control Privilege.contact_us_submissions
+  access_control :contact_us_submissions
 
   def index
    

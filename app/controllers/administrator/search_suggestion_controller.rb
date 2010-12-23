@@ -6,7 +6,7 @@ class Administrator::SearchSuggestionController < AdminController
 
   helper :resources
 
-  access_control Privilege.site_cms
+  access_control :site_cms
   
   def index
     @page_title = 'Search Suggestions'

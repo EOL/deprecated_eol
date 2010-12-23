@@ -6,7 +6,7 @@ class AdminController < ApplicationController
  before_filter :set_no_cache
  before_filter :set_layout_variables
 
- access_control Privilege.view_admin_page
+ access_control :view_admin_page
     
  def index
  end

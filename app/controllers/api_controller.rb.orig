@@ -2,13 +2,8 @@ class ApiController < ApplicationController
   
   include ApiHelper
   
-<<<<<<< HEAD
   before_filter :check_version, :handle_key
   layout 'main' , :only => [:index, :ping, :search, :pages, :data_objects, :hierarchy_entries, :provider_hierarchies, :search_by_provider]
-=======
-  before_filter :check_version 
-  layout 'main'
->>>>>>> 03b3076... Added documentation for hierarchies API; created table to store stie configuration options; updated reference parsing and curator actions emailer to use new config table
   
   def pages
     taxon_concept_id = params[:id] || 0

@@ -4,7 +4,7 @@ class Administrator::ErrorLogController < AdminController
 
   before_filter :set_layout_variables
   
-  access_control Privilege.technical
+  access_control :technical
 
   def index
     @page_title = 'Error Log'

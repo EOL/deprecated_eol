@@ -4,7 +4,7 @@ class Administrator::ContentPageController < AdminController
 
   before_filter :set_layout_variables
 
-  access_control Privilege.site_cms
+  access_control :site_cms
   
  def index
    @page_title = 'Edit Page Contents'

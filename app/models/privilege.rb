@@ -1,3 +1,4 @@
+require 'core_extensions' # Oddly, these aren't loaded in time for tests, and they are needed here for ACLs.
 class Privilege < ActiveRecord::Base
 
   has_many :member_privileges

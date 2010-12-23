@@ -324,13 +324,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   # Grants rights to their currently-selected HE.
   def approve_to_curate
-    puts "++ approve_to_curate"
     approve_to_curate_clade curator_hierarchy_entry
   end
 
   # Grants rights to a specific clade.
   def approve_to_curate_clade clade
-    puts "++ approve_to_curate_clade"
     clade = clade.id if clade.is_a? HierarchyEntry
     self.curator_hierarchy_entry_id = clade
     self.curator_approved = true
@@ -343,7 +341,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def revoke_curatorship
-    puts "++ revoke_curatorship"
     self.curator_hierarchy_entry = nil
     self.curator_approved = false
     if special
@@ -463,7 +460,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def check_curator_status
-    puts "++ Check curator status"
     credentials = '' if credentials.nil?
     if curator_hierarchy_entry.blank?
       revoke_curatorship
@@ -553,11 +549,11 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def password_reset_url(original_port)
     port = ["80", "443"].include?(original_port.to_s) ? "" : ":#{original_port}"
-    password_reset_token = User.generate_key
-    success = update_attributes(:password_reset_token => password_reset_token, :password_reset_token_expires_at => 24.hours.from_now)
+    new_token = User.generate_key
+    success = self.update_attributes(:password_reset_token => new_token, :password_reset_token_expires_at => 24.hours.from_now)
     http_string = $USE_SSL_FOR_LOGIN ? "https" : "http"
     if success
-      return "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{password_reset_token}"
+      return "#{http_string}://#{$SITE_DOMAIN_OR_IP}#{port}/account/reset_password/#{new_token}"
     else
       raise RuntimeError("Cannot save reset password data to the database") #TODO write it correctly
     end
@@ -701,17 +697,15 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def join_community(community)
-    puts "++ join_community"
     member = Member.find_by_community_id_and_user_id(community.id, id)
     unless member
       member = Member.create!(:user_id => id, :community_id => community.id)
-      members << member
+      self.members << member
     end
     member
   end
 
   def leave_community(community)
-    puts "++ leave_community"
     member = Member.find_by_user_id_and_community_id(id, community.id)
     raise "Couldn't find a member for this user"[:could_not_find_user] unless member
     member.destroy
@@ -719,14 +713,21 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def member_of?(community)
-    members.map {|m| m.community_id}.include?(community.id)
+    reload_if_stale
+    self.members.map {|m| m.community_id}.include?(community.id)
   end
 
   def member_of(community)
-    members.select {|m| m.community_id == community.id}.first
+    reload_if_stale
+    self.members.select {|m| m.community_id == community.id}.first
   end
 
 private
+
+  def reload_if_stale
+    return false if new_record? or changed?
+    self.reload
+  end
 
   def password_required?
     (hashed_password.blank? || hashed_password.nil?)

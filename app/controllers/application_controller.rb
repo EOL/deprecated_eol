@@ -31,9 +31,10 @@ class ApplicationController < ActionController::Base
   around_filter :set_current_language
 
   # TODO - test
-  def self.access_control(rule)
+  def self.access_control(sym)
     before_filter do |c|
-      unless c.current_user.special && (rule.is_a?(Privilege) && c.current_user.special.can?(rule))
+      priv = Privilege.send(sym)
+      unless c.current_user.special && c.current_user.special.can?(priv)
         c.send(:access_denied) # You must send the method, otherwise flashes and redirects don't work.
       end
     end
@@ -359,13 +360,13 @@ class ApplicationController < ActionController::Base
     end    
   end
 
- def check_authentication
-     must_log_in unless logged_in?
-     return false
- end
+  def check_authentication
+    must_log_in unless logged_in?
+    return false
+  end
 
   def is_user_admin?
-    return current_user.roles.include?(Role.find_by_title("Administrator"))
+    return current_user.is_admin?
   end
 
   # Returns true if the given user (or currently logged in user if not provided) has curator permissions

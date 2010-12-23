@@ -9,7 +9,6 @@ describe 'Admin Pages' do
     Capybara.reset_sessions!
     @user = User.gen(:username => 'ourtestadmin')
     @user.approve_to_administrate
-    @user.save!
   end
 
   after :each do

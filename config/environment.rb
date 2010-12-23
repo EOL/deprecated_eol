@@ -11,7 +11,6 @@ require 'eol_web_service'
 require 'eol'
 RAILS_GEM_VERSION = '2.3.8' unless defined? RAILS_GEM_VERSION
 
-
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
 
@@ -196,8 +195,9 @@ Rails::Initializer.run do |config|
   $SITE_DOMAIN_OR_IP = $IP_ADDRESS_OF_SERVER #domain name for url links communicated outside, for example for emails
 
   # Default values for some language-dependent strings used by models:
-  $CURATOR_ROLE_NAME = 'Curator'
-  $ADMIN_ROLE_NAME   = 'Administrator'
+  $CURATOR_ROLE_NAME   = 'Curator'
+  $ADMIN_ROLE_NAME     = 'Administrator'
+  $ASSOCIATE_ROLE_NAME = 'Associate'
 
   # Default Values for some language-dependent titles:
   $ADMIN_CONSOLE_TITLE = 'EOL Administration Console'
@@ -220,7 +220,7 @@ Rails::Initializer.run do |config|
   rescue LoadError
     #puts 'Could not load environments local.rb file'
   end
-  
+
 end
 
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(

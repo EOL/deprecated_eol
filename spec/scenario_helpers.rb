@@ -68,7 +68,7 @@ end
 
 def create_curator(tc)
   curator_for_tc = User.gen(:username => 'curator_for_tc', :password => 'password')
-  curator_for_tc.approve_to_curate tc.entry
+  curator_for_tc.approve_to_curate_clade tc.entry
   curator_for_tc.save!
   return curator_for_tc
 end

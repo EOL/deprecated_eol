@@ -67,3 +67,7 @@ class KnownPrivileges
   end
 
 end
+
+# In Egpyt, there w/b a script:
+# Privilege.administrator.title = "Some Arabic String"
+# (etc)

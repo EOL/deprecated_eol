@@ -5,43 +5,14 @@
 # Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
 # NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
-parent_klass = $CRITICAL_MODEL_PARENT_CLASS ? $CRITICAL_MODEL_PARENT_CLASS : ActiveReload::MasterDatabase rescue ActiveRecord::Base
-class User < parent_klass
-
-  belongs_to :language
-  belongs_to :agent
-  has_many :members
-
-  #V1: has_and_belongs_to_many :roles
-
-  before_save :check_curator_status
-
-  # TODO - this should be okay, but the account controller doesn't seem to like using this, because it forces this param
-  # in some cases:
-  # attr_protected :curator_hierarchy_entry_id # Can't change this with update_attributes()
-
+class User < $PARENT_CLASS_MUST_USE_MASTER
   belongs_to :curator_hierarchy_entry, :class_name => "HierarchyEntry", :foreign_key => :curator_hierarchy_entry_id
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
-  has_many   :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
-  has_one    :user_info
+  belongs_to :language
+  belongs_to :agent
 
-  accepts_nested_attributes_for :user_info
-
-  validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
-  validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
-
-  validates_presence_of   :username
-
-  validates_length_of     :username, :within => 4..32
-  validates_length_of     :entered_password, :within => 4..16, :on => :create
-
-  validates_presence_of   :given_name
-  validates_format_of :email, :with =>%r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
-
-  validate :ensure_unique_username_against_master, :on => :create
-
-  validates_confirmation_of :entered_password
-
+  has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
+  has_many :members
   has_many :data_object_tags, :class_name => DataObjectTags.to_s
   has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :comments
@@ -50,25 +21,195 @@ class User < parent_klass
   has_many :users_data_objects
   has_many :user_ignored_data_objects
 
-  attr_accessor :entered_password,:entered_password_confirmation,:curator_request
-  attr_reader :full_name, :is_admin, :is_moderator
+  has_one    :user_info
+
+  before_save :check_curator_status
+
+  accepts_nested_attributes_for :user_info
+
+  validate :ensure_unique_username_against_master, :on => :create
+
+  validates_presence_of :curator_verdict_by, :if => Proc.new { |obj| !obj.curator_verdict_at.blank? }
+  validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
+  validates_presence_of :username
+  validates_presence_of :given_name
+
+  validates_length_of :username, :within => 4..32
+  validates_length_of :entered_password, :within => 4..16, :on => :create
+
+  validates_format_of :email,
+    :with => %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
+
+  validates_confirmation_of :entered_password
+
+  attr_accessor :entered_password, :entered_password_confirmation, :curator_request
+
+  # create a new user using default attributes and then update with supplied parameters
+  def self.create_new options = {}
+    # NOTE - the agent_id is assigned in account controller, not in the model
+    new_user = User.new
+    new_user.set_defaults
+    new_user.attributes = options
+    new_user
+  end
+
+  def self.authenticate(username, password)
+    user = self.find_by_username_and_active(username, true)
+    if user.blank?
+      self.authenticate_by_email(username, password)
+    elsif user.hashed_password == self.hash_password(password)
+      user.reset_login_attempts # found a matching username and password matched!
+      return true, user
+    else
+      user.invalid_login_attempt
+      return false, "Invalid login or password"[]
+    end
+  end
+
+  def self.authenticate_by_email(email, password)
+    users = User.find_all_by_email_and_active(email, true)
+    if users.blank?
+      return self.fail_authentication_with_master_check(email)
+    end
+    users.each do |u| # check all users with matching email addresses to see if one of them matches the password
+      if u.hashed_password == User.hash_password(password)
+        u.reset_login_attempts # found a match with email and password
+        return true, u
+      else
+        u.invalid_login_attempt # log the bad attempt for this user!
+      end
+    end
+    if users.size > 1 # more than 1 email address with no matching passwords
+      return false, "The email address is not unique - you must enter a username"[]
+    else  # no matches yet again :(
+      return false, "Invalid login or password"[]
+    end
+  end
+
+  def self.fail_authentication_with_master_check(user_identifier)
+    if self.active_on_master?(user_identifier)
+      return false, "Your account is registered but not ready for you to access. Please try again in five minutes."[:account_registered_but_not_ready_try_later]
+    else
+      return false, "Invalid login or password"[]
+    end
+  end
 
   def self.generate_key
-    Digest::SHA1.hexdigest(rand(10**30).to_s + Time.now.to_f.to_s)
+    Digest::SHA1.hexdigest(rand(10**16).to_s + Time.now.to_f.to_s)
+  end
+
+  def self.active_on_master?(username)
+    User.with_master do
+      user = User.find_by_username_and_active(username, true)
+      user ||= User.find_by_email_and_active(username, true)
+      user.nil? ? false : true  # Just cleaning up the nil, is all.  False is less likely to annoy.
+    end
+  end
+
+  def self.users_with_submitted_text
+    sql = "SELECT DISTINCT users.id , users.given_name, users.family_name
+      FROM users Join users_data_objects ON users.id = users_data_objects.user_id
+      ORDER BY users.family_name, users.given_name"
+    rset = User.find_by_sql([sql])
+    return rset
+  end
+
+  def self.users_with_activity_log
+    sql = "SELECT distinct u.id , u.given_name, u.family_name
+      FROM users u
+        JOIN #{ActivityLog.full_table_name} al ON u.id = al.user_id
+      ORDER BY u.family_name, u.given_name"
+    
+    User.with_master do
+      User.find_by_sql([sql])
+    end
+  end
+
+  def self.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
+    obj_ids = []
+    user_ids = []
+    if(arr_dataobject_ids.length > 0 or agent_id == 'All') then
+      sql = "SELECT ah.object_id data_object_id, ah.user_id
+        FROM action_with_objects awo
+          JOIN actions_histories ah ON ah.action_with_object_id = awo.id
+          JOIN changeable_object_types cot ON ah.changeable_object_type_id = cot.id
+          JOIN users u ON ah.user_id = u.id
+        WHERE cot.ch_object_type = 'data_object' "
+      if(agent_id != 'All') then
+        sql += " AND ah.object_id IN (" + arr_dataobject_ids * "," + ")"
+      end
+      if(year.to_i > 0) then sql += " AND year(ah.updated_at) = #{year} AND month(ah.updated_at) = #{month} "
+      end
+      rset = User.find_by_sql([sql])
+      rset.each do |post|
+        obj_ids << post.data_object_id
+        user_ids << post.user_id
+      end
+    end
+    arr = [obj_ids, user_ids]
+    return arr
+  end
+
+  def self.curated_data_objects(arr_dataobject_ids, year, month, page, report_type)
+    page = 1 if page == 0
+    sql = "SELECT ah.object_id data_object_id, cot.ch_object_type,
+        awo.action_code code, u.given_name, u.family_name, ah.updated_at, ah.user_id
+      FROM action_with_objects awo
+        JOIN actions_histories ah ON ah.action_with_object_id = awo.id
+        JOIN changeable_object_types cot ON ah.changeable_object_type_id = cot.id
+        JOIN users u ON ah.user_id = u.id
+      WHERE cot.ch_object_type = 'data_object'
+        AND ah.object_id IN (" + arr_dataobject_ids * "," + ")"
+    if(year.to_i > 0) then sql += " AND year(ah.updated_at) = #{year} AND month(ah.updated_at) = #{month} "
+    end
+    sql += " AND awo.action_code in ('trusted', 'untrusted', 'inappropriate', 'delete') "
+    sql += " ORDER BY ah.id Desc"
+    if(report_type == "rss feed")
+      self.find_by_sql [sql]
+    else
+      self.paginate_by_sql [sql], :per_page => 30, :page => page
+    end
+  end
+
+  # I wanted to centralize this call, so we can quickly change from one kind of hashing to another.
+  def self.hash_password(raw)
+    Digest::MD5.hexdigest(raw)
+  end
+
+  # returns true or false indicating if username is unique
+  def self.unique_user?(username)
+    User.with_master do
+      # mysql is case-insensitive:
+      users = User.find_by_sql(['SELECT id FROM users WHERE username = ?', username])
+      users.blank?
+    end
+  end
+
+  def self.with_master_if_enabled
+    if User.connection.respond_to? :with_master
+      User.connection.with_master { yield }
+    else
+      yield
+    end
+  end
+
+  # returns true or false indicating if email is unique
+  def self.unique_email?(email)
+    return User.find_by_email(email).nil?
+  end
+
+  def password
+    self.entered_password
   end
 
   def validate
-
-     errors.add_to_base "Secondary hierarchy must be different than default" if !secondary_hierarchy_id.nil? && secondary_hierarchy_id == default_hierarchy_id
-
-     if EOLConvert.to_boolean(curator_request) && credentials.blank?
-       errors.add_to_base "You must indicate your credentials and area of expertise to request curator privileges."
+    errors.add_to_base "Secondary hierarchy must be different than default" if !secondary_hierarchy_id.nil? && secondary_hierarchy_id == default_hierarchy_id
+    if EOLConvert.to_boolean(curator_request) && credentials.blank?
+      errors.add_to_base "You must indicate your credentials and area of expertise to request curator privileges."
     end
-
     if !credentials.blank? && (curator_scope.blank? && curator_hierarchy_entry.blank?)
-       errors.add_to_base "You must either select a clade or indicate your scope to request curator privileges."
+      errors.add_to_base "You must either select a clade or indicate your scope to request curator privileges."
     end
-
   end
 
   def full_name
@@ -81,6 +222,7 @@ class User < parent_klass
     # this needs to allow for eager loading
     CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve ).map(&:object)
   end
+
   def total_objects_vetted
     # this needs to become a simple COUNT query
     CuratorDataObjectLog.find_all_by_user_id_and_curator_activity_id( id, CuratorActivity.approve ).length
@@ -128,101 +270,22 @@ class User < parent_klass
     comments_curated.length
   end
 
-
   def taxon_concept_ids_curated
     connection.select_values("
-          SELECT dotc.taxon_concept_id
-          FROM actions_histories ah
-          JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
-          JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (ah.object_id = dotc.data_object_id)
-          WHERE ah.user_id=#{id}
-          AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
-          AND awo.action_code!='rate'
-          GROUP BY ah.object_id
-          ORDER BY ah.updated_at DESC").uniq
+      SELECT dotc.taxon_concept_id
+      FROM actions_histories ah
+        JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
+        JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (ah.object_id = dotc.data_object_id)
+      WHERE ah.user_id=#{id}
+        AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
+        AND awo.action_code!='rate'
+      GROUP BY ah.object_id
+      ORDER BY ah.updated_at DESC").uniq
   end
 
   def total_species_curated
     taxon_concept_ids_curated.length
   end
-  def self.active_on_master?(username)
-    User.with_master do
-      user = User.find_by_username_and_active(username, true)
-      user ||= User.find_by_email_and_active(username, true)
-      user.nil? ? false : true  # Just cleaning up the nil, is all.  False is less likely to annoy.
-    end
-  end
-
-  def self.users_with_submitted_text
-    sql = "Select distinct users.id , users.given_name, users.family_name
-    From users Join users_data_objects ON users.id = users_data_objects.user_id
-    Order By users.family_name, users.given_name"
-    rset = User.find_by_sql([sql])
-    return rset
-  end
-
-  def self.users_with_activity_log
-    sql = "Select distinct u.id , u.given_name, u.family_name
-    From users u
-    Join #{ActivityLog.full_table_name} al ON u.id = al.user_id
-    Order By u.family_name, u.given_name"
-    
-    User.with_master do
-      User.find_by_sql([sql])
-    end
-  end
-
-
-
-  def self.curated_data_object_ids(arr_dataobject_ids, year, month, agent_id)
-    obj_ids = []
-    user_ids = []
-    if(arr_dataobject_ids.length > 0 or agent_id == 'All') then
-      sql = "Select ah.object_id data_object_id, ah.user_id
-      From action_with_objects awo
-      Join actions_histories ah ON ah.action_with_object_id = awo.id
-      Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
-      Join users u ON ah.user_id = u.id
-      where cot.ch_object_type = 'data_object' "
-      if(agent_id != 'All') then
-        sql += " and ah.object_id IN (" + arr_dataobject_ids * "," + ")"
-      end
-      if(year.to_i > 0) then sql += " and year(ah.updated_at) = #{year} and month(ah.updated_at) = #{month} "
-      end
-      rset = User.find_by_sql([sql])
-      rset.each do |post|
-        obj_ids << post.data_object_id
-        user_ids << post.user_id
-      end
-    end
-    arr = [obj_ids,user_ids]
-    return arr
-  end
-
-  def self.curated_data_objects(arr_dataobject_ids, year, month, page, report_type)
-    page = 1 if page == 0
-    sql = "Select ah.object_id data_object_id, cot.ch_object_type,
-    awo.action_code code, u.given_name, u.family_name, ah.updated_at, ah.user_id
-    From action_with_objects awo
-    Join actions_histories ah ON ah.action_with_object_id = awo.id
-    Join changeable_object_types cot ON ah.changeable_object_type_id = cot.id
-    Join users u ON ah.user_id = u.id
-    where cot.ch_object_type = 'data_object'
-    and ah.object_id IN (" + arr_dataobject_ids * "," + ")"
-    if(year.to_i > 0) then sql += " and year(ah.updated_at) = #{year} and month(ah.updated_at) = #{month} "
-    end
-    sql += " and awo.action_code in ('trusted','untrusted','inappropriate', 'delete') "
-    sql += " Order By ah.id Desc"
-    if(report_type == "rss feed")
-      self.find_by_sql [sql]
-    else
-      self.paginate_by_sql [sql], :per_page => 30, :page => page
-    end
-  end
-
-
-
-
 
   def data_object_tags_for data_object
     data_object_tags.find_all_by_data_object_guid data_object.guid, :include => :data_object_tag
@@ -251,166 +314,86 @@ class User < parent_klass
     can_curate? TaxonConcept.find(taxon_concept_id)
   end
 
-  def approve_to_curate clade
-    clade = clade.id if clade.is_a?HierarchyEntry
-    update_attribute :curator_hierarchy_entry_id, clade
-    update_attribute :curator_approved, true
+  def approve_to_administrate
+    grant_special_role(Role.administrator)
   end
 
-  def set_curator approved,updated_by
+  # Grants rights to their currently-selected HE.
+  def approve_to_curate
+    puts "++ approve_to_curate"
+    approve_to_curate_clade curator_hierarchy_entry
+  end
 
-    if (approved == true && curator_approved == false) # send the approval message if the user wasn't a curator and is now approved
-      Notifier.deliver_curator_approved(self)
-    elsif (approved == false && curator_approved == true) # only send the unapproval message if the user *was* a curator and is now rejected
-      Notifier.deliver_curator_unapproved(self)
+  # Grants rights to a specific clade.
+  def approve_to_curate_clade clade
+    puts "++ approve_to_curate_clade"
+    clade = clade.id if clade.is_a? HierarchyEntry
+    self.curator_hierarchy_entry_id = clade
+    self.curator_approved = true
+    grant_special_role(Role.curator)
+  end
+
+  def grant_special_role(role)
+    join_community(Community.special)
+    member_of(Community.special).add_role(role)
+  end
+
+  def revoke_curatorship
+    puts "++ revoke_curatorship"
+    self.curator_hierarchy_entry = nil
+    self.curator_approved = false
+    if member = member_of(Community.special)
+      member.remove_role(Role.curator)
     end
+  end
 
-    # note that this will happen EVERY time the user's record is updated by an admin. So the name curator_verdict_at is
+  # Grants or revokes rights to their currently-selected HE *and* updates fields indicating who allowed this (and when).
+  def approve_to_curate_by_user approved, updated_by
+    # TODO - this will happen EVERY time the user's record is updated by an admin. So the name curator_verdict_at is
     # now misleading because it will get updated even when nothing about the user is changed (the edit form is loaded and
     # immediately saved).
-    # TODO We might consider renaming the field curator_verdict_at because it gets updated even without a verdict
-    self.curator_approved = approved
     self.curator_verdict_at = Time.now
     self.curator_verdict_by = updated_by
-    self.save!
-
-    if approved
-      roles << Role.curator unless has_special_role?(Role.curator)
-    else
-      roles.delete(Role.curator)
+    if (approved && ! curator_approved) # The user wasn't a curator and is now approved
+      approve_to_curate
+      Notifier.deliver_curator_approved(self)
+    elsif ((! approved) && curator_approved) # The user *was* a curator and is now rejected
+      revoke_curatorship
+      Notifier.deliver_curator_unapproved(self)
     end
-
+    debugger
+    self.save! unless self.validating
   end
 
-  def clear_curatorship updated_by,update_notes=""
-    self.curator_approved = false
-    self.credentials=""
-    self.curator_scope=""
-    self.curator_hierarchy_entry = nil
+  def clear_curatorship updated_by, update_notes=""
+    revoke_curatorship
+    self.credentials = ""
+    self.curator_scope = ""
     self.curator_verdict_at = Time.now
     self.curator_verdict_by = updated_by
-    self.roles.delete(Role.curator)
-    self.notes="" if self.notes.nil?
-    (self.notes+=' ; (' + updated_by.username + ' on ' + Date.today.to_s + '): ' + update_notes) unless update_notes.blank?
+    self.notes = "" if self.notes.nil?
+    unless update_notes.blank?
+      self.notes += ' ; (' + updated_by.username + ' on ' + Date.today.to_s + '): ' + update_notes
+    end
     self.save!
   end
 
-  # TODO - PRI MED - the vet/unvet methods inefficiently heck whether or not this user can_curate? the OBJECT.  that might involve lots of queries.
-  #                  we likely need to be over to override this as we, in the app, already know whether or not a user can curate an item,
-  #                  so there's no reason to take this performance hit to 'double-check'
-
-  # vet an object user can curate
   def vet object
     object.vet(self) if object and object.respond_to? :vet and can_curate? object
   end
 
-  # unvet an object user can curate
   def unvet object
     object.unvet(self) if object and object.respond_to? :unvet and can_curate? object
   end
 
-  # create a new user using default attributes and then update with supplied parameters
-  def self.create_new options = {}
-    #please note the agent_id is assigned in account controller, not in the model
-    new_user = User.new
-
-    # NOTE = *if* you run into problems where set_defaults isn't working in some context, you can use this approach instead.
-    # We've tested it; it works... but we like it less than the separate method.
-    #new_user.attributes = {:default_taxonomic_browser => $DEFAULT_TAXONOMIC_BROWSER,
-    #:expertise     => $DEFAULT_EXPERTISE.to_s,
-    #:language      => Language.english,
-    #:mailing_list  => false,
-    #:content_level => $DEFAULT_CONTENT_LEVEL,
-    #:vetted        => $DEFAULT_VETTED,
-    #:credentials   => '',
-    #:curator_scope => '',
-    #:active        => true,
-    #:flash_enabled => true}.merge(options)
-
-    new_user.set_defaults
-    new_user.attributes = options
-    new_user
-  end
-
-  def self.authenticate(username,password)
-
-    # try username first
-    user = User.find_by_username_and_active(username,true)
-    if !user.blank? && user.hashed_password==User.hash_password(password)
-      user.reset_login_attempts # found a matching username and password matched!
-      return true,user
-    elsif !user.blank?  # found a matching username, but password didn't match!
-      user.invalid_login_attempt
-      return false,"Invalid login or password"[]
-    end
-
-    # no match with username, next try email address, which is not necessarily unique in database
-    users = User.find_all_by_email_and_active(username,true)
-
-    if users.blank?
-      if User.active_on_master?(username)
-        return false, "Your account is registered but not ready for you to access. Please try again in five minutes."[:account_registered_but_not_ready_try_later]
-      else
-        return false, "Invalid login or password"[]
-      end
-    end
-
-    users.each do |u| # check all users with matching email addresses to see if one of them matches the password
-      if u.hashed_password == User.hash_password(password)
-        u.reset_login_attempts # found a match with email and password
-        return true,u
-      else
-        u.invalid_login_attempt # log the bad attempt for this user!
-      end
-    end
-
-    if users.size > 1
-      return false,"The email address is not unique - you must enter a username"[] # more than 1 email address with no matching passwords
-    else
-      return false,"Invalid login or password"[]  # no matches yet again :(
-    end
-
-  end
-
   def reset_login_attempts
-    update_attributes(:failed_login_attempts => 0) # reset the user's failed login attempts
+    self.failed_login_attempts = 0
   end
 
   def invalid_login_attempt
-    update_attributes(:failed_login_attempts => failed_login_attempts+1)
+    self.failed_login_attempts += 1
     logger.error "Possible dictionary attack on user #{self.id} - #{self.failed_login_attempts} failed login attempts" if
       self.failed_login_attempts > 10 # Smells like a dictionary attack!
-  end
-
-  # I wanted to centralize this call, so we can quickly change from one kind of hashing to another.
-  def self.hash_password(raw)
-    Digest::MD5.hexdigest(raw)
-  end
-
-  # returns true or false indicating if username is unique
-  def self.unique_user?(username)
-    User.with_master do
-      # mysql is case-insensitive:
-      users = User.find_by_sql(['select id from users where username = ?', username])
-      users.blank?
-    end
-  end
-
-  def self.with_master_if_enabled
-    if User.connection.respond_to? :with_master
-      User.connection.with_master { yield }
-    else
-      yield
-    end
-  end
-
-  # returns true or false indicating if email is unique
-  def self.unique_email?(email)
-    return User.find_by_email(email).nil?
-  end
-
-  def password
-    self.entered_password
   end
 
   # set the password
@@ -434,7 +417,9 @@ class User < parent_klass
   end
 
   def is_moderator?
-    @is_moderator ||= roles.include?(Role.moderator)
+    member = member_of(Community.special)
+    return false if member.nil?
+    member.can?(Privilege.show_hide_comments)
   end
 
   def has_special_role?(role)
@@ -476,26 +461,13 @@ class User < parent_klass
   end
 
   def check_curator_status
+    puts "++ Check curator status"
     credentials = '' if credentials.nil?
     if curator_hierarchy_entry.blank?
       revoke_curatorship
     else
-      grant_curatorship(curator_hierarchy_entry)
+      approve_to_curate
     end
-  end
-
-  def revoke_curatorship
-    curator_hierarchy_entry = nil
-    curator_approved = false
-    if member = member_of(Community.special)
-      member.remove_role(Role.curator)
-    end
-  end
-
-  def grant_curatorship(he)
-    curator_hierarchy_entry = he
-    join_community(Community.special)
-    member_of(Community.special).add_role(Role.curator)
   end
 
   alias :ar_to_xml :to_xml
@@ -521,7 +493,7 @@ class User < parent_klass
     all_submitted_datos.map {|dato| dato.description }
   end
 
-  # Sets the visibility to invisible and the vetted to untrusted on all DataObjects submitted by this users.  NOT
+  # Sets the visibility to invisible and the vetted to untrusted on all DataObjects submitted by this user.  NOT
   # USED ANYWHERE.  This is a convenience method for developers to use.  ...particularly where they are submitting
   # lots of text objects for testing, but don't want the rest of the world to see them when they are done.
   #
@@ -549,7 +521,7 @@ class User < parent_klass
 
   def remember_me_until(time)
     self.remember_token_expires_at = time
-    self.remember_token       = User.hash_password("#{email}--#{remember_token_expires_at}")
+    self.remember_token = User.hash_password("#{email}--#{remember_token_expires_at}")
     self.save(false)
   end
 
@@ -560,9 +532,9 @@ class User < parent_klass
   end
 
   def content_page_cache_str
-    return_string="#{language_abbr}"
-    return_string+="_#{default_hierarchy_id.to_s}" unless default_hierarchy_id.to_s.blank?
-    return_string
+    str = "#{language_abbr}"
+    str += "_#{default_hierarchy_id.to_s}" unless default_hierarchy_id.to_s.blank?
+    str
   end
 
   def taxa_page_cache_str
@@ -633,7 +605,7 @@ class User < parent_klass
           #{vetted_clause}
         GROUP BY do.guid
         ORDER BY do.created_at DESC
-        LIMIT 0,300");
+        LIMIT 0, 300");
 
     start = per_page * (page - 1)
     last = start + per_page - 1
@@ -682,11 +654,6 @@ class User < parent_klass
     token = CGI.escape(Base64.encode64(encrypted)).gsub(/\n/, '')
   end
 
-  # for giggles:
-  def my_lang
-    language
-  end
-
   # set the defaults on this user object
   # TODO - move the defaults to the database (LOW PRIO)
   def set_defaults
@@ -732,6 +699,7 @@ class User < parent_klass
   end
 
   def join_community(community)
+    puts "++ join_community"
     member = Member.find_by_community_id_and_user_id(community.id, id)
     unless member
       member = Member.create!(:user_id => id, :community_id => community.id)
@@ -741,6 +709,7 @@ class User < parent_klass
   end
 
   def leave_community(community)
+    puts "++ leave_community"
     member = Member.find_by_user_id_and_community_id(id, community.id)
     raise "Couldn't find a member for this user"[:could_not_find_user] unless member
     member.destroy

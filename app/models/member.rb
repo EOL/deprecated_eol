@@ -34,7 +34,8 @@ class Member < ActiveRecord::Base
     end
   end
 
-  # THIS IS SPECIFIC TO THE MEMBER.  If you want to check the member's roles too, use #can?
+  # THIS IS SPECIFIC TO THE MEMBER (it excludes role privs).  If you want to check the member's roles too, use #can?
+  # Chances are you want to use #can?...
   def has_privilege?(priv)
     MemberPrivilege.existis?(['member_id = ? AND privilege_id = ? AND revoked = ?', id, priv.id, false])
   end

@@ -45,9 +45,6 @@ if User.find_by_username('foundation_already_loaded')
 else
 # I AM NOT INDENTING THIS BLOCK (it seemed overkill)
 
-create_if_not_exists Community, :name => $SPECIAL_COMMUNITY_NAME, #WAIT :show_special_privileges => 1,
-  :description => 'This is a special community for the curtors and admins of EOL.'
-
 # This ensures the main menu is complete, with at least one (albeit bogus) item in each section:
 create_if_not_exists ContentPage, :title => 'Home',
   :language_abbr => 'en', :content_section => ContentSection.gen(:name => 'Home Page')
@@ -302,21 +299,9 @@ create_if_not_exists ResourceStatus, :label => 'Publish Pending'
 create_if_not_exists ResourceStatus, :label => 'Unpublish Pending'
 create_if_not_exists ResourceStatus, :label => 'Force Harvest'
 
-# TEMP:
- create_if_not_exists Role, :title => $CURATOR_ROLE_NAME
- create_if_not_exists Role, :title => 'Moderator'
- create_if_not_exists Role, :title => $ADMIN_ROLE_NAME
- create_if_not_exists Role, :title => 'Administrator - News Items'
- create_if_not_exists Role, :title => 'Administrator - Comments and Tags'
- create_if_not_exists Role, :title => 'Administrator - Web Users'
- create_if_not_exists Role, :title => 'Administrator - Contact Us Submissions'
- create_if_not_exists Role, :title => 'Administrator - Content Partners'
- create_if_not_exists Role, :title => 'Administrator - Technical'
- create_if_not_exists Role, :title => 'Administrator - Site CMS'
- create_if_not_exists Role, :title => 'Administrator - Usage Reports'
+KnownPrivileges.create_all
 
-
-#WAIT: KnownPrivileges.create_all
+Community.create_special
 
 create_if_not_exists TocItem, :label => 'Overview', :view_order => 1
 description = create_if_not_exists TocItem, :label => 'Description', :view_order => 2
@@ -427,14 +412,15 @@ create_if_not_exists Visibility, :label => 'Preview'
 create_if_not_exists Visibility, :label => 'Inappropriate'
 create_if_not_exists Visibility, :label => 'Visible' 
 
-
 # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,
 # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:
 RandomHierarchyImage.delete_all
-10.times {  RandomHierarchyImage.gen(:hierarchy => default_hierarchy) }
-
+10.times { RandomHierarchyImage.gen(:hierarchy => default_hierarchy) }
 
 # This prevents us from loading things twice, which it seems we were doing a lot!
 User.gen :username => 'foundation_already_loaded'
 
 end # THIS WAS NOT INDENTED.  It was an 'if' over almost the whole file, and didn't make sense to.
+
+puts "%% Foundation scenario loaded successfully."
+

@@ -23,3 +23,5 @@ class Privilege < ActiveRecord::Base
   end
 
 end
+
+# if privileges.include? Privilege.admin { do_somehting }

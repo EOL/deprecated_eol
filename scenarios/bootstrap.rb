@@ -10,6 +10,8 @@
 #dependencies: [ :foundation ]
 #arbitrary_variable: arbitrary value
 
+puts "%% Bootstrap scenario loading..."
+
 require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'
 # This gives us the ability to recalculate some DB values:
@@ -298,8 +300,7 @@ build_hierarchy_entry 0, tc, name, :hierarchy => gbif_hierarchy, :identifier => 
 
 # Generate a default admin user and then set them up for the default roles:
 admin = User.gen :username => 'admin', :password => 'admin', :given_name => 'Admin', :family_name => 'User'
-admin.roles = Role.find(:all, :conditions => 'title LIKE "Administrator%"')
-admin.save
+admin.approve_to_administrate
 
 exemplar = build_taxon_concept(:id => 910093, # That ID is one of the (hard-coded) exemplars.
                                :event => event,
@@ -472,4 +473,4 @@ end
   GoogleAnalyticsPartnerTaxon.gen(:year => year, :month => month, :taxon_concept => tc30, :agent => Agent.catalogue_of_life )
 end
 
-
+puts "%% Bootstrap scenario loaded successfully."

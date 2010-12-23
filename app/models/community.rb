@@ -14,6 +14,22 @@ class Community < ActiveRecord::Base
     cached_find(:name, $SPECIAL_COMMUNITY_NAME)
   end
 
+  def self.create_special
+    special = Community.special
+    if special.nil? 
+      special = Community.create(:name => $SPECIAL_COMMUNITY_NAME,
+                                 :description => 'This is a special community for the curtors and admins of EOL.',
+                                 :show_special_privileges => 1)
+      special.add_default_roles
+    end
+    special_roles = {$ADMIN_ROLE_NAME => 20, $CURATOR_ROLE_NAME => 10, $ASSOCIATE_ROLE_NAME => 1}
+    special_roles.keys.each do |key|
+      role = Role.find(:first, :conditions => ['title = ? and community_id = ?', key, special.id])
+      role ||= Role.create(:community_id => special.id, :title => key)
+      role.privileges = Privilege.find(:all, :conditions => ["level <= ? and special = ?", special_roles[key], true])
+    end
+  end
+
   def special?
     show_special_privileges > 0
   end

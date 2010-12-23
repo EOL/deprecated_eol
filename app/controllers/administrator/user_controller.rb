@@ -44,15 +44,15 @@ class Administrator::UserController  < AdminController
         :order=>'created_at desc')
       report = StringIO.new
       CSV::Writer.generate(report, ',') do |title|
-          title << ['Id', 'Username', 'Name', 'Email','Registered Date','Mailings?']
+          title << ['Id', 'Username', 'Name', 'Email', 'Registered Date', 'Mailings?']
           @users.each do |u|
             created_at = ''
             created_at=u.created_at.strftime("%m/%d/%y - %I:%M %p %Z") unless u.created_at.blank?
-            title << [u.id,u.username,u.full_name,u.email,created_at,u.mailing_list]       
+            title << [u.id, u.username, u.full_name, u.email, created_at, u.mailing_list]       
           end
        end
        report.rewind
-       send_data(report.read,:type=>'text/csv; charset=iso-8859-1; header=present',:filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')
+       send_data(report.read, :type=>'text/csv; charset=iso-8859-1; header=present', :filename => 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv', :disposition =>'attachment', :encoding => 'utf8')
        return false
     end
 
@@ -67,7 +67,7 @@ class Administrator::UserController  < AdminController
        search_string_parameter,
        search_string_parameter,
        search_string_parameter],
-      :order=>'created_at desc',:page => params[:page])
+      :order=>'created_at desc', :page => params[:page])
 
       
     @user_count = User.count(
@@ -101,13 +101,13 @@ class Administrator::UserController  < AdminController
     @user=User.create_new(params[:user])
     @message=params[:message]
 
-    Notifier.deliver_user_message(@user.full_name,@user.email,@message) unless @message.blank?
+    Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
     
     @user.password=@user.entered_password
     params[:user][:role_ids] ||= []
     
     if @user.save
-      @user.set_curator(EOLConvert.to_boolean(params[:user][:curator_approved]),current_user)
+      @user.approve_to_curate_by_user(EOLConvert.to_boolean(params[:user][:curator_approved]), current_user)
       flash[:notice] = "The new user was created."
       redirect_back_or_default(url_for(:action=>'index'))
     else
@@ -121,7 +121,7 @@ class Administrator::UserController  < AdminController
    @user = User.find(params[:id])  
    @message=params[:message]
   
-   Notifier.deliver_user_message(@user.full_name,@user.email,@message) unless @message.blank?
+   Notifier.deliver_user_message(@user.full_name, @user.email, @message) unless @message.blank?
   
    user_params=params[:user]
        
@@ -138,7 +138,7 @@ class Administrator::UserController  < AdminController
       if params[:curator_denied]
         @user.clear_curatorship(current_user)
       else
-        @user.set_curator(EOLConvert.to_boolean(user_params[:curator_approved]),current_user)
+        @user.approve_to_curate_by_user(EOLConvert.to_boolean(user_params[:curator_approved]), current_user)
       end
       flash[:notice] = "The user was updated."
       redirect_back_or_default(url_for(:action=>'index'))
@@ -160,16 +160,14 @@ class Administrator::UserController  < AdminController
  end
  
   def toggle_curator
-    
     @user = User.find(params[:id])
-    @user.set_curator(!params[:curator_approved].nil?,current_user)
+    @user.approve_to_curate_by_user(!params[:curator_approved].nil?, current_user)
     @user.save!
-  
   end
 
   def clear_curatorship
     user = User.find(params[:id])
-    user.clear_curatorship(current_user,params[:notes])
+    user.clear_curatorship(current_user, params[:notes])
     user.save!
   end
   
@@ -189,7 +187,7 @@ class Administrator::UserController  < AdminController
     @user_id=params[:user_id] || ''
     @user_list=User.users_with_activity_log    
     @activity_id=params[:activity_id] || 'All'
-    @activity_list=Activity.find(:all,:order=>'name')        
+    @activity_list=Activity.find(:all, :order=>'name')        
     page = params[:page] || 1
     @activities = ActivityLog.user_activity(@user_id, @activity_id, page)
   end

@@ -31,6 +31,8 @@ config.cache_store = :memory_store
 
 config.log_level = :debug # :error
 
+$PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base 
+
 $EXCEPTION_NOTIFY=false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
 $ENABLE_RECAPTCHA=false # set to true to enable recaptcha on registration and contact us form
 $ENABLE_ANALYTICS=false
@@ -40,8 +42,6 @@ $IP_ADDRESS_OF_SERVER='127.0.0.1'
 $SOLR_SERVER = 'http://localhost:8983/solr/taxon_concepts'
 $SOLR_SERVER_DATA_OBJECTS = 'http://localhost:8983/solr/data_objects'
 $SOLR_DIR    = File.join(RAILS_ROOT, 'solr', 'solr')
-
-$CRITICAL_MODEL_PARENT_CLASS = ActiveRecord::Base
 
 config.gem 'faker'
 config.gem "remi-rspec-custom-matchers", :lib => false

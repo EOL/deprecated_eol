@@ -124,6 +124,14 @@ module LocationHelpers
       [:css, ".untrust_reason"]
     when 'untrusted radio button'
       [:css, "#vetted_id_" + Vetted.untrusted.id.to_s]
+    when 'misidentified untrust reason checkbox'
+      [:css, "#untrust_reason_misidentified"]
+    when 'other untrust reason checkbox'
+      [:css, "#untrust_reason_other"]
+    when 'trusted main image'
+      [:css, ".main-image-bg, .trusted"]
+    when 'untrusted main image'
+      [:css, ".main-image-bg, .untrusted"]
     else
       [:css, selector]
     end

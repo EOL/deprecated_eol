@@ -1,4 +1,12 @@
 def cleanup_database
+  curator = User.find_by_username('cucumber_curator')
+  if curator
+    # tables = User.connection.execute("select distinct table_name from information_schema.columns where table_schema = '#{User.connection.config[:database]}' and column_name = 'user_id'")
+  tables = ["actions_histories", "comments", "contacts", "content_uploads", "last_curated_dates", "user_ignored_data_objects", "user_infos", "users_data_objects", "users_data_objects_ratings"]
+    tables.each do |table|
+      User.connection.execute("delete from #{table} where user_id = #{curator.id}")
+    end
+  end
   User.connection.execute("delete from users where username = 'cucumber_member' or username = 'cucumber_curator'")
 end
 

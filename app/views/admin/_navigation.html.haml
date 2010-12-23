@@ -1,7 +1,7 @@
 %ul#toc{ :style => "list-style:none;margin-left:-25px;padding-left:-25px;" }
   %li
     = link_to 'admin home', {:controller => '/admin', :action => 'index'}, {:class=>'toc_item active'}
-  - restrict_to "(Administrator - Site CMS) & !blacklist" do
+  - if current_user.special.can? Privilege.site_cms
     %h3
       Site CMS
     %li
@@ -12,15 +12,14 @@
       = link_to 'edit search suggestions',{:controller=>'administrator/search_suggestion', :action=>'index'}, {:class=>'toc_item active'}
     %li
       = link_to 'edit EOL glossary',{:controller=>'administrator/glossary', :action=>'index'}, {:class=>'toc_item active'}
-  - restrict_to "(Administrator - News Items) & !blacklist" do
     %li
       = link_to 'edit table of contents',{:controller=>'administrator/table_of_contents', :action=>'index'}, {:class=>'toc_item active'}
-  - restrict_to "(Administrator - News Items) & !blacklist" do
+  - if current_user.special.can? Privilege.news_items
     %h3
       News Items
     %li
       = link_to 'edit news items',{:controller=>'administrator/news_item',:action=>'index'}, {:class=>'toc_item active'}
-  - restrict_to "(Administrator - Comments and Tags) & !blacklist" do
+  - if current_user.special.can? Privilege.comments_and_tags
     %h3
       Comments and Tags
     %li
@@ -32,21 +31,21 @@
     %li
       = link_to 'view user activity', {:controller => 'administrator/user', :action => 'view_user_activity'}, {:class=>'toc_item active'}
 
-  - restrict_to "(Administrator - Web Users) & !blacklist" do
+  - if current_user.special.can? Privilege.web_users
     %h3
       Web Users
     %li
       = link_to 'edit web users',{:controller=>'administrator/user', :action=>'index'}, {:class=>'toc_item active'}
     %li
       = link_to 'view curators',{:controller=>'administrator/curator', :action=>'index'}, {:class=>'toc_item active'}
-  - restrict_to "(Administrator - Contact Us Submissions) & !blacklist" do
+  - if current_user.special.can? Privilege.contact_us_submissions
     %h3
       Contact Us Functions
     %li
       = link_to 'edit contact us topics',{:controller=>'administrator/contact_subject', :action=>'index'}, {:class=>'toc_item active'}
     %li
       = link_to 'view contact us submissions', {:controller => 'administrator/contact', :action => 'index'}, {:class=>'toc_item active'}
-  - restrict_to "(Administrator - Technical) & !blacklist" do
+  - if current_user.special.can? Privilege.technical
     %h3
       Technical Functions
     %li
@@ -55,7 +54,7 @@
       = link_to 'view error log', {:controller => 'administrator/error_log', :action => 'index'}, {:class=>'toc_item active'}
     %li
       = link_to 'add new user roles',{:controller=>'administrator/role', :action=>'index'}, {:class=>'toc_item active'}
-  - restrict_to "(Administrator - Content Partners) & !blacklist" do
+  - if current_user.special.can? Privilege.content_partners
     %h3
       Content Partners
     %li
@@ -64,15 +63,13 @@
       = link_to 'content partner hierarchies', {:controller => 'administrator/hierarchy', :action => 'index'}, {:class=>'toc_item active'}
     %li
       = link_to 'monthly notification', {:controller => 'administrator/content_partner_report', :action => 'monthly_stats_email'}, {:class => 'toc_item active', :confirm => "Send email notification to all content partners \n about the availability of the latest monthly web stats"}
-  - restrict_to "(Administrator - Usage Reports) & !blacklist" do
-
+  - if current_user.special.can? Privilege.usage_reports
     %li
       = link_to 'monthly published partners', {:controller => 'administrator/content_partner_report', :action => 'report_monthly_published_partners'}, {:class=>'toc_item active'}
     %li
       = link_to 'content partner curated data', {:controller => 'administrator/content_partner_report', :action => 'report_partner_curated_data'}, {:class=>'toc_item active'}
     %li
       = link_to 'content partner objects stats', {:controller => 'administrator/content_partner_report', :action => 'report_partner_objects_stats'}, {:class=>'toc_item active'}
-
 
     %h3
       Statistics
@@ -88,8 +85,6 @@
       = link_to 'SPM category - objects count', {:controller => 'administrator/stats', :action => 'SPM_objects_count'}, {:class=>'toc_item active'}
     %li
       = link_to 'SPM category - partner count', {:controller => 'administrator/stats', :action => 'SPM_partners_count'}, {:class=>'toc_item active'}
-
-
 
     %h3
       Data Usage Reports

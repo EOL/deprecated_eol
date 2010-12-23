@@ -4,7 +4,7 @@ class Administrator::UserController  < AdminController
 
   before_filter :set_layout_variables
 
-  access_control :DEFAULT => 'Administrator - Web Users'
+  access_control Privilege.web_users
 
   def index
 

@@ -6,7 +6,7 @@ class Administrator::SearchLogsController < AdminController
 
   helper :resources
 
-  access_control :DEFAULT => 'Administrator - Usage Reports'
+  access_control Privilege.usage_reports
 
   def index
     @page_title = 'Search Term Reports'

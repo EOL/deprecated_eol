@@ -8,7 +8,7 @@ class Administrator::GlossaryController < AdminController
 
   before_filter :set_layout_variables
   
-  access_control :DEFAULT => 'Administrator - Site CMS'
+  access_control Privilege.site_cms
   
   def index
     @page = params[:page] || '1'

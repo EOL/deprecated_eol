@@ -7,8 +7,7 @@ class TaxaController < ApplicationController
   def index
     # you need to be a content partner OR ADMIN and logged in to get here
     if current_agent.nil? && !current_user.is_admin?
-      redirect_to(root_url)
-      return
+      return redirect_to(root_url)
     end
 
     if params[:harvest_event_id] && params[:harvest_event_id].to_i > 0
@@ -89,10 +88,12 @@ class TaxaController < ApplicationController
     @hierarchies_to_offer << @session_hierarchy
     @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.form_label}
 
-    redirect_to(params.merge(:controller => 'taxa',
-                             :action => 'show',
-                             :id => @taxon_concept.id,
-                             :status => :moved_permanently)) if @taxon_concept.superceded_the_requested_id?
+    return redirect_to(
+      params.merge(:controller => 'taxa',
+                   :action => 'show',
+                   :id => @taxon_concept.id,
+                   :status => :moved_permanently)
+    ) if @taxon_concept.superceded_the_requested_id?
     current_user.log_activity(:viewed_taxon_concept, :taxon_concept_id => @taxon_concept.id)
 
     respond_to do |format|
@@ -161,8 +162,7 @@ class TaxaController < ApplicationController
     # if the user is logged in, they should be at the profile page
     if logged_in?
       if params[:from_taxa_page].blank?
-        redirect_to(profile_url)
-        return
+        return redirect_to(profile_url)
       else
         @user.update_attributes(params[:user])
         params[:from_taxa_page]

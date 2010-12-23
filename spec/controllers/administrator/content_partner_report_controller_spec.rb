@@ -12,7 +12,7 @@ describe Administrator::ContentPartnerReportController do
     # when
 
     admin = User.gen(:username => "admin", :password => "admin")
-    admin.roles = Role.find(:all, :conditions => 'title LIKE "Administrator%"')
+    admin.approve_to_administrate
     admin.save!
     session[:user] = admin
     session[:user_id] = admin.id

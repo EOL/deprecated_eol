@@ -16,12 +16,12 @@ class Privilege < ActiveRecord::Base
     list.sort_by {|p| p.name }
   end
 
-  def self.method_missing(name)
+  def self.method_missing(name, *args, &block)
     if KnownPrivileges.symbols.include? name
-      return true; cached_find(:sym, name.to_s)
+      cached_find(:sym, name.to_s)
+    else
+      super(name, *args, &block)
     end
   end
 
 end
-
-# if privileges.include? Privilege.admin { do_somehting }

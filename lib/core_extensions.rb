@@ -294,6 +294,7 @@ module ActiveRecord
       # least have it passed in when we needed it, so the code can change later if needed.
       def cached_find(field, value, options = {})
         cached("#{field}/#{value}", options) do
+          puts "++ find by #{field}, #{value.inspect}"
           send("find_by_#{field}", value)
         end
       end

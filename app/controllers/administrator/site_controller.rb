@@ -6,7 +6,7 @@ class Administrator::SiteController  < AdminController
 
   helper :resources
 
-  access_control :DEFAULT => 'Administrator - Technical'
+  access_control Privilege.technical
 
   def index
     @page_title = 'General Site Administration'

@@ -4,6 +4,8 @@ class Administrator::UserDataObjectController < AdminController
 
   before_filter :set_layout_variables
 
+  access_control Privilege.web_users
+
   def index
     @page_title = 'User Submitted Text' 
     @user_id=params[:user_id] || 'All'

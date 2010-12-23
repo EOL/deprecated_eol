@@ -6,4 +6,9 @@
   %h5= "Privileges"[]
   %ul
     - @privileges.each do |privilege|
-      = privilege.name
+      %li= privilege.name
+.members
+  %h5= "Members"[]
+  %ul
+    - @role.members.each do |member|
+      %li= member.user.username

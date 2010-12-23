@@ -8,7 +8,7 @@ describe 'Admin Pages' do
     # load_foundation_cache
     Capybara.reset_sessions!
     @user = User.gen(:username => 'ourtestadmin')
-    @user.roles = Role.find(:all, :conditions => 'title LIKE "Admin%"')
+    @user.approve_to_administrate
     @user.save!
   end
 

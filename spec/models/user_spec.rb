@@ -164,7 +164,7 @@ describe User do
     Role.gen(:title => 'Curator') rescue nil
     he = bogus_hierarchy_entry
     curator_user = User.gen(:curator_hierarchy_entry => he)
-    curator_user.roles << Role.curator
+    curator_user.approve_to_curate
     curator_user.save!
     curator_user.is_curator?.should be_true
     curator_user.clear_curatorship(User.gen, 'just because')

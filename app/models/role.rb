@@ -45,7 +45,7 @@ class Role < ActiveRecord::Base
   end
 
   def can?(priv)
-    privileges.include? priv
+    self.privileges.include? priv
   end
 
 end

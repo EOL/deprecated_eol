@@ -12,47 +12,51 @@ class Member < ActiveRecord::Base
   #TODO - named scopes for granted privileges and revoked privileges...
 
   def add_role(role)
-    roles << role unless roles.include? role
+    self.roles << role unless self.roles.include? role
   end
 
   def remove_role(role)
-    roles = roles.reject {|r| r.id == role.id }
+    self.roles = self.roles.reject {|r| r.id == role.id }
+  end
+
+  def has_role?(role)
+    self.roles.include? role
   end
 
   def assign_privileges(privs)
     privs.each do |priv|
-      member_privileges << MemberPrivilege.create(:member_id => id, :privilege_id => priv.id)
+      self.member_privileges << MemberPrivilege.create(:member_id => self.id, :privilege_id => priv.id)
     end
   end
 
   def revoke_privilege(priv)
-    if existing_priv = MemberPrivilege.find(['member_id = ? AND privilege_id = ? AND revoked = ?', id, priv.id, false])
+    if existing_priv = MemberPrivilege.find(['member_id = ? AND privilege_id = ? AND revoked = ?', self.id, priv.id, false])
       existing_priv.revoked = true
       existing_priv.save!
     elsif ! had_privilege_revoked(priv)
-      member_privileges << MemberPrivilege.create(:member_id => id, :privilege_id => priv.id, :revoked => true)
+      self.member_privileges << MemberPrivilege.create(:member_id => self.id, :privilege_id => priv.id, :revoked => true)
     end
   end
 
   # THIS IS SPECIFIC TO THE MEMBER (it excludes role privs).  If you want to check the member's roles too, use #can?
   # Chances are you want to use #can?...
   def has_privilege?(priv)
-    MemberPrivilege.existis?(['member_id = ? AND privilege_id = ? AND revoked = ?', id, priv.id, false])
+    MemberPrivilege.exists?(['member_id = ? AND privilege_id = ? AND revoked = ?', self.id, priv.id, false])
   end
 
   def had_privilege_revoked?(priv)
-    MemberPrivilege.existis?(['member_id = ? AND privilege_id = ? AND revoked = ?', id, priv.id, true])
+    MemberPrivilege.exists?(['member_id = ? AND privilege_id = ? AND revoked = ?', self.id, priv.id, true])
   end
 
   def can?(priv)
     return false if had_privilege_revoked?(priv)
     return true if has_privilege?(priv)
-    return roles.detect {|r| r.can?(priv) }
+    return self.roles.detect {|r| r.can?(priv) }
   end
 
   def all_sorted_privileges
-    privs = roles.map {|r| r.privileges}.flatten
-    member_privileges.each do |mp|
+    privs = self.roles.map {|r| r.privileges}.flatten
+    self.member_privileges.each do |mp|
       if mp.revoked?
         privs << mp.privilege unless mp.revoked?
       else

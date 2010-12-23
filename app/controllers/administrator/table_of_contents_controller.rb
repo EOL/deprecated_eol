@@ -3,7 +3,7 @@ class Administrator::TableOfContentsController < AdminController
   helper_method :current_agent, :agent_logged_in?
   layout :admin_unless_ajax
   
-  access_control :DEFAULT => 'Administrator - Site CMS'
+  access_control Privilege.site_cms
   
   def index
     @page_title = 'Table of Contents'

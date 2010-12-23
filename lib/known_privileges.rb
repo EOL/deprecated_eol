@@ -32,6 +32,7 @@ class KnownPrivileges
     'Usage Reports' => 15,
     'Comments and Tags' => 12,
     'Contact Us Submissions' => 12,
+    'View Admin Page' => 12,
     'Vet' => 10,
     'Trusted Author' => 10,
     'Show/Hide Comments' => 10,

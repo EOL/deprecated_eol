@@ -314,6 +314,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     can_curate? TaxonConcept.find(taxon_concept_id)
   end
 
+  def special
+    @special ||= member_of(Community.special)
+  end
+
   def approve_to_administrate
     grant_special_role(Role.administrator)
   end
@@ -335,15 +339,15 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   def grant_special_role(role)
     join_community(Community.special)
-    member_of(Community.special).add_role(role)
+    special.add_role(role)
   end
 
   def revoke_curatorship
     puts "++ revoke_curatorship"
     self.curator_hierarchy_entry = nil
     self.curator_approved = false
-    if member = member_of(Community.special)
-      member.remove_role(Role.curator)
+    if special
+      special.remove_role(Role.curator)
     end
   end
 
@@ -417,15 +421,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   def is_moderator?
-    member = member_of(Community.special)
-    return false if member.nil?
-    member.can?(Privilege.show_hide_comments)
+    return false if special.nil?
+    special.can?(Privilege.show_hide_comments)
   end
 
   def has_special_role?(role)
-    member = member_of(Community.special)
-    return false unless member
-    member.roles.include?(role)
+    return false unless special
+    special.roles.include?(role)
   end
 
   def is_admin?

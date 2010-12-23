@@ -3,7 +3,7 @@ ContentPage # TODO - figure out why this fails to autoload.  Look at http://kbal
 
 class ApplicationController < ActionController::Base
 
-  include ContentPartnerAuthenticationModule
+  include ContentPartnerAuthenticationModule # TODO -seriously?!?  You want all that cruft available to ALL controllers?!
 
   if $EXCEPTION_NOTIFY || $ERROR_LOGGING
     include ExceptionNotifiable
@@ -29,6 +29,20 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?, :current_url, :current_user, :return_to_url, :current_agent, :agent_logged_in?,
     :allow_page_to_be_cached?
   around_filter :set_current_language
+
+  # TODO - test
+  def self.access_control(rule)
+    before_filter do |c|
+      unless c.current_user.special && (rule.is_a?(Privilege) && c.current_user.special.can?(rule))
+        c.send(:access_denied) # You must send the method, otherwise flashes and redirects don't work.
+      end
+    end
+  end
+
+  def access_denied
+    flash[:warning] = "You are not authorized to perform this action."[]
+    return redirect_to(root_url)
+  end
 
   def view_helper_methods
     Helper.instance
@@ -363,14 +377,6 @@ class ApplicationController < ActionController::Base
     user.can_curate? tc
   end
   alias is_curator is_curator?
-
- def permission_denied
-   flash[:warning] = "You are not authorized to perform this action."[]
-   return redirect_to(root_url)
- end
-
- def permission_granted
- end
 
   # used as a before_filter on methods that you don't want users to see if they are logged in (such as the login or register page)
   def go_to_home_page_if_logged_in

@@ -15,6 +15,8 @@
 # Use a different logger for distributed setups
 # config.logger = SyslogLogger.new
 
+$PARENT_CLASS_MUST_USE_MASTER = ActiveReload::MasterDatabase
+
 # Full error reports are disabled and caching is turned on
 config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
@@ -34,7 +36,6 @@ config.after_initialize do
   ActiveReload::ConnectionProxy.setup_for ActiveReload::MasterDatabase, ActiveRecord::Base
   ActiveReload::ConnectionProxy.setup_for SpeciesSchemaWriter, SpeciesSchemaModel
   ActiveReload::ConnectionProxy.setup_for LoggingWriter, LoggingModel
-  $PARENT_CLASS_MUST_USE_MASTER = ActiveReload::MasterDatabase
 end
 $LOGGING_READ_FROM_MASTER = true
 

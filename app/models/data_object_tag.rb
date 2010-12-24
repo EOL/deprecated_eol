@@ -25,7 +25,7 @@ class DataObjectTag < ActiveRecord::Base
       if values.include?(',')
         values = values.split(',')
       elsif values.include?(' ')
-        values = value.split(' ')
+        values = values.split(' ')
       else
         values = [values]
       end

@@ -24,7 +24,7 @@ class AssignMembersToRoles < ActiveRecord::Migration
         if member
           new_role = Role.find(:first, :conditions => ["title = '#{new_title}' AND community_id = ?", Community.special.id])
           raise "Could not find a '#{new_title}' role in community #{Community.special.id}." unless new_role
-          member.grant_role(new_role)
+          member.add_role(new_role)
           @@completed_user_ids << user.id
         else
           puts "** WARNING: couldn't create a member for #{user.username}(#{user.id}) in community #{Community.special.name}."

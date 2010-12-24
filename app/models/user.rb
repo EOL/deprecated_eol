@@ -477,7 +477,9 @@ class User < parent_klass
       roles.delete(Role.curator) unless roles.blank?
     else # be sure they have the curator role set if they have a curator hierarchy entry set
       roles.reload
-      roles << Role.curator unless has_curator_role?
+      unless has_curator_role?
+        roles << Role.curator rescue nil # Sometimes... not sure why... this fails because it's already there.
+      end
     end
   end
 

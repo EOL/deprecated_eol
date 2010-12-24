@@ -71,7 +71,12 @@ class TaxaController < ApplicationController
       return
     end
 
-    @taxon_concept = find_taxon_concept || return
+    @taxon_concept = find_taxon_concept
+    return if taxon_concept_invalid?(@taxon_concept)
+    return redirect_to(params.merge(:controller => 'taxa',
+                                    :action => 'show',
+                                    :id => @taxon_concept.id,
+                                    :status => :moved_permanently)) if @taxon_concept.superceded_the_requested_id?
 
     if params[:category_id]
       params[:category_id] = nil if !TocItem.find_by_id(params[:category_id].to_i)
@@ -88,12 +93,6 @@ class TaxaController < ApplicationController
     @hierarchies_to_offer << @session_hierarchy
     @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.form_label}
 
-    return redirect_to(
-      params.merge(:controller => 'taxa',
-                   :action => 'show',
-                   :id => @taxon_concept.id,
-                   :status => :moved_permanently)
-    ) if @taxon_concept.superceded_the_requested_id?
     current_user.log_activity(:viewed_taxon_concept, :taxon_concept_id => @taxon_concept.id)
 
     respond_to do |format|
@@ -108,7 +107,8 @@ class TaxaController < ApplicationController
   end
 
   def classification_attribution
-    @taxon_concept = find_taxon_concept || return
+    @taxon_concept = find_taxon_concept
+    return if taxon_concept_invalid?(@taxon_concept)
     current_user.log_activity(:viewed_classification_attribution_on_taxon_concept, :taxon_concept_id => @taxon_concept.id)
     render :partial => 'classification_attribution', :locals => {:taxon_concept => @taxon_concept}
   end
@@ -227,7 +227,8 @@ class TaxaController < ApplicationController
   end
 
   def images
-    @taxon_concept = find_taxon_concept || return
+    @taxon_concept = find_taxon_concept
+    return if taxon_concept_invalid?(@taxon_concept)
     @taxon_concept.current_user = current_user
     @taxon_concept.current_agent = current_agent
     @image_page  = (params[:image_page] ||= 1).to_i
@@ -241,12 +242,14 @@ class TaxaController < ApplicationController
   end
 
   def maps
-    @taxon_concept = find_taxon_concept || return # I don't think we care about user/agent in this case.  A map is a map.
+    @taxon_concept = find_taxon_concept
+    return if taxon_concept_invalid?(@taxon_concept)
     render :partial => "maps"
   end
 
   def videos
-    @taxon_concept = find_taxon_concept || return
+    @taxon_concept = find_taxon_concept
+    return if taxon_concept_invalid?(@taxon_concept)
     @taxon_concept.current_user = current_user
     @taxon_concept.current_agent = current_agent
     @video_collection = videos_to_show
@@ -295,7 +298,8 @@ class TaxaController < ApplicationController
 
   # Ajax method to change the preferred name on a Taxon Concept:
   def update_common_names
-    tc = find_taxon_concept || return
+    tc = find_taxon_concept
+    return if taxon_concept_invalid?(tc)
     if tc.is_curatable_by?(current_user)
       if !params[:preferred_name_id].nil?
         name = Name.find(params[:preferred_name_id])
@@ -410,7 +414,8 @@ class TaxaController < ApplicationController
   def curators
     # if this is named taxon_concept then the RSS feeds will be added to the page
     # in Firefox those feeds are evaluated when the pages loads, so this should save some queries
-    @concept = find_taxon_concept || return
+    @concept = find_taxon_concept
+    return if taxon_concept_invalid?(@concept)
     @page_title = "Curators of #{@concept.title(@session_hierarchy)}"
     @curators = @concept.curators
     @curators.sort! do |a, b|
@@ -473,13 +478,14 @@ private
   def find_taxon_concept
     tc_id = params[:id].to_i
     tc_id = params[:taxon_concept_id].to_i if tc_id == 0
-    tc = nil
+    TaxonConcept.find(tc_id)
+  end
+
+  def taxon_concept_invalid?(tc)
     redirect_to_missing_page_on_error do
-      tc = TaxonConcept.find(tc_id)
       raise "TaxonConcept not found" if tc.nil?
       raise "Page not accessible" unless accessible_page?(tc)
     end
-    tc
   end
 
   def redirect_to_missing_page_on_error(&block)

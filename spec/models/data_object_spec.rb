@@ -74,36 +74,38 @@ describe DataObject do
     end
 
     it 'should set to untrusted' do
-      @data_object.curate(Vetted.untrusted.id, nil, @user)
+      @data_object.curate(@user, :vetted_id => Vetted.untrusted.id)
       @data_object.untrusted?.should eql(true)
     end
 
     it 'should set to trusted' do
-      @data_object.curate(Vetted.trusted.id, nil, @user)
+      @data_object.curate(@user, :vetted_id => Vetted.trusted.id)
       @data_object.trusted?.should eql(true)
     end
 
     it 'should set to untrusted and hidden' do
-      @data_object.curate(Vetted.untrusted.id, Visibility.invisible.id, @user)
+      @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visiblity_id => Visibility.invisible.id)
       @data_object.untrusted?.should eql(true)
       @data_object.invisible?.should eql(true)
     end
 
     it 'should set untrust reasons' do
-      @data_object.curate(Vetted.untrusted.id, Visibility.visible.id, @user, [UntrustReason.misidentified.id, UntrustReason.poor.id, UntrustReason.other.id])
+      @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :untrust_reason_ids => [UntrustReason.misidentified.id, UntrustReason.poor.id, UntrustReason.other.id])
       @data_object.untrust_reasons.length.should eql(3)
-      @data_object.curate(Vetted.untrusted.id, Visibility.visible.id, @user, [UntrustReason.misidentified.id, UntrustReason.poor.id])
+      @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id =>  Visibility.visible.id, :untrust_reason_ids => [UntrustReason.misidentified.id, UntrustReason.poor.id])
       @data_object = DataObject.find(@data_object.id)
       @data_object.untrust_reasons.length.should eql(2)
-      @data_object.curate(Vetted.trusted.id, Visibility.visible.id, @user)
+      @data_object.curate(@user, :vetted_id => Vetted.trusted.id, :visibility_id => Visibility.visible.id)
       @data_object = DataObject.find(@data_object.id)
       @data_object.untrust_reasons.length.should eql(0)
     end
 
     it 'should add comment when untrusting' do
       comment_count = @data_object.comments.length
-      @data_object.curate(Vetted.untrusted.id, Visibility.visible.id, @user, [], 'new comment')
-      @data_object.comments.length.should eql(comment_count+1)
+      @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :comment => 'new comment')
+      @data_object.comments.length.should eql(comment_count + 1)
+      @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :untrust_reasons_comment => 'comment generated from untrust reasons')
+      @data_object.comments.length.should eql(comment_count + 2)
     end
   end
 
@@ -429,7 +431,7 @@ describe DataObject do
       current_count = @num_lcd
       [Vetted.trusted.id, Vetted.untrusted.id].each do |vetted_method|
         [Visibility.invisible.id, Visibility.visible.id, Visibility.inappropriate.id].each do |visibility_method|
-          @data_object.curate vetted_method, visibility_method, @user
+          @data_object.curate(@user, :vetted_id => vetted_method, :visibility_id => visibility_method)
           LastCuratedDate.count.should == (current_count += 1)
         end
       end

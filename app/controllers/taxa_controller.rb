@@ -349,11 +349,13 @@ class TaxaController < ApplicationController
 
   def delete_common_name
     tc = TaxonConcept.find(params[:taxon_concept_id].to_i)
-    synonym_id = params[:synonym_id].to_i
+    synonym_ids = params[:synonym_ids].map {|s| s.to_i}.uniq
     category_id = params[:category_id].to_i
-    tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, tc.id)
-    tc.delete_common_name(tcn)
-    current_user.log_activity(:deleted_common_name, :taxon_concept_id => tc.id)
+    synonym_ids.each do |synonym_id|
+      tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, tc.id)
+      tc.delete_common_name(tcn)
+      current_user.log_activity(:deleted_common_name, :taxon_concept_id => tc.id)
+    end
     redirect_to "/pages/#{tc.id}?category_id=#{category_id}"
   end
 

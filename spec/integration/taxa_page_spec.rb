@@ -1,6 +1,16 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'nokogiri'
 
+class TaxonConcept
+  def self.missing_id
+    missing_id = TaxonConcept.last.id + 1
+    while(TaxonConcept.exists?(missing_id)) do
+      missing_id += 1
+    end
+    missing_id
+  end
+end
+
 def find_unique_tc(options)
   options[:in].hierarchy_entries.each do |entry|
     return entry.taxon_concept unless entry.taxon_concept.in_hierarchy?(options[:not_in])
@@ -155,12 +165,7 @@ describe 'Taxa page (HTML)' do
     end
   
     it 'should tell the user the page is missing if the page is... uhhh... missing' do
-      missing_id = TaxonConcept.last.id + 1
-      while(TaxonConcept.exists?(missing_id)) do
-        missing_id += 1
-      end
-      visit("/pages/#{missing_id}")
-      body.should have_tag('h1', :text => 'Sorry, the page you have requested does not exist.')
+      visit("/pages/#{TaxonConcept.missing_id}")
     end
   
     it 'should tell the user the page is missing if the TaxonConcept is unpublished' do

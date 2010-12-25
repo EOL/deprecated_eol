@@ -46,7 +46,11 @@ namespace :spec do
   end
 end
 
-require 'metric_fu' rescue nil
+begin
+  require 'metric_fu'
+rescue LoadError
+  puts "++ You may want to 'gem install metric_fu' for additional metric functionality."
+end
 
 if defined?(MetricFu)
   MetricFu::Configuration.run do |config|

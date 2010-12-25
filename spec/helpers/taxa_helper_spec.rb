@@ -19,7 +19,7 @@ def add_preferred_to_name(name, preferred)
 end
 
 def add_synonym_to_name(name, synonym)
-  name[:synonym_id] = synonym.id
+  name[:synonym_ids] = [synonym.id]
 end
 
 def add_agent_to_name(name, agent)
@@ -41,7 +41,7 @@ end
 
 def expected_hash_from_name(name)
   {:string     => name.string,
-   :synonym_id => name.synonym_id,
+   :synonym_ids => name.synonym_ids,
    :preferred  => name.preferred == '1',
    :id         => name.id,
    :sources    => name.sources}

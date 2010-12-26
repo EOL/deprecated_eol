@@ -3,12 +3,14 @@
     = "Contribute"[]
   #contribute-info.popup{:style => "display:none;width:227px;margin-bottom:1em;"}
   - all_curators = @taxon_concept.curators.size
-  - if all_curators > 0
-    .total_number_of_curators
-      %a{ :href => page_curators_path(@taxon_concept.id)}
-        This page has
-        = all_curators
-        == total curator#{all_curators == 1 ? "." : "s."}
+  /
+    -# THE FOLLOWING WAS REMOVED FOR THE RELEASE:
+    - if all_curators > 0
+      .total_number_of_curators
+        %a{ :href => page_curators_path(@taxon_concept.id)}
+          This page has
+          = all_curators
+          == total curator#{all_curators == 1 ? "." : "s."}
   - act_curators_size = @taxon_concept.acting_curators.size
   - if act_curators_size > 0
     .number_of_active_curators

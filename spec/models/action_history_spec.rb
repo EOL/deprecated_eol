@@ -27,7 +27,7 @@ describe ActionsHistory do
                  :untrust_reasons => untrust_reasons,
                  :taxon_concept_id => @taxon_concept.id,
                  :visibility_id => Visibility.invisible.id }
-      @dato_image.curate params[:vetted_id], params[:visibility_id], @user, params[:untrust_reasons], params[:comment], params[:taxon_concept_id]
+      @dato_image.curate(@user, :vetted_id =>  params[:vetted_id], :visibility_id => params[:visibility_id], :untrust_reason_ids => params[:untrust_reasons], :comment => params[:comment], :taxon_concept_id => params[:taxon_concept_id])
       
       ah = ActionsHistory.find_by_user_id_and_object_id_and_action_with_object_id(@user.id, @dato_image.id, ActionWithObject.untrusted.id, :include => [:comment, :untrust_reasons])
       ah.should_not == nil
@@ -44,7 +44,7 @@ describe ActionsHistory do
       current_count = ActionsHistory.count
       [Vetted.trusted.id, Vetted.untrusted.id].each do |vetted_method|
         [Visibility.invisible.id, Visibility.visible.id, Visibility.inappropriate.id].each do |visibility_method|
-          @dato_image.curate vetted_method, visibility_method, @user
+          @dato_image.curate(@user, :vetted_id => vetted_method, :visibility_id => visibility_method)
           ActionsHistory.count.should == (current_count += 2)
         end
       end

@@ -398,7 +398,7 @@ TaxonConcept.class_eval do
     if options[:vetted]
       curator = self.curators.first
       curator ||= User.first
-      dato.curate(Vetted.trusted.id, nil, curator)
+      dato.curate(curator, :vetted_id => Vetted.trusted.id)
     end
     return dato
   end

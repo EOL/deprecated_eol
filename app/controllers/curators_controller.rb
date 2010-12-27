@@ -59,30 +59,18 @@ class CuratorsController < ApplicationController
   end
 
   def trust
-    @data_object = DataObject.find(params[:data_object_id])
-    @data_object.curate(current_user, :vetted_id => Vetted.trusted.id)
-    @div_id = params[:div_id]
-    respond_to do |fmt|
-      fmt.js
-    end
+    curate(Vetted.trusted.id)
+    respond_to { |format| format.js }
   end
 
   def untrust
-    @data_object = DataObject.find(params[:data_object_id])
-    @data_object.curate(current_user, :vetted_id => Vetted.untrusted.id)
-    @div_id = params[:div_id]
-    respond_to do |fmt|
-      fmt.js
-    end
+    curate(Vetted.untrusted.id)
+    respond_to { |format| format.js }
   end
 
   def unreviewed
-    @data_object = DataObject.find(params[:data_object_id])
-    @data_object.curate(current_user, :vetted_id => Vetted.unknown.id)
-    @div_id = params[:div_id]
-    respond_to do |fmt|
-      fmt.js
-    end
+    curate(Vetted.unknown.id)
+    respond_to { |format| format.js }
   end
 
   def update_reasons
@@ -151,4 +139,11 @@ private
     all_published_resources = agents.empty? ? [] : ContentPartner.find_by_sql("SELECT cp.id, a.full_name FROM content_partners cp JOIN agents a ON cp.agent_id = a.id WHERE a.id IN (#{agents})").collect{|cp| [cp['full_name'], cp.id]}.sort{|a,b| a[0].downcase<=>b[0].downcase}
     @published_resources = all_published_resources
   end
+
+  def curate(vetted_id)
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object.curate(current_user, :vetted_id => vetted_id)
+    @div_id = params[:div_id]
+  end
+  
 end

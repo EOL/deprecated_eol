@@ -23,7 +23,8 @@
         .option.untrust
           = radio_button_tag 'vetted_id', Vetted.untrusted.id.to_s, @data_object.untrusted?
           %label{:for => 'vetted_id_' + Vetted.untrusted.id.to_s} Untrusted
-          = render :partial => 'untrust_reasons', :locals => { :data_object => @data_object }
+          - div_style = @data_object.untrusted? ? '' :  'display:none;'
+          = render :partial => 'untrust_reasons', :locals => { :data_object => @data_object, :div_style => div_style }
     .curation-section
       .label
         = "Comment"[]

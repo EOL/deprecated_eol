@@ -118,6 +118,10 @@ div.content-wrap {
   .action-value span {
     font-weight: bold; }
 
+#content #page-content label {
+  display: inline;
+  font-weight: normal; }
+
 .results_table .comment_button {
   float: right !important;
   position: relative;

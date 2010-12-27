@@ -32,9 +32,10 @@
     = link_to_remote("Set to Trusted"[], :url => {:action => :trust, :data_object_id => data_object['id'], :div_id => "trust-label-#{data_object['id']}"}, :html_options => {:id => 'trust'})
     %br/
     = link_to_remote("Set to Untrusted"[], :url => {:action => :untrust, :data_object_id => data_object['id'], :div_id => "trust-label-#{data_object['id']}"}, :html_options => {:id => 'untrust'})
-    %form.untrust_reasons{:action => '/curators/update_reasons', :id => "untrust_reasons_#{data_object['id']}"}
-      = hidden_field_tag 'data_object_id', data_object['id']
-      / = render :partial => 'data_objects/untrust_reasons', :locals => { :data_object => data_object }
+    - dato = DataObject.new(:guid => data_object['guid'])
+    - dato.id = data_object['id']
+    - div_style = 'display:none;'
+    = render :partial => 'data_objects/untrust_reasons', :locals => { :data_object => dato, :div_style => div_style }
 .curation-section
   .credit-caption
     = "Visibility"[]

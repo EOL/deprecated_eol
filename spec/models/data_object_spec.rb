@@ -543,4 +543,10 @@ describe DataObject do
     end
 
   end
+
+  it 'should delegate #cache_path to ContentServer' do
+    ContentServer.should_receive(:cache_path).with(:foo, :bar).and_return(:worked)
+    DataObject.cache_path(:foo, :bar).should == :worked
+  end
+
 end

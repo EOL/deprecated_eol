@@ -423,6 +423,14 @@ Factory.define :content_section do |cs|
   cs.language_key 'en'
 end
 
+Factory.define :content_upload do |cu|
+  cu.association :user
+  cu.link_name { Factory.next(:string).gsub(/\W/, '_') }
+  cu.description 'something cool.'
+  cu.attachment_file_name { |c| c.link_name }
+  cu.attachment_extension '.jpg'
+end
+
 Factory.define :curator_activity do |ca|
   ca.code { Factory.next(:string) }
 end

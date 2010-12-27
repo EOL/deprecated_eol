@@ -20,15 +20,15 @@ class ContentUpload < ActiveRecord::Base
   def attachment_url # friendly_url, uses the content controller, file method
     "/content/file/#{self.link_name}"    
   end
-  
+
+  def ext
+    e = self.attributes['attachment_extension'].downcase
+    return ".jpg" if e == '.jpeg'
+    return e
+  end
+
   def content_server_url # url on content server
-    prefix=self.attributes['attachment_cache_url']
-    if prefix.blank?
-       #self.attachment.url # this is the "paperclip" plugin attached file, but it might only be on one of the application servers
-       result="/images/blank.gif"
-    else    
-       result=(ContentServer.next + $CONTENT_SERVER_CONTENT_PATH + prefix.to_s.gsub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/, "/\\1/\\2/\\3/\\4/\\5") + self.attributes['attachment_extension'])
-    end
+    ContentServer.uploaded_content_url(self.attributes['attachment_cache_url'], self.ext)
   end
   
 end

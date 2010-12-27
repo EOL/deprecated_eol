@@ -184,23 +184,23 @@ class Agent < SpeciesSchemaModel
 
   def self.published_agent(year, month, page)      
     query="
-    Select distinct agents.full_name, agents.id
-    From agents
-    Join agents_resources ON agents.id = agents_resources.agent_id
-    Join resources ON agents_resources.resource_id = resources.id
-    Join harvest_events ON resources.id = harvest_events.resource_id
-    where harvest_events.published_at is not null
-    and year(harvest_events.published_at) = ?
-    and month(harvest_events.published_at) = ?
-    and agents.id not in 
-    ( Select distinct agents.id From agents
-      Join agents_resources ON agents.id = agents_resources.agent_id
-      Join harvest_events ON agents_resources.resource_id = harvest_events.resource_id
-      where
-      harvest_events.published_at < '#{year}-#{month}-01'
-      and harvest_events.published_at is not null
-    )
-    order by agents.full_name, harvest_events.id desc     
+      SELECT DISTINCT agents.full_name, agents.id
+      FROM agents
+        JOIN agents_resources ON agents.id = agents_resources.agent_id
+        JOIN resources ON agents_resources.resource_id = resources.id
+        JOIN harvest_events ON resources.id = harvest_events.resource_id
+      WHERE harvest_events.published_at is not null
+        AND year(harvest_events.published_at) = ?
+        AND month(harvest_events.published_at) = ?
+        AND agents.id not in 
+          ( SELECT DISTINCT agents.id
+            FROM agents
+              JOIN agents_resources ON agents.id = agents_resources.agent_id
+              JOIN harvest_events ON agents_resources.resource_id = harvest_events.resource_id
+            WHERE harvest_events.published_at < '#{year.to_i}-#{sprintf "%02i", month}-01'
+              AND harvest_events.published_at IS NOT null
+          )
+      ORDER BY agents.full_name, harvest_events.id DESC     
     "      
     self.paginate_by_sql [query, year, month], :page => page, :per_page => 50 , :order => 'full_name'    
    end  
@@ -211,30 +211,15 @@ class Agent < SpeciesSchemaModel
 
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large')
-    prefix = self.attributes['logo_cache_url']
-    if prefix.blank?
-       #self.logo.url # this is the "paperclip" plugin attached image, but it might only be on one of the application servers
-       result = "/images/blank.gif"
-    else    
-       logo_size = (size == "large") ? "_large.png" : "_small.png"
-       result = "#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
-    end
+    ContentServer.agent_logo_path(self.attributes['logo_cache_url'], logo_size)
   end
 
   def self.logo_url_from_cache_url(logo_cache_url, size = 'large')
-    prefix = logo_cache_url
-    if prefix.blank?
-       #self.logo.url # this is the "paperclip" plugin attached image, but it might only be on one of the application servers
-       result = "/images/blank.gif"
-    else    
-       logo_size = (size == "large") ? "_large.png" : "_small.png"
-       result = "#{ContentServer.next}" + $CONTENT_SERVER_AGENT_LOGOS_PATH + "#{prefix.to_s + logo_size}"
-    end
+    ContentServer.agent_logo_path(logo_cache_url, logo_size)
   end
 
-
   def node_xml
-    xml = "\t\t<agent>\n";
+    xml  = "\t\t<agent>\n";
     xml += "\t\t\t<agentName>#{display_name || full_name}</agentName>\n";
     xml += "\t\t\t<agentHomepage>#{homepage}</agentHomepage>\n";
     xml += "\t\t\t<icon></icon>\n";

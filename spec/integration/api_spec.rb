@@ -247,7 +247,7 @@ describe 'EOL APIs' do
       body.should include '</html>'
       body.should match /<title>\s*EOL API:\s*#{@taxon_concept.entry.name_object.string}/
       body.should include @object.description
-      body.should include DataObject.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
+      body.should include ContentServer.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
     end
       
     it 'should be able to toggle common names' do

@@ -402,12 +402,9 @@ class DataObject < SpeciesSchemaModel
     return DataType.video_type_ids.include?(data_type_id)
   end
 
-  def self.cache_path(cache_url, subdir = $CONTENT_SERVER_CONTENT_PATH)
-    (ContentServer.next + subdir + cache_url_to_path(cache_url))
-  end
-
-  def self.cache_url_to_path(cache_url)
-    cache_url.to_s.gsub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/, "/\\1/\\2/\\3/\\4/\\5")
+  # Convenience.  TODO - Stop calling this.  Use ContentServer directly.
+  def self.cache_path(cache_url, subdir)
+    ContentServer.cache_path(cache_url, subdir)
   end
 
   def self.image_cache_path(cache_url, size = :large, subdir = $CONTENT_SERVER_CONTENT_PATH)

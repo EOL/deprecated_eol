@@ -129,9 +129,9 @@ module LocationHelpers
     when 'other untrust reason checkbox'
       [:css, "#untrust_reason_other"]
     when 'trusted main image'
-      [:css, ".main-image-bg, .trusted"]
+      [:css, ".main-image-bg.trusted"]
     when 'untrusted main image'
-      [:css, ".main-image-bg, .untrusted"]
+      [:css, ".main-image-bg.untrusted"]
     else
       [:css, selector]
     end

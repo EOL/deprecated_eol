@@ -487,7 +487,12 @@ module ApplicationHelper
     capture_haml do
       haml_tag a_tag do
         if taxon_concept.published?
-          haml_concat link_to(taxon_concept.scientific_name, taxon_concept, :popup => !!opts[:popup])
+          if opts[:dato_type].nil?
+            haml_concat link_to(taxon_concept.scientific_name, taxon_concept, :popup => !!opts[:popup])
+          else
+            options = { :"#{opts[:dato_type]}_id" => opts[:dato_id] }
+            haml_concat link_to(taxon_concept.scientific_name, taxon_concept_path(taxon_concept.id, options), :popup => !!opts[:popup])
+          end
         else
           haml_concat "associated with a deprecated_page: '#{taxon_concept.scientific_name}'"
         end

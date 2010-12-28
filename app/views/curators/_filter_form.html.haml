@@ -1,6 +1,6 @@
 - form_tag do
   = hidden_field_tag :hierarchy_entry_id, params[:hierarchy_entry_id]
-  = select_tag :content_partner_id, options_for_select([['All sources', nil]] + ContentPartner.find_by_sql("SELECT cp.id, a.full_name FROM content_partners cp JOIN agents a ON cp.agent_id = a.id").collect{|cp| [cp['full_name'], cp.id]}.sort{|a,b| a[0].downcase<=>b[0].downcase}, params[:content_partner_id].to_i)
+  = select_tag :content_partner_id, options_for_select([['All sources', nil]] + @published_resources, params[:content_partner_id].to_i)
   - selected = params[:vetted_id] == 'all' ? params[:vetted_id] : params[:vetted_id].to_i
   = select_tag :vetted_id, options_for_select([['All states', 'all']] + Vetted.all.collect{|v| [ v.label, v.id ] }, selected)
   = submit_tag 'Submit'

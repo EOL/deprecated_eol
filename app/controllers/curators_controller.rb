@@ -23,6 +23,7 @@ class CuratorsController < ApplicationController
   # have a link (for curators), using "an appropriate clade" for the hierarchy_entry_id.
   def curate_images
     @page_title += ": Curate Images"
+    published_resources
     session['curate_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
     session['curate_images_hierarchy_entry_id'] = nil if session['curate_images_hierarchy_entry_id'].blank?
     current_user.log_activity(:viewed_images_to_curate)

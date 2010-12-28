@@ -1,51 +1,59 @@
-%table.results_table
-  %tr
-    %th
-      Ignored image
-    %th{ :width => 368 }
-      Actions
-  - @ignored_images.each do |image|
-    %tr{ :id => "undo-move-#{image['id']}", :class => 'hide ' + image['vetted_label'].downcase }
-      %td{ :colspan => 2 }
-        You moved the image to 
-        = link_to("your active list", {:controller => :curators, :action => :curate_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
-        = "&nbsp;" * 5
-        %a{ :class => "undo-restore-image" } Undo
-    %tr{ :id => "curation-item-#{image['id']}" }
-      %td{ :class => "overlay_link " + image['vetted_label'].downcase }
-        %h5
-          = link_to(image['scientific_name'], "/pages/" + image['taxon_concept_id'], :popup => true)
-        - if !image['common_names'].blank?
-          %h6
-            = image['common_names'][0]['name'].firstcap
-        = link_to(image_tag(DataObject.image_cache_path(image["object_cache_url"], :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
-        - unless image['created_at'].blank?
-          %em
-            = "Indexed on:"[]
-          = DateTime.parse(image['created_at']).strftime("%B %d, %Y") rescue "N/A"
-          %br
-        - unless image['agents'].empty?
-          %em
-            = "Supplier:"[]
-          = image['agents'][0]['full_name']
-          - unless image['agents'][1..-1].blank?
-            - for agent in image['agents'][1..-1]
-              %br
-              %em
-                = "#{agent['role']}:"
-              = agent['full_name']
-          %hr.thin
-        - unless image['description'].blank?
-          %h6
-            = "Description:"[]
-          = strip_tags(image['description'])
-        - unless image['location'].empty?
-          %h6
-            = "Location:"[]
-          = truncate(image['location'], 48)
-      %td{ :class => image['vetted_label'].downcase }
-        = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24, :ignored => true}
-#overlay.overlay_worklist{:style => 'display:none'}
-  .content-wrap
+- if @ignored_images.blank?
+  %hr.thin
+    - msg = "There is no ignored content for #{@name}, please select another vetting status and try again."
+    = msg
+- else
+  %hr.thin 
+    - msg = "Images are sorted by EOL import date, with newest items shown first."
+    = msg
+  %table.results_table
+    %tr
+      %th
+        Ignored image
+      %th{ :width => 368 }
+        Actions
+    - @ignored_images.each do |image|
+      %tr{ :id => "undo-move-#{image['id']}", :class => 'hide ' + image['vetted_label'].downcase }
+        %td{ :colspan => 2 }
+          You moved the image to 
+          = link_to("your active list", {:controller => :curators, :action => :curate_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
+          = "&nbsp;" * 5
+          %a{ :class => "undo-restore-image" } Undo
+      %tr{ :id => "curation-item-#{image['id']}" }
+        %td{ :class => "overlay_link " + image['vetted_label'].downcase }
+          %h5
+            = link_to(image['scientific_name'], "/pages/" + image['taxon_concept_id'], :popup => true)
+          - if !image['common_names'].blank?
+            %h6
+              = image['common_names'][0]['name'].firstcap
+          = link_to(image_tag(DataObject.image_cache_path(image["object_cache_url"], :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
+          - unless image['created_at'].blank?
+            %em
+              = "Indexed on:"[]
+            = DateTime.parse(image['created_at']).strftime("%B %d, %Y") rescue "N/A"
+            %br
+          - unless image['agents'].empty?
+            %em
+              = "Supplier:"[]
+            = image['agents'][0]['full_name']
+            - unless image['agents'][1..-1].blank?
+              - for agent in image['agents'][1..-1]
+                %br
+                %em
+                  = "#{agent['role']}:"
+                = agent['full_name']
+            %hr.thin
+          - unless image['description'].blank?
+            %h6
+              = "Description:"[]
+            = strip_tags(image['description'])
+          - unless image['location'].empty?
+            %h6
+              = "Location:"[]
+            = truncate(image['location'], 48)
+        %td{ :class => image['vetted_label'].downcase }
+          = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24, :ignored => true}
+  #overlay.overlay_worklist{:style => 'display:none'}
+    .content-wrap
 = javascript_include_tag 'curation_tools.js'
 = javascript_include_tag 'text-content.js'

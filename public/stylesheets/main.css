@@ -587,10 +587,10 @@ ul#tab_media_center {
 
 #untrusted-text-warning-box {
   margin-bottom: 1em;
-  border: 1px solid red;
-  border-left: 10px solid red;
+  border: 1px solid #ff9999;
+  border-left: 10px solid #ff9999;
   padding: 7px;
-  background-color: #ff9999;
+  background-color: #ffd9d9;
   margin-bottom: 1em; }
 
 #unknown-thumbnail-warning-box {
@@ -606,10 +606,10 @@ ul#tab_media_center {
 
 #untrusted-thumbnail-warning-box {
   padding: 2px;
-  border: 1px solid red;
-  border-left: 6px solid red;
+  border: 1px solid #ff9999;
+  border-left: 6px solid #ff9999;
   text-align: left;
-  background-color: #ff9999;
+  background-color: #ffd9d9;
   margin: 2px 0 2px 6px;
   width: 190px;
   top: 38px;
@@ -628,21 +628,21 @@ ul#tab_media_center {
 
 #untrusted-video-warning-box {
   padding: 2px;
-  border: 1px solid red;
-  border-left: 6px solid red;
+  border: 1px solid #ff9999;
+  border-left: 6px solid #ff9999;
   text-align: left;
-  background-color: #ff9999;
+  background-color: #ffd9d9;
   margin: 2px 0 2px 6px;
   width: 190px;
   top: 38px;
   left: 486px; }
 
 .untrusted-text {
-  border-top: 1px solid red;
+  border-top: 1px solid #ff9999;
   border-bottom: medium none;
   padding-top: 10px;
   padding-bottom: 10px;
-  background-color: #ff9999 !important;
+  background-color: #ffd9d9 !important;
   margin-bottom: 2em; }
 
 .unknown-text {
@@ -661,8 +661,8 @@ ul#tab_media_center {
   padding: 2px 2px 2px 2px; }
 
 .untrusted {
-  border: 1px solid red;
-  background-color: #ff9999 !important; }
+  border: 1px solid #ff9999;
+  background-color: #ffd9d9 !important; }
 
 .trusted {
   border: 1px solid white; }
@@ -675,7 +675,7 @@ ul#tab_media_center {
   background-color: #ffff99 !important; }
 
 .untrusted-video {
-  background-color: #ff9999 !important; }
+  background-color: #ffd9d9 !important; }
 
 #unvetted-page-warning-box {
   border-style: solid;
@@ -1029,7 +1029,7 @@ li.current_kingdom {
   border-right: 1px solid #e6e7e9;
   border-bottom: 1px solid #e6e7e9;
   border-left: 1px solid #e6e7e9;
-  background: #ff9999 !important;
+  background: #ffd9d9 !important;
   padding: 6px 6px 6px 12px;
   color: #666666; }
   #content #common_names_wrapper td.untrusted a {
@@ -1477,14 +1477,14 @@ a.footnote {
     border-right: 1px solid #e6e7e9;
     border-bottom: 1px solid #e6e7e9;
     border-left: 1px solid #e6e7e9;
-    background: #ff9999 !important;
+    background: #ffd9d9 !important;
     padding: 6px 6px 6px 12px;
     color: #666666; }
   .results_table td.even_untrusted {
     border-right: 1px solid #e6e7e9;
     border-bottom: 1px solid #e6e7e9;
     border-left: 1px solid #e6e7e9;
-    background: #ee7777 !important;
+    background: #f4a9a9 !important;
     padding: 6px 6px 6px 12px;
     color: #666666; }
 
@@ -2355,19 +2355,19 @@ a.gloss-tooltip {
     color: #666666;
     font-weight: bold; }
     .toc_editor td.major.reserved {
-      background: #ee7777; }
+      background: #f4a9a9; }
   .toc_editor td.major_ii {
     background: #f0f0f0;
     padding: 6px 6px 6px 12px;
     color: #666666; }
     .toc_editor td.major_ii.reserved {
-      background: #ee7777; }
+      background: #f4a9a9; }
   .toc_editor td.sub {
     background: white;
     padding: 6px 6px 6px 12px;
     color: #666666; }
     .toc_editor td.sub.reserved {
-      background: #ff9999; }
+      background: #ffd9d9; }
 
 .please_wait {
   background-color: #f6f6f6;

@@ -769,7 +769,7 @@ class TaxonConcept < SpeciesSchemaModel
     return @title unless @title.nil?
     hierarchy ||= Hierarchy.default
     title = quick_scientific_name(:italicized, hierarchy)
-    title = title.empty? ? name(:scientific) : title
+    title = title.blank? ? name(:scientific) : title
     @title = title.firstcap
   end
 

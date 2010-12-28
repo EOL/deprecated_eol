@@ -41,8 +41,7 @@
         %td{:class => cell2_class, :valign => 'top'}
           - unless toc.info_items.empty?
             - toc.info_items.each do |ii|
-              - if ii.schema_value.match(/SPMInfoItems/)
-                = ii.schema_value.gsub(/^.*(SPMInfoItems#)/, '\\1')
+              = ii.schema_value.gsub(/^.*?\.(.*?\..*?)\/.*\/(.*?#)/, '\\1 ... \\2')
               %br
         %td{:class => cell2_class, :valign => 'top'}
           = toc.object_count

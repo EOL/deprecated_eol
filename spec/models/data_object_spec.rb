@@ -84,7 +84,7 @@ describe DataObject do
     end
 
     it 'should set to untrusted and hidden' do
-      @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visiblity_id => Visibility.invisible.id)
+      @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.invisible.id)
       @data_object.untrusted?.should eql(true)
       @data_object.invisible?.should eql(true)
     end

@@ -22,7 +22,12 @@
       %tr{ :id => "curation-item-#{image['id']}" }
         %td{ :class => "overlay_link " + image['vetted_label'].downcase }
           %h5
-            = link_to(image['scientific_name'], "/pages/" + image['taxon_concept_id'], :popup => true)
+          - dato = DataObject.new(:guid => image['guid'])
+          - dato.id = image['id']
+          / - latest_published_dato = dato.latest_published_version
+          / - dato = latest_published_dato if  latest_published_dato
+          - taxon_concept = dato.taxon_concepts(:published => :preferred).first
+          = dato_taxon_concept_link(:h5, taxon_concept, :dato_type => "image", :"dato_id" => dato.id, :popup => true)
           - if !image['common_names'].blank?
             %h6
               = image['common_names'][0]['name'].firstcap

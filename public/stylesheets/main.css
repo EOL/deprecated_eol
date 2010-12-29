@@ -1089,6 +1089,9 @@ li.current_kingdom {
   #content #page-content .button input {
     margin-top: 15px;
     font-size: 16px; }
+#content #page-content .object_curation_box label {
+  display: inline;
+  font-weight: normal; }
 #content #page-content #full-page-content h1 {
   padding: 2px 0 2px 0;
   font-size: 18px;

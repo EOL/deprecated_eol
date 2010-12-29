@@ -1,5 +1,5 @@
-%h3
-  = link_to(@data_object.taxon_concepts[0].scientific_name, @data_object.taxon_concepts.first, :popup => true)
+- taxon_concept = @data_object.taxon_concepts(:published => :preferred)[0]
+= dato_taxon_concept_link(:h3, taxon_concept, :dato_type => "image", :"dato_id" => @data_object.id, :popup => true)
 %p
   %em
     = @data_object.taxon_concepts[0].common_name

@@ -26,9 +26,9 @@ class CuratorsController < ApplicationController
     published_resources
     session['curate_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
     session['curate_images_hierarchy_entry_id'] = nil if session['curate_images_hierarchy_entry_id'].blank?
-    @ctnt_ptnr = params[:content_partner_id].nil? ? '' : Agent.find_by_id(ContentPartner.find_by_id(params[:content_partner_id], :select=>'agent_id').agent_id, :select => 'full_name').full_name
-    @status = params[:vetted_id].nil? ? '' : Vetted.find_by_id(params[:vetted_id], :select => 'label').label
-    @name = params['hierarchy_entry_id'].nil? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
+    @ctnt_ptnr = params[:content_partner_id].blank? ? '' : Agent.find_by_id(ContentPartner.find_by_id(params[:content_partner_id], :select=>'agent_id').agent_id, :select => 'full_name').full_name
+    @status = params[:vetted_id].blank? ? '' : Vetted.find_by_id(params[:vetted_id], :select => 'label').label
+    @name = params['hierarchy_entry_id'].blank? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
     current_user.log_activity(:viewed_images_to_curate)
     all_images = current_user.images_to_curate(
       :content_partner_id => params[:content_partner_id],
@@ -51,7 +51,7 @@ class CuratorsController < ApplicationController
     @page_title += ": Ignored Images"
     session['ignored_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
     session['ignored_images_hierarchy_entry_id'] = nil if session['ignored_images_hierarchy_entry_id'].blank?
-    @name = params['hierarchy_entry_id'].nil? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
+    @name = params['hierarchy_entry_id'].blank? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
     all_images = current_user.ignored_data_objects(
       :hierarchy_entry_id => session['ignored_images_hierarchy_entry_id'], 
       :data_type_id => DataType.image.id)

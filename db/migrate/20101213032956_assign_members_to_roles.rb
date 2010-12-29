@@ -11,6 +11,7 @@ class AssignMembersToRoles < ActiveRecord::Migration
     # Yes, using 'like' universally is a little silly.  But it works and avoids more code we don't need in a migration.
     roles = Role.find(scope, :conditions => "title LIKE '#{old_title}' AND community_id IS NULL")
     roles = [roles] unless roles.is_a? Array
+    roles.compact!
     roles.each do |role|
       users = RolesUser.find_all_by_role_id(role.id).map {|ru| ru.user }
       users.each do |user|
@@ -38,7 +39,7 @@ class AssignMembersToRoles < ActiveRecord::Migration
     # that, since it's more likely this migration will be run on a pre-community version of the site.
     self.join_special_community(:first, $CURATOR_ROLE_NAME, 'Curator')
     self.join_special_community(:first, 'Moderator', 'Moderator')
-    self.join_special_community(:all, 'admin%', 'Admin')
+    self.join_special_community(:all, 'admin%', 'Administrator')
     Role.destroy_all('community_id IS NULL') # We don't want these any more.
     drop_table :roles_users
   end

@@ -1,57 +1,69 @@
 -# TODO - Add a selector to Narrow the list by Content Provider
 = render :partial => 'filter_form'
-= will_paginate(@images_to_curate, :params => params)
-%table.results_table
-  %tr
-    %th
-      Image
-    %th{ :width => 368 }
-      Actions
-  - @images_to_curate.each do |image|
-    %tr{ :id => "undo-move-#{image['id']}", :class => 'hide ' + image['vetted_label'].downcase }
-      %td{ :colspan => 2 }
-        You moved the image to 
-        = link_to("your ignored list", {:controller => :curators, :action => :ignored_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
-        = "&nbsp;" * 5
-        %a{ :class => "undo-ignore-image" } Undo
-    %tr{ :id => "curation-item-#{image['id']}" }
-      %td{ :class => "overlay_link " + image['vetted_label'].downcase }
-        .curation-item
-        %h5
-          = link_to(image['scientific_name'], "/pages/" + image['taxon_concept_id'], :popup => true)
-        - if !image['common_names'].blank?
-          %h6
-            = image['common_names'][0]['name'].firstcap
-        = link_to(image_tag(DataObject.image_cache_path(image["object_cache_url"], :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
-        - unless image['created_at'].blank?
-          %em
-            = "Indexed on:"[]
-          = DateTime.parse(image['created_at']).strftime("%B %d, %Y")
-          %br
-        - unless image['agents'].empty?
-          %em
-            = "Supplier:"[]
-          = image['agents'][0]['full_name']
-          - unless image['agents'][1..-1].blank?
-            - for agent in image['agents'][1..-1]
-              %br
-              %em
-                = "#{agent['role']}:"
-              = agent['full_name']
-          %hr.thin
-        - unless image['description'].blank?
-          %h6
-            = "Description:"[]
-          = strip_tags(image['description'])
-        - unless image['location'].empty?
-          %h6 
-            = "Location:"[]
-          = truncate(image['location'], 48)
-      %td{ :class => image['vetted_label'].downcase }
-        = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24}
-= will_paginate(@images_to_curate, :params => params)
-#overlay.overlay_worklist{:style => 'display:none'}
-  .content-wrap
+- if @images_to_curate.blank?
+  %hr.thin
+    - msg = "There is no #{@status} #{@ctnt_ptnr} content for #{@name}, please select another vetting status and try again."
+    = msg
+- else
+  %hr.thin 
+    - msg = "Images are sorted by EOL import date, with newest items shown first."
+    = msg
+  = will_paginate(@images_to_curate, :params => params)
+  %table.results_table
+    %tr
+      %th
+        Image
+      %th{ :width => 368 }
+        Actions
+    - @images_to_curate.each do |image|
+      %tr{ :id => "undo-move-#{image['id']}", :class => 'hide ' + image['vetted_label'].downcase }
+        %td{ :colspan => 2 }
+          You moved the image to 
+          = link_to("your ignored list", {:controller => :curators, :action => :ignored_images, :hierarchy_entry_id => params[:hierarchy_entry_id]}) + "."
+          = "&nbsp;" * 5
+          %a{ :class => "undo-ignore-image" } Undo
+      %tr{ :id => "curation-item-#{image['id']}" }
+        %td{ :class => "overlay_link " + image['vetted_label'].downcase }
+          .curation-item
+            - dato = DataObject.new(:guid => image['guid'])
+            - dato.id = image['id']
+            / - latest_published_dato = dato.latest_published_version
+            / - dato = latest_published_dato if  latest_published_dato
+            - taxon_concept = dato.taxon_concepts(:published => :preferred).first
+          = dato_taxon_concept_link(:h5, taxon_concept, :dato_type => "image", :"dato_id" => dato.id, :popup => true)
+          - if !image['common_names'].blank?
+            %h6
+              = image['common_names'][0]['name'].firstcap
+          = link_to(image_tag(DataObject.image_cache_path(image["object_cache_url"], :medium), :class => 'curation-thumb'), {:action => 'curate_image', :data_object_id => image['id']}, {:rel => '#overlay'})
+          - unless image['created_at'].blank?
+            %em
+              = "Indexed on:"[]
+            = DateTime.parse(image['created_at']).strftime("%B %d, %Y")
+            %br
+          - unless image['agents'].empty?
+            %em
+              = "Supplier:"[]
+            = image['agents'][0]['full_name']
+            - unless image['agents'][1..-1].blank?
+              - for agent in image['agents'][1..-1]
+                %br
+                %em
+                  = "#{agent['role']}:"
+                = agent['full_name']
+            %hr.thin
+          - unless image['description'].blank?
+            %h6
+              = "Description:"[]
+            = strip_tags(image['description'])
+          - unless image['location'].empty?
+            %h6 
+              = "Location:"[]
+            = truncate(image['location'], 48)
+        %td{ :class => image['vetted_label'].downcase }
+          = render :partial => 'curation_tools', :locals => {:data_object => image, :comment_height => 3, :comment_width => 24}
+  = will_paginate(@images_to_curate, :params => params)
+  #overlay.overlay_worklist{:style => 'display:none'}
+    .content-wrap
 = javascript_include_tag 'rating.js' # basically, I'm only using this to update after calling the ajax, below...
 = javascript_include_tag 'curation_tools.js'
 = javascript_include_tag 'text-content.js'

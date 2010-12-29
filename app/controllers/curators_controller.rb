@@ -26,9 +26,9 @@ class CuratorsController < ApplicationController
     published_resources
     session['curate_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
     session['curate_images_hierarchy_entry_id'] = nil if session['curate_images_hierarchy_entry_id'].blank?
-    @ctnt_ptnr = params[:content_partner_id].blank? ? '' : Agent.find_by_id(ContentPartner.find_by_id(params[:content_partner_id], :select=>'agent_id').agent_id, :select => 'full_name').full_name
-    @status = params[:vetted_id] ? Vetted.find_by_id(params[:vetted_id], :select => 'label').label : ''
-    @name = Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
+    @ctnt_ptnr = params[:content_partner_id].nil? ? '' : Agent.find_by_id(ContentPartner.find_by_id(params[:content_partner_id], :select=>'agent_id').agent_id, :select => 'full_name').full_name
+    @status = params[:vetted_id].nil? ? '' : Vetted.find_by_id(params[:vetted_id], :select => 'label').label
+    @name = params['hierarchy_entry_id'].nil? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
     current_user.log_activity(:viewed_images_to_curate)
     all_images = current_user.images_to_curate(
       :content_partner_id => params[:content_partner_id],
@@ -51,7 +51,7 @@ class CuratorsController < ApplicationController
     @page_title += ": Ignored Images"
     session['ignored_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
     session['ignored_images_hierarchy_entry_id'] = nil if session['ignored_images_hierarchy_entry_id'].blank?
-    @name = Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
+    @name = params['hierarchy_entry_id'].nil? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
     all_images = current_user.ignored_data_objects(
       :hierarchy_entry_id => session['ignored_images_hierarchy_entry_id'], 
       :data_type_id => DataType.image.id)
@@ -59,30 +59,18 @@ class CuratorsController < ApplicationController
   end
 
   def trust
-    @data_object = DataObject.find(params[:data_object_id])
-    @data_object.curate(current_user, :vetted_id => Vetted.trusted.id)
-    @div_id = params[:div_id]
-    respond_to do |fmt|
-      fmt.js
-    end
+    curate(Vetted.trusted.id)
+    respond_to { |format| format.js }
   end
 
   def untrust
-    @data_object = DataObject.find(params[:data_object_id])
-    @data_object.curate(current_user, :vetted_id => Vetted.untrusted.id)
-    @div_id = params[:div_id]
-    respond_to do |fmt|
-      fmt.js
-    end
+    curate(Vetted.untrusted.id)
+    respond_to { |format| format.js }
   end
 
   def unreviewed
-    @data_object = DataObject.find(params[:data_object_id])
-    @data_object.curate(current_user, :vetted_id => Vetted.unknown.id)
-    @div_id = params[:div_id]
-    respond_to do |fmt|
-      fmt.js
-    end
+    curate(Vetted.unknown.id)
+    respond_to { |format| format.js }
   end
 
   def update_reasons
@@ -151,4 +139,11 @@ private
     all_published_resources = agents.empty? ? [] : ContentPartner.find_by_sql("SELECT cp.id, a.full_name FROM content_partners cp JOIN agents a ON cp.agent_id = a.id WHERE a.id IN (#{agents})").collect{|cp| [cp['full_name'], cp.id]}.sort{|a,b| a[0].downcase<=>b[0].downcase}
     @published_resources = all_published_resources
   end
+
+  def curate(vetted_id)
+    @data_object = DataObject.find(params[:data_object_id])
+    @data_object.curate(current_user, :vetted_id => vetted_id)
+    @div_id = params[:div_id]
+  end
+  
 end

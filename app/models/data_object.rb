@@ -514,10 +514,14 @@ class DataObject < SpeciesSchemaModel
     tags.map {|t| t.key }.uniq
   end
 
-  # Return all of the TCs associated with this Dato.  Not necessarily all the pages it shows up on,
-  # however, as Zea mays image will show up on Plantae
-  # with_unpublished attribute returns all taxon_concepts for the object.
-  def taxon_concepts(with_unpublished = false)
+  # TODO: Make documentation rdoc compatible
+  # Return taxon concepts directly associated with this Dato.
+  # default - returns all taxon concepts
+  # options:
+  # :published -> :strict - return only published taxon concepts
+  # :published -> :preferred - same as above, but returns unpublished taxon concepts if no published ones are found
+  def taxon_concepts(opts = {})
+    return @taxon_concepts if @taxon_concepts
     if created_by_user?
       @taxon_concepts ||= [taxon_concept_for_users_text]
     else
@@ -577,25 +581,32 @@ class DataObject < SpeciesSchemaModel
     ancestries
   end
 
-  def curate(vetted_id, visibility_id, user, untrust_reason_ids = [], comment = nil, taxon_concept_id = nil)
+  def curate(user, opts)
+    vetted_id = opts[:vetted_id]
+    visibility_id = opts[:visibility_id]
+
+    raise "Curator should supply at least visibility or vetted information" unless (vetted_id || visibility_id) 
+    
     if vetted_id
-      vetted_id = vetted_id.to_i
-      if vetted_id == Vetted.untrusted.id
-        untrust(user, untrust_reason_ids, comment, taxon_concept_id)
-      elsif vetted_id == Vetted.trusted.id
-        trust(user, comment, taxon_concept_id)
+      case vetted_id.to_i
+      when Vetted.untrusted.id
+        untrust(user, opts)
+      when Vetted.trusted.id
+        trust(user, opts)
+      when Vetted.unknown.id
+        unreviewed(user)
       else
         raise "Cannot set data object vetted id to #{vetted_id}"
       end
     end
 
     if visibility_id
-      visibility_id = visibility_id.to_i
-      if visibility_id == Visibility.visible.id
+      case visibility_id.to_i
+      when Visibility.visible.id
         show(user)
-      elsif visibility_id == Visibility.invisible.id
+      when Visibility.invisible.id
         hide(user)
-      elsif visibility_id == Visibility.inappropriate.id
+      when Visibility.inappropriate.id
         inappropriate(user)
       else
         raise "Cannot set data object visibility id to #{visibility_id}"
@@ -603,68 +614,6 @@ class DataObject < SpeciesSchemaModel
     end
 
     curator_activity_flag(user)
-  end
-  
-  def show(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'show')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show
-  end
-
-  def hide(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'hide')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
-  end
-
-  def trust(user, comment = nil, taxon_concept_id = nil)
-    vetted_by = user
-    update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    added_comment = nil
-    if comment && !comment.blank?
-      added_comment = comment(user, comment)
-    end
-    user.track_curator_activity(self, 'data_object', 'trusted', :comment => added_comment, :taxon_concept_id => taxon_concept_id)
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
-  end
-
-  def untrust(user, untrust_reason_ids = [], comment = nil, taxon_concept_id = nil)
-    vetted_by = user
-    update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    
-    these_untrust_reasons = []
-    if untrust_reason_ids
-      untrust_reason_ids.each do |untrust_reason_id|
-        ur = UntrustReason.find(untrust_reason_id)
-        these_untrust_reasons << ur
-        untrust_reasons << ur
-      end
-    end
-    added_comment = nil
-    if comment && !comment.blank?
-      added_comment = comment(user, comment)
-    end 
-    user.track_curator_activity(self, 'data_object', 'untrusted', :comment => added_comment, :untrust_reasons => these_untrust_reasons, :taxon_concept_id => taxon_concept_id)
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove
-  end
-
-  def unreviewed(user)
-    vetted_by = user
-    update_attributes({:vetted_id => Vetted.unknown.id, :curated => true})
-    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    user.track_curator_activity(self, 'data_object', 'unreviewed')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
-  end
-
-  def inappropriate(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'inappropriate')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
   end
 
   def curated?
@@ -718,8 +667,11 @@ class DataObject < SpeciesSchemaModel
   end
 
   def curator_activity_flag(user, taxon_concept_id = nil)
-    taxon_concept_id ||= taxon_concepts[0].id
-    return if taxon_concept_id == 0
+    unless taxon_concept_id 
+      tc = taxon_concepts(:published => :preferred).first
+      taxon_concept_id = tc.id if tc
+    end
+    return if (taxon_concept_id == nil || taxon_concept_id == 0)
      if user and user.can_curate_taxon_concept_id? taxon_concept_id
          LastCuratedDate.create(:user_id => user.id,
            :taxon_concept_id => taxon_concept_id,
@@ -1644,6 +1596,77 @@ EOVISBILITYCLAUSE
     else
       raise "I'm not sure what data type #{type} is."
     end
+  end
+
+  def show(user)
+    vetted_by = user
+    update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
+    user.track_curator_activity(self, 'data_object', 'show')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show
+  end
+
+  def hide(user)
+    vetted_by = user
+    update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
+    user.track_curator_activity(self, 'data_object', 'hide')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
+  end
+
+  def inappropriate(user)
+    vetted_by = user
+    update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
+    user.track_curator_activity(self, 'data_object', 'inappropriate')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
+  end
+
+  def trust(user, opts = {})
+    comment = opts[:comment]
+    taxon_concept_id = opts[:taxon_concept_id]
+    vetted_by = user
+    update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
+    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
+    added_comment = nil
+    if comment && !comment.blank?
+      added_comment = comment(user, comment)
+    end
+    user.track_curator_activity(self, 'data_object', 'trusted', :comment => added_comment, :taxon_concept_id => taxon_concept_id)
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
+  end
+
+  def untrust(user, opts = {})
+    untrust_reason_ids = opts[:untrust_reason_ids].is_a?(Array) ? opts[:untrust_reason_ids] : []
+    comment = opts[:comment]
+    taxon_concept_id = opts[:taxon_concept_id]
+    untrust_reasons_comment = opts[:untrust_reasons_comment]
+    vetted_by = user
+    update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
+    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
+    
+    these_untrust_reasons = []
+    if untrust_reason_ids
+      untrust_reason_ids.each do |untrust_reason_id|
+        ur = UntrustReason.find(untrust_reason_id)
+        these_untrust_reasons << ur
+        untrust_reasons << ur
+      end
+    end
+    unless untrust_reasons_comment.blank?
+      comment(user, untrust_reasons_comment)
+    end
+    added_comment = nil
+    unless comment.blank?
+      added_comment = comment(user, comment)
+    end 
+    user.track_curator_activity(self, 'data_object', 'untrusted', :comment => added_comment, :untrust_reasons => these_untrust_reasons, :taxon_concept_id => taxon_concept_id)
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove
+  end
+
+  def unreviewed(user)
+    vetted_by = user
+    update_attributes({:vetted_id => Vetted.unknown.id, :curated => true})
+    DataObjectsUntrustReason.destroy_all(:data_object_id => id)
+    user.track_curator_activity(self, 'data_object', 'unreviewed')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
   end
 
 end

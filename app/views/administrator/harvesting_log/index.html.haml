@@ -1,0 +1,44 @@
+#logs
+  %form#page-form{ :method => "post" }
+    Filter by day:
+    - default_select = (@date == 'all') ? 'all' : @date.strftime("%d-%b-%Y")
+    = select_tag :date, options_for_select([['--all--', 'all']] + @distinct_dates, default_select), {:onchange=>"javascript:$('#page-form').submit();"}
+  %br
+  - if @date == 'all'
+    Showing
+    %strong
+      ALL harvesting logs
+  - elsif !@date.blank?
+    Showing processes from:
+    %strong
+      = @date.strftime("%A, %B %d")
+  %br
+  - if @logs.nil? == false && @logs.size > 0
+    = will_paginate @logs, :params => {:date => @date}
+    %table.results_table{ :cellspacing => "0", :width => "100%" }
+      %tr
+        %th
+          ID
+        %th
+          Process Name
+        %th
+          Began
+        %th
+          Completed
+      - for log in @logs
+        - column_class=cycle('odd','even')
+        %tr
+          %td{ :class => column_class }
+            = log.id
+          %td{ :class => column_class }
+            = log.process_name
+          %td{ :class => column_class }
+            = log.began_at.mysql_timestamp
+          %td{ :class => column_class }
+            = log.completed_at ? log.completed_at.mysql_timestamp : '---'
+    %br
+    = will_paginate @logs, :params => {:date => @date}
+  - elsif @logs.nil? == false && @logs.size == 0
+    %br
+    %i
+      No harvesting logs for this date

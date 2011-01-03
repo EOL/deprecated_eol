@@ -142,14 +142,14 @@ class Agent < SpeciesSchemaModel
   def self.content_partners_contact_info(month,year)    
     #ac.email
     #'eli@eol.org' email
-    SpeciesSchemaModel.connection.select_all("SELECT a.full_name, a.id agent_id, a.username, 
+    SpeciesSchemaModel.connection.select_all("SELECT distinct a.full_name, a.id agent_id, a.username, 
     ac.email
     From agents a
     JOIN content_partners cp                      ON a.id = cp.agent_id
     JOIN google_analytics_partner_summaries gaps  ON cp.agent_id = gaps.agent_id
     JOIN agent_contacts ac                        ON a.id = ac.agent_id
     WHERE gaps.`year` = #{year}
-    AND gaps.`month` = #{month} AND ac.email IS NOT NULL")
+    AND gaps.`month` = #{month} AND ac.email IS NOT NULL ") 
   end
 
   def self.content_partners_with_published_data

@@ -82,6 +82,32 @@ describe 'Admin Pages' do
     end
   end
   
+  describe ': harvesting logs' do
+    it 'should load an empty harvesting logs page' do
+      login_as(@user)
+      current_path.should == '/'
+      visit('/administrator/harvesting_log')
+      body.should include("No harvesting logs")
+    end
+    
+    it 'should show harvesting_logs' do
+      harvest_process_log = HarvestProcessLog.gen(:process_name => 'Some test term that wont normally show up', :began_at => 1.day.ago)
+      login_as(@user)
+      visit('/administrator/harvesting_log')
+      body.should include(harvest_process_log.process_name)
+      body.should include(harvest_process_log.began_at.mysql_timestamp)
+      
+      visit('/administrator/harvesting_log?date=')
+      body.should include(harvest_process_log.process_name)
+      body.should include(harvest_process_log.began_at.mysql_timestamp)
+      
+      previous_day = 2.days.ago.strftime("%d-%b-%Y")
+      visit('/administrator/harvesting_log?date=' + previous_day)
+      body.should_not include(harvest_process_log.process_name)
+      body.should include("No harvesting logs")      
+    end
+  end
+  
   describe ': monthly published partners' do
     before(:all) do
       last_month = Time.now - 1.month      
@@ -99,14 +125,14 @@ describe 'Admin Pages' do
       visit("/administrator/content_partner_report/report_monthly_published_partners")
       body.should include "New content partners for the month"
     end
-
+  
     it "should get data from a form and display published partners" do          
       login_as(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_monthly_published_partners", :method => :post, :params => {:year_month => @year_month})
       #visit("/administrator/content_partner_report/report_monthly_published_partners")
       #select "", :year_month => @year_month
-
+  
       body.should have_tag("form[action=/administrator/content_partner_report/report_monthly_published_partners]")
       body.should include "New content partners for the month"
       body.should include @agent.full_name
@@ -130,39 +156,39 @@ describe 'Admin Pages' do
       
       @taxon_concept = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
       @data_objects_taxon_concept = DataObjectsTaxonConcept.gen(:data_object_id => @data_object.id, :taxon_concept_id => @taxon_concept.id)
-
+  
       @action_with_object = ActionWithObject.gen()
       @changeable_object_type = ChangeableObjectType.gen()#id = 1 = data_object
       @action_history = ActionsHistory.gen(:object_id => @data_object.id, :action_with_object_id => @action_with_object.id, :changeable_object_type_id => @changeable_object_type.id)
      
     end  
-
+  
     it "should show report_partner_curated_data page" do      
       login_as(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_curated_data")
       body.should include "Curation activity:"
     end
-
+  
     it "should get data from a form and display curation activity" do
       login_as(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})
       #visit("/administrator/content_partner_report/report_partner_curated_data")
       #select "", :agent_id => @agent.id
-
+  
       body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
       body.should include "Curation activity:"
       body.should include @agent.full_name      
     end
-
+  
     it "should get data from a form and display a month's curation activity" do          
       login_as(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id, :year_month => @year_month})
       #visit("/administrator/content_partner_report/report_partner_curated_data")      
       #select "", :agent_id => @agent.id, :year_month => @year_month
-
+  
       body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
       body.should include "Curation activity:"
       body.should include @agent.full_name      
@@ -177,14 +203,14 @@ describe 'Admin Pages' do
       @agent_resource = AgentsResource.gen(:agent_id => @agent.id, :resource_id => @resource.id)
       @harvest_event = HarvestEvent.gen(:resource_id => @resource.id, :published_at => last_month)
     end
-
+  
     it "should show report_partner_objects_stats page" do      
       login_as(@user)
       current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_objects_stats")
       body.should include "Viewing Partner:"
     end
-
+  
     it "should get data from a form and display harvest events" do          
       login_as(@user)
       current_path.should == '/'      
@@ -196,7 +222,7 @@ describe 'Admin Pages' do
       body.should include @agent.full_name
       body.should include @resource.title
     end
-
+  
     it "should link to data objects stats per harvest event" do          
       login_as(@user)
       current_path.should == '/'      
@@ -206,7 +232,7 @@ describe 'Admin Pages' do
       body.should include "#{@harvest_event.id}\n"
     end
   end  
-
+  
   describe ': table of contents breakdown' do
     it "should show table of contents breakdown page" do      
       login_as(@user)
@@ -214,7 +240,7 @@ describe 'Admin Pages' do
       body.should include "Table of Contents Breakdown"
     end
   end  
-
+  
   describe ': user activity view' do
     before(:each) do
       @activity = Activity.gen(:name => "sample activity")

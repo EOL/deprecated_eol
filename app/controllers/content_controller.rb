@@ -10,7 +10,7 @@ class ContentController < ApplicationController
   def index
     @home_page = true
     current_user.log_activity(:viewed_home_page)
-    unless @cached_fragment = read_fragment(:controller=>'content',:part=>'home_' + current_user.content_page_cache_str)
+    unless @cached_fragment = read_fragment(:controller => 'content', :part => 'home_' + current_user.content_page_cache_str)
       @content = ContentPage.get_by_page_name_and_language_abbr('Home', current_user.language_abbr)
       raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy, {:language => current_user.language, :size => :medium})
@@ -18,7 +18,7 @@ class ContentController < ApplicationController
       random_index = rand(featured_taxa.length)
       @featured_taxon = featured_taxa[random_index]
       # get top news items less then a predetermined number of weeks old
-      @news_items = NewsItem.find_all_by_active(true,:limit=>$NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY,:order=>'display_date desc',:conditions=>'display_date >= "' + $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS.weeks.ago.to_s(:db) + '"')
+      @news_items = NewsItem.find_all_by_active(true, :limit => $NEWS_ITEMS_HOMEPAGE_MAX_DISPLAY, :order => 'display_date desc', :conditions => 'display_date >= "' + $NEWS_ITEMS_TIMEOUT_HOMEPAGE_WEEKS.weeks.ago.to_s(:db) + '"')
     end
   end
 
@@ -26,7 +26,7 @@ class ContentController < ApplicationController
   def species_bar
      @explore_taxa  = RandomHierarchyImage.random_set(6, nil, {:language => current_user.language, :size => :medium})
      @new_window = true
-     render(:partial=>'explore_taxa')
+     render(:partial => 'explore_taxa')
   end
 
   def news
@@ -34,8 +34,8 @@ class ContentController < ApplicationController
     @term_search_string = params[:term_search_string] || ''
     search_string_parameter = '%' + @term_search_string + '%'
     if id.blank?
-      @news_items = NewsItem.paginate(:conditions=>['active = 1 and body like ?', search_string_parameter],
-                                      :order=>'display_date desc',
+      @news_items = NewsItem.paginate(:conditions => ['active = 1 and body like ?', search_string_parameter],
+                                      :order => 'display_date desc',
                                       :page => params[:page])
       current_user.log_activity(:viewed_news_index)
     else
@@ -71,7 +71,7 @@ class ContentController < ApplicationController
       do_ids = SpeciesSchemaModel.connection.select_values("
         SELECT tci.data_object_id 
         FROM top_concept_images tci 
-        WHERE tci.taxon_concept_id=#{taxon_concept.id} AND tci.view_order<400
+        WHERE tci.taxon_concept_id = #{taxon_concept.id} AND tci.view_order<400
         ").uniq
 
       data_objects = DataObject.details_for_objects(do_ids, :visible => true, :skip_metadata => true, :add_common_names => true)
@@ -230,7 +230,7 @@ class ContentController < ApplicationController
   def exemplars
     respond_to do |format|
       format.html do
-        unless read_fragment(:controller=>'content',:part=>'exemplars')
+        unless read_fragment(:controller => 'content', :part => 'exemplars')
           @exemplars = TaxonConcept.exemplars # This is stored by memcached, so should go quite fast.
         end
         current_user.log_activity(:viewed_exemplars)
@@ -291,7 +291,7 @@ class ContentController < ApplicationController
 
   def contact_us
 
-    @subjects = ContactSubject.find(:all, :conditions=>'active=1',:order => 'title')
+    @subjects = ContactSubject.find(:all, :conditions => 'active = 1', :order => 'title')
 
     @contact = Contact.new(params[:contact])
     store_location(params[:return_to]) if !params[:return_to].nil? && request.get? # store the page we came from so we can return there if it's passed in the URL
@@ -311,11 +311,11 @@ class ContentController < ApplicationController
 
     if verify_recaptcha && @contact.save  
       Notifier.deliver_contact_us_auto_response(@contact)
-      flash[:notice]="Thank you for your feedback."[:thanks_for_feedback]
+      flash[:notice] = "Thank you for your feedback."[:thanks_for_feedback]
       current_user.log_activity(:sent_contact_us_id, :value => @contact.id)
       redirect_back_or_default
     else
-      @verification_did_not_match="The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
+      @verification_did_not_match = "The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
     end
 
   end
@@ -336,11 +336,11 @@ class ContentController < ApplicationController
 
     if verify_recaptcha && @contact.save
       Notifier.deliver_media_contact_auto_response(@contact)
-      flash[:notice]="Your message was sent."[:your_message_was_sent]
+      flash[:notice] = "Your message was sent."[:your_message_was_sent]
       current_user.log_activity(:sent_media_contact_us_id, :value => @contact.id)
       redirect_back_or_default 
     else
-      @verification_did_not_match="The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
+      @verification_did_not_match = "The verification phrase you entered did not match."[:verification_phrase_did_not_match] if verify_recaptcha == false
     end
 
   end
@@ -350,15 +350,13 @@ class ContentController < ApplicationController
     # get the id parameter, which can be either a page ID # or a page name
     @page_id = params[:id]
     raise "static page without id" if @page_id.blank?
-    current_user.log_activity(:viewed_content_page_id, :value => @page_id)
 
-    unless read_fragment(:controller=>'content',:part=>@page_id + "_" + current_user.language_abbr)
-      # if the id is not numeric, assume it's a page name
-      if @page_id.to_i == 0 
-        page_name=@page_id.gsub(' ','_').gsub('_',' ')
-        @content = ContentPage.get_by_page_name_and_language_abbr(page_name, current_user.language_abbr)
-      else # assume the id passed is numeric and find it by ID
+    unless read_fragment(:controller => 'content', :part => @page_id + "_" + current_user.language_abbr)
+      if @page_id.is_int?
         @content = ContentPage.get_by_id_and_language_abbr(@page_id, current_user.language_abbr)
+      else # assume it's a page name
+        page_name = @page_id.gsub(' ', '_').gsub('_', ' ')
+        @content = ContentPage.get_by_page_name_and_language_abbr(page_name, current_user.language_abbr)
       end
 
       raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?
@@ -368,6 +366,7 @@ class ContentController < ApplicationController
         headers["Status"] = "301 Moved Permanently"
         redirect_to(@content.url)
       end
+      current_user.log_activity(:viewed_content_page_id, :value => @page_id)
     end
   end
 
@@ -400,7 +399,7 @@ class ContentController < ApplicationController
   def partners
 
     # content partners will have a username
-    @partners = Agent.paginate(:conditions=>'username<>"" AND content_partners.show_on_partner_page = 1',:order=>'agents.full_name asc',:include=>:content_partner,:page => params[:page] || 1)
+    @partners = Agent.paginate(:conditions => 'username<>"" AND content_partners.show_on_partner_page = 1', :order => 'agents.full_name asc', :include => :content_partner, :page => params[:page] || 1)
 
   end
 
@@ -416,16 +415,16 @@ class ContentController < ApplicationController
 
     donation = params[:donation]
 
-    @other_amount = donation[:amount].gsub(",","").to_f 
+    @other_amount = donation[:amount].gsub(",", "").to_f 
     @preset_amount = donation[:preset_amount]
 
     if @preset_amount.nil?
-      flash.now[:error]="Please select a donation amount."[:donation_error]
+      flash.now[:error] = "Please select a donation amount."[:donation_error]
       return
     end
 
     if (@preset_amount == "other" && @other_amount == 0)
-      flash.now[:error]="Please enter an amount using only numbers."[:donation_error2]
+      flash.now[:error] = "Please enter an amount using only numbers."[:donation_error2]
       return
     end
 
@@ -433,7 +432,7 @@ class ContentController < ApplicationController
     @transaction_type = "sale"
     @currency = "usd"
 
-    parameters='function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=' + @transaction_type + '&currency=' + @currency
+    parameters = 'function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=' + @transaction_type + '&currency=' + @currency
     @form_elements = EOLWebService.call(:parameters => parameters)
 
   end
@@ -442,9 +441,9 @@ class ContentController < ApplicationController
   def clear_caches
     if allowed_request
       if clear_all_caches
-        render :text=>"All caches expired.",:layout => false
+        render :text => "All caches expired.", :layout => false
       else
-        render :text=>'Clearing all caches not supported for this cache store.', :layout => false
+        render :text => 'Clearing all caches not supported for this cache store.', :layout => false
       end  
     else
       redirect_to root_url
@@ -480,7 +479,7 @@ class ContentController < ApplicationController
   # link to uservoice
   def feedback
     if logged_in?
-      redirect_to :controller=>'account',:action=>'uservoice_login'
+      redirect_to :controller => 'account', :action => 'uservoice_login'
     else
       redirect_to $USERVOICE_URL
     end

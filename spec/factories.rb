@@ -540,6 +540,13 @@ Factory.define :harvest_events_hierarchy_entry do |hehe|
   hehe.association :status
 end
 
+Factory.define :harvest_process_log do |hpl|
+  hpl.process_name { Faker::Lorem.words[rand(4) + 1].titleize }
+  hpl.began_at     { 2.hours.ago }
+  hpl.completed_at { 1.hours.ago }
+end
+
+
 Factory.define :hierarchy do |hierarchy|
   hierarchy.label                   "A nested structure of divisions related to their probable evolutionary descent"
   hierarchy.url                     ''

@@ -1,0 +1,3 @@
+class HarvestProcessLog < SpeciesSchemaModel
+  
+end

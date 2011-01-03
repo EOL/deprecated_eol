@@ -6,5 +6,3 @@ rake db:migrate
 rake db:migrate RAILS_ENV=test
 rake truncate
 rake scenarios:load NAME=bootstrap
-
-

@@ -11,8 +11,8 @@ class UsersDataObject < ActiveRecord::Base
   #has_one :data_object
   
   def self.get_user_submitted_data_object_ids(user_id)
-    if(user_id == 'all') then
-      sql="Select data_object_id From users_data_objects where user_id != null"
+    if(user_id == 'All') then
+      sql="Select data_object_id From users_data_objects"
       rset = UsersDataObject.find_by_sql([sql])
     else
       sql="Select data_object_id From users_data_objects where user_id = ? "

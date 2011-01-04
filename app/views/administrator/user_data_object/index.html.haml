@@ -55,9 +55,10 @@ Click on a user to view the user's detailed profile, click on the species to vie
               %td{ :class => column_class }
                 = link_to name,{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id}
               %td{ :class => column_class }
-                = link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id,  :text_id => comment.data_object_id}
+                -#= link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => comment.taxon_concept_id,  :text_id => comment.data_object_id}
+                = link_to "Permalink",{:controller=>'/data_objects', :action=>:show, :id => comment.data_object_id}
                 %br
-                = h obj.description
+                = h truncate(obj.description,500)
               %td{ :class => column_class }
                 = @obj_toc_info.fetch("#{comment.data_object_id}",0)
               %td{ :class => column_class }

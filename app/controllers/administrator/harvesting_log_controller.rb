@@ -2,7 +2,7 @@ class Administrator::HarvestingLogController < AdminController
   
   layout 'left_menu'
   before_filter :set_layout_variables
-  access_control :content_partners
+  access_control :DEFAULT => 'Administrator - Content Partners'
   
   def index
     @page_title = 'Harvesting Processes Log'

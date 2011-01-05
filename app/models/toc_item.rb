@@ -12,8 +12,6 @@ class TocItem < SpeciesSchemaModel
   
   @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Search the Web', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
   
-  connection.select_rows('select toc.id, count(*) from table_of_contents toc join data_objects_table_of_contents dotoc on (toc.id=dotoc.toc_id) group by toc.id')
-  
   def self.toc_object_counts
     cached('toc_object_counts') do
       TocItem.count_objects

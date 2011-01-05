@@ -96,13 +96,15 @@ class TaxonConcept < SpeciesSchemaModel
     entries = HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => 'id, parent_id')
     all_ancestor_entry_ids += entries.collect{|he| he.id }
     
-    while parents = HierarchyEntry.find_all_by_id(entries.collect{|he| he.parent_id}.uniq, :select => 'id, parent_id', :conditions => "id != 0")
+    # getting all the parents of entries in this concept, and the other entries in their concepts
+    while parents = HierarchyEntry.find_all_by_id(entries.collect{|he| he.parent_id}.uniq, :joins => 'JOIN hierarchy_entries he_concept USING (taxon_concept_id)', :select => 'hierarchy_entries.id, hierarchy_entries.parent_id, he_concept.id related_he_id', :conditions => "hierarchy_entries.id != 0")
       break if parents.empty?
       all_ancestor_entry_ids += parents.collect{|he| he.id }
+      all_ancestor_entry_ids += parents.collect{|he| he['related_he_id']}
       entries = parents.dup
       break if entries.collect{|he| he.parent_id} == [0]
     end
-    return all_ancestor_entry_ids
+    return all_ancestor_entry_ids.uniq
   end
   
 

@@ -482,7 +482,12 @@ private
   def find_taxon_concept
     tc_id = params[:id].to_i
     tc_id = params[:taxon_concept_id].to_i if tc_id == 0
-    TaxonConcept.find(tc_id)
+    tc = nil
+    begin
+      tc = TaxonConcept.find(tc_id)
+    rescue
+    end
+    return tc
   end
 
   def taxon_concept_invalid?(tc)

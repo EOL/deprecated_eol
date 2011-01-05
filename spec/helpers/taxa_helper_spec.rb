@@ -41,7 +41,7 @@ end
 
 def expected_hash_from_name(name)
   {:string     => name.string,
-   :synonym_id => name.synonym_id,
+   :synonym_ids => name.synonym_ids,
    :preferred  => name.preferred == '1',
    :id         => name.id,
    :sources    => name.sources}

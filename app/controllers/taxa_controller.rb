@@ -705,6 +705,12 @@ private
     singular   = querystring.singularize
     suggested_results_original = SearchSuggestion.find_all_by_term_and_active(singular, true, :order => 'sort_order') +
                                  SearchSuggestion.find_all_by_term_and_active(pluralized, true, :order => 'sort_order')
+    
+    # bacteria has a singular bacterium and a plural bacterias so we need to search on the original term too
+    if querystring != pluralized && querystring != singular
+      suggested_results_original += SearchSuggestion.find_all_by_term_and_active(querystring, true, :order => 'sort_order')
+    end
+    
     return [] if suggested_results_original.blank?
     suggested_results_query = suggested_results_original.select {|i| i.taxon_id.to_i > 0}.map {|i| 'taxon_concept_id:' + i.taxon_id}.join(' OR ')
     suggested_results_query = suggested_results_query.blank? ? "taxon_concept_id:0" : "(#{suggested_results_query})"

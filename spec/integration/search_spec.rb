@@ -101,52 +101,62 @@ describe 'Search' do
                            :common_name => @dog.common_name)
       SearchSuggestion.gen(:taxon_id => @wolf.id, :term => @dog_name, :scientific_name => @wolf.scientific_name,
                            :common_name => @wolf.common_name)
+      
+      @tricky_search_suggestion = 'Bacteria'
+      @bacteria_common = @tricky_search_suggestion
+      @bacteria = build_taxon_concept(:scientific_name => @tricky_search_suggestion, :common_names => [@bacteria_common])
+      SearchSuggestion.gen(:taxon_id => @bacteria.id, :scientific_name => @tricky_search_suggestion,
+                          :term => @tricky_search_suggestion, :common_name => @bacteria_common)
+      
+      # I'm only doing this so we get two results and not redirected.
+      another = build_taxon_concept(:scientific_name => @tricky_search_suggestion)
+      
       recreate_indexes
       visit("/search?q=#{@tiger_name}")
       @tiger_search = body 
     end
-
+    
     it 'should redirect to species page if only 1 possible match is found (also for pages/searchterm)' do
       visit("/search?q=#{@panda_name}")
       current_path.should == "/pages/#{@panda.id}"
       visit("/search/#{@panda_name}")
       current_path.should == "/pages/#{@panda.id}"    
     end
-
+    
     it 'should redirect to search page if a string is passed to a species page' do
       visit("/pages/#{@panda_name}")
       current_path.should == "/pages/#{@panda.id}"
     end
-
+    
     it 'should show a list of possible results (linking to /found) if more than 1 match is found  (also for pages/searchterm)' do
-
+    
       body = @tiger_search
       body.should have_tag('td', :text => @tiger_name)
       body.should have_tag('td', :text => @tiger_lilly_name)
       body.should have_tag('a[href*=?]', %r{/found/#{@tiger_lilly.id}})
       body.should have_tag('a[href*=?]', %r{/found/#{@tiger.id}})
-
+    
     end
-
+    
     it 'should paginate' do
       results_per_page = 2
       extra_results    = 1
       assert_results(:num_results_on_this_page => results_per_page, :per_page => results_per_page)
       assert_results(:num_results_on_this_page => extra_results, :page => 2, :per_page => results_per_page)
     end
-
+    
     it 'return no suggested results for tiger' do
       body = @tiger_search
       body.should_not have_tag('table[summary=Suggested Search Results]')
     end
-
+    
     it 'should return one suggested search' do
       visit("/search?q=#{URI.escape @plantain_name.gsub(/ /, '+')}&search_type=text")
       body.should have_tag('table[summary=Suggested Search Results]') do |table|
         table.should have_tag("td", :text => @plantain_common)
       end
     end
-
+    
     # When we first created suggested results, it worked fine for one, but failed for two, so we feel we need to test
     # two entires AND one entry...
     it 'should return two suggested searches' do
@@ -156,12 +166,19 @@ describe 'Search' do
         table.should have_tag("td", :text => @wolf_name)
       end
     end
-
+    
+    it 'should be able to return suggested results for "bacteria"' do
+      visit("/search?q=#{@tricky_search_suggestion}&search_type=text")
+      body.should have_tag('table[summary=Suggested Search Results]') do |table|
+        table.should have_tag("td", :text => @tricky_search_suggestion)
+      end
+    end
+    
     it 'should treat empty string search gracefully when javascript is switched off' do
       visit('/search?q=')
       body.should_not include "500 Internal Server Error"
     end
-
+    
     it 'should detect untrusted and unknown Taxon Concepts' do
       body = @tiger_search
       body.should match /td class=("|')(search_result_cell )?(odd|even)_untrusted/
@@ -175,7 +192,7 @@ describe 'Search' do
       # to the species page
       current_path.should == "/pages/#{@tiger_lilly.id}"
     end
-
+    
     it 'should return preferred common name as "shown" name' do
       visit("/search?q=panther")
       body.should include "shown as 'Tiger lilly'"
@@ -186,7 +203,7 @@ describe 'Search' do
       body.should include "td class='search_result_cell odd"
       body.should include "td class='search_result_cell even"
     end 
-
+    
     it 'should show "shown as" for scientific matches that hit a synonym.' do
       visit("/search?q=#{@plantain_synonym.split[0]}")
       body.should include @plantain_synonym
@@ -196,7 +213,7 @@ describe 'Search' do
   end
 
   describe '(tags)' do
-
+  
     it 'should find tags' do
       taxon_concept = build_taxon_concept(:images => [{}])
       image_dato   = taxon_concept.images.last
@@ -211,7 +228,7 @@ describe 'Search' do
       visit('/search?q=value-old&search_type=tag')
       body.should include(taxon_concept.scientific_name)
     end
-
+  
     # REMOVE AFTER PAGINATION IMPLEMENTING TODO
     it 'should show > 10 tags' do
       user   = User.gen :username => 'username', :password => 'password'
@@ -230,7 +247,7 @@ describe 'Search' do
         body.should include(tc_name.gsub("&","&amp;"))
       end
     end
-
+  
     it 'should show unvetted status for tag search' do
       user   = User.gen :username => 'username', :password => 'password'
       all_tc = []
@@ -267,7 +284,7 @@ describe 'Search' do
     #     assert_tag_results(:num_results_on_this_page => results_per_page)
     #     assert_tag_results(:num_results_on_this_page => extra_results, :page => 2)    
     #   end
-
+  
   end
     
 end

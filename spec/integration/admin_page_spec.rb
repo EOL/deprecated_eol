@@ -4,8 +4,7 @@ describe 'Admin Pages' do
   
   before(:all) do
     truncate_all_tables
-    EolScenario.load('foundation')
-    # load_foundation_cache
+    load_foundation_cache
     Capybara.reset_sessions!
     @user = User.gen(:username => 'ourtestadmin')
     @user.roles = Role.find(:all, :conditions => 'title LIKE "Admin%"')

@@ -8,7 +8,7 @@ class Administrator::ContentUploadController < AdminController
 
   def index
     @page_title = 'Uploaded Content'
-    @content_uploads = ContentUpload.paginate(:order => 'created_at desc',:page => params[:page])
+    @content_uploads = ContentUpload.paginate(:order => 'created_at desc', :page => params[:page])
   end
    
   def edit
@@ -34,7 +34,7 @@ class Administrator::ContentUploadController < AdminController
   def create
     @content_upload = ContentUpload.create(params[:content_upload])
     if @content_upload.save
-      @content_upload.update_attributes(:user_id => current_user.id,:attachment_extension => File.extname(@content_upload.attachment_file_name))
+      @content_upload.update_attributes(:user_id => current_user.id, :attachment_extension => File.extname(@content_upload.attachment_file_name))
       upload_file(@content_upload)
       flash[:notice] = "The file was uploaded."[]
       redirect_to(:action => 'index')
@@ -54,11 +54,11 @@ private
       response = Hash.from_xml(response)
       if response["response"].key? "file_path"
         file_path = response["response"]["file_path"]
-        content_upload.update_attribute(:attachment_cache_url,file_path) # store new url to file on content server      
+        content_upload.update_attribute(:attachment_cache_url, file_path) # store new url to file on content server      
       end
       if response["response"].key? "error"
         error = response["response"]["error"]
-        ErrorLog.create(:url => $WEB_SERVICE_BASE_URL,:exception_name => error,:backtrace => parameters) if $ERROR_LOGGING
+        ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
       end
     end
   end

@@ -7,11 +7,13 @@
   normal and any can be used when you create your links as they are all equivalent.
   Note that it may take a few minutes after upload for the URLs to work since your file needs to propagate to the content servers.
 %br
-= link_to('[add a new file]',:action=>'new')
+= link_to('[add a new file]', :action => 'new')
 %br
 #content
   %form
-    - if @content_uploads.nil? == false && @content_uploads.size > 0
+    - if @content_uploads.blank?
+      = "No uploaded content is available."[]
+    - else
       = will_paginate @content_uploads
       %table.results_table{ :cellspacing => "0" }
         %tr
@@ -26,19 +28,17 @@
           %th
             By
         - for content in @content_uploads
-          - column_class=cycle('odd','even')
+          - column_class = cycle('odd', 'even')
           %tr
             %td{ :class => column_class }
-              = link_to(h(content.description),:action=>'edit',:id=>content.id)
+              = link_to(h(content.description), :action => 'edit', :id => content.id)
             %td{ :class => column_class }
-              = link_to(content.content_server_url,content.content_server_url)
+              = link_to(content.content_server_url, content.content_server_url)
             %td{ :class => column_class }
-              = link_to(content.attachment_url,content.attachment_url)
+              = link_to(content.attachment_url, content.attachment_url)
             %td{ :class => column_class }
               = format_date(content.created_at) unless content.created_at.nil?
             %td{ :class => column_class }
-              = link_to(content.user.username, :controller => 'administrator/user', :action=>'edit',:id=>content.user_id)
+              = link_to(content.user.username, :controller => 'administrator/user', :action => 'edit', :id => content.user_id)
       %br
       = will_paginate @content_uploads
-    - else
-      No uploaded content is available.

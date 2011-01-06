@@ -404,24 +404,35 @@ Factory.define :content_page do |cp|
 end
 
 Factory.define :content_partner do |cp|
-  cp.auto_publish              false
-  cp.association               :agent
-  cp.description               'Our Testing Content Partner'
-  cp.description_of_data       'Civil Protection!'
-  cp.created_at                { 5.days.ago }
-  cp.partner_seen_step         { 5.days.ago }
-  cp.partner_complete_step     { 5.days.ago }
-  cp.contacts_seen_step        { 5.days.ago }
-  cp.contacts_complete_step    { 5.days.ago }
-  cp.attribution_seen_step     { 5.days.ago }
-  cp.attribution_complete_step { 5.days.ago }
-  cp.roles_seen_step           { 5.days.ago }
-  cp.roles_complete_step       { 5.days.ago }
-  cp.ipr_accept                true
-  cp.attribution_accept        true
-  cp.roles_accept              true
-  cp.show_on_partner_page      true
-  cp.vetted                    false
+  cp.auto_publish                         false
+  cp.association                          :agent
+  cp.description                          'Our Testing Content Partner'
+  cp.description_of_data                  'Civil Protection!'
+  cp.created_at                           { 5.days.ago }
+  cp.partner_seen_step                    { 5.days.ago }
+  cp.partner_complete_step                { 5.days.ago }
+  cp.contacts_seen_step                   { 5.days.ago }
+  cp.contacts_complete_step               { 5.days.ago }
+  cp.licensing_seen_step                  { 5.days.ago }
+  cp.licensing_complete_step              { 5.days.ago }
+  cp.attribution_seen_step                { 5.days.ago }
+  cp.attribution_complete_step            { 5.days.ago }
+  cp.roles_seen_step                      { 5.days.ago }
+  cp.roles_complete_step                  { 5.days.ago }
+  cp.transfer_overview_seen_step          { 5.days.ago }
+  cp.transfer_overview_complete_step      { 5.days.ago }
+  cp.transfer_upload_seen_step            { 5.days.ago }
+  cp.transfer_upload_complete_step        { 5.days.ago }
+  cp.specialist_overview_seen_step        { 5.days.ago }
+  cp.specialist_overview_complete_step    { 5.days.ago }
+  cp.specialist_formatting_seen_step      { 5.days.ago }
+  cp.specialist_formatting_complete_step  { 5.days.ago }
+  cp.ipr_accept                           true
+  cp.attribution_accept                   true
+  cp.roles_accept                         true
+  cp.transfer_schema_accept               true
+  cp.show_on_partner_page                 true
+  cp.vetted                               false
 end
 
 Factory.define :content_section do |cs|

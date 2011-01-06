@@ -18,7 +18,7 @@ describe 'Content Partner Registry' do
     @harvested_taxon_concept = build_taxon_concept(:event => @harvest_event, :hierarchy => @hierarchy)
     
     @admin = User.gen(:username => 'ourtestadmin')
-    @admin.roles = Role.find(:all, :conditions => 'title LIKE "Admin%"')
+    @admin.approve_to_administrate
     @admin.save!
   end
   

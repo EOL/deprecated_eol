@@ -4,6 +4,8 @@ ContentPage # TODO - figure out why this fails to autoload.  Look at http://kbal
 class ApplicationController < ActionController::Base
 
   include ContentPartnerAuthenticationModule # TODO -seriously?!?  You want all that cruft available to ALL controllers?!
+  
+  
 
   if $EXCEPTION_NOTIFY || $ERROR_LOGGING
     include ExceptionNotifiable
@@ -20,6 +22,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :set_session
   before_filter :clear_any_logged_in_session unless $ALLOW_USER_LOGINS
   before_filter :set_user_settings
@@ -171,6 +174,12 @@ class ApplicationController < ActionController::Base
 
     redirect_to url
 
+  end
+  
+  def redirect_to_http_if_https
+    if request.ssl?
+      redirect_to "http://" + request.host + request.request_uri
+    end
   end
 
   # check to see if a session exists, and create if it not

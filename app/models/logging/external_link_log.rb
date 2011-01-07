@@ -18,18 +18,16 @@ class ExternalLinkLog < LoggingModel
   end
 
   def self.log(external_url, request, user)
-     if DataObjectLog.data_logging_enabled?
-       return nil if external_url.blank? or request.nil? or user.nil?
-
-       opts = {
-         :ip_address_raw => IpAddress.ip2int(request.remote_ip),
-         :user_agent => request.user_agent,
-         :path => request.referer,
-         :external_url => external_url
-       }
-       opts[:user_id] = user.id unless user.nil?
-       ExternalLinkLog.create(opts)
-     end
+    return nil if external_url.blank? or request.nil? or user.nil?
+    
+    opts = {
+      :ip_address_raw => IpAddress.ip2int(request.remote_ip),
+      :user_agent => request.user_agent,
+      :path => request.referer,
+      :external_url => external_url
+    }
+    opts[:user_id] = user.id unless user.nil?
+    ExternalLinkLog.create(opts)
   end
    
 end

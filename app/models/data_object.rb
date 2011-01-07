@@ -1452,7 +1452,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
           JOIN names n ON (tcn.name_id = n.id)
           WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})
           AND language_id=#{language.id}
-          AND preferred=1 GROUP BY dohe.data_object_id").all_hashes
+          AND preferred=1").all_hashes
 
     grouped_names = ModelQueryHelper.group_array_by_key(common_names, 'data_object_id')
     object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped_names, 'common_names')

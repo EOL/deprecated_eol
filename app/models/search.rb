@@ -72,7 +72,7 @@ class Search
   end
 
   def self.log(params, request, current_user)
-    SearchLog.log params, request, current_user if $ENABLE_DATA_LOGGING
+    SearchLog.log params, request, current_user
   end
 
   def self.update_log(params)

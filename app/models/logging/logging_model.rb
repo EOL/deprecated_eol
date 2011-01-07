@@ -13,6 +13,9 @@ class LoggingModel < ActiveRecord::Base
   end
   
   def self.create(opts = {})
+    
+    # never create a Logging row when data logging is turned off
+    return nil unless $ENABLE_DATA_LOGGING
 
     instance = self.new(opts)
     instance.created_at = Time.now if instance.respond_to? :created_at

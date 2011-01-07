@@ -659,25 +659,6 @@ private
     @random_taxa = RandomHierarchyImage.random_set(5, @session_hierarchy, {:language => current_user.language, :size => :small})
   end
 
-  # when a page is viewed (even a cached page), we want to know which data objects were viewed.  This method
-  # builds that array, which later invokes an Ajax call.
-  def data_object_ids_to_log
-    ids = Array.new
-    unless @images.blank?
-      if !@selected_imag_id.nil?
-        log_data_objects_for_taxon_concept @taxon_concept, @selected_image_id
-      else
-        log_data_objects_for_taxon_concept @taxon_concept, @images.first.id
-      end
-      ids << @images.first.id
-    end
-    unless @content.nil? || @content[:data_objects].blank?
-      log_data_objects_for_taxon_concept @taxon_concept, *@content[:data_objects]
-      @content[:data_objects].each {|data_object| ids << data_object.id }
-    end
-    return ids.compact
-  end
-
   # For regular users, a page is accessible only if the taxon_concept is published.
   # If an agent is logged in, then it's only accessible if the taxon_concept is 
   # referenced by the Agent's most recent harvest events

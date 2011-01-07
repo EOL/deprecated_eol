@@ -3,8 +3,12 @@
 module PartnerUpdatesEmailer
   
   def self.send_email_updates
-    agent_contacts_ready = AgentContact.find(:all, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours HOUR) <= NOW()", :include => [{:agent => :content_partner}])
-    users_ready = User.find(:all, :joins => :users_data_objects, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours HOUR) <= NOW()", :group => 'users.id', :readonly => false)
+    # checking everythingin the last (email_reports_frequency_hours - 1 hour) because the script
+    # will run for a few minutes and if we check at the same time each day with a strict
+    # email_reports_frequency_hours we'll miss people every other day as they will have been updated
+    # 23.9 hours ago, not 24 horus ago for example
+    agent_contacts_ready = AgentContact.find(:all, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= NOW()", :include => [{:agent => :content_partner}])
+    users_ready = User.find(:all, :joins => :users_data_objects, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= NOW()", :group => 'users.id', :readonly => false)
     
     agent_contact_frequencies = agent_contacts_ready.collect{|p| p.email_reports_frequency_hours}
     user_frequencies = users_ready.collect{|p| p.email_reports_frequency_hours}

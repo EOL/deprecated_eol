@@ -89,6 +89,19 @@ module EOL
         end
       end
       
+      # truncates all tables in all databases
+      def truncate_all_logging_tables options = { }
+        options[:verbose] ||= false
+        PageViewLog.connection.tables.each   do |table|
+          unless table == 'schema_migrations'
+            puts "[#{PageViewLog.connection.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
+            count_rows = PageViewLog.connection.execute("SELECT 1 FROM #{table} LIMIT 1")
+            PageViewLog.connection.execute "TRUNCATE TABLE`#{table}`" if count_rows.num_rows > 0
+          end
+        end
+      end
+      
+      
       def build_data_object(type, desc, options = {})
         dato_builder = EOL::DataObjectBuilder.new(type, desc, options)
         dato_builder.dato

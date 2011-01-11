@@ -28,12 +28,11 @@ class Role < ActiveRecord::Base
     end
   end
 
-  def add_privilege(priv)
-    privileges << priv
-  end
-
   # TODO - with master?
+  # Returns the list of new roles, SORTED BY THE NUMBER OF PRIVILEGES THEY HAVE.  ...This is so you know that the .first
+  # member of the returned array is the owner.
   def self.add_defaults_to_community(community)
+    raise "You didn't specify a community" unless community
     default_roles = {'Owner' => 20, 'Member Services Manager' => 10, 'Content Manager' => 1}
     new_roles = []
     default_roles.keys.each do |key|
@@ -44,7 +43,11 @@ class Role < ActiveRecord::Base
       end
     end
     community.roles += new_roles
-    new_roles
+    new_roles.sort {|a,b| b.privileges.length <=> a.privileges.length }
+  end
+
+  def add_privilege(priv)
+    privileges << priv
   end
 
   def can?(priv)

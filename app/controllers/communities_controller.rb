@@ -1,5 +1,9 @@
 class CommunitiesController < ApplicationController
 
+  before_filter :load_community, :except => [:index, :new, :create]
+  before_filter :must_be_logged_in, :except => [:index, :show]
+  before_filter :restrict_edit_and_delete, :only => [:edit, :update, :delete]
+
   def index
     @communities = Community.paginate(:page => params[:page]) 
 
@@ -10,8 +14,6 @@ class CommunitiesController < ApplicationController
   end
 
   def show
-    @community = Community.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @community }
@@ -19,6 +21,7 @@ class CommunitiesController < ApplicationController
   end
 
   def new
+
     @page_title = "New EOL Community"[]
     @community = Community.new
 
@@ -29,14 +32,13 @@ class CommunitiesController < ApplicationController
   end
 
   def edit
-    @community = Community.find(params[:id])
   end
 
   def create
     @community = Community.new(params[:community])
-
     respond_to do |format|
       if @community.save
+        @community.initialize_as_created_by(current_user)
         format.html { redirect_to(@community, :notice => 'Community was successfully created.'[:created_community]) }
         format.xml  { render :xml => @community, :status => :created, :location => @community }
       else
@@ -47,7 +49,6 @@ class CommunitiesController < ApplicationController
   end
 
   def update
-    @community = Community.find(params[:id])
 
     respond_to do |format|
       if @community.update_attributes(params[:community])
@@ -61,9 +62,7 @@ class CommunitiesController < ApplicationController
   end
 
   def destroy
-    @community = Community.find(params[:id])
     @community.destroy
-
     respond_to do |format|
       format.html { redirect_to(communities_url) }
       format.xml  { head :ok }
@@ -71,7 +70,6 @@ class CommunitiesController < ApplicationController
   end
 
   def join
-    @community = Community.find(params[:community_id])
     @community.add_member(current_user)
     respond_to do |format|
       format.html { redirect_to(@community, :notice => 'You have successfully joined this community.'[:you_joined_community]) }
@@ -79,11 +77,25 @@ class CommunitiesController < ApplicationController
   end
 
   def leave
-    @community = Community.find(params[:community_id])
     @community.remove_member(current_user)
     respond_to do |format|
       format.html { redirect_to(@community, :notice => 'You have successfully left this community.'[:you_left_community]) }
     end
+  end
+
+  private
+
+  def load_community
+    @community = Community.find(params[:community_id] || params[:id])
+  end
+
+  def restrict_edit_and_delete
+    member = current_user.member_of(@community)
+    raise EOL::Exceptions::SecurityViolation unless member && member.can?(Privilege.edit_delete_community)
+  end
+
+  def must_be_logged_in
+    raise EOL::Exceptions::MustBeLoggedIn unless logged_in?
   end
 
 end

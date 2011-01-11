@@ -23,10 +23,14 @@ class Member < ActiveRecord::Base
     self.roles.include? role
   end
 
-  def assign_privileges(privs)
+  def grant_privileges(privs)
     privs.each do |priv|
       self.member_privileges << MemberPrivilege.create(:member_id => self.id, :privilege_id => priv.id)
     end
+  end
+
+  def grant_privilege(priv)
+    grant_privileges([priv])
   end
 
   def revoke_privilege(priv)

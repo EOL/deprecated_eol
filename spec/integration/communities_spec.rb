@@ -9,9 +9,10 @@ describe "Communities" do
     @community = Community.gen
     @user1 = User.gen # It's important that user1 NOT be a member of community2
     @user2 = User.gen
-    @community.add_member(@user1)
+    @community.initialize_as_created_by(@user1)
     @community.add_member(@user2)
     @community2 = Community.gen # It's important that user1 NOT be a member of community2
+    @name_of_create_button = 'Create'
   end
 
   describe '#index' do
@@ -32,17 +33,28 @@ describe "Communities" do
 
   describe "#new" do
 
+    before(:each) do
+      login_as @user1
+    end
+
+    it 'should not allow non-logged-in users' do
+      visit logout_path
+      get new_community_path
+      response.should be_redirect
+      response.body.should_not have_tag("input#community_name")
+    end
+
     it 'should ask for the new community name and description' do
       visit new_community_path
       page.body.should have_tag("input#community_name")
       page.body.should have_tag("textarea#community_description")
     end
 
-    it 'should create a community and redirect to show on create' do
+    it 'should create a community, add the user, and redirect to show on create' do
       visit new_community_path
       fill_in('community_name', :with => 'Some New Name')
       fill_in('community_description', :with => 'This is a long decription.')
-      click_button('Create')
+      click_button(@name_of_create_button)
       current_path.should == community_path(Community.last)
     end
 
@@ -112,9 +124,13 @@ describe "Communities" do
 
   describe '#edit' do
 
-    it 'should not allow non-members'
+    it 'should not allow non-members' do
+      # NOTE - Capybara doesn't want you testing redirects.  It says "use a unit test".  Really.
+      get edit_community_path(@community)
+      response.should be_redirect
+    end
 
-    it 'should allow editing of name and description' do
+    it 'should allow editing of name and description (as community owner)' do
       login_as @user1
       visit edit_community_path(@community)
       page.body.should have_tag("input#community_name")

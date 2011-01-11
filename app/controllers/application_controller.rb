@@ -43,9 +43,23 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def rescue_action(e)
+    case e
+    when EOL::Exceptions::MustBeLoggedIn
+      must_be_logged_in
+    when EOL::Exceptions::SecurityViolation
+      access_denied
+    end
+  end
+
+  def must_be_logged_in
+    flash[:warning] = "You must be logged in to perform this action"[:must_be_logged_in]
+    return redirect_to(login_path)
+  end
+
   def access_denied
     flash[:warning] = "You are not authorized to perform this action."[]
-    return redirect_to(root_url)
+    return redirect_to(root_path)
   end
 
   def view_helper_methods

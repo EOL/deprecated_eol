@@ -46,7 +46,8 @@ module EOL
         elsif user.is_a? Hash
           options = options.merge(user)
         end
-        visit('/login?return_to=/')
+        visit logout_path
+        visit login_path
         fill_in "user_username", :with => options[:username]
         fill_in "user_password", :with => options[:password]
         check("remember_me") if options[:remember_me] && options[:remember_me].to_i != 0

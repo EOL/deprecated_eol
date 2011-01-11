@@ -31,6 +31,13 @@ class Community < ActiveRecord::Base
     end
   end
 
+  # TODO - test 
+  # Adds the default roles, auto-joins the user to the community, and makes that person the owner.
+  def initialize_as_created_by(user)
+    new_roles = Role.add_defaults_to_community(self)
+    user.join_community(self).add_role(new_roles.first)
+  end
+
   def special?
     show_special_privileges > 0
   end
@@ -39,8 +46,11 @@ class Community < ActiveRecord::Base
     Role.add_defaults_to_community(self)
   end
 
+  # Returns the new member.
   def add_member(user)
-    members << Member.create!(:user_id => user.id, :community_id => id)
+    member = Member.create!(:user_id => user.id, :community_id => id)
+    members << member
+    member
   end
 
   def remove_member(user)

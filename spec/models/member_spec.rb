@@ -43,10 +43,18 @@ describe Member do
     @member.has_role?(@has_role).should_not be_true
   end
 
-  it 'should have privileges assigned to it (and identify if it #has_privilege?)' do
+  it 'should have a single privilege assigned to it (and identify if it #has_privilege?)' do
     @member.has_privilege?(@new_privilege).should_not be_true
-    @member.assign_privileges([@new_privilege])
+    @member.grant_privilege(@new_privilege)
     @member.has_privilege?(@new_privilege).should be_true
+  end
+
+  it 'should have multiple privileges assigned to it (and identify if it #has_privilege?)' do
+    second_priv = Privilege.gen
+    @member.has_privilege?(@new_privilege).should_not be_true
+    @member.grant_privileges([@new_privilege, second_priv])
+    @member.has_privilege?(@new_privilege).should be_true
+    @member.has_privilege?(second_priv).should be_true
   end
 
   it 'should be able to revoke a privilege (and identify if #had_privilege_revoked?)' do
@@ -81,7 +89,7 @@ describe Member do
 
   it 'should list all privileges (except revoked)' do
     new_priv = Privilege.gen
-    @member.assign_privileges([new_priv])
+    @member.grant_privilege(new_priv)
     @member.revoke_privilege(new_priv)
     @member.all_sorted_privileges.map {|p| p.name}.should == [@has_privilege, @role_privilege].map {|p| p.name}.sort
   end

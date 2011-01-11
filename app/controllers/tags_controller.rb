@@ -22,7 +22,7 @@ class TagsController < ApplicationController
         @data_object.tag params[:tag][:key], params[:tag][:value], current_user
         flash[:notice] = 'New tag was successfully created'
         current_user.log_activity(:created_tag_on_data_object_id, :value => @data_object.id)
-      rescue Exceptions::FailedToCreateTag => e
+      rescue EOL::Exceptions::FailedToCreateTag => e
         flash[:notice] = e.message
       end
     end

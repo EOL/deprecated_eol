@@ -476,7 +476,7 @@ class DataObject < SpeciesSchemaModel
       begin
         DataObjectTags.create :data_object => self, :data_object_guid => guid, :data_object_tag => tag, :user => user
       rescue
-        raise FailedToCreateTag.new("Failed to add #{key}:#{value} tag")
+        raise EOL::Exceptions::FailedToCreateTag.new("Failed to add #{key}:#{value} tag")
       end
     end
     tags.reset

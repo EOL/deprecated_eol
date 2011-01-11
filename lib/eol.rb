@@ -17,4 +17,41 @@ module EOL
     end
   end
   
+  # this method expects 'LOGINS_ENABLED' as a string and not $LOGINS_ENABLED which will
+  # try to get evaluated as an application global variable
+  def self.global_defined?(variable_name_string)
+    # variables must start and end with a letter and can use underscores. Upper and lower cases are allowed
+    # e.g. LOGINS_ENABLED
+    return false unless variable_name_string.match(/^[A-Z]+(_[A-Z]+)*$/i)
+    return true if self.defined_in_environment?(variable_name_string)
+    return true if self.defined_in_database?(variable_name_string)
+    return false
+  end
+  
+  def self.value_of_global(variable_name_string)
+    return nil unless variable_name_string.match(/^[A-Z]+(_[A-Z]+)*$/i)
+    
+    if self.defined_in_environment?(variable_name_string)
+      return eval("$#{variable_name_string}")
+    elsif option = SiteConfigurationOption.find_by_parameter(variable_name_string) 
+      return option.value
+    end
+    
+    return nil
+  end
+  
+  def self.defined_in_environment?(variable_name_string)
+    #return false unless variable_name_string.match(/^[A-Z]+(_[A-Z]+)*$/i)
+    return true if eval("defined? $#{variable_name_string}")
+    return false
+  end
+  
+  def self.defined_in_database?(variable_name_string)
+    #return false unless variable_name_string.match(/^[A-Z]+(_[A-Z]+)*$/i)
+    return true if SiteConfigurationOption.find_by_parameter(variable_name_string) 
+    return false
+  end
+  
+  
+  
 end

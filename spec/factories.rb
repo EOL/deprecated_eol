@@ -831,6 +831,11 @@ Factory.define :service_type do |s|
   s.label { Factory.next(:string) }
 end
 
+Factory.define :site_configuration_option do |sco|
+  sco.parameter       { Factory.next(:string) }
+  sco.value           { true }
+end
+
 Factory.define :status do |s|
   s.label { Factory.next(:string) }
 end

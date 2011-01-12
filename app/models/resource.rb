@@ -28,7 +28,7 @@ class Resource < SpeciesSchemaModel
   # trying to change it to memcache got error after reload a page
   def self.iucn
     cached('iucn') do
-      Agent.iucn.resources[0]
+      Agent.iucn.resources.last
     end
   end
   

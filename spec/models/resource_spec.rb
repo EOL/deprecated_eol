@@ -13,8 +13,8 @@ describe Agent do
   end
 
   describe "iucn" do
-    it 'returns the first IUCN resource' do
-      Resource.iucn.should == @iucn_resource1
+    it 'returns the last IUCN resource' do
+      Resource.iucn.should == @iucn_resource2
     end
   end
 

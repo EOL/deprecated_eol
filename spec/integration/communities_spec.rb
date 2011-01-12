@@ -87,12 +87,13 @@ describe "Communities" do
 
     describe '(with member logged in)' do
 
-      before(:each) do
-        login_as @user1
+      before(:all) do
+        @community_with_membership_but_no_access = Community.gen
+        @user1.join_community(@community_with_membership_but_no_access)
       end
 
-      after(:each) do
-        visit(logout_url)
+      before(:each) do
+        login_as @user1
       end
 
       it 'should show join link and NOT edit or delete links when logged-in user is NOT a member' do
@@ -107,10 +108,17 @@ describe "Communities" do
         page.body.should have_tag("a[href=#{leave_community_path(:community_id => @community.id)}]")
       end
 
-      it 'should show edit and delete links' do
+      it 'should show edit and delete links when the user has access to them' do
         visit community_path(@community)
         page.body.should have_tag("a[href=#{edit_community_path(@community)}]")
         page.body.should have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
+      end
+
+      it 'should NOT show edit and delete links when the user has NO access to them (but not join link)' do
+        visit community_path(@community_with_membership_but_no_access)
+        page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
+        page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
+        page.body.should_not have_tag("a[href=#{join_community_path(:community_id => @community2.id)}]")
       end
 
       it 'should NOT show logged-in message' do

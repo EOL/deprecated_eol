@@ -249,4 +249,28 @@ describe 'Curator Worklist' do
     body.should_not include(@first_child_unreviewed_ignored_image.data_object_id.to_s)
     body.should include(@lower_child_unreviewed_ignored_image.data_object_id.to_s)
   end
+  
+  it 'should be able to give curators feedback about the sorting rationale' do
+    visit("/curators/curate_images?hierarchy_entry_id=#{@lower_child_entry.id}&content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.unknown.id}")
+    body.should include("Images are sorted by EOL import date, with newest items shown first.")
+    visit("/curators/ignored_images?hierarchy_entry_id=#{@lower_child_entry.id}&content_partner_id=#{@content_partner.id}&vetted_id=#{Vetted.unknown.id}")
+    body.should include("Images are sorted by EOL import date, with newest items shown first.")
+  end
+  
+  it 'should be able to give curators a warning message if content is not found' do
+    visit("/curators/curate_images?content_partner_id=1")
+    body.should include("There is no IUCN content, please select another vetting status and try again.")
+    visit("/curators/curate_images?hierarchy_entry_id=1")
+    body.should include("There is no content for Voluptasalius optioerus, please select another vetting status and try again.")
+    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
+    body.should include("There is no Trusted content, please select another vetting status and try again.")
+    visit("/curators/curate_images?content_partner_id=1&vetted_id=#{Vetted.trusted.id}")
+    body.should include("There is no Trusted IUCN content, please select another vetting status and try again.")
+    visit("/curators/curate_images?hierarchy_entry_id=1&vetted_id=#{Vetted.untrusted.id}")
+    body.should include("There is no Untrusted content for Voluptasalius optioerus, please select another vetting status and try again.")
+    visit("/curators/curate_images?content_partner_id=1&hierarchy_entry_id=1&vetted_id=#{Vetted.unknown.id}")
+    body.should include("There is no Unknown IUCN content for Voluptasalius optioerus, please select another vetting status and try again.")
+    visit("/curators/ignored_images?hierarchy_entry_id=1")
+    body.should include("There is no ignored content for Voluptasalius optioerus, please select another hierarchy and try again.")
+  end
 end

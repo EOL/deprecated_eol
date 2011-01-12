@@ -1,6 +1,7 @@
 - if @ignored_images.blank?
+  - name = @name.blank? ? "" : " for #{@name}"
   %hr.thin
-    - msg = "There is no ignored content for #{@name}, please select another vetting status and try again."
+    - msg = "There is no ignored content#{name}, please select another hierarchy and try again."
     = msg
 - else
   %hr.thin 

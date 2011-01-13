@@ -39,6 +39,13 @@ describe 'Curator Worklist' do
                                     {:id => '21114', :vetted => Vetted.unknown, :event => @testing_harvest_event},
                                     {:id => '21115', :vetted => Vetted.untrusted, :event => @testing_harvest_event},
                                     {:id => '21116', :vetted => Vetted.trusted, :event => @testing_harvest_event}])
+    
+    # Agent, Content Partner and Hierarchy entry with no image content associated with them.
+    @supplier_agent_no_ctnt = Agent.gen()
+    @content_partner_no_ctnt = ContentPartner.gen(:agent => @supplier_agent_no_ctnt, :description => 'For testing curator worklist')
+    @content_partner_name = Agent.find_by_id(ContentPartner.find_by_id(@content_partner_no_ctnt.id, :select=>'agent_id').agent_id, :select => 'full_name').full_name
+    @child_entry_no_ctnt = HierarchyEntry.gen(:parent_id => @child_entry.id, :hierarchy_id => @ancestor_entry.hierarchy_id)
+    @species_name = Name.find_by_id(HierarchyEntry.find_by_id(@child_entry_no_ctnt.id, :select => 'name_id').name_id)
 
     @first_child_unreviewed_image = DataObject.find('11111')
     @first_child_untrusted_image = DataObject.find('11112')
@@ -258,19 +265,19 @@ describe 'Curator Worklist' do
   end
   
   it 'should be able to give curators a warning message if content is not found' do
-    visit("/curators/curate_images?content_partner_id=1")
-    body.should include("There is no IUCN content, please select another vetting status and try again.")
-    visit("/curators/curate_images?hierarchy_entry_id=1")
-    body.should include("There is no content for Voluptasalius optioerus, please select another vetting status and try again.")
+    visit("/curators/curate_images?content_partner_id=#{@content_partner_no_ctnt.id}")
+    body.should include("There is no #{@content_partner_name} content, please select another vetting status and try again.")
+    visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}")
+    body.should include("There is no content for #{@species_name}, please select another vetting status and try again.")
     visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
     body.should include("There is no Trusted content, please select another vetting status and try again.")
-    visit("/curators/curate_images?content_partner_id=1&vetted_id=#{Vetted.trusted.id}")
-    body.should include("There is no Trusted IUCN content, please select another vetting status and try again.")
-    visit("/curators/curate_images?hierarchy_entry_id=1&vetted_id=#{Vetted.untrusted.id}")
-    body.should include("There is no Untrusted content for Voluptasalius optioerus, please select another vetting status and try again.")
-    visit("/curators/curate_images?content_partner_id=1&hierarchy_entry_id=1&vetted_id=#{Vetted.unknown.id}")
-    body.should include("There is no Unknown IUCN content for Voluptasalius optioerus, please select another vetting status and try again.")
-    visit("/curators/ignored_images?hierarchy_entry_id=1")
-    body.should include("There is no ignored content for Voluptasalius optioerus, please select another hierarchy and try again.")
+    visit("/curators/curate_images?content_partner_id=#{@content_partner_no_ctnt.id}&vetted_id=#{Vetted.trusted.id}")
+    body.should include("There is no Trusted #{@content_partner_name} content, please select another vetting status and try again.")
+    visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}&vetted_id=#{Vetted.untrusted.id}")
+    body.should include("There is no Untrusted content for #{@species_name}, please select another vetting status and try again.")
+    visit("/curators/curate_images?content_partner_id=#{@content_partner_no_ctnt.id}&hierarchy_entry_id=#{@child_entry_no_ctnt.id}&vetted_id=#{Vetted.unknown.id}")
+    body.should include("There is no Unknown #{@content_partner_name} content for #{@species_name}, please select another vetting status and try again.")
+    visit("/curators/ignored_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}")
+    body.should include("There is no ignored content for #{@species_name}, please select another hierarchy and try again.")
   end
 end

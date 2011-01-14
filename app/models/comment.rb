@@ -173,7 +173,7 @@ class Comment < ActiveRecord::Base
     return return_t_c
   end
 
-protected
+private
 
   def track_create
     self.user.track_curator_activity(self, 'comment', 'create')

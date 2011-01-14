@@ -58,6 +58,10 @@ class Member < ActiveRecord::Base
     return self.roles.detect {|r| r.can?(priv) }
   end
 
+  def can_edit_members?
+    return Privilege.member_editing_privileges.map {|p| self.can? p }.include? true
+  end
+
   def all_sorted_privileges
     privs = self.roles.map {|r| r.privileges}.flatten
     self.member_privileges.each do |mp|

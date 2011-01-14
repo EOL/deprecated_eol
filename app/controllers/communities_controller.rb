@@ -6,7 +6,6 @@ class CommunitiesController < ApplicationController
 
   def index
     @communities = Community.paginate(:page => params[:page]) 
-
     respond_to do |format|
       format.html # index.html.erb
       format.xml  { render :xml => @communities }
@@ -21,10 +20,8 @@ class CommunitiesController < ApplicationController
   end
 
   def new
-
     @page_title = "New EOL Community"[]
     @community = Community.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.xml  { render :xml => @community }
@@ -87,6 +84,7 @@ class CommunitiesController < ApplicationController
 
   def load_community
     @community = Community.find(params[:community_id] || params[:id])
+    @members = @community.members # Because we pull in partials from the members controller.
   end
 
   def restrict_edit_and_delete

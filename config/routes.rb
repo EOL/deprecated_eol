@@ -1,9 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
 
+  # Communities, Privileges, Roles:
   map.resources :privileges
-  map.resources :roles
-  map.resources :members
-  map.resources :communities
+  map.resources :communities, :has_many => [:members, :roles]
   map.join_community 'communities/:community_id/join', :controller => 'communities', :action => 'join', :method => 'put'
   map.leave_community 'communities/:community_id/leave', :controller => 'communities', :action => 'leave', :method => 'put'
 

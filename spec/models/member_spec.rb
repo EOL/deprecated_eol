@@ -6,6 +6,7 @@ describe Member do
     Community.delete_all
     MemberPrivilege.delete_all
     Privilege.delete_all
+    KnownPrivileges.create_all
     Role.delete_all
     User.delete_all
     @user = User.gen
@@ -85,6 +86,12 @@ describe Member do
       @member.can?(@role_privilege).should be_true
     end
 
+  end
+
+  it 'should decide if a member can edit other members' do
+    @member.can_edit_members?.should_not be_true
+    @member.grant_privilege(Privilege.grant_level_10_privileges)
+    @member.can_edit_members?.should be_true
   end
 
   it 'should list all privileges (except revoked)' do

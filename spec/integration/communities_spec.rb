@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe "Communities" do
+describe "Communities controller" do
 
   before(:all) do
     truncate_all_tables

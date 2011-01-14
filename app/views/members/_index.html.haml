@@ -1,0 +1,18 @@
+=# will_paginate @members # TODO - since this is in a partial, we may want to make this Ajaxy.
+%h3= "Community members:"[]
+%p{:id => 'left_message', :class => 'notice hidden'}= "You have left this community"[]
+%p{:id => 'joined_message', :class => 'notice hidden'}= "You have joined this community"[]
+%p{:id => 'community_problem', :class => 'notice hidden'}= "Sorry, there was an error."[]
+%ul{:id => 'community_members'}
+  - @members.each do |member|
+    - this_is_me = (member.user_id == current_user.id)
+    %li{:class => this_is_me ? member_function : nil}
+      = link_to member.user.username, member.user
+      - if this_is_me
+        = "(you)"[]
+      - elsif member.can_edit_members? # NOTE THE ELSIF!!!!  You cannot edit YOURSELF.
+        = link_to "Edit membership"[], member
+  - if logged_in? && !current_user.member_of?(@community)
+    %li{:class => member_function}
+      = link_to(current_user.username, current_user)
+      = "(you)"[]

@@ -1523,6 +1523,27 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     return arr
   end
 
+  def show(user)
+    vetted_by = user
+    update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
+    user.track_curator_activity(self, 'data_object', 'show')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show
+  end
+
+  def hide(user)
+    vetted_by = user
+    update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
+    user.track_curator_activity(self, 'data_object', 'hide')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
+  end
+
+  def inappropriate(user)
+    vetted_by = user
+    update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
+    user.track_curator_activity(self, 'data_object', 'inappropriate')
+    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
+  end
+
 private
 
   def self.join_agents_clause(agent)
@@ -1596,27 +1617,6 @@ EOVISBILITYCLAUSE
     else
       raise "I'm not sure what data type #{type} is."
     end
-  end
-
-  def show(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.visible.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'show')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.show
-  end
-
-  def hide(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.invisible.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'hide')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
-  end
-
-  def inappropriate(user)
-    vetted_by = user
-    update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
-    user.track_curator_activity(self, 'data_object', 'inappropriate')
-    CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
   end
 
   def trust(user, opts = {})

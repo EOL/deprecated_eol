@@ -5,12 +5,12 @@
   - ctnt_ptnr = @ctnt_ptnr.blank? ? "" : "#{@ctnt_ptnr} "
   - name = @name.blank? ? "" : " for #{@name}"
   %hr.thin
-    - msg = "There is no #{status}#{ctnt_ptnr}content#{name}, please select another vetting status and try again."
-    = msg
+  - msg = "There is no #{status}#{ctnt_ptnr}content#{name}, please select another vetting status and try again."
+  = msg
 - else
-  %hr.thin 
-    - msg = "Images are sorted by EOL import date, with newest items shown first."
-    = msg
+  %hr.thin
+  - msg = "Images are sorted by EOL import date, with newest items shown first."
+  = msg
   = will_paginate(@images_to_curate, :params => params)
   %table.results_table
     %tr

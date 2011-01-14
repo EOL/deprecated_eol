@@ -280,4 +280,96 @@ describe 'Curator Worklist' do
     visit("/curators/ignored_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}")
     body.should include("There is no ignored content for #{@species_name}, please select another hierarchy and try again.")
   end
+  
+  it 'should be able to render the taxon name links to the species page with the same image' do
+    visit("/curators/curate_images")
+    body.should include("/pages/#{@child_entry.taxon_concept_id}")
+    body.should include("/curators/curate_image?data_object_id=#{@first_child_unreviewed_image.id.to_s}")
+    visit("/curators/curate_image?data_object_id=#{@first_child_unreviewed_image.id.to_s}")
+    body.should include("/pages/#{@child_entry.taxon_concept_id}")
+  end
+  
+  # it 'should be able to allow curators to add comment' do
+  #   visit("/data_objects/#{@first_child_unreviewed_image.id.to_s}/comments")
+  #   body.should include("Add a New Comment")
+  # end
+  
+  it 'should be able to allow curator to curate unreviewed images as trusted and untrusted' do
+    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
+    body.should include("trust-label-#{@first_child_unreviewed_image.id.to_s}")
+    body.should include("trust-label-#{@lower_child_unreviewed_image.id.to_s}")
+    visit("/curators/trust?data_object_id=#{@first_child_unreviewed_image.id.to_s}&div_id=trust-label-#{@first_child_unreviewed_image.id.to_s}")
+    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
+    body.should include("trust-label-#{@first_child_unreviewed_image.id.to_s}")
+    body.should_not include("trust-label-#{@lower_child_unreviewed_image.id.to_s}")
+    visit("/curators/untrust?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=trust-label-#{@lower_child_unreviewed_image.id.to_s}")
+    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
+    body.should_not include("trust-label-#{@first_child_unreviewed_image.id.to_s}")
+    body.should include("trust-label-#{@lower_child_unreviewed_image.id.to_s}")
+    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
+    body.should_not include("trust-label-#{@first_child_unreviewed_image.id.to_s}")
+    body.should_not include("trust-label-#{@lower_child_unreviewed_image.id.to_s}")
+  end
+  
+  it 'should be able to allow curator to curate untrusted images as trusted and unreviewed' do
+    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
+    body.should include("trust-label-#{@first_child_untrusted_image.id.to_s}")
+    body.should include("trust-label-#{@lower_child_untrusted_image.id.to_s}")
+    visit("/curators/trust?data_object_id=#{@first_child_untrusted_image.id.to_s}&div_id=trust-label-#{@first_child_untrusted_image.id.to_s}")
+    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
+    body.should include("trust-label-#{@first_child_untrusted_image.id.to_s}")
+    body.should_not include("trust-label-#{@lower_child_untrusted_image.id.to_s}")
+    visit("/curators/unreviewed?data_object_id=#{@lower_child_untrusted_image.id.to_s}&div_id=trust-label-#{@lower_child_untrusted_image.id.to_s}")
+    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
+    body.should_not include("trust-label-#{@first_child_untrusted_image.id.to_s}")
+    body.should include("trust-label-#{@lower_child_untrusted_image.id.to_s}")
+    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
+    body.should_not include("trust-label-#{@first_child_untrusted_image.id.to_s}")
+    body.should_not include("trust-label-#{@lower_child_untrusted_image.id.to_s}")
+  end
+  
+  it 'should be able to allow curator to curate trusted images as untrusted and unreviewed' do
+    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
+    body.should include("trust-label-#{@first_child_trusted_image.id.to_s}")
+    body.should include("trust-label-#{@lower_child_trusted_image.id.to_s}")
+    visit("/curators/untrust?data_object_id=#{@first_child_trusted_image.id.to_s}&div_id=trust-label-#{@first_child_trusted_image.id.to_s}")
+    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
+    body.should include("trust-label-#{@first_child_trusted_image.id.to_s}")
+    body.should_not include("trust-label-#{@lower_child_trusted_image.id.to_s}")
+    visit("/curators/unreviewed?data_object_id=#{@lower_child_trusted_image.id.to_s}&div_id=trust-label-#{@lower_child_trusted_image.id.to_s}")
+    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
+    body.should_not include("trust-label-#{@first_child_trusted_image.id.to_s}")
+    body.should include("trust-label-#{@lower_child_trusted_image.id.to_s}")
+    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
+    body.should_not include("trust-label-#{@first_child_trusted_image.id.to_s}")
+    body.should_not include("trust-label-#{@lower_child_trusted_image.id.to_s}")
+  end
+  
+  it 'should be able to allow curator to change visibility of images' do
+    visit("/curators/curate_images")
+    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Visible")
+    visit("/curators/hide?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=visibility-label-#{@lower_child_unreviewed_image.id.to_s}")
+    visit("/curators/curate_images")
+    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Invisible")
+    visit("/curators/remove?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=visibility-label-#{@lower_child_unreviewed_image.id.to_s}")
+    visit("/curators/curate_images")
+    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Inappropriate")
+    visit("/curators/show?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=visibility-label-#{@lower_child_unreviewed_image.id.to_s}")
+    visit("/curators/curate_images")
+    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Visible")
+  end
+  
+  it 'should be able to allow curator to change visibility of ignored images' do
+    visit("/curators/curate_images")
+    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Visible")
+    visit("/curators/hide?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=visibility-label-#{@lower_child_unreviewed_image.id.to_s}")
+    visit("/curators/curate_images")
+    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Invisible")
+    visit("/curators/remove?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=visibility-label-#{@lower_child_unreviewed_image.id.to_s}")
+    visit("/curators/curate_images")
+    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Inappropriate")
+    visit("/curators/show?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=visibility-label-#{@lower_child_unreviewed_image.id.to_s}")
+    visit("/curators/curate_images")
+    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Visible")
+  end
 end

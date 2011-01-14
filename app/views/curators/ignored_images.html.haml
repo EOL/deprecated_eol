@@ -1,12 +1,12 @@
 - if @ignored_images.blank?
   - name = @name.blank? ? "" : " for #{@name}"
   %hr.thin
-    - msg = "There is no ignored content#{name}, please select another hierarchy and try again."
-    = msg
+  - msg = "There is no ignored content#{name}, please select another hierarchy and try again."
+  = msg
 - else
   %hr.thin 
-    - msg = "Images are sorted by EOL import date, with newest items shown first."
-    = msg
+  - msg = "Images are sorted by EOL import date, with newest items shown first."
+  = msg
   %table.results_table
     %tr
       %th

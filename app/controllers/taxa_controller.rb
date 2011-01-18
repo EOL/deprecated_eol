@@ -71,7 +71,7 @@ class TaxaController < ApplicationController
       return
     end
 
-    @taxon_concept = find_taxon_concept
+    @taxon_concept = find_taxon_concept || return
     return if taxon_concept_invalid?(@taxon_concept)
     return redirect_to(params.merge(:controller => 'taxa',
                                     :action => 'show',
@@ -480,12 +480,9 @@ private
   def find_taxon_concept
     tc_id = params[:id].to_i
     tc_id = params[:taxon_concept_id].to_i if tc_id == 0
-    tc = nil
-    begin
-      tc = TaxonConcept.find(tc_id)
-    rescue
+    redirect_to_missing_page_on_error do
+      TaxonConcept.find(tc_id)
     end
-    return tc
   end
 
   def taxon_concept_invalid?(tc)
@@ -501,6 +498,7 @@ private
     rescue => e
       @message = e.message
       render(:layout => 'main', :template => "content/missing", :status => 404)
+      return false
     end
   end
 

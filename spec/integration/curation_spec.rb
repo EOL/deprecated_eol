@@ -72,16 +72,10 @@ describe 'Curation' do
   it 'should expire taxon_concept from cache' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
     login_as(curator)
-
-    old_cache_val = ActionController::Base.perform_caching
-    ActionController::Base.perform_caching = true
-
-    ActionController::Base.cache_store.should_receive(:delete).any_number_of_times
-
-    visit("/data_objects/#{@taxon_concept.images[0].id}/curate?_method=put&curator_activity_id=#{CuratorActivity.disapprove.id}")
-
-    $CACHE.clear
-    ActionController::Base.perform_caching = old_cache_val
+    ActionController.should_receive(:expire_data_object).any_number_of_times.and_return(true)
+    #TODO - this isn't working... see the routes file (map.resource :data_objects) for details:
+    # visit(curate_data_object_path(@taxon_concept.images[0].id, :curator_activity_id => CuratorActivity.disapprove.id))
+    visit("/data_objects/curate/#{@taxon_concept.images[0].id}?vetted_id=#{Vetted.trusted.id}")
   end
   
   # --- taxa page curators list ---

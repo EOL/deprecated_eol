@@ -1,0 +1,16 @@
+- current_user_is_admin = @current_member && @current_member.can?(Privilege.edit_delete_community)
+- form_for([@community, @role]) do |f|
+  .title
+    %p
+      = f.label :title
+    %p
+      = f.text_field :title
+  .privilieges
+    %h5= "Privileges"[]
+    %ul#role_privileges
+      - @privileges.each do |privilege|
+        %li
+          = check_box_tag("privilege_#{privilege.id}")
+          = label_tag privilege.name
+  %p
+    = f.submit('Save'[])

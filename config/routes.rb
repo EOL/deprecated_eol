@@ -3,6 +3,11 @@ ActionController::Routing::Routes.draw do |map|
   # Communities, Privileges, Roles:
   map.resources :privileges
   map.resources :communities, :has_many => [:members, :roles]
+  # TODO - change these to more restful declarations (see the data_objects resource, below):
+  map.remove_role 'member/:member_id/remove_role/:role_id', :controller => 'members', :action => 'remove_role'
+  map.add_privilege_to_role 'roles/:role_id/add_privilege/:privilege_id', :controller => 'roles', :action => 'add_privilege'
+  map.remove_privilege_from_role 'roles/:role_id/remove_privilege/:privilege_id',
+    :controller => 'roles', :action => 'remove_privilege'
   map.join_community 'communities/:community_id/join', :controller => 'communities', :action => 'join', :method => 'put'
   map.leave_community 'communities/:community_id/leave', :controller => 'communities', :action => 'leave', :method => 'put'
 
@@ -14,6 +19,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :comments, :member => { :make_visible => :put, :remove => :put }
 	map.resources :random_images
+  # TODO - the curate member method is not working when you use the url_for method and its derivatives.  Instead, the default
+  # url of "/data_objects/curate/:id" works.  Not sure why.
 	map.resources :data_objects, :member => { :curate => :put, :curation => :get, :attribution => :get } do |data_objects|
     data_objects.resources :comments
     data_objects.resources :tags,  :collection => { :public => :get, :private => :get, :add_category => :post,

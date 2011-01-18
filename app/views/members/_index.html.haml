@@ -8,11 +8,15 @@
     - this_is_me = (member.user_id == current_user.id)
     %li{:class => this_is_me ? member_function : nil}
       = link_to member.user.username, member.user
+      = member.roles.map {|r| r.title}.sort.join(', ')
       - if this_is_me
         = "(you)"[]
-      - elsif member.can_edit_members? # NOTE THE ELSIF!!!!  You cannot edit YOURSELF.
-        = link_to "Edit membership"[], member
-  - if logged_in? && !current_user.member_of?(@community)
+      - else # NOTE THE ELSE!!!!  You *cannot* edit yourself.
+        - if @current_member && @current_member.can_edit_members?
+          = link_to("Edit membership"[], edit_community_member_path(@community, member))
+        - if @current_member && @current_member.can?(Privilege.remove_members)
+          = link_to("Remove membership"[], [@community, member], :method => :delete, :confirm => 'Are you sure?'[])
+  - if logged_in? && ! current_user.member_of?(@community)
     %li{:class => member_function}
       = link_to(current_user.username, current_user)
       = "(you)"[]

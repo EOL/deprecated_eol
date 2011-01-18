@@ -41,4 +41,13 @@ describe Role do
     @community.roles.map {|r| r.title}.sort.should == ['Content Manager', 'Member Services Manager','Owner']
   end
 
+  it 'should #count the number of members with the role' do
+    r = Role.gen(:community => @community)
+    6.times do
+      m = Member.gen(:community => @community)
+      m.add_role(r)
+    end
+    r.count.should == 6
+  end
+
 end

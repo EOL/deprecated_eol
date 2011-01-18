@@ -55,7 +55,8 @@ class Member < ActiveRecord::Base
   def can?(priv)
     return false if had_privilege_revoked?(priv)
     return true if has_privilege?(priv)
-    return self.roles.detect {|r| r.can?(priv) }
+    return true unless self.roles.detect {|r| r.can?(priv) }.blank?
+    return false
   end
 
   def can_edit_members?

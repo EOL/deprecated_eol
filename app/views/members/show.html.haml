@@ -1,8 +1,20 @@
--# I imagine this view will *mostly* be seen via Ajax, so it's pretty bare-bones.
+- current_user_is_an_admin = @current_member && @current_member.can?(Privilege.grant_level_20_privileges)
 %h3
   = link_to "#{@member.user.username},", @member.user
-  = "member of" 
-  = link_to @member.community.name, @member.community
-.privileges
-  - @privileges.each do |privilege|
-    = privilege.name
+%h5= "Roles"[]
+%ul#roles
+  - @member.roles.each do |role|
+    %li
+      = role.title
+      - if current_user_is_an_admin
+        = link_to '(remove)'[], remove_role_path(:member_id => @member.id, :role_id => role.id)
+%h5= "Special Privileges"[]
+%p= "These are privileges which are granted specifically to this member, ragardless of the member's roles, and supercede any privilieges granted by roles."[:explain_member_privileges]
+%ul#privileges
+  - @member.member_privileges.each do |member_privilege|
+    - privilege = member_privilege.privilege
+    %li
+      = privilege.name
+      - if member_privilege.revoked?
+        = "(revoked)"[]
+

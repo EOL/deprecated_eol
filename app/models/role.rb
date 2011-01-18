@@ -50,8 +50,17 @@ class Role < ActiveRecord::Base
     privileges << priv
   end
 
+  def remove_privilege(priv)
+    privileges.delete(priv)    
+  end
+
   def can?(priv)
     self.privileges.include? priv
+  end
+
+  # We want to do this more efficiently than Rails easily allows:
+  def count
+    v = self.connection.execute("SELECT count(*) as c FROM members_roles WHERE role_id = #{self.id}").all_hashes[0]['c'].to_i
   end
 
 end

@@ -1,6 +1,6 @@
 class CommunitiesController < ApplicationController
 
-  before_filter :load_community, :except => [:index, :new, :create]
+  before_filter :load_community_and_dependent_vars, :except => [:index, :new, :create]
   before_filter :must_be_logged_in, :except => [:index, :show]
   before_filter :restrict_edit_and_delete, :only => [:edit, :update, :delete]
 
@@ -82,14 +82,15 @@ class CommunitiesController < ApplicationController
 
   private
 
-  def load_community
+  def load_community_and_dependent_vars
     @community = Community.find(params[:community_id] || params[:id])
     @members = @community.members # Because we pull in partials from the members controller.
+    @current_member = current_user.member_of(@community)
   end
 
   def restrict_edit_and_delete
-    member = current_user.member_of(@community)
-    raise EOL::Exceptions::SecurityViolation unless member && member.can?(Privilege.edit_delete_community)
+    @current_member ||= current_user.member_of(@community)
+    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can?(Privilege.edit_delete_community)
   end
 
   def must_be_logged_in

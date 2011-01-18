@@ -1,10 +1,15 @@
 %h1{:id => 'community_name'}= h @community.name
 %p{:id => 'community_description'}= h @community.description
+- roles = @community.roles
+- if roles.blank?
+  %p{:id => 'community_roles_empty'}= "There are currently no roles for this community."[:no_roles_in_community]
+- else
+  = render :partial => 'roles/index', :locals => {:roles => roles}
 - i_am_in_this_community = current_user.member_of?(@community)
 - member_function = i_am_in_this_community ? 'member allowed' : 'member not_allowed'
 - non_member_function = i_am_in_this_community ? 'non_member not_allowed' : 'non_member allowed'
 - if @members.blank?
-  %p{:id => 'community_empty'}= "There are currently no members in this community."[:no_members_in_community_message]
+  %p{:id => 'community_members_empty'}= "There are currently no members in this community."[:no_members_in_community]
 - else
   = render :partial => 'members/index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
 - if not logged_in?
@@ -19,7 +24,8 @@
     %li{:id => 'leave_community', :class => member_function}
       = link_to("Leave this community"[:join_community], leave_community_path(:community_id => @community.id))
       = ajax_spinner
-    %li{:id => 'edit_community', :class => member_function}
-      = link_to("Edit this community"[:edit_community], edit_community_path(@community))
-    %li{:id => 'delete_community', :class => member_function}
-      = link_to("Delete this community"[:delete_community], community_path(@community), :confirm => "Are you sure?"[], :method => :delete)
+    - if @current_member && @current_member.can?(Privilege.edit_delete_community)
+      %li{:id => 'edit_community', :class => member_function}
+        = link_to("Edit this community"[:edit_community], edit_community_path(@community))
+      %li{:id => 'delete_community', :class => member_function}
+        = link_to("Delete this community"[:delete_community], community_path(@community), :confirm => "Are you sure?"[], :method => :delete)

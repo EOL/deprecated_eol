@@ -3,6 +3,8 @@
     - for metric in metrics      
       %b
         = "Taxon Concept Stats"
+
+      = link_to " &nbsp;&nbsp; species page>>",{:controller=>'/taxa', :action=>:show, :id => metric["taxon_concept_id"]}
       %br
       %table.results_table            
         %tr
@@ -14,32 +16,32 @@
           %td.odd
             = "Text object"
           %td.odd{ :align => 'right' }
-            = metric["text_total"]
+            = metric["text_trusted"]
         %tr            
           %td.even
             = "Image object"
           %td.even{ :align => 'right' }
-            = metric["image_total"]
+            = metric["image_trusted"]
         %tr            
           %td.odd
             = "Video object"
           %td.odd{ :align => 'right' }
-            = metric["video_total"]
+            = metric["video_trusted"]
         %tr            
           %td.even
             = "Flash video"
           %td.even{ :align => 'right' }
-            = metric["flash_total"]
+            = metric["flash_trusted"]
         %tr            
           %td.odd
             = "YouTube video"
           %td.odd{ :align => 'right' }
-            = metric["youtube_total"]
+            = metric["youtube_trusted"]
         %tr            
           %td.even
             = "Sound object"
           %td.even{ :align => 'right' }
-            = metric["sound_total"]            
+            = metric["sound_trusted"]            
         %tr            
           %td.odd
             = "Data object reference"

@@ -2,6 +2,16 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Name do
 
+  before(:all) do
+    @canonical_form = CanonicalForm.gen(:string => "Some name")
+    @name = Name.gen(:string => "Some name Auth, 1923", :canonical_form => @canonical_form)
+  end
+  
+  after(:all) do
+    Name.delete_all
+    CanonicalForm.delete_all
+  end
+
   it { should belong_to(:canonical_form) }
 
   it "should require a valid #string" do
@@ -9,30 +19,16 @@ describe Name do
     Name.create( :string => 'Tiger' ).should_not be_valid # because there's already a Tiger
   end
   
-  it "#callbacks" do
-    name = Name.create(:string => "Some test string")
-    name.class.should == Name
-    name.canonical_form.string.should == "Some test string"
-    name.canonical_verified.should == 0
-    name.italicized.should == "<i>Some test string</i>"
-    name.italicized_verified.should == 0
-    name.clean_name.should == "some test string"
-    
-    # we don't want to be creating duplicates
-    name2 = Name.find_or_create_by_string(name.string)
-    name2.should == name
-    name2 = Name.find_or_create_by_string(" #{name.string} ")
-    name2.should == name
-    
-    Name.delete_all
-    name3 = Name.new
-    name3.string = name.string
-    name3.canonical_form = CanonicalForm.create(:string => "something else")
-    name3.save!
-    name3.canonical_form.string.should == "something else"
+  it "should have italicized version of a name" do
+    @name.italicized.should == "<i>Some name</i> Auth, 1923"
+    @name.italicized_verified.should == 1
+  end
+  
+  it "should have clean/normalized name" do
+    @name.clean_name.should == "some name auth 1923"
   end
 
-  describe "#prepare_clean_name" do
+  describe "::prepare_clean_name" do
     it "should prepare a clean name" do
       read_test_file("clean_name.csv") do |row|
         Name.prepare_clean_name(row["original_string"]).should == row["clean_string"]
@@ -40,7 +36,7 @@ describe Name do
     end
   end
   
-  describe "#create_common_name" do
+  describe "::create_common_name" do
 
     it 'should do nothing if there is no name string passed to it' do
       count = Name.count
@@ -79,5 +75,59 @@ describe Name do
     end
 
   end
-
+  
+  describe "#taxon_concepts" do
+    it "should return taxonconcepts the name is used" do
+      
+    end
+  end
+  
+  describe "#canonical" do
+    
+    it "should return the canonical form if assigned" do
+      @name.canonical.should == "Some name"
+      @name.canonical_verified.should == 1
+    end
+    
+    it "should not return the canonical form if not assigned" do
+      name = Name.gen(:string => "Test string")
+      name.canonical_form = nil
+      name.canonical_verified = 0      
+      name.canonical.should == 'not assigned'
+    end
+    
+  end
+  
+  describe "#italicized_canonical" do
+    it "should return the italicized canonical form" do
+      @name.italicized_canonical.should == "<i>Some name</i>"
+    end
+  end
+  
+  describe "::find_or_create_by_string" do
+    
+    it "should create name if it does not exist" do
+      name_count = Name.count
+      name = Name.find_or_create_by_string("New name string")
+      name.string == "New name string"
+      (Name.count - name_count).should == 1
+    end
+    
+    # we don't want to be creating duplicates
+    it "should not create name if it does exist" do
+      name_count = Name.count
+      name = Name.find_or_create_by_string(@name.string)
+      name.string == @name
+      (Name.count - name_count).should == 0
+    end
+    
+  end
+  
+  describe  "::find_by_string" do
+    it "should return a name" do
+      name = Name.find_by_string(" Some           Name Auth,     1923  ")
+      name.should == @name
+    end
+  end
+  
 end

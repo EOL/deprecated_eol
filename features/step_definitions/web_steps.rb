@@ -38,7 +38,6 @@ When /^(?:|I )press (?:the |a |an )?"([^"]*)"(?: button)?(?: within (?:the |a |a
 end
 
 When /^(?:|I )press (?:the |a |an )([^"]+?)(?: within (?:the |a |an )?([^"]*))?$/ do |selector, container|
-  # require 'ruby-debug'; debugger if selector.match /untrusted/
   if container
     When %{I follow the #{selector} within the #{container}}
   else

@@ -372,7 +372,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       revoke_curatorship
       Notifier.deliver_curator_unapproved(self)
     end
-    debugger
     self.save! unless self.validating
   end
 

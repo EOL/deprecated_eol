@@ -20,6 +20,8 @@
       If you need to upload an image or a PDF to reference in the page, use the
       = link_to 'upload content',:controller=>'administrator/content_upload',:action=>'index'
       feature first, and then reference the file once it is uploaded.
+    %li
+      To actually make a page publicly visible it *must* have the "Published" checkbox checked when you click the "Publish Changes" button.
 %form#content_section_select
   To administer site content, please select the section to work on:
   = collection_select(:content_section,:id,@content_sections,:id,:name,{})

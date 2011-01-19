@@ -51,7 +51,7 @@
         %td
           %strong
             Published:
-        %td
+        %td{:class => @page.active ? nil : 'warn'}
           = f.check_box :active
           \- must be checked in order to view
       %tr
@@ -117,4 +117,4 @@
   %br
   %input#preview{ :name => "preview", :type => "button", :value => "Preview Changes" }
   |
-  %input#publish{ :name => "publish", :type => "button", :value => "Publish Changes" }
+  %input#publish{ :name => "publish", :type => "button", :value => "Save Changes" }

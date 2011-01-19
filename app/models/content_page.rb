@@ -14,10 +14,9 @@ class ContentPage < parent_klass
   validates_presence_of :content_section_id, :page_name, :title
   before_save :remove_underscores_from_page_name
   
-  def self.get_by_page_name_and_language_abbr(page_url, language_abbr)
-    page_name = ContentPage.page_url_to_page_name(page_url)
-    language_page = self.find_by_page_name_and_active_and_language_abbr(page_name, true, language_abbr)
-    language_page = self.find_by_page_name_and_active_and_language_abbr(page_name, true, Language.english.iso_639_1) if
+  def self.get_by_page_url_and_language_abbr(page_url, language_abbr)
+    language_page = self.find_by_page_url_and_active_and_language_abbr(page_url, true, language_abbr)
+    language_page = self.find_by_page_url_and_active_and_language_abbr(page_url, true, Language.english.iso_639_1) if
       language_page.nil? # if we couldn't find that language, try English
     return language_page
   end
@@ -32,11 +31,6 @@ class ContentPage < parent_klass
   def self.string_to_page_url(str)
     return '' if str.nil?
     str.clone.underscore_non_word_chars.downcase
-  end
-
-  def self.page_url_to_page_name(str)
-    return '' if str.nil?
-    str.clone.gsub('_', ' ')
   end
 
   def title_with_language
@@ -56,7 +50,7 @@ class ContentPage < parent_klass
   end
   
   def remove_underscores_from_page_name
-    self.page_name = ContentPage.page_url_to_page_name(self.page_name)
+    self.page_name.gsub!('_', ' ')
   end
   
   # helper method to retrieve a language key equivalent to the page name if none is supplied in the database

@@ -20,17 +20,17 @@ class Administrator::ContentPageController < AdminController
  end
   
  def update
-   current_page = ContentPage.find(params[:id])
-   new_page = ContentPage.update(params[:id], params[:page])
-   new_page.update_attribute(:last_update_user_id, current_user.id)
-   if new_page.valid?
-     ContentPageArchive.backup(current_page) # backup old page
-     expire_menu_caches(new_page)
+   old_page = ContentPage.find(params[:id])
+   page = ContentPage.update(params[:id], params[:page])
+   page.update_attribute(:last_update_user_id, current_user.id)
+   if page.valid?
+     ContentPageArchive.backup(old_page) # backup old page
+     expire_menu_caches(page)
      flash[:notice] = 'Content has been updated.'
    else
      flash[:error] = 'Some required fields were not entered (you must enter a title, and content OR a URL).'
    end
-   redirect_to :action => 'index', :content_section_id => new_page.content_section.id, :content_page_id => new_page.id
+   redirect_to :action => 'index', :content_section_id => page.content_section.id, :content_page_id => page.id
  end
  
  # pull the updated content from the querystring to build the preview version of the page 

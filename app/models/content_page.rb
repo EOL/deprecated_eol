@@ -14,23 +14,28 @@ class ContentPage < parent_klass
   validates_presence_of :content_section_id, :page_name, :title
   before_save :remove_underscores_from_page_name
   
-  def self.get_by_page_url_and_language_abbr(page_url, language_abbr)
-    language_page = self.find_by_page_url_and_active_and_language_abbr(page_url, true, language_abbr)
-    language_page = self.find_by_page_url_and_active_and_language_abbr(page_url, true, Language.english.iso_639_1) if
-      language_page.nil? # if we couldn't find that language, try English
-    return language_page
-  end
-
-  def self.get_by_id_and_language_abbr(id, language_abbr)
-    language_page = self.find_by_id_and_active_and_language_abbr(id, true, language_abbr)
-    language_page = self.find_by_id_and_active_and_language_abbr(id, true, Language.english.iso_639_1) if
-      language_page.nil? # if we couldn't find that language, try English
-    return language_page
+  def self.smart_find_with_language(id, language_abbr)
+    page = nil
+    default_language_abbr = Language.english.iso_639_1
+    if id.is_int?
+      page = self.find_by_id_and_active_and_language_abbr(id, true, language_abbr)
+      page = self.find_by_id_and_active_and_language_abbr(id, true, default_language_abbr) if page.nil?
+    else # assume it's a page name
+      page_name = id.gsub('_', ' ')
+      page = self.find_by_page_name_and_active_and_language_abbr(page_name, true, language_abbr)
+      page = self.find_by_page_name_and_active_and_language_abbr(page_name, true, default_language_abbr) if page.nil?
+    end
+    return page
   end
   
   def self.string_to_page_url(str)
     return '' if str.nil?
     str.clone.underscore_non_word_chars.downcase
+  end
+
+  def self.home(lang_abbr = nil)
+    lang_abbr ||= Language.english.iso_639_1
+    self.find_by_page_name_and_active_and_language_abbr('Home', true, lang_abbr)
   end
 
   def title_with_language

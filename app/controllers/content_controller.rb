@@ -11,7 +11,7 @@ class ContentController < ApplicationController
     @home_page = true
     current_user.log_activity(:viewed_home_page)
     unless @cached_fragment = read_fragment(:controller => '/content', :part => 'home_' + current_user.content_page_cache_str)
-      @content = ContentPage.get_by_page_url_and_language_abbr('home', current_user.language_abbr)
+      @content = ContentPage.home
       raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy, {:language => current_user.language, :size => :medium})
       featured_taxa = TaxonConcept.exemplars # comment this out to make featured taxa go away on home page!     
@@ -348,17 +348,10 @@ class ContentController < ApplicationController
   # the template for a static page with content from the database
   def page
     # get the id parameter, which can be either a page ID # or a page name
-    @page_id = ContentPage.string_to_page_url(params[:id])
-    raise "static page without id" if @page_id.blank?
+    @content = ContentPage.smart_find_with_language(params[:id], current_user.language_abbr)
+    raise "static page content #{params[:id]} for #{current_user.language_abbr} not found" if @content.nil?
 
-    unless fragment_exist?(:controller => '/content', :part => "#{@page_id}_#{current_user.language_abbr}")
-      if @page_id.is_int?
-        @content = ContentPage.get_by_id_and_language_abbr(@page_id, current_user.language_abbr)
-      else # assume it's a page name
-        @content = ContentPage.get_by_page_url_and_language_abbr(@page_id, current_user.language_abbr)
-      end
-
-      raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?
+    unless fragment_exist?(:controller => '/content', :part => "#{@content.id}_#{current_user.language_abbr}")
 
       # if this static page is simply a redirect, then go there
       if !@content.url.blank?

@@ -1,4 +1,4 @@
-- cache(:controller => '/content', :part => "#{@page_id}_#{current_user.language_abbr}") do
+- cache(:controller => '/content', :part => "#{@content.id}_#{current_user.language_abbr}") do
   = javascript_include_tag 'faqs' if @content.page_name.downcase=='faqs'
 
   #page-separator-general
@@ -21,7 +21,7 @@
         = @content.main_content
         
         -#Curator page only - curators can submit a Wikipedia article for ingestion
-        - if @page_id == 'curator_central' && current_user.curator_approved
+        - if @content.page_url == 'curator_central' && current_user.curator_approved
           %hr.thin
           %a{:name => 'wikipedia'}
           %br

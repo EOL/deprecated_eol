@@ -191,7 +191,6 @@ class ApplicationController < ActionController::Base
   def expire_menu_caches(page = nil)
     list = ['top_nav', 'footer', 'exemplars'] # TODO - i18n
     unless page.nil?
-      list << page.page_url
       list << page.id
     end
     expire_pages(list)
@@ -513,8 +512,6 @@ private
           if page.class == ContentPage
             # NOTE - the / is needed before content, or administrator pages will use administrator/content.  Silly.
             expire_fragment(:controller => '/content', :part => "#{page.id}_#{language.iso_639_1}")
-            expire_fragment(:controller => '/content',
-                            :part => "#{page.page_url}_#{language.iso_639_1}")
             page.clear_all_caches rescue nil # TODO - still having some problem with ContentPage, not sure why.
             if page.page_url == 'home'
               # this is because the home page fragment is dependent on the user's selected hierarchy entry ID,

@@ -1,6 +1,10 @@
 class MembersController < ApplicationController
   layout 'main'
-  # I can't imagine this view will be used often.  :\
+  before_filter :load_community_and_current_member
+  before_filter :load_member, :except => [:index]
+  before_filter :restrict_edit, :only => [:edit, :update]
+  before_filter :restrict_delete, :only => [:delete]
+
   def index
     @members = Member.paginate(:page => params[:page]) 
 
@@ -12,24 +16,16 @@ class MembersController < ApplicationController
 
   # This for non-members and members WITHOUT access to change privileges:
   def show
-    @member = Member.find(params[:id])
+    # This is for community managers who have access to change privileges:
     @privileges = Privilege.all_for_community(@member.community)
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @member }
     end
   end
 
-  # This is for community managers who have access to change privileges:
-  def edit
-    @member = Member.find(params[:id])
-  end
-
   # You must be a community manager with privilege granting/revoking access to get here.
   def update
-    @member = Member.find(params[:id])
-
     respond_to do |format|
       if @member.update_attributes(params[:member])
         format.html { redirect_to(@member, :notice => 'Member was successfully updated.'[:updated_member]) }
@@ -39,6 +35,58 @@ class MembersController < ApplicationController
         format.xml  { render :xml => @member.errors, :status => :unprocessable_entity }
       end
     end
+  end
+
+  def destroy
+    @community.remove_member(@member)
+    respond_to do |format|
+      format.html { redirect_to(@community, :notice => 'You have successfully removed this member from the community.'[:you_removed_the_member_from_the_community]) }
+    end
+  end
+
+  def grant_privilege_to
+    @member.grant_privilege Privilege.find(params[:member][:new_privilege_id])
+    redirect_to([@community, @member], :notice => 'Member was successfully updated.'[:updated_member])
+  end
+
+  def revoke_privilege_from
+    @member.revoke_privilege Privilege.find(params[:member][:removed_privilege_id])
+    redirect_to([@community, @member], :notice => 'Member was successfully updated.'[:updated_member])
+  end
+
+  def add_role_to
+    @member.add_role Role.find(params[:member][:new_role_id])
+    redirect_to([@community, @member], :notice => 'Member was successfully updated.'[:updated_member])
+  end
+
+  def remove_role_from
+    @member.remove_role Role.find(params[:member][:removed_role_id])
+    redirect_to([@community, @member], :notice => 'Member was successfully updated.'[:updated_member])
+  end
+
+private
+
+  def load_community_and_current_member
+    @community = Community.find(params[:community_id])
+    @current_member = current_user.member_of(@community)
+  end
+
+  def load_member
+    @member = Member.find(params[:id] || params[:member_id])
+    unless @member && @member.community_id == @community.id
+      flash[:error] = "Cannot find a member with this id."[:cannot_find_member]
+      return redirect_to(@community)
+    end
+  end
+
+  def restrict_edit
+    @current_member ||= current_user.member_of(@community)
+    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can_edit_members?
+  end
+
+  def restrict_delete
+    @current_member ||= current_user.member_of(@community)
+    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.can?(Privilege.remove_members)
   end
 
 end

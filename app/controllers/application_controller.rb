@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
 
   include ContentPartnerAuthenticationModule # TODO -seriously?!?  You want all that cruft available to ALL controllers?!
   
-  
-
   if $EXCEPTION_NOTIFY || $ERROR_LOGGING
     include ExceptionNotifiable
     # Uncomment this line if you want to test exception notification and db error logging even on localhost calls.
@@ -49,6 +47,13 @@ class ApplicationController < ActionController::Base
       must_be_logged_in
     when EOL::Exceptions::SecurityViolation
       access_denied
+    else
+      logger.error "*" * 76
+      logger.error "** EXCEPTION: (uncaught) #{e.message}"
+      logger.error "   " + e.backtrace[0..11].map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.join("\n   ")
+      logger.error "   [...#{e.backtrace.length - 12} more lines omitted]" if e.backtrace.length > 12
+      logger.error "\n\n"
+      render :layout => 'main', :template => "content/error"
     end
   end
 
@@ -117,6 +122,7 @@ class ApplicationController < ActionController::Base
   
   # Set the page expertise and vetted defaults, get from querystring, update the session with this value if found
   def set_user_settings
+    return if request.path =~ /logout$/
     expertise = params[:expertise] if ['novice', 'middle', 'expert'].include?(params[:expertise])
     alter_current_user do |user|
       user.expertise = expertise unless expertise.nil?

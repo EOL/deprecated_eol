@@ -1,29 +1,7 @@
 #internal-nav
   %h4.margin-header.right-margin-header
     = "Contribute"[]
-  #contribute-info.popup{:style => "display:none;width:227px;margin-bottom:1em;"}
-  - all_curators = @taxon_concept.curators.size
-  - if all_curators > 0
-    .total_number_of_curators
-      %a{ :href => page_curators_path(@taxon_concept.id)}
-        This page has
-        = all_curators
-        == total curator#{all_curators == 1 ? "." : "s."}
-  - act_curators_size = @taxon_concept.acting_curators.size
-  - if act_curators_size > 0
-    .number_of_active_curators
-      %a{ :href => "#citation" }
-        This page has
-        = act_curators_size
-        == active curator#{act_curators_size == 1 ? "." : "s."}
-
-    .number_of_active_curators
-      Last curated:
-      = LastCuratedDate.find(:last, :conditions => ["taxon_concept_id = ?", @taxon_concept]).last_curated.strftime("%d %b %Y")
   %ul#contribute.bulletlist
-    - if @taxon_concept.show_curator_controls?
-      %li.strong
-        = link_to("Curate content in this clade", :controller => :curators, :action => :curate_images, :hierarchy_entry_id => @taxon_concept.entry.id)
     %li
       %a{ :href => "/taxa/show_popup?name=contribute_photos&taxon_name=#{@taxon_concept.name(:canonical)}", :class => 'show_popup' }
         = "Submit an image"[]
@@ -38,7 +16,33 @@
       = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @taxon_concept.id)
   - # bulletlist
   %br
-  %br
+  
+  
+  - all_curators = @taxon_concept.curators.size
+  - if all_curators > 0
+    %h4.margin-header.right-margin-header
+      = "Curation"[]
+    %ul#contribute.bulletlist
+      - if @taxon_concept.show_curator_controls?
+        %li.strong
+          = link_to("Curate content in this clade", :controller => :curators, :action => :curate_images, :hierarchy_entry_id => @taxon_concept.entry.id)
+      - act_curators_size = @taxon_concept.acting_curators.size
+      - if act_curators_size > 0
+        %li
+          %a{ :href => "#citation" }
+            This page has
+            = act_curators_size
+            == active curator#{act_curators_size == 1 ? "." : "s."}
+      %li
+        %a{ :href => page_curators_path(@taxon_concept.id)}
+          Who can curate this page?
+      - if act_curators_size > 0
+        %li
+          Last curated:
+          = LastCuratedDate.find(:last, :conditions => ["taxon_concept_id = ?", @taxon_concept]).last_curated.strftime("%d %b %Y")
+    %br
+  
+  
   - if @random_taxa
     %h4.margin-header.right-margin-header
       = "Explore"[]

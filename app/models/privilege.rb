@@ -25,4 +25,13 @@ class Privilege < ActiveRecord::Base
     end
   end
 
+  def self.member_editing_privileges
+    @@member_editing_privileges ||= [
+      Privilege.grant_level_20_privileges,
+      Privilege.revoke_level_20_privileges,
+      Privilege.grant_level_10_privileges,
+      Privilege.revoke_level_10_privileges
+    ]
+  end
+
 end

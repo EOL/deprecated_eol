@@ -1,8 +1,54 @@
--# I imagine this view will *mostly* be seen via Ajax, so it's pretty bare-bones.
+- current_member_is_an_admin = @current_member && @current_member.can?(Privilege.grant_level_20_privileges)
 %h3
-  = link_to "#{@member.user.username},", @member.user
-  = "member of" 
-  = link_to @member.community.name, @member.community
+  = link_to @member.user.username, @member.user
+.roles
+  %h5= "Roles"[]
+  %ul#roles
+    - @member.roles.sort_by {|r| r.title }.each do |role|
+      %li{:id => "role_#{role.id}"}
+        = role.title
+        - if current_member_is_an_admin
+          = link_to('Remove'[], remove_role_from_member_path(@member, :member => { :removed_role_id => role.id }, :community_id => @community.id), :method => :delete, :confirm => 'Are you sure?'[])
+  .add
+    - if current_member_is_an_admin
+      - roles = (@community.roles - @member.roles).sort_by {|r| r.title }
+      - if roles.blank?
+        %p= "This member has ALL of the roles available in this community!"[]
+      - else
+        - form_tag(add_role_to_member_path(@member)) do
+          = hidden_field_tag :community_id, @community.id
+          = collection_select(:member, :new_role_id, roles, :id, :title, :prompt => true)
+          = submit_tag('Add Role'[])
 .privileges
-  - @privileges.each do |privilege|
-    = privilege.name
+  %h5= "Special Privileges"[]
+  %p= "These are privileges which are granted specifically to this member, ragardless of the member's roles, and supercede any privilieges granted by roles."[:explain_member_privileges]
+  - listed_privileges = []
+  - if @member.member_privileges.blank?
+    %p= "This member has no special privileges."[]
+  - else
+    %ul#privileges
+      - @member.member_privileges.sort_by {|mp| mp.privilege.name }.each do |member_privilege|
+        - privilege = member_privilege.privilege
+        - listed_privileges << privilege
+        %li{:id => "privilege_#{privilege.id}"}
+          = privilege.name
+          - if member_privilege.revoked?
+            = "(revoked)"[]
+            - if current_member_is_an_admin
+              = link_to('Remove'[], grant_privilege_to_member_path(@member, :community_id => @community.id, :member => { :new_privilege_id => privilege.id}), :method => :post, :confirm => 'Are you sure?'[])
+          - else
+            - if current_member_is_an_admin
+              = link_to('Remove'[], revoke_privilege_from_member_path(@member, :community_id => @community.id, :member => { :removed_privilege_id => privilege.id}), :method => :delete, :confirm => 'Are you sure?'[])
+  .add
+    - if current_member_is_an_admin
+      - if listed_privileges.blank?
+        %p= "This member has ALL of the privileges in this community as special privileges!"[]
+      - else
+        - form_tag(grant_privilege_to_member_path(@member)) do
+          = hidden_field_tag :community_id, @community.id
+          = collection_select(:member, :new_privilege_id, @privileges - listed_privileges, :id, :name, :prompt => true)
+          = submit_tag('Grant Privilege'[])
+        - form_tag(revoke_privilege_from_member_path(@member), :method => :delete) do
+          = hidden_field_tag :community_id, @community.id
+          = collection_select(:member, :removed_privilege_id, @privileges - listed_privileges, :id, :name, :prompt => true)
+          = submit_tag('Revoke Privilege'[])

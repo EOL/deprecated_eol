@@ -1,11 +1,16 @@
 ActionController::Routing::Routes.draw do |map|
 
+  # Communities, Privileges, Roles:
   map.resources :privileges
-  map.resources :roles
-  map.resources :members
-  map.resources :communities
-  map.join_community 'communities/:community_id/join', :controller => 'communities', :action => 'join', :method => 'put'
-  map.leave_community 'communities/:community_id/leave', :controller => 'communities', :action => 'leave', :method => 'put'
+  # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
+  map.resources :communities, :has_many => [:members, :roles], :member => { 'join' => :get, 'leave' => :get }
+  map.resources :members, :member => {
+    'grant_privilege_to' => :post, 'revoke_privilege_from' => :delete,
+    'add_role_to' => :post, 'remove_role_from' => :delete }
+
+  map.add_privilege_to_role 'roles/:role_id/add_privilege/:privilege_id', :controller => 'roles', :action => 'add_privilege'
+  map.remove_privilege_from_role 'roles/:role_id/remove_privilege/:privilege_id',
+    :controller => 'roles', :action => 'remove_privilege'
 
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]
@@ -15,6 +20,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :comments, :member => { :make_visible => :put, :remove => :put }
 	map.resources :random_images
+  # TODO - the curate member method is not working when you use the url_for method and its derivatives.  Instead, the default
+  # url of "/data_objects/curate/:id" works.  Not sure why.
 	map.resources :data_objects, :member => { :curate => :put, :curation => :get, :attribution => :get } do |data_objects|
     data_objects.resources :comments
     data_objects.resources :tags,  :collection => { :public => :get, :private => :get, :add_category => :post,

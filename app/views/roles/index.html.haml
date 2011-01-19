@@ -1,7 +1,5 @@
+%h1
+  "Roles for"[]
+  = link_to role.community.name, role.community
 = will_paginate @roles
-%ul
-  - @roles.each do |role|
-    %li
-      = link_to role.title, role
-      = "in community"[]
-      = link_to role.community.name, role.community
+= render :partial => '_index', :locals => {:roles => @roles}

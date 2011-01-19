@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe "Communities" do
+describe "Communities controller" do
 
   before(:all) do
     truncate_all_tables
@@ -9,8 +9,10 @@ describe "Communities" do
     @community = Community.gen
     @user1 = User.gen # It's important that user1 NOT be a member of community2
     @user2 = User.gen
+    @role = Role.gen(:community => @community)
     @community.initialize_as_created_by(@user1)
-    @community.add_member(@user2)
+    @member2 = @community.add_member(@user2)
+    @member2.add_role @role
     @community2 = Community.gen # It's important that user1 NOT be a member of community2
     @name_of_create_button = 'Create'
   end
@@ -68,6 +70,19 @@ describe "Communities" do
       page.should have_content(@community.description)
     end
 
+    it 'should link to all of the community roles (including member count)' do
+      visit community_path(@community)
+      page.body.should have_tag('ul#community_roles') do
+        @community.roles.each do |role|
+          count = role.members.length # inefficient, but accurate
+          count = 'no' if count == 0
+          with_tag("li", :text => /#{role.title}.*#{count}/m) do
+            with_tag("a[href=#{community_role_path(@community, role)}]", :text => /#{role.title}/m)
+          end
+        end
+      end
+    end
+
     it 'should link to all of the community members' do
       visit community_path(@community)
       page.body.should have_tag("ul#community_members") do
@@ -76,6 +91,45 @@ describe "Communities" do
           with_tag("a[href=#{user_path(user)}]", :text => user.username)
         end
       end
+    end
+    
+    it 'should list each member\'s roles' do
+      visit community_path(@community)
+      page.body.should have_tag("ul#community_members") do
+        @community.members.each do |member|
+          user = member.user
+          member.roles.each do |role|
+            with_tag("li", :text => /#{user.username}.*#{role.title}/m)
+          end
+        end
+      end
+    end
+
+    describe '(with owner logged in)' do
+
+      before(:all) do
+        login_as @user1
+        visit community_path(@community)
+      end
+
+      it 'should show the add role link' do
+        page.body.should have_tag("a[href=#{new_community_role_path(@community)}]")
+      end
+
+      it 'should show edit and delete links' do
+        page.body.should have_tag("a[href=#{edit_community_path(@community)}]")
+        page.body.should have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
+      end
+
+      it 'should show edit membership links' do
+        page.body.should have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /edit/i)
+      end
+
+      it 'should show remove membership links' do
+        # NOTE = this is doesn't test that the link is actually a DELETE... but that's fine, it checks the text:
+        page.body.should have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /remove/i)
+      end
+
     end
 
     it 'should show log in message when not logged in' do
@@ -90,40 +144,50 @@ describe "Communities" do
       before(:all) do
         @community_with_membership_but_no_access = Community.gen
         @user1.join_community(@community_with_membership_but_no_access)
-      end
-
-      before(:each) do
-        login_as @user1
-      end
-
-      it 'should show join link and NOT edit or delete links when logged-in user is NOT a member' do
-        visit community_path(@community2)
-        page.body.should have_tag("a[href=#{join_community_path(:community_id => @community2.id)}]")
-        page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
-        page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
+        login_as @user2
+        visit community_path(@community)
       end
 
       it 'should show leave link' do
-        visit community_path(@community)
-        page.body.should have_tag("a[href=#{leave_community_path(:community_id => @community.id)}]")
+        page.body.should have_tag("a[href=#{leave_community_path(@community.id)}]")
       end
 
-      it 'should show edit and delete links when the user has access to them' do
-        visit community_path(@community)
-        page.body.should have_tag("a[href=#{edit_community_path(@community)}]")
-        page.body.should have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
+      it 'should NOT show the add role link' do
+        page.body.should_not have_tag("a[href=#{new_community_role_path(@community)}]")
       end
 
-      it 'should NOT show edit and delete links when the user has NO access to them (but not join link)' do
-        visit community_path(@community_with_membership_but_no_access)
+      it 'should NOT show edit and delete links' do
         page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
         page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
-        page.body.should_not have_tag("a[href=#{join_community_path(:community_id => @community2.id)}]")
+        page.body.should_not have_tag("a[href=#{join_community_path(@community2.id)}]")
+      end
+
+      it 'should show NOT edit membership links' do
+        page.body.should_not have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /edit/i)
+      end
+
+      it 'should show NOT remove membership links' do
+        # NOTE = this is doesn't test that the link is actually a DELETE... but that's fine, it checks the text:
+        page.body.should_not have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /remove/i)
       end
 
       it 'should NOT show logged-in message' do
-        visit community_path(@community)
         page.body.should_not have_tag("a[href=#{login_path}]", :text => /must be logged in/)
+      end
+
+    end
+
+    describe '(with non-member logged in)' do
+
+      before(:all) do
+        login_as @user1
+        visit community_path(@community2)
+      end
+
+      it 'should show join link and NOT edit or delete links when logged-in user is NOT a member' do
+        page.body.should have_tag("a[href=#{join_community_path(@community2.id)}]")
+        page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
+        page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
       end
 
     end
@@ -150,7 +214,7 @@ describe "Communities" do
   it 'should allow non-members to join communities, then redirect to show' do
     login_as @user1
     @user1.member_of?(@community2).should_not be_true
-    visit(join_community_path(:community_id => @community2.id))
+    visit(join_community_path(@community2.id))
     @user1.reload
     @user1.member_of?(@community2).should be_true
     page.body.should have_tag("ul#community_members") do
@@ -164,7 +228,7 @@ describe "Communities" do
   it 'should allow members to leave communities, then redirect to show' do
     login_as @user1
     @user1.member_of?(@community).should be_true
-    visit(leave_community_path(:community_id => @community.id))
+    visit(leave_community_path(@community.id))
     @user1.reload
     @user1.member_of?(@community).should_not be_true
     page.body.should have_tag("ul#community_members") do

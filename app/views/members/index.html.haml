@@ -1,8 +1,6 @@
-= will_paginate @members
-%ul
-  - @members.each do |member|
-    %li
-      = link_to member.user.username, member.user
-      = "is a member of"[]
-      = link_to member.community.name, member.community
-      = link_to "Edit membership"[], member
+-# TODO - this is duplicated with communities/show.  Really, though, this is mainly used for testing... hmmn:
+- i_am_in_this_community = current_user.member_of?(@community)
+- member_function = i_am_in_this_community ? 'member allowed' : 'member not_allowed'
+- non_member_function = i_am_in_this_community ? 'non_member not_allowed' : 'non_member allowed'
+= render :partial => 'index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
+

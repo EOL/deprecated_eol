@@ -289,12 +289,7 @@ describe 'Curator Worklist' do
     body.should include("/pages/#{@child_entry.taxon_concept_id}")
   end
   
-  # it 'should be able to allow curators to add comment' do
-  #   visit("/data_objects/#{@first_child_unreviewed_image.id.to_s}/comments")
-  #   body.should include("Add a New Comment")
-  # end
-  
-  it 'should be able to allow curator to curate unreviewed images as trusted and untrusted' do
+  it 'should be able to curate unreviewed images as trusted and untrusted' do
     visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
     body.should include("trust-label-#{@first_child_unreviewed_image.id.to_s}")
     body.should include("trust-label-#{@lower_child_unreviewed_image.id.to_s}")
@@ -311,7 +306,7 @@ describe 'Curator Worklist' do
     body.should_not include("trust-label-#{@lower_child_unreviewed_image.id.to_s}")
   end
   
-  it 'should be able to allow curator to curate untrusted images as trusted and unreviewed' do
+  it 'should be able to curate untrusted images as trusted and unreviewed' do
     visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
     body.should include("trust-label-#{@first_child_untrusted_image.id.to_s}")
     body.should include("trust-label-#{@lower_child_untrusted_image.id.to_s}")
@@ -328,7 +323,7 @@ describe 'Curator Worklist' do
     body.should_not include("trust-label-#{@lower_child_untrusted_image.id.to_s}")
   end
   
-  it 'should be able to allow curator to curate trusted images as untrusted and unreviewed' do
+  it 'should be able to curate trusted images as untrusted and unreviewed' do
     visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
     body.should include("trust-label-#{@first_child_trusted_image.id.to_s}")
     body.should include("trust-label-#{@lower_child_trusted_image.id.to_s}")
@@ -345,7 +340,7 @@ describe 'Curator Worklist' do
     body.should_not include("trust-label-#{@lower_child_trusted_image.id.to_s}")
   end
   
-  it 'should be able to allow curator to change visibility of images' do
+  it 'should be able to change visibility of images' do
     visit("/curators/curate_images")
     body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Visible")
     visit("/curators/hide?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=visibility-label-#{@lower_child_unreviewed_image.id.to_s}")
@@ -359,17 +354,111 @@ describe 'Curator Worklist' do
     body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Visible")
   end
   
-  it 'should be able to allow curator to change visibility of ignored images' do
-    visit("/curators/curate_images")
-    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Visible")
-    visit("/curators/hide?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=visibility-label-#{@lower_child_unreviewed_image.id.to_s}")
-    visit("/curators/curate_images")
-    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Invisible")
-    visit("/curators/remove?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=visibility-label-#{@lower_child_unreviewed_image.id.to_s}")
-    visit("/curators/curate_images")
-    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Inappropriate")
-    visit("/curators/show?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=visibility-label-#{@lower_child_unreviewed_image.id.to_s}")
-    visit("/curators/curate_images")
-    body.should have_tag("span#visibility-label-#{@lower_child_unreviewed_image.id.to_s}", :text =>"Visible")
+  it 'should be able to change visibility of ignored images' do
+    visit("/curators/ignored_images")
+    body.should have_tag("span#visibility-label-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}", :text =>"Visible")
+    visit("/curators/hide?data_object_id=#{@first_child_unreviewed_ignored_image.data_object_id.to_s}&div_id=visibility-label-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}")
+    visit("/curators/ignored_images")
+    body.should have_tag("span#visibility-label-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}", :text =>"Invisible")
+    visit("/curators/remove?data_object_id=#{@first_child_unreviewed_ignored_image.data_object_id.to_s}&div_id=visibility-label-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}")
+    visit("/curators/ignored_images")
+    body.should have_tag("span#visibility-label-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}", :text =>"Inappropriate")
+    visit("/curators/show?data_object_id=#{@first_child_unreviewed_ignored_image.data_object_id.to_s}&div_id=visibility-label-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}")
+    visit("/curators/ignored_images")
+    body.should have_tag("span#visibility-label-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}", :text =>"Visible")
   end
+  
+  it "should be able to move the unreviewed image from active list to the ignored list and vice-versa" do
+    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
+    body.should include(@lower_child_unreviewed_image.id.to_s)
+    visit("/user_ignored_data_objects/create?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
+    body.should include("OK")
+    commit_transactions
+    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
+    body.should_not include(@lower_child_unreviewed_image.id.to_s)
+    visit("/curators/ignored_images")
+    body.should include(@lower_child_unreviewed_image.id.to_s)
+    visit("/user_ignored_data_objects/destroy?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
+    body.should include("OK")
+    commit_transactions
+    visit("/curators/ignored_images")
+    body.should_not include(@lower_child_unreviewed_image.id.to_s)
+    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
+    body.should include(@lower_child_unreviewed_image.id.to_s)
+  end
+  
+  it "should be able to move the untrusted image from active list to the ignored list and vice-versa" do
+    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
+    body.should include(@lower_child_untrusted_image.id.to_s)
+    visit("/user_ignored_data_objects/create?data_object_id=#{@lower_child_untrusted_image.id.to_s}")
+    body.should include("OK")
+    commit_transactions
+    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
+    body.should_not include(@lower_child_untrusted_image.id.to_s)
+    visit("/curators/ignored_images")
+    body.should include(@lower_child_untrusted_image.id.to_s)
+    visit("/user_ignored_data_objects/destroy?data_object_id=#{@lower_child_untrusted_image.id.to_s}")
+    body.should include("OK")
+    commit_transactions
+    visit("/curators/ignored_images")
+    body.should_not include(@lower_child_untrusted_image.id.to_s)
+    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
+    body.should include(@lower_child_untrusted_image.id.to_s)
+  end
+  
+  it "should be able to move the trusted image from active list to the ignored list and vice-versa" do
+    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
+    body.should include(@lower_child_trusted_image.id.to_s)
+    visit("/user_ignored_data_objects/create?data_object_id=#{@lower_child_trusted_image.id.to_s}")
+    body.should include("OK")
+    commit_transactions
+    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
+    body.should_not include(@lower_child_trusted_image.id.to_s)
+    visit("/curators/ignored_images")
+    body.should include(@lower_child_trusted_image.id.to_s)
+    visit("/user_ignored_data_objects/destroy?data_object_id=#{@lower_child_trusted_image.id.to_s}")
+    body.should include("OK")
+    commit_transactions
+    visit("/curators/ignored_images")
+    body.should_not include(@lower_child_trusted_image.id.to_s)
+    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
+    body.should include(@lower_child_trusted_image.id.to_s)
+  end
+  
+  it "should be able to rate the images" do
+    visit("/curators/curate_images")
+    body.should have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n0")
+    body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n1")
+    body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n2")
+    body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n3")
+    body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n4")
+    body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n5")
+    visit("/data_objects/rate/#{@lower_child_unreviewed_image.id.to_s}?stars=3")
+    visit("/curators/curate_images")
+    body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n0")
+    body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n1")
+    body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n2")
+    body.should have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n3")
+    body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n4")
+    body.should_not have_tag("li#user-rating-#{@lower_child_unreviewed_image.id.to_s}.current-rating", :text =>"Your Rating:\n5")
+  end
+  
+  it "should be able to rate the ignored images" do
+    visit("/curators/ignored_images")
+    body.should have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n0")
+    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n1")
+    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n2")
+    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n3")
+    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n4")
+    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n5")
+    visit("/data_objects/rate/#{@first_child_unreviewed_ignored_image.data_object_id.to_s}?stars=3")
+    visit("/curators/ignored_images")
+    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n0")
+    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n1")
+    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n2")
+    body.should have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n3")
+    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n4")
+    body.should_not have_tag("li#user-rating-#{@first_child_unreviewed_ignored_image.data_object_id.to_s}.current-rating", :text =>"Your Rating:\n5")
+  end
+  
 end

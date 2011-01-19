@@ -728,7 +728,7 @@ Factory.define :page_name do |pn|
 end
 
 Factory.define :privilege do |p|
-  p.name { Factory.next(:last_name) }
+  p.name { Factory.next(:string) }
   p.sym {|priv| KnownPrivileges.string_to_symbol(priv.name) }
   p.level 10
   p.special false
@@ -736,17 +736,17 @@ end
 
 Factory.define :publication_title do |pt|
   pt.short_title 'hello'
-  pt.author  'bob'
+  pt.author      'bob'
   pt.call_number ''
-  pt.end_year ''
-  pt.start_year ''
-  pt.language ''
+  pt.end_year    ''
+  pt.start_year  ''
+  pt.language    ''
   pt.marc_leader ''
   pt.abbreviation ''
   pt.marc_bib_id ''
-  pt.title   'Test Publication Title'
-  pt.details 'Nifty Titles Are Our Business'
-  pt.url     'http://publication.titles.te.st'
+  pt.title       'Test Publication Title'
+  pt.details     'Nifty Titles Are Our Business'
+  pt.url         'http://publication.titles.te.st'
 end
 
 Factory.define :random_hierarchy_image do |rhi|
@@ -807,7 +807,7 @@ Factory.define :resource_status do |rs|
 end
 
 Factory.define :role do |r|
-  r.title 'TestRole'
+  r.title { Factory.next(:string) }
 end
 
 Factory.define :roles_user do |ru|

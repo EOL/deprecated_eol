@@ -43,4 +43,20 @@ describe Privilege do
     Privilege.known.should be_true
   end
 
+  it 'should know about all member-editing privileges' do
+    KnownPrivileges.create_all
+    member_editing = Privilege.member_editing_privileges
+    member_editing.include?(Privilege.grant_level_20_privileges).should be_true
+    member_editing.include?(Privilege.revoke_level_20_privileges).should be_true
+    member_editing.include?(Privilege.grant_level_10_privileges).should be_true
+    member_editing.include?(Privilege.revoke_level_10_privileges).should be_true
+  end
+
+  it 'none of the member editing privilieges should be nil' do
+    KnownPrivileges.create_all
+    Privilege.member_editing_privileges.each do |p|
+      p.should_not be_nil
+    end
+  end
+
 end

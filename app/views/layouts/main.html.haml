@@ -59,7 +59,7 @@
           %a{ :href => root_url, :title => "Encyclopedia of Life"[:encyclopedia_of_life] }
             %span
         %hr
-        - cache(:controller => 'content', :part => 'top_nav_' + current_user.language_abbr) do
+        - cache(:controller => '/content', :part => 'top_nav_' + current_user.language_abbr) do
           %p.hide
             = "Global Navigation"[]
           %ul#global-navigation

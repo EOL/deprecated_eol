@@ -10,7 +10,7 @@ class ContentController < ApplicationController
   def index
     @home_page = true
     current_user.log_activity(:viewed_home_page)
-    unless @cached_fragment = read_fragment(:controller => 'content', :part => 'home_' + current_user.content_page_cache_str)
+    unless @cached_fragment = read_fragment(:controller => '/content', :part => 'home_' + current_user.content_page_cache_str)
       @content = ContentPage.get_by_page_name_and_language_abbr('Home', current_user.language_abbr)
       raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy, {:language => current_user.language, :size => :medium})
@@ -230,7 +230,7 @@ class ContentController < ApplicationController
   def exemplars
     respond_to do |format|
       format.html do
-        unless read_fragment(:controller => 'content', :part => 'exemplars')
+        unless read_fragment(:controller => '/content', :part => 'exemplars')
           @exemplars = TaxonConcept.exemplars # This is stored by memcached, so should go quite fast.
         end
         current_user.log_activity(:viewed_exemplars)
@@ -351,7 +351,7 @@ class ContentController < ApplicationController
     @page_id = params[:id].gsub('_', ' ').downcase
     raise "static page without id" if @page_id.blank?
 
-    unless read_fragment(:controller => 'content', :part => "#{@page_id}_#{current_user.language_abbr}")
+    unless read_fragment(:controller => '/content', :part => "#{@page_id}_#{current_user.language_abbr}")
       if @page_id.is_int?
         @content = ContentPage.get_by_id_and_language_abbr(@page_id, current_user.language_abbr)
       else # assume it's a page name

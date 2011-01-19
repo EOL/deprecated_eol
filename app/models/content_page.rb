@@ -30,10 +30,12 @@ class ContentPage < parent_klass
   end
   
   def self.string_to_page_url(str)
+    return '' if str.nil?
     str.clone.underscore_non_word_chars.downcase
   end
 
   def self.page_url_to_page_name(str)
+    return '' if str.nil?
     str.clone.gsub!('_', ' ')
   end
 

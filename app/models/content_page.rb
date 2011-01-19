@@ -28,6 +28,10 @@ class ContentPage < parent_klass
     return language_page
   end
   
+  def self.string_to_page_url(str)
+    return str.underscore_non_word_chars.downcase
+  end
+
   def title_with_language
     title + " (" + language_abbr + ")"
   end
@@ -58,7 +62,7 @@ class ContentPage < parent_klass
   end
 
   def page_url
-    return self.page_name.gsub(' ', '_').downcase
+    return ContentPage.string_to_page_url(self.page_name)
   end
   
   # name to use for cached fragment

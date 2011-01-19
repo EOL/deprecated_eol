@@ -60,8 +60,8 @@ class ApplicationController < ActionController::Base
          :user_id => current_user.id,
          :exception_name => exception.to_s,
          :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.to_s
-         )
-     end
+       )
+    end
     respond_to do |type|
      type.html { render :layout => 'main', :template => "content/error"}
      type.all  { render :nothing => true }
@@ -185,6 +185,16 @@ class ApplicationController < ActionController::Base
   # expire a single non-species page fragment cache
   def expire_cache(page_name)
     expire_pages(ContentPage.find_all_by_page_name(page_name))
+  end
+
+  # expire the header and footer caches
+  def expire_menu_caches(page = nil)
+    list = ['top_nav', 'footer', 'exemplars'] # TODO - i18n
+    unless page.nil?
+      list << page.page_url
+      list << page.id
+    end
+    expire_pages(list)
   end
 
   # just clear all fragment caches quickly
@@ -501,17 +511,19 @@ private
       Language.find_active.each do |language|
         pages.each do |page|
           if page.class == ContentPage
-            expire_fragment(:controller => '/content', :part => "#{page.id.to_s }_#{language.iso_639_1}")
-            expire_fragment(:controller => '/content',
-                            :part => "#{page.page_url.underscore_non_word_chars.downcase}_#{language.iso_639_1}")
+            expire_fragment(:controller => 'content', :part => "#{page.id}_#{language.iso_639_1}")
+            expire_fragment(:controller => 'content',
+                            :part => "#{page.page_url}_#{language.iso_639_1}")
             page.clear_all_caches rescue nil # TODO - still having some problem with ContentPage, not sure why.
-          else
-            expire_fragment(:controller => '/content', :part => "#{page}_#{language.iso_639_1}")
-          end
-          if page.class == ContentPage && page.page_url == 'home'
-            Hierarchy.all.each do |h|
-              expire_fragment(:controller => '/content', :part => "home_#{language.iso_639_1}_#{h.id.to_s}") # this is because the home page fragment is dependent on the user's selected hierarchy entry ID, unlike the other content pages
+            if page.page_url == 'home'
+              # this is because the home page fragment is dependent on the user's selected hierarchy entry ID,
+              # unlike the other content pages:
+              Hierarchy.all.each do |h|
+                expire_fragment(:controller => 'content', :part => "home_#{language.iso_639_1}_#{h.id}")
+              end
             end
+          else
+            expire_fragment(:controller => 'content', :part => "#{page}_#{language.iso_639_1}")
           end
         end
       end

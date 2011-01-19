@@ -348,15 +348,14 @@ class ContentController < ApplicationController
   # the template for a static page with content from the database
   def page
     # get the id parameter, which can be either a page ID # or a page name
-    @page_id = params[:id]
+    @page_id = params[:id].gsub('_', ' ').downcase
     raise "static page without id" if @page_id.blank?
 
-    unless read_fragment(:controller => 'content', :part => @page_id + "_" + current_user.language_abbr)
+    unless read_fragment(:controller => 'content', :part => "#{@page_id}_#{current_user.language_abbr}")
       if @page_id.is_int?
         @content = ContentPage.get_by_id_and_language_abbr(@page_id, current_user.language_abbr)
       else # assume it's a page name
-        page_name = @page_id.gsub(' ', '_').gsub('_', ' ')
-        @content = ContentPage.get_by_page_name_and_language_abbr(page_name, current_user.language_abbr)
+        @content = ContentPage.get_by_page_name_and_language_abbr(@page_id, current_user.language_abbr)
       end
 
       raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?

@@ -98,13 +98,6 @@ class Administrator::ContentPageController < AdminController
  
 private 
 
-  # expire the header and footer caches
-  def expire_menu_caches(page = nil)
-    list = ['top_nav', 'footer', 'exemplars'] # TODO - i18n
-    list << page.page_name unless page.nil?
-    expire_pages(list)
-  end
-
   def create_new_page(content_section_id)
     new_page = ContentPage.new
     new_page.page_name = 'New Page'

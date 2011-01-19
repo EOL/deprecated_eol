@@ -11,7 +11,7 @@ class ContentController < ApplicationController
     @home_page = true
     current_user.log_activity(:viewed_home_page)
     unless @cached_fragment = read_fragment(:controller => '/content', :part => 'home_' + current_user.content_page_cache_str)
-      @content = ContentPage.get_by_page_name_and_language_abbr('Home', current_user.language_abbr)
+      @content = ContentPage.get_by_page_url_and_language_abbr('home', current_user.language_abbr)
       raise "static page content not found" if @content.nil?
       @explore_taxa  = RandomHierarchyImage.random_set(6, @session_hierarchy, {:language => current_user.language, :size => :medium})
       featured_taxa = TaxonConcept.exemplars # comment this out to make featured taxa go away on home page!     
@@ -355,7 +355,7 @@ class ContentController < ApplicationController
       if @page_id.is_int?
         @content = ContentPage.get_by_id_and_language_abbr(@page_id, current_user.language_abbr)
       else # assume it's a page name
-        @content = ContentPage.get_by_page_name_and_language_abbr(@page_id, current_user.language_abbr)
+        @content = ContentPage.get_by_page_url_and_language_abbr(@page_id, current_user.language_abbr)
       end
 
       raise "static page content #{@page_id} for #{current_user.language_abbr} not found" if @content.nil?

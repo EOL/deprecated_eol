@@ -36,7 +36,7 @@ class ContentPage < parent_klass
 
   def self.page_url_to_page_name(str)
     return '' if str.nil?
-    str.clone.gsub!('_', ' ')
+    str.clone.gsub('_', ' ')
   end
 
   def title_with_language

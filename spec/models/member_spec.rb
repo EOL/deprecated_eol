@@ -58,18 +58,21 @@ describe Member do
     @member.has_privilege?(second_priv).should be_true
   end
 
-  it 'should be able to revoke a privilege (and identify if #had_privilege_revoked?)' do
-    @member.has_privilege?(@has_privilege).should be_true
+  it 'should be able to revoke a privilege he has, to remove it' do
     @member.revoke_privilege(@has_privilege)
     @member.has_privilege?(@has_privilege).should_not be_true
-    @member.had_privilege_revoked?(@has_privilege).should be_true
+  end
+
+  it 'should be able to revoke a privilege he doesn\'t have, and identify it with had_privilege_revoked?' do
+    @member.revoke_privilege(Privilege.first)
+    @member.has_privilege?(Privilege.first).should_not be_true
+    @member.had_privilege_revoked?(Privilege.first).should be_true
   end
 
   describe '#can?' do
 
     it 'should return false when a privilege has been revoked' do
       @member.revoke_privilege(@has_privilege)
-      @member.had_privilege_revoked?(@has_privilege).should be_true
       @member.can?(@has_privilege).should_not be_true
     end
 
@@ -96,7 +99,6 @@ describe Member do
 
   it 'should list all privileges (except revoked)' do
     new_priv = Privilege.gen
-    @member.grant_privilege(new_priv)
     @member.revoke_privilege(new_priv)
     @member.all_sorted_privileges.map {|p| p.name}.should == [@has_privilege, @role_privilege].map {|p| p.name}.sort
   end
@@ -104,6 +106,22 @@ describe Member do
   it 'should revoke a privilege even if a member role has it' do
     @member.revoke_privilege(@role_privilege)
     @member.can?(@role_privilege).should_not be_true
+  end
+
+  it 'should remove a privilege from member_privileges if it is revoked when the user has that special privilege' do
+    new_priv = Privilege.gen
+    @member.grant_privilege(new_priv)
+    @member.member_privileges.map {|mp| mp.privilege }.include?(new_priv).should be_true
+    @member.revoke_privilege(new_priv)
+    @member.member_privileges.map {|mp| mp.privilege }.include?(new_priv).should_not be_true
+  end
+
+  it 'should remove a privilege from member_privileges if it is granted when the user had that privilege revoked' do
+    new_priv = Privilege.gen
+    @member.revoke_privilege(new_priv)
+    @member.member_privileges.map {|mp| mp.privilege }.include?(new_priv).should be_true
+    @member.grant_privilege(new_priv)
+    @member.member_privileges.map {|mp| mp.privilege }.include?(new_priv).should_not be_true
   end
 
 end

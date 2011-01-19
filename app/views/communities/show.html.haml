@@ -19,10 +19,10 @@
 - else
   %ul{:id => 'community_actions'}
     %li{:id => 'join_community', :class => non_member_function}
-      = link_to("Join this community"[:join_community], join_community_path(:community_id => @community.id))
+      = link_to("Join this community"[:join_community], join_community_path(@community.id))
       = ajax_spinner
     %li{:id => 'leave_community', :class => member_function}
-      = link_to("Leave this community"[:join_community], leave_community_path(:community_id => @community.id))
+      = link_to("Leave this community"[:join_community], leave_community_path(@community.id))
       = ajax_spinner
     - if @current_member && @current_member.can?(Privilege.edit_delete_community)
       %li{:id => 'edit_community', :class => member_function}

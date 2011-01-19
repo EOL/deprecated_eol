@@ -2,14 +2,15 @@ ActionController::Routing::Routes.draw do |map|
 
   # Communities, Privileges, Roles:
   map.resources :privileges
-  map.resources :communities, :has_many => [:members, :roles]
-  # TODO - change these to more restful declarations (see the data_objects resource, below):
-  map.remove_role 'member/:member_id/remove_role/:role_id', :controller => 'members', :action => 'remove_role'
+  # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
+  map.resources :communities, :has_many => [:members, :roles], :member => { 'join' => :get, 'leave' => :get }
+  map.resources :members, :member => {
+    'grant_privilege_to' => :post, 'revoke_privilege_from' => :delete,
+    'add_role_to' => :post, 'remove_role_from' => :delete }
+
   map.add_privilege_to_role 'roles/:role_id/add_privilege/:privilege_id', :controller => 'roles', :action => 'add_privilege'
   map.remove_privilege_from_role 'roles/:role_id/remove_privilege/:privilege_id',
     :controller => 'roles', :action => 'remove_privilege'
-  map.join_community 'communities/:community_id/join', :controller => 'communities', :action => 'join', :method => 'put'
-  map.leave_community 'communities/:community_id/leave', :controller => 'communities', :action => 'leave', :method => 'put'
 
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]

@@ -48,9 +48,12 @@ class ApplicationController < ActionController::Base
     when EOL::Exceptions::SecurityViolation
       access_denied
     else
-      logger.error "** EXCEPTION: (uncaught) #{e.message}\n#{e.backtrace}"
-      logger.error e.backtrace
-      raise e
+      logger.error "*" * 76
+      logger.error "** EXCEPTION: (uncaught) #{e.message}"
+      logger.error "   " + e.backtrace[0..11].map {|t| t.gsub(/#{RAILS_ROOT}/, '.')}.join("\n   ")
+      logger.error "   [...#{e.backtrace.length - 12} more lines omitted]" if e.backtrace.length > 12
+      logger.error "\n\n"
+      render :layout => 'main', :template => "content/error"
     end
   end
 

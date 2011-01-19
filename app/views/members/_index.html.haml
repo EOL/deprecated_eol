@@ -13,7 +13,7 @@
         = "(you)"[]
       - else # NOTE THE ELSE!!!!  You *cannot* edit yourself.
         - if @current_member && @current_member.can_edit_members?
-          = link_to("Edit membership"[], edit_community_member_path(@community, member))
+          = link_to("Edit membership"[], community_member_path(@community, member))
         - if @current_member && @current_member.can?(Privilege.remove_members)
           = link_to("Remove membership"[], [@community, member], :method => :delete, :confirm => 'Are you sure?'[])
   - if logged_in? && ! current_user.member_of?(@community)

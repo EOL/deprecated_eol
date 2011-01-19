@@ -1,5 +1,11 @@
 class Member < ActiveRecord::Base
 
+  # These are for use in forms:
+  attr_accessor :new_role_id
+  attr_accessor :new_privilege_id
+  attr_accessor :removed_privilege_id
+  attr_accessor :removed_role_id
+
   belongs_to :community
   belongs_to :user
 
@@ -12,11 +18,11 @@ class Member < ActiveRecord::Base
   #TODO - named scopes for granted privileges and revoked privileges...
 
   def add_role(role)
-    self.roles << role unless self.roles.include? role
+    self.roles << role unless has_role?(role)
   end
 
   def remove_role(role)
-    self.roles = self.roles.reject {|r| r.id == role.id }
+    self.roles.delete(role)
   end
 
   def has_role?(role)
@@ -25,7 +31,14 @@ class Member < ActiveRecord::Base
 
   def grant_privileges(privs)
     privs.each do |priv|
-      self.member_privileges << MemberPrivilege.create(:member_id => self.id, :privilege_id => priv.id)
+      if self.has_privilege? priv
+        # Do nothing.  We already have it.
+      elsif self.had_privilege_revoked? priv
+        MemberPrivilege.delete_all(:member_id => self.id, :privilege_id => priv.id)
+        self.reload
+      else
+        self.member_privileges << MemberPrivilege.create(:member_id => self.id, :privilege_id => priv.id)
+      end
     end
   end
 
@@ -35,8 +48,8 @@ class Member < ActiveRecord::Base
 
   def revoke_privilege(priv)
     if existing_priv = MemberPrivilege.find_by_member_id_and_privilege_id_and_revoked(self.id, priv.id, false)
-      existing_priv.revoked = true
-      existing_priv.save!
+      MemberPrivilege.delete(existing_priv.id)
+      self.reload
     elsif ! had_privilege_revoked?(priv)
       self.member_privileges << MemberPrivilege.create(:member_id => self.id, :privilege_id => priv.id, :revoked => true)
     end

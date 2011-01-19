@@ -122,7 +122,7 @@ describe "Communities controller" do
       end
 
       it 'should show edit membership links' do
-        page.body.should have_tag("a[href=#{edit_community_member_path(@community, @member2)}]", :text => /edit/i)
+        page.body.should have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /edit/i)
       end
 
       it 'should show remove membership links' do
@@ -149,7 +149,7 @@ describe "Communities controller" do
       end
 
       it 'should show leave link' do
-        page.body.should have_tag("a[href=#{leave_community_path(:community_id => @community.id)}]")
+        page.body.should have_tag("a[href=#{leave_community_path(@community.id)}]")
       end
 
       it 'should NOT show the add role link' do
@@ -159,11 +159,11 @@ describe "Communities controller" do
       it 'should NOT show edit and delete links' do
         page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
         page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
-        page.body.should_not have_tag("a[href=#{join_community_path(:community_id => @community2.id)}]")
+        page.body.should_not have_tag("a[href=#{join_community_path(@community2.id)}]")
       end
 
       it 'should show NOT edit membership links' do
-        page.body.should_not have_tag("a[href=#{edit_community_member_path(@community, @member2)}]", :text => /edit/i)
+        page.body.should_not have_tag("a[href=#{community_member_path(@community, @member2)}]", :text => /edit/i)
       end
 
       it 'should show NOT remove membership links' do
@@ -185,7 +185,7 @@ describe "Communities controller" do
       end
 
       it 'should show join link and NOT edit or delete links when logged-in user is NOT a member' do
-        page.body.should have_tag("a[href=#{join_community_path(:community_id => @community2.id)}]")
+        page.body.should have_tag("a[href=#{join_community_path(@community2.id)}]")
         page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
         page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
       end
@@ -214,7 +214,7 @@ describe "Communities controller" do
   it 'should allow non-members to join communities, then redirect to show' do
     login_as @user1
     @user1.member_of?(@community2).should_not be_true
-    visit(join_community_path(:community_id => @community2.id))
+    visit(join_community_path(@community2.id))
     @user1.reload
     @user1.member_of?(@community2).should be_true
     page.body.should have_tag("ul#community_members") do
@@ -228,7 +228,7 @@ describe "Communities controller" do
   it 'should allow members to leave communities, then redirect to show' do
     login_as @user1
     @user1.member_of?(@community).should be_true
-    visit(leave_community_path(:community_id => @community.id))
+    visit(leave_community_path(@community.id))
     @user1.reload
     @user1.member_of?(@community).should_not be_true
     page.body.should have_tag("ul#community_members") do

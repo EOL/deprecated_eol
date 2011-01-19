@@ -63,5 +63,5 @@
     - else
       %ul{:id => 'user_communities'}
       - @user.members.each do |member|
-        - community = member.community
-        %li= link_to(h(community.name), community)
+        - if community = member.community
+          %li= link_to(h(community.name), community)

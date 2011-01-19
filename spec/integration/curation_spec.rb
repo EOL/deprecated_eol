@@ -87,13 +87,13 @@ describe 'Curation' do
   # --- taxa page curators list ---
   
   it 'should show the curator list link' do
-    @default_page.should have_tag('div.total_number_of_curators')
+    @default_page.should include('Who can curate this page?')
   end
   
   it 'should show the curator list link when there has been no activity' do
     LastCuratedDate.delete_all
     visit("/pages/#{@taxon_concept.id}")
-    body.should have_tag('div.total_number_of_curators')
+    body.should include('Who can curate this page?')
   end
   
   it 'should show the curator list' do
@@ -128,12 +128,12 @@ describe 'Curation' do
   end
   
   it 'should say the page has citation (both lines)' do
-    @default_page.should have_tag('div.number_of_active_curators')
+    @default_page.should include("This page has\n#{@taxon_concept.acting_curators.size}\nactive curators.")
     @default_page.should have_tag('div#page-citation')
   end
   
   it 'should show the proper number of curators' do
-    @default_page.should have_tag('div.number_of_active_curators', /#{@default_num_curators}/)
+    @default_page.should include("This page has\n#{@taxon_concept.acting_curators.size}\nactive curators.")
   end
   
   it 'should change the number of curators if another curator curates an image' do
@@ -141,7 +141,7 @@ describe 'Curation' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
     @taxon_concept.acting_curators.length.should == num_curators + 1
     visit("/pages/#{@taxon_concept.id}")
-    body.should have_tag('div.number_of_active_curators', /#{num_curators+1}/)
+    body.should include("This page has\n#{num_curators + 1}\nactive curators.")
   end
   
   it 'should change the number of curators if another curator curates a text object' do
@@ -149,13 +149,11 @@ describe 'Curation' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
     @taxon_concept.acting_curators.length.should == num_curators + 1
     visit("/pages/#{@taxon_concept.id}")
-    body.should have_tag("div.number_of_active_curators", /#{num_curators+1}/)
+    body.should include("This page has\n#{num_curators + 1}\nactive curators.")
   end
               
   it 'should have a link from N curators to the citation' do
-    @default_page.should have_tag("div.number_of_active_curators") do
-      with_tag('a[href*=?]', /#citation/)
-    end
+    @default_page.should have_tag('a[href*=?]', /#citation/)
   end
   
   it 'should have a link from name of curator to account page' do

@@ -53,6 +53,11 @@
                 %td.odd
                   = entry_details['stats'].pecent_with_text
                   \%
+
+            %br
+            - metrics = @hierarchy_entry.taxon_concept_metrics(@hierarchy_entry.id)              
+            = render(:partial => 'navigation/browse_taxon_concept_metrics', :locals => { :metrics => metrics })
+
     %br
     %b
       Hierarchy Roots:

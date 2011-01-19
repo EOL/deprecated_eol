@@ -557,6 +557,13 @@ class HierarchyEntry < SpeciesSchemaModel
     return false
   end
 
+  def taxon_concept_metrics(he_id)
+    if he_id
+        result = SpeciesSchemaModel.connection.execute("SELECT * From hierarchy_entries he INNER JOIN taxon_concept_metrics tcm ON he.taxon_concept_id = tcm.taxon_concept_id WHERE he.id = #{he_id}").all_hashes
+        return result
+    end
+  end
+
 private
 
   def ancestors_hash_by_language_id(language_id, options = {})

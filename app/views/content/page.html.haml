@@ -1,4 +1,4 @@
-- cache(:controller=>'content', :part=>@page_id + "_" + current_user.language_abbr) do
+- cache(:controller => '/content', :part => "#{@page_id}_#{current_user.language_abbr}") do
   = javascript_include_tag 'faqs' if @content.page_name.downcase=='faqs'
 
   #page-separator-general

@@ -465,7 +465,7 @@ private
 
   def remove_cached_list_of_taxon_concepts
     FileUtils.rm_rf("#{RAILS_ROOT}/public/content/tc_api/page")
-    expire_page( :controller => 'content', :action => 'tc_api' )
+    expire_page( :controller => '/content', :action => 'tc_api' )
   end
 
   # Rails cache (memcached, probably) version of the user, by id: 
@@ -511,19 +511,20 @@ private
       Language.find_active.each do |language|
         pages.each do |page|
           if page.class == ContentPage
-            expire_fragment(:controller => 'content', :part => "#{page.id}_#{language.iso_639_1}")
-            expire_fragment(:controller => 'content',
+            # NOTE - the / is needed before content, or administrator pages will use administrator/content.  Silly.
+            expire_fragment(:controller => '/content', :part => "#{page.id}_#{language.iso_639_1}")
+            expire_fragment(:controller => '/content',
                             :part => "#{page.page_url}_#{language.iso_639_1}")
             page.clear_all_caches rescue nil # TODO - still having some problem with ContentPage, not sure why.
             if page.page_url == 'home'
               # this is because the home page fragment is dependent on the user's selected hierarchy entry ID,
               # unlike the other content pages:
               Hierarchy.all.each do |h|
-                expire_fragment(:controller => 'content', :part => "home_#{language.iso_639_1}_#{h.id}")
+                expire_fragment(:controller => '/content', :part => "home_#{language.iso_639_1}_#{h.id}")
               end
             end
           else
-            expire_fragment(:controller => 'content', :part => "#{page}_#{language.iso_639_1}")
+            expire_fragment(:controller => '/content', :part => "#{page}_#{language.iso_639_1}")
           end
         end
       end

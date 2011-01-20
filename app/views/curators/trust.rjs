@@ -1,5 +1,4 @@
 page.replace_html @div_id, @data_object.vetted.label
-# page.select('.reason').each { |e| e.hide }
-page << "$('##{@div_id}').parents('td').removeClass('unknown untrusted');"
-page << "$('##{@div_id}').parents('td').siblings('td').removeClass('unknown untrusted');"
-page << "$('#undo-move-#{@data_object['id']}').removeClass('unknown untrusted');"
+page << "$('##{@div_id}').parents('td').removeClass('unknown untrusted').addClass('trusted');"
+page << "$('##{@div_id}').parents('td').siblings('td').removeClass('unknown untrusted').addClass('trusted');"
+page << "$('#undo-move-#{@data_object['id']}').removeClass('unknown untrusted').addClass('trusted');"

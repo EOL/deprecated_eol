@@ -84,8 +84,15 @@ module EOL
           conn.tables.each   do |table|
             unless table == 'schema_migrations'
               count += 1
-              count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
-              conn.execute "TRUNCATE TABLE`#{table}`" if count_rows.num_rows > 0
+              if conn.respond_to? :with_master
+                conn.with_master do
+                  count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
+                  conn.execute "TRUNCATE TABLE `#{table}`" if count_rows.num_rows > 0
+                end
+              else
+                count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1")
+                conn.execute "TRUNCATE TABLE `#{table}`" if count_rows.num_rows > 0
+              end
             end
           end
           puts "-- Truncated #{count} tables in #{conn.instance_eval { @config[:database] }}." if options[:verbose]
@@ -99,7 +106,7 @@ module EOL
           unless table == 'schema_migrations'
             puts "[#{PageViewLog.connection.instance_eval { @config[:database] }}].`#{table}`" if options[:verbose]
             count_rows = PageViewLog.connection.execute("SELECT 1 FROM #{table} LIMIT 1")
-            PageViewLog.connection.execute "TRUNCATE TABLE`#{table}`" if count_rows.num_rows > 0
+            PageViewLog.connection.execute "TRUNCATE TABLE `#{table}`" if count_rows.num_rows > 0
           end
         end
       end

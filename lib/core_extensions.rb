@@ -353,6 +353,12 @@ module ActiveRecord
       def database_name
         @database_name ||= self.connection.execute('select database()').fetch_row[0]
       end
+      
+      def reload
+        self.with_master do
+          super
+        end
+      end
 
     end
     

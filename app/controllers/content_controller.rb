@@ -399,7 +399,7 @@ class ContentController < ApplicationController
   def partners
 
     # content partners will have a username
-    @partners = Agent.paginate(:conditions => 'username<>"" AND content_partners.show_on_partner_page = 1', :order => 'agents.full_name asc', :include => :content_partner, :page => params[:page] || 1)
+    @partners = Agent.paginate(:conditions => 'username!="" AND content_partners.show_on_partner_page = 1', :order => 'agents.full_name asc', :include => :content_partner, :page => params[:page] || 1)
 
   end
 

@@ -13,15 +13,6 @@ require 'ruby-debug'
 # and recreated between test runs.  Don't rely on the data there!
 config.cache_classes = true
 
-# Set up the master database connection for writes using masochism plugin
-# NOTE: for this to work, you *must* also use config.cache_classes = true
-# (default for production)
-config.after_initialize do 
-  ActiveReload::ConnectionProxy.setup_for ActiveRecord::Base, ActiveRecord::Base
-  ActiveReload::ConnectionProxy.setup_for SpeciesSchemaModel, SpeciesSchemaModel
-  ActiveReload::ConnectionProxy.setup_for LoggingModel, LoggingModel
-end
-
 # Most directly emulate both development and production environments:
 # NOT WORKING: config.cache_store = :mem_cache_store
 

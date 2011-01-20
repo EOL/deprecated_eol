@@ -15,9 +15,9 @@ class Administrator::CuratorController < AdminController
 
     only_unapproved_condition=' curator_approved = 0 AND ' if @only_unapproved
     if @only_without_clade
-       clade_condition="curator_hierarchy_entry_id IS NULL AND (credentials <> '' OR curator_scope<> '')"
+       clade_condition="curator_hierarchy_entry_id IS NULL AND (credentials != '' OR curator_scope!= '')"
     else
-      clade_condition="curator_hierarchy_entry_id IS NOT NULL OR credentials <> '' OR curator_scope<> ''"     
+      clade_condition="curator_hierarchy_entry_id IS NOT NULL OR credentials != '' OR curator_scope!= ''"     
     end
     
     condition="(#{clade_condition}) AND #{only_unapproved_condition} (email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
@@ -44,7 +44,7 @@ class Administrator::CuratorController < AdminController
 
   def export
 
-    @users=User.find(:all,:conditions=>['curator_hierarchy_entry_id IS NOT NULL OR credentials <> "" OR curator_scope<> ""'])
+    @users=User.find(:all,:conditions=>['curator_hierarchy_entry_id IS NOT NULL OR credentials != "" OR curator_scope!= ""'])
       report = StringIO.new
       CSV::Writer.generate(report, ',') do |title|
           title << ['Id', 'Username', 'Name', 'Email', 'Credentials','Scope','Clade','Approved','Registered Date','Objects Curated','Comments Moderated','Species Curated','Objects Shown','Objects Hidden','Objects Marked as Inappropriate','Text Data Objects Submitted']

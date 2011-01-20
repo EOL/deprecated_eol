@@ -1,7 +1,11 @@
 module ActiveReload
   class MasterDatabase < ActiveRecord::Base
     self.abstract_class = true
-    establish_connection configurations[Rails.env]['master_database'] || configurations['master_database'] || Rails.env
+    if Rails.env == 'test'
+      establish_connection configurations[Rails.env]['test_master'] || configurations['test_master'] || Rails.env
+    else
+      establish_connection configurations[Rails.env]['master_database'] || configurations['master_database'] || Rails.env
+    end
     # Added by EOL:
     # Without this, you'll get a "undefined method `connection' for nil:NilClass"
     def self.connection
@@ -121,7 +125,7 @@ module ActiveReload
 
   module ActiveRecordConnectionMethods
     def self.included(base)
-      base.alias_method_chain :reload, :master
+      # base.alias_method_chain :reload, :master
       
       class << base
         def connection_proxy=(proxy)
@@ -140,13 +144,15 @@ module ActiveReload
       end
     end
 
-    def reload_with_master(*args, &block)
-      if connection.class.name == "ActiveReload::ConnectionProxy"
-        connection.with_master { reload_without_master }
-      else
-        reload_without_master
-      end
-    end
+    # # reload performs a find, but is usually used after a write, so we lock it
+    # # to master since we can't depend on slave replication being so fast
+    # def reload_with_master(*args, &block)
+    #   if connection.class.name == "ActiveReload::ConnectionProxy"
+    #     connection.with_master { reload_without_master }
+    #   else
+    #     reload_without_master
+    #   end
+    # end
   end
 
   # extend observer to always use the master database

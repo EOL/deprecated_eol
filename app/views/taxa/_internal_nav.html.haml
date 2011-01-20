@@ -23,16 +23,16 @@
     %h4.margin-header.right-margin-header
       = "Curation"[]
     %ul#contribute.bulletlist
-      - if @taxon_concept.show_curator_controls?
-        %li.strong
-          = link_to("Curate content in this clade", :controller => :curators, :action => :curate_images, :hierarchy_entry_id => @taxon_concept.entry.id)
+      -# - if @taxon_concept.show_curator_controls?
+      -#   %li.strong
+      -#     = link_to("Curate content in this clade", :controller => :curators, :action => :curate_images, :hierarchy_entry_id => @taxon_concept.entry.id)
       - act_curators_size = @taxon_concept.acting_curators.size
       - if act_curators_size > 0
         %li
           %a{ :href => "#citation" }
             This page has
             = act_curators_size
-            == active curator#{act_curators_size == 1 ? "." : "s."}
+            == active curator#{act_curators_size == 1 ? "" : "s"}
       %li
         %a{ :href => page_curators_path(@taxon_concept.id)}
           Who can curate this page?

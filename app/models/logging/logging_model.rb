@@ -7,7 +7,7 @@ class LoggingModel < ActiveRecord::Base
   
   if $LOGGING_READ_FROM_MASTER
     # if configured to do so, ALWAYS read and write from master DB for logging classes
-    establish_connection :master_logging_database
+    establish_master_connection :logging
   else
     establish_connection configurations[RAILS_ENV + '_logging']
   end

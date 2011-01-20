@@ -3,6 +3,6 @@ class LoggingWriter < ActiveRecord::Base
  
   self.abstract_class = true
   
-  establish_connection :master_logging_database
+  establish_master_connection :logging
 
 end

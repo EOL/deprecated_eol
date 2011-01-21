@@ -47,7 +47,11 @@
         .option
           = radio_button_tag 'visibility_id', Visibility.inappropriate.id.to_s, @data_object.inappropriate?
           Permanently Remove
-          
+        %br
+        .option
+          %b
+            Note:
+          Search result lists may not reflect your changes for 24 or more hours
     .buttons
       = submit_tag "Save"
       %input.cancel-button{ :type => "button", :value => "Cancel" }

@@ -21,9 +21,6 @@ require "email_spec/matchers"
 
 # Capybara.default_driver = :selenium
 
-Spec::Runner.configure do |config|
-end
-
 
 require File.expand_path(File.dirname(__FILE__) + "/factories")
 require File.expand_path(File.dirname(__FILE__) + "/eol_spec_helpers")

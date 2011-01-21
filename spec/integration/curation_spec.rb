@@ -49,10 +49,6 @@ describe 'Curation' do
   after(:all) do
     truncate_all_tables
   end
-  
-  before(:each) do
-    SpeciesSchemaModel.connection.execute('set AUTOCOMMIT=1')
-  end
 
   after(:each) do
     visit('/logout')
@@ -63,15 +59,20 @@ describe 'Curation' do
   end
 
   it 'should show curation button when logged in as curator' do
-    curator = create_curator_for_taxon_concept(@taxon_concept)
-    login_as(curator)
+    login_as(@first_curator)
     visit("/pages/#{@taxon_concept.id}")
     body.should have_tag('div#large-image-curator-button')
+    body.should have_tag('div#curation-overlay')
   end
+  
+  it 'should not have a curation panel when not logged in as a curator' do
+    visit("/pages/#{@taxon_concept.id}")
+    body.should_not have_tag('div#curation-overlay')
+  end
+  
 
   it 'should expire taxon_concept from cache' do
-    curator = create_curator_for_taxon_concept(@taxon_concept)
-    login_as(curator)
+    login_as(@first_curator)
     ActionController.should_receive(:expire_data_object).any_number_of_times.and_return(true)
     #TODO - this isn't working... see the routes file (map.resource :data_objects) for details:
     # visit(curate_data_object_path(@taxon_concept.images[0].id, :curator_activity_id => CuratorActivity.disapprove.id))

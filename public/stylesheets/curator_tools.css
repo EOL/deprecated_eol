@@ -118,10 +118,6 @@ div.content-wrap {
   .action-value span {
     font-weight: bold; }
 
-#content #page-content label {
-  display: inline;
-  font-weight: normal; }
-
 .results_table .comment_button {
   float: right !important;
   position: relative;
@@ -170,9 +166,3 @@ p.submitted {
 
 .clearbreak {
   height: 1px; }
-
-.comment-box {
-  width: 330px;
-  min-width: 190px;
-  max-width: 330px;
-  height: 50px; }

@@ -1,6 +1,4 @@
-label = @data_object.vetted.label
-label = "Unreviewed" if label == 'Unknown'
-page.replace_html @div_id, label
+page.replace_html @div_id
 page << "$('##{@div_id}').parents('td').removeClass('trusted untrusted').addClass('unknown');"
 page << "$('##{@div_id}').parents('td').siblings('td').removeClass('trusted untrusted').addClass('unknown');"
 page << "$('#undo-move-#{@data_object['id']}').removeClass('trusted untrusted').addClass('unknown');"

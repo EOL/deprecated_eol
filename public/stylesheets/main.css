@@ -1103,6 +1103,10 @@ li.current_kingdom {
   margin-top: 0;
   margin-bottom: 2em; }
 
+#content #page-content .option label {
+  display: inline;
+  font-weight: normal; }
+
 #home-content-wrap h2 {
   padding: 2px 0 2px 0;
   font-size: 16px;
@@ -2388,3 +2392,9 @@ a.gloss-tooltip {
   padding: 3px 6px;
   -moz-box-shadow: 2px 2px 11px #666666;
   -webkit-box-shadow: 2px 2px 11px #666666; }
+
+.curation-comment-box {
+  width: 225px;
+  min-width: 190px;
+  max-width: 225px;
+  height: 30px; }

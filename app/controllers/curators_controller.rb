@@ -27,7 +27,7 @@ class CuratorsController < ApplicationController
     session['curate_images_hierarchy_entry_id'] = params['hierarchy_entry_id'] if params['hierarchy_entry_id']
     session['curate_images_hierarchy_entry_id'] = nil if session['curate_images_hierarchy_entry_id'].blank?
     @ctnt_ptnr = params[:content_partner_id].blank? ? '' : Agent.find_by_id(ContentPartner.find_by_id(params[:content_partner_id], :select=>'agent_id').agent_id, :select => 'full_name').full_name
-    @status = params[:vetted_id].blank? ? '' : Vetted.find_by_id(params[:vetted_id], :select => 'label').label
+    @status = params[:vetted_id].blank? ? '' : ((params[:vetted_id] == 'all') ? "all" : Vetted.find_by_id(params[:vetted_id], :select => 'label').label)
     @name = params['hierarchy_entry_id'].blank? ? '' : Name.find_by_id(HierarchyEntry.find_by_id(params['hierarchy_entry_id'], :select => 'name_id').name_id)
     current_user.log_activity(:viewed_images_to_curate)
     all_images = current_user.images_to_curate(
@@ -82,28 +82,19 @@ class CuratorsController < ApplicationController
   def show
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.show(current_user)
-    @div_id = params[:div_id]
-    respond_to do |fmt|
-      fmt.js
-    end
+    render :nothing => true
   end
 
   def hide
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.hide(current_user)
-    @div_id = params[:div_id]
-    respond_to do |fmt|
-      fmt.js
-    end
+    render :nothing => true
   end
 
   def remove
     @data_object = DataObject.find(params[:data_object_id])
     @data_object.inappropriate(current_user)
-    @div_id = params[:div_id]
-    respond_to do |fmt|
-      fmt.js
-    end
+    render :nothing => true
   end
 
   def comment

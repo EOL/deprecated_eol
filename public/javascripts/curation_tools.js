@@ -66,3 +66,27 @@ $('.is_ignored_false').find('.action-value').find('a').click(function() { toggle
 
 $('.is_ignored_true').find('.action-value').find('a').click(function() { toggle_ignore({ node: $(this), method: 'DELETE', action: 'destroy' })});
 
+$(document).ready(function() {
+  $('.curator_worklist_curation input').click(function() {
+    if ($(this).attr('data_href')) {
+      var selected = $(this);
+      $.ajax({
+        url: $(this).attr('data_href'),
+        beforeSend: function(xhr) {
+          if(selected.parent().attr('class')==("reason")){
+            if((selected.parent().children(".curation-comment-box").val() == "") && (selected.parent().children('.option').children(':checked').siblings().map(function(){return this.innerHTML}).get() == "")){
+              selected.parent().find('b').show().css("color","red");
+              return false;
+            } else {
+              selected.parent().find('b').show().css("color","black");
+              return true;
+            }
+          } else {
+            selected.parent().siblings().find('b').show().css("color","black");
+            return true;
+          }
+        },
+      });
+    }
+  });
+});

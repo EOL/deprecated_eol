@@ -26,11 +26,11 @@
 .curator_worklist_curation
   = render :partial => 'data_objects/curation', :locals => { :data_object => dato, :div_style => div_style, :group_id => dato.id }
 .text_buttons
-  - comments = data_object['comments'].select { |c| c['visible_at'] && DateTime.parse(c['visible_at']) <= DateTime.now }
+  - comments = dato.all_comments.select { |c| c['visible_at'] }
   - if comments.blank?
     - comment_tooltip = "No comments yet. "
   - else
-    - curator_comments = data_object['comments'].select{ |c| c['user_id'].to_i == current_user.id && c['visible_at'] && DateTime.parse(c['visible_at']) <= DateTime.now }
+    - curator_comments = dato.all_comments.select { |c| c['user_id'].to_i == current_user.id && c['visible_at'] }
     - tooltip = "#{comments.size} comment#{comments.size == 1 ? '' : 's'}. "
     - if curator_comments.blank? 
       - comment_tooltip = tooltip

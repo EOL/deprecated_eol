@@ -67,7 +67,7 @@
                   = "Please wait, loading..."[]
             #large-image-comment-button.hide
               - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
-                = render :partial => '/comments/comment_icon', :locals => { :data_object_id => image.id, :title => "Comment on this image", :comments_count => image.comments.length, :alt => "Comment on this image", :comment_class => 'popup-link', :rel => "#comment-overlay" }
+                = render :partial => '/comments/comment_icon', :locals => { :data_object_id => image.id, :title => "Comment on this image", :comments_count => image.all_comments.select { |c| c['visible_at'] }.length, :alt => "Comment on this image", :comment_class => 'popup-link', :rel => "#comment-overlay" }
               #comment-overlay.overlay{:style=>"width:460px"}
                 .contentWrap
                   = "Please wait, loading..."[]

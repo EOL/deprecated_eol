@@ -133,7 +133,9 @@ private
 
   def curate(vetted_id)
     @data_object = DataObject.find(params[:data_object_id])
-    @data_object.curate(current_user, :vetted_id => vetted_id)
+    tc = @data_object.taxon_concepts(:published => :preferred)[0]
+    untrust_reason_ids = params[:untrust_reason_ids] ? params[:untrust_reason_ids].split(',').map { |i| i.to_i } : []
+    @data_object.curate(current_user, :vetted_id => vetted_id, :untrust_reason_ids => untrust_reason_ids, :comment => params[:comment], :untrust_reasons_comment => params[:untrust_reasons_comment], :taxon_concept_id => tc.id)
     @div_id = params[:div_id]
   end
   

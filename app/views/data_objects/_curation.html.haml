@@ -18,13 +18,13 @@
   .label.credit-caption
     = "Vetted"[]
   .options.action-value
-    .option
+    .option.unreviewed
       = radio_button_tag "#{group_id}vetted_id", Vetted.unknown.id.to_s, data_object.unknown?, :data_href => url_for(:action => :unreviewed, :data_object_id => data_object['id'], :div_id => "#{group_id}vetted_id_#{Vetted.unknown.id.to_s}")
       %label{:for => "#{group_id}vetted_id_" + Vetted.unknown.id.to_s} Unreviewed
-    .option
+    .option.trust
       = radio_button_tag "#{group_id}vetted_id", Vetted.trusted.id.to_s, data_object.trusted?, :data_href => url_for(:action => :trust, :data_object_id => data_object['id'], :div_id => "#{group_id}vetted_id_#{Vetted.trusted.id.to_s}")
       %label{:for => "#{group_id}vetted_id_"  + Vetted.trusted.id.to_s} Trusted
-    .option
+    .option.untrust
       = radio_button_tag "#{group_id}vetted_id", Vetted.untrusted.id.to_s, data_object.untrusted?
       %label{:for => "#{group_id}vetted_id_" + Vetted.untrusted.id.to_s} Untrusted
       - div_style = data_object.untrusted? ? '' :  'display:none;'

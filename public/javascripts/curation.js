@@ -1,18 +1,6 @@
 if(!EOL) { EOL = {}; }
 if(!EOL.Curation) { EOL.Curation = {}; }
 
-EOL.Curation.form_is_valid = function() {
-	// check that the checkboxes are checked and/or the comment is entered...
-	if($('#curator_comment').is(":visible")) {
-	  if(($('#curator_comment').val() == "") && ($('.untrust_reason:checked').siblings().map(function(){return this.innerHTML}).get() == "")) {
-		  return false;
-	  } else {
-		  return true;
-	  } 
-	}
-	return true;
-}
-
 // Invisible icons on text:
 EOL.Curation.update_icons = function(data_object_id, visibility_id) {
   $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').hide();
@@ -57,7 +45,7 @@ EOL.Curation.post_curate_text = function(args) {
   $('#text_'+data_object_id).removeClass('untrusted unknown trusted');
   if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
     $('#text_'+data_object_id).addClass('untrusted');
-  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) {
+  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Cant "unknow" something, but could load a text that already is?
     $('#text_'+data_object_id).addClass('unknown');
   }
   EOL.Curation.update_icons(data_object_id, visibility_id);
@@ -79,21 +67,14 @@ $(document).ready(function() {
       type: 'PUT',
       dataType: 'json',
       beforeSend: function(xhr) {
-	    if(EOL.Curation.form_is_valid()) {
-          xhr.setRequestHeader("Accept", "text/javascript"); // Sorry, not sure why this xhr wasn't auto-js, but it wasn't.
-          submit.attr('disabled', 'disabled');
-          the_comment.attr('disabled', 'disabled');
-        } else {
-          $('.untrust_reason').parent().parent().find('b').show().css("color","red");
-          form.find('div.processing').fadeOut();
-          return false;
-        }
+        xhr.setRequestHeader("Accept", "text/javascript"); // Sorry, not sure why this xhr wasn't auto-js, but it wasn't.
+        submit.attr('disabled', 'disabled');
+        the_comment.attr('disabled', 'disabled');
       },
       complete: function() {
         submit.attr('disabled', '');
         the_comment.attr('disabled', '');
         form.find('div.processing').fadeOut();
-        $('.untrust_reason').parent().parent().find('b').show().css("color","black");
       },
       success: function(response) {
         the_comment.val('');
@@ -113,16 +94,6 @@ $(document).ready(function() {
   });
   // Hide untrust reasons when it's trusted:
   $('div.vetted .trust input[type="radio"]').click(function() {
-    if($('#curator_comment').is(":visible")) {
-      $('.untrust_reason').parent().parent().find('b').show().css("color","black");
-    }
-    $(this).parent().parent().find('div.reason').slideUp();
-  });
-  // Hide untrust reasons when it's unreviewed:
-  $('div.vetted .unreviewed input[type="radio"]').click(function() {
-    if($('#curator_comment').is(":visible")) {
-      $('.untrust_reason').parent().parent().find('b').show().css("color","black");
-    }
     $(this).parent().parent().find('div.reason').slideUp();
   });
   // Cancel button just clicks the closest close-link:

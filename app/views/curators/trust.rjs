@@ -1,4 +1,4 @@
-page.replace_html @div_id
+page.replace_html @div_id, @data_object.vetted.label
 page << "$('##{@div_id}').parents('td').removeClass('unknown untrusted').addClass('trusted');"
 page << "$('##{@div_id}').parents('td').siblings('td').removeClass('unknown untrusted').addClass('trusted');"
 page << "$('#undo-move-#{@data_object['id']}').removeClass('unknown untrusted').addClass('trusted');"

@@ -12,8 +12,42 @@
     .processing{ :style => "display:none;" }
       = image_tag('indicator_arrows_black.gif')
       Please wait
-  
-    = render :partial => 'curation', :locals => { :data_object => @data_object }
-    .buttons.action-value
+    
+    .vetted.curation-section
+      .label
+        = "Vetted"[]
+      .options
+        .option.trust
+          = radio_button_tag 'vetted_id', Vetted.trusted.id.to_s, @data_object.trusted?
+          %label{:for => 'vetted_id_' + Vetted.trusted.id.to_s} Trusted
+        .option.untrust
+          = radio_button_tag 'vetted_id', Vetted.untrusted.id.to_s, @data_object.untrusted?
+          %label{:for => 'vetted_id_' + Vetted.untrusted.id.to_s} Untrusted
+          - div_style = @data_object.untrusted? ? '' :  'display:none;'
+          = render :partial => 'untrust_reasons', :locals => { :data_object => @data_object, :div_style => div_style }
+    .curation-section
+      .label
+        = "Comment"[]
+      .options
+        %div
+          This comment will be publicly visible.
+        %div
+          = text_area_tag 'comment', nil, :rows => 7, :cols => 29, :id => "curator_comment"
+                
+    .visibility.curation-section
+      .label
+        = "Visibility"[]
+      .options
+        .option
+          = radio_button_tag 'visibility_id', Visibility.visible.id.to_s, @data_object.visible?
+          Show to all users
+        .option
+          = radio_button_tag 'visibility_id', Visibility.invisible.id.to_s, @data_object.invisible?
+          Hide for all except curators
+        .option
+          = radio_button_tag 'visibility_id', Visibility.inappropriate.id.to_s, @data_object.inappropriate?
+          Permanently Remove
+          
+    .buttons
       = submit_tag "Save"
       %input.cancel-button{ :type => "button", :value => "Cancel" }

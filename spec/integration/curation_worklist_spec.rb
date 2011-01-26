@@ -84,6 +84,7 @@ describe 'Curator Worklist' do
   end
 
   it 'should show a list of unreviewed images in the curator\'s clade when curator visits the worklist' do
+    require 'ruby-debug'; debugger
     visit('/curators/curate_images')
     body.should include('Curator Central')
     body.should include(@first_child_unreviewed_image.id.to_s)

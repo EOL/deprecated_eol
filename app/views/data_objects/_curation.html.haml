@@ -1,55 +1,53 @@
-- group_id ||= ''
-- group_id = "#{group_id}_" unless group_id.blank?
 .visibility.curation-section
   .label.credit-caption
     = "Visibility"[]
   .options.action-value
     .option
-      = radio_button_tag "#{group_id}visibility_id", Visibility.visible.id.to_s, data_object.visible?, :data_href => url_for(:action => :show, :data_object_id => data_object['id'])
-      %label{:for => "#{group_id}visibility_id_" + Visibility.visible.id.to_s} Show to all users
+      = radio_button_tag "visibility_id", Visibility.visible.id.to_s, data_object.visible?, { :data_href => url_for(:action => :show, :data_object_id => data_object['id']), :id => ("#{data_object['id']}_visibility_id_" + Visibility.visible.id.to_s) }
+      %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.visible.id.to_s} Show to all users
     .option
-      = radio_button_tag "#{group_id}visibility_id", Visibility.invisible.id.to_s, data_object.invisible?, :data_href => url_for(:action => :hide, :data_object_id => data_object['id'])
-      %label{:for => "#{group_id}visibility_id_" + Visibility.invisible.id.to_s} Hide for all except curators
+      = radio_button_tag "visibility_id", Visibility.invisible.id.to_s, data_object.invisible?, { :data_href => url_for(:action => :hide, :data_object_id => data_object['id']), :id => ("#{data_object['id']}_visibility_id_" + Visibility.invisible.id.to_s) }
+      %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.invisible.id.to_s} Hide for all except curators
     .option
-      = radio_button_tag "#{group_id}visibility_id", Visibility.inappropriate.id.to_s, data_object.inappropriate?, :data_href => url_for(:action => :remove, :data_object_id => data_object['id'])
-      %label{:for => "#{group_id}visibility_id_" + Visibility.inappropriate.id.to_s} Permanently Remove
+      = radio_button_tag "visibility_id", Visibility.inappropriate.id.to_s, data_object.inappropriate?, { :data_href => url_for(:action => :remove, :data_object_id => data_object['id']), :id => ("#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s) }
+      %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s} Permanently Remove
       
 .vetted.curation-section
   .label.credit-caption
     = "Vetted"[]
   .options.action-value
     .option.unreviewed
-      = radio_button_tag "#{group_id}vetted_id", Vetted.unknown.id.to_s, data_object.unknown?, :data_href => url_for(:action => :unreviewed, :data_object_id => data_object['id'], :div_id => "#{group_id}vetted_id_#{Vetted.unknown.id.to_s}")
-      %label{:for => "#{group_id}vetted_id_" + Vetted.unknown.id.to_s} Unreviewed
+      = radio_button_tag "vetted_id", Vetted.unknown.id.to_s, data_object.unknown?, { :data_href => url_for(:action => :unreviewed, :data_object_id => data_object['id'], :div_id => "#{data_object['id']}_vetted_id_#{Vetted.unknown.id.to_s}"), :id => ("#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s) }
+      %label{:for => "#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s} Unreviewed
     .option.trust
-      = radio_button_tag "#{group_id}vetted_id", Vetted.trusted.id.to_s, data_object.trusted?, :data_href => url_for(:action => :trust, :data_object_id => data_object['id'], :div_id => "#{group_id}vetted_id_#{Vetted.trusted.id.to_s}")
-      %label{:for => "#{group_id}vetted_id_"  + Vetted.trusted.id.to_s} Trusted
+      = radio_button_tag "vetted_id", Vetted.trusted.id.to_s, data_object.trusted?, { :data_href => url_for(:action => :trust, :data_object_id => data_object['id'], :div_id => "#{data_object['id']}_vetted_id_#{Vetted.trusted.id.to_s}"), :id => ("#{data_object['id']}_vetted_id_" + Vetted.trusted.id.to_s) }
+      %label{:for => "#{data_object['id']}_vetted_id_"  + Vetted.trusted.id.to_s} Trusted
     .option.untrust
-      = radio_button_tag "#{group_id}vetted_id", Vetted.untrusted.id.to_s, data_object.untrusted?
-      %label{:for => "#{group_id}vetted_id_" + Vetted.untrusted.id.to_s} Untrusted
+      = radio_button_tag "vetted_id", Vetted.untrusted.id.to_s, data_object.untrusted?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.untrusted.id.to_s) }
+      %label{:for => "#{data_object['id']}_vetted_id_" + Vetted.untrusted.id.to_s} Untrusted
       - div_style = data_object.untrusted? ? '' :  'display:none;'
       .reason{ :style => div_style, :id => "reason_#{data_object.id}" }
         / = "Please select a reason, and optionally leave a curation comment to explain your decision:"
         %b Please select a reason, and/or optionally leave a curation comment:
         .option
-          = check_box_tag 'untrust_reasons[]', UntrustReason.misidentified.id.to_s, data_object.untrust_reasons_include?(UntrustReason.misidentified), {:id => 'untrust_reason_misidentified', :class => "#{group_id}untrust_reason"}
-          %label{ :for => 'untrust_reason_misidentified'} Misidentified
+          = check_box_tag 'untrust_reasons[]', UntrustReason.misidentified.id.to_s, data_object.untrust_reasons_include?(UntrustReason.misidentified), {:id => "#{data_object['id']}_untrust_reason_misidentified", :class => "untrust_reason"}
+          %label{ :for => "#{data_object['id']}_untrust_reason_misidentified"} Misidentified
         .option
-          = check_box_tag 'untrust_reasons[]', UntrustReason.incorrect.id.to_s, data_object.untrust_reasons_include?(UntrustReason.incorrect), {:id => 'untrust_reason_incorrect', :class => "#{group_id}untrust_reason"}
-          %label{ :for => 'untrust_reason_incorrect'} Incorrect/misleading information
+          = check_box_tag 'untrust_reasons[]', UntrustReason.incorrect.id.to_s, data_object.untrust_reasons_include?(UntrustReason.incorrect), {:id => "#{data_object['id']}_untrust_reason_incorrect", :class => "untrust_reason"}
+          %label{ :for => "#{data_object['id']}_untrust_reason_incorrect"} Incorrect/misleading information
         .option
-          = check_box_tag 'untrust_reasons[]', UntrustReason.poor.id.to_s, data_object.untrust_reasons_include?(UntrustReason.poor), {:id => 'untrust_reason_poor', :class => "#{group_id}untrust_reason"}
-          %label{ :for => 'untrust_reason_poor'} Poor writing/image/sound quality
+          = check_box_tag 'untrust_reasons[]', UntrustReason.poor.id.to_s, data_object.untrust_reasons_include?(UntrustReason.poor), {:id => "#{data_object['id']}_untrust_reason_poor", :class => "untrust_reason"}
+          %label{ :for => "#{data_object['id']}_untrust_reason_poor"} Poor writing/image/sound quality
         .option
-          = check_box_tag 'untrust_reasons[]', UntrustReason.duplicate.id.to_s, data_object.untrust_reasons_include?(UntrustReason.duplicate), {:id => 'untrust_reason_duplicate', :class => "#{group_id}untrust_reason"}
-          %label{ :for => 'untrust_reason_duplicate'} Redundant/duplicate
+          = check_box_tag 'untrust_reasons[]', UntrustReason.duplicate.id.to_s, data_object.untrust_reasons_include?(UntrustReason.duplicate), {:id => "#{data_object['id']}_untrust_reason_duplicate", :class => "untrust_reason"}
+          %label{ :for => "#{data_object['id']}_untrust_reason_duplicate"} Redundant/duplicate
         .option
-          = check_box_tag 'untrust_reasons[]', UntrustReason.other.id.to_s, data_object.untrust_reasons_include?(UntrustReason.other), {:id => 'untrust_reason_other', :class => "#{group_id}untrust_reason"}
-          %label{ :for => 'untrust_reason_other'} Other
-        %input{ :type => "hidden", :id => "untrust_reasons_comment", :name => "untrust_reasons_comment" }
+          = check_box_tag 'untrust_reasons[]', UntrustReason.other.id.to_s, data_object.untrust_reasons_include?(UntrustReason.other), {:id => "#{data_object['id']}_untrust_reason_other", :class => "untrust_reason"}
+          %label{ :for => "#{data_object['id']}_untrust_reason_other"} Other
+        %input{ :type => "hidden", :id => "#{data_object['id']}_untrust_reasons_comment", :class => "untrust_reasons_comment", :name => "untrust_reasons_comment" }
         %label{ :for => 'curation_comment'} 
           %b Curation Comment:
-        = text_area_tag 'comment', nil, :class => 'curation-comment-box', :id => "#{group_id}curator_comment"
-        - if !group_id.blank?
-          %br/
-          = submit_tag "Save", :data_href => url_for(:action => :untrust, :data_object_id => data_object['id'], :div_id => "#{group_id}vetted_id_#{Vetted.untrusted.id.to_s}")
+        = text_area_tag 'comment', nil, :class => 'curation-comment-box', :id => "#{data_object['id']}_curator_comment"
+        -# - if !group_id.blank?
+        -#   %br/
+        -#   = submit_tag "Save", :data_href => url_for(:action => :untrust, :data_object_id => data_object['id'], :div_id => "#{data_object['id']}_vetted_id_#{Vetted.untrusted.id.to_s}")

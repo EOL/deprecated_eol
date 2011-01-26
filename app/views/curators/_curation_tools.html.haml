@@ -1,4 +1,3 @@
-= javascript_include_tag 'curation'
 .curation-section
   .credit-caption
     = "Rating"[]
@@ -24,7 +23,17 @@
 - dato = DataObject.find_by_id(data_object['id'])
 - div_style = 'display:none;'
 .curator_worklist_curation
-  = render :partial => 'data_objects/curation', :locals => { :data_object => dato, :div_style => div_style, :group_id => dato.id }
+  %form.curation_form{ :action => curate_data_object_path(dato), :'data-data_object_id' => dato.id,  :'data-data_object_type' => dato.data_type_id }
+    = hidden_field_tag 'taxon_concept_id', dato.taxon_concepts(:published => :preferred)[0] 
+    .processing{ :style => "display:none;" }
+      = image_tag('indicator_arrows_black.gif')
+      Please wait
+
+    = render :partial => 'data_objects/curation', :locals => { :data_object => dato, :div_style => div_style }
+    .buttons.action-value
+      = submit_tag "Save"
+      %input.cancel-button{ :type => "button", :value => "Cancel" }
+  -# = render :partial => 'data_objects/curation', :locals => { :data_object => dato, :div_style => div_style, :group_id => dato.id }
 .text_buttons
   - comments = dato.all_comments.select { |c| c['visible_at'] }
   - if comments.blank?

@@ -5,11 +5,11 @@
   #full-page-content
     - if @curators.empty?
       %h3
-        There are no curators of
+        = "There are no curators of"[]
         = link_to(@concept.title(@session_hierarchy), :controller => :taxa, :action => :show, :id => @concept.id)
     - else
       %h3
-        The following are curators of
+        = "The following people can curate"[]
         = link_to(@concept.title(@session_hierarchy), :controller => :taxa, :action => :show, :id => @concept.id)
       %br
       

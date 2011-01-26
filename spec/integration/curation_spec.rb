@@ -98,7 +98,7 @@ describe 'Curation' do
   
   it 'should show the curator list' do
     visit("/pages/#{@taxon_concept.id}/curators")
-    body.should include("The following are curators of")
+    body.should include("following people can curate")
     body.should include(@cn_curator.family_name)
     body.should include(@cn_curator.given_name)
     body.should include(@first_curator.family_name)

@@ -21,6 +21,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :actions_histories
   has_many :users_data_objects
   has_many :user_ignored_data_objects
+  has_many :list_items, :as => :object
 
   has_one    :user_info
 
@@ -193,6 +194,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     User.with_master do
       User.count(:conditions => ['email = ?', email]) == 0
     end
+  end
+
+  def activate
+    self.update_attributes(:active => true)
+    Notifier.deliver_welcome_registration(self)
+    # TODO - create a task list and a like list.
   end
 
   def password

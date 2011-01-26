@@ -7,6 +7,9 @@ module EOL
     class FailedToCreateTag < StandardError; end
     class SecurityViolation < StandardError; end
     class MustBeLoggedIn < StandardError; end
+    class InvalidListItemType < StandardError; end
+    class OnlyUsersCanCreateCommunitiesFromLists < StandardError; end
+    class CannotCreateCommunityWithoutTaxaInList < StandardError; end
   end
 end
 

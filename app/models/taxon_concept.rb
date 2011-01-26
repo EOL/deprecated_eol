@@ -30,7 +30,7 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :names, :through => :taxon_concept_names
   has_many :ranks, :through => :hierarchy_entries
   has_many :google_analytics_partner_taxa
-
+  has_many :list_items, :as => :object
 
   has_one :taxon_concept_content
 

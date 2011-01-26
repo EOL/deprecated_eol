@@ -9,7 +9,6 @@ end
 
 describe 'User Profile' do
 
-
   before(:all) do
     truncate_all_tables
     load_foundation_cache
@@ -43,5 +42,21 @@ describe 'User Profile' do
     body.should_not include("Generate a key")
     body.should include("Your key is")
   end
+
+  it 'should show their "like" list'
+
+  it 'should show their "task" list'
+
+  it 'should show all of their specific lists'
+
+  it 'should have a link to edit the name of specific lists'
+
+  it 'should have a link to delete specific lists'
+
+  it 'should NOT have a link to delete their task or like lists'
+
+  it 'should have a link to create specific lists'
+
+  it 'should have a link to convert specific lists to communities'
 
 end

@@ -88,8 +88,7 @@ class AccountController < ApplicationController
       @user = User.find_by_username_and_validation_code(params[:id],params[:validation_code])
     end
     if !@user.blank?
-      @user.update_attributes(:active => true) # activate their account
-      Notifier.deliver_welcome_registration(@user) # send them a welcome message
+      @user.activate
     end
   end
 

@@ -1,4 +1,8 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :list_items
+
+  map.resources :lists
+
 
   # Communities, Privileges, Roles:
   map.resources :privileges

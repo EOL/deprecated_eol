@@ -1,0 +1,38 @@
+<p>
+  <b>Name:</b>
+  <%=h @list.name %>
+</p>
+
+<p>
+  <b>Community:</b>
+  <%=h @list.community_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @list.user_id %>
+</p>
+
+<p>
+  <b>Special list:</b>
+  <%=h @list.special_list_id %>
+</p>
+
+<p>
+  <b>Public:</b>
+  <%=h @list.public %>
+</p>
+
+<p>
+  <b>Object type:</b>
+  <%=h @list.object_type %>
+</p>
+
+<p>
+  <b>Object:</b>
+  <%=h @list.object_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_list_path(@list) %> |
+<%= link_to 'Back', lists_path %>

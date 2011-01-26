@@ -546,6 +546,8 @@ describe TaxonConcept do
 
   end
 
+  it 'should be #like-able and send notification to the owner'
+
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #

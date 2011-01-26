@@ -1,7 +1,12 @@
 class Community < ActiveRecord::Base
 
+  has_one :list
+
   has_many :members
   has_many :roles
+  has_many :list_items, :as => :object
+
+  after_create :attatch_taxa_list
 
   # These are for will_paginate:
   cattr_reader :per_page
@@ -30,6 +35,8 @@ class Community < ActiveRecord::Base
       role.privileges = Privilege.find(:all, :conditions => ["level <= ? and special = ?", special_roles[key], true])
     end
   end
+
+  alias :taxa_list :list
 
   # TODO - test 
   # Adds the default roles, auto-joins the user to the community, and makes that person the owner.
@@ -62,6 +69,12 @@ class Community < ActiveRecord::Base
 
   def has_member?(user)
     members.map {|m| m.user_id}.include?(user.id)
+  end
+
+private 
+
+  def attatch_taxa_list
+    List.create(:name => "#{self.name} Taxa List", :special_list_id => SpecialList.taxa.id, :community_id => self.id)
   end
 
 end

@@ -33,6 +33,7 @@ class DataObject < SpeciesSchemaModel
   has_many :data_objects_info_items
   has_many :info_items, :through => :data_objects_info_items
   has_many :user_ignored_data_objects
+  has_many :list_items, :as => :object
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
@@ -1546,6 +1547,14 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
   end
 
+  def short_title
+    return object_title unless object_title.blank?
+    # TODO - ideally, we should extract some of the logic from data_objects/show to make this "Image of Procyon Lotor".
+    return data_type.label if description.blank?
+    st = description.gsub(/\n.*$/, '')
+    st.truncate(32)
+  end
+
 private
 
   def self.join_agents_clause(agent)
@@ -1657,38 +1666,4 @@ EOVISBILITYCLAUSE
   end
 
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: data_objects
-#
-#  id                     :integer(4)      not null, primary key
-#  data_type_id           :integer(2)      not null
-#  language_id            :integer(2)      not null
-#  license_id             :integer(1)      not null
-#  mime_type_id           :integer(2)      not null
-#  vetted_id              :integer(1)      not null
-#  visibility_id          :integer(4)
-#  altitude               :float           not null
-#  bibliographic_citation :string(300)     not null
-#  curated                :boolean(1)      not null
-#  data_rating            :float           not null
-#  description            :text            not null
-#  guid                   :string(32)      not null
-#  latitude               :float           not null
-#  location               :string(255)     not null
-#  longitude              :float           not null
-#  object_cache_url       :string(255)     not null
-#  object_title           :string(255)     not null
-#  object_url             :string(255)     not null
-#  published              :boolean(1)      not null
-#  rights_holder          :string(255)     not null
-#  rights_statement       :string(300)     not null
-#  source_url             :string(255)     not null
-#  thumbnail_cache_url    :string(255)     not null
-#  thumbnail_url          :string(255)     not null
-#  created_at             :timestamp       not null
-#  object_created_at      :timestamp       not null
-#  object_modified_at     :timestamp       not null
-#  updated_at             :timestamp       not null
 

@@ -687,6 +687,13 @@ Factory.define :license do |l|
   l.show_to_content_partners true
 end
 
+Factory.define :list do |l|
+  l.name            { Factory.next(:string) }
+  l.published       false
+  l.special_list_id nil
+  l.association     :user
+end
+
 Factory.define :member do |m|
   m.association :user
   m.association :community 

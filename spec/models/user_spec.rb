@@ -14,6 +14,7 @@ describe User do
     # We don't need foundation (which is expensive), but we do need curation permissions:
     KnownPrivileges.create_all
     Community.create_special
+    SpecialList.create_all
     User.delete_all
     @user = User.gen :username => 'KungFuPanda', :password => @password
     @user.should_not be_a_new_record
@@ -312,6 +313,16 @@ describe User do
 
   end
 
+  describe '#activate' do
+
+    it 'should set the active boolean'
+
+    it 'should send a notification'
+
+    it 'should create a "like" and "task" list'
+
+  end
+
   describe 'community membership' do
 
     it 'should be able to join a community' do
@@ -339,5 +350,7 @@ describe User do
     end
 
   end
+
+  it 'should be #like-able and send notification to the user'
 
 end

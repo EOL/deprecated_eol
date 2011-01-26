@@ -1,0 +1,28 @@
+<h1>Editing list_item</h1>
+
+<% form_for(@list_item) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :url %><br />
+    <%= f.text_field :url %>
+  </p>
+  <p>
+    <%= f.label :object_type %><br />
+    <%= f.text_field :object_type %>
+  </p>
+  <p>
+    <%= f.label :object_id %><br />
+    <%= f.text_field :object_id %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @list_item %> |
+<%= link_to 'Back', list_items_path %>

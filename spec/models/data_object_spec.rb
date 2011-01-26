@@ -564,4 +564,32 @@ describe DataObject do
     DataObject.cache_path(:foo, :bar).should == :worked
   end
 
+  describe '#short_title' do
+
+    it 'should default to the object_title' do
+      dato = DataObject.gen(:object_title => 'Something obvious')
+      dato.short_title.should == 'Something obvious'
+    end
+
+    it 'should resort to the first line of the description if the object_title is empty' do
+      dato = DataObject.gen(:object_title => '', :description => "A long description\nwith multiple lines of stuff")
+      dato.short_title.should == "A long description"
+    end
+
+    it 'should resort to the first 32 characters (plus three dots) if the decsription is too long and one-line' do
+      dato = DataObject.gen(:object_title => '', :description => "The quick brown fox jumps over the lazy dog, and now is the time for all good men to come to the aid of their country")
+      dato.short_title.should == "The quick brown fox jumps over t..."
+    end
+
+    # TODO - ideally, this should be something like "Image of Procyon lotor", but that would be a LOT of work to extract
+    # froom the data_objects/show view (mainly because it builds links).
+    it 'should resort to the data type, if there is no description' do
+      dato = DataObject.gen(:object_title => '', :description => '', :data_type => DataType.image)
+      dato.short_title.should == "Image"
+    end
+
+  end
+
+  it 'should be #like-able and send notification to the owner'
+
 end

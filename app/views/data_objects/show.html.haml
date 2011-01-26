@@ -3,6 +3,7 @@
   - type = 'Video' if DataType.video_type_ids.include?(@data_object.data_type.id)
   %h1== #{type} permalink. 
   %h2
+    - @taxon_concepts = @data_object.taxon_concepts(:published => :preferred)
     - if @taxon_concepts.blank?
       ( stands alone )
     - else

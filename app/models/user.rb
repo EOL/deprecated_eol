@@ -605,7 +605,7 @@ class User < parent_klass
       end
     end
 
-    data_object_ids = EOL::Solr::SolrSearchDataObjects.images_for_concept(solr_query, :fields => 'data_object_id', :rows => 500, :sort => 'created_at desc')
+    data_object_ids = EOL::Solr::SolrSearchDataObjects.images_for_concept(solr_query, :fields => 'data_object_id', :rows => 2000, :sort => 'created_at desc')
 
     return [] if data_object_ids.empty?
 

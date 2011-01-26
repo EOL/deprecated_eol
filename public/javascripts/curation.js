@@ -64,7 +64,7 @@ EOL.Curation.post_curate_text = function(args) {
 };
 
 $(document).ready(function() {
-  $('form.curation input[type="submit"]').click(function() {
+  $('form.curation_form input[type="submit"]').click(function() {
     var form = $(this).closest('form');
     form.find('div.processing').show();
     submit = form.find(':submit');
@@ -72,7 +72,7 @@ $(document).ready(function() {
     var reasons = $('.untrust_reason:checked').siblings().map(function(){return this.innerHTML}).get().join(",\n");
     if (reasons) {
       reasons = "Reasons to Untrust:\n\n" + reasons 
-      form.find('#untrust_reasons_comment').attr('value', reasons);
+      form.find('.untrust_reasons_comment').attr('value', reasons);
     }
     $.ajax({
       url: form.attr('action'),
@@ -97,11 +97,11 @@ $(document).ready(function() {
       },
       success: function(response) {
         the_comment.val('');
-        if (response.type == "text") {
-          EOL.Curation.post_curate_text(response.args);
-        } else {
-          EOL.Curation.post_curate_image(response.args);
-        }
+        // if (response.type == "text") {
+        //   EOL.Curation.post_curate_text(response.args);
+        // } else {
+        //   EOL.Curation.post_curate_image(response.args);
+        // }
       },
       data: $(form).serialize()
     });

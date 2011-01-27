@@ -127,17 +127,18 @@ form.curation .curation-section .label {
   text-transform: uppercase;
   float: left; }
 form.curation .options {
-  padding-top: 5px;
-  padding-left: 56pt; }
+  padding-left: 60pt; }
 
 form.curation .label {
   color: #999999;
   font-size: 12px;
-  font-weight: 700;
-  line-height: 25px; }
+  font-weight: 700; }
 form.curation .curation-section {
   padding-top: 15px; }
 form.curation div.option {
   padding-left: 8px; }
 form.curation .options .untrust .reason {
   padding-left: 20px; }
+
+form.curation .comment {
+  padding-left: 8px; }

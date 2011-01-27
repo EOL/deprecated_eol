@@ -4,17 +4,20 @@
 .image_rating {
   padding-bottom: 1em; }
 
+.untrusted {
+  background-color: #ff9999; }
+
+.unknown {
+  background-color: #ffffcc; }
+
+.trusted {
+  background-color: #fafafa; }
+
 .results_table {
   width: 100%;
   border-collapse: separate;
   border-spacing: 0 20px;
   border: 0; }
-  .results_table tr.untrusted {
-    background-color: #ff9999; }
-  .results_table tr.unknown {
-    background-color: #ffffcc; }
-  .results_table tr.trusted {
-    background-color: #f5fafa; }
   .results_table tr th {
     font-size: 10pt;
     padding: 10px;

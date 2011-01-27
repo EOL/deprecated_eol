@@ -2,7 +2,7 @@ $untrusted_lighter: #ff9999
 $untrusted: #ee7777
 $unknown_lighter: #ffffcc
 $unknown: #ffff99
-$trusted: #f5fafa 
+$trusted: #fafafa 
 
 .pagination
   text-align: center
@@ -10,20 +10,22 @@ $trusted: #f5fafa
 .image_rating
   padding-bottom: 1em
 
+.untrusted
+  background-color: $untrusted_lighter
+
+.unknown
+  background-color: $unknown_lighter
+
+.trusted
+  background-color: $trusted
+
 .results_table
   width: 100%
   border-collapse: separate
   border-spacing: 0 20px
   border: 0
-
+  
   tr
-    &.untrusted
-      background-color: $untrusted_lighter
-    &.unknown
-      background-color: $unknown_lighter
-    &.trusted
-      background-color: $trusted
-
     th
       font-size: 10pt
       padding: 10px

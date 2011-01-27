@@ -1,16 +1,11 @@
 if(!EOL) { EOL = {}; }
 if(!EOL.Curation) { EOL.Curation = {}; }
 
-EOL.Curation.form_is_valid = function() {
-	// check that the checkboxes are checked and/or the comment is entered...
-	if($('#curator_comment').is(":visible")) {
-	  if(($('#curator_comment').val() == "") && ($('.untrust_reason:checked').siblings().map(function(){return this.innerHTML}).get() == "")) {
-		  return false;
-	  } else {
-		  return true;
-	  } 
-	}
-	return true;
+EOL.Curation.form_is_valid = function(form) {
+  var untrusted_option_checked  = $('#' + form.attr('data-data_object_id') + '_vetted_id_' + EOL.Curation.UNTRUSTED_ID).is(':checked');   
+  var comment_empty             = form.find('.curation-comment-box').val() == "";   
+  var untrust_reasons_unchecked = form.find('.untrust_reason:checked').siblings().map(function(){return this.innerHTML}).get() == ""; 
+  return untrusted_option_checked ? !(comment_empty && untrust_reasons_unchecked) : true; 
 }
 
 // Invisible icons on text:
@@ -25,47 +20,49 @@ EOL.Curation.update_icons = function(data_object_id, visibility_id) {
   }
 };
 // Update the image(s) now that it's been curated:
-EOL.Curation.post_curate_image = function(args) {
-  var dato_id = args[0]; var visibility_id = args[1]; var vetted_id = args[2];
-  EOL.Curation.update_icons(dato_id, visibility_id);
-  EOL.toggle_main_img_icons(dato_id);
-  thumbnail = $('#thumbnails a#thumb-'+dato_id);
-  image_wrap = $('#image-'+dato_id);
-  notes = $('#mc-notes-'+dato_id);
-  classes = 'trusted unknown untrusted unknown-text untrusted-text';
-  thumbnail.removeClass(classes);
-  image_wrap.removeClass(classes);
-  notes.removeClass(classes);
-  if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
-    thumbnail.addClass('untrusted');
-    image_wrap.addClass('untrusted');
-    notes.addClass('untrusted-text');
-  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) { // Cant "unknow" something, but could load an image that already is?
-    thumbnail.addClass('unknown');
-    image_wrap.addClass('unknown');
-    notes.addClass('unknown-text');
+EOL.Curation.post_curate_image = function(args, page_type) {
+  var dato_id = args[0]; var visibility_id = args[1];
+  var vetted_id = args[2];
+  var vetted_label = EOL.Curation.vetted_type[vetted_id];
+  if (page_type == 'species_page') {
+    EOL.Curation.update_icons(dato_id, visibility_id);
+    EOL.toggle_main_img_icons(dato_id);
+    thumbnail = $('#thumbnails a#thumb-'+dato_id);
+    image_wrap = $('#image-'+dato_id);
+    notes = $('#mc-notes-'+dato_id);
+    classes = 'trusted unknown untrusted unknown-text untrusted-text trusted-text';
+    thumbnail.removeClass(classes).addClass(vetted_label);
+    image_wrap.removeClass(classes).addClass(vetted_label);
+    notes.removeClass(classes).addClass(vetted_label + '-text');
   } else {
-    thumbnail.addClass('trusted');
-    image_wrap.addClass('trusted');
+    var div_id = $('#' + dato_id + '_vetted_id_' + vetted_id);
+    var undo_move = $('#undo-move-' + dato_id);
+    div_id.parents('td').removeClass('unknown untrusted trusted').addClass(vetted_label);
+    div_id.parents('td').siblings('td').removeClass('unknown untrusted trusted').addClass(vetted_label);
+    undo_move.removeClass('unknown untrusted trusted').addClass(vetted_label);
   }
 };
 // Update text objects after curation:
-EOL.Curation.post_curate_text = function(args) {
-  var data_object_id = args[0]; var visibility_id = args[1]; var vetted_id = args[2];
-  $('div#text_buttons_'+data_object_id+' div.trust_button').remove();
-  $('div#text_buttons_'+data_object_id+' div.untrust_button').remove();
-  $('#text_'+data_object_id).removeClass('untrusted unknown trusted');
-  if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
-    $('#text_'+data_object_id).addClass('untrusted');
-  } else if (vetted_id == EOL.Curation.UNKNOWN_ID) {
-    $('#text_'+data_object_id).addClass('unknown');
+EOL.Curation.post_curate_text = function(args, page_type) {
+  var data_object_id = args[0]; var visibility_id = args[1];
+  var vetted_id = args[2];
+  if (page_type == 'species_page') {
+    $('div#text_buttons_'+data_object_id+' div.trust_button').remove();
+    $('div#text_buttons_'+data_object_id+' div.untrust_button').remove();
+    $('#text_'+data_object_id).removeClass('untrusted unknown trusted');
+    if (vetted_id == EOL.Curation.UNTRUSTED_ID) {
+      $('#text_'+data_object_id).addClass('untrusted');
+    } else if (vetted_id == EOL.Curation.UNKNOWN_ID) {
+      $('#text_'+data_object_id).addClass('unknown');
+    }
+    EOL.Curation.update_icons(data_object_id, visibility_id);
   }
-  EOL.Curation.update_icons(data_object_id, visibility_id);
 };
 
 $(document).ready(function() {
   $('form.curation_form input[type="submit"]').click(function() {
     var form = $(this).closest('form');
+    var page_type = form.attr('data-page_type');
     form.find('div.processing').show();
     submit = form.find(':submit');
     the_comment = form.find('textarea');
@@ -79,12 +76,12 @@ $(document).ready(function() {
       type: 'PUT',
       dataType: 'json',
       beforeSend: function(xhr) {
-	    if(EOL.Curation.form_is_valid()) {
+	    if(EOL.Curation.form_is_valid(form)) {
           xhr.setRequestHeader("Accept", "text/javascript"); // Sorry, not sure why this xhr wasn't auto-js, but it wasn't.
           submit.attr('disabled', 'disabled');
           the_comment.attr('disabled', 'disabled');
         } else {
-          $('.untrust_reason').parent().parent().find('b').show().css("color","red");
+          form.find('.untrust_reason').parent().parent().find('b').show().css("color","red");
           form.find('div.processing').fadeOut();
           return false;
         }
@@ -93,15 +90,15 @@ $(document).ready(function() {
         submit.attr('disabled', '');
         the_comment.attr('disabled', '');
         form.find('div.processing').fadeOut();
-        $('.untrust_reason').parent().parent().find('b').show().css("color","black");
+        form.find('.untrust_reason').parent().parent().find('b').show().css("color","black");
       },
       success: function(response) {
         the_comment.val('');
-        // if (response.type == "text") {
-        //   EOL.Curation.post_curate_text(response.args);
-        // } else {
-        //   EOL.Curation.post_curate_image(response.args);
-        // }
+        if (response.type == "text") {
+          EOL.Curation.post_curate_text(response.args, page_type);
+        } else {
+          EOL.Curation.post_curate_image(response.args, page_type);
+        }
       },
       data: $(form).serialize()
     });
@@ -109,20 +106,15 @@ $(document).ready(function() {
   });
   // Show untrust reasons when it's ... uhhh.... untrusted. 
   $('div.vetted .untrust input[type="radio"]').click(function() {
+    $(this).parent().find('.untrust_reason').parent().parent().find('b').show().css("color","black");
     $(this).parent().find('div.reason').slideDown();
   });
   // Hide untrust reasons when it's trusted:
   $('div.vetted .trust input[type="radio"]').click(function() {
-    if($('#curator_comment').is(":visible")) {
-      $('.untrust_reason').parent().parent().find('b').show().css("color","black");
-    }
     $(this).parent().parent().find('div.reason').slideUp();
   });
   // Hide untrust reasons when it's unreviewed:
   $('div.vetted .unreviewed input[type="radio"]').click(function() {
-    if($('#curator_comment').is(":visible")) {
-      $('.untrust_reason').parent().parent().find('b').show().css("color","black");
-    }
     $(this).parent().parent().find('div.reason').slideUp();
   });
   // Cancel button just clicks the closest close-link:

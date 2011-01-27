@@ -17,13 +17,14 @@
     - else
       %a= "Move to ignored list"[]
     %span.info_msg
+  %hr.thin
 .clearbreak
   %br
 / TODO: Rewrite images_to_curate, details_for_objects methods using Patrick's new core_relationships feature to get the data into curator worklist.
 - dato = DataObject.find_by_id(data_object['id'])
 - div_style = 'display:none;'
 .curator_worklist_curation
-  %form.curation_form{ :action => curate_data_object_path(dato), :'data-data_object_id' => dato.id,  :'data-data_object_type' => dato.data_type_id }
+  %form.curation_form{ :action => curate_data_object_path(dato), :'data-data_object_id' => dato.id,  :'data-data_object_type' => dato.data_type_id, :'data-page_type' => 'curation_worklist'}
     = hidden_field_tag 'taxon_concept_id', dato.taxon_concepts(:published => :preferred)[0] 
     .processing{ :style => "display:none;" }
       = image_tag('indicator_arrows_black.gif')

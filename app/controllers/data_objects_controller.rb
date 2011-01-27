@@ -220,7 +220,7 @@ class DataObjectsController < ApplicationController
       format.js {
         type = 'image'
         type = 'text' if @data_object.text?
-        render :text => {:type => type, :args => [@data_object.id, @data_object.visibility_id, @data_object.vetted_id]}.to_json
+        render :text => {:type => type, :args => [@data_object.id, @data_object.visibility_id, @data_object.vetted_id, @data_object.vetted.label]}.to_json
       }
     end
   end

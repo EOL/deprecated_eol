@@ -156,6 +156,7 @@ module PartnerUpdatesEmailer
           JOIN #{ContentPartner.full_table_name} cp ON (ar.agent_id = cp.agent_id)
         ) ON (c.parent_id=dohe.data_object_id)
         WHERE c.id IN (#{all_comment_ids.join(',')})
+        AND u.username != 'potsonna'
         AND c.parent_type = 'DataObject'
         AND cp.id IS NOT NULL
         GROUP BY cp.id, c.id")
@@ -176,6 +177,7 @@ module PartnerUpdatesEmailer
           JOIN #{ContentPartner.full_table_name} cp ON (ar.agent_id = cp.agent_id)
         ) ON (c.parent_id=he.taxon_concept_id)
         WHERE c.id IN (#{all_comment_ids.join(',')})
+        AND u.username != 'potsonna'
         AND c.parent_type = 'TaxonConcept'
         AND cp.id IS NOT NULL
         GROUP BY cp.id, c.id")
@@ -196,6 +198,7 @@ module PartnerUpdatesEmailer
           JOIN #{User.full_table_name} u ON (udo.user_id = u.id)
         ) ON (c.parent_id=udo.data_object_id)
         WHERE c.id IN (#{all_comment_ids.join(',')})
+        AND uc.username != 'potsonna'
         AND c.parent_type = 'DataObject'
         AND u.id IS NOT NULL
         GROUP BY u.id, c.id")
@@ -214,6 +217,7 @@ module PartnerUpdatesEmailer
           JOIN #{User.full_table_name} u ON (udo.user_id = u.id)
         ) ON (c.parent_id=udo.taxon_concept_id)
         WHERE c.id IN (#{all_comment_ids.join(',')})
+        AND uc.username != 'potsonna'
         AND c.parent_type = 'TaxonConcept'
         AND u.id IS NOT NULL
         GROUP BY u.id, c.id")

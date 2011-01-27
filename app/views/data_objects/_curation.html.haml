@@ -10,8 +10,7 @@
       %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.invisible.id.to_s} Hide for all except curators
     .option
       = radio_button_tag "visibility_id", Visibility.inappropriate.id.to_s, data_object.inappropriate?, { :data_href => url_for(:action => :remove, :data_object_id => data_object['id']), :id => ("#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s) }
-      %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s} Permanently Remove
-      
+      %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s} Permanently Remove      
 .vetted.curation-section
   .label.credit-caption
     = "Vetted"[]
@@ -45,9 +44,9 @@
           = check_box_tag 'untrust_reasons[]', UntrustReason.other.id.to_s, data_object.untrust_reasons_include?(UntrustReason.other), {:id => "#{data_object['id']}_untrust_reason_other", :class => "untrust_reason"}
           %label{ :for => "#{data_object['id']}_untrust_reason_other"} Other
         %input{ :type => "hidden", :id => "#{data_object['id']}_untrust_reasons_comment", :class => "untrust_reasons_comment", :name => "untrust_reasons_comment" }
-        %label{ :for => 'curation_comment'} 
-          %b Curation Comment:
-        = text_area_tag 'comment', nil, :class => 'curation-comment-box', :id => "#{data_object['id']}_curator_comment"
-        -# - if !group_id.blank?
-        -#   %br/
-        -#   = submit_tag "Save", :data_href => url_for(:action => :untrust, :data_object_id => data_object['id'], :div_id => "#{data_object['id']}_vetted_id_#{Vetted.untrusted.id.to_s}")
+.curation-section
+  .label.credit-caption
+    = "Curation Comment"[]
+  .options.action-value
+    .comment
+      = text_area_tag 'comment', nil, :class => 'curation-comment-box', :id => "#{data_object['id']}_curator_comment"

@@ -779,16 +779,16 @@ div.credit .footer {
   height: 1px; }
 
 hr.results {
-  color: #e6e7e8;
-  background-color: #e6e7e8;
+  color: #cccccc;
+  background-color: #cccccc;
   width: 200px;
   height: 1px;
   display: block;
   border: 0px; }
 
 hr.thin {
-  color: #e6e7e8;
-  background-color: #e6e7e8;
+  color: #cccccc;
+  background-color: #cccccc;
   height: 1px;
   display: block;
   border: 0px; }

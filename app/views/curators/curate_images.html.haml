@@ -1,16 +1,19 @@
 -# TODO - Add a selector to Narrow the list by Content Provider
 = render :partial => 'filter_form'
+- if @name.blank? 
+  - name = ""
+  - msg = ""
+- else
+  - name = " for #{@name}"
+  - msg = "You are curating images #{name}. "
 - if @images_to_curate.blank?
   - status = @status.blank? ? "" : ((@status == 'all') ? "" : (@status == 'Unknown') ? "Unreviewed " : "#{@status} ")
   - ctnt_ptnr = @ctnt_ptnr.blank? ? "" : "#{@ctnt_ptnr} "
-  - name = @name.blank? ? "" : " for #{@name}"
   %hr.thin
-  - msg = "There is no #{status}#{ctnt_ptnr}content#{name}, please select another vetting status and try again."
-  = msg
+  = "There is no #{status}#{ctnt_ptnr}content#{name}, please select another group to curate or change your source or vetting status criteria."
 - else
   %hr.thin
-  - msg = "Images are sorted by EOL import date, with newest items shown first."
-  = msg
+  = "#{msg}Images are sorted by EOL import date, with newest items shown first."
   = will_paginate(@images_to_curate, :params => params)
   %table.results_table
     %tr

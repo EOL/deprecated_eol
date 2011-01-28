@@ -215,12 +215,13 @@ class DataObjectsController < ApplicationController
     expire_data_object(@data_object.id)
     current_user.log_activity(:curated_data_object_id, :value => @data_object.id)
     
+    comments_count = @data_object.all_comments.select(&:visible?).size
     respond_to do |format|
       format.html {redirect_to request.referer ? :back : '/'}
       format.js {
         type = 'image'
         type = 'text' if @data_object.text?
-        render :text => {:type => type, :args => [@data_object.id, @data_object.visibility_id, @data_object.vetted_id, @data_object.vetted.label]}.to_json
+        render :text => { :type => type, :args => [@data_object.id, @data_object.visibility_id, @data_object.vetted_id, @data_object.vetted.label, comments_count] }.to_json
       }
     end
   end

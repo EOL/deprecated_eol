@@ -93,6 +93,8 @@ $(document).ready(function() {
         form.find('.untrust_reason').parent().parent().find('b').show().css("color","black");
       },
       success: function(response) {
+        $('#comment_button_link_' + response.args[0] + ' .span_block').html(response.args[4]);
+        form.find('.untrust_reasons_comment').attr('value', '');
         the_comment.val('');
         if (response.type == "text") {
           EOL.Curation.post_curate_text(response.args, page_type);

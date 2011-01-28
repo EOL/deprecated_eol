@@ -588,6 +588,7 @@ class DataObject < SpeciesSchemaModel
     raise "Curator should supply at least visibility or vetted information" unless (vetted_id || visibility_id) 
     
     if vetted_id
+      opts[:comment] = opts[:comment].blank? ? nil : comment(user, opts[:comment]) 
       case vetted_id.to_i
       when Vetted.untrusted.id
         untrust(user, opts)
@@ -598,6 +599,7 @@ class DataObject < SpeciesSchemaModel
       else
         raise "Cannot set data object vetted id to #{vetted_id}"
       end
+      
     end
 
     if visibility_id
@@ -1620,25 +1622,15 @@ EOVISBILITYCLAUSE
   end
 
   def trust(user, opts = {})
-    comment = opts[:comment]
-    taxon_concept_id = opts[:taxon_concept_id]
-    vetted_by = user
     update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    added_comment = nil
-    if comment && !comment.blank?
-      added_comment = comment(user, comment)
-    end
-    user.track_curator_activity(self, 'data_object', 'trusted', :comment => added_comment, :taxon_concept_id => taxon_concept_id)
+    user.track_curator_activity(self, 'data_object', 'trusted', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.approve
   end
 
   def untrust(user, opts = {})
     untrust_reason_ids = opts[:untrust_reason_ids].is_a?(Array) ? opts[:untrust_reason_ids] : []
-    comment = opts[:comment]
-    taxon_concept_id = opts[:taxon_concept_id]
     untrust_reasons_comment = opts[:untrust_reasons_comment]
-    vetted_by = user
     update_attributes({:vetted_id => Vetted.untrusted.id, :curated => true})
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
     
@@ -1653,19 +1645,14 @@ EOVISBILITYCLAUSE
     unless untrust_reasons_comment.blank?
       comment(user, untrust_reasons_comment)
     end
-    added_comment = nil
-    unless comment.blank?
-      added_comment = comment(user, comment)
-    end 
-    user.track_curator_activity(self, 'data_object', 'untrusted', :comment => added_comment, :untrust_reasons => these_untrust_reasons, :taxon_concept_id => taxon_concept_id)
+    user.track_curator_activity(self, 'data_object', 'untrusted', :comment => opts[:comment], :untrust_reasons => these_untrust_reasons, :taxon_concept_id => opts[:taxon_concept_id])
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.disapprove
   end
 
-  def unreviewed(user)
-    vetted_by = user
+  def unreviewed(user, opts = {})
     update_attributes({:vetted_id => Vetted.unknown.id, :curated => true})
     DataObjectsUntrustReason.destroy_all(:data_object_id => id)
-    user.track_curator_activity(self, 'data_object', 'unreviewed')
+    user.track_curator_activity(self, 'data_object', 'unreviewed', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
   end
 

@@ -267,19 +267,19 @@ describe 'Curator Worklist' do
   
   it 'should be able to give curators a warning message if content is not found' do
     visit("/curators/curate_images?content_partner_id=#{@content_partner_no_ctnt.id}")
-    body.should include("There is no #{@content_partner_name} content, please select another vetting status and try again.")
+    body.should include("There is no #{@content_partner_name} content, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}")
-    body.should include("There is no content for #{@species_name}, please select another vetting status and try again.")
+    body.should include("There is no content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should include("There is no Trusted content, please select another vetting status and try again.")
+    body.should include("There is no Trusted content, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?content_partner_id=#{@content_partner_no_ctnt.id}&vetted_id=#{Vetted.trusted.id}")
-    body.should include("There is no Trusted #{@content_partner_name} content, please select another vetting status and try again.")
+    body.should include("There is no Trusted #{@content_partner_name} content, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}&vetted_id=#{Vetted.untrusted.id}")
-    body.should include("There is no Untrusted content for #{@species_name}, please select another vetting status and try again.")
+    body.should include("There is no Untrusted content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/curate_images?content_partner_id=#{@content_partner_no_ctnt.id}&hierarchy_entry_id=#{@child_entry_no_ctnt.id}&vetted_id=#{Vetted.unknown.id}")
-    body.should include("There is no Unreviewed #{@content_partner_name} content for #{@species_name}, please select another vetting status and try again.")
+    body.should include("There is no Unreviewed #{@content_partner_name} content for #{@species_name}, please select another group to curate or change your source or vetting status criteria.")
     visit("/curators/ignored_images?hierarchy_entry_id=#{@child_entry_no_ctnt.id}")
-    body.should include("There is no ignored content for #{@species_name}, please select another hierarchy and try again.")
+    body.should include("There is no ignored content for #{@species_name}, please select another group.")
   end
   
   it 'should be able to render the taxon name links to the species page with the same image' do
@@ -371,17 +371,18 @@ describe 'Curator Worklist' do
   
   it "should be able to move the unreviewed image from active list to the ignored list and vice-versa" do
     visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
+    require 'ruby-debug'; debugger
     body.should include(@lower_child_unreviewed_image.id.to_s)
     visit("/user_ignored_data_objects/create?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
     body.should include("OK")
-    commit_transactions
-    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
+    commit_transactions 
+    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}") 
     body.should_not include(@lower_child_unreviewed_image.id.to_s)
     visit("/curators/ignored_images")
     body.should include(@lower_child_unreviewed_image.id.to_s)
     visit("/user_ignored_data_objects/destroy?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
     body.should include("OK")
-    commit_transactions
+    
     visit("/curators/ignored_images")
     body.should_not include(@lower_child_unreviewed_image.id.to_s)
     visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")

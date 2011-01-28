@@ -3,23 +3,23 @@
     = "Visibility"[]
   .options.action-value
     .option
-      = radio_button_tag "visibility_id", Visibility.visible.id.to_s, data_object.visible?, { :data_href => url_for(:action => :show, :data_object_id => data_object['id']), :id => ("#{data_object['id']}_visibility_id_" + Visibility.visible.id.to_s) }
+      = radio_button_tag "visibility_id", Visibility.visible.id.to_s, data_object.visible?, { :id => ("#{data_object['id']}_visibility_id_" + Visibility.visible.id.to_s) }
       %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.visible.id.to_s} Show to all users
     .option
-      = radio_button_tag "visibility_id", Visibility.invisible.id.to_s, data_object.invisible?, { :data_href => url_for(:action => :hide, :data_object_id => data_object['id']), :id => ("#{data_object['id']}_visibility_id_" + Visibility.invisible.id.to_s) }
+      = radio_button_tag "visibility_id", Visibility.invisible.id.to_s, data_object.invisible?, { :id => ("#{data_object['id']}_visibility_id_" + Visibility.invisible.id.to_s) }
       %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.invisible.id.to_s} Hide for all except curators
     .option
-      = radio_button_tag "visibility_id", Visibility.inappropriate.id.to_s, data_object.inappropriate?, { :data_href => url_for(:action => :remove, :data_object_id => data_object['id']), :id => ("#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s) }
+      = radio_button_tag "visibility_id", Visibility.inappropriate.id.to_s, data_object.inappropriate?, { :id => ("#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s) }
       %label{:for => "#{data_object['id']}_visibility_id_" + Visibility.inappropriate.id.to_s} Permanently Remove      
 .vetted.curation-section
   .label.credit-caption
     = "Vetted"[]
   .options.action-value
     .option.unreviewed
-      = radio_button_tag "vetted_id", Vetted.unknown.id.to_s, data_object.unknown?, { :data_href => url_for(:action => :unreviewed, :data_object_id => data_object['id'], :div_id => "#{data_object['id']}_vetted_id_#{Vetted.unknown.id.to_s}"), :id => ("#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s) }
+      = radio_button_tag "vetted_id", Vetted.unknown.id.to_s, data_object.unknown?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s) }
       %label{:for => "#{data_object['id']}_vetted_id_" + Vetted.unknown.id.to_s} Unreviewed
     .option.trust
-      = radio_button_tag "vetted_id", Vetted.trusted.id.to_s, data_object.trusted?, { :data_href => url_for(:action => :trust, :data_object_id => data_object['id'], :div_id => "#{data_object['id']}_vetted_id_#{Vetted.trusted.id.to_s}"), :id => ("#{data_object['id']}_vetted_id_" + Vetted.trusted.id.to_s) }
+      = radio_button_tag "vetted_id", Vetted.trusted.id.to_s, data_object.trusted?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.trusted.id.to_s) }
       %label{:for => "#{data_object['id']}_vetted_id_"  + Vetted.trusted.id.to_s} Trusted
     .option.untrust
       = radio_button_tag "vetted_id", Vetted.untrusted.id.to_s, data_object.untrusted?, { :id => ("#{data_object['id']}_vetted_id_" + Vetted.untrusted.id.to_s) }

@@ -63,7 +63,7 @@ class CuratorsController < ApplicationController
     @data_object.comment(current_user, params['comment'])
     respond_to do |format|
       format.js do 
-        comments = @data_object.comments.select { |c| c.visible? }
+        comments = @data_object.all_comments.select(&:visible?)
         current_user_comments = comments.select { |c| c.user.id == current_user.id && c.visible? }
         render :json => { :last_comment => params['comment'].sanitize_html, :comments => comments.size, :current_user_comments => current_user_comments.size, :data_object_id => params[:data_object_id] }
       end

@@ -614,7 +614,7 @@ class User < parent_klass
     vetted_clause = vetted_id != 'all' ? " AND do.vetted_id = #{vetted_id}" : ""
     result = DataObject.find_by_sql("SELECT do.id
         FROM #{DataObject.full_table_name} do
-          LEFT JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
+          LEFT JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id = uido.data_object_id AND uido.user_id = #{self.id})
         WHERE do.id IN (#{data_object_ids.join(',')})
           AND uido.id IS NULL
           #{vetted_clause}

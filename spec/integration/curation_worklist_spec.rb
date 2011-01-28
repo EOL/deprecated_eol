@@ -84,7 +84,6 @@ describe 'Curator Worklist' do
   end
 
   it 'should show a list of unreviewed images in the curator\'s clade when curator visits the worklist' do
-    require 'ruby-debug'; debugger
     visit('/curators/curate_images')
     body.should include('Curator Central')
     body.should include(@first_child_unreviewed_image.id.to_s)
@@ -290,88 +289,8 @@ describe 'Curator Worklist' do
     body.should include("/pages/#{@child_entry.taxon_concept_id}")
   end
   
-  it 'should be able to curate unreviewed images as trusted and untrusted' do
-    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
-    body.should include("#{@first_child_unreviewed_image.id.to_s}_vetted_id_#{Vetted.unknown.id}")
-    body.should include("#{@lower_child_unreviewed_image.id.to_s}_vetted_id_#{Vetted.unknown.id}")
-    visit("/curators/trust?data_object_id=#{@first_child_unreviewed_image.id.to_s}&div_id=#{@first_child_unreviewed_image.id.to_s}_vetted_id_#{Vetted.unknown.id}")
-    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should include("#{@first_child_unreviewed_image.id.to_s}_vetted_id_#{Vetted.unknown.id}")
-    body.should_not include("#{@lower_child_unreviewed_image.id.to_s}_vetted_id_#{Vetted.unknown.id}")
-    visit("/curators/untrust?data_object_id=#{@lower_child_unreviewed_image.id.to_s}&div_id=#{@lower_child_unreviewed_image.id.to_s}_vetted_id_#{Vetted.unknown.id}")
-    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
-    body.should_not include("#{@first_child_unreviewed_image.id.to_s}_vetted_id_#{Vetted.unknown.id}")
-    body.should include("#{@lower_child_unreviewed_image.id.to_s}_vetted_id_#{Vetted.unknown.id}")
-    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
-    body.should_not include("#{@first_child_unreviewed_image.id.to_s}_vetted_id_#{Vetted.unknown.id}")
-    body.should_not include("#{@lower_child_unreviewed_image.id.to_s}_vetted_id_#{Vetted.unknown.id}")
-  end
-  
-  it 'should be able to curate untrusted images as trusted and unreviewed' do
-    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
-    body.should include("#{@first_child_untrusted_image.id.to_s}_vetted_id_#{Vetted.untrusted.id}")
-    body.should include("#{@lower_child_untrusted_image.id.to_s}_vetted_id_#{Vetted.untrusted.id}")
-    visit("/curators/trust?data_object_id=#{@first_child_untrusted_image.id.to_s}&div_id=#{@first_child_untrusted_image.id.to_s}_vetted_id_#{Vetted.untrusted.id}")
-    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should include("#{@first_child_untrusted_image.id.to_s}_vetted_id_#{Vetted.untrusted.id}")
-    body.should_not include("#{@lower_child_untrusted_image.id.to_s}_vetted_id_#{Vetted.untrusted.id}")
-    visit("/curators/unreviewed?data_object_id=#{@lower_child_untrusted_image.id.to_s}&div_id=#{@lower_child_untrusted_image.id.to_s}_vetted_id_#{Vetted.untrusted.id}")
-    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
-    body.should_not include("#{@first_child_untrusted_image.id.to_s}_vetted_id_#{Vetted.untrusted.id}")
-    body.should include("#{@lower_child_untrusted_image.id.to_s}_vetted_id_#{Vetted.untrusted.id}")
-    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
-    body.should_not include("#{@first_child_untrusted_image.id.to_s}_vetted_id_#{Vetted.untrusted.id}")
-    body.should_not include("#{@lower_child_untrusted_image.id.to_s}_vetted_id_#{Vetted.untrusted.id}")
-  end
-  
-  it 'should be able to curate trusted images as untrusted and unreviewed' do
-    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should include("#{@first_child_trusted_image.id.to_s}_vetted_id_#{Vetted.trusted.id}")
-    body.should include("#{@lower_child_trusted_image.id.to_s}_vetted_id_#{Vetted.trusted.id}")
-    visit("/curators/untrust?data_object_id=#{@first_child_trusted_image.id.to_s}&div_id=#{@first_child_trusted_image.id.to_s}_vetted_id_#{Vetted.trusted.id}")
-    visit("/curators/curate_images?vetted_id=#{Vetted.untrusted.id}")
-    body.should include("#{@first_child_trusted_image.id.to_s}_vetted_id_#{Vetted.trusted.id}")
-    body.should_not include("#{@lower_child_trusted_image.id.to_s}_vetted_id_#{Vetted.trusted.id}")
-    visit("/curators/unreviewed?data_object_id=#{@lower_child_trusted_image.id.to_s}&div_id=#{@lower_child_trusted_image.id.to_s}_vetted_id_#{Vetted.trusted.id}")
-    visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
-    body.should_not include("#{@first_child_trusted_image.id.to_s}_vetted_id_#{Vetted.trusted.id}")
-    body.should include("#{@lower_child_trusted_image.id.to_s}_vetted_id_#{Vetted.trusted.id}")
-    visit("/curators/curate_images?vetted_id=#{Vetted.trusted.id}")
-    body.should_not include("#{@first_child_trusted_image.id.to_s}_vetted_id_#{Vetted.trusted.id}")
-    body.should_not include("#{@lower_child_trusted_image.id.to_s}_vetted_id_#{Vetted.trusted.id}")
-  end
-  
-  it 'should be able to change visibility of images' do
-    visit("/curators/curate_images")
-    body.should have_tag("input##{@lower_child_unreviewed_image.id.to_s}_visibility_id_#{Visibility.visible.id.to_s}[checked=checked]")
-    visit("/curators/hide?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
-    visit("/curators/curate_images")
-    body.should have_tag("input##{@lower_child_unreviewed_image.id.to_s}_visibility_id_#{Visibility.invisible.id.to_s}[checked=checked]")
-    visit("/curators/remove?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
-    visit("/curators/curate_images")
-    body.should have_tag("input##{@lower_child_unreviewed_image.id.to_s}_visibility_id_#{Visibility.inappropriate.id.to_s}[checked=checked]")
-    visit("/curators/show?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
-    visit("/curators/curate_images")
-    body.should have_tag("input##{@lower_child_unreviewed_image.id.to_s}_visibility_id_#{Visibility.visible.id.to_s}[checked=checked]")
-  end
-  
-  it 'should be able to change visibility of ignored images' do
-    visit("/curators/ignored_images")
-    body.should have_tag("input##{@first_child_unreviewed_ignored_image.data_object_id.to_s}_visibility_id_#{Visibility.visible.id.to_s}[checked=checked]")
-    visit("/curators/hide?data_object_id=#{@first_child_unreviewed_ignored_image.data_object_id.to_s}")
-    visit("/curators/ignored_images")
-    body.should have_tag("input##{@first_child_unreviewed_ignored_image.data_object_id.to_s}_visibility_id_#{Visibility.invisible.id.to_s}[checked=checked]")
-    visit("/curators/remove?data_object_id=#{@first_child_unreviewed_ignored_image.data_object_id.to_s}")
-    visit("/curators/ignored_images")
-    body.should have_tag("input##{@first_child_unreviewed_ignored_image.data_object_id.to_s}_visibility_id_#{Visibility.inappropriate.id.to_s}[checked=checked]")
-    visit("/curators/show?data_object_id=#{@first_child_unreviewed_ignored_image.data_object_id.to_s}")
-    visit("/curators/ignored_images")
-    body.should have_tag("input##{@first_child_unreviewed_ignored_image.data_object_id.to_s}_visibility_id_#{Visibility.visible.id.to_s}[checked=checked]")
-  end
-  
   it "should be able to move the unreviewed image from active list to the ignored list and vice-versa" do
     visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")
-    require 'ruby-debug'; debugger
     body.should include(@lower_child_unreviewed_image.id.to_s)
     visit("/user_ignored_data_objects/create?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
     body.should include("OK")
@@ -382,7 +301,7 @@ describe 'Curator Worklist' do
     body.should include(@lower_child_unreviewed_image.id.to_s)
     visit("/user_ignored_data_objects/destroy?data_object_id=#{@lower_child_unreviewed_image.id.to_s}")
     body.should include("OK")
-    
+    commit_transactions 
     visit("/curators/ignored_images")
     body.should_not include(@lower_child_unreviewed_image.id.to_s)
     visit("/curators/curate_images?vetted_id=#{Vetted.unknown.id}")

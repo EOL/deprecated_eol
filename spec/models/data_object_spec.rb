@@ -73,6 +73,21 @@ describe DataObject do
       @data_object   = @taxon_concept.add_user_submitted_text(:user => @user)
     end
 
+    it 'should set to unreviewed' do
+      @data_object.curate(@user, :vetted_id => Vetted.untrusted.id)
+      @data_object.untrusted?.should eql(true)
+      @data_object.curate(@user, :vetted_id => Vetted.unknown.id)
+      @data_object.unknown?.should eql(true)
+    end
+
+    it 'should save a newly added curation comment with any curation action' do
+      [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_id|
+        comments_count = @data_object.all_comments.size
+        @data_object.curate(@user, :vetted_id => vetted_id, :comment => 'new smart comment')
+        (@data_object.all_comments.size - comments_count).should == 1 
+      end
+    end
+
     it 'should set to untrusted' do
       @data_object.curate(@user, :vetted_id => Vetted.untrusted.id)
       @data_object.untrusted?.should eql(true)

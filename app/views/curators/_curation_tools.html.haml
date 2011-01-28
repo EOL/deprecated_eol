@@ -33,8 +33,6 @@
     = render :partial => 'data_objects/curation', :locals => { :data_object => dato, :div_style => div_style }
     .buttons.action-value
       = submit_tag "Save"
-      %input.cancel-button{ :type => "button", :value => "Cancel" }
-  -# = render :partial => 'data_objects/curation', :locals => { :data_object => dato, :div_style => div_style, :group_id => dato.id }
 .text_buttons
   - comments = dato.all_comments.select { |c| c['visible_at'] }
   - if comments.blank?

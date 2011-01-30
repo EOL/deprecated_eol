@@ -271,7 +271,8 @@ class TaxaController < ApplicationController
     if(@object_cache_url != "")
       # local video access
       @filename_extension = MimeType.extension(@mime_type_id)
-      @video_url = DataObject.cache_path(@object_cache_url) + @filename_extension
+      #@video_url = DataObject.cache_path(@object_cache_url) + @filename_extension      
+      @video_url = ContentServer.cache_path(@object_cache_url, $CONTENT_SERVER_CONTENT_PATH) + @filename_extension
     else
       # remote video access  
       @video_url = params[:video_url]        

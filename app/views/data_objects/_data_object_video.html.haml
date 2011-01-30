@@ -1,2 +1,4 @@
 - @video_url = @data_object.video_url
+- @mime_type_id = @data_object.mime_type_id.to_s
+
 = render :partial => "shared/video_#{@type.downcase}"

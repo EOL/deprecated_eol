@@ -17,30 +17,6 @@ class MimeType < SpeciesSchemaModel
   def self.flv
     MimeType.find_by_label('video/x-flv')
   end
-
-  def self.get_label(mime_type_id)    
-    rset = MimeType.find_by_sql(["Select mime_types.label From mime_types Where mime_types.id = #{mime_type_id}"])            
-    rset.each do |rec|
-      return rec.label
-    end    
-    return ""
-  end
-
-  def self.extension(mime_type_id)    
-    label = get_label(mime_type_id)    
-    if label == 'video/mp4'        
-        return ".mp4"
-    elsif label == 'video/x-ms-wmv'
-        return ".wmv"
-    elsif label == 'video/mpeg'    
-        return ".mpg"        
-    elsif label == 'video/quicktime'    
-        return ".mov"
-    elsif label == 'video/x-flv'    
-        return ".flv"
-    end    
-  end  
-
 end
 
 # == Schema Info

@@ -1,6 +1,6 @@
 #page-title
   - type = @type
-  - type = 'Video' if ['youtube', 'flash', 'video'].include? @type.downcase
+  - type = 'Video' if DataType.video_type_ids.include?(@data_object.data_type.id)
   %h1== #{type} permalink. 
   %h2
     - if @taxon_concepts.blank?
@@ -43,7 +43,10 @@
         .divider
         %h3 Content
         #data_object{ :class => bg_class }
-          = render :partial => "data_objects/data_object_#{type.downcase}"
+          - if type == "Video"
+            = render :partial => "/shared/show_video"
+          - else
+            = render :partial => "data_objects/data_object_#{type.downcase}"
 
       - if(@data_object.data_type.to_s.strip != 'Text')      
         #data_object_description

@@ -12,6 +12,9 @@
     - submit_id = "submit_comment_#{@parent.id}"
     = hidden_field_tag :body_div_name, body_div_name
     = f.text_area :body, :rows => length, :cols => 50, :id => comment_id
+    %p
+      %span.error{ :id => "#{@parent.id}_comment_error", :style => "display:none;" }
+        Comment should not be empty.
     = submit_tag('Post Comment', |
       :id => submit_id, |
       :exception => 'alert("Yay");', |
@@ -20,7 +23,11 @@
     -# This additionally submits the form because Safari seems to cancel the event anyway!  (Worked fine in FF.)
     :javascript
       $('##{submit_id}').click(function() {
-        if ($.trim($('##{comment_id}').val()) == "") return false;
+        if ($.trim($('##{comment_id}').val()) == "") {
+          $('##{@parent.id}_comment_error').show();
+          return false;
+        }
+        if($('##{@parent.id}_comment_error').is(":visible")) $('##{@parent.id}_comment_error').hide();
         $(this).val('#{"Please wait..."[]}');
         $(this).attr('disabled', 'disabled');
         $('##{submit_id}_spinner').fadeIn();

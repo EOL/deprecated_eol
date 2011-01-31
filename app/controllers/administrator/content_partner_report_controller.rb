@@ -258,7 +258,7 @@ class Administrator::ContentPartnerReportController < AdminController
     elsif(session[:form_agent_id]) then
       @agent_id = session[:form_agent_id]
     else
-      @agent_id = 1
+      @agent_id = "All"
     end
     
     @content_partners_with_published_data = Agent.content_partners_with_published_data  

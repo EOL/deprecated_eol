@@ -45,4 +45,7 @@
               %div
                 = text_field_tag 'tag[value]', nil, :class => 'autocomplete', 'autocomplete_url' => autocomplete_for_tag_value_data_object_tag_path(@data_object.id,'TAG_KEY_GOES_HERE')
                 %br
+                %p
+                  %span.error{ :id => "tag_error", :style => "display:none;" }
+                    Tag should not be empty.
                 = submit_tag 'Add this tag', :class=>'tag-submit'

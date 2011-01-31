@@ -263,27 +263,12 @@ class TaxaController < ApplicationController
      render :nothing => true
      return
    end
-
-    video_type = params[:video_type].downcase
-    @mime_type_id = params[:video_mime_type_id]  
-    @object_cache_url = params[:video_object_cache_url]
-
-    if(@object_cache_url != "")
-      # local video access
-      @filename_extension = MimeType.extension(@mime_type_id)
-      #@video_url = DataObject.cache_path(@object_cache_url) + @filename_extension      
-      @video_url = ContentServer.cache_path(@object_cache_url, $CONTENT_SERVER_CONTENT_PATH) + @filename_extension
-    else
-      # remote video access  
-      @video_url = params[:video_url]        
-    end
-
-    current_user.log_activity(:viewed_video, :value => @object_cache_url)
-
+    
+    @data_object = DataObject.find(params[:data_object_id].to_i)
+    current_user.log_activity(:viewed_video, :value => @data_object.object_cache_url)
     render :update do |page|
-      page.replace_html 'video-player', :partial => 'shared/video_' + video_type
+      page.replace_html 'video-player', :partial => 'shared/show_video'
     end
-
   end
 
   # AJAX: used to show a pop-up in a floating div, all views are in the "popups" subfolder

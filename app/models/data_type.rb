@@ -6,6 +6,11 @@ class DataType < SpeciesSchemaModel
   def to_s
     label
   end
+  
+  def video_label
+    return "flash" if self == DataType.youtube
+    return label.downcase
+  end
 
   def self.full_attribution_order
     return @@full_attribution_order if !@@full_attribution_order.nil?

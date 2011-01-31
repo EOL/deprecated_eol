@@ -1,7 +1,12 @@
 require 'spec_helper'
 
 describe Privilege do
-
+  
+  before(:all) do
+    truncate_all_tables
+    load_foundation_cache
+  end
+  
   before(:each) do
     @valid_attributes = {
       :name => "value for name",

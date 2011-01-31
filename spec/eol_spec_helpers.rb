@@ -241,9 +241,29 @@ module EOL
         find_or_build_harvest_event(Resource.iucn)
       end
       
+      def foundation_needs_building?
+        # get the time when the foundation was last modified
+        foundation_last_modified = File.mtime(File.join(RAILS_ROOT, 'scenarios', "foundation.rb"))
+        
+        # get the last time the dumps were taken
+        foundation_last_compiled = nil
+        all_connections.each do |conn|
+          mysqldump_path = File.join(RAILS_ROOT, 'tmp', "#{conn.config[:database]}_dump.sql")
+          if File.exists?(mysqldump_path)
+            this_dump_modified = File.mtime(mysqldump_path)
+            if !foundation_last_compiled || this_dump_modified > foundation_last_compiled
+              foundation_last_compiled = File.mtime(mysqldump_path)
+            end
+          end
+        end
+        
+        return true if !foundation_last_compiled
+        return foundation_last_compiled < foundation_last_modified
+      end
+      
       def load_foundation_cache(truncate = false)
-        #truncate_all_tables if truncate        
-        if $FOUNDATION_ALREADY_LOADED.blank?
+        #truncate_all_tables if truncate
+        if $FOUNDATION_ALREADY_LOADED.blank? && foundation_needs_building?
           EolScenario.load :foundation
           
           all_connections.each do |conn|
@@ -271,7 +291,7 @@ module EOL
           end
         else
           $CACHE.clear
-          if User.find_by_username('foundation_already_loaded')
+          if $FOUNDATION_ALREADY_LOADED && User.find_by_username('foundation_already_loaded')
             puts "** WARNING: You attempted to load the foundation scenario twice, here.  Please fix it."
             return
           end
@@ -289,7 +309,9 @@ module EOL
             # result = `#{mysqlimport_cmd}`
           end
         end
+        $FOUNDATION_ALREADY_LOADED = true
       end
+      
     end
   end
 end

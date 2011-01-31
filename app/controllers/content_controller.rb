@@ -68,11 +68,9 @@ class ContentController < ApplicationController
     if !taxon_concept.nil?
       @title = "for "+ taxon_concept.quick_scientific_name(:normal)
 
-      do_ids = SpeciesSchemaModel.connection.select_values("
-        SELECT tci.data_object_id 
-        FROM top_concept_images tci 
-        WHERE tci.taxon_concept_id = #{taxon_concept.id} AND tci.view_order<400
-        ").uniq
+      do_ids = TopConceptImage.find(:all,
+        :select => 'data_object_id',
+        :conditions => "taxon_concept_id = #{taxon_concept.id} AND view_order<400").collect{|tci| tci.data_object_id}
 
       data_objects = DataObject.details_for_objects(do_ids, :visible => true, :skip_metadata => true, :add_common_names => true)
       data_objects.each do |data_object|
@@ -90,7 +88,7 @@ class ContentController < ApplicationController
         end
         @items << {
           :title => title,
-          :link => taxon_concept_url(:id => data_object['taxon_concept_id'], :params => {:image_id => data_object['id']}), #:vetted => 'false'}),
+          :link => data_object_url(data_object['id']),
           :permalink => data_object_url(data_object['id']),
           :guid => data_object['guid'],
           :thumbnail => DataObject.image_cache_path(data_object['object_cache_url'], :medium),

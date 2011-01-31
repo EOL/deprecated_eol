@@ -3,12 +3,8 @@ require 'spec_helper'
 describe Member do
 
   before(:all) do
-    Community.delete_all
-    MemberPrivilege.delete_all
-    Privilege.delete_all
-    KnownPrivileges.create_all
-    Role.delete_all
-    User.delete_all
+    truncate_all_tables
+    load_foundation_cache
     @user = User.gen
     @community = Community.gen
     @member = Member.gen(:user => @user, :community => @community)

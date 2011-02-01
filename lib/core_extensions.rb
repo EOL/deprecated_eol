@@ -172,7 +172,7 @@ class String
       }
     }
     
-    # Sanitize.clean(text, eol_relaxed)
+    Sanitize.clean(text, eol_relaxed)
     
   end
 

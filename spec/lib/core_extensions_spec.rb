@@ -59,13 +59,11 @@ describe String do
     end    
   end
 
-  describe "wrap_long_words" do
-    
-    it 'should break long words in a paragraph into smaller pieces' do
-      a = 'lorem ipsum abcdefghijklmnopqrstuvwxyz someting else'
-      a.wrap_long_words(10).should == 'lorem ipsum abcdefghij klmnopqrst someting else'
+  describe "cleanup_for_presentation" do
+    it "should remove long underscore lines" do
+      "____".cleanup_for_presentation.should == "____"
+      "___________________________________________________".cleanup_for_presentation.should == ' '
     end
-    
   end
 end
 

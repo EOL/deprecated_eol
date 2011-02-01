@@ -58,6 +58,11 @@ EOL.Tagging = {
     // Create Tag
     $('div#add_data_object_tags_fields>form').unbind('submit');
     $('div#add_data_object_tags_fields>form').submit(function(e) {
+      if(!$("#tag_value").val()) {
+        $("#tag_error").show();
+        return false;
+      }
+      if($("#tag_error").is(":visible")) $("#tag_error").hide();
       $('#ajax-indicator-popup').fadeIn();
       var key   = EOL.Tagging.selected_category();
       var value = $('#private_data_object_tags input[name="tag[value]"]').val();

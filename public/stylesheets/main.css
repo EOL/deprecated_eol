@@ -1544,7 +1544,7 @@ ul.errors {
     color: red; }
 
 span.error {
-  color: #b00000;
+  color: #b00000 !important;
   font-size: 1em;
   line-height: 1em; }
 span.warn {

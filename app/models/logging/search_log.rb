@@ -73,6 +73,9 @@ class SearchLog < LoggingModel
   end
 
   def self.totals
+    # total_searches = SearchLog.find(:all, :select => 'COUNT(*) as count').count.to_s
+    # unique_searches = SearchLog.find(:all, :select => 'COUNT(DISTINCT search_term) as count').count.to_s
+    # return {:total => total_searches, :unique => unique_searches}
     SearchLog.find_by_sql(
       'SELECT COUNT(search_term) AS num_searches, COUNT(DISTINCT(search_term)) AS distinct_searches FROM search_logs'
     )[0]

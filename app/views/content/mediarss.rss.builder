@@ -3,8 +3,8 @@ xml.rss :version => "2.0", "xmlns:media".to_sym => "http://search.yahoo.com/mrss
   xml.channel do
     xml.title "Encyclopedia of Life images #{@title}"
     xml.description "Encyclopedia of Life images"
-    xml.link "http://www.eol.org/"
-    xml.atom :link, :href=>request.url,:rel=>'self', :type=>'application/rss+xml'  # How do you get a colon in the tag name?
+    xml.link url_for(:controller => "/", :only_path => false)
+    xml.atom :link, :href => request.url, :rel=>'self', :type=>'application/rss+xml'  # How do you get a colon in the tag name?
     for item in @items
       xml.item do
         xml.title item[:title] || 'N/A'

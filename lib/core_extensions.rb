@@ -211,6 +211,21 @@ class String
       true # numeric
     end
   end
+
+  def wrap_long_words(max_word_length = 40)
+    res = []
+    self.split(/\s+/).each do |word|
+      if word.size > max_word_length
+        while word.size > max_word_length do
+          res << word[0, max_word_length]
+          word = word[max_word_length, word.size]
+        end
+      else
+        res << word
+      end
+    end
+    res.join(' ')
+  end
   
 end
 

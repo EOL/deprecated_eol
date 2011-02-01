@@ -61,7 +61,7 @@
           - unless image['description'].blank?
             %h6
               = "Description:"[]
-            = strip_tags(image['description'])
+            = strip_tags(image['description']).break_long_words(40)
           - unless image['location'].empty?
             %h6 
               = "Location:"[]

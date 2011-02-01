@@ -58,6 +58,15 @@ describe String do
       t5.sanitize_html.should == '<li>1925<em>–</em>39     Muller, H.J. 1939. <em>Bibliography on the genetics of</em> <em>Drosophila</em>.  Imperial Bureau of Animal Breeding and Genetics. Oliver and Boyd, Edinburgh.  (2965 References indexed in Part II.)</li>'
     end    
   end
+
+  describe "wrap_long_words" do
+    
+    it 'should break long words in a paragraph into smaller pieces' do
+      a = 'lorem ipsum abcdefghijklmnopqrstuvwxyz someting else'
+      a.wrap_long_words(10).should == 'lorem ipsum abcdefghij klmnopqrst someting else'
+    end
+    
+  end
 end
 
 

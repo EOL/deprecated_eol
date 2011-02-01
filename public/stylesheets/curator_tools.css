@@ -13,6 +13,10 @@
 .trusted {
   background-color: #fafafa; }
 
+.curation-item {
+  max-width: 200px;
+  overflow: auto; }
+
 .results_table {
   width: 100%;
   border-collapse: separate;

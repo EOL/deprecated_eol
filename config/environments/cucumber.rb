@@ -26,3 +26,5 @@ config.gem 'cucumber-rails',   :lib => false, :version => '>=0.3.2' unless File.
 config.gem 'database_cleaner', :lib => false, :version => '>=0.5.0' unless File.directory?(File.join(Rails.root, 'vendor/plugins/database_cleaner'))
 config.gem 'capybara',         :lib => false, :version => '>=0.3.5' unless File.directory?(File.join(Rails.root, 'vendor/plugins/capybara'))
 
+$SOLR_SERVER = 'http://10.19.19.43:8080/solr/taxon_concepts'
+$SOLR_SERVER_DATA_OBJECTS = 'http://10.19.19.43:8080/solr/data_objects'

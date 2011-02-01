@@ -38,7 +38,6 @@ When /^(?:|I )press (?:the |a |an )?"([^"]*)"(?: button)?(?: within (?:the |a |a
 end
 
 When /^(?:|I )press (?:the |a |an )([^"]+?)(?: within (?:the |a |an )?([^"]*))?$/ do |selector, container|
-  # require 'ruby-debug'; debugger if selector.match /untrusted/
   if container
     When %{I follow the #{selector} within the #{container}}
   else
@@ -120,7 +119,7 @@ When /^(?:|I )uncheck "([^"]*)"(?: within "([^"]*)")?$/ do |field, selector|
 end
 
 When /^(?:|I )choose "([^"]*)"(?: within "([^"]*)")?$/ do |field, selector|
-  with_scope(selector) do
+  with_scope(get_selector(selector)[1]) do
     choose(field)
   end
 end

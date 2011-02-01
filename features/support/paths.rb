@@ -24,6 +24,8 @@ module LocationHelpers
       #
       #   when /^(.*)'s profile page$/i
       #     user_profile_path(User.find_by_login($1))
+    when /curation worklist page/
+      '/curators/curate_images'
 
     else
       begin
@@ -132,6 +134,10 @@ module LocationHelpers
       [:css, ".main-image-bg.trusted"]
     when 'untrusted main image'
       [:css, ".main-image-bg.untrusted"]
+    when 'curate content of this clade link'
+      [:css, "#curation_worklist_link"]
+    when 'first image box'
+      [:css, "tr:nth-child(2)"]
     else
       [:css, selector]
     end

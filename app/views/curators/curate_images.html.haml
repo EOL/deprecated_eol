@@ -1,7 +1,7 @@
 -# TODO - Add a selector to Narrow the list by Content Provider
 = render :partial => 'filter_form'
 - if @images_to_curate.blank?
-  - status = @status.blank? ? "" : "#{@status} "
+  - status = @status.blank? ? "" : ((@status == 'all') ? "" : (@status == 'Unknown') ? "Unreviewed " : "#{@status} ")
   - ctnt_ptnr = @ctnt_ptnr.blank? ? "" : "#{@ctnt_ptnr} "
   - name = @name.blank? ? "" : " for #{@name}"
   %hr.thin

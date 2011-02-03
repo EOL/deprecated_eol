@@ -1,3 +1,4 @@
+= javascript_include_tag 'curation'
 .curation-section
   .credit-caption
     = "Rating"[]
@@ -19,46 +20,11 @@
     %span.info_msg
 .clearbreak
   %br
-.curation-section
-  .credit-caption
-    = "Vetted"[]
-  .action-value
-    %span{:id => "trust-label-#{data_object['id']}"}
-      - data_object['vetted_label'] = 'Unreviewed' if data_object['vetted_label'] == 'Unknown'
-      = data_object['vetted_label']
-    %br/
-    = link_to_remote("Set to Unreviewed"[], :url => {:action => :unreviewed, :data_object_id => data_object['id'], :div_id => "trust-label-#{data_object['id']}"}, :html_options => {:id => 'unreviewed'})
-    %br/
-    = link_to_remote("Set to Trusted"[], :url => {:action => :trust, :data_object_id => data_object['id'], :div_id => "trust-label-#{data_object['id']}"}, :html_options => {:id => 'trust'})
-    %br/
-    = link_to_remote("Set to Untrusted"[], :url => {:action => :untrust, :data_object_id => data_object['id'], :div_id => "trust-label-#{data_object['id']}"}, :html_options => {:id => 'untrust'})
-    - dato = DataObject.new(:guid => data_object['guid'])
-    - dato.id = data_object['id']
-    - div_style = 'display:none;'
-    = render :partial => 'data_objects/untrust_reasons', :locals => { :data_object => dato, :div_style => div_style }
-.curation-section
-  .credit-caption
-    = "Visibility"[]
-  .action-value
-    %span{:id => "visibility-label-#{data_object['id']}"}
-      = data_object['visibility_label']
-    %br/
-    = link_to_remote("Show to all users"[], :url => {:action => :show, :data_object_id => data_object['id'], :div_id => "visibility-label-#{data_object['id']}"})
-    %br/
-    = link_to_remote("Hide for all except curators"[], :url => {:action => :hide, :data_object_id => data_object['id'], :div_id => "visibility-label-#{data_object['id']}"})
-    %br/
-    = link_to_remote("Permanently Remove"[], :url => {:action => :remove, :data_object_id => data_object['id'], :div_id => "visibility-label-#{data_object['id']}"})
-.curation-section
-  .credit-caption
-    = "Comment"[]
-  .action-value
-    This comment will be publicly visible.
-    %form{:action => :comment, :id => "comment_#{data_object['id']}", :class => "comment"}
-      %input{:type => "hidden", :value => data_object['id'], :name => "data_object_id"}
-      %input{:type => "hidden", :value => params['hierarchy_entry_id'], :name => "hierarchy_entry_id"}
-      %textarea{ :name => 'comment', :rows => comment_height, :class => 'comment-box' }
-      #save-comment
-        = submit_tag "Save"
+/ TODO: Rewrite images_to_curate, details_for_objects methods using Patrick's new core_relationships feature to get the data into curator worklist.
+- dato = DataObject.find_by_id(data_object['id'])
+- div_style = 'display:none;'
+.curator_worklist_curation
+  = render :partial => 'data_objects/curation', :locals => { :data_object => dato, :div_style => div_style, :group_id => dato.id }
 .text_buttons
   - comments = data_object['comments'].select { |c| c['visible_at'] && DateTime.parse(c['visible_at']) <= DateTime.now }
   - if comments.blank?

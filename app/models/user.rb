@@ -586,6 +586,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
     hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
     vetted_id = options[:vetted_id].nil? ? Vetted.unknown.id : options[:vetted_id]
+    vetted_clause = vetted_id.nil? ? "" : " AND vetted_id:#{vetted_id}"
+    vetted_clause = "" if (vetted_id == 'all')
 
     solr_query = "ancestor_id:#{hierarchy_entry.taxon_concept_id} AND published:1 AND data_type_id:#{DataType.image.id} AND visibility_id:#{Visibility.visible.id}"
 
@@ -606,13 +608,13 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     vetted_clause = vetted_id != 'all' ? " AND do.vetted_id = #{vetted_id}" : ""
     result = DataObject.find_by_sql("SELECT do.id
         FROM #{DataObject.full_table_name} do
-          LEFT JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
+          LEFT JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id AND uido.user_id <> #{self.id})
         WHERE do.id IN (#{data_object_ids.join(',')})
           AND uido.id IS NULL
           #{vetted_clause}
         GROUP BY do.guid
         ORDER BY do.created_at DESC
-        LIMIT 0, 300");
+        LIMIT 0,1500");
 
     start = per_page * (page - 1)
     last = start + per_page - 1

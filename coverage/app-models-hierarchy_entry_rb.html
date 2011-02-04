@@ -28,17 +28,17 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="app-models-hierarchy_entry_rb.html">app/models/hierarchy_entry.rb</a></td>
-            <td class='right_align'><tt>614</tt></td>
-            <td class='right_align'><tt>499</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>48.21%</tt></div>
+            <td class='right_align'><tt>621</tt></td>
+            <td class='right_align'><tt>505</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>19.32%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:48px"></div>
-            <div class="uncovered" style="width:52px"></div>
+            <div class="covered" style="width:19px"></div>
+            <div class="uncovered" style="width:81px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>45.09%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>12.28%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:45px"></div>
-            <div class="uncovered" style="width:55px"></div>
+            <div class="covered" style="width:12px"></div>
+            <div class="uncovered" style="width:88px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -356,13 +356,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line51">51</a>     result = SpeciesSchemaModel.connection.execute(&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line52">52</a>     SELECT he.id, he.identifier, he.lft, he.rgt, he.rank_id, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, n.italicized italicized_name, r.label rank_label, hc.content_level</pre></td>
           </tr>
         
@@ -404,43 +404,43 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line59">59</a>       AND he.visibility_id != #{Visibility.invisible.id}&quot;).all_hashes</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line60">60</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line61">61</a>     if params[:include_common_names]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line62">62</a>       params[:common_name_language] ||= Language.english</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line63">63</a>       common_names = TaxonConcept.quick_common_names(result.collect{|r| r['taxon_concept_id']}, params[:common_name_language])</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line64">64</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line65">65</a>     if params[:include_stats]</pre></td>
           </tr>
         
@@ -482,13 +482,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line72">72</a>     result.each do |r|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line73">73</a>       if Rank.italicized_ids.include?(r['rank_id'].to_i) &amp;&amp; !r['italicized_name'].blank?</pre></td>
           </tr>
         
@@ -500,61 +500,61 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line75">75</a>       else </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line76">76</a>         r['name_string'] =  r['name_string'].firstcap!</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line77">77</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line78">78</a>       r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line79">79</a>       r['has_content'] = r['content_level'].to_i &gt; 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line80">80</a>       r['name_string'] = common_names[r['taxon_concept_id'].to_i] unless common_names.blank? || common_names[r['taxon_concept_id'].to_i].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line81">81</a>       r['stats'] = all_stats[r['id'].to_i] unless all_stats[r['id'].to_i].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line82">82</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line83">83</a>     result.sort!{|a,b| a['name_string'] &lt;=&gt; b['name_string']}</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line84">84</a>   end</pre></td>
           </tr>
         
@@ -572,13 +572,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line87">87</a>     ancestry_array.unshift self</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line88">88</a>     return ancestry_array unless parent_id.to_i &gt; 0</pre></td>
           </tr>
         
@@ -614,13 +614,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line94">94</a>     return raw_name(detail_level, language, context).firstcap</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line95">95</a>   end</pre></td>
           </tr>
         
@@ -638,13 +638,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line98">98</a>     return name_object.canonical_form</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line99">99</a>   end</pre></td>
           </tr>
         
@@ -662,43 +662,43 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line102">102</a>     return '?' if self[:name_id].nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line103">103</a>     case detail_level.to_sym</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line104">104</a>     when :italicized_canonical</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line105">105</a>       return name_object.italicized_canonical</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line106">106</a>     when :canonical</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line107">107</a>       return name_object.canonical</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line108">108</a>     when :natural_form</pre></td>
           </tr>
         
@@ -710,13 +710,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line110">110</a>     when :expert</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line111">111</a>       if context == :classification and not Rank.italicized_ids.include? self[:rank_id]</pre></td>
           </tr>
         
@@ -728,19 +728,19 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line113">113</a>       else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line114">114</a>         italics = name_object.italicized</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line115">115</a>         return italics.blank? ?</pre></td>
           </tr>
         
@@ -752,55 +752,55 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line117">117</a>             italics</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line118">118</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line119">119</a>     else # :middle  (though we don't want to rely on that)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line120">120</a>       language ||= Language.english # Not sure why; this didn't work as a default to the argument.</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line121">121</a>       common_name = TaxonConceptName.find_by_taxon_concept_id_and_language_id_and_vern_and_preferred(taxon_concept_id, language.id, 1, 1)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line122">122</a>       common_name ||= TaxonConceptName.find_by_taxon_concept_id_and_language_id_and_vern(taxon_concept_id, language.id, 1)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line123">123</a>       return common_name if context == :object # This allows people to get the name and its language.</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line124">124</a>       if common_name.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line125">125</a>         if context == :classification</pre></td>
           </tr>
         
@@ -812,25 +812,25 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line127">127</a>         else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line128">128</a>           return raw_name(:italicized_canonical)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line129">129</a>         end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line130">130</a>       end</pre></td>
           </tr>
         
@@ -974,13 +974,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line154">154</a>     rank.nil? ? &quot;taxon&quot; : rank.label</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line155">155</a>   end</pre></td>
           </tr>
         
@@ -1046,13 +1046,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line166">166</a>     return taxon_concept.is_curatable_by?(user)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line167">167</a>   end</pre></td>
           </tr>
         
@@ -1070,13 +1070,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line170">170</a>     return Rank.italicized_ids.include?(rank_id)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line171">171</a>   end</pre></td>
           </tr>
         
@@ -1226,13 +1226,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line196">196</a>     ancestors = [self]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line197">197</a>     if cross_reference_hierarchy</pre></td>
           </tr>
         
@@ -1274,31 +1274,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line204">204</a>     until ancestors.first.parent_id == 0 || ancestors.first.parent.nil? do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line205">205</a>       ancestors.unshift(ancestors.first.parent)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line206">206</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line207">207</a>     return ancestors</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line208">208</a>   end</pre></td>
           </tr>
         
@@ -1856,13 +1856,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line301">301</a>     return ancestors(hierarchy).first rescue nil</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line302">302</a>   end</pre></td>
           </tr>
         
@@ -2174,55 +2174,55 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line354">354</a>     attribution = []</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line355">355</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line356">356</a>     # its possible that the hierarchy is not associated with an agent</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line357">357</a>     if hierarchy.agent</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line358">358</a>       attribution = [hierarchy.agent]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line359">359</a>       attribution.first.full_name = attribution.first.display_name = hierarchy.label # To change the name from just &quot;Catalogue of Life&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line360">360</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line361">361</a>     attribution += agents</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line362">362</a>   end</pre></td>
           </tr>
         
@@ -2240,61 +2240,61 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line365">365</a>     agents_roles = []</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line366">366</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line367">367</a>     # its possible that the hierarchy is not associated with an agent</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line368">368</a>     if h_agent = hierarchy.agent</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line369">369</a>       h_agent.full_name = h_agent.display_name = hierarchy.label # To change the name from just &quot;Catalogue of Life&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line370">370</a>       role = AgentRole.find_or_create_by_label('Source')</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line371">371</a>       agents_roles &lt;&lt; AgentsHierarchyEntry.new(:hierarchy_entry =&gt; self, :agent =&gt; h_agent, :agent_role =&gt; role, :view_order =&gt; 0)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line372">372</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line373">373</a>     agents_roles += agents_hierarchy_entries</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line374">374</a>   end</pre></td>
           </tr>
         
@@ -2366,49 +2366,49 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line386">386</a>     he = self</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line387">387</a>     until he.nil? || he.taxon_concept.nil? || he.taxon_concept.in_hierarchy?(hierarchy)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line388">388</a>       return nil if he.parent_id == 0</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line389">389</a>       he = he.parent</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line390">390</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line391">391</a>     return nil if he.nil? || he.taxon_concept.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line392">392</a>     he.taxon_concept.entry(hierarchy)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line393">393</a>   end</pre></td>
           </tr>
         
@@ -2462,13 +2462,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line402">402</a>     result = SpeciesSchemaModel.connection.execute(&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line403">403</a>         SELECT s.id synonym_id, n.string name_string, l.label language_label, l.iso_639_1</pre></td>
           </tr>
         
@@ -2492,79 +2492,79 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line407">407</a>         WHERE s.hierarchy_entry_id = #{self.id}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line408">408</a>         AND s.hierarchy_id = #{self.hierarchy_id}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line409">409</a>         AND s.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})&quot;).all_hashes</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line410">410</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line411">411</a>     for r in result</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line412">412</a>       language_code = ''</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line413">413</a>       unless r['language_label'].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line414">414</a>         language_code = r['iso_639_1'].blank? ? r['language_label'] : r['iso_639_1']</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line415">415</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line416">416</a>       r['language_code'] = language_code</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line417">417</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line418">418</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line419">419</a>     result.sort! do |a, b|</pre></td>
           </tr>
         
@@ -2624,49 +2624,49 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line429">429</a>     raise &quot;Missing :name_id&quot;     unless options[:name_id]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line430">430</a>     raise &quot;Missing :language_id&quot; unless options[:language_id]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line431">431</a>     raise &quot;Missing :vetted&quot;      unless options[:vetted]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line432">432</a>     Synonym.update_all(</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line433">433</a>       &quot;vetted_id = #{options[:vetted].id}&quot;,</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line434">434</a>       &quot;language_id = #{options[:language_id]} AND name_id = #{options[:name_id]} AND hierarchy_entry_id = #{id}&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line435">435</a>     )</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line436">436</a>   end</pre></td>
           </tr>
         
@@ -2690,13 +2690,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line440">440</a>     result = SpeciesSchemaModel.connection.execute(&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line441">441</a>         SELECT s.id synonym_id, n.string name_string, sr.label relation</pre></td>
           </tr>
         
@@ -2720,61 +2720,61 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line445">445</a>         WHERE s.hierarchy_entry_id = #{self.id}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line446">446</a>         AND s.hierarchy_id = #{self.hierarchy_id}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line447">447</a>         AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})&quot;).all_hashes</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line448">448</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line449">449</a>     for r in result</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line450">450</a>       r['relation'] ||= ''</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line451">451</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line452">452</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line453">453</a>     result.sort!{|a,b| a['name_string'] &lt;=&gt; b['name_string'] }</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line454">454</a>   end</pre></td>
           </tr>
         
@@ -2792,109 +2792,109 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line457">457</a>     rank_label = self.rank.nil? ? '' : self.rank.label</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line458">458</a>     name_string = Rank.italicized_ids.include?(rank_id.to_i) ? self.name_object.italicized.firstcap! : self.name_object.string.firstcap!</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line459">459</a>     if params[:include_common_names]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line460">460</a>       params[:common_name_language] ||= Language.english</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line461">461</a>       common_names = TaxonConcept.quick_common_names([taxon_concept_id], params[:common_name_language], hierarchy)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line462">462</a>       name_string = common_names[taxon_concept_id] unless common_names.blank? || common_names[taxon_concept_id].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line463">463</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line464">464</a>     content_level = hierarchies_content ? hierarchies_content.content_level : 0</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line465">465</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line466">466</a>     the_details = { 'id'  =&gt; self.id,</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line467">467</a>       'hierarchy_id'      =&gt; self.hierarchy_id,</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line468">468</a>       'taxon_concept_id'  =&gt; self.taxon_concept_id,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line469">469</a>       'name_string'       =&gt; name_string,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line470">470</a>       'rank_label'        =&gt; rank_label,</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line471">471</a>       'descendants'       =&gt; self.rgt - self.lft - 1,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line472">472</a>       'has_content'       =&gt; content_level &gt; 1 }</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line473">473</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line474">474</a>     if params[:include_stats]</pre></td>
           </tr>
         
@@ -2912,19 +2912,19 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line477">477</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line478">478</a>     return the_details</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line479">479</a>   end</pre></td>
           </tr>
         
@@ -2942,37 +2942,37 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line482">482</a>     ancestor_ids = ancestors.collect{|a| a.id}</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line483">483</a>     # for some reason self is in ancestors</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line484">484</a>     ancestor_ids.delete_if{|id| id == self.id}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line485">485</a>     return [] if ancestor_ids.empty?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line486">486</a>     result = SpeciesSchemaModel.connection.execute(&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line487">487</a>       SELECT he.id, he.identifier, he.lft, he.rgt, he.rank_id, he.parent_id, he.hierarchy_id, he.taxon_concept_id, n.string name_string, n.italicized italicized_name, r.label rank_label, hc.content_level</pre></td>
           </tr>
         
@@ -3008,37 +3008,37 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line493">493</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line494">494</a>     if params[:include_common_names]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line495">495</a>       params[:common_name_language] ||= Language.english</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line496">496</a>       common_names = TaxonConcept.quick_common_names(result.collect{|r| r['taxon_concept_id']}, params[:common_name_language], hierarchy)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line497">497</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line498">498</a>     if params[:include_stats]</pre></td>
           </tr>
         
@@ -3080,55 +3080,55 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line505">505</a>     result.each do |r|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line506">506</a>       r['name_string'] = Rank.italicized_ids.include?(r['rank_id'].to_i) ? r['italicized_name'].firstcap! : r['name_string'].firstcap!</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line507">507</a>       r['descendants'] = r['rgt'].to_i - r['lft'].to_i - 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line508">508</a>       r['has_content'] = r['content_level'].to_i &gt; 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line509">509</a>       r['name_string'] = common_names[r['taxon_concept_id'].to_i] unless common_names.blank? || common_names[r['taxon_concept_id'].to_i].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line510">510</a>       r['stats'] = all_stats[r['id'].to_i] unless all_stats[r['id'].to_i].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line511">511</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line512">512</a>     result.sort!{|a,b| a['lft'].to_i &lt;=&gt; b['lft'].to_i}</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line513">513</a>   end</pre></td>
           </tr>
         
@@ -3146,13 +3146,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line516">516</a>     HierarchyEntry.children_details(self.id, params)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line517">517</a>   end</pre></td>
           </tr>
         
@@ -3170,31 +3170,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line520">520</a>     return nil if published != 1 &amp;&amp; visibility_id != Visibility.visible.id</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line521">521</a>     this_hierarchy = hierarchy</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line522">522</a>     if !source_url.blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line523">523</a>       return {:hierarchy_entry =&gt; self, :hierarchy =&gt; this_hierarchy, :outlink_url =&gt; source_url }</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line524">524</a>     elsif !this_hierarchy.outlink_uri.blank?</pre></td>
           </tr>
         
@@ -3411,337 +3411,379 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line560">560</a> private</pre></td>
+            <td><pre><a name="line560">560</a>   def taxon_concept_metrics(he_id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line561">561</a>     if he_id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line562">562</a>         result = SpeciesSchemaModel.connection.execute(&quot;SELECT * From hierarchy_entries he INNER JOIN taxon_concept_metrics tcm ON he.taxon_concept_id = tcm.taxon_concept_id WHERE he.id = #{he_id}&quot;).all_hashes</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line563">563</a>         return result</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line564">564</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line565">565</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line561">561</a> </pre></td>
+            <td><pre><a name="line566">566</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line562">562</a>   def ancestors_hash_by_language_id(language_id, options = {})</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line563">563</a>     SpeciesSchemaModel.connection.execute(%Q{</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line564">564</a>       SELECT he.id, he.taxon_concept_id, he.taxon_concept_id id, he.id hierarchy_entry_id, he.hierarchy_id,</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line565">565</a>              he.lft lft, he.rgt rgt, he.rank_id, he.parent_id, </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line566">566</a>              n1.string scientific_name, n1.italicized scientific_name_italicized,</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line567">567</a>              n2.string common_name, n2.italicized common_name_italicized,</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line568">568</a>              hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image,</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line569">569</a>              r.label rank_string,</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line570">570</a>              he_source.hierarchy_id source_hierarchy_id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line571">571</a>         FROM hierarchy_entries he</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line572">572</a>           JOIN names n1 ON (he.name_id = n1.id)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line573">573</a>           LEFT JOIN hierarchies_content hc ON (he.id = hc.hierarchy_entry_id)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line574">574</a>           LEFT JOIN (taxon_concept_names tcn</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line575">575</a>                      JOIN names n2 ON (tcn.name_id = n2.id)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line576">576</a>                      LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id = he_source.id))</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line577">577</a>             ON (he.taxon_concept_id = tcn.taxon_concept_id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line578">578</a>                 AND tcn.preferred = 1</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line579">579</a>                 AND tcn.language_id = #{language.id})</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line580">580</a>           LEFT JOIN ranks r ON (he.rank_id = r.id)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line581">581</a>         WHERE he.id = #{id}</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line582">582</a>     } + options[:ordered] ? 'ORDER BY he.lft ASC' : '').all_hashes</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line583">583</a>   end</pre></td>
+            <td><pre><a name="line567">567</a> private</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line584">584</a> </pre></td>
+            <td><pre><a name="line568">568</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line585">585</a>   def xml_for_group(group, name, current_user)</pre></td>
+            <td><pre><a name="line569">569</a>   def ancestors_hash_by_language_id(language_id, options = {})</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line586">586</a>     xml = ''</pre></td>
+            <td><pre><a name="line570">570</a>     SpeciesSchemaModel.connection.execute(%Q{</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line587">587</a>     unless group.empty?</pre></td>
+            <td><pre><a name="line571">571</a>       SELECT he.id, he.taxon_concept_id, he.taxon_concept_id id, he.id hierarchy_entry_id, he.hierarchy_id,</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line588">588</a>       xml += &quot;\t&lt;#{name}&gt;\n&quot;;</pre></td>
+            <td><pre><a name="line572">572</a>              he.lft lft, he.rgt rgt, he.rank_id, he.parent_id, </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line589">589</a>       group.each do |entry|</pre></td>
+            <td><pre><a name="line573">573</a>              n1.string scientific_name, n1.italicized scientific_name_italicized,</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line590">590</a>         xml += entry.node_xml(current_user)</pre></td>
+            <td><pre><a name="line574">574</a>              n2.string common_name, n2.italicized common_name_italicized,</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line591">591</a>       end</pre></td>
+            <td><pre><a name="line575">575</a>              hc.content_level content_level, hc.image image, hc.text text, hc.child_image child_image,</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line592">592</a>       xml += &quot;\t&lt;/#{name}&gt;\n&quot;;</pre></td>
+            <td><pre><a name="line576">576</a>              r.label rank_string,</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line593">593</a>     end</pre></td>
+            <td><pre><a name="line577">577</a>              he_source.hierarchy_id source_hierarchy_id</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line594">594</a>     return xml</pre></td>
+            <td><pre><a name="line578">578</a>         FROM hierarchy_entries he</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line595">595</a>   end</pre></td>
+            <td><pre><a name="line579">579</a>           JOIN names n1 ON (he.name_id = n1.id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line580">580</a>           LEFT JOIN hierarchies_content hc ON (he.id = hc.hierarchy_entry_id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line581">581</a>           LEFT JOIN (taxon_concept_names tcn</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line582">582</a>                      JOIN names n2 ON (tcn.name_id = n2.id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line583">583</a>                      LEFT JOIN hierarchy_entries he_source ON (tcn.source_hierarchy_entry_id = he_source.id))</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line584">584</a>             ON (he.taxon_concept_id = tcn.taxon_concept_id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line585">585</a>                 AND tcn.preferred = 1</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line586">586</a>                 AND tcn.language_id = #{language.id})</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line587">587</a>           LEFT JOIN ranks r ON (he.rank_id = r.id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line588">588</a>         WHERE he.id = #{id}</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line589">589</a>     } + options[:ordered] ? 'ORDER BY he.lft ASC' : '').all_hashes</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line590">590</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line596">596</a> </pre></td>
+            <td><pre><a name="line591">591</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line597">597</a>   def node_to_hash(node, detail_level)</pre></td>
+            <td><pre><a name="line592">592</a>   def xml_for_group(group, name, current_user)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line598">598</a>     species_or_below = (node['rgt'].to_i - node['lft'].to_i == 1)</pre></td>
+            <td><pre><a name="line593">593</a>     xml = ''</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line599">599</a>     name = (detail_level.to_sym == :expert) ? node['scientific_name'].firstcap : (node['common_name'] == nil  ? node['scientific_name'].firstcap : node['common_name'].firstcap)</pre></td>
+            <td><pre><a name="line594">594</a>     unless group.empty?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line600">600</a>     #name = node['scientific_name_italicized'] if (species_or_below &amp;&amp; (detail_level.to_sym == :expert || node['common_name'] == nil))</pre></td>
+            <td><pre><a name="line595">595</a>       xml += &quot;\t&lt;#{name}&gt;\n&quot;;</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line601">601</a>     name = node['scientific_name_italicized'] if (Rank.italicized_ids.include?(node['rank_id'].to_i) &amp;&amp; (detail_level.to_sym == :expert || node['common_name'] == nil))</pre></td>
+            <td><pre><a name="line596">596</a>       group.each do |entry|</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line602">602</a>     {</pre></td>
+            <td><pre><a name="line597">597</a>         xml += entry.node_xml(current_user)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line603">603</a>       :name =&gt; name,</pre></td>
+            <td><pre><a name="line598">598</a>       end</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line604">604</a>       :italicized =&gt; detail_level.to_sym == :expert ? node['scientific_name_italicized'].firstcap : (node['common_name_italicized'] == nil  ? node['scientific_name_italicized'].firstcap : node['common_name_italicized'].firstcap),</pre></td>
+            <td><pre><a name="line599">599</a>       xml += &quot;\t&lt;/#{name}&gt;\n&quot;;</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line605">605</a>       :id =&gt; node['id'],</pre></td>
+            <td><pre><a name="line600">600</a>     end</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line606">606</a>       :hierarchy_id =&gt; node['hierarchy_id'].to_i,</pre></td>
+            <td><pre><a name="line601">601</a>     return xml</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line607">607</a>       :rank_string =&gt; node['rank_string'],</pre></td>
+            <td><pre><a name="line602">602</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line603">603</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line604">604</a>   def node_to_hash(node, detail_level)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line608">608</a>       :hierarchy_entry_id =&gt; node['hierarchy_entry_id'],</pre></td>
+            <td><pre><a name="line605">605</a>     species_or_below = (node['rgt'].to_i - node['lft'].to_i == 1)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line609">609</a>       :valid =&gt; node['content_level'].to_i &gt;= $VALID_CONTENT_LEVEL.to_i,</pre></td>
+            <td><pre><a name="line606">606</a>     name = (detail_level.to_sym == :expert) ? node['scientific_name'].firstcap : (node['common_name'] == nil  ? node['scientific_name'].firstcap : node['common_name'].firstcap)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line610">610</a>       :enable =&gt; species_or_below ? (node['text'].to_i == 1 || node['image'].to_i == 1) : (node['text'].to_i == 1 || node['image'].to_i == 1 || node['child_image'].to_i == 1)</pre></td>
+            <td><pre><a name="line607">607</a>     #name = node['scientific_name_italicized'] if (species_or_below &amp;&amp; (detail_level.to_sym == :expert || node['common_name'] == nil))</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line611">611</a>     }</pre></td>
+            <td><pre><a name="line608">608</a>     name = node['scientific_name_italicized'] if (Rank.italicized_ids.include?(node['rank_id'].to_i) &amp;&amp; (detail_level.to_sym == :expert || node['common_name'] == nil))</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line612">612</a>   end</pre></td>
+            <td><pre><a name="line609">609</a>     {</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line613">613</a> </pre></td>
+            <td><pre><a name="line610">610</a>       :name =&gt; name,</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line614">614</a> end</pre></td>
+            <td><pre><a name="line611">611</a>       :italicized =&gt; detail_level.to_sym == :expert ? node['scientific_name_italicized'].firstcap : (node['common_name_italicized'] == nil  ? node['scientific_name_italicized'].firstcap : node['common_name_italicized'].firstcap),</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line612">612</a>       :id =&gt; node['id'],</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line613">613</a>       :hierarchy_id =&gt; node['hierarchy_id'].to_i,</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line614">614</a>       :rank_string =&gt; node['rank_string'],</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line615">615</a>       :hierarchy_entry_id =&gt; node['hierarchy_entry_id'],</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line616">616</a>       :valid =&gt; node['content_level'].to_i &gt;= $VALID_CONTENT_LEVEL.to_i,</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line617">617</a>       :enable =&gt; species_or_below ? (node['text'].to_i == 1 || node['image'].to_i == 1) : (node['text'].to_i == 1 || node['image'].to_i == 1 || node['child_image'].to_i == 1)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line618">618</a>     }</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line619">619</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line620">620</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line621">621</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

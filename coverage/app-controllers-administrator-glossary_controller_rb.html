@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-controllers-administrator-glossary_controller_rb.html">app/controllers/administrator/glossary_controller.rb</a></td>
             <td class='right_align'><tt>68</tt></td>
             <td class='right_align'><tt>55</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>58.82%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>36.76%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:59px"></div>
-            <div class="uncovered" style="width:41px"></div>
+            <div class="covered" style="width:37px"></div>
+            <div class="uncovered" style="width:63px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>49.09%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>23.64%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:49px"></div>
-            <div class="uncovered" style="width:51px"></div>
+            <div class="covered" style="width:24px"></div>
+            <div class="uncovered" style="width:76px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -134,37 +134,37 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>     @page = params[:page] || '1'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>     @order = params[:order_by] || 'term'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line16">16</a>     @search_string = params[:search_string] || ''</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>     @search_string.strip!</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line18">18</a>     @page_title = 'EOL Glossary'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>     unless @search_string.blank?</pre></td>
           </tr>
         
@@ -176,25 +176,25 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>     else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>       @glossary_terms = GlossaryTerm.all(:order =&gt; &quot;#{@order}&quot;).paginate(:page =&gt; @page)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line24">24</a>   end</pre></td>
           </tr>
         
@@ -434,38 +434,38 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line64">64</a>     @page_title = $ADMIN_CONSOLE_TITLE</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line65">65</a>     @navigation_partial = '/admin/navigation'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line66">66</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line67">67</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line68">68</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

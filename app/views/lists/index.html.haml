@@ -1,0 +1,24 @@
+%h1 Listing lists
+%table
+  %tr
+    %th Name
+    %th Community
+    %th User
+    %th Special list
+    %th Public
+    %th Object type
+    %th Object
+  - @lists.each do |list|
+    %tr
+      %td= h list.name
+      %td= h list.community_id
+      %td= h list.user_id
+      %td= h list.special_list_id
+      %td= h list.public
+      %td= h list.object_type
+      %td= h list.object_id
+      %td= link_to 'Show', list
+      %td= link_to 'Edit', edit_list_path(list)
+      %td= link_to 'Destroy', list, :confirm => 'Are you sure?', :method => :delete
+%br/
+= link_to 'New list', new_list_path

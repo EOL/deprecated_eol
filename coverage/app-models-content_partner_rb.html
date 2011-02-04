@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-content_partner_rb.html">app/models/content_partner.rb</a></td>
             <td class='right_align'><tt>331</tt></td>
             <td class='right_align'><tt>228</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>58.01%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>36.86%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:58px"></div>
-            <div class="uncovered" style="width:42px"></div>
+            <div class="covered" style="width:37px"></div>
+            <div class="uncovered" style="width:63px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>42.54%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>15.35%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:43px"></div>
-            <div class="uncovered" style="width:57px"></div>
+            <div class="covered" style="width:15px"></div>
+            <div class="uncovered" style="width:85px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -368,139 +368,139 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line53">53</a>     page = page - 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line54">54</a>     partner_resources = Resource.find_by_sql(%Q{</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line55">55</a>         SELECT</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line56">56</a>         r.*</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line57">57</a>         FROM agents_resources ar</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line58">58</a>         JOIN resources r ON (ar.resource_id=r.id)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line59">59</a>         WHERE ar.agent_id=#{agent_id}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line60">60</a>         AND ar.resource_agent_role_id=#{ResourceAgentRole.content_partner_upload_role.id}})</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line61">61</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line62">62</a>     return nil if partner_resources.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line63">63</a>     harvest_event_ids = partner_resources.collect{|r| r.latest_published_harvest_event.id || nil }</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line64">64</a>     return nil if harvest_event_ids.empty?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line65">65</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line66">66</a>     all_hierarchy_entry_ids = SpeciesSchemaModel.connection.select_values(%Q{</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line67">67</a>         SELECT hierarchy_entry_id</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line68">68</a>         FROM harvest_events_hierarchy_entries hehe</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line69">69</a>         WHERE hehe.harvest_event_id IN (#{harvest_event_ids.join(',')})}).uniq.reverse</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line70">70</a>     total_taxa_count = all_hierarchy_entry_ids.length</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line71">71</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line72">72</a>     start_index = page*per_page</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line73">73</a>     end_index = start_index + per_page</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line74">74</a>     sorted_hierarchy_entries = SpeciesSchemaModel.connection.execute(&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line75">75</a>         SELECT he.id hierarchy_entry_id, he.source_url, n.string scientific_name</pre></td>
           </tr>
         
@@ -524,73 +524,73 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line79">79</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line80">80</a>     start_index = page * per_page</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line81">81</a>     end_index = start_index + per_page</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line82">82</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line83">83</a>     all_concepts = []</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line84">84</a>     for i in 0...total_taxa_count</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line85">85</a>       all_concepts[i] = {}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line86">86</a>       if i &gt;= start_index &amp;&amp; i &lt; end_index </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line87">87</a>         </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line88">88</a>         entry = sorted_hierarchy_entries[i-start_index]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line89">89</a>         name_and_image = SpeciesSchemaModel.connection.execute(&quot;SELECT he.taxon_concept_id, n.string, do.object_cache_url</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line90">90</a>           FROM hierarchy_entries he</pre></td>
           </tr>
         
@@ -632,37 +632,37 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line97">97</a>         </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line98">98</a>         all_concepts[i]['id'] = name_and_image[0]['taxon_concept_id']</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line99">99</a>         all_concepts[i]['name_string'] = entry['scientific_name']</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line100">100</a>         all_concepts[i]['partner_source_url'] = entry['source_url']</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line101">101</a>         if name_and_image[0] &amp;&amp; !name_and_image[0]['object_cache_url'].nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line102">102</a>           all_concepts[i]['image_src'] = DataObject.image_cache_path(name_and_image[0]['object_cache_url'], :medium)</pre></td>
           </tr>
         
@@ -698,19 +698,19 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line108">108</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line109">109</a>     all_concepts</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line110">110</a>   end</pre></td>
           </tr>
         
@@ -1088,79 +1088,79 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line173">173</a>     latest_published_harvest_event_ids = []</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line174">174</a>     agent.resources.each do |r|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line175">175</a>       if he = r.latest_published_harvest_event</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line176">176</a>         latest_published_harvest_event_ids &lt;&lt; he.id</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line177">177</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line178">178</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line179">179</a>     return [] if latest_published_harvest_event_ids.empty?    </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line180">180</a>     comments_history = ActionsHistory.find_by_sql(%Q{</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line181">181</a>       SELECT ah.*, c.body comment_body, 'comment' history_type</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line182">182</a>       From #{HarvestEventsHierarchyEntry.full_table_name} hehe</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line183">183</a>       Join #{HierarchyEntry.full_table_name} he ON hehe.hierarchy_entry_id = he.id</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line184">184</a>       Join #{Comment.full_table_name} c ON he.taxon_concept_id = c.parent_id</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line185">185</a>       Join #{ActionsHistory.full_table_name} ah ON c.id = ah.object_id</pre></td>
           </tr>
         
@@ -1172,7 +1172,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line187">187</a>       AND ah.changeable_object_type_id=#{ChangeableObjectType.find_by_ch_object_type('comment').id}</pre></td>
           </tr>
         
@@ -1190,25 +1190,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line190">190</a>     comments_history.sort! do |a,b|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line191">191</a>       b.created_at &lt;=&gt; a.created_at</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line192">192</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line193">193</a>   end</pre></td>
           </tr>
         
@@ -1574,13 +1574,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line254">254</a>       EOLConvert.to_boolean(roles_accept)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line255">255</a>     end</pre></td>
           </tr>
         
@@ -1598,13 +1598,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line258">258</a>       EOLConvert.to_boolean(ipr_accept)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line259">259</a>     end</pre></td>
           </tr>
         
@@ -1622,13 +1622,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line262">262</a>       EOLConvert.to_boolean(attribution_accept)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line263">263</a>     end</pre></td>
           </tr>
         
@@ -1646,13 +1646,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line266">266</a>       EOLConvert.to_boolean(transfer_schema_accept)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line267">267</a>     end</pre></td>
           </tr>
         
@@ -2043,7 +2043,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

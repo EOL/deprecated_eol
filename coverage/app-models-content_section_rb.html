@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-content_section_rb.html">app/models/content_section.rb</a></td>
             <td class='right_align'><tt>26</tt></td>
             <td class='right_align'><tt>20</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>76.92%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>38.46%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:77px"></div>
-            <div class="uncovered" style="width:23px"></div>
+            <div class="covered" style="width:38px"></div>
+            <div class="uncovered" style="width:62px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>70.00%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>25.00%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:70px"></div>
-            <div class="uncovered" style="width:30px"></div>
+            <div class="covered" style="width:25px"></div>
+            <div class="uncovered" style="width:75px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -152,68 +152,68 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>     content_section = ContentSection.find_by_name section_name</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line18">18</a>     return [] unless content_section</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>     return cached(section_name) do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>       ContentPage.find_all_by_content_section_id_and_language_abbr_and_active(</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>         content_section.id, 'en', true, :order =&gt; 'sort_order'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>       )</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line24">24</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line25">25</a>   </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

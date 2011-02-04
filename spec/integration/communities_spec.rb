@@ -15,6 +15,10 @@ describe "Communities controller" do
     @member2.add_role @role
     @community2 = Community.gen # It's important that user1 NOT be a member of community2
     @name_of_create_button = 'Create'
+    @tc1 = build_taxon_concept
+    @tc2 = build_taxon_concept
+    @community.taxa_list.add(@tc1)
+    @community.taxa_list.add(@tc2)
   end
 
   describe '#index' do
@@ -102,6 +106,13 @@ describe "Communities controller" do
             with_tag("li", :text => /#{user.username}.*#{role.title}/m)
           end
         end
+      end
+    end
+
+    it 'should show the "taxa" list' do
+      page.body.should have_tag('.taxa') do
+        with_tag("a[href=#{taxon_concept_path(@tc1)}]")
+        with_tag("a[href=#{taxon_concept_path(@tc2)}]")
       end
     end
 
@@ -238,8 +249,6 @@ describe "Communities controller" do
     @user1.join_community(@community)
     visit(logout_path)
   end
-
-  it 'should show the "taxa" list'
 
   it 'should have a link to edit the name of the taxa list (with privileges)'
   it 'should NOT have a link to edit the name of the taxa list (WITHOUT privileges)'

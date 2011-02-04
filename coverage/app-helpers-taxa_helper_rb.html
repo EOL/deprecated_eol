@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-helpers-taxa_helper_rb.html">app/helpers/taxa_helper.rb</a></td>
             <td class='right_align'><tt>280</tt></td>
             <td class='right_align'><tt>236</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>62.50%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>13.93%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:63px"></div>
-            <div class="uncovered" style="width:37px"></div>
+            <div class="covered" style="width:14px"></div>
+            <div class="uncovered" style="width:86px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>57.63%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>6.78%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:58px"></div>
-            <div class="uncovered" style="width:42px"></div>
+            <div class="covered" style="width:7px"></div>
+            <div class="uncovered" style="width:93px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -92,31 +92,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line7">7</a>     html_options = {</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line8">8</a>       :id =&gt; &quot;large-image-#{which}-button-popup-link&quot;, :class =&gt; 'popup-link', :style =&gt; 'display:none;'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line9">9</a>     }.merge(options)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line10">10</a>     link_to '&lt;span style=&quot;display:block;width:24px;height:25px;&quot;&gt;&lt;/span&gt;', where, html_options</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line11">11</a>   end</pre></td>
           </tr>
         
@@ -134,25 +134,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>     return case data_object.vetted_id</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>       when Vetted.unknown.id   then 'unknown'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line16">16</a>       when Vetted.untrusted.id then 'untrusted'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>       when Vetted.trusted.id   then 'trusted'</pre></td>
           </tr>
         
@@ -164,13 +164,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>   end</pre></td>
           </tr>
         
@@ -188,97 +188,97 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>     return '' if original_agents.nil? or original_agents.blank? or original_agents.class == String</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line24">24</a>     params[:linked] = true if params[:linked].nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line25">25</a>     params[:only_first] ||= false</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>     params[:show_link_icon] = true if params[:show_link_icon].nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>     agents = original_agents.clone # so we can be destructive.</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line28">28</a>     agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line29">29</a>     agents = [agents[0]] if params[:only_first]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line30">30</a>     agent_list = agents.collect do |agent|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line31">31</a>       link_to_url = if agent.user</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line32">32</a>         url_for :controller =&gt; :account, :action =&gt; :show, :id =&gt; agent.user.id, :popup =&gt; true</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line33">33</a>       else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line34">34</a>         params[:url] || agent.homepage</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line35">35</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line36">36</a>       params[:linked] ? external_link_to(allow_some_html(agent.full_name),</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line37">37</a>                                          link_to_url,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line38">38</a>                                          {:show_link_icon =&gt; params[:show_link_icon]}) :</pre></td>
           </tr>
         
@@ -296,25 +296,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line41">41</a>     agent_list = agent_list.join(', ')</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line42">42</a>     agent_list += ', et al.' if params[:only_first] and original_agents.length &gt; 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line43">43</a>     return agent_list</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line44">44</a>   end</pre></td>
           </tr>
         
@@ -506,253 +506,253 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line76">76</a>     return '' if original_agents.nil? or original_agents.blank? or original_agents.class == String</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line77">77</a>     params[:linked] = true if params[:linked].nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line78">78</a>     params[:show_text_if_no_icon] ||= false</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line79">79</a>     params[:only_show_col_icon] ||= false</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line80">80</a>     params[:normal_icon] ||= false</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line81">81</a>     params[:separator] ||= &quot;&amp;nbsp;&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line82">82</a>     params[:last_separator] ||= params[:separator]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line83">83</a>     params[:taxon] ||= false</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line84">84</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line85">85</a>     is_default_col = false</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line86">86</a>     if(params[:taxon] != false &amp;&amp; @session_hierarchy == Hierarchy.default &amp;&amp; !params[:taxon].col_entry.nil?)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line87">87</a>       is_default_col = true</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line88">88</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line89">89</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line90">90</a>     agents = original_agents.clone # so we can be destructive.</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line91">91</a>     agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line92">92</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line93">93</a>     output_html = []</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line94">94</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line95">95</a>     agents.each do |agent|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line96">96</a>       url = ''</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line97">97</a>       url = agent.homepage.strip unless agent.homepage.blank?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line98">98</a>       # if the agent is has an outlink for this taxon...</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line99">99</a>       if params[:taxon]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line100">100</a>         hierarchy_entries = HierarchyEntry.find_by_sql(&quot;SELECT he.* FROM hierarchies h JOIN hierarchy_entries he ON (h.id=he.hierarchy_id) WHERE h.agent_id=#{agent.id} AND he.taxon_concept_id=#{params[:taxon].id} AND he.published=1 ORDER BY id DESC LIMIT 1&quot;)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line101">101</a>         if !hierarchy_entries.empty? &amp;&amp; outlink = hierarchy_entries[0].outlink</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line102">102</a>           url = outlink[:outlink_url]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line103">103</a>         end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line104">104</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line105">105</a>       </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line106">106</a>       logo_size = (agent == Agent.catalogue_of_life ? &quot;large&quot; : &quot;small&quot;) # CoL gets their logo big     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line107">107</a>       if agent.logo_cache_url.blank? </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line108">108</a>         params[:url] = url</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line109">109</a>         output_html &lt;&lt; agent_partial(agent, params) if params[:show_text_if_no_icon] </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line110">110</a>       else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line111">111</a>         if params[:only_show_col_icon] &amp;&amp; !is_default_col # if we are only asked to show the logo if it's COL and the current agent is *not* COL, then show text</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line112">112</a>           params[:url] = url</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line113">113</a>           output_html &lt;&lt; agent_partial(agent,params)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line114">114</a>         else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line115">115</a>           if params[:linked] and not url.blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line116">116</a>             text = agent_logo(agent,logo_size,params)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line117">117</a>             output_html &lt;&lt; external_link_to(text,url,{:show_link_icon =&gt; false})</pre></td>
           </tr>
         
@@ -800,13 +800,13 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line125">125</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line126">126</a>     if output_html.size &gt; 1 &amp;&amp; params[:last_separator] != params[:separator]</pre></td>
           </tr>
         
@@ -830,25 +830,25 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line130">130</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line131">131</a>     return output_html.compact.join(params[:separator]) </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line132">132</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line133">133</a>   end</pre></td>
           </tr>
         
@@ -1202,49 +1202,49 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line192">192</a>     max_columns = 2</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line193">193</a>     num_mappings = projects.size</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line194">194</a>     num_columns = num_mappings &lt; max_columns ? num_mappings : max_columns</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line195">195</a>     res = []</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line196">196</a>     until projects.blank? do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line197">197</a>       res &lt;&lt; projects.shift(num_columns)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line198">198</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line199">199</a>     (num_columns - res[-1].size).times do</pre></td>
           </tr>
         
@@ -1262,13 +1262,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line202">202</a>     [res, num_columns]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line203">203</a>   end</pre></td>
           </tr>
         
@@ -1286,13 +1286,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line206">206</a>     links = []</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line207">207</a>     hierarchy.collection_types.each do |collection_type|</pre></td>
           </tr>
         
@@ -1310,13 +1310,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line210">210</a>     links.empty? ? hierarchy.label : links.join(', ')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line211">211</a>   end</pre></td>
           </tr>
         
@@ -1340,139 +1340,139 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line215">215</a>     names_by_language = {}</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line216">216</a>     # Get some languages we'll need</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line217">217</a>     eng     = Language.english</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line218">218</a>     pref    = Language.find(preferred_language_id)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line219">219</a>     unknown = Language.unknown</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line220">220</a>     # Build a hash with language label as key and an array of CommonNameDisplay objects as values</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line221">221</a>     names.each do |name|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line222">222</a>       language = {:id =&gt; name.language_id, :label =&gt; name.language_label, :name =&gt; name.language_name}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line223">223</a>       k = name.language_label</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line224">224</a>       k = unknown.label if k.blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line225">225</a>       names_by_language.key?(k) ? names_by_language[k] &lt;&lt; name : names_by_language[k] = [name]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line226">226</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line227">227</a>     remove_duplicate_names(names_by_language)    </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line228">228</a>     results = []</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line229">229</a>     # Put preferred first</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line230">230</a>     results &lt;&lt; [pref.label, names_by_language.delete(pref.label)] if names_by_language.key?(pref.label)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line231">231</a>     # Sort the rest by language label</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line232">232</a>     names_by_language.to_a.sort_by {|a| a[0].to_s}.each {|a| results &lt;&lt; a}</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line233">233</a>     # Move unknown to the end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line234">234</a>     unknown_data = names_by_language.key?(unknown.label) ? [unknown.label, names_by_language.delete(unknown.label)] : nil</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line235">235</a>     results &lt;&lt; unknown_data if unknown_data</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line236">236</a>     results</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line237">237</a>   end</pre></td>
           </tr>
         
@@ -1556,13 +1556,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line251">251</a>     if params[:image_page].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line252">252</a>       show_next_image_page_button = @taxon_concept.more_images </pre></td>
           </tr>
         
@@ -1628,116 +1628,116 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line263">263</a>     names.each do |lang, names_in_language|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line264">264</a>       names_in_language.each_with_index do |name_a, index_a|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line265">265</a>         names_in_language.each_with_index do |name_b, index_b|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line266">266</a>           next if index_a == index_b</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line267">267</a>           if name_a.id == name_b.id</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line268">268</a>             name_a.duplicate = true</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line269">269</a>             name_b.duplicate = true</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line270">270</a>             name_a.duplicate_with_curator = true if name_b.trusted_by_agent?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line271">271</a>             name_b.duplicate_with_curator = true if name_a.trusted_by_agent?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line272">272</a>           end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line273">273</a>         end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line274">274</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line275">275</a>       # Remove entries that are duplicates in the curator hierarchy</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line276">276</a>       names_in_language.delete_if {|name| name.duplicate_with_curator }</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line277">277</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line278">278</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line279">279</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line280">280</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

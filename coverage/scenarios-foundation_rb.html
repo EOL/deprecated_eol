@@ -28,14 +28,14 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="scenarios-foundation_rb.html">scenarios/foundation.rb</a></td>
-            <td class='right_align'><tt>423</tt></td>
-            <td class='right_align'><tt>355</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>97.64%</tt></div>
+            <td class='right_align'><tt>426</tt></td>
+            <td class='right_align'><tt>357</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>97.42%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:98px"></div>
-            <div class="uncovered" style="width:2px"></div>
+            <div class="covered" style="width:97px"></div>
+            <div class="uncovered" style="width:3px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>97.46%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>97.20%</tt></div>
           <div class="percent_graph">
             <div class="covered" style="width:97px"></div>
             <div class="uncovered" style="width:3px"></div>
@@ -314,7 +314,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line44">44</a>   puts &quot;** WARNING: You attempted to load the foundation scenario twice, here.  Please fix it.&quot;</pre></td>
           </tr>
         
@@ -969,61 +969,61 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line153">153</a> create_if_not_exists Hierarchy, :label =&gt; &quot;Encyclopedia of Life Contributors&quot;</pre></td>
+            <td><pre><a name="line153">153</a> create_if_not_exists Hierarchy, :agent =&gt; Agent.catalogue_of_life, :label =&gt;  &quot;Species 2000 &amp; ITIS Catalogue of Life: Annual Checklist 2007&quot;, :browsable =&gt; 0</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line154">154</a> first_ncbi = Hierarchy.gen(:agent =&gt; Agent.ncbi, :label =&gt; &quot;NCBI Taxonomy&quot;, :browsable =&gt; 1)</pre></td>
+            <td><pre><a name="line154">154</a> create_if_not_exists Hierarchy, :label =&gt; &quot;Encyclopedia of Life Contributors&quot;</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line155">155</a> first_ncbi.hierarchy_group_id = 101</pre></td>
+            <td><pre><a name="line155">155</a> first_ncbi = Hierarchy.gen(:agent =&gt; Agent.ncbi, :label =&gt; &quot;NCBI Taxonomy&quot;, :browsable =&gt; 1)</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line156">156</a> first_ncbi.hierarchy_group_version = 1</pre></td>
+            <td><pre><a name="line156">156</a> first_ncbi.hierarchy_group_id = 101</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line157">157</a> first_ncbi.save!</pre></td>
+            <td><pre><a name="line157">157</a> first_ncbi.hierarchy_group_version = 1</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line158">158</a> second_ncbi = Hierarchy.gen(:agent =&gt; Agent.ncbi, :label =&gt; &quot;NCBI Taxonomy&quot;, :browsable =&gt; 1)</pre></td>
+            <td><pre><a name="line158">158</a> first_ncbi.save!</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line159">159</a> second_ncbi.hierarchy_group_id = 101</pre></td>
+            <td><pre><a name="line159">159</a> second_ncbi = Hierarchy.gen(:agent =&gt; Agent.ncbi, :label =&gt; &quot;NCBI Taxonomy&quot;, :browsable =&gt; 1)</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line160">160</a> second_ncbi.hierarchy_group_version = 2</pre></td>
+            <td><pre><a name="line160">160</a> second_ncbi.hierarchy_group_id = 101</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line161">161</a> second_ncbi.save!</pre></td>
+            <td><pre><a name="line161">161</a> second_ncbi.hierarchy_group_version = 2</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line162">162</a> </pre></td>
+          <tr class="marked">
+            <td><pre><a name="line162">162</a> second_ncbi.save!</pre></td>
           </tr>
         
           
@@ -1034,926 +1034,926 @@
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line164">164</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label =&gt; 'Associations'</pre></td>
+          <tr class="inferred">
+            <td><pre><a name="line164">164</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line165">165</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label =&gt; 'Behaviour'</pre></td>
+            <td><pre><a name="line165">165</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Associations',          :label =&gt; 'Associations'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line166">166</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus',    :label =&gt; 'ConservationStatus'</pre></td>
+            <td><pre><a name="line166">166</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Behaviour',             :label =&gt; 'Behaviour'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line167">167</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cyclicity',             :label =&gt; 'Cyclicity'</pre></td>
+            <td><pre><a name="line167">167</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus',    :label =&gt; 'ConservationStatus'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line168">168</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cytology',              :label =&gt; 'Cytology'</pre></td>
+            <td><pre><a name="line168">168</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cyclicity',             :label =&gt; 'Cyclicity'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line169">169</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#DiagnosticDescription', :label =&gt; 'DiagnosticDescription'</pre></td>
+            <td><pre><a name="line169">169</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Cytology',              :label =&gt; 'Cytology'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line170">170</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Diseases',              :label =&gt; 'Diseases'</pre></td>
+            <td><pre><a name="line170">170</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#DiagnosticDescription', :label =&gt; 'DiagnosticDescription'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line171">171</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Dispersal',             :label =&gt; 'Dispersal'</pre></td>
+            <td><pre><a name="line171">171</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Diseases',              :label =&gt; 'Diseases'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line172">172</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Evolution',             :label =&gt; 'Evolution'</pre></td>
+            <td><pre><a name="line172">172</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Dispersal',             :label =&gt; 'Dispersal'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line173">173</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Genetics',              :label =&gt; 'Genetics'</pre></td>
+            <td><pre><a name="line173">173</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Evolution',             :label =&gt; 'Evolution'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line174">174</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Growth',                :label =&gt; 'Growth'</pre></td>
+            <td><pre><a name="line174">174</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Genetics',              :label =&gt; 'Genetics'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line175">175</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat',               :label =&gt; 'Habitat'</pre></td>
+            <td><pre><a name="line175">175</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Growth',                :label =&gt; 'Growth'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line176">176</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Legislation',           :label =&gt; 'Legislation'</pre></td>
+            <td><pre><a name="line176">176</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat',               :label =&gt; 'Habitat'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line177">177</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeCycle',             :label =&gt; 'LifeCycle'</pre></td>
+            <td><pre><a name="line177">177</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Legislation',           :label =&gt; 'Legislation'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line178">178</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeExpectancy',        :label =&gt; 'LifeExpectancy'</pre></td>
+            <td><pre><a name="line178">178</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeCycle',             :label =&gt; 'LifeCycle'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line179">179</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LookAlikes',            :label =&gt; 'LookAlikes'</pre></td>
+            <td><pre><a name="line179">179</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LifeExpectancy',        :label =&gt; 'LifeExpectancy'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line180">180</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Management',            :label =&gt; 'Management'</pre></td>
+            <td><pre><a name="line180">180</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#LookAlikes',            :label =&gt; 'LookAlikes'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line181">181</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Migration',             :label =&gt; 'Migration'</pre></td>
+            <td><pre><a name="line181">181</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Management',            :label =&gt; 'Management'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line182">182</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#MolecularBiology',      :label =&gt; 'MolecularBiology'</pre></td>
+            <td><pre><a name="line182">182</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Migration',             :label =&gt; 'Migration'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line183">183</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology',            :label =&gt; 'Morphology'</pre></td>
+            <td><pre><a name="line183">183</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#MolecularBiology',      :label =&gt; 'MolecularBiology'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line184">184</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Physiology',            :label =&gt; 'Physiology'</pre></td>
+            <td><pre><a name="line184">184</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology',            :label =&gt; 'Morphology'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line185">185</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#PopulationBiology',     :label =&gt; 'PopulationBiology'</pre></td>
+            <td><pre><a name="line185">185</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Physiology',            :label =&gt; 'Physiology'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line186">186</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Procedures',            :label =&gt; 'Procedures'</pre></td>
+            <td><pre><a name="line186">186</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#PopulationBiology',     :label =&gt; 'PopulationBiology'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line187">187</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Reproduction',          :label =&gt; 'Reproduction'</pre></td>
+            <td><pre><a name="line187">187</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Procedures',            :label =&gt; 'Procedures'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line188">188</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#RiskStatement',         :label =&gt; 'RiskStatement'</pre></td>
+            <td><pre><a name="line188">188</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Reproduction',          :label =&gt; 'Reproduction'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line189">189</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Size',                  :label =&gt; 'Size'</pre></td>
+            <td><pre><a name="line189">189</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#RiskStatement',         :label =&gt; 'RiskStatement'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line190">190</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Threats',               :label =&gt; 'Threats'</pre></td>
+            <td><pre><a name="line190">190</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Size',                  :label =&gt; 'Size'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line191">191</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Trends',                :label =&gt; 'Trends'</pre></td>
+            <td><pre><a name="line191">191</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Threats',               :label =&gt; 'Threats'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line192">192</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TrophicStrategy',       :label =&gt; 'TrophicStrategy'</pre></td>
+            <td><pre><a name="line192">192</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Trends',                :label =&gt; 'Trends'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line193">193</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',                  :label =&gt; 'Uses'</pre></td>
+            <td><pre><a name="line193">193</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TrophicStrategy',       :label =&gt; 'TrophicStrategy'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line194">194</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://www.eol.org/voc/table_of_contents#Education',                 :label =&gt; 'Education'</pre></td>
+            <td><pre><a name="line194">194</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',                  :label =&gt; 'Uses'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line195">195</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://www.eol.org/voc/table_of_contents#Education',                 :label =&gt; 'Education'</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line195">195</a> </pre></td>
+            <td><pre><a name="line196">196</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line196">196</a> create_if_not_exists Language, :label =&gt; 'English',         :iso_639_1 =&gt; 'en'</pre></td>
+            <td><pre><a name="line197">197</a> create_if_not_exists Language, :label =&gt; 'English',         :iso_639_1 =&gt; 'en'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line197">197</a> create_if_not_exists Language, :label =&gt; 'French',          :iso_639_1 =&gt; 'fr' # Bootstrap uses this, tests i18n</pre></td>
+            <td><pre><a name="line198">198</a> create_if_not_exists Language, :label =&gt; 'French',          :iso_639_1 =&gt; 'fr' # Bootstrap uses this, tests i18n</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line198">198</a> create_if_not_exists Language, :label =&gt; 'Scientific Name', :iso_639_1 =&gt; ''   # Should be ID 501.  ...But only for PHP's sake.</pre></td>
+            <td><pre><a name="line199">199</a> create_if_not_exists Language, :label =&gt; 'Scientific Name', :iso_639_1 =&gt; ''   # Should be ID 501.  ...But only for PHP's sake.</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line199">199</a> create_if_not_exists Language, :label =&gt; 'Unknown', :iso_639_1 =&gt; ''</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line200">200</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line201">201</a> create_if_not_exists License, :title =&gt; 'public domain',       :description =&gt; 'No rights reserved', :source_url =&gt; 'http://creativecommons.org/licenses/publicdomain/'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line202">202</a> create_if_not_exists License, :title =&gt; 'all rights reserved', :description =&gt; '&amp;#169; All rights reserved',</pre></td>
+            <td><pre><a name="line200">200</a> create_if_not_exists Language, :label =&gt; 'Unknown', :iso_639_1 =&gt; ''</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line203">203</a>              :show_to_content_partners =&gt; 0</pre></td>
+            <td><pre><a name="line201">201</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line204">204</a> create_if_not_exists License, :title =&gt; 'cc-by-nc 3.0',        :description =&gt; 'Some rights reserved',</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line205">205</a>              :source_url =&gt; 'http://creativecommons.org/licenses/by-nc/3.0/',    :logo_url =&gt; '/images/licenses/cc_by_nc_small.png'</pre></td>
+            <td><pre><a name="line202">202</a> create_if_not_exists License, :title =&gt; 'public domain',       :description =&gt; 'No rights reserved', :source_url =&gt; 'http://creativecommons.org/licenses/publicdomain/'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line206">206</a> create_if_not_exists License, :title =&gt; 'cc-by 3.0',           :description =&gt; 'Some rights reserved',</pre></td>
+            <td><pre><a name="line203">203</a> create_if_not_exists License, :title =&gt; 'all rights reserved', :description =&gt; '&amp;#169; All rights reserved',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line207">207</a>              :source_url =&gt; 'http://creativecommons.org/licenses/by/3.0/',       :logo_url =&gt; '/images/licenses/cc_by_small.png'</pre></td>
+            <td><pre><a name="line204">204</a>              :show_to_content_partners =&gt; 0</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line208">208</a> create_if_not_exists License, :title =&gt; 'cc-by-sa 3.0',        :description =&gt; 'Some rights reserved',</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line209">209</a>              :source_url =&gt; 'http://creativecommons.org/licenses/by-sa/3.0/',    :logo_url =&gt; '/images/licenses/cc_by_sa_small.png'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line210">210</a> create_if_not_exists License, :title =&gt; 'cc-by-nc-sa 3.0',     :description =&gt; 'Some rights reserved',</pre></td>
+            <td><pre><a name="line205">205</a> create_if_not_exists License, :title =&gt; 'cc-by-nc 3.0',        :description =&gt; 'Some rights reserved',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line211">211</a>              :source_url =&gt; 'http://creativecommons.org/licenses/by-nc-sa/3.0/', :logo_url =&gt; '/images/licenses/cc_by_nc_sa_small.png'</pre></td>
+            <td><pre><a name="line206">206</a>              :source_url =&gt; 'http://creativecommons.org/licenses/by-nc/3.0/',    :logo_url =&gt; '/images/licenses/cc_by_nc_small.png'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line212">212</a> create_if_not_exists License, :title =&gt; 'gnu-fdl',             :description =&gt; 'Some rights reserved',</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line213">213</a>              :source_url =&gt; 'http://www.gnu.org/licenses/fdl.html',              :logo_url =&gt; '/images/licenses/gnu_fdl_small.png',</pre></td>
+            <td><pre><a name="line207">207</a> create_if_not_exists License, :title =&gt; 'cc-by 3.0',           :description =&gt; 'Some rights reserved',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line214">214</a>              :show_to_content_partners =&gt; 0</pre></td>
+            <td><pre><a name="line208">208</a>              :source_url =&gt; 'http://creativecommons.org/licenses/by/3.0/',       :logo_url =&gt; '/images/licenses/cc_by_small.png'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line215">215</a> create_if_not_exists License, :title =&gt; 'gnu-gpl',             :description =&gt; 'Some rights reserved',</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line216">216</a>              :source_url =&gt; 'http://www.gnu.org/licenses/gpl.html',              :logo_url =&gt; '/images/licenses/gnu_fdl_small.png',</pre></td>
+            <td><pre><a name="line209">209</a> create_if_not_exists License, :title =&gt; 'cc-by-sa 3.0',        :description =&gt; 'Some rights reserved',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line217">217</a>              :show_to_content_partners =&gt; 0</pre></td>
+            <td><pre><a name="line210">210</a>              :source_url =&gt; 'http://creativecommons.org/licenses/by-sa/3.0/',    :logo_url =&gt; '/images/licenses/cc_by_sa_small.png'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line218">218</a> create_if_not_exists License, :title =&gt; 'no license',          :description =&gt; 'The material cannot be licensed'             ,</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line219">219</a>              :show_to_content_partners =&gt; 0</pre></td>
+            <td><pre><a name="line211">211</a> create_if_not_exists License, :title =&gt; 'cc-by-nc-sa 3.0',     :description =&gt; 'Some rights reserved',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line220">220</a> </pre></td>
+            <td><pre><a name="line212">212</a>              :source_url =&gt; 'http://creativecommons.org/licenses/by-nc-sa/3.0/', :logo_url =&gt; '/images/licenses/cc_by_nc_sa_small.png'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line221">221</a> create_if_not_exists MimeType, :label =&gt; 'audio/mpeg'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line222">222</a> create_if_not_exists MimeType, :label =&gt; 'audio/x-ms-wma'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line223">223</a> create_if_not_exists MimeType, :label =&gt; 'audio/x-pn-realaudio'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line224">224</a> create_if_not_exists MimeType, :label =&gt; 'audio/x-realaudio'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line225">225</a> create_if_not_exists MimeType, :label =&gt; 'audio/x-wav'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line226">226</a> create_if_not_exists MimeType, :label =&gt; 'image/bmp'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line227">227</a> create_if_not_exists MimeType, :label =&gt; 'image/gif'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line228">228</a> create_if_not_exists MimeType, :label =&gt; 'image/jpeg'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line229">229</a> create_if_not_exists MimeType, :label =&gt; 'image/png'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line230">230</a> create_if_not_exists MimeType, :label =&gt; 'image/svg+xml'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line231">231</a> create_if_not_exists MimeType, :label =&gt; 'image/tiff'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line232">232</a> create_if_not_exists MimeType, :label =&gt; 'text/html'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line233">233</a> create_if_not_exists MimeType, :label =&gt; 'text/plain'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line234">234</a> create_if_not_exists MimeType, :label =&gt; 'text/richtext'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line235">235</a> create_if_not_exists MimeType, :label =&gt; 'text/rtf'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line236">236</a> create_if_not_exists MimeType, :label =&gt; 'text/xml'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line237">237</a> create_if_not_exists MimeType, :label =&gt; 'video/mp4'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line238">238</a> create_if_not_exists MimeType, :label =&gt; 'video/mpeg'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line239">239</a> create_if_not_exists MimeType, :label =&gt; 'video/quicktime'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line240">240</a> create_if_not_exists MimeType, :label =&gt; 'video/x-flv'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line241">241</a> create_if_not_exists MimeType, :label =&gt; 'video/x-ms-wmv'</pre></td>
+            <td><pre><a name="line213">213</a> create_if_not_exists License, :title =&gt; 'gnu-fdl',             :description =&gt; 'Some rights reserved',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line242">242</a> </pre></td>
+            <td><pre><a name="line214">214</a>              :source_url =&gt; 'http://www.gnu.org/licenses/fdl.html',              :logo_url =&gt; '/images/licenses/gnu_fdl_small.png',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line243">243</a> # create_if_not_exists These don't exist yet, but will in the future:</pre></td>
+            <td><pre><a name="line215">215</a>              :show_to_content_partners =&gt; 0</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line216">216</a> create_if_not_exists License, :title =&gt; 'gnu-gpl',             :description =&gt; 'Some rights reserved',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line244">244</a> # create_if_not_exists NormalizedQualifier :label =&gt; 'Name'</pre></td>
+            <td><pre><a name="line217">217</a>              :source_url =&gt; 'http://www.gnu.org/licenses/gpl.html',              :logo_url =&gt; '/images/licenses/gnu_fdl_small.png',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line245">245</a> # create_if_not_exists NormalizedQualifier :label =&gt; 'Author'</pre></td>
+            <td><pre><a name="line218">218</a>              :show_to_content_partners =&gt; 0</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line219">219</a> create_if_not_exists License, :title =&gt; 'no license',          :description =&gt; 'The material cannot be licensed'             ,</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line246">246</a> # create_if_not_exists NormalizedQualifier :label =&gt; 'Year'</pre></td>
+            <td><pre><a name="line220">220</a>              :show_to_content_partners =&gt; 0</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line247">247</a> </pre></td>
+            <td><pre><a name="line221">221</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line248">248</a> %w{kingdom phylum order class family genus species subspecies infraspecies variety form}.each do |rank|</pre></td>
+            <td><pre><a name="line222">222</a> create_if_not_exists MimeType, :label =&gt; 'audio/mpeg'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line249">249</a>   create_if_not_exists Rank, :label =&gt; rank</pre></td>
+            <td><pre><a name="line223">223</a> create_if_not_exists MimeType, :label =&gt; 'audio/x-ms-wma'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line224">224</a> create_if_not_exists MimeType, :label =&gt; 'audio/x-pn-realaudio'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line225">225</a> create_if_not_exists MimeType, :label =&gt; 'audio/x-realaudio'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line226">226</a> create_if_not_exists MimeType, :label =&gt; 'audio/x-wav'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line227">227</a> create_if_not_exists MimeType, :label =&gt; 'image/bmp'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line228">228</a> create_if_not_exists MimeType, :label =&gt; 'image/gif'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line229">229</a> create_if_not_exists MimeType, :label =&gt; 'image/jpeg'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line230">230</a> create_if_not_exists MimeType, :label =&gt; 'image/png'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line231">231</a> create_if_not_exists MimeType, :label =&gt; 'image/svg+xml'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line232">232</a> create_if_not_exists MimeType, :label =&gt; 'image/tiff'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line233">233</a> create_if_not_exists MimeType, :label =&gt; 'text/html'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line234">234</a> create_if_not_exists MimeType, :label =&gt; 'text/plain'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line235">235</a> create_if_not_exists MimeType, :label =&gt; 'text/richtext'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line236">236</a> create_if_not_exists MimeType, :label =&gt; 'text/rtf'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line237">237</a> create_if_not_exists MimeType, :label =&gt; 'text/xml'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line238">238</a> create_if_not_exists MimeType, :label =&gt; 'video/mp4'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line239">239</a> create_if_not_exists MimeType, :label =&gt; 'video/mpeg'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line240">240</a> create_if_not_exists MimeType, :label =&gt; 'video/quicktime'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line241">241</a> create_if_not_exists MimeType, :label =&gt; 'video/x-flv'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line242">242</a> create_if_not_exists MimeType, :label =&gt; 'video/x-ms-wmv'</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line250">250</a> end</pre></td>
+            <td><pre><a name="line243">243</a> </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line251">251</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line252">252</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'comment'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line253">253</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'data_object'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line254">254</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'synonym'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line255">255</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'taxon_concept_name'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line256">256</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'tag'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line257">257</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'users_submitted_text'</pre></td>
+            <td><pre><a name="line244">244</a> # create_if_not_exists These don't exist yet, but will in the future:</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line258">258</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line259">259</a> create_if_not_exists RefIdentifierType, :label =&gt; 'bici'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line260">260</a> create_if_not_exists RefIdentifierType, :label =&gt; 'coden'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line261">261</a> create_if_not_exists RefIdentifierType, :label =&gt; 'doi'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line262">262</a> create_if_not_exists RefIdentifierType, :label =&gt; 'eissn'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line263">263</a> create_if_not_exists RefIdentifierType, :label =&gt; 'handle'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line264">264</a> create_if_not_exists RefIdentifierType, :label =&gt; 'isbn'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line265">265</a> create_if_not_exists RefIdentifierType, :label =&gt; 'issn'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line266">266</a> create_if_not_exists RefIdentifierType, :label =&gt; 'lsid'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line267">267</a> create_if_not_exists RefIdentifierType, :label =&gt; 'oclc'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line268">268</a> create_if_not_exists RefIdentifierType, :label =&gt; 'sici'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line269">269</a> create_if_not_exists RefIdentifierType, :label =&gt; 'url'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line270">270</a> create_if_not_exists RefIdentifierType, :label =&gt; 'urn'</pre></td>
+            <td><pre><a name="line245">245</a> # create_if_not_exists NormalizedQualifier :label =&gt; 'Name'</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line271">271</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line272">272</a> iucn_hierarchy = create_if_not_exists Hierarchy, :label =&gt; 'IUCN'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line273">273</a> iucn_resource = create_if_not_exists Resource, :title =&gt; 'Initial IUCN Import', :hierarchy =&gt; iucn_hierarchy</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line274">274</a> iucn_agent = Agent.iucn</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line275">275</a> raise &quot;IUCN is nil&quot; if iucn_agent.nil?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line276">276</a> create_if_not_exists AgentsResource, :resource =&gt; iucn_resource, :agent =&gt; Agent.iucn</pre></td>
+            <td><pre><a name="line246">246</a> # create_if_not_exists NormalizedQualifier :label =&gt; 'Author'</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line277">277</a> </pre></td>
+            <td><pre><a name="line247">247</a> # create_if_not_exists NormalizedQualifier :label =&gt; 'Year'</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line278">278</a> # This is out of ourder, of course, because it depends on the IUCN resource.</pre></td>
+            <td><pre><a name="line248">248</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line279">279</a> create_if_not_exists HarvestEvent, :resource_id =&gt; iucn_resource.id</pre></td>
+            <td><pre><a name="line249">249</a> %w{kingdom phylum order class family genus species subspecies infraspecies variety form}.each do |rank|</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line250">250</a>   create_if_not_exists Rank, :label =&gt; rank</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line280">280</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line281">281</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'Administrative'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line282">282</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'Data Administrator'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line283">283</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'Data Host'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line284">284</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'Data Supplier'        # content_partner_upload_role</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line285">285</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'System Administrator'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line286">286</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'Technical Host'</pre></td>
+            <td><pre><a name="line251">251</a> end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line287">287</a> </pre></td>
+            <td><pre><a name="line252">252</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line288">288</a> create_if_not_exists ResourceStatus, :label =&gt; 'Uploading'</pre></td>
+            <td><pre><a name="line253">253</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'comment'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line289">289</a> create_if_not_exists ResourceStatus, :label =&gt; 'Uploaded'</pre></td>
+            <td><pre><a name="line254">254</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'data_object'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line290">290</a> create_if_not_exists ResourceStatus, :label =&gt; 'Upload Failed'</pre></td>
+            <td><pre><a name="line255">255</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'synonym'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line291">291</a> create_if_not_exists ResourceStatus, :label =&gt; 'Moved to Content Server'</pre></td>
+            <td><pre><a name="line256">256</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'taxon_concept_name'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line292">292</a> create_if_not_exists ResourceStatus, :label =&gt; 'Validated'</pre></td>
+            <td><pre><a name="line257">257</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'tag'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line293">293</a> create_if_not_exists ResourceStatus, :label =&gt; 'Validation Failed'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line294">294</a> create_if_not_exists ResourceStatus, :label =&gt; 'Being Processed'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line295">295</a> create_if_not_exists ResourceStatus, :label =&gt; 'Processed'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line296">296</a> create_if_not_exists ResourceStatus, :label =&gt; 'Processing Failed'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line297">297</a> create_if_not_exists ResourceStatus, :label =&gt; 'Published'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line298">298</a> create_if_not_exists ResourceStatus, :label =&gt; 'Publish Pending'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line299">299</a> create_if_not_exists ResourceStatus, :label =&gt; 'Unpublish Pending'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line300">300</a> create_if_not_exists ResourceStatus, :label =&gt; 'Force Harvest'</pre></td>
+            <td><pre><a name="line258">258</a> create_if_not_exists ChangeableObjectType, :ch_object_type =&gt; 'users_submitted_text'</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line301">301</a> </pre></td>
+            <td><pre><a name="line259">259</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line302">302</a> KnownPrivileges.create_all</pre></td>
+            <td><pre><a name="line260">260</a> create_if_not_exists RefIdentifierType, :label =&gt; 'bici'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line261">261</a> create_if_not_exists RefIdentifierType, :label =&gt; 'coden'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line262">262</a> create_if_not_exists RefIdentifierType, :label =&gt; 'doi'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line263">263</a> create_if_not_exists RefIdentifierType, :label =&gt; 'eissn'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line264">264</a> create_if_not_exists RefIdentifierType, :label =&gt; 'handle'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line265">265</a> create_if_not_exists RefIdentifierType, :label =&gt; 'isbn'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line266">266</a> create_if_not_exists RefIdentifierType, :label =&gt; 'issn'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line267">267</a> create_if_not_exists RefIdentifierType, :label =&gt; 'lsid'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line268">268</a> create_if_not_exists RefIdentifierType, :label =&gt; 'oclc'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line269">269</a> create_if_not_exists RefIdentifierType, :label =&gt; 'sici'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line270">270</a> create_if_not_exists RefIdentifierType, :label =&gt; 'url'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line271">271</a> create_if_not_exists RefIdentifierType, :label =&gt; 'urn'</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line303">303</a> </pre></td>
+            <td><pre><a name="line272">272</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line304">304</a> Community.create_special</pre></td>
+            <td><pre><a name="line273">273</a> iucn_hierarchy = create_if_not_exists Hierarchy, :label =&gt; 'IUCN'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line274">274</a> iucn_resource = create_if_not_exists Resource, :title =&gt; 'Initial IUCN Import', :hierarchy =&gt; iucn_hierarchy</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line275">275</a> iucn_agent = Agent.iucn</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line276">276</a> raise &quot;IUCN is nil&quot; if iucn_agent.nil?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line277">277</a> create_if_not_exists AgentsResource, :resource =&gt; iucn_resource, :agent =&gt; Agent.iucn</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line305">305</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line306">306</a> create_if_not_exists TocItem, :label =&gt; 'Overview', :view_order =&gt; 1</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line307">307</a> description = create_if_not_exists TocItem, :label =&gt; 'Description', :view_order =&gt; 2</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line308">308</a> create_if_not_exists TocItem, :label =&gt; 'Nucleotide Sequences', :view_order =&gt; 3, :parent_id =&gt; description.id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line309">309</a> ecology_and_distribution = create_if_not_exists TocItem, :label =&gt; 'Ecology and Distribution', :view_order =&gt; 4</pre></td>
+            <td><pre><a name="line278">278</a> </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line310">310</a> #--</pre></td>
+            <td><pre><a name="line279">279</a> # This is out of ourder, of course, because it depends on the IUCN resource.</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line311">311</a> names_and_taxonomy = create_if_not_exists TocItem, :label =&gt; 'Names and Taxonomy', :view_order =&gt; 50</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line312">312</a> create_if_not_exists TocItem, :label =&gt; 'Related Names', :view_order =&gt; 51, :parent_id =&gt; names_and_taxonomy.id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line313">313</a> create_if_not_exists TocItem, :label =&gt; 'Synonyms', :view_order =&gt; 52, :parent_id =&gt; names_and_taxonomy.id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line314">314</a> create_if_not_exists TocItem, :label =&gt; 'Common Names', :view_order =&gt; 53, :parent_id =&gt; names_and_taxonomy.id</pre></td>
+            <td><pre><a name="line280">280</a> create_if_not_exists HarvestEvent, :resource_id =&gt; iucn_resource.id</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line315">315</a> #--</pre></td>
+            <td><pre><a name="line281">281</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line316">316</a> page_stats = create_if_not_exists TocItem, :label =&gt; 'Page Statistics', :view_order =&gt; 57</pre></td>
+            <td><pre><a name="line282">282</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'Administrative'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line317">317</a> create_if_not_exists TocItem, :label =&gt; 'Content Summary', :view_order =&gt; 58, :parent_id =&gt; page_stats.id</pre></td>
+            <td><pre><a name="line283">283</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'Data Administrator'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line284">284</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'Data Host'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line285">285</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'Data Supplier'        # content_partner_upload_role</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line286">286</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'System Administrator'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line287">287</a> create_if_not_exists ResourceAgentRole, :label =&gt; 'Technical Host'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line288">288</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line289">289</a> create_if_not_exists ResourceStatus, :label =&gt; 'Uploading'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line290">290</a> create_if_not_exists ResourceStatus, :label =&gt; 'Uploaded'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line291">291</a> create_if_not_exists ResourceStatus, :label =&gt; 'Upload Failed'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line292">292</a> create_if_not_exists ResourceStatus, :label =&gt; 'Moved to Content Server'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line293">293</a> create_if_not_exists ResourceStatus, :label =&gt; 'Validated'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line294">294</a> create_if_not_exists ResourceStatus, :label =&gt; 'Validation Failed'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line295">295</a> create_if_not_exists ResourceStatus, :label =&gt; 'Being Processed'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line296">296</a> create_if_not_exists ResourceStatus, :label =&gt; 'Processed'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line297">297</a> create_if_not_exists ResourceStatus, :label =&gt; 'Processing Failed'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line298">298</a> create_if_not_exists ResourceStatus, :label =&gt; 'Published'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line299">299</a> create_if_not_exists ResourceStatus, :label =&gt; 'Publish Pending'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line300">300</a> create_if_not_exists ResourceStatus, :label =&gt; 'Unpublish Pending'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line301">301</a> create_if_not_exists ResourceStatus, :label =&gt; 'Force Harvest'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line302">302</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line303">303</a> KnownPrivileges.create_all</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line304">304</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line305">305</a> SpecialList.create_all</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line306">306</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line307">307</a> Community.create_special</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line308">308</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line309">309</a> create_if_not_exists TocItem, :label =&gt; 'Overview', :view_order =&gt; 1</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line310">310</a> description = create_if_not_exists TocItem, :label =&gt; 'Description', :view_order =&gt; 2</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line311">311</a> create_if_not_exists TocItem, :label =&gt; 'Nucleotide Sequences', :view_order =&gt; 3, :parent_id =&gt; description.id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line312">312</a> ecology_and_distribution = create_if_not_exists TocItem, :label =&gt; 'Ecology and Distribution', :view_order =&gt; 4</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line313">313</a> #--</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line314">314</a> names_and_taxonomy = create_if_not_exists TocItem, :label =&gt; 'Names and Taxonomy', :view_order =&gt; 50</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line315">315</a> create_if_not_exists TocItem, :label =&gt; 'Related Names', :view_order =&gt; 51, :parent_id =&gt; names_and_taxonomy.id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line316">316</a> create_if_not_exists TocItem, :label =&gt; 'Synonyms', :view_order =&gt; 52, :parent_id =&gt; names_and_taxonomy.id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line317">317</a> create_if_not_exists TocItem, :label =&gt; 'Common Names', :view_order =&gt; 53, :parent_id =&gt; names_and_taxonomy.id</pre></td>
           </tr>
         
           
@@ -1965,619 +1965,619 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line319">319</a> create_if_not_exists TocItem, :label =&gt; 'Biodiversity Heritage Library', :view_order =&gt; 61</pre></td>
+            <td><pre><a name="line319">319</a> page_stats = create_if_not_exists TocItem, :label =&gt; 'Page Statistics', :view_order =&gt; 57</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line320">320</a> ref_and_info = create_if_not_exists TocItem, :label =&gt; 'References and More Information', :view_order =&gt; 62</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line321">321</a> </pre></td>
+            <td><pre><a name="line320">320</a> create_if_not_exists TocItem, :label =&gt; 'Content Summary', :view_order =&gt; 58, :parent_id =&gt; page_stats.id</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line322">322</a> # Note that in all these &quot;children&quot;, the view_order resets.  ...That reflects the real DB.</pre></td>
+            <td><pre><a name="line321">321</a> #--</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line323">323</a> create_if_not_exists TocItem, :label =&gt; 'Literature References', :view_order =&gt; 64, :parent_id =&gt; ref_and_info.id</pre></td>
+            <td><pre><a name="line322">322</a> create_if_not_exists TocItem, :label =&gt; 'Biodiversity Heritage Library', :view_order =&gt; 61</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line324">324</a> create_if_not_exists TocItem, :label =&gt; 'Content Partners',      :view_order =&gt; 65, :parent_id =&gt; ref_and_info.id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line325">325</a> create_if_not_exists TocItem, :label =&gt; 'Biomedical Terms',      :view_order =&gt; 66, :parent_id =&gt; ref_and_info.id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line326">326</a> create_if_not_exists TocItem, :label =&gt; 'Search the Web',        :view_order =&gt; 67, :parent_id =&gt; ref_and_info.id</pre></td>
+            <td><pre><a name="line323">323</a> ref_and_info = create_if_not_exists TocItem, :label =&gt; 'References and More Information', :view_order =&gt; 62</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line327">327</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line328">328</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology',</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line329">329</a>   :label =&gt; 'TaxonBiology', :toc_item =&gt; TocItem.overview</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line330">330</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription',</pre></td>
+            <td><pre><a name="line324">324</a> </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line331">331</a>   :label =&gt; 'GeneralDescription', :toc_item =&gt; description</pre></td>
+            <td><pre><a name="line325">325</a> # Note that in all these &quot;children&quot;, the view_order resets.  ...That reflects the real DB.</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line332">332</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution',</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line333">333</a>   :label =&gt; 'Distribution', :toc_item =&gt; ecology_and_distribution</pre></td>
+            <td><pre><a name="line326">326</a> create_if_not_exists TocItem, :label =&gt; 'Literature References', :view_order =&gt; 64, :parent_id =&gt; ref_and_info.id</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line334">334</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat',</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line335">335</a>   :label =&gt; 'Habitat', :toc_item =&gt; ecology_and_distribution</pre></td>
+            <td><pre><a name="line327">327</a> create_if_not_exists TocItem, :label =&gt; 'Content Partners',      :view_order =&gt; 65, :parent_id =&gt; ref_and_info.id</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line336">336</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology',</pre></td>
+            <td><pre><a name="line328">328</a> create_if_not_exists TocItem, :label =&gt; 'Biomedical Terms',      :view_order =&gt; 66, :parent_id =&gt; ref_and_info.id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line329">329</a> create_if_not_exists TocItem, :label =&gt; 'Search the Web',        :view_order =&gt; 67, :parent_id =&gt; ref_and_info.id</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line337">337</a>   :label =&gt; 'Morphology', :toc_item =&gt; description</pre></td>
+            <td><pre><a name="line330">330</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line338">338</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Conservation',</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line339">339</a>   :label =&gt; 'Conservation', :toc_item =&gt; description</pre></td>
+            <td><pre><a name="line331">331</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#TaxonBiology',</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line340">340</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',</pre></td>
+            <td><pre><a name="line332">332</a>   :label =&gt; 'TaxonBiology', :toc_item =&gt; TocItem.overview</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line341">341</a>   :label =&gt; 'Uses', :toc_item =&gt; description</pre></td>
+          <tr class="marked">
+            <td><pre><a name="line333">333</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line342">342</a> </pre></td>
+            <td><pre><a name="line334">334</a>   :label =&gt; 'GeneralDescription', :toc_item =&gt; description</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line343">343</a> create_if_not_exists ServiceType, :label =&gt; 'EOL Transfer Schema'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line344">344</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line345">345</a> create_if_not_exists Status, :label =&gt; 'Inserted'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line346">346</a> create_if_not_exists Status, :label =&gt; 'Unchanged'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line347">347</a> create_if_not_exists Status, :label =&gt; 'Updated'</pre></td>
+            <td><pre><a name="line335">335</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Distribution',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line348">348</a> </pre></td>
+            <td><pre><a name="line336">336</a>   :label =&gt; 'Distribution', :toc_item =&gt; ecology_and_distribution</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line349">349</a> create_if_not_exists UntrustReason, :label =&gt; 'Misidentified'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line350">350</a> create_if_not_exists UntrustReason, :label =&gt; 'Incorrect'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line351">351</a> create_if_not_exists UntrustReason, :label =&gt; 'Poor'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line352">352</a> create_if_not_exists UntrustReason, :label =&gt; 'Duplicate'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line353">353</a> create_if_not_exists UntrustReason, :label =&gt; 'Other'</pre></td>
+            <td><pre><a name="line337">337</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Habitat',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line354">354</a> </pre></td>
+            <td><pre><a name="line338">338</a>   :label =&gt; 'Habitat', :toc_item =&gt; ecology_and_distribution</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line355">355</a> create_if_not_exists Vetted, :label =&gt; 'Unknown', :view_order =&gt; 2    # This really wants an ID of 0, but only for PHP stuff.</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line356">356</a> create_if_not_exists Vetted, :label =&gt; 'Untrusted', :view_order =&gt; 3</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line357">357</a> create_if_not_exists Vetted, :label =&gt; 'Trusted', :view_order =&gt; 1</pre></td>
+            <td><pre><a name="line339">339</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Morphology',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line358">358</a> </pre></td>
+            <td><pre><a name="line340">340</a>   :label =&gt; 'Morphology', :toc_item =&gt; description</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line359">359</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;synonym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line360">360</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;common name&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line361">361</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;acronym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line362">362</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;anamorph&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line363">363</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;blast name&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line364">364</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;equivalent name&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line365">365</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;genbank acronym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line366">366</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;genbank anamorph&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line367">367</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;genbank common name&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line368">368</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;genbank synonym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line369">369</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;in-part&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line370">370</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;includes&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line371">371</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;misnomer&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line372">372</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;misspelling&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line373">373</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;teleomorph&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line374">374</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;ambiguous synonym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line375">375</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;misapplied name&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line376">376</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;provisionally accepted name&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line377">377</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;accepted name&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line378">378</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;database artifact&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line379">379</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;other, see comments&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line380">380</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;orthographic variant (misspelling)&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line381">381</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;misapplied&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line382">382</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;rejected name&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line383">383</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;homonym (illegitimate)&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line384">384</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;pro parte&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line385">385</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;superfluous renaming (illegitimate)&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line386">386</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;nomen oblitum&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line387">387</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;junior synonym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line388">388</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, database artifact&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line389">389</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unnecessary replacement&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line390">390</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;subsequent name/combination&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line391">391</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, literature misspelling&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line392">392</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;original name/combination&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line393">393</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, incorrect orig. spelling&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line394">394</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;junior homonym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line395">395</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;homonym &amp; junior synonym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line396">396</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, suppressed by ruling&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line397">397</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unjustified emendation&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line398">398</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, other&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line399">399</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, nomen nudum&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line400">400</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;nomen dubium&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line401">401</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;invalidly published, other&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line402">402</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;invalidly published, nomen nudum&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line403">403</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;basionym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line404">404</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;heterotypic synonym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line405">405</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;homotypic synonym&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line406">406</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable name&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line407">407</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;valid name&quot;</pre></td>
+            <td><pre><a name="line341">341</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Conservation',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line408">408</a> </pre></td>
+            <td><pre><a name="line342">342</a>   :label =&gt; 'Conservation', :toc_item =&gt; description</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line409">409</a> create_if_not_exists Visibility, :label =&gt; 'Invisible' # This  wants an ID of 0, but will fix itself (see class)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line410">410</a> create_if_not_exists Visibility, :label =&gt; 'Visible'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line411">411</a> create_if_not_exists Visibility, :label =&gt; 'Preview'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line412">412</a> create_if_not_exists Visibility, :label =&gt; 'Inappropriate'</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line413">413</a> create_if_not_exists Visibility, :label =&gt; 'Visible' </pre></td>
+            <td><pre><a name="line343">343</a> create_if_not_exists InfoItem, :schema_value =&gt; 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#Uses',</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line414">414</a> </pre></td>
+            <td><pre><a name="line344">344</a>   :label =&gt; 'Uses', :toc_item =&gt; description</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line415">415</a> # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line416">416</a> # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:</pre></td>
+            <td><pre><a name="line345">345</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line417">417</a> RandomHierarchyImage.delete_all</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line418">418</a> 10.times { RandomHierarchyImage.gen(:hierarchy =&gt; default_hierarchy) }</pre></td>
+            <td><pre><a name="line346">346</a> create_if_not_exists ServiceType, :label =&gt; 'EOL Transfer Schema'</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line419">419</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line420">420</a> # This prevents us from loading things twice, which it seems we were doing a lot!</pre></td>
+            <td><pre><a name="line347">347</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line421">421</a> User.gen :username =&gt; 'foundation_already_loaded'</pre></td>
+            <td><pre><a name="line348">348</a> create_if_not_exists Status, :label =&gt; 'Inserted'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line349">349</a> create_if_not_exists Status, :label =&gt; 'Unchanged'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line350">350</a> create_if_not_exists Status, :label =&gt; 'Updated'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line351">351</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line352">352</a> create_if_not_exists UntrustReason, :label =&gt; 'Misidentified'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line353">353</a> create_if_not_exists UntrustReason, :label =&gt; 'Incorrect'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line354">354</a> create_if_not_exists UntrustReason, :label =&gt; 'Poor'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line355">355</a> create_if_not_exists UntrustReason, :label =&gt; 'Duplicate'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line356">356</a> create_if_not_exists UntrustReason, :label =&gt; 'Other'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line357">357</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line358">358</a> create_if_not_exists Vetted, :label =&gt; 'Unknown', :view_order =&gt; 2    # This really wants an ID of 0, but only for PHP stuff.</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line359">359</a> create_if_not_exists Vetted, :label =&gt; 'Untrusted', :view_order =&gt; 3</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line360">360</a> create_if_not_exists Vetted, :label =&gt; 'Trusted', :view_order =&gt; 1</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line361">361</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line362">362</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;synonym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line363">363</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;common name&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line364">364</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;acronym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line365">365</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;anamorph&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line366">366</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;blast name&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line367">367</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;equivalent name&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line368">368</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;genbank acronym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line369">369</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;genbank anamorph&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line370">370</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;genbank common name&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line371">371</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;genbank synonym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line372">372</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;in-part&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line373">373</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;includes&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line374">374</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;misnomer&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line375">375</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;misspelling&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line376">376</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;teleomorph&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line377">377</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;ambiguous synonym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line378">378</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;misapplied name&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line379">379</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;provisionally accepted name&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line380">380</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;accepted name&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line381">381</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;database artifact&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line382">382</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;other, see comments&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line383">383</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;orthographic variant (misspelling)&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line384">384</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;misapplied&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line385">385</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;rejected name&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line386">386</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;homonym (illegitimate)&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line387">387</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;pro parte&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line388">388</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;superfluous renaming (illegitimate)&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line389">389</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;nomen oblitum&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line390">390</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;junior synonym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line391">391</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, database artifact&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line392">392</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unnecessary replacement&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line393">393</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;subsequent name/combination&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line394">394</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, literature misspelling&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line395">395</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;original name/combination&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line396">396</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, incorrect orig. spelling&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line397">397</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;junior homonym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line398">398</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;homonym &amp; junior synonym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line399">399</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, suppressed by ruling&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line400">400</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unjustified emendation&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line401">401</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, other&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line402">402</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable, nomen nudum&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line403">403</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;nomen dubium&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line404">404</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;invalidly published, other&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line405">405</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;invalidly published, nomen nudum&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line406">406</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;basionym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line407">407</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;heterotypic synonym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line408">408</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;homotypic synonym&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line409">409</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;unavailable name&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line410">410</a> create_if_not_exists SynonymRelation, :label =&gt; &quot;valid name&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line411">411</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line412">412</a> create_if_not_exists Visibility, :label =&gt; 'Invisible' # This  wants an ID of 0, but will fix itself (see class)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line413">413</a> create_if_not_exists Visibility, :label =&gt; 'Visible'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line414">414</a> create_if_not_exists Visibility, :label =&gt; 'Preview'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line415">415</a> create_if_not_exists Visibility, :label =&gt; 'Inappropriate'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line416">416</a> create_if_not_exists Visibility, :label =&gt; 'Visible' </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line417">417</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line418">418</a> # The home-page doesn't render without random taxa.  Note that other scenarios, if they build legitimate RandomTaxa,</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line419">419</a> # will need to DELETE these before they make their own!  But for foundation's purposes, this is required:</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line420">420</a> RandomHierarchyImage.delete_all</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line421">421</a> 10.times { RandomHierarchyImage.gen(:hierarchy =&gt; default_hierarchy) }</pre></td>
           </tr>
         
           
@@ -2589,13 +2589,31 @@
           
           
           <tr class="inferred">
-            <td><pre><a name="line423">423</a> end # THIS WAS NOT INDENTED.  It was an 'if' over almost the whole file, and didn't make sense to.</pre></td>
+            <td><pre><a name="line423">423</a> # This prevents us from loading things twice, which it seems we were doing a lot!</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line424">424</a> User.gen :username =&gt; 'foundation_already_loaded'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line425">425</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line426">426</a> end # THIS WAS NOT INDENTED.  It was an 'if' over almost the whole file, and didn't make sense to.</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:36 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

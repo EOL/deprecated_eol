@@ -30,15 +30,15 @@
             <td class="left_align"><a href="lib-eol_web_service_rb.html">lib/eol_web_service.rb</a></td>
             <td class='right_align'><tt>123</tt></td>
             <td class='right_align'><tt>97</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>39.02%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>26.83%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:39px"></div>
-            <div class="uncovered" style="width:61px"></div>
+            <div class="covered" style="width:27px"></div>
+            <div class="uncovered" style="width:73px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>30.93%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>16.49%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:31px"></div>
-            <div class="uncovered" style="width:69px"></div>
+            <div class="covered" style="width:16px"></div>
+            <div class="uncovered" style="width:84px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -680,31 +680,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line105">105</a>     return uri unless params</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line106">106</a>     params = [params] if params.class == String</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line107">107</a>     uri_parsed = nil # scope</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line108">108</a>     begin</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line109">109</a>       uri_parsed = URI.parse(uri)</pre></td>
           </tr>
         
@@ -728,61 +728,61 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line113">113</a>     return uri unless uri_parsed.respond_to?(:query) and uri_parsed.query</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line114">114</a>     escaped = uri_parsed.query.grep(/&amp;amp;/).size &gt; 0</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line115">115</a>     new_params = uri_parsed.query.gsub(/&amp;amp;/, '&amp;').split('&amp;').reject { |q| params.include?(q.split('=').first) }</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line116">116</a>     uri = uri.split('?').first</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line117">117</a>     amp = escaped ? '&amp;amp;' : '&amp;'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line118">118</a>     params = new_params.join(amp)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line119">119</a>     params.blank? ? uri : &quot;#{uri}?#{params}&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line120">120</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line121">121</a>  </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line122">122</a> end</pre></td>
           </tr>
         
@@ -795,7 +795,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-controllers-content_partner-reports_controller_rb.html">app/controllers/content_partner/reports_controller.rb</a></td>
             <td class='right_align'><tt>122</tt></td>
             <td class='right_align'><tt>104</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>48.36%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>21.31%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:48px"></div>
-            <div class="uncovered" style="width:52px"></div>
+            <div class="covered" style="width:21px"></div>
+            <div class="uncovered" style="width:79px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>41.35%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>13.46%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:41px"></div>
-            <div class="uncovered" style="width:59px"></div>
+            <div class="covered" style="width:13px"></div>
+            <div class="uncovered" style="width:87px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -200,19 +200,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line25">25</a>     @page_header = 'Usage Reports'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>     if(params[:year_month]) then</pre></td>
           </tr>
         
@@ -230,7 +230,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line30">30</a>     elsif(session[:form_year_month]) then</pre></td>
           </tr>
         
@@ -248,7 +248,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line33">33</a>     if(@year_month) then</pre></td>
           </tr>
         
@@ -272,55 +272,55 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line37">37</a>       @year_month   = params[:year] + &quot;_&quot; + &quot;%02d&quot; % params[:month].to_i</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line38">38</a>     else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line39">39</a>       last_month = Time.now - 1.month</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line40">40</a>       @report_year = last_month.year.to_s</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line41">41</a>       @report_month = last_month.month.to_s</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line42">42</a>       @year_month   = @report_year + &quot;_&quot; + &quot;%02d&quot; % @report_month.to_i</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line43">43</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line44">44</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line45">45</a>     if(params[:agent_id]) then</pre></td>
           </tr>
         
@@ -338,7 +338,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line48">48</a>     elsif(session[:form_agent_id]) then</pre></td>
           </tr>
         
@@ -350,31 +350,31 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line50">50</a>     else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line51">51</a>       @agent_id = current_agent.id</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line52">52</a>     end    </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line53">53</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line54">54</a>     if(@year_month &lt;= &quot;2009_11&quot;) then</pre></td>
           </tr>
         
@@ -410,43 +410,43 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line60">60</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line61">61</a>     @content_partners_with_published_data = Agent.content_partners_with_published_data  </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line62">62</a>     @partner = Agent.find(@agent_id, :select =&gt; [:full_name])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line63">63</a>     @recs = GoogleAnalyticsPartnerSummary.summary(@agent_id, @report_year, @report_month)            </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line64">64</a>     page = params[:page] || 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line65">65</a>     @posts = GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)    </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line66">66</a>   end</pre></td>
           </tr>
         
@@ -692,37 +692,37 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line107">107</a>     @page_header = 'Usage Reports'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line108">108</a>     content_partner   = ContentPartner.find_by_agent_id(current_agent.id)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line109">109</a>     @act_histories    = content_partner.taxa_comments_actions_history.paginate(:page =&gt; params[:page] || 1, :per_page =&gt; params[:per_page] || &quot;25&quot;)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line110">110</a>     @sub_page_header  = 'Comments on Taxa'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line111">111</a>     @report_type      = :taxa_comments_report</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line112">112</a>   end</pre></td>
           </tr>
         
@@ -789,7 +789,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

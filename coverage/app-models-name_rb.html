@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-name_rb.html">app/models/name.rb</a></td>
             <td class='right_align'><tt>155</tt></td>
             <td class='right_align'><tt>93</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>94.19%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>73.55%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:94px"></div>
-            <div class="uncovered" style="width:6px"></div>
+            <div class="covered" style="width:74px"></div>
+            <div class="uncovered" style="width:26px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>90.32%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>62.37%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:90px"></div>
-            <div class="uncovered" style="width:10px"></div>
+            <div class="covered" style="width:62px"></div>
+            <div class="uncovered" style="width:38px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -260,13 +260,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line35">35</a>     return canonical_form.nil? ? 'not assigned' : canonical_form.string</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line36">36</a>   end</pre></td>
           </tr>
         
@@ -284,31 +284,31 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line39">39</a>     # hoping these short-circuit messages help with debugging ... likely due to bad/incomplete fixture data?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line40">40</a>     # return &quot;(no canonical form, tc: #{ taxon_concepts.map(&amp;:id).join(',') })&quot; unless canonical_form</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line41">41</a>     return 'not assigned' unless canonical_form and canonical_form.string and not canonical_form.string.empty?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line42">42</a>     return &quot;&lt;i&gt;#{canonical_form.string}&lt;/i&gt;&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line43">43</a>   end</pre></td>
           </tr>
         
@@ -494,67 +494,67 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line74">74</a>     name_string = name_string.strip.gsub(/\s+/,' ') if name_string.class == String</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line75">75</a>     return nil if name_string.blank?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line76">76</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line77">77</a>     common_name = Name.find_by_string(name_string)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line78">78</a>     return common_name unless common_name.blank?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line79">79</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line80">80</a>     common_name = Name.new</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line81">81</a>     common_name.string = name_string</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line82">82</a>     common_name.namebank_id = 0</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line83">83</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line84">84</a>     if !given_canonical_form.blank?</pre></td>
           </tr>
         
@@ -578,25 +578,25 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line88">88</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line89">89</a>     common_name.save!</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line90">90</a>     return common_name</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line91">91</a>   end</pre></td>
           </tr>
         
@@ -614,19 +614,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line94">94</a>     if n = Name.find_by_string(string)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line95">95</a>       return n</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line96">96</a>     end</pre></td>
           </tr>
         
@@ -764,19 +764,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line119">119</a>       self.clean_name = Name.prepare_clean_name(self.string)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line120">120</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line121">121</a>   end</pre></td>
           </tr>
         
@@ -800,13 +800,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line125">125</a>       self.canonical_form = CanonicalForm.find_or_create_by_string(self.string) #all we need to do for common names</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line126">126</a>       self.canonical_verified = 0</pre></td>
           </tr>
         
@@ -854,13 +854,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line134">134</a>       self.italicized = &quot;&lt;i&gt;#{string}&lt;/i&gt;&quot; #all we need to do for common names </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line135">135</a>       self.italicized_verified = 0</pre></td>
           </tr>
         
@@ -987,7 +987,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

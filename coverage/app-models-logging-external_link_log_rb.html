@@ -28,17 +28,17 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="app-models-logging-external_link_log_rb.html">app/models/logging/external_link_log.rb</a></td>
-            <td class='right_align'><tt>35</tt></td>
-            <td class='right_align'><tt>24</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>48.57%</tt></div>
+            <td class='right_align'><tt>33</tt></td>
+            <td class='right_align'><tt>22</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>51.52%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:49px"></div>
-            <div class="uncovered" style="width:51px"></div>
+            <div class="covered" style="width:52px"></div>
+            <div class="uncovered" style="width:48px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>33.33%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>36.36%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:33px"></div>
-            <div class="uncovered" style="width:67px"></div>
+            <div class="covered" style="width:36px"></div>
+            <div class="uncovered" style="width:64px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -177,97 +177,85 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line21">21</a>      if DataObjectLog.data_logging_enabled?</pre></td>
+            <td><pre><a name="line21">21</a>     return nil if external_url.blank? or request.nil? or user.nil?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line22">22</a>        return nil if external_url.blank? or request.nil? or user.nil?</pre></td>
+            <td><pre><a name="line22">22</a>     </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line23">23</a> </pre></td>
+            <td><pre><a name="line23">23</a>     opts = {</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line24">24</a>        opts = {</pre></td>
+            <td><pre><a name="line24">24</a>       :ip_address_raw =&gt; IpAddress.ip2int(request.remote_ip),</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line25">25</a>          :ip_address_raw =&gt; IpAddress.ip2int(request.remote_ip),</pre></td>
+            <td><pre><a name="line25">25</a>       :user_agent =&gt; request.user_agent,</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line26">26</a>          :user_agent =&gt; request.user_agent,</pre></td>
+            <td><pre><a name="line26">26</a>       :path =&gt; request.referer,</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line27">27</a>          :path =&gt; request.referer,</pre></td>
+            <td><pre><a name="line27">27</a>       :external_url =&gt; external_url</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line28">28</a>          :external_url =&gt; external_url</pre></td>
+            <td><pre><a name="line28">28</a>     }</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line29">29</a>        }</pre></td>
+            <td><pre><a name="line29">29</a>     opts[:user_id] = user.id unless user.nil?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line30">30</a>        opts[:user_id] = user.id unless user.nil?</pre></td>
+            <td><pre><a name="line30">30</a>     ExternalLinkLog.create(opts)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line31">31</a>        ExternalLinkLog.create(opts)</pre></td>
+            <td><pre><a name="line31">31</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line32">32</a>      end</pre></td>
+            <td><pre><a name="line32">32</a>    </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line33">33</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line34">34</a>    </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line35">35</a> end</pre></td>
+            <td><pre><a name="line33">33</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

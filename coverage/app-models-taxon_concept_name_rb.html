@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-taxon_concept_name_rb.html">app/models/taxon_concept_name.rb</a></td>
             <td class='right_align'><tt>29</tt></td>
             <td class='right_align'><tt>23</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>86.21%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>48.28%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:86px"></div>
-            <div class="uncovered" style="width:14px"></div>
+            <div class="covered" style="width:48px"></div>
+            <div class="uncovered" style="width:52px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>82.61%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>39.13%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:83px"></div>
-            <div class="uncovered" style="width:17px"></div>
+            <div class="covered" style="width:39px"></div>
+            <div class="uncovered" style="width:61px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -122,25 +122,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line12">12</a>     raw_update_attribute(:vetted_id, vet_obj.id)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line13">13</a>     synonym.update_attributes!(:vetted =&gt; vet_obj) if synonym # There *are* TCNs in prod w/o synonyms (from CoL, I think)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>     by_whom.track_curator_activity(self, 'taxon_concept_name', vet_obj.to_action)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>   end</pre></td>
           </tr>
         
@@ -164,19 +164,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>     raise &quot;Invalid key&quot; unless self.respond_to? key</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>     TaxonConceptName.connection.execute(ActiveRecord::Base.sanitize_sql_array([%Q{</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>       UPDATE `#{self.class.table_name}`</pre></td>
           </tr>
         
@@ -206,32 +206,32 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>     }, val, self[:name_id], self[:taxon_concept_id], self[:source_hierarchy_entry_id]]))</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line28">28</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line29">29</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

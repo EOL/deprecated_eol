@@ -28,17 +28,17 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="lib-core_extensions_rb.html">lib/core_extensions.rb</a></td>
-            <td class='right_align'><tt>400</tt></td>
-            <td class='right_align'><tt>286</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>82.25%</tt></div>
+            <td class='right_align'><tt>406</tt></td>
+            <td class='right_align'><tt>291</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>55.42%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:82px"></div>
-            <div class="uncovered" style="width:18px"></div>
+            <div class="covered" style="width:55px"></div>
+            <div class="uncovered" style="width:45px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>77.27%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>42.96%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:77px"></div>
-            <div class="uncovered" style="width:23px"></div>
+            <div class="covered" style="width:43px"></div>
+            <div class="uncovered" style="width:57px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -308,7 +308,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line43">43</a>       return strftime(&quot;%Y-%m-%d %H:%M:%S&quot;)</pre></td>
           </tr>
         
@@ -332,7 +332,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line47">47</a>       return strftime(&quot;%Y-%m-%dT%H:%M:%SZ&quot;)</pre></td>
           </tr>
         
@@ -464,19 +464,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line69">69</a>     return '[DATA MISSING]'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line70">70</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line71">71</a> end</pre></td>
           </tr>
         
@@ -512,37 +512,37 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line77">77</a>     # Remember, inline regexes can leak memory.  Storing as variables avoids this.</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line78">78</a>     @@normalization_regex ||= /[;:,\.\(\)\[\]\!\?\*_\\\/\&quot;\']/</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line79">79</a>     @@spaces_regex        ||= /\s+/</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line80">80</a>     @@tag_regex           ||= /&lt;[^&gt;]*&gt;/</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line81">81</a>     name = self.clone</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line82">82</a>     return name.downcase.gsub(@@normalization_regex, '').gsub(@@tag_regex, '').gsub(@@spaces_regex, ' ')</pre></td>
           </tr>
         
@@ -572,13 +572,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line87">87</a>     self.gsub(/&lt;\/?i&gt;/i, &quot;&quot;)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line88">88</a>   end</pre></td>
           </tr>
         
@@ -650,79 +650,79 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line100">100</a>     # inline RegEx passed to gsub calls leak memory! We declare them first:</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line101">101</a>     @allowed_attributes_in_allow_some_html = /\s*\/|\s+href=['&quot;][^'&quot;]+['&quot;]/ </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line102">102</a>     start_tag   = /&lt;/</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line103">103</a>     end_tag     = /&gt;/</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line104">104</a>     line_breaks = /\r\n/</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line105">105</a>     text = self.gsub(start_tag, '&amp;lt;')</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line106">106</a>     text.gsub!(end_tag, '&amp;gt;')</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line107">107</a>     ['a', 'b', 'blockquote', 'br', 'em', 'i', 'p', 'small', 'strong', 'cite'].each do |tag|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line108">108</a>       tag_regex = /&amp;lt;(\/)?#{tag}(#{@allowed_attributes_in_allow_some_html})?\s*&amp;gt;/i</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line109">109</a>       text.gsub!(tag_regex, &quot;&lt;\\1#{tag.gsub(/strong/, 'b')}\\2&gt;&quot;)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line110">110</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line111">111</a>     return text.gsub(line_breaks, '&lt;br/&gt;')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line112">112</a>   end</pre></td>
           </tr>
         
@@ -740,19 +740,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line115">115</a>     @firstcap_regex = /^(&lt;[^&gt;]*&gt;)?(['&quot;])?([^ ]+)( |$)/</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line116">116</a>     self.gsub(@firstcap_regex) { $1.to_s + $2.to_s + $3.capitalize + $4 }</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line117">117</a>   end</pre></td>
           </tr>
         
@@ -770,19 +770,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line120">120</a>     @firstcap_regex = /^(&lt;[^&gt;]*&gt;)?(['&quot;])?([^ ]+)( |$)/</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line121">121</a>     self.gsub!(@firstcap_regex) { $1.to_s + $2.to_s + $3.capitalize + $4 }</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line122">122</a>   end</pre></td>
           </tr>
         
@@ -824,13 +824,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line129">129</a>     ['address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var', 'legend', 'fieldset']</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line130">130</a>   end</pre></td>
           </tr>
         
@@ -848,187 +848,187 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line133">133</a>     text = self</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line134">134</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line135">135</a>     eol_relaxed = {</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line136">136</a>       :elements =&gt; appropriate_html_tags,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line137">137</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line138">138</a>     #width, height and postion removed to prevent hardcoding in provider's HTML</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line139">139</a>       :attributes =&gt; {</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line140">140</a>         'a'          =&gt; ['class', 'href', 'rel', 'style', 'target', 'title'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line141">141</a>         'blockquote' =&gt; ['cite'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line142">142</a>         'cite'       =&gt; ['id', 'style'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line143">143</a>         'col'        =&gt; ['span', 'width'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line144">144</a>         'colgroup'   =&gt; ['span', 'width'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line145">145</a>         'div'        =&gt; ['id', 'class', 'style'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line146">146</a>         'embed'      =&gt; ['id', 'type', 'src', 'flashvars'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line147">147</a>         'img'        =&gt; ['align', 'alt', 'src', 'title', 'rel'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line148">148</a>         'li'         =&gt; ['class', 'id'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line149">149</a>         'ol'         =&gt; ['class', 'id', 'start', 'type'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line150">150</a>         'q'          =&gt; ['cite'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line151">151</a>         'script'     =&gt; ['type'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line152">152</a>         'style'      =&gt; ['align', 'alt', 'background', 'border', 'color', 'dir', 'font', 'font-family', 'font-size', 'font-style', 'font-weight', 'lang', 'line-height', 'margin', 'margin-left', 'margin-right', 'margin-top', 'media', 'padding', 'src', 'text-align', 'text-decoration', 'text-indent', 'title', 'type'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line153">153</a>         'span'       =&gt; ['class', 'id', 'style', 'title'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line154">154</a>         'sub'        =&gt; ['class', 'id', 'title', 'style'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line155">155</a>         'sup'        =&gt; ['class', 'id', 'title', 'style'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line156">156</a>         'table'      =&gt; ['summary', 'width', 'cellspacing', 'class', 'id', 'title', 'style'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line157">157</a>         'td'         =&gt; ['abbr', 'axis', 'colspan', 'rowspan', 'width', 'class', 'title', 'style'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line158">158</a>         'tr'         =&gt; ['style'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line159">159</a>         'th'         =&gt; ['abbr', 'axis', 'class', 'colspan', 'rowspan', 'scope', 'style',</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line160">160</a>                          'width'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line161">161</a>         'ul'         =&gt; ['type'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line162">162</a>         'fieldset'   =&gt; ['class', 'rel'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line163">163</a>         'legend'     =&gt; ['class']</pre></td>
           </tr>
         
@@ -1094,25 +1094,25 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line174">174</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line175">175</a>     Sanitize.clean(text, eol_relaxed)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line176">176</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line177">177</a>   end</pre></td>
           </tr>
         
@@ -1178,13 +1178,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line188">188</a>     self.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line189">189</a>   end</pre></td>
           </tr>
         
@@ -1454,61 +1454,61 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line234">234</a>     used_values = []</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line235">235</a>     hashes_to_delete = []</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line236">236</a>     self.each_with_index do |h, index|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line237">237</a>       hashes_to_delete &lt;&lt; h if used_values.include?(h[attribute])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line238">238</a>       used_values &lt;&lt; h[attribute]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line239">239</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line240">240</a>     for h in hashes_to_delete</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line241">241</a>       self.delete(h)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line242">242</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line243">243</a>   end</pre></td>
           </tr>
         
@@ -1544,79 +1544,79 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line249">249</a>     used_values = []</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line250">250</a>     objects_to_delete = []</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line251">251</a>     self.each_with_index do |obj, index|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line252">252</a>       value = obj.send(attribute.to_sym)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line253">253</a>       objects_to_delete &lt;&lt; obj if used_values.include?(value)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line254">254</a>       used_values &lt;&lt; value</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line255">255</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line256">256</a>     for obj in objects_to_delete</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line257">257</a>       self.delete(obj)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line258">258</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line259">259</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line260">260</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line261">261</a> end</pre></td>
           </tr>
         
@@ -2096,13 +2096,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line341">341</a>         database_name + '.' + table_name</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line342">342</a>       end</pre></td>
           </tr>
         
@@ -2174,230 +2174,230 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line354">354</a>         @database_name ||= self.connection.execute('select database()').fetch_row[0]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line355">355</a>       end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line356">356</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line357">357</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line358">358</a>     </pre></td>
+            <td><pre><a name="line356">356</a>       </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line359">359</a>     def self.with_master(&amp;block)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line360">360</a>       if self.connection.respond_to? 'with_master'</pre></td>
+            <td><pre><a name="line357">357</a>       def reload</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line361">361</a>         self.connection.set_to_master!</pre></td>
+            <td><pre><a name="line358">358</a>         self.with_master do</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line362">362</a>         something = yield</pre></td>
+            <td><pre><a name="line359">359</a>           super</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line363">363</a>         self.connection.set_to_slave!</pre></td>
+            <td><pre><a name="line360">360</a>         end</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line364">364</a>         something</pre></td>
+            <td><pre><a name="line361">361</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line362">362</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line363">363</a>     end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line365">365</a>       else</pre></td>
+            <td><pre><a name="line364">364</a>     </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line366">366</a>         yield</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line367">367</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line368">368</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line369">369</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line370">370</a>   </pre></td>
+            <td><pre><a name="line365">365</a>     def self.with_master(&amp;block)</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line371">371</a>   module ConnectionAdapters</pre></td>
+            <td><pre><a name="line366">366</a>       if self.connection.respond_to? 'with_master'</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line372">372</a>     class MysqlAdapter</pre></td>
+            <td><pre><a name="line367">367</a>         self.connection.set_to_master!</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line373">373</a>       def config</pre></td>
+            <td><pre><a name="line368">368</a>         something = yield</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line374">374</a>         return @config</pre></td>
+            <td><pre><a name="line369">369</a>         self.connection.set_to_slave!</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line370">370</a>         something</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line371">371</a>       else</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line372">372</a>         yield</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line373">373</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line374">374</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line375">375</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line375">375</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line376">376</a>       </pre></td>
+            <td><pre><a name="line376">376</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line377">377</a>       def command_line_parameters</pre></td>
+            <td><pre><a name="line377">377</a>   module ConnectionAdapters</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line378">378</a>         mysql_params = &quot;--host='#{@config[:host]}' --user='#{@config[:username]}' --password='#{@config[:password]}'&quot;</pre></td>
+            <td><pre><a name="line378">378</a>     class MysqlAdapter</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line379">379</a>         mysql_params += &quot; --port='#{@config[:port]}'&quot; unless @config[:port].blank?</pre></td>
+            <td><pre><a name="line379">379</a>       def config</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line380">380</a>         mysql_params += &quot; --default-character-set='#{@config[:encoding]}'&quot; unless @config[:encoding].blank?</pre></td>
+            <td><pre><a name="line380">380</a>         return @config</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line381">381</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line382">382</a>       </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line381">381</a>         return mysql_params</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line382">382</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line383">383</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line384">384</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line385">385</a> end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line386">386</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line387">387</a> </pre></td>
+            <td><pre><a name="line383">383</a>       def command_line_parameters</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line388">388</a> class Float</pre></td>
+            <td><pre><a name="line384">384</a>         mysql_params = &quot;--host='#{@config[:host]}' --user='#{@config[:username]}' --password='#{@config[:password]}'&quot;</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line389">389</a>   def round_to(x)</pre></td>
+            <td><pre><a name="line385">385</a>         mysql_params += &quot; --port='#{@config[:port]}'&quot; unless @config[:port].blank?</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line390">390</a>     (self * 10**x).round.to_f / 10**x</pre></td>
+            <td><pre><a name="line386">386</a>         mysql_params += &quot; --default-character-set='#{@config[:encoding]}'&quot; unless @config[:encoding].blank?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line387">387</a>         return mysql_params</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line391">391</a>   end</pre></td>
+            <td><pre><a name="line388">388</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line389">389</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line390">390</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line391">391</a> end</pre></td>
           </tr>
         
           
@@ -2408,56 +2408,92 @@
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line393">393</a>   def ceil_to(x)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line394">394</a>     (self * 10**x).ceil.to_f / 10**x</pre></td>
-          </tr>
-        
-          
-          
           <tr class="inferred">
-            <td><pre><a name="line395">395</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line396">396</a> </pre></td>
+            <td><pre><a name="line393">393</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line397">397</a>   def floor_to(x)</pre></td>
+            <td><pre><a name="line394">394</a> class Float</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line398">398</a>     (self * 10**x).floor.to_f / 10**x</pre></td>
+            <td><pre><a name="line395">395</a>   def round_to(x)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line396">396</a>     (self * 10**x).round.to_f / 10**x</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line397">397</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line399">399</a>   end</pre></td>
+            <td><pre><a name="line398">398</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line399">399</a>   def ceil_to(x)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line400">400</a>     (self * 10**x).ceil.to_f / 10**x</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line401">401</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line400">400</a> end</pre></td>
+            <td><pre><a name="line402">402</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line403">403</a>   def floor_to(x)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line404">404</a>     (self * 10**x).floor.to_f / 10**x</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line405">405</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line406">406</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

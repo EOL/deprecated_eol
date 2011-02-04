@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-controllers-tags_controller_rb.html">app/controllers/tags_controller.rb</a></td>
             <td class='right_align'><tt>151</tt></td>
             <td class='right_align'><tt>100</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>41.72%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>35.76%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:42px"></div>
-            <div class="uncovered" style="width:58px"></div>
+            <div class="covered" style="width:36px"></div>
+            <div class="uncovered" style="width:64px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>21.00%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>13.00%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:21px"></div>
-            <div class="uncovered" style="width:79px"></div>
+            <div class="covered" style="width:13px"></div>
+            <div class="uncovered" style="width:87px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -104,31 +104,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line9">9</a>     current_user.log_activity(:showing_tags_on_data_object_id, :value =&gt; @data_object.id)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line10">10</a>     @public_tags = @data_object.public_tags     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line11">11</a>     @private_tags = current_user.tags_for @data_object if logged_in?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line12">12</a>     render :template =&gt; 'tags/public_or_private'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line13">13</a>   end</pre></td>
           </tr>
         
@@ -201,7 +201,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line25">25</a>       rescue FailedToCreateTag =&gt; e</pre></td>
+            <td><pre><a name="line25">25</a>       rescue EOL::Exceptions::FailedToCreateTag =&gt; e</pre></td>
           </tr>
         
           
@@ -938,32 +938,32 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line148">148</a>     @data_object = DataObject.find params[:data_object_id].to_i if params[:data_object_id]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line149">149</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line150">150</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line151">151</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

@@ -30,15 +30,15 @@
             <td class="left_align"><a href="lib-eol-solr-search_rb.html">lib/eol/solr/search.rb</a></td>
             <td class='right_align'><tt>72</tt></td>
             <td class='right_align'><tt>57</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>98.61%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>27.78%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:99px"></div>
-            <div class="uncovered" style="width:1px"></div>
+            <div class="covered" style="width:28px"></div>
+            <div class="uncovered" style="width:72px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>98.25%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>12.28%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:98px"></div>
-            <div class="uncovered" style="width:2px"></div>
+            <div class="covered" style="width:12px"></div>
+            <div class="uncovered" style="width:88px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -104,115 +104,115 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line9">9</a>         options[:page]        ||= 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line10">10</a>         options[:per_page]    ||= 10</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line11">11</a>         options[:per_page]      = 10 if options[:per_page] == 0</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line12">12</a>         options[:search_type] ||= :common_name</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line13">13</a>         clean_query = options[:escape_query_underscore] ? query.gsub('_', ' ') : query # Handles some of the &quot;clean&quot; URL &quot;ids&quot; that may get passed in.</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>         querystring = ''</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>         if clean_query =~ /:/ # This was passed in as a prepared querystring TODO - this s/b a separate method</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line16">16</a>           querystring  = clean_query</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>           @@field_spec = /\w+:/</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line18">18</a>           query        = clean_query.gsub(@@field_spec, '') # TODO - this may not handle complex querystrings well.</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>         else # This was just a raw string, we need to make a query out of it:</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>           querystring = prepare_querystring(clean_query, options)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>         end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>         res  = solr_search(querystring, options)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>         data = EOL::SearchResultsCollection.new(res['response']['docs'],</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line24">24</a>                                                 options.merge(:total_results =&gt; res['response']['numFound'],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line25">25</a>                                                               :querystring   =&gt; query))</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>         data.paginate(options)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>       end</pre></td>
           </tr>
         
@@ -254,55 +254,55 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line34">34</a>         if options[:type] == :all</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line35">35</a>           if options[:exact]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line36">36</a>             literal_query = &quot;scientific_name_exact:\&quot;#{query}\&quot; OR common_name_exact:\&quot;#{query}\&quot;&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line37">37</a>           else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line38">38</a>             literal_query = &quot;(scientific_name:\&quot;#{query}\&quot; scientific_name_exact:\&quot;#{query}\&quot;^100) OR (common_name:\&quot;#{query}\&quot; common_name_exact:\&quot;#{query}\&quot;^100)&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line39">39</a>           end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line40">40</a>         else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line41">41</a>           field = options[:type] == :common ? 'common_name' : 'scientific_name'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line42">42</a>           if options[:exact]</pre></td>
           </tr>
         
@@ -314,49 +314,49 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line44">44</a>           else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line45">45</a>             literal_query = &quot;#{field}:\&quot;#{query}\&quot; #{field}_exact:\&quot;#{query}\&quot;^100&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line46">46</a>           end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line47">47</a>         end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line48">48</a>         query = query.gsub /\s+/, ' '</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line49">49</a>         query = query.split(' ').map {|w| &quot;+#{w}&quot;}.join(' ')</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line50">50</a>         query = &quot;(#{literal_query})&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line51">51</a>       end</pre></td>
           </tr>
         
@@ -398,98 +398,98 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line58">58</a>         url =  $SOLR_SERVER + '/select/?version=2.2&amp;indent=on&amp;wt=json&amp;q='</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line59">59</a>         url &lt;&lt; URI.encode(%Q[{!lucene} #{query} AND published:1 AND supercedure_id:0])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line60">60</a>         limit  = options[:per_page] ? options[:per_page].to_i : 10</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line61">61</a>         page = options[:page] ? options[:page].to_i : 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line62">62</a>         offset = (page - 1) * limit</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line63">63</a>         url &lt;&lt; '&amp;start=' &lt;&lt; URI.encode(offset.to_s)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line64">64</a>         url &lt;&lt; '&amp;rows='  &lt;&lt; URI.encode(limit.to_s)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line65">65</a>         #puts 'URA solr' + url</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line66">66</a>         res = open(url).read</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line67">67</a>         JSON.load res</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line68">68</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line69">69</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line70">70</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line71">71</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line72">72</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

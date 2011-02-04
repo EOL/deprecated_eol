@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-data_object_tags_rb.html">app/models/data_object_tags.rb</a></td>
             <td class='right_align'><tt>124</tt></td>
             <td class='right_align'><tt>62</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>86.29%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>70.16%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:86px"></div>
-            <div class="uncovered" style="width:14px"></div>
+            <div class="covered" style="width:70px"></div>
+            <div class="uncovered" style="width:30px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>74.19%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>43.55%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:74px"></div>
-            <div class="uncovered" style="width:26px"></div>
+            <div class="covered" style="width:44px"></div>
+            <div class="uncovered" style="width:56px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -266,19 +266,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line36">36</a>       @minimum_usage_count_for_public_tags ||= DEFAULT_MIN_USAGE_FOR_PUBLIC_TAGS</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line37">37</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line38">38</a>   end</pre></td>
           </tr>
         
@@ -356,7 +356,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line51">51</a>     sql = &quot;SELECT dt.*, count(dt.id) do_count, MAX(t.is_public) is_public</pre></td>
           </tr>
         
@@ -398,19 +398,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line58">58</a>     res = DataObjectTags.find_by_sql(sql);</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line59">59</a>     res.select {|t| (t.do_count.to_i &gt;= DataObjectTags::minimum_usage_count_for_public_tags || (user_id &amp;&amp; t.user_id == user_id.to_i)) || t.is_public }</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line60">60</a>   end</pre></td>
           </tr>
         
@@ -512,31 +512,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line77">77</a>     guid = data_object.guid</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line78">78</a>     tags = self.tags_with_usage_count.find_all_by_data_object_guid guid</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line79">79</a>     tags.map {|t| t.usage_count }</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line80">80</a>     tags.select {|t| t.usage_count.to_i &gt;= DataObjectTags::minimum_usage_count_for_public_tags || t.is_public }.map(&amp;:tag)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line81">81</a>   end</pre></td>
           </tr>
         
@@ -680,49 +680,49 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line105">105</a>     if data_object.is_curatable_by?(user)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line106">106</a>       LastCuratedDate.create(:user_id          =&gt; user.id, </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line107">107</a>                              :taxon_concept_id =&gt; data_object.taxon_concepts(:published =&gt; :preferred)[0].id, </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line108">108</a>                              :last_curated     =&gt; Time.now)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line109">109</a>     end    </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line110">110</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line111">111</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line112">112</a> end</pre></td>
           </tr>
         
@@ -801,7 +801,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

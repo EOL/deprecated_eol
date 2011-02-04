@@ -30,15 +30,15 @@
             <td class="left_align"><a href="lib-model_query_helper_rb.html">lib/model_query_helper.rb</a></td>
             <td class='right_align'><tt>55</tt></td>
             <td class='right_align'><tt>44</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>98.18%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>21.82%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:98px"></div>
-            <div class="uncovered" style="width:2px"></div>
+            <div class="covered" style="width:22px"></div>
+            <div class="uncovered" style="width:78px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>97.73%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>11.36%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:98px"></div>
-            <div class="uncovered" style="width:2px"></div>
+            <div class="covered" style="width:11px"></div>
+            <div class="uncovered" style="width:89px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -68,61 +68,61 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line3">3</a>     new_hash = {}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line4">4</a>     array.each do |e|</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line5">5</a>       # element with index `key` is converted to INT and becomes the hash key</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line6">6</a>       id = e[key].to_i</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line7">7</a>       # array elements are grouped by the `key`</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line8">8</a>       new_hash[id] ||= []</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line9">9</a>       new_hash[id] &lt;&lt; e</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line10">10</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line11">11</a>     return new_hash</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line12">12</a>   end</pre></td>
           </tr>
         
@@ -152,43 +152,43 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>     object_array.each do |obj|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line18">18</a>       if arr = hash[obj.id.to_i]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>         obj[key] = arr</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>     return object_array</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>   end</pre></td>
           </tr>
         
@@ -212,55 +212,55 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>     details_hash.each do |obj|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line28">28</a>       if arr = hash[obj['id'].to_i]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line29">29</a>         obj[key] = arr</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line30">30</a>       else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line31">31</a>         obj[key] = []</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line32">32</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line33">33</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line34">34</a>     return details_hash</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line35">35</a>   end</pre></td>
           </tr>
         
@@ -284,49 +284,49 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line39">39</a>     hash.sort do |a, b|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line40">40</a>       if a['data_type_id'] != b['data_type_id']</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line41">41</a>         a['data_type_id'] &lt;=&gt; b['data_type_id']                 # data type ID ASC</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line42">42</a>       elsif a['toc_view_order'] != b['toc_view_order']</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line43">43</a>         a['toc_view_order'].to_i &lt;=&gt; b['toc_view_order'].to_i   # toc view_order ASC</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line44">44</a>       elsif a['vetted_view_order'] != b['vetted_view_order']</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line45">45</a>         a['vetted_view_order'] &lt;=&gt; b['vetted_view_order']       # vetted view_order ASC</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line46">46</a>       elsif a['data_rating'] != b['data_rating']</pre></td>
           </tr>
         
@@ -338,56 +338,56 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line48">48</a>       else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line49">49</a>         b['id'] &lt;=&gt; a['id']                                     # ID DESC</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line50">50</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line51">51</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line52">52</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line53">53</a>   </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line54">54</a>   </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line55">55</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:36 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-vetted_rb.html">app/models/vetted.rb</a></td>
             <td class='right_align'><tt>64</tt></td>
             <td class='right_align'><tt>40</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>79.69%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>54.69%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:80px"></div>
-            <div class="uncovered" style="width:20px"></div>
+            <div class="covered" style="width:55px"></div>
+            <div class="uncovered" style="width:45px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>70.00%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>35.00%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:70px"></div>
-            <div class="uncovered" style="width:30px"></div>
+            <div class="covered" style="width:35px"></div>
+            <div class="uncovered" style="width:65px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -92,13 +92,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line7">7</a>     cached_find(:label, 'Untrusted')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line8">8</a>   end</pre></td>
           </tr>
         
@@ -140,67 +140,67 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>     cached('unknown') do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line16">16</a>       unknown = Vetted.find_by_label('Unknown')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>       # The ID *must* be 0 (PHP hard-coded; it also kinda makes sense, though we might have allowed nulls instead).</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line18">18</a>       # If it's not, we fix it now:</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>       if unknown.id != 0</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>         Vetted.connection.execute(&quot;UPDATE vetted SET id = 0 WHERE id = #{unknown.id}&quot;)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>         unknown = Vetted.find_by_label('Unknown')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>       unknown</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line24">24</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line25">25</a>   end</pre></td>
           </tr>
         
@@ -296,19 +296,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line41">41</a>     return 'unreviewed' if label.downcase == 'unknown'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line42">42</a>     return label.downcase</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line43">43</a>   end</pre></td>
           </tr>
         
@@ -441,7 +441,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

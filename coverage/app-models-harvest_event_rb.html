@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-harvest_event_rb.html">app/models/harvest_event.rb</a></td>
             <td class='right_align'><tt>106</tt></td>
             <td class='right_align'><tt>89</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>44.34%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>20.75%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:44px"></div>
-            <div class="uncovered" style="width:56px"></div>
+            <div class="covered" style="width:21px"></div>
+            <div class="uncovered" style="width:79px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>40.45%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>14.61%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:40px"></div>
-            <div class="uncovered" style="width:60px"></div>
+            <div class="covered" style="width:15px"></div>
+            <div class="uncovered" style="width:85px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -117,7 +117,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line11">11</a>     last_published=HarvestEvent.find(:all,:conditions=&gt;&quot;published_at &lt;&gt; 'null'&quot;,:limit=&gt;1,:order=&gt;'published_at desc')</pre></td>
+            <td><pre><a name="line11">11</a>     last_published=HarvestEvent.find(:all,:conditions=&gt;&quot;published_at != 'null'&quot;,:limit=&gt;1,:order=&gt;'published_at desc')</pre></td>
           </tr>
         
           
@@ -146,7 +146,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line16">16</a>     query = &quot;Select dohe.data_object_id</pre></td>
           </tr>
         
@@ -170,19 +170,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>     rset = self.find_by_sql [query]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>     arr=[]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>     for fld in rset</pre></td>
           </tr>
         
@@ -200,13 +200,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line25">25</a>     return arr</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>   end</pre></td>
           </tr>
         
@@ -350,25 +350,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line50">50</a>     year = params[:year] || nil</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line51">51</a>     month = params[:month] || nil</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line52">52</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line53">53</a>     if year || month</pre></td>
           </tr>
         
@@ -440,43 +440,43 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line65">65</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line66">66</a>     query = &quot;SELECT ah.object_id data_object_id, awo.action_code action_code, u.id curator_user_id,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line67">67</a>     u.given_name, u.family_name, ah.updated_at, ah.user_id, ah.id actions_history_id, dt.label data_type_label,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line68">68</a>     do.object_cache_url, do.source_url, he.taxon_concept_id, n.string scientific_name</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line69">69</a>     FROM #{ActionWithObject.full_table_name} awo</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line70">70</a>     JOIN #{ActionsHistory.full_table_name} ah ON (ah.action_with_object_id=awo.id)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line71">71</a>     JOIN #{User.full_table_name} u ON (ah.user_id=u.id)</pre></td>
           </tr>
         
@@ -530,25 +530,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line80">80</a>     WHERE ah.changeable_object_type_id = #{ChangeableObjectType.data_object.id}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line81">81</a>     AND dohe.harvest_event_id = #{self.id}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line82">82</a>     AND awo.id in (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id}, #{ActionWithObject.delete.id})&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line83">83</a>     if lower_date_range</pre></td>
           </tr>
         
@@ -566,25 +566,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line86">86</a>     results = connection.execute(query).all_hashes</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line87">87</a>     results.group_hashes_by!('actions_history_id')</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line88">88</a>     results.sort{|a,b| b['actions_history_id'].to_i &lt;=&gt; a['actions_history_id'].to_i}</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line89">89</a>   end</pre></td>
           </tr>
         
@@ -693,7 +693,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

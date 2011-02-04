@@ -30,15 +30,15 @@
             <td class="left_align"><a href="lib-eol-solr_rb.html">lib/eol/solr.rb</a></td>
             <td class='right_align'><tt>15</tt></td>
             <td class='right_align'><tt>14</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>20.00%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:100px"></div>
-            <div class="uncovered" style="width:0px"></div>
+            <div class="covered" style="width:20px"></div>
+            <div class="uncovered" style="width:80px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>21.43%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:100px"></div>
-            <div class="uncovered" style="width:0px"></div>
+            <div class="covered" style="width:21px"></div>
+            <div class="uncovered" style="width:79px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -74,80 +74,80 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line4">4</a>       query_url = solr_endpoint + '/select/?wt=json&amp;q='</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line5">5</a>       query_url &lt;&lt; URI.encode(%Q[{!lucene}#{query}])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line6">6</a>       query_url &lt;&lt; &quot;&amp;sort=&quot; &lt;&lt; URI.encode(%Q[#{options[:sort]}]) unless options[:sort].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line7">7</a>       query_url &lt;&lt; &quot;&amp;start=#{options[:start]}&quot; unless options[:start].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line8">8</a>       query_url &lt;&lt; &quot;&amp;rows=#{options[:rows]}&quot; unless options[:rows].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line9">9</a>       query_url &lt;&lt; &quot;&amp;fl=&quot; &lt;&lt; URI.encode(%Q[#{options[:fields]}]) unless options[:fields].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line10">10</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line11">11</a>       res = open(query_url).read</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line12">12</a>       JSON.load res</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line13">13</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

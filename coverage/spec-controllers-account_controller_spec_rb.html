@@ -30,15 +30,15 @@
             <td class="left_align"><a href="spec-controllers-account_controller_spec_rb.html">spec/controllers/account_controller_spec.rb</a></td>
             <td class='right_align'><tt>71</tt></td>
             <td class='right_align'><tt>58</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>90.14%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:100px"></div>
-            <div class="uncovered" style="width:0px"></div>
+            <div class="covered" style="width:90px"></div>
+            <div class="uncovered" style="width:10px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>100.00%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>87.93%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:100px"></div>
-            <div class="uncovered" style="width:0px"></div>
+            <div class="covered" style="width:88px"></div>
+            <div class="uncovered" style="width:12px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -320,13 +320,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line45">45</a>        User.find(user).hashed_password.should == User.hash_password(new_password)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line46">46</a>      end</pre></td>
           </tr>
         
@@ -392,31 +392,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line57">57</a>        User.find(user).hashed_password.should == User.hash_password(new_password)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line58">58</a>        post :profile, &quot;user&quot; =&gt; {&quot;id&quot; =&gt; user.id, &quot;entered_password&quot; =&gt; new_password, &quot;entered_password_confirmation&quot; =&gt; ''}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line59">59</a>        User.find(user).hashed_password.should == User.hash_password(new_password)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line60">60</a>      end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line61">61</a>    end</pre></td>
           </tr>
         
@@ -483,7 +483,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:36 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

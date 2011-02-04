@@ -22,8 +22,12 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :users_data_objects
   has_many :user_ignored_data_objects
   has_many :list_items, :as => :object
+  has_many :lists
 
-  has_one    :user_info
+  has_one :user_info
+  # I wish these worked, but they need runtime evaluation.
+  #has_one :like_list, :class_name => 'List', :conditions => { :special_list_id => SpecialList.like.id }
+  #has_one :task_list, :class_name => 'List', :conditions => { :special_list_id => SpecialList.task.id }
 
   before_save :check_curator_status
 
@@ -199,7 +203,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def activate
     self.update_attributes(:active => true)
     Notifier.deliver_welcome_registration(self)
-    # TODO - create a task list and a like list.
+    List.create(:name => "#{self.username.titleize} Likes", :special_list_id => SpecialList.like.id, :user_id => self.id)
+    List.create(:name => "#{self.username.titleize}'s Tasks", :special_list_id => SpecialList.task.id, :user_id => self.id)
   end
 
   def password
@@ -421,6 +426,14 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def password=(value)
     self.entered_password = value
     self.hashed_password = User.hash_password(value)
+  end
+
+  def like_list
+    List.find_by_user_id_and_special_list_id(self.id, SpecialList.like.id)
+  end
+
+  def task_list
+    List.find_by_user_id_and_special_list_id(self.id, SpecialList.task.id)
   end
 
   # set the language from the abbreviation

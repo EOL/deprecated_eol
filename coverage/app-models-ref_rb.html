@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-ref_rb.html">app/models/ref.rb</a></td>
             <td class='right_align'><tt>90</tt></td>
             <td class='right_align'><tt>72</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>41.11%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>23.33%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:41px"></div>
-            <div class="uncovered" style="width:59px"></div>
+            <div class="covered" style="width:23px"></div>
+            <div class="uncovered" style="width:77px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>26.39%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>9.72%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:26px"></div>
-            <div class="uncovered" style="width:74px"></div>
+            <div class="covered" style="width:10px"></div>
+            <div class="uncovered" style="width:90px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -116,19 +116,19 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line11">11</a>     # refs for DataObjects then HierarchyEntries</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line12">12</a>     refs = Ref.find_by_sql([</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line13">13</a>       &quot; SELECT refs.* FROM hierarchy_entries he </pre></td>
           </tr>
         
@@ -242,7 +242,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line32">32</a>         SELECT refs.* FROM #{UsersDataObject.full_table_name} udo</pre></td>
           </tr>
         
@@ -290,13 +290,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line40">40</a>                   AND refs.visibility_id=?&quot;, taxon_concept_id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, Visibility.visible.id])</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line41">41</a>   end</pre></td>
           </tr>
         
@@ -320,25 +320,25 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line45">45</a>     # a. HE -&gt; DOHE -&gt; DO -&gt; DOR -&gt; R</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line46">46</a>     # b. HE -&gt; HER</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line47">47</a>     ref_count = Ref.count_by_sql([</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line48">48</a>       &quot;SELECT 1 FROM hierarchy_entries he </pre></td>
           </tr>
         
@@ -464,7 +464,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line69">69</a>       SELECT 1 FROM #{UsersDataObject.full_table_name} udo</pre></td>
           </tr>
         
@@ -518,31 +518,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line78">78</a>                 LIMIT 1&quot;, taxon_concept_id, Visibility.visible.id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, taxon_concept_id, Visibility.visible.id, Visibility.visible.id])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line79">79</a>     ref_count &gt; 0</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line80">80</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line81">81</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line82">82</a> end</pre></td>
           </tr>
         
@@ -597,7 +597,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

@@ -30,15 +30,15 @@
             <td class="left_align"><a href="lib-content_partner_authentication_module_rb.html">lib/content_partner_authentication_module.rb</a></td>
             <td class='right_align'><tt>95</tt></td>
             <td class='right_align'><tt>76</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>52.63%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>33.68%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:53px"></div>
-            <div class="uncovered" style="width:47px"></div>
+            <div class="covered" style="width:34px"></div>
+            <div class="uncovered" style="width:66px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>42.11%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>18.42%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:42px"></div>
-            <div class="uncovered" style="width:58px"></div>
+            <div class="covered" style="width:18px"></div>
+            <div class="uncovered" style="width:82px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -92,13 +92,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line7">7</a>     current_agent.class == Agent</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line8">8</a>   end</pre></td>
           </tr>
         
@@ -122,13 +122,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line12">12</a>     @current_agent ||= (agent_login_from_session || agent_login_from_cookie) unless @current_agent == false</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line13">13</a>   end</pre></td>
           </tr>
         
@@ -152,19 +152,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>     session[:agent_id] = new_agent.is_a?(Agent) ? new_agent.id : nil</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line18">18</a>     @current_agent = new_agent || false</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>   end</pre></td>
           </tr>
         
@@ -182,13 +182,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>     agent_logged_in? || agent_access_denied</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>   end</pre></td>
           </tr>
         
@@ -206,19 +206,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>     agent_store_location</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>     redirect_to url_for(:controller=&gt;'/content_partner',:action =&gt; 'login')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line28">28</a>   end</pre></td>
           </tr>
         
@@ -236,13 +236,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line31">31</a>     session[:agent_return_to] = url_for(:controller=&gt;controller_name, :action=&gt;action_name) # request.request_uri</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line32">32</a>   end</pre></td>
           </tr>
         
@@ -260,13 +260,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line35">35</a>     self.current_agent = Agent.find_by_id(session[:agent_id]) if session[:agent_id]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line36">36</a>   end</pre></td>
           </tr>
         
@@ -284,13 +284,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line39">39</a>     agent = cookies[:agent_auth_token] &amp;&amp; Agent.find_by_remember_token(cookies[:agent_auth_token])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line40">40</a>     if agent &amp;&amp; agent.remember_token?</pre></td>
           </tr>
         
@@ -627,7 +627,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

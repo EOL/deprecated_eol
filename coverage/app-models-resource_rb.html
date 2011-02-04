@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-resource_rb.html">app/models/resource.rb</a></td>
             <td class='right_align'><tt>140</tt></td>
             <td class='right_align'><tt>109</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>50.71%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>39.29%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:51px"></div>
-            <div class="uncovered" style="width:49px"></div>
+            <div class="covered" style="width:39px"></div>
+            <div class="uncovered" style="width:61px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>45.87%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>31.19%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:46px"></div>
-            <div class="uncovered" style="width:54px"></div>
+            <div class="covered" style="width:31px"></div>
+            <div class="uncovered" style="width:69px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -230,25 +230,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line30">30</a>     cached('iucn') do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line31">31</a>       Agent.iucn.resources[0]</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line31">31</a>       Agent.iucn.resources.last</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line32">32</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line33">33</a>   end</pre></td>
           </tr>
         
@@ -266,25 +266,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line36">36</a>     cached('ligercat') do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line37">37</a>       Agent.boa.resources[0]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line38">38</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line39">39</a>   end</pre></td>
           </tr>
         
@@ -332,25 +332,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line47">47</a>     HarvestEvent.find(:first, :conditions =&gt; [&quot;published_at IS NULL AND completed_at IS NOT NULL AND resource_id = ?&quot;, id],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line48">48</a>                               :limit =&gt; 1,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line49">49</a>                               :order =&gt; 'completed_at desc')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line50">50</a>   end</pre></td>
           </tr>
         
@@ -368,25 +368,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line53">53</a>     HarvestEvent.find(:first, :conditions =&gt; [&quot;published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?&quot;, id],</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line54">54</a>                               :limit =&gt; 1,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line55">55</a>                               :order =&gt; 'published_at desc')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line56">56</a>   end</pre></td>
           </tr>
         
@@ -897,7 +897,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

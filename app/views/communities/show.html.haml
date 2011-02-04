@@ -1,31 +1,42 @@
 %h1{:id => 'community_name'}= h @community.name
 %p{:id => 'community_description'}= h @community.description
-- roles = @community.roles
-- if roles.blank?
-  %p{:id => 'community_roles_empty'}= "There are currently no roles for this community."[:no_roles_in_community]
-- else
-  = render :partial => 'roles/index', :locals => {:roles => roles}
+.roles
+  - roles = @community.roles
+  - if roles.blank?
+    %p{:id => 'community_roles_empty'}= "There are currently no roles for this community."[]
+  - else
+    = render :partial => 'roles/index', :locals => {:roles => roles}
 - i_am_in_this_community = current_user.member_of?(@community)
 - member_function = i_am_in_this_community ? 'member allowed' : 'member not_allowed'
 - non_member_function = i_am_in_this_community ? 'non_member not_allowed' : 'non_member allowed'
-- if @members.blank?
-  %p{:id => 'community_members_empty'}= "There are currently no members in this community."[:no_members_in_community]
-- else
-  = render :partial => 'members/index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
-- if not logged_in?
-  = "You must be"[]
-  = link_to("logged in"[], login_path)
-  = "to join communities."[]
-- else
-  %ul{:id => 'community_actions'}
-    %li{:id => 'join_community', :class => non_member_function}
-      = link_to("Join this community"[:join_community], join_community_path(@community.id))
-      = ajax_spinner
-    %li{:id => 'leave_community', :class => member_function}
-      = link_to("Leave this community"[:join_community], leave_community_path(@community.id))
-      = ajax_spinner
-    - if @current_member && @current_member.can?(Privilege.edit_delete_community)
-      %li{:id => 'edit_community', :class => member_function}
-        = link_to("Edit this community"[:edit_community], edit_community_path(@community))
-      %li{:id => 'delete_community', :class => member_function}
-        = link_to("Delete this community"[:delete_community], community_path(@community), :confirm => "Are you sure?"[], :method => :delete)
+.members
+  - if @members.blank?
+    %p{:id => 'community_members_empty'}= "There are currently no members in this community."[]
+  - else
+    = render :partial => 'members/index', :locals => {:i_am_in_this_community => i_am_in_this_community, :member_function => member_function, :non_member_function => non_member_function }
+.actions
+  - if not logged_in?
+    = "You must be"[]
+    = link_to("logged in"[], login_path)
+    = "to join communities."[]
+  - else
+    %ul{:id => 'community_actions'}
+      %li{:id => 'join_community', :class => non_member_function}
+        = link_to("Join this community"[:join_community], join_community_path(@community.id))
+        = ajax_spinner
+      %li{:id => 'leave_community', :class => member_function}
+        = link_to("Leave this community"[:join_community], leave_community_path(@community.id))
+        = ajax_spinner
+      - if @current_member && @current_member.can?(Privilege.edit_delete_community)
+        %li{:id => 'edit_community', :class => member_function}
+          = link_to("Edit this community"[:edit_community], edit_community_path(@community))
+        %li{:id => 'delete_community', :class => member_function}
+          = link_to("Delete this community"[:delete_community], community_path(@community), :confirm => "Are you sure?"[], :method => :delete)
+.taxa
+  %h3= "Taxa"[]
+  - if @community.taxa_list.nil?
+    = "This community has no taxa list."[]
+  - elsif @community.taxa_list.list_items.empty?
+    = "This community has no taxa associated with it."[]
+  - else
+    = render :partial => "/lists/show", :locals => { :list => @community.taxa_list }

@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-controllers-content_partner_controller_rb.html">app/controllers/content_partner_controller.rb</a></td>
             <td class='right_align'><tt>444</tt></td>
             <td class='right_align'><tt>319</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>36.94%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>31.08%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:37px"></div>
-            <div class="uncovered" style="width:63px"></div>
+            <div class="covered" style="width:31px"></div>
+            <div class="uncovered" style="width:69px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>32.29%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>25.39%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:32px"></div>
-            <div class="uncovered" style="width:68px"></div>
+            <div class="covered" style="width:25px"></div>
+            <div class="uncovered" style="width:75px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -134,13 +134,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>     @page_header='Content Partner Dashboard'    </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>   end</pre></td>
           </tr>
         
@@ -158,37 +158,37 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line18">18</a>     page = params[:page] || '1'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>     per_page = 36</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>     @content_partner = ContentPartner.find(params[:id].to_i)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>     @content_partner ||= current_agent.content_partner unless current_agent.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>     taxon_concept_results = @content_partner.nil? ? nil : @content_partner.concepts_for_gallery(page.to_i, per_page)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>     if taxon_concept_results.nil?</pre></td>
           </tr>
         
@@ -206,37 +206,37 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>     else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>       @taxon_concepts = taxon_concept_results.paginate(:page =&gt; page, :per_page =&gt; per_page)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line28">28</a>       @taxon_concepts_count = taxon_concept_results.length</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line29">29</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line30">30</a>     render :action =&gt; 'content', :layout =&gt; 'main' # Needs main layout because it's very WIDE.</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line31">31</a>   end</pre></td>
           </tr>
         
@@ -2097,7 +2097,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line341">341</a>     conditions='id &lt;&gt; ' + current_agent.id.to_s unless current_agent.nil?</pre></td>
+            <td><pre><a name="line341">341</a>     conditions='id != ' + current_agent.id.to_s unless current_agent.nil?</pre></td>
           </tr>
         
           
@@ -2186,61 +2186,61 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line356">356</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line357">357</a>     redirect_to(:controller =&gt; '/content_partner', :action =&gt; 'index', :protocol =&gt; 'http://') and return if agent_logged_in?    </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line358">358</a>     return unless request.post?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line359">359</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line360">360</a>     # log out any logged in web user to avoid any funny conflicts</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line361">361</a>     reset_session</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line362">362</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line363">363</a>     self.current_agent = Agent.authenticate(params[:agent][:username], params[:agent][:password])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line364">364</a>     if agent_logged_in?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line365">365</a>       if params[:remember_me] == &quot;1&quot;</pre></td>
           </tr>
         
@@ -2264,13 +2264,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line369">369</a>       flash[:notice] = &quot;Logged in successfully as #{self.current_agent.full_name}&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line370">370</a>       redirect_to(:action=&gt;'index',:protocol=&gt;'http://')</pre></td>
           </tr>
         
@@ -2312,7 +2312,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line377">377</a>     params[:return_to] = nil unless params[:return_to] =~ /\A[%2F\/]/ # Whitelisting redirection to our own site, relative paths.</pre></td>
           </tr>
         
@@ -2324,31 +2324,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line379">379</a>     self.current_agent.forget_me if agent_logged_in?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line380">380</a>     cookies.delete :agent_auth_token</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line381">381</a>     reset_session   </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line382">382</a>     session[:agent_id] = nil</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line383">383</a>     flash[:notice] = &quot;You have been logged out.&quot;</pre></td>
           </tr>
         
@@ -2360,13 +2360,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line385">385</a>     store_location(params[:return_to])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line386">386</a>     redirect_back_or_default</pre></td>
           </tr>
         
@@ -2696,7 +2696,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line441">441</a>       layout = (current_agent.nil? || action_name == &quot;stats&quot;) ? 'main' : 'content_partner'</pre></td>
           </tr>
         
@@ -2721,7 +2721,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

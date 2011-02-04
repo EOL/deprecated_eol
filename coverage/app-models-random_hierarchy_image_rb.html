@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-random_hierarchy_image_rb.html">app/models/random_hierarchy_image.rb</a></td>
             <td class='right_align'><tt>96</tt></td>
             <td class='right_align'><tt>70</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>80.21%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>36.46%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:80px"></div>
-            <div class="uncovered" style="width:20px"></div>
+            <div class="covered" style="width:36px"></div>
+            <div class="uncovered" style="width:64px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>75.71%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>27.14%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:76px"></div>
-            <div class="uncovered" style="width:24px"></div>
+            <div class="covered" style="width:27px"></div>
+            <div class="uncovered" style="width:73px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -170,91 +170,91 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>     hierarchy ||= Hierarchy.default</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>     options[:size] ||= :medium</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>     options[:language] ||= Language.english</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line24">24</a>     RandomHierarchyImage.reset_min_id</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line25">25</a>     RandomHierarchyImage.reset_count(hierarchy)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>     starting_id = rand(@@count[hierarchy.id] - limit).floor</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>     starting_id = 0 if starting_id &gt; (@@count[hierarchy.id] - limit) # This only applies when there are very few RandomTaxa.</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line28">28</a>     starting_id = starting_id + @@min_id</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line29">29</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line30">30</a>     # this query now grabs all the metadata we'll need including:</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line31">31</a>     # sci_name, common_name, taxon_concept_id, object_cache_url</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line32">32</a>     # it also looks for twice the limit as we still have some concepts with more than one preferred common name</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line33">33</a>     random_image_result = SpeciesSchemaModel.connection.select_all(&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line34">34</a>       SELECT rhi.taxon_concept_id, rhi.name scientific_name, n.string common_name, do.object_cache_url</pre></td>
           </tr>
         
@@ -284,7 +284,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line39">39</a>         JOIN names n ON (tcn.name_id=n.id AND tcn.language_id=#{options[:language].id} AND tcn.preferred=1)</pre></td>
           </tr>
         
@@ -296,7 +296,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line41">41</a>       WHERE rhi.hierarchy_id=#{hierarchy.id}</pre></td>
           </tr>
         
@@ -308,91 +308,91 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line43">43</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line44">44</a>     used_concepts = {}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line45">45</a>     random_images = []</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line46">46</a>     random_image_result.each do |ri|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line47">47</a>       next if !used_concepts[ri['taxon_concept_id']].nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line48">48</a>       ri['image_cache_path'] = DataObject.image_cache_path(ri['object_cache_url'], options[:size])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line49">49</a>       random_images &lt;&lt; ri</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line50">50</a>       used_concepts[ri['taxon_concept_id']] = true</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line51">51</a>       break if random_images.length &gt;= limit</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line52">52</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line53">53</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line54">54</a>     random_images = self.random_set(limit, Hierarchy.default, :size =&gt; options[:size]) if random_images.blank? &amp;&amp; hierarchy.id != Hierarchy.default.id</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line55">55</a>     #raise &quot;Found no Random Taxa in the database (#{starting_id}, #{limit})&quot; if random_images.blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line56">56</a>     return random_images</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line57">57</a>   end</pre></td>
           </tr>
         
@@ -440,31 +440,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line65">65</a>     if @@last_min_count.nil? || @@last_min_count.advance(:minutes=&gt;10) &lt; Time.now</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line66">66</a>       @@last_min_count = Time.now()</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line67">67</a>       @@min_id = SpeciesSchemaModel.connection.select_value(&quot;select min(id) min from random_hierarchy_images&quot;).to_i</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line68">68</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line69">69</a>   end</pre></td>
           </tr>
         
@@ -482,31 +482,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line72">72</a>     if @@last_cleared[hierarchy.id].blank? || @@last_cleared[hierarchy.id].advance(:minutes=&gt;10) &lt; Time.now</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line73">73</a>       @@last_cleared[hierarchy.id] = Time.now()</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line74">74</a>       @@count[hierarchy.id] = SpeciesSchemaModel.connection.select_value(&quot;select count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=#{hierarchy.id}&quot;).to_i</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line75">75</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line76">76</a>   end</pre></td>
           </tr>
         
@@ -633,7 +633,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

@@ -30,15 +30,15 @@
             <td class="left_align"><a href="lib-eol_data_rb.html">lib/eol_data.rb</a></td>
             <td class='right_align'><tt>186</tt></td>
             <td class='right_align'><tt>129</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>95.70%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>70.43%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:96px"></div>
-            <div class="uncovered" style="width:4px"></div>
+            <div class="covered" style="width:70px"></div>
+            <div class="uncovered" style="width:30px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>94.57%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>61.24%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:95px"></div>
-            <div class="uncovered" style="width:5px"></div>
+            <div class="covered" style="width:61px"></div>
+            <div class="uncovered" style="width:39px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -110,7 +110,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line10">10</a>       %w( agent_contact_roles agent_data_types agent_roles agent_statuses </pre></td>
           </tr>
         
@@ -122,13 +122,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line12">12</a>       map {|table| &quot;ALTER TABLE `#{ table }` AUTO_INCREMENT=1; &quot; }.each do |sql|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line13">13</a>         SpeciesSchemaModel.connection.execute sql</pre></td>
           </tr>
         
@@ -422,19 +422,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line62">62</a>       EOL::DB.all_connections.each do |conn|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line63">63</a>         conn.commit_db_transaction</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line64">64</a>         conn.begin_db_transaction if conn.open_transactions &gt; 0</pre></td>
           </tr>
         
@@ -542,25 +542,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line82">82</a>       Hierarchy.find(:all).each do |hierarchy|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line83">83</a>         make_nested_set hierarchy</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line84">84</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line85">85</a>     end</pre></td>
           </tr>
         
@@ -590,31 +590,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line90">90</a>       next_range_id = 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line91">91</a>       hierarchy.hierarchy_entries.select {|entry| entry.parent_id == 0 }.each do |entry|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line92">92</a>         next_range_id = assign_id entry, next_range_id</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line93">93</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line94">94</a>     end</pre></td>
           </tr>
         
@@ -644,31 +644,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line99">99</a>       entry.children.each do |child|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line100">100</a>         next_range_id = assign_id child, next_range_id</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line101">101</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line102">102</a>       return next_range_id</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line103">103</a>     end</pre></td>
           </tr>
         
@@ -698,49 +698,49 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line108">108</a>       entry.lft = next_range_id</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line109">109</a>       next_range_id += 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line110">110</a>       next_range_id = make_nested_set_recursion entry, next_range_id</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line111">111</a>       entry.rgt = next_range_id</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line112">112</a>       next_range_id += 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line113">113</a>       entry.save!</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line114">114</a>       return next_range_id</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line115">115</a>     end</pre></td>
           </tr>
         
@@ -776,55 +776,55 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line121">121</a>       CollectionType.find(:all).each do |ct|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line122">122</a>         ct.lft = ct.rgt = 0</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line123">123</a>         ct.save!</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line124">124</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line125">125</a>       nested_set_value = 0</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line126">126</a>       CollectionType.find_all_by_parent_id(0).each do |ct|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line127">127</a>         nested_set_value = rebuild_collection_type_nested_set_assign(ct, nested_set_value)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line128">128</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line129">129</a>     end</pre></td>
           </tr>
         
@@ -842,97 +842,97 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line132">132</a>       ct.lft = nested_set_value</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line133">133</a>       ct.save!</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line134">134</a>       nested_set_value += 1</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line135">135</a>       </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line136">136</a>       CollectionType.find_all_by_parent_id(ct.id).each do |child_ct|</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line137">137</a>         nested_set_value = rebuild_collection_type_nested_set_assign(child_ct, nested_set_value)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line138">138</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line139">139</a>       </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line140">140</a>       ct.rgt = nested_set_value</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line141">141</a>       ct.save!</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line142">142</a>       nested_set_value += 1</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line143">143</a>       </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line144">144</a>       return nested_set_value</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line145">145</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line146">146</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line147">147</a>   end</pre></td>
           </tr>
         
@@ -1173,7 +1173,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

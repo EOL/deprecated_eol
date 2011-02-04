@@ -28,17 +28,17 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="app-models-agent_rb.html">app/models/agent.rb</a></td>
-            <td class='right_align'><tt>523</tt></td>
-            <td class='right_align'><tt>391</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>67.30%</tt></div>
+            <td class='right_align'><tt>508</tt></td>
+            <td class='right_align'><tt>379</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>49.21%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:67px"></div>
-            <div class="uncovered" style="width:33px"></div>
+            <div class="covered" style="width:49px"></div>
+            <div class="uncovered" style="width:51px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>58.31%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>34.30%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:58px"></div>
-            <div class="uncovered" style="width:42px"></div>
+            <div class="covered" style="width:34px"></div>
+            <div class="uncovered" style="width:66px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -704,13 +704,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line109">109</a>     self.catalogue_of_life</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line110">110</a>   end</pre></td>
           </tr>
         
@@ -824,13 +824,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line129">129</a>     cached_find(:full_name, 'Biology of Aging', :serialize =&gt; true)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line130">130</a>   end</pre></td>
           </tr>
         
@@ -848,25 +848,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line133">133</a>     Agent.new :project_name =&gt; license.description,</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line134">134</a>               :homepage =&gt; license.source_url, :logo_url =&gt; license.logo_url, :logo_cache_url =&gt; 0,</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line135">135</a>               :logo_file_name =&gt; license.logo_url # &lt;-- check for the presence of logo_file name</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line136">136</a>   end</pre></td>
           </tr>
         
@@ -884,13 +884,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line139">139</a>     Agent.new :project_name =&gt; location</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line140">140</a>   end</pre></td>
           </tr>
         
@@ -921,7 +921,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line145">145</a>     SpeciesSchemaModel.connection.select_all(&quot;SELECT a.full_name, a.id agent_id, a.username, </pre></td>
+            <td><pre><a name="line145">145</a>     SpeciesSchemaModel.connection.select_all(&quot;SELECT distinct a.full_name, a.id agent_id, a.username, </pre></td>
           </tr>
         
           
@@ -963,7 +963,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line152">152</a>     AND gaps.`month` = #{month} AND ac.email IS NOT NULL&quot;)</pre></td>
+            <td><pre><a name="line152">152</a>     AND gaps.`month` = #{month} AND ac.email IS NOT NULL &quot;) </pre></td>
           </tr>
         
           
@@ -986,7 +986,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line156">156</a>     query = &quot;SELECT distinct a.id, a.full_name </pre></td>
           </tr>
         
@@ -1022,13 +1022,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line162">162</a>     self.find_by_sql [query]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line163">163</a>   end</pre></td>
           </tr>
         
@@ -1046,13 +1046,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line166">166</a>     result = HarvestEvent.find_by_sql(&quot;SELECT he.*</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line167">167</a>     FROM harvest_events he</pre></td>
           </tr>
         
@@ -1064,7 +1064,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line169">169</a>     WHERE ar.agent_id = #{self.id}</pre></td>
           </tr>
         
@@ -1076,19 +1076,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line171">171</a>     return nil if result.empty?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line172">172</a>     return result[0]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line173">173</a>   end</pre></td>
           </tr>
         
@@ -1106,7 +1106,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line176">176</a>     query = &quot;SELECT ar.resource_id, he.id AS harvest_id, r.title, he.began_at, he.completed_at, he.published_at</pre></td>
           </tr>
         
@@ -1142,13 +1142,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line182">182</a>     self.paginate_by_sql [query, agent_id], :page =&gt; page, :per_page =&gt; 30</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line183">183</a>   end</pre></td>
           </tr>
         
@@ -1166,110 +1166,110 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line186">186</a>     query=&quot;</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line187">187</a>     Select distinct agents.full_name, agents.id</pre></td>
+            <td><pre><a name="line187">187</a>       SELECT DISTINCT agents.full_name, agents.id</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line188">188</a>     From agents</pre></td>
+            <td><pre><a name="line188">188</a>       FROM agents</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line189">189</a>     Join agents_resources ON agents.id = agents_resources.agent_id</pre></td>
+            <td><pre><a name="line189">189</a>         JOIN agents_resources ON agents.id = agents_resources.agent_id</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line190">190</a>     Join resources ON agents_resources.resource_id = resources.id</pre></td>
+            <td><pre><a name="line190">190</a>         JOIN resources ON agents_resources.resource_id = resources.id</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line191">191</a>     Join harvest_events ON resources.id = harvest_events.resource_id</pre></td>
+            <td><pre><a name="line191">191</a>         JOIN harvest_events ON resources.id = harvest_events.resource_id</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line192">192</a>     where harvest_events.published_at is not null</pre></td>
+            <td><pre><a name="line192">192</a>       WHERE harvest_events.published_at is not null</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line193">193</a>     and year(harvest_events.published_at) = ?</pre></td>
+            <td><pre><a name="line193">193</a>         AND year(harvest_events.published_at) = ?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line194">194</a>     and month(harvest_events.published_at) = ?</pre></td>
+            <td><pre><a name="line194">194</a>         AND month(harvest_events.published_at) = ?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line195">195</a>     and agents.id not in </pre></td>
+            <td><pre><a name="line195">195</a>         AND agents.id not in </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line196">196</a>     ( Select distinct agents.id From agents</pre></td>
+            <td><pre><a name="line196">196</a>           ( SELECT DISTINCT agents.id</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line197">197</a>       Join agents_resources ON agents.id = agents_resources.agent_id</pre></td>
+            <td><pre><a name="line197">197</a>             FROM agents</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line198">198</a>       Join harvest_events ON agents_resources.resource_id = harvest_events.resource_id</pre></td>
+            <td><pre><a name="line198">198</a>               JOIN agents_resources ON agents.id = agents_resources.agent_id</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line199">199</a>       where</pre></td>
+            <td><pre><a name="line199">199</a>               JOIN harvest_events ON agents_resources.resource_id = harvest_events.resource_id</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line200">200</a>       harvest_events.published_at &lt; '#{year}-#{month}-01'</pre></td>
+            <td><pre><a name="line200">200</a>             WHERE harvest_events.published_at &lt; '#{year.to_i}-#{sprintf &quot;%02i&quot;, month}-01'</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line201">201</a>       and harvest_events.published_at is not null</pre></td>
+            <td><pre><a name="line201">201</a>               AND harvest_events.published_at IS NOT null</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line202">202</a>     )</pre></td>
+            <td><pre><a name="line202">202</a>           )</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line203">203</a>     order by agents.full_name, harvest_events.id desc     </pre></td>
+            <td><pre><a name="line203">203</a>       ORDER BY agents.full_name, harvest_events.id DESC     </pre></td>
           </tr>
         
           
@@ -1280,13 +1280,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line205">205</a>     self.paginate_by_sql [query, year, month], :page =&gt; page, :per_page =&gt; 50 , :order =&gt; 'full_name'    </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line206">206</a>    end  </pre></td>
           </tr>
         
@@ -1304,13 +1304,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line209">209</a>     Agent.new :project_name =&gt; 'View original data object', :homepage =&gt; source_url</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line210">210</a>   end</pre></td>
           </tr>
         
@@ -1334,182 +1334,182 @@
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line214">214</a>     prefix = self.attributes['logo_cache_url']</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line214">214</a>     ContentServer.agent_logo_path(self.attributes['logo_cache_url'], size)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line215">215</a>     if prefix.blank?</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line215">215</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line216">216</a>        #self.logo.url # this is the &quot;paperclip&quot; plugin attached image, but it might only be on one of the application servers</pre></td>
+            <td><pre><a name="line216">216</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line217">217</a>        result = &quot;/images/blank.gif&quot;</pre></td>
+            <td><pre><a name="line217">217</a>   def self.logo_url_from_cache_url(logo_cache_url, size = 'large')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line218">218</a>     ContentServer.agent_logo_path(logo_cache_url, logo_size)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line219">219</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line218">218</a>     else    </pre></td>
+            <td><pre><a name="line220">220</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line219">219</a>        logo_size = (size == &quot;large&quot;) ? &quot;_large.png&quot; : &quot;_small.png&quot;</pre></td>
+            <td><pre><a name="line221">221</a>   def node_xml</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line222">222</a>     xml  = &quot;\t\t&lt;agent&gt;\n&quot;;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line223">223</a>     xml += &quot;\t\t\t&lt;agentName&gt;#{display_name || full_name}&lt;/agentName&gt;\n&quot;;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line224">224</a>     xml += &quot;\t\t\t&lt;agentHomepage&gt;#{homepage}&lt;/agentHomepage&gt;\n&quot;;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line225">225</a>     xml += &quot;\t\t\t&lt;icon&gt;&lt;/icon&gt;\n&quot;;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line226">226</a>     xml += &quot;\t\t\t&lt;smallIcon&gt;&lt;/smallIcon&gt;\n&quot;;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line227">227</a>     xml += &quot;\t\t&lt;/agent&gt;\n&quot;;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line228">228</a>     return xml</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line229">229</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line230">230</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line231">231</a>   ## Helper methods to set columns in associated content partner model by updating attributes of agent</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line232">232</a>   ##  used in the partner step of the content partner registry where we have one form to update both models</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line220">220</a>        result = &quot;#{ContentServer.next}&quot; + $CONTENT_SERVER_AGENT_LOGOS_PATH + &quot;#{prefix.to_s + logo_size}&quot;</pre></td>
+            <td><pre><a name="line233">233</a>   def project_description</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line234">234</a>     self.content_partner.project_description unless self.content_partner.nil? </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line235">235</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line221">221</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line222">222</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line223">223</a> </pre></td>
+            <td><pre><a name="line236">236</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line224">224</a>   def self.logo_url_from_cache_url(logo_cache_url, size = 'large')</pre></td>
+            <td><pre><a name="line237">237</a>   def project_description= (description)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line225">225</a>     prefix = logo_cache_url</pre></td>
+            <td><pre><a name="line238">238</a>     self.content_partner.project_description=description</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line226">226</a>     if prefix.blank?</pre></td>
+            <td><pre><a name="line239">239</a>     self.content_partner.save</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line227">227</a>        #self.logo.url # this is the &quot;paperclip&quot; plugin attached image, but it might only be on one of the application servers</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line228">228</a>        result = &quot;/images/blank.gif&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line229">229</a>     else    </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line230">230</a>        logo_size = (size == &quot;large&quot;) ? &quot;_large.png&quot; : &quot;_small.png&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line231">231</a>        result = &quot;#{ContentServer.next}&quot; + $CONTENT_SERVER_AGENT_LOGOS_PATH + &quot;#{prefix.to_s + logo_size}&quot;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line232">232</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line233">233</a>   end</pre></td>
+            <td><pre><a name="line240">240</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line234">234</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line235">235</a> </pre></td>
+            <td><pre><a name="line241">241</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line236">236</a>   def node_xml</pre></td>
+            <td><pre><a name="line242">242</a>   def description_of_data</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line237">237</a>     xml = &quot;\t\t&lt;agent&gt;\n&quot;;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line238">238</a>     xml += &quot;\t\t\t&lt;agentName&gt;#{display_name || full_name}&lt;/agentName&gt;\n&quot;;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line239">239</a>     xml += &quot;\t\t\t&lt;agentHomepage&gt;#{homepage}&lt;/agentHomepage&gt;\n&quot;;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line240">240</a>     xml += &quot;\t\t\t&lt;icon&gt;&lt;/icon&gt;\n&quot;;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line241">241</a>     xml += &quot;\t\t\t&lt;smallIcon&gt;&lt;/smallIcon&gt;\n&quot;;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line242">242</a>     xml += &quot;\t\t&lt;/agent&gt;\n&quot;;</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line243">243</a>     return xml</pre></td>
+            <td><pre><a name="line243">243</a>     self.content_partner.description_of_data unless self.content_partner.nil? </pre></td>
           </tr>
         
           
@@ -1526,422 +1526,422 @@
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line246">246</a>   ## Helper methods to set columns in associated content partner model by updating attributes of agent</pre></td>
+          <tr class="marked">
+            <td><pre><a name="line246">246</a>   def description_of_data= (description_of_data)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line247">247</a>     self.content_partner.description_of_data=description_of_data</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line248">248</a>     self.content_partner.save</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line249">249</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line247">247</a>   ##  used in the partner step of the content partner registry where we have one form to update both models</pre></td>
+            <td><pre><a name="line250">250</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line248">248</a>   def project_description</pre></td>
+            <td><pre><a name="line251">251</a>   def has_unpublished_content?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line249">249</a>     self.content_partner.project_description unless self.content_partner.nil? </pre></td>
+            <td><pre><a name="line252">252</a>     result=false</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line250">250</a>   end</pre></td>
+            <td><pre><a name="line253">253</a>     self.resources.each do |resource|</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line254">254</a>       result=(resource.resource_status==ResourceStatus.published)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line255">255</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line256">256</a>     return !result</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line257">257</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line251">251</a> </pre></td>
+            <td><pre><a name="line258">258</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line252">252</a>   def project_description= (description)</pre></td>
+            <td><pre><a name="line259">259</a>   def notes</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line253">253</a>     self.content_partner.project_description=description</pre></td>
+            <td><pre><a name="line260">260</a>     self.content_partner.notes unless self.content_partner.nil? </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line254">254</a>     self.content_partner.save</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line255">255</a>   end</pre></td>
+            <td><pre><a name="line261">261</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line256">256</a> </pre></td>
+            <td><pre><a name="line262">262</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line257">257</a>   def description_of_data</pre></td>
+            <td><pre><a name="line263">263</a>   def notes=(notes)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line258">258</a>     self.content_partner.description_of_data unless self.content_partner.nil? </pre></td>
+            <td><pre><a name="line264">264</a>     self.content_partner.notes=notes</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line259">259</a>   end</pre></td>
+            <td><pre><a name="line265">265</a>     self.content_partner.save</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line266">266</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line260">260</a> </pre></td>
+            <td><pre><a name="line267">267</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line261">261</a>   def description_of_data= (description_of_data)</pre></td>
+            <td><pre><a name="line268">268</a>   def admin_notes</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line262">262</a>     self.content_partner.description_of_data=description_of_data</pre></td>
+            <td><pre><a name="line269">269</a>     self.content_partner.admin_notes unless self.content_partner.nil? </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line263">263</a>     self.content_partner.save</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line264">264</a>   end</pre></td>
+            <td><pre><a name="line270">270</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line265">265</a> </pre></td>
+            <td><pre><a name="line271">271</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line266">266</a>   def has_unpublished_content?</pre></td>
+            <td><pre><a name="line272">272</a>   def admin_notes=(admin_notes)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line267">267</a>     result=false</pre></td>
+            <td><pre><a name="line273">273</a>     self.content_partner.admin_notes=admin_notes</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line268">268</a>     self.resources.each do |resource|</pre></td>
+            <td><pre><a name="line274">274</a>     self.content_partner.save</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line269">269</a>       result=(resource.resource_status==ResourceStatus.published)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line270">270</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line271">271</a>     return !result</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line272">272</a>   end</pre></td>
+            <td><pre><a name="line275">275</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line273">273</a> </pre></td>
+            <td><pre><a name="line276">276</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line274">274</a>   def notes</pre></td>
+            <td><pre><a name="line277">277</a>   def primary_contact</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line275">275</a>     self.content_partner.notes unless self.content_partner.nil? </pre></td>
+            <td><pre><a name="line278">278</a>     self.agent_contacts.detect {|c| c.agent_contact_role_id == AgentContactRole.primary.id } || self.agent_contacts.first</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line276">276</a>   end</pre></td>
+            <td><pre><a name="line279">279</a>   end  </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line277">277</a> </pre></td>
+            <td><pre><a name="line280">280</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line281">281</a>   # returns the actual display_name if there is a value in that column, otherwise returns the project name</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line278">278</a>   def notes=(notes)</pre></td>
+            <td><pre><a name="line282">282</a>   def display_name</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line279">279</a>     self.content_partner.notes=notes</pre></td>
+            <td><pre><a name="line283">283</a>     if self.attributes['display_name'].nil? || self.attributes['display_name']==''</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line280">280</a>     self.content_partner.save</pre></td>
+            <td><pre><a name="line284">284</a>       return project_name</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line281">281</a>   end</pre></td>
+            <td><pre><a name="line285">285</a>     else</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line286">286</a>       return self.attributes['display_name']</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line287">287</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line288">288</a>   end  </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line282">282</a> </pre></td>
+            <td><pre><a name="line289">289</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line283">283</a>   def admin_notes</pre></td>
+            <td><pre><a name="line290">290</a>   def shortened_full_name</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line284">284</a>     self.content_partner.admin_notes unless self.content_partner.nil? </pre></td>
+            <td><pre><a name="line291">291</a>     return self.full_name.strip[0..50]</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line285">285</a>   end</pre></td>
+            <td><pre><a name="line292">292</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line286">286</a> </pre></td>
+            <td><pre><a name="line293">293</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line294">294</a>   # returns current agreement</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line287">287</a>   def admin_notes=(admin_notes)</pre></td>
+            <td><pre><a name="line295">295</a>   def agreement</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line288">288</a>     self.content_partner.admin_notes=admin_notes</pre></td>
+            <td><pre><a name="line296">296</a>     ContentPartnerAgreement.find_by_agent_id_and_is_current(self.id,true)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line289">289</a>     self.content_partner.save</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line290">290</a>   end</pre></td>
+            <td><pre><a name="line297">297</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line291">291</a> </pre></td>
+            <td><pre><a name="line298">298</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line292">292</a>   def primary_contact</pre></td>
+            <td><pre><a name="line299">299</a>   def agreement_accepted?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line293">293</a>     self.agent_contacts.detect {|c| c.agent_contact_role_id == AgentContactRole.primary.id } || self.agent_contacts.first</pre></td>
+            <td><pre><a name="line300">300</a>     !self.agreement.nil? &amp;&amp; !self.agreement.signed_by.blank? </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line294">294</a>   end  </pre></td>
+            <td><pre><a name="line301">301</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line295">295</a> </pre></td>
+            <td><pre><a name="line302">302</a> </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line296">296</a>   # returns the actual display_name if there is a value in that column, otherwise returns the project name</pre></td>
+            <td><pre><a name="line303">303</a>   # returns true or false to indicate if current agreement has expired</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line297">297</a>   def display_name</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line298">298</a>     if self.attributes['display_name'].nil? || self.attributes['display_name']==''</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line299">299</a>       return project_name</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line300">300</a>     else</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line301">301</a>       return self.attributes['display_name']</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line302">302</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line303">303</a>   end  </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line304">304</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line305">305</a>   def shortened_full_name</pre></td>
+            <td><pre><a name="line304">304</a>   def agreement_expired?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line306">306</a>     return self.full_name.strip[0..50]</pre></td>
+            <td><pre><a name="line305">305</a> </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line307">307</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line308">308</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line309">309</a>   # returns current agreement</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line310">310</a>   def agreement</pre></td>
+            <td><pre><a name="line306">306</a>     agreement_expired=false</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line311">311</a>     ContentPartnerAgreement.find_by_agent_id_and_is_current(self.id,true)</pre></td>
+            <td><pre><a name="line307">307</a> </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line312">312</a>   end</pre></td>
+            <td><pre><a name="line308">308</a>     # see if there is an outdated agreement</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
+            <td><pre><a name="line309">309</a>     old_agreement=ContentPartnerAgreement.find_by_agent_id_and_is_current(self.id,false)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line310">310</a>     if !old_agreement.nil? # if we've got an old agreement, we must have a new one --- check to see if it's been signed, if not - we have an expired agreement</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line311">311</a>       agreement_expired=true if self.agreement.signed_by.blank?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line312">312</a>     end  </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
             <td><pre><a name="line313">313</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line314">314</a>   def agreement_accepted?</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line314">314</a>     agreement_expired</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line315">315</a>     !self.agreement.nil? &amp;&amp; !self.agreement.signed_by.blank? </pre></td>
+            <td><pre><a name="line315">315</a> </pre></td>
           </tr>
         
           
@@ -1959,175 +1959,175 @@
           
           
           <tr class="inferred">
-            <td><pre><a name="line318">318</a>   # returns true or false to indicate if current agreement has expired</pre></td>
+            <td><pre><a name="line318">318</a>   # --------------------------------------------------</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line319">319</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line320">320</a>   # Authenticates a user by their username and unencrypted password.  Returns the user or nil.</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line319">319</a>   def agreement_expired?</pre></td>
+            <td><pre><a name="line321">321</a>   def self.authenticate(username, password)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line320">320</a> </pre></td>
+            <td><pre><a name="line322">322</a>     a = find_by_username(username)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line321">321</a>     agreement_expired=false</pre></td>
+            <td><pre><a name="line323">323</a>     a &amp;&amp; a.authenticated?(password) &amp;&amp; a.agent_status != AgentStatus.inactive ? a : nil</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line322">322</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line323">323</a>     # see if there is an outdated agreement</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line324">324</a>     old_agreement=ContentPartnerAgreement.find_by_agent_id_and_is_current(self.id,false)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line325">325</a>     if !old_agreement.nil? # if we've got an old agreement, we must have a new one --- check to see if it's been signed, if not - we have an expired agreement</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line326">326</a>       agreement_expired=true if self.agreement.signed_by.blank?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line327">327</a>     end  </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line328">328</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line329">329</a>     agreement_expired</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line330">330</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line331">331</a>   end</pre></td>
+            <td><pre><a name="line324">324</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line332">332</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line333">333</a>   # --------------------------------------------------</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line334">334</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line335">335</a>   # Authenticates a user by their username and unencrypted password.  Returns the user or nil.</pre></td>
+            <td><pre><a name="line325">325</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line336">336</a>   def self.authenticate(username, password)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line337">337</a>     a = find_by_username(username)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line338">338</a>     a &amp;&amp; a.authenticated?(password) &amp;&amp; a.agent_status != AgentStatus.inactive ? a : nil</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line339">339</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line340">340</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line341">341</a>   def authenticated?(password)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line342">342</a>     hashed_password == User.hash_password(password)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line343">343</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line344">344</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line345">345</a>   def remember_token?</pre></td>
+            <td><pre><a name="line326">326</a>   def authenticated?(password)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line346">346</a>     remember_token_expires_at &amp;&amp; Time.now.utc &lt; remember_token_expires_at </pre></td>
+            <td><pre><a name="line327">327</a>     hashed_password == User.hash_password(password)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line328">328</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line329">329</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line330">330</a>   def remember_token?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line331">331</a>     remember_token_expires_at &amp;&amp; Time.now.utc &lt; remember_token_expires_at </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line332">332</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line333">333</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line334">334</a>   # These create and unset the fields required for remembering users between browser closes</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line335">335</a>   def remember_me</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line336">336</a>     remember_me_for 2.weeks</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line337">337</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line338">338</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line339">339</a>   def remember_me_for(time)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line340">340</a>     remember_me_until time.from_now.utc</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line341">341</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line342">342</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line343">343</a>   def remember_me_until(time)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line344">344</a>     self.remember_token_expires_at = time</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line345">345</a>     self.remember_token            = User.hash_password(&quot;#{email}--#{remember_token_expires_at}&quot;)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line346">346</a>     self.save(false)</pre></td>
           </tr>
         
           
@@ -2144,145 +2144,145 @@
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line349">349</a>   # These create and unset the fields required for remembering users between browser closes</pre></td>
-          </tr>
-        
-          
-          
           <tr class="marked">
-            <td><pre><a name="line350">350</a>   def remember_me</pre></td>
+            <td><pre><a name="line349">349</a>   def forget_me</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line351">351</a>     remember_me_for 2.weeks</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line350">350</a>     self.remember_token_expires_at = nil</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line352">352</a>   end</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line351">351</a>     self.remember_token            = nil</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line353">353</a> </pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line352">352</a>     self.save(false)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line354">354</a>   def remember_me_for(time)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line355">355</a>     remember_me_until time.from_now.utc</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line353">353</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line356">356</a>   end</pre></td>
+            <td><pre><a name="line354">354</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line355">355</a>   def password_required?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line356">356</a>     hashed_password.blank? || !password.blank?</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line357">357</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line358">358</a>   def remember_me_until(time)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line359">359</a>     self.remember_token_expires_at = time</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line360">360</a>     self.remember_token            = User.hash_password(&quot;#{email}--#{remember_token_expires_at}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line361">361</a>     self.save(false)</pre></td>
+            <td><pre><a name="line357">357</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line362">362</a>   end</pre></td>
+            <td><pre><a name="line358">358</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line359">359</a>   def reset_password!</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line360">360</a>     pass = random_pronouncable_password</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line361">361</a>     self.password, self.password_confirmation = pass, pass</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line362">362</a>     save</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line363">363</a>     pass</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line364">364</a>   end  </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line363">363</a> </pre></td>
+            <td><pre><a name="line365">365</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line364">364</a>   def forget_me</pre></td>
+            <td><pre><a name="line366">366</a>   def vetted?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line365">365</a>     self.remember_token_expires_at = nil</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line367">367</a>     unless self.content_partner.nil? </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line366">366</a>     self.remember_token            = nil</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line368">368</a>       self.content_partner.vetted? </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line367">367</a>     self.save(false)</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line369">369</a>     else</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line368">368</a>   end</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line370">370</a>       false</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line369">369</a> </pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line371">371</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line370">370</a>   def password_required?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line371">371</a>     hashed_password.blank? || !password.blank?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line372">372</a>   end</pre></td>
           </tr>
         
@@ -2295,481 +2295,481 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line374">374</a>   def reset_password!</pre></td>
+            <td><pre><a name="line374">374</a>   def show_on_partner_page?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line375">375</a>     pass = random_pronouncable_password</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line375">375</a>     unless self.content_partner.nil? </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line376">376</a>     self.password, self.password_confirmation = pass, pass</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line376">376</a>       self.content_partner.show_on_partner_page? </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line377">377</a>     save</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line377">377</a>     else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line378">378</a>     pass</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line378">378</a>       false</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line379">379</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line380">380</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line379">379</a>   end  </pre></td>
+            <td><pre><a name="line381">381</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line382">382</a>   def show_mou_on_partner_page?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line383">383</a>     unless self.content_partner.nil? </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line384">384</a>       self.content_partner.show_mou_on_partner_page? </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line385">385</a>     else</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line386">386</a>       false</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line387">387</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line388">388</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line380">380</a> </pre></td>
+            <td><pre><a name="line389">389</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line381">381</a>   def vetted?</pre></td>
+            <td><pre><a name="line390">390</a>   def show_gallery_on_partner_page?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line382">382</a>     unless self.content_partner.nil? </pre></td>
+            <td><pre><a name="line391">391</a>     unless self.content_partner.nil? </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line383">383</a>       self.content_partner.vetted? </pre></td>
+            <td><pre><a name="line392">392</a>       self.content_partner.show_gallery_on_partner_page? </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line384">384</a>     else</pre></td>
+            <td><pre><a name="line393">393</a>     else</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line385">385</a>       false</pre></td>
+            <td><pre><a name="line394">394</a>       false</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line386">386</a>     end</pre></td>
+            <td><pre><a name="line395">395</a>     end</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line387">387</a>   end</pre></td>
+            <td><pre><a name="line396">396</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line388">388</a> </pre></td>
+            <td><pre><a name="line397">397</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line389">389</a>   def show_on_partner_page?</pre></td>
+            <td><pre><a name="line398">398</a>   def show_stats_on_partner_page?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line390">390</a>     unless self.content_partner.nil? </pre></td>
+            <td><pre><a name="line399">399</a>     unless self.content_partner.nil? </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line391">391</a>       self.content_partner.show_on_partner_page? </pre></td>
+            <td><pre><a name="line400">400</a>       self.content_partner.show_stats_on_partner_page? </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line392">392</a>     else</pre></td>
+            <td><pre><a name="line401">401</a>     else</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line393">393</a>       false</pre></td>
+            <td><pre><a name="line402">402</a>       false</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line394">394</a>     end</pre></td>
+            <td><pre><a name="line403">403</a>     end</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line395">395</a>   end</pre></td>
+            <td><pre><a name="line404">404</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line396">396</a> </pre></td>
+            <td><pre><a name="line405">405</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line397">397</a>   def show_mou_on_partner_page?</pre></td>
+            <td><pre><a name="line406">406</a>   def auto_publish?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line398">398</a>     unless self.content_partner.nil? </pre></td>
+            <td><pre><a name="line407">407</a>     unless self.content_partner.nil? </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line399">399</a>       self.content_partner.show_mou_on_partner_page? </pre></td>
+            <td><pre><a name="line408">408</a>       self.content_partner.auto_publish? </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line400">400</a>     else</pre></td>
+            <td><pre><a name="line409">409</a>     else</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line401">401</a>       false</pre></td>
+            <td><pre><a name="line410">410</a>       false</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line402">402</a>     end</pre></td>
+            <td><pre><a name="line411">411</a>     end</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line403">403</a>   end</pre></td>
+            <td><pre><a name="line412">412</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line404">404</a> </pre></td>
+            <td><pre><a name="line413">413</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line405">405</a>   def show_gallery_on_partner_page?</pre></td>
+            <td><pre><a name="line414">414</a>   def terms_agreed_to?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line406">406</a>     unless self.content_partner.nil? </pre></td>
+            <td><pre><a name="line415">415</a>     unless self.content_partner.nil?     </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line407">407</a>       self.content_partner.show_gallery_on_partner_page? </pre></td>
+            <td><pre><a name="line416">416</a>       self.content_partner.ipr_accept? &amp;&amp; self.content_partner.attribution_accept? &amp;&amp; self.content_partner.roles_accept?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line408">408</a>     else</pre></td>
+            <td><pre><a name="line417">417</a>     else</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line409">409</a>       false</pre></td>
+            <td><pre><a name="line418">418</a>       false</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line410">410</a>     end</pre></td>
+            <td><pre><a name="line419">419</a>     end</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line411">411</a>   end</pre></td>
+            <td><pre><a name="line420">420</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line412">412</a> </pre></td>
+            <td><pre><a name="line421">421</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line413">413</a>   def show_stats_on_partner_page?</pre></td>
+            <td><pre><a name="line422">422</a>   def ready_for_agreement?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line414">414</a>     unless self.content_partner.nil? </pre></td>
+            <td><pre><a name="line423">423</a>     unless self.content_partner.nil?     </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line415">415</a>       self.content_partner.show_stats_on_partner_page? </pre></td>
+            <td><pre><a name="line424">424</a>       self.agent_contacts.any? &amp;&amp; self.content_partner.partner_complete_step? &amp;&amp; terms_agreed_to?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line416">416</a>     else</pre></td>
+            <td><pre><a name="line425">425</a>     else</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line417">417</a>       false</pre></td>
+            <td><pre><a name="line426">426</a>       false</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line418">418</a>     end</pre></td>
+            <td><pre><a name="line427">427</a>     end</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line419">419</a>   end</pre></td>
+            <td><pre><a name="line428">428</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line420">420</a> </pre></td>
+            <td><pre><a name="line429">429</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line421">421</a>   def auto_publish?</pre></td>
+            <td><pre><a name="line430">430</a>   def to_s</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line422">422</a>     unless self.content_partner.nil? </pre></td>
+            <td><pre><a name="line431">431</a>     display_name</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line423">423</a>       self.content_partner.auto_publish? </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line424">424</a>     else</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line425">425</a>       false</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line426">426</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line427">427</a>   end</pre></td>
+            <td><pre><a name="line432">432</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line428">428</a> </pre></td>
+            <td><pre><a name="line433">433</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line429">429</a>   def terms_agreed_to?</pre></td>
+            <td><pre><a name="line434">434</a>   alias :ar_to_xml :to_xml</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line430">430</a>     unless self.content_partner.nil?     </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line431">431</a>       self.content_partner.ipr_accept? &amp;&amp; self.content_partner.attribution_accept? &amp;&amp; self.content_partner.roles_accept?</pre></td>
+            <td><pre><a name="line435">435</a>   def to_xml(options = {})</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line432">432</a>     else</pre></td>
+            <td><pre><a name="line436">436</a>     default_only   = [:id, :acronym, :display_name, :homepage, :username]</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line433">433</a>       false</pre></td>
+            <td><pre><a name="line437">437</a>     options[:only] = (options[:only] ? options[:only] + default_only : default_only)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line434">434</a>     end</pre></td>
+            <td><pre><a name="line438">438</a>     ar_to_xml(options)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line435">435</a>   end</pre></td>
+            <td><pre><a name="line439">439</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line436">436</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line437">437</a>   def ready_for_agreement?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line438">438</a>     unless self.content_partner.nil?     </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line439">439</a>       self.agent_contacts.any? &amp;&amp; self.content_partner.partner_complete_step? &amp;&amp; terms_agreed_to?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line440">440</a>     else</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line441">441</a>       false</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line442">442</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line443">443</a>   end</pre></td>
+            <td><pre><a name="line440">440</a> </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line444">444</a> </pre></td>
+            <td><pre><a name="line441">441</a>   # Find the data_objects &quot;belongs&quot; to an Agent.</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line445">445</a>   def to_s</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line446">446</a>     display_name</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line447">447</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line448">448</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line449">449</a>   alias :ar_to_xml :to_xml</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line450">450</a>   def to_xml(options = {})</pre></td>
+            <td><pre><a name="line442">442</a>   def agents_data</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line451">451</a>     default_only   = [:id, :acronym, :display_name, :homepage, :username]</pre></td>
+            <td><pre><a name="line443">443</a>     begin </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line452">452</a>     options[:only] = (options[:only] ? options[:only] + default_only : default_only)</pre></td>
+            <td><pre><a name="line444">444</a>       datos = HarvestEvent.find_by_sql([&quot;</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line453">453</a>     ar_to_xml(options)</pre></td>
+            <td><pre><a name="line445">445</a>           SELECT DISTINCT he.id FROM agents a </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line446">446</a>                 JOIN agents_resources ar ON (ar.agent_id=a.id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line447">447</a>                 JOIN harvest_events he ON (ar.resource_id=he.resource_id) </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line448">448</a>                 WHERE  (ar.agent_id=? AND he.published_at != '')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line449">449</a>                 ORDER BY he.id DESC LIMIT 1&quot;, self.id])[0].data_objects</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line450">450</a>     rescue</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line451">451</a>       datos = &quot;&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line452">452</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line453">453</a>     return datos</pre></td>
           </tr>
         
           
@@ -2787,199 +2787,199 @@
           
           
           <tr class="inferred">
-            <td><pre><a name="line456">456</a>   # Find the data_objects &quot;belongs&quot; to an Agent.</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line457">457</a>   def agents_data</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line458">458</a>     begin </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line459">459</a>       datos = HarvestEvent.find_by_sql([&quot;</pre></td>
+            <td><pre><a name="line456">456</a>   # Returns true if the Agent's latest harvest contains this taxon_concept or taxon_concept id (the raw ID is</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line460">460</a>           SELECT DISTINCT he.id FROM agents a </pre></td>
+            <td><pre><a name="line457">457</a>   # preferred)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line458">458</a>   def latest_unpublished_harvest_contains?(taxon_concept_id)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line461">461</a>                 JOIN agents_resources ar ON (ar.agent_id=a.id)</pre></td>
+            <td><pre><a name="line459">459</a>     taxon_concept_id = taxon_concept_id.id if taxon_concept_id.class == TaxonConcept</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line462">462</a>                 JOIN harvest_events he ON (ar.resource_id=he.resource_id) </pre></td>
+            <td><pre><a name="line460">460</a>     resources.each do |resource|</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line463">463</a>                 WHERE  (ar.agent_id=? AND he.published_at != '')</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line464">464</a>                 ORDER BY he.id DESC LIMIT 1&quot;, self.id])[0].data_objects</pre></td>
+            <td><pre><a name="line461">461</a>       event = resource.latest_unpublished_harvest_event</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line465">465</a>     rescue</pre></td>
+            <td><pre><a name="line462">462</a>       if event # They do HAVE an unpublished event</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line466">466</a>       datos = &quot;&quot;</pre></td>
+            <td><pre><a name="line463">463</a>         tc = TaxonConcept.find_by_sql([%q{</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line467">467</a>     end</pre></td>
+            <td><pre><a name="line464">464</a>           SELECT tc.id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line465">465</a>           FROM taxon_concepts tc</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line466">466</a>             JOIN hierarchy_entries he ON (tc.id = he.taxon_concept_id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line467">467</a>             JOIN harvest_events_hierarchy_entries hehe ON (he.id = hehe.hierarchy_entry_id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line468">468</a>           WHERE hehe.harvest_event_id = ?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line469">469</a>             AND tc.id = ?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line470">470</a>         }, event.id, taxon_concept_id])</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line471">471</a>         return true unless tc.blank?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line472">472</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line473">473</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line474">474</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line475">475</a>     # we looked at ALL resources and found none applicable</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line476">476</a>     return false</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line477">477</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line478">478</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line468">468</a>     return datos</pre></td>
+            <td><pre><a name="line479">479</a>   def track_curator_activity(*args)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line480">480</a>     user.track_curator_activity(args)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line481">481</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line469">469</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line470">470</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line471">471</a>   # Returns true if the Agent's latest harvest contains this taxon_concept or taxon_concept id (the raw ID is</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line472">472</a>   # preferred)</pre></td>
+            <td><pre><a name="line482">482</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line473">473</a>   def latest_unpublished_harvest_contains?(taxon_concept_id)</pre></td>
+            <td><pre><a name="line483">483</a> protected</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line484">484</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line474">474</a>     taxon_concept_id = taxon_concept_id.id if taxon_concept_id.class == TaxonConcept</pre></td>
+            <td><pre><a name="line485">485</a>   def encrypt_password</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line475">475</a>     resources.each do |resource|</pre></td>
+            <td><pre><a name="line486">486</a>     return if password.blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line476">476</a>       event = resource.latest_unpublished_harvest_event</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line487">487</a>     self.hashed_password = User.hash_password(password)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line477">477</a>       if event # They do HAVE an unpublished event</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line478">478</a>         tc = TaxonConcept.find_by_sql([%q{</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line479">479</a>           SELECT tc.id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line480">480</a>           FROM taxon_concepts tc</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line481">481</a>             JOIN hierarchy_entries he ON (tc.id = he.taxon_concept_id)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line482">482</a>             JOIN harvest_events_hierarchy_entries hehe ON (he.id = hehe.hierarchy_entry_id)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line483">483</a>           WHERE hehe.harvest_event_id = ?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line484">484</a>             AND tc.id = ?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line485">485</a>         }, event.id, taxon_concept_id])</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line486">486</a>         return true unless tc.blank?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line487">487</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line488">488</a>     end</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line488">488</a>   end</pre></td>
           </tr>
         
           
@@ -2990,212 +2990,122 @@
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line490">490</a>     # we looked at ALL resources and found none applicable</pre></td>
-          </tr>
-        
-          
-          
           <tr class="marked">
-            <td><pre><a name="line491">491</a>     return false</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line492">492</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line493">493</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line494">494</a>   def track_curator_activity(*args)</pre></td>
+            <td><pre><a name="line490">490</a>   def random_pronouncable_password(size = 4)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line495">495</a>     user.track_curator_activity(args)</pre></td>
+            <td><pre><a name="line491">491</a>     v = %w(a e i o u y)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line496">496</a>   end</pre></td>
+            <td><pre><a name="line492">492</a>     c = ('a'..'z').to_a - v - ['q'] + %w(qu ch cr fr nd ng nk nt ph pr rd sh sl sp st th tr)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line493">493</a>     (1..size).map{[c.rand, v.rand]}.flatten.map{|x| [x,x.upcase].rand}.join('')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line494">494</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line497">497</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line498">498</a> protected</pre></td>
+            <td><pre><a name="line495">495</a> </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line499">499</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line500">500</a>   def encrypt_password</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line501">501</a>     return if password.blank?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line502">502</a>     self.hashed_password = User.hash_password(password)</pre></td>
+            <td><pre><a name="line496">496</a>   # Set these fields to blank because insistence on having NOT NULL columns on things that aren't populated</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line503">503</a>   end</pre></td>
+            <td><pre><a name="line497">497</a>   # until certain steps.</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line498">498</a>   def blank_not_null_fields</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line499">499</a>     self.homepage       ||= ''</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line500">500</a>     self[:display_name] ||= ''</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line501">501</a>     self.full_name      ||= ''</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line502">502</a>     self[:logo_url]     ||= ''</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line503">503</a>     self.acronym        ||= ''</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line504">504</a>     self.homepage = 'http://' + self.homepage if self.homepage != '' &amp;&amp; (self.homepage[0..6] != 'http://' &amp;&amp; self.homepage[0..7] != 'https://')      </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line504">504</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line505">505</a>   def random_pronouncable_password(size = 4)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line506">506</a>     v = %w(a e i o u y)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line507">507</a>     c = ('a'..'z').to_a - v - ['q'] + %w(qu ch cr fr nd ng nk nt ph pr rd sh sl sp st th tr)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line508">508</a>     (1..size).map{[c.rand, v.rand]}.flatten.map{|x| [x,x.upcase].rand}.join('')</pre></td>
+            <td><pre><a name="line505">505</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line509">509</a>   end</pre></td>
+            <td><pre><a name="line506">506</a> </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line510">510</a> </pre></td>
+            <td><pre><a name="line507">507</a> end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line511">511</a>   # Set these fields to blank because insistence on having NOT NULL columns on things that aren't populated</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line512">512</a>   # until certain steps.</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line513">513</a>   def blank_not_null_fields</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line514">514</a>     self.homepage       ||= ''</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line515">515</a>     self[:display_name] ||= ''</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line516">516</a>     self.full_name      ||= ''</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line517">517</a>     self[:logo_url]     ||= ''</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line518">518</a>     self.acronym        ||= ''</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line519">519</a>     self.homepage = 'http://' + self.homepage if self.homepage != '' &amp;&amp; (self.homepage[0..6] != 'http://' &amp;&amp; self.homepage[0..7] != 'https://')      </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line520">520</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line521">521</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line522">522</a> end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line523">523</a> </pre></td>
+            <td><pre><a name="line508">508</a> </pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

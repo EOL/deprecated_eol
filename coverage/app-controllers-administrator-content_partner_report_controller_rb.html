@@ -1262,49 +1262,49 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line202">202</a>     arr=[]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line203">203</a>     start=&quot;2008_01&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line204">204</a>     str=&quot;&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line205">205</a>     var_date = Time.now</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line206">206</a>     while( start != str)      </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line207">207</a>       str = var_date.year.to_s + &quot;_&quot; + &quot;%02d&quot; % var_date.month.to_s</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line208">208</a>       arr &lt;&lt; str</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line209">209</a>       var_date = var_date - 1.month</pre></td>
           </tr>
         
@@ -1316,7 +1316,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line211">211</a>     return arr</pre></td>
           </tr>
         
@@ -1340,19 +1340,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line215">215</a>     @page_title = 'Published Content Partners'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line216">216</a>     @year_month_list = get_year_month_list()</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line217">217</a>     if(params[:year_month]) then</pre></td>
           </tr>
         
@@ -1388,25 +1388,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line223">223</a>       last_month = Time.now - 1.month</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line224">224</a>       @report_year = last_month.year.to_s</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line225">225</a>       @report_month = last_month.month.to_s</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line226">226</a>       @year_month   = @report_year + &quot;_&quot; + &quot;%02d&quot; % @report_month.to_i</pre></td>
           </tr>
         
@@ -1418,13 +1418,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line228">228</a>     page = params[:page] || 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line229">229</a>     @published_agents = Agent.published_agent(@report_year, @report_month, page)    </pre></td>
           </tr>
         
@@ -1454,13 +1454,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line234">234</a>     @page_header = 'Content Partner Curated Data'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line235">235</a>     @year_month_list = get_year_month_list()</pre></td>
           </tr>
         
@@ -1472,7 +1472,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line237">237</a>     if(params[:year_month]) then</pre></td>
           </tr>
         
@@ -1490,7 +1490,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line240">240</a>     elsif(session[:form_year_month]) then</pre></td>
           </tr>
         
@@ -1508,7 +1508,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line243">243</a>     if(@year_month) then</pre></td>
           </tr>
         
@@ -1544,25 +1544,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line249">249</a>       last_month = Time.now</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line250">250</a>       @report_year = last_month.year.to_s</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line251">251</a>       @report_month = last_month.month.to_s</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line252">252</a>       @year_month   = @report_year + &quot;_&quot; + &quot;%02d&quot; % @report_month.to_i</pre></td>
           </tr>
         
@@ -1580,7 +1580,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line255">255</a>     if(params[:agent_id]) then</pre></td>
           </tr>
         
@@ -1598,7 +1598,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line258">258</a>     elsif(session[:form_agent_id]) then</pre></td>
           </tr>
         
@@ -1616,7 +1616,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line261">261</a>       @agent_id = 1</pre></td>
           </tr>
         
@@ -1634,7 +1634,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line264">264</a>     @content_partners_with_published_data = Agent.content_partners_with_published_data  </pre></td>
           </tr>
         
@@ -1646,7 +1646,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line266">266</a>     if(@agent_id == &quot;All&quot;) then </pre></td>
           </tr>
         
@@ -1670,31 +1670,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line270">270</a>       agent = Agent.find(@agent_id)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line271">271</a>       @partner_fullname = agent.full_name</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line272">272</a>       @latest_harvest_event = agent.latest_harvest_event</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line273">273</a>       @latest_harvest_id = @latest_harvest_event.id</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line274">274</a>       arr_dataobject_ids = HarvestEvent.data_object_ids_from_harvest(@latest_harvest_id)</pre></td>
           </tr>
         
@@ -1712,19 +1712,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line277">277</a>     arr = User.curated_data_object_ids(arr_dataobject_ids, @report_year, @report_month, @agent_id)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line278">278</a>       @arr_dataobject_ids = arr[0]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line279">279</a>       @arr_user_ids = arr[1]</pre></td>
           </tr>
         
@@ -1736,13 +1736,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line281">281</a>     if(@arr_dataobject_ids.length == 0) then </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line282">282</a>       @arr_dataobject_ids = [1] #no data objects</pre></td>
           </tr>
         
@@ -1760,19 +1760,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line285">285</a>     @arr_obj_tc_id = DataObject.tc_ids_from_do_ids(@arr_dataobject_ids);</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line286">286</a>     page = params[:page] || 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line287">287</a>     @partner_curated_objects = User.curated_data_objects(@arr_dataobject_ids, @report_year, @report_month, page, &quot;report&quot;)</pre></td>
           </tr>
         
@@ -1784,7 +1784,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line289">289</a>     @cur_page = (page.to_i - 1) * 30</pre></td>
           </tr>
         
@@ -1808,7 +1808,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line293">293</a>     @page_header = 'Content Partner Data Objects Stats'</pre></td>
           </tr>
         
@@ -1820,25 +1820,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line295">295</a>     if(params[:agent_id]) then</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line296">296</a>       @agent_id = params[:agent_id]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line297">297</a>       session[:form_agent_id] = params[:agent_id]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line298">298</a>     elsif(session[:form_agent_id]) then</pre></td>
           </tr>
         
@@ -1856,7 +1856,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line301">301</a>       @agent_id = 1  </pre></td>
           </tr>
         
@@ -1874,7 +1874,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line304">304</a>     @content_partners_with_published_data = Agent.content_partners_with_published_data  </pre></td>
           </tr>
         
@@ -1886,7 +1886,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line306">306</a>     if(@agent_id == &quot;All&quot;) then @agent_id=1</pre></td>
           </tr>
         
@@ -1898,13 +1898,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line308">308</a>     partner = Agent.find(@agent_id, :select =&gt; [:full_name])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line309">309</a>     @partner_fullname = partner.full_name</pre></td>
           </tr>
         
@@ -1916,13 +1916,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line311">311</a>     page = params[:page] || 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line312">312</a>     @partner_harvest_events = Agent.resources_harvest_events(@agent_id, page)        </pre></td>
           </tr>
         
@@ -1934,7 +1934,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line314">314</a>     @cur_page = (page.to_i - 1) * 30</pre></td>
           </tr>
         
@@ -1958,13 +1958,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line318">318</a>     @harvest_id = params[:harvest_id]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line319">319</a>     @partner_fullname = params[:partner_fullname]</pre></td>
           </tr>
         
@@ -1976,43 +1976,43 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line321">321</a>     @page_header = 'Harvest Event Data Objects Stats'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line322">322</a>     arr = DataObject.generate_dataobject_stats(@harvest_id)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line323">323</a>       @stats = arr[0]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line324">324</a>       @data_types = arr[1]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line325">325</a>       @vetted_types = arr[2]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line326">326</a>       @total_data_objects = arr[3]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line327">327</a>       @total_taxa = arr[4]</pre></td>
           </tr>
         
@@ -2048,13 +2048,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line333">333</a>     @page_title = $ADMIN_CONSOLE_TITLE</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line334">334</a>     @navigation_partial = '/admin/navigation'</pre></td>
           </tr>
         
@@ -2139,7 +2139,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

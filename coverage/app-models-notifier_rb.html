@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-notifier_rb.html">app/models/notifier.rb</a></td>
             <td class='right_align'><tt>144</tt></td>
             <td class='right_align'><tt>117</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>41.67%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>31.25%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:42px"></div>
-            <div class="uncovered" style="width:58px"></div>
+            <div class="covered" style="width:31px"></div>
+            <div class="uncovered" style="width:69px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>32.48%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>21.37%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:32px"></div>
-            <div class="uncovered" style="width:68px"></div>
+            <div class="covered" style="width:21px"></div>
+            <div class="uncovered" style="width:79px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -92,31 +92,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line7">7</a>     subject     &quot;EOL Forgot Password&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line8">8</a>     recipients  user.email</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line9">9</a>     from        $WEBSITE_EMAIL_FROM_ADDRESS</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line10">10</a>     body        :user =&gt; user, :password_reset_url=&gt;user.password_reset_url(port)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line11">11</a>   end</pre></td>
           </tr>
         
@@ -698,61 +698,61 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line108">108</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line109">109</a>     contact_subject=ContactSubject.find(contact.contact_subject_id)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line110">110</a>     contact_recipients = contact_subject.recipients</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line111">111</a>     contact_recipients = contact_recipients.split(',').map { |c| c.strip }</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line112">112</a>     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line113">113</a>     subject     &quot;EOL Contact Us: #{contact_subject.title}&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line114">114</a>     recipients  contact_recipients</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line115">115</a>     from        $WEBSITE_EMAIL_FROM_ADDRESS</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line116">116</a>     body        :contact =&gt; contact</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line117">117</a>   end </pre></td>
           </tr>
         
@@ -921,7 +921,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

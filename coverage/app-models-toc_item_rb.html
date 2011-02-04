@@ -28,17 +28,17 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="app-models-toc_item_rb.html">app/models/toc_item.rb</a></td>
-            <td class='right_align'><tt>282</tt></td>
-            <td class='right_align'><tt>232</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>47.87%</tt></div>
+            <td class='right_align'><tt>280</tt></td>
+            <td class='right_align'><tt>231</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>34.64%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:48px"></div>
-            <div class="uncovered" style="width:52px"></div>
+            <div class="covered" style="width:35px"></div>
+            <div class="uncovered" style="width:65px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>37.93%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>22.08%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:38px"></div>
-            <div class="uncovered" style="width:62px"></div>
+            <div class="covered" style="width:22px"></div>
+            <div class="uncovered" style="width:78px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -141,1561 +141,1561 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line15">15</a>   connection.select_rows('select toc.id, count(*) from table_of_contents toc join data_objects_table_of_contents dotoc on (toc.id=dotoc.toc_id) group by toc.id')</pre></td>
+            <td><pre><a name="line15">15</a>   def self.toc_object_counts</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line16">16</a>     cached('toc_object_counts') do</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line17">17</a>       TocItem.count_objects</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line18">18</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line19">19</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line16">16</a>   </pre></td>
+            <td><pre><a name="line20">20</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line17">17</a>   def self.toc_object_counts</pre></td>
+            <td><pre><a name="line21">21</a>   def self.count_objects</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line18">18</a>     cached('toc_object_counts') do</pre></td>
+            <td><pre><a name="line22">22</a>     counts = []</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line19">19</a>       TocItem.count_objects</pre></td>
+            <td><pre><a name="line23">23</a>     count_hash = TocItem.connection.select_rows(&quot;select toc.id, count(*) from table_of_contents toc join data_objects_table_of_contents dotoc on (toc.id=dotoc.toc_id) join data_objects do on (dotoc.data_object_id=do.id) where do.published=1 and do.visibility_id=#{Visibility.visible.id} group by toc.id&quot;)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line20">20</a>     end</pre></td>
+            <td><pre><a name="line24">24</a>     count_hash.each do |id, count|</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line21">21</a>   end</pre></td>
+            <td><pre><a name="line25">25</a>       counts[id.to_i] = count.to_i</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line26">26</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line27">27</a>     return counts</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line28">28</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line22">22</a>   </pre></td>
+            <td><pre><a name="line29">29</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line23">23</a>   def self.count_objects</pre></td>
+            <td><pre><a name="line30">30</a>   def self.bhl</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line24">24</a>     counts = []</pre></td>
+            <td><pre><a name="line31">31</a>     cached_find(:label, 'Biodiversity Heritage Library')</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line25">25</a>     count_hash = TocItem.connection.select_rows(&quot;select toc.id, count(*) from table_of_contents toc join data_objects_table_of_contents dotoc on (toc.id=dotoc.toc_id) join data_objects do on (dotoc.data_object_id=do.id) where do.published=1 and do.visibility_id=#{Visibility.visible.id} group by toc.id&quot;)</pre></td>
+            <td><pre><a name="line32">32</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line33">33</a>   def self.content_partners</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line26">26</a>     count_hash.each do |id, count|</pre></td>
+            <td><pre><a name="line34">34</a>     cached_find(:label, 'Content Partners')</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line27">27</a>       counts[id.to_i] = count.to_i</pre></td>
+            <td><pre><a name="line35">35</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line36">36</a>   def self.name_and_taxonomy</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line28">28</a>     end</pre></td>
+            <td><pre><a name="line37">37</a>     cached('names_and_taxonomy') do</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line29">29</a>     return counts</pre></td>
+            <td><pre><a name="line38">38</a>       TocItem.find_or_create_by_label('Names and Taxonomy')</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line30">30</a>   end</pre></td>
+            <td><pre><a name="line39">39</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line40">40</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line41">41</a>   def self.related_names</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line42">42</a>     cached_find(:label, 'Related Names', self.name_and_taxonomy.id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line43">43</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line44">44</a>   def self.synonyms</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line45">45</a>     cached('synonyms') do</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line46">46</a>       TocItem.find_by_label_and_parent_id('Synonyms', self.name_and_taxonomy.id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line47">47</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line48">48</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line49">49</a>   def self.common_names</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line50">50</a>     cached('common_names') do</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line51">51</a>       TocItem.find_by_label_and_parent_id('Common Names', self.name_and_taxonomy.id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line52">52</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line53">53</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line54">54</a>   def self.page_statistics</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line55">55</a>     $CACHE.fetch('toc_items/page_statistics') do</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line56">56</a>       TocItem.find_or_create_by_label('Page Statistics')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line57">57</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line58">58</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line59">59</a>   def self.content_summary</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line60">60</a>     $CACHE.fetch('toc_items/content_summary') do</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line61">61</a>       TocItem.find_or_create_by_label('Content Summary')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line62">62</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line63">63</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line64">64</a>   def self.overview</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line65">65</a>     cached_find(:label, 'Overview')</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line31">31</a>   </pre></td>
+            <td><pre><a name="line66">66</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line32">32</a>   def self.bhl</pre></td>
+            <td><pre><a name="line67">67</a>   def self.education</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line68">68</a>     cached_find(:label, 'Education')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line69">69</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line33">33</a>     cached_find(:label, 'Biodiversity Heritage Library')</pre></td>
+            <td><pre><a name="line70">70</a>   def self.search_the_web</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line71">71</a>     cached_find(:label, 'Search the Web')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line72">72</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line73">73</a>   def self.biomedical_terms</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line74">74</a>     cached_find(:label, 'Biomedical Terms')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line75">75</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line76">76</a>   def self.literature_references</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line77">77</a>     cached_find(:label, 'Literature References')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line78">78</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line79">79</a>   def self.nucleotide_sequences</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line80">80</a>     cached_find(:label, 'Nucleotide Sequences')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line81">81</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line82">82</a>   def self.wikipedia</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line83">83</a>     cached_find(:label, 'Wikipedia')</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line84">84</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line34">34</a>   end</pre></td>
+            <td><pre><a name="line85">85</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line35">35</a>   def self.content_partners</pre></td>
+            <td><pre><a name="line86">86</a>   def object_count</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line36">36</a>     cached_find(:label, 'Content Partners')</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line87">87</a>     counts = TocItem.toc_object_counts</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line88">88</a>     return counts[id] || 0</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line89">89</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line37">37</a>   end</pre></td>
+            <td><pre><a name="line90">90</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line38">38</a>   def self.name_and_taxonomy</pre></td>
+            <td><pre><a name="line91">91</a>   def label_as_method_name</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line39">39</a>     cached('names_and_taxonomy') do</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line92">92</a>     label.gsub(/\W/, '_').downcase</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line40">40</a>       TocItem.find_or_create_by_label('Names and Taxonomy')</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line93">93</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line41">41</a>     end</pre></td>
+            <td><pre><a name="line94">94</a> </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line42">42</a>   end</pre></td>
+            <td><pre><a name="line95">95</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line43">43</a>   def self.related_names</pre></td>
+            <td><pre><a name="line96">96</a>   def is_child?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line44">44</a>     cached_find(:label, 'Related Names', self.name_and_taxonomy.id)</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line97">97</a>     !(self.parent_id.nil? or self.parent_id == 0) </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line98">98</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line45">45</a>   end</pre></td>
+            <td><pre><a name="line99">99</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line46">46</a>   def self.synonyms</pre></td>
+            <td><pre><a name="line100">100</a>   def allow_user_text?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line47">47</a>     cached('synonyms') do</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line101">101</a>     self.info_items.length &gt; 0 &amp;&amp; ![&quot;Wikipedia&quot;, &quot;Barcode&quot;].include?(self.label)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line48">48</a>       TocItem.find_by_label_and_parent_id('Synonyms', self.name_and_taxonomy.id)</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line102">102</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line49">49</a>     end</pre></td>
+            <td><pre><a name="line103">103</a>   </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line104">104</a>   def self.selectable_toc</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line105">105</a>     TocItem.find_by_sql(&quot;SELECT toc.* FROM table_of_contents toc JOIN info_items ii ON (toc.id=ii.toc_id) WHERE toc.label NOT IN ('Wikipedia', 'Barcode') ORDER BY toc.label&quot;).uniq.collect {|c| [c.label, c.id] }</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line106">106</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line50">50</a>   end</pre></td>
+            <td><pre><a name="line107">107</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line51">51</a>   def self.common_names</pre></td>
+            <td><pre><a name="line108">108</a>   def wikipedia?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line52">52</a>     cached('common_names') do</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line109">109</a>     self.label == &quot;Wikipedia&quot; </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line53">53</a>       TocItem.find_by_label_and_parent_id('Common Names', self.name_and_taxonomy.id)</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line110">110</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line54">54</a>     end</pre></td>
+            <td><pre><a name="line111">111</a>   </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line112">112</a>   def self.roots</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line113">113</a>     TocItem.find_all_by_parent_id(0, :order =&gt; 'view_order', :include =&gt; :info_items)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line114">114</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line55">55</a>   end</pre></td>
+            <td><pre><a name="line115">115</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line56">56</a>   def self.page_statistics</pre></td>
+            <td><pre><a name="line116">116</a>   def children</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line57">57</a>     $CACHE.fetch('toc_items/page_statistics') do</pre></td>
+            <td><pre><a name="line117">117</a>     TocItem.find_all_by_parent_id(self.id, :order =&gt; 'view_order', :include =&gt; :info_items)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line58">58</a>       TocItem.find_or_create_by_label('Page Statistics')</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line59">59</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line60">60</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line61">61</a>   def self.content_summary</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line62">62</a>     $CACHE.fetch('toc_items/content_summary') do</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line63">63</a>       TocItem.find_or_create_by_label('Content Summary')</pre></td>
+            <td><pre><a name="line118">118</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line64">64</a>     end</pre></td>
+            <td><pre><a name="line119">119</a>   </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line120">120</a>   def self.whole_tree</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line121">121</a>     TocItem.all(:order =&gt; 'view_order', :include =&gt; :info_items)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line122">122</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line65">65</a>   end</pre></td>
+            <td><pre><a name="line123">123</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line66">66</a>   def self.overview</pre></td>
+            <td><pre><a name="line124">124</a>   def add_child(new_label)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line125">125</a>     return if new_label.blank?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line126">126</a>     return unless is_major?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line127">127</a>     max_view_order = TocItem.connection.select_values(&quot;SELECT max(view_order) FROM table_of_contents WHERE id=#{id} OR parent_id=#{id}&quot;)[0].to_i</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line128">128</a>     next_view_order = max_view_order + 1</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line129">129</a>     TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order+1 WHERE view_order &gt;= #{next_view_order}&quot;)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line130">130</a>     TocItem.create(:label =&gt; new_label, :parent_id =&gt; id, :view_order =&gt; next_view_order)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line131">131</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line67">67</a>     cached_find(:label, 'Overview')</pre></td>
+            <td><pre><a name="line132">132</a>   def self.add_major_chapter(new_label)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line133">133</a>     return if new_label.blank?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line134">134</a>     max_view_order = TocItem.connection.select_values(&quot;SELECT max(view_order) FROM table_of_contents&quot;)[0].to_i</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line135">135</a>     next_view_order = max_view_order + 1</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line136">136</a>     TocItem.create(:label =&gt; new_label, :parent_id =&gt; 0, :view_order =&gt; next_view_order)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line137">137</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line68">68</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line69">69</a>   def self.education</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line70">70</a>     cached_find(:label, 'Education')</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line71">71</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line72">72</a>   def self.search_the_web</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line73">73</a>     cached_find(:label, 'Search the Web')</pre></td>
+            <td><pre><a name="line138">138</a>   </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line74">74</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line75">75</a>   def self.biomedical_terms</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line76">76</a>     cached_find(:label, 'Biomedical Terms')</pre></td>
+            <td><pre><a name="line139">139</a>   # I suppose we just need a move_up method and move_down could fire off a move_up to its next chapter</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line77">77</a>   end</pre></td>
+            <td><pre><a name="line140">140</a>   # but having two methods will save a few queries. Also need to figure about about moving all the way down</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line78">78</a>   def self.literature_references</pre></td>
+            <td><pre><a name="line141">141</a>   def move_down(all_the_way = false)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line142">142</a>     if is_major?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line143">143</a>       if all_the_way</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line144">144</a>         move_to_last</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line145">145</a>       elsif chapter_after = next_of_type</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line146">146</a>         TocItem.swap_enries(self, chapter_after)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line147">147</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line148">148</a>     else  # sub chapter</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line149">149</a>       if all_the_way</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line150">150</a>         move_to_last</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line151">151</a>       elsif next_toc = next_of_type</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line152">152</a>         if next_toc.is_sub?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line153">153</a>           TocItem.swap_enries(self, next_toc)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line154">154</a>         end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line155">155</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line156">156</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line157">157</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line158">158</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line79">79</a>     cached_find(:label, 'Literature References')</pre></td>
+            <td><pre><a name="line159">159</a>   def move_up(all_the_way = false)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line160">160</a>     if is_major?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line161">161</a>       if all_the_way</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line162">162</a>         move_to_first</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line163">163</a>       elsif chapter_before = previous_of_type</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line164">164</a>         TocItem.swap_enries(chapter_before, self)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line165">165</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line166">166</a>     else  # sub chapter</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line167">167</a>       if all_the_way</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line168">168</a>         move_to_first</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line169">169</a>       elsif previous_toc = previous_of_type</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line170">170</a>         if previous_toc.is_sub?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line171">171</a>           TocItem.swap_enries(previous_toc, self)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line172">172</a>         end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line173">173</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line174">174</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line175">175</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line80">80</a>   end</pre></td>
+            <td><pre><a name="line176">176</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line81">81</a>   def self.nucleotide_sequences</pre></td>
+            <td><pre><a name="line177">177</a>   def self.swap_enries(toc1, toc2)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line178">178</a>     return unless toc1.class==TocItem &amp;&amp; toc2.class==TocItem</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line179">179</a>     return if toc1.is_major? != toc2.is_major?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line180">180</a>     </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line181">181</a>     if toc1.is_sub?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line182">182</a>       swap_view_order = toc1.view_order</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line183">183</a>       toc1.view_order = toc2.view_order</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line184">184</a>       toc2.view_order = swap_view_order</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line185">185</a>       toc1.save</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line186">186</a>       toc2.save</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line187">187</a>     else</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line188">188</a>       # make sure toc1 is higher in the list</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line189">189</a>       if toc1.view_order &gt; toc2.view_order</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line190">190</a>         toc1, toc2 = toc2, toc1 </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line191">191</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line192">192</a>       to_subtract = toc1.chapter_length</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line193">193</a>       TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order+#{toc2.chapter_length} WHERE id=#{toc1.id} OR parent_id=#{toc1.id}&quot;)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line194">194</a>       TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order-#{to_subtract} WHERE id=#{toc2.id} OR parent_id=#{toc2.id}&quot;)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line195">195</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line196">196</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line197">197</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line82">82</a>     cached_find(:label, 'Nucleotide Sequences')</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line83">83</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line84">84</a>   def self.wikipedia</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line85">85</a>     cached_find(:label, 'Wikipedia')</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line86">86</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line87">87</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line88">88</a>   def object_count</pre></td>
+            <td><pre><a name="line198">198</a>   def move_to_first</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line89">89</a>     counts = TocItem.toc_object_counts</pre></td>
+            <td><pre><a name="line199">199</a>     first_toc = first_of_type</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line90">90</a>     return counts[id] || 0</pre></td>
+            <td><pre><a name="line200">200</a>     if first_toc.id != id</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line91">91</a>   end</pre></td>
+            <td><pre><a name="line201">201</a>       if is_major?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line92">92</a>   </pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line202">202</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order+#{chapter_length} WHERE id!=#{id} AND parent_id!=#{id} AND view_order&lt;=#{view_order}&quot;)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line93">93</a>   def label_as_method_name</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line203">203</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order-#{view_order-first_toc.view_order} WHERE id=#{id} OR parent_id=#{id}&quot;)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line94">94</a>     label.gsub(/\W/, '_').downcase</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line204">204</a>       else</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line95">95</a>   end</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line205">205</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order+1 WHERE id!=#{id} AND parent_id=#{parent_id} AND view_order&lt;#{view_order}&quot;)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line96">96</a> </pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line206">206</a>         self.view_order = first_toc.view_order</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line97">97</a>   </pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line207">207</a>         self.save</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line208">208</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line209">209</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line210">210</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line98">98</a>   def is_child?</pre></td>
+            <td><pre><a name="line211">211</a>   def move_to_last</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line99">99</a>     !(self.parent_id.nil? or self.parent_id == 0) </pre></td>
+            <td><pre><a name="line212">212</a>     last_toc = last_of_type</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line100">100</a>   end</pre></td>
+            <td><pre><a name="line213">213</a>     if last_toc.id != id</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line214">214</a>       if is_major?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line215">215</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order-#{chapter_length} WHERE id!=#{id} AND parent_id!=#{id} AND view_order&gt;=#{view_order}&quot;)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line216">216</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order+#{last_toc.view_order-view_order} WHERE id=#{id} OR parent_id=#{id}&quot;)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line217">217</a>       else</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line218">218</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order-1 WHERE id!=#{id} AND parent_id=#{parent_id} AND view_order&gt;#{view_order}&quot;)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line219">219</a>         self.view_order = last_toc.view_order</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line220">220</a>         self.save</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line221">221</a>       end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line222">222</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line223">223</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line101">101</a> </pre></td>
+            <td><pre><a name="line224">224</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line102">102</a>   def allow_user_text?</pre></td>
+            <td><pre><a name="line225">225</a>   def previous_of_type</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line226">226</a>     result = TocItem.find_by_sql(&quot;SELECT * FROM table_of_contents WHERE view_order&lt;#{view_order} AND parent_id=#{parent_id} ORDER BY view_order DESC&quot;)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line227">227</a>     return nil if result.blank?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line228">228</a>     result[0]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line229">229</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line230">230</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line103">103</a>     self.info_items.length &gt; 0 &amp;&amp; ![&quot;Wikipedia&quot;, &quot;Barcode&quot;].include?(self.label)</pre></td>
+            <td><pre><a name="line231">231</a>   def next_of_type</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line232">232</a>     result = TocItem.find_by_sql(&quot;SELECT * FROM table_of_contents WHERE view_order&gt;#{view_order} AND parent_id=#{parent_id} ORDER BY view_order ASC&quot;)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line233">233</a>     return nil if result.blank?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line234">234</a>     result[0]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line235">235</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line104">104</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line105">105</a>   </pre></td>
+            <td><pre><a name="line236">236</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line106">106</a>   def self.selectable_toc</pre></td>
+            <td><pre><a name="line237">237</a>   def last_of_type</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line107">107</a>     TocItem.find_by_sql(&quot;SELECT toc.* FROM table_of_contents toc JOIN info_items ii ON (toc.id=ii.toc_id) WHERE toc.label NOT IN ('Wikipedia', 'Barcode') ORDER BY toc.label&quot;).uniq.collect {|c| [c.label, c.id] }</pre></td>
+            <td><pre><a name="line238">238</a>     TocItem.find_all_by_parent_id(parent_id, :order =&gt; 'view_order desc')[0]</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line108">108</a>   end</pre></td>
+            <td><pre><a name="line239">239</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line109">109</a> </pre></td>
+            <td><pre><a name="line240">240</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line110">110</a>   def wikipedia?</pre></td>
+            <td><pre><a name="line241">241</a>   def first_of_type</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line111">111</a>     self.label == &quot;Wikipedia&quot; </pre></td>
+            <td><pre><a name="line242">242</a>     TocItem.find_all_by_parent_id(parent_id, :order =&gt; 'view_order asc')[0]</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line112">112</a>   end</pre></td>
+            <td><pre><a name="line243">243</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line113">113</a>   </pre></td>
+            <td><pre><a name="line244">244</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line114">114</a>   def self.roots</pre></td>
+            <td><pre><a name="line245">245</a>   def chapter_length</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line115">115</a>     TocItem.find_all_by_parent_id(0, :order =&gt; 'view_order', :include =&gt; :info_items)</pre></td>
+            <td><pre><a name="line246">246</a>     return nil if parent_id != 0</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line116">116</a>   end</pre></td>
+            <td><pre><a name="line247">247</a>     if next_chapter = next_of_type</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line248">248</a>       return next_chapter.view_order - view_order</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line249">249</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line250">250</a>     return TocItem.count_by_sql(&quot;SELECT COUNT(*) FROM table_of_contents WHERE id=#{id} OR parent_id=#{id}&quot;)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line251">251</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line117">117</a>   </pre></td>
+            <td><pre><a name="line252">252</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line118">118</a>   def children</pre></td>
+            <td><pre><a name="line253">253</a>   def is_major?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line119">119</a>     TocItem.find_all_by_parent_id(self.id, :order =&gt; 'view_order', :include =&gt; :info_items)</pre></td>
+            <td><pre><a name="line254">254</a>     return parent_id == 0</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line120">120</a>   end</pre></td>
+            <td><pre><a name="line255">255</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line121">121</a>   </pre></td>
+            <td><pre><a name="line256">256</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line122">122</a>   def self.whole_tree</pre></td>
+            <td><pre><a name="line257">257</a>   def is_sub?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line123">123</a>     TocItem.all(:order =&gt; 'view_order', :include =&gt; :info_items)</pre></td>
+            <td><pre><a name="line258">258</a>     return parent_id != 0</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line124">124</a>   end</pre></td>
+            <td><pre><a name="line259">259</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line125">125</a>   </pre></td>
+            <td><pre><a name="line260">260</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line126">126</a>   def add_child(new_label)</pre></td>
+            <td><pre><a name="line261">261</a>   def self.last_major_chapter</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line127">127</a>     return if new_label.blank?</pre></td>
+            <td><pre><a name="line262">262</a>     TocItem.find_all_by_parent_id(0, :order =&gt; 'view_order desc')[0]</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line128">128</a>     return unless is_major?</pre></td>
+            <td><pre><a name="line263">263</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="uncovered">
-            <td><pre><a name="line129">129</a>     max_view_order = TocItem.connection.select_values(&quot;SELECT max(view_order) FROM table_of_contents WHERE id=#{id} OR parent_id=#{id}&quot;)[0].to_i</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line130">130</a>     next_view_order = max_view_order + 1</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line131">131</a>     TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order+1 WHERE view_order &gt;= #{next_view_order}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line132">132</a>     TocItem.create(:label =&gt; new_label, :parent_id =&gt; id, :view_order =&gt; next_view_order)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line133">133</a>   end</pre></td>
+          <tr class="inferred">
+            <td><pre><a name="line264">264</a>   </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line134">134</a>   def self.add_major_chapter(new_label)</pre></td>
+            <td><pre><a name="line265">265</a>   def is_reserved?</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line135">135</a>     return if new_label.blank?</pre></td>
+            <td><pre><a name="line266">266</a>     return @@reserved_toc_labels.include? label</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line136">136</a>     max_view_order = TocItem.connection.select_values(&quot;SELECT max(view_order) FROM table_of_contents&quot;)[0].to_i</pre></td>
+            <td><pre><a name="line267">267</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line137">137</a>     next_view_order = max_view_order + 1</pre></td>
+            <td><pre><a name="line268">268</a>   </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line138">138</a>     TocItem.create(:label =&gt; new_label, :parent_id =&gt; 0, :view_order =&gt; next_view_order)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line139">139</a>   end</pre></td>
+            <td><pre><a name="line269">269</a> end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line140">140</a>   </pre></td>
+            <td><pre><a name="line270">270</a> </pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line141">141</a>   # I suppose we just need a move_up method and move_down could fire off a move_up to its next chapter</pre></td>
+            <td><pre><a name="line271">271</a> # == Schema Info</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line142">142</a>   # but having two methods will save a few queries. Also need to figure about about moving all the way down</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line143">143</a>   def move_down(all_the_way = false)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line144">144</a>     if is_major?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line145">145</a>       if all_the_way</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line146">146</a>         move_to_last</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line147">147</a>       elsif chapter_after = next_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line148">148</a>         TocItem.swap_enries(self, chapter_after)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line149">149</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line150">150</a>     else  # sub chapter</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line151">151</a>       if all_the_way</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line152">152</a>         move_to_last</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line153">153</a>       elsif next_toc = next_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line154">154</a>         if next_toc.is_sub?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line155">155</a>           TocItem.swap_enries(self, next_toc)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line156">156</a>         end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line157">157</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line158">158</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line159">159</a>   end</pre></td>
+            <td><pre><a name="line272">272</a> # Schema version: 20081020144900</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line160">160</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line161">161</a>   def move_up(all_the_way = false)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line162">162</a>     if is_major?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line163">163</a>       if all_the_way</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line164">164</a>         move_to_first</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line165">165</a>       elsif chapter_before = previous_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line166">166</a>         TocItem.swap_enries(chapter_before, self)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line167">167</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line168">168</a>     else  # sub chapter</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line169">169</a>       if all_the_way</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line170">170</a>         move_to_first</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line171">171</a>       elsif previous_toc = previous_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line172">172</a>         if previous_toc.is_sub?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line173">173</a>           TocItem.swap_enries(previous_toc, self)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line174">174</a>         end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line175">175</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line176">176</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line177">177</a>   end</pre></td>
+            <td><pre><a name="line273">273</a> #</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line178">178</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line179">179</a>   def self.swap_enries(toc1, toc2)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line180">180</a>     return unless toc1.class==TocItem &amp;&amp; toc2.class==TocItem</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line181">181</a>     return if toc1.is_major? != toc2.is_major?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line182">182</a>     </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line183">183</a>     if toc1.is_sub?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line184">184</a>       swap_view_order = toc1.view_order</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line185">185</a>       toc1.view_order = toc2.view_order</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line186">186</a>       toc2.view_order = swap_view_order</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line187">187</a>       toc1.save</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line188">188</a>       toc2.save</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line189">189</a>     else</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line190">190</a>       # make sure toc1 is higher in the list</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line191">191</a>       if toc1.view_order &gt; toc2.view_order</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line192">192</a>         toc1, toc2 = toc2, toc1 </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line193">193</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line194">194</a>       to_subtract = toc1.chapter_length</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line195">195</a>       TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order+#{toc2.chapter_length} WHERE id=#{toc1.id} OR parent_id=#{toc1.id}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line196">196</a>       TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order-#{to_subtract} WHERE id=#{toc2.id} OR parent_id=#{toc2.id}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line197">197</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line198">198</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line199">199</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line200">200</a>   def move_to_first</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line201">201</a>     first_toc = first_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line202">202</a>     if first_toc.id != id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line203">203</a>       if is_major?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line204">204</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order+#{chapter_length} WHERE id!=#{id} AND parent_id!=#{id} AND view_order&lt;=#{view_order}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line205">205</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order-#{view_order-first_toc.view_order} WHERE id=#{id} OR parent_id=#{id}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line206">206</a>       else</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line207">207</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order+1 WHERE id!=#{id} AND parent_id=#{parent_id} AND view_order&lt;#{view_order}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line208">208</a>         self.view_order = first_toc.view_order</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line209">209</a>         self.save</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line210">210</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line211">211</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line212">212</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line213">213</a>   def move_to_last</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line214">214</a>     last_toc = last_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line215">215</a>     if last_toc.id != id</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line216">216</a>       if is_major?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line217">217</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order-#{chapter_length} WHERE id!=#{id} AND parent_id!=#{id} AND view_order&gt;=#{view_order}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line218">218</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order+#{last_toc.view_order-view_order} WHERE id=#{id} OR parent_id=#{id}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line219">219</a>       else</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line220">220</a>         TocItem.connection.execute(&quot;UPDATE table_of_contents SET view_order=view_order-1 WHERE id!=#{id} AND parent_id=#{parent_id} AND view_order&gt;#{view_order}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line221">221</a>         self.view_order = last_toc.view_order</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line222">222</a>         self.save</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line223">223</a>       end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line224">224</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line225">225</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line226">226</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line227">227</a>   def previous_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line228">228</a>     result = TocItem.find_by_sql(&quot;SELECT * FROM table_of_contents WHERE view_order&lt;#{view_order} AND parent_id=#{parent_id} ORDER BY view_order DESC&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line229">229</a>     return nil if result.blank?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line230">230</a>     result[0]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line231">231</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line232">232</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line233">233</a>   def next_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line234">234</a>     result = TocItem.find_by_sql(&quot;SELECT * FROM table_of_contents WHERE view_order&gt;#{view_order} AND parent_id=#{parent_id} ORDER BY view_order ASC&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line235">235</a>     return nil if result.blank?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line236">236</a>     result[0]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line237">237</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line238">238</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line239">239</a>   def last_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line240">240</a>     TocItem.find_all_by_parent_id(parent_id, :order =&gt; 'view_order desc')[0]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line241">241</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line242">242</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line243">243</a>   def first_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line244">244</a>     TocItem.find_all_by_parent_id(parent_id, :order =&gt; 'view_order asc')[0]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line245">245</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line246">246</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line247">247</a>   def chapter_length</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line248">248</a>     return nil if parent_id != 0</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line249">249</a>     if next_chapter = next_of_type</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line250">250</a>       return next_chapter.view_order - view_order</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line251">251</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line252">252</a>     return TocItem.count_by_sql(&quot;SELECT COUNT(*) FROM table_of_contents WHERE id=#{id} OR parent_id=#{id}&quot;)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line253">253</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line254">254</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line255">255</a>   def is_major?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line256">256</a>     return parent_id == 0</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line257">257</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line258">258</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line259">259</a>   def is_sub?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line260">260</a>     return parent_id != 0</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line261">261</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line262">262</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line263">263</a>   def self.last_major_chapter</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line264">264</a>     TocItem.find_all_by_parent_id(0, :order =&gt; 'view_order desc')[0]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line265">265</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line266">266</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line267">267</a>   def is_reserved?</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line268">268</a>     return @@reserved_toc_labels.include? label</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line269">269</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line270">270</a>   </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line271">271</a> end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line272">272</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line273">273</a> # == Schema Info</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line274">274</a> # Schema version: 20081020144900</pre></td>
+            <td><pre><a name="line274">274</a> # Table name: table_of_contents</pre></td>
           </tr>
         
           
@@ -1707,49 +1707,37 @@
           
           
           <tr class="inferred">
-            <td><pre><a name="line276">276</a> # Table name: table_of_contents</pre></td>
+            <td><pre><a name="line276">276</a> #  id         :integer(2)      not null, primary key</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line277">277</a> #</pre></td>
+            <td><pre><a name="line277">277</a> #  parent_id  :integer(2)      not null</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line278">278</a> #  id         :integer(2)      not null, primary key</pre></td>
+            <td><pre><a name="line278">278</a> #  label      :string(255)     not null</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line279">279</a> #  parent_id  :integer(2)      not null</pre></td>
+            <td><pre><a name="line279">279</a> #  view_order :integer(1)      not null</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line280">280</a> #  label      :string(255)     not null</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line281">281</a> #  view_order :integer(1)      not null</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line282">282</a> </pre></td>
+            <td><pre><a name="line280">280</a> </pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

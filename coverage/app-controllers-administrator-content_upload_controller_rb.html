@@ -117,7 +117,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line11">11</a>     @content_uploads = ContentUpload.paginate(:order =&gt; 'created_at desc',:page =&gt; params[:page])</pre></td>
+            <td><pre><a name="line11">11</a>     @content_uploads = ContentUpload.paginate(:order =&gt; 'created_at desc', :page =&gt; params[:page])</pre></td>
           </tr>
         
           
@@ -273,7 +273,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line37">37</a>       @content_upload.update_attributes(:user_id =&gt; current_user.id,:attachment_extension =&gt; File.extname(@content_upload.attachment_file_name))</pre></td>
+            <td><pre><a name="line37">37</a>       @content_upload.update_attributes(:user_id =&gt; current_user.id, :attachment_extension =&gt; File.extname(@content_upload.attachment_file_name))</pre></td>
           </tr>
         
           
@@ -393,7 +393,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line57">57</a>         content_upload.update_attribute(:attachment_cache_url,file_path) # store new url to file on content server      </pre></td>
+            <td><pre><a name="line57">57</a>         content_upload.update_attribute(:attachment_cache_url, file_path) # store new url to file on content server      </pre></td>
           </tr>
         
           
@@ -417,7 +417,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line61">61</a>         ErrorLog.create(:url =&gt; $WEB_SERVICE_BASE_URL,:exception_name =&gt; error,:backtrace =&gt; parameters) if $ERROR_LOGGING</pre></td>
+            <td><pre><a name="line61">61</a>         ErrorLog.create(:url =&gt; $WEB_SERVICE_BASE_URL, :exception_name =&gt; error, :backtrace =&gt; parameters) if $ERROR_LOGGING</pre></td>
           </tr>
         
           
@@ -483,7 +483,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

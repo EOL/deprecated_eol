@@ -28,17 +28,17 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="app-models-logging-logging_model_rb.html">app/models/logging/logging_model.rb</a></td>
-            <td class='right_align'><tt>43</tt></td>
-            <td class='right_align'><tt>29</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>88.37%</tt></div>
+            <td class='right_align'><tt>46</tt></td>
+            <td class='right_align'><tt>30</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>28.26%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:88px"></div>
-            <div class="uncovered" style="width:12px"></div>
+            <div class="covered" style="width:28px"></div>
+            <div class="uncovered" style="width:72px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>86.21%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>23.33%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:86px"></div>
-            <div class="uncovered" style="width:14px"></div>
+            <div class="covered" style="width:23px"></div>
+            <div class="uncovered" style="width:77px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -111,7 +111,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line10">10</a>     establish_connection :master_logging_database</pre></td>
+            <td><pre><a name="line10">10</a>     establish_master_connection :logging</pre></td>
           </tr>
         
           
@@ -146,176 +146,194 @@
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line16">16</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line17">17</a>     instance = self.new(opts)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line18">18</a>     instance.created_at = Time.now if instance.respond_to? :created_at</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line19">19</a>     instance.updated_at = Time.now if instance.respond_to? :updated_at</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line20">20</a>     if self.connection.prefetch_primary_key?(self.table_name)</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line16">16</a>     </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line21">21</a>       instance.id = self.connection.next_sequence_value(self.sequence_name)</pre></td>
+            <td><pre><a name="line17">17</a>     # never create a Logging row when data logging is turned off</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line22">22</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line23">23</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line24">24</a>     # Important that we have quoted attributes and column names:</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line25">25</a>     instance.instance_eval { def attribs ; attributes_with_quotes ; end ; def cols ; quoted_column_names ; end }</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line26">26</a>     quoted_attributes = instance.attribs</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line27">27</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line28">28</a>     statement = if quoted_attributes.empty?</pre></td>
+            <td><pre><a name="line18">18</a>     return nil unless $ENABLE_DATA_LOGGING</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line29">29</a>       self.connection.empty_insert_statement(self.table_name)</pre></td>
+            <td><pre><a name="line19">19</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line30">30</a>     else</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line20">20</a>     instance = self.new(opts)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line31">31</a>       &quot;INSERT DELAYED INTO #{self.quoted_table_name} &quot; +</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line21">21</a>     instance.created_at = Time.now if instance.respond_to? :created_at</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line32">32</a>       &quot;(#{instance.cols.join(', ')}) &quot; +</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line22">22</a>     instance.updated_at = Time.now if instance.respond_to? :updated_at</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line33">33</a>       &quot;VALUES(#{quoted_attributes.values.join(', ')})&quot;</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line23">23</a>     if self.connection.prefetch_primary_key?(self.table_name)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line34">34</a>     end</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line24">24</a>       instance.id = self.connection.next_sequence_value(self.sequence_name)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line35">35</a> </pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line25">25</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line36">36</a>     instance.id = self.connection.insert(statement, &quot;#{self.name} Create&quot;,</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line26">26</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line37">37</a>       self.primary_key, instance.id, self.sequence_name)</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line27">27</a>     # Important that we have quoted attributes and column names:</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
+            <td><pre><a name="line28">28</a>     instance.instance_eval { def attribs ; attributes_with_quotes ; end ; def cols ; quoted_column_names ; end }</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line29">29</a>     quoted_attributes = instance.attribs</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line30">30</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line31">31</a>     statement = if quoted_attributes.empty?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line32">32</a>       self.connection.empty_insert_statement(self.table_name)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line33">33</a>     else</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line34">34</a>       &quot;INSERT DELAYED INTO #{self.quoted_table_name} &quot; +</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line35">35</a>       &quot;(#{instance.cols.join(', ')}) &quot; +</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line36">36</a>       &quot;VALUES(#{quoted_attributes.values.join(', ')})&quot;</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line37">37</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
             <td><pre><a name="line38">38</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line39">39</a>     @new_record = false</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line39">39</a>     instance.id = self.connection.insert(statement, &quot;#{self.name} Create&quot;,</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
-            <td><pre><a name="line40">40</a>     instance</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line40">40</a>       self.primary_key, instance.id, self.sequence_name)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line41">41</a>   end</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line41">41</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line42">42</a> </pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line42">42</a>     @new_record = false</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line43">43</a> end</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line43">43</a>     instance</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line44">44</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line45">45</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line46">46</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

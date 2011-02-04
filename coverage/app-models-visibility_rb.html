@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-visibility_rb.html">app/models/visibility.rb</a></td>
             <td class='right_align'><tt>42</tt></td>
             <td class='right_align'><tt>27</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>90.48%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>52.38%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:90px"></div>
-            <div class="uncovered" style="width:10px"></div>
+            <div class="covered" style="width:52px"></div>
+            <div class="uncovered" style="width:48px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>85.19%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>33.33%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:85px"></div>
-            <div class="uncovered" style="width:15px"></div>
+            <div class="covered" style="width:33px"></div>
+            <div class="uncovered" style="width:67px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -134,13 +134,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>     cached_find(:label, 'Preview')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>   end</pre></td>
           </tr>
         
@@ -152,13 +152,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>     cached_find(:label, 'Inappropriate')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line18">18</a>   end</pre></td>
           </tr>
         
@@ -176,73 +176,73 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>     cached('Invisible') do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>       invisible = Visibility.find_by_label('Invisible')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>       # The ID *must* be 0 (PHP hard-coded; it also makes /sense/).  If it's not, we fix it now:</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line24">24</a>       if invisible.id != 0</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line25">25</a>         Visibility.connection.execute(&quot;UPDATE visibilities SET id = 0 WHERE id = #{invisible.id}&quot;)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>         invisible = Visibility.find_by_label('Invisible')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>       end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line28">28</a>       invisible</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line29">29</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line30">30</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line31">31</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line32">32</a> end</pre></td>
           </tr>
         
@@ -309,7 +309,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:43 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

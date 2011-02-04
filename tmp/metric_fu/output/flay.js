@@ -6,6 +6,6 @@
       g.marker_font_size = "10px"
 
         g.title = 'Flay: duplication';
-        g.data('flay', [244]);
-        g.labels = {"0":"12/23"};
+        g.data('flay', [244,1754]);
+        g.labels = {"0":"12/23","1":"1/28"};
         g.draw();

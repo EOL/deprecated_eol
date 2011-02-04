@@ -28,17 +28,17 @@
         <tbody>
           <tr>
             <td class="left_align"><a href="app-controllers-data_objects_controller_rb.html">app/controllers/data_objects_controller.rb</a></td>
-            <td class='right_align'><tt>261</tt></td>
-            <td class='right_align'><tt>215</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>37.16%</tt></div>
-          <div class="percent_graph">
-            <div class="covered" style="width:37px"></div>
-            <div class="uncovered" style="width:63px"></div>
-          </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>25.12%</tt></div>
+            <td class='right_align'><tt>269</tt></td>
+            <td class='right_align'><tt>223</tt></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>24.91%</tt></div>
           <div class="percent_graph">
             <div class="covered" style="width:25px"></div>
             <div class="uncovered" style="width:75px"></div>
+          </div></td>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>10.76%</tt></div>
+          <div class="percent_graph">
+            <div class="covered" style="width:11px"></div>
+            <div class="uncovered" style="width:89px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -87,7 +87,7 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line6">6</a>   before_filter :set_data_object, :except =&gt; [:index, :new, :create, :preview]</pre></td>
+            <td><pre><a name="line6">6</a>   before_filter :load_data_object, :except =&gt; [:index, :new, :create, :preview]</pre></td>
           </tr>
         
           
@@ -1100,61 +1100,61 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line175">175</a>     get_attribution</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line176">176</a>     @type = @data_object.data_type.label</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line177">177</a>     @comments = @data_object.all_comments.paginate(:page =&gt; params[:page], :order =&gt; 'updated_at DESC', :per_page =&gt; Comment.per_page)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line178">178</a>     @slim_container = true</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line179">179</a>     @revisions = @data_object.revisions.sort_by(&amp;:created_at).reverse</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line180">180</a>     @hierarchy_paths = get_harvested_paths</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line181">181</a>     @taxon_concepts = @data_object.taxon_concepts(:published =&gt; :preferred)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line182">182</a>     @scientific_names = @taxon_concepts.inject({}) { |res, tc| res[tc.scientific_name] = { :common_name =&gt; tc.common_name, :taxon_concept_id =&gt; tc.id }; res }</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line183">183</a>     @image_source = get_image_source if @type == 'Image'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line184">184</a>   end</pre></td>
           </tr>
         
@@ -1287,247 +1287,247 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line206">206</a>     @data_object.curate params[:vetted_id], params[:visibility_id], current_user, params[:untrust_reasons], params[:comment], params[:taxon_concept_id], params[:untrust_reasons_comment]</pre></td>
+            <td><pre><a name="line206">206</a>     opts = {</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line207">207</a>     expire_data_object(@data_object.id)</pre></td>
+            <td><pre><a name="line207">207</a>       :vetted_id =&gt; params[:vetted_id], </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line208">208</a>     current_user.log_activity(:curated_data_object_id, :value =&gt; @data_object.id)</pre></td>
+            <td><pre><a name="line208">208</a>       :visibility_id =&gt; params[:visibility_id], </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line209">209</a>     </pre></td>
+            <td><pre><a name="line209">209</a>       :untrust_reason_ids =&gt; params[:untrust_reasons], </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line210">210</a>     respond_to do |format|</pre></td>
+            <td><pre><a name="line210">210</a>       :comment =&gt; params[:comment], </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line211">211</a>       format.html {redirect_to request.referer ? :back : '/'}</pre></td>
+            <td><pre><a name="line211">211</a>       :taxon_concept_id =&gt; params[:taxon_concept_id], </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line212">212</a>       format.js {</pre></td>
+            <td><pre><a name="line212">212</a>       :untrust_reasons_comment =&gt; params[:untrust_reasons_comment]</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line213">213</a>         type = 'image'</pre></td>
+            <td><pre><a name="line213">213</a>     }</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line214">214</a>         type = 'text' if @data_object.text?</pre></td>
+            <td><pre><a name="line214">214</a>     @data_object.curate(current_user, opts)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line215">215</a>         render :text =&gt; {:type =&gt; type, :args =&gt; [@data_object.id, @data_object.visibility_id, @data_object.vetted_id]}.to_json</pre></td>
+            <td><pre><a name="line215">215</a>     expire_data_object(@data_object.id)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line216">216</a>       }</pre></td>
+            <td><pre><a name="line216">216</a>     current_user.log_activity(:curated_data_object_id, :value =&gt; @data_object.id)</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line217">217</a>     end</pre></td>
+            <td><pre><a name="line217">217</a>     </pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line218">218</a>   end</pre></td>
+            <td><pre><a name="line218">218</a>     respond_to do |format|</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line219">219</a>       format.html {redirect_to request.referer ? :back : '/'}</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line220">220</a>       format.js {</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line221">221</a>         type = 'image'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line222">222</a>         type = 'text' if @data_object.text?</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line223">223</a>         render :text =&gt; {:type =&gt; type, :args =&gt; [@data_object.id, @data_object.visibility_id, @data_object.vetted_id]}.to_json</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line224">224</a>       }</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line225">225</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line226">226</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line219">219</a> </pre></td>
+            <td><pre><a name="line227">227</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line220">220</a> protected</pre></td>
+            <td><pre><a name="line228">228</a> protected</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line221">221</a> </pre></td>
+            <td><pre><a name="line229">229</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line222">222</a>   def set_data_object</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line223">223</a>     @data_object ||= DataObject.find(params[:id])</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line224">224</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line225">225</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line226">226</a>   def get_attribution</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line227">227</a>     @data_object['attributions'] = @data_object.attributions</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line228">228</a>     @data_object['media_type'] = @data_object.data_type.label</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line229">229</a>     current_user.log_activity(:showed_attributions_for_data_object_id, :value =&gt; @data_object.id)</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line230">230</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line231">231</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line232">232</a>   # Every data object has hieararchy associated with it by data partner</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line233">233</a>   # This method collects these hierarchy paths</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line234">234</a>   def get_harvested_paths</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line235">235</a>     @data_object.harvested_ancestries.map do |a|</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line236">236</a>       { :path =&gt; a.map {|he| {:name =&gt; Name.find(he.name_id).string, :taxon_concept_id =&gt; he.taxon_concept_id } },</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line237">237</a>         :published =&gt; a.last.published? }</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line238">238</a>     end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line239">239</a>   end</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="inferred">
-            <td><pre><a name="line240">240</a> </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line241">241</a>   def set_text_data_object_options</pre></td>
+            <td><pre><a name="line230">230</a>   def load_data_object</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line242">242</a>     @selectable_toc = TocItem.selectable_toc</pre></td>
+            <td><pre><a name="line231">231</a>     @data_object ||= DataObject.find(params[:id])</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line243">243</a>     toc = TocItem.find(params[:toc_id])</pre></td>
+            <td><pre><a name="line232">232</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line233">233</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line234">234</a>   def get_attribution</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line244">244</a>     @selected_toc = [toc.label, toc.id]</pre></td>
+            <td><pre><a name="line235">235</a>     @data_object['attributions'] = @data_object.attributions</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line245">245</a>     @languages = Language.find_by_sql(&quot;SELECT * FROM languages WHERE iso_639_1!='' ORDER BY label&quot;).collect {|c| [c.label.truncate(30), c.id] }</pre></td>
+            <td><pre><a name="line236">236</a>     @data_object['media_type'] = @data_object.data_type.label</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line246">246</a>     @licenses = License.valid_for_user_content</pre></td>
+            <td><pre><a name="line237">237</a>     current_user.log_activity(:showed_attributions_for_data_object_id, :value =&gt; @data_object.id)</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line238">238</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line239">239</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line240">240</a>   # Every data object has hieararchy associated with it by data partner</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line241">241</a>   # This method collects these hierarchy paths</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line242">242</a>   def get_harvested_paths</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line243">243</a>     @data_object.harvested_ancestries.map do |a|</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line244">244</a>       { :path =&gt; a.map {|he| {:name =&gt; Name.find(he.name_id).string, :taxon_concept_id =&gt; he.taxon_concept_id } },</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line245">245</a>         :published =&gt; a.last.published? }</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line246">246</a>     end</pre></td>
           </tr>
         
           
@@ -1545,85 +1545,133 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line249">249</a>   def get_image_source</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line250">250</a>     case params[:image_size]</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line251">251</a>     when 'small'</pre></td>
+            <td><pre><a name="line249">249</a>   def set_text_data_object_options</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line252">252</a>       @data_object.smart_thumb</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line253">253</a>     when 'medium'</pre></td>
+            <td><pre><a name="line250">250</a>     @selectable_toc = TocItem.selectable_toc</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line254">254</a>       @data_object.smart_medium_thumb</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="marked">
-            <td><pre><a name="line255">255</a>     when 'original'</pre></td>
+            <td><pre><a name="line251">251</a>     toc = TocItem.find(params[:toc_id])</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line256">256</a>       @data_object.original_image</pre></td>
+            <td><pre><a name="line252">252</a>     @selected_toc = [toc.label, toc.id]</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line253">253</a>     @languages = Language.find_by_sql(&quot;SELECT * FROM languages WHERE iso_639_1!='' ORDER BY label&quot;).collect {|c| [c.label.truncate(30), c.id] }</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line254">254</a>     @licenses = License.valid_for_user_content</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line255">255</a>   end</pre></td>
           </tr>
         
           
           
           <tr class="inferred">
-            <td><pre><a name="line257">257</a>     else </pre></td>
+            <td><pre><a name="line256">256</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line258">258</a>       @data_object.smart_image</pre></td>
+            <td><pre><a name="line257">257</a>   def get_image_source</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line259">259</a>     end</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line258">258</a>     case params[:image_size]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line260">260</a>   end</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line259">259</a>     when 'small'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
-            <td><pre><a name="line261">261</a> end</pre></td>
+          <tr class="uncovered">
+            <td><pre><a name="line260">260</a>       @data_object.smart_thumb</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line261">261</a>     when 'medium'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line262">262</a>       @data_object.smart_medium_thumb</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line263">263</a>     when 'original'</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line264">264</a>       @data_object.original_image</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line265">265</a>     else </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line266">266</a>       @data_object.smart_image</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line267">267</a>     end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line268">268</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="uncovered">
+            <td><pre><a name="line269">269</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-logging-search_log_rb.html">app/models/logging/search_log.rb</a></td>
             <td class='right_align'><tt>81</tt></td>
             <td class='right_align'><tt>68</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>53.09%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>29.63%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:53px"></div>
-            <div class="uncovered" style="width:47px"></div>
+            <div class="covered" style="width:30px"></div>
+            <div class="uncovered" style="width:70px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>45.59%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>25.00%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:46px"></div>
-            <div class="uncovered" style="width:54px"></div>
+            <div class="covered" style="width:25px"></div>
+            <div class="uncovered" style="width:75px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -98,91 +98,91 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line8">8</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line9">9</a>      return nil if params.blank?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line10">10</a>      </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line11">11</a>      opts = {</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line12">12</a>        :ip_address_raw =&gt; IpAddress.ip2int(request.remote_ip),</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line13">13</a>        :user_agent =&gt; request.user_agent || 'unknown',</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>        :path =&gt; request.request_uri || 'unknown'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>      }</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line16">16</a>      opts[:user_id] = user.id unless user.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>      </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line18">18</a>      result = create_log opts.merge(params)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>      return result</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>      </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>   end</pre></td>
           </tr>
         
@@ -200,25 +200,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line25">25</a>     logger.warn('Bogus invocation of SearchLog creation function!') and return if opts.nil?  </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>     l = SearchLog.create opts</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>     return l</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line28">28</a>   end</pre></td>
           </tr>
         
@@ -543,7 +543,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

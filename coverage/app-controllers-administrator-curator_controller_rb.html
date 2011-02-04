@@ -159,7 +159,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line18">18</a>        clade_condition=&quot;curator_hierarchy_entry_id IS NULL AND (credentials &lt;&gt; '' OR curator_scope&lt;&gt; '')&quot;</pre></td>
+            <td><pre><a name="line18">18</a>        clade_condition=&quot;curator_hierarchy_entry_id IS NULL AND (credentials != '' OR curator_scope!= '')&quot;</pre></td>
           </tr>
         
           
@@ -171,7 +171,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line20">20</a>       clade_condition=&quot;curator_hierarchy_entry_id IS NOT NULL OR credentials &lt;&gt; '' OR curator_scope&lt;&gt; ''&quot;     </pre></td>
+            <td><pre><a name="line20">20</a>       clade_condition=&quot;curator_hierarchy_entry_id IS NOT NULL OR credentials != '' OR curator_scope!= ''&quot;     </pre></td>
           </tr>
         
           
@@ -333,7 +333,7 @@
           
           
           <tr class="uncovered">
-            <td><pre><a name="line47">47</a>     @users=User.find(:all,:conditions=&gt;['curator_hierarchy_entry_id IS NOT NULL OR credentials &lt;&gt; &quot;&quot; OR curator_scope&lt;&gt; &quot;&quot;'])</pre></td>
+            <td><pre><a name="line47">47</a>     @users=User.find(:all,:conditions=&gt;['curator_hierarchy_entry_id IS NOT NULL OR credentials != &quot;&quot; OR curator_scope!= &quot;&quot;'])</pre></td>
           </tr>
         
           
@@ -465,7 +465,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-data_type_rb.html">app/models/data_type.rb</a></td>
             <td class='right_align'><tt>82</tt></td>
             <td class='right_align'><tt>55</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>90.24%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>53.66%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:90px"></div>
-            <div class="uncovered" style="width:10px"></div>
+            <div class="covered" style="width:54px"></div>
+            <div class="uncovered" style="width:46px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>87.27%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>34.55%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:87px"></div>
-            <div class="uncovered" style="width:13px"></div>
+            <div class="covered" style="width:35px"></div>
+            <div class="uncovered" style="width:65px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -92,13 +92,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line7">7</a>     label</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line8">8</a>   end</pre></td>
           </tr>
         
@@ -116,37 +116,37 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line11">11</a>     return @@full_attribution_order if !@@full_attribution_order.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line12">12</a>     # this is the order in which agents will be attributed</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line13">13</a>     attribution_order = AgentRole.attribution_order</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>     remaining_roles = AgentRole.all - attribution_order</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>     @@full_attribution_order = attribution_order + remaining_roles</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line16">16</a>   end</pre></td>
           </tr>
         
@@ -164,13 +164,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>     cached_find(:label, 'Text')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>   end</pre></td>
           </tr>
         
@@ -188,13 +188,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>     cached_find(:label, 'Image')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line24">24</a>   end</pre></td>
           </tr>
         
@@ -212,13 +212,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line27">27</a>     cached_find(:label, 'Sound')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line28">28</a>   end</pre></td>
           </tr>
         
@@ -236,13 +236,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line31">31</a>     cached_find(:label, 'Video')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line32">32</a>   end</pre></td>
           </tr>
         
@@ -260,13 +260,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line35">35</a>     cached_find(:label, 'YouTube')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line36">36</a>   end</pre></td>
           </tr>
         
@@ -284,13 +284,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line39">39</a>     cached_find(:label, 'Flash')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line40">40</a>   end</pre></td>
           </tr>
         
@@ -308,13 +308,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line43">43</a>     cached_find(:label, 'GBIF Image')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line44">44</a>   end</pre></td>
           </tr>
         
@@ -332,13 +332,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line47">47</a>     cached_find(:label, 'IUCN')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line48">48</a>   end</pre></td>
           </tr>
         
@@ -356,13 +356,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line51">51</a>     ids = [DataType.image.id]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line52">52</a>   end</pre></td>
           </tr>
         
@@ -404,13 +404,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line59">59</a>     ids = [DataType.gbif_image.id]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line60">60</a>   end</pre></td>
           </tr>
         
@@ -428,13 +428,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line63">63</a>     ids = [DataType.text.id]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line64">64</a>   end</pre></td>
           </tr>
         
@@ -549,7 +549,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

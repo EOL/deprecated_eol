@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-logging-activity_log_rb.html">app/models/logging/activity_log.rb</a></td>
             <td class='right_align'><tt>49</tt></td>
             <td class='right_align'><tt>44</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>59.18%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>20.41%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:59px"></div>
-            <div class="uncovered" style="width:41px"></div>
+            <div class="covered" style="width:20px"></div>
+            <div class="uncovered" style="width:80px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>56.82%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>15.91%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:57px"></div>
-            <div class="uncovered" style="width:43px"></div>
+            <div class="covered" style="width:16px"></div>
+            <div class="uncovered" style="width:84px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -92,61 +92,61 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line7">7</a>     if $LOG_USER_ACTIVITY </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line8">8</a>       user = options[:user]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line9">9</a>       raise &quot;You cannot log activity without a :user option&quot; unless user</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line10">10</a>       raise &quot;You cannot log activity without an activity argument (first arg)&quot; unless act_symbol</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line11">11</a>       # I'm worried these won't work if they create, since we use insert_delayed on LoggingModel models...  Ick:</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line12">12</a>       act = Activity.find_or_create(act_symbol)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line13">13</a>       return ActivityLog.create(:activity_id =&gt; act.id, :user_id =&gt; user.id, :value =&gt; options[:value],</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>                                 :taxon_concept_id =&gt; options[:taxon_concept_id])</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line16">16</a>   end</pre></td>
           </tr>
         
@@ -254,31 +254,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line34">34</a>     query=&quot;Select * From activity_logs al Where 1=1 &quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line35">35</a>     if(user_id != 'All') then  </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line36">36</a>       query &lt;&lt; &quot; AND al.user_id = ? &quot;       </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line37">37</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line38">38</a>     if(activity_id != 'All') then        </pre></td>
           </tr>
         
@@ -296,25 +296,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line41">41</a>     query &lt;&lt; &quot; order by al.id desc &quot;          </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line42">42</a>     if    (user_id == 'All' and activity_id == 'All') then self.paginate_by_sql [query], :page =&gt; page, :per_page =&gt; 30 </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line43">43</a>     elsif (user_id != 'All' and activity_id != 'All') then self.paginate_by_sql [query, user_id, activity_id], :page =&gt; page, :per_page =&gt; 30 </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line44">44</a>     elsif (user_id != 'All' and activity_id == 'All') then self.paginate_by_sql [query, user_id], :page =&gt; page, :per_page =&gt; 30</pre></td>
           </tr>
         
@@ -351,7 +351,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

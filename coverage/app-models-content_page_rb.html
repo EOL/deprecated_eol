@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-content_page_rb.html">app/models/content_page.rb</a></td>
             <td class='right_align'><tt>69</tt></td>
             <td class='right_align'><tt>49</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>73.91%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>62.32%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:74px"></div>
-            <div class="uncovered" style="width:26px"></div>
+            <div class="covered" style="width:62px"></div>
+            <div class="uncovered" style="width:38px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>65.31%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>48.98%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:65px"></div>
-            <div class="uncovered" style="width:35px"></div>
+            <div class="covered" style="width:49px"></div>
+            <div class="uncovered" style="width:51px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -152,7 +152,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>     language_page = self.find_by_page_name_and_active_and_language_abbr(page_name, true, language_abbr)</pre></td>
           </tr>
         
@@ -164,19 +164,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>       language_page.nil? # if we couldn't find that language, try English</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line20">20</a>     return language_page</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>   end</pre></td>
           </tr>
         
@@ -362,13 +362,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line52">52</a>     if self.language_key == '' || self.language_key.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line53">53</a>       return self.title.gsub(' ', '_').downcase.to_sym</pre></td>
           </tr>
         
@@ -410,13 +410,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line60">60</a>     return self.page_name.gsub(' ', '_').downcase</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line61">61</a>   end</pre></td>
           </tr>
         
@@ -471,7 +471,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

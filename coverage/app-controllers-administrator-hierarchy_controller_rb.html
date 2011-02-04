@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-controllers-administrator-hierarchy_controller_rb.html">app/controllers/administrator/hierarchy_controller.rb</a></td>
             <td class='right_align'><tt>62</tt></td>
             <td class='right_align'><tt>50</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>67.74%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>33.87%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:68px"></div>
-            <div class="uncovered" style="width:32px"></div>
+            <div class="covered" style="width:34px"></div>
+            <div class="uncovered" style="width:66px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>62.00%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>22.00%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:62px"></div>
-            <div class="uncovered" style="width:38px"></div>
+            <div class="covered" style="width:22px"></div>
+            <div class="uncovered" style="width:78px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -134,25 +134,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line14">14</a>     page = params[:page] || '1'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line15">15</a>     order = params[:order_by] || 'agent'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line16">16</a>     case order</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line17">17</a>       when 'label'</pre></td>
           </tr>
         
@@ -164,7 +164,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>       when 'browsable'</pre></td>
           </tr>
         
@@ -176,37 +176,37 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line21">21</a>       else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>         order_by = 'a.full_name, h.id'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line24">24</a>     @page_title = 'Hierarchies'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line25">25</a>     @hierarchies = Hierarchy.paginate_by_sql(&quot;SELECT h.*, a.full_name agent_name, cp.agent_id content_partner_agent_id FROM hierarchies h LEFT JOIN agents a ON (h.agent_id=a.id) LEFT JOIN content_partners cp ON (a.id=cp.agent_id) ORDER BY #{order_by}&quot;, :page=&gt;page)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line26">26</a>   end</pre></td>
           </tr>
         
@@ -224,13 +224,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line29">29</a>     @hierarchy = Hierarchy.find_by_id(params[:id])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line30">30</a>     if @hierarchy.blank?</pre></td>
           </tr>
         
@@ -272,13 +272,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line37">37</a>     @hierarchy = Hierarchy.find_by_id(params[:id])</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line38">38</a>     if @hierarchy.blank?</pre></td>
           </tr>
         
@@ -302,7 +302,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line42">42</a>     if request.post?</pre></td>
           </tr>
         
@@ -398,38 +398,38 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line58">58</a>     @page_title = $ADMIN_CONSOLE_TITLE</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line59">59</a>     @navigation_partial = '/admin/navigation'</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line60">60</a>   end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line61">61</a> </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line62">62</a> end</pre></td>
           </tr>
         
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

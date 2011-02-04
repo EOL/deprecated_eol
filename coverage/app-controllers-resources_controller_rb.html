@@ -87,7 +87,7 @@
           
           
           <tr class="marked">
-            <td><pre><a name="line6">6</a>   before_filter :resource_must_belong_to_agent, :except =&gt; [:index, :create, :new]</pre></td>
+            <td><pre><a name="line6">6</a>   before_filter :resource_must_belong_to_agent, :except =&gt; [:index, :create, :new], :unless =&gt; :is_user_admin?</pre></td>
           </tr>
         
           
@@ -1149,7 +1149,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-helpers-application_helper_rb.html">app/helpers/application_helper.rb</a></td>
             <td class='right_align'><tt>503</tt></td>
             <td class='right_align'><tt>361</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>87.28%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>69.18%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:87px"></div>
-            <div class="uncovered" style="width:13px"></div>
+            <div class="covered" style="width:69px"></div>
+            <div class="uncovered" style="width:31px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>83.10%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>59.56%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:83px"></div>
-            <div class="uncovered" style="width:17px"></div>
+            <div class="covered" style="width:60px"></div>
+            <div class="uncovered" style="width:40px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -158,13 +158,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line18">18</a>     %Q{javascript:$(this).addClass('delayed_click');$('#ajax-indicator').fadeIn();return false;}</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line19">19</a>   end</pre></td>
           </tr>
         
@@ -182,13 +182,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line22">22</a>     image_tag(&quot;indicator_arrows_black.gif&quot;, :alt =&gt; &quot;Please wait...&quot;[:please_wait], :class =&gt; 'hidden spinner')</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line23">23</a>   end</pre></td>
           </tr>
         
@@ -224,25 +224,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line29">29</a>     return if text.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line30">30</a>     l = length - truncate_string.length</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line31">31</a>     text.length &gt; length ? text[/\A.{#{l}}\w*\;?/m][/.*[\w\;]/m] + truncate_string : text</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line32">32</a>   end  </pre></td>
           </tr>
         
@@ -260,13 +260,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line35">35</a>     return '[blank]' if inTime.blank?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line36">36</a>     if inTime.is_a? String</pre></td>
           </tr>
         
@@ -284,13 +284,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line39">39</a>     inTime.to_s(params[:format] || :long).to_sym</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line40">40</a>   end</pre></td>
           </tr>
         
@@ -320,7 +320,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line45">45</a>     date.respond_to?(:strftime) ? date.strftime(format) : date.to_s</pre></td>
           </tr>
         
@@ -452,19 +452,19 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line67">67</a>     return false if !data_object.text?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line68">68</a>     unless data_object['attributions'].nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line69">69</a>       data_object['attributions'].each do |attribution|</pre></td>
           </tr>
         
@@ -476,13 +476,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line71">71</a>         if attribution.agent_role.to_s!='Author' &amp;&amp; attribution.agent_role.to_s!='Source' &amp;&amp; attribution.agent_role.to_s!='Copyright' &amp;&amp; attribution.agent_role.to_s!='Supplier' &amp;&amp; attribution.agent_role.to_s!='Indexed'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line72">72</a>           return true</pre></td>
           </tr>
         
@@ -530,7 +530,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line80">80</a>     image_tag('external_link.png',{:alt =&gt; 'external link', :title =&gt; 'external link'})</pre></td>
           </tr>
         
@@ -620,31 +620,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line95">95</a>     keyword_list=''</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line96">96</a>     input_string=strip_tags(input_string) if strip_html</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line97">97</a>     input_string.split(' ').each {|word| keyword_list+=word + &quot;,&quot;}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line98">98</a>     keyword_list.chop! if keyword_list.length&gt;0</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line99">99</a>     return keyword_list</pre></td>
           </tr>
         
@@ -680,13 +680,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line105">105</a>     current_language = Gibberish.current_language.to_s</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line106">106</a>     language_stylesheet = &quot;/languages/#{current_language}/#{stylesheet}.css&quot;</pre></td>
           </tr>
         
@@ -698,7 +698,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line108">108</a>     if File.exists?(File.join(RAILS_ROOT, &quot;public&quot;, language_stylesheet))</pre></td>
           </tr>
         
@@ -728,13 +728,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line113">113</a>     options.merge!(:cache =&gt; &quot;all-#{current_language}&quot;) if options[:cache]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line114">114</a>     stylesheet_link_tag(*[stylesheet, options])</pre></td>
           </tr>
         
@@ -1220,7 +1220,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line195">195</a>     if back_url.blank?</pre></td>
           </tr>
         
@@ -1238,7 +1238,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line198">198</a>       URI.decode(back_url)</pre></td>
           </tr>
         
@@ -1424,61 +1424,61 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line229">229</a>     return_html=&quot;&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line230">230</a>     unless random_image.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line231">231</a>       name = sanitize(strip_tags(random_image['scientific_name']))</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line232">232</a>       return_html = %Q{&lt;a}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line233">233</a>       return_html+= %Q{ target=\&quot;_blank\&quot; } if new_window</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line234">234</a>       return_html+= %Q{ id=&quot;#{image_id_name}_href&quot;}       unless image_id_name == ''</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line235">235</a>       return_html+= %Q{ href=&quot;/pages/#{random_image['taxon_concept_id']}&quot;&gt;&lt;img}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line236">236</a>       return_html+= %Q{ id=&quot;#{image_id_name}&quot;}            unless image_id_name == ''</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line237">237</a>       return_html+= %Q{ src=&quot;#{random_image['image_cache_path']}&quot; alt=&quot;#{name}&quot;}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line238">238</a>       return_html+= %Q{ title=&quot;#{name}&quot;/&gt;&lt;/a&gt;}</pre></td>
           </tr>
         
@@ -1490,7 +1490,7 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line240">240</a>     return return_html</pre></td>
           </tr>
         
@@ -1532,31 +1532,31 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line247">247</a>     src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line248">248</a>     return src if src.empty?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line249">249</a>     project_name = hh(sanitize(agent.project_name))</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line250">250</a>     capture_haml do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line251">251</a>       haml_tag :img, {:width =&gt; params[:width], :height =&gt; params[:height], </pre></td>
           </tr>
         
@@ -1754,49 +1754,49 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line284">284</a>     arr=[]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line285">285</a>     start=&quot;2009_07&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line286">286</a>     str=&quot;&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line287">287</a>     var_date = Time.now</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line288">288</a>     while( start != str)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line289">289</a>       var_date = var_date - 1.month</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line290">290</a>       str = var_date.year.to_s + &quot;_&quot; + &quot;%02d&quot; % var_date.month.to_s</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line291">291</a>       arr &lt;&lt; [var_date.strftime(&quot;%B %Y&quot;), str]</pre></td>
           </tr>
         
@@ -1808,13 +1808,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line293">293</a>     return arr</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line294">294</a>   end</pre></td>
           </tr>
         
@@ -1838,85 +1838,85 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line298">298</a>     #return text if link is blank</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line299">299</a>     return args[0] if args[1]==nil || args[1].blank?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line300">300</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line301">301</a>     html_options = args[2] || {}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line302">302</a>     html_options[:class] ||= ''</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line303">303</a>     html_options[:class] += ' external_link'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line304">304</a>     html_options[:class] += ' external_link_popup' if $USE_EXTERNAL_LINK_POPUPS</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line305">305</a>     html_options[:target] = '_blank' # YOU WERE HERE ... make sure this works.</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line306">306</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line307">307</a>     if html_options[:show_link_icon].nil? || html_options.delete(:show_link_icon) == true</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line308">308</a>       args[0] += &quot; #{external_link_icon}&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line309">309</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line310">310</a>     link_to(args[0],args[1],html_options, &amp;block)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line311">311</a>   end</pre></td>
           </tr>
         
@@ -2018,73 +2018,73 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line328">328</a>     return_html=&quot;&quot;</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line329">329</a>     unless random_image.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line330">330</a>       scientific_name = random_image['scientific_name']</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line331">331</a>       common_name = random_image['common_name']</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line332">332</a>       return_html = %Q{&lt;a }</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line333">333</a>       return_html+= %Q{ target=&quot;_blank&quot; } if new_window</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line334">334</a>       #return_html+= %Q{ id=&quot;#{h(scientific_name)}&quot;} very strange id and it was broken so I commented it out</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line335">335</a>       return_html+= %Q{ href=&quot;/pages/#{random_image['taxon_concept_id']}&quot;&gt;#{sanitize(scientific_name)}&lt;/a&gt;&lt;br /&gt;}</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line336">336</a>       return_html+= %Q{#{sanitize(common_name.firstcap)}} unless common_name.nil?</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line337">337</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line338">338</a>     return return_html</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line339">339</a>   end</pre></td>
           </tr>
         
@@ -2102,37 +2102,37 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line342">342</a>     text = text.allow_some_html</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line343">343</a>     unless text.match(/&lt;(br|p)\s*[\/]?\s*&gt;/)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line344">344</a>       text.gsub!(&quot;\n&quot;, &quot;&lt;br/&gt;&quot;)</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line345">345</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line346">346</a>     text</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line347">347</a>   end</pre></td>
           </tr>
         
@@ -2258,169 +2258,169 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line368">368</a>     if field_name.is_a?Hash</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line369">369</a>       options = field_name </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line370">370</a>       field_name = 'selected-clade-id' # If you change this default id, please also change it in navigation.js; sorry!</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line371">371</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line372">372</a>     options = { </pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line373">373</a>       :value =&gt; nil,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line374">374</a>       :id =&gt; 'clade-selector',</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line375">375</a>       :visible =&gt; false,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line376">376</a>       :toggle =&gt; true,</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line377">377</a>       :hierarchy =&gt; Hierarchy.default,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line378">378</a>       :name =&gt; field_name,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line379">379</a>       :show_text =&gt; 'show clade browser',</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line380">380</a>       :hide_text =&gt; 'hide clade browser',</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line381">381</a>       :debug =&gt; false,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line382">382</a>       :show_clear =&gt; true,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line383">383</a>       :selectable_clade_level =&gt; 0</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line384">384</a>     }.merge(options || {})</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line385">385</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line386">386</a>     options[:is_debug] = options[:debug]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line387">387</a>     options.delete :debug</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line388">388</a>     options.delete :value if options[:value].to_s.strip.length == 0 or options[:value].to_i == 0 # essentially, nil has been passed along</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line389">389</a>     options[:value] = (options[:value].is_a?HierarchyEntry) ? options[:value] : HierarchyEntry.find(options[:value]) if options[:value]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line390">390</a>     options[:value] = (params.include?:clade_to_expand and params[:clade_to_expand].to_i &gt; 0) ? HierarchyEntry.find(params[:clade_to_expand]) : options[:value]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line391">391</a>     options[:hierarchy] = Hierarchy.last unless options[:hierarchy] or options[:value]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line392">392</a>     options[:show_text], options[:hide_text] = options[:text], options[:text] if options[:text]</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line393">393</a> </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line394">394</a>     render :partial =&gt; 'shared/clade_selector', :locals =&gt; options</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line395">395</a>   end</pre></td>
           </tr>
         
@@ -2666,13 +2666,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line436">436</a>     value.to_s.strip.downcase.gsub(' ','') # TODO update to strip out all non alphanumeric characters</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line437">437</a>   end</pre></td>
           </tr>
         
@@ -2906,43 +2906,43 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line476">476</a>     c = &quot;Cancel&quot;[]</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line477">477</a>     url = back_or_home(url)</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line478">478</a>     capture_haml do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line479">479</a>       haml_tag :input, {:id =&gt; &quot;cancel&quot;, :type =&gt; 'button', :name =&gt; c, :value =&gt; c,</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line480">480</a>                         :onclick =&gt; &quot;javascript:window.location='#{url}';&quot;}</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line481">481</a>     end</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line482">482</a>   end</pre></td>
           </tr>
         
@@ -2972,25 +2972,25 @@
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line487">487</a>     capture_haml do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line488">488</a>       haml_tag a_tag do</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line489">489</a>         if taxon_concept.published?</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line490">490</a>           if opts[:dato_type].nil?</pre></td>
           </tr>
         
@@ -3002,25 +3002,25 @@
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line492">492</a>           else</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line493">493</a>             options = { :&quot;#{opts[:dato_type]}_id&quot; =&gt; opts[:dato_id] }</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="uncovered">
             <td><pre><a name="line494">494</a>             haml_concat link_to(taxon_concept.scientific_name, taxon_concept_path(taxon_concept.id, options), :popup =&gt; !!opts[:popup])</pre></td>
           </tr>
         
           
           
-          <tr class="inferred">
+          <tr class="uncovered">
             <td><pre><a name="line495">495</a>           end</pre></td>
           </tr>
         
@@ -3075,7 +3075,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

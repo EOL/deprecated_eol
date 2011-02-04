@@ -1166,43 +1166,43 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line186">186</a>     @page_title = 'User Activity'     </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line187">187</a>     @user_id=params[:user_id] || ''</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line188">188</a>     @user_list=User.users_with_activity_log    </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line189">189</a>     @activity_id=params[:activity_id] || 'All'</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line190">190</a>     @activity_list=Activity.find(:all, :order=&gt;'name')        </pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line191">191</a>     page = params[:page] || 1</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line192">192</a>     @activities = ActivityLog.user_activity(@user_id, @activity_id, page)</pre></td>
           </tr>
         
@@ -1238,13 +1238,13 @@
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line198">198</a>     @page_title = $ADMIN_CONSOLE_TITLE</pre></td>
           </tr>
         
           
           
-          <tr class="marked">
+          <tr class="inferred">
             <td><pre><a name="line199">199</a>     @navigation_partial = '/admin/navigation'</pre></td>
           </tr>
         
@@ -1269,7 +1269,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:34 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

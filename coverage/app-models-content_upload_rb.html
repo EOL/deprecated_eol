@@ -30,15 +30,15 @@
             <td class="left_align"><a href="app-models-content_upload_rb.html">app/models/content_upload.rb</a></td>
             <td class='right_align'><tt>34</tt></td>
             <td class='right_align'><tt>24</tt></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>64.71%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>70.59%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:65px"></div>
-            <div class="uncovered" style="width:35px"></div>
+            <div class="covered" style="width:71px"></div>
+            <div class="uncovered" style="width:29px"></div>
           </div></td>
-            <td class="left_align"><div class="percent_graph_legend"><tt class=''>58.33%</tt></div>
+            <td class="left_align"><div class="percent_graph_legend"><tt class=''>62.50%</tt></div>
           <div class="percent_graph">
-            <div class="covered" style="width:58px"></div>
-            <div class="uncovered" style="width:42px"></div>
+            <div class="covered" style="width:63px"></div>
+            <div class="uncovered" style="width:37px"></div>
           </div></td>
           </tr>
         </tbody>
@@ -189,55 +189,55 @@
           
           
           <tr class="inferred">
-            <td><pre><a name="line23">23</a>   </pre></td>
+            <td><pre><a name="line23">23</a> </pre></td>
           </tr>
         
           
           
           <tr class="marked">
-            <td><pre><a name="line24">24</a>   def content_server_url # url on content server</pre></td>
+            <td><pre><a name="line24">24</a>   def ext</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line25">25</a>     prefix=self.attributes['attachment_cache_url']</pre></td>
+            <td><pre><a name="line25">25</a>     e = self.attributes['attachment_extension'].downcase</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line26">26</a>     if prefix.blank?</pre></td>
+            <td><pre><a name="line26">26</a>     return &quot;.jpg&quot; if e == '.jpeg'</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line27">27</a>        #self.attachment.url # this is the &quot;paperclip&quot; plugin attached file, but it might only be on one of the application servers</pre></td>
+            <td><pre><a name="line27">27</a>     return e</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line28">28</a>        result=&quot;/images/blank.gif&quot;</pre></td>
+            <td><pre><a name="line28">28</a>   end</pre></td>
+          </tr>
+        
+          
+          
+          <tr class="inferred">
+            <td><pre><a name="line29">29</a> </pre></td>
+          </tr>
+        
+          
+          
+          <tr class="marked">
+            <td><pre><a name="line30">30</a>   def content_server_url # url on content server</pre></td>
           </tr>
         
           
           
           <tr class="uncovered">
-            <td><pre><a name="line29">29</a>     else    </pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line30">30</a>        result=(ContentServer.next + $CONTENT_SERVER_CONTENT_PATH + prefix.to_s.gsub(/(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/, &quot;/\\1/\\2/\\3/\\4/\\5&quot;) + self.attributes['attachment_extension'])</pre></td>
-          </tr>
-        
-          
-          
-          <tr class="uncovered">
-            <td><pre><a name="line31">31</a>     end</pre></td>
+            <td><pre><a name="line31">31</a>     ContentServer.uploaded_content_url(self.attributes['attachment_cache_url'], self.ext)</pre></td>
           </tr>
         
           
@@ -261,7 +261,7 @@
       </tbody>
     </table>
 
-    <p>Generated on Thu Dec 23 15:15:35 -0800 2010 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
+    <p>Generated on Fri Jan 28 08:26:42 -0800 2011 with <a href="http://github.com/relevance/rcov">rcov 0.9.8</a></p>
 
   </body>
 </html>

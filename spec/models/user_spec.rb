@@ -13,8 +13,8 @@ describe User do
     @password = 'dragonmaster'
     # We don't need foundation (which is expensive), but we do need curation permissions:
     KnownPrivileges.create_all
-    Community.create_special
     SpecialList.create_all
+    Community.create_special
     User.delete_all
     @user = User.gen :username => 'KungFuPanda', :password => @password
     @user.should_not be_a_new_record
@@ -315,11 +315,26 @@ describe User do
 
   describe '#activate' do
 
-    it 'should set the active boolean'
+    before(:each) do
+      @inactive_user = User.gen(:active => false)
+    end
 
-    it 'should send a notification'
+    it 'should set the active boolean' do
+      @inactive_user.active?.should_not be_true
+      @inactive_user.activate
+      @inactive_user.active?.should be_true
+    end
 
-    it 'should create a "like" and "task" list'
+    it 'should send a notification' do
+      Notifier.should_receive(:deliver_welcome_registration).with(@inactive_user).and_return(true)
+      @inactive_user.activate
+    end
+
+    it 'should create a "like" and "task" list' do
+      @inactive_user.activate
+      @inactive_user.like_list.should_not be_nil
+      @inactive_user.task_list.should_not be_nil
+    end
 
   end
 

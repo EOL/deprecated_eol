@@ -7,9 +7,10 @@
 - if params[:data_object_id]
   - dato = DataObject.find(params[:data_object_id]) rescue nil
   - dato_comments = dato.comments.select { |d| d.visible? }.size
+  - dato_id = current_objects.blank? ? 0 : current_objects[0].parent_id
   :javascript
     var data = {  "comments": "#{ dato_comments }", 
       "current_user_comments": "#{ dato.comments.select { |d| d.user == current_user && d.visible? }.size }",
-      "data_object_id": "#{current_objects[0].parent_id}"};
+      "data_object_id": "#{dato_id}"};
     try { change_comment_icon_tooltip(data); } catch(err) {};
     $('#comment_button_link_#{ dato.id } .span_block').html(#{ dato_comments });

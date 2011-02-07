@@ -231,16 +231,21 @@ describe 'Admin Pages' do
       body.should include @agent.full_name
       body.should include "#{@harvest_event.id}\n"
     end
-  end  
+  end   
   
   describe ': table of contents breakdown' do
-    it "should show table of contents breakdown page" do      
+    before(:each) do
+      @toc_item = TocItem.gen(:label => "sample label")
+      @info_item = InfoItem.gen(:toc_id => @toc_item.id)
+    end
+    it "should show table of contents breakdown page" do
       login_as(@user)
       visit("/administrator/stats/toc_breakdown")
       body.should include "Table of Contents Breakdown"
+      body.should include @toc_item.label
     end
-  end  
-  
+  end
+
   describe ': user activity view' do
     before(:each) do
       @activity = Activity.gen(:name => "sample activity")

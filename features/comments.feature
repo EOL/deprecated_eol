@@ -15,6 +15,7 @@ Feature: Describe Commenting
     When I go to Honey bee page habitat section
     And I follow a comments tab
     Then I should see a comments section
+    And I should see a login link within the comments section
     And I should see a comment button for text objects
 
 #  @javascript

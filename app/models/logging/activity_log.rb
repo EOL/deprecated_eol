@@ -46,4 +46,70 @@ class ActivityLog < LoggingModel
     end     
   end
 
+  def self.most_common_activities(page)
+    query="SELECT COUNT(a.id) count, a.name, a.id FROM activities a JOIN activity_logs al ON a.id = al.activity_id GROUP BY a.name ORDER BY Count(a.id) desc"
+    self.paginate_by_sql [query], :page => page, :per_page => 30 
+  end
+
+  def self.most_common_combinations(activity_id)
+    monitored_activity = Array.new
+    sql="Select distinct al.user_id From activity_logs al"
+    if(activity_id) then sql += " where al.activity_id = #{activity_id} " end
+    rset = ActivityLog.find_by_sql([sql])
+    rset.each do |rec|
+      monitored_activity = start_user_monitoring(rec.user_id,monitored_activity)
+    end    
+
+    counts = Hash.new
+    monitored_activity.each do |records|
+      str=""
+      records.each do |rec|
+        str = str + " | " + rec
+      end
+      counts[str] = counts[str].to_i + 1
+    end
+    counts = counts.sort{|a,b| b[1]<=>a[1]}
+    return counts
+  end
+
+  def self.start_user_monitoring(user_id,monitored_activity)      
+    sql="SELECT a.name, al.created_at FROM activity_logs al JOIN activities a ON al.activity_id = a.id WHERE al.user_id = #{user_id} "
+    sql += " ORDER BY al.created_at ASC"
+    arr = LoggingModel.connection.execute(sql).all_hashes
+    arr.each do |rec|
+      next_activities = get_subsequent_activities_for_a_duration(rec['name'],rec['created_at'],arr,user_id)
+      monitored_activity << next_activities        
+    end
+    return monitored_activity
+  end
+
+private
+
+  def self.get_subsequent_activities_for_a_duration(name,created_at,arr,user_id)
+    activities = Array.new
+    start_saving=false
+    arr.each do |rec|
+      if(name == rec['name'] and created_at == rec['created_at']) 
+        start_saving=true 
+      end        
+      if(start_saving) then
+        end_time = get_time_after_some_minutes(created_at,5)
+        if(rec['created_at'] <= end_time) then
+          if(!activities.include?(rec['name'])) 
+            activities << rec['name'] 
+          end            
+        else break                
+        end
+      end
+    end
+    return activities
+  end
+
+  def self.get_time_after_some_minutes(time,minutes)
+    time = Time.parse(time)
+    time = time + minutes*60
+    #"2010-10-08 11:11:56"    
+    return time.strftime("%Y-%m-%d %H:%M:%S") 
+  end
+
 end

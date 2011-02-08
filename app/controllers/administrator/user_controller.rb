@@ -192,6 +192,27 @@ class Administrator::UserController  < AdminController
     @activities = ActivityLog.user_activity(@user_id, @activity_id, page)
   end
 
+  def view_common_activities
+    @page_title = 'Common User Activity'     
+    page = params[:page] || 1
+    @activities = ActivityLog.most_common_activities(page)
+  end
+
+  def view_common_combinations
+    start = Time.now
+    activity_id = params[:activity_id]    
+    @page_title = 'Common User Activity'     
+    @activities = ActivityLog.most_common_combinations(activity_id)
+    if(activity_id)      
+      @activity = Activity.find(activity_id)  
+      @activities.delete_if {|value1,value2| !value1.include? @activity.name}
+    end
+    b = DateTime.now
+    time_elapsed = (Time.now - start)/60
+    time_elapsed = '%.2f' % time_elapsed
+    @time_elapsed = time_elapsed.to_s + " mins."
+  end
+
 private
 
   def set_layout_variables

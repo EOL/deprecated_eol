@@ -5,9 +5,9 @@ describe 'FlickrApi' do
   before(:all) do
     if defined? FLICKR_API_KEY && defined? FLICKR_TOKEN
       @flickr_api = FlickrApi.new(:api_key => FLICKR_API_KEY,
-                                :secret => FLICKR_SECRET,
-                                :auth_frob => FLICKR_FROB,
-                                :auth_token => FLICKR_TOKEN)
+                                  :secret => FLICKR_SECRET,
+                                  :auth_frob => FLICKR_FROB,
+                                  :auth_token => FLICKR_TOKEN)
     else
       puts "** WARNING: YOU MUST DEFINE FLICKR_API_KEY (maybe you didn't checkout eol_private)"
       puts "All but one of the following Flickr tests will fail until FLICKR_API_KEY is defined"
@@ -59,12 +59,26 @@ describe 'FlickrApi' do
   end
   
   it 'should get photo information' do
-    # http://www.flickr.com/photos/pleary/2686484811 - a photo I use for testing for EOL
-    rsp = @flickr_api.photos_get_info(2686484811)
+    # http://www.flickr.com/photos/encyclopediaoflife/5416503569/ - a photo I use for testing for EOL
+    rsp = @flickr_api.photos_get_info(5416503569)
     rsp['stat'].should == 'ok'
-    rsp['photo']['owner']['nsid'].should == '11571226@N04'
-    rsp['photo']['owner']['username'].should == 'pleary'
-    rsp['photo']['dateuploaded'].should == '1216596435'
+    rsp['photo']['owner']['nsid'].should == '59129167@N06'
+    rsp['photo']['owner']['username'].downcase.should == 'EncyclopediaOfLife'.downcase
+    rsp['photo']['dateuploaded'].should == '1296858551'
+  end
+  
+  it 'should list photo comments' do
+    rsp = @flickr_api.photos_comments_get_list(5416503569)
+    rsp['stat'].should == 'ok'
+    rsp['comments']['comment'].last['authorname'].downcase.should == 'EncyclopediaOfLife'.downcase
+    rsp['comments']['comment'].last['author'].should == '59129167@N06'
+    rsp['comments']['comment'].last['datecreate'].should == '1297202869'
+    rsp['comments']['comment'].last['_content'].should == 'test comment'
+    
+    # this time with a minimum date
+    rsp = @flickr_api.photos_comments_get_list(5416503569, Time.now.to_i)
+    rsp['stat'].should == 'ok'
+    rsp['comments']['comment'].should == nil
   end
   
   # # not testing these as I'd rather not have comments go to my photo each

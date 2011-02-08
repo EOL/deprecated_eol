@@ -3,7 +3,7 @@
 class ActionsHistory < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :changeable_object_types
+  belongs_to :changeable_object_type
   belongs_to :action_with_object
   belongs_to :comment
   belongs_to :taxon_concept
@@ -61,8 +61,8 @@ class ActionsHistory < ActiveRecord::Base
     end
   end
            
-  def data_object 
-    DataObject.find(self['object_id'])
+  def data_object
+    @data_object ||= DataObject.find(self['object_id'])
   end
     
   def data_object_type

@@ -51,9 +51,20 @@ class FlickrApi
   end
   
   def photos_add_comment(photo_id, text, s=@secret, t=@auth_token)
+    return nil unless text
     params = {:photo_id => photo_id, :comment_text => text, :secret => s, :auth_token => t}
     url = generate_rest_url("flickr.photos.comments.addComment", params)
+    JSON.parse(Net::HTTP.get(URI.parse(url)))
   end
+  
+  def photos_comments_get_list(photo_id, min_date=nil, max_date=nil, s=@secret, t=@auth_token)
+    params = {:photo_id => photo_id, :secret => s, :auth_token => t}
+    params[:min_comment_date] = min_date unless min_date.nil?
+    params[:max_comment_date] = max_date unless max_date.nil?
+    url = generate_rest_url("flickr.photos.comments.getList", params)
+    JSON.parse(Net::HTTP.get(URI.parse(url)))
+  end
+  
   
   def login_url
     parameters = create_request_parameters

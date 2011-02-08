@@ -1,0 +1,31 @@
+List of activity combinations in a 5-min. duration
+- if(@activity)
+  = "for activity "
+  %b
+    = @activity.name
+= "."
+
+%br
+= " n=" + @activities.length.to_s 
+= "&nbsp;&nbsp;&nbsp; {" + @time_elapsed + "}"
+-#= '%.2f' % @time_elapsed
+
+#comments
+    
+  - if @activities.nil? == false && @activities.size > 0
+    %table.results_table{ :cellspacing => "0" }
+      %tr
+        %th
+          Activity
+        %th
+          Count
+      - @activities.each do |name,count|
+        - column_class=cycle('odd','even')
+        %tr{ :valign => "top" }            
+          %td{ :class => column_class }
+            = name
+          %td{ :class => column_class, :align => "right" }
+            = count
+    %br
+  - else
+    No record found matching your criteria.

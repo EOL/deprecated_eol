@@ -31,6 +31,10 @@
       = link_to 'view added text', {:controller => 'administrator/user_data_object', :action => 'index'}, {:class=>'toc_item active'}
     %li
       = link_to 'view user activity', {:controller => 'administrator/user', :action => 'view_user_activity'}, {:class=>'toc_item active'}
+    / 
+      DISABLED FOR NOW
+      %li
+        = link_to 'view common activities', {:controller => 'administrator/user', :action => 'view_common_activities'}, {:class=>'toc_item active'}
 
   - restrict_to "(Administrator - Web Users) & !blacklist" do
     %h3

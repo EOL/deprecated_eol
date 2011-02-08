@@ -1,0 +1,29 @@
+%b
+  Common activities by logged in users. 
+%br
+Click on an activity to see the list of related activities conducted with that activity in a 5-min. duration {3-4 mins.}.
+%br
+Click 
+= link_to "here", {:controller => 'administrator/user', :action => 'view_common_combinations'}
+to see all activity combinations in a 5-min. duration {3-4 mins.}.
+
+#comments    
+  - if @activities.nil? == false && @activities.size > 0
+    = will_paginate @activities
+    %table.results_table{ :cellspacing => "0" }
+      %tr
+        %th
+          Activity
+        %th
+          Count
+      - @activities.each do |activity|
+        - column_class=cycle('odd','even')
+        %tr{ :valign => "top" }            
+          %td{ :class => column_class }
+            = link_to activity.name, {:controller => 'administrator/user', :action => 'view_common_combinations', :activity_id=>activity.id}
+          %td{ :class => column_class, :align => "right" }
+            = activity.count
+    %br
+    = will_paginate @activities
+  - else
+    No record found matching your criteria.

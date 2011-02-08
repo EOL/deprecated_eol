@@ -1,6 +1,4 @@
 class Administrator::ReportsController < AdminController
-  include ReportsControllerModule
-
   layout 'left_menu'
 
   before_filter :set_layout_variables

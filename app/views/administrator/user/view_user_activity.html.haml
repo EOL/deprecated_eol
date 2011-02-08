@@ -1,5 +1,6 @@
 User-activity report.  Select a specific user to see his activities sorted inversely by time created. Select 'All' to see all user activities.
-Then click 'Search' to proceed. (use your browser back button to return here)
+Then click 'Search' to proceed (use your browser back button to return here).
+= link_to ' View list of most common activities.', {:controller => 'administrator/user', :action => 'view_common_activities'}, {:class=>'toc_item active'}
 #comments
   - form_tag({:action=>'view_user_activity'},:method=>'get') do
     %table

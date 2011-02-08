@@ -12,13 +12,14 @@ Feature: Describe curation of an object
     Then I should not see the untrusted main image
     When I press the image curation icon within main image icons area
     Then I should see the data object curation menu
-    When I press the untrusted radio button
+    When I press the untrusted radiobutton
     Then I should see untrusted reasons within data object curation menu
     When I press the misidentified untrust reason checkbox
     And I press the other untrust reason checkbox
     And I press "Save" button within data object curation menu
-    And wait for 4 seconds
-    Then I should not see the trusted main image
-    Then I should see the untrusted main image
+    And wait for 15 seconds
+    Then I should not see trusted main image
+    Then I should see untrusted main image
     And I it should have a new comment with "Misidentified" and "Other" for the main picture
     And a number of comments from the curator should increase by "1"
+    Then I logout

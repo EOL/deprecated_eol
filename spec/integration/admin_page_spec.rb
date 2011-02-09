@@ -247,7 +247,6 @@ describe 'Admin Pages' do
 
     it "should list activity combinations in a 5-min. duration" do          
       login_as(@user)
-      current_path.should == '/'            
       visit("/administrator/user/view_common_combinations")
       body.should include "List of activity combinations in a 5-min. duration"
       body.should include @activity.name
@@ -255,7 +254,6 @@ describe 'Admin Pages' do
 
     it "should list activity combinations in a 5-min. duration for a given activity" do          
       login_as(@user)
-      current_path.should == '/'            
       visit("/administrator/user/view_common_combinations", :activity_id => @activity.id)
       body.should include "List of activity combinations in a 5-min. duration\nfor activity \n<b>\n#{@activity.name}\n</b>\n"
     end

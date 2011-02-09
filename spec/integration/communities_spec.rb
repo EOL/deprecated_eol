@@ -109,8 +109,8 @@ describe "Communities controller" do
       end
     end
 
-    it 'should show the "taxa" list' do
-      page.body.should have_tag('.taxa') do
+    it 'should show the "focus"' do
+      page.body.should have_tag('.focus') do
         with_tag("a[href=#{taxon_concept_path(@tc1)}]")
         with_tag("a[href=#{taxon_concept_path(@tc2)}]")
       end
@@ -250,12 +250,12 @@ describe "Communities controller" do
     visit(logout_path)
   end
 
-  it 'should have a link to edit the name of the taxa list (with privileges)'
-  it 'should NOT have a link to edit the name of the taxa list (WITHOUT privileges)'
+  it 'should have a link to edit the name of the focus (with privileges)'
+  it 'should NOT have a link to edit the name of the focus (WITHOUT privileges)'
 
-  it 'should have links to remove taxa from the taxa list (with privileges)'
-  it 'should NOT have links to remove taxa from the taxa list (WITHOUT privileges)'
+  it 'should have links to remove taxa from the focus (with privileges)'
+  it 'should NOT have links to remove taxa from the focus (WITHOUT privileges)'
 
-  it 'should NOT have a link to delete their taxa lists'
+  it 'should NOT have a link to delete their focus'
 
 end

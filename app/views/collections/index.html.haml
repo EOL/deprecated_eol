@@ -1,0 +1,24 @@
+%h1 Listing collections
+%table
+  %tr
+    %th Name
+    %th Community
+    %th User
+    %th Special collection
+    %th Public
+    %th Object type
+    %th Object
+  - @collections.each do |collection|
+    %tr
+      %td= h collection.name
+      %td= h collection.community_id
+      %td= h collection.user_id
+      %td= h collection.special_collection_id
+      %td= h collection.public
+      %td= h collection.object_type
+      %td= h collection.object_id
+      %td= link_to 'Show', collection
+      %td= link_to 'Edit', edit_collection_path(collection)
+      %td= link_to 'Destroy', collection, :confirm => 'Are you sure?', :method => :delete
+%br/
+= link_to 'New collection', new_collection_path

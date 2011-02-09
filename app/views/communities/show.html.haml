@@ -32,11 +32,11 @@
           = link_to("Edit this community"[:edit_community], edit_community_path(@community))
         %li{:id => 'delete_community', :class => member_function}
           = link_to("Delete this community"[:delete_community], community_path(@community), :confirm => "Are you sure?"[], :method => :delete)
-.taxa
+.focus
   %h3= "Taxa"[]
   - if @community.focus.nil?
-    = "This community has no taxa list."[]
-  - elsif @community.focus.list_items.empty?
-    = "This community has no taxa associated with it."[]
+    = "This community has no focus list."[]
+  - elsif @community.focus.collection_items.empty?
+    = "This community has no focus items associated with it."[]
   - else
-    = render :partial => "/lists/show", :locals => { :list => @community.focus }
+    = render :partial => "/collections/show", :locals => { :collection => @community.focus }

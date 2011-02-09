@@ -1,6 +1,6 @@
-class ListItem < ActiveRecord::Base
+class CollectionItem < ActiveRecord::Base
 
-  belongs_to :list
+  belongs_to :collection
   belongs_to :object, :polymorphic => true
 
   validates_presence_of :object_id, :object_type, :name

@@ -348,6 +348,13 @@ Factory.define :canonical_form do |cform|
   cform.string { Factory.next(:species) }
 end
 
+Factory.define :collection do |l|
+  l.name                  { Factory.next(:string) }
+  l.published             false
+  l.special_collection_id nil
+  l.association           :user
+end
+
 Factory.define :collection_type do |ct|
   ct.parent_id  0
   ct.lft        0
@@ -685,13 +692,6 @@ Factory.define :license do |l|
   l.version                  0
   l.logo_url                 '/images/licenses/cc_by_small.png'
   l.show_to_content_partners true
-end
-
-Factory.define :list do |l|
-  l.name            { Factory.next(:string) }
-  l.published       false
-  l.special_list_id nil
-  l.association     :user
 end
 
 Factory.define :member do |m|

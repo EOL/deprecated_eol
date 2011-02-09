@@ -1,82 +1,82 @@
-class ListsController < ApplicationController
-  # GET /lists
-  # GET /lists.xml
+class CollectionsController < ApplicationController
+  # GET /collections
+  # GET /collections.xml
   def index
-    @lists = List.all
+    @collections = Collection.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @lists }
+      format.xml  { render :xml => @collections }
     end
   end
 
-  # GET /lists/1
-  # GET /lists/1.xml
+  # GET /collections/1
+  # GET /collections/1.xml
   def show
-    @list = List.find(params[:id])
+    @collection = Collection.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @list }
+      format.xml  { render :xml => @collection }
     end
   end
 
-  # GET /lists/new
-  # GET /lists/new.xml
+  # GET /collections/new
+  # GET /collections/new.xml
   def new
-    @list = List.new
+    @collection = Collection.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @list }
+      format.xml  { render :xml => @collection }
     end
   end
 
-  # GET /lists/1/edit
+  # GET /collections/1/edit
   def edit
-    @list = List.find(params[:id])
+    @collection = Collection.find(params[:id])
   end
 
-  # POST /lists
-  # POST /lists.xml
+  # POST /collections
+  # POST /collections.xml
   def create
-    @list = List.new(params[:list])
+    @collection = Collection.new(params[:collection])
 
     respond_to do |format|
-      if @list.save
-        format.html { redirect_to(@list, :notice => 'List was successfully created.') }
-        format.xml  { render :xml => @list, :status => :created, :location => @list }
+      if @collection.save
+        format.html { redirect_to(@collection, :notice => 'Collection was successfully created.') }
+        format.xml  { render :xml => @collection, :status => :created, :location => @collection }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @list.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @collection.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /lists/1
-  # PUT /lists/1.xml
+  # PUT /collections/1
+  # PUT /collections/1.xml
   def update
-    @list = List.find(params[:id])
+    @collection = Collection.find(params[:id])
 
     respond_to do |format|
-      if @list.update_attributes(params[:list])
-        format.html { redirect_to(@list, :notice => 'List was successfully updated.') }
+      if @collection.update_attributes(params[:collection])
+        format.html { redirect_to(@collection, :notice => 'Collection was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @list.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @collection.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /lists/1
-  # DELETE /lists/1.xml
+  # DELETE /collections/1
+  # DELETE /collections/1.xml
   def destroy
-    @list = List.find(params[:id])
-    @list.destroy
+    @collection = Collection.find(params[:id])
+    @collection.destroy
 
     respond_to do |format|
-      format.html { redirect_to(lists_url) }
+      format.html { redirect_to(collections_url) }
       format.xml  { head :ok }
     end
   end

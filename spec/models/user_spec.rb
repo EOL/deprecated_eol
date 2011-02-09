@@ -13,7 +13,7 @@ describe User do
     @password = 'dragonmaster'
     # We don't need foundation (which is expensive), but we do need curation permissions:
     KnownPrivileges.create_all
-    SpecialList.create_all
+    SpecialCollection.create_all
     Community.create_special
     User.delete_all
     @user = User.gen :username => 'KungFuPanda', :password => @password
@@ -330,10 +330,10 @@ describe User do
       @inactive_user.activate
     end
 
-    it 'should create a "like" and "task" list' do
+    it 'should create a "like" and "task" collection' do
       @inactive_user.activate
-      @inactive_user.like_list.should_not be_nil
-      @inactive_user.task_list.should_not be_nil
+      @inactive_user.like_collection.should_not be_nil
+      @inactive_user.task_collection.should_not be_nil
     end
 
   end

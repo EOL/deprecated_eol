@@ -5,7 +5,7 @@ describe Community do
   before(:all) do
     @name = "valid community name"
     @description = "Valid description"
-    SpecialList.create_all
+    SpecialCollection.create_all
   end
 
   it 'should validate the name' do
@@ -81,10 +81,10 @@ describe Community do
     community.has_member?(user).should_not be_true
   end
 
-  it 'should have a #focus named "{name} Taxa List"' do
+  it 'should have a #focus named "{name}\'s Focus"' do
     community = Community.gen(:name => 'Bob')
     community.focus.should_not be_nil
-    community.focus.name.should == "Bob Taxa List"
+    community.focus.name.should == "Bob's Focus"
   end
 
   it 'should be #like-able and send notification to the owner'

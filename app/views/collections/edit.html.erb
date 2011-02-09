@@ -1,6 +1,6 @@
-<h1>Editing list</h1>
+<h1>Editing collection</h1>
 
-<% form_for(@list) do |f| %>
+<% form_for(@collection) do |f| %>
   <%= f.error_messages %>
 
   <p>
@@ -16,8 +16,8 @@
     <%= f.text_field :user_id %>
   </p>
   <p>
-    <%= f.label :special_list_id %><br />
-    <%= f.text_field :special_list_id %>
+    <%= f.label :special_collection_id %><br />
+    <%= f.text_field :special_collection_id %>
   </p>
   <p>
     <%= f.label :public %><br />
@@ -36,5 +36,5 @@
   </p>
 <% end %>
 
-<%= link_to 'Show', @list %> |
-<%= link_to 'Back', lists_path %>
+<%= link_to 'Show', @collection %> |
+<%= link_to 'Back', collections_path %>

@@ -302,7 +302,7 @@ create_if_not_exists ResourceStatus, :label => 'Force Harvest'
 
 KnownPrivileges.create_all
 
-SpecialList.create_all
+SpecialCollection.create_all
 
 Community.create_special
 

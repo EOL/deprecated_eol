@@ -1,11 +1,11 @@
-class SpecialList < ActiveRecord::Base
+class SpecialCollection < ActiveRecord::Base
 
   has_many :lists
 
   def self.create_all
     self.create(:name => 'Task')
     self.create(:name => 'Like')
-    self.create(:name => 'Taxa')
+    self.create(:name => 'Focus')
   end
 
   def self.task
@@ -16,8 +16,8 @@ class SpecialList < ActiveRecord::Base
     cached_find(:name, 'Like')
   end
 
-  def self.taxa # This is a community's taxa list.
-    cached_find(:name, 'Taxa')
+  def self.focus # This is a community's focus collection
+    cached_find(:name, 'Focus')
   end
 
 end

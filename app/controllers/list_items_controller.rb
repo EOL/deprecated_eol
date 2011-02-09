@@ -1,82 +1,82 @@
-class ListItemsController < ApplicationController
-  # GET /list_items
-  # GET /list_items.xml
+class CollectionItemsController < ApplicationController
+  # GET /collection_items
+  # GET /collection_items.xml
   def index
-    @list_items = ListItem.all
+    @collection_items = CollectionItem.all
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @list_items }
+      format.xml  { render :xml => @collection_items }
     end
   end
 
-  # GET /list_items/1
-  # GET /list_items/1.xml
+  # GET /collection_items/1
+  # GET /collection_items/1.xml
   def show
-    @list_item = ListItem.find(params[:id])
+    @collection_item = CollectionItem.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @list_item }
+      format.xml  { render :xml => @collection_item }
     end
   end
 
-  # GET /list_items/new
-  # GET /list_items/new.xml
+  # GET /collection_items/new
+  # GET /collection_items/new.xml
   def new
-    @list_item = ListItem.new
+    @collection_item = CollectionItem.new
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @list_item }
+      format.xml  { render :xml => @collection_item }
     end
   end
 
-  # GET /list_items/1/edit
+  # GET /collection_items/1/edit
   def edit
-    @list_item = ListItem.find(params[:id])
+    @collection_item = CollectionItem.find(params[:id])
   end
 
-  # POST /list_items
-  # POST /list_items.xml
+  # POST /collection_items
+  # POST /collection_items.xml
   def create
-    @list_item = ListItem.new(params[:list_item])
+    @collection_item = CollectionItem.new(params[:collection_item])
 
     respond_to do |format|
-      if @list_item.save
-        format.html { redirect_to(@list_item, :notice => 'ListItem was successfully created.') }
-        format.xml  { render :xml => @list_item, :status => :created, :location => @list_item }
+      if @collection_item.save
+        format.html { redirect_to(@collection_item, :notice => 'CollectionItem was successfully created.') }
+        format.xml  { render :xml => @collection_item, :status => :created, :location => @collection_item }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @list_item.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @collection_item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # PUT /list_items/1
-  # PUT /list_items/1.xml
+  # PUT /collection_items/1
+  # PUT /collection_items/1.xml
   def update
-    @list_item = ListItem.find(params[:id])
+    @collection_item = CollectionItem.find(params[:id])
 
     respond_to do |format|
-      if @list_item.update_attributes(params[:list_item])
-        format.html { redirect_to(@list_item, :notice => 'ListItem was successfully updated.') }
+      if @collection_item.update_attributes(params[:collection_item])
+        format.html { redirect_to(@collection_item, :notice => 'CollectionItem was successfully updated.') }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @list_item.errors, :status => :unprocessable_entity }
+        format.xml  { render :xml => @collection_item.errors, :status => :unprocessable_entity }
       end
     end
   end
 
-  # DELETE /list_items/1
-  # DELETE /list_items/1.xml
+  # DELETE /collection_items/1
+  # DELETE /collection_items/1.xml
   def destroy
-    @list_item = ListItem.find(params[:id])
-    @list_item.destroy
+    @collection_item = CollectionItem.find(params[:id])
+    @collection_item.destroy
 
     respond_to do |format|
-      format.html { redirect_to(list_items_url) }
+      format.html { redirect_to(collection_items_url) }
       format.xml  { head :ok }
     end
   end

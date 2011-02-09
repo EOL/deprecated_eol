@@ -1,10 +1,10 @@
 class Community < ActiveRecord::Base
 
-  has_one :list
+  has_one :collection
 
   has_many :members
   has_many :roles
-  has_many :list_items, :as => :object
+  has_many :collection_items, :as => :object
 
   after_create :attatch_focus
 
@@ -36,7 +36,7 @@ class Community < ActiveRecord::Base
     end
   end
 
-  alias :focus :list
+  alias :focus :collection
 
   # TODO - test 
   # Adds the default roles, auto-joins the user to the community, and makes that person the owner.
@@ -74,7 +74,8 @@ class Community < ActiveRecord::Base
 private 
 
   def attatch_focus
-    List.create(:name => "#{self.name} Taxa List", :special_list_id => SpecialList.taxa.id, :community_id => self.id)
+    # TODO - i18n
+    Collection.create(:name => "#{self.name}'s Focus", :special_collection_id => SpecialCollection.focus.id, :community_id => self.id)
   end
 
 end

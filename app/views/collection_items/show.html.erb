@@ -1,0 +1,23 @@
+<p>
+  <b>Name:</b>
+  <%=h @collection_item.name %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%=h @collection_item.url %>
+</p>
+
+<p>
+  <b>Object type:</b>
+  <%=h @collection_item.object_type %>
+</p>
+
+<p>
+  <b>Object:</b>
+  <%=h @collection_item.object_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_collection_item_path(@collection_item) %> |
+<%= link_to 'Back', collection_items_path %>

@@ -1,0 +1,14 @@
+.collection
+  %h3= h collection.name
+  %p.owner
+    - if collection.community_id 
+      = "for"[]
+      = link_to collection.community.name, collection.community
+    - else
+      = "by"[]
+      = link_to collection.user.username, user_info_path(collection.user)
+    - if collection.published?
+      = "(This collection can be viewed by the public)"[]
+  .items
+    - collection.collection_items.each do |item|
+      = collection_item_link_to(item)

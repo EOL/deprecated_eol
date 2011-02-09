@@ -1,4 +1,4 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe ListItem do
+describe CollectionItem do
 end

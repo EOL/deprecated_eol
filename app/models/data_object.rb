@@ -33,7 +33,7 @@ class DataObject < SpeciesSchemaModel
   has_many :data_objects_info_items
   has_many :info_items, :through => :data_objects_info_items
   has_many :user_ignored_data_objects
-  has_many :list_items, :as => :object
+  has_many :collection_items, :as => :object
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
@@ -364,9 +364,9 @@ class DataObject < SpeciesSchemaModel
 
   # Find Agents associated with this data object as sources.  If there are none, find authors.
   def sources
-    list = agents_data_objects.find_all_by_agent_role_id(AgentRole.source_id).collect {|ado| ado.agent }.compact
-    return list unless list.blank?
-    # I ended up with empty lists in cases where I thought I shouldn't, so tried to defer to authors for those:
+    ados = agents_data_objects.find_all_by_agent_role_id(AgentRole.source_id).collect {|ado| ado.agent }.compact
+    return ados unless ados.blank?
+    # I ended up with empty ados in cases where I thought I shouldn't, so tried to defer to authors for those:
     return authors
   end
 
@@ -819,7 +819,7 @@ class DataObject < SpeciesSchemaModel
 
     data_objects_result = DataObject.find_by_sql(top_images_query).uniq
 
-    # when we have all the images then get the uniquq list and sort them by
+    # when we have all the images then get the uniq list and sort them by
     # vetted order ASC (so trusted are first), rating DESC (so best are first), id DESC (so newest are first)
     data_objects_result.sort! do |a, b|
       if a.vetted_view_order == b.vetted_view_order

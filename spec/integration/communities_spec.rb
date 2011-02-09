@@ -17,8 +17,8 @@ describe "Communities controller" do
     @name_of_create_button = 'Create'
     @tc1 = build_taxon_concept
     @tc2 = build_taxon_concept
-    @community.taxa_list.add(@tc1)
-    @community.taxa_list.add(@tc2)
+    @community.focus.add(@tc1)
+    @community.focus.add(@tc2)
   end
 
   describe '#index' do

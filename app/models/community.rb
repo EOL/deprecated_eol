@@ -6,7 +6,7 @@ class Community < ActiveRecord::Base
   has_many :roles
   has_many :list_items, :as => :object
 
-  after_create :attatch_taxa_list
+  after_create :attatch_focus
 
   # These are for will_paginate:
   cattr_reader :per_page
@@ -36,7 +36,7 @@ class Community < ActiveRecord::Base
     end
   end
 
-  alias :taxa_list :list
+  alias :focus :list
 
   # TODO - test 
   # Adds the default roles, auto-joins the user to the community, and makes that person the owner.
@@ -73,7 +73,7 @@ class Community < ActiveRecord::Base
 
 private 
 
-  def attatch_taxa_list
+  def attatch_focus
     List.create(:name => "#{self.name} Taxa List", :special_list_id => SpecialList.taxa.id, :community_id => self.id)
   end
 

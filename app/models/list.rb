@@ -38,7 +38,7 @@ class List < ActiveRecord::Base
     community = Community.create(:name => "#{name} Community")
     community.initialize_as_created_by(user)
     list_items.each do |li|
-      community.taxa_list.add(li.object) if li.object_type == 'TaxonConcept'
+      community.focus.add(li.object) if li.object_type == 'TaxonConcept'
     end
     community
   end

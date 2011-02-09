@@ -34,9 +34,9 @@
           = link_to("Delete this community"[:delete_community], community_path(@community), :confirm => "Are you sure?"[], :method => :delete)
 .taxa
   %h3= "Taxa"[]
-  - if @community.taxa_list.nil?
+  - if @community.focus.nil?
     = "This community has no taxa list."[]
-  - elsif @community.taxa_list.list_items.empty?
+  - elsif @community.focus.list_items.empty?
     = "This community has no taxa associated with it."[]
   - else
-    = render :partial => "/lists/show", :locals => { :list => @community.taxa_list }
+    = render :partial => "/lists/show", :locals => { :list => @community.focus }

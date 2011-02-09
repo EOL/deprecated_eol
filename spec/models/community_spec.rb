@@ -81,10 +81,10 @@ describe Community do
     community.has_member?(user).should_not be_true
   end
 
-  it 'should have a #taxa_list named "{name} Taxa List"' do
+  it 'should have a #focus named "{name} Taxa List"' do
     community = Community.gen(:name => 'Bob')
-    community.taxa_list.should_not be_nil
-    community.taxa_list.name.should == "Bob Taxa List"
+    community.focus.should_not be_nil
+    community.focus.name.should == "Bob Taxa List"
   end
 
   it 'should be #like-able and send notification to the owner'

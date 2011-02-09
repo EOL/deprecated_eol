@@ -113,9 +113,9 @@ describe List do
       list.add(@taxon_concept_2)
       list.add(@user)
       community = list.create_community
-      community.taxa_list.list_items.map {|li| li.object_id }.include?(@taxon_concept_1.id).should be_true
-      community.taxa_list.list_items.map {|li| li.object_id }.include?(@taxon_concept_2.id).should be_true
-      community.taxa_list.list_items.each do |li|
+      community.focus.list_items.map {|li| li.object_id }.include?(@taxon_concept_1.id).should be_true
+      community.focus.list_items.map {|li| li.object_id }.include?(@taxon_concept_2.id).should be_true
+      community.focus.list_items.each do |li|
         li.object_type.should == "TaxonConcept"
       end
     end

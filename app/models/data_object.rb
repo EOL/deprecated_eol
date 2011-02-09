@@ -1546,6 +1546,13 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     user.track_curator_activity(self, 'data_object', 'inappropriate')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.inappropriate
   end
+  
+  def flickr_photo_id
+    if matches = source_url.match(/flickr\.com\/photos\/.*?\/([0-9]+)\//)
+      return matches[1]
+    end
+    nil
+  end
 
   def short_title
     return object_title unless object_title.blank?

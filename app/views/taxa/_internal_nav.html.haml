@@ -1,6 +1,7 @@
 #internal-nav
   %h4.margin-header.right-margin-header
     = "Contribute"[]
+  #contribute-info.popup{:style => "display:none;width:227px;margin-bottom:1em;"}
   %ul#contribute.bulletlist
     %li
       %a{ :href => "/taxa/show_popup?name=contribute_photos&taxon_name=#{@taxon_concept.name(:canonical)}", :class => 'show_popup' }
@@ -16,8 +17,8 @@
       = link_to(image_tag('rss.png'), :controller => :feeds, :action => :all, :id => @taxon_concept.id)
   - # bulletlist
   %br
-  
-  
+
+
   - all_curators = @taxon_concept.curators.size
   - if all_curators > 0
     %h4.margin-header.right-margin-header
@@ -41,8 +42,8 @@
           Last curated:
           = LastCuratedDate.find(:last, :conditions => ["taxon_concept_id = ?", @taxon_concept]).last_curated.strftime("%d %b %Y")
     %br
-  
-  
+
+
   - if @random_taxa
     %h4.margin-header.right-margin-header
       = "Explore"[]

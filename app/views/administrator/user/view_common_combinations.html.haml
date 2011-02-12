@@ -22,8 +22,11 @@ List of activity combinations in a 5-min. duration
       - @activities.each do |name,count|
         - column_class=cycle('odd','even')
         %tr{ :valign => "top" }            
-          %td{ :class => column_class }
-            = name
+          %td{ :class => column_class }            
+            - if(@activity)
+              = name.gsub(@activity.name,"<b>" + @activity.name + "</b>")
+            - else
+              = name
           %td{ :class => column_class, :align => "right" }
             = count
     %br

@@ -17,7 +17,6 @@ describe 'Admin Pages' do
   
   it 'should load the admin homepage' do
     login_as(@user)
-    current_path.should == '/'
     visit('/admin')
     body.should include('Welcome to the EOL Administration Console')
     body.should include('Site CMS')
@@ -40,7 +39,6 @@ describe 'Admin Pages' do
     
     it 'should show the list of hierarchies' do
       login_as(@user)
-      current_path.should == '/'
       visit('/administrator/hierarchy')
       body.should include(@agent.full_name)
       body.should include(@hierarchy.label)
@@ -49,7 +47,6 @@ describe 'Admin Pages' do
     
     it 'should be able to edit a hierarchy' do
       login_as(@user)
-      current_path.should == '/'
       visit("/administrator/hierarchy/edit/#{@hierarchy.id}")
       body.should include('<input id="hierarchy_label"')
       body.should include(@hierarchy.label)
@@ -58,7 +55,6 @@ describe 'Admin Pages' do
     
     it 'should be able to view a hierarchy' do
       login_as(@user)
-      current_path.should == '/'
       visit("/administrator/hierarchy/browse/#{@hierarchy.id}")
       body.should include(@hierarchy.label)
     end
@@ -67,7 +63,6 @@ describe 'Admin Pages' do
   describe ': glossary' do    
     it 'should load an empty glossary page' do
       login_as(@user)
-      current_path.should == '/'
       visit('/administrator/glossary')
       body.should include("glossary is empty")
     end
@@ -75,7 +70,6 @@ describe 'Admin Pages' do
     it 'should show glossary terms' do
       glossary_term = GlossaryTerm.gen(:term => 'Some new term', :definition => 'and its definition')
       login_as(@user)
-      current_path.should == '/'
       visit("/administrator/glossary")
       body.should include(glossary_term.term)
       body.should include(glossary_term.definition)
@@ -85,7 +79,6 @@ describe 'Admin Pages' do
   describe ': harvesting logs' do
     it 'should load an empty harvesting logs page' do
       login_as(@user)
-      current_path.should == '/'
       visit('/administrator/harvesting_log')
       body.should include("No harvesting logs")
     end
@@ -121,18 +114,13 @@ describe 'Admin Pages' do
     end  
     it "should show report_monthly_published_partners page" do      
       login_as(@user)
-      current_path.should == '/'      
       visit("/administrator/content_partner_report/report_monthly_published_partners")
       body.should include "New content partners for the month"
     end
   
     it "should get data from a form and display published partners" do          
       login_as(@user)
-      current_path.should == '/'      
-      visit("/administrator/content_partner_report/report_monthly_published_partners", :method => :post, :params => {:year_month => @year_month})
-      #visit("/administrator/content_partner_report/report_monthly_published_partners")
-      #select "", :year_month => @year_month
-  
+      visit("/administrator/content_partner_report/report_monthly_published_partners", :method => :post, :params => {:year_month => @year_month}) 
       body.should have_tag("form[action=/administrator/content_partner_report/report_monthly_published_partners]")
       body.should include "New content partners for the month"
       body.should include @agent.full_name
@@ -165,18 +153,13 @@ describe 'Admin Pages' do
   
     it "should show report_partner_curated_data page" do      
       login_as(@user)
-      current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_curated_data")
       body.should include "Curation activity:"
     end
   
     it "should get data from a form and display curation activity" do
       login_as(@user)
-      current_path.should == '/'      
-      visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})
-      #visit("/administrator/content_partner_report/report_partner_curated_data")
-      #select "", :agent_id => @agent.id
-  
+      visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id})  
       body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
       body.should include "Curation activity:"
       body.should include @agent.full_name      
@@ -184,11 +167,7 @@ describe 'Admin Pages' do
   
     it "should get data from a form and display a month's curation activity" do          
       login_as(@user)
-      current_path.should == '/'      
-      visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id, :year_month => @year_month})
-      #visit("/administrator/content_partner_report/report_partner_curated_data")      
-      #select "", :agent_id => @agent.id, :year_month => @year_month
-  
+      visit("/administrator/content_partner_report/report_partner_curated_data", :method => :post, :params => {:agent_id => @agent.id, :year_month => @year_month})  
       body.should have_tag("form[action=/administrator/content_partner_report/report_partner_curated_data]")
       body.should include "Curation activity:"
       body.should include @agent.full_name      
@@ -206,14 +185,12 @@ describe 'Admin Pages' do
   
     it "should show report_partner_objects_stats page" do      
       login_as(@user)
-      current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_objects_stats")
       body.should include "Viewing Partner:"
     end
   
     it "should get data from a form and display harvest events" do          
       login_as(@user)
-      current_path.should == '/'      
       visit("/administrator/content_partner_report/report_partner_objects_stats")
       select @agent.full_name, :from => "agent_id"
       click_button "Change"
@@ -225,7 +202,6 @@ describe 'Admin Pages' do
   
     it "should link to data objects stats per harvest event" do          
       login_as(@user)
-      current_path.should == '/'      
       visit("/administrator/content_partner_report/show_data_object_stats?harvest_id=#{@harvest_event.id}&partner_fullname=#{URI.escape(@agent.full_name)}")
       body.should include "Total Data Objects:"
       body.should include @agent.full_name
@@ -254,7 +230,6 @@ describe 'Admin Pages' do
     end
     it "should get data from a form and display user activity" do          
       login_as(@user)
-      current_path.should == '/'            
       visit("/administrator/user/view_user_activity", :method => :post, :params => {:user_id => @user_with_activity.id})
       body.should have_tag("form[action=/administrator/user/view_user_activity]")
       body.should include "User Activity"
@@ -264,7 +239,6 @@ describe 'Admin Pages' do
 
     it "should list activity combinations in a 5-min. duration" do          
       login_as(@user)
-      current_path.should == '/'            
       visit("/administrator/user/view_common_combinations")
       body.should include "List of activity combinations in a 5-min. duration"
       body.should include @activity.name
@@ -272,7 +246,6 @@ describe 'Admin Pages' do
 
     it "should list activity combinations in a 5-min. duration for a given activity" do          
       login_as(@user)
-      current_path.should == '/'            
       visit("/administrator/user/view_common_combinations", :activity_id => @activity.id)
       body.should include "List of activity combinations in a 5-min. duration\nfor activity \n<b>\n#{@activity.name}\n</b>\n"
     end

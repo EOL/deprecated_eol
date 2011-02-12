@@ -1,11 +1,12 @@
-%label{ :title => "Select a clade"[] }= "Select a clade"[]
+- unless @user.is_curator?
+  %label{ :title => "Select a clade"[] }= "Select a clade"[]
 
--# This is a hidden div that lets us clone the image_tag within it without worrying about it showing up *in addtion* to the copy (since the clone shares the original's class):
-#orig-clade-spinner{:style => 'display:none'}
-  = image_tag('indicator_arrows_black.gif', :class => 'clade-spinner')
-%span#curator_taxon
-  &nbsp;
-  = clade_selector(options = { :selectable_clade_level => 3 })
+  -# This is a hidden div that lets us clone the image_tag within it without worrying about it showing up *in addtion* to the copy (since the clone shares the original's class):
+  #orig-clade-spinner{:style => 'display:none'}
+    = image_tag('indicator_arrows_black.gif', :class => 'clade-spinner')
+  %span#curator_taxon
+    &nbsp;
+    = clade_selector(options = { :selectable_clade_level => 3 })
 
 %label{ :title => "Curation Scope"[] }
   = "Curation Scope"[]

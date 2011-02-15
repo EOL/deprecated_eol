@@ -4,6 +4,7 @@ class Collection < ActiveRecord::Base
   belongs_to :community
 
   has_many :collection_items
+  alias :items :collection_items
 
   # TODO = you can have collections that point to collections, so there SHOULD be a has_many relationship here to all of the
   # collection items that contain this collection.  ...I don't know if we need that yet, but it would normally be named
@@ -16,6 +17,15 @@ class Collection < ActiveRecord::Base
   # communities... it so happens that the scope of the later is, in fact, a user_id (of nil)... so this works:
   validates_uniqueness_of :name, :scope => [:user_id]
   validates_uniqueness_of :community_id, :if => Proc.new {|l| ! l.community_id.blank? }
+
+  def editable_by?(user)
+    return false if special_collection_id # None of the special lists may be edited.
+    if user_id 
+      return user.id == user_id # Owned by this user?
+    else
+      return user.member_of(community).can?(Privilege.edit_delete_community)
+    end
+  end
 
   def add(what)
     case what.class.name
@@ -32,25 +42,21 @@ class Collection < ActiveRecord::Base
     else
       raise EOL::Exceptions::InvalidCollectionItemType.new("I cannot create a collection item from a #{what.class.name}")
     end
+    what # Convenience.  Allows us to chain this command and continue using the object passed in.
   end
 
   def create_community
     raise EOL::Exceptions::OnlyUsersCanCreateCommunitiesFromCollections unless user
-    raise EOL::Exceptions::CannotCreateCommunityWithoutTaxaInCollection unless contains_taxa?
     community = Community.create(:name => "#{name} Community")
     community.initialize_as_created_by(user)
+    # Deep copy:
     collection_items.each do |li|
-      community.focus.add(li.object) if li.object_type == 'TaxonConcept'
+      community.focus.add(li.object)
     end
     community
   end
 
 private
-
-  # No reason for this to be private, but it is UNTESTED.  If you move this, please test it.
-  def contains_taxa?
-    return collection_items.map {|ci| ci.object_type }.include? 'TaxonConcept'
-  end
 
   def validate
     errors.add(:user_id, "Must be associated with either a user or a community"[]) if

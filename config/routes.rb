@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
   # Communities, Privileges, Roles:
   map.resources :privileges
   # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
-  map.resources :communities, :has_many => [:members, :roles], :member => { 'join' => :get, 'leave' => :get }
+  map.resources :communities, :has_many => [:collections, :members, :roles], :member => { 'join' => :get, 'leave' => :get }
   map.resources :members, :member => {
     'grant_privilege_to' => :post, 'revoke_privilege_from' => :delete,
     'add_role_to' => :post, 'remove_role_from' => :delete }
@@ -15,6 +15,12 @@ ActionController::Routing::Routes.draw do |map|
   map.add_privilege_to_role 'roles/:role_id/add_privilege/:privilege_id', :controller => 'roles', :action => 'add_privilege'
   map.remove_privilege_from_role 'roles/:role_id/remove_privilege/:privilege_id',
     :controller => 'roles', :action => 'remove_privilege'
+
+  map.resources :collections
+  # The collections controller, when called outside of Users or Communities, defaults to the current_user.  These are those
+  # behaviors, with slightly nicer URLs than the default RESTful options:
+  map.watch 'watch/:type/:id', :controller => 'collections', :action => 'watch'
+  map.collect 'collect/:type/:id', :controller => 'collections', :action => 'collect'
 
   # Web Application
   map.resources :harvest_events, :has_many => [:taxa]
@@ -42,8 +48,8 @@ ActionController::Routing::Routes.draw do |map|
                                     :controller => 'account',
                                     :action => 'reset_specific_users_password'
 
-  map.resources :users
-  # TODO - I don't like this.  Why don't we just use restful routes here?
+  map.resources :users, :has_many => [:collections]
+  # TODO - I don't like this.  Why don't we just use restful routes here with the 'users' above?
   # WIP - I have created a users conrtroller.  These should move there.
   map.with_options(:controller => 'account') do |account|
     account.login     'login',     :action => 'login'
@@ -53,7 +59,7 @@ ActionController::Routing::Routes.draw do |map|
     account.user_info 'user_info', :action => 'info'
   end
 
-  # TODO - we would like to make this all restfull.  Is that even possible, with images/videos vs data_objects?
+  # TODO - we would like to make this all restful.
   map.resources :taxon
   map.taxon 'taxa/:id',  :controller => 'taxa', :action => 'taxa', :requirements => { :id => /\d+/ }
   map.taxon_concept 'pages/:id', :controller => 'taxa', :action => 'show'

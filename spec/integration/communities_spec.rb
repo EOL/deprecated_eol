@@ -250,12 +250,4 @@ describe "Communities controller" do
     visit(logout_path)
   end
 
-  it 'should have a link to edit the name of the focus (with privileges)'
-  it 'should NOT have a link to edit the name of the focus (WITHOUT privileges)'
-
-  it 'should have links to remove taxa from the focus (with privileges)'
-  it 'should NOT have links to remove taxa from the focus (WITHOUT privileges)'
-
-  it 'should NOT have a link to delete their focus'
-
 end

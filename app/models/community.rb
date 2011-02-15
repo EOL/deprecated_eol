@@ -1,7 +1,9 @@
 class Community < ActiveRecord::Base
 
-  has_one :collection
+  has_one :collection #TODO - didn't work? , :as => :focus
+  alias :focus :collection
 
+  has_many :collections # A bit confusing, this, but the singular is aliased.
   has_many :members
   has_many :roles
   has_many :collection_items, :as => :object
@@ -35,8 +37,6 @@ class Community < ActiveRecord::Base
       role.privileges = Privilege.find(:all, :conditions => ["level <= ? and special = ?", special_roles[key], true])
     end
   end
-
-  alias :focus :collection
 
   # TODO - test 
   # Adds the default roles, auto-joins the user to the community, and makes that person the owner.

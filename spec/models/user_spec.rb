@@ -330,9 +330,10 @@ describe User do
       @inactive_user.activate
     end
 
-    it 'should create a "like" and "task" collection' do
+    it 'should create a "watch", "inbox", and "task" collection' do
       @inactive_user.activate
-      @inactive_user.like_collection.should_not be_nil
+      @inactive_user.watch_collection.should_not be_nil
+      @inactive_user.inbox_collection.should_not be_nil
       @inactive_user.task_collection.should_not be_nil
     end
 
@@ -365,7 +366,5 @@ describe User do
     end
 
   end
-
-  it 'should be #like-able and send notification to the user'
 
 end

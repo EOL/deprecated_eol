@@ -87,6 +87,4 @@ describe Community do
     community.focus.name.should == "Bob's Focus"
   end
 
-  it 'should be #like-able and send notification to the owner'
-
 end

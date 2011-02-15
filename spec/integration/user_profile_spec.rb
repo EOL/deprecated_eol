@@ -49,14 +49,4 @@ describe 'User Profile' do
 
   it 'should show all of their specific lists'
 
-  it 'should have a link to edit the name of specific lists'
-
-  it 'should have a link to delete specific lists'
-
-  it 'should NOT have a link to delete their task or like lists'
-
-  it 'should have a link to create specific lists'
-
-  it 'should have a link to convert specific lists to communities'
-
 end

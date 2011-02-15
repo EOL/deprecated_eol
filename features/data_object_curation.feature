@@ -19,7 +19,13 @@ Feature: Describe curation of an object
     And I press "Save" button within data object curation menu
     And wait for 15 seconds
     Then I should not see trusted main image
-    Then I should see untrusted main image
+    And I should see untrusted main image
     And I it should have a new comment with "Misidentified" and "Other" for the main picture
     And a number of comments from the curator should increase by "1"
+    Given a number comments from the curator
+    When I press "Save" button within data object curation menu
+    And wait for 15 seconds
+    Then I should not see trusted main image
+    And I should see untrusted main image
+    And a number of comments from the curator should increase by "0"
     Then I logout

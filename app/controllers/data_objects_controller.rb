@@ -147,13 +147,14 @@ class DataObjectsController < ApplicationController
 
   # PUT /data_objects/1/curate
   def curate
+    old_untrust_reason_ids = @data_object.untrust_reasons.collect { |ur| ur.id.to_s }
     opts = {
       :vetted_id => params[:vetted_id], 
       :visibility_id => params[:visibility_id], 
       :untrust_reason_ids => params[:untrust_reasons], 
       :comment => params[:comment], 
       :taxon_concept_id => params[:taxon_concept_id], 
-      :untrust_reasons_comment => params[:untrust_reasons_comment]
+      :untrust_reasons_comment => old_untrust_reason_ids == params[:untrust_reasons] ? [] : params[:untrust_reasons_comment]
     }
     @data_object.curate(current_user, opts)
     expire_data_object(@data_object.id)

@@ -1,16 +1,20 @@
-%label{ :title => "Select a clade"[] }= "Select a clade"[]
+- unless @user.is_curator?
+  %label{ :title => "Select a clade"[] }= "Select a clade"[]
 
--# This is a hidden div that lets us clone the image_tag within it without worrying about it showing up *in addtion* to the copy (since the clone shares the original's class):
-#orig-clade-spinner{:style => 'display:none'}
-  = image_tag('indicator_arrows_black.gif', :class => 'clade-spinner')
-%span#curator_taxon
-  &nbsp;
-  = clade_selector(options = { :selectable_clade_level => 3 })
+  -# This is a hidden div that lets us clone the image_tag within it without worrying about it showing up *in addtion* to the copy (since the clone shares the original's class):
+  #orig-clade-spinner{:style => 'display:none'}
+    = image_tag('indicator_arrows_black.gif', :class => 'clade-spinner')
+  %span#curator_taxon
+    &nbsp;
+    = clade_selector(options = { :selectable_clade_level => 3 })
 
 %label{ :title => "Curation Scope"[] }
   = "Curation Scope"[]
 
-Please note if the scope of your expertise is smaller than the clade you signed up for. For example: "Rodents of Borneo," or "Tri-trophic interactions," or "Conservation issues in fish." This will not limit your ability to curate, but will inform the EOL community.
+= %Q{Please note if the scope of your expertise is smaller than the clade you signed up for. For example: "Rodents of Borneo," or "Tri-trophic interactions," or "Conservation issues in fish." This will not limit your ability to curate, but will inform the EOL community.}[:please_note_expertise_smaller_than_scope]
+
+= "If you would like to have your group assignment changed at any time, please"[:to_change_clade_preamble]
+= link_to("contact us"[], "/contact_us?default_subject=Curator%20Support") + '.'[]
 
 = f.text_area :curator_scope, { :rows => 3, :cols => 80 }
 

@@ -9,7 +9,6 @@ module EOL
     class MustBeLoggedIn < StandardError; end
     class InvalidCollectionItemType < StandardError; end
     class OnlyUsersCanCreateCommunitiesFromCollections < StandardError; end
-    class CannotCreateCommunityWithoutTaxaInCollection < StandardError; end
   end
 end
 

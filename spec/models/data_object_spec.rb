@@ -590,6 +590,4 @@ describe DataObject do
 
   end
 
-  it 'should be #like-able and send notification to the owner'
-
 end

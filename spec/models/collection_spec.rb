@@ -107,23 +107,61 @@ describe Collection do
 
   describe '#create_community' do
 
-    it 'should create the community with a collection of taxon concepts (and ignore other types of collection items)' do
+    it 'should create the community' do
       collection = Collection.gen
       collection.add(@taxon_concept_1)
       collection.add(@taxon_concept_2)
       collection.add(@user)
       community = collection.create_community
-      community.focus.collection_items.map {|li| li.object_id }.include?(@taxon_concept_1.id).should be_true
-      community.focus.collection_items.map {|li| li.object_id }.include?(@taxon_concept_2.id).should be_true
-      community.focus.collection_items.each do |li|
-        li.object_type.should == "TaxonConcept"
-      end
+      community.focus.collection_items.map {|li| li.object }.include?(@taxon_concept_1).should be_true
+      community.focus.collection_items.map {|li| li.object }.include?(@taxon_concept_2).should be_true
+      community.focus.collection_items.map {|li| li.object }.include?(@user).should be_true
     end
 
-    it 'should FAIL if the collection has no taxon concepts' do
-      collection = Collection.gen
-      collection.add(@user)
-      lambda { collection.create_community }.should raise_error(EOL::Exceptions::CannotCreateCommunityWithoutTaxaInCollection)
+  end
+
+  describe '#editable_by?' do
+
+    before(:all) do
+      @owner = User.gen
+      @someone_else = User.gen
+      @users_collection = Collection.gen(:user => @owner)
+      @community = Community.gen
+      @community.initialize_as_created_by(@owner)
+      @community.add_member(@someone_else)
+      @community_collection = Collection.create(
+        :community_id => @community.id,
+        :name => 'Nothing Else Matters',
+        :published => false,
+        :special_collection_id => nil)
+    end
+
+    it 'should be editable by the owner' do
+      @users_collection.editable_by?(@owner).should be_true
+    end
+
+    it 'should NOT be editable by someone else' do
+      @users_collection.editable_by?(@someone_else).should_not be_true
+    end
+
+    it 'should NOT be editable if a task collection' do
+      @owner.task_collection.editable_by?(@owner).should_not be_true
+    end
+
+    it 'should NOT be editable if a watch collection' do
+      @owner.watch_collection.editable_by?(@owner).should_not be_true
+    end
+
+    it 'should NOT be editable if a focus collection' do
+      @community.focus.editable_by?(@owner).should_not be_true
+    end
+
+    it 'should NOT be editable if the user cannot edit the community' do
+      @community_collection.editable_by?(@someone_else).should_not be_true
+    end
+
+    it 'should be editable if the user can edit the community' do
+      @community_collection.editable_by?(@owner).should be_true
     end
 
   end
@@ -131,7 +169,5 @@ describe Collection do
   it 'should be able to find published collections in a search'
 
   it 'should NOT be able to find UN-published collections in a search'
-
-  it 'should be #like-able and send notification to the owner'
 
 end

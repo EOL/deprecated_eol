@@ -1,0 +1,4 @@
+.collection_item
+  = collection_item_link_to(collection_item)
+  - if editable
+    = check_box_tag "collection_items", collection_item.id.to_s, false

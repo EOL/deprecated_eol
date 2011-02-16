@@ -26,7 +26,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
 
   has_one :user_info
   # I wish these worked, but they need runtime evaluation.
-  #has_one :like_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.like.id }
+  #has_one :watch_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.watch.id }
+  #has_one :inbox_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.inbox.id }
   #has_one :task_collection, :class_name => 'Collection', :conditions => { :special_collection_id => SpecialCollection.task.id }
 
   before_save :check_curator_status
@@ -203,7 +204,20 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   def activate
     self.update_attributes(:active => true)
     Notifier.deliver_welcome_registration(self)
-    Collection.create(:name => "#{self.username.titleize} Likes", :special_collection_id => SpecialCollection.like.id, :user_id => self.id)
+    build_watch_collection
+    build_inbox_collection
+    build_task_collection
+  end
+
+  def build_watch_collection
+    Collection.create(:name => "#{self.username.titleize}'s Watched Items", :special_collection_id => SpecialCollection.watch.id, :user_id => self.id)
+  end
+
+  def build_inbox_collection
+    Collection.create(:name => "#{self.username.titleize}'s Inbox Collection", :special_collection_id => SpecialCollection.inbox.id, :user_id => self.id)
+  end
+
+  def build_task_collection
     Collection.create(:name => "#{self.username.titleize}'s Tasks", :special_collection_id => SpecialCollection.task.id, :user_id => self.id)
   end
 
@@ -428,12 +442,22 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     self.hashed_password = User.hash_password(value)
   end
 
-  def like_collection
-    Collection.find_by_user_id_and_special_collection_id(self.id, SpecialCollection.like.id)
+  def watch_collection
+    collection = Collection.find_by_user_id_and_special_collection_id(self.id, SpecialCollection.watch.id)
+    collection ||= build_watch_collection
+    collection
+  end
+
+  def inbox_collection
+    collection = Collection.find_by_user_id_and_special_collection_id(self.id, SpecialCollection.inbox.id)
+    collection ||= build_inbox_collection
+    collection
   end
 
   def task_collection
-    Collection.find_by_user_id_and_special_collection_id(self.id, SpecialCollection.task.id)
+    collection = Collection.find_by_user_id_and_special_collection_id(self.id, SpecialCollection.task.id)
+    collection ||= build_task_collection
+    collection
   end
 
   # set the language from the abbreviation

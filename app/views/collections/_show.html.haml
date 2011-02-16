@@ -1,14 +1,28 @@
+= javascript_include_merged 'collections'
+- editable = collection.editable_by?(current_user)
 .collection
-  %h3= h collection.name
+  - if editable
+    .actions
+      = link_to "Delete"[], collection.community, :method => :delete, :confirm => "Are you sure?"[]
+      = link_to_function "Change Name"[], "EOL.show_collection_name_field()"
+  .name
+    %h3#current_name= h collection.name
+    - if editable
+      #collection_name_field
+        - form_for(collection) do |form|
+          = form.text_field :name
   %p.owner
     - if collection.community_id 
       = "for"[]
       = link_to collection.community.name, collection.community
-    - else
+    - elsif collection.user_id
       = "by"[]
-      = link_to collection.user.username, user_info_path(collection.user)
+      = link_to collection.user.username, user_path(:user_id => collection.user)
+    - else
+      = "(this collection is not attached to either a user or a community)"[]
     - if collection.published?
       = "(This collection can be viewed by the public)"[]
   .items
-    - collection.collection_items.each do |item|
-      = collection_item_link_to(item)
+    - form_for(collection) do |form|
+      - collection.collection_items.each do |item|
+        = render :partial => 'collection_items/show', :locals => { :collection_item => item, :editable => editable }

@@ -3,6 +3,8 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe EOL::CommonNameDisplay do
 
   before(:all) do
+    truncate_all_tables
+    load_foundation_cache
     @conributors = Hierarchy.gen
     @agent = Agent.gen
     Name.stub!(:find_by_sql).and_return(fake_data)

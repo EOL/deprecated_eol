@@ -272,6 +272,13 @@ class Hash
   def self.from_array array
     array.hashify
   end
+  
+  # creates an entirely new Hash with new keys and values with the same information but not pointing
+  # to the same place in memory. For some reason neither Hash.dup nor Hash.clone were making a true deep copy
+  def deepcopy
+    Marshal::load(Marshal::dump(self))
+  end
+  
 
 end
 

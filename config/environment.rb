@@ -254,6 +254,7 @@ require 'base64'
 
 # Add some stuff to Core/Rails base classes:
 require 'core_extensions'
+require 'select_with_preload_include'
 require 'open-uri'
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything

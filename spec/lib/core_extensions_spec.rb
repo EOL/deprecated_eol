@@ -89,6 +89,34 @@ describe Array do
   end
 end
 
+describe Hash do
+  it 'should create a deep copy' do
+    h = {:a => [:b, :c]}
+    dup_h = h.dup
+    h.should == dup_h
+    dup_h[:a].reject!{|v| v == :b }
+    # this is what I thought was a bug - I've duplicated the array but the values are still identical
+    # Even though dup_h is changed, according to Rails it shoul have changes h as well. Enter deepcopy
+    dup_h.should == h
+    
+    h = {:a => [:b, :c]}
+    dup_h = h.clone
+    h.should == dup_h
+    dup_h[:a].reject!{|v| v == :b }
+    # same with clone
+    dup_h.should == h
+    
+    h = {:a => [:b, :c]}
+    # now create a deep copy instead of clone or dup
+    dup_h = h.deepcopy
+    h.should == dup_h
+    dup_h[:a].reject!{|v| v == :b }
+    dup_h.should_not == h
+    dup_h.should == {:a => [:c]}
+    h.should == {:a => [:b, :c]}
+  end
+end
+
 describe 'ActiveRecord::Base' do
 end
 

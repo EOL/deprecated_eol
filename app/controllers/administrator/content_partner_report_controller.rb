@@ -305,7 +305,7 @@ class Administrator::ContentPartnerReportController < AdminController
     
     if(@agent_id == "All") then @agent_id=1
     end
-    partner = Agent.find(@agent_id, :select => [:full_name])
+    partner = Agent.find(@agent_id, :select => 'full_name')
     @partner_fullname = partner.full_name
 
     page = params[:page] || 1

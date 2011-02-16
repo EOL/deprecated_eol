@@ -55,4 +55,31 @@ namespace :solr do
       count > 100
     solr.build_indexes(TaxonConcept.all[0..99])
   end
+  
+  desc 'Build the elevate.xml file using Search Suggestions'
+  task :build_concept_elevate => :environment do
+    suggestions = SearchSuggestion.find(:all, :select => 'term, taxon_id', :order => 'term ASC, sort_order DESC')
+    
+    taxon_concept_elevate_path = File.join(RAILS_ROOT, 'solr', 'solr', 'data', 'taxon_concepts', 'elevate.xml')
+    File.open(taxon_concept_elevate_path, 'w') do |f|
+      f.write("<?xml version='1.0' encoding='UTF-8' ?>\n")
+      f.write("<elevate>\n")
+      unless suggestions.empty?
+        last_suggestion = nil
+        suggestions.each do |s|
+          if last_suggestion.nil? || last_suggestion.term != s.term
+            unless last_suggestion.nil?
+              f.write("  </query>\n")
+            end
+            f.write("  <query text='#{s.term}'>\n")
+          end
+          f.write("    <doc id='#{s.taxon_id}'/>\n")
+          last_suggestion = s
+        end
+        f.write("  </query>\n")
+      end
+      f.write("</elevate>\n")
+    end
+  end
+  
 end

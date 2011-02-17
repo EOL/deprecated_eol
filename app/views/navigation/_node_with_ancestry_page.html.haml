@@ -8,7 +8,6 @@
 - if ancestors.blank?
   %li
     = render(:partial => 'navigation/node_name_page', :locals => { :entry => hierarchy_entry, :node_class => node_class })
-    - children = HierarchyEntry.children_details(hierarchy_entry['id'], :include_common_names => @include_common_names, :common_name_language => @common_name_language, :node_class => node_class)
     - if !@in_hierarchy
       %ul
         %li
@@ -17,6 +16,7 @@
             = @session_hierarchy.label
             \. Select an alternate hierarchy from the list above
     - else
+      - children = HierarchyEntry.children_details(hierarchy_entry['id'], :include_common_names => @include_common_names, :common_name_language => @common_name_language, :node_class => node_class)
       - unless children.blank?
         %ul.branch
           - for child in children

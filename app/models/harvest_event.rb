@@ -8,7 +8,7 @@ class HarvestEvent < SpeciesSchemaModel
   before_destroy :remove_related_data_objects
 
   def self.last_published
-    last_published=HarvestEvent.find(:all,:conditions=>"published_at <> 'null'",:limit=>1,:order=>'published_at desc')
+    last_published=HarvestEvent.find(:all,:conditions=>"published_at != 'null'",:limit=>1,:order=>'published_at desc')
     return (last_published.blank? ? nil : last_published[0])
   end
 

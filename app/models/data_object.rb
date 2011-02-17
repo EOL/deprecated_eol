@@ -1109,37 +1109,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     }
   end
 
-  alias :ar_to_xml :to_xml
-  # Be careful calling a block here.  We have our own builder, and you will be overriding that if you use a block.
-  def to_xml(options = {})
-    default_only   = [:id, :bibliographic_citation, :description, :guid, :rights_holder, :rights_statement]
-    default_only  += [:altitude, :latitude, :location, :longitude] unless map? or text?
-    options[:only] = (options[:only] ? options[:only] + default_only : default_only)
-    options[:methods] ||= [:data_supplier_agent, :tags_hash]
-    options[:methods] << :map_image if map?
-    default_block = lambda do |xml|
-      xml.attributions do
-        attributions.each do |attr|
-          xml.attribution do
-            xml.role attr.agent_role.label
-            attr.agent.to_xml(:builder => xml, :skip_instruct => true)
-          end
-        end
-      end
-      xml.language language.label unless map? or image?
-      xml.license license.title
-      xml.type data_type.label
-      xml.url thumb_or_object unless map?
-      xml.medium_thumb_url thumb_or_object(:medium) unless map?
-      xml.small_thumb_url thumb_or_object(:small) unless map?
-    end
-    if block_given?
-      ar_to_xml(options) { |xml| yield xml }
-    else
-      ar_to_xml(options) { |xml| default_block.call(xml) }
-    end
-  end
-
   def self.latest_published_version_of(data_object_id)
     # this method is in two parts so we don't have to return ALL data for ALL objects with this guid. MySQL just
     # returns one ID, then we lookup the DataObject based on the ID. Sames a lot of data transfer and time
@@ -1193,95 +1162,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     end
     return obj_tc_id
   end
-
-  def self.get_dataobjects(obj_ids,page)
-    query="SELECT do.* FROM data_objects do
-    JOIN vetted v ON do.vetted_id = v.id
-    WHERE do.id IN (#{ obj_ids.join(', ') })"
-    self.paginate_by_sql [query, obj_ids], :page => page, :per_page => 20 , :order => 'id'
-  end
-
-  def self.get_object_cache_url(obj_ids)
-    query="SELECT do.id, do.object_cache_url FROM data_objects do WHERE do.id IN (#{ obj_ids.join(', ') })"
-    obj_detail = {} #same Hash.new
-    if(obj_ids.length > 0) then
-      rset = DataObject.find_by_sql([query])
-      rset.each do |post|
-        obj_detail["#{post.id}"] = post.object_cache_url
-      end
-    end
-    return obj_detail
-  end
-
-
-  def self.get_object_cache_url(obj_ids)
-    query="SELECT do.id, do.object_cache_url, do.source_url FROM data_objects do WHERE do.id IN (#{ obj_ids.join(', ') })"
-    obj_detail = {} #same Hash.new
-    if(obj_ids.length > 0) then
-      rset = DataObject.find_by_sql([query])
-      rset.each do |post|
-        obj_detail["#{post.id}"] = post.object_cache_url
-        obj_detail["#{post.id}_source"] = post.source_url
-      end
-    end
-    return obj_detail
-  end
-
-  #this method is slow and was replaced by one in the PHP SiteStatistics class.
-  #def self.get_SPM_count_on_dataobjects(arr_SPM)
-  #  arr_count = {} #same Hash.new
-  #  arr_SPM.each do |profile|
-  #    id = profile["id"]
-  #    rset = DataObject.find_by_sql(["SELECT Count(do.id) total
-  #    FROM data_objects do    JOIN     data_objects_info_items doii ON do.id = doii.data_object_id
-  #    WHERE doii.info_item_id = #{id} AND do.published AND do.vetted_id != #{Vetted.untrusted.id}"])
-  #    rset.each do |rec|
-  #      arr_count["#{id}"] = rec.total
-  #    end
-  #  end
-  #  return arr_count
-  #end
-
-  #def self.add_user_dataobjects_on_SPM_count(arr_count, arr_user_object_ids)
-  #  if(arr_user_object_ids.length > 0) then
-  #    rset = DataObject.find_by_sql(["SELECT ii.id, Count(ii.id) total
-  #    FROM data_objects_table_of_contents dotc
-  #    JOIN info_items ii ON dotc.toc_id = ii.toc_id
-  #    JOIN data_objects do ON dotc.data_object_id = do.id
-  #    WHERE dotc.data_object_id IN (#{arr_user_object_ids.join(',')})
-  #    AND do.vetted_id != #{Vetted.untrusted.id}
-  #    AND do.published
-  #    Group By ii.id "])
-  #    rset.each do |rec|
-  #      if(arr_count["#{rec.id}"] != nil) then
-  #        arr_count["#{rec.id}"] = arr_count["#{rec.id}"].to_i + rec.total.to_i
-  #      else
-  #        arr_count["#{rec.id}"] = rec.total.to_i
-  #      end
-  #    end
-  #  end
-  #  return arr_count
-  #end
-
-  #this query is very slow and was replaced by one in the PHP SiteStatistics class.
-  #def self.get_SPM_count_on_contentpartners(arr_SPM)
-  #  arr_count = {} #same Hash.new
-  #  arr_SPM.each do |rec|
-  #    id = rec["id"]
-  #    rset = DataObject.find_by_sql(["SELECT COUNT(distinct ar.agent_id) total
-  #    FROM data_objects_info_items      doii
-  #    JOIN data_objects_harvest_events  dohe  ON doii.data_object_id = dohe.data_object_id
-  #    JOIN data_objects                 do    ON do.id = doii.data_object_id
-  #    JOIN harvest_events               he    ON dohe.harvest_event_id = he.id
-  #    JOIN resources                    r     ON he.resource_id = r.id
-  #    JOIN agents_resources             ar    ON r.id = ar.resource_id
-  #    WHERE doii.info_item_id = #{id} AND do.published AND do.vetted_id != #{Vetted.untrusted.id}"])
-  #    rset.each do |rec|
-  #      arr_count["#{id}"] = rec.total
-  #    end
-  #  end
-  #  return arr_count
-  #end
 
   def self.details_for_object(data_object_guid, options = {})
     data_objects = DataObject.find_all_by_guid(data_object_guid, :conditions => "published=1 AND visibility_id=#{Visibility.visible.id}")

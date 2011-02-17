@@ -338,7 +338,7 @@ class ContentPartnerController < ApplicationController
   def check_username
 
     conditions=''
-    conditions='id <> ' + current_agent.id.to_s unless current_agent.nil?
+    conditions='id != ' + current_agent.id.to_s unless current_agent.nil?
 
     agent = Agent.find_by_username(params[:username],:conditions=>conditions)
 

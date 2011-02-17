@@ -100,9 +100,6 @@ class TaxaController < ApplicationController
       format.html do
         show_taxa_html
       end
-      format.xml do
-        show_taxa_xml
-      end
     end
 
   end
@@ -145,9 +142,6 @@ class TaxaController < ApplicationController
     respond_to do |format|
       format.html do 
         redirect_to_taxa_page(@all_results) if (@all_results.length == 1 and not params[:page].to_i > 1)
-      end
-      format.xml do
-        render_search_xml
       end
     end
   end
@@ -534,13 +528,6 @@ private
     render :template => '/taxa/show_cached' if allow_page_to_be_cached? and not params[:category_id] # if caching is allowed, see if fragment exists using this template
   end
 
-  def show_taxa_xml
-    xml = $CACHE.fetch("taxon.#{@taxon_concept.id}/xml", :expires_in => 4.hours) do
-      @taxon_concept.to_xml(:full => true)
-    end
-    render :xml => xml
-  end 
-
   def taxa_page_html_fragment_name
     current_user = @taxon_concept.current_user
     return "page_#{params[:id]}_#{current_user.taxa_page_cache_str}_#{@taxon_concept.show_curator_controls?}"
@@ -694,24 +681,6 @@ private
       res['preferred_common_name'] = common_name
     end
     suggested_results
-  end
-
-  def render_search_xml
-    if @all_results.blank?
-      xml = Hash.new.to_xml(:root => 'results')
-    else
-      key = "search/xml/#{@querystring.gsub(/[^-_A-Za-z0-9]/, '_')}"
-      xml = $CACHE.fetch(key, :expires_in => 8.hours) do
-        xml_hash = {
-          'suggested-results'  => @suggested_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },
-          'scientific-results' => @scientific_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) },
-          'common-results'     => @common_results.map { |r| TaxonConcept.find(r['taxon_concept_id']) }
-        }
-        # TODO xml_hash['errors'] = XmlErrors.new(results[:errors]) unless results[:errors].nil?
-        xml_hash.to_xml(:root => 'results')
-      end
-    end
-    render :xml => xml
   end
 
   def empty_paginated_set

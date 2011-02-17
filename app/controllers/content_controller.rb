@@ -105,124 +105,6 @@ class ContentController < ApplicationController
 
   end
 
-  # ------ API -------
-
-  # put here an amount of random 5-star images we are needed
-  def best_images
-    @date_generated = "Generated on #{Time.now.strftime("%A, %B %d, %Y - %I:%M %p %Z")}"
-
-    taxon_concept_id = params[:id] || 0
-    limit = params[:limit].to_i || 1
-    limit = 1 if !limit.is_a? Integer
-    limit = 1 if limit < 1
-    limit = 100 if limit > 100
-    taxon_concept = TaxonConcept.find(taxon_concept_id) rescue nil
-    unless taxon_concept.nil?
-      five_star_images = DataObject.for_taxon(taxon_concept, :image).map{|d| d.data_rating == 5.0 ? d : nil}.compact            
-      if five_star_images.empty?
-        @text_to_write = ""
-      elsif five_star_images.size < limit
-        @text_to_write = five_star_images
-      else
-        begin rand_best_images = Array.new(limit){ five_star_images[ rand( five_star_images.size ) ] } 
-        end until rand_best_images.uniq.size == limit 
-        @text_to_write = rand_best_images
-      end
-      # uncomment if we need write .gz file on a disk
-      # file_path = "#{RAILS_ROOT}/public/content/best_images.gz"
-      # write_gz_api(text_to_write, file_path)
-
-      @taxon_to_xml = taxon_to_xml(taxon_concept)
-      @array_to_render = []
-      for dato in @text_to_write
-        @array_to_render.push(dato_to_xml(dato))
-      end   
-      @text_to_write.blank? ? api_render(@taxon_to_xml) : api_render(@array_to_render)
-    else
-      render_404
-    end
-  end
-
-  def api_render(array_to_render)
-    unless array_to_render.blank?
-      respond_to do |format|
-         format.html
-         format.xml { render :layout => false }
-      end
-    else
-     render_404
-    end
-  end
-
-  def tc_api_tab(taxon_concept)
-        taxon_concept.id.to_s + "\t" + 
-        taxon_concept.scientific_name.gsub(/\t/, ' ') + "\t" + 
-        taxon_concept.common_name.gsub(/\t/, ' ')
-  end
-  helper_method(:tc_api_tab)
-
-  def write_gz_api(text_to_write, file_path)
-    date_generated = "Generated on #{Time.now.strftime("%A, %B %d, %Y - %I:%M %p %Z")}"
-    Zlib::GzipWriter.open(file_path) do |gzip|
-  	  gzip << date_generated.to_s + "\n" + text_to_write.to_s
-  	  gzip.close
-  	end
-  end  
-
-  #TODO: add all tags from EOL Schema to use for all future APIs (e.g. see best_images.xml.builder)
-  # http://services.eol.org/schema/documentation_0_2.pdf
-  def taxon_to_xml(taxon_concept)
-    schema_ranks = ['kingdom', 'phylum', 'class', 'order', 'family', 'genus']
-    taxon_params = Hash[];
-    taxon_params["identifier"] = taxon_concept.id
-    taxon_concept.entry.ancestors.each do |ancestor|
-      if ancestor.rank && schema_ranks.include?(ancestor.rank.label)
-        taxon_params[ancestor.rank.label] = ancestor.name
-      end
-    end
-    taxon_params["ScientificName"] = taxon_concept.scientific_name
-    return taxon_params                                                               
-  end
-
-  #TODO: add all tags from EOL Schema to use for all future APIs (e.g. see best_images.xml.builder)
-  # http://services.eol.org/schema/documentation_0_2.pdf
-  def dato_to_xml(dato)
-
-    dato_params = Hash[]
-
-    dato_params["identifier"] = dato.id
-    #dato_params["dataType"] = dato.data_type ? dato.data_type.schema_value : ''
-    #dato_params["mimeType"] = dato.mime_type.label if dato.mime_type
-    dato_params["agents"] = []
-
-    if dato.agents_data_objects
-      dato.agents_data_objects.each do |ado|
-        agent = Hash[]
-        agent["homepage"] = ado.agent.homepage
-        if ado.agent.logo_url
-          agent["logoURL"] = "http://www.eol.org" + ado.agent.logo_url 
-        end
-        agent["role"] = ado.agent_role.label.downcase if ado.agent_role
-        agent["fullName"] = ado.agent.full_name
-        dato_params["agents"] << agent
-      end
-    end
-    dato_params["created"] = dato.object_created_at
-    dato_params["modified"] = dato.object_modified_at
-    dato_params["language"] = dato.language.iso_639_1 if dato.language
-    dato_params["license"] = dato['license_url']
-    dato_params["rights"] = dato['rights_statement']
-    dato_params["rightsHolder"] = dato['rights_holder']
-    dato_params["bibliographicCitation"] = dato['bibliographic_citation']
-    dato_params["source"] = dato['source_url']
-    dato_params["description"] = dato['description']
-    dato_params["mediaURL"] = DataObject.image_cache_path(dato['object_cache_url'], :large)
-    dato_params["thumbnailURL"] = DataObject.image_cache_path(dato['object_cache_url'], :small)
-    dato_params["location"] = dato['location']
-
-    return dato_params                                                              
-  end
-
   # ------ /API -------
 
   def exemplars
@@ -389,7 +271,7 @@ class ContentController < ApplicationController
   def partners
 
     # content partners will have a username
-    @partners = Agent.paginate(:conditions => 'username<>"" AND content_partners.show_on_partner_page = 1', :order => 'agents.full_name asc', :include => :content_partner, :page => params[:page] || 1)
+    @partners = Agent.paginate(:conditions => 'username!="" AND content_partners.show_on_partner_page = 1', :order => 'agents.full_name asc', :include => :content_partner, :page => params[:page] || 1)
 
   end
 

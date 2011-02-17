@@ -315,11 +315,6 @@ class TaxonConcept < SpeciesSchemaModel
     return empty_map_id
   end
 
-  def hierarchy_entries_with_parents
-    HierarchyEntry.with_parents self
-  end
-  alias hierarchy_entries_with_ancestors hierarchy_entries_with_parents
-
   def has_citation?
     return false
   end
@@ -489,16 +484,6 @@ class TaxonConcept < SpeciesSchemaModel
     return nil if h_entry.nil?
     return h_entry.kingdom(hierarchy)
   end
-  def children_hash(detail_level = :middle, language = Language.english, hierarchy = nil, secondary_hierarchy = nil)
-    h_entry = entry(hierarchy)
-    return {} unless h_entry
-    return h_entry.children_hash(detail_level, language, hierarchy, secondary_hierarchy)
-  end
-  def ancestors_hash(detail_level = :middle, language = Language.english, cross_reference_hierarchy = nil, secondary_hierarchy = nil)
-    h_entry = entry(cross_reference_hierarchy)
-    return {} unless h_entry
-    return h_entry.ancestors_hash(detail_level, language, cross_reference_hierarchy, secondary_hierarchy)
-  end  
 
   # general versions of the above methods for any hierarchy
   def find_ancestor_in_hierarchy(hierarchy)
@@ -853,61 +838,6 @@ class TaxonConcept < SpeciesSchemaModel
   def <=>(other)
     return id <=> other.id
   end
-
-  alias :ar_to_xml :to_xml
-  # Be careful calling a block here.  We have our own builder, and you will be overriding that if you use a block.
-  def to_xml(options = {})
-    options[:root]    ||= 'taxon-page'
-    options[:only]    ||= [:id]
-    options[:methods] ||= [:canonical_form, :iucn_conservation_status, :scientific_name]
-    default_block = nil
-    if options[:full]
-      options[:methods] ||= [:canonical_form, :iucn_conservation_status, :scientific_name]
-      default_block = lambda do |xml|
-
-        # Using tag! here because hyphens are not legal ruby identifiers.
-        xml.tag!('common-names') do
-          all_common_names.each do |cn|
-            xml.item { xml.language_label cn.language_label ; xml.string cn.string }
-          end
-        end
-
-        xml.overview { overview.to_xml(:builder => xml, :skip_instruct => true) 
-          overview.map{|x| x.visible_references.to_xml(:builder => xml, :skip_instruct => true) }
-          }
-
-        # Using tag! here because hyphens are not legal ruby identifiers.
-        xml.tag!('table-of-contents') do
-          toc.each do |ti|
-            xml.item { xml.id ti.category_id ; xml.label ti.label }
-          end
-        end
-
-        # Careful!  We're doing TaxonConcepts, here, so we don't want recursion.
-        xml.ancestors { ancestors.each { |a| a.to_xml(:builder => xml, :skip_instruct => true) } }
-        # Careful!  We're doing TaxonConcepts, here, too, so we don't want recursion.
-        xml.children { children.each { |a| a.to_xml(:builder => xml, :skip_instruct => true) } }
-        xml.curators { curators.each {|c| c.to_xml(:builder => xml, :skip_instruct => true)} }
-
-        # There are potentially lots and lots of these, so let's just count them and let the user grab what they want:
-        xml.comments { xml.count comments.length.to_s }
-        xml.images   { xml.count images.length.to_s }
-        xml.videos   { xml.count videos.length.to_s }
-
-      end
-    end
-    if block_given?
-      return ar_to_xml(options) { |xml| yield xml }
-    else 
-      if default_block.nil?
-        return ar_to_xml(options)
-      else
-        return ar_to_xml(options) { |xml| default_block.call(xml) }
-      end
-    end
-  end
-
-
 
   def self.synonyms(taxon_concept_id)
     syn_hash = SpeciesSchemaModel.connection.execute("

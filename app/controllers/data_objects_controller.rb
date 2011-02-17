@@ -115,62 +115,6 @@ class DataObjectsController < ApplicationController
     end
   end
 
-
-  # example urls this handles ...
-  #
-  #   /pages/5/images/2.xml  # Second page of TaxonConcept 5's images.
-  #   /pages/5/videos/2.xml
-  #
-  # DEPRECATED ... There will be a new API that should cover this.  ...Which is good, because it appears to be BROKEN for
-  # images (videos work).
-  def index
-    begin
-      @taxon_concept = TaxonConcept.find params[:taxon_concept_id] if params[:taxon_concept_id]
-    rescue ActiveRecord::RecordNotFound
-      render :text => "Don't know how to render #{ params.inspect }"
-      return
-    end
-    per_page = params[:per_page].to_i
-    per_page = 10 if per_page < 1
-    per_page = 50 if per_page > 50
-    page     = params[:page].to_i
-    page     = 1 if page < 1
-    case request.path
-    when /images/
-      respond_to do |format|
-        format.xml do
-          xml = $CACHE.fetch("taxa/#{@taxon_concept.id}/images/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
-            images = @taxon_concept.images
-            {
-              :images           => images.paginate(:per_page => per_page, :page => page),
-              'num-images'      => images.length,
-              'images-per-page' => per_page,
-              'page'            => page
-            }.to_xml(:root => 'results')
-          end
-          render :xml => xml
-        end
-      end
-      current_user.log_activity(:viewing_page_of_images, :value => page, :taxon_concept_id => @taxon_concept.id)
-    when /videos/
-      respond_to do |format|
-        format.xml do
-          xml = $CACHE.fetch("taxa/#{@taxon_concept.id}/videos/#{page}.#{per_page}/xml", :expires_in => 4.hours) do
-            videos = @taxon_concept.videos
-            {
-              :videos           => videos.paginate(:per_page => per_page, :page => page),
-              'num-videos'      => videos.length,
-              'videos-per-page' => per_page,
-              'page'            => page
-            }.to_xml(:root => 'results')
-          end
-          render :xml => xml
-        end
-      end
-      current_user.log_activity(:viewing_page_of_videos, :value => page, :taxon_concept_id => @taxon_concept.id)
-    end
-  end
-
   def show
     get_attribution
     @type = @data_object.data_type.label

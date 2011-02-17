@@ -1,4 +1,4 @@
-- unless @user.is_curator?
+- if @user.nil? || ! @user.is_curator?
   %label{ :title => "Select a clade"[] }= "Select a clade"[]
 
   -# This is a hidden div that lets us clone the image_tag within it without worrying about it showing up *in addtion* to the copy (since the clone shares the original's class):
@@ -16,7 +16,8 @@
 = "If you would like to have your group assignment changed at any time, please"[:to_change_clade_preamble]
 = link_to("contact us"[], "/contact_us?default_subject=Curator%20Support") + '.'[]
 
-= f.text_area :curator_scope, { :rows => 3, :cols => 80 }
+.curator_scope
+  = f.text_area :curator_scope, { :rows => 3, :cols => 80 }
 
 %label{ :title => "Credentials"[], :for => "user_credentials" }= "Credentials"[]
 

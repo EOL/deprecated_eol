@@ -92,23 +92,6 @@ $(document).ready(function() {
     clear_clade_of_clade_selector();
     return false;
   });
-  // Show the clade browser if the checkbox is checked:
-  var curator_request = $('input#curator_request');
-  if (curator_request.length > 0) {
-    if($('input#curator_request').attr('checked')) {
-      $("#curator_request_options").slideDown();
-    } else {
-      $("#curator_request_options").slideUp();
-    }
-  }
-  // Click to show/hide the clade browser:
-  $('input#curator_request').click(function() {
-    if($(this).attr('checked')) {
-      $("#curator_request_options").slideDown();
-    } else {
-      $("#curator_request_options").slideUp();
-    }
-  });
   EOL.expand_clade_behavior();
 });
 

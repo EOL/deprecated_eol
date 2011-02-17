@@ -1,4 +1,5 @@
 = javascript_include_tag 'users'
+= javascript_include_tag 'navigation'
 = javascript_include_tag 'validator'
 :javascript
   $(document).ready(function() {
@@ -76,10 +77,10 @@
             #curator_request_options{ :style => "display:none;" }
               %span
                 = "To request curator privileges, you must select a clade at the Family level or lower as well as indicate your credentials below.  You will be notified via email if your application for curator privileges is accepted."[:curator_signup_message]
-              = render(:partial=>'curator_form',:locals=>{ :f => f })
+              = render(:partial => 'curator_form', :locals => { :f => f })
           - if $ENABLE_RECAPTCHA
             :javascript
-              var RecaptchaOptions = { theme : 'clean'};
+              var RecaptchaOptions = { theme : 'clean' };
             %br
             %label{ :title => "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha], :for => "recaptcha" }
               = "For verification, please enter the characters you see below.  Click the ? for assistance."[:recaptcha]

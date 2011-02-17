@@ -18,7 +18,6 @@ class DataObject < SpeciesSchemaModel
   has_many :top_images
   has_many :feed_data_objects
   has_many :top_concept_images
-  has_many :languages
   has_many :agents_data_objects, :include => [ :agent, :agent_role ]
   has_many :data_objects_hierarchy_entries
   has_many :comments, :as => :parent
@@ -555,17 +554,6 @@ class DataObject < SpeciesSchemaModel
         ORDER BY tc.id -- DataObject#taxon_concepts
       ", id])[0]
     end
-  end
-
-  # Return all of the HEs associated with this Dato.  Not necessarily all the pages it shows up on,
-  # however, as Zea mays image will show up on Plantae
-  def hierarchy_entries
-    @hierarchy_entries ||= HierarchyEntry.find_by_sql(["
-      SELECT he.*
-      FROM data_objects_hierarchy_entries dohe
-      JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
-      WHERE dohe.data_object_id=? -- DataObject#hierarchy_entries
-    ", id])
   end
 
   def harvested_ancestries

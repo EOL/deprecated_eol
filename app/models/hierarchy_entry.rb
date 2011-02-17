@@ -18,6 +18,9 @@ class HierarchyEntry < SpeciesSchemaModel
   has_many :concepts
   has_many :top_images, :foreign_key => :hierarchy_entry_id
   has_many :synonyms
+  
+  has_and_belongs_to_many :data_objects
+  has_and_belongs_to_many :refs
 
   has_one :hierarchies_content
   has_one :hierarchy_entry_stat

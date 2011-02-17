@@ -57,7 +57,7 @@ class ContentPartner::ReportsController < ContentPartnerController
     end
     
     @content_partners_with_published_data = Agent.content_partners_with_published_data  
-    @partner = Agent.find(@agent_id, :select => [:full_name])
+    @partner = Agent.find(@agent_id, :select => 'full_name')
     @recs = GoogleAnalyticsPartnerSummary.summary(@agent_id, @report_year, @report_month)            
     page = params[:page] || 1
     @posts = GoogleAnalyticsPageStat.page_summary(@agent_id, @report_year, @report_month, page)    

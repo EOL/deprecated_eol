@@ -41,7 +41,7 @@
       = render :partial => 'data_objects/attribution', :locals => { :data_object => content_item }
     %br
     %div{:class => (content_item.vetted_id != Vetted.trusted.id ? "unvetted-background-text" : nil)}
-      = content_item.description.sanitize_html
+      = content_item.description.balance_tags
     - unless content_item['refs'].nil?
       .references
         .text-area-header.references-header
@@ -58,7 +58,7 @@
           
           - content_item['refs'].each do |ref|
             %li{ :class => ref_class, :ref_id => ref.id }
-              = ref.full_reference.sanitize_html
+              = ref.full_reference.balance_tags
               - ref.ref_identifiers.each do |identifier|
                 -# we do not show identifier unless we know how to handle them:
                 - next unless identifier.display?

@@ -13,12 +13,12 @@ xml.response "xmlns:dwc" => "http://rs.tdwg.org/dwc/terms/",
   unless @hierarchy.blank?
     for kingdom in @hierarchy_roots
       xml.dwc :Taxon do
-        xml.dc :identifier, kingdom['identifier'] unless kingdom['identifier'].blank?
-        xml.dwc :taxonID, kingdom['id']
-        xml.dwc :parentNameUsageID, kingdom['parent_id']
-        xml.dwc :taxonConceptID, kingdom['taxon_concept_id']
-        xml.dwc :scientificName, kingdom['name_string']
-        xml.dwc :taxonRank, kingdom['rank_label'] unless kingdom['rank_label'].blank?
+        xml.dc :identifier, kingdom.identifier unless kingdom.identifier.blank?
+        xml.dwc :taxonID, kingdom.id
+        xml.dwc :parentNameUsageID, kingdom.parent_id
+        xml.dwc :taxonConceptID, kingdom.taxon_concept_id
+        xml.dwc :scientificName, kingdom.name.string.firstcap
+        xml.dwc :taxonRank, kingdom.rank.label unless kingdom.rank_id == 0 || kingdom.rank.blank?
       end
     end
   end

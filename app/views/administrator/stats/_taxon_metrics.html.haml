@@ -1,0 +1,115 @@
+%b
+  = "Taxon Concept Stats"
+= link_to " &nbsp;&nbsp; species page>>",{:controller=>'/taxa', :action=>:show, :id => metric.taxon_concept_id}
+%br
+%table.results_table
+  %tr
+    %th
+      Stat
+    %th
+      Value
+  %tr
+    %td.odd
+      = "Text object"
+    %td.odd.stats
+      = metric.text_trusted
+  %tr
+    %td.even
+      = "Image object"
+    %td.even.stats
+      = metric.image_trusted
+  %tr
+    %td.odd
+      = "Video object"
+    %td.odd.stats
+      = metric.video_trusted
+  %tr
+    %td.even
+      = "Flash video"
+    %td.even.stats
+      = metric.flash_trusted
+  %tr
+    %td.odd
+      = "YouTube video"
+    %td.odd.stats
+      = metric.youtube_trusted
+  %tr
+    %td.even
+      = "Sound object"
+    %td.even.stats
+      = metric.sound_trusted
+  %tr
+    %td.odd
+      = "Data object reference"
+    %td.odd.stats
+      = metric.data_object_references
+  %tr
+    %td.even
+      = "Info item"
+    %td.even.stats
+      = metric.info_items
+  %tr
+    %td.odd
+      = "BHL publication"
+    %td.odd.stats
+      = metric.BHL_publications
+  %tr
+    %td.even
+      = "Content partner"
+    %td.even.stats
+      = metric.content_partners
+  %tr
+    %td.odd
+      = "Outlink"
+    %td.odd.stats
+      = metric.outlinks
+  %tr
+    %td.even
+      = "GBIF map"
+    %td.even.stats
+      - if metric.has_GBIF_map?
+        = "available"
+      - else
+        = "none"
+  %tr
+    %td.odd
+      = "Biomedical terms"
+    %td.odd.stats
+      - if metric.has_biomedical_terms?
+        = "available"
+      - else
+        = "none"
+  %tr
+    %td.even
+      = "User-submitted text"
+    %td.even.stats
+      = metric.user_submitted_text
+      - if metric.submitted_text_providers > 0
+        = " &nbsp;&nbsp; Providers:"
+        = metric.submitted_text_providers
+  %tr
+    %td.odd
+      = "Common name"
+    %td.odd.stats
+      = metric.common_names
+      - if metric.common_name_providers > 0
+        = " &nbsp;&nbsp; Providers:"
+        = metric.common_name_providers
+  %tr
+    %td.even
+      = "Synonym"
+    %td.even.stats
+      = metric.synonyms
+      - if metric.synonym_providers > 0
+        = " &nbsp;&nbsp; Providers:"
+        = metric.synonym_providers
+  %tr
+    %td.odd
+      = "Page view"
+    %td.odd.stats
+      = metric.page_views
+  %tr
+    %td.even
+      = "Unique page view"
+    %td.even.stats
+      = metric.unique_page_views

@@ -48,7 +48,7 @@ module ApiHelper
     for entry in details_hash['curated_hierarchy_entries']
       entry_hash = {
         'identifier'      => entry.id,
-        'scientificName'  => entry.name_object.string,
+        'scientificName'  => entry.name.string,
         'nameAccordingTo' => entry.hierarchy.label
       }
       entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
@@ -121,7 +121,7 @@ module ApiHelper
     return_hash['taxonID'] = @hierarchy_entry.id
     return_hash['parentNameUsageID'] = @hierarchy_entry.parent_id
     return_hash['taxonConceptID'] = @hierarchy_entry.taxon_concept_id
-    return_hash['scientificName'] = @hierarchy_entry.name_object.string
+    return_hash['scientificName'] = @hierarchy_entry.name.string
     return_hash['taxonRank'] = @hierarchy_entry.rank.label.firstcap unless @hierarchy_entry.rank.nil?
     
     stats = @hierarchy_entry.hierarchy_entry_stat
@@ -139,43 +139,47 @@ module ApiHelper
     end
     
     return_hash['vernacularNames'] = []
-    for common_name in @common_names
-      return_hash['vernacularNames'] << {
-        'vernacularName' => common_name['name_string'],
-        'language'       => common_name['language_code']
-      }
+    if @include_common_names
+      for common_name in @hierarchy_entry.common_names
+        return_hash['vernacularNames'] << {
+          'vernacularName' => common_name.name.string.firstcap,
+          'language'       => common_name.language.iso_639_1
+        }
+      end
     end
     
     return_hash['synonyms'] = []
-    for synonym in @synonyms
-      synonym_hash = {}
-      synonym_hash['parentNameUsageID'] = @hierarchy_entry.id
-      synonym_hash['scientificName'] = synonym['name_string']
-      synonym_hash['taxonomicStatus'] = synonym['relation']
-      return_hash['synonyms'] << synonym_hash
+    if @include_synonyms
+      for synonym in @hierarchy_entry.scientific_synonyms
+        synonym_hash = {}
+        synonym_hash['parentNameUsageID'] = @hierarchy_entry.id
+        synonym_hash['scientificName'] = synonym.name.string.firstcap
+        synonym_hash['taxonomicStatus'] = synonym.synonym_relation.label
+        return_hash['synonyms'] << synonym_hash
+      end
     end
     
     return_hash['ancestors'] = []
     for ancestor in @ancestors
       ancestor_hash = {}
-      ancestor_hash['sourceIdentifier'] = ancestor['identifier'] unless ancestor['identifier'].blank?
-      ancestor_hash['taxonID'] = ancestor['id']
-      ancestor_hash['parentNameUsageID'] = ancestor['parent_id']
-      ancestor_hash['taxonConceptID'] = ancestor['taxon_concept_id']
-      ancestor_hash['scientificName'] = ancestor['name_string']
-      ancestor_hash['taxonRank'] = ancestor['rank_label'] unless ancestor['rank_label'].blank?
+      ancestor_hash['sourceIdentifier'] = ancestor.identifier unless ancestor.identifier.blank?
+      ancestor_hash['taxonID'] = ancestor.id
+      ancestor_hash['parentNameUsageID'] = ancestor.parent_id
+      ancestor_hash['taxonConceptID'] = ancestor.taxon_concept_id
+      ancestor_hash['scientificName'] = ancestor.name.string.firstcap
+      ancestor_hash['taxonRank'] = ancestor.rank.label unless ancestor.rank_id == 0 || ancestor.rank.blank?
       return_hash['ancestors'] << ancestor_hash
     end
     
     return_hash['children'] = []
     for child in @children
       child_hash = {}
-      child_hash['sourceIdentifier'] = child['identifier'] unless child['identifier'].blank?
-      child_hash['taxonID'] = child['id']
-      child_hash['parentNameUsageID'] = child['parent_id']
-      child_hash['taxonConceptID'] = child['taxon_concept_id']
-      child_hash['scientificName'] = child['name_string']
-      child_hash['taxonRank'] = child['rank_label'] unless child['rank_label'].blank?
+      child_hash['sourceIdentifier'] = child.identifier unless child.identifier.blank?
+      child_hash['taxonID'] = child.id
+      child_hash['parentNameUsageID'] = child.parent_id
+      child_hash['taxonConceptID'] = child.taxon_concept_id
+      child_hash['scientificName'] = child.name.string.firstcap
+      child_hash['taxonRank'] = child.rank.label unless child.rank_id == 0 || child.rank.blank?
       return_hash['children'] << child_hash
     end
     return return_hash
@@ -207,12 +211,12 @@ module ApiHelper
     return_hash['roots'] = []
     for root in @hierarchy_roots
       root_hash = {}
-      root_hash['sourceIdentifier'] = root['identifier'] unless root['identifier'].blank?
-      root_hash['taxonID'] = root['id']
-      root_hash['parentNameUsageID'] = root['parent_id']
-      root_hash['taxonConceptID'] = root['taxon_concept_id']
-      root_hash['scientificName'] = root['name_string']
-      root_hash['taxonRank'] = root['rank_label'] unless root['rank_label'].blank?
+      root_hash['sourceIdentifier'] = root.identifier unless root.identifier.blank?
+      root_hash['taxonID'] = root.id
+      root_hash['parentNameUsageID'] = root.parent_id
+      root_hash['taxonConceptID'] = root.taxon_concept_id
+      root_hash['scientificName'] = root.name.string.firstcap
+      root_hash['taxonRank'] = root.rank.label unless root.rank_id == 0 || root.rank.blank?
       return_hash['roots'] << root_hash
     end
     return return_hash

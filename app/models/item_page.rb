@@ -1,19 +1,37 @@
 class ItemPage < SpeciesSchemaModel
   has_many :page_names
   belongs_to :title_item
+  
+  define_core_relationships :select => {
+      :item_pages => [:id, :year, :volume, :issue, :prefix, :number],
+      :publication_titles => [:id, :title, :details]},
+    :include => { :title_item => :publication_title }
+  
+  def self.sort_by_title_year(item_pages)
+    item_pages.sort_by do |item|
+      [item.title_item.publication_title.title,
+      item.year,
+      item.volume,
+      item.issue,
+      item.number.to_i]
+    end
+  end
+  
+  def display_string
+    item_name =  ""
+    item_name += year + "." unless year == '' or year == '0'
+    item_name +=" Vol." + volume + "," unless volume == '' || volume == '0'
+    item_name += " Issue" + issue + "," unless issue == '' || issue == '0'
+    item_name
+  end
+  
+  def publication_title
+    title_item.publication_title.title
+  end
+  def page_url
+    "http://www.biodiversitylibrary.org/page/" + id.to_s
+  end
+  def publication_url
+    "http://www.biodiversitylibrary.org/title/" + title_item.publication_title.id.to_s
+  end
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: item_pages
-#
-#  id            :integer(4)      not null, primary key
-#  title_item_id :integer(4)      not null
-#  issue         :string(20)      not null
-#  number        :string(20)      not null
-#  page_type     :string(20)      not null
-#  prefix        :string(20)      not null
-#  url           :string(255)     not null
-#  volume        :string(20)      not null
-#  year          :string(20)      not null
-

@@ -74,11 +74,6 @@ class RandomHierarchyImage < SpeciesSchemaModel
       @@count[hierarchy.id] = SpeciesSchemaModel.connection.select_value("select count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=#{hierarchy.id}").to_i
     end
   end
-
-  # So, if we just called name(), return our cached version; otherwise, delegate to HE.
-  def name(*args)
-    args.empty? ? self[:name] : taxon_concept.name(args[0], args[1])
-  end
   
   def smart_thumb
     self.data_object.smart_thumb

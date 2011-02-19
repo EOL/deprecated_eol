@@ -2,20 +2,20 @@
 - if ancestors.blank?
   - node_class = ancestors.nil? ? nil : 'bold'
   %li.node
-    = render(:partial => 'navigation/node_name', :locals => { :entry => hierarchy_entry, :node_class => node_class})
-    - children = HierarchyEntry.children_details(hierarchy_entry['id'])
+    = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => hierarchy_entry, :node_class => node_class })
+    - children = hierarchy_entry.children
     - unless children.blank?
       %ul.branch
         - for child in children
-          - if @expand && !child['is_leaf']
-            = render(:partial => 'navigation/node_with_ancestry', :locals => { :hierarchy_entry => child, :expanded => true})
+          - if @expand && !child.is_leaf?
+            = render(:partial => 'navigation/node_with_ancestry', :locals => { :hierarchy_entry => child, :expanded => true })
           - else
             %li.node
-              = render(:partial => 'navigation/node_name', :locals => { :entry => child})
+              = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => child })
 - else
   - ancestor = ancestors.shift
   %li.node
-    = render(:partial => 'navigation/node_name', :locals => { :entry => ancestor})
+    = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => ancestor })
     %ul.branch
-      = render(:partial => 'navigation/node_with_ancestry', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry})
+      = render(:partial => 'navigation/node_with_ancestry', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
       

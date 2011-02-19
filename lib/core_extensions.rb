@@ -72,29 +72,6 @@ end
 
 class String
 
-  # Normalize a string for better matching, e.g. for searches
-  def normalize
-    # Remember, inline regexes can leak memory.  Storing as variables avoids this.
-    @@normalization_regex ||= /[;:,\.\(\)\[\]\!\?\*_\\\/\"\']/
-    @@spaces_regex        ||= /\s+/
-    @@tag_regex           ||= /<[^>]*>/
-    name = self.clone
-    return name.downcase.gsub(@@normalization_regex, '').gsub(@@tag_regex, '').gsub(@@spaces_regex, ' ')
-    return name.downcase.gsub(@@normalization_regex, '').gsub(@@spaces_regex, ' ')
-  end
-  
-  def strip_italics
-    self.gsub(/<\/?i>/i, "")
-  end
-
-  def underscore_non_word_chars
-    @@non_word_chars_regex ||= /[^A-Za-z0-9\/]/
-    @@dup_underscores_regex ||= /__+/
-    string = self.clone
-    string.gsub(@@non_word_chars_regex, '_').gsub(@@dup_underscores_regex, '_')
-  end
-
-
   # Note that I change strong to b, 'cause strong appears to be overridden in our CSS.  Hrmph.
   def allow_some_html
     # inline RegEx passed to gsub calls leak memory! We declare them first:
@@ -128,52 +105,47 @@ class String
   def appropriate_html_tags
     ['address', 'applet', 'area', 'a', 'base', 'basefont', 'big', 'blockquote', 'br', 'b', 'caption', 'center', 'cite', 'code', 'dd', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'embed', 'font', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr', 'img', 'input', 'isindex', 'i', 'kbd', 'link', 'li', 'map', 'menu', 'meta', 'ol', 'option', 'param', 'pre', 'p', 'samp', 'script', 'select', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'sup', 'table', 'td', 'textarea', 'th', 'title', 'tr', 'tt', 'ul', 'u', 'var', 'legend', 'fieldset']
   end
+  
+  # this method is designed to make sure a text string has equal numbers of opening and closing forms of certain
+  # tags in the proper order (shouln't open one after closing one for example - that is not balanced)
+  def balance_tags
+    text = self.clone
+    ['b', 'i', 'div', 'p'].each do |tag|
+      # this will match <T_, <T>, </_T>, </T>
+      open_and_close_tags = text.scan(/\<(#{tag}[\> ]|\/ *#{tag}\>)/)
+      number_of_opening_tags_needed = 0
+      total_open = 0
+      total_closed = 0
+      current_balance = 0
+      previous_balance = 0
+      open_and_close_tags.each do |match|
+        t = match[0]
+        if t[0, 1] == "/"  # its a closing tag
+          total_closed += 1
+          current_balance -= 1
+        else
+          total_open += 1
+          current_balance += 1
+        end
+        
+        if current_balance < 0 && current_balance < previous_balance
+          number_of_opening_tags_needed += 1
+          current_balance += 1
+        end
+        previous_balance = current_balance
+      end
+      # adding to the beginning opening tags if there are close tags before open tags of the same type
+      text = "<#{tag}>" * number_of_opening_tags_needed + text
+      total_open += number_of_opening_tags_needed
       
-  def sanitize_html
-    text = self
-    
-    eol_relaxed = {
-      :elements => appropriate_html_tags,
-
-    #width, height and postion removed to prevent hardcoding in provider's HTML
-      :attributes => {
-        'a'          => ['class', 'href', 'rel', 'style', 'target', 'title'],
-        'blockquote' => ['cite'],
-        'cite'       => ['id', 'style'],
-        'col'        => ['span', 'width'],
-        'colgroup'   => ['span', 'width'],
-        'div'        => ['id', 'class', 'style'],
-        'embed'      => ['id', 'type', 'src', 'flashvars'],
-        'img'        => ['align', 'alt', 'src', 'title', 'rel'],
-        'li'         => ['class', 'id'],
-        'ol'         => ['class', 'id', 'start', 'type'],
-        'q'          => ['cite'],
-        'script'     => ['type'],
-        'style'      => ['align', 'alt', 'background', 'border', 'color', 'dir', 'font', 'font-family', 'font-size', 'font-style', 'font-weight', 'lang', 'line-height', 'margin', 'margin-left', 'margin-right', 'margin-top', 'media', 'padding', 'src', 'text-align', 'text-decoration', 'text-indent', 'title', 'type'],
-        'span'       => ['class', 'id', 'style', 'title'],
-        'sub'        => ['class', 'id', 'title', 'style'],
-        'sup'        => ['class', 'id', 'title', 'style'],
-        'table'      => ['summary', 'width', 'cellspacing', 'class', 'id', 'title', 'style'],
-        'td'         => ['abbr', 'axis', 'colspan', 'rowspan', 'width', 'class', 'title', 'style'],
-        'tr'         => ['style'],
-        'th'         => ['abbr', 'axis', 'class', 'colspan', 'rowspan', 'scope', 'style',
-                         'width'],
-        'ul'         => ['type'],
-        'fieldset'   => ['class', 'rel'],
-        'legend'     => ['class']
-      },
-      
-      :protocols => {
-        'a'          => {'href' => ['ftp', 'http', 'https', 'mailto', 'javascript', :relative]},
-        'blockquote' => {'cite' => ['http', 'https', :relative]},
-        'embed'      => {'src' => ['http', 'https', :relative]},
-        'img'        => {'src'  => ['http', 'https', :relative]},
-        'q'          => {'cite' => ['http', 'https', :relative]}
-      }
-    }
-    
-    Sanitize.clean(text, eol_relaxed)
-    
+      difference = total_open - total_closed
+      if difference < 0  # more closed tags than open
+        text = "<#{tag}>" * difference.abs + text
+      elsif difference > 0  # more open tags than closed
+        text += "</#{tag}>" * difference
+      end
+    end
+    return text
   end
 
   def truncate(length)
@@ -299,44 +271,6 @@ end
 module ActiveRecord
   class Base
     class << self
-
-      # options is there so that we can pass in the :serialize => true option in the cases where we were using Yaml...
-      # I am going to try NOT doing anything with that option right now, to see if it works.  If not, however, I want to at
-      # least have it passed in when we needed it, so the code can change later if needed.
-      def cached_find(field, value, options = {})
-        cached("#{field}/#{value}", options) do
-          send("find_by_#{field}", value)
-        end
-      end
-
-      def cached(key, options = {}, &block)
-        name = cached_name_for(key)
-        wrote_cache_key(name)
-        $CACHE.fetch(name) do
-          yield
-        end
-      end
-
-      # Store a list of all of the keys we create for this model (using these cache methods)... speeds up clearing.
-      def wrote_cache_key(key)
-        name = cached_name_for('cached_names')
-        keys = $CACHE.read(name) || []
-        return keys if keys.include? key
-        keys = keys + [key] # Can't use << or += here because Cache has frozen the array.
-        $CACHE.write(name, keys)
-      end
-
-      def clear_all_caches
-        keys = $CACHE.read(cached_name_for('cached_names')) || []
-        keys.each do |key|
-          $CACHE.delete(key)
-        end
-        $CACHE.write(TODO, keys)
-      end
-
-      def cached_name_for(key)
-        "#{RAILS_ENV}/#{self.table_name}/#{key.underscore_non_word_chars}"[0..249]
-      end
 
       # returns the full table name of this ActiveRecord::Base, 
       # including the database name.

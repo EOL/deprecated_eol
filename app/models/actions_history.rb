@@ -30,9 +30,9 @@ class ActionsHistory < ActiveRecord::Base
       when ChangeableObjectType.tag.id:    
         # We don't count these right now, but we don't want to raise an exception.
       when ChangeableObjectType.users_submitted_text.id:
-        udo_taxon_concept.name
+        udo_taxon_concept.entry.italicized_name
       when ChangeableObjectType.synonym.id:
-        synonym.hierarchy_entry.taxon_concept.name
+        synonym.hierarchy_entry.taxon_concept.entry.italicized_name
       else 
         raise "Don't know how to get taxon name from a changeable object type of id #{changeable_object_type_id}"
     end

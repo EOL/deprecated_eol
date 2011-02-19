@@ -229,7 +229,7 @@ describe "Communities controller" do
     @user1.reload
     @user1.member_of?(@community2).should be_true
     page.body.should have_tag("ul#community_members") do
-      with_tag("li.allowed a[href=#{user_path(@user1)}]", :text => @user1.username)
+      with_tag("li.member a[href=#{user_path(@user1)}]", :text => @user1.username)
     end
     # Clean-up:
     @user1.leave_community(@community2)

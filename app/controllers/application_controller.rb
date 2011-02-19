@@ -326,6 +326,7 @@ class ApplicationController < ActionController::Base
   # aren't.  It also involves cache-clearing and the like, so be careful about skipping the set_current_user method.
   def alter_current_user(&block)
     user = current_user
+    user = User.find(user.id) if user.frozen? # Since we're modifying it, we can't use the one from memcached.
     yield(user)
     user.save! if logged_in?
     set_current_user(user)

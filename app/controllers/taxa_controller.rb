@@ -94,6 +94,8 @@ class TaxaController < ApplicationController
     @hierarchies_to_offer << @session_hierarchy
     @hierarchies_to_offer = @hierarchies_to_offer.uniq.sort_by{|h| h.form_label}
 
+    @feed_item = FeedItem.new(:feed_id => @taxon_concept.id, :feed_type => @taxon_concept.class.name)
+
     current_user.log_activity(:viewed_taxon_concept, :taxon_concept_id => @taxon_concept.id)
 
     respond_to do |format|

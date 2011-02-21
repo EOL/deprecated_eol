@@ -87,4 +87,10 @@ describe Community do
     community.focus.name.should == "Bob's Focus"
   end
 
+  it 'should have a feed' do
+    community = Community.gen
+    community.respond_to?(:feed).should be_true
+    community.feed.should be_a EOL::Feed
+  end
+
 end

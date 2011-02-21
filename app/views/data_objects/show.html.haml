@@ -83,3 +83,4 @@
           #taxaCommentsWrap
             #commentsContain
               = render :partial => 'shared/comments', :locals => { :comments => @comments, :opts => { :params => {:anchor => "commentsContain"} }}
+      = render :partial => 'feed_items/index', :locals => {:feed => @data_object.feed}

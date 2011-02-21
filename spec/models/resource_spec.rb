@@ -12,6 +12,8 @@ describe Agent do
     AgentsResource.gen(:agent => @iucn_agent, :resource => @iucn_resource2)
   end
 
+  # TODO - test this model!  Sheesh.
+
   describe "iucn" do
     it 'returns the last IUCN resource' do
       Resource.iucn.should == @iucn_resource2

@@ -40,3 +40,4 @@
     = "This community has no focus items associated with it."[]
   - else
     = render :partial => "/collections/show", :locals => { :collection => @community.focus }
+= render :partial => 'feed_items/index', :locals => {:feed => @community.feed}

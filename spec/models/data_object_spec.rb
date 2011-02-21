@@ -588,4 +588,10 @@ describe DataObject do
 
   end
 
+  it 'should have a feed' do
+    dato = DataObject.gen
+    dato.respond_to?(:feed).should be_true
+    dato.feed.should be_a EOL::Feed
+  end
+
 end

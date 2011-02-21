@@ -12,6 +12,10 @@ describe 'Data Object Page' do
     before(:all) do
       @tc = build_taxon_concept(:images => [:object_cache_url => Factory.next(:image)], :toc => []) # Somewhat empty, to speed things up.
       @image = @tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
+      @image.feed.post @feed_body_1 = "Something"
+      @image.feed.post @feed_body_2 = "Something Else"
+      @image.feed.post @feed_body_3 = "Something More"
+
       # Build data_object without comments
       @dato_no_comments = build_data_object('Image', 'No comments',
       :num_comments => 0,
@@ -99,5 +103,19 @@ describe 'Data Object Page' do
       page.body.should include("associated with the deprecated page")
     end
     
+    it 'should show the activity feed' do
+      visit("/data_objects/#{@image.id}")
+      page.body.should have_tag('ul.feed') do
+        with_tag('.feed_item .body', :text => @feed_body_1)
+        with_tag('.feed_item .body', :text => @feed_body_2)
+        with_tag('.feed_item .body', :text => @feed_body_3)
+      end
+    end
+
+    it 'should show an empty feed' do
+      visit("/data_objects/#{@dato_untrusted.id}")
+      page.body.should have_tag('#activity', :text => /no activity/i)
+    end
+
   end
 end

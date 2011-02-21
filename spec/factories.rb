@@ -551,6 +551,11 @@ Factory.define :feed_data_object do |fdo|
   fdo.created_at      { 2.hours.ago }
 end
 
+Factory.define :feed_item do |fi|
+  fi.association  :feed, :factory => :user
+  fi.body 'some important notification here'
+end
+
 Factory.define :glossary_term do |gt|
   gt.term       { Faker::Lorem.words[rand(4) + 1].titleize }
   gt.definition { Faker::Lorem.paragraph }

@@ -14,6 +14,10 @@ describe "Communities controller" do
     @member2 = @community.add_member(@user2)
     @member2.add_role @role
     @community2 = Community.gen # It's important that user1 NOT be a member of community2
+    @community2.feed.post @feed_body_1 = "Something"
+    @community2.feed.post @feed_body_2 = "Something Else"
+    @community2.feed.post @feed_body_3 = "Something More"
+    @community3 = Community.gen # It's important that user1 NOT be a member of community3
     @name_of_create_button = 'Create'
     @tc1 = build_taxon_concept
     @tc2 = build_taxon_concept
@@ -110,6 +114,7 @@ describe "Communities controller" do
     end
 
     it 'should show the "focus"' do
+      visit community_path(@community)
       page.body.should have_tag('.focus') do
         with_tag("a[href=#{taxon_concept_path(@tc1)}]")
         with_tag("a[href=#{taxon_concept_path(@tc2)}]")
@@ -192,13 +197,27 @@ describe "Communities controller" do
 
       before(:all) do
         login_as @user1
-        visit community_path(@community2)
       end
 
       it 'should show join link and NOT edit or delete links when logged-in user is NOT a member' do
+        visit community_path(@community2)
         page.body.should have_tag("a[href=#{join_community_path(@community2.id)}]")
         page.body.should_not have_tag("a[href=#{edit_community_path(@community)}]")
         page.body.should_not have_tag("a[href=#{community_path(@community)}]", :text => /delete/i)
+      end
+
+      it 'should show their feed' do
+        visit community_path(@community2)
+        page.body.should have_tag('ul.feed') do
+          with_tag('.feed_item .body', :text => @feed_body_1)
+          with_tag('.feed_item .body', :text => @feed_body_2)
+          with_tag('.feed_item .body', :text => @feed_body_3)
+        end
+      end
+
+      it 'should show an empty feed' do
+        visit community_path(@community3)
+        page.body.should have_tag('#activity', :text => /no activity/i)
       end
 
     end

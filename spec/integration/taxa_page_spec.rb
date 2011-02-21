@@ -95,6 +95,10 @@ describe 'Taxa page (HTML)' do
     @child2        = build_taxon_concept(:parent_hierarchy_entry_id => @taxon_concept.hierarchy_entries.first.id)
     @id            = @taxon_concept.id
 
+    @taxon_concept.feed.post @feed_body_1 = "Something"
+    @taxon_concept.feed.post @feed_body_2 = "Something Else"
+    @taxon_concept.feed.post @feed_body_3 = "Something More"
+
     # This is kind of confusing, but basically the next six lines will cause us to ping a host:
     @ping_url      = 'TEST_with_%ID%'
     @ping_id       = '424242'
@@ -487,6 +491,19 @@ describe 'Taxa page (HTML)' do
     dom_vetted = Nokogiri.HTML(body_vetted)
     unvetted_count.should == 2 
     (dom_all.xpath("//div[@id='thumbnails']//img").size - dom_vetted.xpath("//div[@id='thumbnails']//img").size).should == unvetted_count
+  end
+
+  it 'should show the activity feed' do
+    @result.body.should have_tag('ul.feed') do
+      with_tag('.feed_item .body', :text => @feed_body_1)
+      with_tag('.feed_item .body', :text => @feed_body_2)
+      with_tag('.feed_item .body', :text => @feed_body_3)
+    end
+  end
+
+  it 'should show an empty feed' do
+    visit("/pages/#{@exemplar.id}")
+    page.body.should have_tag('#activity', :text => /no activity/i)
   end
 
 end

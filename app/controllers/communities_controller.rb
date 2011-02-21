@@ -13,6 +13,7 @@ class CommunitiesController < ApplicationController
   end
 
   def show
+    @feed_item = FeedItem.new(:feed_id => @community.id, :feed_type => @community.class.name)
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @community }
@@ -80,7 +81,7 @@ class CommunitiesController < ApplicationController
     end
   end
 
-  private
+private
 
   def load_community_and_dependent_vars
     debugger if params[:id] !~ /^\d+$/

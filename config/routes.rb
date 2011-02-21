@@ -1,10 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :list_items
 
-  map.resources :lists
-
-
-  # Communities, Privileges, Roles:
+  # Communities, Privileges, Roles, Feeds:
+  map.resources :feed_items
   map.resources :privileges
   # TODO - these member methods want to be :put. Capybara, however, always uses :get, so in the interests of simple tests:
   map.resources :communities, :has_many => [:collections, :members, :roles], :member => { 'join' => :get, 'leave' => :get }

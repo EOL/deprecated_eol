@@ -16,6 +16,7 @@
 class TaxonConcept < SpeciesSchemaModel
   extend EOL::Solr::Search
   include ModelQueryHelper
+  include EOL::Feedable
 
   #TODO belongs_to :taxon_concept_content
   belongs_to :vetted

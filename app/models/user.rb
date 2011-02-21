@@ -7,6 +7,8 @@
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
 class User < $PARENT_CLASS_MUST_USE_MASTER
 
+  include EOL::Feedable
+
   belongs_to :curator_hierarchy_entry, :class_name => "HierarchyEntry", :foreign_key => :curator_hierarchy_entry_id
   belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
   belongs_to :language

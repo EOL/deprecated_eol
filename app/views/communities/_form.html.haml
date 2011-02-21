@@ -8,4 +8,5 @@
     = f.label :description, "Provide a short description of this community's purpose:"[:community_form_description_label]
     = f.text_area :description
   %p
+    - submit_label ||= 'Save'[]
     = submit_tag(submit_label)

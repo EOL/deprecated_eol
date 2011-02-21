@@ -367,4 +367,10 @@ describe User do
 
   end
 
+  it 'should have a feed' do
+    user = User.gen
+    user.respond_to?(:feed).should be_true
+    user.feed.should be_a EOL::Feed
+  end
+
 end

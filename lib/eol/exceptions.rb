@@ -9,6 +9,7 @@ module EOL
     class MustBeLoggedIn < StandardError; end
     class InvalidCollectionItemType < StandardError; end
     class OnlyUsersCanCreateCommunitiesFromCollections < StandardError; end
+    class UnknownFeedType < StandardError; end
   end
 end
 

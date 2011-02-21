@@ -7,6 +7,7 @@ require 'erb'
 class DataObject < SpeciesSchemaModel
 
   include ModelQueryHelper
+  include EOL::Feedable
 
   belongs_to :data_type
   belongs_to :language

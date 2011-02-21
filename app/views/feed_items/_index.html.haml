@@ -1,0 +1,18 @@
+#activity
+  - if logged_in?
+    = render :partial => 'feed_items/form', :locals => {:feed => feed} # Important to specify feed_items folder
+  - else
+    %p
+      %strong
+        You must be
+        = link_to('logged in', login_path(:params => {:return_to => request.env["HTTP_REFERER"].blank? ? root_url : URI.parse(request.env["HTTP_REFERER"]).path}), {:class => 'login_link'} )
+        to post comments.
+  - if feed.empty?
+    %p.empty= "No activity."[]
+  - else
+    %ul.feed
+      -# TODO - paginate
+      - feed.each do |feed_item|
+        %li.feed_item
+          .body= h feed_item.body
+

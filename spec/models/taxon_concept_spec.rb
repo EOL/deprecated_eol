@@ -545,6 +545,12 @@ describe TaxonConcept do
   
   end
   
+  it 'should have a feed' do
+    tc = TaxonConcept.gen
+    tc.respond_to?(:feed).should be_true
+    tc.feed.should be_a EOL::Feed
+  end
+
   #
   # I'm all for pending tests, but in this case, they run SLOWLY, so it's best to comment them out:
   #

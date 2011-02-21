@@ -3,6 +3,7 @@
 # database.
 class ContentPartner < SpeciesSchemaModel
 
+  include EOL::Feedable
   belongs_to :agent
 
   unless defined? STEPS
@@ -230,102 +231,62 @@ class ContentPartner < SpeciesSchemaModel
     end  
   end
   
-    # Called when contact_step? is true
-    def validate_atleast_one_contact
-      errors.add_to_base('You must have at least one contact') unless self.agent.agent_contacts.any?
-    end
+  # Called when contact_step? is true
+  def validate_atleast_one_contact
+    errors.add_to_base('You must have at least one contact') unless self.agent.agent_contacts.any?
+  end
 
-    # Called when licensing_step? is true
-    def validate_ipr_acceptance
-     errors.add_to_base('You must accept the EOL Licensing Policy') unless self.ipr_accept.to_i == 1
-    end
-    
-    # Called when attribution_step? is true
-    def validate_attribution_acceptance
-      errors.add_to_base('You must accept the EOL Attribution Guidelines') unless self.attribution_accept.to_i == 1      
-    end
-    
-    # Called when roles_step? is true
-    def validate_roles_acceptance
-      errors.add_to_base('You must accept the EOL Roles Guidelines') unless self.roles_accept.to_i == 1      
-    end
-    
-    def roles_accept?
-      EOLConvert.to_boolean(roles_accept)
-    end
-    
-    def ipr_accept?
-      EOLConvert.to_boolean(ipr_accept)
-    end
-    
-    def attribution_accept?
-      EOLConvert.to_boolean(attribution_accept)
-    end
-    
-    def transfer_schema_accept?
-      EOLConvert.to_boolean(transfer_schema_accept)
-    end
+  # Called when licensing_step? is true
+  def validate_ipr_acceptance
+   errors.add_to_base('You must accept the EOL Licensing Policy') unless self.ipr_accept.to_i == 1
+  end
+  
+  # Called when attribution_step? is true
+  def validate_attribution_acceptance
+    errors.add_to_base('You must accept the EOL Attribution Guidelines') unless self.attribution_accept.to_i == 1      
+  end
+  
+  # Called when roles_step? is true
+  def validate_roles_acceptance
+    errors.add_to_base('You must accept the EOL Roles Guidelines') unless self.roles_accept.to_i == 1      
+  end
+  
+  def roles_accept?
+    EOLConvert.to_boolean(roles_accept)
+  end
+  
+  def ipr_accept?
+    EOLConvert.to_boolean(ipr_accept)
+  end
+  
+  def attribution_accept?
+    EOLConvert.to_boolean(attribution_accept)
+  end
+  
+  def transfer_schema_accept?
+    EOLConvert.to_boolean(transfer_schema_accept)
+  end
 
-    # vet or unvet entire content partner (0 = unknown, 1 = vet)
-    def set_vetted_status(vetted) 
-      set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
-      SpeciesSchemaModel.connection.execute("
-        UPDATE agents_resources ar
-        JOIN harvest_events he ON (ar.resource_id=he.resource_id)
-        JOIN data_objects_harvest_events dohe ON (he.id=dohe.harvest_event_id)
-        JOIN data_objects do ON (dohe.data_object_id=do.id)
-        SET do.vetted_id = #{set_to_state}
-        WHERE ar.agent_id=#{self.agent.id} AND do.curated = 0")
-      self.vetted = vetted
-    end
+  # vet or unvet entire content partner (0 = unknown, 1 = vet)
+  def set_vetted_status(vetted) 
+    set_to_state = EOLConvert.to_boolean(vetted) ? Vetted.trusted.id : Vetted.unknown.id
+    SpeciesSchemaModel.connection.execute("
+      UPDATE agents_resources ar
+      JOIN harvest_events he ON (ar.resource_id=he.resource_id)
+      JOIN data_objects_harvest_events dohe ON (he.id=dohe.harvest_event_id)
+      JOIN data_objects do ON (dohe.data_object_id=do.id)
+      SET do.vetted_id = #{set_to_state}
+      WHERE ar.agent_id=#{self.agent.id} AND do.curated = 0")
+    self.vetted = vetted
+  end
 
-    # Set these fields to blank because insistence on having NOT NULL columns on things that aren't populated
-    # until certain steps.
-    def blank_not_null_fields
-      self.notes ||= ""
-      self.description_of_data ||= ""
-      self.description ||=""
-    end
+  # Set these fields to blank because insistence on having NOT NULL columns on things that aren't populated
+  # until certain steps.
+  def blank_not_null_fields
+    self.notes ||= ""
+    self.description_of_data ||= ""
+    self.description ||=""
+  end
 
 end
-
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: content_partners
-#
-#  id                                  :integer(4)      not null, primary key
-#  agent_id                            :integer(4)      not null
-#  attribution_accept                  :integer(1)      not null, default(0)
-#  attribution_complete_step           :timestamp
-#  attribution_seen_step               :timestamp
-#  auto_publish                        :boolean(1)      not null
-#  contacts_complete_step              :timestamp
-#  contacts_seen_step                  :timestamp
-#  description                         :text            not null
-#  description_of_data                 :text
-#  eol_notified_of_acceptance          :datetime
-#  ipr_accept                          :integer(1)      not null, default(0)
-#  last_completed_step                 :string(40)
-#  licensing_complete_step             :timestamp
-#  licensing_seen_step                 :timestamp
-#  notes                               :text            not null
-#  partner_complete_step               :timestamp
-#  partner_seen_step                   :timestamp
-#  roles_accept                        :integer(1)      not null, default(0)
-#  roles_complete_step                 :timestamp
-#  roles_seen_step                     :timestamp
-#  show_on_partner_page                :boolean(1)      not null
-#  specialist_formatting_complete_step :timestamp
-#  specialist_formatting_seen_step     :timestamp
-#  specialist_overview_complete_step   :timestamp
-#  specialist_overview_seen_step       :timestamp
-#  transfer_overview_complete_step     :timestamp
-#  transfer_overview_seen_step         :timestamp
-#  transfer_schema_accept              :integer(1)      not null, default(0)
-#  transfer_upload_complete_step       :timestamp
-#  transfer_upload_seen_step           :timestamp
-#  vetted                              :integer(1)      not null, default(0)
-#  created_at                          :timestamp       not null
-#  updated_at                          :timestamp       not null
 

@@ -72,5 +72,6 @@
     #center-page-content-loading{ :style => "display:none;" }
       = image_tag 'indicator_arrows_black.gif', :alt=>'Working...'
     #right-page-content
+      = render :partial => 'feed_items/index', :locals => {:feed => @taxon_concept.feed}
       = render :partial => 'internal_nav'
 = render :partial => 'curator_citation'

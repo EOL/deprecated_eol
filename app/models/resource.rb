@@ -31,13 +31,13 @@ class Resource < SpeciesSchemaModel
       Agent.iucn.resources.last
     end
   end
-  
+
   def self.ligercat
     cached('ligercat') do
       Agent.boa.resources[0]
     end
   end
-  
+
 
   def status_label
     (resource_status.nil?) ? "Created" : resource_status.label
@@ -71,7 +71,7 @@ class Resource < SpeciesSchemaModel
         errors.add_to_base("The resource file URL is not valid")
       end
     end
-    
+
     unless dwc_archive_url.blank?
       dwc_archive_url.strip!
       if !dwc_archive_url.match(/(\.tar\.(gz|gzip)|.tgz)/)  # dwca url not a .tar.gz, .tar.gzip, .tgz
@@ -98,10 +98,10 @@ class Resource < SpeciesSchemaModel
 
     true
   end
-  
+
   def upload_resource_to_content_master(application_server_url)
     resource_status = ResourceStatus.uploaded if accesspoint_url.blank?
-    
+
     file_path = (accesspoint_url.blank? ? application_server_url + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1] : accesspoint_url)  
     parameters = 'function=upload_resource&resource_id=' + id.to_s + '&file_path=' + file_path
     begin

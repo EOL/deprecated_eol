@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @feed_item = FeedItem.new(:feed_id => @user.id, :feed_type => @user.class.name)
 
     respond_to do |format|
       format.html # show.html.erb

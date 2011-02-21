@@ -53,8 +53,5 @@ describe 'Content Partners' do
     body.should include("pages/#{image.hierarchy_entries[0].taxon_concept.id}")
   end
 
-
-
-
 end
 

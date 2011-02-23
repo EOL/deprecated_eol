@@ -87,8 +87,7 @@ class TaxonConcept < SpeciesSchemaModel
         users += entry_in_default.taxon_concept.curators
       end
     end
-    @curators = users
-    return users
+    @curators = users.uniq
   end
   
   def all_ancestor_entry_ids

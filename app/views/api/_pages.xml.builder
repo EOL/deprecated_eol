@@ -24,11 +24,11 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
             xml.dwct :Taxon do
               xml.dc :identifier, entry.identifier unless entry.identifier.blank?
               xml.dwct :taxonID, url_for(:controller => 'api', :action => 'hierarchy_entries', :id => entry.id, :only_path => false)
-              xml.dwct :scientificName, entry.name_object.string
+              xml.dwct :scientificName, entry.name.string
               xml.dwct :nameAccordingTo, entry.hierarchy.label
               xml.dwct :taxonRank, entry.rank.label.firstcap unless entry.rank.nil?
               
-              canonical_form_words = entry.name_object.canonical_form.string.split(/ /)
+              canonical_form_words = entry.name.canonical_form.string.split(/ /)
               count_canonical_words = canonical_form_words.length
               if Rank.kingdom.group_members.include?(entry.rank) &&  count_canonical_words == 1
                 xml.dwct :kingdom, canonical_form_words[0]

@@ -15,45 +15,45 @@
       $('#bhl_link').attr('href', '#{external_link_url}?url=' + encodeURI('http://www.biodiversitylibrary.org/name/' + $('#canonical_form').val()));
     });
   - unless @content[:items].empty?
-    - if @content[:items].collect {|item| item.publication_title }.uniq.size > 1
+    -# if more than one publication, create a table of anchor links
+    - if @content[:items].collect {|item_page| item_page.publication_title }.uniq.size > 1
       .divider
       %table.results_table{ :cellspacing => "0", :summary => "TOC" }
         %tr
           %th
             BHL Summary
         - bhl_page_title = ''
-        - @content[:items].each_with_index do  |content_item, counter|
-          - unless bhl_page_title == hh(content_item.publication_title)
-            - bhl_page_title = hh(content_item.publication_title)
+        - @content[:items].each_with_index do  |item_page, index|
+          - unless bhl_page_title == item_page.publication_title
+            - bhl_page_title = item_page.publication_title
             - column_class = cycle('odd','even')
             %tr
               %td{:class => column_class}
-                %a{ :href => "#BHL#{counter}" }
-                  = hh(content_item.publication_title)
+                %a{ :href => "#BHL#{index}" }
+                  = hh(item_page.publication_title)
                 %br
                 %span.smalltext
-                  = hh(content_item.publication_details)
-    .divider
+                  = hh(item_page.title_item.publication_title.details)
+    %br
     - bhl_page_title = ''
-    - @content[:items].each_with_index do |content_item, counter|
-      - if content_item.publication_title != bhl_page_title
-        - unless bhl_page_title.empty?
+    - @content[:items].each_with_index do |item_page, index|
+      - if item_page.publication_title != bhl_page_title
+        - unless item_page == @content[:items].first
+          %br
           .divider
-      - bhl_page_title = hh(content_item.publication_title)
-      %a{ :name => "BHL#{counter.to_s}" }
-      %h2= external_link_to(hh(content_item.publication_title),hh(content_item.publication_url))
-      %span.smalltext= hh(content_item.publication_details)
-      %table.results_table{ :cellspacing => "0", :summary => "Links" }
-        %tr
-          %th
-            Pages
-        - column_class = cycle('odd','even')
-        %tr
-          %td{:class => column_class}= "#{content_item.name} #{external_link_to(' Page ' + content_item.item_number, content_item.item_url)}"
-  .divider
+        - bhl_page_title = item_page.publication_title
+        %a{ :name => "BHL#{index.to_s}" }
+        %h3
+          = external_link_to(hh(item_page.publication_title), item_page.publication_url)
+        %span.smalltext
+          = hh(item_page.title_item.publication_title.details)
+        %br
+      = item_page.display_string
+      = external_link_to(' Page ' + item_page.number, item_page.page_url)
+      %br
   .divider
   .content-attribution-area
     .attribution-header.text-area-header= "Source and Additional Information"[]
     %span.source 
       Content provided by the 
-      =external_link_to("Biodiversity Heritage Library","http://www.biodiversitylibrary.org/")
+      = external_link_to("Biodiversity Heritage Library","http://www.biodiversitylibrary.org/")

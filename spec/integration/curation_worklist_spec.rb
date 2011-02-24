@@ -9,10 +9,10 @@ end
 describe 'Curator Worklist' do
 
   before(:all) do
+    commit_transactions
     truncate_all_tables
     load_foundation_cache
     Capybara.reset_sessions!
-    commit_transactions
 
     @taxon_concept = build_taxon_concept()
     @curator = create_curator_for_taxon_concept(@taxon_concept)
@@ -62,11 +62,13 @@ describe 'Curator Worklist' do
     @lower_child_unreviewed_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('21114'))
     @lower_child_untrusted_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('21115'))
     @lower_child_trusted_ignored_image = UserIgnoredDataObject.create(:user => @curator, :data_object => DataObject.find('21116'))
-
+    
+    make_all_nested_sets
+    flatten_hierarchies
+    
     @solr = SolrAPI.new($SOLR_SERVER_DATA_OBJECTS)
     @solr.delete_all_documents
     @solr.build_data_object_index
-    make_all_nested_sets
   end
 
   before(:each) do

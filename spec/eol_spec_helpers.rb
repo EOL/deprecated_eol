@@ -454,6 +454,6 @@ TaxonConcept.class_eval do
   # Note that, since the canonical form is what you see when browsing the site, this really comes from the Catalogue
   # of Life specifically, which may present a problem later.
   def canonical_form_object
-    CanonicalForm.find(entry.name_object.canonical_form_id) # Yuck.  But true.
+    CanonicalForm.find(entry.name.canonical_form_id) # Yuck.  But true.
   end
 end

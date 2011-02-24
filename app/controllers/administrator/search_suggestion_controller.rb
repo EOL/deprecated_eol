@@ -80,8 +80,8 @@ private
     unless taxon_concept_id.blank?
       taxon_concept = TaxonConcept.find_by_id(taxon_concept_id)
       unless taxon_concept.nil?
-        scientific_name = taxon_concept.name(:expert)
-        common_name = taxon_concept.name
+        scientific_name = taxon_concept.entry.italicized_name
+        common_name = taxon_concept.common_name
         images = taxon_concept.images
         image_url = DataObject.image_cache_path(images[0].object_cache_url, :medium) unless (images.nil? || images[0].nil?)
       end

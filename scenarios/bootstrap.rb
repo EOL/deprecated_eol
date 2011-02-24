@@ -325,15 +325,13 @@ expert_pages_collection_type = CollectionType.gen(:label => "Expert", :parent_id
 marine_theme_collection_type = CollectionType.gen(:label => "Marine")
 bugs_theme_collection_type = CollectionType.gen(:label => "Bugs")
 
-name = kingdom.entry.name_object
-
 specimen_image_hierarchy = Hierarchy.gen(:label => 'AntWeb', :description => 'Currently AntWeb contains information on the ant faunas of several areas in the Nearctic and Malagasy biogeographic regions, and global coverage of all ant genera.', :outlink_uri => 'http://www.antweb.org/specimen.do?name=%%ID%%', :url => 'http://www.antweb.org/')
 CollectionTypesHierarchy.gen(:hierarchy => specimen_image_hierarchy, :collection_type => specimen_image_collection_type)
 CollectionTypesHierarchy.gen(:hierarchy => specimen_image_hierarchy, :collection_type => expert_pages_collection_type)
 CollectionTypesHierarchy.gen(:hierarchy => specimen_image_hierarchy, :collection_type => bugs_theme_collection_type)
-HierarchyEntry.gen(:hierarchy => specimen_image_hierarchy, :name => name, :identifier => 'casent0129891', :taxon_concept => kingdom)
-HierarchyEntry.gen(:hierarchy => specimen_image_hierarchy, :name => name, :identifier => 'casent0496198', :taxon_concept => kingdom)
-HierarchyEntry.gen(:hierarchy => specimen_image_hierarchy, :name => name, :identifier => 'casent0179524', :taxon_concept => kingdom)
+HierarchyEntry.gen(:hierarchy => specimen_image_hierarchy, :name => kingdom.entry.name, :identifier => 'casent0129891', :taxon_concept => kingdom)
+HierarchyEntry.gen(:hierarchy => specimen_image_hierarchy, :name => kingdom.entry.name, :identifier => 'casent0496198', :taxon_concept => kingdom)
+HierarchyEntry.gen(:hierarchy => specimen_image_hierarchy, :name => kingdom.entry.name, :identifier => 'casent0179524', :taxon_concept => kingdom)
 
 molecular_species_pages_hierarchy = Hierarchy.gen(
   :label => 'National Center for Biotechnology Information',
@@ -342,8 +340,8 @@ molecular_species_pages_hierarchy = Hierarchy.gen(
   :url => 'http://www.ncbi.nlm.nih.gov/')
 CollectionTypesHierarchy.gen(:hierarchy => molecular_species_pages_hierarchy, :collection_type => molecular_species_pages_collection_type)
 CollectionTypesHierarchy.gen(:hierarchy => molecular_species_pages_hierarchy, :collection_type => marine_theme_collection_type)
-HierarchyEntry.gen(:hierarchy => molecular_species_pages_hierarchy, :name => name, :identifier => '13646', :taxon_concept => kingdom)
-HierarchyEntry.gen(:hierarchy => molecular_species_pages_hierarchy, :name => name, :identifier => '9551', :taxon_concept => kingdom)
+HierarchyEntry.gen(:hierarchy => molecular_species_pages_hierarchy, :name => kingdom.entry.name, :identifier => '13646', :taxon_concept => kingdom)
+HierarchyEntry.gen(:hierarchy => molecular_species_pages_hierarchy, :name => kingdom.entry.name, :identifier => '9551', :taxon_concept => kingdom)
 
 r = Rank.gen(:label => 'superkingdom', :rank_group_id => 0)
 
@@ -451,6 +449,7 @@ end
 
 make_all_nested_sets
 rebuild_collection_type_nested_set
+flatten_hierarchies
 
 DataObject.find(:all).each_with_index do |d,i|
   d.created_at = Time.now - i.hours

@@ -23,7 +23,7 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
             xml.taxon do
               xml.dc :identifier, entry.identifier unless entry.identifier.blank?
               xml.dwc :taxonID, entry.id
-              xml.dwc :scientificName, entry.name_object.string
+              xml.dwc :scientificName, entry.name.string
               xml.dwc :nameAccordingTo, entry.hierarchy.label
             end
           end

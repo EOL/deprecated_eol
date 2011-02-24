@@ -32,7 +32,7 @@
                     = "#{u.family_name.strip}, #{u.given_name.strip}"
               %td{:class => row_class}
                 %a{:href => url_for(:controller => :account, :action => :show, :id => u.curator_hierarchy_entry.taxon_concept_id)}<
-                  = u.curator_hierarchy_entry.name_object.string
+                  = u.curator_hierarchy_entry.name.string
                 - unless u.curator_scope.strip.blank?
                   %br
                   = u.curator_scope

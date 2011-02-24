@@ -245,7 +245,7 @@ describe 'EOL APIs' do
       visit("/api/pages/#{@taxon_concept.id}?subjects=Distribution&text=2&format=html")
       body.should include '<html'
       body.should include '</html>'
-      body.should match /<title>\s*EOL API:\s*#{@taxon_concept.entry.name_object.string}/
+      body.should match /<title>\s*EOL API:\s*#{@taxon_concept.entry.name.string}/
       body.should include @object.description
       body.should include ContentServer.cache_url_to_path(@taxon_concept.images[0].object_cache_url)
     end
@@ -263,7 +263,7 @@ describe 'EOL APIs' do
       response_object = JSON.parse(body)
       response_object.class.should == Hash
       response_object['identifier'].should == @taxon_concept.id
-      response_object['scientificName'].should == @taxon_concept.entry.name_object.string
+      response_object['scientificName'].should == @taxon_concept.entry.name.string
       response_object['dataObjects'].length.should == 3
     end
       
@@ -386,7 +386,7 @@ describe 'EOL APIs' do
       visit("/api/data_objects/#{@object.guid}?format=html")
       body.should include '<html'
       body.should include '</html>'
-      body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts(:published => :strict)[0].entry.name_object.string}/
+      body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts(:published => :strict)[0].entry.name.string}/
       body.should include @object.description
     end
       
@@ -617,7 +617,7 @@ describe 'EOL APIs' do
       our_result = xml_response.xpath("//dwc:Taxon/dwc:taxonID").inner_text.should == @test_hierarchy_entry_published.id.to_s
       our_result = xml_response.xpath("//dwc:Taxon/dwc:parentNameUsageID").inner_text.should == 0.to_s
       our_result = xml_response.xpath("//dwc:Taxon/dwc:taxonConceptID").inner_text.should == @test_hierarchy_entry_published.taxon_concept_id.to_s
-      our_result = xml_response.xpath("//dwc:Taxon/dwc:scientificName").inner_text.should == @test_hierarchy_entry_published.name_object.string
+      our_result = xml_response.xpath("//dwc:Taxon/dwc:scientificName").inner_text.should == @test_hierarchy_entry_published.name.string
       our_result = xml_response.xpath("//dwc:Taxon/dwc:taxonRank").inner_text.should == @test_hierarchy_entry_published.rank.label
       
       visit("/api/hierarchies/#{@test_hierarchy.id}.json")
@@ -627,10 +627,10 @@ describe 'EOL APIs' do
       response_object['dateSubmitted'].should == @test_hierarchy.indexed_on.mysql_timestamp
       response_object['source'].should == @test_hierarchy.url
       response_object['roots'].length.should == 1
-      response_object['roots'][0]['taxonID'].should == @test_hierarchy_entry_published.id.to_s
-      response_object['roots'][0]['parentNameUsageID'].should == 0.to_s
-      response_object['roots'][0]['taxonConceptID'].should == @test_hierarchy_entry_published.taxon_concept_id.to_s
-      response_object['roots'][0]['scientificName'].should == @test_hierarchy_entry_published.name_object.string
+      response_object['roots'][0]['taxonID'].should == @test_hierarchy_entry_published.id
+      response_object['roots'][0]['parentNameUsageID'].should == 0
+      response_object['roots'][0]['taxonConceptID'].should == @test_hierarchy_entry_published.taxon_concept_id
+      response_object['roots'][0]['scientificName'].should == @test_hierarchy_entry_published.name.string
       response_object['roots'][0]['taxonRank'].should == @test_hierarchy_entry_published.rank.label
     end
   

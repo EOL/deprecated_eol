@@ -44,6 +44,16 @@ class DataObject < SpeciesSchemaModel
 
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
+  
+  def self.sort_by_rating(data_objects)
+    data_objects.sort_by do |obj|
+      toc_view_order = obj.info_items.blank? ? 0 : obj.info_items[0].toc_item.view_order
+      [obj.data_type_id,
+       toc_view_order,
+       obj.vetted.view_order,
+       Invert(obj.rating)]
+    end
+  end
 
   # for RSS feeds
   def self.for_feeds(type = :all, taxon_concept_id = nil, max_results = 100)

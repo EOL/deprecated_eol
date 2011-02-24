@@ -1,13 +1,13 @@
 - ancestors ||= nil
 - node_class ||= nil
 - if @hierarchy_entry.blank?
-  - node_class = (@taxon_concept.id == hierarchy_entry['taxon_concept_id'].to_i) ? 'bold' : node_class
+  - node_class = (@taxon_concept.id == hierarchy_entry.taxon_concept_id) ? 'bold' : node_class
 - else
-  - node_class = (@hierarchy_entry.id == hierarchy_entry['id'].to_i) ? 'bold' : node_class
+  - node_class = (@hierarchy_entry.id == hierarchy_entry.id) ? 'bold' : node_class
 
 - if ancestors.blank?
   %li
-    = render(:partial => 'navigation/node_name_page', :locals => { :entry => hierarchy_entry, :node_class => node_class })
+    = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => hierarchy_entry, :node_class => node_class })
     - if !@in_hierarchy
       %ul
         %li
@@ -16,18 +16,18 @@
             = @session_hierarchy.label
             \. Select an alternate hierarchy from the list above
     - else
-      - children = HierarchyEntry.children_details(hierarchy_entry['id'], :include_common_names => @include_common_names, :common_name_language => @common_name_language, :node_class => node_class)
+      - children = hierarchy_entry.children(:include_common_names => @include_common_names, :common_name_language => @common_name_language, :node_class => node_class)
       - unless children.blank?
         %ul.branch
           - for child in children
-            - if @expand && !child['is_leaf']
+            - if @expand && !child.is_leaf?
               = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :hierarchy_entry => child, :expanded => true })
             - else
               %li
-                = render(:partial => 'navigation/node_name_page', :locals => { :entry => child })
+                = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => child })
 - else
   - ancestor = ancestors.shift
   %li
-    = render(:partial => 'navigation/node_name_page', :locals => { :entry => ancestor})
+    = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => ancestor})
     %ul.branch
       = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })

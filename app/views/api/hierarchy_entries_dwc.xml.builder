@@ -10,12 +10,12 @@ xml.dwr :DarwinRecordSet,
   
   for ancestor in @ancestors
     xml.dwc :Taxon do
-      xml.dc :identifier, ancestor['identifier'] unless ancestor['identifier'].blank?
-      xml.dwc :taxonID, ancestor['id']
-      xml.dwc :parentNameUsageID, ancestor['parent_id']
-      xml.dwc :taxonConceptID, ancestor['taxon_concept_id']
-      xml.dwc :scientificName, ancestor['name_string']
-      xml.dwc :taxonRank, ancestor['rank_label'] unless ancestor['rank_label'].blank?
+      xml.dc :identifier, ancestor.identifier unless ancestor.identifier.blank?
+      xml.dwc :taxonID, ancestor.id
+      xml.dwc :parentNameUsageID, ancestor.parent_id
+      xml.dwc :taxonConceptID, ancestor.taxon_concept_id
+      xml.dwc :scientificName, ancestor.name.string.firstcap
+      xml.dwc :taxonRank, ancestor.rank.label unless ancestor.rank_id == 0 || ancestor.rank.blank?
     end
   end
   
@@ -24,10 +24,10 @@ xml.dwr :DarwinRecordSet,
     xml.dwc :taxonID, @hierarchy_entry.id
     xml.dwc :parentNameUsageID, @hierarchy_entry.parent_id
     xml.dwc :taxonConceptID, @hierarchy_entry.taxon_concept_id
-    xml.dwc :scientificName, @hierarchy_entry.name_object.string
+    xml.dwc :scientificName, @hierarchy_entry.name.string
     xml.dwc :taxonRank, @hierarchy_entry.rank.label.firstcap unless @hierarchy_entry.rank.nil?
     
-    canonical_form_words = @hierarchy_entry.name_object.canonical_form.string.split(/ /)
+    canonical_form_words = @hierarchy_entry.name.canonical_form.string.split(/ /)
     count_canonical_words = canonical_form_words.length
     if Rank.kingdom.group_members.include?(@hierarchy_entry.rank) &&  count_canonical_words == 1
       xml.dwc :kingdom, canonical_form_words[0]
@@ -50,30 +50,39 @@ xml.dwr :DarwinRecordSet,
       xml.dwc :infraspecificEpithet, canonical_form_words[2]
     end
     
-    for common_name in @common_names
-      xml.dwc :vernacularName, common_name['name_string'], 'xml:lang'.to_sym => common_name['language_code']
+    if @include_common_names
+      for common_name in @hierarchy_entry.common_names
+        xml.dwc :vernacularName, common_name.name.string.firstcap, 'xml:lang'.to_sym => common_name.language.iso_639_1
+      end
     end
+    
     for agent_role in @hierarchy_entry.agents_roles
       xml.dwc :nameAccordingTo, agent_role.agent.display_name
     end
   end
   
-  for synonym in @synonyms
-    xml.dwc :Taxon do
-      xml.dwc :parentNameUsageID, @hierarchy_entry.id
-      xml.dwc :scientificName, synonym['name_string']
-      xml.dwc :taxonomicStatus, synonym['relation']
+  if @include_synonyms
+    for synonym in @hierarchy_entry.scientific_synonyms
+      xml.dwc :Taxon do
+        xml.dwc :parentNameUsageID, @hierarchy_entry.id
+        xml.dwc :scientificName, synonym.name.string.firstcap
+        if synonym.synonym_relation.blank?
+          xml.dwc :taxonomicStatus, synonym.synonym_relation.label
+        else
+          xml.dwc :taxonomicStatus, 'synonym'
+        end
+      end
     end
   end
   
   for child in @children
     xml.dwc :Taxon do
-      xml.dc :identifier, child['identifier'] unless child['identifier'].blank?
-      xml.dwc :taxonID, child['id']
-      xml.dwc :parentNameUsageID, child['parent_id']
-      xml.dwc :taxonConceptID, child['taxon_concept_id']
-      xml.dwc :scientificName, child['name_string']
-      xml.dwc :taxonRank, child['rank_label'] unless child['rank_label'].blank?
+      xml.dc :identifier, child.identifier unless child.identifier.blank?
+      xml.dwc :taxonID, child.id
+      xml.dwc :parentNameUsageID, child.parent_id
+      xml.dwc :taxonConceptID, child.taxon_concept_id
+      xml.dwc :scientificName, child.name.string.firstcap
+      xml.dwc :taxonRank, child.rank.label unless child.rank_id == 0 || child.rank.blank?
     end
   end
 end

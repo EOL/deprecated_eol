@@ -27,13 +27,21 @@
   - div_display = ( visible == true || value ) ? 'block' : 'none'
   %div{ :id =>"#{id}-inner", :style => "display: #{div_display};" }
     %ul.tree
+      - if hierarchy_entry = value
+        - kingdoms = hierarchy.kingdoms
+        - ancestors = hierarchy_entry.ancestors
+        - children = hierarchy_entry.children
+      
       - for kingdom in hierarchy.kingdoms
         %li{ :id => "value_#{kingdom.id}", :class => "value_#{kingdom.id} kingdom" }
-          = tree_entry_text(kingdom, selectable_clade_level, id)
-          - if value and kingdom == value.kingdom
-            - value.ancestors.shift
-            = value.ancestors.map {|he| "<ul><li id='value_#{he.id}' class='value_#{he.id}'>" + tree_entry_text(he, selectable_clade_level, id) }
+          = tree_entry_text(kingdom, selectable_clade_level==0, id)
+          - if value and kingdom == ancestors.first
+            - ancestors.shift
+            - depth = 1
+            = ancestors.map {|he| puts depth; "<ul><li id='value_#{he.id}' class='value_#{he.id}'>" + tree_entry_text(he, selectable_clade_level<=(depth+=1), id) }
             %ul
+              - depth += 1
               - for child in value.children
                 %li{ :id => "value_#{child.id}", :class => "value_#{child.id}" }
-                  = tree_entry_text(child, selectable_clade_level, id)
+                  = tree_entry_text(child, selectable_clade_level<=depth, id)
+            = ancestors.map {|he| "</li></ul>" }

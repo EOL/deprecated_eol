@@ -1484,6 +1484,8 @@ a.footnote {
     background: #f4a9a9 !important;
     padding: 6px 6px 6px 12px;
     color: #666666; }
+  .results_table td.stats {
+    text-align: right; }
 
 #footer {
   width: 962px;

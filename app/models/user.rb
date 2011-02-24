@@ -780,7 +780,7 @@ private
   end
 
   def reload_if_stale
-    return false if new_record? or changed?
+    return false if new_record? or changed? or frozen?
     self.reload
   end
 

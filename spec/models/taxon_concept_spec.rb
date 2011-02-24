@@ -76,7 +76,7 @@ describe TaxonConcept do
   after :all do
     truncate_all_tables
   end
-  
+
   it 'should capitalize the title (even if the name starts with a quote)' do
     good_title = %Q{"Good title"}
     bad_title = good_title.downcase
@@ -86,6 +86,7 @@ describe TaxonConcept do
   
   it 'should have curators' do
     @taxon_concept.curators.map(&:id).should include(@curator.id)
+    @taxon_concept.curators.uniq.length.should == @taxon_concept.curators.length
   end
   
   it 'should have a scientific name (italicized for species)' do

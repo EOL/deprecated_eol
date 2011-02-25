@@ -6,6 +6,10 @@ module EOL
       # or cause duplicate queries.
       # TODO - use a class rather than a class variable for search_results_for
       def search_with_pagination(query, options = {})
+
+        #There might be a more elegant sol'n in Ruby 1.9
+        query = query.gsub(/[àáâãäåăąā]/,'a').gsub(/[èéêëęěēĕė]/,'e').gsub(/[òóôõöóðōő]/,'o').gsub(/[ìíîïįī]/,'i').gsub(/[ùúûüűų]/,'u').gsub(/[ĀĄĂÀÂÃÄÅ]/,'A').gsub(/[ÈÉÊËĘĚĒĖ]/,'E').gsub(/[ÌÍÎÏĪĮ]/,'I').gsub(/[ÒÓÔÕÖÓŌŐ]/,'O').gsub(/[ÙÚÛÜŰŲ]/,'U').gsub(/æ/,'ae').gsub(/œ/,'oe').gsub(/Æ/,'AE').gsub(/Œ/,'CE').gsub(/çčć/, 'c').gsub(/đď/, 'd').gsub(/ģ/, 'g').gsub(/ĆČÇ/, 'C').gsub(/ÐĎĐ/, 'D').gsub(/Ģ/, 'G').gsub(/ķ/, 'k').gsub(/ļĺľł/, 'l').gsub(/ñńņň/, 'n').gsub(/Ķ/, 'K').gsub(/ĽŁĹĻ/, 'L').gsub(/ŃŅŇÑ/, 'N').gsub(/ŗřŕ/, 'r').gsub(/śšş/, 's').gsub(/ţť/, 't').gsub(/ŖŘ/, 'R').gsub(/ŚŠŞ/, 'S').gsub(/Ţ/, 'T').gsub(/ÝŸ/, 'Y').gsub(/ŹŻŽ/, 'Z').gsub(/ýÿ/, 'y').gsub(/žźż/, 'z')
+
         options[:page]        ||= 1
         options[:per_page]    ||= 10
         options[:per_page]      = 10 if options[:per_page] == 0
@@ -63,6 +67,10 @@ module EOL
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
         #puts 'URA solr' + url
+
+        url = url.gsub('&%20','%26%20')# this is "& "
+        url = url.gsub('%20&','%20%26')# this is " &"
+
         res = open(url).read
         JSON.load res
       end

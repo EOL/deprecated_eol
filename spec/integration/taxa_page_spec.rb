@@ -293,7 +293,6 @@ describe 'Taxa page (HTML)' do
   
     it 'should show not a Nucleotide Sequences table of content item if concept in NCBI and does not have an identifier' do
       # make an entry in NCBI for this concept and dont give it an identifier
-      debugger
       sci_name = Name.gen
       entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
                   :hierarchy => Hierarchy.ncbi )

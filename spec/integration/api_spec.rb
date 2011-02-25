@@ -235,7 +235,7 @@ describe 'EOL APIs' do
       visit("/api/pages/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=2")
       xml_response = Nokogiri.XML(body)
       last_guid = xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"][last()]/dc:identifier').inner_text
-      data_object = DataObject.find_by_guid(last_guid)
+      data_object = DataObject.find_by_guid(last_guid, :order => 'id desc')
       data_object.vetted_id.should == Vetted.unknown.id
     end
     

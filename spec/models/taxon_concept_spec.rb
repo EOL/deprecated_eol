@@ -109,6 +109,7 @@ describe TaxonConcept do
     user = User.gen
     @taxon_concept.current_user = user
     @taxon_concept.current_user.should == user
+    @taxon_concept.current_user = nil
   end
   
   it 'should have a default IUCN conservation status of NOT EVALUATED' do

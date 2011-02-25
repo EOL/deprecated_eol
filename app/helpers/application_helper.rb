@@ -443,18 +443,19 @@ module ApplicationHelper
     "<img src=\"/images/icons/published.png\" alt=\"#{description}\" title=\"#{description}\" #{style} />"
   end
   
-  def tree_entry_text(he, selectable_clade_level, div_id)
+  def tree_entry_text(he, selectable, div_id)
     begin
-      name = he.taxon_concept.scientific_name
+      name = he.italicized_name.firstcap
     rescue ActiveRecord::RecordNotFound
       name = 'unknown'
     end
-    selection_link = %[<a href="#" class="value_#{he.id}" onclick="javascript:select_clade_of_clade_selector(#{he.id}); return false;">#{name}</a>]
-    if he.ancestors.size < selectable_clade_level
+    if selectable
+      selection_link = %[<a href="#" class="value_#{he.id}" onclick="javascript:select_clade_of_clade_selector(#{he.id}); return false;">#{name}</a>]
+    else
       selection_link = name
     end
     expansion_link = %[<a href="#{ request.path }?clade_to_expand=#{he.id}" class="expand-clade">+</a>]
-    selection_link += " &nbsp; " + expansion_link if he.children.count > 0
+    selection_link += " &nbsp; " + expansion_link if he.number_of_descendants != 0
     selection_link
   end
   

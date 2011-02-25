@@ -6,37 +6,37 @@
       %strong
         Username:
     %td
-      = f.text_field :username,{:size=>'50',:maxlength=>'32'}
+      = f.text_field :username, {:size => '50', :maxlength => '32'}
   %tr
     %td
       %strong
         Password:
     %td
-      = f.password_field :entered_password,{:size=>'50',:maxlength=>'16'}
+      = f.password_field :entered_password, {:size => '50', :maxlength => '16', :autocomplete => 'off'}
   %tr
     %td
       %strong
         Confirm Password:
     %td
-      = f.password_field :entered_password_confirmation,{:size=>'50',:maxlength=>'16'}
+      = f.password_field :entered_password_confirmation, {:size => '50', :maxlength => '16', :autocomplete => 'off'}
   %tr
     %td
       %strong
         Email:
     %td
-      = f.text_field :email,{:size=>'50',:maxlength=>'255'}
+      = f.text_field :email, {:size => '50', :maxlength => '255'}
   %tr
     %td
       %strong
         Given Name:
     %td
-      = f.text_field :given_name,{:size=>'50',:maxlength=>'255'}
+      = f.text_field :given_name, {:size => '50', :maxlength => '255'}
   %tr
     %td
       %strong
         Family Name:
     %td
-      = f.text_field :family_name,{:size=>'50',:maxlength=>'255'}
+      = f.text_field :family_name, {:size => '50', :maxlength => '255'}
   - if @user.curator_approved
     %tr
       %td
@@ -97,7 +97,7 @@
         %a{ :href => "#roles", :onclick => "javascript:$('#roles').show();$('#roles_toggle').hide();return false;" }
           [show roles]
       #roles{ :style => "display:none;" }
-        - Role.find(:all,:order=>'title').each do |role|
+        - Role.find(:all, :order => 'title').each do |role|
           = check_box_tag "user[role_ids][]", role.id, @user.roles.include?(role)
           = role.title
           %br
@@ -113,14 +113,14 @@
       %strong
         Curator scope:
     %td
-      = f.text_area :curator_scope, :rows => 3, :cols=>60
+      = f.text_area :curator_scope, :rows => 3, :cols => 60
   %tr
     %td
       %strong
         = "Credentials"[:credentials]
         \:
     %td
-      = f.text_area :credentials, :rows => 9, :cols=>60
+      = f.text_area :credentials, :rows => 9, :cols => 60
   %tr
     %td
       %strong
@@ -148,7 +148,7 @@
       %strong
         Admin notes (not visible to user):
     %td
-      = f.text_area :notes, :rows => 3, :cols=>60
+      = f.text_area :notes, :rows => 3, :cols => 60
   - unless @user.id.nil?
     %tr
       %td
@@ -172,7 +172,7 @@
       #email{ :style => "display:none;" }
         Fill in a message below to send an email to this user from the site.  The message will be sent when you submit the form:
         %br
-        = text_area_tag :message,@message,:cols=>'60',:rows=>'20'
+        = text_area_tag :message, @message, :cols => '60', :rows => '20'
 %br
 %br
 = cancel_button_goes_back(return_to_url)

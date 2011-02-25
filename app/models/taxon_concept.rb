@@ -30,13 +30,20 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :names, :through => :taxon_concept_names
   has_many :ranks, :through => :hierarchy_entries
   has_many :google_analytics_partner_taxa
-
+  has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
 
   has_one :taxon_concept_content
+  has_one :taxon_concept_metric
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
   attr_reader :has_media, :length_of_images
+  
+  define_core_relationships :select => {
+      :taxon_concepts => '*',
+      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id ],
+      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map ]},
+    :include => [{:hierarchy_entries => [{ :name => :canonical_form }, :rank, :hierarchies_content ] }]
 
   def show_curator_controls?(user = nil)
     return @show_curator_controls if !@show_curator_controls.nil?
@@ -58,12 +65,6 @@ class TaxonConcept < SpeciesSchemaModel
                          LIMIT 1')[0]
   end
 
-  # The canonical form is the simplest string we can use to identify a species--no variations, no attribution, nothing
-  # fancy:
-  def canonical_form
-    return name(:canonical)
-  end
-
   # The common name will defaut to the current user's language.
   def common_name(hierarchy = nil)
     quick_common_name(hierarchy)
@@ -81,14 +82,13 @@ class TaxonConcept < SpeciesSchemaModel
   # extra credit on their associated TC pages. This method returns an Array of those users.
   def curators
     return @curators unless @curators.nil?
-    users = User.find_all_by_curator_hierarchy_entry_id_and_curator_approved(all_ancestor_entry_ids, true, :include => {:curator_hierarchy_entry => :name_object})
+    users = User.find_all_by_curator_hierarchy_entry_id_and_curator_approved(all_ancestor_entry_ids, true, :include => {:curator_hierarchy_entry => :name})
     unless in_hierarchy?(Hierarchy.default)
       if entry_in_default = find_ancestor_in_hierarchy(Hierarchy.default)
         users += entry_in_default.taxon_concept.curators
       end
     end
-    @curators = users
-    return users
+    @curators = users.uniq
   end
   
   def all_ancestor_entry_ids
@@ -234,16 +234,6 @@ class TaxonConcept < SpeciesSchemaModel
     exemplar_taxa.sort_by {|ex| ex['scientific_name']}
   end
 
-  # Try not to call this unless you know what you're doing.  :) See scientific_name and common_name instead.
-  #
-  # That said, this method allows you to get other variations on a name.  See HierarchyEntry#name, to which this is
-  # really delegated, unless there is no entry in the default Hierarchy, in which case, see
-  # #alternate_classification_name.
-  def name(detail_level = :middle, language = Language.english, context = nil)
-    col_he = hierarchy_entries.detect {|he| he.hierarchy_id == Hierarchy.default.id }
-    return col_he.nil? ? alternate_classification_name(detail_level, language, context).firstcap : col_he.name(detail_level, language, context).firstcap
-  end
-
   # Call this instead of @current_user, so that you will be given the appropriate (and DRY) defaults.
   def current_user
     @current_user ||= User.create_new
@@ -252,7 +242,6 @@ class TaxonConcept < SpeciesSchemaModel
   def self.current_user_static
     @current_user ||= User.create_new
   end
-
 
   # Set the current user, so that methods will have defaults (language, etc) appropriate to that user.
   def current_user=(who)
@@ -284,7 +273,7 @@ class TaxonConcept < SpeciesSchemaModel
       if !he.source_url.blank?
         all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.source_url }
         used_hierarchies << he.hierarchy
-      elsif !he.hierarchy.outlink_uri.blank?
+      elsif he.hierarchy && !he.hierarchy.outlink_uri.blank?
         # if the hierarchy outlink_uri expects an ID
         if matches = he.hierarchy.outlink_uri.match(/%%ID%%/)
           # .. and the ID exists
@@ -349,20 +338,11 @@ class TaxonConcept < SpeciesSchemaModel
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
 
     # get all hierarchy entries
-    @all_entries ||= HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id=#{id}")
-    # ..and order them by published DESC, vetted view_order ASC, id ASC - earliest entry first
-    @all_entries.sort! do |a,b|
-      if a.published == b.published
-        if a.vetted_view_order == b.vetted_view_order
-          a.id <=> b.id # ID ascending
-        else
-          a.vetted_view_order <=> b.vetted_view_order # vetted view_order ascending
-        end
-      else
-        b.published <=> a.published # published descending
-      end
-    end
-
+    select = {:hierarchy_entries => '*', :vetted => :view_order}
+    @all_entries ||= HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => select, :include => :vetted)
+    HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id=#{id}")
+    @all_entries = HierarchyEntry.sort_by_vetted(@all_entries)
+    
     # we want ONLY the entry in this hierarchy
     if strict_lookup
       return @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } || nil
@@ -724,7 +704,7 @@ class TaxonConcept < SpeciesSchemaModel
     toc_item = TocItem.find(category_id) # Note: this "just works" even if category_id *is* a TocItem.
     ccb = CategoryContentBuilder.new
     if ccb.can_handle?(toc_item)
-      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept_id => id)
+      ccb.content_for(toc_item, :vetted => current_user.vetted, :taxon_concept => self)
     else
       get_default_content(toc_item)
     end
@@ -762,10 +742,8 @@ class TaxonConcept < SpeciesSchemaModel
   # title and sub-title depend on expertise level of the user that is passed in (default to novice if none specified)
   def title(hierarchy = nil)
     return @title unless @title.nil?
-    hierarchy ||= Hierarchy.default
-    title = quick_scientific_name(:italicized, hierarchy)
-    title = title.blank? ? name(:scientific) : title
-    @title = title.firstcap
+    return '' if entry.nil?
+    @title = entry.italicized_name.firstcap
   end
 
   def subtitle(hierarchy = nil)
@@ -1287,10 +1265,6 @@ private
     end
   end
 
-  def alternate_classification_name(detail_level = :middle, language = Language.english, context = nil)
-    self.entry.name(detail_level, language, context).firstcap rescue '?-?'
-  end
-
   def empty_map_id
     return 1
   end
@@ -1315,7 +1289,7 @@ private
         # TODO - We need a better way to choose which Collection to look at.  : \
         # TODO - We need a better way to choose which Mapping to look at.  : \
         foreign_key      = data_object.agents[0].collections[0].mappings[0].foreign_key
-        (genus, species) = entry.name(:canonical).split()
+        (genus, species) = entry.name.canonical_form.string.split()
         data_object.fake_author(
           :full_name => 'See FishBase for additional references',
           :homepage  => "http://www.fishbase.org/References/SummaryRefList.cfm?ID=#{foreign_key}&GenusName=#{genus}&SpeciesName=#{species}",

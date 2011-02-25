@@ -1,5 +1,6 @@
 # Represents a system mime/type.  Used by DataObject.
 class MimeType < SpeciesSchemaModel
+  CACHE_ALL_ROWS = true
   has_many :data_objects
 
   def self.mp4

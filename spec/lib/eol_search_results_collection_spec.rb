@@ -3,7 +3,10 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe EOL::SearchResultsCollection do
 
   before(:all) do
+    truncate_all_tables
     EolScenario.load :search_with_duplicates
+    flatten_hierarchies
+    
     @tc_id                   = SearchScenarioResults.tc_id
     @new_common_name         = SearchScenarioResults.new_common_name
     @taxon_concept           = SearchScenarioResults.taxon_concept

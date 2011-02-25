@@ -6,23 +6,23 @@
 #page-content.clearfix
   #full-page-content
     = eol_lang_error_messages_for :user if request.post?
-    - form_for :user, :html=>{:class=>"single_body_form warning-warn invalid-invalid styleLabelOnErr"} do |f|
+    - form_for :user, :html => {:class => "single_body_form warning-warn invalid-invalid styleLabelOnErr"} do |f|
       %table#user_profile
         %tr
           -# The style here is a one-shot, make the right-column-look-right fix (seemed silly to put in CSS):
           %td{ :valign => "top", :style => "padding-right:30px;width:350px;" }
             %h3= "Account Information"[]
             %label Username:  (4 - 32 characters)
-            = f.text_field :username, {:maxlength=>32, :onblur=>'javascript:check_username();'}
+            = f.text_field :username, {:maxlength => 32, :onblur => 'javascript:check_username();'}
             %span#username_warn.error
             -# do not show open ide users for now
             %p{ :style => "padding-bottom:8pt;" }
               %br
               = "Only enter new password if you wish to change."[:only_enter_new_password_if_needed]
             %label{ :for => "entered_password" }== #{"New Password"[]} (4 - 16 characters)
-            = f.password_field :entered_password, { :maxlength => 16 }
+            = f.password_field :entered_password, { :maxlength => 16, :autocomplete => 'off' }
             %label{ :for => "password_confirmation" }= "Confirm New Password"[]
-            = f.password_field :entered_password_confirmation, {:maxlength=>16, :onblur=>'javascript:check_passwords();'}
+            = f.password_field :entered_password_confirmation, {:maxlength => 16, :onblur => 'javascript:check_passwords();', :autocomplete => 'off'}
             %span#password_warn.error
             %br
             %p

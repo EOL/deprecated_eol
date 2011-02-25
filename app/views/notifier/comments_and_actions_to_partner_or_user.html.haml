@@ -45,7 +45,7 @@
     - if type_to_send_permalinks_for.include?(data_object.data_type_id)
       - url = url_for(:controller => 'data_objects', :action => data_object.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP)
     = "  #{date}"
-    = "    #{taxon_concept.name(:natural_form)}"
+    = "    #{taxon_concept.entry.name.string}"
     - if url
       = "    #{url}"
     = "    #{action.action_with_object.action_code} by #{action['curator_username']}"
@@ -69,7 +69,7 @@
     - if type_to_send_permalinks_for.include?(data_object.data_type_id)
       - url = url_for(:controller => 'data_objects', :action => data_object.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP)
     = "  #{date}"
-    = "    #{taxon_concept.name(:natural_form)}"
+    = "    #{taxon_concept.entry.name.string}"
     - if url
       = "    #{url}"
     = "    From user #{comment['commenter_username']}: #{comment.body.strip}"
@@ -90,7 +90,7 @@
     - date = format_date_time(comment.created_at,:format=>'short_no_tz')
     - url = url_for(:controller => 'taxa', :action => 'show', :id => taxon_concept.id, :only_path => false, :host => $SITE_DOMAIN_OR_IP)
     = "  #{date}"
-    = "    #{taxon_concept.name(:natural_form)}"
+    = "    #{taxon_concept.entry.name.string}"
     = "    #{url}"
     = "    From user #{comment['commenter_username']}: #{comment.body.strip}"
     = "  --------"

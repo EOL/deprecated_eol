@@ -1,4 +1,5 @@
 class Language < SpeciesSchemaModel
+  CACHE_ALL_ROWS = true
   has_many :data_objects
   has_many :users
   has_many :taxon_concept_names

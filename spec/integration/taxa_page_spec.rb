@@ -288,7 +288,7 @@ describe 'Taxa page (HTML)' do
   
     it 'should show not a Nucleotide Sequences table of content item if concept in NCBI and does not have an identifier' do
       # make an entry in NCBI for this concept and dont give it an identifier
-      sci_name = Name.gen(:string => Factory.next(:scientific_name))
+      sci_name = Name.gen
       entry = build_hierarchy_entry(0, @taxon_concept, sci_name,
                   :hierarchy => Hierarchy.ncbi )
   
@@ -474,6 +474,7 @@ describe 'Taxa page (HTML)' do
     visit("/pages/#{tc.id}?vetted=true")
     body_vetted = body
     body_vetted.should include "authoritative information"
+    Capybara.reset_sessions!
     visit("/pages/#{tc.id}?vetted=false")
     body_all = body
     body_all.should include "all information"

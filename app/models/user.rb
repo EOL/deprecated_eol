@@ -45,6 +45,8 @@ class User < parent_klass
   has_many :comments
   has_many :last_curated_dates
   has_many :actions_histories
+  has_many :actions_histories_on_data_objects, :class_name => ActionsHistory.to_s,
+             :conditions => "actions_histories.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
   has_many :users_data_objects
   has_many :user_ignored_data_objects
 
@@ -95,20 +97,10 @@ class User < parent_klass
     end
   end
 
-  def data_objects_curated
-    hashes = connection.execute("
-        SELECT ah.object_id data_object_id, awo.action_code, ah.updated_at action_time
-        FROM actions_histories ah
-        JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
-        WHERE ah.user_id=#{id}
-        AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
-        AND awo.action_code!='rate'
-        GROUP BY data_object_id
-        ORDER BY action_time DESC").all_hashes.uniq
-  end
-
-  def total_objects_curated
-    data_objects_curated.length
+  def total_data_objects_curated
+      return actions_histories_on_data_objects.count(
+              :conditions => "action_with_object_id IN (#{ActionWithObject.raw_curator_action_ids.join(",")})",
+              :group => 'actions_histories.object_id').count
   end
 
   def comments_curated

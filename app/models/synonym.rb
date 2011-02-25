@@ -17,6 +17,14 @@ class Synonym < SpeciesSchemaModel
   after_update :update_taxon_concept_name, :update_vetted_on_synonyms_for_same_tc
   after_create :create_taxon_concept_name
   before_destroy :set_preferred_true_for_last_synonym
+  
+  def self.sort_by_language_and_name(synonyms)
+    synonyms.sort_by do |syn|
+      language_code = syn.language.blank? ? '' : syn.language.iso_639_1
+      [language_code,
+       name.string]
+    end
+  end
 
   def self.by_taxon(taxon_id)
     return Synonym.find_all_by_hierarchy_entry_id(taxon_id, :include => [:synonym_relation, :name])

@@ -1,4 +1,5 @@
 class Rank < SpeciesSchemaModel
+  CACHE_ALL_ROWS = true
   has_many :hierarchy_entries
   has_many :group_members, :class_name => 'Rank', :primary_key => 'rank_group_id', :foreign_key => 'rank_group_id', :conditions => 'rank_group_id!=0'
   
@@ -69,8 +70,8 @@ class Rank < SpeciesSchemaModel
   end
 
   def self.italicized_ids_sub
-    cached('italicized') do 
-      @@ids = Rank.find_by_sql("SELECT * FROM ranks WHERE label IN ('#{italicized_labels.join('\',\'')}')").map(&:id)
+    @@ids ||= cached('italicized') do 
+      Rank.find_by_sql("SELECT * FROM ranks WHERE label IN ('#{italicized_labels.join('\',\'')}')").map(&:id)
     end
   end
   

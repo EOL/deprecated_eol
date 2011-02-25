@@ -1491,6 +1491,16 @@ a.footnote {
     background: #f4a9a9 !important;
     padding: 6px 6px 6px 12px;
     color: #666666; }
+  .results_table td.stats {
+    text-align: right; }
+
+table#show_objects_curated.results_table td {
+  vertical-align: top; }
+  table#show_objects_curated.results_table td.description {
+    position: relative; }
+    table#show_objects_curated.results_table td.description img {
+      float: left;
+      margin: 0 5px 5px 0; }
 
 #footer {
   width: 962px;

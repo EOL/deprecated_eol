@@ -10,19 +10,19 @@
 
 #taxonomic-text-container
   %ul#taxonomictext
-    - kingdoms = @hierarchy.kingdom_details(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
+    - kingdoms = @hierarchy.kingdoms(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
     - for kingdom in kingdoms
-      - if entry_kingdom && entry_kingdom.id == kingdom['id'].to_i
-        - ancestors = @hierarchy_entry.ancestor_details(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
-        - entry_details = @hierarchy_entry.details(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
+      - if entry_kingdom && entry_kingdom.id == kingdom.id
+        - ancestors = @hierarchy_entry.ancestors(:include_common_names => @include_common_names, :common_name_language => @common_name_language)
+        - hierarchy_entry = ancestors.pop
         - unless kingdom == kingdoms.first
           %br
-        = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => entry_details, :node_class => 'bold' })
+        = render(:partial => 'navigation/node_with_ancestry_page', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry, :node_class => 'bold' })
         - unless kingdom == kingdoms.last
           %br
       - else
         %li
-          = render(:partial => 'navigation/node_name_page', :locals => { :entry => kingdom, :node_class => 'bold' })
+          = render(:partial => 'navigation/node_name_page', :locals => { :hierarchy_entry => kingdom, :node_class => 'bold' })
     - if entry_kingdom.blank?
       %br
       %span.message

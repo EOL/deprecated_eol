@@ -9,8 +9,8 @@ xml.DataSet "xmlns" => "http://www.tdwg.org/schemas/tcs/1.01",
     end
     
     xml.TaxonNames do
-      xml.TaxonName(:id => "n#{@hierarchy_entry.name_object.id}") do
-        xml.Simple @hierarchy_entry.name_object.string
+      xml.TaxonName(:id => "n#{@hierarchy_entry.name.id}") do
+        xml.Simple @hierarchy_entry.name.string
         xml.Rank @hierarchy_entry.rank.label.firstcap, :code => @hierarchy_entry.rank.tcs_code unless @hierarchy_entry.rank.nil?
         xml.CanonicalName do
           xml.Simple @hierarchy_entry.canonical_form.string
@@ -30,7 +30,7 @@ xml.DataSet "xmlns" => "http://www.tdwg.org/schemas/tcs/1.01",
     
     xml.TaxonConcepts do
       xml.TaxonConcept(:id => "#{@hierarchy_entry.id}") do
-        xml.Name @hierarchy_entry.name_object.string, :scientific => 'true', :ref => "n#{@hierarchy_entry.name_object.id}"
+        xml.Name @hierarchy_entry.name.string, :scientific => 'true', :ref => "n#{@hierarchy_entry.name.id}"
         xml.Rank @hierarchy_entry.rank.label.firstcap, :code => @hierarchy_entry.rank.tcs_code unless @hierarchy_entry.rank.nil?
         xml.TaxonRelationships do
           if parent = @hierarchy_entry.parent
@@ -45,15 +45,19 @@ xml.DataSet "xmlns" => "http://www.tdwg.org/schemas/tcs/1.01",
             end
           end
           
-          for synonym in @synonyms
-            xml.TaxonRelationship(:type => 'has synonym') do
-              xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'synonyms', :id => synonym['synonym_id'], :only_path => false), :linktype => 'external')
+          if @include_synonyms
+            for synonym in @hierarchy_entry.scientific_synonyms
+              xml.TaxonRelationship(:type => 'has synonym') do
+                xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'synonyms', :id => synonym.id, :only_path => false), :linktype => 'external')
+              end
             end
           end
           
-          for common_name in @common_names
-            xml.TaxonRelationship(:type => 'has vernacular') do
-              xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'synonyms', :id => common_name['synonym_id'], :only_path => false), :linktype => 'external')
+          if @include_common_names
+            for common_name in @hierarchy_entry.common_names
+              xml.TaxonRelationship(:type => 'has vernacular') do
+                xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'synonyms', :id => common_name.id, :only_path => false), :linktype => 'external')
+              end
             end
           end
           

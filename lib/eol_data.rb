@@ -116,6 +116,27 @@ module EOL
     
     
     
+    # for each Hierarchy, make the nested sets for that Hierarchy via #make_nested_set
+    def flatten_hierarchies
+      Hierarchy.find(:all).each do |hierarchy|
+        flatten_hierarchies_recursion(0, hierarchy)
+      end
+    end
+    
+    # grabs the top-level HierarchyEntry nodes of a given Hierarchy and assigns proper 
+    # lft/rgt IDs to them and their children via #assign_id
+    def flatten_hierarchies_recursion(node_id, hierarchy_id, parent_ids=[])
+      parent_ids.each do |p|
+        HierarchyEntriesFlattened.find_or_create_by_hierarchy_entry_id_and_ancestor_id(node_id, p) if node_id != p
+      end
+      HierarchyEntry.find_all_by_parent_id_and_hierarchy_id(node_id, hierarchy_id).each do |node|
+        child_parent_ids = parent_ids + [node.id]
+        flatten_hierarchies_recursion(node.id, hierarchy_id, child_parent_ids)
+      end
+    end
+    
+    
+    
     
     def rebuild_collection_type_nested_set
       CollectionType.find(:all).each do |ct|

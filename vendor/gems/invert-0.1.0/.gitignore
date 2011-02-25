@@ -1,0 +1,15 @@
+# General. Sorted by first letter.
+.old*/
+*-old*
+*-old*/
+/*.patch
+.proto-*
+.proto-*/
+*.rbx
+.ref*
+.ref*/
+
+# Project-specific.
+/dev/
+/pkg/
+/README.html

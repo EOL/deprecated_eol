@@ -11,6 +11,6 @@ describe CategoryContentBuilder do
     cn = "A name"
     tc.add_common_name_synonym(cn, :agent => agent, :language => Language.unknown)
     tc.add_common_name_synonym(cn, :agent => agent, :language => Language.english)
-    res = ccb.content_for(TocItem.common_names, :taxon_concept_id => tc.id)
+    res = ccb.content_for(TocItem.common_names, :taxon_concept => tc)
   end
 end

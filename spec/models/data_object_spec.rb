@@ -65,21 +65,21 @@ describe DataObject do
     preview_do.visibility.should == Visibility.visible
     preview_do.vetted.should == Vetted.trusted
   end
-
+  
   describe 'curation' do
     before(:all) do
       @taxon_concept = TaxonConcept.last || build_taxon_concept
       @user          = @taxon_concept.acting_curators.to_a.last
       @data_object   = @taxon_concept.add_user_submitted_text(:user => @user)
     end
-
+  
     it 'should set to unreviewed' do
       @data_object.curate(@user, :vetted_id => Vetted.untrusted.id)
       @data_object.untrusted?.should eql(true)
       @data_object.curate(@user, :vetted_id => Vetted.unknown.id)
       @data_object.unknown?.should eql(true)
     end
-
+  
     it 'should save a newly added curation comment with any curation action' do
       [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_id|
         comments_count = @data_object.all_comments.size
@@ -87,23 +87,23 @@ describe DataObject do
         (@data_object.all_comments.size - comments_count).should == 1 
       end
     end
-
+  
     it 'should set to untrusted' do
       @data_object.curate(@user, :vetted_id => Vetted.untrusted.id)
       @data_object.untrusted?.should eql(true)
     end
-
+  
     it 'should set to trusted' do
       @data_object.curate(@user, :vetted_id => Vetted.trusted.id)
       @data_object.trusted?.should eql(true)
     end
-
+  
     it 'should set to untrusted and hidden' do
       @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.invisible.id)
       @data_object.untrusted?.should eql(true)
       @data_object.invisible?.should eql(true)
     end
-
+  
     it 'should set untrust reasons' do
       @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :untrust_reason_ids => [UntrustReason.misidentified.id, UntrustReason.poor.id, UntrustReason.other.id])
       @data_object.untrust_reasons.length.should eql(3)
@@ -114,7 +114,7 @@ describe DataObject do
       @data_object = DataObject.find(@data_object.id)
       @data_object.untrust_reasons.length.should eql(0)
     end
-
+  
     it 'should add comment when untrusting' do
       comment_count = @data_object.comments.length
       @data_object.curate(@user, :vetted_id => Vetted.untrusted.id, :visibility_id => Visibility.visible.id, :comment => 'new comment')
@@ -123,27 +123,27 @@ describe DataObject do
       @data_object.comments.length.should eql(comment_count + 2)
     end
   end
-
+  
   describe 'ratings' do
-
+  
     it 'should have a default rating of 2.5' do
       d = DataObject.new
       d.data_rating.should eql(2.5)
     end
-
+  
     it 'should create new rating' do
       UsersDataObjectsRating.count.should eql(0)
-
+  
       d = DataObject.gen
       u = User.gen
       d.rate(u,5)
-
+  
       UsersDataObjectsRating.count.should eql(1)
       d.data_rating.should eql(5.0)
       r = UsersDataObjectsRating.find_by_user_id_and_data_object_guid(u.id, d.guid)
       r.rating.should eql(5)
     end
-
+  
     it 'should generate average rating' do
       d = DataObject.gen
       u1 = User.gen
@@ -158,22 +158,22 @@ describe DataObject do
       curator    = create_curator(taxon_concept)  
       text_dato  = taxon_concept.overview.last 
       image_dato = taxon_concept.images.last 
-
+  
       text_dato.rate(curator, 4)
       image_dato.rate(curator, 4)
    
       text_dato.data_rating.should eql(4.0)
       image_dato.data_rating.should eql(4.0)
-
+  
       new_text_dato  = DataObject.build_reharvested_dato(text_dato)
       new_image_dato = DataObject.build_reharvested_dato(image_dato)
-
+  
       new_text_dato.data_rating.should eql(4.0)
       new_image_dato.data_rating.should eql(4.0)
-
+  
       new_text_dato.rate(curator, 2)
       new_image_dato.rate(curator, 2)
-
+  
       new_text_dato.data_rating.should eql(2.0)
       new_image_dato.data_rating.should eql(2.0)
     end
@@ -200,11 +200,11 @@ describe DataObject do
     end
     
   end
-
-
+  
+  
   # TODO - DataObject.search_by_tag needs testing, but comments in the file suggest it will be changed significantly.
   # TODO - DataObject.search_by_tags needs testing, but comments in the file suggest it will be changed significantly.
-
+  
   describe 'tagging' do
     
     before(:all) do
@@ -212,7 +212,7 @@ describe DataObject do
       @image_dato    = @taxon_concept.images.last       
     end
     
-
+  
     before(:each) do
       @dato = DataObject.gen
       @user = User.gen
@@ -223,22 +223,22 @@ describe DataObject do
       DataObjectTags.gen(:data_object_tag => @tag2, :data_object => @dato)
       DataObjectTags.gen(:data_object_tag => @tag3, :data_object => @dato)
     end
-
+  
     after(:all) do
       DataObjectTag.delete_all
       DataObjectTags.delete_all
     end
-
+  
     it 'should create a tag hash' do
       result = @dato.tags_hash
       result['foo'].should    == ['bar', 'baz']
       result['boozer'].should == ['brimble']
     end
-
+  
     it 'should create tag keys' do
       @dato.tag_keys.should == ['foo', 'boozer']
     end
-
+  
     it 'should create tag saving guid of the data_object into DataObjectTags' do
       count = DataObjectTags.count
       @dato.tag("key1", "value1", @user)
@@ -278,9 +278,9 @@ describe DataObject do
       DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true
     end
   end
-
+  
   describe 'search_by_tags' do
-
+  
     before(:each) do
       @look_for_less_than_tags = true
       @dato = DataObject.gen
@@ -298,106 +298,106 @@ describe DataObject do
         DataObjectTags.gen(:data_object_tag => @tag, :data_object => @dato, :user => User.gen)
       end
     end
-
+  
     it 'should not find tags for which there are less than DEAFAULT_MIN_BLAHBLAHBLHA instances' do
       if @look_for_less_than_tags
         DataObject.search_by_tags([[[:foo, 'bar']]]).should be_empty
       end
     end
-
+  
     it 'should find tags specifically flagged as public, regardless of count' do
       @tag.is_public = true
       @tag.save!
       DataObject.search_by_tags([[[:foo, 'bar']]]).map {|d| d.id }.should include(@dato.id)
     end
-
+  
   end
-
+  
   describe '#image?' do
-
+  
     it 'should return true if this is an image' do
       @dato = DataObject.gen(:data_type_id => DataType.image_type_ids.first)
       @dato.image?.should be_true
     end
-
+  
     it 'should return false if this is NOT an image' do
       @dato = DataObject.gen(:data_type_id => DataType.image_type_ids.sort.last + 1) # Clever girl...
       @dato.image?.should_not be_true
     end
-
+  
   end
-
+  
   describe '#video_url' do
     before(:each) do
       set_content_variables
     end
-
+  
     it 'should use object_url if non-flash' do
       @dato.data_type = DataType.gen(:label => 'AnythingButFlash')
       @dato.video_url.should == @dato.object_url
     end
-
-
-
+  
+  
+  
     # This one dosn't work, i was trying to fix it when I had to abort...
     #
     # it 'should use object_cache_url (plus .flv) if available' do
     #   @dato.object_cache_url = @image_int
     #   @dato.video_url.should =~ /#{@test_str}\.flv$/
     # end
-
+  
     it 'should return empty string if no thumbnail (when Flash)' do
       @dato.object_cache_url = nil
       @dato.video_url.should == ''
       @dato.object_cache_url = ''
       @dato.video_url.should == ''
     end
-
+  
     # Also broken but I have NO IDEA WHY, and it's very frustrating.  Clearly my regex above (replacing the
     # number with \d+) isn't working, but WHY?!?
-
+  
     #it 'should use content servers' do
       #@dato.video_url.should match(@content_server_match)
     #end
-
+  
   end
-
+  
   describe 'attributions' do
-
+  
     before(:each) do
       set_content_variables
     end
-
+  
     it 'should use Attributions object' do
       some_array = [:some, :array]
       @dato.attributions.class.should == Attributions
     end
-
+  
     it 'should add an attribution based on data_supplier_agent' do
       supplier = Agent.gen
       @dato.should_receive(:data_supplier_agent).and_return(supplier)
       @dato.attributions.map {|ado| ado.agent }.should include(supplier)
     end
-
+  
     it 'should add an attribution based on license' do
       license = License.gen()
       @dato.should_receive(:license).and_return(license)
       # Not so please with the hard-coded relationship between project_name and description, but can't think of a better way:
       @dato.attributions.map {|ado| ado.agent.project_name }.should include(license.description)
     end
-
+  
     it 'should add an attribution based on rights statement (and license description)' do
       rights = 'life, liberty, and the persuit of happiness'
       @dato.should_receive(:rights_statement).and_return(rights)
       @dato.attributions.map {|ado| ado.agent.project_name }.should include(rights)
     end
-
+  
     it 'should add an attribution based on location' do
       location = 'life, liberty, and the persuit of happiness'
       @dato.should_receive(:location).at_least(1).times.and_return(location)
       @dato.attributions.map {|ado| ado.agent.project_name }.should include(location)
     end
-
+  
     it 'should add an attribution based on Source URL' do
       source = 'http://some.biological.edu/with/good/data'
       @dato.should_receive(:source_url).at_least(1).times.and_return(source)
@@ -410,13 +410,13 @@ describe DataObject do
     #   @dato.should_receive(:source_url).at_least(1).times.and_return(source)
     #   @dato.attributions.map {|ado| ado.agent.homepage }.should_not include(source) 
     # end
-
+  
     it 'should add an attribution based on Citation' do
       citation = 'http://some.biological.edu/with/good/data'
       @dato.should_receive(:bibliographic_citation).at_least(1).times.and_return(citation)
       @dato.attributions.map {|ado| ado.agent.project_name }.should include(citation)
     end
-
+  
   end
   
   describe '#curator_activity_flag' do
@@ -428,7 +428,7 @@ describe DataObject do
       @data_object   = @taxon_concept.add_user_submitted_text(:user => @user)
       @num_lcd       = LastCuratedDate.count
     end
-
+  
     it 'should create a new LastCuratedDate pointing to the right TC and user' do
       @data_object.curator_activity_flag(@user, @taxon_concept.id)
       LastCuratedDate.count.should == @num_lcd + 1
@@ -490,20 +490,18 @@ describe DataObject do
 
     it 'should close tags in data_objects (incl. users)' do
       dato_descr_before = @dato.description
-      dato_descr_after  = @dato.description.sanitize_html
+      dato_descr_after  = @dato.description.balance_tags
       
-      dato_descr_after.should eql('That <b>description has unclosed <i>html tags</i></b>')
+      dato_descr_after.should == 'That <b>description has unclosed <i>html tags</b></i>'
     end
 
     it 'should close tags in references' do
       full_ref         = 'a <b>b</div></HTML><i'
-      repaired_ref     = 'a <b>b</b><i></i>'
-      alt_repaired_ref = 'a <b>b</b>' # It's okay if this is how it's cleaned
+      repaired_ref     = '<div>a <b>b</div></HTML><i</b>'
       
       @dato.refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.visible)
-      ref_before = @dato.visible_references[0].full_reference
-      ref_after  = @dato.visible_references[0].full_reference.sanitize_html      
-      (ref_after == repaired_ref or ref_after == alt_repaired_ref).should be_true
+      ref_after = @dato.visible_references[0].full_reference.balance_tags
+      ref_after.should == repaired_ref
     end
   end
 

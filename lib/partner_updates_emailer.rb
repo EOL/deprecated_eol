@@ -7,8 +7,8 @@ module PartnerUpdatesEmailer
     # will run for a few minutes and if we check at the same time each day with a strict
     # email_reports_frequency_hours we'll miss people every other day as they will have been updated
     # 23.9 hours ago, not 24 horus ago for example
-    agent_contacts_ready = AgentContact.find(:all, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= NOW()", :include => [{:agent => :content_partner}])
-    users_ready = User.find(:all, :joins => :users_data_objects, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= NOW()", :group => 'users.id', :readonly => false)
+    agent_contacts_ready = AgentContact.find(:all, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= UTC_TIMESTAMP()", :include => [{:agent => :content_partner}])
+    users_ready = User.find(:all, :joins => :users_data_objects, :conditions => "last_report_email IS NULL OR DATE_ADD(last_report_email, INTERVAL email_reports_frequency_hours - 1 HOUR) <= UTC_TIMESTAMP()", :group => 'users.id', :readonly => false)
     
     agent_contact_frequencies = agent_contacts_ready.collect{|p| p.email_reports_frequency_hours}
     user_frequencies = users_ready.collect{|p| p.email_reports_frequency_hours}
@@ -84,7 +84,7 @@ module PartnerUpdatesEmailer
     all_action_ids = SpeciesSchemaModel.connection.select_values("
       SELECT id
       FROM #{ActionsHistory.full_table_name} 
-      WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= NOW()
+      WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= UTC_TIMESTAMP()
       AND action_with_object_id IN (#{ActionWithObject.trusted.id}, #{ActionWithObject.untrusted.id}, #{ActionWithObject.inappropriate.id})")
     
     partner_actions = {}
@@ -138,7 +138,7 @@ module PartnerUpdatesEmailer
   end
   
   def self.all_comments_since_hour(number_of_hours = 24)
-    all_comment_ids = SpeciesSchemaModel.connection.select_values("SELECT id FROM #{Comment.full_table_name} WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= NOW()")
+    all_comment_ids = SpeciesSchemaModel.connection.select_values("SELECT id FROM #{Comment.full_table_name} WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= UTC_TIMESTAMP()")
     
     partner_comments = { :objects => {}, :pages => {} }
     user_comments = { :objects => {}, :pages => {} }

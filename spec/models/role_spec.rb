@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Role do
 
   before(:each) do
+    SpecialCollection.create_all
     @special = Community.gen
     Community.stub!(:special).and_return(@special)
     @curator = Role.gen(:title => $CURATOR_ROLE_NAME, :community_id => @special.id)

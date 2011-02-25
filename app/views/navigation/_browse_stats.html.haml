@@ -6,11 +6,17 @@
           %td{ :width => '50%', :valign => 'top' }
             %b
               Browsing Branch:
-            - ancestors = @hierarchy_entry.ancestor_details(:include_stats => true)
-            - entry_details = @hierarchy_entry.details(:include_stats => true)
-            = render(:partial => 'navigation/node_with_ancestry_stats', :locals => { :ancestors => ancestors, :hierarchy_entry => entry_details})
+            - ancestors = @hierarchy_entry.ancestors(:include_stats => true)
+            - hierarchy_entry = ancestors.pop
+            = render(:partial => 'navigation/node_with_ancestry_stats', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+            %br
+            %b
+              Hierarchy Roots:
+            - for kingdom in @hierarchy.kingdoms
+              %li.node.bold
+                = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => kingdom, :node_class => 'bold' })
           %td{ :width => '50%', :valign => 'top' }
-            %table.results_table
+            %table.results_table.stats
               %tr
                 %th
                   Stat
@@ -19,48 +25,40 @@
               %tr
                 %td.odd
                   \# of taxa at this entry
-                %td.odd
-                  = entry_details['stats'].total_children
+                %td.odd.stats
+                  = hierarchy_entry.hierarchy_entry_stat.total_children
               %tr
                 %td.even
                   \# of trusted images at this entry
-                %td.even
-                  = entry_details['stats'].all_image_trusted
+                %td.even.stats
+                  = hierarchy_entry.hierarchy_entry_stat.all_image_trusted
               %tr
                 %td.odd
                   \# of unreviewed images at this entry
-                %td.odd
-                  = entry_details['stats'].all_image_untrusted
+                %td.odd.stats
+                  = hierarchy_entry.hierarchy_entry_stat.all_image_untrusted
               %tr
                 %td.even
                   \% of children with images
-                %td.even
-                  = entry_details['stats'].pecent_with_images
+                %td.even.stats
+                  = hierarchy_entry.hierarchy_entry_stat.pecent_with_images
                   \%
               %tr
                 %td.odd
                   \# of trusted text objects at this entry
-                %td.odd
-                  = entry_details['stats'].all_text_trusted
+                %td.odd.stats
+                  = hierarchy_entry.hierarchy_entry_stat.all_text_trusted
               %tr
                 %td.even
                   \# of unreviewed text objects at this entry
-                %td.even
-                  = entry_details['stats'].all_text_untrusted
+                %td.even.stats
+                  = hierarchy_entry.hierarchy_entry_stat.all_text_untrusted
               %tr
                 %td.odd
                   \% of children with text
-                %td.odd
-                  = entry_details['stats'].pecent_with_text
+                %td.odd.stats
+                  = hierarchy_entry.hierarchy_entry_stat.pecent_with_text
                   \%
-
             %br
-            - metrics = @hierarchy_entry.taxon_concept_metrics(@hierarchy_entry.id)              
-            = render(:partial => 'navigation/browse_taxon_concept_metrics', :locals => { :metrics => metrics })
-
-    %br
-    %b
-      Hierarchy Roots:
-    - for kingdom in @hierarchy.kingdom_details(:include_stats => true)
-      %li.node.bold
-        = render(:partial => 'navigation/node_name_stats', :locals => { :entry => kingdom, :node_class => 'bold'})
+            - metric = @hierarchy_entry.taxon_concept.taxon_concept_metric
+            = render(:partial => '/administrator/stats/taxon_metrics', :locals => { :metric => metric })

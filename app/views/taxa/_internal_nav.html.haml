@@ -3,10 +3,10 @@
     = "Contribute"[]
   %ul#contribute.bulletlist
     %li
-      %a{ :href => "/taxa/show_popup?name=contribute_photos&taxon_name=#{@taxon_concept.name(:canonical)}", :class => 'show_popup' }
+      %a{ :href => "/taxa/show_popup?name=contribute_photos&taxon_name=#{@taxon_concept.entry.name.canonical_form.string}", :class => 'show_popup' }
         = "Submit an image"[]
     %li
-      %a{ :href => "/taxa/show_popup?name=contribute_text&taxon_name=#{@taxon_concept.name(:canonical)}", :class => 'show_popup' }
+      %a{ :href => "/taxa/show_popup?name=contribute_text&taxon_name=#{@taxon_concept.entry.name.canonical_form.string}", :class => 'show_popup' }
         = "Submit text"[]
     %li
       %a{ :href => "/content/page/help_build_eol" }

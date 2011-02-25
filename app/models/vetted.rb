@@ -1,6 +1,8 @@
 class Vetted < SpeciesSchemaModel
-  
+  CACHE_ALL_ROWS = true  
   has_many :data_objects
+  has_many :taxon_concepts
+  has_many :hierarchy_entries
   set_table_name "vetted"
 
   def self.untrusted

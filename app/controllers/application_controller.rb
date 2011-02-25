@@ -124,12 +124,16 @@ class ApplicationController < ActionController::Base
   def set_user_settings
     return if request.path =~ /logout$/
     expertise = params[:expertise] if ['novice', 'middle', 'expert'].include?(params[:expertise])
-    alter_current_user do |user|
-      user.expertise = expertise unless expertise.nil?
+    if !expertise.blank? && current_user.expertise != expertise
+      alter_current_user do |user|
+        user.expertise = expertise unless expertise.nil?
+      end
     end
-    vetted = params[:vetted]
-    alter_current_user do |user|
-      user.vetted = EOLConvert.to_boolean(vetted) unless vetted.blank?
+    vetted = EOLConvert.to_boolean(params[:vetted])
+    if !vetted.blank? && current_user.vetted != vetted
+      alter_current_user do |user|
+        user.vetted = vetted unless vetted.blank?
+      end
     end
   end
   
@@ -354,8 +358,10 @@ class ApplicationController < ActionController::Base
   # aren't.  It also involves cache-clearing and the like, so be careful about skipping the set_current_user method.
   def alter_current_user(&block)
     user = current_user
+    user = User.find(user.id) if user.frozen? # Since we're modifying it, we can't use the one from memcached.
     yield(user)
     user.save! if logged_in?
+    $CACHE.delete("users/#{session[:user_id]}")
     set_current_user(user)
   end
 
@@ -507,14 +513,10 @@ private
   end
 
   # There are several things we need to do when we change the (temporary) values on a logged-in user:
-  # 
-  # NOTE: if you want to change a user's settings, you need to use alter_current_user
   def set_logged_in_user(user)
     set_temporary_logged_in_user(user)
-    session[:user]    = nil # An un-logged-in user needed to use this.  Remove it, now.
     session[:user_id] = user.id
     set_unlogged_in_user(nil)
-    $CACHE.delete("users/#{session[:user_id]}")
   end
 
   def unlogged_in_user

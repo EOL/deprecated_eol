@@ -72,7 +72,7 @@ class Comment < ActiveRecord::Base
   # the description or name of the parent item (i.e. the name of the species or description of the object)
   def parent_name
     return_name = case self.parent_type
-     when 'TaxonConcept' then TaxonConcept.find_by_id(self.parent_id).name
+     when 'TaxonConcept' then TaxonConcept.find_by_id(self.parent_id).entry.name.string
      when 'DataObject'   then DataObject.find_by_id(self.parent_id).description
      else ''
     end

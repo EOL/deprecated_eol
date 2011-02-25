@@ -1,5 +1,5 @@
 class RefIdentifierType < SpeciesSchemaModel
-
+  CACHE_ALL_ROWS = true
   has_many :ref_identifiers
 
 end

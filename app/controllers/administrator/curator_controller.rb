@@ -15,31 +15,15 @@ class Administrator::CuratorController < AdminController
 
     only_unapproved_condition=' curator_approved = 0 AND ' if @only_unapproved
     if @only_without_clade
-       clade_condition="curator_hierarchy_entry_id IS NULL AND (credentials != '' OR curator_scope!= '')"
+      clade_condition = "curator_hierarchy_entry_id IS NULL AND (credentials != '' OR curator_scope!= '')"
     else
-      clade_condition="curator_hierarchy_entry_id IS NOT NULL OR credentials != '' OR curator_scope!= ''"     
+      clade_condition = "curator_hierarchy_entry_id IS NOT NULL OR credentials != '' OR curator_scope!= ''"
     end
     
     condition="(#{clade_condition}) AND #{only_unapproved_condition} (email like ? OR username like ? OR given_name like ? OR identity_url like ? OR family_name like ? OR username like ?)"
 
-    @users=User.paginate(
-                         :conditions=>[condition,
-    search_string_parameter,
-    search_string_parameter,
-    search_string_parameter,
-    search_string_parameter,
-    search_string_parameter,
-    search_string_parameter],
-    :order=>'curator_approved ASC, created_at DESC',:page => params[:page])
-    @user_count=User.count(
-                           :conditions=>[condition,
-    search_string_parameter,
-    search_string_parameter,
-    search_string_parameter,
-    search_string_parameter,
-    search_string_parameter,
-    search_string_parameter])
-    
+    @users = User.paginate(:conditions=>[condition, search_string_parameter], :order=>'curator_approved ASC, created_at DESC',:page => params[:page])
+    @user_count = User.count(:conditions=>[condition, search_string_parameter])
   end
 
   def export

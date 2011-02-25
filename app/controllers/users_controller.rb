@@ -22,7 +22,13 @@ class UsersController < ApplicationController
       anchor = "profile_api_key"
     end
     respond_to do |format|
-      if current_user.id == @user.id && @user.update_attributes(params[:user])
+      worked = false
+      if current_user.id == @user.id
+        alter_current_user do # You MUST use this in order to preserve the cached version of the user!
+          worked = @user.update_attributes(params[:user])
+        end
+      end
+      if worked
         flash[:notice] = "User #{@user.username} was successfully updated."
         format.html { redirect_to :controller => :account, :action => :profile, :anchor => anchor }
         format.json  { render @user.to_json } 

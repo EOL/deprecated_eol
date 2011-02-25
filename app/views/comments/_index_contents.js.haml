@@ -4,12 +4,12 @@
 = render :partial => 'shared/comments', :locals => { :comments => current_objects, :opts => { :renderer => 'RemoteLinkRenderer', :remote => {:update => body_div_name, :body_div_name => body_div_name }.merge!(remote_hash) } }
 .new_comment
   = render :partial => 'new', :locals => { :length => 4, :body_div_name => body_div_name }
-- unless current_objects.blank?
-- dato = DataObject.find(current_objects[0].parent_id) rescue nil
-- dato_comments = dato.comments.select { |d| d.visible? }.size 
+- if params[:data_object_id]
+  - dato = DataObject.find(params[:data_object_id]) rescue nil
+  - dato_comments = dato.comments.select { |d| d.visible? }.size
   :javascript
     var data = {  "comments": "#{ dato_comments }", 
       "current_user_comments": "#{ dato.comments.select { |d| d.user == current_user && d.visible? }.size }",
-      "data_object_id": "#{current_objects[0].parent_id}"};
+      "data_object_id": "#{ dato.id }"};
     try { change_comment_icon_tooltip(data); } catch(err) {};
     $('#comment_button_link_#{ dato.id } .span_block').html(#{ dato_comments });

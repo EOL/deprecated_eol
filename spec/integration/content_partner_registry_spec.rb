@@ -54,7 +54,7 @@ describe 'Content Partner Registry' do
       visit("/harvest_events/#{@harvest_event.id}/taxa")
       body.should include("Hello #{@admin.given_name}")
       body.should include("List of taxa harvested")
-      body.should include(@harvested_taxon_concept.name(:natural_form))
+      body.should include(@harvested_taxon_concept.entry.name.canonical_form.string)
     end
     
     it 'should be able to view the resource hierarchy' do
@@ -63,7 +63,7 @@ describe 'Content Partner Registry' do
       body.should include("Hello #{@admin.given_name}")
       body.should include("Hierarchy Roots:")
       body.should include("edit hierarchy")
-      body.should include(@harvested_taxon_concept.name(:natural_form))
+      body.should include(@harvested_taxon_concept.entry.name.string)
     end
   end
   
@@ -98,7 +98,7 @@ describe 'Content Partner Registry' do
       visit("/harvest_events/#{@harvest_event.id}/taxa")
       body.should include("Hello #{@agent.full_name}")
       body.should include("List of taxa harvested")
-      body.should include(@harvested_taxon_concept.name(:natural_form))
+      body.should include(@harvested_taxon_concept.entry.name.canonical_form.string)
     end
     
     it 'should be able to view the resource hierarchy' do
@@ -107,7 +107,7 @@ describe 'Content Partner Registry' do
       body.should include("Hello #{@agent.full_name}")
       body.should include("Click to propose this hierarchy as an alternate browsing classification for EOL")
       body.should include("Hierarchy Roots:")
-      body.should include(@harvested_taxon_concept.name(:natural_form))
+      body.should include(@harvested_taxon_concept.entry.name.string)
     end
   end
   

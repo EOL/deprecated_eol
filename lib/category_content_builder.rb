@@ -17,53 +17,38 @@ class CategoryContentBuilder
 
   # TODO - Pagination
   def biodiversity_heritage_library(options)
-
-    tc_id = options[:taxon_concept_id]
-
-    items = SpeciesSchemaModel.connection.execute(%Q{
-      SELECT ti.id item_id, pt.title publication_title, pt.url publication_url,
-             pt.details publication_details, ip.year item_year, ip.volume item_volume,
-             ip.issue item_issue, ip.prefix item_prefix, ip.number item_number, ip.url item_url
-      FROM taxon_concept_names tcn
-        STRAIGHT_JOIN page_names pn ON (tcn.name_id = pn.name_id)
-        JOIN item_pages ip ON (pn.item_page_id = ip.id)
-        JOIN title_items ti ON (ip.title_item_id = ti.id)
-        JOIN publication_titles pt ON (ti.publication_title_id = pt.id)
-      WHERE tcn.taxon_concept_id = #{tc_id}
-      LIMIT 0,1000
-    }).all_hashes.uniq
-
-    sorted_items = items.sort_by do |item|
-      [item["publication_title"], item["item_year"], item["item_volume"], item["item_issue"], item["item_number"].to_i]
-    end
-
-    return {:items => sorted_items.map {|i| BhlItem.new(i) }}
-
+    taxon_concept = options[:taxon_concept]
+    name_ids = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(taxon_concept, 0, :select => 'name_id').collect{|tcn| tcn.name_id}.uniq
+    page_ids = PageName.find_all_by_name_id(name_ids, :select => 'item_page_id', :limit => 750).collect{|pn| pn.item_page_id}.uniq
+    bhl_pages = ItemPage.core_relationships.find_all_by_id(page_ids)
+    bhl_pages.delete_if{ |ip| ip.title_item.nil? || ip.title_item.publication_title.nil? }
+    
+    return {:items => ItemPage.sort_by_title_year(bhl_pages) }
   end
 
   def related_names(options)
-    return {:items => TaxonConcept.related_names(options[:taxon_concept_id])}
+    return {:items => TaxonConcept.related_names(options[:taxon_concept].id)}
   end
 
   def synonyms(options)
-    return {:items => TaxonConcept.synonyms(options[:taxon_concept_id])}
+    return {:items => TaxonConcept.synonyms(options[:taxon_concept].id)}
   end
 
   def common_names(options)
     unknown = Language.unknown.label # Just don't want to look it up every time.
-    names = EOL::CommonNameDisplay.find_by_taxon_concept_id(options[:taxon_concept_id])
+    names = EOL::CommonNameDisplay.find_by_taxon_concept_id(options[:taxon_concept].id)
     names = names.select {|n| n.language_label != unknown} 
     return {:items => names} 
   end
 
   def content_summary(options)
-    hash = TaxonConcept.entry_stats(options[:taxon_concept_id])
+    hash = TaxonConcept.entry_stats(options[:taxon_concept].id)
     return {:items => hash}
   end
 
 
   def biomedical_terms(options)
-    return {:item => HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, options[:taxon_concept_id])}
+    return {:item => HierarchyEntry.find_by_hierarchy_id_and_taxon_concept_id(Resource.ligercat.hierarchy.id, options[:taxon_concept].id)}
   end
 
   # This is all hard-coded in the view.
@@ -72,7 +57,7 @@ class CategoryContentBuilder
   end
 
   def content_partners(options)
-    tc_id = options[:taxon_concept_id]
+    tc_id = options[:taxon_concept].id
     tc = TaxonConcept.find(tc_id)
     outlinks = tc.outlinks
     sorted_outlinks = outlinks.sort_by { |ol| ol[:hierarchy_entry].hierarchy.label }
@@ -80,15 +65,13 @@ class CategoryContentBuilder
   end
 
   def literature_references(options)
-    tc_id = options[:taxon_concept_id]
+    tc_id = options[:taxon_concept].id
     return {:items => Ref.find_refs_for(tc_id)}
   end
 
   def nucleotide_sequences(options)
-    tc_id = options[:taxon_concept_id]
+    tc_id = options[:taxon_concept].id
     entry = TaxonConcept.find_entry_in_hierarchy(tc_id, Hierarchy.ncbi.id)
     return {:hierarchy_entry => entry}
   end
-
-
 end

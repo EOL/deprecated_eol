@@ -54,6 +54,7 @@ Rails::Initializer.run do |config|
   config.gem 'escape'
   config.gem 'email_spec'
   config.gem 'jrails'
+  config.gem 'invert'
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper,
@@ -256,6 +257,7 @@ require 'base64'
 
 # Add some stuff to Core/Rails base classes:
 require 'core_extensions'
+require 'select_with_preload_include'
 require 'open-uri'
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything

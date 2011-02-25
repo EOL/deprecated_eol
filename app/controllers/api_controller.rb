@@ -106,17 +106,27 @@ class ApiController < ApplicationController
   def hierarchy_entries
     id = params[:id] || 0
     format = params[:format] || 'dwc'
-    params[:common_names] ||= true
-    params[:common_names] = false if params[:common_names] == '0'
-    params[:synonyms] ||= true
-    params[:synonyms] = false if params[:synonyms] == '0'
+    @include_common_names = params[:common_names] || true
+    @include_common_names = false if params[:common_names] == '0'
+    @include_synonyms = params[:synonyms] || true
+    @include_synonyms = false if params[:synonyms] == '0'
     
     begin
-      @hierarchy_entry = HierarchyEntry.find(id)
-      @ancestors = @hierarchy_entry.ancestor_details
-      @common_names = params[:common_names] ? @hierarchy_entry.common_name_details : []
-      @synonyms = params[:synonyms] ? @hierarchy_entry.synonym_details : []
-      @children = @hierarchy_entry.children_details
+      add_include = []
+      add_select = { :hierarchy_entries => '*' }
+      if @include_common_names
+        add_include << { :common_names => [:name, :language] }
+        add_select[:languages] = :iso_639_1
+      end
+      if @include_synonyms
+        add_include << { :scientific_synonyms => [:name, :synonym_relation] }
+        add_select[:synonym_relations] = :label
+      end
+      
+      @hierarchy_entry = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find(id)
+      @ancestors = @hierarchy_entry.ancestors
+      @ancestors.pop # remove the last element which is the node itself
+      @children = @hierarchy_entry.children
       raise if @hierarchy_entry.nil? || !@hierarchy_entry.published?
     rescue
       render(:partial => 'error.xml.builder', :locals => {:error => "Unknown identifier #{id}"})
@@ -162,7 +172,7 @@ class ApiController < ApplicationController
     
     begin
       @hierarchy = Hierarchy.find(id)
-      @hierarchy_roots = @hierarchy.kingdom_details
+      @hierarchy_roots = @hierarchy.kingdoms
       raise if @hierarchy.nil? || !@hierarchy.browsable?
     rescue
       render(:partial => 'error.xml.builder', :locals => {:error => "Unknown hierarchy #{id}"})

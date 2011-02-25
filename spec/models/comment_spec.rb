@@ -51,7 +51,7 @@ describe Comment do
 
   describe "#parent_name" do
     it "should return taxon concept name for TaxonConcept comment" do
-      @tc_comment.parent_name.should == @tc.name
+      @tc_comment.parent_name.should == @tc.entry.name.string
     end
 
     it "should return dato description for DataObject comment" do

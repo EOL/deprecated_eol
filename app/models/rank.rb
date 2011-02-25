@@ -1,4 +1,5 @@
 class Rank < SpeciesSchemaModel
+  CACHE_ALL_ROWS = true
   has_many :hierarchy_entries
   has_many :group_members, :class_name => 'Rank', :primary_key => 'rank_group_id', :foreign_key => 'rank_group_id', :conditions => 'rank_group_id!=0'
   
@@ -42,33 +43,35 @@ class Rank < SpeciesSchemaModel
   def self.italicized_ids
     self.italicized_ids_sub
   end
+  
+  def self.italicized_labels
+    ['?var',          'binomial',      'biovar',
+     'Espéce',        'especie',       '',
+     'f.',            'f.sp.',         'form',
+     'forma',         'infra-form',    'infra-species',
+     'infra-variety', 'infraspecies',  'infravariety',
+     'micro-species', 'microspecies',  'nohtosubsp',
+     'nopthosubsp',   'notho species', 'nothof',
+     'nothosubsp',    'nothosupsp',    'nothovar',
+     'nssp',          'nsubsp',        'quadrinomial',
+     'sbsp',          'sebsp',         'SP',
+     'sp.',           'sp.-group',     'species',
+     'species forma', 'species group', 'species subgroup',
+     'specio',        'ssp',           'ssp.',
+     'sub-form',      'sub-forma',     'sub-species',
+     'sub-variety',   'subform',       'subfsp',
+     'subsp',         'subsp.',        'subspecies',
+     'subspecific',   'subspsp',       'subv',
+     'subvar',        'subvar.',       'subvar. [?]',
+     'subvarietas',   'subvariety',    'subvarsp',
+     'supsp',         'susbp',         'susbsp',
+     'susp',          'trinomial',     'var',
+     'var.',          'variety',       'varsp']
+  end
 
   def self.italicized_ids_sub
-    cached('italicized') do 
-      @@ids = Rank.find_by_sql(%q{SELECT * FROM ranks WHERE label IN (
-               '?var',          'binomial',      'biovar',
-               'Espéce',        'especie',       '',
-               'f.',            'f.sp.',         'form',
-               'forma',         'infra-form',    'infra-species',
-               'infra-variety', 'infraspecies',  'infravariety',
-               'micro-species', 'microspecies',  'nohtosubsp',
-               'nopthosubsp',   'notho species', 'nothof',
-               'nothosubsp',    'nothosupsp',    'nothovar',
-               'nssp',          'nsubsp',        'quadrinomial',
-               'sbsp',          'sebsp',         'SP',
-               'sp.',           'sp.-group',     'species',
-               'species forma', 'species group', 'species subgroup',
-               'specio',        'ssp',           'ssp.',
-               'sub-form',      'sub-forma',     'sub-species',
-               'sub-variety',   'subform',       'subfsp',
-               'subsp',         'subsp.',        'subspecies',
-               'subspecific',   'subspsp',       'subv',
-               'subvar',        'subvar.',       'subvar. [?]',
-               'subvarietas',   'subvariety',    'subvarsp',
-               'supsp',         'susbp',         'susbsp',
-               'susp',          'trinomial',     'var',
-               'var.',          'variety',       'varsp'
-      )}).map(&:id)
+    @@ids ||= cached('italicized') do 
+      Rank.find_by_sql("SELECT * FROM ranks WHERE label IN ('#{italicized_labels.join('\',\'')}')").map(&:id)
     end
   end
   

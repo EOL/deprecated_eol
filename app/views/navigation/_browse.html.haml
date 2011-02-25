@@ -4,12 +4,12 @@
     - unless @hierarchy_entry.nil?
       %b
         Browsing Branch:
-      - ancestors = @hierarchy_entry.ancestor_details
-      - entry_details = @hierarchy_entry.details
-      = render(:partial => 'navigation/node_with_ancestry', :locals => { :ancestors => ancestors, :hierarchy_entry => entry_details})
+      - ancestors = @hierarchy_entry.ancestors
+      - hierarchy_entry = ancestors.pop
+      = render(:partial => 'navigation/node_with_ancestry', :locals => { :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
     %br
     %b
       Hierarchy Roots:
-    - for kingdom in @hierarchy.kingdom_details
+    - for kingdom in @hierarchy.kingdoms
       %li.node.bold
-        = render(:partial => 'navigation/node_name', :locals => { :entry => kingdom, :node_class => 'bold'})
+        = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => kingdom, :node_class => 'bold' })

@@ -1,5 +1,5 @@
 class SynonymRelation < SpeciesSchemaModel
-
+  CACHE_ALL_ROWS = true
   has_many :synonyms
 
   def self.synonym

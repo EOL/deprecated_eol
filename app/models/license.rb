@@ -1,4 +1,5 @@
 class License < SpeciesSchemaModel
+  CACHE_ALL_ROWS = true
   has_many :data_objects
   has_many :resources
 

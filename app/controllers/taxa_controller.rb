@@ -72,13 +72,14 @@ class TaxaController < ApplicationController
       return
     end
 
-    @taxon_concept = find_taxon_concept || return
-    return if taxon_concept_invalid?(@taxon_concept)
+    taxon_concept = find_taxon_concept || return
+    return if taxon_concept_invalid?(taxon_concept)
     return redirect_to(params.merge(:controller => 'taxa',
                                     :action => 'show',
-                                    :id => @taxon_concept.id,
-                                    :status => :moved_permanently)) if @taxon_concept.superceded_the_requested_id?
+                                    :id => taxon_concept.id,
+                                    :status => :moved_permanently)) if taxon_concept.superceded_the_requested_id?
 
+    @taxon_concept = TaxonConcept.core_relationships.find_by_id(taxon_concept.id)
     if params[:category_id]
       params[:category_id] = nil if !TocItem.find_by_id(params[:category_id].to_i)
       @languages = build_language_list if is_common_names?(params[:category_id].to_i)

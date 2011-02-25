@@ -9,6 +9,13 @@ describe 'Select with Preload Include' do
     @last_agent = Agent.last
     @dohe = DataObjectsHarvestEvent.last
     ContentPartner.gen(:agent => @last_agent)
+    Vetted::CACHE_ALL_ROWS = false
+    Language::CACHE_ALL_ROWS = false
+  end
+  
+  after :all do
+    Vetted::CACHE_ALL_ROWS = true
+    Language::CACHE_ALL_ROWS = true
   end
   
   it 'should be able to select .*' do
@@ -321,5 +328,25 @@ describe 'Select with Preload Include' do
     DataObject.last.vetted.taxon_concepts.last.hierarchy_entries.last.refs.last.ref_identifiers[0].ref_identifier_type_id?.should == true
   end
   
+  it 'should cache class instances' do
+    $CACHE.clear
+    Rank.delete(1)
+    Rank::CACHE_ALL_ROWS = false
+    Rank.gen(:id => 1)
+    r = Rank.find(1)
+    r.delete()
+    in_cache = Rank.find_by_id(1)
+    in_cache.should == nil
+    Rank.cached('instance_id_1'){ nil }.should == nil
+    
+    Rank.delete(1)
+    Rank::CACHE_ALL_ROWS = true
+    Rank.gen(:id => 1)
+    r = Rank.find(1)
+    r.delete()
+    in_cache = Rank.find_by_id(1)
+    in_cache.should == r
+    Rank.cached('instance_id_1'){ nil }.should == r
+  end
   
 end

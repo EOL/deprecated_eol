@@ -1,5 +1,5 @@
 class Visibility < SpeciesSchemaModel
-
+  CACHE_ALL_ROWS = true
   has_many :data_objects
 
   def self.all_ids

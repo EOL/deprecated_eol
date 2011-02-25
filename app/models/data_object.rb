@@ -44,6 +44,14 @@ class DataObject < SpeciesSchemaModel
   named_scope :visible, lambda { { :conditions => { :visibility_id => Visibility.visible.id } }}
   named_scope :preview, lambda { { :conditions => { :visibility_id => Visibility.preview.id } }}
   
+  define_core_relationships :select => {
+      :data_objects => '*',
+      :agents => [:full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url],
+      :names => :string,
+      :hierarchy_entries => :taxon_concept_id},
+    :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
+      {:hierarchy_entries => :name}]
+  
   def self.sort_by_rating(data_objects)
     data_objects.sort_by do |obj|
       toc_view_order = obj.info_items.blank? ? 0 : obj.info_items[0].toc_item.view_order

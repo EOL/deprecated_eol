@@ -39,6 +39,12 @@ class TaxonConcept < SpeciesSchemaModel
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
   attr_reader :has_media, :length_of_images
+  
+  define_core_relationships :select => {
+      :taxon_concepts => '*',
+      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id ],
+      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map ]},
+    :include => [{:hierarchy_entries => [{ :name => :canonical_form }, :rank, :hierarchies_content ] }]
 
   def show_curator_controls?(user = nil)
     return @show_curator_controls if !@show_curator_controls.nil?
@@ -269,7 +275,7 @@ class TaxonConcept < SpeciesSchemaModel
       if !he.source_url.blank?
         all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.source_url }
         used_hierarchies << he.hierarchy
-      elsif !he.hierarchy.outlink_uri.blank?
+      elsif he.hierarchy && !he.hierarchy.outlink_uri.blank?
         # if the hierarchy outlink_uri expects an ID
         if matches = he.hierarchy.outlink_uri.match(/%%ID%%/)
           # .. and the ID exists

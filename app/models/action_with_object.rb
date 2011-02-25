@@ -1,5 +1,5 @@
 class ActionWithObject < ActiveRecord::Base
-  
+  CACHE_ALL_ROWS = true
   has_many :actions_histories
   
   validates_presence_of   :action_code

@@ -32,7 +32,6 @@ class HierarchyEntry < SpeciesSchemaModel
       :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id ],
       :names => [ :string, :italicized ],
       :canonical_forms => :string,
-      :ranks => :label,
       :hierarchies_content => [ :content_level, :image, :text, :child_image ]},
     :include => [{ :name => :canonical_form }, :rank, :hierarchies_content ]
   

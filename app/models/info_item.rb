@@ -1,4 +1,5 @@
 class InfoItem < SpeciesSchemaModel
+  CACHE_ALL_ROWS = true
   belongs_to :toc_item, :foreign_key => :toc_id 
   has_many   :data_objects_info_items
   has_many   :data_objects, :through => :data_objects_info_items

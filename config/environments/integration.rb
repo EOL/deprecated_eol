@@ -22,7 +22,7 @@ $PARENT_CLASS_MUST_USE_MASTER = ActiveRecord::Base
 # every request.  This slows down response time but is perfect for 
 # development since you don't have to restart the webserver when you make 
 # code changes.
-config.cache_classes = false
+config.cache_classes = true
 
 # Log error messages when you accidentally call methods on nil.
 config.whiny_nils = false
@@ -43,7 +43,7 @@ config.log_level = :debug
 config.cache_store = :mem_cache_store
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActionController::Base.logger = Logger.new(STDOUT)
-ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
+# ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
 
 # set to false turn off notification of exceptions via email 
 $EXCEPTION_NOTIFY=false

@@ -1,6 +1,5 @@
 class TocItem < SpeciesSchemaModel
-
-  
+  CACHE_ALL_ROWS = true
   set_table_name 'table_of_contents'
   acts_as_tree :order => 'view_order'
   

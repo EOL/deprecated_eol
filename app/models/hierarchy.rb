@@ -11,7 +11,7 @@
 #      ]
 #
 class Hierarchy < SpeciesSchemaModel
-
+  CACHE_ALL_ROWS = true
   belongs_to :agent           # This is the attribution.
   has_and_belongs_to_many :collection_types
 
@@ -67,19 +67,25 @@ class Hierarchy < SpeciesSchemaModel
   end
   
   def kingdoms(params = {})
-    add_include = []
-    add_select = {}
-    if params[:include_stats]
-      add_include << :hierarchy_entry_stat
-      add_select[:hierarchy_entry_stats] = '*'
+    Hierarchy.cached("kingdoms_for_#{id}") do
+      add_include = []
+      add_select = {}
+      if params[:include_stats]
+        add_include << :hierarchy_entry_stat
+        add_select[:hierarchy_entry_stats] = '*'
+      end
+      if params[:include_common_names]
+        add_include << {:taxon_concept => {:preferred_common_names => :name}}
+        add_select[:taxon_concept_names] = :language_id
+      end
+
+      vis = [Visibility.visible.id, Visibility.preview.id]
+      k = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
+      if params[:include_common_names]
+        HierarchyEntry.sort_by_common_name(k, params[:common_name_language])
+      else
+        HierarchyEntry.sort_by_name(k)
+      end
     end
-    if params[:include_common_names]
-      add_include << {:taxon_concept => {:preferred_common_names => :name}}
-      add_select[:taxon_concept_names] = :language_id
-    end
-    
-    vis = [Visibility.visible.id, Visibility.preview.id]
-    k = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_hierarchy_id_and_parent_id_and_visibility_id(id, 0, vis)
-    HierarchyEntry.sort_by_name(k)
   end
 end

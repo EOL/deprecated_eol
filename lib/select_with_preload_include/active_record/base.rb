@@ -13,7 +13,26 @@ module ActiveRecord
           if include_associations.any? && references_eager_loaded_tables?(options)
             records = find_with_associations(options)
           else
-            records = find_by_sql(construct_finder_sql(options))
+            # EOL: adding an ability to cache all rows of a class when looking up by ID
+            records = nil
+            if defined?(self::CACHE_ALL_ROWS) && self::CACHE_ALL_ROWS && primary_key.class == String
+              sql = construct_finder_sql(options).strip
+              if m = sql.match(/SELECT .*? FROM #{quoted_table_name} WHERE (.*)( *LIMIT ([0-9]+))?$/)
+                where_clause = m[1].strip
+                limit = m[3].nil? ? nil : m[3].to_i
+                if m = where_clause.match(/\(#{quoted_table_name}\.`#{primary_key}` = ([0-9]+)\)/)
+                  lookup_ids = [m[1].to_i]
+                elsif m = where_clause.match(/\(#{quoted_table_name}\.`#{primary_key}` IN \(([0-9]+(,[0-9]+)*)\)\)/)
+                  lookup_ids = m[1].split(',').collect{ |i| i.to_i }
+                elsif m = where_clause.scan(/\(#{quoted_table_name}.`#{primary_key}` = ([0-9]+)\)( OR|$)/)
+                  lookup_ids = m.collect{ |i| i[0].to_i } unless m.empty?
+                end
+                if lookup_ids
+                  records = lookup_ids_from_cache(lookup_ids)
+                end
+              end
+            end
+            records ||= find_by_sql(construct_finder_sql(options))
             if include_associations.any?
               # EOL: the only change in this method is to send along the select option
               preload_associations(records, include_associations, {:select => options[:select]})
@@ -24,6 +43,24 @@ module ActiveRecord
           
           records
         end
+        
+        def lookup_ids_from_cache(ids)
+          chache_all_class_instances
+          ids.collect{ |id| cached("instance_id_#{id}"){ nil } }.compact
+        end
+        
+        def chache_all_class_instances
+          cached('instances_cached') do
+            all_instances = find(:all)
+            all_instances.each do |obj|
+              cached("instance_id_#{obj.id}") do
+                obj
+              end
+            end
+            true
+          end
+        end
+        
         
         def construct_finder_sql(options)
           scope = scope(:find)

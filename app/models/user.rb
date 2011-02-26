@@ -19,6 +19,8 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   has_many :comments
   has_many :last_curated_dates
   has_many :actions_histories
+  has_many :actions_histories_on_data_objects, :class_name => ActionsHistory.to_s,
+             :conditions => "actions_histories.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}"
   has_many :users_data_objects
   has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
@@ -129,7 +131,7 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
       FROM users u
         JOIN #{ActivityLog.full_table_name} al ON u.id = al.user_id
       ORDER BY u.family_name, u.given_name"
-    
+
     User.with_master do
       User.find_by_sql([sql])
     end
@@ -268,21 +270,10 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
   end
 
   # TODO - test
-  def data_objects_curated
-    hashes = connection.execute("
-      SELECT ah.object_id data_object_id, awo.action_code, ah.updated_at action_time
-      FROM actions_histories ah
-        JOIN action_with_objects awo ON (ah.action_with_object_id = awo.id)
-      WHERE ah.user_id=#{id}
-        AND ah.changeable_object_type_id=#{ChangeableObjectType.data_object.id}
-        AND awo.action_code!='rate'
-      GROUP BY data_object_id
-      ORDER BY action_time DESC").all_hashes.uniq
-  end
-
-  # TODO - test
-  def total_objects_curated
-    data_objects_curated.length
+  def total_data_objects_curated
+      return actions_histories_on_data_objects.count(
+              :conditions => "action_with_object_id IN (#{ActionWithObject.raw_curator_action_ids.join(",")})",
+              :group => 'actions_histories.object_id').count
   end
 
   # TODO - test
@@ -671,21 +662,21 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     hierarchy_entry_id = options[:hierarchy_entry_id] || curator_hierarchy_entry_id
     hierarchy_entry = HierarchyEntry.find(hierarchy_entry_id)
     data_type_clause = options[:data_type_id].nil? ? '' : " AND do.data_type_id = #{options[:data_type_id]}"
-    
-    data_object_ids = DataObjectsHierarchyEntry.find_by_sql("SELECT dohe.data_object_id 
+
+    data_object_ids = DataObjectsHierarchyEntry.find_by_sql("SELECT dohe.data_object_id
         FROM #{DataObject.full_table_name} do
           JOIN #{UserIgnoredDataObject.full_table_name} uido ON (do.id=uido.data_object_id)
           JOIN #{DataObjectsHierarchyEntry.full_table_name} dohe ON (uido.data_object_id=dohe.data_object_id)
           JOIN #{HierarchyEntry.full_table_name} he on (dohe.hierarchy_entry_id = he.id)
           JOIN #{HierarchyEntry.full_table_name} he1 on (he.taxon_concept_id = he1.taxon_concept_id)
-        WHERE uido.user_id = #{self.id} 
-          AND he1.lft between #{hierarchy_entry.lft} and #{hierarchy_entry.rgt} 
+        WHERE uido.user_id = #{self.id}
+          AND he1.lft between #{hierarchy_entry.lft} and #{hierarchy_entry.rgt}
           #{data_type_clause}
           AND he1.hierarchy_id = #{hierarchy_entry.hierarchy_id}
           GROUP BY do.guid
           ORDER BY do.created_at DESC");
     return [] if data_object_ids.empty?
-    
+
     data_object_ids_to_lookup = data_object_ids.collect{|d| d.data_object_id}
     result = DataObject.details_for_objects(data_object_ids_to_lookup, :skip_refs => true, :add_common_names => true, :add_comments => true, :sort => 'id desc')
     return result

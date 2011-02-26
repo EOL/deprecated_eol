@@ -5,17 +5,17 @@
         %p
           Objects Curated
       %td
-        \&nbsp;&nbsp;&nbsp;Curator: 
+        \&nbsp;&nbsp;&nbsp;Curator:
         = h @user.given_name
-        = h @user.family_name 
-        \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+        = h @user.family_name
+        \&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         = link_to 'Back to profile',{:controller=>'/account', :action=>:show, :id => @user.id}
 
-- if @data_objects.nil? == false && @data_objects.size > 0
-  = will_paginate @data_objects
-  %table.results_table
-    %thead{ :align => "center" }
-      %tr{ :align => "center" }
+- unless @latest_curator_actions.nil? || @latest_curator_actions.blank?
+  = will_paginate @latest_curator_actions
+  %table#show_objects_curated.results_table
+    %thead
+      %tr
         %th
           TOC
         %th
@@ -29,45 +29,30 @@
         %th
           Description
     %tbody
-    - count = 0
-    - @data_objects.each do |data_object|
-      - row_class = cycle('odd','even')
-      - count += 1
-      - details = DataObject.details_for_objects([data_object['data_object_id'].to_i], :visible => false)[0]
-      %tr{ :valign => "top" }
-        %td{ :class => row_class }
-          = details['toc_label']
-        %td{ :class => row_class }
-          = data_object['action_code']
-          = h format_date_time(data_object['action_time'],:format=>'short_no_tz')
-        %td{ :class => row_class }
-          %i
-            - if details['taxon_concept_id'].blank?
-              - if udo = UsersDataObject.find_by_data_object_id(data_object['data_object_id'].to_i)
-                = link_to udo.taxon_concept.entry.italicized_name,{:controller=>'/taxa', :action=>:show, :id => udo.taxon_concept_id}
-              - else
-                Page not accessible
-            -else 
-              = link_to details['scientific_name'],{:controller=>'/taxa', :action=>:show, :id => details['taxon_concept_id']}
-          - if(!details['published']) then 
-            = "*"
-        %td{ :class => row_class }
-          = details['vetted_label']
-        %td{ :class => row_class }
-          = details['visibility_label']
-        %td{ :class => row_class }
-          - if !details['object_cache_url'].blank?
-            - url = DataObject.image_cache_path(details['object_cache_url'], :small)
-            - src = "<img src=" + url + ">"
-            - unless details['taxon_concept_id'].blank?
-              = link_to src,{:controller=>'/taxa', :action=>:show, :id => details['taxon_concept_id'],  :image_id => data_object['data_object_id']} 
-              = link_to "Permalink", { :controller=>'/data_objects', :action=>:show, :id => data_object['data_object_id'] } 
-            %br
-          - elsif !details['taxon_concept_id'].blank?
-            = link_to "Permalink",{:controller=>'/taxa', :action=>:show, :id => details['taxon_concept_id'],  :text_id => data_object['data_object_id']}
-            %br
-          = details['description']
-  %tr
-    %td{ :colspan => "5" }
-      = will_paginate @data_objects
-
+      - @latest_curator_actions.each do |ah|
+        - dato = @curated_datos.find{|items| items.id == ah[:object_id]}
+        - row_class = cycle('odd','even')
+        %tr
+          %td{ :class => row_class }
+            - unless dato.toc_items.nil? || dato.toc_items.blank?
+              = dato.toc_items[0][:label]
+          %td{ :class => row_class }
+            = ah.action_with_object.action_code.capitalize
+            = h format_date_time(ah.updated_at, :format => :short_no_tz)
+          %td{ :class => row_class }
+            - unless dato[:_preferred_taxon_concept_id].nil?
+              = link_to dato[:_preferred_name_italicized], {:controller => '/taxa', :action => :show, :id => dato[:_preferred_taxon_concept_id]}
+            - else
+              = dato[:_preferred_name_italicized]
+          %td{ :class => row_class }
+            = dato.vetted.label
+          %td{ :class => row_class }
+            = dato.visibility.label
+          %td{ :class => row_class + ' description' }
+            - unless dato.object_cache_url.blank?
+              - url = DataObject.image_cache_path(dato.object_cache_url, :small)
+              - img = '<img src="' + url + '">'
+              = link_to img, { :controller => '/data_objects', :action => :show, :id => ah[:object_id] }
+            = dato[:_description_teaser]
+            = link_to "Permalink", { :controller => '/data_objects', :action => :show, :id => ah[:object_id] }
+  = will_paginate @latest_curator_actions

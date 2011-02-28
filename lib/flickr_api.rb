@@ -54,7 +54,15 @@ class FlickrApi
     return nil unless text
     params = {:photo_id => photo_id, :comment_text => text, :secret => s, :auth_token => t}
     url = generate_rest_url("flickr.photos.comments.addComment", params)
-    JSON.parse(Net::HTTP.get(URI.parse(url)))
+    rsp = JSON.parse(Net::HTTP.get(URI.parse(url)))
+    sleep(5)
+    # the first request failed. Seems to happen if the requests are too frequent, but we're not getting good error messages
+    if(rsp['stat'] == 'fail')  # try once more
+      sleep(5)  # wait an additional 5 seconds first
+      rsp = JSON.parse(Net::HTTP.get(URI.parse(url)))
+      sleep(5)
+    end
+    rsp
   end
   
   def photos_comments_get_list(photo_id, min_date=nil, max_date=nil, s=@secret, t=@auth_token)

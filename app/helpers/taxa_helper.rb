@@ -207,7 +207,16 @@ module TaxaHelper
     hierarchy.collection_types.each do |collection_type|
       links << collection_type.materialized_path_labels
     end
-    links.empty? ? hierarchy.label : links.join(', ')
+    partner_label = hierarchy_or_resource_name(hierarchy)
+    links.empty? ? partner_label : links.join(', ')
+  end
+
+  def hierarchy_or_resource_name(hierarchy)
+    if(hierarchy.resource)
+      partner_label = hierarchy.resource.title
+    else
+      partner_label = hierarchy.label
+    end
   end
 
   # TODO - move this to CommonNameDisplay

@@ -266,7 +266,7 @@ class TaxonConcept < SpeciesSchemaModel
   def outlinks
     all_outlinks = []
     used_hierarchies = []
-    entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id, :include => :hierarchy)
+    entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id, :include => {:hierarchy => :resource})
     entries_for_this_concept.each do |he|
       next if used_hierarchies.include?(he.hierarchy)
       next if he.published != 1 && he.visibility_id != Visibility.visible.id

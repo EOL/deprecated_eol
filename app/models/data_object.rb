@@ -351,31 +351,28 @@ class DataObject < SpeciesSchemaModel
     return subtitle
   end
 
-  def rate(user,stars)
-    rating = UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, user.id)
-    if rating.nil?
-      rating = UsersDataObjectsRating.new({:data_object_guid => guid, :user_id => user.id, :rating => stars})
-    else
-      rating.rating = stars
-    end
-    rating.save!
+  def rate(user, new_rating)
+    existing_ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
+    users_current_ratings = existing_ratings.select{ |r| r.user_id == user.id }
 
-    total = 0
-    ratings = UsersDataObjectsRating.find_all_by_data_object_guid(guid)
-    ratings.each do |rating|
-      total += rating.rating
+    # user has never rated this object
+    if users_current_ratings.blank?
+      UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id, :rating => new_rating)
+    elsif users_current_ratings[0].rating != new_rating
+      # update existing rating with new value
+      users_current_ratings[0].rating = new_rating
+      users_current_ratings[0].save!
     end
-
-    divisor = ratings.length
-    if divisor == 0
-      self.data_rating = total
-    else
-      self.data_rating = total / ratings.length
-    end
-
+    
+    # collecting all ratings NOT from this user
+    all_rating_scores = existing_ratings.collect{ |r| (r.user_id==user.id) ? nil : r.rating }.compact
+    all_rating_scores << new_rating
+    
+    # not the to_f to get a float value, not an integer
+    self.data_rating = all_rating_scores.inject{ |sum, score| sum + score }.to_f / all_rating_scores.size
     self.save!
   end
-
+  
   def rating_for_user(user)
     UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, user.id)
   end

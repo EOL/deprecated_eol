@@ -19,6 +19,8 @@ class Hierarchy < SpeciesSchemaModel
   named_scope :browsable, :conditions => {:browsable => 1}
 
   has_many :hierarchy_entries
+  has_one :resource
+
   alias entries hierarchy_entries
   
   def self.browsable_by_label

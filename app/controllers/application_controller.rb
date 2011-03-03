@@ -332,8 +332,11 @@ class ApplicationController < ActionController::Base
     user = current_user
     user = User.find(user.id) if user.frozen? # Since we're modifying it, we can't use the one from memcached.
     yield(user)
-    user.save! if logged_in?
-    $CACHE.delete("users/#{session[:user_id]}")
+    if logged_in?
+      user.save!
+    else
+      $CACHE.delete("users/#{session[:user_id]}")
+    end
     set_current_user(user)
   end
 

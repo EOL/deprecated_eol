@@ -15,32 +15,21 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the Author
   def self.author
-    cached_find(:label, 'Author')
+    $LOCAL_CACHE.agent_role_author ||= cached_find(:label, 'Author')
   end
   
   # Find the Source
   def self.source
-    cached_find(:label, 'Source')
-  end
-  
-  # Find the "Source" AgentRole.
-  def self.source_id
-    AgentRole.source.id
+    $LOCAL_CACHE.agent_role_source ||= cached_find(:label, 'Source')
   end
   
   # Find the "contributor" AgentRole.
-  def self.contributor_id
-    cached_find(:label, 'Contributor').id
-  end
-  
-  # Find the "Author" AgentRole.
-  def self.author_id
-    AgentRole.author.id
+  def self.contributor
+    $LOCAL_CACHE.agent_role_contributor ||= cached_find(:label, 'Contributor')
   end
   
   # Find the "Photographer" AgentRole.
-  def self.photographer_id
-    cached_find(:label, 'Photographer').id
+  def self.photographer
+    $LOCAL_CACHE.agent_role_photographer ||= cached_find(:label, 'Contributor')
   end
-    
 end

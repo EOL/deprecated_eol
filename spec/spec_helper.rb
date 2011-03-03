@@ -47,6 +47,7 @@ Spec::Runner.configure do |config|
   # active connections (works for ALL of our databases)
   config.before(:each) do
     $CACHE.clear
+    $LOCAL_CACHE = OpenStruct.new
     SpeciesSchemaModel.connection.execute("START TRANSACTION #SpeciesSchemaModel")
     SpeciesSchemaModel.connection.increment_open_transactions
   end

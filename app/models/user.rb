@@ -514,13 +514,6 @@ class User < $PARENT_CLASS_MUST_USE_MASTER
     end
   end
 
-  alias :ar_to_xml :to_xml
-  def to_xml(options = {})
-    default_only   = [:id, :credentials, :username] # TODO - should we add Given / Family names? I'm not sure, privacy an issue
-    options[:only] = (options[:only] ? options[:only] + default_only : default_only)
-    ar_to_xml(options)
-  end
-
   def tags_are_public_for_data_object?(data_object)
     return can_curate?(data_object)
   end

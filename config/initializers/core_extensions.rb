@@ -1,4 +1,5 @@
 $CACHE ||= Rails.cache
+$LOCAL_CACHE ||= OpenStruct.new
 
 class String
 

@@ -8,13 +8,14 @@ describe 'Feeds' do
 
   describe 'Curator Feeds' do
     before(:all) do
+      truncate_all_tables
       load_foundation_cache
       Capybara.reset_sessions!
       DataObject.delete_all
       Comment.delete_all
       @tc = build_taxon_concept()
-      @text = @tc.data_objects.delete_if{|d| d.data_type_id != DataType.text.id}
-      @images = @tc.data_objects.delete_if{|d| d.data_type_id != DataType.image.id}
+      @text = @tc.data_objects.select{|d| d.data_type_id == DataType.text.id}
+      @images = @tc.data_objects.select{|d| d.data_type_id == DataType.image.id}
       @feeds = ["/feeds/text/", "/feeds/images/", "/feeds/comments/", "/feeds/all/"]
     end
 

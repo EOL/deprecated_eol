@@ -60,26 +60,10 @@ module ApplicationHelper
     end
     result
   end
-
-  #this only applies to text attributions for now
-  #author, source, copyright, and data supplier should be shown
-  def has_hidden_attributions?(data_object)
-    return false if !data_object.text?
-    unless data_object['attributions'].nil?
-      data_object['attributions'].each do |attribution|
-        #TODO: so.... copyright and datasource don't exist in the db. which foces me to do string compares, seems like a kudge 
-        if attribution.agent_role.to_s!='Author' && attribution.agent_role.to_s!='Source' && attribution.agent_role.to_s!='Copyright' && attribution.agent_role.to_s!='Supplier' && attribution.agent_role.to_s!='Indexed'
-          return true
-        end
-      end
-    end
-    false
-  end
-    
+  
   def external_link_icon
     image_tag('external_link.png',{:alt => 'external link', :title => 'external link'})
   end
-
 
   def taxon_concept_comments_path(taxon_concept)
     return "/taxon_concepts/#{taxon_concept.id}/comments/"
@@ -112,16 +96,6 @@ module ApplicationHelper
     # Make sure stylesheets are cached by language if we're caching
     options.merge!(:cache => "all-#{current_language}") if options[:cache]
     stylesheet_link_tag(*[stylesheet, options])
-  end
-
-  # show a description of the data quality in the 'title' tag of the data quality icons
-  def data_quality_description(data_quality)
-    case data_quality.downcase
-      when 'bronze' then 'This content has not been scientifically vetted for accuracy.'[]
-      when 'silver' then 'This content has been vetted but is not from a known trusted source.'[]
-      when 'gold'   then 'This content has been scientifically vetted and is from a known trusted source.'[]
-      else               ''
-    end
   end
 
   # Version of error_messages_for that displays translated error messages
@@ -198,32 +172,6 @@ module ApplicationHelper
       URI.decode(back_url)
     end
   end
-
-  #TODO: wow... this method should be cleaned up
-  def medium_thumb_partial(taxon, image_id_name = '', new_window = false)
-    return_html = ''
-    unless taxon.nil? or taxon.smart_medium_thumb.nil? or taxon.name.nil? 
-      name = sanitize(strip_tags(taxon.name(current_user.expertise)))
-      return_html = %Q{<a}
-      return_html+= %Q{ target=\"_blank\" } if new_window
-      return_html+= %Q{ id="#{image_id_name}_href"}       unless image_id_name == ''           
-      return_html+= %Q{ href="/pages/#{taxon.respond_to?(:taxon_concept_id) ? taxon.taxon_concept_id : taxon.id}"><img}
-      return_html+= %Q{ id="#{image_id_name}"}            unless image_id_name == ''
-      return_html+= %Q{ src="#{taxon.smart_medium_thumb}" alt="#{name}"}
-      return_html+= %Q{ title="#{name}"/></a>}
-    end
-    if !taxon.nil? && taxon.smart_medium_thumb.nil? && !taxon.name.nil?
-      name = sanitize(strip_tags(taxon.name(current_user.expertise)))
-      return_html = %Q{<a}
-      return_html+= %Q{ target=\"_blank\" } if new_window
-      return_html+= %Q{ id="#{image_id_name}_href"}       unless image_id_name == ''
-      return_html+= %Q{ href="/pages/#{taxon.respond_to?(:taxon_concept_id) ? taxon.taxon_concept_id : taxon.id}"><img}
-      return_html+= %Q{ id="#{image_id_name}"}            unless image_id_name == ''
-      return_html+= %Q{ src="/images/eol_logo_gray.gif" alt="#{name}"}
-      return_html+= %Q{ title="#{name}"/></a>}
-    end
-    return return_html
-  end
   
   def random_image_thumb_partial(random_image, image_id_name = '', new_window = false)
     return_html=""
@@ -251,32 +199,6 @@ module ApplicationHelper
       haml_tag :img, {:width => params[:width], :height => params[:height], 
                       :src => src,  :border => 0, :alt => project_name, 
                       :title => project_name, :class => "agent_logo"}
-    end
-  end
-  
-  # TODO - this duplicates the above method in order to accomodate a "hash" version of agent.  We should generalize.  Also
-  # note this doesn't use Haml.  :|
-  def agent_logo_hash(agent, size = "large", params={})
-    src = (agent['logo_cache_url'] != 0) ? Agent.logo_url_from_cache_url(agent['logo_cache_url'], size) : agent['logo_file_name']
-    return src if src.empty?
-    logo_str = "<img "
-    logo_str += "width='#{params[:width]}'" unless params[:width].nil?
-    logo_str += "height='#{params[:height]}'" unless params[:height].nil?
-    logo_str += "src=\"#{ src }\" border=\"0\" alt=\"#{sanitize(agent['full_name'])}\" title=\"#{sanitize(agent['full_name'])}\" class=\"agent-logo\" />"
-    return logo_str
-  end
-  
-  
-  def collection_logo(collection, size = "large", params={})
-    src = ''
-    src = collection.logo_url(size) if !collection.logo_cache_url.nil? && collection.logo_cache_url != 0
-    return src if src.empty?
-    collection_title = hh(sanitize(collection.title))
-    # TODO - make sure this works well with params[:width] nil and height nil...
-    capture_haml do
-      haml_tag :img, {:width => params[:width], :height => params[:height],
-                      :src => src, :border => 0, :alt => collection_title, 
-                      :title => collection_title, :class => "agent-logo"}
     end
   end
 
@@ -308,20 +230,6 @@ module ApplicationHelper
       args[0] += " #{external_link_icon}"
     end
     link_to(args[0],args[1],html_options, &block)
-  end
-
-  def linked_name(taxon, link_name_string = '', new_window = false)
-    return_html=""
-    unless taxon.nil?
-      scientific_name = taxon.quick_scientific_name(:italicized)
-      common_name = taxon.quick_common_name(current_user.language)
-      return_html = %Q{<a }
-      return_html+= %Q{ target="_blank" } if new_window
-      # return_html+= %Q{ id="#{h(scientific_name)}" }  unless link_name_string.empty? very strange id and was broken so I commented it out
-      return_html+= %Q{ href="/pages/#{taxon.respond_to?(:taxon_concept_id) ? taxon.taxon_concept_id : taxon.id}">#{sanitize(scientific_name)}</a><br />}
-      return_html+= %Q{#{sanitize(common_name)}} unless common_name.empty?
-    end
-    return return_html
   end
   
   def random_image_linked_name(random_image, new_window = false)

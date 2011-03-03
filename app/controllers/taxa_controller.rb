@@ -206,7 +206,7 @@ class TaxaController < ApplicationController
       return
     end
 
-    @taxon_concept = TaxonConcept.find(params[:id]) 
+    @taxon_concept = TaxonConcept.core_relationships(:only => [{:data_objects => :toc_items}, { :users_data_objects => { :data_object => :toc_items } }]).find(params[:id]) 
     @category_id   = params[:category_id].to_i
 
     @taxon_concept.current_agent = current_agent unless current_agent.nil?

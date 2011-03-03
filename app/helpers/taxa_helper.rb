@@ -18,118 +18,101 @@ module TaxaHelper
       else nil
     end
   end
-    
-  def agent_partial(original_agents, params={})
-    return '' if original_agents.nil? or original_agents.blank? or original_agents.class == String
+  
+  def citables_to_string(citables, params={})
+    return '' if citables.nil? or citables.blank? or citables.class == String
     params[:linked] = true if params[:linked].nil?
     params[:only_first] ||= false
     params[:show_link_icon] = true if params[:show_link_icon].nil?
-    agents = original_agents.clone # so we can be destructive.
-    agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
-    agents = [agents[0]] if params[:only_first]
-    agent_list = agents.collect do |agent|
-      link_to_url = if agent.user
-        url_for :controller => :account, :action => :show, :id => agent.user.id, :popup => true
+    citable_entities = citables.clone # so we can be destructive.
+    citable_entities = [citable_entities] unless citable_entities.class == Array # Allows us to pass in a single agent, if needed.
+    citable_entities = [citable_entities[0]] if params[:only_first]
+    display_strings = citable_entities.collect do |citable|
+      if citable.user
+        link_to_url = url_for :controller => :account, :action => :show, :id => citable.user.id, :popup => true
       else
-        params[:url] || agent.homepage
+        link_to_url = params[:url] || citable.link_to_url
       end
-      params[:linked] ? external_link_to(allow_some_html(agent.full_name),
+      params[:linked] ? external_link_to(allow_some_html(citable.display_string),
                                          link_to_url,
                                          {:show_link_icon => params[:show_link_icon]}) :
-                        allow_some_html(agent.full_name)
+                        allow_some_html(citable.display_string)
     end
-    agent_list = agent_list.join(', ')
-    agent_list += ', et al.' if params[:only_first] and original_agents.length > 1
-    return agent_list
+    final_string = display_strings.join(', ')
+    final_string += ', et al.' if params[:only_first] && citables.length > 1
+    return final_string
   end
   
-  def agent_partial_hash(original_agents, params={})
-    return '' if original_agents.nil? or original_agents.blank? or original_agents.class == String
-    params[:linked] = true if params[:linked].nil?
-    params[:only_first] ||= false
-    params[:show_link_icon] = true if params[:show_link_icon].nil?
-    show_icon = params[:show_icon] || false
-    agents = original_agents.clone # so we can be destructive.
-    agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
-    agents = [agents[0]] if params[:only_first]
-    agent_list = agents.collect do |agent|
-      link_to_url = params[:url] || agent['homepage']
-      name_link = params[:linked] ? external_link_to(allow_some_html(agent['full_name']),
-                                         link_to_url,
-                                         {:show_link_icon => params[:show_link_icon]}) :
-                        allow_some_html(agent['full_name'])
-      icon_link = ""
-      if params[:show_icon]
-        icon_link = params[:linked] ? external_link_to(agent_logo_hash(agent, 'small'),
-                                         link_to_url,
-                                         {:show_link_icon => params[:show_link_icon]}) :
-                        agent_logo_hash(agent, 'small')
-      end
-      (name_link + " " + icon_link).strip
-    end
-    agent_list = agent_list.join(', ')
-    agent_list += ', et al.' if params[:only_first] and original_agents.length > 1
-    return agent_list
-  end
-
-  def agent_icons_partial(original_agents,params={})
-    return '' if original_agents.nil? or original_agents.blank? or original_agents.class == String
+  def citables_to_icons(original_citables, params={})
+    return '' if original_citables.nil? or original_citables.blank? or original_citables.class == String
     params[:linked] = true if params[:linked].nil?
     params[:show_text_if_no_icon] ||= false
     params[:only_show_col_icon] ||= false
     params[:normal_icon] ||= false
     params[:separator] ||= "&nbsp;"
     params[:last_separator] ||= params[:separator]
-    params[:taxon] ||= false
+    params[:taxon_concept] ||= false
     
     is_default_col = false
-    if(params[:taxon] != false && @session_hierarchy == Hierarchy.default && !params[:taxon].col_entry.nil?)
+    if(params[:taxon_concept] && @session_hierarchy == Hierarchy.default && params[:taxon_concept].col_entry)
       is_default_col = true
     end
     
-    agents = original_agents.clone # so we can be destructive.
-    agents = [agents] unless agents.class == Array # Allows us to pass in a single agent, if needed.
+    citables = original_citables.clone # so we can be destructive.
+    citables = [citables] unless citables.class == Array # Allows us to pass in a single agent, if needed.
     
     output_html = []
     
-    agents.each do |agent|
+    citables.each do |citable|
       url = ''
-      url = agent.homepage.strip unless agent.homepage.blank?
+      url = citable.link_to_url.strip unless citable.link_to_url.blank?
       # if the agent is has an outlink for this taxon...
-      if params[:taxon]
-        hierarchy_entries = HierarchyEntry.find_by_sql("SELECT he.* FROM hierarchies h JOIN hierarchy_entries he ON (h.id=he.hierarchy_id) WHERE h.agent_id=#{agent.id} AND he.taxon_concept_id=#{params[:taxon].id} AND he.published=1 ORDER BY id DESC LIMIT 1")
-        if !hierarchy_entries.empty? && outlink = hierarchy_entries[0].outlink
+      if params[:taxon_concept]
+        agent_entry = params[:taxon_concept].entry_for_agent(citable.agent_id)
+        if agent_entry && outlink = agent_entry.outlink
           url = outlink[:outlink_url]
         end
       end
       
-      logo_size = (agent == Agent.catalogue_of_life ? "large" : "small") # CoL gets their logo big     
-      if agent.logo_cache_url.blank? 
+      logo_size = (citable.agent_id == Agent.catalogue_of_life.id ? "large" : "small") # CoL gets their logo big     
+      if citable.logo_cache_url.blank? && citable.logo_path.blank?
         params[:url] = url
-        output_html << agent_partial(agent, params) if params[:show_text_if_no_icon] 
+        output_html << citables_to_string(citable) if params[:show_text_if_no_icon] 
       else
         if params[:only_show_col_icon] && !is_default_col # if we are only asked to show the logo if it's COL and the current agent is *not* COL, then show text
           params[:url] = url
-          output_html << agent_partial(agent,params)
+          output_html << citables_to_string(citable, params)
         else
           if params[:linked] and not url.blank?
-            text = agent_logo(agent,logo_size,params)
-            output_html << external_link_to(text,url,{:show_link_icon => false})
+            text = citable_logo(citable, logo_size, params)
+            output_html << external_link_to(text, url, {:show_link_icon => false})
           else
-            output_html << agent_logo(agent,logo_size,params)
+            output_html << citable_logo(agent, logo_size, params)
           end
         end
       end
-      
     end
-    
     if output_html.size > 1 && params[:last_separator] != params[:separator]
       # stich the last two elements together with the "last separator" column before joining if there is more than 1 element and the last separator is different
       output_html[output_html.size-2] = output_html[output_html.size-2] + params[:last_separator] + output_html.pop
 		end
-
     return output_html.compact.join(params[:separator]) 
-
+  end
+  
+  def citable_logo(citable, size = "large", params={})
+    src = nil
+    if !citable.logo_cache_url.blank?
+      src = Agent.logo_url_from_cache_url(citable.logo_cache_url, size)
+    elsif !citable.logo_path.blank?
+      src = citable.logo_path
+    end
+    return src if src.blank?
+    project_name = hh(sanitize(citable.display_string))
+    capture_haml do
+      haml_tag :img, {:width => params[:width], :height => params[:height], 
+                      :src => src,  :border => 0, :alt => project_name, 
+                      :title => project_name, :class => "agent_logo"}
+    end
   end
     
   def we_have_css_for_kingdom?(kingdom)
@@ -151,36 +134,36 @@ module TaxaHelper
   # TODO - this would be useless if we put all these things into a view and show/hide the div.  Which we should:
   def video_hash(video, taxon_concept_id='')
     if taxon_concept_id.blank? # grab the first taxon concept ID from the video object if we didn't just pass it in
-      taxon_concepts=video.taxa_names_taxon_concept_ids
-      taxon_concept_id = taxon_concepts[0][:taxon_concept_id] unless taxon_concepts.blank?
+      taxon_concept_ids = video.published_entries.collect{ |he| he.taxon_concept_id }
+      taxon_concept_id = taxon_concept_ids[0] unless taxon_concept_ids.blank?
     end
     data_supplier = video.data_supplier_agent
     data_supplier_name = data_supplier ? data_supplier.full_name : ''
     data_supplier_url = data_supplier ? data_supplier.homepage : ''
-    data_supplier_icon = data_supplier ? agent_icons_partial(data_supplier) : ''
+    data_supplier_icon = data_supplier ? citables_to_icons(video.citable_data_supplier) : ''
 
     trust = ''
     trust = 'unknown' if video.unknown?
     trust = 'untrusted' if video.untrusted?
     
-    return "{author: '"               + escape_javascript(agent_partial(video.authors)) +
-           "', nameString: '"         + escape_javascript(video.taxa_names_ids[0]['taxon_name']) +
-           "', collection: '"         + escape_javascript(agent_partial(video.sources)) +
+    return "{author: '"               + escape_javascript(citables_to_string(video.authors)) +
+           "', nameString: '"         + escape_javascript(video.first_concept_name.to_s) +
+           "', collection: '"         + escape_javascript(citables_to_string(video.sources)) +
            "', location: '"           + escape_javascript(video.location || '') +
            "', info_url: '"           + escape_javascript(video.source_url || '') +
            "', field_notes: '"        + escape_javascript(video.description || '') +
-           "', license_text: '"       + escape_javascript(video.license_text || '') +
-           "', license_logo: '"       + escape_javascript(video.license_logo || '') +
-           "', license_link: '"       + escape_javascript(video.license_url || '') +
+           "', license_text: '"       + escape_javascript(video.license.description || '') +
+           "', license_logo: '"       + escape_javascript(video.license.logo_url || '') +
+           "', license_link: '"       + escape_javascript(video.license.source_url || '') +
            "', title:'"               + escape_javascript(video.object_title) +
-           "', video_type:'"          + escape_javascript(video.media_type) +
+           "', video_type:'"          + escape_javascript(video.data_type.label) +
            "', video_trusted:'"       + escape_javascript(video.vetted_id.to_s) +
            "', trust:'"               + escape_javascript(trust) +
            "', video_data_supplier:'" + escape_javascript(data_supplier.to_s) +
            "', video_supplier_name:'" + escape_javascript(data_supplier_name.to_s) +
            "', video_supplier_url:'"  + escape_javascript(data_supplier_url.to_s) +
            "', video_supplier_icon:'" + escape_javascript(data_supplier_icon.to_s) +
-           "', video_url:'"           + escape_javascript("#{video.video_url}" || video.object_url || '') +
+           "', video_url:'"           + escape_javascript(video.video_url.to_s || video.object_url || '') +
            "', data_object_id:'"      + escape_javascript(video.id.to_s) +
            "', mime_type_id:'"        + escape_javascript(video.mime_type_id.to_s) +
            "', object_cache_url:'"    + escape_javascript(video.object_cache_url.to_s) +
@@ -254,17 +237,6 @@ private
     lparams["page"] = link_page
     lparams.delete("action")
     "/search/?#{lparams.to_query}"
-  end
-  
-  def show_next_image_page_button
-    if params[:image_page].blank?
-      show_next_image_page_button = @taxon_concept.more_images 
-    else
-      image_page = (params[:image_page] ||= 1).to_i
-      start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)
-      last        = start + $MAX_IMAGES_PER_PAGE - 1
-      show_next_image_page_button = (@taxon_concept.images.length > (last + 1))
-    end
   end
 
   # TODO - move this to CommonNameDisplay

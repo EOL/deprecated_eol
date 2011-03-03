@@ -34,12 +34,20 @@ class DataObject < SpeciesSchemaModel
   has_many :info_items, :through => :data_objects_info_items
   has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
+  has_many :users_data_objects
+  
+  # has_many :all_version_comments, :class_name => Comment.to_s, :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
+  
+  # the select_with_include doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
+  # or we could use a change like that to get all comments on all revisions, without having to load all the DO attributes
+  # has_many :versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id'
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :agents
   has_and_belongs_to_many :toc_items, :join_table => 'data_objects_table_of_contents', :association_foreign_key => 'toc_id'
+  has_and_belongs_to_many :taxon_concepts
 
   attr_accessor :vetted_by # who changed the state of this object? (not persisted on DataObject but required by observer)
 
@@ -49,18 +57,76 @@ class DataObject < SpeciesSchemaModel
   define_core_relationships :select => {
       :data_objects => '*',
       :agents => [:full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url],
+      :agents_data_objects => [:view_order],
       :names => :string,
-      :hierarchy_entries => :taxon_concept_id},
+      :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ]},
     :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
-      {:hierarchy_entries => :name}]
+      {:hierarchy_entries => [:name, { :hierarchy => { :resource => :agents } }] }, {:agents_data_objects => [:agent, :agent_role]}]
   
   def self.sort_by_rating(data_objects)
     data_objects.sort_by do |obj|
-      toc_view_order = obj.info_items.blank? ? 0 : obj.info_items[0].toc_item.view_order
+      toc_view_order = (obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
+      vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
+      visibility_view_order = 1
+      visibility_view_order = 0 if obj.visibility_id == Visibility.preview.id
+      
       [obj.data_type_id,
        toc_view_order,
-       obj.vetted.view_order,
-       Invert(obj.rating)]
+       visibility_view_order,
+       vetted_view_order,
+       Invert(obj.data_rating)]
+    end
+  end
+  
+  def self.filter_list_for_user(data_objects, options={})
+    visibility_ids = [Visibility.visible.id]
+    vetted_ids = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
+    show_preview = false
+    
+    # Show all vetted states unless there is a user that DOES NOT want to see vetted content
+    # AND is not a curator of this clade (curators always see all content in their clade)
+    # AND is not an admin (admins always see all content)
+    if options[:user]
+      # admins see everything
+      if options[:user].is_admin?
+        vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id]
+        visibility_ids = Visibility.all_ids.dup
+        show_preview = true
+      
+      # curators see invisible objects
+      elsif options[:user].is_curator? && options[:user].can_curate?(options[:taxon])
+        visibility_ids << Visibility.invisible.id
+      end
+      
+      # the only scenario to see ONLY TRUSTED objects
+      if options[:user].vetted == true && !options[:user].is_admin?
+        vetted_ids = [Vetted.trusted.id]
+      end
+    end
+    
+    if options[:toc_id] == TocItem.wikipedia
+      show_preview = true
+    end
+    
+    # removing from the array the ones not mathching our criteria
+    data_objects.select do |d|
+      # partners see all their PREVIEW or PUBLISHED objects
+      if options[:agent] && d.data_supplier_agent.id == options[:agent].id
+        if (d.visibility_id == Visibility.preview.id) || d.published == true
+          true
+        end
+      
+      # user can see preview objects
+      elsif show_preview && d.visibility_id == Visibility.preview.id
+        true
+      
+      # otherwise object must be PUBLISHED and in the vetted and visibility selection
+      elsif d.published == true && vetted_ids.include?(d.vetted_id) &&
+        visibility_ids.include?(d.visibility_id)
+        true
+      else
+        false
+      end
     end
   end
 
@@ -137,7 +203,9 @@ class DataObject < SpeciesSchemaModel
 
     unless all_params[:references].blank?
       all_params[:references].each do |reference|
-        d.refs << Ref.new({:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible}) if reference.strip != ''
+        if reference.strip != ''
+          d.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
+        end
       end
     end
 
@@ -149,15 +217,11 @@ class DataObject < SpeciesSchemaModel
     comments_from_old_dato.map { |c| c.update_attribute :parent_id, d.id  }
 
     d.curator_activity_flag(user, all_params[:taxon_concept_id])
-
-    udo = UsersDataObject.new({:user_id => user.id, :data_object_id => d.id, :taxon_concept_id => TaxonConcept.find(all_params[:taxon_concept_id]).id})
-    udo.save!
+    
+    tc = TaxonConcept.find(all_params[:taxon_concept_id])
+    udo = UsersDataObject.create(:user => user, :data_object => d, :taxon_concept => tc)
+    d.users_data_objects << udo
     user.track_curator_activity(udo, 'users_submitted_text', 'update')
-
-    # this will give it the hash elements it needs for attributions
-    d['attributions'] = Attributions.from_agents_hash(d, nil)
-    d['users'] = [user]
-    d['refs'] = d.refs unless d.refs.empty?
     d
   end
 
@@ -194,14 +258,14 @@ class DataObject < SpeciesSchemaModel
 
     unless all_params[:references].blank?
       all_params[:references].each do |reference|
-        d.refs << Ref.new({:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible}) if reference.strip != ''
+        if reference.strip != ''
+          d.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
+        end
       end
     end
 
-    # this will give it the hash elements it needs for attributions
-    d['attributions'] = Attributions.from_agents_hash(d, nil)
-    d['users'] = [user]
-    d['refs'] = d.refs unless d.refs.empty?
+    # this will give it the elements it needs for attributions
+    d.users = [user]
     d
   end
 
@@ -242,7 +306,9 @@ class DataObject < SpeciesSchemaModel
 
     unless all_params[:references].blank?
       all_params[:references].each do |reference|
-        dato.refs << Ref.new({:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible}) if reference.strip != ''
+        if reference.strip != ''
+          dato.refs << Ref.new(:full_reference => reference, :user_submitted => true, :published => 1, :visibility => Visibility.visible)
+        end
       end
     end
 
@@ -251,15 +317,12 @@ class DataObject < SpeciesSchemaModel
     raise "Unable to build a UsersDataObject if user is nil" if user.nil?
     raise "Unable to build a UsersDataObject if DataObject is nil" if dato.nil?
     raise "Unable to build a UsersDataObject if taxon_concept_id is missing" if all_params[:taxon_concept_id].blank?
-    udo = UsersDataObject.new(:user_id => user.id, :data_object_id => dato.id,
-                              :taxon_concept_id => taxon_concept.id)
-    udo.save!
+    udo = UsersDataObject.create(:user => user, :data_object => dato,
+                              :taxon_concept => taxon_concept)
+    dato.users_data_objects << udo
     user.track_curator_activity(udo, 'users_submitted_text', 'create')
 
     # this will give it the hash elements it needs for attributions
-    dato['attributions'] = Attributions.from_agents_hash(dato, nil)
-    dato['users'] = [user]
-    dato['refs'] = dato.refs unless dato.refs.empty?
     dato
   end
 
@@ -333,45 +396,85 @@ class DataObject < SpeciesSchemaModel
 
   # Find the Agent (only one) that supplied this data object to EOL.
   def data_supplier_agent
-    @data_supplier_agent ||= Agent.find_by_sql(["SELECT a.*
-                        FROM data_objects_harvest_events dohe
-                          JOIN harvest_events he ON (dohe.harvest_event_id=he.id)
-                          JOIN agents_resources ar ON (he.resource_id=ar.resource_id)
-                          JOIN agents a ON (ar.agent_id=a.id)
-                        WHERE dohe.data_object_id=?
-                        AND ar.resource_agent_role_id=?", id,
-                        ResourceAgentRole.data_supplier.id]).first
+    # this is a bit of a shortcut = the hierarchy's agent should be the same as the agent
+    # that contributed the resource. DataObject should only live in a single hierarchy
+    @data_supplier_agent ||= hierarchy_entries[0].hierarchy.agent rescue nil
   end
 
-  # Gets agents_data_objects, sorted by AgentRole, based on this objects' DataTypes' AgentRole attribution
-  # priorities
-  #
-  # we also fetch agents_data_objects, including (eager loading) Agents by default, assuming we will be using them
-  def attributions
+  def citable_data_supplier
+    unless data_supplier_agent.blank?
+      EOL::Citable.new( :agent_id => data_supplier_agent.id, 
+                                    :link_to_url => data_supplier_agent.homepage,
+                                    :display_string => data_supplier_agent.full_name,
+                                    :logo_cache_url => data_supplier_agent.logo_cache_url,
+                                    :type => 'Supplier')
+    else
+      nil
+    end
+  end
+  
+  def citable_entities
+    citables = []
+    agents_data_objects.each do |ado|
+      if ado.agent_role && ado.agent
+        citables << ado.agent.citable(ado.agent_role.label)
+      end
+    end
+    
+    unless data_supplier_agent.blank?
+      citables << citable_data_supplier
+    end
+    
+    unless rights_statement.blank?
+      citables << EOL::Citable.new( :display_string => rights_statement,
+                                    :type => 'Rights')
+    end
+    
+    unless rights_holder.blank?
+      citables << EOL::Citable.new( :display_string => rights_holder,
+                                    :type => 'Rights Holder')
+    end
+    
+    unless license.blank?
+      citables << EOL::Citable.new( :link_to_url => license.source_url,
+                                    :display_string => license.description,
+                                    :logo_path => license.logo_url,
+                                    :type => 'License')
+    end
+    
+    unless location.blank?
+      citables << EOL::Citable.new( :display_string => location,
+                                    :type => 'Location')
+    end
+    
+    unless source_url.blank?
+      citables << EOL::Citable.new( :link_to_url => source_url,
+                                    :display_string => 'View original data object',
+                                    :type => 'Source URL')
+    end
+    
+    unless created_at.blank? || created_at == '0000-00-00 00:00:00'
+      citables << EOL::Citable.new( :display_string => created_at.strftime("%B %d, %Y"),
+                                    :type => 'Indexed')
+    end
+    
+    unless bibliographic_citation.blank?
+      citables << EOL::Citable.new( :display_string => bibliographic_citation,
+                                    :type => 'Citation')
+    end
 
-    @attributions = Attributions.new(agents_data_objects)
-
-    @attributions.add_supplier   self.data_supplier_agent
-    @attributions.add_rights     self.rights_statement, self.rights_holder
-    @attributions.add_license    self.license
-    @attributions.add_location   self.location
-    @attributions.add_source_url self.source_url
-    @attributions.add_date       self.created_at
-    @attributions.add_citation   self.bibliographic_citation
-
-    return @attributions
-
+    citables
   end
 
   # Find all of the authors associated with this data object, including those that we dynamically add elsewhere
   def authors
-    default_authors = agents_data_objects.find_all_by_agent_role_id(AgentRole.author_id).collect {|ado| ado.agent }.compact
+    default_authors = agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.author.id }.collect {|ado| ado.agent }.compact
     @fake_authors.nil? ? default_authors : default_authors + @fake_authors
   end
 
   # Find all of the photographers associated with this data object, including those that we dynamically add elsewhere
   def photographers
-    agents_data_objects.find_all_by_agent_role_id(AgentRole.photographer_id).collect {|ado| ado.agent }.compact
+    agents_data_objects.agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.photographer.id }.collect {|ado| ado.agent }.compact
   end
 
   # Add an author to this data object that isn't in the database.
@@ -382,9 +485,9 @@ class DataObject < SpeciesSchemaModel
 
   # Find Agents associated with this data object as sources.  If there are none, find authors.
   def sources
-    ados = agents_data_objects.find_all_by_agent_role_id(AgentRole.source_id).collect {|ado| ado.agent }.compact
-    return ados unless ados.blank?
-    # I ended up with empty ados in cases where I thought I shouldn't, so tried to defer to authors for those:
+    list = agents_data_objects.select{ |ado| ado.agent_role_id == AgentRole.source.id }.collect {|ado| ado.agent }.compact
+    return list unless list.blank?
+    # I ended up with empty lists in cases where I thought I shouldn't, so tried to defer to authors for those:
     return authors
   end
 
@@ -393,11 +496,7 @@ class DataObject < SpeciesSchemaModel
   end
 
   def all_comments
-    all_comments = []
-    revisions.each do |parent|
-      all_comments += Comment.find_all_by_parent_id(parent.id)
-    end
-    return all_comments
+    Comment.find_all_by_parent_type('DataObject', :joins => "JOIN #{DataObject.full_table_name} ON (comments.parent_id=data_objects.id)", :conditions => "data_objects.guid='#{guid}'")
   end
 
   def visible_comments(user = nil)
@@ -855,168 +954,19 @@ class DataObject < SpeciesSchemaModel
     image_page        = (options[:image_page] ||= 1).to_i
     start             = $MAX_IMAGES_PER_PAGE * (image_page - 1)
     last              = start + $MAX_IMAGES_PER_PAGE - 1
-    results_to_lookup = result[start..last]
-
-    results_to_lookup = DataObject.metadata_for_images(taxon.id, results_to_lookup, {:user => options[:user]})
-    results_to_lookup = DataObject.add_attributions_to_result(results_to_lookup)
-    results_to_lookup = DataObject.add_taxa_names_to_result(results_to_lookup)
-    result[start..last] = results_to_lookup
-
+    
+    objects_with_metadata = eager_load_metadata(result[start..last].collect {|r| r.id})
+    result[start..last] = objects_with_metadata unless objects_with_metadata.blank?
     return result
   end
-
-  def self.metadata_for_images(taxon_id, results, options = {})
-    data_object_ids = results.collect {|r| r.id}
-    return results if data_object_ids.empty?
-
-    comments_clause = " AND c.visible_at IS NOT NULL"
-    comments_clause = "" if !options[:user].nil? && options[:user].is_moderator?
-
-    rating_select = " 0 as user_rating"
-    rating_from = " "
-    if !options[:user].nil? && options[:user].id
-      rating_select = "udor.rating user_rating"
-      rating_from = " LEFT OUTER JOIN #{UsersDataObjectsRating.full_table_name} udor ON (dato.guid=udor.data_object_guid AND udor.user_id=#{options[:user].id})"
-    end
-
-    data_objects_with_metadata = DataObject.find_by_sql(%Q{
-        SELECT 'Image' media_type, dato.*, v.view_order vetted_view_order, l.description license_text,
-              l.logo_url license_logo, l.source_url license_url,
-              #{taxon_id} taxon_id, n.string scientific_name, count(distinct c.id) as comments_count, #{rating_select}
-         FROM #{DataObject.full_table_name} dato
-           JOIN #{Vetted.full_table_name} v                       ON (dato.vetted_id=v.id)
-           JOIN #{DataObjectsHierarchyEntry.full_table_name} dohe ON (dato.id=dohe.data_object_id)
-           JOIN #{HierarchyEntry.full_table_name} he              ON (dohe.hierarchy_entry_id=he.id)
-           JOIN #{Name.full_table_name} n                         ON (he.name_id=n.id)
-           LEFT OUTER JOIN #{License.full_table_name} l           ON (dato.license_id=l.id)
-           LEFT OUTER JOIN #{Comment.full_table_name} c           ON (c.parent_id=dato.id AND c.parent_type='DataObject' #{comments_clause})
-           #{rating_from}
-         WHERE dato.id IN (#{data_object_ids.join(',')})
-         GROUP BY dato.id})
-
-    metadata = {}
-    # add the DataObject metadata
-    data_objects_with_metadata.each do |dom|
-      dom.description = dom.description_linked if !dom.description_linked.nil?
-      metadata[dom.id.to_i] = dom
-    end
-
-    results.each_with_index do |r, index|
-      if m = metadata[r.id.to_i]
-        results[index] = m
-      end
-    end
-    return results
+  
+  def self.eager_load_metadata(data_object_ids)
+    return nil if data_object_ids.blank?
+    add_include = [:comments, :agents_data_objects, { :users_data_objects => :user }]
+    add_select = { :users => '*', :comments => '*' }
+    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_id(data_object_ids)
+    DataObject.sort_by_rating(objects)
   end
-
-  def self.add_attributions_to_result(results)
-    data_object_ids = results.collect {|r| r.id}
-    return results if data_object_ids.empty?
-
-    data_supplier_id = ResourceAgentRole.content_partner_upload_role.nil? ? 0 : ResourceAgentRole.content_partner_upload_role.id
-    data_object_agents = Agent.find_by_sql(%Q{
-        (SELECT a.*, 0 as data_supplier, ado.agent_role_id, ar.label agent_role_label, ado.data_object_id, ado.view_order
-          FROM agents_data_objects ado JOIN agents a ON (ado.agent_id=a.id)
-          JOIN agent_roles ar ON (ado.agent_role_id=ar.id)
-          WHERE ado.data_object_id IN (#{data_object_ids.join(',')}))
-        UNION
-        (SELECT a.* , 1 as data_supplier, NULL agent_role_id, NULL agent_role_label, dohe.data_object_id, 1 view_order
-          FROM data_objects_harvest_events dohe
-          JOIN harvest_events he                ON (dohe.harvest_event_id=he.id)
-          JOIN agents_resources ar              ON (he.resource_id=ar.resource_id)
-          JOIN agents a                         ON (ar.agent_id=a.id)
-          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})
-          AND ar.resource_agent_role_id=#{data_supplier_id})
-         })
-    data_object_agents.sort! {|a,b| a['view_order'].to_i <=> b['view_order'].to_i}
-
-    attributions = {}
-    data_object_agents.each do |a|
-      do_id = a['data_object_id'].to_i
-      attributions[do_id] ||= {
-            'supplied_user_id'  => nil,
-            'data_supplier'     => nil,
-            'agents'            => {} }
-      if attributions[do_id]['agents'].empty?
-        @all_agent_roles ||= AgentRole.all
-        @all_agent_roles.each do |ar|
-          attributions[do_id]['agents'][ar.label] ||= []
-        end
-      end
-
-      if a['data_supplier'].to_i == 1
-        attributions[do_id]['data_supplier'] = a
-      else
-        attributions[do_id]['agents'][a['agent_role_label']] ||= []
-        attributions[do_id]['agents'][a['agent_role_label']] << a
-      end
-    end
-
-    results.each do |r|
-      r['attributions'] = {}
-      if a = attributions[r.id.to_i]
-        r['data_supplier'] = a['data_supplier'] if !a['data_supplier'].nil?
-        a['attributions'] = Attributions.from_agents_hash(r, a)
-        a.each do |key, value|
-          r[key] = value
-        end
-      else
-        r['attributions'] = Attributions.from_agents_hash(r, nil)
-      end
-    end
-
-    return results
-  end
-
-  def self.add_taxa_names_to_result(results)
-    data_object_ids = results.collect {|r| r.id}
-    return results if data_object_ids.empty?
-
-    data_object_taxa_names = SpeciesSchemaModel.connection.execute(%Q{
-        SELECT n.string as taxon_name, he.taxon_concept_id, dohe.data_object_id, tc.published as published
-          FROM data_objects_hierarchy_entries dohe
-          JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
-          JOIN taxon_concepts tc ON (he.taxon_concept_id = tc.id)
-          JOIN names n ON (he.name_id=n.id)
-          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})}).all_hashes.sort {|a,b| b['published'] <=> a['published']}
-
-    grouped_taxa_names = ModelQueryHelper.group_array_by_key(data_object_taxa_names, 'data_object_id')
-    results = ModelQueryHelper.add_hash_to_object_array_as_key(results, grouped_taxa_names, 'taxa_names_ids')
-    return results
-  end
-
-  def self.add_refs_to_result(results)
-    data_object_ids = results.collect {|r| r.id}
-    return results if data_object_ids.empty?
-
-    refs = Ref.find_by_sql(%Q{
-        SELECT r.*, dor.data_object_id
-          FROM data_objects_refs dor
-          JOIN refs r ON (dor.ref_id=r.id)
-          WHERE dor.data_object_id IN (#{data_object_ids.join(',')})
-          AND r.published=1
-          AND r.visibility_id=#{Visibility.visible.id}})
-
-    grouped_refs = ModelQueryHelper.group_array_by_key(refs, 'data_object_id')
-    results = ModelQueryHelper.add_hash_to_object_array_as_key(results, grouped_refs, 'refs')
-    return results
-  end
-
-  def self.add_users_to_result(results)
-    data_object_ids = results.collect {|r| r.id}
-    return results if data_object_ids.empty?
-
-    users = User.find_by_sql(%Q{
-        SELECT u.*, udo.data_object_id
-          FROM #{UsersDataObject.full_table_name} udo
-          JOIN #{User.full_table_name} u ON (udo.user_id=u.id)
-          WHERE udo.data_object_id IN (#{data_object_ids.join(',')})})
-
-    grouped_users = ModelQueryHelper.group_array_by_key(users, 'data_object_id')
-    results = ModelQueryHelper.add_hash_to_object_array_as_key(results, grouped_users, 'users')
-    return results
-  end
-
 
 
   # Find all of the data objects of a particular type (text, image, etc) associated with a given taxon.
@@ -1080,10 +1030,8 @@ class DataObject < SpeciesSchemaModel
     end
 
     # query result set for attribution info, taxa info (for permalinks), and references
-    result = DataObject.add_attributions_to_result(result)
-    result = DataObject.add_taxa_names_to_result(result)
-    result = DataObject.add_refs_to_result(result)
-    result = DataObject.add_users_to_result(result)
+    objects_with_metadata = eager_load_metadata(result.collect {|r| r.id})
+    result = objects_with_metadata unless objects_with_metadata.blank?
     return result
   end
 
@@ -1440,6 +1388,26 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     end
     nil
   end
+  
+  def provider_agent
+    hierarchy_entries[0].hierarchy.resource.agents[0] rescue nil
+  end
+  
+  def published_entries
+    hierarchy_entries.select{ |he| he.published == 1 && he.visibility_id == Visibility.visible.id }
+  end
+  
+  def published_refs
+    refs.select{ |r| r.published == 1 && r.visibility_id == Visibility.visible.id }
+  end
+  
+  def first_concept_name
+    sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
+    return sorted_entries[0].name.string unless sorted_entries.blank?
+    nil
+  end
+  
+  
 
   def short_title
     return object_title unless object_title.blank?
@@ -1560,4 +1528,3 @@ EOVISBILITYCLAUSE
   end
 
 end
-

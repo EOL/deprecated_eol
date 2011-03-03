@@ -143,7 +143,7 @@ module ApiHelper
       for common_name in @hierarchy_entry.common_names
         return_hash['vernacularNames'] << {
           'vernacularName' => common_name.name.string.firstcap,
-          'language'       => common_name.language.iso_639_1
+          'language'       => common_name.language ? common_name.language.iso_639_1 : ''
         }
       end
     end

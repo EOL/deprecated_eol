@@ -21,35 +21,35 @@ class DataType < SpeciesSchemaModel
   end
   
   def self.text
-    cached_find(:label, 'Text')
+    $LOCAL_CACHE.data_type_text ||= cached_find(:label, 'Text')
   end
   
   def self.image
-    cached_find(:label, 'Image')
+    $LOCAL_CACHE.data_type_image ||= cached_find(:label, 'Image')
   end
   
   def self.sound
-    cached_find(:label, 'Sound')
+    $LOCAL_CACHE.data_type_sound ||= cached_find(:label, 'Sound')
   end
   
   def self.video
-    cached_find(:label, 'Video')
+    $LOCAL_CACHE.data_type_video ||= cached_find(:label, 'Video')
   end
   
   def self.youtube
-    cached_find(:label, 'YouTube')
+    $LOCAL_CACHE.data_type_youtube ||= cached_find(:label, 'YouTube')
   end
   
   def self.flash
-    cached_find(:label, 'Flash')
+    $LOCAL_CACHE.data_type_flash ||= cached_find(:label, 'Flash')
   end
   
   def self.gbif_image
-    cached_find(:label, 'GBIF Image')
+    $LOCAL_CACHE.data_type_gbif_image ||= cached_find(:label, 'GBIF Image')
   end
   
   def self.iucn
-    cached_find(:label, 'IUCN')
+    $LOCAL_CACHE.data_type_iucn ||= cached_find(:label, 'IUCN')
   end
   
   def self.image_type_ids

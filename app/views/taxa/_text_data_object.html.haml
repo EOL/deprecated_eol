@@ -24,7 +24,7 @@
 - tw_class = nil if tw_class.blank? # blank would render class=""; nil won't render class at all.
 %div{:id => "text_wrapper_#{content_item.id}", :class => tw_class, :style => (@hide ? "display:none" : nil)}
   %div{:class => "content-article #{vetted_id_class(content_item)}", :id => "text_#{content_item.id}"}
-    - if !content_item['users'].nil? && content_item['users'][0].id == current_user.id
+    - if !content_item.users_data_objects.blank? && content_item.users_data_objects[0].user.id == current_user.id
       .multi_new_text_error{:style => "display:none;"}
         Only one text object can be edited at a time.
       .edit_text
@@ -42,7 +42,7 @@
     %br
     %div{:class => (content_item.vetted_id != Vetted.trusted.id ? "unvetted-background-text" : nil)}
       = content_item.description.balance_tags
-    - unless content_item['refs'].nil?
+    - unless content_item.published_refs.blank?
       .references
         .text-area-header.references-header
           References
@@ -56,7 +56,7 @@
             - if parameter && parameter.value == 'true'
               - ref_class = 'biblio-entry'
           
-          - content_item['refs'].each do |ref|
+          - content_item.published_refs.each do |ref|
             %li{ :class => ref_class, :ref_id => ref.id }
               = ref.full_reference.balance_tags
               - ref.ref_identifiers.each do |identifier|
@@ -83,7 +83,7 @@
             :style => comments_style, :class => 'popup-link', |
             :alt => 'Curate this text'} |
       - if !@preview
-        = render :partial => '/comments/comment_icon', :locals => { :data_object_id => content_item.id, :title => "Comment on this text", :comments_count => content_item.all_comments.select { |c| c['visible_at'] }.length, :alt => "Comment on this text", :comment_class => 'popup-link', :rel => '' }
+        = render :partial => '/comments/comment_icon', :locals => { :data_object_id => content_item.id, :title => "Comment on this text", :comments_count => content_item.all_comments.length, :alt => "Comment on this text", :comment_class => 'popup-link', :rel => '' }
   .text-slidebox-border{:id => "text-comments-wrapper-#{content_item.id}", :style => "display:none;"}
     .text-slidebox-container.text-comment-div{:id => "text-comments-#{content_item.id}"}
       -# TODO - we re-use this indicator a lot.  Put it in a div that we can push around the page as needed.

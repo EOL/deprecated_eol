@@ -8,17 +8,17 @@ class Visibility < SpeciesSchemaModel
     end
   end
   def self.visible
-    cached_find(:label, 'Visible')
+    $LOCAL_CACHE.visibility_visible ||= cached_find(:label, 'Visible')
   end
   def self.preview
-    cached_find(:label, 'Preview')
+    $LOCAL_CACHE.visibility_preview ||= cached_find(:label, 'Preview')
   end
   def self.inappropriate
-    cached_find(:label, 'Inappropriate')
+    $LOCAL_CACHE.visibility_innappropriate ||= cached_find(:label, 'Inappropriate')
   end
   
   def self.invisible
-    cached('Invisible') do
+    $LOCAL_CACHE.visibility_invisible ||= cached('Invisible') do
       invisible = Visibility.find_by_label('Invisible')
       # The ID *must* be 0 (PHP hard-coded; it also makes /sense/).  If it's not, we fix it now:
       if invisible.id != 0
@@ -30,13 +30,3 @@ class Visibility < SpeciesSchemaModel
   end
 
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: visibilities
-#
-#  id         :integer(4)      not null, primary key
-#  label      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-

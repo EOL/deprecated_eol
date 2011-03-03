@@ -178,8 +178,6 @@ protected
   end
 
   def get_attribution
-    @data_object['attributions'] = @data_object.attributions
-    @data_object['media_type'] = @data_object.data_type.label
     current_user.log_activity(:showed_attributions_for_data_object_id, :value => @data_object.id)
   end
 

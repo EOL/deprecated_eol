@@ -89,6 +89,7 @@ module EOL
 
     def build_hierarchy_entry_relation
       DataObjectsHierarchyEntry.gen(:data_object => @dato, :hierarchy_entry => @he)
+      DataObjectsTaxonConcept.gen(:data_object => @dato, :taxon_concept_id => @he.taxon_concept_id)
     end
 
     def build_type_specific_relations

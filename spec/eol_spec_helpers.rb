@@ -357,6 +357,7 @@ def DataObject.build_reharvested_dato(dato)
   #   2d) data_objects_hierarchy_entries
   dato.hierarchy_entries.each do |he|
     DataObjectsHierarchyEntry.gen(:data_object_id => new_dato.id, :hierarchy_entry_id => he.id)
+    DataObjectsTaxonConcept.gen(:taxon_concept => he.taxon_concept, :data_object => new_dato)
   end
   #   2e) if this is an image, remove the old image from top_images and insert the new image.
   if dato.image?

@@ -70,6 +70,9 @@ describe 'Curator Account Pages' do
     @show_datos_curated_path = "/account/show_objects_curated/#{@user.id}"
     @permalink_path = "/data_objects/#{@taxon_concept.images[0][:id]}"
     @taxon_page_path = "/pages/#{@taxon_concept[:id]}"
+    
+    $LOCAL_CACHE = OpenStruct.new
+    $CACHE.clear
   end
 
   it_should_behave_like "all accounts"

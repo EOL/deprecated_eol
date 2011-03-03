@@ -108,7 +108,9 @@ describe 'Taxa page (HTML)' do
     @ping_url.sub!(/%ID%/, @ping_id) # So we can test that it was replaced by the code.
 
     @col_collection = Hierarchy.gen(:agent => Agent.catalogue_of_life, :label => "Catalogue of Life Collection", :outlink_uri => "http://www.catalogueoflife.org/browse_taxa.php?selected_taxon=%%ID%%")
-    @col_mapping    = HierarchyEntry.gen(:hierarchy => @col_collection, :name => @taxon_concept.taxon_concept_names.first.name, :taxon_concept => @taxon_concept, :source_url => "http://example.com")
+    @col_mapping    = @taxon_concept.entry_for_agent(Agent.catalogue_of_life.id) || HierarchyEntry.gen(:hierarchy => @col_collection, :name => @taxon_concept.taxon_concept_names.first.name, :taxon_concept => @taxon_concept)
+    @col_mapping.source_url = "http://example.com"
+    @col_mapping.save
 
     description       = 'user wants <b>bold</b> and <i>italics</i> and <a href="link">links</a>'
     @description_bold = /user wants <(b|strong)>bold<\/(b|strong)>/
@@ -123,6 +125,7 @@ describe 'Taxa page (HTML)' do
     @curator       = build_curator(@taxon_concept)
     Comment.find_by_body(@comment_bad).hide User.last
     # doesn't work, why?
+    @taxon_concept.reload
     visit("/pages/#{@id}") # cache the response the taxon page gives before changes
     @result        = page 
 
@@ -131,7 +134,7 @@ describe 'Taxa page (HTML)' do
   after :all do
     truncate_all_tables
   end
-
+  
   # This is kind of a baseline, did-the-page-actually-load test:
     it 'should include the italicized name in the header' do
       @result.body.should have_tag('div#page-title') do
@@ -144,7 +147,7 @@ describe 'Taxa page (HTML)' do
         with_tag('h2', :text => @common_name)
       end
     end
-  
+      
     it 'should NOT show a view/edit link after the common name when non-curator' do
       @result.body.should have_tag('div#page-title') do
         with_tag('h2') do
@@ -153,7 +156,7 @@ describe 'Taxa page (HTML)' do
         end
       end
     end
-  
+      
     it 'should not show the common name if none exists' do
       tc = build_taxon_concept
       visit("/pages/#{tc.id}")
@@ -161,17 +164,17 @@ describe 'Taxa page (HTML)' do
         with_tag('h2', :text => '')
       end
     end
-  
+      
     it 'should use supercedure to find taxon concept' do
       superceded = TaxonConcept.gen(:supercedure_id => @id)
       visit("/pages/#{superceded.id}")
       current_path.should == "/pages/#{@id}"
     end
-  
+      
     it 'should tell the user the page is missing if the page is... uhhh... missing' do
       visit("/pages/#{TaxonConcept.missing_id}")
     end
-  
+      
     it 'should tell the user the page is missing if the TaxonConcept is unpublished' do
       unpublished = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
       visit("/pages/#{unpublished.id}")
@@ -194,10 +197,10 @@ describe 'Taxa page (HTML)' do
       body.should have_tag("img.main-image")
       body.should_not include(first_agent_name) # verify the agent is gone yet the page still loads
     end
-
+      
     # it 'should be able to ping the collection host' do
     # end
-  
+      
     it 'should show the Overview text by default' do
       visit("/pages/#{@id}")
       body.should have_tag('div.cpc-header') do
@@ -205,13 +208,13 @@ describe 'Taxa page (HTML)' do
       end
       body.should include(@overview_text)
     end
-  
+      
     it 'should NOT show references for the overview text when there aren\'t any' do
       Ref.delete_all
       visit("/pages/#{@id}")
       body.should_not have_tag('div.references')
     end
-  
+      
     it 'should show references for the overview text (with URL and DOI identifiers ONLY) when present' do
       full_ref = 'This is the reference text that should show up'
       # TODO - When we add "helper" methods to Rails classes for testing, then "add_reference" could be
@@ -234,28 +237,28 @@ describe 'Taxa page (HTML)' do
       body.should_not include(bad_identifier)
       body.should have_tag("a[href=http://dx.doi.org/#{doi_identifier}]")
     end
-  
+      
     it 'should NOT show references for the overview text when reference is invisible' do
       full_ref = 'This is the reference text that should show up'
       @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 1, :visibility => Visibility.invisible)
       visit("/pages/#{@id}")
       body.should_not have_tag('div.references')
     end
-  
+      
     it 'should NOT show references for the overview text when reference is unpublished' do
       full_ref = 'This is the reference text that should show up'
       @taxon_concept.overview[0].refs << ref = Ref.gen(:full_reference => full_ref, :published => 0, :visibility => Visibility.visible)
       visit("/pages/#{@id}")
       body.should_not have_tag('div.references')
     end
-  
+      
     it 'should allow html in user-submitted text' do
       visit("/pages/#{@id}")
       body.should match(@description_bold)
       body.should match(@description_ital)
       body.should match(@description_link)
     end
-  
+      
     # I hate to do this, since it's SO SLOW, but:
     it 'should render an "empty" page in authoritative mode' do
       tc = build_taxon_concept(:common_names => [], :images => [], :toc => [], :flash => [], :youtube => [],
@@ -264,7 +267,7 @@ describe 'Taxa page (HTML)' do
       body.should_not include('Internal Server Error')
       body.should have_tag('h1') # Whatever, let's just prove that it renders.
     end
-  
+      
     it 'should show common names with their trust levels in the Common Names toc item' do
       visit("/pages/#{@taxon_concept.id}?category_id=#{@cnames_toc}")
       body.should have_tag("div#common_names_wrapper") do
@@ -273,17 +276,17 @@ describe 'Taxa page (HTML)' do
         with_tag('td.untrusted', :text => @untrusted_name)
       end
     end
-  
+      
     it 'should show the Catalogue of Life link in Content Partners' do
       visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.content_partners.id}")
-      body.should include(@col_collection.label)
+      body.should include(@col_mapping.hierarchy.label)
     end
-  
+      
     it 'should show the Catalogue of Life link in the header' do
       visit("/pages/#{@taxon_concept.id}")
       body.should include("recognized by <a href=\"#{@col_mapping.source_url}\"")
     end
-  
+      
     it 'should show a Nucleotide Sequences table of content item if concept in NCBI and has identifier' do
       # make an entry in NCBI for this concept and give it an identifier
       sci_name = Name.gen(:string => Factory.next(:scientific_name))
@@ -405,7 +408,7 @@ describe 'Taxa page (HTML)' do
       end
     end
   end
-
+  
   # # Red background/icon on untrusted videos
   # it "should show red background for untrusted video links"
   # it "should not show red background for trusted video links"
@@ -449,7 +452,7 @@ describe 'Taxa page (HTML)' do
   # it 'should load hidden text via permalink when user is a curator of the page'
   # it 'should return 404 page when loading permalink for text which has been removed and user isn\'t an admin'
   # it 'should load removed text via permalink when user is an admin'
-
+  
   it 'should include the TocItem with only unvetted content in it' do
     Capybara.reset_sessions! #previous session influenced this spec
     visit("/pages/#{@id}")

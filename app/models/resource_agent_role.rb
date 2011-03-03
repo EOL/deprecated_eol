@@ -2,7 +2,7 @@ class ResourceAgentRole < SpeciesSchemaModel
   belongs_to :agent_resource
 
   def self.content_partner_upload_role
-    cached('content_partner_upload', :serialize => true) do
+    $LOCAL_CACHE.resource_agent_role_upload_role ||= cached('content_partner_upload', :serialize => true) do
       ResourceAgentRole.find_or_create_by_label('Data Supplier')
     end
   end

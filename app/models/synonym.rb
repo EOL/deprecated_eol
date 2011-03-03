@@ -57,7 +57,7 @@ class Synonym < SpeciesSchemaModel
                                :vetted              => vetted,
                                :preferred           => preferred)
       AgentsSynonym.create(:agent_id         => agent.id,
-                           :agent_role_id    => AgentRole.contributor_id,
+                           :agent_role_id    => AgentRole.contributor.id,
                            :synonym_id       => synonym.id,
                            :view_order       => 1)
     end

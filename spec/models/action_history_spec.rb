@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
 describe ActionsHistory do
-
+  truncate_all_tables
   load_foundation_cache
     
   describe '#new_actions_histories' do

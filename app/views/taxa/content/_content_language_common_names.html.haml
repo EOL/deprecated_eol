@@ -18,4 +18,4 @@
         - if name.sources.blank?
           = "Multiple sources."[]
         - else
-          = agent_partial(name.sources)
+          = citables_to_string(name.sources.map{|a| a.citable})

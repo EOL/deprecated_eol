@@ -45,10 +45,10 @@
 
   #notes-container
     - @images[0..$MAX_IMAGES_PER_PAGE-1].each do |image|
-      - taxa_ids = image['taxa_names_ids'].map{|x| x['taxon_concept_id'].to_s }
-      - taxa_names = image['taxa_names_ids'].map{|x| x['taxon_name'].to_s }
-      - data_supplier = image['data_supplier']
-      - data_supplier_icon = data_supplier ? agent_icons_partial(data_supplier) : ''
+      - taxa_ids = image.published_entries.collect{ |he| he.taxon_concept_id }
+      - taxa_names = image.published_entries.collect{ |he| he.name.string }
+      - data_supplier = image.data_supplier_agent
+      - data_supplier_icon = data_supplier ? citables_to_icons(image.citable_data_supplier) : ''
       - mc_class = 'mc-notes'
       - mc_class += ' unknown-text' if image.unknown?
       - mc_class += ' untrusted-text' if image.untrusted?
@@ -68,7 +68,7 @@
           -# loop thru and find a taxa that's NOT the current page's taxa
           -# if the image IS linked to the current taxa then don't show an alternative
           - taxa_ids.each_with_index do |taxon_concept_id, i|
-            - if taxon_concept_id == @taxon_concept.id.to_s
+            - if taxon_concept_id == @taxon_concept.id
               - other_taxon_concept_index = nil
               - break
             - elsif other_taxon_concept_index.nil?
@@ -78,14 +78,14 @@
             = link_to(taxa_names[other_taxon_concept_index], "/pages/#{taxa_ids[other_taxon_concept_index]}")
             %br/
         = 'COPYRIGHT:'[]
-        - unless image.license_text.nil?
-          - unless image.rights_holder.empty?
+        - unless image.license.blank?
+          - unless image.rights_holder.blank?
             = "&#169 #{image.rights_holder}."
             %br/
-          = image.license_text
-        - unless image.license_logo.blank?
+          = image.license.description
+        - unless image.license.logo_url.blank?
           = '&nbsp;&nbsp;'
-          = link_to(image_tag(image.license_logo), image.license_url, :class => "external_link")
+          = link_to(image_tag(image.license.logo_url), image.license.source_url, :class => "external_link")
         %br/
 
         - if data_supplier && !data_supplier.full_name.blank?
@@ -96,47 +96,25 @@
             = link_to(data_supplier.full_name + external_link_icon, data_supplier.homepage)
             = data_supplier_icon
           %br/
-
-        -# This is hardcoded way of displaying 3 agent roles: author+photographer and source.
-        / 
-          - authors_linked = agent_partial(image['agents']['Author'] + image['agents']['Photographer'])
-          - unless authors_linked.blank?
-            = 'AUTHOR:'[]
-            = authors_linked
-            %br/
-          -# TODO - slightly obnoxious that we're essentially calling the same method twice, here:
-          - sources = agent_partial(image['agents']['Source'], :linked => false)
-          - sources_linked = agent_partial(image['agents']['Source'])
-          - sources_icons_linked = agent_icons_partial(image['agents']['Source'])
-          - if !sources.blank? && !image.object_url.blank?
-            = 'SOURCE:'[]
-            = link_to(sources + external_link_icon, image.object_url)
-            %br/
-          - elsif !sources_linked.blank?
-            = 'SOURCE:'[]
-            = sources_linked
-            %br/
-          - unless sources_icons_linked.blank?
-            = sources_icons_linked
-            %br/
         
         -# This is the dynamic way of displaying all agent roles.
         / 
-        - unless image['agents'].blank?
-          - for role in image['agents']
-            - if(image['agents'][role[0]].to_s.strip != '')
-              - agents_linked = agent_partial(image['agents'][role[0]])
-              - agents_icons_linked = agent_icons_partial(image['agents'][role[0]])
-              = role[0].upcase + ": "
+        - unless image.agents_data_objects.blank?
+          - for doa in image.agents_data_objects.sort_by{ |doa| doa.view_order }
+            - if doa.agent_role && doa.agent
+              - citable = doa.agent.citable(doa.agent_role.label)
+              - agents_linked = citables_to_string(citable)
+              - agents_icons_linked = citables_to_icons(citable)
+              = citable.type.upcase + ": "
               = agents_linked
               - if !agents_icons_linked.blank?
                 = agents_icons_linked
               %br/          
 
         
-        - unless image['source_url'].blank?
+        - unless image.source_url.blank?
           = 'ORIGINAL:'[]
-          = external_link_to('View image source', image['source_url'], :class => 'source_url')
+          = external_link_to('View image source', image.source_url, :class => 'source_url')
           %br/
         
         %br/

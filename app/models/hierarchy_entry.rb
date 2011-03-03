@@ -49,9 +49,9 @@ class HierarchyEntry < SpeciesSchemaModel
   
   def self.sort_by_vetted(hierarchy_entries)
     hierarchy_entries.sort_by do |he|
-      [he.taxon_concept_id,
-        Invert(he.published),
+      [Invert(he.published),
        he.vetted.view_order,
+       he.taxon_concept_id,
        he.id]
     end
   end
@@ -194,11 +194,12 @@ class HierarchyEntry < SpeciesSchemaModel
     attribution = []
 
     # its possible that the hierarchy is not associated with an agent
-    if hierarchy.agent
-      attribution = [hierarchy.agent]
-      attribution.first.full_name = attribution.first.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
+    if hierarchy && hierarchy.agent
+      citable_agent =  hierarchy.agent.citable
+      citable_agent.display_string = hierarchy.label # To change the name from just "Catalogue of Life"
+      attribution << citable_agent
     end
-    attribution += agents
+    attribution += agents.map{|a| a.citable }
   end
 
   def agents_roles

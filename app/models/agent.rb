@@ -98,11 +98,11 @@ class Agent < SpeciesSchemaModel
 
   # Singleton class variable, so we only ever look it up once per thread:  
   def self.iucn
-    cached_find(:full_name, 'IUCN', :serialize => true)
+    $LOCAL_CACHE.agent_iucn ||= cached_find(:full_name, 'IUCN', :serialize => true)
   end
 
   def self.catalogue_of_life
-    cached_find(:full_name, 'Catalogue of Life', :serialize => true)
+    $LOCAL_CACHE.agent_catalogue_of_life ||= cached_find(:full_name, 'Catalogue of Life', :serialize => true)
   end
 
   def self.col
@@ -110,33 +110,15 @@ class Agent < SpeciesSchemaModel
   end
 
   def self.gbif
-    cached_find(:full_name, 'Global Biodiversity Information Facility (GBIF)', :serialize => true)
+    $LOCAL_CACHE.agent_gbif ||= cached_find(:full_name, 'Global Biodiversity Information Facility (GBIF)', :serialize => true)
   end
 
   def self.ncbi
-    cached_find(:full_name, 'National Center for Biotechnology Information', :serialize => true)
-  end
-
-  # get the CoL agent for use in classification attribution
-  def self.catalogue_of_life_for_attribution
-    cached('agents/catalogue_of_life_for_attribution', :serialize => true) do
-      col_attr = Agent.catalogue_of_life
-      col_attr.full_name = col_attr.display_name = Hierarchy.default.label # To change the name from just "Catalogue of Life"
-    end
+    $LOCAL_CACHE.agent_ncbi ||= cached_find(:full_name, 'National Center for Biotechnology Information', :serialize => true)
   end
 
   def self.boa
     cached_find(:full_name, 'Biology of Aging', :serialize => true)
-  end
-
-  def self.from_license(license)
-    Agent.new :project_name => license.description,
-              :homepage => license.source_url, :logo_url => license.logo_url, :logo_cache_url => 0,
-              :logo_file_name => license.logo_url # <-- check for the presence of logo_file name
-  end
-
-  def self.just_project_name(location)
-    Agent.new :project_name => location
   end
 
   def self.content_partners_contact_info(month,year)    
@@ -205,27 +187,13 @@ class Agent < SpeciesSchemaModel
     self.paginate_by_sql [query, year, month], :page => page, :per_page => 50 , :order => 'full_name'    
    end  
 
-  def self.from_source_url(source_url)
-    Agent.new :project_name => 'View original data object', :homepage => source_url
-  end
-
   # override the logo_url column in the database to contruct the path on the content server
   def logo_url(size = 'large')
     ContentServer.agent_logo_path(self.attributes['logo_cache_url'], size)
   end
 
   def self.logo_url_from_cache_url(logo_cache_url, size = 'large')
-    ContentServer.agent_logo_path(logo_cache_url, logo_size)
-  end
-
-  def node_xml
-    xml  = "\t\t<agent>\n";
-    xml += "\t\t\t<agentName>#{display_name || full_name}</agentName>\n";
-    xml += "\t\t\t<agentHomepage>#{homepage}</agentHomepage>\n";
-    xml += "\t\t\t<icon></icon>\n";
-    xml += "\t\t\t<smallIcon></smallIcon>\n";
-    xml += "\t\t</agent>\n";
-    return xml
+    ContentServer.agent_logo_path(logo_cache_url, size)
   end
 
   ## Helper methods to set columns in associated content partner model by updating attributes of agent
@@ -431,13 +399,6 @@ class Agent < SpeciesSchemaModel
     display_name
   end
 
-  alias :ar_to_xml :to_xml
-  def to_xml(options = {})
-    default_only   = [:id, :acronym, :display_name, :homepage, :username]
-    options[:only] = (options[:only] ? options[:only] + default_only : default_only)
-    ar_to_xml(options)
-  end
-
   # Find the data_objects "belongs" to an Agent.
   def agents_data
     begin 
@@ -478,6 +439,16 @@ class Agent < SpeciesSchemaModel
 
   def track_curator_activity(*args)
     user.track_curator_activity(args)
+  end
+  
+  def citable(role_label = 'author')
+    EOL::Citable.new( :agent_id => id,
+                      :user => user,
+                      :link_to_url => homepage,
+                      :display_string => full_name,
+                      :logo_cache_url => logo_cache_url,
+                      :type => role_label)
+    
   end
 
 protected

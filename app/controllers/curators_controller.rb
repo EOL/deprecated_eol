@@ -40,9 +40,6 @@ class CuratorsController < ApplicationController
 
   def curate_image
     @data_object = DataObject.find(params[:data_object_id])
-    @data_object['attributions'] = @data_object.attributions
-    @data_object['taxa_names_ids'] = [{'taxon_concept_id' => @data_object.hierarchy_entries[0].taxon_concept_id}]
-    @data_object['media_type'] = @data_object.data_type.label
     current_user.log_activity(:showed_attributions_for_data_object_id, :value => @data_object.id)
     render :layout => false
   end

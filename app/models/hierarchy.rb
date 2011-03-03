@@ -14,6 +14,7 @@ class Hierarchy < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
   belongs_to :agent           # This is the attribution.
   has_and_belongs_to_many :collection_types
+  has_one :resource
 
   named_scope :browsable, :conditions => {:browsable => 1}
 
@@ -33,7 +34,7 @@ class Hierarchy < SpeciesSchemaModel
   end
 
   def self.default
-    cached_find(:label, $DEFAULT_HIERARCHY_NAME, :serialize => true)
+    $LOCAL_CACHE.hierarchy_default ||= cached_find(:label, $DEFAULT_HIERARCHY_NAME, :serialize => true)
   end
 
   # This is the first hierarchy we used, and we need it to serve "old" URLs (ie: /taxa/16222828 => Roenbergensis)
@@ -46,7 +47,7 @@ class Hierarchy < SpeciesSchemaModel
   end
 
   def self.ncbi
-    cached('ncbi', :serialize => true) do
+    $LOCAL_CACHE.hierarchy_ncbi ||= cached('ncbi', :serialize => true) do
       Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc")
     end
   end
@@ -61,9 +62,9 @@ class Hierarchy < SpeciesSchemaModel
   end
   
   def attribution
-    string = [agent]
-    string.first.full_name = string.first.display_name = label # To change the name from just "Catalogue of Life"
-    return string
+    citable_agent = agent.citable
+    citable_agent.display_string = label # To change the name from just "Catalogue of Life"
+    return citable_agent
   end
   
   def kingdoms(params = {})

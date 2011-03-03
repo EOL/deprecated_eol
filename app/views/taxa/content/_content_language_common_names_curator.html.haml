@@ -26,7 +26,7 @@
           - if name.sources.blank?
             = "Multiple sources."[]
           - else
-            = agent_partial(name.sources)
+            = citables_to_string(name.sources.map{|a| a.citable})
         %td{ :class => "#{column_class} vet_common_name", :style => "text-align:center;" }
           - if name.added_by_user?(current_user)
             = link_to("DELETE"[], url_for(:controller => 'taxa', :action => 'delete_common_name', :category_id => @category_id, :taxon_concept_id => @taxon_concept.id, :synonym_ids => name.synonym_ids), :onclick => "javascript:if(!confirm('#{"Are you sure?"[]}')) { return false; }")

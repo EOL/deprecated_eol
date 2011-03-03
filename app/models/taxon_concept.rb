@@ -31,9 +31,12 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :ranks, :through => :hierarchy_entries
   has_many :google_analytics_partner_taxa
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
+  has_many :users_data_objects
 
   has_one :taxon_concept_content
   has_one :taxon_concept_metric
+  
+  has_and_belongs_to_many :data_objects
 
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
@@ -41,9 +44,13 @@ class TaxonConcept < SpeciesSchemaModel
   
   define_core_relationships :select => {
       :taxon_concepts => '*',
-      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id ],
-      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map ]},
-    :include => [{:hierarchy_entries => [{ :name => :canonical_form }, :rank, :hierarchies_content ] }]
+      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :published, :lft, :rgt, :taxon_concept_id, :source_url ],
+      :hierarchies => [ :agent_id ],
+      :hierarchies_content => [ :content_level, :image, :text, :child_image, :map ],
+      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published ],
+      :table_of_contents => '*' },
+    :include => [{:hierarchy_entries => [{ :name => :canonical_form }, :hierarchy, :rank, :hierarchies_content] }, { :data_objects => :toc_items },
+      { :users_data_objects => { :data_object => :toc_items } }]
 
   def show_curator_controls?(user = nil)
     return @show_curator_controls if !@show_curator_controls.nil?
@@ -138,7 +145,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   # Return a list of data objects associated with this TC's Overview toc (returns nil if it doesn't have one)
   def overview
-    return content_by_category(TocItem.overview)[:data_objects]
+    return text_objects_for_toc_item(TocItem.overview)
   end
 
   # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
@@ -339,9 +346,7 @@ class TaxonConcept < SpeciesSchemaModel
 
     # get all hierarchy entries
     select = {:hierarchy_entries => '*', :vetted => :view_order}
-    @all_entries ||= HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => select, :include => :vetted)
-    HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id=#{id}")
-    @all_entries = HierarchyEntry.sort_by_vetted(@all_entries)
+    @all_entries ||= HierarchyEntry.sort_by_vetted(HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => select, :include => :vetted))
     
     # we want ONLY the entry in this hierarchy
     if strict_lookup
@@ -352,6 +357,13 @@ class TaxonConcept < SpeciesSchemaModel
       @all_entries[0] ||
       nil
   end
+  
+  def entry_for_agent(agent_id)
+    return nil if agent_id.blank? || agent_id == 0
+    matches = hierarchy_entries.select{ |he| he.hierarchy && he.hierarchy.agent_id == agent_id }
+    return nil if matches.empty?
+    matches[0]
+  end
 
   def self.entries_for_concepts(taxon_concept_ids, hierarchy = nil, strict_lookup = false)
     hierarchy ||= Hierarchy.default
@@ -360,7 +372,7 @@ class TaxonConcept < SpeciesSchemaModel
     raise "Must get an array of taxon_concept_ids" unless taxon_concept_ids.is_a? Array
 
     # get all hierarchy entries
-    all_entries = HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id IN (#{taxon_concept_ids.join(',')})")
+    all_entries = HierarchyEntry.find_all_by_taxon_concept_id(taxon_concept_ids, :include => :vetted)
     # ..and order them by published DESC, vetted view_order ASC, id ASC - earliest entry first
     all_entries.sort! do |a,b|
       if a.taxon_concept_id == b.taxon_concept_id
@@ -1191,16 +1203,6 @@ class TaxonConcept < SpeciesSchemaModel
     Synonym.find(syn_id).destroy
   end
 
-  # only unsed in tests--this would be really slow with real data
-  def data_objects
-    DataObject.find_by_sql("
-      SELECT do.*
-      FROM hierarchy_entries he
-      JOIN data_objects_hierarchy_entries dohe ON (he.id=dohe.hierarchy_entry_id)
-      JOIN data_objects do ON (dohe.data_object_id=do.id)
-      WHERE he.taxon_concept_id=#{self.id}")
-  end
-
   def has_feed?
     feed_object = FeedDataObject.find_by_taxon_concept_id(self.id, :limit => 1)
     return !feed_object.blank?
@@ -1240,6 +1242,24 @@ class TaxonConcept < SpeciesSchemaModel
     TaxonConcept.connection.execute("UPDATE IGNORE hierarchy_entries he JOIN random_hierarchy_images rhi ON (he.id=rhi.hierarchy_entry_id) SET rhi.taxon_concept_id=he.taxon_concept_id WHERE he.taxon_concept_id=#{id2}");
     return true
   end
+  
+  def text_objects_for_toc_item(toc_item, options={})
+    this_toc_objects = data_objects.select{ |d| d.toc_items && d.toc_items.include?(toc_item) }
+    user_objects = users_data_objects.select{ |udo| udo.data_object.toc_items && udo.data_object.toc_items.include?(toc_item) }.
+      collect{ |udo| udo.data_object}
+    combined_objects = this_toc_objects | user_objects  # get the union of the two sets
+    
+    # remove objects this user shouldn't see
+    filtered_objects = DataObject.filter_list_for_user(combined_objects, :agent => options[:agent], :user => options[:user])
+    
+    add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user }, 
+      { :refs => { :ref_identifiers => :ref_identifier_type } }]
+    add_select = { :refs => '*' , :ref_identifiers => '*', :users => '*' }
+    
+    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
+        find_all_by_id(filtered_objects.collect{ |d| d.id })
+    DataObject.sort_by_rating(objects)
+  end
 
 private
 
@@ -1269,11 +1289,11 @@ private
     return 1
   end
 
-  def get_default_content(category_id)
+  def get_default_content(toc_item)
     result = {
       :content_type  => 'text',
-      :category_name => TocItem.find(category_id).label,
-      :data_objects  => DataObject.for_taxon(self, :text, :toc_id => category_id, :agent => @current_agent, :user => current_user)
+      :category_name => toc_item.label,
+      :data_objects  => text_objects_for_toc_item(toc_item, :agent => @current_agent, :user => current_user)
     }
     # TODO = this should not be hard-coded! IDEA = use partials.  Then we have variables and they can be dynamically changed.
     # NOTE: I tried to dynamically alter data_objects directly, below, but they didn't
@@ -1300,7 +1320,6 @@ private
     result[:data_objects] = override_data_objects
     return result
   end
-
 
 end
 

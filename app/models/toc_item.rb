@@ -27,7 +27,7 @@ class TocItem < SpeciesSchemaModel
   end
   
   def self.bhl
-    cached_find(:label, 'Biodiversity Heritage Library')
+    $LOCAL_CACHE.toc_item_bhl ||= cached_find(:label, 'Biodiversity Heritage Library')
   end
   def self.content_partners
     cached_find(:label, 'Content Partners')
@@ -61,25 +61,25 @@ class TocItem < SpeciesSchemaModel
     end
   end
   def self.overview
-    cached_find(:label, 'Overview')
+    $LOCAL_CACHE.toc_item_overview ||= cached_find(:label, 'Overview')
   end
   def self.education
-    cached_find(:label, 'Education')
+    $LOCAL_CACHE.toc_item_education ||= cached_find(:label, 'Education')
   end
   def self.search_the_web
-    cached_find(:label, 'Search the Web')
+    $LOCAL_CACHE.toc_item_search_the_web ||= cached_find(:label, 'Search the Web')
   end
   def self.biomedical_terms
-    cached_find(:label, 'Biomedical Terms')
+    $LOCAL_CACHE.toc_item_biomedical ||= cached_find(:label, 'Biomedical Terms')
   end
   def self.literature_references
-    cached_find(:label, 'Literature References')
+    $LOCAL_CACHE.toc_item_literature ||= cached_find(:label, 'Literature References')
   end
   def self.nucleotide_sequences
-    cached_find(:label, 'Nucleotide Sequences')
+    $LOCAL_CACHE.toc_item_nucleotide ||= cached_find(:label, 'Nucleotide Sequences')
   end
   def self.wikipedia
-    cached_find(:label, 'Wikipedia')
+    $LOCAL_CACHE.toc_item_wikipedia ||= cached_find(:label, 'Wikipedia')
   end
   
   def object_count

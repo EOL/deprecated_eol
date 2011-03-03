@@ -25,4 +25,4 @@
   %h2
     = subtitle
 %p
-  = "#{license_attribution_html} by #{agent_partial(@data_object.authors)} #{source}"
+  = "#{license_attribution_html} by #{citables_to_string(@data_object.authors.map{|a| a.citable})} #{source}"

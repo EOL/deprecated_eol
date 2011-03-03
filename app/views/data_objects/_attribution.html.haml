@@ -10,26 +10,25 @@
             = image_tag 'gbif_legend.gif', :title=>'GBIF Map Legend',:alt=>'GBIF Map Legend'
             %br
             Not all maps have occurrence information.
-  - elsif has_hidden_attributions?(data_object) && !@preview
+  - else !@preview
     %a.attribution-icon.expand-text-attribution{ :href => "#", :title => "View full attribution details", :id => "tdo_#{data_object.id}", :style => "width: 25px; height: 25px" }
-  - unless data_object['users'].nil?
+  - unless data_object.users_data_objects.blank? || data_object.users_data_objects[0].user.blank?
     .credit.supplier
       .credit-caption
         = "Supplier"[]
       .credit-value
-        = data_object['users'][0].given_name
-        = data_object['users'][0].family_name
+        = data_object.users_data_objects[0].user.given_name
+        = data_object.users_data_objects[0].user.family_name
       .footer
-  - unless data_object['attributions'].nil?
-    - data_object['attributions'].each do |attribution|
-      %div{ :class => "credit #{css_class(attribution.agent_role)}" }
+  - citables = data_object.citable_entities
+  - unless citables.blank?
+    - citables.each do |citable|
+      %div{ :class => "credit #{citable.type.gsub(/ /,'').strip.downcase}" }
         .credit-caption
-          = attribution.agent_role
-        .credit-value         
-          / agent partial
-          = agent_partial(attribution.agent)
-          / agent icon
-          = agent_icons_partial(attribution.agent)
+          = citable.type
+        .credit-value
+          = citables_to_string(citable)
+          = citables_to_icons(citable)
         .footer
   - if data_object.in_wikipedia?
     .credit.show

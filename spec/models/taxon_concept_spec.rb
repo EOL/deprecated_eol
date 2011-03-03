@@ -162,6 +162,7 @@ describe TaxonConcept do
     he.save
     make_all_nested_sets
     flatten_hierarchies
+    @taxon_concept.reload
     @taxon_concept.ancestors.map(&:id).should == [@kingdom.id, @phylum.id, @order.id, @taxon_concept.id]
   end
   
@@ -174,6 +175,7 @@ describe TaxonConcept do
                                         :parent_hierarchy_entry_id => @taxon_concept.entry.id)
     @infraspecies = build_taxon_concept(:rank => 'infraspecies', :depth => 4,
                                         :parent_hierarchy_entry_id => @subspecies1.entry.id)
+    @taxon_concept.reload
     @taxon_concept.children.map(&:id).should only_include @subspecies1.id, @subspecies2.id, @subspecies3.id
   end
   

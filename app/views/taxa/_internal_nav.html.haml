@@ -25,8 +25,8 @@
       = "Curation"[]
     %ul#contribute.bulletlist
       - if false # TEMP... don't show this yet...  @taxon_concept.show_curator_controls?
-          %li.strong
-            = link_to("Curate content in this clade", :controller => :curators, :action => :curate_images, :hierarchy_entry_id => @taxon_concept.entry.id)
+        %li.strong
+          = link_to("Curate content in this clade", :controller => :curators, :action => :curate_images, :hierarchy_entry_id => @taxon_concept.entry.id)
       - act_curators_size = @taxon_concept.acting_curators.size
       - if act_curators_size > 0
         %li

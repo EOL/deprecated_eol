@@ -12,6 +12,7 @@ class User < parent_klass
   belongs_to :agent
   has_and_belongs_to_many :roles
 
+  after_save :clear_cached_user
   before_save :check_curator_status
 
   # TODO - this should be okay, but the account controller doesn't seem to like using this, because it forces this param

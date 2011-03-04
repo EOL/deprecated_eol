@@ -8,17 +8,17 @@ class Visibility < SpeciesSchemaModel
     end
   end
   def self.visible
-    $LOCAL_CACHE.visibility_visible ||= cached_find(:label, 'Visible')
+    cached_find(:label, 'Visible')
   end
   def self.preview
-    $LOCAL_CACHE.visibility_preview ||= cached_find(:label, 'Preview')
+    cached_find(:label, 'Preview')
   end
   def self.inappropriate
-    $LOCAL_CACHE.visibility_innappropriate ||= cached_find(:label, 'Inappropriate')
+    cached_find(:label, 'Inappropriate')
   end
   
   def self.invisible
-    $LOCAL_CACHE.visibility_invisible ||= cached('Invisible') do
+    cached('Invisible') do
       invisible = Visibility.find_by_label('Invisible')
       # The ID *must* be 0 (PHP hard-coded; it also makes /sense/).  If it's not, we fix it now:
       if invisible.id != 0

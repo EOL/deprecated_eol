@@ -6,15 +6,15 @@ class Vetted < SpeciesSchemaModel
   set_table_name "vetted"
 
   def self.untrusted
-    $LOCAL_CACHE.vetted_untrusted ||= cached_find(:label, 'Untrusted')
+    cached_find(:label, 'Untrusted')
   end
   
   def self.trusted
-    $LOCAL_CACHE.vetted_trusted ||= cached_find(:label, 'Trusted')
+    cached_find(:label, 'Trusted')
   end
   
   def self.unknown
-    $LOCAL_CACHE.vetted_unknown ||= cached('unknown') do
+    cached('unknown') do
       unknown = Vetted.find_by_label('Unknown')
       # The ID *must* be 0 (PHP hard-coded; it also kinda makes sense, though we might have allowed nulls instead).
       # If it's not, we fix it now:

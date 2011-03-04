@@ -135,7 +135,6 @@ describe 'EOL APIs' do
     @second_test_hierarchy_entry = HierarchyEntry.gen(:hierarchy => @second_test_hierarchy, :identifier => 54321, :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id)
     
     # was getting some random failures that were not reproducable, testing to see if a cache was the culprit
-    $LOCAL_CACHE = OpenStruct.new()
     $CACHE.clear
   end
   
@@ -446,6 +445,8 @@ describe 'EOL APIs' do
   end
   
   it 'hierarchy_entries should show all information for hierarchy entries in DWC format' do
+    $CACHE.clear
+    @hierarchy_entry = HierarchyEntry.find(@hierarchy_entry.id)
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dc:identifier").inner_text.should == @hierarchy_entry.identifier

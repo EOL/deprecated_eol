@@ -5,12 +5,12 @@ class AgentStatus < SpeciesSchemaModel
     
   # Find the "Active" AgentStatus.
   def self.active
-    cached_find(:label, 'Active', :serialize => true)
+    cached_find(:label, 'Active')
   end 
 
   # Find the "Inactive" AgentStatus.
   def self.inactive
-    cached_find(:label, 'Inactive', :serialize => true)
+    cached_find(:label, 'Inactive')
   end 
   
 end

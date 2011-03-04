@@ -1,5 +1,5 @@
 class DataType < SpeciesSchemaModel
-  
+  CACHE_ALL_ROWS = true
   has_many :data_objects
   @@full_attribution_order = nil
   
@@ -21,35 +21,35 @@ class DataType < SpeciesSchemaModel
   end
   
   def self.text
-    $LOCAL_CACHE.data_type_text ||= cached_find(:label, 'Text')
+    cached_find(:label, 'Text')
   end
   
   def self.image
-    $LOCAL_CACHE.data_type_image ||= cached_find(:label, 'Image')
+    cached_find(:label, 'Image')
   end
   
   def self.sound
-    $LOCAL_CACHE.data_type_sound ||= cached_find(:label, 'Sound')
+    cached_find(:label, 'Sound')
   end
   
   def self.video
-    $LOCAL_CACHE.data_type_video ||= cached_find(:label, 'Video')
+    cached_find(:label, 'Video')
   end
   
   def self.youtube
-    $LOCAL_CACHE.data_type_youtube ||= cached_find(:label, 'YouTube')
+    cached_find(:label, 'YouTube')
   end
   
   def self.flash
-    $LOCAL_CACHE.data_type_flash ||= cached_find(:label, 'Flash')
+    cached_find(:label, 'Flash')
   end
   
   def self.gbif_image
-    $LOCAL_CACHE.data_type_gbif_image ||= cached_find(:label, 'GBIF Image')
+    cached_find(:label, 'GBIF Image')
   end
   
   def self.iucn
-    $LOCAL_CACHE.data_type_iucn ||= cached_find(:label, 'IUCN')
+    cached_find(:label, 'IUCN')
   end
   
   def self.image_type_ids
@@ -76,12 +76,3 @@ private
   end
 
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: data_types
-#
-#  id           :integer(2)      not null, primary key
-#  label        :string(255)     not null
-#  schema_value :string(255)     not null
-

@@ -98,11 +98,11 @@ class Agent < SpeciesSchemaModel
 
   # Singleton class variable, so we only ever look it up once per thread:  
   def self.iucn
-    $LOCAL_CACHE.agent_iucn ||= cached_find(:full_name, 'IUCN', :serialize => true)
+    cached_find(:full_name, 'IUCN')
   end
 
   def self.catalogue_of_life
-    $LOCAL_CACHE.agent_catalogue_of_life ||= cached_find(:full_name, 'Catalogue of Life', :serialize => true)
+    cached_find(:full_name, 'Catalogue of Life')
   end
 
   def self.col
@@ -110,15 +110,15 @@ class Agent < SpeciesSchemaModel
   end
 
   def self.gbif
-    $LOCAL_CACHE.agent_gbif ||= cached_find(:full_name, 'Global Biodiversity Information Facility (GBIF)', :serialize => true)
+    cached_find(:full_name, 'Global Biodiversity Information Facility (GBIF)')
   end
 
   def self.ncbi
-    $LOCAL_CACHE.agent_ncbi ||= cached_find(:full_name, 'National Center for Biotechnology Information', :serialize => true)
+    cached_find(:full_name, 'National Center for Biotechnology Information')
   end
 
   def self.boa
-    cached_find(:full_name, 'Biology of Aging', :serialize => true)
+    cached_find(:full_name, 'Biology of Aging')
   end
 
   def self.content_partners_contact_info(month,year)    

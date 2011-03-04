@@ -72,11 +72,30 @@ describe TaxonConcept do
     # And we want one comment that the world cannot see:
     Comment.find_by_body(@comment_bad).hide User.last
     @user = User.gen
+    
+    
+    @tcn_count = TaxonConceptName.count
+    @syn_count = Synonym.count
+    @name_count = Name.count
+    @name_string = "Piping plover"
+    @agent = @curator.agent
+    @synonym = @taxon_concept.add_common_name_synonym(@name_string, :agent => @agent, :language => Language.english)
+    @name = @synonym.name
+    @tcn = @synonym.taxon_concept_name
+    
+    @taxon_concept.current_user = @curator
+    @syn1 = @taxon_concept.add_common_name_synonym('Some unused name', :agent => @agent, :language => Language.english)
+    @tcn1 = TaxonConceptName.find_by_synonym_id(@syn1.id)
+    @name_obj ||= Name.last
+    @he2  ||= build_hierarchy_entry(1, @taxon_concept, @name_obj)
+    # Slightly different method, in order to attach it to a different HE:
+    @syn2 = Synonym.generate_from_name(@name_obj, :entry => @he2, :language => Language.english, :agent => @agent)
+    @tcn2 = TaxonConceptName.find_by_synonym_id(@syn2.id)
   end
   after :all do
     truncate_all_tables
   end
-
+  
   it 'should capitalize the title (even if the name starts with a quote)' do
     good_title = %Q{"Good title"}
     bad_title = good_title.downcase
@@ -117,66 +136,74 @@ describe TaxonConcept do
   end
   
   it 'should have an IUCN conservation status' do
-    tc = build_taxon_concept()
+    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
     iucn_status = Factory.next(:iucn)
-    build_iucn_entry(tc, iucn_status)
-    tc.iucn_conservation_status.should == iucn_status
+    he = build_iucn_entry(@taxon_concept, iucn_status)
+    @taxon_concept.iucn_conservation_status.should == iucn_status
+    he.delete
   end
   
   it 'should NOT have an IUCN conservation status even if it comes from another IUCN resource' do
-    tc = build_taxon_concept()
+    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
     iucn_status = Factory.next(:iucn)
     (hierarchy, resource) = build_secondary_iucn_hierarchy_and_resource
-    build_iucn_entry(tc, iucn_status, :hierarchy => hierarchy,
+    he = build_iucn_entry(@taxon_concept, iucn_status, :hierarchy => hierarchy,
                                                   :event => HarvestEvent.gen(:resource => resource))
-    tc.iucn_conservation_status.should == 'NOT EVALUATED'
+    @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
+    he.delete
   end
   
   it 'should have only one IUCN conservation status when there could have been many (doesnt matter which)' do
-    build_iucn_entry(@taxon_concept, Factory.next(:iucn))
-    build_iucn_entry(@taxon_concept, Factory.next(:iucn))
+    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
+    he1 = build_iucn_entry(@taxon_concept, Factory.next(:iucn))
+    he2 = build_iucn_entry(@taxon_concept, Factory.next(:iucn))
     result = @taxon_concept.iucn
     result.should be_an_instance_of DataObject # (not an Array, mind you.)
+    he1.delete
+    he2.delete
   end
   
   it 'should not use an unpublished IUCN status' do
-    tc = build_taxon_concept()
-    bad_iucn = build_iucn_entry(tc, 'bad value')
-    tc.iucn_conservation_status.should == 'bad value'
+    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
+    bad_iucn = build_iucn_entry(@taxon_concept, 'bad value')
+    @taxon_concept.iucn_conservation_status.should == 'bad value'
+    bad_iucn.delete
     
     # We *must* know that it would have worked if it *were* published, otherwise the test proves nothing:
-    tc2 = build_taxon_concept()
-    bad_iucn2 = build_iucn_entry(tc2, 'bad value')
+    bad_iucn2 = build_iucn_entry(@taxon_concept, 'bad value')
     bad_iucn2.published = 0
     bad_iucn2.save
-    tc2.iucn_conservation_status.should == 'NOT EVALUATED'
+    @taxon_concept = TaxonConcept.find(@taxon_concept.id)
+    @taxon_concept.iucn_conservation_status.should == 'NOT EVALUATED'
   end
   
   it 'should be able to list its ancestors (by convention, ending with itself)' do
-    @kingdom = build_taxon_concept(:rank => 'kingdom', :depth => 0)
-    @phylum  = build_taxon_concept(:rank => 'phylum',  :depth => 1, :parent_hierarchy_entry_id => @kingdom.entry.id)
-    @order   = build_taxon_concept(:rank => 'order',   :depth => 2, :parent_hierarchy_entry_id => @phylum.entry.id)
-    # Now we attach our TC to those:
     he = @taxon_concept.entry
-    he.parent_id = @order.entry.id
+    kingdom = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => 0)
+    phylum = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => kingdom.id)
+    order = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => phylum.id)
+    he.parent_id = order.id
     he.save
+    # # @phylum  = build_taxon_concept(:rank => 'phylum',  :depth => 1, :parent_hierarchy_entry_id => @kingdom.entry.id)
+    # # @order   = build_taxon_concept(:rank => 'order',   :depth => 2, :parent_hierarchy_entry_id => @phylum.entry.id)
+    # # Now we attach our TC to those:
+    # he = @taxon_concept.entry
+    # he.parent_id = @order.entry.id
+    # he.save
     make_all_nested_sets
     flatten_hierarchies
     @taxon_concept.reload
-    @taxon_concept.ancestors.map(&:id).should == [@kingdom.id, @phylum.id, @order.id, @taxon_concept.id]
+    @taxon_concept.ancestors.map(&:id).should == [kingdom.taxon_concept_id, phylum.taxon_concept_id, order.taxon_concept_id, @taxon_concept.id]
   end
   
   it 'should be able to list its children (NOT descendants, JUST children--animalia would be a disaster!)' do
-    @subspecies1  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @subspecies2  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @subspecies3  = build_taxon_concept(:rank => 'subspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @taxon_concept.entry.id)
-    @infraspecies = build_taxon_concept(:rank => 'infraspecies', :depth => 4,
-                                        :parent_hierarchy_entry_id => @subspecies1.entry.id)
+    he = @taxon_concept.entry
+    subspecies1 = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => he.id)
+    subspecies2 = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => he.id)
+    subspecies3 = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => he.id)
+    infraspecies = HierarchyEntry.gen(:hierarchy => he.hierarchy, :parent_id => subspecies1.id)
     @taxon_concept.reload
-    @taxon_concept.children.map(&:id).should only_include @subspecies1.id, @subspecies2.id, @subspecies3.id
+    @taxon_concept.children.map(&:id).should only_include subspecies1.taxon_concept_id, subspecies2.taxon_concept_id, subspecies3.taxon_concept_id
   end
   
   it 'should find its GBIF map ID' do
@@ -403,148 +430,125 @@ describe TaxonConcept do
     #@taxon_concept.toc.map(&:id).should include(toci.id)
   #end
   
-  describe "#add_common_name" do
-    before(:all) do
-      @tcn_count = TaxonConceptName.count
-      @syn_count = Synonym.count
-      @name_count = Name.count
-      @name_string = "Piping plover"
-      @agent = Agent.find(@curator.agent_id)
-      @synonym = @taxon_concept.add_common_name_synonym(@name_string, :agent => @agent, :language => Language.english)
-      @name = @synonym.name
-      @tcn = @synonym.taxon_concept_name
-    end
-  
-    it "should increase name count, taxon name count, synonym count" do
-      TaxonConceptName.count.should == @tcn_count + 1
-      Synonym.count.should == @syn_count + 1
-      Name.count.should == @name_count + 1
-    end
-  
-    it "should mark first created name for a language as preferred automatically" do
-      language = Language.gen(:label => "Russian") 
-      weird_name = "Саблезубая сосиска"
-      s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
-      TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
-      TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_true
-      weird_name = "Голый землекоп"
-      s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
-      TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 2
-      TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
-    end
-  
-    it "should not mark first created name as preffered for unknown language" do
-      language = Language.unknown
-      weird_name = "Саблезубая сосиска"
-      s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
-      TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
-      TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
-    end
-  
-    it "should create new name object" do
-      @name.class.should == Name
-      @name.string.should == @name_string
-    end
-  
-    it "should create synonym" do
-      @synonym.class.should == Synonym
-      @synonym.name.should == @name
-      @synonym.agents.should == [@curator.agent]
-    end
-  
-    it "should create taxon_concept_name" do
-      @tcn.should_not be_nil
-    end
-  
-    it "should be able to create a common name with the same name string but different language" do
-      @taxon_concept.add_common_name_synonym(@name_string, :agent => Agent.find(@curator.agent_id), :language => Language.find_by_label("French"))
-      TaxonConceptName.count.should == @tcn_count + 2
-      Synonym.count.should == @syn_count + 2
-      Name.count.should == @name_count + 1
-    end
+  it "add common name should increase name count, taxon name count, synonym count" do
+    tcn_count = TaxonConceptName.count
+    syn_count = Synonym.count
+    name_count = Name.count
+    
+    @taxon_concept.add_common_name_synonym('any name', :agent => @agent, :language => Language.english)
+    
+    TaxonConceptName.count.should == tcn_count + 1
+    Synonym.count.should == syn_count + 1
+    Name.count.should == name_count + 1
   end
   
-  
-  describe "#delete_common_name" do
-    before(:all) do
-      @synonym = @taxon_concept.add_common_name_synonym("Piping plover", :agent => Agent.find(@curator.agent_id), :language => Language.english)
-      @tc_name = @synonym.taxon_concept_name
-      @tcn_count = TaxonConceptName.count
-      @syn_count = Synonym.count
-      @name_count = Name.count
-    end
-  
-    it "should delete a common name" do
-      @taxon_concept.delete_common_name(@tc_name)
-      TaxonConceptName.count.should == @tcn_count - 1
-      Synonym.count.should == @syn_count - 1
-      Name.count.should == @name_count #name is not deleted
-    end
-  
-    it "should delete preffered common names, should mark last common name for a language as preferred" do
-      pref_en_name = TaxonConceptName.find_by_taxon_concept_id_and_language_id_and_preferred(@taxon_concept, Language.english, true)
-      all_en_names = TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, Language.english)
-      all_en_names.size.should == 2
-      @tc_name.preferred?.should be_false
-      @taxon_concept.delete_common_name(pref_en_name) #it should work now because it is the only name left
-      TaxonConceptName.count.should == @tcn_count - 1
-      Synonym.count.should == @syn_count - 1
-      Name.count.should == @name_count
-      TaxonConceptName.find_by_synonym_id(@tc_name.synonym.id).preferred?.should be_true
-      @taxon_concept.delete_common_name(@tc_name)
-      TaxonConceptName.count.should == @tcn_count - 2
-      Synonym.count.should == @syn_count - 2
-      Name.count.should == @name_count
-    end
-  
+  it "add common name should mark first created name for a language as preferred automatically" do
+    language = Language.gen(:label => "Russian") 
+    weird_name = "Саблезубая сосиска"
+    s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
+    TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
+    TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_true
+    weird_name = "Голый землекоп"
+    s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
+    TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 2
+    TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
+  end
+
+  it "add common name should not mark first created name as preffered for unknown language" do
+    language = Language.unknown
+    weird_name = "Саблезубая сосискаasdfasd"
+    s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
+    TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
+    TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
+  end
+
+  it "add common name should create new name object" do
+    @name.class.should == Name
+    @name.string.should == @name_string
   end
   
-  describe 'vetting common names' do
+  it "add common name should create synonym" do
+    @synonym.class.should == Synonym
+    @synonym.name.should == @name
+    @synonym.agents.should == [@curator.agent]
+  end
   
-    before(:each) do
-      @another_curator = build_curator(@taxon_concept)
-      @taxon_concept.current_user = @another_curator
-      @name ||= "Some name"
-      @language = Language.english
-      @syn1 = @taxon_concept.add_common_name_synonym(@name, :agent => @curator.agent, :language => @language)
-      @tcn1 = TaxonConceptName.find_by_synonym_id(@syn1.id)
-      @name_obj ||= Name.last
-      @he2  ||= build_hierarchy_entry(1, @taxon_concept, @name_obj)
-      # Slightly different method, in order to attach it to a different HE:
-      @syn2 = Synonym.generate_from_name(@name_obj, :entry => @he2, :language => @language, :agent => @curator.agent)
-      @tcn2 = TaxonConceptName.find_by_synonym_id(@syn2.id)
+  it "add common name should create taxon_concept_name" do
+    @tcn.should_not be_nil
+  end
+  
+  it "add common name should be able to create a common name with the same name string but different language" do
+    tcn_count = TaxonConceptName.count
+    syn_count = Synonym.count
+    name_count = Name.count
+    
+    syn = @taxon_concept.add_common_name_synonym(@name_string, :agent => Agent.find(@curator.agent_id), :language => Language.find_by_label("French"))
+    TaxonConceptName.count.should == tcn_count + 1
+    Synonym.count.should == syn_count + 1
+    Name.count.should == name_count  # name wasn't new
+  end
+  
+  it "delete common name should delete a common name" do
+    tcn_count = TaxonConceptName.count
+    syn_count = Synonym.count
+    name_count = Name.count
+    
+    @taxon_concept.delete_common_name(@tcn)
+    TaxonConceptName.count.should == tcn_count - 1
+    Synonym.count.should == syn_count - 1
+    Name.count.should == name_count  # name is not deleted
+  end
+  
+  it "delete common name should delete preferred common names, should mark last common name for a language as preferred" do
+    # remove all existing English common names
+    TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, Language.english).each do |tcn|
+      tcn.delete
     end
+    
+    # first one should go in as preferred
+    first_syn = @taxon_concept.add_common_name_synonym('First english name', :agent => @agent, :language => Language.english)
+    first_tcn = TaxonConceptName.find_by_synonym_id(first_syn.id)
+    first_tcn.preferred?.should be_true
+    
+    # second should not be preferred
+    second_syn = @taxon_concept.add_common_name_synonym('Second english name', :agent => @agent, :language => Language.english)
+    second_tcn = TaxonConceptName.find_by_synonym_id(second_syn.id)
+    second_tcn.preferred?.should be_false
+    
+    # after removing the first, the last one should change to preferred
+    @taxon_concept.delete_common_name(first_tcn)
+    second_tcn.reload
+    second_tcn.preferred?.should be_true
+  end
   
-    it 'should untrust all synonyms and TCNs related to a TC when untrusted' do
-      # Make them all "trusted" first:
-      [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.trusted) }
-      @taxon_concept.vet_common_name(:vetted => Vetted.untrusted, :language_id => @language.id, :name_id => @name_obj.id)
-      @syn1.reload.vetted_id.should == Vetted.untrusted.id
-      @syn2.reload.vetted_id.should == Vetted.untrusted.id
-      @tcn1.reload.vetted_id.should == Vetted.untrusted.id
-      @tcn2.reload.vetted_id.should == Vetted.untrusted.id
-    end
+  it 'should untrust all synonyms and TCNs related to a TC when untrusted' do
+    # Make them all "trusted" first:
+    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.trusted) }
+    @taxon_concept.vet_common_name(:vetted => Vetted.untrusted, :language_id => Language.english.id, :name_id => @name_obj.id)
+    @syn1.reload.vetted_id.should == Vetted.untrusted.id
+    @syn2.reload.vetted_id.should == Vetted.untrusted.id
+    @tcn1.reload.vetted_id.should == Vetted.untrusted.id
+    @tcn2.reload.vetted_id.should == Vetted.untrusted.id
+  end
   
-    it 'should "unreview" all synonyms and TCNs related to a TC when unreviewed' do
-      # Make them all "trusted" first:
-      [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.trusted) }
-      @taxon_concept.vet_common_name(:vetted => Vetted.unknown, :language_id => @language.id, :name_id => @name_obj.id)
-      @syn1.reload.vetted_id.should == Vetted.unknown.id
-      @syn2.reload.vetted_id.should == Vetted.unknown.id
-      @tcn1.reload.vetted_id.should == Vetted.unknown.id
-      @tcn2.reload.vetted_id.should == Vetted.unknown.id
-    end
+  it 'should "unreview" all synonyms and TCNs related to a TC when unreviewed' do
+    # Make them all "trusted" first:
+    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.trusted) }
+    @taxon_concept.vet_common_name(:vetted => Vetted.unknown, :language_id => Language.english.id, :name_id => @name_obj.id)
+    @syn1.reload.vetted_id.should == Vetted.unknown.id
+    @syn2.reload.vetted_id.should == Vetted.unknown.id
+    @tcn1.reload.vetted_id.should == Vetted.unknown.id
+    @tcn2.reload.vetted_id.should == Vetted.unknown.id
+  end
   
-    it 'should trust all synonyms and TCNs related to a TC when trusted' do
-      # Make them all "unknown" first:
-      [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.unknown) }
-      @taxon_concept.vet_common_name(:vetted => Vetted.trusted, :language_id => @language.id, :name_id => @name_obj.id)
-      @syn1.reload.vetted_id.should == Vetted.trusted.id
-      @syn2.reload.vetted_id.should == Vetted.trusted.id
-      @tcn1.reload.vetted_id.should == Vetted.trusted.id
-      @tcn2.reload.vetted_id.should == Vetted.trusted.id
-    end
-  
+  it 'should trust all synonyms and TCNs related to a TC when trusted' do
+    # Make them all "unknown" first:
+    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.unknown) }
+    @taxon_concept.vet_common_name(:vetted => Vetted.trusted, :language_id => Language.english.id, :name_id => @name_obj.id)
+    @syn1.reload.vetted_id.should == Vetted.trusted.id
+    @syn2.reload.vetted_id.should == Vetted.trusted.id
+    @tcn1.reload.vetted_id.should == Vetted.trusted.id
+    @tcn2.reload.vetted_id.should == Vetted.trusted.id
   end
   
   #

@@ -15,11 +15,10 @@ class Hierarchy < SpeciesSchemaModel
   belongs_to :agent           # This is the attribution.
   has_and_belongs_to_many :collection_types
   has_one :resource
+  has_many :hierarchy_entries
 
   named_scope :browsable, :conditions => {:browsable => 1}
 
-  has_many :hierarchy_entries
-  has_one :resource
 
   alias entries hierarchy_entries
   
@@ -36,20 +35,20 @@ class Hierarchy < SpeciesSchemaModel
   end
 
   def self.default
-    $LOCAL_CACHE.hierarchy_default ||= cached_find(:label, $DEFAULT_HIERARCHY_NAME, :serialize => true)
+    cached_find(:label, $DEFAULT_HIERARCHY_NAME)
   end
 
   # This is the first hierarchy we used, and we need it to serve "old" URLs (ie: /taxa/16222828 => Roenbergensis)
   def self.original
-    cached_find(:label, "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007", :serialize => true)
+    cached_find(:label, "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007")
   end
 
   def self.eol_contributors
-    cached_find(:label, "Encyclopedia of Life Contributors", :serialize => true)
+    cached_find(:label, "Encyclopedia of Life Contributors")
   end
 
   def self.ncbi
-    $LOCAL_CACHE.hierarchy_ncbi ||= cached('ncbi', :serialize => true) do
+    cached('ncbi') do
       Hierarchy.find_by_label("NCBI Taxonomy", :order => "hierarchy_group_version desc")
     end
   end

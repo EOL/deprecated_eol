@@ -1,5 +1,4 @@
 $CACHE ||= Rails.cache
-$LOCAL_CACHE ||= OpenStruct.new
 
 class String
 
@@ -34,9 +33,14 @@ module ActiveRecord
       # I am going to try NOT doing anything with that option right now, to see if it works.  If not, however, I want to at
       # least have it passed in when we needed it, so the code can change later if needed.
       def cached_find(field, value, options = {})
-        cached("#{field}/#{value}", options) do
+        if v = check_local_cache("#{field}_#{value}".to_sym)
+          return v
+        end
+        response = cached("#{field}/#{value}", options) do
           send("find_by_#{field}", value)
         end
+        set_local_cache("#{field}_#{value}".to_sym, response)
+        response
       end
 
       def cached(key, options = {}, &block)
@@ -66,6 +70,29 @@ module ActiveRecord
 
       def cached_name_for(key)
         "#{RAILS_ENV}/#{self.table_name}/#{key.underscore_non_word_chars}"[0..249]
+      end
+      
+      def check_local_cache(key)
+        initialize_cached_instances
+        if local_cache = class_variable_get(:@@cached_instances)
+          return local_cache[key]
+        end
+      end
+      def set_local_cache(key, value)
+        initialize_cached_instances
+        if local_cache = class_variable_get(:@@cached_instances)
+          local_cache[key] = value
+        end
+      end
+      def initialize_cached_instances
+        unless class_variable_defined?(:@@cached_instances)
+          class_variable_set(:@@cached_instances, {})
+        end
+      end
+      def reset_cached_instances
+        if class_variable_defined?(:@@cached_instances)
+          class_variable_set(:@@cached_instances, {})
+        end
       end
     end
   end

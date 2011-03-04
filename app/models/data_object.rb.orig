@@ -23,8 +23,14 @@ class DataObject < SpeciesSchemaModel
   has_many :comments, :as => :parent
   has_many :data_objects_harvest_events
   has_many :harvest_events, :through => :data_objects_harvest_events
+<<<<<<< HEAD
   has_many :data_object_tags, :class_name => DataObjectTags.to_s
   has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
+=======
+  has_many :agents, :through => :agents_data_objects
+  has_many :data_object_tags, :class_name => 'DataObjectTags'
+  has_many :tags, :class_name => 'DataObjectTag', :through => :data_object_tags, :source => :data_object_tag
+>>>>>>> b958274... Not a pretty fix, but this fixes the broken DataObjects controller.
   has_many :data_objects_table_of_contents
   has_many :data_objects_untrust_reasons
   has_many :untrust_reasons, :through => :data_objects_untrust_reasons
@@ -35,15 +41,14 @@ class DataObject < SpeciesSchemaModel
   has_many :users_data_objects
   has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
   has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
+=======
+  has_many :user_ignored_data_objects
+  has_many :all_comments, :class_name => 'Comment', :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
+>>>>>>> b958274... Not a pretty fix, but this fixes the broken DataObjects controller.
   
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
   # has_many :versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id'
   
-=======
-  has_many :user_ignored_data_objects
-  has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
-  
->>>>>>> ac3a517... Reduced the numer of comments queries we will need to make; Applied the fix for the IUCN status bug
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
   has_and_belongs_to_many :refs
@@ -495,7 +500,11 @@ class DataObject < SpeciesSchemaModel
 
   def visible_comments(user = nil)
     return all_comments if (not user.nil?) and user.is_moderator?
+<<<<<<< HEAD
     all_comments.find_all {|c| c.visible? }
+=======
+    all_comments.select {|comment| comment.visible? }
+>>>>>>> b958274... Not a pretty fix, but this fixes the broken DataObjects controller.
   end
 
   def image?

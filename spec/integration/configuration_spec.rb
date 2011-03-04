@@ -34,6 +34,7 @@ describe 'Configuration' do
       
       it 'should not generate any taxa page logs when logging is disabled' do
         visit("/pages/#{@taxon_concept.id}")
+        debugger
         PageViewLog.all.size.should == 0
       end
       

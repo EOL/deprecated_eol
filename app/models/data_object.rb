@@ -24,15 +24,15 @@ class DataObject < SpeciesSchemaModel
   has_many :data_objects_harvest_events
   has_many :harvest_events, :through => :data_objects_harvest_events
   has_many :agents, :through => :agents_data_objects
-  has_many :data_object_tags, :class_name => DataObjectTags.to_s
-  has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
+  has_many :data_object_tags, :class_name => 'DataObjectTags'
+  has_many :tags, :class_name => 'DataObjectTag', :through => :data_object_tags, :source => :data_object_tag
   has_many :data_objects_table_of_contents
   has_many :data_objects_untrust_reasons
   has_many :untrust_reasons, :through => :data_objects_untrust_reasons
   has_many :data_objects_info_items
   has_many :info_items, :through => :data_objects_info_items
   has_many :user_ignored_data_objects
-  has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
+  has_many :all_comments, :class_name => 'Comment', :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
   
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
@@ -144,7 +144,7 @@ class DataObject < SpeciesSchemaModel
     dato.published = false
     dato.save!
 
-    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => dato.id})
+    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => dato.id, :parent_type => 'DataObject'})
     comments_from_old_dato.map { |c| c.update_attribute :parent_id, d.id  }
 
     d.curator_activity_flag(user, all_params[:taxon_concept_id])
@@ -392,8 +392,8 @@ class DataObject < SpeciesSchemaModel
   end
 
   def visible_comments(user = nil)
-    return comments if (not user.nil?) and user.is_moderator?
-    comments.find_all {|comment| comment.visible? }
+    return all_comments if (not user.nil?) and user.is_moderator?
+    all_comments.select {|comment| comment.visible? }
   end
 
   def image?

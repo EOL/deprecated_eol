@@ -82,9 +82,9 @@ describe DataObject do
   
     it 'should save a newly added curation comment with any curation action' do
       [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_id|
-        comments_count = @data_object.all_comments.size
+        comments_count = @data_object.all_comments.count
         @data_object.curate(@user, :vetted_id => vetted_id, :comment => 'new smart comment')
-        (@data_object.all_comments.size - comments_count).should == 1 
+        (@data_object.all_comments.count - comments_count).should == 1 
       end
     end
   
@@ -263,8 +263,8 @@ describe DataObject do
       new_image_dato.tag("key-new", "value-new", curator)
       
       DataObjectTags.count.should == count + 4
-      @image_dato.public_tags.size.should == 4
-      @user.tags_for(@image_dato).size.should == 2
+      @image_dato.public_tags.count.should == 4
+      @user.tags_for(@image_dato).count.should == 2
     end
     
     it 'should mark tags as public if added by a curator' do
@@ -534,7 +534,7 @@ describe DataObject do
       res = DataObject.for_feeds(:text, @tc.id)
       res.class.should == Array
       data_types = res.map {|i| i['data_type_id']}.uniq
-      data_types.size.should == 1
+      data_types.count.should == 1
       DataType.find(data_types[0]).should == DataType.find_by_label("Text")
     end
     
@@ -542,7 +542,7 @@ describe DataObject do
       res = DataObject.for_feeds(:images, @tc.id)
       res.class.should == Array
       data_types = res.map {|i| i['data_type_id']}.uniq
-      data_types.size.should == 1
+      data_types.count.should == 1
       DataType.find(data_types[0]).should == DataType.find_by_label("Image")
     end
 
@@ -550,7 +550,7 @@ describe DataObject do
       res = DataObject.for_feeds(:all, @tc.id)
       res.class.should == Array
       data_types = res.map {|i| i['data_type_id']}.uniq
-      data_types.size.should == 2
+      data_types.count.should == 2
       data_types = data_types.map {|i| DataType.find(i).label}.sort
       data_types.should == ["Image", "Text"]
     end

@@ -4,11 +4,11 @@ class AgentStatus < SpeciesSchemaModel
   has_many :content_partners
     
   def self.active
-    cached_find(:label, 'Active', :serialize => true)
+    cached_find(:label, 'Active')
   end 
 
   def self.inactive
-    cached_find(:label, 'Inactive', :serialize => true)
+    cached_find(:label, 'Inactive')
   end 
   
 end

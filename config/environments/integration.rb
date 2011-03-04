@@ -43,7 +43,7 @@ config.log_level = :debug
 config.cache_store = :mem_cache_store
 ActiveRecord::Base.logger = Logger.new(STDOUT)
 ActionController::Base.logger = Logger.new(STDOUT)
-#ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
+ActiveSupport::Cache::MemCacheStore.logger = Logger.new(STDOUT)
 
 # set to false turn off notification of exceptions via email 
 $EXCEPTION_NOTIFY=false
@@ -61,7 +61,7 @@ $ENABLE_RECAPTCHA=false
 $ENABLE_ANALYTICS=false 
 $GOOGLE_ANALYTICS_ID="UA-3298646-1" 
 
-# $SOLR_SERVER = 'http://10.19.19.43:8080/solr/taxon_concepts'
+$SOLR_SERVER = 'http://10.19.19.43:8080/solr/taxon_concepts'
 # $SOLR_SERVER_DATA_OBJECTS = 'http://10.19.19.43:8080/solr/data_objects'
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything

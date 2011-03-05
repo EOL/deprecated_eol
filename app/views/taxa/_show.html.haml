@@ -41,7 +41,7 @@
     #left-page-content
       %input#current_taxon_concept_id{ :name => "current_taxon_concept_id", :type => "hidden", :value => @taxon_concept.id }
       %input#current_content{ :name => "current_content", :type => "hidden", :value => @category_id }
-      %input#canonical_form{ :name => "canonical_form", :type => "hidden", :value => strip_tags(@taxon_concept.entry.name.canonical_form.string) }
+      %input#canonical_form{ :name => "canonical_form", :type => "hidden", :value => strip_tags(@taxon_concept.canonical_form_string) }
       %h4#toc-header.margin-header.left-margin-header
         = "Table of Contents"[]
       %ul#toc

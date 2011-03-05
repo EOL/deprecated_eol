@@ -118,7 +118,11 @@ class DataObjectsController < ApplicationController
   def show
     get_attribution
     @type = @data_object.data_type.label
-    @comments = Comment.find_by_sql("SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{@data_object.guid}\'").paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
+    # TODO: The 'dup' in this code solves a REALLY (!) weird problem which we haven't fully understood, but manifests as a
+    # "NoMethodError Exception" or a whiny nil in the #paginate call. My best guess right now is that it has something to do
+    # with the lazy-loading of the restuls.  LEAVE THE #dup CALL HERE UNTIL SOLVED:
+    @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC',
+                                                       :per_page => Comment.per_page)
     @slim_container = true
     @revisions = @data_object.revisions.sort_by(&:created_at).reverse
     @hierarchy_paths = get_harvested_paths

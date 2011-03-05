@@ -254,6 +254,11 @@ class TaxonConcept < SpeciesSchemaModel
     return entry.canonical_form
   end
 
+  def canonical_form_string
+    cf = canonical_form_object
+    return cf ? cf.string : ''
+  end
+
   # If *any* of the associated HEs are species or below, we consider this to be a species:
   def species_or_below?
     hierarchy_entries.detect {|he| he.species_or_below? }
@@ -1289,7 +1294,7 @@ private
         # TODO - We need a better way to choose which Collection to look at.  : \
         # TODO - We need a better way to choose which Mapping to look at.  : \
         foreign_key      = data_object.agents[0].collections[0].mappings[0].foreign_key
-        (genus, species) = entry.name.canonical_form.string.split()
+        (genus, species) = canonical_form_string.split()
         data_object.fake_author(
           :full_name => 'See FishBase for additional references',
           :homepage  => "http://www.fishbase.org/References/SummaryRefList.cfm?ID=#{foreign_key}&GenusName=#{genus}&SpeciesName=#{species}",

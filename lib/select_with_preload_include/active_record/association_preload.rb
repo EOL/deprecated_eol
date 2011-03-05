@@ -8,7 +8,7 @@ module ActiveRecord
       protected
         # EOL: the only change to this method is to pass preload_options to child associations
         def preload_associations(records, associations, preload_options={})
-          records = [records].flatten.compact.uniq
+          records = [records].flatten.compact
           return if records.empty?
           case associations
           when Array then associations.each {|association| preload_associations(records, association, preload_options)}

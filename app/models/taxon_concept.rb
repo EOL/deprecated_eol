@@ -47,7 +47,7 @@ class TaxonConcept < SpeciesSchemaModel
   define_core_relationships :select => {
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-      :hierarchies => [ :agent_id ],
+      :hierarchies => [ :agent_id, :browsable ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map ],
       :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published ],
       :table_of_contents => '*' },
@@ -1245,8 +1245,8 @@ class TaxonConcept < SpeciesSchemaModel
     filtered_objects = DataObject.filter_list_for_user(combined_objects, :agent => options[:agent], :user => options[:user])
     
     add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user }, 
-      { :refs => { :ref_identifiers => :ref_identifier_type } }]
-    add_select = { :refs => '*' , :ref_identifiers => '*', :users => '*' }
+      { :refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
+    add_select = { :refs => '*' , :ref_identifiers => '*', :users => '*', :comments => [:parent_id, :visible_at] }
     
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(filtered_objects.collect{ |d| d.id })

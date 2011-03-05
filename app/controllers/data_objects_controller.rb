@@ -118,7 +118,7 @@ class DataObjectsController < ApplicationController
   def show
     get_attribution
     @type = @data_object.data_type.label
-    @comments = @data_object.all_comments.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
+    @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
     @slim_container = true
     @revisions = @data_object.revisions.sort_by(&:created_at).reverse
     @hierarchy_paths = get_harvested_paths

@@ -19,12 +19,11 @@ class DataObject < SpeciesSchemaModel
   has_many :top_images
   has_many :feed_data_objects
   has_many :top_concept_images
-  has_many :agents_data_objects, :include => [ :agent, :agent_role ]
+  has_many :agents_data_objects
   has_many :data_objects_hierarchy_entries
   has_many :comments, :as => :parent
   has_many :data_objects_harvest_events
   has_many :harvest_events, :through => :data_objects_harvest_events
-  has_many :agents, :through => :agents_data_objects
   has_many :data_object_tags, :class_name => DataObjectTags.to_s
   has_many :tags, :class_name => DataObjectTag.to_s, :through => :data_object_tags, :source => :data_object_tag
   has_many :data_objects_table_of_contents
@@ -35,11 +34,9 @@ class DataObject < SpeciesSchemaModel
   has_many :user_ignored_data_objects
   has_many :collection_items, :as => :object
   has_many :users_data_objects
+  has_many :all_comments, :class_name => Comment.to_s, :foreign_key => 'parent_id', :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
   
-  # has_many :all_version_comments, :class_name => Comment.to_s, :finder_sql => 'SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{guid}\''
-  
-  # the select_with_include doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
-  # or we could use a change like that to get all comments on all revisions, without having to load all the DO attributes
+  # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
   # has_many :versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id'
 
   has_and_belongs_to_many :hierarchy_entries
@@ -61,7 +58,7 @@ class DataObject < SpeciesSchemaModel
       :names => :string,
       :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ]},
     :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
-      {:hierarchy_entries => [:name, { :hierarchy => { :resource => :agents } }] }, {:agents_data_objects => [:agent, :agent_role]}]
+      {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [:agent, :agent_role]}]
   
   def self.sort_by_rating(data_objects)
     data_objects.sort_by do |obj|
@@ -495,13 +492,9 @@ class DataObject < SpeciesSchemaModel
     DataObject.find_all_by_guid(guid)
   end
 
-  def all_comments
-    Comment.find_all_by_parent_type('DataObject', :joins => "JOIN #{DataObject.full_table_name} ON (comments.parent_id=data_objects.id)", :conditions => "data_objects.guid='#{guid}'")
-  end
-
   def visible_comments(user = nil)
-    return comments if (not user.nil?) and user.is_moderator?
-    comments.find_all {|comment| comment.visible? }
+    return all_comments if (not user.nil?) and user.is_moderator?
+    all_comments.find_all {|c| c.visible? }
   end
 
   def image?
@@ -1387,10 +1380,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
       return matches[1]
     end
     nil
-  end
-  
-  def provider_agent
-    hierarchy_entries[0].hierarchy.resource.agents[0] rescue nil
   end
   
   def published_entries

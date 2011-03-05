@@ -20,11 +20,11 @@ module ActiveRecord
               if m = sql.match(/SELECT .*? FROM #{quoted_table_name} WHERE (.*)( *LIMIT ([0-9]+))?$/)
                 where_clause = m[1].strip
                 limit = m[3].nil? ? nil : m[3].to_i
-                if m = where_clause.match(/\(#{quoted_table_name}\.`#{primary_key}` = ([0-9]+)\)/)
+                if m = where_clause.match(/\(#{quoted_table_name}\.`#{primary_key}` = '?([0-9]+)'?\)/)
                   lookup_ids = [m[1].to_i]
-                elsif m = where_clause.match(/\(#{quoted_table_name}\.`#{primary_key}` IN \(([0-9]+(,[0-9]+)*)\)\)/)
+                elsif m = where_clause.match(/\(#{quoted_table_name}\.`#{primary_key}` IN \(('?[0-9]+'?(,'?[0-9]+'?)*)\)\)/)
                   lookup_ids = m[1].split(',').collect{ |i| i.to_i }
-                elsif m = where_clause.scan(/\(#{quoted_table_name}.`#{primary_key}` = ([0-9]+)\)( OR|$)/)
+                elsif m = where_clause.scan(/\(#{quoted_table_name}.`#{primary_key}` = '?([0-9]+)'?\)( OR|$)/)
                   lookup_ids = m.collect{ |i| i[0].to_i } unless m.empty?
                 end
                 if lookup_ids

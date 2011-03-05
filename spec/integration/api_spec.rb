@@ -101,15 +101,16 @@ describe 'EOL APIs' do
     @rank = Rank.gen(:label => 'species')
     @hierarchy_entry = HierarchyEntry.gen(:identifier => '123abc', :hierarchy => @hierarchy, :name => @name, :published => 1, :rank => @rank)
     
-    canonical_form = CanonicalForm.create(:string => 'Dus bus')
-    name = Name.create(:canonical_form => @canonical_form, :string => 'Dus bus Linnaeus 1776')
-    relation = SynonymRelation.find_or_create_by_label('synonym')
-    @synonym = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation)
-    
     name = Name.create(:string => 'Some critter')
+    relation = SynonymRelation.find_or_create_by_label('genbank common name')
     relation = SynonymRelation.find_or_create_by_label('common name')
     language = Language.gen(:label => 'english', :iso_639_1 => 'en')
     @common_name = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation, :language => language)
+    
+    canonical_form = CanonicalForm.create(:string => 'Dus bus')
+    name = Name.create(:canonical_form => @canonical_form, :string => 'Dus bus Linnaeus 1776')
+    relation = SynonymRelation.find_or_create_by_label('not common name')
+    @synonym = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation)
     
     
     # Search 
@@ -133,9 +134,6 @@ describe 'EOL APIs' do
     @test_hierarchy_entry_published = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Animalia', :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id)
     @test_hierarchy_entry_unpublished = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Plantae', :parent_id => 0, :published => 0, :visibility_id => Visibility.invisible.id)
     @second_test_hierarchy_entry = HierarchyEntry.gen(:hierarchy => @second_test_hierarchy, :identifier => 54321, :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id)
-    
-    # was getting some random failures that were not reproducable, testing to see if a cache was the culprit
-    $CACHE.clear
   end
   
   it 'ping should show success message' do
@@ -445,8 +443,6 @@ describe 'EOL APIs' do
   end
   
   it 'hierarchy_entries should show all information for hierarchy entries in DWC format' do
-    $CACHE.clear
-    @hierarchy_entry = HierarchyEntry.find(@hierarchy_entry.id)
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dc:identifier").inner_text.should == @hierarchy_entry.identifier
@@ -497,7 +493,7 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[2]/xmlns:ToTaxonConcept/@ref').inner_text.should include(@common_name.id.to_s)
     xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:TaxonRelationships/xmlns:TaxonRelationship[2]/@type').inner_text.should == 'has vernacular'
   end
-
+  
   it 'hierarchy_entries should take api key and save it to the log' do
     check_api_key("/api/hierarchy_entries/#{@hierarchy_entry.id}?format=tcs&key=#{@user.api_key}", @user)
   end
@@ -525,7 +521,7 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@scientific').inner_text.should == "false"
     xml_response.xpath('//xmlns:TaxonConcepts/xmlns:TaxonConcept/xmlns:Name/@language').inner_text.should == @common_name.language.iso_639_1
   end
-
+  
   it 'synonyms should take api key and save it to the log' do
     check_api_key("/api/synonyms/#{@common_name.id}?key=#{@user.api_key}", @user)
   end
@@ -546,11 +542,11 @@ describe 'EOL APIs' do
     response_object = JSON.parse(body)
     response_object['results'].length.should == 0
   end
-
+  
   it 'search should take api key and save it to the log' do
     check_api_key("/api/search/Canis.json?exact=1&key=#{@user.api_key}", @user)
   end
-
+  
   it 'provider_hierarchies should return a list of all providers' do
     visit("/api/provider_hierarchies")
     xml_response = Nokogiri.XML(body)
@@ -589,7 +585,7 @@ describe 'EOL APIs' do
   it 'search_by_provider should take api key and save it to the log' do
     check_api_key("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}&key=#{@user.api_key}", @user)
   end
-
+  
   it 'hierarchies should list the hierarchy roots' do
     visit("/api/hierarchies/#{@test_hierarchy.id}")
     xml_response = Nokogiri.XML(body)
@@ -617,7 +613,7 @@ describe 'EOL APIs' do
     response_object['roots'][0]['scientificName'].should == @test_hierarchy_entry_published.name.string
     response_object['roots'][0]['taxonRank'].should == @test_hierarchy_entry_published.rank.label
   end
-
+  
   it 'hierarchies should take api key and save it to the log' do
     check_api_key("/api/hierarchies/#{@test_hierarchy.id}?key=#{@user.api_key}", @user)
   end

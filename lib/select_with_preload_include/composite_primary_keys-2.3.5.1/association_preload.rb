@@ -5,6 +5,10 @@ module CompositePrimaryKeys
   module ActiveRecord
     module AssociationPreload
       module ClassMethods
+        def in_or_equals_for_ids(ids)
+          ids.size > 1 ? "IN (?)" : "= ?"
+        end
+        
         def preload_belongs_to_association(records, reflection, preload_options={})
           options = reflection.options
           primary_key_name = reflection.primary_key_name.to_s.split(CompositePrimaryKeys::ID_SEP)
@@ -42,11 +46,15 @@ module CompositePrimaryKeys
               primary_key = klass.primary_key.to_s.split(CompositePrimaryKeys::ID_SEP)
               ids = id_map.keys.uniq.map {|id| id_map[id][:id]}
 
-              where = (primary_key * ids.size).in_groups_of(primary_key.size).map do |keys|
-                 "(" + keys.map{|key| "#{table_name}.#{connection.quote_column_name(key)} = ?"}.join(" AND ") + ")"
-              end.join(" OR ")
+              if primary_key.size == 1
+                conditions = ["#{table_name}.#{connection.quote_column_name(primary_key[0])} #{in_or_equals_for_ids(ids)}", id_map.keys.uniq]
+              else
+                where = (primary_key * ids.size).in_groups_of(primary_key.size).map do |keys|
+                   "(" + keys.map{|key| "#{table_name}.#{connection.quote_column_name(key)} = ?"}.join(" AND ") + ")"
+                end.join(" OR ")
 
-              conditions = [where, ids].flatten
+                conditions = [where, ids].flatten
+              end
             else
               conditions = ["#{table_name}.#{connection.quote_column_name(primary_key)} IN (?)", id_map.keys.uniq]
             end

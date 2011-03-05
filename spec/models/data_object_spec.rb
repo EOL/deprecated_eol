@@ -107,6 +107,7 @@ describe DataObject do
     [Vetted.unknown.id, Vetted.untrusted.id, Vetted.trusted.id].each do |vetted_id|
       comments_count = @data_object.all_comments.size
       @data_object.curate(@user, :vetted_id => vetted_id, :comment => 'new smart comment')
+      @data_object.reload  # comments get eager loaded and cached
       (@data_object.all_comments.size - comments_count).should == 1 
     end
   end

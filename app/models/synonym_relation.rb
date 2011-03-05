@@ -7,7 +7,7 @@ class SynonymRelation < SpeciesSchemaModel
   end
   
   def self.common_name_ids
-    cached('common_names') do
+    cached('common_name_ids') do
        [SynonymRelation.find_or_create_by_label('common name').id,
         SynonymRelation.find_or_create_by_label('genbank common name').id]
     end

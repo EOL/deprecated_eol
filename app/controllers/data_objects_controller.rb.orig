@@ -121,8 +121,12 @@ class DataObjectsController < ApplicationController
 <<<<<<< HEAD
     @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
 =======
-    @comments = Comment.find_by_sql("SELECT c.* FROM #{Comment.full_table_name} c JOIN #{DataObject.full_table_name} do ON (c.parent_id = do.id) WHERE do.guid=\'#{@data_object.guid}\'").paginate(:page => params[:page], :order => 'updated_at DESC', :per_page => Comment.per_page)
->>>>>>> b958274... Not a pretty fix, but this fixes the broken DataObjects controller.
+    # TODO: The 'dup' in this code solves a REALLY (!) weird problem which we haven't fully understood, but manifests as a
+    # "NoMethodError Exception" or a whiny nil in the #paginate call. My best guess right now is that it has something to do
+    # with the lazy-loading of the restuls.  LEAVE THE #dup CALL HERE UNTIL SOLVED:
+    @comments = @data_object.all_comments.dup.paginate(:page => params[:page], :order => 'updated_at DESC',
+                                                       :per_page => Comment.per_page)
+>>>>>>> 68c4cbe... Better solution for the ugly problem with comments associated to data objects not paginating.
     @slim_container = true
     @revisions = @data_object.revisions.sort_by(&:created_at).reverse
     @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)

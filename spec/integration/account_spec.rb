@@ -47,7 +47,7 @@ describe 'Curator Account Pages' do
             '</table>' +
             '<div><h1>' + Faker::Lorem.sentence(4) + '</h1>' +
             '  <p><i>I am an allowed tag</i> ' + Faker::Lorem.paragraph(6) + '</p>' +
-            '  <p>' + Faker::Lorem.paragraph(3) + '</p>' +
+            '  <p>' + Faker::Lorem.paragraph(6) + '</p>' +
             '  <p>I should have been truncated from teaser</p>' +
             '</div>'
 

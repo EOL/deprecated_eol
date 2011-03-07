@@ -889,16 +889,17 @@ class DataObject < SpeciesSchemaModel
     end
     
     # remove anything this agent/user should not have access to
-    image_data_objects = DataObject.filter_list_for_user(image_data_objects, options)
+    image_data_objects = DataObject.filter_list_for_user(image_data_objects, options) unless image_data_objects.blank?
     # make the list unique by DataObject.guid
     unique_image_objects = []
     used_guids = {}
+    return [] if image_data_objects.blank?
     image_data_objects.each do |r|
       unique_image_objects << r if used_guids[r.guid].blank?
       used_guids[r.guid] = true
     end
     
-    return [] if unique_image_objects.empty?
+    return [] if unique_image_objects.blank?
     
     # sort the remainder by our rating criteria
     unique_image_objects = DataObject.sort_by_rating(unique_image_objects)

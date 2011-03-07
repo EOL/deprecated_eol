@@ -238,7 +238,7 @@ description_dato.comment(user, 'Tenth comment')
 description_dato.comment(user, 'Eleventh comment')
 description_dato.comment(user, 'Twelfth comment')
 
-DataObjectsInfoItem.gen(:data_object => tc.overview.first, :info_item => InfoItem.find(:first, :order => 'rand()'))
+DataObjectsInfoItem.gen(:data_object => tc.overview.first, :info_item => InfoItem.find_by_label("Cyclicity"))
 DataObjectsInfoItem.gen(:data_object => tc.overview.last, :info_item => InfoItem.find_by_label("Distribution"))
 
 

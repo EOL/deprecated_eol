@@ -1,0 +1,22 @@
+<h1>Listing task_names</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Frequency</th>
+  </tr>
+
+<% @task_names.each do |task_name| %>
+  <tr>
+    <td><%=h task_name.description %></td>
+    <td><%=h task_name.frequency %></td>
+    <td><%= link_to 'Show', task_name %></td>
+    <td><%= link_to 'Edit', edit_task_name_path(task_name) %></td>
+    <td><%= link_to 'Destroy', task_name, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New task_name', new_task_name_path %>

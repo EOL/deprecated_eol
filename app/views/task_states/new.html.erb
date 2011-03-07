@@ -1,0 +1,15 @@
+<h1>New task_state</h1>
+
+<% form_for(@task_state) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.submit 'Create' %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', task_states_path %>

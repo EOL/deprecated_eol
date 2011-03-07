@@ -1,5 +1,9 @@
 ActionController::Routing::Routes.draw do |map|
 
+  map.resources :tasks
+  map.resources :task_states
+  map.resources :task_names
+
   # Communities, Privileges, Roles, Feeds:
   map.resources :feed_items
   map.resources :privileges

@@ -1,0 +1,13 @@
+<p>
+  <b>Description:</b>
+  <%=h @task_name.description %>
+</p>
+
+<p>
+  <b>Frequency:</b>
+  <%=h @task_name.frequency %>
+</p>
+
+
+<%= link_to 'Edit', edit_task_name_path(@task_name) %> |
+<%= link_to 'Back', task_names_path %>

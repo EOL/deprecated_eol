@@ -1,0 +1,28 @@
+<p>
+  <b>Task name:</b>
+  <%=h @task.task_name_id %>
+</p>
+
+<p>
+  <b>Task state:</b>
+  <%=h @task.task_state_id %>
+</p>
+
+<p>
+  <b>Owner user:</b>
+  <%=h @task.owner_user_id %>
+</p>
+
+<p>
+  <b>Created by user:</b>
+  <%=h @task.created_by_user_id %>
+</p>
+
+<p>
+  <b>Expires on:</b>
+  <%=h @task.expires_on %>
+</p>
+
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

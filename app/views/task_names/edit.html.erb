@@ -1,0 +1,20 @@
+<h1>Editing task_name</h1>
+
+<% form_for(@task_name) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  <p>
+    <%= f.label :frequency %><br />
+    <%= f.text_field :frequency %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @task_name %> |
+<%= link_to 'Back', task_names_path %>

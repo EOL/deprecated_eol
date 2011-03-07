@@ -1,0 +1,20 @@
+<h1>Listing task_states</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+<% @task_states.each do |task_state| %>
+  <tr>
+    <td><%=h task_state.name %></td>
+    <td><%= link_to 'Show', task_state %></td>
+    <td><%= link_to 'Edit', edit_task_state_path(task_state) %></td>
+    <td><%= link_to 'Destroy', task_state, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New task_state', new_task_state_path %>

@@ -856,6 +856,24 @@ Factory.define :synonym do |s|
   s.vetted           { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
 end
 
+Factory.define :task do |t|
+  t.association :task_name
+  t.task_state  { TaskState.waiting }
+  t.association :owner_user, :factory => :user
+  t.association :created_by_user, :factory => :user
+  t.association :target, :factory => :data_object
+  t.target_type 'data_object'
+end
+
+Factory.define :task_name do |tn|
+  tn.description { Factory.next(:string) }
+  tn.frequency 1
+end
+
+Factory.define :task_state do |tn|
+  tn.name { Factory.next(:string) }
+end
+
 Factory.define :taxon_concept do |tc|
   tc.vetted         { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
   tc.published      1

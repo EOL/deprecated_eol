@@ -78,6 +78,7 @@ class TaxaController < ApplicationController
                                     :id => taxon_concept.id,
                                     :status => :moved_permanently)) if taxon_concept.superceded_the_requested_id?
 
+    #inc = [ { :data_objects => :refs }, { :users_data_object => :refs }, { :hierachy_entries => :refs } ]
     @taxon_concept = TaxonConcept.core_relationships.find_by_id(taxon_concept.id)
     if params[:category_id]
       params[:category_id] = nil if !TocItem.find_by_id(params[:category_id].to_i)

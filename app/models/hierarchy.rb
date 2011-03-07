@@ -31,6 +31,12 @@ class Hierarchy < SpeciesSchemaModel
       ['Integrated Taxonomic Information System (ITIS)', 'CU*STAR Classification', 'NCBI Taxonomy', 'Index Fungorum', $DEFAULT_HIERARCHY_NAME].collect{|label| Hierarchy.find_by_label(label, :order => "hierarchy_group_version desc")}
     end
   end
+  
+  def self.iucn_hierarchies
+    cached('iucn_hierarchies') do
+      Hierarchy.find_all_by_id(Agent.iucn.resources.collect{ |r| r.hierarchy_id })
+    end
+  end
 
   def self.default
     cached_find(:label, $DEFAULT_HIERARCHY_NAME, :serialize => true)

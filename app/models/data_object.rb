@@ -36,10 +36,13 @@ class DataObject < SpeciesSchemaModel
   
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on - but this would be a neat method,
   # has_many :versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id'
-
+  
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
   has_and_belongs_to_many :refs
+  has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'data_objects_refs',
+    :association_foreign_key => 'ref_id', :conditions => 'published=1 AND visibility_id=#{Visibility.visible.id}'
+    
   has_and_belongs_to_many :agents
   has_and_belongs_to_many :toc_items, :join_table => 'data_objects_table_of_contents', :association_foreign_key => 'toc_id'
   has_and_belongs_to_many :taxon_concepts
@@ -1379,10 +1382,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   
   def published_entries
     hierarchy_entries.select{ |he| he.published == 1 && he.visibility_id == Visibility.visible.id }
-  end
-  
-  def published_refs
-    refs.select{ |r| r.published == 1 && r.visibility_id == Visibility.visible.id }
   end
   
   def first_concept_name

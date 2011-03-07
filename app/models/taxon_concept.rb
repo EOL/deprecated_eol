@@ -662,7 +662,7 @@ class TaxonConcept < SpeciesSchemaModel
             JOIN data_objects_hierarchy_entries dohe ON (he.id = dohe.hierarchy_entry_id)
             JOIN data_objects do ON (dohe.data_object_id = do.id)
         WHERE he.taxon_concept_id = #{self.id}
-          AND he.hierarchy_id = #{Resource.iucn.hierarchy_id}
+          AND he.hierarchy_id IN (#{Hierarchy.iucn_hierarchies.collect{ |h| h.id }.join(',')})
           AND he.published = 1
           AND do.published = 1")
 

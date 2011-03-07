@@ -274,6 +274,10 @@ class User < parent_klass
 
   end
 
+  def clear_cached_user
+    $CACHE.delete("users/#{self.id}")
+  end
+
   def clear_curatorship updated_by,update_notes=""
     self.curator_approved = false
     self.credentials=""

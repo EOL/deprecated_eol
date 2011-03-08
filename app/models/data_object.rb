@@ -83,7 +83,7 @@ class DataObject < SpeciesSchemaModel
        visibility_view_order,
        vetted_view_order,
        Invert(obj.data_rating)]
-    end
+    end.reverse
   end
   
   # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based

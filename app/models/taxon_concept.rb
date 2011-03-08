@@ -1210,7 +1210,7 @@ private
       end
       override_data_objects << data_object
     end
-    result[:data_objects] = override_data_objects
+    result[:data_objects] = DataObject.sort_by_rating(override_data_objects)
     return result
   end
 

@@ -263,8 +263,8 @@ class DataObject < SpeciesSchemaModel
       end
     end
 
-    # this will give it the elements it needs for attributions
-    d.users = [user]
+    # TODO - references aren't shown in the preview, because we would have to "fake" them, and we can't effectively.
+
     d
   end
 

@@ -156,6 +156,14 @@ describe 'Taxa page (HTML)' do
       visit("/pages/#{superceded.id}")
       current_path.should == "/pages/#{@id}"
     end
+
+    it 'should show comments from superceded taxa' do
+      taxon1 = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
+      taxon2 = TaxonConcept.gen(:supercedure_id => taxon1.id)
+      comment = Comment.gen(:parent_type => "TaxonConcept", :parent_id => taxon2.id, :body => "my comment...")
+      visit("comments/?tab=1&taxon_concept_id=#{taxon1.id}")
+      body.should include("my comment...")
+    end
       
     it 'should tell the user the page is missing if the page is... uhhh... missing' do
       missing_id = TaxonConcept.last.id + 1

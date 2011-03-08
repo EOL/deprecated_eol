@@ -1,7 +1,7 @@
 .error
   %p{:style => 'padding-bottom:2em;'}
     = "We're sorry but an error has occurred. Please make one more attempt to perform your task. If the error persists, please send an email to error@eol.org along with the error message below and any other information you'd like to share with us. We are working hard to provide you with the best service possible and we appreciate your support. -- The EOL Team"[:general_error_occurred]
-    - if defined? Community && current_user.is_admin? and defined?(message)
+    - if current_user.is_admin? and defined?(message)
       %p{:style => 'padding:1em 0;'}
         = "You are an admin.  So, I will show you that the error was:"[]
       %code{:style => 'style:block;padding:2em;'}

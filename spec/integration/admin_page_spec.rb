@@ -35,6 +35,8 @@ describe 'Admin Pages' do
       @agent = Agent.gen(:full_name => 'HierarchyAgent')
       @hierarchy = Hierarchy.gen(:label => 'TreeofLife', :description => 'contains all life', :agent => @agent)
       @hierarchy_entry = HierarchyEntry.gen(:hierarchy => @hierarchy)
+      $CACHE.clear
+      reset_all_model_cached_instances
     end
     
     it 'should show the list of hierarchies' do

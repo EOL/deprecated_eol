@@ -53,6 +53,32 @@ module ActiveRecord
       def cached_name_for(key)
         "#{RAILS_ENV}/#{self.table_name}/#{key.underscore_non_word_chars}"[0..249]
       end
+      
+      def check_local_cache(key)
+        initialize_cached_instances
+        if local_cache = class_variable_get(:@@cached_instances)
+          return local_cache[key]
+        end
+      end
+      def set_local_cache(key, value)
+        initialize_cached_instances
+        if local_cache = class_variable_get(:@@cached_instances)
+          local_cache[key] = value
+        end
+      end
+      def initialize_cached_instances
+        unless class_variable_defined?(:@@cached_instances)
+          class_variable_set(:@@cached_instances, {})
+        end
+      end
+      def reset_cached_instances
+        if class_variable_defined?(:@@cached_instances)
+          class_variable_set(:@@cached_instances, {})
+        end
+        if class_variable_defined?(:@@cached_all_instances)
+          class_variable_set(:@@cached_all_instances, false)
+        end
+      end
     end
   end
 end

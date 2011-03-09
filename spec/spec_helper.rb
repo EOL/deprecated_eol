@@ -50,6 +50,8 @@ Spec::Runner.configure do |config|
   # active connections (works for ALL of our databases)
   config.before(:each) do
     $CACHE.clear
+    # reset the class variables that cache certain instances
+    reset_all_model_cached_instances
     SpeciesSchemaModel.connection.execute("START TRANSACTION #SpeciesSchemaModel")
     SpeciesSchemaModel.connection.increment_open_transactions
   end
@@ -59,6 +61,19 @@ Spec::Runner.configure do |config|
     SpeciesSchemaModel.connection.execute("ROLLBACK #SpeciesSchemaModel")
   end
 
+end
+
+def reset_all_model_cached_instances
+  Dir.foreach("#{RAILS_ROOT}/app/models") do |model_path|
+    if m = model_path.match(/^(([a-z]+_)*[a-z]+)\.rb$/)
+      model_name = m[1]
+      begin
+        klass = model_name.camelcase.constantize
+        klass.reset_cached_instances
+      rescue
+      end
+    end
+  end
 end
 
 # quiet down any migrations that run during tests

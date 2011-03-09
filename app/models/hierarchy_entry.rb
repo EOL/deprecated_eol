@@ -49,9 +49,10 @@ class HierarchyEntry < SpeciesSchemaModel
   
   def self.sort_by_vetted(hierarchy_entries)
     hierarchy_entries.sort_by do |he|
+      vetted_view_order = he.vetted.blank? ? 0 : he.vetted.view_order
       [he.taxon_concept_id,
         Invert(he.published),
-       he.vetted.view_order,
+       vetted_view_order,
        he.id]
     end
   end

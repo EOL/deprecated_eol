@@ -58,17 +58,12 @@ module ActiveRecord
         end
         
         def chache_all_class_instances
-          return if class_variable_defined?(:@@cached_all_instances) && !class_variable_get(:@@cached_all_instances).blank?
           cached('instances_cached') do
             all_instances = find(:all)
             all_instances.each do |obj|
               cached("instance_id_#{obj.id}") do
                 obj
               end
-              set_local_cache("instance_id_#{obj.id}", obj)
-            end
-            unless class_variable_defined?(:@@cached_all_instances)
-              class_variable_set(:@@cached_all_instances, true)
             end
             true
           end

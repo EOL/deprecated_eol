@@ -9,6 +9,10 @@ describe 'Select with Preload Include' do
     @last_agent = Agent.last
     @dohe = DataObjectsHarvestEvent.last
     ContentPartner.gen(:agent => @last_agent)
+    
+    # sorry - I know this throws an error because we're changing the value of a constant. Its actually
+    # good because we want it to throw an error, but we also want to test with caching off. I couldn't
+    # see how to trap and hide this error for testing
     Vetted::CACHE_ALL_ROWS = false
     Language::CACHE_ALL_ROWS = false
   end

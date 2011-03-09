@@ -57,7 +57,7 @@ class DataObject < SpeciesSchemaModel
       :agents => [:full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url],
       :agents_data_objects => [:view_order],
       :names => :string,
-      :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ]},
+      :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ] },
     :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
       {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [:agent, :agent_role]}]
   

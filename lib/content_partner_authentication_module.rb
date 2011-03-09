@@ -81,13 +81,15 @@ module ContentPartnerAuthenticationModule
       ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "content partner logo upload service failed") if $ERROR_LOGGING
     else
       response = Hash.from_xml(response)
-      if response["response"].key? "file_prefix"
+      if response["response"].class != Hash
+        error = "Bad response: #{response["response"]}"
+        ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
+      elsif response["response"].key? "file_prefix"
         file_prefix = response["response"]["file_prefix"]
-        agent.update_attribute(:logo_cache_url,file_prefix) # store new url to logo on content server      
-      end
-      if response["response"].key? "error"
+        agent.update_attribute(:logo_cache_url,file_prefix) # store new url to logo on content server
+      elsif response["response"].key? "error"
         error = response["response"]["error"]
-        ErrorLog.create(:url=>$WEB_SERVICE_BASE_URL,:exception_name=>error,:backtrace=>parameters) if $ERROR_LOGGING
+        ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
       end
     end
   end  

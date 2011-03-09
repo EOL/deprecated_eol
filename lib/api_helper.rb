@@ -143,7 +143,7 @@ module ApiHelper
       for common_name in @hierarchy_entry.common_names
         return_hash['vernacularNames'] << {
           'vernacularName' => common_name.name.string.firstcap,
-          'language'       => common_name.language.iso_639_1
+          'language'       => common_name.language ? common_name.language.iso_639_1 : ''
         }
       end
     end
@@ -154,7 +154,7 @@ module ApiHelper
         synonym_hash = {}
         synonym_hash['parentNameUsageID'] = @hierarchy_entry.id
         synonym_hash['scientificName'] = synonym.name.string.firstcap
-        synonym_hash['taxonomicStatus'] = synonym.synonym_relation.label
+        synonym_hash['taxonomicStatus'] = synonym.synonym_relation.label unless synonym.synonym_relation.blank?
         return_hash['synonyms'] << synonym_hash
       end
     end

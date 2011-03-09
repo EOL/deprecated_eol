@@ -46,7 +46,7 @@ module ActiveRecord
         
         def lookup_ids_from_cache(ids)
           chache_all_class_instances
-          ids.collect{ |id| cached("instance_id_#{id}"){ nil } }.compact
+          ids.collect{ |id| cached_read("instance_id_#{id}") }.compact
         end
         
         def chache_all_class_instances

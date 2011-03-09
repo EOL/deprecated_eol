@@ -31,7 +31,8 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :ranks, :through => :hierarchy_entries
   has_many :google_analytics_partner_taxa
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
-
+  has_many :users_data_objects
+  
   has_one :taxon_concept_content
   has_one :taxon_concept_metric
 
@@ -41,10 +42,11 @@ class TaxonConcept < SpeciesSchemaModel
   
   define_core_relationships :select => {
       :taxon_concepts => '*',
-      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id ],
+      :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
+      :hierarchies => [ :agent_id, :browsable ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map ]},
-    :include => [{:hierarchy_entries => [{ :name => :canonical_form }, :rank, :hierarchies_content ] }]
-
+    :include => [{:hierarchy_entries => [{ :name => :canonical_form }, :hierarchy, :rank, :hierarchies_content] }]
+  
   def show_curator_controls?(user = nil)
     return @show_curator_controls if !@show_curator_controls.nil?
     user = @current_user if user.nil?
@@ -271,7 +273,9 @@ class TaxonConcept < SpeciesSchemaModel
   def outlinks
     all_outlinks = []
     used_hierarchies = []
-    entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id, :include => :hierarchy)
+    entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id,
+      :select => { :hierarchy_entries => [:published, :visibility_id, :identifier, :source_url], :hierarchies => [:label, :outlink_uri], :resources => :title },
+      :include => { :hierarchy => :resource })
     entries_for_this_concept.each do |he|
       next if used_hierarchies.include?(he.hierarchy)
       next if he.published != 1 && he.visibility_id != Visibility.visible.id
@@ -344,9 +348,7 @@ class TaxonConcept < SpeciesSchemaModel
 
     # get all hierarchy entries
     select = {:hierarchy_entries => '*', :vetted => :view_order}
-    @all_entries ||= HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => select, :include => :vetted)
-    HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id=#{id}")
-    @all_entries = HierarchyEntry.sort_by_vetted(@all_entries)
+    @all_entries ||= HierarchyEntry.sort_by_vetted(HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => select, :include => :vetted))
     
     # we want ONLY the entry in this hierarchy
     if strict_lookup
@@ -357,32 +359,26 @@ class TaxonConcept < SpeciesSchemaModel
       @all_entries[0] ||
       nil
   end
+  
+  def entry_for_agent(agent_id)
+    return nil if agent_id.blank? || agent_id == 0
+    matches = hierarchy_entries.select{ |he| he.hierarchy && he.hierarchy.agent_id == agent_id }
+    return nil if matches.empty?
+    matches[0]
+  end
 
   def self.entries_for_concepts(taxon_concept_ids, hierarchy = nil, strict_lookup = false)
     hierarchy ||= Hierarchy.default
     raise "Error finding default hierarchy" if hierarchy.nil? # EOLINFRASTRUCTURE-848
-    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.is_a? Hierarchy
+    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" unless hierarchy.class.to_s == 'Hierarchy'
     raise "Must get an array of taxon_concept_ids" unless taxon_concept_ids.is_a? Array
 
     # get all hierarchy entries
-    all_entries = HierarchyEntry.find_by_sql("SELECT he.*, v.view_order vetted_view_order FROM hierarchy_entries he JOIN vetted v ON (he.vetted_id=v.id) WHERE he.taxon_concept_id IN (#{taxon_concept_ids.join(',')})")
+    select = {:hierarchy_entries => '*', :vetted => :view_order}
+    all_entries = HierarchyEntry.find_all_by_taxon_concept_id(taxon_concept_ids, :select => select, :include => :vetted)
     # ..and order them by published DESC, vetted view_order ASC, id ASC - earliest entry first
-    all_entries.sort! do |a,b|
-      if a.taxon_concept_id == b.taxon_concept_id
-        if a.published == b.published
-          if a.vetted_view_order == b.vetted_view_order
-            a.id <=> b.id # ID ascending
-          else
-            a.vetted_view_order <=> b.vetted_view_order # vetted view_order ascending
-          end
-        else
-          b.published <=> a.published # published descending
-        end
-      else
-        a.taxon_concept_id <=> b.taxon_concept_id # taxon_concept_id ascending
-      end
-    end
-
+    all_entries = HierarchyEntry.sort_by_vetted(all_entries)
+    
     concept_entries = {}
     all_entries.each do |he|
       concept_entries[he.taxon_concept_id] ||= []

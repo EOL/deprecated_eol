@@ -52,7 +52,8 @@ xml.dwr :DarwinRecordSet,
     
     if @include_common_names
       for common_name in @hierarchy_entry.common_names
-        xml.dwc :vernacularName, common_name.name.string.firstcap, 'xml:lang'.to_sym => common_name.language.iso_639_1
+        language = common_name.language ? common_name.language.iso_639_1 : ''
+        xml.dwc :vernacularName, common_name.name.string.firstcap, 'xml:lang'.to_sym => language
       end
     end
     
@@ -66,7 +67,7 @@ xml.dwr :DarwinRecordSet,
       xml.dwc :Taxon do
         xml.dwc :parentNameUsageID, @hierarchy_entry.id
         xml.dwc :scientificName, synonym.name.string.firstcap
-        if synonym.synonym_relation.blank?
+        unless synonym.synonym_relation.blank?
           xml.dwc :taxonomicStatus, synonym.synonym_relation.label
         else
           xml.dwc :taxonomicStatus, 'synonym'

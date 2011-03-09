@@ -115,10 +115,10 @@ private
   def current_objects
     @current_objects ||= current_user.is_moderator? ? current_comments : current_comments_visible
     if params[:page_to_comment_id]
-      @current_objects.paginate(:page => params[:page], :per_page => Comment.per_page, 
+      @current_objects.dup.paginate(:page => params[:page], :per_page => Comment.per_page, 
                                 :conditions => ['id = ?', "#{params[:page_to_comment_id]}"])
     else
-      @current_objects.paginate(:page => params[:page], :per_page => Comment.per_page) 
+      @current_objects.dup.paginate(:page => params[:page], :per_page => Comment.per_page) 
     end
   end
 

@@ -17,7 +17,7 @@ module ActiveRecord
             records = nil
             if defined?(self::CACHE_ALL_ROWS) && self::CACHE_ALL_ROWS && primary_key.class == String
               sql = construct_finder_sql(options).strip
-              if m = sql.match(/SELECT .*? FROM #{quoted_table_name} WHERE (.*)( *LIMIT ([0-9]+))?$/)
+              if m = sql.match(/SELECT .*? FROM #{quoted_table_name} WHERE (.*?)( *LIMIT ([0-9]+))?$/)
                 where_clause = m[1].strip
                 limit = m[3].nil? ? nil : m[3].to_i
                 if m = where_clause.match(/\(#{quoted_table_name}\.`#{primary_key}` = ([0-9]+)\)/)
@@ -28,7 +28,8 @@ module ActiveRecord
                   lookup_ids = m.collect{ |i| i[0].to_i } unless m.empty?
                 end
                 if lookup_ids
-                  records = lookup_ids_from_cache(lookup_ids)
+                  records = lookup_ids_from_cache(lookup_ids, :limit => limit)
+                  records = nil if records.blank?
                 end
               end
             end
@@ -44,23 +45,25 @@ module ActiveRecord
           records
         end
         
-        def lookup_ids_from_cache(ids)
+        def lookup_ids_from_cache(ids, options={})
           chache_all_class_instances
-          ids.collect{ |id| check_local_cache("instance_id_#{id}") || cached_read("instance_id_#{id}") }.compact
+          results = []
+          ids.each do |id|
+            if r = cached_read("instance_id_#{id}")
+              results << r
+              break if options[:limit] && results.length >= options[:limit]
+            end
+          end
+          results.compact
         end
         
         def chache_all_class_instances
-          return if class_variable_defined?(:@@cached_all_instances) && !class_variable_get(:@@cached_all_instances).blank?
           cached('instances_cached') do
             all_instances = find(:all)
             all_instances.each do |obj|
               cached("instance_id_#{obj.id}") do
                 obj
               end
-              set_local_cache("instance_id_#{obj.id}", obj)
-            end
-            unless class_variable_defined?(:@@cached_all_instances)
-              class_variable_set(:@@cached_all_instances, true)
             end
             true
           end

@@ -12,7 +12,6 @@
 #
 class Hierarchy < SpeciesSchemaModel
   CACHE_ALL_ROWS = true
-  has_one :resource
   belongs_to :agent           # This is the attribution.
   has_and_belongs_to_many :collection_types
   has_one :resource

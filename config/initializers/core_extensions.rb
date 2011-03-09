@@ -80,6 +80,9 @@ module ActiveRecord
         if class_variable_defined?(:@@cached_instances)
           class_variable_set(:@@cached_instances, {})
         end
+        if class_variable_defined?(:@@cached_all_instances)
+          class_variable_set(:@@cached_all_instances, false)
+        end
       end
     end
   end

@@ -67,7 +67,7 @@ xml.dwr :DarwinRecordSet,
       xml.dwc :Taxon do
         xml.dwc :parentNameUsageID, @hierarchy_entry.id
         xml.dwc :scientificName, synonym.name.string.firstcap
-        if synonym.synonym_relation.blank?
+        unless synonym.synonym_relation.blank?
           xml.dwc :taxonomicStatus, synonym.synonym_relation.label
         else
           xml.dwc :taxonomicStatus, 'synonym'

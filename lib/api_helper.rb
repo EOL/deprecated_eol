@@ -152,7 +152,7 @@ module ApiHelper
         synonym_hash = {}
         synonym_hash['parentNameUsageID'] = @hierarchy_entry.id
         synonym_hash['scientificName'] = synonym.name.string.firstcap
-        synonym_hash['taxonomicStatus'] = synonym.synonym_relation.label
+        synonym_hash['taxonomicStatus'] = synonym.synonym_relation.label unless synonym.synonym_relation.blank?
         return_hash['synonyms'] << synonym_hash
       end
     end

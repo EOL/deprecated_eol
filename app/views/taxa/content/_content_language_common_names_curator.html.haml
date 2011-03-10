@@ -1,4 +1,5 @@
-- form_tag "/pages/#{@taxon_concept.id}/update_common_names", :method => :put, :class => 'update_common_names' do
+- form_tag "/pages/#{@taxon_concept.id}", :method => :put, :class => 'update_common_names' do
+  = hidden_field_tag "action_name", "update_common_names"
   = hidden_field_tag "trusted_name_clicked_on", "false"
   = hidden_field_tag "trusted_synonym_clicked_on", "false"
   = hidden_field_tag "trusted_name_checked", "false"

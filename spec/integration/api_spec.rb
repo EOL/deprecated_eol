@@ -483,21 +483,21 @@ describe 'EOL APIs' do
     xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:vernacularName").inner_text.should == @common_name.name.string
     xml_response.xpath("//dwc:Taxon[dwc:taxonID=#{@hierarchy_entry.id}]/dwc:vernacularName/@xml:lang").inner_text.should == @common_name.language.iso_639_1
     xml_response.xpath("//dwc:vernacularName").length.should == 1
-    xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='synonym']").length.should == 1
+    xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='not common name']").length.should == 1
   end
   
   it 'hierarchy_entries should be able to filter out common names' do
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?common_names=0")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath("//dwc:vernacularName").length.should == 0
-    xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='synonym']").length.should == 1
+    xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='not common name']").length.should == 1
   end
   
   it 'hierarchy_entries should be able to filter out synonyms' do
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?synonyms=0")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath("//dwc:vernacularName").length.should == 1
-    xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='synonym']").length.should == 0
+    xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='not common name']").length.should == 0
   end
   
   it 'hierarchy_entries should show all information for hierarchy entries in TCS format' do

@@ -35,15 +35,6 @@ class Rank < SpeciesSchemaModel
     cached_find(:label, 'subspecies')
   end
   
-  
-  
-  
-  
-  
-  def self.italicized_ids
-    self.italicized_ids_sub
-  end
-  
   def self.italicized_labels
     ['?var',          'binomial',      'biovar',
      'Espéce',        'especie',       '',
@@ -69,8 +60,8 @@ class Rank < SpeciesSchemaModel
      'var.',          'variety',       'varsp']
   end
 
-  def self.italicized_ids_sub
-    @@ids ||= cached('italicized') do 
+  def self.italicized_ids
+    @@italicized_rank_ids ||= cached('italicized') do 
       Rank.find_by_sql("SELECT * FROM ranks WHERE label IN ('#{italicized_labels.join('\',\'')}')").map(&:id)
     end
   end

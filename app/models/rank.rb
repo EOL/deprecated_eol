@@ -36,15 +36,6 @@ class Rank < SpeciesSchemaModel
     cached_find_translated(:label, 'subspecies')
   end
   
-  
-  
-  
-  
-  
-  def self.italicized_ids
-    self.italicized_ids_sub
-  end
-  
   def self.italicized_labels
     ['?var',          'binomial',      'biovar',
      'Espéce',        'especie',       '',
@@ -70,9 +61,8 @@ class Rank < SpeciesSchemaModel
      'var.',          'variety',       'varsp']
   end
 
-  def self.italicized_ids_sub
-    @@ids ||= cached('italicized') do
-      # the chosen labels are all in English
+  def self.italicized_ids
+    @@italicized_rank_ids ||= cached('italicized') do 
       Rank.find_by_sql("SELECT r.* FROM ranks r JOIN translated_ranks rt ON (r.id=rt.rank_id) WHERE rt.label IN ('#{italicized_labels.join('\',\'')}') AND rt.language_id=#{Language.english.id}").map(&:id)
     end
   end

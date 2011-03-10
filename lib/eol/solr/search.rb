@@ -45,6 +45,8 @@ module EOL
             literal_query = "#{field}:\"#{query}\" #{field}_exact:\"#{query}\"^100"
           end
         end
+        # query was sometimes null at this piont for some reason - so at least make it an empty string
+        query ||= ''
         query = query.gsub /\s+/, ' '
         query = query.split(' ').map {|w| "+#{w}"}.join(' ')
         query = "(#{literal_query})"

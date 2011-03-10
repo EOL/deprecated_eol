@@ -33,14 +33,9 @@ module ActiveRecord
       # I am going to try NOT doing anything with that option right now, to see if it works.  If not, however, I want to at
       # least have it passed in when we needed it, so the code can change later if needed.
       def cached_find(field, value, options = {})
-        if v = check_local_cache("#{field}_#{value}".to_sym)
-          return v
-        end
-        response = cached("#{field}/#{value}", options) do
+        cached("#{field}/#{value}", options) do
           send("find_by_#{field}", value)
         end
-        set_local_cache("#{field}_#{value}".to_sym, response)
-        response
       end
       
       def cached_read(key)

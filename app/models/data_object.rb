@@ -211,7 +211,7 @@ class DataObject < SpeciesSchemaModel
     dato.published = false
     dato.save!
 
-    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => dato.id})
+    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => dato.id, :parent_type => 'DataObject'})
     comments_from_old_dato.map { |c| c.update_attribute :parent_id, d.id  }
 
     d.curator_activity_flag(user, all_params[:taxon_concept_id])

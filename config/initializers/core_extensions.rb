@@ -33,41 +33,23 @@ module ActiveRecord
       # I am going to try NOT doing anything with that option right now, to see if it works.  If not, however, I want to at
       # least have it passed in when we needed it, so the code can change later if needed.
       def cached_find(field, value, options = {})
-        if v = check_local_cache("#{field}_#{value}".to_sym)
-          return v
-        end
-        response = cached("#{field}/#{value}", options) do
+        cached("#{field}/#{value}", options) do
           send("find_by_#{field}", value)
         end
-        set_local_cache("#{field}_#{value}".to_sym, response)
-        response
       end
-
+      
+      def cached_read(key)
+        name = cached_name_for(key)
+        $CACHE.read(name)
+      end
+      
       def cached(key, options = {}, &block)
         name = cached_name_for(key)
-        wrote_cache_key(name)
         $CACHE.fetch(name) do
           yield
         end
       end
-
-      # Store a list of all of the keys we create for this model (using these cache methods)... speeds up clearing.
-      def wrote_cache_key(key)
-        name = cached_name_for('cached_names')
-        keys = $CACHE.read(name) || []
-        return keys if keys.include? key
-        keys = keys + [key] # Can't use << or += here because Cache has frozen the array.
-        $CACHE.write(name, keys)
-      end
-
-      def clear_all_caches
-        keys = $CACHE.read(cached_name_for('cached_names')) || []
-        keys.each do |key|
-          $CACHE.delete(key)
-        end
-        $CACHE.write(TODO, keys)
-      end
-
+      
       def cached_name_for(key)
         "#{RAILS_ENV}/#{self.table_name}/#{key.underscore_non_word_chars}"[0..249]
       end
@@ -92,6 +74,9 @@ module ActiveRecord
       def reset_cached_instances
         if class_variable_defined?(:@@cached_instances)
           class_variable_set(:@@cached_instances, {})
+        end
+        if class_variable_defined?(:@@cached_all_instances)
+          class_variable_set(:@@cached_all_instances, false)
         end
       end
     end

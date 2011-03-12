@@ -1,11 +1,11 @@
 # Represents a group of HierearchyEntry instances that we consider "the same".  This amounts to a vague idea
 # of a taxon, which we serve as a single page.
 #
-# We get different interpretations of taxa from our partners (ContentPartner), often differing slightly 
-# and referring to basically the same thing, so TaxonConcept was created as a means to reconcile the 
+# We get different interpretations of taxa from our partners (ContentPartner), often differing slightly
+# and referring to basically the same thing, so TaxonConcept was created as a means to reconcile the
 # variant definitions of what are essentially the same Taxon. We currently store basic Taxon we receive
-# from data imports in the +hierarchy_entries+ table and we also store taxonomic hierarchies (HierarchyEntry) in the 
-# +hierarchy_entries+ table. Currently TaxonConcept are groups of one or many HierarchyEntry. We will 
+# from data imports in the +hierarchy_entries+ table and we also store taxonomic hierarchies (HierarchyEntry) in the
+# +hierarchy_entries+ table. Currently TaxonConcept are groups of one or many HierarchyEntry. We will
 # eventually create hierarchy_entries for each entry in the taxa table (Taxon).
 #
 # It is worth mentioning that the "eol.org/pages/nnnn" route is a misnomer.  Those IDs are, for the
@@ -47,7 +47,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   has_one :taxon_concept_content
   has_one :taxon_concept_metric
- 
+
   has_and_belongs_to_many :data_objects
 
   has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
@@ -56,7 +56,7 @@ class TaxonConcept < SpeciesSchemaModel
   attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
 
   attr_reader :has_media, :length_of_images
-  
+
   define_core_relationships :select => {
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
@@ -112,12 +112,12 @@ class TaxonConcept < SpeciesSchemaModel
     end
     @curators = users.uniq
   end
-  
+
   def all_ancestor_entry_ids
     all_ancestor_entry_ids = []
     entries = HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => 'id, parent_id')
     all_ancestor_entry_ids += entries.collect{|he| he.id }
-    
+
     # getting all the parents of entries in this concept, and the other entries in their concepts
     while parents = HierarchyEntry.find_all_by_id(entries.collect{|he| he.parent_id}.uniq, :joins => 'JOIN hierarchy_entries he_concept USING (taxon_concept_id)', :select => 'hierarchy_entries.id, hierarchy_entries.parent_id, he_concept.id related_he_id', :conditions => "hierarchy_entries.id != 0")
       break if parents.empty?
@@ -128,7 +128,7 @@ class TaxonConcept < SpeciesSchemaModel
     end
     return all_ancestor_entry_ids.uniq
   end
-  
+
 
   # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
   # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
@@ -137,7 +137,7 @@ class TaxonConcept < SpeciesSchemaModel
     # Single-database query using a thousandfold more efficient algorithm than doing things via cross-database join:
     User.all(:joins => :last_curated_dates, :conditions => "last_curated_dates.last_curated >= '#{2.years.ago.to_s(:db)}' AND last_curated_dates.taxon_concept_id = #{self.id}").uniq
   end
-  
+
   # if curator is no longer able to curate the page, citation should still show up, so we grab all users wich had have curator activity in 2 last years on this page
   def curator_has_citation
     last_curated_dates = LastCuratedDate.find(:all, :conditions => ["taxon_concept_id = ? AND last_curated > ?", self.id, 2.years.ago.to_s(:db)])
@@ -221,7 +221,7 @@ class TaxonConcept < SpeciesSchemaModel
   # Lastly, note that the TaxonConcept IDs are hard-coded to our production database. TODO - move those IDs to a
   # table somewhere.
   #
-  # EXEMPLARS THAT WE NO LONGER TRUST: 482935, 
+  # EXEMPLARS THAT WE NO LONGER TRUST: 482935,
   def self.exemplars(options = {})
     cached('exemplars') do
       TaxonConcept.lookup_exemplars(options)
@@ -269,6 +269,10 @@ class TaxonConcept < SpeciesSchemaModel
   def current_user=(who)
     @images = nil
     @current_user = who
+  end
+
+  def subtitle=(str)
+    @subtitle = str
   end
 
   def canonical_form_object
@@ -339,7 +343,7 @@ class TaxonConcept < SpeciesSchemaModel
     return images.length > $MAX_IMAGES_PER_PAGE.to_i # This is expensive.  I hope you called #images first!
   end
 
-  def more_videos 
+  def more_videos
     return @length_of_videos > $MAX_IMAGES_PER_PAGE.to_i if @length_of_videos
     return videos.length > $MAX_IMAGES_PER_PAGE.to_i # This is expensive.  I hope you called #videos first!
   end
@@ -353,7 +357,7 @@ class TaxonConcept < SpeciesSchemaModel
     videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => usr)
     @length_of_videos = videos.length # cached, so we don't have to query this again.
     return videos
-  end 
+  end
 
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
   def entry(hierarchy = nil, strict_lookup = false)
@@ -364,7 +368,7 @@ class TaxonConcept < SpeciesSchemaModel
     # get all hierarchy entries
     select = {:hierarchy_entries => '*', :vetted => :view_order}
     @all_entries ||= HierarchyEntry.sort_by_vetted(HierarchyEntry.find_all_by_taxon_concept_id(self.id, :select => select, :include => :vetted))
-    
+
     # we want ONLY the entry in this hierarchy
     if strict_lookup
       return @all_entries.detect{ |he| he.hierarchy_id == hierarchy.id } || nil
@@ -374,7 +378,7 @@ class TaxonConcept < SpeciesSchemaModel
       @all_entries[0] ||
       nil
   end
-  
+
   def entry_for_agent(agent_id)
     return nil if agent_id.blank? || agent_id == 0
     matches = hierarchy_entries.select{ |he| he.hierarchy && he.hierarchy.agent_id == agent_id }
@@ -545,11 +549,11 @@ class TaxonConcept < SpeciesSchemaModel
 
     map = false if map and gbif_map_id == empty_map_id # The "if map" avoids unecessary db hits; keep it.
 
-    if !video then    
+    if !video then
       # to accomodate data_type => http://purl.org/dc/dcmitype/MovingImage = Video
       with_video = DataObject.find_by_sql("Select data_objects.data_type_id
       From data_objects_taxon_concepts Inner Join data_objects ON data_objects_taxon_concepts.data_object_id = data_objects.id
-      Where data_objects_taxon_concepts.taxon_concept_id = #{self.id} and data_objects.data_type_id IN (#{DataType.video.id}, #{DataType.flash.id}, #{DataType.youtube.id})")    
+      Where data_objects_taxon_concepts.taxon_concept_id = #{self.id} and data_objects.data_type_id IN (#{DataType.video.id}, #{DataType.flash.id}, #{DataType.youtube.id})")
       video = true if with_video.length > 0
     end
 
@@ -567,7 +571,7 @@ class TaxonConcept < SpeciesSchemaModel
 
     final_name = ''
 
-    # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names 
+    # This loop is to check to make sure the default hierarchy's preferred name takes precedence over other hierarchy's preferred names
     common_name_results.each do |result|
       if final_name == '' || result['source_hierarchy_id'].to_i == hierarchy.id
         final_name = result['name'].firstcap
@@ -578,7 +582,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   def self.quick_common_names(taxon_concept_ids, language = nil, hierarchy = nil)
     return false if taxon_concept_ids.blank?
-    language  ||= TaxonConcept.current_user_static.language 
+    language  ||= TaxonConcept.current_user_static.language
     hierarchy ||= Hierarchy.default
     common_name_results = SpeciesSchemaModel.connection.execute("SELECT n.string name, he.hierarchy_id source_hierarchy_id, tcn.taxon_concept_id FROM taxon_concept_names tcn JOIN names n ON (tcn.name_id = n.id) LEFT JOIN hierarchy_entries he ON (tcn.source_hierarchy_entry_id = he.id) WHERE tcn.taxon_concept_id IN (#{taxon_concept_ids.join(',')}) AND language_id=#{language.id} AND preferred=1").all_hashes
 
@@ -641,7 +645,7 @@ class TaxonConcept < SpeciesSchemaModel
   def superceded_the_requested_id
     @superceded_the_requested_id = true
   end
-  # # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit): 
+  # # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
   # def self.find_with_supercedure(taxon_concept_id, level = 0)
   #   level += 1
   #   raise "Supercedure stack is 7 levels deep" if level == 7
@@ -650,7 +654,7 @@ class TaxonConcept < SpeciesSchemaModel
   #   self.find_with_supercedure(tc.supercedure_id, level)
   # end
 
-  # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit): 
+  # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
   def self.find_with_supercedure(*args)
     concept = TaxonConcept.find_without_supercedure(*args)
     return nil if concept.nil?
@@ -799,8 +803,8 @@ class TaxonConcept < SpeciesSchemaModel
   #
   # this goes data_objects => data_objects_taxa => taxa => hierarchy_entries => taxon_concepts
   def self.from_data_objects *objects_or_ids
-    ids = objects_or_ids.map {|o| if   o.is_a? DataObject 
-                                  then o.id 
+    ids = objects_or_ids.map {|o| if   o.is_a? DataObject
+                                  then o.id
                                   else o.to_i end }
     return [] if ids.nil? or ids.empty? # Fix for EOLINFRASTRUCTURE-808
     sql = "SELECT tc.*
@@ -808,13 +812,13 @@ class TaxonConcept < SpeciesSchemaModel
     JOIN hierarchy_entries he ON (tc.id = he.taxon_concept_id)
     JOIN data_objects_hierarchy_entries dohe ON (dohe.hierarchy_entry_id = he.id)
     JOIN data_objects do ON (do.id = dohe.data_object_id)
-    WHERE do.id IN (#{ ids.join(', ') }) 
+    WHERE do.id IN (#{ ids.join(', ') })
       AND tc.supercedure_id = 0
       AND tc.published = 1"
     TaxonConcept.find_by_sql(sql).uniq
   end
 
-  def self.from_taxon_concepts(taxon_concept_ids,page) 
+  def self.from_taxon_concepts(taxon_concept_ids,page)
     if(taxon_concept_ids.length > 0) then
     query="Select taxon_concepts.id taxon_concept_id, taxon_concepts.supercedure_id, taxon_concepts.published, vetted.label vetted_label
     From taxon_concepts
@@ -970,7 +974,7 @@ class TaxonConcept < SpeciesSchemaModel
       # making this an array to keep it consistent
       options[:licenses] = ['all']
     end
-    
+
 
     if options[:data_object_hash]
       # needs to be an array
@@ -1009,7 +1013,7 @@ class TaxonConcept < SpeciesSchemaModel
     elsif options[:vetted].to_i == 2
       object_hash.delete_if {|obj| obj['vetted_id'].to_i == Vetted.untrusted.id}
     end
-    
+
     # remove licenses not asked for
     if !options[:licenses].include?('all')
       object_hash.each_with_index do |obj, index|
@@ -1023,7 +1027,7 @@ class TaxonConcept < SpeciesSchemaModel
       end
       object_hash.compact!
     end
-    
+
     object_hash = object_hash[0...options[:return_images_limit]] if object_hash.length > options[:return_images_limit]
     object_hash.collect {|e| e['id']}
   end
@@ -1036,9 +1040,9 @@ class TaxonConcept < SpeciesSchemaModel
     elsif options[:vetted].to_i == 2
       vetted_clause = "AND (do.vetted_id=#{Vetted.trusted.id} || do.vetted_id=#{Vetted.unknown.id})"
     end
-    
+
     object_hash = SpeciesSchemaModel.connection.execute("
-      SELECT do.id, do.guid, do.data_type_id, do.data_rating, v.view_order vetted_view_order, toc.view_order toc_view_order, 
+      SELECT do.id, do.guid, do.data_type_id, do.data_rating, v.view_order vetted_view_order, toc.view_order toc_view_order,
       ii.label info_item_label, l.title license_title
         FROM data_objects_taxon_concepts dotc
         JOIN data_objects do ON (dotc.data_object_id = do.id)
@@ -1055,10 +1059,10 @@ class TaxonConcept < SpeciesSchemaModel
         AND data_type_id IN (#{DataType.sound.id}, #{DataType.text.id}, #{DataType.video.id}, #{DataType.iucn.id}, #{DataType.flash.id}, #{DataType.youtube.id})
         #{vetted_clause}
     ").all_hashes.uniq
-    
+
     object_hash.group_hashes_by!('guid')
     object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
-    
+
     # set flash and youtube types to video
     text_id = DataType.text.id.to_s
     image_id = DataType.image.id.to_s
@@ -1074,7 +1078,7 @@ class TaxonConcept < SpeciesSchemaModel
         r['data_type_id'] = text_id
       end
     end
-    
+
     # create an alias Uses for Use
     if options[:text_subjects].include?('Use')
       options[:text_subjects] << 'Uses'
@@ -1083,7 +1087,7 @@ class TaxonConcept < SpeciesSchemaModel
     if !options[:text_subjects].include?('all')
       object_hash.delete_if {|obj| obj['data_type_id'] == text_id && !options[:text_subjects].include?(obj['info_item_label'])}
     end
-    
+
     # remove licenses not asked for
     if !options[:licenses].include?('all')
       object_hash.each_with_index do |obj, index|
@@ -1097,14 +1101,14 @@ class TaxonConcept < SpeciesSchemaModel
       end
       object_hash.compact!
     end
-    
+
     # remove items over the limit
     types_count = {}
     truncated_object_hash = []
     object_hash.each do |r|
       types_count[r['data_type_id']] ||= 0
       types_count[r['data_type_id']] += 1
-      
+
       if r['data_type_id'] == text_id
         truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_text_limit]
       elsif r['data_type_id'] == image_id
@@ -1191,9 +1195,9 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def self.common_names_for?(taxon_concept_id)
-    return TaxonConcept.count_by_sql(['SELECT 1 FROM taxon_concept_names tcn 
-                                        WHERE taxon_concept_id = ? 
-                                          AND vern = 1 
+    return TaxonConcept.count_by_sql(['SELECT 1 FROM taxon_concept_names tcn
+                                        WHERE taxon_concept_id = ?
+                                          AND vern = 1
                                         LIMIT 1',taxon_concept_id]) > 0
   end
 
@@ -1224,27 +1228,27 @@ class TaxonConcept < SpeciesSchemaModel
     vet_taxon_concept_names(options)
     vet_synonyms(options)
   end
-  
+
   def self.supercede_by_ids(id1, id2)
     return false if id1 == id2
     return false if id1.class != Fixnum || id1.blank? || id1 == 0
     return false if id2.class != Fixnum || id2.blank? || id2 == 0
-    
-    
+
+
     # always ensure ID1 is the smaller of the two
     id1, id2 = id2, id1 if id2 < id1
-    
+
     begin
       tc1 = TaxonConcept.find(id1)
       tc2 = TaxonConcept.find(id2)
     rescue
       return false
     end
-    
+
     # at this point ID2 is the one going away
     # ID2 is being superceded by ID1
     TaxonConcept.connection.execute("UPDATE hierarchy_entries he JOIN taxon_concepts tc ON (he.taxon_concept_id=tc.id) SET he.taxon_concept_id=#{id1}, tc.supercedure_id=#{id1} WHERE taxon_concept_id=#{id2}");
-    
+
     # all references to ID2 are getting changed to ID1
     TaxonConcept.connection.execute("UPDATE IGNORE taxon_concept_names SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
     TaxonConcept.connection.execute("UPDATE IGNORE top_concept_images he SET taxon_concept_id=#{id1} WHERE taxon_concept_id=#{id2}");
@@ -1253,20 +1257,20 @@ class TaxonConcept < SpeciesSchemaModel
     TaxonConcept.connection.execute("UPDATE IGNORE hierarchy_entries he JOIN random_hierarchy_images rhi ON (he.id=rhi.hierarchy_entry_id) SET rhi.taxon_concept_id=he.taxon_concept_id WHERE he.taxon_concept_id=#{id2}");
     return true
   end
-  
+
   def text_objects_for_toc_item(toc_item, options={})
     this_toc_objects = data_objects.select{ |d| d.toc_items && d.toc_items.include?(toc_item) }
     user_objects = users_data_objects.select{ |udo| udo.data_object.toc_items && udo.data_object.toc_items.include?(toc_item) }.
       collect{ |udo| udo.data_object}
     combined_objects = this_toc_objects | user_objects  # get the union of the two sets
-    
+
     # remove objects this user shouldn't see
     filtered_objects = DataObject.filter_list_for_user(combined_objects, :agent => options[:agent], :user => options[:user])
-    
-    add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user }, 
+
+    add_include = [:comments, :agents_data_objects, :info_items, :toc_items, { :users_data_objects => :user },
       { :refs => { :ref_identifiers => :ref_identifier_type } }, :all_comments]
     add_select = { :refs => '*' , :ref_identifiers => '*', :users => '*', :comments => [:parent_id, :visible_at] }
-    
+
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(filtered_objects.collect{ |d| d.id })
     DataObject.sort_by_rating(objects)

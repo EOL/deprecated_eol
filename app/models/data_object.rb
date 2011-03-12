@@ -57,7 +57,7 @@ class DataObject < SpeciesSchemaModel
       :agents => [:full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url],
       :agents_data_objects => [:view_order],
       :names => :string,
-      :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ]},
+      :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ] },
     :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
       {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [:agent, :agent_role]}]
   
@@ -211,7 +211,7 @@ class DataObject < SpeciesSchemaModel
     dato.published = false
     dato.save!
 
-    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => dato.id})
+    comments_from_old_dato = Comment.find(:all, :conditions => {:parent_id => dato.id, :parent_type => 'DataObject'})
     comments_from_old_dato.map { |c| c.update_attribute :parent_id, d.id  }
 
     d.curator_activity_flag(user, all_params[:taxon_concept_id])

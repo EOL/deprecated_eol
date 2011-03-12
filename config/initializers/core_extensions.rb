@@ -45,7 +45,11 @@ module ActiveRecord
       
       def cached(key, options = {}, &block)
         name = cached_name_for(key)
-        $CACHE.fetch(name) do
+        if $CACHE # Sometimes during tests, cache has not yet been initialized.
+          $CACHE.fetch(name) do
+            yield
+          end
+        else
           yield
         end
       end

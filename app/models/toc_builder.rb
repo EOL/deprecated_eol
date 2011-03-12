@@ -9,7 +9,7 @@ class TocBuilder
 private
 
   def get_normal_text_toc_entries_for_taxon(taxon_concept, options)
-    text_toc_items = DataObject.for_taxon(taxon_concept, :text, options)
+    text_toc_items = taxon_concept.text_toc_items_for_session(options)
     return convert_toc_items_to_toc_entries(text_toc_items)
   end
 

@@ -71,7 +71,7 @@ class DataType < SpeciesSchemaModel
 private
   def self.get_type_ids(which)
     cached("data_types/ids/#{which.join('+').gsub(' ','_')}") do
-      which.collect { |type| DataType.find_all_by_label(type) }.flatten.collect {|type| type.id }
+      which.collect { |type| DataType.cached_find(:label, type) }.collect {|type| type.id }
     end
   end
 

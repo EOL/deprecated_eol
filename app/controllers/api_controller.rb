@@ -11,7 +11,7 @@ class ApiController < ApplicationController
     params[:images] ||= 1
     params[:videos] ||= 1
     params[:text] ||= 1
-    params[:vetted] ||= 0
+    params[:vetted] ||= nil
     params[:version] ||= "0.1"
     params[:common_names] ||= false
     params[:common_names] = false if params[:common_names] == '0'
@@ -23,35 +23,47 @@ class ApiController < ApplicationController
     params[:details] = 1 if params[:format] == 'html'
     
     begin
-      taxon_concept = TaxonConcept.find(taxon_concept_id)
-      raise if taxon_concept.nil? || !taxon_concept.published?
+      taxon_concept = TaxonConcept.core_relationships.find(taxon_concept_id)
+      raise if taxon_concept.blank? || !taxon_concept.published?
     rescue
-      render(:partial => 'error.xml.builder', :locals => {:error => "Unknown identifier #{taxon_concept_id}"})
+      render(:partial => 'error.xml.builder', :locals => { :error => "Unknown identifier #{taxon_concept_id}" })
       return
     end
     
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'pages', :version => params[:version], :format => params[:format], :request_id => taxon_concept_id, :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip,
+                  :request_uri => request.env["REQUEST_URI"],
+                  :method => 'pages',
+                  :version => params[:version],
+                  :format => params[:format],
+                  :request_id => taxon_concept_id,
+                  :key => @key,
+                  :user_id => @user_id)
     
-    details_hash = taxon_concept.details_hash(:return_images_limit => params[:images].to_i, :return_videos_limit => params[:videos].to_i, :subjects => params[:subjects], :licenses => params[:licenses], :return_text_limit => params[:text].to_i, :details => params[:details], :vetted => params[:vetted], :common_names => params[:common_names], :synonyms => params[:synonyms])
+    data_objects = taxon_concept.data_objects_for_api(params)
     
-    if params[:format] == 'html'
-      render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => true } )
-    elsif params[:version] == "1.0"
+    if params[:version] == "1.0"
       respond_to do |format|
-        format.xml { render(:partial => 'pages_1_0.xml.builder', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => params[:details] } ) }
-        format.json {
-          @return_hash = pages_json(details_hash, params[:details]!=nil)
-          render :json => @return_hash, :callback => params[:callback] 
-        }
+        format.xml do
+          render(:partial => 'pages_1_0.xml.builder',
+                 :layout => false,
+                 :locals => { :taxon_concept => taxon_concept, :data_objects => data_objects, :params => params } )
+        end
+        format.json do
+          @return_hash = pages_json(taxon_concept, params[:details] != nil)
+          render :json => @return_hash, :callback => params[:callback]
+        end
       end
-      
     else
       respond_to do |format|
-        format.xml { render(:partial => 'pages', :layout=>false, :locals => {:details_hash => details_hash, :data_object_details => params[:details] } ) }
-        format.json {
-          @return_hash = pages_json(details_hash, params[:details]!=nil)
+        format.xml do
+          render(:partial => 'pages',
+                 :layout => false,
+                 :locals => { :taxon_concept => taxon_concept, :data_objects => data_objects, :params => params } )
+        end
+        format.json do
+          @return_hash = pages_json(taxon_concept, data_objects, params[:details] != nil)
           render :json => @return_hash, :callback => params[:callback] 
-        }
+        end
       end
     end
   end
@@ -60,25 +72,36 @@ class ApiController < ApplicationController
     data_object_guid = params[:id] || 0
     params[:format] ||= 'xml'
     params[:common_names] ||= false
+    params[:details] = true
     
-    details_hash = DataObject.details_for_object(data_object_guid, :include_taxon => true, :common_names => params[:common_names])
-    
-    if details_hash.blank?
-      render(:partial => 'error.xml.builder', :locals => {:error => "Unknown identifier #{data_object_guid}"})
+    begin
+      data_object = DataObject.latest_published_version_of_guid(data_object_guid)
+      data_object = DataObject.core_relationships.find_by_id(data_object.id)
+      raise if data_object.blank?
+      taxon_concept = data_object.first_taxon_concept
+    rescue
+      render(:partial => 'error.xml.builder', :locals => { :error => "Unknown identifier #{data_object_guid}" })
       return
     end
     
-    ApiLog.create(:request_ip => request.remote_ip, :request_uri => request.env["REQUEST_URI"], :method => 'data_objects', :version => params[:version], :format => params[:format], :request_id => data_object_guid, :key => @key, :user_id => @user_id)
+    ApiLog.create(:request_ip => request.remote_ip,
+                  :request_uri => request.env["REQUEST_URI"],
+                  :method => 'data_objects',
+                  :version => params[:version],
+                  :format => params[:format],
+                  :request_id => data_object_guid,
+                  :key => @key,
+                  :user_id => @user_id)
     
-    if params[:format] == 'html'
-      render(:partial => 'pages', :layout => false, :locals => { :details_hash => details_hash, :data_object_details => true } )
-    else
-      respond_to do |format|
-        format.xml { render(:partial => 'pages', :layout => false, :locals => { :details_hash => details_hash, :data_object_details => true } ) }
-        format.json {
-          @return_hash = pages_json(details_hash)
-          render :json => @return_hash, :callback => params[:callback] 
-        }
+    respond_to do |format|
+      format.xml do
+        render(:partial => 'pages',
+               :layout => false,
+               :locals => { :taxon_concept => taxon_concept, :data_objects => [data_object], :params => params } )
+      end
+      format.json do
+        @return_hash = pages_json(taxon_concept, [data_object])
+        render :json => @return_hash, :callback => params[:callback] 
       end
     end
   end

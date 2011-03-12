@@ -40,6 +40,7 @@ describe 'Curation' do
     @non_curator_cname_page = source
     @new_name   = 'habrish lammer'
     @taxon_concept.add_common_name_synonym @new_name, :agent => Agent.find(@cn_curator.agent_id), :preferred => false, :language => Language.english
+    TaxonConcept.connection.execute('COMMIT')
     login_as(@cn_curator)
     visit("/pages/#{@taxon_concept.id}?category_id=#{@common_names_toc_id}")
     @cname_page = source
@@ -53,22 +54,22 @@ describe 'Curation' do
   before(:each) do
     SpeciesSchemaModel.connection.execute('set AUTOCOMMIT=1')
   end
-
+  
   after(:each) do
     visit('/logout')
   end
-
+  
   it 'should not show curation button when not logged in' do
     @default_page.should_not have_tag('div#large-image-curator-button')
   end
-
+  
   it 'should show curation button when logged in as curator' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
     login_as(curator)
     visit("/pages/#{@taxon_concept.id}")
     body.should have_tag('div#large-image-curator-button')
   end
-
+  
   it 'should expire taxon_concept from cache' do
     curator = create_curator_for_taxon_concept(@taxon_concept)
     login_as(curator)

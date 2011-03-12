@@ -97,6 +97,9 @@ module EOL
         build_top_image
       elsif @type == 'Text'
         DataObjectsTableOfContent.gen(:data_object => @dato, :toc_item => @toc_item)
+        @toc_item.info_items.each do |ii|
+          DataObjectsInfoItem.gen(:data_object => @dato, :info_item => ii)
+        end
       end
     end
 

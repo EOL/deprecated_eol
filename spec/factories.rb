@@ -287,7 +287,7 @@ Factory.define :agent do |agent|
   end
   agent.email           { Factory.next(:email) }
   agent.hashed_password { Digest::MD5.hexdigest('test password') }
-  agent.agent_status    { AgentStatus.find_by_label('Active') || Factory(:agent_status, :label => 'Active') }
+  agent.agent_status    { AgentStatus.find_by_label('Active') || AgentStatus.gen_if_not_exists(:label => 'Active') }
 end
 
 Factory.define :agent_contact do |ac|
@@ -337,7 +337,7 @@ Factory.define :agents_resource do |ar|
   ar.association         :agent
   ar.association         :resource
   ar.resource_agent_role { ResourceAgentRole.content_partner_upload_role ||
-                           Factory(:resource_agent_role, :label => 'Data Supplier') }
+                           ResourceAgentRole.gen_if_not_exists(:label => 'Data Supplier') }
 end
 
 Factory.define :audience do |a|
@@ -455,10 +455,10 @@ end
 Factory.define :data_object do |dato|
   dato.guid                   { Factory.next(:guid) }
   dato.identifier             ''
-  dato.data_type              { DataType.first || Factory(:data_type, :label => 'Image') }
-  dato.mime_type              { MimeType.find_by_label('image/jpeg') || Factory(:mime_type, :label => 'image/jpeg') }
+  dato.data_type              { DataType.first || DataType.gen_if_not_exists(:label => 'Image') }
+  dato.mime_type              { MimeType.find_by_label('image/jpeg') || MimeType.gen_if_not_exists(:label => 'image/jpeg') }
   dato.object_title           ''
-  dato.language               { Language.english || Factory(:language, :label => 'English') }
+  dato.language               { Language.english }
   dato.association            :license
   dato.rights_statement       ''
   dato.rights_holder          ''
@@ -478,8 +478,8 @@ Factory.define :data_object do |dato|
   dato.created_at             { 5.days.ago }
   dato.updated_at             { 3.days.ago }
   dato.data_rating            2.5
-  dato.vetted                 { Vetted.trusted || Factory(:vetted, :label => 'trusted') }
-  dato.visibility             { Visibility.visible || Factory(:visibility, :label => 'visible') }
+  dato.vetted                 { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'trusted') }
+  dato.visibility             { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
   dato.published              true
 end
 
@@ -498,7 +498,7 @@ Factory.define :data_objects_harvest_event do |dohe|
   dohe.association :harvest_event
   dohe.association :data_object
   dohe.guid        { s = ''; 32.times { s += ((0..9).to_a.map{|n| n.to_s} + %w{a b c d e f}).rand }; s } # ICK!
-  dohe.status      { Status.inserted || Factory(:status, :label => 'inserted') }
+  dohe.status      { Status.inserted || Status.gen_if_not_exists(:label => 'inserted') }
 end
 
 Factory.define :data_objects_table_of_content do |dato|
@@ -607,9 +607,9 @@ Factory.define :hierarchy_entry do |he|
   he.rgt            2
   he.depth          2
   he.association    :taxon_concept
-  he.vetted         { Vetted.trusted || Vetted.create(:label => 'Trusted') }
+  he.vetted         { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
   he.published      1
-  he.visibility  { Visibility.visible || Visibility.create(:label => 'Visible') }
+  he.visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
   he.created_at     Time.now
   he.updated_at     Time.now
 end
@@ -656,9 +656,8 @@ Factory.define :item_page do |ip|
 end
 
 Factory.define :language do |l|
-  l.source_form  ''
   l.label        'Klingon'
-  l.name         {|lang| lang.label[0..1].downcase }
+  l.source_form  {|lang| lang.label[0..1].downcase }
   l.iso_639_1    {|lang| lang.label[0..1].downcase }
   l.iso_639_2    {|lang| lang.label[0..2].downcase }
   l.iso_639_3    {|lang| lang.label[0..3].downcase }
@@ -748,7 +747,7 @@ end
 Factory.define :ref do |r|
   r.full_reference  { Factory.next(:string) }
   r.user_submitted  0
-  r.visibility      { Visibility.visible || Factory(:visibility, :label => 'visible') }
+  r.visibility      { Visibility.visible || Vvisibility.gen_if_not_exists(:label => 'visible') }
   r.published       1
 end
 
@@ -775,7 +774,7 @@ Factory.define :resource do |r|
                       Factory(:license, :title => 'cc-by 3.0', :description => 'Some rights reserved',
                                         :source_url => 'http://creativecommons.org/licenses/by/3.0/',
                                         :logo_url => '/images/licenses/cc_by_small.png') }
-  r.resource_status { ResourceStatus.find_by_label('Published') || Factory(:resource_status, :label => 'Published') }
+  r.resource_status { ResourceStatus.find_by_label('Published') || ResourceStatus.gen_if_not_exists(:label => 'Published') }
   r.accesspoint_url 'http://services.eol.org/eol_php_code/tests/fixtures/files/test_resource.xml' # Won't work without a real, live URL for an XML file
   r.association :hierarchy
 end
@@ -829,17 +828,17 @@ end
 Factory.define :synonym do |s|
   s.association      :name
   s.synonym_relation { SynonymRelation.find_by_label('Synonym') ||
-                         Factory(:synonym_relation, :label => 'Synonym') }
-  s.language         { Language.english || Factory(:language, :label => 'English') }
+                         SynonymRelation.gen_if_not_exists(:label => 'Synonym') }
+  s.language         { Language.english }
   s.association      :hierarchy_entry
   s.hierarchy_id     { |syn| syn.hierarchy_entry ? syn.hierarchy_entry.hierarchy.id : Hierarchy.default.id }
   s.preferred        1
   s.published        1
-  s.vetted           { Vetted.trusted || Vetted.create(:label => 'Trusted') }
+  s.vetted           { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
 end
 
 Factory.define :taxon_concept do |tc|
-  tc.vetted         { Vetted.trusted || Vetted.create(:label => 'Trusted') }
+  tc.vetted         { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
   tc.published      1
   tc.vetted_id      0
   tc.supercedure_id 0
@@ -866,7 +865,7 @@ Factory.define :taxon_concept_name do |tcn|
   tcn.preferred              true
   tcn.vern                   false
   tcn.source_hierarchy_entry_id {|he| Factory(:hierarchy_entry).id } # Does this work?
-  tcn.language               { Language.english || Factory(:language, :label => 'English') }
+  tcn.language               { Language.english }
   tcn.association            :name
   tcn.association            :taxon_concept
 end
@@ -926,7 +925,7 @@ Factory.define :user do |u|
   u.family_name               { Factory.next(:last_name) }
   u.agent_id                  {|user| Factory(:agent, :full_name => "#{user.given_name} #{user.family_name}").id }
   u.flash_enabled             true
-  u.language                  { Language.english || Factory(:language, :label => 'English') }
+  u.language                  { Language.english }
   u.mailing_list              true
   u.vetted                    false
   u.username                  do |user|
@@ -1018,4 +1017,3 @@ Factory.define :activity_log do |al|
   al.value { Factory.next(:string) }
   al.created_at { 12.hours.ago }
 end
-

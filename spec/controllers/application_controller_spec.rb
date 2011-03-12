@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe ApplicationController do
 
   before(:all) do
-    Factory(:language, :label => 'English')
+    Language.gen_if_not_exists(:label => 'English')
     @taxon_name          = "<i>italic</i> foo & bar"
     @taxon_name_with_amp = "<i>italic</i> foo &amp; bar"
     @taxon_name_no_tags  = "italic foo & bar"

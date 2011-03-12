@@ -4,19 +4,19 @@ class MimeType < SpeciesSchemaModel
   has_many :data_objects
 
   def self.mp4
-    MimeType.find_by_label('video/mp4')
+    cached_find(:label, 'video/mp4')
   end
   def self.wmv
-    MimeType.find_by_label('video/x-ms-wmv')
+    cached_find(:label, 'video/x-ms-wmv')
   end
   def self.mpeg
-    MimeType.find_by_label('video/mpeg')
+    cached_find(:label, 'video/mpeg')
   end
   def self.mov
-    MimeType.find_by_label('video/quicktime')
+    cached_find(:label, 'video/quicktime')
   end
   def self.flv
-    MimeType.find_by_label('video/x-flv')
+    cached_find(:label, 'video/x-flv')
   end
 end
 

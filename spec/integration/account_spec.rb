@@ -66,6 +66,7 @@ describe 'Curator Account Pages' do
     @taxon_concept.images[1].curate(@user, { :vetted_id => Vetted.untrusted.id })
     @taxon_concept.overview[0].curate(@user, { :vetted_id => Vetted.trusted.id })
     @taxon_concept.overview[1].curate(@user, { :vetted_id => Vetted.untrusted.id })
+    DataObject.connection.execute('COMMIT')
     @total_datos_curated = 4
     @show_datos_curated_path = "/account/show_objects_curated/#{@user.id}"
     @permalink_path = "/data_objects/#{@taxon_concept.images[0][:id]}"

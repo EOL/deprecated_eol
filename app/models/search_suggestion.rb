@@ -11,7 +11,7 @@ class SearchSuggestion < ActiveRecord::Base
     if name_language.nil? 
       "Unknown"
     else
-      name_language.name 
+      name_language.source_form 
     end
   end
   

@@ -14,7 +14,8 @@ class HierarchyEntry < SpeciesSchemaModel
   has_many :agents_hierarchy_entries
   has_many :agents, :finder_sql => 'SELECT * FROM agents JOIN agents_hierarchy_entries ahe ON (agents.id = ahe.agent_id)
                                       WHERE ahe.hierarchy_entry_id = #{id} ORDER BY ahe.view_order'
-  has_many :top_images, :foreign_key => :hierarchy_entry_id
+  has_many :top_images
+  has_many :top_unpublished_images
   has_many :synonyms
   has_many :scientific_synonyms, :class_name => Synonym.to_s,
       :conditions => "synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})"
@@ -30,6 +31,7 @@ class HierarchyEntry < SpeciesSchemaModel
   
   define_core_relationships :select => {
       :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :lft, :rgt, :taxon_concept_id ],
+      :ranks => :label,
       :names => [ :string, :italicized ],
       :canonical_forms => :string,
       :hierarchies_content => [ :content_level, :image, :text, :child_image ]},
@@ -55,29 +57,6 @@ class HierarchyEntry < SpeciesSchemaModel
        he.taxon_concept_id,
        he.id]
     end
-  end
-  
-
-  # this is meant to be filtered by a taxon concept so it will find all hierarchy entries AND their ancestors/parents for a given TaxonConcept
-  def self.with_parents taxon_concept_or_hierarchy_entry = nil
-    if taxon_concept_or_hierarchy_entry.is_a?TaxonConcept
-      HierarchyEntry.find_all_by_taxon_concept_id(taxon_concept_or_hierarchy_entry.id).inject([]) do |all, he|
-        all << he
-        all += he.ancestors
-        all
-      end
-    elsif taxon_concept_or_hierarchy_entry.is_a?HierarchyEntry
-      [taxon_concept_or_hierarchy_entry] + taxon_concept_or_hierarchy_entry.ancestors
-    else
-      raise "Don't know how to return with_parents for #{ taxon_concept_or_hierarchy_entry.inspect }"
-    end
-  end
-  
-  def get_ancestry(ancestry_array = [])
-    ancestry_array.unshift self
-    return ancestry_array unless parent_id.to_i > 0
-    parent_hierarchy_entry = HierarchyEntry.find(parent_id, :select => 'id, parent_id, name_id, published, taxon_concept_id')
-    parent_hierarchy_entry.get_ancestry(ancestry_array)
   end
   
   def italicized_name
@@ -110,18 +89,6 @@ class HierarchyEntry < SpeciesSchemaModel
     return Rank.italicized_ids.include?(rank_id)
   end
 
-  def images
-    @images ||= DataObject.images_for_hierarchy_entry(id)
-  end
-
-  def videos
-    @videos ||= DataObject.videos_for_hierarchy_entry(id)
-  end
-
-  def map
-    @map ||= DataObject.map_for_hierarchy_entry(id)
-  end
-
   def valid
     return false if hierarchies_content.nil? # This really only happens in test environ, but...
     hierarchies_content.content_level >= $VALID_CONTENT_LEVEL
@@ -133,10 +100,8 @@ class HierarchyEntry < SpeciesSchemaModel
   end
 
   def ancestors(params = {}, cross_reference_hierarchy = nil)
-    # return @ancestors unless @ancestors.nil?
-    
-    # # TODO: reimplement completing a partial hierarchy with another curated hierarchy
-    
+    return @ancestors unless @ancestors.nil?
+    # TODO: reimplement completing a partial hierarchy with another curated hierarchy
     add_include = []
     add_select = {}
     if params[:include_stats]
@@ -152,6 +117,10 @@ class HierarchyEntry < SpeciesSchemaModel
     ancestor_ids << self.id
     ancestors = HierarchyEntry.core_relationships(:add_include => add_include, :add_select => add_select).find_all_by_id(ancestor_ids)
     @ancestors = HierarchyEntry.sort_by_lft(ancestors)
+  end
+  
+  def ancestors_as_string(delimiter = "|")
+    ancestors.collect{ |he| he.name.string }.join(delimiter)
   end
   
   def children(params = {})
@@ -209,7 +178,7 @@ class HierarchyEntry < SpeciesSchemaModel
     # its possible that the hierarchy is not associated with an agent
     if h_agent = hierarchy.agent
       h_agent.full_name = h_agent.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
-      role = AgentRole.find_or_create_by_label('Source')
+      role = AgentRole.source
       agents_roles << AgentsHierarchyEntry.new(:hierarchy_entry => self, :agent => h_agent, :agent_role => role, :view_order => 0)
     end
     agents_roles += agents_hierarchy_entries

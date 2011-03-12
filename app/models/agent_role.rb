@@ -10,7 +10,7 @@ class AgentRole < SpeciesSchemaModel
 
   def self.attribution_order
     labels = [ :Author, :Source, :Project, :Publisher ]
-    labels.map {|l| AgentRole.find_by_label(l.to_s) }
+    labels.map {|l| cached_find(:label, l.to_s) }
   end
   
   # Find the Author
@@ -30,6 +30,6 @@ class AgentRole < SpeciesSchemaModel
   
   # Find the "Photographer" AgentRole.
   def self.photographer
-    cached_find(:label, 'Contributor')
+    cached_find(:label, 'Photographer')
   end
 end

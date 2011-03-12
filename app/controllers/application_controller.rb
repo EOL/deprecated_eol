@@ -238,7 +238,7 @@ class ApplicationController < ActionController::Base
   def expire_data_object(data_object_id)
     Thread.new do
       begin
-        expire_taxa(DataObject.find(data_object_id).taxon_concepts(:published => :strict))
+        expire_taxa(DataObject.find(data_object_id).get_taxon_concepts(:published => :strict))
       rescue Exception => e
         if e.to_s != "Taxon concept must have at least one hierarchy entry"
           raise e

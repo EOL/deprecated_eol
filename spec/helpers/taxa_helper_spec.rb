@@ -5,7 +5,7 @@ require 'nokogiri'
 
 def add_language_to_name(name, language)
   name[:language_label] = language.label
-  name[:language_name] = language.name
+  name[:language_name] = language.source_form
   name[:language_id] = language.id
 end
 
@@ -54,7 +54,7 @@ def expected_array_from_names_in_language(names, language)
     names_array << expected_hash_from_name(name)
   end
   [language.label,
-   {:names => names_array, :language => {:name => language.name, :label => language.label, :id => language.id}}
+   {:names => names_array, :language => {:name => language.source_form, :label => language.label, :id => language.id}}
   ]
 end
 
@@ -67,9 +67,9 @@ describe TaxaHelper do
   describe "#common_names_by_language" do
 
     before(:all) do
-      @language_a = Language.gen(:label => 'Arabic')
-      @language_b = Language.gen(:label => 'Breton')
-      @language_c = Language.gen(:label => 'Cydonian')
+      @language_a = Language.gen_if_not_exists(:label => 'Arabic')
+      @language_b = Language.gen_if_not_exists(:label => 'Breton')
+      @language_c = Language.gen_if_not_exists(:label => 'Cydonian')
       @agent      = Agent.gen # Don't care much about this right now.
       @names = []
       # So, this is actually an array created with find_by_sql, and adds a lot of non-names stuff, which we need to handle
@@ -100,7 +100,7 @@ describe TaxaHelper do
       result[2][1].first.name_string.should == @name_c_a_string
     end
 
-    it "should put the preferred langauge first" do
+    it "should put the preferred language first" do
       result = helper.common_names_by_language(@names, @language_c.id)
       result[0][0].should == @language_c.label
     end

@@ -53,7 +53,6 @@ describe TaxaController do
   end
 
   it "should find no results on an empty search" do
-    Factory(:language, :label => 'English') # Required to make the get run.
     get :search
     assigns[:all_results].should == []
   end

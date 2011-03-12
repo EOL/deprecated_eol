@@ -76,7 +76,7 @@ describe DataObject do
   end
   
   it 'should be able to replace wikipedia articles' do
-    TocItem.gen(:label => 'wikipedia')
+    TocItem.gen_if_not_exists(:label => 'wikipedia')
     published_do = DataObject.gen(:published => 1, :vetted => Vetted.trusted, :visibility => Visibility.visible)
     published_do.toc_items << TocItem.wikipedia
     preview_do = DataObject.gen(:guid => published_do.guid, :published => 1, :vetted => Vetted.unknown, :visibility => Visibility.preview)
@@ -264,11 +264,10 @@ describe DataObject do
   
   it 'tagging should mark tags as public if added by a curator' do
     commit_transactions # We're looking at curators, here, we need cross-database joins.
-    tc      = TaxonConcept.last || build_taxon_concept
-    curator = build_curator(tc)
-    # We CANNOT use @dato here, because it doesn't have all of the required relationships to our TaxonConcept:
-    dato    = tc.add_user_submitted_text
-    dato.tag 'color', 'blue', curator
+    curator = build_curator(@taxon_concept)
+    @taxon_concept.reload
+    @image_dato.reload
+    @image_dato.tag 'color', 'blue', curator
     dotag = DataObjectTag.find_by_key_and_value('color', 'blue')
     DataObjectTag.find_by_key_and_value('color', 'blue').is_public.should be_true
   end
@@ -296,7 +295,7 @@ describe DataObject do
   end
   
   it 'should use object_url if non-flash' do
-    @dato.data_type = DataType.gen(:label => 'AnythingButFlash')
+    @dato.data_type = DataType.gen_if_not_exists(:label => 'AnythingButFlash')
     @dato.video_url.should == @dato.object_url
   end
   
@@ -313,10 +312,10 @@ describe DataObject do
     @dato.object_cache_url = ''
     @dato.video_url.should == ''
   end
-
+  
   # Also broken but I have NO IDEA WHY, and it's very frustrating.  Clearly my regex above (replacing the
   # number with \d+) isn't working, but WHY?!?
-
+  
   #it 'should use content servers' do
     #@dato.video_url.should match(@content_server_match)
   #end
@@ -324,32 +323,32 @@ describe DataObject do
   it 'should use store citable entities in an array' do
     @dato.citable_entities.class.should == Array
   end
-
+  
   it 'should add an attribution based on data_supplier_agent' do
     supplier = Agent.gen
     @dato.should_receive(:data_supplier_agent).at_least(1).times.and_return(supplier)
     @dato.citable_entities.map {|c| c.display_string }.should include(supplier.full_name)
   end
-
+  
   it 'should add an attribution based on license' do
     license = License.gen()
     @dato.should_receive(:license).at_least(1).times.and_return(license)
     # Not so please with the hard-coded relationship between project_name and description, but can't think of a better way:
     @dato.citable_entities.map {|c| c.display_string }.should include(license.description)
   end
-
+  
   it 'should add an attribution based on rights statement (and license description)' do
     rights = 'life, liberty, and the persuit of happiness'
     @dato.should_receive(:rights_statement).at_least(1).times.and_return(rights)
     @dato.citable_entities.map {|c| c.display_string }.should include(rights)
   end
-
+  
   it 'should add an attribution based on location' do
     location = 'life, liberty, and the persuit of happiness'
     @dato.should_receive(:location).at_least(1).times.and_return(location)
     @dato.citable_entities.map {|c| c.display_string }.should include(location)
   end
-
+  
   it 'should add an attribution based on Source URL' do
     source = 'http://some.biological.edu/with/good/data'
     @dato.should_receive(:source_url).at_least(1).times.and_return(source)
@@ -379,7 +378,7 @@ describe DataObject do
     current_count = @num_lcd
     [Vetted.trusted.id, Vetted.untrusted.id].each do |vetted_method|
       [Visibility.invisible.id, Visibility.visible.id, Visibility.inappropriate.id].each do |visibility_method|
-        @data_object.curate(@user, :vetted_id => vetted_method, :visibility_id => visibility_method)
+        @image_dato.curate(@user, :vetted_id => vetted_method, :visibility_id => visibility_method)
         LastCuratedDate.count.should == (current_count += 1)
       end
     end
@@ -414,14 +413,14 @@ describe DataObject do
   end
   
   # 'Gofas, S.; Le Renard, J.; Bouchet, P. (2001). Mollusca, <B><I>in</I></B>: Costello, M.J. <i>et al.</i> (Ed.) (2001). <i>European register of marine species: a check-list of the marine species in Europe and a bibliography of guides to their identification.'
-
+  
   it 'should close tags in data_objects (incl. users)' do
     dato_descr_before = @dato.description
     dato_descr_after  = @dato.description.balance_tags
     
     dato_descr_after.should == 'That <b>description has unclosed <i>html tags</b></i>'
   end
-
+  
   it 'should close tags in references' do
     full_ref         = 'a <b>b</div></HTML><i'
     repaired_ref     = '<div>a <b>b</div></HTML><i</b>'
@@ -430,16 +429,7 @@ describe DataObject do
     ref_after = @dato.visible_references[0].full_reference.balance_tags
     ref_after.should == repaired_ref
   end
-
-  #harvested_ancestries should return an array of one or more ancestries. Each ancestry
-  #is an array of HierarchyEntry instances
-  it "harvested_ancestries should return ancestry" do
-    ancestries = @image_dato.harvested_ancestries
-    ancestries.is_a?(Array).should be_true
-    ancestries[0].is_a?(Array).should be_true
-    ancestries[0][0].is_a?(HierarchyEntry).should be_true
-  end
-
+  
   it 'feeds should find text data objects for feeds' do
     res = DataObject.for_feeds(:text, @taxon_concept.id)
     res.class.should == Array
@@ -455,7 +445,7 @@ describe DataObject do
     data_types.size.should == 1
     DataType.find(data_types[0]).should == DataType.find_by_label("Image")
   end
-
+  
   it 'feeds should find image and text data objects for feeds' do
     res = DataObject.for_feeds(:all, @taxon_concept.id)
     res.class.should == Array
@@ -464,10 +454,37 @@ describe DataObject do
     data_types = data_types.map {|i| DataType.find(i).label}.sort
     data_types.should == ["Image", "Text"]
   end
-
+  
   it 'should delegate #cache_path to ContentServer' do
     ContentServer.should_receive(:cache_path).with(:foo, :bar).and_return(:worked)
     DataObject.cache_path(:foo, :bar).should == :worked
   end
+  
+  describe '#short_title' do
+  
+    it 'should default to the object_title' do
+      dato = DataObject.gen(:object_title => 'Something obvious')
+      dato.short_title.should == 'Something obvious'
+    end
+  
+    it 'should resort to the first line of the description if the object_title is empty' do
+      dato = DataObject.gen(:object_title => '', :description => "A long description\nwith multiple lines of stuff")
+      dato.short_title.should == "A long description"
+    end
+  
+    it 'should resort to the first 32 characters (plus three dots) if the decsription is too long and one-line' do
+      dato = DataObject.gen(:object_title => '', :description => "The quick brown fox jumps over the lazy dog, and now is the time for all good men to come to the aid of their country")
+      dato.short_title.should == "The quick brown fox jumps over t..."
+    end
+  
+    # TODO - ideally, this should be something like "Image of Procyon lotor", but that would be a LOT of work to extract
+    # froom the data_objects/show view (mainly because it builds links).
+    it 'should resort to the data type, if there is no description' do
+      dato = DataObject.gen(:object_title => '', :description => '', :data_type => DataType.image)
+      dato.short_title.should == "Image"
+    end
+  
+  end
+
 
 end

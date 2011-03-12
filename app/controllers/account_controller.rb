@@ -292,7 +292,7 @@ class AccountController < ApplicationController
         # Hierarchy entries have not given us a published taxon concept so either the concept has been superceded
         # or its a user submitted data object, either way we go on a hunt for a published taxon concept with some
         # expensive queries.
-        tcs = dato.taxon_concepts(:published => :preferred)
+        tcs = dato.get_taxon_concepts(:published => :preferred)
         tc = tcs.detect{|item| item[:published] == 1}
         # We only add a preferred taxon concept id if we've found a published taxon concept.
         dato[:_preferred_taxon_concept_id] = tc.nil? ? nil : tc[:id]

@@ -445,7 +445,7 @@ private
   end
 
   def videos_to_show
-    @default_videos = @taxon_concept.videos
+    @default_videos = @taxon_concept.video_data_objects
     @videos = show_unvetted_videos
 
     if params[:vet_flag] == "false"
@@ -457,7 +457,7 @@ private
 
   # collect all videos (unvetted as well)
   def show_unvetted_videos
-    videos = @taxon_concept.videos(:unvetted => true) unless @default_videos.blank?
+    videos = @taxon_concept.video_data_objects(:unvetted => true) unless @default_videos.blank?
     return videos
   end
 
@@ -596,7 +596,7 @@ private
 
       @selected_text = DataObject.find_by_id(text_id)
 
-      if @selected_text && @selected_text.taxon_concepts.include?(@taxon_concept) && (@selected_text.visible? || (@selected_text.invisible? && current_user.can_curate?(@selected_text)) || (@selected_text.inappropriate? && current_user.is_admin?))
+      if @selected_text && @selected_text.get_taxon_concepts.include?(@taxon_concept) && (@selected_text.visible? || (@selected_text.invisible? && current_user.can_curate?(@selected_text)) || (@selected_text.inappropriate? && current_user.is_admin?))
         selected_toc = @selected_text.toc_items[0]
 
         params[:category_id] = selected_toc.id

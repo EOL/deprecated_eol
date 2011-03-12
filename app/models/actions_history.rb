@@ -10,6 +10,7 @@ class ActionsHistory < ActiveRecord::Base
   
   has_many :actions_histories_untrust_reasons
   has_many :untrust_reasons, :through => :actions_histories_untrust_reasons
+  belongs_to :data_object, :foreign_key => :object_id
   
   validates_presence_of :user_id, :changeable_object_type_id, :action_with_object_id, :created_at 
     
@@ -60,10 +61,6 @@ class ActionsHistory < ActiveRecord::Base
         raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"
     end
   end
-           
-  def data_object
-    @data_object ||= DataObject.find(self['object_id'])
-  end
     
   def data_object_type
     data_object.data_type.label
@@ -75,7 +72,7 @@ class ActionsHistory < ActiveRecord::Base
 
   def comment_object
     Comment.find(self['object_id'])
-  end        
+  end
   
   def comment_parent
     case comment_object.parent_type

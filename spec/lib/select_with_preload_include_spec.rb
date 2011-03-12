@@ -9,17 +9,13 @@ describe 'Select with Preload Include' do
     @last_agent = Agent.last
     @dohe = DataObjectsHarvestEvent.last
     ContentPartner.gen(:agent => @last_agent)
-    
-    # sorry - I know this throws an error because we're changing the value of a constant. Its actually
-    # good because we want it to throw an error, but we also want to test with caching off. I couldn't
-    # see how to trap and hide this error for testing
-    Vetted::CACHE_ALL_ROWS = false
-    Language::CACHE_ALL_ROWS = false
+    # Vetted::CACHE_ALL_ROWS = false
+    # Language::CACHE_ALL_ROWS = false
   end
   
   after :all do
-    Vetted::CACHE_ALL_ROWS = true
-    Language::CACHE_ALL_ROWS = true
+    # Vetted::CACHE_ALL_ROWS = true
+    # Language::CACHE_ALL_ROWS = true
   end
   
   it 'should be able to select .*' do
@@ -212,7 +208,9 @@ describe 'Select with Preload Include' do
   end
   
   it 'should be able to select from a has_one => belongs_to association' do
-    a = Agent.find(:last, :select => "agents.created_at, users.created_at, languages.label", :include => [{:user => :language}])
+    a = Agent.find(:last,
+                   :select => "agents.created_at, users.created_at, hierarchy_entries.source_url", 
+                   :include => [{:user => :curator_hierarchy_entry}])
     a.class.should == Agent
     a.id.should == @last_agent.id                       # we grab the primary key any time there's an include
     a.created_at.should == @last_agent.created_at       # should have the field asked for
@@ -221,16 +219,16 @@ describe 'Select with Preload Include' do
     
     a.user.class.should == User
     a.user.agent_id.should == @last_agent.id                    # we need to grab the foreign_key of :has_one
-    a.user.language_id.should == @last_agent.user.language_id   # we need to grab the foreign_key of :belongs_to
+    a.user.curator_hierarchy_entry_id.should == @last_agent.user.curator_hierarchy_entry_id
     a.user.created_at.should == @last_agent.user.created_at
     a.user.updated_at.should == nil
     a.user.updated_at.should_not == @last_agent.user.updated_at
     
-    a.user.language.class.should == Language
-    a.user.language.id.should == @last_agent.user.language.id   # we grab the primary key any time there's an include
-    a.user.language.label.should == @last_agent.user.language.label
-    a.user.language.name?.should == false
-    @last_agent.user.language.name?.should == true
+    a.user.curator_hierarchy_entry.class.should == HierarchyEntry
+    a.user.curator_hierarchy_entry.id.should == @last_agent.user.curator_hierarchy_entry.id
+    a.user.curator_hierarchy_entry.source_url.should == @last_agent.user.curator_hierarchy_entry.source_url
+    a.user.curator_hierarchy_entry.created_at?.should == false
+    @last_agent.user.curator_hierarchy_entry.created_at?.should == true
   end
   
   
@@ -332,25 +330,27 @@ describe 'Select with Preload Include' do
     DataObject.last.vetted.taxon_concepts.last.hierarchy_entries.last.refs.last.ref_identifiers[0].ref_identifier_type_id?.should == true
   end
   
-  it 'should cache class instances' do
-    $CACHE.clear
-    Rank.delete(1)
-    Rank::CACHE_ALL_ROWS = false
-    Rank.gen(:id => 1)
-    r = Rank.find(1)
-    r.delete()
-    in_cache = Rank.find_by_id(1)
-    in_cache.should == nil
-    Rank.cached('instance_id_1'){ nil }.should == nil
-    
-    Rank.delete(1)
-    Rank::CACHE_ALL_ROWS = true
-    Rank.gen(:id => 1)
-    r = Rank.find(1)
-    r.delete()
-    in_cache = Rank.find_by_id(1)
-    in_cache.should == r
-    Rank.cached('instance_id_1'){ nil }.should == r
-  end
+  # I disabled caching all classes in the test environment due to complications.
+  # /lib/select_with_preload_include/active_record/base.rb says that caching only works if RAILS_ENV != 'test'
+  # it 'should cache class instances' do
+  #   $CACHE.clear
+  #   Rank.delete(1)
+  #   Rank::CACHE_ALL_ROWS = false
+  #   Rank.gen(:id => 1)
+  #   r = Rank.find(1)
+  #   r.delete()
+  #   in_cache = Rank.find_by_id(1)
+  #   in_cache.should == nil
+  #   Rank.cached('instance_id_1'){ nil }.should == nil
+  #   
+  #   Rank.delete(1)
+  #   Rank::CACHE_ALL_ROWS = true
+  #   Rank.gen(:id => 1)
+  #   r = Rank.find(1)
+  #   r.delete()
+  #   in_cache = Rank.find_by_id(1)
+  #   in_cache.should == r
+  #   Rank.cached('instance_id_1'){ nil }.should == r
+  # end
   
 end

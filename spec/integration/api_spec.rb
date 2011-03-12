@@ -26,9 +26,9 @@ describe 'EOL APIs' do
     # DataObjects
     @overview        = TocItem.overview
     @overview_text   = 'This is a test Overview, in all its glory'
-    @distribution      = TocItem.find_by_label('Ecology and Distribution')
+    @distribution      = TocItem.gen_if_not_exists(:label => 'Ecology and Distribution')
     @distribution_text = 'This is a test Distribution'
-    @description       = TocItem.find_by_label('Description')
+    @description       = TocItem.gen_if_not_exists(:label => 'Description')
     @description_text  = 'This is a test Description, in all its glory'
     @toc_item_2      = TocItem.gen(:view_order => 2)
     @toc_item_3      = TocItem.gen(:view_order => 3)
@@ -56,7 +56,7 @@ describe 'EOL APIs' do
       :guid                   => '803e5930803396d4f00e9205b6b2bf21',
       :identifier             => 'doid',
       :data_type              => DataType.text,
-      :mime_type              => MimeType.find_or_create_by_label('text/html'),
+      :mime_type              => MimeType.gen_if_not_exists(:label => 'text/html'),
       :object_title           => 'default title',
       :language               => Language.find_or_create_by_iso_639_1('en'),
       :license                => License.by_nc,
@@ -75,16 +75,16 @@ describe 'EOL APIs' do
       :visibility             => Visibility.visible,
       :published              => 1,
       :curated                => 0)
-    @object.info_items << InfoItem.find_or_create_by_label('Distribution')
+    @object.info_items << InfoItem.gen_if_not_exists(:label => 'Distribution')
     @object.save!
   
     AgentsDataObject.create(:data_object_id => @object.id,
                             :agent_id => Agent.gen(:full_name => 'agent one', :homepage => 'http://homepage.com/?agent=one&profile=1').id,
-                            :agent_role => AgentRole.gen(:label => 'writer'),
+                            :agent_role => AgentRole.gen_if_not_exists(:label => 'writer'),
                             :view_order => 1)
     AgentsDataObject.create(:data_object_id => @object.id,
                             :agent => Agent.gen(:full_name => 'agent two'),
-                            :agent_role => AgentRole.gen(:label => 'editor'),
+                            :agent_role => AgentRole.gen_if_not_exists(:label => 'editor'),
                             :view_order => 2)
     @object.refs << Ref.gen(:full_reference => 'first reference')
     @object.refs << Ref.gen(:full_reference => 'second reference')
@@ -98,18 +98,18 @@ describe 'EOL APIs' do
     @canonical_form = CanonicalForm.create(:string => 'Aus bus')
     @name = Name.create(:canonical_form => @canonical_form, :string => 'Aus bus Linnaeus 1776')
     @hierarchy = Hierarchy.gen(:label => 'Test Hierarchy', :browsable => 1)
-    @rank = Rank.gen(:label => 'species')
+    @rank = Rank.gen_if_not_exists(:label => 'species')
     @hierarchy_entry = HierarchyEntry.gen(:identifier => '123abc', :hierarchy => @hierarchy, :name => @name, :published => 1, :rank => @rank)
     
     name = Name.create(:string => 'Some critter')
-    relation = SynonymRelation.find_or_create_by_label('genbank common name')
-    relation = SynonymRelation.find_or_create_by_label('common name')
-    language = Language.gen(:label => 'english', :iso_639_1 => 'en')
+    relation = SynonymRelation.gen_if_not_exists(:label => 'genbank common name')
+    relation = SynonymRelation.gen_if_not_exists(:label => 'common name')
+    language = Language.gen_if_not_exists(:label => 'english', :iso_639_1 => 'en')
     @common_name = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation, :language => language)
     
     canonical_form = CanonicalForm.create(:string => 'Dus bus')
     name = Name.create(:canonical_form => @canonical_form, :string => 'Dus bus Linnaeus 1776')
-    relation = SynonymRelation.find_or_create_by_label('not common name')
+    relation = SynonymRelation.gen_if_not_exists(:label => 'not common name')
     @synonym = Synonym.gen(:hierarchy_entry => @hierarchy_entry, :name => name, :synonym_relation => relation)
     
     
@@ -131,9 +131,9 @@ describe 'EOL APIs' do
     # Provider Hierarchies
     @test_hierarchy = Hierarchy.gen(:label => 'Some test hierarchy', :browsable => 1)
     @second_test_hierarchy = Hierarchy.gen(:label => 'Another test hierarchy', :browsable => 1)
-    @test_hierarchy_entry_published = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Animalia', :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id)
-    @test_hierarchy_entry_unpublished = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Plantae', :parent_id => 0, :published => 0, :visibility_id => Visibility.invisible.id)
-    @second_test_hierarchy_entry = HierarchyEntry.gen(:hierarchy => @second_test_hierarchy, :identifier => 54321, :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id)
+    @test_hierarchy_entry_published = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Animalia', :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
+    @test_hierarchy_entry_unpublished = HierarchyEntry.gen(:hierarchy => @test_hierarchy, :identifier => 'Plantae', :parent_id => 0, :published => 0, :visibility_id => Visibility.invisible.id, :rank => Rank.kingdom)
+    @second_test_hierarchy_entry = HierarchyEntry.gen(:hierarchy => @second_test_hierarchy, :identifier => 54321, :parent_id => 0, :published => 1, :visibility_id => Visibility.visible.id, :rank => Rank.kingdom)
   end
   
   it 'ping should show success message' do
@@ -149,11 +149,11 @@ describe 'EOL APIs' do
   it 'pages should return only published concepts' do
     @taxon_concept.published = 0
     @taxon_concept.save!
-  
+    
     visit("/api/pages/#{@taxon_concept.id}")
     body.should include('<error>')
     body.should include('</response>')
-  
+    
     @taxon_concept.published = 1
     @taxon_concept.save!
   end
@@ -164,7 +164,7 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
-  
+    
     # shouldnt get details without asking for them
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject/xmlns:mimeType').length.should == 0
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject/dc:description').length.should == 0
@@ -183,7 +183,7 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 2
   end
-    
+  
   it 'pages should be able to limit number of text returned' do
     visit("/api/pages/#{@taxon_concept.id}?text=2")
     xml_response = Nokogiri.XML(body)
@@ -191,22 +191,22 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
   end
-    
+  
   it 'pages should be able to take a | delimited list of subjects' do
     visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology&details=1")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
-  
+    
     visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=Distribution&details=1")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
-  
+    
     # %7C == |
     visit("/api/pages/#{@taxon_concept.id}?images=0&text=3&subjects=TaxonBiology%7CDistribution&details=1")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
   end
-    
+  
   it 'pages should be able to return ALL subjects' do 
     visit("/api/pages/#{@taxon_concept.id}?text=5&subjects=all&vetted=1")
     xml_response = Nokogiri.XML(body)
@@ -335,14 +335,18 @@ describe 'EOL APIs' do
     xml_response = Nokogiri.XML(body)
     xml_response.xpath('/').inner_html.should_not == ""
   
-    xml_response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.taxon_concepts(:published => :strict)[0].id.to_s
+    xml_response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.get_taxon_concepts(:published => :strict)[0].id.to_s
   end
     
   it "data objects should show all information for text objects" do
     # this should be defined in the foundation and linked to its TOC
+    DataObjectsTableOfContent.delete_all(:data_object_id => @object.id)
+    DataObjectsInfoItem.delete_all(:data_object_id => @object.id)
     @info_item = InfoItem.find_or_create_by_schema_value('http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription');
     DataObjectsTableOfContent.create(:data_object_id => @object.id, :toc_id => @info_item.toc_id)
-  
+    DataObjectsInfoItem.create(:data_object_id => @object.id, :info_item => @info_item)
+    @object.reload
+    
     visit("/api/data_objects/#{@object.guid}")
     xml_response = Nokogiri.XML(body)
     xml_response.xpath('/').inner_html.should_not == ""
@@ -356,7 +360,7 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:dataObject/dcterms:rightsHolder').inner_text.should == @object.rights_holder
     xml_response.xpath('//xmlns:dataObject/dcterms:bibliographicCitation').inner_text.should == @object.bibliographic_citation
     xml_response.xpath('//xmlns:dataObject/dc:source').inner_text.should == @object.source_url
-    xml_response.xpath('//xmlns:dataObject/xmlns:subject').inner_text.should == @object.data_objects_table_of_contents[0].toc_item.info_items[0].schema_value
+    xml_response.xpath('//xmlns:dataObject/xmlns:subject').inner_text.should == @object.info_items[0].schema_value
     xml_response.xpath('//xmlns:dataObject/dc:description').inner_text.should == @object.description
     xml_response.xpath('//xmlns:dataObject/xmlns:location').inner_text.should == @object.location
     xml_response.xpath('//xmlns:dataObject/geo:Point/geo:lat').inner_text.should == @object.latitude.to_s
@@ -367,9 +371,9 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:dataObject/xmlns:agent').length.should == 2
     xml_response.xpath('//xmlns:dataObject/xmlns:agent[1]').inner_text.should == @object.agents[0].full_name
     xml_response.xpath('//xmlns:dataObject/xmlns:agent[1]/@homepage').inner_text.should == @object.agents[0].homepage
-    xml_response.xpath('//xmlns:dataObject/xmlns:agent[1]/@role').inner_text.should == @object.agents_data_objects[0].agent_role.label
+    xml_response.xpath('//xmlns:dataObject/xmlns:agent[1]/@role').inner_text.should == @object.agents_data_objects[0].agent_role.label.downcase
     xml_response.xpath('//xmlns:dataObject/xmlns:agent[2]').inner_text.should == @object.agents[1].full_name
-    xml_response.xpath('//xmlns:dataObject/xmlns:agent[2]/@role').inner_text.should == @object.agents_data_objects[1].agent_role.label
+    xml_response.xpath('//xmlns:dataObject/xmlns:agent[2]/@role').inner_text.should == @object.agents_data_objects[1].agent_role.label.downcase
   
     #testing references
     xml_response.xpath('//xmlns:dataObject/xmlns:reference').length.should == 2
@@ -378,6 +382,14 @@ describe 'EOL APIs' do
   end
   
   it 'data objects should be able to render a JSON response' do
+    # this should be defined in the foundation and linked to its TOC
+    DataObjectsTableOfContent.delete_all(:data_object_id => @object.id)
+    DataObjectsInfoItem.delete_all(:data_object_id => @object.id)
+    @info_item = InfoItem.find_or_create_by_schema_value('http://rs.tdwg.org/ontology/voc/SPMInfoItems#GeneralDescription');
+    DataObjectsTableOfContent.create(:data_object_id => @object.id, :toc_id => @info_item.toc_id)
+    DataObjectsInfoItem.create(:data_object_id => @object.id, :info_item => @info_item)
+    @object.reload
+    
     visit("/api/data_objects/#{@object.guid}.json")
     response_object = JSON.parse(body)
     response_object.class.should == Hash
@@ -394,9 +406,9 @@ describe 'EOL APIs' do
     response_object['dataObjects'][0]['subject'].should == @object.info_items[0].schema_value
     response_object['dataObjects'][0]['description'].should == @object.description
     response_object['dataObjects'][0]['location'].should == @object.location
-    response_object['dataObjects'][0]['latitude'].should == @object.latitude.to_s
-    response_object['dataObjects'][0]['longitude'].should == @object.longitude.to_s
-    response_object['dataObjects'][0]['altitude'].should == @object.altitude.to_s
+    response_object['dataObjects'][0]['latitude'].should == @object.latitude
+    response_object['dataObjects'][0]['longitude'].should == @object.longitude
+    response_object['dataObjects'][0]['altitude'].should == @object.altitude
   
     # testing agents
     response_object['dataObjects'][0]['agents'].length.should == 2
@@ -407,7 +419,7 @@ describe 'EOL APIs' do
   
   it "data objects should show all information for image objects" do
     @object.data_type = DataType.image
-    @object.mime_type = MimeType.find_or_create_by_label('image/jpeg')
+    @object.mime_type = MimeType.gen_if_not_exists(:label => 'image/jpeg')
     @object.object_url = 'http://images.marinespecies.org/resized/23745_electra-crustulenta-pallas-1766.jpg'
     @object.object_cache_url = 200911302039366
     @object.save!
@@ -424,19 +436,19 @@ describe 'EOL APIs' do
     xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[1]').inner_text.should == @object.object_url
     xml_response.xpath('//xmlns:dataObject/xmlns:mediaURL[2]').inner_text.gsub(/\//, '').should include(@object.object_cache_url.to_s)
   end
-    
-  it 'data objects should be able to render an HTML version of the page' do
-    visit("/api/data_objects/#{@object.guid}?format=html")
-    body.should include '<html'
-    body.should include '</html>'
-    body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts(:published => :strict)[0].entry.name.string}/
-    body.should include @object.description
-  end
-    
+  
+  # it 'data objects should be able to render an HTML version of the page' do
+  #   visit("/api/data_objects/#{@object.guid}?format=html")
+  #   body.should include '<html'
+  #   body.should include '</html>'
+  #   body.should match /<title>\s*EOL API:\s*#{@object.taxon_concepts(:published => :strict)[0].entry.name.string}/
+  #   body.should include @object.description
+  # end
+  
   it 'data objects should be able to toggle common names' do
     visit("/api/data_objects/#{@object.guid}")
     body.should_not include '<commonName'
-  
+    
     visit("/api/data_objects/#{@object.guid}?common_names=1")
     body.should include '<commonName'
   end
@@ -444,7 +456,7 @@ describe 'EOL APIs' do
   it 'data objects should take api key and save it to the log' do
     check_api_key("/api/data_objects/#{@object.guid}?key=#{@user.api_key}", @user)
   end
-    
+  
   it 'hierarchy_entries should return only published hierarchy_entries' do
     @hierarchy_entry.published = 0
     @hierarchy_entry.save!
@@ -486,7 +498,6 @@ describe 'EOL APIs' do
     xml_response.xpath("//dwc:vernacularName").length.should == 1
     xml_response.xpath("//dwc:Taxon[dwc:taxonomicStatus='not common name']").length.should == 0
   end
-  
   
   it 'hierarchy_entries should show all information for hierarchy entries in TCS format' do
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}?format=tcs")

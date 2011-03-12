@@ -8,19 +8,27 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
   "xmlns:geo" => "http://www.w3.org/2003/01/geo/wgs84_pos#",
   "xsi:schemaLocation" => "http://www.eol.org/transfer/content/1.0 http://services.eol.org/schema/content_1_0.xsd" do                                                                                                               
   
-  unless details_hash.blank?
+  unless taxon_concept.blank?
     xml.taxonConcept do
-      xml.taxonConceptID details_hash['id']
-      xml.dwc :scientificName, details_hash['scientific_name']
-      for synonym in details_hash["synonyms"]
-        xml.synonym synonym['name_string'], 'relationship'.to_sym => synonym['relationship']
-      end      
-      for common_name in details_hash["common_names"]
-        xml.commonName common_name['name_string'], 'xml:lang'.to_sym => common_name['iso_639_1']
-      end      
-      unless details_hash['curated_hierarchy_entries'].blank?
+      xml.taxonConceptID taxon_concept.id
+      xml.dwc :ScientificName, taxon_concept.entry.name.string
+      
+      if params[:synonyms]
+        for syn in taxon_concept.synonyms
+          relation = syn.synonym_relation ? syn.synonym_relation.label : ''
+          xml.synonym syn.name.string, 'relationship'.to_sym => relation
+        end
+      end
+      if params[:common_names]
+        for tcn in taxon_concept.common_names
+          lang = tcn.language ? tcn.language.iso_639_1 : ''
+          xml.commonName tcn.name.string, 'xml:lang'.to_sym => lang
+        end
+      end
+      
+      unless taxon_concept.curated_hierarchy_entries.blank?
         xml.additionalInformation do
-          for entry in details_hash['curated_hierarchy_entries']
+          for entry in taxon_concept.curated_hierarchy_entries
             xml.taxon do
               xml.dc :identifier, entry.identifier unless entry.identifier.blank?
               xml.dwc :taxonID, entry.id
@@ -32,11 +40,11 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
       end
     end
     
-    for object in details_hash["data_objects"]
-      if data_object_details
-        xml << render(:partial => 'data_object_1_0.xml.builder', :layout => false, :locals => { :object_hash => object, :taxon_concept_id => details_hash['id'], :minimal => false } )
+    for data_object in data_objects
+      if params[:details]
+        xml << render(:partial => 'data_object_1_0.xml.builder', :layout => false, :locals => { :data_object => data_object, :taxon_concept_id => taxon_concept.id, :minimal => false } )
       else
-        xml << render(:partial => 'data_object_1_0.xml.builder', :layout => false, :locals => { :object_hash => object, :taxon_concept_id => details_hash['id'], :minimal => true } )
+        xml << render(:partial => 'data_object_1_0.xml.builder', :layout => false, :locals => { :data_object => data_object, :taxon_concept_id => taxon_concept.id, :minimal => true } )
       end
     end
   end

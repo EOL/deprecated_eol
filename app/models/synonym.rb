@@ -70,7 +70,7 @@ class Synonym < SpeciesSchemaModel
     # its possible that the hierarchy is not associated with an agent
     if h_agent = hierarchy.agent
       h_agent.full_name = h_agent.display_name = hierarchy.label # To change the name from just "Catalogue of Life"
-      role = AgentRole.find_or_create_by_label('Source')
+      role = AgentRole.cached_find(:label, 'Source')
       agents_roles << AgentsSynonym.new(:synonym => self, :agent => h_agent, :agent_role => role, :view_order => 0)
     end
     agents_roles += agents_synonyms

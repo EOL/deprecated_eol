@@ -11,7 +11,7 @@
 .curation-section{ :class => is_ignored_class }
   .credit-caption
     = is_ignored ? "Ignored"[] : "Active"[] 
-  .action-value{ :id => "ignore-#{data_object['id']}" }
+  .action-value{ :id => "ignore-#{data_object.id}" }
     - if is_ignored
       %a= "Move to active list"[]
     - else
@@ -20,33 +20,31 @@
   %hr.thin
 .clearbreak
   %br
-/ TODO: Rewrite images_to_curate, details_for_objects methods using Patrick's new core_relationships feature to get the data into curator worklist.
-- dato = DataObject.find_by_id(data_object['id'])
 - div_style = 'display:none;'
 .curator_worklist_curation
-  %form.curation_form{ :action => curate_data_object_path(dato), :'data-data_object_id' => dato.id,  :'data-data_object_type' => dato.data_type_id, :'data-page_type' => 'curation_worklist'}
-    = hidden_field_tag 'taxon_concept_id', dato.taxon_concepts(:published => :preferred)[0] 
+  %form.curation_form{ :action => curate_data_object_path(data_object), :'data-data_object_id' => data_object.id,  :'data-data_object_type' => data_object.data_type_id, :'data-page_type' => 'curation_worklist'}
+    = hidden_field_tag 'taxon_concept_id', data_object.get_taxon_concepts(:published => :preferred)[0] 
     .processing{ :style => "display:none;" }
       = image_tag('indicator_arrows_black.gif')
       Please wait
 
-    = render :partial => 'data_objects/curation', :locals => { :data_object => dato, :div_style => div_style }
+    = render :partial => 'data_objects/curation', :locals => { :data_object => data_object, :div_style => div_style }
     .buttons.action-value
       = submit_tag "Save"
 .text_buttons
-  - comments = dato.all_comments.select { |c| c['visible_at'] }
+  - comments = data_object.all_comments.select { |c| c.visible_at }
   - if comments.blank?
     - comment_tooltip = "No comments yet. "
   - else
-    - curator_comments = dato.all_comments.select { |c| c['user_id'].to_i == current_user.id && c['visible_at'] }
+    - curator_comments = data_object.all_comments.select { |c| c.user_id == current_user.id && c.visible_at }
     - tooltip = "#{comments.size} comment#{comments.size == 1 ? '' : 's'}. "
     - if curator_comments.blank? 
       - comment_tooltip = tooltip
     - else
-      - comment_tooltip =  tooltip +  "#{curator_comments.size} #{curator_comments.size == 1 ? 'is' : 'are'} yours. "
-  = render :partial => '/comments/comment_icon', :locals => { :data_object_id => data_object['id'], :title => comment_tooltip + "Add a comment.", :comments_count => comments.size, :alt => "Comment on this #{data_object['data_type_label']}", :comment_class => 'popup-link', :rel => '' }
-.text-slidebox-border{:id => "text-comments-wrapper-#{data_object['id']}", :style => "display:none;"}
-  .text-slidebox-container.text-comment-div{:id => "text-comments-#{data_object['id']}"}
+      - comment_tooltip = tooltip +  "#{curator_comments.size} #{curator_comments.size == 1 ? 'is' : 'are'} yours. "
+  = render :partial => '/comments/comment_icon', :locals => { :data_object_id => data_object.id, :title => comment_tooltip + "Add a comment.", :comments_count => comments.size, :alt => "Comment on this #{data_object.data_type.label}", :comment_class => 'popup-link', :rel => '' }
+.text-slidebox-border{:id => "text-comments-wrapper-#{data_object.id}", :style => "display:none;"}
+  .text-slidebox-container.text-comment-div{:id => "text-comments-#{data_object.id}"}
     -# TODO - we re-use this indicator a lot.  Put it in a CSS class.
     %p
       = image_tag 'indicator_arrows_black.gif'

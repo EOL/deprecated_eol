@@ -1,41 +1,28 @@
 #report_from_eol
   %h2    
     = @page_header 
-
   This is the breakdown of chapters, sub-chapters and its corresponding Species Profile Model category.
   %br
     *Please take note that Wikipedia, Education and Barcode are EOL internal subjects and not part of the SPM.
-
   %table.results_table
-    %tr
-      %td{ :colspan => "5" }
-        /= will_paginate @partner_harvest_events
     %thead{ :align => "center" }
       %tr{ :align => "center" }
-        %th
-          
         %th
           Major heading
         %th
           Sub heading
         %th
           SPM Category
-
     %tbody
-      - count = @cur_page.to_i
-      - @arr_toc.each do |toc|
-        - column_class=cycle('odd','even')
-        - count += 1
+      - @all_toc_items.each do |toc|
+        - row_class = cycle('odd','even')
         %tr
-          %td{ :class => column_class, :align => "right" }
-            = count
-            = "."
-          %td{ :class => column_class }
-            = toc["major_heading"]
-          %td{ :class => column_class }
-            = toc["sub_heading"]
-          %td{ :class => column_class }
-            = toc["spm"]
+          %td{ :class => row_class }
+            = (toc.parent.blank?) ? toc.label : toc.parent.label
+          %td{ :class => row_class }
+            = (toc.parent.blank?) ? " --- " : toc.label
+          %td{ :class => row_class }
+            = toc.info_items.collect{ |ii| ii.label }.join('<br/>')
 
     %tr
       %td{ :colspan => "5" }

@@ -1,22 +1,27 @@
-- for syn_hash in @content[:items]
-  %p
-    %b
-      = syn_hash['hierarchy_label']
-    %br
-    Preferred Name: 
-    = syn_hash['preferred_name']
-  %table.results_table
-    %tr
-      %th
-        Name
-      %th
-        Relationship
-    - for synonym in syn_hash['synonyms']
-      - row_class = cycle('odd', 'even')
+- current_hierarchy_id = nil
+- for synonym in @content[:items]
+  - if synonym.hierarchy_id != current_hierarchy_id
+    - current_hierarchy_entry = synonym.hierarchy_entry
+    %p
+      %b
+        = synonym.hierarchy.label
+      %br
+      Preferred Name: 
+      = synonym.hierarchy_entry.name.string
+      - current_hierarchy_id = synonym.hierarchy_id
+    %table.results_table
       %tr
-        %td{:class => row_class}
-          = synonym['name'] 
-        %td{:class => row_class}
-          = synonym['relationship']
+        %th
+          Name
+        %th
+          Relationship
+      - for s in @content[:items]
+        - next if s.hierarchy_id != current_hierarchy_id
+        - row_class = cycle('odd', 'even')
+        %tr
+          %td{:class => row_class}
+            = s.name.string
+          %td{:class => row_class}
+            = s.synonym_relation ? s.synonym_relation.label : 'synonym'
   %br
   %br

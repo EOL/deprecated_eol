@@ -6,9 +6,10 @@ Vetted.define_core_relationships :include => [:data_objects, :taxon_concepts]
 describe 'Core Relationships' do
   before :all do
     truncate_all_tables
-    Vetted.gen(:label => 'trusted')
+    Vetted.gen_if_not_exists(:label => 'trusted')
     @trusted = Vetted.trusted
-    @data_object = DataObject.gen(:vetted => @trusted)
+    l = Language.gen(:label => 'English')
+    @data_object = DataObject.gen(:vetted => @trusted, :language => l)
     @taxon_concept = TaxonConcept.gen(:vetted => @trusted)
     @hierarchy_entry = HierarchyEntry.gen(:vetted => @trusted)
   end

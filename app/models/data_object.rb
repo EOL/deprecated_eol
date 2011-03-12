@@ -55,9 +55,18 @@ class DataObject < SpeciesSchemaModel
   define_core_relationships :select => {
       :data_objects => '*',
       :agents => [:full_name, :acronym, :display_name, :homepage, :username, :logo_cache_url],
-      :agents_data_objects => [:view_order],
+      :agents_data_objects => :view_order,
       :names => :string,
-      :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ] },
+      :hierarchy_entries => [ :published, :visibility_id, :taxon_concept_id ],
+      :languages => :iso_639_1,
+      :table_of_contents => :label,
+      :info_items => [ :label, :schema_value ],
+      :agent_roles => :label,
+      :data_types => [ :label, :schema_value ],
+      :mime_types => :label,
+      :vetted => [ :label, :view_order ],
+      :table_of_contents => '*',
+      :licenses => '*' },
     :include => [:data_type, :mime_type, :language, :license, :vetted, :visibility, {:info_items => :toc_item},
       {:hierarchy_entries => [:name, { :hierarchy => :agent }] }, {:agents_data_objects => [:agent, :agent_role]}]
   
@@ -66,8 +75,8 @@ class DataObject < SpeciesSchemaModel
       toc_view_order = (obj.info_items.blank? || obj.info_items[0].toc_item.blank?) ? 0 : obj.info_items[0].toc_item.view_order
       vetted_view_order = obj.vetted.blank? ? 0 : obj.vetted.view_order
       visibility_view_order = 1
-      visibility_view_order = 0 if obj.visibility_id == Visibility.preview.id
-      
+      visibility_view_order = 2 if obj.visibility_id == Visibility.preview.id
+
       [obj.data_type_id,
        toc_view_order,
        visibility_view_order,
@@ -76,6 +85,8 @@ class DataObject < SpeciesSchemaModel
     end
   end
   
+  # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based
+  # on their access.
   def self.filter_list_for_user(data_objects, options={})
     visibility_ids = [Visibility.visible.id]
     vetted_ids = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
@@ -90,12 +101,10 @@ class DataObject < SpeciesSchemaModel
         vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id]
         visibility_ids = Visibility.all_ids.dup
         show_preview = true
-      
       # curators see invisible objects
       elsif options[:user].is_curator? && options[:user].can_curate?(options[:taxon])
         visibility_ids << Visibility.invisible.id
       end
-      
       # the only scenario to see ONLY TRUSTED objects
       if options[:user].vetted == true && !options[:user].is_admin?
         vetted_ids = [Vetted.trusted.id]
@@ -107,17 +116,15 @@ class DataObject < SpeciesSchemaModel
     end
     
     # removing from the array the ones not mathching our criteria
-    data_objects.select do |d|
+    data_objects.compact.select do |d|
       # partners see all their PREVIEW or PUBLISHED objects
       if options[:agent] && d.data_supplier_agent.id == options[:agent].id
         if (d.visibility_id == Visibility.preview.id) || d.published == true
           true
         end
-      
       # user can see preview objects
       elsif show_preview && d.visibility_id == Visibility.preview.id
         true
-      
       # otherwise object must be PUBLISHED and in the vetted and visibility selection
       elsif d.published == true && vetted_ids.include?(d.vetted_id) &&
         visibility_ids.include?(d.visibility_id)
@@ -144,7 +151,7 @@ class DataObject < SpeciesSchemaModel
       lookup_ids = [taxon_concept_id]
     end
 
-    data_object_ids = SpeciesSchemaModel.connection.execute("
+    data_objects = DataObject.find_by_sql("
       SELECT do.id, do.guid, do.created_at
       FROM feed_data_objects fdo
       JOIN #{DataObject.full_table_name} do ON (fdo.data_object_id=do.id)
@@ -152,17 +159,9 @@ class DataObject < SpeciesSchemaModel
       AND do.published=1
       AND do.data_type_id IN (#{data_type_ids.join(',')})
       AND do.created_at IS NOT NULL
-      AND do.created_at != '0000-00-00 00:00:00'").all_hashes.uniq
-
-    return [] if data_object_ids.blank?
-
-    data_object_ids.sort! do |a, b|
-      b['created_at'] <=> a['created_at']
-    end
-
-    details = details_for_objects(data_object_ids[0...max_results].collect{|obj| obj['id']}, :skip_refs => true)
-    return [] if details.blank?
-    return details
+      AND do.created_at != '0000-00-00 00:00:00'").uniq
+    data_objects.sort_by{ |d| d.created_at }
+    DataObject.core_relationships.find_all_by_id(data_objects.collect{ |d| d.id })
   end
 
   #----- user submitted text --------
@@ -397,15 +396,12 @@ class DataObject < SpeciesSchemaModel
   end
 
   def citable_data_supplier
-    unless data_supplier_agent.blank?
-      EOL::Citable.new( :agent_id => data_supplier_agent.id, 
-                                    :link_to_url => data_supplier_agent.homepage,
-                                    :display_string => data_supplier_agent.full_name,
-                                    :logo_cache_url => data_supplier_agent.logo_cache_url,
-                                    :type => 'Supplier')
-    else
-      nil
-    end
+    return nil if data_supplier_agent.blank?
+    EOL::Citable.new( :agent_id => data_supplier_agent.id, 
+                                  :link_to_url => data_supplier_agent.homepage,
+                                  :display_string => data_supplier_agent.full_name,
+                                  :logo_cache_url => data_supplier_agent.logo_cache_url,
+                                  :type => 'Supplier')
   end
   
   def citable_entities
@@ -498,6 +494,7 @@ class DataObject < SpeciesSchemaModel
   def image?
     return DataType.image_type_ids.include?(data_type_id)
   end
+  alias is_image? image?
 
   def map?
     return DataType.map_type_ids.include?(data_type_id)
@@ -506,10 +503,18 @@ class DataObject < SpeciesSchemaModel
   def text?
     return DataType.text_type_ids.include?(data_type_id)
   end
-
+  alias is_text? text?
+  
   def video?
     return DataType.video_type_ids.include?(data_type_id)
   end
+  alias is_video? video?
+  
+  def iucn?
+    return data_type_id == DataType.iucn.id
+  end
+  alias is_iucn? iucn?
+  
 
   # Convenience.  TODO - Stop calling this.  Use ContentServer directly.
   def self.cache_path(cache_url, subdir)
@@ -626,7 +631,7 @@ class DataObject < SpeciesSchemaModel
   # options:
   # :published -> :strict - return only published taxon concepts
   # :published -> :preferred - same as above, but returns unpublished taxon concepts if no published ones are found
-  def taxon_concepts(opts = {})
+  def get_taxon_concepts(opts = {})
     return @taxon_concepts if @taxon_concepts
     if created_by_user?
       @taxon_concepts = [taxon_concept_for_users_text]
@@ -664,19 +669,6 @@ class DataObject < SpeciesSchemaModel
         ORDER BY tc.id -- DataObject#taxon_concepts
       ", id])[0]
     end
-  end
-
-  def harvested_ancestries
-    hierarchy_entries = HierarchyEntry.find_by_sql(["
-      SELECT he.id, he.parent_id, he.name_id, he.published, he.taxon_concept_id
-      FROM data_objects_hierarchy_entries dh
-      JOIN hierarchy_entries he on he.id = dh.hierarchy_entry_id
-      WHERE data_object_id = ?" , id])
-    ancestries = []
-    hierarchy_entries.each do |he|
-      ancestries << he.get_ancestry
-    end
-    ancestries
   end
 
   def curate(user, opts)
@@ -860,98 +852,51 @@ class DataObject < SpeciesSchemaModel
     end
     return return_objects
   end
-
-  def self.build_top_images_query(taxon, options = {})
-    join_hierarchy = join_agents = ''
-    options[:unpublished] ||= false
-    options[:filter_hierarchy] ||= nil
-    from_table = options[:unpublished] ? 'top_unpublished_concept_images' : 'top_concept_images'
-    where_clause = "ti.taxon_concept_id=#{taxon.id}"
-
-    # filtering by hierarchy means we need the top_* tables which use hierarchy_entry_ids
-    if !options[:filter_hierarchy].nil?
-      from_table = options[:unpublished] ? 'top_unpublished_images' : 'top_images'
-      join_hierarchy = "JOIN hierarchy_entries he_filter ON (ti.hierarchy_entry_id=he_filter.id AND he_filter.hierarchy_id=#{options[:filter_hierarchy].id})"
-      where_clause = "ti.hierarchy_entry_id IN (#{taxon.hierarchy_entries.collect {|he| he.id }.join(',')})"
-    end
-
-    # unpublished images require a few extra bits to the query:
-    if options[:unpublished]
-      from_cp = ', ar.agent_id agent_id'
-      join_agents = self.join_agents_clause(options[:agent])
-      # this next line will ensure we get ONLY the images the CP contributed, but admins see ALL preview images
-      where_clause = where_clause + " AND ar.agent_id IS NOT NULL" unless options[:user].is_admin?
-    else
-      from_cp = ', NULL agent_id'
-    end
-
-    query_string = %Q{
-      SELECT dato.id, dato.visibility_id, dato.data_rating, dato.vetted_id, dato.guid, v.view_order vetted_view_order #{from_cp}
-        FROM #{from_table} ti
-          JOIN data_objects dato      ON ti.data_object_id = dato.id
-          JOIN vetted v               ON dato.vetted_id = v.id
-          #{join_agents}
-          #{join_hierarchy}
-        WHERE #{where_clause}
-          AND ti.view_order <= #{$IMAGE_LIMIT.to_i}
-          #{DataObject.visibility_clause(options.merge(:taxon => taxon))} # DataObject.build_top_images_query
-      }
-  end
-
-  def self.cached_images_for_taxon(taxon, options = {})
-    options[:user] = User.create_new if options[:user].nil?
+  
+  def self.images_for_taxon_concept(taxon_concept, options = {})
+    options[:user] ||= User.create_new
     if options[:filter_by_hierarchy] && !options[:hierarchy].nil?
       options[:filter_hierarchy] = options[:hierarchy]
     end
-
-    top_images_query = DataObject.build_top_images_query(taxon, options)
-
     # the user/agent has the ability to see some unpublished images, so create a UNION
-    show_unpublished = ((not options[:agent].nil?) or options[:user].is_curator? or options[:user].is_admin?)
-    if show_unpublished
-      options[:unpublished] = true
-      top_unpublished_images_query = DataObject.build_top_images_query(taxon, options)
-      top_images_query = "(#{top_images_query}) UNION (#{top_unpublished_images_query})"
-    end
-
-    data_objects_result = DataObject.find_by_sql(top_images_query).uniq
-
-    # when we have all the images then get the uniquq list and sort them by
-    # vetted order ASC (so trusted are first), rating DESC (so best are first), id DESC (so newest are first)
-    data_objects_result.sort! do |a, b|
-      if a.vetted_view_order == b.vetted_view_order
-        # TODO - this should probably also sort on visibility.
-        if a.data_rating == b.data_rating
-          b.id <=> a.id # essentially, orders images by date.
-        else
-          b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
-        end
-      else
-        a.vetted_view_order <=> b.vetted_view_order
+    show_unpublished = (options[:agent] || options[:user].is_curator? || options[:user].is_admin?)
+    
+    if options[:filter_hierarchy]
+      # taxon.top_images.collect{ |d| }
+      # taxon.top_unpublished_concept_images{ |d| }
+    else
+      image_data_objects = taxon_concept.top_concept_images.collect{ |tci| tci.data_object }
+      if show_unpublished
+        image_data_objects += taxon_concept.top_unpublished_concept_images.collect{ |tci| tci.data_object }
       end
     end
-
-    # an extra loop to ensure that we have no duplicate GUIDs
-    result = []
+    
+    # remove anything this agent/user should not have access to
+    image_data_objects = DataObject.filter_list_for_user(image_data_objects, options)
+    # make the list unique by DataObject.guid
+    unique_image_objects = []
     used_guids = {}
-    data_objects_result.each do |r|
-      result << r if used_guids[r.guid].blank?
+    image_data_objects.each do |r|
+      unique_image_objects << r if used_guids[r.guid].blank?
       used_guids[r.guid] = true
     end
-
-    return [] if result.empty?
-
-    # get the rest of the metadata for the selected page
-    image_page        = (options[:image_page] ||= 1).to_i
-    start             = $MAX_IMAGES_PER_PAGE * (image_page - 1)
-    last              = start + $MAX_IMAGES_PER_PAGE - 1
     
-    objects_with_metadata = eager_load_metadata(result[start..last].collect {|r| r.id})
-    result[start..last] = objects_with_metadata unless objects_with_metadata.blank?
-    return result
+    return [] if unique_image_objects.empty?
+    
+    # sort the remainder by our rating criteria
+    unique_image_objects = DataObject.sort_by_rating(unique_image_objects)
+    
+    # get the rest of the metadata for the selected page
+    image_page  = (options[:image_page] ||= 1).to_i
+    start       = $MAX_IMAGES_PER_PAGE * (image_page - 1)
+    last        = start + $MAX_IMAGES_PER_PAGE - 1
+    
+    objects_with_metadata = eager_load_image_metadata(unique_image_objects[start..last].collect {|r| r.id})
+    unique_image_objects[start..last] = objects_with_metadata unless objects_with_metadata.blank?
+    return unique_image_objects
   end
   
-  def self.eager_load_metadata(data_object_ids)
+  def self.eager_load_image_metadata(data_object_ids)
     return nil if data_object_ids.blank?
     add_include = [:comments, :agents_data_objects, { :users_data_objects => :user }]
     add_select = { :users => '*', :comments => '*' }
@@ -959,149 +904,22 @@ class DataObject < SpeciesSchemaModel
     DataObject.sort_by_rating(objects)
   end
 
-
-  # Find all of the data objects of a particular type (text, image, etc) associated with a given taxon.
-  # Options may include current agents and/or users, to affect permissions of who sees what.
-  def self.for_taxon(taxon, type, options = {})
-
-    options[:user] = User.create_new if options[:user].nil?
-
-    results = nil # scope
-
-    if type == :image
-      # Just return the (much faster) cached images if that's the type we're dealing with:
-      results = DataObject.cached_images_for_taxon(taxon, options)
-    else
-      # usually, we want to return data objects.  But if we want text objects, we call them toc items...
-      if type == :text && options[:toc_id].nil?
-        results = TocItem.find_by_sql(DataObject.build_query(taxon, type, options))
-      else
-        results = DataObject.other_type_for_taxon(taxon, type, options)
-      end
-    end
-
-    # In order to display a warning about pages that include unvetted material, we check now, while the
-    # information is most readily available (data objects are the only things that can be unvetted, and only
-    # if we have to check permissions), and then flag the taxon_concept model if anything is non-trusted.
-    trusted_id = Vetted.trusted.id
-    taxon.includes_unvetted = true if results.detect {|d| d.vetted_id != trusted_id }
-
-    # Content Partners' query included ALL invisible, untrusted and unknown items... not JUST THEIRS.  We
-    # now need to exclude those items that they did not contribute:
-    if options[:agent]
-      results.delete_if do |dato|
-        dato.visibility_id == Visibility.preview.id and not dato['data_supplier'].nil? and
-          dato['data_supplier'].id != options[:agent].id
-      end
-    end
-
-    return results
-
-  end
-
-  def self.other_type_for_taxon(taxon, type, options)
-    # generate the query to search for data objects
-    query = DataObject.build_query(taxon, type, options)
-    # load the objects and the info we need to sort them
-    result = DataObject.find_by_sql(query)
-    result = result.uniq
-
-    # sort objects by vetted order ASC (so trusted are first), rating DESC (so best are first), id DESC (so newest are first)
-    result.sort! do |a, b|
-      if a.vetted_view_order == b.vetted_view_order
-        # TODO - this should probably also sort on visibility.
-        if a.data_rating == b.data_rating
-          b.id <=> a.id # essentially, orders images by date.
-        else
-          b.data_rating <=> a.data_rating # Note this is reversed; higher ratings are better.
-        end
-      else
-        a.vetted_view_order <=> b.vetted_view_order
-      end
-    end
-
-    # query result set for attribution info, taxa info (for permalinks), and references
-    objects_with_metadata = eager_load_metadata(result.collect {|r| r.id})
-    result = objects_with_metadata unless objects_with_metadata.blank?
-    return result
-  end
-
-  # TODO - MED PRIORITY - I'm assuming there's one taxa for this data object, and there could be several.
-  # TODO = licenses should simply be included, and referenced directly where needed.
-  def self.build_query(taxon, type, options)
-    add_toc      = (type == :text and options[:toc_id].nil?) ? ', toc.*' : ''
-    add_cp       = options[:agent].nil? ? '' : ', ar.agent_id agent_id'
-    join_agents  = options[:agent].nil? ? '' : self.join_agents_clause(options[:agent])
-    join_toc     = type == :text        ? 'JOIN data_objects_table_of_contents dotoc ON dotoc.data_object_id = dato.id ' +
-                                                 'JOIN table_of_contents toc ON toc.id = dotoc.toc_id' : ''
-    where_toc    = options[:toc_id].nil? ? '' : ActiveRecord::Base.sanitize_sql_array(['AND toc.id = ?', options[:toc_id]])
-    #sort         = 'published, vetted_id DESC, data_rating DESC' # unpublished first, then by data_rating.
-    sort         = 'published, vetted_sort_order, data_rating DESC' # unpublished first, then by data_rating.
-    data_type_ids = DataObject.get_type_ids(type)
-
-    query_string = %Q{
-(SELECT dt.label media_type, dato.*, dotc.taxon_concept_id taxon_id,
-       l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}, v.view_order as vetted_view_order
-  FROM data_objects_taxon_concepts dotc
-    JOIN data_objects dato     ON (dotc.data_object_id = dato.id)
-    JOIN vetted v              ON (dato.vetted_id=v.id)
-    JOIN data_types dt         ON (dato.data_type_id = dt.id)
-    #{join_agents} #{join_toc}
-    LEFT OUTER JOIN licenses l       ON (dato.license_id = l.id)
-  WHERE dotc.taxon_concept_id = #{taxon.id}
-    AND data_type_id IN (#{data_type_ids.join(',')})
-    #{DataObject.visibility_clause(options.merge(:taxon => taxon))}
-    #{where_toc})
-UNION
-(SELECT dt.label media_type, dato.*, taxon_concept_id taxon_id, l.description license_text, l.logo_url license_logo, l.source_url license_url #{add_toc} #{add_cp}, v.view_order vetted_view_order
-FROM data_objects dato
-JOIN vetted v              ON (dato.vetted_id=v.id)
-JOIN #{ UsersDataObject.full_table_name } udo ON (dato.id=udo.data_object_id)
-STRAIGHT_JOIN data_types dt ON (dato.data_type_id = dt.id)
-#{join_agents} #{join_toc}
-LEFT OUTER JOIN licenses l ON (dato.license_id = l.id)
-WHERE
-udo.taxon_concept_id=#{taxon.id}
-AND data_type_id IN (#{data_type_ids.join(',')})
-#{DataObject.visibility_clause(options.merge(:taxon => taxon))}
-    #{where_toc}) # DataObject.for_taxon
-    }
-  end
-
   def self.latest_published_version_of(data_object_id)
-    # this method is in two parts so we don't have to return ALL data for ALL objects with this guid. MySQL just
-    # returns one ID, then we lookup the DataObject based on the ID. Sames a lot of data transfer and time
     obj = DataObject.find_by_sql("SELECT do.* FROM data_objects do_old JOIN data_objects do ON (do_old.guid=do.guid) WHERE do_old.id=#{data_object_id} AND do.published=1 ORDER BY id desc LIMIT 1")
     return nil if obj.blank?
     return obj[0]
   end
   def latest_published_version
-    obj = DataObject.find_by_sql("SELECT * FROM data_objects WHERE guid='#{guid}' AND published=1 ORDER BY id desc LIMIT 1")
+    DataObject.latest_published_version_of_guid(guid)
+  end
+  def self.latest_published_version_of_guid(guid, options={})
+    options[:return_only_id] ||= false
+    select = (options[:return_only_id]) ? 'id' : '*'
+    obj = DataObject.find_by_sql("SELECT #{select} FROM data_objects WHERE guid='#{guid}' AND published=1 ORDER BY id desc LIMIT 1")
     return nil if obj.blank?
     return obj[0]
   end
-
-
-  def self.get_toc_info(obj_ids)
-    obj_toc_info = {} #same Hash.new
-    if(obj_ids.length > 0) then
-      sql = "
-      SELECT do.id, vetted.label AS vetted_label, visibilities.label AS visible, concat(toc2.label, ' - ', tc.label) as toc
-      From data_objects do
-      LEFT JOIN vetted                              ON do.vetted_id = vetted.id
-      LEFT JOIN visibilities                        ON do.visibility_id = visibilities.id
-      LEFT JOIN data_objects_table_of_contents dotc ON do.id = dotc.data_object_id
-      LEFT JOIN table_of_contents tc                ON dotc.toc_id = tc.id
-      LEFT JOIN table_of_contents toc2              ON tc.parent_id = toc2.id
-      WHERE do.id IN (#{obj_ids.join(',')})"
-      rset = DataObject.find_by_sql([sql])
-      rset.each do |post|
-        obj_toc_info["#{post.id}"] = "#{post.toc}"
-        obj_toc_info["e#{post.id}"] = "#{post.vetted_label} <br> #{post.visible}"
-      end
-    end
-    return obj_toc_info
-  end
+  
 
   def self.tc_ids_from_do_ids(obj_ids)
     obj_tc_id = {} #same Hash.new
@@ -1122,172 +940,6 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     return obj_tc_id
   end
 
-  def self.details_for_object(data_object_guid, options = {})
-    data_objects = DataObject.find_all_by_guid(data_object_guid, :conditions => "published=1 AND visibility_id=#{Visibility.visible.id}")
-    return [] if data_objects.blank?
-    data_objects.sort! {|a,b| b.id <=> a.id}
-    data_object = data_objects[0]
-
-    details = self.details_for_objects([data_object.id])
-    return [] if details.blank?
-    first_obj = details[0]
-
-    # create the objects taxon and place the object inside
-    if options[:include_taxon]
-      obj = DataObject.find(first_obj['id'])
-      tc = obj.taxon_concepts(:published => :preferred)[0]
-      return tc.details_hash(:data_object_hash => first_obj, :common_names => options[:common_names])
-    end
-
-    # return the object alone
-    return first_obj
-  end
-
-  def self.details_for_objects(data_object_ids, options = {})
-    return [] unless data_object_ids.is_a? Array
-    return [] if data_object_ids.empty?
-    options[:visible] == true if options[:visible] != false
-
-    visibility_clause = ""
-    if options[:visible] == true
-      visibility_clause = " AND do.published = 1 AND do.visibility_id = #{Visibility.visible.id}"
-    end
-
-    object_details_hashes = SpeciesSchemaModel.connection.execute("
-      SELECT do.*, dt.schema_value data_type, dt.label data_type_label, mt.label mime_type, lang.iso_639_1 language,
-              lic.source_url license, lic.title license_label, ii.schema_value subject, v.view_order vetted_view_order,
-              v.label vetted_label, vis.label visibility_label,
-              toc.view_order toc_view_order, toc.label toc_label, n.string scientific_name, he.taxon_concept_id
-        FROM data_objects do
-        LEFT JOIN data_types dt ON (do.data_type_id=dt.id)
-        LEFT JOIN mime_types mt ON (do.mime_type_id=mt.id)
-        LEFT JOIN languages lang ON (do.language_id=lang.id)
-        LEFT JOIN licenses lic ON (do.license_id=lic.id)
-        LEFT JOIN vetted v ON (do.vetted_id=v.id)
-        LEFT JOIN visibilities vis ON (do.visibility_id=vis.id)
-        LEFT JOIN (
-           info_items ii
-           JOIN table_of_contents toc ON (ii.toc_id=toc.id)
-           JOIN data_objects_table_of_contents dotoc ON (toc.id=dotoc.toc_id)
-          ) ON (do.id=dotoc.data_object_id)
-        LEFT JOIN (
-           data_objects_hierarchy_entries dohe
-           JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
-           JOIN names n ON (he.name_id=n.id)
-          ) ON (do.id=dohe.data_object_id)
-        WHERE do.id IN (#{data_object_ids.join(',')})
-        #{visibility_clause}
-    ").all_hashes.uniq
-
-    object_details_hashes.group_hashes_by!('guid')
-
-    flash_id = DataType.flash.id
-    youtube_id = DataType.youtube.id
-    iucn_id = DataType.iucn.id
-    object_details_hashes.each do |r|
-      if r['data_type_id'].to_i == flash_id || r['data_type_id'].to_i == youtube_id
-        r['data_type'] = DataType.video.schema_value
-      end
-      if r['data_type_id'].to_i == iucn_id
-        r['data_type'] = DataType.text.schema_value
-      end
-    end
-
-    if options[:sort] == 'id desc'
-      object_details_hashes.sort!{ |a,b| b['id'].to_i <=> a['id'].to_i }
-    else
-      object_details_hashes = ModelQueryHelper.sort_object_hash_by_display_order(object_details_hashes)
-    end
-
-    object_details_hashes = DataObject.add_refs_to_details(object_details_hashes) if options[:skip_metadata].blank? && options[:skip_refs].blank?
-    object_details_hashes = DataObject.add_agents_to_details(object_details_hashes) if options[:skip_metadata].blank?
-    object_details_hashes = DataObject.add_common_names_to_details(object_details_hashes) unless options[:add_common_names].blank?
-    object_details_hashes = DataObject.add_comments_to_details(object_details_hashes) unless options[:add_comments].blank?
-    object_details_hashes
-  end
-
-  def self.add_refs_to_details(object_details_hash)
-    data_object_ids = object_details_hash.collect {|r| r['id']}
-    return object_details_hash if data_object_ids.blank?
-
-    refs = SpeciesSchemaModel.connection.execute("
-        SELECT r.*, dor.data_object_id
-          FROM data_objects_refs dor
-          JOIN refs r ON (dor.ref_id=r.id)
-          WHERE dor.data_object_id IN (#{data_object_ids.join(',')})
-          AND r.published=1
-          AND r.visibility_id=#{Visibility.visible.id}").all_hashes
-
-    grouped_refs = ModelQueryHelper.group_array_by_key(refs, 'data_object_id')
-    object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped_refs, 'refs')
-    return object_details_hash
-  end
-
-  def self.add_comments_to_details(object_details_hash)
-    data_object_ids = object_details_hash.collect {|r| r['id']}
-    return object_details_hash if data_object_ids.blank?
-
-    comments = SpeciesSchemaModel.connection.execute("
-        SELECT c.*, do_guid.id data_object_id
-          FROM #{Comment.full_table_name} c
-          JOIN data_objects do ON (c.parent_id=do.id)
-          JOIN data_objects do_guid ON (do.guid=do_guid.guid)
-          WHERE c.parent_id IN (#{data_object_ids.join(',')})
-          AND c.parent_type='DataObject'").all_hashes
-
-    grouped_comments = ModelQueryHelper.group_array_by_key(comments, 'data_object_id')
-    object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped_comments, 'comments')
-    return object_details_hash
-  end
-
-  def self.add_agents_to_details(object_details_hash)
-    data_object_ids = object_details_hash.collect {|r| r['id']}
-    return object_details_hash if data_object_ids.blank?
-
-    data_supplier_id = ResourceAgentRole.content_partner_upload_role.nil? ? 0 : ResourceAgentRole.content_partner_upload_role.id
-    agents = SpeciesSchemaModel.connection.execute("
-        (SELECT a.* , 'Provider' role, dohe.data_object_id, -1 view_order
-          FROM data_objects_harvest_events dohe
-          JOIN harvest_events he                ON (dohe.harvest_event_id=he.id)
-          JOIN agents_resources ar              ON (he.resource_id=ar.resource_id)
-          JOIN agents a                         ON (ar.agent_id=a.id)
-          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})
-          AND ar.resource_agent_role_id=#{data_supplier_id})
-        UNION
-        (SELECT a.*, ar.label role, ado.data_object_id, ado.view_order
-          FROM agents_data_objects ado
-          JOIN agents a ON (ado.agent_id=a.id)
-          JOIN agent_roles ar ON (ado.agent_role_id=ar.id)
-          WHERE ado.data_object_id IN (#{data_object_ids.join(',')}))
-        ").all_hashes
-
-    agents.sort! {|a,b| a['view_order'].to_i <=> b['view_order'].to_i}
-
-    grouped = ModelQueryHelper.group_array_by_key(agents, 'data_object_id')
-    object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped, 'agents')
-    return object_details_hash
-  end
-
-  def self.add_common_names_to_details(object_details_hash)
-    data_object_ids = object_details_hash.collect {|r| r['id']}
-    return object_details_hash if data_object_ids.blank?
-    language ||= Language.english
-
-    common_names = SpeciesSchemaModel.connection.execute("
-        SELECT n.string name, dohe.data_object_id
-          FROM data_objects_hierarchy_entries dohe
-          JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id)
-          JOIN taxon_concept_names tcn ON (he.taxon_concept_id=tcn.taxon_concept_id)
-          JOIN names n ON (tcn.name_id = n.id)
-          WHERE dohe.data_object_id IN (#{data_object_ids.join(',')})
-          AND language_id=#{language.id}
-          AND preferred=1").all_hashes
-
-    grouped_names = ModelQueryHelper.group_array_by_key(common_names, 'data_object_id')
-    object_details_hash = ModelQueryHelper.add_hash_to_hash_as_key(object_details_hash, grouped_names, 'common_names')
-    return object_details_hash
-  end
-
   # using object.untrust_reasons.include? was firing off a query every time. This is faster
   def untrust_reasons_include?(untrust_reason)
     @untrust_reasons_cached ||= untrust_reasons
@@ -1296,60 +948,24 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   end
 
 
-  def self.generate_dataobject_stats(harvest_id)
-    query = "Select do.id do_id, dt.label, v.label vetted_label, do.data_type_id
-    From data_objects_harvest_events dohe
-    Join data_objects do ON dohe.data_object_id = do.id
-    Join data_types dt ON do.data_type_id = dt.id
-    Join vetted v ON do.vetted_id = v.id
-    Where dohe.harvest_event_id = #{harvest_id}"
-    rset = self.find_by_sql [query]
-    stats = {}
-    for fld in rset
-      if stats["#{fld.label}"] == nil
-        stats["#{fld.label}"] = 1
-      else
-        stats["#{fld.label}"] += 1
-      end
-      data_type_vetted = "#{fld.label}_#{fld.vetted_label}"
-      if stats["#{data_type_vetted}"] == nil
-        stats["#{data_type_vetted}"] = 1
-      else
-        stats["#{data_type_vetted}"] += 1
-      end
-    end
-
-    query = "Select label from data_types order by id"
-    data_types = self.find_by_sql [query]
-
-    query = "Select label from vetted order by view_order"
-    vetted_types = self.find_by_sql [query]
-
-    # to get total_data_objects count
-    total_data_objects=0
-    for data_type in data_types
-      for vetted_type in vetted_types
-        data_type_vetted = "#{data_type.label}_#{vetted_type.label}"
-        total_data_objects += stats["#{data_type_vetted}"].to_i
-      end
-    end
+  def self.generate_dataobject_stats(harvest_event_id)
+    ids = connection.select_values("SELECT do.id
+      FROM data_objects_harvest_events dohe
+      JOIN data_objects do ON dohe.data_object_id = do.id
+      WHERE dohe.harvest_event_id = #{harvest_event_id}")
+    data_objects = DataObject.find_all_by_id(ids, :include => [ :vetted, :data_type ])
 
     # to get total_taxa count
     query = "Select count(distinct he.taxon_concept_id) taxa_count
     From harvest_events_hierarchy_entries hehe
     Join hierarchy_entries he ON hehe.hierarchy_entry_id = he.id
     Join taxon_concepts tc ON he.taxon_concept_id = tc.id
-    where hehe.harvest_event_id = #{harvest_id}
+    where hehe.harvest_event_id = #{harvest_event_id}
     and tc.supercedure_id=0 and tc.vetted_id != #{Vetted.untrusted.id}
     and tc.published=1"
 
-    rset = self.find_by_sql [query]
-    for fld in rset
-      total_taxa = fld["taxa_count"]
-    end
-
-    arr = [stats,data_types,vetted_types,total_data_objects,total_taxa]
-    return arr
+    total_taxa = connection.select_values(query)[0]
+    [data_objects, total_taxa]
   end
 
   def show(user)
@@ -1365,7 +981,7 @@ AND data_type_id IN (#{data_type_ids.join(',')})
     user.track_curator_activity(self, 'data_object', 'hide')
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.hide
   end
-
+  
   def inappropriate(user)
     vetted_by = user
     update_attributes({:visibility_id => Visibility.inappropriate.id, :curated => true})
@@ -1386,86 +1002,27 @@ AND data_type_id IN (#{data_type_ids.join(',')})
   
   def first_concept_name
     sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
-    return sorted_entries[0].name.string unless sorted_entries.blank?
-    nil
+    sorted_entries[0].name.string rescue nil
   end
   
+  def first_concept_common_name
+    taxon_concepts[0].preferred_common_names[0].name.string rescue nil
+  end
   
+  def first_taxon_concept
+    sorted_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries)
+    sorted_entries[0].taxon_concept rescue nil
+  end
+  
+  def short_title
+    return object_title unless object_title.blank?
+    # TODO - ideally, we should extract some of the logic from data_objects/show to make this "Image of Procyon Lotor".
+    return data_type.label if description.blank?
+    st = description.gsub(/\n.*$/, '')
+    st.truncate(32)
+  end
 
 private
-
-  def self.join_agents_clause(agent)
-    data_supplier_id = ResourceAgentRole.content_partner_upload_role.id
-
-    # if there is a logged in agent (meaning a content partner) we should require that
-    # we only get agent values from objects they committed. This won't effect admins
-    # as they will be users and not agents
-    extra = ""
-    extra = "AND ar.agent_id = #{agent.id}" unless agent.nil?
-
-    return %Q{LEFT JOIN (agents_resources ar
-              STRAIGHT_JOIN harvest_events hevt ON (ar.resource_id = hevt.resource_id
-                AND ar.resource_agent_role_id = #{data_supplier_id} #{extra})
-              STRAIGHT_JOIN data_objects_harvest_events dohe ON hevt.id = dohe.harvest_event_id)
-                ON (dato.id = dohe.data_object_id)}
-  end
-
-  # TODO - this smells like a good place to use a Strategy pattern.  The user can have certain behaviour based
-  # on their access.
-  def self.visibility_clause(options)
-    preview_objects = ActiveRecord::Base.sanitize_sql_array(['OR (dato.visibility_id = ? AND dato.published IN (0,1))', Visibility.preview.id])
-    published    = [1] # Boolean
-    vetted       = [Vetted.trusted.id]
-    visibility   = [Visibility.visible.id]
-    other_visibilities = ''
-    if options[:user]
-      if options[:user].is_curator? and options[:user].can_curate?(options[:taxon])
-        vetted += [Vetted.untrusted.id, Vetted.unknown.id] if options[:user].show_unvetted?
-        visibility << Visibility.invisible.id
-      end
-      if options[:user].is_admin?
-        vetted += [Vetted.untrusted.id, Vetted.unknown.id]
-        visibility = Visibility.all_ids.dup
-        other_visibilities = preview_objects
-      end
-      if options[:user].vetted == false
-        vetted += [Vetted.unknown.id,Vetted.untrusted.id]
-      end
-    end
-
-    if options[:toc_id] == TocItem.wikipedia
-      visibility << Visibility.preview.id
-    end
-
-    # TODO - The problem here is that we're Allowing CPs to see EVERYTHING, when they should only see THEIR
-    # invisibles, untrusteded, and unknowns.
-    if options[:agent] # Content partner ... note that some of this is handled via the join in join_agents_clause().
-      visibility << Visibility.invisible.id
-      vetted += [Vetted.untrusted.id, Vetted.unknown.id]
-      other_visibilities = preview_objects
-    end
-
-    return ActiveRecord::Base.sanitize_sql_array([<<EOVISBILITYCLAUSE, vetted.uniq, published, visibility])
-    AND dato.vetted_id IN (?)
-    AND ((dato.published IN (?)
-      AND dato.visibility_id IN (?)) #{other_visibilities})
-EOVISBILITYCLAUSE
-  end
-
-  def self.get_type_ids(type)
-    case type
-    when :map
-      return DataType.map_type_ids
-    when :text
-      return DataType.text_type_ids
-    when :video
-      return DataType.video_type_ids
-    when :image
-      return DataType.image_type_ids
-    else
-      raise "I'm not sure what data type #{type} is."
-    end
-  end
 
   def trust(user, opts = {})
     update_attributes({:vetted_id => Vetted.trusted.id, :curated => true})
@@ -1501,5 +1058,4 @@ EOVISBILITYCLAUSE
     user.track_curator_activity(self, 'data_object', 'unreviewed', :comment => opts[:comment], :taxon_concept_id => opts[:taxon_concept_id])
     CuratorDataObjectLog.create :data_object => self, :user => user, :curator_activity => CuratorActivity.unreviewed
   end
-
 end

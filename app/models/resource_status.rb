@@ -1,4 +1,5 @@
 class ResourceStatus < SpeciesSchemaModel
+  CACHE_ALL_ROWS = true
   has_many :resources
 
   def self.being_processed
@@ -54,13 +55,3 @@ class ResourceStatus < SpeciesSchemaModel
   end
   
 end
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: resource_statuses
-#
-#  id         :integer(4)      not null, primary key
-#  label      :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-

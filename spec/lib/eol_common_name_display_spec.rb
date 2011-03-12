@@ -4,34 +4,33 @@ describe EOL::CommonNameDisplay do
 
   before(:all) do
     truncate_all_tables
-    load_foundation_cache
-    @conributors = Hierarchy.gen
-    @agent = Agent.gen
-    Name.stub!(:find_by_sql).and_return(fake_data)
-    Agent.stub!(:find).with($AGENT_ID_OF_DEFAULT_COMMON_NAME_SOURCE).and_return(@agent)
-    Agent.stub!(:find_by_sql).and_return([]) # This forces everything to be from uBio.  :\
-    Hierarchy.stub!(:eol_contributors).and_return(@conributors)
+    Language.gen_if_not_exists(:iso_639_1 => 'en')
+    Language.gen_if_not_exists(:label => 'Unknown')
+    Hierarchy.gen_if_not_exists(:label => "Encyclopedia of Life Contributors")
     @fake_name = fake_name
     @cnd = EOL::CommonNameDisplay.new(@fake_name)
   end
 
   it 'should build a last of CNDs by taxon concept id, ignoring duplicate names' do
+    TaxonConceptName.gen(:taxon_concept_id => 1, :vern => 1, :language => Language.english)
+    TaxonConceptName.gen(:taxon_concept_id => 1, :vern => 1, :language => Language.english)
+    TaxonConceptName.gen(:taxon_concept_id => 1, :vern => 1, :language => Language.english)
     EOL::CommonNameDisplay.find_by_taxon_concept_id(1).length.should == 3
   end
 
   it 'should be created with a special variant of Name' do
   end
-
+  
   it 'should sort based on name_string' do
     a = EOL::CommonNameDisplay.new(fake_name(:name_string => 'Aaa'))
     b = EOL::CommonNameDisplay.new(fake_name(:name_string => 'Bbb'))
     [b,a].sort.should == [a,b]
   end
-
+  
   it 'should remove duplicates' do
     EOL::CommonNameDisplay.group_by_name([@cnd, @cnd]).length.should == 1
   end
-
+  
   it 'should merge sources on duplicates' do
     sources = @cnd.sources
     EOL::CommonNameDisplay.group_by_name([@cnd, @cnd]).first.sources.length.should == sources.length * 2

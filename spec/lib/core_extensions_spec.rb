@@ -67,9 +67,9 @@ describe Array do
     obj2.id = 99999
     arr = [obj2, obj]
     
-    arr.group_objects_by!('guid')
-    arr.length.should == 1
-    arr[0].id.should == obj2.id
+    grouped_arr = arr.group_objects_by('guid')
+    grouped_arr.length.should == 1
+    grouped_arr[0].id.should == obj2.id
   end
 end
 

@@ -221,17 +221,15 @@ class Array
   # expects an array of objects
   # will create a new array where $attribute is unique by taking the first instance and deleting the rest
   # mimics some of what the MySQL GROUP BY does
-  def group_objects_by!(attribute)
-    used_values = []
-    objects_to_delete = []
-    self.each_with_index do |obj, index|
+  def group_objects_by(attribute)
+    grouped_array = []
+    used_values = {}
+    self.each do |obj|
       value = obj.send(attribute.to_sym)
-      objects_to_delete << obj if used_values.include?(value)
-      used_values << value
+      grouped_array << obj if used_values[value].blank?
+      used_values[value] = true
     end
-    for obj in objects_to_delete
-      self.delete(obj)
-    end
+    grouped_array
   end
 
 end

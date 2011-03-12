@@ -4,7 +4,7 @@ describe Ref do
   
   before(:all) do
     load_foundation_cache
-    Factory(:toc_item, :label => "Literature Review")
+    TocItem.gen_if_not_exists(:label => "Literature Review")
     
     @tc_object_refs = Factory(:taxon_concept)
     @he_object_refs = []

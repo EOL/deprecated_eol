@@ -1,10 +1,9 @@
 class ResourceAgentRole < SpeciesSchemaModel
+  CACHE_ALL_ROWS = true
   belongs_to :agent_resource
 
   def self.content_partner_upload_role
-    cached('content_partner_upload') do
-      ResourceAgentRole.find_or_create_by_label('Data Supplier')
-    end
+    cached_find(:label, 'Data Supplier')
   end
   
   class << self

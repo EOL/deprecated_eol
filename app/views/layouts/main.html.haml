@@ -76,7 +76,7 @@
               %ul.uppercase
                 - Language.find_active.each do |language|
                   %li
-                    = link_to("#{language.name} <em>(#{language.display_code})</em>", set_language_url(:language => language.iso_639_1), :class => 'return_to', :title => language.name)
+                    = link_to("#{language.source_form} <em>(#{language.display_code})</em>", set_language_url(:language => language.iso_639_1), :class => 'return_to', :title => language.source_form)
                 %li
                   = link_to 'Google Translate', {:controller => 'content', :action => 'translate'}, {:class => 'return_to', :title => 'Google Translate'}
             %li

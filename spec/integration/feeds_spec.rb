@@ -93,8 +93,8 @@ describe 'Feeds' do
       @taxon_concept = TaxonConcept.gen(:published => 1, :supercedure_id => 0)
       @data_objects_taxon_concept = DataObjectsTaxonConcept.gen(:data_object_id => @data_object.id, :taxon_concept_id => @taxon_concept.id)
 
-      @action_with_object = ActionWithObject.gen()
-      @changeable_object_type = ChangeableObjectType.gen()#id = 1 = data_object
+      @action_with_object = ActionWithObject.gen_if_not_exists(:action_code => 'trusted')
+      @changeable_object_type = ChangeableObjectType.gen_if_not_exists(:ch_object_type => 'data_object')
       @action_history = ActionsHistory.gen(:object_id => @data_object.id, :action_with_object_id => @action_with_object.id, :changeable_object_type_id => @changeable_object_type.id)     
     end  
 

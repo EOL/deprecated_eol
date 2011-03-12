@@ -1,5 +1,5 @@
 class UntrustReason < SpeciesSchemaModel
-  
+  CACHE_ALL_ROWS = true
   has_many :actions_histories_untrust_reasons
   
   def self.misidentified

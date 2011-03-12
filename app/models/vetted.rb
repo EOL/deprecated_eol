@@ -1,9 +1,9 @@
 class Vetted < SpeciesSchemaModel
-  CACHE_ALL_ROWS = true  
+  set_table_name "vetted"
+  CACHE_ALL_ROWS = true
   has_many :data_objects
   has_many :taxon_concepts
   has_many :hierarchy_entries
-  set_table_name "vetted"
 
   def self.untrusted
     cached_find(:label, 'Untrusted')
@@ -14,16 +14,7 @@ class Vetted < SpeciesSchemaModel
   end
   
   def self.unknown
-    cached('unknown') do
-      unknown = Vetted.find_by_label('Unknown')
-      # The ID *must* be 0 (PHP hard-coded; it also kinda makes sense, though we might have allowed nulls instead).
-      # If it's not, we fix it now:
-      if unknown.id != 0
-        Vetted.connection.execute("UPDATE vetted SET id = 0 WHERE id = #{unknown.id}")
-        unknown = Vetted.find_by_label('Unknown')
-      end
-      unknown
-    end
+    cached_find(:label, 'Unknown')
   end
 
   def self.trusted_ids  
@@ -53,14 +44,3 @@ private
   end
  
 end
-
-# == Schema Info
-# Schema version: 20081020144900
-#
-# Table name: vetted
-#
-#  id         :integer(4)      not null, primary key
-#  label      :string(255)     default("")
-#  created_at :datetime
-#  updated_at :datetime
-

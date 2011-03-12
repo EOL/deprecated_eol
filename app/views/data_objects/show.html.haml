@@ -3,6 +3,7 @@
   - type = 'Video' if DataType.video_type_ids.include?(@data_object.data_type.id)
   %h1== #{type} permalink. 
   %h2
+    - @taxon_concepts = @data_object.get_taxon_concepts(:published => :preferred)
     - if @taxon_concepts.blank?
       ( stands alone )
     - else
@@ -61,12 +62,13 @@
         = render :partial => 'attribution', :locals => { :data_object => @data_object }, :layout => @layout
         %br      
 
-      - if @hierarchy_paths.size > 0
+      - unless @data_object.published_entries.blank?
         #data_object_hierarchy
           .divider
-          %h3== Hierarch#{@hierarchy_paths.size == 1 ? 'y' : 'ies'} according to the supplier 
-          - @hierarchy_paths.each do |hierarchy|
-            = hierarchy[:path].map { |p| link_to(p[:name], taxon_concept_path(p[:taxon_concept_id])) }.join(' > ')
+          %h3== Hierarch#{@data_object.published_entries == 1 ? 'y' : 'ies'} according to the supplier 
+          - @data_object.published_entries.each do |phe|
+            = phe.ancestors.map { |he| link_to(he.name.string, taxon_concept_path(he.taxon_concept_id)) }.join(' > ')
+            %br
       - if @revisions.size > 1
         #data_object_revisions
           .divider 

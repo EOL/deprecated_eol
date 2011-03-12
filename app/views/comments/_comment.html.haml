@@ -2,7 +2,7 @@
   %div{ :id => "comment_#{comment.id}" }
     %p{ :class => comment.visible? ? '' : ' class="invisible-comment"' }
       = allow_some_html(h(comment.body))
-      - if comment.parent_id != @taxon_concept.id
+      - if @taxon_concept && comment.parent_id != @taxon_concept.id
         %br
         = "{From a previous version of this page.}"
         %br

@@ -72,7 +72,7 @@ class Comment < ActiveRecord::Base
   # the description or name of the parent item (i.e. the name of the species or description of the object)
   def parent_name
     return_name = case self.parent_type
-     when 'TaxonConcept' then TaxonConcept.find_by_id(self.parent_id).name
+     when 'TaxonConcept' then TaxonConcept.find_by_id(self.parent_id).entry.name.string
      when 'DataObject'   then DataObject.find_by_id(self.parent_id).description
      else ''
     end
@@ -167,7 +167,7 @@ class Comment < ActiveRecord::Base
   def taxon_concept_id
     return_t_c = case self.parent_type
      when 'TaxonConcept' then parent.id
-     when 'DataObject'   then parent.taxon_concepts(:published => :preferred)[0].id
+     when 'DataObject'   then parent.get_taxon_concepts(:published => :preferred)[0].id
      else nil
     end
     raise "Don't know how to handle a parent type of #{self.parent_type} (or t_c was nil)" if return_t_c.nil?

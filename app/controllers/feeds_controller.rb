@@ -66,37 +66,37 @@ class FeedsController < ApplicationController
     end
   end
   
-  def feed_entry(hash)
+  def feed_entry(comment_or_data_object)
     entry = { :id => '', :title => '', :link => '', :content => '', :updated => '' }
-    
-    link_type_id = :comment_id
-    if hash['data_type_label'] == 'Image'
-      link_type_id = :image_id
-    elsif hash['data_type_label'] == 'Text'
-      link_type_id = :text_id
-    end
-    
-    entry[:title] = hash['scientific_name']
-    entry[:link] = url_for(:controller => :taxa, :action => :show, :id => hash['taxon_concept_id'], link_type_id => hash['id'])
-    #entry[:id] = hash['guid']
-    entry[:id] = entry[:link]
-    entry[:updated] = hash['created_at']
-    
-    content = hash['description'] + "<br/><br/>"
-    if hash['data_type_label'] == 'Image'
-      content = "<img src='#{DataObject.image_cache_path(hash['object_cache_url'])}'/></a><br/>" + content
-    end
-    
-    content += "<b>License</b>: #{hash['license_label']}<br/>" unless hash['license_label'].blank?
-    
-    # add attribution
-    unless hash["agents"].nil?
-      for agent in hash["agents"]
-        content += "<b>#{agent["role"].capitalize}</b>: #{agent["full_name"]}<br/>"
+    if comment_or_data_object.class == DataObject
+      data_object = comment_or_data_object
+      entry[:title] = data_object.first_concept_name
+      entry[:link] = url_for(:controller => 'data_objects', :action => data_object.id, :only_path => false)
+      entry[:id] = entry[:link]
+      entry[:updated] = data_object.created_at
+      
+      entry[:content] = data_object.description + "<br/><br/>"
+      
+      # include image
+      if data_object.is_image?
+        entry[:content] = "<img src='#{data_object.thumb_or_object}'/></a><br/>" + entry[:content]
       end
+      entry[:content] += "<b>License</b>: #{data_object.license.title}<br/>" unless data_object.license.blank?
+      
+      # include attribution
+      data_object.agents_data_objects.each do |ado|
+        entry[:content] += "<b>#{ado.agent_role.label.capitalize}</b>: #{ado.agent.full_name}<br/>"
+      end
+      return entry
+    else
+      comment_hash = comment_or_data_object
+      entry[:title] = comment_hash['scientific_name']
+      entry[:link] = url_for(:controller => :taxa, :action => :show, :id => comment_hash['taxon_concept_id'], :comment_id => comment_hash['id'])
+      entry[:id] = entry[:link]
+      entry[:updated] = comment_hash['created_at']
+      entry[:content] = comment_hash['description']
+      return entry
     end
-    entry[:content] = content
-    return entry
   end
 
 
@@ -114,41 +114,15 @@ class FeedsController < ApplicationController
     agent = Agent.find(agent_id)
     latest_harvest_event = agent.latest_harvest_event
     
-    partner_curated_objects = latest_harvest_event.curated_data_objects(:year => year, :month => month)
-    
-    feed_items = []
-    partner_curated_objects.each do |row|
-      updated_time = Time.parse(row['updated_at'])
-      updated_at = updated_time.strftime("%d-%b-%Y") + " at " + updated_time.strftime("%I:%M%p")
-      
-      action_comment = nil
-      if ['inappropriate', 'untrusted'].include?(row['action_code'])
-        lower_time = (updated_time - 10.seconds).mysql_timestamp
-        upper_time = (updated_time + 10.seconds).mysql_timestamp
-        result = Comment.find_by_sql("SELECT c.* FROM comments c WHERE created_at BETWEEN '#{lower_time}' AND '#{upper_time}' AND parent_type='DataObject' AND user_id=#{row['curator_user_id']} LIMIT 1")
-        action_comment = result[0] unless result.empty?
-      end
-      
-      feed_items << {  "curator"          => (row['given_name'] + " " + row['family_name']).strip,
-                       "curator_user_id"  => row['curator_user_id'],
-                       "action_comment"   => action_comment,
-                       "activity"         => row['action_code'],
-                       "do_type"          => row['data_type_label'],
-                       "tc_id"            => row['taxon_concept_id'],
-                       "do_id"            => row['data_object_id'],
-                       "tc_name"          => row['scientific_name'],
-                       "updated_at"       => updated_at,
-                       "object_cache_url" => row['object_cache_url'] || nil,
-                       "source_url"       => row['source_url'] || nil }
-    end
+    actions_histories = latest_harvest_event.curated_data_objects(:year => year, :month => month)
     
     @feed_url = url_for(:controller => 'feeds', :action => 'partner_curation', :agent_id => agent_id, :month => month, :year => year)
     @feed_link = "http://www.eol.org"
     @feed_title = agent.full_name + " curation activity"
     
     @feed_entries = []
-    feed_items.each do |hash|
-      @feed_entries << partner_feed_entry(hash)
+    actions_histories.each do |ah|
+      @feed_entries << partner_feed_entry(ah)
     end
     
     respond_to do |format|
@@ -156,36 +130,30 @@ class FeedsController < ApplicationController
     end
   end
 
-  def partner_feed_entry(hash)
+  def partner_feed_entry(actions_history)
     entry = { :id => '', :title => '', :link => '', :content => '', :updated => '' }
     
-    entry[:title] = hash['tc_name']
-    entry[:updated] = hash['updated_at']
-    
-    if(hash['do_type']=="Text") then
-      entry[:link] = url_for(:controller => :taxa, :action => :show, :id => hash['tc_id'], :text_id => hash['do_id'])
-    else
-      entry[:link] = url_for(:controller => :taxa, :action => :show, :id => hash['tc_id'], :image_id => hash['do_id'])
-    end
+    entry[:title] = actions_history.data_object.first_concept_name
+    entry[:updated] = actions_history.updated_at
+    entry[:link] = url_for(:controller => 'data_objects', :action => actions_history.data_object.id, :only_path => false)
     entry[:id] = entry[:link]
     
-    curator_link = url_for(:controller => 'account', :action => 'show', :id => hash['curator_user_id'], :only_path => false)
-    content = hash['do_type'] + " was changed to '" + hash['activity'] + "' by <a href='#{curator_link}'>" + hash['curator'] + "</a> last " + hash['updated_at'] + " <br/>"
-    if hash['action_comment']
-      content += "Comment: " + hash['action_comment'].body + "<br/>"
+    curator_link = url_for(:controller => 'account', :action => 'show', :id => actions_history.user_id, :only_path => false)
+    date_string = actions_history.updated_at.strftime("%d-%b-%Y") + " at " + actions_history.updated_at.strftime("%I:%M%p")
+    content = "#{actions_history.action_with_object.action_code.capitalize} by <a href='#{curator_link}'>#{actions_history.user.full_name}</a> last #{date_string}<br/>"
+    if actions_history.comment
+      content += "Comment: #{actions_history.comment.body}<br/>"
     end
     
-    if hash['do_type'] == 'Image'
-      content = "<img src='#{DataObject.image_cache_path(hash['object_cache_url'],'small')}'/><br/>" + content
+    if actions_history.data_object.is_image?
+      content = "<img src='#{DataObject.image_cache_path(actions_history.data_object.object_cache_url, 'small')}'/><br/>" + content
     end
     
     # Will insert a link to a Wikipedia article
     # TODO - looking for oldid in the link isn't robust enough to determine the object is a Wikipedia article
-    temp = hash['source_url']
-    result = temp.split(/oldid=\s?/)
-    revision_id = result[1] 
-    if(revision_id) then
-      content += "Revision ID: <a target='wikipedia' href='#{hash['source_url']}'/>#{revision_id}</a>"
+    result = actions_history.data_object.source_url.split(/oldid=\s?/)
+    if revision_id = result[1] 
+      content += "Revision ID: <a target='wikipedia' href='#{actions_history.data_object.source_url}'/>#{revision_id}</a>"
     end
     
     entry[:content] = content

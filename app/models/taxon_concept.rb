@@ -30,19 +30,11 @@ class TaxonConcept < SpeciesSchemaModel
   has_many :names, :through => :taxon_concept_names
   has_many :ranks, :through => :hierarchy_entries
   has_many :google_analytics_partner_taxa
+  has_many :collection_items, :as => :object
+  has_many :preferred_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
   has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
-
-  has_many :all_synonyms, :class_name => Name.to_s,
-     :finder_sql => 'SELECT sr.label relationship, names.`string` name_string
-        FROM hierarchy_entries AS he
-        JOIN synonyms AS s ON he.id = s.hierarchy_entry_id
-        JOIN hierarchies AS h ON s.hierarchy_id = h.id
-        JOIN names ON s.name_id = names.id
-        JOIN synonym_relations sr ON s.synonym_relation_id = sr.id
-        WHERE s.synonym_relation_id NOT IN ( \'#{SynonymRelation.find_by_label("genbank common name", :select=>"id").id}\' ,
-                                             \'#{SynonymRelation.find_by_label("common name", :select=>"id").id}\' )
-        AND h.browsable=1 and he.taxon_concept_id = \'#{self.id}\''
-
+  has_many :synonyms, :class_name => Synonym.to_s, :foreign_key => 'hierarchy_entry_id',
+    :finder_sql => 'SELECT s.* FROM #{Synonym.full_table_name} s JOIN #{HierarchyEntry.full_table_name} he ON (he.id = s.hierarchy_entry_id) WHERE he.taxon_concept_id=\'#{id}\' AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(",")})'
   has_many :users_data_objects
 
   has_one :taxon_concept_content
@@ -60,11 +52,15 @@ class TaxonConcept < SpeciesSchemaModel
   define_core_relationships :select => {
       :taxon_concepts => '*',
       :hierarchy_entries => [ :id, :identifier, :hierarchy_id, :parent_id, :published, :visibility_id, :lft, :rgt, :taxon_concept_id, :source_url ],
-      :hierarchies => [ :agent_id, :browsable ],
+      :hierarchies => [ :agent_id, :browsable, :outlink_uri, :label ],
       :hierarchies_content => [ :content_level, :image, :text, :child_image, :map ],
-      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published ],
+      :ranks => :label,
+      :names => :string,
+      :canonical_forms => :string,
+      :data_objects => [ :id, :data_type_id, :vetted_id, :visibility_id, :published, :guid, :data_rating ],
+      :licenses => :title,
       :table_of_contents => '*' },
-    :include => [{:hierarchy_entries => [{ :name => :canonical_form }, :hierarchy, :rank, :hierarchies_content] }, { :data_objects => :toc_items },
+    :include => [{:hierarchy_entries => [:rank, { :name => :canonical_form }, :hierarchy, :hierarchies_content] }, { :data_objects => [:toc_items, :license] },
       { :users_data_objects => { :data_object => :toc_items } }]
 
   def show_curator_controls?(user = nil)
@@ -81,10 +77,7 @@ class TaxonConcept < SpeciesSchemaModel
     table_of_contents.each do |toc|
       return TocItem.find(toc.category_id) if toc.allow_user_text?
     end
-    TocItem.find_by_sql('SELECT t.id, t.parent_id, t.label, t.view_order
-                         FROM table_of_contents t, info_items i
-                         WHERE i.toc_id=t.id
-                         LIMIT 1')[0]
+    TocItem.find(:first, :joins => :info_items)
   end
 
   # The common name will defaut to the current user's language.
@@ -293,8 +286,12 @@ class TaxonConcept < SpeciesSchemaModel
     all_outlinks = []
     used_hierarchies = []
     entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id,
-      :select => { :hierarchy_entries => [:published, :visibility_id, :identifier, :source_url], :hierarchies => [:label, :outlink_uri], :resources => :title },
-      :include => { :hierarchy => :resource })
+      :select => {
+        :hierarchy_entries => [:published, :visibility_id, :identifier, :source_url],
+        :hierarchies => [:label, :outlink_uri, :url],
+        :resources => :title,
+        :agents => [ :logo_cache_url, :full_name ] },
+      :include => { :hierarchy => [:resource, :agent] })
     entries_for_this_concept.each do |he|
       next if used_hierarchies.include?(he.hierarchy)
       next if he.published != 1 && he.visibility_id != Visibility.visible.id
@@ -345,18 +342,7 @@ class TaxonConcept < SpeciesSchemaModel
 
   def more_videos
     return @length_of_videos > $MAX_IMAGES_PER_PAGE.to_i if @length_of_videos
-    return videos.length > $MAX_IMAGES_PER_PAGE.to_i # This is expensive.  I hope you called #videos first!
-  end
-
-  def videos(options = {})
-    usr = current_user
-    if options[:unvetted]
-      usr = current_user.clone
-      usr.vetted = false
-    end
-    videos = DataObject.for_taxon(self, :video, :agent => @current_agent, :user => usr)
-    @length_of_videos = videos.length # cached, so we don't have to query this again.
-    return videos
+    return video_data_objects.length > $MAX_IMAGES_PER_PAGE.to_i # This is expensive.  I hope you called #videos first!
   end
 
   # Singleton method to fetch the Hierarchy Entry, used for taxonomic relationships
@@ -731,12 +717,6 @@ class TaxonConcept < SpeciesSchemaModel
   end
 
   def images(options = {})
-
-    # TODO - dump this.  Forces a check to see if the current user is valid:
-    unless self.current_user.attributes.keys.include?('filter_content_by_hierarchy')
-      self.current_user = User.create_new
-    end
-
     # set hierarchy to filter images by
     if self.current_user.filter_content_by_hierarchy && self.current_user.default_hierarchy_valid?
       filter_hierarchy = Hierarchy.find(self.current_user.default_hierarchy_id)
@@ -744,13 +724,12 @@ class TaxonConcept < SpeciesSchemaModel
       filter_hierarchy = nil
     end
     perform_filter = !filter_hierarchy.nil?
-
+    
     image_page = (options[:image_page] ||= 1).to_i
-    images ||= DataObject.for_taxon(self, :image, :user => self.current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page)
+    images = DataObject.images_for_taxon_concept(self, :user => self.current_user, :agent => @current_agent, :filter_by_hierarchy => perform_filter, :hierarchy => filter_hierarchy, :image_page => image_page)
     @length_of_images = images.length # Caching this because the call to #images is expensive and we don't want to do it twice.
 
     return images
-
   end
 
   def image_count
@@ -826,69 +805,11 @@ class TaxonConcept < SpeciesSchemaModel
     WHERE taxon_concepts.id IN (#{ taxon_concept_ids.join(', ') })"
     self.paginate_by_sql [query, taxon_concept_ids], :page => page, :per_page => 20 , :order => 'id'
     end
-
   end
-
-
-
 
   # This could use name... but I only need it for searches, and ID is all that matters, there.
   def <=>(other)
     return id <=> other.id
-  end
-
-  def self.synonyms(taxon_concept_id)
-    syn_hash = SpeciesSchemaModel.connection.execute("
-      SELECT n_he.string preferred_name, n_s.string synonym, sr.label relationship, h.label hierarchy_label
-      FROM hierarchy_entries he
-      JOIN synonyms s ON (he.id=s.hierarchy_entry_id)
-      JOIN hierarchies h ON (he.hierarchy_id=h.id)
-      JOIN names n_he ON (he.name_id=n_he.id)
-      JOIN names n_s ON (s.name_id=n_s.id)
-      LEFT JOIN synonym_relations sr ON (s.synonym_relation_id=sr.id)
-      WHERE he.taxon_concept_id=#{taxon_concept_id}
-      AND h.browsable=1
-      AND s.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})
-    ").all_hashes.uniq
-
-    syn_hash.sort! do |a,b|
-      if a['hierarchy_label'] == b['hierarchy_label']
-        a['synonym'] <=> b['synonym']
-      else
-        a['hierarchy_label'] <=> b['hierarchy_label']
-      end
-    end
-
-    # grouped = {}
-    # for syn in syn_hash
-    #   key = syn['synonym'].downcase
-    #   grouped[key] ||= {'name_string' => parent['synonym'], 'sources' => []}
-    #   grouped[key]['sources'] << parent
-    # end
-    # grouped.each do |key, hash|
-    #   hash['sources'].sort! {|a,b| a['hierarchy_label'] <=> b['hierarchy_label']}
-    # end
-    # grouped = grouped.sort {|a,b| a[0] <=> b[0]}
-
-    # group synonyms by hierarchy
-    grouped = []
-    working_hash = {}
-    last_hierarchy = nil
-    for syn in syn_hash
-      if syn['hierarchy_label'] != last_hierarchy
-        grouped << working_hash unless working_hash.empty?
-        working_hash = {'hierarchy_label' => syn['hierarchy_label'],
-                        'preferred_name'  => syn['preferred_name'],
-                        'synonyms'        => []}
-      end
-      syn['relationship'] = 'synonym' if syn['relationship'].nil?
-      ar = {'name' => syn['synonym'], 'relationship' => syn['relationship']}
-      working_hash['synonyms'] << ar
-      last_hierarchy = syn['hierarchy_label']
-    end
-    grouped << working_hash unless working_hash.empty?
-
-    return grouped
   end
 
   def self.related_names(taxon_concept_id)
@@ -950,208 +871,97 @@ class TaxonConcept < SpeciesSchemaModel
       ORDER BY h.label").all_hashes
   end
 
-  # for API
-  def details_hash(options = {})
-    options[:return_images_limit] ||= 3
-    options[:return_videos_limit] ||= 1
-    options[:return_text_limit] ||= 1
+  def data_objects_for_api(options = {})
+    options[:images] ||= 3
+    options[:videos] ||= 1
+    options[:text] ||= 1
     if options[:subjects]
       options[:text_subjects] = options[:subjects].split("|")
     else
       options[:text_subjects] = ['TaxonBiology', 'GeneralDescription', 'Description']
     end
-    if options[:licenses]
-      options[:licenses] = options[:licenses].split("|").map do |l|
-        if l == 'pd'
-          'public domain'
-        elsif l == 'na'
-          'not applicable'
-        else
-          l
-        end
-      end
-    else
-      # making this an array to keep it consistent
-      options[:licenses] = ['all']
-    end
-
-
-    if options[:data_object_hash]
-      # needs to be an array
-      data_object_hash = [ options[:data_object_hash] ]
-    else
-      image_ids = top_image_ids(options)
-      non_image_ids = top_non_image_ids(options)
-      data_object_hash = DataObject.details_for_objects(image_ids + non_image_ids, :skip_metadata => !options[:details])
-    end
-
-    synonym = options[:synonyms].blank? ? [] : preferred_synonyms_hash
-    common = options[:common_names].blank? ? [] : preferred_common_names_hash
-
-    curated_hierarchy_entries = hierarchy_entries.delete_if{|he| he.hierarchy.browsable!=1 || he.published==0 || he.visibility_id!=Visibility.visible.id }
-
-    details_hash = {  'data_objects'              => data_object_hash,
-                      'id'                        => self.id,
-                      'scientific_name'           => quick_scientific_name,
-                      'common_names'              => common,
-                      'synonyms'                  => synonym,
-                      'curated_hierarchy_entries' => curated_hierarchy_entries}
-  end
-
-  def top_image_ids(options = {})
-    return [] if options[:return_images_limit] == 0
-    # a user with default options - to show unvetted images for example
-    user = User.create_new
-    top_images_sql = DataObject.build_top_images_query(self, :user => user)
-    object_hash = SpeciesSchemaModel.connection.execute(top_images_sql).all_hashes
-    object_hash = object_hash.uniq
-
-    object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
-
-    if options[:vetted].to_i == 1
-      object_hash.delete_if {|obj| obj['vetted_id'].to_i != Vetted.trusted.id}
-    elsif options[:vetted].to_i == 2
-      object_hash.delete_if {|obj| obj['vetted_id'].to_i == Vetted.untrusted.id}
-    end
-
-    # remove licenses not asked for
-    if !options[:licenses].include?('all')
-      object_hash.each_with_index do |obj, index|
-        valid_license = false
-        options[:licenses].each do |l|
-          if !obj['license_title'].nil? && obj['license_title'].match(/^#{l}( |$)/i)
-            valid_license = true
-          end
-        end
-        object_hash[index] = nil unless valid_license == true
-      end
-      object_hash.compact!
-    end
-
-    object_hash = object_hash[0...options[:return_images_limit]] if object_hash.length > options[:return_images_limit]
-    object_hash.collect {|e| e['id']}
-  end
-
-  def top_non_image_ids(options = {})
-    return [] if options[:return_images_limit] == 0 && options[:return_videos_limit] == 0 && options[:return_text_limit] == 0
-    vetted_clause = ""
-    if options[:vetted].to_i == 1
-      vetted_clause = "AND do.vetted_id=#{Vetted.trusted.id}"
-    elsif options[:vetted].to_i == 2
-      vetted_clause = "AND (do.vetted_id=#{Vetted.trusted.id} || do.vetted_id=#{Vetted.unknown.id})"
-    end
-
-    object_hash = SpeciesSchemaModel.connection.execute("
-      SELECT do.id, do.guid, do.data_type_id, do.data_rating, v.view_order vetted_view_order, toc.view_order toc_view_order,
-      ii.label info_item_label, l.title license_title
-        FROM data_objects_taxon_concepts dotc
-        JOIN data_objects do ON (dotc.data_object_id = do.id)
-        LEFT JOIN vetted v ON (do.vetted_id=v.id)
-        LEFT JOIN licenses l ON (do.license_id=l.id)
-        LEFT JOIN (
-           info_items ii
-           JOIN table_of_contents toc ON (ii.toc_id=toc.id)
-           JOIN data_objects_table_of_contents dotoc ON (toc.id=dotoc.toc_id)
-          ) ON (do.id=dotoc.data_object_id)
-        WHERE dotc.taxon_concept_id = #{self.id}
-        AND do.published = 1
-        AND do.visibility_id = #{Visibility.visible.id}
-        AND data_type_id IN (#{DataType.sound.id}, #{DataType.text.id}, #{DataType.video.id}, #{DataType.iucn.id}, #{DataType.flash.id}, #{DataType.youtube.id})
-        #{vetted_clause}
-    ").all_hashes.uniq
-
-    object_hash.group_hashes_by!('guid')
-    object_hash = ModelQueryHelper.sort_object_hash_by_display_order(object_hash)
-
-    # set flash and youtube types to video
-    text_id = DataType.text.id.to_s
-    image_id = DataType.image.id.to_s
-    video_id = DataType.video.id.to_s
-    flash_id = DataType.flash.id.to_s
-    youtube_id = DataType.youtube.id.to_s
-    iucn_id = DataType.iucn.id
-    object_hash.each_with_index do |r, index|
-      if r['data_type_id'] == flash_id || r['data_type_id'] == youtube_id
-        r['data_type_id'] = video_id
-      end
-      if r['data_type_id'].to_i == iucn_id
-        r['data_type_id'] = text_id
-      end
-    end
-
-    # create an alias Uses for Use
+    # create an alias Uses for Use (it was misspelled somewhere)
     if options[:text_subjects].include?('Use')
       options[:text_subjects] << 'Uses'
     end
-    # remove text subjects not asked for
-    if !options[:text_subjects].include?('all')
-      object_hash.delete_if {|obj| obj['data_type_id'] == text_id && !options[:text_subjects].include?(obj['info_item_label'])}
+    if options[:text_subjects].include?('all')
+      options[:text_subjects] = nil
+    else
+      options[:text_subjects].map!{ |l| InfoItem.find_by_label(l) }.compact
+    end
+    if options[:licenses]
+      if options[:licenses].include?('all')
+        options[:licenses] = nil
+      else
+        options[:licenses] = options[:licenses].split("|").map do |l|
+          l = 'public domain' if l == 'pd'
+          l = 'not applicable' if l == 'na'
+          License.find(:all, :conditions => "title like '#{l}%'")
+        end.flatten.compact
+      end
     end
 
-    # remove licenses not asked for
-    if !options[:licenses].include?('all')
-      object_hash.each_with_index do |obj, index|
-        valid_license = false
-        options[:licenses].each do |l|
-          if !obj['license_title'].nil? && obj['license_title'].match(/^#{l}( |$)/i)
-            valid_license = true
-          end
+    if options[:vetted] == "1"  # trusted
+      options[:vetted] = [Vetted.trusted]
+    elsif options[:vetted] == "2"  # everything except untrusted
+      options[:vetted] = [Vetted.trusted, Vetted.unknown]
+    end
+    
+    return_data_objects = []
+    # get the images
+    if options[:images].to_i > 0
+      image_data_objects = top_concept_images.collect{ |tci| tci.data_object }.compact
+      # remove non-matching vetted and license values
+      image_data_objects.delete_if do |d|
+        (options[:vetted] && !options[:vetted].include?(d.vetted)) ||
+        (options[:licenses] && !options[:licenses].include?(d.license))
+      end
+      image_data_objects = image_data_objects.group_objects_by('guid')  # group by guid
+      image_data_objects = DataObject.sort_by_rating(image_data_objects)  # order by rating
+      return_data_objects += image_data_objects[0...options[:images].to_i]  # get the # requested
+    end
+    
+    # get the rest
+    if options[:text].to_i > 0 || options[:videos].to_i
+      non_image_objects = data_objects.select{ |d| !d.is_image? }
+      non_image_objects.delete_if do |d|
+        (options[:vetted] && !options[:vetted].include?(d.vetted)) ||
+        (options[:licenses] && !options[:licenses].include?(d.license)) ||
+        (d.is_text? && options[:text_subjects] && (options[:text_subjects] & d.info_items).empty?)
+        # the use of & above is the array set intersection operator
+      end
+      non_image_objects = non_image_objects.group_objects_by('guid')  # group by guid
+      non_image_objects = DataObject.sort_by_rating(non_image_objects)  # order by rating
+      
+      # remove items over the count limit
+      types_count = {:text => 0, :video => 0}
+      non_image_objects.each do |d|
+        if d.is_text?
+          types_count[:text] += 1
+          return_data_objects << d if types_count[:text] <= options[:text].to_i
+        elsif d.is_video?
+          types_count[:video] += 1
+          return_data_objects << d if types_count[:video] <= options[:videos].to_i
         end
-        object_hash[index] = nil unless valid_license == true
-      end
-      object_hash.compact!
-    end
-
-    # remove items over the limit
-    types_count = {}
-    truncated_object_hash = []
-    object_hash.each do |r|
-      types_count[r['data_type_id']] ||= 0
-      types_count[r['data_type_id']] += 1
-
-      if r['data_type_id'] == text_id
-        truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_text_limit]
-      elsif r['data_type_id'] == image_id
-        truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_images_limit]
-      elsif r['data_type_id'] == video_id
-        truncated_object_hash << r if types_count[r['data_type_id']] <= options[:return_videos_limit]
       end
     end
-
-    truncated_object_hash.collect {|e| e['id']}
-  end
-
-  def preferred_common_names_hash
-    names_array = []
-    language_codes_used = []
-    common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(self.id)
-    for name in common_names
-      next if name.preferred != true
-      next if name.iso_639_1.blank?
-      next if language_codes_used.include?(name.iso_639_1)
-      name_hash = {'name_string' => name.name_string, 'iso_639_1' => name.iso_639_1}
-      names_array << name_hash unless names_array.include?(name_hash)
-      language_codes_used << name.iso_639_1
+    data_objects = DataObject.core_relationships.find_all_by_id(return_data_objects.collect{ |d| d.id })
+    # set flash and youtube types to video, iucn to text
+    data_objects.each do |d|
+      d.data_type = DataType.video if d.is_video?
+      d.data_type = DataType.text if d.is_iucn?
     end
-    return names_array
-  end
-
-  def preferred_synonyms_hash  
-    synonyms = all_synonyms
-    names_array = []
-    for name in synonyms
-      name_hash = {'name_string' => name.name_string, 'relationship' => name.relationship}
-      names_array << name_hash unless names_array.include?(name_hash)
-    end
-    return names_array
+    data_objects
   end
 
   def all_common_names
-    Name.find_by_sql(['SELECT names.string, l.iso_639_1 language_label, l.label, l.name
-                         FROM taxon_concept_names tcn JOIN names ON (tcn.name_id = names.id)
-                           LEFT JOIN languages l ON (tcn.language_id = l.id)
-                         WHERE tcn.taxon_concept_id = ? AND vern = 1
-                         ORDER BY language_label, string', id])
+    common_names = []
+    taxon_concept_names.each do |tcn|
+      if tcn.vern == 1
+        common_names << tcn.name
+      end
+    end
+    common_names
   end
 
   # Unlike all_common_names, this method doesn't return language information.  In theory, they are all "scientific", anyway.
@@ -1206,7 +1016,7 @@ class TaxonConcept < SpeciesSchemaModel
     preferred = !!options[:preferred]
     language  = options[:language] || Language.unknown
     vetted    = options[:vetted] || Vetted.unknown
-    relation  = SynonymRelation.find_by_label("common name") # TODO - i18n
+    relation  = SynonymRelation.find_by_label('common name') # TODO - i18n
     name_obj  = Name.create_common_name(name_string)
     Synonym.generate_from_name(name_obj, :agent => agent, :preferred => preferred, :language => language,
                                :entry => entry, :relation => relation, :vetted => vetted)
@@ -1257,7 +1067,16 @@ class TaxonConcept < SpeciesSchemaModel
     TaxonConcept.connection.execute("UPDATE IGNORE hierarchy_entries he JOIN random_hierarchy_images rhi ON (he.id=rhi.hierarchy_entry_id) SET rhi.taxon_concept_id=he.taxon_concept_id WHERE he.taxon_concept_id=#{id2}");
     return true
   end
-
+  
+  def text_toc_items_for_session(options={})
+    this_toc_objects = data_objects.select{ |d| d.data_type_id == DataType.text.id }
+    user_objects = users_data_objects.select{ |udo| udo.data_object.data_type_id == DataType.text.id }.
+      collect{ |udo| udo.data_object}
+    combined_objects = this_toc_objects | user_objects  # get the union of the two sets
+    filtered_objects = DataObject.filter_list_for_user(combined_objects, :agent => options[:agent], :user => options[:user])
+    return filtered_objects.collect{ |d| d.toc_items }.flatten.compact.uniq
+  end
+  
   def text_objects_for_toc_item(toc_item, options={})
     this_toc_objects = data_objects.select{ |d| d.toc_items && d.toc_items.include?(toc_item) }
     user_objects = users_data_objects.select{ |udo| udo.data_object.toc_items && udo.data_object.toc_items.include?(toc_item) }.
@@ -1274,6 +1093,32 @@ class TaxonConcept < SpeciesSchemaModel
     objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
         find_all_by_id(filtered_objects.collect{ |d| d.id })
     DataObject.sort_by_rating(objects)
+  end
+  
+  def video_data_objects(options = {})
+    usr = current_user
+    if options[:unvetted]
+      usr = current_user.clone
+      usr.vetted = false
+    end
+    
+    video_objects = data_objects.select{ |d| DataType.video_type_ids.include?(d.data_type_id) }
+    filtered_objects = DataObject.filter_list_for_user(video_objects, :agent => @current_agent, :user => usr)
+    
+    add_include = [:agents_data_objects, :all_comments]
+    add_select = { :comments => [:parent_id, :visible_at] }
+    
+    objects = DataObject.core_relationships(:add_include => add_include, :add_select => add_select).
+        find_all_by_id(filtered_objects.collect{ |d| d.id })
+    videos = DataObject.sort_by_rating(objects)
+    @length_of_videos = videos.length # cached, so we don't have to query this again.
+    return videos
+  end
+  
+  def curated_hierarchy_entries
+    hierarchy_entries.select do |he|
+      he.hierarchy.browsable == 1 && he.published == 1 && he.visibility_id == Visibility.visible.id
+    end
   end
 
 private
